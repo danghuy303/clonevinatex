@@ -1,0 +1,25 @@
+<div class="navbar">
+    <div class="menu">
+        <div style="padding-right: 15px; margin:auto 0px">
+            <p-button type="text" (click)="display = true" icon="pi pi-bars" styleClass="p-button-text p-button-lg"></p-button>
+        </div>
+        <!-- <div>
+            <img id='logo' src="https://vinatex.com.vn/wp-content/uploads/2017/09/logo.png" style="height: 50px;">
+        </div> -->
+    </div>
+    <div>
+        <h2 style="font-weight: 500; text-transform: uppercase;" id="Name">{{OSName}}</h2>
+    </div>
+    <div style="margin: auto 0px;">
+        <p-splitButton [label]="userInfo.UserName" [model]="userBtn" styleClass="p-button-text"></p-splitButton>
+    </div>
+</div>
+<p-sidebar [(visible)]="display" [showCloseIcon]="false" [blockScroll]="true">
+    <div style="width: 100%; padding:20px; display: flex; justify-content: center; align-items: center;" *ngIf="display">
+        <img src="assets/logo/LogoWhite.png" width="100px" >
+    </div>
+        <p-panelMenu [model]="menu"></p-panelMenu>
+</p-sidebar>
+<div class="content">
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,26 @@
+import { HttpHeaders } from '@angular/common/http';
+const host1 = 'http://eos.harmonyes.com.vn:1169';
+const host = 'http://localhost:1169';
+export const httpOptions = {
+    headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json,text/plain, */*',
+    }),
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With',
+    withCredentials: true,
+};
+export class API {    
+    public static auth = 'http://eos.harmonyes.com.vn:1169/SmartEOSAPI/';
+    public static baseUrl = host1 + '/QLTS/';
+    // public static auth = host + '/SmartEOSAPI/';
+    // public static baseUrl = host + '/';
+    public static SCM = host1 + '/SCM/';
+    public static SCMDanhMuc = host1 + '/SCM/DanhMuc/';
+    public static danhmuc = API.baseUrl + 'DanhMuc/';
+    public static QLTSD = API.baseUrl+'QuanLyTaiSanDat/';
+    public static uploadURL = host1 + '/QLTS/FileUploader/Post';
+    public static downloadURL = host1 +'/uploader/api/hdfiles'
+    public static imgURL = host1;
+}

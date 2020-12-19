@@ -1,0 +1,12 @@
+.p-grid>div {
+    text-align: center;
+    padding:5px;
+    /* background-color: white; */
+}
+.p-grid>div>div{
+    padding:5px;
+    height: calc((100vh - 160px)/2);
+    border-radius: 5px;
+    background-color: white;
+    position: relative;
+}

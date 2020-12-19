@@ -1,0 +1,9 @@
+<div>
+    <div *ngIf="editing">
+        <input [required]="required" (blur)="onBlur($event)" (keyup.enter)="onEnter($event)" [name]="value" [(ngModel)]="value" [placeholder]="label" />
+    </div>
+    <div *ngIf="!editing">
+        <a href="#" (click)="beginEdit(value)"  tabindex="0">{{value}}</a>
+        <!-- (focus)="beginEdit(value)" -->
+    </div>
+</div>

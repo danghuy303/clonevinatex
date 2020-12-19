@@ -1,0 +1,18 @@
+<!-- <p-chart type="bar" [data]=monthlyConfig></p-chart> -->
+<div class="p-grid" style="align-self: stretch;">
+    <div class="p-col-12 p-xl-8 p-lg-8 p-p-3">
+        <div>
+            <p-chart type="bar" [data]=monthlyConfig [options]="option1"></p-chart>
+        </div>
+    </div>
+    <div class="p-col-12 p-xl-4 p-lg-4 p-p-3">
+        <div>
+            <p-chart type="pie" [data]="dataPie"></p-chart>
+        </div>
+    </div>
+    <div class="p-col-12 p-p-3">
+        <div>
+            <p-chart type="bar" [data]=monthlyConfig [options]="option2"></p-chart>
+        </div>
+    </div>
+</div>
