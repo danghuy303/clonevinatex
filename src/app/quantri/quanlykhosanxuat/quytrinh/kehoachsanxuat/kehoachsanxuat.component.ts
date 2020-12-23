@@ -21,7 +21,7 @@ export class KehoachsanxuatComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Đơn vị',
+      header: 'Nhà máy',
       field: '',
       width: 'unset'
     },
@@ -32,12 +32,12 @@ export class KehoachsanxuatComponent implements OnInit {
     },
     {
       header: 'Tổng số ca',
-      field: 'TenTrangThai',
+      field: 'TongSoCa',
       width: 'unset'
     },
     {
       header: 'Ghi chú',
-      field: 'TenTrangThai',
+      field: 'GhiChu',
       width: 'unset'
     },
   ];
@@ -55,7 +55,6 @@ export class KehoachsanxuatComponent implements OnInit {
           });
           this.update(res);
         })
-
       }
     })
     this.KiemTraTabTrangThai();

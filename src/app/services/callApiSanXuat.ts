@@ -88,7 +88,7 @@ export class SanXuatService {
         return this.http.get(url, httpOptions);
     }
 
-    KiemTraButton(IdTrangThai,IdTable){
+    KiemTraButton(IdTable,IdTrangThai){
         let url = API.auth +`QuanTriQuyTrinh/KiemTraButton?IdTrangThai=${IdTrangThai}&IdTable=${IdTable}`;
         return this.http.get(url, httpOptions);
     }
@@ -106,6 +106,12 @@ export class SanXuatService {
             },
             GetPhanXuong:(IdDuAn)=>{
                 return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn}`,httpOptions)
+            },
+            GetListGiaoKeHoachSanXuatChuaLapKeHoach:(Ngay)=>{
+                return this.http.get(`${API.SCMQuanLyKho}GetListGiaoKeHoachSanXuatChuaLapKeHoach?Ngay=${Ngay}`,httpOptions)
+            },
+            GetListMatHangChuaLapKeHoach:(IdGiaoKeHoachSanXuat)=>{
+                return this.http.get(`${API.SCMQuanLyKho}GetListMatHangChuaLapKeHoach?IdGiaoKeHoachSanXuat=${IdGiaoKeHoachSanXuat}`,httpOptions)
             }
         }
     }

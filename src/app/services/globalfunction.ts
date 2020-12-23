@@ -154,3 +154,31 @@ export function mapArrayForDropDown(array:Array<any>,labelProp:string,valueProp:
         }
     })
 }
+export function merge(newArr:Array<any>, existingArr:Array<any>,diffProp:string):Array<any> {
+    let removeIndex = [];
+    newArr.forEach((newEle) => {
+      let index = existingArr.findIndex(
+        (oldEle) => newEle[diffProp] === oldEle[diffProp]
+      );
+      if (index === -1) {
+        existingArr.push(newEle);
+      }
+    });
+    existingArr.forEach((oldEle, index) => {
+      let indexCheck = newArr.findIndex(
+
+        (newEle) => newEle[diffProp] === oldEle[diffProp]
+      );
+      if (indexCheck === -1) {
+        removeIndex.push(index);
+      }
+    });
+    for (var i = removeIndex.length - 1; i >= 0; i--) {
+      if (existingArr[i].ID === 0) {
+        existingArr.splice(removeIndex[i], 1);
+      } else {
+        existingArr[i].isXoa = true;
+      }
+    }
+    return existingArr;
+  }

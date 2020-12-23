@@ -12,7 +12,7 @@ import { TrienkhaikehoachsanxuatmodalComponent } from '../trienkhaikehoachsanxua
 })
 export class TrienkhaikehoachsanxuatComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
-  items: any = [{id:5,SoQuyTrinh:'PKK_0000_0000'}];
+  items: any = [];
   filter:any={};
   listLoaiPhuongAn:any=[];
   trangThai:any=1;
@@ -41,9 +41,13 @@ export class TrienkhaikehoachsanxuatComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0'){
-        let getitem =()=>{return{}};
-        this.update(getitem());
+      if (res.id !== '0') {
+        this._service.TrienKhaiKeHoachSanXuat().Get(res.id).subscribe((res: any) => {
+          // res.listItem.forEach(ele => {
+          //   ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
+          // });
+          this.update(res);
+        })
       }
     })
     this.KiemTraTabTrangThai();
@@ -61,12 +65,6 @@ export class TrienkhaikehoachsanxuatComponent implements OnInit {
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {
       Id:'',
-      SoQuyTrinh: 'PKK_0000_0001',
-      listKienHang:[]
-      // ID:null,
-      // TepDinhKems:[],
-      // templistTaiSanQuyTrinh:[],
-      // listTaiSanQuyTrinh:[]
     }
     modalRef.componentInstance.checkbutton={Ghi:true,Xoa:true,KhongDuyet:true,ChuyenTiep:true}
     modalRef.result.then((res: any) => {

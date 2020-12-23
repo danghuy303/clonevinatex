@@ -6,7 +6,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 import { TrienkhaikehoachsanxuatComponent } from '../trienkhaikehoachsanxuat/trienkhaikehoachsanxuat.component';
 
@@ -53,11 +53,16 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     })
     this.services.GetOptions().GetDonVi().subscribe((res: Array<any>) => {
       this.listDonVi = mapArrayForDropDown(res, 'TenDuAn', 'Id');
+      if (validVariable(this.item.IdDuAn)) {
+        this.getPhanXuong(this.item.IdDuAn,true);
+      }
     })
   }
-  getPhanXuong(IdDuAn) {
+  getPhanXuong(IdDuAn, update?) {
     this.listPhanXuong = [];
-    this.item.IddmPhanXuong = null;
+    if (!!!update) {
+      this.item.IddmPhanXuong = null;
+    }
     this.services.GetOptions().GetPhanXuong(IdDuAn).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
     })
@@ -123,13 +128,16 @@ export class KehoachsanxuatmodalComponent implements OnInit {
       // console.log(res);
     })
   }
-  setData() {
+  validData() {
     if (validVariable(this.item.Ngay)) {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
+    } else {
+      return false;
     }
     this.item.listItem.forEach(ele => {
-      ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach*1000;
+      ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach * 1000;
     });
+    return true;
   }
   chonHangHoa() {
     let modalRef = this._modal.open(ChonhanghoamodalComponent, {
@@ -139,25 +147,26 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     modalRef.componentInstance.selectedItems = this.item.listItem || [];
     modalRef.componentInstance.IdGiaoKeHoachSanXuat = this.item.Id;
     modalRef.result.then(res => {
-      this.item.listItem = res;
+      merge(res,this.item.listItem,'IddmItem')
     }).catch(er => {
       console.log(er);
     })
   }
   GhiLai() {
-    this.setData()
-    this.services.GiaoKeHoachSanXuat().Set(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.toastr.success(res.message)
-          this.opt = 'edit';
-          this.item = res.objectReturn;
-          this.KiemTraButtonModal();
-        } else {
-          this.toastr.error(res.message);
+    if (this.validData()) {
+      this.services.GiaoKeHoachSanXuat().Set(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message)
+            this.opt = 'edit';
+            this.item = res.objectReturn;
+            this.KiemTraButtonModal();
+          } else {
+            this.toastr.error(res.message);
+          }
         }
-      }
-    })
+      })
+    }
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -175,34 +184,7 @@ export class KehoachsanxuatmodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-  merge(newArr, existingArr) {
-    let removeIndex = [];
-    newArr.forEach((newEle) => {
-      let index = existingArr.findIndex(
-        (oldEle) => newEle.IDTaiSan === oldEle.IDTaiSan
-      );
-      if (index === -1) {
-        existingArr.push(newEle);
-      }
-    });
-    existingArr.forEach((oldEle, index) => {
-      let indexCheck = newArr.findIndex(
-
-        (newEle) => newEle.IDTaiSan === oldEle.IDTaiSan
-      );
-      if (indexCheck === -1) {
-        removeIndex.push(index);
-      }
-    });
-    for (var i = removeIndex.length - 1; i >= 0; i--) {
-      if (existingArr[i].ID === 0) {
-        existingArr.splice(removeIndex[i], 1);
-      } else {
-        existingArr[i].isXoa = true;
-      }
-    }
-    return existingArr;
-  }
+  
   changePhuongAnDeXuat(event, item) {
     item.TenPhuongAnDeXuat = event.Ten;
     item.IDdmPhuongAnDeXuat = event.ID;

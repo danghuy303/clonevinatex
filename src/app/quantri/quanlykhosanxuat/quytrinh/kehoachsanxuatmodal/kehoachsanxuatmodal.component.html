@@ -30,9 +30,9 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đơn vị:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listDonVi" placeholder="Chọn đơn vị" styleClass="p-inputtext-sm"
+                <p-dropdown [filter]="true" [options]="listDonVi" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IdDuAn"  (onChange)="getPhanXuong($event.value)"></p-dropdown>
             </div>
         </div>
@@ -103,7 +103,7 @@
                     <colgroup>
                         <col style="width:50px">
                         <col>
-                        <col>
+                        <!-- <col> -->
                         <col>
                         <col>
                         <col style="width:100px">
@@ -112,7 +112,7 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
-                        <th>Mã hàng</th>
+                        <!-- <th>Mã hàng</th> -->
                         <th>Tên hàng</th>
                         <th>Kế hoạch sản xuất(Tấn)</th>
                         <th>Ghi chú</th>
@@ -126,7 +126,7 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>{{i+1}}</td>
-                        <td>{{item.Ma}}</td>
+                        <!-- <td>{{item.Ma}}</td> -->
                         <td>{{item.Ten}}</td>
                         <td><p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KhoiLuongKeHoach">
                         </p-inputNumber></td>
