@@ -19,20 +19,45 @@ export class NhapkhoComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Số quy trình',
+      header: 'Mã PO/Hợp đồng',
       field: 'SoQuyTrinh',
-      width: '150px'
+      width: 'unset'
     },
     {
-      header: 'Nội dung',
+      header: 'Lô',
       field: 'NoiDung',
-      width: '200px'
+      width: 'unset'
     },
     {
-      header: 'Trạng thái',
+      header: 'Tổng Cont',
       field: 'TenTrangThai',
-      width: '150px'
-    }
+      width: 'unset'
+    },
+    {
+      header: 'Mã bông',
+      field: 'TenTrangThai',
+      width: 'unset'
+    },
+    {
+      header: 'Loại bông',
+      field: 'TenTrangThai',
+      width: 'unset'
+    },
+    {
+      header: 'Tổng số kiện',
+      field: 'TenTrangThai',
+      width: 'unset'
+    },
+    {
+      header: 'Tổng khối lượng',
+      field: 'TenTrangThai',
+      width: 'unset'
+    },
+    {
+      header: 'Ghi chú',
+      field: 'TenTrangThai',
+      width: 'unset'
+    },
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   colsQuyTrinh: any = [

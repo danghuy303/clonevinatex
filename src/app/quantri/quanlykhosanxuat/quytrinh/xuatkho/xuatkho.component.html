@@ -49,8 +49,9 @@
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">STT</th>
-                <th>Đơn vị</th>
-                <th>Ngày khởi tạo</th>
+                <th>Số phiếu</th>
+                <th>Ngày chứng từ</th>
+                <th>Ngày xuất</th>
                 <th *ngFor="let header of cols">
                     {{header.header}}
                 </th>
@@ -62,7 +63,7 @@
                 <td class="text-center">
                     {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
-                <td class="text-center">Tổng Công ty CP Dệt May Nam Định </td>
+                <td class="text-center"></td>
                 <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}

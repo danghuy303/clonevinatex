@@ -25,6 +25,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { PanelModule } from 'primeng/panel';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { GalleriaModule } from 'primeng/galleria';
+import {InputSwitchModule} from 'primeng/inputswitch';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -68,6 +69,7 @@ import { CommonModule } from '@angular/common';
     GalleriaModule,
     CheckboxModule,
     PasswordModule,
+    InputSwitchModule,
     ToastrModule.forRoot()
   ],
   providers: [],

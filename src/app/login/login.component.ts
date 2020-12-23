@@ -40,10 +40,9 @@ export class LoginComponent implements OnInit {
   constructor(private _auth: AuthenticationService, private toastr: ToastrService, private _router: Router , private _services:Dat09Service) { }
 
   ngOnInit() {
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 3; i++) {
       this.images.push(`assets/logo/${i}.png`)
     }
-
     this.autoLogin();
   }
   timMK() {

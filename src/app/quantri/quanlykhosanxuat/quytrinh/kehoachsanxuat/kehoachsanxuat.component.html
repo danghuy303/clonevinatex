@@ -1,6 +1,6 @@
 
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Lập kê hoạch sản xuất</h4>
+    <h4 style="color:#1f2779">Giao kế hoạch sản xuất</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
@@ -32,8 +32,8 @@
     </p-tabPanel>
     <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
     </p-tabPanel>
-    <p-tabPanel header="Tổng hợp" [disabled]="!checkQuyen.TongHop">
-    </p-tabPanel>
+    <!-- <p-tabPanel header="Tổng hợp" [disabled]="!checkQuyen.TongHop">
+    </p-tabPanel> -->
 </p-tabView>
 <div class="p-mt-3">
     <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
@@ -48,9 +48,10 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th class="text-center">STT</th>
-                <th>Đơn vị</th>
-                <th>Ngày khởi tạo</th>
+                <th class="text-center">#</th>
+                <th>Số phiếu</th>
+                <th>Nội dung</th>
+                <th>Ngày duyệt</th>
                 <th *ngFor="let header of cols">
                     {{header.header}}
                 </th>
@@ -62,8 +63,9 @@
                 <td class="text-center">
                     {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
-                <td class="text-center">Tổng Công ty CP Dệt May Nam Định </td>
-                <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.SoQuyTrinh}}</td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
                 </td>

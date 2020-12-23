@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Dat09Service } from 'src/app/services/callApi';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { KehoachsanxuatmodalComponent } from '../kehoachsanxuatmodal/kehoachsanxuatmodal.component';
 
 @Component({
@@ -12,59 +13,36 @@ import { KehoachsanxuatmodalComponent } from '../kehoachsanxuatmodal/kehoachsanx
 })
 export class KehoachsanxuatComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
-  items: any = [{id:5,SoQuyTrinh:'PKK_0000_0000'}];
+  items: any = [];
   filter:any={};
   listLoaiPhuongAn:any=[];
   trangThai:any=1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Số quy trình',
-      field: 'SoQuyTrinh',
-      width: '150px'
+      header: 'Đơn vị',
+      field: '',
+      width: 'unset'
     },
     {
-      header: 'Nội dung',
+      header: 'Tổng sản lượng',
       field: 'NoiDung',
-      width: '200px'
+      width: 'unset'
     },
     {
-      header: 'Trạng thái',
+      header: 'Tổng số ca',
       field: 'TenTrangThai',
-      width: '150px'
-    }
+      width: 'unset'
+    },
+    {
+      header: 'Ghi chú',
+      field: 'TenTrangThai',
+      width: 'unset'
+    },
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-  colsQuyTrinh: any = [
-    {
-      header: 'Ngày nhận',
-      field: 'NgayKhoiTao',
-      width: '150px'
-    },
-    {
-      header: 'Ngày chuyển',
-      field: 'SoQuyTrinh',
-      width: '150px'
-    },
-    {
-      header: 'Thời gian xử lý',
-      field: 'DiaChi',
-      width: '200px'
-    },
-    {
-      header: 'Bộ phận xử lý',
-      field: 'DienTich',
-      width: '150px'
-    },
-    {
-      header: 'Nội dung xử lý',
-      field: 'HienTrangSuDung',
-      width: '400px'
-    },
-  ];
 
-
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:Dat09Service,private activatedRoute: ActivatedRoute,private router:Router) { }
+  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
@@ -75,10 +53,10 @@ export class KehoachsanxuatComponent implements OnInit {
       }
     })
     this.KiemTraTabTrangThai();
-    // this.GetListQuyTrinh()
+    this.GetListQuyTrinh()
   }
   changeParam(id){
-    this.router.navigate([`quantri/kehoachsanxuat/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/kehoachsanxuat/giaokehoachsanxuat/${id}`],{replaceUrl: true})
   }
   add(){
     this.changeParam(0);
@@ -88,7 +66,6 @@ export class KehoachsanxuatComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {
-      SoQuyTrinh: 'PKK_0000_0001',
       listKienHang:[]
       // ID:null,
       // TepDinhKems:[],
@@ -98,7 +75,7 @@ export class KehoachsanxuatComponent implements OnInit {
     modalRef.result.then((res: any) => {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
-      // this.GetListQuyTrinh();
+      this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
@@ -112,17 +89,17 @@ export class KehoachsanxuatComponent implements OnInit {
     modalRef.result.then((res: any) => {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
-      // this.GetListQuyTrinh();
+      this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
   changeTab(e){
-    // this.trangThai = e.index+1;
-    // this.GetListQuyTrinh(true);
+    this.trangThai = e.index+1;
+    this.GetListQuyTrinh(true);
   }
   changePage(event){
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?){
     if (reset) {
@@ -139,7 +116,7 @@ export class KehoachsanxuatComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.GetListQuyTrinh(data).subscribe((res:any)=>{
+    this._service.GiaoKeHoachSanXuat().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })

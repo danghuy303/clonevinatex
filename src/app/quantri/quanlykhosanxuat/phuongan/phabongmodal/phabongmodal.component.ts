@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
   selector: 'app-phabongmodal',
@@ -12,10 +15,11 @@ export class PhabongmodalComponent implements OnInit {
   listCol:any = [];
   listFixedCol:any=[];
   editVal:any = 0;
-  constructor() { 
-    // for(let i = 0;i<31;i++){
-    //   this.listBanBong.push({label:`${i}`})
-    // }
+  checkbutton:any={}
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) { 
+    for(let i = 0;i<31;i++){
+      this.listBanBong.push({label:`${i}`})
+    }
     this.listItems = [];
     for(let i=0;i<23;i++){
       let data = {
@@ -38,7 +42,7 @@ export class PhabongmodalComponent implements OnInit {
         ConLai:`${i}`
       }
       for(let j = 0;j<31;j++){
-        data[`Ban${j}`] = i;
+        data[`Ban${j}`] = '_';
       }
       this.listItems.push(data);
     }
@@ -63,7 +67,7 @@ export class PhabongmodalComponent implements OnInit {
       })
     }
     this.listFixedCol = [
-      {label:'Thành phần bông',cs:1,rs:2,width:'100px'},
+      {label:'Thành phần bông',cs:1,rs:2,width:'200px'},
       {label:'Tồn',cs:1,rs:2,width:'100px'},
       {label:'Tổng ngày',cs:1,rs:2,width:'100px'},
       {label:'Còn lại',cs:1,rs:2,width:'100px'},
@@ -76,7 +80,12 @@ export class PhabongmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.checkbutton={
+      Ghi:true,
+      Xoa:true,
+      ChuyenTiep:true,
+      KhongDuyet:true
+    }
   }
   edit(i,prop){
     this.listItems[i][prop].editing=true;

@@ -19,20 +19,35 @@ export class XuatkhoComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Số quy trình',
-      field: 'SoQuyTrinh',
-      width: '150px'
-    },
-    {
-      header: 'Nội dung',
+      header: 'Lô',
       field: 'NoiDung',
-      width: '200px'
+      width: 'unset'
     },
     {
-      header: 'Trạng thái',
+      header: 'Số Cont',
       field: 'TenTrangThai',
-      width: '150px'
-    }
+      width: 'unset'
+    },
+    {
+      header: 'Mã kiện',
+      field: 'TenTrangThai',
+      width: 'unset'
+    },
+    {
+      header: 'Mã bông',
+      field: 'TenTrangThai',
+      width: 'unset'
+    },
+    {
+      header: 'Loại bông',
+      field: 'TenTrangThai',
+      width: 'unset'
+    },
+    {
+      header: 'Ghi chú',
+      field: 'TenTrangThai',
+      width: 'unset'
+    },
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   colsQuyTrinh: any = [

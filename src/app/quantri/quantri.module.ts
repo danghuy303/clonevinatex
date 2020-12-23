@@ -30,6 +30,8 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {InputMaskModule} from 'primeng/inputmask';
 import {TooltipModule} from 'primeng/tooltip';
+import {InputSwitchModule} from 'primeng/inputswitch';
+
 // import { FileUploadModule } from 'primeng/fileupload';
 import localeVi from '@angular/common/locales/vi';
 registerLocaleData(localeVi);
@@ -132,6 +134,16 @@ import { KehoachsanxuatComponent } from './quanlykhosanxuat/quytrinh/kehoachsanx
 import { KehoachsanxuatmodalComponent } from './quanlykhosanxuat/quytrinh/kehoachsanxuatmodal/kehoachsanxuatmodal.component';
 import { XuatkhoComponent } from './quanlykhosanxuat/quytrinh/xuatkho/xuatkho.component';
 import { XuatkhomodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomodal/xuatkhomodal.component';
+import { DieuchuyenComponent } from './quanlykhosanxuat/quytrinh/dieuchuyen/dieuchuyen.component';
+import { DieuchuyenmodalComponent } from './quanlykhosanxuat/quytrinh/dieuchuyenmodal/dieuchuyenmodal.component';
+import { HacapComponent } from './quanlykhosanxuat/quytrinh/hacap/hacap.component';
+import { HacapmodalComponent } from './quanlykhosanxuat/quytrinh/hacapmodal/hacapmodal.component';
+import { ChonhanghoamodalComponent } from './quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component';
+import { TrienkhaikehoachsanxuatComponent } from './quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuat/trienkhaikehoachsanxuat.component';
+import { TrienkhaikehoachsanxuatmodalComponent } from './quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuatmodal/trienkhaikehoachsanxuatmodal.component';
+import { TimbongComponent } from './quanlykhosanxuat/phuongan/timbong/timbong.component';
+import { TimbongmodalComponent } from './quanlykhosanxuat/phuongan/timbongmodal/timbongmodal.component';
+import { BotrimaymodalComponent } from './quanlykhosanxuat/modals/botrimaymodal/botrimaymodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -230,7 +242,17 @@ import { XuatkhomodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomodal/
     KehoachsanxuatComponent,
     KehoachsanxuatmodalComponent,
     XuatkhoComponent,
-    XuatkhomodalComponent
+    XuatkhomodalComponent,
+    DieuchuyenComponent,
+    DieuchuyenmodalComponent,
+    HacapComponent,
+    HacapmodalComponent,
+    ChonhanghoamodalComponent,
+    TrienkhaikehoachsanxuatComponent,
+    TrienkhaikehoachsanxuatmodalComponent,
+    TimbongComponent,
+    TimbongmodalComponent,
+    BotrimaymodalComponent
   ],
   imports: [
     HttpClientModule,
@@ -263,6 +285,7 @@ import { XuatkhomodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomodal/
     MenuModule,
     InputMaskModule,
     PasswordModule,
+    InputSwitchModule,
     TooltipModule
   ],
   entryComponents: [
@@ -300,7 +323,12 @@ import { XuatkhomodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomodal/
     DanhsachmaymodalComponent,
     PhabongmodalComponent,
     KehoachsanxuatmodalComponent,
-    XuatkhomodalComponent
+    XuatkhomodalComponent,
+    HacapmodalComponent,DieuchuyenmodalComponent,
+    ChonhanghoamodalComponent,
+    TrienkhaikehoachsanxuatmodalComponent,
+    TimbongmodalComponent,
+    BotrimaymodalComponent
   ],
   providers: [
     SanXuatService,

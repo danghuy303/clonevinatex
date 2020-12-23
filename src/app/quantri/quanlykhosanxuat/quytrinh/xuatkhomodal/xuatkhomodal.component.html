@@ -9,8 +9,8 @@
     </div> -->
     <div class="p-d-flex p-flex-row">
         <div class="mr-2">Số quy trình:&nbsp;{{item.SoPhieu}}</div>
-        <div class="mr-2">TG tạo:&nbsp;{{item.SoPhieu}}</div>
-        <div class="mr-2">TG duyệt:&nbsp;{{item.SoPhieu}}</div>
+        <div class="mr-2">TG tạo:&nbsp;{{item.Created}}</div>
+        <div class="mr-2">TG duyệt:&nbsp;{{item.Modified}}</div>
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
@@ -84,7 +84,7 @@
         </div> -->
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
-                <button pButton pRipple type="button" label="Danh mục hàng" class="p-mr-2 p-button-sm"
+                <button pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
                     (click)="chonKienHang()"></button>
             </div>
             <p-table [value]="item.listKienHang" styleClass="p-datatable-sm wrap-text p-datatable-striped">

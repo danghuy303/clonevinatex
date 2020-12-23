@@ -1,0 +1,59 @@
+<div class="modal-header">
+    <h5 class="modal-title">Kế hoạch bố trí máy sản xuất: {{item.Ten}} Từ ngày:{{item.TuNgay|date:'dd/MM/yyyy'}} Đến ngày:{{item.DenNgay|date:'dd/MM/yyyy'}}</h5>
+    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="p-grid">
+        <div class="p-col-12 p-p-0 d-flex flex-column">
+            <div class="p-d-flex p-flex-row p-jc-end p-mb-3">
+                <div>
+                    <div class="p-inputgroup">
+                        <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
+                            (keyup.enter)="chonThuaDat()" [(ngModel)]="filter.KeyWord" />
+                        <button type="button" pButton pRipple icon="pi pi-refresh"
+                            class="p-button-secondary p-button-sm p-button-text" (click)="chonThuaDat()"></button>
+                    </div>
+                </div>
+            </div>
+            <p-table [value]="item.listCongDoan"
+                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+                <ng-template pTemplate="colgroup">
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col style="width: 100px;">
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Công đoạn</th>
+                        <th>Máy</th>
+                        <th>Chi số</th>
+                        <th>Loại sợi</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                    <tr>
+                        <td>{{item.Ten}}</td>
+                        <td colspan="2"></td>
+                        <td></td>
+                    </tr>
+                    <tr *ngFor="let may of item.listMay">
+                        <td></td>
+                        <td>{{may.Ten}}</td>
+                        <td>{{may.ChiSo}}</td>
+                        <td>{{may.Loai}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <!-- <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
+    <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
+        (click)="activeModal.dismiss()"></button> -->
+</div>

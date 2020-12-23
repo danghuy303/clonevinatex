@@ -8,7 +8,8 @@ import { httpOptions, API } from './host';
 export class SanXuatService {
     constructor(private http: HttpClient) { }
 
-    GetListOptdmCapBong(){
+    //Cấp bông
+    GetListOptdmCapBong() {
         let url = API.SCMDanhMuc + 'GetListdmCapBong';
         return this.http.get(url, httpOptions);
     }
@@ -25,7 +26,8 @@ export class SanXuatService {
         return this.http.post(url, data, httpOptions);
     }
 
-    GetListOptdmCaSanXuat(){
+    //Ca sản xuất
+    GetListOptdmCaSanXuat() {
         let url = API.SCM + 'GetListdmCaSanXuat';
         return this.http.get(url, httpOptions);
     }
@@ -42,7 +44,9 @@ export class SanXuatService {
         return this.http.post(url, data, httpOptions);
     }
 
-    GetListOptdmLoaiBong(){
+
+    // Loại bông
+    GetListOptdmLoaiBong() {
         let url = API.SCM + 'GetListdmLoaiBong';
         return this.http.get(url, httpOptions);
     }
@@ -59,7 +63,9 @@ export class SanXuatService {
         return this.http.post(url, data, httpOptions);
     }
 
-    GetListOptdmMay(){
+
+    //máy
+    GetListOptdmMay() {
         let url = API.SCM + 'GetListdmMay';
         return this.http.get(url, httpOptions);
     }
@@ -74,6 +80,85 @@ export class SanXuatService {
     DeletedmMay(data) {
         let url = API.SCMDanhMuc + 'DeletedmMay';
         return this.http.post(url, data, httpOptions);
+    }
+
+    //Dùng chung
+    KiemTraTabTrangThai(eAction) {
+        let url = API.auth + `QuanTriQuyTrinh/KiemTraTabTrangThai?eAction=${eAction}`;
+        return this.http.get(url, httpOptions);
+    }
+
+    KiemTraButton(IdTrangThai,IdTable){
+        let url = API.auth +`QuanTriQuyTrinh/KiemTraButton?IdTrangThai=${IdTrangThai}&IdTable=${IdTable}`;
+        return this.http.get(url, httpOptions);
+    }
+    KiemTraButtonUser(IdTrangThai,IdTable,IdUser){
+        let url = API.auth +`QuanTriQuyTrinh/KiemTraButtonUser?IdTrangThai=${IdTrangThai}&IdTable=${IdTable}&IdUser=${IdUser}`;
+        return this.http.get(url, httpOptions);
+    }
+    GetOptions(){
+        return {
+            GetMatHang:()=>{
+                return this.http.post(`${API.SCMDanhMuc}GetListdmItem`,{Loai:1},httpOptions)
+            },
+            GetDonVi:()=>{
+                return this.http.post(`${API.auth}DanhMuc/GetDanhSachDuAn_Advance`,{},httpOptions)
+            }
+        }
+    }
+
+    //GiaoKeHoachSanXuat
+    GiaoKeHoachSanXuat() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhGiaoKeHoachSanXuat', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListGiaoKeHoachSanXuat', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetGiaoKeHoachSanXuat?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetGiaoKeHoachSanXuat', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'SetGiaoKeHoachSanXuat', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepGiaoKeHoachSanXuat', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetGiaoKeHoachSanXuat', data, httpOptions)
+            },
+        }
+    }
+    TrienKhaiKeHoachSanXuat() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhTrienKhaiKeHoachSanXuat', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListTrienKhaiKeHoachSanXuat', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetTrienKhaiKeHoachSanXuat?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetTrienKhaiKeHoachSanXuat', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'SetTrienKhaiKeHoachSanXuat', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepTrienKhaiKeHoachSanXuat', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetTrienKhaiKeHoachSanXuat', data, httpOptions)
+            },
+        }
     }
 
 }
