@@ -22,6 +22,20 @@
         </div>
     </div>
     <div class="p-grid">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Triển khai kế hoạch:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listKeHoach" placeholder="Chọn triển khai kế hoạch" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IdKeHoach"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số kiện:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongSoKien">
+                </p-inputNumber>
+            </div>
+        </div>
         <div class="p-col-12 p-p-0" style="font-size: 12px !important;">
             <table class="table table-sm table-bordered">
                 <thead>

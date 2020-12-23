@@ -60,6 +60,7 @@ export class TrienkhaikehoachsanxuatComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {
+      Id:'',
       SoQuyTrinh: 'PKK_0000_0001',
       listKienHang:[]
       // ID:null,

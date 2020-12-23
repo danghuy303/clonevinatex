@@ -33,14 +33,14 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đơn vị:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listDonVi" placeholder="Chọn đơn vị" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.DonVi"></p-dropdown>
+                    [(ngModel)]="item.IdDuAn"  (onChange)="getPhanXuong($event.value)"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.PhanXuong"></p-dropdown>
+                    [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
@@ -52,20 +52,22 @@
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chi số bình quân:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ChiSoBinhQuan" pInputText />
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.ChiSoBinhQuan">
+                </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số ca:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TongSoCa" pInputText />
+                <p-inputNumber [minFractionDigits]="0" [max]="93" locale="vi-VN" [(ngModel)]="item.TongSoCa">
+                </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tháng kế hoạch</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang"
-                view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2010:2030" [readonlyInput]="true" inputId="monthpicker"
+                view="month" dateFormat="mm/yy" [yearNavigator]="true" [yearRange]="yearRange" [readonlyInput]="true" inputId="monthpicker"
                     [(ngModel)]="item.Ngay" placeholder="mm/yyyy">
                 </p-calendar>
             </div>
@@ -95,7 +97,7 @@
                     </div>
                 </div>
             </div>
-            <p-table [value]="item.listMatHang"
+            <p-table [value]="item.listItem|isXoa|filter:filter.KeyWord"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -112,7 +114,7 @@
                         <th>#</th>
                         <th>Mã hàng</th>
                         <th>Tên hàng</th>
-                        <th>Kế hoạch sản xuất</th>
+                        <th>Kế hoạch sản xuất(Tấn)</th>
                         <th>Ghi chú</th>
                         <!-- <th></th>
                         <th></th>
@@ -126,17 +128,18 @@
                         <td>{{i+1}}</td>
                         <td>{{item.Ma}}</td>
                         <td>{{item.Ten}}</td>
-                        <td>{{item.KLKH}}</td>
-                        <td>{{item.GhiChu}}</td>
+                        <td><p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KhoiLuongKeHoach">
+                        </p-inputNumber></td>
+                        <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText /></td>
                         <!-- <td></td>
                         <td></td>
                         <td></td>
                         <td></td> -->
                         <td class="text-center">
-                            <button pButton pRipple icon="pi pi-pencil"
+                            <!-- <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="edit(item,i)" pTooltip="Sửa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
+                                tooltipPosition="bottom"></button> -->
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(item,i)" pTooltip="Xóa" showDelay="1000"

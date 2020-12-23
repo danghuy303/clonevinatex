@@ -103,6 +103,9 @@ export class SanXuatService {
             },
             GetDonVi:()=>{
                 return this.http.post(`${API.auth}DanhMuc/GetDanhSachDuAn_Advance`,{},httpOptions)
+            },
+            GetPhanXuong:(IdDuAn)=>{
+                return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn}`,httpOptions)
             }
         }
     }
@@ -124,7 +127,7 @@ export class SanXuatService {
                 return this.http.post(url + 'SetGiaoKeHoachSanXuat', data, httpOptions);
             },
             Delete: (data) => {
-                return this.http.post(url + 'SetGiaoKeHoachSanXuat', data, httpOptions);
+                return this.http.post(url + 'DeleteGiaoKeHoachSanXuat', data, httpOptions);
             },
             ChuyenTiep: (data) => {
                 return this.http.post(url + 'ChuyenTiepGiaoKeHoachSanXuat', data, httpOptions)
@@ -150,7 +153,7 @@ export class SanXuatService {
                 return this.http.post(url + 'SetTrienKhaiKeHoachSanXuat', data, httpOptions);
             },
             Delete: (data) => {
-                return this.http.post(url + 'SetTrienKhaiKeHoachSanXuat', data, httpOptions);
+                return this.http.post(url + 'DeleteTrienKhaiKeHoachSanXuat', data, httpOptions);
             },
             ChuyenTiep: (data) => {
                 return this.http.post(url + 'ChuyenTiepTrienKhaiKeHoachSanXuat', data, httpOptions)

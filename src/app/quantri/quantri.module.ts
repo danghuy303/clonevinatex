@@ -73,6 +73,7 @@ import { ModalthongbaoComponent } from './modal/modalthongbao/modalthongbao.comp
 import { ModaldmtaisanComponent } from './danhmuc/modal/modaldmtaisan/modaldmtaisan.component';
 import {isXoaPipe} from './../services/isXoaPipe';
 import {VNDPipe} from './../services/vnd.pipe';
+import {FilterPipe} from './../services/filter.pipe';
 import { UploadmodalComponent } from './modal/uploadmodal/uploadmodal.component';
 import { ThongKeThongTinThuaDatComponent } from './components/thong-ke-thong-tin-thua-dat/thong-ke-thong-tin-thua-dat.component';
 import { TinhComponent } from './danhmuc/tinh/tinh.component';
@@ -252,7 +253,8 @@ import { BotrimaymodalComponent } from './quanlykhosanxuat/modals/botrimaymodal/
     TrienkhaikehoachsanxuatmodalComponent,
     TimbongComponent,
     TimbongmodalComponent,
-    BotrimaymodalComponent
+    BotrimaymodalComponent,
+    FilterPipe,
   ],
   imports: [
     HttpClientModule,
@@ -335,6 +337,7 @@ import { BotrimaymodalComponent } from './quanlykhosanxuat/modals/botrimaymodal/
     Dat09Service,
     isXoaPipe,
     VNDPipe,
+    FilterPipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],

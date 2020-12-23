@@ -125,7 +125,7 @@ export function download(tepdinhkems:Array<any>){
       window.open(API.imgURL+tepdinhkems[0].Link);
     }
   }
-  export function deepCopy(value:any){
+export function deepCopy(value:any){
       return JSON.parse(JSON.stringify(value));
 }
 export function validVariable(value:any){
@@ -145,4 +145,12 @@ export function UnixToDate(unix:number):Date|null{
         return null;
     }
     
+}
+export function mapArrayForDropDown(array:Array<any>,labelProp:string,valueProp:string):Array<any>{
+    return array.map(ele=>{
+        return {
+            label:ele[labelProp],
+            value:ele[valueProp],
+        }
+    })
 }
