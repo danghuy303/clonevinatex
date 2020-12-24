@@ -166,6 +166,10 @@ export class CrudThongTinChungComponent implements OnInit, DoCheck {
     this.item.TaiSanDat.DienTich = event;
     this.item.TaiSanDat.DienTichBangChu = vietHoaChuCaiDau(readNum(event, ' mét vuông'))
   }
+  changeDenNgay(){
+    this.item.TaiSanDat.ThoiHanSuDungTuNgay = null;
+    this.item.TaiSanDat.ThoiHanSuDung = null;
+  }
 
   GetListdmTinh() {
     let data = {

@@ -11,14 +11,27 @@
             </ng-template>
         </p-overlayPanel>
     </div>
-    <p-table [value]="items" styleClass="p-datatable-gridlines p-datatable-sm">
+    <p-table [value]="items" styleClass="p-datatable-gridlines p-datatable-sm" [scrollable]="true">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col style="width:50px">
+                <col style="width:200px;">
+                <col style="width:80px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:120px">
+                <col style="width:300px">
+                <col style="width:300px">
+                <col style="width:300px">
+            </colgroup>
+        </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th rowspan="2" style="width: 50px;"></th>
-                <th rowspan="2"style="width: 400px;">TÊN ĐƠN VỊ - ĐỊA CHỈ NHÀ,BÁO CÁO</th>
-                <th rowspan="2" style="width: 100px;">Số cơ sở</th>
-                <th rowspan="2" style="width: 100px;">DT đất</th>
-                <th rowspan="2" style="width: 100px;">DT sàn</th>
+                <th rowspan="2" ></th>
+                <th rowspan="2">TÊN ĐƠN VỊ - ĐỊA CHỈ NHÀ,BÁO CÁO</th>
+                <th rowspan="2">Số cơ sở</th>
+                <th rowspan="2" >DT đất</th>
+                <th rowspan="2">DT sàn</th>
                 <th rowspan="2">PHƯƠNG ÁN PHÊ DUYỆT</th>
                 <th rowspan="2">Nội dung phê duyệt</th>
                 <th colspan="2">Hiện trạng sử dụng</th>

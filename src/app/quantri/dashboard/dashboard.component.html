@@ -1,5 +1,5 @@
 <div class="p-d-flex p-flex-row p-jc-between" style="padding-left:20px;padding-right:20px;">
-  <div>
+  <div class="d-flex flex-column flex-lg-row">
     <button pButton [label]="vung.Ten" icon="pi pi-chevron-down" iconPos="right" (click)="chonVung.toggle($event)"
       class="p-button-sm p-button-secondary p-button-text right-icon bg-white mr-4"></button>
     <p-overlayPanel #chonVung>
@@ -9,6 +9,11 @@
           (onNodeSelect)="nodeSelect($event)"></p-tree>
       </ng-template>
     </p-overlayPanel>
+    <div class="p-d-flex p-flex-row">
+      <label class="my-auto mr-3">Đã bán, đã trả:</label>&nbsp;<p-checkbox [ngModel]="DaBan" (onChange)="GetSoThuaDat()"
+                binary="true" inputId="binary">
+            </p-checkbox>
+    </div>
   </div>
   <div class="p-d-flex p-flex-row">
     <p-dropdown [options]="tuNams" placeholder="Từ năm" optionLabel="label" (onChange)="tuNamChange($event.value.label)"
@@ -101,6 +106,7 @@
       <p-table [value]="thuaDats" styleClass="wrap-text p-datatable-sm" [scrollable]="true">
         <ng-template pTemplate="colgroup">
           <colgroup>
+            <col style="width:30px">
             <col style="width:50px">
             <col style="width:30px">
             <col style="width:200px">
@@ -116,6 +122,7 @@
         </ng-template>
         <ng-template pTemplate="header">
           <tr class="normal-blv">
+            <th></th>
             <th>STT</th>
             <th></th>
             <th>Đơn vị sử dụng</th>
@@ -131,7 +138,8 @@
         </ng-template>
         <ng-template pTemplate="body" let-thuadat let-i="rowIndex">
           <tr>
-            <td [ngClass]="{'text-center':true}">{{i+1}}</td>
+            <td class="text-center"><p-checkbox [(ngModel)]="thuadat.selected" (onChange)="checkThuaDat(i)" binary="true" inputId="binary"></p-checkbox></td>
+            <td [ngClass]="{'text-center':true}">{{ 10 * (pagingThuaDat.CurrentPage - 1) + i + 1 }}</td>
             <td class="text-center" style="padding:0px !important">
               <img *ngIf="thuadat.TaiSanDat.MaHanhDong===1" src="assets/logo/giaytophaply.jpg" width="30px" alt=""
                 pTooltip="Chưa có giấy tờ pháp lý" showDelay="1000" tooltipPosition="bottom">
@@ -161,6 +169,12 @@
             <td class="text-center">{{thuadat.TaiSanDat.GhiChu}}</td>
           </tr>
         </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="p-d-flex p-ai-center p-jc-end p-flex-column p-flex-md-row" *ngIf="!advancedSearch">
+              <p-paginator #paginator [rows]="10" [totalRecords]="pagingThuaDat.TotalItem"
+                  (onPageChange)="changePage($event)"></p-paginator>
+          </div>
+      </ng-template>
       </p-table>
     </div>
   </div>

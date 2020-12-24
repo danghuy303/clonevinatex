@@ -99,24 +99,24 @@ export class QuantriComponent implements OnInit {
             //     icon: 'pi pi-sitemap',
             //     command: () => this.close()
             // },
-            // {
-            //     label: 'Sắp xếp xử lý đất đai',
-            //     icon: 'pi pi-sort-amount-up',
-            //     routerLink: '/quantri/sapxepxuly',
-            //     expanded: true,
-            //     items: [
-            //         {
-            //             label: 'Yêu cầu sắp xếp',
-            //             routerLink: '/quantri/sapxepxuly/yeucau',
-            //             command: () => this.close()
-            //         },
-            //         {
-            //             label: 'Quy trình sắp xếp',
-            //             routerLink: '/quantri/sapxepxuly/quytrinh',
-            //             command: () => this.close()
-            //         }
-            //     ]
-            // },
+            {
+                label: 'Sắp xếp xử lý đất đai',
+                icon: 'pi pi-sort-amount-up',
+                routerLink: '/quantri/sapxepxuly',
+                expanded: true,
+                items: [
+                    {
+                        label: 'Yêu cầu sắp xếp',
+                        routerLink: '/quantri/sapxepxuly/yeucau',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Quy trình sắp xếp',
+                        routerLink: '/quantri/sapxepxuly/quytrinh',
+                        command: () => this.close()
+                    }
+                ]
+            },
             {
                 label: 'Quản lý kho sản xuất',
                 routerLink: '/quantri/quanlykhosanxuat',
@@ -168,11 +168,11 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/thongkesanluong/0',
                         command: () => this.close()
                     },
-                    // {
-                    //     label: 'Báo cáo chi tiết cơ sở',
-                    //     routerLink: '/quantri/theodoithongkebaocao/baocaochitietcaccoso',
-                    //     command: () => this.close()
-                    // },
+                    {
+                        label: 'Báo cáo chi tiết cơ sở',
+                        routerLink: '/quantri/theodoithongkebaocao/baocaochitietcaccoso',
+                        command: () => this.close()
+                    },
                     // {
                     //     label: 'Báo cáo tổng hợp',
                     //     routerLink: '/quantri/theodoithongkebaocao/baocaodonvi',
@@ -223,107 +223,107 @@ export class QuantriComponent implements OnInit {
                     // },
                 ]
             },
-            {
-                label: 'Báo cáo',
-                icon: 'pi pi-chart-bar',
-                routerLink: '/quantri/theodoithongkebaocaosanxuat',
-                expanded: true,
-                items: [
-                    {
-                        label: 'Báo cáo sản lượng tổng hợp',
-                        routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongtonghop',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Báo cáo sản lượng chi tiết',
-                        routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongchitiet',
-                        command: () => this.close()
-                    },
-                ]
-            },
+            // {
+            //     label: 'Báo cáo',
+            //     icon: 'pi pi-chart-bar',
+            //     routerLink: '/quantri/theodoithongkebaocaosanxuat',
+            //     expanded: true,
+            //     items: [
+            //         {
+            //             label: 'Báo cáo sản lượng tổng hợp',
+            //             routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongtonghop',
+            //             command: () => this.close()
+            //         },
+            //         {
+            //             label: 'Báo cáo sản lượng chi tiết',
+            //             routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongchitiet',
+            //             command: () => this.close()
+            //         },
+            //     ]
+            // },
             {
                 label: 'Danh mục dùng chung',
                 routerLink: '/quantri/danhmuc',
                 icon: 'pi pi-bars',
                 expanded: true,
                 items: [
-                    // {
-                    //     label: 'Tài sản',
-                    //     routerLink: '/quantri/danhmuc/dmtaisan',
-                    //     command: () => this.close()
+                    {
+                        label: 'Tài sản',
+                        routerLink: '/quantri/danhmuc/dmtaisan',
+                        command: () => this.close()
 
-                    // },
-                    // {
-                    //     label: 'Tình trạng tài sản',
-                    //     routerLink: '/quantri/danhmuc/dmtinhtrangtaisan',
-                    //     command: () => this.close()
+                    },
+                    {
+                        label: 'Tình trạng tài sản',
+                        routerLink: '/quantri/danhmuc/dmtinhtrangtaisan',
+                        command: () => this.close()
 
-                    // },
-                    // {
-                    //     label: 'Biến động',
-                    //     routerLink: '/quantri/danhmuc/dmbiendong',
-                    //     command: () => this.close()
+                    },
+                    {
+                        label: 'Biến động',
+                        routerLink: '/quantri/danhmuc/dmbiendong',
+                        command: () => this.close()
 
-                    // },
-                    // {
-                    //     label: 'Mục đích sử dụng đất',
-                    //     routerLink: '/quantri/danhmuc/dmmucdichsudung',
-                    //     command: () => this.close()
+                    },
+                    {
+                        label: 'Mục đích sử dụng đất',
+                        routerLink: '/quantri/danhmuc/dmmucdichsudung',
+                        command: () => this.close()
 
-                    // },
-                    // {
-                    //     label: 'Đơn vị',
-                    //     routerLink: '/quantri/danhmuc/dmdonvi',
-                    //     command: () => this.close()
+                    },
+                    {
+                        label: 'Đơn vị',
+                        routerLink: '/quantri/danhmuc/dmdonvi',
+                        command: () => this.close()
 
-                    // },
-                    // {
-                    //     label: 'Đơn vị đối tác',
-                    //     routerLink: '/quantri/danhmuc/dmdonvisohuudatnha',
-                    //     command: () => this.close()
-                    // },
-                    // {
-                    //     label: 'Nguồn gốc sử dụng đất',
-                    //     routerLink: '/quantri/danhmuc/dmnguongocdat',
-                    //     command: () => this.close()
+                    },
+                    {
+                        label: 'Đơn vị đối tác',
+                        routerLink: '/quantri/danhmuc/dmdonvisohuudatnha',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Nguồn gốc sử dụng đất',
+                        routerLink: '/quantri/danhmuc/dmnguongocdat',
+                        command: () => this.close()
 
-                    // },
-                    // {
-                    //     label: 'Hình thức xử lý',
-                    //     routerLink: '/quantri/danhmuc/dmhinhthucxuly',
-                    //     command: () => this.close()
+                    },
+                    {
+                        label: 'Hình thức xử lý',
+                        routerLink: '/quantri/danhmuc/dmhinhthucxuly',
+                        command: () => this.close()
 
-                    // },
-                    // {
-                    //     label: 'Cấp hạng công trình',
-                    //     routerLink: '/quantri/danhmuc/dmcaphangcongtrinh',
-                    //     command: () => this.close()
-                    // },
-                    // {
-                    //     label: 'Hiện trạng sử dụng',
-                    //     routerLink: '/quantri/danhmuc/dmhientrangsudung',
-                    //     command: () => this.close()
-                    // },
-                    // {
-                    //     label: 'Loại văn bản',
-                    //     routerLink: '/quantri/danhmuc/dmloaivanban',
-                    //     command: () => this.close()
-                    // },
-                    // {
-                    //     label: 'Tỉnh/TP',
-                    //     routerLink: '/quantri/danhmuc/dmtinh',
-                    //     command: () => this.close()
-                    // },
-                    // {
-                    //     label: 'Quận/Huyện',
-                    //     routerLink: '/quantri/danhmuc/dmquan',
-                    //     command: () => this.close()
-                    // },
-                    // {
-                    //     label: 'Phường/Xã',
-                    //     routerLink: '/quantri/danhmuc/dmphuong',
-                    //     command: () => this.close()
-                    // },
+                    },
+                    {
+                        label: 'Cấp hạng công trình',
+                        routerLink: '/quantri/danhmuc/dmcaphangcongtrinh',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Hiện trạng sử dụng',
+                        routerLink: '/quantri/danhmuc/dmhientrangsudung',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Loại văn bản',
+                        routerLink: '/quantri/danhmuc/dmloaivanban',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Tỉnh/TP',
+                        routerLink: '/quantri/danhmuc/dmtinh',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Quận/Huyện',
+                        routerLink: '/quantri/danhmuc/dmquan',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Phường/Xã',
+                        routerLink: '/quantri/danhmuc/dmphuong',
+                        command: () => this.close()
+                    },
                     {
                         label: 'Kho sản xuất',
                         routerLink: '/quantri/danhmucsanxuat/dmkho',

@@ -33,7 +33,7 @@ export class DmloaivanbanComponent implements OnInit {
     {
       header: 'Ghi chú',
       field: 'GhiChu',
-      width: 'unset',
+      width: '200px',
       center:'center'
     }
   ];
