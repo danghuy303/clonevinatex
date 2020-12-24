@@ -31,6 +31,7 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import {InputMaskModule} from 'primeng/inputmask';
 import {TooltipModule} from 'primeng/tooltip';
 import {InputSwitchModule} from 'primeng/inputswitch';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 // import { FileUploadModule } from 'primeng/fileupload';
 import localeVi from '@angular/common/locales/vi';
@@ -145,6 +146,11 @@ import { TrienkhaikehoachsanxuatmodalComponent } from './quanlykhosanxuat/quytri
 import { TimbongComponent } from './quanlykhosanxuat/phuongan/timbong/timbong.component';
 import { TimbongmodalComponent } from './quanlykhosanxuat/phuongan/timbongmodal/timbongmodal.component';
 import { BotrimaymodalComponent } from './quanlykhosanxuat/modals/botrimaymodal/botrimaymodal.component';
+import { MathangComponent } from './danhmuc/danhmucsanxuat/mathang/mathang.component';
+import { MathangmodelComponent } from './danhmuc/danhmucsanxuat/modals/mathangmodel/mathangmodel.component';
+import { PhanxuongComponent } from './danhmuc/danhmucsanxuat/phanxuong/phanxuong.component';
+import { PhanxuongmodalComponent } from './danhmuc/danhmucsanxuat/modals/phanxuongmodal/phanxuongmodal.component';
+import { LoaisoiComponent } from './danhmuc/danhmucsanxuat/loaisoi/loaisoi.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -254,7 +260,12 @@ import { BotrimaymodalComponent } from './quanlykhosanxuat/modals/botrimaymodal/
     TimbongComponent,
     TimbongmodalComponent,
     BotrimaymodalComponent,
+    MathangComponent,
+    MathangmodelComponent,
+    PhanxuongComponent,
+    PhanxuongmodalComponent,
     FilterPipe,
+    LoaisoiComponent,
   ],
   imports: [
     HttpClientModule,
@@ -288,7 +299,8 @@ import { BotrimaymodalComponent } from './quanlykhosanxuat/modals/botrimaymodal/
     InputMaskModule,
     PasswordModule,
     InputSwitchModule,
-    TooltipModule
+    TooltipModule, 
+    MultiSelectModule,
   ],
   entryComponents: [
     ModalThuaDatComponent, 
@@ -330,7 +342,9 @@ import { BotrimaymodalComponent } from './quanlykhosanxuat/modals/botrimaymodal/
     ChonhanghoamodalComponent,
     TrienkhaikehoachsanxuatmodalComponent,
     TimbongmodalComponent,
-    BotrimaymodalComponent
+    BotrimaymodalComponent,
+    MathangmodelComponent,
+    PhanxuongmodalComponent,
   ],
   providers: [
     SanXuatService,

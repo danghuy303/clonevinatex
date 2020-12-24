@@ -50,6 +50,9 @@ import { HacapComponent } from './quanlykhosanxuat/quytrinh/hacap/hacap.componen
 import { DieuchuyenComponent } from './quanlykhosanxuat/quytrinh/dieuchuyen/dieuchuyen.component';
 import { TrienkhaikehoachsanxuatComponent } from './quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuat/trienkhaikehoachsanxuat.component';
 import { TimbongComponent } from './quanlykhosanxuat/phuongan/timbong/timbong.component';
+import { MathangComponent } from './danhmuc/danhmucsanxuat/mathang/mathang.component';
+import { PhanxuongComponent } from './danhmuc/danhmucsanxuat/phanxuong/phanxuong.component';
+import { LoaisoiComponent } from './danhmuc/danhmucsanxuat/loaisoi/loaisoi.component';
 
 const routes: Routes = [
   {
@@ -100,6 +103,9 @@ const routes: Routes = [
       { path: 'danhmucsanxuat/dmcapbong', component:CapbongComponent},
       { path: 'danhmucsanxuat/dmcasanxuat', component:CasanxuatComponent},
       { path: 'danhmucsanxuat/dmdsmay', component:DanhsachmayComponent},
+      { path: 'danhmucsanxuat/dmmathang', component:MathangComponent},
+      { path: 'danhmucsanxuat/dmphanxuong', component:PhanxuongComponent},
+      { path: 'danhmucsanxuat/dmloaisoi', component:LoaisoiComponent},
 
       { path: 'thongkesanluong/:id', component:ThongkesanluongComponent},
       

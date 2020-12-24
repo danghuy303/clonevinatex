@@ -82,7 +82,74 @@ export class SanXuatService {
         return this.http.post(url, data, httpOptions);
     }
 
+    //#region  mặt hàng
+
+    GetListdmItem(data) {
+        let url = API.SCMDanhMuc + 'GetListdmItem';
+        return this.http.post(url, data, httpOptions);
+    }
+    SetdmItem(data) {
+        let url = API.SCMDanhMuc + 'SetdmItem';
+        return this.http.post(url, data, httpOptions);
+    }
+    DeletedmItem(data) {
+        let url = API.SCMDanhMuc + 'DeletedmItem';
+        return this.http.post(url, data, httpOptions);
+    }
+    //#endregion
+    
+    //#region  phân xưởng
+    GetListdmPhanXuong(data) {
+        let url = API.SCMDanhMuc + 'GetListdmPhanXuong';
+        return this.http.post(url, data, httpOptions);
+    }
+    SetdmPhanXuong(data) {
+        let url = API.SCMDanhMuc + 'SetdmPhanXuong';
+        return this.http.post(url, data, httpOptions);
+    }
+    DeletedmPhanXuong(data) {
+        let url = API.SCMDanhMuc + 'DeletedmPhanXuong';
+        return this.http.post(url, data, httpOptions);
+    }
+    //#endregion
+
+    //#region  loại sợi
+    GetListOptdmLoaiSoi() {
+        let url = API.SCMDanhMuc + 'GetListdmLoaiSoi';
+        return this.http.get(url, httpOptions);
+    }
+    GetListdmLoaiSoi(data) {
+        let url = API.SCMDanhMuc + 'GetListdmLoaiSoi';
+        return this.http.post(url, data, httpOptions);
+    }
+    SetdmLoaiSoi(data) {
+        let url = API.SCMDanhMuc + 'SetdmLoaiSoi';
+        return this.http.post(url, data, httpOptions);
+    }
+    DeletedmLoaiSoi(data) {
+        let url = API.SCMDanhMuc + 'DeletedmLoaiSoi';
+        return this.http.post(url, data, httpOptions);
+    }
+    //#endregion
+     //#region  nhóm kho
+    GetListdmNhomKho(data) {
+        let url = API.SCMDanhMuc + 'GetListdmNhomKho';
+        return this.http.post(url, data, httpOptions);
+    }
+    SetdmNhomKho(data) {
+        let url = API.SCMDanhMuc + 'SetdmNhomKho';
+        return this.http.post(url, data, httpOptions);
+    }
+    DeletedmNhomKho(data) {
+        let url = API.SCMDanhMuc + 'DeletedmNhomKho';
+        return this.http.post(url, data, httpOptions);
+    }
+    //#endregion
     //Dùng chung
+    GetListCongDoan() {
+        let url = API.SCMDanhMuc + 'GetListCongDoan';
+        return this.http.get(url, httpOptions);
+    }
     KiemTraTabTrangThai(eAction) {
         let url = API.auth + `QuanTriQuyTrinh/KiemTraTabTrangThai?eAction=${eAction}`;
         return this.http.get(url, httpOptions);

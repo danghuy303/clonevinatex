@@ -15,7 +15,7 @@
           "options": {
             "allowedCommonJsDependencies": [
               "chart.js"
-           ],
+            ],
             "outputPath": "dist/vinatexv1",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -143,5 +143,8 @@
       }
     }
   },
-  "defaultProject": "vinatexv1"
+  "defaultProject": "vinatexv1",
+  "cli": {
+    "analytics": "a72e2a04-b680-4e57-b889-acdd2b821430"
+  }
 }

@@ -41,6 +41,8 @@ export class ModaldanhmucchungComponent implements OnInit {
           break;
         case 'casanxuat': this.casanxuat();
           break;
+        case 'loaisoi': this.loaisoi();
+          break;
         default:
           break;
       }
@@ -113,6 +115,13 @@ export class ModaldanhmucchungComponent implements OnInit {
   }
   casanxuat() {
     this.sanXuatService.SetdmCaSanXuat(this.item).subscribe((res: any) => {
+      if (res) {
+        this.resAction(res)
+      }
+    })
+  }
+  loaisoi() {
+    this.sanXuatService.SetdmLoaiSoi(this.item).subscribe((res: any) => {
       if (res) {
         this.resAction(res)
       }
