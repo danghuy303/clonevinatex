@@ -5,6 +5,7 @@ import { ModalimportexcelComponent } from 'src/app/quantri/modal/modalimportexce
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { congDoan } from 'src/app/services/const';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { PhanxuongmodalComponent } from '../modals/phanxuongmodal/phanxuongmodal.component';
 
 @Component({
@@ -48,7 +49,7 @@ export class PhanxuongComponent implements OnInit {
       center:'center'
     }
   ];
-  listCongDoan:any = congDoan;
+  listCongDoan:any = [];
   selectedItems:any=[];
   listNhomKho : any = [];
   constructor(private _modal:NgbModal,
@@ -57,17 +58,25 @@ export class PhanxuongComponent implements OnInit {
     { }
 
   ngOnInit(): void {
+    this.getListCongDoan();
     this.GetListdm();
+    this.getListNhomKho();
   }
   resetFilter(){
     this.filter = {
     };
     this.GetListdm();
-    this.getListNhomKho();
   }
   getListNhomKho(){
-    this._services.GetListOptdmNhomKho().subscribe((res: any) => {
-      this.listNhomKho = res;
+    var data: any={}
+    data.CurrentPage = 0;
+    this._services.GetListdmNhomKho(data).subscribe((res: any) => {
+      this.listNhomKho = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  getListCongDoan(){
+    this._services.GetListCongDoan().subscribe((res: any) => {
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
     })
   }
   GetListdm(reset?){

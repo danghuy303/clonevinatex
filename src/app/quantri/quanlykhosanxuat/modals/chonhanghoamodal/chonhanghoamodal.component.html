@@ -7,17 +7,20 @@
 <div class="modal-body">
     <div class="p-grid">
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <div class="p-d-flex p-flex-row p-jc-end p-mb-3">
+            <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
+                <div>
+                    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
+                </div>
                 <div>
                     <div class="p-inputgroup">
                         <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
-                            (keyup.enter)="chonThuaDat()" [(ngModel)]="filter.KeyWord" />
+                            (keyup.enter)="chonThuaDat()" [(ngModel)]="KeyWord" />
                         <button type="button" pButton pRipple icon="pi pi-refresh"
-                            class="p-button-secondary p-button-sm p-button-text" (click)="chonThuaDat()"></button>
+                            class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
                     </div>
                 </div>
             </div>
-            <p-table [value]="items"
+            <p-table [value]="items|filter:KeyWord"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>

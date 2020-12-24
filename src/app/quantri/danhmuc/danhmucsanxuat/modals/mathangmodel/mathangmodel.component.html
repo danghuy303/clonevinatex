@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} đơn vị</h5>
+    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} mặt hàng</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -28,7 +28,7 @@
         <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-multiSelect [options]="listCongDoan" [(ngModel)]="listCodeCongDoan" display="chip"></p-multiSelect>
+                <p-multiSelect [options]="listCongDoan" [(ngModel)]="item.listCongDoan" display="chip"></p-multiSelect>
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">

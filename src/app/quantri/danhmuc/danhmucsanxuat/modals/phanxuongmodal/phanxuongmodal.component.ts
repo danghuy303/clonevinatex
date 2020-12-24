@@ -23,7 +23,7 @@ export class PhanxuongmodalComponent implements OnInit {
   }
   
   accept() {
-    if (this.item.Ma !== undefined && this.item.Ma.trim() !== '' && this.item.Ten.trim() !== '' && this.item.Ten !== undefined && this.item.CodeCongDoan !== undefined) {
+    if (this.item.Ma !== undefined && this.item.Ma.trim() !== '' && this.item.Ten.trim() !== '' && this.item.Ten !== undefined) {
       this.services.SetdmPhanXuong(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

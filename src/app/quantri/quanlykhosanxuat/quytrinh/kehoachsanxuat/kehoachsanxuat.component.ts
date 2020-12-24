@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { deepCopy, UnixToDate } from 'src/app/services/globalfunction';
 import { KehoachsanxuatmodalComponent } from '../kehoachsanxuatmodal/kehoachsanxuatmodal.component';
 
 @Component({
@@ -14,13 +15,13 @@ import { KehoachsanxuatmodalComponent } from '../kehoachsanxuatmodal/kehoachsanx
 export class KehoachsanxuatComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [];
-  filter:any={};
-  listLoaiPhuongAn:any=[];
-  trangThai:any=1;
+  filter: any = {};
+  listLoaiPhuongAn: any = [];
+  trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Đơn vị',
+      header: 'Nhà máy',
       field: '',
       width: 'unset'
     },
@@ -31,34 +32,38 @@ export class KehoachsanxuatComponent implements OnInit {
     },
     {
       header: 'Tổng số ca',
-      field: 'TenTrangThai',
+      field: 'TongSoCa',
       width: 'unset'
     },
     {
       header: 'Ghi chú',
-      field: 'TenTrangThai',
+      field: 'GhiChu',
       width: 'unset'
     },
   ];
-  checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
+  checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
 
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
-    this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0'){
-        let getitem =()=>{return{}};
-        this.update(getitem());
+    this.activatedRoute.params.subscribe((res: any) => {
+      if (res.id !== '0') {
+        this._service.GiaoKeHoachSanXuat().Get(res.id).subscribe((res: any) => {
+          res.listItem.forEach(ele => {
+            ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
+          });
+          this.update(res);
+        })
       }
     })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh()
   }
-  changeParam(id){
-    this.router.navigate([`quantri/kehoachsanxuat/giaokehoachsanxuat/${id}`],{replaceUrl: true})
+  changeParam(id) {
+    this.router.navigate([`quantri/kehoachsanxuat/giaokehoachsanxuat/${id}`], { replaceUrl: true })
   }
-  add(){
+  add() {
     this.changeParam(0);
     let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
       size: 'fullscreen',
@@ -66,11 +71,7 @@ export class KehoachsanxuatComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {
-      listKienHang:[]
-      // ID:null,
-      // TepDinhKems:[],
-      // templistTaiSanQuyTrinh:[],
-      // listTaiSanQuyTrinh:[]
+      Id: ''
     }
     modalRef.result.then((res: any) => {
       console.log(res);
@@ -79,13 +80,14 @@ export class KehoachsanxuatComponent implements OnInit {
     })
       .catch(er => { console.log(er) })
   }
-  update(item){
+  update(item) {
     let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.item = item;
+    modalRef.componentInstance.item.Ngay = UnixToDate(item.NgayUnix);
     modalRef.result.then((res: any) => {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
@@ -93,39 +95,39 @@ export class KehoachsanxuatComponent implements OnInit {
     })
       .catch(er => { console.log(er) })
   }
-  changeTab(e){
-    this.trangThai = e.index+1;
+  changeTab(e) {
+    this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
   }
-  changePage(event){
+  changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetListQuyTrinh();
   }
-  GetListQuyTrinh(reset?){
+  GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
-    let data={
+    let data = {
       PageSize: 25,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
-      sFilter:this.filter.KeyWord,
-      TuNgay:(new Date(this.filter.TuNgay).getTime()/1000)||0,
-      DenNgay:(new Date(this.filter.DenNgay).getTime()/1000)||0,
+      sFilter: this.filter.KeyWord,
+      TuNgay: (new Date(this.filter.TuNgay).getTime() / 1000) || 0,
+      DenNgay: (new Date(this.filter.DenNgay).getTime() / 1000) || 0,
       Ma: "",
       Ten: "",
     }
-    this._service.GiaoKeHoachSanXuat().GetList(data).subscribe((res:any)=>{
+    this._service.GiaoKeHoachSanXuat().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })
   }
-  resetFilter(){
-    this.filter={};
+  resetFilter() {
+    this.filter = {};
     this.GetListQuyTrinh(true);
   }
-  KiemTraTabTrangThai(){
+  KiemTraTabTrangThai() {
     // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
     //   this.checkQuyen = res;
     //   this.GetListQuyTrinh();

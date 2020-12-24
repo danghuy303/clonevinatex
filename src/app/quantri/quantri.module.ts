@@ -74,6 +74,7 @@ import { ModalthongbaoComponent } from './modal/modalthongbao/modalthongbao.comp
 import { ModaldmtaisanComponent } from './danhmuc/modal/modaldmtaisan/modaldmtaisan.component';
 import {isXoaPipe} from './../services/isXoaPipe';
 import {VNDPipe} from './../services/vnd.pipe';
+import {FilterPipe} from './../services/filter.pipe';
 import { UploadmodalComponent } from './modal/uploadmodal/uploadmodal.component';
 import { ThongKeThongTinThuaDatComponent } from './components/thong-ke-thong-tin-thua-dat/thong-ke-thong-tin-thua-dat.component';
 import { TinhComponent } from './danhmuc/tinh/tinh.component';
@@ -149,6 +150,7 @@ import { MathangComponent } from './danhmuc/danhmucsanxuat/mathang/mathang.compo
 import { MathangmodelComponent } from './danhmuc/danhmucsanxuat/modals/mathangmodel/mathangmodel.component';
 import { PhanxuongComponent } from './danhmuc/danhmucsanxuat/phanxuong/phanxuong.component';
 import { PhanxuongmodalComponent } from './danhmuc/danhmucsanxuat/modals/phanxuongmodal/phanxuongmodal.component';
+import { LoaisoiComponent } from './danhmuc/danhmucsanxuat/loaisoi/loaisoi.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -261,7 +263,9 @@ import { PhanxuongmodalComponent } from './danhmuc/danhmucsanxuat/modals/phanxuo
     MathangComponent,
     MathangmodelComponent,
     PhanxuongComponent,
-    PhanxuongmodalComponent
+    PhanxuongmodalComponent,
+    FilterPipe,
+    LoaisoiComponent,
   ],
   imports: [
     HttpClientModule,
@@ -347,6 +351,7 @@ import { PhanxuongmodalComponent } from './danhmuc/danhmucsanxuat/modals/phanxuo
     Dat09Service,
     isXoaPipe,
     VNDPipe,
+    FilterPipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],

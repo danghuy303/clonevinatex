@@ -6,7 +6,9 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
+import { DateToUnix, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
+import { TrienkhaikehoachsanxuatComponent } from '../trienkhaikehoachsanxuat/trienkhaikehoachsanxuat.component';
 
 @Component({
   selector: 'app-kehoachsanxuatmodal',
@@ -16,60 +18,28 @@ import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhan
 export class KehoachsanxuatmodalComponent implements OnInit {
   opt: any = ''
   item: any = {
+    Id: ''
     // SoQuyTrinh: 'PKK_0000_001',
     // listKienHang: []
   };
   lang: any = vn;
-  filter: any = {};
+  filter: any = {
+    KeyWord: ''
+  };
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   listPhuongAnSapXep: any = [];
   listDonVi: any = [];
-  listPhanXuong: any = [];
+  listPhanXuong: any = []; listMatHang: any = [];
+  yearRange: string = `${((new Date()).getFullYear())}:${((new Date()).getFullYear()) + 5}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
 
   }
 
   ngOnInit(): void {
-    console.log(this.checkbutton)
-    this.listDonVi = [
-      { label: 'Nhà máy sợi Đồng Văn', value: 1 },
-    ]
-    this.listPhanXuong = [
-      { label: 'Phân xưởng 1', value: 1 }
-    ]
-    // this.checkbutton={
-    //   Ghi:true,Xoa:true,KhongDuyet:true,ChuyenTiep:true
-    // }
     this.GetFormOptions()
     this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
-    }
-    this.item = {
-      NoiDung: 'Kế hoạch sản xuất tháng 11 - Nhà máy Sợi Đồng Văn',
-      SoQuyTrinh: 'KHSX_001',
-      DonVi: 1,
-      PhanXuong: 1,
-      GhiChu:'KHSX Đồng văn tháng 11',
-      ChiSoBinhQuan:'36.1',
-      TongSoCa:'90',
-      Ngay:new Date('2020-10-31T17:00:00.000Z'),
-      listMatHang:[
-        {Ma:'Ne 36 TCM 65/35',Ten:'Ne 36 TCM 65/36',KLKH:'13',GhiChu:'Xuất khẩu  HD 6063	'},
-        {Ma:'Ne 40 TCM 65/35',Ten:'Ne 40 TCM 65/35',KLKH:'20',GhiChu:'Nội địa - đóng tải trắng, giao hàng từ 4/11	'},
-        {Ma:'Ne 40 TCM 65/35',Ten:'Ne 40 TCM 65/35',KLKH:'11',GhiChu:'Nội địa  đóng tải xanh - Đông Xuân 	'},
-        {Ma:'Ne 30 TCM 65/35',Ten:'Ne 30 TCM 65/36',KLKH:'28',GhiChu:'Xuất khẩu HD 6078	'},
-        {Ma:'Ne 45 TCM 65/35 DK ',Ten:'Ne 45 TCM 65/35 DK ',KLKH:'20',GhiChu:'Xuất khẩu  (đã ký HD)	'},
-        {Ma:'Ne 40 TCM 65/35',Ten:'Ne 40 TCM 65/36',KLKH:'22',GhiChu:'Xuất khẩu ( Đã ký HĐ)	'},
-        {Ma:'Ne 40 CVCM 50/50',Ten:'Ne 40 CVCM 50/51',KLKH:'30',GhiChu:'Xuất khẩu  HD 6069 (KH 2 cont giao tháng 11 + 2 cont giao tháng 12) dự kiến 16 tấn sx trong T10  	'},
-        {Ma:'Ne 45 CVCM 60/40',Ten:'Ne 45 CVCM 60/41',KLKH:'20',GhiChu:'Giao hàng tháng 11 ( đã ký HD)	'},
-        {Ma:'Ne 40 CVCM 60/40',Ten:'Ne 40 CVCM 60/41',KLKH:'105',GhiChu:'Xuất khẩu HD 6076 10 cont (5 cont giao tháng 11+ 5 cont giao tháng 12)	'},
-        {Ma:'Ne 30 CVCM 60/40',Ten:'Ne 30 CVCM 60/41',KLKH:'80',GhiChu:'Xuất khẩu 6084(HĐ 10 cont 2 cont giao tháng 11 + 5 cont giao tháng 12+ 3 cont giao tháng 1)	'},
-        {Ma:'Ne 40 CVCM 60/40',Ten:'Ne 40 CVCM 60/40',KLKH:'5',GhiChu:'Nội địa - đóng tải trắng (đóng đủ theo TBSX 20 tấn) 	'},
-        {Ma:'Ne 40 CVCM 60/40',Ten:'Ne 40 CVCM 60/40',KLKH:'10',GhiChu:'Nội địa - Xuất công ty Bốn mùa	'},
-        {Ma:'Sợi 24 TCD 65/35',Ten:'Sợi 24 TCD 65/36',KLKH:'20',GhiChu:'Xuất khẩu HD 6083	'},
-        {Ma:'Sợi 30 TCD 65/35',Ten:'Sợi 30 TCD 65/36',KLKH:'41',GhiChu:'Xuất khẩu HD 6083	'},
-      ]
     }
   }
   KiemTraButtonModal() {
@@ -78,8 +48,23 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     })
   }
   GetFormOptions() {
-    this.services.GetOptions().GetMatHang().subscribe(res => {
-      console.log(res);
+    this.services.GetOptions().GetMatHang().subscribe((res: Array<any>) => {
+      this.listMatHang = res;
+    })
+    this.services.GetOptions().GetDonVi().subscribe((res: Array<any>) => {
+      this.listDonVi = mapArrayForDropDown(res, 'TenDuAn', 'Id');
+      if (validVariable(this.item.IdDuAn)) {
+        this.getPhanXuong(this.item.IdDuAn,true);
+      }
+    })
+  }
+  getPhanXuong(IdDuAn, update?) {
+    this.listPhanXuong = [];
+    if (!!!update) {
+      this.item.IddmPhanXuong = null;
+    }
+    this.services.GetOptions().GetPhanXuong(IdDuAn).subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
     })
   }
   taiLenFileDinhKem() {
@@ -137,35 +122,51 @@ export class KehoachsanxuatmodalComponent implements OnInit {
       this.item.SoQuyTrinh = res.SoQuyetDinh;
     })
   }
-  // GetQuyTrinh(Id){
-  //   this.services.GetQuyTrinh(Id).subscribe(res=>{
-  //     // this.item = res;
-  //     console.log(res);
-  //   })
-  // }
+  GetQuyTrinh(Id) {
+    this.services.GiaoKeHoachSanXuat().Get(Id).subscribe(res => {
+      this.item = res;
+      // console.log(res);
+    })
+  }
+  validData() {
+    if (validVariable(this.item.Ngay)) {
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+    } else {
+      return false;
+    }
+    this.item.listItem.forEach(ele => {
+      ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach * 1000;
+    });
+    return true;
+  }
   chonHangHoa() {
-    this._modal.open(ChonhanghoamodalComponent)
+    let modalRef = this._modal.open(ChonhanghoamodalComponent, {
+      size: 'lg'
+    })
+    modalRef.componentInstance.items = this.listMatHang;
+    modalRef.componentInstance.selectedItems = this.item.listItem || [];
+    modalRef.componentInstance.IdGiaoKeHoachSanXuat = this.item.Id;
+    modalRef.result.then(res => {
+      merge(res,this.item.listItem,'IddmItem')
+    }).catch(er => {
+      console.log(er);
+    })
   }
   GhiLai() {
-    console.log(JSON.stringify(this.item))
-    // if (this.item.listTaiSanQuyTrinh.length !== 0) {
-    //   this.services.GiaoKeHoachSanXuat().Set(this.item).subscribe((res: any) => {
-    //     if (res) {
-    //       if (res.State === 1) {
-    //         this.toastr.success(res.message)
-    //         this.opt = 'edit';
-    //         this.item = res.objectReturn;
-    //         // this.GetListdmPhuongAnSapXep()
-    //         this.KiemTraButtonModal();
-    //         // this.activeModal.close(res.message);
-    //       } else {
-    //         this.toastr.error(res.message);
-    //       }
-    //     }
-    //   })
-    // } else {
-    //   this.toastr.warning('Vui lòng chọn thửa đất để khởi tạo quy trình!');
-    // }
+    if (this.validData()) {
+      this.services.GiaoKeHoachSanXuat().Set(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message)
+            this.opt = 'edit';
+            this.item = res.objectReturn;
+            this.KiemTraButtonModal();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -183,39 +184,18 @@ export class KehoachsanxuatmodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-  merge(newArr, existingArr) {
-    let removeIndex = [];
-    newArr.forEach((newEle) => {
-      let index = existingArr.findIndex(
-        (oldEle) => newEle.IDTaiSan === oldEle.IDTaiSan
-      );
-      if (index === -1) {
-        existingArr.push(newEle);
-      }
-    });
-    existingArr.forEach((oldEle, index) => {
-      let indexCheck = newArr.findIndex(
-
-        (newEle) => newEle.IDTaiSan === oldEle.IDTaiSan
-      );
-      if (indexCheck === -1) {
-        removeIndex.push(index);
-      }
-    });
-    for (var i = removeIndex.length - 1; i >= 0; i--) {
-      if (existingArr[i].ID === 0) {
-        existingArr.splice(removeIndex[i], 1);
-      } else {
-        existingArr[i].isXoa = true;
-      }
-    }
-    return existingArr;
-  }
+  
   changePhuongAnDeXuat(event, item) {
     item.TenPhuongAnDeXuat = event.Ten;
     item.IDdmPhuongAnDeXuat = event.ID;
   }
-  delete(item, index) {
-
+  delete(index) {
+    let item = this.item.listItem.splice(index, 1)[0];
+    // let item = this.items.splice(i, 1)[0];
+    if (item.Id.trim() === '') {
+    } else {
+      item.isXoa = true;
+      this.item.lisItem.push(JSON.parse(JSON.stringify(item)));
+    }
   }
 }

@@ -64,6 +64,7 @@
                     {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
                 <td class="text-center">{{item.SoQuyTrinh}}</td>
+                <td class="text-center">{{item.NoiDung}}</td>
                 <td class="text-center"></td>
                 <td class="text-center"></td>
                 <td class="text-center" *ngFor="let col of cols">
@@ -71,7 +72,7 @@
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.id)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.Id)"></button>
                 </td>
             </tr>
         </ng-template>

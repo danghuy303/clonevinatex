@@ -16,8 +16,7 @@ import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhan
 export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   opt: any = ''
   item: any = {
-    // SoQuyTrinh: 'PKK_0000_001',
-    listKienHang: []
+    Id:'',
   };
   filter: any = {};
   checkbutton: any = {};
@@ -25,9 +24,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   listLoHang: any = [];
   lang: any = vn;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
-    // this.checkbutton={
-    //   Ghi:true,Xoa:true,KhongDuyet:true,ChuyenTiep:true
-    // }
+
   }
 
   ngOnInit(): void {
@@ -37,25 +34,28 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       { label: 'Đơn vị 2', value: 2 },
       { label: 'Đơn vị 3', value: 3 },
     ]
-    this.item = {
-      SoQuyTrinh: 'PTKKHSX001',
-      GhiChu: 'Chạy kế hoạch giai đoạn 1',
-      NoiDung: 'Kế hoạch sản xuất tháng 11 - Nhà máy Sợi Đồng Văn',
-      Ngay: new Date('2020-10-31T17:00:00.000Z'),
-      Created: new Date('2020-10-25T17:00:00.000Z'),
-      Modified: new Date('2020-10-25T17:00:00.000Z'),
-      listMatHang: [
-        { Ten: 'Ne 36 TCM 65/35', GiaoKeHoach: '13', KHTK: '13', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
-        { Ten: 'Ne 40 TCM 65/35', GiaoKeHoach: '20', KHTK: '20', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
-        { Ten: 'Ne 40 TCM 65/35', GiaoKeHoach: '11', KHTK: '11', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
-        { Ten: 'Ne 30 TCM 65/35', GiaoKeHoach: '28', KHTK: '28', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
-      ]
-    }
+    // this.item = {
+    //   SoQuyTrinh: 'PTKKHSX001',
+    //   GhiChu: 'Chạy kế hoạch giai đoạn 1',
+    //   NoiDung: 'Kế hoạch sản xuất tháng 11 - Nhà máy Sợi Đồng Văn',
+    //   Ngay: new Date('2020-10-31T17:00:00.000Z'),
+    //   Created: new Date('2020-10-25T17:00:00.000Z'),
+    //   Modified: new Date('2020-10-25T17:00:00.000Z'),
+    //   listMatHang: [
+    //     { Ten: 'Ne 36 TCM 65/35', GiaoKeHoach: '13', KHTK: '13', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
+    //     { Ten: 'Ne 40 TCM 65/35', GiaoKeHoach: '20', KHTK: '20', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
+    //     { Ten: 'Ne 40 TCM 65/35', GiaoKeHoach: '11', KHTK: '11', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
+    //     { Ten: 'Ne 30 TCM 65/35', GiaoKeHoach: '28', KHTK: '28', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
+    //   ]
+    // }
     // this.GetFormOptions()
     // this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       // this.GetNextSoQuyTrinh();
     }
+  }
+  getListKeHoachGiao(){
+    
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {

@@ -59,6 +59,7 @@
             <td *ngFor="let col of cols" [ngClass]="{'text-center': col.align==='center'}">
                 {{item[col.field]}}
             </td>
+           
             <td class="text-center date">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="edit(item)" pTooltip="Sửa"

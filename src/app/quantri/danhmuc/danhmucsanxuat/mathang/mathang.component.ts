@@ -6,6 +6,7 @@ import { ModalimportexcelComponent } from 'src/app/quantri/modal/modalimportexce
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { congDoan } from 'src/app/services/const';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { MathangmodelComponent } from '../modals/mathangmodel/mathangmodel.component';
 
 @Component({
@@ -31,13 +32,13 @@ export class MathangComponent implements OnInit {
     },
     {
       header: 'Loại sợi',
-      field: 'TenLoaiSoi',
+      field: 'TendmLoaiSoi',
       width: '200px',
       align:'center'
     },
     {
       header: 'Công đoạn',
-      field: 'listCongDoan',
+      field: 'TenListCongDong',
       width: '300px',
       center:'left'
     },
@@ -99,16 +100,20 @@ export class MathangComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.opt='add';
+    modalRef.componentInstance.listCongDoan = this.listCongDoan;
+
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListdm()
     }).catch(er=>console.log(er))
   }
   edit(item){
+    item.listCongDoan = item.listCongDoan.map(ele=>ele.CongDoan);
     let modalRef = this._modal.open(MathangmodelComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='edit';
+    modalRef.componentInstance.listCongDoan = this.listCongDoan;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then(res=>{
       this._toastr.success(res);

@@ -10,12 +10,14 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 })
 export class PhabongmodalComponent implements OnInit {
   listBanBong:any = [];
+  listKeHoach:any=[];
   listItems:any=[];
   listProps:any=[];
   listCol:any = [];
   listFixedCol:any=[];
   editVal:any = 0;
   checkbutton:any={}
+  item:any={};
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) { 
     for(let i = 0;i<31;i++){
       this.listBanBong.push({label:`${i}`})
