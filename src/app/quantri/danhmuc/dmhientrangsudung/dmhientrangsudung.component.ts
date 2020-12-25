@@ -22,7 +22,7 @@ export class DmhientrangsudungComponent implements OnInit {
     {
       header: 'Mã',
       field: 'Ma',
-      width: '200px',
+      width: '250px',
       align: 'center'
     },
     {

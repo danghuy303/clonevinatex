@@ -32,6 +32,7 @@ export class BaocaotaichinhComponent implements OnInit {
   tableTienThueSuDungDatHangNam:boolean=false;
   baocao: any;
   selectedVung: any;
+  DaBan:boolean =false;
   element: HTMLElement;
   constructor(private _modal: NgbModal, private _services: Dat09Service,
     private _auth: AuthenticationService, private _toast: ToastrService) {
@@ -104,7 +105,8 @@ export class BaocaotaichinhComponent implements OnInit {
 
   GetBaoCaoDonVi(Ma) {
     let data = {
-      ValueSearch: Ma
+      ValueSearch: Ma,
+      isDaBan:this.DaBan,
     }
     this._services.GetBaoCaoDonVi(data).subscribe((res: any) => {
       if (validVariable(res.DanhSachHienTrangCongTyMe)) {
@@ -144,6 +146,7 @@ export class BaocaotaichinhComponent implements OnInit {
       CurrentPage: 0,
       IDdmDonVi: this.vung.ID,
       sFilter: diadiem.DiaDiem,
+      isDaBan:this.DaBan,
       Ma: "",
       Ten: "",
       LoaiBaoCao: LoaiBaoCao,
@@ -173,6 +176,7 @@ export class BaocaotaichinhComponent implements OnInit {
       CurrentPage: 0,
       IDdmDonVi: this.vung.ID,
       sFilter: hientrang.Ten,
+      isDaBan:this.DaBan,
       Ma: "",
       Ten: "",
       LoaiBaoCao: LoaiBaoCao,
@@ -201,6 +205,7 @@ export class BaocaotaichinhComponent implements OnInit {
       CurrentPage: 0,
       IDdmDonVi: this.vung.ID,
       sFilter: '',
+      isDaBan:this.DaBan,
       HienTrangPhapLy: tinhtrang.MaHienTrang,
       Ma: "",
       Ten: "",

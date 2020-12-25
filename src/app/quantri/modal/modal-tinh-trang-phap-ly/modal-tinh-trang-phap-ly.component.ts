@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Dat09Service } from 'src/app/services/callApi';
 import { ToastrService } from 'ngx-toastr';
 import { vn } from 'src/app/services/const';
-import { vietHoaChuCaiDau, nhapTen } from 'src/app/services/globalfunction';
+import { vietHoaChuCaiDau, nhapTen, DateToUnix } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-modal-tinh-trang-phap-ly',
@@ -43,10 +43,10 @@ export class ModalTinhTrangPhapLyComponent implements OnInit {
   }
   accept(opt){
     if(this.item?.NgayKy !== undefined && this.item?.NgayKy !== null){
-      this.item.NgayKyUnix = (new Date(this.item.NgayKy)).getTime()/1000;
+      this.item.NgayKyUnix = DateToUnix(this.item.NgayKy);
     }
     if(this.item?.ThoiGianBienDong !== undefined && this.item?.ThoiGianBienDong !== null){
-      this.item.ThoiGianBienDongUnix = (new Date(this.item.ThoiGianBienDong)).getTime()/1000;
+      this.item.ThoiGianBienDongUnix = DateToUnix(this.item.ThoiGianBienDong);
     }
     if(this.item.LoaiBienDong !== undefined && this.item.LoaiBienDong !== null){
       this.item.IDdmBienDong= this.item.LoaiBienDong.ID;

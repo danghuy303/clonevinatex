@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { vn } from 'src/app/services/const'
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { API } from 'src/app/services/host';
+import { DateToUnix, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-modaldmdonvi',
@@ -28,7 +29,6 @@ export class ModaldmdonviComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, public toastr: ToastrService, private _modal: NgbModal) { }
 
   ngOnInit(): void {
-    // this.GetListdmDonVi();
     this.getListdmDonViByCRUD();
   }
   getListdmDonViByCRUD() {
@@ -99,8 +99,12 @@ export class ModaldmdonviComponent implements OnInit {
     return API.imgURL+url;
   }
   accept() {
+    console.log(this.item.NgayCapGiayPhepKinhDoanh)
     if (this.item.Ma !== undefined && this.item.Ma.trim() !== '' && this.item.Ten.trim() !== '' && this.item.Ten !== undefined && this.item.parent !== undefined) {
       this.item.IDParent = this.item.parent.ID;
+      if(validVariable(this.item.NgayCapGiayPhepKinhDoanh)){
+        this.item.NgayCapGiayPhepKinhDoanhUnix = DateToUnix(this.item.NgayCapGiayPhepKinhDoanh)
+      }
       if (this.item.SoTaiKhoan != null && this.item.SoTaiKhoan != undefined) {
         if (!(/^\d*$/.test(this.item.SoTaiKhoan))) {
           this.toastr.warning("Số tài khoản ngân hàng phải là số.Vui lòng kiểm tra lại");

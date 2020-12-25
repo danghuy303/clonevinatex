@@ -117,13 +117,10 @@ const routes: Routes = [
       { path: 'quanlykhosanxuat/xuatkho/:id', component:XuatkhoComponent},
       { path: 'quanlykhosanxuat/thongsochatluong/:id', component:ThongsochatluongComponent},
 
-      //chua co giao dien
-
       { path: 'kehoachsanxuat/giaokehoachsanxuat/:id', component:KehoachsanxuatComponent},
       { path: 'kehoachsanxuat/trienkhaikehoachsanxuat/:id', component:TrienkhaikehoachsanxuatComponent},
       { path: 'quanlykhosanxuat/hacap/:id', component:HacapComponent},
       { path: 'quanlykhosanxuat/dieuchuyen/:id', component:DieuchuyenComponent},
-      
     ]
   }
 ];

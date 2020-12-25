@@ -1,3 +1,4 @@
+import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,8 @@ import { vn } from 'src/app/services/const';
   styleUrls: ['./modaladvancedsearch.component.css']
 })
 export class ModaladvancedsearchComponent implements OnInit {
+  @ViewChild('chonVung') chonVung: any;
+
   searchItem: any = {
     ThongTinChung: {},
     TaiSanTrenDat: {},
@@ -129,6 +132,7 @@ export class ModaladvancedsearchComponent implements OnInit {
   }
 
   nodeSelect(event){
+    this.chonVung.hide();
     this.vung = event.node.data;
     this.searchItem.IDDonVi = event.node.data.ID;
     this.searchItem.ThongTinChung.TenCongTy = event.node.data.Ten;

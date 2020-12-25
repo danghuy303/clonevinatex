@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UploadmodalComponent } from '../uploadmodal/uploadmodal.component';
 import { vn } from 'src/app/services/const';
-import { vietHoaChuCaiDau } from 'src/app/services/globalfunction';
+import { DateToUnix, vietHoaChuCaiDau } from 'src/app/services/globalfunction';
 import { Dat09Service } from 'src/app/services/callApi';
 
 @Component({
@@ -57,7 +57,7 @@ export class ModalHsvbPhapQuyComponent implements OnInit {
   }
   accept() {
     if (this.item?.NgayQuyetDinh !== undefined && this.item?.NgayQuyetDinh !== undefined) {
-      this.item.NgayQuyetDinhUnix = (new Date(this.item.NgayQuyetDinh)).getTime() / 1000;
+      this.item.NgayQuyetDinhUnix = DateToUnix(this.item.NgayQuyetDinh);
     }
     console.log(this.item)
     this.activeModal.close(this.item);

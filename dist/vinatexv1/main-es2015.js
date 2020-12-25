@@ -343,7 +343,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div style=\"padding:27px; height:100vh ;\">\n    <div class=\"p-grid\">\n        <div class=\"p-col-12 p-lg-6 p-p-0 p-d-none p-d-lg-block\">\n            <!-- <img class=\"logo-abs\" src=\"assets/logo/LogoWhite.png\" width=\"86px\"> -->\n            <p-galleria [(value)]=\"images\" [responsiveOptions]=\"responsiveOptions\"\n                [containerStyle]=\"{'width': '100%','height':'calc( 100vh - 4rem )'}\" [numVisible]=\"5\"\n                [showItemNavigators]=\"true\" [showThumbnails]=\"false\" [circular]=\"true\"\n                [autoPlay]=\"true\" [transitionInterval]=\"5000\">\n                <ng-template pTemplate=\"item\" let-item>\n                    <div class=\"fulldivbg\" [ngStyle]=\"{'background-image': 'url(' + item + ')'}\">\n                    </div>\n                </ng-template>\n                <ng-template pTemplate=\"thumbnail\" let-item>\n                    <div class=\"p-grid p-nogutter p-justify-center\">\n                        <img [src]=\"item\" style=\"display: block;\" />\n                    </div>\n                </ng-template>\n            </p-galleria>\n        </div>\n        <div class=\"p-col-12 p-lg-6 p-p-0 p-d-flex p-flex-column\">\n            <div class=\"login-content p-d-flex p-flex-column p-jc-center p-ai-center my-auto\">\n                <div class=\"p-col-12 p-p-0 text-center\">\n                    <h3 class=\"company-name\">VINATEX</h3>\n                    <h3 class=\"software-name\">Hệ thống quản trị ngành sợi</h3>\n                </div>\n                <div class=\"login-form-container text-center\">\n                    <h3 class=\"login-title\">\n                        Đăng nhập\n                    </h3>\n                    <div class=\"p-d-flex p-flex-column\">\n                        <input type=\"text\" placeholder=\"Tên đăng nhập\" style=\"margin: 30px 0px;\" (keyup.enter)=\"login()\" [(ngModel)]=\"account.UserName\" class=\"p-inputtext-sm\" pInputText />\n                        <div class=\"p-inputgroup\" style=\"margin-bottom: 15px;\">\n                            <input type=\"password\" pPassword placeholder=\"Mật khẩu\" class=\"p-inputtext-sm\" [showPassword]=\"seePass\" (keyup.enter)=\"login()\" [(ngModel)]=\"account.Password\" [feedback]=\"false\" />\n                            <button type=\"button\" pButton pRipple [icon]=\"seePass?'pi pi-eye-slash':'pi pi-eye'\" (click)=\"revealPass()\" class=\"p-button-secondary p-button-sm p-button-text\"></button>    \n                        </div>\n                        <div class=\"p-d-flex p-flex-row p-jc-between\" style=\"margin-bottom: 30px;\">\n                            <div class=\"\">\n                                <p-checkbox [(ngModel)]=\"account.RememberMe\" binary=\"true\" inputId=\"binary\"></p-checkbox><label style=\"margin: 0px; margin-left:10px\">Ghi nhớ</label>\n                            </div>\n                            <div>\n                                <a href=\"javascript:void(0)\" (click)=\"timMK()\" style=\"font-size: 13px;\">Tìm lại mật khẩu?</a>\n                            </div>\n                        </div>\n                        <div><button (click)=\"login()\" pButton type=\"button\" style=\"width: 100%;\" label=\"Đăng nhập\" ></button></div>\n                    </div>\n                </div>\n                <div class=\"text-center\">\n                    &#169; 2020. Dev by HarmonyES\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<p-dialog header=\"Tìm lại mật khẩu\" [(visible)]=\"timMKdialog\" [style]=\"{width: '50vw'}\" [modal]=\"true\" [baseZIndex]=\"10000\">\n    <div class=\"p-grid\">\n        <div class=\"p-col-12 p-p-3 d-flex flex-column\">\n            <label>Tên tài khoản:</label>\n            <input type=\"text\" placeholder=\"Tên tài khoản\" [(ngModel)]=\"UserNameFG\" class=\"p-inputtext-sm\" pInputText />\n        </div>\n    </div>\n    <ng-template pTemplate=\"footer\">\n        <p-button icon=\"pi pi-check\" (click)=\"displayBasic=false\" label=\"Xác nhận\" (click)=\"ForgotPass()\" styleClass=\"p-button-sm\"></p-button>\n    </ng-template>\n</p-dialog>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div style=\"padding:27px; height:100vh ;\">\n    <div class=\"p-grid\">\n        <div class=\"p-col-12 p-lg-6 p-p-0 p-d-none p-d-lg-block\">\n            <!-- <img class=\"logo-abs\" src=\"assets/logo/LogoWhite.png\" width=\"86px\"> -->\n            <p-galleria [(value)]=\"images\" [responsiveOptions]=\"responsiveOptions\"\n                [containerStyle]=\"{'width': '100%','height':'calc( 100vh - 4rem )'}\" [numVisible]=\"5\"\n                [showItemNavigators]=\"true\" [showThumbnails]=\"false\" [circular]=\"true\"\n                [autoPlay]=\"true\" [transitionInterval]=\"5000\">\n                <ng-template pTemplate=\"item\" let-item>\n                    <div class=\"fulldivbg\" [ngStyle]=\"{'background-image': 'url(' + item + ')'}\">\n                    </div>\n                </ng-template>\n                <ng-template pTemplate=\"thumbnail\" let-item>\n                    <div class=\"p-grid p-nogutter p-justify-center\">\n                        <img [src]=\"item\" style=\"display: block;\" />\n                    </div>\n                </ng-template>\n            </p-galleria>\n        </div>\n        <div class=\"p-col-12 p-lg-6 p-p-0 p-d-flex p-flex-column\">\n            <div class=\"login-content p-d-flex p-flex-column p-jc-center p-ai-center my-auto\">\n                <div class=\"p-col-12 p-p-0 text-center\">\n                    <h3 class=\"company-name\">VINATEX</h3>\n                    <h3 class=\"software-name\">Hệ thống quản lý Nhà - Đất</h3>\n                </div>\n                <div class=\"login-form-container text-center\">\n                    <h3 class=\"login-title\">\n                        Đăng nhập\n                    </h3>\n                    <div class=\"p-d-flex p-flex-column\">\n                        <input type=\"text\" placeholder=\"Tên đăng nhập\" style=\"margin: 30px 0px;\" (keyup.enter)=\"login()\" [(ngModel)]=\"account.UserName\" class=\"p-inputtext-sm\" pInputText />\n                        <div class=\"p-inputgroup\" style=\"margin-bottom: 15px;\">\n                            <input type=\"password\" pPassword placeholder=\"Mật khẩu\" class=\"p-inputtext-sm\" [showPassword]=\"seePass\" (keyup.enter)=\"login()\" [(ngModel)]=\"account.Password\" [feedback]=\"false\" />\n                            <button type=\"button\" pButton pRipple [icon]=\"seePass?'pi pi-eye-slash':'pi pi-eye'\" (click)=\"revealPass()\" class=\"p-button-secondary p-button-sm p-button-text\"></button>    \n                        </div>\n                        <div class=\"p-d-flex p-flex-row p-jc-between\" style=\"margin-bottom: 30px;\">\n                            <div class=\"\">\n                                <p-checkbox [(ngModel)]=\"account.RememberMe\" binary=\"true\" inputId=\"binary\"></p-checkbox><label style=\"margin: 0px; margin-left:10px\">Ghi nhớ</label>\n                            </div>\n                            <div>\n                                <a href=\"javascript:void(0)\" (click)=\"timMK()\" style=\"font-size: 13px;\">Tìm lại mật khẩu?</a>\n                            </div>\n                        </div>\n                        <div><button (click)=\"login()\" pButton type=\"button\" style=\"width: 100%;\" label=\"Đăng nhập\" ></button></div>\n                    </div>\n                </div>\n                <div class=\"text-center\">\n                    &#169; 2020. Dev by HarmonyES\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<p-dialog header=\"Tìm lại mật khẩu\" [(visible)]=\"timMKdialog\" [style]=\"{width: '50vw'}\" [modal]=\"true\" [baseZIndex]=\"10000\">\n    <div class=\"p-grid\">\n        <div class=\"p-col-12 p-p-3 d-flex flex-column\">\n            <label>Tên tài khoản:</label>\n            <input type=\"text\" placeholder=\"Tên tài khoản\" [(ngModel)]=\"UserNameFG\" class=\"p-inputtext-sm\" pInputText />\n        </div>\n    </div>\n    <ng-template pTemplate=\"footer\">\n        <p-button icon=\"pi pi-check\" (click)=\"displayBasic=false\" label=\"Xác nhận\" (click)=\"ForgotPass()\" styleClass=\"p-button-sm\"></p-button>\n    </ng-template>\n</p-dialog>");
 
 /***/ }),
 
@@ -1292,7 +1292,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"modal-header\">\n    <h5 class=\"modal-title\">Danh mục mặt hàng</h5>\n    <button *ngIf=\"false\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"activeModal.dismiss('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n    </button>\n</div>\n<div class=\"modal-body\">\n    <div class=\"p-grid\">\n        <div class=\"p-col-12 p-p-0 d-flex flex-column\">\n            <div class=\"p-d-flex p-flex-row p-jc-end p-mb-3\">\n                <div>\n                    <div class=\"p-inputgroup\">\n                        <input type=\"text\" placeholder=\"Tìm kiếm\" class=\"p-inputtext-sm\" pInputText\n                            (keyup.enter)=\"chonThuaDat()\" [(ngModel)]=\"filter.KeyWord\" />\n                        <button type=\"button\" pButton pRipple icon=\"pi pi-refresh\"\n                            class=\"p-button-secondary p-button-sm p-button-text\" (click)=\"chonThuaDat()\"></button>\n                    </div>\n                </div>\n            </div>\n            <p-table [value]=\"items\"\n                styleClass=\"p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines\">\n                <ng-template pTemplate=\"colgroup\">\n                    <colgroup>\n                        <col style=\"width:50px\">\n                        <col>\n                        <col>\n                        <col>\n                    </colgroup>\n                </ng-template>\n                <ng-template pTemplate=\"header\">\n                    <tr>\n                        <th>#</th>\n                        <th>Mã hàng</th>\n                        <th>Tên hàng</th>\n                        <th>Ghi chú</th>\n                    </tr>\n                </ng-template>\n                <ng-template pTemplate=\"body\" let-item let-i=\"rowIndex\">\n                    <tr>\n                        <td>\n                            <p-checkbox [(ngModel)]=\"item.checked\" binary=\"true\" inputId=\"binary\"></p-checkbox>\n                        </td>\n                        <td>{{item.Ma}}</td>\n                        <td>{{item.Ten}}</td>\n                        <td>{{item.GhiChu}}</td>\n                    </tr>\n                </ng-template>\n            </p-table>\n        </div>\n    </div>\n</div>\n<div class=\"modal-footer\">\n    <!-- <button pButton pRipple label=\"Chấp nhận\" class=\"p-button-sm p-mr-2\" (click)=\"accept()\"></button>\n    <button pButton pRipple label=\"Thoát\" class=\"p-button-sm p-button-outlined p-button-secondary p-mr-2\"\n        (click)=\"activeModal.dismiss()\"></button> -->\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"modal-header\">\n    <h5 class=\"modal-title\">Danh mục mặt hàng</h5>\n    <button *ngIf=\"false\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"activeModal.dismiss('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n    </button>\n</div>\n<div class=\"modal-body\">\n    <div class=\"p-grid\">\n        <div class=\"p-col-12 p-p-0 d-flex flex-column\">\n            <div class=\"p-d-flex p-flex-row p-jc-between p-mb-3\">\n                <div>\n                    <button pButton pRipple label=\"Chấp nhận\" class=\"p-button-sm p-mr-2\" (click)=\"accept()\"></button>\n                </div>\n                <div>\n                    <div class=\"p-inputgroup\">\n                        <input type=\"text\" placeholder=\"Tìm kiếm\" class=\"p-inputtext-sm\" pInputText\n                            (keyup.enter)=\"chonThuaDat()\" [(ngModel)]=\"KeyWord\" />\n                        <button type=\"button\" pButton pRipple icon=\"pi pi-refresh\"\n                            class=\"p-button-secondary p-button-sm p-button-text\" (click)=\"resetFilter()\"></button>\n                    </div>\n                </div>\n            </div>\n            <p-table [value]=\"items|filter:KeyWord\"\n                styleClass=\"p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines\">\n                <ng-template pTemplate=\"colgroup\">\n                    <colgroup>\n                        <col style=\"width:50px\">\n                        <col>\n                        <col>\n                        <col>\n                    </colgroup>\n                </ng-template>\n                <ng-template pTemplate=\"header\">\n                    <tr>\n                        <th>#</th>\n                        <th>Mã hàng</th>\n                        <th>Tên hàng</th>\n                        <th>Ghi chú</th>\n                    </tr>\n                </ng-template>\n                <ng-template pTemplate=\"body\" let-item let-i=\"rowIndex\">\n                    <tr>\n                        <td>\n                            <p-checkbox [(ngModel)]=\"item.checked\" binary=\"true\" inputId=\"binary\"></p-checkbox>\n                        </td>\n                        <td>{{item.Ma}}</td>\n                        <td>{{item.Ten}}</td>\n                        <td>{{item.GhiChu}}</td>\n                    </tr>\n                </ng-template>\n            </p-table>\n        </div>\n    </div>\n</div>\n<div class=\"modal-footer\">\n    <!-- <button pButton pRipple label=\"Chấp nhận\" class=\"p-button-sm p-mr-2\" (click)=\"accept()\"></button>\n    <button pButton pRipple label=\"Thoát\" class=\"p-button-sm p-button-outlined p-button-secondary p-mr-2\"\n        (click)=\"activeModal.dismiss()\"></button> -->\n</div>");
 
 /***/ }),
 
@@ -1331,7 +1331,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"modal-header\">\n    <h5 class=\"modal-title\">{{opt==='add'?'Thêm mới':'Cập nhật'}} phương án pha bông</h5>\n    <!-- <div>Số quy trình: {{item.SoQuyTrinh}}</div> -->\n    <button *ngIf=\"false\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"activeModal.dismiss('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n    </button>\n</div>\n<div class=\"modal-body\">\n    <div class=\"p-d-flex p-flex-row p-jc-between\">\n        <div class=\"modal-bt p-mb-4 \">\n            <button pButton pRipple type=\"button\" label=\"Quay lại\" class=\"p-mr-2 p-button-sm\"\n                (click)=\"activeModal.dismiss('close')\"></button>\n            <button pButton pRipple type=\"button\" label=\"Ghi lại\" class=\"p-mr-2 p-button-sm \" (click)=\"GhiLai()\"\n                *ngIf=\"checkbutton.Ghi\"></button>\n            <button pButton pRipple type=\"button\" label=\"Xóa\" class=\"p-mr-2 p-button-sm\" *ngIf=\"checkbutton.Xoa\"\n                (click)=\"XoaQuyTrinh()\"></button>\n            <button pButton pRipple type=\"button\" label=\"Không duyệt\" class=\"p-mr-2 p-button-sm\" (click)=\"KhongDuyet()\"\n                *ngIf=\"checkbutton.KhongDuyet\"></button>\n            <button pButton pRipple type=\"button\" label=\"Chuyển duyệt\" class=\"p-mr-2 p-button-sm\"\n                (click)=\"ChuyenDuyet()\" *ngIf=\"checkbutton.ChuyenTiep\"></button>\n            <button pButton pRipple type=\"button\" label=\"Kết xuất\" class=\"p-mr-2 p-button-sm\"></button>\n        </div>\n    </div>\n    <div class=\"p-grid\">\n        <div class=\"p-col-12 p-p-0\" style=\"font-size: 12px !important;\">\n            <table class=\"table table-sm table-bordered\">\n                <thead>\n                    <tr>\n                        <th rowspan=\"2\">\n                            Thành phần bông\n                        </th>\n                        <!-- <th colspan=\"10\">Chất lượng bông</th> -->\n                        <th rowspan=\"2\">Tồn </th>\n                        <th rowspan=\"2\">Tổng ngày CD</th>\n                        <th rowspan=\"2\">Còn lại CD</th>\n                        <th rowspan=\"2\">Tỷ lệ</th>\n                        <th rowspan=\"2\">USE 7</th>\n                        <th [attr.colspan]=\"listBanBong.length\">Bàn bông CF</th>\n                    </tr>\n                    <tr>\n                        <!-- <th>Neps</th>\n                        <th>Mic</th>\n                        <th>Mat</th>\n                        <th>UHML</th>\n                        <th>Str</th>\n                        <th>SFI</th>\n                        <th>Rd</th>\n                        <th>+b</th>\n                        <th>Tạp</th>\n                        <th>Ẩm</th> -->\n                        <th *ngFor=\"let ban of listBanBong\">\n                            {{ban.label}}\n                        </th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"let item of listItems; let i = index\">\n                        <td class=\"text-center\">{{item.label}}</td>\n                        <!-- <td class=\"text-center\">{{item.neps}}</td>\n                        <td class=\"text-center\">{{item.mic}}</td>\n                        <td class=\"text-center\">{{item.mat}}</td>\n                        <td class=\"text-center\">{{item.uhml}}</td>\n                        <td class=\"text-center\">{{item.str}}</td>\n                        <td class=\"text-center\">{{item.sfi}}</td>\n                        <td class=\"text-center\">{{item.rd}}</td>\n                        <td class=\"text-center\">{{item.pb}}</td>\n                        <td class=\"text-center\">{{item.Tap}}</td>\n                        <td class=\"text-center\">{{item.Am}}</td> -->\n                        <td class=\"text-center\">{{item.Ton}}</td>\n                        <td class=\"text-center\">{{item.TongNgay}}</td>\n                        <td class=\"text-center\">{{item.ConLai}}</td>\n                        <td class=\"text-center\">{{item.TyLe}}</td>\n                        <td class=\"text-center\">{{item.Used}}</td>\n                        <td *ngFor=\"let prop of listProps\" class=\"text-center\" style=\"width: 30px;\">\n                            <app-dat09 [(ngModel)]=\"item[prop]\" type=\"number\"></app-dat09>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n    </div>\n</div>\n<div class=\"modal-footer\">\n    <!-- <button pButton pRipple label=\"Chấp nhận\" class=\"p-button-sm p-mr-2\" (click)=\"accept()\"></button>\n    <button pButton pRipple label=\"Thoát\" class=\"p-button-sm p-button-outlined p-button-secondary p-mr-2\"\n        (click)=\"activeModal.dismiss()\"></button> -->\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"modal-header\">\n    <h5 class=\"modal-title\">{{opt==='add'?'Thêm mới':'Cập nhật'}} phương án pha bông</h5>\n    <!-- <div>Số quy trình: {{item.SoQuyTrinh}}</div> -->\n    <button *ngIf=\"false\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"activeModal.dismiss('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n    </button>\n</div>\n<div class=\"modal-body\">\n    <div class=\"p-d-flex p-flex-row p-jc-between\">\n        <div class=\"modal-bt p-mb-4 \">\n            <button pButton pRipple type=\"button\" label=\"Quay lại\" class=\"p-mr-2 p-button-sm\"\n                (click)=\"activeModal.dismiss('close')\"></button>\n            <button pButton pRipple type=\"button\" label=\"Ghi lại\" class=\"p-mr-2 p-button-sm \" (click)=\"GhiLai()\"\n                *ngIf=\"checkbutton.Ghi\"></button>\n            <button pButton pRipple type=\"button\" label=\"Xóa\" class=\"p-mr-2 p-button-sm\" *ngIf=\"checkbutton.Xoa\"\n                (click)=\"XoaQuyTrinh()\"></button>\n            <button pButton pRipple type=\"button\" label=\"Không duyệt\" class=\"p-mr-2 p-button-sm\" (click)=\"KhongDuyet()\"\n                *ngIf=\"checkbutton.KhongDuyet\"></button>\n            <button pButton pRipple type=\"button\" label=\"Chuyển duyệt\" class=\"p-mr-2 p-button-sm\"\n                (click)=\"ChuyenDuyet()\" *ngIf=\"checkbutton.ChuyenTiep\"></button>\n            <button pButton pRipple type=\"button\" label=\"Kết xuất\" class=\"p-mr-2 p-button-sm\"></button>\n        </div>\n    </div>\n    <div class=\"p-grid\">\n        <div class=\"p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-4 p-p-0 my-auto\">Triển khai kế hoạch:</label>\n            <div class=\"p-col-12 p-lg-8 p-p-0\">\n                <p-dropdown [filter]=\"true\" [options]=\"listKeHoach\" placeholder=\"Chọn triển khai kế hoạch\" styleClass=\"p-inputtext-sm\"\n                    [(ngModel)]=\"item.IdKeHoach\"></p-dropdown>\n            </div>\n        </div>\n        <div class=\"p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-4 p-p-0 my-auto\">Tổng số kiện:</label>\n            <div class=\"p-col-12 p-lg-8 p-p-0\">\n                <p-inputNumber [minFractionDigits]=\"2\" locale=\"vi-VN\" [(ngModel)]=\"item.TongSoKien\">\n                </p-inputNumber>\n            </div>\n        </div>\n        <div class=\"p-col-12 p-p-0\" style=\"font-size: 12px !important;\">\n            <table class=\"table table-sm table-bordered\">\n                <thead>\n                    <tr>\n                        <th rowspan=\"2\">\n                            Thành phần bông\n                        </th>\n                        <!-- <th colspan=\"10\">Chất lượng bông</th> -->\n                        <th rowspan=\"2\">Tồn </th>\n                        <th rowspan=\"2\">Tổng ngày CD</th>\n                        <th rowspan=\"2\">Còn lại CD</th>\n                        <th rowspan=\"2\">Tỷ lệ</th>\n                        <th rowspan=\"2\">USE 7</th>\n                        <th [attr.colspan]=\"listBanBong.length\">Bàn bông CF</th>\n                    </tr>\n                    <tr>\n                        <!-- <th>Neps</th>\n                        <th>Mic</th>\n                        <th>Mat</th>\n                        <th>UHML</th>\n                        <th>Str</th>\n                        <th>SFI</th>\n                        <th>Rd</th>\n                        <th>+b</th>\n                        <th>Tạp</th>\n                        <th>Ẩm</th> -->\n                        <th *ngFor=\"let ban of listBanBong\">\n                            {{ban.label}}\n                        </th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"let item of listItems; let i = index\">\n                        <td class=\"text-center\">{{item.label}}</td>\n                        <!-- <td class=\"text-center\">{{item.neps}}</td>\n                        <td class=\"text-center\">{{item.mic}}</td>\n                        <td class=\"text-center\">{{item.mat}}</td>\n                        <td class=\"text-center\">{{item.uhml}}</td>\n                        <td class=\"text-center\">{{item.str}}</td>\n                        <td class=\"text-center\">{{item.sfi}}</td>\n                        <td class=\"text-center\">{{item.rd}}</td>\n                        <td class=\"text-center\">{{item.pb}}</td>\n                        <td class=\"text-center\">{{item.Tap}}</td>\n                        <td class=\"text-center\">{{item.Am}}</td> -->\n                        <td class=\"text-center\">{{item.Ton}}</td>\n                        <td class=\"text-center\">{{item.TongNgay}}</td>\n                        <td class=\"text-center\">{{item.ConLai}}</td>\n                        <td class=\"text-center\">{{item.TyLe}}</td>\n                        <td class=\"text-center\">{{item.Used}}</td>\n                        <td *ngFor=\"let prop of listProps\" class=\"text-center\" style=\"width: 30px;\">\n                            <app-dat09 [(ngModel)]=\"item[prop]\" type=\"number\"></app-dat09>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n    </div>\n</div>\n<div class=\"modal-footer\">\n    <!-- <button pButton pRipple label=\"Chấp nhận\" class=\"p-button-sm p-mr-2\" (click)=\"accept()\"></button>\n    <button pButton pRipple label=\"Thoát\" class=\"p-button-sm p-button-outlined p-button-secondary p-mr-2\"\n        (click)=\"activeModal.dismiss()\"></button> -->\n</div>");
 
 /***/ }),
 
@@ -1422,7 +1422,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n<div class=\"p-mb-3 p-mt-3\">\n    <h4 style=\"color:#1f2779\">Giao kế hoạch sản xuất</h4>\n</div>\n<div class=\"p-d-flex p-ai-center p-jc-between p-mb-3\">\n    <button pButton pRipple label=\"Thêm mới\" icon=\"pi pi-plus\" class=\"p-button-sm p-mr-2\" (click)=\"add()\" *ngIf=\"checkQuyen.ThemMoi\"></button>\n    <div></div>\n    <div class=\"p-d-flex p-flex-row\">\n        <!-- <div class=\"p-mr-2\">\n            <p-dropdown [options]=\"listLoaiPhuongAn\" placeholder=\"Chọn phương án\" styleClass=\"p-inputtext-sm\"\n                [(ngModel)]=\"filter.LoaiPhuongAn\" optionLabel=\"name\" [showClear]=\"true\"></p-dropdown>\n        </div> -->\n        <div class=\"p-mr-2\">\n            <p-calendar dateFormat=\"dd/mm/yy\" inputStyleClass=\"p-inputtext-sm\" [showIcon]=\"true\"\n                [(ngModel)]=\"filter.TuNgay\" inputId=\"icon\" placeholder=\"Từ ngày\">\n            </p-calendar>\n        </div>\n        <div class=\"p-mr-2\">\n            <p-calendar dateFormat=\"dd/mm/yy\" inputStyleClass=\"p-inputtext-sm\" [showIcon]=\"true\"\n                [(ngModel)]=\"filter.DenNgay\" inputId=\"icon\" placeholder=\"Đến ngày\">\n            </p-calendar>\n        </div>\n        <div class=\"p-inputgroup\">\n            <input type=\"text\" placeholder=\"Tìm kiếm\" class=\"p-inputtext-sm\" pInputText (keyup.enter)=\"GetListQuyTrinh()\" [(ngModel)]=\"filter.KeyWord\"/>\n            <button type=\"button\" pButton pRipple icon=\"pi pi-refresh\" class=\"p-button-secondary p-button-sm p-button-text\"(click)=\"resetFilter()\"></button>\n        </div>\n        \n    </div>\n</div>\n<p-tabView (onChange)=\"changeTab($event)\" styleClass=\"no-content\">\n    <p-tabPanel header=\"Chưa xử lý\" [disabled]=\"!checkQuyen.ChuaXuLy\">\n    </p-tabPanel>\n    <p-tabPanel header=\"Đã xử lý\" [disabled]=\"!checkQuyen.DaXyLy\">\n    </p-tabPanel>\n    <!-- <p-tabPanel header=\"Tổng hợp\" [disabled]=\"!checkQuyen.TongHop\">\n    </p-tabPanel> -->\n</p-tabView>\n<div class=\"p-mt-3\">\n    <p-table [value]=\"items\" styleClass=\"p-datatable-sm p-datatable-striped\" [scrollable]=\"true\">\n        <ng-template pTemplate=\"colgroup\">\n            <colgroup>\n                <col style=\"width:50px\">\n                <col>\n                <col>\n                <col *ngFor=\"let col of cols\" [ngStyle]=\"{width:col.width}\">\n                <col style=\"width: 100px;\">\n            </colgroup>\n        </ng-template>\n        <ng-template pTemplate=\"header\">\n            <tr>\n                <th class=\"text-center\">#</th>\n                <th>Số phiếu</th>\n                <th>Nội dung</th>\n                <th>Ngày duyệt</th>\n                <th *ngFor=\"let header of cols\">\n                    {{header.header}}\n                </th>\n                <th></th>\n            </tr>\n        </ng-template>\n        <ng-template pTemplate=\"body\" let-item let-i=\"rowIndex\">\n            <tr>\n                <td class=\"text-center\">\n                    {{ 10 * (paging.CurrentPage - 1) + i + 1 }}\n                </td>\n                <td class=\"text-center\">{{item.SoQuyTrinh}}</td>\n                <td class=\"text-center\"></td>\n                <td class=\"text-center\"></td>\n                <td class=\"text-center\" *ngFor=\"let col of cols\">\n                    {{item[col.field]}}\n                </td>\n                <td class=\"text-center\">\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-pencil\"\n                        class=\"p-button-text p-button-sm p-button-secondary p-mr-2\" (click)=\"changeParam(item.id)\"></button>\n                </td>\n            </tr>\n        </ng-template>\n        <ng-template pTemplate=\"summary\">\n            <div class=\"p-d-flex p-ai-center p-jc-between\">\n                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]=\"paging.TotalItem\" [rows]=\"25\"\n                    (onPageChange)=\"changePage($event)\"></p-paginator>\n            </div>\n        </ng-template>\n    </p-table>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("\n<div class=\"p-mb-3 p-mt-3\">\n    <h4 style=\"color:#1f2779\">Giao kế hoạch sản xuất</h4>\n</div>\n<div class=\"p-d-flex p-ai-center p-jc-between p-mb-3\">\n    <button pButton pRipple label=\"Thêm mới\" icon=\"pi pi-plus\" class=\"p-button-sm p-mr-2\" (click)=\"add()\" *ngIf=\"checkQuyen.ThemMoi\"></button>\n    <div></div>\n    <div class=\"p-d-flex p-flex-row\">\n        <!-- <div class=\"p-mr-2\">\n            <p-dropdown [options]=\"listLoaiPhuongAn\" placeholder=\"Chọn phương án\" styleClass=\"p-inputtext-sm\"\n                [(ngModel)]=\"filter.LoaiPhuongAn\" optionLabel=\"name\" [showClear]=\"true\"></p-dropdown>\n        </div> -->\n        <div class=\"p-mr-2\">\n            <p-calendar dateFormat=\"dd/mm/yy\" inputStyleClass=\"p-inputtext-sm\" [showIcon]=\"true\"\n                [(ngModel)]=\"filter.TuNgay\" inputId=\"icon\" placeholder=\"Từ ngày\">\n            </p-calendar>\n        </div>\n        <div class=\"p-mr-2\">\n            <p-calendar dateFormat=\"dd/mm/yy\" inputStyleClass=\"p-inputtext-sm\" [showIcon]=\"true\"\n                [(ngModel)]=\"filter.DenNgay\" inputId=\"icon\" placeholder=\"Đến ngày\">\n            </p-calendar>\n        </div>\n        <div class=\"p-inputgroup\">\n            <input type=\"text\" placeholder=\"Tìm kiếm\" class=\"p-inputtext-sm\" pInputText (keyup.enter)=\"GetListQuyTrinh()\" [(ngModel)]=\"filter.KeyWord\"/>\n            <button type=\"button\" pButton pRipple icon=\"pi pi-refresh\" class=\"p-button-secondary p-button-sm p-button-text\"(click)=\"resetFilter()\"></button>\n        </div>\n        \n    </div>\n</div>\n<p-tabView (onChange)=\"changeTab($event)\" styleClass=\"no-content\">\n    <p-tabPanel header=\"Chưa xử lý\" [disabled]=\"!checkQuyen.ChuaXuLy\">\n    </p-tabPanel>\n    <p-tabPanel header=\"Đã xử lý\" [disabled]=\"!checkQuyen.DaXyLy\">\n    </p-tabPanel>\n    <!-- <p-tabPanel header=\"Tổng hợp\" [disabled]=\"!checkQuyen.TongHop\">\n    </p-tabPanel> -->\n</p-tabView>\n<div class=\"p-mt-3\">\n    <p-table [value]=\"items\" styleClass=\"p-datatable-sm p-datatable-striped\" [scrollable]=\"true\">\n        <ng-template pTemplate=\"colgroup\">\n            <colgroup>\n                <col style=\"width:50px\">\n                <col>\n                <col>\n                <col *ngFor=\"let col of cols\" [ngStyle]=\"{width:col.width}\">\n                <col style=\"width: 100px;\">\n            </colgroup>\n        </ng-template>\n        <ng-template pTemplate=\"header\">\n            <tr>\n                <th class=\"text-center\">#</th>\n                <th>Số phiếu</th>\n                <th>Nội dung</th>\n                <th>Ngày duyệt</th>\n                <th *ngFor=\"let header of cols\">\n                    {{header.header}}\n                </th>\n                <th></th>\n            </tr>\n        </ng-template>\n        <ng-template pTemplate=\"body\" let-item let-i=\"rowIndex\">\n            <tr>\n                <td class=\"text-center\">\n                    {{ 10 * (paging.CurrentPage - 1) + i + 1 }}\n                </td>\n                <td class=\"text-center\">{{item.SoQuyTrinh}}</td>\n                <td class=\"text-center\">{{item.NoiDung}}</td>\n                <td class=\"text-center\"></td>\n                <td class=\"text-center\"></td>\n                <td class=\"text-center\" *ngFor=\"let col of cols\">\n                    {{item[col.field]}}\n                </td>\n                <td class=\"text-center\">\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-pencil\"\n                        class=\"p-button-text p-button-sm p-button-secondary p-mr-2\" (click)=\"changeParam(item.Id)\"></button>\n                </td>\n            </tr>\n        </ng-template>\n        <ng-template pTemplate=\"summary\">\n            <div class=\"p-d-flex p-ai-center p-jc-between\">\n                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]=\"paging.TotalItem\" [rows]=\"25\"\n                    (onPageChange)=\"changePage($event)\"></p-paginator>\n            </div>\n        </ng-template>\n    </p-table>\n</div>\n");
 
 /***/ }),
 
@@ -1435,7 +1435,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"modal-header\">\n    <h5 class=\"modal-title\">{{opt==='add'?'Thêm mới':'Cập nhật'}} phiếu giao kế hoạch sản xuất</h5>\n    <div>Số quy trình: {{item.SoQuyTrinh}}</div>\n    <button *ngIf=\"false\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"activeModal.dismiss('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n    </button>\n</div>\n<div class=\"modal-body\">\n    <div class=\"p-d-flex p-flex-row p-jc-between\">\n        <div class=\"modal-bt p-mb-4 \">\n            <button pButton pRipple type=\"button\" label=\"Quay lại\" class=\"p-mr-2 p-button-sm\"\n                (click)=\"activeModal.dismiss('close')\"></button>\n            <button pButton pRipple type=\"button\" label=\"Ghi lại\" class=\"p-mr-2 p-button-sm \" (click)=\"GhiLai()\"\n                *ngIf=\"checkbutton.Ghi\"></button>\n            <button pButton pRipple type=\"button\" label=\"Xóa\" class=\"p-mr-2 p-button-sm\" *ngIf=\"checkbutton.Xoa\"\n                (click)=\"XoaQuyTrinh()\"></button>\n            <button pButton pRipple type=\"button\" label=\"Không duyệt\" class=\"p-mr-2 p-button-sm\" (click)=\"KhongDuyet()\"\n                *ngIf=\"checkbutton.KhongDuyet\"></button>\n            <button pButton pRipple type=\"button\" label=\"Chuyển duyệt\" class=\"p-mr-2 p-button-sm\"\n                (click)=\"ChuyenDuyet()\" *ngIf=\"checkbutton.ChuyenTiep\"></button>\n            <button pButton pRipple type=\"button\" label=\"Kết xuất\" class=\"p-mr-2 p-button-sm\"></button>\n        </div>\n\n    </div>\n    <div class=\"p-grid\">\n        <div class=\"p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-2 p-p-0 my-auto\">Nội dung:</label>\n            <div class=\"p-col-12 p-lg-10 p-p-0\">\n                <input type=\"text\" class=\"p-inputtext-sm\" [(ngModel)]=\"item.NoiDung\" pInputText />\n            </div>\n        </div>\n        <div class=\"p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-4 p-p-0 my-auto\">Đơn vị:</label>\n            <div class=\"p-col-12 p-lg-8 p-p-0\">\n                <p-dropdown [filter]=\"true\" [options]=\"listDonVi\" placeholder=\"Chọn đơn vị\" styleClass=\"p-inputtext-sm\"\n                    [(ngModel)]=\"item.DonVi\"></p-dropdown>\n            </div>\n        </div>\n        <div class=\"p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-4 p-p-0 my-auto\">Phân xưởng:</label>\n            <div class=\"p-col-12 p-lg-8 p-p-0\">\n                <p-dropdown [filter]=\"true\" [options]=\"listPhanXuong\" placeholder=\"Chọn phân xưởng\" styleClass=\"p-inputtext-sm\"\n                    [(ngModel)]=\"item.PhanXuong\"></p-dropdown>\n            </div>\n        </div>\n        <div class=\"p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-2 p-p-0 my-auto\">Ghi chú:</label>\n            <div class=\"p-col-12 p-lg-10 p-p-0\">\n                <input type=\"text\" class=\"p-inputtext-sm\" [(ngModel)]=\"item.GhiChu\" pInputText />\n            </div>\n        </div>\n        <div class=\"p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-4 p-p-0 my-auto\">Chi số bình quân:</label>\n            <div class=\"p-col-12 p-lg-8 p-p-0\">\n                <input type=\"text\" class=\"p-inputtext-sm\" [(ngModel)]=\"item.ChiSoBinhQuan\" pInputText />\n            </div>\n        </div>\n        <div class=\"p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-4 p-p-0 my-auto\">Tổng số ca:</label>\n            <div class=\"p-col-12 p-lg-8 p-p-0\">\n                <input type=\"text\" class=\"p-inputtext-sm\" [(ngModel)]=\"item.TongSoCa\" pInputText />\n            </div>\n        </div>\n        <div class=\"p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-4 p-p-0 my-auto\">Tháng kế hoạch</label>\n            <div class=\"p-col-12 p-lg-8 p-p-0\">\n                <p-calendar inputStyleClass=\"p-inputtext-sm\" [locale]=\"lang\"\n                view=\"month\" dateFormat=\"mm/yy\" [yearNavigator]=\"true\" yearRange=\"2010:2030\" [readonlyInput]=\"true\" inputId=\"monthpicker\"\n                    [(ngModel)]=\"item.Ngay\" placeholder=\"mm/yyyy\">\n                </p-calendar>\n            </div>\n        </div>\n        <!-- <div class=\"p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-4 p-p-0 my-auto\">Tài liệu đính kèm:</label>\n            <div class=\"p-col-12 p-lg-8 p-p-0\">\n                <div class=\"p-inputgroup\">\n                    <div type=\"text\" pInputText class=\"p-inputtext-sm\" >{{item.TepDinhKems.length!==0?item.TepDinhKems[0]?.TenGoc:''}}</div>\n                    <button type=\"button\" pButton pRipple icon=\"pi pi-upload\" class=\"p-button-sm p-button-text p-button-secondary\"\n                        (click)=\"taiLenFileDinhKem()\"></button>\n                </div>\n            </div>\n        </div> -->\n        <div class=\"p-col-12 p-p-0 d-flex flex-column\">\n            <div class=\"p-d-flex p-flex-row p-jc-between p-mb-3\">\n                <div>\n                    <button pButton pRipple type=\"button\" label=\"Danh sách mặt hàng\" class=\"p-mr-2 p-button-sm\"\n                        (click)=\"chonHangHoa()\"></button>\n                </div>\n                <div>\n                    <div class=\"p-inputgroup\">\n                        <input type=\"text\" placeholder=\"Tìm kiếm\" class=\"p-inputtext-sm\" pInputText\n                            (keyup.enter)=\"chonThuaDat()\" [(ngModel)]=\"filter.KeyWord\" />\n                        <button type=\"button\" pButton pRipple icon=\"pi pi-refresh\"\n                            class=\"p-button-secondary p-button-sm p-button-text\" (click)=\"chonThuaDat()\"></button>\n                    </div>\n                </div>\n            </div>\n            <p-table [value]=\"item.listMatHang\"\n                styleClass=\"p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines\">\n                <ng-template pTemplate=\"colgroup\">\n                    <colgroup>\n                        <col style=\"width:50px\">\n                        <col>\n                        <col>\n                        <col>\n                        <col>\n                        <col style=\"width:100px\">\n                    </colgroup>\n                </ng-template>\n                <ng-template pTemplate=\"header\">\n                    <tr>\n                        <th>#</th>\n                        <th>Mã hàng</th>\n                        <th>Tên hàng</th>\n                        <th>Kế hoạch sản xuất</th>\n                        <th>Ghi chú</th>\n                        <!-- <th></th>\n                        <th></th>\n                        <th></th>\n                        <th></th> -->\n                        <th></th>\n                    </tr>\n                </ng-template>\n                <ng-template pTemplate=\"body\" let-item let-i=\"rowIndex\">\n                    <tr>\n                        <td>{{i+1}}</td>\n                        <td>{{item.Ma}}</td>\n                        <td>{{item.Ten}}</td>\n                        <td>{{item.KLKH}}</td>\n                        <td>{{item.GhiChu}}</td>\n                        <!-- <td></td>\n                        <td></td>\n                        <td></td>\n                        <td></td> -->\n                        <td class=\"text-center\">\n                            <button pButton pRipple icon=\"pi pi-pencil\"\n                                class=\"p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2\"\n                                (click)=\"edit(item,i)\" pTooltip=\"Sửa\" showDelay=\"1000\"\n                                tooltipPosition=\"bottom\"></button>\n                            <button pButton pRipple icon=\"pi pi-trash\"\n                                class=\"p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2\"\n                                (click)=\"delete(item,i)\" pTooltip=\"Xóa\" showDelay=\"1000\"\n                                tooltipPosition=\"bottom\"></button>\n                        </td>\n                    </tr>\n                </ng-template>\n            </p-table>\n        </div>\n    </div>\n</div>\n<div class=\"modal-footer\">\n    <!-- <button pButton pRipple label=\"Chấp nhận\" class=\"p-button-sm p-mr-2\" (click)=\"accept()\"></button>\n    <button pButton pRipple label=\"Thoát\" class=\"p-button-sm p-button-outlined p-button-secondary p-mr-2\"\n        (click)=\"activeModal.dismiss()\"></button> -->\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"modal-header\">\n    <h5 class=\"modal-title\">{{opt==='add'?'Thêm mới':'Cập nhật'}} phiếu giao kế hoạch sản xuất</h5>\n    <div>Số quy trình: {{item.SoQuyTrinh}}</div>\n    <button *ngIf=\"false\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"activeModal.dismiss('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n    </button>\n</div>\n<div class=\"modal-body\">\n    <div class=\"p-d-flex p-flex-row p-jc-between\">\n        <div class=\"modal-bt p-mb-4 \">\n            <button pButton pRipple type=\"button\" label=\"Quay lại\" class=\"p-mr-2 p-button-sm\"\n                (click)=\"activeModal.dismiss('close')\"></button>\n            <button pButton pRipple type=\"button\" label=\"Ghi lại\" class=\"p-mr-2 p-button-sm \" (click)=\"GhiLai()\"\n                *ngIf=\"checkbutton.Ghi\"></button>\n            <button pButton pRipple type=\"button\" label=\"Xóa\" class=\"p-mr-2 p-button-sm\" *ngIf=\"checkbutton.Xoa\"\n                (click)=\"XoaQuyTrinh()\"></button>\n            <button pButton pRipple type=\"button\" label=\"Không duyệt\" class=\"p-mr-2 p-button-sm\" (click)=\"KhongDuyet()\"\n                *ngIf=\"checkbutton.KhongDuyet\"></button>\n            <button pButton pRipple type=\"button\" label=\"Chuyển duyệt\" class=\"p-mr-2 p-button-sm\"\n                (click)=\"ChuyenDuyet()\" *ngIf=\"checkbutton.ChuyenTiep\"></button>\n            <button pButton pRipple type=\"button\" label=\"Kết xuất\" class=\"p-mr-2 p-button-sm\"></button>\n        </div>\n\n    </div>\n    <div class=\"p-grid\">\n        <div class=\"p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-2 p-p-0 my-auto\">Nội dung:</label>\n            <div class=\"p-col-12 p-lg-10 p-p-0\">\n                <input type=\"text\" class=\"p-inputtext-sm\" [(ngModel)]=\"item.NoiDung\" pInputText />\n            </div>\n        </div>\n        <div class=\"p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-4 p-p-0 my-auto\">Nhà máy:</label>\n            <div class=\"p-col-12 p-lg-8 p-p-0\">\n                <p-dropdown [filter]=\"true\" [options]=\"listDonVi\" placeholder=\"Chọn nhà máy\" styleClass=\"p-inputtext-sm\"\n                    [(ngModel)]=\"item.IdDuAn\"  (onChange)=\"getPhanXuong($event.value)\"></p-dropdown>\n            </div>\n        </div>\n        <div class=\"p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-4 p-p-0 my-auto\">Phân xưởng:</label>\n            <div class=\"p-col-12 p-lg-8 p-p-0\">\n                <p-dropdown [filter]=\"true\" [options]=\"listPhanXuong\" placeholder=\"Chọn phân xưởng\" styleClass=\"p-inputtext-sm\"\n                    [(ngModel)]=\"item.IddmPhanXuong\"></p-dropdown>\n            </div>\n        </div>\n        <div class=\"p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-2 p-p-0 my-auto\">Ghi chú:</label>\n            <div class=\"p-col-12 p-lg-10 p-p-0\">\n                <input type=\"text\" class=\"p-inputtext-sm\" [(ngModel)]=\"item.GhiChu\" pInputText />\n            </div>\n        </div>\n        <div class=\"p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-4 p-p-0 my-auto\">Chi số bình quân:</label>\n            <div class=\"p-col-12 p-lg-8 p-p-0\">\n                <p-inputNumber [minFractionDigits]=\"2\" locale=\"vi-VN\" [(ngModel)]=\"item.ChiSoBinhQuan\">\n                </p-inputNumber>\n            </div>\n        </div>\n        <div class=\"p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-4 p-p-0 my-auto\">Tổng số ca:</label>\n            <div class=\"p-col-12 p-lg-8 p-p-0\">\n                <p-inputNumber [minFractionDigits]=\"0\" [max]=\"93\" locale=\"vi-VN\" [(ngModel)]=\"item.TongSoCa\">\n                </p-inputNumber>\n            </div>\n        </div>\n        <div class=\"p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-4 p-p-0 my-auto\">Tháng kế hoạch</label>\n            <div class=\"p-col-12 p-lg-8 p-p-0\">\n                <p-calendar inputStyleClass=\"p-inputtext-sm\" [locale]=\"lang\"\n                view=\"month\" dateFormat=\"mm/yy\" [yearNavigator]=\"true\" [yearRange]=\"yearRange\" [readonlyInput]=\"true\" inputId=\"monthpicker\"\n                    [(ngModel)]=\"item.Ngay\" placeholder=\"mm/yyyy\">\n                </p-calendar>\n            </div>\n        </div>\n        <!-- <div class=\"p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row\">\n            <label class=\"p-col-12 p-lg-4 p-p-0 my-auto\">Tài liệu đính kèm:</label>\n            <div class=\"p-col-12 p-lg-8 p-p-0\">\n                <div class=\"p-inputgroup\">\n                    <div type=\"text\" pInputText class=\"p-inputtext-sm\" >{{item.TepDinhKems.length!==0?item.TepDinhKems[0]?.TenGoc:''}}</div>\n                    <button type=\"button\" pButton pRipple icon=\"pi pi-upload\" class=\"p-button-sm p-button-text p-button-secondary\"\n                        (click)=\"taiLenFileDinhKem()\"></button>\n                </div>\n            </div>\n        </div> -->\n        <div class=\"p-col-12 p-p-0 d-flex flex-column\">\n            <div class=\"p-d-flex p-flex-row p-jc-between p-mb-3\">\n                <div>\n                    <button pButton pRipple type=\"button\" label=\"Danh sách mặt hàng\" class=\"p-mr-2 p-button-sm\"\n                        (click)=\"chonHangHoa()\"></button>\n                </div>\n                <div>\n                    <div class=\"p-inputgroup\">\n                        <input type=\"text\" placeholder=\"Tìm kiếm\" class=\"p-inputtext-sm\" pInputText\n                            (keyup.enter)=\"chonThuaDat()\" [(ngModel)]=\"filter.KeyWord\" />\n                        <button type=\"button\" pButton pRipple icon=\"pi pi-refresh\"\n                            class=\"p-button-secondary p-button-sm p-button-text\" (click)=\"chonThuaDat()\"></button>\n                    </div>\n                </div>\n            </div>\n            <p-table [value]=\"item.listItem|isXoa|filter:filter.KeyWord\"\n                styleClass=\"p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines\">\n                <ng-template pTemplate=\"colgroup\">\n                    <colgroup>\n                        <col style=\"width:50px\">\n                        <col>\n                        <!-- <col> -->\n                        <col>\n                        <col>\n                        <col style=\"width:100px\">\n                    </colgroup>\n                </ng-template>\n                <ng-template pTemplate=\"header\">\n                    <tr>\n                        <th>#</th>\n                        <!-- <th>Mã hàng</th> -->\n                        <th>Tên hàng</th>\n                        <th>Kế hoạch sản xuất(Tấn)</th>\n                        <th>Ghi chú</th>\n                        <!-- <th></th>\n                        <th></th>\n                        <th></th>\n                        <th></th> -->\n                        <th></th>\n                    </tr>\n                </ng-template>\n                <ng-template pTemplate=\"body\" let-item let-i=\"rowIndex\">\n                    <tr>\n                        <td>{{i+1}}</td>\n                        <!-- <td>{{item.Ma}}</td> -->\n                        <td>{{item.Ten}}</td>\n                        <td><p-inputNumber [minFractionDigits]=\"2\" locale=\"vi-VN\" [(ngModel)]=\"item.KhoiLuongKeHoach\">\n                        </p-inputNumber></td>\n                        <td><input type=\"text\" class=\"p-inputtext-sm\" [(ngModel)]=\"item.GhiChu\" pInputText /></td>\n                        <!-- <td></td>\n                        <td></td>\n                        <td></td>\n                        <td></td> -->\n                        <td class=\"text-center\">\n                            <!-- <button pButton pRipple icon=\"pi pi-pencil\"\n                                class=\"p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2\"\n                                (click)=\"edit(item,i)\" pTooltip=\"Sửa\" showDelay=\"1000\"\n                                tooltipPosition=\"bottom\"></button> -->\n                            <button pButton pRipple icon=\"pi pi-trash\"\n                                class=\"p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2\"\n                                (click)=\"delete(item,i)\" pTooltip=\"Xóa\" showDelay=\"1000\"\n                                tooltipPosition=\"bottom\"></button>\n                        </td>\n                    </tr>\n                </ng-template>\n            </p-table>\n        </div>\n    </div>\n</div>\n<div class=\"modal-footer\">\n    <!-- <button pButton pRipple label=\"Chấp nhận\" class=\"p-button-sm p-mr-2\" (click)=\"accept()\"></button>\n    <button pButton pRipple label=\"Thoát\" class=\"p-button-sm p-button-outlined p-button-secondary p-mr-2\"\n        (click)=\"activeModal.dismiss()\"></button> -->\n</div>");
 
 /***/ }),
 
@@ -12435,33 +12435,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChonhanghoamodalComponent", function() { return ChonhanghoamodalComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
+
 
 
 let ChonhanghoamodalComponent = class ChonhanghoamodalComponent {
-    constructor() {
+    constructor(activeModal) {
+        this.activeModal = activeModal;
         this.items = [];
-        this.filter = {};
+        this.selectedItems = [];
+        this.KeyWord = '';
     }
     ngOnInit() {
-        this.items = [
-            { Ma: 'Ne 36 TCM 65/35', Ten: 'Ne 36 TCM 65/36', GhiChu: 'Xuất khẩu  HD 6063	' },
-            { Ma: 'Ne 40 TCM 65/35', Ten: 'Ne 40 TCM 65/35', GhiChu: 'Nội địa - đóng tải trắng, giao hàng từ 4/11	' },
-            { Ma: 'Ne 40 TCM 65/35', Ten: 'Ne 40 TCM 65/35', GhiChu: 'Nội địa  đóng tải xanh - Đông Xuân 	' },
-            { Ma: 'Ne 30 TCM 65/35', Ten: 'Ne 30 TCM 65/36', GhiChu: 'Xuất khẩu HD 6078	' },
-            { Ma: 'Ne 45 TCM 65/35 DK ', Ten: 'Ne 45 TCM 65/35 DK ', GhiChu: 'Xuất khẩu  (đã ký HD)	' },
-            { Ma: 'Ne 40 TCM 65/35', Ten: 'Ne 40 TCM 65/36', GhiChu: 'Xuất khẩu ( Đã ký HĐ)	' },
-            { Ma: 'Ne 40 CVCM 50/50', Ten: 'Ne 40 CVCM 50/51', GhiChu: 'Xuất khẩu  HD 6069 (KH 2 cont giao tháng 11 + 2 cont giao tháng 12) dự kiến 16 tấn sx trong T10  	' },
-            { Ma: 'Ne 45 CVCM 60/40', Ten: 'Ne 45 CVCM 60/41', GhiChu: 'Giao hàng tháng 11 ( đã ký HD)	' },
-            { Ma: 'Ne 40 CVCM 60/40', Ten: 'Ne 40 CVCM 60/41', GhiChu: 'Xuất khẩu HD 6076 10 cont (5 cont giao tháng 11+ 5 cont giao tháng 12)	' },
-            { Ma: 'Ne 30 CVCM 60/40', Ten: 'Ne 30 CVCM 60/41', GhiChu: 'Xuất khẩu 6084(HĐ 10 cont 2 cont giao tháng 11 + 5 cont giao tháng 12+ 3 cont giao tháng 1)	' },
-            { Ma: 'Ne 40 CVCM 60/40', Ten: 'Ne 40 CVCM 60/40', GhiChu: 'Nội địa - đóng tải trắng (đóng đủ theo TBSX 20 tấn) 	' },
-            { Ma: 'Ne 40 CVCM 60/40', Ten: 'Ne 40 CVCM 60/40', GhiChu: 'Nội địa - Xuất công ty Bốn mùa	' },
-            { Ma: 'Sợi 24 TCD 65/35', Ten: 'Sợi 24 TCD 65/36', GhiChu: 'Xuất khẩu HD 6083	' },
-            { Ma: 'Sợi 30 TCD 65/35', Ten: 'Sợi 30 TCD 65/36', GhiChu: 'Xuất khẩu HD 6083	' },
-        ];
+        if (this.selectedItems.length !== 0) {
+            this.selectedItems.forEach(sItem => {
+                let selected = this.items.filter(item => sItem.IddmItem === item.Id)[0];
+                if (selected) {
+                    selected.checked = true;
+                }
+            });
+        }
+    }
+    resetFilter() {
+        this.KeyWord = '';
+    }
+    accept() {
+        this.activeModal.close(this.items.filter(item => item.checked).map(ele => {
+            return Object.assign(Object.assign({}, ele), { IdGiaoKeHoachSanXuat: this.IdGiaoKeHoachSanXuat, IddmItem: ele.Id, Id: '' });
+        }));
     }
 };
-ChonhanghoamodalComponent.ctorParameters = () => [];
+ChonhanghoamodalComponent.ctorParameters = () => [
+    { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbActiveModal"] }
+];
 ChonhanghoamodalComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-chonhanghoamodal',
@@ -12790,12 +12796,14 @@ let PhabongmodalComponent = class PhabongmodalComponent {
         this.toastr = toastr;
         this._modal = _modal;
         this.listBanBong = [];
+        this.listKeHoach = [];
         this.listItems = [];
         this.listProps = [];
         this.listCol = [];
         this.listFixedCol = [];
         this.editVal = 0;
         this.checkbutton = {};
+        this.item = {};
         for (let i = 0; i < 31; i++) {
             this.listBanBong.push({ label: `${i}` });
         }
@@ -14117,7 +14125,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
 /* harmony import */ var src_app_services_callApiSanXuat__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/callApiSanXuat */ "./src/app/services/callApiSanXuat.ts");
-/* harmony import */ var _kehoachsanxuatmodal_kehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../kehoachsanxuatmodal/kehoachsanxuatmodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/kehoachsanxuatmodal/kehoachsanxuatmodal.component.ts");
+/* harmony import */ var src_app_services_globalfunction__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/globalfunction */ "./src/app/services/globalfunction.ts");
+/* harmony import */ var _kehoachsanxuatmodal_kehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../kehoachsanxuatmodal/kehoachsanxuatmodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/kehoachsanxuatmodal/kehoachsanxuatmodal.component.ts");
+
 
 
 
@@ -14139,7 +14149,7 @@ let KehoachsanxuatComponent = class KehoachsanxuatComponent {
         this.paging = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
         this.cols = [
             {
-                header: 'Đơn vị',
+                header: 'Nhà máy',
                 field: '',
                 width: 'unset'
             },
@@ -14150,12 +14160,12 @@ let KehoachsanxuatComponent = class KehoachsanxuatComponent {
             },
             {
                 header: 'Tổng số ca',
-                field: 'TenTrangThai',
+                field: 'TongSoCa',
                 width: 'unset'
             },
             {
                 header: 'Ghi chú',
-                field: 'TenTrangThai',
+                field: 'GhiChu',
                 width: 'unset'
             },
         ];
@@ -14165,8 +14175,12 @@ let KehoachsanxuatComponent = class KehoachsanxuatComponent {
         console.log(this.activatedRoute);
         this.activatedRoute.params.subscribe((res) => {
             if (res.id !== '0') {
-                let getitem = () => { return {}; };
-                this.update(getitem());
+                this._service.GiaoKeHoachSanXuat().Get(res.id).subscribe((res) => {
+                    res.listItem.forEach(ele => {
+                        ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
+                    });
+                    this.update(res);
+                });
             }
         });
         this.KiemTraTabTrangThai();
@@ -14177,17 +14191,13 @@ let KehoachsanxuatComponent = class KehoachsanxuatComponent {
     }
     add() {
         this.changeParam(0);
-        let modalRef = this._modal.open(_kehoachsanxuatmodal_kehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_6__["KehoachsanxuatmodalComponent"], {
+        let modalRef = this._modal.open(_kehoachsanxuatmodal_kehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_7__["KehoachsanxuatmodalComponent"], {
             size: 'fullscreen',
             backdrop: 'static'
         });
         modalRef.componentInstance.opt = 'add';
         modalRef.componentInstance.item = {
-            listKienHang: []
-            // ID:null,
-            // TepDinhKems:[],
-            // templistTaiSanQuyTrinh:[],
-            // listTaiSanQuyTrinh:[]
+            Id: ''
         };
         modalRef.result.then((res) => {
             console.log(res);
@@ -14197,12 +14207,13 @@ let KehoachsanxuatComponent = class KehoachsanxuatComponent {
             .catch(er => { console.log(er); });
     }
     update(item) {
-        let modalRef = this._modal.open(_kehoachsanxuatmodal_kehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_6__["KehoachsanxuatmodalComponent"], {
+        let modalRef = this._modal.open(_kehoachsanxuatmodal_kehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_7__["KehoachsanxuatmodalComponent"], {
             size: 'fullscreen',
             backdrop: 'static'
         });
         modalRef.componentInstance.opt = 'edit';
-        modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+        modalRef.componentInstance.item = item;
+        modalRef.componentInstance.item.Ngay = Object(src_app_services_globalfunction__WEBPACK_IMPORTED_MODULE_6__["UnixToDate"])(item.NgayUnix);
         modalRef.result.then((res) => {
             console.log(res);
             this._toastr.success('Cập nhật thành công');
@@ -14302,7 +14313,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_quantri_modal_uploadmodal_uploadmodal_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/quantri/modal/uploadmodal/uploadmodal.component */ "./src/app/quantri/modal/uploadmodal/uploadmodal.component.ts");
 /* harmony import */ var src_app_services_callApiSanXuat__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/callApiSanXuat */ "./src/app/services/callApiSanXuat.ts");
 /* harmony import */ var src_app_services_const__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/const */ "./src/app/services/const.ts");
-/* harmony import */ var _modals_chonhanghoamodal_chonhanghoamodal_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../modals/chonhanghoamodal/chonhanghoamodal.component */ "./src/app/quantri/quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component.ts");
+/* harmony import */ var src_app_services_globalfunction__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/globalfunction */ "./src/app/services/globalfunction.ts");
+/* harmony import */ var _modals_chonhanghoamodal_chonhanghoamodal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../modals/chonhanghoamodal/chonhanghoamodal.component */ "./src/app/quantri/quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component.ts");
+
 
 
 
@@ -14320,58 +14333,27 @@ let KehoachsanxuatmodalComponent = class KehoachsanxuatmodalComponent {
         this._modal = _modal;
         this.opt = '';
         this.item = {
-        // SoQuyTrinh: 'PKK_0000_001',
-        // listKienHang: []
+            Id: ''
+            // SoQuyTrinh: 'PKK_0000_001',
+            // listKienHang: []
         };
         this.lang = src_app_services_const__WEBPACK_IMPORTED_MODULE_7__["vn"];
-        this.filter = {};
+        this.filter = {
+            KeyWord: ''
+        };
         this.checkbutton = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
         this.listPhuongAnSapXep = [];
         this.listDonVi = [];
         this.listPhanXuong = [];
+        this.listMatHang = [];
+        this.yearRange = `${((new Date()).getFullYear())}:${((new Date()).getFullYear()) + 5}`;
     }
     ngOnInit() {
-        console.log(this.checkbutton);
-        this.listDonVi = [
-            { label: 'Nhà máy sợi Đồng Văn', value: 1 },
-        ];
-        this.listPhanXuong = [
-            { label: 'Phân xưởng 1', value: 1 }
-        ];
-        // this.checkbutton={
-        //   Ghi:true,Xoa:true,KhongDuyet:true,ChuyenTiep:true
-        // }
         this.GetFormOptions();
         this.KiemTraButtonModal();
         if (this.opt !== 'edit') {
             this.GetNextSoQuyTrinh();
         }
-        this.item = {
-            NoiDung: 'Kế hoạch sản xuất tháng 11 - Nhà máy Sợi Đồng Văn',
-            SoQuyTrinh: 'KHSX_001',
-            DonVi: 1,
-            PhanXuong: 1,
-            GhiChu: 'KHSX Đồng văn tháng 11',
-            ChiSoBinhQuan: '36.1',
-            TongSoCa: '90',
-            Ngay: new Date('2020-10-31T17:00:00.000Z'),
-            listMatHang: [
-                { Ma: 'Ne 36 TCM 65/35', Ten: 'Ne 36 TCM 65/36', KLKH: '13', GhiChu: 'Xuất khẩu  HD 6063	' },
-                { Ma: 'Ne 40 TCM 65/35', Ten: 'Ne 40 TCM 65/35', KLKH: '20', GhiChu: 'Nội địa - đóng tải trắng, giao hàng từ 4/11	' },
-                { Ma: 'Ne 40 TCM 65/35', Ten: 'Ne 40 TCM 65/35', KLKH: '11', GhiChu: 'Nội địa  đóng tải xanh - Đông Xuân 	' },
-                { Ma: 'Ne 30 TCM 65/35', Ten: 'Ne 30 TCM 65/36', KLKH: '28', GhiChu: 'Xuất khẩu HD 6078	' },
-                { Ma: 'Ne 45 TCM 65/35 DK ', Ten: 'Ne 45 TCM 65/35 DK ', KLKH: '20', GhiChu: 'Xuất khẩu  (đã ký HD)	' },
-                { Ma: 'Ne 40 TCM 65/35', Ten: 'Ne 40 TCM 65/36', KLKH: '22', GhiChu: 'Xuất khẩu ( Đã ký HĐ)	' },
-                { Ma: 'Ne 40 CVCM 50/50', Ten: 'Ne 40 CVCM 50/51', KLKH: '30', GhiChu: 'Xuất khẩu  HD 6069 (KH 2 cont giao tháng 11 + 2 cont giao tháng 12) dự kiến 16 tấn sx trong T10  	' },
-                { Ma: 'Ne 45 CVCM 60/40', Ten: 'Ne 45 CVCM 60/41', KLKH: '20', GhiChu: 'Giao hàng tháng 11 ( đã ký HD)	' },
-                { Ma: 'Ne 40 CVCM 60/40', Ten: 'Ne 40 CVCM 60/41', KLKH: '105', GhiChu: 'Xuất khẩu HD 6076 10 cont (5 cont giao tháng 11+ 5 cont giao tháng 12)	' },
-                { Ma: 'Ne 30 CVCM 60/40', Ten: 'Ne 30 CVCM 60/41', KLKH: '80', GhiChu: 'Xuất khẩu 6084(HĐ 10 cont 2 cont giao tháng 11 + 5 cont giao tháng 12+ 3 cont giao tháng 1)	' },
-                { Ma: 'Ne 40 CVCM 60/40', Ten: 'Ne 40 CVCM 60/40', KLKH: '5', GhiChu: 'Nội địa - đóng tải trắng (đóng đủ theo TBSX 20 tấn) 	' },
-                { Ma: 'Ne 40 CVCM 60/40', Ten: 'Ne 40 CVCM 60/40', KLKH: '10', GhiChu: 'Nội địa - Xuất công ty Bốn mùa	' },
-                { Ma: 'Sợi 24 TCD 65/35', Ten: 'Sợi 24 TCD 65/36', KLKH: '20', GhiChu: 'Xuất khẩu HD 6083	' },
-                { Ma: 'Sợi 30 TCD 65/35', Ten: 'Sợi 30 TCD 65/36', KLKH: '41', GhiChu: 'Xuất khẩu HD 6083	' },
-            ]
-        };
     }
     KiemTraButtonModal() {
         this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res) => {
@@ -14379,8 +14361,23 @@ let KehoachsanxuatmodalComponent = class KehoachsanxuatmodalComponent {
         });
     }
     GetFormOptions() {
-        this.services.GetOptions().GetMatHang().subscribe(res => {
-            console.log(res);
+        this.services.GetOptions().GetMatHang().subscribe((res) => {
+            this.listMatHang = res;
+        });
+        this.services.GetOptions().GetDonVi().subscribe((res) => {
+            this.listDonVi = Object(src_app_services_globalfunction__WEBPACK_IMPORTED_MODULE_8__["mapArrayForDropDown"])(res, 'TenDuAn', 'Id');
+            if (Object(src_app_services_globalfunction__WEBPACK_IMPORTED_MODULE_8__["validVariable"])(this.item.IdDuAn)) {
+                this.getPhanXuong(this.item.IdDuAn, true);
+            }
+        });
+    }
+    getPhanXuong(IdDuAn, update) {
+        this.listPhanXuong = [];
+        if (!!!update) {
+            this.item.IddmPhanXuong = null;
+        }
+        this.services.GetOptions().GetPhanXuong(IdDuAn).subscribe((res) => {
+            this.listPhanXuong = Object(src_app_services_globalfunction__WEBPACK_IMPORTED_MODULE_8__["mapArrayForDropDown"])(res, "Ten", 'Id');
         });
     }
     taiLenFileDinhKem() {
@@ -14438,35 +14435,53 @@ let KehoachsanxuatmodalComponent = class KehoachsanxuatmodalComponent {
             this.item.SoQuyTrinh = res.SoQuyetDinh;
         });
     }
-    // GetQuyTrinh(Id){
-    //   this.services.GetQuyTrinh(Id).subscribe(res=>{
-    //     // this.item = res;
-    //     console.log(res);
-    //   })
-    // }
+    GetQuyTrinh(Id) {
+        this.services.GiaoKeHoachSanXuat().Get(Id).subscribe(res => {
+            this.item = res;
+            // console.log(res);
+        });
+    }
+    validData() {
+        if (Object(src_app_services_globalfunction__WEBPACK_IMPORTED_MODULE_8__["validVariable"])(this.item.Ngay)) {
+            this.item.NgayUnix = Object(src_app_services_globalfunction__WEBPACK_IMPORTED_MODULE_8__["DateToUnix"])(this.item.Ngay);
+        }
+        else {
+            return false;
+        }
+        this.item.listItem.forEach(ele => {
+            ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach * 1000;
+        });
+        return true;
+    }
     chonHangHoa() {
-        this._modal.open(_modals_chonhanghoamodal_chonhanghoamodal_component__WEBPACK_IMPORTED_MODULE_8__["ChonhanghoamodalComponent"]);
+        let modalRef = this._modal.open(_modals_chonhanghoamodal_chonhanghoamodal_component__WEBPACK_IMPORTED_MODULE_9__["ChonhanghoamodalComponent"], {
+            size: 'lg'
+        });
+        modalRef.componentInstance.items = this.listMatHang;
+        modalRef.componentInstance.selectedItems = this.item.listItem || [];
+        modalRef.componentInstance.IdGiaoKeHoachSanXuat = this.item.Id;
+        modalRef.result.then(res => {
+            Object(src_app_services_globalfunction__WEBPACK_IMPORTED_MODULE_8__["merge"])(res, this.item.listItem, 'IddmItem');
+        }).catch(er => {
+            console.log(er);
+        });
     }
     GhiLai() {
-        console.log(JSON.stringify(this.item));
-        // if (this.item.listTaiSanQuyTrinh.length !== 0) {
-        //   this.services.GiaoKeHoachSanXuat().Set(this.item).subscribe((res: any) => {
-        //     if (res) {
-        //       if (res.State === 1) {
-        //         this.toastr.success(res.message)
-        //         this.opt = 'edit';
-        //         this.item = res.objectReturn;
-        //         // this.GetListdmPhuongAnSapXep()
-        //         this.KiemTraButtonModal();
-        //         // this.activeModal.close(res.message);
-        //       } else {
-        //         this.toastr.error(res.message);
-        //       }
-        //     }
-        //   })
-        // } else {
-        //   this.toastr.warning('Vui lòng chọn thửa đất để khởi tạo quy trình!');
-        // }
+        if (this.validData()) {
+            this.services.GiaoKeHoachSanXuat().Set(this.item).subscribe((res) => {
+                if (res) {
+                    if (res.State === 1) {
+                        this.toastr.success(res.message);
+                        this.opt = 'edit';
+                        this.item = res.objectReturn;
+                        this.KiemTraButtonModal();
+                    }
+                    else {
+                        this.toastr.error(res.message);
+                    }
+                }
+            });
+        }
     }
     XoaQuyTrinh() {
         let modalRef = this._modal.open(src_app_quantri_modal_modalthongbao_modalthongbao_component__WEBPACK_IMPORTED_MODULE_4__["ModalthongbaoComponent"], {
@@ -14485,35 +14500,19 @@ let KehoachsanxuatmodalComponent = class KehoachsanxuatmodalComponent {
             });
         }).catch(er => console.log(er));
     }
-    merge(newArr, existingArr) {
-        let removeIndex = [];
-        newArr.forEach((newEle) => {
-            let index = existingArr.findIndex((oldEle) => newEle.IDTaiSan === oldEle.IDTaiSan);
-            if (index === -1) {
-                existingArr.push(newEle);
-            }
-        });
-        existingArr.forEach((oldEle, index) => {
-            let indexCheck = newArr.findIndex((newEle) => newEle.IDTaiSan === oldEle.IDTaiSan);
-            if (indexCheck === -1) {
-                removeIndex.push(index);
-            }
-        });
-        for (var i = removeIndex.length - 1; i >= 0; i--) {
-            if (existingArr[i].ID === 0) {
-                existingArr.splice(removeIndex[i], 1);
-            }
-            else {
-                existingArr[i].isXoa = true;
-            }
-        }
-        return existingArr;
-    }
     changePhuongAnDeXuat(event, item) {
         item.TenPhuongAnDeXuat = event.Ten;
         item.IDdmPhuongAnDeXuat = event.ID;
     }
-    delete(item, index) {
+    delete(index) {
+        let item = this.item.listItem.splice(index, 1)[0];
+        // let item = this.items.splice(i, 1)[0];
+        if (item.Id.trim() === '') {
+        }
+        else {
+            item.isXoa = true;
+            this.item.lisItem.push(JSON.parse(JSON.stringify(item)));
+        }
     }
 };
 KehoachsanxuatmodalComponent.ctorParameters = () => [
@@ -15936,7 +15935,7 @@ let TrienkhaikehoachsanxuatComponent = class TrienkhaikehoachsanxuatComponent {
         this._service = _service;
         this.activatedRoute = activatedRoute;
         this.router = router;
-        this.items = [{ id: 5, SoQuyTrinh: 'PKK_0000_0000' }];
+        this.items = [];
         this.filter = {};
         this.listLoaiPhuongAn = [];
         this.trangThai = 1;
@@ -15964,8 +15963,12 @@ let TrienkhaikehoachsanxuatComponent = class TrienkhaikehoachsanxuatComponent {
         console.log(this.activatedRoute);
         this.activatedRoute.params.subscribe((res) => {
             if (res.id !== '0') {
-                let getitem = () => { return {}; };
-                this.update(getitem());
+                this._service.TrienKhaiKeHoachSanXuat().Get(res.id).subscribe((res) => {
+                    // res.listItem.forEach(ele => {
+                    //   ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
+                    // });
+                    this.update(res);
+                });
             }
         });
         this.KiemTraTabTrangThai();
@@ -15982,12 +15985,7 @@ let TrienkhaikehoachsanxuatComponent = class TrienkhaikehoachsanxuatComponent {
         });
         modalRef.componentInstance.opt = 'add';
         modalRef.componentInstance.item = {
-            SoQuyTrinh: 'PKK_0000_0001',
-            listKienHang: []
-            // ID:null,
-            // TepDinhKems:[],
-            // templistTaiSanQuyTrinh:[],
-            // listTaiSanQuyTrinh:[]
+            Id: '',
         };
         modalRef.componentInstance.checkbutton = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
         modalRef.result.then((res) => {
@@ -16123,17 +16121,13 @@ let TrienkhaikehoachsanxuatmodalComponent = class TrienkhaikehoachsanxuatmodalCo
         this._modal = _modal;
         this.opt = '';
         this.item = {
-            // SoQuyTrinh: 'PKK_0000_001',
-            listKienHang: []
+            Id: '',
         };
         this.filter = {};
         this.checkbutton = {};
         this.listPhuongAnSapXep = [];
         this.listLoHang = [];
         this.lang = src_app_services_const__WEBPACK_IMPORTED_MODULE_7__["vn"];
-        // this.checkbutton={
-        //   Ghi:true,Xoa:true,KhongDuyet:true,ChuyenTiep:true
-        // }
     }
     ngOnInit() {
         console.log(this.checkbutton);
@@ -16142,25 +16136,27 @@ let TrienkhaikehoachsanxuatmodalComponent = class TrienkhaikehoachsanxuatmodalCo
             { label: 'Đơn vị 2', value: 2 },
             { label: 'Đơn vị 3', value: 3 },
         ];
-        this.item = {
-            SoQuyTrinh: 'PTKKHSX001',
-            GhiChu: 'Chạy kế hoạch giai đoạn 1',
-            NoiDung: 'Kế hoạch sản xuất tháng 11 - Nhà máy Sợi Đồng Văn',
-            Ngay: new Date('2020-10-31T17:00:00.000Z'),
-            Created: new Date('2020-10-25T17:00:00.000Z'),
-            Modified: new Date('2020-10-25T17:00:00.000Z'),
-            listMatHang: [
-                { Ten: 'Ne 36 TCM 65/35', GiaoKeHoach: '13', KHTK: '13', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
-                { Ten: 'Ne 40 TCM 65/35', GiaoKeHoach: '20', KHTK: '20', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
-                { Ten: 'Ne 40 TCM 65/35', GiaoKeHoach: '11', KHTK: '11', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
-                { Ten: 'Ne 30 TCM 65/35', GiaoKeHoach: '28', KHTK: '28', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
-            ]
-        };
+        // this.item = {
+        //   SoQuyTrinh: 'PTKKHSX001',
+        //   GhiChu: 'Chạy kế hoạch giai đoạn 1',
+        //   NoiDung: 'Kế hoạch sản xuất tháng 11 - Nhà máy Sợi Đồng Văn',
+        //   Ngay: new Date('2020-10-31T17:00:00.000Z'),
+        //   Created: new Date('2020-10-25T17:00:00.000Z'),
+        //   Modified: new Date('2020-10-25T17:00:00.000Z'),
+        //   listMatHang: [
+        //     { Ten: 'Ne 36 TCM 65/35', GiaoKeHoach: '13', KHTK: '13', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
+        //     { Ten: 'Ne 40 TCM 65/35', GiaoKeHoach: '20', KHTK: '20', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
+        //     { Ten: 'Ne 40 TCM 65/35', GiaoKeHoach: '11', KHTK: '11', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
+        //     { Ten: 'Ne 30 TCM 65/35', GiaoKeHoach: '28', KHTK: '28', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
+        //   ]
+        // }
         // this.GetFormOptions()
         // this.KiemTraButtonModal();
         if (this.opt !== 'edit') {
             // this.GetNextSoQuyTrinh();
         }
+    }
+    getListKeHoachGiao() {
     }
     KiemTraButtonModal() {
         this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res) => {
@@ -18234,77 +18230,78 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _danhmuc_modal_modaldmtaisan_modaldmtaisan_component__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./danhmuc/modal/modaldmtaisan/modaldmtaisan.component */ "./src/app/quantri/danhmuc/modal/modaldmtaisan/modaldmtaisan.component.ts");
 /* harmony import */ var _services_isXoaPipe__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./../services/isXoaPipe */ "./src/app/services/isXoaPipe.ts");
 /* harmony import */ var _services_vnd_pipe__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ./../services/vnd.pipe */ "./src/app/services/vnd.pipe.ts");
-/* harmony import */ var _modal_uploadmodal_uploadmodal_component__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./modal/uploadmodal/uploadmodal.component */ "./src/app/quantri/modal/uploadmodal/uploadmodal.component.ts");
-/* harmony import */ var _components_thong_ke_thong_tin_thua_dat_thong_ke_thong_tin_thua_dat_component__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./components/thong-ke-thong-tin-thua-dat/thong-ke-thong-tin-thua-dat.component */ "./src/app/quantri/components/thong-ke-thong-tin-thua-dat/thong-ke-thong-tin-thua-dat.component.ts");
-/* harmony import */ var _danhmuc_tinh_tinh_component__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./danhmuc/tinh/tinh.component */ "./src/app/quantri/danhmuc/tinh/tinh.component.ts");
-/* harmony import */ var _danhmuc_quan_quan_component__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ./danhmuc/quan/quan.component */ "./src/app/quantri/danhmuc/quan/quan.component.ts");
-/* harmony import */ var _danhmuc_phuong_phuong_component__WEBPACK_IMPORTED_MODULE_76__ = __webpack_require__(/*! ./danhmuc/phuong/phuong.component */ "./src/app/quantri/danhmuc/phuong/phuong.component.ts");
-/* harmony import */ var _danhmuc_modal_modaltinh_modaltinh_component__WEBPACK_IMPORTED_MODULE_77__ = __webpack_require__(/*! ./danhmuc/modal/modaltinh/modaltinh.component */ "./src/app/quantri/danhmuc/modal/modaltinh/modaltinh.component.ts");
-/* harmony import */ var _danhmuc_dmcaphangcongtrinh_dmcaphangcongtrinh_component__WEBPACK_IMPORTED_MODULE_78__ = __webpack_require__(/*! ./danhmuc/dmcaphangcongtrinh/dmcaphangcongtrinh.component */ "./src/app/quantri/danhmuc/dmcaphangcongtrinh/dmcaphangcongtrinh.component.ts");
-/* harmony import */ var _danhmuc_modal_modalquan_modalquan_component__WEBPACK_IMPORTED_MODULE_79__ = __webpack_require__(/*! ./danhmuc/modal/modalquan/modalquan.component */ "./src/app/quantri/danhmuc/modal/modalquan/modalquan.component.ts");
-/* harmony import */ var _danhmuc_modal_modalphuong_modalphuong_component__WEBPACK_IMPORTED_MODULE_80__ = __webpack_require__(/*! ./danhmuc/modal/modalphuong/modalphuong.component */ "./src/app/quantri/danhmuc/modal/modalphuong/modalphuong.component.ts");
-/* harmony import */ var _danhmuc_modal_modalcaphangcongtrinh_modalcaphangcongtrinh_component__WEBPACK_IMPORTED_MODULE_81__ = __webpack_require__(/*! ./danhmuc/modal/modalcaphangcongtrinh/modalcaphangcongtrinh.component */ "./src/app/quantri/danhmuc/modal/modalcaphangcongtrinh/modalcaphangcongtrinh.component.ts");
-/* harmony import */ var _sapxepxuly_modal_modalphuongansapxep_modalphuongansapxep_component__WEBPACK_IMPORTED_MODULE_82__ = __webpack_require__(/*! ./sapxepxuly/modal/modalphuongansapxep/modalphuongansapxep.component */ "./src/app/quantri/sapxepxuly/modal/modalphuongansapxep/modalphuongansapxep.component.ts");
-/* harmony import */ var _theodoithongkebaocao_theodoithongkebaocao_component__WEBPACK_IMPORTED_MODULE_83__ = __webpack_require__(/*! ./theodoithongkebaocao/theodoithongkebaocao.component */ "./src/app/quantri/theodoithongkebaocao/theodoithongkebaocao.component.ts");
-/* harmony import */ var _baocao_bieu1a_bieu1a_component__WEBPACK_IMPORTED_MODULE_84__ = __webpack_require__(/*! ./baocao/bieu1a/bieu1a.component */ "./src/app/quantri/baocao/bieu1a/bieu1a.component.ts");
-/* harmony import */ var _baocao_bieu1b_bieu1b_component__WEBPACK_IMPORTED_MODULE_85__ = __webpack_require__(/*! ./baocao/bieu1b/bieu1b.component */ "./src/app/quantri/baocao/bieu1b/bieu1b.component.ts");
-/* harmony import */ var _baocao_bieu1c_bieu1c_component__WEBPACK_IMPORTED_MODULE_86__ = __webpack_require__(/*! ./baocao/bieu1c/bieu1c.component */ "./src/app/quantri/baocao/bieu1c/bieu1c.component.ts");
-/* harmony import */ var _baocao_bieu2a_bieu2a_component__WEBPACK_IMPORTED_MODULE_87__ = __webpack_require__(/*! ./baocao/bieu2a/bieu2a.component */ "./src/app/quantri/baocao/bieu2a/bieu2a.component.ts");
-/* harmony import */ var _baocao_bieu2b_bieu2b_component__WEBPACK_IMPORTED_MODULE_88__ = __webpack_require__(/*! ./baocao/bieu2b/bieu2b.component */ "./src/app/quantri/baocao/bieu2b/bieu2b.component.ts");
-/* harmony import */ var _baocao_bieu3_bieu3_component__WEBPACK_IMPORTED_MODULE_89__ = __webpack_require__(/*! ./baocao/bieu3/bieu3.component */ "./src/app/quantri/baocao/bieu3/bieu3.component.ts");
-/* harmony import */ var _baocao_bieu4_bieu4_component__WEBPACK_IMPORTED_MODULE_90__ = __webpack_require__(/*! ./baocao/bieu4/bieu4.component */ "./src/app/quantri/baocao/bieu4/bieu4.component.ts");
-/* harmony import */ var _baocao_bieu5_bieu5_component__WEBPACK_IMPORTED_MODULE_91__ = __webpack_require__(/*! ./baocao/bieu5/bieu5.component */ "./src/app/quantri/baocao/bieu5/bieu5.component.ts");
-/* harmony import */ var _baocao_baocaochitietcaccoso_baocaochitietcaccoso_component__WEBPACK_IMPORTED_MODULE_92__ = __webpack_require__(/*! ./baocao/baocaochitietcaccoso/baocaochitietcaccoso.component */ "./src/app/quantri/baocao/baocaochitietcaccoso/baocaochitietcaccoso.component.ts");
-/* harmony import */ var _modal_modalchitietthuadat_modalchitietthuadat_component__WEBPACK_IMPORTED_MODULE_93__ = __webpack_require__(/*! ./modal/modalchitietthuadat/modalchitietthuadat.component */ "./src/app/quantri/modal/modalchitietthuadat/modalchitietthuadat.component.ts");
-/* harmony import */ var _sapxepxuly_modal_modalquytrinhsapxep_modalquytrinhsapxep_component__WEBPACK_IMPORTED_MODULE_94__ = __webpack_require__(/*! ./sapxepxuly/modal/modalquytrinhsapxep/modalquytrinhsapxep.component */ "./src/app/quantri/sapxepxuly/modal/modalquytrinhsapxep/modalquytrinhsapxep.component.ts");
-/* harmony import */ var _sapxepxuly_modal_modalchonthuadat_modalchonthuadat_component__WEBPACK_IMPORTED_MODULE_95__ = __webpack_require__(/*! ./sapxepxuly/modal/modalchonthuadat/modalchonthuadat.component */ "./src/app/quantri/sapxepxuly/modal/modalchonthuadat/modalchonthuadat.component.ts");
-/* harmony import */ var _modal_modaldoimatkhau_modaldoimatkhau_component__WEBPACK_IMPORTED_MODULE_96__ = __webpack_require__(/*! ./modal/modaldoimatkhau/modaldoimatkhau.component */ "./src/app/quantri/modal/modaldoimatkhau/modaldoimatkhau.component.ts");
-/* harmony import */ var _danhmuc_dmhientrangsudung_dmhientrangsudung_component__WEBPACK_IMPORTED_MODULE_97__ = __webpack_require__(/*! ./danhmuc/dmhientrangsudung/dmhientrangsudung.component */ "./src/app/quantri/danhmuc/dmhientrangsudung/dmhientrangsudung.component.ts");
-/* harmony import */ var _danhmuc_donvisohuudatnha_donvisohuudatnha_component__WEBPACK_IMPORTED_MODULE_98__ = __webpack_require__(/*! ./danhmuc/donvisohuudatnha/donvisohuudatnha.component */ "./src/app/quantri/danhmuc/donvisohuudatnha/donvisohuudatnha.component.ts");
-/* harmony import */ var _danhmuc_modal_modaldonvisohuunhadat_modaldonvisohuunhadat_component__WEBPACK_IMPORTED_MODULE_99__ = __webpack_require__(/*! ./danhmuc/modal/modaldonvisohuunhadat/modaldonvisohuunhadat.component */ "./src/app/quantri/danhmuc/modal/modaldonvisohuunhadat/modaldonvisohuunhadat.component.ts");
-/* harmony import */ var _modal_modalthongtinchothue_modalthongtinchothue_component__WEBPACK_IMPORTED_MODULE_100__ = __webpack_require__(/*! ./modal/modalthongtinchothue/modalthongtinchothue.component */ "./src/app/quantri/modal/modalthongtinchothue/modalthongtinchothue.component.ts");
-/* harmony import */ var _modal_modalimportexcel_modalimportexcel_component__WEBPACK_IMPORTED_MODULE_101__ = __webpack_require__(/*! ./modal/modalimportexcel/modalimportexcel.component */ "./src/app/quantri/modal/modalimportexcel/modalimportexcel.component.ts");
-/* harmony import */ var _modal_modaladvancedsearch_modaladvancedsearch_component__WEBPACK_IMPORTED_MODULE_102__ = __webpack_require__(/*! ./modal/modaladvancedsearch/modaladvancedsearch.component */ "./src/app/quantri/modal/modaladvancedsearch/modaladvancedsearch.component.ts");
-/* harmony import */ var _danhmuc_dmloaivanban_dmloaivanban_component__WEBPACK_IMPORTED_MODULE_103__ = __webpack_require__(/*! ./danhmuc/dmloaivanban/dmloaivanban.component */ "./src/app/quantri/danhmuc/dmloaivanban/dmloaivanban.component.ts");
-/* harmony import */ var _baocao_baocaotaichinh_baocaotaichinh_component__WEBPACK_IMPORTED_MODULE_104__ = __webpack_require__(/*! ./baocao/baocaotaichinh/baocaotaichinh.component */ "./src/app/quantri/baocao/baocaotaichinh/baocaotaichinh.component.ts");
-/* harmony import */ var _uploadhdsd_uploadhdsd_component__WEBPACK_IMPORTED_MODULE_105__ = __webpack_require__(/*! ./uploadhdsd/uploadhdsd.component */ "./src/app/quantri/uploadhdsd/uploadhdsd.component.ts");
-/* harmony import */ var _modal_modalbaocaotonghop_modalbaocaotonghop_component__WEBPACK_IMPORTED_MODULE_106__ = __webpack_require__(/*! ./modal/modalbaocaotonghop/modalbaocaotonghop.component */ "./src/app/quantri/modal/modalbaocaotonghop/modalbaocaotonghop.component.ts");
-/* harmony import */ var _modal_modal_showgiadat_modal_showgiadat_component__WEBPACK_IMPORTED_MODULE_107__ = __webpack_require__(/*! ./modal/modal-showgiadat/modal-showgiadat.component */ "./src/app/quantri/modal/modal-showgiadat/modal-showgiadat.component.ts");
-/* harmony import */ var _danhmuc_dmkho_dmkho_component__WEBPACK_IMPORTED_MODULE_108__ = __webpack_require__(/*! ./danhmuc/dmkho/dmkho.component */ "./src/app/quantri/danhmuc/dmkho/dmkho.component.ts");
-/* harmony import */ var _danhmuc_modal_modaldmkho_modaldmkho_component__WEBPACK_IMPORTED_MODULE_109__ = __webpack_require__(/*! ./danhmuc/modal/modaldmkho/modaldmkho.component */ "./src/app/quantri/danhmuc/modal/modaldmkho/modaldmkho.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_kiemkekho_kiemkekho_component__WEBPACK_IMPORTED_MODULE_110__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/kiemkekho/kiemkekho.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/kiemkekho/kiemkekho.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_kiemkekhomodal_kiemkekhomodal_component__WEBPACK_IMPORTED_MODULE_111__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/kiemkekhomodal/kiemkekhomodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/kiemkekhomodal/kiemkekhomodal.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_nhapkho_nhapkho_component__WEBPACK_IMPORTED_MODULE_112__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/nhapkho/nhapkho.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/nhapkho/nhapkho.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_nhapkhomodal_nhapkhomodal_component__WEBPACK_IMPORTED_MODULE_113__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/nhapkhomodal/nhapkhomodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/nhapkhomodal/nhapkhomodal.component.ts");
-/* harmony import */ var _quanlykhosanxuat_phuongan_phabong_phabong_component__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ./quanlykhosanxuat/phuongan/phabong/phabong.component */ "./src/app/quantri/quanlykhosanxuat/phuongan/phabong/phabong.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_thongsochatluong_thongsochatluong_component__WEBPACK_IMPORTED_MODULE_115__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/thongsochatluong/thongsochatluong.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/thongsochatluong/thongsochatluong.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_thongsochatluongmodal_thongsochatluongmodal_component__WEBPACK_IMPORTED_MODULE_116__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/thongsochatluongmodal/thongsochatluongmodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/thongsochatluongmodal/thongsochatluongmodal.component.ts");
-/* harmony import */ var _quanlykhosanxuat_thongke_thongkesanluong_thongkesanluong_component__WEBPACK_IMPORTED_MODULE_117__ = __webpack_require__(/*! ./quanlykhosanxuat/thongke/thongkesanluong/thongkesanluong.component */ "./src/app/quantri/quanlykhosanxuat/thongke/thongkesanluong/thongkesanluong.component.ts");
-/* harmony import */ var _quanlykhosanxuat_thongke_thongkesanluongmodal_thongkesanluongmodal_component__WEBPACK_IMPORTED_MODULE_118__ = __webpack_require__(/*! ./quanlykhosanxuat/thongke/thongkesanluongmodal/thongkesanluongmodal.component */ "./src/app/quantri/quanlykhosanxuat/thongke/thongkesanluongmodal/thongkesanluongmodal.component.ts");
-/* harmony import */ var _quanlykhosanxuat_baocao_sanluongtonghop_sanluongtonghop_component__WEBPACK_IMPORTED_MODULE_119__ = __webpack_require__(/*! ./quanlykhosanxuat/baocao/sanluongtonghop/sanluongtonghop.component */ "./src/app/quantri/quanlykhosanxuat/baocao/sanluongtonghop/sanluongtonghop.component.ts");
-/* harmony import */ var _quanlykhosanxuat_baocao_sanluongchitiet_sanluongchitiet_component__WEBPACK_IMPORTED_MODULE_120__ = __webpack_require__(/*! ./quanlykhosanxuat/baocao/sanluongchitiet/sanluongchitiet.component */ "./src/app/quantri/quanlykhosanxuat/baocao/sanluongchitiet/sanluongchitiet.component.ts");
-/* harmony import */ var _danhmuc_danhmucsanxuat_loaibong_loaibong_component__WEBPACK_IMPORTED_MODULE_121__ = __webpack_require__(/*! ./danhmuc/danhmucsanxuat/loaibong/loaibong.component */ "./src/app/quantri/danhmuc/danhmucsanxuat/loaibong/loaibong.component.ts");
-/* harmony import */ var _danhmuc_danhmucsanxuat_capbong_capbong_component__WEBPACK_IMPORTED_MODULE_122__ = __webpack_require__(/*! ./danhmuc/danhmucsanxuat/capbong/capbong.component */ "./src/app/quantri/danhmuc/danhmucsanxuat/capbong/capbong.component.ts");
-/* harmony import */ var _danhmuc_danhmucsanxuat_casanxuat_casanxuat_component__WEBPACK_IMPORTED_MODULE_123__ = __webpack_require__(/*! ./danhmuc/danhmucsanxuat/casanxuat/casanxuat.component */ "./src/app/quantri/danhmuc/danhmucsanxuat/casanxuat/casanxuat.component.ts");
-/* harmony import */ var _danhmuc_danhmucsanxuat_danhsachmay_danhsachmay_component__WEBPACK_IMPORTED_MODULE_124__ = __webpack_require__(/*! ./danhmuc/danhmucsanxuat/danhsachmay/danhsachmay.component */ "./src/app/quantri/danhmuc/danhmucsanxuat/danhsachmay/danhsachmay.component.ts");
-/* harmony import */ var _danhmuc_danhmucsanxuat_modals_danhsachmaymodal_danhsachmaymodal_component__WEBPACK_IMPORTED_MODULE_125__ = __webpack_require__(/*! ./danhmuc/danhmucsanxuat/modals/danhsachmaymodal/danhsachmaymodal.component */ "./src/app/quantri/danhmuc/danhmucsanxuat/modals/danhsachmaymodal/danhsachmaymodal.component.ts");
-/* harmony import */ var _quanlykhosanxuat_phuongan_phabongmodal_phabongmodal_component__WEBPACK_IMPORTED_MODULE_126__ = __webpack_require__(/*! ./quanlykhosanxuat/phuongan/phabongmodal/phabongmodal.component */ "./src/app/quantri/quanlykhosanxuat/phuongan/phabongmodal/phabongmodal.component.ts");
-/* harmony import */ var _quanlykhosanxuat_phuongan_dat09_dat09_component__WEBPACK_IMPORTED_MODULE_127__ = __webpack_require__(/*! ./quanlykhosanxuat/phuongan/dat09/dat09.component */ "./src/app/quantri/quanlykhosanxuat/phuongan/dat09/dat09.component.ts");
-/* harmony import */ var _dieuhanhsanxuat_dieuhanhsanxuat_component__WEBPACK_IMPORTED_MODULE_128__ = __webpack_require__(/*! ./dieuhanhsanxuat/dieuhanhsanxuat.component */ "./src/app/quantri/dieuhanhsanxuat/dieuhanhsanxuat.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_kehoachsanxuat_kehoachsanxuat_component__WEBPACK_IMPORTED_MODULE_129__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/kehoachsanxuat/kehoachsanxuat.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/kehoachsanxuat/kehoachsanxuat.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_kehoachsanxuatmodal_kehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_130__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/kehoachsanxuatmodal/kehoachsanxuatmodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/kehoachsanxuatmodal/kehoachsanxuatmodal.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_xuatkho_xuatkho_component__WEBPACK_IMPORTED_MODULE_131__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/xuatkho/xuatkho.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/xuatkho/xuatkho.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_xuatkhomodal_xuatkhomodal_component__WEBPACK_IMPORTED_MODULE_132__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/xuatkhomodal/xuatkhomodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/xuatkhomodal/xuatkhomodal.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_dieuchuyen_dieuchuyen_component__WEBPACK_IMPORTED_MODULE_133__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/dieuchuyen/dieuchuyen.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/dieuchuyen/dieuchuyen.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_dieuchuyenmodal_dieuchuyenmodal_component__WEBPACK_IMPORTED_MODULE_134__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/dieuchuyenmodal/dieuchuyenmodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/dieuchuyenmodal/dieuchuyenmodal.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_hacap_hacap_component__WEBPACK_IMPORTED_MODULE_135__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/hacap/hacap.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/hacap/hacap.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_hacapmodal_hacapmodal_component__WEBPACK_IMPORTED_MODULE_136__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/hacapmodal/hacapmodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/hacapmodal/hacapmodal.component.ts");
-/* harmony import */ var _quanlykhosanxuat_modals_chonhanghoamodal_chonhanghoamodal_component__WEBPACK_IMPORTED_MODULE_137__ = __webpack_require__(/*! ./quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component */ "./src/app/quantri/quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_trienkhaikehoachsanxuat_trienkhaikehoachsanxuat_component__WEBPACK_IMPORTED_MODULE_138__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuat/trienkhaikehoachsanxuat.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuat/trienkhaikehoachsanxuat.component.ts");
-/* harmony import */ var _quanlykhosanxuat_quytrinh_trienkhaikehoachsanxuatmodal_trienkhaikehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_139__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuatmodal/trienkhaikehoachsanxuatmodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuatmodal/trienkhaikehoachsanxuatmodal.component.ts");
-/* harmony import */ var _quanlykhosanxuat_phuongan_timbong_timbong_component__WEBPACK_IMPORTED_MODULE_140__ = __webpack_require__(/*! ./quanlykhosanxuat/phuongan/timbong/timbong.component */ "./src/app/quantri/quanlykhosanxuat/phuongan/timbong/timbong.component.ts");
-/* harmony import */ var _quanlykhosanxuat_phuongan_timbongmodal_timbongmodal_component__WEBPACK_IMPORTED_MODULE_141__ = __webpack_require__(/*! ./quanlykhosanxuat/phuongan/timbongmodal/timbongmodal.component */ "./src/app/quantri/quanlykhosanxuat/phuongan/timbongmodal/timbongmodal.component.ts");
-/* harmony import */ var _quanlykhosanxuat_modals_botrimaymodal_botrimaymodal_component__WEBPACK_IMPORTED_MODULE_142__ = __webpack_require__(/*! ./quanlykhosanxuat/modals/botrimaymodal/botrimaymodal.component */ "./src/app/quantri/quanlykhosanxuat/modals/botrimaymodal/botrimaymodal.component.ts");
+/* harmony import */ var _services_filter_pipe__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ./../services/filter.pipe */ "./src/app/services/filter.pipe.ts");
+/* harmony import */ var _modal_uploadmodal_uploadmodal_component__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! ./modal/uploadmodal/uploadmodal.component */ "./src/app/quantri/modal/uploadmodal/uploadmodal.component.ts");
+/* harmony import */ var _components_thong_ke_thong_tin_thua_dat_thong_ke_thong_tin_thua_dat_component__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! ./components/thong-ke-thong-tin-thua-dat/thong-ke-thong-tin-thua-dat.component */ "./src/app/quantri/components/thong-ke-thong-tin-thua-dat/thong-ke-thong-tin-thua-dat.component.ts");
+/* harmony import */ var _danhmuc_tinh_tinh_component__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! ./danhmuc/tinh/tinh.component */ "./src/app/quantri/danhmuc/tinh/tinh.component.ts");
+/* harmony import */ var _danhmuc_quan_quan_component__WEBPACK_IMPORTED_MODULE_76__ = __webpack_require__(/*! ./danhmuc/quan/quan.component */ "./src/app/quantri/danhmuc/quan/quan.component.ts");
+/* harmony import */ var _danhmuc_phuong_phuong_component__WEBPACK_IMPORTED_MODULE_77__ = __webpack_require__(/*! ./danhmuc/phuong/phuong.component */ "./src/app/quantri/danhmuc/phuong/phuong.component.ts");
+/* harmony import */ var _danhmuc_modal_modaltinh_modaltinh_component__WEBPACK_IMPORTED_MODULE_78__ = __webpack_require__(/*! ./danhmuc/modal/modaltinh/modaltinh.component */ "./src/app/quantri/danhmuc/modal/modaltinh/modaltinh.component.ts");
+/* harmony import */ var _danhmuc_dmcaphangcongtrinh_dmcaphangcongtrinh_component__WEBPACK_IMPORTED_MODULE_79__ = __webpack_require__(/*! ./danhmuc/dmcaphangcongtrinh/dmcaphangcongtrinh.component */ "./src/app/quantri/danhmuc/dmcaphangcongtrinh/dmcaphangcongtrinh.component.ts");
+/* harmony import */ var _danhmuc_modal_modalquan_modalquan_component__WEBPACK_IMPORTED_MODULE_80__ = __webpack_require__(/*! ./danhmuc/modal/modalquan/modalquan.component */ "./src/app/quantri/danhmuc/modal/modalquan/modalquan.component.ts");
+/* harmony import */ var _danhmuc_modal_modalphuong_modalphuong_component__WEBPACK_IMPORTED_MODULE_81__ = __webpack_require__(/*! ./danhmuc/modal/modalphuong/modalphuong.component */ "./src/app/quantri/danhmuc/modal/modalphuong/modalphuong.component.ts");
+/* harmony import */ var _danhmuc_modal_modalcaphangcongtrinh_modalcaphangcongtrinh_component__WEBPACK_IMPORTED_MODULE_82__ = __webpack_require__(/*! ./danhmuc/modal/modalcaphangcongtrinh/modalcaphangcongtrinh.component */ "./src/app/quantri/danhmuc/modal/modalcaphangcongtrinh/modalcaphangcongtrinh.component.ts");
+/* harmony import */ var _sapxepxuly_modal_modalphuongansapxep_modalphuongansapxep_component__WEBPACK_IMPORTED_MODULE_83__ = __webpack_require__(/*! ./sapxepxuly/modal/modalphuongansapxep/modalphuongansapxep.component */ "./src/app/quantri/sapxepxuly/modal/modalphuongansapxep/modalphuongansapxep.component.ts");
+/* harmony import */ var _theodoithongkebaocao_theodoithongkebaocao_component__WEBPACK_IMPORTED_MODULE_84__ = __webpack_require__(/*! ./theodoithongkebaocao/theodoithongkebaocao.component */ "./src/app/quantri/theodoithongkebaocao/theodoithongkebaocao.component.ts");
+/* harmony import */ var _baocao_bieu1a_bieu1a_component__WEBPACK_IMPORTED_MODULE_85__ = __webpack_require__(/*! ./baocao/bieu1a/bieu1a.component */ "./src/app/quantri/baocao/bieu1a/bieu1a.component.ts");
+/* harmony import */ var _baocao_bieu1b_bieu1b_component__WEBPACK_IMPORTED_MODULE_86__ = __webpack_require__(/*! ./baocao/bieu1b/bieu1b.component */ "./src/app/quantri/baocao/bieu1b/bieu1b.component.ts");
+/* harmony import */ var _baocao_bieu1c_bieu1c_component__WEBPACK_IMPORTED_MODULE_87__ = __webpack_require__(/*! ./baocao/bieu1c/bieu1c.component */ "./src/app/quantri/baocao/bieu1c/bieu1c.component.ts");
+/* harmony import */ var _baocao_bieu2a_bieu2a_component__WEBPACK_IMPORTED_MODULE_88__ = __webpack_require__(/*! ./baocao/bieu2a/bieu2a.component */ "./src/app/quantri/baocao/bieu2a/bieu2a.component.ts");
+/* harmony import */ var _baocao_bieu2b_bieu2b_component__WEBPACK_IMPORTED_MODULE_89__ = __webpack_require__(/*! ./baocao/bieu2b/bieu2b.component */ "./src/app/quantri/baocao/bieu2b/bieu2b.component.ts");
+/* harmony import */ var _baocao_bieu3_bieu3_component__WEBPACK_IMPORTED_MODULE_90__ = __webpack_require__(/*! ./baocao/bieu3/bieu3.component */ "./src/app/quantri/baocao/bieu3/bieu3.component.ts");
+/* harmony import */ var _baocao_bieu4_bieu4_component__WEBPACK_IMPORTED_MODULE_91__ = __webpack_require__(/*! ./baocao/bieu4/bieu4.component */ "./src/app/quantri/baocao/bieu4/bieu4.component.ts");
+/* harmony import */ var _baocao_bieu5_bieu5_component__WEBPACK_IMPORTED_MODULE_92__ = __webpack_require__(/*! ./baocao/bieu5/bieu5.component */ "./src/app/quantri/baocao/bieu5/bieu5.component.ts");
+/* harmony import */ var _baocao_baocaochitietcaccoso_baocaochitietcaccoso_component__WEBPACK_IMPORTED_MODULE_93__ = __webpack_require__(/*! ./baocao/baocaochitietcaccoso/baocaochitietcaccoso.component */ "./src/app/quantri/baocao/baocaochitietcaccoso/baocaochitietcaccoso.component.ts");
+/* harmony import */ var _modal_modalchitietthuadat_modalchitietthuadat_component__WEBPACK_IMPORTED_MODULE_94__ = __webpack_require__(/*! ./modal/modalchitietthuadat/modalchitietthuadat.component */ "./src/app/quantri/modal/modalchitietthuadat/modalchitietthuadat.component.ts");
+/* harmony import */ var _sapxepxuly_modal_modalquytrinhsapxep_modalquytrinhsapxep_component__WEBPACK_IMPORTED_MODULE_95__ = __webpack_require__(/*! ./sapxepxuly/modal/modalquytrinhsapxep/modalquytrinhsapxep.component */ "./src/app/quantri/sapxepxuly/modal/modalquytrinhsapxep/modalquytrinhsapxep.component.ts");
+/* harmony import */ var _sapxepxuly_modal_modalchonthuadat_modalchonthuadat_component__WEBPACK_IMPORTED_MODULE_96__ = __webpack_require__(/*! ./sapxepxuly/modal/modalchonthuadat/modalchonthuadat.component */ "./src/app/quantri/sapxepxuly/modal/modalchonthuadat/modalchonthuadat.component.ts");
+/* harmony import */ var _modal_modaldoimatkhau_modaldoimatkhau_component__WEBPACK_IMPORTED_MODULE_97__ = __webpack_require__(/*! ./modal/modaldoimatkhau/modaldoimatkhau.component */ "./src/app/quantri/modal/modaldoimatkhau/modaldoimatkhau.component.ts");
+/* harmony import */ var _danhmuc_dmhientrangsudung_dmhientrangsudung_component__WEBPACK_IMPORTED_MODULE_98__ = __webpack_require__(/*! ./danhmuc/dmhientrangsudung/dmhientrangsudung.component */ "./src/app/quantri/danhmuc/dmhientrangsudung/dmhientrangsudung.component.ts");
+/* harmony import */ var _danhmuc_donvisohuudatnha_donvisohuudatnha_component__WEBPACK_IMPORTED_MODULE_99__ = __webpack_require__(/*! ./danhmuc/donvisohuudatnha/donvisohuudatnha.component */ "./src/app/quantri/danhmuc/donvisohuudatnha/donvisohuudatnha.component.ts");
+/* harmony import */ var _danhmuc_modal_modaldonvisohuunhadat_modaldonvisohuunhadat_component__WEBPACK_IMPORTED_MODULE_100__ = __webpack_require__(/*! ./danhmuc/modal/modaldonvisohuunhadat/modaldonvisohuunhadat.component */ "./src/app/quantri/danhmuc/modal/modaldonvisohuunhadat/modaldonvisohuunhadat.component.ts");
+/* harmony import */ var _modal_modalthongtinchothue_modalthongtinchothue_component__WEBPACK_IMPORTED_MODULE_101__ = __webpack_require__(/*! ./modal/modalthongtinchothue/modalthongtinchothue.component */ "./src/app/quantri/modal/modalthongtinchothue/modalthongtinchothue.component.ts");
+/* harmony import */ var _modal_modalimportexcel_modalimportexcel_component__WEBPACK_IMPORTED_MODULE_102__ = __webpack_require__(/*! ./modal/modalimportexcel/modalimportexcel.component */ "./src/app/quantri/modal/modalimportexcel/modalimportexcel.component.ts");
+/* harmony import */ var _modal_modaladvancedsearch_modaladvancedsearch_component__WEBPACK_IMPORTED_MODULE_103__ = __webpack_require__(/*! ./modal/modaladvancedsearch/modaladvancedsearch.component */ "./src/app/quantri/modal/modaladvancedsearch/modaladvancedsearch.component.ts");
+/* harmony import */ var _danhmuc_dmloaivanban_dmloaivanban_component__WEBPACK_IMPORTED_MODULE_104__ = __webpack_require__(/*! ./danhmuc/dmloaivanban/dmloaivanban.component */ "./src/app/quantri/danhmuc/dmloaivanban/dmloaivanban.component.ts");
+/* harmony import */ var _baocao_baocaotaichinh_baocaotaichinh_component__WEBPACK_IMPORTED_MODULE_105__ = __webpack_require__(/*! ./baocao/baocaotaichinh/baocaotaichinh.component */ "./src/app/quantri/baocao/baocaotaichinh/baocaotaichinh.component.ts");
+/* harmony import */ var _uploadhdsd_uploadhdsd_component__WEBPACK_IMPORTED_MODULE_106__ = __webpack_require__(/*! ./uploadhdsd/uploadhdsd.component */ "./src/app/quantri/uploadhdsd/uploadhdsd.component.ts");
+/* harmony import */ var _modal_modalbaocaotonghop_modalbaocaotonghop_component__WEBPACK_IMPORTED_MODULE_107__ = __webpack_require__(/*! ./modal/modalbaocaotonghop/modalbaocaotonghop.component */ "./src/app/quantri/modal/modalbaocaotonghop/modalbaocaotonghop.component.ts");
+/* harmony import */ var _modal_modal_showgiadat_modal_showgiadat_component__WEBPACK_IMPORTED_MODULE_108__ = __webpack_require__(/*! ./modal/modal-showgiadat/modal-showgiadat.component */ "./src/app/quantri/modal/modal-showgiadat/modal-showgiadat.component.ts");
+/* harmony import */ var _danhmuc_dmkho_dmkho_component__WEBPACK_IMPORTED_MODULE_109__ = __webpack_require__(/*! ./danhmuc/dmkho/dmkho.component */ "./src/app/quantri/danhmuc/dmkho/dmkho.component.ts");
+/* harmony import */ var _danhmuc_modal_modaldmkho_modaldmkho_component__WEBPACK_IMPORTED_MODULE_110__ = __webpack_require__(/*! ./danhmuc/modal/modaldmkho/modaldmkho.component */ "./src/app/quantri/danhmuc/modal/modaldmkho/modaldmkho.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_kiemkekho_kiemkekho_component__WEBPACK_IMPORTED_MODULE_111__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/kiemkekho/kiemkekho.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/kiemkekho/kiemkekho.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_kiemkekhomodal_kiemkekhomodal_component__WEBPACK_IMPORTED_MODULE_112__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/kiemkekhomodal/kiemkekhomodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/kiemkekhomodal/kiemkekhomodal.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_nhapkho_nhapkho_component__WEBPACK_IMPORTED_MODULE_113__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/nhapkho/nhapkho.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/nhapkho/nhapkho.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_nhapkhomodal_nhapkhomodal_component__WEBPACK_IMPORTED_MODULE_114__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/nhapkhomodal/nhapkhomodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/nhapkhomodal/nhapkhomodal.component.ts");
+/* harmony import */ var _quanlykhosanxuat_phuongan_phabong_phabong_component__WEBPACK_IMPORTED_MODULE_115__ = __webpack_require__(/*! ./quanlykhosanxuat/phuongan/phabong/phabong.component */ "./src/app/quantri/quanlykhosanxuat/phuongan/phabong/phabong.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_thongsochatluong_thongsochatluong_component__WEBPACK_IMPORTED_MODULE_116__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/thongsochatluong/thongsochatluong.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/thongsochatluong/thongsochatluong.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_thongsochatluongmodal_thongsochatluongmodal_component__WEBPACK_IMPORTED_MODULE_117__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/thongsochatluongmodal/thongsochatluongmodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/thongsochatluongmodal/thongsochatluongmodal.component.ts");
+/* harmony import */ var _quanlykhosanxuat_thongke_thongkesanluong_thongkesanluong_component__WEBPACK_IMPORTED_MODULE_118__ = __webpack_require__(/*! ./quanlykhosanxuat/thongke/thongkesanluong/thongkesanluong.component */ "./src/app/quantri/quanlykhosanxuat/thongke/thongkesanluong/thongkesanluong.component.ts");
+/* harmony import */ var _quanlykhosanxuat_thongke_thongkesanluongmodal_thongkesanluongmodal_component__WEBPACK_IMPORTED_MODULE_119__ = __webpack_require__(/*! ./quanlykhosanxuat/thongke/thongkesanluongmodal/thongkesanluongmodal.component */ "./src/app/quantri/quanlykhosanxuat/thongke/thongkesanluongmodal/thongkesanluongmodal.component.ts");
+/* harmony import */ var _quanlykhosanxuat_baocao_sanluongtonghop_sanluongtonghop_component__WEBPACK_IMPORTED_MODULE_120__ = __webpack_require__(/*! ./quanlykhosanxuat/baocao/sanluongtonghop/sanluongtonghop.component */ "./src/app/quantri/quanlykhosanxuat/baocao/sanluongtonghop/sanluongtonghop.component.ts");
+/* harmony import */ var _quanlykhosanxuat_baocao_sanluongchitiet_sanluongchitiet_component__WEBPACK_IMPORTED_MODULE_121__ = __webpack_require__(/*! ./quanlykhosanxuat/baocao/sanluongchitiet/sanluongchitiet.component */ "./src/app/quantri/quanlykhosanxuat/baocao/sanluongchitiet/sanluongchitiet.component.ts");
+/* harmony import */ var _danhmuc_danhmucsanxuat_loaibong_loaibong_component__WEBPACK_IMPORTED_MODULE_122__ = __webpack_require__(/*! ./danhmuc/danhmucsanxuat/loaibong/loaibong.component */ "./src/app/quantri/danhmuc/danhmucsanxuat/loaibong/loaibong.component.ts");
+/* harmony import */ var _danhmuc_danhmucsanxuat_capbong_capbong_component__WEBPACK_IMPORTED_MODULE_123__ = __webpack_require__(/*! ./danhmuc/danhmucsanxuat/capbong/capbong.component */ "./src/app/quantri/danhmuc/danhmucsanxuat/capbong/capbong.component.ts");
+/* harmony import */ var _danhmuc_danhmucsanxuat_casanxuat_casanxuat_component__WEBPACK_IMPORTED_MODULE_124__ = __webpack_require__(/*! ./danhmuc/danhmucsanxuat/casanxuat/casanxuat.component */ "./src/app/quantri/danhmuc/danhmucsanxuat/casanxuat/casanxuat.component.ts");
+/* harmony import */ var _danhmuc_danhmucsanxuat_danhsachmay_danhsachmay_component__WEBPACK_IMPORTED_MODULE_125__ = __webpack_require__(/*! ./danhmuc/danhmucsanxuat/danhsachmay/danhsachmay.component */ "./src/app/quantri/danhmuc/danhmucsanxuat/danhsachmay/danhsachmay.component.ts");
+/* harmony import */ var _danhmuc_danhmucsanxuat_modals_danhsachmaymodal_danhsachmaymodal_component__WEBPACK_IMPORTED_MODULE_126__ = __webpack_require__(/*! ./danhmuc/danhmucsanxuat/modals/danhsachmaymodal/danhsachmaymodal.component */ "./src/app/quantri/danhmuc/danhmucsanxuat/modals/danhsachmaymodal/danhsachmaymodal.component.ts");
+/* harmony import */ var _quanlykhosanxuat_phuongan_phabongmodal_phabongmodal_component__WEBPACK_IMPORTED_MODULE_127__ = __webpack_require__(/*! ./quanlykhosanxuat/phuongan/phabongmodal/phabongmodal.component */ "./src/app/quantri/quanlykhosanxuat/phuongan/phabongmodal/phabongmodal.component.ts");
+/* harmony import */ var _quanlykhosanxuat_phuongan_dat09_dat09_component__WEBPACK_IMPORTED_MODULE_128__ = __webpack_require__(/*! ./quanlykhosanxuat/phuongan/dat09/dat09.component */ "./src/app/quantri/quanlykhosanxuat/phuongan/dat09/dat09.component.ts");
+/* harmony import */ var _dieuhanhsanxuat_dieuhanhsanxuat_component__WEBPACK_IMPORTED_MODULE_129__ = __webpack_require__(/*! ./dieuhanhsanxuat/dieuhanhsanxuat.component */ "./src/app/quantri/dieuhanhsanxuat/dieuhanhsanxuat.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_kehoachsanxuat_kehoachsanxuat_component__WEBPACK_IMPORTED_MODULE_130__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/kehoachsanxuat/kehoachsanxuat.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/kehoachsanxuat/kehoachsanxuat.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_kehoachsanxuatmodal_kehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_131__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/kehoachsanxuatmodal/kehoachsanxuatmodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/kehoachsanxuatmodal/kehoachsanxuatmodal.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_xuatkho_xuatkho_component__WEBPACK_IMPORTED_MODULE_132__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/xuatkho/xuatkho.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/xuatkho/xuatkho.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_xuatkhomodal_xuatkhomodal_component__WEBPACK_IMPORTED_MODULE_133__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/xuatkhomodal/xuatkhomodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/xuatkhomodal/xuatkhomodal.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_dieuchuyen_dieuchuyen_component__WEBPACK_IMPORTED_MODULE_134__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/dieuchuyen/dieuchuyen.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/dieuchuyen/dieuchuyen.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_dieuchuyenmodal_dieuchuyenmodal_component__WEBPACK_IMPORTED_MODULE_135__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/dieuchuyenmodal/dieuchuyenmodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/dieuchuyenmodal/dieuchuyenmodal.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_hacap_hacap_component__WEBPACK_IMPORTED_MODULE_136__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/hacap/hacap.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/hacap/hacap.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_hacapmodal_hacapmodal_component__WEBPACK_IMPORTED_MODULE_137__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/hacapmodal/hacapmodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/hacapmodal/hacapmodal.component.ts");
+/* harmony import */ var _quanlykhosanxuat_modals_chonhanghoamodal_chonhanghoamodal_component__WEBPACK_IMPORTED_MODULE_138__ = __webpack_require__(/*! ./quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component */ "./src/app/quantri/quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_trienkhaikehoachsanxuat_trienkhaikehoachsanxuat_component__WEBPACK_IMPORTED_MODULE_139__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuat/trienkhaikehoachsanxuat.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuat/trienkhaikehoachsanxuat.component.ts");
+/* harmony import */ var _quanlykhosanxuat_quytrinh_trienkhaikehoachsanxuatmodal_trienkhaikehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_140__ = __webpack_require__(/*! ./quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuatmodal/trienkhaikehoachsanxuatmodal.component */ "./src/app/quantri/quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuatmodal/trienkhaikehoachsanxuatmodal.component.ts");
+/* harmony import */ var _quanlykhosanxuat_phuongan_timbong_timbong_component__WEBPACK_IMPORTED_MODULE_141__ = __webpack_require__(/*! ./quanlykhosanxuat/phuongan/timbong/timbong.component */ "./src/app/quantri/quanlykhosanxuat/phuongan/timbong/timbong.component.ts");
+/* harmony import */ var _quanlykhosanxuat_phuongan_timbongmodal_timbongmodal_component__WEBPACK_IMPORTED_MODULE_142__ = __webpack_require__(/*! ./quanlykhosanxuat/phuongan/timbongmodal/timbongmodal.component */ "./src/app/quantri/quanlykhosanxuat/phuongan/timbongmodal/timbongmodal.component.ts");
+/* harmony import */ var _quanlykhosanxuat_modals_botrimaymodal_botrimaymodal_component__WEBPACK_IMPORTED_MODULE_143__ = __webpack_require__(/*! ./quanlykhosanxuat/modals/botrimaymodal/botrimaymodal.component */ "./src/app/quantri/quanlykhosanxuat/modals/botrimaymodal/botrimaymodal.component.ts");
 
 
 
@@ -18342,6 +18339,7 @@ __webpack_require__.r(__webpack_exports__);
 // import { FileUploadModule } from 'primeng/fileupload';
 
 Object(_angular_common__WEBPACK_IMPORTED_MODULE_2__["registerLocaleData"])(_angular_common_locales_vi__WEBPACK_IMPORTED_MODULE_33___default.a);
+
 
 
 
@@ -18492,77 +18490,78 @@ QuantriModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _danhmuc_modal_modaldmtaisan_modaldmtaisan_component__WEBPACK_IMPORTED_MODULE_69__["ModaldmtaisanComponent"],
             _services_isXoaPipe__WEBPACK_IMPORTED_MODULE_70__["isXoaPipe"],
             _services_vnd_pipe__WEBPACK_IMPORTED_MODULE_71__["VNDPipe"],
-            _modal_uploadmodal_uploadmodal_component__WEBPACK_IMPORTED_MODULE_72__["UploadmodalComponent"],
-            _components_thong_ke_thong_tin_thua_dat_thong_ke_thong_tin_thua_dat_component__WEBPACK_IMPORTED_MODULE_73__["ThongKeThongTinThuaDatComponent"],
-            _danhmuc_tinh_tinh_component__WEBPACK_IMPORTED_MODULE_74__["TinhComponent"],
-            _danhmuc_quan_quan_component__WEBPACK_IMPORTED_MODULE_75__["QuanComponent"],
-            _danhmuc_phuong_phuong_component__WEBPACK_IMPORTED_MODULE_76__["PhuongComponent"],
-            _danhmuc_modal_modaltinh_modaltinh_component__WEBPACK_IMPORTED_MODULE_77__["ModaltinhComponent"],
-            _danhmuc_dmcaphangcongtrinh_dmcaphangcongtrinh_component__WEBPACK_IMPORTED_MODULE_78__["DmcaphangcongtrinhComponent"],
-            _danhmuc_modal_modalquan_modalquan_component__WEBPACK_IMPORTED_MODULE_79__["ModalquanComponent"],
-            _danhmuc_modal_modalphuong_modalphuong_component__WEBPACK_IMPORTED_MODULE_80__["ModalphuongComponent"],
-            _danhmuc_modal_modalcaphangcongtrinh_modalcaphangcongtrinh_component__WEBPACK_IMPORTED_MODULE_81__["ModalcaphangcongtrinhComponent"],
-            _sapxepxuly_modal_modalphuongansapxep_modalphuongansapxep_component__WEBPACK_IMPORTED_MODULE_82__["ModalphuongansapxepComponent"],
-            _theodoithongkebaocao_theodoithongkebaocao_component__WEBPACK_IMPORTED_MODULE_83__["TheodoithongkebaocaoComponent"],
-            _baocao_bieu1a_bieu1a_component__WEBPACK_IMPORTED_MODULE_84__["Bieu1aComponent"],
-            _baocao_bieu1b_bieu1b_component__WEBPACK_IMPORTED_MODULE_85__["Bieu1bComponent"],
-            _baocao_bieu1c_bieu1c_component__WEBPACK_IMPORTED_MODULE_86__["Bieu1cComponent"],
-            _baocao_bieu2a_bieu2a_component__WEBPACK_IMPORTED_MODULE_87__["Bieu2aComponent"],
-            _baocao_bieu2b_bieu2b_component__WEBPACK_IMPORTED_MODULE_88__["Bieu2bComponent"],
-            _baocao_bieu3_bieu3_component__WEBPACK_IMPORTED_MODULE_89__["Bieu3Component"],
-            _baocao_bieu4_bieu4_component__WEBPACK_IMPORTED_MODULE_90__["Bieu4Component"],
-            _baocao_bieu5_bieu5_component__WEBPACK_IMPORTED_MODULE_91__["Bieu5Component"],
-            _baocao_baocaochitietcaccoso_baocaochitietcaccoso_component__WEBPACK_IMPORTED_MODULE_92__["BaocaochitietcaccosoComponent"],
-            _modal_modalchitietthuadat_modalchitietthuadat_component__WEBPACK_IMPORTED_MODULE_93__["ModalchitietthuadatComponent"],
-            _sapxepxuly_modal_modalquytrinhsapxep_modalquytrinhsapxep_component__WEBPACK_IMPORTED_MODULE_94__["ModalquytrinhsapxepComponent"],
-            _sapxepxuly_modal_modalchonthuadat_modalchonthuadat_component__WEBPACK_IMPORTED_MODULE_95__["ModalchonthuadatComponent"],
-            _modal_modaldoimatkhau_modaldoimatkhau_component__WEBPACK_IMPORTED_MODULE_96__["ModaldoimatkhauComponent"],
-            _danhmuc_dmhientrangsudung_dmhientrangsudung_component__WEBPACK_IMPORTED_MODULE_97__["DmhientrangsudungComponent"],
-            _danhmuc_donvisohuudatnha_donvisohuudatnha_component__WEBPACK_IMPORTED_MODULE_98__["DonvisohuudatnhaComponent"],
-            _danhmuc_modal_modaldonvisohuunhadat_modaldonvisohuunhadat_component__WEBPACK_IMPORTED_MODULE_99__["ModaldonvisohuunhadatComponent"],
-            _modal_modalthongtinchothue_modalthongtinchothue_component__WEBPACK_IMPORTED_MODULE_100__["ModalthongtinchothueComponent"],
-            _modal_modalimportexcel_modalimportexcel_component__WEBPACK_IMPORTED_MODULE_101__["ModalimportexcelComponent"],
-            _modal_modaladvancedsearch_modaladvancedsearch_component__WEBPACK_IMPORTED_MODULE_102__["ModaladvancedsearchComponent"],
-            _danhmuc_dmloaivanban_dmloaivanban_component__WEBPACK_IMPORTED_MODULE_103__["DmloaivanbanComponent"],
-            _baocao_baocaotaichinh_baocaotaichinh_component__WEBPACK_IMPORTED_MODULE_104__["BaocaotaichinhComponent"],
-            _uploadhdsd_uploadhdsd_component__WEBPACK_IMPORTED_MODULE_105__["UploadhdsdComponent"],
-            _modal_modalbaocaotonghop_modalbaocaotonghop_component__WEBPACK_IMPORTED_MODULE_106__["ModalbaocaotonghopComponent"],
-            _modal_modal_showgiadat_modal_showgiadat_component__WEBPACK_IMPORTED_MODULE_107__["ModalShowgiadatComponent"],
-            _danhmuc_dmkho_dmkho_component__WEBPACK_IMPORTED_MODULE_108__["DmkhoComponent"],
-            _danhmuc_modal_modaldmkho_modaldmkho_component__WEBPACK_IMPORTED_MODULE_109__["ModaldmkhoComponent"],
-            _quanlykhosanxuat_quytrinh_kiemkekho_kiemkekho_component__WEBPACK_IMPORTED_MODULE_110__["KiemkekhoComponent"],
-            _quanlykhosanxuat_quytrinh_kiemkekhomodal_kiemkekhomodal_component__WEBPACK_IMPORTED_MODULE_111__["KiemkekhomodalComponent"],
-            _quanlykhosanxuat_quytrinh_nhapkho_nhapkho_component__WEBPACK_IMPORTED_MODULE_112__["NhapkhoComponent"],
-            _quanlykhosanxuat_quytrinh_nhapkhomodal_nhapkhomodal_component__WEBPACK_IMPORTED_MODULE_113__["NhapkhomodalComponent"],
-            _quanlykhosanxuat_phuongan_phabong_phabong_component__WEBPACK_IMPORTED_MODULE_114__["PhabongComponent"],
-            _quanlykhosanxuat_quytrinh_thongsochatluong_thongsochatluong_component__WEBPACK_IMPORTED_MODULE_115__["ThongsochatluongComponent"],
-            _quanlykhosanxuat_quytrinh_thongsochatluongmodal_thongsochatluongmodal_component__WEBPACK_IMPORTED_MODULE_116__["ThongsochatluongmodalComponent"],
-            _quanlykhosanxuat_thongke_thongkesanluong_thongkesanluong_component__WEBPACK_IMPORTED_MODULE_117__["ThongkesanluongComponent"],
-            _quanlykhosanxuat_thongke_thongkesanluongmodal_thongkesanluongmodal_component__WEBPACK_IMPORTED_MODULE_118__["ThongkesanluongmodalComponent"],
-            _quanlykhosanxuat_baocao_sanluongtonghop_sanluongtonghop_component__WEBPACK_IMPORTED_MODULE_119__["SanluongtonghopComponent"],
-            _quanlykhosanxuat_baocao_sanluongchitiet_sanluongchitiet_component__WEBPACK_IMPORTED_MODULE_120__["SanluongchitietComponent"],
-            _danhmuc_danhmucsanxuat_loaibong_loaibong_component__WEBPACK_IMPORTED_MODULE_121__["LoaibongComponent"],
-            _danhmuc_danhmucsanxuat_capbong_capbong_component__WEBPACK_IMPORTED_MODULE_122__["CapbongComponent"],
-            _danhmuc_danhmucsanxuat_casanxuat_casanxuat_component__WEBPACK_IMPORTED_MODULE_123__["CasanxuatComponent"],
-            _danhmuc_danhmucsanxuat_danhsachmay_danhsachmay_component__WEBPACK_IMPORTED_MODULE_124__["DanhsachmayComponent"],
-            _danhmuc_danhmucsanxuat_modals_danhsachmaymodal_danhsachmaymodal_component__WEBPACK_IMPORTED_MODULE_125__["DanhsachmaymodalComponent"],
-            _quanlykhosanxuat_phuongan_phabongmodal_phabongmodal_component__WEBPACK_IMPORTED_MODULE_126__["PhabongmodalComponent"],
-            _quanlykhosanxuat_phuongan_dat09_dat09_component__WEBPACK_IMPORTED_MODULE_127__["Dat09Component"],
-            _dieuhanhsanxuat_dieuhanhsanxuat_component__WEBPACK_IMPORTED_MODULE_128__["DieuhanhsanxuatComponent"],
-            _quanlykhosanxuat_quytrinh_kehoachsanxuat_kehoachsanxuat_component__WEBPACK_IMPORTED_MODULE_129__["KehoachsanxuatComponent"],
-            _quanlykhosanxuat_quytrinh_kehoachsanxuatmodal_kehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_130__["KehoachsanxuatmodalComponent"],
-            _quanlykhosanxuat_quytrinh_xuatkho_xuatkho_component__WEBPACK_IMPORTED_MODULE_131__["XuatkhoComponent"],
-            _quanlykhosanxuat_quytrinh_xuatkhomodal_xuatkhomodal_component__WEBPACK_IMPORTED_MODULE_132__["XuatkhomodalComponent"],
-            _quanlykhosanxuat_quytrinh_dieuchuyen_dieuchuyen_component__WEBPACK_IMPORTED_MODULE_133__["DieuchuyenComponent"],
-            _quanlykhosanxuat_quytrinh_dieuchuyenmodal_dieuchuyenmodal_component__WEBPACK_IMPORTED_MODULE_134__["DieuchuyenmodalComponent"],
-            _quanlykhosanxuat_quytrinh_hacap_hacap_component__WEBPACK_IMPORTED_MODULE_135__["HacapComponent"],
-            _quanlykhosanxuat_quytrinh_hacapmodal_hacapmodal_component__WEBPACK_IMPORTED_MODULE_136__["HacapmodalComponent"],
-            _quanlykhosanxuat_modals_chonhanghoamodal_chonhanghoamodal_component__WEBPACK_IMPORTED_MODULE_137__["ChonhanghoamodalComponent"],
-            _quanlykhosanxuat_quytrinh_trienkhaikehoachsanxuat_trienkhaikehoachsanxuat_component__WEBPACK_IMPORTED_MODULE_138__["TrienkhaikehoachsanxuatComponent"],
-            _quanlykhosanxuat_quytrinh_trienkhaikehoachsanxuatmodal_trienkhaikehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_139__["TrienkhaikehoachsanxuatmodalComponent"],
-            _quanlykhosanxuat_phuongan_timbong_timbong_component__WEBPACK_IMPORTED_MODULE_140__["TimbongComponent"],
-            _quanlykhosanxuat_phuongan_timbongmodal_timbongmodal_component__WEBPACK_IMPORTED_MODULE_141__["TimbongmodalComponent"],
-            _quanlykhosanxuat_modals_botrimaymodal_botrimaymodal_component__WEBPACK_IMPORTED_MODULE_142__["BotrimaymodalComponent"]
+            _modal_uploadmodal_uploadmodal_component__WEBPACK_IMPORTED_MODULE_73__["UploadmodalComponent"],
+            _components_thong_ke_thong_tin_thua_dat_thong_ke_thong_tin_thua_dat_component__WEBPACK_IMPORTED_MODULE_74__["ThongKeThongTinThuaDatComponent"],
+            _danhmuc_tinh_tinh_component__WEBPACK_IMPORTED_MODULE_75__["TinhComponent"],
+            _danhmuc_quan_quan_component__WEBPACK_IMPORTED_MODULE_76__["QuanComponent"],
+            _danhmuc_phuong_phuong_component__WEBPACK_IMPORTED_MODULE_77__["PhuongComponent"],
+            _danhmuc_modal_modaltinh_modaltinh_component__WEBPACK_IMPORTED_MODULE_78__["ModaltinhComponent"],
+            _danhmuc_dmcaphangcongtrinh_dmcaphangcongtrinh_component__WEBPACK_IMPORTED_MODULE_79__["DmcaphangcongtrinhComponent"],
+            _danhmuc_modal_modalquan_modalquan_component__WEBPACK_IMPORTED_MODULE_80__["ModalquanComponent"],
+            _danhmuc_modal_modalphuong_modalphuong_component__WEBPACK_IMPORTED_MODULE_81__["ModalphuongComponent"],
+            _danhmuc_modal_modalcaphangcongtrinh_modalcaphangcongtrinh_component__WEBPACK_IMPORTED_MODULE_82__["ModalcaphangcongtrinhComponent"],
+            _sapxepxuly_modal_modalphuongansapxep_modalphuongansapxep_component__WEBPACK_IMPORTED_MODULE_83__["ModalphuongansapxepComponent"],
+            _theodoithongkebaocao_theodoithongkebaocao_component__WEBPACK_IMPORTED_MODULE_84__["TheodoithongkebaocaoComponent"],
+            _baocao_bieu1a_bieu1a_component__WEBPACK_IMPORTED_MODULE_85__["Bieu1aComponent"],
+            _baocao_bieu1b_bieu1b_component__WEBPACK_IMPORTED_MODULE_86__["Bieu1bComponent"],
+            _baocao_bieu1c_bieu1c_component__WEBPACK_IMPORTED_MODULE_87__["Bieu1cComponent"],
+            _baocao_bieu2a_bieu2a_component__WEBPACK_IMPORTED_MODULE_88__["Bieu2aComponent"],
+            _baocao_bieu2b_bieu2b_component__WEBPACK_IMPORTED_MODULE_89__["Bieu2bComponent"],
+            _baocao_bieu3_bieu3_component__WEBPACK_IMPORTED_MODULE_90__["Bieu3Component"],
+            _baocao_bieu4_bieu4_component__WEBPACK_IMPORTED_MODULE_91__["Bieu4Component"],
+            _baocao_bieu5_bieu5_component__WEBPACK_IMPORTED_MODULE_92__["Bieu5Component"],
+            _baocao_baocaochitietcaccoso_baocaochitietcaccoso_component__WEBPACK_IMPORTED_MODULE_93__["BaocaochitietcaccosoComponent"],
+            _modal_modalchitietthuadat_modalchitietthuadat_component__WEBPACK_IMPORTED_MODULE_94__["ModalchitietthuadatComponent"],
+            _sapxepxuly_modal_modalquytrinhsapxep_modalquytrinhsapxep_component__WEBPACK_IMPORTED_MODULE_95__["ModalquytrinhsapxepComponent"],
+            _sapxepxuly_modal_modalchonthuadat_modalchonthuadat_component__WEBPACK_IMPORTED_MODULE_96__["ModalchonthuadatComponent"],
+            _modal_modaldoimatkhau_modaldoimatkhau_component__WEBPACK_IMPORTED_MODULE_97__["ModaldoimatkhauComponent"],
+            _danhmuc_dmhientrangsudung_dmhientrangsudung_component__WEBPACK_IMPORTED_MODULE_98__["DmhientrangsudungComponent"],
+            _danhmuc_donvisohuudatnha_donvisohuudatnha_component__WEBPACK_IMPORTED_MODULE_99__["DonvisohuudatnhaComponent"],
+            _danhmuc_modal_modaldonvisohuunhadat_modaldonvisohuunhadat_component__WEBPACK_IMPORTED_MODULE_100__["ModaldonvisohuunhadatComponent"],
+            _modal_modalthongtinchothue_modalthongtinchothue_component__WEBPACK_IMPORTED_MODULE_101__["ModalthongtinchothueComponent"],
+            _modal_modalimportexcel_modalimportexcel_component__WEBPACK_IMPORTED_MODULE_102__["ModalimportexcelComponent"],
+            _modal_modaladvancedsearch_modaladvancedsearch_component__WEBPACK_IMPORTED_MODULE_103__["ModaladvancedsearchComponent"],
+            _danhmuc_dmloaivanban_dmloaivanban_component__WEBPACK_IMPORTED_MODULE_104__["DmloaivanbanComponent"],
+            _baocao_baocaotaichinh_baocaotaichinh_component__WEBPACK_IMPORTED_MODULE_105__["BaocaotaichinhComponent"],
+            _uploadhdsd_uploadhdsd_component__WEBPACK_IMPORTED_MODULE_106__["UploadhdsdComponent"],
+            _modal_modalbaocaotonghop_modalbaocaotonghop_component__WEBPACK_IMPORTED_MODULE_107__["ModalbaocaotonghopComponent"],
+            _modal_modal_showgiadat_modal_showgiadat_component__WEBPACK_IMPORTED_MODULE_108__["ModalShowgiadatComponent"],
+            _danhmuc_dmkho_dmkho_component__WEBPACK_IMPORTED_MODULE_109__["DmkhoComponent"],
+            _danhmuc_modal_modaldmkho_modaldmkho_component__WEBPACK_IMPORTED_MODULE_110__["ModaldmkhoComponent"],
+            _quanlykhosanxuat_quytrinh_kiemkekho_kiemkekho_component__WEBPACK_IMPORTED_MODULE_111__["KiemkekhoComponent"],
+            _quanlykhosanxuat_quytrinh_kiemkekhomodal_kiemkekhomodal_component__WEBPACK_IMPORTED_MODULE_112__["KiemkekhomodalComponent"],
+            _quanlykhosanxuat_quytrinh_nhapkho_nhapkho_component__WEBPACK_IMPORTED_MODULE_113__["NhapkhoComponent"],
+            _quanlykhosanxuat_quytrinh_nhapkhomodal_nhapkhomodal_component__WEBPACK_IMPORTED_MODULE_114__["NhapkhomodalComponent"],
+            _quanlykhosanxuat_phuongan_phabong_phabong_component__WEBPACK_IMPORTED_MODULE_115__["PhabongComponent"],
+            _quanlykhosanxuat_quytrinh_thongsochatluong_thongsochatluong_component__WEBPACK_IMPORTED_MODULE_116__["ThongsochatluongComponent"],
+            _quanlykhosanxuat_quytrinh_thongsochatluongmodal_thongsochatluongmodal_component__WEBPACK_IMPORTED_MODULE_117__["ThongsochatluongmodalComponent"],
+            _quanlykhosanxuat_thongke_thongkesanluong_thongkesanluong_component__WEBPACK_IMPORTED_MODULE_118__["ThongkesanluongComponent"],
+            _quanlykhosanxuat_thongke_thongkesanluongmodal_thongkesanluongmodal_component__WEBPACK_IMPORTED_MODULE_119__["ThongkesanluongmodalComponent"],
+            _quanlykhosanxuat_baocao_sanluongtonghop_sanluongtonghop_component__WEBPACK_IMPORTED_MODULE_120__["SanluongtonghopComponent"],
+            _quanlykhosanxuat_baocao_sanluongchitiet_sanluongchitiet_component__WEBPACK_IMPORTED_MODULE_121__["SanluongchitietComponent"],
+            _danhmuc_danhmucsanxuat_loaibong_loaibong_component__WEBPACK_IMPORTED_MODULE_122__["LoaibongComponent"],
+            _danhmuc_danhmucsanxuat_capbong_capbong_component__WEBPACK_IMPORTED_MODULE_123__["CapbongComponent"],
+            _danhmuc_danhmucsanxuat_casanxuat_casanxuat_component__WEBPACK_IMPORTED_MODULE_124__["CasanxuatComponent"],
+            _danhmuc_danhmucsanxuat_danhsachmay_danhsachmay_component__WEBPACK_IMPORTED_MODULE_125__["DanhsachmayComponent"],
+            _danhmuc_danhmucsanxuat_modals_danhsachmaymodal_danhsachmaymodal_component__WEBPACK_IMPORTED_MODULE_126__["DanhsachmaymodalComponent"],
+            _quanlykhosanxuat_phuongan_phabongmodal_phabongmodal_component__WEBPACK_IMPORTED_MODULE_127__["PhabongmodalComponent"],
+            _quanlykhosanxuat_phuongan_dat09_dat09_component__WEBPACK_IMPORTED_MODULE_128__["Dat09Component"],
+            _dieuhanhsanxuat_dieuhanhsanxuat_component__WEBPACK_IMPORTED_MODULE_129__["DieuhanhsanxuatComponent"],
+            _quanlykhosanxuat_quytrinh_kehoachsanxuat_kehoachsanxuat_component__WEBPACK_IMPORTED_MODULE_130__["KehoachsanxuatComponent"],
+            _quanlykhosanxuat_quytrinh_kehoachsanxuatmodal_kehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_131__["KehoachsanxuatmodalComponent"],
+            _quanlykhosanxuat_quytrinh_xuatkho_xuatkho_component__WEBPACK_IMPORTED_MODULE_132__["XuatkhoComponent"],
+            _quanlykhosanxuat_quytrinh_xuatkhomodal_xuatkhomodal_component__WEBPACK_IMPORTED_MODULE_133__["XuatkhomodalComponent"],
+            _quanlykhosanxuat_quytrinh_dieuchuyen_dieuchuyen_component__WEBPACK_IMPORTED_MODULE_134__["DieuchuyenComponent"],
+            _quanlykhosanxuat_quytrinh_dieuchuyenmodal_dieuchuyenmodal_component__WEBPACK_IMPORTED_MODULE_135__["DieuchuyenmodalComponent"],
+            _quanlykhosanxuat_quytrinh_hacap_hacap_component__WEBPACK_IMPORTED_MODULE_136__["HacapComponent"],
+            _quanlykhosanxuat_quytrinh_hacapmodal_hacapmodal_component__WEBPACK_IMPORTED_MODULE_137__["HacapmodalComponent"],
+            _quanlykhosanxuat_modals_chonhanghoamodal_chonhanghoamodal_component__WEBPACK_IMPORTED_MODULE_138__["ChonhanghoamodalComponent"],
+            _quanlykhosanxuat_quytrinh_trienkhaikehoachsanxuat_trienkhaikehoachsanxuat_component__WEBPACK_IMPORTED_MODULE_139__["TrienkhaikehoachsanxuatComponent"],
+            _quanlykhosanxuat_quytrinh_trienkhaikehoachsanxuatmodal_trienkhaikehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_140__["TrienkhaikehoachsanxuatmodalComponent"],
+            _quanlykhosanxuat_phuongan_timbong_timbong_component__WEBPACK_IMPORTED_MODULE_141__["TimbongComponent"],
+            _quanlykhosanxuat_phuongan_timbongmodal_timbongmodal_component__WEBPACK_IMPORTED_MODULE_142__["TimbongmodalComponent"],
+            _quanlykhosanxuat_modals_botrimaymodal_botrimaymodal_component__WEBPACK_IMPORTED_MODULE_143__["BotrimaymodalComponent"],
+            _services_filter_pipe__WEBPACK_IMPORTED_MODULE_72__["FilterPipe"],
         ],
         imports: [
             _angular_common_http__WEBPACK_IMPORTED_MODULE_38__["HttpClientModule"],
@@ -18609,42 +18608,43 @@ QuantriModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _danhmuc_modal_modaldanhmucchung_modaldanhmucchung_component__WEBPACK_IMPORTED_MODULE_62__["ModaldanhmucchungComponent"],
             _modal_modalthongbao_modalthongbao_component__WEBPACK_IMPORTED_MODULE_68__["ModalthongbaoComponent"],
             _danhmuc_modal_modaldmtaisan_modaldmtaisan_component__WEBPACK_IMPORTED_MODULE_69__["ModaldmtaisanComponent"],
-            _modal_uploadmodal_uploadmodal_component__WEBPACK_IMPORTED_MODULE_72__["UploadmodalComponent"],
-            _danhmuc_modal_modaltinh_modaltinh_component__WEBPACK_IMPORTED_MODULE_77__["ModaltinhComponent"],
-            _danhmuc_modal_modalquan_modalquan_component__WEBPACK_IMPORTED_MODULE_79__["ModalquanComponent"],
-            _danhmuc_modal_modalphuong_modalphuong_component__WEBPACK_IMPORTED_MODULE_80__["ModalphuongComponent"],
-            _danhmuc_modal_modalcaphangcongtrinh_modalcaphangcongtrinh_component__WEBPACK_IMPORTED_MODULE_81__["ModalcaphangcongtrinhComponent"],
-            _sapxepxuly_modal_modalphuongansapxep_modalphuongansapxep_component__WEBPACK_IMPORTED_MODULE_82__["ModalphuongansapxepComponent"],
-            _modal_modalchitietthuadat_modalchitietthuadat_component__WEBPACK_IMPORTED_MODULE_93__["ModalchitietthuadatComponent"],
-            _sapxepxuly_modal_modalquytrinhsapxep_modalquytrinhsapxep_component__WEBPACK_IMPORTED_MODULE_94__["ModalquytrinhsapxepComponent"],
-            _sapxepxuly_modal_modalchonthuadat_modalchonthuadat_component__WEBPACK_IMPORTED_MODULE_95__["ModalchonthuadatComponent"],
-            _modal_modaldoimatkhau_modaldoimatkhau_component__WEBPACK_IMPORTED_MODULE_96__["ModaldoimatkhauComponent"],
-            _danhmuc_modal_modaldonvisohuunhadat_modaldonvisohuunhadat_component__WEBPACK_IMPORTED_MODULE_99__["ModaldonvisohuunhadatComponent"],
-            _modal_modalthongtinchothue_modalthongtinchothue_component__WEBPACK_IMPORTED_MODULE_100__["ModalthongtinchothueComponent"],
-            _modal_modalimportexcel_modalimportexcel_component__WEBPACK_IMPORTED_MODULE_101__["ModalimportexcelComponent"],
-            _modal_modaladvancedsearch_modaladvancedsearch_component__WEBPACK_IMPORTED_MODULE_102__["ModaladvancedsearchComponent"],
-            _modal_modalbaocaotonghop_modalbaocaotonghop_component__WEBPACK_IMPORTED_MODULE_106__["ModalbaocaotonghopComponent"],
-            _modal_modal_showgiadat_modal_showgiadat_component__WEBPACK_IMPORTED_MODULE_107__["ModalShowgiadatComponent"],
-            _danhmuc_modal_modaldmkho_modaldmkho_component__WEBPACK_IMPORTED_MODULE_109__["ModaldmkhoComponent"],
-            _quanlykhosanxuat_quytrinh_kiemkekhomodal_kiemkekhomodal_component__WEBPACK_IMPORTED_MODULE_111__["KiemkekhomodalComponent"],
-            _quanlykhosanxuat_quytrinh_nhapkhomodal_nhapkhomodal_component__WEBPACK_IMPORTED_MODULE_113__["NhapkhomodalComponent"],
-            _quanlykhosanxuat_quytrinh_thongsochatluongmodal_thongsochatluongmodal_component__WEBPACK_IMPORTED_MODULE_116__["ThongsochatluongmodalComponent"],
-            _quanlykhosanxuat_thongke_thongkesanluongmodal_thongkesanluongmodal_component__WEBPACK_IMPORTED_MODULE_118__["ThongkesanluongmodalComponent"],
-            _danhmuc_danhmucsanxuat_modals_danhsachmaymodal_danhsachmaymodal_component__WEBPACK_IMPORTED_MODULE_125__["DanhsachmaymodalComponent"],
-            _quanlykhosanxuat_phuongan_phabongmodal_phabongmodal_component__WEBPACK_IMPORTED_MODULE_126__["PhabongmodalComponent"],
-            _quanlykhosanxuat_quytrinh_kehoachsanxuatmodal_kehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_130__["KehoachsanxuatmodalComponent"],
-            _quanlykhosanxuat_quytrinh_xuatkhomodal_xuatkhomodal_component__WEBPACK_IMPORTED_MODULE_132__["XuatkhomodalComponent"],
-            _quanlykhosanxuat_quytrinh_hacapmodal_hacapmodal_component__WEBPACK_IMPORTED_MODULE_136__["HacapmodalComponent"], _quanlykhosanxuat_quytrinh_dieuchuyenmodal_dieuchuyenmodal_component__WEBPACK_IMPORTED_MODULE_134__["DieuchuyenmodalComponent"],
-            _quanlykhosanxuat_modals_chonhanghoamodal_chonhanghoamodal_component__WEBPACK_IMPORTED_MODULE_137__["ChonhanghoamodalComponent"],
-            _quanlykhosanxuat_quytrinh_trienkhaikehoachsanxuatmodal_trienkhaikehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_139__["TrienkhaikehoachsanxuatmodalComponent"],
-            _quanlykhosanxuat_phuongan_timbongmodal_timbongmodal_component__WEBPACK_IMPORTED_MODULE_141__["TimbongmodalComponent"],
-            _quanlykhosanxuat_modals_botrimaymodal_botrimaymodal_component__WEBPACK_IMPORTED_MODULE_142__["BotrimaymodalComponent"]
+            _modal_uploadmodal_uploadmodal_component__WEBPACK_IMPORTED_MODULE_73__["UploadmodalComponent"],
+            _danhmuc_modal_modaltinh_modaltinh_component__WEBPACK_IMPORTED_MODULE_78__["ModaltinhComponent"],
+            _danhmuc_modal_modalquan_modalquan_component__WEBPACK_IMPORTED_MODULE_80__["ModalquanComponent"],
+            _danhmuc_modal_modalphuong_modalphuong_component__WEBPACK_IMPORTED_MODULE_81__["ModalphuongComponent"],
+            _danhmuc_modal_modalcaphangcongtrinh_modalcaphangcongtrinh_component__WEBPACK_IMPORTED_MODULE_82__["ModalcaphangcongtrinhComponent"],
+            _sapxepxuly_modal_modalphuongansapxep_modalphuongansapxep_component__WEBPACK_IMPORTED_MODULE_83__["ModalphuongansapxepComponent"],
+            _modal_modalchitietthuadat_modalchitietthuadat_component__WEBPACK_IMPORTED_MODULE_94__["ModalchitietthuadatComponent"],
+            _sapxepxuly_modal_modalquytrinhsapxep_modalquytrinhsapxep_component__WEBPACK_IMPORTED_MODULE_95__["ModalquytrinhsapxepComponent"],
+            _sapxepxuly_modal_modalchonthuadat_modalchonthuadat_component__WEBPACK_IMPORTED_MODULE_96__["ModalchonthuadatComponent"],
+            _modal_modaldoimatkhau_modaldoimatkhau_component__WEBPACK_IMPORTED_MODULE_97__["ModaldoimatkhauComponent"],
+            _danhmuc_modal_modaldonvisohuunhadat_modaldonvisohuunhadat_component__WEBPACK_IMPORTED_MODULE_100__["ModaldonvisohuunhadatComponent"],
+            _modal_modalthongtinchothue_modalthongtinchothue_component__WEBPACK_IMPORTED_MODULE_101__["ModalthongtinchothueComponent"],
+            _modal_modalimportexcel_modalimportexcel_component__WEBPACK_IMPORTED_MODULE_102__["ModalimportexcelComponent"],
+            _modal_modaladvancedsearch_modaladvancedsearch_component__WEBPACK_IMPORTED_MODULE_103__["ModaladvancedsearchComponent"],
+            _modal_modalbaocaotonghop_modalbaocaotonghop_component__WEBPACK_IMPORTED_MODULE_107__["ModalbaocaotonghopComponent"],
+            _modal_modal_showgiadat_modal_showgiadat_component__WEBPACK_IMPORTED_MODULE_108__["ModalShowgiadatComponent"],
+            _danhmuc_modal_modaldmkho_modaldmkho_component__WEBPACK_IMPORTED_MODULE_110__["ModaldmkhoComponent"],
+            _quanlykhosanxuat_quytrinh_kiemkekhomodal_kiemkekhomodal_component__WEBPACK_IMPORTED_MODULE_112__["KiemkekhomodalComponent"],
+            _quanlykhosanxuat_quytrinh_nhapkhomodal_nhapkhomodal_component__WEBPACK_IMPORTED_MODULE_114__["NhapkhomodalComponent"],
+            _quanlykhosanxuat_quytrinh_thongsochatluongmodal_thongsochatluongmodal_component__WEBPACK_IMPORTED_MODULE_117__["ThongsochatluongmodalComponent"],
+            _quanlykhosanxuat_thongke_thongkesanluongmodal_thongkesanluongmodal_component__WEBPACK_IMPORTED_MODULE_119__["ThongkesanluongmodalComponent"],
+            _danhmuc_danhmucsanxuat_modals_danhsachmaymodal_danhsachmaymodal_component__WEBPACK_IMPORTED_MODULE_126__["DanhsachmaymodalComponent"],
+            _quanlykhosanxuat_phuongan_phabongmodal_phabongmodal_component__WEBPACK_IMPORTED_MODULE_127__["PhabongmodalComponent"],
+            _quanlykhosanxuat_quytrinh_kehoachsanxuatmodal_kehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_131__["KehoachsanxuatmodalComponent"],
+            _quanlykhosanxuat_quytrinh_xuatkhomodal_xuatkhomodal_component__WEBPACK_IMPORTED_MODULE_133__["XuatkhomodalComponent"],
+            _quanlykhosanxuat_quytrinh_hacapmodal_hacapmodal_component__WEBPACK_IMPORTED_MODULE_137__["HacapmodalComponent"], _quanlykhosanxuat_quytrinh_dieuchuyenmodal_dieuchuyenmodal_component__WEBPACK_IMPORTED_MODULE_135__["DieuchuyenmodalComponent"],
+            _quanlykhosanxuat_modals_chonhanghoamodal_chonhanghoamodal_component__WEBPACK_IMPORTED_MODULE_138__["ChonhanghoamodalComponent"],
+            _quanlykhosanxuat_quytrinh_trienkhaikehoachsanxuatmodal_trienkhaikehoachsanxuatmodal_component__WEBPACK_IMPORTED_MODULE_140__["TrienkhaikehoachsanxuatmodalComponent"],
+            _quanlykhosanxuat_phuongan_timbongmodal_timbongmodal_component__WEBPACK_IMPORTED_MODULE_142__["TimbongmodalComponent"],
+            _quanlykhosanxuat_modals_botrimaymodal_botrimaymodal_component__WEBPACK_IMPORTED_MODULE_143__["BotrimaymodalComponent"]
         ],
         providers: [
             _services_callApiSanXuat__WEBPACK_IMPORTED_MODULE_61__["SanXuatService"],
             _services_callApi__WEBPACK_IMPORTED_MODULE_60__["Dat09Service"],
             _services_isXoaPipe__WEBPACK_IMPORTED_MODULE_70__["isXoaPipe"],
             _services_vnd_pipe__WEBPACK_IMPORTED_MODULE_71__["VNDPipe"],
+            _services_filter_pipe__WEBPACK_IMPORTED_MODULE_72__["FilterPipe"],
             { provide: _angular_common__WEBPACK_IMPORTED_MODULE_2__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_2__["HashLocationStrategy"] },
             { provide: _angular_core__WEBPACK_IMPORTED_MODULE_1__["LOCALE_ID"], useValue: 'vi-VN' },
         ],
@@ -20450,7 +20450,7 @@ let SanXuatService = class SanXuatService {
         let url = _host__WEBPACK_IMPORTED_MODULE_3__["API"].auth + `QuanTriQuyTrinh/KiemTraTabTrangThai?eAction=${eAction}`;
         return this.http.get(url, _host__WEBPACK_IMPORTED_MODULE_3__["httpOptions"]);
     }
-    KiemTraButton(IdTrangThai, IdTable) {
+    KiemTraButton(IdTable, IdTrangThai) {
         let url = _host__WEBPACK_IMPORTED_MODULE_3__["API"].auth + `QuanTriQuyTrinh/KiemTraButton?IdTrangThai=${IdTrangThai}&IdTable=${IdTable}`;
         return this.http.get(url, _host__WEBPACK_IMPORTED_MODULE_3__["httpOptions"]);
     }
@@ -20465,6 +20465,15 @@ let SanXuatService = class SanXuatService {
             },
             GetDonVi: () => {
                 return this.http.post(`${_host__WEBPACK_IMPORTED_MODULE_3__["API"].auth}DanhMuc/GetDanhSachDuAn_Advance`, {}, _host__WEBPACK_IMPORTED_MODULE_3__["httpOptions"]);
+            },
+            GetPhanXuong: (IdDuAn) => {
+                return this.http.get(`${_host__WEBPACK_IMPORTED_MODULE_3__["API"].SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn}`, _host__WEBPACK_IMPORTED_MODULE_3__["httpOptions"]);
+            },
+            GetListGiaoKeHoachSanXuatChuaLapKeHoach: (Ngay) => {
+                return this.http.get(`${_host__WEBPACK_IMPORTED_MODULE_3__["API"].SCMQuanLyKho}GetListGiaoKeHoachSanXuatChuaLapKeHoach?Ngay=${Ngay}`, _host__WEBPACK_IMPORTED_MODULE_3__["httpOptions"]);
+            },
+            GetListMatHangChuaLapKeHoach: (IdGiaoKeHoachSanXuat) => {
+                return this.http.get(`${_host__WEBPACK_IMPORTED_MODULE_3__["API"].SCMQuanLyKho}GetListMatHangChuaLapKeHoach?IdGiaoKeHoachSanXuat=${IdGiaoKeHoachSanXuat}`, _host__WEBPACK_IMPORTED_MODULE_3__["httpOptions"]);
             }
         };
     }
@@ -20485,7 +20494,7 @@ let SanXuatService = class SanXuatService {
                 return this.http.post(url + 'SetGiaoKeHoachSanXuat', data, _host__WEBPACK_IMPORTED_MODULE_3__["httpOptions"]);
             },
             Delete: (data) => {
-                return this.http.post(url + 'SetGiaoKeHoachSanXuat', data, _host__WEBPACK_IMPORTED_MODULE_3__["httpOptions"]);
+                return this.http.post(url + 'DeleteGiaoKeHoachSanXuat', data, _host__WEBPACK_IMPORTED_MODULE_3__["httpOptions"]);
             },
             ChuyenTiep: (data) => {
                 return this.http.post(url + 'ChuyenTiepGiaoKeHoachSanXuat', data, _host__WEBPACK_IMPORTED_MODULE_3__["httpOptions"]);
@@ -20511,7 +20520,7 @@ let SanXuatService = class SanXuatService {
                 return this.http.post(url + 'SetTrienKhaiKeHoachSanXuat', data, _host__WEBPACK_IMPORTED_MODULE_3__["httpOptions"]);
             },
             Delete: (data) => {
-                return this.http.post(url + 'SetTrienKhaiKeHoachSanXuat', data, _host__WEBPACK_IMPORTED_MODULE_3__["httpOptions"]);
+                return this.http.post(url + 'DeleteTrienKhaiKeHoachSanXuat', data, _host__WEBPACK_IMPORTED_MODULE_3__["httpOptions"]);
             },
             ChuyenTiep: (data) => {
                 return this.http.post(url + 'ChuyenTiepTrienKhaiKeHoachSanXuat', data, _host__WEBPACK_IMPORTED_MODULE_3__["httpOptions"]);
@@ -20584,11 +20593,54 @@ const congDoan = [
 
 /***/ }),
 
+/***/ "./src/app/services/filter.pipe.ts":
+/*!*****************************************!*\
+  !*** ./src/app/services/filter.pipe.ts ***!
+  \*****************************************/
+/*! exports provided: FilterPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilterPipe", function() { return FilterPipe; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let FilterPipe = class FilterPipe {
+    transform(value, keyWord) {
+        if (!!value) {
+            if (keyWord.trim() !== '' && keyWord !== null && keyWord !== undefined) {
+                return value.filter(ele => Object.keys(ele).some(k => ele[k] != null &&
+                    ele[k]
+                        .toString()
+                        .toLowerCase()
+                        .includes(keyWord.toLowerCase())));
+            }
+            else {
+                return value;
+            }
+        }
+        else {
+            return null;
+        }
+    }
+};
+FilterPipe = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Pipe"])({
+        name: 'filter', pure: false
+    })
+], FilterPipe);
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/globalfunction.ts":
 /*!********************************************!*\
   !*** ./src/app/services/globalfunction.ts ***!
   \********************************************/
-/*! exports provided: readNum, vietHoaChuCaiDau, nhapTen, download, deepCopy, validVariable, DateToUnix, UnixToDate */
+/*! exports provided: readNum, vietHoaChuCaiDau, nhapTen, download, deepCopy, validVariable, DateToUnix, UnixToDate, mapArrayForDropDown, merge */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20601,6 +20653,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validVariable", function() { return validVariable; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DateToUnix", function() { return DateToUnix; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UnixToDate", function() { return UnixToDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapArrayForDropDown", function() { return mapArrayForDropDown; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "merge", function() { return merge; });
 /* harmony import */ var _host__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./host */ "./src/app/services/host.ts");
 
 function readNum(value, donvi) {
@@ -20744,6 +20798,38 @@ function UnixToDate(unix) {
     else {
         return null;
     }
+}
+function mapArrayForDropDown(array, labelProp, valueProp) {
+    return array.map(ele => {
+        return {
+            label: ele[labelProp],
+            value: ele[valueProp],
+        };
+    });
+}
+function merge(newArr, existingArr, diffProp) {
+    let removeIndex = [];
+    newArr.forEach((newEle) => {
+        let index = existingArr.findIndex((oldEle) => newEle[diffProp] === oldEle[diffProp]);
+        if (index === -1) {
+            existingArr.push(newEle);
+        }
+    });
+    existingArr.forEach((oldEle, index) => {
+        let indexCheck = newArr.findIndex((newEle) => newEle[diffProp] === oldEle[diffProp]);
+        if (indexCheck === -1) {
+            removeIndex.push(index);
+        }
+    });
+    for (var i = removeIndex.length - 1; i >= 0; i--) {
+        if (existingArr[i].ID === 0) {
+            existingArr.splice(removeIndex[i], 1);
+        }
+        else {
+            existingArr[i].isXoa = true;
+        }
+    }
+    return existingArr;
 }
 
 

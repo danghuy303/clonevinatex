@@ -1,14 +1,23 @@
 <div class="p-4">
     <div class=" container-lg p-mb-4 p-0">
-        <button pButton [label]="vung.Ten" icon="pi pi-chevron-down" iconPos="right" (click)="chonVung.toggle($event)"
-            class="p-button-sm p-button-secondary p-button-text right-icon bg-white mr-4"></button>
-        <p-overlayPanel #chonVung>
-            <ng-template pTemplate>
-                <!-- selectionMode="checkbox"  -->
-                <p-tree [value]="vungs" [filter]="true" selectionMode="single" [(selection)]="selectedFile"
-                    (onNodeSelect)="nodeSelect($event)"></p-tree>
-            </ng-template>
-        </p-overlayPanel>
+        <div class="d-flex flex-column flex-lg-row">
+            <button pButton [label]="vung.Ten" icon="pi pi-chevron-down" iconPos="right"
+                (click)="chonVung.toggle($event)"
+                class="p-button-sm p-button-secondary p-button-text right-icon bg-white mr-4"></button>
+            <p-overlayPanel #chonVung>
+                <ng-template pTemplate>
+                    <!-- selectionMode="checkbox"  -->
+                    <p-tree [value]="vungs" [filter]="true" selectionMode="single" [(selection)]="selectedFile"
+                        (onNodeSelect)="nodeSelect($event)"></p-tree>
+                </ng-template>
+            </p-overlayPanel>
+            <div class="p-d-flex p-flex-row">
+                <label class="my-auto mr-3">Đã bán, đã trả:</label>&nbsp;<p-checkbox [ngModel]="DaBan"
+                    (onChange)="GetBaoCaoDonVi(vung.Ma)" binary="true" inputId="binary">
+                </p-checkbox>
+            </div>
+        </div>
+
     </div>
     <div class="container-lg bg-white p-3">
         <div class="p-grid">
@@ -71,7 +80,9 @@
                                                     <td>
                                                         <a href="javascript:void(0)"
                                                             (click)="showChiTietThuaDat(thuadat.ID)">
-                                                            {{thuadat.TaiSanDat.DiaChi +' - '+thuadat.TaiSanDat.TendmPhuong+' - '+ thuadat.TaiSanDat.TendmQuan+' - '+thuadat.TendmTinh}}</a>
+                                                            {{thuadat.TaiSanDat.DiaChi +' -
+                                                            '+thuadat.TaiSanDat.TendmPhuong+' - '+
+                                                            thuadat.TaiSanDat.TendmQuan+' - '+thuadat.TendmTinh}}</a>
                                                     </td>
                                                     <td>{{thuadat.TaiSanDat.DienTich}}</td>
                                                 </tr>
@@ -118,7 +129,9 @@
                                                     <td>
                                                         <a href="javascript:void(0)"
                                                             (click)="showChiTietThuaDat(thuadat.ID)">
-                                                            {{thuadat.TaiSanDat.DiaChi +' - '+thuadat.TaiSanDat.TendmPhuong+' - '+ thuadat.TaiSanDat.TendmQuan+' - '+thuadat.TendmTinh}}</a>
+                                                            {{thuadat.TaiSanDat.DiaChi +' -
+                                                            '+thuadat.TaiSanDat.TendmPhuong+' - '+
+                                                            thuadat.TaiSanDat.TendmQuan+' - '+thuadat.TendmTinh}}</a>
                                                     </td>
                                                     <td>{{thuadat.TaiSanDat.DienTich}}</td>
                                                 </tr>
@@ -152,7 +165,8 @@
                                         <p-button [label]="hientrang.Ten+':'" styleClass="p-button-text"
                                             (click)="HienTrang(hientrang,'HienTrangCongTyMe', 1)">
                                         </p-button>
-                                        <p-table [value]="TaiSanDatHienTrang" [paginator]="false" *ngIf="hientrang.expand">
+                                        <p-table [value]="TaiSanDatHienTrang" [paginator]="false"
+                                            *ngIf="hientrang.expand">
                                             <ng-template pTemplate="header">
                                                 <tr>
                                                     <th>Đơn vị sử dụng</th>
@@ -166,7 +180,9 @@
                                                     <td>
                                                         <a href="javascript:void(0)"
                                                             (click)="showChiTietThuaDat(thuadat.ID,'HTSD')">
-                                                            {{thuadat.TaiSanDat.DiaChi +' - '+thuadat.TaiSanDat.TendmPhuong+' - '+ thuadat.TaiSanDat.TendmQuan+' - '+thuadat.TendmTinh}}</a>
+                                                            {{thuadat.TaiSanDat.DiaChi +' -
+                                                            '+thuadat.TaiSanDat.TendmPhuong+' - '+
+                                                            thuadat.TaiSanDat.TendmQuan+' - '+thuadat.TendmTinh}}</a>
                                                     </td>
                                                     <td>{{thuadat.TaiSanDat.DienTich}}</td>
                                                 </tr>
@@ -197,7 +213,8 @@
                                         <p-button [label]="hientrang.Ten+':'" styleClass="p-button-text"
                                             (click)="HienTrang(hientrang,'HienTrangCongTyCon', 2)">
                                         </p-button>
-                                        <p-table [value]="TaiSanDatHienTrangCon" [paginator]="false" *ngIf="hientrang.expand">
+                                        <p-table [value]="TaiSanDatHienTrangCon" [paginator]="false"
+                                            *ngIf="hientrang.expand">
                                             <ng-template pTemplate="header">
                                                 <tr>
                                                     <th>Đơn vị sử dụng</th>
@@ -211,7 +228,9 @@
                                                     <td>
                                                         <a href="javascript:void(0)"
                                                             (click)="showChiTietThuaDat(thuadat.ID,'HTSD')">
-                                                            {{thuadat.TaiSanDat.DiaChi +' - '+thuadat.TaiSanDat.TendmPhuong+' - '+ thuadat.TaiSanDat.TendmQuan+' - '+thuadat.TendmTinh}}</a>
+                                                            {{thuadat.TaiSanDat.DiaChi +' -
+                                                            '+thuadat.TaiSanDat.TendmPhuong+' - '+
+                                                            thuadat.TaiSanDat.TendmQuan+' - '+thuadat.TendmTinh}}</a>
                                                     </td>
                                                     <td>{{thuadat.TaiSanDat.DienTich}}</td>
                                                 </tr>
@@ -252,7 +271,9 @@
                                                     <td>
                                                         <a href="javascript:void(0)"
                                                             (click)="showChiTietThuaDat(thuadat.ID)">
-                                                            {{thuadat.TaiSanDat.DiaChi +' - '+thuadat.TaiSanDat.TendmPhuong+' - '+ thuadat.TaiSanDat.TendmQuan+' - '+thuadat.TendmTinh}}</a>
+                                                            {{thuadat.TaiSanDat.DiaChi +' -
+                                                            '+thuadat.TaiSanDat.TendmPhuong+' - '+
+                                                            thuadat.TaiSanDat.TendmQuan+' - '+thuadat.TendmTinh}}</a>
                                                     </td>
                                                     <td>{{thuadat.TaiSanDat.DienTich}}</td>
                                                 </tr>
@@ -269,7 +290,8 @@
                     <div class="p-col-12 p-p-3 d-flex flex-row p-jc-between">
                         <label>Tiền thu được cho thuê đất hằng năm:</label>
                         <div class="pl-2">
-                            <a href="javascript:void(0)" (click)="TienThueDatHangNam()">{{baocao.TienThueDatHangNam|number}} Tỷ đồng </a>
+                            <a href="javascript:void(0)"
+                                (click)="TienThueDatHangNam()">{{baocao.TienThueDatHangNam|number}} Tỷ đồng </a>
                         </div>
                     </div>
                     <p-table [value]="TienThueDatHangNams" [paginator]="false" *ngIf="tableTienThueDatHangNam">
@@ -284,9 +306,9 @@
                             <tr>
                                 <td>{{thuadat.TenDanhMucDonVi}}</td>
                                 <td>
-                                    <a href="javascript:void(0)"
-                                        (click)="showChiTietThuaDat(thuadat.ID)">
-                                        {{thuadat.DiaChi +' - '+thuadat.TendmPhuong+' - '+ thuadat.TendmQuan+' - '+thuadat.TendmTinh}}</a>
+                                    <a href="javascript:void(0)" (click)="showChiTietThuaDat(thuadat.IDTaiSan)">
+                                        {{thuadat.DiaChi +' - '+thuadat.TendmPhuong+' - '+ thuadat.TendmQuan+' -
+                                        '+thuadat.TendmTinh}}</a>
                                 </td>
                                 <td class="text-right">{{thuadat.SoTien|number}}</td>
                             </tr>
@@ -302,7 +324,9 @@
                     <div class="p-col-12 p-p-3 d-flex flex-row p-jc-between">
                         <label>Tiền phải trả thuê đất hằng năm:</label>
                         <div class="pl-2">
-                            <a href="javascript:void(0)" (click)="TienThueSuDungDatHangNam()">{{(baocao.TienThueSuDungDatHangNam +(baocao.TienThueSuDungDatHangNamUSD*TyGia))|number}}
+                            <a href="javascript:void(0)"
+                                (click)="TienThueSuDungDatHangNam()">{{(baocao.TienThueSuDungDatHangNam
+                                +(baocao.TienThueSuDungDatHangNamUSD*TyGia))|number}}
                                 Tỷ đồng </a>
                         </div>
                     </div>
@@ -318,9 +342,9 @@
                             <tr>
                                 <td>{{thuadat.TenDanhMucDonVi}}</td>
                                 <td>
-                                    <a href="javascript:void(0)"
-                                        (click)="showChiTietThuaDat(thuadat.ID)">
-                                        {{thuadat.DiaChi +' - '+thuadat.TendmPhuong+' - '+ thuadat.TendmQuan+' - '+thuadat.TendmTinh}}</a>
+                                    <a href="javascript:void(0)" (click)="showChiTietThuaDat(thuadat.IDTaiSan)">
+                                        {{thuadat.DiaChi +' - '+thuadat.TendmPhuong+' - '+ thuadat.TendmQuan+' -
+                                        '+thuadat.TendmTinh}}</a>
                                 </td>
                                 <td class="text-right">{{(thuadat.SoTien+(thuadat.SoTienUSD*TyGia))|number}}</td>
                             </tr>

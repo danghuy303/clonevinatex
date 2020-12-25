@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { formatNumber } from '@angular/common';
 import { SourceMapGenerator } from '@angular/compiler/src/output/source_map';
 import { ModalbaocaotonghopComponent } from '../modal/modalbaocaotonghop/modalbaocaotonghop.component';
+import { UnixToDate, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +24,7 @@ export class DashboardComponent implements OnInit {
   currentUser: any;
   selectedVung: TreeNode = {};
   vungs: TreeNode[] = [];
+  DaBan:boolean = false;
   thuaDats: any = [];
   thongKes: any = [
     // { vung: 'Tổng số thửa đất', soThua: 47, dienTich: 20000 },
@@ -30,6 +32,7 @@ export class DashboardComponent implements OnInit {
     // { vung: 'Miền Trung', soThua: 10, dienTich: 5000 },
     // { vung: 'Miền Nam', soThua: 17, dienTich: 5000 },
   ];
+  IDTaiSan:any;
   options: any = {};
   bieuDoCot: any = {};
   bieuDoDuong: any = {};
@@ -133,6 +136,7 @@ export class DashboardComponent implements OnInit {
       Tu: this.TuNam.label,
       Den: this.DenNam.label,
       IDdmDonVi: this.vung.ID,
+      IDTaiSan: validVariable(this.IDTaiSan)? this.IDTaiSan: undefined
     }
     this._services.GetGiaDat(filterItem).subscribe((res: Array<any>) => {
       let bieuDoDuong = {
@@ -156,6 +160,7 @@ export class DashboardComponent implements OnInit {
   GetSoThuaDat() {
     let filterItem = {
       IDdmDonVi: this.vung.ID,
+      isDaBan: this.DaBan
     }
     this._services.GetSoThuaDat(filterItem).subscribe((res: Array<any>) => {
       let bieuDoCot: any = {
@@ -254,20 +259,21 @@ export class DashboardComponent implements OnInit {
   GetListTaiSanDat(id: any) {
     let data = {
       PageSize: 10,
-      CurrentPage: 0,
+      CurrentPage: this.pagingThuaDat.CurrentPage,
       IDdmDonVi: id,
       sFilter: this.keyWord,
       Ma: "",
       Ten: "",
     };
     this._services.GetListTaiSanDat(data).subscribe((res: any) => {
-      this.thuaDats = res;
+      this.thuaDats = res.items;
+      this.pagingThuaDat = res.paging;
     });
   }
   showChiTietThuaDat(Id) {
     this._services.GetTaiSanDat(Id).subscribe((res: any) => {
       res.HienTrangSuDungs.forEach(ele => {
-        ele.ThoiGian = (ele.ThoiGianUnix !== 0 ? (new Date(ele.ThoiGianUnix * 1000)) : null);
+        ele.ThoiGian = UnixToDate(ele.ThoiGianUnix);
       });
       let item = res;
       this._services.ThongKeThongTinThuaDat({ IDTaiSan: Id }).subscribe((res: any) => {
@@ -343,5 +349,17 @@ export class DashboardComponent implements OnInit {
     .catch(er=>{
       // console.log(er);
     })
+  }
+  changePage(event) {
+    this.pagingThuaDat.CurrentPage = event.page + 1;
+    this.GetListTaiSanDat(this.vung.ID);
+  }
+  checkThuaDat(index){
+    this.thuaDats.forEach(ele => {
+        ele.selected = false;
+    });
+    this.thuaDats[index].selected = true;
+    this.IDTaiSan = this.thuaDats[index].ID;
+    this.GetGiaDat();
   }
 }

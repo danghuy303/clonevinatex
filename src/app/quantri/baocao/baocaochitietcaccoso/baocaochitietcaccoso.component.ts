@@ -1,3 +1,4 @@
+import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +15,7 @@ export class BaocaochitietcaccosoComponent implements OnInit {
   vung: any = {
 
   };
+  @ViewChild('chonVung') chonVung: any;
   currentUser: any;
   selectedVung: TreeNode = {};
   vungs: TreeNode[] = [];
@@ -80,6 +82,7 @@ export class BaocaochitietcaccosoComponent implements OnInit {
     this.vung = this.selectedVung.data;
   }
   nodeSelect(event): void {
+    this.chonVung.hide();
     this.vung = event.node.data;
     this.GetBaoCaoChiTiet();
   }

@@ -2,7 +2,8 @@
     <div class="p-grid">
         <div class="p-col-12">
             <label>Địa
-                chỉ:</label>&nbsp;<span>{{item.TaiSanDat.DiaChi+' - '+item.TaiSanDat.TendmPhuong+' - '+item.TaiSanDat.TendmQuan+' - '+item.TaiSanDat.TendmTinh}}</span>
+                chỉ:</label>&nbsp;<span>{{item.TaiSanDat.DiaChi+' - '+item.TaiSanDat.TendmPhuong+' -
+                '+item.TaiSanDat.TendmQuan+' - '+item.TaiSanDat.TendmTinh}}</span>
         </div>
         <div class="p-col-12 p-lg-4 p-p-2">
             <label>Diện tích:</label>&nbsp;<span>{{item.TaiSanDat.DienTich|number}}m<sup>2</sup></span>
@@ -11,8 +12,8 @@
             <label>DT Bằng chữ:</label>&nbsp;<span>{{item.TaiSanDat.DienTichBangChu}}</span>
         </div>
         <div class="p-col-12 p-lg-3 p-p-2">
-            <label class="my-auto mr-3">Diện tích sàn:</label>&nbsp;<p-checkbox
-                [ngModel]="item.TaiSanDat.IsDienTichSan" binary="true" inputId="binary" [disabled]="true">
+            <label class="my-auto mr-3">Diện tích sàn:</label>&nbsp;<p-checkbox [ngModel]="item.TaiSanDat.IsDienTichSan"
+                binary="true" inputId="binary" [disabled]="true">
             </p-checkbox>
         </div>
         <div class="p-col-12 p-lg-3 p-p-2">
@@ -85,7 +86,8 @@
     </div>
 </p-panel>
 
-<p-panel header="Quyền sử dụng đất" [toggleable]="true" *ngIf="item.TaiSanDat.MaHanhDong>=4 && !item.TaiSanDat.IsDienTichSan">
+<p-panel header="Quyền sử dụng đất" [toggleable]="true"
+    *ngIf="item.TaiSanDat.MaHanhDong>=4 && !item.TaiSanDat.IsDienTichSan">
     <div class="p-grid">
         <div class="p-col-12 p-lg-3 p-p-2">
             <label>Số tờ:</label>&nbsp;<span>{{item.TaiSanDat.SoTo}}</span>
@@ -163,7 +165,8 @@
             <div class="p-p-0" style="width: 100%;">
                 <div class="ruler text-center" [ngStyle]="{width: 100+'%'}">
                     {{item.TaiSanDat.ThoiHanSuDung}}
-                    {{(item.TaiSanDat.ThoiHanSuDung !== undefined && item.TaiSanDat.ThoiHanSuDung !== 0&& item.TaiSanDat.ThoiHanSuDung !== null)?'năm':''}}
+                    {{(item.TaiSanDat.ThoiHanSuDung !== undefined && item.TaiSanDat.ThoiHanSuDung !== 0&&
+                    item.TaiSanDat.ThoiHanSuDung !== null)?'năm':''}}
                 </div>
             </div>
         </div>
@@ -193,29 +196,34 @@
 </p-panel>
 <p-panel header="Thông tin quy hoạch, kỹ thuật chi tiết của khu đất" [toggleable]="true">
     <div class="p-grid">
+        <ng-container *ngIf="!item.TaiSanDat.IsDienTichSan">
+            <div class="p-col-12 p-lg-4 p-p-2">
+                <label>Mật độ xây dựng cấp phép:</label>&nbsp;<span>{{item.TaiSanDat.MatDoXayDung}}%</span>
+            </div>
+            <div class="p-col-12 p-lg-4 p-p-2">
+                <label>Chiều cao xây dựng cấp phép:</label>&nbsp;<span>{{item.TaiSanDat.ChieuCaoXayDung}}m</span>
+            </div>
+            <div class="p-col-12 p-lg-4 p-p-2">
+                <label>Quy hoạch SD đất lân cận:</label>&nbsp;<span>{{item.TaiSanDat.QuyHoach}}</span>
+            </div>
+            <div class="p-col-12 p-lg-4 p-p-2">
+                <label>Mật độ xây dựng thực tế:</label>&nbsp;<span>{{item.TaiSanDat.MatDoXayDungThucTe}}%</span>
+            </div>
+            <div class="p-col-12 p-lg-4 p-p-2">
+                <label>Chiều cao xây dựng thực tế:</label>&nbsp;<span>{{item.TaiSanDat.ChieuCaoXayDungThucTe}}m</span>
+            </div>
+            <div class="p-col-12 p-lg-4 p-p-2">
+                <label>Định hướng quy hoạch:</label>&nbsp;<span>{{item.TaiSanDat.DinhHuongQuyHoach}}</span>
+            </div>
+        </ng-container>
         <div class="p-col-12 p-lg-4 p-p-2">
-            <label>Mật độ xây dựng cấp phép:</label>&nbsp;<span>{{item.TaiSanDat.MatDoXayDung}}%</span>
+            <label>Giá trị đất(tham khảo):</label>&nbsp;<span><button pButton pRipple type="button" icon="pi pi-plus"
+                    class="p-button-rounded p-button-outlined" (click)="GiaDat('GIA_DAT_THAM_KHAO')"></button></span>
         </div>
         <div class="p-col-12 p-lg-4 p-p-2">
-            <label>Chiều cao xây dựng cấp phép:</label>&nbsp;<span>{{item.TaiSanDat.ChieuCaoXayDung}}m</span>
-        </div>
-        <div class="p-col-12 p-lg-4 p-p-2">
-            <label>Quy hoạch SD đất lân cận:</label>&nbsp;<span>{{item.TaiSanDat.QuyHoach}}</span>
-        </div>
-        <div class="p-col-12 p-lg-4 p-p-2">
-            <label>Mật độ xây dựng thực tế:</label>&nbsp;<span>{{item.TaiSanDat.MatDoXayDungThucTe}}%</span>
-        </div>
-        <div class="p-col-12 p-lg-4 p-p-2">
-            <label>Chiều cao xây dựng thực tế:</label>&nbsp;<span>{{item.TaiSanDat.ChieuCaoXayDungThucTe}}m</span>
-        </div>
-        <div class="p-col-12 p-lg-4 p-p-2">
-            <label>Định hướng quy hoạch:</label>&nbsp;<span>{{item.TaiSanDat.DinhHuongQuyHoach}}</span>
-        </div>
-        <div class="p-col-12 p-lg-4 p-p-2">
-            <label>Giá trị đất(tham khảo):</label>&nbsp;<span><button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined" (click)="GiaDat('GIA_DAT_THAM_KHAO')"></button></span>
-        </div>
-        <div class="p-col-12 p-lg-4 p-p-2">
-            <label>Giá tiền thuê đất hằng năm:</label>&nbsp;<span><button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined" (click)="GiaDat('GIA_THUE_DAT_HANG_NAM')"></button></span>
+            <label>Giá tiền thuê đất hằng năm:</label>&nbsp;<span><button pButton pRipple type="button"
+                    icon="pi pi-plus" class="p-button-rounded p-button-outlined"
+                    (click)="GiaDat('GIA_THUE_DAT_HANG_NAM')"></button></span>
         </div>
         <div class="p-col-12 p-lg-4 p-p-2">
             <label>Hạ tầng kỹ thuật:</label>&nbsp;<span>{{item.TaiSanDat.HaTangKyThuat}}</span>

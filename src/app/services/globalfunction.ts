@@ -135,12 +135,12 @@ export function validVariable(value:any){
         return false;
     }
 }
-export function DateToUnix(date:Date):number{
+export function DateToUnix(date:any):any{
     return (new Date(date)).getTime()/1000;
 }
 export function UnixToDate(unix:number):Date|null{
     if(unix!== undefined&& unix !== null && unix !==0){
-       return new Date(unix*1000); 
+       return new Date((unix-(3600*7))*1000); 
     }else{
         return null;
     }

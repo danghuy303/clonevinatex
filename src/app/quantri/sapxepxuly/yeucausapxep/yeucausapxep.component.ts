@@ -26,7 +26,7 @@ export class YeucausapxepComponent implements OnInit {
     {
       header: 'Yêu cầu',
       field: 'YeuCau',
-      width: 'unset',
+      width: '500px',
       class: ''
     },
     {

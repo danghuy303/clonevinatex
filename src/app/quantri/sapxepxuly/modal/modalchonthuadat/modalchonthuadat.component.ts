@@ -1,3 +1,4 @@
+import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -11,6 +12,7 @@ import { Dat09Service } from 'src/app/services/callApi';
   styleUrls: ['./modalchonthuadat.component.css']
 })
 export class ModalchonthuadatComponent implements OnInit {
+  @ViewChild('chonVung') chonVung: any;
   thuaDats:any=[];
   selectedThuaDats:any=[];
   vung: any = {
@@ -79,6 +81,7 @@ export class ModalchonthuadatComponent implements OnInit {
     this.vung = this.selectedVung.data;
   }
   nodeSelect(event): void {
+    this.chonVung.hide();
     this.vung = event.node.data;
     this.selectedThuaDats = [];
     this.GetListTaiSanDat();

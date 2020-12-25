@@ -11,7 +11,7 @@ import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangta
 import { capQuanLy } from 'src/app/services/const';
 import { MenuItem } from 'primeng/api/menuitem';
 import { ModaladvancedsearchComponent } from '../modal/modaladvancedsearch/modaladvancedsearch.component';
-import { validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 @Component({
   selector: 'app-quanlytaisannhadat',
   templateUrl: './quanlytaisannhadat.component.html',
@@ -35,9 +35,7 @@ export class QuanlytaisannhadatComponent implements OnInit {
   advancedSearch: boolean = false;
   pagingThuaDat: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 1 };
   thuaDats: any = [
-    { "ID": 1, "Ma": null, "Ten": null, "NguyenGia": null, "NguonNganSach": null, "NguonChuSoHuu": null, "NguonKhac": null, "TiLeKhauHao": null, "GiaTriConLai": null, "NamDuaVaoSuDung": null, "HoSoPhapLy": null, "MucDichSuDung": "3123", "GhiChu": null, "NgayKeKhai": null, "TrangThai": null, "NguonGoc": "231231", "QuyetDinh": null, "NgayQuyetDinh": null, "IDdmTinhTrangTaiSan": null, "IDdmTaiSan": null, "IDdmDonVi": 4, "IDdmHinhThucXuLy": null, "Loai": 0, "TaiSanDat": { "ID": 2, TenCongTy: 'Tập đoàn dệt may Việt Nam', "IDTaiSan": 2, "SoTo": "1", "SoThua": "2", "DiaChi": "Số 524 Minh Khai, Hai Bà Trưng, Hà Nội", "DTDat": 22355.9, "DTTruSoNN": null, "DTCoSo": 22355.9, "DTTruSoToChuc": null, "DTNhaO": 5631.0, "DTBoTrong": 1123123.0, "DTBiLanChiem": 123.0, "DTSuDungKhac": null, "DTSuDungChung": 123.0, "DTSuDungRieng": 123.0, "ThoiHanSuDung": "1231", "PhuongAnPheDuyet": null, "NoiDungPheDuyet": null, "HienTrangSuDung_HoSo": null, "HienTrangSuDung_ThucTe": null, "GCNQSDDat": "3", "NgayCapGCN": "2020-03-13T00:00:00", "QuyetDinhGiaoDat": null, "NgayQuyetDinh": null, "GiayToLienQuan": null, "TinhTrangPhapLy": "Đang sử dụng", "HienTrangChung": "Nhà xưởng và văn phòng công ty", "HinhAnh": null, "NgayCapGCNUnix": 1584032400.0, "NgayQuyetDinhUnix": 0.0, "Created": "2020-03-12T08:57:04.077", "CreatedBy": "admin", "Modified": "2020-03-18T14:22:13.427", "ModifiedBy": "admin" }, "Created": "2020-03-12T08:57:03.467", "CreatedBy": "admin", "Modified": "2020-03-18T14:22:13.413", "ModifiedBy": "admin" },
-    { "ID": 2, "Ma": null, "Ten": null, "NguyenGia": null, "NguonNganSach": null, "NguonChuSoHuu": null, "NguonKhac": null, "TiLeKhauHao": null, "GiaTriConLai": null, "NamDuaVaoSuDung": null, "HoSoPhapLy": null, "MucDichSuDung": "3123", "GhiChu": null, "NgayKeKhai": null, "TrangThai": null, "NguonGoc": "231231", "QuyetDinh": null, "NgayQuyetDinh": null, "IDdmTinhTrangTaiSan": null, "IDdmTaiSan": null, "IDdmDonVi": 4, "IDdmHinhThucXuLy": null, "Loai": 0, "TaiSanDat": { "ID": 2, TenCongTy: 'Tập đoàn dệt may Việt Nam', "IDTaiSan": 2, "SoTo": "1", "SoThua": "2", "DiaChi": "Số 524 Minh Khai, Hai Bà Trưng, Hà Nội", "DTDat": 22355.9, "DTTruSoNN": null, "DTCoSo": 22355.9, "DTTruSoToChuc": null, "DTNhaO": 5631.0, "DTBoTrong": 1123123.0, "DTBiLanChiem": 123.0, "DTSuDungKhac": null, "DTSuDungChung": 123.0, "DTSuDungRieng": 123.0, "ThoiHanSuDung": "1231", "PhuongAnPheDuyet": null, "NoiDungPheDuyet": null, "HienTrangSuDung_HoSo": null, "HienTrangSuDung_ThucTe": null, "GCNQSDDat": "3", "NgayCapGCN": "2020-03-13T00:00:00", "QuyetDinhGiaoDat": null, "NgayQuyetDinh": null, "GiayToLienQuan": null, "TinhTrangPhapLy": "Đang sử dụng", "HienTrangChung": "Nhà xưởng và văn phòng công ty", "HinhAnh": null, "NgayCapGCNUnix": 1584032400.0, "NgayQuyetDinhUnix": 0.0, "Created": "2020-03-12T08:57:04.077", "CreatedBy": "admin", "Modified": "2020-03-18T14:22:13.427", "ModifiedBy": "admin" }, "Created": "2020-03-12T08:57:03.467", "CreatedBy": "admin", "Modified": "2020-03-18T14:22:13.413", "ModifiedBy": "admin" },
-    { "ID": 3, "Ma": null, "Ten": null, "NguyenGia": null, "NguonNganSach": null, "NguonChuSoHuu": null, "NguonKhac": null, "TiLeKhauHao": null, "GiaTriConLai": null, "NamDuaVaoSuDung": null, "HoSoPhapLy": null, "MucDichSuDung": "3123", "GhiChu": null, "NgayKeKhai": null, "TrangThai": null, "NguonGoc": "231231", "QuyetDinh": null, "NgayQuyetDinh": null, "IDdmTinhTrangTaiSan": null, "IDdmTaiSan": null, "IDdmDonVi": 4, "IDdmHinhThucXuLy": null, "Loai": 0, "TaiSanDat": { "ID": 2, TenCongTy: 'Tập đoàn dệt may Việt Nam', "IDTaiSan": 2, "SoTo": "1", "SoThua": "2", "DiaChi": "Số 524 Minh Khai, Hai Bà Trưng, Hà Nội", "DTDat": 22355.9, "DTTruSoNN": null, "DTCoSo": 22355.9, "DTTruSoToChuc": null, "DTNhaO": 5631.0, "DTBoTrong": 1123123.0, "DTBiLanChiem": 123.0, "DTSuDungKhac": null, "DTSuDungChung": 123.0, "DTSuDungRieng": 123.0, "ThoiHanSuDung": "1231", "PhuongAnPheDuyet": null, "NoiDungPheDuyet": null, "HienTrangSuDung_HoSo": null, "HienTrangSuDung_ThucTe": null, "GCNQSDDat": "3", "NgayCapGCN": "2020-03-13T00:00:00", "QuyetDinhGiaoDat": null, "NgayQuyetDinh": null, "GiayToLienQuan": null, "TinhTrangPhapLy": "Đang sử dụng", "HienTrangChung": "Nhà xưởng và văn phòng công ty", "HinhAnh": null, "NgayCapGCNUnix": 1584032400.0, "NgayQuyetDinhUnix": 0.0, "Created": "2020-03-12T08:57:04.077", "CreatedBy": "admin", "Modified": "2020-03-18T14:22:13.427", "ModifiedBy": "admin" }, "Created": "2020-03-12T08:57:03.467", "CreatedBy": "admin", "Modified": "2020-03-18T14:22:13.413", "ModifiedBy": "admin" },
+    
   ];
   selectedThuaDat: any = {};
   selecteThuaDat: any = {};
@@ -132,7 +130,7 @@ export class QuanlytaisannhadatComponent implements OnInit {
       this.showSoDos = false;
     this._services.GetTaiSanDat(event.data.ID).subscribe((res: any) => {
       res.HienTrangSuDungs.forEach(ele => {
-        ele.ThoiGian = (ele.ThoiGianUnix !== 0 ? (new Date(ele.ThoiGianUnix * 1000)) : null);
+        ele.ThoiGian = UnixToDate(ele.ThoiGianUnix);
       });
       this.selectedThuaDat = res;
       this.showSoDos = true;
@@ -176,8 +174,7 @@ export class QuanlytaisannhadatComponent implements OnInit {
   changeHienTrang(e: any) {
     this._services.GetTaiSanDat(this.selecteThuaDat.ID).subscribe((res: any) => {
       res.HienTrangSuDungs.forEach(ele => {
-        ele.ThoiGian = (ele.ThoiGianUnix !== 0 ? (new Date(ele.ThoiGianUnix * 1000)) : null);
-
+        ele.ThoiGian = UnixToDate(ele.ThoiGianUnix);
       });
       this.selectedThuaDat = res;
       this._services.ThongKeThongTinThuaDat({ IDTaiSan: this.selectedThuaDat.ID }).subscribe((res: any) => {
@@ -227,9 +224,9 @@ export class QuanlytaisannhadatComponent implements OnInit {
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res));
-      modalRef.componentInstance.item.TaiSanDat.NgayCapGCN = (res.TaiSanDat.NgayCapGCNUnix !== 0 ? new Date(res.TaiSanDat.NgayCapGCNUnix * 1000) : null);
-      modalRef.componentInstance.item.TaiSanDat.NgayCapGPKD = (res.TaiSanDat.NgayCapGPKDUnix !== 0 ? new Date(res.TaiSanDat.NgayCapGPKDUnix * 1000) : null);
-      modalRef.componentInstance.item.TaiSanDat.NgayKyGiaoDat = (res.TaiSanDat.NgayKyGiaoDatUnix !== 0 ? new Date(res.TaiSanDat.NgayKyGiaoDatUnix * 1000) : null);
+      modalRef.componentInstance.item.TaiSanDat.NgayCapGCN = UnixToDate(res.TaiSanDat.NgayCapGCNUnix);
+      modalRef.componentInstance.item.TaiSanDat.NgayCapGPKD = UnixToDate(res.TaiSanDat.NgayCapGPKDUnix);
+      modalRef.componentInstance.item.TaiSanDat.NgayKyGiaoDat = UnixToDate(res.TaiSanDat.NgayKyGiaoDatUnix);
       if (res.TaiSanDat.ThoiHanSuDungTuNgay != null && res.TaiSanDat.ThoiHanSuDungTuNgay != undefined) {
         var thoiGianSuDungTuNgay = new Date(res.TaiSanDat.ThoiHanSuDungTuNgay);
         modalRef.componentInstance.item.TaiSanDat.ThoiHanSuDungTuNgay = new Date(thoiGianSuDungTuNgay.getFullYear(), thoiGianSuDungTuNgay.getMonth(), thoiGianSuDungTuNgay.getDate());

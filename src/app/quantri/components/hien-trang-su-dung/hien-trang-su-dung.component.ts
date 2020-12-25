@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 import { vn } from 'src/app/services/const';
 import { ModalthongtinchothueComponent } from '../../modal/modalthongtinchothue/modalthongtinchothue.component';
-import { vietHoaChuCaiDau } from 'src/app/services/globalfunction';
+import { DateToUnix, vietHoaChuCaiDau } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-hien-trang-su-dung',
@@ -74,7 +74,7 @@ export class HienTrangSuDungComponent implements OnInit {
   }
   doneEdit(item) {
     if (item.ThoiGian !== null && item.ThoiGian !== undefined) {
-      item.ThoiGianUnix = (new Date(item.ThoiGian)).getTime() / 1000;
+      item.ThoiGianUnix = DateToUnix(item.ThoiGian);
       if (item.IDdmHienTrangSuDung != null) {
         item.IDdmHienTrangSuDung = item.IDdmHienTrangSuDung.ID;
       }
