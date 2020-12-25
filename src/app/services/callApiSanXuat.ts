@@ -93,7 +93,7 @@ export class SanXuatService {
         return this.http.post(url, data, httpOptions);
     }
     //#endregion
-    
+
     //#region  phân xưởng
     GetListdmPhanXuongOpt() {
         let url = API.SCMDanhMuc + 'GetListdmPhanXuong';
@@ -131,7 +131,7 @@ export class SanXuatService {
         return this.http.post(url, data, httpOptions);
     }
     //#endregion
-     
+
     //#region  nhóm kho
     GetListdmNhomKho(data) {
         let url = API.SCMDanhMuc + 'GetListdmNhomKho';
@@ -146,18 +146,18 @@ export class SanXuatService {
         return this.http.post(url, data, httpOptions);
     }
     //#endregion
-    
+
     //#region lô bông
-    GetListdmLoBong(data) {
-        let url = API.SCMDanhMuc + 'GetListdmLoBong';
+    GetListLoBong(data) {
+        let url = API.SCMDanhMuc + 'GetListLoBong';
         return this.http.post(url, data, httpOptions);
     }
-    SetdmLoBong(data) {
-        let url = API.SCMDanhMuc + 'SetdmLoBong';
+    SetLoBong(data) {
+        let url = API.SCMDanhMuc + 'SetLoBong';
         return this.http.post(url, data, httpOptions);
     }
-    DeletedmLoBong(data) {
-        let url = API.SCMDanhMuc + 'DeletedmLoBong';
+    DeleteLoBong(data) {
+        let url = API.SCMDanhMuc + 'DeleteLoBong';
         return this.http.post(url, data, httpOptions);
     }
     //#endregion
@@ -172,30 +172,30 @@ export class SanXuatService {
         return this.http.get(url, httpOptions);
     }
 
-    KiemTraButton(IdTable,IdTrangThai){
-        let url = API.auth +`QuanTriQuyTrinh/KiemTraButton?IdTrangThai=${IdTrangThai}&IdTable=${IdTable}`;
+    KiemTraButton(IdTable, IdTrangThai) {
+        let url = API.auth + `QuanTriQuyTrinh/KiemTraButton?IdTrangThai=${IdTrangThai}&IdTable=${IdTable}`;
         return this.http.get(url, httpOptions);
     }
-    KiemTraButtonUser(IdTrangThai,IdTable,IdUser){
-        let url = API.auth +`QuanTriQuyTrinh/KiemTraButtonUser?IdTrangThai=${IdTrangThai}&IdTable=${IdTable}&IdUser=${IdUser}`;
+    KiemTraButtonUser(IdTrangThai, IdTable, IdUser) {
+        let url = API.auth + `QuanTriQuyTrinh/KiemTraButtonUser?IdTrangThai=${IdTrangThai}&IdTable=${IdTable}&IdUser=${IdUser}`;
         return this.http.get(url, httpOptions);
     }
-    GetOptions(){
+    GetOptions() {
         return {
-            GetMatHang:()=>{
-                return this.http.post(`${API.SCMDanhMuc}GetListdmItem`,{Loai:1},httpOptions)
+            GetMatHang: () => {
+                return this.http.post(`${API.SCMDanhMuc}GetListdmItem`, { Loai: 1 }, httpOptions)
             },
-            GetDonVi:()=>{
-                return this.http.post(`${API.auth}DanhMuc/GetDanhSachDuAn_Advance`,{},httpOptions)
+            GetDonVi: () => {
+                return this.http.post(`${API.auth}DanhMuc/GetDanhSachDuAn_Advance`, {}, httpOptions)
             },
-            GetPhanXuong:(IdDuAn)=>{
-                return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn}`,httpOptions)
+            GetPhanXuong: (IdDuAn) => {
+                return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn}`, httpOptions)
             },
-            GetListGiaoKeHoachSanXuatChuaLapKeHoach:(Ngay)=>{
-                return this.http.get(`${API.SCMQuanLyKho}GetListGiaoKeHoachSanXuatChuaLapKeHoach?Ngay=${Ngay}`,httpOptions)
+            GetListGiaoKeHoachSanXuatChuaLapKeHoach: (Ngay) => {
+                return this.http.get(`${API.SCMQuanLyKho}GetListGiaoKeHoachSanXuatChuaLapKeHoach?Ngay=${Ngay}`, httpOptions)
             },
-            GetListMatHangChuaLapKeHoach:(IdGiaoKeHoachSanXuat)=>{
-                return this.http.get(`${API.SCMQuanLyKho}GetListMatHangChuaLapKeHoach?IdGiaoKeHoachSanXuat=${IdGiaoKeHoachSanXuat}`,httpOptions)
+            GetListMatHangChuaLapKeHoach: (IdGiaoKeHoachSanXuat) => {
+                return this.http.get(`${API.SCMQuanLyKho}GetListMatHangChuaLapKeHoach?IdGiaoKeHoachSanXuat=${IdGiaoKeHoachSanXuat}`, httpOptions)
             }
         }
     }
@@ -253,66 +253,62 @@ export class SanXuatService {
             },
         }
     }
-//#region  NhapLoBong
-GetNextSoQuyTrinhPhieuNhapLoBong() {
-    let url = API.SCMQuanLyKho + 'GetNextSoQuyTrinhPhieuNhapLoBong';
-    return this.http.get(url, httpOptions);
-}
-GetListPhieuNhapLoBong(data) {
-    let url = API.SCMQuanLyKho + 'GetListPhieuNhapLoBong';
-    return this.http.post(url, data, httpOptions);
-}
-GetPhieuNhapLoBong(id) {
-    let url = API.SCMQuanLyKho + 'GetPhieuNhapLoBong?Id='+ id;
-    return this.http.get(url, httpOptions);
-}
-SetPhieuNhapLoBong(data) {
-    let url = API.SCMQuanLyKho + 'SetPhieuNhapLoBong';
-    return this.http.post(url, data, httpOptions);
-}
-DeletePhieuNhapLoBong(data) {
-    let url = API.SCMQuanLyKho + 'DeletePhieuNhapLoBong';
-    return this.http.post(url, data, httpOptions);
-}
-ChuyenTiepPhieuNhapLoBong(data) {
-    let url = API.SCMQuanLyKho + 'ChuyenTiepPhieuNhapLoBong';
-    return this.http.post(url, data, httpOptions);
-}
-KhongDuyetPhieuNhapLoBong(data) {
-    let url = API.SCMQuanLyKho + 'KhongDuyetPhieuNhapLoBong';
-    return this.http.post(url, data, httpOptions);
-}
-//#endregion
+    //#region  NhapLoBong
+    QuyTrinhPhieuNhapLoBong() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuNhapLoBong', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListPhieuNhapLoBong', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuNhapLoBong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetPhieuNhapLoBong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuNhapLoBong', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhieuNhapLoBong', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuNhapLoBong', data, httpOptions)
+            },
+        }
+    }
+    //#endregion
 
-//#region  NhapChatLuong
-GetNextSoQuyTrinhPhieuNhapChatLuong() {
-    let url = API.SCMQuanLyKho + 'GetNextSoQuyTrinhPhieuNhapChatLuong';
-    return this.http.get(url, httpOptions);
-}
-GetListPhieuNhapChatLuong(data) {
-    let url = API.SCMQuanLyKho + 'GetListPhieuNhapChatLuong';
-    return this.http.post(url, data, httpOptions);
-}
-GetPhieuNhapChatLuong(id) {
-    let url = API.SCMQuanLyKho + 'GetPhieuNhapChatLuong?Id='+ id;
-    return this.http.get(url, httpOptions);
-}
-SetPhieuNhapChatLuong(data) {
-    let url = API.SCMQuanLyKho + 'SetPhieuNhapChatLuong';
-    return this.http.post(url, data, httpOptions);
-}
-DeletePhieuNhapChatLuong(data) {
-    let url = API.SCMQuanLyKho + 'DeletePhieuNhapChatLuong';
-    return this.http.post(url, data, httpOptions);
-}
-ChuyenTiepPhieuNhapChatLuong(data) {
-    let url = API.SCMQuanLyKho + 'ChuyenTiepPhieuNhapChatLuong';
-    return this.http.post(url, data, httpOptions);
-}
-KhongDuyetPhieuNhapChatLuong(data) {
-    let url = API.SCMQuanLyKho + 'KhongDuyetPhieuNhapChatLuong';
-    return this.http.post(url, data, httpOptions);
-}
-//#endregion
+    //#region  NhapChatLuong
+    PhieuNhapLoBong_ChatLuong() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuNhapLoBong_ChatLuong', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListPhieuNhapLoBong_ChatLuong', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuNhapLoBong_ChatLuong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetPhieuNhapLoBong_ChatLuong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuNhapLoBong_ChatLuong', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhieuNhapLoBong_ChatLuong', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuNhapLoBong_ChatLuong', data, httpOptions)
+            },
+        }
+    }
+    //#endregion
 
 }

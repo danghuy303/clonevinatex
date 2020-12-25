@@ -19,7 +19,7 @@ export class DanhsachmaymodalComponent implements OnInit {
   ngOnInit(): void {
   }
   accept() {
-    if (this.item.Ma !== undefined && this.item.Ma.trim() !== '' && this.item.Ten.trim() !== '' && this.item.Ten !== undefined && this.item.CodeCongDoan !== undefined) {
+    if (this.item.Ma !== undefined && this.item.Ma !== '' && this.item.Ten !== '' && this.item.Ten !== undefined && this.item.CongDoan !== undefined) {
       this.services.SetdmMay(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

@@ -13,7 +13,7 @@ import { ThongsochatluongmodalComponent } from '../thongsochatluongmodal/thongso
 })
 export class ThongsochatluongComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
-  eAction: any = "PHIEUNHAPCHATLUONG";
+  eAction: any = "PHIEUNHAPLOBONG_CHATLUONG";
   items: any = [{id:5,SoQuyTrinh:'PNK_0000_0000'}];
   filter:any={};
   listLoaiPhuongAn:any=[];
@@ -101,8 +101,9 @@ export class ThongsochatluongComponent implements OnInit {
     //     this.update(res.id);
     //   }
     // })
-    this.KiemTraTabTrangThai();
     this.GetListQuyTrinh()
+
+    this.KiemTraTabTrangThai();
   }
   changeParam(id){
     if(this._modal.hasOpenModals()){
@@ -125,17 +126,19 @@ export class ThongsochatluongComponent implements OnInit {
       .catch(er => { console.log(er) })
   }
   update(item){
+      this._service.PhieuNhapLoBong_ChatLuong().Get(item.Id).subscribe((res1:any)=>{
     let modalRef = this._modal.open(ThongsochatluongmodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
     modalRef.result.then((res: any) => {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
     })
       .catch(er => { console.log(er) })
+    })
   }
   changeTab(e){
     // this.trangThai = e.index+1;
@@ -160,7 +163,7 @@ export class ThongsochatluongComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.GetListPhieuNhapChatLuong(data).subscribe((res:any)=>{
+    this._service.PhieuNhapLoBong_ChatLuong().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })

@@ -101,7 +101,7 @@
                         <th>Số kiện</th>
                         <th>Khối lượng</th>
                         <th>Vị trí</th>
-                        <th></th>
+                        <th style="width: 100px;"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -139,13 +139,13 @@
                         </td>
                         <td>
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoKien">
+                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.KhoiLuong">
                                 </p-inputNumber>
                                 <span class="p-inputgroup-addon">kiện</span>
                             </div>
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="newTableItem.Block">
+                            <input pInputText type="text" [(ngModel)]="newTableItem.ViTri">
                         </td>
                         <td class="text-center">
                             <button pButton pRipple type="button" icon="pi pi-plus"
