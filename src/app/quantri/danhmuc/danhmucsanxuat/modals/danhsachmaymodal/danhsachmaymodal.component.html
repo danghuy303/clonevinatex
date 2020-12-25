@@ -26,6 +26,13 @@
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng :</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.GhiChu" pInputText />

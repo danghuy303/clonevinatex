@@ -28,7 +28,7 @@ export class SanXuatService {
 
     //Ca sản xuất
     GetListOptdmCaSanXuat() {
-        let url = API.SCM + 'GetListdmCaSanXuat';
+        let url = API.SCMDanhMuc + 'GetListdmCaSanXuat';
         return this.http.get(url, httpOptions);
     }
     GetListdmCaSanXuat(data) {
@@ -46,10 +46,6 @@ export class SanXuatService {
 
 
     // Loại bông
-    GetListOptdmLoaiBong() {
-        let url = API.SCM + 'GetListdmLoaiBong';
-        return this.http.get(url, httpOptions);
-    }
     GetListdmLoaiBong(data) {
         let url = API.SCMDanhMuc + 'GetListdmLoaiBong';
         return this.http.post(url, data, httpOptions);
@@ -99,6 +95,10 @@ export class SanXuatService {
     //#endregion
     
     //#region  phân xưởng
+    GetListdmPhanXuongOpt() {
+        let url = API.SCMDanhMuc + 'GetListdmPhanXuong';
+        return this.http.get(url, httpOptions);
+    }
     GetListdmPhanXuong(data) {
         let url = API.SCMDanhMuc + 'GetListdmPhanXuong';
         return this.http.post(url, data, httpOptions);
@@ -131,7 +131,8 @@ export class SanXuatService {
         return this.http.post(url, data, httpOptions);
     }
     //#endregion
-     //#region  nhóm kho
+     
+    //#region  nhóm kho
     GetListdmNhomKho(data) {
         let url = API.SCMDanhMuc + 'GetListdmNhomKho';
         return this.http.post(url, data, httpOptions);
@@ -145,6 +146,22 @@ export class SanXuatService {
         return this.http.post(url, data, httpOptions);
     }
     //#endregion
+    
+    //#region lô bông
+    GetListdmLoBong(data) {
+        let url = API.SCMDanhMuc + 'GetListdmLoBong';
+        return this.http.post(url, data, httpOptions);
+    }
+    SetdmLoBong(data) {
+        let url = API.SCMDanhMuc + 'SetdmLoBong';
+        return this.http.post(url, data, httpOptions);
+    }
+    DeletedmLoBong(data) {
+        let url = API.SCMDanhMuc + 'DeletedmLoBong';
+        return this.http.post(url, data, httpOptions);
+    }
+    //#endregion
+
     //Dùng chung
     GetListCongDoan() {
         let url = API.SCMDanhMuc + 'GetListCongDoan';
@@ -236,5 +253,66 @@ export class SanXuatService {
             },
         }
     }
+//#region  NhapLoBong
+GetNextSoQuyTrinhPhieuNhapLoBong() {
+    let url = API.SCMQuanLyKho + 'GetNextSoQuyTrinhPhieuNhapLoBong';
+    return this.http.get(url, httpOptions);
+}
+GetListPhieuNhapLoBong(data) {
+    let url = API.SCMQuanLyKho + 'GetListPhieuNhapLoBong';
+    return this.http.post(url, data, httpOptions);
+}
+GetPhieuNhapLoBong(id) {
+    let url = API.SCMQuanLyKho + 'GetPhieuNhapLoBong?Id='+ id;
+    return this.http.get(url, httpOptions);
+}
+SetPhieuNhapLoBong(data) {
+    let url = API.SCMQuanLyKho + 'SetPhieuNhapLoBong';
+    return this.http.post(url, data, httpOptions);
+}
+DeletePhieuNhapLoBong(data) {
+    let url = API.SCMQuanLyKho + 'DeletePhieuNhapLoBong';
+    return this.http.post(url, data, httpOptions);
+}
+ChuyenTiepPhieuNhapLoBong(data) {
+    let url = API.SCMQuanLyKho + 'ChuyenTiepPhieuNhapLoBong';
+    return this.http.post(url, data, httpOptions);
+}
+KhongDuyetPhieuNhapLoBong(data) {
+    let url = API.SCMQuanLyKho + 'KhongDuyetPhieuNhapLoBong';
+    return this.http.post(url, data, httpOptions);
+}
+//#endregion
+
+//#region  NhapChatLuong
+GetNextSoQuyTrinhPhieuNhapChatLuong() {
+    let url = API.SCMQuanLyKho + 'GetNextSoQuyTrinhPhieuNhapChatLuong';
+    return this.http.get(url, httpOptions);
+}
+GetListPhieuNhapChatLuong(data) {
+    let url = API.SCMQuanLyKho + 'GetListPhieuNhapChatLuong';
+    return this.http.post(url, data, httpOptions);
+}
+GetPhieuNhapChatLuong(id) {
+    let url = API.SCMQuanLyKho + 'GetPhieuNhapChatLuong?Id='+ id;
+    return this.http.get(url, httpOptions);
+}
+SetPhieuNhapChatLuong(data) {
+    let url = API.SCMQuanLyKho + 'SetPhieuNhapChatLuong';
+    return this.http.post(url, data, httpOptions);
+}
+DeletePhieuNhapChatLuong(data) {
+    let url = API.SCMQuanLyKho + 'DeletePhieuNhapChatLuong';
+    return this.http.post(url, data, httpOptions);
+}
+ChuyenTiepPhieuNhapChatLuong(data) {
+    let url = API.SCMQuanLyKho + 'ChuyenTiepPhieuNhapChatLuong';
+    return this.http.post(url, data, httpOptions);
+}
+KhongDuyetPhieuNhapChatLuong(data) {
+    let url = API.SCMQuanLyKho + 'KhongDuyetPhieuNhapChatLuong';
+    return this.http.post(url, data, httpOptions);
+}
+//#endregion
 
 }

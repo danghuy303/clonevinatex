@@ -88,7 +88,7 @@ export class PhanxuongComponent implements OnInit {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
       sFilter:this.filter.keyWord?this.filter.keyWord:'',
-      CodeCongDoan:this.filter.CongDoan?this.filter.CongDoan:'',
+      CongDoan:this.filter.CongDoan?this.filter.CongDoan:'',
       Ma:"", 
       Ten:""
     };

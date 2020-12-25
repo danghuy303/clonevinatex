@@ -42,7 +42,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
     // this.GetListdmPhuongAnSapXep();
     // this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
-      // this.GetNextSoQuyTrinh();
+      this.GetNextSoQuyTrinh();
     }
   }
   KiemTraButtonModal() {
@@ -102,7 +102,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
   }
   GetNextSoQuyTrinh() {
     this.services.GetNextSoQuyTrinh().subscribe((res: any) => {
-      this.item.SoQuyTrinh = res;
+      this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
   // GetQuyTrinh(Id){

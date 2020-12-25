@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Dat09Service } from 'src/app/services/callApi';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ThongsochatluongmodalComponent } from '../thongsochatluongmodal/thongsochatluongmodal.component';
 
 @Component({
@@ -12,6 +13,7 @@ import { ThongsochatluongmodalComponent } from '../thongsochatluongmodal/thongso
 })
 export class ThongsochatluongComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
+  eAction: any = "PHIEUNHAPCHATLUONG";
   items: any = [{id:5,SoQuyTrinh:'PNK_0000_0000'}];
   filter:any={};
   listLoaiPhuongAn:any=[];
@@ -89,18 +91,18 @@ export class ThongsochatluongComponent implements OnInit {
   ];
 
 
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:Dat09Service,private activatedRoute: ActivatedRoute,private router:Router) { }
+  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
-    this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0'){
-        let getitem =()=>{return this.items.filter(ele=>ele.id === res.id.toString())[0]};
-        this.update(getitem());
-      }
-    })
+    // this.activatedRoute.params.subscribe((res:any)=>{
+    //   if(res.id!=='0'){
+    //     // let getitem =()=>{return this.items.filter(ele=>ele.id === res.id.toString())[0]};
+    //     this.update(res.id);
+    //   }
+    // })
     this.KiemTraTabTrangThai();
-    // this.GetListQuyTrinh()
+    this.GetListQuyTrinh()
   }
   changeParam(id){
     if(this._modal.hasOpenModals()){
@@ -115,18 +117,10 @@ export class ThongsochatluongComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = {
-      SoQuyTrinh: 'PNK_0000_0001',
-      listCongTenNo:[]
-      // ID:null,
-      // TepDinhKems:[],
-      // templistTaiSanQuyTrinh:[],
-      // listTaiSanQuyTrinh:[]
-    }
+    modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
-      // this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
@@ -140,7 +134,6 @@ export class ThongsochatluongComponent implements OnInit {
     modalRef.result.then((res: any) => {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
-      // this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
@@ -167,7 +160,7 @@ export class ThongsochatluongComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.GetListQuyTrinh(data).subscribe((res:any)=>{
+    this._service.GetListPhieuNhapChatLuong(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })
@@ -177,9 +170,9 @@ export class ThongsochatluongComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai(){
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+  //  this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+  //     this.checkQuyen = res;
+  //     this.GetListQuyTrinh();
+  //   })
   }
 }

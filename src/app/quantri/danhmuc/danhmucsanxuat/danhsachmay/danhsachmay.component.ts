@@ -3,9 +3,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalimportexcelComponent } from 'src/app/quantri/modal/modalimportexcel/modalimportexcel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { congDoan } from 'src/app/services/const';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { DanhsachmaymodalComponent } from '../modals/danhsachmaymodal/danhsachmaymodal.component';
 
 @Component({
@@ -19,6 +19,7 @@ export class DanhsachmayComponent implements OnInit {
   ];
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 0 };
   keyWord:any='';
+  listdmPhanXuong: any = []
   filter:any={
   };
   cols: any = [
@@ -41,12 +42,15 @@ export class DanhsachmayComponent implements OnInit {
       center:'center'
     }
   ];
-  listCongDoan:any = congDoan;
+  listCongDoan:any = [];
   selectedItems:any=[];
   constructor(private _modal:NgbModal,private _services:SanXuatService,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.GetListdm();
+    this.getListCongDoan();
+    this.getListdmPhanXuong();
+
   }
   resetFilter(){
     this.filter = {
@@ -62,7 +66,7 @@ export class DanhsachmayComponent implements OnInit {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
       sFilter:this.filter.keyWord?this.filter.keyWord:'',
-      CodeCongDoan:this.filter.CongDoan?this.filter.CongDoan:'',
+      CongDoan:this.filter.CongDoan?this.filter.CongDoan:'',
       Ma:"", 
       Ten:"",
     };
@@ -76,6 +80,9 @@ export class DanhsachmayComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.opt='add';
+    modalRef.componentInstance.listdmPhanXuong= this.listdmPhanXuong;
+    modalRef.componentInstance.listCongDoan= this.listCongDoan;
+
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListdm()
@@ -87,6 +94,9 @@ export class DanhsachmayComponent implements OnInit {
     });
     modalRef.componentInstance.opt='edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.listdmPhanXuong= this.listdmPhanXuong;
+    modalRef.componentInstance.listCongDoan= this.listCongDoan;
+
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListdm()
@@ -143,5 +153,15 @@ export class DanhsachmayComponent implements OnInit {
       this._toastr.success(res.mess);
     })
     .catch(er=>console.log(er))
+  }
+  getListdmPhanXuong(){
+    this._services.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  getListCongDoan(){
+    this._services.GetListCongDoan().subscribe((res: any) => {
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+    })
   }
 }
