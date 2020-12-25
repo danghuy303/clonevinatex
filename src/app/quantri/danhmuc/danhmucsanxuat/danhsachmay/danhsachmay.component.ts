@@ -89,6 +89,7 @@ export class DanhsachmayComponent implements OnInit {
     }).catch(er=>console.log(er))
   }
   edit(item){
+    // item.CongDoan = item.CongDoan.map(ele=>ele.CongDoan);
     let modalRef = this._modal.open(DanhsachmaymodalComponent,{
       backdrop:'static'
     });

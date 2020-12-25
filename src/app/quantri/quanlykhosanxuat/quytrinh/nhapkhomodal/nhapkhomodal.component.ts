@@ -6,7 +6,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-nhapkhomodal',
@@ -23,6 +23,7 @@ export class NhapkhomodalComponent implements OnInit {
     Xoa: true,
   }
   newTableItem: any = {};
+  editTableItem: any = {};
   listPhuongAnSapXep: any = [];
   listLoaiBong: any = [];
   listLoBong: any = [];
@@ -94,7 +95,7 @@ export class NhapkhomodalComponent implements OnInit {
     });
   }
   ChuyenDuyet() {
-    this._services.ChuyenTiepPhieuNhapLoBong(this.item).subscribe((res: any) => {
+    this._services.PhieuNhapLoBong_ChatLuong().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();
@@ -106,7 +107,7 @@ export class NhapkhomodalComponent implements OnInit {
   }
 
   GetNextSoQuyTrinh() {
-    this._services.GetNextSoQuyTrinhPhieuNhapLoBong().subscribe((res: any) => {
+    this._services.QuyTrinhPhieuNhapLoBong().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
@@ -123,7 +124,7 @@ export class NhapkhomodalComponent implements OnInit {
   GhiLai() {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    this._services.SetPhieuNhapLoBong(this.item).subscribe((res: any) => {
+    this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.toastr.success(res.message)
@@ -138,13 +139,12 @@ export class NhapkhomodalComponent implements OnInit {
   }
 
   XoaQuyTrinh() {
-    console.log(this.item)
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this._services.DeletePhieuNhapLoBong(this.item).subscribe((res: any) => {
+      this._services.QuyTrinhPhieuNhapLoBong().Delete(this.item).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
@@ -161,7 +161,7 @@ export class NhapkhomodalComponent implements OnInit {
     })
   }
   getListLoBong() {
-    this._services.GetListdmLoBong(this.data).subscribe((res: any) => {
+    this._services.GetListLoBong(this.data).subscribe((res: any) => {
       this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -171,18 +171,13 @@ export class NhapkhomodalComponent implements OnInit {
     })
   }
   add() {
-    console.log(this.item.listItem)
     if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {}
   }
   edit(item, index) {
-    // console.log(this.item.listItem)
-    // if(this.item.listItem == undefined || this.item.listItem == null)
-    //    this.item.listItem = [];
-    // this.item.listItem.push(this.newTableItem);
-    this.newTableItem = item
+    this.editTableItem = deepCopy(this.item.listChiTiet);
   }
   delete(index) {
     this.item.listItem.splice(index, 1)

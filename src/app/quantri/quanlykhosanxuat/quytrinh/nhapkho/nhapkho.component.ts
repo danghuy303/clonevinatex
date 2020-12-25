@@ -85,7 +85,7 @@ export class NhapkhoComponent implements OnInit {
       .catch(er => { console.log(er) })
   }
   update(Id) {
-    this._service.GetPhieuNhapLoBong(Id).subscribe((res1: any) => {
+    this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhomodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
@@ -121,7 +121,7 @@ export class NhapkhoComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.GetListPhieuNhapLoBong(data).subscribe((res: any) => {
+    this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })

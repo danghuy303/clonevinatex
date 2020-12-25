@@ -3,8 +3,9 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
-import { Dat09Service } from 'src/app/services/callApi';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-thongsochatluongmodal',
@@ -18,63 +19,44 @@ export class ThongsochatluongmodalComponent implements OnInit {
     listCongTenNo: []
   };
   checkbutton: any = {
-    Ghi:true,
-    KhongDuyet:true,
-    ChuyenTiep:true,
-    Xoa:true,
+    Ghi: true,
+    KhongDuyet: true,
+    ChuyenTiep: true,
+    Xoa: true,
   }
-  newTableItem:any={};
-  listPhuongAnSapXep: any = [];
-  listLoHang:any= [];
+  newTableItem: any = {};
+  listLoBong: any = [];
+  data: any = {};
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: Dat09Service, public toastr: ToastrService, public _modal: NgbModal) {
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
 
   }
 
   ngOnInit(): void {
-    console.log(this.listLoHang)
-    this.listLoHang = [
-      { label: 'Lô hàng 1', value: 1 },
-      { label: 'Lô hàng 2', value: 2 },
-      { label: 'Lô hàng 3', value: 3 },
-    ]
     // this.GetListdmPhuongAnSapXep();
     // this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
+      this.item = {
+        IdLoBong: 0,
+        IddmLoaiBong: 0,
+        IddmCapBong: 0,
+        IdContainer: 0,
+        listItem: [],
+      }
       this.GetNextSoQuyTrinh();
     }
+    this.data.CurrentPage = 0;
+    this.getListLoBong();
   }
   KiemTraButtonModal() {
-    this.services.KiemTraButtonModal(this.item.ID || '', this.item.IdTrangThai || '').subscribe(res => {
+    this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
     })
   }
-  taiLenFileDinhKem() {
-    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.result.then((data) => {
-      // console.log(data);
-      // console.log(this.item.TepDinhKems);
-      // let itemupload:any = {};
-      // itemupload.ID = 0;
-      // itemupload.TenGui = data[data.length - 1]?.Name||null;
-      // itemupload.TenGoc = data[data.length - 1]?.NameLocal||null;
-      // itemupload.DuongDan = data[data.length - 1]?.Url||null;
-      // if(itemupload.TenGui!== null){
-      //   if(this.item.TepDinhKems.length!==0){
-      //     this.item.TepDinhKems.forEach(ele => {
-      //       ele.isXoa =true;
-      //     });
-      //   }
-      //   this.item.TepDinhKems.unshift(itemupload);
-      //   console.log(this.item);
-      // }
-    }, (reason) => {
-
-    });
-  }
+ 
   ChuyenDuyet() {
-    this.services.ChuyenTiepQuyTrinh(this.item).subscribe((res: any) => {
+    this.services.PhieuNhapLoBong_ChatLuong().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();
@@ -84,55 +66,31 @@ export class ThongsochatluongmodalComponent implements OnInit {
       }
     })
   }
-  GetListdmPhuongAnSapXep() {
-    let data = {
-      PageSize: 20,
-      CurrentPage: 0,
-    };
-    this.services.GetListdmPhuongAnSapXep(data).subscribe((res: any) => {
-      this.listPhuongAnSapXep = res;
-      if (this.opt === 'edit') {
-        if (this.item.listTaiSanQuyTrinh.length !== 0) {
-          this.item.listTaiSanQuyTrinh.forEach(ele => {
-            ele.tempPhuongAnSapXep = res.filter(pa => pa.ID === ele.IDdmPhuongAnDeXuat)[0];
-          });
-        }
-      }
-    })
-  }
+
   GetNextSoQuyTrinh() {
-    this.services.GetNextSoQuyTrinh().subscribe((res: any) => {
+    this.services.PhieuNhapLoBong_ChatLuong().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
-  // GetQuyTrinh(Id){
-  //   this.services.GetQuyTrinh(Id).subscribe(res=>{
-  //     // this.item = res;
-  //     console.log(res);
-  //   })
-  // }
+  
   chonThuaDat() {
 
   }
   GhiLai() {
-    if (this.item.listTaiSanQuyTrinh.length !== 0) {
-      this.services.SetQuyTrinh(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.toastr.success(res.message)
-            this.opt = 'edit';
-            this.item = res.objectReturn;
-            this.GetListdmPhuongAnSapXep()
-            this.KiemTraButtonModal();
-            // this.activeModal.close(res.message);
-          } else {
-            this.toastr.error(res.message);
-          }
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+    this.services.PhieuNhapLoBong_ChatLuong().Set(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message)
+          this.opt = 'edit';
+          this.item = res.objectReturn;
+          this.KiemTraButtonModal();
+        } else {
+          this.toastr.error(res.message);
         }
-      })
-    } else {
-      this.toastr.warning('Vui lòng chọn thửa đất để khởi tạo quy trình!');
-    }
+      }
+    })
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -140,7 +98,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this.services.DeleteQuyTrinh(this.item).subscribe((res: any) => {
+      this.services.PhieuNhapLoBong_ChatLuong().Delete(this.item).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
@@ -184,5 +142,10 @@ export class ThongsochatluongmodalComponent implements OnInit {
   }
   delete(item, index) {
 
+  }
+  getListLoBong() {
+    this.services.GetListLoBong(this.data).subscribe((res: any) => {
+      this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
 }
