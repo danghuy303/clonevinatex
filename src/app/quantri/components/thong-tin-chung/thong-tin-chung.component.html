@@ -198,7 +198,7 @@
     <div class="p-grid">
         <ng-container *ngIf="!item.TaiSanDat.IsDienTichSan">
             <div class="p-col-12 p-lg-4 p-p-2">
-                <label>Mật độ xây dựng cấp phép:</label>&nbsp;<span>{{item.TaiSanDat.MatDoXayDung}}%</span>
+                <label>Mật độ xây dựng cấp phép:</label>&nbsp;<span>{{item.TaiSanDat.MatDoXayDung|number}}%</span>
             </div>
             <div class="p-col-12 p-lg-4 p-p-2">
                 <label>Chiều cao xây dựng cấp phép:</label>&nbsp;<span>{{item.TaiSanDat.ChieuCaoXayDung}}m</span>
@@ -207,7 +207,7 @@
                 <label>Quy hoạch SD đất lân cận:</label>&nbsp;<span>{{item.TaiSanDat.QuyHoach}}</span>
             </div>
             <div class="p-col-12 p-lg-4 p-p-2">
-                <label>Mật độ xây dựng thực tế:</label>&nbsp;<span>{{item.TaiSanDat.MatDoXayDungThucTe}}%</span>
+                <label>Mật độ xây dựng thực tế:</label>&nbsp;<span>{{item.TaiSanDat.MatDoXayDungThucTe|number}}%</span>
             </div>
             <div class="p-col-12 p-lg-4 p-p-2">
                 <label>Chiều cao xây dựng thực tế:</label>&nbsp;<span>{{item.TaiSanDat.ChieuCaoXayDungThucTe}}m</span>
@@ -227,6 +227,9 @@
         </div>
         <div class="p-col-12 p-lg-4 p-p-2">
             <label>Hạ tầng kỹ thuật:</label>&nbsp;<span>{{item.TaiSanDat.HaTangKyThuat}}</span>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-2">
+            <label>Phương án sắp xếp:</label>&nbsp;<span>{{item.TaiSanDat.TenPhuongAnSapXep}}</span>
         </div>
     </div>
 </p-panel>
