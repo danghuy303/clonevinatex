@@ -165,7 +165,7 @@ export class MathangComponent implements OnInit {
     let modalRef = this._modal.open(ModalimportexcelComponent,{
       backdrop:'static',
     })
-    modalRef.componentInstance.importFunc = '';
+    modalRef.componentInstance.importFunc = 'SCM_dmItem';
     modalRef.result.then(res=>{
       this.GetListdm();
       this._toastr.success(res.mess);

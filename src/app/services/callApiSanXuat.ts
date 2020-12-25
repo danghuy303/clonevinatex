@@ -310,5 +310,8 @@ export class SanXuatService {
         }
     }
     //#endregion
-
+    Importdm(IdDuAn,TableName,FileName){
+        let url = API.SCMDanhMuc + `ImportDanhMuc?IdDuAn=${IdDuAn}&TableName=${TableName}FileName=${FileName}`;
+        return this.http.get(url,httpOptions);
+    }
 }
