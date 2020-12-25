@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { formatNumber } from '@angular/common';
 import { SourceMapGenerator } from '@angular/compiler/src/output/source_map';
 import { ModalbaocaotonghopComponent } from '../modal/modalbaocaotonghop/modalbaocaotonghop.component';
-import { validVariable } from 'src/app/services/globalfunction';
+import { UnixToDate, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-dashboard',
@@ -273,7 +273,7 @@ export class DashboardComponent implements OnInit {
   showChiTietThuaDat(Id) {
     this._services.GetTaiSanDat(Id).subscribe((res: any) => {
       res.HienTrangSuDungs.forEach(ele => {
-        ele.ThoiGian = (ele.ThoiGianUnix !== 0 ? (new Date(ele.ThoiGianUnix * 1000)) : null);
+        ele.ThoiGian = UnixToDate(ele.ThoiGianUnix);
       });
       let item = res;
       this._services.ThongKeThongTinThuaDat({ IDTaiSan: Id }).subscribe((res: any) => {

@@ -37,14 +37,14 @@ export class QuantriComponent implements OnInit {
             this.getOSName(res.url)
         })
         this.menu = [
-            // {
-            //     label: 'Bàn làm việc',
-            //     routerLink: '/quantri/dashboard',
-            //     icon: 'fas fa-home',
-            //     command: () => {
-            //         this.close()
-            //     }
-            // },
+            {
+                label: 'Bàn làm việc',
+                routerLink: '/quantri/dashboard',
+                icon: 'fas fa-home',
+                command: () => {
+                    this.close()
+                }
+            },
             {
                 label: 'Điều hành sản xuất',
                 routerLink: '/quantri/dieuhanhsanxuat',
@@ -93,12 +93,12 @@ export class QuantriComponent implements OnInit {
                     },
                 ]
             },
-            // {
-            //     label: 'Quản lý tài sản nhà đất',
-            //     routerLink: '/quantri/quanlytaisannhadat',
-            //     icon: 'pi pi-sitemap',
-            //     command: () => this.close()
-            // },
+            {
+                label: 'Quản lý tài sản nhà đất',
+                routerLink: '/quantri/quanlytaisannhadat',
+                icon: 'pi pi-sitemap',
+                command: () => this.close()
+            },
             {
                 label: 'Sắp xếp xử lý đất đai',
                 icon: 'pi pi-sort-amount-up',
@@ -173,11 +173,11 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/theodoithongkebaocao/baocaochitietcaccoso',
                         command: () => this.close()
                     },
-                    // {
-                    //     label: 'Báo cáo tổng hợp',
-                    //     routerLink: '/quantri/theodoithongkebaocao/baocaodonvi',
-                    //     command: () => this.close()
-                    // },
+                    {
+                        label: 'Báo cáo tổng hợp',
+                        routerLink: '/quantri/theodoithongkebaocao/baocaodonvi',
+                        command: () => this.close()
+                    },
                     // {
                     //     label: 'Báo cáo sản lượng tổng hợp',
                     //     routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongtonghop',
@@ -223,24 +223,24 @@ export class QuantriComponent implements OnInit {
                     // },
                 ]
             },
-            // {
-            //     label: 'Báo cáo',
-            //     icon: 'pi pi-chart-bar',
-            //     routerLink: '/quantri/theodoithongkebaocaosanxuat',
-            //     expanded: true,
-            //     items: [
-            //         {
-            //             label: 'Báo cáo sản lượng tổng hợp',
-            //             routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongtonghop',
-            //             command: () => this.close()
-            //         },
-            //         {
-            //             label: 'Báo cáo sản lượng chi tiết',
-            //             routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongchitiet',
-            //             command: () => this.close()
-            //         },
-            //     ]
-            // },
+            {
+                label: 'Báo cáo',
+                icon: 'pi pi-chart-bar',
+                routerLink: '/quantri/theodoithongkebaocaosanxuat',
+                expanded: true,
+                items: [
+                    {
+                        label: 'Báo cáo sản lượng tổng hợp',
+                        routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongtonghop',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Báo cáo sản lượng chi tiết',
+                        routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongchitiet',
+                        command: () => this.close()
+                    },
+                ]
+            },
             {
                 label: 'Danh mục dùng chung',
                 routerLink: '/quantri/danhmuc',

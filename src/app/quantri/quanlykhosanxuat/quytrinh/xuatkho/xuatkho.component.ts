@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Dat09Service } from 'src/app/services/callApi';
+import { DateToUnix } from 'src/app/services/globalfunction';
 import { XuatkhomodalComponent } from '../xuatkhomodal/xuatkhomodal.component';
 
 @Component({
@@ -149,8 +150,8 @@ export class XuatkhoComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter:this.filter.KeyWord,
-      TuNgay:(new Date(this.filter.TuNgay).getTime()/1000)||0,
-      DenNgay:(new Date(this.filter.DenNgay).getTime()/1000)||0,
+      TuNgay:DateToUnix(this.filter.TuNgay),
+      DenNgay:DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
     }

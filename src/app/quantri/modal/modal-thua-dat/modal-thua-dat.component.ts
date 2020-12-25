@@ -5,7 +5,7 @@ import { Dat09Service } from 'src/app/services/callApi';
 import { ToastrService } from 'ngx-toastr';
 import { capQuanLy } from 'src/app/services/const';
 import { API } from 'src/app/services/host';
-import { validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, validVariable } from 'src/app/services/globalfunction';
 import { AuthenticationService } from 'src/app/services/auth.service';
 
 @Component({
@@ -44,13 +44,13 @@ export class ModalThuaDatComponent implements OnInit {
   }
   accept(){
     if(this.item?.TaiSanDat?.NgayCapGCN !== undefined && this.item?.TaiSanDat?.NgayCapGCN !== undefined){
-      this.item.TaiSanDat.NgayCapGCNUnix = (new Date(this.item.TaiSanDat.NgayCapGCN)).getTime()/1000;
+      this.item.TaiSanDat.NgayCapGCNUnix = DateToUnix(this.item.TaiSanDat.NgayCapGCN);
     }
     if(this.item?.TaiSanDat?.NgayCapGPKD !== undefined && this.item?.TaiSanDat?.NgayCapGPKD !== undefined){
-      this.item.TaiSanDat.NgayCapGPKDUnix = (new Date(this.item.TaiSanDat.NgayCapGPKD)).getTime()/1000;
+      this.item.TaiSanDat.NgayCapGPKDUnix = DateToUnix(this.item.TaiSanDat.NgayCapGPKD);
     }
     if(this.item?.TaiSanDat?.NgayKyGiaoDat !== undefined && this.item?.TaiSanDat?.NgayKyGiaoDat !== undefined){
-      this.item.TaiSanDat.NgayKyGiaoDatUnix = (new Date(this.item.TaiSanDat.NgayKyGiaoDat)).getTime()/1000;
+      this.item.TaiSanDat.NgayKyGiaoDatUnix = DateToUnix(this.item.TaiSanDat.NgayKyGiaoDat);
     }
     // if(this.item.TaiSanDat != null && this.item.TaiSanDat != undefined){
     //   if(this.item.TaiSanDat.IDdmDonVi != null && this.item.TaiSanDat.IDdmDonVi != undefined && this.item.TaiSanDat.IDdmDonVi != null){

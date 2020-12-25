@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalTaiSanTrenDatComponent } from '../../modal-tai-san-tren-dat/modal-tai-san-tren-dat.component';
 import { ModalHsvbPhapQuyComponent } from '../../modal-hsvb-phap-quy/modal-hsvb-phap-quy.component';
 import { Dat09Service } from 'src/app/services/callApi';
+import { UnixToDate } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-crud-hsvb-phap-quy',
@@ -141,7 +142,7 @@ export class CrudHsvbPhapQuyComponent implements OnInit, DoCheck {
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.componentInstance.item.NgayQuyetDinh = (item.NgayQuyetDinhUnix >0 ? new Date(item.NgayQuyetDinhUnix * 1000) : null);;
+    modalRef.componentInstance.item.NgayQuyetDinh = UnixToDate(item.NgayQuyetDinhUnix);
     modalRef.result.then(res => {
       this.TepDinhKems.splice(i, 1);
       this.TepDinhKems.push(res);

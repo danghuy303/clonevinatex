@@ -11,7 +11,7 @@ import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangta
 import { capQuanLy } from 'src/app/services/const';
 import { MenuItem } from 'primeng/api/menuitem';
 import { ModaladvancedsearchComponent } from '../modal/modaladvancedsearch/modaladvancedsearch.component';
-import { validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 @Component({
   selector: 'app-quanlytaisannhadat',
   templateUrl: './quanlytaisannhadat.component.html',
@@ -130,7 +130,7 @@ export class QuanlytaisannhadatComponent implements OnInit {
       this.showSoDos = false;
     this._services.GetTaiSanDat(event.data.ID).subscribe((res: any) => {
       res.HienTrangSuDungs.forEach(ele => {
-        ele.ThoiGian = (ele.ThoiGianUnix !== 0 ? (new Date(ele.ThoiGianUnix * 1000)) : null);
+        ele.ThoiGian = UnixToDate(ele.ThoiGianUnix);
       });
       this.selectedThuaDat = res;
       this.showSoDos = true;
@@ -174,7 +174,7 @@ export class QuanlytaisannhadatComponent implements OnInit {
   changeHienTrang(e: any) {
     this._services.GetTaiSanDat(this.selecteThuaDat.ID).subscribe((res: any) => {
       res.HienTrangSuDungs.forEach(ele => {
-        ele.ThoiGian = (ele.ThoiGianUnix !== 0 ? (new Date(ele.ThoiGianUnix * 1000)) : null);
+        ele.ThoiGian = UnixToDate(ele.ThoiGianUnix);
       });
       this.selectedThuaDat = res;
       this._services.ThongKeThongTinThuaDat({ IDTaiSan: this.selectedThuaDat.ID }).subscribe((res: any) => {
@@ -224,9 +224,9 @@ export class QuanlytaisannhadatComponent implements OnInit {
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res));
-      modalRef.componentInstance.item.TaiSanDat.NgayCapGCN = (res.TaiSanDat.NgayCapGCNUnix !== 0 ? new Date(res.TaiSanDat.NgayCapGCNUnix * 1000) : null);
-      modalRef.componentInstance.item.TaiSanDat.NgayCapGPKD = (res.TaiSanDat.NgayCapGPKDUnix !== 0 ? new Date(res.TaiSanDat.NgayCapGPKDUnix * 1000) : null);
-      modalRef.componentInstance.item.TaiSanDat.NgayKyGiaoDat = (res.TaiSanDat.NgayKyGiaoDatUnix !== 0 ? new Date(res.TaiSanDat.NgayKyGiaoDatUnix * 1000) : null);
+      modalRef.componentInstance.item.TaiSanDat.NgayCapGCN = UnixToDate(res.TaiSanDat.NgayCapGCNUnix);
+      modalRef.componentInstance.item.TaiSanDat.NgayCapGPKD = UnixToDate(res.TaiSanDat.NgayCapGPKDUnix);
+      modalRef.componentInstance.item.TaiSanDat.NgayKyGiaoDat = UnixToDate(res.TaiSanDat.NgayKyGiaoDatUnix);
       if (res.TaiSanDat.ThoiHanSuDungTuNgay != null && res.TaiSanDat.ThoiHanSuDungTuNgay != undefined) {
         var thoiGianSuDungTuNgay = new Date(res.TaiSanDat.ThoiHanSuDungTuNgay);
         modalRef.componentInstance.item.TaiSanDat.ThoiHanSuDungTuNgay = new Date(thoiGianSuDungTuNgay.getFullYear(), thoiGianSuDungTuNgay.getMonth(), thoiGianSuDungTuNgay.getDate());

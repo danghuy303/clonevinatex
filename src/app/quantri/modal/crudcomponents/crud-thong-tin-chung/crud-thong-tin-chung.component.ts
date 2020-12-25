@@ -257,7 +257,7 @@ export class CrudThongTinChungComponent implements OnInit, DoCheck {
       this.item.TaiSanDat.DiaChiNguoiSuDung = aValue.DiaChi;
       this.item.TaiSanDat.SoGPKD = aValue.GiayPhepDangKyKinhDoanh;
       this.item.TaiSanDat.NgayCapGPKDUnix = aValue.NgayCapGiayPhepKinhDoanhUnix;
-      this.item.TaiSanDat.NgayCapGPKD = (aValue.NgayCapGiayPhepKinhDoanhUnix !== 0 ? new Date(aValue.NgayCapGiayPhepKinhDoanhUnix * 1000) : null);
+      this.item.TaiSanDat.NgayCapGPKD = UnixToDate(aValue.NgayCapGiayPhepKinhDoanhUnix);
       this.item.TaiSanDat.TenNguoiDaiDienPhapLuat = aValue.TenNguoiDaiDienPhapLuat;
       this.item.TaiSanDat.ChucVuNguoiDaiDienPhapLuat = aValue.ChucVuNguoiDaiDienPhapLuat;
       this.item.TaiSanDat.SoTaiKhoan = aValue.SoTaiKhoan;
@@ -280,7 +280,7 @@ export class CrudThongTinChungComponent implements OnInit, DoCheck {
       this.item.TaiSanDat.DiaChiNguoiSuDungBydmDonViSHD = aValue.DiaChi;
       this.item.TaiSanDat.SoGPKDBydmDonViSHD = aValue.GiayPhepDangKyKinhDoanh;
       this.item.TaiSanDat.NgayCapGPKDBydmDonViSHDUnix = aValue.NgayCapGiayPhepUnix;
-      this.item.TaiSanDat.NgayCapGPKDBydmDonViSHD = (aValue.NgayCapGiayPhepUnix > 0 ? new Date(aValue.NgayCapGiayPhepUnix * 1000) : null);
+      this.item.TaiSanDat.NgayCapGPKDBydmDonViSHD = UnixToDate(aValue.NgayCapGiayPhepUnix);
       this.item.TaiSanDat.TenNguoiDaiDienPhapLuatBydmDonViSHD = aValue.TenNguoiDaiDienPhapLuat;
       this.item.TaiSanDat.ChucVuNguoiDaiDienBydmDonViSHD = aValue.ChucVuNguoiDaiDienPhapLuat;
       this.item.TaiSanDat.SoTaiKhoanBydmDonViSHD = aValue.SoTaiKhoan;
