@@ -9,11 +9,7 @@
           (onNodeSelect)="nodeSelect($event)"></p-tree>
       </ng-template>
     </p-overlayPanel>
-    <div class="p-d-flex p-flex-row">
-      <label class="my-auto mr-3">Đã bán, đã trả:</label>&nbsp;<p-checkbox [ngModel]="DaBan" (onChange)="GetSoThuaDat()"
-                binary="true" inputId="binary">
-            </p-checkbox>
-    </div>
+    
   </div>
   <div class="p-d-flex p-flex-row">
     <p-dropdown [options]="tuNams" placeholder="Từ năm" optionLabel="label" (onChange)="tuNamChange($event.value.label)"
@@ -84,8 +80,13 @@
       <ng-template pTemplate="left">
         <button pButton pRipple label="Xuất Excel" class="p-button-sm p-button-outlined p-button-primary p-mr-2"
           (click)="exportExcel()"></button>
-        <button pButton pRipple label="Báo Cáo Tổng Hợp" class="p-button-sm p-button-primary"
+        <button pButton pRipple label="Báo Cáo Tổng Hợp" class="p-button-sm p-button-primary mr-3"
           (click)="baoCaoTongHop()"></button>
+          <div class="p-d-flex p-flex-row">
+            <label class="my-auto mr-3">Đã bán, đã trả:</label>&nbsp;<p-checkbox [ngModel]="DaBan" (onChange)="ChangeDaBan()"
+                      binary="true" inputId="binary">
+                  </p-checkbox>
+          </div>
       </ng-template>
       <ng-template pTemplate="right">
         <div class="p-inputgroup">

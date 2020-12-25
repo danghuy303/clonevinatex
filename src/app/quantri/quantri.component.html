@@ -10,8 +10,12 @@
     <div>
         <h2 style="font-weight: 500; text-transform: uppercase;" id="Name">{{OSName}}</h2>
     </div>
-    <div style="margin: auto 0px;">
-        <p-splitButton [label]="userInfo.UserName" [model]="userBtn" styleClass="p-button-text"></p-splitButton>
+    <div style="margin: auto 0px;" class="d-flex flex-row">
+        <div style="width:150px;">
+            <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
+                    [(ngModel)]="IdNhaMay"  (onChange)="setGlobalNhaMay($event)"></p-dropdown>
+        </div>
+        <p-splitButton [label]="userInfo.UserName" [model]="userBtn" styleClass="p-button-text ml-3"></p-splitButton>
     </div>
 </div>
 <p-sidebar [(visible)]="display" [showCloseIcon]="false" [blockScroll]="true">
