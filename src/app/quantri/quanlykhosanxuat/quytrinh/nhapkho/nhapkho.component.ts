@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Dat09Service } from 'src/app/services/callApi';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix } from 'src/app/services/globalfunction';
 import { NhapkhomodalComponent } from '../nhapkhomodal/nhapkhomodal.component';
 
@@ -13,45 +13,41 @@ import { NhapkhomodalComponent } from '../nhapkhomodal/nhapkhomodal.component';
 })
 export class NhapkhoComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
-  items: any = [{id:5,SoQuyTrinh:'PNK_0000_0000'}];
-  filter:any={};
-  listLoaiPhuongAn:any=[];
-  trangThai:any=1;
+  items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
+  filter: any = {};
+  listLoaiPhuongAn: any = [];
+  trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
+  eAction: any = "PHIEUNHAPLOBONG";
   cols: any = [
     {
-      header: 'Mã PO/Hợp đồng',
+      header: 'Mã quy trình',
       field: 'SoQuyTrinh',
       width: 'unset'
     },
     {
-      header: 'Lô',
-      field: 'NoiDung',
+      header: 'Mã PO/Hợp đồng',
+      field: 'SoHopDong',
       width: 'unset'
     },
     {
-      header: 'Tổng Cont',
-      field: 'TenTrangThai',
-      width: 'unset'
-    },
-    {
-      header: 'Mã bông',
-      field: 'TenTrangThai',
+      header: 'Lô bông',
+      field: 'TenLoBong',
       width: 'unset'
     },
     {
       header: 'Loại bông',
-      field: 'TenTrangThai',
+      field: 'TendmLoaiBong',
       width: 'unset'
     },
     {
       header: 'Tổng số kiện',
-      field: 'TenTrangThai',
+      field: 'TongSoKien',
       width: 'unset'
     },
     {
       header: 'Tổng khối lượng',
-      field: 'TenTrangThai',
+      field: 'TongKhoiLuong',
       width: 'unset'
     },
     {
@@ -60,125 +56,82 @@ export class NhapkhoComponent implements OnInit {
       width: 'unset'
     },
   ];
-  checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-  colsQuyTrinh: any = [
-    {
-      header: 'Ngày nhận',
-      field: 'NgayKhoiTao',
-      width: '150px'
-    },
-    {
-      header: 'Ngày chuyển',
-      field: 'SoQuyTrinh',
-      width: '150px'
-    },
-    {
-      header: 'Thời gian xử lý',
-      field: 'DiaChi',
-      width: '200px'
-    },
-    {
-      header: 'Bộ phận xử lý',
-      field: 'DienTich',
-      width: '150px'
-    },
-    {
-      header: 'Nội dung xử lý',
-      field: 'HienTrangSuDung',
-      width: '400px'
-    },
-  ];
+  checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
 
-
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:Dat09Service,private activatedRoute: ActivatedRoute,private router:Router) { }
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
-    this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0'){
-        let getitem =()=>{return this.items.filter(ele=>ele.id === res.id.toString())[0]};
-        this.update(getitem());
-      }
-    })
     this.KiemTraTabTrangThai();
-    // this.GetListQuyTrinh()
+    this.GetListQuyTrinh()
   }
-  changeParam(id){
-    if(this._modal.hasOpenModals()){
+  changeParam(id) {
+    if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/nhapkho/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/quanlykhosanxuat/nhapkho/${id}`], { replaceUrl: true })
   }
-  add(){
+  add() {
     this.changeParam(0);
     let modalRef = this._modal.open(NhapkhomodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = {
-      SoQuyTrinh: 'PNK_0000_0001',
-      listCongTenNo:[]
-      // ID:null,
-      // TepDinhKems:[],
-      // templistTaiSanQuyTrinh:[],
-      // listTaiSanQuyTrinh:[]
-    }
+    modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
-      console.log(res);
       this._toastr.success('Cập nhật thành công');
-      // this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
-  update(item){
-    let modalRef = this._modal.open(NhapkhomodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
+  update(Id) {
+    this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
+      let modalRef = this._modal.open(NhapkhomodalComponent, {
+        size: 'fullscreen',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
+      modalRef.result.then((res: any) => {
+        this._toastr.success('Cập nhật thành công');
+      })
+        .catch(er => { console.log(er) })
     })
-    modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
-      // this.GetListQuyTrinh();
-    })
-      .catch(er => { console.log(er) })
   }
-  changeTab(e){
+  changeTab(e) {
     // this.trangThai = e.index+1;
     // this.GetListQuyTrinh(true);
   }
-  changePage(event){
+  changePage(event) {
     // this.paging.CurrentPage = event.page + 1;
     // this.GetListQuyTrinh();
   }
-  GetListQuyTrinh(reset?){
+  GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
-    let data={
+    let data = {
       PageSize: 25,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
-      sFilter:this.filter.KeyWord,
-      TuNgay:DateToUnix(this.filter.TuNgay),
-      DenNgay:DateToUnix(this.filter.DenNgay),
+      sFilter: this.filter.KeyWord,
+      TuNgay: (new Date(this.filter.TuNgay).getTime() / 1000) || 0,
+      DenNgay: (new Date(this.filter.DenNgay).getTime() / 1000) || 0,
       Ma: "",
       Ten: "",
     }
-    this._service.GetListQuyTrinh(data).subscribe((res:any)=>{
+    this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })
   }
-  resetFilter(){
-    this.filter={};
+  resetFilter() {
+    this.filter = {};
     this.GetListQuyTrinh(true);
   }
-  KiemTraTabTrangThai(){
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
+  KiemTraTabTrangThai() {
+    // this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
     //   this.checkQuyen = res;
     //   this.GetListQuyTrinh();
     // })

@@ -5,6 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
+import { DateToUnix, deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { BotrimaymodalComponent } from '../../modals/botrimaymodal/botrimaymodal.component';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 
@@ -16,12 +17,12 @@ import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhan
 export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   opt: any = ''
   item: any = {
-    Id:'',
+    Id: '',
   };
   filter: any = {};
   checkbutton: any = {};
-  listPhuongAnSapXep: any = [];
-  listLoHang: any = [];
+  listGiaoKeHoach: any = [];
+  listMatHangGiaoKeHoach: any = [];
   lang: any = vn;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
 
@@ -29,66 +30,30 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.checkbutton)
-    this.listLoHang = [
-      { label: 'Đơn vị 1', value: 1 },
-      { label: 'Đơn vị 2', value: 2 },
-      { label: 'Đơn vị 3', value: 3 },
-    ]
-    // this.item = {
-    //   SoQuyTrinh: 'PTKKHSX001',
-    //   GhiChu: 'Chạy kế hoạch giai đoạn 1',
-    //   NoiDung: 'Kế hoạch sản xuất tháng 11 - Nhà máy Sợi Đồng Văn',
-    //   Ngay: new Date('2020-10-31T17:00:00.000Z'),
-    //   Created: new Date('2020-10-25T17:00:00.000Z'),
-    //   Modified: new Date('2020-10-25T17:00:00.000Z'),
-    //   listMatHang: [
-    //     { Ten: 'Ne 36 TCM 65/35', GiaoKeHoach: '13', KHTK: '13', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
-    //     { Ten: 'Ne 40 TCM 65/35', GiaoKeHoach: '20', KHTK: '20', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
-    //     { Ten: 'Ne 40 TCM 65/35', GiaoKeHoach: '11', KHTK: '11', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
-    //     { Ten: 'Ne 30 TCM 65/35', GiaoKeHoach: '28', KHTK: '28', TuNgay: new Date('2020-11-11T17:00:00.000Z'), DenNgay: new Date('2020-11-15T17:00:00.000Z') },
-    //   ]
-    // }
-    // this.GetFormOptions()
     // this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
-      // this.GetNextSoQuyTrinh();
+      this.GetNextSoQuyTrinh();
     }
   }
-  getListKeHoachGiao(){
-    
+  getListGiaoKeHoach() {
+    console.log(this.item.Ngay);
+    this.services.GetOptions().GetListGiaoKeHoachSanXuatChuaLapKeHoach(DateToUnix(this.item.Ngay)).subscribe((res: Array<any>) => {
+      this.listGiaoKeHoach = mapArrayForDropDown(res, 'NoiDung', 'Id');
+    })
+  }
+  GetListMatHangChuaLapKeHoach(event) {
+    this.services.GetOptions().GetListMatHangChuaLapKeHoach(event.value).subscribe((res:any) => {
+      res.forEach(element => {
+        element.KhoiLuongKeHoach = element.KhoiLuongKeHoach/1000;
+        element.KhoiLuongSanXuat = element.KhoiLuongSanXuat/1000;
+      });
+      this.listMatHangGiaoKeHoach = res;
+    })
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
-      this.checkbutton = res.SoQuyetDinh;
+      this.checkbutton = res;
     })
-  }
-  GetFormOptions() {
-    this.services.GetOptions().GetMatHang().subscribe(res => {
-      console.log(res);
-    })
-  }
-  taiLenFileDinhKem() {
-    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.result.then((data) => {
-      // console.log(data);
-      // console.log(this.item.TepDinhKems);
-      // let itemupload:any = {};
-      // itemupload.ID = 0;
-      // itemupload.TenGui = data[data.length - 1]?.Name||null;
-      // itemupload.TenGoc = data[data.length - 1]?.NameLocal||null;
-      // itemupload.DuongDan = data[data.length - 1]?.Url||null;
-      // if(itemupload.TenGui!== null){
-      //   if(this.item.TepDinhKems.length!==0){
-      //     this.item.TepDinhKems.forEach(ele => {
-      //       ele.isXoa =true;
-      //     });
-      //   }
-      //   this.item.TepDinhKems.unshift(itemupload);
-      //   console.log(this.item);
-      // }
-    }, (reason) => {
-
-    });
   }
   ChuyenDuyet() {
     this.services.TrienKhaiKeHoachSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
@@ -101,26 +66,9 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       }
     })
   }
-  GetListdmPhuongAnSapXep() {
-    let data = {
-      PageSize: 20,
-      CurrentPage: 0,
-    };
-    // this.services.GetListdmPhuongAnSapXep(data).subscribe((res: any) => {
-    //   this.listPhuongAnSapXep = res;
-    //   if (this.opt === 'edit') {
-    //     if (this.item.listTaiSanQuyTrinh.length !== 0) {
-    //       this.item.listTaiSanQuyTrinh.forEach(ele => {
-    //         ele.tempPhuongAnSapXep = res.filter(pa => pa.ID === ele.IDdmPhuongAnDeXuat)[0];
-    //       });
-    //     }
-    //   }
-    // })
-  }
   GetNextSoQuyTrinh() {
     this.services.TrienKhaiKeHoachSanXuat().GetNextSo().subscribe((res: any) => {
-      this.item.SoQuyTrinh = res.SoQuyetDinh;
-      console.log(this.item)
+      this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
   // GetQuyTrinh(Id){
@@ -130,12 +78,23 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   //   })
   // }
   chonHangHoa() {
-    this._modal.open(ChonhanghoamodalComponent)
+    let modalRef = this._modal.open(ChonhanghoamodalComponent, {
+      size: 'lg',
+    })
+    modalRef.componentInstance.items = deepCopy(this.listMatHangGiaoKeHoach);
+    modalRef.componentInstance.opt = "KhoiLuongKeHoach";
+    modalRef.componentInstance.selectedItems = deepCopy(this.item.listItem);
+    modalRef.componentInstance.IdQuyTrinh = this.item.Id;
+    modalRef.result.then(res=>{
+      this.item.listItem = deepCopy(res);
+      console.log(this.item.listItem)
+    }).catch(er=>{
+      console.log(er);
+    })
   }
-  boTriMay(item){
-    console.log(item);
-    let modalRef = this._modal.open(BotrimaymodalComponent,{
-      size:'lg'
+  boTriMay(item) {
+    let modalRef = this._modal.open(BotrimaymodalComponent, {
+      size: 'lg'
     });
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
   }
@@ -209,5 +168,28 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   }
   delete(item, index) {
 
+  }
+  taiLenFileDinhKem() {
+    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.result.then((data) => {
+      // console.log(data);
+      // console.log(this.item.TepDinhKems);
+      // let itemupload:any = {};
+      // itemupload.ID = 0;
+      // itemupload.TenGui = data[data.length - 1]?.Name||null;
+      // itemupload.TenGoc = data[data.length - 1]?.NameLocal||null;
+      // itemupload.DuongDan = data[data.length - 1]?.Url||null;
+      // if(itemupload.TenGui!== null){
+      //   if(this.item.TepDinhKems.length!==0){
+      //     this.item.TepDinhKems.forEach(ele => {
+      //       ele.isXoa =true;
+      //     });
+      //   }
+      //   this.item.TepDinhKems.unshift(itemupload);
+      //   console.log(this.item);
+      // }
+    }, (reason) => {
+
+    });
   }
 }

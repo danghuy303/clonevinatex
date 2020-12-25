@@ -51,7 +51,7 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     this.services.GetOptions().GetMatHang().subscribe((res: Array<any>) => {
       this.listMatHang = res;
     })
-    this.services.GetOptions().GetDonVi().subscribe((res: Array<any>) => {
+    this.services.GetOptions().GetNhaMay().subscribe((res: Array<any>) => {
       this.listDonVi = mapArrayForDropDown(res, 'TenDuAn', 'Id');
       if (validVariable(this.item.IdDuAn)) {
         this.getPhanXuong(this.item.IdDuAn,true);
@@ -119,7 +119,7 @@ export class KehoachsanxuatmodalComponent implements OnInit {
   }
   GetNextSoQuyTrinh() {
     this.services.GiaoKeHoachSanXuat().GetNextSo().subscribe((res: any) => {
-      this.item.SoQuyTrinh = res.SoQuyetDinh;
+      this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
   GetQuyTrinh(Id) {
@@ -145,7 +145,7 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     })
     modalRef.componentInstance.items = this.listMatHang;
     modalRef.componentInstance.selectedItems = this.item.listItem || [];
-    modalRef.componentInstance.IdGiaoKeHoachSanXuat = this.item.Id;
+    modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
       merge(res,this.item.listItem,'IddmItem')
     }).catch(er => {

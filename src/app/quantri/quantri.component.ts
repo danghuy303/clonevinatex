@@ -5,6 +5,9 @@ import { MenuItem } from 'primeng/api';
 import { AuthenticationService } from '../services/auth.service';
 import { ModaldoimatkhauComponent } from './modal/modaldoimatkhau/modaldoimatkhau.component';
 import { filter } from 'rxjs/operators';
+import { SanXuatService } from '../services/callApiSanXuat';
+import { StoreService } from '../services/store.service';
+import { mapArrayForDropDown } from '../services/globalfunction';
 @Component({
     selector: 'app-quantri',
     templateUrl: './quantri.component.html',
@@ -18,7 +21,12 @@ export class QuantriComponent implements OnInit {
     display: boolean = false;
     OSName: string = 'HỆ THỐNG Quản lý Nhà – Đất'
     menu: MenuItem[];
-    constructor(private _auth: AuthenticationService, private _modal: NgbModal, private _router: Router) {
+    menuQLTS:MenuItem[];
+    menuQLNS:MenuItem[];
+    listNhaMay:Array<any>=[];
+    IdNhaMay:string = '';
+    showDropDown:boolean = false;
+    constructor(private _auth: AuthenticationService, private _modal: NgbModal, private _router: Router,private _services:SanXuatService,private store:StoreService) {
         this.getOSName(this._router.url)
         this.userInfo = this._auth.currentUserValue;
     }
@@ -27,24 +35,29 @@ export class QuantriComponent implements OnInit {
     }
     getOSName(url) {
         if (url.includes('sanxuat')) {
-            this.OSName = 'Hệ thống quản trị ngành sợi'
+            this.showDropDown = true;
+            this.OSName = 'Hệ thống quản trị ngành sợi';
         } else {
-            this.OSName = 'HỆ THỐNG Quản lý Nhà – Đất'
+            this.showDropDown = false;
+            this.OSName = 'HỆ THỐNG Quản lý Nhà – Đất';
         }
+    }
+    getListNhaMay(){
+        this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res:Array<any>)=>{
+            this.listNhaMay = mapArrayForDropDown(res,"TenDuAn", 'Id');
+            this.IdNhaMay = res[0].Id;
+            this.setGlobalNhaMay({value:res[0].Id})
+        })
+    }
+    setGlobalNhaMay(event){
+        this.store.setNhaMay(event.value);
     }
     ngOnInit(): void {
         this._router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((res: any) => {
             this.getOSName(res.url)
         })
-        this.menu = [
-            {
-                label: 'Bàn làm việc',
-                routerLink: '/quantri/dashboard',
-                icon: 'fas fa-home',
-                command: () => {
-                    this.close()
-                }
-            },
+        this.getListNhaMay()
+        this.menuQLNS = [
             {
                 label: 'Điều hành sản xuất',
                 routerLink: '/quantri/dieuhanhsanxuat',
@@ -91,30 +104,6 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/trienkhaisanxuat/timbong/0',
                         command: () => this.close()
                     },
-                ]
-            },
-            {
-                label: 'Quản lý tài sản nhà đất',
-                routerLink: '/quantri/quanlytaisannhadat',
-                icon: 'pi pi-sitemap',
-                command: () => this.close()
-            },
-            {
-                label: 'Sắp xếp xử lý đất đai',
-                icon: 'pi pi-sort-amount-up',
-                routerLink: '/quantri/sapxepxuly',
-                expanded: true,
-                items: [
-                    {
-                        label: 'Yêu cầu sắp xếp',
-                        routerLink: '/quantri/sapxepxuly/yeucau',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Quy trình sắp xếp',
-                        routerLink: '/quantri/sapxepxuly/quytrinh',
-                        command: () => this.close()
-                    }
                 ]
             },
             {
@@ -168,6 +157,131 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/thongkesanluong/0',
                         command: () => this.close()
                     },
+
+                ]
+            },
+            {
+                label: 'Báo cáo',
+                icon: 'pi pi-chart-bar',
+                routerLink: '/quantri/theodoithongkebaocaosanxuat',
+                expanded: true,
+                items: [
+                    {
+                        label: 'Báo cáo sản lượng tổng hợp',
+                        routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongtonghop',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Báo cáo sản lượng chi tiết',
+                        routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongchitiet',
+                        command: () => this.close()
+                    },
+                ]
+            },
+            {
+                label: 'Danh mục dùng chung',
+                routerLink: '/quantri/danhmuc',
+                icon: 'pi pi-bars',
+                expanded: true,
+                items: [
+
+                    {
+                        label: 'Kho sản xuất',
+                        routerLink: '/quantri/danhmucsanxuat/dmkho',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Cấp bông',
+                        routerLink: '/quantri/danhmucsanxuat/dmcapbong',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Loại bông',
+                        routerLink: '/quantri/danhmucsanxuat/dmloaibong',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Ca sản xuất',
+                        routerLink: '/quantri/danhmucsanxuat/dmcasanxuat',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Danh sách máy',
+                        routerLink: '/quantri/danhmucsanxuat/dmdsmay',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Mặt hàng',
+                        routerLink: '/quantri/danhmucsanxuat/dmmathang',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Phân xưởng',
+                        routerLink: '/quantri/danhmucsanxuat/dmphanxuong',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Loại sợi',
+                        routerLink: '/quantri/danhmucsanxuat/dmloaisoi',
+                        command: () => this.close()
+                    },
+                ]
+            },
+            {
+                label: 'Quản lý hệ thống',
+                icon: 'pi pi-cog',
+                items: [
+                    {
+                        label: 'HDSD',
+                        routerLink: '/quantri/huongdansudung',
+                        command: () => this.close()
+                    },
+                ]
+            },
+            // {
+            //     label: 'Tài liệu tham khảo',
+            //     icon: 'pi pi-copy',
+            // }
+        ];
+        this.menuQLTS = [
+            {
+                label: 'Bàn làm việc',
+                routerLink: '/quantri/dashboard',
+                icon: 'fas fa-home',
+                command: () => {
+                    this.close()
+                }
+            },
+            {
+                label: 'Quản lý tài sản nhà đất',
+                routerLink: '/quantri/quanlytaisannhadat',
+                icon: 'pi pi-sitemap',
+                command: () => this.close()
+            },
+            {
+                label: 'Sắp xếp xử lý đất đai',
+                icon: 'pi pi-sort-amount-up',
+                routerLink: '/quantri/sapxepxuly',
+                expanded: true,
+                items: [
+                    {
+                        label: 'Yêu cầu sắp xếp',
+                        routerLink: '/quantri/sapxepxuly/yeucau',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Quy trình sắp xếp',
+                        routerLink: '/quantri/sapxepxuly/quytrinh',
+                        command: () => this.close()
+                    }
+                ]
+            },
+            {
+                label: 'Theo dõi thống kê',
+                icon: 'pi pi-chart-bar',
+                routerLink: '/quantri/theodoithongkebaocao',
+                expanded: true,
+                items: [
                     {
                         label: 'Báo cáo chi tiết cơ sở',
                         routerLink: '/quantri/theodoithongkebaocao/baocaochitietcaccoso',
@@ -221,24 +335,6 @@ export class QuantriComponent implements OnInit {
                     //     label: 'Biểu 5',
                     //     routerLink: '/quantri/theodoithongkebaocao/bieu5',
                     // },
-                ]
-            },
-            {
-                label: 'Báo cáo',
-                icon: 'pi pi-chart-bar',
-                routerLink: '/quantri/theodoithongkebaocaosanxuat',
-                expanded: true,
-                items: [
-                    {
-                        label: 'Báo cáo sản lượng tổng hợp',
-                        routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongtonghop',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Báo cáo sản lượng chi tiết',
-                        routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongchitiet',
-                        command: () => this.close()
-                    },
                 ]
             },
             {
@@ -324,46 +420,6 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/danhmuc/dmphuong',
                         command: () => this.close()
                     },
-                    {
-                        label: 'Kho sản xuất',
-                        routerLink: '/quantri/danhmucsanxuat/dmkho',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Cấp bông',
-                        routerLink: '/quantri/danhmucsanxuat/dmcapbong',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Loại bông',
-                        routerLink: '/quantri/danhmucsanxuat/dmloaibong',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Ca sản xuất',
-                        routerLink: '/quantri/danhmucsanxuat/dmcasanxuat',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Danh sách máy',
-                        routerLink: '/quantri/danhmucsanxuat/dmdsmay',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Mặt hàng',
-                        routerLink: '/quantri/danhmucsanxuat/dmmathang',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Phân xưởng',
-                        routerLink: '/quantri/danhmucsanxuat/dmphanxuong',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Loại sợi',
-                        routerLink: '/quantri/danhmucsanxuat/dmloaisoi',
-                        command: () => this.close()
-                    },
                 ]
             },
             {
@@ -377,10 +433,6 @@ export class QuantriComponent implements OnInit {
                     },
                 ]
             },
-            // {
-            //     label: 'Tài liệu tham khảo',
-            //     icon: 'pi pi-copy',
-            // }
         ];
         this.userBtn = [
             // {
@@ -404,6 +456,8 @@ export class QuantriComponent implements OnInit {
                 }
             }
         ];
+        this.menu = this.menuQLTS;
+        // this.menu = this.menuQLNS;
 
     }
 

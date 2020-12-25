@@ -11,7 +11,7 @@ import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangta
 import { capQuanLy } from 'src/app/services/const';
 import { MenuItem } from 'primeng/api/menuitem';
 import { ModaladvancedsearchComponent } from '../modal/modaladvancedsearch/modaladvancedsearch.component';
-import { DateToUnix, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 @Component({
   selector: 'app-quanlytaisannhadat',
   templateUrl: './quanlytaisannhadat.component.html',
@@ -227,6 +227,7 @@ export class QuanlytaisannhadatComponent implements OnInit {
       modalRef.componentInstance.item.TaiSanDat.NgayCapGCN = UnixToDate(res.TaiSanDat.NgayCapGCNUnix);
       modalRef.componentInstance.item.TaiSanDat.NgayCapGPKD = UnixToDate(res.TaiSanDat.NgayCapGPKDUnix);
       modalRef.componentInstance.item.TaiSanDat.NgayKyGiaoDat = UnixToDate(res.TaiSanDat.NgayKyGiaoDatUnix);
+      modalRef.componentInstance.item.TaiSanDat.NgayCapGPKDBydmDonViSHD = UnixToDate(res.TaiSanDat.NgayCapGPKDBydmDonViSHDUnix);
       if (res.TaiSanDat.ThoiHanSuDungTuNgay != null && res.TaiSanDat.ThoiHanSuDungTuNgay != undefined) {
         var thoiGianSuDungTuNgay = new Date(res.TaiSanDat.ThoiHanSuDungTuNgay);
         modalRef.componentInstance.item.TaiSanDat.ThoiHanSuDungTuNgay = new Date(thoiGianSuDungTuNgay.getFullYear(), thoiGianSuDungTuNgay.getMonth(), thoiGianSuDungTuNgay.getDate());
@@ -300,7 +301,8 @@ export class QuanlytaisannhadatComponent implements OnInit {
       backdrop: 'static',
       size: 'lg'
     })
-    modalRef.componentInstance.searchItem = JSON.parse(JSON.stringify(this.searchItem));
+    modalRef.componentInstance.searchItem = deepCopy(this.searchItem);
+    modalRef.componentInstance.searchItem.ThongTinChung.NgayCap = validVariable(this.searchItem.ThongTinChung.NgayCap)? new Date(this.searchItem.ThongTinChung.NgayCap):undefined;
     modalRef.result.then(res => {
       this.advancedSearch = true;
       this.searchItem = res;

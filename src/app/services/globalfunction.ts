@@ -138,6 +138,9 @@ export function validVariable(value:any){
 export function DateToUnix(date:any):any{
     return (new Date(date)).getTime()/1000;
 }
+export function DateToDatePicker(date:any):any{
+    return validVariable(date)? new Date(date):undefined;
+}
 export function UnixToDate(unix:number):Date|null{
     if(unix!== undefined&& unix !== null && unix !==0){
        return new Date((unix-(3600*7))*1000); 

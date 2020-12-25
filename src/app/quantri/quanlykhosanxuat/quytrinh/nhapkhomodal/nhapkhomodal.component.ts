@@ -6,6 +6,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
+import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-nhapkhomodal',
@@ -14,40 +15,59 @@ import { vn } from 'src/app/services/const';
 })
 export class NhapkhomodalComponent implements OnInit {
   opt: any = ''
-  item: any = {
-    SoQuyTrinh: 'PKK_0000_001',
-    listCongTenNo: []
-  };
+  item: any = {};
   checkbutton: any = {
-    Ghi:true,
-    KhongDuyet:true,
-    ChuyenTiep:true,
-    Xoa:true,
+    Ghi: true,
+    KhongDuyet: true,
+    ChuyenTiep: true,
+    Xoa: true,
   }
-  newTableItem:any={};
+  newTableItem: any = {};
+  editTableItem: any = {};
   listPhuongAnSapXep: any = [];
-  listLoHang:any= [];
+  listLoaiBong: any = [];
+  listLoBong: any = [];
+  listCapBong: any = [];
   lang: any = vn;
+  data: any = {};
+
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: Dat09Service, public toastr: ToastrService, public _modal: NgbModal) {
+  constructor(public activeModal: NgbActiveModal,
+    public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
 
   }
 
   ngOnInit(): void {
-    console.log(this.listLoHang)
-    this.listLoHang = [
-      { label: 'Lô hàng 1', value: 1 },
-      { label: 'Lô hàng 2', value: 2 },
-      { label: 'Lô hàng 3', value: 3 },
-    ]
+    console.log(this.item)
+    // this.listLoHang = [
+    //   { label: 'Lô hàng 1', value: 1 },
+    //   { label: 'Lô hàng 2', value: 2 },
+    //   { label: 'Lô hàng 3', value: 3 },
+    // ];
+
     // this.GetListdmPhuongAnSapXep();
     // this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
-      // this.GetNextSoQuyTrinh();
+      this.item = {
+        NhaMay: 0,
+        IddmLoaiBong: 0,
+        IddmCapBong: 0,
+        IdLoBong: 0,
+        listItem: [],
+      }
+      this.GetNextSoQuyTrinh();
     }
+    if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+    }
+
+    this.data.CurrentPage = 0;
+    this.getListLoaiBong();
+    this.getListCapBong();
+    this.getListLoBong();
   }
   KiemTraButtonModal() {
-    this.services.KiemTraButtonModal(this.item.ID || '', this.item.IdTrangThai || '').subscribe(res => {
+    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
     })
   }
@@ -75,7 +95,7 @@ export class NhapkhomodalComponent implements OnInit {
     });
   }
   ChuyenDuyet() {
-    this.services.ChuyenTiepQuyTrinh(this.item).subscribe((res: any) => {
+    this._services.PhieuNhapLoBong_ChatLuong().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();
@@ -85,27 +105,13 @@ export class NhapkhomodalComponent implements OnInit {
       }
     })
   }
-  GetListdmPhuongAnSapXep() {
-    let data = {
-      PageSize: 20,
-      CurrentPage: 0,
-    };
-    this.services.GetListdmPhuongAnSapXep(data).subscribe((res: any) => {
-      this.listPhuongAnSapXep = res;
-      if (this.opt === 'edit') {
-        if (this.item.listTaiSanQuyTrinh.length !== 0) {
-          this.item.listTaiSanQuyTrinh.forEach(ele => {
-            ele.tempPhuongAnSapXep = res.filter(pa => pa.ID === ele.IDdmPhuongAnDeXuat)[0];
-          });
-        }
-      }
-    })
-  }
+
   GetNextSoQuyTrinh() {
-    this.services.GetNextSoQuyTrinh().subscribe((res: any) => {
-      this.item.SoQuyTrinh = res;
+    this._services.QuyTrinhPhieuNhapLoBong().GetNextSo().subscribe((res: any) => {
+      this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
+
   // GetQuyTrinh(Id){
   //   this.services.GetQuyTrinh(Id).subscribe(res=>{
   //     // this.item = res;
@@ -116,32 +122,29 @@ export class NhapkhomodalComponent implements OnInit {
 
   }
   GhiLai() {
-    if (this.item.listTaiSanQuyTrinh.length !== 0) {
-      this.services.SetQuyTrinh(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.toastr.success(res.message)
-            this.opt = 'edit';
-            this.item = res.objectReturn;
-            this.GetListdmPhuongAnSapXep()
-            this.KiemTraButtonModal();
-            // this.activeModal.close(res.message);
-          } else {
-            this.toastr.error(res.message);
-          }
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+    this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message)
+          this.opt = 'edit';
+          this.item = res.objectReturn;
+          this.KiemTraButtonModal();
+        } else {
+          this.toastr.error(res.message);
         }
-      })
-    } else {
-      this.toastr.warning('Vui lòng chọn thửa đất để khởi tạo quy trình!');
-    }
+      }
+    })
   }
+
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this.services.DeleteQuyTrinh(this.item).subscribe((res: any) => {
+      this._services.QuyTrinhPhieuNhapLoBong().Delete(this.item).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
@@ -151,39 +154,32 @@ export class NhapkhomodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-  merge(newArr, existingArr) {
-    let removeIndex = [];
-    newArr.forEach((newEle) => {
-      let index = existingArr.findIndex(
-        (oldEle) => newEle.IDTaiSan === oldEle.IDTaiSan
-      );
-      if (index === -1) {
-        existingArr.push(newEle);
-      }
-    });
-    existingArr.forEach((oldEle, index) => {
-      let indexCheck = newArr.findIndex(
 
-        (newEle) => newEle.IDTaiSan === oldEle.IDTaiSan
-      );
-      if (indexCheck === -1) {
-        removeIndex.push(index);
-      }
-    });
-    for (var i = removeIndex.length - 1; i >= 0; i--) {
-      if (existingArr[i].ID === 0) {
-        existingArr.splice(removeIndex[i], 1);
-      } else {
-        existingArr[i].isXoa = true;
-      }
-    }
-    return existingArr;
+  getListLoaiBong() {
+    this._services.GetListdmLoaiBong(this.data).subscribe((res: any) => {
+      this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
-  changePhuongAnDeXuat(event, item) {
-    item.TenPhuongAnDeXuat = event.Ten;
-    item.IDdmPhuongAnDeXuat = event.ID;
+  getListLoBong() {
+    this._services.GetListLoBong(this.data).subscribe((res: any) => {
+      this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
-  delete(item, index) {
-
+  getListCapBong() {
+    this._services.GetListdmCapBong(this.data).subscribe((res: any) => {
+      this.listCapBong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  add() {
+    if (this.item.listItem == undefined || this.item.listItem == null)
+      this.item.listItem = [];
+    this.item.listItem.push(this.newTableItem);
+    this.newTableItem = {}
+  }
+  edit(item, index) {
+    this.editTableItem = deepCopy(this.item.listChiTiet);
+  }
+  delete(index) {
+    this.item.listItem.splice(index, 1)
   }
 }
