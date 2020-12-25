@@ -58,6 +58,7 @@ const routes: Routes = [
   {
     path: '', component: QuantriComponent,
     children: [
+      //dieuhanhsanxuat dashboard
       { path: '', redirectTo: 'dieuhanhsanxuat', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'quanlytaisannhadat', component: QuanlytaisannhadatComponent },

@@ -131,6 +131,10 @@ export class DashboardComponent implements OnInit {
   denNamChange() {
     this.GetGiaDat()
   }
+  ChangeDaBan(){
+    this.GetSoThuaDat();
+    this.GetListTaiSanDat(this.vung.ID);
+  }
   GetGiaDat() {
     let filterItem = {
       Tu: this.TuNam.label,
@@ -262,6 +266,7 @@ export class DashboardComponent implements OnInit {
       CurrentPage: this.pagingThuaDat.CurrentPage,
       IDdmDonVi: id,
       sFilter: this.keyWord,
+      isDaBan:this.DaBan,
       Ma: "",
       Ten: "",
     };

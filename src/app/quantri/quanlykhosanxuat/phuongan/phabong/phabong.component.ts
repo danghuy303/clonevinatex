@@ -51,7 +51,7 @@ export class PhabongComponent implements OnInit {
     this.GetListQuyTrinh()
   }
   changeParam(id){
-    this.router.navigate([`quantri/kehoachsanxuat/trienkhaikehoachsanxuat/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/trienkhaisanxuat/phabong/${id}`],{replaceUrl: true})
   }
   add(){
     this.changeParam(0);
@@ -73,8 +73,9 @@ export class PhabongComponent implements OnInit {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
+      this.changeParam(0);
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { this.changeParam(0); })
   }
   update(item){
     let modalRef = this._modal.open(PhabongmodalComponent, {
@@ -87,8 +88,9 @@ export class PhabongComponent implements OnInit {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
+      this.changeParam(0);
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { this.changeParam(0); })
   }
   changeTab(e){
     this.trangThai = e.index+1;

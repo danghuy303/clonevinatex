@@ -7,7 +7,6 @@ import { httpOptions, API } from './host';
 })
 export class SanXuatService {
     constructor(private http: HttpClient) { }
-
     //Cấp bông
     GetListOptdmCapBong() {
         let url = API.SCMDanhMuc + 'GetListdmCapBong';
@@ -185,7 +184,7 @@ export class SanXuatService {
             GetMatHang:()=>{
                 return this.http.post(`${API.SCMDanhMuc}GetListdmItem`,{Loai:1},httpOptions)
             },
-            GetDonVi:()=>{
+            GetNhaMay:()=>{
                 return this.http.post(`${API.auth}DanhMuc/GetDanhSachDuAn_Advance`,{},httpOptions)
             },
             GetPhanXuong:(IdDuAn)=>{
@@ -196,7 +195,17 @@ export class SanXuatService {
             },
             GetListMatHangChuaLapKeHoach:(IdGiaoKeHoachSanXuat)=>{
                 return this.http.get(`${API.SCMQuanLyKho}GetListMatHangChuaLapKeHoach?IdGiaoKeHoachSanXuat=${IdGiaoKeHoachSanXuat}`,httpOptions)
-            }
+            },
+            GetListCongDoanTheoMatHang:(IddmMatHang)=>{
+                return this.http.get(`${API.SCMQuanLyKho}GetListCongDoanTheoMatHang?IddmMatHang=${IddmMatHang}`,httpOptions)
+            },
+            GetListMayTheoCongDoan:(CongDoan,IddmPhanXuong)=>{
+                return this.http.get(`${API.SCMQuanLyKho}GetListMayTheoCongDoan?CongDoan=${CongDoan}&IddmPhanXuong=${IddmPhanXuong}`,httpOptions)
+            },
+            GetDanhSachDuAnByIdUser:(IdUser)=>{
+                return this.http.get(`${API.auth}DanhMuc/GetDanhSachDuAnByIdUser?IdUser=${IdUser}`,httpOptions)
+            },
+            // SmartEOSAPI/DanhMuc/GetDanhSachDuAnByIdUser?IdUser=5d8c24c9-77f9-42aa-801b-df506280e6ce
         }
     }
 

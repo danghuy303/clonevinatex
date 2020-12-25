@@ -40,7 +40,7 @@ export class TrienkhaikehoachsanxuatComponent implements OnInit {
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute);
+    
     this.activatedRoute.params.subscribe((res:any)=>{
       if (res.id !== '0') {
         this._service.TrienKhaiKeHoachSanXuat().Get(res.id).subscribe((res: any) => {
@@ -66,14 +66,15 @@ export class TrienkhaikehoachsanxuatComponent implements OnInit {
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {
       Id:'',
+      listItem: [],
     }
     modalRef.componentInstance.checkbutton={Ghi:true,Xoa:true,KhongDuyet:true,ChuyenTiep:true}
     modalRef.result.then((res: any) => {
-      console.log(res);
       this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
+      this.changeParam(0)
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { this.changeParam(0) })
   }
   update(item){
     let modalRef = this._modal.open(TrienkhaikehoachsanxuatmodalComponent, {
@@ -83,11 +84,11 @@ export class TrienkhaikehoachsanxuatComponent implements OnInit {
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then((res: any) => {
-      console.log(res);
       this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
+      this.changeParam(0)
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { this.changeParam(0) })
   }
   changeTab(e){
     this.trangThai = e.index+1;
