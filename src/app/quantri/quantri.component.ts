@@ -456,8 +456,8 @@ export class QuantriComponent implements OnInit {
                 }
             }
         ];
-        // this.menu = this.menuQLTS;
-        this.menu = this.menuQLNS;
+        this.menu = this.menuQLTS;
+        // this.menu = this.menuQLNS;
 
     }
 

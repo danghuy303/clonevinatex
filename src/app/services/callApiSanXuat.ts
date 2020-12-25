@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { httpOptions, API } from './host';
+import { StoreService } from './store.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SanXuatService {
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,private store:StoreService) {
+        
+     }
     //Cấp bông
     GetListOptdmCapBong() {
         let url = API.SCMDanhMuc + 'GetListdmCapBong';

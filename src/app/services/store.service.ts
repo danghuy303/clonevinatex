@@ -9,6 +9,7 @@ export class StoreService {
   private IdNhaMay = '';
   constructor() { }
   setNhaMay(IdNhaMay){
+    this.IdNhaMay = IdNhaMay;
     this.NhaMayStore.next(IdNhaMay);
   }
   getNhaMay():Observable<any>{
