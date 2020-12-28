@@ -72,9 +72,12 @@ import { DmmucdichsudungComponent } from './danhmuc/dmmucdichsudung/dmmucdichsud
 import { DmnguongocdatComponent } from './danhmuc/dmnguongocdat/dmnguongocdat.component';
 import { ModalthongbaoComponent } from './modal/modalthongbao/modalthongbao.component';
 import { ModaldmtaisanComponent } from './danhmuc/modal/modaldmtaisan/modaldmtaisan.component';
+
 import {isXoaPipe} from './../services/isXoaPipe';
 import {VNDPipe} from './../services/vnd.pipe';
 import {FilterPipe} from './../services/filter.pipe';
+import {CongDoanPipe} from './../services/congdoan.pipe';
+
 import { UploadmodalComponent } from './modal/uploadmodal/uploadmodal.component';
 import { ThongKeThongTinThuaDatComponent } from './components/thong-ke-thong-tin-thua-dat/thong-ke-thong-tin-thua-dat.component';
 import { TinhComponent } from './danhmuc/tinh/tinh.component';
@@ -151,6 +154,7 @@ import { MathangmodelComponent } from './danhmuc/danhmucsanxuat/modals/mathangmo
 import { PhanxuongComponent } from './danhmuc/danhmucsanxuat/phanxuong/phanxuong.component';
 import { PhanxuongmodalComponent } from './danhmuc/danhmucsanxuat/modals/phanxuongmodal/phanxuongmodal.component';
 import { LoaisoiComponent } from './danhmuc/danhmucsanxuat/loaisoi/loaisoi.component';
+import { ChonmaytheocongdoanComponent } from './quanlykhosanxuat/modals/chonmaytheocongdoan/chonmaytheocongdoan.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -265,7 +269,9 @@ import { LoaisoiComponent } from './danhmuc/danhmucsanxuat/loaisoi/loaisoi.compo
     PhanxuongComponent,
     PhanxuongmodalComponent,
     FilterPipe,
+    CongDoanPipe,
     LoaisoiComponent,
+    ChonmaytheocongdoanComponent,
   ],
   imports: [
     HttpClientModule,
@@ -345,6 +351,7 @@ import { LoaisoiComponent } from './danhmuc/danhmucsanxuat/loaisoi/loaisoi.compo
     BotrimaymodalComponent,
     MathangmodelComponent,
     PhanxuongmodalComponent,
+    ChonmaytheocongdoanComponent
   ],
   providers: [
     SanXuatService,
@@ -352,6 +359,7 @@ import { LoaisoiComponent } from './danhmuc/danhmucsanxuat/loaisoi/loaisoi.compo
     isXoaPipe,
     VNDPipe,
     FilterPipe,
+    CongDoanPipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],

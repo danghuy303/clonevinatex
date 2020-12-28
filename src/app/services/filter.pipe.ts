@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FilterPipe implements PipeTransform {
     transform(value: any, keyWord: string): Array<any> {
         if (!!value) {
-            if (keyWord.trim() !== ''&& keyWord!== null &&keyWord!== undefined) {
+            if (keyWord !== null && keyWord !== undefined && keyWord.trim() !== '') {
                 return value.filter(ele =>
                     Object.keys(ele).some(
                         k =>
@@ -18,7 +18,7 @@ export class FilterPipe implements PipeTransform {
                     )
                 );
             }
-            else{
+            else {
                 return value;
             }
         } else {

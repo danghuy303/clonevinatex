@@ -44,6 +44,9 @@ export class ModalGiaDatComponent implements OnInit {
 
     });
   }
+  getTenDonViTien(Id){
+    return this.listDonVi.find(ele=>ele.Id ===Id)?.Ten;
+  }
   GetListdmDonViTien(){
     this._service.GetListdmDonViTien().subscribe((res:Array<any>)=>{
       this.listDonVi = res.map(ele=>{

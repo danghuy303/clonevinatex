@@ -16,12 +16,22 @@ export class ChonhanghoamodalComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.selectedItems.length !== 0) {
-      this.selectedItems.forEach(sItem => {
-        let selected = this.items.filter(item => sItem.IddmItem === item.Id)[0];
-        if (selected) {
-          selected.checked = true;
-        }
-      });
+      if (this.opt === "KhoiLuongKeHoach") { 
+        this.selectedItems.forEach(sItem => {
+          let selected = this.items.filter(item => sItem.IddmItem === item.IddmItem)[0];
+          if (selected) {
+            selected.checked = true;
+          }
+        });
+      }
+      else {
+        this.selectedItems.forEach(sItem => {
+          let selected = this.items.filter(item => sItem.IddmItem === item.Id)[0];
+          if (selected) {
+            selected.checked = true;
+          }
+        });
+      }
     }
   }
   resetFilter() {
@@ -33,7 +43,8 @@ export class ChonhanghoamodalComponent implements OnInit {
         return {
           ...ele,
           IdGiaoKeHoachSanXuat: this.IdQuyTrinh,
-          IddmItem: ele.Id,
+          IddmItem: ele.IddmItem,
+          listItem: [],
           Id: '',
         }
       }))

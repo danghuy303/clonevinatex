@@ -303,6 +303,7 @@ export class QuanlytaisannhadatComponent implements OnInit {
     })
     modalRef.componentInstance.searchItem = deepCopy(this.searchItem);
     modalRef.componentInstance.searchItem.ThongTinChung.NgayCap = validVariable(this.searchItem.ThongTinChung.NgayCap)? new Date(this.searchItem.ThongTinChung.NgayCap):undefined;
+    modalRef.componentInstance.searchItem.HoSoVanBanPhapQuy.NgayQuyetDinh = validVariable(this.searchItem.HoSoVanBanPhapQuy.NgayQuyetDinh)? new Date(this.searchItem.HoSoVanBanPhapQuy.NgayQuyetDinh):undefined;
     modalRef.result.then(res => {
       this.advancedSearch = true;
       this.searchItem = res;

@@ -83,7 +83,7 @@
         <button pButton pRipple label="Báo Cáo Tổng Hợp" class="p-button-sm p-button-primary mr-3"
           (click)="baoCaoTongHop()"></button>
           <div class="p-d-flex p-flex-row">
-            <label class="my-auto mr-3">Đã bán, đã trả:</label>&nbsp;<p-checkbox [ngModel]="DaBan" (onChange)="ChangeDaBan()"
+            <label class="my-auto mr-3">Đã bán, đã trả:</label>&nbsp;<p-checkbox [(ngModel)]="DaBan" (onChange)="ChangeDaBan()"
                       binary="true" inputId="binary">
                   </p-checkbox>
           </div>

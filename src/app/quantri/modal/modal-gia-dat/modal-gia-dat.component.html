@@ -86,7 +86,9 @@
                                     [(ngModel)]="GiaDat.IDdmDonViTien"></p-dropdown>
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{GiaDat.TendmDonViTien}}
+                            <p-dropdown [filter]="false" [options]="listDonVi"
+                                    placeholder="Chọn đơn vị" styleClass="p-inputtext-sm"
+                                    [(ngModel)]="GiaDat.IDdmDonViTien" disabled></p-dropdown>
                         </ng-template>
                     </p-cellEditor>
                 </td>
