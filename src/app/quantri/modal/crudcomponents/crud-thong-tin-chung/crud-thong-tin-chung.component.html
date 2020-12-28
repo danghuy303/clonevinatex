@@ -30,7 +30,7 @@
         </div>
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.TaiSanDat.MaHanhDong>=3&&item.TaiSanDat.MaHanhDong!=4">
             <label class="my-auto mr-3">Thuê của công ty mẹ:</label>
-            <p-checkbox [ngModel]="item.TaiSanDat.isThueCongTyMe" binary="false"
+            <p-checkbox [(ngModel)]="item.isThueCongTyMe" binary="false"
                 inputId="binary"></p-checkbox>
         </div>
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">

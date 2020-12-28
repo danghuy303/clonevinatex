@@ -46,6 +46,9 @@ export class ModaladvancedsearchComponent implements OnInit {
   constructor(private _modal: NgbModal, private _service: Dat09Service, private _toastr: ToastrService, private _activemodal: NgbActiveModal) { }
 
   ngOnInit(): void {
+    this.yearRange = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
+    this.lang = vn;
+    console.log(this.searchItem);
     if (this.searchItem.ThongTinChung.LoaiDienTichTimKiem === null && this.searchItem.ThongTinChung.LoaiDienTichTimKiem !== undefined) {
       this.bieuThuc = this.bieuThucs[3];
     } else if (this.searchItem.ThongTinChung.LoaiDienTichTimKiem !== undefined) {

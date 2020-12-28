@@ -389,12 +389,13 @@ export class CrudThongTinChungComponent implements OnInit, DoCheck {
   }
 
   onThoiHanSuDungTuNgay(aValue) {
+    console.log(this.item.TaiSanDat.ThoiHanSuDung)
     if (aValue == null || aValue == undefined) {
       return false;
     }
 
     var thoiHanSuDung = this.item.TaiSanDat.ThoiHanSuDung;
-    this.item.TaiSanDat.ThoiHanSuDungDenNgay = new Date(new Date(aValue).getFullYear() + thoiHanSuDung, new Date(aValue).getMonth(), new Date(aValue).getDate());
+    this.item.TaiSanDat.ThoiHanSuDungDenNgay = new Date(new Date(aValue).getFullYear() + parseInt(thoiHanSuDung), new Date(aValue).getMonth(), new Date(aValue).getDate());
     // Để phần if này ở cuối nhé vì có return đấy
     this.setProgressBar(aValue, this.item.TaiSanDat.ThoiHanSuDungDenNgay, thoiHanSuDung);
   }
