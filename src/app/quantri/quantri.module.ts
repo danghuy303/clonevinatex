@@ -347,6 +347,7 @@ import { ImportdanhmucmodelComponent } from './danhmuc/danhmucsanxuat/modals/imp
     BotrimaymodalComponent,
     MathangmodelComponent,
     PhanxuongmodalComponent,
+    ImportdanhmucmodelComponent,
   ],
   providers: [
     SanXuatService,

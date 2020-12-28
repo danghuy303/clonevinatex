@@ -5,7 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-thongsochatluongmodal',
@@ -28,10 +28,13 @@ export class ThongsochatluongmodalComponent implements OnInit {
   listLoBong: any = [];
   data: any = {};
   lang: any = vn;
-  yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
+  tempChiTiet:any=[];
 
+  yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
+  constructor(public activeModal: NgbActiveModal,
+    public toastr: ToastrService, public _modal: NgbModal, private services: SanXuatService) {
   }
+
 
   ngOnInit(): void {
     // this.GetListdmPhuongAnSapXep();
@@ -47,6 +50,9 @@ export class ThongsochatluongmodalComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     }
     this.data.CurrentPage = 0;
+      if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+        this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      }
     this.getListLoBong();
   }
   KiemTraButtonModal() {
@@ -147,5 +153,10 @@ export class ThongsochatluongmodalComponent implements OnInit {
     this.services.GetListLoBong(this.data).subscribe((res: any) => {
       this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
+  }
+  editChiTiet(index){
+    this.tempChiTiet = deepCopy(this.item.listItem[index]);
+    console.log(this.tempChiTiet)
+    debugger
   }
 }

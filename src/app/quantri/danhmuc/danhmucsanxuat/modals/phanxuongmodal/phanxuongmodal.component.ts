@@ -23,6 +23,7 @@ export class PhanxuongmodalComponent implements OnInit {
   }
   
   accept() {
+    this.item.HoatDong = true;
     if (this.item.Ma !== undefined && this.item.Ma.trim() !== '' && this.item.Ten.trim() !== '' && this.item.Ten !== undefined) {
       this.services.SetdmPhanXuong(this.item).subscribe((res: any) => {
         if (res) {

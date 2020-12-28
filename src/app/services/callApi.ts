@@ -74,20 +74,7 @@ export class Dat09Service {
         return this.http.post(url, data, httpOptions);
     }
 
-    //Danh Muc Kho
-    // GetListLoaiVanBan(data) {
-    //     let url = API.danhmuc + 'GetListdmLoaiVanBan';
-    //     return this.http.post(url, data, httpOptions);
-    // }
-    // SetLoaiVanBan(data) {
-    //     let url = API.danhmuc + 'UpdatedmLoaiVanBan';
-    //     return this.http.post(url, data, httpOptions);
-    // }
-    // DeleteLoaiVanBan(data) {
-    //     let url = API.danhmuc + 'DeletedmLoaiVanBan';
-    //     return this.http.post(url, data, httpOptions);
-    // }
-
+    
     //Bien dong
     GetListBienDong(data) {
         let url = API.QLTSD + 'GetListBienDong';

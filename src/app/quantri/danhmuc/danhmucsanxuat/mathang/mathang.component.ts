@@ -7,6 +7,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { congDoan } from 'src/app/services/const';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { ImportdanhmucmodelComponent } from '../modals/importdanhmucmodel/importdanhmucmodel.component';
 import { MathangmodelComponent } from '../modals/mathangmodel/mathangmodel.component';
 
 @Component({
@@ -162,7 +163,7 @@ export class MathangComponent implements OnInit {
     this.GetListdm();
   }
   importExcel(){
-    let modalRef = this._modal.open(ModalimportexcelComponent,{
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
       backdrop:'static',
     })
     modalRef.componentInstance.importFunc = 'SCM_dmItem';

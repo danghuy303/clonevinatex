@@ -21,88 +21,32 @@ export class ThongsochatluongComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Mã PO/Hợp đồng',
+      header: 'Số quy trình',
       field: 'SoQuyTrinh',
       width: 'unset'
     },
     {
-      header: 'Lô',
-      field: 'NoiDung',
+      header: 'Mã PO/Hợp đồng',
+      field: 'SoHopDong',
       width: 'unset'
     },
     {
-      header: 'Tổng Cont',
-      field: 'TenTrangThai',
+      header: 'Tên lô bông',
+      field: 'TenLoBong',
       width: 'unset'
     },
     {
-      header: 'Mã bông',
+      header: 'Tên trạng thái',
       field: 'TenTrangThai',
       width: 'unset'
     },
-    {
-      header: 'Loại bông',
-      field: 'TenTrangThai',
-      width: 'unset'
-    },
-    {
-      header: 'Tổng số kiện',
-      field: 'TenTrangThai',
-      width: 'unset'
-    },
-    {
-      header: 'Tổng khối lượng',
-      field: 'TenTrangThai',
-      width: 'unset'
-    },
-    {
-      header: 'Ghi chú',
-      field: 'TenTrangThai',
-      width: 'unset'
-    },
+    
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-  colsQuyTrinh: any = [
-    {
-      header: 'Ngày nhận',
-      field: 'NgayKhoiTao',
-      width: '150px'
-    },
-    {
-      header: 'Ngày chuyển',
-      field: 'SoQuyTrinh',
-      width: '150px'
-    },
-    {
-      header: 'Thời gian xử lý',
-      field: 'DiaChi',
-      width: '200px'
-    },
-    {
-      header: 'Bộ phận xử lý',
-      field: 'DienTich',
-      width: '150px'
-    },
-    {
-      header: 'Nội dung xử lý',
-      field: 'HienTrangSuDung',
-      width: '400px'
-    },
-  ];
-
-
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute);
-    // this.activatedRoute.params.subscribe((res:any)=>{
-    //   if(res.id!=='0'){
-    //     // let getitem =()=>{return this.items.filter(ele=>ele.id === res.id.toString())[0]};
-    //     this.update(res.id);
-    //   }
-    // })
     this.GetListQuyTrinh()
-
     this.KiemTraTabTrangThai();
   }
   changeParam(id){
@@ -125,8 +69,10 @@ export class ThongsochatluongComponent implements OnInit {
     })
       .catch(er => { console.log(er) })
   }
-  update(item){
-      this._service.PhieuNhapLoBong_ChatLuong().Get(item.Id).subscribe((res1:any)=>{
+  update(Id){
+    this.changeParam(Id);
+    this._service.PhieuNhapLoBong_ChatLuong().Get(Id).subscribe((res1:any)=>{
+      
     let modalRef = this._modal.open(ThongsochatluongmodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'

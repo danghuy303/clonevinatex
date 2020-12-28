@@ -5,6 +5,7 @@ import { ModalimportexcelComponent } from 'src/app/quantri/modal/modalimportexce
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ModaldanhmucchungComponent } from '../../modal/modaldanhmucchung/modaldanhmucchung.component';
+import { ImportdanhmucmodelComponent } from '../modals/importdanhmucmodel/importdanhmucmodel.component';
 
 @Component({
   selector: 'app-loaisoi',
@@ -38,6 +39,7 @@ export class LoaisoiComponent implements OnInit {
     }
   ];
   selectedItems:any=[];
+  dataSearch: any = {};
   constructor(private _modal:NgbModal,private _services:SanXuatService,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
@@ -52,14 +54,14 @@ export class LoaisoiComponent implements OnInit {
       this.paging.CurrentPage=1;
       this.paginator.changePage(0);
     }
-    let data = {
+    this.dataSearch = {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
       sFilter:this.keyWord,  
       Ma:"", 
       Ten:""
     };
-    this._services.GetListdmLoaiSoi(data).subscribe((res:any)=>{
+    this._services.GetListdmLoaiSoi(this.dataSearch).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })
@@ -131,14 +133,21 @@ export class LoaisoiComponent implements OnInit {
     this.GetListdm();
   }
   importExcel(){
-    let modalRef = this._modal.open(ModalimportexcelComponent,{
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
       backdrop:'static',
     })
-    modalRef.componentInstance.importFunc = '';
+    modalRef.componentInstance.importFunc = 'SCM_dmLoaiSoi';
     modalRef.result.then(res=>{
       this.GetListdm();
       this._toastr.success(res.mess);
     })
     .catch(er=>console.log(er))
+  }
+  exportExcel(){
+    this.dataSearch.TableName = 'SCM_dmLoaiSoi';
+    this.dataSearch.CurrentPage = 0;
+    this._services.Exportdm(this.dataSearch).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
   }
 }
