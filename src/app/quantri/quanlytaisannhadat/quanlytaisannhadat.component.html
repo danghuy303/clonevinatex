@@ -15,8 +15,13 @@
                         (onNodeSelect)="nodeSelect($event)"></p-tree>
                 </ng-template>
             </p-overlayPanel>
-            <button pButton pRipple label="Xuất excel" class="p-button-sm p-button-outlined p-ml-2"
+            <button pButton pRipple label="Xuất excel" class="p-button-sm p-button-outlined p-ml-2 mr-3"
                 (click)="exportExcel()"></button>
+            <div class="p-d-flex p-flex-row">
+                <label class="my-auto mr-3">Đã bán, đã trả:</label>&nbsp;<p-checkbox [(ngModel)]="DaBan"
+                    (onChange)="GetListTaiSanDat(vung.ID,true)" binary="true" inputId="binary">
+                </p-checkbox>
+            </div>
         </ng-template>
         <ng-template pTemplate="right">
             <div class="p-inputgroup">

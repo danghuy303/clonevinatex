@@ -15,10 +15,11 @@ export class BotrimaymodalComponent implements OnInit {
   opt: string = '';
   listCongDoan: Array<any> = []
   IddmPhanXuong: string = '';
+  PoolMaySanXuat:any={};
   constructor(private _service: SanXuatService, private _activeModal: NgbActiveModal, private _modal: NgbModal) { }
 
   ngOnInit(): void {
-    console.log(this.item);
+    console.log(this.PoolMaySanXuat);
     if (this.opt !== 'edit') {
       this.GetCongDoanTheoMatHang()
     }

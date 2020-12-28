@@ -82,7 +82,7 @@ export class ThongkesanluongComponent implements OnInit {
     if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/thongkesanluong/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/theodoithongkebaocaosanxuat/thongkesanluong/${id}`],{replaceUrl: true})
   }
   add(){
     this.changeParam(0);

@@ -35,8 +35,9 @@ export class QuanlytaisannhadatComponent implements OnInit {
   advancedSearch: boolean = false;
   pagingThuaDat: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 1 };
   thuaDats: any = [
-    
+
   ];
+  DaBan: boolean = false;
   selectedThuaDat: any = {};
   selecteThuaDat: any = {};
   searchItem: any = {
@@ -72,7 +73,7 @@ export class QuanlytaisannhadatComponent implements OnInit {
       (res: any) => {
         let data = res.map((ele: any) => {
           return {
-            label: ele.Ten +` (${ele.TongSoThuaDat})`,
+            label: ele.Ten + ` (${ele.TongSoThuaDat})`,
             data: ele,
             key: ele.ID.toString(),
             parentKey: ele.IDParent?.toString() || null
@@ -126,8 +127,8 @@ export class QuanlytaisannhadatComponent implements OnInit {
     if (event.data == null || event.data == undefined) {
       return;
     }
-    this.selectedThuaDat = {},
-      this.showSoDos = false;
+    this.selectedThuaDat = {};
+    this.showSoDos = false;
     this._services.GetTaiSanDat(event.data.ID).subscribe((res: any) => {
       res.HienTrangSuDungs.forEach(ele => {
         ele.ThoiGian = UnixToDate(ele.ThoiGianUnix);
@@ -156,6 +157,7 @@ export class QuanlytaisannhadatComponent implements OnInit {
       sFilter: this.keyWord,
       Ma: "",
       Ten: "",
+      IsDaBan: this.DaBan
     };
     this._services.GetListTaiSanDat(data).subscribe((res: any) => {
       res.items.forEach((e) => {
@@ -188,7 +190,7 @@ export class QuanlytaisannhadatComponent implements OnInit {
       let modalRef = this._modal.open(ModalThuaDatComponent, {
         size: 'fullscreen',
         backdrop: 'static',
-        keyboard:false
+        keyboard: false
       })
       modalRef.componentInstance.opt = 'add';
       modalRef.componentInstance.item = {
@@ -211,8 +213,6 @@ export class QuanlytaisannhadatComponent implements OnInit {
         .catch(er => { console.log(er) })
     }
   }
-
-
 
   edit(item) {
     this.selecteThuaDat = {};
@@ -302,8 +302,8 @@ export class QuanlytaisannhadatComponent implements OnInit {
       size: 'lg'
     })
     modalRef.componentInstance.searchItem = deepCopy(this.searchItem);
-    modalRef.componentInstance.searchItem.ThongTinChung.NgayCap = validVariable(this.searchItem.ThongTinChung.NgayCap)? new Date(this.searchItem.ThongTinChung.NgayCap):undefined;
-    modalRef.componentInstance.searchItem.HoSoVanBanPhapQuy.NgayQuyetDinh = validVariable(this.searchItem.HoSoVanBanPhapQuy.NgayQuyetDinh)? new Date(this.searchItem.HoSoVanBanPhapQuy.NgayQuyetDinh):undefined;
+    modalRef.componentInstance.searchItem.ThongTinChung.NgayCap = validVariable(this.searchItem.ThongTinChung.NgayCap) ? new Date(this.searchItem.ThongTinChung.NgayCap) : undefined;
+    modalRef.componentInstance.searchItem.HoSoVanBanPhapQuy.NgayQuyetDinh = validVariable(this.searchItem.HoSoVanBanPhapQuy.NgayQuyetDinh) ? new Date(this.searchItem.HoSoVanBanPhapQuy.NgayQuyetDinh) : undefined;
     modalRef.result.then(res => {
       this.advancedSearch = true;
       this.searchItem = res;

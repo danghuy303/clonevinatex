@@ -224,6 +224,9 @@ DeletedmKho(data) {
             GetDanhSachDuAnByIdUser:(IdUser)=>{
                 return this.http.get(`${API.auth}DanhMuc/GetDanhSachDuAnByIdUser?IdUser=${IdUser}`,httpOptions)
             },
+            GetListTinhTrangMay:(IddmPhanXuong,TuNgay,DenNgay)=>{
+                return this.http.get(`${API.SCMQuanLyKho}GetListTinhTrangMay?IddmPhanXuong=${IddmPhanXuong}&TuNgay=${TuNgay}&DenNgay=${DenNgay}`,httpOptions)
+            },
             // SmartEOSAPI/DanhMuc/GetDanhSachDuAnByIdUser?IdUser=5d8c24c9-77f9-42aa-801b-df506280e6ce
         }
     }

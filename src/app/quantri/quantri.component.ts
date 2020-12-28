@@ -151,12 +151,12 @@ export class QuantriComponent implements OnInit {
             {
                 label: 'Theo dõi thống kê',
                 icon: 'pi pi-chart-bar',
-                routerLink: '/quantri/theodoithongkebaocao',
+                routerLink: '/quantri/theodoithongkebaocaosanxuat',
                 expanded: true,
                 items: [
                     {
                         label: 'Thống kê sản lượng',
-                        routerLink: '/quantri/thongkesanluong/0',
+                        routerLink: '/quantri/theodoithongkebaocaosanxuat/thongkesanluong/0',
                         command: () => this.close()
                     },
 
@@ -165,17 +165,17 @@ export class QuantriComponent implements OnInit {
             {
                 label: 'Báo cáo',
                 icon: 'pi pi-chart-bar',
-                routerLink: '/quantri/theodoithongkebaocaosanxuat',
+                routerLink: '/quantri/baocaosanxuat',
                 expanded: true,
                 items: [
                     {
                         label: 'Báo cáo sản lượng tổng hợp',
-                        routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongtonghop',
+                        routerLink: '/quantri/baocaosanxuat/sanluongtonghop',
                         command: () => this.close()
                     },
                     {
                         label: 'Báo cáo sản lượng chi tiết',
-                        routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongchitiet',
+                        routerLink: '/quantri/baocaosanxuat/sanluongchitiet',
                         command: () => this.close()
                     },
                 ]

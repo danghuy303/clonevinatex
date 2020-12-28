@@ -5,7 +5,7 @@ import { Dat09Service } from 'src/app/services/callApi';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 import { ToastrService } from 'ngx-toastr';
 import { ModalimportexcelComponent } from '../../modal/modalimportexcel/modalimportexcel.component';
-import { UnixToDate } from 'src/app/services/globalfunction';
+import { DateToDatePicker, UnixToDate } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-dmdonvi',
@@ -108,7 +108,6 @@ export class DmdonviComponent implements OnInit {
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.item.NgayCapGiayPhepKinhDoanh = UnixToDate(item.NgayCapGiayPhepKinhDoanhUnix);
-    console.log(UnixToDate(item.NgayCapGiayPhepKinhDoanhUnix))
     modalRef.result.then(res => {
       this._toastr.success(res);
       this.GetListdmDonVi()

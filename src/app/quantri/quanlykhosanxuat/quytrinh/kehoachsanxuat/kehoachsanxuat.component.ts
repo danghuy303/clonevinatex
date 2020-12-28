@@ -80,7 +80,7 @@ export class KehoachsanxuatComponent implements OnInit {
       this.GetListQuyTrinh();
       this.changeParam(0)
     })
-      .catch(er => { this.changeParam(0) })
+      .catch(er => { this.GetListQuyTrinh();this.changeParam(0) })
   }
   update(item) {
     let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
@@ -98,7 +98,7 @@ export class KehoachsanxuatComponent implements OnInit {
       this.GetListQuyTrinh();
       this.changeParam(0)
     })
-      .catch(er => { this.changeParam(0) })
+      .catch(er => { this.GetListQuyTrinh();this.changeParam(0) })
   }
   changeTab(e) {
     this.trangThai = e.index + 1;
