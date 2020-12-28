@@ -21,7 +21,7 @@ export class NhapkhoComponent implements OnInit {
   eAction: any = "PHIEUNHAPLOBONG";
   cols: any = [
     {
-      header: 'Mã quy trình',
+      header: 'Số quy trình',
       field: 'SoQuyTrinh',
       width: 'unset'
     },

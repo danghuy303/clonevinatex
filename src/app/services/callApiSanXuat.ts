@@ -11,6 +11,8 @@ export class SanXuatService {
         
      }
     //Cấp bông
+    //this.store.getCurrent();
+    //data.IdNhaMay =this.store.getCurrent().toString()
     GetListOptdmCapBong() {
         let url = API.SCMDanhMuc + 'GetListdmCapBong';
         return this.http.get(url, httpOptions);
@@ -27,6 +29,20 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'DeletedmCapBong';
         return this.http.post(url, data, httpOptions);
     }
+//#region  Danh Muc Kho
+GetListdmKho(data) {
+    let url = API.SCMDanhMuc + 'GetListdmKho';
+    return this.http.post(url, data, httpOptions);
+}
+SetdmKho(data) {
+    let url = API.SCMDanhMuc + 'SetdmKho';
+    return this.http.post(url, data, httpOptions);
+}
+DeletedmKho(data) {
+    let url = API.SCMDanhMuc + 'DeletedmKho';
+    return this.http.post(url, data, httpOptions);
+}
+//#endregion
 
     //Ca sản xuất
     GetListOptdmCaSanXuat() {
@@ -285,6 +301,7 @@ export class SanXuatService {
                 return this.http.post(url + 'DeletePhieuNhapLoBong', data, httpOptions);
             },
             ChuyenTiep: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'ChuyenTiepPhieuNhapLoBong', data, httpOptions)
             },
             KhongDuyet: (data) => {
@@ -322,5 +339,17 @@ export class SanXuatService {
         }
     }
     //#endregion
-
+    Importdm(TableName,FileName){
+        let IdDuAn =this.store.getCurrent().toString()
+        let url = API.SCMDanhMuc + `ImportDanhMuc?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`;
+        return this.http.get(url,httpOptions);
+    }
+    Exportdm(data){
+        data.IdDuAn =this.store.getCurrent();
+        let url = API.SCMDanhMuc + `ExportDanhMuc`;
+        return this.http.post(url,data,httpOptions);
+    }
+    download(url) {
+        window.open(API.imgURL+url);
+    }
 }

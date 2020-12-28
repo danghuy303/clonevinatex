@@ -94,8 +94,8 @@ export class NhapkhomodalComponent implements OnInit {
 
     });
   }
-  ChuyenDuyet() {
-    this._services.PhieuNhapLoBong_ChatLuong().ChuyenTiep(this.item).subscribe((res: any) => {
+  ChuyenTiep() {
+    this._services.QuyTrinhPhieuNhapLoBong().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();

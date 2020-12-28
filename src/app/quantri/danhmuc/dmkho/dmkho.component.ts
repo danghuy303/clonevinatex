@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Dat09Service } from 'src/app/services/callApi';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ModalimportexcelComponent } from '../../modal/modalimportexcel/modalimportexcel.component';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
-import { ModaldmkhoComponent } from '../modal/modaldmkho/modaldmkho.component';
+import { ModaldanhmucchungComponent } from '../modal/modaldanhmucchung/modaldanhmucchung.component';
 
 @Component({
   selector: 'app-dmkho',
@@ -38,7 +38,7 @@ export class DmkhoComponent implements OnInit {
     }
   ];
   selectedItems:any=[];
-  constructor(private _modal:NgbModal,private _services:Dat09Service,private _toastr:ToastrService) { }
+  constructor(private _modal:NgbModal,private _services:SanXuatService,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.GetListDanhMuc();
@@ -59,31 +59,31 @@ export class DmkhoComponent implements OnInit {
       Ma:"", 
       Ten:""
     };
-    // this._services.GetListLoaiVanBan(data).subscribe((res:any)=>{
-    //   this.items = res.items;
-    //   this.paging = res.paging;
-    // })
+    this._services.GetListdmKho(data).subscribe((res:any)=>{
+      this.items = res.items;
+      this.paging = res.paging;
+    })
   }
   add(){
-    let modalRef = this._modal.open(ModaldmkhoComponent,{
+    let modalRef = this._modal.open(ModaldanhmucchungComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='add';
-    modalRef.componentInstance.type = 'loaivanban';
-    modalRef.componentInstance.title = 'Thêm mới danh mục loại văn bản';
+    modalRef.componentInstance.type = 'dmkho';
+    modalRef.componentInstance.title = 'Thêm mới danh mục kho';
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListDanhMuc()
     }).catch(er=>console.log(er))
   }
   edit(item){
-    let modalRef = this._modal.open(ModaldmkhoComponent,{
+    let modalRef = this._modal.open(ModaldanhmucchungComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='edit';
-    modalRef.componentInstance.title = 'Cập nhật danh mục loại văn bản';
+    modalRef.componentInstance.title = 'Cập nhật danh mục kho';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.componentInstance.type = 'loaivanban';
+    modalRef.componentInstance.type = 'dmkho';
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListDanhMuc()
@@ -95,7 +95,7 @@ export class DmkhoComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this._services.DeleteLoaiVanBan([item]).subscribe((res: any) => {
+      this._services.DeletedmKho([item]).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);
@@ -113,7 +113,7 @@ export class DmkhoComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this._services.DeleteLoaiVanBan(this.selectedItems).subscribe((res: any) => {
+      this._services.DeletedmKho(this.selectedItems).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);
@@ -134,7 +134,7 @@ export class DmkhoComponent implements OnInit {
     let modalRef = this._modal.open(ModalimportexcelComponent,{
       backdrop:'static',
     })
-    modalRef.componentInstance.importFunc = 'LoaiVanBan';
+    modalRef.componentInstance.importFunc = 'dmKho';
     modalRef.result.then(res=>{
       this.GetListDanhMuc();
       this._toastr.success(res.mess);

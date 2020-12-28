@@ -48,8 +48,7 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô bông:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoBong" placeholder="Chọn lô" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IdLoBong"></p-dropdown>
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.IdLoBong" disable ="true" pInputText/>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -108,8 +107,8 @@
                     <tr>
                         <td>{{i+1}}</td>
                         <td>{{item.Ten}}</td>
+                        <td>{{item.SoCan}}</td>
                         <td>{{item.SoKien}}</td>
-                        <td>{{item.KhoiLuong}}</td>
                         <td>{{item.ViTri}}</td>
                         <td>
                             <button pButton pRipple icon="pi pi-pencil"
@@ -139,7 +138,7 @@
                         </td>
                         <td>
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.KhoiLuong">
+                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoKien">
                                 </p-inputNumber>
                                 <span class="p-inputgroup-addon">kiện</span>
                             </div>

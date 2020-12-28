@@ -19,6 +19,7 @@ export class ModaldanhmucchungComponent implements OnInit {
 
   }
   accept() {
+    this.item.HoatDong  = true;
     if (this.item.Ma !== undefined && this.item.Ma !== null && this.item.Ten !== undefined && this.item.Ten !== null) {
       switch (this.type) {
         case 'tinhtrangtaisan': this.tinhtrangtaisan();
@@ -42,6 +43,8 @@ export class ModaldanhmucchungComponent implements OnInit {
         case 'casanxuat': this.casanxuat();
           break;
         case 'loaisoi': this.loaisoi();
+          break;
+        case 'dmkho': this.dmkho();
           break;
         default:
           break;
@@ -122,6 +125,13 @@ export class ModaldanhmucchungComponent implements OnInit {
   }
   loaisoi() {
     this.sanXuatService.SetdmLoaiSoi(this.item).subscribe((res: any) => {
+      if (res) {
+        this.resAction(res)
+      }
+    })
+  }
+  dmkho() {
+    this.sanXuatService.SetdmKho(this.item).subscribe((res: any) => {
       if (res) {
         this.resAction(res)
       }
