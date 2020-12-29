@@ -7,6 +7,11 @@
                 [(ngModel)]="item.NhaMay"></p-dropdown>
         </div>
     </div> -->
+    <div class="p-d-flex p-flex-row">
+        <div class="mr-2">Số quy trình:&nbsp;{{item.SoQuyTrinh}}</div>
+        <div class="mr-2">TG tạo:&nbsp;{{item.Created}}</div>
+        <div class="mr-2">TG duyệt:&nbsp;{{item.Modified}}</div>
+    </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -32,15 +37,16 @@
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho điều chuyển:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoai" placeholder="Chọn kho điều chuyển" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.Loai"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho điều chuyển" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IddmKhoKhac"></p-dropdown>
+                
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho nhập:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoai" placeholder="Chọn kho nhập" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.Loai"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho nhập" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IddmKho"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
@@ -48,31 +54,22 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
-                    [(ngModel)]="item.Nhap" inputId="icon" placeholder="dd/mm/yyyy">
+                    [(ngModel)]="item.Ngay" inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [ngModel]="item.SoHopDong" pInputText />
+                <input type="text" class="p-inputtext-sm" [ngModel]="item.GhiChu" pInputText />
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tài liệu đính kèm:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <div class="p-inputgroup">
-                    <div type="text" pInputText class="p-inputtext-sm" >{{item.TepDinhKems.length!==0?item.TepDinhKems[0]?.TenGoc:''}}</div>
-                    <button type="button" pButton pRipple icon="pi pi-upload" class="p-button-sm p-button-text p-button-secondary"
-                        (click)="taiLenFileDinhKem()"></button>
-                </div>
-            </div>
-        </div> -->
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
                 <div>
-                    <button pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
-                        (click)="chonThuaDat()"></button>
+                    <button *ngIf="item.IddmKho!= null && item.IddmKho!= undefined"
+                       pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
+                       (click)="GetMatHangTheoKho()"></button>
                 </div>
                 <div>
                     <div class="p-inputgroup">
@@ -91,19 +88,17 @@
                         <col>
                         <col>
                         <col>
-                        <col>
                         <col style="width:90px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
-                        <th>Mã mặt hàng</th>
-                        <th>Tên mặt hàng</th>
-                        <th>Đơn vị tính</th>
+                        <th>Lô</th>
+                        <th>Container</th>
+                        <th>Mã kiện</th>
                         <th>Tồn kho</th>
-                        <th>Số lượng</th>
-                        <th>Mặt hàng sau hạ cấp</th>
+                        <th>Số lượng xuất</th>
                         <th>Ghi chú</th>
                     </tr>
                 </ng-template>
@@ -116,39 +111,8 @@
                         <td>{{item.Block}}</td>
                         <td></td>
                         <td></td>
-                        <td></td>
                     </tr>
                 </ng-template>
-                <!-- <ng-template pTemplate="footer" *ngIf="opt!=='modal'">
-                    <tr>
-                        <td>
-                        </td>
-                        <td>
-                            <input pInputText type="text" [(ngModel)]="newTableItem.MaCongTen">
-                        </td>
-                        <td>
-                            <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.KhoiLuong">
-                                </p-inputNumber>
-                                <span class="p-inputgroup-addon">kg</span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoKien">
-                                </p-inputNumber>
-                                <span class="p-inputgroup-addon">kiện</span>
-                            </div>
-                        </td>
-                        <td>
-                            <input pInputText type="text" [(ngModel)]="newTableItem.Block">
-                        </td>
-                        <td class="text-center">
-                            <button pButton pRipple type="button" icon="pi pi-plus"
-                                class="p-button-rounded p-button-sm " (click)="add()"></button>
-                        </td>
-                    </tr>
-                </ng-template> -->
             </p-table>
         </div>
     </div>

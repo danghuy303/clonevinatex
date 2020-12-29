@@ -225,6 +225,11 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/danhmucsanxuat/dmloaisoi',
                         command: () => this.close()
                     },
+                    {
+                        label: 'Nhóm kho',
+                        routerLink: '/quantri/danhmucsanxuat/dmnhomkho',
+                        command: () => this.close()
+                    },
                 ]
             },
             {
@@ -456,8 +461,8 @@ export class QuantriComponent implements OnInit {
                 }
             }
         ];
-        this.menu = this.menuQLTS;
-        // this.menu = this.menuQLNS;
+        // this.menu = this.menuQLTS;
+        this.menu = this.menuQLNS;
 
     }
 

@@ -32,23 +32,23 @@
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoai" placeholder="Chọn kho" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.Loai"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IddmKho"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày chứng từ:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
-                    [(ngModel)]="item.Nhap" inputId="icon" placeholder="dd/mm/yyyy">
+                    [(ngModel)]="item.NgayChungTu" inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-5 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" [ngModel]="item.SoHopDong" pInputText />
+                <input type="text" class="p-inputtext-sm" [ngModel]="item.GhiChu" pInputText />
             </div>
         </div>
         <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">

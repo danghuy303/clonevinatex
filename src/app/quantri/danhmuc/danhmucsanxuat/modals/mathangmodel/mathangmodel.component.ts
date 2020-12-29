@@ -22,8 +22,8 @@ export class MathangmodelComponent implements OnInit {
     public toastr: ToastrService, private _modal: NgbModal) { }
 
   ngOnInit(): void {
+    console.log(this.item);
     this.getListLoaiSoi();
-    console.log(this.item.listCongDoan)
   }
 
   getListLoaiSoi() {

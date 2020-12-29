@@ -71,13 +71,30 @@ export class NhapkhoComponent implements OnInit {
     }
     this.router.navigate([`quantri/quanlykhosanxuat/nhapkho/${id}`], { replaceUrl: true })
   }
-  add() {
+  addPhieuBong() {
     this.changeParam(0);
     let modalRef = this._modal.open(NhapkhomodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
+    modalRef.componentInstance.type = 'bong';
+    modalRef.componentInstance.nametype = 'bông';
+    modalRef.componentInstance.item = {}
+    modalRef.result.then((res: any) => {
+      this._toastr.success('Cập nhật thành công');
+    })
+      .catch(er => { console.log(er) })
+  }
+  addPhieuSo() {
+    this.changeParam(0);
+    let modalRef = this._modal.open(NhapkhomodalComponent, {
+      size: 'fullscreen',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.opt = 'add';
+    modalRef.componentInstance.type = 'so';
+    modalRef.componentInstance.nametype = 'sơ';
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this._toastr.success('Cập nhật thành công');
@@ -99,8 +116,8 @@ export class NhapkhoComponent implements OnInit {
     })
   }
   changeTab(e) {
-    // this.trangThai = e.index+1;
-    // this.GetListQuyTrinh(true);
+    this.trangThai = e.index+1;
+    this.GetListQuyTrinh(true);
   }
   changePage(event) {
     // this.paging.CurrentPage = event.page + 1;

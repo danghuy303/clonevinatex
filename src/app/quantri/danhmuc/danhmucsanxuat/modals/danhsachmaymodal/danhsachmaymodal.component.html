@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} đơn vị</h5>
+    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} danh sách máy</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -33,12 +33,41 @@
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hãng sản xuất:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.HangSanXuat" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nước sản xuất:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NuocSanXuat" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ký hiệu máy:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.KyHieuMay" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Năm sản xuất:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="number" class="p-inputtext-sm" [(ngModel)]="item.NamSanXuat" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Năm sử dụng:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="number" class="p-inputtext-sm" [(ngModel)]="item.NamSuDung" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
-        
     </div>
 </div>
 <div class="modal-footer">

@@ -46,6 +46,8 @@ export class ModaldanhmucchungComponent implements OnInit {
           break;
         case 'dmkho': this.dmkho();
           break;
+        case 'dmnhomkho': this.dmnhomkho();
+          break;
         default:
           break;
       }
@@ -132,6 +134,13 @@ export class ModaldanhmucchungComponent implements OnInit {
   }
   dmkho() {
     this.sanXuatService.SetdmKho(this.item).subscribe((res: any) => {
+      if (res) {
+        this.resAction(res)
+      }
+    })
+  }
+  dmnhomkho() {
+    this.sanXuatService.SetdmNhomKho(this.item).subscribe((res: any) => {
       if (res) {
         this.resAction(res)
       }

@@ -62,7 +62,7 @@ export class MathangComponent implements OnInit {
       center:'center'
     }
   ];
-  listCongDoan:any = congDoan;
+  listCongDoan:any = [];
   selectedItems:any=[];
   constructor(private _modal:NgbModal,
     private _services:SanXuatService,
@@ -71,11 +71,17 @@ export class MathangComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetListdm();
+    this.GetListCongDoan();
   }
   resetFilter(){
     this.filter = {
     };
     this.GetListdm()
+  }
+  GetListCongDoan(){
+    this._services.GetListCongDoan().subscribe((res:any)=>{
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+    })
   }
   GetListdm(reset?){
     if(reset){

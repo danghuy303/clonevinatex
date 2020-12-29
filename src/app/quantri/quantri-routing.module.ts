@@ -53,6 +53,8 @@ import { TimbongComponent } from './quanlykhosanxuat/phuongan/timbong/timbong.co
 import { MathangComponent } from './danhmuc/danhmucsanxuat/mathang/mathang.component';
 import { PhanxuongComponent } from './danhmuc/danhmucsanxuat/phanxuong/phanxuong.component';
 import { LoaisoiComponent } from './danhmuc/danhmucsanxuat/loaisoi/loaisoi.component';
+import { NhomkhoComponent } from './danhmuc/danhmucsanxuat/nhomkho/nhomkho.component';
+import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
 
 const routes: Routes = [
   {
@@ -107,6 +109,7 @@ const routes: Routes = [
       { path: 'danhmucsanxuat/dmmathang', component:MathangComponent},
       { path: 'danhmucsanxuat/dmphanxuong', component:PhanxuongComponent},
       { path: 'danhmucsanxuat/dmloaisoi', component:LoaisoiComponent},
+      { path: 'danhmucsanxuat/dmnhomkho', component:NhomkhoComponent},
 
       { path: 'thongkesanluong/:id', component:ThongkesanluongComponent},
       

@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Dat09Service } from 'src/app/services/callApi';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { HacapmodalComponent } from '../hacapmodal/hacapmodal.component';
 
 @Component({
@@ -63,9 +64,9 @@ export class HacapComponent implements OnInit {
       width: '400px'
     },
   ];
-
-
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:Dat09Service,private activatedRoute: ActivatedRoute,private router:Router) { }
+ listdmKho: any = [];
+  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
+    private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
@@ -76,6 +77,7 @@ export class HacapComponent implements OnInit {
       }
     })
     this.KiemTraTabTrangThai();
+    this.getListdmkho();
     // this.GetListQuyTrinh()
   }
   changeParam(id){
@@ -88,34 +90,30 @@ export class HacapComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = {
-      SoQuyTrinh: 'PKK_0000_0001',
-      listKienHang:[]
-      // ID:null,
-      // TepDinhKems:[],
-      // templistTaiSanQuyTrinh:[],
-      // listTaiSanQuyTrinh:[]
-    }
+    modalRef.componentInstance.item = {}
+    modalRef.componentInstance.listdmKho = this.listdmKho;
     modalRef.result.then((res: any) => {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
-      // this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
   update(item){
-    let modalRef = this._modal.open(HacapmodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
+
+    this._service.PhieuHaCap().Get(item.Id).subscribe(res=>{
+      let modalRef = this._modal.open(HacapmodalComponent, {
+        size: 'fullscreen',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.listdmKho = this.listdmKho;
+      modalRef.componentInstance.item = JSON.parse(JSON.stringify(res));
+      modalRef.result.then((res: any) => {
+        console.log(res);
+        this._toastr.success('Cập nhật thành công');
+      })
+        .catch(er => { console.log(er) })
     })
-    modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
-      // this.GetListQuyTrinh();
-    })
-      .catch(er => { console.log(er) })
   }
   changeTab(e){
     // this.trangThai = e.index+1;
@@ -140,7 +138,7 @@ export class HacapComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.GetListQuyTrinh(data).subscribe((res:any)=>{
+    this._service.PhieuHaCap().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })
@@ -154,5 +152,12 @@ export class HacapComponent implements OnInit {
     //   this.checkQuyen = res;
     //   this.GetListQuyTrinh();
     // })
+  }
+  getListdmkho(){
+    let data: any = {};
+    data.CurrentPage = 0;
+     this._service.GetListdmKho(data).subscribe((res:any)=>{
+      this.listdmKho =  mapArrayForDropDown(res, 'Ten', 'Id');;
+    })
   }
 }

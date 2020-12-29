@@ -6,6 +6,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { congDoan } from 'src/app/services/const';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { ImportdanhmucmodelComponent } from '../modals/importdanhmucmodel/importdanhmucmodel.component';
 import { PhanxuongmodalComponent } from '../modals/phanxuongmodal/phanxuongmodal.component';
 
 @Component({
@@ -163,14 +164,22 @@ export class PhanxuongComponent implements OnInit {
     this.GetListdm();
   }
   importExcel(){
-    let modalRef = this._modal.open(ModalimportexcelComponent,{
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
       backdrop:'static',
     })
-    modalRef.componentInstance.importFunc = '';
+    modalRef.componentInstance.importFunc = 'phanxuong';
     modalRef.result.then(res=>{
       this.GetListdm();
       this._toastr.success(res.mess);
     })
     .catch(er=>console.log(er))
+  }
+  exportExcel(){
+    let dataSearch: any = {}
+    dataSearch.TableName = 'SCM_dmPhanXuong';
+    dataSearch.CurrentPage = 0;
+    this._services.Exportdm(dataSearch).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
   }
 }

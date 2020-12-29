@@ -5,6 +5,7 @@ import { ModalimportexcelComponent } from 'src/app/quantri/modal/modalimportexce
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ModaldanhmucchungComponent } from '../../modal/modaldanhmucchung/modaldanhmucchung.component';
+import { ImportdanhmucmodelComponent } from '../modals/importdanhmucmodel/importdanhmucmodel.component';
 
 @Component({
   selector: 'app-casanxuat',
@@ -131,14 +132,22 @@ export class CasanxuatComponent implements OnInit {
     this.GetListdm();
   }
   importExcel(){
-    let modalRef = this._modal.open(ModalimportexcelComponent,{
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
       backdrop:'static',
     })
-    modalRef.componentInstance.importFunc = '';
+    modalRef.componentInstance.importFunc = 'casanxuat';
     modalRef.result.then(res=>{
       this.GetListdm();
       this._toastr.success(res.mess);
     })
     .catch(er=>console.log(er))
+  }
+  exportExcel(){
+    let dataSearch: any = {}
+    dataSearch.TableName = 'SCM_dmCaSanXuat';
+    dataSearch.CurrentPage = 0;
+    this._services.Exportdm(dataSearch).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
   }
 }

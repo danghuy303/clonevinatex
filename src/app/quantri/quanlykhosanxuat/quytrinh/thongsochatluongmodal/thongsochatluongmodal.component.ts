@@ -159,4 +159,23 @@ export class ThongsochatluongmodalComponent implements OnInit {
     console.log(this.tempChiTiet)
     debugger
   }
+  updateList(id: number, property: string, event: any) {
+    const editField = event.target.innerText;
+    switch (property) {
+      case 'Ten':
+        this.item.listItem[id].Ten = editField;
+        break;
+      case 'SoCan':
+        this.item.listItem[id].SoCan = editField;
+        break;
+      case 'SoKien':
+        this.item.listItem[id].SoKien = editField;
+        break;
+      case 'ViTri':
+        this.item.listItem[id].ViTri = editField;
+        break;
+      default:
+        break;
+    }
+  }
 }
