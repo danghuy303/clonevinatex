@@ -64,11 +64,20 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tháng kế hoạch</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Từ ngày:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang"
-                view="month" dateFormat="mm/yy" [yearNavigator]="true" [yearRange]="yearRange" [readonlyInput]="true" inputId="monthpicker"
-                    [(ngModel)]="item.Ngay" placeholder="mm/yyyy">
+                 dateFormat="dd/mm/yy" [yearNavigator]="true" [yearRange]="yearRange" [readonlyInput]="true" inputId="monthpicker"
+                    [(ngModel)]="item.TuNgay" placeholder="dd/mm/yyyy">
+                </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đến ngày:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang"
+                 dateFormat="dd/mm/yy" [yearNavigator]="true" [yearRange]="yearRange" [readonlyInput]="true" inputId="monthpicker"
+                    [(ngModel)]="item.DenNgay" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>

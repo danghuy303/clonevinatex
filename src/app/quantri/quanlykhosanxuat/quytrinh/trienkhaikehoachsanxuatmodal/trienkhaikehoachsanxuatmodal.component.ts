@@ -5,7 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, merge, UnixToDate } from 'src/app/services/globalfunction';
 import { BotrimaymodalComponent } from '../../modals/botrimaymodal/botrimaymodal.component';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 
@@ -22,8 +22,15 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   filter: any = {};
   checkbutton: any = {};
   listGiaoKeHoach: any = [];
+  tempDataGiaoKeHoach: any = [];
   listMatHangGiaoKeHoach: any = [];
+  mapGiaoKeHoachNIdPhanXuong: any = {};
   lang: any = vn;
+  yearRangeChonGiaoKeHoach: string = `${((new Date()).getFullYear() - 10)}:${((new Date()).getFullYear())}`;
+  maxDateChonMay: Date = null;
+  minDateChonMay: Date = null;
+  IddmPhanXuong: string = '';
+  PoolMaySanXuat: any = {};
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
 
   }
@@ -34,21 +41,40 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
     }
+    this.getListGiaoKeHoach();
   }
   getListGiaoKeHoach() {
-    console.log(this.item.Ngay);
-    this.services.GetOptions().GetListGiaoKeHoachSanXuatChuaLapKeHoach(DateToUnix(this.item.Ngay)).subscribe((res: Array<any>) => {
+    this.services.GetOptions().GetListGiaoKeHoachSanXuatChuaLapKeHoach().subscribe((res: Array<any>) => {
+      res.forEach(ele => {
+        this.mapGiaoKeHoachNIdPhanXuong[`${ele.Id}`] = ele.IddmPhanXuong;
+      })
+      this.tempDataGiaoKeHoach = deepCopy(res);
       this.listGiaoKeHoach = mapArrayForDropDown(res, 'NoiDung', 'Id');
     })
   }
   GetListMatHangChuaLapKeHoach(event) {
-    this.services.GetOptions().GetListMatHangChuaLapKeHoach(event.value).subscribe((res:any) => {
+    this.IddmPhanXuong = this.mapGiaoKeHoachNIdPhanXuong[`${event.value}`];
+    this.minDateChonMay = UnixToDate(this.tempDataGiaoKeHoach.filter(ele => ele.Id === event.value)[0]?.TuNgayUnix);
+    this.maxDateChonMay = UnixToDate(this.tempDataGiaoKeHoach.filter(ele => ele.Id === event.value)[0]?.DenNgayUnix);
+    this.services.GetOptions().GetListMatHangChuaLapKeHoach(event.value).subscribe((res: any) => {
       res.forEach(element => {
-        element.KhoiLuongKeHoach = element.KhoiLuongKeHoach/1000;
-        element.KhoiLuongSanXuat = element.KhoiLuongSanXuat/1000;
+        element.KhoiLuongKeHoach = element.KhoiLuongKeHoach / 1000;
+        element.KhoiLuongSanXuat = element.KhoiLuongSanXuat / 1000;
       });
       this.listMatHangGiaoKeHoach = res;
     })
+    this.services.GetOptions().GetListTinhTrangMay(this.mapGiaoKeHoachNIdPhanXuong[`${event.value}`], DateToUnix(this.minDateChonMay), DateToUnix(this.maxDateChonMay)).subscribe((res: any) => {
+      console.log(res);
+      res.forEach(may => {
+        this.PoolMaySanXuat[may.CongDoan] = {...this.PoolMaySanXuat[may.CongDoan]};
+        let mayName = may.Id.split('-').join('_');
+        this.PoolMaySanXuat[may.CongDoan][mayName]={...this.PoolMaySanXuat[may.CongDoan][mayName]}
+        let ngayName = may.Ngay.split('/').join('_');
+        this.PoolMaySanXuat[may.CongDoan][mayName][ngayName]= may;
+        this.PoolMaySanXuat[may.CongDoan][mayName].Ma = may.Ma;
+        this.PoolMaySanXuat[may.CongDoan][mayName].Ten = may.Ten;
+      });
+    });
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
@@ -85,18 +111,24 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     modalRef.componentInstance.opt = "KhoiLuongKeHoach";
     modalRef.componentInstance.selectedItems = deepCopy(this.item.listItem);
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
-    modalRef.result.then(res=>{
-      this.item.listItem = deepCopy(res);
-      console.log(this.item.listItem)
-    }).catch(er=>{
+    modalRef.result.then(res => {
+      console.log(res);
+      this.item.listItem = merge(deepCopy(res), this.item.listItem, 'IddmItem');
+
+    }).catch(er => {
       console.log(er);
     })
   }
   boTriMay(item) {
+    item.TuNgayUnix = DateToUnix(item.TuNgay);
+    item.DenNgayUnix = DateToUnix(item.DenNgay);
     let modalRef = this._modal.open(BotrimaymodalComponent, {
       size: 'lg'
     });
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.IddmPhanXuong = this.IddmPhanXuong;
+    modalRef.componentInstance.PoolMaySanXuat = this.PoolMaySanXuat;
   }
   GhiLai() {
     if (this.item.listTaiSanQuyTrinh.length !== 0) {
@@ -133,34 +165,6 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         }
       })
     }).catch(er => console.log(er))
-  }
-  merge(newArr, existingArr) {
-    let removeIndex = [];
-    newArr.forEach((newEle) => {
-      let index = existingArr.findIndex(
-        (oldEle) => newEle.IDTaiSan === oldEle.IDTaiSan
-      );
-      if (index === -1) {
-        existingArr.push(newEle);
-      }
-    });
-    existingArr.forEach((oldEle, index) => {
-      let indexCheck = newArr.findIndex(
-
-        (newEle) => newEle.IDTaiSan === oldEle.IDTaiSan
-      );
-      if (indexCheck === -1) {
-        removeIndex.push(index);
-      }
-    });
-    for (var i = removeIndex.length - 1; i >= 0; i--) {
-      if (existingArr[i].ID === 0) {
-        existingArr.splice(removeIndex[i], 1);
-      } else {
-        existingArr[i].isXoa = true;
-      }
-    }
-    return existingArr;
   }
   changePhuongAnDeXuat(event, item) {
     item.TenPhuongAnDeXuat = event.Ten;

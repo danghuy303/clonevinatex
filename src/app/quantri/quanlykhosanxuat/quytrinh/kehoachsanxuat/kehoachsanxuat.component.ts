@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { deepCopy, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, UnixToDate } from 'src/app/services/globalfunction';
 import { KehoachsanxuatmodalComponent } from '../kehoachsanxuatmodal/kehoachsanxuatmodal.component';
 
 @Component({
@@ -71,7 +71,8 @@ export class KehoachsanxuatComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {
-      Id: ''
+      Id: '',
+      listItem:[]
     }
     modalRef.result.then((res: any) => {
       console.log(res);
@@ -79,7 +80,7 @@ export class KehoachsanxuatComponent implements OnInit {
       this.GetListQuyTrinh();
       this.changeParam(0)
     })
-      .catch(er => { this.changeParam(0) })
+      .catch(er => { this.GetListQuyTrinh();this.changeParam(0) })
   }
   update(item) {
     let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
@@ -88,14 +89,16 @@ export class KehoachsanxuatComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = item;
-    modalRef.componentInstance.item.Ngay = UnixToDate(item.NgayUnix);
+    console.log(UnixToDate(item.TuNgayUnix));
+    modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
+    modalRef.componentInstance.item.DenNgay = UnixToDate(item.DenNgayUnix);
     modalRef.result.then((res: any) => {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
       this.changeParam(0)
     })
-      .catch(er => { this.changeParam(0) })
+      .catch(er => { this.GetListQuyTrinh();this.changeParam(0) })
   }
   changeTab(e) {
     this.trangThai = e.index + 1;
@@ -115,8 +118,8 @@ export class KehoachsanxuatComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter: this.filter.KeyWord,
-      TuNgay: (new Date(this.filter.TuNgay).getTime() / 1000) || 0,
-      DenNgay: (new Date(this.filter.DenNgay).getTime() / 1000) || 0,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
     }

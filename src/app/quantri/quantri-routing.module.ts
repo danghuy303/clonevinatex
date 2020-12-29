@@ -99,8 +99,8 @@ const routes: Routes = [
       { path: 'dieuhanhsanxuat', component: DieuhanhsanxuatComponent },
 
       
-      { path: 'theodoithongkebaocaosanxuat/sanluongtonghop', component: SanluongtonghopComponent },
-      { path: 'theodoithongkebaocaosanxuat/sanluongchitiet', component: SanluongchitietComponent },
+      { path: 'baocaosanxuat/sanluongtonghop', component: SanluongtonghopComponent },
+      { path: 'baocaosanxuat/sanluongchitiet', component: SanluongchitietComponent },
       { path: 'danhmucsanxuat/dmkho', component:DmkhoComponent},
       { path: 'danhmucsanxuat/dmloaibong', component:LoaibongComponent},
       { path: 'danhmucsanxuat/dmcapbong', component:CapbongComponent},
@@ -111,7 +111,7 @@ const routes: Routes = [
       { path: 'danhmucsanxuat/dmloaisoi', component:LoaisoiComponent},
       { path: 'danhmucsanxuat/dmnhomkho', component:NhomkhoComponent},
 
-      { path: 'thongkesanluong/:id', component:ThongkesanluongComponent},
+      { path: 'theodoithongkebaocaosanxuat/thongkesanluong/:id', component:ThongkesanluongComponent},
       
       { path: 'trienkhaisanxuat/phabong/:id', component:PhabongComponent},
       { path: 'trienkhaisanxuat/timbong/:id', component:TimbongComponent},

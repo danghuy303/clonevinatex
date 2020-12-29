@@ -71,7 +71,7 @@ export class DashboardComponent implements OnInit {
             ticks: {
               beginAtZero: true,
               callback: function (label, index, labels) {
-                return formatNumber(label/1000000, 'vi-VN', '0.0-0');
+                return formatNumber(label, 'vi-VN', '0.0-0');
               }
             }
           }
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
             for (let i = 0; i < data.datasets.length; i++) {
               tong += data.datasets[i].data[tooltipItem.index];
             }
-            return `${data.datasets[tooltipItem.datasetIndex].label}: ${formatNumber(tooltipItem.yLabel/1000000, 'vi-VN')}`
+            return `${data.datasets[tooltipItem.datasetIndex].label}: ${formatNumber(tooltipItem.yLabel, 'vi-VN')} triệu đồng`
           }
         }
       }
@@ -214,7 +214,7 @@ export class DashboardComponent implements OnInit {
         // this.selectedVung = res[0];
         this.flatToTreeArray(data, "key", "parentKey");
         // this.GetListTaiSanDat(this.vung.ID);
-        this.GetGiaDat();
+        // this.GetGiaDat();
         this.GetSoThuaDat();
       },
       (err: any) => {

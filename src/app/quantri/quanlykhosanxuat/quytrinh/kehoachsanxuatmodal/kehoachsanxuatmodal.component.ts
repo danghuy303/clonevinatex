@@ -7,6 +7,7 @@ import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 import { TrienkhaikehoachsanxuatComponent } from '../trienkhaikehoachsanxuat/trienkhaikehoachsanxuat.component';
 
@@ -31,7 +32,7 @@ export class KehoachsanxuatmodalComponent implements OnInit {
   listDonVi: any = [];
   listPhanXuong: any = []; listMatHang: any = [];
   yearRange: string = `${((new Date()).getFullYear())}:${((new Date()).getFullYear()) + 5}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store:StoreService) {
 
   }
 
@@ -40,6 +41,9 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
+      if(this._store.getCurrent()){
+        this.item.IdDuAn = this._store.getCurrent();
+      }
     }
   }
   KiemTraButtonModal() {
@@ -123,14 +127,21 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     })
   }
   GetQuyTrinh(Id) {
-    this.services.GiaoKeHoachSanXuat().Get(Id).subscribe(res => {
+    this.services.GiaoKeHoachSanXuat().Get(Id).subscribe((res:any) => {
+      
       this.item = res;
       // console.log(res);
     })
   }
   validData() {
-    if (validVariable(this.item.Ngay)) {
-      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+    console.log(this.item.TuNgay);
+    if (validVariable(this.item.TuNgay)) {
+      this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
+    } else {
+      return false;
+    }
+    if (validVariable(this.item.DenNgay)) {
+      this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
     } else {
       return false;
     }
@@ -161,7 +172,13 @@ export class KehoachsanxuatmodalComponent implements OnInit {
             this.opt = 'edit';
             this.item = res.objectReturn;
             this.KiemTraButtonModal();
+            res.objectReturn.listItem.forEach(ele => {
+              ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
+            });
           } else {
+            this.item.listItem.forEach(element => {
+              element.KhoiLuongKeHoach = element.KhoiLuongKeHoach/1000;
+            });
             this.toastr.error(res.message);
           }
         }

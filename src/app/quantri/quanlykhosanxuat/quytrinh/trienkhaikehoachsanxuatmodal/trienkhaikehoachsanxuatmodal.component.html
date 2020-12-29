@@ -27,17 +27,17 @@
 
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn kế hoạch giao</label>
+        <!-- <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn tháng giao kế hoạch</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" view="month" dateFormat="mm/yy"
-                    [yearNavigator]="true" yearRange="2010:2030" [readonlyInput]="true" inputId="monthpicker"
+                    [yearNavigator]="true" [yearRange]="yearRangeChonGiaoKeHoach" [readonlyInput]="true" inputId="monthpicker"
                     [(ngModel)]="item.Ngay" (onSelect)="getListGiaoKeHoach()" placeholder="mm/yyyy">
                 </p-calendar>
             </div>
-        </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-        </div>
+        </div> -->
+        <!-- <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+        </div> -->
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch giao:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -116,15 +116,15 @@
                         </td>
                         <td class="text-center">
                             <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                                [yearNavigator]="true" yearRange="2010:2030" [readonlyInput]="true"
-                                inputId="monthpicker" [(ngModel)]="mathang.TuNgay" (onSelect)="getListGiaoKeHoach()"
+                                [yearNavigator]="false" [readonlyInput]="true" [minDate]="minDateChonMay" [maxDate]="maxDateChonMay"
+                                inputId="monthpicker" [(ngModel)]="mathang.TuNgay" 
                                 placeholder="dd/mm/yyyy">
                             </p-calendar>
                         </td>
                         <td class="text-center">
                             <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                                [yearNavigator]="true" yearRange="2010:2030" [readonlyInput]="true"
-                                inputId="monthpicker" [(ngModel)]="mathang.DenNgay" (onSelect)="getListGiaoKeHoach()"
+                                [yearNavigator]="false" [readonlyInput]="true"  [minDate]="minDateChonMay" [maxDate]="maxDateChonMay"
+                                inputId="monthpicker" [(ngModel)]="mathang.DenNgay"
                                 placeholder="dd/mm/yyyy">
                             </p-calendar>
                         </td>

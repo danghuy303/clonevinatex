@@ -72,9 +72,12 @@ import { DmmucdichsudungComponent } from './danhmuc/dmmucdichsudung/dmmucdichsud
 import { DmnguongocdatComponent } from './danhmuc/dmnguongocdat/dmnguongocdat.component';
 import { ModalthongbaoComponent } from './modal/modalthongbao/modalthongbao.component';
 import { ModaldmtaisanComponent } from './danhmuc/modal/modaldmtaisan/modaldmtaisan.component';
+
 import {isXoaPipe} from './../services/isXoaPipe';
 import {VNDPipe} from './../services/vnd.pipe';
 import {FilterPipe} from './../services/filter.pipe';
+import {CongDoanPipe} from './../services/congdoan.pipe';
+
 import { UploadmodalComponent } from './modal/uploadmodal/uploadmodal.component';
 import { ThongKeThongTinThuaDatComponent } from './components/thong-ke-thong-tin-thua-dat/thong-ke-thong-tin-thua-dat.component';
 import { TinhComponent } from './danhmuc/tinh/tinh.component';
@@ -151,6 +154,7 @@ import { MathangmodelComponent } from './danhmuc/danhmucsanxuat/modals/mathangmo
 import { PhanxuongComponent } from './danhmuc/danhmucsanxuat/phanxuong/phanxuong.component';
 import { PhanxuongmodalComponent } from './danhmuc/danhmucsanxuat/modals/phanxuongmodal/phanxuongmodal.component';
 import { LoaisoiComponent } from './danhmuc/danhmucsanxuat/loaisoi/loaisoi.component';
+import { ChonmaytheocongdoanComponent } from './quanlykhosanxuat/modals/chonmaytheocongdoan/chonmaytheocongdoan.component';
 import { ImportdanhmucmodelComponent } from './danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { NhomkhoComponent } from './danhmuc/danhmucsanxuat/nhomkho/nhomkho.component';
 import { XuatkhomathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomathangmodal/xuatkhomathangmodal.component';
@@ -269,7 +273,9 @@ import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
     PhanxuongComponent,
     PhanxuongmodalComponent,
     FilterPipe,
+    CongDoanPipe,
     LoaisoiComponent,
+    ChonmaytheocongdoanComponent,
     ImportdanhmucmodelComponent,
     NhomkhoComponent,
     XuatkhomathangmodalComponent,
@@ -353,6 +359,7 @@ import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
     BotrimaymodalComponent,
     MathangmodelComponent,
     PhanxuongmodalComponent,
+    ChonmaytheocongdoanComponent,
     ImportdanhmucmodelComponent,
     XuatkhomathangmodalComponent,
   ],
@@ -362,6 +369,7 @@ import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
     isXoaPipe,
     VNDPipe,
     FilterPipe,
+    CongDoanPipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],

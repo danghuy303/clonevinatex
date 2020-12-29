@@ -143,7 +143,7 @@ export function DateToDatePicker(date:any):any{
 }
 export function UnixToDate(unix:number):Date|null{
     if(unix!== undefined&& unix !== null && unix !==0){
-       return new Date((unix-(3600*7))*1000); 
+       return new Date(unix*1000); 
     }else{
         return null;
     }
@@ -169,7 +169,6 @@ export function merge(newArr:Array<any>, existingArr:Array<any>,diffProp:string)
     });
     existingArr.forEach((oldEle, index) => {
       let indexCheck = newArr.findIndex(
-
         (newEle) => newEle[diffProp] === oldEle[diffProp]
       );
       if (indexCheck === -1) {
@@ -177,7 +176,7 @@ export function merge(newArr:Array<any>, existingArr:Array<any>,diffProp:string)
       }
     });
     for (var i = removeIndex.length - 1; i >= 0; i--) {
-      if (existingArr[i].ID === 0) {
+      if (existingArr[i].Id === '') {
         existingArr.splice(removeIndex[i], 1);
       } else {
         existingArr[i].isXoa = true;

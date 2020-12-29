@@ -21,14 +21,15 @@ export class QuantriComponent implements OnInit {
     display: boolean = false;
     OSName: string = 'HỆ THỐNG Quản lý Nhà – Đất'
     menu: MenuItem[];
-    menuQLTS:MenuItem[];
-    menuQLNS:MenuItem[];
-    listNhaMay:Array<any>=[];
-    IdNhaMay:string = '';
-    showDropDown:boolean = false;
-    constructor(private _auth: AuthenticationService, private _modal: NgbModal, private _router: Router,private _services:SanXuatService,private store:StoreService) {
-        this.getOSName(this._router.url)
+    menuQLTS: MenuItem[];
+    menuQLNS: MenuItem[];
+    listNhaMay: Array<any> = [];
+    IdNhaMay: string = '';
+    showDropDown: boolean = false;
+    constructor(private _auth: AuthenticationService, private _modal: NgbModal, private _router: Router, private _services: SanXuatService, private store: StoreService) {
         this.userInfo = this._auth.currentUserValue;
+        this.getOSName(this._router.url)
+        console.log(this.userInfo);
     }
     close() {
         this.display = false;
@@ -37,29 +38,30 @@ export class QuantriComponent implements OnInit {
         if (url.includes('sanxuat')) {
             this.showDropDown = true;
             this.OSName = 'Hệ thống quản trị ngành sợi';
+            this.getListNhaMay()
         } else {
             this.showDropDown = false;
             this.OSName = 'HỆ THỐNG Quản lý Nhà – Đất';
         }
     }
-    getListNhaMay(){
-        this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res:Array<any>)=>{
-            this.listNhaMay = mapArrayForDropDown(res,"TenDuAn", 'Id');
+    getListNhaMay() {
+        this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: Array<any>) => {
+            this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", 'Id');
             this.IdNhaMay = res[0].Id;
-            this.setGlobalNhaMay({value:res[0].Id})
+            this.setGlobalNhaMay({ value: res[0].Id })
         })
     }
-    setGlobalNhaMay(event){
+    setGlobalNhaMay(event) {
         this.store.setNhaMay(event.value);
     }
     ngOnInit(): void {
         this._router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((res: any) => {
-            this.getOSName(res.url)
+            this.getOSName(res.url);
+            
         })
-        this.getListNhaMay()
         this.menuQLNS = [
             {
-                label: 'Điều hành sản xuất',
+                label: 'Quản trị sản xuất',
                 routerLink: '/quantri/dieuhanhsanxuat',
                 icon: 'fas fa-warehouse',
                 command: () => {
@@ -67,7 +69,7 @@ export class QuantriComponent implements OnInit {
                 }
             },
             {
-                label: 'Kế hoạch sản xuất',
+                label: 'Điều hành sản xuất',
                 routerLink: '/quantri/kehoachsanxuat',
                 icon: 'fas fa-circle',
                 items: [
@@ -149,12 +151,12 @@ export class QuantriComponent implements OnInit {
             {
                 label: 'Theo dõi thống kê',
                 icon: 'pi pi-chart-bar',
-                routerLink: '/quantri/theodoithongkebaocao',
+                routerLink: '/quantri/theodoithongkebaocaosanxuat',
                 expanded: true,
                 items: [
                     {
                         label: 'Thống kê sản lượng',
-                        routerLink: '/quantri/thongkesanluong/0',
+                        routerLink: '/quantri/theodoithongkebaocaosanxuat/thongkesanluong/0',
                         command: () => this.close()
                     },
 
@@ -163,17 +165,17 @@ export class QuantriComponent implements OnInit {
             {
                 label: 'Báo cáo',
                 icon: 'pi pi-chart-bar',
-                routerLink: '/quantri/theodoithongkebaocaosanxuat',
+                routerLink: '/quantri/baocaosanxuat',
                 expanded: true,
                 items: [
                     {
                         label: 'Báo cáo sản lượng tổng hợp',
-                        routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongtonghop',
+                        routerLink: '/quantri/baocaosanxuat/sanluongtonghop',
                         command: () => this.close()
                     },
                     {
                         label: 'Báo cáo sản lượng chi tiết',
-                        routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongchitiet',
+                        routerLink: '/quantri/baocaosanxuat/sanluongchitiet',
                         command: () => this.close()
                     },
                 ]

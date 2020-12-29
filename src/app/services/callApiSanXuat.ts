@@ -208,8 +208,8 @@ DeletedmKho(data) {
             GetPhanXuong: (IdDuAn) => {
                 return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn}`, httpOptions)
             },
-            GetListGiaoKeHoachSanXuatChuaLapKeHoach: (Ngay) => {
-                return this.http.get(`${API.SCMQuanLyKho}GetListGiaoKeHoachSanXuatChuaLapKeHoach?Ngay=${Ngay}`, httpOptions)
+            GetListGiaoKeHoachSanXuatChuaLapKeHoach: () => {
+                return this.http.get(`${API.SCMQuanLyKho}GetListGiaoKeHoachSanXuatChuaLapKeHoach`, httpOptions)
             },
             GetListMatHangChuaLapKeHoach:(IdGiaoKeHoachSanXuat)=>{
                 return this.http.get(`${API.SCMQuanLyKho}GetListMatHangChuaLapKeHoach?IdGiaoKeHoachSanXuat=${IdGiaoKeHoachSanXuat}`,httpOptions)
@@ -217,11 +217,14 @@ DeletedmKho(data) {
             GetListCongDoanTheoMatHang:(IddmMatHang)=>{
                 return this.http.get(`${API.SCMQuanLyKho}GetListCongDoanTheoMatHang?IddmMatHang=${IddmMatHang}`,httpOptions)
             },
-            GetListMayTheoCongDoan:(CongDoan,IddmPhanXuong)=>{
-                return this.http.get(`${API.SCMQuanLyKho}GetListMayTheoCongDoan?CongDoan=${CongDoan}&IddmPhanXuong=${IddmPhanXuong}`,httpOptions)
+            GetListMayTheoCongDoan:(IddmPhanXuong,TuNgay,DenNgay)=>{
+                return this.http.get(`${API.SCMQuanLyKho}GetListMayTheoCongDoan?IddmPhanXuong=${IddmPhanXuong}&TuNgay=${TuNgay}&DenNgay=${DenNgay}`,httpOptions)
             },
             GetDanhSachDuAnByIdUser:(IdUser)=>{
                 return this.http.get(`${API.auth}DanhMuc/GetDanhSachDuAnByIdUser?IdUser=${IdUser}`,httpOptions)
+            },
+            GetListTinhTrangMay:(IddmPhanXuong,TuNgay,DenNgay)=>{
+                return this.http.get(`${API.SCMQuanLyKho}GetListTinhTrangMay?IddmPhanXuong=${IddmPhanXuong}&TuNgay=${TuNgay}&DenNgay=${DenNgay}`,httpOptions)
             },
             // SmartEOSAPI/DanhMuc/GetDanhSachDuAnByIdUser?IdUser=5d8c24c9-77f9-42aa-801b-df506280e6ce
         }
