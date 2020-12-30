@@ -1,5 +1,6 @@
 <div class="modal-header">
-    <h5 class="modal-title">Kế hoạch bố trí máy sản xuất: {{item.Ten}} Từ ngày:{{item.TuNgay|date:'dd/MM/yyyy'}} Đến ngày:{{item.DenNgay|date:'dd/MM/yyyy'}}</h5>
+    <h5 class="modal-title">Kế hoạch bố trí máy sản xuất: {{item.Ten}} Từ ngày:{{item.TuNgay|date:'dd/MM/yyyy'}} Đến
+        ngày:{{item.DenNgay|date:'dd/MM/yyyy'}}</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -7,7 +8,10 @@
 <div class="modal-body">
     <div class="p-grid">
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <div class="p-d-flex p-flex-row p-jc-end p-mb-3">
+            <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
+                <div>
+                    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
+                </div>
                 <div>
                     <div class="p-inputgroup">
                         <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
@@ -17,7 +21,52 @@
                     </div>
                 </div>
             </div>
-            <p-table [value]="listCongDoan"
+            <table class="table table-sm table-bordered">
+                <colgroup>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Công đoạn</th>
+                        <th>Máy</th>
+                        <th>Chi số</th>
+                        <th>Loại sợi</th>
+                        <th *ngFor="let date of listDate">{{date.header}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let congDoan of listCongDoan">
+                        <tr>
+                            <td> <a href="javascript:void(0)"
+                                    (click)="collapseCongDoan(congDoan)">{{congDoan.TenCongDoan}}</a></td>
+                            <td colspan="2">
+                                <!-- <a href="javascript:void(0)"
+                                    (click)="chonMayTheoCongDoan(congDoan.CongDoan)">Chọn máy</a> -->
+                            </td>
+                            <td></td>
+                        </tr>
+                        <ng-container *ngIf="congDoan.show">
+                            <tr *ngFor="let may of item.listItem[congDoan.CongDoan]">
+                                <td></td>
+                                <td>
+                                    <p-checkbox [(ngModel)]="may.checked"
+                                        (onChange)="checkMay(congDoan.CongDoan,may.prop,$event)" binary="true"
+                                        inputId="binary"></p-checkbox>{{PoolMaySanXuat[congDoan.CongDoan][may.prop].Ma}}
+                                    - {{PoolMaySanXuat[congDoan.CongDoan][may.prop].Ten}}
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td *ngFor="let date of listDate" style="padding:0px;height: 1px;">
+                                    <app-trangthaimaysanxuat
+                                        [(ngModel)]="PoolMaySanXuat[congDoan.CongDoan][may.prop][date.prop]">
+                                    </app-trangthaimaysanxuat>
+                                    <!-- {{PoolMaySanXuat[congDoan.CongDoan][may.prop][date.prop].TinhTrang}} -->
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </tbody>
+            </table>
+            <!-- <p-table [value]="listCongDoan"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -48,7 +97,7 @@
                         <td>{{may.Loai}}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </p-table> -->
         </div>
     </div>
 </div>

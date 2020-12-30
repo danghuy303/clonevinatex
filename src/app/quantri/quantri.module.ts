@@ -156,6 +156,7 @@ import { PhanxuongmodalComponent } from './danhmuc/danhmucsanxuat/modals/phanxuo
 import { LoaisoiComponent } from './danhmuc/danhmucsanxuat/loaisoi/loaisoi.component';
 import { ChonmaytheocongdoanComponent } from './quanlykhosanxuat/modals/chonmaytheocongdoan/chonmaytheocongdoan.component';
 import { ImportdanhmucmodelComponent } from './danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
+import { TrangthaimaysanxuatComponent } from './quanlykhosanxuat/quytrinh/trangthaimaysanxuat/trangthaimaysanxuat.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -274,6 +275,7 @@ import { ImportdanhmucmodelComponent } from './danhmuc/danhmucsanxuat/modals/imp
     LoaisoiComponent,
     ChonmaytheocongdoanComponent,
     ImportdanhmucmodelComponent,
+    TrangthaimaysanxuatComponent,
   ],
   imports: [
     HttpClientModule,

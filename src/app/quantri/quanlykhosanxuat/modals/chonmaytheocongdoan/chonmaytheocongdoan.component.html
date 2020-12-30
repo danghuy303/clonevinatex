@@ -13,13 +13,37 @@
                 </div>
                 <div>
                     <div class="p-inputgroup">
-                        <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText [(ngModel)]="KeyWord" />
+                        <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
+                            [(ngModel)]="KeyWord" />
                         <button type="button" pButton pRipple icon="pi pi-refresh"
                             class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
                     </div>
                 </div>
             </div>
-            <p-table [value]="items|filter:KeyWord"
+            <table class="table table-sm table-bordered">
+                <colgroup>
+                    <col style="width: 50px;">
+                    <col>
+                    <col>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Mã máy</th>
+                        <th>Tên máy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let may of items | keyvalue">
+                        <td>
+                            <p-checkbox [(ngModel)]="may.value.checked" binary="true" inputId="binary"></p-checkbox>
+                        </td>
+                        <td>{{may.value.Ma}}</td>
+                        <td>{{may.value.Ten}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <p-table [value]="items|filter:KeyWord"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -44,7 +68,7 @@
                         <td>{{item.Ten}}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </p-table> -->
         </div>
     </div>
 </div>

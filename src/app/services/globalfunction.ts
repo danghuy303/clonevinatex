@@ -1,6 +1,6 @@
 import { API } from './host';
 
-export function readNum(value: any,donvi:string) {
+export function readNum(value: any, donvi: string) {
     let fullnum = value.toString().split('.');
     var fraction = fullnum[1];
     console.log(fraction);
@@ -102,8 +102,8 @@ export function readNum(value: any,donvi:string) {
             return cs[number[0]];
         }
     }
-    if(fraction!== undefined){
-        doc += 'phẩy '+ readNum(fraction,'')
+    if (fraction !== undefined) {
+        doc += 'phẩy ' + readNum(fraction, '')
     }
     doc += donvi;
     return doc;
@@ -117,70 +117,70 @@ export function nhapTen(value: string) {
     let upperArr = arr.map(ele => ele.charAt(0).toUpperCase() + ele.slice(1));
     return upperArr.join(' ')
 }
-export function download(tepdinhkems:Array<any>){
+export function download(tepdinhkems: Array<any>) {
     console.log(tepdinhkems[0])
-    if(tepdinhkems[0].TenGoc.includes('.pdf')){
-      window.open(API.imgURL+tepdinhkems[0].Link+'&viewOnly=true')
-    }else{
-      window.open(API.imgURL+tepdinhkems[0].Link);
+    if (tepdinhkems[0].TenGoc.includes('.pdf')) {
+        window.open(API.imgURL + tepdinhkems[0].Link + '&viewOnly=true')
+    } else {
+        window.open(API.imgURL + tepdinhkems[0].Link);
     }
-  }
-export function deepCopy(value:any){
-      return JSON.parse(JSON.stringify(value));
 }
-export function validVariable(value:any){
-    if(value!== undefined && value!== null && value.toString().trim !==''){
+export function deepCopy(value: any) {
+    return JSON.parse(JSON.stringify(value));
+}
+export function validVariable(value: any) {
+    if (value !== undefined && value !== null && value.toString().trim !== '') {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
-export function DateToUnix(date:any):any{
-    return (new Date(date)).getTime()/1000;
+export function DateToUnix(date: any): any {
+    return (new Date(date)).getTime() / 1000;
 }
-export function DateToDatePicker(date:any):any{
-    return validVariable(date)? new Date(date):undefined;
+export function DateToDatePicker(date: any): any {
+    return validVariable(date) ? new Date(date) : undefined;
 }
-export function UnixToDate(unix:number):Date|null{
-    if(unix!== undefined&& unix !== null && unix !==0){
-       return new Date(unix*1000); 
-    }else{
+export function UnixToDate(unix: number): Date | null {
+    if (unix !== undefined && unix !== null && unix !== 0) {
+        return new Date(unix * 1000);
+    } else {
         return null;
     }
-    
+
 }
-export function mapArrayForDropDown(array:Array<any>,labelProp:string,valueProp:string):Array<any>{
-    return array.map(ele=>{
+export function mapArrayForDropDown(array: Array<any>, labelProp: string, valueProp: string): Array<any> {
+    return array.map(ele => {
         return {
-            label:ele[labelProp],
-            value:ele[valueProp],
+            label: ele[labelProp],
+            value: ele[valueProp],
         }
     })
 }
-export function merge(newArr:Array<any>, existingArr:Array<any>,diffProp:string):Array<any> {
+export function merge(newArr: Array<any>, existingArr: Array<any>, diffProp: string): Array<any> {
     let removeIndex = [];
     newArr.forEach((newEle) => {
-      let index = existingArr.findIndex(
-        (oldEle) => newEle[diffProp] === oldEle[diffProp]
-      );
-      if (index === -1) {
-        existingArr.push(newEle);
-      }
+        let index = existingArr.findIndex(
+            (oldEle) => newEle[diffProp] === oldEle[diffProp]
+        );
+        if (index === -1) {
+            existingArr.push(newEle);
+        }
     });
     existingArr.forEach((oldEle, index) => {
-      let indexCheck = newArr.findIndex(
-        (newEle) => newEle[diffProp] === oldEle[diffProp]
-      );
-      if (indexCheck === -1) {
-        removeIndex.push(index);
-      }
+        let indexCheck = newArr.findIndex(
+            (newEle) => newEle[diffProp] === oldEle[diffProp]
+        );
+        if (indexCheck === -1) {
+            removeIndex.push(index);
+        }
     });
     for (var i = removeIndex.length - 1; i >= 0; i--) {
-      if (existingArr[i].Id === '') {
-        existingArr.splice(removeIndex[i], 1);
-      } else {
-        existingArr[i].isXoa = true;
-      }
+        if (existingArr[i].Id === '') {
+            existingArr.splice(removeIndex[i], 1);
+        } else {
+            existingArr[i].isXoa = true;
+        }
     }
     return existingArr;
-  }
+}

@@ -1,13 +1,15 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
 import { ChonmaytheocongdoanComponent } from '../chonmaytheocongdoan/chonmaytheocongdoan.component';
 
 @Component({
   selector: 'app-botrimaymodal',
   templateUrl: './botrimaymodal.component.html',
-  styleUrls: ['./botrimaymodal.component.css']
+  styleUrls: ['./botrimaymodal.component.css'],
+  providers: [DatePipe]
 })
 export class BotrimaymodalComponent implements OnInit {
   item: any = {};
@@ -15,15 +17,21 @@ export class BotrimaymodalComponent implements OnInit {
   opt: string = '';
   listCongDoan: Array<any> = []
   IddmPhanXuong: string = '';
-  PoolMaySanXuat:any={};
-  constructor(private _service: SanXuatService, private _activeModal: NgbActiveModal, private _modal: NgbModal) { }
+  PoolMaySanXuat: any = {};
+  DateArray: any = [];
+  listDate: any = [];
+  constructor(private _services: SanXuatService, private _activeModal: NgbActiveModal, private _modal: NgbModal, private datepipe: DatePipe) { }
 
   ngOnInit(): void {
-    console.log(this.PoolMaySanXuat);
-    if (this.opt !== 'edit') {
+    // console.log(this.PoolMaySanXuat);
+    // if (this.opt !== 'edit') {
       this.GetCongDoanTheoMatHang()
-    }
-
+    // }
+    
+    console.log(this.PoolMaySanXuat);
+    console.log(this.item);
+    this.listDate = this.getDates(UnixToDate(this.item.TuNgayUnix), UnixToDate(this.item.DenNgayUnix));
+    console.log(this.listDate);
     // this.item.listCongDoan= [
     //   {Ten:'Bông chải',listMay:[
     //     {Ten:'TC05',ChiSo:0.2,Loai:'CM'},
@@ -35,27 +43,74 @@ export class BotrimaymodalComponent implements OnInit {
     //   {Ten:'Ghép thô'},
     // ]
   }
+  getDates(startDate, endDate) {
+    let dates = [],
+      currentDate = startDate,
+      addDays = function (days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+      };
+    while (currentDate <= endDate) {
+      let data: any = {};
+      if (currentDate.getDate() === 1) {
+        data.header = `01/${currentDate.getMonth() < 9 ? `0${currentDate.getMonth() + 1}` : (currentDate.getMonth() + 1)}`
+      } else {
+        data.header = this.datepipe.transform(currentDate, 'dd')
+      }
+      data.prop = this.datepipe.transform(currentDate, 'dd_MM_yyyy');
+      dates.push(data);
+      currentDate = addDays.call(currentDate, 1);
+    }
+    return dates;
+  };
   GetCongDoanTheoMatHang() {
-    this._service.GetOptions().GetListCongDoanTheoMatHang(this.item.IddmItem).subscribe((res: any) => {
+    this._services.GetOptions().GetListCongDoanTheoMatHang(this.item.IddmItem).subscribe((res: any) => {
       this.listCongDoan = res;
-    })
-  }
-  async chonMayTheoCongDoan(CongDoan) {
-    this._service.GetOptions().GetListMayTheoCongDoan(this.IddmPhanXuong, DateToUnix(this.item.TuNgay), DateToUnix(this.item.DenNgay)).subscribe(res => {
-      return res;
-    });
-    let modalRef = this._modal.open(ChonmaytheocongdoanComponent, {
-      size: 'lg',
-    });
-    modalRef.componentInstance.items =
-      modalRef.componentInstance.selectedItems = this.item.listItem.filter(ele => {
-        ele.CongDoan === CongDoan;
+    if (this.opt !== 'edit') {
+      res.forEach(cd => {
+        let data = []
+        for (let key in this.PoolMaySanXuat[cd.CongDoan]) {
+          if (this.PoolMaySanXuat[cd.CongDoan][key]) {
+            data.push(this.PoolMaySanXuat[cd.CongDoan][key]);
+          }
+        }
+        this.item.listItem[cd.CongDoan] = data.map(
+          ele => {
+            return {
+              prop: ele.Id.split('-').join('_'),
+              IddmMay: ele.Id,
+              Id: ''
+            }
+          })
       });
-    modalRef.result.then(result => {
-      console.log(result);
-      // this.
-    }).catch(er => {
-      console.log(er);
+    }
     })
   }
+  checkMay(CongDoan,May,event){
+      this.listDate.forEach(date => {
+        if(this.PoolMaySanXuat[CongDoan][May][date.prop].TinhTrang!==2){
+          this.PoolMaySanXuat[CongDoan][May][date.prop].TinhTrang = event.checked? 1:0;
+          // this.PoolMaySanXuat[CongDoan][May][date.prop].TinhTrang = event.checked? 1:0;
+        }
+      });
+  }
+  collapseCongDoan(congDoan){
+    congDoan.show = !!!congDoan.show;
+  }
+  accept(){
+    this._activeModal.close(this.item);
+  }
+  // async chonMayTheoCongDoan(CongDoan) {
+  //   let modalRef = this._modal.open(ChonmaytheocongdoanComponent, {
+  //     size: 'lg',
+  //   });
+  //   modalRef.componentInstance.items = this.PoolMaySanXuat[CongDoan];
+  //   modalRef.result.then(result => {
+  //     this.item.listItem[CongDoan]= result;
+  //     console.log(this.item);
+  //   }).catch(er => {
+  //     console.log(er);
+  //   })
+  // }
 }

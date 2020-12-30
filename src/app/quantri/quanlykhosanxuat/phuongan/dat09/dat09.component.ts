@@ -22,7 +22,7 @@ export class Dat09Component implements ControlValueAccessor {
   private editing: boolean = false;
   public onChange: any = Function.prototype;
   public onTouched: any = Function.prototype;
-
+  
   get value(): any {
     return this._value;
   }

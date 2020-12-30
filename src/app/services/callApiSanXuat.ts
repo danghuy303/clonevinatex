@@ -7,9 +7,9 @@ import { StoreService } from './store.service';
     providedIn: 'root'
 })
 export class SanXuatService {
-    constructor(private http: HttpClient,private store:StoreService) {
-        
-     }
+    constructor(private http: HttpClient, private store: StoreService) {
+
+    }
     //Cấp bông
     //this.store.getCurrent();
     //data.IdNhaMay =this.store.getCurrent().toString()
@@ -29,20 +29,20 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'DeletedmCapBong';
         return this.http.post(url, data, httpOptions);
     }
-//#region  Danh Muc Kho
-GetListdmKho(data) {
-    let url = API.SCMDanhMuc + 'GetListdmKho';
-    return this.http.post(url, data, httpOptions);
-}
-SetdmKho(data) {
-    let url = API.SCMDanhMuc + 'SetdmKho';
-    return this.http.post(url, data, httpOptions);
-}
-DeletedmKho(data) {
-    let url = API.SCMDanhMuc + 'DeletedmKho';
-    return this.http.post(url, data, httpOptions);
-}
-//#endregion
+    //#region  Danh Muc Kho
+    GetListdmKho(data) {
+        let url = API.SCMDanhMuc + 'GetListdmKho';
+        return this.http.post(url, data, httpOptions);
+    }
+    SetdmKho(data) {
+        let url = API.SCMDanhMuc + 'SetdmKho';
+        return this.http.post(url, data, httpOptions);
+    }
+    DeletedmKho(data) {
+        let url = API.SCMDanhMuc + 'DeletedmKho';
+        return this.http.post(url, data, httpOptions);
+    }
+    //#endregion
 
     //Ca sản xuất
     GetListOptdmCaSanXuat() {
@@ -203,8 +203,8 @@ DeletedmKho(data) {
             GetMatHang: () => {
                 return this.http.post(`${API.SCMDanhMuc}GetListdmItem`, { Loai: 1 }, httpOptions)
             },
-            GetNhaMay:()=>{
-                return this.http.post(`${API.auth}DanhMuc/GetDanhSachDuAn_Advance`,{},httpOptions)
+            GetNhaMay: () => {
+                return this.http.post(`${API.auth}DanhMuc/GetDanhSachDuAn_Advance`, {}, httpOptions)
             },
             GetPhanXuong: (IdDuAn) => {
                 return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn}`, httpOptions)
@@ -212,20 +212,20 @@ DeletedmKho(data) {
             GetListGiaoKeHoachSanXuatChuaLapKeHoach: () => {
                 return this.http.get(`${API.SCMQuanLyKho}GetListGiaoKeHoachSanXuatChuaLapKeHoach`, httpOptions)
             },
-            GetListMatHangChuaLapKeHoach:(IdGiaoKeHoachSanXuat)=>{
-                return this.http.get(`${API.SCMQuanLyKho}GetListMatHangChuaLapKeHoach?IdGiaoKeHoachSanXuat=${IdGiaoKeHoachSanXuat}`,httpOptions)
+            GetListMatHangChuaLapKeHoach: (IdGiaoKeHoachSanXuat) => {
+                return this.http.get(`${API.SCMQuanLyKho}GetListMatHangChuaLapKeHoach?IdGiaoKeHoachSanXuat=${IdGiaoKeHoachSanXuat}`, httpOptions)
             },
-            GetListCongDoanTheoMatHang:(IddmMatHang)=>{
-                return this.http.get(`${API.SCMQuanLyKho}GetListCongDoanTheoMatHang?IddmMatHang=${IddmMatHang}`,httpOptions)
+            GetListCongDoanTheoMatHang: (IddmMatHang) => {
+                return this.http.get(`${API.SCMQuanLyKho}GetListCongDoanTheoMatHang?IddmMatHang=${IddmMatHang}`, httpOptions)
             },
-            GetListMayTheoCongDoan:(IddmPhanXuong,TuNgay,DenNgay)=>{
-                return this.http.get(`${API.SCMQuanLyKho}GetListMayTheoCongDoan?IddmPhanXuong=${IddmPhanXuong}&TuNgay=${TuNgay}&DenNgay=${DenNgay}`,httpOptions)
+            GetListMayTheoCongDoan: (IddmPhanXuong, TuNgay, DenNgay) => {
+                return this.http.get(`${API.SCMQuanLyKho}GetListMayTheoCongDoan?IddmPhanXuong=${IddmPhanXuong}&TuNgay=${TuNgay}&DenNgay=${DenNgay}`, httpOptions)
             },
-            GetDanhSachDuAnByIdUser:(IdUser)=>{
-                return this.http.get(`${API.auth}DanhMuc/GetDanhSachDuAnByIdUser?IdUser=${IdUser}`,httpOptions)
+            GetDanhSachDuAnByIdUser: (IdUser) => {
+                return this.http.get(`${API.auth}DanhMuc/GetDanhSachDuAnByIdUser?IdUser=${IdUser}`, httpOptions)
             },
-            GetListTinhTrangMay:(IddmPhanXuong,TuNgay,DenNgay)=>{
-                return this.http.get(`${API.SCMQuanLyKho}GetListTinhTrangMay?IddmPhanXuong=${IddmPhanXuong}&TuNgay=${TuNgay}&DenNgay=${DenNgay}`,httpOptions)
+            GetListTinhTrangMay: (IddmPhanXuong, TuNgay, DenNgay) => {
+                return this.http.get(`${API.SCMQuanLyKho}GetListTinhTrangMay?IddmPhanXuong=${IddmPhanXuong}&TuNgay=${TuNgay}&DenNgay=${DenNgay}`, httpOptions)
             },
             // SmartEOSAPI/DanhMuc/GetDanhSachDuAnByIdUser?IdUser=5d8c24c9-77f9-42aa-801b-df506280e6ce
         }
@@ -342,17 +342,17 @@ DeletedmKho(data) {
         }
     }
     //#endregion
-    Importdm(TableName,FileName){
-        let IdDuAn =this.store.getCurrent().toString()
+    Importdm(TableName, FileName) {
+        let IdDuAn = this.store.getCurrent().toString()
         let url = API.SCMDanhMuc + `ImportDanhMuc?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`;
-        return this.http.get(url,httpOptions);
+        return this.http.get(url, httpOptions);
     }
-    Exportdm(data){
-        data.IdDuAn =this.store.getCurrent();
+    Exportdm(data) {
+        data.IdDuAn = this.store.getCurrent();
         let url = API.SCMDanhMuc + `ExportDanhMuc`;
-        return this.http.post(url,data,httpOptions);
+        return this.http.post(url, data, httpOptions);
     }
     download(url) {
-        window.open(API.imgURL+url);
+        window.open(API.imgURL + url);
     }
 }
