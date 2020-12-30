@@ -1,9 +1,11 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Nhập bông</h4>
+    <h4 style="color:#1f2779">Nhập kho</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
-    <div></div>
+    <div class="p-d-flex p-flex-row">
+      <button pButton pRipple label="Thêm mới nhập bông" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieuBong()" *ngIf="checkQuyen.ThemMoi"></button>
+      <button pButton pRipple label="Thêm mới nhập xơ" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieuSo()" *ngIf="checkQuyen.ThemMoi"></button>
+    </div>
     <div class="p-d-flex p-flex-row">
         <!-- <div class="p-mr-2">
             <p-dropdown [options]="listLoaiPhuongAn" placeholder="Chọn phương án" styleClass="p-inputtext-sm"

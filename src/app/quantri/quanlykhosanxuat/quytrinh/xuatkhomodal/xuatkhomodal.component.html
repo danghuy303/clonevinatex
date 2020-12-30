@@ -8,7 +8,7 @@
         </div>
     </div> -->
     <div class="p-d-flex p-flex-row">
-        <div class="mr-2">Số quy trình:&nbsp;{{item.SoPhieu}}</div>
+        <div class="mr-2">Số quy trình:&nbsp;{{item.SoQuyTrinh}}</div>
         <div class="mr-2">TG tạo:&nbsp;{{item.Created}}</div>
         <div class="mr-2">TG duyệt:&nbsp;{{item.Modified}}</div>
     </div>
@@ -34,41 +34,32 @@
 
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho xuất:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoai" placeholder="Chọn kho" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.Loai"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IddmKho"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listCap" placeholder="Chọn phân xưởng"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.Cap"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listPhanXuong " placeholder="Chọn phân xưởng"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày chứng từ:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
-                    [(ngModel)]="item.Nhap" inputId="icon" placeholder="dd/mm/yyyy">
-                </p-calendar>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày xuất:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
-                    [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
-                    [(ngModel)]="item.NgayXuatKho" inputId="icon" placeholder="dd/mm/yyyy">
+                    [(ngModel)]="item.NgayChungTu" inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>
         <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+            <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-lg-11 p-p-0">
                 <input type="text" class="p-inputtext-sm" [ngModel]="item.GhiChu" pInputText />
             </div>
         </div>
@@ -84,14 +75,14 @@
         </div> -->
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
-                <button pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
-                    (click)="chonKienHang()"></button>
+                <button *ngIf="item.IddmKho!= null && item.IddmKho!= undefined"
+                    pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
+                    (click)="GetLuuKho()"></button>
             </div>
-            <p-table [value]="item.listKienHang" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+            <p-table [value]="item.listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
-                        <col>
                         <col>
                         <col>
                         <col>
@@ -107,7 +98,6 @@
                         <th>Lô</th>
                         <th>Container</th>
                         <th>Mã kiện</th>
-                        <th>Mã bông</th>
                         <th>ĐVT</th>
                         <th>Tồn kho</th>
                         <th>Số lượng xuất</th>
@@ -117,14 +107,31 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>{{i+1}}</td>
-                        <td>{{item.Lo}}</td>
-                        <td>{{item.Container}}</td>
-                        <td>{{item.MaKien}}</td>
-                        <td>{{item.MaBong}}</td>
-                        <td>{{item.DVT}}</td>
-                        <td>{{item.TonKho}}</td>
-                        <td>{{item.SoLuongXuat}}</td>
-                        <!-- <td>
+                        <td>
+                            <span contenteditable="true"
+                            (blur)="updateList(i, 'Lo', $event)">{{item.Lo}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true"
+                            (blur)="updateList(i, 'Container', $event)">{{item.Container}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true"
+                            (blur)="updateList(i, 'MaKien', $event)">{{item.MaKien}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true"
+                            (blur)="updateList(i, 'DVT', $event)">{{item.DVT}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true"
+                            (blur)="updateList(i, 'TonKho', $event)">{{item.TonKho}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true"
+                            (blur)="updateList(i, 'SoLuongXuat', $event)">{{item.SoLuongXuat}}</span>
+                        </td>
+                        <td>
                             <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="edit(item,i)" pTooltip="Sửa" showDelay="1000"
@@ -133,7 +140,7 @@
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(item,i)" pTooltip="Xóa" showDelay="1000"
                                 tooltipPosition="bottom"></button>
-                        </td> -->
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>

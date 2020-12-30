@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FileItem, FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -17,21 +18,40 @@ export class ImportdanhmucmodelComponent implements OnInit {
   importFunc: any = '';
   mapTepMauURL:any={
   };
+  uploader: FileUploader;
   constructor(private _modalActive: NgbActiveModal, private _modal: NgbModal, 
     private service: SanXuatService,private _toastr:ToastrService) { }
   ngOnInit(): void {
+    let option:FileUploaderOptions = {
+      url: `${API.uploadURL}`,
+      headers: [{ name: 'Accept', value: 'application/json' }],
+      autoUpload: true,
+    }
+    
+    this.uploader = new FileUploader(option);
+    this.uploader.onBeforeUploadItem = (item) => {
+      item.withCredentials = true;
+    };   
+      
+    this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
+    this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
+    this.uploader.onCompleteItem = (item, response, status, headers) => this.onCompleteItem(item, response, status, headers);
   }
-  taiLenFileDinhKem() {
-    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.result.then((data) => {
-      this.TepImport.TenGui = data[data.length - 1].Name;
-      this.TepImport.TenGoc = data[data.length - 1].NameLocal;
-      this.TepImport.DuongDan = data[data.length - 1].Url;
-    }, (reason) => {
 
-    });
+  onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+  }
+
+  onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+    let res = JSON.parse(response);
+    console.log(res)
+      this.TepImport.TenGui = res[0].Name;
+      this.TepImport.TenGoc = res[0].NameLocal;
+      this.TepImport.DuongDan = res[0].Url; 
+  };
+  onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
   }
   accept() {
+    console.log(this.TepImport)
     this.service.Importdm(this.importFunc, this.TepImport.TenGui).subscribe((res:any) => {
       if(res.State===1){
         this._modalActive.close({mess:'Cập nhật thành công!'})

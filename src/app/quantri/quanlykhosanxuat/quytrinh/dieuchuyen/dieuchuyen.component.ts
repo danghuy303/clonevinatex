@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Dat09Service } from 'src/app/services/callApi';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { DieuchuyenmodalComponent } from '../dieuchuyenmodal/dieuchuyenmodal.component';
 
 @Component({
@@ -15,7 +15,6 @@ export class DieuchuyenComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{id:5,SoQuyTrinh:'PKK_0000_0000'}];
   filter:any={};
-  listLoaiPhuongAn:any=[];
   trangThai:any=1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
@@ -63,9 +62,9 @@ export class DieuchuyenComponent implements OnInit {
       width: '400px'
     },
   ];
+  listdmKho : any = [];
 
-
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:Dat09Service,private activatedRoute: ActivatedRoute,private router:Router) { }
+  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
@@ -76,6 +75,7 @@ export class DieuchuyenComponent implements OnInit {
       }
     })
     this.KiemTraTabTrangThai();
+    this.getListdmkho()
     // this.GetListQuyTrinh()
   }
   changeParam(id){
@@ -88,14 +88,8 @@ export class DieuchuyenComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = {
-      SoQuyTrinh: 'PKK_0000_0001',
-      listKienHang:[]
-      // ID:null,
-      // TepDinhKems:[],
-      // templistTaiSanQuyTrinh:[],
-      // listTaiSanQuyTrinh:[]
-    }
+    modalRef.componentInstance.item = {};
+    modalRef.componentInstance.listdmKho = this.listdmKho;
     modalRef.result.then((res: any) => {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
@@ -110,6 +104,7 @@ export class DieuchuyenComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.listdmKho = this.listdmKho;
     modalRef.result.then((res: any) => {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
@@ -140,7 +135,7 @@ export class DieuchuyenComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.GetListQuyTrinh(data).subscribe((res:any)=>{
+    this._service.PhieuDieuChuyen().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })
@@ -155,4 +150,12 @@ export class DieuchuyenComponent implements OnInit {
     //   this.GetListQuyTrinh();
     // })
   }
+  getListdmkho(){
+    let data: any = {};
+    data.CurrentPage = 0;
+     this._service.GetListdmKho(data).subscribe((res:any)=>{
+      this.listdmKho =  mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  
 }

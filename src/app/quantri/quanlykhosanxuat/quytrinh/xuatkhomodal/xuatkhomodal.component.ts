@@ -4,7 +4,9 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { Dat09Service } from 'src/app/services/callApi';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
+import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
   selector: 'app-xuatkhomodal',
@@ -13,10 +15,7 @@ import { vn } from 'src/app/services/const';
 })
 export class XuatkhomodalComponent implements OnInit {
   opt: any = ''
-  item: any = {
-    SoQuyTrinh: 'PKK_0000_001',
-    listKienHang: []
-  };
+  item: any = {};
   checkbutton: any = {
     Ghi:true,
     KhongDuyet:true,
@@ -24,29 +23,20 @@ export class XuatkhomodalComponent implements OnInit {
     Xoa:true,
   }
   newTableItem:any={};
-  listPhuongAnSapXep: any = [];
-  listLoHang:any= [];
   lang: any = vn;
+  listKho: any = [];
+  listPhanXuong: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: Dat09Service, public toastr: ToastrService, public _modal: NgbModal) {
-
-  }
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, 
+    public toastr: ToastrService, public _modal: NgbModal) {  }
 
   ngOnInit(): void {
-    console.log(this.listLoHang)
-    this.listLoHang = [
-      { label: 'Lô hàng 1', value: 1 },
-      { label: 'Lô hàng 2', value: 2 },
-      { label: 'Lô hàng 3', value: 3 },
-    ]
-    // this.GetListdmPhuongAnSapXep();
-    // this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
-      // this.GetNextSoQuyTrinh();
+      this.GetNextSoQuyTrinh();
     }
   }
   KiemTraButtonModal() {
-    this.services.KiemTraButtonModal(this.item.ID || '', this.item.IdTrangThai || '').subscribe(res => {
+    this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
     })
   }
@@ -74,7 +64,12 @@ export class XuatkhomodalComponent implements OnInit {
     });
   }
   ChuyenDuyet() {
-    this.services.ChuyenTiepQuyTrinh(this.item).subscribe((res: any) => {
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
+      this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
+    
+    this.services.PhieuXuatKho().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();
@@ -84,25 +79,9 @@ export class XuatkhomodalComponent implements OnInit {
       }
     })
   }
-  GetListdmPhuongAnSapXep() {
-    let data = {
-      PageSize: 20,
-      CurrentPage: 0,
-    };
-    this.services.GetListdmPhuongAnSapXep(data).subscribe((res: any) => {
-      this.listPhuongAnSapXep = res;
-      if (this.opt === 'edit') {
-        if (this.item.listTaiSanQuyTrinh.length !== 0) {
-          this.item.listTaiSanQuyTrinh.forEach(ele => {
-            ele.tempPhuongAnSapXep = res.filter(pa => pa.ID === ele.IDdmPhuongAnDeXuat)[0];
-          });
-        }
-      }
-    })
-  }
   GetNextSoQuyTrinh() {
-    this.services.GetNextSoQuyTrinh().subscribe((res: any) => {
-      this.item.SoQuyTrinh = res;
+    this.services.PhieuXuatKho().GetNextSo().subscribe((res: any) => {
+      this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
   // GetQuyTrinh(Id){
@@ -111,18 +90,18 @@ export class XuatkhomodalComponent implements OnInit {
   //     console.log(res);
   //   })
   // }
-  chonKienHang() {
-
-  }
   GhiLai() {
-    if (this.item.listTaiSanQuyTrinh.length !== 0) {
-      this.services.SetQuyTrinh(this.item).subscribe((res: any) => {
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
+      this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
+
+      this.services.PhieuXuatKho().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
-            this.GetListdmPhuongAnSapXep()
             this.KiemTraButtonModal();
             // this.activeModal.close(res.message);
           } else {
@@ -130,9 +109,6 @@ export class XuatkhomodalComponent implements OnInit {
           }
         }
       })
-    } else {
-      this.toastr.warning('Vui lòng chọn thửa đất để khởi tạo quy trình!');
-    }
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -140,7 +116,7 @@ export class XuatkhomodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this.services.DeleteQuyTrinh(this.item).subscribe((res: any) => {
+      this.services.PhieuXuatKho().Delete(this.item).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
@@ -184,5 +160,20 @@ export class XuatkhomodalComponent implements OnInit {
   }
   delete(item, index) {
 
+  }
+  GetLuuKho() {
+    this.services.getLuuKho(this.item.IddmKho).subscribe((res1: any) => {
+      let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
+        size: 'fullscreen',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.listMatHang = res1;
+      modalRef.result.then((data) => {
+        this.item.listItem = data.data;
+      }, (reason) => {
+        // không
+      });
+    })
   }
 }

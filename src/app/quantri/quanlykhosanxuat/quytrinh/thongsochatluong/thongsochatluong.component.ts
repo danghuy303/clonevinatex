@@ -124,4 +124,5 @@ export class ThongsochatluongComponent implements OnInit {
   //     this.GetListQuyTrinh();
   //   })
   }
+  
 }

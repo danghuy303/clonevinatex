@@ -1,11 +1,16 @@
 <div class="modal-header">
-    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} phiếu nhập bông</h5>
+    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} phiếu nhập {{nametype}}</h5>
     <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-lg-row">
-        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
+        <!-- <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
             <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
                 [(ngModel)]="item.NhaMay"></p-dropdown>
-        </div>
+        </div> -->
+    </div>
+    <div class="p-d-flex p-flex-row">
+        <div class="mr-2">Số quy trình:&nbsp;{{item.SoQuyTrinh}}</div>
+        <div class="mr-2">TG tạo:&nbsp;{{item.Created}}</div>
+        <div class="mr-2">TG duyệt:&nbsp;{{item.Modified}}</div>
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
@@ -35,20 +40,20 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmLoaiBong"></p-dropdown>
+                    (onChange)="GetNextSoLoBong($event, 1)"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp bông:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCapBong" placeholder="Chọn cấp" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmCapBong"></p-dropdown>
+                    (onChange)="GetNextSoLoBong($event, 2)"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô bông:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.IdLoBong" disable ="true" pInputText/>
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.IdLoBong" [disabled]="true" pInputText/>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -64,6 +69,13 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [ngModel]="item.SoHopDong" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" 
+                styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
         <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
@@ -82,6 +94,7 @@
                     (click)="chonThuaDat()"></button>
             </div> -->
             <p-table [value]="item.listItem"
+               (onEditInit)="onEditInit($event)"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -106,15 +119,27 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>{{i+1}}</td>
-                        <td>{{item.Ten}}</td>
-                        <td>{{item.SoCan}}</td>
-                        <td>{{item.SoKien}}</td>
-                        <td>{{item.ViTri}}</td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil"
+                            <span contenteditable="true"
+                            (blur)="updateList(i, 'Ten', $event)">{{item.Ten}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true"
+                            (blur)="updateList(i, 'SoCan', $event)">{{item.SoCan}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true"
+                            (blur)="updateList(i, 'SoKien', $event)">{{item.SoKien}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true"
+                            (blur)="updateList(i, 'ViTri', $event)">{{item.ViTri}}</span>
+                        </td>
+                        <td>
+                            <!-- <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="edit(item,i)" pTooltip="Sửa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
+                                (click)="edit(i)" pTooltip="Sửa" showDelay="1000"
+                                tooltipPosition="bottom"></button> -->
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"

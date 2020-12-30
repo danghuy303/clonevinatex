@@ -2,9 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { ModalimportexcelComponent } from '../../modal/modalimportexcel/modalimportexcel.component';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
+import { ImportdanhmucmodelComponent } from '../danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { ModaldanhmucchungComponent } from '../modal/modaldanhmucchung/modaldanhmucchung.component';
+import { ModaldmkhoComponent } from '../modal/modaldmkho/modaldmkho.component';
 
 @Component({
   selector: 'app-dmkho',
@@ -31,6 +34,12 @@ export class DmkhoComponent implements OnInit {
       center:'left'
     },
     {
+      header: 'Tên nhóm kho',
+      field: 'TenNhomKho',
+      width: '300px',
+      center:'left'
+    },
+    {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset',
@@ -38,10 +47,13 @@ export class DmkhoComponent implements OnInit {
     }
   ];
   selectedItems:any=[];
+  listdmNhomKho : any = [];
+  IddmNhomKho: any = 0;
   constructor(private _modal:NgbModal,private _services:SanXuatService,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.GetListDanhMuc();
+    this.GetListNhomKho();
   }
   resetFilter(){
     this.keyWord = '';
@@ -56,6 +68,7 @@ export class DmkhoComponent implements OnInit {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
       sFilter:this.keyWord,  
+      IddmNhomKho:this.IddmNhomKho,  
       Ma:"", 
       Ten:""
     };
@@ -65,7 +78,7 @@ export class DmkhoComponent implements OnInit {
     })
   }
   add(){
-    let modalRef = this._modal.open(ModaldanhmucchungComponent,{
+    let modalRef = this._modal.open(ModaldmkhoComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='add';
@@ -77,7 +90,7 @@ export class DmkhoComponent implements OnInit {
     }).catch(er=>console.log(er))
   }
   edit(item){
-    let modalRef = this._modal.open(ModaldanhmucchungComponent,{
+    let modalRef = this._modal.open(ModaldmkhoComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='edit';
@@ -131,14 +144,30 @@ export class DmkhoComponent implements OnInit {
     this.GetListDanhMuc();
   }
   importExcel(){
-    let modalRef = this._modal.open(ModalimportexcelComponent,{
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
       backdrop:'static',
     })
-    modalRef.componentInstance.importFunc = 'dmKho';
+    modalRef.componentInstance.importFunc = 'SCM_dmKho';
     modalRef.result.then(res=>{
       this.GetListDanhMuc();
       this._toastr.success(res.mess);
     })
     .catch(er=>console.log(er))
+  }
+  exportExcel(){
+    let dataSearch: any = {}
+    dataSearch.TableName = 'SCM_dmKho';
+    dataSearch.CurrentPage = 0;
+    this._services.Exportdm(dataSearch).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
+  }
+  GetListNhomKho(){
+    let data = {
+      CurrentPage:0,
+    };
+    this._services.GetListdmNhomKho(data).subscribe((res:any)=>{
+      this.listdmNhomKho = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
 }

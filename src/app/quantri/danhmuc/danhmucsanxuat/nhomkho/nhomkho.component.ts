@@ -1,28 +1,23 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalimportexcelComponent } from 'src/app/quantri/modal/modalimportexcel/modalimportexcel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { congDoan } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { DanhsachmaymodalComponent } from '../modals/danhsachmaymodal/danhsachmaymodal.component';
-import { ImportdanhmucmodelComponent } from '../modals/importdanhmucmodel/importdanhmucmodel.component';
+import { ModaldanhmucchungComponent } from '../../modal/modaldanhmucchung/modaldanhmucchung.component';
 
 @Component({
-  selector: 'app-danhsachmay',
-  templateUrl: './danhsachmay.component.html',
-  styleUrls: ['./danhsachmay.component.css']
+  selector: 'app-nhomkho',
+  templateUrl: './nhomkho.component.html',
+  styleUrls: ['./nhomkho.component.css']
 })
-export class DanhsachmayComponent implements OnInit {
+export class NhomkhoComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [
   ];
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 0 };
   keyWord:any='';
-  listdmPhanXuong: any = []
-  filter:any={
-  };
   cols: any = [
     {
       header: 'Mã',
@@ -37,55 +32,20 @@ export class DanhsachmayComponent implements OnInit {
       center:'left'
     },
     {
-      header: 'Hãng sản xuất',
-      field: 'HangSanXuat',
-      width: '150px',
-      center:'center'
-    },
-    {
-      header: 'Nước sản xuất',
-      field: 'NuocSanXuat',
-      width: '100px',
-      center:'center'
-    },
-    {
-      header: 'Ký hiệu máy',
-      field: 'KyHieuMay',
-      width: '100px',
-      center:'center'
-    },
-    {
-      header: 'Năm sản xuất',
-      field: 'NamSanXuat',
-      width: '100px',
-      center:'center'
-    },
-    {
-      header: 'Năm sử dụng',
-      field: 'NamSuDung',
-      width: '100px',
-      center:'center'
-    },
-    {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset',
       center:'center'
     }
   ];
-  listCongDoan:any = [];
   selectedItems:any=[];
   constructor(private _modal:NgbModal,private _services:SanXuatService,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.GetListdm();
-    this.getListCongDoan();
-    this.getListdmPhanXuong();
-
   }
   resetFilter(){
-    this.filter = {
-    };
+    this.keyWord = '';
     this.GetListdm()
   }
   GetListdm(reset?){
@@ -96,39 +56,35 @@ export class DanhsachmayComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
-      sFilter:this.filter.keyWord?this.filter.keyWord:'',
-      CongDoan:this.filter.CongDoan?this.filter.CongDoan:'',
+      sFilter:this.keyWord,  
       Ma:"", 
-      Ten:"",
+      Ten:""
     };
-    this._services.GetListdmMay(data).subscribe((res:any)=>{
+    this._services.GetListdmNhomKho(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })
   }
   add(){
-    let modalRef = this._modal.open(DanhsachmaymodalComponent,{
+    let modalRef = this._modal.open(ModaldanhmucchungComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='add';
-    modalRef.componentInstance.listdmPhanXuong= this.listdmPhanXuong;
-    modalRef.componentInstance.listCongDoan= this.listCongDoan;
-
+    modalRef.componentInstance.type = 'dmnhomkho';
+    modalRef.componentInstance.title = 'Thêm mới danh mục nhóm kho';
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListdm()
     }).catch(er=>console.log(er))
   }
   edit(item){
-    // item.CongDoan = item.CongDoan.map(ele=>ele.CongDoan);
-    let modalRef = this._modal.open(DanhsachmaymodalComponent,{
+    let modalRef = this._modal.open(ModaldanhmucchungComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='edit';
+    modalRef.componentInstance.title = 'Cập nhật danh mục nhóm kho';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.componentInstance.listdmPhanXuong= this.listdmPhanXuong;
-    modalRef.componentInstance.listCongDoan= this.listCongDoan;
-
+    modalRef.componentInstance.type = 'dmnhomkho';
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListdm()
@@ -140,7 +96,7 @@ export class DanhsachmayComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this._services.DeletedmMay(item).subscribe((res: any) => {
+      this._services.DeletedmNhomKho(item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);
@@ -158,7 +114,7 @@ export class DanhsachmayComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this._services.DeletedmMay(this.selectedItems).subscribe((res: any) => {
+      this._services.DeletedmNhomKho(this.selectedItems).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);
@@ -175,34 +131,15 @@ export class DanhsachmayComponent implements OnInit {
     this.paging.CurrentPage = event.page+1;
     this.GetListdm();
   }
-  
-  getListdmPhanXuong(){
-    this._services.GetListdmPhanXuongOpt().subscribe((res: any) => {
-      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
-  getListCongDoan(){
-    this._services.GetListCongDoan().subscribe((res: any) => {
-      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
-    })
-  }
   importExcel(){
-    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
+    let modalRef = this._modal.open(ModalimportexcelComponent,{
       backdrop:'static',
     })
-    modalRef.componentInstance.importFunc = 'SCM_dmMay';
+    modalRef.componentInstance.importFunc = '';
     modalRef.result.then(res=>{
       this.GetListdm();
       this._toastr.success(res.mess);
     })
     .catch(er=>console.log(er))
-  }
-  exportExcel(){
-    let dataSearch: any = {};
-    dataSearch.TableName = 'SCM_dmMay';
-    dataSearch.CurrentPage = 0;
-    this._services.Exportdm(dataSearch).subscribe((res: any) => {
-      this._services.download(res.TenFile);
-    })
   }
 }

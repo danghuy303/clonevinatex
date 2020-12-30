@@ -310,6 +310,9 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhieuNhapLoBong', data, httpOptions)
             },
+            GetNextSoLoBong: (IddmLoaiBong, IddmCapBong) => {
+                return this.http.get(url + `GetNextSoLoBong?IddmLoaiBong=${IddmLoaiBong}&IddmCapBong=${IddmCapBong}`, httpOptions)
+            },
         }
     }
     //#endregion
@@ -342,8 +345,100 @@ export class SanXuatService {
         }
     }
     //#endregion
-    Importdm(TableName, FileName) {
-        let IdDuAn = this.store.getCurrent().toString()
+
+    //#region  phiếu xuất kho
+    PhieuXuatKho() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuNhapLoBong_ChatLuong', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListPhieuXuatKho', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuXuatKhoFull?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetPhieuXuatKho', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuXuatKho', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhieuNhapLoBong_ChatLuong', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuNhapLoBong_ChatLuong', data, httpOptions)
+            },
+        }
+    }
+    //#endregion
+
+    //#region  phiếu hạ cấp
+    PhieuHaCap() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuHaCap', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListPhieuHaCap', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuHaCap?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetPhieuHaCap', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuHaCap', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'ChuyenTiepPhieuHaCap', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuHaCap', data, httpOptions)
+            },
+        }
+    }
+    //#endregion
+
+    
+    //#region  phiếu điều chuyển
+    PhieuDieuChuyen() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuDieuChuyen', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListPhieuDieuChuyen', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuDieuChuyen?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetPhieuDieuChuyen', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuDieuChuyen', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'ChuyenTiepPhieuDieuChuyen', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuDieuChuyen', data, httpOptions)
+            },
+        }
+    }
+    //#endregion
+
+
+    Importdm(TableName,FileName){
+        let IdDuAn =this.store.getCurrent().toString()
         let url = API.SCMDanhMuc + `ImportDanhMuc?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`;
         return this.http.get(url, httpOptions);
     }
@@ -354,5 +449,10 @@ export class SanXuatService {
     }
     download(url) {
         window.open(API.imgURL + url);
+    }
+    getLuuKho(IDdmKho){
+        let IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + `GetLuuKho?IdDuAn=${IdDuAn}&IDdmKho=${IDdmKho}&CurrentPage=0&sFilter=`;
+        return this.http.get(url,httpOptions);
     }
 }

@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Dat09Service } from 'src/app/services/callApi';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { XuatkhomodalComponent } from '../xuatkhomodal/xuatkhomodal.component';
 
 @Component({
@@ -16,6 +17,9 @@ export class XuatkhoComponent implements OnInit {
   items: any = [{id:5,SoQuyTrinh:'PKK_0000_0000'}];
   filter:any={};
   listLoaiPhuongAn:any=[];
+  listKho : any = [];
+  listPhanXuong : any = [];
+  listMatHang : any = [];
   trangThai:any=1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
@@ -80,10 +84,11 @@ export class XuatkhoComponent implements OnInit {
   ];
 
 
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:Dat09Service,private activatedRoute: ActivatedRoute,private router:Router) { }
+  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute);
+    this.getListKho();
+    this.getListPhanXuong();
     this.activatedRoute.params.subscribe((res:any)=>{
       if(res.id!=='0'){
         let getitem =()=>{return{}};
@@ -103,14 +108,10 @@ export class XuatkhoComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = {
-      SoQuyTrinh: 'PKK_0000_0001',
-      listKienHang:[]
-      // ID:null,
-      // TepDinhKems:[],
-      // templistTaiSanQuyTrinh:[],
-      // listTaiSanQuyTrinh:[]
-    }
+    modalRef.componentInstance.item = {};
+    modalRef.componentInstance.listKho = this.listKho;
+    modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
+    modalRef.componentInstance.listMatHang = this.listMatHang;
     modalRef.result.then((res: any) => {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
@@ -125,6 +126,9 @@ export class XuatkhoComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.listKho = this.listKho;
+    modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
+    modalRef.componentInstance.listMatHang = this.listMatHang;
     modalRef.result.then((res: any) => {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
@@ -155,7 +159,7 @@ export class XuatkhoComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.GetListQuyTrinh(data).subscribe((res:any)=>{
+    this._service.PhieuXuatKho().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })
@@ -169,5 +173,21 @@ export class XuatkhoComponent implements OnInit {
     //   this.checkQuyen = res;
     //   this.GetListQuyTrinh();
     // })
+  }
+  getListKho(){
+    let data = {
+      CurrentPage: 0
+    }
+    this._service.GetListdmKho(data).subscribe((res:any)=>{
+      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  getListPhanXuong(){
+    let data = {
+      CurrentPage: 0
+    }
+    this._service.GetListdmPhanXuong(data).subscribe((res:any)=>{
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
 }

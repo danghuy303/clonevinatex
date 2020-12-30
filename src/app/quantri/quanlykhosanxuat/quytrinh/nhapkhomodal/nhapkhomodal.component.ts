@@ -23,14 +23,17 @@ export class NhapkhomodalComponent implements OnInit {
     Xoa: true,
   }
   newTableItem: any = {};
-  editTableItem: any = {};
+  editTableItem: any = [];
   listPhuongAnSapXep: any = [];
   listLoaiBong: any = [];
   listLoBong: any = [];
   listCapBong: any = [];
+  listKho: any = [];
   lang: any = vn;
   data: any = {};
-
+  type: any = '';
+  editField: any = '';
+  nametype: any = '';
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -38,15 +41,6 @@ export class NhapkhomodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.item)
-    // this.listLoHang = [
-    //   { label: 'Lô hàng 1', value: 1 },
-    //   { label: 'Lô hàng 2', value: 2 },
-    //   { label: 'Lô hàng 3', value: 3 },
-    // ];
-
-    // this.GetListdmPhuongAnSapXep();
-    // this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       this.item = {
         NhaMay: 0,
@@ -60,17 +54,32 @@ export class NhapkhomodalComponent implements OnInit {
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
-
     this.data.CurrentPage = 0;
+    
     this.getListLoaiBong();
     this.getListCapBong();
     this.getListLoBong();
+    this.getListKho();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
     })
   }
+  GetNextSoLoBong(event, index) {
+    if (index == 1)
+      this.item.IddmLoaiBong = event.value;
+    else
+      this.item.IddmCapBong = event.value;
+
+    if (this.item.IddmLoaiBong != undefined && this.item.IddmLoaiBong != null && this.item.IddmLoaiBong != ''
+      && this.item.IddmCapBong != null && this.item.IddmCapBong != undefined && this.item.IddmCapBong != '')
+      this._services.QuyTrinhPhieuNhapLoBong().GetNextSoLoBong(this.item.IddmLoaiBong, this.item.IddmCapBong).subscribe(
+        (res: any) => {
+          this.item.IdLoBong = res.SoLoBong;
+        })
+  }
+
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.result.then((data) => {
@@ -95,6 +104,8 @@ export class NhapkhomodalComponent implements OnInit {
     });
   }
   ChuyenTiep() {
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     this._services.QuyTrinhPhieuNhapLoBong().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -122,6 +133,12 @@ export class NhapkhomodalComponent implements OnInit {
 
   }
   GhiLai() {
+    if (this.opt !== 'edit') {
+      if(this.type === 'bong')
+        this.item.Loai = 1;
+      else
+        this.item.Loai = 5;
+    }
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
@@ -155,6 +172,15 @@ export class NhapkhomodalComponent implements OnInit {
     }).catch(er => console.log(er))
   }
 
+  getListKho() {
+    if(this.type === 'bong')
+      this.data.Loai = 1;
+    else
+      this.data.Loai = 5;
+    this._services.GetListdmKho(this.data).subscribe((res: any) => {
+      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
   getListLoaiBong() {
     this._services.GetListdmLoaiBong(this.data).subscribe((res: any) => {
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -177,9 +203,38 @@ export class NhapkhomodalComponent implements OnInit {
     this.newTableItem = {}
   }
   edit(item, index) {
-    this.editTableItem = deepCopy(this.item.listChiTiet);
+    this.item.listItem[index].
+      this.editTableItem = deepCopy(item);
+    console.log(this.editTableItem)
+    debugger
   }
   delete(index) {
     this.item.listItem.splice(index, 1)
   }
+  onEditInit(event): void {
+    console.log(event)
+    console.log("Edit Init Event Called");
+  }
+  updateList(id: number, property: string, event: any) {
+    const editField = event.target.innerText;
+    switch (property) {
+      case 'Ten':
+        this.item.listItem[id].Ten = editField;
+        break;
+      case 'SoCan':
+        this.item.listItem[id].SoCan = editField;
+        break;
+      case 'SoKien':
+        this.item.listItem[id].SoKien = editField;
+        break;
+      case 'ViTri':
+        this.item.listItem[id].ViTri = editField;
+        break;
+      default:
+        break;
+    }
+  }
+  // changeValue(id: number, property: string, event: any) {
+  //   this.editField = event.target.textContent;
+  // }
 }

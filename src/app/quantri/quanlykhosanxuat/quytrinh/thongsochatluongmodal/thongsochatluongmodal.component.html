@@ -106,18 +106,19 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>{{i+1}}</td>
-                        <td>{{item.MaCongTenNo}}</td>
+                        <td><span contenteditable="true"
+                            (blur)="updateList(i, 'MaCongTenNo', $event)">{{item.MaCongTenNo}}</span></td>
                         <td>{{item.KhoiLuong}}</td>
                         <td>{{item.SoKien}}</td>
-                        <td>{{item.Block}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{item.Mic}}</td>
+                        <td>{{item.Mat}}</td>
+                        <td>{{item.UHML}}</td>
+                        <td>{{item.Str}}</td>
+                        <td>{{item.SFI}}</td>
+                        <td>{{item.Rd}}</td>
+                        <td>{{item.Tap}}</td>
+                        <td>{{item.Am}}</td>
+                        <td>{{item.Am}}</td>
                         <td>
                             <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"

@@ -157,6 +157,9 @@ import { LoaisoiComponent } from './danhmuc/danhmucsanxuat/loaisoi/loaisoi.compo
 import { ChonmaytheocongdoanComponent } from './quanlykhosanxuat/modals/chonmaytheocongdoan/chonmaytheocongdoan.component';
 import { ImportdanhmucmodelComponent } from './danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { TrangthaimaysanxuatComponent } from './quanlykhosanxuat/quytrinh/trangthaimaysanxuat/trangthaimaysanxuat.component';
+import { NhomkhoComponent } from './danhmuc/danhmucsanxuat/nhomkho/nhomkho.component';
+import { XuatkhomathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomathangmodal/xuatkhomathangmodal.component';
+import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -276,6 +279,9 @@ import { TrangthaimaysanxuatComponent } from './quanlykhosanxuat/quytrinh/trangt
     ChonmaytheocongdoanComponent,
     ImportdanhmucmodelComponent,
     TrangthaimaysanxuatComponent,
+    NhomkhoComponent,
+    XuatkhomathangmodalComponent,
+    KhoComponent,
   ],
   imports: [
     HttpClientModule,
@@ -357,6 +363,7 @@ import { TrangthaimaysanxuatComponent } from './quanlykhosanxuat/quytrinh/trangt
     PhanxuongmodalComponent,
     ChonmaytheocongdoanComponent,
     ImportdanhmucmodelComponent,
+    XuatkhomathangmodalComponent,
   ],
   providers: [
     SanXuatService,
