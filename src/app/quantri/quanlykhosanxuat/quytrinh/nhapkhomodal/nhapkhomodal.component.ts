@@ -32,7 +32,7 @@ export class NhapkhomodalComponent implements OnInit {
   lang: any = vn;
   data: any = {};
   type: any = '';
-  editField: any = '';
+  editField: any = false;
   nametype: any = '';
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
@@ -55,7 +55,7 @@ export class NhapkhomodalComponent implements OnInit {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
     this.data.CurrentPage = 0;
-    
+
     this.getListLoaiBong();
     this.getListCapBong();
     this.getListLoBong();
@@ -104,17 +104,34 @@ export class NhapkhomodalComponent implements OnInit {
     });
   }
   ChuyenTiep() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    this._services.QuyTrinhPhieuNhapLoBong().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.activeModal.close();
-        } else {
-          this.toastr.error(res.message);
-        }
+    if (this.opt !== 'edit') {
+      if (this.type === 'bong')
+        this.item.Loai = 1;
+      else
+        this.item.Loai = 5;
+    }
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn  ngày");
+    }
+    else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
+      this.toastr.error("Bạn chưa chọn  danh mục kho");
+    }
+    else {
+      if (this.newTableItem !== {}) {
+        this.add();
       }
-    })
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this._services.QuyTrinhPhieuNhapLoBong().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
   }
 
   GetNextSoQuyTrinh() {
@@ -134,25 +151,35 @@ export class NhapkhomodalComponent implements OnInit {
   }
   GhiLai() {
     if (this.opt !== 'edit') {
-      if(this.type === 'bong')
+      if (this.type === 'bong')
         this.item.Loai = 1;
       else
         this.item.Loai = 5;
     }
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.toastr.success(res.message)
-          this.opt = 'edit';
-          this.item = res.objectReturn;
-          this.KiemTraButtonModal();
-        } else {
-          this.toastr.error(res.message);
-        }
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn  ngày");
+    }
+    else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
+      this.toastr.error("Bạn chưa chọn  danh mục kho");
+    }
+    else {
+      if (this.newTableItem !== {}) {
+        this.add();
       }
-    })
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message)
+            this.opt = 'edit';
+            this.item = res.objectReturn;
+            this.KiemTraButtonModal();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
   }
 
   XoaQuyTrinh() {
@@ -173,7 +200,7 @@ export class NhapkhomodalComponent implements OnInit {
   }
 
   getListKho() {
-    if(this.type === 'bong')
+    if (this.type === 'bong')
       this.data.Loai = 1;
     else
       this.data.Loai = 5;
@@ -203,38 +230,23 @@ export class NhapkhomodalComponent implements OnInit {
     this.newTableItem = {}
   }
   edit(item, index) {
-    this.item.listItem[index].
-      this.editTableItem = deepCopy(item);
-    console.log(this.editTableItem)
-    debugger
+    this.item.listItem[index].editField = true
+    this.editTableItem = deepCopy(item);
   }
   delete(index) {
-    this.item.listItem.splice(index, 1)
-  }
-  onEditInit(event): void {
-    console.log(event)
-    console.log("Edit Init Event Called");
-  }
-  updateList(id: number, property: string, event: any) {
-    const editField = event.target.innerText;
-    switch (property) {
-      case 'Ten':
-        this.item.listItem[id].Ten = editField;
-        break;
-      case 'SoCan':
-        this.item.listItem[id].SoCan = editField;
-        break;
-      case 'SoKien':
-        this.item.listItem[id].SoKien = editField;
-        break;
-      case 'ViTri':
-        this.item.listItem[id].ViTri = editField;
-        break;
-      default:
-        break;
+    let item = this.item.listItem.splice(index, 1)[0];
+    if (item.Id === '' || item.Id === null || item.Id === undefined) {
+    } else {
+      item.isXoa = true;
+      this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  // changeValue(id: number, property: string, event: any) {
-  //   this.editField = event.target.textContent;
-  // }
+  saveEdit(item, index){
+    this.item.listItem[index].editField = false;
+    this.item.listItem[index] = item;
+  }
+  cancelEdit(item, index){
+    this.item.listItem[index].editField = false;
+  }
+
 }

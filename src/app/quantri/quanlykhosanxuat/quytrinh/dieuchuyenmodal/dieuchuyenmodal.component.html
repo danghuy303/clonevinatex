@@ -81,7 +81,7 @@
                 </div>
                 
             </div>
-            <p-table [value]="item.listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+            <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
@@ -134,7 +134,7 @@
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="delete(item,i)" pTooltip="Xóa" showDelay="1000"
+                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
                                 tooltipPosition="bottom"></button>
                         </td>
                     </tr>

@@ -23,6 +23,7 @@ export class MathangmodelComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.item);
+    console.log(this.item.listCongDoan);
     this.getListLoaiSoi();
   }
 
@@ -38,11 +39,13 @@ export class MathangmodelComponent implements OnInit {
       this.item.DonViThietKe = this.item.DonViDatHang;
       var listCodeCongDoan_new: any = [];
       if (this.item.listCongDoan != null && this.item.listCongDoan != undefined) {
+        console.log(this.item.listCongDoan)
         this.item.listCongDoan.forEach(element => {
-          var data: any = {};
-          data.CongDoan = element;
-          data.Id = element.Id;
-          listCodeCongDoan_new.push(data);
+          if(element != null && element!= undefined){
+            var data: any = {};
+            data.CongDoan = element;
+            listCodeCongDoan_new.push(data);
+          }
         });
         this.item.listCongDoan = listCodeCongDoan_new;
       }

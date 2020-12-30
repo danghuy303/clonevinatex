@@ -32,14 +32,13 @@ export class DieuchuyenmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.listLoHang)
-    // this.KiemTraButtonModal();
+    this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
     }
   }
   KiemTraButtonModal() {
-    this.services.KiemTraButton(this.item.ID || '', this.item.IdTrangThai || '').subscribe(res => {
+    this.services.KiemTraButton(this.item.IdTrangThai || '', this.item.Id || '').subscribe(res => {
       this.checkbutton = res;
     })
   }
@@ -52,6 +51,8 @@ export class DieuchuyenmodalComponent implements OnInit {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();
+          this.item = res.objectReturn;
+          this.KiemTraButtonModal();
         } else {
           this.toastr.error(res.message);
         }
@@ -99,8 +100,13 @@ export class DieuchuyenmodalComponent implements OnInit {
     }).catch(er => console.log(er))
   }
  
-  delete(item, index) {
-
+  delete(index) {
+    let item = this.item.listItem.splice(index, 1)[0];
+    if (item.Id === '' || item.Id === null || item.Id === undefined) {
+    } else {
+      item.isXoa = true;
+      this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+    }
   }
 
   GetMatHangTheoKho() {
@@ -117,5 +123,24 @@ export class DieuchuyenmodalComponent implements OnInit {
         // không
       });
     })
+  }
+  updateList(id: number, property: string, event: any) {
+    const editField = event.target.innerText;
+    switch (property) {
+      case 'Ten':
+        this.item.listItem[id].Ten = editField;
+        break;
+      case 'SoCan':
+        this.item.listItem[id].SoCan = editField;
+        break;
+      case 'SoKien':
+        this.item.listItem[id].SoKien = editField;
+        break;
+      case 'ViTri':
+        this.item.listItem[id].ViTri = editField;
+        break;
+      default:
+        break;
+    }
   }
 }

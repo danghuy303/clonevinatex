@@ -21,15 +21,16 @@
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="activeModal.dismiss('close')"></button>
-            <button pButton pRipple type="button" label="Lưu nháp" class="p-mr-2 p-button-sm " (click)="GhiLai()"
+            <button pButton pRipple type="button" label="Lưu nháp" class="p-mr-2 p-button-sm " 
+                (click)="GhiLai()"
                 *ngIf="checkbutton.Ghi"></button>
             <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
                 (click)="XoaQuyTrinh()"></button>
             <!-- <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
                 *ngIf="checkbutton.KhongDuyet"></button> -->
+            <!-- <button pButton pRipple type="button" label="" class="p-mr-2 p-button-sm"
+                (click)="GhiLai()" *ngIf="checkbutton.ChuyenTiep"></button> -->
             <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm"
-                (click)="GhiLai()" *ngIf="checkbutton.ChuyenTiep"></button>
-            <button pButton pRipple type="button" label="Chuyển tiếp" class="p-mr-2 p-button-sm"
                 (click)="ChuyenTiep()" *ngIf="checkbutton.ChuyenTiep"></button>
             <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
         </div>
@@ -74,7 +75,7 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" 
+                <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" [ngModel]="item.IddmKho"
                 styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
@@ -93,8 +94,7 @@
                 <button pButton pRipple type="button" label="Chọn danh sách thửa đất" class="p-mr-2 p-button-sm"
                     (click)="chonThuaDat()"></button>
             </div> -->
-            <p-table [value]="item.listItem"
-               (onEditInit)="onEditInit($event)"
+            <p-table [value]="item.listItem|isXoa"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -117,32 +117,53 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
-                    <tr>
-                        <td>{{i+1}}</td>
+                    <tr *ngIf="item.editField !== true">
+                        <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">{{item.Ten}}</td>
+                        <td class="text-center">{{item.SoCan}}</td>
+                        <td class="text-center">{{item.SoKien}}</td>
+                        <td class="text-center">{{item.ViTri}}</td>
                         <td>
-                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
-                            (blur)="updateList(i, 'Ten', $event)">{{item.Ten}}</span>
-                        </td>
-                        <td>
-                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
-                            (blur)="updateList(i, 'SoCan', $event)">{{item.SoCan}}</span>
-                        </td>
-                        <td>
-                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
-                            (blur)="updateList(i, 'SoKien', $event)">{{item.SoKien}}</span>
-                        </td>
-                        <td>
-                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
-                            (blur)="updateList(i, 'ViTri', $event)">{{item.ViTri}}</span>
-                        </td>
-                        <td>
-                            <!-- <button pButton pRipple icon="pi pi-pencil"
+                            <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="edit(i)" pTooltip="Sửa" showDelay="1000"
-                                tooltipPosition="bottom"></button> -->
+                                (click)="edit(item, i)" pTooltip="Sửa" showDelay="1000"
+                                tooltipPosition="bottom"></button>
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
+                                tooltipPosition="bottom"></button>
+                        </td>
+                    </tr>
+                    <tr  *ngIf="item.editField === true">
+                        <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">
+                            <input pInputText type="text" [(ngModel)]="editTableItem.Ten">
+                        </td>
+                        <td class="text-center">
+                            <div class="p-inputgroup">
+                              <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.SoCan">
+                              </p-inputNumber>
+                              <span class="p-inputgroup-addon">kg</span>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="p-inputgroup">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.SoKien">
+                                </p-inputNumber>
+                                <span class="p-inputgroup-addon">kiện</span>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <input pInputText type="text" [(ngModel)]="editTableItem.ViTri">
+                        </td>
+                        <td>
+                            <button pButton pRipple icon="pi pi-check"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                (click)="saveEdit(editTableItem, i)" pTooltip="Lưu"
+                                tooltipPosition="bottom"></button>
+                            <button pButton pRipple icon="pi pi-times"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                (click)="cancelEdit(item, i)" pTooltip="Hủy"
                                 tooltipPosition="bottom"></button>
                         </td>
                     </tr>
@@ -156,14 +177,14 @@
                         </td>
                         <td>
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoCan">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoCan">
                                 </p-inputNumber>
                                 <span class="p-inputgroup-addon">kg</span>
                             </div>
                         </td>
                         <td>
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoKien">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKien">
                                 </p-inputNumber>
                                 <span class="p-inputgroup-addon">kiện</span>
                             </div>

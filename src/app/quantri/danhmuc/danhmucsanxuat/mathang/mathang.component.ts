@@ -131,9 +131,12 @@ export class MathangComponent implements OnInit {
     let modalRef = this._modal.open(ModalthongbaoComponent,{
       backdrop:'static'
     });
+    let itemDel : any = {};
+    itemDel.Id = item.Id;
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this._services.DeletedmItem(item).subscribe((res: any) => {
+
+      this._services.DeletedmItem(itemDel).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);
