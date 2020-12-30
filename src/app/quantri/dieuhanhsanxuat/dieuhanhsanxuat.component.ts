@@ -19,6 +19,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
   listMatHang: any = [];
   listCongDoan: any = [];
   listMay: any = [];
+  listLoaiBong: any = [];
   listCaLamViec: any = [];
   dataPie: any = {};
   option1: any = {
@@ -73,38 +74,6 @@ export class DieuhanhsanxuatComponent implements OnInit {
           data: [120, 140, 150, 170, 175],
           steppedLine: 'before'
         },
-        {
-          type: 'line',
-          label: 'Bông Mỹ',
-          borderColor: '#009900',
-          borderWidth: 2,
-          fill: false,
-          data: Array.from({ length: 5 }, () => Math.floor(Math.random() * 100))
-        },
-        {
-          type: 'line',
-          label: 'Bông Brazil',
-          borderColor: '#FF6384',
-          borderWidth: 2,
-          fill: false,
-          data: Array.from({ length: 5 }, () => Math.floor(Math.random() * 100))
-        },
-        {
-          type: 'line',
-          label: 'Bông Tây Phi',
-          borderColor: '#36A2EB',
-          borderWidth: 2,
-          fill: false,
-          data: Array.from({ length: 5 }, () => Math.floor(Math.random() * 100))
-        },
-        {
-          type: 'line',
-          label: 'Bông Hồi',
-          borderColor: '#FFCE56',
-          borderWidth: 2,
-          fill: false,
-          data: Array.from({ length: 5 }, () => Math.floor(Math.random() * 100))
-        },
       ]
     }
     this.monthlyConfig = {
@@ -117,6 +86,14 @@ export class DieuhanhsanxuatComponent implements OnInit {
           borderWidth: 2,
           fill: false,
           data: Array.from({ length: 30 }, (v, i) => i * 20)
+        },
+        {
+          type: 'line',
+          label: 'Kế hoạch',
+          borderColor: '#009900',
+          borderWidth: 2,
+          fill: false,
+          data: Array.from({ length: 30 }, (v, i) => (i * 20)+10)
         },
         {
           type: 'bar',
@@ -211,18 +188,22 @@ export class DieuhanhsanxuatComponent implements OnInit {
     }
     this._services.GetOptions().GetMatHang().subscribe((res: any) => {
       this.listMatHang = mapArrayForDropDown(res, 'Ten', 'Id')
-    })
+    });
     this._services.GetListdmKho(data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id')
-    })
+    });
     this._services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, "Ten", 'Ma')
-    })
+    });
     this._services.GetListdmMay(data).subscribe((res: any) => {
       this.listMay = mapArrayForDropDown(res, "Ma", 'Id')
-    })
+    });
     this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
       this.listCaLamViec = mapArrayForDropDown(res, "Ten", 'Id')
+    });
+    this._services.GetListdmLoaiBong(data).subscribe((res:any)=>{
+      res.unshift({Id:'', Ten:'Tổng hợp'});
+      this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
     })
   }
 
@@ -241,8 +222,16 @@ export class DieuhanhsanxuatComponent implements OnInit {
           // },
           {
             type: 'bar',
-            label: 'Sản lượng',
+            label: 'Sản lượng thực tế',
             backgroundColor: '#3c5cbb',
+            data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 100)),
+            borderColor: 'white',
+            borderWidth: 2
+          },
+          {
+            type: 'bar',
+            label: 'Năng suất tiêu chuẩn',
+            backgroundColor: '#009900',
             data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 100)),
             borderColor: 'white',
             borderWidth: 2
@@ -260,6 +249,14 @@ export class DieuhanhsanxuatComponent implements OnInit {
             borderWidth: 2,
             fill: false,
             data: Array.from({ length: 30 }, (v, i) => i * 20)
+          },
+          {
+            type: 'line',
+            label: 'Kế hoạch',
+            borderColor: '#009900',
+            borderWidth: 2,
+            fill: false,
+            data: Array.from({ length: 30 }, (v, i) => (i * 20)+10)
           },
           {
             type: 'bar',
