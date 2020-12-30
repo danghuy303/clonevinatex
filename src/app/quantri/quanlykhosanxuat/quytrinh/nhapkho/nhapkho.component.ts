@@ -93,8 +93,8 @@ export class NhapkhoComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.type = 'so';
-    modalRef.componentInstance.nametype = 'sơ';
+    modalRef.componentInstance.type = 'xo';
+    modalRef.componentInstance.nametype = 'xơ';
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this._toastr.success('Cập nhật thành công');
@@ -107,6 +107,10 @@ export class NhapkhoComponent implements OnInit {
         size: 'fullscreen',
         backdrop: 'static'
       })
+      if(res1.Loai == 1 )
+        modalRef.componentInstance.type = 'bong';
+      else
+        modalRef.componentInstance.type = 'xo';
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
       modalRef.result.then((res: any) => {

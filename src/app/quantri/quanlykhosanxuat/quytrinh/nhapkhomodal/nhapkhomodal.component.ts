@@ -150,6 +150,7 @@ export class NhapkhomodalComponent implements OnInit {
 
   }
   GhiLai() {
+    console.log(this.item)
     if (this.opt !== 'edit') {
       if (this.type === 'bong')
         this.item.Loai = 1;
@@ -230,7 +231,10 @@ export class NhapkhomodalComponent implements OnInit {
     this.newTableItem = {}
   }
   edit(item, index) {
-    this.item.listItem[index].editField = true
+    this.item.listItem.forEach(element => {
+      element.editField = false;
+    });
+    this.item.listItem[index].editField = true;
     this.editTableItem = deepCopy(item);
   }
   delete(index) {
@@ -242,8 +246,8 @@ export class NhapkhomodalComponent implements OnInit {
     }
   }
   saveEdit(item, index){
-    this.item.listItem[index].editField = false;
     this.item.listItem[index] = item;
+    this.item.listItem[index].editField = false;
   }
   cancelEdit(item, index){
     this.item.listItem[index].editField = false;
