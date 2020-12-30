@@ -106,24 +106,57 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>{{i+1}}</td>
-                        <td><span contenteditable="true"
-                            (blur)="updateList(i, 'MaCongTenNo', $event)">{{item.MaCongTenNo}}</span></td>
-                        <td>{{item.KhoiLuong}}</td>
-                        <td>{{item.SoKien}}</td>
-                        <td>{{item.Mic}}</td>
-                        <td>{{item.Mat}}</td>
-                        <td>{{item.UHML}}</td>
-                        <td>{{item.Str}}</td>
-                        <td>{{item.SFI}}</td>
-                        <td>{{item.Rd}}</td>
-                        <td>{{item.Tap}}</td>
-                        <td>{{item.Am}}</td>
-                        <td>{{item.Am}}</td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil"
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'MaCongTenNo', $event)">{{item.MaCongTenNo}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'KhoiLuong', $event)">{{item.KhoiLuong}}</span>
+                        </td>
+                        <td><span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'SoKien', $event)">{{item.SoKien}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'Mic', $event)">{{item.Mic}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'Mat', $event)">{{item.Mat}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'UHML', $event)">{{item.UHML}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'Str', $event)">{{item.Str}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'SFI', $event)">{{item.SFI}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'Rd', $event)">{{item.Rd}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'Tap', $event)">{{item.Tap}}</span>
+                        </td>
+                        <td><span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'Am', $event)">{{item.Am}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'Am', $event)">{{item.Am}}</span>
+                        </td>
+                        <td>
+                            <!-- <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="editChiTiet(i)" pTooltip="Sửa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
+                                tooltipPosition="bottom"></button> -->
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"

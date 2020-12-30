@@ -450,9 +450,9 @@ export class SanXuatService {
     download(url) {
         window.open(API.imgURL + url);
     }
-    getLuuKho(IDdmKho){
+    getLuuKho(IDdmKho, CurrentPage, sFilter){
         let IdDuAn =this.store.getCurrent();
-        let url = API.SCMQuanLyKho + `GetLuuKho?IdDuAn=${IdDuAn}&IDdmKho=${IDdmKho}&CurrentPage=0&sFilter=`;
+        let url = API.SCMQuanLyKho + `GetLuuKho?IdDuAn=${IdDuAn}&IDdmKho=${IDdmKho}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
         return this.http.get(url,httpOptions);
     }
 }

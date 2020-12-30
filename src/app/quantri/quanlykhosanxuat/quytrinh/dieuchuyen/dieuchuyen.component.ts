@@ -75,8 +75,8 @@ export class DieuchuyenComponent implements OnInit {
       }
     })
     this.KiemTraTabTrangThai();
-    this.getListdmkho()
-    // this.GetListQuyTrinh()
+    this.getListdmkho();
+    this.GetListQuyTrinh()
   }
   changeParam(id){
     this.router.navigate([`quantri/quanlykhosanxuat/dieuchuyen/${id}`],{replaceUrl: true})

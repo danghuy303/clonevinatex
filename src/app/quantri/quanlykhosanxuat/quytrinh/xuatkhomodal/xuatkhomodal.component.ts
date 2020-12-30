@@ -161,8 +161,8 @@ export class XuatkhomodalComponent implements OnInit {
   delete(item, index) {
 
   }
-  GetLuuKho() {
-    this.services.getLuuKho(this.item.IddmKho).subscribe((res1: any) => {
+  GetLuuKho(sFilter) {
+    this.services.getLuuKho(this.item.IddmKho, 0 , sFilter).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'

@@ -186,10 +186,9 @@ export class QuantriComponent implements OnInit {
                 icon: 'pi pi-bars',
                 expanded: true,
                 items: [
-
                     {
-                        label: 'Kho sản xuất',
-                        routerLink: '/quantri/danhmucsanxuat/dmkho',
+                        label: 'Mặt hàng',
+                        routerLink: '/quantri/danhmucsanxuat/dmmathang',
                         command: () => this.close()
                     },
                     {
@@ -203,18 +202,8 @@ export class QuantriComponent implements OnInit {
                         command: () => this.close()
                     },
                     {
-                        label: 'Ca sản xuất',
-                        routerLink: '/quantri/danhmucsanxuat/dmcasanxuat',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Danh sách máy',
-                        routerLink: '/quantri/danhmucsanxuat/dmdsmay',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Mặt hàng',
-                        routerLink: '/quantri/danhmucsanxuat/dmmathang',
+                        label: 'Loại sợi',
+                        routerLink: '/quantri/danhmucsanxuat/dmloaisoi',
                         command: () => this.close()
                     },
                     {
@@ -223,8 +212,18 @@ export class QuantriComponent implements OnInit {
                         command: () => this.close()
                     },
                     {
-                        label: 'Loại sợi',
-                        routerLink: '/quantri/danhmucsanxuat/dmloaisoi',
+                        label: 'Kho sản xuất',
+                        routerLink: '/quantri/danhmucsanxuat/dmkho',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Danh sách máy',
+                        routerLink: '/quantri/danhmucsanxuat/dmdsmay',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Ca sản xuất',
+                        routerLink: '/quantri/danhmucsanxuat/dmcasanxuat',
                         command: () => this.close()
                     },
                     {

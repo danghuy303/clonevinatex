@@ -1,16 +1,16 @@
 <div class="modal-header">
     <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} phiếu nhập {{nametype}}</h5>
-    <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-lg-row">
-        <!-- <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
+    <!-- <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-lg-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
             <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
                 [(ngModel)]="item.NhaMay"></p-dropdown>
-        </div> -->
-    </div>
+        </div>
+    </div> -->
     <div class="p-d-flex p-flex-row">
         <div class="mr-2">Số quy trình:&nbsp;{{item.SoQuyTrinh}}</div>
-        <div class="mr-2">TG tạo:&nbsp;{{item.Created}}</div>
-        <div class="mr-2">TG duyệt:&nbsp;{{item.Modified}}</div>
+        <!-- <div class="mr-2">TG tạo:&nbsp;{{item.Created}}</div>
+        <div class="mr-2">TG duyệt:&nbsp;{{item.Modified}}</div> -->
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
@@ -110,8 +110,8 @@
                     <tr>
                         <th>#</th>
                         <th>Container</th>
-                        <th>Số kiện</th>
                         <th>Khối lượng</th>
+                        <th>Số kiện</th>
                         <th>Vị trí</th>
                         <th style="width: 100px;"></th>
                     </tr>
@@ -120,19 +120,19 @@
                     <tr>
                         <td>{{i+1}}</td>
                         <td>
-                            <span contenteditable="true"
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
                             (blur)="updateList(i, 'Ten', $event)">{{item.Ten}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true"
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
                             (blur)="updateList(i, 'SoCan', $event)">{{item.SoCan}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true"
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
                             (blur)="updateList(i, 'SoKien', $event)">{{item.SoKien}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true"
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
                             (blur)="updateList(i, 'ViTri', $event)">{{item.ViTri}}</span>
                         </td>
                         <td>
