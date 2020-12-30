@@ -81,14 +81,15 @@
                 </div>
                 
             </div>
-            <p-table [value]="item.listCongTenNo" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+            <p-table [value]="item.listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
                         <col>
                         <col>
                         <col>
-                        <col style="width:90px">
+                        <col>
+                        <col>
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -100,17 +101,42 @@
                         <th>Tồn kho</th>
                         <th>Số lượng xuất</th>
                         <th>Ghi chú</th>
+                        <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>{{i+1}}</td>
-                        <td>{{item.MaCongTenNo}}</td>
-                        <td>{{item.SoKien}}</td>
-                        <td>{{item.KhoiLuong}}</td>
-                        <td>{{item.Block}}</td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'MaCongTenNo', $event)">{{item.MaCongTenNo}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'SoKien', $event)">{{item.SoKien}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'KhoiLuong', $event)">{{item.KhoiLuong}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'Block', $event)">{{item.Block}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'SoLuongXuat', $event)">{{item.SoLuongXuat}}</span>
+                        </td>
+                        <td>
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            (blur)="updateList(i, 'GhiChu', $event)">{{item.GhiChu}}</span>
+                        </td>
+                        <td>
+                            <button pButton pRipple icon="pi pi-trash"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                (click)="delete(item,i)" pTooltip="Xóa" showDelay="1000"
+                                tooltipPosition="bottom"></button>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>

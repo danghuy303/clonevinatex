@@ -78,7 +78,7 @@ export class HacapComponent implements OnInit {
     })
     this.KiemTraTabTrangThai();
     this.getListdmkho();
-    // this.GetListQuyTrinh()
+    this.GetListQuyTrinh()
   }
   changeParam(id){
     this.router.navigate([`quantri/quanlykhosanxuat/hacap/${id}`],{replaceUrl: true})

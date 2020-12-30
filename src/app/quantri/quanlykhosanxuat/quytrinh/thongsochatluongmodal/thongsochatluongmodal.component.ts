@@ -162,8 +162,8 @@ export class ThongsochatluongmodalComponent implements OnInit {
   updateList(id: number, property: string, event: any) {
     const editField = event.target.innerText;
     switch (property) {
-      case 'Ten':
-        this.item.listItem[id].Ten = editField;
+      case 'MaCongTenNo':
+        this.item.listItem[id].MaCongTenNo = editField;
         break;
       case 'SoCan':
         this.item.listItem[id].SoCan = editField;

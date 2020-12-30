@@ -6,6 +6,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
+import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
   selector: 'app-hacapmodal',
@@ -33,11 +34,11 @@ export class HacapmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.listLoHang)
     // this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
-      // this.GetNextSoQuyTrinh();
+      this.GetNextSoQuyTrinh();
     }
+
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.ID || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -58,7 +59,7 @@ export class HacapmodalComponent implements OnInit {
   }
   GetNextSoQuyTrinh() {
     this.services.PhieuHaCap().GetNextSo().subscribe((res: any) => {
-      this.item.SoQuyTrinh = res;
+      this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
   
@@ -96,5 +97,20 @@ export class HacapmodalComponent implements OnInit {
   
   delete(item, index) {
 
+  }
+  GetLuuKho(sFilter) {
+    this.services.getLuuKho(this.item.IddmKho, 0, sFilter).subscribe((res1: any) => {
+      let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
+        size: 'fullscreen',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.listMatHang = res1;
+      modalRef.result.then((data) => {
+        this.item.listItem = data.data;
+      }, (reason) => {
+        // không
+      });
+    })
   }
 }

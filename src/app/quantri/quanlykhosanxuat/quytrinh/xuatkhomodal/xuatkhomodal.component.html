@@ -9,8 +9,8 @@
     </div> -->
     <div class="p-d-flex p-flex-row">
         <div class="mr-2">Số quy trình:&nbsp;{{item.SoQuyTrinh}}</div>
-        <div class="mr-2">TG tạo:&nbsp;{{item.Created}}</div>
-        <div class="mr-2">TG duyệt:&nbsp;{{item.Modified}}</div>
+        <!-- <div class="mr-2">TG tạo:&nbsp;{{item.Created}}</div>
+        <div class="mr-2">TG duyệt:&nbsp;{{item.Modified}}</div> -->
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
@@ -77,7 +77,7 @@
             <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
                 <button *ngIf="item.IddmKho!= null && item.IddmKho!= undefined"
                     pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
-                    (click)="GetLuuKho()"></button>
+                    (click)="GetLuuKho('')"></button>
             </div>
             <p-table [value]="item.listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
@@ -108,34 +108,37 @@
                     <tr>
                         <td>{{i+1}}</td>
                         <td>
-                            <span contenteditable="true"
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
                             (blur)="updateList(i, 'Lo', $event)">{{item.Lo}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true"
+                            <span style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            contenteditable="true"
                             (blur)="updateList(i, 'Container', $event)">{{item.Container}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true"
+                            <span style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            contenteditable="true"
                             (blur)="updateList(i, 'MaKien', $event)">{{item.MaKien}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true"
+                            <span style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
+                            contenteditable="true"
                             (blur)="updateList(i, 'DVT', $event)">{{item.DVT}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true"
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
                             (blur)="updateList(i, 'TonKho', $event)">{{item.TonKho}}</span>
                         </td>
                         <td>
-                            <span contenteditable="true"
+                            <span contenteditable="true" style="border: none!important;outline:none!important; padding: 0.3rem 0.5rem;"
                             (blur)="updateList(i, 'SoLuongXuat', $event)">{{item.SoLuongXuat}}</span>
                         </td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil"
+                            <!-- <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="edit(item,i)" pTooltip="Sửa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
+                                tooltipPosition="bottom"></button> -->
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(item,i)" pTooltip="Xóa" showDelay="1000"
