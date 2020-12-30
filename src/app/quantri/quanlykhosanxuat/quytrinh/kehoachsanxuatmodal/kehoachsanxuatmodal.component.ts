@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -16,7 +16,7 @@ import { TrienkhaikehoachsanxuatComponent } from '../trienkhaikehoachsanxuat/tri
   templateUrl: './kehoachsanxuatmodal.component.html',
   styleUrls: ['./kehoachsanxuatmodal.component.css']
 })
-export class KehoachsanxuatmodalComponent implements OnInit {
+export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   opt: any = ''
   item: any = {
     Id: ''
@@ -30,9 +30,13 @@ export class KehoachsanxuatmodalComponent implements OnInit {
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   listPhuongAnSapXep: any = [];
   listDonVi: any = [];
+  listMucDich: any = [
+    { value: 0, label: 'Xuất khẩu' },
+    { value: 1, label: 'Nội địa' },
+  ]
   listPhanXuong: any = []; listMatHang: any = [];
   yearRange: string = `${((new Date()).getFullYear())}:${((new Date()).getFullYear()) + 5}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store:StoreService) {
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) {
 
   }
 
@@ -41,10 +45,13 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
-      if(this._store.getCurrent()){
+      if (this._store.getCurrent()) {
         this.item.IdDuAn = this._store.getCurrent();
       }
     }
+  }
+  ngDoCheck(): void {
+    this.Calculate();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
@@ -58,7 +65,7 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     this.services.GetOptions().GetNhaMay().subscribe((res: Array<any>) => {
       this.listDonVi = mapArrayForDropDown(res, 'TenDuAn', 'Id');
       if (validVariable(this.item.IdDuAn)) {
-        this.getPhanXuong(this.item.IdDuAn,true);
+        this.getPhanXuong(this.item.IdDuAn, true);
       }
     })
   }
@@ -127,8 +134,7 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     })
   }
   GetQuyTrinh(Id) {
-    this.services.GiaoKeHoachSanXuat().Get(Id).subscribe((res:any) => {
-      
+    this.services.GiaoKeHoachSanXuat().Get(Id).subscribe((res: any) => {
       this.item = res;
       // console.log(res);
     })
@@ -158,10 +164,26 @@ export class KehoachsanxuatmodalComponent implements OnInit {
     modalRef.componentInstance.selectedItems = this.item.listItem || [];
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
-      merge(res,this.item.listItem,'IddmItem')
+      merge(res, this.item.listItem, 'IddmItem')
     }).catch(er => {
       console.log(er);
     })
+  }
+  Calculate() {
+    let TongKL = 0;
+    let KLxChiSo = 0;
+    this.item.listItem.forEach(mathang => {
+      TongKL += validVariable(mathang.KhoiLuongKeHoach) ? mathang.KhoiLuongKeHoach : 0;
+      KLxChiSo += validVariable(mathang.KhoiLuongKeHoach) ? (mathang.KhoiLuongKeHoach * mathang.ChiSo) : 0;
+    });
+    console.log(TongKL, KLxChiSo); if (
+      TongKL !== 0 && KLxChiSo !== 0
+    ) {
+      this.item.ChiSoBinhQuan = Math.ceil((KLxChiSo / TongKL) * 100) / 100;
+      if(validVariable(this.item.TongSoCa)){
+        this.item.BQNE30 = Math.ceil(((TongKL/this.item.ChiSoBinhQuan)*30/this.item.TongSoCa) * 100) / 100
+      }
+    }
   }
   GhiLai() {
     if (this.validData()) {
@@ -177,7 +199,7 @@ export class KehoachsanxuatmodalComponent implements OnInit {
             });
           } else {
             this.item.listItem.forEach(element => {
-              element.KhoiLuongKeHoach = element.KhoiLuongKeHoach/1000;
+              element.KhoiLuongKeHoach = element.KhoiLuongKeHoach / 1000;
             });
             this.toastr.error(res.message);
           }
@@ -201,7 +223,7 @@ export class KehoachsanxuatmodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-  
+
   changePhuongAnDeXuat(event, item) {
     item.TenPhuongAnDeXuat = event.Ten;
     item.IDdmPhuongAnDeXuat = event.ID;

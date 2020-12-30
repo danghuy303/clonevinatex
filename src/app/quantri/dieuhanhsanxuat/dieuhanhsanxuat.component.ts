@@ -40,6 +40,15 @@ export class DieuhanhsanxuatComponent implements OnInit {
     legend: {
       position: 'bottom'
     },
+    scales: {
+      xAxes: [{
+        categoryPercentage: 0.5,
+        barPercentage: 1.0
+        // type: 'category',
+        // labels: ['January', 'February', 'March', 'April', 'May', 'June']
+      }]
+    },
+
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
     aspectRatio: ((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
@@ -83,7 +92,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
           type: 'line',
           label: 'Lũy kế',
           borderColor: '#FF671F',
-          borderWidth: 2,
+          // borderWidth: 2,
           fill: false,
           data: Array.from({ length: 30 }, (v, i) => i * 20)
         },
@@ -91,9 +100,9 @@ export class DieuhanhsanxuatComponent implements OnInit {
           type: 'line',
           label: 'Kế hoạch',
           borderColor: '#009900',
-          borderWidth: 2,
+          // borderWidth: 2,
           fill: false,
-          data: Array.from({ length: 30 }, (v, i) => (i * 20)+10)
+          data: Array.from({ length: 30 }, (v, i) => (i * 20) + 10)
         },
         {
           type: 'bar',
@@ -101,7 +110,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
           backgroundColor: '#3c5cbb',
           data: Array.from({ length: 30 }, () => 20),
           borderColor: 'white',
-          borderWidth: 2
+          // borderWidth: 2
         },
       ]
     }
@@ -156,7 +165,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
             ]
           }]
       };
-    }else{
+    } else {
       this.dataPie = {
         labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
         datasets: [
@@ -201,8 +210,8 @@ export class DieuhanhsanxuatComponent implements OnInit {
     this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
       this.listCaLamViec = mapArrayForDropDown(res, "Ten", 'Id')
     });
-    this._services.GetListdmLoaiBong(data).subscribe((res:any)=>{
-      res.unshift({Id:'', Ten:'Tổng hợp'});
+    this._services.GetListdmLoaiBong(data).subscribe((res: any) => {
+      res.unshift({ Id: '', Ten: 'Tổng hợp' });
       this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
     })
   }
@@ -226,7 +235,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
             backgroundColor: '#3c5cbb',
             data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 100)),
             borderColor: 'white',
-            borderWidth: 2
+            // borderWidth: 2
           },
           {
             type: 'bar',
@@ -234,7 +243,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
             backgroundColor: '#009900',
             data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 100)),
             borderColor: 'white',
-            borderWidth: 2
+            // borderWidth: 2
           },
         ]
       }
@@ -256,7 +265,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
             borderColor: '#009900',
             borderWidth: 2,
             fill: false,
-            data: Array.from({ length: 30 }, (v, i) => (i * 20)+10)
+            data: Array.from({ length: 30 }, (v, i) => (i * 20) + 10)
           },
           {
             type: 'bar',
