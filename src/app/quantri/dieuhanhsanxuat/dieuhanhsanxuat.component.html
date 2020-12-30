@@ -28,31 +28,30 @@
             <div class="p-d-flex flex-column flex-lg-row p-jc-between">
                 <div>
                     <h5>
-                        Biểu đồ xuất nhập tồn
+                        {{filterNhuCau.Kho ==='8cb622a8-b2c5-4232-a9f1-7fdebb40e3cb'?'Sản lượng kế hoạch và thực hiện':'Nhu cầu sử dụng bông'}}
                     </h5>
                 </div>
                 <div class="p-d-flex flex-column flex-lg-row">
                     <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listOpts" placeholder="Chọn kho"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.NhaMay"></p-dropdown>
+                        <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filterNhuCau.Kho" (onChange)="changeKho($event)"></p-dropdown>
                     </div>
                     <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listOpts" placeholder="Chọn mặt hàng"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.NhaMay"></p-dropdown>
+                        <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filterNhuCau.MatHang"></p-dropdown>
                     </div>
                     <div style="display:table;height:100%">
-                        <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)">Xem bảng dữ liệu</a>
+                        <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)">Cân đối tồn</a>
                     </div>
                 </div>
             </div>
-
-            <p-chart type="bar" [data]=dataSet1 [options]="option1"></p-chart>
+            <p-chart type="line" [data]=dataSet1 [options]="option1"></p-chart>
         </div>
     </div>
 
     <div class="p-col-12 p-xl-4 p-lg-4 p-p-3">
         <div class="chart text-left">
-            <h5>Biểu đồ cơ cấu bông</h5>
+            <h5>{{filterNhuCau.Kho ==='8cb622a8-b2c5-4232-a9f1-7fdebb40e3cb'?'Cơ cấu mặt hàng':'Cơ cấu bông'}}</h5>
             <p-chart type="pie" [data]="dataPie" [options]='optionPie'></p-chart>
         </div>
     </div>
@@ -69,20 +68,20 @@
                 </div>
                 <div class="p-d-flex flex-column flex-lg-row">
                     <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listOpts" placeholder="Chọn công đoạn"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.NhaMay"></p-dropdown>
+                        <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.CongDoan"></p-dropdown>
                     </div>
                     <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listOpts" placeholder="Chọn máy"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.NhaMay"></p-dropdown>
+                        <p-dropdown [filter]="true" [options]="listMay" placeholder="Chọn máy"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.May"></p-dropdown>
                         </div>
                     <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listOpts" placeholder="Chọn mặt hàng"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.NhaMay"></p-dropdown>
+                        <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.MatHang"></p-dropdown>
                     </div>
                     <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listOpts" placeholder="Chọn ca làm việc"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.NhaMay"></p-dropdown>
+                        <p-dropdown [filter]="true" [options]="listCaLamViec" placeholder="Chọn ca làm việc"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.CaLamViec"></p-dropdown>
                     </div>
                     <div style="display:table;height:100%">
                         <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)">Xem bảng dữ liệu</a>

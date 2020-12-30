@@ -11,7 +11,7 @@
         <h2 style="font-weight: 500; text-transform: uppercase;" id="Name">{{OSName}}</h2>
     </div>
     <div style="margin: auto 0px;" class="d-flex flex-row">
-        <div style="width:150px;" *ngIf="showDropDown">
+        <div style="width:200px;" *ngIf="showDropDown">
             <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
                     [(ngModel)]="IdNhaMay"  (onChange)="setGlobalNhaMay($event)"></p-dropdown>
         </div>

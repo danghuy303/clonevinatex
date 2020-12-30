@@ -73,6 +73,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         this.PoolMaySanXuat[may.CongDoan][mayName][ngayName]= may;
         this.PoolMaySanXuat[may.CongDoan][mayName].Ma = may.Ma;
         this.PoolMaySanXuat[may.CongDoan][mayName].Ten = may.Ten;
+        this.PoolMaySanXuat[may.CongDoan][mayName].Id = may.Id;
       });
     });
   }
@@ -114,21 +115,30 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     modalRef.result.then(res => {
       console.log(res);
       this.item.listItem = merge(deepCopy(res), this.item.listItem, 'IddmItem');
-
+      console.log(this.item.listItem);
     }).catch(er => {
       console.log(er);
     })
   }
-  boTriMay(item) {
+  boTriMay(item,index) {
     item.TuNgayUnix = DateToUnix(item.TuNgay);
     item.DenNgayUnix = DateToUnix(item.DenNgay);
     let modalRef = this._modal.open(BotrimaymodalComponent, {
-      size: 'lg'
+      size: 'fullscreen',
+      backdrop:'static'
     });
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.item = item;
+    modalRef.componentInstance.opt = item.opt;
     modalRef.componentInstance.IddmPhanXuong = this.IddmPhanXuong;
     modalRef.componentInstance.PoolMaySanXuat = this.PoolMaySanXuat;
+    modalRef.result.then(res=>{
+      console.log(res);
+      this.item.listItem[index]= res;
+      this.item.listItem[index].opt = 'edit';
+      console.log(this.item.listItem[index])
+    }).catch(er=>{
+      console.log(er);
+    })
   }
   GhiLai() {
     if (this.item.listTaiSanQuyTrinh.length !== 0) {

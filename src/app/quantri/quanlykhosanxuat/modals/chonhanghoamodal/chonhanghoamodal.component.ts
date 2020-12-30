@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
   selector: 'app-chonhanghoamodal',
@@ -12,7 +13,7 @@ export class ChonhanghoamodalComponent implements OnInit {
   IdQuyTrinh: any;
   KeyWord: any = '';
   opt: any = '';
-  constructor(private activeModal: NgbActiveModal) { }
+  constructor(private activeModal: NgbActiveModal,private _services:SanXuatService) { }
 
   ngOnInit(): void {
     if (this.selectedItems.length !== 0) {
@@ -39,12 +40,21 @@ export class ChonhanghoamodalComponent implements OnInit {
   }
   accept() {
     if (this.opt === "KhoiLuongKeHoach") {
+      let data = this.items.filter(item => item.checked)
+      data.forEach(mathang => {
+          mathang.listItem={};
+          this._services.GetOptions().GetListCongDoanTheoMatHang(mathang.Id).subscribe((res:any)=>{
+            res.forEach(cd=>{
+              mathang.listItem[cd.CongDoan]=[]
+            })
+          })
+      });
       this.activeModal.close(this.items.filter(item => item.checked).map(ele => {
         return {
           ...ele,
+          opt:'add',
           IdGiaoKeHoachSanXuat: this.IdQuyTrinh,
           IddmItem: ele.IddmItem,
-          listItem: [],
           Id: '',
         }
       }))

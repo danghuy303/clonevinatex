@@ -156,6 +156,7 @@ import { PhanxuongmodalComponent } from './danhmuc/danhmucsanxuat/modals/phanxuo
 import { LoaisoiComponent } from './danhmuc/danhmucsanxuat/loaisoi/loaisoi.component';
 import { ChonmaytheocongdoanComponent } from './quanlykhosanxuat/modals/chonmaytheocongdoan/chonmaytheocongdoan.component';
 import { ImportdanhmucmodelComponent } from './danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
+import { TrangthaimaysanxuatComponent } from './quanlykhosanxuat/quytrinh/trangthaimaysanxuat/trangthaimaysanxuat.component';
 import { NhomkhoComponent } from './danhmuc/danhmucsanxuat/nhomkho/nhomkho.component';
 import { XuatkhomathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomathangmodal/xuatkhomathangmodal.component';
 import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
@@ -277,6 +278,7 @@ import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
     LoaisoiComponent,
     ChonmaytheocongdoanComponent,
     ImportdanhmucmodelComponent,
+    TrangthaimaysanxuatComponent,
     NhomkhoComponent,
     XuatkhomathangmodalComponent,
     KhoComponent,
