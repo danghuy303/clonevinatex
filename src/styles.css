@@ -144,13 +144,13 @@ p-calendar button.p-datepicker-trigger{
     min-width: 110px;
 }
 
-.p-calendar button {
+p-calendar>span>button {
     padding: 0.3rem 0 !important;
     color: #607D8B !important;
     background-color: transparent !important;
     border-radius: 0px !important;
-    border: none;
-    /* border-bottom: 1px solid #ced4da !important; */
+    border: none !important;
+    border-bottom: 1px solid #ced4da !important;
 }
 
 .p-inputgroup input:first-child {
