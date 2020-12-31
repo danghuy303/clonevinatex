@@ -40,7 +40,7 @@ export class DieuchuyenmodalComponent implements OnInit {
     }
   }
   KiemTraButtonModal() {
-    this.services.KiemTraButton(this.item.IdTrangThai || '', this.item.Id || '').subscribe(res => {
+    this.services.KiemTraButton(this.item.Id || '',this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
     })
   }

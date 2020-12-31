@@ -391,7 +391,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetListPhieuHaCap', data, httpOptions);
             },
             Get: (Id) => {
-                return this.http.get(url + `GetPhieuHaCap?Id=${Id}`, httpOptions);
+                return this.http.get(url + `GetPhieuHaCapFull?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
                 data.IdDuAn = this.store.getCurrent();
@@ -457,9 +457,9 @@ export class SanXuatService {
     download(url) {
         window.open(API.imgURL + url);
     }
-    getLuuKho(IDdmKho, CurrentPage, sFilter){
-        let IdDuAn =this.store.getCurrent();
-        let url = API.SCMQuanLyKho + `GetLuuKho?IdDuAn=${IdDuAn}&IDdmKho=${IDdmKho}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
+    getLuuKho(IddmKho, CurrentPage, sFilter){
+        // let IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + `GetLuuKho?IdDuAn=0&IddmKho=${IddmKho}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
         return this.http.get(url,httpOptions);
     }
 }

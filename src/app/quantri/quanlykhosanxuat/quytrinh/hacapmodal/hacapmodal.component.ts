@@ -6,6 +6,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
+import { deepCopy } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
@@ -17,36 +18,38 @@ export class HacapmodalComponent implements OnInit {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
-    Ghi:true,
-    KhongDuyet:true,
-    ChuyenTiep:true,
-    Xoa:true,
+    // Ghi:true,
+    // KhongDuyet:true,
+    // ChuyenTiep:true,
+    // Xoa:true,
   }
   listdmKho: any = [];
   newTableItem:any={};
   filter:any = {};
-  listPhuongAnSapXep: any = [];
   listLoHang:any= [];
   lang: any = vn;
+  editTableItem: any = {};
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
 
   }
 
   ngOnInit(): void {
-    // this.KiemTraButtonModal();
+    this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
     }
 
   }
   KiemTraButtonModal() {
-    this.services.KiemTraButton(this.item.ID || '', this.item.IdTrangThai || '').subscribe(res => {
+    this.services.KiemTraButton(this.item.Id || '',this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
     })
   }
   
   ChuyenDuyet() {
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     this.services.PhieuHaCap().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -65,7 +68,9 @@ export class HacapmodalComponent implements OnInit {
   
  
   GhiLai() {
-      this.services.PhieuHaCap().Set(this.item).subscribe((res: any) => {
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+    this.services.PhieuHaCap().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -94,10 +99,15 @@ export class HacapmodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-  
-  delete(item, index) {
-
+  delete(index) {
+    let item = this.item.listItem.splice(index, 1)[0];
+    if (item.Id === '' || item.Id === null || item.Id === undefined) {
+    } else {
+      item.isXoa = true;
+      this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+    }
   }
+
   GetLuuKho(sFilter) {
     this.services.getLuuKho(this.item.IddmKho, 0, sFilter).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
@@ -106,11 +116,27 @@ export class HacapmodalComponent implements OnInit {
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
+      modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.result.then((data) => {
         this.item.listItem = data.data;
       }, (reason) => {
         // không
       });
     })
+  }
+  editChiTiet(item, index) {
+    this.item.listItem.forEach(element => {
+      element.editField = false;
+    });
+    this.item.listItem[index].editField = true;
+    this.editTableItem = deepCopy(item);
+  }
+  
+  saveEdit(item, index){
+    this.item.listItem[index] = item;
+    this.item.listItem[index].editField = false;
+  }
+  cancelEdit(item, index){
+    this.item.listItem[index].editField = false;
   }
 }

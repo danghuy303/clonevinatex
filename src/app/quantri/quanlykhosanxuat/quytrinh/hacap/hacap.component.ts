@@ -98,9 +98,8 @@ export class HacapComponent implements OnInit {
     })
       .catch(er => { console.log(er) })
   }
-  update(item){
-
-    this._service.PhieuHaCap().Get(item.Id).subscribe(res=>{
+  update(Id){
+    this._service.PhieuHaCap().Get(Id).subscribe(res=>{
       let modalRef = this._modal.open(HacapmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
