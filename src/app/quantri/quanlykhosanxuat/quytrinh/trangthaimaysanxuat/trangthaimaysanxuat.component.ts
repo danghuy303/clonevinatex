@@ -2,6 +2,7 @@ import { forwardRef, Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { validVariable } from 'src/app/services/globalfunction';
 
 const VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -15,7 +16,7 @@ const VALUE_ACCESSOR = {
   providers:[VALUE_ACCESSOR]
 })
 export class TrangthaimaysanxuatComponent implements ControlValueAccessor {
-  // @Input('IddmMatHang')IddmMatHang:string = null;
+  @Input('IdMatHang')IdMatHang:string = null;
   private _value: any = {};
   public onChange: any = Function.prototype;
   public onTouched: any = Function.prototype;
@@ -42,7 +43,18 @@ export class TrangthaimaysanxuatComponent implements ControlValueAccessor {
   }
 
   changeTinhTrang(){
-    this.value.TinhTrang++
+
+    if(this.value.TinhTrang!== 2){
+      if(this.value.TinhTrang ===1){
+        this.value.TinhTrang = 0;
+        this.value.IddmItem = null;
+      }else{
+        this.value.TinhTrang =1;
+        this.value.IddmItem = this.IdMatHang;
+      }
+    }
+    // this.value.TinhTrang++
+    // console.log(this.value);
   }
   getColor(value){
     if(value!==null){
@@ -50,6 +62,9 @@ export class TrangthaimaysanxuatComponent implements ControlValueAccessor {
         return 'green'
       }
       if(value.TinhTrang === 1){
+        if(validVariable(this.IdMatHang)&& (this.IdMatHang===value.IddmItem)){
+          return 'blue'
+        }
         return 'yellow'
       }
       if(value.TinhTrang === 2){

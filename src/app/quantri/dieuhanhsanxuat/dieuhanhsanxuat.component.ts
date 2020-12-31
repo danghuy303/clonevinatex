@@ -28,7 +28,12 @@ export class DieuhanhsanxuatComponent implements OnInit {
         beginAtZero: true
         // type: 'category',
         // labels: ['January', 'February', 'March', 'April', 'May', 'June']
-      }]
+      }],
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }],
     },
     legend: {
       position: 'bottom'
@@ -67,11 +72,12 @@ export class DieuhanhsanxuatComponent implements OnInit {
       datasets: [
         {
           type: 'line',
-          label: 'Nhu cầu Tổng hợp',
+          label: 'Nhu cầu',
           borderColor: '#FF0000',
           // borderWidth: 2,
           fill: false,
-          data: [0, 100, 120, 130, 135]
+          data: [20, 100, 120, 130, 135],
+          // steppedLine: 'before'
         },
         {
           type: 'line',
@@ -239,7 +245,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
           },
           {
             type: 'bar',
-            label: 'Năng suất tiêu chuẩn',
+            label: 'Sản lượng tiêu chuẩn',
             backgroundColor: '#009900',
             data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 100)),
             borderColor: 'white',
@@ -253,7 +259,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
         datasets: [
           {
             type: 'line',
-            label: 'Lũy kế',
+            label: 'Thực tế',
             borderColor: '#FF671F',
             borderWidth: 2,
             fill: false,

@@ -150,7 +150,7 @@ p-calendar button.p-datepicker-trigger{
     background-color: transparent !important;
     border-radius: 0px !important;
     border: none;
-    border-bottom: 1px solid #ced4da !important;
+    /* border-bottom: 1px solid #ced4da !important; */
 }
 
 .p-inputgroup input:first-child {

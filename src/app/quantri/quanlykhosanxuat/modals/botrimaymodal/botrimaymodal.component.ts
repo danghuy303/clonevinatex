@@ -75,10 +75,11 @@ export class BotrimaymodalComponent implements OnInit {
             data.push(this.PoolMaySanXuat[cd.CongDoan][key]);
           }
         }
-        this.item.listItem[cd.CongDoan] = data.map(
+        this.item.listItemTemp[cd.CongDoan] = data.map(
           ele => {
             return {
               prop: ele.Id.split('-').join('_'),
+              MadmLoaiSoi:this.item.MadmLoaiSoi,
               IddmMay: ele.Id,
               Id: ''
             }
@@ -91,7 +92,7 @@ export class BotrimaymodalComponent implements OnInit {
       this.listDate.forEach(date => {
         if(this.PoolMaySanXuat[CongDoan][May][date.prop].TinhTrang!==2){
           this.PoolMaySanXuat[CongDoan][May][date.prop].TinhTrang = event.checked? 1:0;
-          // this.PoolMaySanXuat[CongDoan][May][date.prop].TinhTrang = event.checked? 1:0;
+          this.PoolMaySanXuat[CongDoan][May][date.prop].IddmItem = event.checked? this.item.IddmItem:null;
         }
       });
   }

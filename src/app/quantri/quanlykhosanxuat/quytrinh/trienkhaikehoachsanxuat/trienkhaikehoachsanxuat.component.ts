@@ -74,7 +74,10 @@ export class TrienkhaikehoachsanxuatComponent implements OnInit {
       this.GetListQuyTrinh();
       this.changeParam(0)
     })
-      .catch(er => { this.changeParam(0) })
+    .catch(er => { 
+      this.GetListQuyTrinh();
+        this.changeParam(0)
+       })
   }
   update(item){
     let modalRef = this._modal.open(TrienkhaikehoachsanxuatmodalComponent, {
@@ -83,12 +86,16 @@ export class TrienkhaikehoachsanxuatComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.checkbutton={Ghi:true,Xoa:true,KhongDuyet:true,ChuyenTiep:true}
     modalRef.result.then((res: any) => {
       this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
       this.changeParam(0)
     })
-      .catch(er => { this.changeParam(0) })
+      .catch(er => { 
+        this.GetListQuyTrinh();
+        this.changeParam(0)
+      })
   }
   changeTab(e){
     this.trangThai = e.index+1;

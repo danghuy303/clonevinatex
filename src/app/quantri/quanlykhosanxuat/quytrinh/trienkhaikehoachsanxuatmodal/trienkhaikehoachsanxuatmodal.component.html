@@ -42,7 +42,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch giao:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listGiaoKeHoach" placeholder="Chọn kế hoạch giao"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdGiaoKeHoach"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdGiaoKeHoachSanXuat"
                     (onChange)="GetListMatHangChuaLapKeHoach($event)"></p-dropdown>
             </div>
         </div>
@@ -115,14 +115,14 @@
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy" [showTime]="true"
+                            <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
                                 [yearNavigator]="false" [readonlyInput]="true" [minDate]="minDateChonMay" [maxDate]="maxDateChonMay"
                                 inputId="monthpicker" [(ngModel)]="mathang.TuNgay" 
                                 placeholder="dd/mm/yyyy">
                             </p-calendar>
                         </td>
                         <td class="text-center">
-                            <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy" [showTime]="true"
+                            <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
                                 [yearNavigator]="false" [readonlyInput]="true"  [minDate]="minDateChonMay" [maxDate]="maxDateChonMay"
                                 inputId="monthpicker" [(ngModel)]="mathang.DenNgay"
                                 placeholder="dd/mm/yyyy">
@@ -133,7 +133,9 @@
                         <td></td>
                         <td></td> -->
                         <td>
-                            <a href="javascript:void(0)" (click)="boTriMay(mathang,i)">Bố trí máy</a>
+                            <ng-container *ngIf="validVariable(mathang.TuNgay)&&validVariable(mathang.DenNgay)">
+                                <a href="javascript:void(0)" (click)="boTriMay(mathang,i)">Bố trí máy</a>
+                            </ng-container>
                             <!-- <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="edit(item,i)" pTooltip="Sửa" showDelay="1000"
