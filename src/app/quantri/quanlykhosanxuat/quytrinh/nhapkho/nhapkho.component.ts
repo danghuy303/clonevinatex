@@ -83,6 +83,7 @@ export class NhapkhoComponent implements OnInit {
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this._toastr.success('Cập nhật thành công');
+      this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
@@ -98,6 +99,7 @@ export class NhapkhoComponent implements OnInit {
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this._toastr.success('Cập nhật thành công');
+      this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
@@ -115,6 +117,7 @@ export class NhapkhoComponent implements OnInit {
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
       modalRef.result.then((res: any) => {
         this._toastr.success('Cập nhật thành công');
+        this.GetListQuyTrinh();
       })
         .catch(er => { console.log(er) })
     })

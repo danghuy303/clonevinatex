@@ -22,6 +22,8 @@
 </div>
 <div class="modal-footer">
     <!-- <button pButton pRipple label="Tải tệp mẫu" class="p-button-sm p-mr-2" (click)="taiTepMau()"></button> -->
-    <button pButton pRipple label="Xác nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
+    <button *ngIf="Name !== 'PhieuNhapLoBong_ChatLuong'" pButton pRipple label="Xác nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
+    <button *ngIf="Name === 'PhieuNhapLoBong_ChatLuong'"
+     pButton pRipple label="Xác nhận" class="p-button-sm p-mr-2" (click)="acceptThongSoChatLuong()"></button>
     <button pButton pRipple label="Hủy" class="p-button-sm p-button-outlined p-button-secondary p-mr-2" (click)="_modalActive.dismiss()"></button>
 </div>

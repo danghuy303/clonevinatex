@@ -20,7 +20,7 @@
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
-                (click)="activeModal.dismiss('close')"></button>
+                (click)="Onclose()"></button>
             <button pButton pRipple type="button" label="Lưu nháp" class="p-mr-2 p-button-sm " 
                 (click)="GhiLai()"
                 *ngIf="checkbutton.Ghi"></button>
@@ -41,20 +41,23 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" styleClass="p-inputtext-sm"
-                    (onChange)="GetNextSoLoBong($event, 1)"></p-dropdown>
+                [(ngModel)]="item.IddmLoaiBong"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp bông:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCapBong" placeholder="Chọn cấp" styleClass="p-inputtext-sm"
-                    (onChange)="GetNextSoLoBong($event, 2)"></p-dropdown>
+                  [(ngModel)]="item.IddmCapBong"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô bông:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.IdLoBong" [disabled]="true" pInputText/>
+                <p-dropdown [filter]="true" [options]="listLoBong" placeholder="Chọn lô bông" [(ngModel)]="item.IdLoBong"
+                styleClass="p-inputtext-sm"></p-dropdown>
+
+                <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.IdLoBong" [disabled]="true" pInputText/> -->
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -69,13 +72,13 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [ngModel]="item.SoHopDong" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoHopDong" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" [ngModel]="item.IddmKho"
+                <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" [(ngModel)]="item.IddmKho"
                 styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
@@ -110,8 +113,8 @@
                     <tr>
                         <th>#</th>
                         <th>Container</th>
-                        <th>Khối lượng</th>
-                        <th>Số kiện</th>
+                        <th>Khối lượng (kg)</th>
+                        <th>Số kiện (kiện)</th>
                         <th>Vị trí</th>
                         <th style="width: 100px;"></th>
                     </tr>
@@ -143,14 +146,14 @@
                             <div class="p-inputgroup">
                               <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.SoCan">
                               </p-inputNumber>
-                              <span class="p-inputgroup-addon">kg</span>
+                              <!-- <span class="p-inputgroup-addon">kg</span> -->
                             </div>
                         </td>
                         <td class="text-center">
                             <div class="p-inputgroup">
                                 <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.SoKien">
                                 </p-inputNumber>
-                                <span class="p-inputgroup-addon">kiện</span>
+                                <!-- <span class="p-inputgroup-addon">kiện</span> -->
                             </div>
                         </td>
                         <td class="text-center">

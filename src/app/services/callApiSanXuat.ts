@@ -298,13 +298,13 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuNhapLoBong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuNhapLoBong', data, httpOptions);
             },
             Delete: (data) => {
                 return this.http.post(url + 'DeletePhieuNhapLoBong', data, httpOptions);
             },
             ChuyenTiep: (data) => {
-                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'ChuyenTiepPhieuNhapLoBong', data, httpOptions)
             },
             KhongDuyet: (data) => {
@@ -331,6 +331,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuNhapLoBong_ChatLuong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuNhapLoBong_ChatLuong', data, httpOptions);
             },
             Delete: (data) => {
@@ -341,6 +342,9 @@ export class SanXuatService {
             },
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhieuNhapLoBong_ChatLuong', data, httpOptions)
+            },
+            Import: (Id, FileName) => {
+                return this.http.get(url + `ImportExcelPhieuNhapLoBong_ChatLuong?Id=${Id}&FileName=${FileName}`, httpOptions)
             },
         }
     }
@@ -360,6 +364,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuXuatKhoFull?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuXuatKho', data, httpOptions);
             },
             Delete: (data) => {
@@ -389,6 +394,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuHaCap?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuHaCap', data, httpOptions);
             },
             Delete: (data) => {
@@ -420,6 +426,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhieuDieuChuyen?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetPhieuDieuChuyen', data, httpOptions);
             },
             Delete: (data) => {

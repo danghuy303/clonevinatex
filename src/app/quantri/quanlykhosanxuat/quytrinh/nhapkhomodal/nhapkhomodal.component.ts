@@ -18,9 +18,9 @@ export class NhapkhomodalComponent implements OnInit {
   item: any = {};
   checkbutton: any = {
     Ghi: true,
-    KhongDuyet: true,
-    ChuyenTiep: true,
-    Xoa: true,
+    KhongDuyet: false,
+    ChuyenTiep: false,
+    Xoa: false,
   }
   newTableItem: any = {};
   editTableItem: any = [];
@@ -43,13 +43,16 @@ export class NhapkhomodalComponent implements OnInit {
   ngOnInit(): void {
     if (this.opt !== 'edit') {
       this.item = {
-        NhaMay: 0,
-        IddmLoaiBong: 0,
-        IddmCapBong: 0,
-        IdLoBong: 0,
+        NhaMay: '',
+        IddmLoaiBong: '',
+        IddmCapBong: '',
+        IdLoBong: '',
         listItem: [],
       }
       this.GetNextSoQuyTrinh();
+    }
+    else{
+      this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
@@ -66,43 +69,20 @@ export class NhapkhomodalComponent implements OnInit {
       this.checkbutton = res;
     })
   }
-  GetNextSoLoBong(event, index) {
-    if (index == 1)
-      this.item.IddmLoaiBong = event.value;
-    else
-      this.item.IddmCapBong = event.value;
+  // GetNextSoLoBong(event, index) {
+  //   if (index == 1)
+  //     this.item.IddmLoaiBong = event.value;
+  //   else
+  //     this.item.IddmCapBong = event.value;
 
-    if (this.item.IddmLoaiBong != undefined && this.item.IddmLoaiBong != null && this.item.IddmLoaiBong != ''
-      && this.item.IddmCapBong != null && this.item.IddmCapBong != undefined && this.item.IddmCapBong != '')
-      this._services.QuyTrinhPhieuNhapLoBong().GetNextSoLoBong(this.item.IddmLoaiBong, this.item.IddmCapBong).subscribe(
-        (res: any) => {
-          this.item.IdLoBong = res.SoLoBong;
-        })
-  }
+  //   if (this.item.IddmLoaiBong != undefined && this.item.IddmLoaiBong != null && this.item.IddmLoaiBong != ''
+  //     && this.item.IddmCapBong != null && this.item.IddmCapBong != undefined && this.item.IddmCapBong != '')
+  //     this._services.QuyTrinhPhieuNhapLoBong().GetNextSoLoBong(this.item.IddmLoaiBong, this.item.IddmCapBong).subscribe(
+  //       (res: any) => {
+  //         this.item.IdLoBong = res.SoLoBong;
+  //       })
+  // }
 
-  taiLenFileDinhKem() {
-    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.result.then((data) => {
-      // console.log(data);
-      // console.log(this.item.TepDinhKems);
-      // let itemupload:any = {};
-      // itemupload.ID = 0;
-      // itemupload.TenGui = data[data.length - 1]?.Name||null;
-      // itemupload.TenGoc = data[data.length - 1]?.NameLocal||null;
-      // itemupload.DuongDan = data[data.length - 1]?.Url||null;
-      // if(itemupload.TenGui!== null){
-      //   if(this.item.TepDinhKems.length!==0){
-      //     this.item.TepDinhKems.forEach(ele => {
-      //       ele.isXoa =true;
-      //     });
-      //   }
-      //   this.item.TepDinhKems.unshift(itemupload);
-      //   console.log(this.item);
-      // }
-    }, (reason) => {
-
-    });
-  }
   ChuyenTiep() {
     if (this.opt !== 'edit') {
       if (this.type === 'bong')
@@ -117,7 +97,7 @@ export class NhapkhomodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  danh mục kho");
     }
     else {
-      if (this.newTableItem !== {}) {
+      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
         this.add();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
@@ -140,17 +120,7 @@ export class NhapkhomodalComponent implements OnInit {
     })
   }
 
-  // GetQuyTrinh(Id){
-  //   this.services.GetQuyTrinh(Id).subscribe(res=>{
-  //     // this.item = res;
-  //     console.log(res);
-  //   })
-  // }
-  chonThuaDat() {
-
-  }
   GhiLai() {
-    console.log(this.item)
     if (this.opt !== 'edit') {
       if (this.type === 'bong')
         this.item.Loai = 1;
@@ -164,7 +134,7 @@ export class NhapkhomodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  danh mục kho");
     }
     else {
-      if (this.newTableItem !== {}) {
+      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
         this.add();
       }
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
@@ -252,5 +222,7 @@ export class NhapkhomodalComponent implements OnInit {
   cancelEdit(item, index){
     this.item.listItem[index].editField = false;
   }
-
+  Onclose() {
+    this.activeModal.close();
+  }
 }
