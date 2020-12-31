@@ -52,7 +52,7 @@
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chi số bình quân:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.ChiSoBinhQuan">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.ChiSoBinhQuan" disabled>
                 </p-inputNumber>
             </div>
         </div>
@@ -79,6 +79,13 @@
                  dateFormat="dd/mm/yy" [yearNavigator]="true" [yearRange]="yearRange" [readonlyInput]="true" inputId="monthpicker"
                     [(ngModel)]="item.DenNgay" placeholder="dd/mm/yyyy">
                 </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bình quân NE 30(Tấn/ca):</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.BQNE30" disabled>
+                </p-inputNumber>
             </div>
         </div>
         <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
@@ -115,6 +122,7 @@
                         <!-- <col> -->
                         <col>
                         <col>
+                        <col>
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
@@ -124,6 +132,7 @@
                         <!-- <th>Mã hàng</th> -->
                         <th>Tên hàng</th>
                         <th>Kế hoạch sản xuất(Tấn)</th>
+                        <th>Loại</th>
                         <th>Ghi chú</th>
                         <!-- <th></th>
                         <th></th>
@@ -131,6 +140,9 @@
                         <th></th> -->
                         <th></th>
                     </tr>
+                    <!-- <tr>
+                        <th>#</th>
+                    </tr> -->
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
@@ -139,6 +151,8 @@
                         <td>{{item.Ten}}</td>
                         <td><p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KhoiLuongKeHoach">
                         </p-inputNumber></td>
+                        <td><p-dropdown [filter]="true" [options]="listMucDich" placeholder="Chọn loại" styleClass="p-inputtext-sm"
+                            [(ngModel)]="item.Loai" ></p-dropdown></td>
                         <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText /></td>
                         <!-- <td></td>
                         <td></td>
