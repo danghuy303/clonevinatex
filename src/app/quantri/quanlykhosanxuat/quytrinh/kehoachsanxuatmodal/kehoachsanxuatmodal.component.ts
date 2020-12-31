@@ -102,15 +102,30 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     });
   }
   ChuyenDuyet() {
-    this.services.GiaoKeHoachSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.activeModal.close();
-        } else {
-          this.toastr.error(res.message);
+    if (this.validData()) {
+      this.services.GiaoKeHoachSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
         }
-      }
-    })
+      })
+    }
+  }
+  KhongDuyet() {
+    if (this.validData()) {
+      this.services.GiaoKeHoachSanXuat().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
   }
   GetListdmPhuongAnSapXep() {
     let data = {
@@ -141,15 +156,27 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   }
   validData() {
     console.log(this.item.TuNgay);
+    if(!validVariable(this.item.NoiDung)){
+      this.toastr.error('Vui lòng nhập nội dung!')
+      return false;
+    }
     if (validVariable(this.item.TuNgay)) {
       this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
     } else {
+      this.toastr.error('Vui lòng nhập từ ngày!')
       return false;
     }
     if (validVariable(this.item.DenNgay)) {
       this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
     } else {
+      this.toastr.error('Vui lòng nhập đến ngày!')
       return false;
+    }
+    if(validVariable(this.item.TuNgay)&&validVariable(this.item.DenNgay)){
+      if((DateToUnix(this.item.DenNgay)-DateToUnix(this.item.TuNgay))<=0){
+        this.toastr.error('Từ ngày phải nhỏ hơn đến ngày!');
+        return false;
+      }
     }
     this.item.listItem.forEach(ele => {
       ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach * 1000;
@@ -180,8 +207,9 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       TongKL !== 0 && KLxChiSo !== 0
     ) {
       this.item.ChiSoBinhQuan = Math.ceil((KLxChiSo / TongKL) * 100) / 100;
-      if(validVariable(this.item.TongSoCa)){
-        this.item.BQNE30 = Math.ceil(((TongKL/this.item.ChiSoBinhQuan)*30/this.item.TongSoCa) * 100) / 100
+      this.item.TongKhoiLuongMatHang = TongKL;
+      if (validVariable(this.item.TongSoCa)) {
+        this.item.BQNE30 = Math.ceil(((TongKL / this.item.ChiSoBinhQuan) * 30 / this.item.TongSoCa) * 100) / 100
       }
     }
   }
@@ -197,10 +225,12 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
             res.objectReturn.listItem.forEach(ele => {
               ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
             });
+            this.Calculate();
           } else {
             this.item.listItem.forEach(element => {
               element.KhoiLuongKeHoach = element.KhoiLuongKeHoach / 1000;
             });
+            this.Calculate();
             this.toastr.error(res.message);
           }
         }

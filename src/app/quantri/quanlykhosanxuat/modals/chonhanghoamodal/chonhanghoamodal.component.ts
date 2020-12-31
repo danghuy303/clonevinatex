@@ -42,10 +42,10 @@ export class ChonhanghoamodalComponent implements OnInit {
     if (this.opt === "KhoiLuongKeHoach") {
       let data = this.items.filter(item => item.checked)
       data.forEach(mathang => {
-          mathang.listItem={};
-          this._services.GetOptions().GetListCongDoanTheoMatHang(mathang.Id).subscribe((res:any)=>{
+          mathang.listItemTemp={};
+          this._services.GetOptions().GetListCongDoanTheoMatHang(mathang.IddmItem).subscribe((res:any)=>{
             res.forEach(cd=>{
-              mathang.listItem[cd.CongDoan]=[]
+              mathang.listItemTemp[cd.CongDoan]=[]
             })
           })
       });
@@ -53,7 +53,7 @@ export class ChonhanghoamodalComponent implements OnInit {
         return {
           ...ele,
           opt:'add',
-          IdGiaoKeHoachSanXuat: this.IdQuyTrinh,
+          IdGiaoKeHoachSanXuat_TrienKhai: this.IdQuyTrinh,
           IddmItem: ele.IddmItem,
           Id: '',
         }

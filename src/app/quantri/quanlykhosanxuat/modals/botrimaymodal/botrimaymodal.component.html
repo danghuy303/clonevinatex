@@ -45,19 +45,26 @@
                             <td></td>
                         </tr>
                         <ng-container *ngIf="congDoan.show">
-                            <tr *ngFor="let may of item.listItem[congDoan.CongDoan]">
+                            <tr *ngFor="let may of item.listItemTemp[congDoan.CongDoan]">
                                 <td></td>
                                 <td>
                                     <p-checkbox [(ngModel)]="may.checked"
                                         (onChange)="checkMay(congDoan.CongDoan,may.prop,$event)" binary="true"
-                                        inputId="binary"></p-checkbox>{{PoolMaySanXuat[congDoan.CongDoan][may.prop].Ma}}
-                                    - {{PoolMaySanXuat[congDoan.CongDoan][may.prop].Ten}}
+                                        inputId="binary"></p-checkbox>
+                                    <!-- {{PoolMaySanXuat[congDoan.CongDoan][may.prop].Ma}} - -->
+                                    {{PoolMaySanXuat[congDoan.CongDoan][may.prop].Ten}}
                                 </td>
-                                <td></td>
-                                <td></td>
+                                <td>
+                                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="may.ChiSo">
+                                    </p-inputNumber>
+                                </td>
+                                <td>
+                                    {{may.MadmLoaiSoi}}
+                                </td>
                                 <td *ngFor="let date of listDate" style="padding:0px;height: 1px;">
                                     <app-trangthaimaysanxuat
-                                        [(ngModel)]="PoolMaySanXuat[congDoan.CongDoan][may.prop][date.prop]">
+                                        [(ngModel)]="PoolMaySanXuat[congDoan.CongDoan][may.prop][date.prop]"
+                                        [IdMatHang]="item.IddmItem">
                                     </app-trangthaimaysanxuat>
                                     <!-- {{PoolMaySanXuat[congDoan.CongDoan][may.prop][date.prop].TinhTrang}} -->
                                 </td>

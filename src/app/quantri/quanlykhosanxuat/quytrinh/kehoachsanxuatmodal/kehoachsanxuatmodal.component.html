@@ -88,6 +88,13 @@
                 </p-inputNumber>
             </div>
         </div>
+        <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng khối lượng:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongKhoiLuongMatHang" disabled>
+                </p-inputNumber>
+            </div>
+        </div>
         <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tài liệu đính kèm:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -140,9 +147,6 @@
                         <th></th> -->
                         <th></th>
                     </tr>
-                    <!-- <tr>
-                        <th>#</th>
-                    </tr> -->
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
