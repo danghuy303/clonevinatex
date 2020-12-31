@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
+import { deepCopy } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
@@ -21,6 +22,7 @@ export class DieuchuyenmodalComponent implements OnInit {
     Xoa:true,
   }
   listdmKho: any = [];
+  editTableItem: any = {};
   newTableItem:any={};
   filter:any = {};
   listPhuongAnSapXep: any = [];
@@ -117,6 +119,7 @@ export class DieuchuyenmodalComponent implements OnInit {
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
+      modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.result.then((data) => {
         this.item.listItem = data.data;
       }, (reason) => {
@@ -124,23 +127,19 @@ export class DieuchuyenmodalComponent implements OnInit {
       });
     })
   }
-  updateList(id: number, property: string, event: any) {
-    const editField = event.target.innerText;
-    switch (property) {
-      case 'Ten':
-        this.item.listItem[id].Ten = editField;
-        break;
-      case 'SoCan':
-        this.item.listItem[id].SoCan = editField;
-        break;
-      case 'SoKien':
-        this.item.listItem[id].SoKien = editField;
-        break;
-      case 'ViTri':
-        this.item.listItem[id].ViTri = editField;
-        break;
-      default:
-        break;
-    }
+  editChiTiet(item, index) {
+    this.item.listItem.forEach(element => {
+      element.editField = false;
+    });
+    this.item.listItem[index].editField = true;
+    this.editTableItem = deepCopy(item);
+  }
+  
+  saveEdit(item, index){
+    this.item.listItem[index] = item;
+    this.item.listItem[index].editField = false;
+  }
+  cancelEdit(item, index){
+    this.item.listItem[index].editField = false;
   }
 }

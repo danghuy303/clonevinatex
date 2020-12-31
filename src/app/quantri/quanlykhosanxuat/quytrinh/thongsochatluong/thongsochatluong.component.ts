@@ -36,6 +36,11 @@ export class ThongsochatluongComponent implements OnInit {
       width: 'unset'
     },
     {
+      header: 'Tên container',
+      field: 'TenContainer',
+      width: 'unset'
+    },
+    {
       header: 'Tên trạng thái',
       field: 'TenTrangThai',
       width: 'unset'
@@ -82,13 +87,14 @@ export class ThongsochatluongComponent implements OnInit {
     modalRef.result.then((res: any) => {
       console.log(res);
       this._toastr.success('Cập nhật thành công');
+      this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
     })
   }
   changeTab(e){
-    // this.trangThai = e.index+1;
-    // this.GetListQuyTrinh(true);
+    this.trangThai = e.index+1;
+    this.GetListQuyTrinh(true);
   }
   changePage(event){
     // this.paging.CurrentPage = event.page + 1;

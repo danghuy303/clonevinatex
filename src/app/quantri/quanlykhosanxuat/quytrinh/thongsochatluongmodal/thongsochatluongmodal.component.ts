@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -28,7 +29,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
   listLoBong: any = [];
   data: any = {};
   lang: any = vn;
-  tempChiTiet:any=[];
+  editTableItem:any={};
 
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
@@ -38,7 +39,6 @@ export class ThongsochatluongmodalComponent implements OnInit {
 
   ngOnInit(): void {
     // this.GetListdmPhuongAnSapXep();
-    // this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       this.item = {
         IdLoBong: 0,
@@ -48,6 +48,9 @@ export class ThongsochatluongmodalComponent implements OnInit {
         listItem: [],
       }
       this.GetNextSoQuyTrinh();
+    }
+    else{
+
     }
     this.data.CurrentPage = 0;
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
@@ -159,28 +162,36 @@ export class ThongsochatluongmodalComponent implements OnInit {
       this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  editChiTiet(index){
-    this.tempChiTiet = deepCopy(this.item.listItem[index]);
-    console.log(this.tempChiTiet)
-    debugger
+
+  editChiTiet(item, index) {
+    this.item.listItem.forEach(element => {
+      element.editField = false;
+    });
+    this.item.listItem[index].editField = true;
+    this.editTableItem = deepCopy(item);
   }
-  updateList(id: number, property: string, event: any) {
-    const editField = event.target.innerText;
-    switch (property) {
-      case 'MaCongTenNo':
-        this.item.listItem[id].MaCongTenNo = editField;
-        break;
-      case 'SoCan':
-        this.item.listItem[id].SoCan = editField;
-        break;
-      case 'SoKien':
-        this.item.listItem[id].SoKien = editField;
-        break;
-      case 'ViTri':
-        this.item.listItem[id].ViTri = editField;
-        break;
-      default:
-        break;
-    }
+  saveEdit(item, index){
+    this.item.listItem[index] = item;
+    this.item.listItem[index].editField = false;
+  }
+  cancelEdit(item, index){
+    this.item.listItem[index].editField = false;
+  }
+  importExcel(){
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
+      backdrop:'static',
+    })
+    modalRef.componentInstance.Name = 'PhieuNhapLoBong_ChatLuong';
+    modalRef.componentInstance.data = this.item;
+    modalRef.result.then(res=>{
+      this.toastr.success(res.message);
+      this.services.PhieuNhapLoBong_ChatLuong().Get(this.item.Id).subscribe((res: any) => {
+        this.item = res;
+      })
+    })
+    .catch(er=>console.log(er))
+  }
+  onClose(){
+    this.activeModal.close();
   }
 }

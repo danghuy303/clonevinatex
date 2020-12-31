@@ -8,12 +8,22 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class XuatkhomathangmodalComponent implements OnInit {
 
-  listMatHang: any = []
+  listMatHang: any = [];
+  listItem: any = [];
   constructor(
     private activeModal: NgbActiveModal,
   ) { }
 
   ngOnInit(): void {
+    if(this.listItem != undefined && this.listItem!= null && this.listMatHang!= undefined && this.listMatHang!= null)
+    {
+      this.listItem.forEach(element => {
+        var itemFind = this.listMatHang.find(function (obj) {
+          return obj.IddmItem == element.IddmItem;
+        });
+        itemFind.checked = true;
+      });
+    }
   }
   accept() {
     let data: any = []
@@ -22,7 +32,7 @@ export class XuatkhomathangmodalComponent implements OnInit {
         data.push(element);
     });
     this.activeModal.close(
-      { data: data}
+      { data: data }
     );
   }
 }

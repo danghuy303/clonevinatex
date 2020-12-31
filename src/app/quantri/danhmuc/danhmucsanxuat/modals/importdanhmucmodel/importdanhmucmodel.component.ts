@@ -18,7 +18,9 @@ export class ImportdanhmucmodelComponent implements OnInit {
   importFunc: any = '';
   mapTepMauURL:any={
   };
+  Name: any = '';
   uploader: FileUploader;
+  data:any = {};
   constructor(private _modalActive: NgbActiveModal, private _modal: NgbModal, 
     private service: SanXuatService,private _toastr:ToastrService) { }
   ngOnInit(): void {
@@ -51,8 +53,16 @@ export class ImportdanhmucmodelComponent implements OnInit {
   onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
   }
   accept() {
-    console.log(this.TepImport)
     this.service.Importdm(this.importFunc, this.TepImport.TenGui).subscribe((res:any) => {
+      if(res.State===1){
+        this._modalActive.close({mess:'Cập nhật thành công!'})
+      }else{
+        this._toastr.error(res.message);
+      }
+    })
+  }
+  acceptThongSoChatLuong() {
+    this.service.PhieuNhapLoBong_ChatLuong().Import(this.data.Id, this.TepImport.TenGui).subscribe((res:any) => {
       if(res.State===1){
         this._modalActive.close({mess:'Cập nhật thành công!'})
       }else{
