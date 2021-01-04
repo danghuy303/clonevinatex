@@ -68,11 +68,12 @@ export class ThongsochatluongComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {}
-    modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
-    })
-      .catch(er => { console.log(er) })
+    this.GetListQuyTrinh();
+    // modalRef.result.then((res: any) => {
+    //   console.log(res);
+    //   this._toastr.success('Cập nhật thành công');
+    // })
+    //   .catch(er => { console.log(er) })
   }
   update(Id){
     this.changeParam(Id);
@@ -84,12 +85,14 @@ export class ThongsochatluongComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
-    modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
-      this.GetListQuyTrinh();
-    })
-      .catch(er => { console.log(er) })
+    this.GetListQuyTrinh();
+
+    // modalRef.result.then((res: any) => {
+    //   console.log(res);
+    //   this._toastr.success('Cập nhật thành công');
+    //   this.GetListQuyTrinh();
+    // })
+    //   .catch(er => { console.log(er) })
     })
   }
   changeTab(e){

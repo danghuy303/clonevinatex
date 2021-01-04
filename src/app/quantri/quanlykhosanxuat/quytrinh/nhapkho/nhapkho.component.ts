@@ -97,11 +97,12 @@ export class NhapkhoComponent implements OnInit {
     modalRef.componentInstance.type = 'xo';
     modalRef.componentInstance.nametype = 'xơ';
     modalRef.componentInstance.item = {}
-    modalRef.result.then((res: any) => {
-      this._toastr.success('Cập nhật thành công');
-      this.GetListQuyTrinh();
-    })
-      .catch(er => { console.log(er) })
+    this.GetListQuyTrinh();
+    // modalRef.result.then((res: any) => {
+    //   this._toastr.success('Cập nhật thành công');
+    //   this.GetListQuyTrinh();
+    // })
+    //   .catch(er => { console.log(er) })
   }
   update(Id) {
     this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
@@ -115,11 +116,12 @@ export class NhapkhoComponent implements OnInit {
         modalRef.componentInstance.type = 'xo';
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
-      modalRef.result.then((res: any) => {
-        this._toastr.success('Cập nhật thành công');
-        this.GetListQuyTrinh();
-      })
-        .catch(er => { console.log(er) })
+      this.GetListQuyTrinh();
+      // modalRef.result.then((res: any) => {
+      //   this._toastr.success('Cập nhật thành công');
+      //   this.GetListQuyTrinh();
+      // })
+        // .catch(er => { console.log(er) })
     })
   }
   changeTab(e) {

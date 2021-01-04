@@ -55,6 +55,96 @@
                 <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
+        <div class="p-col-12 p-p-0 d-flex flex-column">
+            <p-table [value]="item.listDinhMuc|isXoa"
+                styleClass="p-datatable-sm wrap-text p-datatable-striped">
+                <ng-template pTemplate="colgroup">
+                    <colgroup>
+                        <col style="width:50px">
+                        <col>
+                        <col>
+                        <col style="width:100px">
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>#</th>
+                        <th>Tên</th>
+                        <th>Định lượng</th>
+                        <th style="width: 100px;"></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                    <tr *ngIf="item.editField !== true">
+                        <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">{{item.Ten}}</td>
+                        <td class="text-center">{{item.KhoiLuong}}</td>
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                (click)="edit(item, i)" pTooltip="Sửa" showDelay="1000"
+                                tooltipPosition="bottom"></button>
+                            <button pButton pRipple icon="pi pi-trash"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
+                                tooltipPosition="bottom"></button>
+                        </td>
+                    </tr>
+                    <tr  *ngIf="item.editField === true">
+                        <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">
+                            {{editTableItem.Ten}}
+                        </td>
+                        <td class="text-center">
+                            <div class="p-inputgroup">
+                              <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.KhoiLuong">
+                              </p-inputNumber>
+                            </div>
+                        </td>
+                        <td>
+                            <button pButton pRipple icon="pi pi-check"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                (click)="saveEdit(editTableItem, i)" pTooltip="Lưu"
+                                tooltipPosition="bottom"></button>
+                            <button pButton pRipple icon="pi pi-times"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                (click)="cancelEdit(item, i)" pTooltip="Hủy"
+                                tooltipPosition="bottom"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <!-- <ng-template pTemplate="footer" *ngIf="opt!=='modal'">
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <input pInputText type="text" [(ngModel)]="newTableItem.Ten">
+                        </td>
+                        <td>
+                            <div class="p-inputgroup">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoCan">
+                                </p-inputNumber>
+                                <span class="p-inputgroup-addon">kg</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="p-inputgroup">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKien">
+                                </p-inputNumber>
+                                <span class="p-inputgroup-addon">kiện</span>
+                            </div>
+                        </td>
+                        <td>
+                            <input pInputText type="text" [(ngModel)]="newTableItem.ViTri">
+                        </td>
+                        <td class="text-center">
+                            <button pButton pRipple type="button" icon="pi pi-plus"
+                                class="p-button-rounded p-button-sm " (click)="add()"></button>
+                        </td>
+                    </tr>
+                </ng-template> -->
+            </p-table>
+        </div>
     </div>
 </div>
 <div class="modal-footer">

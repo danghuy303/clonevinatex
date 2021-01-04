@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { congDoan } from 'src/app/services/const';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-mathangmodel',
@@ -17,11 +17,16 @@ export class MathangmodelComponent implements OnInit {
   };
   listCongDoan: any = [];
   listLoaiSoi: any = [];
+  listItem: any = [];
+  editTableItem: any = {};
   constructor(public activeModal: NgbActiveModal,
     private services: SanXuatService,
     public toastr: ToastrService, private _modal: NgbModal) { }
 
   ngOnInit(): void {
+    if (this.opt !== 'edit') {
+      this.getListItemDinhMuc();
+    }
     console.log(this.item);
     console.log(this.item.listCongDoan);
     this.getListLoaiSoi();
@@ -49,8 +54,8 @@ export class MathangmodelComponent implements OnInit {
         });
         this.item.listCongDoan = listCodeCongDoan_new;
       }
-
-
+      if(this.item.Id === undefined || this.item.Id === null || this.item.Id === "")
+        this.item.HoatDong = true;
       this.services.SetdmItem(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -65,4 +70,31 @@ export class MathangmodelComponent implements OnInit {
     }
   }
 
+  getListItemDinhMuc() {
+    this.services.KhoiTaoItem().subscribe((res: any) => {
+      this.item.listDinhMuc = res;
+    })
+  }
+  edit(item, index) {
+    this.item.listDinhMuc.forEach(element => {
+      element.editField = false;
+    });
+    this.item.listDinhMuc[index].editField = true;
+    this.editTableItem = deepCopy(item);
+  }
+  delete(index) {
+    let item = this.item.listDinhMuc.splice(index, 1)[0];
+    if (item.Id === '' || item.Id === null || item.Id === undefined) {
+    } else {
+      item.isXoa = true;
+      this.item.listDinhMuc.push(JSON.parse(JSON.stringify(item)));
+    }
+  }
+  saveEdit(item, index){
+    this.item.listDinhMuc[index] = item;
+    this.item.listDinhMuc[index].editField = false;
+  }
+  cancelEdit(item, index){
+    this.item.listDinhMuc[index].editField = false;
+  }
 }
