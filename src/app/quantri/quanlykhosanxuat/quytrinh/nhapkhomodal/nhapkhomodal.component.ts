@@ -186,7 +186,12 @@ export class NhapkhomodalComponent implements OnInit {
   }
   getListLoBong() {
     this._services.GetListLoBong(this.data).subscribe((res: any) => {
+      let data: any = {};
+      data.Id = "";
+      data.Ten = "";
+      res.unshift(data);
       this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
+      console.log(this.listLoBong)
     })
   }
   getListCapBong() {

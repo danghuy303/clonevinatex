@@ -90,12 +90,14 @@ export class DieuchuyenComponent implements OnInit {
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {};
     modalRef.componentInstance.listdmKho = this.listdmKho;
-    modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
-      this.GetListQuyTrinh();
-    })
-      .catch(er => { console.log(er) })
+    this.GetListQuyTrinh();
+
+    // modalRef.result.then((res: any) => {
+    //   console.log(res);
+    //   this._toastr.success('Cập nhật thành công');
+    //   this.GetListQuyTrinh();
+    // })
+    //   .catch(er => { console.log(er) })
   }
   update(item){
     let modalRef = this._modal.open(DieuchuyenmodalComponent, {
@@ -105,16 +107,17 @@ export class DieuchuyenComponent implements OnInit {
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.listdmKho = this.listdmKho;
-    modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
-      this.GetListQuyTrinh();
-    })
-      .catch(er => { console.log(er) })
+    this.GetListQuyTrinh();
+
+    // modalRef.result.then((res: any) => {
+    //   console.log(res);
+    //   this._toastr.success('Cập nhật thành công');
+    // })
+    //   .catch(er => { console.log(er) })
   }
   changeTab(e){
-    // this.trangThai = e.index+1;
-    // this.GetListQuyTrinh(true);
+    this.trangThai = e.index+1;
+    this.GetListQuyTrinh(true);
   }
   changePage(event){
     // this.paging.CurrentPage = event.page + 1;

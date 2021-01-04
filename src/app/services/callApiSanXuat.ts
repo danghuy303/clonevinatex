@@ -103,6 +103,7 @@ export class SanXuatService {
         return this.http.post(url, data, httpOptions);
     }
     SetdmItem(data) {
+        data.IdDuAn = this.store.getCurrent();
         let url = API.SCMDanhMuc + 'SetdmItem';
         return this.http.post(url, data, httpOptions);
     }
@@ -461,5 +462,9 @@ export class SanXuatService {
         // let IdDuAn =this.store.getCurrent();
         let url = API.SCMQuanLyKho + `GetLuuKho?IdDuAn=0&IddmKho=${IddmKho}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
         return this.http.get(url,httpOptions);
+    }
+    KhoiTaoItem() {
+        let url = API.SCMDanhMuc + 'KhoiTaoItem';
+        return this.http.get(url, httpOptions);
     }
 }
