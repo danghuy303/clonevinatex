@@ -34,6 +34,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { PintableDirective } from './services/testfix.directive';
 
 @NgModule({
   declarations: [

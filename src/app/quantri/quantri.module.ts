@@ -64,6 +64,7 @@ import { ModaldmdonviComponent } from './danhmuc/modal/modaldmdonvi/modaldmdonvi
 import { ModaldmhinhthucxulyComponent } from './danhmuc/modal/modaldmhinhthucxuly/modaldmhinhthucxuly.component'
 import { Dat09Service } from '../services/callApi';
 import { SanXuatService } from '../services/callApiSanXuat';
+import { PintableDirective } from '../services/testfix.directive';
 import { ModaldanhmucchungComponent } from './danhmuc/modal/modaldanhmucchung/modaldanhmucchung.component';
 import { DmtaisanComponent } from './danhmuc/dmtaisan/dmtaisan.component';
 import { TinhtrangtaisanComponent } from './danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
@@ -161,6 +162,7 @@ import { NhomkhoComponent } from './danhmuc/danhmucsanxuat/nhomkho/nhomkho.compo
 import { XuatkhomathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomathangmodal/xuatkhomathangmodal.component';
 import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
 import 'chartjs-plugin-labels';
+import { VoiLibModule } from 'voi-lib';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -283,6 +285,7 @@ import 'chartjs-plugin-labels';
     NhomkhoComponent,
     XuatkhomathangmodalComponent,
     KhoComponent,
+    PintableDirective
   ],
   imports: [
     HttpClientModule,
@@ -318,6 +321,7 @@ import 'chartjs-plugin-labels';
     InputSwitchModule,
     TooltipModule, 
     MultiSelectModule,
+    VoiLibModule
   ],
   entryComponents: [
     ModalThuaDatComponent, 

@@ -17,6 +17,7 @@ const VALUE_ACCESSOR = {
 export class Dat09Component implements ControlValueAccessor {
   @Input() label: string = "Nhập số";
   @Input() required: boolean = true;
+  @Input() tabIndex:number =0;
   private _value: string = '';
   private preValue: string = '';
   private editing: boolean = false;
