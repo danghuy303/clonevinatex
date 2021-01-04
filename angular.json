@@ -38,6 +38,7 @@
             ],
             "scripts": [
               "node_modules/chart.js/dist/Chart.js",
+              "node_modules/chartjs-plugin-labels/src/chartjs-plugin-labels.js",
               "node_modules/@fortawesome/fontawesome-free/js/all.js"
             ]
           },
@@ -111,6 +112,7 @@
             ],
             "scripts": [
               "node_modules/chart.js/dist/Chart.js",
+              "node_modules/chartjs-plugin-labels/src/chartjs-plugin-labels.js",
               "node_modules/@fortawesome/fontawesome-free/js/all.js"
             ]
           }

@@ -42,6 +42,11 @@ export class DieuhanhsanxuatComponent implements OnInit {
     aspectRatio: (((window.innerWidth - 80) * 2 / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   option2: any = {
+    plugins: {
+      labels: {
+        fontSize:0
+      }
+    },
     legend: {
       position: 'bottom'
     },
@@ -58,6 +63,13 @@ export class DieuhanhsanxuatComponent implements OnInit {
     aspectRatio: ((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   optionPie: any = {
+    plugins: {
+      labels: {
+        render: 'percentage',
+        fontColor: '#fff',
+        fontStyle: 'bold',
+      }
+    },
     legend: {
       position: 'left'
     },
@@ -96,7 +108,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
       datasets: [
         {
           type: 'line',
-          label: 'Lũy kế',
+          label: 'Thực tế',
           borderColor: '#FF671F',
           // borderWidth: 2,
           fill: false,
@@ -137,7 +149,8 @@ export class DieuhanhsanxuatComponent implements OnInit {
             "#FFCE56",
             "#FF671F"
           ]
-        }]
+        }
+      ]
     };
     this.getAllOptions()
   }

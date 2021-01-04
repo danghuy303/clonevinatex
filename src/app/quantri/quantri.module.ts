@@ -160,6 +160,7 @@ import { TrangthaimaysanxuatComponent } from './quanlykhosanxuat/quytrinh/trangt
 import { NhomkhoComponent } from './danhmuc/danhmucsanxuat/nhomkho/nhomkho.component';
 import { XuatkhomathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomathangmodal/xuatkhomathangmodal.component';
 import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
+import 'chartjs-plugin-labels';
 @NgModule({
   declarations: [
     QuantriComponent,
