@@ -64,7 +64,6 @@ import { ModaldmdonviComponent } from './danhmuc/modal/modaldmdonvi/modaldmdonvi
 import { ModaldmhinhthucxulyComponent } from './danhmuc/modal/modaldmhinhthucxuly/modaldmhinhthucxuly.component'
 import { Dat09Service } from '../services/callApi';
 import { SanXuatService } from '../services/callApiSanXuat';
-import { PintableDirective } from '../services/testfix.directive';
 import { ModaldanhmucchungComponent } from './danhmuc/modal/modaldanhmucchung/modaldanhmucchung.component';
 import { DmtaisanComponent } from './danhmuc/dmtaisan/dmtaisan.component';
 import { TinhtrangtaisanComponent } from './danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
@@ -134,7 +133,6 @@ import { CasanxuatComponent } from './danhmuc/danhmucsanxuat/casanxuat/casanxuat
 import { DanhsachmayComponent } from './danhmuc/danhmucsanxuat/danhsachmay/danhsachmay.component';
 import { DanhsachmaymodalComponent } from './danhmuc/danhmucsanxuat/modals/danhsachmaymodal/danhsachmaymodal.component';
 import { PhabongmodalComponent } from './quanlykhosanxuat/phuongan/phabongmodal/phabongmodal.component';
-import { Dat09Component } from './quanlykhosanxuat/phuongan/dat09/dat09.component';
 import { DieuhanhsanxuatComponent } from './dieuhanhsanxuat/dieuhanhsanxuat.component';
 import { KehoachsanxuatComponent } from './quanlykhosanxuat/quytrinh/kehoachsanxuat/kehoachsanxuat.component';
 import { KehoachsanxuatmodalComponent } from './quanlykhosanxuat/quytrinh/kehoachsanxuatmodal/kehoachsanxuatmodal.component';
@@ -256,7 +254,6 @@ import { VoiLibModule } from 'voi-lib';
     DanhsachmayComponent,
     DanhsachmaymodalComponent,
     PhabongmodalComponent,
-    Dat09Component,
     DieuhanhsanxuatComponent,
     KehoachsanxuatComponent,
     KehoachsanxuatmodalComponent,
@@ -284,8 +281,7 @@ import { VoiLibModule } from 'voi-lib';
     TrangthaimaysanxuatComponent,
     NhomkhoComponent,
     XuatkhomathangmodalComponent,
-    KhoComponent,
-    PintableDirective
+    KhoComponent
   ],
   imports: [
     HttpClientModule,
