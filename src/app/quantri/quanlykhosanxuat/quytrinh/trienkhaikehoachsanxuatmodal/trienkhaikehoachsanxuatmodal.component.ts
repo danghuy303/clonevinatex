@@ -38,7 +38,6 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.checkbutton)
     this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
@@ -60,7 +59,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       }
     })
   }
-  GetListMatHangChuaLapKeHoach(event,reset?) {
+  GetListMatHangChuaLapKeHoach(event, reset?) {
     this.IddmPhanXuong = this.mapGiaoKeHoachNIdPhanXuong[`${event.value}`];
     this.minDateChonMay = UnixToDate(this.tempDataGiaoKeHoach.filter(ele => ele.Id === event.value)[0]?.TuNgayUnix);
     this.maxDateChonMay = UnixToDate(this.tempDataGiaoKeHoach.filter(ele => ele.Id === event.value)[0]?.DenNgayUnix);
@@ -70,7 +69,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         element.KhoiLuongSanXuat = element.KhoiLuongSanXuat / 1000;
       });
       this.listMatHangGiaoKeHoach = res;
-      if(reset){
+      if (reset) {
         this.item.listItem = [];
       }
       if (validVariable(this.item.listItem) && this.item.listItem?.length !== 0) {
@@ -79,6 +78,8 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
             mathang.TuNgay = UnixToDate(mathang.TuNgayUnix);
             mathang.DenNgay = UnixToDate(mathang.DenNgayUnix);
           }
+          mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach / 1000;
+          mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
           mathang.listItemTemp = {};
           this._services.GetOptions().GetListCongDoanTheoMatHang(mathang.IddmItem).subscribe((res: any) => {
             res.forEach(cd => {
@@ -89,7 +90,6 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       }
     })
     this._services.GetOptions().GetListTinhTrangMay(this.item.Id, this.mapGiaoKeHoachNIdPhanXuong[`${event.value}`], DateToUnix(this.minDateChonMay), DateToUnix(this.maxDateChonMay)).subscribe((res: any) => {
-      // console.log(res);
       res.forEach(may => {
         this.PoolMaySanXuat[may.CongDoan] = { ...this.PoolMaySanXuat[may.CongDoan] };
         let mayName = may.Id.split('-').join('_');
@@ -99,11 +99,10 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         this.PoolMaySanXuat[may.CongDoan][mayName].Ma = may.Ma;
         this.PoolMaySanXuat[may.CongDoan][mayName].Ten = may.Ten;
         this.PoolMaySanXuat[may.CongDoan][mayName].Id = may.Id;
-        if (validVariable(may.IddmItem)) {
-          console.log(may);
-        }
+        // if (validVariable(may.IddmItem)) {
+        //   console.log(may);
+        // }
       });
-      console.log(this.PoolMaySanXuat);
     });
   }
   KiemTraButtonModal() {
@@ -127,12 +126,6 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
-  // GetQuyTrinh(Id){
-  //   this._services.GetQuyTrinh(Id).subscribe(res=>{
-  //     // this.item = res;
-  //     console.log(res);
-  //   })
-  // }
   chonHangHoa() {
     let modalRef = this._modal.open(ChonhanghoamodalComponent, {
       size: 'lg',
@@ -142,11 +135,8 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     modalRef.componentInstance.selectedItems = deepCopy(this.item.listItem);
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
-      // console.log(res);
-      this.item.listItem = this.merge(deepCopy(res), this.item.listItem, 'IddmItem');
-      // console.log(this.item.listItem);
+      this.item.listItem = [...this.merge(deepCopy(res), this.item.listItem.filter(item=>item.isXoa!== true), 'IddmItem'),...this.item.listItem.filter(ele=>ele.isXoa)];
     }).catch(er => {
-      // console.log(er);
     })
   }
   boTriMay(item, index) {
@@ -161,18 +151,17 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     modalRef.componentInstance.IddmPhanXuong = this.IddmPhanXuong;
     modalRef.componentInstance.PoolMaySanXuat = this.PoolMaySanXuat;
     modalRef.result.then(res => {
-      // console.log(res);
       this.item.listItem[index] = res;
       this.item.listItem[index].opt = 'edit';
-      // console.log(this.item.listItem[index])
     }).catch(er => {
-      // console.log(er);
     })
   }
   SetData() {
-    this.item.listItem.forEach(mathang => {
+    this.item.listItem.filter(ele=>ele.isXoa !== true).forEach(mathang => {
       mathang.TuNgayUnix = DateToUnix(mathang.TuNgay);
       mathang.DenNgayUnix = DateToUnix(mathang.DenNgay);
+      mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach * 1000;
+      mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat * 1000;
       let dateArr = this.getDates(UnixToDate(mathang.TuNgayUnix), UnixToDate(mathang.DenNgayUnix));
       for (let congDoan in mathang.listItemTemp) {
         if (!validVariable(mathang.listItem)) {
@@ -224,6 +213,10 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
           this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
           this.KiemTraButtonModal();
         } else {
+          this.item.listItem.forEach(mathang => {
+            mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach / 1000;
+            mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
+          });
           this.toastr.error(res.message);
         }
       }
@@ -236,7 +229,6 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
       this._services.TrienKhaiKeHoachSanXuat().Delete(this.item).subscribe((res: any) => {
-        console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
         } else {
@@ -266,7 +258,6 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
           dateArr.forEach(ngay => {
             let mayTrongPool = this.PoolMaySanXuat[congDoan][may.prop][ngay.prop];
             if (mayTrongPool.TinhTrang === 1 && mayTrongPool.IddmItem === mathang.IddmItem) {
-              console.log(mayTrongPool);
               mayTrongPool.IdGiaoKeHoachSanXuat_TrienKhai = null;
               mayTrongPool.IdGiaoKeHoachSanXuat = null;
               mayTrongPool.ChiSo = undefined;
@@ -281,10 +272,10 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     })
       .catch(er => { })
   }
-  validChonLai(mathang){
+  validChonLai(mathang) {
     if (validVariable(mathang.TuNgay) && validVariable(mathang.DenNgay) && validVariable(mathang.listItemTemp) && JSON.stringify(mathang.listItemTemp) !== '{}') {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
@@ -299,15 +290,18 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       }
     });
     existingArr.forEach((oldEle, index) => {
-      let indexCheck = newArr.findIndex(
-        (newEle) => newEle[diffProp] === oldEle[diffProp]
-      );
-      if (indexCheck === -1) {
-        removeIndex.push(index);
+      if (oldEle.isXoa!==true) {
+        let indexCheck = newArr.findIndex(
+          (newEle) => newEle[diffProp] === oldEle[diffProp]
+        );
+        if (indexCheck === -1) {
+          removeIndex.push(index);
+        }
       }
+
     });
     for (var i = removeIndex.length - 1; i >= 0; i--) {
-      if (existingArr[i].Id === '') {
+      if (existingArr[removeIndex[i]].Id === '') {
         let removeItem: any = existingArr.splice(removeIndex[i], 1)[0];
         if (validVariable(removeItem.TuNgay) && validVariable(removeItem.DenNgay) && validVariable(removeItem.listItemTemp) && JSON.stringify(removeItem.listItemTemp) !== '{}') {
           removeItem.TuNgayUnix = DateToUnix(removeItem.TuNgay);
@@ -318,7 +312,6 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
               dateArr.forEach(ngay => {
                 let mayTrongPool = this.PoolMaySanXuat[congDoan][may.prop][ngay.prop];
                 if (mayTrongPool.TinhTrang === 1 && mayTrongPool.IddmItem === removeItem.IddmItem) {
-                  console.log(mayTrongPool);
                   mayTrongPool.IdGiaoKeHoachSanXuat_TrienKhai = null;
                   mayTrongPool.IdGiaoKeHoachSanXuat = null;
                   mayTrongPool.ChiSo = undefined;
@@ -330,7 +323,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
           }
         }
       } else {
-        existingArr[i].isXoa = true;
+        existingArr[removeIndex[i]].isXoa = true;
         if (validVariable(existingArr[i].TuNgay) && validVariable(existingArr[i].DenNgay) && validVariable(existingArr[i].listItemTemp) && JSON.stringify(existingArr[i].listItemTemp) !== '{}') {
           existingArr[i].TuNgayUnix = DateToUnix(existingArr[i].TuNgay);
           existingArr[i].DenNgayUnix = DateToUnix(existingArr[i].DenNgay);
@@ -340,7 +333,6 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
               dateArr.forEach(ngay => {
                 let mayTrongPool = this.PoolMaySanXuat[congDoan][may.prop][ngay.prop];
                 if (mayTrongPool.TinhTrang === 1 && mayTrongPool.IddmItem === existingArr[i].IddmItem) {
-                  console.log(mayTrongPool);
                   mayTrongPool.IdGiaoKeHoachSanXuat_TrienKhai = null;
                   mayTrongPool.IdGiaoKeHoachSanXuat = null;
                   mayTrongPool.ChiSo = undefined;
@@ -377,5 +369,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     }, (reason) => {
 
     });
+  }
+  test(){
   }
 }
