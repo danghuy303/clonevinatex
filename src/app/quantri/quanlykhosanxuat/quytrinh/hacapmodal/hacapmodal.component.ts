@@ -35,11 +35,14 @@ export class HacapmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
     }
-
+    else
+      this.KiemTraButtonModal();
+      if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+        this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      }
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '',this.item.IdTrangThai || '').subscribe(res => {

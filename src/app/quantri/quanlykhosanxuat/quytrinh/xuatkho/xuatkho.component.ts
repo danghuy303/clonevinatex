@@ -159,7 +159,7 @@ export class XuatkhoComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.PhieuXuatKho().GetList(data).subscribe((res:any)=>{
+    this._service.PhieuBanGiaoBongXo().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })

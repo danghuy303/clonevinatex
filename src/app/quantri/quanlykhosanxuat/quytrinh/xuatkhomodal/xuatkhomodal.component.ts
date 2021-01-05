@@ -6,6 +6,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
+import { deepCopy } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
@@ -18,14 +19,15 @@ export class XuatkhomodalComponent implements OnInit {
   item: any = {};
   checkbutton: any = {
     Ghi:true,
-    KhongDuyet:true,
-    ChuyenTiep:true,
-    Xoa:true,
+    KhongDuyet:false,
+    ChuyenTiep:false,
+    Xoa:false,
   }
   newTableItem:any={};
   lang: any = vn;
   listKho: any = [];
   listPhanXuong: any = [];
+  editTableItem: any = {};
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, 
     public toastr: ToastrService, public _modal: NgbModal) {  }
@@ -34,42 +36,23 @@ export class XuatkhomodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
     }
+    else{
+      this.KiemTraButtonModal();
+    }
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
     })
   }
-  taiLenFileDinhKem() {
-    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.result.then((data) => {
-      // console.log(data);
-      // console.log(this.item.TepDinhKems);
-      // let itemupload:any = {};
-      // itemupload.ID = 0;
-      // itemupload.TenGui = data[data.length - 1]?.Name||null;
-      // itemupload.TenGoc = data[data.length - 1]?.NameLocal||null;
-      // itemupload.DuongDan = data[data.length - 1]?.Url||null;
-      // if(itemupload.TenGui!== null){
-      //   if(this.item.TepDinhKems.length!==0){
-      //     this.item.TepDinhKems.forEach(ele => {
-      //       ele.isXoa =true;
-      //     });
-      //   }
-      //   this.item.TepDinhKems.unshift(itemupload);
-      //   console.log(this.item);
-      // }
-    }, (reason) => {
-
-    });
-  }
+ 
   ChuyenDuyet() {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
     
-    this.services.PhieuXuatKho().ChuyenTiep(this.item).subscribe((res: any) => {
+    this.services.PhieuBanGiaoBongXo().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();
@@ -80,23 +63,18 @@ export class XuatkhomodalComponent implements OnInit {
     })
   }
   GetNextSoQuyTrinh() {
-    this.services.PhieuXuatKho().GetNextSo().subscribe((res: any) => {
+    this.services.PhieuBanGiaoBongXo().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
-  // GetQuyTrinh(Id){
-  //   this.services.GetQuyTrinh(Id).subscribe(res=>{
-  //     // this.item = res;
-  //     console.log(res);
-  //   })
-  // }
+ 
   GhiLai() {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
 
-      this.services.PhieuXuatKho().Set(this.item).subscribe((res: any) => {
+      this.services.PhieuBanGiaoBongXo().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -116,7 +94,7 @@ export class XuatkhomodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this.services.PhieuXuatKho().Delete(this.item).subscribe((res: any) => {
+      this.services.PhieuBanGiaoBongXo().Delete(this.item).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
@@ -126,40 +104,14 @@ export class XuatkhomodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-  merge(newArr, existingArr) {
-    let removeIndex = [];
-    newArr.forEach((newEle) => {
-      let index = existingArr.findIndex(
-        (oldEle) => newEle.IDTaiSan === oldEle.IDTaiSan
-      );
-      if (index === -1) {
-        existingArr.push(newEle);
-      }
-    });
-    existingArr.forEach((oldEle, index) => {
-      let indexCheck = newArr.findIndex(
-
-        (newEle) => newEle.IDTaiSan === oldEle.IDTaiSan
-      );
-      if (indexCheck === -1) {
-        removeIndex.push(index);
-      }
-    });
-    for (var i = removeIndex.length - 1; i >= 0; i--) {
-      if (existingArr[i].ID === 0) {
-        existingArr.splice(removeIndex[i], 1);
-      } else {
-        existingArr[i].isXoa = true;
-      }
+ 
+  delete(index) {
+    let item = this.item.listItem.splice(index, 1)[0];
+    if (item.Id === '' || item.Id === null || item.Id === undefined) {
+    } else {
+      item.isXoa = true;
+      this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
-    return existingArr;
-  }
-  changePhuongAnDeXuat(event, item) {
-    item.TenPhuongAnDeXuat = event.Ten;
-    item.IDdmPhuongAnDeXuat = event.ID;
-  }
-  delete(item, index) {
-
   }
   GetLuuKho(sFilter) {
     this.services.getLuuKho(this.item.IddmKho, 0 , sFilter).subscribe((res1: any) => {
@@ -175,5 +127,20 @@ export class XuatkhomodalComponent implements OnInit {
         // không
       });
     })
+  }
+  editChiTiet(item, index) {
+    this.item.listItem.forEach(element => {
+      element.editField = false;
+    });
+    this.item.listItem[index].editField = true;
+    this.editTableItem = deepCopy(item);
+  }
+  
+  saveEdit(item, index){
+    this.item.listItem[index] = item;
+    this.item.listItem[index].editField = false;
+  }
+  cancelEdit(item, index){
+    this.item.listItem[index].editField = false;
   }
 }

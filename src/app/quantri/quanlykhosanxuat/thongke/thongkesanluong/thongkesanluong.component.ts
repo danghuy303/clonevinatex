@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Dat09Service } from 'src/app/services/callApi';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix } from 'src/app/services/globalfunction';
 import { ThongkesanluongmodalComponent } from '../thongkesanluongmodal/thongkesanluongmodal.component';
 
@@ -19,14 +20,24 @@ export class ThongkesanluongComponent implements OnInit {
   trangThai:any=1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
-    // {
-    //   header: 'Số quy trình',
-    //   field: 'SoQuyTrinh',
-    //   width: '150px'
-    // },
     {
-      header: 'Nội dung',
-      field: 'NoiDung',
+      header: 'Số quy trình',
+      field: 'SoQuyTrinh',
+      width: '150px'
+    },
+    {
+      header: 'Công đoạn',
+      field: 'TenCongDoan',
+      width: '200px'
+    },
+    {
+      header: 'Phân xưởng',
+      field: 'TendmPhanXuong',
+      width: '200px'
+    },
+    {
+      header: 'Ca làm việc',
+      field: 'TendmCaSanXuat',
       width: '200px'
     },
     {
@@ -36,47 +47,12 @@ export class ThongkesanluongComponent implements OnInit {
     }
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-  colsQuyTrinh: any = [
-    {
-      header: 'Ngày nhận',
-      field: 'NgayKhoiTao',
-      width: '150px'
-    },
-    {
-      header: 'Ngày chuyển',
-      field: 'SoQuyTrinh',
-      width: '150px'
-    },
-    {
-      header: 'Thời gian xử lý',
-      field: 'DiaChi',
-      width: '200px'
-    },
-    {
-      header: 'Bộ phận xử lý',
-      field: 'DienTich',
-      width: '150px'
-    },
-    {
-      header: 'Nội dung xử lý',
-      field: 'HienTrangSuDung',
-      width: '400px'
-    },
-  ];
 
-
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:Dat09Service,private activatedRoute: ActivatedRoute,private router:Router) { }
+  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute);
-    this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0'){
-        let getitem =()=>{return this.items.filter(ele=>ele.id === res.id.toString())[0]};
-        this.update(getitem());
-      }
-    })
     this.KiemTraTabTrangThai();
-    // this.GetListQuyTrinh()
+    this.GetListQuyTrinh()
   }
   changeParam(id){
     if(this._modal.hasOpenModals()){
@@ -91,38 +67,29 @@ export class ThongkesanluongComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = {
-      SoQuyTrinh: 'PNK_0000_0001',
-      listCongTenNo:[]
-      // ID:null,
-      // TepDinhKems:[],
-      // templistTaiSanQuyTrinh:[],
-      // listTaiSanQuyTrinh:[]
-    }
+    modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
-      // this.GetListQuyTrinh();
+      this.GetListQuyTrinh();
     })
-      .catch(er => { console.log(er) })
   }
-  update(item){
+  update(Id){
+    this.changeParam(Id);
+    this._service.ThongKeSanLuong().Get(Id).subscribe((res1: any) => {
     let modalRef = this._modal.open(ThongkesanluongmodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
     modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
-      // this.GetListQuyTrinh();
+      this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
+    })
   }
   changeTab(e){
-    // this.trangThai = e.index+1;
-    // this.GetListQuyTrinh(true);
+    this.trangThai = e.index+1;
+    this.GetListQuyTrinh(true);
   }
   changePage(event){
     // this.paging.CurrentPage = event.page + 1;
@@ -143,7 +110,7 @@ export class ThongkesanluongComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.GetListQuyTrinh(data).subscribe((res:any)=>{
+    this._service.ThongKeSanLuong().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })

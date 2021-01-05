@@ -70,15 +70,15 @@
                     <tr>
                         <th>#</th>
                         <th>Tên</th>
-                        <th>Định lượng</th>
+                        <th>Định lượng (kg)</th>
                         <th style="width: 100px;"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr *ngIf="item.editField !== true">
                         <td class="text-center">{{i+1}}</td>
-                        <td class="text-center">{{item.Ten}}</td>
-                        <td class="text-center">{{item.KhoiLuong}}</td>
+                        <td class="text-left">{{item.Ten}}</td>
+                        <td class="text-right">{{item.KhoiLuong}}</td>
                         <td>
                             <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
@@ -92,12 +92,12 @@
                     </tr>
                     <tr  *ngIf="item.editField === true">
                         <td class="text-center">{{i+1}}</td>
-                        <td class="text-center">
+                        <td class="text-left">
                             {{editTableItem.Ten}}
                         </td>
-                        <td class="text-center">
+                        <td class="text-right">
                             <div class="p-inputgroup">
-                              <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.KhoiLuong">
+                              <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="editTableItem.KhoiLuong">
                               </p-inputNumber>
                             </div>
                         </td>

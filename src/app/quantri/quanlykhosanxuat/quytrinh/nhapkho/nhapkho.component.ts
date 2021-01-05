@@ -51,7 +51,7 @@ export class NhapkhoComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Ghi chú',
+      header: 'Trạng thái',
       field: 'TenTrangThai',
       width: 'unset'
     },
@@ -82,7 +82,6 @@ export class NhapkhoComponent implements OnInit {
     modalRef.componentInstance.nametype = 'bông';
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
-      this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
@@ -97,12 +96,25 @@ export class NhapkhoComponent implements OnInit {
     modalRef.componentInstance.type = 'xo';
     modalRef.componentInstance.nametype = 'xơ';
     modalRef.componentInstance.item = {}
-    this.GetListQuyTrinh();
-    // modalRef.result.then((res: any) => {
-    //   this._toastr.success('Cập nhật thành công');
-    //   this.GetListQuyTrinh();
-    // })
-    //   .catch(er => { console.log(er) })
+    modalRef.result.then((res: any) => {
+      this.GetListQuyTrinh();
+    })
+      .catch(er => { console.log(er) })
+  }
+  addPhieuBongHoi() {
+    this.changeParam(0);
+    let modalRef = this._modal.open(NhapkhomodalComponent, {
+      size: 'fullscreen',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.opt = 'add';
+    modalRef.componentInstance.type = 'bonghoi';
+    modalRef.componentInstance.nametype = 'bông hồi';
+    modalRef.componentInstance.item = {}
+    modalRef.result.then((res: any) => {
+      this.GetListQuyTrinh();
+    })
+      .catch(er => { console.log(er) })
   }
   update(Id) {
     this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
@@ -116,12 +128,10 @@ export class NhapkhoComponent implements OnInit {
         modalRef.componentInstance.type = 'xo';
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
-      this.GetListQuyTrinh();
-      // modalRef.result.then((res: any) => {
-      //   this._toastr.success('Cập nhật thành công');
-      //   this.GetListQuyTrinh();
-      // })
-        // .catch(er => { console.log(er) })
+      modalRef.result.then((res: any) => {
+        this.GetListQuyTrinh();
+      })
+        .catch(er => { console.log(er) })
     })
   }
   changeTab(e) {

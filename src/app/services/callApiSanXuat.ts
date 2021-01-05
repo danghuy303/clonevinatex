@@ -351,31 +351,31 @@ export class SanXuatService {
     }
     //#endregion
 
-    //#region  phiếu xuất kho
-    PhieuXuatKho() {
+    //#region  phiếu bàn giao bông xơ
+    PhieuBanGiaoBongXo() {
         let url = API.SCMQuanLyKho;
         return {
             GetNextSo: () => {
-                return this.http.get(url + 'GetNextSoQuyTrinhPhieuNhapLoBong_ChatLuong', httpOptions);
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuBanGiaoBongXo', httpOptions);
             },
             GetList: (data) => {
-                return this.http.post(url + 'GetListPhieuXuatKho', data, httpOptions);
+                return this.http.post(url + 'GetListPhieuBanGiaoBongXo', data, httpOptions);
             },
             Get: (Id) => {
-                return this.http.get(url + `GetPhieuXuatKhoFull?Id=${Id}`, httpOptions);
+                return this.http.get(url + `GetPhieuBanGiaoBongXo?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
                 data.IdDuAn = this.store.getCurrent();
-                return this.http.post(url + 'SetPhieuXuatKho', data, httpOptions);
+                return this.http.post(url + 'SetPhieuBanGiaoBongXo', data, httpOptions);
             },
             Delete: (data) => {
-                return this.http.post(url + 'DeletePhieuXuatKho', data, httpOptions);
+                return this.http.post(url + 'DeletePhieuBanGiaoBongXo', data, httpOptions);
             },
             ChuyenTiep: (data) => {
-                return this.http.post(url + 'ChuyenTiepPhieuNhapLoBong_ChatLuong', data, httpOptions)
+                return this.http.post(url + 'ChuyenTiepPhieuBanGiaoBongXo', data, httpOptions)
             },
             KhongDuyet: (data) => {
-                return this.http.post(url + 'KhongDuyetPhieuNhapLoBong_ChatLuong', data, httpOptions)
+                return this.http.post(url + 'KhongDuyetPhieuBanGiaoBongXo', data, httpOptions)
             },
         }
     }
@@ -392,7 +392,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetListPhieuHaCap', data, httpOptions);
             },
             Get: (Id) => {
-                return this.http.get(url + `GetPhieuHaCapFull?Id=${Id}`, httpOptions);
+                return this.http.get(url + `GetPhieuHaCap?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
                 data.IdDuAn = this.store.getCurrent();
@@ -444,6 +444,36 @@ export class SanXuatService {
     }
     //#endregion
 
+    ThongKeSanLuong() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhThongKeSanLuong', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListThongKeSanLuong', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetThongKeSanLuong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetThongKeSanLuong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteThongKeSanLuong', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepThongKeSanLuong', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetThongKeSanLuong', data, httpOptions)
+            },
+            GetMatHang: (IddmPhanXuong, Ngay, CongDoan) => {
+                return this.http.get(url + `GetMatHangThongKeSanLuong?IddmPhanXuong=${IddmPhanXuong}&Ngay=${Ngay}&CongDoan=${CongDoan}`, httpOptions)
+            },
+        }
+    }
     //Pha bông
     PhuongAnPhaBong() {
         let url = API.SCMQuanLyKho;
