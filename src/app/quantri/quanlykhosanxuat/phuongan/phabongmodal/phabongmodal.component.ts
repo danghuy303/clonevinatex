@@ -28,13 +28,13 @@ export class PhabongmodalComponent implements OnInit {
         id: i,
         label:`Thành phần ${i}`,
         // neps:`${i}`,
-        // mic:`${i}`,
+        mic:`${i}`,
         // mat:`${i}`,
         // uhml:`${i}`,
         // str:`${i}`,
         // sfi:`${i}`,
-        // rd:`${i}`,
-        // pb:`${i}`,
+        rd:`${i}`,
+        pb:`${i}`,
         // Tap:`${i}`,
         // Am:`${i}`,
         TyLe:`${i}`,
@@ -44,10 +44,13 @@ export class PhabongmodalComponent implements OnInit {
         ConLai:`${i}`
       }
       for(let j = 0;j<31;j++){
-        data[`Ban${j}`] = '_';
+        data[`Ban${j}`]={};
+        data[`Ban${j}`].SoKien = null;
+        data[`Ban${j}`].tabIndex = (j*23)+i+1;
       }
       this.listItems.push(data);
     }
+    console.log(this.listItems);
     // this.listProps = ['label','Ton','TongNgay','ConLai',
     // // 'neps','mic','mat','uhml','str','sfi','rd','pb','Tap','Am',
     // 'TyLe','Used']

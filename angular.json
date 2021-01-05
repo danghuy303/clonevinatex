@@ -34,7 +34,8 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "node_modules/voi-lib/style/fixtable.css"
             ],
             "scripts": [
               "node_modules/chart.js/dist/Chart.js",
@@ -108,7 +109,8 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "node_modules/voi-lib/style/fixtable.css"
             ],
             "scripts": [
               "node_modules/chart.js/dist/Chart.js",

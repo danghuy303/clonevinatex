@@ -474,6 +474,32 @@ export class SanXuatService {
             },
         }
     }
+    //Pha bông
+    PhuongAnPhaBong() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetList: (data) => {
+                return this.http.post(url + 'GetListPhuongAnPhaBong', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhuongAnPhaBong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetPhuongAnPhaBong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhuongAnPhaBong', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhuongAnPhaBong', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhuongAnPhaBong', data, httpOptions)
+            },
+        }
+    }
+
+
     Importdm(TableName,FileName){
         let IdDuAn =this.store.getCurrent().toString()
         let url = API.SCMDanhMuc + `ImportDanhMuc?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`;

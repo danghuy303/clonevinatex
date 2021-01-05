@@ -25,8 +25,8 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Triển khai kế hoạch:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listKeHoach" placeholder="Chọn triển khai kế hoạch" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IdKeHoach"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listKeHoach" placeholder="Chọn triển khai kế hoạch"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdKeHoach" disabled></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -36,57 +36,50 @@
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-p-0" style="font-size: 12px !important;">
-            <table class="table table-sm table-bordered">
+        <div class="p-col-12 p-p-0 pintable-container" voiPintable [pinnedCols]="8">
+            <table>
                 <thead>
                     <tr>
-                        <th rowspan="2">
-                            Thành phần bông
+                        <th rowspan="2" style="min-width: 150px;">
+                           Thành phần bông
                         </th>
-                        <!-- <th colspan="10">Chất lượng bông</th> -->
-                        <th rowspan="2">Tồn đầu</th>
-                        <th rowspan="2">Số lượng dùng</th>
-                        <th rowspan="2">Tồn cuối</th>
-                        <th rowspan="2">Tỷ lệ</th>
-                        <th rowspan="2">USE 7</th>
+                        <th colspan="3">Chất lượng bông</th>
+                        <th rowspan="2" style="min-width: 60px;">Tồn đầu</th>
+                        <th rowspan="2" style="min-width: 60px;">Số lượng dùng</th>
+                        <th rowspan="2" style="min-width: 60px;">Tồn cuối</th>
+                        <th rowspan="2" style="min-width: 60px;">Tỷ lệ</th>
                         <th [attr.colspan]="listBanBong.length">Bàn bông</th>
                     </tr>
                     <tr>
-                        <!-- <th>Neps</th>
-                        <th>Mic</th>
-                        <th>Mat</th>
-                        <th>UHML</th>
-                        <th>Str</th>
-                        <th>SFI</th>
-                        <th>Rd</th>
-                        <th>+b</th>
-                        <th>Tạp</th>
-                        <th>Ẩm</th> -->
-                        <th *ngFor="let ban of listBanBong">
+                        <th style="display: none;"></th>
+                        <th style="display: none;"></th>
+                        <th style="display: none;"></th>
+                        <th style="display: none;"></th>
+                        <th style="display: none;"></th>
+                        <th style="min-width: 50px;">Mic</th>
+                        <th style="min-width: 50px;">Rd</th>
+                        <th style="min-width: 50px;">+b</th>
+                        <th *ngFor="let ban of listBanBong" style="min-width: 50px;">
                             {{ban.label}}
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of listItems; let i = index">
-                        <td class="text-center">{{item.label}}</td>
-                        <!-- <td class="text-center">{{item.neps}}</td>
-                        <td class="text-center">{{item.mic}}</td>
-                        <td class="text-center">{{item.mat}}</td>
-                        <td class="text-center">{{item.uhml}}</td>
-                        <td class="text-center">{{item.str}}</td>
-                        <td class="text-center">{{item.sfi}}</td>
-                        <td class="text-center">{{item.rd}}</td>
-                        <td class="text-center">{{item.pb}}</td>
-                        <td class="text-center">{{item.Tap}}</td>
-                        <td class="text-center">{{item.Am}}</td> -->
-                        <td class="text-center">{{item.Ton}}</td>
-                        <td class="text-center">{{item.TongNgay}}</td>
-                        <td class="text-center">{{item.ConLai}}</td>
-                        <td class="text-center">{{item.TyLe}}</td>
-                        <td class="text-center">{{item.Used}}</td>
-                        <td *ngFor="let prop of listProps" class="text-center" style="width: 30px;">
-                            <app-dat09 [(ngModel)]="item[prop]" type="number"></app-dat09>
+                        <td class="text-center" style="min-width: 150px;">{{item.label}}</td>
+                        <td class="text-center" style="min-width: 50px;" >{{item.mic}}</td>
+                        <td class="text-center" style="min-width: 50px;" >{{item.rd}}</td>
+                        <td class="text-center" style="min-width: 50px;" >{{item.pb}}</td>
+                        <td class="text-center" style="min-width: 60px;">{{item.Ton}}</td>
+                        <td class="text-center" style="min-width: 60px;">{{item.TongNgay}}</td>
+                        <td class="text-center" style="min-width: 60px;">{{item.ConLai}}</td>
+                        <td class="text-center" style="min-width: 60px;">{{item.TyLe}}</td>
+                        <td *ngFor="let prop of listProps" class="text-center" style="min-width: 50px;">
+                            <div style="width: 100%;">
+                                <input style="width: 100%; border: none;text-align: center;"
+                                    [(ngModel)]="item[prop].SoKien" placeholder="_"
+                                    [attr.tabindex]="item[prop].tabIndex" />
+                            </div>
                         </td>
                     </tr>
                 </tbody>

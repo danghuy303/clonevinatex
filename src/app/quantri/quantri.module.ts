@@ -133,7 +133,6 @@ import { CasanxuatComponent } from './danhmuc/danhmucsanxuat/casanxuat/casanxuat
 import { DanhsachmayComponent } from './danhmuc/danhmucsanxuat/danhsachmay/danhsachmay.component';
 import { DanhsachmaymodalComponent } from './danhmuc/danhmucsanxuat/modals/danhsachmaymodal/danhsachmaymodal.component';
 import { PhabongmodalComponent } from './quanlykhosanxuat/phuongan/phabongmodal/phabongmodal.component';
-import { Dat09Component } from './quanlykhosanxuat/phuongan/dat09/dat09.component';
 import { DieuhanhsanxuatComponent } from './dieuhanhsanxuat/dieuhanhsanxuat.component';
 import { KehoachsanxuatComponent } from './quanlykhosanxuat/quytrinh/kehoachsanxuat/kehoachsanxuat.component';
 import { KehoachsanxuatmodalComponent } from './quanlykhosanxuat/quytrinh/kehoachsanxuatmodal/kehoachsanxuatmodal.component';
@@ -161,6 +160,7 @@ import { NhomkhoComponent } from './danhmuc/danhmucsanxuat/nhomkho/nhomkho.compo
 import { XuatkhomathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomathangmodal/xuatkhomathangmodal.component';
 import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
 import 'chartjs-plugin-labels';
+import { VoiLibModule } from 'voi-lib';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -254,7 +254,6 @@ import 'chartjs-plugin-labels';
     DanhsachmayComponent,
     DanhsachmaymodalComponent,
     PhabongmodalComponent,
-    Dat09Component,
     DieuhanhsanxuatComponent,
     KehoachsanxuatComponent,
     KehoachsanxuatmodalComponent,
@@ -282,7 +281,7 @@ import 'chartjs-plugin-labels';
     TrangthaimaysanxuatComponent,
     NhomkhoComponent,
     XuatkhomathangmodalComponent,
-    KhoComponent,
+    KhoComponent
   ],
   imports: [
     HttpClientModule,
@@ -318,6 +317,7 @@ import 'chartjs-plugin-labels';
     InputSwitchModule,
     TooltipModule, 
     MultiSelectModule,
+    VoiLibModule
   ],
   entryComponents: [
     ModalThuaDatComponent, 
