@@ -56,7 +56,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.services.ThongKeSanLuong().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
-          this.toastr.error(res.message);
+          this.toastr.success(res.message);
           this.activeModal.close();
         } else {
           this.toastr.error(res.message);
@@ -159,11 +159,15 @@ export class ThongkesanluongmodalComponent implements OnInit {
   cancelEdit(item, index){
     this.item.listItem[index].editField = false;
   }
-  TinhGiaTri(item) {
+  TinhGiaTri(item, event) {
+    console.log(event)
     console.log(item)
-    console.log(item.ChieuDai)
-    console.log(item.ChiSo)
-    if(item.ChiSo != null)
-      item.TrongLuong = item.ChieuDai / item.ChiSo;
+    var TrongLuong = 0;
+    if(item.ChiSo !== undefined && item.ChiSo !== null && item.ChiSo !== 0 && event !== undefined)
+      TrongLuong = event/item.ChiSo;
+    return TrongLuong;
+  }
+  onClose(){
+    this.activeModal.close();
   }
 }

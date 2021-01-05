@@ -26,8 +26,18 @@ export class ThongkesanluongComponent implements OnInit {
       width: '150px'
     },
     {
-      header: 'Nội dung',
-      field: 'NoiDung',
+      header: 'Công đoạn',
+      field: 'TenCongDoan',
+      width: '200px'
+    },
+    {
+      header: 'Phân xưởng',
+      field: 'TendmPhanXuong',
+      width: '200px'
+    },
+    {
+      header: 'Ca làm việc',
+      field: 'TendmCaSanXuat',
       width: '200px'
     },
     {

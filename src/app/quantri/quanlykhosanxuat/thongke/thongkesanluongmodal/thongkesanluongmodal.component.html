@@ -15,7 +15,7 @@
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
-                (click)="activeModal.dismiss('close')"></button>
+                (click)="onClose()"></button>
             <button pButton pRipple type="button" label="Lưu nháp" class="p-mr-2 p-button-sm " (click)="GhiLai()"
                 *ngIf="checkbutton.Ghi"></button>
             <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
@@ -106,17 +106,14 @@
                         <td>{{i+1}}</td>
                         <td>{{item.TendmMay}}</td>
                         <td>{{item.TendmItem}}</td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.ChiSo">
-                            </p-inputNumber>
-                        </td>
+                        <td>{{item.ChiSo}}</td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.ChieuDai"
-                            (keyup)="TinhGiaTri(editTableItem)">
+                            (ngModelChange)="editTableItem.TrongLuong=TinhGiaTri(editTableItem, $event)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.TrongLuong">
+                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="editTableItem.TrongLuong">
                             </p-inputNumber>
                         </td>
                         <td>
