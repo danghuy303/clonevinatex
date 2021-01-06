@@ -161,6 +161,10 @@ import { NhomkhoComponent } from './danhmuc/danhmucsanxuat/nhomkho/nhomkho.compo
 import { XuatkhomathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomathangmodal/xuatkhomathangmodal.component';
 import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
 import 'chartjs-plugin-labels';
+import { KehoachnhapnguyenlieuComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieu/kehoachnhapnguyenlieu.component';
+import { KehoachnhapnguyenlieumodalComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieumodal/kehoachnhapnguyenlieumodal.component';
+import { KehoachxuathangComponent } from './quanlykhosanxuat/quytrinh/kehoachxuathang/kehoachxuathang.component';
+import { KehoachxuathangmodalComponent } from './quanlykhosanxuat/quytrinh/kehoachxuathangmodal/kehoachxuathangmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -283,6 +287,10 @@ import 'chartjs-plugin-labels';
     NhomkhoComponent,
     XuatkhomathangmodalComponent,
     KhoComponent,
+    KehoachnhapnguyenlieuComponent,
+    KehoachnhapnguyenlieumodalComponent,
+    KehoachxuathangComponent,
+    KehoachxuathangmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -365,6 +373,8 @@ import 'chartjs-plugin-labels';
     ChonmaytheocongdoanComponent,
     ImportdanhmucmodelComponent,
     XuatkhomathangmodalComponent,
+    KehoachnhapnguyenlieumodalComponent,
+    KehoachxuathangmodalComponent,
   ],
   providers: [
     SanXuatService,

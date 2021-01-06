@@ -129,7 +129,7 @@ export function deepCopy(value: any) {
     return JSON.parse(JSON.stringify(value));
 }
 export function validVariable(value: any) {
-    if (value !== undefined && value !== null && value.toString().trim !== '') {
+    if (value !== undefined && value !== null && value.toString().trim !== "") {
         return true;
     } else {
         return false;
@@ -183,4 +183,11 @@ export function merge(newArr: Array<any>, existingArr: Array<any>, diffProp: str
         }
     }
     return existingArr;
+}
+
+export function formatdate(ngay: any, istime: boolean) {
+    let date = new Date(ngay);
+    let time = `${date.getHours()}:${date.getMinutes()}`;
+    let succformat = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${istime ? time : ""}`;
+    return succformat;
 }
