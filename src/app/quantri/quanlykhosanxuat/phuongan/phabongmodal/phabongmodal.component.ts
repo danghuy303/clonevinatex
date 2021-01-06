@@ -25,13 +25,14 @@ export class PhabongmodalComponent implements OnInit {
   opt: any = '';
   listLoBong: any = [];
   itemSoKienTrenBan = {};
+  itemSoKienTrenBanTruBongHoi = {};
   item: any = {
     Id: '',
     listItem: [],
     listLoBong: []
   };
-  TongKhoiLuongDung:any = null;
-  TongTyLe:number=100;
+  TongKhoiLuongDung: any = null;
+  TongTyLe: number = 100;
   itemTrienKhaiKeHoach: any = {};
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
     // for (let i = 0; i < 31; i++) {
@@ -172,15 +173,15 @@ export class PhabongmodalComponent implements OnInit {
           };
         }
       })
-      this.itemSoKienTrenBan={};
+      this.itemSoKienTrenBan = {};
       for (let i = 1; i <= this.item.SoBanBong; i++) {
-        this.itemSoKienTrenBan[`${i}`]= null;
+        this.itemSoKienTrenBan[`${i}`] = null;
       }
       this.voiPintable.active();
       // console.log(this.voiPintable);
     }
   }
-  
+
   CalAllTable(y, x) { //truc toa do y:tung x:hoanh
     //TinhSoLuongDung;
     let tempSLD = 0;
@@ -192,30 +193,74 @@ export class PhabongmodalComponent implements OnInit {
     this.item.listLoBong[y].SoLuongDung = tempSLD;
     this.item.listLoBong[y].TonCuoi = this.item.listLoBong[y].SoLuongKien - tempSLD;
     let tempSoKien1Line = 0;
+    let tempSoKien1LineTruBongHoi = 0;
     let tempTongKhoiLuongDung = 0;
     this.item.listLoBong.forEach(lobong => {
-      if(validVariable(lobong.tempBanBong[`${x}`].SoKien)){
-        tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien
+      if (validVariable(lobong.tempBanBong[`${x}`].SoKien)) {
+        tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
+        if (validVariable(lobong.Mic) && validVariable(lobong.Rd) && validVariable(lobong.b)) {
+          tempSoKien1LineTruBongHoi += lobong.tempBanBong[`${x}`].SoKien;
+        }
       }
-      if(validVariable(lobong.SoLuongDung)){
-        tempTongKhoiLuongDung+=(lobong.SoLuongDung*lobong.TrongLuong);
+      if (validVariable(lobong.SoLuongDung)) {
+        tempTongKhoiLuongDung += (lobong.SoLuongDung * lobong.TrongLuong);
       }
     });
     this.TongKhoiLuongDung = tempTongKhoiLuongDung;
-    this.itemSoKienTrenBan[`${x}`]=tempSoKien1Line;
+    this.itemSoKienTrenBan[`${x}`] = tempSoKien1Line;
+    this.itemSoKienTrenBanTruBongHoi[`${x}`] = tempSoKien1LineTruBongHoi;
     this.item.listLoBong.forEach(lobong => {
-      if(validVariable(lobong.SoLuongDung)){
-        lobong.TyLe = (lobong.SoLuongDung*lobong.TrongLuong)/tempTongKhoiLuongDung*100;
+      if (validVariable(lobong.SoLuongDung)) {
+        lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
       }
     });
-  }
-  TinhSoLuongDung() {
-
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
       this.checkbutton = res;
     })
+  }
+  SetData() {
+    this.item.listLoBong.forEach(lobong => {
+      if (!validVariable(lobong.listItem)) {
+        lobong.listItem = [];
+      }
+      for (let i = 1; i <= this.item.SoBanBong; i++) {
+        let data = {
+          SoLuongKien: lobong.tempBanBong[`${i}`].SoKien,
+          ThuTu: i
+        };
+        lobong.listItem.push(data)
+      }
+    });
+    return this.item;
+  }
+  GhiLai() {
+    this._services.PhuongAnPhaBong().Set(this.SetData()).subscribe((res: any) => {
+      console.log(res);
+      if (res) {
+        if (res.State === 1) {
+          this._toastr.success(res.message);
+          this.opt = 'edit';
+          res.objectReturn.listLoBong.forEach(lobong => {
+            if(!validVariable(lobong.temBanBong)){
+              lobong.tempBanBong = {};
+            }
+            lobong.listItem.forEach(item => {
+              let data ={
+                ...item,
+                SoKien:item.SoLuongKien
+              }
+              lobong.tempBanBong[`${item.ThuTu}`]=data;
+            });
+          });
+          this.item = res.objectReturn;
+          this.KiemTraButtonModal();
+        } else {
+          this._toastr.error(res.message);
+        }
+      }
+    });
   }
   ChuyenDuyet() {
     this._services.PhuongAnPhaBong().ChuyenTiep(this.item).subscribe((res: any) => {

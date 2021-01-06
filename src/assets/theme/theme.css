@@ -30,7 +30,7 @@
 
 .p-disabled, .p-component:disabled {
   cursor: not-allowed;
-  background-color: #ddd;
+  background-color: #DCDCDC;
   opacity: 0.65;
 }
 
