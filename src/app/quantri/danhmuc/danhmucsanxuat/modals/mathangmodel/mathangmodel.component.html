@@ -78,12 +78,17 @@
                     <tr *ngIf="item.editField !== true">
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-left">{{item.Ten}}</td>
-                        <td class="text-right">{{item.KhoiLuong}}</td>
+                        <td class="text-right">
+                            <div class="p-inputgroup">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.KhoiLuong">
+                                </p-inputNumber>
+                              </div>
+                        </td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil"
+                            <!-- <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="edit(item, i)" pTooltip="Sửa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
+                                tooltipPosition="bottom"></button> -->
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"

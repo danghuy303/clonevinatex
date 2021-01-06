@@ -68,6 +68,10 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'GetListdmLoaiBong';
         return this.http.post(url, data, httpOptions);
     }
+    GetListdmLoaiBongHoiPhe() {
+        let url = API.SCMDanhMuc + 'GetListdmLoaiBongHoiPhe';
+        return this.http.get(url, httpOptions);
+    }
     SetdmLoaiBong(data) {
         let url = API.SCMDanhMuc + 'SetdmLoaiBong';
         return this.http.post(url, data, httpOptions);

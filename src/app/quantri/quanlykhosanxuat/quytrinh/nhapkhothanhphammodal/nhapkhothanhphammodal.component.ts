@@ -2,18 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
-import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 
 @Component({
-  selector: 'app-nhapkhomodal',
-  templateUrl: './nhapkhomodal.component.html',
-  styleUrls: ['./nhapkhomodal.component.css']
+  selector: 'app-nhapkhothanhphammodal',
+  templateUrl: './nhapkhothanhphammodal.component.html',
+  styleUrls: ['./nhapkhothanhphammodal.component.css']
 })
-export class NhapkhomodalComponent implements OnInit {
+export class NhapkhothanhphammodalComponent implements OnInit {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -59,12 +57,8 @@ export class NhapkhomodalComponent implements OnInit {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
     this.data.CurrentPage = 0;
-    if (this.type === 'bonghoi') {
-      this.getListLoaiBongHoiPhe();
-    }
-    else{
-      this.getListLoaiBong();
-    }
+
+    this.getListLoaiBong();
     this.getListCapBong();
     this.getListLoBong();
     this.getListKho();
@@ -185,25 +179,23 @@ export class NhapkhomodalComponent implements OnInit {
       this.data.Loai = 1;
     else  if (this.type === 'xo')
       this.data.Loai = 5;
-    else  if (this.type === 'bonghoi'){
+    else  if (this.type === 'bonghoi')
       this.data.Loai = 6;
-      this.data.IddmLoaiBong = this.item.IddmLoaiBong;
-    }
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   getListLoaiBong() {
+    if (this.type === 'bong')
+      this.data.Loai = 1;
+    else  if (this.type === 'xo')
+      this.data.Loai = 5;
+    else  if (this.type === 'bonghoi')
+      this.data.Loai = 6;
     this._services.GetListdmLoaiBong(this.data).subscribe((res: any) => {
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  getListLoaiBongHoiPhe() {
-    this._services.GetListdmLoaiBongHoiPhe().subscribe((res: any) => {
-      this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
-  GetListdmLoaiBongHoiPhe
   getListLoBong() {
     this._services.GetListLoBong(this.data).subscribe((res: any) => {
       let data: any = {};

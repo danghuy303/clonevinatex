@@ -55,6 +55,7 @@ import { PhanxuongComponent } from './danhmuc/danhmucsanxuat/phanxuong/phanxuong
 import { LoaisoiComponent } from './danhmuc/danhmucsanxuat/loaisoi/loaisoi.component';
 import { NhomkhoComponent } from './danhmuc/danhmucsanxuat/nhomkho/nhomkho.component';
 import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
+import { NhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhpham/nhapkhothanhpham.component';
 
 const routes: Routes = [
   {
@@ -125,6 +126,7 @@ const routes: Routes = [
       { path: 'kehoachsanxuat/trienkhaikehoachsanxuat/:id', component:TrienkhaikehoachsanxuatComponent},
       { path: 'quanlykhosanxuat/hacap/:id', component:HacapComponent},
       { path: 'quanlykhosanxuat/dieuchuyen/:id', component:DieuchuyenComponent},
+      { path: 'quanlykhosanxuat/nhapkhothanhpham/:id', component:NhapkhothanhphamComponent},
     ]
   }
 ];
