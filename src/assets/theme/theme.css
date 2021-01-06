@@ -29,6 +29,8 @@
 }
 
 .p-disabled, .p-component:disabled {
+  cursor: not-allowed;
+  background-color: #ddd;
   opacity: 0.65;
 }
 

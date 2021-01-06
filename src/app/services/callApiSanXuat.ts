@@ -272,8 +272,8 @@ export class SanXuatService {
             GetList: (data) => {
                 return this.http.post(url + 'GetListTrienKhaiKeHoachSanXuat', data, httpOptions);
             },
-            Get: (Id) => {
-                return this.http.get(url + `GetTrienKhaiKeHoachSanXuat?Id=${Id}`, httpOptions);
+            Get: (Id,ChiTiet?) => {
+                return this.http.get(url + `GetTrienKhaiKeHoachSanXuat?Id=${Id}&ChiTiet=${ChiTiet===false?false:true}`, httpOptions);
             },
             Set: (data) => {
                 return this.http.post(url + 'SetTrienKhaiKeHoachSanXuat', data, httpOptions);
@@ -482,6 +482,15 @@ export class SanXuatService {
     PhuongAnPhaBong() {
         let url = API.SCMQuanLyKho;
         return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhuongAnPhaBong', httpOptions);
+            },
+            GetLoBongTrongKho:(IdDuAn)=>{
+                return this.http.get(url + `GetLoBongTrongKho?IdDuAn=${IdDuAn}`, httpOptions)
+            },
+            TinhKhoiLuongBong:(data)=>{
+                return this.http.post(url+'TinhKhoiLuongBong',data,httpOptions)
+            },
             GetList: (data) => {
                 return this.http.post(url + 'GetListPhuongAnPhaBong', data, httpOptions);
             },
