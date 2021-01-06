@@ -115,7 +115,7 @@ export class QuantriComponent implements OnInit {
                 expanded: true,
                 items: [
                     {
-                        label: 'Nhập kho',
+                        label: 'Nhập kho nguyên liệu',
                         routerLink: '/quantri/quanlykhosanxuat/nhapkho/0',
                         command: () => this.close()
                     },
@@ -154,6 +154,11 @@ export class QuantriComponent implements OnInit {
                     //     routerLink: '/quantri/quanlykhosanxuat/kehoachxuathang/0',
                     //     command: () => this.close()
                     // },
+                    {
+                        label: 'Nhập kho thành phẩm',
+                        routerLink: '/quantri/quanlykhosanxuat/nhapkhothanhpham/0',
+                        command: () => this.close()
+                    },
 
                 ]
                 // command: () => this.close()

@@ -46,7 +46,7 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
-                    [(ngModel)]="item.NgayChungTu" inputId="icon" placeholder="dd/mm/yyyy">
+                    [(ngModel)]="item.Ngay" inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>
@@ -97,19 +97,30 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
-                    <tr *ngIf="item.editField !== true">
+                    <tr>
                         <td>{{i+1}}</td>
                         <td>{{item.Ten}}</td>
                         <td>{{item.DonViThietKe}}</td>
-                        <td>{{item.Ton}}</td>
-                        <td>{{item.Block}}</td>
-                        <td>{{item.Block}}</td>
-                        <td>{{item.GhiChu}}</td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil"
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ton">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Block">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Block">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <input pInputText type="text" [(ngModel)]="item.GhiChu">
+                        </td>
+                        <td>
+                            <!-- <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text"
                                 (click)="editChiTiet(item,i)" pTooltip="Sửa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
+                                tooltipPosition="bottom"></button> -->
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
@@ -121,7 +132,6 @@
                         <td>{{item.Ten}}</td>
                         <td>{{item.DonViThietKe}}</td>
                         <td>
-                            <!-- <input type="number" step="any" [(ngModel)]="editTableItem.Ton" (ngModelChange)="editTableItem.Ton = fomartNumber(editTableItem.Ton)"> -->
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.Ton">
                             </p-inputNumber>
                         </td>

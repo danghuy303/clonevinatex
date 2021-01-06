@@ -20,9 +20,19 @@ export class BotrimaymodalComponent implements OnInit {
   PoolMaySanXuat: any = {};
   DateArray: any = [];
   listDate: any = [];
+  listChuThich1:any = [];
+  listChuThich2:any = [];
   constructor(private _services: SanXuatService, private _activeModal: NgbActiveModal, private _modal: NgbModal, private datepipe: DatePipe) { }
 
   ngOnInit(): void {
+    this.listChuThich1 = [
+      {color:'green',GhiChu:'Máy rảnh'},
+      {color:'blue',GhiChu:'Máy của công đoạn và mặt hàng hiện tại'},
+    ]
+    this.listChuThich2=[
+      {color:'yellow',GhiChu:'Máy máy của công đoạn và mặt hàng khác'},
+      {color:'red',GhiChu:'Máy đang sử dụng trong kế hoạch khác'},
+    ]
     // console.log(this.PoolMaySanXuat);
     // if (this.opt !== 'edit') {
       this.GetCongDoanTheoMatHang()

@@ -30,9 +30,10 @@
     "ngx-toastr": "^13.0.0",
     "primeflex": "^2.0.0-rc.1",
     "primeicons": "^4.0.0",
-    "primeng": "^10.0.0-rc.1",
+    "primeng": "^10.0.3",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
+    "voi-lib": "file:src/assets/libs/voi-lib-0.0.1.tgz",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {

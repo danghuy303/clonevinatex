@@ -133,7 +133,6 @@ import { CasanxuatComponent } from './danhmuc/danhmucsanxuat/casanxuat/casanxuat
 import { DanhsachmayComponent } from './danhmuc/danhmucsanxuat/danhsachmay/danhsachmay.component';
 import { DanhsachmaymodalComponent } from './danhmuc/danhmucsanxuat/modals/danhsachmaymodal/danhsachmaymodal.component';
 import { PhabongmodalComponent } from './quanlykhosanxuat/phuongan/phabongmodal/phabongmodal.component';
-import { Dat09Component } from './quanlykhosanxuat/phuongan/dat09/dat09.component';
 import { DieuhanhsanxuatComponent } from './dieuhanhsanxuat/dieuhanhsanxuat.component';
 import { KehoachsanxuatComponent } from './quanlykhosanxuat/quytrinh/kehoachsanxuat/kehoachsanxuat.component';
 import { KehoachsanxuatmodalComponent } from './quanlykhosanxuat/quytrinh/kehoachsanxuatmodal/kehoachsanxuatmodal.component';
@@ -165,6 +164,9 @@ import { KehoachnhapnguyenlieuComponent } from './quanlykhosanxuat/quytrinh/keho
 import { KehoachnhapnguyenlieumodalComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieumodal/kehoachnhapnguyenlieumodal.component';
 import { KehoachxuathangComponent } from './quanlykhosanxuat/quytrinh/kehoachxuathang/kehoachxuathang.component';
 import { KehoachxuathangmodalComponent } from './quanlykhosanxuat/quytrinh/kehoachxuathangmodal/kehoachxuathangmodal.component';
+import { VoiLibModule } from 'voi-lib';
+import { NhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhpham/nhapkhothanhpham.component';
+import { NhapkhothanhphammodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhphammodal/nhapkhothanhphammodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -258,7 +260,6 @@ import { KehoachxuathangmodalComponent } from './quanlykhosanxuat/quytrinh/kehoa
     DanhsachmayComponent,
     DanhsachmaymodalComponent,
     PhabongmodalComponent,
-    Dat09Component,
     DieuhanhsanxuatComponent,
     KehoachsanxuatComponent,
     KehoachsanxuatmodalComponent,
@@ -291,6 +292,8 @@ import { KehoachxuathangmodalComponent } from './quanlykhosanxuat/quytrinh/kehoa
     KehoachnhapnguyenlieumodalComponent,
     KehoachxuathangComponent,
     KehoachxuathangmodalComponent,
+    NhapkhothanhphamComponent,
+    NhapkhothanhphammodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -326,6 +329,7 @@ import { KehoachxuathangmodalComponent } from './quanlykhosanxuat/quytrinh/kehoa
     InputSwitchModule,
     TooltipModule, 
     MultiSelectModule,
+    VoiLibModule
   ],
   entryComponents: [
     ModalThuaDatComponent, 
@@ -375,6 +379,7 @@ import { KehoachxuathangmodalComponent } from './quanlykhosanxuat/quytrinh/kehoa
     XuatkhomathangmodalComponent,
     KehoachnhapnguyenlieumodalComponent,
     KehoachxuathangmodalComponent,
+    NhapkhothanhphammodalComponent,
   ],
   providers: [
     SanXuatService,

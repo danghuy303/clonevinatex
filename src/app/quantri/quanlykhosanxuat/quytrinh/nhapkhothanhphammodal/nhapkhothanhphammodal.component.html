@@ -36,18 +36,14 @@
         </div>
 
     </div>
-    <div class="p-grid"> 
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-        <!-- *ngIf="this.type!=='bonghoi'"> -->
-            <label *ngIf="this.type!=='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông:</label>
+    <div class="p-grid">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
+        *ngIf="this.type!=='bonghoi'">
+            <label *ngIf="this.type==='bong'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông:</label>
             <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại xơ:</label>
-            <div class="p-col-12 p-lg-8 p-p-0" *ngIf="this.type!=='bonghoi'">
+            <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" styleClass="p-inputtext-sm"
                 [(ngModel)]="item.IddmLoaiBong"></p-dropdown>
-            </div>
-            <div class="p-col-12 p-lg-8 p-p-0" *ngIf="this.type==='bonghoi'">
-                <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" styleClass="p-inputtext-sm"
-                [(ngModel)]="item.IddmLoaiBong" (onChange)="getListKho()"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
@@ -93,13 +89,13 @@
                 styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca máy:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCaMay" placeholder="Chọn ca máy" [(ngModel)]="item.IddmCaMay"
                 styleClass="p-inputtext-sm"></p-dropdown>
             </div>
-        </div> -->
+        </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <p-table *ngIf="this.type!=='bonghoi'"
              [value]="item.listItem|isXoa"

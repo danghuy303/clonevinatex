@@ -22,7 +22,8 @@
                 *ngIf="checkbutton.KhongDuyet"></button>
             <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
                 (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
-            <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button>
+            <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
+            <button pButton pRipple type="button" label="Test" class="p-mr-2 p-button-sm" (click)="test()"></button>
         </div>
 
     </div>
@@ -43,7 +44,7 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listGiaoKeHoach" placeholder="Chọn kế hoạch giao"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IdGiaoKeHoachSanXuat"
-                    (onChange)="GetListMatHangChuaLapKeHoach($event)"></p-dropdown>
+                    (onChange)="GetListMatHangChuaLapKeHoach($event,true)"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
@@ -77,8 +78,8 @@
                     </div>
                 </div>
             </div>
-            <p-table [value]="item.listItem"
-                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+            <p-table [value]="item.listItem | isXoa"
+                styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
@@ -87,7 +88,7 @@
                         <col>
                         <col>
                         <col>
-                        <col style="width:100px">
+                        <col style="width:130px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -109,22 +110,24 @@
                     <tr>
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">{{mathang.Ten}}</td>
-                        <td class="text-center">{{mathang.KhoiLuongKeHoach}}</td>
+                        <td class="text-center">{{mathang.KhoiLuongKeHoach|number}}</td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="mathang.KhoiLuongSanXuat">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [max]="mathang.KhoiLuongKeHoach"
+                                [(ngModel)]="mathang.KhoiLuongSanXuat">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
                             <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                                [yearNavigator]="false" [readonlyInput]="true" [minDate]="minDateChonMay" [maxDate]="maxDateChonMay"
-                                inputId="monthpicker" [(ngModel)]="mathang.TuNgay" 
+                                [yearNavigator]="false" [readonlyInput]="true" [minDate]="minDateChonMay"
+                                [maxDate]="maxDateChonMay" inputId="monthpicker" [(ngModel)]="mathang.TuNgay" [disabled]="validChonLai(mathang)"
                                 placeholder="dd/mm/yyyy">
                             </p-calendar>
+                            <!-- [disabled]="validVariable(mathang.TuNgay)&&validVariable(mathang.DenNgay)" -->
                         </td>
                         <td class="text-center">
                             <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                                [yearNavigator]="false" [readonlyInput]="true"  [minDate]="minDateChonMay" [maxDate]="maxDateChonMay"
-                                inputId="monthpicker" [(ngModel)]="mathang.DenNgay"
+                                [yearNavigator]="false" [readonlyInput]="true" [minDate]="minDateChonMay"
+                                [maxDate]="maxDateChonMay" inputId="monthpicker" [(ngModel)]="mathang.DenNgay" [disabled]="validChonLai(mathang)"
                                 placeholder="dd/mm/yyyy">
                             </p-calendar>
                         </td>
@@ -132,18 +135,14 @@
                         <td></td>
                         <td></td>
                         <td></td> -->
-                        <td>
+                        <td class="text-center date">
                             <ng-container *ngIf="validVariable(mathang.TuNgay)&&validVariable(mathang.DenNgay)">
                                 <a href="javascript:void(0)" (click)="boTriMay(mathang,i)">Bố trí máy</a>
                             </ng-container>
-                            <!-- <button pButton pRipple icon="pi pi-pencil"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="edit(item,i)" pTooltip="Sửa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
-                            <button pButton pRipple icon="pi pi-trash"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="delete(item,i)" pTooltip="Xóa" showDelay="1000"
-                                tooltipPosition="bottom"></button> -->
+                            <ng-container *ngIf="validChonLai(mathang)">
+                                <button type="button" pButton pRipple icon="pi pi-refresh"
+                                    class="p-button-danger p-button-text p-button-sm ml-3" (click)="boTriLai(mathang,i)"></button>
+                            </ng-container>
                         </td>
                     </tr>
                 </ng-template>

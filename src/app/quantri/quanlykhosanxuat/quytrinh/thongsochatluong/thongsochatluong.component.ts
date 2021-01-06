@@ -69,8 +69,7 @@ export class ThongsochatluongComponent implements OnInit {
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
+      this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
@@ -85,8 +84,6 @@ export class ThongsochatluongComponent implements OnInit {
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
     modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })

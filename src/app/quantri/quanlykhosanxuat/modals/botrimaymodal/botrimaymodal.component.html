@@ -12,6 +12,20 @@
                 <div>
                     <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
                 </div>
+                <div class="d-flex flex-row">
+                    <div>
+                        <div *ngFor="let item of listChuThich1" class="d-flex flex-row">
+                            <div [ngStyle]="{'background-color': item.color}" class="legend-CT"></div>
+                            <span>{{item.GhiChu}}</span>
+                        </div>
+                    </div>
+                    <div >
+                        <div *ngFor="let item of listChuThich2" class="d-flex flex-row">
+                            <div [ngStyle]="{'background-color': item.color}" class="legend-CT"></div>
+                            <span>{{item.GhiChu}}</span>
+                        </div>
+                    </div>
+                </div>
                 <div>
                     <div class="p-inputgroup">
                         <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText

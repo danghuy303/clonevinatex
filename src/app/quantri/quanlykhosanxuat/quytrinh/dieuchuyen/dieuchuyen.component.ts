@@ -67,13 +67,13 @@ export class DieuchuyenComponent implements OnInit {
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute);
-    this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0'){
-        let getitem =()=>{return{}};
-        this.update(getitem());
-      }
-    })
+    // console.log(this.activatedRoute);
+    // this.activatedRoute.params.subscribe((res:any)=>{
+    //   if(res.id!=='0'){
+    //     let getitem =()=>{return{}};
+    //     this.update(getitem());
+    //   }
+    // })
     this.KiemTraTabTrangThai();
     this.getListdmkho();
     this.GetListQuyTrinh()
@@ -91,30 +91,29 @@ export class DieuchuyenComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.componentInstance.listdmKho = this.listdmKho;
     modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
-  update(item){
+  update(Id){
+    this.changeParam(Id);
+    this._service.PhieuDieuChuyen().Get(Id).subscribe((res1: any) => {
     let modalRef = this._modal.open(DieuchuyenmodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
     modalRef.componentInstance.listdmKho = this.listdmKho;
     modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
-  }
+  })
+}
   changeTab(e){
-    // this.trangThai = e.index+1;
-    // this.GetListQuyTrinh(true);
+    this.trangThai = e.index+1;
+    this.GetListQuyTrinh(true);
   }
   changePage(event){
     // this.paging.CurrentPage = event.page + 1;

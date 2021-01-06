@@ -108,16 +108,30 @@
                     <tr *ngIf="item.editField !== true">
                         <td>{{i+1}}</td>
                         <td>{{item.Ten}}</td>
-                        <td>{{item.SoKien}}</td>
-                        <td>{{item.KhoiLuong}}</td>
-                        <td>{{item.Block}}</td>
-                        <td>{{item.Ton}}</td>
-                        <td>{{item.GhiChu}}</td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil"
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.KhoiLuong">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Block">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ton">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <input pInputText type="text" [(ngModel)]="item.GhiChu">
+                        </td>
+                        <td>
+                            <!-- <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text"
                                 (click)="editChiTiet(item,i)" pTooltip="Sửa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
+                                tooltipPosition="bottom"></button> -->
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"

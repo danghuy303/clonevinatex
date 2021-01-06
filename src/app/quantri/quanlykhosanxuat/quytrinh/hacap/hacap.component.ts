@@ -93,8 +93,7 @@ export class HacapComponent implements OnInit {
     modalRef.componentInstance.item = {}
     modalRef.componentInstance.listdmKho = this.listdmKho;
     modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
+      this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
@@ -108,15 +107,14 @@ export class HacapComponent implements OnInit {
       modalRef.componentInstance.listdmKho = this.listdmKho;
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res));
       modalRef.result.then((res: any) => {
-        console.log(res);
-        this._toastr.success('Cập nhật thành công');
+        this.GetListQuyTrinh();
       })
         .catch(er => { console.log(er) })
     })
   }
   changeTab(e){
-    // this.trangThai = e.index+1;
-    // this.GetListQuyTrinh(true);
+    this.trangThai = e.index+1;
+    this.GetListQuyTrinh(true);
   }
   changePage(event){
     // this.paging.CurrentPage = event.page + 1;

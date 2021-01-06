@@ -3,22 +3,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
-import { NhapkhomodalComponent } from '../nhapkhomodal/nhapkhomodal.component';
+import { NhapkhothanhphammodalComponent } from '../nhapkhothanhphammodal/nhapkhothanhphammodal.component';
 
 @Component({
-  selector: 'app-nhapkho',
-  templateUrl: './nhapkho.component.html',
-  styleUrls: ['./nhapkho.component.css']
+  selector: 'app-nhapkhothanhpham',
+  templateUrl: './nhapkhothanhpham.component.html',
+  styleUrls: ['./nhapkhothanhpham.component.css']
 })
-export class NhapkhoComponent implements OnInit {
+export class NhapkhothanhphamComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  eAction: any = "PHIEUNHAPLOBONG";
+  eAction: any = "PHIEUNHAPKHOTHANHPHAM";
   cols: any = [
     {
       header: 'Số quy trình',
@@ -73,7 +72,7 @@ export class NhapkhoComponent implements OnInit {
   }
   addPhieuBong() {
     this.changeParam(0);
-    let modalRef = this._modal.open(NhapkhomodalComponent, {
+    let modalRef = this._modal.open(NhapkhothanhphammodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
@@ -86,39 +85,9 @@ export class NhapkhoComponent implements OnInit {
     })
       .catch(er => { console.log(er) })
   }
-  addPhieuSo() {
-    this.changeParam(0);
-    let modalRef = this._modal.open(NhapkhomodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.type = 'xo';
-    modalRef.componentInstance.nametype = 'xơ';
-    modalRef.componentInstance.item = {}
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-    })
-      .catch(er => { console.log(er) })
-  }
-  addPhieuBongHoi() {
-    this.changeParam(0);
-    let modalRef = this._modal.open(NhapkhomodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.type = 'bonghoi';
-    modalRef.componentInstance.nametype = 'bông khác';
-    modalRef.componentInstance.item = {}
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-    })
-      .catch(er => { console.log(er) })
-  }
   update(Id) {
     this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
-      let modalRef = this._modal.open(NhapkhomodalComponent, {
+      let modalRef = this._modal.open(NhapkhothanhphammodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
@@ -139,8 +108,8 @@ export class NhapkhoComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?) {
     if (reset) {
@@ -172,4 +141,5 @@ export class NhapkhoComponent implements OnInit {
     //   this.GetListQuyTrinh();
     // })
   }
+
 }

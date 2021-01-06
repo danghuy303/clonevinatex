@@ -28,6 +28,8 @@
                         <col>
                         <!-- <col> -->
                         <col *ngIf="opt==='KhoiLuongKeHoach'">
+                        <col *ngIf="opt==='KhoiLuongSanXuat'">
+                        <!-- <col *ngIf="opt==='LoBong'"> -->
                         <col>
                     </colgroup>
                 </ng-template>
@@ -35,8 +37,10 @@
                     <tr>
                         <th>#</th>
                         <!-- <th>Mã hàng</th> -->
-                        <th>Tên hàng</th>
+                        <th *ngIf="opt===''">Tên hàng</th>
+                        <th *ngIf="opt==='LoBong'">Mã</th>
                         <th *ngIf="opt==='KhoiLuongKeHoach'">Khối lượng kế hoạch(Tấn)</th>
+                        <th *ngIf="opt==='KhoiLuongSanXuat'">Khối lượng triển khai(Tấn)</th>
                         <th>Ghi chú</th>
                     </tr>
                 </ng-template>
@@ -45,9 +49,10 @@
                         <td>
                             <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary"></p-checkbox>
                         </td>
-                        <!-- <td>{{item.Ma}}</td> -->
-                        <td>{{item.Ten}}</td>
+                        <td *ngIf="opt===''">{{item.Ten}}</td>
+                        <td *ngIf="opt==='LoBong'">{{item.Ma}}</td>
                         <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongKeHoach|number}}</td>
+                        <td *ngIf="opt==='KhoiLuongSanXuat'" class="text-right">{{item.KhoiLuongSanXuat|number}}</td>
                         <td>{{item.GhiChu}}</td>
                     </tr>
                 </ng-template>

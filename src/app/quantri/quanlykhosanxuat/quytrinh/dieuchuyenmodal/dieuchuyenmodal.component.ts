@@ -34,9 +34,13 @@ export class DieuchuyenmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
+    }
+    else
+      this.KiemTraButtonModal();
+    if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
   }
   KiemTraButtonModal() {
@@ -69,7 +73,11 @@ export class DieuchuyenmodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+    if (this.item.IddmKho === this.item.IddmKhoKhac){
+      this.toastr.error("Kho điều chuyển và kho nhập trùng nhau");
+    }
+    else{
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
 
       this.services.PhieuDieuChuyen().Set(this.item).subscribe((res: any) => {
@@ -84,6 +92,8 @@ export class DieuchuyenmodalComponent implements OnInit {
           }
         }
       })
+    }
+    
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {

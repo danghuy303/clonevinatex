@@ -20,18 +20,18 @@ export class PhabongComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Kế hoạch giao(Tấn)',
-      field: '',
+      header: 'Khối lượng bông (Tấn)',
+      field: 'KhoiLuongBong',
       width: 'unset'
     },
     {
-      header: 'Kế hoạch thực hiện',
-      field: 'NoiDung',
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
       width: 'unset'
     },
     {
       header: 'Ghi chú',
-      field: 'TenTrangThai',
+      field: 'GhiChu',
       width: 'unset'
     },
   ];
@@ -43,8 +43,12 @@ export class PhabongComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res:any)=>{
       if(res.id!=='0'){
-        let getitem =()=>{return{}};
-        this.update(getitem());
+        this._service.PhuongAnPhaBong().Get(res.id).subscribe((res: any) => {
+          // res.listItem.forEach(ele => {
+          //   ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
+          // });
+          this.update(res);
+        })
       }
     })
     this.KiemTraTabTrangThai();
@@ -115,7 +119,10 @@ export class PhabongComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.TrienKhaiKeHoachSanXuat().GetList(data).subscribe((res:any)=>{
+    this._service.PhuongAnPhaBong().GetList(data).subscribe((res:any)=>{
+      res.items.forEach(trienkhai => {
+        trienkhai.KhoiLuongBong=trienkhai.KhoiLuongBong/1000;
+      });
       this.items = res.items;
       this.paging = res.paging;
     })

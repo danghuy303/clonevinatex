@@ -57,6 +57,7 @@ import { NhomkhoComponent } from './danhmuc/danhmucsanxuat/nhomkho/nhomkho.compo
 import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
 import { KehoachnhapnguyenlieuComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieu/kehoachnhapnguyenlieu.component';
 import { KehoachxuathangComponent } from './quanlykhosanxuat/quytrinh/kehoachxuathang/kehoachxuathang.component';
+import { NhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhpham/nhapkhothanhpham.component';
 
 const routes: Routes = [
   {
@@ -129,6 +130,11 @@ const routes: Routes = [
       { path: 'quanlykhosanxuat/dieuchuyen/:id', component: DieuchuyenComponent },
       { path: 'quanlykhosanxuat/kehoachnhapnguyenlieu/:id', component: KehoachnhapnguyenlieuComponent },
       { path: 'quanlykhosanxuat/kehoachxuathang/:id', component: KehoachxuathangComponent },      
+      { path: 'kehoachsanxuat/giaokehoachsanxuat/:id', component:KehoachsanxuatComponent},
+      { path: 'kehoachsanxuat/trienkhaikehoachsanxuat/:id', component:TrienkhaikehoachsanxuatComponent},
+      { path: 'quanlykhosanxuat/hacap/:id', component:HacapComponent},
+      { path: 'quanlykhosanxuat/dieuchuyen/:id', component:DieuchuyenComponent},
+      { path: 'quanlykhosanxuat/nhapkhothanhpham/:id', component:NhapkhothanhphamComponent},
     ]
   }
 ];
