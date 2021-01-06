@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { TinhtrangtaisanComponent } from 'src/app/quantri/danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { PintableDirective } from 'voi-lib';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 
 @Component({
@@ -11,56 +13,61 @@ import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhan
   styleUrls: ['./phabongmodal.component.css']
 })
 export class PhabongmodalComponent implements OnInit {
-  listBanBong:any = [];
-  listTrienKhaiKeHoach:any=[];
-  listItems:any=[];
-  listProps:any=[];
-  listCol:any = [];
-  listFixedCol:any=[];
-  editVal:any = 0;
-  checkbutton:any={};
-  opt:any='';
-  listLoBong:any=[];
-  item:any={
-    Id:'',
-    listItem:[]
+  @ViewChild(PintableDirective) voiPintable: PintableDirective;
+  listBanBong: any = [];
+  listTrienKhaiKeHoach: any = [];
+  listItems: any = [];
+  listProps: any = [];
+  listCol: any = [];
+  listFixedCol: any = [];
+  editVal: any = 0;
+  checkbutton: any = {};
+  opt: any = '';
+  listLoBong: any = [];
+  itemSoKienTrenBan = {};
+  item: any = {
+    Id: '',
+    listItem: [],
+    listLoBong: []
   };
-  itemTrienKhaiKeHoach:any={};
-  constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) { 
-    for(let i = 0;i<31;i++){
-      this.listBanBong.push({label:`${i}`})
-    }
-    this.listItems = [];
-    for(let i=0;i<23;i++){
-      let data = {
-        id: i,
-        label:`Thành phần ${i}`,
-        mic:`${i}`,
-        rd:`${i}`,
-        pb:`${i}`,
-        TyLe:`${i}`,
-        Ton:`${i}`,
-        TongNgay:`${i}`,
-        ConLai:`${i}`
-      }
-      for(let j = 0;j<31;j++){
-        data[`Ban${j}`]={};
-        data[`Ban${j}`].SoKien = null;
-        data[`Ban${j}`].tabIndex = (j*23)+i+1;
-      }
-      this.listItems.push(data);
-    }
-    for(let j = 0;j<31;j++){
-      this.listProps.push(`Ban${j}`)
-    }
+  TongKhoiLuongDung:any = null;
+  TongTyLe:number=100;
+  itemTrienKhaiKeHoach: any = {};
+  constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
+    // for (let i = 0; i < 31; i++) {
+    //   this.listBanBong.push({ label: `${i}` })
+    // }
+    // this.listItems = [];
+    // for (let i = 0; i < 23; i++) {
+    //   let data = {
+    //     id: i,
+    //     label: `Thành phần ${i}`,
+    //     mic: `${i}`,
+    //     rd: `${i}`,
+    //     pb: `${i}`,
+    //     TyLe: `${i}`,
+    //     Ton: `${i}`,
+    //     TongNgay: `${i}`,
+    //     ConLai: `${i}`
+    //   }
+    //   for (let j = 0; j < 31; j++) {
+    //     data[`Ban${j}`] = {};
+    //     data[`Ban${j}`].SoKien = null;
+    //     data[`Ban${j}`].tabIndex = (j * 23) + i + 1;
+    //   }
+    //   this.listItems.push(data);
+    // }
+    // for (let j = 0; j < 31; j++) {
+    //   this.listProps.push(`Ban${j}`)
+    // }
   }
 
   ngOnInit(): void {
-    this.checkbutton={
-      Ghi:true,
-      Xoa:true,
-      ChuyenTiep:true,
-      KhongDuyet:true
+    this.checkbutton = {
+      Ghi: false,
+      Xoa: false,
+      ChuyenTiep: false,
+      KhongDuyet: false
     }
     this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
@@ -69,22 +76,22 @@ export class PhabongmodalComponent implements OnInit {
     }
     this.GetListTrienKhaiKeHoach()
   }
-  GetListTrienKhaiKeHoach(){
+  GetListTrienKhaiKeHoach() {
     let data = {
-      CurrentPage:0,
+      CurrentPage: 0,
     }
-    this._services.TrienKhaiKeHoachSanXuat().GetList(data).subscribe((res:any)=>{
-      this.listTrienKhaiKeHoach = mapArrayForDropDown(res,'SoQuyTrinh',"Id")
-      if(validVariable(this.item.IdTrienKhaiKeHoachSanXuat)){
-        this.GetChiTietTrienKhaiKeHoachForMatHang({value:this.item.IdTrienKhaiKeHoachSanXuat});
+    this._services.TrienKhaiKeHoachSanXuat().GetList(data).subscribe((res: any) => {
+      this.listTrienKhaiKeHoach = mapArrayForDropDown(res, 'SoQuyTrinh', "Id")
+      if (validVariable(this.item.IdTrienKhaiKeHoachSanXuat)) {
+        this.GetChiTietTrienKhaiKeHoachForMatHang({ value: this.item.IdTrienKhaiKeHoachSanXuat });
       }
     })
   }
-  GetChiTietTrienKhaiKeHoachForMatHang(event){
-    this._services.TrienKhaiKeHoachSanXuat().Get(event.value,false).subscribe((res:any)=>{
+  GetChiTietTrienKhaiKeHoachForMatHang(event) {
+    this._services.TrienKhaiKeHoachSanXuat().Get(event.value, false).subscribe((res: any) => {
       console.log(res);
       res.listItem.forEach(mathang => {
-        mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat/1000;
+        mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
       });
       this.itemTrienKhaiKeHoach = res;
       this.GetLoBongTrongKho();
@@ -97,61 +104,113 @@ export class PhabongmodalComponent implements OnInit {
   //   console.log(this.listItems);
   //   this.listItems[i][prop].editing=false;
   // }
-  GetLoBongTrongKho(){
-    this._services.PhuongAnPhaBong().GetLoBongTrongKho(this.itemTrienKhaiKeHoach.IdDuAn).subscribe(res=>{
+  GetLoBongTrongKho() {
+    this._services.PhuongAnPhaBong().GetLoBongTrongKho(this.itemTrienKhaiKeHoach.IdDuAn).subscribe(res => {
       this.listLoBong = res;
     })
   }
-  TinhSoBanBong(e?){
+  chonHangHoa() {
+    let modalRef = this._modal.open(ChonhanghoamodalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.items = this.itemTrienKhaiKeHoach.listItem || [];
+    modalRef.componentInstance.selectedItems = this.item.listItem || [];
+    modalRef.componentInstance.IdQuyTrinh = this.item.Id;
+    modalRef.componentInstance.opt = "KhoiLuongSanXuat";
+    modalRef.result.then(res => {
+      this.item.listItem = res;
+      this._services.PhuongAnPhaBong().TinhKhoiLuongBong(res).subscribe((result: any) => {
+        if (result.State === 1) {
+          this.item.KhoiLuongBong = parseFloat(result.message);
+          if (validVariable(this.item.TongSoKien)) {
+            this.TinhSoBanBong({ value: this.item.TongSoKien });
+          }
+        } else {
+          this._toastr.error(result.message);
+        }
+      })
+    })
+      .catch(er => {
+        console.log(er);
+      })
+  }
+  chonLoBong() {
+    let modalRef = this._modal.open(ChonhanghoamodalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.items = this.listLoBong || [];
+    modalRef.componentInstance.selectedItems = this.item.listLoBong || [];
+    modalRef.componentInstance.IdQuyTrinh = this.item.Id;
+    modalRef.componentInstance.opt = "LoBong";
+    modalRef.result.then(res => {
+      this.item.listLoBong = res;
+      if (res.length > 0) {
+        let TongKhoiLuong = res.reduce((sum, ele) => {
+          return sum + ele.TrongLuong
+        }, 0)
+        this.item.KhoiLuongKienTrungBinh = TongKhoiLuong / (res.length);
+      }
+      console.log(this.item.KhoiLuongKienTrungBinh);
+      if (validVariable(this.item.TongSoKien)) {
+        this.TinhSoBanBong({ value: this.item.TongSoKien });
+      }
+    })
+      .catch(er => {
+        console.log(er);
+      })
+  }
+  TinhSoBanBong(e?) {
     this.item.TongSoKien = e.value;
-    if(validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien)){
-      this.item.SoBanBong = Math.ceil(this.item.KhoiLuongBong /this.item.TongSoKien)
-      console.log(this.item.SoBanBong)
+    if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh)) {
+      this.item.SoBanBong = Math.ceil(this.item.KhoiLuongBong / (this.item.TongSoKien * this.item.KhoiLuongKienTrungBinh));
+      this.listProps = [];
+      for (let i = 1; i <= this.item.SoBanBong; i++) {
+        this.listProps.push(`${i}`);
+      }
+      this.item.listLoBong.forEach((lobong, index) => {
+        lobong.tempBanBong = {};
+        for (let i = 1; i <= this.item.SoBanBong; i++) {
+          lobong.tempBanBong[`${i}`] = {
+            SoKien: null,
+            tabIndex: (i * this.item.listLoBong.length) + index
+          };
+        }
+      })
+      this.itemSoKienTrenBan={};
+      for (let i = 1; i <= this.item.SoBanBong; i++) {
+        this.itemSoKienTrenBan[`${i}`]= null;
+      }
+      this.voiPintable.active();
+      // console.log(this.voiPintable);
     }
   }
-  chonHangHoa(){
-    let modalRef = this._modal.open(ChonhanghoamodalComponent,{size:'lg',backdrop:'static'});
-    modalRef.componentInstance.items = this.itemTrienKhaiKeHoach.listItem||[];
-    modalRef.componentInstance.selectedItems = this.item.listItem||[];
-    modalRef.componentInstance.opt = "KhoiLuongSanXuat";
-    modalRef.result.then(res=>{
-      this.item.listItem = res;
-      this._services.PhuongAnPhaBong().TinhKhoiLuongBong(res).subscribe((result:any)=>{
-        if(result.State===1){
-          this.item.KhoiLuongBong = parseFloat(result.message);
-          if(validVariable(this.item.TongSoKien)){
-            this.TinhSoBanBong({value:this.item.TongSoKien});
-          }
-        }else{
-          this._toastr.error(result.message);
-        }
-      })
-    })
-    .catch(er=>{
-      console.log(er);
-    })
+  
+  CalAllTable(y, x) { //truc toa do y:tung x:hoanh
+    //TinhSoLuongDung;
+    let tempSLD = 0;
+    for (let i = 1; i <= this.item.SoBanBong; i++) {
+      if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
+        tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
+      }
+    }
+    this.item.listLoBong[y].SoLuongDung = tempSLD;
+    this.item.listLoBong[y].TonCuoi = this.item.listLoBong[y].SoLuongKien - tempSLD;
+    let tempSoKien1Line = 0;
+    let tempTongKhoiLuongDung = 0;
+    this.item.listLoBong.forEach(lobong => {
+      if(validVariable(lobong.tempBanBong[`${x}`].SoKien)){
+        tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien
+      }
+      if(validVariable(lobong.SoLuongDung)){
+        tempTongKhoiLuongDung+=(lobong.SoLuongDung*lobong.TrongLuong);
+      }
+    });
+    this.TongKhoiLuongDung = tempTongKhoiLuongDung;
+    this.itemSoKienTrenBan[`${x}`]=tempSoKien1Line;
+    this.item.listLoBong.forEach(lobong => {
+      if(validVariable(lobong.SoLuongDung)){
+        lobong.TyLe = (lobong.SoLuongDung*lobong.TrongLuong)/tempTongKhoiLuongDung*100;
+      }
+    });
   }
-  chonLoBong(){
-    let modalRef = this._modal.open(ChonhanghoamodalComponent,{size:'lg',backdrop:'static'});
-    modalRef.componentInstance.items = this.listLoBong||[];
-    modalRef.componentInstance.selectedItems = this.item.listLoBong||[];
-    modalRef.componentInstance.opt = "LoBong";
-    modalRef.result.then(res=>{
-      this.item.listItem = res;
-      this._services.PhuongAnPhaBong().TinhKhoiLuongBong(res).subscribe((result:any)=>{
-        if(result.State===1){
-          this.item.KhoiLuongBong = parseFloat(result.message);
-          if(validVariable(this.item.TongSoKien)){
-            this.TinhSoBanBong({value:this.item.TongSoKien});
-          }
-        }else{
-          this._toastr.error(result.message);
-        }
-      })
-    })
-    .catch(er=>{
-      console.log(er);
-    })
+  TinhSoLuongDung() {
+
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {

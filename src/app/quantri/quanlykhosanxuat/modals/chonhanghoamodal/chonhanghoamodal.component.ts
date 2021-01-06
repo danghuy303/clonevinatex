@@ -13,6 +13,7 @@ export class ChonhanghoamodalComponent implements OnInit {
   IdQuyTrinh: any;
   KeyWord: any = '';
   opt: any = '';
+  checkedAll: boolean = false;
   constructor(private activeModal: NgbActiveModal, private _services: SanXuatService) { }
 
   ngOnInit(): void {
@@ -36,6 +37,14 @@ export class ChonhanghoamodalComponent implements OnInit {
             }
           });
           break;
+        case "LoBong":
+          this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
+            let selected = this.items.filter(item => sItem.IdLoBong === item.IdLoBong)[0];
+            if (selected) {
+              selected.checked = true;
+            }
+          });
+          break;
         default:
           this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
             let selected = this.items.filter(item => sItem.IddmItem === item.Id)[0];
@@ -49,6 +58,18 @@ export class ChonhanghoamodalComponent implements OnInit {
   }
   resetFilter() {
     this.KeyWord = '';
+  }
+  checkAll(e) {
+    if (e.checked) {
+      this.items.forEach(item => {
+        item.checked = true;
+      });
+    } else {
+      this.items.forEach(item => {
+        item.checked = false;
+      });
+    }
+
   }
   accept() {
     switch (this.opt) {
@@ -80,6 +101,15 @@ export class ChonhanghoamodalComponent implements OnInit {
           }
         }));
         break;
+      case "LoBong":
+        this.activeModal.close(this.items.filter(item => item.checked).map(ele => {
+          return {
+            ...ele,
+            IdPhuongAnPhaBong: this.IdQuyTrinh,
+            tempBanBong: {},
+            Id: '',
+          }
+        }))
       default:
         this.activeModal.close(this.items.filter(item => item.checked).map(ele => {
           return {
