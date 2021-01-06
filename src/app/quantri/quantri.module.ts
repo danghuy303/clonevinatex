@@ -160,7 +160,13 @@ import { NhomkhoComponent } from './danhmuc/danhmucsanxuat/nhomkho/nhomkho.compo
 import { XuatkhomathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomathangmodal/xuatkhomathangmodal.component';
 import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
 import 'chartjs-plugin-labels';
+import { KehoachnhapnguyenlieuComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieu/kehoachnhapnguyenlieu.component';
+import { KehoachnhapnguyenlieumodalComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieumodal/kehoachnhapnguyenlieumodal.component';
+import { KehoachxuathangComponent } from './quanlykhosanxuat/quytrinh/kehoachxuathang/kehoachxuathang.component';
+import { KehoachxuathangmodalComponent } from './quanlykhosanxuat/quytrinh/kehoachxuathangmodal/kehoachxuathangmodal.component';
 import { VoiLibModule } from 'voi-lib';
+import { NhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhpham/nhapkhothanhpham.component';
+import { NhapkhothanhphammodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhphammodal/nhapkhothanhphammodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -281,7 +287,13 @@ import { VoiLibModule } from 'voi-lib';
     TrangthaimaysanxuatComponent,
     NhomkhoComponent,
     XuatkhomathangmodalComponent,
-    KhoComponent
+    KhoComponent,
+    KehoachnhapnguyenlieuComponent,
+    KehoachnhapnguyenlieumodalComponent,
+    KehoachxuathangComponent,
+    KehoachxuathangmodalComponent,
+    NhapkhothanhphamComponent,
+    NhapkhothanhphammodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -365,6 +377,9 @@ import { VoiLibModule } from 'voi-lib';
     ChonmaytheocongdoanComponent,
     ImportdanhmucmodelComponent,
     XuatkhomathangmodalComponent,
+    KehoachnhapnguyenlieumodalComponent,
+    KehoachxuathangmodalComponent,
+    NhapkhothanhphammodalComponent,
   ],
   providers: [
     SanXuatService,

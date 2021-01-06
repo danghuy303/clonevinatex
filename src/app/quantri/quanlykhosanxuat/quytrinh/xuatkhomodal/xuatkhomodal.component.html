@@ -108,16 +108,28 @@
                     <tr *ngIf="item.editField !== true">
                         <td>{{i+1}}</td>
                         <td>{{item.Ten}}</td>
-                        <td>{{item.Container}}</td>
-                        <td>{{item.MaKien}}</td>
-                        <td>{{item.DVT}}</td>
-                        <td>{{item.TonKho}}</td>
-                        <td>{{item.SoLuongXuat}}</td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil"
+                            <input pInputText type="text" [(ngModel)]="item.Container">
+                        </td>
+                        <td>
+                            <input pInputText type="text" [(ngModel)]="item.MaKien">
+                        </td>
+                        <td>
+                            <input pInputText type="text" [(ngModel)]="item.DVT">
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TonKho">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuongXuat">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <!-- <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text"
                                 (click)="editChiTiet(item,i)" pTooltip="Sửa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
+                                tooltipPosition="bottom"></button> -->
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"

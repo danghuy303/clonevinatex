@@ -1,11 +1,9 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Nhập kho</h4>
+    <h4 style="color:#1f2779">Kế hoạch xuất hàng</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-      <button pButton pRipple label="Nhập bông" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieuBong()" *ngIf="checkQuyen.ThemMoi"></button>
-      <button pButton pRipple label="Nhập xơ" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieuSo()" *ngIf="checkQuyen.ThemMoi"></button>
-      <button pButton pRipple label="Nhập bông khác" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieuBongHoi()" *ngIf="checkQuyen.ThemMoi"></button>
+      <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieuBong()" *ngIf="checkQuyen.ThemMoi"></button>    
     </div>
     <div class="p-d-flex p-flex-row">
         <!-- <div class="p-mr-2">
@@ -29,14 +27,6 @@
         
     </div>
 </div>
-<p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
-    </p-tabPanel>
-    <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
-    </p-tabPanel>
-    <!-- <p-tabPanel header="Tổng hợp" [disabled]="!checkQuyen.TongHop">
-    </p-tabPanel> -->
-</p-tabView>
 <div class="p-mt-3">
     <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
         <ng-template pTemplate="colgroup">

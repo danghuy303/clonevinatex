@@ -60,7 +60,8 @@
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <p-table [value]="item.listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+            <p-table [lazy]="true" [scrollable]="true" scrollHeight="45vh"
+            [value]="item.listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
@@ -84,46 +85,28 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
-                    <tr *ngIf="item.editField !== true">
+                    <tr>
                         <td>{{i+1}}</td>
                         <td class="text-left">{{item.TendmMay}}</td>
                         <td class="text-left">{{item.TendmItem}}</td>
                         <td class="text-left">{{item.ChiSo}}</td>
-                        <td class="text-left">{{item.ChieuDai}}</td>
-                        <td class="text-right">{{item.TrongLuong}}</td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil"
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.ChieuDai"
+                            (ngModelChange)="item.TrongLuong=TinhGiaTri(item, $event)">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.TrongLuong">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <!-- <button pButton pRipple icon="pi pi-pencil"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text"
                                 (click)="editChiTiet(item,i)" pTooltip="Sửa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
+                                tooltipPosition="bottom"></button> -->
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
-                        </td>
-                    </tr>
-                    <tr *ngIf="item.editField === true">
-                        <td>{{i+1}}</td>
-                        <td>{{item.TendmMay}}</td>
-                        <td>{{item.TendmItem}}</td>
-                        <td>{{item.ChiSo}}</td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.ChieuDai"
-                            (ngModelChange)="editTableItem.TrongLuong=TinhGiaTri(editTableItem, $event)">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="editTableItem.TrongLuong">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <button pButton pRipple icon="pi pi-check"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                (click)="saveEdit(editTableItem, i)" pTooltip="Lưu"
-                                tooltipPosition="bottom"></button>
-                            <button pButton pRipple icon="pi pi-times"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                (click)="cancelEdit(item, i)" pTooltip="Hủy"
                                 tooltipPosition="bottom"></button>
                         </td>
                     </tr>
@@ -131,57 +114,47 @@
             </p-table>
             <div class="p-col-12 p-p-0 d-flex flex-row p-jc-end">
                 <div class="p-col-12 p-lg-6 p-p-0 d-flex">
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan===5">
-                        <div class="p-col-12 p-lg-8 p-p-3 d-flex flex-column flex-lg-row">
+                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='_00_BONGCHAI'">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bông phế:</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.TyLeBongPhe">
+                                </p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bông mùn:</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.TyLeBongMun">
+                                </p-inputNumber>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='_09_THO'">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Cúi hồi:</label>
                             <div class="p-col-12 p-lg-8 p-p-0">
                                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.CuiHoi" pInputText/>
                             </div>
                         </div>
-                        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-6 p-p-0 my-auto">Tỷ lệ:</label>
-                            <div class="p-col-12 p-lg-6 p-p-0">
-                                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TyLeCuiHoi" pInputText/>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-8 p-p-3 d-flex flex-column flex-lg-row">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Thô màng:</label>
                             <div class="p-col-12 p-lg-8 p-p-0">
                                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ThoMang" pInputText/>
                             </div>
                         </div>
-                        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-6 p-p-0 my-auto">Tỷ lệ:</label>
-                            <div class="p-col-12 p-lg-6 p-p-0">
-                                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TyLeThoMang" pInputText/>
-                            </div>
-                        </div>
                     </div>
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan===6">
-                        <div class="p-col-12 p-lg-8 p-p-3 d-flex flex-column flex-lg-row">
+                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='_10_CON'">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bông hút mối:</label>
                             <div class="p-col-12 p-lg-8 p-p-0">
                                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.CuiHoi" pInputText/>
                             </div>
                         </div>
-                        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-6 p-p-0 my-auto">Tỷ lệ:</label>
-                            <div class="p-col-12 p-lg-6 p-p-0">
-                                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TyLeCuiHoi" pInputText/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan===7">
-                        <div class="p-col-12 p-lg-8 p-p-3 d-flex flex-column flex-lg-row">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Sợi cắt:</label>
                             <div class="p-col-12 p-lg-8 p-p-0">
                                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.CuiHoi" pInputText/>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-6 p-p-0 my-auto">Tỷ lệ:</label>
-                            <div class="p-col-12 p-lg-6 p-p-0">
-                                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TyLeCuiHoi" pInputText/>
                             </div>
                         </div>
                     </div>
