@@ -164,7 +164,7 @@ const routes: Routes = [
       { path: 'quanlykhosanxuat/khothanhpham/kiemkekho/:id', component: KiemkekhoComponent },
 
       { path: 'kehoachsanxuat/giaokehoachsanxuat/:id', component: KehoachsanxuatComponent },
-      { path: 'quanlykhosanxuat/kehoachxuathang/:id', component: KehoachxuathangComponent },      
+      { path: 'quanlykhosanxuat/khothanhpham/kehoachxuathang/:id', component: KehoachxuathangComponent },      
       { path: 'kehoachsanxuat/giaokehoachsanxuat/:id', component:KehoachsanxuatComponent},
       { path: 'kehoachsanxuat/trienkhaikehoachsanxuat/:id', component:TrienkhaikehoachsanxuatComponent},
       { path: 'quanlykhosanxuat/nhapkhothanhpham/:id', component:NhapkhothanhphamComponent},
