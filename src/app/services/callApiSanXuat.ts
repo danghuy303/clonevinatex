@@ -229,9 +229,12 @@ export class SanXuatService {
             GetDanhSachDuAnByIdUser: (IdUser) => {
                 return this.http.get(`${API.auth}DanhMuc/GetDanhSachDuAnByIdUser?IdUser=${IdUser}`, httpOptions)
             },
-            GetListTinhTrangMay: (Id,IddmPhanXuong, TuNgay, DenNgay) => {
+            GetListTinhTrangMay: (Id, IddmPhanXuong, TuNgay, DenNgay) => {
                 return this.http.get(`${API.SCMQuanLyKho}GetListTinhTrangMay?Id=${Id}&IddmPhanXuong=${IddmPhanXuong}&TuNgay=${TuNgay}&DenNgay=${DenNgay}`, httpOptions)
             },
+            GetTonKhoCuaNguyenLieu: (idKho, idNguyenLieu) => {
+                return this.http.get(`${API.KeHoachNguyenLieu}GetTonKhoCuaNguyenLieu?idKho=${idKho}&idNguyenLieu=${idNguyenLieu}`, httpOptions)
+            },            
             // SmartEOSAPI/DanhMuc/GetDanhSachDuAnByIdUser?IdUser=5d8c24c9-77f9-42aa-801b-df506280e6ce
         }
     }
@@ -416,7 +419,7 @@ export class SanXuatService {
     }
     //#endregion
 
-    
+
     //#region  phiếu điều chuyển
     PhieuDieuChuyen() {
         let url = API.SCMQuanLyKho;
@@ -448,6 +451,67 @@ export class SanXuatService {
     }
     //#endregion
 
+    //#region nhập kế hoạch nguyên liệu
+    NhapKeHoachNguyenLieu() {
+        let url = API.KeHoachNguyenLieu;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhKeHoachNhapNguyenLieu', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListKeHoachNhapNguyenLieu', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetKeHoachNhapNguyenLieu?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetKeHoachNhapNguyenLieu', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteKeHoachNhapNguyenLieu', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'ChuyenTiepKeHoachNhapNguyenLieu', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetKeHoachNhapNguyenLieu', data, httpOptions)
+            },
+        }
+    }
+
+    //#region nhập kế hoạch nguyên liệu
+    KeHoachXuatHang() {
+        let url = API.KeHoachNguyenLieu;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhKeHoachXuatNguyenLieu', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListKeHoachXuatNguyenLieu', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetKeHoachXuatNguyenLieu?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetKeHoachXuatNguyenLieu', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteKeHoachXuatNguyenLieu', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'ChuyenTiepKeHoachXuatNguyenLieu', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetKeHoachXuatNguyenLieu', data, httpOptions)
+            },
+        }
+    }
+
+    //#endregion
     ThongKeSanLuong() {
         let url = API.SCMQuanLyKho;
         return {
@@ -513,8 +577,9 @@ export class SanXuatService {
     }
 
 
-    Importdm(TableName,FileName){
-        let IdDuAn =this.store.getCurrent().toString()
+
+    Importdm(TableName, FileName) {
+        let IdDuAn = this.store.getCurrent().toString()
         let url = API.SCMDanhMuc + `ImportDanhMuc?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`;
         return this.http.get(url, httpOptions);
     }
@@ -526,10 +591,10 @@ export class SanXuatService {
     download(url) {
         window.open(API.imgURL + url);
     }
-    getLuuKho(IddmKho, CurrentPage, sFilter){
+    getLuuKho(IddmKho, CurrentPage, sFilter) {
         // let IdDuAn =this.store.getCurrent();
         let url = API.SCMQuanLyKho + `GetLuuKho?IdDuAn=0&IddmKho=${IddmKho}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
-        return this.http.get(url,httpOptions);
+        return this.http.get(url, httpOptions);
     }
     KhoiTaoItem() {
         let url = API.SCMDanhMuc + 'KhoiTaoItem';

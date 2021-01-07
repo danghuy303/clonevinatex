@@ -160,6 +160,10 @@ import { NhomkhoComponent } from './danhmuc/danhmucsanxuat/nhomkho/nhomkho.compo
 import { XuatkhomathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomathangmodal/xuatkhomathangmodal.component';
 import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
 import 'chartjs-plugin-labels';
+import { KehoachnhapnguyenlieuComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieu/kehoachnhapnguyenlieu.component';
+import { KehoachnhapnguyenlieumodalComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieumodal/kehoachnhapnguyenlieumodal.component';
+import { KehoachxuathangComponent } from './quanlykhosanxuat/quytrinh/kehoachxuathang/kehoachxuathang.component';
+import { KehoachxuathangmodalComponent } from './quanlykhosanxuat/quytrinh/kehoachxuathangmodal/kehoachxuathangmodal.component';
 import { VoiLibModule } from 'voi-lib';
 import { NhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhpham/nhapkhothanhpham.component';
 import { NhapkhothanhphammodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhphammodal/nhapkhothanhphammodal.component';
@@ -167,6 +171,8 @@ import { NhapkhohoiamComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiam/
 import { NhapkhohoiammodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiammodal/nhapkhohoiammodal.component';
 import { ChatluongsoiComponent } from './quanlykhosanxuat/quytrinh/chatluongsoi/chatluongsoi.component';
 import { ChatluongsoimodalComponent } from './quanlykhosanxuat/quytrinh/chatluongsoimodal/chatluongsoimodal.component';
+import { DmmaybienapComponent } from './danhmuc/thongkedientheoca/dmmaybienap/dmmaybienap.component';
+import { DmmaybienapmodalComponent } from './danhmuc/thongkedientheoca/dmmaybienapmodal/dmmaybienapmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -288,12 +294,18 @@ import { ChatluongsoimodalComponent } from './quanlykhosanxuat/quytrinh/chatluon
     NhomkhoComponent,
     XuatkhomathangmodalComponent,
     KhoComponent,
+    KehoachnhapnguyenlieuComponent,
+    KehoachnhapnguyenlieumodalComponent,
+    KehoachxuathangComponent,
+    KehoachxuathangmodalComponent,
     NhapkhothanhphamComponent,
     NhapkhothanhphammodalComponent,
     NhapkhohoiamComponent,
     NhapkhohoiammodalComponent,
     ChatluongsoiComponent,
-    ChatluongsoimodalComponent
+    ChatluongsoimodalComponent,
+    DmmaybienapComponent,
+    DmmaybienapmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -377,6 +389,8 @@ import { ChatluongsoimodalComponent } from './quanlykhosanxuat/quytrinh/chatluon
     ChonmaytheocongdoanComponent,
     ImportdanhmucmodelComponent,
     XuatkhomathangmodalComponent,
+    KehoachnhapnguyenlieumodalComponent,
+    KehoachxuathangmodalComponent,
     NhapkhothanhphammodalComponent,
     NhapkhohoiammodalComponent,
     ChatluongsoimodalComponent,

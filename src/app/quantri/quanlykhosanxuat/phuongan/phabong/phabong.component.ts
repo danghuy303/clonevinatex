@@ -65,12 +65,7 @@ export class PhabongComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {
-      SoQuyTrinh: 'PKK_0000_0001',
-      listKienHang:[]
-      // ID:null,
-      // TepDinhKems:[],
-      // templistTaiSanQuyTrinh:[],
-      // listTaiSanQuyTrinh:[]
+      Id:''
     }
     modalRef.componentInstance.checkbutton={Ghi:true,Xoa:true,KhongDuyet:true,ChuyenTiep:true}
     modalRef.result.then((res: any) => {

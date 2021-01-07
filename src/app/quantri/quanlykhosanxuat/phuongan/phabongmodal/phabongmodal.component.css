@@ -1,3 +1,23 @@
 .table-sm td, .table-sm th{
     padding: 0px !important
 }
+.tc-w-151{
+    min-width: 151px !important; 
+    max-width: 151px !important;
+}
+.tc-w-60{
+    min-width: 60px !important; 
+    max-width: 60px !important;
+}
+.tc-w-50{
+    min-width: 50px !important; 
+    max-width: 50px !important;
+}
+.tc-w-80{
+    min-width: 80px !important; 
+    max-width: 80px !important;
+}
+.tc-w-100{
+    min-width: 100px !important; 
+    max-width: 100px !important;
+}
