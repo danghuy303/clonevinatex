@@ -35,10 +35,10 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>#</th>
+                        <th><p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true" inputId="binary"></p-checkbox></th>
                         <!-- <th>Mã hàng</th> -->
-                        <th *ngIf="opt===''">Tên hàng</th>
-                        <th *ngIf="opt==='LoBong'">Mã</th>
+                        <th *ngIf="opt===''|| opt==='KhoiLuongKeHoach'||opt==='KhoiLuongSanXuat'">Tên hàng</th>
+                        <th *ngIf="opt==='LoBong'">Mã hàng</th>
                         <th *ngIf="opt==='KhoiLuongKeHoach'">Khối lượng kế hoạch(Tấn)</th>
                         <th *ngIf="opt==='KhoiLuongSanXuat'">Khối lượng triển khai(Tấn)</th>
                         <th>Ghi chú</th>
@@ -49,7 +49,7 @@
                         <td>
                             <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary"></p-checkbox>
                         </td>
-                        <td *ngIf="opt===''">{{item.Ten}}</td>
+                        <td *ngIf="opt===''||opt==='KhoiLuongKeHoach'||opt==='KhoiLuongSanXuat'">{{item.Ten}}</td>
                         <td *ngIf="opt==='LoBong'">{{item.Ma}}</td>
                         <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongKeHoach|number}}</td>
                         <td *ngIf="opt==='KhoiLuongSanXuat'" class="text-right">{{item.KhoiLuongSanXuat|number}}</td>
