@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
-import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
@@ -191,6 +189,19 @@ export class NhapkhomodalComponent implements OnInit {
     })
   }
   getListLoaiBong() {
+    if (this.opt === 'edit') {
+      this.data.Loai = this.item.Loai;
+    }
+    else{
+      if (this.type === 'bong')
+      this.data.Loai = 1;
+      else  if (this.type === 'xo')
+        this.data.Loai = 5;
+      else  if (this.type === 'bonghoi'){
+        this.data.Loai = 6;
+        this.data.IddmLoaiBong = this.item.IddmLoaiBong;
+      }
+    }
     this._services.GetListdmLoaiBong(this.data).subscribe((res: any) => {
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })

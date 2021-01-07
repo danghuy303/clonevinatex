@@ -52,7 +52,7 @@
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
         *ngIf="this.type!=='bonghoi'">
-            <label *ngIf="this.type==='bong'" class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp bông:</label>
+            <label *ngIf="this.type!=='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp bông:</label>
             <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp xơ:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCapBong" placeholder="Chọn cấp" styleClass="p-inputtext-sm"
@@ -61,7 +61,7 @@
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
         *ngIf="this.type!=='bonghoi'">
-            <label *ngIf="this.type==='bong'" class="p-col-12 p-lg-4 p-p-0 my-auto">Lô bông:</label>
+            <label *ngIf="this.type!=='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Lô bông:</label>
             <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Lô xơ:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoBong" placeholder="Chọn lô bông" [(ngModel)]="item.IdLoBong"
@@ -103,7 +103,7 @@
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <p-table *ngIf="this.type!=='bonghoi'"
              [value]="item.listItem|isXoa"
-                styleClass="p-datatable-sm wrap-text p-datatable-striped">
+                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
