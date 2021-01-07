@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
+import { Dat09Service } from 'src/app/services/callApi';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { vn } from 'src/app/services/const';
+import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-dmmaybienapmodal',
@@ -7,9 +15,54 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DmmaybienapmodalComponent implements OnInit {
 
-  constructor() { }
+  public item: any = {};
+  public title: any = '';
+  public type = '';
+  listnhamay: any = [];
+  listphanxuong: any = [];
+  listdienap: any = [];
+
+  constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.GetDanhSachLoaiDienKV();
+  }
+
+  GetPhanXuong() {
+    this.sanXuatService.GetOptions().GetPhanXuong(this.item.idNhaMay).subscribe((res: any) => {
+      this.listphanxuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
+  GetDanhSachLoaiDienKV() {
+    this.sanXuatService.dmLoaiDienKV().GetList().subscribe((res: any) => {
+      this.listdienap = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
+  accept() {
+    this.item.HoatDong = true;
+    if (this.item.Ma !== undefined && this.item.Ma !== null && this.item.Ten !== undefined && this.item.Ten !== null) {
+      this.Save();
+    } else {
+      this.toastr.warning('Vui lòng nhập đầy đủ trường thông tin bắt buộc!')
+    }
+  }
+
+  Save() {
+    this.sanXuatService.DMMayBienAp().Set(this.item).subscribe((res: any) => {
+      if (res) {
+        this.resAction(res)
+      }
+    })
+  }
+
+  resAction(res: any) {
+    if (res.State === 1) {
+      this.activeModal.close(res.message);
+    } else {
+      this.toastr.error(res.message)
+    }
   }
 
 }

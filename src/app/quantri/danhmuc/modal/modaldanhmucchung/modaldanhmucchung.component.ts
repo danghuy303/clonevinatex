@@ -13,13 +13,13 @@ export class ModaldanhmucchungComponent implements OnInit {
   public item: any = {};
   public title: any = '';
   public type = '';
-  constructor(public activeModal: NgbActiveModal, private services: Dat09Service,private sanXuatService:SanXuatService, public toastr: ToastrService) { }
+  constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
 
   }
   accept() {
-    this.item.HoatDong  = true;
+    this.item.HoatDong = true;
     if (this.item.Ma !== undefined && this.item.Ma !== null && this.item.Ten !== undefined && this.item.Ten !== null) {
       switch (this.type) {
         case 'tinhtrangtaisan': this.tinhtrangtaisan();
@@ -48,12 +48,21 @@ export class ModaldanhmucchungComponent implements OnInit {
           break;
         case 'dmnhomkho': this.dmnhomkho();
           break;
+        case 'loaidien': this.loaidien();
+          break;
         default:
           break;
       }
     } else {
       this.toastr.warning('Vui lòng nhập đầy đủ trường thông tin bắt buộc!')
     }
+  }
+  loaidien() {
+    this.sanXuatService.dmLoaiDienKV().Set(this.item).subscribe((res: any) => {
+      if (res) {
+        this.resAction(res)
+      }
+    })
   }
   tinhtrangtaisan() {
     this.services.SetdmTinhTrangTaiSan(this.item).subscribe((res: any) => {
