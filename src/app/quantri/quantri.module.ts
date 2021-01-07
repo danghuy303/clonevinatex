@@ -173,6 +173,7 @@ import { ChatluongsoiComponent } from './quanlykhosanxuat/quytrinh/chatluongsoi/
 import { ChatluongsoimodalComponent } from './quanlykhosanxuat/quytrinh/chatluongsoimodal/chatluongsoimodal.component';
 import { DmmaybienapComponent } from './danhmuc/thongkedientheoca/dmmaybienap/dmmaybienap.component';
 import { DmmaybienapmodalComponent } from './danhmuc/thongkedientheoca/dmmaybienapmodal/dmmaybienapmodal.component';
+import { LoaidienkvComponent } from './danhmuc/thongkedientheoca/loaidienkv/loaidienkv.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -306,6 +307,7 @@ import { DmmaybienapmodalComponent } from './danhmuc/thongkedientheoca/dmmaybien
     ChatluongsoimodalComponent,
     DmmaybienapComponent,
     DmmaybienapmodalComponent,
+    LoaidienkvComponent,
   ],
   imports: [
     HttpClientModule,
@@ -392,6 +394,7 @@ import { DmmaybienapmodalComponent } from './danhmuc/thongkedientheoca/dmmaybien
     KehoachnhapnguyenlieumodalComponent,
     KehoachxuathangmodalComponent,
     NhapkhothanhphammodalComponent,
+    DmmaybienapmodalComponent,
     NhapkhohoiammodalComponent,
     ChatluongsoimodalComponent,
   ],

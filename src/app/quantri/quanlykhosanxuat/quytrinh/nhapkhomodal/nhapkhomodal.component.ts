@@ -90,14 +90,6 @@ export class NhapkhomodalComponent implements OnInit {
   // }
 
   ChuyenTiep() {
-    if (this.opt !== 'edit') {
-      if (this.type === 'bong')
-        this.item.Loai = 1;
-      else if (this.type === 'xo')
-        this.item.Loai = 5;
-      else if (this.type === 'bonghoi')
-        this.item.Loai = 6;
-    }
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
@@ -181,13 +173,18 @@ export class NhapkhomodalComponent implements OnInit {
   }
 
   getListKho() {
-    if (this.type === 'bong')
+    if (this.opt === 'edit') {
+      this.data.Loai = this.item.Loai;
+    }
+    else{
+      if (this.type === 'bong')
       this.data.Loai = 1;
-    else  if (this.type === 'xo')
-      this.data.Loai = 5;
-    else  if (this.type === 'bonghoi'){
-      this.data.Loai = 6;
-      this.data.IddmLoaiBong = this.item.IddmLoaiBong;
+      else  if (this.type === 'xo')
+        this.data.Loai = 5;
+      else  if (this.type === 'bonghoi'){
+        this.data.Loai = 6;
+        this.data.IddmLoaiBong = this.item.IddmLoaiBong;
+      }
     }
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');

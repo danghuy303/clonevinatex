@@ -186,6 +186,8 @@ export class NhapkhohoiammodalComponent implements OnInit {
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
+      console.log(res1)
+      console.log(this.item.listItem)
       modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.componentInstance.cols= this.cols;
       modalRef.result.then((data) => {

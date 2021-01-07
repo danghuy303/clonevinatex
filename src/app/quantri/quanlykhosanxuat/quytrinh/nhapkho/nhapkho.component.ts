@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavigationEnd } from '@angular/router';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { filter } from 'rxjs/internal/operators/filter';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix } from 'src/app/services/globalfunction';
 import { NhapkhomodalComponent } from '../nhapkhomodal/nhapkhomodal.component';
@@ -57,75 +59,82 @@ export class NhapkhoComponent implements OnInit {
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  title: any = "";
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, 
+    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
+      this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {  
+        const rt = this.getChild(this.activatedRoute);  
+        rt.data.subscribe(data => {  
+          this.title = data.title;
+        });  
+      });
+     }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute);
+    console.log(this.title);
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh()
+    this.GetListQuyTrinh();
   }
+  getChild(activatedRoute: ActivatedRoute) {  
+    if (activatedRoute.firstChild) {  
+      return this.getChild(activatedRoute.firstChild);  
+    } else {  
+      return activatedRoute;  
+    }  
+  } 
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/nhapkho/${id}`], { replaceUrl: true })
+    if(this.title === 'khobong'){
+      this.router.navigate([`quantri/quanlykhosanxuat/khobong/nhapkho/${id}`], { replaceUrl: true })
+    }
+    else if(this.title === 'khoxo'){
+      this.router.navigate([`quantri/quanlykhosanxuat/khoxo/nhapkho/${id}`], { replaceUrl: true })
+    }
+    else if(this.title === 'khobonghoi'){
+      this.router.navigate([`quantri/quanlykhosanxuat/khobonghoi/nhapkho/${id}`], { replaceUrl: true })
+    }
+    else if(this.title === 'khobongphe'){
+      this.router.navigate([`quantri/quanlykhosanxuat/khobongphe/nhapkho/${id}`], { replaceUrl: true })
+    }
   }
-  addPhieuBong() {
+  addPhieu() {
     this.changeParam(0);
     let modalRef = this._modal.open(NhapkhomodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.type = 'bong';
-    modalRef.componentInstance.nametype = 'bông';
+    if(this.title === 'khobong'){
+      modalRef.componentInstance.type = 'bong';
+      modalRef.componentInstance.nametype = 'bông';
+    }
+    else if(this.title === 'khoxo'){
+      modalRef.componentInstance.type = 'xo';
+      modalRef.componentInstance.nametype = 'xơ';
+    }
+    else if(this.title === 'khobonghoi'){
+      modalRef.componentInstance.type = 'bonghoi';
+      modalRef.componentInstance.nametype = 'bông khác';
+    }
+    else if(this.title === 'khobongphe'){
+      modalRef.componentInstance.type = 'bonghoi';
+      modalRef.componentInstance.nametype = 'bông khác';
+    }
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
-  addPhieuSo() {
-    this.changeParam(0);
-    let modalRef = this._modal.open(NhapkhomodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.type = 'xo';
-    modalRef.componentInstance.nametype = 'xơ';
-    modalRef.componentInstance.item = {}
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-    })
-      .catch(er => { console.log(er) })
-  }
-  addPhieuBongHoi() {
-    this.changeParam(0);
-    let modalRef = this._modal.open(NhapkhomodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.type = 'bonghoi';
-    modalRef.componentInstance.nametype = 'bông khác';
-    modalRef.componentInstance.item = {}
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-    })
-      .catch(er => { console.log(er) })
-  }
+ 
   update(Id) {
     this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhomodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
-      if(res1.Loai == 1 )
-        modalRef.componentInstance.type = 'bong';
-      else
-        modalRef.componentInstance.type = 'xo';
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
       modalRef.result.then((res: any) => {
