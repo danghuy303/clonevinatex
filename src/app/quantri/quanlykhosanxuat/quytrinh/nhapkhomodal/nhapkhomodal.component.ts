@@ -105,7 +105,7 @@ export class NhapkhomodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  danh mục kho");
     }
     else {
-      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
+      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined) {
         this.add();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
@@ -144,7 +144,7 @@ export class NhapkhomodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  danh mục kho");
     }
     else {
-      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
+      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined) {
         this.add();
       }
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
@@ -203,8 +203,10 @@ export class NhapkhomodalComponent implements OnInit {
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  GetListdmLoaiBongHoiPhe
   getListLoBong() {
+    if (this.type === 'bong')
+    this.data.Loai = 1;
+    
     this._services.GetListLoBong(this.data).subscribe((res: any) => {
       let data: any = {};
       data.Id = "";

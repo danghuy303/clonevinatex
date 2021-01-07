@@ -3,21 +3,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { NhapkhothanhphammodalComponent } from '../nhapkhothanhphammodal/nhapkhothanhphammodal.component';
+import { NhapkhohoiammodalComponent } from '../nhapkhohoiammodal/nhapkhohoiammodal.component';
 
 @Component({
-  selector: 'app-nhapkhothanhpham',
-  templateUrl: './nhapkhothanhpham.component.html',
-  styleUrls: ['./nhapkhothanhpham.component.css']
+  selector: 'app-nhapkhohoiam',
+  templateUrl: './nhapkhohoiam.component.html',
+  styleUrls: ['./nhapkhohoiam.component.css']
 })
-export class NhapkhothanhphamComponent implements OnInit {
+export class NhapkhohoiamComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  eAction: any = "PHIEUNHAPTHANHPHAM";
+  eAction: any = "PHIEUNHAPHOIAM";
   cols: any = [
     {
       header: 'Số quy trình',
@@ -25,13 +25,18 @@ export class NhapkhothanhphamComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Tên kho',
+      header: 'Kho',
       field: 'TendmKho',
       width: 'unset'
     },
     {
-      header: 'Tên kho nhập',
-      field: 'TendmKhoKhac',
+      header: 'Ca máy',
+      field: 'TendmCaSanXuat',
+      width: 'unset'
+    },
+    {
+      header: 'Phân xưởng',
+      field: 'TendmPhanXuong',
       width: 'unset'
     },
     {
@@ -53,31 +58,31 @@ export class NhapkhothanhphamComponent implements OnInit {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/nhapkhothanhpham/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/quanlykhosanxuat/nhapkhohoiam/${id}`], { replaceUrl: true })
   }
   addPhieuBong() {
     this.changeParam(0);
-    let modalRef = this._modal.open(NhapkhothanhphammodalComponent, {
+    let modalRef = this._modal.open(NhapkhohoiammodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.type = 'bong';
-    modalRef.componentInstance.nametype = 'kho thành phẩm';
+    modalRef.componentInstance.nametype = 'kho hồi ẩm';
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
+  
   update(Id) {
-    this._service.PhieuNhapThanhPham().Get(Id).subscribe((res1: any) => {
-      let modalRef = this._modal.open(NhapkhothanhphammodalComponent, {
+    this._service.PhieuNhapHoiAm().Get(Id).subscribe((res1: any) => {
+      let modalRef = this._modal.open(NhapkhohoiammodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
+      modalRef.componentInstance.nametype = 'kho hồi ẩm';
       modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.nametype = 'kho thành phẩm';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
@@ -90,8 +95,8 @@ export class NhapkhothanhphamComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
-    this.paging.CurrentPage = event.page + 1;
-    this.GetListQuyTrinh();
+    // this.paging.CurrentPage = event.page + 1;
+    // this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?) {
     if (reset) {
@@ -108,7 +113,7 @@ export class NhapkhothanhphamComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.PhieuNhapThanhPham().GetList(data).subscribe((res: any) => {
+    this._service.PhieuNhapHoiAm().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })
@@ -123,5 +128,4 @@ export class NhapkhothanhphamComponent implements OnInit {
     //   this.GetListQuyTrinh();
     // })
   }
-
 }

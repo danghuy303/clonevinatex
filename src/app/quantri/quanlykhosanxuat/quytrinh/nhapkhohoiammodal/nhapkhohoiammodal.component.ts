@@ -8,11 +8,11 @@ import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
-  selector: 'app-nhapkhothanhphammodal',
-  templateUrl: './nhapkhothanhphammodal.component.html',
-  styleUrls: ['./nhapkhothanhphammodal.component.css']
+  selector: 'app-nhapkhohoiammodal',
+  templateUrl: './nhapkhohoiammodal.component.html',
+  styleUrls: ['./nhapkhohoiammodal.component.css']
 })
-export class NhapkhothanhphammodalComponent implements OnInit {
+export class NhapkhohoiammodalComponent implements OnInit {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -23,9 +23,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   }
   newTableItem: any = {};
   editTableItem: any = [];
-  listLoaiBong: any = [];
-  listLoBong: any = [];
-  listCapBong: any = [];
+  listPhanXuong: any = [];
   listCaMay: any = [];
   listKho: any = [];
   lang: any = vn;
@@ -33,6 +31,23 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   type: any = '';
   editField: any = false;
   nametype: any = '';
+  cols: any = [
+    {
+      header: 'Tên',
+      field: 'Ten',
+      width: 'unset'
+    },
+    {
+      header: 'Số lượng sản xuất',
+      field: 'SoLuongSanXuat',
+      width: 'unset'
+    },
+    {
+      header: 'Số lượng thực tế',
+      field: 'SoLuongThucTe',
+      width: 'unset'
+    },
+  ];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -53,12 +68,13 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     else{
       this.KiemTraButtonModal();
     }
-    if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
-      this.item.NgayChungTu = new Date(this.item.NgayChungTuUnix * 1000);
+    if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
     this.data.CurrentPage = 0;
-
     this.getListKho();
+    this.getListCaMay();
+    this.getListPhanXuong();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -67,16 +83,19 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   }
 
   ChuyenTiep() {
-    if (this.item.NgayChungTu === null || this.item.NgayChungTu === undefined) {
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
     else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
       this.toastr.error("Bạn chưa chọn  danh mục kho");
     }
     else {
-      if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
-        this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-      this._services.PhieuNhapThanhPham().ChuyenTiep(this.item).subscribe((res: any) => {
+      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
+        this.add();
+      }
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this._services.PhieuNhapHoiAm().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.activeModal.close();
@@ -89,21 +108,24 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   }
 
   GetNextSoQuyTrinh() {
-    this._services.PhieuNhapThanhPham().GetNextSo().subscribe((res: any) => {
+    this._services.PhieuNhapHoiAm().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
 
   GhiLai() {
-    if (this.item.NgayChungTu === null || this.item.NgayChungTu === undefined) {
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
     else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
       this.toastr.error("Bạn chưa chọn  danh mục kho");
     }
     else {
-      this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-      this._services.PhieuNhapThanhPham().Set(this.item).subscribe((res: any) => {
+      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
+        this.add();
+      }
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this._services.PhieuNhapHoiAm().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -124,7 +146,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this._services.PhieuNhapThanhPham().Delete(this.item).subscribe((res: any) => {
+      this._services.PhieuNhapHoiAm().Delete(this.item).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
@@ -136,12 +158,50 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   }
 
   getListKho() {
-    this.data.Loai = 1;
+    this.data.Loai = 10;
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-
+  getListPhanXuong() {
+    this._services.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  getListCaMay() {
+    this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
+      this.listCaMay = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  GetMatHangTheoKho() {
+    let itemSearch: any = {};
+    itemSearch.IddmCaSanXuat = this.item.IddmCaSanXuat;
+    if(this.item.Ngay !== undefined)
+      itemSearch.Ngay = (new Date(this.item.Ngay)).getTime() / 1000;
+    itemSearch.IddmPhanXuong = this.item.IddmPhanXuong;
+    this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res1: any) => {
+      let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
+        size: 'fullscreen',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.listMatHang = res1;
+      modalRef.componentInstance.listItem = this.item.listItem;
+      modalRef.componentInstance.cols= this.cols;
+      modalRef.result.then((data) => {
+        this.item.listItem = data.data;
+      }, (reason) => {
+        // không
+      });
+    })
+  }
+  add() {
+    if (this.item.listItem == undefined || this.item.listItem == null)
+      this.item.listItem = [];
+    this.item.listItem.push(this.newTableItem);
+    this.newTableItem = {}
+  }
+  
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
@@ -150,24 +210,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  
   Onclose() {
     this.activeModal.close();
-  }
-  GetMatHangTheoKho() {
-    this._services.getLuuKho(this.item.IddmKho, 0, '').subscribe((res1: any) => {
-      let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
-        size: 'fullscreen',
-        backdrop: 'static'
-      })
-      modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.listMatHang = res1;
-      modalRef.componentInstance.listItem = this.item.listItem;
-      modalRef.result.then((data) => {
-        this.item.listItem = data.data;
-      }, (reason) => {
-        // không
-      });
-    })
   }
 }

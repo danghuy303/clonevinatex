@@ -10,6 +10,18 @@ export class XuatkhomathangmodalComponent implements OnInit {
 
   listMatHang: any = [];
   listItem: any = [];
+  cols: any = [
+    {
+      header: 'Tên',
+      field: 'Ten',
+      width: 'unset'
+    },
+    {
+      header: 'Số lượng',
+      field: 'Ton',
+      width: 'unset'
+    },
+  ];
   constructor(
     private activeModal: NgbActiveModal,
   ) { }

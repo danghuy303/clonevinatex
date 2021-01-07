@@ -167,6 +167,12 @@ import { KehoachxuathangmodalComponent } from './quanlykhosanxuat/quytrinh/kehoa
 import { VoiLibModule } from 'voi-lib';
 import { NhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhpham/nhapkhothanhpham.component';
 import { NhapkhothanhphammodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhphammodal/nhapkhothanhphammodal.component';
+import { NhapkhohoiamComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiam/nhapkhohoiam.component';
+import { NhapkhohoiammodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiammodal/nhapkhohoiammodal.component';
+import { ChatluongsoiComponent } from './quanlykhosanxuat/quytrinh/chatluongsoi/chatluongsoi.component';
+import { ChatluongsoimodalComponent } from './quanlykhosanxuat/quytrinh/chatluongsoimodal/chatluongsoimodal.component';
+import { DmmaybienapComponent } from './danhmuc/thongkedientheoca/dmmaybienap/dmmaybienap.component';
+import { DmmaybienapmodalComponent } from './danhmuc/thongkedientheoca/dmmaybienapmodal/dmmaybienapmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -294,6 +300,12 @@ import { NhapkhothanhphammodalComponent } from './quanlykhosanxuat/quytrinh/nhap
     KehoachxuathangmodalComponent,
     NhapkhothanhphamComponent,
     NhapkhothanhphammodalComponent,
+    NhapkhohoiamComponent,
+    NhapkhohoiammodalComponent,
+    ChatluongsoiComponent,
+    ChatluongsoimodalComponent,
+    DmmaybienapComponent,
+    DmmaybienapmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -380,6 +392,8 @@ import { NhapkhothanhphammodalComponent } from './quanlykhosanxuat/quytrinh/nhap
     KehoachnhapnguyenlieumodalComponent,
     KehoachxuathangmodalComponent,
     NhapkhothanhphammodalComponent,
+    NhapkhohoiammodalComponent,
+    ChatluongsoimodalComponent,
   ],
   providers: [
     SanXuatService,

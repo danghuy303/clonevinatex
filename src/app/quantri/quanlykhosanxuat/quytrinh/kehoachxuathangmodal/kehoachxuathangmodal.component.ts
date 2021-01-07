@@ -6,7 +6,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-kehoachxuathangmodal',
@@ -23,15 +23,19 @@ export class KehoachxuathangmodalComponent implements OnInit {
     ChuyenTiep: false,
     Xoa: false,
   }
-  newTableItem: any = {};
+  newTableItem: any = {
+    "Id": "",
+    "idKeHoachXuatNguyenLieu": this.item.Id,
+  };
   editTableItem: any = [];
   listPhuongAnSapXep: any = [];
-  listLoaiBong: any = [];
   listLoBong: any = [];
   listCapBong: any = [];
   listKho: any = [];
+  listloaisoi: any = [];
   lang: any = vn;
   data: any = {};
+  filter: any = {};
   type: any = '';
   editField: any = false;
   nametype: any = '';
@@ -41,6 +45,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.GetListdmLoaiSoi();
     if (this.opt !== 'edit') {
       this.item = {
         NhaMay: '',
@@ -51,7 +56,12 @@ export class KehoachxuathangmodalComponent implements OnInit {
       }
       this.GetNextSoQuyTrinh();
     }
-    else{
+    else {
+      if (this.item.listItem.length > 0) {
+        this.item.listItem.filter(obj => {
+          obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
+        });
+      }
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
@@ -65,6 +75,20 @@ export class KehoachxuathangmodalComponent implements OnInit {
       this.checkbutton = res;
     })
   }
+
+  GetListdmLoaiSoi() {
+    let dataSearch: any = {
+      PageSize: 20,
+      CurrentPage: 0,
+      sFilter: "",
+      Ma: "",
+      Ten: ""
+    };
+    this._services.GetListdmLoaiSoi(dataSearch).subscribe((res: any) => {
+      this.listloaisoi = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
   // GetNextSoLoBong(event, index) {
   //   if (index == 1)
   //     this.item.IddmLoaiBong = event.value;
@@ -79,34 +103,65 @@ export class KehoachxuathangmodalComponent implements OnInit {
   //       })
   // }
 
-  ChuyenTiep() {    
+  ChuyenTiep() {
     // if (this.item.Ngay === null || this.item.Ngay === undefined) {
     //   this.toastr.error("Bạn chưa chọn  ngày");
     // }
-    // else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
-    //   this.toastr.error("Bạn chưa chọn  danh mục kho");
+    if (this.item.idKhoXuat === null || this.item.idKhoXuat === undefined) {
+      this.toastr.error("Bạn chưa chọn  danh mục kho");
+    }
+    else {
+      // if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
+      //   this.add();
+      // }
+      if (this.item.listItem.length > 0) {
+        this.item.listItem.filter(obj => {
+          obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
+        });
+      }
+      this._services.KeHoachXuatHang().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
+
+  KhongDuyet() {
+    // if (this.item.Ngay === null || this.item.Ngay === undefined) {
+    //   this.toastr.error("Bạn chưa chọn  ngày");
     // }
-    // else {
-    //   if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
-    //     this.add();
-    //   }
-    //   if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-    //     this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    //   this._services.QuyTrinhPhieuNhapLoBong().ChuyenTiep(this.item).subscribe((res: any) => {
-    //     if (res) {
-    //       if (res.State === 1) {
-    //         this.activeModal.close();
-    //       } else {
-    //         this.toastr.error(res.message);
-    //       }
-    //     }
-    //   })
-    // }
+    if (this.item.idKhoXuat === null || this.item.idKhoXuat === undefined) {
+      this.toastr.error("Bạn chưa chọn  danh mục kho");
+    }
+    else {
+      // if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
+      //   this.add();
+      // }
+      if (this.item.listItem.length > 0) {
+        this.item.listItem.filter(obj => {
+          obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
+        });
+      }
+      this._services.KeHoachXuatHang().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
   }
 
   GetNextSoQuyTrinh() {
-    this._services.QuyTrinhPhieuNhapLoBong().GetNextSo().subscribe((res: any) => {
-      // this.item.SoQuyTrinh = res.SoQuyTrinh;
+    this._services.KeHoachXuatHang().GetNextSo().subscribe((res: any) => {
+      this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
 
@@ -117,30 +172,31 @@ export class KehoachxuathangmodalComponent implements OnInit {
     //   else
     //     this.item.Loai = 5;
     // }
-    // if (this.item.Ngay === null || this.item.Ngay === undefined) {
-    //   this.toastr.error("Bạn chưa chọn  ngày");
-    // }
-    // else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
-    //   this.toastr.error("Bạn chưa chọn  danh mục kho");
-    // }
-    // else {
-    //   if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
-    //     this.add();
-    //   }
-    //   this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    //   this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
-    //     if (res) {
-    //       if (res.State === 1) {
-    //         this.toastr.success(res.message)
-    //         this.opt = 'edit';
-    //         this.item = res.objectReturn;
-    //         this.KiemTraButtonModal();
-    //       } else {
-    //         this.toastr.error(res.message);
-    //       }
-    //     }
-    //   })
-    // }
+    if (this.item.idKhoXuat === null || this.item.idKhoXuat === undefined) {
+      this.toastr.error("Bạn chưa chọn  danh mục kho");
+    }
+    else {
+      // if (!validVariable(this.newTableItem.idKhoNhap) || !validVariable(this.newTableItem.SoLuongNhap) || !validVariable(this.newTableItem.ThoiGianDuKien)) {
+      //   this.add();
+      // }
+      if (this.item.listItem.length > 0) {
+        this.item.listItem.filter(obj => {
+          obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
+        });
+      }
+      this._services.KeHoachXuatHang().Set(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message)
+            this.opt = 'edit';
+            this.item = res.objectReturn;
+            this.KiemTraButtonModal();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
   }
 
   XoaQuyTrinh() {
@@ -149,7 +205,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this._services.QuyTrinhPhieuNhapLoBong().Delete(this.item).subscribe((res: any) => {
+      this._services.KeHoachXuatHang().Delete(this.item).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
@@ -167,12 +223,42 @@ export class KehoachxuathangmodalComponent implements OnInit {
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-  } 
+  }
+
+  filtertable_add() {
+    if (this.filter.KeyWord != undefined && this.filter.KeyWord != null && this.filter.KeyWord != "") {
+      this.item.listItem_copy = deepCopy(this.item.listItem);
+      let filter = this.item.listItem.filter(obj => {
+        let Ten = obj.objloaibong.label.toLowerCase();
+        let indexOf = Ten.indexOf(this.filter.KeyWord);
+        return indexOf != -1
+      });
+      this.item.listItem = filter;
+    }
+    else {
+      this.item.listItem = deepCopy(this.item.listItem_copy);
+      this.item.listItem.filter(obj => {
+        obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
+      });
+    }
+  }
+
+  resetFilter() {
+    this.filter = {};
+    this.filter.KeyWord = '';
+    this.filtertable_add();
+  }
+
   add() {
     if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
+    this.newTableItem.Id = "";
+    this.newTableItem.idKeHoachXuatNguyenLieu = this.item.Id;
     this.item.listItem.push(this.newTableItem);
-    this.newTableItem = {}
+    this.newTableItem = {
+      "Id": "",
+      "idKeHoachXuatNguyenLieu": this.item.Id,
+    }
   }
   edit(item, index) {
     this.item.listItem.forEach(element => {
@@ -189,15 +275,15 @@ export class KehoachxuathangmodalComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  saveEdit(item, index){
+  saveEdit(item, index) {
     this.item.listItem[index] = item;
     this.item.listItem[index].editField = false;
   }
-  cancelEdit(item, index){
+  cancelEdit(item, index) {
     this.item.listItem[index].editField = false;
   }
   Onclose() {
     this.activeModal.close();
-  }s
+  }
 
 }

@@ -48,7 +48,7 @@ export class DmkhoComponent implements OnInit {
   ];
   selectedItems:any=[];
   listdmNhomKho : any = [];
-  IddmNhomKho: any = 0;
+  IddmNhomKho: any = '';
   constructor(private _modal:NgbModal,private _services:SanXuatService,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
