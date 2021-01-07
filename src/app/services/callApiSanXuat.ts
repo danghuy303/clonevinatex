@@ -47,7 +47,7 @@ export class SanXuatService {
     //#region  Danh mục máy biến áp
     DMMayBienAp() {
         let url = API.ThongKeDien;
-        return {           
+        return {
             GetList: () => {
                 return this.http.get(url + 'GetDanhSachMayBienAp', httpOptions);
             },
@@ -59,15 +59,15 @@ export class SanXuatService {
             },
             Delete: (data) => {
                 return this.http.post(url + 'DeleteMayBienAp', data, httpOptions);
-            },           
+            },
         }
-    }  
+    }
     //#endregion
 
     //#region  Danh mục loại điện
     dmLoaiDienKV() {
         let url = API.ThongKeDien;
-        return {           
+        return {
             GetList: () => {
                 return this.http.get(url + 'GetDanhSachLoaiDienKV', httpOptions);
             },
@@ -79,11 +79,51 @@ export class SanXuatService {
             },
             Delete: (data) => {
                 return this.http.post(url + 'DeleteLoaiDienKV', data, httpOptions);
-            },           
+            },
         }
-    }  
+    }
     //#endregion
-    
+
+    //#region  Danh mục nhóm công tơ
+    dmNhomCongToDien() {
+        let url = API.ThongKeDien;
+        return {
+            GetList: () => {
+                return this.http.get(url + 'GetDanhSachNhomCongToDien', httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetItemNhomCongToDien?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetItemNhomCongToDien', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteNhomCongToDien', data, httpOptions);
+            },
+        }
+    }
+    //#endregion
+
+    //#region  Danh mục công tơ
+    dmCongToDien() {
+        let url = API.ThongKeDien;
+        return {
+            GetList: (idMayBienAp) => {
+                return this.http.get(url + `GetDanhSachCongToDien?idMayBienAp=${idMayBienAp}`, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetItemCongToDien?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetItemCongToDien', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteCongToDien', data, httpOptions);
+            },
+        }
+    }
+    //#endregion
+
     //Ca sản xuất
     GetListOptdmCaSanXuat() {
         let url = API.SCMDanhMuc + 'GetListdmCaSanXuat';

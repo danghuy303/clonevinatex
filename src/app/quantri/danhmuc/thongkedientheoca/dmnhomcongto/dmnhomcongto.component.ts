@@ -8,11 +8,11 @@ import { ModalimportexcelComponent } from '../../../modal/modalimportexcel/modal
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
-  selector: 'app-loaidienkv',
-  templateUrl: './loaidienkv.component.html',
-  styleUrls: ['./loaidienkv.component.css']
+  selector: 'app-dmnhomcongto',
+  templateUrl: './dmnhomcongto.component.html',
+  styleUrls: ['./dmnhomcongto.component.css']
 })
-export class LoaidienkvComponent implements OnInit {
+export class DmnhomcongtoComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   items: any = [
@@ -43,13 +43,13 @@ export class LoaidienkvComponent implements OnInit {
   constructor(private _modal:NgbModal,private _services:Dat09Service,private _toastr:ToastrService,private ServicesSanXuat: SanXuatService) { }
 
   ngOnInit(): void {
-    this.GetDanhSachLoaiDienKV();
+    this.GetDanhSachNhomCongToDien();
   }
   resetFilter(){
     this.keyWord = '';
-    this.GetDanhSachLoaiDienKV()
+    this.GetDanhSachNhomCongToDien()
   }
-  GetDanhSachLoaiDienKV(reset?){
+  GetDanhSachNhomCongToDien(reset?){
     // if(reset){
     //   this.paging.CurrentPage=1;
     //   this.paginator.changePage(0);
@@ -61,7 +61,7 @@ export class LoaidienkvComponent implements OnInit {
     //   Ma:"", 
     //   Ten:""
     // };
-    this.ServicesSanXuat.dmLoaiDienKV().GetList().subscribe((res:any)=>{
+    this.ServicesSanXuat.dmNhomCongToDien().GetList().subscribe((res:any)=>{
       this.items = res;
       // this.paging = res.paging;
     })
@@ -71,11 +71,11 @@ export class LoaidienkvComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.opt='add';
-    modalRef.componentInstance.type = 'loaidien';
-    modalRef.componentInstance.title = 'Thêm mới danh mục loại điện';
+    modalRef.componentInstance.type = 'nhomcongto';
+    modalRef.componentInstance.title = 'Thêm mới danh mục nhóm công tơ';
     modalRef.result.then(res=>{
       this._toastr.success(res);
-      this.GetDanhSachLoaiDienKV()
+      this.GetDanhSachNhomCongToDien()
     }).catch(er=>console.log(er))
   }
   edit(item){
@@ -83,12 +83,12 @@ export class LoaidienkvComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.opt='edit';
-    modalRef.componentInstance.title = 'Cập nhật danh mục loại điện';
+    modalRef.componentInstance.title = 'Cập nhật danh mục nhóm công tơ';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.componentInstance.type = 'loaidien';
+    modalRef.componentInstance.type = 'nhomcongto';
     modalRef.result.then(res=>{
       this._toastr.success(res);
-      this.GetDanhSachLoaiDienKV()
+      this.GetDanhSachNhomCongToDien()
     }).catch(er=>console.log(er))
   }
   delete(item){
@@ -97,11 +97,11 @@ export class LoaidienkvComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this.ServicesSanXuat.dmLoaiDienKV().Delete(item).subscribe((res: any) => {
+      this.ServicesSanXuat.dmNhomCongToDien().Delete(item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);
-            this.GetDanhSachLoaiDienKV();
+            this.GetDanhSachNhomCongToDien();
           } else {
             this._toastr.error(res.message);
           }
@@ -115,11 +115,11 @@ export class LoaidienkvComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this.ServicesSanXuat.dmLoaiDienKV().Delete(this.selectedItems).subscribe((res: any) => {
+      this.ServicesSanXuat.dmNhomCongToDien().Delete(this.selectedItems).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);
-            this.GetDanhSachLoaiDienKV();
+            this.GetDanhSachNhomCongToDien();
             this.selectedItems = [];
           } else {
             this._toastr.error(res.message);
@@ -130,7 +130,7 @@ export class LoaidienkvComponent implements OnInit {
   }
   changePage(event){
     this.paging.CurrentPage = event.page+1;
-    this.GetDanhSachLoaiDienKV();
+    this.GetDanhSachNhomCongToDien();
   }
   importExcel(){
     let modalRef = this._modal.open(ModalimportexcelComponent,{
@@ -138,7 +138,7 @@ export class LoaidienkvComponent implements OnInit {
     })
     modalRef.componentInstance.importFunc = 'BienDong';
     modalRef.result.then(res=>{
-      this.GetDanhSachLoaiDienKV();
+      this.GetDanhSachNhomCongToDien();
       this._toastr.success(res.mess);
     })
     .catch(er=>console.log(er))
