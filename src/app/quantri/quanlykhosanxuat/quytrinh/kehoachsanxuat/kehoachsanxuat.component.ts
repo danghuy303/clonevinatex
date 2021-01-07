@@ -20,14 +20,14 @@ export class KehoachsanxuatComponent implements OnInit {
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
-    {
-      header: 'Nhà máy',
-      field: '',
-      width: 'unset'
-    },
+    // {
+    //   header: 'Nhà máy',
+    //   field: '',
+    //   width: 'unset'
+    // },
     {
       header: 'Tổng sản lượng',
-      field: 'NoiDung',
+      field: 'TongSanLuong',
       width: 'unset'
     },
     {
@@ -89,7 +89,6 @@ export class KehoachsanxuatComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = item;
-    console.log(UnixToDate(item.TuNgayUnix));
     modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
     modalRef.componentInstance.item.DenNgay = UnixToDate(item.DenNgayUnix);
     modalRef.result.then((res: any) => {
