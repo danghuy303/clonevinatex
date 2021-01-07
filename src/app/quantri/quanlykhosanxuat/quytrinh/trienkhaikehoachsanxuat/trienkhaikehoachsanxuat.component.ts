@@ -26,12 +26,17 @@ export class TrienkhaikehoachsanxuatComponent implements OnInit {
     },
     {
       header: 'Kế hoạch thực hiện',
-      field: 'NoiDung',
+      field: '',
+      width: 'unset'
+    },
+    {
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
       width: 'unset'
     },
     {
       header: 'Ghi chú',
-      field: 'TenTrangThai',
+      field: 'GhiChu',
       width: 'unset'
     },
   ];

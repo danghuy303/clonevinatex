@@ -58,6 +58,8 @@ import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
 import { KehoachnhapnguyenlieuComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieu/kehoachnhapnguyenlieu.component';
 import { KehoachxuathangComponent } from './quanlykhosanxuat/quytrinh/kehoachxuathang/kehoachxuathang.component';
 import { NhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhpham/nhapkhothanhpham.component';
+import { DmmaybienapComponent } from './danhmuc/thongkedientheoca/dmmaybienap/dmmaybienap.component';
+import { LoaidienkvComponent } from './danhmuc/thongkedientheoca/loaidienkv/loaidienkv.component';
 import { NhapkhohoiamComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiam/nhapkhohoiam.component';
 import { ChatluongsoiComponent } from './quanlykhosanxuat/quytrinh/chatluongsoi/chatluongsoi.component';
 
@@ -115,6 +117,9 @@ const routes: Routes = [
       { path: 'danhmucsanxuat/dmphanxuong', component: PhanxuongComponent },
       { path: 'danhmucsanxuat/dmloaisoi', component: LoaisoiComponent },
       { path: 'danhmucsanxuat/dmnhomkho', component: NhomkhoComponent },
+      { path: 'thongkedientheoca/dmmaybienap', component: DmmaybienapComponent },   
+      { path: 'thongkedientheoca/loaidienkv', component: LoaidienkvComponent },   
+         
 
       { path: 'theodoithongkebaocaosanxuat/thongkesanluong/:id', component: ThongkesanluongComponent },
 

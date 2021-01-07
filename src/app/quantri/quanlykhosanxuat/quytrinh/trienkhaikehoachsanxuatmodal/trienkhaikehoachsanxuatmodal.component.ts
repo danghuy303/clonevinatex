@@ -110,17 +110,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       this.checkbutton = res;
     })
   }
-  ChuyenDuyet() {
-    this._services.TrienKhaiKeHoachSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.activeModal.close();
-        } else {
-          this.toastr.error(res.message);
-        }
-      }
-    })
-  }
+  
   GetNextSoQuyTrinh() {
     this._services.TrienKhaiKeHoachSanXuat().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
@@ -219,6 +209,31 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
           });
           this.toastr.error(res.message);
         }
+      }
+    })
+  }
+  ChuyenDuyet() {
+    this._services.TrienKhaiKeHoachSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message)
+          this.activeModal.close();
+          // this.opt = 'edit';
+          // this.item = res.objectReturn;
+          // this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
+          // this.KiemTraButtonModal();
+        } else {
+          this.item.listItem.forEach(mathang => {
+            mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach / 1000;
+            mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
+          });
+          this.toastr.error(res.message);
+        }
+        // if (res.State === 1) {
+        //   this.activeModal.close();
+        // } else {
+        //   this.toastr.error(res.message);
+        // }
       }
     })
   }

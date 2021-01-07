@@ -375,6 +375,16 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/danhmucsanxuat/dmnhomkho',
                         command: () => this.close()
                     },
+                    {
+                        label: 'Loại điện áp',
+                        routerLink: '/quantri/thongkedientheoca/loaidienkv',
+                        command: () => this.close()
+                    },     
+                    {
+                        label: 'Máy biến áp',
+                        routerLink: '/quantri/thongkedientheoca/dmmaybienap',
+                        command: () => this.close()
+                    },                    
                 ]
             },
             {

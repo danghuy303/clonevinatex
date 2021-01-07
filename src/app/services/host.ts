@@ -17,6 +17,7 @@ export class API {
     // public static auth = host + '/SmartEOSAPI/';
     // public static baseUrl = host + '/';
     public static SCM = host1 + '/SCM/';
+    public static ThongKeDien = host1 + '/SCM/ThongKeDien/';
     public static KeHoachNguyenLieu = host1 + '/SCM/KeHoachNguyenLieu/';
     public static SCMQuanLyKho = host1 + '/SCM/QuanLyKho/';
     public static SCMDanhMuc = host1 + '/SCM/DanhMuc/';

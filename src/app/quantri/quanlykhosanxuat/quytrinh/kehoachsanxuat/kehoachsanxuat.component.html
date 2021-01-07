@@ -51,7 +51,6 @@
                 <th class="text-center">#</th>
                 <th>Số phiếu</th>
                 <th>Nội dung</th>
-                <th>Ngày duyệt</th>
                 <th *ngFor="let header of cols">
                     {{header.header}}
                 </th>
@@ -65,8 +64,6 @@
                 </td>
                 <td class="text-center">{{item.SoQuyTrinh}}</td>
                 <td class="text-center">{{item.NoiDung}}</td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
                 </td>

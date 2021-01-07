@@ -44,6 +44,46 @@ export class SanXuatService {
     }
     //#endregion
 
+    //#region  Danh mục máy biến áp
+    DMMayBienAp() {
+        let url = API.ThongKeDien;
+        return {           
+            GetList: () => {
+                return this.http.get(url + 'GetDanhSachMayBienAp', httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetItemMayBienAp?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetItemMayBienAp', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteMayBienAp', data, httpOptions);
+            },           
+        }
+    }  
+    //#endregion
+
+    //#region  Danh mục loại điện
+    dmLoaiDienKV() {
+        let url = API.ThongKeDien;
+        return {           
+            GetList: () => {
+                return this.http.get(url + 'GetDanhSachLoaiDienKV', httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetItemLoaiDienKV?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetItemLoaiDienKV', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteLoaiDienKV', data, httpOptions);
+            },           
+        }
+    }  
+    //#endregion
+    
     //Ca sản xuất
     GetListOptdmCaSanXuat() {
         let url = API.SCMDanhMuc + 'GetListdmCaSanXuat';
@@ -234,7 +274,7 @@ export class SanXuatService {
             },
             GetTonKhoCuaNguyenLieu: (idKho, idNguyenLieu) => {
                 return this.http.get(`${API.KeHoachNguyenLieu}GetTonKhoCuaNguyenLieu?idKho=${idKho}&idNguyenLieu=${idNguyenLieu}`, httpOptions)
-            },            
+            },
             // SmartEOSAPI/DanhMuc/GetDanhSachDuAnByIdUser?IdUser=5d8c24c9-77f9-42aa-801b-df506280e6ce
         }
     }
@@ -275,8 +315,8 @@ export class SanXuatService {
             GetList: (data) => {
                 return this.http.post(url + 'GetListTrienKhaiKeHoachSanXuat', data, httpOptions);
             },
-            Get: (Id,ChiTiet?) => {
-                return this.http.get(url + `GetTrienKhaiKeHoachSanXuat?Id=${Id}&ChiTiet=${ChiTiet===false?false:true}`, httpOptions);
+            Get: (Id, ChiTiet?) => {
+                return this.http.get(url + `GetTrienKhaiKeHoachSanXuat?Id=${Id}&ChiTiet=${ChiTiet === false ? false : true}`, httpOptions);
             },
             Set: (data) => {
                 return this.http.post(url + 'SetTrienKhaiKeHoachSanXuat', data, httpOptions);
@@ -549,11 +589,11 @@ export class SanXuatService {
             GetNextSo: () => {
                 return this.http.get(url + 'GetNextSoQuyTrinhPhuongAnPhaBong', httpOptions);
             },
-            GetLoBongTrongKho:(IdDuAn)=>{
+            GetLoBongTrongKho: (IdDuAn) => {
                 return this.http.get(url + `GetLoBongTrongKho?IdDuAn=${IdDuAn}`, httpOptions)
             },
-            TinhKhoiLuongBong:(data)=>{
-                return this.http.post(url+'TinhKhoiLuongBong',data,httpOptions)
+            TinhKhoiLuongBong: (data) => {
+                return this.http.post(url + 'TinhKhoiLuongBong', data, httpOptions)
             },
             GetList: (data) => {
                 return this.http.post(url + 'GetListPhuongAnPhaBong', data, httpOptions);
