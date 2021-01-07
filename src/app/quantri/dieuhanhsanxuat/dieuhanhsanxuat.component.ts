@@ -58,7 +58,6 @@ export class DieuhanhsanxuatComponent implements OnInit {
         // labels: ['January', 'February', 'March', 'April', 'May', 'June']
       }]
     },
-
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
     aspectRatio: ((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
   };

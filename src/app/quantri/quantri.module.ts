@@ -167,6 +167,10 @@ import { KehoachxuathangmodalComponent } from './quanlykhosanxuat/quytrinh/kehoa
 import { VoiLibModule } from 'voi-lib';
 import { NhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhpham/nhapkhothanhpham.component';
 import { NhapkhothanhphammodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhphammodal/nhapkhothanhphammodal.component';
+import { NhapkhohoiamComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiam/nhapkhohoiam.component';
+import { NhapkhohoiammodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiammodal/nhapkhohoiammodal.component';
+import { ChatluongsoiComponent } from './quanlykhosanxuat/quytrinh/chatluongsoi/chatluongsoi.component';
+import { ChatluongsoimodalComponent } from './quanlykhosanxuat/quytrinh/chatluongsoimodal/chatluongsoimodal.component';
 import { DmmaybienapComponent } from './danhmuc/thongkedientheoca/dmmaybienap/dmmaybienap.component';
 import { DmmaybienapmodalComponent } from './danhmuc/thongkedientheoca/dmmaybienapmodal/dmmaybienapmodal.component';
 import { LoaidienkvComponent } from './danhmuc/thongkedientheoca/loaidienkv/loaidienkv.component';
@@ -297,6 +301,10 @@ import { LoaidienkvComponent } from './danhmuc/thongkedientheoca/loaidienkv/loai
     KehoachxuathangmodalComponent,
     NhapkhothanhphamComponent,
     NhapkhothanhphammodalComponent,
+    NhapkhohoiamComponent,
+    NhapkhohoiammodalComponent,
+    ChatluongsoiComponent,
+    ChatluongsoimodalComponent,
     DmmaybienapComponent,
     DmmaybienapmodalComponent,
     LoaidienkvComponent,
@@ -387,6 +395,8 @@ import { LoaidienkvComponent } from './danhmuc/thongkedientheoca/loaidienkv/loai
     KehoachxuathangmodalComponent,
     NhapkhothanhphammodalComponent,
     DmmaybienapmodalComponent,
+    NhapkhohoiammodalComponent,
+    ChatluongsoimodalComponent,
   ],
   providers: [
     SanXuatService,

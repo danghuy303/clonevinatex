@@ -70,7 +70,7 @@
                         <col>
                         <col>
                         <col>
-                        <col style="width:100px">
+                        <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -80,7 +80,7 @@
                         <th>Mặt hàng</th>
                         <th>Chi số</th>
                         <th>Chiều dài</th>
-                        <th>Trọng lượng</th>
+                        <th>Khối lượng</th>
                         <th></th>
                     </tr>
                 </ng-template>
@@ -88,15 +88,15 @@
                     <tr>
                         <td>{{i+1}}</td>
                         <td class="text-left">{{item.TendmMay}}</td>
-                        <td class="text-left">{{item.TendmItem}}</td>
+                        <td class="text-left">{{item.Ten}}</td>
                         <td class="text-left">{{item.ChiSo}}</td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.ChieuDai"
-                            (ngModelChange)="item.TrongLuong=TinhGiaTri(item, $event)">
+                            (ngModelChange)="item.KhoiLuong=TinhGiaTri(item, $event)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.TrongLuong">
+                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.KhoiLuong">
                             </p-inputNumber>
                         </td>
                         <td>
@@ -118,14 +118,14 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bông phế:</label>
                             <div class="p-col-12 p-lg-8 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.TyLeBongPhe">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.BongPhe">
                                 </p-inputNumber>
                             </div>
                         </div>
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bông mùn:</label>
                             <div class="p-col-12 p-lg-8 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.TyLeBongMun">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.BongMun">
                                 </p-inputNumber>
                             </div>
                         </div>
@@ -148,13 +148,13 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bông hút mối:</label>
                             <div class="p-col-12 p-lg-8 p-p-0">
-                                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.CuiHoi" pInputText/>
+                                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.BongHutMoi" pInputText/>
                             </div>
                         </div>
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Sợi cắt:</label>
                             <div class="p-col-12 p-lg-8 p-p-0">
-                                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.CuiHoi" pInputText/>
+                                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoiCat" pInputText/>
                             </div>
                         </div>
                     </div>

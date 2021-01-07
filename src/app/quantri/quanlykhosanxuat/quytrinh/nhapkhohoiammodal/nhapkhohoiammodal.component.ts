@@ -2,18 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
-import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
-  selector: 'app-nhapkhomodal',
-  templateUrl: './nhapkhomodal.component.html',
-  styleUrls: ['./nhapkhomodal.component.css']
+  selector: 'app-nhapkhohoiammodal',
+  templateUrl: './nhapkhohoiammodal.component.html',
+  styleUrls: ['./nhapkhohoiammodal.component.css']
 })
-export class NhapkhomodalComponent implements OnInit {
+export class NhapkhohoiammodalComponent implements OnInit {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -24,10 +23,7 @@ export class NhapkhomodalComponent implements OnInit {
   }
   newTableItem: any = {};
   editTableItem: any = [];
-  listPhuongAnSapXep: any = [];
-  listLoaiBong: any = [];
-  listLoBong: any = [];
-  listCapBong: any = [];
+  listPhanXuong: any = [];
   listCaMay: any = [];
   listKho: any = [];
   lang: any = vn;
@@ -35,6 +31,23 @@ export class NhapkhomodalComponent implements OnInit {
   type: any = '';
   editField: any = false;
   nametype: any = '';
+  cols: any = [
+    {
+      header: 'Tên',
+      field: 'Ten',
+      width: 'unset'
+    },
+    {
+      header: 'Số lượng sản xuất',
+      field: 'SoLuongSanXuat',
+      width: 'unset'
+    },
+    {
+      header: 'Số lượng thực tế',
+      field: 'SoLuongThucTe',
+      width: 'unset'
+    },
+  ];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -59,35 +72,15 @@ export class NhapkhomodalComponent implements OnInit {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
     this.data.CurrentPage = 0;
-    if (this.type === 'bonghoi') {
-      this.getListLoaiBongHoiPhe();
-    }
-    else{
-      this.getListLoaiBong();
-    }
-    this.getListCapBong();
-    this.getListLoBong();
     this.getListKho();
     this.getListCaMay();
+    this.getListPhanXuong();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
     })
   }
-  // GetNextSoLoBong(event, index) {
-  //   if (index == 1)
-  //     this.item.IddmLoaiBong = event.value;
-  //   else
-  //     this.item.IddmCapBong = event.value;
-
-  //   if (this.item.IddmLoaiBong != undefined && this.item.IddmLoaiBong != null && this.item.IddmLoaiBong != ''
-  //     && this.item.IddmCapBong != null && this.item.IddmCapBong != undefined && this.item.IddmCapBong != '')
-  //     this._services.QuyTrinhPhieuNhapLoBong().GetNextSoLoBong(this.item.IddmLoaiBong, this.item.IddmCapBong).subscribe(
-  //       (res: any) => {
-  //         this.item.IdLoBong = res.SoLoBong;
-  //       })
-  // }
 
   ChuyenTiep() {
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
@@ -97,12 +90,12 @@ export class NhapkhomodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  danh mục kho");
     }
     else {
-      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined) {
+      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
         this.add();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
         this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-      this._services.QuyTrinhPhieuNhapLoBong().ChuyenTiep(this.item).subscribe((res: any) => {
+      this._services.PhieuNhapHoiAm().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.activeModal.close();
@@ -115,20 +108,12 @@ export class NhapkhomodalComponent implements OnInit {
   }
 
   GetNextSoQuyTrinh() {
-    this._services.QuyTrinhPhieuNhapLoBong().GetNextSo().subscribe((res: any) => {
+    this._services.PhieuNhapHoiAm().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
 
   GhiLai() {
-    if (this.opt !== 'edit') {
-      if (this.type === 'bong')
-        this.item.Loai = 1;
-      else if (this.type === 'xo')
-        this.item.Loai = 5;
-      else if (this.type === 'bonghoi')
-        this.item.Loai = 6;
-    }
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
@@ -136,11 +121,11 @@ export class NhapkhomodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  danh mục kho");
     }
     else {
-      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined) {
+      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
         this.add();
       }
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-      this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
+      this._services.PhieuNhapHoiAm().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -161,7 +146,7 @@ export class NhapkhomodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this._services.QuyTrinhPhieuNhapLoBong().Delete(this.item).subscribe((res: any) => {
+      this._services.PhieuNhapHoiAm().Delete(this.item).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
@@ -173,54 +158,43 @@ export class NhapkhomodalComponent implements OnInit {
   }
 
   getListKho() {
-    if (this.opt === 'edit') {
-      this.data.Loai = this.item.Loai;
-    }
-    else{
-      if (this.type === 'bong')
-      this.data.Loai = 1;
-      else  if (this.type === 'xo')
-        this.data.Loai = 5;
-      else  if (this.type === 'bonghoi'){
-        this.data.Loai = 6;
-        this.data.IddmLoaiBong = this.item.IddmLoaiBong;
-      }
-    }
+    this.data.Loai = 10;
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  getListLoaiBong() {
-    this._services.GetListdmLoaiBong(this.data).subscribe((res: any) => {
-      this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
-  getListLoaiBongHoiPhe() {
-    this._services.GetListdmLoaiBongHoiPhe().subscribe((res: any) => {
-      this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
-  getListLoBong() {
-    if (this.type === 'bong')
-    this.data.Loai = 1;
-    
-    this._services.GetListLoBong(this.data).subscribe((res: any) => {
-      let data: any = {};
-      data.Id = "";
-      data.Ten = "";
-      res.unshift(data);
-      this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
-      console.log(this.listLoBong)
-    })
-  }
-  getListCapBong() {
-    this._services.GetListdmCapBong(this.data).subscribe((res: any) => {
-      this.listCapBong = mapArrayForDropDown(res, 'Ten', 'Id');
+  getListPhanXuong() {
+    this._services.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   getListCaMay() {
     this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
       this.listCaMay = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  GetMatHangTheoKho() {
+    let itemSearch: any = {};
+    itemSearch.IddmCaSanXuat = this.item.IddmCaSanXuat;
+    if(this.item.Ngay !== undefined)
+      itemSearch.Ngay = (new Date(this.item.Ngay)).getTime() / 1000;
+    itemSearch.IddmPhanXuong = this.item.IddmPhanXuong;
+    this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res1: any) => {
+      let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
+        size: 'fullscreen',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.listMatHang = res1;
+      console.log(res1)
+      console.log(this.item.listItem)
+      modalRef.componentInstance.listItem = this.item.listItem;
+      modalRef.componentInstance.cols= this.cols;
+      modalRef.result.then((data) => {
+        this.item.listItem = data.data;
+      }, (reason) => {
+        // không
+      });
     })
   }
   add() {
@@ -229,26 +203,7 @@ export class NhapkhomodalComponent implements OnInit {
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {}
   }
-  addBongHoi() {
-    if (this.item.listBongHoi == undefined || this.item.listBongHoi == null)
-      this.item.listBongHoi = [];
-    this.item.listBongHoi.push(this.newTableItem);
-    this.newTableItem = {}
-  }
-  edit(item, index) {
-    this.item.listItem.forEach(element => {
-      element.editField = false;
-    });
-    this.item.listItem[index].editField = true;
-    this.editTableItem = deepCopy(item);
-  }
-  editBongHoi(item, index) {
-    this.item.listBongHoi.forEach(element => {
-      element.editField = false;
-    });
-    this.item.listBongHoi[index].editField = true;
-    this.editTableItem = deepCopy(item);
-  }
+  
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
@@ -256,21 +211,6 @@ export class NhapkhomodalComponent implements OnInit {
       item.isXoa = true;
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
-  }
-  deleteBongHoi(index) {
-    let item = this.item.listBongHoi.splice(index, 1)[0];
-    if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      this.item.listBongHoi.push(JSON.parse(JSON.stringify(item)));
-    }
-  }
-  saveEdit(item, index){
-    this.item.listItem[index] = item;
-    this.item.listItem[index].editField = false;
-  }
-  cancelEdit(item, index){
-    this.item.listItem[index].editField = false;
   }
   Onclose() {
     this.activeModal.close();

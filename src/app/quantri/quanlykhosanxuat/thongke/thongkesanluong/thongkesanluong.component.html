@@ -57,8 +57,23 @@
                 <td class="text-center">
                     {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
-                <td class="text-center" *ngFor="let col of cols">
-                    {{item[col.field]}}
+                <td class="text-center">
+                    {{item.SoQuyTrinh}}
+                </td>
+                <td class="text-center">
+                    {{item.NgayUnix > 0 ? (item.Ngay|date:'dd/MM/yyyy'):''}}
+                </td>
+                <td class="text-center">
+                    {{item.TendmCaSanXuat}}
+                </td>
+                <td class="text-center">
+                    {{item.TenCongDoan}}
+                </td>
+                <td class="text-center">
+                    {{item.TendmPhanXuong}}
+                </td>
+                <td class="text-center">
+                    {{item.TenTrangThai}}
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"

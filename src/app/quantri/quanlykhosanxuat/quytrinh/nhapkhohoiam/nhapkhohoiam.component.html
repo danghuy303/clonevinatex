@@ -1,11 +1,15 @@
-
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Điều chuyển kho</h4>
+    <h4 style="color:#1f2779">Nhập kho hồi ẩm</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
-    <div></div>
     <div class="p-d-flex p-flex-row">
+      <button pButton pRipple label="Nhập phiếu hồi ẩm" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieuBong()" *ngIf="checkQuyen.ThemMoi"></button>
+    </div>
+    <div class="p-d-flex p-flex-row">
+        <!-- <div class="p-mr-2">
+            <p-dropdown [options]="listLoaiPhuongAn" placeholder="Chọn phương án" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.LoaiPhuongAn" optionLabel="name" [showClear]="true"></p-dropdown>
+        </div> -->
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày">
@@ -43,8 +47,8 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th class="text-center">STT</th>
-                <th>Ngày khởi tạo</th>
+                <th class="text-center">#</th>
+                <th class="text-center">Ngày</th>
                 <th *ngFor="let header of cols">
                     {{header.header}}
                 </th>
@@ -56,7 +60,8 @@
                 <td class="text-center">
                     {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
-                <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
+
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
                 </td>
