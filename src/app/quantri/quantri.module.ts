@@ -163,6 +163,10 @@ import 'chartjs-plugin-labels';
 import { VoiLibModule } from 'voi-lib';
 import { NhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhpham/nhapkhothanhpham.component';
 import { NhapkhothanhphammodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhphammodal/nhapkhothanhphammodal.component';
+import { NhapkhohoiamComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiam/nhapkhohoiam.component';
+import { NhapkhohoiammodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiammodal/nhapkhohoiammodal.component';
+import { ChatluongsoiComponent } from './quanlykhosanxuat/quytrinh/chatluongsoi/chatluongsoi.component';
+import { ChatluongsoimodalComponent } from './quanlykhosanxuat/quytrinh/chatluongsoimodal/chatluongsoimodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -285,7 +289,11 @@ import { NhapkhothanhphammodalComponent } from './quanlykhosanxuat/quytrinh/nhap
     XuatkhomathangmodalComponent,
     KhoComponent,
     NhapkhothanhphamComponent,
-    NhapkhothanhphammodalComponent
+    NhapkhothanhphammodalComponent,
+    NhapkhohoiamComponent,
+    NhapkhohoiammodalComponent,
+    ChatluongsoiComponent,
+    ChatluongsoimodalComponent
   ],
   imports: [
     HttpClientModule,
@@ -370,6 +378,8 @@ import { NhapkhothanhphammodalComponent } from './quanlykhosanxuat/quytrinh/nhap
     ImportdanhmucmodelComponent,
     XuatkhomathangmodalComponent,
     NhapkhothanhphammodalComponent,
+    NhapkhohoiammodalComponent,
+    ChatluongsoimodalComponent,
   ],
   providers: [
     SanXuatService,

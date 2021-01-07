@@ -160,12 +160,10 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.item.listItem[index].editField = false;
   }
   TinhGiaTri(item, event) {
-    console.log(event)
-    console.log(item)
-    var TrongLuong = 0;
+    var KhoiLuong = 0;
     if(item.ChiSo !== undefined && item.ChiSo !== null && item.ChiSo !== 0 && event !== undefined)
-      TrongLuong = event/item.ChiSo;
-    return TrongLuong;
+      KhoiLuong = event/item.ChiSo;
+    return KhoiLuong;
   }
   onClose(){
     this.activeModal.close();

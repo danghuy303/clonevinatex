@@ -21,9 +21,9 @@ export class ThongsochatluongmodalComponent implements OnInit {
   };
   checkbutton: any = {
     Ghi: true,
-    KhongDuyet: true,
-    ChuyenTiep: true,
-    Xoa: true,
+    KhongDuyet: false,
+    ChuyenTiep: false,
+    Xoa: false,
   }
   newTableItem: any = {};
   listLoBong: any = [];
@@ -50,7 +50,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     }
     else{
-
+        this.KiemTraButtonModal()
     }
     this.data.CurrentPage = 0;
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
@@ -82,9 +82,6 @@ export class ThongsochatluongmodalComponent implements OnInit {
     })
   }
   
-  chonThuaDat() {
-
-  }
   GhiLai() {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
@@ -117,38 +114,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-  merge(newArr, existingArr) {
-    let removeIndex = [];
-    newArr.forEach((newEle) => {
-      let index = existingArr.findIndex(
-        (oldEle) => newEle.IDTaiSan === oldEle.IDTaiSan
-      );
-      if (index === -1) {
-        existingArr.push(newEle);
-      }
-    });
-    existingArr.forEach((oldEle, index) => {
-      let indexCheck = newArr.findIndex(
-
-        (newEle) => newEle.IDTaiSan === oldEle.IDTaiSan
-      );
-      if (indexCheck === -1) {
-        removeIndex.push(index);
-      }
-    });
-    for (var i = removeIndex.length - 1; i >= 0; i--) {
-      if (existingArr[i].ID === 0) {
-        existingArr.splice(removeIndex[i], 1);
-      } else {
-        existingArr[i].isXoa = true;
-      }
-    }
-    return existingArr;
-  }
-  changePhuongAnDeXuat(event, item) {
-    item.TenPhuongAnDeXuat = event.Ten;
-    item.IDdmPhuongAnDeXuat = event.ID;
-  }
+  
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
