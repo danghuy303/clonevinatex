@@ -24,62 +24,31 @@ export class DieuchuyenComponent implements OnInit {
       width: '150px'
     },
     {
-      header: 'Nội dung',
-      field: 'NoiDung',
-      width: '200px'
-    },
-    {
       header: 'Trạng thái',
       field: 'TenTrangThai',
       width: '150px'
     }
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-  colsQuyTrinh: any = [
-    {
-      header: 'Ngày nhận',
-      field: 'NgayKhoiTao',
-      width: '150px'
-    },
-    {
-      header: 'Ngày chuyển',
-      field: 'SoQuyTrinh',
-      width: '150px'
-    },
-    {
-      header: 'Thời gian xử lý',
-      field: 'DiaChi',
-      width: '200px'
-    },
-    {
-      header: 'Bộ phận xử lý',
-      field: 'DienTich',
-      width: '150px'
-    },
-    {
-      header: 'Nội dung xử lý',
-      field: 'HienTrangSuDung',
-      width: '400px'
-    },
-  ];
   listdmKho : any = [];
 
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    // console.log(this.activatedRoute);
-    // this.activatedRoute.params.subscribe((res:any)=>{
-    //   if(res.id!=='0'){
-    //     let getitem =()=>{return{}};
-    //     this.update(getitem());
-    //   }
-    // })
+    console.log(this.activatedRoute);
+    this.activatedRoute.params.subscribe((res:any)=>{
+      if(res.id!=='0'){
+        let getitem =()=>{return{}};
+        this.update(getitem());
+      }
+    })
     this.KiemTraTabTrangThai();
     this.getListdmkho();
     this.GetListQuyTrinh()
   }
   changeParam(id){
     this.router.navigate([`quantri/quanlykhosanxuat/dieuchuyen/${id}`],{replaceUrl: true})
+    console.log(this.router)
   }
   add(){
     this.changeParam(0);
@@ -96,6 +65,7 @@ export class DieuchuyenComponent implements OnInit {
       .catch(er => { console.log(er) })
   }
   update(Id){
+    debugger
     this.changeParam(Id);
     this._service.PhieuDieuChuyen().Get(Id).subscribe((res1: any) => {
     let modalRef = this._modal.open(DieuchuyenmodalComponent, {

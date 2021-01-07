@@ -77,7 +77,7 @@ export class KiemkekhoComponent implements OnInit {
       }
     })
     this.KiemTraTabTrangThai();
-    // this.GetListQuyTrinh()
+    this.GetListQuyTrinh()
   }
   changeParam(id){
     this.router.navigate([`quantri/quanlykhosanxuat/kiemkekho/${id}`],{replaceUrl: true})

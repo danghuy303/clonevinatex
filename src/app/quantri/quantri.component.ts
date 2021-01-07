@@ -296,7 +296,7 @@ export class QuantriComponent implements OnInit {
                 label: 'Theo dõi thống kê',
                 icon: 'pi pi-chart-bar',
                 routerLink: '/quantri/theodoithongkebaocaosanxuat',
-                expanded: true,
+                expanded: false,
                 items: [
                     {
                         label: 'Thống kê sản lượng',
@@ -310,7 +310,7 @@ export class QuantriComponent implements OnInit {
                 label: 'Báo cáo',
                 icon: 'pi pi-chart-bar',
                 routerLink: '/quantri/baocaosanxuat',
-                expanded: true,
+                expanded: false,
                 items: [
                     {
                         label: 'Báo cáo sản lượng tổng hợp',
@@ -328,7 +328,7 @@ export class QuantriComponent implements OnInit {
                 label: 'Danh mục dùng chung',
                 routerLink: '/quantri/danhmuc',
                 icon: 'pi pi-bars',
-                expanded: true,
+                expanded: false,
                 items: [
                     {
                         label: 'Mặt hàng',
@@ -384,7 +384,17 @@ export class QuantriComponent implements OnInit {
                         label: 'Máy biến áp',
                         routerLink: '/quantri/thongkedientheoca/dmmaybienap',
                         command: () => this.close()
-                    },                    
+                    }, 
+                    {
+                        label: 'Nhóm công tơ',
+                        routerLink: '/quantri/thongkedientheoca/dmnhomcongto',
+                        command: () => this.close()
+                    },   
+                    {
+                        label: 'Công tơ',
+                        routerLink: '/quantri/thongkedientheoca/dmcongto',
+                        command: () => this.close()
+                    },                     
                 ]
             },
             {
@@ -422,7 +432,7 @@ export class QuantriComponent implements OnInit {
                 label: 'Sắp xếp xử lý đất đai',
                 icon: 'pi pi-sort-amount-up',
                 routerLink: '/quantri/sapxepxuly',
-                expanded: true,
+                expanded: false,
                 items: [
                     {
                         label: 'Yêu cầu sắp xếp',
@@ -440,7 +450,7 @@ export class QuantriComponent implements OnInit {
                 label: 'Theo dõi thống kê',
                 icon: 'pi pi-chart-bar',
                 routerLink: '/quantri/theodoithongkebaocao',
-                expanded: true,
+                expanded: false,
                 items: [
                     {
                         label: 'Báo cáo chi tiết cơ sở',
@@ -501,7 +511,7 @@ export class QuantriComponent implements OnInit {
                 label: 'Danh mục dùng chung',
                 routerLink: '/quantri/danhmuc',
                 icon: 'pi pi-bars',
-                expanded: true,
+                expanded: false,
                 items: [
                     {
                         label: 'Tài sản',

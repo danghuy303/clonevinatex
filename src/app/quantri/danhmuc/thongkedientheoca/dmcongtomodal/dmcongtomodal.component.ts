@@ -9,40 +9,26 @@ import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
 
 @Component({
-  selector: 'app-dmmaybienapmodal',
-  templateUrl: './dmmaybienapmodal.component.html',
-  styleUrls: ['./dmmaybienapmodal.component.css']
+  selector: 'app-dmcongtomodal',
+  templateUrl: './dmcongtomodal.component.html',
+  styleUrls: ['./dmcongtomodal.component.css']
 })
-export class DmmaybienapmodalComponent implements OnInit {
+export class DmcongtomodalComponent implements OnInit {
 
   public item: any = {};
   public title: any = '';
   public type = '';
   opt: any = "";
-  listnhamay: any = [];
-  listphanxuong: any = [];
-  listdienap: any = [];
+  listnhomcongto: any = [];
+  listmaybienap: any = [];
 
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
     if (this.opt == 'edit') {
-      this.GetPhanXuong();
+
     }
-    this.GetDanhSachLoaiDienKV();
-  }
-
-  GetPhanXuong() {
-    this.sanXuatService.GetOptions().GetPhanXuong(this.item.idNhaMay).subscribe((res: any) => {
-      this.listphanxuong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
-
-  GetDanhSachLoaiDienKV() {
-    this.sanXuatService.dmLoaiDienKV().GetList().subscribe((res: any) => {
-      this.listdienap = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
+  }  
 
   accept() {
     this.item.HoatDong = true;
@@ -54,7 +40,7 @@ export class DmmaybienapmodalComponent implements OnInit {
   }
 
   Save() {
-    this.sanXuatService.DMMayBienAp().Set(this.item).subscribe((res: any) => {
+    this.sanXuatService.dmCongToDien().Set(this.item).subscribe((res: any) => {
       if (res) {
         this.resAction(res)
       }

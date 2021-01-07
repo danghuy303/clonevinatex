@@ -50,12 +50,21 @@ export class ModaldanhmucchungComponent implements OnInit {
           break;
         case 'loaidien': this.loaidien();
           break;
+        case 'nhomcongto': this.nhomcongto();
+          break;
         default:
           break;
       }
     } else {
       this.toastr.warning('Vui lòng nhập đầy đủ trường thông tin bắt buộc!')
     }
+  }
+  nhomcongto() {
+    this.sanXuatService.dmNhomCongToDien().Set(this.item).subscribe((res: any) => {
+      if (res) {
+        this.resAction(res)
+      }
+    })
   }
   loaidien() {
     this.sanXuatService.dmLoaiDienKV().Set(this.item).subscribe((res: any) => {
