@@ -58,7 +58,7 @@ export class NhapkhohoiamComponent implements OnInit {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/nhapkhohoiam/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/quanlykhosanxuat/khohoiam/nhapkho/${id}`], { replaceUrl: true })
   }
   addPhieuBong() {
     this.changeParam(0);

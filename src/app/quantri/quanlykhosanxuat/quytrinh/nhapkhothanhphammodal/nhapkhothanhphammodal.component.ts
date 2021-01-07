@@ -27,7 +27,8 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   listLoBong: any = [];
   listCapBong: any = [];
   listCaMay: any = [];
-  listKho: any = [];
+  listKhoHoiAm: any = [];
+  listKhoThanhPham: any = [];
   lang: any = vn;
   data: any = {};
   type: any = '';
@@ -70,9 +71,6 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     if (this.item.NgayChungTu === null || this.item.NgayChungTu === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
-    else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
-      this.toastr.error("Bạn chưa chọn  danh mục kho");
-    }
     else {
       if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
         this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
@@ -97,9 +95,6 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   GhiLai() {
     if (this.item.NgayChungTu === null || this.item.NgayChungTu === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
-    }
-    else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
-      this.toastr.error("Bạn chưa chọn  danh mục kho");
     }
     else {
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
@@ -136,9 +131,13 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   }
 
   getListKho() {
+    this.data.Loai = 10;
+    this._services.GetListdmKho(this.data).subscribe((res: any) => {
+      this.listKhoHoiAm = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
     this.data.Loai = 1;
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
-      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listKhoThanhPham = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 
@@ -155,7 +154,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     this.activeModal.close();
   }
   GetMatHangTheoKho() {
-    this._services.getLuuKho(this.item.IddmKho, 0, '').subscribe((res1: any) => {
+    this._services.getLuuKho(this.item.IddmKhoHoiAm, 0, '').subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'

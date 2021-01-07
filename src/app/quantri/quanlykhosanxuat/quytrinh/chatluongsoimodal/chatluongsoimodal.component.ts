@@ -120,7 +120,7 @@ export class ChatluongsoimodalComponent implements OnInit {
   }
 
   GetMatHangTheoKho() {
-    this.services.getLuuKho(this.item.IddmKho, 0, '').subscribe((res1: any) => {
+    this.services.getLuuKho('433b7f43-0d82-44f9-83bc-3e03b1046fb5', 0, '').subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
