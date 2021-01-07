@@ -167,6 +167,8 @@ import { KehoachxuathangmodalComponent } from './quanlykhosanxuat/quytrinh/kehoa
 import { VoiLibModule } from 'voi-lib';
 import { NhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhpham/nhapkhothanhpham.component';
 import { NhapkhothanhphammodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhphammodal/nhapkhothanhphammodal.component';
+import { DmmaybienapComponent } from './danhmuc/thongkedientheoca/dmmaybienap/dmmaybienap.component';
+import { DmmaybienapmodalComponent } from './danhmuc/thongkedientheoca/dmmaybienapmodal/dmmaybienapmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -294,6 +296,8 @@ import { NhapkhothanhphammodalComponent } from './quanlykhosanxuat/quytrinh/nhap
     KehoachxuathangmodalComponent,
     NhapkhothanhphamComponent,
     NhapkhothanhphammodalComponent,
+    DmmaybienapComponent,
+    DmmaybienapmodalComponent,
   ],
   imports: [
     HttpClientModule,

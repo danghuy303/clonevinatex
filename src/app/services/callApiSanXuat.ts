@@ -480,6 +480,37 @@ export class SanXuatService {
             },
         }
     }
+
+    //#region nhập kế hoạch nguyên liệu
+    KeHoachXuatHang() {
+        let url = API.KeHoachNguyenLieu;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhKeHoachXuatNguyenLieu', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListKeHoachXuatNguyenLieu', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetKeHoachXuatNguyenLieu?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetKeHoachXuatNguyenLieu', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteKeHoachXuatNguyenLieu', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'ChuyenTiepKeHoachXuatNguyenLieu', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetKeHoachXuatNguyenLieu', data, httpOptions)
+            },
+        }
+    }
+
     //#endregion
     ThongKeSanLuong() {
         let url = API.SCMQuanLyKho;

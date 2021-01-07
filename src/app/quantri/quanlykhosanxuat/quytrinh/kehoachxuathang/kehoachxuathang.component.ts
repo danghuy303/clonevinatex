@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ModalquanComponent } from 'src/app/quantri/danhmuc/modal/modalquan/modalquan.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, formatdate } from 'src/app/services/globalfunction';
 import { KehoachxuathangmodalComponent } from '../kehoachxuathangmodal/kehoachxuathangmodal.component';
 
 @Component({
@@ -17,34 +18,30 @@ export class KehoachxuathangComponent implements OnInit {
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
   listLoaiPhuongAn: any = [];
+  listKho: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
       header: 'Số phiếu',
-      field: 'SoPhieu',
+      field: 'SoQuyTrinh',
       width: 'unset'
     },
     {
       header: 'Ngày tạo',
-      field: 'NgayTao',
+      field: '_ThoiGianTao',
       width: 'unset'
     },
     {
       header: 'Ngày duyệt',
-      field: 'NgayDuyet',
+      field: 'ThoiGianDuyet',
       width: 'unset'
     },
     {
-      header: 'Kho nhập',
-      field: 'KhoNhap',
+      header: 'Kho xuất',
+      field: 'TenKho',
       width: 'unset'
-    },
-    {
-      header: 'Khối lượng nhập',
-      field: 'KhoiLuongNhap',
-      width: 'unset'
-    },
+    },   
     {
       header: 'Ghi chú',
       field: 'GhiChu',
@@ -57,8 +54,9 @@ export class KehoachxuathangComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
-    // this.KiemTraTabTrangThai();
-    // this.GetListQuyTrinh()
+    this.getListKho();
+    this.KiemTraTabTrangThai();
+    this.GetListQuyTrinh()
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
@@ -95,7 +93,7 @@ export class KehoachxuathangComponent implements OnInit {
       .catch(er => { console.log(er) })
   }
   update(Id) {
-    this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
+    this._service.KeHoachXuatHang().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(KehoachxuathangmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
@@ -117,6 +115,16 @@ export class KehoachxuathangComponent implements OnInit {
     // this.paging.CurrentPage = event.page + 1;
     // this.GetListQuyTrinh();
   }
+
+  getListKho() {
+    let data = {
+      CurrentPage: 0
+    }
+    this._service.GetListdmKho(data).subscribe((res: any) => {
+      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
   GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
@@ -132,13 +140,29 @@ export class KehoachxuathangComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
+    this._service.KeHoachXuatHang().GetList(data).subscribe((res: any) => {
       this.items = res.items;
+      if (this.items.length > 0) {
+        this.items.forEach(element => {
+          element._ThoiGianTao = element.ThoiGianTaoUnix > 0 ? formatdate(element.ThoiGianTao, false) : null;
+          this.listKho.filter(obj => {
+            if (element.idKhoXuat == obj.value) {
+              element.TenKho = obj.label;
+            }
+          });
+        });
+      }
       this.paging = res.paging;
     })
   }
   resetFilter() {
     this.filter = {};
     this.GetListQuyTrinh(true);
+  }
+  KiemTraTabTrangThai() {
+    // this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+    //   this.checkQuyen = res;
+    //   this.GetListQuyTrinh();
+    // })
   }
 }
