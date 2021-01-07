@@ -83,7 +83,7 @@ export class NhapkhoComponent implements OnInit {
     }  
   } 
   changeParam(id) {
-    if (this._modal.hasOpenModals()) {
+    if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
     if(this.title === 'khobong'){
@@ -130,6 +130,7 @@ export class NhapkhoComponent implements OnInit {
   }
  
   update(Id) {
+    this.changeParam(Id);
     this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhomodalComponent, {
         size: 'fullscreen',
@@ -156,7 +157,7 @@ export class NhapkhoComponent implements OnInit {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
-    let data = {
+    let data: any = {
       PageSize: 25,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
@@ -166,6 +167,19 @@ export class NhapkhoComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
+    if(this.title === 'khobong'){
+      data.Loai = 1;
+    }
+    else if(this.title === 'khoxo'){
+      data.Loai = 5;
+    }
+    // else if(this.title === 'khobonghoi'){
+    //   data.Loai = 1;
+    // }
+    // else if(this.title === 'khobongphe'){
+    //   data.Loai = 1;
+    // }
+
     this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;

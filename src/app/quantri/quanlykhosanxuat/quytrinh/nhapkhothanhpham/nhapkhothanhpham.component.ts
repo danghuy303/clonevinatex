@@ -71,6 +71,7 @@ export class NhapkhothanhphamComponent implements OnInit {
       .catch(er => { console.log(er) })
   }
   update(Id) {
+    this.changeParam(Id);
     this._service.PhieuNhapThanhPham().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhothanhphammodalComponent, {
         size: 'fullscreen',
