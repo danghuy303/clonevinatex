@@ -58,7 +58,7 @@
             <div class="p-col-12 p-lg-7 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
-                    [(ngModel)]="item.NgayChungTu" inputId="icon" placeholder="dd/mm/yyyy">
+                    [(ngModel)]="item.Ngay" inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>
@@ -96,6 +96,7 @@
                         <th colspan="2">Quy cách đóng gói</th>
                         <th rowspan="2">Hợp đồng</th>
                         <th colspan="3">Số lượng</th>
+                        <th rowspan="2">Số khoang</th>
                         <th rowspan="2">Ghi chú</th>
                         <th rowspan="2"></th>
                     </tr>
@@ -126,6 +127,10 @@
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuongNhap">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKhoang">
                             </p-inputNumber>
                         </td>
                         <td>
