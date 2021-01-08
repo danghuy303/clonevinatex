@@ -177,6 +177,7 @@ import { LoaidienkvComponent } from './danhmuc/thongkedientheoca/loaidienkv/loai
 import { DmnhomcongtoComponent } from './danhmuc/thongkedientheoca/dmnhomcongto/dmnhomcongto.component';
 import { DmcongtoComponent } from './danhmuc/thongkedientheoca/dmcongto/dmcongto.component';
 import { DmcongtomodalComponent } from './danhmuc/thongkedientheoca/dmcongtomodal/dmcongtomodal.component';
+import { ChonkienbongmodalComponent } from './quanlykhosanxuat/phuongan/chonkienbongmodal/chonkienbongmodal.component';
 import { DmthongkedienComponent } from './danhmuc/thongkedientheoca/dmthongkedien/dmthongkedien.component';
 import { DmthongkedienmodalComponent } from './danhmuc/thongkedientheoca/dmthongkedienmodal/dmthongkedienmodal.component';
 @NgModule({
@@ -316,6 +317,7 @@ import { DmthongkedienmodalComponent } from './danhmuc/thongkedientheoca/dmthong
     DmnhomcongtoComponent,
     DmcongtoComponent,
     DmcongtomodalComponent,
+    ChonkienbongmodalComponent,
     DmthongkedienComponent,
     DmthongkedienmodalComponent,
   ],
@@ -408,6 +410,7 @@ import { DmthongkedienmodalComponent } from './danhmuc/thongkedientheoca/dmthong
     NhapkhohoiammodalComponent,
     ChatluongsoimodalComponent,
     DmcongtomodalComponent,
+    ChonkienbongmodalComponent,
     DmthongkedienmodalComponent,    
   ],
   providers: [

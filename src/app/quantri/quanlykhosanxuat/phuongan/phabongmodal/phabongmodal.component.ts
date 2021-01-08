@@ -295,9 +295,9 @@ export class PhabongmodalComponent implements OnInit {
   }
   SetData() {
     this.item.listLoBong.forEach(lobong => {
-      if (!validVariable(lobong.listItem)) {
+      // if (!validVariable(lobong.listItem)) {
         lobong.listItem = [];
-      }
+      // }
       for (let i = 1; i <= this.item.SoBanBong; i++) {
         let data = {
           SoLuongKien: lobong.tempBanBong[`${i}`].SoKien,
@@ -336,9 +336,10 @@ export class PhabongmodalComponent implements OnInit {
     });
   }
   ChuyenDuyet() {
-    this._services.PhuongAnPhaBong().ChuyenTiep(this.item).subscribe((res: any) => {
+    this._services.PhuongAnPhaBong().ChuyenTiep(this.SetData()).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
+          this._toastr.success(res.message);
           this._activeModal.close();
         } else {
           this._toastr.error(res.message);
