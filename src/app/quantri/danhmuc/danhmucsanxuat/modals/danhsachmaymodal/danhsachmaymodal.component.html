@@ -71,6 +71,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
+    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()" [disabled]="khongclicknhieu"></button>
     <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2" (click)="activeModal.dismiss()"></button>
 </div>

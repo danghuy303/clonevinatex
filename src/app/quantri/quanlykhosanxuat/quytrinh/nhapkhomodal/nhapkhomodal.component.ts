@@ -57,16 +57,12 @@ export class NhapkhomodalComponent implements OnInit {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
     this.data.CurrentPage = 0;
-    if (this.type === 'bonghoi') {
-      this.getListLoaiBongHoiPhe();
-    }
-    else{
-      this.getListLoaiBong();
-    }
+    this.getListLoaiBong();
     this.getListCapBong();
     this.getListLoBong();
     this.getListKho();
     this.getListCaMay();
+    console.log(this.type)
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -126,6 +122,8 @@ export class NhapkhomodalComponent implements OnInit {
         this.item.Loai = 5;
       else if (this.type === 'bonghoi')
         this.item.Loai = 6;
+      else if (this.type === 'bongphe')
+        this.item.Loai = 7;
     }
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
@@ -135,7 +133,10 @@ export class NhapkhomodalComponent implements OnInit {
     }
     else {
       if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined) {
+        if (this.type === 'bong' || this.type === 'xo')
         this.add();
+        else if (this.type === 'bonghoi' ||this.type === 'bongphe')
+          this.addBongHoi();
       }
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
       this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
@@ -144,6 +145,7 @@ export class NhapkhomodalComponent implements OnInit {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            console.log(this.type)
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
@@ -183,6 +185,9 @@ export class NhapkhomodalComponent implements OnInit {
         this.data.Loai = 6;
         this.data.IddmLoaiBong = this.item.IddmLoaiBong;
       }
+      else  if (this.type === 'bongphe'){
+        this.data.Loai = 7;
+      }
     }
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -194,27 +199,27 @@ export class NhapkhomodalComponent implements OnInit {
     }
     else{
       if (this.type === 'bong')
-      this.data.Loai = 1;
+      this.data.Loai = 2;
       else  if (this.type === 'xo')
         this.data.Loai = 5;
       else  if (this.type === 'bonghoi'){
         this.data.Loai = 6;
         this.data.IddmLoaiBong = this.item.IddmLoaiBong;
       }
+      else  if (this.type === 'bongphe'){
+        this.data.Loai = 7;
+      }
     }
     this._services.GetListdmLoaiBong(this.data).subscribe((res: any) => {
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  getListLoaiBongHoiPhe() {
-    this._services.GetListdmLoaiBongHoiPhe().subscribe((res: any) => {
-      this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
+  
   getListLoBong() {
     if (this.type === 'bong')
-    this.data.Loai = 1;
-    
+      this.data.Loai = 1;
+    else if (this.type === 'bonghoi')
+      this.item.Loai = 6;
     this._services.GetListLoBong(this.data).subscribe((res: any) => {
       let data: any = {};
       data.Id = "";
@@ -241,9 +246,9 @@ export class NhapkhomodalComponent implements OnInit {
     this.newTableItem = {}
   }
   addBongHoi() {
-    if (this.item.listBongHoi == undefined || this.item.listBongHoi == null)
-      this.item.listBongHoi = [];
-    this.item.listBongHoi.push(this.newTableItem);
+    if (this.item.listKien == undefined || this.item.listKien == null)
+      this.item.listKien = [];
+    this.item.listKien.push(this.newTableItem);
     this.newTableItem = {}
   }
   edit(item, index) {

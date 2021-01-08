@@ -54,8 +54,8 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     else{
       this.KiemTraButtonModal();
     }
-    if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
-      this.item.NgayChungTu = new Date(this.item.NgayChungTuUnix * 1000);
+    if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
     this.data.CurrentPage = 0;
 
@@ -68,12 +68,12 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   }
 
   ChuyenTiep() {
-    if (this.item.NgayChungTu === null || this.item.NgayChungTu === undefined) {
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
     else {
-      if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
-        this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
       this._services.PhieuNhapThanhPham().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -93,11 +93,11 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if (this.item.NgayChungTu === null || this.item.NgayChungTu === undefined) {
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
     else {
-      this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
       this._services.PhieuNhapThanhPham().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

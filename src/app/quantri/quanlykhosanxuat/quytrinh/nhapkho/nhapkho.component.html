@@ -1,5 +1,5 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Nhập kho</h4>
+    <h4 style="color:#1f2779">Nhập kho {{nametype}}</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
@@ -40,28 +40,82 @@
 <div class="p-mt-3">
     <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
         <ng-template pTemplate="colgroup">
-            <colgroup>
+            <colgroup *ngIf="this.title === 'khobong' || this.title === 'khoxo'">
                 <col style="width:50px">
-                <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
+                <col *ngFor="let col of cols">
+                <col>
+                <col>
+                <col>
+                <col style="width: 100px;">
+            </colgroup>
+            <colgroup *ngIf="this.title === 'khobonghoi' || this.title === 'khobongphe'">
+                <col style="width:50px">
+                <col *ngFor="let col of colHois">
+                <col>
+                <col>
+                <col>
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
-            <tr>
+            <tr *ngIf="this.title === 'khobong' || this.title === 'khoxo'">
                 <th class="text-center">#</th>
                 <th *ngFor="let header of cols">
                     {{header.header}}
                 </th>
+                <th>Tổng số kiện</th>
+                <th>Tổng khối lượng</th>
+                <th>Trạng thái</th>
+                <th></th>
+            </tr>
+            <tr *ngIf="this.title === 'khobonghoi' || this.title === 'khobongphe'">
+                <th class="text-center">#</th>
+                <th *ngFor="let header of colHois">
+                    {{header.header}}
+                </th>
+                <th>Tổng số kiện</th>
+                <th>Tổng khối lượng</th>
+                <th>Trạng thái</th>
                 <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr>
+            <tr *ngIf="this.title === 'khobong' || this.title === 'khoxo'">
                 <td class="text-center">
                     {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
+                </td>
+                <td class="text-center">
+                    {{item.TongSoKien|number:'0.0' }}
+                </td>
+                <td class="text-center">
+                    {{item.TongKhoiLuong|number:'0.0' }}
+                </td>
+                <td class="text-center">
+                    {{item.TenTrangThai}}
+                </td>
+                <td class="text-center">
+                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item.Id)"></button>
+                </td>
+            </tr>
+            <tr *ngIf="this.title === 'khobonghoi' || this.title === 'khobongphe'">
+                <td class="text-center">
+                    {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
+                </td>
+                <td class="text-center" *ngFor="let col of colHois">
+                    {{item[col.field]}}
+                </td>
+                <td class="text-center">
+                    {{item.TongSoKien|number:'0.0' }}
+                </td>
+                <td class="text-center">
+                    {{item.TongKhoiLuong|number:'0.0' }}
+                </td>
+                <td class="text-center">
+                    {{item.TenTrangThai}}
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"

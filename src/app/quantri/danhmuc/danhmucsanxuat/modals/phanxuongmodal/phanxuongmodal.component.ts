@@ -15,6 +15,7 @@ export class PhanxuongmodalComponent implements OnInit {
   };
   listCongDoan:any=[];
   listNhomKho : any = [];
+  khongclicknhieu: any = false;
   constructor(public activeModal: NgbActiveModal,
      private services: SanXuatService,
       public toastr: ToastrService, private _modal: NgbModal) { }
@@ -24,10 +25,12 @@ export class PhanxuongmodalComponent implements OnInit {
   
   accept() {
     this.item.HoatDong = true;
+    this.khongclicknhieu = !this.khongclicknhieu;
     if (this.item.Ma !== undefined && this.item.Ma.trim() !== '' && this.item.Ten.trim() !== '' && this.item.Ten !== undefined) {
       this.services.SetdmPhanXuong(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
+            this.khongclicknhieu = !this.khongclicknhieu;
             this.activeModal.close(res.message);
           } else {
             this.toastr.error(res.message)
@@ -35,6 +38,7 @@ export class PhanxuongmodalComponent implements OnInit {
         }
       })
     } else {
+      this.khongclicknhieu = !this.khongclicknhieu;
       this.toastr.warning('Vui lòng nhập đầy đủ thông tin bắt buộc!')
     }
   }

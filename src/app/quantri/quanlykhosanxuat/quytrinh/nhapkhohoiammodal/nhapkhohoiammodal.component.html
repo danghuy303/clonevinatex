@@ -88,6 +88,8 @@
                         <col>
                         <col>
                         <col>
+                        <col>
+                        <col>
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
@@ -97,6 +99,8 @@
                         <th>Tên</th>
                         <th>Số lượng sản xuất</th>
                         <th>Số lượng thực tế</th>
+                        <th>Số quả sợi</th>
+                        <th>Ghi chú</th>
                         <th style="width: 100px;"></th>
                     </tr>
                 </ng-template>
@@ -115,6 +119,13 @@
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.KhoiLuongThucTe">
                             </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoi">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <input pInputText type="text" [(ngModel)]="item.GhiChu">
                         </td>
                         <td>
                             <button pButton pRipple icon="pi pi-trash"

@@ -16,6 +16,7 @@ export class ModaldmkhoComponent implements OnInit {
   public title: any = '';
   public type = '';
   listNhomKho: any = [];
+  khongclicknhieu: any = false;
   constructor(public activeModal: NgbActiveModal,private sanXuatService:SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -23,6 +24,7 @@ export class ModaldmkhoComponent implements OnInit {
   }
   accept() {
     this.item.HoatDong  = true;
+    this.khongclicknhieu = !this.khongclicknhieu;
     this.sanXuatService.SetdmKho(this.item).subscribe((res: any) => {
       if (res) {
         this.resAction(res)
@@ -39,6 +41,7 @@ export class ModaldmkhoComponent implements OnInit {
   }
   resAction(res: any) {
     if (res.State === 1) {
+      this.khongclicknhieu = !this.khongclicknhieu;
       this.activeModal.close(res.message);
     } else {
       this.toastr.error(res.message)
