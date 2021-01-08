@@ -19,6 +19,7 @@ export class MathangmodelComponent implements OnInit {
   listLoaiSoi: any = [];
   listItem: any = [];
   editTableItem: any = {};
+  khongclicknhieu: any = false;
   constructor(public activeModal: NgbActiveModal,
     private services: SanXuatService,
     public toastr: ToastrService, private _modal: NgbModal) { }
@@ -39,6 +40,7 @@ export class MathangmodelComponent implements OnInit {
   }
 
   accept() {
+    this.khongclicknhieu = !this.khongclicknhieu;
     if (this.item.Ma !== undefined && this.item.Ma.trim() !== '' && this.item.Ten.trim() !== '' && this.item.Ten !== undefined) {
       this.item.Loai = 1;
       this.item.DonViThietKe = this.item.DonViDatHang;
@@ -59,6 +61,7 @@ export class MathangmodelComponent implements OnInit {
       this.services.SetdmItem(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
+            this.khongclicknhieu = !this.khongclicknhieu;
             this.activeModal.close(res.message);
           } else {
             this.toastr.error(res.message)
@@ -66,6 +69,7 @@ export class MathangmodelComponent implements OnInit {
         }
       })
     } else {
+      this.khongclicknhieu = !this.khongclicknhieu;
       this.toastr.warning('Vui lòng nhập đầy đủ thông tin bắt buộc!')
     }
   }

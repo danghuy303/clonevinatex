@@ -110,6 +110,24 @@ export class QuantriComponent implements OnInit {
                 ]
             },
             {
+                label: 'Theo dõi thống kê',
+                icon: 'pi pi-chart-bar',
+                routerLink: '/quantri/theodoithongkebaocaosanxuat',
+                expanded: false,
+                items: [
+                    {
+                        label: 'Thống kê sản lượng',
+                        routerLink: '/quantri/theodoithongkebaocaosanxuat/thongkesanluong/0',
+                        command: () => this.close()
+                    },
+                    // {
+                    //     label: 'Thống kê điện',
+                    //     routerLink: '/quantri/thongkedientheoca/dmthongkedien/0',
+                    //     command: () => this.close()
+                    // }, 
+                ]
+            },
+            {
                 label: 'Quản lý kho bông',
                 icon: 'fas fa-circle',
                 routerLink: '/quantri/quanlykhosanxuat/khobong',
@@ -293,24 +311,7 @@ export class QuantriComponent implements OnInit {
                 ]
             },
             
-            {
-                label: 'Theo dõi thống kê',
-                icon: 'pi pi-chart-bar',
-                routerLink: '/quantri/theodoithongkebaocaosanxuat',
-                expanded: false,
-                items: [
-                    {
-                        label: 'Thống kê sản lượng',
-                        routerLink: '/quantri/theodoithongkebaocaosanxuat/thongkesanluong/0',
-                        command: () => this.close()
-                    },
-                    // {
-                    //     label: 'Thống kê điện',
-                    //     routerLink: '/quantri/thongkedientheoca/dmthongkedien/0',
-                    //     command: () => this.close()
-                    // }, 
-                ]
-            },
+           
             {
                 label: 'Báo cáo',
                 icon: 'pi pi-chart-bar',

@@ -22,6 +22,7 @@ export class DmmaybienapmodalComponent implements OnInit {
   listnhamay: any = [];
   listphanxuong: any = [];
   listdienap: any = [];
+  khongclicknhieu: any = false;
 
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
@@ -45,10 +46,11 @@ export class DmmaybienapmodalComponent implements OnInit {
   }
 
   accept() {
-    this.item.HoatDong = true;
+    this.khongclicknhieu = !this.khongclicknhieu;
     if (this.item.Ma !== undefined && this.item.Ma !== null && this.item.Ten !== undefined && this.item.Ten !== null) {
       this.Save();
     } else {
+      this.khongclicknhieu = !this.khongclicknhieu;
       this.toastr.warning('Vui lòng nhập đầy đủ trường thông tin bắt buộc!')
     }
   }
@@ -63,6 +65,7 @@ export class DmmaybienapmodalComponent implements OnInit {
 
   resAction(res: any) {
     if (res.State === 1) {
+      this.khongclicknhieu = !this.khongclicknhieu;
       this.activeModal.close(res.message);
     } else {
       this.toastr.error(res.message)
