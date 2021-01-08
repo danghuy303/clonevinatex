@@ -174,6 +174,12 @@ import { ChatluongsoimodalComponent } from './quanlykhosanxuat/quytrinh/chatluon
 import { DmmaybienapComponent } from './danhmuc/thongkedientheoca/dmmaybienap/dmmaybienap.component';
 import { DmmaybienapmodalComponent } from './danhmuc/thongkedientheoca/dmmaybienapmodal/dmmaybienapmodal.component';
 import { LoaidienkvComponent } from './danhmuc/thongkedientheoca/loaidienkv/loaidienkv.component';
+import { DmnhomcongtoComponent } from './danhmuc/thongkedientheoca/dmnhomcongto/dmnhomcongto.component';
+import { DmcongtoComponent } from './danhmuc/thongkedientheoca/dmcongto/dmcongto.component';
+import { DmcongtomodalComponent } from './danhmuc/thongkedientheoca/dmcongtomodal/dmcongtomodal.component';
+import { ChonkienbongmodalComponent } from './quanlykhosanxuat/phuongan/chonkienbongmodal/chonkienbongmodal.component';
+import { DmthongkedienComponent } from './danhmuc/thongkedientheoca/dmthongkedien/dmthongkedien.component';
+import { DmthongkedienmodalComponent } from './danhmuc/thongkedientheoca/dmthongkedienmodal/dmthongkedienmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -308,6 +314,12 @@ import { LoaidienkvComponent } from './danhmuc/thongkedientheoca/loaidienkv/loai
     DmmaybienapComponent,
     DmmaybienapmodalComponent,
     LoaidienkvComponent,
+    DmnhomcongtoComponent,
+    DmcongtoComponent,
+    DmcongtomodalComponent,
+    ChonkienbongmodalComponent,
+    DmthongkedienComponent,
+    DmthongkedienmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -397,6 +409,9 @@ import { LoaidienkvComponent } from './danhmuc/thongkedientheoca/loaidienkv/loai
     DmmaybienapmodalComponent,
     NhapkhohoiammodalComponent,
     ChatluongsoimodalComponent,
+    DmcongtomodalComponent,
+    ChonkienbongmodalComponent,
+    DmthongkedienmodalComponent,    
   ],
   providers: [
     SanXuatService,

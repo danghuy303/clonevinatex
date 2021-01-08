@@ -1,10 +1,10 @@
-
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Phương án pha bông</h4>
+    <h4 style="color:#1f2779">Thống kê điện</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
-    <div></div>
+    <div class="p-d-flex p-flex-row">
+      <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieuBong()" *ngIf="checkQuyen.ThemMoi"></button>    
+    </div>
     <div class="p-d-flex p-flex-row">
         <!-- <div class="p-mr-2">
             <p-dropdown [options]="listLoaiPhuongAn" placeholder="Chọn phương án" styleClass="p-inputtext-sm"
@@ -19,6 +19,11 @@
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày">
             </p-calendar>
+        </div>
+        <div class="p-mr-2">
+            <!-- <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn mặt hàng"
+            [(ngModel)]="newTableItem.IddmItem" styleClass="p-inputtext-sm"
+            (onChange)="getList()"></p-dropdown> -->
         </div>
         <div class="p-inputgroup">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh()" [(ngModel)]="filter.KeyWord"/>
@@ -40,8 +45,6 @@
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
-                <col>
-                <!-- <col> -->
                 <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
                 <col style="width: 100px;">
             </colgroup>
@@ -49,10 +52,6 @@
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">#</th>
-                <th>Số phiếu</th>
-                <th>Khối lượng bông (Tấn)</th>
-                <!-- <th>Nội dung</th>
-                <th>Ngày duyệt KH giao</th> -->
                 <th *ngFor="let header of cols">
                     {{header.header}}
                 </th>
@@ -64,16 +63,12 @@
                 <td class="text-center">
                     {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
-                <td class="text-center">{{item.SoQuyTrinh}}</td>
-                <td class="text-center">{{item.KhoiLuongBong|number:'0.2-2'}}</td>
-                <!-- <td class="text-center"></td>
-                <td class="text-center"></td> -->
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.Id)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item.Id)"></button>
                 </td>
             </tr>
         </ng-template>

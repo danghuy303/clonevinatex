@@ -7,14 +7,14 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { ImportdanhmucmodelComponent } from '../../danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
-import { DmmaybienapmodalComponent } from '../dmmaybienapmodal/dmmaybienapmodal.component';
+import { DmcongtomodalComponent } from '../dmcongtomodal/dmcongtomodal.component';
 
 @Component({
-  selector: 'app-dmmaybienap',
-  templateUrl: './dmmaybienap.component.html',
-  styleUrls: ['./dmmaybienap.component.css']
+  selector: 'app-dmcongto',
+  templateUrl: './dmcongto.component.html',
+  styleUrls: ['./dmcongto.component.css']
 })
-export class DmmaybienapComponent implements OnInit {
+export class DmcongtoComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   items: any = [
@@ -23,26 +23,26 @@ export class DmmaybienapComponent implements OnInit {
   keyWord: any = '';
   cols: any = [
     {
-      header: 'Mã máy biến áp',
+      header: 'Mã công tơ',
       field: 'Ma',
       width: 'unset',
       align: 'center'
     },
     {
-      header: 'Tên máy biến áp',
+      header: 'Tên công tơ',
       field: 'Ten',
       width: 'unset',
       center: 'left'
     },
     {
-      header: 'Nhà máy',
-      field: 'TenNhaMay',
+      header: 'Phân nhóm công tơ',
+      field: 'TenNhomCongTo',
       width: 'unset',
       center: 'left'
     },
     {
-      header: 'Phân xưởng',
-      field: 'TenPhanXuong',
+      header: 'Máy biến áp',
+      field: 'TenBienAp',
       width: 'unset',
       center: 'left'
     },
@@ -54,18 +54,14 @@ export class DmmaybienapComponent implements OnInit {
     }
   ];
   selectedItems: any = [];
+  listmaybienap: any = [];
+  listnhomcongto: any = [];
   dataSearch: any = {};
-  userInfo: any;
-  listnhamay: any = [];
-  listphanxuong: any = [];
-  
-  constructor(private _modal: NgbModal, private _services: SanXuatService, private _toastr: ToastrService, private _auth: AuthenticationService) {
-    this.userInfo = this._auth.currentUserValue;
-  }
+  constructor(private _modal: NgbModal, private _services: SanXuatService, private _toastr: ToastrService, private _auth: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.GetDanhSachDuAnByIdUser();
-    this.GetPhanXuong();
+    this.GetDanhSachMayBienAp();
+    this.GetDanhSachCongToDien();
     this.GetListdm();
   }
   resetFilter() {
@@ -73,41 +69,42 @@ export class DmmaybienapComponent implements OnInit {
     this.GetListdm()
   }
 
-  GetDanhSachDuAnByIdUser() {
-    this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
-      this.listnhamay = mapArrayForDropDown(res, 'TenDuAn', 'Id');
+  GetDanhSachMayBienAp() {
+    this._services.DMMayBienAp().GetList().subscribe((res: any) => {
+      this.listmaybienap = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 
-  GetPhanXuong() {
-    this._services.GetOptions().GetPhanXuong(0).subscribe((res: any) => {
-      this.listphanxuong = mapArrayForDropDown(res, 'Ten', 'Id');
+  GetDanhSachCongToDien() {
+    this._services.dmNhomCongToDien().GetList().subscribe((res: any) => {
+      this.listnhomcongto = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 
   GetListdm(reset?) {
-    if (reset) {
-      this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
-    }
-    this.dataSearch = {
-      PageSize: 20,
-      CurrentPage: this.paging.CurrentPage,
-      sFilter: this.keyWord,
-      Ma: "",
-      Ten: ""
-    };
-    this._services.DMMayBienAp().GetList().subscribe((res: any) => {
+    // if (reset) {
+    //   this.paging.CurrentPage = 1;
+    //   this.paginator.changePage(0);
+    // }
+    // this.dataSearch = {
+    //   PageSize: 20,
+    //   CurrentPage: this.paging.CurrentPage,
+    //   sFilter: this.keyWord,
+    //   Ma: "",
+    //   Ten: ""
+    // };
+    let idMayBienAp = this.dataSearch.idMayBienAp != undefined && this.dataSearch.idMayBienAp != null && this.dataSearch.idMayBienAp != "" ? this.dataSearch.idMayBienAp : '';
+    this._services.dmCongToDien().GetList(idMayBienAp).subscribe((res: any) => {
       this.items = res;
       this.items.forEach(element => {
-        this.listnhamay.filter(obj => {
-          if (element.idNhaMay == obj.value) {
-            element.TenNhaMay = obj.label;
+        this.listnhomcongto.filter(obj => {
+          if (element.idNhomCongToDien == obj.value) {
+            element.TenNhomCongTo = obj.label;
           }
         });
-        this.listphanxuong.filter(obj => {
-          if (element.idPhanXuong == obj.value) {
-            element.TenPhanXuong = obj.label;
+        this.listmaybienap.filter(obj => {
+          if (element.idMayBienAp == obj.value) {
+            element.TenBienAp = obj.label;
           }
         });
       });
@@ -115,25 +112,27 @@ export class DmmaybienapComponent implements OnInit {
     })
   }
   add() {
-    let modalRef = this._modal.open(DmmaybienapmodalComponent, {
+    let modalRef = this._modal.open(DmcongtomodalComponent, {
       backdrop: 'static'
     });
-    modalRef.componentInstance.opt = 'add';    
-    modalRef.componentInstance.listnhamay = this.listnhamay;
-    modalRef.componentInstance.title = 'Thêm mới máy biến áp';
+    modalRef.componentInstance.opt = 'add';
+    modalRef.componentInstance.listmaybienap = this.listmaybienap;
+    modalRef.componentInstance.listnhomcongto = this.listnhomcongto;
+    modalRef.componentInstance.title = 'Thêm mới công tơ';
     modalRef.result.then(res => {
       this._toastr.success(res);
       this.GetListdm()
     }).catch(er => console.log(er))
   }
   edit(item) {
-    this._services.DMMayBienAp().Get(item.Id).subscribe((res: any) => {
-      let modalRef = this._modal.open(DmmaybienapmodalComponent, {
+    this._services.dmCongToDien().Get(item.Id).subscribe((res: any) => {
+      let modalRef = this._modal.open(DmcongtomodalComponent, {
         backdrop: 'static'
       });
       modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.listnhamay = this.listnhamay;
-      modalRef.componentInstance.title = 'Cập nhật máy biến áp';
+      modalRef.componentInstance.listmaybienap = this.listmaybienap;
+      modalRef.componentInstance.listnhomcongto = this.listnhomcongto;
+      modalRef.componentInstance.title = 'Cập nhật công tơ';
       modalRef.componentInstance.item = res;
       modalRef.result.then(res => {
         this._toastr.success(res);
@@ -147,7 +146,7 @@ export class DmmaybienapComponent implements OnInit {
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res => {
-      this._services.DMMayBienAp().Delete(item).subscribe((res: any) => {
+      this._services.dmCongToDien().Delete(item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);

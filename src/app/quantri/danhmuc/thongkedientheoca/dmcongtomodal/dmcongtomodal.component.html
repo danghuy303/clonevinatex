@@ -7,36 +7,36 @@
 <div class="modal-body">
     <div class="p-grid">
         <div class="p-col-12 p-d-flex p-flex-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Mã máy<span class="text-danger">*</span>:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Mã<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-d-flex p-flex-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tên máy<span class="text-danger">*</span>:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tên<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
             </div>
-        </div>
+        </div>    
         <div class="p-col-12 p-d-flex p-flex-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân nhóm công tơ:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listnhamay" placeholder="Chọn" [(ngModel)]="item.idNhaMay"
-                styleClass="p-inputtext-sm" (onChange)="GetPhanXuong()"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 p-d-flex p-flex-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listphanxuong" placeholder="Chọn" [(ngModel)]="item.idPhanXuong"
+                <p-dropdown [filter]="true" [options]="listnhomcongto" placeholder="Chọn" [(ngModel)]="item.idNhomCongToDien"
                 styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-d-flex p-flex-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Điện áp:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Máy biến áp:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listdienap" placeholder="Chọn" [(ngModel)]="item.idLoaiDienKV"
+                <p-dropdown [filter]="true" [options]="listmaybienap" placeholder="Chọn" [(ngModel)]="item.idMayBienAp"
                 styleClass="p-inputtext-sm"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-d-flex p-flex-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hệ số nhân:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.HeSoNhan">
+                </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-d-flex p-flex-row">

@@ -17,8 +17,6 @@ export class ChonhanghoamodalComponent implements OnInit {
   constructor(private activeModal: NgbActiveModal, private _services: SanXuatService) { }
 
   ngOnInit(): void {
-    console.log(this.items);
-    console.log(this.selectedItems);
     if (this.selectedItems.length !== 0) {
       switch (this.opt) {
         case "KhoiLuongKeHoach":
@@ -55,6 +53,7 @@ export class ChonhanghoamodalComponent implements OnInit {
           break;
       }
     }
+    this.checkedAll = this.items.every((ele)=>ele.checked);
   }
   resetFilter() {
     this.KeyWord = '';

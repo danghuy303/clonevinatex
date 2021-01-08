@@ -13,6 +13,7 @@ export class ModaldanhmucchungComponent implements OnInit {
   public item: any = {};
   public title: any = '';
   public type = '';
+  khongclicknhieu: any = false;
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -20,6 +21,7 @@ export class ModaldanhmucchungComponent implements OnInit {
   }
   accept() {
     this.item.HoatDong = true;
+    this.khongclicknhieu = !this.khongclicknhieu;
     if (this.item.Ma !== undefined && this.item.Ma !== null && this.item.Ten !== undefined && this.item.Ten !== null) {
       switch (this.type) {
         case 'tinhtrangtaisan': this.tinhtrangtaisan();
@@ -50,12 +52,22 @@ export class ModaldanhmucchungComponent implements OnInit {
           break;
         case 'loaidien': this.loaidien();
           break;
+        case 'nhomcongto': this.nhomcongto();
+          break;
         default:
           break;
       }
     } else {
+      this.khongclicknhieu = !this.khongclicknhieu;
       this.toastr.warning('Vui lòng nhập đầy đủ trường thông tin bắt buộc!')
     }
+  }
+  nhomcongto() {
+    this.sanXuatService.dmNhomCongToDien().Set(this.item).subscribe((res: any) => {
+      if (res) {
+        this.resAction(res)
+      }
+    })
   }
   loaidien() {
     this.sanXuatService.dmLoaiDienKV().Set(this.item).subscribe((res: any) => {
@@ -157,6 +169,7 @@ export class ModaldanhmucchungComponent implements OnInit {
   }
   resAction(res: any) {
     if (res.State === 1) {
+      this.khongclicknhieu = !this.khongclicknhieu;
       this.activeModal.close(res.message);
     } else {
       this.toastr.error(res.message)

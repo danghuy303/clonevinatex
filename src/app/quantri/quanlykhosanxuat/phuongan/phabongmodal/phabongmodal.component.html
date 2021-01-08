@@ -97,24 +97,24 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let lobong of item.listLoBong; let i = index"
-                        [ngStyle]="{'background-color': lobong.color}">
-                        <td class="text-center tc-w-151" [ngStyle]="{'background-color': lobong.color}">{{lobong.Ma}}
+                        [ngStyle]="{'background-color': lobong.Mau}">
+                        <td class="text-center tc-w-151" [ngStyle]="{'background-color': lobong.Mau}">{{lobong.Ma}}
                         </td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.color}">
+                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.TrongLuong}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.color}">
+                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.Mic|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.color}">
+                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.Rd|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.color}">
+                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.b|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.color}">
+                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.SoLuongKien}}</td>
-                        <td class="text-center tc-w-100" [ngStyle]="{'background-color': lobong.color}">
+                        <td class="text-center tc-w-100" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.SoLuongDung}}</td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.color}">
+                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.TonCuoi}}</td>
-                        <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.color}">
+                        <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.TyLe|number:'0.2-4'}}</td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
@@ -159,9 +159,9 @@
                     <tr>
                         <td class="text-center tc-w-151">Bình quân bàn bông</td>
                         <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50">{{ChatLuongBinhQuan.Mic|number:'0.2-2'}}</td>
+                        <td class="text-center tc-w-50">{{ChatLuongBinhQuan.Rd|number:'0.2-2'}}</td>
+                        <td class="text-center tc-w-50">{{ChatLuongBinhQuan.b|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-60"></td>
                         <td class="text-center tc-w-100"></td>
                         <td class="text-center tc-w-60"></td>
