@@ -30,6 +30,7 @@ export class QuantriComponent implements OnInit {
         this.userInfo = this._auth.currentUserValue;
         this.getOSName(this._router.url)
         console.log(this.userInfo);
+        console.log(this._router);
     }
     close() {
         this.display = false;
@@ -303,7 +304,11 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/theodoithongkebaocaosanxuat/thongkesanluong/0',
                         command: () => this.close()
                     },
-
+                    // {
+                    //     label: 'Thống kê điện',
+                    //     routerLink: '/quantri/thongkedientheoca/dmthongkedien/0',
+                    //     command: () => this.close()
+                    // }, 
                 ]
             },
             {
@@ -377,24 +382,24 @@ export class QuantriComponent implements OnInit {
                     },
                     {
                         label: 'Loại điện áp',
-                        routerLink: '/quantri/thongkedientheoca/loaidienkv',
+                        routerLink: '/quantri/danhmucsanxuat/loaidienkv',
                         command: () => this.close()
                     },     
                     {
                         label: 'Máy biến áp',
-                        routerLink: '/quantri/thongkedientheoca/dmmaybienap',
+                        routerLink: '/quantri/danhmucsanxuat/dmmaybienap',
                         command: () => this.close()
                     }, 
                     {
                         label: 'Nhóm công tơ',
-                        routerLink: '/quantri/thongkedientheoca/dmnhomcongto',
+                        routerLink: '/quantri/danhmucsanxuat/dmnhomcongto',
                         command: () => this.close()
                     },   
                     {
                         label: 'Công tơ',
-                        routerLink: '/quantri/thongkedientheoca/dmcongto',
+                        routerLink: '/quantri/danhmucsanxuat/dmcongto',
                         command: () => this.close()
-                    },                     
+                    },                                            
                 ]
             },
             {
@@ -461,7 +466,7 @@ export class QuantriComponent implements OnInit {
                         label: 'Báo cáo tổng hợp',
                         routerLink: '/quantri/theodoithongkebaocao/baocaodonvi',
                         command: () => this.close()
-                    },
+                    },                 
                     // {
                     //     label: 'Báo cáo sản lượng tổng hợp',
                     //     routerLink: '/quantri/theodoithongkebaocaosanxuat/sanluongtonghop',

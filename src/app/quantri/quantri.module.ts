@@ -177,6 +177,8 @@ import { LoaidienkvComponent } from './danhmuc/thongkedientheoca/loaidienkv/loai
 import { DmnhomcongtoComponent } from './danhmuc/thongkedientheoca/dmnhomcongto/dmnhomcongto.component';
 import { DmcongtoComponent } from './danhmuc/thongkedientheoca/dmcongto/dmcongto.component';
 import { DmcongtomodalComponent } from './danhmuc/thongkedientheoca/dmcongtomodal/dmcongtomodal.component';
+import { DmthongkedienComponent } from './danhmuc/thongkedientheoca/dmthongkedien/dmthongkedien.component';
+import { DmthongkedienmodalComponent } from './danhmuc/thongkedientheoca/dmthongkedienmodal/dmthongkedienmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -314,6 +316,8 @@ import { DmcongtomodalComponent } from './danhmuc/thongkedientheoca/dmcongtomoda
     DmnhomcongtoComponent,
     DmcongtoComponent,
     DmcongtomodalComponent,
+    DmthongkedienComponent,
+    DmthongkedienmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -404,6 +408,7 @@ import { DmcongtomodalComponent } from './danhmuc/thongkedientheoca/dmcongtomoda
     NhapkhohoiammodalComponent,
     ChatluongsoimodalComponent,
     DmcongtomodalComponent,
+    DmthongkedienmodalComponent,    
   ],
   providers: [
     SanXuatService,
