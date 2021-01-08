@@ -765,4 +765,34 @@ export class SanXuatService {
             },
         }
     }
+
+    TimBong() {
+        let url = API.SCMQuanLyKho;
+        return {
+            // GetNextSo: () => {
+            //     return this.http.get(url + 'GetNextSoQuyTrinhGiaoKeHoachSanXuat', httpOptions);
+            // },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListPhuongAnTimBong', data, httpOptions);
+            },
+            // Get: (Id) => {
+            //     return this.http.get(url + `GetGiaoKeHoachSanXuat?Id=${Id}`, httpOptions);
+            // },
+            // Set: (data) => {
+            //     return this.http.post(url + 'SetGiaoKeHoachSanXuat', data, httpOptions);
+            // },
+            // Delete: (data) => {
+            //     return this.http.post(url + 'DeleteGiaoKeHoachSanXuat', data, httpOptions);
+            // },
+            // ChuyenTiep: (data) => {
+            //     return this.http.post(url + 'ChuyenTiepGiaoKeHoachSanXuat', data, httpOptions)
+            // },
+            // KhongDuyet: (data) => {
+            //     return this.http.post(url + 'KhongDuyetGiaoKeHoachSanXuat', data, httpOptions)
+            // },
+            GetListKienBong:(data)=>{
+                return this.http.post(url + `GetListKienLoBong`,data,httpOptions)
+            }
+        }
+    }
 }
