@@ -42,63 +42,96 @@ export class NhapkhoComponent implements OnInit {
       field: 'TendmLoaiBong',
       width: 'unset'
     },
+    // {
+    //   header: 'Tổng số kiện',
+    //   field: 'TongSoKien',
+    //   width: 'unset'
+    // },
+    // {
+    //   header: 'Tổng khối lượng',
+    //   field: 'TongKhoiLuong',
+    //   width: 'unset'
+    // },
+    // {
+    //   header: 'Trạng thái',
+    //   field: 'TenTrangThai',
+    //   width: 'unset'
+    // },
+  ];
+  colHois: any = [
     {
-      header: 'Tổng số kiện',
-      field: 'TongSoKien',
+      header: 'Số quy trình',
+      field: 'SoQuyTrinh',
       width: 'unset'
     },
     {
-      header: 'Tổng khối lượng',
-      field: 'TongKhoiLuong',
+      header: 'Loại bông',
+      field: 'TendmLoaiBong',
       width: 'unset'
     },
-    {
-      header: 'Trạng thái',
-      field: 'TenTrangThai',
-      width: 'unset'
-    },
+    // {
+    //   header: 'Tổng số kiện',
+    //   field: 'TongSoKien',
+    //   width: 'unset'
+    // },
+    // {
+    //   header: 'Tổng khối lượng',
+    //   field: 'TongKhoiLuong',
+    //   width: 'unset'
+    // },
+    // {
+    //   header: 'Trạng thái',
+    //   field: 'TenTrangThai',
+    //   width: 'unset'
+    // },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";
+  type: any = "";
+  nametype: any = "";
   constructor(public _modal: NgbModal, public _toastr: ToastrService, 
     private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
-      this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {  
-        const rt = this.getChild(this.activatedRoute);  
-        rt.data.subscribe(data => {  
-          this.title = data.title;
-        });  
-      });
      }
 
   ngOnInit(): void {
-    console.log(this.title);
+    console.log(this.activatedRoute);
+    this.activatedRoute.params.subscribe((res:any)=>{
+      this.title = res.kho;
+      // console.log(res.id)
+      // if(res.id!=='0'){
+      //   this.update(res.id);
+      // }
+      // else
+        this.GetListQuyTrinh();
+      //
+      
+      if(this.title === 'khobong'){
+        this.type = 'bong';
+        this.nametype = 'bông';
+      }
+      else if(this.title === 'khoxo'){
+        this.type = 'xo';
+        this.nametype = 'xơ';
+      }
+      else if(this.title === 'khobonghoi'){
+        this.type = 'bonghoi';
+        this.nametype = 'bông hồi';
+      }
+      else if(this.title === 'khobongphe'){
+        this.type = 'bongphe';
+        this.nametype = 'bông phế';
+      }
+    })
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh();
   }
-  getChild(activatedRoute: ActivatedRoute) {  
-    if (activatedRoute.firstChild) {  
-      return this.getChild(activatedRoute.firstChild);  
-    } else {  
-      return activatedRoute;  
-    }  
-  } 
+  
   changeParam(id) {
     if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    if(this.title === 'khobong'){
-      this.router.navigate([`quantri/quanlykhosanxuat/khobong/nhapkho/${id}`], { replaceUrl: true })
-    }
-    else if(this.title === 'khoxo'){
-      this.router.navigate([`quantri/quanlykhosanxuat/khoxo/nhapkho/${id}`], { replaceUrl: true })
-    }
-    else if(this.title === 'khobonghoi'){
-      this.router.navigate([`quantri/quanlykhosanxuat/khobonghoi/nhapkho/${id}`], { replaceUrl: true })
-    }
-    else if(this.title === 'khobongphe'){
-      this.router.navigate([`quantri/quanlykhosanxuat/khobongphe/nhapkho/${id}`], { replaceUrl: true })
-    }
+    this.router.navigate([`quantri/quanlykhosanxuat/${this.title}/nhapkho/${id}`], { replaceUrl: true })
   }
+  
   addPhieu() {
     this.changeParam(0);
     let modalRef = this._modal.open(NhapkhomodalComponent, {
@@ -106,22 +139,10 @@ export class NhapkhoComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    if(this.title === 'khobong'){
-      modalRef.componentInstance.type = 'bong';
-      modalRef.componentInstance.nametype = 'bông';
-    }
-    else if(this.title === 'khoxo'){
-      modalRef.componentInstance.type = 'xo';
-      modalRef.componentInstance.nametype = 'xơ';
-    }
-    else if(this.title === 'khobonghoi'){
-      modalRef.componentInstance.type = 'bonghoi';
-      modalRef.componentInstance.nametype = 'bông khác';
-    }
-    else if(this.title === 'khobongphe'){
-      modalRef.componentInstance.type = 'bonghoi';
-      modalRef.componentInstance.nametype = 'bông khác';
-    }
+
+    modalRef.componentInstance.type = this.type;
+    modalRef.componentInstance.nametype = this.nametype;
+    
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
@@ -138,6 +159,8 @@ export class NhapkhoComponent implements OnInit {
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
+      modalRef.componentInstance.type = this.type;
+      modalRef.componentInstance.nametype = this.nametype;
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
       })
@@ -173,12 +196,12 @@ export class NhapkhoComponent implements OnInit {
     else if(this.title === 'khoxo'){
       data.Loai = 5;
     }
-    // else if(this.title === 'khobonghoi'){
-    //   data.Loai = 1;
-    // }
-    // else if(this.title === 'khobongphe'){
-    //   data.Loai = 1;
-    // }
+    else if(this.title === 'khobonghoi'){
+      data.Loai = 6;
+    }
+    else if(this.title === 'khobongphe'){
+      data.Loai = 7;
+    }
 
     this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
       this.items = res.items;

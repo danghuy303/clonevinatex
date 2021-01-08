@@ -38,8 +38,7 @@ export class DieuchuyenComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res:any)=>{
       if(res.id!=='0'){
-        let getitem =()=>{return{}};
-        this.update(getitem());
+        this.update(res.id);
       }
     })
     this.KiemTraTabTrangThai();
@@ -47,8 +46,10 @@ export class DieuchuyenComponent implements OnInit {
     this.GetListQuyTrinh()
   }
   changeParam(id){
+    if(this._modal.hasOpenModals()){
+      this._modal.dismissAll()
+    }
     this.router.navigate([`quantri/quanlykhosanxuat/dieuchuyen/${id}`],{replaceUrl: true})
-    console.log(this.router)
   }
   add(){
     this.changeParam(0);
@@ -65,7 +66,6 @@ export class DieuchuyenComponent implements OnInit {
       .catch(er => { console.log(er) })
   }
   update(Id){
-    debugger
     this.changeParam(Id);
     this._service.PhieuDieuChuyen().Get(Id).subscribe((res1: any) => {
     let modalRef = this._modal.open(DieuchuyenmodalComponent, {

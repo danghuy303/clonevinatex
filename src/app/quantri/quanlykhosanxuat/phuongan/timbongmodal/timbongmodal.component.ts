@@ -205,7 +205,10 @@ export class TimbongmodalComponent implements OnInit {
     let modalRef = this._modal.open(ChonkienbongmodalComponent,{
       size:'xl'
     })
-    modalRef.componentInstance.listKien = this.PoolLoBong[`${IdLoBong.split('-').join('_')}`];
-    // modalRef.componentInstance.listSelectedKien = thi
+    modalRef.componentInstance.items = this.PoolLoBong[`${IdLoBong.split('-').join('_')}`];
+    modalRef.componentInstance.selectedItems = this.item.listLoBong[y].tempBanBong[`${x}`].listItem;
+    modalRef.componentInstance.maxSelected = this.item.listLoBong[y].tempBanBong[`${x}`].SoKien;
+    modalRef.componentInstance.resultMic = this.itemMicBQ[`${x}`];
+    modalRef.componentInstance.TenLoBong = this.item.listLoBong[y].Ma;
   }
 }
