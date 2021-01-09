@@ -124,7 +124,7 @@ const routes: Routes = [
       { path: 'danhmucsanxuat/loaidienkv', component: LoaidienkvComponent },   
       { path: 'danhmucsanxuat/dmnhomcongto', component: DmnhomcongtoComponent },   
       { path: 'danhmucsanxuat/dmcongto', component: DmcongtoComponent },  
-      { path: 'danhmucsanxuat/dmthongkedien/:id', component: DmthongkedienComponent },  
+      { path: 'theodoithongkebaocaosanxuat/thongkedien/:id', component: DmthongkedienComponent },  
                             
       { path: 'theodoithongkebaocaosanxuat/thongkesanluong/:id', component: ThongkesanluongComponent },
 
