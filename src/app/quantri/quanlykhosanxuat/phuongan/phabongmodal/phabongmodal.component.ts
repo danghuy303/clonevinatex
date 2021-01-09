@@ -151,7 +151,12 @@ export class PhabongmodalComponent implements OnInit {
     modalRef.componentInstance.opt = "KhoiLuongSanXuat";
     modalRef.result.then(res => {
       this.item.listItem = res;
-      this._services.PhuongAnPhaBong().TinhKhoiLuongBong(res).subscribe((result: any) => {
+      let data = {
+        listItem:res,
+        IdDuAn: this.itemTrienKhaiKeHoach.IdDuAn,
+        IddmPhanXuong:this.itemTrienKhaiKeHoach.IddmPhanXuong
+      }
+      this._services.PhuongAnPhaBong().TinhKhoiLuongBong(data).subscribe((result: any) => {
         if (result.State === 1) {
           this.item.KhoiLuongBong = parseFloat(result.message);
           if (validVariable(this.item.TongSoKien)) {
