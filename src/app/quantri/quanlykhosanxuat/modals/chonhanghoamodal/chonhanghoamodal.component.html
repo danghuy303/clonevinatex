@@ -1,6 +1,6 @@
 <div class="modal-header">
-    <h5 class="modal-title">Danh mục mặt hàng</h5>
-    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <h5 class="modal-title">{{opt==="LoBong"?'Danh sách nguyên liệu':'Danh mục mặt hàng'}}</h5>
+    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="_activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
@@ -10,6 +10,7 @@
             <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
                 <div>
                     <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
+                    <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2" (click)="_activeModal.dismiss()"></button>
                 </div>
                 <div>
                     <div class="p-inputgroup">

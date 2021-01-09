@@ -50,9 +50,6 @@ export class KehoachsanxuatComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== '0') {
         this._service.GiaoKeHoachSanXuat().Get(res.id).subscribe((res: any) => {
-          res.listItem.forEach(ele => {
-            ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
-          });
           this.update(res);
         })
       }
