@@ -590,8 +590,26 @@ export class SanXuatService {
             },
         }
     }
-
     //#endregion
+
+    //#region thống kê điện
+    ThongKeDien() {
+        let url = API.ThongKeDien;
+        return {
+            GetList: (data) => {
+                return this.http.post(url + 'GetListThongKeDien', data, httpOptions);
+            },
+            Get: (data) => {
+                return this.http.post(url + `GetThongKeDien`, data, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetThongKeDien', data, httpOptions);
+            },
+        }
+    }
+    //#endregion
+
     ThongKeSanLuong() {
         let url = API.SCMQuanLyKho;
         return {
@@ -790,8 +808,8 @@ export class SanXuatService {
             // KhongDuyet: (data) => {
             //     return this.http.post(url + 'KhongDuyetGiaoKeHoachSanXuat', data, httpOptions)
             // },
-            GetListKienBong:(data)=>{
-                return this.http.post(url + `GetListKienLoBong`,data,httpOptions)
+            GetListKienBong: (data) => {
+                return this.http.post(url + `GetListKienLoBong`, data, httpOptions)
             }
         }
     }

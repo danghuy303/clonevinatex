@@ -3,7 +3,8 @@
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-      <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieuBong()" *ngIf="checkQuyen.ThemMoi"></button>    
+        <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieuBong()"
+            *ngIf="checkQuyen.ThemMoi"></button>
     </div>
     <div class="p-d-flex p-flex-row">
         <!-- <div class="p-mr-2">
@@ -12,71 +13,98 @@
         </div> -->
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày">
+                [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetList()">
             </p-calendar>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày">
+                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetList()">
             </p-calendar>
         </div>
         <div class="p-mr-2">
-            <!-- <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn mặt hàng"
-            [(ngModel)]="newTableItem.IddmItem" styleClass="p-inputtext-sm"
-            (onChange)="getList()"></p-dropdown> -->
+            <p-dropdown [filter]="true" [options]="listnhamay" placeholder="Chọn nhà máy" [(ngModel)]="filter.IddmItem"
+                styleClass="p-inputtext-sm" (onChange)="GetList()"></p-dropdown>
         </div>
         <div class="p-inputgroup">
-            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh()" [(ngModel)]="filter.KeyWord"/>
-            <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"(click)="resetFilter()"></button>
+            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetList()"
+                [(ngModel)]="filter.KeyWord" />
+            <button type="button" pButton pRipple icon="pi pi-refresh"
+                class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
         </div>
-        
+
     </div>
 </div>
-<p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
-    </p-tabPanel>
-    <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
-    </p-tabPanel>
-    <!-- <p-tabPanel header="Tổng hợp" [disabled]="!checkQuyen.TongHop">
-    </p-tabPanel> -->
-</p-tabView>
 <div class="p-mt-3">
-    <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
-        <ng-template pTemplate="colgroup">
+    <p-table [value]="items.lstNgay" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
+        <!-- <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
                 <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
                 <col style="width: 100px;">
             </colgroup>
-        </ng-template>
+        </ng-template> -->
         <ng-template pTemplate="header">
             <tr>
-                <th class="text-center">#</th>
-                <th *ngFor="let header of cols">
-                    {{header.header}}
+                <th class="text-center" style="width: 4rem;">STT</th>
+                <th class="text-center">Ngày</th>
+                <th class="text-center">Phân xưởng</th>
+                <th class="text-center">Tổng cộng</th>
+                <th *ngFor="let item of items.lstCaSanXuat" class="text-center">
+                    {{item.Ten}}
                 </th>
-                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
-                <td class="text-center">
-                    {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
+                <td class="text-center" style="width: 4rem;">
+                    {{ i + 1 }}
                 </td>
-                <td class="text-center" *ngFor="let col of cols">
-                    {{item[col.field]}}
+                <td>
+                    {{item.NgayNhap|date : 'dd/MM/yyyy'}}
                 </td>
-                <td class="text-center">
+                <td>
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        <div class="p-d-flex p-flex-row">
+                            <div *ngFor="let col of item.lstTenPhanXuong; let i = index">
+                                {{col}},
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        <div class="p-d-flex p-flex-row">
+                            <div *ngFor="let col of item.lstTongSoDienPhanXuong; let i = index">
+                                {{col|number:'0.0'}},
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td *ngFor="let col of item.lstTongSoDienPhanXuong_Ca; let i = index">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        <div class="p-d-flex p-flex-row">
+                            <div *ngFor="let colchil of col.lstTongSoDienPhanXuong">
+                                {{colchil|number:'0.0'}},
+                            </div>
+                        </div>
+                        <div class="p-d-flex p-flex-row">
+                            <i class="pi pi-pencil" (click)="update(col)"
+                                *ngIf='col.lstTongSoDienPhanXuong?.length>0'></i>
+                        </div>
+                    </div>
+                </td>
+
+                <!-- <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
                         class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item.Id)"></button>
-                </td>
+                </td> -->
             </tr>
         </ng-template>
-        <ng-template pTemplate="summary">
+        <!-- <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="25"
-                    (onPageChange)="changePage($event)"></p-paginator>
+                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
+                    [rows]="25" (onPageChange)="changePage($event)"></p-paginator>
             </div>
-        </ng-template>
+        </ng-template> -->
     </p-table>
 </div>
