@@ -42,6 +42,7 @@
                                 <col>
                                 <col>
                                 <col>
+                                <col>
                                 <col style="width: 5rem;">
                             </colgroup>
                         </ng-template>
@@ -52,6 +53,9 @@
                                 </th>
                                 <th class="text-center">
                                     Số cũ
+                                </th>
+                                <th class="text-center">
+                                    Số mới
                                 </th>
                                 <th *ngFor="let header of cols">
                                     {{header.header}}
@@ -68,6 +72,10 @@
                                 <td class="text-right">
                                     <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.SoCu"
                                         [disabled]="!items.isNhapSoCu">
+                                    </p-inputNumber>
+                                </td>
+                                <td class="text-right">
+                                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.SoMoi">
                                     </p-inputNumber>
                                 </td>
                                 <td *ngFor="let col of cols" class="text-right">

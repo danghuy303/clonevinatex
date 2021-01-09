@@ -20,13 +20,7 @@ export class DmthongkedienmodalComponent implements OnInit {
   nametype: any = "";
   lstKhungGio: any = [];
   khongclicknhieu: any = false;
-  cols: any = [
-    {
-      header: 'Số mới',
-      field: 'SoMoi',
-      width: 'unset',
-      align: 'right'
-    },
+  cols: any = [    
     {
       header: 'Số tiêu thụ',
       field: 'SoTieuThu',
