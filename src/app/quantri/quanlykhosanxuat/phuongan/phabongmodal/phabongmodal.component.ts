@@ -131,9 +131,9 @@ export class PhabongmodalComponent implements OnInit {
   GetChiTietTrienKhaiKeHoachForMatHang(event) {
     this._services.TrienKhaiKeHoachSanXuat().Get(event.value, false).subscribe((res: any) => {
       console.log(res);
-      res.listItem.forEach(mathang => {
-        mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
-      });
+      // res.listItem.forEach(mathang => {
+      //   mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
+      // });
       this.itemTrienKhaiKeHoach = res;
       this.GetLoBongTrongKho();
     })

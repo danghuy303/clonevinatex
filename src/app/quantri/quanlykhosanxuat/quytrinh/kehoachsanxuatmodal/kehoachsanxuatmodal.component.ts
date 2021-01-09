@@ -178,9 +178,6 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
         return false;
       }
     }
-    this.item.listItem.forEach(ele => {
-      ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach * 1000;
-    });
     return true;
   }
   chonHangHoa() {
@@ -222,14 +219,8 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
             this.opt = 'edit';
             this.item = res.objectReturn;
             this.KiemTraButtonModal();
-            res.objectReturn.listItem.forEach(ele => {
-              ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
-            });
             this.Calculate();
           } else {
-            this.item.listItem.forEach(element => {
-              element.KhoiLuongKeHoach = element.KhoiLuongKeHoach / 1000;
-            });
             this.Calculate();
             this.toastr.error(res.message);
           }

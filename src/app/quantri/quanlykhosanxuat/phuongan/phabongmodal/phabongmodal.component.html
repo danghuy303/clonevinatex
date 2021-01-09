@@ -64,15 +64,18 @@
                 {{labelBong.Hoi|number:'0.1-1'}}% Hồi
             </h3>
         </div>
-        <div class="p-col-12 p-p-0 pintable-container" voiPintable [pinnedCols]="9">
+        <div class="p-col-12 p-p-0 pintable-container" voiPintable [pinnedCols]="1">
             <table>
                 <thead>
                     <tr>
                         <th rowspan="2" class="tc-w-151">
                             Thành phần bông
                         </th>
+                        <th rowspan="2" class="tc-w-121">
+                            Số hợp đồng
+                        </th>
                         <th rowspan="2" class="tc-w-60">TLBQ Kiện</th>
-                        <th colspan="3">Chất lượng bông</th>
+                        <th colspan="9">Chất lượng bông</th>
                         <th style="display: none;"></th>
                         <th style="display: none;"></th>
                         <th rowspan="2" class="tc-w-60">Tồn đầu</th>
@@ -83,13 +86,15 @@
                     </tr>
                     <tr>
                         <th style="display: none;"></th>
-                        <th style="display: none;"></th>
-                        <th style="display: none;"></th>
-                        <th style="display: none;"></th>
-                        <th style="display: none;"></th>
                         <th class="tc-w-50">Mic</th>
+                        <th class="tc-w-50">Mat</th>
+                        <th class="tc-w-60">UHML</th>
+                        <th class="tc-w-50">Str</th>
+                        <th class="tc-w-50">SFI</th>
                         <th class="tc-w-50">Rd</th>
                         <th class="tc-w-50">+b</th>
+                        <th class="tc-w-50">Tạp</th>
+                        <th class="tc-w-50">Ẩm</th>
                         <th *ngFor="let ban of listProps" class="tc-w-50">
                             {{ban}}
                         </th>
@@ -100,14 +105,29 @@
                         [ngStyle]="{'background-color': lobong.Mau}">
                         <td class="text-center tc-w-151" [ngStyle]="{'background-color': lobong.Mau}">{{lobong.Ma}}
                         </td>
+                        <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.SoHopDong}}
+                        </td>
                         <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.TrongLuong}}</td>
                         <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.Mic|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.Mat|number:'0.2-2'}}</td>
+                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.UHML|number:'0.2-2'}}</td>
+                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.Str|number:'0.2-2'}}</td>
+                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.SFI|number:'0.2-2'}}</td>
+                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.Rd|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.b|number:'0.2-2'}}</td>
+                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.Tap|number:'0.2-2'}}</td>
+                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.Am|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.SoLuongKien}}</td>
                         <td class="text-center tc-w-100" [ngStyle]="{'background-color': lobong.Mau}">
@@ -127,7 +147,14 @@
                     </tr>
                     <tr>
                         <td class="text-center tc-w-151"></td>
+                        <td class="text-center tc-w-121"></td>
                         <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50"></td>
@@ -142,7 +169,14 @@
                     </tr>
                     <tr>
                         <td class="text-center tc-w-151">Tổng kiện / bàn bông</td>
+                        <td class="text-center tc-w-121"></td>
                         <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50"></td>
@@ -158,10 +192,17 @@
                     </tr>
                     <tr>
                         <td class="text-center tc-w-151">Bình quân bàn bông</td>
+                        <td class="text-center tc-w-121"></td>
                         <td class="text-center tc-w-60"></td>
                         <td class="text-center tc-w-50">{{ChatLuongBinhQuan.Mic|number:'0.2-2'}}</td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50">{{ChatLuongBinhQuan.Rd|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-50">{{ChatLuongBinhQuan.b|number:'0.2-2'}}</td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-60"></td>
                         <td class="text-center tc-w-100"></td>
                         <td class="text-center tc-w-60"></td>
@@ -174,7 +215,14 @@
                     </tr>
                     <tr>
                         <td class="text-center tc-w-151"></td>
+                        <td class="text-center tc-w-121"></td>
                         <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50"></td>
@@ -190,7 +238,14 @@
                     </tr>
                     <tr>
                         <td class="text-center tc-w-151"></td>
+                        <td class="text-center tc-w-121"></td>
                         <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50"></td>

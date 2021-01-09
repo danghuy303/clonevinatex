@@ -64,10 +64,10 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     this.minDateChonMay = UnixToDate(this.tempDataGiaoKeHoach.filter(ele => ele.Id === event.value)[0]?.TuNgayUnix);
     this.maxDateChonMay = UnixToDate(this.tempDataGiaoKeHoach.filter(ele => ele.Id === event.value)[0]?.DenNgayUnix);
     this._services.GetOptions().GetListMatHangChuaLapKeHoach(event.value).subscribe((res: any) => {
-      res.forEach(element => {
-        element.KhoiLuongKeHoach = element.KhoiLuongKeHoach / 1000;
-        element.KhoiLuongSanXuat = element.KhoiLuongSanXuat / 1000;
-      });
+      // res.forEach(element => {
+      //   element.KhoiLuongKeHoach = element.KhoiLuongKeHoach / 1000;
+      //   element.KhoiLuongSanXuat = element.KhoiLuongSanXuat / 1000;
+      // });
       this.listMatHangGiaoKeHoach = res;
       if (reset) {
         this.item.listItem = [];
@@ -78,8 +78,8 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
             mathang.TuNgay = UnixToDate(mathang.TuNgayUnix);
             mathang.DenNgay = UnixToDate(mathang.DenNgayUnix);
           }
-          mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach / 1000;
-          mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
+          // mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach / 1000;
+          // mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
           mathang.listItemTemp = {};
           this._services.GetOptions().GetListCongDoanTheoMatHang(mathang.IddmItem).subscribe((res: any) => {
             res.forEach(cd => {
@@ -150,8 +150,8 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     this.item.listItem.filter(ele=>ele.isXoa !== true).forEach(mathang => {
       mathang.TuNgayUnix = DateToUnix(mathang.TuNgay);
       mathang.DenNgayUnix = DateToUnix(mathang.DenNgay);
-      mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach * 1000;
-      mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat * 1000;
+      // mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach * 1000;
+      // mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat * 1000;
       let dateArr = this.getDates(UnixToDate(mathang.TuNgayUnix), UnixToDate(mathang.DenNgayUnix));
       for (let congDoan in mathang.listItemTemp) {
         if (!validVariable(mathang.listItem)) {
@@ -203,17 +203,17 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
           this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
           this.KiemTraButtonModal();
         } else {
-          this.item.listItem.forEach(mathang => {
-            mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach / 1000;
-            mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
-          });
+          // this.item.listItem.forEach(mathang => {
+          //   mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach / 1000;
+          //   mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
+          // });
           this.toastr.error(res.message);
         }
       }
     })
   }
   ChuyenDuyet() {
-    this._services.TrienKhaiKeHoachSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
+    this._services.TrienKhaiKeHoachSanXuat().ChuyenTiep(this.SetData()).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.toastr.success(res.message)
@@ -223,10 +223,10 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
           // this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
           // this.KiemTraButtonModal();
         } else {
-          this.item.listItem.forEach(mathang => {
-            mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach / 1000;
-            mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
-          });
+          // this.item.listItem.forEach(mathang => {
+          //   mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach / 1000;
+          //   mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
+          // });
           this.toastr.error(res.message);
         }
         // if (res.State === 1) {
