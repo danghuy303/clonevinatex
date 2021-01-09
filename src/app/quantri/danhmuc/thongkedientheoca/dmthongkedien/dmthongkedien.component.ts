@@ -72,7 +72,7 @@ export class DmthongkedienComponent implements OnInit {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = res;
       modalRef.result.then((res: any) => {
-        this._toastr.success('Cập nhật thành công');
+        // this._toastr.success('Cập nhật thành công');
         this.GetList();
       })
         .catch(er => { console.log(er) })
