@@ -342,6 +342,11 @@ export class QuantriComponent implements OnInit {
                         command: () => this.close()
                     },
                     {
+                        label: 'Định mức tiêu hao',
+                        routerLink: '/quantri/danhmucsanxuat/dmdinhmuctieuhao',
+                        command: () => this.close()
+                    },
+                    {
                         label: 'Cấp bông',
                         routerLink: '/quantri/danhmucsanxuat/dmcapbong',
                         command: () => this.close()
@@ -364,6 +369,11 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Kho sản xuất',
                         routerLink: '/quantri/danhmucsanxuat/dmkho',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Vị trí',
+                        routerLink: '/quantri/danhmucsanxuat/dmvitri',
                         command: () => this.close()
                     },
                     {

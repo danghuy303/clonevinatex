@@ -29,13 +29,13 @@
 
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô bông:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [ngModel]="item.TenLoBong" disabled="true" pInputText/>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày nhập:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
@@ -44,24 +44,26 @@
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Container:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [ngModel]="item.TenContainer" disabled="true" pInputText/>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoHopDong" pInputText/>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Trọng lượng bình quân của 1 kiện:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="number" class="p-inputtext-sm" [(ngModel)]="item.TrongLuong" pInputText/>
             </div>
         </div>
+
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Container:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TenContainer" disabled="true" pInputText/>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoHopDong" pInputText/>
+            </div>
+        </div>
+        
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
                 <!-- <button pButton pRipple type="button" label="Nhận từ Excel" class="p-mr-2 p-button-sm"
@@ -84,6 +86,7 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
@@ -91,6 +94,7 @@
                     <tr>
                         <th rowspan="2">#</th>
                         <th rowspan="2">Kiện</th>
+                        <th rowspan="2">Tên</th>
                         <th colspan="10">Chất lượng bông</th>
                         <th style="width:100px"></th>
                     </tr>
@@ -109,9 +113,14 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
-                    <tr *ngIf="item.editField !== true">
-                        <td class="text-center">{{i+1}}</td>
-                        <td class="text-center">{{item.Ten}}</td>
+                    <tr>
+                        <td>
+                            {{ 15 * (paging.CurrentPage - 1) + i + 1 }}
+                        </td>
+                        <td class="text-center">{{item.Ma}}</td>
+                        <td class="text-center">
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText/>
+                        </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Neps">
                             </p-inputNumber>
@@ -163,62 +172,12 @@
                                 tooltipPosition="bottom"></button>
                         </td>
                     </tr>
-                    <tr *ngIf="item.editField === true">
-                        <td class="text-center">{{i+1}}</td>
-                        <td class="text-center">
-                            <input pInputText type="text" [(ngModel)]="editTableItem.Ten">
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="editTableItem.Neps">
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="editTableItem.Mic">
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="editTableItem.Mat">
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="editTableItem.UHML">
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="editTableItem.Str">
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="editTableItem.SFI">
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="editTableItem.Rd">
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="editTableItem.Tap">
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="editTableItem.b">
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="editTableItem.Am">
-                            </p-inputNumber>
-                         </td>
-                        <td>
-                            <button pButton pRipple icon="pi pi-check"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                (click)="saveEdit(editTableItem, i)" pTooltip="Lưu"
-                                tooltipPosition="bottom"></button>
-                            <button pButton pRipple icon="pi pi-times"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                (click)="cancelEdit(item, i)" pTooltip="Hủy"
-                                tooltipPosition="bottom"></button>
-                        </td>
-                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="15"
+                            (onPageChange)="changePage($event)"></p-paginator>
+                    </div>
                 </ng-template>
             </p-table>
         </div>

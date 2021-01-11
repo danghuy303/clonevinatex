@@ -15,22 +15,21 @@ import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 })
 export class ThongsochatluongmodalComponent implements OnInit {
   opt: any = ''
-  item: any = {
-    SoQuyTrinh: 'PKK_0000_001',
-    listCongTenNo: []
-  };
+  item: any = {};
+  item_new: any = {};
   checkbutton: any = {
     Ghi: true,
     KhongDuyet: false,
     ChuyenTiep: false,
     Xoa: false,
   }
+  listItem = [];
   newTableItem: any = {};
   listLoBong: any = [];
   data: any = {};
   lang: any = vn;
   editTableItem:any={};
-
+  paging: any = {};
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private services: SanXuatService) {
@@ -38,25 +37,34 @@ export class ThongsochatluongmodalComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // this.GetListdmPhuongAnSapXep();
     if (this.opt !== 'edit') {
       this.item = {
-        IdLoBong: 0,
-        IddmLoaiBong: 0,
-        IddmCapBong: 0,
-        IdContainer: 0,
         listItem: [],
       }
       this.GetNextSoQuyTrinh();
     }
     else{
         this.KiemTraButtonModal()
+        this.GetQuyTrinh();
     }
+    this.item_new = this.item;
+
     this.data.CurrentPage = 0;
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
         this.item.Ngay = new Date(this.item.NgayUnix * 1000);
       }
     this.getListLoBong();
+  }
+  GetQuyTrinh()
+  {
+    this.services.PhieuNhapLoBong_ChatLuong().Get(this.item.Id).subscribe((res1:any)=>{
+      this.item = res1;
+      this.listItem = res1.listItem;
+      this.paging.CurrentPage = 1;
+      this.paging.TotalPage = 5;
+      this.paging.TotalItem = res1.listItem.length;
+      this.item.listItem = res1.listItem.slice(0,15);
+    })
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -85,12 +93,21 @@ export class ThongsochatluongmodalComponent implements OnInit {
   GhiLai() {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    this.services.PhieuNhapLoBong_ChatLuong().Set(this.item).subscribe((res: any) => {
+    this.item_new.listItem = this.listItem;
+    
+    this.services.PhieuNhapLoBong_ChatLuong().Set(this.item_new).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.toastr.success(res.message)
           this.opt = 'edit';
           this.item = res.objectReturn;
+          this.listItem = res.objectReturn.listItem;
+          this.paging.CurrentPage = 1;
+          this.paging.TotalPage = 5;
+          if(res.objectReturn.listItem != undefined && res.objectReturn.listItem != null)
+            this.paging.TotalItem = res.objectReturn.listItem.length;
+          this.item.listItem = res.objectReturn.listItem.slice(0,15);
+
           this.KiemTraButtonModal();
         } else {
           this.toastr.error(res.message);
@@ -121,6 +138,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
     } else {
       item.isXoa = true;
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+      console.log(this.listItem)
     }
   }
   getListLoBong() {
@@ -129,20 +147,6 @@ export class ThongsochatluongmodalComponent implements OnInit {
     })
   }
 
-  editChiTiet(item, index) {
-    this.item.listItem.forEach(element => {
-      element.editField = false;
-    });
-    this.item.listItem[index].editField = true;
-    this.editTableItem = deepCopy(item);
-  }
-  saveEdit(item, index){
-    this.item.listItem[index] = item;
-    this.item.listItem[index].editField = false;
-  }
-  cancelEdit(item, index){
-    this.item.listItem[index].editField = false;
-  }
   importExcel(){
     let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
       backdrop:'static',
@@ -151,13 +155,20 @@ export class ThongsochatluongmodalComponent implements OnInit {
     modalRef.componentInstance.data = this.item;
     modalRef.result.then(res=>{
       this.toastr.success(res.message);
-      this.services.PhieuNhapLoBong_ChatLuong().Get(this.item.Id).subscribe((res: any) => {
-        this.item = res;
-      })
+      this.GetQuyTrinh();
+      // this.services.PhieuNhapLoBong_ChatLuong().Get(this.item.Id).subscribe((res: any) => {
+      //   this.item = res;
+      // })
     })
     .catch(er=>console.log(er))
   }
   onClose(){
     this.activeModal.close();
+  }
+  changePage(event) {
+    console.log(event)
+    this.paging.CurrentPage = event.page + 1;
+    var start = (event.page + 1)*15;
+    this.item.listItem = this.listItem.slice(start, start + 15);
   }
 }

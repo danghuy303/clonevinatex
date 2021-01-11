@@ -62,7 +62,6 @@ export class ChatluongsoiComponent implements OnInit {
       width: '400px'
     },
   ];
-  listdmKho : any = [];
 
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
@@ -81,7 +80,6 @@ export class ChatluongsoiComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {};
-    modalRef.componentInstance.listdmKho = this.listdmKho;
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })
@@ -96,7 +94,6 @@ export class ChatluongsoiComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
-    modalRef.componentInstance.listdmKho = this.listdmKho;
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })

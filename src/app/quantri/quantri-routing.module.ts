@@ -65,6 +65,8 @@ import { ChatluongsoiComponent } from './quanlykhosanxuat/quytrinh/chatluongsoi/
 import { DmnhomcongtoComponent } from './danhmuc/thongkedientheoca/dmnhomcongto/dmnhomcongto.component';
 import { DmcongtoComponent } from './danhmuc/thongkedientheoca/dmcongto/dmcongto.component';
 import { DmthongkedienComponent } from './danhmuc/thongkedientheoca/dmthongkedien/dmthongkedien.component';
+import { DinhmuctieuhaoComponent } from './danhmuc/danhmucsanxuat/dinhmuctieuhao/dinhmuctieuhao.component';
+import { ViTriComponent } from './danhmuc/vi-tri/vi-tri.component';
 
 const routes: Routes = [
   {
@@ -125,6 +127,8 @@ const routes: Routes = [
       { path: 'danhmucsanxuat/dmnhomcongto', component: DmnhomcongtoComponent },   
       { path: 'danhmucsanxuat/dmcongto', component: DmcongtoComponent },  
       { path: 'danhmucsanxuat/dmthongkedien/:id', component: DmthongkedienComponent },  
+      { path: 'danhmucsanxuat/dmdinhmuctieuhao', component: DinhmuctieuhaoComponent },  
+      { path: 'danhmucsanxuat/dmvitri', component: ViTriComponent },  
                             
       { path: 'theodoithongkebaocaosanxuat/thongkesanluong/:id', component: ThongkesanluongComponent },
 

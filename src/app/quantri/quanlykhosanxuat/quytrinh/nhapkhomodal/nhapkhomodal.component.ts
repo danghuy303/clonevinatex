@@ -195,11 +195,14 @@ export class NhapkhomodalComponent implements OnInit {
   }
   getListLoaiBong() {
     if (this.opt === 'edit') {
-      this.data.Loai = this.item.Loai;
+      if (this.type === 'bong')
+        this.data.Loai = 2;
+      else
+        this.data.Loai = this.item.Loai;
     }
     else{
       if (this.type === 'bong')
-      this.data.Loai = 2;
+        this.data.Loai = 2;
       else  if (this.type === 'xo')
         this.data.Loai = 5;
       else  if (this.type === 'bonghoi'){

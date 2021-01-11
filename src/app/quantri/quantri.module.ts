@@ -180,6 +180,9 @@ import { DmcongtomodalComponent } from './danhmuc/thongkedientheoca/dmcongtomoda
 import { ChonkienbongmodalComponent } from './quanlykhosanxuat/phuongan/chonkienbongmodal/chonkienbongmodal.component';
 import { DmthongkedienComponent } from './danhmuc/thongkedientheoca/dmthongkedien/dmthongkedien.component';
 import { DmthongkedienmodalComponent } from './danhmuc/thongkedientheoca/dmthongkedienmodal/dmthongkedienmodal.component';
+import { DinhmuctieuhaoComponent } from './danhmuc/danhmucsanxuat/dinhmuctieuhao/dinhmuctieuhao.component';
+import { DinhmuctieuhaomodalComponent } from './danhmuc/danhmucsanxuat/modals/dinhmuctieuhaomodal/dinhmuctieuhaomodal.component';
+import { ViTriComponent } from './danhmuc/vi-tri/vi-tri.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -320,6 +323,9 @@ import { DmthongkedienmodalComponent } from './danhmuc/thongkedientheoca/dmthong
     ChonkienbongmodalComponent,
     DmthongkedienComponent,
     DmthongkedienmodalComponent,
+    DinhmuctieuhaoComponent,
+    DinhmuctieuhaomodalComponent,
+    ViTriComponent,
   ],
   imports: [
     HttpClientModule,
@@ -412,6 +418,7 @@ import { DmthongkedienmodalComponent } from './danhmuc/thongkedientheoca/dmthong
     DmcongtomodalComponent,
     ChonkienbongmodalComponent,
     DmthongkedienmodalComponent,    
+    DinhmuctieuhaomodalComponent,    
   ],
   providers: [
     SanXuatService,

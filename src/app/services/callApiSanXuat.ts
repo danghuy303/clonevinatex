@@ -677,7 +677,7 @@ export class SanXuatService {
         return this.http.get(url, httpOptions);
     }
     KhoiTaoItem() {
-        let url = API.SCMDanhMuc + 'KhoiTaoItem';
+        let url = API.SCMDanhMuc + 'KhoiTaoDinhMuc';
         return this.http.get(url, httpOptions);
     }
     PhieuNhapThanhPham() {
@@ -793,6 +793,54 @@ export class SanXuatService {
             GetListKienBong:(data)=>{
                 return this.http.post(url + `GetListKienLoBong`,data,httpOptions)
             }
+        }
+    }
+
+    //#region  định lượng
+
+    GetListDinhMuc(data) {
+        let url = API.SCMDanhMuc + 'GetListDinhMuc';
+        return this.http.post(url, data, httpOptions);
+    }
+    GetDinhMuc(Id) {
+        let url = API.SCMDanhMuc + `GetDinhMuc?Id=${Id}`;
+        return this.http.get(url, httpOptions);
+    }
+    SetDinhMuc(data) {
+        data.IdDuAn = this.store.getCurrent();
+        let url = API.SCMDanhMuc + 'SetDinhMuc';
+        return this.http.post(url, data, httpOptions);
+    }
+    DeleteDinhMuc(data) {
+        let url = API.SCMDanhMuc + 'DeleteDinhMuc';
+        return this.http.post(url, data, httpOptions);
+    }
+    //#endregion
+    PhieuKiemKeKho() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuKiemKeKho', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListPhieuKiemKeKho', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuKiemKeKho?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetPhieuKiemKeKho', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuKiemKeKho', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhieuKiemKeKho', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuKiemKeKho', data, httpOptions)
+            },
         }
     }
 }
