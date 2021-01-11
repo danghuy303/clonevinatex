@@ -1,5 +1,5 @@
 <h4 class="title">
-    Danh mục mặt hàng
+    Định mức tiêu hao
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
@@ -10,12 +10,6 @@
 
     </div>
     <div class="p-d-flex p-flex-row">
-        <div style="width:200px; margin-right:10px ;">
-            <div class="p-col-12 p-p-0">
-                <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
-                    styleClass="p-inputtext-sm" [(ngModel)]="filter.CongDoan" (onChange)="GetListdm(true)"></p-dropdown>
-            </div>
-        </div>
         <div class="p-inputgroup p-inputgroup-sm" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.keyWord" (keyup.enter)="GetListdm(true)"
                 class="p-inputtext-sm" pInputText />
@@ -38,9 +32,6 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <!-- <th>
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th> -->
             <th class="text-center">STT</th>
             <th class="text-center" *ngFor="let header of cols">
                 {{header.header}}
@@ -50,9 +41,6 @@
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
         <tr>
-            <!-- <td class="text-center">
-                <p-tableCheckbox [value]="item"></p-tableCheckbox>
-            </td> -->
             <td class="text-center">
                 {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
             </td>

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Dat09Service } from 'src/app/services/callApi';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix } from 'src/app/services/globalfunction';
 import { KiemkekhomodalComponent } from '../kiemkekhomodal/kiemkekhomodal.component';
 
@@ -66,7 +67,7 @@ export class KiemkekhoComponent implements OnInit {
   ];
 
 
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:Dat09Service,private activatedRoute: ActivatedRoute,private router:Router) { }
+  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
@@ -80,7 +81,7 @@ export class KiemkekhoComponent implements OnInit {
     this.GetListQuyTrinh()
   }
   changeParam(id){
-    this.router.navigate([`quantri/quanlykhosanxuat/kiemkekho/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/quanlykhosanxuat/khobong/kiemkekho/${id}`],{replaceUrl: true})
   }
   add(){
     this.changeParam(0);
@@ -89,18 +90,9 @@ export class KiemkekhoComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = {
-      SoQuyTrinh: 'PKK_0000_0001',
-      listKienHang:[]
-      // ID:null,
-      // TepDinhKems:[],
-      // templistTaiSanQuyTrinh:[],
-      // listTaiSanQuyTrinh:[]
-    }
+    modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
-      // this.GetListQuyTrinh();
+      this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
@@ -113,14 +105,13 @@ export class KiemkekhoComponent implements OnInit {
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then((res: any) => {
       console.log(res);
-      this._toastr.success('Cập nhật thành công');
-      // this.GetListQuyTrinh();
+      this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
   changeTab(e){
-    // this.trangThai = e.index+1;
-    // this.GetListQuyTrinh(true);
+    this.trangThai = e.index+1;
+    this.GetListQuyTrinh(true);
   }
   changePage(event){
     // this.paging.CurrentPage = event.page + 1;
@@ -141,7 +132,7 @@ export class KiemkekhoComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.GetListQuyTrinh(data).subscribe((res:any)=>{
+    this._service.PhieuKiemKeKho().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })

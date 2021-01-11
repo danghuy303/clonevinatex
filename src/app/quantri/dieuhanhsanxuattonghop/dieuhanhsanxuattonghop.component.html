@@ -1,0 +1,88 @@
+<div class="p-d-flex p-ai-center p-jc-between">
+    <div class="p-d-flex flex-column flex-lg-row p-pl-3">
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.LoaiBong"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.LoaiBong"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [options]="Nams" styleClass="p-inputtext-sm" optionLabel="label" [(ngModel)]="filter.Nam" class="p-mr-2"></p-dropdown>
+        </div>
+    </div>
+</div>
+<div class="p-grid" style="align-self: stretch;">
+    <div class="p-col-12 p-xl-8 p-lg-8 p-p-3">
+        <div class="chart">
+            <div class="p-d-flex flex-column flex-lg-row p-jc-between">
+                <div>
+                    <h5>
+                        Tổng hợp
+                    </h5>
+                </div>
+                <div class="p-d-flex flex-column flex-lg-row">
+                    <div class="p-mr-2">
+                        <p-dropdown [filter]="true" [options]="listCa" placeholder="Chọn ca"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.CaLamViec"></p-dropdown>
+                    </div>
+                    <div class="p-mr-2">
+                        <p-dropdown [filter]="true" [options]="listThang"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.Thang"></p-dropdown>
+                    </div>
+                    <div class="p-mr-2">
+                        <p-dropdown [filter]="true" [options]="listNgay" placeholder="Chọn ngày"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.Ngay"></p-dropdown>
+                    </div>
+                    <!-- <div class="p-mr-2">
+                        <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.MatHang"></p-dropdown>
+                    </div> -->
+                    <div style="display:table;height:100%">
+                        <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)">Xem sản lượng ống</a>
+                    </div>
+                </div>
+            </div>
+            <div class="p-d-flex flex-column flex-lg-row">
+                <div class="p-col-12 p-xl-8 p-lg-8 p-p-3">
+                    <div>
+                        <p-table [value]="thongKes" styleClass="p-datatable-sm wrap-text">
+                            
+                          <ng-template pTemplate="header">
+                            <tr class="normal">
+                              <th style="width: 50px;">#</th>
+                              <th>Tên</th>
+                              <th>Khối lượng quả</th>
+                              <th>Màn hình</th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-thongke let-i="rowIndex">
+                            <tr>
+                                <td class="text-center">{{i+1}}</td>
+                                <td>{{thongke.Ten}}</td>
+                                <td class="text-center">{{thongke.TieuHao|number:'0.0-3'}} {{thongke.DonVi}}</td>
+                                <td class="text-center">{{thongke.ManHinh}}</td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                      </div>
+                </div>
+                <div class="p-col-12 p-xl-4 p-lg-4 p-p-3">
+                    biểu
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-col-12 p-xl-4 p-lg-4 p-p-3">
+        <div class="chart text-left">
+            <h5>Biểu đồ cơ cấu</h5>
+            <p-chart type="pie" [data]="dataPie" [options]='optionPie'></p-chart>
+        </div>
+    </div>
+    <div class="p-col-12 p-p-3">
+        <div class="chart">
+        </div>
+    </div>
+</div>

@@ -51,7 +51,7 @@
                     <ng-container *ngFor="let congDoan of listCongDoan">
                         <tr>
                             <td> <a href="javascript:void(0)"
-                                    (click)="collapseCongDoan(congDoan)">{{congDoan.TenCongDoan}}</a></td>
+                                    (click)="collapseCongDoan(congDoan)">{{congDoan.Ten}}</a></td>
                             <td colspan="2">
                                 <!-- <a href="javascript:void(0)"
                                     (click)="chonMayTheoCongDoan(congDoan.CongDoan)">Chọn máy</a> -->
@@ -59,14 +59,14 @@
                             <td></td>
                         </tr>
                         <ng-container *ngIf="congDoan.show">
-                            <tr *ngFor="let may of item.listItemTemp[congDoan.CongDoan]">
+                            <tr *ngFor="let may of item.listItemTemp[congDoan.Ma]">
                                 <td></td>
                                 <td>
                                     <p-checkbox [(ngModel)]="may.checked"
-                                        (onChange)="checkMay(congDoan.CongDoan,may.prop,$event)" binary="true"
+                                        (onChange)="checkMay(congDoan.Ma,may.prop,$event)" binary="true"
                                         inputId="binary"></p-checkbox>
                                     <!-- {{PoolMaySanXuat[congDoan.CongDoan][may.prop].Ma}} - -->
-                                    {{PoolMaySanXuat[congDoan.CongDoan][may.prop].Ten}}
+                                    {{PoolMaySanXuat[congDoan.Ma][may.prop].Ten}}
                                 </td>
                                 <td>
                                     <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="may.ChiSo">

@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
@@ -135,5 +136,12 @@ export class ChatluongsoimodalComponent implements OnInit {
       });
     })
   }
-  
+  getListKho() {
+    var data: any = {}
+    data.Loai = 10;
+    data.CurrentPage = 0;
+    this.services.GetListdmKho(data).subscribe((res: any) => {
+      this.listdmKho = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
 }

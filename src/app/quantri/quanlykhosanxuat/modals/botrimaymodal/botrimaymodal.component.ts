@@ -80,12 +80,12 @@ export class BotrimaymodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       res.forEach(cd => {
         let data = []
-        for (let key in this.PoolMaySanXuat[cd.CongDoan]) {
-          if (this.PoolMaySanXuat[cd.CongDoan][key]) {
-            data.push(this.PoolMaySanXuat[cd.CongDoan][key]);
+        for (let key in this.PoolMaySanXuat[cd.Ma]) {
+          if (this.PoolMaySanXuat[cd.Ma][key]) {
+            data.push(this.PoolMaySanXuat[cd.Ma][key]);
           }
         }
-        this.item.listItemTemp[cd.CongDoan] = data.map(
+        this.item.listItemTemp[cd.Ma] = data.map(
           ele => {
             return {
               prop: ele.Id.split('-').join('_'),

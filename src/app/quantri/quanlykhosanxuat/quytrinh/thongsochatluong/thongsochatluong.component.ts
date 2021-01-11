@@ -58,7 +58,7 @@ export class ThongsochatluongComponent implements OnInit {
     if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/thongsochatluong/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/quanlykhosanxuat/khobong/thongsochatluong/${id}`],{replaceUrl: true})
   }
   add(){
     this.changeParam(0);
@@ -73,21 +73,21 @@ export class ThongsochatluongComponent implements OnInit {
     })
       .catch(er => { console.log(er) })
   }
-  update(Id){
-    this.changeParam(Id);
-    this._service.PhieuNhapLoBong_ChatLuong().Get(Id).subscribe((res1:any)=>{
+  update(item){
+    this.changeParam(item.Id);
+    // this._service.PhieuNhapLoBong_ChatLuong().Get(item.Id).subscribe((res1:any)=>{
       
     let modalRef = this._modal.open(ThongsochatluongmodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
-    })
+    // })
   }
   changeTab(e){
     this.trangThai = e.index+1;
