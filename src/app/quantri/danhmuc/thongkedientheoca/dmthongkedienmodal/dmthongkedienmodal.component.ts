@@ -20,7 +20,7 @@ export class DmthongkedienmodalComponent implements OnInit {
   nametype: any = "";
   lstKhungGio: any = [];
   khongclicknhieu: any = false;
-  cols: any = [    
+  cols: any = [
     {
       header: 'Số tiêu thụ',
       field: 'SoTieuThu',
@@ -71,15 +71,30 @@ export class DmthongkedienmodalComponent implements OnInit {
     this._services.ThongKeDien().Set(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
+          this.toastr.success(res.message);
           this.khongclicknhieu = !this.khongclicknhieu;
-          this.activeModal.close(res.message);
-          // this.toastr.success(res.message)
+          // this.activeModal.close();
+          this._services.ThongKeDien().Get(this.item).subscribe((res: any) => {
+            this.item = res;
+          })
         } else {
           this.khongclicknhieu = !this.khongclicknhieu;
           this.toastr.error(res.message);
         }
       }
     })
+  }
+
+  tinhgiatri(e, item) {
+    if (e.value > 0) {
+      item.SoTieuThu = 0;
+      item.TieuThuTrongCa = 0;
+      item.SoTieuThu = e.value - item.SoCu;
+      item.TieuThuTrongCa = item.SoTieuThu * item.HeSoNhan;
+    }
+    else {
+      this.toastr.error("Yêu cầu nhập lớn hơn 0");
+    }
   }
 
   Onclose() {
