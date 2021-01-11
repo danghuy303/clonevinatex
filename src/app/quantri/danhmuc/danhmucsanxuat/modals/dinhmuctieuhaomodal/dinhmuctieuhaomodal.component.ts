@@ -15,6 +15,7 @@ export class DinhmuctieuhaomodalComponent implements OnInit {
   };
   listCongDoan: any = [];
   listLoaiSoi: any = [];
+  listPhanXuong: any = [];
   listItem: any = [];
   khongclicknhieu: any = false;
   constructor(public activeModal: NgbActiveModal,
@@ -27,6 +28,7 @@ export class DinhmuctieuhaomodalComponent implements OnInit {
     }
     this.getListLoaiSoi();
     this.getListMatHang();
+    this.getListPhanXuong();
   }
 
   getListLoaiSoi() {
@@ -68,6 +70,11 @@ export class DinhmuctieuhaomodalComponent implements OnInit {
   getListItemDinhMuc() {
     this.services.KhoiTaoItem().subscribe((res: any) => {
       this.item.listItem = res;
+    })
+  }
+  getListPhanXuong() {
+    this.services.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   

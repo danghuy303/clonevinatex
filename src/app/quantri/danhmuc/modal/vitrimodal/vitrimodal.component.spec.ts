@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViTriComponent } from './vi-tri.component';
+import { VitrimodalComponent } from './vitrimodal.component';
 
-describe('ViTriComponent', () => {
-  let component: ViTriComponent;
-  let fixture: ComponentFixture<ViTriComponent>;
+describe('VitrimodalComponent', () => {
+  let component: VitrimodalComponent;
+  let fixture: ComponentFixture<VitrimodalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViTriComponent ]
+      declarations: [ VitrimodalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViTriComponent);
+    fixture = TestBed.createComponent(VitrimodalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

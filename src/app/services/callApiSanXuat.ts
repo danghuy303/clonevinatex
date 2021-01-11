@@ -861,4 +861,24 @@ export class SanXuatService {
             },
         }
     }
+    //#region  định lượng
+
+    GetListdmViTri(data) {
+        let url = API.SCMDanhMuc + 'GetListdmViTri';
+        return this.http.post(url, data, httpOptions);
+    }
+    GetListdmViTriOpt() {
+        let url = API.SCMDanhMuc + `GetListdmViTri`;
+        return this.http.get(url, httpOptions);
+    }
+    SetdmViTri(data) {
+        data.IdDuAn = this.store.getCurrent();
+        let url = API.SCMDanhMuc + 'SetdmViTri';
+        return this.http.post(url, data, httpOptions);
+    }
+    DeletedmViTri(data) {
+        let url = API.SCMDanhMuc + 'DeletedmViTri';
+        return this.http.post(url, data, httpOptions);
+    }
+    //#endregion
 }
