@@ -103,6 +103,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         //   console.log(may);
         // }
       });
+      console.log(this.PoolMaySanXuat)
     });
   }
   KiemTraButtonModal() {

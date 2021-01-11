@@ -67,7 +67,7 @@ export class PhabongmodalComponent implements OnInit {
       CurrentPage: 0,
     }
     this._services.TrienKhaiKeHoachSanXuat().GetList(data).subscribe((res: any) => {
-      this.listTrienKhaiKeHoach = mapArrayForDropDown(res, 'SoQuyTrinh', "Id")
+      this.listTrienKhaiKeHoach = mapArrayForDropDown(res, 'NoiDung', "Id")
       if (validVariable(this.item.IdTrienKhaiKeHoachSanXuat)) {
         this.GetChiTietTrienKhaiKeHoachForMatHang({ value: this.item.IdTrienKhaiKeHoachSanXuat });
       }
