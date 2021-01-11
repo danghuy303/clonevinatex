@@ -187,7 +187,7 @@ export function merge(newArr: Array<any>, existingArr: Array<any>, diffProp: str
 
 export function formatdate(ngay: any, istime: boolean) {
     let date = new Date(ngay);
-    let time = `${date.getHours()}:${date.getMinutes()}`;
-    let succformat = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${istime ? time : ""}`;
+    let time = ` ${date.getHours()}:${date.getMinutes()}`;
+    let succformat = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}${istime ? time : ""}`;
     return succformat;
 }

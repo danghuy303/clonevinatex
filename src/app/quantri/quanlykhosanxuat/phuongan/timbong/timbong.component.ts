@@ -61,7 +61,8 @@ export class TimbongComponent implements OnInit {
     this.changeParam(0);
     let modalRef = this._modal.open(TimbongmodalComponent, {
       size: 'fullscreen-100',
-      backdrop: 'static'
+      backdrop: 'static',
+      keyboard:false
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {
@@ -87,7 +88,8 @@ export class TimbongComponent implements OnInit {
   update(item) {
     let modalRef = this._modal.open(TimbongmodalComponent, {
       size: 'fullscreen-100',
-      backdrop: 'static'
+      backdrop: 'static',
+      keyboard:false
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));

@@ -172,6 +172,7 @@ export class ModaldanhmucchungComponent implements OnInit {
       this.khongclicknhieu = !this.khongclicknhieu;
       this.activeModal.close(res.message);
     } else {
+      this.khongclicknhieu = !this.khongclicknhieu;
       this.toastr.error(res.message)
     }
   }

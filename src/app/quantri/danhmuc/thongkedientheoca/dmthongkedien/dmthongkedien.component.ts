@@ -3,8 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalquanComponent } from 'src/app/quantri/danhmuc/modal/modalquan/modalquan.component';
+import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, deepCopy, mapArrayForDropDown, formatdate } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, formatdate, UnixToDate } from 'src/app/services/globalfunction';
 import { DmthongkedienmodalComponent } from '../dmthongkedienmodal/dmthongkedienmodal.component';
 
 @Component({
@@ -19,56 +20,35 @@ export class DmthongkedienComponent implements OnInit {
   filter: any = {};
   listLoaiPhuongAn: any = [];
   listKho: any = [];
+  listnhamay: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  cols: any = [
-    {
-      header: 'Ngày',
-      field: 'SoQuyTrinh',
-      width: 'unset'
-    },
-    {
-      header: 'Phân xưởng',
-      field: '_ThoiGianTao',
-      width: 'unset'
-    },
-    {
-      header: 'Tổng cộng',
-      field: 'ThoiGianDuyet',
-      width: 'unset'
-    },
-    {
-      header: 'Ca 1',
-      field: 'TenKho',
-      width: 'unset'
-    },
-    {
-      header: 'Khối lượng nhập (Tấn)',
-      field: 'TongKhoiLuongNhap',
-      width: 'unset'
-    },
-    {
-      header: 'Ghi chú',
-      field: 'GhiChu',
-      width: 'unset'
-    },
-  ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
+  userInfo: any;
 
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private _auth: AuthenticationService) {
+    this.items.lstNgay = [];
+    this.userInfo = this._auth.currentUserValue;
+  }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute);
-    this.KiemTraTabTrangThai();
-    // this.GetList()
+    this.GetDanhSachDuAnByIdUser();
+    this.resetFilter();
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/thongkedientheoca/dmthongkedien/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/theodoithongkebaocaosanxuat/thongkedien/${id}`], { replaceUrl: true })
   }
-  addPhieuBong() {
+
+  GetDanhSachDuAnByIdUser() {
+    this._service.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
+      this.listnhamay = mapArrayForDropDown(res, 'TenDuAn', 'Id');
+    })
+  }
+
+  add() {
     this.changeParam(0);
     let modalRef = this._modal.open(DmthongkedienmodalComponent, {
       size: 'fullscreen',
@@ -82,62 +62,54 @@ export class DmthongkedienComponent implements OnInit {
     })
       .catch(er => { console.log(er) })
   }
-  update(Id) {
-    this._service.NhapKeHoachNguyenLieu().Get(Id).subscribe((res1: any) => {
+
+  update(item) {
+    this._service.ThongKeDien().Get(item).subscribe((res: any) => {
       let modalRef = this._modal.open(DmthongkedienmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
+      modalRef.componentInstance.item = res;
       modalRef.result.then((res: any) => {
-        this._toastr.success('Cập nhật thành công');
+        // this._toastr.success('Cập nhật thành công');
         this.GetList();
       })
         .catch(er => { console.log(er) })
     })
   }
-  changeTab(e) {
-    this.trangThai = e.index + 1;
-    this.GetList(true);
-  }
+
   changePage(event) {
     // this.paging.CurrentPage = event.page + 1;
     // this.GetList();
   }
 
   GetList(reset?) {
-    if (reset) {
-      this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
-    }
     let data = {
-      PageSize: 25,
-      CurrentPage: this.paging.CurrentPage,
-      TabTrangThai: this.trangThai,
+      // PageSize: 25,
+      // CurrentPage: this.paging.CurrentPage,     
       sFilter: this.filter.KeyWord,
       TuNgay: (new Date(this.filter.TuNgay).getTime() / 1000) || 0,
       DenNgay: (new Date(this.filter.DenNgay).getTime() / 1000) || 0,
-      Ma: "",
-      Ten: "",
+      IdDuAn: this.filter.IddmItem
     }
-    this._service.NhapKeHoachNguyenLieu().GetList(data).subscribe((res: any) => {
-      this.items = res.items;
-      if (this.items.length > 0) {
-        this.items.forEach(element => {
-          element._ThoiGianTao = element.ThoiGianTaoUnix > 0 ? formatdate(element.ThoiGianTao, false) : null;
-          this.listKho.filter(obj => {
-            if (element.idKhoNhap == obj.value) {
-              element.TenKho = obj.label;
-            }
-          });
-        });
-      }
-      this.paging = res.paging;
+    this._service.ThongKeDien().GetList(data).subscribe((res: any) => {
+      this.items = res;
+      this.items.lstNgay.forEach(element => {
+        element.NgayNhap = element.NgayNhapUnix > 0 ? element.NgayNhap : null;
+        // element.NgayNhap = element.NgayNhapUnix > 0 ? UnixToDate(element.NgayNhapUnix) : null;
+        // element.NgayNhap = element.NgayNhapUnix > 0 ? UnixToDate(element.NgayNhapUnix) : null;
+        // element.NgayNhap = element.NgayNhapUnix > 0 ? UnixToDate(element.NgayNhapUnix) : null;
+      });
+      // this.paging = res.paging;
     })
   }
   resetFilter() {
     this.filter = {};
+    let d = new Date();
+    this.filter.DenNgay = new Date();
+    d.setDate(this.filter.DenNgay.getDate() - 7);
+    this.filter.TuNgay = d;
     this.GetList(true);
   }
   KiemTraTabTrangThai() {
