@@ -17,6 +17,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit {
   listThang:any=[];
   listNgay: any=[];
   thongKes:any=[];
+  thongKes1:any=[];
   Nams:any=[];
   optionPie: any = {
     plugins: {
@@ -51,6 +52,14 @@ export class DieuhanhsanxuattonghopComponent implements OnInit {
       {Ten:'Điện AC',TieuHao:14530,DonVi:'KW',ManHinh:''},
       {Ten:'Tổng điện',TieuHao:14530,DonVi:'KW',ManHinh:''},
       {Ten:'Điện AC',TieuHao:14530,DonVi:'%',ManHinh:''},
+    ]
+    this.thongKes1 = [
+      {Ten:'Ne BQ:',GiaTri:''},
+      {Ten:'Sản lượng quy Ne 30:',GiaTri:''},
+      {Ten:'Lũy kế quy Ne 30',GiaTri:''},
+      {Ten:'Sản lượng quy Ne 30:',GiaTri:''},
+      {Ten:'Sản lượng quy Ne 30:',GiaTri:''},
+      {Ten:'LK % hoàn thành KHSX:',GiaTri:''},
     ]
     this.dataPie = {
       labels: ['Ne 16 CD', 'Ne 20 CD', 'Ne 32 CD', 'Ne 31 CD'],
