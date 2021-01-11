@@ -1,21 +1,17 @@
-import { ViewChild } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { ModalimportexcelComponent } from 'src/app/quantri/modal/modalimportexcel/modalimportexcel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { congDoan } from 'src/app/services/const';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { ImportdanhmucmodelComponent } from '../modals/importdanhmucmodel/importdanhmucmodel.component';
-import { MathangmodelComponent } from '../modals/mathangmodel/mathangmodel.component';
+import { VitrimodalComponent } from '../../modal/vitrimodal/vitrimodal.component';
 
 @Component({
-  selector: 'app-mathang',
-  templateUrl: './mathang.component.html',
-  styleUrls: ['./mathang.component.css']
+  selector: 'app-vitri',
+  templateUrl: './vitri.component.html',
+  styleUrls: ['./vitri.component.css']
 })
-export class MathangComponent implements OnInit {
+export class VitriComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   items: any = [
@@ -26,51 +22,21 @@ export class MathangComponent implements OnInit {
   };
   cols: any = [
     {
-      header: 'Tên mặt hàng',
+      header: 'Mã',
+      field: 'Ma',
+      width: '200px',
+      align:'center'
+    },
+    {
+      header: 'Tên',
       field: 'Ten',
       width: '200px',
       align:'center'
     },
     {
-      header: 'Loại sợi',
-      field: 'TendmLoaiSoi',
+      header: 'Tên danh mục kho',
+      field: 'TendmKho',
       width: '200px',
-      align:'center'
-    },
-    // {
-    //   header: 'Công đoạn',
-    //   field: 'TenListCongDong',
-    //   width: '300px',
-    //   align:'left'
-    // },
-    {
-      header: 'Chi số',
-      field: 'ChiSo',
-      width: '100px',
-      align:'center'
-    },
-    {
-      header: 'Đơn vị tính',
-      field: 'DonViDatHang',
-      width: '100px',
-      align:'center'
-    },
-    // {
-    //   header: 'Định mức',
-    //   field: 'DinhMuc',
-    //   width: 'unset',
-    //   center:'center'
-    // },
-    {
-      header: 'Độ săn',
-      field: 'DoSan',
-      width: '100px',
-      align:'center'
-    },
-    {
-      header: 'Đặc tính sợi',
-      field: 'DacTinhSoi',
-      width: '100px',
       align:'center'
     },
     {
@@ -89,17 +55,11 @@ export class MathangComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetListdm();
-    this.GetListCongDoan();
   }
   resetFilter(){
     this.filter = {
     };
     this.GetListdm()
-  }
-  GetListCongDoan(){
-    this._services.GetListCongDoan().subscribe((res:any)=>{
-      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
-    })
   }
   GetListdm(reset?){
     if(reset){
@@ -113,32 +73,26 @@ export class MathangComponent implements OnInit {
       CongDoan:this.filter.CongDoan?this.filter.CongDoan:'',
       Ma:"", 
       Ten:"",
-      Loai:"1",
     };
-    this._services.GetListdmItem(data).subscribe((res:any)=>{
+    this._services.GetListdmViTri(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })
   }
   add(){
-    let modalRef = this._modal.open(MathangmodelComponent,{
+    let modalRef = this._modal.open(VitrimodalComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='add';
-    // modalRef.componentInstance.listCongDoan = this.listCongDoan;
-
     modalRef.result.then(res=>{
-      this._toastr.success(res);
       this.GetListdm()
     }).catch(er=>console.log(er))
   }
   edit(item){
-    // item.listCongDoan = item.listCongDoan.map(ele=>ele.CongDoan);
-    let modalRef = this._modal.open(MathangmodelComponent,{
+    let modalRef = this._modal.open(VitrimodalComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='edit';
-    // modalRef.componentInstance.listCongDoan = this.listCongDoan;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then(res=>{
       this._toastr.success(res);
@@ -154,7 +108,7 @@ export class MathangComponent implements OnInit {
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
 
-      this._services.DeletedmItem(itemDel).subscribe((res: any) => {
+      this._services.DeletedmViTri(itemDel).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);
@@ -172,7 +126,7 @@ export class MathangComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this._services.DeletedmItem(this.selectedItems).subscribe((res: any) => {
+      this._services.DeletedmViTri(this.selectedItems).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);
@@ -189,15 +143,5 @@ export class MathangComponent implements OnInit {
     this.paging.CurrentPage = event.page+1;
     this.GetListdm();
   }
-  importExcel(){
-    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
-      backdrop:'static',
-    })
-    modalRef.componentInstance.importFunc = 'SCM_dmItem';
-    modalRef.result.then(res=>{
-      this.GetListdm();
-      this._toastr.success(res.mess);
-    })
-    .catch(er=>console.log(er))
-  }
+  
 }

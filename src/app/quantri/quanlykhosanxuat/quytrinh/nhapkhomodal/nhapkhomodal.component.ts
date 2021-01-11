@@ -22,10 +22,10 @@ export class NhapkhomodalComponent implements OnInit {
   }
   newTableItem: any = {};
   editTableItem: any = [];
-  listPhuongAnSapXep: any = [];
   listLoaiBong: any = [];
   listLoBong: any = [];
   listCapBong: any = [];
+  listdmViTri: any = [];
   listCaMay: any = [];
   listKho: any = [];
   lang: any = vn;
@@ -62,7 +62,7 @@ export class NhapkhomodalComponent implements OnInit {
     this.getListLoBong();
     this.getListKho();
     this.getListCaMay();
-    console.log(this.type)
+    this.getListdmViTri();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -195,11 +195,14 @@ export class NhapkhomodalComponent implements OnInit {
   }
   getListLoaiBong() {
     if (this.opt === 'edit') {
-      this.data.Loai = this.item.Loai;
+      if (this.type === 'bong')
+        this.data.Loai = 2;
+      else
+        this.data.Loai = this.item.Loai;
     }
     else{
       if (this.type === 'bong')
-      this.data.Loai = 2;
+        this.data.Loai = 2;
       else  if (this.type === 'xo')
         this.data.Loai = 5;
       else  if (this.type === 'bonghoi'){
@@ -290,5 +293,10 @@ export class NhapkhomodalComponent implements OnInit {
   }
   Onclose() {
     this.activeModal.close();
+  }
+  getListdmViTri() {
+    this._services.GetListdmViTriOpt().subscribe((res: any) => {
+      this.listdmViTri = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
 }

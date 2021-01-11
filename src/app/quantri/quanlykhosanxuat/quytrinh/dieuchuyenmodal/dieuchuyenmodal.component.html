@@ -61,7 +61,7 @@
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [ngModel]="item.GhiChu" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
@@ -90,14 +90,16 @@
                         <col>
                         <col>
                         <col>
+                        <col>
+                        <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
-                        <th>Lô</th>
-                        <th>Container</th>
-                        <th>Mã kiện</th>
+                        <th>Mã</th>
+                        <th>Tên</th>
+                        <th>ĐVT</th>
                         <th>Tồn kho</th>
                         <th>Số lượng xuất</th>
                         <th>Ghi chú</th>
@@ -107,21 +109,15 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr *ngIf="item.editField !== true">
                         <td>{{i+1}}</td>
+                        <td>{{item.Ma}}</td>
                         <td>{{item.Ten}}</td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.KhoiLuong">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Block">
-                            </p-inputNumber>
-                        </td>
+                        <td>{{item.DonViTinh}}</td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ton">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
                         <td>
@@ -135,39 +131,6 @@
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
-                        </td>
-                    </tr>
-                    <tr *ngIf="item.editField === true">
-                        <td>{{i+1}}</td>
-                        <td>{{item.Ten}}</td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.SoKien">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.KhoiLuong">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.Block">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.Ton">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <input pInputText type="text" [(ngModel)]="editTableItem.GhiChu">
-                        </td>
-                        <td>
-                            <button pButton pRipple icon="pi pi-check"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                (click)="saveEdit(editTableItem, i)" pTooltip="Lưu"
-                                tooltipPosition="bottom"></button>
-                            <button pButton pRipple icon="pi pi-times"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                (click)="cancelEdit(item, i)" pTooltip="Hủy"
                                 tooltipPosition="bottom"></button>
                         </td>
                     </tr>
