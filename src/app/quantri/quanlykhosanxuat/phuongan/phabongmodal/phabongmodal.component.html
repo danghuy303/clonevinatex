@@ -37,7 +37,7 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số kiện:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber locale="vi-VN" [ngModel]="item.TongSoKien" (onInput)="TinhSoBanBong($event)">
+                <p-inputNumber locale="vi-VN" [(ngModel)]="item.TongSoKien" (onBlur)="TinhSoBanBong($event)">
                 </p-inputNumber>
             </div>
         </div>
@@ -256,6 +256,29 @@
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
                                 {{itembBQ[prop]|number:'0.2-2'}}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center tc-w-151"></td>
+                        <td class="text-center tc-w-121"></td>
+                        <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-50"></td>
+                        <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-100"></td>
+                        <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-80">+b</td>
+                        <td *ngFor="let prop of listProps" class="text-center tc-w-50">
+                            <div style="width: 100%;">
+                                {{itemCVMic[prop]|number:'0.2-2'}}
                             </div>
                         </td>
                     </tr>

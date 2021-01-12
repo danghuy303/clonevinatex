@@ -1,0 +1,158 @@
+<div class="p-d-flex">
+    <div class="p-d-flex flex-column flex-lg-row p-pl-3" style="width: 100%;">
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.LoaiBong"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
+                styleClass="p-inputtext-sm" [(ngModel)]="filter.LoaiBong"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [options]="Nams" styleClass="p-inputtext-sm" optionLabel="label" [(ngModel)]="filter.Nam"
+                class="p-mr-2"></p-dropdown>
+        </div>
+    </div>
+</div>
+<div class="p-grid" style="align-self: stretch;">
+    <div class="p-col-12 p-xl-8 p-lg-8 p-p-3">
+        <div class="chart">
+            <div class="p-d-flex flex-column flex-lg-row p-jc-between">
+                <div>
+                    <h5>
+                        Tổng hợp
+                    </h5>
+                </div>
+                <div class="p-d-flex flex-column flex-lg-row">
+                    <div class="p-mr-2">
+                        <p-dropdown [filter]="true" [options]="listCa" placeholder="Chọn ca" styleClass="p-inputtext-sm"
+                            [(ngModel)]="filter.CaLamViec"></p-dropdown>
+                    </div>
+                    <div class="p-mr-2">
+                        <p-dropdown [filter]="true" [options]="listThang" styleClass="p-inputtext-sm"
+                            [(ngModel)]="filter.Thang"></p-dropdown>
+                    </div>
+                    <div class="p-mr-2">
+                        <p-dropdown [filter]="true" [options]="listNgay" placeholder="Chọn ngày"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.Ngay"></p-dropdown>
+                    </div>
+                    <!-- <div class="p-mr-2">
+                        <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.MatHang"></p-dropdown>
+                    </div> -->
+                    <div style="display:table;height:100%">
+                        <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
+                            (click)="xemSanLuong()">Xem sản lượng
+                            ống</a>
+                    </div>
+                </div>
+            </div>
+            <div class="p-d-flex flex-column flex-lg-row">
+                <div class="p-col-12 p-xl-8 p-lg-8 p-p-3">
+                    <div>
+                        <p-table [value]="thongKes" styleClass="p-datatable-sm p-datatable-gridlines wrap-text">
+
+                            <ng-template pTemplate="header">
+                                <tr class="normal">
+                                    <th style="width: 50px;">#</th>
+                                    <th>Tên</th>
+                                    <th>Khối lượng quả</th>
+                                    <th>Màn hình</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-thongke let-i="rowIndex">
+                                <tr>
+                                    <td class="text-center">{{i+1}}</td>
+                                    <td>{{thongke.Ten}}</td>
+                                    <td class="text-center">{{thongke.TieuHao|number:'0.0-3'}} {{thongke.DonVi}}</td>
+                                    <td class="text-right">{{thongke.ManHinh}}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+                <div class="p-col-12 p-xl-4 p-lg-4 p-p-3 text-left">
+                    <div class="d-flex flex-row p-jc-between" *ngFor="let thongke of thongKes1">
+                        <div>{{thongke.Ten}}</div>
+                        <div>{{thongke.GiaTri|number:'0.0-3'}}</div>
+                    </div>
+                    <!-- <p *ngFor="let thongke of thongKes1">
+                         {{thongke.GiaTri|number:'0.0-3'}}
+                    </p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-col-12 p-xl-4 p-lg-4 p-p-3">
+        <div class="chart text-left">
+            <h5>Biểu đồ cơ cấu</h5>
+            <p-chart type="pie" [data]="dataPie" [options]='optionPie'></p-chart>
+        </div>
+    </div>
+    <div class="p-col-12 p-xl-6 p-lg-6 p-p-3">
+        <div class="chart text-left">
+            <h5>Chất lượng sản phẩm</h5>
+            <div #bangScroll style="height: calc((100vh - 192.5px) / 2 - 40px);">
+                <p-table [value]="listMatHang" styleClass="p-datatable-sm p-datatable-gridlines wrap-text"
+                    [scrollable]="true" scrollHeight="flex">
+                    <ng-template pTemplate="header">
+                        <tr class="normal">
+                            <th style="width: 35px !important;">#</th>
+                            <th style="width: 200px !important;">Mặt hàng</th>
+                            <th *ngFor="let header of headerChatLuongSanPham" style="width: 55px !important;">
+                                {{header.label}}
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item let-i="rowIndex">
+                        <tr>
+                            <td class="text-center" style="width: 35px !important;">
+                                <p-checkbox [ngModel]="item.checked" (onChange)="checkMatHang($event,item,i)" binary="true" inputId="binary"></p-checkbox>
+                            </td>
+                            <td style="width: 200px !important;">{{item.label}}</td>
+                            <td *ngFor="let body of headerChatLuongSanPham" style="width: 55px !important;">
+                                {{item[body.prop]}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-12 p-xl-6 p-lg-6 p-p-3">
+        <div class="chart text-left">
+            <h5>Biểu đồ chất lượng sản phẩm</h5>
+            <p-chart type="line" [data]=dataSet1 [options]="option1"></p-chart>
+        </div>
+    </div>
+
+</div>
+<p-dialog header="Sản lượng ống" [(visible)]="showSanLuong" [modal]="true" [style]="{width: '50vw'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-table [value]="listMatHang" styleClass="p-datatable-sm p-datatable-gridlines wrap-text" [scrollable]="true"
+        scrollHeight="500px">
+        <ng-template pTemplate="header">
+            <tr class="normal">
+                <th style="width: 200px !important;">Mặt hàng</th>
+                <th>Chi số</th>
+                <th>Loại</th>
+                <th>Địa chỉ</th>
+                <th>Máy chạy</th>
+                <th>Sản lượng máy ống</th>
+                <th>Số quả</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td style="width: 200px !important;">{{item.label}}</td>
+                <td class="text-right">{{item.ChiSo|number:'0.0-3'}}</td>
+                <td class="text-center">{{item.Loai}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-right">{{item.SoQua|number:'0.0-3'}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>

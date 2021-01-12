@@ -68,13 +68,15 @@ import { DmthongkedienComponent } from './danhmuc/thongkedientheoca/dmthongkedie
 import { DinhmuctieuhaoComponent } from './danhmuc/danhmucsanxuat/dinhmuctieuhao/dinhmuctieuhao.component';
 import { VitriComponent } from './danhmuc/danhmucsanxuat/vitri/vitri.component';
 import { CandoitonComponent } from './quanlykhosanxuat/quytrinh/candoiton/candoiton.component';
+import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuhanhsanxuattonghop.component';
+import { DmtieuchichatluongsoiComponent } from './danhmuc/dmtieuchichatluongsoi/dmtieuchichatluongsoi.component';
 
 const routes: Routes = [
   {
     path: '', component: QuantriComponent,
     children: [
       //dieuhanhsanxuat dashboard
-      { path: '', redirectTo: 'dieuhanhsanxuat', pathMatch: 'full' },
+      { path: '', redirectTo: 'dieuhanhsanxuattonghop', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'quanlytaisannhadat', component: QuanlytaisannhadatComponent },
       { path: 'sapxepxuly/yeucau', component: YeucausapxepComponent },
@@ -109,7 +111,10 @@ const routes: Routes = [
       { path: 'theodoithongkebaocao/baocaochitietcaccoso', component: BaocaochitietcaccosoComponent },
       { path: 'theodoithongkebaocao/baocaodonvi', component: BaocaotaichinhComponent },
 
-      { path: 'dieuhanhsanxuat', component: DieuhanhsanxuatComponent },
+      { path: 'dieuhanhsanxuatnguyenlieu', component: DieuhanhsanxuatComponent },
+      { path: 'dieuhanhsanxuattonghop', component: DieuhanhsanxuattonghopComponent },
+      { path: 'dieuhanhsanxuatchatluong', component: DieuhanhsanxuatComponent },
+      { path: 'dieuhanhsanxuatsanluong', component: DieuhanhsanxuatComponent },
 
 
       { path: 'baocaosanxuat/sanluongtonghop', component: SanluongtonghopComponent },
@@ -127,6 +132,7 @@ const routes: Routes = [
       { path: 'danhmucsanxuat/loaidienkv', component: LoaidienkvComponent },   
       { path: 'danhmucsanxuat/dmnhomcongto', component: DmnhomcongtoComponent },   
       { path: 'danhmucsanxuat/dmcongto', component: DmcongtoComponent },  
+      { path: 'danhmucsanxuat/dmtieuchichatluongsoi', component: DmtieuchichatluongsoiComponent },        
       { path: 'danhmucsanxuat/dmthongkedien/:id', component: DmthongkedienComponent },  
       { path: 'danhmucsanxuat/dmdinhmuctieuhao', component: DinhmuctieuhaoComponent },  
       { path: 'danhmucsanxuat/dmvitri', component: VitriComponent },  

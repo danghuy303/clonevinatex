@@ -58,16 +58,54 @@ export class QuantriComponent implements OnInit {
     ngOnInit(): void {
         this._router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((res: any) => {
             this.getOSName(res.url);
-
         })
         this.menuQLNS = [
             {
                 label: 'Quản trị sản xuất',
-                routerLink: '/quantri/dieuhanhsanxuat',
+                routerLink: '/quantri',
                 icon: 'fas fa-warehouse',
-                command: () => {
-                    this.close()
-                }
+                items:[
+                    {
+                        label: 'Tổng hợp',
+                        routerLink: '/quantri/dieuhanhsanxuattonghop',
+                        icon: 'fas fa-circle',
+                        command: () => {
+                            this.close()
+                        }
+                    },
+                    {
+                        label: 'Nhu cầu & sản lượng',
+                        routerLink: '/quantri/dieuhanhsanxuatnguyenlieu',
+                        icon: 'fas fa-circle',
+                        command: () => {
+                            this.close()
+                        }
+                    },
+                    // {
+                    //     label: 'Tổng hợp nguyên liệu',
+                    //     routerLink: '/quantri/dieuhanhsanxuatnguyenlieu',
+                    //     icon: 'fas fa-circle',
+                    //     command: () => {
+                    //         this.close()
+                    //     }
+                    // },
+                    // {
+                    //     label: 'Tổng hợp sản lượng',
+                    //     routerLink: '/quantri/dieuhanhsanxuatsanluong',
+                    //     icon: 'fas fa-circle',
+                    //     command: () => {
+                    //         this.close()
+                    //     }
+                    // },
+                    // {
+                    //     label: 'Tổng hợp chất lượng',
+                    //     routerLink: '/quantri/dieuhanhsanxuatchatluong',
+                    //     icon: 'fas fa-circle',
+                    //     command: () => {
+                    //         this.close()
+                    //     }
+                    // },
+                ],
             },
             {
                 label: 'Điều hành sản xuất',
@@ -415,7 +453,12 @@ export class QuantriComponent implements OnInit {
                         label: 'Công tơ',
                         routerLink: '/quantri/danhmucsanxuat/dmcongto',
                         command: () => this.close()
-                    },                                            
+                    },        
+                    // {
+                    //     label: 'Tiêu chí chất lượng sợi',
+                    //     routerLink: '/quantri/danhmucsanxuat/dmtieuchichatluongsoi',
+                    //     command: () => this.close()
+                    // },                 
                 ]
             },
             {

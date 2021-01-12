@@ -21,7 +21,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { GalleriaModule } from 'primeng/galleria';
 import { FileUploadModule } from 'ng2-file-upload';
 import {PasswordModule} from 'primeng/password';
-// import { DialogModule } from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';
 import {MenuModule} from 'primeng/menu';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
@@ -185,6 +185,9 @@ import { DinhmuctieuhaomodalComponent } from './danhmuc/danhmucsanxuat/modals/di
 import { VitriComponent } from './danhmuc/danhmucsanxuat/vitri/vitri.component';
 import { VitrimodalComponent } from './danhmuc/modal/vitrimodal/vitrimodal.component';
 import { CandoitonComponent } from './quanlykhosanxuat/quytrinh/candoiton/candoiton.component';
+import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuhanhsanxuattonghop.component';
+import { DmtieuchichatluongsoiComponent } from './danhmuc/dmtieuchichatluongsoi/dmtieuchichatluongsoi.component';
+import { DmtieuchichatluongsoimodalComponent } from './danhmuc/dmtieuchichatluongsoimodal/dmtieuchichatluongsoimodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -330,6 +333,9 @@ import { CandoitonComponent } from './quanlykhosanxuat/quytrinh/candoiton/candoi
     VitriComponent,
     VitrimodalComponent,
     CandoitonComponent,
+    DieuhanhsanxuattonghopComponent,
+    DmtieuchichatluongsoiComponent,
+    DmtieuchichatluongsoimodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -350,7 +356,7 @@ import { CandoitonComponent } from './quanlykhosanxuat/quytrinh/candoiton/candoi
     TabViewModule,
     PanelModule,
     DynamicDialogModule,
-    // DialogModule,
+    DialogModule,
     CalendarModule,
     InputNumberModule,
     FileUploadModule,
@@ -424,6 +430,7 @@ import { CandoitonComponent } from './quanlykhosanxuat/quytrinh/candoiton/candoi
     DmthongkedienmodalComponent,    
     DinhmuctieuhaomodalComponent,    
     VitrimodalComponent,
+    DmtieuchichatluongsoimodalComponent,
   ],
   providers: [
     SanXuatService,

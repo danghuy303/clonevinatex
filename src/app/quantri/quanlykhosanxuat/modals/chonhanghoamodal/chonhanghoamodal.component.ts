@@ -14,7 +14,7 @@ export class ChonhanghoamodalComponent implements OnInit {
   KeyWord: any = '';
   opt: any = '';
   checkedAll: boolean = false;
-  constructor(private activeModal: NgbActiveModal, private _services: SanXuatService) { }
+  constructor(private _activeModal: NgbActiveModal, private _services: SanXuatService) { }
 
   ngOnInit(): void {
     if (this.selectedItems.length !== 0) {
@@ -84,7 +84,7 @@ export class ChonhanghoamodalComponent implements OnInit {
             })
           })
         });
-        this.activeModal.close(this.items.filter(item => item.checked).map(ele => {
+        this._activeModal.close(this.items.filter(item => item.checked).map(ele => {
           return {
             ...ele,
             IdGiaoKeHoachSanXuat_TrienKhai: this.IdQuyTrinh,
@@ -94,7 +94,7 @@ export class ChonhanghoamodalComponent implements OnInit {
         }))
         break;
       case "KhoiLuongSanXuat":
-        this.activeModal.close(this.items.filter(item => item.checked).map(ele => {
+        this._activeModal.close(this.items.filter(item => item.checked).map(ele => {
           return {
             ...ele,
             IdPhuongAnPhaBong: this.IdQuyTrinh,
@@ -103,7 +103,7 @@ export class ChonhanghoamodalComponent implements OnInit {
         }));
         break;
       case "LoBong":
-        this.activeModal.close(this.items.filter(item => item.checked).map(ele => {
+        this._activeModal.close(this.items.filter(item => item.checked).map(ele => {
           return {
             ...ele,
             IdPhuongAnPhaBong: this.IdQuyTrinh,
@@ -112,7 +112,7 @@ export class ChonhanghoamodalComponent implements OnInit {
           }
         }))
       default:
-        this.activeModal.close(this.items.filter(item => item.checked).map(ele => {
+        this._activeModal.close(this.items.filter(item => item.checked).map(ele => {
           return {
             ...ele,
             IdGiaoKeHoachSanXuat: this.IdQuyTrinh,
