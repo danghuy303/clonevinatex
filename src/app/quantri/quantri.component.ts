@@ -163,6 +163,11 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/quanlykhosanxuat/khobong/kehoachnhapnguyenlieu/0',
                         command: () => this.close()
                     },
+                    {
+                        label: 'Cân đối tồn',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/candoiton/0',
+                        command: () => this.close()
+                    },
                 ]
             },
             {
@@ -252,32 +257,32 @@ export class QuantriComponent implements OnInit {
             {
                 label: 'Quản lý kho hồi ẩm',
                 icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhokhohoiam/khohoiam',
+                routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam',
                 expanded: false,
                 items: [
                     {
                         label: 'Nhập kho',
-                        routerLink: '/quantri/quanlykhokhohoiam/khohoiam/nhapkho/0',
+                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/nhapkho/0',
                         command: () => this.close()
                     },
                     {
                         label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhokhohoiam/khohoiam/xuatkho/0',
+                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/xuatkho/0',
                         command: () => this.close()
                     },
                     {
                         label: 'Kiểm tra chất lượng',
-                        routerLink: '/quantri/quanlykhokhohoiam/khohoiam/kiemkekho/0',
+                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/kiemkekho/0',
                         command: () => this.close()
                     },
                     {
                         label: 'Hạ cấp',
-                        routerLink: '/quantri/quanlykhokhohoiam/khohoiam/hacap/0',
+                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/hacap/0',
                         command: () => this.close()
                     },
                     {
                         label: 'Chất lượng sợi',
-                        routerLink: '/quantri/quanlykhokhohoiam/khohoiam/chatluongsoi/0',
+                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/chatluongsoi/0',
                         command: () => this.close()
                     },
                 ]
@@ -285,27 +290,27 @@ export class QuantriComponent implements OnInit {
             {
                 label: 'Quản lý kho thành phẩm',
                 icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhothanhpham/khothanhpham',
+                routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham',
                 expanded: false,
                 items: [
                     {
                         label: 'Nhập kho',
-                        routerLink: '/quantri/quanlykhothanhpham/khothanhpham/nhapkho/0',
+                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/nhapkho/0',
                         command: () => this.close()
                     },
                     {
                         label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhothanhpham/khothanhpham/xuatkho/0',
+                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkho/0',
                         command: () => this.close()
                     },
                     {
                         label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlykhothanhpham/khothanhpham/kiemkekho/0',
+                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/kiemkekho/0',
                         command: () => this.close()
                     },
                     {
                         label: 'Kế hoạch xuất hàng',
-                        routerLink: '/quantri/quanlykhothanhpham/khothanhpham/kehoachxuathang/0',
+                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/kehoachxuathang/0',
                         command: () => this.close()
                     },
                 ]

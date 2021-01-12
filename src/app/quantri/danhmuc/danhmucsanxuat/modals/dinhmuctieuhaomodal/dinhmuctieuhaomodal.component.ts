@@ -25,6 +25,7 @@ export class DinhmuctieuhaomodalComponent implements OnInit {
   ngOnInit(): void {
     if (this.opt !== 'edit') {
       this.getListItemDinhMuc();
+      this.item.HoatDong = true;
     }
     this.getListLoaiSoi();
     this.getListMatHang();
@@ -48,8 +49,6 @@ export class DinhmuctieuhaomodalComponent implements OnInit {
   accept() {
     this.khongclicknhieu = !this.khongclicknhieu;// && this.item.MaDinhMuc.trim() !== ''
     if (this.item.MaDinhMuc !== undefined) {
-      if(this.item.Id === undefined || this.item.Id === null || this.item.Id === "")
-        this.item.HoatDong = true;
       this.services.SetDinhMuc(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

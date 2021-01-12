@@ -42,21 +42,6 @@ export class NhapkhoComponent implements OnInit {
       field: 'TendmLoaiBong',
       width: 'unset'
     },
-    // {
-    //   header: 'Tổng số kiện',
-    //   field: 'TongSoKien',
-    //   width: 'unset'
-    // },
-    // {
-    //   header: 'Tổng khối lượng',
-    //   field: 'TongKhoiLuong',
-    //   width: 'unset'
-    // },
-    // {
-    //   header: 'Trạng thái',
-    //   field: 'TenTrangThai',
-    //   width: 'unset'
-    // },
   ];
   colHois: any = [
     {
@@ -69,21 +54,6 @@ export class NhapkhoComponent implements OnInit {
       field: 'TendmLoaiBong',
       width: 'unset'
     },
-    // {
-    //   header: 'Tổng số kiện',
-    //   field: 'TongSoKien',
-    //   width: 'unset'
-    // },
-    // {
-    //   header: 'Tổng khối lượng',
-    //   field: 'TongKhoiLuong',
-    //   width: 'unset'
-    // },
-    // {
-    //   header: 'Trạng thái',
-    //   field: 'TenTrangThai',
-    //   width: 'unset'
-    // },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";

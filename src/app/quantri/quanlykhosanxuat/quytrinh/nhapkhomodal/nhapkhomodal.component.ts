@@ -128,11 +128,14 @@ export class NhapkhomodalComponent implements OnInit {
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
-    else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
-      this.toastr.error("Bạn chưa chọn  danh mục kho");
+    else if ((this.item.IddmCapBong === null || this.item.IddmCapBong  === undefined) && (this.type === 'bong' || this.type === 'xo')) {
+      this.toastr.error("Bạn chưa chọn  danh mục cấp bông");
+    }
+    else if (this.item.IddmLoaiBong === null || this.item.IddmLoaiBong === undefined) {
+      this.toastr.error("Bạn chưa chọn  danh mục loại bông");
     }
     else {
-      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined) {
+      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined&& this.newTableItem.IddmViTri!= undefined) {
         if (this.type === 'bong' || this.type === 'xo')
         this.add();
         else if (this.type === 'bonghoi' ||this.type === 'bongphe')
@@ -243,10 +246,14 @@ export class NhapkhomodalComponent implements OnInit {
     })
   }
   add() {
-    if (this.item.listItem == undefined || this.item.listItem == null)
+    if(this.newTableItem.IddmViTri== undefined || this.newTableItem.IddmViTri== null)
+      this.toastr.error("Bạn chưa chọn vị trí");
+    else{
+      if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {}
+    }
   }
   addBongHoi() {
     if (this.item.listKien == undefined || this.item.listKien == null)

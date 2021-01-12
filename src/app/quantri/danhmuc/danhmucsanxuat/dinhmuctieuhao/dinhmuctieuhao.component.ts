@@ -117,7 +117,7 @@ export class DinhmuctieuhaoComponent implements OnInit {
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
 
-      this._services.DeletedmItem(itemDel).subscribe((res: any) => {
+      this._services.DeleteDinhMuc(itemDel).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);
@@ -136,7 +136,7 @@ export class DinhmuctieuhaoComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this._services.DeletedmItem(this.selectedItems).subscribe((res: any) => {
+      this._services.DeleteDinhMuc(this.selectedItems).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);

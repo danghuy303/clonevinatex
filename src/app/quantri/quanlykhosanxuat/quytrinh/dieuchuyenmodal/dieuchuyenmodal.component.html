@@ -91,12 +91,16 @@
                         <col>
                         <col>
                         <col>
+                        <col>
+                        <col>
                         <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
+                        <th>Lô bông</th>
+                        <th>Vị trí</th>
                         <th>Mã</th>
                         <th>Tên</th>
                         <th>ĐVT</th>
@@ -109,6 +113,8 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr *ngIf="item.editField !== true">
                         <td>{{i+1}}</td>
+                        <td>{{item.TenLoBong}}</td>
+                        <td>{{item.TendmViTri}}</td>
                         <td>{{item.Ma}}</td>
                         <td>{{item.Ten}}</td>
                         <td>{{item.DonViTinh}}</td>

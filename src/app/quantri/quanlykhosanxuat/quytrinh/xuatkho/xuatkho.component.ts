@@ -17,9 +17,6 @@ export class XuatkhoComponent implements OnInit {
   items: any = [{id:5,SoQuyTrinh:'PKK_0000_0000'}];
   filter:any={};
   listLoaiPhuongAn:any=[];
-  listKho : any = [];
-  listPhanXuong : any = [];
-  listMatHang : any = [];
   trangThai:any=1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
@@ -87,8 +84,6 @@ export class XuatkhoComponent implements OnInit {
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    this.getListKho();
-    this.getListPhanXuong();
     this.activatedRoute.params.subscribe((res:any)=>{
       if(res.id!=='0'){
         let getitem =()=>{return{}};
@@ -99,7 +94,7 @@ export class XuatkhoComponent implements OnInit {
     this.GetListQuyTrinh()
   }
   changeParam(id){
-    this.router.navigate([`quantri/quanlykhosanxuat/xuatkho/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/quanlykhosanxuat/khobong/xuatkho/${id}`],{replaceUrl: true})
   }
   add(){
     this.changeParam(0);
@@ -109,9 +104,6 @@ export class XuatkhoComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {};
-    modalRef.componentInstance.listKho = this.listKho;
-    modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
-    modalRef.componentInstance.listMatHang = this.listMatHang;
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })
@@ -124,9 +116,6 @@ export class XuatkhoComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.componentInstance.listKho = this.listKho;
-    modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
-    modalRef.componentInstance.listMatHang = this.listMatHang;
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })
@@ -155,7 +144,7 @@ export class XuatkhoComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.PhieuBanGiaoBongXo().GetList(data).subscribe((res:any)=>{
+    this._service.PhieuXuatSanXuat().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })
@@ -170,20 +159,5 @@ export class XuatkhoComponent implements OnInit {
     //   this.GetListQuyTrinh();
     // })
   }
-  getListKho(){
-    let data = {
-      CurrentPage: 0
-    }
-    this._service.GetListdmKho(data).subscribe((res:any)=>{
-      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
-  getListPhanXuong(){
-    let data = {
-      CurrentPage: 0
-    }
-    this._service.GetListdmPhanXuong(data).subscribe((res:any)=>{
-      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
+  
 }
