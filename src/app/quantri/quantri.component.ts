@@ -74,29 +74,37 @@ export class QuantriComponent implements OnInit {
                         }
                     },
                     {
-                        label: 'Tổng hợp nguyên liệu',
+                        label: 'Nhu cầu & sản lượng',
                         routerLink: '/quantri/dieuhanhsanxuatnguyenlieu',
                         icon: 'fas fa-circle',
                         command: () => {
                             this.close()
                         }
                     },
-                    {
-                        label: 'Tổng hợp sản lượng',
-                        routerLink: '/quantri/dieuhanhsanxuatsanluong',
-                        icon: 'fas fa-circle',
-                        command: () => {
-                            this.close()
-                        }
-                    },
-                    {
-                        label: 'Tổng hợp chất lượng',
-                        routerLink: '/quantri/dieuhanhsanxuatchatluong',
-                        icon: 'fas fa-circle',
-                        command: () => {
-                            this.close()
-                        }
-                    },
+                    // {
+                    //     label: 'Tổng hợp nguyên liệu',
+                    //     routerLink: '/quantri/dieuhanhsanxuatnguyenlieu',
+                    //     icon: 'fas fa-circle',
+                    //     command: () => {
+                    //         this.close()
+                    //     }
+                    // },
+                    // {
+                    //     label: 'Tổng hợp sản lượng',
+                    //     routerLink: '/quantri/dieuhanhsanxuatsanluong',
+                    //     icon: 'fas fa-circle',
+                    //     command: () => {
+                    //         this.close()
+                    //     }
+                    // },
+                    // {
+                    //     label: 'Tổng hợp chất lượng',
+                    //     routerLink: '/quantri/dieuhanhsanxuatchatluong',
+                    //     icon: 'fas fa-circle',
+                    //     command: () => {
+                    //         this.close()
+                    //     }
+                    // },
                 ],
             },
             {

@@ -21,7 +21,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { GalleriaModule } from 'primeng/galleria';
 import { FileUploadModule } from 'ng2-file-upload';
 import {PasswordModule} from 'primeng/password';
-// import { DialogModule } from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';
 import {MenuModule} from 'primeng/menu';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
@@ -350,7 +350,7 @@ import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuha
     TabViewModule,
     PanelModule,
     DynamicDialogModule,
-    // DialogModule,
+    DialogModule,
     CalendarModule,
     InputNumberModule,
     FileUploadModule,

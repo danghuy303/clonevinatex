@@ -37,7 +37,7 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số kiện:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber locale="vi-VN" [ngModel]="item.TongSoKien" (onInput)="TinhSoBanBong($event)">
+                <p-inputNumber locale="vi-VN" [(ngModel)]="item.TongSoKien" (onBlur)="TinhSoBanBong($event)">
                 </p-inputNumber>
             </div>
         </div>
