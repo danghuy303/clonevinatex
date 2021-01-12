@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} kế hoạch nhập nguyên liệu {{nametype}}</h5>
+    <h5 class="modal-title">kế hoạch nhập nguyên liệu {{nametype}}</h5>
     <!-- <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
@@ -82,11 +82,11 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
-                        <th>Mặt hàng</th>
+                        <th>Nguyên liệu</th>
+                        <th>Thời gian dự kiến</th>
                         <th>Tồn kho</th>
                         <th>Số lượng nhập(Tấn)</th>
-                        <th>Nguồn nhập</th>
-                        <th>Thời gian dự kiến</th>
+                        <!-- <th>Nguồn nhập</th> -->
                         <th>Ghi chú</th>
                         <th style="width: 100px;"></th>
                     </tr>
@@ -101,6 +101,12 @@
                             </p-dropdown>
                         </td>
                         <td class="text-center">
+                            <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
+                                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
+                                [(ngModel)]="items.ThoiGianDuKien" inputId="icon" placeholder="dd/mm/yyyy">
+                            </p-calendar>
+                        </td>
+                        <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.TonKho"
                                 [disabled]="true">
                             </p-inputNumber>
@@ -109,15 +115,9 @@
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.SoLuongNhap">
                             </p-inputNumber>
                         </td>
-                        <td class="text-center">
+                        <!-- <td class="text-center">
                             <input pInputText type="text" [(ngModel)]="items.NguonNhap">
-                        </td>
-                        <td class="text-center">
-                            <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
-                                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
-                                [(ngModel)]="items.ThoiGianDuKien" inputId="icon" placeholder="dd/mm/yyyy">
-                            </p-calendar>
-                        </td>
+                        </td> -->
                         <td class="text-center">
                             <input pInputText type="text" [(ngModel)]="items.GhiChu">
                         </td>
@@ -138,6 +138,12 @@
                                 (onChange)="gettonkho(item.idKhoNhap,newTableItem)"></p-dropdown>
                         </td>
                         <td>
+                            <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
+                                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
+                                [(ngModel)]="newTableItem.ThoiGianDuKien" inputId="icon" placeholder="dd/mm/yyyy">
+                            </p-calendar>
+                        </td>
+                        <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.TonKho"
                                 [disabled]="true">
                             </p-inputNumber>
@@ -147,15 +153,9 @@
                                 [(ngModel)]="newTableItem.SoLuongNhap">
                             </p-inputNumber>
                         </td>
-                        <td>
+                        <!-- <td>
                             <input pInputText type="text" [(ngModel)]="newTableItem.NguonNhap">
-                        </td>
-                        <td>
-                            <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
-                                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
-                                [(ngModel)]="newTableItem.ThoiGianDuKien" inputId="icon" placeholder="dd/mm/yyyy">
-                            </p-calendar>
-                        </td>
+                        </td> -->
                         <td>
                             <input pInputText type="text" [(ngModel)]="newTableItem.GhiChu">
                         </td>

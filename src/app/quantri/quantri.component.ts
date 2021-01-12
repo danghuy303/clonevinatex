@@ -440,7 +440,12 @@ export class QuantriComponent implements OnInit {
                         label: 'Công tơ',
                         routerLink: '/quantri/danhmucsanxuat/dmcongto',
                         command: () => this.close()
-                    },                                            
+                    },        
+                    // {
+                    //     label: 'Tiêu chí chất lượng sợi',
+                    //     routerLink: '/quantri/danhmucsanxuat/dmtieuchichatluongsoi',
+                    //     command: () => this.close()
+                    // },                 
                 ]
             },
             {
