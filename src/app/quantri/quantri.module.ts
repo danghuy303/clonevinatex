@@ -185,6 +185,8 @@ import { DinhmuctieuhaomodalComponent } from './danhmuc/danhmucsanxuat/modals/di
 import { VitriComponent } from './danhmuc/danhmucsanxuat/vitri/vitri.component';
 import { VitrimodalComponent } from './danhmuc/modal/vitrimodal/vitrimodal.component';
 import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuhanhsanxuattonghop.component';
+import { DmtieuchichatluongsoiComponent } from './danhmuc/dmtieuchichatluongsoi/dmtieuchichatluongsoi.component';
+import { DmtieuchichatluongsoimodalComponent } from './danhmuc/dmtieuchichatluongsoimodal/dmtieuchichatluongsoimodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -330,6 +332,8 @@ import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuha
     VitriComponent,
     VitrimodalComponent,
     DieuhanhsanxuattonghopComponent,
+    DmtieuchichatluongsoiComponent,
+    DmtieuchichatluongsoimodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -424,6 +428,7 @@ import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuha
     DmthongkedienmodalComponent,    
     DinhmuctieuhaomodalComponent,    
     VitrimodalComponent,
+    DmtieuchichatluongsoimodalComponent,
   ],
   providers: [
     SanXuatService,
