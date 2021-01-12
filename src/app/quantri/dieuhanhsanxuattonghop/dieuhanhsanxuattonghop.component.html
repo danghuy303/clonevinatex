@@ -68,8 +68,10 @@
                         </p-table>
                       </div>
                 </div>
-                <div class="p-col-12 p-xl-4 p-lg-4 p-p-3">
-                    biểu
+                <div class="p-col-12 p-xl-4 p-lg-4 p-p-3 text-left">
+                   <p *ngFor="let thongke of thongKes1">
+                       {{thongke.Ten}}
+                   </p>
                 </div>
             </div>
         </div>
