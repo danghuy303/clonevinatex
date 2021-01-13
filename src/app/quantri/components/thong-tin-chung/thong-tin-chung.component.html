@@ -123,15 +123,15 @@
         </div>
         <div class="p-col-12 p-lg-4 p-p-2">
             <label>Thời hạn sử dụng:</label>&nbsp;<span>{{item.TaiSanDat.ThoiHanSuDung}}
-                {{item.TaiSanDat.isSuDungLauDai?'':'năm'}}</span>
+                {{item.TaiSanDat.ThoiHanSuDung!==null?(item.TaiSanDat.isSuDungLauDai?'':'năm'):''}}</span>
         </div>
         <div class="p-col-12 p-lg-4 p-p-2" *ngIf="!item.TaiSanDat.isSuDungLauDai">
             <label>Thời hạn sử dụng từ
-                ngày:</label>&nbsp;<span>{{item.TaiSanDat.ThoiHanSuDungTuNgay|date:'dd/MM/yyyy'}}</span>
+                ngày:</label>&nbsp;<span>{{item.TaiSanDat.ThoiHanSuDungTuNgayUnix===0 ?'':item.TaiSanDat.ThoiHanSuDungTuNgay|date:'dd/MM/yyyy'}}</span>
         </div>
         <div class="p-col-12 p-lg-4 p-p-2" *ngIf="!item.TaiSanDat.isSuDungLauDai">
             <label>Thời hạn sử dụng đến
-                ngày:</label>&nbsp;<span>{{item.TaiSanDat.ThoiHanSuDungDenNgay|date:'dd/MM/yyyy'}}</span>
+                ngày:</label>&nbsp;<span>{{item.TaiSanDat.ThoiHanSuDungDenNgayUnix===0?'':item.TaiSanDat.ThoiHanSuDungDenNgay|date:'dd/MM/yyyy'}}</span>
         </div>
         <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column"
             *ngIf="!item.TaiSanDat.isSuDungLauDai && item.TaiSanDat.ThoiHanSuDung!==null&&item.TaiSanDat.ThoiHanSuDung!==undefined && item.TaiSanDat.ThoiHanSuDungTuNgay!== undefined&& item.TaiSanDat.ThoiHanSuDungDenNgay !== undefined && item.TaiSanDat.ThoiHanSuDungTuNgayUnix!== undefined&& item.TaiSanDat.ThoiHanSuDungDenNgayUnix !== undefined && item.TaiSanDat.ThoiHanSuDungTuNgayUnix!== null&& item.TaiSanDat.ThoiHanSuDungDenNgayUnix !== null && item.TaiSanDat.ThoiHanSuDungTuNgay!== null && item.TaiSanDat.ThoiHanSuDungDenNgay !== null">

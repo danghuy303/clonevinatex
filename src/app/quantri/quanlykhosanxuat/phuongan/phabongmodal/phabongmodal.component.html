@@ -74,10 +74,19 @@
                         <th rowspan="2" class="tc-w-121">
                             Số hợp đồng
                         </th>
-                        <th rowspan="2" class="tc-w-60">TLBQ Kiện</th>
+                        <th rowspan="2" class="tc-w-60">
+                            Giá bông
+                        </th>
+                        <th rowspan="2" class="tc-w-80">TLBQ Kiện</th>
+                        <th rowspan="2" class="tc-w-121">
+                            Giá USD / kiện
+                        </th>
+                        <th rowspan="2" class="tc-w-60">
+                            Neps bông
+                        </th>
                         <th colspan="9">Chất lượng bông</th>
-                        <th style="display: none;"></th>
-                        <th style="display: none;"></th>
+                        <!-- <th style="display: none;"></th>
+                        <th style="display: none;"></th> -->
                         <th rowspan="2" class="tc-w-60">Tồn đầu</th>
                         <th rowspan="2" class="tc-w-100">Số lượng dùng</th>
                         <th rowspan="2" class="tc-w-60">Tồn cuối</th>
@@ -109,7 +118,16 @@
                             {{lobong.SoHopDong}}
                         </td>
                         <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.TrongLuong}}</td>
+                            {{lobong.GiaBong|number:'0.0-3'}}
+                        </td>
+                        <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.TrongLuong|number:'0.2-2'}}</td>
+                        <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.GiaUSD|number:'0.0-2'}}
+                        </td>
+                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.NepsBong}}
+                        </td>
                         <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.Mic|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
@@ -146,19 +164,38 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="text-center tc-w-151"></td>
-                        <td class="text-center tc-w-121"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-151">
+                        </td>
+                        <td class="text-center tc-w-121">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-80">
+                        </td>
+                        <td class="text-center tc-w-121">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
                         <td class="text-center tc-w-100"> {{TongKhoiLuongDung|number:'0.2-4'}}</td>
                         <td class="text-center tc-w-60"></td>
                         <td class="text-center tc-w-80">{{TongTyLe|number:'0.2-4'}}</td>
@@ -169,21 +206,42 @@
                     </tr>
                     <tr>
                         <td class="text-center tc-w-151">Tổng kiện / bàn bông</td>
-                        <td class="text-center tc-w-121"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-100"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-80"></td>
+                        <td class="text-center tc-w-121">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-80">
+                        </td>
+                        <td class="text-center tc-w-121">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-100">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-80">
+                        </td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
                                 {{itemSoKienTrenBan[prop]}}
@@ -192,8 +250,16 @@
                     </tr>
                     <tr>
                         <td class="text-center tc-w-151">Bình quân bàn bông</td>
-                        <td class="text-center tc-w-121"></td>
-                        <td class="text-center tc-w-60"></td>
+                        <td class="text-center tc-w-121">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-80">
+                        </td>
+                        <td class="text-center tc-w-121">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
                         <td class="text-center tc-w-50">{{ChatLuongBinhQuan.Mic|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-60"></td>
@@ -214,22 +280,45 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="text-center tc-w-151"></td>
-                        <td class="text-center tc-w-121"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-100"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-80">Mic B/Q</td>
+                        <td class="text-center tc-w-151">
+                        </td>
+                        <td class="text-center tc-w-121">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-80">
+                        </td>
+                        <td class="text-center tc-w-121">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-100">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-80">
+                            Mic B/Q
+                        </td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
                                 {{itemMicBQ[prop]|number:'0.2-2'}}
@@ -237,51 +326,98 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="text-center tc-w-151"></td>
-                        <td class="text-center tc-w-121"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-100"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-80">+b</td>
-                        <td *ngFor="let prop of listProps" class="text-center tc-w-50">
-                            <div style="width: 100%;">
-                                {{itembBQ[prop]|number:'0.2-2'}}
-                            </div>
+                        <td class="text-center tc-w-151">
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center tc-w-151"></td>
-                        <td class="text-center tc-w-121"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-50"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-100"></td>
-                        <td class="text-center tc-w-60"></td>
-                        <td class="text-center tc-w-80">+b</td>
+                        <td class="text-center tc-w-121">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-80">
+                        </td>
+                        <td class="text-center tc-w-121">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-100">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-80">
+                            CVMic
+                        </td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
                                 {{itemCVMic[prop]|number:'0.2-2'}}
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="text-center tc-w-151">
+                        </td>
+                        <td class="text-center tc-w-121">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-80">
+                        </td>
+                        <td class="text-center tc-w-121">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-50">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-100">
+                        </td>
+                        <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-80">
+                            +b
+                        </td>
+                        <td *ngFor="let prop of listProps" class="text-center tc-w-50">
+                            <div style="width: 100%;">
+                                {{itembBQ[prop]|number:'0.2-2'}}
+                            </div>
+                        </td>
+                    </tr>
+
                 </tbody>
             </table>
         </div>

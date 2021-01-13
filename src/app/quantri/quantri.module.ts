@@ -188,6 +188,8 @@ import { CandoitonComponent } from './quanlykhosanxuat/quytrinh/candoiton/candoi
 import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuhanhsanxuattonghop.component';
 import { DmtieuchichatluongsoiComponent } from './danhmuc/dmtieuchichatluongsoi/dmtieuchichatluongsoi.component';
 import { DmtieuchichatluongsoimodalComponent } from './danhmuc/dmtieuchichatluongsoimodal/dmtieuchichatluongsoimodal.component';
+import { SanxuatComponent } from './quanlykhosanxuat/phuongan/sanxuat/sanxuat.component';
+import { SanxuatmodalComponent } from './quanlykhosanxuat/phuongan/sanxuatmodal/sanxuatmodal.component';
 import { DmphannhommayComponent } from './danhmuc/dmphannhommay/dmphannhommay.component';
 import { DmphannhommaymodalComponent } from './danhmuc/dmphannhommaymodal/dmphannhommaymodal.component';
 import { DmphannhommayChonmathangmodalComponent } from './danhmuc/dmphannhommay-chonmathangmodal/dmphannhommay-chonmathangmodal.component';
@@ -341,6 +343,8 @@ import { PhieudieuchinhmodalComponent } from './quanlykhosanxuat/quytrinh/phieud
     DieuhanhsanxuattonghopComponent,
     DmtieuchichatluongsoiComponent,
     DmtieuchichatluongsoimodalComponent,
+    SanxuatComponent,
+    SanxuatmodalComponent,
     DmphannhommayComponent,
     DmphannhommaymodalComponent,
     DmphannhommayChonmathangmodalComponent,

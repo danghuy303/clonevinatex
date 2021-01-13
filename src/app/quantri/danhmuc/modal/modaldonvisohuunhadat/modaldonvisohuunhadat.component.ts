@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Dat09Service } from 'src/app/services/callApi';
 import { vn } from 'src/app/services/const'
+import { DateToUnix, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-modaldonvisohuunhadat',
@@ -22,7 +23,7 @@ export class ModaldonvisohuunhadatComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.opt === 'edit') {
-      this.item.NgayCapGiayPhep = new Date(new Date(this.item.NgayCapGiayPhep).getFullYear(), new Date(this.item.NgayCapGiayPhep).getMonth(), new Date(this.item.NgayCapGiayPhep).getDate());
+      this.item.NgayCapGiayPhep = UnixToDate(this.item.NgayCapGiayPhepUnix);
     }
   }
 
@@ -30,6 +31,11 @@ export class ModaldonvisohuunhadatComponent implements OnInit {
     if (this.item.Ten === null || this.item.Ten === undefined || this.item.Ma === null || this.item.Ma === undefined || this.item.Ma.trim()===''|| this.item.Ten.trim()==='') {
       this.toastr.warning('Vui lòng nhập đầy đủ thông tin bắt buộc!');
       return;
+    }
+    if(validVariable(this.item.NgayCapGiayPhep)){
+      this.item.NgayCapGiayPhepUnix = DateToUnix(this.item.NgayCapGiayPhep);
+      console.log(this.item.NgayCapGiayPhepUnix);
+      console.log(this.item.NgayCapGiayPhep);
     }
     if(this.item.SoTaiKhoan != null && this.item.SoTaiKhoan != undefined){
       if(!(/^\d*$/.test(this.item.SoTaiKhoan))){
