@@ -282,15 +282,15 @@ export class TimbongmodalComponent implements OnInit {
     });
   }
   ChuyenDuyet() {
-    // this._services.TimBong().ChuyenTiep(this.SetData()).subscribe((res: any) => {
-    //   if (res) {
-    //     if (res.State === 1) {
-    //       this._toastr.success(res.message);
-    //       this._activeModal.close();
-    //     } else {
-    //       this._toastr.error(res.message);
-    //     }
-    //   }
-    // })
+    this._services.TimBong().ChuyenTiep(this.SetData()).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this._toastr.success(res.message);
+          this._activeModal.close();
+        } else {
+          this._toastr.error(res.message);
+        }
+      }
+    })
   }
 }

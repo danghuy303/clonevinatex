@@ -448,6 +448,7 @@ import { PhieudieuchinhmodalComponent } from './quanlykhosanxuat/quytrinh/phieud
     DmphannhommaymodalComponent,
     DmphannhommayChonmathangmodalComponent,   
     PhieudieuchinhmodalComponent,
+    SanxuatmodalComponent,
   ],
   providers: [
     SanXuatService,

@@ -26,6 +26,7 @@ export class SanxuatmodalComponent implements OnInit {
   itemMicBQ = {};
   itembBQ = {};
   itemCVMic = {};
+  itemCheckBan ={};
   itemSoKienTrenBanTruBongHoi = {};
   item: any = {
     Id: '',
