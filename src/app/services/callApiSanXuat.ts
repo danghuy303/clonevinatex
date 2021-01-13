@@ -909,4 +909,31 @@ export class SanXuatService {
             },
         }
     }
+    PhuongAnDieuChinhTimBong() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhuongAnDieuChinhTimBong', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListPhuongAnDieuChinhTimBong', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhuongAnDieuChinhTimBong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetPhuongAnDieuChinhTimBong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhuongAnDieuChinhTimBong', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhuongAnDieuChinhTimBong', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhuongAnDieuChinhTimBong', data, httpOptions)
+            },
+        }
+    }
 }

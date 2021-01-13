@@ -20,13 +20,8 @@ export class CandoitonComponent implements OnInit {
   trangThai:any=1;
   cols: any = [
     {
-      header: 'Mã',
-      field: 'Ma',
-      width: '150px'
-    },
-    {
-      header: 'Tên',
-      field: 'Ten',
+      header: 'Tên lô bông',
+      field: 'TenLoBong',
       width: '150px'
     },
     {
@@ -52,25 +47,56 @@ export class CandoitonComponent implements OnInit {
   
   getListDuAn(){
      this._service.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res:any)=>{
-       res.forEach(element => {
-        element.collspan = false;
-       });
-      this.listDuAn =  res;
-    })
+       res.filter(obj => {
+        obj.collspan = true;
+      });
+      this.listDuAn = res
+      this.listDuAn[0].collspan =  true;
+      console.log(this.listDuAn)
+      this.getListKho(res[0]);
+     })
   }
   getListKho(item){
     item.collspan=!item.collspan
     var data: any = {};
-    // data.IdDuAn = item.Id;
+    data.IdDuAn = item.Id;
     data.CurrentPage = 0;
-    data.Loai = 2;
+    // data.Loai = 2;
     this._service.GetListdmKho(data).subscribe((res:any)=>{
+      res.filter(obj => {
+        obj.select = false;
+      });
      this.listdmKho =  res;
    })
  }
   getListLuuKho(CurrentPage,item?, reset? ){
-    if(reset)
+    if(reset){
       this.dmKho = item;
+      this.listdmKho.forEach(element => {
+        element.select= false;
+      });
+      item.select = true;
+    }
+    if(this.dmKho.LoaiNhomKho == 1)
+    {
+      this.cols = [
+        {
+          header: 'Tên lô bông',
+          field: 'TenLoBong',
+          width: '150px'
+        },
+        {
+          header: 'Số cân',
+          field: 'SoLuong',
+          width: '150px'
+        },
+        {
+          header: 'Vị trí',
+          field: 'TendmViTri',
+          width: '150px'
+        },
+      ];
+    }
     this._service.getLuuKho(this.dmKho.Id, '', CurrentPage,'').subscribe((res:any)=>{
       this.items =  res.items;
       this.paging = res.paging;

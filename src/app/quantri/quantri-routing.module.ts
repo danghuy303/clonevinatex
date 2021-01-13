@@ -70,6 +70,7 @@ import { VitriComponent } from './danhmuc/danhmucsanxuat/vitri/vitri.component';
 import { CandoitonComponent } from './quanlykhosanxuat/quytrinh/candoiton/candoiton.component';
 import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuhanhsanxuattonghop.component';
 import { DmtieuchichatluongsoiComponent } from './danhmuc/dmtieuchichatluongsoi/dmtieuchichatluongsoi.component';
+import { PhieudieuchinhComponent } from './quanlykhosanxuat/quytrinh/phieudieuchinh/phieudieuchinh.component';
 
 const routes: Routes = [
   {
@@ -142,6 +143,7 @@ const routes: Routes = [
 
       { path: 'trienkhaisanxuat/phabong/:id', component: PhabongComponent },
       { path: 'trienkhaisanxuat/timbong/:id', component: TimbongComponent },
+      { path: 'trienkhaisanxuat/phieudieuchinh/:id', component: PhieudieuchinhComponent },
 
       { path: 'quanlykhosanxuat/:kho/nhapkho/:id', component: NhapkhoComponent},
       { path: 'quanlykhosanxuat/khobong/thongsochatluong/:id', component: ThongsochatluongComponent },

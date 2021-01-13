@@ -188,6 +188,8 @@ import { CandoitonComponent } from './quanlykhosanxuat/quytrinh/candoiton/candoi
 import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuhanhsanxuattonghop.component';
 import { DmtieuchichatluongsoiComponent } from './danhmuc/dmtieuchichatluongsoi/dmtieuchichatluongsoi.component';
 import { DmtieuchichatluongsoimodalComponent } from './danhmuc/dmtieuchichatluongsoimodal/dmtieuchichatluongsoimodal.component';
+import { PhieudieuchinhComponent } from './quanlykhosanxuat/quytrinh/phieudieuchinh/phieudieuchinh.component';
+import { PhieudieuchinhmodalComponent } from './quanlykhosanxuat/quytrinh/phieudieuchinhmodal/phieudieuchinhmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -336,6 +338,8 @@ import { DmtieuchichatluongsoimodalComponent } from './danhmuc/dmtieuchichatluon
     DieuhanhsanxuattonghopComponent,
     DmtieuchichatluongsoiComponent,
     DmtieuchichatluongsoimodalComponent,
+    PhieudieuchinhComponent,
+    PhieudieuchinhmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -431,6 +435,7 @@ import { DmtieuchichatluongsoimodalComponent } from './danhmuc/dmtieuchichatluon
     DinhmuctieuhaomodalComponent,    
     VitrimodalComponent,
     DmtieuchichatluongsoimodalComponent,
+    PhieudieuchinhmodalComponent,
   ],
   providers: [
     SanXuatService,
