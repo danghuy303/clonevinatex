@@ -200,4 +200,12 @@ export class MathangComponent implements OnInit {
     })
     .catch(er=>console.log(er))
   }
+  exportExcel(){
+    var dataSearch: any = {};
+    dataSearch.TableName = 'SCM_dmItem';
+    dataSearch.CurrentPage = 0;
+    this._services.Exportdm(dataSearch).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
+  }
 }

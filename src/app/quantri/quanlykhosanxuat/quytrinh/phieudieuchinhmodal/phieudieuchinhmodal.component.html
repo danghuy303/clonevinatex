@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} phiếu điều chuyển</h5>
+    <h5 class="modal-title">Phiếu điều chỉnh</h5>
     <!-- <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
@@ -34,23 +34,14 @@
 
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Kho điều chuyển:</label>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Phương án công nghệ:</label>
             <div class="p-col-12 p-lg-7 p-p-0">
-                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho điều chuyển" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmKho" (onChange)="item.listItem=[]"></p-dropdown>
-                
+                <input type="checkbox" [(ngModel)]="item.TenPhuongAnPhaBong" disabled>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho nhập:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho nhập" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmKhoKhac"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Ngày chứng từ:</label>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Ngày:</label>
             <div class="p-col-12 p-lg-7 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
@@ -58,29 +49,13 @@
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
-                <div>
-                    <button
-                       pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
-                       (click)="GetMatHangTheoKho()"></button>
-                </div>
-                <!-- <div>
-                    <div class="p-inputgroup">
-                    <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
-                        (keyup.enter)="chonThuaDat()" [(ngModel)]="filter.KeyWord" />
-                    <button type="button" pButton pRipple icon="pi pi-refresh"
-                        class="p-button-secondary p-button-sm p-button-text" (click)="chonThuaDat()"></button>
-                </div>
-                </div> -->
-                
-            </div>
             <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -90,23 +65,19 @@
                         <col>
                         <col>
                         <col>
-                        <col>
-                        <col>
-                        <col>
+                        <col style="width:50px">
                         <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
-                        <th>Lô bông</th>
-                        <th>Vị trí</th>
-                        <th>Mã</th>
-                        <th>Tên</th>
-                        <th>ĐVT</th>
-                        <th>Tồn kho</th>
-                        <th>Số lượng xuất</th>
-                        <th>Ghi chú</th>
+                        <th>Tên lô bông</th>
+                        <th>Kiện cũ</th>
+                        <th>Vị trí cũ</th>
+                        <th>Kiện mới</th>
+                        <th>Vị trí mới</th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </ng-template>
@@ -114,26 +85,20 @@
                     <tr *ngIf="item.editField !== true">
                         <td>{{i+1}}</td>
                         <td>{{item.TenLoBong}}</td>
-                        <td>{{item.TendmViTri}}</td>
-                        <td>{{item.Ma}}</td>
-                        <td>{{item.Ten}}</td>
-                        <td>{{item.DonViTinh}}</td>
+                        <td>{{item.SoKienCu}}</td>
+                        <td>{{item.IddmViTriCu}}</td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ton">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienMoi">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
-                            </p-inputNumber>
+                            <p-dropdown [filter]="true" [options]="listdmViTri" placeholder="Chọn vị trí" styleClass="p-inputtext-sm"
+                                [(ngModel)]="item.IddmViTriMoi"></p-dropdown>
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="item.GhiChu">
+                            <input type="checkbox" [(ngModel)]="item.GhiChu">
                         </td>
                         <td>
-                            <!-- <button pButton pRipple icon="pi pi-pencil"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                (click)="editChiTiet(item,i)" pTooltip="Sửa" showDelay="1000"
-                                tooltipPosition="bottom"></button> -->
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"

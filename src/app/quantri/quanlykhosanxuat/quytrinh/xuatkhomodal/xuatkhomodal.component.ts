@@ -6,7 +6,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
@@ -27,7 +27,7 @@ export class XuatkhomodalComponent implements OnInit {
   lang: any = vn;
   listKho: any = [];
   listPhanXuong: any = [];
-  editTableItem: any = {};
+  listPhuongAnPhaBong: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, 
     public toastr: ToastrService, public _modal: NgbModal) {  }
@@ -39,6 +39,20 @@ export class XuatkhomodalComponent implements OnInit {
     else{
       this.KiemTraButtonModal();
     }
+    
+    //
+    let data = {
+      CurrentPage: 0
+    }
+    this.services.PhuongAnPhaBong().GetList(data).subscribe((res:any)=>{
+      this.listPhuongAnPhaBong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+    this.services.GetListdmKho(data).subscribe((res:any)=>{
+      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+    this.services.GetListdmPhanXuong(data).subscribe((res:any)=>{
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -52,7 +66,7 @@ export class XuatkhomodalComponent implements OnInit {
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
     
-    this.services.PhieuBanGiaoBongXo().ChuyenTiep(this.item).subscribe((res: any) => {
+    this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();
@@ -63,7 +77,7 @@ export class XuatkhomodalComponent implements OnInit {
     })
   }
   GetNextSoQuyTrinh() {
-    this.services.PhieuBanGiaoBongXo().GetNextSo().subscribe((res: any) => {
+    this.services.PhieuXuatSanXuat().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
@@ -74,7 +88,7 @@ export class XuatkhomodalComponent implements OnInit {
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
 
-      this.services.PhieuBanGiaoBongXo().Set(this.item).subscribe((res: any) => {
+      this.services.PhieuXuatSanXuat().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -94,7 +108,7 @@ export class XuatkhomodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this.services.PhieuBanGiaoBongXo().Delete(this.item).subscribe((res: any) => {
+      this.services.PhieuXuatSanXuat().Delete(this.item).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
@@ -113,8 +127,9 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
+  
   GetLuuKho(sFilter) {
-    this.services.getLuuKho(this.item.IddmKho, 0 , sFilter).subscribe((res1: any) => {
+    this.services.getLuuKho(this.item.IddmKho,'', 0 , sFilter).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
@@ -127,20 +142,5 @@ export class XuatkhomodalComponent implements OnInit {
         // không
       });
     })
-  }
-  editChiTiet(item, index) {
-    this.item.listItem.forEach(element => {
-      element.editField = false;
-    });
-    this.item.listItem[index].editField = true;
-    this.editTableItem = deepCopy(item);
-  }
-  
-  saveEdit(item, index){
-    this.item.listItem[index] = item;
-    this.item.listItem[index].editField = false;
-  }
-  cancelEdit(item, index){
-    this.item.listItem[index].editField = false;
   }
 }

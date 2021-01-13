@@ -70,7 +70,7 @@ export class ChatluongsoiComponent implements OnInit {
     this.GetListQuyTrinh()
   }
   changeParam(id){
-    this.router.navigate([`quantri/quanlykhokhohoiam/khohoiam/chatluongsoi/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/quanlysanxuatkhohoiam/khohoiam/chatluongsoi/${id}`],{replaceUrl: true})
   }
   add(){
     this.changeParam(0);

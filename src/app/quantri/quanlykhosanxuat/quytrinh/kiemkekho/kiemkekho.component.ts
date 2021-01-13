@@ -22,13 +22,23 @@ export class KiemkekhoComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Số quy trình',
-      field: 'SoQuyTrinh',
-      width: '150px'
+      header: 'Tên kho',
+      field: 'TendmKho',
+      width: '200px'
+    },
+    {
+      header: 'Vị trí',
+      field: 'TendmViTri',
+      width: '200px'
     },
     {
       header: 'Nội dung',
       field: 'NoiDung',
+      width: '200px'
+    },
+    {
+      header: 'Ghi chú',
+      field: 'GhiChu',
       width: '200px'
     },
     {
@@ -38,34 +48,6 @@ export class KiemkekhoComponent implements OnInit {
     }
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-  colsQuyTrinh: any = [
-    {
-      header: 'Ngày nhận',
-      field: 'NgayKhoiTao',
-      width: '150px'
-    },
-    {
-      header: 'Ngày chuyển',
-      field: 'SoQuyTrinh',
-      width: '150px'
-    },
-    {
-      header: 'Thời gian xử lý',
-      field: 'DiaChi',
-      width: '200px'
-    },
-    {
-      header: 'Bộ phận xử lý',
-      field: 'DienTich',
-      width: '150px'
-    },
-    {
-      header: 'Nội dung xử lý',
-      field: 'HienTrangSuDung',
-      width: '400px'
-    },
-  ];
-
 
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
@@ -114,8 +96,8 @@ export class KiemkekhoComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event){
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?){
     if (reset) {

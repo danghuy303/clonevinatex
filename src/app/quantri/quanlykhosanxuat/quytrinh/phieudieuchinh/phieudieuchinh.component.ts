@@ -3,21 +3,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { NhapkhothanhphammodalComponent } from '../nhapkhothanhphammodal/nhapkhothanhphammodal.component';
+import { PhieudieuchinhmodalComponent } from '../phieudieuchinhmodal/phieudieuchinhmodal.component';
 
 @Component({
-  selector: 'app-nhapkhothanhpham',
-  templateUrl: './nhapkhothanhpham.component.html',
-  styleUrls: ['./nhapkhothanhpham.component.css']
+  selector: 'app-phieudieuchinh',
+  templateUrl: './phieudieuchinh.component.html',
+  styleUrls: ['./phieudieuchinh.component.css']
 })
-export class NhapkhothanhphamComponent implements OnInit {
+export class PhieudieuchinhComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  eAction: any = "PHIEUNHAPTHANHPHAM";
+  eAction: any = "PHIEUNHAPLOBONG";
   cols: any = [
     {
       header: 'Số quy trình',
@@ -25,61 +25,77 @@ export class NhapkhothanhphamComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Tên kho',
-      field: 'TendmKho',
+      header: 'Mã PO/Hợp đồng',
+      field: 'SoHopDong',
       width: 'unset'
     },
     {
-      header: 'Tên kho nhập',
-      field: 'TendmKho',
+      header: 'Lô bông',
+      field: 'TenLoBong',
       width: 'unset'
     },
     {
-      header: 'Trạng thái',
-      field: 'TenTrangThai',
+      header: 'Loại bông',
+      field: 'TendmLoaiBong',
       width: 'unset'
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  title: any = "";
+  type: any = "";
+  nametype: any = "";
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, 
+    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
+     }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
+    this.activatedRoute.params.subscribe((res:any)=>{
+      console.log(res.id)
+      if(res.id!=='0'){
+        this.update(res.id);
+      }
+    })
+    this.GetListQuyTrinh();
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh()
   }
+  
   changeParam(id) {
-    if (this._modal.hasOpenModals()) {
+    if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlysanxuatkhothanhpham/khothanhpham/nhapkho/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/trienkhaisanxuat/phieudieuchinh/${id}`], { replaceUrl: true })
   }
-  addPhieuBong() {
+  
+  add() {
     this.changeParam(0);
-    let modalRef = this._modal.open(NhapkhothanhphammodalComponent, {
+    let modalRef = this._modal.open(PhieudieuchinhmodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.type = 'bong';
-    modalRef.componentInstance.nametype = 'kho thành phẩm';
+
+    modalRef.componentInstance.type = this.type;
+    modalRef.componentInstance.nametype = this.nametype;
+    
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
+ 
   update(Id) {
     this.changeParam(Id);
-    this._service.PhieuNhapThanhPham().Get(Id).subscribe((res1: any) => {
-      let modalRef = this._modal.open(NhapkhothanhphammodalComponent, {
+    this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
+      let modalRef = this._modal.open(PhieudieuchinhmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.nametype = 'kho thành phẩm';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
+      modalRef.componentInstance.type = this.type;
+      modalRef.componentInstance.nametype = this.nametype;
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
       })
@@ -99,7 +115,7 @@ export class NhapkhothanhphamComponent implements OnInit {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
-    let data = {
+    let data: any = {
       PageSize: 25,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
@@ -109,7 +125,8 @@ export class NhapkhothanhphamComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.PhieuNhapThanhPham().GetList(data).subscribe((res: any) => {
+
+    this._service.PhuongAnDieuChinhTimBong().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })
@@ -124,5 +141,4 @@ export class NhapkhothanhphamComponent implements OnInit {
     //   this.GetListQuyTrinh();
     // })
   }
-
 }

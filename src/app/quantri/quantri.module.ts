@@ -21,7 +21,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { GalleriaModule } from 'primeng/galleria';
 import { FileUploadModule } from 'ng2-file-upload';
 import {PasswordModule} from 'primeng/password';
-// import { DialogModule } from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';
 import {MenuModule} from 'primeng/menu';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
@@ -184,12 +184,15 @@ import { DinhmuctieuhaoComponent } from './danhmuc/danhmucsanxuat/dinhmuctieuhao
 import { DinhmuctieuhaomodalComponent } from './danhmuc/danhmucsanxuat/modals/dinhmuctieuhaomodal/dinhmuctieuhaomodal.component';
 import { VitriComponent } from './danhmuc/danhmucsanxuat/vitri/vitri.component';
 import { VitrimodalComponent } from './danhmuc/modal/vitrimodal/vitrimodal.component';
+import { CandoitonComponent } from './quanlykhosanxuat/quytrinh/candoiton/candoiton.component';
 import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuhanhsanxuattonghop.component';
 import { DmtieuchichatluongsoiComponent } from './danhmuc/dmtieuchichatluongsoi/dmtieuchichatluongsoi.component';
 import { DmtieuchichatluongsoimodalComponent } from './danhmuc/dmtieuchichatluongsoimodal/dmtieuchichatluongsoimodal.component';
 import { DmphannhommayComponent } from './danhmuc/dmphannhommay/dmphannhommay.component';
 import { DmphannhommaymodalComponent } from './danhmuc/dmphannhommaymodal/dmphannhommaymodal.component';
 import { DmphannhommayChonmathangmodalComponent } from './danhmuc/dmphannhommay-chonmathangmodal/dmphannhommay-chonmathangmodal.component';
+import { PhieudieuchinhComponent } from './quanlykhosanxuat/quytrinh/phieudieuchinh/phieudieuchinh.component';
+import { PhieudieuchinhmodalComponent } from './quanlykhosanxuat/quytrinh/phieudieuchinhmodal/phieudieuchinhmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -334,12 +337,15 @@ import { DmphannhommayChonmathangmodalComponent } from './danhmuc/dmphannhommay-
     DinhmuctieuhaomodalComponent,
     VitriComponent,
     VitrimodalComponent,
+    CandoitonComponent,
     DieuhanhsanxuattonghopComponent,
     DmtieuchichatluongsoiComponent,
     DmtieuchichatluongsoimodalComponent,
     DmphannhommayComponent,
     DmphannhommaymodalComponent,
     DmphannhommayChonmathangmodalComponent,
+    PhieudieuchinhComponent,
+    PhieudieuchinhmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -360,7 +366,7 @@ import { DmphannhommayChonmathangmodalComponent } from './danhmuc/dmphannhommay-
     TabViewModule,
     PanelModule,
     DynamicDialogModule,
-    // DialogModule,
+    DialogModule,
     CalendarModule,
     InputNumberModule,
     FileUploadModule,
@@ -437,6 +443,7 @@ import { DmphannhommayChonmathangmodalComponent } from './danhmuc/dmphannhommay-
     DmtieuchichatluongsoimodalComponent,
     DmphannhommaymodalComponent,
     DmphannhommayChonmathangmodalComponent,   
+    PhieudieuchinhmodalComponent,
   ],
   providers: [
     SanXuatService,
