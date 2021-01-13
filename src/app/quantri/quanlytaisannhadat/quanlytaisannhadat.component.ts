@@ -228,15 +228,8 @@ export class QuanlytaisannhadatComponent implements OnInit {
       modalRef.componentInstance.item.TaiSanDat.NgayCapGPKD = UnixToDate(res.TaiSanDat.NgayCapGPKDUnix);
       modalRef.componentInstance.item.TaiSanDat.NgayKyGiaoDat = UnixToDate(res.TaiSanDat.NgayKyGiaoDatUnix);
       modalRef.componentInstance.item.TaiSanDat.NgayCapGPKDBydmDonViSHD = UnixToDate(res.TaiSanDat.NgayCapGPKDBydmDonViSHDUnix);
-      if (res.TaiSanDat.ThoiHanSuDungTuNgay != null && res.TaiSanDat.ThoiHanSuDungTuNgay != undefined) {
-        var thoiGianSuDungTuNgay = new Date(res.TaiSanDat.ThoiHanSuDungTuNgay);
-        modalRef.componentInstance.item.TaiSanDat.ThoiHanSuDungTuNgay = new Date(thoiGianSuDungTuNgay.getFullYear(), thoiGianSuDungTuNgay.getMonth(), thoiGianSuDungTuNgay.getDate());
-      }
-      if (res.TaiSanDat.ThoiHanSuDungDenNgay != null && res.TaiSanDat.ThoiHanSuDungDenNgay != undefined) {
-        var thoiGianSuDungDenNgay = new Date(res.TaiSanDat.ThoiHanSuDungDenNgay);
-        modalRef.componentInstance.item.TaiSanDat.ThoiHanSuDungDenNgay = new Date(thoiGianSuDungDenNgay.getFullYear(), thoiGianSuDungDenNgay.getMonth(), thoiGianSuDungDenNgay.getDate());
-      }
-
+      modalRef.componentInstance.item.TaiSanDat.ThoiHanSuDungTuNgay = UnixToDate(res.TaiSanDat.ThoiHanSuDungTuNgayUnix);
+      modalRef.componentInstance.item.TaiSanDat.ThoiHanSuDungDenNgay = UnixToDate(res.TaiSanDat.ThoiHanSuDungDenNgayUnix);
       modalRef.result.then((res: any) => {
         this._toast.success('Cập nhật thành công');
         this.GetListTaiSanDat(item.ID);
@@ -321,7 +314,7 @@ export class QuanlytaisannhadatComponent implements OnInit {
         }
       })
     } else {
-      this._services.ExportExcelBaoCaoTaiSanDat({}).subscribe((res: any) => {
+      this._services.ExportExcelBaoCaoTaiSanDat({IsDaBan:this.DaBan}).subscribe((res: any) => {
         if (res?.Error?.State === 1) {
           this._services.download(res.FileName);
         } else {

@@ -36,7 +36,7 @@ export class ModaldmdonviComponent implements OnInit {
       this.listDanhMucDonVi = res;
       res.unshift({ ID: null, Ten: 'Gốc' })
       if (this.opt === 'edit') {
-        this.item.NgayCapGiayPhepKinhDoanh = new Date(new Date(this.item.NgayCapGiayPhepKinhDoanh).getFullYear(), new Date(this.item.NgayCapGiayPhepKinhDoanh).getMonth(), new Date(this.item.NgayCapGiayPhepKinhDoanh).getDate() + 1);
+        this.item.NgayCapGiayPhepKinhDoanh = UnixToDate(this.item.NgayCapGiayPhepKinhDoanhUnix);
         if (this.item.IDParent !== null && this.item.IDParent !== 0) {
           var parent = this.listDanhMucDonVi.filter(ele => ele.ID === this.item.IDParent)[0];
           if (parent != null && parent != undefined) {

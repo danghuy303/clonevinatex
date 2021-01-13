@@ -187,6 +187,8 @@ import { VitrimodalComponent } from './danhmuc/modal/vitrimodal/vitrimodal.compo
 import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuhanhsanxuattonghop.component';
 import { DmtieuchichatluongsoiComponent } from './danhmuc/dmtieuchichatluongsoi/dmtieuchichatluongsoi.component';
 import { DmtieuchichatluongsoimodalComponent } from './danhmuc/dmtieuchichatluongsoimodal/dmtieuchichatluongsoimodal.component';
+import { SanxuatComponent } from './quanlykhosanxuat/phuongan/sanxuat/sanxuat.component';
+import { SanxuatmodalComponent } from './quanlykhosanxuat/phuongan/sanxuatmodal/sanxuatmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -334,6 +336,8 @@ import { DmtieuchichatluongsoimodalComponent } from './danhmuc/dmtieuchichatluon
     DieuhanhsanxuattonghopComponent,
     DmtieuchichatluongsoiComponent,
     DmtieuchichatluongsoimodalComponent,
+    SanxuatComponent,
+    SanxuatmodalComponent,
   ],
   imports: [
     HttpClientModule,

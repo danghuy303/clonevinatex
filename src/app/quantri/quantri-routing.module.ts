@@ -69,13 +69,14 @@ import { DinhmuctieuhaoComponent } from './danhmuc/danhmucsanxuat/dinhmuctieuhao
 import { VitriComponent } from './danhmuc/danhmucsanxuat/vitri/vitri.component';
 import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuhanhsanxuattonghop.component';
 import { DmtieuchichatluongsoiComponent } from './danhmuc/dmtieuchichatluongsoi/dmtieuchichatluongsoi.component';
+import { SanxuatComponent } from './quanlykhosanxuat/phuongan/sanxuat/sanxuat.component';
 
 const routes: Routes = [
   {
     path: '', component: QuantriComponent,
     children: [
-      //dieuhanhsanxuat dashboard
-      { path: '', redirectTo: 'dieuhanhsanxuattonghop', pathMatch: 'full' },
+      //quantrisanxuat/tonghop dashboard
+      { path: '', redirectTo: 'quantrisanxuat/tonghop', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'quanlytaisannhadat', component: QuanlytaisannhadatComponent },
       { path: 'sapxepxuly/yeucau', component: YeucausapxepComponent },
@@ -110,10 +111,10 @@ const routes: Routes = [
       { path: 'theodoithongkebaocao/baocaochitietcaccoso', component: BaocaochitietcaccosoComponent },
       { path: 'theodoithongkebaocao/baocaodonvi', component: BaocaotaichinhComponent },
 
-      { path: 'dieuhanhsanxuatnguyenlieu', component: DieuhanhsanxuatComponent },
-      { path: 'dieuhanhsanxuattonghop', component: DieuhanhsanxuattonghopComponent },
-      { path: 'dieuhanhsanxuatchatluong', component: DieuhanhsanxuatComponent },
-      { path: 'dieuhanhsanxuatsanluong', component: DieuhanhsanxuatComponent },
+      { path: 'quantrisanxuat/nguyenlieu', component: DieuhanhsanxuatComponent },
+      { path: 'quantrisanxuat/tonghop', component: DieuhanhsanxuattonghopComponent },
+      { path: 'quantrisanxuat/chatluong', component: DieuhanhsanxuatComponent },
+      { path: 'quantrisanxuat/sanluong', component: DieuhanhsanxuatComponent },
 
 
       { path: 'baocaosanxuat/sanluongtonghop', component: SanluongtonghopComponent },
@@ -141,6 +142,7 @@ const routes: Routes = [
 
       { path: 'trienkhaisanxuat/phabong/:id', component: PhabongComponent },
       { path: 'trienkhaisanxuat/timbong/:id', component: TimbongComponent },
+      { path: 'trienkhaisanxuat/sanxuat/:id', component: SanxuatComponent },
 
       { path: 'quanlykhosanxuat/:kho/nhapkho/:id', component: NhapkhoComponent},
       { path: 'quanlykhosanxuat/khobong/thongsochatluong/:id', component: ThongsochatluongComponent },

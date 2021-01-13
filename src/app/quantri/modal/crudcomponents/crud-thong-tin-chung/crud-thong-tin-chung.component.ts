@@ -4,7 +4,7 @@ import { ModalGiaDatComponent } from '../../modal-gia-dat/modal-gia-dat.componen
 import { vn } from 'src/app/services/const'
 import { Dat09Service } from 'src/app/services/callApi';
 import { ToastrService } from 'ngx-toastr';
-import { nhapTen, readNum, UnixToDate, validVariable, vietHoaChuCaiDau } from 'src/app/services/globalfunction';
+import { DateToUnix, nhapTen, readNum, UnixToDate, validVariable, vietHoaChuCaiDau } from 'src/app/services/globalfunction';
 @Component({
   selector: 'app-crud-thong-tin-chung',
   templateUrl: './crud-thong-tin-chung.component.html',
@@ -120,12 +120,12 @@ export class CrudThongTinChungComponent implements OnInit, DoCheck {
       }
     }
   }
-  changeLauDai(event){
-    if(event.checked){
+  changeLauDai(event) {
+    if (event.checked) {
       this.item.TaiSanDat.ThoiHanSuDung = 'Lâu dài';
       this.item.TaiSanDat.ThoiHanSuDungTuNgay = undefined;
       this.item.TaiSanDat.ThoiHanSuDungDenNgay = undefined;
-    }else{
+    } else {
       this.item.TaiSanDat.ThoiHanSuDung = null;
     }
   }
@@ -166,7 +166,7 @@ export class CrudThongTinChungComponent implements OnInit, DoCheck {
     this.item.TaiSanDat.DienTich = event;
     this.item.TaiSanDat.DienTichBangChu = vietHoaChuCaiDau(readNum(event, ' mét vuông'))
   }
-  changeDenNgay(){
+  changeDenNgay() {
     this.item.TaiSanDat.ThoiHanSuDungTuNgay = null;
     this.item.TaiSanDat.ThoiHanSuDung = null;
   }
@@ -356,8 +356,8 @@ export class CrudThongTinChungComponent implements OnInit, DoCheck {
     modalRef.componentInstance.listGiaDat = JSON.parse(JSON.stringify(this.item.GiaDats.sort((a, b) => b.Nam - a.Nam).map(giadat => {
       return {
         ...giadat,
-        TuNgay : UnixToDate(giadat.TuNgayUnix),
-        DenNgay : UnixToDate(giadat.DenNgayUnix)
+        TuNgay: UnixToDate(giadat.TuNgayUnix),
+        DenNgay: UnixToDate(giadat.DenNgayUnix)
       }
 
     })));
@@ -380,8 +380,8 @@ export class CrudThongTinChungComponent implements OnInit, DoCheck {
 
     if (this.thoiHanSuDungTuNgay == false) {
       var tuNgay = this.item.TaiSanDat.ThoiHanSuDungTuNgay;
-      this.item.TaiSanDat.ThoiHanSuDungDenNgay = new Date(new Date(tuNgay).getFullYear() + aValue, new Date(tuNgay).getMonth(), new Date(tuNgay).getDate());
-
+      this.item.TaiSanDat.ThoiHanSuDungDenNgay = new Date(new Date(tuNgay).getFullYear() + aValue, new Date(tuNgay).getMonth(), new Date(tuNgay).getDate(), 0, 0, 0, 0);
+      console.log(this.item.TaiSanDat.ThoiHanSuDungDenNgay);
     }
     this.thoiHanSuDungTuNgay = false;
     // Để phần if này ở cuối nhé vì có return đấy
@@ -389,32 +389,33 @@ export class CrudThongTinChungComponent implements OnInit, DoCheck {
   }
 
   onThoiHanSuDungTuNgay(aValue) {
-    console.log(this.item.TaiSanDat.ThoiHanSuDung)
     if (aValue == null || aValue == undefined) {
       return false;
     }
 
     var thoiHanSuDung = this.item.TaiSanDat.ThoiHanSuDung;
-    this.item.TaiSanDat.ThoiHanSuDungDenNgay = new Date(new Date(aValue).getFullYear() + parseInt(thoiHanSuDung), new Date(aValue).getMonth(), new Date(aValue).getDate());
+    this.item.TaiSanDat.ThoiHanSuDungDenNgay = new Date(new Date(aValue).getFullYear() + parseInt(thoiHanSuDung), new Date(aValue).getMonth(), new Date(aValue).getDate(), 0, 0, 0, 0);
+    console.log(DateToUnix(this.item.TaiSanDat.ThoiHanSuDungDenNgay));
+    console.log(DateToUnix(aValue));
     // Để phần if này ở cuối nhé vì có return đấy
     this.setProgressBar(aValue, this.item.TaiSanDat.ThoiHanSuDungDenNgay, thoiHanSuDung);
   }
-  tinhMatDoXayDungThucTe(){
-    if(this.item.TaiSanDat.IsDienTichSan){
+  tinhMatDoXayDungThucTe() {
+    if (this.item.TaiSanDat.IsDienTichSan) {
       this.item.TaiSanDat.MatDoXayDungThucTe = 100;
-    }else{
-      if(this.item.TaiSanDatNhas.length!==0 && validVariable(this.item.TaiSanDat.DienTich)){
-        this.item.TaiSanDat.MatDoXayDungThucTe = this.item.TaiSanDatNhas.reduce((Tong,curr)=>{
-          if(validVariable(curr.DienTichXayDung)){
-            return Tong+=curr.DienTichXayDung;
+    } else {
+      if (this.item.TaiSanDatNhas.length !== 0 && validVariable(this.item.TaiSanDat.DienTich)) {
+        this.item.TaiSanDat.MatDoXayDungThucTe = this.item.TaiSanDatNhas.reduce((Tong, curr) => {
+          if (validVariable(curr.DienTichXayDung)) {
+            return Tong += curr.DienTichXayDung;
           }
-        },0)/(this.item.TaiSanDat.DienTich)*100
-      }else{
+        }, 0) / (this.item.TaiSanDat.DienTich) * 100
+      } else {
         this.item.TaiSanDat.MatDoXayDungThucTe = null;
       }
     }
   }
-  LoaiDienTich(loai:boolean){
+  LoaiDienTich(loai: boolean) {
     this.item.TaiSanDat.IsDienTichSan = loai;
   }
 }

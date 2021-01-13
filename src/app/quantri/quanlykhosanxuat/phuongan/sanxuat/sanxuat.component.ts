@@ -3,15 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, deepCopy } from 'src/app/services/globalfunction';
-import { TimbongmodalComponent } from '../timbongmodal/timbongmodal.component';
+import { deepCopy, DateToUnix } from 'src/app/services/globalfunction';
+import { SanxuatmodalComponent } from '../sanxuatmodal/sanxuatmodal.component';
 
 @Component({
-  selector: 'app-timbong',
-  templateUrl: './timbong.component.html',
-  styleUrls: ['./timbong.component.css']
+  selector: 'app-sanxuat',
+  templateUrl: './sanxuat.component.html',
+  styleUrls: ['./sanxuat.component.css']
 })
-export class TimbongComponent implements OnInit {
+export class SanxuatComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   filter: any = {};
@@ -43,7 +43,7 @@ export class TimbongComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== '0') {
-        this._service.TimBong().Get(res.id).subscribe((res: any) => {
+        this._service.SanXuat().Get(res.id).subscribe((res: any) => {
           console.log(res);
           // res.listItem.forEach(ele => {
           //   ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
@@ -60,7 +60,7 @@ export class TimbongComponent implements OnInit {
   }
   add() {
     this.changeParam(0);
-    let modalRef = this._modal.open(TimbongmodalComponent, {
+    let modalRef = this._modal.open(SanxuatmodalComponent, {
       size: 'fullscreen-100',
       backdrop: 'static',
       keyboard:false
@@ -89,7 +89,7 @@ export class TimbongComponent implements OnInit {
   update(item) {
     let tempPhuongAnPhaBong = deepCopy(item.PhuongAnPhaBong);
     item.PhuongAnPhaBong = undefined;
-    let modalRef = this._modal.open(TimbongmodalComponent, {
+    let modalRef = this._modal.open(SanxuatmodalComponent, {
       size: 'fullscreen-100',
       backdrop: 'static',
       keyboard:false
@@ -131,7 +131,7 @@ export class TimbongComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.TimBong().GetList(data).subscribe((res: any) => {
+    this._service.SanXuat().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })

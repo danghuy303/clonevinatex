@@ -46,8 +46,10 @@ export class QuantriComponent implements OnInit {
         }
     }
     getListNhaMay() {
-        this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: Array<any>) => {
+        console.log(this.userInfo);
+        this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
             this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", 'Id');
+            console.log(res);
             this.IdNhaMay = res[0].Id;
             this.setGlobalNhaMay({ value: res[0].Id })
         })
@@ -62,12 +64,12 @@ export class QuantriComponent implements OnInit {
         this.menuQLNS = [
             {
                 label: 'Quản trị sản xuất',
-                routerLink: '/quantri',
+                routerLink: '/quantri/quantrisanxuat',
                 icon: 'fas fa-warehouse',
                 items:[
                     {
                         label: 'Tổng hợp',
-                        routerLink: '/quantri/dieuhanhsanxuattonghop',
+                        routerLink: '/quantri/quantrisanxuat/tonghop',
                         icon: 'fas fa-circle',
                         command: () => {
                             this.close()
@@ -75,7 +77,7 @@ export class QuantriComponent implements OnInit {
                     },
                     {
                         label: 'Nhu cầu & sản lượng',
-                        routerLink: '/quantri/dieuhanhsanxuatnguyenlieu',
+                        routerLink: '/quantri/quantrisanxuat/nguyenlieu',
                         icon: 'fas fa-circle',
                         command: () => {
                             this.close()
@@ -143,6 +145,11 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Tìm bông',
                         routerLink: '/quantri/trienkhaisanxuat/timbong/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Sản xuất',
+                        routerLink: '/quantri/trienkhaisanxuat/sanxuat/0',
                         command: () => this.close()
                     },
                 ]
