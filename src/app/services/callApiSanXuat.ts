@@ -821,7 +821,7 @@ export class SanXuatService {
             //     return this.http.get(url + 'GetNextSoQuyTrinhGiaoKeHoachSanXuat', httpOptions);
             // },
             GetList: (data) => {
-                return this.http.post(url + 'GetListPhuongAnTimBong', data, httpOptions);
+                return this.http.post(url + 'GetListPhuongAnSanXuat', data, httpOptions);
             },
             Get: (Id) => {
                 return this.http.get(url + `GetPhuongAnTimBong?Id=${Id}`, httpOptions);
