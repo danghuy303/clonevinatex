@@ -19,16 +19,6 @@ export class MathangmodelComponent implements OnInit {
   listLoaiSoi: any = [];
   listItem: any = [];
   editTableItem: any = {};
-  listDacTinhSoi: any = [
-    {
-      Ma:'CC',
-      Ten:'CC',
-    },
-    {
-      Ma:'CF',
-      Ten:'CF',
-    }
-  ];
   khongclicknhieu: any = false;
   constructor(public activeModal: NgbActiveModal,
     private services: SanXuatService,
@@ -36,8 +26,6 @@ export class MathangmodelComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListLoaiSoi();
-    this.listDacTinhSoi = mapArrayForDropDown(this.listDacTinhSoi, 'Ten', 'Ma');
-    console.log(this.listDacTinhSoi)
   }
 
   getListLoaiSoi() {

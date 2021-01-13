@@ -154,7 +154,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     this.activeModal.close();
   }
   GetMatHangTheoKho() {
-    this._services.getLuuKho(this.item.IddmKhoHoiAm, 0, '').subscribe((res1: any) => {
+    this._services.getLuuKho(this.item.IddmKhoHoiAm,'', 0, '').subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'

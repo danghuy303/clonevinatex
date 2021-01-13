@@ -42,14 +42,14 @@
                 <col style="width:50px">
                 <col>
                 <col>
-                <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
+                <col *ngFor="let col of cols">
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">STT</th>
-                <th>Đơn vị</th>
+                <th>Số quy trình</th>
                 <th>Ngày khởi tạo</th>
                 <th *ngFor="let header of cols">
                     {{header.header}}
@@ -62,14 +62,14 @@
                 <td class="text-center">
                     {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
-                <td class="text-center"></td>
+                <td class="text-center">{{item.SoQuyTrinh}}</td>
                 <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.id)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item)"></button>
                 </td>
             </tr>
         </ng-template>

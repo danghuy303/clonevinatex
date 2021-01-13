@@ -1,5 +1,6 @@
 <div class="modal-header">
-    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} phiếu nhập {{nametype}}</h5>
+    <!-- <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} phiếu nhập {{nametype}}</h5> -->
+    <h5 class="modal-title">Phiếu nhập {{nametype}}</h5>
     <!-- <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
@@ -38,8 +39,8 @@
     </div>
     <div class="p-grid"> 
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label *ngIf="this.type!=='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông:</label>
-            <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại xơ:</label>
+            <label *ngIf="this.type!=='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông <span class="text-danger">*</span>:</label>
+            <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại xơ <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0" *ngIf="this.type!=='bonghoi'">
                 <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" styleClass="p-inputtext-sm"
                 [(ngModel)]="item.IddmLoaiBong"></p-dropdown>
@@ -51,8 +52,8 @@
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
         *ngIf="this.type!=='bonghoi'">
-            <label *ngIf="this.type!=='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp bông:</label>
-            <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp xơ:</label>
+            <label *ngIf="this.type!=='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp bông <span class="text-danger">*</span>:</label>
+            <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp xơ <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCapBong" placeholder="Chọn cấp" styleClass="p-inputtext-sm"
                   [(ngModel)]="item.IddmCapBong"></p-dropdown>
@@ -76,13 +77,6 @@
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
-        *ngIf="this.type==='bong'||this.type==='xo'">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoHopDong" pInputText />
-            </div>
-        </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -90,10 +84,24 @@
                 styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row" *ngIf="this.type==='bong'||this.type==='xo'">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Đơn giá trung bình 1 kho:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonGiaTrungBinh" pInputText />
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
+        *ngIf="this.type==='bong'||this.type==='xo'">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoHopDong" pInputText />
+            </div>
+        </div>
+       
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="this.type==='bong'||this.type==='xo'">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đơn giá BQ/Kiện:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonGia" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
@@ -120,7 +128,7 @@
                         <th>Số kiện (kiện)</th>
                         <th>Số kiện ngắn (kiện)</th>
                         <th>Số kiện dài (kiện)</th>
-                        <th>Vị trí</th>
+                        <th>Vị trí <span class="text-danger">*</span></th>
                         <th style="width: 100px;"></th>
                     </tr>
                 </ng-template>
@@ -198,7 +206,7 @@
                         <td>
                             <!-- <input pInputText type="text" [(ngModel)]="newTableItem.ViTri"> -->
                             <p-dropdown [filter]="true" [options]="listdmViTri" placeholder="Chọn vị trí" styleClass="p-inputtext-sm"
-                                    [(ngModel)]="item.IddmViTri"></p-dropdown>
+                                    [(ngModel)]="newTableItem.IddmViTri"></p-dropdown>
                         </td>
                         <td class="text-center">
                             <button pButton pRipple type="button" icon="pi pi-plus"

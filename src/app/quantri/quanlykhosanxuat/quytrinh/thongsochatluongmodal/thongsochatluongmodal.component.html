@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} phiếu nhập thông số chất lượng</h5>
+    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} thông số chất lượng</h5>
     <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-lg-row">
         <!-- <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
@@ -45,9 +45,10 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Trọng lượng bình quân của 1 kiện:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Trọng lượng BQ/Kiện:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="number" class="p-inputtext-sm" [(ngModel)]="item.TrongLuong" pInputText/>
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TrongLuong">
+                </p-inputNumber>
             </div>
         </div>
 

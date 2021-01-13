@@ -71,9 +71,16 @@ export class ThongsochatluongmodalComponent implements OnInit {
       this.checkbutton = res;
     })
   }
- 
+  SetData(){
+    console.log(this.item)
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+    this.item_new.TrongLuong = this.item.TrongLuong;
+    this.item_new.listItem = this.listItem;
+    return this.item_new;
+  }
   ChuyenDuyet() {
-    this.services.PhieuNhapLoBong_ChatLuong().ChuyenTiep(this.item).subscribe((res: any) => {
+    this.services.PhieuNhapLoBong_ChatLuong().ChuyenTiep(this.SetData()).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();
@@ -84,6 +91,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
     })
   }
 
+
   GetNextSoQuyTrinh() {
     this.services.PhieuNhapLoBong_ChatLuong().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
@@ -91,11 +99,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
   }
   
   GhiLai() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    this.item_new.listItem = this.listItem;
-    
-    this.services.PhieuNhapLoBong_ChatLuong().Set(this.item_new).subscribe((res: any) => {
+    this.services.PhieuNhapLoBong_ChatLuong().Set(this.SetData()).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.toastr.success(res.message)
@@ -168,7 +172,10 @@ export class ThongsochatluongmodalComponent implements OnInit {
   changePage(event) {
     console.log(event)
     this.paging.CurrentPage = event.page + 1;
-    var start = (event.page + 1)*15;
-    this.item.listItem = this.listItem.slice(start, start + 15);
+    var start = 15 * (event.page)  + 1;
+    var end =  start + 14;
+    if((start + 15) > this.paging.TotalItem)
+      end= this.paging.TotalItem;
+    this.item.listItem = this.listItem.slice(start,end);
   }
 }

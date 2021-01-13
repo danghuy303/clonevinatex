@@ -19,13 +19,23 @@ export class DieuchuyenComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Số quy trình',
-      field: 'SoQuyTrinh',
+      header: 'Kho điều chuyển',
+      field: 'TendmKho',
+      width: '150px'
+    },
+    {
+      header: 'Kho nhập',
+      field: 'TendmKhoKhac',
       width: '150px'
     },
     {
       header: 'Trạng thái',
       field: 'TenTrangThai',
+      width: '150px'
+    },
+    {
+      header: 'Ghi chú',
+      field: 'GhiChu',
       width: '150px'
     }
   ];
@@ -122,6 +132,7 @@ export class DieuchuyenComponent implements OnInit {
   getListdmkho(){
     let data: any = {};
     data.CurrentPage = 0;
+    data.Loai = 2;
      this._service.GetListdmKho(data).subscribe((res:any)=>{
       this.listdmKho =  mapArrayForDropDown(res, 'Ten', 'Id');
     })

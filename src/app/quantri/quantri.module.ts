@@ -184,11 +184,20 @@ import { DinhmuctieuhaoComponent } from './danhmuc/danhmucsanxuat/dinhmuctieuhao
 import { DinhmuctieuhaomodalComponent } from './danhmuc/danhmucsanxuat/modals/dinhmuctieuhaomodal/dinhmuctieuhaomodal.component';
 import { VitriComponent } from './danhmuc/danhmucsanxuat/vitri/vitri.component';
 import { VitrimodalComponent } from './danhmuc/modal/vitrimodal/vitrimodal.component';
+import { CandoitonComponent } from './quanlykhosanxuat/quytrinh/candoiton/candoiton.component';
 import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuhanhsanxuattonghop.component';
 import { DmtieuchichatluongsoiComponent } from './danhmuc/dmtieuchichatluongsoi/dmtieuchichatluongsoi.component';
 import { DmtieuchichatluongsoimodalComponent } from './danhmuc/dmtieuchichatluongsoimodal/dmtieuchichatluongsoimodal.component';
+<<<<<<< HEAD
 import { SanxuatComponent } from './quanlykhosanxuat/phuongan/sanxuat/sanxuat.component';
 import { SanxuatmodalComponent } from './quanlykhosanxuat/phuongan/sanxuatmodal/sanxuatmodal.component';
+=======
+import { DmphannhommayComponent } from './danhmuc/dmphannhommay/dmphannhommay.component';
+import { DmphannhommaymodalComponent } from './danhmuc/dmphannhommaymodal/dmphannhommaymodal.component';
+import { DmphannhommayChonmathangmodalComponent } from './danhmuc/dmphannhommay-chonmathangmodal/dmphannhommay-chonmathangmodal.component';
+import { PhieudieuchinhComponent } from './quanlykhosanxuat/quytrinh/phieudieuchinh/phieudieuchinh.component';
+import { PhieudieuchinhmodalComponent } from './quanlykhosanxuat/quytrinh/phieudieuchinhmodal/phieudieuchinhmodal.component';
+>>>>>>> d2356dbe31dd203dd021bf1a5d5a9ed34ad1e11f
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -333,11 +342,20 @@ import { SanxuatmodalComponent } from './quanlykhosanxuat/phuongan/sanxuatmodal/
     DinhmuctieuhaomodalComponent,
     VitriComponent,
     VitrimodalComponent,
+    CandoitonComponent,
     DieuhanhsanxuattonghopComponent,
     DmtieuchichatluongsoiComponent,
     DmtieuchichatluongsoimodalComponent,
+<<<<<<< HEAD
     SanxuatComponent,
     SanxuatmodalComponent,
+=======
+    DmphannhommayComponent,
+    DmphannhommaymodalComponent,
+    DmphannhommayChonmathangmodalComponent,
+    PhieudieuchinhComponent,
+    PhieudieuchinhmodalComponent,
+>>>>>>> d2356dbe31dd203dd021bf1a5d5a9ed34ad1e11f
   ],
   imports: [
     HttpClientModule,
@@ -433,6 +451,9 @@ import { SanxuatmodalComponent } from './quanlykhosanxuat/phuongan/sanxuatmodal/
     DinhmuctieuhaomodalComponent,    
     VitrimodalComponent,
     DmtieuchichatluongsoimodalComponent,
+    DmphannhommaymodalComponent,
+    DmphannhommayChonmathangmodalComponent,   
+    PhieudieuchinhmodalComponent,
   ],
   providers: [
     SanXuatService,
