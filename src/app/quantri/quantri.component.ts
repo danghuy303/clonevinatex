@@ -407,6 +407,11 @@ export class QuantriComponent implements OnInit {
                         command: () => this.close()
                     },
                     {
+                        label: 'Phân nhóm máy',
+                        routerLink: '/quantri/danhmucsanxuat/dmphannhommay',
+                        command: () => this.close()
+                    },
+                    {
                         label: 'Danh sách máy',
                         routerLink: '/quantri/danhmucsanxuat/dmdsmay',
                         command: () => this.close()
@@ -441,11 +446,11 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/danhmucsanxuat/dmcongto',
                         command: () => this.close()
                     },        
-                    // {
-                    //     label: 'Tiêu chí chất lượng sợi',
-                    //     routerLink: '/quantri/danhmucsanxuat/dmtieuchichatluongsoi',
-                    //     command: () => this.close()
-                    // },                 
+                    {
+                        label: 'Tiêu chí chất lượng sợi',
+                        routerLink: '/quantri/danhmucsanxuat/dmtieuchichatluongsoi',
+                        command: () => this.close()
+                    },                 
                 ]
             },
             {

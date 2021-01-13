@@ -7,15 +7,14 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { ImportdanhmucmodelComponent } from '../danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
-import { DmtieuchichatluongsoimodalComponent } from '../dmtieuchichatluongsoimodal/dmtieuchichatluongsoimodal.component';
-
+import { DmphannhommaymodalComponent } from '../dmphannhommaymodal/dmphannhommaymodal.component';
 
 @Component({
-  selector: 'app-dmtieuchichatluongsoi',
-  templateUrl: './dmtieuchichatluongsoi.component.html',
-  styleUrls: ['./dmtieuchichatluongsoi.component.css']
+  selector: 'app-dmphannhommay',
+  templateUrl: './dmphannhommay.component.html',
+  styleUrls: ['./dmphannhommay.component.css']
 })
-export class DmtieuchichatluongsoiComponent implements OnInit {
+export class DmphannhommayComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   items: any = [
@@ -34,61 +33,34 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
       field: 'Ten',
       width: 'unset',
       center: 'left'
-    },
+    },  
     {
-      header: 'Đơn vị',
-      field: 'TenNhaMay',
+      header: 'Ghi chú',
+      field: 'GhiChu',
       width: 'unset',
-      center: 'left'
-    },
-    {
-      header: 'Dung sai cho phép',
-      field: 'TenPhanXuong',
-      width: 'unset',
-      center: 'left'
-    },
-    // {
-    //   header: 'Ghi chú',
-    //   field: 'GhiChu',
-    //   width: 'unset',
-    //   center: 'center'
-    // }
+      center: 'center'
+    }
   ];
   selectedItems: any = [];
   dataSearch: any = {};
   userInfo: any;
   listnhamay: any = [];
-  listphanxuong: any = [];
-  listdungsai: any = [];
+  // listphanxuong: any = [];
+  // listdungsai: any = [];
 
   constructor(private _modal: NgbModal, private _services: SanXuatService, private _toastr: ToastrService, private _auth: AuthenticationService) {
     this.userInfo = this._auth.currentUserValue;
   }
 
   ngOnInit(): void {
-    this.getdungsai();
     this.GetDanhSachDuAnByIdUser();
     this.GetListdm();
   }
+
   resetFilter() {
     this.keyWord = '';
     this.GetListdm()
-  }
-
-  getdungsai() {
-    this.listdungsai = [
-      {Id:"NhoHonHoacBang",Ten:"≤"},
-      {Id:"CongTru",Ten:"±"},
-      {Id:"LonHonHoacBang",Ten:"≥"},
-      {Id:"Thin-40%",Ten:"Thin (- 40%)"},
-      {Id:"Thin-50%",Ten:"Thin (- 50%)"},      
-      {Id:"Thick+35%",Ten:"Thick (+ 35%)"}, 
-      {Id:"Thick+50%",Ten:"Thick (+ 50%)"},      
-      {Id:"Neps+140%",Ten:"Neps (+ 140%)"},      
-      {Id:"Neps+200%",Ten:"Neps (+ 200%)"},
-    ];
-    this.listdungsai = mapArrayForDropDown(this.listdungsai, 'Ten', 'Id')
-  }
+  }  
 
   GetDanhSachDuAnByIdUser() {
     this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
@@ -126,12 +98,12 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
     })
   }
   add() {
-    let modalRef = this._modal.open(DmtieuchichatluongsoimodalComponent, {
+    let modalRef = this._modal.open(DmphannhommaymodalComponent, {
+      size:"lg",
       backdrop: 'static'
     });
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.listdungsai = this.listdungsai;
-    modalRef.componentInstance.title = 'Thêm mới tiêu chi chất lượng sợi';
+    modalRef.componentInstance.title = 'Thêm mới phân nhóm máy';
     modalRef.result.then(res => {
       this._toastr.success(res);
       this.GetListdm()
@@ -139,12 +111,12 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
   }
   edit(item) {
     this._services.DMMayBienAp().Get(item.Id).subscribe((res: any) => {
-      let modalRef = this._modal.open(DmtieuchichatluongsoimodalComponent, {
+      let modalRef = this._modal.open(DmphannhommaymodalComponent, {
+        size:"lg",
         backdrop: 'static'
       });
-      modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.listdungsai = this.listdungsai;
-      modalRef.componentInstance.title = 'Cập nhật tiêu chi chất lượng sợi';
+      modalRef.componentInstance.opt = 'edit';  
+      modalRef.componentInstance.title = 'Cập nhật phân nhóm máy';
       modalRef.componentInstance.item = res;
       modalRef.result.then(res => {
         this._toastr.success(res);
@@ -211,4 +183,5 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
     //   this._services.download(res.TenFile);
     // })
   }
+
 }

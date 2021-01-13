@@ -69,6 +69,7 @@ import { DinhmuctieuhaoComponent } from './danhmuc/danhmucsanxuat/dinhmuctieuhao
 import { VitriComponent } from './danhmuc/danhmucsanxuat/vitri/vitri.component';
 import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuhanhsanxuattonghop.component';
 import { DmtieuchichatluongsoiComponent } from './danhmuc/dmtieuchichatluongsoi/dmtieuchichatluongsoi.component';
+import { DmphannhommayComponent } from './danhmuc/dmphannhommay/dmphannhommay.component';
 
 const routes: Routes = [
   {
@@ -131,7 +132,8 @@ const routes: Routes = [
       { path: 'danhmucsanxuat/loaidienkv', component: LoaidienkvComponent },   
       { path: 'danhmucsanxuat/dmnhomcongto', component: DmnhomcongtoComponent },   
       { path: 'danhmucsanxuat/dmcongto', component: DmcongtoComponent },  
-      { path: 'danhmucsanxuat/dmtieuchichatluongsoi', component: DmtieuchichatluongsoiComponent },        
+      { path: 'danhmucsanxuat/dmtieuchichatluongsoi', component: DmtieuchichatluongsoiComponent },    
+      { path: 'danhmucsanxuat/dmphannhommay', component: DmphannhommayComponent },              
       { path: 'danhmucsanxuat/dmthongkedien/:id', component: DmthongkedienComponent },  
       { path: 'danhmucsanxuat/dmdinhmuctieuhao', component: DinhmuctieuhaoComponent },  
       { path: 'danhmucsanxuat/dmvitri', component: VitriComponent },  
