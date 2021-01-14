@@ -9,6 +9,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
+import { ChonquycachdonggoimodalComponent } from '../../modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component';
 import { TrienkhaikehoachsanxuatComponent } from '../trienkhaikehoachsanxuat/trienkhaikehoachsanxuat.component';
 
 @Component({
@@ -202,7 +203,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   }
 
   chonQuyCachDongGoi(item) {
-    let modalRef = this._modal.open(ChonhanghoamodalComponent, {
+    let modalRef = this._modal.open(ChonquycachdonggoimodalComponent, {
       size: 'lg'
     })
     modalRef.componentInstance.items = this.listQuyCachDongGoi;
