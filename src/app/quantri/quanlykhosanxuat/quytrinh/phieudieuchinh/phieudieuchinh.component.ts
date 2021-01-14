@@ -39,13 +39,13 @@ export class PhieudieuchinhComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute);
-    this.activatedRoute.params.subscribe((res:any)=>{
-      console.log(res.id)
-      if(res.id!=='0'){
-        this.update(res.id);
-      }
-    })
+    // console.log(this.activatedRoute);
+    // this.activatedRoute.params.subscribe((res:any)=>{
+    //   console.log(res.id)
+    //   if(res.id!=='0'){
+    //     this.update(res.id);
+    //   }
+    // })
     this.GetListQuyTrinh();
     this.KiemTraTabTrangThai();
   }
@@ -77,7 +77,7 @@ export class PhieudieuchinhComponent implements OnInit {
  
   update(Id) {
     this.changeParam(Id);
-    this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
+    this._service.PhuongAnDieuChinhTimBong().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(PhieudieuchinhmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
