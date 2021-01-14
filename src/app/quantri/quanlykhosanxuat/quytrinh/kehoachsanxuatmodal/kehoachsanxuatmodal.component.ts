@@ -156,7 +156,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   }
   validData() {
     console.log(this.item.TuNgay);
-    if(!validVariable(this.item.NoiDung)){
+    if (!validVariable(this.item.NoiDung)) {
       this.toastr.error('Vui lòng nhập nội dung!')
       return false;
     }
@@ -172,8 +172,8 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       this.toastr.error('Vui lòng nhập đến ngày!')
       return false;
     }
-    if(validVariable(this.item.TuNgay)&&validVariable(this.item.DenNgay)){
-      if((DateToUnix(this.item.DenNgay)-DateToUnix(this.item.TuNgay))<=0){
+    if (validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)) {
+      if ((DateToUnix(this.item.DenNgay) - DateToUnix(this.item.TuNgay)) <= 0) {
         this.toastr.error('Từ ngày phải nhỏ hơn đến ngày!');
         return false;
       }
@@ -188,7 +188,10 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     modalRef.componentInstance.selectedItems = this.item.listItem || [];
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
-      merge(res, this.item.listItem, 'IddmItem')
+      if (res.length > 0) {
+        res.filter(obj => this.item.listItem.push(obj))
+      }
+      // merge(res, this.item.listItem, 'IddmItem')
     }).catch(er => {
       console.log(er);
     })

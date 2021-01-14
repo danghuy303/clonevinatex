@@ -54,6 +54,8 @@ export class ModaldanhmucchungComponent implements OnInit {
           break;
         case 'nhomcongto': this.nhomcongto();
           break;
+        case 'quycachdonggoi': this.quycachdonggoi();
+          break;
         default:
           break;
       }
@@ -61,6 +63,14 @@ export class ModaldanhmucchungComponent implements OnInit {
       this.khongclicknhieu = !this.khongclicknhieu;
       this.toastr.warning('Vui lòng nhập đầy đủ trường thông tin bắt buộc!')
     }
+  }
+  
+  quycachdonggoi() {
+    this.sanXuatService.dmQuyCachDongGoi().Set(this.item).subscribe((res: any) => {
+      if (res) {
+        this.resAction(res)
+      }
+    })
   }
   nhomcongto() {
     this.sanXuatService.dmNhomCongToDien().Set(this.item).subscribe((res: any) => {

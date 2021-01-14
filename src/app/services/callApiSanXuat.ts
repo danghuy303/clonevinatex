@@ -104,6 +104,26 @@ export class SanXuatService {
     }
     //#endregion
 
+     //#region  Danh mục nhóm công tơ
+     dmQuyCachDongGoi() {
+        let url = API.SCMDanhMuc;
+        return {
+            GetList: () => {
+                return this.http.get(url + 'GetListdmQuyCachDongGoi', httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetListdmQuyCachDongGoi?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetdmQuyCachDongGoi', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletedmQuyCachDongGoi', data, httpOptions);
+            },
+        }
+    }
+    //#endregion
+
     //#region  Danh mục công tơ
     dmCongToDien() {
         let url = API.ThongKeDien;

@@ -76,8 +76,16 @@ export class QuantriComponent implements OnInit {
                         }
                     },
                     {
-                        label: 'Nhu cầu & sản lượng',
+                        label: 'Nhu cầu SD nguyên liệu',
                         routerLink: '/quantri/quantrisanxuat/nguyenlieu',
+                        icon: 'fas fa-circle',
+                        command: () => {
+                            this.close()
+                        }
+                    },
+                    {
+                        label: 'Sản lượng',
+                        routerLink: '/quantri/quantrisanxuat/sanluong',
                         icon: 'fas fa-circle',
                         command: () => {
                             this.close()
@@ -474,6 +482,11 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Tiêu chí chất lượng sợi',
                         routerLink: '/quantri/danhmucsanxuat/dmtieuchichatluongsoi',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Quy cách đóng gói',
+                        routerLink: '/quantri/danhmucsanxuat/dmquycachdonggoi',
                         command: () => this.close()
                     },
                 ]
