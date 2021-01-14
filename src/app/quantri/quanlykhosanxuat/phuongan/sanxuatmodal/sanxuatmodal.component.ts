@@ -1,8 +1,9 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { mapArrayForDropDown, validVariable, CVMic } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, validVariable, CVMic, deepCopy } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 
 @Component({
@@ -26,14 +27,14 @@ export class SanxuatmodalComponent implements OnInit {
   itemMicBQ = {};
   itembBQ = {};
   itemCVMic = {};
-  itemCheckBan ={};
+  itemCheckBan = {};
   itemSoKienTrenBanTruBongHoi = {};
   item: any = {
     Id: '',
     listItem: [],
     listLoBong: []
   };
-  ghostItem:any = {};
+  ghostItem: any = {};
   TongKhoiLuongDung: any = null;
   TongTyLe: number = 100;
   itemTrienKhaiKeHoach: any = {};
@@ -44,19 +45,19 @@ export class SanxuatmodalComponent implements OnInit {
   }
   labelBong: any = {
   }
-  PoolLoBong:any = {
+  PoolLoBong: any = {
 
   }
-  constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) { 
+  constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
 
   }
 
   ngOnInit(): void {
-    this.checkbutton={
-      Ghi:false,
-      Xoa:false,
-      ChuyenTiep:false,
-      KhongDuyet:false
+    this.checkbutton = {
+      Ghi: false,
+      Xoa: false,
+      ChuyenTiep: false,
+      KhongDuyet: false
     }
     this.KiemTraButtonModal();
     this.GetListTrienKhaiKeHoach()
@@ -74,6 +75,18 @@ export class SanxuatmodalComponent implements OnInit {
         this.listProps = [];
         for (let i = 1; i <= this.item.SoBanBong; i++) {
           this.listProps.push(`${i}`);
+          this.itemCheckBan[`${i}`] = {
+            checked: false,
+            isDisabled: false
+          };
+        }
+        if (validVariable(this.item.listCotDaXuat) && this.item.listCotDaXuat.length !== 0) {
+          this.item.listCotDaXuat.forEach(cot => {
+            this.itemCheckBan[`${cot}`] = {
+              checked: true,
+              isDisabled: true
+            }
+          });
         }
         this.item.listLoBong.forEach((lobong, index) => {
           if (!validVariable(lobong.temBanBong)) {
@@ -82,7 +95,7 @@ export class SanxuatmodalComponent implements OnInit {
           lobong.listItem.forEach((item) => {
             let data = {
               ...item,
-              listItem: (validVariable(item.listItem)&& item.listItem?.length!==0)?item.listItem:[],
+              listItem: (validVariable(item.listItem) && item.listItem?.length !== 0) ? item.listItem : [],
               SoKien: item.SoLuongKien,
               tabIndex: index + 1 + (item.ThuTu * this.item.listLoBong.length)
             }
@@ -193,32 +206,42 @@ export class SanxuatmodalComponent implements OnInit {
       if (validVariable(lobong.SoLuongDung)) {
         lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
       }
-      if(validVariable(lobong.Mic)){
+      if (validVariable(lobong.Mic)) {
         arrayMic.push(lobong.Mic);
-        arrayKien.push(validVariable(lobong.tempBanBong[`${x}`].SoKien)?lobong.tempBanBong[`${x}`].SoKien:0);
+        arrayKien.push(validVariable(lobong.tempBanBong[`${x}`].SoKien) ? lobong.tempBanBong[`${x}`].SoKien : 0);
       }
     });
-    this.itemCVMic[`${x}`] = CVMic([...arrayMic,...arrayKien],tempSoKien1LineTruBongHoi);
+    this.itemCVMic[`${x}`] = CVMic([...arrayMic, ...arrayKien], tempSoKien1LineTruBongHoi);
     this.TinhTyLeTong()
   }
   SetData() {
-    this.item.listLoBong.forEach(lobong => {
-      // if (!validVariable(lobong.listItem)) {
-        lobong.listItem = [];
-      // }
-      for (let i = 1; i <= this.item.SoBanBong; i++) {
-        console.log(lobong.tempBanBong[`${i}`].listItem)
-        let data = {
-          SoLuongKien: lobong.tempBanBong[`${i}`].SoKien,
-          ThuTu: i,
-          listItem:lobong.tempBanBong[`${i}`].listItem
-        };
-        lobong.listItem.push(data)
+    // this.item.listLoBong.forEach(lobong => {
+    //   // if (!validVariable(lobong.listItem)) {
+    //   lobong.listItem = [];
+    //   // }
+    //   for (let i = 1; i <= this.item.SoBanBong; i++) {
+    //     console.log(lobong.tempBanBong[`${i}`].listItem)
+    //     let data = {
+    //       SoLuongKien: lobong.tempBanBong[`${i}`].SoKien,
+    //       ThuTu: i,
+    //       listItem: lobong.tempBanBong[`${i}`].listItem
+    //     };
+    //     lobong.listItem.push(data)
+    //   }
+    // });
+    // return {
+    //   ...this.ghostItem,
+    //   PhuongAnPhaBong: this.item
+    // }
+    let data = [];
+    for (let prop in this.itemCheckBan) {
+      if (this.itemCheckBan[prop].checked && !this.itemCheckBan[prop].isDisabled) {
+        data.push(prop)
       }
-    });
+    }
     return {
-      ...this.ghostItem,
-      PhuongAnPhaBong:this.item
+      Id: this.item.Id,
+      listCotXuat: data
     }
   }
   KiemTraButtonModal() {
@@ -227,33 +250,28 @@ export class SanxuatmodalComponent implements OnInit {
     })
   }
   GhiLai() {
-    this._services.TimBong().Set(this.SetData()).subscribe((res: any) => {
+    // this.SetData()
+    this._services.SanXuat().Set(this.SetData()).subscribe((res: any) => {
       console.log(res);
       if (res) {
         if (res.State === 1) {
           this._toastr.success(res.message);
-          this.opt = 'edit';
-          res.objectReturn.PhuongAnPhaBong.listLoBong.forEach(lobong => {
-            if (!validVariable(lobong.temBanBong)) {
-              lobong.tempBanBong = {};
-            }
-            lobong.listItem.forEach(item => {
-              let data = {
-                ...item,
-                SoKien: item.SoLuongKien
-              }
-              lobong.tempBanBong[`${item.ThuTu}`] = data;
-            });
-          });
-          this.item = res.objectReturn.PhuongAnPhaBong;
-          res.objectReturn.PhuongAnPhaBong = undefined;
-          this.ghostItem = res.objectReturn;
-          this.KiemTraButtonModal();
+          this._services.SanXuat().Get(this.item.Id).subscribe((res: any) => {
+            this.item = deepCopy(res.PhuongAnPhaBong);
+            res.PhuongAnPhaBong = undefined;
+            this.ghostItem = res;
+            this.GetListTrienKhaiKeHoach();
+            this.KiemTraButtonModal();
+          })
         } else {
           this._toastr.error(res.message);
         }
       }
     });
+  }
+  checkBanBong(ban) {
+    console.log(ban)
+    console.log(this.itemCheckBan);
   }
   ChuyenDuyet() {
     this._services.PhuongAnPhaBong().ChuyenTiep(this.SetData()).subscribe((res: any) => {

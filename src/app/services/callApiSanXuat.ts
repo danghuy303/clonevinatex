@@ -104,6 +104,26 @@ export class SanXuatService {
     }
     //#endregion
 
+     //#region  Danh mục nhóm công tơ
+     dmQuyCachDongGoi() {
+        let url = API.SCMDanhMuc;
+        return {
+            GetList: () => {
+                return this.http.get(url + 'GetListdmQuyCachDongGoi', httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetListdmQuyCachDongGoi?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetdmQuyCachDongGoi', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletedmQuyCachDongGoi', data, httpOptions);
+            },
+        }
+    }
+    //#endregion
+
     //#region  Danh mục công tơ
     dmCongToDien() {
         let url = API.ThongKeDien;
@@ -841,6 +861,36 @@ export class SanXuatService {
             GetListKienBong: (data) => {
                 return this.http.post(url + `GetListKienLoBong`, data, httpOptions)
             }
+        }
+    }
+
+    XepBanBong() {
+        let url = API.SCMQuanLyKho;
+        return {
+            // GetNextSo: () => {
+            //     return this.http.get(url + 'GetNextSoQuyTrinhGiaoKeHoachSanXuat', httpOptions);
+            // },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListPhuongAnXepBanBong', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhuongAnXepBanBong?Id=${Id}`, httpOptions);
+            },
+            // Set: (data) => {
+            //     return this.http.post(url + 'SetPhuongAnSanXuat', data, httpOptions);
+            // },
+            // Delete: (data) => {
+            //     return this.http.post(url + 'DeleteGiaoKeHoachSanXuat', data, httpOptions);
+            // },
+            // ChuyenTiep: (data) => {
+            //     return this.http.post(url + 'ChuyenTiepPhuongAnSanXuat', data, httpOptions)
+            // },
+            // KhongDuyet: (data) => {
+            //     return this.http.post(url + 'KhongDuyetGiaoKeHoachSanXuat', data, httpOptions)
+            // },
+            // GetListKienBong: (data) => {
+            //     return this.http.post(url + `GetListKienLoBong`, data, httpOptions)
+            // }
         }
     }
 

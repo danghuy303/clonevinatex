@@ -14,15 +14,16 @@
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="_activeModal.dismiss('close')"></button>
-            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="GhiLai()"
-                *ngIf="checkbutton.Ghi"></button>
+            <button pButton pRipple type="button" label="Xuất phương án sản xuất" class="p-mr-2 p-button-sm " (click)="GhiLai()"
+                ></button>
+                <!-- *ngIf="checkbutton.Ghi" -->
             <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
                 (click)="XoaQuyTrinh()"></button>
             <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
                 *ngIf="checkbutton.KhongDuyet"></button>
             <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
                 (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
-            <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button>
+            <!-- <button pButton pRipple type="button"  label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
         </div>
     </div>
     <div class="p-grid">
@@ -109,7 +110,7 @@
                     </tr>
                     <tr>
                         <th *ngFor="let ban of listProps" class="tc-w-50">
-                            <p-checkbox [ngModel]="itemCheckBan[ban]" (onChange)="checkBanBong(ban)" binary="true" inputId="binary"></p-checkbox>
+                            <p-checkbox [(ngModel)]="itemCheckBan[ban].checked" (onChange)="checkBanBong(ban)" binary="true" inputId="binary" [disabled]="itemCheckBan[ban].isDisabled"></p-checkbox>
                         </th>
                     </tr>
                 </thead>

@@ -47,7 +47,7 @@ export class ChonhanghoamodalComponent implements OnInit {
           this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
             let selected = this.items.filter(item => sItem.IddmItem === item.Id)[0];
             if (selected) {
-              selected.checked = true;
+              selected.checked = false;
             }
           });
           break;

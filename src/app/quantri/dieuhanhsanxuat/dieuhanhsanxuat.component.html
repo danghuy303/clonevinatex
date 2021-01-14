@@ -28,7 +28,8 @@
             <div class="p-d-flex flex-column flex-lg-row p-jc-between">
                 <div>
                     <h5>
-                        {{filterNhuCau.Kho ==='8cb622a8-b2c5-4232-a9f1-7fdebb40e3cb'?'Sản lượng kế hoạch và thực hiện':'Nhu cầu sử dụng bông'}}
+                        {{filterNhuCau.Kho ==='8cb622a8-b2c5-4232-a9f1-7fdebb40e3cb'?'Sản lượng kế hoạch và thực
+                        hiện':'Nhu cầu sử dụng bông'}}
                     </h5>
                 </div>
                 <div class="p-d-flex flex-column flex-lg-row">
@@ -38,14 +39,16 @@
                     </div>
                     <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filterNhuCau.Kho" (onChange)="changeKho($event)"></p-dropdown>
+                            styleClass="p-inputtext-sm" [(ngModel)]="filterNhuCau.Kho" (onChange)="changeKho($event)">
+                        </p-dropdown>
                     </div>
                     <!-- <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng"
                             styleClass="p-inputtext-sm" [(ngModel)]="filterNhuCau.MatHang"></p-dropdown>
                     </div> -->
                     <div style="display:table;height:100%">
-                        <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)">Cân đối tồn</a>
+                        <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)">Cân đối
+                            tồn</a>
                     </div>
                 </div>
             </div>
@@ -59,40 +62,65 @@
             <p-chart type="pie" [data]="dataPie" [options]='optionPie'></p-chart>
         </div>
     </div>
-    <div class="p-col-12 p-p-3">
-        <div class="chart">
-            <div class="p-d-flex flex-column flex-lg-row p-jc-between">
-                <div class="p-d-flex flex-column flex-lg-row">
-                    <span class="p-mr-2">
-                        <h5>Lũy kế sản lượng</h5>
-                    </span>
-                    <p-inputSwitch [(ngModel)]="filterSanLuong.checked" (onChange)="changeOpt($event)"></p-inputSwitch><span class="p-ml-2">
-                        <h5>Sản lượng theo máy</h5>
-                    </span>
-                </div>
-                <div class="p-d-flex flex-column flex-lg-row">
-                    <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.CongDoan"></p-dropdown>
-                    </div>
-                    <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listMay" placeholder="Chọn máy"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.May"></p-dropdown>
-                        </div>
-                    <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.MatHang"></p-dropdown>
-                    </div>
-                    <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listCaLamViec" placeholder="Chọn ca làm việc"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.CaLamViec"></p-dropdown>
-                    </div>
-                    <div style="display:table;height:100%">
-                        <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)">Xem bảng dữ liệu</a>
-                    </div>
-                </div>
-            </div>
-            <p-chart type="bar" [data]=monthlyConfig [options]="option2"></p-chart>
+</div>
+<div class="p-grid" style="align-self: stretch;">
+    <div class="p-col-12 p-xl-12 p-lg-8 p-p-3">
+        <div class="chart text-left">
+            <h5>
+                Cân đối tồn
+            </h5>
+            <p-table [value]="listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+                <ng-template pTemplate="colgroup">
+                    <colgroup>
+                        <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th *ngFor="let header of cols">
+                            {{header.header}}
+                        </th>
+                    </tr>
+                </ng-template>             
+                <ng-template pTemplate="body" let-item let-i="rowIndex">                   
+                    <tr>
+                        <td *ngFor="let col of cols">
+                            {{item[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
     </div>
+    <!-- <div class="chart">
+        <div class="p-d-flex flex-column flex-lg-row p-jc-between">
+            <div>
+                <h5>
+                    Nhập xuất thành phẩm                   
+                </h5>
+            </div>
+            <div class="p-d-flex flex-column flex-lg-row">             
+                <div class="p-mr-2">
+                    <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
+                        styleClass="p-inputtext-sm" [(ngModel)]="filterNhuCau.Kho" (onChange)="changeKho($event)">
+                    </p-dropdown>
+                </div>
+                <div class="p-mr-2">
+                    <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng"
+                        styleClass="p-inputtext-sm" [(ngModel)]="filterNhuCau.MatHang"></p-dropdown>
+                </div>               
+            </div>
+        </div>
+        <p-chart type="line" [data]=dataSet2 [options]="option1"></p-chart>
+    </div> -->
+
+    <!-- <div class="p-col-12 p-xl-4 p-lg-4 p-p-3">
+        <div class="chart text-left">            
+            <h5>
+                Cơ cấu mặt hàng
+                {{filterNhuCau.Kho ==='8cb622a8-b2c5-4232-a9f1-7fdebb40e3cb'?'Cơ cấu mặt hàng':'Cơ cấu bông'}}
+            </h5>
+            <p-chart type="pie" [data]="dataPie2" [options]='optionPie'></p-chart>
+        </div>
+    </div>    -->
 </div>
