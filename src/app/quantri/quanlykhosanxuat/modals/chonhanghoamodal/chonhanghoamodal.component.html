@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">{{opt==="LoBong"?'Danh sách nguyên liệu':'Danh mục mặt hàng'}}</h5>
+    <h5 class="modal-title">{{opt==="LoBong"?'Danh sách lô bông trong kho':'Danh mục mặt hàng'}}</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="_activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -40,6 +40,11 @@
                         <!-- <th>Mã hàng</th> -->
                         <th *ngIf="opt===''|| opt==='KhoiLuongKeHoach'||opt==='KhoiLuongSanXuat'">Mặt hàng</th>
                         <th *ngIf="opt==='LoBong'">Mã hàng</th>
+                        <th *ngIf="opt==='LoBong'">Mã lô bông</th>
+                        <th *ngIf="opt==='LoBong'">Số kiện</th>
+                        <th *ngIf="opt==='LoBong'">Mic BQ</th>
+                        <th *ngIf="opt==='LoBong'">Giá bông</th>
+                        <th *ngIf="opt==='LoBong'">Ngày nhập</th>
                         <th *ngIf="opt==='KhoiLuongKeHoach'">Khối lượng kế hoạch(Tấn)</th>
                         <th *ngIf="opt==='KhoiLuongSanXuat'">Khối lượng triển khai(Tấn)</th>
                         <th>Ghi chú</th>
@@ -52,6 +57,10 @@
                         </td>
                         <td *ngIf="opt===''||opt==='KhoiLuongKeHoach'||opt==='KhoiLuongSanXuat'">{{item.Ten}}</td>
                         <td *ngIf="opt==='LoBong'">{{item.Ma}}</td>
+                        <td *ngIf="opt==='LoBong'">{{item.SoLuongKien}}</td>
+                        <td *ngIf="opt==='LoBong'">{{item.Mic|number:'0.0-2'}}</td>
+                        <td *ngIf="opt==='LoBong'">{{item.GiaBong}}</td>
+                        <td *ngIf="opt==='LoBong'">{{item.NgayNhap|date:'dd/MM/yyyy'}}</td>
                         <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongKeHoach|number}}</td>
                         <td *ngIf="opt==='KhoiLuongSanXuat'" class="text-right">{{item.KhoiLuongSanXuat|number}}</td>
                         <td>{{item.GhiChu}}</td>

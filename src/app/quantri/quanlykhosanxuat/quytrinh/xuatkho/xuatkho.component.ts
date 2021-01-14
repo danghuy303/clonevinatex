@@ -21,77 +21,42 @@ export class XuatkhoComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Lô',
-      field: 'NoiDung',
+      header: 'Tên kho xuất',
+      field: 'TendmKho',
       width: 'unset'
     },
     {
-      header: 'Số Cont',
-      field: 'TenTrangThai',
+      header: 'Tên phân xưởng',
+      field: 'TendmPhanXuong',
       width: 'unset'
     },
     {
-      header: 'Mã kiện',
-      field: 'TenTrangThai',
+      header: 'Phương án pha bông',
+      field: 'TenPhuongAnPhaBong',
       width: 'unset'
     },
     {
-      header: 'Mã bông',
-      field: 'TenTrangThai',
-      width: 'unset'
-    },
-    {
-      header: 'Loại bông',
+      header: 'Trạng thái',
       field: 'TenTrangThai',
       width: 'unset'
     },
     {
       header: 'Ghi chú',
-      field: 'TenTrangThai',
+      field: 'GhiChu',
       width: 'unset'
     },
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-  colsQuyTrinh: any = [
-    {
-      header: 'Ngày nhận',
-      field: 'NgayKhoiTao',
-      width: '150px'
-    },
-    {
-      header: 'Ngày chuyển',
-      field: 'SoQuyTrinh',
-      width: '150px'
-    },
-    {
-      header: 'Thời gian xử lý',
-      field: 'DiaChi',
-      width: '200px'
-    },
-    {
-      header: 'Bộ phận xử lý',
-      field: 'DienTich',
-      width: '150px'
-    },
-    {
-      header: 'Nội dung xử lý',
-      field: 'HienTrangSuDung',
-      width: '400px'
-    },
-  ];
-
-
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0'){
-        let getitem =()=>{return{}};
-        this.update(getitem());
-      }
+      // if(res.id!=='0' && res.id!==undefined){
+      //   this.update(res.id);
+      // }
+      this.GetListQuyTrinh()
     })
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh()
   }
   changeParam(id){
     this.router.navigate([`quantri/quanlykhosanxuat/khobong/xuatkho/${id}`],{replaceUrl: true})
@@ -110,6 +75,7 @@ export class XuatkhoComponent implements OnInit {
       .catch(er => { console.log(er) })
   }
   update(item){
+    this.changeParam(item.Id);
     let modalRef = this._modal.open(XuatkhomodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
@@ -126,8 +92,8 @@ export class XuatkhoComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event){
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?){
     if (reset) {

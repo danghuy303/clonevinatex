@@ -35,7 +35,6 @@ export class ThongsochatluongmodalComponent implements OnInit {
     public toastr: ToastrService, public _modal: NgbModal, private services: SanXuatService) {
   }
 
-
   ngOnInit(): void {
     if (this.opt !== 'edit') {
       this.item = {

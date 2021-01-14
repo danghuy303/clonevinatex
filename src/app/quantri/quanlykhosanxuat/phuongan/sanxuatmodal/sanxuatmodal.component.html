@@ -67,44 +67,49 @@
             <table>
                 <thead>
                     <tr>
-                        <th rowspan="2" class="tc-w-151">
+                        <th rowspan="3" class="tc-w-151">
                             Thành phần bông
                         </th>
-                        <th rowspan="2" class="tc-w-121">
+                        <th rowspan="3" class="tc-w-121">
                             Số hợp đồng
                         </th>
-                        <th rowspan="2" class="tc-w-60">
+                        <th rowspan="3" class="tc-w-60">
                             Giá bông
                         </th>
-                        <th rowspan="2" class="tc-w-80">TLBQ Kiện</th>
-                        <th rowspan="2" class="tc-w-121">
+                        <th rowspan="3" class="tc-w-80">TLBQ Kiện</th>
+                        <th rowspan="3" class="tc-w-121">
                             Giá USD / kiện
                         </th>
-                        <th rowspan="2" class="tc-w-60">
+                        <th rowspan="3" class="tc-w-60">
                             Neps bông
                         </th>
                         <th colspan="9">Chất lượng bông</th>
                         <!-- <th style="display: none;"></th>
                         <th style="display: none;"></th> -->
-                        <th rowspan="2" class="tc-w-60">Tồn đầu</th>
-                        <th rowspan="2" class="tc-w-100">Số lượng dùng</th>
-                        <th rowspan="2" class="tc-w-60">Tồn cuối</th>
-                        <th rowspan="2" class="tc-w-80">Tỷ lệ</th>
+                        <th rowspan="3" class="tc-w-60">Tồn đầu</th>
+                        <th rowspan="3" class="tc-w-100">Số lượng dùng</th>
+                        <th rowspan="3" class="tc-w-60">Tồn cuối</th>
+                        <th rowspan="3" class="tc-w-80">Tỷ lệ</th>
                         <th [attr.colspan]="listProps.length">Bàn bông</th>
                     </tr>
                     <tr>
-                        <th style="display: none;"></th>
-                        <th class="tc-w-50">Mic</th>
-                        <th class="tc-w-50">Mat</th>
-                        <th class="tc-w-60">UHML</th>
-                        <th class="tc-w-50">Str</th>
-                        <th class="tc-w-50">SFI</th>
-                        <th class="tc-w-50">Rd</th>
-                        <th class="tc-w-50">+b</th>
-                        <th class="tc-w-50">Tạp</th>
-                        <th class="tc-w-50">Ẩm</th>
+                        <th rowspan="2" style="display: none;"></th>
+                        <th rowspan="2" class="tc-w-50">Mic</th>
+                        <th rowspan="2" class="tc-w-50">Mat</th>
+                        <th rowspan="2" class="tc-w-60">UHML</th>
+                        <th rowspan="2" class="tc-w-50">Str</th>
+                        <th rowspan="2" class="tc-w-50">SFI</th>
+                        <th rowspan="2" class="tc-w-50">Rd</th>
+                        <th rowspan="2" class="tc-w-50">+b</th>
+                        <th rowspan="2" class="tc-w-50">Tạp</th>
+                        <th rowspan="2" class="tc-w-50">Ẩm</th>
                         <th *ngFor="let ban of listProps" class="tc-w-50">
                             {{ban}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let ban of listProps" class="tc-w-50">
+                            <p-checkbox [ngModel]="itemCheckBan[ban]" (onChange)="checkBanBong(ban)" binary="true" inputId="binary"></p-checkbox>
                         </th>
                     </tr>
                 </thead>
@@ -155,8 +160,9 @@
                             {{lobong.TyLe|number:'0.2-4'}}</td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
-                                <a href="javascript:void(0)" [ngStyle]="{'font-weight': lobong.tempBanBong[prop].listItem.length===lobong.tempBanBong[prop].SoKien?'900':'unset','text-decoration':lobong.tempBanBong[prop].listItem.length===lobong.tempBanBong[prop].SoKien?'underline':'none'}"
-                                    (click)="chonKienBong(lobong.IdLoBong,i,prop)">{{lobong.tempBanBong[prop].SoKien}}</a>
+                                <!-- <a href="javascript:void(0)" [ngStyle]="{'font-weight': lobong.tempBanBong[prop].listItem.length===lobong.tempBanBong[prop].SoKien?'900':'unset','text-decoration':lobong.tempBanBong[prop].listItem.length===lobong.tempBanBong[prop].SoKien?'underline':'none'}"
+                                    (click)="chonKienBong(lobong.IdLoBong,i,prop)">{{lobong.tempBanBong[prop].SoKien}}</a> -->
+                                    {{lobong.tempBanBong[prop].SoKien}}
                                 <!-- <p-inputNumber locale="vi-VN" [(ngModel)]="lobong.tempBanBong[prop].SoKien"
                                     [tabindex]="lobong.tempBanBong[prop].tabIndex" [placeholder]="'_'"
                                     (onBlur)="CalAllTable(i,prop)" (keyup.enter)="nextFocus($event)">
