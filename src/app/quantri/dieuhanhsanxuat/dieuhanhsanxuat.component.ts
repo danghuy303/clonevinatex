@@ -105,17 +105,17 @@ export class DieuhanhsanxuatComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Nhập trong ký',
+      header: 'Nhập trong kỳ',
       field: 'NhapTrongKy',
       width: 'unset'
     },
     {
-      header: 'Xuất trong ký',
+      header: 'Xuất trong kỳ',
       field: 'XuatTrongKy',
       width: 'unset'
     },
     {
-      header: 'Tồn trong ký',
+      header: 'Tồn trong kỳ',
       field: 'TonTrongKy',
       width: 'unset'
     },
