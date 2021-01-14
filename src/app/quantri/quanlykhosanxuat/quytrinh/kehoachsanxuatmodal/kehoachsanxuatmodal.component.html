@@ -168,8 +168,19 @@
                                 styleClass="p-inputtext-sm" [(ngModel)]="item.Loai"></p-dropdown>
                         </td>
                         <td>
-                            <button pButton pRipple type="button" label="Danh sách mặt hàng" class="p-mr-2 p-button-sm"
-                                (click)="chonQuyCachDongGoi(item)"></button>
+                            <div class="p-d-flex p-flex-row p-jc-between">
+                                <div>
+                                    <div *ngFor="let items of item.listItem">
+                                        {{items.objQuyCachDongGoi.Ten}} - {{items.SoLuong}}
+                                    </div>                                    
+                                </div>
+                                <div>
+                                    <button pButton pRipple icon="pi pi-plus"
+                                        class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                        (click)="chonQuyCachDongGoi(item)" pTooltip="Thêm quy cách đóng gói" showDelay="1000"
+                                        tooltipPosition="bottom"></button>
+                                </div>
+                            </div>
                         </td>
                         <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText /></td>
                         <!-- <td></td>
