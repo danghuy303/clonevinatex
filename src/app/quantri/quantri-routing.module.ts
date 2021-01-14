@@ -148,7 +148,9 @@ const routes: Routes = [
       { path: 'trienkhaisanxuat/phabong/:id', component: PhabongComponent },
       { path: 'trienkhaisanxuat/timbong/:id', component: TimbongComponent },
       { path: 'trienkhaisanxuat/sanxuat/:id', component: SanxuatComponent },
+      //XepBanBong
       { path: 'trienkhaisanxuat/xepbanbong/:id', component: XepbanbongComponent },
+      
       { path: 'trienkhaisanxuat/phieudieuchinh/:id', component: PhieudieuchinhComponent },
 
       { path: 'quanlykhosanxuat/:kho/nhapkho/:id', component: NhapkhoComponent},

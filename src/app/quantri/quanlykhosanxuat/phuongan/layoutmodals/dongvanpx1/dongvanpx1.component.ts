@@ -4,12 +4,12 @@ import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
-  selector: 'app-xepbanbongmodal',
-  templateUrl: './xepbanbongmodal.component.html',
-  styleUrls: ['./xepbanbongmodal.component.css']
+  selector: 'app-dongvanpx1',
+  templateUrl: './dongvanpx1.component.html',
+  styleUrls: ['./dongvanpx1.component.css']
 })
-export class XepbanbongmodalComponent implements OnInit {
-
+export class Dongvanpx1Component implements OnInit {
+  checkbutton:any={};
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
   }
 

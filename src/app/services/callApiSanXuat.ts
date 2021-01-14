@@ -844,6 +844,36 @@ export class SanXuatService {
         }
     }
 
+    XepBanBong() {
+        let url = API.SCMQuanLyKho;
+        return {
+            // GetNextSo: () => {
+            //     return this.http.get(url + 'GetNextSoQuyTrinhGiaoKeHoachSanXuat', httpOptions);
+            // },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListPhuongAnXepBanBong', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhuongAnXepBanBong?Id=${Id}`, httpOptions);
+            },
+            // Set: (data) => {
+            //     return this.http.post(url + 'SetPhuongAnSanXuat', data, httpOptions);
+            // },
+            // Delete: (data) => {
+            //     return this.http.post(url + 'DeleteGiaoKeHoachSanXuat', data, httpOptions);
+            // },
+            // ChuyenTiep: (data) => {
+            //     return this.http.post(url + 'ChuyenTiepPhuongAnSanXuat', data, httpOptions)
+            // },
+            // KhongDuyet: (data) => {
+            //     return this.http.post(url + 'KhongDuyetGiaoKeHoachSanXuat', data, httpOptions)
+            // },
+            // GetListKienBong: (data) => {
+            //     return this.http.post(url + `GetListKienLoBong`, data, httpOptions)
+            // }
+        }
+    }
+
     //#region  định lượng
 
     GetListDinhMuc(data) {
