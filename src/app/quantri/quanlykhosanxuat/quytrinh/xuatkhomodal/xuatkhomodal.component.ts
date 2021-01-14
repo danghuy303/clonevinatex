@@ -23,23 +23,20 @@ export class XuatkhomodalComponent implements OnInit {
     ChuyenTiep:false,
     Xoa:false,
   }
-  newTableItem:any={};
   lang: any = vn;
   listKho: any = [];
   listPhanXuong: any = [];
   listPhuongAnPhaBong: any = [];
+  listItem: any = [];
+  paging: any = {};
+
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, 
     public toastr: ToastrService, public _modal: NgbModal) {  }
 
   ngOnInit(): void {
-    if (this.opt !== 'edit') {
-      this.GetNextSoQuyTrinh();
-    }
-    else{
-      this.KiemTraButtonModal();
-    }
-    
+    this.KiemTraButtonModal();
+    this.GetQuyTrinh();
     //
     let data = {
       CurrentPage: 0
@@ -52,6 +49,17 @@ export class XuatkhomodalComponent implements OnInit {
     })
     this.services.GetListdmPhanXuong(data).subscribe((res:any)=>{
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  GetQuyTrinh()
+  {
+    this.services.PhieuXuatSanXuat().Get(this.item.Id).subscribe((res1:any)=>{
+      this.item = res1;
+      this.listItem = res1.listItem;
+      this.paging.CurrentPage = 1;
+      this.paging.TotalPage = 5;
+      this.paging.TotalItem = res1.listItem.length;
+      this.item.listItem = res1.listItem.slice(0,15);
     })
   }
   KiemTraButtonModal() {
@@ -109,7 +117,6 @@ export class XuatkhomodalComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
       this.services.PhieuXuatSanXuat().Delete(this.item).subscribe((res: any) => {
-        console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
         } else {
@@ -142,5 +149,14 @@ export class XuatkhomodalComponent implements OnInit {
         // không
       });
     })
+  }
+  changePage(event) {
+    console.log(event)
+    this.paging.CurrentPage = event.page + 1;
+    var start = 15 * (event.page)  + 1;
+    var end =  start + 14;
+    if((start + 15) > this.paging.TotalItem)
+      end= this.paging.TotalItem;
+    this.item.listItem = this.listItem.slice(start,end);
   }
 }

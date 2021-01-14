@@ -4,17 +4,18 @@ import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
 
 @Component({
-  selector: 'app-dieuhanhsanxuat',
-  templateUrl: './dieuhanhsanxuat.component.html',
-  styleUrls: ['./dieuhanhsanxuat.component.css']
+  selector: 'app-sanluong',
+  templateUrl: './sanluong.component.html',
+  styleUrls: ['./sanluong.component.css']
 })
-export class DieuhanhsanxuatComponent implements OnInit {
+export class SanluongComponent implements OnInit {
+
   filterBong: any = {};
   filterSanLuong: any = {};
   filterNhuCau: any = {};
-  monthlyConfig: any = {};
+  monthlyConfig_luykesanluong: any = {};
+  monthlyConfig_sanluongtheomay: any = {};
   dataSet1: any = {};
-  dataSet2: any = {};
   listOpts: any = [];
   listKho: any = [];
   listMatHang: any = [];
@@ -23,7 +24,6 @@ export class DieuhanhsanxuatComponent implements OnInit {
   listLoaiBong: any = [];
   listCaLamViec: any = [];
   dataPie: any = {};
-  dataPie2: any = {};
   option1: any = {
     scales: {
       xAxes: [{
@@ -46,7 +46,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
   option2: any = {
     plugins: {
       labels: {
-        fontSize: 0
+        fontSize:0
       }
     },
     legend: {
@@ -77,49 +77,6 @@ export class DieuhanhsanxuatComponent implements OnInit {
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
-  listItem: any = [];
-  cols: any = [
-    {
-      header: 'Ngày',
-      field: 'TongSanLuong',
-      width: 'unset'
-    },
-    {
-      header: 'Mặt hàng',
-      field: 'TongSoCa',
-      width: 'unset'
-    },
-    {
-      header: 'Lô bông',
-      field: 'GhiChu',
-      width: 'unset'
-    },
-    {
-      header: 'Hợp đồng P/O',
-      field: 'GhiChu',
-      width: 'unset'
-    },
-    {
-      header: 'Tồn đầu',
-      field: 'GhiChu',
-      width: 'unset'
-    },
-    {
-      header: 'Nhập trong ký',
-      field: 'GhiChu',
-      width: 'unset'
-    },
-    {
-      header: 'Xuất trong ký',
-      field: 'GhiChu',
-      width: 'unset'
-    },
-    {
-      header: 'Tồn trong ký',
-      field: 'GhiChu',
-      width: 'unset'
-    },
-  ];;
   constructor(private _services: SanXuatService) { }
 
   ngOnInit(): void {
@@ -147,14 +104,43 @@ export class DieuhanhsanxuatComponent implements OnInit {
         },
       ]
     }
-    this.monthlyConfig = {
+    this.monthlyConfig_luykesanluong = {
+      labels: Array.from({ length: 30 }, (alo, index) => index + 1),
+      datasets: [
+        // {
+        //   type: 'line',
+        //   label: 'Lũy kế',
+        //   borderColor: '#FF671F',
+        //   borderWidth: 2,
+        //   fill: false,
+        //   data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 100))
+        // },
+        {
+          type: 'bar',
+          label: 'Sản lượng thực tế',
+          backgroundColor: '#3c5cbb',
+          data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 100)),
+          borderColor: 'white',
+          // borderWidth: 2
+        },
+        {
+          type: 'bar',
+          label: 'Sản lượng tiêu chuẩn',
+          backgroundColor: '#009900',
+          data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 100)),
+          borderColor: 'white',
+          // borderWidth: 2
+        },
+      ]
+    }
+    this.monthlyConfig_sanluongtheomay = {
       labels: Array.from({ length: 30 }, (alo, index) => index + 1),
       datasets: [
         {
           type: 'line',
           label: 'Thực tế',
           borderColor: '#FF671F',
-          // borderWidth: 2,
+          borderWidth: 2,
           fill: false,
           data: Array.from({ length: 30 }, (v, i) => i * 20)
         },
@@ -162,7 +148,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
           type: 'line',
           label: 'Kế hoạch',
           borderColor: '#009900',
-          // borderWidth: 2,
+          borderWidth: 2,
           fill: false,
           data: Array.from({ length: 30 }, (v, i) => (i * 20) + 10)
         },
@@ -172,7 +158,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
           backgroundColor: '#3c5cbb',
           data: Array.from({ length: 30 }, () => 20),
           borderColor: 'white',
-          // borderWidth: 2
+          borderWidth: 2
         },
       ]
     }
@@ -196,53 +182,6 @@ export class DieuhanhsanxuatComponent implements OnInit {
         }
       ]
     };
-    this.dataSet2 = {
-      labels: ['Tuần 1 / Thg 12', 'Tuần 2 / Thg 12', 'Tuần 3 / Thg 12', 'Tuần 4 / Thg 12', 'Tuần 5 / Thg 12'],
-      datasets: [
-        {
-          type: 'line',
-          label: 'Sản lượng tồn',
-          borderColor: '#FF0000',
-          // borderWidth: 2,
-          fill: false,
-          data: [20, 100, 120, 130, 135],
-          // steppedLine: 'before'
-        },
-        {
-          type: 'line',
-          label: 'Kế hoạch xuất hàng',
-          borderColor: '#0000E5',
-          borderDash: [10, 5],
-          // borderWidth: 2,
-          fill: false,
-          data: [120, 140, 150, 170, 175],
-          steppedLine: 'before'
-        },
-      ]
-    }
-    this.dataPie2 = {
-      labels: ['Ne 16 CD', 'Ne 20 CD', 'Ne 32 CD', 'Ne 31 CD'],
-      datasets: [
-        {
-          data: [300, 50, 100, 200],
-          backgroundColor: [
-            "#009900",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF671F"
-          ],
-          hoverBackgroundColor: [
-            "#009900",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF671F"
-          ]
-        }
-      ]
-    };
-    // this.listItem = [
-    //   {}
-    // ]
     this.getAllOptions()
   }
 
@@ -328,7 +267,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
 
   changeOpt(e) {
     if (e.checked) {
-      this.monthlyConfig = {
+      this.monthlyConfig_luykesanluong = {
         labels: Array.from({ length: 30 }, (alo, index) => index + 1),
         datasets: [
           // {
@@ -358,7 +297,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
         ]
       }
     } else {
-      this.monthlyConfig = {
+      this.monthlyConfig_sanluongtheomay = {
         labels: Array.from({ length: 30 }, (alo, index) => index + 1),
         datasets: [
           {
@@ -389,4 +328,5 @@ export class DieuhanhsanxuatComponent implements OnInit {
       }
     }
   }
+
 }

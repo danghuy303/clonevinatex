@@ -35,7 +35,7 @@ export class CandoitonComponent implements OnInit {
   listDuAn : any = [];
   listLuuKho : any = [];
   userInfo: any={};
-  dmKho: any={};
+  dmKho: any={Id:''};
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
     private activatedRoute: ActivatedRoute,private router:Router,private _auth: AuthenticationService) { 
       this.userInfo = this._auth.currentUserValue;
@@ -48,7 +48,7 @@ export class CandoitonComponent implements OnInit {
   getListDuAn(){
      this._service.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res:any)=>{
        res.filter(obj => {
-        obj.collspan = true;
+        obj.collspan = false;
       });
       this.listDuAn = res
       this.listDuAn[0].collspan =  true;
@@ -57,6 +57,7 @@ export class CandoitonComponent implements OnInit {
      })
   }
   getListKho(item){
+    this.items = [];
     item.collspan=!item.collspan
     var data: any = {};
     data.IdDuAn = item.Id;
@@ -64,10 +65,10 @@ export class CandoitonComponent implements OnInit {
     // data.Loai = 2;
     this._service.GetListdmKho(data).subscribe((res:any)=>{
       res.filter(obj => {
-        obj.select = false;
+          obj.select = false;
       });
-     this.listdmKho =  res;
-   })
+    this.listdmKho =  res;
+    })
  }
   getListLuuKho(CurrentPage,item?, reset? ){
     if(reset){
@@ -93,6 +94,20 @@ export class CandoitonComponent implements OnInit {
         {
           header: 'Vị trí',
           field: 'TendmViTri',
+          width: '150px'
+        },
+      ];
+    }
+    else{
+      this.cols = [
+        {
+          header: 'Tên lô bông',
+          field: 'TenLoBong',
+          width: '150px'
+        },
+        {
+          header: 'Số lượng',
+          field: 'SoLuongTon',
           width: '150px'
         },
       ];

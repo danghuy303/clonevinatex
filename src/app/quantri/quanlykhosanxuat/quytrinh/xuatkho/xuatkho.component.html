@@ -3,7 +3,7 @@
     <h4 style="color:#1f2779">Xuất kho</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
+    <!-- <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button> -->
     <div></div>
     <div class="p-d-flex p-flex-row">
         <!-- <div class="p-mr-2">
@@ -40,13 +40,17 @@
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
-                <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
+                <col>
+                <col>
+                <col *ngFor="let col of cols">
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">STT</th>
+                <th>Số quy trình</th>
+                <th>Ngày</th>
                 <th *ngFor="let header of cols">
                     {{header.header}}
                 </th>
@@ -58,12 +62,18 @@
                 <td class="text-center">
                     {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
+                <td class="text-center">
+                    {{item.SoQuyTrinh}}
+                </td>
+                <td class="text-center">
+                    {{item.Ngay|date:'dd/MM/yyyy'}}
+                </td>
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.id)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item)"></button>
                 </td>
             </tr>
         </ng-template>

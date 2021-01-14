@@ -73,7 +73,6 @@ export class KehoachxuathangComponent implements OnInit {
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
-      this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
@@ -87,7 +86,6 @@ export class KehoachxuathangComponent implements OnInit {
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
-      this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
@@ -101,7 +99,6 @@ export class KehoachxuathangComponent implements OnInit {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
       modalRef.result.then((res: any) => {
-        this._toastr.success('Cập nhật thành công');
         this.GetListQuyTrinh();
       })
         .catch(er => { console.log(er) })

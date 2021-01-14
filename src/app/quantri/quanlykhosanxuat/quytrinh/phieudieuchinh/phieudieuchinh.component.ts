@@ -20,23 +20,13 @@ export class PhieudieuchinhComponent implements OnInit {
   eAction: any = "PHIEUNHAPLOBONG";
   cols: any = [
     {
-      header: 'Số quy trình',
-      field: 'SoQuyTrinh',
-      width: 'unset'
-    },
-    {
-      header: 'Mã PO/Hợp đồng',
-      field: 'SoHopDong',
-      width: 'unset'
-    },
-    {
-      header: 'Lô bông',
+      header: 'Phương án pha bông',
       field: 'TenLoBong',
       width: 'unset'
     },
     {
-      header: 'Loại bông',
-      field: 'TendmLoaiBong',
+      header: 'Ghi chú',
+      field: 'Ghi chú',
       width: 'unset'
     },
   ];
