@@ -50,7 +50,7 @@ export class PhieudieuchinhmodalComponent implements OnInit {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
 
-    this.services.PhieuDieuChuyen().ChuyenTiep(this.item).subscribe((res: any) => {
+    this.services.PhuongAnDieuChinhTimBong().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();
@@ -64,20 +64,16 @@ export class PhieudieuchinhmodalComponent implements OnInit {
   }
  
   GetNextSoQuyTrinh() {
-    this.services.PhieuDieuChuyen().GetNextSo().subscribe((res: any) => {
+    this.services.PhuongAnDieuChinhTimBong().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
 
   GhiLai() {
-    if (this.item.IddmKho === this.item.IddmKhoKhac){
-      this.toastr.error("Kho điều chuyển và kho nhập trùng nhau");
-    }
-    else{
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
 
-      this.services.PhieuDieuChuyen().Set(this.item).subscribe((res: any) => {
+      this.services.PhuongAnDieuChinhTimBong().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -89,8 +85,6 @@ export class PhieudieuchinhmodalComponent implements OnInit {
           }
         }
       })
-    }
-    
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -98,7 +92,7 @@ export class PhieudieuchinhmodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this.services.PhieuDieuChuyen().Delete(this.item).subscribe((res: any) => {
+      this.services.PhuongAnDieuChinhTimBong().Delete(this.item).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
