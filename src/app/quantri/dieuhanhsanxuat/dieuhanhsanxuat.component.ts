@@ -81,42 +81,42 @@ export class DieuhanhsanxuatComponent implements OnInit {
   cols: any = [
     {
       header: 'Ngày',
-      field: 'TongSanLuong',
+      field: 'Ngay',
       width: 'unset'
     },
     {
       header: 'Mặt hàng',
-      field: 'TongSoCa',
+      field: 'MatHang',
       width: 'unset'
     },
     {
       header: 'Lô bông',
-      field: 'GhiChu',
+      field: 'LoBong',
       width: 'unset'
     },
     {
       header: 'Hợp đồng P/O',
-      field: 'GhiChu',
+      field: 'HopDong',
       width: 'unset'
     },
     {
       header: 'Tồn đầu',
-      field: 'GhiChu',
+      field: 'TonDau',
       width: 'unset'
     },
     {
       header: 'Nhập trong ký',
-      field: 'GhiChu',
+      field: 'NhapTrongKy',
       width: 'unset'
     },
     {
       header: 'Xuất trong ký',
-      field: 'GhiChu',
+      field: 'XuatTrongKy',
       width: 'unset'
     },
     {
       header: 'Tồn trong ký',
-      field: 'GhiChu',
+      field: 'TonTrongKy',
       width: 'unset'
     },
   ];;
@@ -240,9 +240,38 @@ export class DieuhanhsanxuatComponent implements OnInit {
         }
       ]
     };
-    // this.listItem = [
-    //   {}
-    // ]
+    this.listItem = [
+      {
+        Ngay:"",
+        MatHang:"Tổng cộng",
+        LoBong:"",
+        HopDong:"",
+        TonDau:"",
+        NhapTrongKy:"",
+        XuatTrongKy:"",
+        TonTrongKy:"",
+      },
+      {
+        Ngay:"10/12/2020",
+        MatHang:"Bong Brazil",
+        LoBong:"011Brazil 103/20",
+        HopDong:"",
+        TonDau:"",
+        NhapTrongKy:"",
+        XuatTrongKy:"",
+        TonTrongKy:"",
+      },
+      {
+        Ngay:"11/12/2020",
+        MatHang:"Bong Brazil",
+        LoBong:"P011Brazil 103/20",
+        HopDong:"",
+        TonDau:"",
+        NhapTrongKy:"",
+        XuatTrongKy:"",
+        TonTrongKy:"",
+      }
+    ]
     this.getAllOptions()
   }
 
