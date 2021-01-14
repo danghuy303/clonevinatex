@@ -35,6 +35,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     { value: 1, label: 'Nội địa' },
   ]
   listPhanXuong: any = []; listMatHang: any = [];
+  listQuyCachDongGoi: any = [];
   yearRange: string = `${((new Date()).getFullYear())}:${((new Date()).getFullYear()) + 5}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) {
 
@@ -61,6 +62,9 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   GetFormOptions() {
     this.services.GetOptions().GetMatHang().subscribe((res: Array<any>) => {
       this.listMatHang = res;
+    })
+    this.services.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
+      this.listQuyCachDongGoi = res;
     })
     this.services.GetOptions().GetNhaMay().subscribe((res: Array<any>) => {
       this.listDonVi = mapArrayForDropDown(res, 'TenDuAn', 'Id');
@@ -196,6 +200,21 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       console.log(er);
     })
   }
+
+  chonQuyCachDongGoi(item) {
+    let modalRef = this._modal.open(ChonhanghoamodalComponent, {
+      size: 'lg'
+    })
+    modalRef.componentInstance.items = this.listQuyCachDongGoi;
+    modalRef.componentInstance.selectedItems = item.listItem || [];
+    modalRef.componentInstance.IdQuyTrinh = this.item.Id;
+    modalRef.result.then(res => {
+      merge(res, this.item.listItem, 'IddmQuyCachDongGoi')
+    }).catch(er => {
+      console.log(er);
+    })
+  }
+
   Calculate() {
     let TongKL = 0;
     let KLxChiSo = 0;
