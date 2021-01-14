@@ -195,6 +195,8 @@ import { DmphannhommaymodalComponent } from './danhmuc/dmphannhommaymodal/dmphan
 import { DmphannhommayChonmathangmodalComponent } from './danhmuc/dmphannhommay-chonmathangmodal/dmphannhommay-chonmathangmodal.component';
 import { PhieudieuchinhComponent } from './quanlykhosanxuat/quytrinh/phieudieuchinh/phieudieuchinh.component';
 import { PhieudieuchinhmodalComponent } from './quanlykhosanxuat/quytrinh/phieudieuchinhmodal/phieudieuchinhmodal.component';
+import { XepbanbongComponent } from './quanlykhosanxuat/phuongan/xepbanbong/xepbanbong.component';
+import { XepbanbongmodalComponent } from './quanlykhosanxuat/phuongan/xepbanbongmodal/xepbanbongmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -350,6 +352,8 @@ import { PhieudieuchinhmodalComponent } from './quanlykhosanxuat/quytrinh/phieud
     DmphannhommayChonmathangmodalComponent,
     PhieudieuchinhComponent,
     PhieudieuchinhmodalComponent,
+    XepbanbongComponent,
+    XepbanbongmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -449,6 +453,7 @@ import { PhieudieuchinhmodalComponent } from './quanlykhosanxuat/quytrinh/phieud
     DmphannhommayChonmathangmodalComponent,   
     PhieudieuchinhmodalComponent,
     SanxuatmodalComponent,
+    XepbanbongmodalComponent,
   ],
   providers: [
     SanXuatService,
