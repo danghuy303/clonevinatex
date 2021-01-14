@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ignoreElements } from 'rxjs/operators';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -26,6 +27,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   listGiaoKeHoach: any = [];
   tempDataGiaoKeHoach: any = [];
   listMatHangGiaoKeHoach: any = [];
+  itemGiaoKeHoach:any = {};
   mapGiaoKeHoachNIdPhanXuong: any = {};
   lang: any = vn;
   yearRangeChonGiaoKeHoach: string = `${((new Date()).getFullYear() - 10)}:${((new Date()).getFullYear())}`;
@@ -61,6 +63,15 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   }
   GetListMatHangChuaLapKeHoach(event, reset?) {
     this.IddmPhanXuong = this.mapGiaoKeHoachNIdPhanXuong[`${event.value}`];
+    if(validVariable(this.item.IdGiaoKeHoachSanXuat)){
+      this.itemGiaoKeHoach = deepCopy(this.tempDataGiaoKeHoach.find(ele=>ele.Id ===this.item.IdGiaoKeHoachSanXuat));
+      if(validVariable(this.itemGiaoKeHoach.TuNgayUnix)&& this.itemGiaoKeHoach.TuNgayUnix!==0){
+        this.itemGiaoKeHoach.TuNgay = UnixToDate(this.itemGiaoKeHoach.TuNgayUnix)
+      }
+      if(validVariable(this.itemGiaoKeHoach.DenNgayUnix)&& this.itemGiaoKeHoach.DenNgayUnix!==0){
+        this.itemGiaoKeHoach.DenNgay = UnixToDate(this.itemGiaoKeHoach.DenNgayUnix)
+      }
+    }
     this.minDateChonMay = UnixToDate(this.tempDataGiaoKeHoach.filter(ele => ele.Id === event.value)[0]?.TuNgayUnix);
     this.maxDateChonMay = UnixToDate(this.tempDataGiaoKeHoach.filter(ele => ele.Id === event.value)[0]?.DenNgayUnix);
     this._services.GetOptions().GetListMatHangChuaLapKeHoach(event.value).subscribe((res: any) => {

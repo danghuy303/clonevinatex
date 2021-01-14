@@ -58,6 +58,11 @@ export class DashboardComponent implements OnInit {
     this.TuNam = { label: (new Date()).getFullYear() - 2 };
     this.DenNam = { label: (new Date()).getFullYear() };
     this.optionsLine = {
+      plugins: {
+        labels: {
+          fontSize:0
+        }
+      },
       legend: {
         position: 'top'
       },
@@ -90,6 +95,11 @@ export class DashboardComponent implements OnInit {
       }
     }
     this.options = {
+      plugins: {
+        labels: {
+          fontSize:0
+        }
+      },
       maintainAspectRatio: window.innerWidth <=375? false:true,
       legend: {
         position: 'top'
@@ -263,7 +273,7 @@ export class DashboardComponent implements OnInit {
   GetListTaiSanDat(id: any) {
     let data = {
       PageSize: 10,
-      CurrentPage: this.pagingThuaDat.CurrentPage,
+      CurrentPage: this.pagingThuaDat.CurrentPage!==0?this.pagingThuaDat.CurrentPage:1,
       IDdmDonVi: id,
       sFilter: this.keyWord,
       isDaBan:this.DaBan,

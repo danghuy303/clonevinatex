@@ -52,11 +52,13 @@ export class ModalThuaDatComponent implements OnInit {
     if(this.item?.TaiSanDat?.NgayKyGiaoDat !== undefined && this.item?.TaiSanDat?.NgayKyGiaoDat !== undefined){
       this.item.TaiSanDat.NgayKyGiaoDatUnix = DateToUnix(this.item.TaiSanDat.NgayKyGiaoDat);
     }
-    // if(this.item.TaiSanDat != null && this.item.TaiSanDat != undefined){
-    //   if(this.item.TaiSanDat.IDdmDonVi != null && this.item.TaiSanDat.IDdmDonVi != undefined && this.item.TaiSanDat.IDdmDonVi != null){
-    //     this.item.TaiSanDat.IDdmDonVi = this.item.TaiSanDat.IDdmDonVi.ID;
-    //   }
-    // }
+    if(this.item?.TaiSanDat?.ThoiHanSuDungDenNgay !== undefined && this.item?.TaiSanDat?.ThoiHanSuDungDenNgay !== undefined){
+      this.item.TaiSanDat.ThoiHanSuDungDenNgayUnix = DateToUnix(this.item.TaiSanDat.ThoiHanSuDungDenNgay);
+    }
+    if(this.item?.TaiSanDat?.ThoiHanSuDungTuNgay !== undefined && this.item?.TaiSanDat?.ThoiHanSuDungTuNgay !== undefined){
+      this.item.TaiSanDat.ThoiHanSuDungTuNgayUnix = DateToUnix(this.item.TaiSanDat.ThoiHanSuDungTuNgay);
+    }
+    
     if(this.item.TaiSanDat.tempTinh !== undefined && this.item.TaiSanDat.tempTinh !== null && this.item.TaiSanDat.tempQuan !== undefined && this.item.TaiSanDat.tempQuan !== null && this.item.TaiSanDat.tempPhuong !== undefined && this.item.TaiSanDat.tempPhuong !== null && this.item.TaiSanDat.DiaChi!==null&& this.item.TaiSanDat.DiaChi!==undefined && this.item.TaiSanDat.DiaChi.trim()!==""){
       this.item.NguoiCapNhat = this.userInfo.UserName
       this._service.SetTaiSanDat(this.item).subscribe((res:any)=>{

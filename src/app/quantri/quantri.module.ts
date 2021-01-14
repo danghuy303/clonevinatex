@@ -188,8 +188,15 @@ import { CandoitonComponent } from './quanlykhosanxuat/quytrinh/candoiton/candoi
 import { DieuhanhsanxuattonghopComponent } from './dieuhanhsanxuattonghop/dieuhanhsanxuattonghop.component';
 import { DmtieuchichatluongsoiComponent } from './danhmuc/dmtieuchichatluongsoi/dmtieuchichatluongsoi.component';
 import { DmtieuchichatluongsoimodalComponent } from './danhmuc/dmtieuchichatluongsoimodal/dmtieuchichatluongsoimodal.component';
+import { SanxuatComponent } from './quanlykhosanxuat/phuongan/sanxuat/sanxuat.component';
+import { SanxuatmodalComponent } from './quanlykhosanxuat/phuongan/sanxuatmodal/sanxuatmodal.component';
+import { DmphannhommayComponent } from './danhmuc/dmphannhommay/dmphannhommay.component';
+import { DmphannhommaymodalComponent } from './danhmuc/dmphannhommaymodal/dmphannhommaymodal.component';
+import { DmphannhommayChonmathangmodalComponent } from './danhmuc/dmphannhommay-chonmathangmodal/dmphannhommay-chonmathangmodal.component';
 import { PhieudieuchinhComponent } from './quanlykhosanxuat/quytrinh/phieudieuchinh/phieudieuchinh.component';
 import { PhieudieuchinhmodalComponent } from './quanlykhosanxuat/quytrinh/phieudieuchinhmodal/phieudieuchinhmodal.component';
+import { XepbanbongComponent } from './quanlykhosanxuat/phuongan/xepbanbong/xepbanbong.component';
+import { XepbanbongmodalComponent } from './quanlykhosanxuat/phuongan/xepbanbongmodal/xepbanbongmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -338,8 +345,15 @@ import { PhieudieuchinhmodalComponent } from './quanlykhosanxuat/quytrinh/phieud
     DieuhanhsanxuattonghopComponent,
     DmtieuchichatluongsoiComponent,
     DmtieuchichatluongsoimodalComponent,
+    SanxuatComponent,
+    SanxuatmodalComponent,
+    DmphannhommayComponent,
+    DmphannhommaymodalComponent,
+    DmphannhommayChonmathangmodalComponent,
     PhieudieuchinhComponent,
     PhieudieuchinhmodalComponent,
+    XepbanbongComponent,
+    XepbanbongmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -435,7 +449,11 @@ import { PhieudieuchinhmodalComponent } from './quanlykhosanxuat/quytrinh/phieud
     DinhmuctieuhaomodalComponent,    
     VitrimodalComponent,
     DmtieuchichatluongsoimodalComponent,
+    DmphannhommaymodalComponent,
+    DmphannhommayChonmathangmodalComponent,   
     PhieudieuchinhmodalComponent,
+    SanxuatmodalComponent,
+    XepbanbongmodalComponent,
   ],
   providers: [
     SanXuatService,

@@ -89,6 +89,10 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
       this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
+          obj.SoHopDong="";
+          obj.Container="";
+          obj.TongSoKien="";
+          obj.GiaBong="";        
           this.listLoaiBong.filter(objlistLoaiBong => {
             if (obj.IddmItem == objlistLoaiBong.value) {
               obj.objloaibong = objlistLoaiBong;

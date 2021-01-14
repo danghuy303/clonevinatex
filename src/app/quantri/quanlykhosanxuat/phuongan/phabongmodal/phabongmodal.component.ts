@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ignoreElements } from 'rxjs/operators';
 import { TinhtrangtaisanComponent } from 'src/app/quantri/danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { CVMic, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 
@@ -28,6 +28,7 @@ export class PhabongmodalComponent implements OnInit {
   itemSoKienTrenBan = {};
   itemMicBQ = {};
   itembBQ = {};
+  itemCVMic={};
   itemSoKienTrenBanTruBongHoi = {};
   item: any = {
     Id: '',
@@ -215,7 +216,7 @@ export class PhabongmodalComponent implements OnInit {
       })
   }
   TinhSoBanBong(e?) {
-    console.log(this.item.TongSoKien);
+    // console.log(this.item.TongSoKien);
     // this.item.TongSoKien = e.value;
     if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh)) {
       this.item.SoBanBong = Math.ceil(this.item.KhoiLuongBong / (this.item.TongSoKien * this.item.KhoiLuongKienTrungBinh));
@@ -266,6 +267,8 @@ export class PhabongmodalComponent implements OnInit {
     let tempTongCLRd = 0;
     let tempTongCLb = 0;
     let tempTongKhoiLuongDung = 0;
+    let arrayMic = [];
+    let arrayKien = [];
     this.item.listLoBong.forEach(lobong => {
       if (validVariable(lobong.tempBanBong[`${x}`].SoKien)) {
         tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
@@ -290,7 +293,12 @@ export class PhabongmodalComponent implements OnInit {
       if (validVariable(lobong.SoLuongDung)) {
         lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
       }
+      if(validVariable(lobong.Mic)){
+        arrayMic.push(lobong.Mic);
+        arrayKien.push(validVariable(lobong.tempBanBong[`${x}`].SoKien)?lobong.tempBanBong[`${x}`].SoKien:0);
+      }
     });
+    this.itemCVMic[`${x}`] = CVMic([...arrayMic,...arrayKien],tempSoKien1LineTruBongHoi);
     this.TinhTyLeTong()
   }
 

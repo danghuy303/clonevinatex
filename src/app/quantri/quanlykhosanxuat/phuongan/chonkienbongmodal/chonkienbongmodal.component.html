@@ -20,7 +20,7 @@
                     </div>
                 </div> -->
             </div>
-            <p-table [value]="items" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+            <p-table [value]="items" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="true" scrollHeight="500px">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <!-- <col style="width:50px"> -->
@@ -54,7 +54,7 @@
                 </div>
             </div> -->
             <p-table [value]="selectedItems"
-                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="true" scrollHeight="500px">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <!-- <col style="width:50px"> -->

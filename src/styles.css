@@ -237,6 +237,11 @@ p-table.blv th {
 .right>.p-overlaypanel .p-overlaypanel:after,.p-overlaypanel:before {
     right:1.25rem !important
 }
+.p-overlaypanel .p-overlaypanel-content{
+    max-height: 500px !important;
+    overflow: scroll !important;
+}
+
 .table thead th{
     vertical-align: middle !important;
 }

@@ -1,5 +1,6 @@
 <div class="modal-header">
-    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} phiếu triển khai kế hoạch sản xuất</h5>
+    <!-- {{opt==='add'?'Thêm mới':'Cập nhật'}} -->
+    <h5 class="modal-title">Phiếu triển khai kế hoạch giao</h5>
     <div class="p-d-flex p-flex-row">
         <div class="mr-2">Số quy trình:&nbsp;{{item.SoQuyTrinh}}</div>
         <div class="mr-2">TG tạo:&nbsp;{{item.Created|date:'dd/MM/yyyy'}}</div>
@@ -48,15 +49,48 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
+            </div>
+        </div>
+        
+        <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Từ ngày:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang"
+                 dateFormat="dd/mm/yy" [yearNavigator]="true" [yearRange]="yearRange" [readonlyInput]="true" inputId="monthpicker"
+                    [(ngModel)]="itemGiaoKeHoach.TuNgay" placeholder="dd/mm/yyyy" disabled>
+                </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đến ngày:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang"
+                 dateFormat="dd/mm/yy" [yearNavigator]="true" [yearRange]="yearRange" [readonlyInput]="true" inputId="monthpicker"
+                    [(ngModel)]="itemGiaoKeHoach.DenNgay" placeholder="dd/mm/yyyy" disabled>
+                </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bình quân NE 30(Tấn/ca):</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemGiaoKeHoach.BQNE30" disabled>
+                </p-inputNumber>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số ca:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-inputNumber [minFractionDigits]="0" [max]="93" locale="vi-VN" [(ngModel)]="itemGiaoKeHoach.TongSoCa"disabled>
+                </p-inputNumber >
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
         <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
@@ -72,7 +106,7 @@
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
                 <div>
-                    <button pButton pRipple type="button" label="Danh sách mặt hàng" class="p-mr-2 p-button-sm"
+                    <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm"
                         (click)="chonHangHoa()"></button>
                 </div>
                 <div>
@@ -100,7 +134,7 @@
                     <tr>
                         <th>#</th>
                         <th>Mặt hàng</th>
-                        <th>Giao kế hoạch(Tấn)</th>
+                        <th>Kế hoạch giao(Tấn)</th>
                         <th>Kế hoạch triển khai(Tấn)</th>
                         <th>Từ ngày</th>
                         <th>Đến ngày</th>
@@ -142,7 +176,7 @@
                         <td></td> -->
                         <td class="text-center date">
                             <ng-container *ngIf="validVariable(mathang.TuNgay)&&validVariable(mathang.DenNgay)">
-                                <a href="javascript:void(0)" (click)="boTriMay(mathang,i)">Bố trí máy</a>
+                                <a href="javascript:void(0)" (click)="boTriMay(mathang,i)">Cân đối chuyền</a>
                             </ng-container>
                             <ng-container *ngIf="validChonLai(mathang)">
                                 <button type="button" pButton pRipple icon="pi pi-refresh"

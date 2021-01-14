@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy } from 'src/app/services/globalfunction';
 import { TimbongmodalComponent } from '../timbongmodal/timbongmodal.component';
 
 @Component({
@@ -43,7 +43,8 @@ export class TimbongComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== '0') {
-        this._service.PhuongAnPhaBong().Get(res.id).subscribe((res: any) => {
+        this._service.TimBong().Get(res.id).subscribe((res: any) => {
+          console.log(res);
           // res.listItem.forEach(ele => {
           //   ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
           // });
@@ -86,13 +87,16 @@ export class TimbongComponent implements OnInit {
       })
   }
   update(item) {
+    let tempPhuongAnPhaBong = deepCopy(item.PhuongAnPhaBong);
+    item.PhuongAnPhaBong = undefined;
     let modalRef = this._modal.open(TimbongmodalComponent, {
       size: 'fullscreen-100',
       backdrop: 'static',
       keyboard:false
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.item = tempPhuongAnPhaBong;
+    modalRef.componentInstance.ghostItem = deepCopy(item);
     modalRef.result.then((res: any) => {
       console.log(res);
       this._toastr.success('Cập nhật thành công');

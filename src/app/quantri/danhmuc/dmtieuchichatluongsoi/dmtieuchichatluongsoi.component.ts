@@ -66,6 +66,7 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getdungsai();
     this.GetDanhSachDuAnByIdUser();
     this.GetListdm();
   }
@@ -76,15 +77,15 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
 
   getdungsai() {
     this.listdungsai = [
-      {Id:"CVm",Ten:"≤"},
-      // {Id:"CongTru",Ten:"±"},
-      // {Id:"LonHonHoacBang",Ten:"≥"},
-      // {Id:"",Ten:"- 40%"},
-      // {Id:"",Ten:"- 50%"},
-      // {Id:"",Ten:"+35%"},
-      // {Id:"",Ten:"+50%"},
-      // {Id:"",Ten:"+140%"},
-      // {Id:"",Ten:"+200%"},
+      {Id:"NhoHonHoacBang",Ten:"≤"},
+      {Id:"CongTru",Ten:"±"},
+      {Id:"LonHonHoacBang",Ten:"≥"},
+      {Id:"Thin-40%",Ten:"Thin (- 40%)"},
+      {Id:"Thin-50%",Ten:"Thin (- 50%)"},      
+      {Id:"Thick+35%",Ten:"Thick (+ 35%)"}, 
+      {Id:"Thick+50%",Ten:"Thick (+ 50%)"},      
+      {Id:"Neps+140%",Ten:"Neps (+ 140%)"},      
+      {Id:"Neps+200%",Ten:"Neps (+ 200%)"},
     ];
     this.listdungsai = mapArrayForDropDown(this.listdungsai, 'Ten', 'Id')
   }
