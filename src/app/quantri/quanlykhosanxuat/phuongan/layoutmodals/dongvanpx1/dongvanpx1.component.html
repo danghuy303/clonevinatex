@@ -49,7 +49,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Tổng số</td>
+                        <td (contextmenu)="rightClick()">Tổng số</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -77,17 +77,17 @@
             <table  class="table table-sm table-bordered">
                 <tbody>
                     <tr>
-                        <td *ngFor="let slot of block1" style="background-color: #ccc;">
+                        <td *ngFor="let slot of block1" (click)="slotFocus(slot)" [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?'red':(banBong[slot]._focus?'#ccc':'white')}">
                             {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
                         </td>
                     </tr>
                     <tr *ngFor="let slot of block3">
-                        <td [attr.colspan]="block1.length">
+                        <td [attr.colspan]="block1.length" (click)="slotFocus(slot)" [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?'red':(banBong[slot]._focus?'#ccc':'white')}">
                             {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
                         </td>
                     </tr>
                     <tr>
-                        <td *ngFor="let slot of block4">
+                        <td *ngFor="let slot of block4" (click)="slotFocus(slot)" [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?'red':(banBong[slot]._focus?'#ccc':'white')}">
                             {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
                         </td>
                     </tr>
@@ -97,8 +97,8 @@
         <div class="p-col-3 pl-0">
             <table class="table table-sm table-bordered">
                 <tbody>
-                    <tr *ngFor="let slot of block2">
-                       <td>
+                    <tr *ngFor="let slot of block2;">
+                       <td (click)="slotFocus(slot)" [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?'red':(banBong[slot]._focus?'#ccc':'white')}">
                            {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
                        </td>
                     </tr>
