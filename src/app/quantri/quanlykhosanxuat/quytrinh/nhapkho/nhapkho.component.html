@@ -64,7 +64,7 @@
                     {{header.header}}
                 </th>
                 <th>Tổng số kiện</th>
-                <th>Tổng khối lượng</th>
+                <th>Tổng khối lượng (kg)</th>
                 <th>Trạng thái</th>
                 <th></th>
             </tr>
@@ -74,7 +74,7 @@
                     {{header.header}}
                 </th>
                 <th>Tổng số kiện</th>
-                <th>Tổng khối lượng</th>
+                <th>Tổng khối lượng (kg)</th>
                 <th>Trạng thái</th>
                 <th></th>
             </tr>
@@ -82,7 +82,7 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr *ngIf="this.title === 'khobong' || this.title === 'khoxo'">
                 <td class="text-center">
-                    {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
+                    {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
@@ -103,7 +103,7 @@
             </tr>
             <tr *ngIf="this.title === 'khobonghoi' || this.title === 'khobongphe'">
                 <td class="text-center">
-                    {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
+                    {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
                 <td class="text-center" *ngFor="let col of colHois">
                     {{item[col.field]}}
@@ -125,7 +125,7 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="25"
+                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20"
                     (onPageChange)="changePage($event)"></p-paginator>
             </div>
         </ng-template>

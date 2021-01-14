@@ -59,7 +59,7 @@
             <ng-template pTemplate="body" let-item let-i="rowIndex">
                 <tr>
                     <td class="text-center">
-                        {{ 15 * (paging.CurrentPage - 1) + i + 1 }}
+                        {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                     </td>
                     <td class="text-center" *ngFor="let col of cols">
                         {{item[col.field]}}
