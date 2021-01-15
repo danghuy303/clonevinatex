@@ -9,6 +9,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
+import { ChonquycachdonggoimodalComponent } from '../../modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component';
 import { TrienkhaikehoachsanxuatComponent } from '../trienkhaikehoachsanxuat/trienkhaikehoachsanxuat.component';
 
 @Component({
@@ -64,7 +65,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       this.listMatHang = res;
     })
     this.services.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
-      this.listQuyCachDongGoi = res;
+      this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');;
     })
     this.services.GetOptions().GetNhaMay().subscribe((res: Array<any>) => {
       this.listDonVi = mapArrayForDropDown(res, 'TenDuAn', 'Id');
@@ -201,15 +202,39 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     })
   }
 
+  changeKeHoachSanXuat(e, item) {
+    if (e.value != undefined && item.value != null && item.value > 0
+      && item.listItem != undefined && item.listItem.length > 0) {
+      let tong = 0;
+      item.listItem.filter(obj => {
+        tong += obj.KhoiLuong;
+      });
+      if (item.value < tong) {
+        this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
+      }
+    }
+  }
+
   chonQuyCachDongGoi(item) {
-    let modalRef = this._modal.open(ChonhanghoamodalComponent, {
+    let modalRef = this._modal.open(ChonquycachdonggoimodalComponent, {
       size: 'lg'
     })
     modalRef.componentInstance.items = this.listQuyCachDongGoi;
     modalRef.componentInstance.selectedItems = item.listItem || [];
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
-      merge(res, this.item.listItem, 'IddmQuyCachDongGoi')
+      // merge(res, this.item.listItem, 'IddmQuyCachDongGoi');
+      item.listItem = res.listItem;
+      if (item.KhoiLuongKeHoach != undefined && item.KhoiLuongKeHoach != null && item.KhoiLuongKeHoach > 0
+        && item.listItem != undefined && item.listItem.length > 0) {
+        let tong = 0;
+        item.listItem.filter(obj => {
+          tong += obj.KhoiLuong;
+        });
+        if (item.KhoiLuongKeHoach < tong) {
+          this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
+        }
+      }
     }).catch(er => {
       console.log(er);
     })
@@ -239,7 +264,14 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
-            this.item = res.objectReturn;
+            this.item = res.objectReturn;            
+            if (this.item.listItem != undefined && this.item.listItem != null) {
+              this.item.listItem.filter(objlistItem => {
+                objlistItem.listItem.filter(objlistItem2 => {
+                  objlistItem2.objQuyCachDongGoi = this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
+                });          
+              });
+            }
             this.KiemTraButtonModal();
             this.Calculate();
           } else {
