@@ -27,7 +27,48 @@
         </div>
     </div>
     <div class="p-grid">
-        
+        <div class="p-col-2">
+            <table class="table table-sm table-bordered" style="position: sticky;top:0">
+                <thead>
+                    <tr>
+                        <th>Loại bông</th>
+                        <th>Kiện</th>
+                        <!-- <th>%</th>
+                        <th>Cũ</th> -->
+                        <th>Đã xếp</th>
+                        <th>Còn lại</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let lobong of item.listItem;let i = index" [ngStyle]="{'background-color': lobong.Mau}">
+                        <td (click)="xepLoBong(lobong,i)">{{lobong.TenLoBong}}</td>
+                        <td class="text-right">{{lobong.SoLuong}}</td>
+                        <td class="text-right">{{lobong.DaXep}}</td>
+                        <td class="text-right">{{lobong.ConLai}}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                Tổng số
+                            </div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Khối lượng 1 bàn</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Khối lượng 1 tuần</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <div class="modal-footer">

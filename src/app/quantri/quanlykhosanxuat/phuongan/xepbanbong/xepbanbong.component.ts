@@ -98,7 +98,7 @@ export class XepbanbongComponent implements OnInit {
   update(item) {
     // let tempPhuongAnPhaBong = deepCopy(item.PhuongAnPhaBong);
     item.PhuongAnPhaBong = undefined;
-    let modalRef = this._modal.open(this.defineComponent[`${this._store.getCurrent()}`]['px1'], {
+    let modalRef = this._modal.open(this.defineComponent[`${this._store.getCurrent()}`]['px2'], {
       size: 'fullscreen-100',
       backdrop: 'static',
       keyboard:false
