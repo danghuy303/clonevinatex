@@ -18,15 +18,17 @@ export class Dongvanpx1Component implements OnInit {
   block4:any = [];
   poolLoBong:any = [];
   banBong:any = {};
-  ngoaiQuan:any = [];
+  ngoaiQuan:any = [18,24,30,33,36,42,47];
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
   }
 
   ngOnInit(): void {
     for(let i=1; i<=50;i++){
+      let isNgoaiQuan = this.ngoaiQuan.findIndex(ele=>ele===i)>-1;
       this.banBong[`${i}`]={
         _focus:false,
-        labelLoBong:'',
+        _ngoaiQuan:isNgoaiQuan,
+        labelLoBong:isNgoaiQuan?'Ngoại quan bông':'',
         STT:`${i}. `
       }
       if(i<=2){
@@ -42,10 +44,15 @@ export class Dongvanpx1Component implements OnInit {
         this.block4.push(`${i}`)
       }
     };
-    console.log(this.block1)
-    console.log(this.block2)
-    console.log(this.block3)
-    console.log(this.block4)
   }
-
+  slotFocus(slot){
+    for(let prop in this.banBong){
+      this.banBong[prop]._focus = false;
+    }
+    this.banBong[slot]._focus = !this.banBong[slot]._focus;
+  }
+  rightClick(){
+    console.log('abc');
+    return false;
+  }
 }
