@@ -27,6 +27,20 @@
         </div>
     </div>
     <div class="p-grid">
+        <div class="p-col-12 p-lg-6 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số vị trí ngoại quan:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <!-- <input type="text" class="p-inputtext-sm" (onblur)="veLayout()" [(ngModel)]="SoViTriNgoaiQuan" pInputText /> -->
+                <p-inputNumber locale="vi-VN" [(ngModel)]="SoViTriNgoaiQuan" (onBlur)="veLayout()">
+                </p-inputNumber>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Vị trí ngoại quan bông:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <input type="text" class="p-inputtext-sm" (keyup.enter)="veLayout()" [(ngModel)]="ViTriNgoaiQuan" pInputText />
+            </div>
+        </div>
         <div class="p-col-2">
             <table class="table table-sm table-bordered" style="position: sticky;top:0">
                 <thead>
@@ -41,7 +55,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let lobong of item.listItem;let i = index" [ngStyle]="{'background-color': lobong.Mau}">
-                        <td (click)="xepLoBong(lobong,i)">{{lobong.TenLoBong}}</td>
+                        <td (click)="xepLoBong(lobong,i)" style="cursor: pointer;">{{lobong.TenLoBong}}</td>
                         <td class="text-right">{{lobong.SoLuong}}</td>
                         <td class="text-right">{{lobong.DaXep}}</td>
                         <td class="text-right">{{lobong.ConLai}}</td>
@@ -75,21 +89,26 @@
                     <tr>
                         <td *ngFor="let slot of block1" (click)="slotFocus(slot)"
                             (contextmenu)="returnSlot($event,slot)"
-                            [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?'#8cd3ff':(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
+                            [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?(banBong[slot]._focus?'#009dff':'#8cd3ff'):(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
                             {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
+                            <!-- <ng-container *ngIf="!banBong[slot]._ngoaiQuan">
+                                {{banBong[slot].labelLoBong}}
+                            </ng-container>
+                            <ng-container *ngIf="banBong[slot]._ngoaiQuan">
+                            </ng-container> -->
                         </td>
                     </tr>
                     <tr *ngFor="let slot of block3">
                         <td [attr.colspan]="block1.length" (click)="slotFocus(slot)"
                             (contextmenu)="returnSlot($event,slot)"
-                            [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?'#8cd3ff':(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
+                            [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?(banBong[slot]._focus?'#009dff':'#8cd3ff'):(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
                             {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
                         </td>
                     </tr>
                     <tr>
                         <td *ngFor="let slot of block4" (click)="slotFocus(slot)"
                             (contextmenu)="returnSlot($event,slot)"
-                            [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?'#8cd3ff':(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
+                            [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?(banBong[slot]._focus?'#009dff':'#8cd3ff'):(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
                             {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
                         </td>
                     </tr>
@@ -101,7 +120,7 @@
                 <tbody>
                     <tr *ngFor="let slot of block2;">
                         <td (click)="slotFocus(slot)" (contextmenu)="returnSlot($event,slot)"
-                            [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?'#8cd3ff':(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
+                            [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?(banBong[slot]._focus?'#009dff':'#8cd3ff'):(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
                             {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
                             <br>
                             <br>
