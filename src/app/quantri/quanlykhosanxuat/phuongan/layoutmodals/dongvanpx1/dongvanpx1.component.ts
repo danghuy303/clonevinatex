@@ -63,34 +63,34 @@ export class Dongvanpx1Component implements OnInit {
     this.block2 = [];
     this.block3 = [];
     this.block4 = [];
-    this.ngoaiQuan = this.ViTriNgoaiQuan.split(',');
-    console.log(this.ngoaiQuan);
-    // this.length = this.item.listItem.reduce((total,ele)=>{
-    //   return total + ele.SoLuong
-    // },0)
-    // for (let i = 1; i <= (this.length+this.SoViTriNgoaiQuan); i++) {
-    //   let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
-    //   this.banBong[`${i}`] = {
-    //     _focus: false,
-    //     _ngoaiQuan: isNgoaiQuan,
-    //     labelLoBong: isNgoaiQuan ? 'Ngoại quan bông' : null,
-    //     STT: `${i}. `,
-    //     IdLoBong: null,
-    //     Mau: 'white'
-    //   }
-    //   if (i <= 2) {
-    //     this.block1.push(`${i}`)
-    //   }
-    //   if (2 < i && i <= 16) {
-    //     this.block2.push(`${i}`)
-    //   }
-    //   if (16 < i && i <= (this.length+this.SoViTriNgoaiQuan-2)) {
-    //     this.block3.push(`${i}`)
-    //   }
-    //   if ((this.length+this.SoViTriNgoaiQuan-2) < i && i <= (this.length+this.SoViTriNgoaiQuan)) {
-    //     this.block4.push(`${i}`)
-    //   }
-    // };
+    this.ngoaiQuan = this.ViTriNgoaiQuan.split(',').map(ele=>parseInt(ele));
+    console.log(this.ngoaiQuan)
+    this.length = this.item.listItem.reduce((total,ele)=>{
+      return total + ele.SoLuong
+    },0)
+    for (let i = 1; i <= (this.length+this.SoViTriNgoaiQuan); i++) {
+      let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
+      this.banBong[`${i}`] = {
+        _focus: false,
+        _ngoaiQuan: isNgoaiQuan,
+        labelLoBong: isNgoaiQuan ? 'Ngoại quan bông' : null,
+        STT: `${i}. `,
+        IdLoBong: null,
+        Mau: 'white'
+      }
+      if (i <= 2) {
+        this.block1.push(`${i}`)
+      }
+      if (2 < i && i <= 16) {
+        this.block2.push(`${i}`)
+      }
+      if (16 < i && i <= (this.length+this.SoViTriNgoaiQuan-2)) {
+        this.block3.push(`${i}`)
+      }
+      if ((this.length+this.SoViTriNgoaiQuan-2) < i && i <= (this.length+this.SoViTriNgoaiQuan)) {
+        this.block4.push(`${i}`)
+      }
+    };
   }
   slotFocus(slot) {
     for (let prop in this.banBong) {
