@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, deepCopy, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { KehoachsanxuatmodalComponent } from '../kehoachsanxuatmodal/kehoachsanxuatmodal.component';
 
 @Component({
@@ -42,6 +42,7 @@ export class KehoachsanxuatComponent implements OnInit {
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
+  listQuyCachDongGoi: any = [];
 
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
@@ -69,7 +70,7 @@ export class KehoachsanxuatComponent implements OnInit {
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {
       Id: '',
-      listItem:[]
+      listItem: []
     }
     modalRef.result.then((res: any) => {
       console.log(res);
@@ -77,24 +78,34 @@ export class KehoachsanxuatComponent implements OnInit {
       this.GetListQuyTrinh();
       this.changeParam(0)
     })
-      .catch(er => { this.GetListQuyTrinh();this.changeParam(0) })
+      .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
   }
   update(item) {
-    let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = item;
-    modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
-    modalRef.componentInstance.item.DenNgay = UnixToDate(item.DenNgayUnix);
-    modalRef.result.then((res: any) => {
-      console.log(res);
-      this._toastr.success('Cập nhật thành công');
-      this.GetListQuyTrinh();
-      this.changeParam(0)
-    })
-      .catch(er => { this.GetListQuyTrinh();this.changeParam(0) })
+    this._service.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
+      this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
+      if (item.listItem != undefined && item.listItem != null) {
+        item.listItem.filter(objlistItem => {
+          objlistItem.listItem.filter(async objlistItem2 => {
+            objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
+          });          
+        });
+        let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
+          size: 'fullscreen',
+          backdrop: 'static'
+        })
+        modalRef.componentInstance.opt = 'edit';
+        modalRef.componentInstance.item = item;
+        modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
+        modalRef.componentInstance.item.DenNgay = UnixToDate(item.DenNgayUnix);
+        modalRef.result.then((res: any) => {
+          console.log(res);
+          this._toastr.success('Cập nhật thành công');
+          this.GetListQuyTrinh();
+          this.changeParam(0)
+        })
+          .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
+      }
+    })  
   }
   changeTab(e) {
     this.trangThai = e.index + 1;

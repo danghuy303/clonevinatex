@@ -138,6 +138,12 @@ export class QuantriComponent implements OnInit {
                             this.close()
                         }
                     },
+                    {
+                        label: 'Phương án xuất bông',
+                        routerLink: '/quantri/kehoachsanxuat/sanxuat/0',
+                        icon: 'fas fa-circle',
+                        command: () => this.close()
+                    },
                 ]
             },
             {
@@ -155,11 +161,7 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/trienkhaisanxuat/timbong/0',
                         command: () => this.close()
                     },
-                    {
-                        label: 'Phương án sản xuất',
-                        routerLink: '/quantri/trienkhaisanxuat/sanxuat/0',
-                        command: () => this.close()
-                    },
+                    
                     {
                         label: 'Xếp bàn bông',
                         routerLink: '/quantri/trienkhaisanxuat/xepbanbong/0',

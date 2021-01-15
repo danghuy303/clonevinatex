@@ -10,7 +10,8 @@
             <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
                 <div>
                     <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
-                    <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2" (click)="_activeModal.dismiss()"></button>
+                    <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2"
+                        (click)="_activeModal.dismiss()"></button>
                 </div>
                 <div>
                     <div class="p-inputgroup">
@@ -21,36 +22,60 @@
                     </div>
                 </div>
             </div>
-            <p-table [value]="items|filter:KeyWord"
+            <p-table [value]="selectedItems|filter:KeyWord"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
                         <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
                         <col style="width:200px">
+                        <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th><p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true" inputId="binary"></p-checkbox></th>
+                        <th>#</th>
                         <th *ngFor="let header of cols">
                             {{header.header}}
                         </th>
                         <th>Số lượng</th>
+                        <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
-                        <td class="text-center">
-                            <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary"></p-checkbox>
-                        </td>
-                        <td *ngFor="let col of cols">
-                            {{item[col.field]}}
+                        <td class="text-center">{{i+1}}</td>
+                        <td>
+                            <p-dropdown [filter]="true" [options]="items" placeholder="Chọn quy cách đóng gói"
+                                styleClass="p-inputtext-sm" [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.KhoiLuong">
                             </p-inputNumber>
-                        </td>                       
+                        </td>
+                        <td>
+                            <button pButton pRipple icon="pi pi-times"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                (click)="delete(i)" pTooltip="Hủy" tooltipPosition="bottom"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer" *ngIf="opt!=='modal'">
+                    <tr>
+                        <td class="text-center">#
+                        </td>
+                        <td>
+                            <p-dropdown [filter]="true" [options]="items" placeholder="Chọn quy cách đóng gói"
+                                styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.IddmQuyCachDongGoi"></p-dropdown>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.KhoiLuong">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <button pButton pRipple type="button" icon="pi pi-plus"
+                                class="p-button-rounded p-button-sm " (click)="add()"></button>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>

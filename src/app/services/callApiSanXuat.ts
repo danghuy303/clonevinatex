@@ -1014,6 +1014,9 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhuongAnDieuChinhTimBong', data, httpOptions)
             },
+            GetKienLoBong: (IdPhuongAnPhaBong, IdLoBong, IddmKho) => {
+                return this.http.get(url + `GetKienLoBongDieuChinh?IdPhuongAnPhaBong=${IdPhuongAnPhaBong}&IdLoBong=${IdLoBong}&IddmKho=${IddmKho}`, httpOptions)
+            },
         }
     }
 }

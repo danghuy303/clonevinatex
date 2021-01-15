@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-chonquycachdonggoimodal',
@@ -17,41 +18,66 @@ export class ChonquycachdonggoimodalComponent implements OnInit {
   checkedAll: boolean = false;
   cols: any = [
     {
-      header: 'Mã',
-      field: 'Ma',
-      width: 'unset'
-    },
-    {
       header: 'Tên',
       field: 'Ten',
       width: 'unset'
-    },    
-  ];;
-  constructor(private _activeModal: NgbActiveModal, private _services: SanXuatService) { }
+    }
+  ];
+  newTableItem: any = {};
+
+  constructor(private _activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
-      let selected = this.items.filter(item => sItem.IddmItem === item.IddmItem)[0];
-      if (selected) {
-        selected.checked = true;
-      }
-    });
+    this.newTableItem = {
+      Id: "",
+      IdGiaoKeHoachSanXuat_MatHang: this.IdQuyTrinh,
+      isXoa: false,
+    };
+    if (this.selectedItems == undefined || this.selectedItems == null) {
+      this.selectedItems.filter(objselectedItems => {
+        objselectedItems.objQuyCachDongGoi = this.items.filter(obj => this.newTableItem.IddmQuyCachDongGoi == obj.value)[0];
+      });
+    }
+    // this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
+    //   let selected = this.items.filter(item => sItem.IddmItem === item.IddmItem)[0];
+    //   if (selected) {
+    //     selected.checked = true;
+    //   }
+    // });
   }
   resetFilter() {
     this.KeyWord = '';
   }
-  checkAll(e) {
-    if (e.checked) {
-      this.items.forEach(item => {
-        item.checked = true;
-      });
-    } else {
-      this.items.forEach(item => {
-        item.checked = false;
-      });
+
+  add() {
+    if (this.newTableItem.IddmQuyCachDongGoi == undefined || this.newTableItem.IddmQuyCachDongGoi == null)
+      this.toastr.error("Bạn chưa chọn quy cách đóng gòi");
+    if (this.newTableItem.KhoiLuong == undefined || this.newTableItem.KhoiLuong == null || this.newTableItem.KhoiLuong <= 0)
+      this.toastr.error("Bạn chưa nhập số lượng");
+    else {
+      if (this.selectedItems == undefined || this.selectedItems == null)
+        this.selectedItems = [];
+      this.newTableItem.objQuyCachDongGoi = this.items.filter(obj => this.newTableItem.IddmQuyCachDongGoi == obj.value)[0];
+      this.selectedItems.push(this.newTableItem);
+      this.newTableItem = {
+        Id: "",
+        IdGiaoKeHoachSanXuat_MatHang: this.IdQuyTrinh,
+        isXoa: false,
+      }
     }
   }
+
+  delete(index) {
+    let item = this.selectedItems.splice(index, 1)[0];
+    if (item.Id === '' || item.Id === null || item.Id === undefined) {
+    } else {
+      item.isXoa = true;
+      this.selectedItems.push(JSON.parse(JSON.stringify(item)));
+    }
+  }
+
   accept() {
+    this._activeModal.close({ listItem: this.selectedItems });
     // let data = this.items.filter(item => item.checked)
     // data.forEach(mathang => {
     //   mathang.listItemTemp = {};
