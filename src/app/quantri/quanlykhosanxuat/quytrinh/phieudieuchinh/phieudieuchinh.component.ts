@@ -39,13 +39,11 @@ export class PhieudieuchinhComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    // console.log(this.activatedRoute);
-    // this.activatedRoute.params.subscribe((res:any)=>{
-    //   console.log(res.id)
-    //   if(res.id!=='0'){
-    //     this.update(res.id);
-    //   }
-    // })
+    this.activatedRoute.params.subscribe((res:any)=>{
+      if(res.id!=='0'){
+        this.update(res.id);
+      }
+    })
     this.GetListQuyTrinh();
     this.KiemTraTabTrangThai();
   }

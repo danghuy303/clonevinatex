@@ -2,19 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
-import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
-  selector: 'app-xuatkhomodal',
-  templateUrl: './xuatkhomodal.component.html',
-  styleUrls: ['./xuatkhomodal.component.css']
+  selector: 'app-xuatkhoxomodal',
+  templateUrl: './xuatkhoxomodal.component.html',
+  styleUrls: ['./xuatkhoxomodal.component.css']
 })
-export class XuatkhomodalComponent implements OnInit {
+export class XuatkhoxomodalComponent implements OnInit {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -26,7 +24,7 @@ export class XuatkhomodalComponent implements OnInit {
   lang: any = vn;
   listKho: any = [];
   listPhanXuong: any = [];
-  listPhuongAnPhaBong: any = [];
+  listTrienKhaiKeHoachSanXuat: any = [];
   listItem: any = [];
   paging: any = {};
 
@@ -35,20 +33,25 @@ export class XuatkhomodalComponent implements OnInit {
     public toastr: ToastrService, public _modal: NgbModal) {  }
 
   ngOnInit(): void {
+    if (this.opt !== 'edit') {
+      this.GetNextSoQuyTrinh();
+    }
     this.KiemTraButtonModal();
     this.GetQuyTrinh();
     //
-    let data = {
+    let data: any = {
       CurrentPage: 0
     }
-    this.services.PhuongAnPhaBong().GetList(data).subscribe((res:any)=>{
-      this.listPhuongAnPhaBong = mapArrayForDropDown(res, 'Ten', 'Id');
+    this.services.TrienKhaiKeHoachSanXuat().GetList(data).subscribe((res:any)=>{
+      this.listTrienKhaiKeHoachSanXuat = mapArrayForDropDown(res, 'SoQuyTrinh', 'Id');
     })
-    this.services.GetListdmKho(data).subscribe((res:any)=>{
-      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
+    
     this.services.GetListdmPhanXuong(data).subscribe((res:any)=>{
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+    data.Loai = 5;
+    this.services.GetListdmKho(data).subscribe((res:any)=>{
+      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
@@ -56,7 +59,7 @@ export class XuatkhomodalComponent implements OnInit {
   }
   GetQuyTrinh()
   {
-    this.services.PhieuXuatSanXuat().Get(this.item.Id).subscribe((res1:any)=>{
+    this.services.PhieuXuatKhoXo().Get(this.item.Id).subscribe((res1:any)=>{
       this.item = res1;
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
@@ -77,7 +80,7 @@ export class XuatkhomodalComponent implements OnInit {
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
     
-    this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
+    this.services.PhieuXuatKhoXo().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();
@@ -88,7 +91,7 @@ export class XuatkhomodalComponent implements OnInit {
     })
   }
   GetNextSoQuyTrinh() {
-    this.services.PhieuXuatSanXuat().GetNextSo().subscribe((res: any) => {
+    this.services.PhieuXuatKhoXo().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
@@ -99,7 +102,7 @@ export class XuatkhomodalComponent implements OnInit {
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
 
-      this.services.PhieuXuatSanXuat().Set(this.item).subscribe((res: any) => {
+      this.services.PhieuXuatKhoXo().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -119,7 +122,7 @@ export class XuatkhomodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this.services.PhieuXuatSanXuat().Delete(this.item).subscribe((res: any) => {
+      this.services.PhieuXuatKhoXo().Delete(this.item).subscribe((res: any) => {
         if (res?.State === 1) {
           this.activeModal.close();
         } else {
