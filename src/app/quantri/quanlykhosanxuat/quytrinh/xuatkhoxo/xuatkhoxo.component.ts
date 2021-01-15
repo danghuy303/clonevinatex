@@ -3,15 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { XuatkhomodalComponent } from '../xuatkhomodal/xuatkhomodal.component';
+import { DateToUnix } from 'src/app/services/globalfunction';
+import { XuatkhoxomodalComponent } from '../xuatkhoxomodal/xuatkhoxomodal.component';
 
 @Component({
-  selector: 'app-xuatkho',
-  templateUrl: './xuatkho.component.html',
-  styleUrls: ['./xuatkho.component.css']
+  selector: 'app-xuatkhoxo',
+  templateUrl: './xuatkhoxo.component.html',
+  styleUrls: ['./xuatkhoxo.component.css']
 })
-export class XuatkhoComponent implements OnInit {
+export class XuatkhoxoComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{id:5,SoQuyTrinh:'PKK_0000_0000'}];
   filter:any={};
@@ -30,8 +30,8 @@ export class XuatkhoComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Phương án pha bông',
-      field: 'TenPhuongAnPhaBong',
+      header: 'Kế hoạch sản xuất',
+      field: 'TenGiaoKeHoachSanXuat_TrienKhai',
       width: 'unset'
     },
     {
@@ -49,21 +49,24 @@ export class XuatkhoComponent implements OnInit {
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((res:any)=>{
-      // if(res.id!=='0' && res.id!==undefined){
-      //   this.update(res.id);
-      // }
-    })
+    // this.activatedRoute.params.subscribe((res:any)=>{
+    //   if(res.id!=='0'){
+    //     this.update(res.id);
+    //   }
+    // })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh()
 
   }
   changeParam(id){
-    this.router.navigate([`quantri/quanlykhosanxuat/khobong/xuatkho/${id}`],{replaceUrl: true})
+    if(this._modal.hasOpenModals()){
+      this._modal.dismissAll()
+    }
+    this.router.navigate([`quantri/quanlykhosanxuat/khoxo/xuatkho/${id}`],{replaceUrl: true})
   }
   add(){
     this.changeParam(0);
-    let modalRef = this._modal.open(XuatkhomodalComponent, {
+    let modalRef = this._modal.open(XuatkhoxomodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
@@ -76,7 +79,7 @@ export class XuatkhoComponent implements OnInit {
   }
   update(item){
     this.changeParam(item.Id);
-    let modalRef = this._modal.open(XuatkhomodalComponent, {
+    let modalRef = this._modal.open(XuatkhoxomodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
@@ -101,7 +104,7 @@ export class XuatkhoComponent implements OnInit {
       this.paginator.changePage(0);
     }
     let data={
-      PageSize: 25,
+      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter:this.filter.KeyWord,
@@ -109,8 +112,9 @@ export class XuatkhoComponent implements OnInit {
       DenNgay:DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
+      Loai: 2,
     }
-    this._service.PhieuXuatSanXuat().GetList(data).subscribe((res:any)=>{
+    this._service.PhieuXuatKhoXo().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })

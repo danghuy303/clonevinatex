@@ -131,16 +131,17 @@ export class PhieudieuchinhmodalComponent implements OnInit {
   getKienLoBongDieuChinh(item) {
     this.services.PhuongAnDieuChinhTimBong().GetKienLoBong(this.item.IdPhuongAnPhaBong, item.IdLoBong, this.item.IddmKho).subscribe((res:any)=>{
       let modalRef = this._modal.open(KienlocongdieuchinhmodalComponent, {
-        size: 'fullscreen',
+        size: 'lg',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item_new = res;
-      modalRef.componentInstance.SoKienMoi = item.SoKienMoi;
+      modalRef.componentInstance.IddmItem = item.IddmItemDieuChinh;
       modalRef.result.then((data) => {
-        item.SoKienMoi = data.data.Id;
-        item.IddmViTriMoi = data.data.IddmViTri;
-        item.TendmViTriMoi = data.data.TendmViTri;
+        item.IddmItemDieuChinh = data.data.IddmItem;
+        item.TenDieuChinh = data.data.Ten;
+        item.IddmViTriDieuChinh = data.data.IddmViTri;
+        item.TendmViTriDieuChinh = data.data.TendmViTri;
       }, (reason) => {
         // không
       });
