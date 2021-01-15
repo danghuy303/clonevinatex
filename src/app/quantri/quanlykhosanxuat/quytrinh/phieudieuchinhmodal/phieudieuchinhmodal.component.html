@@ -37,7 +37,8 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-5 p-p-0 my-auto">Phương án pha bông:</label>
             <div class="p-col-12 p-lg-7 p-p-0">
-                <input type="text" [(ngModel)]="item.TenPhuongAnPhaBong" disabled pInputText>
+                <input type="text" [(ngModel)]="item.TenPhuongAnPhaBong" disabled pInputText
+                (click)="getPhuongAnPhaBong(item.IdPhuongAnPhaBong)">
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
@@ -86,17 +87,13 @@
                         <td>{{i+1}}</td>
                         <td>{{item.TenLoBong}}</td>
                         <td>{{item.SoKienCu}}</td>
-                        <td>{{item.IddmViTriCu}}</td>
+                        <td>{{item.TendmViTriCu}}</td>
+                        <td>{{item.SoKienMoi}}</td>
+                        <td>{{item.TendmViTriMoi}}</td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienMoi">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-dropdown [filter]="true" [options]="listdmViTri" placeholder="Chọn vị trí" styleClass="p-inputtext-sm"
-                                [(ngModel)]="item.IddmViTriMoi"></p-dropdown>
-                        </td>
-                        <td>
-                            <input type="checkbox" [(ngModel)]="item.GhiChu">
+                            <button pButton pRipple icon="pi pi-pencil"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                (click)="getKienLoBongDieuChinh(item)" tooltipPosition="bottom"></button>
                         </td>
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
