@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { KienlocongdieuchinhmodalComponent } from '../kienlocongdieuchinhmodal/kienlocongdieuchinhmodal.component';
 
 @Component({
   selector: 'app-phieudieuchinhmodal',
@@ -26,19 +29,24 @@ export class PhieudieuchinhmodalComponent implements OnInit {
   lang: any = vn;
 
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
+  constructor(
+    private router: Router,
+    public activeModal: NgbActiveModal, 
+    private services: SanXuatService, public toastr: 
+    ToastrService, public _modal: NgbModal) {
 
   }
 
   ngOnInit(): void {
-    if (this.opt !== 'edit') {
-      this.GetNextSoQuyTrinh();
-    }
-    else
+    // if (this.opt !== 'edit') {
+    //   this.GetNextSoQuyTrinh();
+    // }
+    // else
       this.KiemTraButtonModal();
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
+    this.getListdmViTri();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '',this.item.IdTrangThai || '').subscribe(res => {
@@ -110,5 +118,33 @@ export class PhieudieuchinhmodalComponent implements OnInit {
       item.isXoa = true;
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
+  }
+
+  getListdmViTri() {
+    this.services.GetListdmViTriOpt().subscribe((res:any)=>{
+      this.listdmViTri = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  getPhuongAnPhaBong(Id) {
+    this.router.navigate(['/ThongTinChung/GiaVatLieuNhanCongMay']);   
+  }
+  getKienLoBongDieuChinh(item) {
+    this.services.PhuongAnDieuChinhTimBong().GetKienLoBong(this.item.IdPhuongAnPhaBong, item.IdLoBong, this.item.IddmKho).subscribe((res:any)=>{
+      let modalRef = this._modal.open(KienlocongdieuchinhmodalComponent, {
+        size: 'lg',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.item_new = res;
+      modalRef.componentInstance.IddmItem = item.IddmItemDieuChinh;
+      modalRef.result.then((data) => {
+        item.IddmItemDieuChinh = data.data.IddmItem;
+        item.TenDieuChinh = data.data.Ten;
+        item.IddmViTriDieuChinh = data.data.IddmViTri;
+        item.TendmViTriDieuChinh = data.data.TendmViTri;
+      }, (reason) => {
+        // không
+      });
+    })
   }
 }

@@ -56,7 +56,7 @@ export class SanxuatComponent implements OnInit {
     this.GetListQuyTrinh()
   }
   changeParam(id) {
-    this.router.navigate([`quantri/trienkhaisanxuat/sanxuat/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/kehoachsanxuat/sanxuat/${id}`], { replaceUrl: true })
   }
   add() {
     this.changeParam(0);

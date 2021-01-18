@@ -202,6 +202,9 @@ import { XepbanbongComponent } from './quanlykhosanxuat/phuongan/xepbanbong/xepb
 import { XepbanbongmodalComponent } from './quanlykhosanxuat/phuongan/xepbanbongmodal/xepbanbongmodal.component';
 import { Dongvanpx1Component } from './quanlykhosanxuat/phuongan/layoutmodals/dongvanpx1/dongvanpx1.component';
 import { Dongvanpx2Component } from './quanlykhosanxuat/phuongan/layoutmodals/dongvanpx2/dongvanpx2.component';
+import { KienlocongdieuchinhmodalComponent } from './quanlykhosanxuat/quytrinh/kienlocongdieuchinhmodal/kienlocongdieuchinhmodal.component';
+import { XuatkhoxoComponent } from './quanlykhosanxuat/quytrinh/xuatkhoxo/xuatkhoxo.component';
+import { XuatkhoxomodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhoxomodal/xuatkhoxomodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -364,6 +367,9 @@ import { Dongvanpx2Component } from './quanlykhosanxuat/phuongan/layoutmodals/do
     XepbanbongmodalComponent,
     Dongvanpx1Component,
     Dongvanpx2Component,
+    KienlocongdieuchinhmodalComponent,
+    XuatkhoxoComponent,
+    XuatkhoxomodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -467,6 +473,8 @@ import { Dongvanpx2Component } from './quanlykhosanxuat/phuongan/layoutmodals/do
     XepbanbongmodalComponent,
     Dongvanpx1Component,
     Dongvanpx2Component,
+    KienlocongdieuchinhmodalComponent,
+    XuatkhoxomodalComponent,
   ],
   providers: [
     SanXuatService,
