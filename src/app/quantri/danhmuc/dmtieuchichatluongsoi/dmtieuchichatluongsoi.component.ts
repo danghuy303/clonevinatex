@@ -37,13 +37,13 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
     },
     {
       header: 'Đơn vị',
-      field: 'TenNhaMay',
+      field: 'DonVi',
       width: 'unset',
       center: 'left'
     },
     {
       header: 'Dung sai cho phép',
-      field: 'TenPhanXuong',
+      field: 'TenDungSaiChoPhep',
       width: 'unset',
       center: 'left'
     },
@@ -108,20 +108,15 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
       Ma: "",
       Ten: ""
     };
-    this._services.DMMayBienAp().GetList().subscribe((res: any) => {
+    this._services.dmTieuChiChatLuongsoi().GetList().subscribe((res: any) => {
       this.items = res;
-      // this.items.forEach(element => {
-      //   this.listnhamay.filter(obj => {
-      //     if (element.idNhaMay == obj.value) {
-      //       element.TenNhaMay = obj.label;
-      //     }
-      //   });
-      //   this.listphanxuong.filter(obj => {
-      //     if (element.idPhanXuong == obj.value) {
-      //       element.TenPhanXuong = obj.label;
-      //     }
-      //   });
-      // });
+      this.items.forEach(element => {
+        this.listdungsai.filter(obj => {
+          if (element.DungSaiChoPhep == obj.value) {
+            element.TenDungSaiChoPhep = obj.label;
+          }
+        });     
+      });
       // this.paging = res.paging;
     })
   }
@@ -133,12 +128,12 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
     modalRef.componentInstance.listdungsai = this.listdungsai;
     modalRef.componentInstance.title = 'Thêm mới tiêu chi chất lượng sợi';
     modalRef.result.then(res => {
-      this._toastr.success(res);
+      // this._toastr.success(res);
       this.GetListdm()
     }).catch(er => console.log(er))
   }
   edit(item) {
-    this._services.DMMayBienAp().Get(item.Id).subscribe((res: any) => {
+    this._services.dmTieuChiChatLuongsoi().Get(item.Id).subscribe((res: any) => {
       let modalRef = this._modal.open(DmtieuchichatluongsoimodalComponent, {
         backdrop: 'static'
       });
@@ -147,7 +142,7 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
       modalRef.componentInstance.title = 'Cập nhật tiêu chi chất lượng sợi';
       modalRef.componentInstance.item = res;
       modalRef.result.then(res => {
-        this._toastr.success(res);
+        // this._toastr.success(res);
         this.GetListdm()
       }).catch(er => console.log(er))
     })
@@ -158,7 +153,7 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res => {
-      this._services.DMMayBienAp().Delete(item).subscribe((res: any) => {
+      this._services.dmTieuChiChatLuongsoi().Delete(item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);

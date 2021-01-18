@@ -144,6 +144,26 @@ export class SanXuatService {
     }
     //#endregion
 
+    //#region  Danh mục tiêu chí chất lượng sợi
+    dmTieuChiChatLuongsoi() {
+        let url = API.SCMKiemTraChatLuong;
+        return {
+            GetList: () => {
+                return this.http.get(url + 'GetDanhSachChiTieuChatLuong', httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetItemChiTieuChatLuong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetItemChiTieuChatLuong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteChiTieuChatLuong', data, httpOptions);
+            },
+        }
+    }
+    //#endregion
+
     //#region  Danh mục công tơ
     dmCongToDien() {
         let url = API.ThongKeDien;
