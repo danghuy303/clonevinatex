@@ -11,7 +11,7 @@
     </button>
 </div>
 <div class="modal-body">
-    <div class="p-d-flex p-flex-row p-jc-between">
+    <div class="p-d-flex p-flex-row p-jc-between no-print" >
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="_activeModal.dismiss('close')"></button>
@@ -23,11 +23,11 @@
                 *ngIf="checkbutton.KhongDuyet"></button>
             <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
                 (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
-            <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button>
+            <button pButton pRipple type="button" label="In" class="p-mr-2 p-button-sm" (click)="print()"></button>
         </div>
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 flex-column flex-lg-row d-flex">
+        <div class="p-col-12 p-lg-6 flex-column flex-lg-row d-flex no-print">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số vị trí ngoại quan:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <!-- <input type="text" class="p-inputtext-sm" (onblur)="veLayout()" [(ngModel)]="SoViTriNgoaiQuan" pInputText /> -->
@@ -35,20 +35,18 @@
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 flex-column flex-lg-row d-flex">
+        <div class="p-col-12 p-lg-6 flex-column flex-lg-row d-flex no-print">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Vị trí ngoại quan bông:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" (keyup.enter)="veLayout()" [(ngModel)]="ViTriNgoaiQuan" pInputText />
+                <input type="text" class="p-inputtext-sm" (keyup.enter)="changeNgoaiQuanBong()" [(ngModel)]="ViTriNgoaiQuan" pInputText />
             </div>
         </div>
-        <div class="p-col-2">
-            <table class="table table-sm table-bordered" style="position: sticky;top:0">
+        <div class="p-col-4">
+            <!-- <table class="table table-sm table-bordered" style="position: sticky;top:0">
                 <thead>
                     <tr>
                         <th>Loại bông</th>
                         <th>Kiện</th>
-                        <!-- <th>%</th>
-                        <th>Cũ</th> -->
                         <th>Đã xếp</th>
                         <th>Còn lại</th>
                     </tr>
@@ -81,9 +79,58 @@
                         <td></td>
                     </tr>
                 </tbody>
-            </table>
+            </table> -->
+            <div style="position: sticky;top:0">
+                <table class="table table-sm table-bordered" >
+                    <thead>
+                        <tr>
+                            <th>Loại bông</th>
+                            <th>Kiện</th>
+                            <!-- <th>%</th>
+                        <th>Cũ</th> -->
+                            <th>Đã xếp</th>
+                            <!-- <th>Còn lại</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let lobong of item.listLoBong;let i = index"
+                            [ngStyle]="{'background-color': lobong.Mau}">
+                            <td (click)="xepLoBong(lobong,i)">{{lobong.TenLoBong}}</td>
+                            <td class="text-right">{{lobong.SoLuong}}</td>
+                            <td class="text-right">{{lobong.DaXep}}</td>
+                            <!-- <td class="text-right">{{lobong.ConLai}}</td> -->
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    Tổng số
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <!-- <td></td> -->
+                        </tr>
+                        <tr>
+                            <td colspan="2">Khối lượng 1 bàn</td>
+                            <td></td>
+                            <!-- <td></td> -->
+                        </tr>
+                        <tr>
+                            <td colspan="2">Khối lượng 1 tuần</td>
+                            <td></td>
+                            <!-- <td></td> -->
+                        </tr>
+                    </tbody>
+                </table>
+                <label>Lưu ý:</label>
+                <textarea class="no-print" rows="5" cols="30" pInputTextarea autoResize="autoResize"
+                    [(ngModel)]="item.GhiChu"></textarea>
+                <p class="print">
+                    {{item.GhiChu}}
+                </p>
+            </div>
         </div>
-        <div class="p-col-2 pr-0">
+        <div class="p-col-4 pr-0">
             <table class="table table-sm table-bordered" style="position: sticky;top:0">
                 <tbody>
                     <tr>
@@ -115,7 +162,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="p-col-2 pl-0">
+        <div class="p-col-4 pl-0">
             <table class="table table-sm table-bordered" style="position: sticky;top:0">
                 <tbody>
                     <tr *ngFor="let slot of block2;">
@@ -124,12 +171,18 @@
                             {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
                             <br>
                             <br>
-                            <br>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <!-- <div class="p-col-2 ">
+            <label>Lưu ý:</label>
+            <textarea class="no-print" rows="5" cols="30" pInputTextarea autoResize="autoResize" [(ngModel)]="item.GhiChu"></textarea>
+            <p class="print">
+                {{item.GhiChu}}
+            </p>
+        </div> -->
     </div>
 </div>
 <div class="modal-footer">

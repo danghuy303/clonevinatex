@@ -876,9 +876,9 @@ export class SanXuatService {
             Get: (Id) => {
                 return this.http.get(url + `GetPhuongAnXepBanBong?Id=${Id}`, httpOptions);
             },
-            // Set: (data) => {
-            //     return this.http.post(url + 'SetPhuongAnSanXuat', data, httpOptions);
-            // },
+            Set: (data) => {
+                return this.http.post(url + 'SetPhuongAnXepBanBong', data, httpOptions);
+            },
             // Delete: (data) => {
             //     return this.http.post(url + 'DeleteGiaoKeHoachSanXuat', data, httpOptions);
             // },

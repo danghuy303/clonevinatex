@@ -20,18 +20,20 @@ import { PanelModule } from 'primeng/panel';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { GalleriaModule } from 'primeng/galleria';
 import { FileUploadModule } from 'ng2-file-upload';
-import {PasswordModule} from 'primeng/password';
+import { PasswordModule } from 'primeng/password';
 import { DialogModule } from 'primeng/dialog';
-import {MenuModule} from 'primeng/menu';
+import { MenuModule } from 'primeng/menu';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
-import {CheckboxModule} from 'primeng/checkbox';
-import {RadioButtonModule} from 'primeng/radiobutton';
-import {InputMaskModule} from 'primeng/inputmask';
-import {TooltipModule} from 'primeng/tooltip';
-import {InputSwitchModule} from 'primeng/inputswitch';
-import {MultiSelectModule} from 'primeng/multiselect';
+import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputMaskModule } from 'primeng/inputmask';
+import { TooltipModule } from 'primeng/tooltip';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+
 
 // import { FileUploadModule } from 'primeng/fileupload';
 import localeVi from '@angular/common/locales/vi';
@@ -73,10 +75,10 @@ import { DmnguongocdatComponent } from './danhmuc/dmnguongocdat/dmnguongocdat.co
 import { ModalthongbaoComponent } from './modal/modalthongbao/modalthongbao.component';
 import { ModaldmtaisanComponent } from './danhmuc/modal/modaldmtaisan/modaldmtaisan.component';
 
-import {isXoaPipe} from './../services/isXoaPipe';
-import {VNDPipe} from './../services/vnd.pipe';
-import {FilterPipe} from './../services/filter.pipe';
-import {CongDoanPipe} from './../services/congdoan.pipe';
+import { isXoaPipe } from './../services/isXoaPipe';
+import { VNDPipe } from './../services/vnd.pipe';
+import { FilterPipe } from './../services/filter.pipe';
+import { CongDoanPipe } from './../services/congdoan.pipe';
 
 import { UploadmodalComponent } from './modal/uploadmodal/uploadmodal.component';
 import { ThongKeThongTinThuaDatComponent } from './components/thong-ke-thong-tin-thua-dat/thong-ke-thong-tin-thua-dat.component';
@@ -403,12 +405,13 @@ import { XuatkhoxomodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhoxomo
     InputMaskModule,
     PasswordModule,
     InputSwitchModule,
-    TooltipModule, 
+    TooltipModule,
     MultiSelectModule,
-    VoiLibModule
+    VoiLibModule,
+    InputTextareaModule
   ],
   entryComponents: [
-    ModalThuaDatComponent, 
+    ModalThuaDatComponent,
     ModalTaiSanTrenDatComponent,
     ModalHsvbPhapQuyComponent,
     ModalTinhTrangPhapLyComponent,
@@ -443,7 +446,7 @@ import { XuatkhoxomodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhoxomo
     PhabongmodalComponent,
     KehoachsanxuatmodalComponent,
     XuatkhomodalComponent,
-    HacapmodalComponent,DieuchuyenmodalComponent,
+    HacapmodalComponent, DieuchuyenmodalComponent,
     ChonhanghoamodalComponent,
     TrienkhaikehoachsanxuatmodalComponent,
     TimbongmodalComponent,
@@ -461,12 +464,12 @@ import { XuatkhoxomodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhoxomo
     ChatluongsoimodalComponent,
     DmcongtomodalComponent,
     ChonkienbongmodalComponent,
-    DmthongkedienmodalComponent,    
-    DinhmuctieuhaomodalComponent,    
+    DmthongkedienmodalComponent,
+    DinhmuctieuhaomodalComponent,
     VitrimodalComponent,
     DmtieuchichatluongsoimodalComponent,
     DmphannhommaymodalComponent,
-    DmphannhommayChonmathangmodalComponent,   
+    DmphannhommayChonmathangmodalComponent,
     PhieudieuchinhmodalComponent,
     ChonquycachdonggoimodalComponent,
     SanxuatmodalComponent,
