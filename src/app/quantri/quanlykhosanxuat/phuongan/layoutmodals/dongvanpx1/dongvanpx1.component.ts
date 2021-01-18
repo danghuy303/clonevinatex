@@ -20,16 +20,21 @@ export class Dongvanpx1Component implements OnInit {
   block4: any = [];
   poolLoBong: any = [];
   banBong: any = {};
-  ngoaiQuan: any = [18, 24, 30, 33, 36, 42, 47];
+  ngoaiQuan: any = [];
+  SoViTriNgoaiQuan:number=0;
+  ViTriNgoaiQuan:any = '';
+  // 18, 24, 30, 33, 36, 42, 47
+  listBongNgoaiQuan:any =[];
   focusedSlot: any = null;
+  length:number = 0;
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
   }
 
   ngOnInit(): void {
-    let length = this.item.listItem.reduce((total,ele)=>{
+    this.length = this.item.listItem.reduce((total,ele)=>{
       return total + ele.SoLuong
     },0)
-    for (let i = 1; i <= (length+this.ngoaiQuan.length); i++) {
+    for (let i = 1; i <= (this.length+this.SoViTriNgoaiQuan); i++) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -45,10 +50,44 @@ export class Dongvanpx1Component implements OnInit {
       if (2 < i && i <= 16) {
         this.block2.push(`${i}`)
       }
-      if (16 < i && i <= 48) {
+      if (16 < i && i <= (this.length+this.SoViTriNgoaiQuan-2)) {
         this.block3.push(`${i}`)
       }
-      if (48 < i && i <= 50) {
+      if ((this.length+this.SoViTriNgoaiQuan-2) < i && i <= (this.length+this.SoViTriNgoaiQuan)) {
+        this.block4.push(`${i}`)
+      }
+    };
+  }
+  veLayout(){
+    this.block1 = [];
+    this.block2 = [];
+    this.block3 = [];
+    this.block4 = [];
+    this.ngoaiQuan = this.ViTriNgoaiQuan.split(',').map(ele=>parseInt(ele));
+    console.log(this.ngoaiQuan)
+    this.length = this.item.listItem.reduce((total,ele)=>{
+      return total + ele.SoLuong
+    },0)
+    for (let i = 1; i <= (this.length+this.SoViTriNgoaiQuan); i++) {
+      let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
+      this.banBong[`${i}`] = {
+        _focus: false,
+        _ngoaiQuan: isNgoaiQuan,
+        labelLoBong: isNgoaiQuan ? 'Ngoại quan bông' : null,
+        STT: `${i}. `,
+        IdLoBong: null,
+        Mau: 'white'
+      }
+      if (i <= 2) {
+        this.block1.push(`${i}`)
+      }
+      if (2 < i && i <= 16) {
+        this.block2.push(`${i}`)
+      }
+      if (16 < i && i <= (this.length+this.SoViTriNgoaiQuan-2)) {
+        this.block3.push(`${i}`)
+      }
+      if ((this.length+this.SoViTriNgoaiQuan-2) < i && i <= (this.length+this.SoViTriNgoaiQuan)) {
         this.block4.push(`${i}`)
       }
     };
@@ -57,12 +96,8 @@ export class Dongvanpx1Component implements OnInit {
     for (let prop in this.banBong) {
       this.banBong[prop]._focus = false;
     }
-    if (!this.banBong[slot].isNgoaiQuan) {
       this.banBong[slot]._focus = !this.banBong[slot]._focus;
       this.focusedSlot = parseInt(slot);
-    } else {
-      this.focusedSlot = null;
-    }
   }
   returnSlot(event: MouseEvent, item) {
     if(validVariable(this.banBong[item].IdLoBong)){
@@ -118,7 +153,7 @@ export class Dongvanpx1Component implements OnInit {
   }
   getNextFocus() {
     for (let prop in this.banBong) {
-      if (!this.banBong[prop]._focus && !validVariable(this.banBong[prop].labelLoBong) && parseInt(prop) <= 50) {
+      if (!this.banBong[prop]._focus && !validVariable(this.banBong[prop].labelLoBong) && parseInt(prop) <= (this.length+this.SoViTriNgoaiQuan)) {
         this.focusedSlot = parseInt(prop);
         this.banBong[prop]._focus = true;
         break;

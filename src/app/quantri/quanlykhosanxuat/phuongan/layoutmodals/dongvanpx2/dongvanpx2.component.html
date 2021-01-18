@@ -69,6 +69,72 @@
                 </tbody>
             </table>
         </div>
+        <div class="p-col-2 pr-0">
+            <table class="table table-sm table-bordered" style="position: sticky;top:0">
+                <tbody>
+                    <tr *ngFor="let slot of block4;">
+                        <td (click)="slotFocus(slot)" (contextmenu)="returnSlot($event,slot)"
+                            [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?'#8cd3ff':(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
+                            {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="p-col-2 pl-0 pr-0">
+            <table class="table table-sm table-bordered" style="position: sticky;top:0">
+                <tbody>
+                    <tr *ngFor="let slot of block5;">
+                        <td (click)="slotFocus(slot)" (contextmenu)="returnSlot($event,slot)"
+                            [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?'#8cd3ff':(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
+                            {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="p-col-2 pl-0 pr-0">
+            <table class="table table-sm table-bordered" style="position: sticky;top:0">
+                <tbody>
+                    <tr>
+                        <td *ngFor="let slot of block1" (click)="slotFocus(slot)"
+                            (contextmenu)="returnSlot($event,slot)"
+                            [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?'#8cd3ff':(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
+                            {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
+                        </td>
+                    </tr>
+                    <ng-container *ngFor="let slot of block2;let first = first; let last = last">
+                        <tr *ngIf="!first&&!last">
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    </ng-container>
+                    
+                    <tr>
+                        <td *ngFor="let slot of block3" (click)="slotFocus(slot)"
+                            (contextmenu)="returnSlot($event,slot)"
+                            [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?'#8cd3ff':(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
+                            {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <div class="p-col-2 pl-0 pr-0">
+            <table class="table table-sm table-bordered" style="position: sticky;top:0">
+                <tbody>
+                    <tr *ngFor="let slot of block2;">
+                        <td (click)="slotFocus(slot)" (contextmenu)="returnSlot($event,slot)"
+                            [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?'#8cd3ff':(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
+                            {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <div class="modal-footer">

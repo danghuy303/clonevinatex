@@ -17,18 +17,20 @@ export class Dongvanpx2Component implements OnInit {
   block2: any = [];
   block3: any = [];
   block4: any = [];
+  block5: any = [];
   poolLoBong: any = [];
   banBong: any = {};
-  ngoaiQuan: any = [18, 24, 30, 33, 36, 42, 47];
+  ngoaiQuan: any = [29,35,41,48,55,64,70,77];
   focusedSlot: any = null;
+  length:number=0;
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
   }
 
   ngOnInit(): void {
-    let length = this.item.listItem.reduce((total,ele)=>{
+    this.length = this.item.listItem.reduce((total,ele)=>{
       return total + ele.SoLuong
     },0)
-    for (let i = 1; i <= (length+this.ngoaiQuan.length); i++) {
+    for (let i = 1; i <= (this.length+this.ngoaiQuan.length); i++) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -41,16 +43,20 @@ export class Dongvanpx2Component implements OnInit {
       if (i <= 2) {
         this.block1.push(`${i}`)
       }
-      if (2 < i && i <= 16) {
+      if (2 < i && i <= 24) {
         this.block2.push(`${i}`)
       }
-      if (16 < i && i <= 48) {
+      if (24 < i && i <= 26) {
         this.block3.push(`${i}`)
       }
-      if (48 < i && i <= 50) {
+      if (26 < i && i <= 57) {
         this.block4.push(`${i}`)
       }
+      if (57 < i && i <= 80) {
+        this.block5.push(`${i}`)
+      }
     };
+    this.block3.reverse();
   }
   slotFocus(slot) {
     for (let prop in this.banBong) {
@@ -117,7 +123,7 @@ export class Dongvanpx2Component implements OnInit {
   }
   getNextFocus() {
     for (let prop in this.banBong) {
-      if (!this.banBong[prop]._focus && !validVariable(this.banBong[prop].labelLoBong) && parseInt(prop) <= 50) {
+      if (!this.banBong[prop]._focus && !validVariable(this.banBong[prop].labelLoBong) && parseInt(prop) <= (this.length+this.ngoaiQuan.length)) {
         this.focusedSlot = parseInt(prop);
         this.banBong[prop]._focus = true;
         break;

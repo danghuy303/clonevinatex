@@ -31,9 +31,9 @@ export class DmtieuchichatluongsoimodalComponent implements OnInit {
       field: 'Ten',
       width: 'unset',
       center: 'left'
-    },   
+    },
   ];
-  listdungsai: any = []; 
+  listdungsai: any = [];
   khongclicknhieu: any = false;
 
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
@@ -56,7 +56,7 @@ export class DmtieuchichatluongsoimodalComponent implements OnInit {
   }
 
   Save() {
-    this.sanXuatService.DMMayBienAp().Set(this.item).subscribe((res: any) => {
+    this.sanXuatService.dmTieuChiChatLuongsoi().Set(this.item).subscribe((res: any) => {
       if (res) {
         this.resAction(res)
       }
@@ -72,6 +72,13 @@ export class DmtieuchichatluongsoimodalComponent implements OnInit {
       this.khongclicknhieu = !this.khongclicknhieu;
       this.toastr.error(res.message)
     }
+  }
+
+  IPIorUsterstatic(e, string) {
+    if (string == 'isLoaiChiTieuIPI')
+      this.item.isLoaiChiTieuUsterstatic = !e.checked;
+    else
+      this.item.isLoaiChiTieuIPI = !e.checked;
   }
 
 }
