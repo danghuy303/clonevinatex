@@ -8,8 +8,11 @@
     <div class="p-col-12 p-p-0 d-flex flex-column">
         <div class="p-d-flex p-flex-sm-row p-jc-between p-mt-3 p-mb-3">
             <div class="p-d-flex p-flex-row">
-
-            </div>          
+                <button pButton pRipple label="Quay lại" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
+                    (click)="activeModal.dismiss()"></button>
+                <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"
+                    [disabled]="khongclicknhieu"></button>
+            </div>
             <div class="p-d-flex p-flex-row">
                 <div class="p-mr-2">
                     <p-dropdown [filter]="true" [options]="listloaisoi" placeholder="Chọn" [(ngModel)]="filter.idNhaMay"
@@ -18,12 +21,15 @@
                 <div class="p-inputgroup">
                     <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.keyWord" (keyup.enter)="TimKiem(true)"
                         class="p-inputtext-sm" pInputText />
-                    <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"
-                        (click)="resetFilter()" pTooltip="Làm mới" showDelay="1000" tooltipPosition="bottom"></button>
+                    <button type="button" pButton pRipple icon="pi pi-refresh"
+                        class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()" pTooltip="Làm mới"
+                        showDelay="1000" tooltipPosition="bottom"></button>
+                    <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text"
+                        pTooltip="Tìm kiếm" showDelay="1000" tooltipPosition="bottom"></button>
                 </div>
             </div>
         </div>
-        <p-table [value]="items" [(selection)]="selectedItems" styleClass="p-datatable-sm wrap-text p-datatable-striped"
+        <p-table [value]="items" [(selection)]="selectedItems" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines"
             [scrollable]="true">
             <ng-template pTemplate="colgroup">
                 <colgroup>
@@ -34,7 +40,8 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th class="text-center">
-                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true"
+                            inputId="binary"></p-checkbox>
                     </th>
                     <th *ngFor="let header of cols">
                         {{header.header}}
@@ -44,7 +51,7 @@
             <ng-template pTemplate="body" let-item let-i="rowIndex">
                 <tr>
                     <td class="text-center">
-                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary"></p-checkbox>
                     </td>
                     <td *ngFor="let col of cols">
                         {{item[col.field]}}
@@ -55,8 +62,5 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"
-        [disabled]="khongclicknhieu"></button>
-    <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
-        (click)="activeModal.dismiss()"></button>
+
 </div>

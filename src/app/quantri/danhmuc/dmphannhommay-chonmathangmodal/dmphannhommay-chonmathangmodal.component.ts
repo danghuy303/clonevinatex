@@ -15,7 +15,7 @@ import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } 
 })
 export class DmphannhommayChonmathangmodalComponent implements OnInit {
 
-  public item: any = {};
+  public selectedItems: any = [];
   public items: any = [];
   public title: any = '';
   public type = '';
@@ -37,15 +37,20 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
       width: 'unset',
     },
   ];
+  IdQuyTrinh: any = "";
   listloaisoi: any = [];
   khongclicknhieu: any = false;
   filter: any = {};
+  checkedAll: boolean = false;
 
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.GetLoaiSoi();
     this.GetDMMatHang();
+    if (this.items.length !== 0) {
+      this.checkedAll = this.items.every((ele) => ele.checked);
+    }
   }
 
   GetLoaiSoi() {
@@ -73,7 +78,27 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
     };
     this.sanXuatService.GetListdmItem(data).subscribe((res: any) => {
       this.items = res;
+      if (this.selectedItems.length !== 0) {
+        this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
+          let selected = this.items.filter(item => sItem.IddmItem === item.Id)[0];
+          if (selected) {
+            selected.checked = true;
+          }
+        });
+      }
     })
+  }
+
+  checkAll(e) {
+    if (e.checked) {
+      this.items.forEach(item => {
+        item.checked = true;
+      });
+    } else {
+      this.items.forEach(item => {
+        item.checked = false;
+      });
+    }
   }
 
   resetFilter() {
@@ -81,21 +106,18 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
   }
 
   accept() {
-    this.khongclicknhieu = !this.khongclicknhieu;
-    if (this.item.Ma !== undefined && this.item.Ma !== null && this.item.Ten !== undefined && this.item.Ten !== null) {
-      this.Save();
-    } else {
-      this.khongclicknhieu = !this.khongclicknhieu;
-      this.toastr.warning('Vui lòng nhập đầy đủ trường thông tin bắt buộc!')
-    }
-  }
-
-  Save() {
-    this.sanXuatService.DMMayBienAp().Set(this.item).subscribe((res: any) => {
-      if (res) {
-        this.resAction(res)
+    this.activeModal.close(this.items.filter(item => item.checked).map(ele => {
+      return {
+        ...ele,
+        IddmItem: ele.Id,
+        IddmPhanNhomMay: this.IdQuyTrinh || "",
+        // NangSuat: ele.NangSuat || 0,
+        // HieuSuat: ele.HieuSuat || 0,
+        // DinhMucNangSuat: ele.DinhMucNangSuat || 0,
+        // GhiChu: ele.GhiChu || "",
+        Id: '',
       }
-    })
+    }));
   }
 
   resAction(res: any) {

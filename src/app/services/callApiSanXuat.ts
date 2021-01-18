@@ -104,8 +104,8 @@ export class SanXuatService {
     }
     //#endregion
 
-     //#region  Danh mục nhóm công tơ
-     dmQuyCachDongGoi() {
+    //#region  Danh mục nhóm công tơ
+    dmQuyCachDongGoi() {
         let url = API.SCMDanhMuc;
         return {
             GetList: () => {
@@ -119,6 +119,26 @@ export class SanXuatService {
             },
             Delete: (data) => {
                 return this.http.post(url + 'DeletedmQuyCachDongGoi', data, httpOptions);
+            },
+        }
+    }
+    //#endregion
+
+    //#region  Danh mục nhóm công tơ
+    dmPhanNhomMaySanXuat() {
+        let url = API.SCMDanhMuc;
+        return {
+            GetList: () => {
+                return this.http.get(url + 'GetListdmPhanNhomMaySanXuat', httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetdmPhanNhomMay?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetdmPhanNhomMay', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletedmPhanNhomMaySanXuat', data, httpOptions);
             },
         }
     }
@@ -709,7 +729,7 @@ export class SanXuatService {
     download(url) {
         window.open(API.imgURL + url);
     }
-    getLuuKho(IddmKho,IddmViTri, CurrentPage, sFilter) {
+    getLuuKho(IddmKho, IddmViTri, CurrentPage, sFilter) {
         // let IdDuAn =this.store.getCurrent();
         let url = API.SCMQuanLyKho + `GetLuuKho?IdDuAn=0&IddmKho=${IddmKho}&IddmViTri=${IddmViTri}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
         return this.http.get(url, httpOptions);
