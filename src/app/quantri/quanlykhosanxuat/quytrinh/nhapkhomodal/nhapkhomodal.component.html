@@ -93,9 +93,10 @@
         </div>
        
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="this.type==='bong'||this.type==='xo'">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đơn giá BQ/Kiện:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đơn giá BQ/Kiện (VNĐ):</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonGia" pInputText />
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DonGia">
+                </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -105,7 +106,7 @@
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <p-table *ngIf="this.type==='bong'||this.type==='xo'"
+            <p-table *ngIf="this.type==='bong'"
              [value]="item.listItem|isXoa"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
@@ -215,7 +216,7 @@
                     </tr>
                 </ng-template>
             </p-table>
-            <p-table *ngIf="this.type==='bonghoi' || this.type==='bongphe'"
+            <p-table *ngIf="this.type==='bonghoi' || this.type==='bongphe' ||this.type==='xo'"
              [value]="item.listKien|isXoa"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">

@@ -10,6 +10,7 @@ export class XuatkhomathangmodalComponent implements OnInit {
 
   listMatHang: any = [];
   listItem: any = [];
+  listItem_new: any = [];
   cols: any = [
     {
       header: 'Tên',
@@ -22,20 +23,30 @@ export class XuatkhomathangmodalComponent implements OnInit {
       width: 'unset'
     },
   ];
+  checkedAll: boolean = false;
+  paging: any = {};
+
   constructor(
     private activeModal: NgbActiveModal,
   ) { }
 
   ngOnInit(): void {
-    if(this.listItem != undefined && this.listItem!= null && this.listMatHang!= undefined && this.listMatHang!= null)
+
+    this.paging.CurrentPage = 1;
+    this.paging.TotalPage = 5;
+    this.paging.TotalItem = this.listMatHang.length;
+    this.listItem_new = this.listMatHang.slice(0,15);
+
+    if(this.listItem != undefined && this.listItem!= null && this.listItem_new!= undefined && this.listItem_new!= null)
     {
       this.listItem.forEach(element => {
-        var itemFind = this.listMatHang.find(function (obj) {
+        var itemFind = this.listItem_new.find(function (obj) {
           return obj.IddmItem == element.IddmItem;
         });
         itemFind.checked = true;
       });
     }
+
   }
   accept() {
     let data: any = []
@@ -46,5 +57,26 @@ export class XuatkhomathangmodalComponent implements OnInit {
     this.activeModal.close(
       { data: data }
     );
+  }
+  checkAll(e) {
+    if (e.checked) {
+      this.listMatHang.forEach(item => {
+        item.checked = true;
+      });
+    } else {
+      this.listMatHang.forEach(item => {
+        item.checked = false;
+      });
+    }
+
+  }
+  changePage(event) {
+    console.log(event)
+    this.paging.CurrentPage = event.page + 1;
+    var start = 15 * (event.page)  + 1;
+    var end =  start + 14;
+    if((start + 15) > this.paging.TotalItem)
+      end= this.paging.TotalItem;
+    this.listItem_new = this.listMatHang.slice(start,end);
   }
 }

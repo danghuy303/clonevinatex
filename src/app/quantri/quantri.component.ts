@@ -139,7 +139,7 @@ export class QuantriComponent implements OnInit {
                         }
                     },
                     {
-                        label: 'Phương án xuất bông',
+                        label: 'Điều hành sản xuất',
                         routerLink: '/quantri/kehoachsanxuat/sanxuat/0',
                         icon: 'fas fa-circle',
                         command: () => this.close()
@@ -331,11 +331,6 @@ export class QuantriComponent implements OnInit {
                         command: () => this.close()
                     },
                     {
-                        label: 'Xuất kho',
-                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/xuatkho/0',
-                        command: () => this.close()
-                    },
-                    {
                         label: 'Kiểm tra chất lượng',
                         routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/kiemkekho/0',
                         command: () => this.close()
@@ -361,11 +356,6 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Nhập kho',
                         routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/nhapkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Xuất kho',
-                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkho/0',
                         command: () => this.close()
                     },
                     {

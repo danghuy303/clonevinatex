@@ -80,7 +80,8 @@ export class MathangComponent implements OnInit {
       center:'center'
     }
   ];
-  listCongDoan:any = [];
+  listdmLoaiSoi:any = [];
+
   selectedItems:any=[];
   constructor(private _modal:NgbModal,
     private _services:SanXuatService,
@@ -89,16 +90,16 @@ export class MathangComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetListdm();
-    this.GetListCongDoan();
+    this.GetListdmLoaiSoi();
   }
   resetFilter(){
     this.filter = {
     };
     this.GetListdm()
   }
-  GetListCongDoan(){
-    this._services.GetListCongDoan().subscribe((res:any)=>{
-      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+  GetListdmLoaiSoi(){
+    this._services.GetListOptdmLoaiSoi().subscribe((res:any)=>{
+      this.listdmLoaiSoi = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   GetListdm(reset?){
@@ -110,7 +111,7 @@ export class MathangComponent implements OnInit {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
       sFilter:this.filter.keyWord?this.filter.keyWord:'',
-      CongDoan:this.filter.CongDoan?this.filter.CongDoan:'',
+      IddmLoaiSoi:this.filter.IddmLoaiSoi?this.filter.IddmLoaiSoi:'',
       Ma:"", 
       Ten:"",
       Loai:"1",
@@ -133,7 +134,6 @@ export class MathangComponent implements OnInit {
     }).catch(er=>console.log(er))
   }
   edit(item){
-    // item.listCongDoan = item.listCongDoan.map(ele=>ele.CongDoan);
     let modalRef = this._modal.open(MathangmodelComponent,{
       backdrop:'static'
     });
@@ -201,10 +201,17 @@ export class MathangComponent implements OnInit {
     .catch(er=>console.log(er))
   }
   exportExcel(){
-    var dataSearch: any = {};
-    dataSearch.TableName = 'SCM_dmItem';
-    dataSearch.CurrentPage = 0;
-    this._services.Exportdm(dataSearch).subscribe((res: any) => {
+    let data = {
+      PageSize:20, 
+      CurrentPage:0,
+      sFilter:this.filter.keyWord?this.filter.keyWord:'',
+      IddmLoaiSoi:this.filter.IddmLoaiSoi?this.filter.IddmLoaiSoi:'',
+      Ma:"", 
+      Ten:"",
+      Loai:"1",
+      TableName:'SCM_dmItem'
+    };
+    this._services.Exportdm(data).subscribe((res: any) => {
       this._services.download(res.TenFile);
     })
   }

@@ -8,11 +8,11 @@ import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
-  selector: 'app-xuatkhoxomodal',
-  templateUrl: './xuatkhoxomodal.component.html',
-  styleUrls: ['./xuatkhoxomodal.component.css']
+  selector: 'app-xuatkhobongphemodal',
+  templateUrl: './xuatkhobongphemodal.component.html',
+  styleUrls: ['./xuatkhobongphemodal.component.css']
 })
-export class XuatkhoxomodalComponent implements OnInit {
+export class XuatkhobongphemodalComponent implements OnInit {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -24,7 +24,7 @@ export class XuatkhoxomodalComponent implements OnInit {
   lang: any = vn;
   listKho: any = [];
   listPhanXuong: any = [];
-  listTrienKhaiKeHoachSanXuat: any = [];
+  listPhuongAnPhaBong: any = [];
   listItem: any = [];
   paging: any = {};
 
@@ -33,25 +33,21 @@ export class XuatkhoxomodalComponent implements OnInit {
     public toastr: ToastrService, public _modal: NgbModal) {  }
 
   ngOnInit(): void {
-    if (this.opt !== 'edit') {
-      this.GetNextSoQuyTrinh();
-    }
     this.KiemTraButtonModal();
     this.GetQuyTrinh();
     //
-    let data: any = {
+    let data:any = {
       CurrentPage: 0
     }
-    this.services.TrienKhaiKeHoachSanXuat().GetList(data).subscribe((res:any)=>{
-      this.listTrienKhaiKeHoachSanXuat = mapArrayForDropDown(res, 'SoQuyTrinh', 'Id');
+    this.services.PhuongAnPhaBong().GetList(data).subscribe((res:any)=>{
+      this.listPhuongAnPhaBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    
-    this.services.GetListdmPhanXuong(data).subscribe((res:any)=>{
-      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-    data.Loai = 5;
+    data.Loai = 7;
     this.services.GetListdmKho(data).subscribe((res:any)=>{
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+    this.services.GetListdmPhanXuong(data).subscribe((res:any)=>{
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
@@ -59,7 +55,7 @@ export class XuatkhoxomodalComponent implements OnInit {
   }
   GetQuyTrinh()
   {
-    this.services.PhieuXuatKhoXo().Get(this.item.Id).subscribe((res1:any)=>{
+    this.services.PhieuXuatSanXuat().Get(this.item.Id).subscribe((res1:any)=>{
       this.item = res1;
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
@@ -80,7 +76,7 @@ export class XuatkhoxomodalComponent implements OnInit {
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
     
-    this.services.PhieuXuatKhoXo().ChuyenTiep(this.item).subscribe((res: any) => {
+    this.services.PhieuXuatBongPhe().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();
@@ -91,7 +87,7 @@ export class XuatkhoxomodalComponent implements OnInit {
     })
   }
   GetNextSoQuyTrinh() {
-    this.services.PhieuXuatKhoXo().GetNextSo().subscribe((res: any) => {
+    this.services.PhieuXuatBongPhe().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
@@ -102,7 +98,7 @@ export class XuatkhoxomodalComponent implements OnInit {
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
 
-      this.services.PhieuXuatKhoXo().Set(this.item).subscribe((res: any) => {
+      this.services.PhieuXuatBongPhe().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -122,7 +118,7 @@ export class XuatkhoxomodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this.services.PhieuXuatKhoXo().Delete(this.item).subscribe((res: any) => {
+      this.services.PhieuXuatBongPhe().Delete(this.item).subscribe((res: any) => {
         if (res?.State === 1) {
           this.activeModal.close();
         } else {
@@ -142,12 +138,15 @@ export class XuatkhoxomodalComponent implements OnInit {
   }
   
   GetLuuKho(sFilter) {
+    console.log(this.item.listItem)
     this.services.getLuuKhoKhac(this.item.IddmKho,'', 0 , sFilter).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
+        size: 'lg',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
+      modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.result.then((data) => {
         this.item.listItem = data.data;
       }, (reason) => {

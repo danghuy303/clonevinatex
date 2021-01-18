@@ -80,7 +80,6 @@
                         <col>
                         <col>
                         <col>
-                        <col>
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
@@ -91,7 +90,6 @@
                         <th>Đơn vị tính</th>
                         <th>Tồn kho</th>
                         <th>Số lượng</th>
-                        <th>Mặt hàng sau hạ cấp</th>
                         <th>Ghi chú</th>
                         <th style="width:100px"></th>
                     </tr>
@@ -110,10 +108,6 @@
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Block">
-                            </p-inputNumber>
-                        </td>
-                        <td>
                             <input pInputText type="text" [(ngModel)]="item.GhiChu">
                         </td>
                         <td>
@@ -124,36 +118,6 @@
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
-                        </td>
-                    </tr>
-                    <tr *ngIf="item.editField === true">
-                        <td>{{i+1}}</td>
-                        <td>{{item.Ten}}</td>
-                        <td>{{item.DonViThietKe}}</td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.Ton">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.Block">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="editTableItem.Block">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <input pInputText type="text" [(ngModel)]="editTableItem.GhiChu">
-                        </td>
-                        <td>
-                            <button pButton pRipple icon="pi pi-check"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                (click)="saveEdit(editTableItem, i)" pTooltip="Lưu"
-                                tooltipPosition="bottom"></button>
-                            <button pButton pRipple icon="pi pi-times"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                (click)="cancelEdit(item, i)" pTooltip="Hủy"
                                 tooltipPosition="bottom"></button>
                         </td>
                     </tr>

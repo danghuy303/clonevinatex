@@ -73,6 +73,8 @@
                         <col>
                         <col>
                         <col>
+                        <col *ngIf="item.CongDoan==='ONG'">
+                        <col *ngIf="item.CongDoan==='ONG'">
                         <col style="width:50px">
                     </colgroup>
                 </ng-template>
@@ -84,22 +86,32 @@
                         <th>Chi số</th>
                         <th>Chiều dài (m)</th>
                         <th>Khối lượng (kg)</th>
+                        <th *ngIf="item.CongDoan==='ONG'">Số quả</th>
+                        <th *ngIf="item.CongDoan==='ONG'">Kg/cone</th>
                         <th></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <ng-template pTemplate="body" let-itemtbl let-i="rowIndex">
                     <tr>
                         <td>{{i+1}}</td>
-                        <td class="text-left">{{item.TendmMay}}</td>
-                        <td class="text-left">{{item.Ten}}</td>
-                        <td class="text-left">{{item.ChiSo}}</td>
+                        <td class="text-left">{{itemtbl.TendmMay}}</td>
+                        <td class="text-left">{{itemtbl.Ten}}</td>
+                        <td class="text-left">{{itemtbl.ChiSo}}</td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.ChieuDai"
-                            (ngModelChange)="item.KhoiLuong=TinhGiaTri(item, $event)">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
+                            (ngModelChange)="itemtbl.KhoiLuong=TinhGiaTri(itemtbl, $event)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.KhoiLuong">
+                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong">
+                            </p-inputNumber>
+                        </td>
+                        <td *ngIf="item.CongDoan==='ONG'">
+                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.SoQua">
+                            </p-inputNumber>
+                        </td>
+                        <td *ngIf="item.CongDoan==='ONG'">
+                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.DonViTinh">
                             </p-inputNumber>
                         </td>
                         <td>
