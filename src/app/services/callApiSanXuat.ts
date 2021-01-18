@@ -104,8 +104,8 @@ export class SanXuatService {
     }
     //#endregion
 
-     //#region  Danh mục nhóm công tơ
-     dmQuyCachDongGoi() {
+    //#region  Danh mục nhóm công tơ
+    dmQuyCachDongGoi() {
         let url = API.SCMDanhMuc;
         return {
             GetList: () => {
@@ -119,6 +119,46 @@ export class SanXuatService {
             },
             Delete: (data) => {
                 return this.http.post(url + 'DeletedmQuyCachDongGoi', data, httpOptions);
+            },
+        }
+    }
+    //#endregion
+
+    //#region  Danh mục nhóm công tơ
+    dmPhanNhomMaySanXuat() {
+        let url = API.SCMDanhMuc;
+        return {
+            GetList: () => {
+                return this.http.get(url + 'GetListdmPhanNhomMaySanXuat', httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetdmPhanNhomMay?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetdmPhanNhomMay', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletedmPhanNhomMaySanXuat', data, httpOptions);
+            },
+        }
+    }
+    //#endregion
+
+    //#region  Danh mục tiêu chí chất lượng sợi
+    dmTieuChiChatLuongsoi() {
+        let url = API.SCMKiemTraChatLuong;
+        return {
+            GetList: () => {
+                return this.http.get(url + 'GetDanhSachChiTieuChatLuong', httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetItemChiTieuChatLuong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetItemChiTieuChatLuong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteChiTieuChatLuong', data, httpOptions);
             },
         }
     }
@@ -709,9 +749,14 @@ export class SanXuatService {
     download(url) {
         window.open(API.imgURL + url);
     }
-    getLuuKho(IddmKho,IddmViTri, CurrentPage, sFilter) {
+    getLuuKho(IddmKho, IddmViTri, CurrentPage, sFilter) {
         // let IdDuAn =this.store.getCurrent();
         let url = API.SCMQuanLyKho + `GetLuuKho?IdDuAn=0&IddmKho=${IddmKho}&IddmViTri=${IddmViTri}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
+        return this.http.get(url, httpOptions);
+    }
+    getLuuKhoKhac(IddmKho,IddmViTri, CurrentPage, sFilter) {
+        // let IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + `GetLuuKhoKhac?IdDuAn=0&IddmKho=${IddmKho}&IddmViTri=${IddmViTri}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
         return this.http.get(url, httpOptions);
     }
     KhoiTaoItem() {
@@ -1044,6 +1089,33 @@ export class SanXuatService {
             },
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhieuXuatXo', data, httpOptions)
+            },
+        }
+    }
+    PhieuXuatBongPhe() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuXuatBongPhe', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListPhieuXuatBongPhe', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuXuatBongPhe?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetPhieuXuatBongPhe', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuXuatBongPhe', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhieuXuatBongPhe', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuXuatBongPhe', data, httpOptions)
             },
         }
     }

@@ -124,7 +124,7 @@ export class DieuchuyenmodalComponent implements OnInit {
   GetMatHangTheoKho() {
     this.services.getLuuKho(this.item.IddmKho,'', 0, '').subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
-        size: 'fullscreen',
+        // size: 'fullscreen',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';

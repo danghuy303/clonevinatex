@@ -69,18 +69,18 @@ export class DmphannhommayComponent implements OnInit {
   }
 
   GetListdm(reset?) {
-    if (reset) {
-      this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
-    }
-    this.dataSearch = {
-      PageSize: 20,
-      CurrentPage: this.paging.CurrentPage,
-      sFilter: this.keyWord,
-      Ma: "",
-      Ten: ""
-    };
-    this._services.DMMayBienAp().GetList().subscribe((res: any) => {
+    // if (reset) {
+    //   this.paging.CurrentPage = 1;
+    //   this.paginator.changePage(0);
+    // }
+    // this.dataSearch = {
+    //   PageSize: 20,
+    //   CurrentPage: this.paging.CurrentPage,
+    //   sFilter: this.keyWord,
+    //   Ma: "",
+    //   Ten: ""
+    // };
+    this._services.dmPhanNhomMaySanXuat().GetList().subscribe((res: any) => {
       this.items = res;
       // this.items.forEach(element => {
       //   this.listnhamay.filter(obj => {
@@ -104,13 +104,31 @@ export class DmphannhommayComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.title = 'Thêm mới phân nhóm máy';
+    modalRef.componentInstance.item = {
+      Id: '',
+      lstdmItem: []
+    }
     modalRef.result.then(res => {
       this._toastr.success(res);
       this.GetListdm()
     }).catch(er => console.log(er))
   }
-  edit(item) {
-    this._services.DMMayBienAp().Get(item.Id).subscribe((res: any) => {
+  edit(item) {    
+    this._services.dmPhanNhomMaySanXuat().Get(item.Id).subscribe((res: any) => {
+      let data = {
+        PageSize: 20,
+        CurrentPage: 0,
+        sFilter: "",
+        CongDoan: '',
+        Ma: "",
+        Ten: "",
+        Loai: "1",
+      };
+      this._services.GetListdmItem(data).subscribe((resGetListdmItem: any) => {
+        resGetListdmItem.forEach(element => {
+          res.lstdmItem.filter(obj => { if(obj.IddmItem == element.Id) obj.Ten = element.Ten });
+        });
+      })
       let modalRef = this._modal.open(DmphannhommaymodalComponent, {
         size:"lg",
         backdrop: 'static'
@@ -130,7 +148,7 @@ export class DmphannhommayComponent implements OnInit {
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res => {
-      this._services.DMMayBienAp().Delete(item).subscribe((res: any) => {
+      this._services.dmPhanNhomMaySanXuat().Delete(item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);

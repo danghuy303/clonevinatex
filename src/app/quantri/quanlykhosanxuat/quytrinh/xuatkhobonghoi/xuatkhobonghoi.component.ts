@@ -3,15 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { XuatkhomodalComponent } from '../xuatkhomodal/xuatkhomodal.component';
+import { DateToUnix } from 'src/app/services/globalfunction';
+import { XuatkhobonghoimodalComponent } from '../xuatkhobonghoimodal/xuatkhobonghoimodal.component';
 
 @Component({
-  selector: 'app-xuatkho',
-  templateUrl: './xuatkho.component.html',
-  styleUrls: ['./xuatkho.component.css']
+  selector: 'app-xuatkhobonghoi',
+  templateUrl: './xuatkhobonghoi.component.html',
+  styleUrls: ['./xuatkhobonghoi.component.css']
 })
-export class XuatkhoComponent implements OnInit {
+export class XuatkhobonghoiComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{id:5,SoQuyTrinh:'PKK_0000_0000'}];
   filter:any={};
@@ -46,7 +46,8 @@ export class XuatkhoComponent implements OnInit {
     },
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
+  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
+    private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res:any)=>{
@@ -59,11 +60,11 @@ export class XuatkhoComponent implements OnInit {
 
   }
   changeParam(id){
-    this.router.navigate([`quantri/quanlykhosanxuat/khobong/xuatkho/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/quanlykhosanxuat/khobonghoi/xuatkho/${id}`],{replaceUrl: true})
   }
   add(){
     this.changeParam(0);
-    let modalRef = this._modal.open(XuatkhomodalComponent, {
+    let modalRef = this._modal.open(XuatkhobonghoimodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
@@ -76,7 +77,7 @@ export class XuatkhoComponent implements OnInit {
   }
   update(item){
     this.changeParam(item.Id);
-    let modalRef = this._modal.open(XuatkhomodalComponent, {
+    let modalRef = this._modal.open(XuatkhobonghoimodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
@@ -109,7 +110,7 @@ export class XuatkhoComponent implements OnInit {
       DenNgay:DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      Loai: "6",
+      Loai:"6"
     }
     this._service.PhieuXuatSanXuat().GetList(data).subscribe((res:any)=>{
       this.items = res.items;

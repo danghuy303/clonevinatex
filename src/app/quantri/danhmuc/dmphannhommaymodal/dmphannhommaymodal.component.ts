@@ -6,6 +6,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
+import { merge } from 'src/app/services/globalfunction';
 import { DmphannhommayChonmathangmodalComponent } from '../dmphannhommay-chonmathangmodal/dmphannhommay-chonmathangmodal.component';
 
 @Component({
@@ -21,6 +22,9 @@ export class DmphannhommaymodalComponent implements OnInit {
   opt: any = "";
   listloaisoi: any = [];
   khongclicknhieu: any = false;
+  filter: any = {
+    KeyWord: ''
+  };
 
   constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
@@ -42,7 +46,7 @@ export class DmphannhommaymodalComponent implements OnInit {
   }
 
   Save() {
-    this.sanXuatService.DMMayBienAp().Set(this.item).subscribe((res: any) => {
+    this.sanXuatService.dmPhanNhomMaySanXuat().Set(this.item).subscribe((res: any) => {
       if (res) {
         this.resAction(res)
       }
@@ -68,21 +72,37 @@ export class DmphannhommaymodalComponent implements OnInit {
 
   }
 
-  DanhSachHang() {
+  DanhSachHang() {   
     let modalRef = this._modal.open(DmphannhommayChonmathangmodalComponent, {
-      size: "md",
+      size: "lg",
       backdrop: 'static'
     });
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.title = 'Danh sách hàng';
-    modalRef.componentInstance.item = {};
+    modalRef.componentInstance.selectedItems = this.item.lstdmItem || [];
+    modalRef.componentInstance.IdQuyTrinh = this.item.Id || "";
     modalRef.result.then(res => {
-      this.toastr.success(res);
+      // this.toastr.success(res);
+      merge(res, this.item.lstdmItem, 'IddmItem');
     }).catch(er => console.log(er))
   }
 
-  delete(item) {
+  delete(index) {
+    let item = this.item.lstdmItem.splice(index, 1)[0];
+    // let item = this.items.splice(i, 1)[0];
+    if (item.Id.trim() === '') {
+    } else {
+      item.isXoa = true;
+      this.item.lisItem.push(JSON.parse(JSON.stringify(item)));
+    }
+  }
 
+  changeNangSuat(e, item) {
+    item.DinhMucNangSuat = e.value * item.HieuSuat || 0;
+  }
+
+  changeHieuSuat(e, item) {
+    item.DinhMucNangSuat = e.value * item.NangSuat || 0;
   }
 
 }

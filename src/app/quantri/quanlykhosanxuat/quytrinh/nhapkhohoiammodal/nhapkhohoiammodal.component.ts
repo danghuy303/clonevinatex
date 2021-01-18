@@ -31,6 +31,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
   type: any = '';
   editField: any = false;
   nametype: any = '';
+  checkedAll: boolean = false;
   cols: any = [
     {
       header: 'Tên',
@@ -39,12 +40,12 @@ export class NhapkhohoiammodalComponent implements OnInit {
     },
     {
       header: 'Số lượng sản xuất',
-      field: 'SoLuongSanXuat',
+      field: 'KhoiLuongSanXuat',
       width: 'unset'
     },
     {
       header: 'Số lượng thực tế',
-      field: 'SoLuongThucTe',
+      field: 'KhoiLuongThucTe',
       width: 'unset'
     },
   ];
@@ -181,7 +182,6 @@ export class NhapkhohoiammodalComponent implements OnInit {
     itemSearch.IddmPhanXuong = this.item.IddmPhanXuong;
     this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
-        size: 'fullscreen',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
