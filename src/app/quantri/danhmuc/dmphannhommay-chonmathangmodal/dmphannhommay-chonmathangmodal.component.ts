@@ -62,7 +62,7 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
       Ten: ""
     };
     this.sanXuatService.GetListdmLoaiSoi(dataSearch).subscribe((res: any) => {
-      this.listloaisoi = mapArrayForDropDown(res, 'Ten', 'Id');;
+      this.listloaisoi = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 

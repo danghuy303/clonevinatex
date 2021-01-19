@@ -44,8 +44,14 @@ export class MathangComponent implements OnInit {
     //   align:'left'
     // },
     {
-      header: 'Chi số',
-      field: 'ChiSo',
+      header: 'Chi số Ne',
+      field: 'Ne',
+      width: '100px',
+      align:'center'
+    },
+    {
+      header: 'Chi số mét Nm',
+      field: 'Nm',
       width: '100px',
       align:'center'
     },

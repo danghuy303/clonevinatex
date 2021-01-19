@@ -14,6 +14,7 @@ export class DanhsachmaymodalComponent implements OnInit {
   };
   listdmPhanXuong:any=[];
   listCongDoan : any = [];
+  listPhanNhomMaySX : any = [];  
   khongclicknhieu: any = false;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, private _modal: NgbModal) { }
 
