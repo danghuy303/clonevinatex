@@ -402,6 +402,11 @@ export class QuantriComponent implements OnInit {
                         command: () => this.close()
                     },
                     {
+                        label: 'Định mức chất lượng sợi',
+                        routerLink: '/quantri/danhmucsanxuat/dmdinhmucchatluongsoi',
+                        command: () => this.close()
+                    },
+                    {
                         label: 'Định mức tiêu hao',
                         routerLink: '/quantri/danhmucsanxuat/dmdinhmuctieuhao',
                         command: () => this.close()

@@ -117,7 +117,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
   //       })
   // }
 
-  ChuyenTiep() {
+  ChuyenDuyet() {
     // if (this.item.Ngay === null || this.item.Ngay === undefined) {
     //   this.toastr.error("Bạn chưa chọn  ngày");
     // }

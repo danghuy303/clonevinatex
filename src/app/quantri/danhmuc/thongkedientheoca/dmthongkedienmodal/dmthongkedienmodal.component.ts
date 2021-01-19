@@ -22,7 +22,7 @@ export class DmthongkedienmodalComponent implements OnInit {
   khongclicknhieu: any = false;
   cols: any = [
     {
-      header: 'Số tiêu thụ',
+      header: 'Số tiêu thụ (KW)',
       field: 'SoTieuThu',
       width: 'unset',
       align: 'right'
@@ -34,7 +34,7 @@ export class DmthongkedienmodalComponent implements OnInit {
       align: 'right'
     },
     {
-      header: 'Tiêu thụ trong ca',
+      header: 'Tiêu thụ trong ca (KW)',
       field: 'TieuThuTrongCa',
       width: 'unset',
       align: 'right'
