@@ -29,6 +29,9 @@ export class PhabongmodalComponent implements OnInit {
   itemMicBQ = {};
   itembBQ = {};
   itemCVMic={};
+  itemGiaTrungBinh:any={};
+  itemTrongLuong1Ban:any={};
+  itemDeltaPlusB:any = {};
   itemSoKienTrenBanTruBongHoi = {};
   item: any = {
     Id: '',
@@ -252,6 +255,15 @@ export class PhabongmodalComponent implements OnInit {
     });
     this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.M + this.labelBong.TP);
   }
+  TinhDeltaB(){
+    for (let i = 1; i <= this.item.SoBanBong; i++) {
+      if(i === 1){
+        this.itemDeltaPlusB[`${i}`] = 0;
+      }else{
+        this.itemDeltaPlusB[`${i}`] = (this.itembBQ[`${i}`]-this.itembBQ[`${i-1}`]);
+      }
+    }
+  }
   CalAllTable(y, x) { //truc toa do y:tung x:hoanh
     let tempSLD = 0;
     for (let i = 1; i <= this.item.SoBanBong; i++) {
@@ -266,12 +278,16 @@ export class PhabongmodalComponent implements OnInit {
     let tempTongCLMic = 0;
     let tempTongCLRd = 0;
     let tempTongCLb = 0;
+    let tempTongGia = 0;
+    let tempTongTrongLuong=0;
     let tempTongKhoiLuongDung = 0;
     let arrayMic = [];
     let arrayKien = [];
     this.item.listLoBong.forEach(lobong => {
       if (validVariable(lobong.tempBanBong[`${x}`].SoKien)) {
         tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
+        tempTongTrongLuong += (lobong.tempBanBong[`${x}`].SoKien * lobong.TrongLuong);
+        tempTongGia += (lobong.tempBanBong[`${x}`].SoKien * lobong.DonGia|0 * lobong.TrongLuong);
         if (validVariable(lobong.Mic)) {
           tempSoKien1LineTruBongHoi += lobong.tempBanBong[`${x}`].SoKien;
           tempTongCLMic += (lobong.tempBanBong[`${x}`].SoKien * lobong.Mic);
@@ -289,6 +305,8 @@ export class PhabongmodalComponent implements OnInit {
     this.itembBQ[`${x}`] = tempTongCLb / tempSoKien1LineTruBongHoi;
     this.itemSoKienTrenBan[`${x}`] = tempSoKien1Line;
     this.itemSoKienTrenBanTruBongHoi[`${x}`] = tempSoKien1LineTruBongHoi;
+    this.itemTrongLuong1Ban[`${x}`] = tempTongTrongLuong;
+    this.itemGiaTrungBinh[`${x}`] = tempTongGia/tempTongTrongLuong;
     this.item.listLoBong.forEach(lobong => {
       if (validVariable(lobong.SoLuongDung)) {
         lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
@@ -299,7 +317,8 @@ export class PhabongmodalComponent implements OnInit {
       }
     });
     this.itemCVMic[`${x}`] = CVMic([...arrayMic,...arrayKien],tempSoKien1LineTruBongHoi);
-    this.TinhTyLeTong()
+    this.TinhTyLeTong();
+    this.TinhDeltaB();
   }
 
   KiemTraButtonModal() {
@@ -368,5 +387,8 @@ export class PhabongmodalComponent implements OnInit {
   }
   nextFocus(e) {
     console.log(e);
+  }
+  test(){
+    console.log(this.itemGiaTrungBinh);
   }
 }
