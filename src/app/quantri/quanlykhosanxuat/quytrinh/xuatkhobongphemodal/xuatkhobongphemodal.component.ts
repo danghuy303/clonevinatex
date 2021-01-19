@@ -26,7 +26,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
   listPhanXuong: any = [];
   listPhuongAnPhaBong: any = [];
   listItem: any = [];
-  paging: any = {};
+  paging: any = {CurrentPage: 1};
 
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, 
@@ -34,7 +34,9 @@ export class XuatkhobongphemodalComponent implements OnInit {
 
   ngOnInit(): void {
     this.KiemTraButtonModal();
-    this.GetQuyTrinh();
+    if(this.opt === 'edit'){
+      this.GetQuyTrinh();
+    }
     //
     let data:any = {
       CurrentPage: 0
@@ -55,7 +57,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
   }
   GetQuyTrinh()
   {
-    this.services.PhieuXuatSanXuat().Get(this.item.Id).subscribe((res1:any)=>{
+    this.services.PhieuXuatBongPhe().Get(this.item.Id).subscribe((res1:any)=>{
       this.item = res1;
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
@@ -138,7 +140,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
   }
   
   GetLuuKho(sFilter) {
-    console.log(this.item.listItem)
+    console.log(this.item)
     this.services.getLuuKhoKhac(this.item.IddmKho,'', 0 , sFilter).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'lg',

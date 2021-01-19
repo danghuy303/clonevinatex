@@ -135,12 +135,11 @@ export class NhapkhomodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  danh mục loại bông");
     }
     else {
-      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined&& this.newTableItem.IddmViTri!= undefined) {
-        if (this.type === 'bong' || this.type === 'xo')
+      if (this.type === 'bong' || this.type === 'xo' && this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined&& this.newTableItem.IddmViTri!= undefined) {
         this.add();
-        else if (this.type === 'bonghoi' ||this.type === 'bongphe')
-          this.addBongHoi();
       }
+      else if ( this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined &&this.type === 'bonghoi' ||this.type === 'bongphe')
+          this.addBongHoi();
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
       this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -284,11 +283,11 @@ export class NhapkhomodalComponent implements OnInit {
     }
   }
   deleteBongHoi(index) {
-    let item = this.item.listBongHoi.splice(index, 1)[0];
+    let item = this.item.listKien.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
     } else {
       item.isXoa = true;
-      this.item.listBongHoi.push(JSON.parse(JSON.stringify(item)));
+      this.item.listKien.push(JSON.parse(JSON.stringify(item)));
     }
   }
   saveEdit(item, index){
