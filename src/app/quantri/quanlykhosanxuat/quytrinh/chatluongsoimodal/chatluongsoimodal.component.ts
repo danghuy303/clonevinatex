@@ -133,9 +133,9 @@ export class ChatluongsoimodalComponent implements OnInit {
       modalRef.componentInstance.listItem = this.item.lstSanPham;
       modalRef.result.then((data) => {
         this.item.lstSanPham = data.data;
-        this.item.lstSanPham.forEach(element => {
+        this.item.lstDanhMuc.forEach(element => {
           let sanphampush = [];
-          this.item.lstDanhMuc.forEach(danhmuc => {
+          this.item.lstSanPham.forEach(danhmuc => {
             let datapush = {
               IddmChiTieu: danhmuc.Id,
               IddmItem: element.Id,
