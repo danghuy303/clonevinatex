@@ -124,7 +124,7 @@ export class SanXuatService {
     }
     //#endregion
 
-    //#region  Danh mục nhóm công tơ
+    //#region  Danh mục phân nhóm máy
     dmPhanNhomMaySanXuat() {
         let url = API.SCMDanhMuc;
         return {
@@ -139,6 +139,20 @@ export class SanXuatService {
             },
             Delete: (data) => {
                 return this.http.post(url + 'DeletedmPhanNhomMaySanXuat', data, httpOptions);
+            },
+        }
+    }
+    //#endregion
+
+    //#region Định mức tiêu chí chất lượng sợi
+    dmDinhMucTieuChiChatLuongSoi() {
+        let url = API.SCMKiemTraChatLuong;
+        return {
+            Get: (data) => {
+                return this.http.post(url + `GetDanhSachChiTieuChatLuongTheoSanPham`, data, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetDanhSachChiTieuChatLuongTheoSanPham', data, httpOptions);
             },
         }
     }
@@ -758,7 +772,7 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho + `GetLuuKho?IdDuAn=0&IddmKho=${IddmKho}&IddmViTri=${IddmViTri}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
         return this.http.get(url, httpOptions);
     }
-    getLuuKhoKhac(IddmKho,IddmViTri, CurrentPage, sFilter) {
+    getLuuKhoKhac(IddmKho, IddmViTri, CurrentPage, sFilter) {
         // let IdDuAn =this.store.getCurrent();
         let url = API.SCMQuanLyKho + `GetLuuKhoKhac?IdDuAn=0&IddmKho=${IddmKho}&IddmViTri=${IddmViTri}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
         return this.http.get(url, httpOptions);

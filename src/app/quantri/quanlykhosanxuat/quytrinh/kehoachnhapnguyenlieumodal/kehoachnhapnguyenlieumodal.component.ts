@@ -101,7 +101,19 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
   ChuyenTiep() {
     if ((this.newTableItem.IddmLoaiBong !== undefined) && (this.newTableItem.IddmCapBong !== undefined) && (this.newTableItem.ThoiGianDuKien !== undefined)) {
       this.add();
-      }
+    }
+  }
+  ChuyenDuyet() {
+    // if (this.item.Ngay === null || this.item.Ngay === undefined) {
+    //   this.toastr.error("Bạn chưa chọn  ngày");
+    // }
+    if (this.item.idKhoNhap === null || this.item.idKhoNhap === undefined) {
+      this.toastr.error("Bạn chưa chọn  danh mục kho");
+    }
+    else {
+      // if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
+      //   this.add();
+      // }
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
@@ -116,26 +128,27 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
           }
         }
       })
+    }
   }
 
   KhongDuyet() {
     if ((this.newTableItem.IddmLoaiBong !== undefined) && (this.newTableItem.IddmCapBong !== undefined) && (this.newTableItem.ThoiGianDuKien !== undefined)) {
       this.add();
-      }
-      if (this.item.listItem.length > 0) {
-        this.item.listItem.filter(obj => {
-          obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
-        });
-      }
-      this._services.NhapKeHoachNguyenLieu().KhongDuyet(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.activeModal.close();
-          } else {
-            this.toastr.error(res.message);
-          }
+    }
+    if (this.item.listItem.length > 0) {
+      this.item.listItem.filter(obj => {
+        obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
+      });
+    }
+    this._services.NhapKeHoachNguyenLieu().KhongDuyet(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.activeModal.close();
+        } else {
+          this.toastr.error(res.message);
         }
-      })
+      }
+    })
   }
 
   GetNextSoQuyTrinh() {
@@ -145,26 +158,26 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
   }
 
   GhiLai() {
-      if ((this.newTableItem.IddmLoaiBong !== undefined) && (this.newTableItem.IddmCapBong !== undefined) && (this.newTableItem.ThoiGianDuKien !== undefined)) {
-        this.add();
-      }
-      if (this.item.listItem.length > 0) {
-        this.item.listItem.filter(obj => {
-          obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
-        });
-      }
-      this._services.NhapKeHoachNguyenLieu().Set(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.toastr.success(res.message)
-            this.opt = 'edit';
-            this.item = res.objectReturn;
-            this.KiemTraButtonModal();
-          } else {
-            this.toastr.error(res.message);
-          }
+    if ((this.newTableItem.IddmLoaiBong !== undefined) && (this.newTableItem.IddmCapBong !== undefined) && (this.newTableItem.ThoiGianDuKien !== undefined)) {
+      this.add();
+    }
+    if (this.item.listItem.length > 0) {
+      this.item.listItem.filter(obj => {
+        obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
+      });
+    }
+    this._services.NhapKeHoachNguyenLieu().Set(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message)
+          this.opt = 'edit';
+          this.item = res.objectReturn;
+          this.KiemTraButtonModal();
+        } else {
+          this.toastr.error(res.message);
         }
-      })
+      }
+    })
   }
 
   XoaQuyTrinh() {
@@ -193,7 +206,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     })
   }
 
-  filtertable_add() {    
+  filtertable_add() {
     if (this.filter.KeyWord != undefined && this.filter.KeyWord != null && this.filter.KeyWord != "") {
       this.item.listItem_copy = deepCopy(this.item.listItem);
       let filter = this.item.listItem.filter(obj => {
@@ -203,7 +216,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
       });
       this.item.listItem = filter;
     }
-    else {     
+    else {
       this.item.listItem = deepCopy(this.item.listItem_copy);
       this.item.listItem.filter(obj => {
         obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;

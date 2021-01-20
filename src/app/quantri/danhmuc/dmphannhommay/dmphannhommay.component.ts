@@ -33,7 +33,7 @@ export class DmphannhommayComponent implements OnInit {
       field: 'Ten',
       width: 'unset',
       center: 'left'
-    },  
+    },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
@@ -60,7 +60,7 @@ export class DmphannhommayComponent implements OnInit {
   resetFilter() {
     this.keyWord = '';
     this.GetListdm()
-  }  
+  }
 
   GetDanhSachDuAnByIdUser() {
     this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
@@ -99,7 +99,7 @@ export class DmphannhommayComponent implements OnInit {
   }
   add() {
     let modalRef = this._modal.open(DmphannhommaymodalComponent, {
-      size:"lg",
+      size: "xl",
       backdrop: 'static'
     });
     modalRef.componentInstance.opt = 'add';
@@ -113,7 +113,7 @@ export class DmphannhommayComponent implements OnInit {
       this.GetListdm()
     }).catch(er => console.log(er))
   }
-  edit(item) {    
+  edit(item) {
     this._services.dmPhanNhomMaySanXuat().Get(item.Id).subscribe((res: any) => {
       let data = {
         PageSize: 20,
@@ -126,14 +126,21 @@ export class DmphannhommayComponent implements OnInit {
       };
       this._services.GetListdmItem(data).subscribe((resGetListdmItem: any) => {
         resGetListdmItem.forEach(element => {
-          res.lstdmItem.filter(obj => { if(obj.IddmItem == element.Id) obj.Ten = element.Ten });
+          res.lstdmItem.filter(obj => {
+            if (obj.IddmItem == element.Id) {
+              obj.Ten = element.Ten;
+              obj.Ne = element.Ne;
+              obj.Nm = element.Nm;
+              obj.DoSan = element.DoSan;
+            }
+          });
         });
       })
       let modalRef = this._modal.open(DmphannhommaymodalComponent, {
-        size:"lg",
+        size: "xl",
         backdrop: 'static'
       });
-      modalRef.componentInstance.opt = 'edit';  
+      modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.title = 'Cập nhật phân nhóm máy';
       modalRef.componentInstance.item = res;
       modalRef.result.then(res => {

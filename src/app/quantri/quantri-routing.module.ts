@@ -79,6 +79,7 @@ import { XepbanbongComponent } from './quanlykhosanxuat/phuongan/xepbanbong/xepb
 import { XuatkhoxoComponent } from './quanlykhosanxuat/quytrinh/xuatkhoxo/xuatkhoxo.component';
 import { XuatkhobonghoiComponent } from './quanlykhosanxuat/quytrinh/xuatkhobonghoi/xuatkhobonghoi.component';
 import { XuatkhobongpheComponent } from './quanlykhosanxuat/quytrinh/xuatkhobongphe/xuatkhobongphe.component';
+import { DinhmuctieuchichatluongsoiComponent } from './danhmuc/danhmucsanxuat/dinhmuctieuchichatluongsoi/dinhmuctieuchichatluongsoi.component';
 
 const routes: Routes = [
   {
@@ -138,18 +139,19 @@ const routes: Routes = [
       { path: 'danhmucsanxuat/dmphanxuong', component: PhanxuongComponent },
       { path: 'danhmucsanxuat/dmloaisoi', component: LoaisoiComponent },
       { path: 'danhmucsanxuat/dmnhomkho', component: NhomkhoComponent },
-      { path: 'danhmucsanxuat/dmmaybienap', component: DmmaybienapComponent },   
-      { path: 'danhmucsanxuat/loaidienkv', component: LoaidienkvComponent },   
-      { path: 'danhmucsanxuat/dmnhomcongto', component: DmnhomcongtoComponent },   
-      { path: 'danhmucsanxuat/dmcongto', component: DmcongtoComponent },  
-      { path: 'danhmucsanxuat/dmtieuchichatluongsoi', component: DmtieuchichatluongsoiComponent },    
-      { path: 'danhmucsanxuat/dmphannhommay', component: DmphannhommayComponent }, 
-      { path: 'danhmucsanxuat/dmquycachdonggoi', component: QuycachdonggoiComponent },                    
-      { path: 'danhmucsanxuat/dmthongkedien/:id', component: DmthongkedienComponent },  
-      { path: 'danhmucsanxuat/dmdinhmuctieuhao', component: DinhmuctieuhaoComponent },  
-      { path: 'danhmucsanxuat/dmvitri', component: VitriComponent },  
-      { path: 'theodoithongkebaocaosanxuat/thongkedien/:id', component: DmthongkedienComponent },  
-                            
+      { path: 'danhmucsanxuat/dmmaybienap', component: DmmaybienapComponent },
+      { path: 'danhmucsanxuat/loaidienkv', component: LoaidienkvComponent },
+      { path: 'danhmucsanxuat/dmnhomcongto', component: DmnhomcongtoComponent },
+      { path: 'danhmucsanxuat/dmcongto', component: DmcongtoComponent },
+      { path: 'danhmucsanxuat/dmtieuchichatluongsoi', component: DmtieuchichatluongsoiComponent },
+      { path: 'danhmucsanxuat/dmphannhommay', component: DmphannhommayComponent },
+      { path: 'danhmucsanxuat/dmquycachdonggoi', component: QuycachdonggoiComponent },
+      { path: 'danhmucsanxuat/dmthongkedien/:id', component: DmthongkedienComponent },
+      { path: 'danhmucsanxuat/dmdinhmucchatluongsoi', component: DinhmuctieuchichatluongsoiComponent },
+      { path: 'danhmucsanxuat/dmdinhmuctieuhao', component: DinhmuctieuhaoComponent },
+      { path: 'danhmucsanxuat/dmvitri', component: VitriComponent },
+      { path: 'theodoithongkebaocaosanxuat/thongkedien/:id', component: DmthongkedienComponent },
+
       { path: 'theodoithongkebaocaosanxuat/thongkesanluong/:id', component: ThongkesanluongComponent },
 
       { path: 'trienkhaisanxuat/phabong/:id', component: PhabongComponent },
@@ -157,10 +159,10 @@ const routes: Routes = [
       { path: 'kehoachsanxuat/sanxuat/:id', component: SanxuatComponent },
       //XepBanBong
       { path: 'trienkhaisanxuat/xepbanbong/:id', component: XepbanbongComponent },
-      
+
       { path: 'trienkhaisanxuat/phieudieuchinh/:id', component: PhieudieuchinhComponent },
 
-      { path: 'quanlykhosanxuat/:kho/nhapkho/:id', component: NhapkhoComponent},
+      { path: 'quanlykhosanxuat/:kho/nhapkho/:id', component: NhapkhoComponent },
       { path: 'quanlykhosanxuat/khobong/thongsochatluong/:id', component: ThongsochatluongComponent },
       { path: 'quanlykhosanxuat/khobong/xuatkho/:id', component: XuatkhoComponent },
       { path: 'quanlykhosanxuat/khobong/kiemkekho/:id', component: KiemkekhoComponent },
@@ -173,26 +175,26 @@ const routes: Routes = [
       { path: 'quanlykhosanxuat/khoxo/dieuchuyen/:id', component: DieuchuyenComponent },
       { path: 'quanlykhosanxuat/khoxo/kehoachnhapnguyenlieu/:id', component: KehoachnhapnguyenlieuComponent },
 
-      { path: 'quanlysanxuatkhohoiam/khohoiam/nhapkho/:id', component: NhapkhohoiamComponent},
+      { path: 'quanlysanxuatkhohoiam/khohoiam/nhapkho/:id', component: NhapkhohoiamComponent },
       { path: 'quanlysanxuatkhohoiam/khohoiam/kiemkekho/:id', component: KiemkekhoComponent },
-      { path: 'quanlysanxuatkhohoiam/khohoiam/hacap/:id', component:HacapComponent},
-      { path: 'quanlysanxuatkhohoiam/khohoiam/chatluongsoi/:id', component:ChatluongsoiComponent},
+      { path: 'quanlysanxuatkhohoiam/khohoiam/hacap/:id', component: HacapComponent },
+      { path: 'quanlysanxuatkhohoiam/khohoiam/chatluongsoi/:id', component: ChatluongsoiComponent },
 
-      
+
       { path: 'quanlykhosanxuat/khobonghoi/xuatkho/:id', component: XuatkhobonghoiComponent },
       { path: 'quanlykhosanxuat/khobonghoi/kiemkekho/:id', component: KiemkekhoComponent },
       { path: 'quanlykhosanxuat/khobonghoi/dieuchuyen/:id', component: DieuchuyenComponent },
 
       { path: 'quanlykhosanxuat/khobongphe/xuatkho/:id', component: XuatkhobongpheComponent },
       { path: 'quanlykhosanxuat/khobongphe/kiemkekho/:id', component: KiemkekhoComponent },
-      
-      { path: 'quanlysanxuatkhothanhpham/khothanhpham/nhapkho/:id', component: NhapkhothanhphamComponent},
+
+      { path: 'quanlysanxuatkhothanhpham/khothanhpham/nhapkho/:id', component: NhapkhothanhphamComponent },
       { path: 'quanlysanxuatkhothanhpham/khothanhpham/kiemkekho/:id', component: KiemkekhoComponent },
-      { path: 'quanlysanxuatkhothanhpham/khothanhpham/kehoachxuathang/:id', component: KehoachxuathangComponent },      
+      { path: 'quanlysanxuatkhothanhpham/khothanhpham/kehoachxuathang/:id', component: KehoachxuathangComponent },
 
       { path: 'kehoachsanxuat/giaokehoachsanxuat/:id', component: KehoachsanxuatComponent },
-      { path: 'kehoachsanxuat/giaokehoachsanxuat/:id', component:KehoachsanxuatComponent},
-      { path: 'kehoachsanxuat/trienkhaikehoachsanxuat/:id', component:TrienkhaikehoachsanxuatComponent},
+      { path: 'kehoachsanxuat/giaokehoachsanxuat/:id', component: KehoachsanxuatComponent },
+      { path: 'kehoachsanxuat/trienkhaikehoachsanxuat/:id', component: TrienkhaikehoachsanxuatComponent },
     ]
   }
 ];
