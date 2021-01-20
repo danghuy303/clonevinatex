@@ -245,7 +245,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     let KLxChiSo = 0;
     this.item.listItem.forEach(mathang => {
       TongKL += validVariable(mathang.KhoiLuongKeHoach) ? mathang.KhoiLuongKeHoach : 0;
-      KLxChiSo += validVariable(mathang.KhoiLuongKeHoach) ? (mathang.KhoiLuongKeHoach * mathang.ChiSo) : 0;
+      KLxChiSo += validVariable(mathang.KhoiLuongKeHoach) ? (mathang.KhoiLuongKeHoach * mathang.Ne) : 0;
     });
     console.log(TongKL, KLxChiSo); if (
       TongKL !== 0 && KLxChiSo !== 0
@@ -253,7 +253,8 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       this.item.ChiSoBinhQuan = Math.ceil((KLxChiSo / TongKL) * 100) / 100;
       this.item.TongKhoiLuongMatHang = TongKL;
       if (validVariable(this.item.TongSoCa)) {
-        this.item.BQNE30 = Math.ceil(((TongKL / this.item.ChiSoBinhQuan) * 30 / this.item.TongSoCa) * 100) / 100
+        // this.item.BQNE30 = Math.ceil(((TongKL / this.item.ChiSoBinhQuan) * 30 / this.item.TongSoCa) * 100) / 100
+        this.item.BQNE30 = Math.ceil(TongKL * this.item.ChiSoBinhQuan / 30 / this.item.TongSoCa);
       }
     }
   }
@@ -264,12 +265,12 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
-            this.item = res.objectReturn;            
+            this.item = res.objectReturn;
             if (this.item.listItem != undefined && this.item.listItem != null) {
               this.item.listItem.filter(objlistItem => {
                 objlistItem.listItem.filter(objlistItem2 => {
                   objlistItem2.objQuyCachDongGoi = this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
-                });          
+                });
               });
             }
             this.KiemTraButtonModal();
