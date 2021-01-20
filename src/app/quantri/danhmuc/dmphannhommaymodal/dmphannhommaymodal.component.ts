@@ -6,7 +6,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { merge } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, merge } from 'src/app/services/globalfunction';
 import { DmphannhommayChonmathangmodalComponent } from '../dmphannhommay-chonmathangmodal/dmphannhommay-chonmathangmodal.component';
 
 @Component({
@@ -21,6 +21,7 @@ export class DmphannhommaymodalComponent implements OnInit {
   public type = '';
   opt: any = "";
   listloaisoi: any = [];
+  listDonViNangSuat: any = [];
   khongclicknhieu: any = false;
   filter: any = {
     KeyWord: ''
@@ -29,10 +30,19 @@ export class DmphannhommaymodalComponent implements OnInit {
   constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.getDonViNangXuat();
     if (this.opt == 'edit') {
       // this.GetPhanXuong();
     }
     // this.GetDanhSachLoaiDienKV();
+  }
+
+  getDonViNangXuat() {
+    let listDonViNangSuat = [
+      { Id: 0, Ten: "M" },
+      { Id: 1, Ten: "Kg" },
+    ];
+    this.listDonViNangSuat = mapArrayForDropDown(listDonViNangSuat, 'Ten', 'Id');
   }
 
   accept() {
@@ -72,7 +82,7 @@ export class DmphannhommaymodalComponent implements OnInit {
 
   }
 
-  DanhSachHang() {   
+  DanhSachHang() {
     let modalRef = this._modal.open(DmphannhommayChonmathangmodalComponent, {
       size: "lg",
       backdrop: 'static'

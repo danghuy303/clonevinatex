@@ -254,7 +254,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       this.item.TongKhoiLuongMatHang = TongKL;
       if (validVariable(this.item.TongSoCa)) {
         // this.item.BQNE30 = Math.ceil(((TongKL / this.item.ChiSoBinhQuan) * 30 / this.item.TongSoCa) * 100) / 100
-        this.item.BQNE30 = Math.ceil(TongKL * this.item.ChiSoBinhQuan / 30 / this.item.TongSoCa);
+        this.item.BQNE30 = TongKL * this.item.ChiSoBinhQuan / 30 / this.item.TongSoCa;
       }
     }
   }
