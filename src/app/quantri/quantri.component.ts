@@ -267,27 +267,27 @@ export class QuantriComponent implements OnInit {
             {
                 label: 'Quản lý kho bông hồi',
                 icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhosanxuat/khobonghoi',
+                routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi',
                 expanded: false,
                 items: [
                     {
                         label: 'Nhập kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobonghoi/nhapkho/0',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/nhapkho/0',
                         command: () => this.close()
                     },
                     {
                         label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobonghoi/xuatkho/0',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/xuatkho/0',
                         command: () => this.close()
                     },
                     {
                         label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobonghoi/kiemkekho/0',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/kiemkekho/0',
                         command: () => this.close()
                     },
                     {
                         label: 'Điều chuyển',
-                        routerLink: '/quantri/quanlykhosanxuat/khobonghoi/dieuchuyen/0',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/dieuchuyen/0',
                         command: () => this.close()
                     },
                 ]
@@ -295,22 +295,22 @@ export class QuantriComponent implements OnInit {
             {
                 label: 'Quản lý kho bông phế',
                 icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhosanxuat/khobongphe',
+                routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe',
                 expanded: false,
                 items: [
                     {
                         label: 'Nhập kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobongphe/nhapkho/0',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe/nhapkho/0',
                         command: () => this.close()
                     },
                     {
                         label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobongphe/xuatkho/0',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/0',
                         command: () => this.close()
                     },
                     {
                         label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobongphe/kiemkekho/0',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe/kiemkekho/0',
                         command: () => this.close()
                     },
                 ]

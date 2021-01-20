@@ -27,6 +27,7 @@ export class ChatluongsoimodalComponent implements OnInit {
   filter:any = {};
   listdmPhanXuong:any= [];
   lang: any = vn;
+  lstSanPham: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
 
@@ -58,8 +59,7 @@ export class ChatluongsoimodalComponent implements OnInit {
       if (res) {
         if (res.State === 1) {
           this.activeModal.close();
-          this.item = res.objectReturn;
-          this.KiemTraButtonModal();
+          this.toastr.success(res.message);
         } else {
           this.toastr.error(res.message);
         }
@@ -132,21 +132,35 @@ export class ChatluongsoimodalComponent implements OnInit {
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.lstSanPham;
       modalRef.result.then((data) => {
-        this.item.lstSanPham = data.data;
+        this.lstSanPham = data.data;
         this.item.lstDanhMuc.forEach(element => {
-          let sanphampush = [];
-          this.item.lstSanPham.forEach(danhmuc => {
-            let datapush = {
-              IddmChiTieu: danhmuc.Id,
-              IddmItem: element.Id,
-              ChiTieuThucTe: element.ChiTieuThucTe,
+          let chatluongpush = [];
+          this.lstSanPham.forEach(danhmuc => {
+            //
+            let datapush: any = {
+              IddmChiTieu: element.Id,
+              IddmItem: danhmuc.Id,
             }
-            sanphampush.push(datapush);
+            for(let i = 0; i < element.lstChatLuongSanPham.length; i++){
+              if(element.lstChatLuongSanPham[i].IddmItem == danhmuc.Id){
+                datapush.ChiTieuThucTe = element.lstChatLuongSanPham[i].ChiTieuThucTe;
+                break;
+              }
+            }
+            chatluongpush.push(datapush);
           });
-          element.lstChatLuongSanPham = sanphampush;
-          element.IddmItem = element.Id;
-          element.Id = "";
+          element.lstChatLuongSanPham = chatluongpush;
         });
+        //
+        let sanphampush = [];
+        this.lstSanPham.forEach(danhmuc => {
+          let datapush: any = {
+            IddmItem: danhmuc.Id,
+            Ten: danhmuc.Ten,
+          }
+          sanphampush.push(datapush);
+        });
+        this.item.lstSanPham = sanphampush;
       }, (reason) => {
         // không
       });

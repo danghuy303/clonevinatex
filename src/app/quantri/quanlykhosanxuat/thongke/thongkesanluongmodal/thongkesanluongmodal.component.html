@@ -98,20 +98,29 @@
                         <td class="text-left">{{itemtbl.Ten}}</td>
                         <td class="text-left">{{itemtbl.Ne}}</td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
+                            <p-inputNumber *ngIf="itemtbl.DonViCongSuat=== 0"
+                            [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
                             (ngModelChange)="itemtbl.KhoiLuong=TinhGiaTri(itemtbl, $event)">
+                            </p-inputNumber>
+                            <p-inputNumber *ngIf="itemtbl.DonViCongSuat===1"
+                            [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
+                            (ngModelChange)="itemtbl.KhoiLuong=TinhGiaTri(itemtbl, $event)" disabled>
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong">
+                            <p-inputNumber *ngIf="itemtbl.DonViCongSuat=== 0" disabled
+                            [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong">
+                            </p-inputNumber>
+                            <p-inputNumber *ngIf="itemtbl.DonViCongSuat=== 1" 
+                            [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong">
                             </p-inputNumber>
                         </td>
                         <td *ngIf="item.CongDoan==='ONG'">
-                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.SoQua">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemtbl.SoQuaSoi">
                             </p-inputNumber>
                         </td>
                         <td *ngIf="item.CongDoan==='ONG'">
-                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.DonViTinh">
+                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.KgCone">
                             </p-inputNumber>
                         </td>
                         <td>

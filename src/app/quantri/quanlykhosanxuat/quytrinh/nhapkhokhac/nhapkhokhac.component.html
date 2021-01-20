@@ -42,7 +42,9 @@
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
-                <col *ngFor="let col of cols">
+                <col *ngFor="let col of colHois">
+                <col>
+                <col>
                 <col>
                 <col>
                 <col>
@@ -50,19 +52,11 @@
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
-            <tr *ngIf="this.title === 'khobong'">
+            <tr>
                 <th class="text-center">#</th>
-                <th *ngFor="let header of cols">
-                    {{header.header}}
-                </th>
-                <th>Tổng số kiện</th>
-                <th>Tổng khối lượng (kg)</th>
-                <th>Trạng thái</th>
-                <th></th>
-            </tr>
-            <tr *ngIf="this.title === 'khoxo'">
-                <th class="text-center">#</th>
-                <th *ngFor="let header of colXos">
+                <th class="text-center">Số quy trình</th>
+                <th class="text-center">Ngày</th>
+                <th *ngFor="let header of colHois">
                     {{header.header}}
                 </th>
                 <th>Tổng số kiện</th>
@@ -76,7 +70,11 @@
                 <td class="text-center">
                     {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
-                <td class="text-center" *ngFor="let col of cols">
+                <td class="text-center">
+                    {{item.SoQuyTrinh}}
+                </td>
+                <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center" *ngFor="let col of colHois">
                     {{item[col.field]}}
                 </td>
                 <td class="text-center">

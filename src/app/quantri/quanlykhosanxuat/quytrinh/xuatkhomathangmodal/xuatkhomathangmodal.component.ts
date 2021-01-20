@@ -41,8 +41,8 @@ export class XuatkhomathangmodalComponent implements OnInit {
     {
       this.listItem.forEach(element => {
         var itemFind = this.listItem_new.find(function (obj) {
-          // return obj.IddmItem == element.IddmItem;
-          return obj.Id == element.IddmItem;
+          return obj.IddmItem == element.IddmItem;
+          // return obj.Id == element.IddmItem;
         });
         itemFind.checked = true;
       });

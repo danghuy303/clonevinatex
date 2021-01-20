@@ -1,19 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavigationEnd } from '@angular/router';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { filter } from 'rxjs/internal/operators/filter';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
-import { NhapkhomodalComponent } from '../nhapkhomodal/nhapkhomodal.component';
+import { NhapkhokhacmodalComponent } from '../nhapkhokhacmodal/nhapkhokhacmodal.component';
 
 @Component({
-  selector: 'app-nhapkho',
-  templateUrl: './nhapkho.component.html',
-  styleUrls: ['./nhapkho.component.css']
+  selector: 'app-nhapkhokhac',
+  templateUrl: './nhapkhokhac.component.html',
+  styleUrls: ['./nhapkhokhac.component.css']
 })
-export class NhapkhoComponent implements OnInit {
+export class NhapkhokhacComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
@@ -21,22 +18,8 @@ export class NhapkhoComponent implements OnInit {
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   eAction: any = "PHIEUNHAPLOBONG";
-  cols: any = [
-    {
-      header: 'Số quy trình',
-      field: 'SoQuyTrinh',
-      width: 'unset'
-    },
-    {
-      header: 'Số hợp đồng',
-      field: 'SoHopDong',
-      width: 'unset'
-    },
-    {
-      header: 'Lô bông',
-      field: 'TenLoBong',
-      width: 'unset'
-    },
+  
+  colHois: any = [
     {
       header: 'Loại bông',
       field: 'TendmLoaiBong',
@@ -44,28 +27,6 @@ export class NhapkhoComponent implements OnInit {
     },
   ];
   
-  colXos: any = [
-    {
-      header: 'Số quy trình',
-      field: 'SoQuyTrinh',
-      width: 'unset'
-    },
-    {
-      header: 'Số hợp đồng',
-      field: 'SoHopDong',
-      width: 'unset'
-    },
-    {
-      header: 'Lô xơ',
-      field: 'TenLoBong',
-      width: 'unset'
-    },
-    {
-      header: 'Loại xơ',
-      field: 'TendmLoaiBong',
-      width: 'unset'
-    },
-  ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";
   type: any = "";
@@ -85,14 +46,13 @@ export class NhapkhoComponent implements OnInit {
       // else
         this.GetListQuyTrinh();
       //
-      
-      if(this.title === 'khobong'){
-        this.type = 'bong';
-        this.nametype = 'bông';
+      if(this.title === 'khobonghoi'){
+        this.type = 'bonghoi';
+        this.nametype = 'bông hồi';
       }
-      else if(this.title === 'khoxo'){
-        this.type = 'xo';
-        this.nametype = 'xơ';
+      else if(this.title === 'khobongphe'){
+        this.type = 'bongphe';
+        this.nametype = 'bông phế';
       }
     })
     this.KiemTraTabTrangThai();
@@ -102,12 +62,12 @@ export class NhapkhoComponent implements OnInit {
     if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/${this.title}/nhapkho/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/quanlykhosanxuatbongkhac/${this.title}/nhapkho/${id}`], { replaceUrl: true })
   }
   
   addPhieu() {
     this.changeParam(0);
-    let modalRef = this._modal.open(NhapkhomodalComponent, {
+    let modalRef = this._modal.open(NhapkhokhacmodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
@@ -126,7 +86,7 @@ export class NhapkhoComponent implements OnInit {
   update(Id) {
     this.changeParam(Id);
     this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
-      let modalRef = this._modal.open(NhapkhomodalComponent, {
+      let modalRef = this._modal.open(NhapkhokhacmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
@@ -145,8 +105,8 @@ export class NhapkhoComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?) {
     if (reset) {
@@ -163,11 +123,11 @@ export class NhapkhoComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    if(this.title === 'khobong'){
-      data.Loai = 1;
+    if(this.title === 'khobonghoi'){
+      data.Loai = 6;
     }
-    else if(this.title === 'khoxo'){
-      data.Loai = 5;
+    else if(this.title === 'khobongphe'){
+      data.Loai = 7;
     }
 
     this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
