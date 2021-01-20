@@ -17,31 +17,44 @@
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
             </div>
-        </div>  
+        </div>
+        <div class="p-col-4 p-d-flex p-flex-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Đơn vị năng suất:</label>
+            <div class="p-col-12 p-lg-7 p-p-0">
+                <p-dropdown [filter]="false" [options]="listDonViNangSuat" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.DonViNangSuat"></p-dropdown>
+            </div>
+        </div>
         <div class="p-col-4 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
-        </div>       
+        </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="p-d-flex p-flex-sm-row p-jc-between p-mt-3 p-mb-3">
                 <div class="p-d-flex p-flex-row">
-                    <button pButton pRipple label="Chọn mặt hàng" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="DanhSachHang()"></button>               
+                    <button pButton pRipple label="Chọn mặt hàng" icon="pi pi-plus" class="p-button-sm p-mr-2"
+                        (click)="DanhSachHang()"></button>
                 </div>
                 <div class="p-d-flex p-flex-row">
                     <div class="p-inputgroup">
-                        <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.KeyWord" (keyup.enter)="TimKiem(true)" class="p-inputtext-sm" pInputText />
-                        <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-text"(click)="resetFilter()" pTooltip="Làm mới" showDelay="1000" tooltipPosition="bottom"></button>                    
-                        <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text"
-                        pTooltip="Tìm kiếm" showDelay="1000" tooltipPosition="bottom"></button>
+                        <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.KeyWord"
+                            (keyup.enter)="TimKiem(true)" class="p-inputtext-sm" pInputText />
+                        <button type="button" pButton pRipple icon="pi pi-refresh"
+                            class="p-button-secondary p-button-text" (click)="resetFilter()" pTooltip="Làm mới"
+                            showDelay="1000" tooltipPosition="bottom"></button>
+                        <button type="button" pButton pRipple icon="pi pi-search"
+                            class="p-button-secondary p-button-sm p-button-text" pTooltip="Tìm kiếm" showDelay="1000"
+                            tooltipPosition="bottom"></button>
                     </div>
                 </div>
             </div>
-            <p-table [value]="item.lstdmItem|isXoa|filter:filter.KeyWord" [(selection)]="selectedItems" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="false">
+            <p-table [value]="item.lstdmItem|isXoa|filter:filter.KeyWord" [(selection)]="selectedItems"
+                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="false">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
-                        <col style="width:50px">                
+                        <col style="width:50px">
                         <col>
                         <col>
                         <col>
@@ -51,22 +64,22 @@
                         <col>
                         <col>
                         <col>
-                        <col style="width: 50px;">                   
+                        <col style="width: 50px;">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <!-- <th>
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th> -->    
-                        <th class="text-center">STT</th>                
+                        </th> -->
+                        <th class="text-center">STT</th>
                         <th>Mặt hàng</th>
 
                         <th>Chi số Ne</th>
                         <th>Chi số mét Nm</th>
                         <th>Độ săn</th>
                         <th>Tốc độ (v/f, m/f, Nips/p)</th>
-                       
+
                         <th>Năng suất LT</th>
                         <th>Hiệu suất (%)</th>
                         <th>Định mức năng suất</th>
@@ -75,23 +88,27 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
-                    <tr>                
+                    <tr>
                         <td class="text-center">
                             {{ i + 1 }}
-                        </td>                       
+                        </td>
                         <td>
-                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText [disabled]="true"/>
-                        </td>                        
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText
+                                [disabled]="true" />
+                        </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ne" [disabled]="true">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ne"
+                                [disabled]="true">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Nm" [disabled]="true">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Nm"
+                                [disabled]="true">
                             </p-inputNumber>
-                        </td>                        
+                        </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DoSan" [disabled]="true">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DoSan"
+                                [disabled]="true">
                             </p-inputNumber>
                         </td>
                         <td>
@@ -99,36 +116,39 @@
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.NangSuat" (onInput)="changeNangSuat($event,item)">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.NangSuat"
+                                (onInput)="changeNangSuat($event,item)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.HieuSuat" (onInput)="changeHieuSuat($event,item)">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.HieuSuat"
+                                (onInput)="changeHieuSuat($event,item)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DinhMucNangSuat" [disabled]="true">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DinhMucNangSuat"
+                                [disabled]="true">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText/>
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
                         </td>
-                        <td class="text-center" >                        
+                        <td class="text-center">
                             <!-- <button pButton pRipple type="button" icon="pi pi-trash"
                                 class="p-button-text p-button-sm p-button-secondary" (click)="delete(item)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button> -->
-                                <button pButton pRipple icon="pi pi-trash"
+                            <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
-                        </td>                 
+                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
+                        </td>
                     </tr>
-                </ng-template>           
+                </ng-template>
             </p-table>
-        </div>                
+        </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()" [disabled]="khongclicknhieu"></button>
+    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"
+        [disabled]="khongclicknhieu"></button>
     <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
         (click)="activeModal.dismiss()"></button>
 </div>

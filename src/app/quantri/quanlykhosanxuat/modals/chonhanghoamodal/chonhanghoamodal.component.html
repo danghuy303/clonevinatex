@@ -10,7 +10,8 @@
             <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
                 <div>
                     <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
-                    <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2" (click)="_activeModal.dismiss()"></button>
+                    <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2"
+                        (click)="_activeModal.dismiss()"></button>
                 </div>
                 <div>
                     <div class="p-inputgroup">
@@ -36,9 +37,17 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th><p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true" inputId="binary"></p-checkbox></th>
+                        <th>
+                            <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true"
+                                inputId="binary"></p-checkbox>
+                        </th>
                         <!-- <th>Mã hàng</th> -->
                         <th *ngIf="opt===''|| opt==='KhoiLuongKeHoach'||opt==='KhoiLuongSanXuat'">Mặt hàng</th>
+                        <th *ngIf="opt===''">Loại sợi</th>
+                        <th *ngIf="opt===''">Chi số Ne</th>
+                        <th *ngIf="opt===''">Độ săn</th>
+
+
                         <th *ngIf="opt==='LoBong'">Mã hàng</th>
                         <th *ngIf="opt==='LoBong'">Mã lô bông</th>
                         <th *ngIf="opt==='LoBong'">Số kiện</th>
@@ -56,6 +65,10 @@
                             <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary"></p-checkbox>
                         </td>
                         <td *ngIf="opt===''||opt==='KhoiLuongKeHoach'||opt==='KhoiLuongSanXuat'">{{item.Ten}}</td>
+                        <td *ngIf="opt===''">{{item.TendmLoaiSoi}}</td>
+                        <td *ngIf="opt===''" class="text-right">{{item.Ne|number:'0.0' }}</td>
+                        <td *ngIf="opt===''" class="text-right">{{item.DoSan|number:'0.0'}}</td>
+
                         <td *ngIf="opt==='LoBong'">{{item.Ma}}</td>
                         <td *ngIf="opt==='LoBong'">{{item.SoLuongKien}}</td>
                         <td *ngIf="opt==='LoBong'">{{item.Mic|number:'0.0-2'}}</td>
