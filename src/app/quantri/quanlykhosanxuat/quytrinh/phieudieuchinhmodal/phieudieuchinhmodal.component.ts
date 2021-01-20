@@ -38,10 +38,10 @@ export class PhieudieuchinhmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // if (this.opt !== 'edit') {
-    //   this.GetNextSoQuyTrinh();
-    // }
-    // else
+    if (this.opt !== 'edit') {
+      this.GetNextSoQuyTrinh();
+    }
+    else
       this.KiemTraButtonModal();
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);

@@ -25,6 +25,18 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
       width: 'unset',
       align: 'center',
     },
+    {
+      header: 'Loại bông',
+      field: 'TendmLoaiBong',
+      width: 'unset',
+      align: 'center',
+    },
+    {
+      header: 'Trọng lượng',
+      field: 'TrongLuong',
+      width: 'unset',
+      align: 'center',
+    },
   ];
   paging1: any = {};
   paging: any = {};

@@ -199,6 +199,11 @@ export class QuantriComponent implements OnInit {
                 expanded: false,
                 items: [
                     {
+                        label: 'Kế hoạch nhập nguyên liệu',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/kehoachnhapnguyenlieu/0',
+                        command: () => this.close()
+                    },
+                    {
                         label: 'Nhập kho',
                         routerLink: '/quantri/quanlykhosanxuat/khobong/nhapkho/0',
                         command: () => this.close()
@@ -223,11 +228,7 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/quanlykhosanxuat/khobong/dieuchuyen/0',
                         command: () => this.close()
                     },
-                    {
-                        label: 'Kế hoạch nhập kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/kehoachnhapnguyenlieu/0',
-                        command: () => this.close()
-                    },
+                    
                     {
                         label: 'Cân đối tồn',
                         routerLink: '/quantri/quanlykhosanxuat/khobong/candoiton/0',
@@ -259,11 +260,6 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Điều chuyển',
                         routerLink: '/quantri/quanlykhosanxuat/khoxo/dieuchuyen/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Kế hoạch nhập kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khoxo/kehoachnhapnguyenlieu/0',
                         command: () => this.close()
                     },
                 ]

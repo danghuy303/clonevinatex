@@ -17,15 +17,15 @@ export class ChatluongsoimodalComponent implements OnInit {
   item: any = {};
   checkbutton: any = {
     Ghi:true,
-    KhongDuyet:true,
-    ChuyenTiep:true,
-    Xoa:true,
+    KhongDuyet:false,
+    ChuyenTiep:false,
+    Xoa:false,
   }
   listdmKho: any = [];
   editTableItem: any = {};
   newTableItem:any={};
   filter:any = {};
-  listLoHang:any= [];
+  listdmPhanXuong:any= [];
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
@@ -35,12 +35,15 @@ export class ChatluongsoimodalComponent implements OnInit {
   ngOnInit(): void {
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
+      this.getDanhSachChiTieuChatLuong();
     }
     else
       this.KiemTraButtonModal();
-    if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+    if (this.item.NgayKiemTraUnix !== null && this.item.NgayKiemTraUnix !== undefined) {
+      this.item.NgayKiemTra = new Date(this.item.NgayKiemTraUnix * 1000);
     }
+    
+    this.getListdmPhanXuong();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '',this.item.IdTrangThai || '').subscribe(res => {
@@ -49,9 +52,8 @@ export class ChatluongsoimodalComponent implements OnInit {
   }
  
   ChuyenDuyet() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-
+    if (this.item.NgayKiemTra !== null && this.item.NgayKiemTra !== undefined)
+        this.item.NgayKiemTraUnix = (new Date(this.item.NgayKiemTra)).getTime() / 1000;
     this.services.PhieuChatLuongSoi().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -72,13 +74,10 @@ export class ChatluongsoimodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if (this.item.IddmKho === this.item.IddmKhoKhac){
-      this.toastr.error("Kho điều chuyển và kho nhập trùng nhau");
-    }
+    if (this.item.NgayKiemTra === null && this.item.NgayKiemTra === undefined)
+      this.toastr.error("Bạn chưa chọn  ngày");
     else{
-      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-
+      this.item.NgayKiemTraUnix = (new Date(this.item.NgayKiemTra)).getTime() / 1000;
       this.services.PhieuChatLuongSoi().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -92,7 +91,6 @@ export class ChatluongsoimodalComponent implements OnInit {
         }
       })
     }
-    
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -121,16 +119,34 @@ export class ChatluongsoimodalComponent implements OnInit {
   }
 
   GetMatHangTheoKho() {
-    this.services.getLuuKho('','', 0, '').subscribe((res1: any) => {
+    let data = {
+      CurrentPage: 0,
+      Loai: 1,
+    };
+    this.services.GetListdmItem(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
-        size: 'fullscreen',
+        size: 'lg',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
-      modalRef.componentInstance.listItem = this.item.listItem;
+      modalRef.componentInstance.listItem = this.item.lstSanPham;
       modalRef.result.then((data) => {
-        this.item.listItem = data.data;
+        this.item.lstSanPham = data.data;
+        this.item.lstSanPham.forEach(element => {
+          let sanphampush = [];
+          this.item.lstDanhMuc.forEach(danhmuc => {
+            let datapush = {
+              IddmChiTieu: danhmuc.Id,
+              IddmItem: element.Id,
+              ChiTieuThucTe: element.ChiTieuThucTe,
+            }
+            sanphampush.push(datapush);
+          });
+          element.lstChatLuongSanPham = sanphampush;
+          element.IddmItem = element.Id;
+          element.Id = "";
+        });
       }, (reason) => {
         // không
       });
@@ -142,6 +158,16 @@ export class ChatluongsoimodalComponent implements OnInit {
     data.CurrentPage = 0;
     this.services.GetListdmKho(data).subscribe((res: any) => {
       this.listdmKho = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  getListdmPhanXuong() {
+    this.services.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  getDanhSachChiTieuChatLuong() {
+    this.services.GetDanhSachChiTieuChatLuong().subscribe((res: any) => {
+      this.item.lstDanhMuc = res;
     })
   }
 }

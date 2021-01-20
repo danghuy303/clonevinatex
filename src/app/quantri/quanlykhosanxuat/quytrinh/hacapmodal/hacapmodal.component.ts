@@ -18,10 +18,10 @@ export class HacapmodalComponent implements OnInit {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
-    // Ghi:true,
-    // KhongDuyet:true,
-    // ChuyenTiep:true,
-    // Xoa:true,
+    Ghi:true,
+    KhongDuyet:false,
+    ChuyenTiep:false,
+    Xoa:false,
   }
   listdmKho: any = [];
   newTableItem:any={};
@@ -112,9 +112,9 @@ export class HacapmodalComponent implements OnInit {
   }
 
   GetLuuKho(sFilter) {
-    this.services.getLuuKho(this.item.IddmKho,'', 0, sFilter).subscribe((res1: any) => {
+    this.services.getLuuKhoKhac(this.item.IddmKho,'', 0, sFilter).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
-        size: 'fullscreen',
+        size: 'lg',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';

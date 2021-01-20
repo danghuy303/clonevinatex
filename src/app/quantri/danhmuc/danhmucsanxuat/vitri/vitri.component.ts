@@ -5,6 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { VitrimodalComponent } from '../../modal/vitrimodal/vitrimodal.component';
+import { ImportdanhmucmodelComponent } from '../modals/importdanhmucmodel/importdanhmucmodel.component';
 
 @Component({
   selector: 'app-vitri',
@@ -143,5 +144,29 @@ export class VitriComponent implements OnInit {
     this.paging.CurrentPage = event.page+1;
     this.GetListdm();
   }
-  
+  importExcel(){
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
+      backdrop:'static',
+    })
+    modalRef.componentInstance.importFunc = 'SCM_dmViTri';
+    modalRef.result.then(res=>{
+      this.GetListdm();
+      this._toastr.success(res.mess);
+    })
+    .catch(er=>console.log(er))
+  }
+  exportExcel(){
+    let data = {
+      PageSize:20, 
+      CurrentPage:0,
+      sFilter:this.filter.keyWord?this.filter.keyWord:'',
+      IddmLoaiSoi:this.filter.IddmLoaiSoi?this.filter.IddmLoaiSoi:'',
+      Ma:"", 
+      Ten:"",
+      TableName:'SCM_dmViTri'
+    };
+    this._services.Exportdm(data).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
+  }
 }

@@ -23,21 +23,6 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Số phiếu',
-      field: 'SoQuyTrinh',
-      width: 'unset'
-    },
-    {
-      header: 'Ngày tạo',
-      field: '_ThoiGianTao',
-      width: 'unset'
-    },
-    {
-      header: 'Ngày duyệt',
-      field: 'ThoiGianDuyet',
-      width: 'unset'
-    },
-    {
       header: 'Kho nhập',
       field: 'TenKho',
       width: 'unset'
@@ -78,21 +63,6 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
-      this._toastr.success('Cập nhật thành công');
-      this.GetListQuyTrinh();
-    })
-      .catch(er => { console.log(er) })
-  }
-  addPhieuSo() {
-    this.changeParam(0);
-    let modalRef = this._modal.open(KehoachnhapnguyenlieumodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = {}
-    modalRef.result.then((res: any) => {
-      this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
@@ -106,7 +76,6 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
       modalRef.result.then((res: any) => {
-        this._toastr.success('Cập nhật thành công');
         this.GetListQuyTrinh();
       })
         .catch(er => { console.log(er) })
@@ -147,16 +116,6 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
     }
     this._service.NhapKeHoachNguyenLieu().GetList(data).subscribe((res: any) => {
       this.items = res.items;
-      if (this.items.length > 0) {
-        this.items.forEach(element => {
-          element._ThoiGianTao = element.ThoiGianTaoUnix > 0 ? formatdate(element.ThoiGianTao, false) : null;
-          this.listKho.filter(obj => {
-            if (element.idKhoNhap == obj.value) {
-              element.TenKho = obj.label;
-            }
-          });
-        });
-      }
       this.paging = res.paging;
     })
   }

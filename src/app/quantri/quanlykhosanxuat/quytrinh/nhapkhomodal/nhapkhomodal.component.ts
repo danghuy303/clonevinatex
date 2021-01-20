@@ -30,6 +30,7 @@ export class NhapkhomodalComponent implements OnInit {
   listKho: any = [];
   lang: any = vn;
   data: any = {};
+  listKeHoach: any = [];
   type: any = '';
   editField: any = false;
   nametype: any = '';
@@ -63,6 +64,7 @@ export class NhapkhomodalComponent implements OnInit {
     this.getListKho();
     this.getListCaMay();
     this.getListdmViTri();
+    this.getListKeHoach();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -125,7 +127,21 @@ export class NhapkhomodalComponent implements OnInit {
       else if (this.type === 'bongphe')
         this.item.Loai = 7;
     }
-    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+    let isCheck = false;
+
+    if(this.item.listItem!== undefined || this.item.listItem !== null){
+      for(let i = 0; i < this.item.listItem.length; i++) {
+        if(this.item.listItem[i].IddmViTri === null || this.item.listItem[i].IddmViTri === undefined){
+          isCheck= true;
+          break;
+        }
+      }
+    }
+    
+    if (isCheck === true ) {
+      this.toastr.error("Bạn chưa chọn  vị trí");
+    }
+    else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
     else if ((this.item.IddmCapBong === null || this.item.IddmCapBong  === undefined) && (this.type === 'bong' || this.type === 'xo')) {
@@ -245,14 +261,10 @@ export class NhapkhomodalComponent implements OnInit {
     })
   }
   add() {
-    if(this.newTableItem.IddmViTri== undefined || this.newTableItem.IddmViTri== null)
-      this.toastr.error("Bạn chưa chọn vị trí");
-    else{
       if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {}
-    }
   }
   addBongHoi() {
     if (this.item.listKien == undefined || this.item.listKien == null)
@@ -304,5 +316,19 @@ export class NhapkhomodalComponent implements OnInit {
     this._services.GetListdmViTriOpt().subscribe((res: any) => {
       this.listdmViTri = mapArrayForDropDown(res, 'Ten', 'Id');
     })
+  }
+  getListKeHoach() {
+    this._services.NhapKeHoachNguyenLieu().GetListChuaNhap().subscribe((res: any) => {
+      this.listKeHoach = res;
+    })
+  }
+  getKeHoach(item){
+    this.item.IddmLoaiBong = item.value.IddmLoaiBong;
+    this.item.IddmCapBong = item.value.IddmCapBong;
+    this.item.GiaBong = item.value.GiaBong;
+    this.item.listItem = []
+    for(let i = 0; i < item.value.Container; i++){
+      this.add()
+    }
   }
 }

@@ -37,7 +37,15 @@
         </div>
 
     </div>
-    <div class="p-grid"> 
+    <div class="p-grid">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="this.type==='bong'">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch nhập :</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listKeHoach" optionLabel="SoHopDong"
+                 placeholder="Chọn kế hoạch" styleClass="p-inputtext-sm"
+                (onChange)="getKeHoach($event)"></p-dropdown>
+            </div>
+        </div> 
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label *ngIf="this.type!=='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông <span class="text-danger">*</span>:</label>
             <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại xơ <span class="text-danger">*</span>:</label>
@@ -93,9 +101,9 @@
         </div>
        
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="this.type==='bong'||this.type==='xo'">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đơn giá BQ/Kiện (VNĐ):</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đơn giá Bông/Kg (USD):</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DonGia">
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.GiaBong">
                 </p-inputNumber>
             </div>
         </div>

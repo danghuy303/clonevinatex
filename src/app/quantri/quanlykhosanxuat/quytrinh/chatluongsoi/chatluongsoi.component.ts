@@ -68,8 +68,16 @@ export class ChatluongsoiComponent implements OnInit {
   ngOnInit(): void {
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh()
+    // this.activatedRoute.params.subscribe((res:any)=>{
+    //   if(res.id!=='0'){
+    //     this.update(res.id);
+    //   }
+    // })
   }
   changeParam(id){
+    if(this._modal.hasOpenModals()){
+      this._modal.dismissAll()
+    }
     this.router.navigate([`quantri/quanlysanxuatkhohoiam/khohoiam/chatluongsoi/${id}`],{replaceUrl: true})
   }
   add(){
@@ -105,8 +113,8 @@ export class ChatluongsoiComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event){
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?){
     if (reset) {

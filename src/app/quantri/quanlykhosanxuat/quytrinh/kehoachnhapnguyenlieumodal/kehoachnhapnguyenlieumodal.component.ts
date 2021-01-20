@@ -46,6 +46,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetListdmLoaiBong();
+    this.GetListdmCapBong();
     if (this.opt !== 'edit') {
       this.item = {
         NhaMay: '',
@@ -67,6 +68,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
+
     this.data.CurrentPage = 0;
     this.getListKho();
   }
@@ -82,52 +84,24 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
       NumperPage: 10,
       Ma: '',
       Ten: "",
-      sFilter: ''
+      sFilter: '',
+      Loai: 2
     }
     this._services.GetListdmLoaiBong(data).subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tổng hợp' });
       this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
-      if (this.item.listItem.length > 0) {
-        this.item.listItem.filter(obj => {
-          obj.SoHopDong="";
-          obj.Container="";
-          obj.TongSoKien="";
-          obj.GiaBong="";        
-          this.listLoaiBong.filter(objlistLoaiBong => {
-            if (obj.IddmItem == objlistLoaiBong.value) {
-              obj.objloaibong = objlistLoaiBong;
-            }
-          });
-        });
-      }
+    })
+  }
+  GetListdmCapBong() {
+    this._services.GetListOptdmCapBong().subscribe((res: any) => {
+      this.listCapBong = mapArrayForDropDown(res, "Ten", 'Id');
     })
   }
 
-  // GetNextSoLoBong(event, index) {
-  //   if (index == 1)
-  //     this.item.IddmLoaiBong = event.value;
-  //   else
-  //     this.item.IddmCapBong = event.value;
-
-  //   if (this.item.IddmLoaiBong != undefined && this.item.IddmLoaiBong != null && this.item.IddmLoaiBong != ''
-  //     && this.item.IddmCapBong != null && this.item.IddmCapBong != undefined && this.item.IddmCapBong != '')
-  //     this._services.QuyTrinhPhieuNhapLoBong().GetNextSoLoBong(this.item.IddmLoaiBong, this.item.IddmCapBong).subscribe(
-  //       (res: any) => {
-  //         this.item.IdLoBong = res.SoLoBong;
-  //       })
-  // }
-
   ChuyenTiep() {
-    // if (this.item.Ngay === null || this.item.Ngay === undefined) {
-    //   this.toastr.error("Bạn chưa chọn  ngày");
-    // }
-    if (this.item.idKhoNhap === null || this.item.idKhoNhap === undefined) {
-      this.toastr.error("Bạn chưa chọn  danh mục kho");
-    }
-    else {
-      // if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
-      //   this.add();
-      // }
+    if ((this.newTableItem.IddmLoaiBong !== undefined) && (this.newTableItem.IddmCapBong !== undefined) && (this.newTableItem.ThoiGianDuKien !== undefined)) {
+      this.add();
+      }
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
@@ -142,20 +116,12 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
           }
         }
       })
-    }
   }
 
   KhongDuyet() {
-    // if (this.item.Ngay === null || this.item.Ngay === undefined) {
-    //   this.toastr.error("Bạn chưa chọn  ngày");
-    // }
-    if (this.item.idKhoNhap === null || this.item.idKhoNhap === undefined) {
-      this.toastr.error("Bạn chưa chọn  danh mục kho");
-    }
-    else {
-      // if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
-      //   this.add();
-      // }
+    if ((this.newTableItem.IddmLoaiBong !== undefined) && (this.newTableItem.IddmCapBong !== undefined) && (this.newTableItem.ThoiGianDuKien !== undefined)) {
+      this.add();
+      }
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
@@ -170,7 +136,6 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
           }
         }
       })
-    }
   }
 
   GetNextSoQuyTrinh() {
@@ -180,19 +145,9 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
   }
 
   GhiLai() {
-    // if (this.opt !== 'edit') {
-    //   if (this.type === 'bong')
-    //     this.item.Loai = 1;
-    //   else
-    //     this.item.Loai = 5;
-    // }
-    if (this.item.idKhoNhap === null || this.item.idKhoNhap === undefined) {
-      this.toastr.error("Bạn chưa chọn  danh mục kho");
-    }
-    else {
-      // if (!validVariable(this.newTableItem.idKhoNhap) || !validVariable(this.newTableItem.SoLuongNhap) || !validVariable(this.newTableItem.ThoiGianDuKien)) {
-      //   this.add();
-      // }
+      if ((this.newTableItem.IddmLoaiBong !== undefined) && (this.newTableItem.IddmCapBong !== undefined) && (this.newTableItem.ThoiGianDuKien !== undefined)) {
+        this.add();
+      }
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
@@ -210,7 +165,6 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
           }
         }
       })
-    }
   }
 
   XoaQuyTrinh() {
@@ -266,7 +220,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
   gettonkho(data_idKho, item) {
     let data: any = {
       idKho: validVariable(data_idKho) ? data_idKho : "",
-      idNguyenLieu: validVariable(item.IddmItem) ? item.IddmItem : "",
+      idNguyenLieu: validVariable(item.IddmLoaiBong) ? item.IddmLoaiBong : "",
     }
     this._services.GetOptions().GetTonKhoCuaNguyenLieu(data.idKho, data.idNguyenLieu).subscribe((res: any) => {
       item.TonKho = res.TonKho;
@@ -309,5 +263,4 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
   Onclose() {
     this.activeModal.close();
   }
-
 }

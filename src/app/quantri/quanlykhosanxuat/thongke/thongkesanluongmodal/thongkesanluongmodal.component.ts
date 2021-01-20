@@ -163,8 +163,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
   TinhGiaTri(item, event) {
     var KhoiLuong = 0;
-    if(item.ChiSo !== undefined && item.ChiSo !== null && item.ChiSo !== 0 && event !== undefined)
-      KhoiLuong = event/item.ChiSo;
+    if(item.Ne !== undefined && item.Ne !== null && item.Ne !== 0 && event !== undefined)
+      KhoiLuong = event/item.Ne;
     return KhoiLuong;
   }
   onClose(){
