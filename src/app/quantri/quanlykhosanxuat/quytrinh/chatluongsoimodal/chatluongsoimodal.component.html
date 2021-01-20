@@ -68,7 +68,7 @@
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>#</th>
+                        <th style="width: 60px; text-align: center;">STT</th>
                         <th>Chỉ tiêu</th>
                         <th *ngFor="let ban of item.lstSanPham" style="min-width: 50px;">
                             {{ban.Ten}}
@@ -77,11 +77,9 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-itemindex let-i="rowIndex">
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td style="width: 60px; text-align: center;">{{i+1}}</td>
                         <td>{{itemindex.DungSaiChoPhep}}</td>
-                        <td>{{item.lstSanPham[i]}}</td>
-                        <td>{{item.lstSanPham[i].lstChatLuongSanPham}}</td>
-                        <td *ngFor="let itemsanpham of item.lstSanPham[i].lstChatLuongSanPham" class="text-center" style="min-width: 50px;">
+                        <td *ngFor="let itemsanpham of itemindex.lstChatLuongSanPham" class="text-center" style="min-width: 50px;">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemsanpham.ChiTieuThucTe">
                             </p-inputNumber>
                         </td>

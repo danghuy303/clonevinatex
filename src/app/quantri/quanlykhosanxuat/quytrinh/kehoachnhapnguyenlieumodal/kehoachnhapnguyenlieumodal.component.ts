@@ -88,7 +88,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
       Loai: 2
     }
     this._services.GetListdmLoaiBong(data).subscribe((res: any) => {
-      res.unshift({ Id: '', Ten: 'Tổng hợp' });
+      // res.unshift({ Id: '', Ten: 'Tổng hợp' });
       this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
     })
   }
@@ -107,28 +107,28 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     // if (this.item.Ngay === null || this.item.Ngay === undefined) {
     //   this.toastr.error("Bạn chưa chọn  ngày");
     // }
-    if (this.item.idKhoNhap === null || this.item.idKhoNhap === undefined) {
-      this.toastr.error("Bạn chưa chọn  danh mục kho");
-    }
-    else {
       // if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
       //   this.add();
       // }
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
-          obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
+          if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
+            obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
         });
       }
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+
       this._services.NhapKeHoachNguyenLieu().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
+            this.toastr.success(res.message);
             this.activeModal.close();
           } else {
             this.toastr.error(res.message);
           }
         }
       })
-    }
   }
 
   KhongDuyet() {
@@ -137,9 +137,13 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     }
     if (this.item.listItem.length > 0) {
       this.item.listItem.filter(obj => {
-        obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
+        if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
+          obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
       });
     }
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+
     this._services.NhapKeHoachNguyenLieu().KhongDuyet(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -162,10 +166,13 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
       this.add();
     }
     if (this.item.listItem.length > 0) {
-      this.item.listItem.filter(obj => {
-        obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
-      });
-    }
+        this.item.listItem.filter(obj => {
+          if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
+            obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
+        });
+      }
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     this._services.NhapKeHoachNguyenLieu().Set(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
