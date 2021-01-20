@@ -63,7 +63,8 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng" [(ngModel)]="item.IddmPhanXuong"
+                <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng" 
+                [(ngModel)]="item.IddmPhanXuong"
                 styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
@@ -89,6 +90,7 @@
                         <col>
                         <col>
                         <col>
+                        <!-- <col> -->
                         <col>
                         <col style="width:100px">
                     </colgroup>
@@ -97,9 +99,10 @@
                     <tr>
                         <th>#</th>
                         <th>Tên</th>
+                        <th>Kg/cone</th>
                         <th>Quả sợi sản xuất</th>
                         <th>Quả sợi thực tế</th>
-                        <th>Số quả sợi</th>
+                        <!-- <th>Số quả sợi</th> -->
                         <th>Ghi chú</th>
                         <th style="width: 100px;"></th>
                     </tr>
@@ -108,6 +111,10 @@
                     <tr>
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">{{item.Ten}}</td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KgCone" disabled>
+                            </p-inputNumber>
+                        </td>
                         <!-- <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.KhoiLuong">
                             </p-inputNumber>
@@ -120,10 +127,10 @@
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe">
                             </p-inputNumber>
                         </td>
-                        <td class="text-center">
+                        <!-- <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoi">
                             </p-inputNumber>
-                        </td>
+                        </td> -->
                         <td class="text-center">
                             <input pInputText type="text" [(ngModel)]="item.GhiChu">
                         </td>

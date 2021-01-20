@@ -31,7 +31,7 @@ export class XuatkhomathangmodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    console.log(this.cols)
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
@@ -74,8 +74,8 @@ export class XuatkhomathangmodalComponent implements OnInit {
   changePage(event) {
     console.log(event)
     this.paging.CurrentPage = event.page + 1;
-    var start = 15 * (event.page)  + 1;
-    var end =  start + 14;
+    var start = 15 * (event.page);
+    var end =  start + 15;
     if((start + 15) > this.paging.TotalItem)
       end= this.paging.TotalItem;
     this.listItem_new = this.listMatHang.slice(start,end);

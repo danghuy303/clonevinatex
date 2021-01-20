@@ -149,6 +149,17 @@ export class XuatkhobongphemodalComponent implements OnInit {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.listItem;
+      modalRef.componentInstance.cols = [{
+          header: 'Tên',
+          field: 'Ten',
+          width: 'unset'
+        },
+        {
+          header: 'Khối lượng',
+          field: 'SoLuong',
+          width: 'unset'
+        },
+      ];
       modalRef.result.then((data) => {
         this.item.listItem = data.data;
       }, (reason) => {

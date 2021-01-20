@@ -7,6 +7,7 @@ import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
+import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
   selector: 'app-kehoachxuathangmodal',
@@ -89,31 +90,11 @@ export class KehoachxuathangmodalComponent implements OnInit {
     })
   }
 
-  // GetNextSoLoBong(event, index) {
-  //   if (index == 1)
-  //     this.item.IddmLoaiBong = event.value;
-  //   else
-  //     this.item.IddmCapBong = event.value;
-
-  //   if (this.item.IddmLoaiBong != undefined && this.item.IddmLoaiBong != null && this.item.IddmLoaiBong != ''
-  //     && this.item.IddmCapBong != null && this.item.IddmCapBong != undefined && this.item.IddmCapBong != '')
-  //     this._services.QuyTrinhPhieuNhapLoBong().GetNextSoLoBong(this.item.IddmLoaiBong, this.item.IddmCapBong).subscribe(
-  //       (res: any) => {
-  //         this.item.IdLoBong = res.SoLoBong;
-  //       })
-  // }
-
   ChuyenTiep() {
-    // if (this.item.Ngay === null || this.item.Ngay === undefined) {
-    //   this.toastr.error("Bạn chưa chọn  ngày");
-    // }
-    if (this.item.idKhoXuat === null || this.item.idKhoXuat === undefined) {
-      this.toastr.error("Bạn chưa chọn  danh mục kho");
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn ngày");
     }
     else {
-      // if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
-      //   this.add();
-      // }
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
@@ -132,16 +113,10 @@ export class KehoachxuathangmodalComponent implements OnInit {
   }
 
   KhongDuyet() {
-    // if (this.item.Ngay === null || this.item.Ngay === undefined) {
-    //   this.toastr.error("Bạn chưa chọn  ngày");
-    // }
-    if (this.item.idKhoXuat === null || this.item.idKhoXuat === undefined) {
-      this.toastr.error("Bạn chưa chọn  danh mục kho");
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn ngày");
     }
     else {
-      // if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
-      //   this.add();
-      // }
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
@@ -166,19 +141,10 @@ export class KehoachxuathangmodalComponent implements OnInit {
   }
 
   GhiLai() {
-    // if (this.opt !== 'edit') {
-    //   if (this.type === 'bong')
-    //     this.item.Loai = 1;
-    //   else
-    //     this.item.Loai = 5;
-    // }
-    if (this.item.idKhoXuat === null || this.item.idKhoXuat === undefined) {
-      this.toastr.error("Bạn chưa chọn  danh mục kho");
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn ngày");
     }
     else {
-      // if (!validVariable(this.newTableItem.idKhoNhap) || !validVariable(this.newTableItem.SoLuongNhap) || !validVariable(this.newTableItem.ThoiGianDuKien)) {
-      //   this.add();
-      // }
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
@@ -249,24 +215,6 @@ export class KehoachxuathangmodalComponent implements OnInit {
     this.filtertable_add();
   }
 
-  add() {
-    if (this.item.listItem == undefined || this.item.listItem == null)
-      this.item.listItem = [];
-    this.newTableItem.Id = "";
-    this.newTableItem.idKeHoachXuatNguyenLieu = this.item.Id;
-    this.item.listItem.push(this.newTableItem);
-    this.newTableItem = {
-      "Id": "",
-      "idKeHoachXuatNguyenLieu": this.item.Id,
-    }
-  }
-  edit(item, index) {
-    this.item.listItem.forEach(element => {
-      element.editField = false;
-    });
-    this.item.listItem[index].editField = true;
-    this.editTableItem = deepCopy(item);
-  }
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
@@ -275,15 +223,34 @@ export class KehoachxuathangmodalComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  saveEdit(item, index) {
-    this.item.listItem[index] = item;
-    this.item.listItem[index].editField = false;
-  }
-  cancelEdit(item, index) {
-    this.item.listItem[index].editField = false;
-  }
+ 
   Onclose() {
     this.activeModal.close();
   }
-
+  GetMatHangTheoKho() {
+    let data = {
+      CurrentPage: 0,
+      Loai: 1,
+    };
+    this._services.GetListdmItem(data).subscribe((res1: any) => {
+      let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
+        size: 'lg',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.listMatHang = res1;
+      modalRef.result.then((data) => {
+        let listdatapush = [];
+        data.data.forEach(element => {
+          let datapush = {
+            Ten: element.Ten,
+          };
+          listdatapush.push(datapush);
+        });
+        this.item.listItem = this.item.listItem.concat(listdatapush);
+      }, (reason) => {
+        // không
+      });
+    })
+  }
 }

@@ -33,16 +33,6 @@ export class KehoachxuathangComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Ngày duyệt',
-      field: 'ThoiGianDuyet',
-      width: 'unset'
-    },
-    {
-      header: 'Kho xuất',
-      field: 'TenKho',
-      width: 'unset'
-    },   
-    {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset'
