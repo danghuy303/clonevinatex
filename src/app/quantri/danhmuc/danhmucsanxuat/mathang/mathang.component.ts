@@ -2,6 +2,7 @@ import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { map } from 'rxjs/operators';
 import { ModalimportexcelComponent } from 'src/app/quantri/modal/modalimportexcel/modalimportexcel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -87,7 +88,7 @@ export class MathangComponent implements OnInit {
     }
   ];
   listdmLoaiSoi:any = [];
-
+  listCongDoan : any = [];
   selectedItems:any=[];
   constructor(private _modal:NgbModal,
     private _services:SanXuatService,
@@ -97,6 +98,7 @@ export class MathangComponent implements OnInit {
   ngOnInit(): void {
     this.GetListdm();
     this.GetListdmLoaiSoi();
+    this.getListCongDoan();
   }
   resetFilter(){
     this.filter = {
@@ -132,7 +134,7 @@ export class MathangComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.opt='add';
-    // modalRef.componentInstance.listCongDoan = this.listCongDoan;
+    modalRef.componentInstance.listCongDoan = this.listCongDoan;
 
     modalRef.result.then(res=>{
       this._toastr.success(res);
@@ -143,8 +145,9 @@ export class MathangComponent implements OnInit {
     let modalRef = this._modal.open(MathangmodelComponent,{
       backdrop:'static'
     });
+    item.listCongDoan = ['ONG']
     modalRef.componentInstance.opt='edit';
-    // modalRef.componentInstance.listCongDoan = this.listCongDoan;
+    modalRef.componentInstance.listCongDoan = this.listCongDoan;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then(res=>{
       this._toastr.success(res);
@@ -219,6 +222,11 @@ export class MathangComponent implements OnInit {
     };
     this._services.Exportdm(data).subscribe((res: any) => {
       this._services.download(res.TenFile);
+    })
+  }
+  getListCongDoan(){
+    this._services.GetListCongDoan().subscribe((res: any) => {
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
     })
   }
 }

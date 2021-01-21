@@ -46,7 +46,7 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
       field: 'TenDungSaiChoPhep',
       width: 'unset',
       center: 'left'
-    },
+    }, 
     // {
     //   header: 'Ghi chú',
     //   field: 'GhiChu',

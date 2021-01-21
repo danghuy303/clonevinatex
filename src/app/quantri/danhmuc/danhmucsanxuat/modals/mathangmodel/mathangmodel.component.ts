@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { congDoan } from 'src/app/services/const';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 
@@ -39,17 +38,17 @@ export class MathangmodelComponent implements OnInit {
     if (this.item.Ma !== undefined && this.item.Ma.trim() !== '' && this.item.Ten.trim() !== '' && this.item.Ten !== undefined) {
       this.item.Loai = 1;
       this.item.DonViThietKe = this.item.DonViDatHang;
-      // var listCodeCongDoan_new: any = [];
-      // if (this.item.listCongDoan != null && this.item.listCongDoan != undefined) {
-      //   this.item.listCongDoan.forEach(element => {
-      //     if(element != null && element!= undefined){
-      //       var data: any = {};
-      //       data.CongDoan = element;
-      //       listCodeCongDoan_new.push(data);
-      //     }
-      //   });
-      //   this.item.listCongDoan = listCodeCongDoan_new;
-      // }
+      var listCodeCongDoan_new: any = [];
+      if (this.item.listCongDoan != null && this.item.listCongDoan != undefined) {
+        this.item.listCongDoan.forEach(element => {
+          if(element != null && element!= undefined){
+            var data: any = {};
+            data.CongDoan = element;
+            listCodeCongDoan_new.push(data);
+          }
+        });
+        this.item.listCongDoan = listCodeCongDoan_new;
+      }
       if(this.item.Id === undefined || this.item.Id === null || this.item.Id === "")
         this.item.HoatDong = true;
       this.services.SetdmItem(this.item).subscribe((res: any) => {

@@ -95,7 +95,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
       { Id: "IPI", Ten: "Tổng IPI cấp I" },
       { Id: "Rgl", Ten: "Độ bền tuyệt đối Rgl" },
       { Id: "CVp", Ten: "Hệ số biến sai độ bền CVp" },
-      { Id: "U", Ten: "Độ không đều Uster U" },            
+      { Id: "U", Ten: "Độ không đều Uster" },            
     ];
     this.listtieuchi = mapArrayForDropDown(listtieuchi, 'Ten', 'Id');
     // this.dataSet1 = {
