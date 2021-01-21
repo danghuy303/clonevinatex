@@ -92,9 +92,10 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     this.filter.nThang = (new Date()).getMonth() + 1;
     this.filter.nNam = (new Date()).getFullYear();
     let listtieuchi = [
-      { Id: "Rgl", Ten: "Độ bền tuyệt đối" },
-      { Id: "CVp(%)", Ten: "Hệ số biến sai độ bền" },
-      { Id: "U%", Ten: "Độ không đều Uster" },
+      { Id: "IPI", Ten: "Tổng IPI cấp I" },
+      { Id: "Rgl", Ten: "Độ bền tuyệt đối Rgl" },
+      { Id: "CVp", Ten: "Hệ số biến sai độ bền CVp" },
+      { Id: "U", Ten: "Độ không đều Uster U" },            
     ];
     this.listtieuchi = mapArrayForDropDown(listtieuchi, 'Ten', 'Id');
     // this.dataSet1 = {
@@ -254,8 +255,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   }
 
   GetBaoCaoQuyTrinhKiemTraChatLuong() {
-    // this._services.BaoCao().GetBaoCaoQuyTrinhKiemTraChatLuong(2021, "1cf3f340-0f55-4f34-938p-e629318e25et", "34701076-c84a-4459-8ce9-fbde22d44e39").subscribe((res: any) => {
-    this._services.BaoCao().GetBaoCaoQuyTrinhKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu).subscribe((res: any) => {
+    this._services.BaoCao().GetBaoCaoQuyTrinhKiemTraChatLuong(2021, "1cf3f340-0f55-4f34-938p-e629318e25et", "34701076-c84a-4459-8ce9-fbde22d44e39").subscribe((res: any) => {
+    // this._services.BaoCao().GetBaoCaoQuyTrinhKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu).subscribe((res: any) => {
       this.listMatHang = res;
       this.listMatHang.forEach(mathang => {
         mathang.checked = false;
@@ -264,8 +265,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   }
 
   GetBieuDoDuongKiemTraChatLuong() {
-    this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem).subscribe((res: any) => {
-      // this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(2021, "1cf3f340-0f55-4f34-938p-e629318e25et", "34701076-c84a-4459-8ce9-fbde22d44e39", "02bd1952-5092-496f-a566-2f0ac6ab4940").subscribe((res: any) => {
+    // this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem).subscribe((res: any) => {
+      this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(2021, "1cf3f340-0f55-4f34-938p-e629318e25et", "34701076-c84a-4459-8ce9-fbde22d44e39", "02bd1952-5092-496f-a566-2f0ac6ab4940").subscribe((res: any) => {
       // this.dataSet1 = res;
       let label = this.listtieuchi.filter(obj => obj.value == this.filter.IddmChiTieu)[0].label;
 
