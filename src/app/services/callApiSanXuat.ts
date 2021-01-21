@@ -144,6 +144,28 @@ export class SanXuatService {
     }
     //#endregion
 
+    //#region  Báo cáo
+    BaoCao() {
+        let url = API.SCMBaoCao;
+        let url2 = API.SCMKiemTraChatLuong;
+        return {
+            TongHop: (data) => {
+                return this.http.post(url + 'GetDashBoard_TongHop', data, httpOptions);
+            },
+            BieuDoCoCau: (data) => {
+                return this.http.post(url + 'GetDashBoard_BieuDoCoCau', data, httpOptions);
+            },
+            GetBaoCaoQuyTrinhKiemTraChatLuong: (Nam, IddmPhanXuong, IddmChiTieu) => {
+                return this.http.get(url2 + `GetBaoCaoQuyTrinhKiemTraChatLuong?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu}`, httpOptions);
+            },
+            GetBieuDoDuongKiemTraChatLuong: (Nam, IddmPhanXuong, IddmChiTieu, IddmItem) => {
+                return this.http.get(url2 + `GetBieuDoDuongKiemTraChatLuong?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu}&IddmItem=${IddmItem}`, httpOptions);
+            },
+        }
+    }
+    //#endregion
+
+
     //#region Định mức tiêu chí chất lượng sợi
     dmDinhMucTieuChiChatLuongSoi() {
         let url = API.SCMKiemTraChatLuong;
