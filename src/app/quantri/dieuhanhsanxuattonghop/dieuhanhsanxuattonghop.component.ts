@@ -225,6 +225,11 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     this.GetBaoCaoQuyTrinhKiemTraChatLuong();
   }
 
+  filterdatatonghop(){
+    this.TongHop();
+    this.BieuDoCoCau();
+  }
+
   TongHop() {
     this._services.BaoCao().TongHop(this.filter).subscribe((res: any) => {
       this.thongKes = res;
@@ -261,6 +266,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
       this.listMatHang.forEach(mathang => {
         mathang.checked = false;
       });
+      this.SelectItem = {};
+      this.dataSet1 = [];
     });
   }
 

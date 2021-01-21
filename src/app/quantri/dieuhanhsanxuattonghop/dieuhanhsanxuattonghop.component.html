@@ -26,15 +26,15 @@
                 <div class="p-d-flex flex-column flex-lg-row">
                     <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listCa" placeholder="Chọn ca" styleClass="p-inputtext-sm"
-                            [(ngModel)]="filter.IddmCaSanXuat" (onChange)="filterdata()"></p-dropdown>
+                            [(ngModel)]="filter.IddmCaSanXuat" (onChange)="filterdatatonghop()"></p-dropdown>
                     </div>
                     <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listThang" styleClass="p-inputtext-sm"
-                            [(ngModel)]="filter.nThang" (onChange)="filterdata()"></p-dropdown>
+                            [(ngModel)]="filter.nThang" (onChange)="filterdatatonghop()"></p-dropdown>
                     </div>
                     <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listNgay" placeholder="Chọn ngày"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filter.nNgay" (onChange)="filterdata()">
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.nNgay" (onChange)="filterdatatonghop()">
                         </p-dropdown>
                     </div>
                     <!-- <div class="p-mr-2">
