@@ -244,6 +244,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
         data.data.forEach(element => {
           let datapush = {
             Ten: element.Ten,
+            IddmItem: element.Id,
           };
           listdatapush.push(datapush);
         });

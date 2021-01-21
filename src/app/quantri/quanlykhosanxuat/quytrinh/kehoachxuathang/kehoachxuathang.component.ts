@@ -28,8 +28,13 @@ export class KehoachxuathangComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Ngày tạo',
-      field: '_ThoiGianTao',
+      header: 'Ngày',
+      field: '_Ngay',
+      width: 'unset'
+    },
+    {
+      header: 'Nội dung',
+      field: 'NoiDung',
       width: 'unset'
     },
     {
@@ -131,7 +136,7 @@ export class KehoachxuathangComponent implements OnInit {
       this.items = res.items;
       if (this.items.length > 0) {
         this.items.forEach(element => {
-          element._ThoiGianTao = element.ThoiGianTaoUnix > 0 ? formatdate(element.ThoiGianTao, false) : null;
+          element._Ngay = element.NgayUnix > 0 ? formatdate(element.Ngay, false) : null;
           this.listKho.filter(obj => {
             if (element.idKhoXuat == obj.value) {
               element.TenKho = obj.label;

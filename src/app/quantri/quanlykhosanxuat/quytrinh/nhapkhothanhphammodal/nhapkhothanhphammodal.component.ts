@@ -22,18 +22,19 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     Xoa: false,
   }
   newTableItem: any = {};
-  editTableItem: any = [];
   listLoaiBong: any = [];
-  listLoBong: any = [];
-  listCapBong: any = [];
-  listCaMay: any = [];
   listKhoHoiAm: any = [];
   listKhoThanhPham: any = [];
+  // listdmQuyCachDongGoi: any = [];
   lang: any = vn;
   data: any = {};
   type: any = '';
   editField: any = false;
   nametype: any = '';
+  // listMucDich: any = [
+  //   { value: 0, label: 'Xuất khẩu' },
+  //   { value: 1, label: 'Nội địa' },
+  // ]
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -169,4 +170,9 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       });
     })
   }
+  // getQuyCachDongGoi() {
+  //   this._services.dmQuyCachDongGoi().GetList().subscribe((res: any) => {
+  //     this.listdmQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
+  //   })
+  // }
 }

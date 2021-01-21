@@ -79,7 +79,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-itemindex let-i="rowIndex">
                     <tr>
-                        <td class="align-content-center first-col sticky-col">{{itemindex.DungSaiChoPhep}}</td>
+                        <td class="align-content-center first-col sticky-col">{{itemindex.Ten}}</td>
                         <td *ngFor="let itemsanpham of itemindex.lstChatLuongSanPham" class="text-center" 
                             style="width: 7rem;">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemsanpham.ChiTieuThucTe">
