@@ -25,7 +25,7 @@
             <p-dropdown [filter]="true" [options]="listnhamay" placeholder="Chọn nhà máy" [(ngModel)]="filter.IddmItem"
                 styleClass="p-inputtext-sm" (onChange)="GetList()"></p-dropdown>
         </div>
-        <div class="p-inputgroup">
+        <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetList()"
                 [(ngModel)]="filter.KeyWord" />
             <button type="button" pButton pRipple icon="pi pi-refresh"

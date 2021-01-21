@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ignoreElements } from 'rxjs/operators';
 import { TinhtrangtaisanComponent } from 'src/app/quantri/danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { CVMic, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
@@ -379,6 +380,22 @@ export class PhabongmodalComponent implements OnInit {
         }
       }
     })
+  }
+  XoaQuyTrinh() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
+    modalRef.result.then(res => {
+      this._services.PhuongAnPhaBong().Delete(this.item).subscribe((res: any) => {
+        console.log(res);
+        if (res?.State === 1) {
+          this._activeModal.close();
+        } else {
+          this._toastr.error(res.message);
+        }
+      })
+    }).catch(er => console.log(er))
   }
   GetNextSoQuyTrinh() {
     this._services.PhuongAnPhaBong().GetNextSo().subscribe((res: any) => {

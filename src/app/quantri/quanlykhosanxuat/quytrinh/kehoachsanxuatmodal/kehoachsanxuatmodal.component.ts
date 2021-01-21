@@ -10,7 +10,6 @@ import { DateToUnix, mapArrayForDropDown, merge, validVariable } from 'src/app/s
 import { StoreService } from 'src/app/services/store.service';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 import { ChonquycachdonggoimodalComponent } from '../../modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component';
-import { TrienkhaikehoachsanxuatComponent } from '../trienkhaikehoachsanxuat/trienkhaikehoachsanxuat.component';
 
 @Component({
   selector: 'app-kehoachsanxuatmodal',
@@ -247,7 +246,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       TongKL += validVariable(mathang.KhoiLuongKeHoach) ? mathang.KhoiLuongKeHoach : 0;
       KLxChiSo += validVariable(mathang.KhoiLuongKeHoach) ? (mathang.KhoiLuongKeHoach * mathang.Ne) : 0;
     });
-    console.log(TongKL, KLxChiSo); if (
+    if (
       TongKL !== 0 && KLxChiSo !== 0
     ) {
       this.item.ChiSoBinhQuan = Math.ceil((KLxChiSo / TongKL) * 100) / 100;
