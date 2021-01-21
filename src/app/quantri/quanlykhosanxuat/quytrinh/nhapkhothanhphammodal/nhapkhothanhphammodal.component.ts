@@ -165,6 +165,10 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.result.then((data) => {
         this.item.listItem = data.data;
+        this.item.listItem.forEach(element => {
+          element.SoQuaSoiHoiAm = element.Ton;
+          element.SoQuaSoiThanhPham = element.Ton;
+        });
       }, (reason) => {
         // không
       });
