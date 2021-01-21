@@ -65,7 +65,7 @@
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [ngModel]="item.GhiChu" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
@@ -84,54 +84,50 @@
                         <col>
                         <col>
                         <col>
-                        <col>
-                        <col>
-                        <col>
+                        <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th rowspan="2">#</th>
-                        <th rowspan="2">Tên</th>
-                        <th colspan="2">Quy cách đóng gói</th>
-                        <th rowspan="2">Hợp đồng</th>
-                        <th colspan="3">Số lượng</th>
-                        <th rowspan="2">Số khoang</th>
-                        <th rowspan="2">Ghi chú</th>
-                        <th rowspan="2"></th>
-                    </tr>
-                    <tr>
-                        <th>Tải hoặc hòm</th>
-                        <th>Xuất khẩu hoặc Nội địa</th>
-                        <th>Số lượng hồi ẩm</th>
-                        <th>Số lượng nhập</th>
-                        <th>Số lượng kiện</th>
+                        <th>#</th>
+                        <th>Tên</th>
+                        <th>Số quả hồi ẩm</th>
+                        <th>Số quả nhập</th>
+                        <th>Số kiện</th>
+                        <th>Số khoang</th>
+                        <th>Ghi chú</th>
+                        <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>{{i+1}}</td>
                         <td>{{item.Ten}}</td>
+                        <!-- <td>
+                            <p-dropdown [filter]="true" [options]="listdmQuyCachDongGoi" placeholder="Chọn quy cách" styleClass="p-inputtext-sm"
+                                [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
+                        </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="item.SoHopDong">
+                            <p-dropdown [filter]="true" [options]="listMucDich" placeholder="Chọn loại"
+                                styleClass="p-inputtext-sm" [(ngModel)]="item.Loai"></p-dropdown>
                         </td>
                         <td>
                             <input pInputText type="text" [(ngModel)]="item.SoHopDong">
-                        </td>
+                        </td> -->
                         <td>
-                            <input pInputText type="text" [(ngModel)]="item.SoHopDong">
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuongHoiAm">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiHoiAm">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuongNhap">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThanhPham">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKhoang">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
                             </p-inputNumber>
+                        </td>
+                        <td>
+                            <input pInputText type="text" [(ngModel)]="item.SoKhoang">
                         </td>
                         <td>
                             <input pInputText type="text" [(ngModel)]="item.GhiChu">
