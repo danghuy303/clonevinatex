@@ -3,30 +3,30 @@
     <div class="p-d-flex flex-column flex-lg-row p-pl-3">
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filterBong.TuNgay" inputId="icon" placeholder="Từ ngày">
+                [(ngModel)]="filter._tuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetBieuDo()">
             </p-calendar>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filterBong.DenNgay" inputId="icon" placeholder="Đến ngày">
+                [(ngModel)]="filter._denNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetBieuDo()">
             </p-calendar>
         </div>
-        <div class="p-mr-2">
+        <!-- <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
                 styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.CongDoan"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listMay" placeholder="Chọn máy"
                 styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.May"></p-dropdown>
-        </div>
+        </div> -->
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng"
-                styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.MatHang"></p-dropdown>
+                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmItem" (onChange)="GetBieuDo()"></p-dropdown>
         </div>
-        <div class="p-mr-2">
+        <!-- <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listCaLamViec" placeholder="Chọn ca làm việc"
                 styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.CaLamViec"></p-dropdown>
-        </div>       
+        </div>        -->
         <!-- <div class="p-inputgroup">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetBieuDoBong()"
                 [(ngModel)]="filterBong.KeyWord" />

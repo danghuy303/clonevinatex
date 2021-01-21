@@ -1137,6 +1137,36 @@ export class SanXuatService {
             },
         }
     }
+
+    //Dashboard
+    DashBoard() {
+        let url = API.SCMDashBoard
+        return {
+            NhuCauSuDungBong: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(`${url}GetDashBoard_NhuCauSuDungBong`, data, httpOptions);
+            },
+            CoCauTonBong: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(`${url}GetDashBoard_CoCauTonBong`, data, httpOptions);
+            },
+            CanDoiTon: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(`${url}GetDashBoard_CanDoiTon`, data, httpOptions);
+            },
+            // GetCoCauTonBong:(data)=>{
+            //     return this.http.post(`${url}/GetCoCauTonBong`,data,httpOptions);
+            // },
+            BaoCaoSanLuongLuyKe_BieuDoDuong: (data) => {
+                return this.http.post(`${url}/BaoCaoSanLuongLuyKe_BieuDoDuong`, data, httpOptions);
+            },
+            BaoCaoSanLuongLuyKe_BieuDoCot: (data) => {
+                return this.http.post(`${url}/BaoCaoSanLuongLuyKe_BieuDoCot`, data, httpOptions);
+            }
+        }
+    }
+
+
     GetDanhSachChiTieuChatLuong() {
         let url = API.SCMKiemTraChatLuong + 'GetDanhSachChiTieuChatLuong';
         return this.http.get(url, httpOptions);
