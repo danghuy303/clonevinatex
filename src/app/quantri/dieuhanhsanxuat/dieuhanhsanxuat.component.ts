@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-dieuhanhsanxuat',
@@ -10,6 +9,11 @@ import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangta
 })
 export class DieuhanhsanxuatComponent implements OnInit {
   filterBong: any = {};
+  filter: any = {
+    IddmLoaiBong:"",
+    IddmKho:'',
+    LoaiThoiGian:1
+  };
   filterSanLuong: any = {};
   filterNhuCau: any = {};
   monthlyConfig: any = {};
@@ -23,13 +27,10 @@ export class DieuhanhsanxuatComponent implements OnInit {
   listLoaiBong: any = [];
   listCaLamViec: any = [];
   dataPie: any = {};
-  dataPie2: any = {};
   option1: any = {
     scales: {
       xAxes: [{
         beginAtZero: true
-        // type: 'category',
-        // labels: ['January', 'February', 'March', 'April', 'May', 'June']
       }],
       yAxes: [{
         ticks: {
@@ -56,8 +57,6 @@ export class DieuhanhsanxuatComponent implements OnInit {
       xAxes: [{
         categoryPercentage: 0.5,
         barPercentage: 1.0
-        // type: 'category',
-        // labels: ['January', 'February', 'March', 'April', 'May', 'June']
       }]
     },
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
@@ -78,104 +77,13 @@ export class DieuhanhsanxuatComponent implements OnInit {
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
-  cols: any = [
-    {
-      header: 'Ngày',
-      field: 'Ngay',
-      width: 'unset'
-    },
-    {
-      header: 'Mặt hàng',
-      field: 'MatHang',
-      width: 'unset'
-    },
-    {
-      header: 'Lô bông',
-      field: 'LoBong',
-      width: 'unset'
-    },
-    {
-      header: 'Hợp đồng P/O',
-      field: 'HopDong',
-      width: 'unset'
-    },
-    {
-      header: 'Tồn đầu',
-      field: 'TonDau',
-      width: 'unset'
-    },
-    {
-      header: 'Nhập trong kỳ',
-      field: 'NhapTrongKy',
-      width: 'unset'
-    },
-    {
-      header: 'Xuất trong kỳ',
-      field: 'XuatTrongKy',
-      width: 'unset'
-    },
-    {
-      header: 'Tồn trong kỳ',
-      field: 'TonTrongKy',
-      width: 'unset'
-    },
-  ];;
   constructor(private _services: SanXuatService) { }
 
   ngOnInit(): void {
-    this.dataSet1 = {
-      labels: ['Tuần 1 / Thg 12', 'Tuần 2 / Thg 12', 'Tuần 3 / Thg 12', 'Tuần 4 / Thg 12', 'Tuần 5 / Thg 12'],
-      datasets: [
-        {
-          type: 'line',
-          label: 'Nhu cầu',
-          borderColor: '#FF0000',
-          // borderWidth: 2,
-          fill: false,
-          data: [20, 100, 120, 130, 135],
-          // steppedLine: 'before'
-        },
-        {
-          type: 'line',
-          label: 'Kế hoạch',
-          borderColor: '#0000E5',
-          borderDash: [10, 5],
-          // borderWidth: 2,
-          fill: false,
-          data: [120, 140, 150, 170, 175],
-          steppedLine: 'before'
-        },
-      ]
-    }
-    this.monthlyConfig = {
-      labels: Array.from({ length: 30 }, (alo, index) => index + 1),
-      datasets: [
-        {
-          type: 'line',
-          label: 'Thực tế',
-          borderColor: '#FF671F',
-          // borderWidth: 2,
-          fill: false,
-          data: Array.from({ length: 30 }, (v, i) => i * 20)
-        },
-        {
-          type: 'line',
-          label: 'Kế hoạch',
-          borderColor: '#009900',
-          // borderWidth: 2,
-          fill: false,
-          data: Array.from({ length: 30 }, (v, i) => (i * 20) + 10)
-        },
-        {
-          type: 'bar',
-          label: 'Sản lượng',
-          backgroundColor: '#3c5cbb',
-          data: Array.from({ length: 30 }, () => 20),
-          borderColor: 'white',
-          // borderWidth: 2
-        },
-      ]
-    }
+    let date = new Date();
+    this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    
     this.dataPie = {
       labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
       datasets: [
@@ -196,136 +104,78 @@ export class DieuhanhsanxuatComponent implements OnInit {
         }
       ]
     };
-    this.dataSet2 = {
-      labels: ['Tuần 1 / Thg 12', 'Tuần 2 / Thg 12', 'Tuần 3 / Thg 12', 'Tuần 4 / Thg 12', 'Tuần 5 / Thg 12'],
-      datasets: [
-        {
-          type: 'line',
-          label: 'Sản lượng tồn',
-          borderColor: '#FF0000',
-          // borderWidth: 2,
-          fill: false,
-          data: [20, 100, 120, 130, 135],
-          // steppedLine: 'before'
-        },
-        {
-          type: 'line',
-          label: 'Kế hoạch xuất hàng',
-          borderColor: '#0000E5',
-          borderDash: [10, 5],
-          // borderWidth: 2,
-          fill: false,
-          data: [120, 140, 150, 170, 175],
-          steppedLine: 'before'
-        },
-      ]
-    }
-    this.dataPie2 = {
-      labels: ['Ne 16 CD', 'Ne 20 CD', 'Ne 32 CD', 'Ne 31 CD'],
-      datasets: [
-        {
-          data: [300, 50, 100, 200],
-          backgroundColor: [
-            "#009900",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF671F"
-          ],
-          hoverBackgroundColor: [
-            "#009900",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF671F"
-          ]
-        }
-      ]
-    };
     this.listItem = [
-      {
-        Ngay:"",
-        MatHang:"Tổng cộng",
-        LoBong:"",
-        HopDong:"",
-        TonDau:"",
-        NhapTrongKy:"",
-        XuatTrongKy:"",
-        TonTrongKy:"",
-      },
-      {
-        Ngay:"10/12/2020",
-        MatHang:"Bong Brazil",
-        LoBong:"011Brazil 103/20",
-        HopDong:"",
-        TonDau:"",
-        NhapTrongKy:"",
-        XuatTrongKy:"",
-        TonTrongKy:"",
-      },
-      {
-        Ngay:"11/12/2020",
-        MatHang:"Bong Brazil",
-        LoBong:"P011Brazil 103/20",
-        HopDong:"",
-        TonDau:"",
-        NhapTrongKy:"",
-        XuatTrongKy:"",
-        TonTrongKy:"",
-      }
+      
     ]
-    this.getAllOptions()
+    this.getAllOptions();
+    this.ChangeOpt();
   }
 
-  GetBieuDoBong() {
-
+  ChangeOpt() {
+    if (validVariable(this.filter._tuNgay)) {
+      this.filter.TuNgay = DateToUnix(this.filter._tuNgay);
+    } else {
+      this.filter.TuNgay = null;
+    }
+    if (validVariable(this.filter._denNgay)) {
+      this.filter.DenNgay = DateToUnix(this.filter._denNgay);
+    } else {
+      this.filter.DenNgay = null;
+    }
+    if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay < this.filter.DenNgay) {
+      this._services.DashBoard().NhuCauSuDungBong(this.filter).subscribe((res:any)=>{
+        this.dataSet1 = {
+          labels: res.listThoiGian,
+          datasets: [
+            {
+              type: 'line',
+              label: 'Nhu cầu',
+              borderColor: '#FF0000',
+              fill: false,
+              data: res.listNhuCau.map(ele=>ele.KhoiLuong),
+            },
+            {
+              type: 'line',
+              label: 'Kế hoạch',
+              borderColor: '#0000E5',
+              borderDash: [10, 5],
+              fill: false,
+              data: res.listKeHoach.map(ele=>ele.KhoiLuong),
+              steppedLine: 'before'
+            },
+          ]
+        }
+      })
+      this._services.DashBoard().CoCauTonBong(this.filter).subscribe((res:any)=>{
+        this.dataPie = {
+          labels: res.map(ele=>ele.Ten),
+          datasets: [
+            {
+              data: res.map(ele=>ele.TrongLuong),
+              backgroundColor: [
+                "#009900",
+                "#36A2EB",
+                "#FFCE56",
+                "#FF671F",
+                '#ab8169',
+                '#6a942f',
+                '#46018f',
+                '#d70ca1'
+              ]
+            }
+          ]
+        };
+      })
+      this._services.DashBoard().CanDoiTon(this.filter).subscribe(res=>{
+        this.listItem = res;
+      })
+    }
   }
 
   resetFilter() {
 
   }
-  changeKho(event) {
-    console.log(event.value)
-    if (event.value === '8cb622a8-b2c5-4232-a9f1-7fdebb40e3cb') {
-      this.dataPie = {
-        labels: ['Ne 16 CD', 'Ne 20 CD', 'Ne 32 CD', 'Ne 31 CD'],
-        datasets: [
-          {
-            data: [300, 50, 100, 200],
-            backgroundColor: [
-              "#009900",
-              "#36A2EB",
-              "#FFCE56",
-              "#FF671F"
-            ],
-            hoverBackgroundColor: [
-              "#009900",
-              "#36A2EB",
-              "#FFCE56",
-              "#FF671F"
-            ]
-          }]
-      };
-    } else {
-      this.dataPie = {
-        labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
-        datasets: [
-          {
-            data: [300, 50, 100, 200],
-            backgroundColor: [
-              "#009900",
-              "#36A2EB",
-              "#FFCE56",
-              "#FF671F"
-            ],
-            hoverBackgroundColor: [
-              "#009900",
-              "#36A2EB",
-              "#FFCE56",
-              "#FF671F"
-            ]
-          }]
-      };
-    }
-  }
+
   getAllOptions() {
     let data = {
       CurrentPage: 0,
@@ -334,88 +184,13 @@ export class DieuhanhsanxuatComponent implements OnInit {
       Ten: "",
       sFilter: ''
     }
-    this._services.GetOptions().GetMatHang().subscribe((res: any) => {
-      this.listMatHang = mapArrayForDropDown(res, 'Ten', 'Id')
-    });
     this._services.GetListdmKho(data).subscribe((res: any) => {
+      res.unshift({ Id: '', Ten: 'Tất cả' });
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id')
-    });
-    this._services.GetListCongDoan().subscribe((res: any) => {
-      this.listCongDoan = mapArrayForDropDown(res, "Ten", 'Ma')
-    });
-    this._services.GetListdmMay(data).subscribe((res: any) => {
-      this.listMay = mapArrayForDropDown(res, "Ma", 'Id')
-    });
-    this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
-      this.listCaLamViec = mapArrayForDropDown(res, "Ten", 'Id')
     });
     this._services.GetListdmLoaiBong(data).subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tổng hợp' });
       this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
     })
-  }
-
-  changeOpt(e) {
-    if (e.checked) {
-      this.monthlyConfig = {
-        labels: Array.from({ length: 30 }, (alo, index) => index + 1),
-        datasets: [
-          // {
-          //   type: 'line',
-          //   label: 'Lũy kế',
-          //   borderColor: '#FF671F',
-          //   borderWidth: 2,
-          //   fill: false,
-          //   data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 100))
-          // },
-          {
-            type: 'bar',
-            label: 'Sản lượng thực tế',
-            backgroundColor: '#3c5cbb',
-            data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 100)),
-            borderColor: 'white',
-            // borderWidth: 2
-          },
-          {
-            type: 'bar',
-            label: 'Sản lượng tiêu chuẩn',
-            backgroundColor: '#009900',
-            data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 100)),
-            borderColor: 'white',
-            // borderWidth: 2
-          },
-        ]
-      }
-    } else {
-      this.monthlyConfig = {
-        labels: Array.from({ length: 30 }, (alo, index) => index + 1),
-        datasets: [
-          {
-            type: 'line',
-            label: 'Thực tế',
-            borderColor: '#FF671F',
-            borderWidth: 2,
-            fill: false,
-            data: Array.from({ length: 30 }, (v, i) => i * 20)
-          },
-          {
-            type: 'line',
-            label: 'Kế hoạch',
-            borderColor: '#009900',
-            borderWidth: 2,
-            fill: false,
-            data: Array.from({ length: 30 }, (v, i) => (i * 20) + 10)
-          },
-          {
-            type: 'bar',
-            label: 'Sản lượng',
-            backgroundColor: '#3c5cbb',
-            data: Array.from({ length: 30 }, () => 20),
-            borderColor: 'white',
-            borderWidth: 2
-          },
-        ]
-      }
-    }
   }
 }
