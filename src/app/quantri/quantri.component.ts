@@ -193,129 +193,6 @@ export class QuantriComponent implements OnInit {
                 ]
             },
             {
-                label: 'Quản lý kho bông',
-                icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhosanxuat/khobong',
-                expanded: false,
-                items: [
-                    {
-                        label: 'Kế hoạch nhập nguyên liệu',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/kehoachnhapnguyenlieu/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Nhập kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/nhapkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Thông số chất lượng',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/thongsochatluong/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/xuatkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/kiemkekho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Điều chuyển',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/dieuchuyen/0',
-                        command: () => this.close()
-                    },
-                    
-                    {
-                        label: 'Cân đối tồn',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/candoiton/0',
-                        command: () => this.close()
-                    },
-                ]
-            },
-            {
-                label: 'Quản lý kho xơ',
-                icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhosanxuat/khoxo',
-                expanded: false,
-                items: [
-                    {
-                        label: 'Nhập kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khoxo/nhapkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khoxo/xuatkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khoxo/kiemkekho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Điều chuyển',
-                        routerLink: '/quantri/quanlykhosanxuat/khoxo/dieuchuyen/0',
-                        command: () => this.close()
-                    },
-                ]
-            },
-            {
-                label: 'Quản lý kho bông hồi',
-                icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhosanxuat/khobonghoi',
-                expanded: false,
-                items: [
-                    {
-                        label: 'Nhập kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobonghoi/nhapkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobonghoi/xuatkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobonghoi/kiemkekho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Điều chuyển',
-                        routerLink: '/quantri/quanlykhosanxuat/khobonghoi/dieuchuyen/0',
-                        command: () => this.close()
-                    },
-                ]
-            },
-            {
-                label: 'Quản lý kho bông phế',
-                icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhosanxuat/khobongphe',
-                expanded: false,
-                items: [
-                    {
-                        label: 'Nhập kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobongphe/nhapkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobongphe/xuatkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobongphe/kiemkekho/0',
-                        command: () => this.close()
-                    },
-                ]
-            },
-            {
                 label: 'Quản lý kho hồi ẩm',
                 icon: 'fas fa-circle',
                 routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam',
@@ -362,6 +239,129 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Kế hoạch xuất hàng',
                         routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/kehoachxuathang/0',
+                        command: () => this.close()
+                    },
+                ]
+            },
+            {
+                label: 'Quản lý kho bông',
+                icon: 'fas fa-circle',
+                routerLink: '/quantri/quanlykhosanxuat/khobong',
+                expanded: false,
+                items: [
+                    {
+                        label: 'Kế hoạch nhập nguyên liệu',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/kehoachnhapnguyenlieu/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Nhập kho',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/nhapkho/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Thông số chất lượng',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/thongsochatluong/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Xuất kho',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/xuatkho/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Kiểm kê kho',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/kiemkekho/0',
+                        command: () => this.close()
+                    },
+                    // {
+                    //     label: 'Điều chuyển',
+                    //     routerLink: '/quantri/quanlykhosanxuat/khobong/dieuchuyen/0',
+                    //     command: () => this.close()
+                    // },
+                    
+                    {
+                        label: 'Cân đối tồn',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/candoiton/0',
+                        command: () => this.close()
+                    },
+                ]
+            },
+            {
+                label: 'Quản lý kho xơ',
+                icon: 'fas fa-circle',
+                routerLink: '/quantri/quanlykhosanxuat/khoxo',
+                expanded: false,
+                items: [
+                    {
+                        label: 'Nhập kho',
+                        routerLink: '/quantri/quanlykhosanxuat/khoxo/nhapkho/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Xuất kho',
+                        routerLink: '/quantri/quanlykhosanxuat/khoxo/xuatkho/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Kiểm kê kho',
+                        routerLink: '/quantri/quanlykhosanxuat/khoxo/kiemkekho/0',
+                        command: () => this.close()
+                    },
+                    // {
+                    //     label: 'Điều chuyển',
+                    //     routerLink: '/quantri/quanlykhosanxuat/khoxo/dieuchuyen/0',
+                    //     command: () => this.close()
+                    // },
+                ]
+            },
+            {
+                label: 'Quản lý kho bông hồi',
+                icon: 'fas fa-circle',
+                routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi',
+                expanded: false,
+                items: [
+                    {
+                        label: 'Nhập kho',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/nhapkho/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Xuất kho',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/xuatkho/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Kiểm kê kho',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/kiemkekho/0',
+                        command: () => this.close()
+                    },
+                    // {
+                    //     label: 'Điều chuyển',
+                    //     routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/dieuchuyen/0',
+                    //     command: () => this.close()
+                    // },
+                ]
+            },
+            {
+                label: 'Quản lý kho bông phế',
+                icon: 'fas fa-circle',
+                routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe',
+                expanded: false,
+                items: [
+                    {
+                        label: 'Nhập kho',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe/nhapkho/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Xuất kho',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Kiểm kê kho',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe/kiemkekho/0',
                         command: () => this.close()
                     },
                 ]

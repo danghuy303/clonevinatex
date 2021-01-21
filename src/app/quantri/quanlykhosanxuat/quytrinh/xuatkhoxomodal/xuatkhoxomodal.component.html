@@ -86,6 +86,7 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col style="width:90px">
                     </colgroup>
                 </ng-template>
@@ -94,6 +95,7 @@
                         <th>#</th>
                         <th>Tên kiện</th>
                         <th>Vị trí</th>
+                        <th>Khối lượng / Kiện</th>
                         <th>Số lượng tồn</th>
                         <th>Số lượng</th>
                         <th></th>
@@ -104,6 +106,7 @@
                         <td style="text-align: center;">{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>
                         <td style="text-align: center;">{{item.TendmViTri}}</td>
+                        <td style="text-align: center;">{{item.TrongLuong}}</td>
                         <td style="text-align: center;">{{item.Ton}}</td>
                         <td style="text-align: center;">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">

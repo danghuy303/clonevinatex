@@ -80,6 +80,7 @@ import { XuatkhoxoComponent } from './quanlykhosanxuat/quytrinh/xuatkhoxo/xuatkh
 import { XuatkhobonghoiComponent } from './quanlykhosanxuat/quytrinh/xuatkhobonghoi/xuatkhobonghoi.component';
 import { XuatkhobongpheComponent } from './quanlykhosanxuat/quytrinh/xuatkhobongphe/xuatkhobongphe.component';
 import { DinhmuctieuchichatluongsoiComponent } from './danhmuc/danhmucsanxuat/dinhmuctieuchichatluongsoi/dinhmuctieuchichatluongsoi.component';
+import { NhapkhokhacComponent } from './quanlykhosanxuat/quytrinh/nhapkhokhac/nhapkhokhac.component';
 
 const routes: Routes = [
   {
@@ -181,12 +182,13 @@ const routes: Routes = [
       { path: 'quanlysanxuatkhohoiam/khohoiam/chatluongsoi/:id', component: ChatluongsoiComponent },
 
 
-      { path: 'quanlykhosanxuat/khobonghoi/xuatkho/:id', component: XuatkhobonghoiComponent },
-      { path: 'quanlykhosanxuat/khobonghoi/kiemkekho/:id', component: KiemkekhoComponent },
-      { path: 'quanlykhosanxuat/khobonghoi/dieuchuyen/:id', component: DieuchuyenComponent },
+      { path: 'quanlykhosanxuatbongkhac/:kho/nhapkho/:id', component: NhapkhokhacComponent },
+      { path: 'quanlykhosanxuatbongkhac/khobonghoi/xuatkho/:id', component: XuatkhobonghoiComponent },
+      { path: 'quanlykhosanxuatbongkhac/khobonghoi/kiemkekho/:id', component: KiemkekhoComponent },
+      { path: 'quanlykhosanxuatbongkhac/khobonghoi/dieuchuyen/:id', component: DieuchuyenComponent },
 
-      { path: 'quanlykhosanxuat/khobongphe/xuatkho/:id', component: XuatkhobongpheComponent },
-      { path: 'quanlykhosanxuat/khobongphe/kiemkekho/:id', component: KiemkekhoComponent },
+      { path: 'quanlykhosanxuatbongkhac/khobongphe/xuatkho/:id', component: XuatkhobongpheComponent },
+      { path: 'quanlykhosanxuatbongkhac/khobongphe/kiemkekho/:id', component: KiemkekhoComponent },
 
       { path: 'quanlysanxuatkhothanhpham/khothanhpham/nhapkho/:id', component: NhapkhothanhphamComponent },
       { path: 'quanlysanxuatkhothanhpham/khothanhpham/kiemkekho/:id', component: KiemkekhoComponent },

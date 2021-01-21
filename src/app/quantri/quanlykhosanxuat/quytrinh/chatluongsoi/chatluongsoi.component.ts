@@ -19,13 +19,13 @@ export class ChatluongsoiComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Số quy trình',
-      field: 'SoQuyTrinh',
-      width: '150px'
+      header: 'Tên phân xưởng',
+      field: 'TendmPhanXuong',
+      width: '200px'
     },
     {
-      header: 'Nội dung',
-      field: 'NoiDung',
+      header: 'Ghi chú',
+      field: 'GhiChu',
       width: '200px'
     },
     {
@@ -35,34 +35,6 @@ export class ChatluongsoiComponent implements OnInit {
     }
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-  colsQuyTrinh: any = [
-    {
-      header: 'Ngày nhận',
-      field: 'NgayKhoiTao',
-      width: '150px'
-    },
-    {
-      header: 'Ngày chuyển',
-      field: 'SoQuyTrinh',
-      width: '150px'
-    },
-    {
-      header: 'Thời gian xử lý',
-      field: 'DiaChi',
-      width: '200px'
-    },
-    {
-      header: 'Bộ phận xử lý',
-      field: 'DienTich',
-      width: '150px'
-    },
-    {
-      header: 'Nội dung xử lý',
-      field: 'HienTrangSuDung',
-      width: '400px'
-    },
-  ];
-
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {

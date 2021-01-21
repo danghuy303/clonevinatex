@@ -36,8 +36,11 @@ export class XuatkhoxomodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
     }
-    this.KiemTraButtonModal();
-    this.GetQuyTrinh();
+    else{
+      this.KiemTraButtonModal();
+      this.GetQuyTrinh();
+    }
+    
     //
     let data: any = {
       CurrentPage: 0

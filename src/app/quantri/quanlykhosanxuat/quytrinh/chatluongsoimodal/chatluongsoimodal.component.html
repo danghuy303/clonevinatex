@@ -34,14 +34,14 @@
 
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-5 p-p-0 my-auto">Ngày:</label>
             <div class="p-col-12 p-lg-7 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
@@ -50,7 +50,7 @@
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
@@ -65,21 +65,23 @@
                 </div>
             </div>
             <p-table [value]="item.lstDanhMuc|isXoa"
-                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines"
+                selectionMode="single"
+                                        [scrollable]="true" scrollHeight="53vh"
+                                         [lazy]="true">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 60px; text-align: center;">STT</th>
-                        <th>Chỉ tiêu</th>
-                        <th *ngFor="let ban of item.lstSanPham" style="min-width: 50px;">
+                        <th class="align-content-center first-col sticky-col">Chỉ tiêu</th>
+                        <th *ngFor="let ban of item.lstSanPham" style="width: 7rem;">
                             {{ban.Ten}}
                         </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-itemindex let-i="rowIndex">
                     <tr>
-                        <td style="width: 60px; text-align: center;">{{i+1}}</td>
-                        <td>{{itemindex.DungSaiChoPhep}}</td>
-                        <td *ngFor="let itemsanpham of itemindex.lstChatLuongSanPham" class="text-center" style="min-width: 50px;">
+                        <td class="align-content-center first-col sticky-col">{{itemindex.DungSaiChoPhep}}</td>
+                        <td *ngFor="let itemsanpham of itemindex.lstChatLuongSanPham" class="text-center" 
+                            style="width: 7rem;">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemsanpham.ChiTieuThucTe">
                             </p-inputNumber>
                         </td>
