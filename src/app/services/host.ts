@@ -21,7 +21,9 @@ export class API {
     public static KeHoachNguyenLieu = host1 + '/SCM/KeHoachNguyenLieu/';
     public static SCMQuanLyKho = host1 + '/SCM/QuanLyKho/';
     public static SCMDanhMuc = host1 + '/SCM/DanhMuc/';
-    public static SCMKiemTraChatLuong = host1 + '/SCM/KiemTraChatLuong/';    
+    public static SCMKiemTraChatLuong = host1 + '/SCM/KiemTraChatLuong/';  
+    public static SCMDashBoard = host1 +  '/SCM/BaoCao/';
+    public static SCMBaoCao = host1 + '/SCM/BaoCao/';    
     public static danhmuc = API.baseUrl + 'DanhMuc/';
     public static QLTSD = API.baseUrl+'QuanLyTaiSanDat/';
     public static uploadURL = host1 + '/QLTS/FileUploader/Post';

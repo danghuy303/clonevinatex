@@ -2,15 +2,15 @@
     <div class="p-d-flex flex-column flex-lg-row p-pl-3" style="width: 100%;">
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.LoaiBong"></p-dropdown>
+                [(ngModel)]="filter.IdDuAn" (onChange)="filterdata()"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
-                styleClass="p-inputtext-sm" [(ngModel)]="filter.LoaiBong"></p-dropdown>
+                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanXuong" (onChange)="filterdata()"></p-dropdown>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [options]="Nams" styleClass="p-inputtext-sm" optionLabel="label" [(ngModel)]="filter.Nam"
-                class="p-mr-2"></p-dropdown>
+            <p-dropdown [options]="Nams" styleClass="p-inputtext-sm" [(ngModel)]="filter.nNam" class="p-mr-2"
+                (onChange)="filterdata()"></p-dropdown>
         </div>
     </div>
 </div>
@@ -26,15 +26,16 @@
                 <div class="p-d-flex flex-column flex-lg-row">
                     <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listCa" placeholder="Chọn ca" styleClass="p-inputtext-sm"
-                            [(ngModel)]="filter.CaLamViec"></p-dropdown>
+                            [(ngModel)]="filter.IddmCaSanXuat" (onChange)="filterdatatonghop()"></p-dropdown>
                     </div>
                     <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listThang" styleClass="p-inputtext-sm"
-                            [(ngModel)]="filter.Thang"></p-dropdown>
+                            [(ngModel)]="filter.nThang" (onChange)="filterdatatonghop()"></p-dropdown>
                     </div>
                     <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listNgay" placeholder="Chọn ngày"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filter.Ngay"></p-dropdown>
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.nNgay" (onChange)="filterdatatonghop()">
+                        </p-dropdown>
                     </div>
                     <!-- <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng"
@@ -64,7 +65,10 @@
                                 <tr>
                                     <td class="text-center">{{i+1}}</td>
                                     <td>{{thongke.Ten}}</td>
-                                    <td class="text-center">{{thongke.TieuHao|number:'0.0-3'}} {{thongke.DonVi}}</td>
+                                    <td class="text-center">{{thongke.TieuHao|number:'0.0-3'}}
+                                        <!-- a dũng chưa có  -->
+                                        <!-- {{thongke.DonVi}} -->
+                                    </td>
                                     <td class="text-right">{{thongke.ManHinh}}</td>
                                 </tr>
                             </ng-template>
@@ -92,7 +96,16 @@
     </div>
     <div class="p-col-12 p-xl-6 p-lg-6 p-p-3">
         <div class="chart text-left">
-            <h5>Chất lượng sản phẩm</h5>
+            <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between">
+                <div class="p-d-flex p-flex-row">
+                    <h5>Chất lượng sản phẩm</h5>
+                </div>
+                <div class="p-d-flex p-flex-row">
+                    <p-dropdown [filter]="true" [options]="listtieuchi" placeholder="Chọn tiêu chí"
+                        styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmChiTieu" (onChange)="GetBieuDoDuongKiemTraChatLuong()">
+                    </p-dropdown>
+                </div>
+            </div>
             <div #bangScroll style="height: calc((100vh - 192.5px) / 2 - 40px);">
                 <p-table [value]="listMatHang" styleClass="p-datatable-sm p-datatable-gridlines wrap-text"
                     [scrollable]="true" scrollHeight="flex">
@@ -108,9 +121,10 @@
                     <ng-template pTemplate="body" let-item let-i="rowIndex">
                         <tr>
                             <td class="text-center" style="width: 35px !important;">
-                                <p-checkbox [ngModel]="item.checked" (onChange)="checkMatHang($event,item,i)" binary="true" inputId="binary"></p-checkbox>
+                                <p-checkbox [ngModel]="item.checked" (onChange)="checkMatHang($event,item,i)"
+                                    binary="true" inputId="binary"></p-checkbox>
                             </td>
-                            <td style="width: 200px !important;">{{item.label}}</td>
+                            <td style="width: 200px !important;">{{item.TenItem}}</td>
                             <td *ngFor="let body of headerChatLuongSanPham" style="width: 55px !important;">
                                 {{item[body.prop]}}
                             </td>
