@@ -160,6 +160,9 @@ export class SanXuatService {
             },
             GetBieuDoDuongKiemTraChatLuong: (Nam, IddmPhanXuong, IddmChiTieu, IddmItem) => {
                 return this.http.get(url2 + `GetBieuDoDuongKiemTraChatLuong?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu}&IddmItem=${IddmItem}`, httpOptions);
+            },            
+            GetDanhSachChiTieuChatLuong_BieuDo: () => {
+                return this.http.get(url2 + 'GetDanhSachChiTieuChatLuong_BieuDo', httpOptions);
             },
         }
     }
@@ -291,6 +294,14 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'DeletedmItem';
         return this.http.post(url, data, httpOptions);
     }
+    ImportDanhSachChiTieuChatLuongTheoSanPham(IdDuAn,TableName,FileName) {
+        let url = API.SCMKiemTraChatLuong + `ImportDanhSachChiTieuChatLuongTheoSanPham?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`;
+        return this.http.get(url, httpOptions);
+    }
+    ExportDanhSachChiTieuChatLuongTheoSanPham(data) {
+        let url = API.SCMKiemTraChatLuong + 'ExportDanhSachChiTieuChatLuongTheoSanPham';
+        return this.http.post(url, data, httpOptions);
+    }   
     //#endregion
 
     //#region  phân xưởng

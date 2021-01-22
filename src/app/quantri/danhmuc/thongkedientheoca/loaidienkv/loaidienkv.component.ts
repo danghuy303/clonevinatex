@@ -133,15 +133,22 @@ export class LoaidienkvComponent implements OnInit {
     this.GetDanhSachLoaiDienKV();
   }
   importExcel(){
-    let modalRef = this._modal.open(ModalimportexcelComponent,{
-      backdrop:'static',
-    })
-    modalRef.componentInstance.importFunc = 'BienDong';
-    modalRef.result.then(res=>{
-      this.GetDanhSachLoaiDienKV();
-      this._toastr.success(res.mess);
-    })
-    .catch(er=>console.log(er))
+    // let modalRef = this._modal.open(ModalimportexcelComponent,{
+    //   backdrop:'static',
+    // })
+    // modalRef.componentInstance.importFunc = 'BienDong';
+    // modalRef.result.then(res=>{
+    //   this.GetDanhSachLoaiDienKV();
+    //   this._toastr.success(res.mess);
+    // })
+    // .catch(er=>console.log(er))
+  }
+  
+  exportExcel() {
+    // let data:any;
+    // this._services.ExportDanhSachChiTieuChatLuongTheoSanPham({id:"àhsdkhfklsdjfhsdkjfh"}).subscribe((res: any) => {
+    //   this._services.download(res.TenFile);
+    // })
   }
 
 }
