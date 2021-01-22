@@ -34,13 +34,7 @@ export class PhanxuongComponent implements OnInit {
     {
       header: 'Tên',
       field: 'Ten',
-      width: '200px',
-      align:'center'
-    },
-    {
-      header: 'Tên nhóm kho',
-      field: 'TenNhomKho',
-      width: '200px',
+      width: 'unset',
       align:'center'
     },
     {
