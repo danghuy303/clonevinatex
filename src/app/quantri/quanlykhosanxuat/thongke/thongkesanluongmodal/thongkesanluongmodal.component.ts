@@ -101,7 +101,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
     }).catch(er => console.log(er))
   }
   delete(index) {
-    debugger
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
 

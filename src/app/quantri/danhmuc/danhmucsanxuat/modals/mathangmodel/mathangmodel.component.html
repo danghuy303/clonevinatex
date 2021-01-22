@@ -7,25 +7,25 @@
 <div class="modal-body">
     <div class="p-grid">
         <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Mã<span class="text-danger">*</span>:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mã<span class="text-danger">*</span>:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.Ma" pInputText />
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tên mặt hàng<span class="text-danger">*</span>:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tên mặt hàng<span class="text-danger">*</span>:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.Ten" pInputText />
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại sợi</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại sợi</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [options]="listLoaiSoi" placeholder="Chọn loại sợi" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IddmLoaiSoi"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 flex-column flex-lg-row d-flex">
+        <!-- <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-multiSelect [options]="listCongDoan"
@@ -36,30 +36,55 @@
                 display="chip">
             </p-multiSelect>
             </div>
-        </div>
+        </div> -->
         <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chi số Ne</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ne">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Chi số: </label>
+            <label class="p-col-12 p-lg-1 p-p-0 my-auto text-right">Ne</label>
+            <div class="p-col-12 p-lg-2 p-p-0">
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ne"
+                (ngModelChange)="item.Nm=TinhGiaTri($event)">
+                </p-inputNumber>
+            </div>
+            <label class="p-col-12 p-lg-1 p-p-0 my-auto text-right">Nm</label>
+            <div class="p-col-12 p-lg-2 p-p-0">                
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Nm" disabled>
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chi số mét Nm</label>
-            <div class="p-col-12 p-lg-8 p-p-0">                
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tỷ lệ pha trộn(%): </label>
+            <label class="p-col-12 p-lg-1 p-p-0 my-auto text-right">PE</label>
+            <div class="p-col-12 p-lg-2 p-p-0">
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.PE">
+                </p-inputNumber>
+            </div>
+            <label class="p-col-12 p-lg-1 p-p-0 my-auto text-right">CM</label>
+            <div class="p-col-12 p-lg-2 p-p-0">                
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.CM">
+                </p-inputNumber>
+            </div>
+            <label class="p-col-12 p-lg-1 p-p-0 my-auto text-right">CD</label>
+            <div class="p-col-12 p-lg-2 p-p-0">                
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.CD">
+                </p-inputNumber>
+            </div>
+        </div>
+        <!-- <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Chi số mét Nm</label>
+            <div class="p-col-12 p-lg-10 p-p-0">                
                 <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Nm">
                 </p-inputNumber>
             </div>
-        </div>
+        </div> -->
         <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đơn vị tính</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Đơn vị tính</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViDatHang" pInputText />
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Độ săn</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Độ săn</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
                 <div class="p-inputgroup">
                     <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.DoSan">
                     </p-inputNumber>
@@ -68,20 +93,20 @@
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đặc tính sợi</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Đặc tính sợi</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DacTinhSoi" pInputText />
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Paraphin</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Paraphin</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isParaphin"/>
             </div>
         </div>

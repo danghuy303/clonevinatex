@@ -56,6 +56,10 @@ export class ChonhanghoamodalComponent implements OnInit {
           });
           break;
       }
+    }else{
+      this.items.forEach(item => {
+        item.checked = false;
+      });
     }
     if(this.items.length!==0){
       this.checkedAll = this.items.every((ele)=>ele.checked);

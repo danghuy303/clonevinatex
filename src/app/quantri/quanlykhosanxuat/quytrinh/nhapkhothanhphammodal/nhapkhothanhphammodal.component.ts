@@ -136,7 +136,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKhoHoiAm = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    this.data.Loai = 1;
+    this.data.Loai = 11;
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKhoThanhPham = mapArrayForDropDown(res, 'Ten', 'Id');
     })
@@ -168,6 +168,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
         this.item.listItem.forEach(element => {
           element.SoQuaSoiHoiAm = element.Ton;
           element.SoQuaSoiThanhPham = element.Ton;
+          element.KgCone = element.TrongLuong;
         });
       }, (reason) => {
         // không

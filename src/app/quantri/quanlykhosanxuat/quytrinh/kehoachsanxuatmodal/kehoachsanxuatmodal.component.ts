@@ -189,7 +189,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       size: 'lg'
     })
     modalRef.componentInstance.items = this.listMatHang;
-    modalRef.componentInstance.selectedItems = this.item.listItem || [];
+    modalRef.componentInstance.selectedItems = [];
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
       if (res.length > 0) {

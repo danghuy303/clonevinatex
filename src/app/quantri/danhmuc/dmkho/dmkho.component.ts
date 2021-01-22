@@ -35,7 +35,7 @@ export class DmkhoComponent implements OnInit {
     },
     {
       header: 'Tên nhóm kho',
-      field: 'TenNhomKho',
+      field: 'TendmNhomKho',
       width: '300px',
       center:'left'
     },

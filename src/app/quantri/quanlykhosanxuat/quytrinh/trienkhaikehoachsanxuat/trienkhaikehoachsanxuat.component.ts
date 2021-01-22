@@ -19,16 +19,16 @@ export class TrienkhaikehoachsanxuatComponent implements OnInit {
   trangThai:any=1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
-    {
-      header: 'Kế hoạch giao(Tấn)',
-      field: '',
-      width: 'unset'
-    },
-    {
-      header: 'Kế hoạch thực hiện',
-      field: '',
-      width: 'unset'
-    },
+    // {
+    //   header: 'Kế hoạch giao(Tấn)',
+    //   field: '',
+    //   width: 'unset'
+    // },
+    // {
+    //   header: 'Kế hoạch thực hiện(Tấn)',
+    //   field: '',
+    //   width: 'unset'
+    // },
     {
       header: 'Trạng thái',
       field: 'TenTrangThai',
