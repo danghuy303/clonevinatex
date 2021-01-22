@@ -41,7 +41,7 @@
         <!-- <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
         </div> -->
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch giao:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch giao<span class="required">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listGiaoKeHoach" placeholder="Chọn kế hoạch giao"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IdGiaoKeHoachSanXuat"
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung<span class="required">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
             </div>

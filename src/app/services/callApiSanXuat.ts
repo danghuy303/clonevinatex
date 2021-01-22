@@ -926,6 +926,9 @@ export class SanXuatService {
             // },
             GetListKienBong: (data) => {
                 return this.http.post(url + `GetListKienLoBong`, data, httpOptions)
+            },
+            TimBongTuDong:(IdTimBong)=>{
+                return this.http.get(`${url}TaoPhuongAnTimBong?Id=${IdTimBong}`,httpOptions)
             }
         }
     }
