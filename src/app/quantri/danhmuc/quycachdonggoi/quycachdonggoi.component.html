@@ -38,11 +38,8 @@
             <th></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-item let-i="rowIndex">
-        <tr>
-            <!-- <td class="text-center">
-                <p-tableCheckbox [value]="item"></p-tableCheckbox>
-            </td> -->
+    <!-- <ng-template pTemplate="body" let-item let-i="rowIndex">
+        <tr>           
             <td class="text-center">
                 {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
             </td>
@@ -56,7 +53,7 @@
                     class="p-button-text p-button-sm p-button-secondary" (click)="delete(item)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
             </td>
         </tr>
-    </ng-template>
+    </ng-template> -->
     <ng-template pTemplate="summary">
         <div class="p-d-flex p-flex-column p-flex-sm-row p-ai-center p-jc-between">
             Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20"
