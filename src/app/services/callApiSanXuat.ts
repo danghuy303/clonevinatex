@@ -137,8 +137,8 @@ export class SanXuatService {
             Set: (data) => {
                 return this.http.post(url + 'SetdmPhanNhomMay', data, httpOptions);
             },
-            Delete: (data) => {
-                return this.http.post(url + 'DeletedmPhanNhomMaySanXuat', data, httpOptions);
+            Delete: (Id) => {
+                return this.http.get(url + `DeletedmPhanNhomMaySanXuat?Id=${Id}`, httpOptions);
             },
         }
     }

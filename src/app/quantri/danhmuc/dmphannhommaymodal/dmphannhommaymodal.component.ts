@@ -108,11 +108,11 @@ export class DmphannhommaymodalComponent implements OnInit {
   }
 
   changeNangSuat(e, item) {
-    item.DinhMucNangSuat = e.value * item.HieuSuat || 0;
+    item.DinhMucNangSuat = (e.value * item.HieuSuat || 0)/100;
   }
 
   changeHieuSuat(e, item) {
-    item.DinhMucNangSuat = e.value * item.NangSuat || 0;
+    item.DinhMucNangSuat = (e.value * item.NangSuat || 0)/100;
   }
 
 }
