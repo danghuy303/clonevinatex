@@ -160,6 +160,9 @@ export class SanXuatService {
             },
             GetBieuDoDuongKiemTraChatLuong: (Nam, IddmPhanXuong, IddmChiTieu, IddmItem) => {
                 return this.http.get(url2 + `GetBieuDoDuongKiemTraChatLuong?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu}&IddmItem=${IddmItem}`, httpOptions);
+            },            
+            GetDanhSachChiTieuChatLuong_BieuDo: () => {
+                return this.http.get(url2 + 'GetDanhSachChiTieuChatLuong_BieuDo', httpOptions);
             },
         }
     }
