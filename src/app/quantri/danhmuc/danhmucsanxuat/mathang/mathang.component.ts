@@ -27,6 +27,12 @@ export class MathangComponent implements OnInit {
   };
   cols: any = [
     {
+      header: 'Mã',
+      field: 'Ma',
+      width: '100px',
+      align:'center'
+    },
+    {
       header: 'Tên mặt hàng',
       field: 'Ten',
       width: '200px',
@@ -131,6 +137,7 @@ export class MathangComponent implements OnInit {
   }
   add(){
     let modalRef = this._modal.open(MathangmodelComponent,{
+      size:'lg',
       backdrop:'static'
     });
     modalRef.componentInstance.opt='add';
@@ -143,6 +150,7 @@ export class MathangComponent implements OnInit {
   }
   edit(item){
     let modalRef = this._modal.open(MathangmodelComponent,{
+      size:'lg',
       backdrop:'static'
     });
     item.listCongDoan = ['ONG']

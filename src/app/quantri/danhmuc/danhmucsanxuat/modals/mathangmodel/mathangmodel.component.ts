@@ -67,4 +67,9 @@ export class MathangmodelComponent implements OnInit {
       this.toastr.warning('Vui lòng nhập đầy đủ thông tin bắt buộc!')
     }
   }
+
+  TinhGiaTri(event) {
+    if(event !== undefined)
+     return (event*1.693);
+  }
 }

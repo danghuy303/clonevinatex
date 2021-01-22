@@ -2,19 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
-import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
-  selector: 'app-kehoachxuathangmodal',
-  templateUrl: './kehoachxuathangmodal.component.html',
-  styleUrls: ['./kehoachxuathangmodal.component.css']
+  selector: 'app-xuatkhothanhphammodal',
+  templateUrl: './xuatkhothanhphammodal.component.html',
+  styleUrls: ['./xuatkhothanhphammodal.component.css']
 })
-export class KehoachxuathangmodalComponent implements OnInit {
+export class XuatkhothanhphammodalComponent implements OnInit {
 
   opt: any = ''
   item: any = {};
@@ -95,14 +93,9 @@ export class KehoachxuathangmodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn ngày");
     }
     else {
-      if (this.item.listItem.length > 0) {
-        this.item.listItem.filter(obj => {
-          obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
-        });
-      }
       this.item.NgayUnix = validVariable(this.item.Ngay) ? DateToUnix(this.item.Ngay) : 0;
 
-      this._services.KeHoachXuatHang().ChuyenTiep(this.item).subscribe((res: any) => {
+      this._services.PhieuXuatThanhPham().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.activeModal.close();
@@ -119,14 +112,9 @@ export class KehoachxuathangmodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn ngày");
     }
     else {
-      if (this.item.listItem.length > 0) {
-        this.item.listItem.filter(obj => {
-          obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
-        });
-      }
       this.item.NgayUnix = validVariable(this.item.Ngay) ? DateToUnix(this.item.Ngay) : 0;
 
-      this._services.KeHoachXuatHang().KhongDuyet(this.item).subscribe((res: any) => {
+      this._services.PhieuXuatThanhPham().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.activeModal.close();
@@ -139,7 +127,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
   }
 
   GetNextSoQuyTrinh() {
-    this._services.KeHoachXuatHang().GetNextSo().subscribe((res: any) => {
+    this._services.PhieuXuatThanhPham().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
@@ -149,14 +137,9 @@ export class KehoachxuathangmodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn ngày");
     }
     else {
-      if (this.item.listItem.length > 0) {
-        this.item.listItem.filter(obj => {
-          obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
-        });
-      }
       this.item.NgayUnix = validVariable(this.item.Ngay) ? DateToUnix(this.item.Ngay) : 0;
 
-      this._services.KeHoachXuatHang().Set(this.item).subscribe((res: any) => {
+      this._services.PhieuXuatThanhPham().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -177,7 +160,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this._services.KeHoachXuatHang().Delete(this.item).subscribe((res: any) => {
+      this._services.PhieuXuatThanhPham().Delete(this.item).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
@@ -190,9 +173,10 @@ export class KehoachxuathangmodalComponent implements OnInit {
 
   getListKho() {
     let data = {
-      CurrentPage: 0
+      CurrentPage: 0,
+      Loai: 11,
     }
-    this._services.GetListdmKho(this.data).subscribe((res: any) => {
+    this._services.GetListdmKho(data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

@@ -181,6 +181,7 @@ export class NhapkhomodalComponent implements OnInit {
         console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
+          this.toastr.success(res.message);
         } else {
           this.toastr.error(res.message);
         }

@@ -109,7 +109,7 @@ export class DmphannhommayComponent implements OnInit {
       lstdmItem: []
     }
     modalRef.result.then(res => {
-      this._toastr.success(res);
+      // this._toastr.success(res);
       this.GetListdm()
     }).catch(er => console.log(er))
   }
@@ -144,7 +144,7 @@ export class DmphannhommayComponent implements OnInit {
       modalRef.componentInstance.title = 'Cập nhật phân nhóm máy';
       modalRef.componentInstance.item = res;
       modalRef.result.then(res => {
-        this._toastr.success(res);
+        // this._toastr.success(res);
         this.GetListdm()
       }).catch(er => console.log(er))
     })
@@ -155,7 +155,7 @@ export class DmphannhommayComponent implements OnInit {
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res => {
-      this._services.dmPhanNhomMaySanXuat().Delete(item).subscribe((res: any) => {
+      this._services.dmPhanNhomMaySanXuat().Delete(item.Id).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);

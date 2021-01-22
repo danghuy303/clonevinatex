@@ -30,6 +30,8 @@ export class DinhmuctieuhaomodalComponent implements OnInit {
     this.getListLoaiSoi();
     this.getListMatHang();
     this.getListPhanXuong();
+    console.log(this.item)
+    debugger
   }
 
   getListLoaiSoi() {
