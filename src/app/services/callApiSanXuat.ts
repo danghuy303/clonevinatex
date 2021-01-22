@@ -291,6 +291,14 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'DeletedmItem';
         return this.http.post(url, data, httpOptions);
     }
+    ImportDanhSachChiTieuChatLuongTheoSanPham(IdDuAn,TableName,FileName) {
+        let url = API.SCMKiemTraChatLuong + `ImportDanhSachChiTieuChatLuongTheoSanPham?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`;
+        return this.http.get(url, httpOptions);
+    }
+    ExportDanhSachChiTieuChatLuongTheoSanPham(data) {
+        let url = API.SCMKiemTraChatLuong + 'ExportDanhSachChiTieuChatLuongTheoSanPham';
+        return this.http.post(url, data, httpOptions);
+    }   
     //#endregion
 
     //#region  phân xưởng

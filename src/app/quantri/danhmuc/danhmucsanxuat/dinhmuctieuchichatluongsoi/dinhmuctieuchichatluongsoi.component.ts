@@ -5,6 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { DinhmuctieuchichatluongsoimodalComponent } from '../dinhmuctieuchichatluongsoimodal/dinhmuctieuchichatluongsoimodal.component';
+import { ImportdanhmucmodelComponent } from '../modals/importdanhmucmodel/importdanhmucmodel.component';
 
 @Component({
   selector: 'app-dinhmuctieuchichatluongsoi',
@@ -91,6 +92,25 @@ export class DinhmuctieuchichatluongsoiComponent implements OnInit {
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetListdm();
+  }
+
+  importExcel() {
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
+      backdrop: 'static',
+    })
+    // modalRef.componentInstance.importFunc = 'dinhmuctieuchichatluongsoi';
+    modalRef.componentInstance.Name = 'dinhmuctieuchichatluongsoi';    
+    modalRef.result.then(res => {
+      this.GetListdm();
+      this._toastr.success(res.mess);
+    })
+      .catch(er => console.log(er))
+  }
+  exportExcel() {
+    let data:any;
+    this._services.ExportDanhSachChiTieuChatLuongTheoSanPham({id:"àhsdkhfklsdjfhsdkjfh"}).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
   }
 
 }
