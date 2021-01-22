@@ -27,7 +27,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   listGiaoKeHoach: any = [];
   tempDataGiaoKeHoach: any = [];
   listMatHangGiaoKeHoach: any = [];
-  itemGiaoKeHoach:any = {};
+  itemGiaoKeHoach: any = {};
   mapGiaoKeHoachNIdPhanXuong: any = {};
   lang: any = vn;
   yearRangeChonGiaoKeHoach: string = `${((new Date()).getFullYear() - 10)}:${((new Date()).getFullYear())}`;
@@ -63,12 +63,12 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   }
   GetListMatHangChuaLapKeHoach(event, reset?) {
     this.IddmPhanXuong = this.mapGiaoKeHoachNIdPhanXuong[`${event.value}`];
-    if(validVariable(this.item.IdGiaoKeHoachSanXuat)){
-      this.itemGiaoKeHoach = deepCopy(this.tempDataGiaoKeHoach.find(ele=>ele.Id ===this.item.IdGiaoKeHoachSanXuat));
-      if(validVariable(this.itemGiaoKeHoach.TuNgayUnix)&& this.itemGiaoKeHoach.TuNgayUnix!==0){
+    if (validVariable(this.item.IdGiaoKeHoachSanXuat)) {
+      this.itemGiaoKeHoach = deepCopy(this.tempDataGiaoKeHoach.find(ele => ele.Id === this.item.IdGiaoKeHoachSanXuat));
+      if (validVariable(this.itemGiaoKeHoach.TuNgayUnix) && this.itemGiaoKeHoach.TuNgayUnix !== 0) {
         this.itemGiaoKeHoach.TuNgay = UnixToDate(this.itemGiaoKeHoach.TuNgayUnix)
       }
-      if(validVariable(this.itemGiaoKeHoach.DenNgayUnix)&& this.itemGiaoKeHoach.DenNgayUnix!==0){
+      if (validVariable(this.itemGiaoKeHoach.DenNgayUnix) && this.itemGiaoKeHoach.DenNgayUnix !== 0) {
         this.itemGiaoKeHoach.DenNgay = UnixToDate(this.itemGiaoKeHoach.DenNgayUnix)
       }
     }
@@ -122,7 +122,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       this.checkbutton = res;
     })
   }
-  
+
   GetNextSoQuyTrinh() {
     this._services.TrienKhaiKeHoachSanXuat().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
@@ -137,7 +137,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     modalRef.componentInstance.selectedItems = deepCopy(this.item.listItem);
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
-      this.item.listItem = [...this.merge(deepCopy(res), this.item.listItem.filter(item=>item.isXoa!== true), 'IddmItem'),...this.item.listItem.filter(ele=>ele.isXoa)];
+      this.item.listItem = [...this.merge(deepCopy(res), this.item.listItem.filter(item => item.isXoa !== true), 'IddmItem'), ...this.item.listItem.filter(ele => ele.isXoa)];
     }).catch(er => {
     })
   }
@@ -158,8 +158,19 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     }).catch(er => {
     })
   }
+  ValidData() {
+    if (!validVariable(this.item.IdGiaoKeHoachSanXuat)) {
+      this.toastr.error('Vui lòng chọn kế hoạch giao!')
+      return false
+    }
+    if (!validVariable(this.item.NoiDung)) {
+      this.toastr.error('Vui lòng nhập nội dung!')
+      return false
+    }
+    return true
+  }
   SetData() {
-    this.item.listItem.filter(ele=>ele.isXoa !== true).forEach(mathang => {
+    this.item.listItem.filter(ele => ele.isXoa !== true).forEach(mathang => {
       mathang.TuNgayUnix = DateToUnix(mathang.TuNgay);
       mathang.DenNgayUnix = DateToUnix(mathang.DenNgay);
       // mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach * 1000;
@@ -206,48 +217,53 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     return dates;
   };
   GhiLai() {
-    this._services.TrienKhaiKeHoachSanXuat().Set(this.SetData()).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.toastr.success(res.message)
-          this.opt = 'edit';
-          this.item = res.objectReturn;
-          this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
-          this.KiemTraButtonModal();
-        } else {
-          // this.item.listItem.forEach(mathang => {
-          //   mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach / 1000;
-          //   mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
-          // });
-          this.toastr.error(res.message);
+    if (this.ValidData()) {
+      this._services.TrienKhaiKeHoachSanXuat().Set(this.SetData()).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message)
+            this.opt = 'edit';
+            this.item = res.objectReturn;
+            this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
+            this.KiemTraButtonModal();
+          } else {
+            // this.item.listItem.forEach(mathang => {
+            //   mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach / 1000;
+            //   mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
+            // });
+            this.toastr.error(res.message);
+          }
         }
-      }
-    })
+      })
+    }
+
   }
   ChuyenDuyet() {
-    this._services.TrienKhaiKeHoachSanXuat().ChuyenTiep(this.SetData()).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.toastr.success(res.message)
-          this.activeModal.close();
-          // this.opt = 'edit';
-          // this.item = res.objectReturn;
-          // this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
-          // this.KiemTraButtonModal();
-        } else {
-          // this.item.listItem.forEach(mathang => {
-          //   mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach / 1000;
-          //   mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
-          // });
-          this.toastr.error(res.message);
+    if (this.ValidData()) {
+      this._services.TrienKhaiKeHoachSanXuat().ChuyenTiep(this.SetData()).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message)
+            this.activeModal.close();
+            // this.opt = 'edit';
+            // this.item = res.objectReturn;
+            // this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
+            // this.KiemTraButtonModal();
+          } else {
+            // this.item.listItem.forEach(mathang => {
+            //   mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach / 1000;
+            //   mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
+            // });
+            this.toastr.error(res.message);
+          }
+          // if (res.State === 1) {
+          //   this.activeModal.close();
+          // } else {
+          //   this.toastr.error(res.message);
+          // }
         }
-        // if (res.State === 1) {
-        //   this.activeModal.close();
-        // } else {
-        //   this.toastr.error(res.message);
-        // }
-      }
-    })
+      })
+    }
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -317,7 +333,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       }
     });
     existingArr.forEach((oldEle, index) => {
-      if (oldEle.isXoa!==true) {
+      if (oldEle.isXoa !== true) {
         let indexCheck = newArr.findIndex(
           (newEle) => newEle[diffProp] === oldEle[diffProp]
         );
@@ -397,22 +413,22 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
 
     });
   }
-  validDenNgay(mathang,e){
-    if(validVariable(mathang.TuNgay)){
-      if((DateToUnix(e)-DateToUnix(mathang.TuNgay))<0){
+  validDenNgay(mathang, e) {
+    if (validVariable(mathang.TuNgay)) {
+      if ((DateToUnix(e) - DateToUnix(mathang.TuNgay)) < 0) {
         this.toastr.warning('Đến ngày phải lớn hơn Từ ngày!')
-        setTimeout(()=>{
+        setTimeout(() => {
           mathang.DenNgay = null;
-        },500)
+        }, 500)
       }
-    }else{
-      setTimeout(()=>{
+    } else {
+      setTimeout(() => {
         mathang.DenNgay = null;
-      },500)
+      }, 500)
       this.toastr.warning('Vui lòng chọn Từ ngày trước!')
     }
   }
-  test(){
-    
+  test() {
+
   }
 }

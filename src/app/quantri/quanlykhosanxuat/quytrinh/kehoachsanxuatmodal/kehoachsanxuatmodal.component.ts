@@ -164,6 +164,14 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       this.toastr.error('Vui lòng nhập nội dung!')
       return false;
     }
+    if (!validVariable(this.item.IddmPhanXuong)) {
+      this.toastr.error('Vui lòng nhập phân xưởng!')
+      return false;
+    }
+    if (!validVariable(this.item.TongSoCa)) {
+      this.toastr.error('Vui lòng nhập tổng số ca!')
+      return false;
+    }
     if (validVariable(this.item.TuNgay)) {
       this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
     } else {

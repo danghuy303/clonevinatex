@@ -293,4 +293,9 @@ export class TimbongmodalComponent implements OnInit {
       }
     })
   }
+  TimBongTuDong(){
+    this._services.TimBong().TimBongTuDong(this.ghostItem.Id).subscribe((res:any)=>{
+      console.log(res)
+    })
+  }
 }
