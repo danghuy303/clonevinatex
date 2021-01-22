@@ -86,7 +86,7 @@ export class PhabongComponent implements OnInit {
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then((res: any) => {
-      this._toastr.success('Cập nhật thành công');
+      // this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
       this.changeParam(0);
     })

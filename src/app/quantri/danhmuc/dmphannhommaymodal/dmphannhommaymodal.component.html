@@ -26,6 +26,13 @@
             </div>
         </div>
         <div class="p-col-4 p-d-flex p-flex-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Chi số Nm của máy:</label>
+            <div class="p-col-12 p-lg-7 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Nm">
+                </p-inputNumber>
+            </div>
+        </div>
+        <div class="p-col-4 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
@@ -121,7 +128,7 @@
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.HieuSuat"
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.HieuSuat"
                                 (onInput)="changeHieuSuat($event,item)">
                             </p-inputNumber>
                         </td>

@@ -20,17 +20,7 @@ export class TimbongComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Kế hoạch giao(Tấn)',
-      field: '',
-      width: 'unset'
-    },
-    {
-      header: 'Kế hoạch thực hiện',
-      field: 'NoiDung',
-      width: 'unset'
-    },
-    {
-      header: 'Ghi chú',
+      header: 'Trạng thái',
       field: 'TenTrangThai',
       width: 'unset'
     },
@@ -77,7 +67,7 @@ export class TimbongComponent implements OnInit {
     modalRef.componentInstance.checkbutton = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true }
     modalRef.result.then((res: any) => {
       console.log(res);
-      this._toastr.success('Cập nhật thành công');
+      // this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
       this.changeParam(0);
     })
