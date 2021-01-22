@@ -2,10 +2,10 @@ import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { ModalimportexcelComponent } from 'src/app/quantri/modal/modalimportexcel/modalimportexcel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ModaldanhmucchungComponent } from '../../modal/modaldanhmucchung/modaldanhmucchung.component';
+import { ImportdanhmucmodelComponent } from '../modals/importdanhmucmodel/importdanhmucmodel.component';
 
 @Component({
   selector: 'app-nhomkho',
@@ -131,15 +131,29 @@ export class NhomkhoComponent implements OnInit {
     this.paging.CurrentPage = event.page+1;
     this.GetListdm();
   }
-  importExcel(){
-    let modalRef = this._modal.open(ModalimportexcelComponent,{
+  importExcel(){//ModalimportexcelComponent
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
       backdrop:'static',
     })
-    modalRef.componentInstance.importFunc = '';
+    modalRef.componentInstance.importFunc = 'SCM_dmNhomKho';
     modalRef.result.then(res=>{
       this.GetListdm();
       this._toastr.success(res.mess);
     })
     .catch(er=>console.log(er))
+  }
+  exportExcel(){
+    let data = {
+      PageSize:20, 
+      CurrentPage:0,
+      sFilter:this.keyWord?this.keyWord:'',
+      Ma:"", 
+      Ten:"",
+      Loai:"1",
+      TableName:'SCM_dmNhomKho'
+    };
+    this._services.Exportdm(data).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
   }
 }
