@@ -1,6 +1,8 @@
+import { HostListener } from '@angular/core';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavigationEnd } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,14 @@ import { NavigationEnd } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private router: Router) { }
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+    if(this._modal.hasOpenModals){
+      window.history.forward();
+      this._modal.dismissAll();
+    }
+  }
+  constructor(private router: Router,private _modal:NgbModal) { }
 
   ngOnInit() {
     this.router.events.subscribe((evt) => {

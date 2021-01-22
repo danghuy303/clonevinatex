@@ -30,7 +30,7 @@ export class BotrimaymodalComponent implements OnInit {
       {color:'blue',GhiChu:'Máy của công đoạn và mặt hàng hiện tại'},
     ]
     this.listChuThich2=[
-      {color:'yellow',GhiChu:'Máy máy của công đoạn và mặt hàng khác'},
+      {color:'yellow',GhiChu:'Máy của công đoạn và mặt hàng khác'},
       {color:'red',GhiChu:'Máy đang sử dụng trong kế hoạch khác'},
     ]
     // console.log(this.PoolMaySanXuat);
