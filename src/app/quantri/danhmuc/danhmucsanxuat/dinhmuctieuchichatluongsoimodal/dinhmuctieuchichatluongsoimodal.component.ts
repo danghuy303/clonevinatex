@@ -25,8 +25,7 @@ export class DinhmuctieuchichatluongsoimodalComponent implements OnInit {
     if (this.item.length > 0) {
       this.item.forEach(element => {
         let indexOf = element.itemChiTieuChatLuong.Ten.indexOf('Chi số thực tế (Ne)');
-        // let indexOf = Ten.indexOf('Chi số thực tế (Ne)');
-        element.disable = indexOf == 0 ? true : false;
+        element.disable = indexOf > -1 ? true : false;
       });
     }
   }
