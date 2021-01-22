@@ -50,8 +50,7 @@
             <tr>
                 <th class="text-center">#</th>
                 <th>Số phiếu</th>
-                <th>Nội dung</th>
-                <th>Ngày duyệt KH giao</th>
+                <th>Số phiếu phương án pha bông</th>
                 <th *ngFor="let header of cols">
                     {{header.header}}
                 </th>
@@ -64,8 +63,7 @@
                     {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
                 <td class="text-center">{{item.SoQuyTrinh}}</td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
+                <td class="text-center">{{item.PhuongAnPhaBong.SoQuyTrinh}}</td>
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
                 </td>
