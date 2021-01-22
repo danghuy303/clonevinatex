@@ -17,6 +17,9 @@ export class ChonhanghoamodalComponent implements OnInit {
   constructor(private _activeModal: NgbActiveModal, private _services: SanXuatService) { }
 
   ngOnInit(): void {
+    this.items.forEach(item => {
+      item.checked = false;
+    });
     if (this.selectedItems.length !== 0) {
       switch (this.opt) {
         case "KhoiLuongKeHoach":
@@ -44,14 +47,19 @@ export class ChonhanghoamodalComponent implements OnInit {
           });
           break;
         default:
+          console.log(this.selectedItems)
           this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
             let selected = this.items.filter(item => sItem.IddmItem === item.Id)[0];
             if (selected) {
-              selected.checked = false;
+              selected.checked = true;
             }
           });
           break;
       }
+    }else{
+      this.items.forEach(item => {
+        item.checked = false;
+      });
     }
     if(this.items.length!==0){
       this.checkedAll = this.items.every((ele)=>ele.checked);

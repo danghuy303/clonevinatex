@@ -61,7 +61,8 @@ export class PhabongComponent implements OnInit {
     this.changeParam(0);
     let modalRef = this._modal.open(PhabongmodalComponent, {
       size: 'fullscreen-100',
-      backdrop: 'static'
+      backdrop: 'static',
+      keyboard:false
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {
@@ -79,12 +80,12 @@ export class PhabongComponent implements OnInit {
   update(item) {
     let modalRef = this._modal.open(PhabongmodalComponent, {
       size: 'fullscreen-100',
-      backdrop: 'static'
+      backdrop: 'static',
+      keyboard:false
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then((res: any) => {
-      console.log(res);
       this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
       this.changeParam(0);

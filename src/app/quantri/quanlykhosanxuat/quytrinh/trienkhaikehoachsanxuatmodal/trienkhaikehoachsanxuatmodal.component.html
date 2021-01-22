@@ -165,7 +165,7 @@
                         </td>
                         <td class="text-center">
                             <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                                [yearNavigator]="false" [readonlyInput]="true" [minDate]="minDateChonMay"
+                                [yearNavigator]="false" [readonlyInput]="true" [minDate]="minDateChonMay" (onSelect)="validDenNgay(mathang,$event)"
                                 [maxDate]="maxDateChonMay" inputId="monthpicker" [(ngModel)]="mathang.DenNgay"
                                 [disabled]="validChonLai(mathang)" placeholder="dd/mm/yyyy">
                             </p-calendar>

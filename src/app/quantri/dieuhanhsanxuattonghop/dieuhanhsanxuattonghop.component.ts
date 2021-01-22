@@ -90,14 +90,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     }
     this.filter.nNgay = (new Date()).getDate();
     this.filter.nThang = (new Date()).getMonth() + 1;
-    this.filter.nNam = (new Date()).getFullYear();
-    let listtieuchi = [
-      { Id: "IPI", Ten: "Tổng IPI cấp I" },
-      { Id: "Rgl", Ten: "Độ bền tuyệt đối Rgl" },
-      { Id: "CVp", Ten: "Hệ số biến sai độ bền CVp" },
-      { Id: "U", Ten: "Độ không đều Uster" },            
-    ];
-    this.listtieuchi = mapArrayForDropDown(listtieuchi, 'Ten', 'Id');
+    this.filter.nNam = (new Date()).getFullYear();   
     // this.dataSet1 = {
     //   labels: this.listThang.map(ele => ele.label),
     //   datasets: [
@@ -181,6 +174,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     };  
     this._services.GetListdmPhanXuong(data2).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+    this._services.BaoCao().GetDanhSachChiTieuChatLuong_BieuDo().subscribe((res: any) => {
+      this.listtieuchi = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     // this._services.GetOptions().GetMatHang().subscribe((res: any) => {
     //   let fakeMatHang = [

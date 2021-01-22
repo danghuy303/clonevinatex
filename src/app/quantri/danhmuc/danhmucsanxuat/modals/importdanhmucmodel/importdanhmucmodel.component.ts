@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { API } from 'src/app/services/host';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-importdanhmucmodel',
@@ -16,25 +17,27 @@ export class ImportdanhmucmodelComponent implements OnInit {
     TenGoc: ''
   }
   importFunc: any = '';
-  mapTepMauURL:any={
+  mapTepMauURL: any = {
   };
   Name: any = '';
   uploader: FileUploader;
-  data:any = {};
-  constructor(private _modalActive: NgbActiveModal, private _modal: NgbModal, 
-    private service: SanXuatService,private _toastr:ToastrService) { }
+  data: any = {};
+  IdDuAn: any;
+  constructor(private _modalActive: NgbActiveModal, private _modal: NgbModal,
+    private service: SanXuatService, private _toastr: ToastrService, private store: StoreService) { }
   ngOnInit(): void {
-    let option:FileUploaderOptions = {
+    this.IdDuAn = this.store.getCurrent();
+    let option: FileUploaderOptions = {
       url: `${API.uploadURL}`,
       headers: [{ name: 'Accept', value: 'application/json' }],
       autoUpload: true,
     }
-    
+
     this.uploader = new FileUploader(option);
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = true;
-    };   
-      
+    };
+
     this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
     this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
     this.uploader.onCompleteItem = (item, response, status, headers) => this.onCompleteItem(item, response, status, headers);
@@ -46,31 +49,43 @@ export class ImportdanhmucmodelComponent implements OnInit {
   onCompleteItem = (item: any, response: any, status: any, headers: any) => {
     let res = JSON.parse(response);
     console.log(res)
-      this.TepImport.TenGui = res[0].Name;
-      this.TepImport.TenGoc = res[0].NameLocal;
-      this.TepImport.DuongDan = res[0].Url; 
+    this.TepImport.TenGui = res[0].Name;
+    this.TepImport.TenGoc = res[0].NameLocal;
+    this.TepImport.DuongDan = res[0].Url;
   };
   onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
   }
   accept() {
-    this.service.Importdm(this.importFunc, this.TepImport.TenGui).subscribe((res:any) => {
-      if(res.State===1){
-        this._modalActive.close({mess:'Cập nhật thành công!'})
-      }else{
-        this._toastr.error(res.message);
-      }
-    })
+    if(this.Name == 'dinhmuctieuchichatluongsoi'){
+      this.service.ImportDanhSachChiTieuChatLuongTheoSanPham(this.IdDuAn, '', this.TepImport.TenGui).subscribe((res: any) => {
+        if (res.State === 1) {
+          this._modalActive.close({ mess: 'Cập nhật thành công!' })
+        } else {
+          this._toastr.error(res.message);
+        }
+      })
+    }
+    else{
+      this.service.Importdm(this.importFunc, this.TepImport.TenGui).subscribe((res: any) => {
+        if (res.State === 1) {
+          this._modalActive.close({ mess: 'Cập nhật thành công!' })
+        } else {
+          this._toastr.error(res.message);
+        }
+      })
+    }    
   }
   acceptThongSoChatLuong() {
-    this.service.PhieuNhapLoBong_ChatLuong().Import(this.data.Id, this.TepImport.TenGui).subscribe((res:any) => {
-      if(res.State===1){
-        this._modalActive.close({mess:'Cập nhật thành công!'})
-      }else{
+    this.service.PhieuNhapLoBong_ChatLuong().Import(this.data.Id, this.TepImport.TenGui).subscribe((res: any) => {
+      if (res.State === 1) {
+        this._modalActive.close({ mess: 'Cập nhật thành công!' })
+      } else {
         this._toastr.error(res.message);
       }
     })
-  }
-  taiTepMau(){
-    window.open(API.baseUrl+this.mapTepMauURL[this.importFunc]);
+  } 
+
+  taiTepMau() {
+    window.open(API.baseUrl + this.mapTepMauURL[this.importFunc]);
   }
 }

@@ -20,7 +20,7 @@
                 [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày">
             </p-calendar>
         </div>
-        <div class="p-inputgroup">
+        <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh()" [(ngModel)]="filter.KeyWord"/>
             <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"(click)="resetFilter()"></button>
         </div>
@@ -42,6 +42,8 @@
                 <col style="width:50px">
                 <col>
                 <col>
+                <col>
+                <col>
                 <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
                 <col style="width: 100px;">
             </colgroup>
@@ -51,6 +53,8 @@
                 <th class="text-center">#</th>
                 <th>Số phiếu</th>
                 <th>Nội dung</th>
+                <th>Kế hoạch giao(Tấn)</th>
+                <th>Kế hoạch thực hiện(Tấn)</th>
                 <th *ngFor="let header of cols">
                     {{header.header}}
                 </th>
@@ -64,6 +68,8 @@
                 </td>
                 <td class="text-center">{{item.SoQuyTrinh}}</td>
                 <td class="text-center">{{item.NoiDung}}</td>
+                <td class="text-center">{{item.KhoiLuongKeHoach/1000|number:'0.0-3'}}</td>
+                <td class="text-center">{{item.KhoiLuongSanXuat/1000|number:'0.0-3'}}</td>
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
                 </td>

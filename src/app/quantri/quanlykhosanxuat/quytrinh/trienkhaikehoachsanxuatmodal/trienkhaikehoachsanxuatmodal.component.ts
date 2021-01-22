@@ -397,6 +397,22 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
 
     });
   }
+  validDenNgay(mathang,e){
+    if(validVariable(mathang.TuNgay)){
+      if((DateToUnix(e)-DateToUnix(mathang.TuNgay))<0){
+        this.toastr.warning('Đến ngày phải lớn hơn Từ ngày!')
+        setTimeout(()=>{
+          mathang.DenNgay = null;
+        },500)
+      }
+    }else{
+      setTimeout(()=>{
+        mathang.DenNgay = null;
+      },500)
+      this.toastr.warning('Vui lòng chọn Từ ngày trước!')
+    }
+  }
   test(){
+    
   }
 }
