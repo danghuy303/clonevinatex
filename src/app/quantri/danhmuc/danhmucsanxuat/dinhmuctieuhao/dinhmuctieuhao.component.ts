@@ -31,19 +31,19 @@ export class DinhmuctieuhaoComponent implements OnInit {
     {
       header: 'Mã mặt hàng',
       field: 'Ma',
-      width: '100px',
+      width: 'unset',
       align:'center'
     },
     {
       header: 'Tên mặt hàng',
       field: 'Ten',
-      width: '200px',
+      width: 'unset',
       align:'center'
     },
     {
       header: 'Tên phân xưởng',
       field: 'TendmPhanXuong',
-      width: '200px',
+      width: 'unset',
       align:'center'
     },
     {

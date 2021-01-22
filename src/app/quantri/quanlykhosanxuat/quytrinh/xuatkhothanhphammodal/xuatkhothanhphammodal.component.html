@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Kế hoạch xuất hàng {{nametype}}</h5>
+    <h5 class="modal-title">Phiếu xuất kho thành phẩm</h5>
     <!-- <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
@@ -30,6 +30,13 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Kho:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" [(ngModel)]="item.IddmKho"
+                styleClass="p-inputtext-sm"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input pInputText type="text" [(ngModel)]="item.NoiDung">
@@ -44,9 +51,9 @@
                             </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-lg-11 p-p-0">
                 <input pInputText type="text" [(ngModel)]="item.GhiChu">
             </div>
         </div>
@@ -65,28 +72,30 @@
                         <col>
                         <col>
                         <col>
-                        <col>
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>#</th>
-                        <th>Mặt hàng</th>
-                        <th>Số hợp đồng</th>
-                        <th>Số tấn</th>
-                        <th>Thời gian xuất hàng</th>
-                        <th>Người nhận hàng</th>
-                        <th>Khách hàng</th>
-                        <th>Ghi chú</th>
-                        <th style="width: 100px;"></th>
+                        <th rowspan="2">#</th>
+                        <th rowspan="2">Mặt hàng</th>
+                        <th rowspan="2">Lô</th>
+                        <th rowspan="2">Hợp đồng</th>
+                        <th colspan="2">Số lượng</th>
+                        <th rowspan="2">Ghi chú</th>
+                        <th rowspan="2" style="width: 100px;"></th>
+                    </tr>
+                    <tr>
+                        <th>Kg</th>
+                        <th>Kiện</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">{{item.Ten}}</td>
                         <td class="text-center">
-                            {{item.Ten}}
+                            <input pInputText type="text" [(ngModel)]="item.Lo">
                         </td>
                         <td class="text-center">
                             <input pInputText type="text" [(ngModel)]="item.SoHopDong">
@@ -96,16 +105,8 @@
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
-                                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
-                                [(ngModel)]="item.ThoiGianDuKien" inputId="icon" placeholder="dd/mm/yyyy">
-                            </p-calendar>
-                        </td>
-                        <td>
-                            <input pInputText type="text" [(ngModel)]="item.NguoiNhan">
-                        </td>
-                        <td>
-                            <input pInputText type="text" [(ngModel)]="item.KhachHang">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuongXuat">
+                            </p-inputNumber>
                         </td>
                         <td>
                             <input pInputText type="text" [(ngModel)]="item.GhiChu">
