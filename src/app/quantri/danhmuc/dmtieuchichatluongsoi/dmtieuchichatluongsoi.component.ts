@@ -126,7 +126,7 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.listdungsai = this.listdungsai;
-    modalRef.componentInstance.title = 'Thêm mới tiêu chi chất lượng sợi';
+    modalRef.componentInstance.title = 'Thêm mới tiêu chí chất lượng sợi';
     modalRef.result.then(res => {
       // this._toastr.success(res);
       this.GetListdm()
@@ -139,7 +139,7 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
       });
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listdungsai = this.listdungsai;
-      modalRef.componentInstance.title = 'Cập nhật tiêu chi chất lượng sợi';
+      modalRef.componentInstance.title = 'Cập nhật tiêu chí chất lượng sợi';
       modalRef.componentInstance.item = res;
       modalRef.result.then(res => {
         // this._toastr.success(res);

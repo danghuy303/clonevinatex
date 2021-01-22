@@ -23,13 +23,13 @@ export class DmnhomcongtoComponent implements OnInit {
     {
       header: 'Mã',
       field: 'Ma',
-      width: '200px',
+      width: 'unset',
       align:'center'
     },
     {
       header: 'Tên',
       field: 'Ten',
-      width: '300px',
+      width: 'unset',
       center:'left'
     },
     {
@@ -133,15 +133,22 @@ export class DmnhomcongtoComponent implements OnInit {
     this.GetDanhSachNhomCongToDien();
   }
   importExcel(){
-    let modalRef = this._modal.open(ModalimportexcelComponent,{
-      backdrop:'static',
-    })
-    modalRef.componentInstance.importFunc = 'BienDong';
-    modalRef.result.then(res=>{
-      this.GetDanhSachNhomCongToDien();
-      this._toastr.success(res.mess);
-    })
-    .catch(er=>console.log(er))
+    // let modalRef = this._modal.open(ModalimportexcelComponent,{
+    //   backdrop:'static',
+    // })
+    // modalRef.componentInstance.importFunc = 'BienDong';
+    // modalRef.result.then(res=>{
+    //   this.GetDanhSachNhomCongToDien();
+    //   this._toastr.success(res.mess);
+    // })
+    // .catch(er=>console.log(er))
+  }
+
+  exportExcel() {
+    // let data:any;
+    // this._services.ExportDanhSachChiTieuChatLuongTheoSanPham({id:"àhsdkhfklsdjfhsdkjfh"}).subscribe((res: any) => {
+    //   this._services.download(res.TenFile);
+    // })
   }
 
 }
