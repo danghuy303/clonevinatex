@@ -29,21 +29,12 @@ export class DmphannhommaymodalComponent implements OnInit {
 
   constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
-  ngOnInit(): void {
-    this.getDonViNangXuat();
+  ngOnInit(): void {    
     if (this.opt == 'edit') {
       // this.GetPhanXuong();
     }
     // this.GetDanhSachLoaiDienKV();
-  }
-
-  getDonViNangXuat() {
-    let listDonViNangSuat = [
-      { Id: 0, Ten: "M" },
-      { Id: 1, Ten: "Kg" },
-    ];
-    this.listDonViNangSuat = mapArrayForDropDown(listDonViNangSuat, 'Ten', 'Id');
-  }
+  } 
 
   accept() {
     this.khongclicknhieu = !this.khongclicknhieu;

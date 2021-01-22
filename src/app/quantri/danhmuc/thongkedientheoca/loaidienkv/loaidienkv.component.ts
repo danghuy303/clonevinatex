@@ -23,20 +23,20 @@ export class LoaidienkvComponent implements OnInit {
     {
       header: 'Mã',
       field: 'Ma',
-      width: '200px',
+      width: 'unset',
       align:'center'
     },
     {
       header: 'Tên',
       field: 'Ten',
-      width: '300px',
-      center:'left'
+      width: 'unset',
+      align:'left'
     },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset',
-      center:'center'
+      align:'center'
     }
   ];
   selectedItems:any=[];

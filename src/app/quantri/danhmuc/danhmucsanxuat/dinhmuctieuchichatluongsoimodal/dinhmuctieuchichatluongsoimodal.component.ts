@@ -22,7 +22,13 @@ export class DinhmuctieuchichatluongsoimodalComponent implements OnInit {
     public toastr: ToastrService, private _modal: NgbModal) { }
 
   ngOnInit(): void {
-
+    if (this.item.length > 0) {
+      this.item.forEach(element => {
+        let indexOf = element.itemChiTieuChatLuong.Ten.indexOf('Chi số thực tế (Ne)');
+        // let indexOf = Ten.indexOf('Chi số thực tế (Ne)');
+        element.disable = indexOf == 1 ? true : false;
+      });
+    }
   }
 
   accept() {
