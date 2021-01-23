@@ -304,7 +304,7 @@ export class PhabongmodalComponent implements OnInit {
     this.TongKhoiLuongDung = tempTongKhoiLuongDung;
     this.itemMicBQ[`${x}`] = tempTongCLMic / tempSoKien1LineTruBongHoi;
     this.itembBQ[`${x}`] = tempTongCLb / tempSoKien1LineTruBongHoi;
-    this.itemSoKienTrenBan[`${x}`] = tempSoKien1Line;
+    this.itemSoKienTrenBan[`${x}`] = tempSoKien1Line>this.item.TongSoKien?this.item.TongSoKien:tempSoKien1Line;
     this.itemSoKienTrenBanTruBongHoi[`${x}`] = tempSoKien1LineTruBongHoi;
     this.itemTrongLuong1Ban[`${x}`] = tempTongTrongLuong;
     this.itemGiaTrungBinh[`${x}`] = tempTongGia / tempTongTrongLuong;
