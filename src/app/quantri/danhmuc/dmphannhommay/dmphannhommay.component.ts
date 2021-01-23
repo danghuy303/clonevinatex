@@ -92,7 +92,7 @@ export class DmphannhommayComponent implements OnInit {
     this.dataSearch = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      sFilter: this.keyWord,
+      KeyWord: this.keyWord,
       Ma: "",
       Ten: ""
     };
