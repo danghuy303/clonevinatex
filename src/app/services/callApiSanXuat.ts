@@ -48,8 +48,8 @@ export class SanXuatService {
     DMMayBienAp() {
         let url = API.ThongKeDien;
         return {
-            GetList: () => {
-                return this.http.get(url + 'GetDanhSachMayBienAp', httpOptions);
+            GetList: (data) => {
+                return this.http.post(url + 'GetDanhSachMayBienAp', data, httpOptions);
             },
             Get: (Id) => {
                 return this.http.get(url + `GetItemMayBienAp?Id=${Id}`, httpOptions);
@@ -88,8 +88,8 @@ export class SanXuatService {
     dmNhomCongToDien() {
         let url = API.ThongKeDien;
         return {
-            GetList: () => {
-                return this.http.get(url + 'GetDanhSachNhomCongToDien', httpOptions);
+            GetList: (data) => {
+                return this.http.post(url + 'GetDanhSachNhomCongToDien', data, httpOptions);
             },
             Get: (Id) => {
                 return this.http.get(url + `GetItemNhomCongToDien?Id=${Id}`, httpOptions);
@@ -187,8 +187,8 @@ export class SanXuatService {
     dmTieuChiChatLuongsoi() {
         let url = API.SCMKiemTraChatLuong;
         return {
-            GetList: () => {
-                return this.http.get(url + 'GetDanhSachChiTieuChatLuong', httpOptions);
+            GetList: (data) => {
+                return this.http.post(url + 'GetDanhSachChiTieuChatLuong', data, httpOptions);
             },
             Get: (Id) => {
                 return this.http.get(url + `GetItemChiTieuChatLuong?Id=${Id}`, httpOptions);
@@ -207,8 +207,8 @@ export class SanXuatService {
     dmCongToDien() {
         let url = API.ThongKeDien;
         return {
-            GetList: (idMayBienAp) => {
-                return this.http.get(url + `GetDanhSachCongToDien?idMayBienAp=${idMayBienAp}`, httpOptions);
+            GetList: (data) => {
+                return this.http.post(url + `GetDanhSachCongToDien`, data, httpOptions);
             },
             Get: (Id) => {
                 return this.http.get(url + `GetItemCongToDien?Id=${Id}`, httpOptions);
@@ -1203,9 +1203,9 @@ export class SanXuatService {
     }
 
 
-    GetDanhSachChiTieuChatLuong() {
+    GetDanhSachChiTieuChatLuong(data) {
         let url = API.SCMKiemTraChatLuong + 'GetDanhSachChiTieuChatLuong';
-        return this.http.get(url, httpOptions);
+        return this.http.post(url, data, httpOptions);
     }
 
     PhieuXuatThanhPham() {

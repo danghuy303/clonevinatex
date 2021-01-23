@@ -46,7 +46,7 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
       field: 'TenDungSaiChoPhep',
       width: 'unset',
       center: 'left'
-    }, 
+    },
     // {
     //   header: 'Ghi chú',
     //   field: 'GhiChu',
@@ -77,15 +77,15 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
 
   getdungsai() {
     this.listdungsai = [
-      {Id:"NhoHonHoacBang",Ten:"≤"},
-      {Id:"CongTru",Ten:"±"},
-      {Id:"LonHonHoacBang",Ten:"≥"},
-      {Id:"Thin-40%",Ten:"Thin (- 40%)"},
-      {Id:"Thin-50%",Ten:"Thin (- 50%)"},      
-      {Id:"Thick+35%",Ten:"Thick (+ 35%)"}, 
-      {Id:"Thick+50%",Ten:"Thick (+ 50%)"},      
-      {Id:"Neps+140%",Ten:"Neps (+ 140%)"},      
-      {Id:"Neps+200%",Ten:"Neps (+ 200%)"},
+      { Id: "NhoHonHoacBang", Ten: "≤" },
+      { Id: "CongTru", Ten: "±" },
+      { Id: "LonHonHoacBang", Ten: "≥" },
+      { Id: "Thin-40%", Ten: "Thin (- 40%)" },
+      { Id: "Thin-50%", Ten: "Thin (- 50%)" },
+      { Id: "Thick+35%", Ten: "Thick (+ 35%)" },
+      { Id: "Thick+50%", Ten: "Thick (+ 50%)" },
+      { Id: "Neps+140%", Ten: "Neps (+ 140%)" },
+      { Id: "Neps+200%", Ten: "Neps (+ 200%)" },
     ];
     this.listdungsai = mapArrayForDropDown(this.listdungsai, 'Ten', 'Id')
   }
@@ -98,26 +98,22 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
 
   GetListdm(reset?) {
     if (reset) {
-      this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
+      this.paging.CurrentPage = 1;     
     }
     this.dataSearch = {
-      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      sFilter: this.keyWord,
-      Ma: "",
-      Ten: ""
+      KeyWord: this.keyWord,    
     };
-    this._services.dmTieuChiChatLuongsoi().GetList().subscribe((res: any) => {
-      this.items = res;
+    this._services.dmTieuChiChatLuongsoi().GetList(this.dataSearch).subscribe((res: any) => {
+      this.items = res.items;
+      this.paging = res.paging;
       this.items.forEach(element => {
         this.listdungsai.filter(obj => {
           if (element.DungSaiChoPhep == obj.value) {
             element.TenDungSaiChoPhep = obj.label;
           }
-        });     
+        });
       });
-      // this.paging = res.paging;
     })
   }
   add() {
@@ -184,10 +180,10 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
   //     })
   //   }).catch(er => console.log(er))
   // }
-  changePage(event) {
-    this.paging.CurrentPage = event.page + 1;
-    this.GetListdm();
-  }
+  // changePage(event) {
+  //   this.paging.CurrentPage = event.page + 1;
+  //   this.GetListdm();
+  // }
   importExcel() {
     // let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
     //   backdrop: 'static',
