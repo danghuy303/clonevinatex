@@ -98,7 +98,7 @@ export class DanhsachmayComponent implements OnInit {
   }
 
   GetListdmPhanNhomMaySanXuat() {
-    this._services.dmPhanNhomMaySanXuat().GetList().subscribe((res: any) => {
+    this._services.dmPhanNhomMaySanXuat().GetList({}).subscribe((res: any) => {
       this.listPhanNhomMaySX = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

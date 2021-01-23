@@ -1,6 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
 const host1 = 'http://eos.harmonyes.com.vn:1169';
 const host = 'http://localhost:1169';
+//host public 'http://vinatex.harmonyes.com.vn';
+//host phat trien 'http://eos.harmonyes.com.vn:1169'
 export const httpOptions = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -12,7 +14,7 @@ export const httpOptions = {
     withCredentials: true,
 };
 export class API {    
-    public static auth = 'http://eos.harmonyes.com.vn:1169/SmartEOSAPI/';
+    public static auth = host1+'/SmartEOSAPI/';
     public static baseUrl = host1 + '/QLTS/';
     // public static auth = host + '/SmartEOSAPI/';
     // public static baseUrl = host + '/';

@@ -368,24 +368,24 @@ export class QuantriComponent implements OnInit {
             },
 
 
-            {
-                label: 'Báo cáo',
-                icon: 'pi pi-chart-bar',
-                routerLink: '/quantri/baocaosanxuat',
-                expanded: false,
-                items: [
-                    {
-                        label: 'Báo cáo sản lượng tổng hợp',
-                        routerLink: '/quantri/baocaosanxuat/sanluongtonghop',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Báo cáo sản lượng chi tiết',
-                        routerLink: '/quantri/baocaosanxuat/sanluongchitiet',
-                        command: () => this.close()
-                    },
-                ]
-            },
+            // {
+            //     label: 'Báo cáo',
+            //     icon: 'pi pi-chart-bar',
+            //     routerLink: '/quantri/baocaosanxuat',
+            //     expanded: false,
+            //     items: [
+            //         {
+            //             label: 'Báo cáo sản lượng tổng hợp',
+            //             routerLink: '/quantri/baocaosanxuat/sanluongtonghop',
+            //             command: () => this.close()
+            //         },
+            //         {
+            //             label: 'Báo cáo sản lượng chi tiết',
+            //             routerLink: '/quantri/baocaosanxuat/sanluongchitiet',
+            //             command: () => this.close()
+            //         },
+            //     ]
+            // },
             {
                 label: 'Danh mục dùng chung',
                 routerLink: '/quantri/danhmuc',

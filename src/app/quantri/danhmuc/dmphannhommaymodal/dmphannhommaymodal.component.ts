@@ -15,7 +15,6 @@ import { DmphannhommayChonmathangmodalComponent } from '../dmphannhommay-chonmat
   styleUrls: ['./dmphannhommaymodal.component.css']
 })
 export class DmphannhommaymodalComponent implements OnInit {
-
   public item: any = {};
   public title: any = '';
   public type = '';
@@ -30,6 +29,7 @@ export class DmphannhommaymodalComponent implements OnInit {
   constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {    
+    this.item.ChiSoDinhMuc={}
     if (this.opt == 'edit') {
       // this.GetPhanXuong();
     }
