@@ -70,32 +70,38 @@ export class DmcongtoComponent implements OnInit {
   }
 
   GetDanhSachMayBienAp() {
-    this._services.DMMayBienAp().GetList().subscribe((res: any) => {
+    let data = {
+      CurrentPage: 0,
+      KeyWord: "",
+    };
+    this._services.DMMayBienAp().GetList(data).subscribe((res: any) => {
       this.listmaybienap = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 
   GetDanhSachCongToDien() {
-    this._services.dmNhomCongToDien().GetList().subscribe((res: any) => {
+    let data = {
+      CurrentPage: 0,
+      KeyWord: "",
+    };
+    this._services.dmNhomCongToDien().GetList(data).subscribe((res: any) => {
       this.listnhomcongto = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 
   GetListdm(reset?) {
-    // if (reset) {
-    //   this.paging.CurrentPage = 1;
-    //   this.paginator.changePage(0);
-    // }
-    // this.dataSearch = {
-    //   PageSize: 20,
-    //   CurrentPage: this.paging.CurrentPage,
-    //   sFilter: this.keyWord,
-    //   Ma: "",
-    //   Ten: ""
-    // };
+    if (reset) {
+      this.paging.CurrentPage = 1;      
+    }
+    this.dataSearch = {
+      CurrentPage: this.paging.CurrentPage,
+      KeyWord: this.keyWord,
+      idMayBienAp: this.dataSearch.idMayBienAp,      
+    };
     let idMayBienAp = this.dataSearch.idMayBienAp != undefined && this.dataSearch.idMayBienAp != null && this.dataSearch.idMayBienAp != "" ? this.dataSearch.idMayBienAp : '';
-    this._services.dmCongToDien().GetList(idMayBienAp).subscribe((res: any) => {
-      this.items = res;
+    this._services.dmCongToDien().GetList(this.dataSearch).subscribe((res: any) => {
+      this.items = res.items;
+      this.paging = res.paging;
       this.items.forEach(element => {
         this.listnhomcongto.filter(obj => {
           if (element.idNhomCongToDien == obj.value) {
@@ -107,8 +113,7 @@ export class DmcongtoComponent implements OnInit {
             element.TenBienAp = obj.label;
           }
         });
-      });
-      // this.paging = res.paging;
+      });     
     })
   }
   add() {

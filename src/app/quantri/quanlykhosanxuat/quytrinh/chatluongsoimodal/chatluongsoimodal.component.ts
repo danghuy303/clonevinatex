@@ -16,16 +16,16 @@ export class ChatluongsoimodalComponent implements OnInit {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
-    Ghi:true,
-    KhongDuyet:false,
-    ChuyenTiep:false,
-    Xoa:false,
+    Ghi: true,
+    KhongDuyet: false,
+    ChuyenTiep: false,
+    Xoa: false,
   }
   listdmKho: any = [];
   editTableItem: any = {};
-  newTableItem:any={};
-  filter:any = {};
-  listdmPhanXuong:any= [];
+  newTableItem: any = {};
+  filter: any = {};
+  listdmPhanXuong: any = [];
   lang: any = vn;
   lstSanPham: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
@@ -43,18 +43,18 @@ export class ChatluongsoimodalComponent implements OnInit {
     if (this.item.NgayKiemTraUnix !== null && this.item.NgayKiemTraUnix !== undefined) {
       this.item.NgayKiemTra = new Date(this.item.NgayKiemTraUnix * 1000);
     }
-    
+
     this.getListdmPhanXuong();
   }
   KiemTraButtonModal() {
-    this.services.KiemTraButton(this.item.Id || '',this.item.IdTrangThai || '').subscribe(res => {
+    this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
     })
   }
- 
+
   ChuyenDuyet() {
     if (this.item.NgayKiemTra !== null && this.item.NgayKiemTra !== undefined)
-        this.item.NgayKiemTraUnix = (new Date(this.item.NgayKiemTra)).getTime() / 1000;
+      this.item.NgayKiemTraUnix = (new Date(this.item.NgayKiemTra)).getTime() / 1000;
     this.services.PhieuChatLuongSoi().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -66,7 +66,7 @@ export class ChatluongsoimodalComponent implements OnInit {
       }
     })
   }
- 
+
   GetNextSoQuyTrinh() {
     this.services.PhieuChatLuongSoi().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
@@ -76,7 +76,7 @@ export class ChatluongsoimodalComponent implements OnInit {
   GhiLai() {
     if (this.item.NgayKiemTra === null && this.item.NgayKiemTra === undefined)
       this.toastr.error("Bạn chưa chọn  ngày");
-    else{
+    else {
       this.item.NgayKiemTraUnix = (new Date(this.item.NgayKiemTra)).getTime() / 1000;
       this.services.PhieuChatLuongSoi().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -108,7 +108,7 @@ export class ChatluongsoimodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
- 
+
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
@@ -141,8 +141,8 @@ export class ChatluongsoimodalComponent implements OnInit {
               IddmChiTieu: element.Id,
               IddmItem: danhmuc.Id,
             }
-            for(let i = 0; i < element.lstChatLuongSanPham.length; i++){
-              if(element.lstChatLuongSanPham[i].IddmItem == danhmuc.Id){
+            for (let i = 0; i < element.lstChatLuongSanPham.length; i++) {
+              if (element.lstChatLuongSanPham[i].IddmItem == danhmuc.Id) {
                 datapush.ChiTieuThucTe = element.lstChatLuongSanPham[i].ChiTieuThucTe;
                 break;
               }
@@ -180,7 +180,11 @@ export class ChatluongsoimodalComponent implements OnInit {
     })
   }
   getDanhSachChiTieuChatLuong() {
-    this.services.GetDanhSachChiTieuChatLuong().subscribe((res: any) => {
+    let data = {
+      CurrentPage: 0,
+      KeyWord: "",
+    }
+    this.services.GetDanhSachChiTieuChatLuong(data).subscribe((res: any) => {
       this.item.lstDanhMuc = res;
     })
   }
