@@ -14,7 +14,7 @@
                     [disabled]="khongclicknhieu"></button>
             </div>
             <div class="p-d-flex p-flex-row">
-                <div class="p-mr-2">
+                <div class="p-mr-2" *ngIf="opt!=='SOI'">
                     <p-dropdown [filter]="true" [options]="listloaisoi" placeholder="Chọn" [(ngModel)]="filter.IddmLoaiSoi"
                         styleClass="p-inputtext-sm" (onChange)="GetDMMatHang()"></p-dropdown>
                 </div>
@@ -62,5 +62,4 @@
     </div>
 </div>
 <div class="modal-footer">
-
 </div>

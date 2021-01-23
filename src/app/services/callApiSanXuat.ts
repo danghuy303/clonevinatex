@@ -398,8 +398,8 @@ export class SanXuatService {
             GetNhaMay: () => {
                 return this.http.post(`${API.auth}DanhMuc/GetDanhSachDuAn_Advance`, {}, httpOptions)
             },
-            GetPhanXuong: (IdDuAn) => {
-                return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn}`, httpOptions)
+            GetPhanXuong: (IdDuAn?) => {
+                return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn?IdDuAn:this.store.getCurrent()}`, httpOptions)
             },
             GetListGiaoKeHoachSanXuatChuaLapKeHoach: () => {
                 return this.http.get(`${API.SCMQuanLyKho}GetListGiaoKeHoachSanXuatChuaLapKeHoach`, httpOptions)

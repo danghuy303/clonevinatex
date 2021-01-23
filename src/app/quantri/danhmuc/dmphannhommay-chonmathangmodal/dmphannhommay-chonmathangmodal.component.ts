@@ -46,10 +46,27 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.GetLoaiSoi();
-    this.GetDMMatHang();
+    if(this.opt ==='MATHANG'){
+      this.GetLoaiSoi();
+      this.GetDMMatHang();
+    }
     if (this.items.length !== 0) {
       this.checkedAll = this.items.every((ele) => ele.checked);
+    }
+    if(this.opt === 'SOI'){
+      this.GetListLoaiSoi()
+      this.cols = [
+        {
+          header: 'Mã',
+          field: 'Ma',
+          width: 'unset',
+        },
+        {
+          header: 'Tên',
+          field: 'Ten',
+          width: 'unset',
+        }
+      ];
     }
   }
 
@@ -65,7 +82,27 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
       this.listloaisoi = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-
+  GetListLoaiSoi(){
+    let data = {
+      PageSize: 20,
+      CurrentPage: 0,
+      sFilter: this.filter.keyWord != undefined && this.filter.keyWord != null ? this.filter.keyWord : "",
+      CongDoan: '',
+      Ma: "",
+      Ten: "",
+    };
+    this.sanXuatService.GetListdmLoaiSoi(data).subscribe((res: any) => {
+      this.items = res;
+      if (this.selectedItems.length !== 0) {
+        this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
+          let selected = this.items.filter(item => sItem.IddmLoaiSoi === item.Id)[0];
+          if (selected) {
+            selected.checked = true;
+          }
+        });
+      }
+    })
+  }
   GetDMMatHang() {
     let data = {
       PageSize: 20,
@@ -109,16 +146,18 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
 
   accept() {
     this.activeModal.close(this.items.filter(item => item.checked).map(ele => {
-      return {
+      let data = {
         ...ele,
-        IddmItem: ele.Id,
         IddmPhanNhomMay: this.IdQuyTrinh || "",
-        // NangSuat: ele.NangSuat || 0,
-        // HieuSuat: ele.HieuSuat || 0,
-        // DinhMucNangSuat: ele.DinhMucNangSuat || 0,
-        // GhiChu: ele.GhiChu || "",
         Id: '',
       }
+      if(this.opt ==='MATHANG'){
+        data.IddmItem= ele.Id;
+      }
+      if(this.opt==='SOI'){
+        data.IddmLoaiSoi=ele.Id
+      }
+      return data
     }));
   }
 

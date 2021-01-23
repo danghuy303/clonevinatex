@@ -19,23 +19,56 @@ export class DmphannhommaymodalComponent implements OnInit {
   public title: any = '';
   public type = '';
   opt: any = "";
+  childModalOpt:any=null;
+  listPhanXuong:any = [];
+  listCongDoan:any = [];
   listloaisoi: any = [];
   listDonViNangSuat: any = [];
   khongclicknhieu: any = false;
   filter: any = {
     KeyWord: ''
   };
+  mapCongDoan:any={
+    THO:'SOI', 
+    GHEPDAURA:'SOI', 
+    GHEPTRONB:'SOI', 
+    GHEPTRONA:'SOI',
+    ONG:'MATHANG', 
+    CON:'MATHANG',
+    CUONCUI:'', 
+    GHEPSOBO:'', 
+    BONGCHAI:'', 
+    XOCHAI:'',
+    CHAITHO:'',
+    CHAIKY:''
+  }
 
-  constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
+  constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { 
 
-  ngOnInit(): void {    
-    this.item.ChiSoDinhMuc={}
+   }
+
+  ngOnInit(): void {
     if (this.opt == 'edit') {
-      // this.GetPhanXuong();
     }
-    // this.GetDanhSachLoaiDienKV();
+    this.GetListPhanXuong();
+    this.GetListCongDoan();
   } 
-
+  GetListPhanXuong(){
+    this.sanXuatService.GetOptions().GetPhanXuong().subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
+      
+    })
+  }
+  GetListCongDoan() {
+    this.sanXuatService.GetListCongDoan().subscribe((res: any) => {
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+      this.listCongDoan.forEach(CongDoan => {
+        if(this.mapCongDoan[CongDoan.value]=== undefined){
+          console.log(CongDoan.value);
+        }
+      });
+    })
+  }
   accept() {
     this.khongclicknhieu = !this.khongclicknhieu;
     if (this.item.Ma !== undefined && this.item.Ma !== null && this.item.Ten !== undefined && this.item.Ten !== null) {
@@ -78,13 +111,13 @@ export class DmphannhommaymodalComponent implements OnInit {
       size: "lg",
       backdrop: 'static'
     });
-    modalRef.componentInstance.opt = 'edit';
+    modalRef.componentInstance.opt = this.childModalOpt;
     modalRef.componentInstance.title = 'Danh sách hàng';
     modalRef.componentInstance.selectedItems = this.item.lstdmItem || [];
     modalRef.componentInstance.IdQuyTrinh = this.item.Id || "";
     modalRef.result.then(res => {
       // this.toastr.success(res);
-      merge(res, this.item.lstdmItem, 'IddmItem');
+      merge(res, this.item.lstdmItem, this.childModalOpt==='MATHANG'?'IddmItem':'IddmLoaiSoi');
     }).catch(er => console.log(er))
   }
 
@@ -106,4 +139,12 @@ export class DmphannhommaymodalComponent implements OnInit {
     item.DinhMucNangSuat = (e.value * item.NangSuat || 0)/100;
   }
 
+  changeCongDoan(e){
+    this.item.lstdmItem=[];
+    this.childModalOpt = this.mapCongDoan[e.value];
+    if(this.childModalOpt===''){
+      console.log(this.item.lstdmItem)
+      this.item.lstdmItem.push({})
+    }
+  }
 }
