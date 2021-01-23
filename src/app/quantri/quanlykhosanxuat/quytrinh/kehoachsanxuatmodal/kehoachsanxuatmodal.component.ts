@@ -6,7 +6,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 import { ChonquycachdonggoimodalComponent } from '../../modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component';
@@ -227,7 +227,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       size: 'lg'
     })
     modalRef.componentInstance.items = this.listQuyCachDongGoi;
-    modalRef.componentInstance.selectedItems = item.listItem || [];
+    modalRef.componentInstance.selectedItems = deepCopy(item.listItem || []);
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
       // merge(res, this.item.listItem, 'IddmQuyCachDongGoi');

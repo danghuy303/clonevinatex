@@ -25,7 +25,13 @@ export class DinhmuctieuchichatluongsoimodalComponent implements OnInit {
     if (this.item.length > 0) {
       this.item.forEach(element => {
         let indexOf = element.itemChiTieuChatLuong.Ten.indexOf('Chi số thực tế (Ne)');
-        element.disable = indexOf > -1 ? true : false;
+        if(indexOf > -1){
+          element.disable = true;
+          element.TieuChuan = this.SelectItem.Ne;
+        }
+        else{
+          element.disable = false;
+        }       
       });
     }
   }
