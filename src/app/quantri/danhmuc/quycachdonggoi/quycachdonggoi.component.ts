@@ -31,13 +31,13 @@ export class QuycachdonggoiComponent implements OnInit {
       header: 'Tên',
       field: 'Ten',
       width: '300px',
-      center:'left'
+      align:'center'
     },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset',
-      center:'center'
+      align:'center'
     }
   ];
   selectedItems:any=[];

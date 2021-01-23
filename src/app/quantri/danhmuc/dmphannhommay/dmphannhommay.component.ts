@@ -85,19 +85,19 @@ export class DmphannhommayComponent implements OnInit {
   }
 
   GetListdm(reset?) {
-    // if (reset) {
-    //   this.paging.CurrentPage = 1;
-    //   this.paginator.changePage(0);
-    // }
-    // this.dataSearch = {
-    //   PageSize: 20,
-    //   CurrentPage: this.paging.CurrentPage,
-    //   sFilter: this.keyWord,
-    //   Ma: "",
-    //   Ten: ""
-    // };
-    this._services.dmPhanNhomMaySanXuat().GetList().subscribe((res: any) => {
-      this.items = res;
+    if (reset) {
+      this.paging.CurrentPage = 1;
+      this.paginator.changePage(0);
+    }
+    this.dataSearch = {
+      PageSize: 20,
+      CurrentPage: this.paging.CurrentPage,
+      sFilter: this.keyWord,
+      Ma: "",
+      Ten: ""
+    };
+    this._services.dmPhanNhomMaySanXuat().GetList(this.dataSearch).subscribe((res: any) => {
+      this.items = res.items;
       if (this.items.length > 0 && this.listDonViNangSuat.length > 0) {
         this.items.forEach(el => {
           el.TenDonViNangSuat = this.listDonViNangSuat.filter(obj => obj.value == el.DonViNangSuat)[0].label;
@@ -115,7 +115,7 @@ export class DmphannhommayComponent implements OnInit {
       //     }
       //   });
       // });
-      // this.paging = res.paging;
+      this.paging = res.paging;
     })
   }
   add() {

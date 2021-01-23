@@ -128,8 +128,8 @@ export class SanXuatService {
     dmPhanNhomMaySanXuat() {
         let url = API.SCMDanhMuc;
         return {
-            GetList: () => {
-                return this.http.get(url + 'GetListdmPhanNhomMaySanXuat', httpOptions);
+            GetList: (data) => {
+                return this.http.post(url + 'GetListdmPhanNhomMaySanXuat',data, httpOptions);
             },
             Get: (Id) => {
                 return this.http.get(url + `GetdmPhanNhomMay?Id=${Id}`, httpOptions);
