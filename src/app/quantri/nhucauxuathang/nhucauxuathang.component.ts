@@ -11,9 +11,9 @@ export class NhucauxuathangComponent implements OnInit {
 
   filterBong: any = {};
   filter: any = {
-    IddmLoaiBong:"",
-    IddmKho:'',
-    LoaiThoiGian:1
+    IddmLoaiBong: "",
+    IddmKho: '',
+    LoaiThoiGian: 1
   };
   filterSanLuong: any = {};
   filterNhuCau: any = {};
@@ -84,7 +84,7 @@ export class NhucauxuathangComponent implements OnInit {
     let date = new Date();
     this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    
+
     this.dataPie = {
       labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
       datasets: [
@@ -106,7 +106,7 @@ export class NhucauxuathangComponent implements OnInit {
       ]
     };
     this.listItem = [
-      
+
     ]
     this.getAllOptions();
     this.ChangeOpt();
@@ -124,7 +124,7 @@ export class NhucauxuathangComponent implements OnInit {
       this.filter.DenNgay = null;
     }
     if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay < this.filter.DenNgay) {
-      this._services.DashBoard().NhuCauSuDungBong(this.filter).subscribe((res:any)=>{
+      this._services.DashBoard().NhuCauSuDungBong(this.filter).subscribe((res: any) => {
         this.dataSet1 = {
           labels: res.listThoiGian,
           datasets: [
@@ -133,7 +133,7 @@ export class NhucauxuathangComponent implements OnInit {
               label: 'Nhu cầu',
               borderColor: '#FF0000',
               fill: false,
-              data: res.listNhuCau.map(ele=>ele.KhoiLuong),
+              data: res.listNhuCau.map(ele => ele.KhoiLuong),
             },
             {
               type: 'line',
@@ -141,18 +141,18 @@ export class NhucauxuathangComponent implements OnInit {
               borderColor: '#0000E5',
               borderDash: [10, 5],
               fill: false,
-              data: res.listKeHoach.map(ele=>ele.KhoiLuong),
+              data: res.listKeHoach.map(ele => ele.KhoiLuong),
               steppedLine: 'before'
             },
           ]
         }
       })
-      this._services.DashBoard().CoCauTonBong(this.filter).subscribe((res:any)=>{
+      this._services.DashBoard().CoCauTonBong(this.filter).subscribe((res: any) => {
         this.dataPie = {
-          labels: res.map(ele=>ele.Ten),
+          labels: res.map(ele => ele.Ten),
           datasets: [
             {
-              data: res.map(ele=>ele.TrongLuong),
+              data: res.map(ele => ele.TrongLuong),
               backgroundColor: [
                 "#009900",
                 "#36A2EB",
@@ -167,7 +167,7 @@ export class NhucauxuathangComponent implements OnInit {
           ]
         };
       })
-      this._services.DashBoard().CanDoiTon(this.filter).subscribe(res=>{
+      this._services.DashBoard().CanDoiTon(this.filter).subscribe(res => {
         this.listItem = res;
       })
     }
@@ -179,19 +179,20 @@ export class NhucauxuathangComponent implements OnInit {
 
   getAllOptions() {
     let data = {
+      PageSize: 20,
       CurrentPage: 0,
-      NumperPage: 10,
-      Ma: '',
-      Ten: "",
-      sFilter: ''
-    }
+      sFilter: "",
+      IddmNhomKho: 11,
+      Ma: "",
+      Ten: ""
+    };
     this._services.GetListdmKho(data).subscribe((res: any) => {
-      res.unshift({ Id: '', Ten: 'Tất cả' });
-      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id')
-    });
-    this._services.GetListdmLoaiBong(data).subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tổng hợp' });
-      this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
+      this.listKho = res.paging;
+    })
+    this._services.GetOptions().GetMatHang().subscribe((res: any) => {
+      res.unshift({ Id: '', Ten: 'Tổng hợp' });
+      this.listMatHang = mapArrayForDropDown(res, "Ten", 'Id');
     })
   }
 

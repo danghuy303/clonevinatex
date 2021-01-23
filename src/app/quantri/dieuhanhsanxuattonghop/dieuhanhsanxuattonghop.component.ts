@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-dieuhanhsanxuattonghop',
@@ -32,6 +33,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   dataSet1: any = {};
   showSanLuong = false;
   currentUser: any;
+  IdDuAn: any;
   optionPie: any = {
     plugins: {
       labels: {
@@ -70,8 +72,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   chatLuongSanPham: any = [];
   headerChatLuongSanPham: any = [];
   chatLuongSanPhamScrollHeight: any = 0;
-  constructor(private _services: SanXuatService, private _auth: AuthenticationService) {
+  constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService) {
     this.currentUser = this._auth.currentUserValue;
+    this.IdDuAn = this.store.getCurrent();
   }
 
   ngOnInit(): void {
@@ -90,7 +93,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     }
     this.filter.nNgay = (new Date()).getDate();
     this.filter.nThang = (new Date()).getMonth() + 1;
-    this.filter.nNam = (new Date()).getFullYear();   
+    this.filter.nNam = (new Date()).getFullYear();
     // this.dataSet1 = {
     //   labels: this.listThang.map(ele => ele.label),
     //   datasets: [
@@ -171,7 +174,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
       CongDoan: this.filter.CongDoan ? this.filter.CongDoan : '',
       Ma: "",
       Ten: ""
-    };  
+    };
     this._services.GetListdmPhanXuong(data2).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
@@ -221,12 +224,13 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     this.GetBaoCaoQuyTrinhKiemTraChatLuong();
   }
 
-  filterdatatonghop(){
+  filterdatatonghop() {
     this.TongHop();
     this.BieuDoCoCau();
   }
 
   TongHop() {
+    this.filter.IdDuAn = this.IdDuAn;
     this._services.BaoCao().TongHop(this.filter).subscribe((res: any) => {
       this.thongKes = res;
       this.thongKes = [
@@ -249,6 +253,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   }
 
   BieuDoCoCau() {
+    this.filter.IdDuAn = this.IdDuAn;
     let data: any = { IdDuAn: this.filter.IdDuAn, IddmPhanXuong: this.filter.IddmPhanXuong, nNam: this.filter.nNam };
     this._services.BaoCao().BieuDoCoCau(data).subscribe((res: any) => {
       this.dataPie = res;

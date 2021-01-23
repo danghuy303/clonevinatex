@@ -68,8 +68,8 @@ export class SanXuatService {
     dmLoaiDienKV() {
         let url = API.ThongKeDien;
         return {
-            GetList: () => {
-                return this.http.get(url + 'GetDanhSachLoaiDienKV', httpOptions);
+            GetList: (data) => {
+                return this.http.post(url + 'GetDanhSachLoaiDienKV', data, httpOptions);
             },
             Get: (Id) => {
                 return this.http.get(url + `GetItemLoaiDienKV?Id=${Id}`, httpOptions);
@@ -129,7 +129,7 @@ export class SanXuatService {
         let url = API.SCMDanhMuc;
         return {
             GetList: (data) => {
-                return this.http.post(url + 'GetListdmPhanNhomMaySanXuat',data, httpOptions);
+                return this.http.post(url + 'GetListdmPhanNhomMaySanXuat', data, httpOptions);
             },
             Get: (Id) => {
                 return this.http.get(url + `GetdmPhanNhomMay?Id=${Id}`, httpOptions);
@@ -160,7 +160,7 @@ export class SanXuatService {
             },
             GetBieuDoDuongKiemTraChatLuong: (Nam, IddmPhanXuong, IddmChiTieu, IddmItem) => {
                 return this.http.get(url2 + `GetBieuDoDuongKiemTraChatLuong?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu}&IddmItem=${IddmItem}`, httpOptions);
-            },            
+            },
             GetDanhSachChiTieuChatLuong_BieuDo: () => {
                 return this.http.get(url2 + 'GetDanhSachChiTieuChatLuong_BieuDo', httpOptions);
             },
@@ -294,14 +294,14 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'DeletedmItem';
         return this.http.post(url, data, httpOptions);
     }
-    ImportDanhSachChiTieuChatLuongTheoSanPham(IdDuAn,TableName,FileName) {
+    ImportDanhSachChiTieuChatLuongTheoSanPham(IdDuAn, TableName, FileName) {
         let url = API.SCMKiemTraChatLuong + `ImportDanhSachChiTieuChatLuongTheoSanPham?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`;
         return this.http.get(url, httpOptions);
     }
     ExportDanhSachChiTieuChatLuongTheoSanPham(data) {
         let url = API.SCMKiemTraChatLuong + 'ExportDanhSachChiTieuChatLuongTheoSanPham';
         return this.http.post(url, data, httpOptions);
-    }   
+    }
     //#endregion
 
     //#region  phân xưởng
@@ -927,8 +927,8 @@ export class SanXuatService {
             GetListKienBong: (data) => {
                 return this.http.post(url + `GetListKienLoBong`, data, httpOptions)
             },
-            TimBongTuDong:(IdTimBong)=>{
-                return this.http.get(`${url}TaoPhuongAnTimBong?Id=${IdTimBong}`,httpOptions)
+            TimBongTuDong: (IdTimBong) => {
+                return this.http.get(`${url}TaoPhuongAnTimBong?Id=${IdTimBong}`, httpOptions)
             }
         }
     }

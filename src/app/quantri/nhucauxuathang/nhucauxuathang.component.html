@@ -19,13 +19,12 @@
             <div class="p-d-flex flex-column flex-lg-row p-jc-between">
                 <div>
                     <h5>
-                        {{filterNhuCau.Kho ==='8cb622a8-b2c5-4232-a9f1-7fdebb40e3cb'?'Sản lượng kế hoạch và thực
-                        hiện':'Nhu cầu sử dụng bông'}}
+                       Nhu cầu xuất hàng
                     </h5>
                 </div>
                 <div class="p-d-flex flex-column flex-lg-row">
                     <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại bông"
+                        <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn loại bông"
                             styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmLoaiBong" (onChange)="ChangeOpt()"></p-dropdown>
                     </div>
                     <div class="p-mr-2">
@@ -45,7 +44,7 @@
 
     <div class="p-col-12 p-xl-4 p-lg-4 p-p-3">
         <div class="chart text-left">
-            <h5>{{filterNhuCau.Kho ==='8cb622a8-b2c5-4232-a9f1-7fdebb40e3cb'?'Cơ cấu mặt hàng':'Cơ cấu bông'}}</h5>
+            <h5>Cơ cấu mặt hàng</h5>
             <p-chart type="pie" [data]="dataPie" [options]='optionPie'></p-chart>
         </div>
     </div>
@@ -65,8 +64,8 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Ngày</th>
-                        <th>Loại bông</th>
-                        <th>Lô bông</th>
+                        <th>Mặt hàng</th>
+                        <th>Lô sản xuất</th>
                         <th>Hợp đồng P/O</th>
                         <th>Tồn đầu</th>
                         <th>Nhập trong kỳ</th>

@@ -1,9 +1,9 @@
 <div class="p-d-flex">
     <div class="p-d-flex flex-column flex-lg-row p-pl-3" style="width: 100%;">
-        <div class="p-mr-2">
+        <!-- <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
                 [(ngModel)]="filter.IdDuAn" (onChange)="filterdata()"></p-dropdown>
-        </div>
+        </div> -->
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
                 styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanXuong" (onChange)="filterdata()"></p-dropdown>
@@ -90,7 +90,7 @@
 
     <div class="p-col-12 p-xl-4 p-lg-4 p-p-3">
         <div class="chart text-left">
-            <h5>Biểu đồ cơ cấu</h5>
+            <h5>Cơ cấu mặt hàng</h5>
             <p-chart type="pie" [data]="dataPie" [options]='optionPie'></p-chart>
         </div>
     </div>
@@ -98,12 +98,25 @@
         <div class="chart text-left">
             <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between">
                 <div class="p-d-flex p-flex-row">
-                    <h5>Chất lượng sản phẩm</h5>
+                    <h5>Danh sách mặt hàng</h5>
                 </div>
                 <div class="p-d-flex p-flex-row">
-                    <p-dropdown [filter]="true" [options]="listtieuchi" placeholder="Chọn tiêu chí"
-                        styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmChiTieu" (onChange)="GetBieuDoDuongKiemTraChatLuong()">
-                    </p-dropdown>
+                    <div class="p-mr-2">
+                        <p-dropdown [filter]="true" [options]="listtieuchi" placeholder="Chọn tiêu chí"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmChiTieu"
+                            (onChange)="GetBieuDoDuongKiemTraChatLuong()">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-inputgroup" style="width:150px">
+                        <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetList()"
+                            [(ngModel)]="filter.KeyWord" />
+                        <button type="button" pButton pRipple icon="pi pi-refresh"
+                            class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
+                    </div>
+                    <div style="display:table;height:100%">
+                        <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
+                            (click)="xemSanLuong()">Truy suất nguồn gốc</a>
+                    </div>
                 </div>
             </div>
             <div #bangScroll style="height: calc((100vh - 192.5px) / 2 - 40px);">
@@ -136,7 +149,7 @@
     </div>
     <div class="p-col-12 p-xl-6 p-lg-6 p-p-3">
         <div class="chart text-left">
-            <h5>Biểu đồ chất lượng sản phẩm</h5>
+            <h5>Chất lượng sản phẩm</h5>
             <p-chart type="line" [data]=dataSet1 [options]="option1"></p-chart>
         </div>
     </div>
