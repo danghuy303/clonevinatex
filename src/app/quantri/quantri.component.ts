@@ -84,6 +84,14 @@ export class QuantriComponent implements OnInit {
                         }
                     },
                     {
+                        label: 'Nhu cầu xuất hàng',
+                        routerLink: '/quantri/quantrisanxuat/nhucauxuathang',
+                        icon: 'fas fa-circle',
+                        command: () => {
+                            this.close()
+                        }
+                    },                   
+                    {
                         label: 'Sản lượng',
                         routerLink: '/quantri/quantrisanxuat/sanluong',
                         icon: 'fas fa-circle',

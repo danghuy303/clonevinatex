@@ -75,6 +75,7 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
       Ma: "",
       Ten: "",
       Loai: "1",
+      IddmLoaiSoi: this.filter.IddmLoaiSoi
     };
     this.sanXuatService.GetListdmItem(data).subscribe((res: any) => {
       this.items = res;
@@ -102,7 +103,8 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
   }
 
   resetFilter() {
-
+    this.filter = {};
+    this.GetDMMatHang();
   }
 
   accept() {

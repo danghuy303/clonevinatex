@@ -15,8 +15,8 @@
             </div>
             <div class="p-d-flex p-flex-row">
                 <div class="p-mr-2">
-                    <p-dropdown [filter]="true" [options]="listloaisoi" placeholder="Chọn" [(ngModel)]="filter.idNhaMay"
-                        styleClass="p-inputtext-sm"></p-dropdown>
+                    <p-dropdown [filter]="true" [options]="listloaisoi" placeholder="Chọn" [(ngModel)]="filter.IddmLoaiSoi"
+                        styleClass="p-inputtext-sm" (onChange)="GetDMMatHang()"></p-dropdown>
                 </div>
                 <div class="p-inputgroup">
                     <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.keyWord" (keyup.enter)="TimKiem(true)"
@@ -25,7 +25,7 @@
                         class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()" pTooltip="Làm mới"
                         showDelay="1000" tooltipPosition="bottom"></button>
                     <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text"
-                        pTooltip="Tìm kiếm" showDelay="1000" tooltipPosition="bottom"></button>
+                        pTooltip="Tìm kiếm" showDelay="1000" tooltipPosition="bottom" (click)="GetDMMatHang()"></button>
                 </div>
             </div>
         </div>

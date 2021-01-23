@@ -82,6 +82,7 @@ import { XuatkhobongpheComponent } from './quanlykhosanxuat/quytrinh/xuatkhobong
 import { DinhmuctieuchichatluongsoiComponent } from './danhmuc/danhmucsanxuat/dinhmuctieuchichatluongsoi/dinhmuctieuchichatluongsoi.component';
 import { NhapkhokhacComponent } from './quanlykhosanxuat/quytrinh/nhapkhokhac/nhapkhokhac.component';
 import { XuatkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/xuatkhothanhpham/xuatkhothanhpham.component';
+import { NhucauxuathangComponent } from './nhucauxuathang/nhucauxuathang.component';
 
 const routes: Routes = [
   {
@@ -124,6 +125,8 @@ const routes: Routes = [
       { path: 'theodoithongkebaocao/baocaodonvi', component: BaocaotaichinhComponent },
 
       { path: 'quantrisanxuat/nguyenlieu', component: DieuhanhsanxuatComponent },
+      { path: 'quantrisanxuat/nhucauxuathang', component: NhucauxuathangComponent },
+      
       { path: 'quantrisanxuat/sanluong', component: SanluongComponent },
       { path: 'quantrisanxuat/tonghop', component: DieuhanhsanxuattonghopComponent },
       { path: 'quantrisanxuat/chatluong', component: DieuhanhsanxuatComponent },
