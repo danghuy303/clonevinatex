@@ -239,7 +239,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
         // Điện k có màn hình
         { Ten: 'Điện AC', TieuHao: res.DienAC_KW, DonVi: 'KW', ManHinh: 0 },
         { Ten: 'Tổng điện', TieuHao: res.TongDien_KW, DonVi: 'KW', ManHinh: 0 },
-        { Ten: 'Điện AC', TieuHao: res.DienAC_PhanTram, DonVi: '%', ManHinh: 0 },
+        { Ten: 'Tỷ lệ điện AC', TieuHao: res.DienAC_PhanTram, DonVi: '%', ManHinh: 0 },
       ]
       this.thongKes1 = [
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },

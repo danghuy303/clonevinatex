@@ -16,6 +16,7 @@ export class ChonquycachdonggoimodalComponent implements OnInit {
   KeyWord: any = '';
   opt: any = '';
   checkedAll: boolean = false;
+  layitem: any;
   cols: any = [
     {
       header: 'Tên',
@@ -77,7 +78,16 @@ export class ChonquycachdonggoimodalComponent implements OnInit {
   }
 
   accept() {
-    this._activeModal.close({ listItem: this.selectedItems });
+    let tong = 0;
+    this.selectedItems.filter(obj => {
+      tong += obj.KhoiLuong;
+    });
+    if (this.layitem.KhoiLuongKeHoach < tong) {
+      this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
+    }
+    else {
+      this._activeModal.close({ listItem: this.selectedItems });
+    }
     // let data = this.items.filter(item => item.checked)
     // data.forEach(mathang => {
     //   mathang.listItemTemp = {};

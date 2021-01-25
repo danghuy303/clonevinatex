@@ -7,10 +7,17 @@
 <div class="modal-body">
     <div class="p-grid">
         <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân nhóm máy<span class="text-danger">*</span>:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listPhanNhomMaySX" placeholder="Chọn phân nhóm máy" optionLabel="Ten" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.objdmPhanNhom" (onChange)="ChonPhanNhomMay($event)"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.CongDoan"></p-dropdown>
+                    [(ngModel)]="item.CongDoan" [disabled]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
@@ -29,7 +36,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
+                    [(ngModel)]="item.IddmPhanXuong" [disabled]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
@@ -61,14 +68,7 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="number" class="p-inputtext-sm" [(ngModel)]="item.NamSuDung" pInputText />
             </div>
-        </div>
-        <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân nhóm máy:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listPhanNhomMaySX" placeholder="Chọn phân nhóm máy" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmPhanNhom"></p-dropdown>
-            </div>
-        </div>
+        </div>      
         <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
