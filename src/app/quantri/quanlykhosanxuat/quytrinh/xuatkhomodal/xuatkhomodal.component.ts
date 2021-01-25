@@ -38,12 +38,13 @@ export class XuatkhomodalComponent implements OnInit {
     this.KiemTraButtonModal();
     this.GetQuyTrinh();
     //
-    let data = {
+    let data: any = {
       CurrentPage: 0
     }
     this.services.PhuongAnPhaBong().GetList(data).subscribe((res:any)=>{
       this.listPhuongAnPhaBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
+    // data.Loai = 2;
     this.services.GetListdmKho(data).subscribe((res:any)=>{
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })

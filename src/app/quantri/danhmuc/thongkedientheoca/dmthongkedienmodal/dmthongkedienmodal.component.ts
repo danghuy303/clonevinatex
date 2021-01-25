@@ -96,7 +96,7 @@ export class DmthongkedienmodalComponent implements OnInit {
     }
     else {
       this.khongclicknhieu = !this.khongclicknhieu;
-      this.toastr.error("Yêu cầu nhập lớn hơn 0 và không được lớn hơn số cũ");
+      this.toastr.error("Yêu cầu nhập lớn hơn 0 và không được nhỏ hơn số cũ");
     }
   }
 
@@ -108,7 +108,7 @@ export class DmthongkedienmodalComponent implements OnInit {
       item.TieuThuTrongCa = item.SoTieuThu * item.HeSoNhan;
     }
     else {
-      this.toastr.error("Yêu cầu nhập lớn hơn 0 và không được lớn hơn số cũ");
+      this.toastr.error("Yêu cầu nhập lớn hơn 0 và không được nhỏ hơn số cũ");
     }
   }
 
