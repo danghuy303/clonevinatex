@@ -31,13 +31,13 @@ export class QuycachdonggoiComponent implements OnInit {
       header: 'Tên',
       field: 'Ten',
       width: '300px',
-      center:'left'
+      align:'center'
     },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset',
-      center:'center'
+      align:'center'
     }
   ];
   selectedItems:any=[];
@@ -134,15 +134,18 @@ export class QuycachdonggoiComponent implements OnInit {
     this.GetDanhSach();
   }
   importExcel(){
-    let modalRef = this._modal.open(ModalimportexcelComponent,{
-      backdrop:'static',
-    })
-    modalRef.componentInstance.importFunc = 'BienDong';
-    modalRef.result.then(res=>{
-      this.GetDanhSach();
-      this._toastr.success(res.mess);
-    })
-    .catch(er=>console.log(er))
+    // let modalRef = this._modal.open(ModalimportexcelComponent,{
+    //   backdrop:'static',
+    // })
+    // modalRef.componentInstance.importFunc = 'BienDong';
+    // modalRef.result.then(res=>{
+    //   this.GetDanhSach();
+    //   this._toastr.success(res.mess);
+    // })
+    // .catch(er=>console.log(er))
+  }
+  exportExcel(){
+    
   }
 
 }

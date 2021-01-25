@@ -40,7 +40,11 @@ export class DmmaybienapmodalComponent implements OnInit {
   }
 
   GetDanhSachLoaiDienKV() {
-    this.sanXuatService.dmLoaiDienKV().GetList().subscribe((res: any) => {
+    let data = {
+      CurrentPage: 0,
+      KeyWord: "",
+    };
+    this.sanXuatService.dmLoaiDienKV().GetList(data).subscribe((res: any) => {
       this.listdienap = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

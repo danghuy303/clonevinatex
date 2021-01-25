@@ -18,85 +18,81 @@ export class LoaidienkvComponent implements OnInit {
   items: any = [
   ];
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 0 };
-  keyWord:any='';
+  keyWord: any = '';
   cols: any = [
     {
       header: 'Mã',
       field: 'Ma',
-      width: '200px',
-      align:'center'
+      width: 'unset',
+      align: 'center'
     },
     {
       header: 'Tên',
       field: 'Ten',
-      width: '300px',
-      center:'left'
+      width: 'unset',
+      align: 'left'
     },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset',
-      center:'center'
+      align: 'center'
     }
   ];
-  selectedItems:any=[];
-  constructor(private _modal:NgbModal,private _services:Dat09Service,private _toastr:ToastrService,private ServicesSanXuat: SanXuatService) { }
+  selectedItems: any = [];
+  constructor(private _modal: NgbModal, private _services: Dat09Service, private _toastr: ToastrService, private ServicesSanXuat: SanXuatService) { }
 
   ngOnInit(): void {
     this.GetDanhSachLoaiDienKV();
   }
-  resetFilter(){
+  resetFilter() {
     this.keyWord = '';
     this.GetDanhSachLoaiDienKV()
   }
-  GetDanhSachLoaiDienKV(reset?){
-    // if(reset){
-    //   this.paging.CurrentPage=1;
-    //   this.paginator.changePage(0);
-    // }
-    // let data = {
-    //   PageSize:20, 
-    //   CurrentPage:this.paging.CurrentPage,
-    //   sFilter:this.keyWord,  
-    //   Ma:"", 
-    //   Ten:""
-    // };
-    this.ServicesSanXuat.dmLoaiDienKV().GetList().subscribe((res:any)=>{
-      this.items = res;
-      // this.paging = res.paging;
+  GetDanhSachLoaiDienKV(reset?) {
+    if (reset) {
+      this.paging.CurrentPage = 1;
+    }
+    let data = {
+      CurrentPage: this.paging.CurrentPage,
+      KeyWord: this.keyWord,
+    };
+    this.ServicesSanXuat.dmLoaiDienKV().GetList(data).subscribe((res: any) => {
+      this.items = res.items;
+      this.paging = res.paging;
     })
   }
-  add(){
-    let modalRef = this._modal.open(ModaldanhmucchungComponent,{
-      backdrop:'static'
+  add() {
+    let modalRef = this._modal.open(ModaldanhmucchungComponent, {
+      backdrop: 'static'
     });
-    modalRef.componentInstance.opt='add';
+    modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'loaidien';
     modalRef.componentInstance.title = 'Thêm mới danh mục loại điện';
-    modalRef.result.then(res=>{
+    modalRef.result.then(res => {
       this._toastr.success(res);
       this.GetDanhSachLoaiDienKV()
-    }).catch(er=>console.log(er))
+    }).catch(er => console.log(er))
   }
-  edit(item){
-    let modalRef = this._modal.open(ModaldanhmucchungComponent,{
-      backdrop:'static'
+  edit(item) {
+    let modalRef = this._modal.open(ModaldanhmucchungComponent, {
+      backdrop: 'static'
     });
-    modalRef.componentInstance.opt='edit';
+    modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.title = 'Cập nhật danh mục loại điện';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.type = 'loaidien';
-    modalRef.result.then(res=>{
+    modalRef.result.then(res => {
       this._toastr.success(res);
       this.GetDanhSachLoaiDienKV()
-    }).catch(er=>console.log(er))
+    }).catch(er => console.log(er))
   }
-  delete(item){
-    let modalRef = this._modal.open(ModalthongbaoComponent,{
-      backdrop:'static'
+  delete(item) {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
     });
-    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res=>{
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
       this.ServicesSanXuat.dmLoaiDienKV().Delete(item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -107,14 +103,14 @@ export class LoaidienkvComponent implements OnInit {
           }
         }
       })
-    }).catch(er=>console.log(er))
+    }).catch(er => console.log(er))
   }
-  deleteAll(){
-    let modalRef = this._modal.open(ModalthongbaoComponent,{
-      backdrop:'static'
+  deleteAll() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
     });
-    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res=>{
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
       this.ServicesSanXuat.dmLoaiDienKV().Delete(this.selectedItems).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -126,13 +122,9 @@ export class LoaidienkvComponent implements OnInit {
           }
         }
       })
-    }).catch(er=>console.log(er))
+    }).catch(er => console.log(er))
   }
-  changePage(event){
-    this.paging.CurrentPage = event.page+1;
-    this.GetDanhSachLoaiDienKV();
-  }
-  importExcel(){
+  importExcel() {
     // let modalRef = this._modal.open(ModalimportexcelComponent,{
     //   backdrop:'static',
     // })
@@ -143,7 +135,7 @@ export class LoaidienkvComponent implements OnInit {
     // })
     // .catch(er=>console.log(er))
   }
-  
+
   exportExcel() {
     // let data:any;
     // this._services.ExportDanhSachChiTieuChatLuongTheoSanPham({id:"àhsdkhfklsdjfhsdkjfh"}).subscribe((res: any) => {

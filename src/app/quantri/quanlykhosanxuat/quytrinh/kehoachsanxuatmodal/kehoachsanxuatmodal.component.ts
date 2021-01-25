@@ -6,7 +6,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 import { ChonquycachdonggoimodalComponent } from '../../modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component';
@@ -164,6 +164,14 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       this.toastr.error('Vui lòng nhập nội dung!')
       return false;
     }
+    if (!validVariable(this.item.IddmPhanXuong)) {
+      this.toastr.error('Vui lòng nhập phân xưởng!')
+      return false;
+    }
+    if (!validVariable(this.item.TongSoCa)) {
+      this.toastr.error('Vui lòng nhập tổng số ca!')
+      return false;
+    }
     if (validVariable(this.item.TuNgay)) {
       this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
     } else {
@@ -219,7 +227,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       size: 'lg'
     })
     modalRef.componentInstance.items = this.listQuyCachDongGoi;
-    modalRef.componentInstance.selectedItems = item.listItem || [];
+    modalRef.componentInstance.selectedItems = deepCopy(item.listItem || []);
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
       // merge(res, this.item.listItem, 'IddmQuyCachDongGoi');

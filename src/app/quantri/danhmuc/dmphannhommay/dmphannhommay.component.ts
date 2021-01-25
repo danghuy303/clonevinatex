@@ -32,19 +32,26 @@ export class DmphannhommayComponent implements OnInit {
       header: 'Tên',
       field: 'Ten',
       width: 'unset',
-      center: 'left'
+      align: 'left'
+    },
+    {
+      header: 'Đơn vị năng suất',
+      field: 'TenDonViNangSuat',
+      width: 'unset',
+      align: 'center'
     },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset',
-      center: 'center'
+      align: 'center'
     }
   ];
   selectedItems: any = [];
   dataSearch: any = {};
   userInfo: any;
   listnhamay: any = [];
+  listDonViNangSuat: any = [];
   // listphanxuong: any = [];
   // listdungsai: any = [];
 
@@ -54,7 +61,16 @@ export class DmphannhommayComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetDanhSachDuAnByIdUser();
+    this.getDonViNangXuat();
     this.GetListdm();
+  }
+
+  getDonViNangXuat() {
+    let listDonViNangSuat = [
+      { Id: 0, Ten: "M" },
+      { Id: 1, Ten: "Kg" },
+    ];
+    this.listDonViNangSuat = mapArrayForDropDown(listDonViNangSuat, 'Ten', 'Id');
   }
 
   resetFilter() {
@@ -69,19 +85,24 @@ export class DmphannhommayComponent implements OnInit {
   }
 
   GetListdm(reset?) {
-    // if (reset) {
-    //   this.paging.CurrentPage = 1;
-    //   this.paginator.changePage(0);
-    // }
-    // this.dataSearch = {
-    //   PageSize: 20,
-    //   CurrentPage: this.paging.CurrentPage,
-    //   sFilter: this.keyWord,
-    //   Ma: "",
-    //   Ten: ""
-    // };
-    this._services.dmPhanNhomMaySanXuat().GetList().subscribe((res: any) => {
-      this.items = res;
+    if (reset) {
+      this.paging.CurrentPage = 1;
+      this.paginator.changePage(0);
+    }
+    this.dataSearch = {
+      PageSize: 20,
+      CurrentPage: this.paging.CurrentPage,
+      KeyWord: this.keyWord,
+      Ma: "",
+      Ten: ""
+    };
+    this._services.dmPhanNhomMaySanXuat().GetList(this.dataSearch).subscribe((res: any) => {
+      this.items = res.items;
+      if (this.items.length > 0 && this.listDonViNangSuat.length > 0) {
+        this.items.forEach(el => {
+          el.TenDonViNangSuat = this.listDonViNangSuat.filter(obj => obj.value == el.DonViNangSuat)[0].label;
+        });
+      }
       // this.items.forEach(element => {
       //   this.listnhamay.filter(obj => {
       //     if (element.idNhaMay == obj.value) {
@@ -94,7 +115,7 @@ export class DmphannhommayComponent implements OnInit {
       //     }
       //   });
       // });
-      // this.paging = res.paging;
+      this.paging = res.paging;
     })
   }
   add() {
@@ -104,6 +125,7 @@ export class DmphannhommayComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.title = 'Thêm mới phân nhóm máy';
+    modalRef.componentInstance.listDonViNangSuat = this.listDonViNangSuat;
     modalRef.componentInstance.item = {
       Id: '',
       lstdmItem: []
@@ -142,6 +164,7 @@ export class DmphannhommayComponent implements OnInit {
       });
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.title = 'Cập nhật phân nhóm máy';
+      modalRef.componentInstance.listDonViNangSuat = this.listDonViNangSuat;
       modalRef.componentInstance.item = res;
       modalRef.result.then(res => {
         // this._toastr.success(res);

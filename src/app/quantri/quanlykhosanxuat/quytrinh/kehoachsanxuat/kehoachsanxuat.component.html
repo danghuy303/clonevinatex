@@ -42,6 +42,10 @@
                 <col style="width:50px">
                 <col>
                 <col>
+                <col>
+                <col>
+                <col>
+                <col>
                 <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
                 <col style="width: 100px;">
             </colgroup>
@@ -50,7 +54,11 @@
             <tr>
                 <th class="text-center">#</th>
                 <th>Số phiếu</th>
+                <th>Thời gian duyệt</th>
                 <th>Nội dung</th>
+                <th>Phân xưởng</th>
+                <th>Từ ngày</th>
+                <th>Đến ngày</th>
                 <th *ngFor="let header of cols">
                     {{header.header}}
                 </th>
@@ -63,7 +71,11 @@
                     {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
                 <td class="text-center">{{item.SoQuyTrinh}}</td>
+                <td class="text-center">{{item.Modified|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.NoiDung}}</td>
+                <td class="text-center">{{item.TenPhanXuong}}</td>
+                <td class="text-center">{{item.TuNgay|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.DenNgay|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
                 </td>

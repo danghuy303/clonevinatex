@@ -6,6 +6,12 @@
 </div>
 <div class="modal-body">
     <div class="p-grid">
+        <div class="p-col-12 p-d-flex p-flex-row">
+            <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"
+                [disabled]="khongclicknhieu"></button>
+            <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
+                (click)="activeModal.dismiss()"></button>
+        </div>
         <div class="p-col-4 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mã<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
@@ -26,10 +32,17 @@
             </div>
         </div>
         <div class="p-col-4 p-d-flex p-flex-row">
-            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Chi số Nm của máy:</label>
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Công đoạn<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-7 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Nm">
-                </p-inputNumber>
+                <p-dropdown [filter]="false" [options]="listCongDoan" styleClass="p-inputtext-sm" placeholder="Chọn công đoạn"
+                    [(ngModel)]="item.CongDoan" (onChange)="changeCongDoan($event)"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-4 p-d-flex p-flex-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Phân xưởng<span class="text-danger">*</span>:</label>
+            <div class="p-col-12 p-lg-7 p-p-0">
+                <p-dropdown [filter]="false" [options]="listPhanXuong" styleClass="p-inputtext-sm" placeholder="Chọn phân xưởng"
+                    [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
             </div>
         </div>
         <div class="p-col-4 p-d-flex p-flex-row">
@@ -39,9 +52,9 @@
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <div class="p-d-flex p-flex-sm-row p-jc-between p-mt-3 p-mb-3">
+            <div class="p-d-flex p-flex-sm-row p-jc-between p-mt-3 p-mb-3" *ngIf="childModalOpt!==''">
                 <div class="p-d-flex p-flex-row">
-                    <button pButton pRipple label="Chọn mặt hàng" icon="pi pi-plus" class="p-button-sm p-mr-2"
+                    <button pButton pRipple [label]="childModalOpt==='MATHANG'?'Chọn mặt hàng':'Chọn loại sợi'" icon="pi pi-plus" class="p-button-sm p-mr-2"
                         (click)="DanhSachHang()"></button>
                 </div>
                 <div class="p-d-flex p-flex-row">
@@ -58,10 +71,12 @@
                 </div>
             </div>
             <p-table [value]="item.lstdmItem|isXoa|filter:filter.KeyWord" [(selection)]="selectedItems"
-                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="false">
+                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="true"
+                scrollHeight="300px">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
-                        <col style="width:50px">
+                        <col style="width:50px" *ngIf="childModalOpt!==''">
+                        <col  *ngIf="childModalOpt!==''">
                         <col>
                         <col>
                         <col>
@@ -70,8 +85,7 @@
                         <col>
                         <col>
                         <col>
-                        <col>
-                        <col style="width: 50px;">
+                        <col style="width: 50px;" *ngIf="childModalOpt!==''">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -79,8 +93,8 @@
                         <!-- <th>
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th> -->
-                        <th class="text-center">STT</th>
-                        <th>Mặt hàng</th>
+                        <th class="text-center" *ngIf="childModalOpt!==''">STT</th>
+                        <th  *ngIf="childModalOpt!==''">{{childModalOpt==='MATHANG'?'Mặt hàng':'Loại sợi'}}</th>
 
                         <th>Chi số Ne</th>
                         <th>Chi số mét Nm</th>
@@ -91,31 +105,31 @@
                         <th>Hiệu suất (%)</th>
                         <th>Định mức năng suất</th>
                         <th>Ghi chú</th>
-                        <th></th>
+                        <th  *ngIf="childModalOpt!==''"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
-                        <td class="text-center">
+                        <td class="text-center" *ngIf="childModalOpt!==''">
                             {{ i + 1 }}
-                        </td>
-                        <td>
+                        </td >
+                        <td  *ngIf="childModalOpt!==''">
                             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText
                                 [disabled]="true" />
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ne"
-                                [disabled]="true">
+                                [disabled]="childModalOpt==='MATHANG'">
                             </p-inputNumber>
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Nm"
-                                [disabled]="true">
+                                [disabled]="childModalOpt==='MATHANG'">
                             </p-inputNumber>
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DoSan"
-                                [disabled]="true">
+                                [disabled]="childModalOpt==='MATHANG'">
                             </p-inputNumber>
                         </td>
                         <td>
@@ -123,7 +137,7 @@
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.NangSuat"
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.NangSuat"
                                 (onInput)="changeNangSuat($event,item)">
                             </p-inputNumber>
                         </td>
@@ -140,7 +154,7 @@
                         <td>
                             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" *ngIf="childModalOpt!==''">
                             <!-- <button pButton pRipple type="button" icon="pi pi-trash"
                                 class="p-button-text p-button-sm p-button-secondary" (click)="delete(item)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button> -->
                             <button pButton pRipple icon="pi pi-trash"
@@ -154,8 +168,8 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"
+    <!-- <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"
         [disabled]="khongclicknhieu"></button>
     <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
-        (click)="activeModal.dismiss()"></button>
+        (click)="activeModal.dismiss()"></button> -->
 </div>

@@ -48,8 +48,8 @@ export class SanXuatService {
     DMMayBienAp() {
         let url = API.ThongKeDien;
         return {
-            GetList: () => {
-                return this.http.get(url + 'GetDanhSachMayBienAp', httpOptions);
+            GetList: (data) => {
+                return this.http.post(url + 'GetDanhSachMayBienAp', data, httpOptions);
             },
             Get: (Id) => {
                 return this.http.get(url + `GetItemMayBienAp?Id=${Id}`, httpOptions);
@@ -68,8 +68,8 @@ export class SanXuatService {
     dmLoaiDienKV() {
         let url = API.ThongKeDien;
         return {
-            GetList: () => {
-                return this.http.get(url + 'GetDanhSachLoaiDienKV', httpOptions);
+            GetList: (data) => {
+                return this.http.post(url + 'GetDanhSachLoaiDienKV', data, httpOptions);
             },
             Get: (Id) => {
                 return this.http.get(url + `GetItemLoaiDienKV?Id=${Id}`, httpOptions);
@@ -88,8 +88,8 @@ export class SanXuatService {
     dmNhomCongToDien() {
         let url = API.ThongKeDien;
         return {
-            GetList: () => {
-                return this.http.get(url + 'GetDanhSachNhomCongToDien', httpOptions);
+            GetList: (data) => {
+                return this.http.post(url + 'GetDanhSachNhomCongToDien', data, httpOptions);
             },
             Get: (Id) => {
                 return this.http.get(url + `GetItemNhomCongToDien?Id=${Id}`, httpOptions);
@@ -128,8 +128,8 @@ export class SanXuatService {
     dmPhanNhomMaySanXuat() {
         let url = API.SCMDanhMuc;
         return {
-            GetList: () => {
-                return this.http.get(url + 'GetListdmPhanNhomMaySanXuat', httpOptions);
+            GetList: (data) => {
+                return this.http.post(url + 'GetListdmPhanNhomMaySanXuat', data, httpOptions);
             },
             Get: (Id) => {
                 return this.http.get(url + `GetdmPhanNhomMay?Id=${Id}`, httpOptions);
@@ -160,7 +160,7 @@ export class SanXuatService {
             },
             GetBieuDoDuongKiemTraChatLuong: (Nam, IddmPhanXuong, IddmChiTieu, IddmItem) => {
                 return this.http.get(url2 + `GetBieuDoDuongKiemTraChatLuong?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu}&IddmItem=${IddmItem}`, httpOptions);
-            },            
+            },
             GetDanhSachChiTieuChatLuong_BieuDo: () => {
                 return this.http.get(url2 + 'GetDanhSachChiTieuChatLuong_BieuDo', httpOptions);
             },
@@ -187,8 +187,8 @@ export class SanXuatService {
     dmTieuChiChatLuongsoi() {
         let url = API.SCMKiemTraChatLuong;
         return {
-            GetList: () => {
-                return this.http.get(url + 'GetDanhSachChiTieuChatLuong', httpOptions);
+            GetList: (data) => {
+                return this.http.post(url + 'GetDanhSachChiTieuChatLuong', data, httpOptions);
             },
             Get: (Id) => {
                 return this.http.get(url + `GetItemChiTieuChatLuong?Id=${Id}`, httpOptions);
@@ -207,8 +207,8 @@ export class SanXuatService {
     dmCongToDien() {
         let url = API.ThongKeDien;
         return {
-            GetList: (idMayBienAp) => {
-                return this.http.get(url + `GetDanhSachCongToDien?idMayBienAp=${idMayBienAp}`, httpOptions);
+            GetList: (data) => {
+                return this.http.post(url + `GetDanhSachCongToDien`, data, httpOptions);
             },
             Get: (Id) => {
                 return this.http.get(url + `GetItemCongToDien?Id=${Id}`, httpOptions);
@@ -294,14 +294,14 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'DeletedmItem';
         return this.http.post(url, data, httpOptions);
     }
-    ImportDanhSachChiTieuChatLuongTheoSanPham(IdDuAn,TableName,FileName) {
+    ImportDanhSachChiTieuChatLuongTheoSanPham(IdDuAn, TableName, FileName) {
         let url = API.SCMKiemTraChatLuong + `ImportDanhSachChiTieuChatLuongTheoSanPham?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`;
         return this.http.get(url, httpOptions);
     }
     ExportDanhSachChiTieuChatLuongTheoSanPham(data) {
         let url = API.SCMKiemTraChatLuong + 'ExportDanhSachChiTieuChatLuongTheoSanPham';
         return this.http.post(url, data, httpOptions);
-    }   
+    }
     //#endregion
 
     //#region  phân xưởng
@@ -398,8 +398,8 @@ export class SanXuatService {
             GetNhaMay: () => {
                 return this.http.post(`${API.auth}DanhMuc/GetDanhSachDuAn_Advance`, {}, httpOptions)
             },
-            GetPhanXuong: (IdDuAn) => {
-                return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn}`, httpOptions)
+            GetPhanXuong: (IdDuAn?) => {
+                return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn?IdDuAn:this.store.getCurrent()}`, httpOptions)
             },
             GetListGiaoKeHoachSanXuatChuaLapKeHoach: () => {
                 return this.http.get(`${API.SCMQuanLyKho}GetListGiaoKeHoachSanXuatChuaLapKeHoach`, httpOptions)
@@ -926,6 +926,9 @@ export class SanXuatService {
             // },
             GetListKienBong: (data) => {
                 return this.http.post(url + `GetListKienLoBong`, data, httpOptions)
+            },
+            TimBongTuDong: (IdTimBong) => {
+                return this.http.get(`${url}TaoPhuongAnTimBong?Id=${IdTimBong}`, httpOptions)
             }
         }
     }
@@ -1200,9 +1203,9 @@ export class SanXuatService {
     }
 
 
-    GetDanhSachChiTieuChatLuong() {
+    GetDanhSachChiTieuChatLuong(data) {
         let url = API.SCMKiemTraChatLuong + 'GetDanhSachChiTieuChatLuong';
-        return this.http.get(url, httpOptions);
+        return this.http.post(url, data, httpOptions);
     }
 
     PhieuXuatThanhPham() {

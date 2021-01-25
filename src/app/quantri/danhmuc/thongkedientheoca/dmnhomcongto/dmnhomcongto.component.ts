@@ -18,85 +18,81 @@ export class DmnhomcongtoComponent implements OnInit {
   items: any = [
   ];
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 0 };
-  keyWord:any='';
+  keyWord: any = '';
   cols: any = [
     {
       header: 'Mã',
       field: 'Ma',
       width: 'unset',
-      align:'center'
+      align: 'center'
     },
     {
       header: 'Tên',
       field: 'Ten',
       width: 'unset',
-      center:'left'
+      center: 'left'
     },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset',
-      center:'center'
+      center: 'center'
     }
   ];
-  selectedItems:any=[];
-  constructor(private _modal:NgbModal,private _services:Dat09Service,private _toastr:ToastrService,private ServicesSanXuat: SanXuatService) { }
+  selectedItems: any = [];
+  constructor(private _modal: NgbModal, private _services: Dat09Service, private _toastr: ToastrService, private ServicesSanXuat: SanXuatService) { }
 
   ngOnInit(): void {
     this.GetDanhSachNhomCongToDien();
   }
-  resetFilter(){
+  resetFilter() {
     this.keyWord = '';
     this.GetDanhSachNhomCongToDien()
   }
-  GetDanhSachNhomCongToDien(reset?){
-    // if(reset){
-    //   this.paging.CurrentPage=1;
-    //   this.paginator.changePage(0);
-    // }
-    // let data = {
-    //   PageSize:20, 
-    //   CurrentPage:this.paging.CurrentPage,
-    //   sFilter:this.keyWord,  
-    //   Ma:"", 
-    //   Ten:""
-    // };
-    this.ServicesSanXuat.dmNhomCongToDien().GetList().subscribe((res:any)=>{
-      this.items = res;
-      // this.paging = res.paging;
+  GetDanhSachNhomCongToDien(reset?) {
+    if (reset) {
+      this.paging.CurrentPage = 1;
+    }
+    let data = {
+      CurrentPage: this.paging.CurrentPage,
+      KeyWord: this.keyWord,
+    };
+    this.ServicesSanXuat.dmNhomCongToDien().GetList(data).subscribe((res: any) => {
+      this.items = res.items;
+      this.paging = res.paging;
     })
   }
-  add(){
-    let modalRef = this._modal.open(ModaldanhmucchungComponent,{
-      backdrop:'static'
+  add() {
+    let modalRef = this._modal.open(ModaldanhmucchungComponent, {
+      backdrop: 'static'
     });
-    modalRef.componentInstance.opt='add';
+    modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'nhomcongto';
     modalRef.componentInstance.title = 'Thêm mới danh mục nhóm công tơ';
-    modalRef.result.then(res=>{
+    modalRef.result.then(res => {
       this._toastr.success(res);
       this.GetDanhSachNhomCongToDien()
-    }).catch(er=>console.log(er))
+    }).catch(er => console.log(er))
   }
-  edit(item){
-    let modalRef = this._modal.open(ModaldanhmucchungComponent,{
-      backdrop:'static'
+  edit(item) {
+    let modalRef = this._modal.open(ModaldanhmucchungComponent, {
+      backdrop: 'static'
     });
-    modalRef.componentInstance.opt='edit';
+    modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.title = 'Cập nhật danh mục nhóm công tơ';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.type = 'nhomcongto';
-    modalRef.result.then(res=>{
+    modalRef.result.then(res => {
       this._toastr.success(res);
       this.GetDanhSachNhomCongToDien()
-    }).catch(er=>console.log(er))
+    }).catch(er => console.log(er))
   }
-  delete(item){
-    let modalRef = this._modal.open(ModalthongbaoComponent,{
-      backdrop:'static'
+  delete(item) {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
     });
-    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res=>{
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
       this.ServicesSanXuat.dmNhomCongToDien().Delete(item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -107,14 +103,14 @@ export class DmnhomcongtoComponent implements OnInit {
           }
         }
       })
-    }).catch(er=>console.log(er))
+    }).catch(er => console.log(er))
   }
-  deleteAll(){
-    let modalRef = this._modal.open(ModalthongbaoComponent,{
-      backdrop:'static'
+  deleteAll() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
     });
-    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res=>{
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
       this.ServicesSanXuat.dmNhomCongToDien().Delete(this.selectedItems).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -126,13 +122,13 @@ export class DmnhomcongtoComponent implements OnInit {
           }
         }
       })
-    }).catch(er=>console.log(er))
+    }).catch(er => console.log(er))
   }
-  changePage(event){
-    this.paging.CurrentPage = event.page+1;
-    this.GetDanhSachNhomCongToDien();
-  }
-  importExcel(){
+  // changePage(event){
+  //   this.paging.CurrentPage = event.page+1;
+  //   this.GetDanhSachNhomCongToDien();
+  // }
+  importExcel() {
     // let modalRef = this._modal.open(ModalimportexcelComponent,{
     //   backdrop:'static',
     // })

@@ -88,17 +88,15 @@ export class DmmaybienapComponent implements OnInit {
   GetListdm(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
+      // this.paginator.changePage(0);
     }
     this.dataSearch = {
-      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      sFilter: this.keyWord,
-      Ma: "",
-      Ten: ""
+      KeyWord: this.keyWord,   
     };
-    this._services.DMMayBienAp().GetList().subscribe((res: any) => {
-      this.items = res;
+    this._services.DMMayBienAp().GetList(this.dataSearch).subscribe((res: any) => {
+      this.items = res.items;
+      this.paging = res.paging;
       this.items.forEach(element => {
         this.listnhamay.filter(obj => {
           if (element.idNhaMay == obj.value) {
@@ -178,10 +176,10 @@ export class DmmaybienapComponent implements OnInit {
   //     })
   //   }).catch(er => console.log(er))
   // }
-  changePage(event) {
-    this.paging.CurrentPage = event.page + 1;
-    this.GetListdm();
-  }
+  // changePage(event) {
+  //   this.paging.CurrentPage = event.page + 1;
+  //   this.GetListdm();
+  // }
   importExcel() {
     // let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
     //   backdrop: 'static',

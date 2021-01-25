@@ -79,22 +79,22 @@ export class PhanquyentheophanxuongComponent implements OnInit {
     //   Ma: "",
     //   Ten: ""
     // };
-    this._services.dmPhanNhomMaySanXuat().GetList().subscribe((res: any) => {
-      this.items = res;
-      // this.items.forEach(element => {
-      //   this.listnhamay.filter(obj => {
-      //     if (element.idNhaMay == obj.value) {
-      //       element.TenNhaMay = obj.label;
-      //     }
-      //   });
-      //   this.listphanxuong.filter(obj => {
-      //     if (element.idPhanXuong == obj.value) {
-      //       element.TenPhanXuong = obj.label;
-      //     }
-      //   });
-      // });
-      // this.paging = res.paging;
-    })
+    // this._services.dmPhanNhomMaySanXuat().GetList().subscribe((res: any) => {
+    //   this.items = res;
+    //   // this.items.forEach(element => {
+    //   //   this.listnhamay.filter(obj => {
+    //   //     if (element.idNhaMay == obj.value) {
+    //   //       element.TenNhaMay = obj.label;
+    //   //     }
+    //   //   });
+    //   //   this.listphanxuong.filter(obj => {
+    //   //     if (element.idPhanXuong == obj.value) {
+    //   //       element.TenPhanXuong = obj.label;
+    //   //     }
+    //   //   });
+    //   // });
+    //   // this.paging = res.paging;
+    // })
   }
   add() {
     let modalRef = this._modal.open(PhanquyentheophanxuongmodalComponent, {
