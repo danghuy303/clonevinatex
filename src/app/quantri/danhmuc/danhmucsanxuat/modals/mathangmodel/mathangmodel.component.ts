@@ -24,6 +24,9 @@ export class MathangmodelComponent implements OnInit {
     public toastr: ToastrService, private _modal: NgbModal) { }
 
   ngOnInit(): void {
+    if(this.opt === 'add'){
+      this.item.HoatDong = true;
+    }
     this.getListLoaiSoi();
   }
 
@@ -39,18 +42,17 @@ export class MathangmodelComponent implements OnInit {
       this.item.Loai = 1;
       this.item.DonViThietKe = this.item.DonViDatHang;
       var listCodeCongDoan_new: any = [];
-      if (this.item.listCongDoan != null && this.item.listCongDoan != undefined) {
-        this.item.listCongDoan.forEach(element => {
-          if(element != null && element!= undefined){
-            var data: any = {};
-            data.CongDoan = element;
-            listCodeCongDoan_new.push(data);
-          }
-        });
-        this.item.listCongDoan = listCodeCongDoan_new;
-      }
-      if(this.item.Id === undefined || this.item.Id === null || this.item.Id === "")
-        this.item.HoatDong = true;
+      // if (this.item.listCongDoan != null && this.item.listCongDoan != undefined) {
+      //   this.item.listCongDoan.forEach(element => {
+      //     if(element != null && element!= undefined){
+      //       var data: any = {};
+      //       data.CongDoan = element;
+      //       listCodeCongDoan_new.push(data);
+      //     }
+      //   });
+      //   this.item.listCongDoan = listCodeCongDoan_new;
+      // }
+     
       this.services.SetdmItem(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

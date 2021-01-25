@@ -498,6 +498,11 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/huongdansudung',
                         command: () => this.close()
                     },
+                    {
+                        label: 'Phân quyền theo phân xưởng',
+                        routerLink: '/quantri/phanquyen/phanquyentheophanxuong',
+                        command: () => this.close()
+                    },
                 ]
             },
             // {

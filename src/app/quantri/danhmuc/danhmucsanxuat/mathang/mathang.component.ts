@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs/operators';
-import { ModalimportexcelComponent } from 'src/app/quantri/modal/modalimportexcel/modalimportexcel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { congDoan } from 'src/app/services/const';
