@@ -37,12 +37,12 @@ export class BotrimaymodalComponent implements OnInit {
     ]
     // console.log(this.PoolMaySanXuat);
     // if (this.opt !== 'edit') {
-      // this.GetCongDoanTheoMatHang()
+      this.GetCongDoanTheoMatHang()
     // }
     
     // console.log(this.PoolMaySanXuat);
     // console.log(this.item);
-    // this.listDate = this.getDates(UnixToDate(this.labelProp.TuNgayUnix), UnixToDate(this.labelProp.DenNgayUnix));
+    this.listDate = this.getDates(UnixToDate(this.labelProp.TuNgayUnix), UnixToDate(this.labelProp.DenNgayUnix));
     // console.log(this.listDate);
     // this.item.listCongDoan= [
     //   {Ten:'Bông chải',listMay:[
