@@ -6,7 +6,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown, merge } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
 import { DmphannhommayChonmathangmodalComponent } from '../dmphannhommay-chonmathangmodal/dmphannhommay-chonmathangmodal.component';
 
 @Component({
@@ -50,23 +50,20 @@ export class DmphannhommaymodalComponent implements OnInit {
   ngOnInit(): void {
     if (this.opt == 'edit') {
     }
+    if(validVariable(this.item.CongDoan)){
+      this.childModalOpt = this.mapCongDoan[this.item.CongDoan];
+    }
     this.GetListPhanXuong();
     this.GetListCongDoan();
   } 
   GetListPhanXuong(){
     this.sanXuatService.GetOptions().GetPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
-      
     })
   }
   GetListCongDoan() {
     this.sanXuatService.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
-      this.listCongDoan.forEach(CongDoan => {
-        if(this.mapCongDoan[CongDoan.value]=== undefined){
-          console.log(CongDoan.value);
-        }
-      });
     })
   }
   accept() {

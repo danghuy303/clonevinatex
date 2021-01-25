@@ -13,7 +13,9 @@ import { ChonmaytheocongdoanComponent } from '../chonmaytheocongdoan/chonmaytheo
 })
 export class BotrimaymodalComponent implements OnInit {
   item: any = {};
+  listMay:any = [];
   filter: any = {};
+  labelProp:any={};
   opt: string = '';
   listCongDoan: Array<any> = []
   IddmPhanXuong: string = '';
@@ -35,13 +37,13 @@ export class BotrimaymodalComponent implements OnInit {
     ]
     // console.log(this.PoolMaySanXuat);
     // if (this.opt !== 'edit') {
-      this.GetCongDoanTheoMatHang()
+      // this.GetCongDoanTheoMatHang()
     // }
     
-    console.log(this.PoolMaySanXuat);
-    console.log(this.item);
-    this.listDate = this.getDates(UnixToDate(this.item.TuNgayUnix), UnixToDate(this.item.DenNgayUnix));
-    console.log(this.listDate);
+    // console.log(this.PoolMaySanXuat);
+    // console.log(this.item);
+    // this.listDate = this.getDates(UnixToDate(this.labelProp.TuNgayUnix), UnixToDate(this.labelProp.DenNgayUnix));
+    // console.log(this.listDate);
     // this.item.listCongDoan= [
     //   {Ten:'Bông chải',listMay:[
     //     {Ten:'TC05',ChiSo:0.2,Loai:'CM'},
@@ -75,28 +77,34 @@ export class BotrimaymodalComponent implements OnInit {
     return dates;
   };
   GetCongDoanTheoMatHang() {
-    this._services.GetOptions().GetListCongDoanTheoMatHang(this.item.IddmItem).subscribe((res: any) => {
-      this.listCongDoan = res;
-    if (this.opt !== 'edit') {
-      res.forEach(cd => {
-        let data = []
-        for (let key in this.PoolMaySanXuat[cd.Ma]) {
-          if (this.PoolMaySanXuat[cd.Ma][key]) {
-            data.push(this.PoolMaySanXuat[cd.Ma][key]);
-          }
-        }
-        this.item.listItemTemp[cd.Ma] = data.map(
-          ele => {
-            return {
-              prop: ele.Id.split('-').join('_'),
-              MadmLoaiSoi:this.item.MadmLoaiSoi,
-              IddmMay: ele.Id,
-              Id: ''
-            }
-          })
-      });
+    for(let prop in this.PoolMaySanXuat[this.labelProp.CongDoan.value]){
+      this.listMay.push({
+        Ten:this.PoolMaySanXuat[this.labelProp.CongDoan.value][prop].Ten,
+        prop:prop
+      })
     }
-    })
+    // this._services.GetOptions().GetListCongDoanTheoMatHang(this.item.IddmItem).subscribe((res: any) => {
+    //   this.listCongDoan = res;
+    // if (this.opt !== 'edit') {
+    //   res.forEach(cd => {
+    //     let data = []
+    //     for (let key in this.PoolMaySanXuat[cd.Ma]) {
+    //       if (this.PoolMaySanXuat[cd.Ma][key]) {
+    //         data.push(this.PoolMaySanXuat[cd.Ma][key]);
+    //       }
+    //     }
+    //     this.item.listItemTemp[cd.Ma] = data.map(
+    //       ele => {
+    //         return {
+    //           prop: ele.Id.split('-').join('_'),
+    //           MadmLoaiSoi:this.item.MadmLoaiSoi,
+    //           IddmMay: ele.Id,
+    //           Id: ''
+    //         }
+    //       })
+    //   });
+    // }
+    // })
   }
   checkMay(CongDoan,May,event){
       this.listDate.forEach(date => {
