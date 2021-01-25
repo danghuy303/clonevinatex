@@ -109,7 +109,7 @@ export class XuatkhoComponent implements OnInit {
       DenNgay:DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      Loai: "6",
+      Loai: "2",
     }
     this._service.PhieuXuatSanXuat().GetList(data).subscribe((res:any)=>{
       this.items = res.items;

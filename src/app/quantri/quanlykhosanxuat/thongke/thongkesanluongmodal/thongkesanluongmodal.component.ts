@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
-import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { congDoan, vn } from 'src/app/services/const';
+import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { LohangComponent } from '../lohang/lohang.component';
 
 @Component({
   selector: 'app-thongkesanluongmodal',
@@ -27,6 +26,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   listPhanXuong: any = [];
   editTableItem: any = {};
   lang: any = vn;
+  listLoHang: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
 
@@ -46,6 +46,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.getListPhanXuong();
     this.getListCongDoan();
     this.getListCaSanXuat();
+    this.getListLoHang();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -168,5 +169,31 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
   onClose(){
     this.activeModal.close();
+  }
+  getListLoHang() {
+    var data={
+      CurrentPage:0
+    }
+    this.services.LoHang().GetList(data).subscribe((res: any) => {
+      this.listLoHang = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  addLoHang(){
+    let data = {
+      CurrentPage: 0,
+      Loai: 1,
+    };
+    this.services.GetListdmItem(data).subscribe((res1: any) => {
+      let modalRef = this._modal.open(LohangComponent, {
+        size: 'fullscreen',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.listMatHang = res1;
+      modalRef.componentInstance.listItem = this.item.lstSanPham;
+      modalRef.result.then((data) => {
+        });
+      }, (reason) => {
+        // không
+      });
   }
 }

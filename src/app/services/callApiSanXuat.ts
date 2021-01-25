@@ -390,6 +390,12 @@ export class SanXuatService {
         let url = API.auth + `QuanTriQuyTrinh/KiemTraButtonUser?IdTrangThai=${IdTrangThai}&IdTable=${IdTable}&IdUser=${IdUser}`;
         return this.http.get(url, httpOptions);
     }
+    GetListUser() {
+        var IdDuAn = this.store.getCurrent();
+        let url = API.auth + `DanhMuc/GetListNhanSuDuAn?IdDuAn=53&MaDuAn=`;
+        return this.http.get(url, httpOptions);
+    }
+
     GetOptions() {
         return {
             GetMatHang: () => {
@@ -1233,6 +1239,39 @@ export class SanXuatService {
             },
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhieuXuatThanhPham', data, httpOptions)
+            },
+        }
+    }
+    PhanQuyen() {
+        let url = API.SCMDanhMuc;
+        return {
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetListUserTheoGiaoDien', data, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetUserTheoGiaoDien', data, httpOptions);
+            },
+            Delete: (Id) => {
+                return this.http.get(url + `DeleteUserTheoGiaoDien?Id=${Id}`, httpOptions);
+            },
+        }
+    }
+    LoHang() {
+        let url = API.SCMDanhMuc;
+        return {
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetListLoMatHang', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetLoMatHang?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetLoMatHang', data, httpOptions);
+            },
+            Delete: (Id) => {
+                return this.http.get(url + `DeleteLoMatHang?Id=${Id}`, httpOptions);
             },
         }
     }
