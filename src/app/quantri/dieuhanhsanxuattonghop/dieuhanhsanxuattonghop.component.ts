@@ -273,6 +273,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   }
 
   GetBieuDoDuongKiemTraChatLuong() {
+    this.GetBaoCaoQuyTrinhKiemTraChatLuong();
+
     this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem).subscribe((res: any) => {
       // this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(2021, "1cf3f340-0f55-4f34-938p-e629318e25et", "34701076-c84a-4459-8ce9-fbde22d44e39", "02bd1952-5092-496f-a566-2f0ac6ab4940").subscribe((res: any) => {
       // this.dataSet1 = res;
@@ -314,11 +316,44 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
       });
       this.listMatHang[index].checked = true;
       this.SelectItem = this.listMatHang[index];
-      this.GetBieuDoDuongKiemTraChatLuong();
+      this.GetBieuDoDuongKiemTraChatLuong_js();
     }
     else {
       this.SelectItem = {};
       this.dataSet1 = [];
     }
   }
+  GetBieuDoDuongKiemTraChatLuong_js() {
+
+    this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem).subscribe((res: any) => {
+      // this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(2021, "1cf3f340-0f55-4f34-938p-e629318e25et", "34701076-c84a-4459-8ce9-fbde22d44e39", "02bd1952-5092-496f-a566-2f0ac6ab4940").subscribe((res: any) => {
+      // this.dataSet1 = res;
+      let label = this.listtieuchi.filter(obj => obj.value == this.filter.IddmChiTieu)[0].label;
+
+      this.dataSet1 = {
+        labels: this.listThang.map(ele => ele.label),
+        datasets: [
+          {
+            type: 'line',
+            label: this.SelectItem.TenItem,
+            borderColor: '#FF0000',
+            // borderWidth: 2,
+            fill: false,
+            data: res.listThucTe,
+            // steppedLine: 'before'
+          },
+          {
+            type: 'line',
+            label: label,
+            borderColor: '#0000E5',
+            // borderDash: [10, 5],
+            // borderWidth: 2,
+            fill: false,
+            data: res.listLyThyet,
+          },
+        ]
+      }
+    });
+  }
+
 }
