@@ -479,9 +479,6 @@ export class SanXuatService {
             },
             TinhNangSuat:(data)=>{
                 return this.http.post(url + 'TinhNangSuat', data, httpOptions)
-            },
-            GetListCongDoanTheoMatHang:(data)=>{
-                
             }
         }
     }
