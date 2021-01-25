@@ -477,6 +477,12 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetTrienKhaiKeHoachSanXuat', data, httpOptions)
             },
+            TinhNangSuat:(data)=>{
+                return this.http.post(url + 'TinhNangSuat', data, httpOptions)
+            },
+            GetListCongDoanTheoMatHang:(data)=>{
+                
+            }
         }
     }
     //#region  NhapLoBong

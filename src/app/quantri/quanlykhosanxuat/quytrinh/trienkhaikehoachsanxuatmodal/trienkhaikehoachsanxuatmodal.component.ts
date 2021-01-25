@@ -138,6 +138,10 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
       this.item.listItem = [...this.merge(deepCopy(res), this.item.listItem.filter(item => item.isXoa !== true), 'IddmItem'), ...this.item.listItem.filter(ele => ele.isXoa)];
+      this._services.TrienKhaiKeHoachSanXuat().TinhNangSuat(this.item).subscribe(res=>{
+        console.log(res);
+        // this.item.listItem = res
+      })
     }).catch(er => {
     })
   }
