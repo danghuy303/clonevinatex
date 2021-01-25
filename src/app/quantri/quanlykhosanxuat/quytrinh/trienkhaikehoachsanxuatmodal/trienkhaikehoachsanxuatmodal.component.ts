@@ -22,6 +22,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   item: any = {
     Id: '',
   };
+  listCongDoan:any=[];
   filter: any = {};
   checkbutton: any = {};
   listGiaoKeHoach: any = [];
@@ -138,23 +139,36 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
       this.item.listItem = [...this.merge(deepCopy(res), this.item.listItem.filter(item => item.isXoa !== true), 'IddmItem'), ...this.item.listItem.filter(ele => ele.isXoa)];
+      this._services.TrienKhaiKeHoachSanXuat().TinhNangSuat(this.item).subscribe((res:any)=>{
+        this.listCongDoan = mapArrayForDropDown(res.listCongDoan,'Ten','Ma');
+        this.filter.CongDoan = this.listCongDoan[0].value;
+        this.item.listItemMay = res.listItemMay;
+        console.table(this.item.listItemMay)
+      })
     }).catch(er => {
     })
   }
   boTriMay(item, index) {
-    item.TuNgayUnix = DateToUnix(item.TuNgay);
-    item.DenNgayUnix = DateToUnix(item.DenNgay);
+    // item.TuNgayUnix = DateToUnix(item.TuNgay);
+    // item.DenNgayUnix = DateToUnix(item.DenNgay);
     let modalRef = this._modal.open(BotrimaymodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     });
     modalRef.componentInstance.item = item;
+    modalRef.componentInstance.labelProp ={
+      TuNgay: this.item.TuNgay,
+      DenNgay: this.item.DenNgay,
+      TuNgayUnix: DateToUnix(this.item.TuNgay),
+      DenNgayUnix: DateToUnix(this.item.DenNgay),
+      CongDoan:this.listCongDoan.filter(ele=>ele.value=== this.filter.CongDoan)[0]
+    }
     modalRef.componentInstance.opt = item.opt;
     modalRef.componentInstance.IddmPhanXuong = this.IddmPhanXuong;
     modalRef.componentInstance.PoolMaySanXuat = this.PoolMaySanXuat;
     modalRef.result.then(res => {
-      this.item.listItem[index] = res;
-      this.item.listItem[index].opt = 'edit';
+      this.item.listItemMay[index] = res;
+      this.item.listItemMay[index].opt = 'edit';
     }).catch(er => {
     })
   }
@@ -316,7 +330,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       .catch(er => { })
   }
   validChonLai(mathang) {
-    if (validVariable(mathang.TuNgay) && validVariable(mathang.DenNgay) && validVariable(mathang.listItemTemp) && JSON.stringify(mathang.listItemTemp) !== '{}') {
+    if (validVariable(mathang.TuNgay) && validVariable(mathang.DenNgay)) {
       return true;
     } else {
       return false;

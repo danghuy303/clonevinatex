@@ -99,7 +99,7 @@ export class DanhsachmayComponent implements OnInit {
 
   GetListdmPhanNhomMaySanXuat() {
     this._services.dmPhanNhomMaySanXuat().GetList({}).subscribe((res: any) => {
-      this.listPhanNhomMaySX = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listPhanNhomMaySX = res;
     })
   }
 
@@ -121,7 +121,7 @@ export class DanhsachmayComponent implements OnInit {
       this.paging = res.paging;
       if (this.items.length > 0 && this.listPhanNhomMaySX.length > 0) {
         this.items.forEach(element => {
-          element.TendmPhanNhom = this.listPhanNhomMaySX.filter(obj => obj.value == element.IddmPhanNhom)[0].label;
+          element.TendmPhanNhom = this.listPhanNhomMaySX.filter(obj => obj.value == element.IddmPhanNhom)[0].Ten;
         });
       }
     })

@@ -78,20 +78,22 @@ export class ChonhanghoamodalComponent implements OnInit {
         item.checked = false;
       });
     }
-
+  }
+  checked(){
+    this.checkedAll = this.items.every(ele=>ele.checked)
   }
   accept() {
     switch (this.opt) {
       case "KhoiLuongKeHoach":
         let data = this.items.filter(item => item.checked)
-        data.forEach(mathang => {
-          mathang.listItemTemp = {};
-          this._services.GetOptions().GetListCongDoanTheoMatHang(mathang.IddmItem).subscribe((res: any) => {
-            res.forEach(cd => {
-              mathang.listItemTemp[cd.CongDoan] = []
-            })
-          })
-        });
+        // data.forEach(mathang => {
+        //   mathang.listItemTemp = {};
+        //   this._services.GetOptions().GetListCongDoanTheoMatHang(mathang.IddmItem).subscribe((res: any) => {
+        //     res.forEach(cd => {
+        //       mathang.listItemTemp[cd.CongDoan] = []
+        //     })
+        //   })
+        // });
         this._activeModal.close(this.items.filter(item => item.checked).map(ele => {
           return {
             ...ele,

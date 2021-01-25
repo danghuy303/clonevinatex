@@ -227,6 +227,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       size: 'lg'
     })
     modalRef.componentInstance.items = this.listQuyCachDongGoi;
+    modalRef.componentInstance.layitem = item;
     modalRef.componentInstance.selectedItems = deepCopy(item.listItem || []);
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {

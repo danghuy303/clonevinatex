@@ -1,6 +1,7 @@
 <div class="modal-header">
-    <h5 class="modal-title">Kế hoạch bố trí máy sản xuất: {{item.Ten}} Từ ngày:{{item.TuNgay|date:'dd/MM/yyyy'}} Đến
-        ngày:{{item.DenNgay|date:'dd/MM/yyyy'}}</h5>
+    <h5 class="modal-title">Kế hoạch bố trí máy sản xuất: {{item.Ten}} - {{labelProp.CongDoan.label}} <br> Từ
+        ngày:{{labelProp.TuNgay|date:'dd/MM/yyyy'}} Đến
+        ngày:{{labelProp.DenNgay|date:'dd/MM/yyyy'}}</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="_activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -50,53 +51,42 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let congDoan of listCongDoan">
-                        <tr>
-                            <td> <a href="javascript:void(0)" (click)="collapseCongDoan(congDoan)">{{congDoan.Ten}}</a>
-                            </td>
-                            <td colspan="2">
-                                <!-- <a href="javascript:void(0)"
-                                    (click)="chonMayTheoCongDoan(congDoan.CongDoan)">Chọn máy</a> -->
-                            </td>
-                            <td></td>
-                        </tr>
-                        <ng-container *ngIf="congDoan.show">
-                            <tr *ngFor="let may of item.listItemTemp[congDoan.Ma]">
-                                <td></td>
-                                <td>
-                                    <span>
-                                        <button type="button" pButton pRipple icon="pi pi-check"
-                                            class="p-button-success p-button-text p-button-sm"
-                                            (click)="checkMay(congDoan.Ma,may.prop,{checked:true})"></button>
-                                    </span>
-                                    <span>
-                                        <button type="button" pButton pRipple icon="pi pi-times"
-                                            class="p-button-danger p-button-text p-button-sm ml-1"
-                                            (click)="checkMay(congDoan.Ma,may.prop,{checked:false})"></button>
-                                    </span>
-                                    <!-- <p-checkbox [(ngModel)]="may.checked"
-                                        (onChange)="checkMay(congDoan.Ma,may.prop,$event)" binary="true"
-                                        inputId="binary"></p-checkbox> -->
-                                    <!-- {{PoolMaySanXuat[congDoan.CongDoan][may.prop].Ma}} - -->
-                                    {{PoolMaySanXuat[congDoan.Ma][may.prop].Ten}}
-                                </td>
-                                <td>
-                                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="may.ChiSo">
-                                    </p-inputNumber>
-                                </td>
-                                <td>
-                                    {{may.MadmLoaiSoi}}
-                                </td>
-                                <td *ngFor="let date of listDate" style="padding:0px;height: 1px;">
-                                    <app-trangthaimaysanxuat
-                                        [(ngModel)]="PoolMaySanXuat[congDoan.Ma][may.prop][date.prop]"
-                                        [IdMatHang]="item.IddmItem">
-                                    </app-trangthaimaysanxuat>
-                                    <!-- {{PoolMaySanXuat[congDoan.CongDoan][may.prop][date.prop].TinhTrang}} -->
-                                </td>
-                            </tr>
-                        </ng-container>
-                    </ng-container>
+                    <!-- <tr>
+                        <td> {{congDoan.Ten}}
+                        </td>
+                        <td colspan="2">
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr *ngFor="let may of item.listItem">
+                        <td></td>
+                        <td>
+                            <span>
+                                <button type="button" pButton pRipple icon="pi pi-check"
+                                    class="p-button-success p-button-text p-button-sm"
+                                    (click)="checkMay(labelProp.CongDoan.value,may.prop,{checked:true})"></button>
+                            </span>
+                            <span>
+                                <button type="button" pButton pRipple icon="pi pi-times"
+                                    class="p-button-danger p-button-text p-button-sm ml-1"
+                                    (click)="checkMay(labelProp.CongDoan.value,may.prop,{checked:false})"></button>
+                            </span>
+                            {{PoolMaySanXuat[labelProp.CongDoan.value][may.prop].Ten}}
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="may.ChiSo">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            {{may.MadmLoaiSoi}}
+                        </td>
+                        <td *ngFor="let date of listDate" style="padding:0px;height: 1px;">
+                            <app-trangthaimaysanxuat
+                                [(ngModel)]="PoolMaySanXuat[labelProp.CongDoan.value][may.prop][date.prop]"
+                                [IdMatHang]="item.IddmItem">
+                            </app-trangthaimaysanxuat>
+                        </td>
+                    </tr> -->
                 </tbody>
             </table>
             <!-- <p-table [value]="listCongDoan"

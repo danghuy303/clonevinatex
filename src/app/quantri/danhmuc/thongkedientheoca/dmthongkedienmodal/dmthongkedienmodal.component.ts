@@ -68,32 +68,47 @@ export class DmthongkedienmodalComponent implements OnInit {
 
   GhiLai() {
     this.khongclicknhieu = !this.khongclicknhieu;
-    this._services.ThongKeDien().Set(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.toastr.success(res.message);
-          this.khongclicknhieu = !this.khongclicknhieu;
-          // this.activeModal.close();
-          this._services.ThongKeDien().Get(this.item).subscribe((res: any) => {
-            this.item = res;
-          })
-        } else {
-          this.khongclicknhieu = !this.khongclicknhieu;
-          this.toastr.error(res.message);
+    let checkSoMoi = false;
+    this.item.lstMayBienAp.filter(objlstMayBienAp => {
+      objlstMayBienAp.lstKhungGio.filter(objlstKhungGio => {
+        checkSoMoi = objlstKhungGio.lstCongTo.every(objlstCongTo => {
+          if (objlstCongTo.SoMoi > 0)
+            objlstCongTo.SoCu < objlstCongTo.SoMoi;
+        });
+      });
+    });
+    if (checkSoMoi) {
+      this._services.ThongKeDien().Set(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message);
+            this.khongclicknhieu = !this.khongclicknhieu;
+            // this.activeModal.close();
+            this._services.ThongKeDien().Get(this.item).subscribe((res: any) => {
+              this.item = res;
+            })
+          } else {
+            this.khongclicknhieu = !this.khongclicknhieu;
+            this.toastr.error(res.message);
+          }
         }
-      }
-    })
+      });
+    }
+    else {
+      this.khongclicknhieu = !this.khongclicknhieu;
+      this.toastr.error("Yêu cầu nhập lớn hơn 0 và không được nhỏ hơn số cũ");
+    }
   }
 
   tinhgiatri(e, item) {
-    if (e.value > 0) {
+    if (e.value > 0 && item.SoCu < e.value) {
       item.SoTieuThu = 0;
       item.TieuThuTrongCa = 0;
       item.SoTieuThu = e.value - item.SoCu;
       item.TieuThuTrongCa = item.SoTieuThu * item.HeSoNhan;
     }
     else {
-      this.toastr.error("Yêu cầu nhập lớn hơn 0");
+      this.toastr.error("Yêu cầu nhập lớn hơn 0 và không được nhỏ hơn số cũ");
     }
   }
 
