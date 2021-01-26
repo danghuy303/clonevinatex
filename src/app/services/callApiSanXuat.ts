@@ -13,6 +13,11 @@ export class SanXuatService {
     //Cấp bông
     //this.store.getCurrent();
     //data.IdNhaMay =this.store.getCurrent().toString()
+    GetAllQuyen(){
+        let url = API.auth;
+        return this.http.get(url + `QuanTri/GetAllQuyen`, httpOptions);
+    }
+
     GetListOptdmCapBong() {
         let url = API.SCMDanhMuc + 'GetListdmCapBong';
         return this.http.get(url, httpOptions);
@@ -169,6 +174,9 @@ export class SanXuatService {
             },
             GetDanhSachChiTieuChatLuong_BieuDo: () => {
                 return this.http.get(url2 + 'GetDanhSachChiTieuChatLuong_BieuDo', httpOptions);
+            },
+            GetDashBoard_CanDoiTonXuatHang: (data) => {
+                return this.http.post(url + 'GetDashBoard_CanDoiTonXuatHang', data, httpOptions);
             },
         }
     }

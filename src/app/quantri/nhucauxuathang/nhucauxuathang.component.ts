@@ -135,7 +135,7 @@ export class NhucauxuathangComponent implements OnInit {
       this._services.BaoCao().GetDashBoard_CoCauMatHang(this.filter).subscribe((res: any) => {
         this.dataPie = res;
       });
-      this._services.DashBoard().CanDoiTon(this.filter).subscribe(res => {
+      this._services.BaoCao().GetDashBoard_CanDoiTonXuatHang(this.filter).subscribe(res => {
         this.listItem = res;
       })
     }
