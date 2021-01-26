@@ -44,7 +44,7 @@
                 <thead>
                     <tr>
                         <!-- <th>Công đoạn</th> -->
-                        <th>Máy (Tổng số máy cần:{{item.SoMayTinhToan}})</th>
+                        <th>Máy (Tổng số máy cần:{{item.SoMayTinhToan|number:'0.0-1'}})</th>
                         <th>Hệ số sử dụng</th>
                         <!-- <th>Loại sợi</th> -->
                         <th *ngFor="let date of listDate">{{date.header}}</th>

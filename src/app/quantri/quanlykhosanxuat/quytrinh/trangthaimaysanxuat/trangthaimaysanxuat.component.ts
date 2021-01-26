@@ -50,7 +50,7 @@ export class TrangthaimaysanxuatComponent implements ControlValueAccessor {
   }
 
   changeTinhTrang() {
-    if (this.HeSo > 0 && this.HeSo < 1) {
+    if (this.HeSo > 0 && this.HeSo <= 1) {
       if (this.value.TinhTrang !== 2) {
         if (this.value.TinhTrang === 1) {
           this.value.TinhTrang = 0;

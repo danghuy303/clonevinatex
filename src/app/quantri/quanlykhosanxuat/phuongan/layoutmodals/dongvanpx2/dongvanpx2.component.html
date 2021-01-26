@@ -31,15 +31,26 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số vị trí ngoại quan:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <!-- <input type="text" class="p-inputtext-sm" (onblur)="veLayout()" [(ngModel)]="SoViTriNgoaiQuan" pInputText /> -->
-                <p-inputNumber locale="vi-VN" [(ngModel)]="SoViTriNgoaiQuan" (onBlur)="veLayout()">
-                </p-inputNumber>
+                <div class="p-inputgroup">
+                    <p-inputNumber locale="vi-VN" [(ngModel)]="SoViTriNgoaiQuan" (onBlur)="veLayout()">
+                    </p-inputNumber>
+                    <button type="button" pButton pRipple icon="pi pi-check"
+                        class="p-button-success p-button-text p-button-sm"
+                        (click)="veLayout()"></button>
+                    <!-- <input type="text" class="p-inputtext-sm" pInputText disabled /> -->
+                </div>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 flex-column flex-lg-row d-flex no-print">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Vị trí ngoại quan bông:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" (keyup.enter)="changeNgoaiQuanBong()" [(ngModel)]="ViTriNgoaiQuan"
+                <div class="p-inputgroup">
+                    <input type="text" class="p-inputtext-sm" (keyup.enter)="changeNgoaiQuanBong()" [(ngModel)]="ViTriNgoaiQuan"
                     pInputText />
+                    <button type="button" pButton pRipple icon="pi pi-check"
+                        class="p-button-success p-button-text p-button-sm"
+                        (click)="changeNgoaiQuanBong()"></button>
+                </div>
             </div>
         </div>
         <div class="p-col-3">

@@ -11,7 +11,7 @@
     </button>
 </div>
 <div class="modal-body">
-    <div class="p-d-flex p-flex-row p-jc-between no-print" >
+    <div class="p-d-flex p-flex-row p-jc-between no-print">
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="_activeModal.dismiss('close')"></button>
@@ -31,14 +31,24 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số vị trí ngoại quan:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <!-- <input type="text" class="p-inputtext-sm" (onblur)="veLayout()" [(ngModel)]="SoViTriNgoaiQuan" pInputText /> -->
-                <p-inputNumber locale="vi-VN" [(ngModel)]="SoViTriNgoaiQuan" (onBlur)="veLayout()">
-                </p-inputNumber>
+                <div class="p-inputgroup">
+                    <p-inputNumber locale="vi-VN" [(ngModel)]="SoViTriNgoaiQuan" (onBlur)="veLayout()">
+                    </p-inputNumber>
+                    <button type="button" pButton pRipple icon="pi pi-check"
+                        class="p-button-secondary p-button-text p-button-sm" (click)="veLayout()"></button>
+                    <!-- <input type="text" class="p-inputtext-sm" pInputText disabled /> -->
+                </div>
+                <!-- <p-inputNumber locale="vi-VN" [(ngModel)]="SoViTriNgoaiQuan" (onBlur)="veLayout()">
+                </p-inputNumber> -->
             </div>
         </div>
         <div class="p-col-12 p-lg-6 flex-column flex-lg-row d-flex no-print">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Vị trí ngoại quan bông:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" (keyup.enter)="changeNgoaiQuanBong()" [(ngModel)]="ViTriNgoaiQuan" pInputText />
+                <input type="text" class="p-inputtext-sm" (keyup.enter)="changeNgoaiQuanBong()"
+                    [(ngModel)]="ViTriNgoaiQuan" pInputText />
+                <button type="button" pButton pRipple icon="pi pi-check"
+                    class="p-button-success p-button-text p-button-sm" (click)="changeNgoaiQuanBong()"></button>
             </div>
         </div>
         <div class="p-col-4">
@@ -81,7 +91,7 @@
                 </tbody>
             </table> -->
             <div style="position: sticky;top:0">
-                <table class="table table-sm table-bordered" >
+                <table class="table table-sm table-bordered">
                     <thead>
                         <tr>
                             <th>Loại bông</th>

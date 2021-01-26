@@ -1,4 +1,6 @@
+import { formatNumber } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
@@ -33,6 +35,7 @@ export class SanluongComponent implements OnInit {
         }
       }],
     },
+    
     legend: {
       position: 'bottom'
     },
@@ -54,6 +57,17 @@ export class SanluongComponent implements OnInit {
         barPercentage: 1.0
       }]
     },
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          // let tong = 0;
+          // for (let i = 0; i < data.datasets.length; i++) {
+          //   tong += data.datasets[i].data[tooltipItem.index];
+          // }
+          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg`
+        }
+      }
+    },
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
     aspectRatio: ((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
@@ -71,7 +85,7 @@ export class SanluongComponent implements OnInit {
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
-  constructor(private _services: SanXuatService) { }
+  constructor(private _services: SanXuatService,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
     let date = new Date();
@@ -102,7 +116,7 @@ export class SanluongComponent implements OnInit {
                 type: 'line',
                 label: 'Thực tế',
                 borderColor: '#FF671F',
-                borderWidth: 2,
+                // borderWidth: 2,
                 fill: false,
                 data: res.map(ele => Math.round(ele.ThucTe))
               },
@@ -110,7 +124,7 @@ export class SanluongComponent implements OnInit {
                 type: 'line',
                 label: 'Kế hoạch',
                 borderColor: '#009900',
-                borderWidth: 2,
+                // borderWidth: 2,
                 fill: false,
                 data: res.map(ele => Math.round(ele.KeHoach))
               },
@@ -120,7 +134,7 @@ export class SanluongComponent implements OnInit {
                 backgroundColor: '#3c5cbb',
                 data: res.map(ele => Math.round(ele.SanLuong)),
                 borderColor: 'white',
-                borderWidth: 2
+                // borderWidth: 2
               },
             ]
           }
@@ -148,6 +162,9 @@ export class SanluongComponent implements OnInit {
           ]
         }
       })
+    }else{
+      this._toastr.warning('Vui lòng chọn đến ngày lớn hơn từ ngày để ra được dữ liệu chuẩn!');
+      
     }
   }
 

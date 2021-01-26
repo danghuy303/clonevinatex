@@ -160,6 +160,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     })
   }
   boTriMay(item) {
+    console.log(item.Id)
     let modalRef = this._modal.open(BotrimaymodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
@@ -224,14 +225,21 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     this.item.listItemMay.filter(ele => ele.isXoa !== true).forEach(mathang => {
       let TongSoMayDaBoTri = 0;
       for (let may in this.PoolMaySanXuat[mathang.CongDoan]) {
-        dateArr.forEach(ngay => {
-          let mayTrongPool = this.PoolMaySanXuat[mathang.CongDoan][may][ngay.prop];
-          if (mayTrongPool.TinhTrang === 1 && mayTrongPool.IddmItem === mathang.Id) {
-            if (validVariable(mayTrongPool?.SoMay) && mayTrongPool?.SoMay !== 0) {
-              TongSoMayDaBoTri += mayTrongPool.SoMay;
-            }
-          }
+        let co = dateArr.some(ngay=>{
+          let mayTrongPool = this.PoolMaySanXuat[mathang.CongDoan][may][ngay.prop]
+          return mayTrongPool.TinhTrang === 1 && mayTrongPool.IddmItem === mathang.Id
         })
+        if(co){
+          TongSoMayDaBoTri ++;
+        }
+        // dateArr.forEach(ngay => {
+        //   let mayTrongPool = this.PoolMaySanXuat[mathang.CongDoan][may][ngay.prop];
+        //   if (mayTrongPool.TinhTrang === 1 && mayTrongPool.IddmItem === mathang.Id) {
+        //     if (validVariable(mayTrongPool?.SoMay) && mayTrongPool?.SoMay !== 0) {
+        //       TongSoMayDaBoTri += mayTrongPool.SoMay;
+        //     }
+        //   }
+        // })
       }
       mathang.SoMay = TongSoMayDaBoTri;
     });
