@@ -23,19 +23,24 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Kho nhập',
-      field: 'TenKho',
+      header: 'Nội dung',
+      field: 'NoiDung',
       width: 'unset'
     },
     {
       header: 'Khối lượng nhập (Tấn)',
       field: 'TongKhoiLuongNhap',
-      width: 'unset'
+      width: '100px'
     },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset'
+    },
+    {
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
+      width: '100px'
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };

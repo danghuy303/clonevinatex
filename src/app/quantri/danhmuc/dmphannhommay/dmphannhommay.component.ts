@@ -137,27 +137,27 @@ export class DmphannhommayComponent implements OnInit {
   }
   edit(item) {
     this._services.dmPhanNhomMaySanXuat().Get(item.Id).subscribe((res: any) => {
-      let data = {
-        PageSize: 20,
-        CurrentPage: 0,
-        sFilter: "",
-        CongDoan: '',
-        Ma: "",
-        Ten: "",
-        Loai: "1",
-      };
-      this._services.GetListdmItem(data).subscribe((resGetListdmItem: any) => {
-        resGetListdmItem.forEach(element => {
-          res.lstdmItem.filter(obj => {
-            if (obj.IddmItem == element.Id) {
-              obj.Ten = element.Ten;
-              obj.Ne = element.Ne;
-              obj.Nm = element.Nm;
-              obj.DoSan = element.DoSan;
-            }
-          });
-        });
-      })
+      // let data = {
+      //   PageSize: 20,
+      //   CurrentPage: 0,
+      //   sFilter: "",
+      //   CongDoan: '',
+      //   Ma: "",
+      //   Ten: "",
+      //   Loai: "1",
+      // };
+      // this._services.GetListdmItem(data).subscribe((resGetListdmItem: any) => {
+      //   resGetListdmItem.forEach(element => {
+      //     res.lstdmItem.filter(obj => {
+      //       if (obj.IddmItem == element.Id) {
+      //         obj.Ten = element.Ten;
+      //         obj.Ne = element.Ne;
+      //         obj.Nm = element.Nm;
+      //         obj.DoSan = element.DoSan;
+      //       }
+      //     });
+      //   });
+      // })
       let modalRef = this._modal.open(DmphannhommaymodalComponent, {
         size: "xl",
         backdrop: 'static'

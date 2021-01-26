@@ -30,7 +30,7 @@ export class DanhsachmaymodalComponent implements OnInit {
   }
   accept() {
     this.khongclicknhieu = !this.khongclicknhieu;
-    if (this.item.Ma !== undefined && this.item.Ma !== '' && this.item.Ten !== '' && this.item.Ten !== undefined && this.item.CongDoan !== undefined && this.item.objdmPhanNhom !== undefined) {
+    if (this.item.Ma !== undefined && this.item.Ma !== '' && this.item.Ten !== '' && this.item.Ten !== undefined && this.item.objdmPhanNhom !== undefined) {
       this.item.IddmPhanNhom = this.item.objdmPhanNhom.Id;
       this.services.SetdmMay(this.item).subscribe((res: any) => {
         if (res) {

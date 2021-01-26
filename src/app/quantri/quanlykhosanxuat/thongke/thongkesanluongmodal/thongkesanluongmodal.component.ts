@@ -191,6 +191,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.lstSanPham;
       modalRef.result.then((data) => {
+        this.getListLoHang();
         });
       }, (reason) => {
         // không

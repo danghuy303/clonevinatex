@@ -20,11 +20,6 @@ export class NhapkhohoiamComponent implements OnInit {
   eAction: any = "PHIEUNHAPHOIAM";
   cols: any = [
     {
-      header: 'Số quy trình',
-      field: 'SoQuyTrinh',
-      width: 'unset'
-    },
-    {
       header: 'Kho',
       field: 'TendmKho',
       width: 'unset'

@@ -27,6 +27,9 @@ export class MathangmodelComponent implements OnInit {
     if(this.opt === 'add'){
       this.item.HoatDong = true;
     }
+    else{
+      this.item.Nm = this.item.Ne*1.693;
+    }
     this.getListLoaiSoi();
   }
 

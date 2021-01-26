@@ -22,7 +22,7 @@ export class XuatkhothanhphamComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Số phiếu',
+      header: 'Số quy trình',
       field: 'SoQuyTrinh',
       width: 'unset'
     },
