@@ -12,9 +12,9 @@ export class NhucauxuathangComponent implements OnInit {
 
   filterBong: any = {};
   filter: any = {
-    IddmLoaiBong: "",
+    IddmItem: "",
     IddmKho: '',
-    LoaiThoiGian: 1
+    // LoaiThoiGian: 1
   };
   filterSanLuong: any = {};
   filterNhuCau: any = {};
@@ -128,30 +128,13 @@ export class NhucauxuathangComponent implements OnInit {
       this.filter.DenNgay = null;
     }
     if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay < this.filter.DenNgay) {
-      this._services.DashBoard().NhuCauSuDungBong(this.filter).subscribe((res: any) => {
-        this.dataSet1 = {
-          labels: res.listThoiGian,
-          datasets: [
-            {
-              type: 'line',
-              label: 'Nhu cầu',
-              borderColor: '#FF0000',
-              fill: false,
-              data: res.listNhuCau.map(ele => ele.KhoiLuong),
-            },
-            {
-              type: 'line',
-              label: 'Kế hoạch',
-              borderColor: '#0000E5',
-              borderDash: [10, 5],
-              fill: false,
-              data: res.listKeHoach.map(ele => ele.KhoiLuong),
-              steppedLine: 'before'
-            },
-          ]
-        }
+      this.filter.IdDuAn = this.IdDuAn;
+      this._services.BaoCao().GetDashBoard_NhuCauXuatHang(this.filter).subscribe((res: any) => {
+        this.dataSet1 = res;
       })
-      this.BieuDoCoCau();
+      this._services.BaoCao().GetDashBoard_CoCauMatHang(this.filter).subscribe((res: any) => {
+        this.dataPie = res;
+      });
       this._services.DashBoard().CanDoiTon(this.filter).subscribe(res => {
         this.listItem = res;
       })
@@ -159,10 +142,7 @@ export class NhucauxuathangComponent implements OnInit {
   }
 
   BieuDoCoCau() {
-    let data: any = { IdDuAn: this.IdDuAn, IddmPhanXuong: "", nNam: 0 };
-    this._services.BaoCao().BieuDoCoCau(data).subscribe((res: any) => {
-      this.dataPie = res;
-    });
+  
   }
 
   resetFilter() {
@@ -174,13 +154,13 @@ export class NhucauxuathangComponent implements OnInit {
       PageSize: 20,
       CurrentPage: 0,
       sFilter: "",
-      IddmNhomKho: 11,
+      Loai: 11,
       Ma: "",
       Ten: ""
     };
     this._services.GetListdmKho(data).subscribe((res: any) => {
-      res.unshift({ Id: '', Ten: 'Tổng hợp' });
-      this.listKho = res.paging;
+      res.unshift({ Id: '', Ten: 'Tất cả' });
+      this.listKho = mapArrayForDropDown(res, "Ten", 'Id');
     })
     this._services.GetOptions().GetMatHang().subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tổng hợp' });

@@ -155,8 +155,14 @@ export class SanXuatService {
             BieuDoCoCau: (data) => {
                 return this.http.post(url + 'GetDashBoard_BieuDoCoCau', data, httpOptions);
             },
-            GetBaoCaoQuyTrinhKiemTraChatLuong: (Nam, IddmPhanXuong, IddmChiTieu) => {
-                return this.http.get(url2 + `GetBaoCaoQuyTrinhKiemTraChatLuong?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu}`, httpOptions);
+            GetDashBoard_NhuCauXuatHang: (data) => {
+                return this.http.post(url + 'GetDashBoard_NhuCauXuatHang', data, httpOptions);
+            },
+            GetDashBoard_CoCauMatHang: (data) => {
+                return this.http.post(url + 'GetDashBoard_CoCauMatHang', data, httpOptions);
+            },
+            GetBaoCaoQuyTrinhKiemTraChatLuong: (Nam, IddmPhanXuong, IddmChiTieu, KeyWord) => {
+                return this.http.get(url2 + `GetBaoCaoQuyTrinhKiemTraChatLuong?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu}&KeyWord=${KeyWord}`, httpOptions);
             },
             GetBieuDoDuongKiemTraChatLuong: (Nam, IddmPhanXuong, IddmChiTieu, IddmItem) => {
                 return this.http.get(url2 + `GetBieuDoDuongKiemTraChatLuong?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu}&IddmItem=${IddmItem}`, httpOptions);
@@ -405,7 +411,7 @@ export class SanXuatService {
                 return this.http.post(`${API.auth}DanhMuc/GetDanhSachDuAn_Advance`, {}, httpOptions)
             },
             GetPhanXuong: (IdDuAn?) => {
-                return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn?IdDuAn:this.store.getCurrent()}`, httpOptions)
+                return this.http.get(`${API.SCMDanhMuc}GetListdmPhanXuongForIdDuAn?IdDuAn=${IdDuAn ? IdDuAn : this.store.getCurrent()}`, httpOptions)
             },
             GetListGiaoKeHoachSanXuatChuaLapKeHoach: () => {
                 return this.http.get(`${API.SCMQuanLyKho}GetListGiaoKeHoachSanXuatChuaLapKeHoach`, httpOptions)
@@ -483,7 +489,7 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetTrienKhaiKeHoachSanXuat', data, httpOptions)
             },
-            TinhNangSuat:(data)=>{
+            TinhNangSuat: (data) => {
                 return this.http.post(url + 'TinhNangSuat', data, httpOptions)
             }
         }

@@ -182,6 +182,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     })
     this._services.BaoCao().GetDanhSachChiTieuChatLuong_BieuDo().subscribe((res: any) => {
       this.listtieuchi = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmChiTieu = this.listtieuchi.filter(obj=>obj.value == "2a3dbea0-6c3f-4e10-9774-6201027f4bd0")[0].value;
     })
     // this._services.GetOptions().GetMatHang().subscribe((res: any) => {
     //   let fakeMatHang = [
@@ -265,7 +266,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
 
   GetBaoCaoQuyTrinhKiemTraChatLuong() {
     // this._services.BaoCao().GetBaoCaoQuyTrinhKiemTraChatLuong(2021, "1cf3f340-0f55-4f34-938p-e629318e25et", "34701076-c84a-4459-8ce9-fbde22d44e39").subscribe((res: any) => {
-    this._services.BaoCao().GetBaoCaoQuyTrinhKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu).subscribe((res: any) => {
+    this._services.BaoCao().GetBaoCaoQuyTrinhKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, '').subscribe((res: any) => {
       this.listMatHang = res;
       this.listMatHang.forEach(mathang => {
         mathang.checked = false;
@@ -273,6 +274,11 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
       this.SelectItem = {};
       this.dataSet1 = [];
     });
+  }
+
+  resetFilter() {
+    this.filter.KeyWord = '';
+    this.GetBaoCaoQuyTrinhKiemTraChatLuong();
   }
 
   GetBieuDoDuongKiemTraChatLuong() {
