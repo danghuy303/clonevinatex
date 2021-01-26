@@ -123,7 +123,7 @@ export class ChatluongsoimodalComponent implements OnInit {
       CurrentPage: 0,
       Loai: 1,
     };
-    this.services.GetListdmItem(data).subscribe((res1: any) => {
+    this.services.GetlistdmMatHangKiemTraChatLuong(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'
@@ -187,5 +187,8 @@ export class ChatluongsoimodalComponent implements OnInit {
     this.services.GetDanhSachChiTieuChatLuong(data).subscribe((res: any) => {
       this.item.lstDanhMuc = res;
     })
+  }
+  Onclose() {
+    this.activeModal.close();
   }
 }

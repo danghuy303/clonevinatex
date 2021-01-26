@@ -71,6 +71,8 @@
                     <span class="p-ml-2">
                         <h5>Sản lượng theo máy</h5>
                     </span>
+                    <span class="p-ml-2"><p-dropdown [filter]="true" [options]="listCongDoan"
+                        styleClass="p-inputtext-sm" [(ngModel)]="filter.CongDoan" (onChange)="GetBieuDo(true)"></p-dropdown></span>
                 </div>
                 <div class="p-d-flex flex-column flex-lg-row">
                     <div style="display:table;height:100%">

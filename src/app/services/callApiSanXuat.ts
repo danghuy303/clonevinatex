@@ -1292,4 +1292,8 @@ export class SanXuatService {
             },
         }
     }
+    GetlistdmMatHangKiemTraChatLuong(data) {
+        let url = API.SCMQuanLyKho + 'GetlistdmMatHangKiemTraChatLuong';
+        return this.http.post(url, data, httpOptions);
+    }
 }

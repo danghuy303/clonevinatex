@@ -755,7 +755,7 @@ export class QuantriComponent implements OnInit {
                     },
                     {
                         label: 'Phân quyền theo phân xưởng',
-                        routerLink: '/quantri/phanquyen/phanquyentheophanxuong',
+                        routerLink: '/quantri/phanquyensanxuat/phanquyentheophanxuong',
                         command: () => this.close()
                     },
                 ]

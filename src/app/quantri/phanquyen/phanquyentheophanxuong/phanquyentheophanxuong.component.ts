@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 import { PhanquyentheophanxuongmodalComponent } from '../phanquyentheophanxuongmodal/phanquyentheophanxuongmodal.component';
 
@@ -47,7 +48,8 @@ export class PhanquyentheophanxuongComponent implements OnInit {
   listPhanXuong: any = [];
 
   constructor(private _modal: NgbModal, private _services: SanXuatService, 
-    private _toastr: ToastrService, private _auth: AuthenticationService) {
+    private _toastr: ToastrService, private _auth: AuthenticationService,
+    private store: StoreService) {
     this.userInfo = this._auth.currentUserValue;
   }
 

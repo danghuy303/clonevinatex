@@ -66,7 +66,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô hàng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoHang" placeholder="Chọn lô hàng" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IdLoHang" (onChange)="getMatHangThongKeSanLuong()"></p-dropdown>
+                    [(ngModel)]="item.IdLoHang"></p-dropdown>
             </div>
             <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addLoHang()"></button>
         </div>
