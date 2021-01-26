@@ -70,7 +70,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Tổng hợp',
                         routerLink: '/quantri/quantrisanxuat/tonghop',
-                        icon: 'fas fa-circle',
+                        icon: 'fas fa-circle',        
                         command: () => {
                             this.close()
                         }
