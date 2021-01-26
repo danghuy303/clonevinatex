@@ -8,6 +8,7 @@ import { filter } from 'rxjs/operators';
 import { SanXuatService } from '../services/callApiSanXuat';
 import { StoreService } from '../services/store.service';
 import { mapArrayForDropDown } from '../services/globalfunction';
+import { async } from 'rxjs/internal/scheduler/async';
 @Component({
     selector: 'app-quantri',
     templateUrl: './quantri.component.html',
@@ -23,6 +24,7 @@ export class QuantriComponent implements OnInit {
     menu: MenuItem[];
     menuQLTS: MenuItem[];
     menuQLNS: MenuItem[];
+    dataphanquyen: any = {};
     listNhaMay: Array<any> = [];
     IdNhaMay: string = '';
     showDropDown: boolean = false;
@@ -61,462 +63,11 @@ export class QuantriComponent implements OnInit {
         this._router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((res: any) => {
             this.getOSName(res.url);
         })
-        this.menuQLNS = [
-            {
-                label: 'Quản trị sản xuất',
-                routerLink: '/quantri/quantrisanxuat',
-                icon: 'fas fa-warehouse',
-                items: [
-                    {
-                        label: 'Tổng hợp',
-                        routerLink: '/quantri/quantrisanxuat/tonghop',
-                        icon: 'fas fa-circle',        
-                        command: () => {
-                            this.close()
-                        }
-                    },
-                    {
-                        label: 'Nhu cầu SD nguyên liệu',
-                        routerLink: '/quantri/quantrisanxuat/nguyenlieu',
-                        icon: 'fas fa-circle',
-                        command: () => {
-                            this.close()
-                        }
-                    },
-                    {
-                        label: 'Nhu cầu xuất hàng',
-                        routerLink: '/quantri/quantrisanxuat/nhucauxuathang',
-                        icon: 'fas fa-circle',
-                        command: () => {
-                            this.close()
-                        }
-                    },                   
-                    {
-                        label: 'Sản lượng',
-                        routerLink: '/quantri/quantrisanxuat/sanluong',
-                        icon: 'fas fa-circle',
-                        command: () => {
-                            this.close()
-                        }
-                    },
-                    // {
-                    //     label: 'Tổng hợp nguyên liệu',
-                    //     routerLink: '/quantri/dieuhanhsanxuatnguyenlieu',
-                    //     icon: 'fas fa-circle',
-                    //     command: () => {
-                    //         this.close()
-                    //     }
-                    // },
-                    // {
-                    //     label: 'Tổng hợp sản lượng',
-                    //     routerLink: '/quantri/dieuhanhsanxuatsanluong',
-                    //     icon: 'fas fa-circle',
-                    //     command: () => {
-                    //         this.close()
-                    //     }
-                    // },
-                    // {
-                    //     label: 'Tổng hợp chất lượng',
-                    //     routerLink: '/quantri/dieuhanhsanxuatchatluong',
-                    //     icon: 'fas fa-circle',
-                    //     command: () => {
-                    //         this.close()
-                    //     }
-                    // },
-                ],
-            },
-            {
-                label: 'Điều hành sản xuất',
-                routerLink: '/quantri/kehoachsanxuat',
-                icon: 'fas fa-circle',
-                items: [
-                    {
-                        label: 'Kế hoạch được giao',
-                        routerLink: '/quantri/kehoachsanxuat/giaokehoachsanxuat/0',
-                        command: () => {
-                            this.close()
-                        }
-                    },
-                    {
-                        label: 'Triển khai kế hoạch',
-                        routerLink: '/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/0',
-                        command: () => {
-                            this.close()
-                        }
-                    },
-                    {
-                        label: 'Điều hành sản xuất',
-                        routerLink: '/quantri/kehoachsanxuat/sanxuat/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Kế hoạch xuất hàng',
-                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/kehoachxuathang/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Kế hoạch nhập nguyên liệu',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/kehoachnhapnguyenlieu/0',
-                        command: () => this.close()
-                    },
-                ]
-            },
-            {
-                label: 'Phương án công nghệ',
-                routerLink: '/quantri/trienkhaisanxuat',
-                icon: 'fas fa-circle',
-                items: [
-                    {
-                        label: 'Phương án pha bông',
-                        routerLink: '/quantri/trienkhaisanxuat/phabong/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Phương án tìm bông',
-                        routerLink: '/quantri/trienkhaisanxuat/timbong/0',
-                        command: () => this.close()
-                    },
-                    
-                    {
-                        label: 'Xếp bàn bông',
-                        routerLink: '/quantri/trienkhaisanxuat/xepbanbong/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Phiếu điều chỉnh',
-                        routerLink: '/quantri/trienkhaisanxuat/phieudieuchinh/0',
-                        command: () => this.close()
-                    },
-                ]
-            },
-            {
-                label: 'Thống kê sản xuất',
-                icon: 'pi pi-chart-bar',
-                routerLink: '/quantri/theodoithongkebaocaosanxuat',
-                expanded: false,
-                items: [
-                    {
-                        label: 'Thống kê sản lượng',
-                        routerLink: '/quantri/theodoithongkebaocaosanxuat/thongkesanluong/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Thống kê điện',
-                        routerLink: '/quantri/theodoithongkebaocaosanxuat/thongkedien/0',
-                        command: () => this.close()
-                    },
-                ]
-            },
-            {
-                label: 'Quản lý kho hồi ẩm',
-                icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam',
-                expanded: false,
-                items: [
-                    {
-                        label: 'Nhập kho',
-                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/nhapkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Hạ cấp',
-                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/hacap/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Chất lượng sợi',
-                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/chatluongsoi/0',
-                        command: () => this.close()
-                    },
-                ]
-            },
-            {
-                label: 'Quản lý kho thành phẩm',
-                icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham',
-                expanded: false,
-                items: [
-                    {
-                        label: 'Nhập kho',
-                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/nhapkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/kiemkekho/0',
-                        command: () => this.close()
-                    },
-                    
-                    {
-                        label: 'Xuất kho',
-                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkhothanhpham/0',
-                        command: () => this.close()
-                    },
-                ]
-            },
-            {
-                label: 'Quản lý kho bông',
-                icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhosanxuat/khobong',
-                expanded: false,
-                items: [
-                    
-                    {
-                        label: 'Nhập kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/nhapkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Thông số chất lượng',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/thongsochatluong/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/xuatkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/kiemkekho/0',
-                        command: () => this.close()
-                    },
-                    // {
-                    //     label: 'Điều chuyển',
-                    //     routerLink: '/quantri/quanlykhosanxuat/khobong/dieuchuyen/0',
-                    //     command: () => this.close()
-                    // },
-                    
-                    {
-                        label: 'Cân đối tồn',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/candoiton/0',
-                        command: () => this.close()
-                    },
-                ]
-            },
-            {
-                label: 'Quản lý kho xơ',
-                icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhosanxuat/khoxo',
-                expanded: false,
-                items: [
-                    {
-                        label: 'Nhập kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khoxo/nhapkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khoxo/xuatkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khoxo/kiemkekho/0',
-                        command: () => this.close()
-                    },
-                    // {
-                    //     label: 'Điều chuyển',
-                    //     routerLink: '/quantri/quanlykhosanxuat/khoxo/dieuchuyen/0',
-                    //     command: () => this.close()
-                    // },
-                ]
-            },
-            {
-                label: 'Quản lý kho bông hồi',
-                icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi',
-                expanded: false,
-                items: [
-                    {
-                        label: 'Nhập kho',
-                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/nhapkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/xuatkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/kiemkekho/0',
-                        command: () => this.close()
-                    },
-                    // {
-                    //     label: 'Điều chuyển',
-                    //     routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/dieuchuyen/0',
-                    //     command: () => this.close()
-                    // },
-                ]
-            },
-            {
-                label: 'Quản lý kho bông phế',
-                icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe',
-                expanded: false,
-                items: [
-                    {
-                        label: 'Nhập kho',
-                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe/nhapkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/0',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe/kiemkekho/0',
-                        command: () => this.close()
-                    },
-                ]
-            },
-
-
-            // {
-            //     label: 'Báo cáo',
-            //     icon: 'pi pi-chart-bar',
-            //     routerLink: '/quantri/baocaosanxuat',
-            //     expanded: false,
-            //     items: [
-            //         {
-            //             label: 'Báo cáo sản lượng tổng hợp',
-            //             routerLink: '/quantri/baocaosanxuat/sanluongtonghop',
-            //             command: () => this.close()
-            //         },
-            //         {
-            //             label: 'Báo cáo sản lượng chi tiết',
-            //             routerLink: '/quantri/baocaosanxuat/sanluongchitiet',
-            //             command: () => this.close()
-            //         },
-            //     ]
-            // },
-            {
-                label: 'Danh mục dùng chung',
-                routerLink: '/quantri/danhmuc',
-                icon: 'pi pi-bars',
-                expanded: false,
-                items: [
-                    {
-                        label: 'Mặt hàng',
-                        routerLink: '/quantri/danhmucsanxuat/dmmathang',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Định mức chất lượng sợi',
-                        routerLink: '/quantri/danhmucsanxuat/dmdinhmucchatluongsoi',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Định mức tiêu hao',
-                        routerLink: '/quantri/danhmucsanxuat/dmdinhmuctieuhao',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Cấp bông',
-                        routerLink: '/quantri/danhmucsanxuat/dmcapbong',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Loại bông',
-                        routerLink: '/quantri/danhmucsanxuat/dmloaibong',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Loại sợi',
-                        routerLink: '/quantri/danhmucsanxuat/dmloaisoi',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Phân xưởng',
-                        routerLink: '/quantri/danhmucsanxuat/dmphanxuong',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Kho sản xuất',
-                        routerLink: '/quantri/danhmucsanxuat/dmkho',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Vị trí',
-                        routerLink: '/quantri/danhmucsanxuat/dmvitri',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Phân nhóm máy',
-                        routerLink: '/quantri/danhmucsanxuat/dmphannhommay',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Danh sách máy',
-                        routerLink: '/quantri/danhmucsanxuat/dmdsmay',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Ca sản xuất',
-                        routerLink: '/quantri/danhmucsanxuat/dmcasanxuat',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Nhóm kho',
-                        routerLink: '/quantri/danhmucsanxuat/dmnhomkho',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Loại điện áp',
-                        routerLink: '/quantri/danhmucsanxuat/loaidienkv',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Máy biến áp',
-                        routerLink: '/quantri/danhmucsanxuat/dmmaybienap',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Nhóm công tơ',
-                        routerLink: '/quantri/danhmucsanxuat/dmnhomcongto',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Công tơ',
-                        routerLink: '/quantri/danhmucsanxuat/dmcongto',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Tiêu chí chất lượng sợi',
-                        routerLink: '/quantri/danhmucsanxuat/dmtieuchichatluongsoi',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Quy cách đóng gói',
-                        routerLink: '/quantri/danhmucsanxuat/dmquycachdonggoi',
-                        command: () => this.close()
-                    },
-                ]
-            },
-            {
-                label: 'Quản lý hệ thống',
-                icon: 'pi pi-cog',
-                items: [
-                    {
-                        label: 'HDSD',
-                        routerLink: '/quantri/huongdansudung',
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Phân quyền theo phân xưởng',
-                        routerLink: '/quantri/phanquyensanxuat/phanquyentheophanxuong',
-                        command: () => this.close()
-                    },
-                ]
-            },
-            // {
-            //     label: 'Tài liệu tham khảo',
-            //     icon: 'pi pi-copy',
-            // }
-        ];
+        this._services.GetAllQuyen().subscribe((res: any) => {
+            this.dataphanquyen = res;
+            this.CaiMeNu();    
+        })
+        this.CaiMeNu();
         this.menuQLTS = [
             {
                 label: 'Bàn làm việc',
@@ -732,7 +283,505 @@ export class QuantriComponent implements OnInit {
         ];
         // this.menu = this.menuQLTS;
         this.menu = this.menuQLNS;
+    }
 
+    CaiMeNu() {
+        this.menuQLNS = [
+            {
+                label: 'Quản trị sản xuất',
+                routerLink: '/quantri/quantrisanxuat',
+                icon: 'fas fa-warehouse',
+                items: [
+                    {
+                        label: 'Tổng hợp',
+                        routerLink: '/quantri/quantrisanxuat/tonghop',                        
+                        separator: this.checkmenu("DASHBOARD_TONGHOP"),
+                        icon: 'fas fa-circle',
+                        command: () => {
+                            this.close()
+                        }
+                    },
+                    {
+                        label: 'Nhu cầu SD nguyên liệu',
+                        routerLink: '/quantri/quantrisanxuat/nguyenlieu',
+                        separator: this.checkmenu("DASHBOARD_NHUCAUNGUYENLIEU"),
+                        icon: 'fas fa-circle',
+                        command: () => {
+                            this.close()
+                        }
+                    },
+                    {
+                        label: 'Nhu cầu xuất hàng',
+                        routerLink: '/quantri/quantrisanxuat/nhucauxuathang',
+                        separator: this.checkmenu("DASHBOARD_NHUCAUXUATHANG"),
+                        icon: 'fas fa-circle',
+                        command: () => {
+                            this.close()
+                        }
+                    },
+                    {
+                        label: 'Sản lượng',
+                        routerLink: '/quantri/quantrisanxuat/sanluong',
+                        separator: this.checkmenu("DASHBOARD_SANLUONG"),
+                        icon: 'fas fa-circle',
+                        command: () => {
+                            this.close()
+                        }
+                    },
+                    // {
+                    //     label: 'Tổng hợp nguyên liệu',
+                    //     routerLink: '/quantri/dieuhanhsanxuatnguyenlieu',
+                    //     icon: 'fas fa-circle',
+                    //     command: () => {
+                    //         this.close()
+                    //     }
+                    // },
+                    // {
+                    //     label: 'Tổng hợp sản lượng',
+                    //     routerLink: '/quantri/dieuhanhsanxuatsanluong',
+                    //     icon: 'fas fa-circle',
+                    //     command: () => {
+                    //         this.close()
+                    //     }
+                    // },
+                    // {
+                    //     label: 'Tổng hợp chất lượng',
+                    //     routerLink: '/quantri/dieuhanhsanxuatchatluong',
+                    //     icon: 'fas fa-circle',
+                    //     command: () => {
+                    //         this.close()
+                    //     }
+                    // },
+                ],
+            },
+            {
+                label: 'Điều hành sản xuất',
+                routerLink: '/quantri/kehoachsanxuat',
+                icon: 'fas fa-circle',
+                items: [
+                    {
+                        label: 'Kế hoạch được giao',
+                        routerLink: '/quantri/kehoachsanxuat/giaokehoachsanxuat/0',
+                        separator: this.checkmenu("GIAOKEHOACHSANXUAT"),
+                        command: () => {
+                            this.close()
+                        }
+                    },
+                    {
+                        label: 'Triển khai kế hoạch',
+                        routerLink: '/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/0',
+                        separator: this.checkmenu("TRIENKHAIKEHOACHSANXUAT"),
+                        command: () => {
+                            this.close()
+                        }
+                    },
+                    {
+                        label: 'Điều hành sản xuất',
+                        routerLink: '/quantri/kehoachsanxuat/sanxuat/0',                        
+                        separator: this.checkmenu("PHUONGANSANXUAT"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Kế hoạch xuất hàng',
+                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/kehoachxuathang/0',
+                        separator: this.checkmenu("KEHOACHXUATHANG"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Kế hoạch nhập nguyên liệu',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/kehoachnhapnguyenlieu/0',
+                        separator: this.checkmenu("KEHOACHNHAPNGUYENLIEU"),
+                        command: () => this.close()
+                    },
+                ]
+            },
+            {
+                label: 'Phương án công nghệ',
+                routerLink: '/quantri/trienkhaisanxuat',
+                icon: 'fas fa-circle',
+                items: [
+                    {
+                        label: 'Phương án pha bông',
+                        routerLink: '/quantri/trienkhaisanxuat/phabong/0',
+                        separator: this.checkmenu("PHUONGANPHABONG"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Phương án tìm bông',
+                        routerLink: '/quantri/trienkhaisanxuat/timbong/0',                        
+                        separator: this.checkmenu("NHAPTHANHPHAM"),
+                        command: () => this.close()
+                    },
+
+                    {
+                        label: 'Xếp bàn bông',
+                        routerLink: '/quantri/trienkhaisanxuat/xepbanbong/0',
+                        separator: this.checkmenu("PHUONGANXEPBANBONG"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Phiếu điều chỉnh',
+                        routerLink: '/quantri/trienkhaisanxuat/phieudieuchinh/0',
+                        command: () => this.close()
+                    },
+                ]
+            },
+            {
+                label: 'Thống kê sản xuất',
+                icon: 'pi pi-chart-bar',
+                routerLink: '/quantri/theodoithongkebaocaosanxuat',
+                expanded: false,
+                items: [
+                    {
+                        label: 'Thống kê sản lượng',
+                        routerLink: '/quantri/theodoithongkebaocaosanxuat/thongkesanluong/0',
+                        separator: this.checkmenu("THONGKESANLUONG"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Thống kê điện',
+                        routerLink: '/quantri/theodoithongkebaocaosanxuat/thongkedien/0',
+                        command: () => this.close()
+                    },
+                ]
+            },
+            {
+                label: 'Quản lý kho hồi ẩm',
+                icon: 'fas fa-circle',
+                routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam',
+                expanded: false,
+                items: [
+                    {
+                        label: 'Nhập kho',
+                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/nhapkho/0',                        
+                        separator: this.checkmenu("NHAPHOIAM"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Hạ cấp',
+                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/hacap/0',
+                        separator: this.checkmenu("PHIEUHACAP"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Chất lượng sợi',
+                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/chatluongsoi/0',                        
+                        separator: this.checkmenu("KIEMTRACHATLUONGSOI"),
+                        command: () => this.close()
+                    },
+                ]
+            },
+            {
+                label: 'Quản lý kho thành phẩm',
+                icon: 'fas fa-circle',
+                routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham',
+                expanded: false,
+                items: [
+                    {
+                        label: 'Nhập kho',
+                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/nhapkho/0',
+                        separator: this.checkmenu("NHAPTHANHPHAM"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Kiểm kê kho',
+                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/kiemkekho/0',
+                        command: () => this.close()
+                    },
+
+                    {
+                        label: 'Xuất kho',
+                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkhothanhpham/0',                        
+                        separator: this.checkmenu("XUATTHANHPHAM"),
+                        command: () => this.close()
+                    },
+                ]
+            },
+            {
+                label: 'Quản lý kho bông',
+                icon: 'fas fa-circle',
+                routerLink: '/quantri/quanlykhosanxuat/khobong',
+                expanded: false,
+                items: [
+
+                    {
+                        label: 'Nhập kho',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/nhapkho/0',
+                        separator: this.checkmenu("PHIEUNHAPLOBONG"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Thông số chất lượng',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/thongsochatluong/0',
+                        separator: this.checkmenu("PHIEUNHAPLOBONG_CHATLUONG"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Xuất kho',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/xuatkho/0',                        
+                        separator: this.checkmenu("PHIEUXUATBONG"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Kiểm kê kho',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/kiemkekho/0',
+                        command: () => this.close()
+                    },
+                    // {
+                    //     label: 'Điều chuyển',
+                    //     routerLink: '/quantri/quanlykhosanxuat/khobong/dieuchuyen/0',
+                    //     command: () => this.close()
+                    // },
+
+                    {
+                        label: 'Cân đối tồn',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/candoiton/0',
+                        command: () => this.close()
+                    },
+                ]
+            },
+            {
+                label: 'Quản lý kho xơ',
+                icon: 'fas fa-circle',
+                routerLink: '/quantri/quanlykhosanxuat/khoxo',
+                expanded: false,
+                items: [
+                    {
+                        label: 'Nhập kho',
+                        routerLink: '/quantri/quanlykhosanxuat/khoxo/nhapkho/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Xuất kho',
+                        routerLink: '/quantri/quanlykhosanxuat/khoxo/xuatkho/0',                        
+                        separator: this.checkmenu("PHIEUXUATXO"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Kiểm kê kho',
+                        routerLink: '/quantri/quanlykhosanxuat/khoxo/kiemkekho/0',
+                        command: () => this.close()
+                    },
+                    // {
+                    //     label: 'Điều chuyển',
+                    //     routerLink: '/quantri/quanlykhosanxuat/khoxo/dieuchuyen/0',
+                    //     command: () => this.close()
+                    // },
+                ]
+            },
+            {
+                label: 'Quản lý kho bông hồi',
+                icon: 'fas fa-circle',
+                routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi',
+                expanded: false,
+                items: [
+                    {
+                        label: 'Nhập kho',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/nhapkho/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Xuất kho',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/xuatkho/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Kiểm kê kho',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/kiemkekho/0',
+                        command: () => this.close()
+                    },
+                    // {
+                    //     label: 'Điều chuyển',
+                    //     routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi/dieuchuyen/0',
+                    //     command: () => this.close()
+                    // },
+                ]
+            },
+            {
+                label: 'Quản lý kho bông phế',
+                icon: 'fas fa-circle',
+                routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe',
+                expanded: false,
+                items: [
+                    {
+                        label: 'Nhập kho',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe/nhapkho/0',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Xuất kho',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/0',                        
+                        separator: this.checkmenu("PHIEUXUATBONGPHE"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Kiểm kê kho',
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe/kiemkekho/0',
+                        command: () => this.close()
+                    },
+                ]
+            },
+
+
+            // {
+            //     label: 'Báo cáo',
+            //     icon: 'pi pi-chart-bar',
+            //     routerLink: '/quantri/baocaosanxuat',
+            //     expanded: false,
+            //     items: [
+            //         {
+            //             label: 'Báo cáo sản lượng tổng hợp',
+            //             routerLink: '/quantri/baocaosanxuat/sanluongtonghop',
+            //             command: () => this.close()
+            //         },
+            //         {
+            //             label: 'Báo cáo sản lượng chi tiết',
+            //             routerLink: '/quantri/baocaosanxuat/sanluongchitiet',
+            //             command: () => this.close()
+            //         },
+            //     ]
+            // },
+            {
+                label: 'Danh mục dùng chung',
+                routerLink: '/quantri/danhmuc',
+                icon: 'pi pi-bars',
+                expanded: false,
+                items: [
+                    {
+                        label: 'Mặt hàng',
+                        routerLink: '/quantri/danhmucsanxuat/dmmathang',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Định mức chất lượng sợi',
+                        routerLink: '/quantri/danhmucsanxuat/dmdinhmucchatluongsoi',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Định mức tiêu hao',
+                        routerLink: '/quantri/danhmucsanxuat/dmdinhmuctieuhao',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Cấp bông',
+                        routerLink: '/quantri/danhmucsanxuat/dmcapbong',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Loại bông',
+                        routerLink: '/quantri/danhmucsanxuat/dmloaibong',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Loại sợi',
+                        routerLink: '/quantri/danhmucsanxuat/dmloaisoi',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Phân xưởng',
+                        routerLink: '/quantri/danhmucsanxuat/dmphanxuong',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Kho sản xuất',
+                        routerLink: '/quantri/danhmucsanxuat/dmkho',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Vị trí',
+                        routerLink: '/quantri/danhmucsanxuat/dmvitri',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Phân nhóm máy',
+                        routerLink: '/quantri/danhmucsanxuat/dmphannhommay',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Danh sách máy',
+                        routerLink: '/quantri/danhmucsanxuat/dmdsmay',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Ca sản xuất',
+                        routerLink: '/quantri/danhmucsanxuat/dmcasanxuat',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Nhóm kho',
+                        routerLink: '/quantri/danhmucsanxuat/dmnhomkho',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Loại điện áp',
+                        routerLink: '/quantri/danhmucsanxuat/loaidienkv',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Máy biến áp',
+                        routerLink: '/quantri/danhmucsanxuat/dmmaybienap',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Nhóm công tơ',
+                        routerLink: '/quantri/danhmucsanxuat/dmnhomcongto',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Công tơ',
+                        routerLink: '/quantri/danhmucsanxuat/dmcongto',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Tiêu chí chất lượng sợi',
+                        routerLink: '/quantri/danhmucsanxuat/dmtieuchichatluongsoi',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Quy cách đóng gói',
+                        routerLink: '/quantri/danhmucsanxuat/dmquycachdonggoi',
+                        command: () => this.close()
+                    },
+                ]
+            },
+            {
+                label: 'Quản lý hệ thống',
+                icon: 'pi pi-cog',
+                items: [
+                    {
+                        label: 'HDSD',
+                        routerLink: '/quantri/huongdansudung',
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Phân quyền theo phân xưởng',
+                        routerLink: '/quantri/phanquyensanxuat/phanquyentheophanxuong',
+                        command: () => this.close()
+                    },
+                ]
+            },
+            // {
+            //     label: 'Tài liệu tham khảo',
+            //     icon: 'pi pi-copy',
+            // }
+        ];
+    }
+
+    checkmenu(maaction) {
+        if (this.dataphanquyen == null) {
+            return false;
+        } else if (this.dataphanquyen[maaction] == undefined) {
+            return false;
+        } else {
+            for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
+                if (this.dataphanquyen[maaction][i].MaRight == "XEM") {
+                    if (this.dataphanquyen[maaction][i].GioiHan > 0) {
+                        return true;
+                    } else
+                        return false;
+                }
+            }
+        }
     }
 
 }
