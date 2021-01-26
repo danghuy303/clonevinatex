@@ -134,5 +134,7 @@ export class LohangComponent implements OnInit {
     this.filter={};
     this.GetListQuyTrinh(true);
   }
- 
+  Onclose() {
+    this.activeModal.close();
+  }
 }

@@ -204,7 +204,7 @@ const routes: Routes = [
       { path: 'kehoachsanxuat/giaokehoachsanxuat/:id', component: KehoachsanxuatComponent },
       { path: 'kehoachsanxuat/trienkhaikehoachsanxuat/:id', component: TrienkhaikehoachsanxuatComponent },
       
-      { path: 'phanquyen/phanquyentheophanxuong', component: PhanquyentheophanxuongComponent },
+      { path: 'phanquyensanxuat/phanquyentheophanxuong', component: PhanquyentheophanxuongComponent },
     ]
   }
 ];

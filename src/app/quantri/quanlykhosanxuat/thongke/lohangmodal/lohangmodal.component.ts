@@ -67,4 +67,7 @@ export class LohangmodalComponent implements OnInit {
       this.listTrienKhaiKeHoach = mapArrayForDropDown(res, 'SoQuyTrinh', 'Id');
     })
   }
+  Onclose() {
+    this.activeModal.close();
+  }
 }
