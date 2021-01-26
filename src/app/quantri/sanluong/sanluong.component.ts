@@ -112,13 +112,13 @@ export class SanluongComponent implements OnInit {
                 borderColor: '#009900',
                 borderWidth: 2,
                 fill: false,
-                data: res.map(ele => ele.KeHoach)
+                data: res.map(ele => Math.round(ele.KeHoach))
               },
               {
                 type: 'bar',
                 label: 'Sản lượng',
                 backgroundColor: '#3c5cbb',
-                data: res.map(ele => ele.SanLuong),
+                data: res.map(ele => Math.round(ele.SanLuong)),
                 borderColor: 'white',
                 borderWidth: 2
               },
@@ -135,14 +135,14 @@ export class SanluongComponent implements OnInit {
               type: 'bar',
               label: 'Sản lượng thực tế',
               backgroundColor: '#3c5cbb',
-              data: res.map(ele => ele.ThucTe),
+              data: res.map(ele => Math.round(ele.ThucTe)),
               borderColor: 'white',
             },
             {
               type: 'bar',
               label: 'Sản lượng tiêu chuẩn',
               backgroundColor: '#009900',
-              data: res.map(ele => ele.KeHoach),
+              data: res.map(ele => Math.round(ele.KeHoach)),
               borderColor: 'white',
             },
           ]

@@ -112,7 +112,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số ca:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" [max]="itemGiaoKeHoach.TongSoCa" locale="vi-VN"
-                    [(ngModel)]="item.SoCa">
+                    [(ngModel)]="item.SoCa" (onBlur)="ThayDoiSoCa()">
                 </p-inputNumber>
             </div>
         </div>

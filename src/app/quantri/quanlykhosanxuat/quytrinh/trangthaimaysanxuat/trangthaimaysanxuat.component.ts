@@ -18,6 +18,7 @@ const VALUE_ACCESSOR = {
 })
 export class TrangthaimaysanxuatComponent implements ControlValueAccessor {
   @Input('IdMatHang') IdMatHang: string = null;
+  @Input('HeSo') HeSo = 0;
   // @Input('SoMayBoTriConLai') SoMayBoTriConLai = 0;
   // @Output('ChangeTrangThaiMay') ChangeTrangThaiMay: EventEmitter<any> = new EventEmitter<any>();
   private _value: any = {};
@@ -49,14 +50,14 @@ export class TrangthaimaysanxuatComponent implements ControlValueAccessor {
   }
 
   changeTinhTrang() {
-
-    if (this.value.TinhTrang !== 2) {
-      if (this.value.TinhTrang === 1) {
-        this.value.TinhTrang = 0;
-        this.value.IddmItem = null;
-        this.value.SoMay = 0;
-      } else {
-        // if (this.SoMayBoTriConLai > 0) {
+    if (this.HeSo > 0 && this.HeSo < 1) {
+      if (this.value.TinhTrang !== 2) {
+        if (this.value.TinhTrang === 1) {
+          this.value.TinhTrang = 0;
+          this.value.IddmItem = null;
+          this.value.SoMay = 0;
+        } else {
+          // if (this.SoMayBoTriConLai > 0) {
           this.value.TinhTrang = 1;
           this.value.IddmItem = this.IdMatHang;
           // if (this.SoMayBoTriConLai < 1) {
@@ -64,11 +65,16 @@ export class TrangthaimaysanxuatComponent implements ControlValueAccessor {
           // } else {
           //   this.value.SoMay = 1
           // }
-        // } else {
-        //   this._toastr.warning('Đã bố trí đủ số máy!')
-        // }
+          // } else {
+          //   this._toastr.warning('Đã bố trí đủ số máy!')
+          // }
+        }
       }
+    } else {
+      this._toastr.warning('Vui lòng nhập hệ số sử dụng!')
     }
+
+
     // this.ChangeTrangThaiMay.emit(this.value.SoMay)
     // this.value.TinhTrang++
     // console.log(this.value);

@@ -1,10 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, UnixToDate, validVariable } from 'src/app/services/globalfunction';
-import { ChonmaytheocongdoanComponent } from '../chonmaytheocongdoan/chonmaytheocongdoan.component';
 
 @Component({
   selector: 'app-botrimaymodal',
@@ -25,7 +24,7 @@ export class BotrimaymodalComponent implements OnInit {
   listDate: any = [];
   listChuThich1: any = [];
   listChuThich2: any = [];
-  constructor(private _services: SanXuatService, private _activeModal: NgbActiveModal, private _modal: NgbModal, private datepipe: DatePipe) { }
+  constructor(private _services: SanXuatService, private _activeModal: NgbActiveModal, private _modal: NgbModal, private datepipe: DatePipe, private _toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.listChuThich1 = [
@@ -55,7 +54,7 @@ export class BotrimaymodalComponent implements OnInit {
     //   {Ten:'Chải kỹ'},
     //   {Ten:'Ghép thô'},
     // ]
-    this.TinhLaiSoMay()
+    // this.TinhLaiSoMay()
   }
   getDates(startDate, endDate) {
     let dates = [],
@@ -110,12 +109,20 @@ export class BotrimaymodalComponent implements OnInit {
     // })
   }
   checkMay(CongDoan, May, event) {
-    this.listDate.forEach(date => {
-      if (this.PoolMaySanXuat[CongDoan][May][date.prop].TinhTrang !== 2) {
-        this.PoolMaySanXuat[CongDoan][May][date.prop].TinhTrang = event.checked ? 1 : 0;
-        this.PoolMaySanXuat[CongDoan][May][date.prop].IddmItem = event.checked ? this.item.Id : null;
+    if (event.checked) {
+      if (validVariable(this.PoolMaySanXuat[CongDoan][May].HeSo) && this.PoolMaySanXuat[CongDoan][May].HeSo > 0 && this.PoolMaySanXuat[CongDoan][May].HeSo <= 1) {
+        this.listDate.forEach(date => {
+          if (this.PoolMaySanXuat[CongDoan][May][date.prop].TinhTrang !== 2) {
+            this.PoolMaySanXuat[CongDoan][May][date.prop].TinhTrang = event.checked ? 1 : 0;
+            this.PoolMaySanXuat[CongDoan][May][date.prop].IddmItem = event.checked ? this.item.Id : null;
+            this.PoolMaySanXuat[CongDoan][May][date.prop].HeSo = event.checked ? this.PoolMaySanXuat[CongDoan][May].HeSo : 0;
+          }
+        });
+      }else{
+        this._toastr.warning('Vui lòng nhập hệ số lớn hơn 0 và nhỏ hơn 1!')
       }
-    });
+    }
+
   }
   collapseCongDoan(congDoan) {
     congDoan.show = !!!congDoan.show;
@@ -125,29 +132,29 @@ export class BotrimaymodalComponent implements OnInit {
   }
   ChangeMay(e) {
     // console.log(e);
-    this.TinhTongSoMay()
+    // this.TinhTongSoMay()
   }
-  TinhLaiSoMay(){
-    this.listMay.forEach(may => {
-      let TongSoMayDaBoTri = 0
-      this.listDate.forEach(date => {
-        if(validVariable(this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].SoMay)&&this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].IddmItem===this.item.Id){
-          TongSoMayDaBoTri += this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].SoMay;
-        }
-      });
-      this.PoolMaySanXuat[this.item.CongDoan][may.prop].SoMay = TongSoMayDaBoTri;
-      this.PoolMaySanXuat[this.item.CongDoan][may.prop].SoMayConLai = 0;
-    });
-  }
-  TinhTongSoMay() {
-    this.listMay.forEach(may => {
-      let TongSoMayDaBoTri = 0
-      this.listDate.forEach(date => {
-        if(validVariable(this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].SoMay)&&this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].IddmItem===this.item.Id){
-          TongSoMayDaBoTri += this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].SoMay;
-        }
-      });
-      this.PoolMaySanXuat[this.item.CongDoan][may.prop].SoMayConLai = this.PoolMaySanXuat[this.item.CongDoan][may.prop].SoMay - TongSoMayDaBoTri;
-    });
-  }
+  // TinhLaiSoMay(){
+  //   this.listMay.forEach(may => {
+  //     let TongSoMayDaBoTri = 0
+  //     this.listDate.forEach(date => {
+  //       if(validVariable(this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].SoMay)&&this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].IddmItem===this.item.Id){
+  //         TongSoMayDaBoTri += this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].SoMay;
+  //       }
+  //     });
+  //     this.PoolMaySanXuat[this.item.CongDoan][may.prop].SoMay = TongSoMayDaBoTri;
+  //     this.PoolMaySanXuat[this.item.CongDoan][may.prop].SoMayConLai = 0;
+  //   });
+  // }
+  // TinhTongSoMay() {
+  //   this.listMay.forEach(may => {
+  //     let TongSoMayDaBoTri = 0
+  //     this.listDate.forEach(date => {
+  //       if(validVariable(this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].SoMay)&&this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].IddmItem===this.item.Id){
+  //         TongSoMayDaBoTri += this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].SoMay;
+  //       }
+  //     });
+  //     this.PoolMaySanXuat[this.item.CongDoan][may.prop].SoMayConLai = this.PoolMaySanXuat[this.item.CongDoan][may.prop].SoMay - TongSoMayDaBoTri;
+  //   });
+  // }
 }
