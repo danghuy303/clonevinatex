@@ -137,6 +137,7 @@ export class DmphannhommaymodalComponent implements OnInit {
   }
 
   changeCongDoan(e){
+    console.log(e,'change')
     this.item.lstdmItem=[];
     this.childModalOpt = this.mapCongDoan[e.value];
     if(this.childModalOpt===''){

@@ -52,7 +52,6 @@ export class PhanquyentheophanxuongComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.GetDanhSachDuAnByIdUser();
     this.GetListdm();
   }
 
@@ -60,45 +59,25 @@ export class PhanquyentheophanxuongComponent implements OnInit {
     this.keyWord = '';
     this.GetListdm()
   }
-
-  GetDanhSachDuAnByIdUser() {
-    this._services.GetOptions().GetPhanXuong(this.userInfo.Id).subscribe((res: any) => {
-      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
-
   GetListdm(reset?) {
-    // if (reset) {
-    //   this.paging.CurrentPage = 1;
-    //   this.paginator.changePage(0);
-    // }
-    // this.dataSearch = {
-    //   PageSize: 20,
-    //   CurrentPage: this.paging.CurrentPage,
-    //   sFilter: this.keyWord,
-    //   Ma: "",
-    //   Ten: ""
-    // };
-    // this._services.dmPhanNhomMaySanXuat().GetList().subscribe((res: any) => {
-    //   this.items = res;
-    //   // this.items.forEach(element => {
-    //   //   this.listnhamay.filter(obj => {
-    //   //     if (element.idNhaMay == obj.value) {
-    //   //       element.TenNhaMay = obj.label;
-    //   //     }
-    //   //   });
-    //   //   this.listphanxuong.filter(obj => {
-    //   //     if (element.idPhanXuong == obj.value) {
-    //   //       element.TenPhanXuong = obj.label;
-    //   //     }
-    //   //   });
-    //   // });
-    //   // this.paging = res.paging;
-    // })
+    if (reset) {
+      this.paging.CurrentPage = 1;
+      this.paginator.changePage(0);
+    }
+    this.dataSearch = {
+      PageSize: 20,
+      CurrentPage: this.paging.CurrentPage,
+      sFilter: this.keyWord,
+      Ma: "",
+      Ten: ""
+    };
+    this._services.PhanQuyen().GetList(this.dataSearch).subscribe((res: any) => {
+      this.items = res.items;
+      this.paging = res.paging;
+    })
   }
   add() {
     let modalRef = this._modal.open(PhanquyentheophanxuongmodalComponent, {
-      size: "xl",
       backdrop: 'static'
     });
     modalRef.componentInstance.opt = 'add';
@@ -107,23 +86,18 @@ export class PhanquyentheophanxuongComponent implements OnInit {
       lstdmItem: []
     }
     modalRef.result.then(res => {
-      // this._toastr.success(res);
       this.GetListdm()
     }).catch(er => console.log(er))
   }
   edit(item) {
-    this._services.dmPhanNhomMaySanXuat().Get(item.Id).subscribe((res: any) => {
-      let modalRef = this._modal.open(PhanquyentheophanxuongmodalComponent, {
-        size: "xl",
-        backdrop: 'static'
-      });
-      modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.item = res;
-      modalRef.result.then(res => {
-        // this._toastr.success(res);
-        this.GetListdm()
-      }).catch(er => console.log(er))
-    })
+    let modalRef = this._modal.open(PhanquyentheophanxuongmodalComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.opt = 'edit';
+    modalRef.componentInstance.item = item;
+    modalRef.result.then(res => {
+      this.GetListdm()
+    }).catch(er => console.log(er))
   }
   delete(item) {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -131,7 +105,7 @@ export class PhanquyentheophanxuongComponent implements OnInit {
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res => {
-      this._services.dmPhanNhomMaySanXuat().Delete(item.Id).subscribe((res: any) => {
+      this._services.PhanQuyen().Delete(item.Id).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);
