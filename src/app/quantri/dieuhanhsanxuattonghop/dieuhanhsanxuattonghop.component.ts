@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
@@ -32,6 +33,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   Nams: any = [];
   dataSet1: any = {};
   showSanLuong = false;
+  showTruySuatNguonGoc = false;
   currentUser: any;
   IdDuAn: any;
   optionPie: any = {
@@ -67,12 +69,12 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
     aspectRatio: (((window.innerWidth - 80) / 2) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
-  SelectItem: any = {};
+  SelectItem: any = null;
   dataPie: { labels: string[]; datasets: { data: number[]; backgroundColor: string[]; hoverBackgroundColor: string[]; }[]; };
   chatLuongSanPham: any = [];
   headerChatLuongSanPham: any = [];
   chatLuongSanPhamScrollHeight: any = 0;
-  constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService) {
+  constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService, public toastr: ToastrService) {
     this.currentUser = this._auth.currentUserValue;
     this.IdDuAn = this.store.getCurrent();
   }
@@ -222,6 +224,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     this.TongHop();
     this.BieuDoCoCau();
     this.GetBaoCaoQuyTrinhKiemTraChatLuong();
+    this.SelectItem = null;
   }
 
   filterdatatonghop() {
@@ -237,9 +240,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
         { Ten: 'Sản lượng ống', TieuHao: res.SanLuongOng, DonVi: 'quả', ManHinh: res.SanLuongOng_ManHinh },
         { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả', ManHinh: res.LuyKe_ManHinh },
         // Điện k có màn hình
-        { Ten: 'Điện AC', TieuHao: res.DienAC_KW, DonVi: 'KW', ManHinh: 0 },
-        { Ten: 'Tổng điện', TieuHao: res.TongDien_KW, DonVi: 'KW', ManHinh: 0 },
-        { Ten: 'Tỷ lệ điện AC', TieuHao: res.DienAC_PhanTram, DonVi: '%', ManHinh: 0 },
+        { Ten: 'Điện AC', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.DienAC_KW },
+        { Ten: 'Tổng điện', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.TongDien_KW },
+        { Ten: 'Tỷ lệ điện AC', TieuHao: '%', DonVi: '%', ManHinh: res.DienAC_PhanTram },
       ]
       this.thongKes1 = [
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },
@@ -309,6 +312,16 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   xemSanLuong() {
     this.showSanLuong = true;
   }
+
+  xemTruySuatNguonGoc() {
+    if (this.SelectItem.TenItem != undefined && this.SelectItem != null) {
+      this.showTruySuatNguonGoc = true;
+    }
+    else {
+      this.toastr.error("Yêu cầu chọn mặt hàng");
+    }
+  }
+
   checkMatHang(e, item, index) {
     if (e.checked) {
       this.listMatHang.forEach(mathang => {

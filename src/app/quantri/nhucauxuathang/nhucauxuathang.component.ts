@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-nhucauxuathang',
@@ -28,6 +29,7 @@ export class NhucauxuathangComponent implements OnInit {
   listLoaiBong: any = [];
   listCaLamViec: any = [];
   dataPie: any = {};
+  IdDuAn: any;
   option1: any = {
     scales: {
       xAxes: [{
@@ -78,33 +80,35 @@ export class NhucauxuathangComponent implements OnInit {
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
-  constructor(private _services: SanXuatService) { }
+  constructor(private _services: SanXuatService, private store: StoreService) {
+    this.IdDuAn = this.store.getCurrent();
+  }
 
   ngOnInit(): void {
     let date = new Date();
     this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-    this.dataPie = {
-      labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
-      datasets: [
-        {
-          data: [300, 50, 100, 200],
-          backgroundColor: [
-            "#009900",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF671F"
-          ],
-          hoverBackgroundColor: [
-            "#009900",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF671F"
-          ]
-        }
-      ]
-    };
+    // this.dataPie = {
+    //   labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
+    //   datasets: [
+    //     {
+    //       data: [300, 50, 100, 200],
+    //       backgroundColor: [
+    //         "#009900",
+    //         "#36A2EB",
+    //         "#FFCE56",
+    //         "#FF671F"
+    //       ],
+    //       hoverBackgroundColor: [
+    //         "#009900",
+    //         "#36A2EB",
+    //         "#FFCE56",
+    //         "#FF671F"
+    //       ]
+    //     }
+    //   ]
+    // };
     this.listItem = [
 
     ]
@@ -147,30 +151,18 @@ export class NhucauxuathangComponent implements OnInit {
           ]
         }
       })
-      this._services.DashBoard().CoCauTonBong(this.filter).subscribe((res: any) => {
-        this.dataPie = {
-          labels: res.map(ele => ele.Ten),
-          datasets: [
-            {
-              data: res.map(ele => ele.TrongLuong),
-              backgroundColor: [
-                "#009900",
-                "#36A2EB",
-                "#FFCE56",
-                "#FF671F",
-                '#ab8169',
-                '#6a942f',
-                '#46018f',
-                '#d70ca1'
-              ]
-            }
-          ]
-        };
-      })
+      this.BieuDoCoCau();
       this._services.DashBoard().CanDoiTon(this.filter).subscribe(res => {
         this.listItem = res;
       })
     }
+  }
+
+  BieuDoCoCau() {
+    let data: any = { IdDuAn: this.IdDuAn, IddmPhanXuong: "", nNam: 0 };
+    this._services.BaoCao().BieuDoCoCau(data).subscribe((res: any) => {
+      this.dataPie = res;
+    });
   }
 
   resetFilter() {
