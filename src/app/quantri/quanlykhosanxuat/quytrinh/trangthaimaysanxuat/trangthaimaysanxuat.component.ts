@@ -54,12 +54,12 @@ export class TrangthaimaysanxuatComponent implements ControlValueAccessor {
       if (this.value.TinhTrang !== 2) {
         if (this.value.TinhTrang === 1) {
           this.value.TinhTrang = 0;
-          this.value.IddmItem = null;
+          this.value.IdGiaoKeHoachSanXuat_TrienKhaiMatHang = null;
           this.value.SoMay = 0;
         } else {
           // if (this.SoMayBoTriConLai > 0) {
           this.value.TinhTrang = 1;
-          this.value.IddmItem = this.IdMatHang;
+          this.value.IdGiaoKeHoachSanXuat_TrienKhaiMatHang = this.IdMatHang;
           // if (this.SoMayBoTriConLai < 1) {
           //   this.value.SoMay = this.SoMayBoTriConLai
           // } else {
@@ -89,7 +89,7 @@ export class TrangthaimaysanxuatComponent implements ControlValueAccessor {
         return 'green'
       }
       if (value.TinhTrang === 1) {
-        if (validVariable(this.IdMatHang) && (this.IdMatHang === value.IddmItem)) {
+        if (validVariable(this.IdMatHang) && (this.IdMatHang === value.IdGiaoKeHoachSanXuat_TrienKhaiMatHang)) {
           return 'blue'
         }
         return 'yellow'

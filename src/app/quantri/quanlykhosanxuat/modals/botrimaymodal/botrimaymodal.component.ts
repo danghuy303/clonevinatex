@@ -55,6 +55,7 @@ export class BotrimaymodalComponent implements OnInit {
     //   {Ten:'Ghép thô'},
     // ]
     // this.TinhLaiSoMay()
+    this.TinhLaiHeSo();
   }
   getDates(startDate, endDate) {
     let dates = [],
@@ -114,7 +115,7 @@ export class BotrimaymodalComponent implements OnInit {
         this.listDate.forEach(date => {
           if (this.PoolMaySanXuat[CongDoan][May][date.prop].TinhTrang !== 2) {
             this.PoolMaySanXuat[CongDoan][May][date.prop].TinhTrang = event.checked ? 1 : 0;
-            this.PoolMaySanXuat[CongDoan][May][date.prop].IddmItem = event.checked ? this.item.Id : null;
+            this.PoolMaySanXuat[CongDoan][May][date.prop].IdGiaoKeHoachSanXuat_TrienKhaiMatHang = event.checked ? this.item.Id : null;
             this.PoolMaySanXuat[CongDoan][May][date.prop].HeSo = event.checked ? this.PoolMaySanXuat[CongDoan][May].HeSo : 0;
           }
         });
@@ -133,6 +134,18 @@ export class BotrimaymodalComponent implements OnInit {
   ChangeMay(e) {
     // console.log(e);
     // this.TinhTongSoMay()
+  }
+  TinhLaiHeSo(){
+    this.listMay.forEach(may => {
+          let HeSo = 0
+          this.listDate.forEach(date => {
+            if(validVariable(this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].HeSo)&&this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].IdGiaoKeHoachSanXuat_TrienKhaiMatHang===this.item.Id){
+              HeSo = this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].HeSo;
+              // return;
+            }
+          });
+          this.PoolMaySanXuat[this.item.CongDoan][may.prop].HeSo = HeSo;
+        });
   }
   // TinhLaiSoMay(){
   //   this.listMay.forEach(may => {

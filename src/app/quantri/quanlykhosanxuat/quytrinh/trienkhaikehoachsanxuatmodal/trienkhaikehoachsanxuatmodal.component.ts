@@ -207,7 +207,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         // console.log(this.PoolMaySanXuat[mathang.CongDoan][may]);
         dateArr.forEach(ngay => {
           let mayTrongPool = this.PoolMaySanXuat[mathang.CongDoan][may][ngay.prop];
-          if (mayTrongPool.TinhTrang === 1 && mayTrongPool.IddmItem === mathang.Id) {
+          if (mayTrongPool.TinhTrang === 1 && mayTrongPool.IdGiaoKeHoachSanXuat_TrienKhaiMatHang === mathang.Id) {
             mayTrongPool.IdGiaoKeHoachSanXuat_TrienKhai = this.item.Id;
             mayTrongPool.IdGiaoKeHoachSanXuat = this.item.IdGiaoKeHoachSanXuat;
             // mayTrongPool.ChiSo = may;
@@ -227,7 +227,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       for (let may in this.PoolMaySanXuat[mathang.CongDoan]) {
         let co = dateArr.some(ngay=>{
           let mayTrongPool = this.PoolMaySanXuat[mathang.CongDoan][may][ngay.prop]
-          return mayTrongPool.TinhTrang === 1 && mayTrongPool.IddmItem === mathang.Id
+          return mayTrongPool.TinhTrang === 1 && mayTrongPool.IdGiaoKeHoachSanXuat_TrienKhaiMatHang === mathang.Id
         })
         if(co){
           TongSoMayDaBoTri ++;
@@ -357,7 +357,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         mathang.listItemTemp[congDoan].forEach(may => {
           dateArr.forEach(ngay => {
             let mayTrongPool = this.PoolMaySanXuat[congDoan][may.prop][ngay.prop];
-            if (mayTrongPool.TinhTrang === 1 && mayTrongPool.IddmItem === mathang.IddmItem) {
+            if (mayTrongPool.TinhTrang === 1 && mayTrongPool.IdGiaoKeHoachSanXuat_TrienKhaiMatHang === mathang.IddmItem) {
               mayTrongPool.IdGiaoKeHoachSanXuat_TrienKhai = null;
               mayTrongPool.IdGiaoKeHoachSanXuat = null;
               mayTrongPool.ChiSo = undefined;

@@ -164,7 +164,6 @@ export class SanluongComponent implements OnInit {
       })
     }else{
       this._toastr.warning('Vui lòng chọn đến ngày lớn hơn từ ngày để ra được dữ liệu chuẩn!');
-      
     }
   }
 
