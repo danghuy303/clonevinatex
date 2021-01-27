@@ -249,8 +249,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },
         { Ten: 'Sản lượng quy Ne 30:', GiaTri: res.SanLuongQuyNe30 },
         { Ten: 'Lũy kế quy Ne 30:', GiaTri: res.LuyKeQuyNe30 },
-        { Ten: 'Sản lượng quy Ne 30/ca:', GiaTri: res.SanLuongQuyNe30_Ca },
-        { Ten: 'Sản lượng Ne 30 KH/ca:', GiaTri: res.SanLuongQuyNe30KH_Ca },
+        // { Ten: 'Sản lượng quy Ne 30/ca:', GiaTri: res.SanLuongQuyNe30_Ca },
+        // { Ten: 'Sản lượng Ne 30 KH/ca:', GiaTri: res.SanLuongQuyNe30KH_Ca },
         { Ten: 'LK % hoàn thành KHSX:', GiaTri: res.LuyKePhanTramHoanThanhKHSX },
       ]
     });
