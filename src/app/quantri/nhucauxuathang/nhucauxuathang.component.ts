@@ -88,7 +88,8 @@ export class NhucauxuathangComponent implements OnInit {
     let date = new Date();
     this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
+    this.filter._tuNgayCanDoiTon = date;
+    this.filter._denNgayCanDoiTon = date;
     // this.dataPie = {
     //   labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
     //   datasets: [

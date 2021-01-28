@@ -26,7 +26,8 @@
                 <div class="p-d-flex flex-column flex-lg-row">
                     <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại bông"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmLoaiBong" (onChange)="ChangeOpt()"></p-dropdown>
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmLoaiBong" (onChange)="ChangeOpt()">
+                        </p-dropdown>
                     </div>
                     <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
@@ -53,13 +54,31 @@
 <div class="p-grid" style="align-self: stretch;">
     <div class="p-col-12 p-xl-12 p-lg-8 p-p-3">
         <div class="chart text-left">
-            <h5>
-                Cân đối tồn
-            </h5>
-            <p-table [value]="listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+            <div class="p-d-flex flex-column flex-lg-row p-jc-between">
+                <div>
+                    <h5>
+                        Cân đối tồn
+                    </h5>
+                </div>
+                <div class="p-d-flex flex-column flex-lg-row">
+                    <div class="p-mr-2">
+                        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                            [(ngModel)]="filter._tuNgayCanDoiTon" inputId="icon" placeholder="Từ ngày"
+                            (onSelect)="ChangeOpt()">
+                        </p-calendar>
+                    </div>
+                    <div class="p-mr-2">
+                        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                            [(ngModel)]="filter._denNgayCanDoiTon" inputId="icon" placeholder="Đến ngày"
+                            (onSelect)="ChangeOpt()">
+                        </p-calendar>
+                    </div>
+                </div>
+            </div>
+            <p-table [value]="listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="true" scrollHeight="260px">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
-                        <col >
+                        <col>
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -73,9 +92,9 @@
                         <th>Xuất trong kỳ</th>
                         <th>Tồn cuối kỳ</th>
                     </tr>
-                </ng-template>             
-                <ng-template pTemplate="body" let-item let-i="rowIndex">                   
-                    <tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                    <tr [ngClass]="{'p-text-bold': item.TendmLoaiBong=='TỔNG'}">
                         <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
                         <td>{{item.TendmLoaiBong}}</td>
                         <td>{{item.TenLoBong}}</td>
