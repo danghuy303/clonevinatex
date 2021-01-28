@@ -32,7 +32,7 @@
             <div class="p-col-12 p-lg-10 p-p-0">
                 <!-- <input type="text" class="p-inputtext-sm" (onblur)="veLayout()" [(ngModel)]="SoViTriNgoaiQuan" pInputText /> -->
                 <div class="p-inputgroup">
-                    <p-inputNumber locale="vi-VN" [(ngModel)]="SoViTriNgoaiQuan" (onBlur)="veLayout()">
+                    <p-inputNumber locale="vi-VN" [(ngModel)]="item.SoViTriNgoaiQuan" (onBlur)="veLayout()">
                     </p-inputNumber>
                     <button type="button" pButton pRipple icon="pi pi-check"
                         class="p-button-success p-button-text p-button-sm"
@@ -80,7 +80,7 @@
                                     Tổng số
                                 </div>
                             </td>
-                            <td></td>
+                            <td class="text-right">{{length}}</td>
                             <td></td>
                             <!-- <td></td> -->
                         </tr>

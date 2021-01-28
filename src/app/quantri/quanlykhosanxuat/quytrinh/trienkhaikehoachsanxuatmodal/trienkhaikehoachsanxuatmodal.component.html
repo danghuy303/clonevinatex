@@ -89,7 +89,8 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Từ ngày:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Từ ngày:<button type="button" pButton pRipple
+                icon="pi pi-refresh" class="p-button-danger p-button-text p-button-sm" style="padding:3px !important;width: unset;" (click)="boTriLai()"></button></label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
                     [yearNavigator]="false" [readonlyInput]="true" [minDate]="minDateChonMay" [maxDate]="maxDateChonMay"
@@ -99,13 +100,15 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đến ngày:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đến ngày:<button type="button" pButton pRipple
+                    icon="pi pi-refresh" class="p-button-danger p-button-text p-button-sm" style="padding:3px !important;width: unset;" (click)="boTriLai()"></button></label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
                     [yearNavigator]="false" [readonlyInput]="true" [minDate]="minDateChonMay"
                     (onSelect)="validDenNgay(item,$event)" [maxDate]="maxDateChonMay" inputId="monthpicker"
                     [(ngModel)]="item.DenNgay" [disabled]="validChonLai(item)" placeholder="dd/mm/yyyy">
                 </p-calendar>
+
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">

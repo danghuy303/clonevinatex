@@ -141,7 +141,6 @@ export class BotrimaymodalComponent implements OnInit {
           this.listDate.forEach(date => {
             if(validVariable(this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].HeSo)&&this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].IdGiaoKeHoachSanXuat_TrienKhaiMatHang===this.item.Id){
               HeSo = this.PoolMaySanXuat[this.item.CongDoan][may.prop][date.prop].HeSo;
-              // return;
             }
           });
           this.PoolMaySanXuat[this.item.CongDoan][may.prop].HeSo = HeSo;

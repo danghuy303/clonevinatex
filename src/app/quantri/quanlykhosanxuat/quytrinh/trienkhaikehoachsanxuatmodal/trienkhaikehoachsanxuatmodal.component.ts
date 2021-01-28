@@ -2,8 +2,6 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { GalleriaThumbnails } from 'primeng/galleria';
-import { ignoreElements } from 'rxjs/operators';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -38,7 +36,6 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   IddmPhanXuong: string = '';
   PoolMaySanXuat: any = {};
   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private datepipe: DatePipe) {
-
   }
 
   ngOnInit(): void {
@@ -94,6 +91,11 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       this.listMatHangGiaoKeHoach = res;
       if (reset) {
         this.item.listItem = [];
+        this.item.TuNgay = null;
+        this.item.DenNgay = null;
+        this.item.listItemMay = [];
+        this.item.listCongDoan = [];
+        this.filter.CongDoan = null;
       }
       if (validVariable(this.item.listItem) && this.item.listItem?.length !== 0) {
         this.item.listItem.forEach(mathang => {
@@ -126,7 +128,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         //   console.log(may);
         // }
       });
-      console.log(this.PoolMaySanXuat)
+      // console.log(this.PoolMaySanXuat)
     });
   }
   KiemTraButtonModal() {
@@ -225,12 +227,12 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     this.item.listItemMay.filter(ele => ele.isXoa !== true).forEach(mathang => {
       let TongSoMayDaBoTri = 0;
       for (let may in this.PoolMaySanXuat[mathang.CongDoan]) {
-        let co = dateArr.some(ngay=>{
+        let co = dateArr.some(ngay => {
           let mayTrongPool = this.PoolMaySanXuat[mathang.CongDoan][may][ngay.prop]
           return mayTrongPool.TinhTrang === 1 && mayTrongPool.IdGiaoKeHoachSanXuat_TrienKhaiMatHang === mathang.Id
         })
-        if(co){
-          TongSoMayDaBoTri ++;
+        if (co) {
+          TongSoMayDaBoTri++;
         }
         // dateArr.forEach(ngay => {
         //   let mayTrongPool = this.PoolMaySanXuat[mathang.CongDoan][may][ngay.prop];
@@ -344,33 +346,40 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   delete(item, index) {
 
   }
-  boTriLai(mathang, index) {
+  boTriLai() {
+    if(validVariable(this.item.listItemMay)&& this.item.listItemMay.length!==0){
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     })
     modalRef.componentInstance.message = 'Các máy được bố trí trong thời gian hiện tại sẽ bị xóa nếu bạn bố trí lại!\n Bạn có chắc chắn muốn bố trí lại không?';
     modalRef.result.then(res => {
-      mathang.TuNgayUnix = DateToUnix(mathang.TuNgay);
-      mathang.DenNgayUnix = DateToUnix(mathang.DenNgay);
-      let dateArr = this.getDates(UnixToDate(mathang.TuNgayUnix), UnixToDate(mathang.DenNgayUnix));
-      for (let congDoan in mathang.listItemTemp) {
-        mathang.listItemTemp[congDoan].forEach(may => {
-          dateArr.forEach(ngay => {
-            let mayTrongPool = this.PoolMaySanXuat[congDoan][may.prop][ngay.prop];
-            if (mayTrongPool.TinhTrang === 1 && mayTrongPool.IdGiaoKeHoachSanXuat_TrienKhaiMatHang === mathang.IddmItem) {
-              mayTrongPool.IdGiaoKeHoachSanXuat_TrienKhai = null;
-              mayTrongPool.IdGiaoKeHoachSanXuat = null;
-              mayTrongPool.ChiSo = undefined;
-              mayTrongPool.TinhTrang = 0;
-              mayTrongPool.IddmItem = null;
-            }
-          })
+      this.item.TuNgay = null;
+      this.item.TuNgayUnix = null;
+      this.item.DenNgay = null;
+      this.item.DenNgayUnix = null;
+      this._services.GetOptions().GetListTinhTrangMay(this.item.Id, this.mapGiaoKeHoachNIdPhanXuong[`${this.item.IdGiaoKeHoachSanXuat}`], DateToUnix(this.minDateChonMay), DateToUnix(this.maxDateChonMay)).subscribe((res: any) => {
+        res.forEach(may => {
+          this.PoolMaySanXuat[may.CongDoan] = { ...this.PoolMaySanXuat[may.CongDoan] };
+          let mayName = may.Id.split('-').join('_');
+          this.PoolMaySanXuat[may.CongDoan][mayName] = { ...this.PoolMaySanXuat[may.CongDoan][mayName] }
+          let ngayName = may.Ngay.split('/').join('_');
+          this.PoolMaySanXuat[may.CongDoan][mayName][ngayName] = may;
+          this.PoolMaySanXuat[may.CongDoan][mayName].Ma = may.Ma;
+          this.PoolMaySanXuat[may.CongDoan][mayName].Ten = may.Ten;
+          this.PoolMaySanXuat[may.CongDoan][mayName].Id = may.Id;
         });
-      }
-      mathang.TuNgay = undefined;
-      mathang.DenNgay = undefined;
+      });
+      this.item.listItemMay.forEach(may => {
+        may.SoMay = 0;
+      });
     })
       .catch(er => { })
+    }else{
+      this.item.TuNgay = null;
+      this.item.TuNgayUnix = null;
+      this.item.DenNgay = null;
+      this.item.DenNgayUnix = null;
+    }
   }
   validChonLai(mathang) {
     if (validVariable(mathang.TuNgay) && validVariable(mathang.DenNgay)) {
@@ -485,10 +494,18 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     }
   }
   ThayDoiSoCa() {
-    this.item.listItem = [];
+    // this.item.listItem = [];
     this.item.listItemMay = [];
     this.item.listCongDoan = [];
     this.listCongDoan = [];
     this.filter.CongDoan = null;
+    if (validVariable(this.item.listItem) && this.item.listItem.length !== 0) {
+      this._services.TrienKhaiKeHoachSanXuat().TinhNangSuat(this.item).subscribe((res: any) => {
+        this.listCongDoan = mapArrayForDropDown(res.listCongDoan, 'Ten', 'Ma');
+        this.filter.CongDoan = this.listCongDoan[0].value;
+        this.item.listItemMay = res.listItemMay;
+        // console.table(this.item.listItemMay)
+      })
+    }
   }
 }
