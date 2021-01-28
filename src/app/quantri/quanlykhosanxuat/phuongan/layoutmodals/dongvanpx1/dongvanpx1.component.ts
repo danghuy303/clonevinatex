@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { validVariable } from 'src/app/services/globalfunction';
 

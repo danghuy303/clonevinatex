@@ -31,11 +31,13 @@ export class SanluongComponent implements OnInit {
       }],
       yAxes: [{
         ticks: {
-          beginAtZero: true
+          beginAtZero: true,
+          callback: function (label, index, labels) {
+            return formatNumber(label, 'vi-VN', '0.0-0');
+          }
         }
       }],
     },
-    
     legend: {
       position: 'bottom'
     },
@@ -55,16 +57,20 @@ export class SanluongComponent implements OnInit {
       xAxes: [{
         categoryPercentage: 0.5,
         barPercentage: 1.0
+      }],
+      yAxes:[{
+        ticks: {
+          beginAtZero: true,
+          callback: function (label, index, labels) {
+            return formatNumber(label, 'vi-VN', '0.0-0');
+          }
+        }
       }]
     },
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          // let tong = 0;
-          // for (let i = 0; i < data.datasets.length; i++) {
-          //   tong += data.datasets[i].data[tooltipItem.index];
-          // }
-          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg`
+          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')}`
         }
       }
     },
@@ -202,6 +208,4 @@ export class SanluongComponent implements OnInit {
     //   this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
     // })
   }
-
-
 }
