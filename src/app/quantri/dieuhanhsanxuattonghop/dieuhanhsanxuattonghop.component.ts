@@ -219,6 +219,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     //   this.listMay = mapArrayForDropDown(res, "Ma", 'Id')
     // });
     this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
+      res.unshift({ Id: '', Ten: 'Tổng ca' });
       this.listCa = mapArrayForDropDown(res, "Ten", 'Id')
     });
     // this._services.GetListdmLoaiBong(data).subscribe((res: any) => {
