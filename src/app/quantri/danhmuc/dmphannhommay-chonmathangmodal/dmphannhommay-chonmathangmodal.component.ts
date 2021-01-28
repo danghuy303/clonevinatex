@@ -46,14 +46,14 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if(this.opt ==='MATHANG'){
+    if (this.opt === 'MATHANG') {
       this.GetLoaiSoi();
       this.GetDMMatHang();
     }
     if (this.items.length !== 0) {
       this.checkedAll = this.items.every((ele) => ele.checked);
     }
-    if(this.opt === 'SOI'){
+    if (this.opt === 'SOI') {
       this.GetListLoaiSoi()
       this.cols = [
         {
@@ -82,7 +82,7 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
       this.listloaisoi = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  GetListLoaiSoi(){
+  GetListLoaiSoi() {
     let data = {
       PageSize: 20,
       CurrentPage: 0,
@@ -141,7 +141,21 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
 
   resetFilter() {
     this.filter = {};
-    this.GetDMMatHang();
+    // this.GetDMMatHang();
+  }
+
+  addItem(e, item) {
+    if (e.checked) {
+      this.selectedItems.push(item);
+    }
+    else {
+      if (this.selectedItems.length > 0) {
+        let selectedItems = this.selectedItems.map(obj =>
+          obj.IddmPhanNhomMay != item.Id
+        );
+        this.selectedItems = selectedItems;
+      }
+    }
   }
 
   accept() {
@@ -151,11 +165,11 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
         IddmPhanNhomMay: this.IdQuyTrinh || "",
         Id: '',
       }
-      if(this.opt ==='MATHANG'){
-        data.IddmItem= ele.Id;
+      if (this.opt === 'MATHANG') {
+        data.IddmItem = ele.Id;
       }
-      if(this.opt==='SOI'){
-        data.IddmLoaiSoi=ele.Id
+      if (this.opt === 'SOI') {
+        data.IddmLoaiSoi = ele.Id
       }
       return data
     }));
