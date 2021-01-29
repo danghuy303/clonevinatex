@@ -1,3 +1,4 @@
+import { formatNumber } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
@@ -47,6 +48,13 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     legend: {
       position: 'left'
     },
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          return `${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN')} kg`
+        }
+      }
+    },
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
@@ -74,9 +82,14 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   chatLuongSanPham: any = [];
   headerChatLuongSanPham: any = [];
   chatLuongSanPhamScrollHeight: any = 0;
+
   constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService, public toastr: ToastrService) {
     this.currentUser = this._auth.currentUserValue;
-    this.IdDuAn = this.store.getCurrent();
+    this.store.getNhaMay().subscribe(res=>{
+      this.IdDuAn = res;
+      this.BieuDoCoCau();
+    })
+    // this.IdDuAn = this.store.getCurrent();
   }
 
   ngOnInit(): void {
@@ -206,6 +219,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     //   this.listMay = mapArrayForDropDown(res, "Ma", 'Id')
     // });
     this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
+      res.unshift({ Id: '', Ten: 'Tổng ca' });
       this.listCa = mapArrayForDropDown(res, "Ten", 'Id')
     });
     // this._services.GetListdmLoaiBong(data).subscribe((res: any) => {
@@ -249,8 +263,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },
         { Ten: 'Sản lượng quy Ne 30:', GiaTri: res.SanLuongQuyNe30 },
         { Ten: 'Lũy kế quy Ne 30:', GiaTri: res.LuyKeQuyNe30 },
-        { Ten: 'Sản lượng quy Ne 30/ca:', GiaTri: res.SanLuongQuyNe30_Ca },
-        { Ten: 'Sản lượng Ne 30 KH/ca:', GiaTri: res.SanLuongQuyNe30KH_Ca },
+        // { Ten: 'Sản lượng quy Ne 30/ca:', GiaTri: res.SanLuongQuyNe30_Ca },
+        // { Ten: 'Sản lượng Ne 30 KH/ca:', GiaTri: res.SanLuongQuyNe30KH_Ca },
         { Ten: 'LK % hoàn thành KHSX:', GiaTri: res.LuyKePhanTramHoanThanhKHSX },
       ]
     });

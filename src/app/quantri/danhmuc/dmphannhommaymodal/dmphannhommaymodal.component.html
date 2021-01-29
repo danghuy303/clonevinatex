@@ -34,15 +34,16 @@
         <div class="p-col-4 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-5 p-p-0 my-auto">Công đoạn<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-7 p-p-0">
-                <p-dropdown [filter]="false" [options]="listCongDoan" styleClass="p-inputtext-sm" placeholder="Chọn công đoạn"
-                    [(ngModel)]="item.CongDoan" (onChange)="changeCongDoan($event)"></p-dropdown>
+                <p-dropdown [filter]="false" [options]="listCongDoan" styleClass="p-inputtext-sm"
+                    placeholder="Chọn công đoạn" [(ngModel)]="item.CongDoan" (onChange)="changeCongDoan($event)">
+                </p-dropdown>
             </div>
         </div>
         <div class="p-col-4 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-5 p-p-0 my-auto">Phân xưởng<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-7 p-p-0">
-                <p-dropdown [filter]="false" [options]="listPhanXuong" styleClass="p-inputtext-sm" placeholder="Chọn phân xưởng"
-                    [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
+                <p-dropdown [filter]="false" [options]="listPhanXuong" styleClass="p-inputtext-sm"
+                    placeholder="Chọn phân xưởng" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
             </div>
         </div>
         <div class="p-col-4 p-d-flex p-flex-row">
@@ -51,11 +52,18 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
+        <div class="p-col-4 p-d-flex p-flex-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Đầu ra:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DauRa">
+                </p-inputNumber>
+            </div>
+        </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="p-d-flex p-flex-sm-row p-jc-between p-mt-3 p-mb-3" *ngIf="childModalOpt!==''">
                 <div class="p-d-flex p-flex-row">
-                    <button pButton pRipple [label]="childModalOpt==='MATHANG'?'Chọn mặt hàng':'Chọn loại sợi'" icon="pi pi-plus" class="p-button-sm p-mr-2"
-                        (click)="DanhSachHang()"></button>
+                    <button pButton pRipple [label]="childModalOpt==='MATHANG'?'Chọn mặt hàng':'Chọn loại sợi'"
+                        icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="DanhSachHang()"></button>
                 </div>
                 <div class="p-d-flex p-flex-row">
                     <div class="p-inputgroup">
@@ -76,7 +84,7 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px" *ngIf="childModalOpt!==''">
-                        <col  *ngIf="childModalOpt!==''">
+                        <col *ngIf="childModalOpt!==''">
                         <col>
                         <col>
                         <col>
@@ -94,7 +102,7 @@
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th> -->
                         <th class="text-center" *ngIf="childModalOpt!==''">STT</th>
-                        <th  *ngIf="childModalOpt!==''">{{childModalOpt==='MATHANG'?'Mặt hàng':'Loại sợi'}}</th>
+                        <th *ngIf="childModalOpt!==''">{{childModalOpt==='MATHANG'?'Mặt hàng':'Loại sợi'}}</th>
 
                         <th>Chi số Ne</th>
                         <th>Chi số mét Nm</th>
@@ -105,15 +113,15 @@
                         <th>Hiệu suất (%)</th>
                         <th>Định mức năng suất</th>
                         <th>Ghi chú</th>
-                        <th  *ngIf="childModalOpt!==''"></th>
+                        <th *ngIf="childModalOpt!==''"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center" *ngIf="childModalOpt!==''">
                             {{ i + 1 }}
-                        </td >
-                        <td  *ngIf="childModalOpt!==''">
+                        </td>
+                        <td *ngIf="childModalOpt!==''">
                             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText
                                 [disabled]="true" />
                         </td>

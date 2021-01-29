@@ -23,13 +23,14 @@ export class Dongvanpx2Component implements OnInit {
   poolLoBong: any = [];
   banBong: any = {};
   ngoaiQuan: any = [];
-  SoViTriNgoaiQuan: number = 0;
+  // SoViTriNgoaiQuan: number = 0;
   ViTriNgoaiQuan: any = '';
   // 18, 24, 30, 33, 36, 42, 47
   listBongNgoaiQuan: any = [];
   focusedSlot: any = null;
   length: number = 0;
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
+
   }
 
   ngOnInit(): void {
@@ -77,7 +78,7 @@ export class Dongvanpx2Component implements OnInit {
     this.length = this.item.listLoBong.reduce((total, ele) => {
       return total + ele.SoLuong
     }, 0)
-    for (let i = 1; i <= (this.length + this.SoViTriNgoaiQuan); i++) {
+    for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -121,7 +122,6 @@ export class Dongvanpx2Component implements OnInit {
         }
       }
     }
-
   }
   slotFocus(slot) {
     for (let prop in this.banBong) {
@@ -184,7 +184,7 @@ export class Dongvanpx2Component implements OnInit {
   }
   getNextFocus() {
     for (let prop in this.banBong) {
-      if (!this.banBong[prop]._focus && !validVariable(this.banBong[prop].labelLoBong) && parseInt(prop) <= (this.length + this.SoViTriNgoaiQuan)) {
+      if (!this.banBong[prop]._focus && !validVariable(this.banBong[prop].labelLoBong) && parseInt(prop) <= (this.length + this.item.SoViTriNgoaiQuan)) {
         this.focusedSlot = parseInt(prop);
         this.banBong[prop]._focus = true;
         break;
@@ -201,7 +201,23 @@ export class Dongvanpx2Component implements OnInit {
       lobong.DaXep = null;
     });
   }
+  SetData(){
+    this.item.listItem =[]
+    console.log(this.banBong)
+    for(let soban in this.banBong){
+      let item = {
+        TenLoBong:this.banBong[soban].labelLoBong,
+        IdLoBong: this.banBong[soban].IdLoBong,
+        ThuTu:soban,
+        isNgoaiQuan: this.banBong[soban]._ngoaiQuan
+      }
+      this.item.listItem.push(item)
+    }
+    return this.item
+  }
   GhiLai() {
-
+    this._services.XepBanBong().Set(this.SetData()).subscribe(res=>{
+      console.log(res);
+    })
   }
 }

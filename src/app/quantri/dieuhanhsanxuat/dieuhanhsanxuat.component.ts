@@ -1,6 +1,7 @@
+import { formatNumber } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-dieuhanhsanxuat',
@@ -34,12 +35,22 @@ export class DieuhanhsanxuatComponent implements OnInit {
       }],
       yAxes: [{
         ticks: {
-          beginAtZero: true
+          beginAtZero: true,
+          callback: function (label, index, labels) {
+            return formatNumber(label, 'vi-VN', '0.0-0');
+          }
         }
       }],
     },
     legend: {
       position: 'bottom'
+    },
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')}`
+        }
+      }
     },
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
     aspectRatio: (((window.innerWidth - 80) * 2 / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
@@ -57,7 +68,22 @@ export class DieuhanhsanxuatComponent implements OnInit {
       xAxes: [{
         categoryPercentage: 0.5,
         barPercentage: 1.0
-      }]
+      }],
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          callback: function (label, index, labels) {
+            return formatNumber(label, 'vi-VN', '0.0-0');
+          }
+        }
+      }],
+    },
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')}`
+        }
+      }
     },
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
     aspectRatio: ((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
@@ -73,6 +99,13 @@ export class DieuhanhsanxuatComponent implements OnInit {
     legend: {
       position: 'left'
     },
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          return `${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN')}`
+        }
+      }
+    },
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
@@ -83,6 +116,8 @@ export class DieuhanhsanxuatComponent implements OnInit {
     let date = new Date();
     this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.filter._tuNgayCanDoiTon = date;
+    this.filter._denNgayCanDoiTon = date;
     
     this.dataPie = {
       labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
@@ -121,6 +156,18 @@ export class DieuhanhsanxuatComponent implements OnInit {
       this.filter.DenNgay = DateToUnix(this.filter._denNgay);
     } else {
       this.filter.DenNgay = null;
+    }
+    let TuNgay = 0;
+    let DenNgay = 0;
+    if (validVariable(this.filter._tuNgayCanDoiTon)) {
+      TuNgay = DateToUnix(this.filter._tuNgayCanDoiTon);
+    } else {
+      TuNgay = null;
+    }
+    if (validVariable(this.filter._denNgayCanDoiTon)) {
+      DenNgay = DateToUnix(this.filter._denNgayCanDoiTon);
+    } else {
+      DenNgay = null;
     }
     if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay < this.filter.DenNgay) {
       this._services.DashBoard().NhuCauSuDungBong(this.filter).subscribe((res:any)=>{
@@ -165,8 +212,13 @@ export class DieuhanhsanxuatComponent implements OnInit {
             }
           ]
         };
-      })
-      this._services.DashBoard().CanDoiTon(this.filter).subscribe(res=>{
+      })    
+    }
+    if (validVariable(TuNgay) && validVariable(DenNgay) && TuNgay <= DenNgay) {
+      let data = deepCopy(this.filter);
+      data.TuNgay = TuNgay;
+      data.DenNgay = DenNgay;
+      this._services.DashBoard().CanDoiTon(data).subscribe(res=>{
         this.listItem = res;
       })
     }

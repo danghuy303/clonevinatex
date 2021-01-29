@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
@@ -88,7 +88,8 @@ export class NhucauxuathangComponent implements OnInit {
     let date = new Date();
     this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
+    this.filter._tuNgayCanDoiTon = date;
+    this.filter._denNgayCanDoiTon = date;
     // this.dataPie = {
     //   labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
     //   datasets: [
@@ -127,6 +128,19 @@ export class NhucauxuathangComponent implements OnInit {
     } else {
       this.filter.DenNgay = null;
     }
+
+    let TuNgay = 0;
+    let DenNgay = 0;
+    if (validVariable(this.filter._tuNgayCanDoiTon)) {
+      TuNgay = DateToUnix(this.filter._tuNgayCanDoiTon);
+    } else {
+      TuNgay = null;
+    }
+    if (validVariable(this.filter._denNgayCanDoiTon)) {
+      DenNgay = DateToUnix(this.filter._denNgayCanDoiTon);
+    } else {
+      DenNgay = null;
+    }
     if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay < this.filter.DenNgay) {
       this.filter.IdDuAn = this.IdDuAn;
       this._services.BaoCao().GetDashBoard_NhuCauXuatHang(this.filter).subscribe((res: any) => {
@@ -135,14 +149,19 @@ export class NhucauxuathangComponent implements OnInit {
       this._services.BaoCao().GetDashBoard_CoCauMatHang(this.filter).subscribe((res: any) => {
         this.dataPie = res;
       });
-      this._services.DashBoard().CanDoiTon(this.filter).subscribe(res => {
+    }
+    if (validVariable(TuNgay) && validVariable(DenNgay) && TuNgay <= DenNgay) {
+      let data = deepCopy(this.filter);
+      data.TuNgay = TuNgay;
+      data.DenNgay = DenNgay;
+      this._services.BaoCao().GetDashBoard_CanDoiTonXuatHang(data).subscribe(res => {
         this.listItem = res;
       })
     }
   }
 
   BieuDoCoCau() {
-  
+
   }
 
   resetFilter() {

@@ -52,8 +52,8 @@
                 </div>
                 <div class="p-d-flex flex-column flex-lg-row">
                     <div style="display:table;height:100%">
-                        <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)">Xem bảng dữ
-                            liệu</a>
+                        <!-- <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)">Xem bảng dữ
+                            liệu</a> -->
                     </div>
                 </div>
             </div>
@@ -71,11 +71,13 @@
                     <span class="p-ml-2">
                         <h5>Sản lượng theo máy</h5>
                     </span>
+                    <span class="p-ml-2"><p-dropdown [filter]="true" [options]="listCongDoan"
+                        styleClass="p-inputtext-sm" [(ngModel)]="filter.CongDoan" (onChange)="GetBieuDo(true)"></p-dropdown></span>
                 </div>
                 <div class="p-d-flex flex-column flex-lg-row">
                     <div style="display:table;height:100%">
-                        <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)">Xem bảng dữ
-                            liệu</a>
+                        <!-- <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)">Xem bảng dữ
+                            liệu</a> -->
                     </div>
                 </div>
             </div>
