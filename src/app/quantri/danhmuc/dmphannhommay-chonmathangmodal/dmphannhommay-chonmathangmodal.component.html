@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <p-table [value]="items|filter:filter.keyWord" [(selection)]="selectedItems"
+        <p-table [value]="items|filter:filter.keyWord|filter:filter.IddmLoaiSoi" [(selection)]="selectedItems"
             styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="true"
             scrollHeight="500px">
             <ng-template pTemplate="colgroup">
