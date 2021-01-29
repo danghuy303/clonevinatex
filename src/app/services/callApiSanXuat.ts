@@ -178,6 +178,12 @@ export class SanXuatService {
             GetDashBoard_CanDoiTonXuatHang: (data) => {
                 return this.http.post(url + 'GetDashBoard_CanDoiTonXuatHang', data, httpOptions);
             },
+            GetDashBoard_SanLuongOng:(data)=>{
+                return this.http.post(url + 'GetDashBoard_SanLuongOng', data, httpOptions);
+            },
+            GetListdmMayTheoCongDoan:(congDoan)=>{
+                return this.http.get(`${API.SCMDanhMuc}GetListdmMayTheoCongDoan?CongDoan=${congDoan}`,httpOptions);
+            }
         }
     }
     //#endregion

@@ -49,6 +49,7 @@ export class PhabongmodalComponent implements OnInit {
   }
   labelBong: any = {
   }
+  trongLuongLoBong:any={}
 
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
   }
@@ -100,22 +101,22 @@ export class PhabongmodalComponent implements OnInit {
           b: 0
         }
         this.item.listLoBong.forEach(lobong => {
-          if (validVariable(lobong.Mic)) {
-            TongChatLuong.Mic += lobong.Mic;
-          }
-          if (validVariable(lobong.Rd)) {
-            TongChatLuong.Rd += lobong.Rd;
-          }
-          if (validVariable(lobong.b)) {
-            TongChatLuong.b += lobong.b;
+          for(let chatluong in TongChatLuong){
+            if(validVariable(lobong[chatluong])){
+              TongChatLuong[chatluong]+=lobong[chatluong];
+            }
           }
         });
         this.ChatLuongBinhQuan = {
-          Mic: TongChatLuong.Mic / res.length,
-          Rd: TongChatLuong.Rd / res.length,
-          b: TongChatLuong.b / res.length,
+          // Mic: TongChatLuong.Mic / res.length,
+          // Rd: TongChatLuong.Rd / res.length,
+          // b: TongChatLuong.b / res.length,
+        }
+        for(let chatluong in TongChatLuong){
+          this.ChatLuongBinhQuan[chatluong]= TongChatLuong[chatluong]/res.length;
         }
         this.labelBong = {}
+        this.trongLuongLoBong = {}
         this.item.listLoBong.forEach(lobong => {
           if (!validVariable(this.labelBong[lobong.MadmLoaiBong])) {
             this.labelBong[lobong.MadmLoaiBong] = 0;
@@ -195,20 +196,19 @@ export class PhabongmodalComponent implements OnInit {
           b: 0
         }
         res.forEach(lobong => {
-          if (validVariable(lobong.Mic)) {
-            TongChatLuong.Mic += lobong.Mic;
-          }
-          if (validVariable(lobong.Rd)) {
-            TongChatLuong.Rd += lobong.Rd;
-          }
-          if (validVariable(lobong.b)) {
-            TongChatLuong.b += lobong.b;
+          for(let chatluong in TongChatLuong){
+            if(validVariable(lobong[chatluong])){
+              TongChatLuong[chatluong]+=lobong[chatluong];
+            }
           }
         });
         this.ChatLuongBinhQuan = {
-          Mic: TongChatLuong.Mic / res.length,
-          Rd: TongChatLuong.Rd / res.length,
-          b: TongChatLuong.b / res.length,
+          // Mic: TongChatLuong.Mic / res.length,
+          // Rd: TongChatLuong.Rd / res.length,
+          // b: TongChatLuong.b / res.length,
+        }
+        for(let chatluong in TongChatLuong){
+          this.ChatLuongBinhQuan[chatluong]= TongChatLuong[chatluong]/res.length;
         }
       }
       if (validVariable(this.item.TongSoKien)) {
@@ -256,6 +256,18 @@ export class PhabongmodalComponent implements OnInit {
       }
     });
     this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.M + this.labelBong.TP);
+  }
+  TinhTongTrongLuong(){
+    this.trongLuongLoBong = {};
+    this.item.listLoBong.forEach(lobong => {
+      if (!validVariable(this.trongLuongLoBong[lobong.MadmLoaiBong])) {
+        this.trongLuongLoBong[lobong.MadmLoaiBong] = 0;
+      }
+      if (validVariable(lobong.TyLe)) {
+        this.trongLuongLoBong[lobong.MadmLoaiBong] += lobong.TongTrongLuong;
+      }
+    });
+    this.trongLuongLoBong.Hoi = this.TongKhoiLuongDung - (this.trongLuongLoBong.BR + this.trongLuongLoBong.M + this.trongLuongLoBong.TP);
   }
   TinhDeltaB() {
     for (let i = 1; i <= this.item.SoBanBong; i++) {
@@ -312,6 +324,7 @@ export class PhabongmodalComponent implements OnInit {
     this.item.listLoBong.forEach(lobong => {
       if (validVariable(lobong.SoLuongDung)) {
         lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
+        lobong.TongTrongLuong = lobong.SoLuongDung*lobong.TrongLuong;
       }
       if (validVariable(lobong.Mic)) {
         arrayMic.push(lobong.Mic);
@@ -320,6 +333,7 @@ export class PhabongmodalComponent implements OnInit {
     });
     this.itemCVMic[`${x}`] = CVMic([...arrayMic, ...arrayKien], tempSoKien1LineTruBongHoi);
     this.TinhTyLeTong();
+    this.TinhTongTrongLuong()
     this.TinhDeltaB();
   }
 
