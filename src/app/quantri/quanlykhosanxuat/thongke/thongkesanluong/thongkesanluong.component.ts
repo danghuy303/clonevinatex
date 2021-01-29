@@ -98,8 +98,8 @@ export class ThongkesanluongComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event){
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?){
     if (reset) {
@@ -107,7 +107,7 @@ export class ThongkesanluongComponent implements OnInit {
       this.paginator.changePage(0);
     }
     let data={
-      PageSize: 25,
+      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter:this.filter.KeyWord,
