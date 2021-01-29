@@ -92,6 +92,7 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col style="width: 57px;">
                     </colgroup>
                 </ng-template>
@@ -101,10 +102,11 @@
                         <th>Loại bông</th>
                         <th>Cấp bông</th>
                         <th>Số HĐ</th>
-                        <th>Container</th>
+                        <th>SL Container</th>
                         <th>Tổng số kiện</th>
-                        <th>Giá bông</th>
-                        <th>Thời gian dự kiến</th>
+                        <th>Giá bông CIF (USD)</th>
+                        <th>Thời gian cập cảng</th>
+                        <th>Thời gian dự kiến về kho</th>
                         <th>Số lượng nhập (Tấn)</th>
                         <th>Ghi chú</th>
                         <th style="width: 100px;"></th>
@@ -137,6 +139,12 @@
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.GiaBong">
                             </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
+                                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
+                                [(ngModel)]="items.ThoiGianCapCang" inputId="icon" placeholder="dd/mm/yyyy">
+                            </p-calendar>
                         </td>
                         <td>
                             <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
@@ -190,6 +198,12 @@
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.GiaBong">
                             </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
+                                [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
+                                [(ngModel)]="newTableItem.ThoiGianCapCang" inputId="icon" placeholder="dd/mm/yyyy">
+                            </p-calendar>
                         </td>
                         <td>
                             <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"

@@ -121,15 +121,18 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
       IddmLoaiSoi: this.filter.IddmLoaiSoi
     };
     this.sanXuatService.GetListdmItem(data).subscribe((res: any) => {
-      this.items = res;
+      // this.items.filter(item => item.checked = true);
       if (this.selectedItems.length !== 0) {
-        this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
-          let selected = this.items.filter(item => sItem.IddmItem === item.Id)[0];
+        let ccccc = this.selectedItems.filter(item => !item.isXoa)
+        ccccc.forEach(sItem => {
+          let selected = res.filter(item => sItem.IddmItem === item.Id)[0];
           if (selected) {
             selected.checked = true;
+            debugger;
           }
-        });       
-      }   
+        });
+      }  
+      this.items = res;
     })
   }
 
