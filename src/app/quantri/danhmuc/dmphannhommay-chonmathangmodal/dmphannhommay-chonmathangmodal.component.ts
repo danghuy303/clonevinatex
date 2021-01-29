@@ -46,6 +46,12 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
+    if (this.selectedItems.length !== 0) {
+      this.selectedItems.filter(item => {
+        if (item.isXoa == undefined || item.isXoa == null)
+          item.isXoa = false;
+      });
+    }
     if (this.opt === 'MATHANG') {
       this.GetLoaiSoi();
       this.GetDMMatHang();
@@ -122,8 +128,8 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
           if (selected) {
             selected.checked = true;
           }
-        });
-      }
+        });       
+      }   
     })
   }
 
