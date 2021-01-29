@@ -70,6 +70,12 @@
             </div>
             <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addLoHang()"></button>
         </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText/>
+            </div>
+        </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <p-table [lazy]="true" [scrollable]="true" scrollHeight="45vh"
             [value]="item.listItem" styleClass="p-datatable-sm wrap-text">
@@ -81,9 +87,10 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col *ngIf="item.CongDoan==='ONG'">
                         <col *ngIf="item.CongDoan==='ONG'">
-                        <col style="width:50px">
+                        <col>
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -92,11 +99,12 @@
                         <th>Số máy</th>
                         <th>Mặt hàng</th>
                         <th>Ne</th>
+                        <th>Khối lượng tính toán</th>
                         <th>Chiều dài (m)</th>
                         <th>Khối lượng (kg)</th>
                         <th *ngIf="item.CongDoan==='ONG'">Số quả</th>
                         <th *ngIf="item.CongDoan==='ONG'">Kg/cone</th>
-                        <th></th>
+                        <th>Ghi chú</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-itemtbl let-i="rowIndex">
@@ -105,6 +113,7 @@
                         <td class="text-left">{{itemtbl.TendmMay}}</td>
                         <td class="text-left">{{itemtbl.Ten}}</td>
                         <td class="text-left">{{itemtbl.Ne}}</td>
+                        <td class="text-left">{{itemtbl.KhoiLuongTinhToan}}</td>
                         <td>
                             <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0"
                             [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
@@ -132,14 +141,7 @@
                             </p-inputNumber>
                         </td>
                         <td>
-                            <!-- <button pButton pRipple icon="pi pi-pencil"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                (click)="editChiTiet(item,i)" pTooltip="Sửa" showDelay="1000"
-                                tooltipPosition="bottom"></button> -->
-                            <!-- <button pButton pRipple icon="pi pi-trash"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
-                                tooltipPosition="bottom"></button> -->
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="itemtbl.GhiChu" pInputText/>
                         </td>
                     </tr>
                 </ng-template>

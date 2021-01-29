@@ -120,8 +120,8 @@ export class ChatluongsoimodalComponent implements OnInit {
 
   GetMatHangTheoKho() {
     let data = {
-      CurrentPage: 0,
-      Loai: 1,
+      IddmPhanXuong: this.item.IddmPhanXuong,
+      Ngay: new Date(this.item.NgayKiemTra).getTime() / 1000,
     };
     this.services.GetlistdmMatHangKiemTraChatLuong(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
@@ -131,6 +131,23 @@ export class ChatluongsoimodalComponent implements OnInit {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.lstSanPham;
+      modalRef.componentInstance.cols = [{
+          header: 'Tên lô hàng',
+          field: 'TenLoHang',
+          width: 'unset'
+        },
+        {
+          header: 'Tên mặt hàng',
+          field: 'Ten',
+          width: 'unset'
+        },
+        // {
+        //   header: 'Tên mặt hàng',
+        //   field: 'Ten',
+        //   width: 'unset'
+        // },
+      ];
+
       modalRef.result.then((data) => {
         this.lstSanPham = data.data;
         this.item.lstDanhMuc.forEach(element => {
@@ -144,6 +161,7 @@ export class ChatluongsoimodalComponent implements OnInit {
             for (let i = 0; i < element.lstChatLuongSanPham.length; i++) {
               if (element.lstChatLuongSanPham[i].IddmItem == danhmuc.Id) {
                 datapush.ChiTieuThucTe = element.lstChatLuongSanPham[i].ChiTieuThucTe;
+                datapush.IdLoHang = element.lstChatLuongSanPham[i].IdLoHang;
                 break;
               }
             }

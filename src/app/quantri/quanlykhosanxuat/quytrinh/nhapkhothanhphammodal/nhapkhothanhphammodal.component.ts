@@ -155,7 +155,11 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     this.activeModal.close();
   }
   GetMatHangTheoKho() {
-    this._services.getLuuKhoKhac(this.item.IddmKhoHoiAm,'', 0, '').subscribe((res1: any) => {
+    var data = {
+      Ngay: new Date(this.item.Ngay).getTime() / 1000,
+
+    }
+    this._services.GetlistdmMatHangThanhPham(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'
@@ -166,6 +170,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       modalRef.result.then((data) => {
         this.item.listItem = data.data;
         this.item.listItem.forEach(element => {
+          element.Id = "";
           element.SoQuaSoiHoiAm = element.Ton;
           element.SoQuaSoiThanhPham = element.Ton;
           element.KgCone = element.TrongLuong;

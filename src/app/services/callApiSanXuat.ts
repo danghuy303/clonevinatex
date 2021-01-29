@@ -1296,4 +1296,8 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho + 'GetlistdmMatHangKiemTraChatLuong';
         return this.http.post(url, data, httpOptions);
     }
+    GetlistdmMatHangThanhPham(data) {
+        let url = API.SCMQuanLyKho + 'GetlistdmMatHangThanhPham';
+        return this.http.post(url, data, httpOptions);
+    }
 }

@@ -94,8 +94,10 @@ export class NhapkhohoiammodalComponent implements OnInit {
       if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
         this.add();
       }
-      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.listItem.forEach(element => {
+        element.IddmKho = this.item.IddmKho
+      });
       this._services.PhieuNhapHoiAm().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -126,6 +128,9 @@ export class NhapkhohoiammodalComponent implements OnInit {
         this.add();
       }
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.listItem.forEach(element => {
+        element.IddmKho = this.item.IddmKho
+      });
       this._services.PhieuNhapHoiAm().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -186,8 +191,6 @@ export class NhapkhohoiammodalComponent implements OnInit {
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
-      console.log(res1)
-      console.log(this.item.listItem)
       modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.componentInstance.cols= this.cols;
       modalRef.result.then((data) => {

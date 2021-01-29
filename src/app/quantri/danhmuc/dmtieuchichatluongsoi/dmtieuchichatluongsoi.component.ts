@@ -180,10 +180,10 @@ export class DmtieuchichatluongsoiComponent implements OnInit {
   //     })
   //   }).catch(er => console.log(er))
   // }
-  // changePage(event) {
-  //   this.paging.CurrentPage = event.page + 1;
-  //   this.GetListdm();
-  // }
+  changePage(event) {
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListdm();
+  }
   importExcel() {
     // let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
     //   backdrop: 'static',

@@ -97,7 +97,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto" *ngIf="this.type==='bong'">Đơn giá Bông/Kg (USD):</label>
             <label class="p-col-12 p-lg-4 p-p-0 my-auto" *ngIf="this.type==='xo'">Đơn giá Xơ/Kg (USD):</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.GiaBong">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.GiaBong">
                 </p-inputNumber>
             </div>
         </div>
