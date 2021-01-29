@@ -1,7 +1,7 @@
 import { formatNumber } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-dieuhanhsanxuat',
@@ -157,6 +157,18 @@ export class DieuhanhsanxuatComponent implements OnInit {
     } else {
       this.filter.DenNgay = null;
     }
+    let TuNgay = 0;
+    let DenNgay = 0;
+    if (validVariable(this.filter._tuNgayCanDoiTon)) {
+      TuNgay = DateToUnix(this.filter._tuNgayCanDoiTon);
+    } else {
+      TuNgay = null;
+    }
+    if (validVariable(this.filter._denNgayCanDoiTon)) {
+      DenNgay = DateToUnix(this.filter._denNgayCanDoiTon);
+    } else {
+      DenNgay = null;
+    }
     if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay < this.filter.DenNgay) {
       this._services.DashBoard().NhuCauSuDungBong(this.filter).subscribe((res:any)=>{
         this.dataSet1 = {
@@ -200,8 +212,13 @@ export class DieuhanhsanxuatComponent implements OnInit {
             }
           ]
         };
-      })
-      this._services.DashBoard().CanDoiTon(this.filter).subscribe(res=>{
+      })    
+    }
+    if (validVariable(TuNgay) && validVariable(DenNgay) && TuNgay <= DenNgay) {
+      let data = deepCopy(this.filter);
+      data.TuNgay = TuNgay;
+      data.DenNgay = DenNgay;
+      this._services.DashBoard().CanDoiTon(data).subscribe(res=>{
         this.listItem = res;
       })
     }
