@@ -121,17 +121,15 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
       IddmLoaiSoi: this.filter.IddmLoaiSoi
     };
     this.sanXuatService.GetListdmItem(data).subscribe((res: any) => {
-      // this.items.filter(item => item.checked = true);
+      // this.items.filter(item => item.checked = true);      
       if (this.selectedItems.length !== 0) {
-        let ccccc = this.selectedItems.filter(item => !item.isXoa)
-        ccccc.forEach(sItem => {
+        this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
           let selected = res.filter(item => sItem.IddmItem === item.Id)[0];
           if (selected) {
             selected.checked = true;
-            debugger;
           }
         });
-      }  
+      }
       this.items = res;
     })
   }
@@ -168,20 +166,22 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
   }
 
   accept() {
-    this.activeModal.close(this.items.filter(item => item.checked).map(ele => {
-      let data = {
-        ...ele,
-        IddmPhanNhomMay: this.IdQuyTrinh || "",
-        Id: '',
-      }
-      if (this.opt === 'MATHANG') {
-        data.IddmItem = ele.Id;
-      }
-      if (this.opt === 'SOI') {
-        data.IddmLoaiSoi = ele.Id
-      }
-      return data
-    }));
+    this.activeModal.close(
+      this.items.filter(item => item.checked).map(ele => {
+        let data = {
+          ...ele,
+          IddmPhanNhomMay: this.IdQuyTrinh || "",
+          isDelete: ele.isXoa || false,
+          Id: '',
+        }
+        if (this.opt === 'MATHANG') {
+          data.IddmItem = ele.Id;
+        }
+        if (this.opt === 'SOI') {
+          data.IddmLoaiSoi = ele.Id
+        }
+        return data
+      }));
   }
 
   resAction(res: any) {

@@ -19,44 +19,44 @@ export class DmphannhommaymodalComponent implements OnInit {
   public title: any = '';
   public type = '';
   opt: any = "";
-  childModalOpt:any=null;
-  listPhanXuong:any = [];
-  listCongDoan:any = [];
+  childModalOpt: any = null;
+  listPhanXuong: any = [];
+  listCongDoan: any = [];
   listloaisoi: any = [];
   listDonViNangSuat: any = [];
   khongclicknhieu: any = false;
   filter: any = {
     KeyWord: ''
   };
-  mapCongDoan:any={
-    THO:'SOI', 
-    GHEPDAURA:'SOI', 
-    GHEPTRONB:'SOI', 
-    GHEPTRONA:'SOI',
-    ONG:'MATHANG', 
-    CON:'MATHANG',
-    CUONCUI:'', 
-    GHEPSOBO:'', 
-    BONGCHAI:'', 
-    XOCHAI:'',
-    CHAITHO:'',
-    CHAIKY:''
+  mapCongDoan: any = {
+    THO: 'SOI',
+    GHEPDAURA: 'SOI',
+    GHEPTRONB: 'SOI',
+    GHEPTRONA: 'SOI',
+    ONG: 'MATHANG',
+    CON: 'MATHANG',
+    CUONCUI: '',
+    GHEPSOBO: '',
+    BONGCHAI: '',
+    XOCHAI: '',
+    CHAITHO: '',
+    CHAIKY: ''
   }
 
-  constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { 
+  constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) {
 
-   }
+  }
 
   ngOnInit(): void {
     if (this.opt == 'edit') {
     }
-    if(validVariable(this.item.CongDoan)){
+    if (validVariable(this.item.CongDoan)) {
       this.childModalOpt = this.mapCongDoan[this.item.CongDoan];
     }
     this.GetListPhanXuong();
     this.GetListCongDoan();
-  } 
-  GetListPhanXuong(){
+  }
+  GetListPhanXuong() {
     this.sanXuatService.GetOptions().GetPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
     })
@@ -114,7 +114,8 @@ export class DmphannhommaymodalComponent implements OnInit {
     modalRef.componentInstance.IdQuyTrinh = this.item.Id || "";
     modalRef.result.then(res => {
       // this.toastr.success(res);
-      merge(res, this.item.lstdmItem, this.childModalOpt==='MATHANG'?'IddmItem':'IddmLoaiSoi');
+      merge(res, this.item.lstdmItem, this.childModalOpt === 'MATHANG' ? 'IddmItem' : 'IddmLoaiSoi');
+      this.item.lstdmItem.filter(obj => obj.isDelete = obj.isXoa);
     }).catch(er => console.log(er))
   }
 
@@ -124,23 +125,24 @@ export class DmphannhommaymodalComponent implements OnInit {
     if (item.Id.trim() === '') {
     } else {
       item.isXoa = true;
+      item.isDelete = true;
       this.item.lisItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
 
   changeNangSuat(e, item) {
-    item.DinhMucNangSuat = (e.value * item.HieuSuat || 0)/100;
+    item.DinhMucNangSuat = (e.value * item.HieuSuat || 0) / 100;
   }
 
   changeHieuSuat(e, item) {
-    item.DinhMucNangSuat = (e.value * item.NangSuat || 0)/100;
+    item.DinhMucNangSuat = (e.value * item.NangSuat || 0) / 100;
   }
 
-  changeCongDoan(e){
-    console.log(e,'change')
-    this.item.lstdmItem=[];
+  changeCongDoan(e) {
+    console.log(e, 'change')
+    this.item.lstdmItem = [];
     this.childModalOpt = this.mapCongDoan[e.value];
-    if(this.childModalOpt===''){
+    if (this.childModalOpt === '') {
       console.log(this.item.lstdmItem)
       this.item.lstdmItem.push({})
     }
