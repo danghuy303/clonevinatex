@@ -50,5 +50,12 @@
     padding: 10px 15px;
     margin-bottom: -1px;
     background-color: #fff;
+    cursor: pointer;
+}
+.noti-item:hover{
+    background-color: #eee;
+}
+.noti-item.read{
+    background-color: #ccc !important;
 }
 
