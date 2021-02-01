@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
-import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
@@ -27,6 +25,7 @@ export class HacapmodalComponent implements OnInit {
   newTableItem:any={};
   filter:any = {};
   listLoHang:any= [];
+  listHangHoaSauHaCap:any= [];
   lang: any = vn;
   editTableItem: any = {};
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
@@ -40,9 +39,10 @@ export class HacapmodalComponent implements OnInit {
     }
     else
       this.KiemTraButtonModal();
-      if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-        this.item.Ngay = new Date(this.item.NgayUnix * 1000);
-      }
+    if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+    }
+    this.getListHangHoaSauHaCap();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '',this.item.IdTrangThai || '').subscribe(res => {
@@ -112,7 +112,11 @@ export class HacapmodalComponent implements OnInit {
   }
 
   GetLuuKho(sFilter) {
-    this.services.getLuuKhoKhac(this.item.IddmKho,'', 0, sFilter).subscribe((res1: any) => {
+    var data = {
+      Ngay: new Date(this.item.Ngay).getTime() / 1000,
+      IddmKho: this.item.IddmKho,
+    }
+    this.services.GetlistdmMatHangHaCap(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'
@@ -141,5 +145,10 @@ export class HacapmodalComponent implements OnInit {
   }
   cancelEdit(item, index){
     this.item.listItem[index].editField = false;
+  }
+  getListHangHoaSauHaCap(){
+     this.services.GetListLoaiSoiTietKiem().subscribe((res:any)=>{
+      this.listHangHoaSauHaCap =  mapArrayForDropDown(res, 'Ten', 'Id');;
+    })
   }
 }

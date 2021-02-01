@@ -218,11 +218,11 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     this.activeModal.close();
   }
   GetMatHangTheoKho() {
-    let data = {
-      CurrentPage: 0,
-      Loai: 1,
-    };
-    this._services.GetListdmItem(data).subscribe((res1: any) => {
+    var data = {
+      Ngay: new Date(this.item.Ngay).getTime() / 1000,
+      IddmKho: this.item.IddmKho,
+    }
+    this._services.GetlistdmMatHangXuatThanhPham(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'
@@ -234,7 +234,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
         data.data.forEach(element => {
           let datapush = {
             Ten: element.Ten,
-            IddmItem: element.Id,
+            IddmItem: element.IddmItem,
           };
           listdatapush.push(datapush);
         });

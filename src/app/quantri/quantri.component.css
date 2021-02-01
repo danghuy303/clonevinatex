@@ -22,3 +22,33 @@
     padding:20px;
     min-height: calc(100vh - 100px) !important;
 }
+.badge{
+    position: absolute;
+    font-size: 10px;
+    color: white;
+    background-color: red;
+    /* background-color: royalblue; */
+    border-radius: 50%;
+    top: 5px;
+    left:17px;
+    cursor: pointer;
+}
+.left-zero> div{
+    left: 0px !important;
+}
+.list-noti{
+    max-height: 300px;
+    overflow: auto;
+    list-style-type: none;
+    padding-inline-start:0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+.noti-item{
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+}
+

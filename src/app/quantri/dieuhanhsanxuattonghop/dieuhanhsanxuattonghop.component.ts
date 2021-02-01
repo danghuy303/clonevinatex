@@ -24,6 +24,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   @ViewChild('bangScroll') bangScroll: ElementRef;
   listNhaMay: any = [];
   listMatHang: any = [];
+  listSanLuongOng:any=[];
   listPhanXuong: any = [];
   listCa: any = [];
   listThang: any = [];
@@ -268,6 +269,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
         { Ten: 'LK % hoàn thành KHSX:', GiaTri: res.LuyKePhanTramHoanThanhKHSX },
       ]
     });
+    this._services.BaoCao().GetDashBoard_SanLuongOng(this.filter).subscribe((res:any)=>{
+      this.listSanLuongOng =res;
+    })
   }
 
   BieuDoCoCau() {
