@@ -55,7 +55,8 @@ export class LohangmodalComponent implements OnInit {
 
   getListGiaoKeHoach(){
     this.services.GetOptions().GetListGiaoKeHoachSanXuatChuaLapKeHoach().subscribe((res:any)=>{
-      this.listGiaoKeHoach = mapArrayForDropDown(res, 'SoQuyTrinh', 'Id');
+      // this.listGiaoKeHoach = mapArrayForDropDown(res, 'SoQuyTrinh', 'Id');
+      this.listGiaoKeHoach = res;
     })
   }
 
@@ -69,5 +70,11 @@ export class LohangmodalComponent implements OnInit {
   }
   Onclose() {
     this.activeModal.close();
+  }
+  giaoKeHoach(event){
+    console.log(event);
+    this.item.IddmPhanXuong = event.value.IddmPhanXuong;
+    this.item.IdGiaoKeHoachSanXuat = event.value.Id;
+    debugger
   }
 }

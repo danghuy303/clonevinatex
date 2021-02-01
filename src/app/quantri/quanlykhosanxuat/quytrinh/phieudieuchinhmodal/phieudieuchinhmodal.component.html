@@ -35,10 +35,22 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Phiếu xuất kho:</label>
+            <div class="p-col-12 p-lg-7 p-p-0">
+                <input type="text" [(ngModel)]="item.TenPhieuXuatKho" disabled pInputText/>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Số bàn:</label>
+            <div class="p-col-12 p-lg-7 p-p-0">
+                <input type="text" [(ngModel)]="item.SoBan" disabled pInputText/>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-5 p-p-0 my-auto">Phương án pha bông:</label>
             <div class="p-col-12 p-lg-7 p-p-0">
                 <input type="text" [(ngModel)]="item.TenPhuongAnPhaBong" disabled pInputText
-                (click)="getPhuongAnPhaBong(item.IdPhuongAnPhaBong)">
+                (click)="getPhuongAnPhaBong(item.IdPhuongAnPhaBong)"/>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">

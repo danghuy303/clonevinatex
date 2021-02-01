@@ -36,8 +36,8 @@
         <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Giao kế hoạch:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="listGiaoKeHoach" placeholder="Chọn kế hoạch giao" [(ngModel)]="item.IdGiaoKeHoachSanXuat"
-                styleClass="p-inputtext-sm"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listGiaoKeHoach" placeholder="Chọn kế hoạch giao"
+                styleClass="p-inputtext-sm" optionLabel="SoQuyTrinh" (onChange)="giaoKeHoach($event)"></p-dropdown>
             </div>
         </div>
         <!-- <div class="p-col-12 flex-column flex-lg-row d-flex">
