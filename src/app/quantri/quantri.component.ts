@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MenuItem } from 'primeng/api';
 import { AuthenticationService } from '../services/auth.service';
 import { ModaldoimatkhauComponent } from './modal/modaldoimatkhau/modaldoimatkhau.component';
-import { filter } from 'rxjs/operators';
+import { filter, timestamp } from 'rxjs/operators';
 import { SanXuatService } from '../services/callApiSanXuat';
 import { StoreService } from '../services/store.service';
 import { mapArrayForDropDown } from '../services/globalfunction';
-import { async } from 'rxjs/internal/scheduler/async';
+import { SignalRService } from '../services/signalR.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
     selector: 'app-quantri',
     templateUrl: './quantri.component.html',
@@ -18,6 +19,8 @@ export class QuantriComponent implements OnInit {
     userBtn: any;
     userInfo: any;
     userSub: any;
+    newNoti:any = 0;
+    listNotis:any = [];
     // userName: any = 'Vinatex';
     display: boolean = false;
     OSName: string = 'HỆ THỐNG Quản lý Nhà – Đất'
@@ -28,11 +31,13 @@ export class QuantriComponent implements OnInit {
     listNhaMay: Array<any> = [];
     IdNhaMay: string = '';
     showDropDown: boolean = false;
-    constructor(private _auth: AuthenticationService, private _modal: NgbModal, private _router: Router, private _services: SanXuatService, private store: StoreService) {
+    canSendMessage: any;
+    @ViewChild('listNoti')listNoti;
+    constructor(private _auth: AuthenticationService, private _modal: NgbModal, private _router: Router, private _services: SanXuatService, private store: StoreService, private _signalRService: SignalRService,private _toastr:ToastrService) {
         this.userInfo = this._auth.currentUserValue;
-        this.getOSName(this._router.url)
-        console.log(this.userInfo);
-        console.log(this._router);
+        this.getOSName(this._router.url);
+        this.subscribeToEvents();
+        this.canSendMessage = _signalRService.connectionExists;
     }
     close() {
         this.display = false;
@@ -51,7 +56,6 @@ export class QuantriComponent implements OnInit {
         console.log(this.userInfo);
         this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
             this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", 'Id');
-            console.log(res);
             this.IdNhaMay = res[0].Id;
             this.setGlobalNhaMay({ value: res[0].Id })
         })
@@ -59,13 +63,44 @@ export class QuantriComponent implements OnInit {
     setGlobalNhaMay(event) {
         this.store.setNhaMay(event.value);
     }
+    readed(event){
+        this.listNoti.toggle(event);
+        this.newNoti = 0;
+    }
+    refreshNotis(){
+        this.GetCount();
+        this.GetListNotis();
+    }
+
+    GetCount(){
+        this._services.Notifications().GetNotiCounAndNew().subscribe((res:any)=>{
+            this.newNoti = res.Count;
+            res.ListNew.forEach(noti => {
+                this._toastr.info(noti.NoiDung,noti.TieuDe)
+            });
+        })
+    }
+    GetListNotis(){
+        this._services.Notifications().GetListNotification().subscribe((res:any)=>{
+            this.listNotis = res.ListItem;
+        })
+    }
+    GetMoreNotis(){
+        this._services.Notifications().GetMoreNotification(this.listNotis[this.listNotis.length-1].Id).subscribe((res:any)=>{
+            this.listNotis = [...this.listNotis,...res.ListItem];
+        })
+    }
+
+
+
     ngOnInit(): void {
+        this.refreshNotis();
         this._router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((res: any) => {
             this.getOSName(res.url);
         })
         this._services.GetAllQuyen().subscribe((res: any) => {
             this.dataphanquyen = res;
-            this.CaiMeNu();    
+            this.CaiMeNu();
         })
         this.CaiMeNu();
         this.menuQLTS = [
@@ -294,7 +329,7 @@ export class QuantriComponent implements OnInit {
                 items: [
                     {
                         label: 'Tổng hợp',
-                        routerLink: '/quantri/quantrisanxuat/tonghop',                        
+                        routerLink: '/quantri/quantrisanxuat/tonghop',
                         separator: this.checkmenu("DASHBOARD_TONGHOP"),
                         icon: 'fas fa-circle',
                         command: () => {
@@ -377,7 +412,7 @@ export class QuantriComponent implements OnInit {
                     },
                     {
                         label: 'Điều hành sản xuất',
-                        routerLink: '/quantri/kehoachsanxuat/sanxuat/0',                        
+                        routerLink: '/quantri/kehoachsanxuat/sanxuat/0',
                         separator: this.checkmenu("PHUONGANSANXUAT"),
                         command: () => this.close()
                     },
@@ -408,7 +443,7 @@ export class QuantriComponent implements OnInit {
                     },
                     {
                         label: 'Phương án tìm bông',
-                        routerLink: '/quantri/trienkhaisanxuat/timbong/0',                        
+                        routerLink: '/quantri/trienkhaisanxuat/timbong/0',
                         separator: this.checkmenu("NHAPTHANHPHAM"),
                         command: () => this.close()
                     },
@@ -453,7 +488,7 @@ export class QuantriComponent implements OnInit {
                 items: [
                     {
                         label: 'Nhập kho',
-                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/nhapkho/0',                        
+                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/nhapkho/0',
                         separator: this.checkmenu("NHAPHOIAM"),
                         command: () => this.close()
                     },
@@ -465,7 +500,7 @@ export class QuantriComponent implements OnInit {
                     },
                     {
                         label: 'Chất lượng sợi',
-                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/chatluongsoi/0',                        
+                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/chatluongsoi/0',
                         separator: this.checkmenu("KIEMTRACHATLUONGSOI"),
                         command: () => this.close()
                     },
@@ -491,7 +526,7 @@ export class QuantriComponent implements OnInit {
 
                     {
                         label: 'Xuất kho',
-                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkhothanhpham/0',                        
+                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkhothanhpham/0',
                         separator: this.checkmenu("XUATTHANHPHAM"),
                         command: () => this.close()
                     },
@@ -518,7 +553,7 @@ export class QuantriComponent implements OnInit {
                     },
                     {
                         label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/xuatkho/0',                        
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/xuatkho/0',
                         separator: this.checkmenu("PHIEUXUATBONG"),
                         command: () => this.close()
                     },
@@ -553,7 +588,7 @@ export class QuantriComponent implements OnInit {
                     },
                     {
                         label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khoxo/xuatkho/0',                        
+                        routerLink: '/quantri/quanlykhosanxuat/khoxo/xuatkho/0',
                         separator: this.checkmenu("PHIEUXUATXO"),
                         command: () => this.close()
                     },
@@ -610,7 +645,7 @@ export class QuantriComponent implements OnInit {
                     },
                     {
                         label: 'Xuất kho',
-                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/0',                        
+                        routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/0',
                         separator: this.checkmenu("PHIEUXUATBONGPHE"),
                         command: () => this.close()
                     },
@@ -784,4 +819,13 @@ export class QuantriComponent implements OnInit {
         }
     }
 
+    private subscribeToEvents(): void {
+        // if connection exists it can call of method.  
+        this._signalRService.connectionEstablished.subscribe(() => {
+            this.canSendMessage = true;
+        });
+        this._signalRService.messageReceived.subscribe((message: any) => {
+            this.refreshNotis()
+        });
+    }
 }

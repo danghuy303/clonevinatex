@@ -1306,4 +1306,19 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho + 'GetlistdmMatHangThanhPham';
         return this.http.post(url, data, httpOptions);
     }
+    Notifications(){
+        let url = API.auth+'Notification/'
+        return {
+            GetListNotification:()=>{
+                return this.http.get(`${url}GetListNotification`,httpOptions)
+            },
+            GetMoreNotification:(lastId)=>{
+                return this.http.get(`${url}GetListNotification?idIdLast=${lastId}`,httpOptions)
+            },
+            GetNotiCounAndNew:()=>{
+                return this.http.get(`${url}GetNotification`,httpOptions)
+            },
+            
+        }
+    }
 }
