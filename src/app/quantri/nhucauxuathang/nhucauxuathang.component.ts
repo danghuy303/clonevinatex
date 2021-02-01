@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
@@ -30,6 +31,8 @@ export class NhucauxuathangComponent implements OnInit {
   listCaLamViec: any = [];
   dataPie: any = {};
   IdDuAn: any;
+  SelectItem: any = {};
+  showTruySuatNguonGoc = false;
   option1: any = {
     scales: {
       xAxes: [{
@@ -80,7 +83,7 @@ export class NhucauxuathangComponent implements OnInit {
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
-  constructor(private _services: SanXuatService, private store: StoreService) {
+  constructor(private _services: SanXuatService, private store: StoreService, public toastr: ToastrService) {
     this.IdDuAn = this.store.getCurrent();
   }
 
@@ -185,6 +188,28 @@ export class NhucauxuathangComponent implements OnInit {
       res.unshift({ Id: '', Ten: 'Tổng hợp' });
       this.listMatHang = mapArrayForDropDown(res, "Ten", 'Id');
     })
+  }
+
+  checkMatHang(e, item, index) {
+    if (e.checked) {
+      this.listItem.forEach(mathang => {
+        mathang.checked = false
+      });
+      this.listItem[index].checked = true;
+      this.SelectItem = this.listItem[index];     
+    }
+    else {
+      this.SelectItem = {};
+    }
+  }
+
+  xemTruySuatNguonGoc() {
+    if (this.SelectItem.TenItem != undefined && this.SelectItem != null) {
+      this.showTruySuatNguonGoc = true;
+    }
+    else {
+      this.toastr.error("Yêu cầu chọn mặt hàng");
+    }
   }
 
 }
