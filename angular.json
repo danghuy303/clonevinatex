@@ -14,7 +14,11 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "chart.js"
+              "chart.js",
+              "core-js",
+              "raf",
+              "xlsx",
+              "@babel/runtime"
             ],
             "outputPath": "dist/vinatexv1",
             "index": "src/index.html",
