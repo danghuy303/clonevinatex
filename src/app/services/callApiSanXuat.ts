@@ -178,6 +178,12 @@ export class SanXuatService {
             GetDashBoard_CanDoiTonXuatHang: (data) => {
                 return this.http.post(url + 'GetDashBoard_CanDoiTonXuatHang', data, httpOptions);
             },
+            GetDashBoard_SanLuongOng:(data)=>{
+                return this.http.post(url + 'GetDashBoard_SanLuongOng', data, httpOptions);
+            },
+            GetListdmMayTheoCongDoan:(congDoan)=>{
+                return this.http.get(`${API.SCMDanhMuc}GetListdmMayTheoCongDoan?CongDoan=${congDoan}`,httpOptions);
+            }
         }
     }
     //#endregion
@@ -1311,5 +1317,20 @@ export class SanXuatService {
     GetlistdmMatHangXuatThanhPham(data) {
         let url = API.SCMQuanLyKho + 'GetlistdmMatHangXuatThanhPham';
         return this.http.post(url, data, httpOptions);
+    }
+    Notifications(){
+        let url = API.auth+'Notification/'
+        return {
+            GetListNotification:()=>{
+                return this.http.get(`${url}GetListNotification`,httpOptions)
+            },
+            GetMoreNotification:(lastId)=>{
+                return this.http.get(`${url}GetListNotification?idIdLast=${lastId}`,httpOptions)
+            },
+            GetNotiCounAndNew:()=>{
+                return this.http.get(`${url}GetNotification`,httpOptions)
+            },
+            
+        }
     }
 }

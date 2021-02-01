@@ -64,8 +64,6 @@ import { DmdonviComponent } from './danhmuc/dmdonvi/dmdonvi.component';
 import { DmhinhthucxulyComponent } from './danhmuc/dmhinhthucxuly/dmhinhthucxuly.component';
 import { ModaldmdonviComponent } from './danhmuc/modal/modaldmdonvi/modaldmdonvi.component';
 import { ModaldmhinhthucxulyComponent } from './danhmuc/modal/modaldmhinhthucxuly/modaldmhinhthucxuly.component'
-import { Dat09Service } from '../services/callApi';
-import { SanXuatService } from '../services/callApiSanXuat';
 import { ModaldanhmucchungComponent } from './danhmuc/modal/modaldanhmucchung/modaldanhmucchung.component';
 import { DmtaisanComponent } from './danhmuc/dmtaisan/dmtaisan.component';
 import { TinhtrangtaisanComponent } from './danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
@@ -75,6 +73,9 @@ import { DmnguongocdatComponent } from './danhmuc/dmnguongocdat/dmnguongocdat.co
 import { ModalthongbaoComponent } from './modal/modalthongbao/modalthongbao.component';
 import { ModaldmtaisanComponent } from './danhmuc/modal/modaldmtaisan/modaldmtaisan.component';
 
+import { Dat09Service } from '../services/callApi';
+import { SignalRService } from '../services/signalR.service';
+import { SanXuatService } from '../services/callApiSanXuat';
 import { isXoaPipe } from './../services/isXoaPipe';
 import { VNDPipe } from './../services/vnd.pipe';
 import { FilterPipe } from './../services/filter.pipe';
@@ -520,6 +521,7 @@ import { LohangmodalComponent } from './quanlykhosanxuat/thongke/lohangmodal/loh
   providers: [
     SanXuatService,
     Dat09Service,
+    SignalRService,
     isXoaPipe,
     VNDPipe,
     FilterPipe,

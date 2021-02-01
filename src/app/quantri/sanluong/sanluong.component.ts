@@ -12,7 +12,8 @@ import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangta
 })
 export class SanluongComponent implements OnInit {
   filter: any = {
-    IddmItem: ''
+    IddmItem: '',
+    IddmMay:''
   };
   monthlyConfig_luykesanluong: any = {};
   monthlyConfig_sanluongtheomay: any = {};
@@ -58,7 +59,7 @@ export class SanluongComponent implements OnInit {
         categoryPercentage: 0.5,
         barPercentage: 1.0
       }],
-      yAxes:[{
+      yAxes: [{
         ticks: {
           beginAtZero: true,
           callback: function (label, index, labels) {
@@ -91,7 +92,7 @@ export class SanluongComponent implements OnInit {
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
-  constructor(private _services: SanXuatService,private _toastr:ToastrService) { }
+  constructor(private _services: SanXuatService, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
     let date = new Date();
@@ -146,8 +147,15 @@ export class SanluongComponent implements OnInit {
           }
         })
       }
+      if (!!CongDoan) {
+        this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
+          console.log(res);
+          // this.listMay = mapArrayForDropDown(res, "Ten", 'Ma')
+          // this.listMay.unshift({ label: 'Tất cả', value: '' })
+          // this.filter.IddmMay = this.listMay[0].value;
+        })
+      }
       this._services.DashBoard().BaoCaoSanLuongLuyKe_BieuDoCot(this.filter).subscribe((res: any) => {
-        console.log(res);
         this.monthlyConfig_luykesanluong = {
           labels: res.map(ele => ele.Label),
           datasets: [
@@ -168,7 +176,7 @@ export class SanluongComponent implements OnInit {
           ]
         }
       })
-    }else{
+    } else {
       this._toastr.warning('Vui lòng chọn đến ngày lớn hơn từ ngày để ra được dữ liệu chuẩn!');
     }
   }

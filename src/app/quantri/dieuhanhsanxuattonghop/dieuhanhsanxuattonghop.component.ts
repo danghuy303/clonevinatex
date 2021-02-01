@@ -24,6 +24,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   @ViewChild('bangScroll') bangScroll: ElementRef;
   listNhaMay: any = [];
   listMatHang: any = [];
+  listSanLuongOng:any=[];
   listPhanXuong: any = [];
   listCa: any = [];
   listThang: any = [];
@@ -268,6 +269,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
         { Ten: 'LK % hoàn thành KHSX:', GiaTri: res.LuyKePhanTramHoanThanhKHSX },
       ]
     });
+    this._services.BaoCao().GetDashBoard_SanLuongOng(this.filter).subscribe((res:any)=>{
+      this.listSanLuongOng =res;
+    })
   }
 
   BieuDoCoCau() {
@@ -331,16 +335,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
 
   xemSanLuong() {
     this.showSanLuong = true;
-  }
-
-  xemTruySuatNguonGoc() {
-    if (this.SelectItem.TenItem != undefined && this.SelectItem != null) {
-      this.showTruySuatNguonGoc = true;
-    }
-    else {
-      this.toastr.error("Yêu cầu chọn mặt hàng");
-    }
-  }
+  } 
 
   checkMatHang(e, item, index) {
     if (e.checked) {

@@ -61,6 +61,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
+          obj.ThoiGianCapCang = obj.ThoiGianCapCangUnix > 0 ? UnixToDate(obj.ThoiGianCapCangUnix) : 0;
         });
       }
       this.KiemTraButtonModal();
@@ -107,28 +108,30 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     // if (this.item.Ngay === null || this.item.Ngay === undefined) {
     //   this.toastr.error("Bạn chưa chọn  ngày");
     // }
-      // if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
-      //   this.add();
-      // }
-      if (this.item.listItem.length > 0) {
-        this.item.listItem.filter(obj => {
-          if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
-            obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
-        });
-      }
-      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+    // if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
+    //   this.add();
+    // }
+    if (this.item.listItem.length > 0) {
+      this.item.listItem.filter(obj => {
+        if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
+          obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
+        if (obj.ThoiGianCapCang !== null && obj.ThoiGianCapCang !== undefined)
+          obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
+      });
+    }
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
 
-      this._services.NhapKeHoachNguyenLieu().ChuyenTiep(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.toastr.success(res.message);
-            this.activeModal.close();
-          } else {
-            this.toastr.error(res.message);
-          }
+    this._services.NhapKeHoachNguyenLieu().ChuyenTiep(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message);
+          this.activeModal.close();
+        } else {
+          this.toastr.error(res.message);
         }
-      })
+      }
+    })
   }
 
   KhongDuyet() {
@@ -139,6 +142,8 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
       this.item.listItem.filter(obj => {
         if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
           obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
+        if (obj.ThoiGianCapCang !== null && obj.ThoiGianCapCang !== undefined)
+          obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
       });
     }
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
@@ -166,11 +171,13 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
       this.add();
     }
     if (this.item.listItem.length > 0) {
-        this.item.listItem.filter(obj => {
-          if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
-            obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
-        });
-      }
+      this.item.listItem.filter(obj => {
+        if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
+          obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
+        if (obj.ThoiGianCapCang !== null && obj.ThoiGianCapCang !== undefined)
+          obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
+      });
+    }
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     this._services.NhapKeHoachNguyenLieu().Set(this.item).subscribe((res: any) => {
@@ -179,6 +186,10 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
           this.toastr.success(res.message)
           this.opt = 'edit';
           this.item = res.objectReturn;
+          this.item.listItem.filter(obj => {
+            obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
+            obj.ThoiGianCapCang = obj.ThoiGianCapCangUnix > 0 ? UnixToDate(obj.ThoiGianCapCangUnix) : 0;
+          });
           this.KiemTraButtonModal();
         } else {
           this.toastr.error(res.message);
@@ -227,6 +238,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
       this.item.listItem = deepCopy(this.item.listItem_copy);
       this.item.listItem.filter(obj => {
         obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
+        obj.ThoiGianCapCang = obj.ThoiGianCapCangUnix > 0 ? UnixToDate(obj.ThoiGianCapCangUnix) : 0;
       });
     }
   }
