@@ -152,16 +152,17 @@ export class ChatluongsoimodalComponent implements OnInit {
         this.lstSanPham = data.data;
         this.item.lstDanhMuc.forEach(element => {
           let chatluongpush = [];
+          console.log(this.lstSanPham)
           this.lstSanPham.forEach(danhmuc => {
-            //
             let datapush: any = {
               IddmChiTieu: element.Id,
-              IddmItem: danhmuc.Id,
+              IddmItem: danhmuc.IddmItem,
+              IdLoHang: danhmuc.IdLoHang,
             }
             for (let i = 0; i < element.lstChatLuongSanPham.length; i++) {
               if (element.lstChatLuongSanPham[i].IddmItem == danhmuc.Id) {
                 datapush.ChiTieuThucTe = element.lstChatLuongSanPham[i].ChiTieuThucTe;
-                datapush.IdLoHang = element.lstChatLuongSanPham[i].IdLoHang;
+                // datapush.IdLoHang = element.lstChatLuongSanPham[i].IdLoHang;
                 break;
               }
             }
@@ -173,7 +174,7 @@ export class ChatluongsoimodalComponent implements OnInit {
         let sanphampush = [];
         this.lstSanPham.forEach(danhmuc => {
           let datapush: any = {
-            IddmItem: danhmuc.Id,
+            IddmItem: danhmuc.IddmItem,
             Ten: danhmuc.Ten,
           }
           sanphampush.push(datapush);

@@ -80,6 +80,8 @@
                         <col>
                         <col>
                         <col>
+                        <col>
+                        <col>
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
@@ -87,9 +89,10 @@
                     <tr>
                         <th>#</th>
                         <th>Tên mặt hàng</th>
-                        <th>Đơn vị tính</th>
+                        <!-- <th>Đơn vị tính</th> -->
                         <th>Tồn kho</th>
                         <th>Số lượng</th>
+                        <th>Loại hàng hóa sau hạ cấp</th>
                         <th>Ghi chú</th>
                         <th style="width:100px"></th>
                     </tr>
@@ -98,23 +101,20 @@
                     <tr>
                         <td>{{i+1}}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>
-                        <td style="text-align: center;">{{item.DonViThietKe}}</td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ton">
-                            </p-inputNumber>
-                        </td>
+                        <!-- <td style="text-align: center;">{{item.DonViThietKe}}</td> -->
+                        <td>{{item.Ton}}</td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
                         <td>
+                            <p-dropdown [filter]="true" [options]="listHangHoaSauHaCap" placeholder="Chọn loại hàng hóa" styleClass="p-inputtext-sm"
+                            [(ngModel)]="item.IdHangHoaSauHaCap"></p-dropdown>
+                        </td>
+                        <td>
                             <input pInputText type="text" [(ngModel)]="item.GhiChu">
                         </td>
                         <td>
-                            <!-- <button pButton pRipple icon="pi pi-pencil"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                (click)="editChiTiet(item,i)" pTooltip="Sửa" showDelay="1000"
-                                tooltipPosition="bottom"></button> -->
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"

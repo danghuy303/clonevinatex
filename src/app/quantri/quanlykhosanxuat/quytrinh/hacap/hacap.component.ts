@@ -153,7 +153,7 @@ export class HacapComponent implements OnInit {
   getListdmkho(){
     let data: any = {};
     data.CurrentPage = 0;
-    // data.Loai = 10;
+    data.Loai = 10;
      this._service.GetListdmKho(data).subscribe((res:any)=>{
       this.listdmKho =  mapArrayForDropDown(res, 'Ten', 'Id');;
     })

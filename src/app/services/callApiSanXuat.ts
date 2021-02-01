@@ -1300,4 +1300,16 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho + 'GetlistdmMatHangThanhPham';
         return this.http.post(url, data, httpOptions);
     }
+    GetlistdmMatHangHaCap(data) {
+        let url = API.SCMQuanLyKho + 'GetlistdmMatHangHaCap';
+        return this.http.post(url, data, httpOptions);
+    }
+    GetListLoaiSoiTietKiem() {
+        let url = API.SCMDanhMuc + `GetListLoaiSoiTietKiem`;
+        return this.http.get(url, httpOptions);
+    }
+    GetlistdmMatHangXuatThanhPham(data) {
+        let url = API.SCMQuanLyKho + 'GetlistdmMatHangXuatThanhPham';
+        return this.http.post(url, data, httpOptions);
+    }
 }

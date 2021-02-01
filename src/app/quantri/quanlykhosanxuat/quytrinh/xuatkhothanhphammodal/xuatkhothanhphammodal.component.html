@@ -94,18 +94,19 @@
                     <tr>
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">{{item.Ten}}</td>
-                        <td class="text-center">
+                        <td class="text-center">{{item.TenLoHang}}</td>
+                        <!-- <td class="text-center">
                             <input pInputText type="text" [(ngModel)]="item.Lo">
+                        </td> -->
+                        <td class="text-center">
+                            <input pInputText type="text" [(ngModel)]="item.HopDong">
                         </td>
                         <td class="text-center">
-                            <input pInputText type="text" [(ngModel)]="item.SoHopDong">
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuongXuat">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.KgCoin">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuongXuat">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
                             </p-inputNumber>
                         </td>
                         <td>

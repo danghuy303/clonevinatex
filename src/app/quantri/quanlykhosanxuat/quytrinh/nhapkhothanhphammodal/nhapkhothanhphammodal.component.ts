@@ -157,7 +157,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   GetMatHangTheoKho() {
     var data = {
       Ngay: new Date(this.item.Ngay).getTime() / 1000,
-
+      IddmKho: this.item.IddmKhoHoiAm,
     }
     this._services.GetlistdmMatHangThanhPham(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
@@ -168,12 +168,14 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.result.then((data) => {
+        
         this.item.listItem = data.data;
         this.item.listItem.forEach(element => {
           element.Id = "";
           element.SoQuaSoiHoiAm = element.Ton;
           element.SoQuaSoiThanhPham = element.Ton;
           element.KgCone = element.TrongLuong;
+          element.IddmKho = this.item.IddmKhoThanhPham;
         });
       }, (reason) => {
         // không
