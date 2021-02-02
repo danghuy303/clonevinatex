@@ -10,6 +10,7 @@ import { StoreService } from '../services/store.service';
 import { mapArrayForDropDown } from '../services/globalfunction';
 import { SignalRService } from '../services/signalR.service';
 import { ToastrService } from 'ngx-toastr';
+import { HienTrangSuDungComponent } from './components/hien-trang-su-dung/hien-trang-su-dung.component';
 @Component({
     selector: 'app-quantri',
     templateUrl: './quantri.component.html',
@@ -63,9 +64,19 @@ export class QuantriComponent implements OnInit {
     setGlobalNhaMay(event) {
         this.store.setNhaMay(event.value);
     }
-    readed(event){
+    open(event){
         this.listNoti.toggle(event);
+    }
+    readedAllNoti(){
         this.newNoti = 0;
+    }
+    readOne(Id){
+        console.log(Id);
+        let read = this.listNotis.find(ele=>ele.Id === Id);
+        if(read){
+            read.isRead = true
+        }
+        this.newNoti = this.listNotis.filter(ele=>ele.isRead!==true).length
     }
     refreshNotis(){
         this.GetCount();
@@ -76,7 +87,7 @@ export class QuantriComponent implements OnInit {
         this._services.Notifications().GetNotiCounAndNew().subscribe((res:any)=>{
             this.newNoti = res.Count;
             res.ListNew.forEach(noti => {
-                this._toastr.info(noti.NoiDung,noti.TieuDe)
+                this._toastr.info(noti.NoiDung,noti.TieuDe);
             });
         })
     }
@@ -358,6 +369,15 @@ export class QuantriComponent implements OnInit {
                         label: 'Sản lượng',
                         routerLink: '/quantri/quantrisanxuat/sanluong',
                         separator: this.checkmenu("DASHBOARD_SANLUONG"),
+                        icon: 'fas fa-circle',
+                        command: () => {
+                            this.close()
+                        }
+                    },
+                    {
+                        label: 'Thông lượng',
+                        routerLink: '/quantri/quantrisanxuat/thongluong',
+                        // separator: this.checkmenu("DASHBOARD_SANLUONG"),
                         icon: 'fas fa-circle',
                         command: () => {
                             this.close()
