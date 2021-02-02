@@ -43,39 +43,9 @@ export class MathangComponent implements OnInit {
       width: '200px',
       align:'center'
     },
-    // {
-    //   header: 'Công đoạn',
-    //   field: 'TenListCongDong',
-    //   width: '300px',
-    //   align:'left'
-    // },
-    {
-      header: 'Chi số Ne',
-      field: 'Ne',
-      width: '100px',
-      align:'center'
-    },
-    {
-      header: 'Chi số mét Nm',
-      field: 'Nm',
-      width: '100px',
-      align:'center'
-    },
     {
       header: 'Đơn vị tính',
       field: 'DonViDatHang',
-      width: '100px',
-      align:'center'
-    },
-    // {
-    //   header: 'Định mức',
-    //   field: 'DinhMuc',
-    //   width: 'unset',
-    //   center:'center'
-    // },
-    {
-      header: 'Độ săn',
-      field: 'DoSan',
       width: '100px',
       align:'center'
     },
@@ -85,12 +55,31 @@ export class MathangComponent implements OnInit {
       width: '100px',
       align:'center'
     },
-    {
-      header: 'Ghi chú',
-      field: 'GhiChu',
-      width: 'unset',
-      center:'center'
-    }
+    // {
+    //   header: 'Chi số Ne',
+    //   field: 'Ne',
+    //   width: '100px',
+    //   align:'center'
+    // },
+    // {
+    //   header: 'Chi số mét Nm',
+    //   field: 'Nm',
+    //   width: '100px',
+    //   align:'center'
+    // },
+    // {
+    //   header: 'Độ săn',
+    //   field: 'DoSan',
+    //   width: '100px',
+    //   align:'center'
+    // },
+    
+    // {
+    //   header: 'Ghi chú',
+    //   field: 'GhiChu',
+    //   width: 'unset',
+    //   center:'center'
+    // }
   ];
   listdmLoaiSoi:any = [];
   listCongDoan : any = [];

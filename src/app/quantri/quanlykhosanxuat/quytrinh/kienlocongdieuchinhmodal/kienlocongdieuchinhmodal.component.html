@@ -2,6 +2,17 @@
     <h5 class="modal-title">Lựa chọn kiện</h5>
 </div>
 <div class="modal-body">
+    <div class="p-d-flex p-ai-center p-jc-between">
+        <div></div>
+        <div class="p-d-flex p-flex-row">
+            <div class="p-inputgroup" style="width:200px">
+                <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
+                            [(ngModel)]="filter.KeyWord" (keyup.enter)="GetQuyTrinhFilter()"/>
+                        <button type="button" pButton pRipple icon="pi pi-refresh"
+                            class="p-button-secondary p-button-sm p-button-text" (click)="GetQuyTrinhRefresh()"></button>
+            </div>
+        </div>
+    </div>
     <p-tabView>
         <p-tabPanel header="Chưa xếp bàn bông">
             <ng-template pTemplate="content">

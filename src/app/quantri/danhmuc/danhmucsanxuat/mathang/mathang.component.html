@@ -32,7 +32,11 @@
         <colgroup>
             <!-- <col style="width:50px"> -->
             <col style="width:50px">
-            <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
+            <col *ngFor="let col of cols">
+            <col>
+            <col>
+            <col>
+            <col>
             <col style="width: 100px;">
         </colgroup>
     </ng-template>
@@ -45,6 +49,10 @@
             <th class="text-center" *ngFor="let header of cols">
                 {{header.header}}
             </th>
+            <th class="text-center">Chi số Ne</th>
+            <th class="text-center">Chi số mét Nm</th>
+            <th class="text-center">Độ săn</th>
+            <th class="text-center">Ghi chú</th>
             <th></th>
         </tr>
     </ng-template>
@@ -52,6 +60,7 @@
         <tr>
             <!-- <td class="text-center">
                 <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                        
             </td> -->
             <td class="text-center">
                 {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
@@ -59,7 +68,10 @@
             <td *ngFor="let col of cols" [ngClass]="{'text-center': col.align==='center'}">
                 {{item[col.field]}}
             </td>
-           
+            <td class="text-center">{{item.Ne|number:'0.0'}}</td>
+            <td class="text-center">{{item.Nm|number:'0.0'}}</td>
+            <td class="text-center">{{item.DoSan|number:'0.0'}}</td>
+            <td class="text-center">{{item.GhiChu}}</td>
             <td class="text-center date">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="edit(item)" pTooltip="Sửa"

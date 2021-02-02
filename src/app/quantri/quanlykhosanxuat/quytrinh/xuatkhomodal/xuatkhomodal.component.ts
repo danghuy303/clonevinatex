@@ -28,8 +28,9 @@ export class XuatkhomodalComponent implements OnInit {
   listPhanXuong: any = [];
   listPhuongAnPhaBong: any = [];
   listItem: any = [];
+  items: any = [];
   paging: any = {};
-
+  filter: any = {}
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, 
     public toastr: ToastrService, public _modal: NgbModal) {  }
@@ -64,6 +65,7 @@ export class XuatkhomodalComponent implements OnInit {
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
       this.item.listItem = res1.listItem.slice(0,15);
+      this.items = res1.listItem.slice(0,15);
     })
   }
   KiemTraButtonModal() {
@@ -162,5 +164,40 @@ export class XuatkhomodalComponent implements OnInit {
     if((start + 15) > this.paging.TotalItem)
       end= this.paging.TotalItem;
     this.item.listItem = this.listItem.slice(start,end);
+    this.items = this.listItem.slice(start,end);
+    if(this.filter.KeyWord !== '' || this.filter.KeyWord !== undefined)
+      this.GetQuyTrinhFilter();
+  }
+
+  GetQuyTrinhFilter()
+  {
+    var items = [];
+    for(let i =0; i < this.items.length; i++){
+      if(this.items[i].TenLoBong !== null){
+        if(this.items[i].TenLoBong.toLowerCase().includes(this.filter.KeyWord)){
+           items.push(this.items[i]);
+          continue;
+        }
+      }
+      if(this.items[i].Ten !== null){
+        if(this.items[i].Ten.toLowerCase().includes(this.filter.KeyWord)){
+          items.push(this.items[i]);
+          continue;
+        }
+      }
+      if(this.items[i].TendmViTri !== null){
+        if(this.items[i].TendmViTri.toLowerCase().includes(this.filter.KeyWord))
+        {
+          items.push(this.items[i]);
+          continue;
+        }
+      }
+    }
+    this.item.listItem = items;
+  }
+  GetQuyTrinhRefresh()
+  {
+    this.filter.KeyWord = '';
+    this.item.listItem = this.items;
   }
 }
