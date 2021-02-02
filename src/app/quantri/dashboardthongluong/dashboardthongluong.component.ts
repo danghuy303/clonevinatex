@@ -127,7 +127,9 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
       this.filter.DenNgayUnix = null;
     }
     if (validVariable(this.filter.TuNgayUnix) && validVariable(this.filter.DenNgayUnix) && this.filter.TuNgayUnix < this.filter.DenNgayUnix) {
-      console.log('init');
+      this._services.BaoCao().BaoCaoThongLuongSanXuat(this.filter).subscribe(res=>{
+        console.log(res);
+      })
     } else {
       this._toastr.warning('Vui lòng chọn đến ngày lớn hơn từ ngày để ra được dữ liệu chuẩn!');
     }

@@ -181,6 +181,9 @@ export class SanXuatService {
             GetDashBoard_SanLuongOng:(data)=>{
                 return this.http.post(url + 'GetDashBoard_SanLuongOng', data, httpOptions);
             },
+            BaoCaoThongLuongSanXuat:(data)=>{
+                return this.http.post(`${url}BaoCaoThongLuongSanXuat`,data,httpOptions);
+            },
             GetListdmMayTheoCongDoan:(congDoan)=>{
                 return this.http.get(`${API.SCMDanhMuc}GetListdmMayTheoCongDoan?CongDoan=${congDoan}`,httpOptions);
             }
