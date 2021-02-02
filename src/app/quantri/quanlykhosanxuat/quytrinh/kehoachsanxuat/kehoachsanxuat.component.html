@@ -23,6 +23,7 @@
         <div class="p-inputgroup" style="width: 200px;">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh()" [(ngModel)]="filter.KeyWord"/>
             <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"(click)="resetFilter()"></button>
+            <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text"(click)="GetListQuyTrinh()"></button>
         </div>
         
     </div>
@@ -73,7 +74,7 @@
                 <td class="text-center">{{item.SoQuyTrinh}}</td>
                 <td class="text-center">{{item.Modified|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.NoiDung}}</td>
-                <td class="text-center">{{item.TenPhanXuong}}</td>
+                <td class="text-center">{{item.TendmPhanXuong}}</td>
                 <td class="text-center">{{item.TuNgay|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.DenNgay|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center" *ngFor="let col of cols">

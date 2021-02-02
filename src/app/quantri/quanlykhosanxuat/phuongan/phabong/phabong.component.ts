@@ -29,11 +29,11 @@ export class PhabongComponent implements OnInit {
       field: 'TenTrangThai',
       width: 'unset'
     },
-    {
-      header: 'Ghi chú',
-      field: 'GhiChu',
-      width: 'unset'
-    },
+    // {
+    //   header: 'Ghi chú',
+    //   field: 'GhiChu',
+    //   width: 'unset'
+    // },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
 

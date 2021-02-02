@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ToastrService } from 'ngx-toastr';
+import { validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-chonquycachdonggoimodal',
@@ -79,33 +80,19 @@ export class ChonquycachdonggoimodalComponent implements OnInit {
   }
 
   accept() {
-    let tong = 0;
-    this.selectedItems.filter(obj => {
-      tong += obj.KhoiLuong;
-    });
-    if (this.layitem.KhoiLuongKeHoach < tong) {
-      this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
+    if(validVariable(this.newTableItem.IddmQuyCachDongGoi) && validVariable(this.newTableItem.KhoiLuong) && this.newTableItem.KhoiLuong>0){
+      this.add()
     }
-    else {
-      this._activeModal.close({ listItem: this.selectedItems });
-    }
-    // let data = this.items.filter(item => item.checked)
-    // data.forEach(mathang => {
-    //   mathang.listItemTemp = {};
-    //   this._services.GetOptions().GetListCongDoanTheoMatHang(mathang.IddmItem).subscribe((res: any) => {
-    //     res.forEach(cd => {
-    //       mathang.listItemTemp[cd.CongDoan] = []
-    //     })
-    //   })
+    // let tong = 0;
+    // this.selectedItems.filter(obj => {
+    //   tong += obj.KhoiLuong;
     // });
-    // this._activeModal.close(this.items.filter(item => item.checked).map(ele => {
-    //   return {
-    //     ...ele,
-    //     IdGiaoKeHoachSanXuat_TrienKhai: this.IdQuyTrinh,
-    //     IddmItem: ele.IddmItem,
-    //     Id: '',
-    //   }
-    // }))
+    // if (this.layitem.KhoiLuongKeHoach < tong) {
+    //   this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
+    // }
+    // else {
+      this._activeModal.close({ listItem: this.selectedItems });
+    // }
   }
 
 }
