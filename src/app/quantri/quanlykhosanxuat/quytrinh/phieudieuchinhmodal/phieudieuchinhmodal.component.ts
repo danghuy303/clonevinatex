@@ -129,19 +129,21 @@ export class PhieudieuchinhmodalComponent implements OnInit {
     this.router.navigate(['/ThongTinChung/GiaVatLieuNhanCongMay']);   
   }
   getKienLoBongDieuChinh(item) {
-    this.services.PhuongAnDieuChinhTimBong().GetKienLoBong(this.item.IdPhuongAnPhaBong, item.IdLoBong, this.item.IddmKho).subscribe((res:any)=>{
+    this.services.PhuongAnDieuChinhTimBong().GetKienLoBong(this.item.IdPhuongAnPhaBong, item.IdLoBong, this.item.IddmKho, item.Mic).subscribe((res:any)=>{
       let modalRef = this._modal.open(KienlocongdieuchinhmodalComponent, {
         size: 'lg',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item_new = res;
+      modalRef.componentInstance.itemRemove = item;
       modalRef.componentInstance.IddmItem = item.IddmItemDieuChinh;
       modalRef.result.then((data) => {
         item.IddmItemDieuChinh = data.data.IddmItem;
         item.TenDieuChinh = data.data.Ten;
         item.IddmViTriDieuChinh = data.data.IddmViTri;
         item.TendmViTriDieuChinh = data.data.TendmViTri;
+        item.MicDieuChinh = data.data.Mic;
       }, (reason) => {
         // không
       });

@@ -21,12 +21,12 @@ export class PhieudieuchinhComponent implements OnInit {
   cols: any = [
     {
       header: 'Phương án pha bông',
-      field: 'TenLoBong',
+      field: 'TenPhuongAnPhaBong',
       width: 'unset'
     },
     {
       header: 'Ghi chú',
-      field: 'Ghi chú',
+      field: 'GhiChu',
       width: 'unset'
     },
   ];

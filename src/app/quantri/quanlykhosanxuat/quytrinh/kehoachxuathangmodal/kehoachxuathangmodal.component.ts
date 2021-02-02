@@ -162,6 +162,9 @@ export class KehoachxuathangmodalComponent implements OnInit {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            this.item.listItem.filter(obj => {
+              obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
+            });
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
