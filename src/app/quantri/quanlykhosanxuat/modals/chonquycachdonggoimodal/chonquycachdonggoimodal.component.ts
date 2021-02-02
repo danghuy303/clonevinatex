@@ -73,6 +73,7 @@ export class ChonquycachdonggoimodalComponent implements OnInit {
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
     } else {
       item.isXoa = true;
+      item.isDelete = true;
       this.selectedItems.push(JSON.parse(JSON.stringify(item)));
     }
   }

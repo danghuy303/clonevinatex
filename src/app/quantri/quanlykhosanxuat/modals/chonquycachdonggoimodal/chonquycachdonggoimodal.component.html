@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <p-table [value]="selectedItems|filter:KeyWord"
+            <p-table [value]="selectedItems|isXoa|filter:KeyWord"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
