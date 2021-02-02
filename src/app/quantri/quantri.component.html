@@ -8,14 +8,14 @@
                     <div style="text-transform: uppercase; color: white; background-color: royalblue;padding: 10px 15px;"
                         >Bạn có {{newNoti}} thông báo chưa xem</div>
                     <ul class="list-noti">
-                        <li *ngFor="let noti of listNotis" class="noti-item">
+                        <li *ngFor="let noti of listNotis" class="noti-item" [ngClass]="{'read': noti.isRead}">
                             <div class="d-flex flex-row">
                                 <div>
                                     <button pButton pRipple type="button" icon="pi pi-bell"
-                                        class="p-button-rounded p-button-success"></button>
+                                        class="p-button-rounded " [ngClass]="{'p-button-success': noti.isRead,'p-button-warning':!noti.isRead}"></button>
                                     <!-- <button pButton pRipple type="button" icon="pi pi-bell" class="p-button-rounded p-button-warning"></button> -->
                                 </div>
-                                <div style="flex:1; padding-left: 15px;">
+                                <div style="flex:1; padding-left: 15px;" (click)="readOne(noti.Id)">
                                     <span>{{noti.TieuDe}}</span><br>
                                     <span style="color:#777">{{noti.NoiDung}}</span><br>
                                     <span style="color:#777">Thời gian: {{noti.Created|date:'dd/MM/yyyy hh:ss'}}</span>
@@ -43,8 +43,8 @@
         </div>
         <div style="padding-right: 15px; margin:auto 0px; position: relative;">
             <p-button type="text" icon="pi pi-bell" styleClass="p-button-text p-button-lg"
-                (click)="readed($event)"></p-button>
-            <div class="badge" (click)="readed($event)" *ngIf="newNoti>0">{{newNoti}}</div>
+                (click)="open($event)"></p-button>
+            <div class="badge" (click)="open($event)" *ngIf="newNoti>0">{{newNoti}}</div>
         </div>
         <!-- <div>
             <img id='logo' src="https://vinatex.com.vn/wp-content/uploads/2017/09/logo.png" style="height: 50px;">

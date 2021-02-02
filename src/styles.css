@@ -273,3 +273,6 @@ span.required{
 .zero-padding .p-overlaypanel-content{
     padding: 0px !important;
 }
+#ThongLuongChart>div>svg>g>g:nth-child(2)>g:nth-child(2)>g>g:nth-child(3){
+    display: none !important;
+   }

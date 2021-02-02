@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { async } from 'rxjs/internal/scheduler/async';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { Dat09Service } from 'src/app/services/callApi';
@@ -19,44 +20,44 @@ export class DmphannhommaymodalComponent implements OnInit {
   public title: any = '';
   public type = '';
   opt: any = "";
-  childModalOpt:any=null;
-  listPhanXuong:any = [];
-  listCongDoan:any = [];
+  childModalOpt: any = null;
+  listPhanXuong: any = [];
+  listCongDoan: any = [];
   listloaisoi: any = [];
   listDonViNangSuat: any = [];
   khongclicknhieu: any = false;
   filter: any = {
     KeyWord: ''
   };
-  mapCongDoan:any={
-    THO:'SOI', 
-    GHEPDAURA:'SOI', 
-    GHEPTRONB:'SOI', 
-    GHEPTRONA:'SOI',
-    ONG:'MATHANG', 
-    CON:'MATHANG',
-    CUONCUI:'', 
-    GHEPSOBO:'', 
-    BONGCHAI:'', 
-    XOCHAI:'',
-    CHAITHO:'',
-    CHAIKY:''
+  mapCongDoan: any = {
+    THO: 'SOI',
+    GHEPDAURA: 'SOI',
+    GHEPTRONB: 'SOI',
+    GHEPTRONA: 'SOI',
+    ONG: 'MATHANG',
+    CON: 'MATHANG',
+    CUONCUI: '',
+    GHEPSOBO: '',
+    BONGCHAI: '',
+    XOCHAI: '',
+    CHAITHO: '',
+    CHAIKY: ''
   }
 
-  constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { 
+  constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) {
 
-   }
+  }
 
   ngOnInit(): void {
     if (this.opt == 'edit') {
     }
-    if(validVariable(this.item.CongDoan)){
+    if (validVariable(this.item.CongDoan)) {
       this.childModalOpt = this.mapCongDoan[this.item.CongDoan];
     }
     this.GetListPhanXuong();
     this.GetListCongDoan();
-  } 
-  GetListPhanXuong(){
+  }
+  GetListPhanXuong() {
     this.sanXuatService.GetOptions().GetPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
     })
@@ -103,6 +104,18 @@ export class DmphannhommaymodalComponent implements OnInit {
 
   }
 
+  checkitem(item) {
+    let blitem = this.item.lstdmItem.every(obj => {
+      if (this.childModalOpt === 'MATHANG') {
+        item.IddmItem == obj.Id;
+      }
+      else {
+        item.IddmLoaiSoi == obj.Id;
+      }
+    });
+    return blitem;
+  }
+
   DanhSachHang() {
     let modalRef = this._modal.open(DmphannhommayChonmathangmodalComponent, {
       size: "lg",
@@ -114,35 +127,49 @@ export class DmphannhommaymodalComponent implements OnInit {
     modalRef.componentInstance.IdQuyTrinh = this.item.Id || "";
     modalRef.result.then(res => {
       // this.toastr.success(res);
-      merge(res, this.item.lstdmItem, this.childModalOpt==='MATHANG'?'IddmItem':'IddmLoaiSoi');
+      merge(res, this.item.lstdmItem, this.childModalOpt === 'MATHANG' ? 'IddmItem' : 'IddmLoaiSoi');
+      // let lstdmItem = [];
+      // res.forEach(obj => {
+      //   if (!this.checkitem(obj)) {
+      //     obj.isXoa = true;
+      //     obj.isDelete = true;
+      //   }
+      //   lstdmItem.push(obj);
+      // });
+      // this.item.lstdmItem = lstdmItem;
+      this.item.lstdmItem.filter(obj => obj.isDelete = obj.isXoa);
     }).catch(er => console.log(er))
   }
 
   delete(index) {
     let item = this.item.lstdmItem.splice(index, 1)[0];
     // let item = this.items.splice(i, 1)[0];
-    if (item.Id.trim() === '') {
+    if (item.Id === '' && item.Id === null && item.Id === undefined) {
     } else {
       item.isXoa = true;
-      this.item.lisItem.push(JSON.parse(JSON.stringify(item)));
+      item.isDelete = true;
+      this.item.lstdmItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
 
   changeNangSuat(e, item) {
-    item.DinhMucNangSuat = (e.value * item.HieuSuat || 0)/100;
+    item.DinhMucNangSuat = (e.value * item.HieuSuat || 0) / 100;
   }
 
   changeHieuSuat(e, item) {
-    item.DinhMucNangSuat = (e.value * item.NangSuat || 0)/100;
+    item.DinhMucNangSuat = (e.value * item.NangSuat || 0) / 100;
   }
 
-  changeCongDoan(e){
-    console.log(e,'change')
-    this.item.lstdmItem=[];
+  changeCongDoan(e) {
+    console.log(e, 'change')
+    this.item.lstdmItem = [];
     this.childModalOpt = this.mapCongDoan[e.value];
-    if(this.childModalOpt===''){
+    if (this.childModalOpt === '') {
       console.log(this.item.lstdmItem)
       this.item.lstdmItem.push({})
+    }
+    if (e.value != "CON") {
+      this.item.SoCoc = null;
     }
   }
 }

@@ -214,7 +214,9 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       && item.listItem != undefined && item.listItem.length > 0) {
       let tong = 0;
       item.listItem.filter(obj => {
-        tong += obj.KhoiLuong;
+        if(!obj.isXoa){
+          tong += obj.KhoiLuong;
+        }   
       });
       if (item.value < tong) {
         this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
@@ -237,7 +239,9 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
         && item.listItem != undefined && item.listItem.length > 0) {
         let tong = 0;
         item.listItem.filter(obj => {
-          tong += obj.KhoiLuong;
+          if(!obj.isXoa){
+            tong += obj.KhoiLuong;
+          }          
         });
         if (item.KhoiLuongKeHoach < tong) {
           this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
