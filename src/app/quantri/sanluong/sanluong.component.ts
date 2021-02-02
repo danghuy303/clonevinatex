@@ -26,9 +26,18 @@ export class SanluongComponent implements OnInit {
   listLoaiBong: any = [];
   listCaLamViec: any = [];
   option1: any = {
+    plugins: {
+      labels: {
+        fontSize: 0
+      }
+    },
+    legend: {
+      position: 'bottom'
+    },
     scales: {
       xAxes: [{
-        beginAtZero: true
+        categoryPercentage: 0.5,
+        barPercentage: 1.0
       }],
       yAxes: [{
         ticks: {
@@ -37,13 +46,17 @@ export class SanluongComponent implements OnInit {
             return formatNumber(label, 'vi-VN', '0.0-0');
           }
         }
-      }],
+      }]
     },
-    legend: {
-      position: 'bottom'
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')}`
+        }
+      }
     },
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
-    aspectRatio: (((window.innerWidth - 80) * 2 / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
+    aspectRatio: ((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   option2: any = {
     plugins: {
@@ -71,7 +84,12 @@ export class SanluongComponent implements OnInit {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')}`
+          console.log(tooltipItem,data);
+          if(tooltipItem.datasetIndex ===0){
+            return `${formatNumber(tooltipItem.yLabel, 'vi-VN')}kg - ${formatNumber(Math.ceil(tooltipItem.yLabel/data.datasets[1].data[tooltipItem.index]*10000)/100,'vi-VN')}%`
+          }else{
+            return `${formatNumber(tooltipItem.yLabel, 'vi-VN')}kg`
+          }
         }
       }
     },

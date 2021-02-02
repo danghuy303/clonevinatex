@@ -16,6 +16,16 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
   filter: any = {
     IddmItem: ''
   };
+  infos:any={
+    NgayMax:{
+    },
+    NgayMin:{
+    },
+    SanPhamMax:{
+    },
+    SanPhamMin:{
+    }
+  }
   listPhanXuong: any = [];
   listNhaMay: any = [];
   listMatHang: any = [];
@@ -37,7 +47,7 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.browserOnly(() => {
-      am4core.useTheme(am4themes_animated);
+      // am4core.useTheme(am4themes_animated);
 
       let chart = am4core.create("ThongLuongChart", am4charts.SlicedChart);
 
@@ -154,7 +164,14 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
       this.chart = chart;
       })
       this._services.BaoCao().BaoCaoThongLuongSanXuatMinMax(this.filter).subscribe((res:any)=>{
-        console.log(res);
+        
+        for(let prop in res){
+          if(validVariable(res[prop])){
+            this.infos[prop]=res[prop]
+          }else{
+            this.infos[prop] = {};
+          }
+        }
       })
     } else {
       this._toastr.warning('Vui lòng chọn đến ngày lớn hơn từ ngày để ra được dữ liệu chuẩn!');
