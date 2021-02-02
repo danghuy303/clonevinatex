@@ -9,6 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class KienlocongdieuchinhmodalComponent implements OnInit {
 
   item: any = {};
+  itemRemove: any = {};
   item_new: any = {};
   selected: any = {};
   IddmItem: any = '';
@@ -26,11 +27,17 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
       align: 'center',
     },
     {
-      header: 'Trọng lượng',
-      field: 'TrongLuong',
+      header: 'Mic',
+      field: 'Mic',
       width: 'unset',
       align: 'center',
     },
+    // {
+    //   header: 'Trọng lượng',
+    //   field: 'TrongLuong',
+    //   width: 'unset',
+    //   align: 'center',
+    // },
   ];
   paging1: any = {};
   paging: any = {};
@@ -43,6 +50,7 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.itemRemove)
     this.paging1.CurrentPage = 1;
     this.paging1.TotalPage = 5;
     this.paging1.TotalItem = this.item_new.listFull.length;

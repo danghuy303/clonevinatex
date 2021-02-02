@@ -30,17 +30,17 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
     {
       header: 'Khối lượng nhập (Tấn)',
       field: 'TongKhoiLuongNhap',
-      width: '100px'
-    },
-    {
-      header: 'Ghi chú',
-      field: 'GhiChu',
       width: 'unset'
     },
     {
       header: 'Trạng thái',
       field: 'TenTrangThai',
       width: '100px'
+    },
+    {
+      header: 'Ghi chú',
+      field: 'GhiChu',
+      width: 'unset'
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
