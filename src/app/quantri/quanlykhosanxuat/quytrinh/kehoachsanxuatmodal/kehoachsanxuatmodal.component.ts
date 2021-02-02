@@ -159,7 +159,6 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     })
   }
   validData() {
-    console.log(this.item.TuNgay);
     if (!validVariable(this.item.NoiDung)) {
       this.toastr.error('Vui lòng nhập nội dung!')
       return false;
@@ -235,18 +234,18 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     modalRef.result.then(res => {
       // merge(res, this.item.listItem, 'IddmQuyCachDongGoi');
       item.listItem = res.listItem;
-      if (item.KhoiLuongKeHoach != undefined && item.KhoiLuongKeHoach != null && item.KhoiLuongKeHoach > 0
-        && item.listItem != undefined && item.listItem.length > 0) {
-        let tong = 0;
-        item.listItem.filter(obj => {
-          if(!obj.isXoa){
-            tong += obj.KhoiLuong;
-          }          
-        });
-        if (item.KhoiLuongKeHoach < tong) {
-          this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
-        }
-      }
+      // if (item.KhoiLuongKeHoach != undefined && item.KhoiLuongKeHoach != null && item.KhoiLuongKeHoach > 0
+      //   && item.listItem != undefined && item.listItem.length > 0) {
+      //   let tong = 0;
+      //   item.listItem.filter(obj => {
+      //     if(!obj.isXoa){
+      //       tong += obj.KhoiLuong;
+      //     }          
+      //   });
+      //   if (item.KhoiLuongKeHoach < tong) {
+      //     this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
+      //   }
+      // }
     }).catch(er => {
       console.log(er);
     })
@@ -318,11 +317,15 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   }
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
+    console.log(item)
     // let item = this.items.splice(i, 1)[0];
     if (item.Id.trim() === '') {
     } else {
       item.isXoa = true;
-      this.item.lisItem.push(JSON.parse(JSON.stringify(item)));
+      this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
+  }
+  refreshFilterMatHang(){
+    this.filter.KeyWord = '';
   }
 }

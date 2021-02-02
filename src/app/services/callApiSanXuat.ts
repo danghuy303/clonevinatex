@@ -184,6 +184,9 @@ export class SanXuatService {
             BaoCaoThongLuongSanXuat:(data)=>{
                 return this.http.post(`${url}BaoCaoThongLuongSanXuat`,data,httpOptions);
             },
+            BaoCaoThongLuongSanXuatMinMax:(data)=>{
+                return this.http.post(`${url}BaoCaoThongLuongSanXuatMinMax`,data,httpOptions)
+            },
             GetListdmMayTheoCongDoan:(congDoan)=>{
                 return this.http.get(`${API.SCMDanhMuc}GetListdmMayTheoCongDoan?CongDoan=${congDoan}`,httpOptions);
             }

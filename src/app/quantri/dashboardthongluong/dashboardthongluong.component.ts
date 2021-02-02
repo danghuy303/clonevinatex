@@ -58,7 +58,7 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
         value: 300
       }, {
         name: "Thô",
-        value: 200
+        value: 100
       }, {
         name: "Con",
         value: 180
@@ -68,12 +68,10 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
         value: 120
       }
       ];
-      let Series = chart.series.push(new am4charts.PyramidSeries());
+      let Series = chart.series.push(new am4charts.FunnelSeries());
       Series.dataFields.value = "value";
       Series.dataFields.category = "name";
       Series.alignLabels = true;
-      Series.topWidth = am4core.percent(100);
-      Series.bottomWidth = am4core.percent(0);
       chart.legend = new am4charts.Legend();
       chart.legend.position = "left";
       chart.legend.valign = "bottom";
@@ -127,7 +125,35 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
       this.filter.DenNgayUnix = null;
     }
     if (validVariable(this.filter.TuNgayUnix) && validVariable(this.filter.DenNgayUnix) && this.filter.TuNgayUnix < this.filter.DenNgayUnix) {
-      this._services.BaoCao().BaoCaoThongLuongSanXuat(this.filter).subscribe(res=>{
+      this._services.BaoCao().BaoCaoThongLuongSanXuat(this.filter).subscribe((res:any)=>{
+        let chart = am4core.create("ThongLuongChart", am4charts.SlicedChart);
+
+      // chart.paddingRight = 20;
+
+      // let data = [];
+      // let visits = 10;
+      // for (let i = 1; i < 366; i++) {
+      //   visits += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+      //   data.push({ date: new Date(2018, 0, i), name: "name" + i, value: visits });
+      // }
+
+      chart.data = res.map(ele=>{
+        return {
+          name:ele.TenCongDoan,
+          value:ele.KhoiLuongCongDoan
+        }
+      })
+      let Series = chart.series.push(new am4charts.FunnelSeries());
+      Series.dataFields.value = "value";
+      Series.dataFields.category = "name";
+      Series.alignLabels = true;
+      // chart.legend = new am4charts.Legend();
+      // chart.legend.position = "left";
+      // chart.legend.valign = "bottom";
+      chart.legend.margin(5, 5, 20, 5);
+      this.chart = chart;
+      })
+      this._services.BaoCao().BaoCaoThongLuongSanXuatMinMax(this.filter).subscribe((res:any)=>{
         console.log(res);
       })
     } else {

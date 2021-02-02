@@ -106,7 +106,17 @@ export class Dongvanpx2Component implements OnInit {
     };
   }
   changeNgoaiQuanBong() {
+    // this.veLayout();
     if (validVariable(this.ViTriNgoaiQuan)&& this.ViTriNgoaiQuan.trim()!=='') {
+      console.log(this.ViTriNgoaiQuan);
+    for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
+      if(this.banBong[`${i}`]._ngoaiQuan){
+        this.banBong[`${i}`]._ngoaiQuan = false;
+        if(this.banBong[`${i}`].labelLoBong === 'Ngoại quan bông'){
+          this.banBong[`${i}`].labelLoBong = null
+        }
+      }
+    }
       this.ngoaiQuan = this.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
       this.ngoaiQuan.forEach(vitri => {
         this.banBong[`${vitri}`]._ngoaiQuan = true;
@@ -217,7 +227,7 @@ export class Dongvanpx2Component implements OnInit {
   }
   GhiLai() {
     this._services.XepBanBong().Set(this.SetData()).subscribe(res=>{
-      console.log(res);
+      console.log(res); 
     })
   }
 }

@@ -437,7 +437,7 @@ export class QuantriComponent implements OnInit {
                         command: () => this.close()
                     },
                     {
-                        label: 'Kế hoạch xuất hàng',
+                        label: 'Kế hoạch xuất sợi',
                         routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/kehoachxuathang/0',
                         separator: this.checkmenu("KEHOACHXUATHANG"),
                         command: () => this.close()
