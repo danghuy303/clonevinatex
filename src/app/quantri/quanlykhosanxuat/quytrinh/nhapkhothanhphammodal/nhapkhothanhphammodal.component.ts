@@ -182,9 +182,4 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       });
     })
   }
-  // getQuyCachDongGoi() {
-  //   this._services.dmQuyCachDongGoi().GetList().subscribe((res: any) => {
-  //     this.listdmQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
-  //   })
-  // }
 }

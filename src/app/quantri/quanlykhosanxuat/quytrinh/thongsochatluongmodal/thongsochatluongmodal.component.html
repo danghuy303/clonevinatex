@@ -87,7 +87,8 @@
                         <col>
                         <col>
                         <col>
-                        <col>
+                        <col style="text-align: center;">
+                        <col style="text-align: center;">
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
@@ -96,7 +97,7 @@
                         <th rowspan="2">#</th>
                         <th rowspan="2">Kiện</th>
                         <th rowspan="2">Tên</th>
-                        <th colspan="10">Chất lượng bông</th>
+                        <th colspan="11">Chất lượng bông</th>
                         <th rowspan="2">Kiện dài</th>
                         <th style="width:100px"></th>
                     </tr>
@@ -111,6 +112,7 @@
                         <th>+b</th>
                         <th>Tạp</th>
                         <th>Ẩm</th>
+                        <th>Chất lượng xấu</th>
                         <th style="width: 100px;"></th>
                     </tr>
                 </ng-template>
@@ -162,6 +164,9 @@
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Am">
                             </p-inputNumber>
+                         </td>
+                         <td class="text-center">
+                            <input type="checkbox" [(ngModel)]="item.isChatLuongXau"/>
                          </td>
                          <td class="text-center">
                             <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isKienDai"/>
