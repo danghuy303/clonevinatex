@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { async } from 'rxjs/internal/scheduler/async';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { Dat09Service } from 'src/app/services/callApi';
@@ -103,6 +104,18 @@ export class DmphannhommaymodalComponent implements OnInit {
 
   }
 
+  checkitem(item) {
+    let blitem = this.item.lstdmItem.every(obj => {
+      if (this.childModalOpt === 'MATHANG') {
+        item.IddmItem == obj.Id;
+      }
+      else {
+        item.IddmLoaiSoi == obj.Id;
+      }
+    });
+    return blitem;
+  }
+
   DanhSachHang() {
     let modalRef = this._modal.open(DmphannhommayChonmathangmodalComponent, {
       size: "lg",
@@ -115,6 +128,15 @@ export class DmphannhommaymodalComponent implements OnInit {
     modalRef.result.then(res => {
       // this.toastr.success(res);
       merge(res, this.item.lstdmItem, this.childModalOpt === 'MATHANG' ? 'IddmItem' : 'IddmLoaiSoi');
+      // let lstdmItem = [];
+      // res.forEach(obj => {
+      //   if (!this.checkitem(obj)) {
+      //     obj.isXoa = true;
+      //     obj.isDelete = true;
+      //   }
+      //   lstdmItem.push(obj);
+      // });
+      // this.item.lstdmItem = lstdmItem;
       this.item.lstdmItem.filter(obj => obj.isDelete = obj.isXoa);
     }).catch(er => console.log(er))
   }
@@ -122,11 +144,11 @@ export class DmphannhommaymodalComponent implements OnInit {
   delete(index) {
     let item = this.item.lstdmItem.splice(index, 1)[0];
     // let item = this.items.splice(i, 1)[0];
-    if (item.Id.trim() === '') {
+    if (item.Id === '' && item.Id === null && item.Id === undefined) {
     } else {
       item.isXoa = true;
       item.isDelete = true;
-      this.item.lisItem.push(JSON.parse(JSON.stringify(item)));
+      this.item.lstdmItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
 
@@ -145,6 +167,9 @@ export class DmphannhommaymodalComponent implements OnInit {
     if (this.childModalOpt === '') {
       console.log(this.item.lstdmItem)
       this.item.lstdmItem.push({})
+    }
+    if (e.value != "CON") {
+      this.item.SoCoc = null;
     }
   }
 }
