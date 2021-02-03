@@ -92,9 +92,8 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Từ ngày:<button type="button" pButton pRipple
                 icon="pi pi-refresh" class="p-button-danger p-button-text p-button-sm" style="padding:3px !important;width: unset;" (click)="boTriLai()"></button></label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                    [yearNavigator]="false" [readonlyInput]="true" [minDate]="minDateChonMay" [maxDate]="maxDateChonMay"
-                    inputId="monthpicker" [(ngModel)]="item.TuNgay" [disabled]="validChonLai(item)"
+                <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy" [defaultDate]="minDateChonMay"
+                    [yearNavigator]="false" [minDate]="minDateChonMay" [maxDate]="maxDateChonMay" [(ngModel)]="item.TuNgay" [disabled]="validChonLai(item)"
                     placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
@@ -103,9 +102,9 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đến ngày:<button type="button" pButton pRipple
                     icon="pi pi-refresh" class="p-button-danger p-button-text p-button-sm" style="padding:3px !important;width: unset;" (click)="boTriLai()"></button></label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                    [yearNavigator]="false" [readonlyInput]="true" [minDate]="minDateChonMay"
-                    (onSelect)="validDenNgay(item,$event)" [maxDate]="maxDateChonMay" inputId="monthpicker"
+                <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy" [defaultDate]="maxDateChonMay"
+                    [yearNavigator]="false" [minDate]="minDateChonMay"
+                    (onSelect)="validDenNgay(item,$event)" [maxDate]="maxDateChonMay"
                     [(ngModel)]="item.DenNgay" [disabled]="validChonLai(item)" placeholder="dd/mm/yyyy">
                 </p-calendar>
 

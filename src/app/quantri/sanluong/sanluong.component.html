@@ -20,8 +20,8 @@
                 styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.May"></p-dropdown>
         </div> -->
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng"
-                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmItem" (onChange)="GetBieuDo()"></p-dropdown>
+            <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.IddmItem" (onChange)="GetBieuDo()"></p-dropdown>
         </div>
         <!-- <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listCaLamViec" placeholder="Chọn ca làm việc"
@@ -71,8 +71,14 @@
                     <span class="p-ml-2">
                         <h5>Sản lượng theo máy</h5>
                     </span>
-                    <span class="p-ml-2"><p-dropdown [filter]="true" [options]="listCongDoan"
-                        styleClass="p-inputtext-sm" [(ngModel)]="filter.CongDoan" (onChange)="GetBieuDo(true)"></p-dropdown></span>
+                    <span class="p-ml-2">
+                        <p-dropdown [filter]="true" [options]="listCongDoan" styleClass="p-inputtext-sm"
+                            [(ngModel)]="filter.CongDoan" (onChange)="GetBieuDo(true)"></p-dropdown>
+                    </span>
+                    <span class="p-ml-2">
+                        <p-dropdown [filter]="true" [options]="listMay" styleClass="p-inputtext-sm"
+                            [(ngModel)]="filter.IddmMay" (onChange)="GetBieuDo()"></p-dropdown>
+                    </span>
                 </div>
                 <div class="p-d-flex flex-column flex-lg-row">
                     <div style="display:table;height:100%">
@@ -83,5 +89,5 @@
             </div>
             <p-chart type="bar" [data]=monthlyConfig_luykesanluong [options]="option2"></p-chart>
         </div>
-    </div>   
+    </div>
 </div>
