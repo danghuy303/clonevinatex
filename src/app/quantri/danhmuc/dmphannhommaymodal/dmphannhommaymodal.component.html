@@ -55,8 +55,8 @@
         <div class="p-col-4 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Đầu ra:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DauRa"
-                    (keypress)="tinhNangSuatLyThuyet()">
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoDauRa"
+                    (onBlur)="tinhNangSuatLyThuyet()">
                 </p-inputNumber>
             </div>
         </div>

@@ -53,21 +53,22 @@ export class DmphannhommaymodalComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    if (this.opt == 'edit') {
-
-      this.item.lstdmItem.forEach(element => {
-        if (this.opt === 'MATHANG') {
-          element.Iditem = element.IddmItem;
-        }
-        if (this.opt === 'SOI') {
-          element.Iditem = element.IddmLoaiSoi;
-        }
-      });     
-
-    }
+  ngOnInit(): void {  
     if (validVariable(this.item.CongDoan)) {
       this.childModalOpt = this.mapCongDoan[this.item.CongDoan];
+    }
+    if (this.opt == 'edit') {
+      this.item.lstdmItem.forEach(element => {
+        if (this.childModalOpt === 'MATHANG') {
+          this.GetLoaiSoi();
+          this.GetDMMatHang();
+          element.Iditem = element.IddmItem;
+        }
+        if (this.childModalOpt === 'SOI') {
+          this.GetListLoaiSoi()
+          element.Iditem = element.IddmLoaiSoi;
+        }        
+      });     
     }
     this.GetListPhanXuong();
     this.GetListCongDoan();
@@ -230,16 +231,16 @@ export class DmphannhommaymodalComponent implements OnInit {
       }
       else if (this.item.CongDoan == "GHEPSOBO" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
         this.item.lstdmItem.forEach(obj => {
-          if ((validVariable(obj.TocDo)) && (validVariable(this.item.DauRa)) && (validVariable(obj.Nm))) {
-            obj.NangSuat = obj.TocDo * this.item.DauRa * 450 / obj.Nm / 1000;
+          if ((validVariable(obj.TocDo)) && (validVariable(this.item.SoDauRa)) && (validVariable(obj.Nm))) {
+            obj.NangSuat = obj.TocDo * this.item.SoDauRa * 450 / obj.Nm / 1000;
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
       }
       else if (this.item.CongDoan == "CHAIKY") {
         this.item.lstdmItem.forEach(obj => {
-          if ((validVariable(obj.TocDo)) && (validVariable(this.item.DauRa)) && (validVariable(obj.Nm))) {
-            obj.NangSuat = obj.TocDo * this.item.DauRa * 450 / obj.Nm / 1000 / 2;
+          if ((validVariable(obj.TocDo)) && (validVariable(this.item.SoDauRa)) && (validVariable(obj.Nm))) {
+            obj.NangSuat = obj.TocDo * this.item.SoDauRa * 450 / obj.Nm / 1000 / 2;
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
@@ -280,14 +281,14 @@ export class DmphannhommaymodalComponent implements OnInit {
         }
       }
       else if (this.item.CongDoan == "GHEPSOBO" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
-        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.DauRa)) && (validVariable(this.newTableItem.Nm))) {
-          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.DauRa * 450 / this.newTableItem.Nm / 1000;
+        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.SoDauRa)) && (validVariable(this.newTableItem.Nm))) {
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoDauRa * 450 / this.newTableItem.Nm / 1000;
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
       else if (this.item.CongDoan == "CHAIKY") {
-        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.DauRa)) && (validVariable(this.newTableItem.Nm))) {
-          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.DauRa * 450 / this.newTableItem.Nm / 1000 / 2;
+        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.SoDauRa)) && (validVariable(this.newTableItem.Nm))) {
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoDauRa * 450 / this.newTableItem.Nm / 1000 / 2;
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
@@ -314,10 +315,10 @@ export class DmphannhommaymodalComponent implements OnInit {
 
   changeLoaiSoiHoacMatHang(e, item) {
     item = e.value;
-    if (this.opt === 'MATHANG') {
+    if (this.childModalOpt === 'MATHANG') {
       item.IddmItem = item.Id;
     }
-    if (this.opt === 'SOI') {
+    if (this.childModalOpt === 'SOI') {
       item.IddmLoaiSoi = item.Id;
     }
   }
