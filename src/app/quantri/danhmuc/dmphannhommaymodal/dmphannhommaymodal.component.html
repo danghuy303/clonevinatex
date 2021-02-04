@@ -68,7 +68,8 @@
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <div class="p-d-flex p-flex-sm-row p-jc-between p-mt-3 p-mb-3" *ngIf="item.CongDoan == 'CON' || item.CongDoan == 'ONG'">
+            <div class="p-d-flex p-flex-sm-row p-jc-between p-mt-3 p-mb-3"
+                *ngIf="item.CongDoan == 'CON' || item.CongDoan == 'ONG'">
                 <div class="p-d-flex p-flex-row">
                     <button pButton pRipple [label]="childModalOpt==='MATHANG'?'Chọn mặt hàng':'Chọn loại sợi'"
                         icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="DanhSachHang()"></button>
@@ -187,8 +188,8 @@
                     </td>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="footer" *ngIf="item.CongDoan == 'CON' || item.CongDoan == 'ONG'">
-                <tr>
+            <ng-template pTemplate="footer">
+                <tr *ngIf="item.CongDoan !== 'CON' && item.CongDoan !== 'ONG'">
                     <td class="text-center">
                         #
                     </td>
