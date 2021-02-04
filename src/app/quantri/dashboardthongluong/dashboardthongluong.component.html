@@ -8,10 +8,10 @@
             <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
                 styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanXuong" (onChange)="GetBieuDo()"></p-dropdown>
         </div>
-        <div class="p-mr-2">
+        <!-- <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
                 [(ngModel)]="filter.IddmItem" (onChange)="GetBieuDo()"></p-dropdown>
-        </div>
+        </div> -->
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter._tuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetBieuDo()">
@@ -22,11 +22,20 @@
                 [(ngModel)]="filter._denNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetBieuDo()">
             </p-calendar>
         </div>
+        <div class="p-mr-2">
+            <button pButton label="Lọc" (click)="GetBieuDo()"
+                class="p-button-sm mr-4"></button>
+        </div>
     </div>
 </div>
-<div style="display: flex; flex-direction: row;justify-content: flex-start">
-    <div style="width: 50%; height: calc(100vh - 131.75px)">
-        
+<div class="p-d-flex flex-column flex-lg-row">
+    <div class="p-col-12 p-lg-6 p-jc-center" style="height: calc(100vh - 131.75px);position: relative;">
+        <div class="voi-info-container">
+            <div class="voi-info">Thông lượng sản phẩm lớn nhất: {{infos.SanPhamMax.TenItem}} - {{infos.SanPhamMax.TongKhoiLuong|number:'0.0-2'}}kg</div>
+            <div class="voi-info">Thông lượng sản phẩm nhỏ nhất: {{infos.SanPhamMin.TenItem}} - {{infos.SanPhamMin.TongKhoiLuong|number:'0.0-2'}}kg</div>
+            <div class="voi-info">Thông lượng thời gian sản xuất lớn nhất: {{infos.NgayMax.Ngay|date:'dd/MM/yyyy'}} - {{infos.NgayMax.TongKhoiLuong|number:'0.0-2'}}kg</div>
+            <div class="voi-info">Thông lượng thời gian sản xuất nhỏ nhất: {{infos.NgayMin.Ngay|date:'dd/MM/yyyy'}} - {{infos.NgayMin.TongKhoiLuong|number:'0.0-2'}}kg</div>
+        </div>
     </div>
-    <div id="ThongLuongChart" style="width: 50%; height: calc(100vh - 131.75px)"></div>
+    <div id="ThongLuongChart" class="p-col-12 p-lg-6" style="height: calc(100vh - 131.75px)"></div>
 </div>

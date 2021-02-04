@@ -42,6 +42,7 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
   khongclicknhieu: any = false;
   filter: any = {};
   checkedAll: boolean = false;
+  CongDoan: any = "";
 
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
@@ -120,7 +121,7 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
       Loai: "1",
       IddmLoaiSoi: this.filter.IddmLoaiSoi
     };
-    this.sanXuatService.GetListdmItem(data).subscribe((res: any) => { 
+    this.sanXuatService.GetListdmItem(data).subscribe((res: any) => {
       if (this.selectedItems.length !== 0) {
         this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
           let selected = res.filter(item => sItem.IddmItem === item.Id)[0];
@@ -169,7 +170,7 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
       this.items.filter(item => item.checked).map(ele => {
         let data = {
           ...ele,
-          IddmPhanNhomMay: this.IdQuyTrinh || "",          
+          IddmPhanNhomMay: this.IdQuyTrinh || "",
           Id: '',
         }
         if (this.opt === 'MATHANG') {

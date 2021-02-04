@@ -151,7 +151,8 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     modalRef.componentInstance.selectedItems = deepCopy(this.item.listItem);
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
-      this.item.listItem = [...merge(deepCopy(res), this.item.listItem.filter(item => item.isXoa !== true), 'IddmItem'), ...this.item.listItem.filter(ele => ele.isXoa)];
+      // this.item.listItem = [...merge(deepCopy(res), this.item.listItem.filter(item => item.isXoa !== true), 'IddmItem'), ...this.item.listItem.filter(ele => ele.isXoa)];
+      this.item.listItem = [...deepCopy(res), ...this.item.listItem.filter(ele => ele.isXoa)];
       this._services.TrienKhaiKeHoachSanXuat().TinhNangSuat(this.item).subscribe((res: any) => {
         this.listCongDoan = mapArrayForDropDown(res.listCongDoan, 'Ten', 'Ma');
         this.filter.CongDoan = this.listCongDoan[0].value;
@@ -271,6 +272,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     this._services.TrienKhaiKeHoachSanXuat().Get(IdTrienKhaiKeHoach).subscribe(res => {
       this.item = res;
       this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
+      this.KiemTraButtonModal();
     });
   }
   GhiLai() {
@@ -284,7 +286,6 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
             this.GetTrienKhaiKeHoach(res.objectReturn.Id)
             // this.item = res.objectReturn;
             // this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
-            this.KiemTraButtonModal();
           } else {
             // this.item.listItem.forEach(mathang => {
             //   mathang.KhoiLuongKeHoach = mathang.KhoiLuongKeHoach / 1000;

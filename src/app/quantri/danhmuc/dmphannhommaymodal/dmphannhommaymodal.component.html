@@ -55,7 +55,8 @@
         <div class="p-col-4 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Đầu ra:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DauRa">
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoDauRa"
+                    (onBlur)="tinhNangSuatLyThuyet()">
                 </p-inputNumber>
             </div>
         </div>
@@ -67,7 +68,8 @@
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <div class="p-d-flex p-flex-sm-row p-jc-between p-mt-3 p-mb-3" *ngIf="childModalOpt!==''">
+            <div class="p-d-flex p-flex-sm-row p-jc-between p-mt-3 p-mb-3"
+                *ngIf="item.CongDoan == 'CON' || item.CongDoan == 'ONG'">
                 <div class="p-d-flex p-flex-row">
                     <button pButton pRipple [label]="childModalOpt==='MATHANG'?'Chọn mặt hàng':'Chọn loại sợi'"
                         icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="DanhSachHang()"></button>
@@ -85,101 +87,165 @@
                     </div>
                 </div>
             </div>
-            <p-table [value]="item.lstdmItem|isXoa|filter:filter.KeyWord" [(selection)]="selectedItems"
-                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="true"
-                scrollHeight="300px">
-                <ng-template pTemplate="colgroup">
-                    <colgroup>
-                        <col style="width:50px" *ngIf="childModalOpt!==''">
-                        <col *ngIf="childModalOpt!==''">
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col style="width: 50px;" *ngIf="childModalOpt!==''">
-                    </colgroup>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <!-- <th>
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th> -->
-                        <th class="text-center" *ngIf="childModalOpt!==''">STT</th>
-                        <th *ngIf="childModalOpt!==''">{{childModalOpt==='MATHANG'?'Mặt hàng':'Loại sợi'}}</th>
-
-                        <th>Chi số Ne</th>
-                        <th>Chi số mét Nm</th>
-                        <th>Độ săn</th>
-                        <th>Tốc độ (v/f, m/f, Nips/p)</th>
-
-                        <th>Năng suất LT</th>
-                        <th>Hiệu suất (%)</th>
-                        <th>Định mức năng suất</th>
-                        <th>Ghi chú</th>
-                        <th *ngIf="childModalOpt!==''"></th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-item let-i="rowIndex">
-                    <tr>
-                        <td class="text-center" *ngIf="childModalOpt!==''">
-                            {{ i + 1 }}
-                        </td>
-                        <td *ngIf="childModalOpt!==''">
-                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText
-                                [disabled]="true" />
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.Ne"
-                                [disabled]="childModalOpt==='MATHANG'">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.Nm"
-                                [disabled]="childModalOpt==='MATHANG'">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DoSan"
-                                [disabled]="childModalOpt==='MATHANG'">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TocDo">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.NangSuat"
-                                (onInput)="changeNangSuat($event,item)">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.HieuSuat"
-                                (onInput)="changeHieuSuat($event,item)">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DinhMucNangSuat"
-                                [disabled]="true">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
-                        </td>
-                        <td class="text-center" *ngIf="childModalOpt!==''">
-                            <!-- <button pButton pRipple type="button" icon="pi pi-trash"
-                                class="p-button-text p-button-sm p-button-secondary" (click)="delete(item)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button> -->
-                            <button pButton pRipple icon="pi pi-trash"
-                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
         </div>
+        <p-table [value]="item.lstdmItem|isXoa|filter:filter.KeyWord" [(selection)]="selectedItems"
+            styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="false"
+            scrollHeight="300px">
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col style="width:50px">
+                    <col *ngIf="childModalOpt!==''">
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col style="width: 50px;" *ngIf="childModalOpt!==''">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <!-- <th>
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th> -->
+                    <th class="text-center">STT</th>
+                    <th *ngIf="childModalOpt!==''">{{childModalOpt==='MATHANG'?'Mặt hàng':'Loại sợi'}}</th>
+
+                    <th>Chi số Ne</th>
+                    <th>Chi số mét Nm</th>
+                    <th>Độ săn</th>
+                    <th>Tốc độ (v/f, m/f, Nips/p)</th>
+
+                    <th>Năng suất LT</th>
+                    <th>Hiệu suất (%)</th>
+                    <th>Định mức năng suất</th>
+                    <th>Ghi chú</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <tr>
+                    <!-- *ngIf="childModalOpt!==''" -->
+                    <td class="text-center">
+                        {{ i + 1 }}
+                    </td>
+                    <td *ngIf="childModalOpt!==''">
+                        <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText
+                        [disabled]="true" /> -->
+                        <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" styleClass="p-inputtext-sm"
+                            [(ngModel)]="item.Iditem" optionLabel="Ten" optionValue="Id"
+                            (onChange)="changeLoaiSoiHoacMatHang($event,item)"></p-dropdown>
+                    </td>
+                    <td>
+                        <!-- [disabled]="childModalOpt==='MATHANG'" -->
+                        <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.Ne"
+                            (onBlur)="tinhNangSuatLyThuyet()">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.Nm"
+                            (onBlur)="tinhNangSuatLyThuyet()">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DoSan"
+                            [disabled]="childModalOpt==='MATHANG'">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TocDo"
+                            (onBlur)="tinhNangSuatLyThuyet()">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.NangSuat"
+                            (onBlur)="tinhNangSuatLyThuyet()" [disabled]="true">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.HieuSuat"
+                            (onBlur)="tinhNangSuatLyThuyet()">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DinhMucNangSuat"
+                            [disabled]="true">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+                    </td>
+                    <!-- *ngIf="childModalOpt!==''" -->
+                    <td class="text-center">
+                        <!-- <button pButton pRipple type="button" icon="pi pi-trash"
+                        class="p-button-text p-button-sm p-button-secondary" (click)="delete(item)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button> -->
+                        <button pButton pRipple icon="pi pi-trash"
+                            class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                            (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr *ngIf="item.CongDoan !== 'CON' && item.CongDoan !== 'ONG'">
+                    <td class="text-center">
+                        #
+                    </td>
+                    <td *ngIf="childModalOpt!==''">
+                        <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.Ten" pInputText
+                        [disabled]="true" /> -->
+                        <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" styleClass="p-inputtext-sm"
+                            [(ngModel)]="newTableItem.Iditem" optionLabel="Ten" optionValue="Id"
+                            (onChange)="changeLoaiSoiHoacMatHang($event,newTableItem)"></p-dropdown>
+                    </td>
+                    <td>
+                        <!-- [disabled]="childModalOpt==='MATHANG'" -->
+                        <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="newTableItem.Ne"
+                            (onBlur)="item_tinhNangSuatLyThuyet()">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="newTableItem.Nm"
+                            (onBlur)="item_tinhNangSuatLyThuyet()">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.DoSan"
+                            [disabled]="childModalOpt==='MATHANG'">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.TocDo"
+                            (onBlur)="item_tinhNangSuatLyThuyet()">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.NangSuat"
+                            (onBlur)="item_tinhNangSuatLyThuyet()" [disabled]="true">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.HieuSuat"
+                            (onBlur)="item_tinhNangSuatLyThuyet()">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.DinhMucNangSuat"
+                            [disabled]="true">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.GhiChu" pInputText />
+                    </td>
+                    <td class="text-center">
+                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
+                            (click)="add()"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
 </div>
 <div class="modal-footer">

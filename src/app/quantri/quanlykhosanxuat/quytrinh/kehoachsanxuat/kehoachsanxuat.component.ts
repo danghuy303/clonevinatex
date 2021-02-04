@@ -52,6 +52,11 @@ export class KehoachsanxuatComponent implements OnInit {
       if (res.id !== '0') {
         this._service.GiaoKeHoachSanXuat().Get(res.id).subscribe((res: any) => {
           this.update(res);
+        },(err)=>{
+          if(err.status ===500){
+            this._toastr.error('Hệ thống không tìm thấy dữ liệu bạn cần!')
+          }
+          console.log(err);
         })
       }
     })

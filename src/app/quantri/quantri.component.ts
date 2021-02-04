@@ -33,6 +33,11 @@ export class QuantriComponent implements OnInit {
     IdNhaMay: string = '';
     showDropDown: boolean = false;
     canSendMessage: any;
+    mapQuyTrinhRoute:any={
+        GIAOKEHOACHSANXUAT:'/quantri/kehoachsanxuat/giaokehoachsanxuat/',
+        PHUONGANSANXUAT:'/quantri/kehoachsanxuat/sanxuat/',
+        TRIENKHAIKEHOACHSANXUAT:'/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/',
+    }
     @ViewChild('listNoti')listNoti;
     constructor(private _auth: AuthenticationService, private _modal: NgbModal, private _router: Router, private _services: SanXuatService, private store: StoreService, private _signalRService: SignalRService,private _toastr:ToastrService) {
         this.userInfo = this._auth.currentUserValue;
@@ -70,13 +75,19 @@ export class QuantriComponent implements OnInit {
     readedAllNoti(){
         this.newNoti = 0;
     }
-    readOne(Id){
-        console.log(Id);
-        let read = this.listNotis.find(ele=>ele.Id === Id);
+    readOne(item){
+        let read = this.listNotis.find(ele=>ele.Id === item.Id);
         if(read){
             read.isRead = true
         }
-        this.newNoti = this.listNotis.filter(ele=>ele.isRead!==true).length
+        this.newNoti = this.listNotis.filter(ele=>ele.isRead!==true).length;
+        let routerURL = this.mapQuyTrinhRoute[item.LoaiThongBao];
+        console.log(routerURL+item.IdQuyTrinh)
+        if(routerURL){
+            this._router.navigate([`${routerURL}${item.IdQuyTrinh}`])
+        }else{
+            this._toastr.warning('Không tìm thấy điều hướng của thông báo!')
+        }
     }
     refreshNotis(){
         this.GetCount();
