@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { formatdate } from 'src/app/services/globalfunction';
 import { NhapkhothanhphammodalComponent } from '../nhapkhothanhphammodal/nhapkhothanhphammodal.component';
 
 @Component({
@@ -19,19 +20,29 @@ export class NhapkhothanhphamComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   eAction: any = "PHIEUNHAPTHANHPHAM";
   cols: any = [
+    // {
+    //   header: 'Số quy trình',
+    //   field: 'SoQuyTrinh',
+    //   width: 'unset'
+    // },
+    // {
+    //   header: 'Ngày chứng từ',
+    //   field: '_Ngay',
+    //   width: 'unset'
+    // },
     {
       header: 'Tên kho',
       field: 'TendmKho',
       width: 'unset'
     },
     {
-      header: 'Tên kho nhập',
-      field: 'TendmKho',
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
       width: 'unset'
     },
     {
-      header: 'Trạng thái',
-      field: 'TenTrangThai',
+      header: 'Ghi chú',
+      field: 'GhiChu',
       width: 'unset'
     },
   ];
@@ -107,6 +118,11 @@ export class NhapkhothanhphamComponent implements OnInit {
     this._service.PhieuNhapThanhPham().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
+      // if (this.items.length > 0) {
+      //   this.items.forEach(element => {
+      //     element._Ngay = element.NgayUnix > 0 ? formatdate(element.Ngay, false) : null;
+      //   });
+      // }
     })
   }
   resetFilter() {

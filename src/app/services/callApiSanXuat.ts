@@ -181,6 +181,12 @@ export class SanXuatService {
             GetDashBoard_SanLuongOng:(data)=>{
                 return this.http.post(url + 'GetDashBoard_SanLuongOng', data, httpOptions);
             },
+            BaoCaoThongLuongSanXuat:(data)=>{
+                return this.http.post(`${url}BaoCaoThongLuongSanXuat`,data,httpOptions);
+            },
+            BaoCaoThongLuongSanXuatMinMax:(data)=>{
+                return this.http.post(`${url}BaoCaoThongLuongSanXuatMinMax`,data,httpOptions)
+            },
             GetListdmMayTheoCongDoan:(congDoan)=>{
                 return this.http.get(`${API.SCMDanhMuc}GetListdmMayTheoCongDoan?CongDoan=${congDoan}`,httpOptions);
             }
@@ -1142,8 +1148,8 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhuongAnDieuChinhTimBong', data, httpOptions)
             },
-            GetKienLoBong: (IdPhuongAnPhaBong, IdLoBong, IddmKho) => {
-                return this.http.get(url + `GetKienLoBongDieuChinh?IdPhuongAnPhaBong=${IdPhuongAnPhaBong}&IdLoBong=${IdLoBong}&IddmKho=${IddmKho}`, httpOptions)
+            GetKienLoBong: (IdPhuongAnPhaBong, IdLoBong, IddmKho, Mic) => {
+                return this.http.get(url + `GetKienLoBongDieuChinh?IdPhuongAnPhaBong=${IdPhuongAnPhaBong}&IdLoBong=${IdLoBong}&IddmKho=${IddmKho}&Mic=${Mic}`, httpOptions)
             },
         }
     }

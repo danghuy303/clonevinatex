@@ -296,7 +296,7 @@ export class TimbongmodalComponent implements OnInit {
   TimBongTuDong() {
     this._services.TimBong().TimBongTuDong(this.ghostItem.Id).subscribe((res: any) => {
       if (res.State === 1) {
-        this._toastr.success(res.message);
+        this._toastr.success('Cập nhật dữ liệu thành công!');
         this.GetPhuongAn()
       } else {
         this._toastr.error(res.message);

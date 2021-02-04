@@ -15,7 +15,7 @@
                                         class="p-button-rounded " [ngClass]="{'p-button-success': noti.isRead,'p-button-warning':!noti.isRead}"></button>
                                     <!-- <button pButton pRipple type="button" icon="pi pi-bell" class="p-button-rounded p-button-warning"></button> -->
                                 </div>
-                                <div style="flex:1; padding-left: 15px;" (click)="readOne(noti.Id)">
+                                <div style="flex:1; padding-left: 15px;" (click)="readOne(noti)">
                                     <span>{{noti.TieuDe}}</span><br>
                                     <span style="color:#777">{{noti.NoiDung}}</span><br>
                                     <span style="color:#777">Thời gian: {{noti.Created|date:'dd/MM/yyyy hh:ss'}}</span>

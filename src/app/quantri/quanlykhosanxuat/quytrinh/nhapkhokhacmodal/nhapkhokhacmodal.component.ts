@@ -120,7 +120,7 @@ export class NhapkhokhacmodalComponent implements OnInit {
         }
       }
     }
-    
+   
     if (isCheck === true ) {
       this.toastr.error("Bạn chưa chọn  vị trí");
     }

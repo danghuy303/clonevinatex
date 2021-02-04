@@ -26,9 +26,18 @@ export class SanluongComponent implements OnInit {
   listLoaiBong: any = [];
   listCaLamViec: any = [];
   option1: any = {
+    plugins: {
+      labels: {
+        fontSize: 0
+      }
+    },
+    legend: {
+      position: 'bottom'
+    },
     scales: {
       xAxes: [{
-        beginAtZero: true
+        categoryPercentage: 0.5,
+        barPercentage: 1.0
       }],
       yAxes: [{
         ticks: {
@@ -37,13 +46,17 @@ export class SanluongComponent implements OnInit {
             return formatNumber(label, 'vi-VN', '0.0-0');
           }
         }
-      }],
+      }]
     },
-    legend: {
-      position: 'bottom'
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg`
+        }
+      }
     },
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
-    aspectRatio: (((window.innerWidth - 80) * 2 / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
+    aspectRatio: ((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   option2: any = {
     plugins: {
@@ -71,7 +84,12 @@ export class SanluongComponent implements OnInit {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')}`
+          console.log(tooltipItem,data);
+          if(tooltipItem.datasetIndex ===0){
+            return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg - ${formatNumber(Math.ceil(tooltipItem.yLabel/data.datasets[1].data[tooltipItem.index]*10000)/100,'vi-VN')}%`
+          }else{
+            return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg`
+          }
         }
       }
     },
@@ -149,10 +167,10 @@ export class SanluongComponent implements OnInit {
       }
       if (!!CongDoan) {
         this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
-          console.log(res);
-          // this.listMay = mapArrayForDropDown(res, "Ten", 'Ma')
-          // this.listMay.unshift({ label: 'Tất cả', value: '' })
-          // this.filter.IddmMay = this.listMay[0].value;
+          // console.log(res);
+          this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
+          this.listMay.unshift({ label: 'Tất cả', value: '' })
+          this.filter.IddmMay = this.listMay[0].value;
         })
       }
       this._services.DashBoard().BaoCaoSanLuongLuyKe_BieuDoCot(this.filter).subscribe((res: any) => {

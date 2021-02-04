@@ -113,7 +113,7 @@ export class PhabongmodalComponent implements OnInit {
           // b: TongChatLuong.b / res.length,
         }
         for(let chatluong in TongChatLuong){
-          this.ChatLuongBinhQuan[chatluong]= TongChatLuong[chatluong]/res.length;
+          this.ChatLuongBinhQuan[chatluong]= TongChatLuong[chatluong]/(this.item.listLoBong.length-this.item.listLoBong.filter(ele=>!validVariable(ele[chatluong])).length);
         }
         this.labelBong = {}
         this.trongLuongLoBong = {}
@@ -208,7 +208,7 @@ export class PhabongmodalComponent implements OnInit {
           // b: TongChatLuong.b / res.length,
         }
         for(let chatluong in TongChatLuong){
-          this.ChatLuongBinhQuan[chatluong]= TongChatLuong[chatluong]/res.length;
+          this.ChatLuongBinhQuan[chatluong]= TongChatLuong[chatluong]/(res.length-res.filter(ele=>!validVariable(ele[chatluong])));
         }
       }
       if (validVariable(this.item.TongSoKien)) {
@@ -280,13 +280,7 @@ export class PhabongmodalComponent implements OnInit {
   }
   CalAllTable(y, x) { //truc toa do y:tung x:hoanh
     let tempSLD = 0;
-    for (let i = 1; i <= this.item.SoBanBong; i++) {
-      if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
-        tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
-      }
-    }
-    this.item.listLoBong[y].SoLuongDung = tempSLD;
-    this.item.listLoBong[y].TonCuoi = this.item.listLoBong[y].SoLuongKien - tempSLD;
+    
     let tempSoKien1Line = 0;
     let tempSoKien1LineTruBongHoi = 0;
     let tempTongCLMic = 0;
@@ -300,6 +294,12 @@ export class PhabongmodalComponent implements OnInit {
     this.item.listLoBong.forEach(lobong => {
       if (validVariable(lobong.tempBanBong[`${x}`].SoKien)) {
         tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
+        if(tempSoKien1Line >this.item.TongSoKien){
+          this._toastr.warning('Bạn vừa nhập quá số lượng kiện bông trên 1 bàn bông! Chúng tôi sẽ điều chỉnh về giá trị lớn nhất có thể tránh gây lỗi nghiêm trọng!')
+          tempSoKien1Line-= lobong.tempBanBong[`${x}`].SoKien;
+          lobong.tempBanBong[`${x}`].SoKien = this.item.TongSoKien - tempSoKien1Line;
+          tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
+        }
         tempTongTrongLuong += (lobong.tempBanBong[`${x}`].SoKien * lobong.TrongLuong);
         tempTongGia += (lobong.tempBanBong[`${x}`].SoKien * lobong.DonGia | 0 * lobong.TrongLuong);
         if (validVariable(lobong.Mic)) {
@@ -314,6 +314,13 @@ export class PhabongmodalComponent implements OnInit {
         tempTongKhoiLuongDung += (lobong.SoLuongDung * lobong.TrongLuong);
       }
     });
+    for (let i = 1; i <= this.item.SoBanBong; i++) {
+      if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
+        tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
+      }
+    }
+    this.item.listLoBong[y].SoLuongDung = tempSLD;
+    this.item.listLoBong[y].TonCuoi = this.item.listLoBong[y].SoLuongKien - tempSLD;
     this.TongKhoiLuongDung = tempTongKhoiLuongDung;
     this.itemMicBQ[`${x}`] = tempTongCLMic / tempSoKien1LineTruBongHoi;
     this.itembBQ[`${x}`] = tempTongCLb / tempSoKien1LineTruBongHoi;

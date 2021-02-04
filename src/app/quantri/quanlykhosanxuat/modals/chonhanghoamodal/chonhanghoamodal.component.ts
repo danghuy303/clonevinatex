@@ -25,6 +25,7 @@ export class ChonhanghoamodalComponent implements OnInit {
         case "KhoiLuongKeHoach":
           this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
             let selected = this.items.filter(item => sItem.IddmItem === item.IddmItem)[0];
+            selected.KhoiLuongSanXuat = sItem.KhoiLuongSanXuat;
             if (selected) {
               selected.checked = true;
             }
