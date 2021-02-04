@@ -112,7 +112,6 @@ export class NhapkhoComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-
     modalRef.componentInstance.type = this.type;
     modalRef.componentInstance.nametype = this.nametype;
     

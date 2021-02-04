@@ -177,4 +177,17 @@ export class ThongsochatluongmodalComponent implements OnInit {
       end= this.paging.TotalItem;
     this.item.listItem = this.listItem.slice(start,end);
   }
+  importExcelMic(){
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
+      backdrop:'static',
+    })
+    modalRef.componentInstance.Name = 'PhieuNhapLoBong_ChatLuong';
+    modalRef.componentInstance.data = this.item;
+    modalRef.componentInstance.Loai = 'MIC';
+    modalRef.result.then(res=>{
+      this.toastr.success(res.message);
+      this.GetQuyTrinh();
+    })
+    .catch(er=>console.log(er))
+  }
 }

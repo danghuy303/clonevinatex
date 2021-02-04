@@ -48,7 +48,6 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute);
     this.getListKho();
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh()
@@ -60,7 +59,7 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
     this.router.navigate([`quantri/quanlykhosanxuat/kehoachnhapnguyenlieu/${id}`], { replaceUrl: true })
   }
   addPhieuBong() {
-    this.changeParam(0);
+    // this.changeParam(0);
     let modalRef = this._modal.open(KehoachnhapnguyenlieumodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'

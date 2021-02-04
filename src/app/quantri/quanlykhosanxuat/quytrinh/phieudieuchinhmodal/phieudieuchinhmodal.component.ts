@@ -55,20 +55,24 @@ export class PhieudieuchinhmodalComponent implements OnInit {
   }
  
   ChuyenDuyet() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+    if(this.item.IddmItemDieuChinh === '' || this.item.IddmItemDieuChinh === undefined || this.item.IddmItemDieuChinh === null){
+      this.toastr.error("Bạn chưa chọn kiện điều chỉnh");
+    }
+    else{
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-
-    this.services.PhuongAnDieuChinhTimBong().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.activeModal.close();
-          this.item = res.objectReturn;
-          this.KiemTraButtonModal();
-        } else {
-          this.toastr.error(res.message);
+      this.services.PhuongAnDieuChinhTimBong().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+            this.item = res.objectReturn;
+            this.KiemTraButtonModal();
+          } else {
+            this.toastr.error(res.message);
+          }
         }
-      }
-    })
+      })
+    }
   }
  
   GetNextSoQuyTrinh() {

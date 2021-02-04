@@ -35,15 +35,33 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Ngày:</label>
-            <div class="p-col-12 p-lg-7 p-p-0">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Từ ngày<span class="text-danger">*</span>:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
+                    [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
+                    [(ngModel)]="item.TuNgay" inputId="icon" placeholder="dd/mm/yyyy">
+                </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đến ngày<span class="text-danger">*</span>:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
+                    [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
+                    [(ngModel)]="item.DenNgay" inputId="icon" placeholder="dd/mm/yyyy">
+                </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày kiểm tra<span class="text-danger">*</span>:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
                     [(ngModel)]="item.NgayKiemTra" inputId="icon" placeholder="dd/mm/yyyy">

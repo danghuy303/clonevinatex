@@ -24,9 +24,11 @@ export class KiemkekhomodalComponent implements OnInit {
   }
   listdmKho:any= [];
   listdmViTri:any= [];
+  listLoBong:any= [];
   paging: any = {};
   listItem: any = [];
   item_new: any = {};
+  title: any = '';
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
   }
 
@@ -42,12 +44,26 @@ export class KiemkekhomodalComponent implements OnInit {
 
     var data : any ={};
     data.CurrentPage =0;
-    data.Loai = 1;
+    if(this.title === 'khobong'){
+      data.Loai = 2;
+      this.item_new.Loai = 2;
+    }
+    else if(this.title === 'khoxo'){
+      data.Loai = 5;
+      this.item_new.Loai = 5;
+    }
+    else if(this.title === 'khothanhpham'){
+      data.Loai = 11;
+      this.item_new.Loai = 11;
+    }
     this.services.GetListdmKho(data).subscribe((res: any) => {
       this.listdmKho = mapArrayForDropDown(res, "Ten", 'Id');
     })
     this.services.GetListdmViTriOpt().subscribe((res: any) => {
       this.listdmViTri = mapArrayForDropDown(res, "Ten", 'Id');
+    })
+    this.services.GetListLoBong(data).subscribe((res: any) => {
+      this.listLoBong = mapArrayForDropDown(res, "Ten", 'Id');
     })
   }
   GetQuyTrinh()
@@ -59,6 +75,7 @@ export class KiemkekhomodalComponent implements OnInit {
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
       this.item.listItem = res1.listItem.slice(0,15);
+      this.item_new = res1;
     })
   }
   KiemTraButtonModal() {
@@ -69,7 +86,7 @@ export class KiemkekhomodalComponent implements OnInit {
   
   ChuyenDuyet() {
     this.item_new.listItem = this.listItem;
-
+    debugger
     this.services.PhieuKiemKeKho().ChuyenTiep(this.item_new).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -89,21 +106,18 @@ export class KiemkekhomodalComponent implements OnInit {
  
   GhiLai() {
     this.item_new.listItem = this.listItem;
-
       this.services.PhieuKiemKeKho().Set(this.item_new).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
-
             this.listItem = res.objectReturn.listItem;
             this.paging.CurrentPage = 1;
             this.paging.TotalPage = 5;
             if(res.objectReturn.listItem != undefined && res.objectReturn.listItem != null)
               this.paging.TotalItem = res.objectReturn.listItem.length;
             this.item.listItem = res.objectReturn.listItem.slice(0,15);
-
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
@@ -137,17 +151,20 @@ export class KiemkekhomodalComponent implements OnInit {
   }
   
   GetMatHangTheoKho() {
-    var IddmKho = this.item.IddmKho
-    if(this.item.IddmViTri !== null )
-      IddmKho = '';
-    this.services.getLuuKho(IddmKho,this.item.IddmViTri, 0, '').subscribe((res1: any) => {
-      this.item.listItem = res1;
+    this.services.getLuuKhoKiemKe(this.item.IddmKho,this.item.IdLoBong,'').subscribe((res1: any) => {
+      this.item.listItem = res1.slice(0,15);
       this.listItem = res1;
+      this.paging.CurrentPage = 1;
+      this.paging.TotalPage = 5;
+      this.paging.TotalItem = res1.length;
     })
   }
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
-    var start = (event.page + 1)*15;
-    this.item.listItem = this.listItem.slice(start, start + 15);
+    var start = 15 * (event.page + 1);
+    var end =  start + 15;
+    if((start + 15) > this.paging.TotalItem)
+      end= this.paging.TotalItem;
+    this.item.listItem = this.listItem.slice(start,end);
   }
 }

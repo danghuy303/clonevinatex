@@ -27,17 +27,24 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmKho" ></p-dropdown>
+                    [(ngModel)]="item.IddmKho" (onChange)="GetMatHangTheoKho()"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Vị trí:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmViTri" placeholder="Chọn vị trí" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IddmViTri" (onChange)="GetMatHangTheoKho()"></p-dropdown>
             </div>
+        </div> -->
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô bông:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listLoBong" placeholder="Chọn lô bông" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IdLoBong" (onChange)="GetMatHangTheoKho()"></p-dropdown>
+            </div>
         </div>
-        <div class="p-col-12 p-lg-12 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
@@ -60,14 +67,12 @@
                         <col>
                         <col>
                         <col>
-                        <col>
                         <col style="width:90px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
-                        <th>Lô</th>
                         <th>Mã</th>
                         <th>Tên</th>
                         <th>Số lượng trong tính toán</th>
@@ -77,10 +82,10 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
-                        <td>{{i+1}}</td>
-                        <td>{{item.TenLoBong}}</td>
-                        <td>{{item.Ma}}</td>
-                        <td>{{item.Ten}}</td>
+                        <td>{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
+                        <!-- <td>{{item.TenLoBong}}</td> -->
+                        <td style="text-align: center;">{{item.Ma}}</td>
+                        <td style="text-align: center;">{{item.Ten}}</td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ton">
                             </p-inputNumber>
@@ -106,9 +111,4 @@
             </p-table>
         </div>
     </div>
-</div>
-<div class="modal-footer">
-    <!-- <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
-    <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
-        (click)="activeModal.dismiss()"></button> -->
 </div>
