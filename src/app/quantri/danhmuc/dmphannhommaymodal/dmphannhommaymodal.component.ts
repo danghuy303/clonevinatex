@@ -26,6 +26,11 @@ export class DmphannhommaymodalComponent implements OnInit {
   listloaisoi: any = [];
   listDonViNangSuat: any = [];
   khongclicknhieu: any = false;
+  newTableItem: any = {
+    Id: "",
+    IddmPhanNhomMay: "",
+  };
+  listLoaiSoiHoacMatHang: any = [];
   filter: any = {
     KeyWord: ''
   };
@@ -50,6 +55,16 @@ export class DmphannhommaymodalComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.opt == 'edit') {
+
+      this.item.lstdmItem.forEach(element => {
+        if (this.opt === 'MATHANG') {
+          element.Iditem = element.IddmItem;
+        }
+        if (this.opt === 'SOI') {
+          element.Iditem = element.IddmLoaiSoi;
+        }
+      });     
+
     }
     if (validVariable(this.item.CongDoan)) {
       this.childModalOpt = this.mapCongDoan[this.item.CongDoan];
@@ -104,18 +119,6 @@ export class DmphannhommaymodalComponent implements OnInit {
 
   }
 
-  checkitem(item) {
-    let blitem = this.item.lstdmItem.every(obj => {
-      if (this.childModalOpt === 'MATHANG') {
-        item.IddmItem == obj.Id;
-      }
-      else {
-        item.IddmLoaiSoi == obj.Id;
-      }
-    });
-    return blitem;
-  }
-
   DanhSachHang() {
     let modalRef = this._modal.open(DmphannhommayChonmathangmodalComponent, {
       size: "lg",
@@ -125,31 +128,13 @@ export class DmphannhommaymodalComponent implements OnInit {
     modalRef.componentInstance.title = 'Danh sách hàng';
     modalRef.componentInstance.selectedItems = this.item.lstdmItem || [];
     modalRef.componentInstance.IdQuyTrinh = this.item.Id || "";
+    modalRef.componentInstance.CongDoan = this.item.CongDoan;
     modalRef.result.then(res => {
       // this.toastr.success(res);
       merge(res, this.item.lstdmItem, this.childModalOpt === 'MATHANG' ? 'IddmItem' : 'IddmLoaiSoi');
-      // let lstdmItem = [];
-      // res.forEach(obj => {
-      //   if (!this.checkitem(obj)) {
-      //     obj.isXoa = true;
-      //     obj.isDelete = true;
-      //   }
-      //   lstdmItem.push(obj);
-      // });
-      // this.item.lstdmItem = lstdmItem;
+      console.log(this.item.lstdmItem);
       this.item.lstdmItem.filter(obj => obj.isDelete = obj.isXoa);
     }).catch(er => console.log(er))
-  }
-
-  delete(index) {
-    let item = this.item.lstdmItem.splice(index, 1)[0];
-    // let item = this.items.splice(i, 1)[0];
-    if (item.Id === '' && item.Id === null && item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      item.isDelete = true;
-      this.item.lstdmItem.push(JSON.parse(JSON.stringify(item)));
-    }
   }
 
   changeNangSuat(e, item) {
@@ -160,16 +145,202 @@ export class DmphannhommaymodalComponent implements OnInit {
     item.DinhMucNangSuat = (e.value * item.NangSuat || 0) / 100;
   }
 
+  changeTocDo(e, item) {
+    // item.DinhMucNangSuat = (e.value * item.NangSuat || 0) / 100;
+  }
+
   changeCongDoan(e) {
     console.log(e, 'change')
     this.item.lstdmItem = [];
     this.childModalOpt = this.mapCongDoan[e.value];
     if (this.childModalOpt === '') {
       console.log(this.item.lstdmItem)
-      this.item.lstdmItem.push({})
+      // this.item.lstdmItem.push({})
     }
     if (e.value != "CON") {
       this.item.SoCoc = null;
+    }
+    if (this.childModalOpt === 'MATHANG') {
+      this.GetLoaiSoi();
+      this.GetDMMatHang();
+    }
+    if (this.childModalOpt === 'SOI') {
+      this.GetListLoaiSoi()
+    }
+    this.tinhNangSuatLyThuyet();
+    this.item_tinhNangSuatLyThuyet();
+  }
+
+  GetLoaiSoi() {
+    let dataSearch: any = {
+      PageSize: 20,
+      CurrentPage: 0,
+      sFilter: "",
+      Ma: "",
+      Ten: ""
+    };
+    this.sanXuatService.GetListdmLoaiSoi(dataSearch).subscribe((res: any) => {
+      this.listloaisoi = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
+  GetListLoaiSoi() {
+    let data = {
+      PageSize: 20,
+      CurrentPage: 0,
+      sFilter: this.filter.keyWord != undefined && this.filter.keyWord != null ? this.filter.keyWord : "",
+      CongDoan: '',
+      Ma: "",
+      Ten: "",
+    };
+    this.sanXuatService.GetListdmLoaiSoi(data).subscribe((res: any) => {
+      this.listLoaiSoiHoacMatHang = res;
+    })
+  }
+
+  GetDMMatHang() {
+    let data = {
+      PageSize: 20,
+      CurrentPage: 0,
+      sFilter: this.filter.keyWord != undefined && this.filter.keyWord != null ? this.filter.keyWord : "",
+      CongDoan: '',
+      Ma: "",
+      Ten: "",
+      Loai: "1",
+      IddmLoaiSoi: this.filter.IddmLoaiSoi
+    };
+    this.sanXuatService.GetListdmItem(data).subscribe((res: any) => {
+      this.listLoaiSoiHoacMatHang = res;
+    })
+  }
+
+  tinhNangSuatLyThuyet() {
+    if (this.item.lstdmItem.length > 0) {
+      if (this.item.CongDoan == "BONGCHAI" || this.item.CongDoan == "CHAITHO" || this.item.CongDoan == "XOCHAI" || this.item.CongDoan == "CUONCUI") {
+        this.item.lstdmItem.forEach(obj => {
+          if ((validVariable(obj.TocDo)) && (validVariable(obj.Nm))) {
+            obj.NangSuat = obj.TocDo * 450 / obj.Nm / 1000;
+            obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
+          }
+        });
+      }
+      else if (this.item.CongDoan == "GHEPSOBO" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
+        this.item.lstdmItem.forEach(obj => {
+          if ((validVariable(obj.TocDo)) && (validVariable(this.item.DauRa)) && (validVariable(obj.Nm))) {
+            obj.NangSuat = obj.TocDo * this.item.DauRa * 450 / obj.Nm / 1000;
+            obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
+          }
+        });
+      }
+      else if (this.item.CongDoan == "CHAIKY") {
+        this.item.lstdmItem.forEach(obj => {
+          if ((validVariable(obj.TocDo)) && (validVariable(this.item.DauRa)) && (validVariable(obj.Nm))) {
+            obj.NangSuat = obj.TocDo * this.item.DauRa * 450 / obj.Nm / 1000 / 2;
+            obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
+          }
+        });
+      }
+      else if (this.item.CongDoan == "THO") {
+        this.item.lstdmItem.forEach(obj => {
+          if ((validVariable(obj.TocDo)) && (validVariable(obj.DoSan)) && (validVariable(obj.Nm))) {
+            obj.NangSuat = obj.TocDo * 120 * 450 / obj.DoSan / obj.Nm;
+            obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
+          }
+        });
+      }
+      else if (this.item.CongDoan == "CON") {
+        this.item.lstdmItem.forEach(obj => {
+          if ((validVariable(obj.TocDo)) && (validVariable(obj.Nm))) {
+            obj.NangSuat = obj.TocDo * 1200 * 480 / obj.Nm / 1000 * 0.92;
+            obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
+          }
+        });
+      }
+      else if (this.item.CongDoan == "ONG") {
+        this.item.lstdmItem.forEach(obj => {
+          if ((validVariable(obj.TocDo)) && (validVariable(obj.DoSan)) && (validVariable(obj.Nm))) {
+            obj.NangSuat = obj.TocDo * 450 * 60 / 1000 / obj.DoSan / obj.Nm * 0.92;
+            obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
+          }
+        });
+      }
+    }
+  }
+
+  item_tinhNangSuatLyThuyet() {
+    if (this.newTableItem.Id != undefined) {
+      if (this.item.CongDoan == "BONGCHAI" || this.item.CongDoan == "CHAITHO" || this.item.CongDoan == "XOCHAI" || this.item.CongDoan == "CUONCUI") {
+        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.Nm))) {
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * 450 / this.newTableItem.Nm / 1000;
+          this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
+        }
+      }
+      else if (this.item.CongDoan == "GHEPSOBO" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
+        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.DauRa)) && (validVariable(this.newTableItem.Nm))) {
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.DauRa * 450 / this.newTableItem.Nm / 1000;
+          this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
+        }
+      }
+      else if (this.item.CongDoan == "CHAIKY") {
+        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.DauRa)) && (validVariable(this.newTableItem.Nm))) {
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.DauRa * 450 / this.newTableItem.Nm / 1000 / 2;
+          this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
+        }
+      }
+      else if (this.item.CongDoan == "THO") {
+        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.DoSan)) && (validVariable(this.newTableItem.Nm))) {
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * 120 * 450 / this.newTableItem.DoSan / this.newTableItem.Nm;
+          this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
+        }
+      }
+      else if (this.item.CongDoan == "CON") {
+        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.Nm))) {
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * 1200 * 480 / this.newTableItem.Nm / 1000 * 0.92;
+          this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
+        }
+      }
+      else if (this.item.CongDoan == "ONG") {
+        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.DoSan)) && (validVariable(this.newTableItem.Nm))) {
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * 450 * 60 / 1000 / this.newTableItem.DoSan / this.newTableItem.Nm * 0.92;
+          this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
+        }
+      }
+    }
+  }
+
+  changeLoaiSoiHoacMatHang(e, item) {
+    item = e.value;
+    if (this.opt === 'MATHANG') {
+      item.IddmItem = item.Id;
+    }
+    if (this.opt === 'SOI') {
+      item.IddmLoaiSoi = item.Id;
+    }
+  }
+
+  add() {
+    // if (this.childModalOpt !== '') {
+
+    // }
+    if (this.item.listItem == undefined || this.item.listItem == null)
+      this.item.listItem = [];
+    this.newTableItem.Id = "";
+    this.newTableItem.IddmPhanNhomMay = this.item.Id || "";
+    this.item.lstdmItem.push(this.newTableItem);
+    this.newTableItem = {
+      Id: "",
+      IddmPhanNhomMay: ""
+    }
+  }
+
+  delete(index) {
+    let item = this.item.lstdmItem.splice(index, 1)[0];
+    // let item = this.items.splice(i, 1)[0];
+    if (item.Id === '' && item.Id === null && item.Id === undefined) {
+    } else {
+      item.isXoa = true;
+      item.isDelete = true;
+      this.item.lstdmItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
 }

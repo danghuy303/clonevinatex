@@ -224,6 +224,7 @@ import { NhucauxuathangComponent } from './nhucauxuathang/nhucauxuathang.compone
 import { LohangComponent } from './quanlykhosanxuat/thongke/lohang/lohang.component';
 import { LohangmodalComponent } from './quanlykhosanxuat/thongke/lohangmodal/lohangmodal.component';
 import { DashboardthongluongComponent } from './dashboardthongluong/dashboardthongluong.component';
+import { ChonsodongphannhommayComponent } from './danhmuc/danhmucsanxuat/modals/chonsodongphannhommay/chonsodongphannhommay.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -405,6 +406,7 @@ import { DashboardthongluongComponent } from './dashboardthongluong/dashboardtho
     LohangComponent,
     LohangmodalComponent,
     DashboardthongluongComponent,
+    ChonsodongphannhommayComponent,
   ],
   imports: [
     HttpClientModule,

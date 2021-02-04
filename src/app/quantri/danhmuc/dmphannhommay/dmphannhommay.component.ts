@@ -35,6 +35,12 @@ export class DmphannhommayComponent implements OnInit {
       align: 'left'
     },
     {
+      header: 'Công đoạn',
+      field: 'TenCongDoan',
+      width: 'unset',
+      align: 'left'
+    },
+    {
       header: 'Đơn vị năng suất',
       field: 'TenDonViNangSuat',
       width: 'unset',
@@ -52,6 +58,7 @@ export class DmphannhommayComponent implements OnInit {
   userInfo: any;
   listnhamay: any = [];
   listDonViNangSuat: any = [];
+  listCongDoan: any = [];
   // listphanxuong: any = [];
   // listdungsai: any = [];
 
@@ -98,11 +105,7 @@ export class DmphannhommayComponent implements OnInit {
     };
     this._services.dmPhanNhomMaySanXuat().GetList(this.dataSearch).subscribe((res: any) => {
       this.items = res.items;
-      if (this.items.length > 0 && this.listDonViNangSuat.length > 0) {
-        this.items.forEach(el => {
-          el.TenDonViNangSuat = this.listDonViNangSuat.filter(obj => obj.value == el.DonViNangSuat)[0].label;
-        });
-      }
+      this.paging = res.paging;
       // this.items.forEach(element => {
       //   this.listnhamay.filter(obj => {
       //     if (element.idNhaMay == obj.value) {
@@ -114,8 +117,16 @@ export class DmphannhommayComponent implements OnInit {
       //       element.TenPhanXuong = obj.label;
       //     }
       //   });
-      // });
-      this.paging = res.paging;
+      // });        
+      this._services.GetListCongDoan().subscribe((res: any) => {
+        this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+        if (this.items.length > 0 && this.listDonViNangSuat.length > 0) {
+          this.items.forEach(el => {
+            el.TenDonViNangSuat = this.listDonViNangSuat.filter(obj => obj.value == el.DonViNangSuat)[0].label;
+            el.TenCongDoan = this.listCongDoan.filter(obj => obj.value == el.CongDoan)[0].label;
+          });
+        }
+      })
     })
   }
   add() {
