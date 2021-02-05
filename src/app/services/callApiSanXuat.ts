@@ -576,6 +576,9 @@ export class SanXuatService {
             Import: (Id, FileName) => {
                 return this.http.get(url + `ImportExcelPhieuNhapLoBong_ChatLuong?Id=${Id}&FileName=${FileName}`, httpOptions)
             },
+            Import_Mic: (Id, FileName) => {
+                return this.http.get(url + `ImportExcelPhieuNhapLoBong_ChatLuong_Mic?Id=${Id}&FileName=${FileName}`, httpOptions)
+            },
         }
     }
     //#endregion
@@ -843,6 +846,11 @@ export class SanXuatService {
     getLuuKhoKhac(IddmKho, IddmViTri, CurrentPage, sFilter) {
         // let IdDuAn =this.store.getCurrent();
         let url = API.SCMQuanLyKho + `GetLuuKhoKhac?IdDuAn=0&IddmKho=${IddmKho}&IddmViTri=${IddmViTri}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
+        return this.http.get(url, httpOptions);
+    }
+    getLuuKhoKiemKe(IddmKho, IdLoBong, sFilter) {
+        // let IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + `getLuuKhoKiemKe?IdDuAn=0&IddmKho=${IddmKho}&IdLoBong=${IdLoBong}&sFilter=${sFilter}`;
         return this.http.get(url, httpOptions);
     }
     KhoiTaoItem() {

@@ -43,7 +43,12 @@ export class ChatluongsoimodalComponent implements OnInit {
     if (this.item.NgayKiemTraUnix !== null && this.item.NgayKiemTraUnix !== undefined) {
       this.item.NgayKiemTra = new Date(this.item.NgayKiemTraUnix * 1000);
     }
-
+    if (this.item.TuNgayUnix !== null && this.item.TuNgayUnix !== undefined) {
+      this.item.TuNgay = new Date(this.item.TuNgayUnix * 1000);
+    }
+    if (this.item.DenNgayUnix !== null && this.item.DenNgayUnix !== undefined) {
+      this.item.DenNgay = new Date(this.item.DenNgayUnix * 1000);
+    }
     this.getListdmPhanXuong();
   }
   KiemTraButtonModal() {
@@ -55,6 +60,10 @@ export class ChatluongsoimodalComponent implements OnInit {
   ChuyenDuyet() {
     if (this.item.NgayKiemTra !== null && this.item.NgayKiemTra !== undefined)
       this.item.NgayKiemTraUnix = (new Date(this.item.NgayKiemTra)).getTime() / 1000;
+    if (this.item.TuNgay !== null && this.item.TuNgay !== undefined)
+      this.item.TuNgayUnix = (new Date(this.item.TuNgay)).getTime() / 1000;
+    if (this.item.DenNgay !== null && this.item.DenNgay !== undefined)
+      this.item.DenNgayUnix = (new Date(this.item.DenNgay)).getTime() / 1000;
     this.services.PhieuChatLuongSoi().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -76,8 +85,14 @@ export class ChatluongsoimodalComponent implements OnInit {
   GhiLai() {
     if (this.item.NgayKiemTra === null && this.item.NgayKiemTra === undefined)
       this.toastr.error("Bạn chưa chọn  ngày");
+    else if (this.item.TuNgay === null && this.item.TuNgay === undefined)
+      this.toastr.error("Bạn chưa chọn  ngày");
+    else if (this.item.DenNgay === null && this.item.DenNgay === undefined)
+      this.toastr.error("Bạn chưa chọn  ngày");
     else {
       this.item.NgayKiemTraUnix = (new Date(this.item.NgayKiemTra)).getTime() / 1000;
+      this.item.TuNgayUnix = (new Date(this.item.TuNgay)).getTime() / 1000;
+      this.item.DenNgayUnix = (new Date(this.item.DenNgay)).getTime() / 1000;
       this.services.PhieuChatLuongSoi().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -122,6 +137,8 @@ export class ChatluongsoimodalComponent implements OnInit {
     let data = {
       IddmPhanXuong: this.item.IddmPhanXuong,
       Ngay: new Date(this.item.NgayKiemTra).getTime() / 1000,
+      TuNgay: new Date(this.item.TuNgay).getTime() / 1000,
+      DenNgay: new Date(this.item.DenNgay).getTime() / 1000,
     };
     this.services.GetlistdmMatHangKiemTraChatLuong(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {

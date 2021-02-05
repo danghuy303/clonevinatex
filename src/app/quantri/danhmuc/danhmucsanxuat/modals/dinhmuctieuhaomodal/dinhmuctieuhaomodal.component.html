@@ -46,7 +46,6 @@
                         <col style="width:50px">
                         <col>
                         <col>
-                        <col style="width:100px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -54,7 +53,6 @@
                         <th>#</th>
                         <th>Tên</th>
                         <th>Định mức tiêu hao(Kg)</th>
-                        <th style="width: 100px;"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -67,12 +65,12 @@
                                 </p-inputNumber>
                               </div>
                         </td>
-                        <td>
+                        <!-- <td>
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
                                 tooltipPosition="bottom"></button>
-                        </td>
+                        </td> -->
                     </tr>
                 </ng-template>
             </p-table>

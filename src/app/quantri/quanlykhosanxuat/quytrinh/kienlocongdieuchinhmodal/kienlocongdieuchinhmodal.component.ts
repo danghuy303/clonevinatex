@@ -123,7 +123,7 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
         }
       }
     }
-    if(this.filter.KeyWord !== '' || this.filter.KeyWord !== undefined)
+    if(this.filter.KeyWord !== '' && this.filter.KeyWord !== undefined)
         this.GetQuyTrinhFilter();
   }
   changePage(event) {
@@ -143,7 +143,7 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
         }
       }
     }
-    if(this.filter.KeyWord !== '' || this.filter.KeyWord !== undefined)
+    if(this.filter.KeyWord !== '' && this.filter.KeyWord !== undefined)
       this.GetQuyTrinhFilter();
   }
   GetQuyTrinhFilter()

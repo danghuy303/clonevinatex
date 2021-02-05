@@ -20,6 +20,7 @@ export class ImportdanhmucmodelComponent implements OnInit {
   mapTepMauURL: any = {
   };
   Name: any = '';
+  Loai: any = '';
   uploader: FileUploader;
   data: any = {};
   IdDuAn: any;
@@ -76,13 +77,25 @@ export class ImportdanhmucmodelComponent implements OnInit {
     }    
   }
   acceptThongSoChatLuong() {
-    this.service.PhieuNhapLoBong_ChatLuong().Import(this.data.Id, this.TepImport.TenGui).subscribe((res: any) => {
+    if(this.Loai == 'MIC'){
+      this.service.PhieuNhapLoBong_ChatLuong().Import_Mic(this.data.Id, this.TepImport.TenGui).subscribe((res: any) => {
+        if (res.State === 1) {
+          this._modalActive.close({ mess: 'Cập nhật thành công!' })
+        } else {
+          this._toastr.error(res.message);
+        }
+      })
+    }
+    else{
+      this.service.PhieuNhapLoBong_ChatLuong().Import(this.data.Id, this.TepImport.TenGui).subscribe((res: any) => {
       if (res.State === 1) {
         this._modalActive.close({ mess: 'Cập nhật thành công!' })
       } else {
         this._toastr.error(res.message);
       }
     })
+    }
+    
   } 
 
   taiTepMau() {

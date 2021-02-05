@@ -224,6 +224,8 @@ import { NhucauxuathangComponent } from './nhucauxuathang/nhucauxuathang.compone
 import { LohangComponent } from './quanlykhosanxuat/thongke/lohang/lohang.component';
 import { LohangmodalComponent } from './quanlykhosanxuat/thongke/lohangmodal/lohangmodal.component';
 import { DashboardthongluongComponent } from './dashboardthongluong/dashboardthongluong.component';
+import { GiaokehoachsanxuathoanthanhComponent } from './quanlykhosanxuat/quytrinh/giaokehoachsanxuathoanthanh/giaokehoachsanxuathoanthanh.component';
+import { GiaokehoachsanxuathoanthanhmodalComponent } from './quanlykhosanxuat/quytrinh/giaokehoachsanxuathoanthanhmodal/giaokehoachsanxuathoanthanhmodal.component';
 import { ChonsodongphannhommayComponent } from './danhmuc/danhmucsanxuat/modals/chonsodongphannhommay/chonsodongphannhommay.component';
 @NgModule({
   declarations: [
@@ -406,6 +408,8 @@ import { ChonsodongphannhommayComponent } from './danhmuc/danhmucsanxuat/modals/
     LohangComponent,
     LohangmodalComponent,
     DashboardthongluongComponent,
+    GiaokehoachsanxuathoanthanhComponent,
+    GiaokehoachsanxuathoanthanhmodalComponent,
     ChonsodongphannhommayComponent,
   ],
   imports: [
@@ -521,6 +525,8 @@ import { ChonsodongphannhommayComponent } from './danhmuc/danhmucsanxuat/modals/
     PhanquyentheophanxuongmodalComponent,
     LohangComponent,
     LohangmodalComponent,
+    GiaokehoachsanxuathoanthanhmodalComponent,
+
   ],
   providers: [
     SanXuatService,

@@ -27,11 +27,6 @@ export class KiemkekhoComponent implements OnInit {
       width: '200px'
     },
     {
-      header: 'Vị trí',
-      field: 'TendmViTri',
-      width: '200px'
-    },
-    {
       header: 'Nội dung',
       field: 'NoiDung',
       width: '200px'
@@ -48,22 +43,23 @@ export class KiemkekhoComponent implements OnInit {
     }
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-
+  title: any = '';
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res:any)=>{
+      this.title = res.kho;
       if(res.id!=='0'){
         let getitem =()=>{return{}};
         this.update(getitem());
       }
+      this.GetListQuyTrinh()
     })
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh()
   }
   changeParam(id){
-    this.router.navigate([`quantri/quanlykhosanxuat/khobong/kiemkekho/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/quanlykhosanxuat/${this.title}/kiemkekho/${id}`],{replaceUrl: true})
   }
   add(){
     this.changeParam(0);
@@ -72,6 +68,7 @@ export class KiemkekhoComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
+    modalRef.componentInstance.title = this.title;
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
@@ -85,6 +82,7 @@ export class KiemkekhoComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.title = this.title;
     modalRef.result.then((res: any) => {
       console.log(res);
       this.GetListQuyTrinh();
@@ -104,7 +102,7 @@ export class KiemkekhoComponent implements OnInit {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
-    let data={
+    let data: any={
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
@@ -113,6 +111,15 @@ export class KiemkekhoComponent implements OnInit {
       DenNgay:DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
+    }
+    if(this.title === 'khobong'){
+      data.Loai = 2;
+    }
+    else if(this.title === 'khoxo'){
+      data.Loai = 5;
+    }
+    else if(this.title === 'khothanhpham'){
+      data.Loai = 11;
     }
     this._service.PhieuKiemKeKho().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
