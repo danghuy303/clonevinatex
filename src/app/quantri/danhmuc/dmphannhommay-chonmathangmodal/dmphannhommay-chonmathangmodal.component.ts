@@ -100,14 +100,14 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
     };
     this.sanXuatService.GetListdmLoaiSoi(data).subscribe((res: any) => {
       this.items = res;
-      if (this.selectedItems.length !== 0) {
-        this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
-          let selected = this.items.filter(item => sItem.IddmLoaiSoi === item.Id)[0];
-          if (selected) {
-            selected.checked = true;
-          }
-        });
-      }
+      // if (this.selectedItems.length !== 0) {
+      //   this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
+      //     let selected = this.items.filter(item => sItem.IddmLoaiSoi === item.Id)[0];
+      //     if (selected) {
+      //       selected.checked = true;
+      //     }
+      //   });
+      // }
     })
   }
   GetDMMatHang() {
@@ -122,14 +122,14 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
       IddmLoaiSoi: this.filter.IddmLoaiSoi
     };
     this.sanXuatService.GetListdmItem(data).subscribe((res: any) => {
-      if (this.selectedItems.length !== 0) {
-        this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
-          let selected = res.filter(item => sItem.IddmItem === item.Id)[0];
-          if (selected) {
-            selected.checked = true;
-          }
-        });
-      }
+      // if (this.selectedItems.length !== 0) {
+      //   this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
+      //     let selected = res.filter(item => sItem.IddmItem === item.Id)[0];
+      //     if (selected) {
+      //       selected.checked = true;
+      //     }
+      //   });
+      // }
       this.items = res;
     })
   }

@@ -53,7 +53,7 @@ export class DmphannhommaymodalComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
     if (validVariable(this.item.CongDoan)) {
       this.childModalOpt = this.mapCongDoan[this.item.CongDoan];
     }
@@ -67,8 +67,8 @@ export class DmphannhommaymodalComponent implements OnInit {
         if (this.childModalOpt === 'SOI') {
           this.GetListLoaiSoi()
           element.Iditem = element.IddmLoaiSoi;
-        }        
-      });     
+        }
+      });
     }
     this.GetListPhanXuong();
     this.GetListCongDoan();
@@ -132,8 +132,13 @@ export class DmphannhommaymodalComponent implements OnInit {
     modalRef.componentInstance.CongDoan = this.item.CongDoan;
     modalRef.result.then(res => {
       // this.toastr.success(res);
-      merge(res, this.item.lstdmItem, this.childModalOpt === 'MATHANG' ? 'IddmItem' : 'IddmLoaiSoi');
-      console.log(this.item.lstdmItem);
+      // merge(res, this.item.lstdmItem, this.childModalOpt === 'MATHANG' ? 'IddmItem' : 'IddmLoaiSoi');    
+      let listdatapush = [];
+      res.forEach(element => {
+        element.isXoa = false;
+        listdatapush.push(element);
+      });
+      this.item.lstdmItem = this.item.lstdmItem.concat(listdatapush);
       this.item.lstdmItem.filter(obj => obj.isDelete = obj.isXoa);
     }).catch(er => console.log(er))
   }
@@ -327,8 +332,8 @@ export class DmphannhommaymodalComponent implements OnInit {
     // if (this.childModalOpt !== '') {
 
     // }
-    if (this.item.listItem == undefined || this.item.listItem == null)
-      this.item.listItem = [];
+    if (this.item.lstdmItem == undefined || this.item.lstdmItem == null)
+      this.item.lstdmItem = [];
     this.newTableItem.Id = "";
     this.newTableItem.IddmPhanNhomMay = this.item.Id || "";
     this.item.lstdmItem.push(this.newTableItem);
@@ -347,5 +352,14 @@ export class DmphannhommaymodalComponent implements OnInit {
       item.isDelete = true;
       this.item.lstdmItem.push(JSON.parse(JSON.stringify(item)));
     }
+  }
+
+  changeDMApDung(item) {
+    this.item.lstdmItem.forEach(element => {
+      if (element.Iditem != undefined && element.Iditem.Id == item.Iditem.Id) {
+        element.isApDung = false;
+      }
+    });
+    item.isApDung = true;
   }
 }

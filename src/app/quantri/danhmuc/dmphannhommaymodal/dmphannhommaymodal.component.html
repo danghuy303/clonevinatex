@@ -103,6 +103,7 @@
                     <col>
                     <col>
                     <col>
+                    <col>
                     <col style="width: 50px;" *ngIf="childModalOpt!==''">
                 </colgroup>
             </ng-template>
@@ -122,6 +123,7 @@
                     <th>Năng suất LT</th>
                     <th>Hiệu suất (%)</th>
                     <th>Định mức năng suất</th>
+                    <th>ĐM áp dụng</th>
                     <th>Ghi chú</th>
                     <th></th>
                 </tr>
@@ -174,6 +176,9 @@
                         <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DinhMucNangSuat"
                             [disabled]="true">
                         </p-inputNumber>
+                    </td>
+                    <td class="text-center">
+                        <p-checkbox [(ngModel)]="item.isApDung" binary="true" inputId="binary" (onChange)="changeDMApDung(item)"></p-checkbox>
                     </td>
                     <td>
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
@@ -235,6 +240,9 @@
                         <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.DinhMucNangSuat"
                             [disabled]="true">
                         </p-inputNumber>
+                    </td>
+                    <td class="text-center">
+                        <p-checkbox [(ngModel)]="newTableItem.isApDung" binary="true" inputId="binary" (onChange)="changeDMApDung(newTableItem)"></p-checkbox>
                     </td>
                     <td>
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.GhiChu" pInputText />
