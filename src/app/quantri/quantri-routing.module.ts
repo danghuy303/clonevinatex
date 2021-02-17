@@ -86,6 +86,7 @@ import { PhanquyentheophanxuongComponent } from './phanquyen/phanquyentheophanxu
 import { NhucauxuathangComponent } from './nhucauxuathang/nhucauxuathang.component';
 import { DashboardthongluongComponent } from './dashboardthongluong/dashboardthongluong.component';
 import { GiaokehoachsanxuathoanthanhComponent } from './quanlykhosanxuat/quytrinh/giaokehoachsanxuathoanthanh/giaokehoachsanxuathoanthanh.component';
+import { CandoichuyenComponent } from './quanlykhosanxuat/candoichuyen/candoichuyen.component';
 
 const routes: Routes = [
   {
@@ -204,6 +205,7 @@ const routes: Routes = [
       { path: 'kehoachsanxuat/giaokehoachsanxuat/:id', component: KehoachsanxuatComponent },
       { path: 'kehoachsanxuat/giaokehoachsanxuathoanthanh/:id', component: GiaokehoachsanxuathoanthanhComponent },
       { path: 'kehoachsanxuat/trienkhaikehoachsanxuat/:id', component: TrienkhaikehoachsanxuatComponent },
+      { path: 'kehoachsanxuat/candoichuyen', component: CandoichuyenComponent },
       
       { path: 'phanquyensanxuat/phanquyentheophanxuong', component: PhanquyentheophanxuongComponent },
     ]

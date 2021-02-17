@@ -33,7 +33,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-
+import {ProgressBarModule} from 'primeng/progressbar';
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 
 // import { FileUploadModule } from 'primeng/fileupload';
 import localeVi from '@angular/common/locales/vi';
@@ -227,6 +228,9 @@ import { DashboardthongluongComponent } from './dashboardthongluong/dashboardtho
 import { GiaokehoachsanxuathoanthanhComponent } from './quanlykhosanxuat/quytrinh/giaokehoachsanxuathoanthanh/giaokehoachsanxuathoanthanh.component';
 import { GiaokehoachsanxuathoanthanhmodalComponent } from './quanlykhosanxuat/quytrinh/giaokehoachsanxuathoanthanhmodal/giaokehoachsanxuathoanthanhmodal.component';
 import { ChonsodongphannhommayComponent } from './danhmuc/danhmucsanxuat/modals/chonsodongphannhommay/chonsodongphannhommay.component';
+import { CandoichuyenComponent } from './quanlykhosanxuat/candoichuyen/candoichuyen.component';
+import { BotrimayOngComponent } from './quanlykhosanxuat/candoichuyen/modals/botrimay-ong/botrimay-ong.component';
+import { BotrimayChungComponent } from './quanlykhosanxuat/candoichuyen/modals/botrimay-chung/botrimay-chung.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -411,6 +415,9 @@ import { ChonsodongphannhommayComponent } from './danhmuc/danhmucsanxuat/modals/
     GiaokehoachsanxuathoanthanhComponent,
     GiaokehoachsanxuathoanthanhmodalComponent,
     ChonsodongphannhommayComponent,
+    CandoichuyenComponent,
+    BotrimayOngComponent,
+    BotrimayChungComponent,
   ],
   imports: [
     HttpClientModule,
@@ -447,7 +454,9 @@ import { ChonsodongphannhommayComponent } from './danhmuc/danhmucsanxuat/modals/
     TooltipModule,
     MultiSelectModule,
     VoiLibModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ProgressBarModule,
+    NgbProgressbarModule
   ],
   entryComponents: [
     ModalThuaDatComponent,
@@ -526,7 +535,8 @@ import { ChonsodongphannhommayComponent } from './danhmuc/danhmucsanxuat/modals/
     LohangComponent,
     LohangmodalComponent,
     GiaokehoachsanxuathoanthanhmodalComponent,
-
+    BotrimayOngComponent,
+    BotrimayChungComponent
   ],
   providers: [
     SanXuatService,

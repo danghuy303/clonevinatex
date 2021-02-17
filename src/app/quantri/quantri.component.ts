@@ -450,6 +450,14 @@ export class QuantriComponent implements OnInit {
                         }
                     },
                     {
+                        label: 'Cân đối chuyền',
+                        routerLink: '/quantri/kehoachsanxuat/candoichuyen',
+                        separator: this.checkmenu("TRIENKHAIKEHOACHSANXUAT"),
+                        command: () => {
+                            this.close()
+                        }
+                    },
+                    {
                         label: 'Điều hành sản xuất',
                         routerLink: '/quantri/kehoachsanxuat/sanxuat/0',
                         separator: this.checkmenu("PHUONGANSANXUAT"),
