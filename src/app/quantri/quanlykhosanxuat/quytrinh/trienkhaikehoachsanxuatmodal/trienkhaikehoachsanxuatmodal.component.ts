@@ -25,6 +25,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   filter: any = {};
   checkbutton: any = {};
   listGiaoKeHoach: any = [];
+  listPhanXuong: any = [];
   tempDataGiaoKeHoach: any = [];
   listMatHangGiaoKeHoach: any = [];
   itemGiaoKeHoach: any = {};
@@ -43,34 +44,52 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
     }
-    this.getListGiaoKeHoach();
+    this.getListPhanXuong();
+    // this.getListGiaoKeHoach();
   }
   validVariable(e) {
     return validVariable(e);
   }
-  getListGiaoKeHoach() {
-    this._services.GetOptions().GetListGiaoKeHoachSanXuatChuaLapKeHoach().subscribe((res: Array<any>) => {
-      res.forEach(ele => {
-        this.mapGiaoKeHoachNIdPhanXuong[`${ele.Id}`] = ele.IddmPhanXuong;
-      })
-      this.tempDataGiaoKeHoach = deepCopy(res);
-      this.listGiaoKeHoach = mapArrayForDropDown(res, 'NoiDung', 'Id');
-      if (validVariable(this.item.IdGiaoKeHoachSanXuat)) {
-        this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
+  getListPhanXuong() {
+    this._services.GetOptions().GetPhanXuong().subscribe((res: Array<any>) => {
+      console.log(res)
+      // res.forEach(ele => {
+      //   this.mapGiaoKeHoachNIdPhanXuong[`${ele.Id}`] = ele.IddmPhanXuong;
+      // })
+      // this.tempDataGiaoKeHoach = deepCopy(res);
+      // this.listGiaoKeHoach = mapArrayForDropDown(res, 'NoiDung', 'Id');
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      if (validVariable(this.item.IddmPhanXuong)) {
+        this.GetListMatHangChuaLapKeHoach({ value: this.item.IddmPhanXuong });
       }
+      // if (validVariable(this.item.IdGiaoKeHoachSanXuat)) {
+      //   this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
+      // }
     })
   }
+  // getListGiaoKeHoach() {
+  //   this._services.GetOptions().GetListGiaoKeHoachSanXuatChuaLapKeHoach().subscribe((res: Array<any>) => {
+  //     res.forEach(ele => {
+  //       this.mapGiaoKeHoachNIdPhanXuong[`${ele.Id}`] = ele.IddmPhanXuong;
+  //     })
+  //     this.tempDataGiaoKeHoach = deepCopy(res);
+  //     this.listGiaoKeHoach = mapArrayForDropDown(res, 'NoiDung', 'Id');
+  //     if (validVariable(this.item.IdGiaoKeHoachSanXuat)) {
+  //       this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
+  //     }
+  //   })
+  // }
   GetListMatHangChuaLapKeHoach(event, reset?) {
-    this.IddmPhanXuong = this.mapGiaoKeHoachNIdPhanXuong[`${event.value}`];
-    if (validVariable(this.item.IdGiaoKeHoachSanXuat)) {
-      this.itemGiaoKeHoach = deepCopy(this.tempDataGiaoKeHoach.find(ele => ele.Id === this.item.IdGiaoKeHoachSanXuat));
-      if (validVariable(this.itemGiaoKeHoach.TuNgayUnix) && this.itemGiaoKeHoach.TuNgayUnix !== 0) {
-        this.itemGiaoKeHoach.TuNgay = UnixToDate(this.itemGiaoKeHoach.TuNgayUnix)
-      }
-      if (validVariable(this.itemGiaoKeHoach.DenNgayUnix) && this.itemGiaoKeHoach.DenNgayUnix !== 0) {
-        this.itemGiaoKeHoach.DenNgay = UnixToDate(this.itemGiaoKeHoach.DenNgayUnix)
-      }
-    }
+    // this.IddmPhanXuong = this.mapGiaoKeHoachNIdPhanXuong[`${event.value}`];
+    // if (validVariable(this.item.IdGiaoKeHoachSanXuat)) {
+    //   this.itemGiaoKeHoach = deepCopy(this.tempDataGiaoKeHoach.find(ele => ele.Id === this.item.IdGiaoKeHoachSanXuat));
+    //   if (validVariable(this.itemGiaoKeHoach.TuNgayUnix) && this.itemGiaoKeHoach.TuNgayUnix !== 0) {
+    //     this.itemGiaoKeHoach.TuNgay = UnixToDate(this.itemGiaoKeHoach.TuNgayUnix)
+    //   }
+    //   if (validVariable(this.itemGiaoKeHoach.DenNgayUnix) && this.itemGiaoKeHoach.DenNgayUnix !== 0) {
+    //     this.itemGiaoKeHoach.DenNgay = UnixToDate(this.itemGiaoKeHoach.DenNgayUnix)
+    //   }
+    // } 
     if (validVariable(this.item.TuNgayUnix) && this.item.TuNgayUnix !== 0) {
       this.item.TuNgay = UnixToDate(this.item.TuNgayUnix)
     }
@@ -79,10 +98,11 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     }
     if (validVariable(this.item.listCongDoan) && this.item.listCongDoan.length !== 0) {
       this.listCongDoan = mapArrayForDropDown(this.item.listCongDoan, 'Ten', 'Ma');
-      this.filter.CongDoan = this.listCongDoan[0].value;
+      // this.filter.CongDoan = this.listCongDoan[0].value;
+      this.filter.CongDoan = 'CON';
     }
-    this.minDateChonMay = UnixToDate(this.tempDataGiaoKeHoach.filter(ele => ele.Id === event.value)[0]?.TuNgayUnix);
-    this.maxDateChonMay = UnixToDate(this.tempDataGiaoKeHoach.filter(ele => ele.Id === event.value)[0]?.DenNgayUnix);
+    // this.minDateChonMay = UnixToDate(this.tempDataGiaoKeHoach.filter(ele => ele.Id === event.value)[0]?.TuNgayUnix);
+    // this.maxDateChonMay = UnixToDate(this.tempDataGiaoKeHoach.filter(ele => ele.Id === event.value)[0]?.DenNgayUnix);
     this._services.GetOptions().GetListMatHangChuaLapKeHoach(event.value).subscribe((res: any) => {
       // res.forEach(element => {
       //   element.KhoiLuongKeHoach = element.KhoiLuongKeHoach / 1000;
@@ -114,22 +134,22 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         });
       }
     })
-    this._services.GetOptions().GetListTinhTrangMay(this.item.Id, this.mapGiaoKeHoachNIdPhanXuong[`${event.value}`], DateToUnix(this.minDateChonMay), DateToUnix(this.maxDateChonMay)).subscribe((res: any) => {
-      res.forEach(may => {
-        this.PoolMaySanXuat[may.CongDoan] = { ...this.PoolMaySanXuat[may.CongDoan] };
-        let mayName = may.Id.split('-').join('_');
-        this.PoolMaySanXuat[may.CongDoan][mayName] = { ...this.PoolMaySanXuat[may.CongDoan][mayName] }
-        let ngayName = may.Ngay.split('/').join('_');
-        this.PoolMaySanXuat[may.CongDoan][mayName][ngayName] = may;
-        this.PoolMaySanXuat[may.CongDoan][mayName].Ma = may.Ma;
-        this.PoolMaySanXuat[may.CongDoan][mayName].Ten = may.Ten;
-        this.PoolMaySanXuat[may.CongDoan][mayName].Id = may.Id;
-        // if (validVariable(may.IddmItem)) {
-        //   console.log(may);
-        // }
-      });
-      // console.log(this.PoolMaySanXuat)
-    });
+    // this._services.GetOptions().GetListTinhTrangMay(this.item.Id, this.mapGiaoKeHoachNIdPhanXuong[`${event.value}`], DateToUnix(this.minDateChonMay), DateToUnix(this.maxDateChonMay)).subscribe((res: any) => {
+    //   res.forEach(may => {
+    //     this.PoolMaySanXuat[may.CongDoan] = { ...this.PoolMaySanXuat[may.CongDoan] };
+    //     let mayName = may.Id.split('-').join('_');
+    //     this.PoolMaySanXuat[may.CongDoan][mayName] = { ...this.PoolMaySanXuat[may.CongDoan][mayName] }
+    //     let ngayName = may.Ngay.split('/').join('_');
+    //     this.PoolMaySanXuat[may.CongDoan][mayName][ngayName] = may;
+    //     this.PoolMaySanXuat[may.CongDoan][mayName].Ma = may.Ma;
+    //     this.PoolMaySanXuat[may.CongDoan][mayName].Ten = may.Ten;
+    //     this.PoolMaySanXuat[may.CongDoan][mayName].Id = may.Id;
+    //     // if (validVariable(may.IddmItem)) {
+    //     //   console.log(may);
+    //     // }
+    //   });
+    //   // console.log(this.PoolMaySanXuat)
+    // });
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
@@ -153,43 +173,50 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     modalRef.result.then(res => {
       // this.item.listItem = [...merge(deepCopy(res), this.item.listItem.filter(item => item.isXoa !== true), 'IddmItem'), ...this.item.listItem.filter(ele => ele.isXoa)];
       this.item.listItem = [...deepCopy(res), ...this.item.listItem.filter(ele => ele.isXoa)];
-      this._services.TrienKhaiKeHoachSanXuat().TinhNangSuat(this.item).subscribe((res: any) => {
-        this.listCongDoan = mapArrayForDropDown(res.listCongDoan, 'Ten', 'Ma');
-        this.filter.CongDoan = this.listCongDoan[0].value;
-        this.item.listItemMay = res.listItemMay;
-        // console.table(this.item.listItemMay)
-      })
+      this.TinhNangSuat()
+      // if(validVariable(this.item.TuNgay)&& validVariable(this.item.DenNgay)){
+      //   this._services.TrienKhaiKeHoachSanXuat().TinhNangSuat(this.item).subscribe((res: any) => {
+      //     this.listCongDoan = mapArrayForDropDown(res.listCongDoan, 'Ten', 'Ma');
+      //     this.filter.CongDoan = this.listCongDoan[0].value;
+      //     this.item.listItemMay = res.listItemMay;
+      //     // console.table(this.item.listItemMay)
+      //   })
+      // }
     }).catch(er => {
     })
   }
-  boTriMay(item) {
-    console.log(item.Id)
-    let modalRef = this._modal.open(BotrimaymodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    });
-    modalRef.componentInstance.item = item;
-    modalRef.componentInstance.labelProp = {
-      TuNgay: this.item.TuNgay,
-      DenNgay: this.item.DenNgay,
-      TuNgayUnix: DateToUnix(this.item.TuNgay),
-      DenNgayUnix: DateToUnix(this.item.DenNgay),
-      CongDoan: this.listCongDoan.filter(ele => ele.value === this.filter.CongDoan)[0]
-    }
-    modalRef.componentInstance.opt = item.opt;
-    modalRef.componentInstance.IddmPhanXuong = this.IddmPhanXuong;
-    modalRef.componentInstance.PoolMaySanXuat = this.PoolMaySanXuat;
-    modalRef.result.then(res => {
-      let selected = this.item.listItemMay.filter(ele => ele.Id === item.Id)[0];
-      selected = res;
-      selected.opt = 'edit';
-      this.TinhSoMayDaBoTri();
-    }).catch(er => {
-    })
-  }
+  // boTriMay(item) {
+  //   console.log(item.Id)
+  //   let modalRef = this._modal.open(BotrimaymodalComponent, {
+  //     size: 'fullscreen',
+  //     backdrop: 'static'
+  //   });
+  //   modalRef.componentInstance.item = item;
+  //   modalRef.componentInstance.labelProp = {
+  //     TuNgay: this.item.TuNgay,
+  //     DenNgay: this.item.DenNgay,
+  //     TuNgayUnix: DateToUnix(this.item.TuNgay),
+  //     DenNgayUnix: DateToUnix(this.item.DenNgay),
+  //     CongDoan: this.listCongDoan.filter(ele => ele.value === this.filter.CongDoan)[0]
+  //   }
+  //   modalRef.componentInstance.opt = item.opt;
+  //   modalRef.componentInstance.IddmPhanXuong = this.IddmPhanXuong;
+  //   modalRef.componentInstance.PoolMaySanXuat = this.PoolMaySanXuat;
+  //   modalRef.result.then(res => {
+  //     let selected = this.item.listItemMay.filter(ele => ele.Id === item.Id)[0];
+  //     selected = res;
+  //     selected.opt = 'edit';
+  //     this.TinhSoMayDaBoTri();
+  //   }).catch(er => {
+  //   })
+  // }
   ValidData() {
-    if (!validVariable(this.item.IdGiaoKeHoachSanXuat)) {
-      this.toastr.error('Vui lòng chọn kế hoạch giao!')
+    // if (!validVariable(this.item.IdGiaoKeHoachSanXuat)) {
+    //   this.toastr.error('Vui lòng chọn kế hoạch giao!')
+    //   return false
+    // }
+    if (!validVariable(this.item.IddmPhanXuong)) {
+      this.toastr.error('Vui lòng chọn phân xưởng!')
       return false
     }
     if (!validVariable(this.item.NoiDung)) {
@@ -348,39 +375,39 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
 
   }
   boTriLai() {
-    if(validVariable(this.item.listItemMay)&& this.item.listItemMay.length!==0){
-    let modalRef = this._modal.open(ModalthongbaoComponent, {
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.message = 'Các máy được bố trí trong thời gian hiện tại sẽ bị xóa nếu bạn bố trí lại!\n Bạn có chắc chắn muốn bố trí lại không?';
-    modalRef.result.then(res => {
-      this.item.TuNgay = null;
-      this.item.TuNgayUnix = null;
-      this.item.DenNgay = null;
-      this.item.DenNgayUnix = null;
-      this._services.GetOptions().GetListTinhTrangMay(this.item.Id, this.mapGiaoKeHoachNIdPhanXuong[`${this.item.IdGiaoKeHoachSanXuat}`], DateToUnix(this.minDateChonMay), DateToUnix(this.maxDateChonMay)).subscribe((res: any) => {
-        res.forEach(may => {
-          this.PoolMaySanXuat[may.CongDoan] = { ...this.PoolMaySanXuat[may.CongDoan] };
-          let mayName = may.Id.split('-').join('_');
-          this.PoolMaySanXuat[may.CongDoan][mayName] = { ...this.PoolMaySanXuat[may.CongDoan][mayName] }
-          let ngayName = may.Ngay.split('/').join('_');
-          this.PoolMaySanXuat[may.CongDoan][mayName][ngayName] = may;
-          this.PoolMaySanXuat[may.CongDoan][mayName].Ma = may.Ma;
-          this.PoolMaySanXuat[may.CongDoan][mayName].Ten = may.Ten;
-          this.PoolMaySanXuat[may.CongDoan][mayName].Id = may.Id;
-        });
-      });
-      this.item.listItemMay.forEach(may => {
-        may.SoMay = 0;
-      });
-    })
-      .catch(er => { })
-    }else{
-      this.item.TuNgay = null;
-      this.item.TuNgayUnix = null;
-      this.item.DenNgay = null;
-      this.item.DenNgayUnix = null;
-    }
+    // if(validVariable(this.item.listItemMay)&& this.item.listItemMay.length!==0){
+    // let modalRef = this._modal.open(ModalthongbaoComponent, {
+    //   backdrop: 'static'
+    // })
+    // modalRef.componentInstance.message = 'Các máy được bố trí trong thời gian hiện tại sẽ bị xóa nếu bạn bố trí lại!\n Bạn có chắc chắn muốn bố trí lại không?';
+    // modalRef.result.then(res => {
+    //   this.item.TuNgay = null;
+    //   this.item.TuNgayUnix = null;
+    //   this.item.DenNgay = null;
+    //   this.item.DenNgayUnix = null;
+    //   this._services.GetOptions().GetListTinhTrangMay(this.item.Id, this.mapGiaoKeHoachNIdPhanXuong[`${this.item.IdGiaoKeHoachSanXuat}`], DateToUnix(this.minDateChonMay), DateToUnix(this.maxDateChonMay)).subscribe((res: any) => {
+    //     res.forEach(may => {
+    //       this.PoolMaySanXuat[may.CongDoan] = { ...this.PoolMaySanXuat[may.CongDoan] };
+    //       let mayName = may.Id.split('-').join('_');
+    //       this.PoolMaySanXuat[may.CongDoan][mayName] = { ...this.PoolMaySanXuat[may.CongDoan][mayName] }
+    //       let ngayName = may.Ngay.split('/').join('_');
+    //       this.PoolMaySanXuat[may.CongDoan][mayName][ngayName] = may;
+    //       this.PoolMaySanXuat[may.CongDoan][mayName].Ma = may.Ma;
+    //       this.PoolMaySanXuat[may.CongDoan][mayName].Ten = may.Ten;
+    //       this.PoolMaySanXuat[may.CongDoan][mayName].Id = may.Id;
+    //     });
+    //   });
+    //   this.item.listItemMay.forEach(may => {
+    //     may.SoMay = 0;
+    //   });
+    // })
+    //   .catch(er => { })
+    // }else{
+    this.item.TuNgay = null;
+    this.item.TuNgayUnix = null;
+    this.item.DenNgay = null;
+    this.item.DenNgayUnix = null;
+    // }
   }
   validChonLai(mathang) {
     if (validVariable(mathang.TuNgay) && validVariable(mathang.DenNgay)) {
@@ -500,10 +527,22 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     this.item.listCongDoan = [];
     this.listCongDoan = [];
     this.filter.CongDoan = null;
-    if (validVariable(this.item.listItem) && this.item.listItem.length !== 0) {
+    this.TinhNangSuat()
+    // if (validVariable(this.item.listItem) && this.item.listItem.length !== 0) {
+    //   this._services.TrienKhaiKeHoachSanXuat().TinhNangSuat(this.item).subscribe((res: any) => {
+    //     this.listCongDoan = mapArrayForDropDown(res.listCongDoan, 'Ten', 'Ma');
+    //     this.filter.CongDoan = this.listCongDoan[0].value;
+    //     this.item.listItemMay = res.listItemMay;
+    //     // console.table(this.item.listItemMay)
+    //   })
+    // }
+  }
+  TinhNangSuat() {
+    if (validVariable(this.item.listItem) && this.item.listItem.length !== 0 && validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)) {
       this._services.TrienKhaiKeHoachSanXuat().TinhNangSuat(this.item).subscribe((res: any) => {
         this.listCongDoan = mapArrayForDropDown(res.listCongDoan, 'Ten', 'Ma');
-        this.filter.CongDoan = this.listCongDoan[0].value;
+        // this.filter.CongDoan = this.listCongDoan[0].value;
+        this.filter.CongDoan = 'CON';
         this.item.listItemMay = res.listItemMay;
         // console.table(this.item.listItemMay)
       })

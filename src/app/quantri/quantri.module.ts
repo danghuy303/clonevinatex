@@ -33,7 +33,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-
+import {ProgressBarModule} from 'primeng/progressbar';
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 
 // import { FileUploadModule } from 'primeng/fileupload';
 import localeVi from '@angular/common/locales/vi';
@@ -229,6 +230,9 @@ import { GiaokehoachsanxuathoanthanhmodalComponent } from './quanlykhosanxuat/qu
 import { ChonsodongphannhommayComponent } from './danhmuc/danhmucsanxuat/modals/chonsodongphannhommay/chonsodongphannhommay.component';
 import { KiemkebcpComponent } from './quanlykhosanxuat/quytrinh/kiemkebcp/kiemkebcp.component';
 import { KiemkebcpmodalComponent } from './quanlykhosanxuat/quytrinh/kiemkebcpmodal/kiemkebcpmodal.component';
+import { CandoichuyenComponent } from './quanlykhosanxuat/candoichuyen/candoichuyen.component';
+import { BotrimayOngComponent } from './quanlykhosanxuat/candoichuyen/modals/botrimay-ong/botrimay-ong.component';
+import { BotrimayChungComponent } from './quanlykhosanxuat/candoichuyen/modals/botrimay-chung/botrimay-chung.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -415,6 +419,9 @@ import { KiemkebcpmodalComponent } from './quanlykhosanxuat/quytrinh/kiemkebcpmo
     ChonsodongphannhommayComponent,
     KiemkebcpComponent,
     KiemkebcpmodalComponent,
+    CandoichuyenComponent,
+    BotrimayOngComponent,
+    BotrimayChungComponent,
   ],
   imports: [
     HttpClientModule,
@@ -451,7 +458,9 @@ import { KiemkebcpmodalComponent } from './quanlykhosanxuat/quytrinh/kiemkebcpmo
     TooltipModule,
     MultiSelectModule,
     VoiLibModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ProgressBarModule,
+    NgbProgressbarModule
   ],
   entryComponents: [
     ModalThuaDatComponent,
@@ -531,6 +540,8 @@ import { KiemkebcpmodalComponent } from './quanlykhosanxuat/quytrinh/kiemkebcpmo
     LohangmodalComponent,
     GiaokehoachsanxuathoanthanhmodalComponent,
     KiemkebcpmodalComponent,
+    BotrimayOngComponent,
+    BotrimayChungComponent
   ],
   providers: [
     SanXuatService,
