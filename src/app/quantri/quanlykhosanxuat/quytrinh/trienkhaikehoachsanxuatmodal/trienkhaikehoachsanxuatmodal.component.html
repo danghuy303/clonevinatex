@@ -40,11 +40,19 @@
         </div> -->
         <!-- <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
         </div> -->
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+        <!-- <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch giao<span class="required">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listGiaoKeHoach" placeholder="Chọn kế hoạch giao"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IdGiaoKeHoachSanXuat"
+                    (onChange)="GetListMatHangChuaLapKeHoach($event,true)"></p-dropdown>
+            </div>
+        </div> -->
+        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng<span class="required">*</span>:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"
                     (onChange)="GetListMatHangChuaLapKeHoach($event,true)"></p-dropdown>
             </div>
         </div>
@@ -55,58 +63,64 @@
             </div>
         </div>
 
-        <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch giao từ ngày:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                    [yearNavigator]="true" [yearRange]="yearRange" [readonlyInput]="true" inputId="monthpicker"
-                    [(ngModel)]="itemGiaoKeHoach.TuNgay" placeholder="dd/mm/yyyy" disabled>
-                </p-calendar>
+            <!-- <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch giao từ ngày:</label>
+                <div class="p-col-12 p-lg-8 p-p-0">
+                    <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
+                        [yearNavigator]="true" [yearRange]="yearRange" [readonlyInput]="true" inputId="monthpicker"
+                        [(ngModel)]="itemGiaoKeHoach.TuNgay" placeholder="dd/mm/yyyy" disabled>
+                    </p-calendar>
+                </div>
             </div>
-        </div>
-        <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch giao đến ngày:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                    [yearNavigator]="true" [yearRange]="yearRange" [readonlyInput]="true" inputId="monthpicker"
-                    [(ngModel)]="itemGiaoKeHoach.DenNgay" placeholder="dd/mm/yyyy" disabled>
-                </p-calendar>
+            <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch giao đến ngày:</label>
+                <div class="p-col-12 p-lg-8 p-p-0">
+                    <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
+                        [yearNavigator]="true" [yearRange]="yearRange" [readonlyInput]="true" inputId="monthpicker"
+                        [(ngModel)]="itemGiaoKeHoach.DenNgay" placeholder="dd/mm/yyyy" disabled>
+                    </p-calendar>
+                </div>
             </div>
-        </div>
-        <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ne BQ 30(Tấn/ca):</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemGiaoKeHoach.BQNE30" disabled>
-                </p-inputNumber>
+            <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ne BQ 30(Tấn/ca):</label>
+                <div class="p-col-12 p-lg-8 p-p-0">
+                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemGiaoKeHoach.BQNE30" disabled>
+                    </p-inputNumber>
+                </div>
             </div>
-        </div>
+            <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số ca:</label>
+                <div class="p-col-12 p-lg-8 p-p-0">
+                    <p-inputNumber [minFractionDigits]="0" [max]="93" locale="vi-VN" [(ngModel)]="itemGiaoKeHoach.TongSoCa"
+                        disabled>
+                    </p-inputNumber>
+                </div>
+            </div> -->
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số ca:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" [max]="93" locale="vi-VN" [(ngModel)]="itemGiaoKeHoach.TongSoCa"
-                    disabled>
-                </p-inputNumber>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Từ ngày:<button type="button" pButton pRipple
-                icon="pi pi-refresh" class="p-button-danger p-button-text p-button-sm" style="padding:3px !important;width: unset;" (click)="boTriLai()"></button></label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Từ ngày<span class="required">*</span>:
+                <!-- <button type="button" pButton pRipple
+                icon="pi pi-refresh" class="p-button-danger p-button-text p-button-sm" style="padding:3px !important;width: unset;" (click)="boTriLai()"></button> -->
+            </label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy" [defaultDate]="minDateChonMay"
-                    [yearNavigator]="false" [minDate]="minDateChonMay" [maxDate]="maxDateChonMay" [(ngModel)]="item.TuNgay" [disabled]="validChonLai(item)"
+                    [yearNavigator]="false" [minDate]="minDateChonMay" [maxDate]="maxDateChonMay" [(ngModel)]="item.TuNgay" (onBlur)="TinhNangSuat()"
                     placeholder="dd/mm/yyyy">
                 </p-calendar>
+                <!-- [disabled]="validChonLai(item)" -->
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đến ngày:<button type="button" pButton pRipple
-                    icon="pi pi-refresh" class="p-button-danger p-button-text p-button-sm" style="padding:3px !important;width: unset;" (click)="boTriLai()"></button></label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đến ngày<span class="required">*</span>:
+                <!-- <button type="button" pButton pRipple
+                    icon="pi pi-refresh" class="p-button-danger p-button-text p-button-sm" style="padding:3px !important;width: unset;" (click)="boTriLai()"></button> -->
+                </label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy" [defaultDate]="maxDateChonMay"
                     [yearNavigator]="false" [minDate]="minDateChonMay"
-                    (onSelect)="validDenNgay(item,$event)" [maxDate]="maxDateChonMay"
-                    [(ngModel)]="item.DenNgay" [disabled]="validChonLai(item)" placeholder="dd/mm/yyyy">
+                    (onSelect)="validDenNgay(item,$event)" [maxDate]="maxDateChonMay" (onBlur)="TinhNangSuat()"
+                    [(ngModel)]="item.DenNgay" placeholder="dd/mm/yyyy">
                 </p-calendar>
+                <!-- [disabled]="validChonLai(item)" -->
 
             </div>
         </div>
@@ -161,7 +175,7 @@
                         <col>
                         <col>
                         <col>
-                        <col style="width:130px">
+                        <!-- <col style="width:130px"> -->
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -172,7 +186,7 @@
                         <th>Kế hoạch triển khai(Tấn)</th>
                         <th>Số máy cần</th>
                         <th>Số máy bố trí</th>
-                        <th>Thao tác</th>
+                        <!-- <th>Thao tác</th> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-mathang let-i="rowIndex">
@@ -194,16 +208,16 @@
                             <!-- <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="mathang.SoMay">
                             </p-inputNumber> -->
                         </td>
-                        <td class="text-center date">
-                            <ng-container *ngIf="validVariable(item.TuNgay)&&validVariable(item.DenNgay)">
+                        <!-- <td class="text-center date"> -->
+                            <!-- <ng-container *ngIf="validVariable(item.TuNgay)&&validVariable(item.DenNgay)">
                                 <a href="javascript:void(0)" (click)="boTriMay(mathang,i)">Cân đối chuyền</a>
-                            </ng-container>
+                            </ng-container> -->
                             <!-- <ng-container *ngIf="validChonLai(mathang)">
                                 <button type="button" pButton pRipple icon="pi pi-refresh"
                                     class="p-button-danger p-button-text p-button-sm ml-3"
                                     (click)="boTriLai(mathang,i)"></button>
                             </ng-container> -->
-                        </td>
+                        <!-- </td> -->
                     </tr>
                 </ng-template>
             </p-table>

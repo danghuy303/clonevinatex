@@ -436,8 +436,11 @@ export class SanXuatService {
             GetListGiaoKeHoachSanXuatChuaLapKeHoach: () => {
                 return this.http.get(`${API.SCMQuanLyKho}GetListGiaoKeHoachSanXuatChuaLapKeHoach`, httpOptions)
             },
-            GetListMatHangChuaLapKeHoach: (IdGiaoKeHoachSanXuat) => {
-                return this.http.get(`${API.SCMQuanLyKho}GetListMatHangChuaLapKeHoach?IdGiaoKeHoachSanXuat=${IdGiaoKeHoachSanXuat}`, httpOptions)
+            // GetListMatHangChuaLapKeHoach: (IdGiaoKeHoachSanXuat) => {
+            //     return this.http.get(`${API.SCMQuanLyKho}GetListMatHangChuaLapKeHoach?IdGiaoKeHoachSanXuat=${IdGiaoKeHoachSanXuat}`, httpOptions)
+            // },
+            GetListMatHangChuaLapKeHoach: (IddmPhanXuong) => {
+                return this.http.get(`${API.SCMQuanLyKho}GetListMatHangChuaLapKeHoach?IddmPhanXuong=${IddmPhanXuong}`, httpOptions)
             },
             GetListCongDoanTheoMatHang: (IddmMatHang) => {
                 return this.http.get(`${API.SCMQuanLyKho}GetListCongDoanTheoMatHang?IddmMatHang=${IddmMatHang}`, httpOptions)
@@ -485,6 +488,7 @@ export class SanXuatService {
             },
         }
     }
+    //TrienKhaiKeHoachSanXuat
     TrienKhaiKeHoachSanXuat() {
         let url = API.SCMQuanLyKho;
         return {
@@ -512,6 +516,13 @@ export class SanXuatService {
             TinhNangSuat: (data) => {
                 return this.http.post(url + 'TinhNangSuat', data, httpOptions)
             }
+        }
+    }
+    //CanDoiChuyen
+    CanDoiChuyen(){
+        let url = API.SCMQuanLyKho;
+        return {
+            
         }
     }
     //#region  NhapLoBong
