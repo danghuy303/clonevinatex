@@ -58,17 +58,55 @@ export class DmphannhommaymodalComponent implements OnInit {
       this.childModalOpt = this.mapCongDoan[this.item.CongDoan];
     }
     if (this.opt == 'edit') {
-      this.item.lstdmItem.forEach(element => {
-        if (this.childModalOpt === 'MATHANG') {
-          this.GetLoaiSoi();
-          this.GetDMMatHang();
-          element.Iditem = element.IddmItem;
-        }
-        if (this.childModalOpt === 'SOI') {
-          this.GetListLoaiSoi()
-          element.Iditem = element.IddmLoaiSoi;
-        }
-      });
+
+      let data1 = {
+        PageSize: 20,
+        CurrentPage: 0,
+        sFilter: this.filter.keyWord != undefined && this.filter.keyWord != null ? this.filter.keyWord : "",
+        CongDoan: '',
+        Ma: "",
+        Ten: "",
+      };
+      this.sanXuatService.GetListdmLoaiSoi(data1).subscribe((res: any) => {
+        let listLoaiSoiHoacMatHang1 = res;
+        this.item.lstdmItem.forEach(element => {
+          // if (this.childModalOpt === 'MATHANG') {
+          //   this.GetLoaiSoi();
+          //   this.GetDMMatHang();
+          //   element.Iditem = element.IddmItem;
+          // }
+          if (this.childModalOpt === 'SOI') {
+            this.GetListLoaiSoi()
+            element.Iditem = listLoaiSoiHoacMatHang1.filter(objlistLoaiSoiHoacMatHang => element.IddmLoaiSoi == objlistLoaiSoiHoacMatHang.Id)[0];
+          }
+        });
+      })
+
+      let data2 = {
+        PageSize: 20,
+        CurrentPage: 0,
+        sFilter: this.filter.keyWord != undefined && this.filter.keyWord != null ? this.filter.keyWord : "",
+        CongDoan: '',
+        Ma: "",
+        Ten: "",
+        Loai: "1",
+        IddmLoaiSoi: this.filter.IddmLoaiSoi
+      };
+      this.sanXuatService.GetListdmItem(data2).subscribe((res: any) => {
+        let listLoaiSoiHoacMatHang2 = res;
+        this.item.lstdmItem.forEach(element => {
+          if (this.childModalOpt === 'MATHANG') {
+            this.GetLoaiSoi();
+            this.GetDMMatHang();            
+            element.Iditem = listLoaiSoiHoacMatHang2.filter(objlistLoaiSoiHoacMatHang => element.IddmItem == objlistLoaiSoiHoacMatHang.Id)[0];
+          }
+          // if (this.childModalOpt === 'SOI') {
+          //   this.GetListLoaiSoi()
+          //   element.Iditem = element.IddmLoaiSoi;
+          // }
+        });
+      })
+
     }
     this.GetListPhanXuong();
     this.GetListCongDoan();
