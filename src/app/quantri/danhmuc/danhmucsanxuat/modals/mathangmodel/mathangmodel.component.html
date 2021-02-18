@@ -85,7 +85,9 @@
             </div>
             <label class="p-col-12 p-lg-2 p-p-0 my-auto text-right">Đặc tính sợi</label>
             <div class="p-col-12 p-lg-4 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DacTinhSoi" pInputText />
+                <p-dropdown [options]="listDacTinhSoi" placeholder="Chọn đặc tính sợi" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.DacTinhSoi"></p-dropdown>
+                <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DacTinhSoi" pInputText /> -->
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">

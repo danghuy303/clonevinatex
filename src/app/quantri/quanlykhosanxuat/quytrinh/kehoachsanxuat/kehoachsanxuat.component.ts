@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { GiaokehoachsanxuathoanthanhmodalComponent } from '../giaokehoachsanxuathoanthanhmodal/giaokehoachsanxuathoanthanhmodal.component';
 import { KehoachsanxuatmodalComponent } from '../kehoachsanxuatmodal/kehoachsanxuatmodal.component';
 
 @Component({
@@ -50,14 +51,15 @@ export class KehoachsanxuatComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== '0') {
-        this._service.GiaoKeHoachSanXuat().Get(res.id).subscribe((res: any) => {
-          this.update(res);
-        },(err)=>{
-          if(err.status ===500){
-            this._toastr.error('Hệ thống không tìm thấy dữ liệu bạn cần!')
-          }
-          console.log(err);
-        })
+        // this.update(res.id)
+        // this._service.GiaoKeHoachSanXuat().Get(res.id).subscribe((res: any) => {
+        //   this.update(res);
+        // },(err)=>{
+        //   if(err.status ===500){
+        //     this._toastr.error('Hệ thống không tìm thấy dữ liệu bạn cần!')
+        //   }
+        //   console.log(err);
+        // })
       }
     })
     this.KiemTraTabTrangThai();
@@ -85,32 +87,40 @@ export class KehoachsanxuatComponent implements OnInit {
     })
       .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
   }
-  update(item) {
-    this._service.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
-      this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
-      if (item.listItem != undefined && item.listItem != null) {
-        item.listItem.filter(objlistItem => {
-          objlistItem.listItem.filter(async objlistItem2 => {
-            objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
-          });          
-        });
-        let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
-          size: 'fullscreen',
-          backdrop: 'static'
-        })
-        modalRef.componentInstance.opt = 'edit';
-        modalRef.componentInstance.item = item;
-        modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
-        modalRef.componentInstance.item.DenNgay = UnixToDate(item.DenNgayUnix);
-        modalRef.result.then((res: any) => {
-          console.log(res);
-          this._toastr.success('Cập nhật thành công');
-          this.GetListQuyTrinh();
-          this.changeParam(0)
-        })
-          .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
+  update(Id) {
+    this.changeParam(Id);
+    this._service.GiaoKeHoachSanXuat().Get(Id).subscribe((item: any) => {
+      this._service.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
+        this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
+        if (item.listItem != undefined && item.listItem != null) {
+          item.listItem.filter(objlistItem => {
+            objlistItem.listItem.filter(async objlistItem2 => {
+              objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
+            });          
+          });
+          let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
+            size: 'fullscreen',
+            backdrop: 'static'
+          })
+          modalRef.componentInstance.opt = 'edit';
+          modalRef.componentInstance.item = item;
+          modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
+          modalRef.componentInstance.item.DenNgay = UnixToDate(item.DenNgayUnix);
+          modalRef.result.then((res: any) => {
+            console.log(res);
+            this._toastr.success('Cập nhật thành công');
+            this.GetListQuyTrinh();
+            this.changeParam(0)
+          })
+            .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
+        }
+      })  
+    },(err)=>{
+      if(err.status ===500){
+        this._toastr.error('Hệ thống không tìm thấy dữ liệu bạn cần!')
       }
-    })  
+      console.log(err);
+    })
   }
   changeTab(e) {
     this.trangThai = e.index + 1;
@@ -149,5 +159,36 @@ export class KehoachsanxuatComponent implements OnInit {
     //   this.checkQuyen = res;
     //   this.GetListQuyTrinh();
     // })
+  }
+  hoanthanh(Id) {
+    this.router.navigate([`quantri/kehoachsanxuat/giaokehoachsanxuat/${Id}`], { replaceUrl: true })
+    this._service.GiaoKeHoachSanXuat().Get(Id).subscribe((item: any) => {
+      this._service.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
+        this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
+        console.log(item)
+        if (item.listItem != undefined && item.listItem != null) {
+          item.listItem.filter(objlistItem => {
+            objlistItem.listItem.filter(async objlistItem2 => {
+              objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
+            });          
+          });
+          let modalRef = this._modal.open(GiaokehoachsanxuathoanthanhmodalComponent, {
+            size: 'fullscreen',
+            backdrop: 'static'
+          })
+          modalRef.componentInstance.opt = 'edit';
+          modalRef.componentInstance.item = item;
+          modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
+          modalRef.componentInstance.item.DenNgay = UnixToDate(item.DenNgayUnix);
+          modalRef.result.then((res: any) => {
+            console.log(res);
+            this._toastr.success('Cập nhật thành công');
+            this.GetListQuyTrinh();
+            this.changeParam(0)
+          })
+            .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
+        }
+      }) 
+    });
   }
 }

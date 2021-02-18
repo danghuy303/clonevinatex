@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { CdkFixedSizeVirtualScroll } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-mathangmodel',
@@ -17,6 +18,16 @@ export class MathangmodelComponent implements OnInit {
   listCongDoan: any = [];
   listLoaiSoi: any = [];
   listItem: any = [];
+  listDacTinhSoi: any = [
+    {
+      value: "CC",
+      label: "CC"
+    },
+    {
+      value: "CF",
+      label: "CF"
+    }
+  ];
   editTableItem: any = {};
   khongclicknhieu: any = false;
   constructor(public activeModal: NgbActiveModal,

@@ -75,6 +75,5 @@ export class LohangmodalComponent implements OnInit {
     console.log(event);
     this.item.IddmPhanXuong = event.value.IddmPhanXuong;
     this.item.IdGiaoKeHoachSanXuat = event.value.Id;
-    debugger
   }
 }

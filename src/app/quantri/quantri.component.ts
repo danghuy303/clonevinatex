@@ -434,14 +434,6 @@ export class QuantriComponent implements OnInit {
                         }
                     },
                     {
-                        label: 'Kế hoạch được giao hoàn thành',
-                        routerLink: '/quantri/kehoachsanxuat/giaokehoachsanxuathoanthanh/0',
-                        separator: this.checkmenu("GIAOKEHOACHSANXUATHOANTHANH"),
-                        command: () => {
-                            this.close()
-                        }
-                    },
-                    {
                         label: 'Triển khai kế hoạch',
                         routerLink: '/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/0',
                         separator: this.checkmenu("TRIENKHAIKEHOACHSANXUAT"),
@@ -695,8 +687,11 @@ export class QuantriComponent implements OnInit {
                     },
                 ]
             },
-
-
+            {
+                label: 'Kiểm kê BCP',
+                icon: 'fas fa-circle',
+                routerLink: '/quantri/quanlykhosanxuat/kiemkeBCP/0',
+            },
             // {
             //     label: 'Báo cáo',
             //     icon: 'pi pi-chart-bar',

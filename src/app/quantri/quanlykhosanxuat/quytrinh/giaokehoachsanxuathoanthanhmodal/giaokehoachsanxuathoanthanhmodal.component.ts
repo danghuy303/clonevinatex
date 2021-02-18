@@ -25,6 +25,7 @@ export class GiaokehoachsanxuathoanthanhmodalComponent implements OnInit {
   filter: any = {
     KeyWord: ''
   };
+  checkedAll: boolean = false;
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   listPhuongAnSapXep: any = [];
   listDonVi: any = [];
@@ -36,13 +37,12 @@ export class GiaokehoachsanxuathoanthanhmodalComponent implements OnInit {
   listQuyCachDongGoi: any = [];
   yearRange: string = `${((new Date()).getFullYear())}:${((new Date()).getFullYear()) + 5}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
-     public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) {
+    public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) {
 
   }
 
   ngOnInit(): void {
     this.GetFormOptions()
-    this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
       if (this._store.getCurrent()) {
@@ -81,7 +81,7 @@ export class GiaokehoachsanxuathoanthanhmodalComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
     })
   }
-  
+
   ChuyenDuyet() {
     if (this.validData()) {
       this.services.GiaoKeHoachSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
@@ -190,9 +190,9 @@ export class GiaokehoachsanxuathoanthanhmodalComponent implements OnInit {
       && item.listItem != undefined && item.listItem.length > 0) {
       let tong = 0;
       item.listItem.filter(obj => {
-        if(!obj.isXoa){
+        if (!obj.isXoa) {
           tong += obj.KhoiLuong;
-        }   
+        }
       });
       if (item.value < tong) {
         this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
@@ -246,29 +246,24 @@ export class GiaokehoachsanxuathoanthanhmodalComponent implements OnInit {
       }
     }
   }
-  GhiLai() {
+  HoanThanh() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
     if (this.validData()) {
-      this.services.GiaoKeHoachSanXuat().Set(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.toastr.success(res.message)
-            this.opt = 'edit';
-            this.item = res.objectReturn;
-            if (this.item.listItem != undefined && this.item.listItem != null) {
-              this.item.listItem.filter(objlistItem => {
-                objlistItem.listItem.filter(objlistItem2 => {
-                  objlistItem2.objQuyCachDongGoi = this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
-                });
-              });
+      modalRef.componentInstance.message = "Bạn có chắc chắn muốn hoàn thành quy trình này?"
+      modalRef.result.then(res => {
+        this.services.GiaoKeHoachSanXuat().HoanThanh(this.item).subscribe((res: any) => {
+          if (res) {
+            if (res.State === 1) {
+              this.toastr.success(res.message)
+              this.activeModal.close();
+            } else {
+              this.toastr.error(res.message);
             }
-            this.KiemTraButtonModal();
-            this.Calculate();
-          } else {
-            this.Calculate();
-            this.toastr.error(res.message);
           }
-        }
-      })
+        })
+      }).catch(er => console.log(er))
     }
   }
   XoaQuyTrinh() {
@@ -302,7 +297,21 @@ export class GiaokehoachsanxuathoanthanhmodalComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  refreshFilterMatHang(){
+  refreshFilterMatHang() {
     this.filter.KeyWord = '';
+  }
+  checkAll(e) {
+    if (e.checked) {
+      this.item.listItem.forEach(item => {
+        item.isDaHoanThanh = true;
+      });
+    } else {
+      this.item.listItem.forEach(item => {
+        item.isDaHoanThanh = false;
+      });
+    }
+  }
+  checked() {
+    this.checkedAll = this.item.listItem.every(ele => ele.checked)
   }
 }

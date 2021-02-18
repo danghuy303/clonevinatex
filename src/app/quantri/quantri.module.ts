@@ -227,6 +227,8 @@ import { DashboardthongluongComponent } from './dashboardthongluong/dashboardtho
 import { GiaokehoachsanxuathoanthanhComponent } from './quanlykhosanxuat/quytrinh/giaokehoachsanxuathoanthanh/giaokehoachsanxuathoanthanh.component';
 import { GiaokehoachsanxuathoanthanhmodalComponent } from './quanlykhosanxuat/quytrinh/giaokehoachsanxuathoanthanhmodal/giaokehoachsanxuathoanthanhmodal.component';
 import { ChonsodongphannhommayComponent } from './danhmuc/danhmucsanxuat/modals/chonsodongphannhommay/chonsodongphannhommay.component';
+import { KiemkebcpComponent } from './quanlykhosanxuat/quytrinh/kiemkebcp/kiemkebcp.component';
+import { KiemkebcpmodalComponent } from './quanlykhosanxuat/quytrinh/kiemkebcpmodal/kiemkebcpmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -411,6 +413,8 @@ import { ChonsodongphannhommayComponent } from './danhmuc/danhmucsanxuat/modals/
     GiaokehoachsanxuathoanthanhComponent,
     GiaokehoachsanxuathoanthanhmodalComponent,
     ChonsodongphannhommayComponent,
+    KiemkebcpComponent,
+    KiemkebcpmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -526,7 +530,7 @@ import { ChonsodongphannhommayComponent } from './danhmuc/danhmucsanxuat/modals/
     LohangComponent,
     LohangmodalComponent,
     GiaokehoachsanxuathoanthanhmodalComponent,
-
+    KiemkebcpmodalComponent,
   ],
   providers: [
     SanXuatService,

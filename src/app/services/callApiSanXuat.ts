@@ -483,6 +483,9 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetGiaoKeHoachSanXuat', data, httpOptions)
             },
+            HoanThanh: (data) => {
+                return this.http.post(url + 'HoanThanhGiaoKeHoachSanXuat', data, httpOptions);
+            },
         }
     }
     TrienKhaiKeHoachSanXuat() {
