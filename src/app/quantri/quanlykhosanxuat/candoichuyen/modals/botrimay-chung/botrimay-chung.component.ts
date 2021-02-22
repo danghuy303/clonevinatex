@@ -26,7 +26,11 @@ export class BotrimayChungComponent implements OnInit {
    ngOnInit(): void {
      console.log(this.item);
      this.listHangHoa = mapArrayForDropDown(this.item.listCanBoTri,'Ten','Id')
+     this.item.listCanBoTri.forEach(mathang => {
+      mathang.SoMayDaBoTri = 0;
+     });
      this.newMay={}
+     this.TinhSoLuongMatHang()
    }
    GhiLai(){
     this._services.CanDoiChuyen().SetCanDoiChuyen({...this.item,...this.addonData}).subscribe((res:any)=>{
@@ -42,9 +46,9 @@ export class BotrimayChungComponent implements OnInit {
     })
    }
    TinhSoLuongMatHang(){
-    //  this.item.listDaBoTri.forEach(element => {
-       
-    //  });
+     this.item.listCanBoTri.forEach(mathang => {
+       mathang.SoMayDaBoTri = this.item.listDaBoTri.filter(may=>may.IdCanDoiChuyen_CanBoTri===mathang.Id)?.length||0;
+     });
    }
    ApDungDenNgay(){
     if(validVariable(this.filter.DenNgay)&& validVariable(this.filter.TuNgay)&& this.filter.TuNgay<this.filter.DenNgay){
