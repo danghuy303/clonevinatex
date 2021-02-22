@@ -82,11 +82,13 @@ export class DanhsachmayComponent implements OnInit {
   listCongDoan: any = [];
   listPhanNhomMaySX: any = [];
   selectedItems: any = [];
+  listphannhommay: any = [];
   constructor(private _modal: NgbModal, private _services: SanXuatService, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.GetListdmPhanNhomMaySanXuat();
     this.GetListdm();
+    this.getlistphannhommay();
     this.getListCongDoan();
     this.getListdmPhanXuong();
 
@@ -112,7 +114,7 @@ export class DanhsachmayComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       sFilter: this.filter.keyWord ? this.filter.keyWord : '',
-      CongDoan: this.filter.CongDoan ? this.filter.CongDoan : '',
+      IddmPhanNhom: this.filter.IddmPhanNhom ? this.filter.IddmPhanNhom : '',
       Ma: "",
       Ten: "",
     };
@@ -133,7 +135,7 @@ export class DanhsachmayComponent implements OnInit {
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.listdmPhanXuong = this.listdmPhanXuong;
     modalRef.componentInstance.listCongDoan = this.listCongDoan;
-    modalRef.componentInstance.listPhanNhomMaySX = this.listPhanNhomMaySX;    
+    modalRef.componentInstance.listPhanNhomMaySX = this.listPhanNhomMaySX;
     modalRef.result.then(res => {
       this._toastr.success(res);
       this.GetListdm()
@@ -148,7 +150,7 @@ export class DanhsachmayComponent implements OnInit {
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.listdmPhanXuong = this.listdmPhanXuong;
     modalRef.componentInstance.listCongDoan = this.listCongDoan;
-    modalRef.componentInstance.listPhanNhomMaySX = this.listPhanNhomMaySX;    
+    modalRef.componentInstance.listPhanNhomMaySX = this.listPhanNhomMaySX;
     modalRef.result.then(res => {
       this._toastr.success(res);
       this.GetListdm()
@@ -206,6 +208,20 @@ export class DanhsachmayComponent implements OnInit {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
     })
   }
+
+  getlistphannhommay() {
+    let data = {
+      PageSize: 20,
+      CurrentPage: 0,
+      KeyWord: this.keyWord,
+      Ma: "",
+      Ten: ""
+    };
+    this._services.dmPhanNhomMaySanXuat().GetList(data).subscribe((res: any) => {
+      this.listphannhommay = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
   importExcel() {
     let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
       backdrop: 'static',
