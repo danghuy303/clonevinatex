@@ -41,6 +41,11 @@ export class BotrimayChungComponent implements OnInit {
       }
     })
    }
+   TinhSoLuongMatHang(){
+    //  this.item.listDaBoTri.forEach(element => {
+       
+    //  });
+   }
    ApDungDenNgay(){
     if(validVariable(this.filter.DenNgay)&& validVariable(this.filter.TuNgay)&& this.filter.TuNgay<this.filter.DenNgay){
       this._services.CanDoiChuyen().SetCanDoiChuyen({...this.item,...this.addonData}).subscribe((res:any)=>{

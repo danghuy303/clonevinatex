@@ -44,8 +44,8 @@ export class CandoichuyenComponent implements OnInit {
     ngOnInit(): void {
         this.GetOptions();
         let date = new Date();
-        this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
-        this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 2, 0);
+        this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth() , 1);
+        this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
         // this.boTriMay();
         this.GetCalendar()
     }
