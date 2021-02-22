@@ -86,6 +86,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  lô hàng cho công đoạn Ống");
     }
     else{
+      debugger
       this.item.listItem.forEach(element => {
         element.IdLoHang = this.item.IdLoHang
       });
