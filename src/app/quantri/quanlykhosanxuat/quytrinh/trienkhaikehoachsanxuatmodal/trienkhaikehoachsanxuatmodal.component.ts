@@ -36,6 +36,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   minDateChonMay: Date = null;
   IddmPhanXuong: string = '';
   PoolMaySanXuat: any = {};
+  mapCongDoan_TinhTrangMay:any={};
   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private datepipe: DatePipe) {
   }
 
@@ -215,12 +216,16 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     //   this.toastr.error('Vui lòng chọn kế hoạch giao!')
     //   return false
     // }
+    if(!validVariable(this.item.TuNgay)||!validVariable(this.item.DenNgay)){
+      this.toastr.error('Vui lòng nhập khoảng thời gian!');
+      return false;
+    }
     if (!validVariable(this.item.IddmPhanXuong)) {
-      this.toastr.error('Vui lòng chọn phân xưởng!')
+      this.toastr.error('Vui lòng chọn phân xưởng!');
       return false
     }
     if (!validVariable(this.item.NoiDung)) {
-      this.toastr.error('Vui lòng nhập nội dung!')
+      this.toastr.error('Vui lòng nhập nội dung!');
       return false
     }
     return true
@@ -539,8 +544,17 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   }
   TinhNangSuat() {
     if (validVariable(this.item.listItem) && this.item.listItem.length !== 0 && validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)) {
+      this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
+      this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
       this._services.TrienKhaiKeHoachSanXuat().TinhNangSuat(this.item).subscribe((res: any) => {
         this.listCongDoan = mapArrayForDropDown(res.listCongDoan, 'Ten', 'Ma');
+        res.listCongDoan.forEach(cd => {
+          this.mapCongDoan_TinhTrangMay[cd.Ma] = {
+            SoMayCanDoi:cd.SoMayCanDoi,
+            SoMayHienCo:cd.SoMayHienCo,
+            SoMayTinhToan:cd.SoMayTinhToan,
+          }
+        });
         // this.filter.CongDoan = this.listCongDoan[0].value;
         this.filter.CongDoan = 'CON';
         this.item.listItemMay = res.listItemMay;

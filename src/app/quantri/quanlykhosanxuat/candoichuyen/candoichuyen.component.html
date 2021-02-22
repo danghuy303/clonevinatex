@@ -15,11 +15,15 @@
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
-                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanXuong"></p-dropdown>
+                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanXuong" (onChange)=GetCalendar()></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
-                styleClass="p-inputtext-sm" [(ngModel)]="filter.CongDoan"></p-dropdown>
+                styleClass="p-inputtext-sm" [(ngModel)]="filter.CongDoan" (onChange)=GetCalendar()></p-dropdown>
+        </div>
+        <div>
+            <button pButton pRipple type="button" label="Kiểm tra sản lượng" class="p-button-sm"
+                (click)="showSanLuong()"></button>
         </div>
     </div>
 </div>
@@ -32,8 +36,14 @@
         </div>
         <div *ngIf="date.header==='none'" style="height: 20px;width: 100%; position: absolute;z-index: 2;top:0"></div>
         <div *ngIf="date.header!=='none'" style="width: 99%;">
-            <p><ngb-progressbar type="info" [value]="10"><b>4/10</b></ngb-progressbar></p>
+            <p><ngb-progressbar type="info" [value]="(date.SoMayDaBoTri/date.TongSoMay)*100"><b>{{date.SoMayDaBoTri}}/{{date.TongSoMay}}</b></ngb-progressbar></p>
         </div>
-        <div *ngIf="date.header!=='none'" style="width: 100%; text-align: center">Cần bố trí: <span class="required">3</span></div>
+        <div *ngIf="date.header!=='none'" style="width: 100%; text-align: center">Cần bố trí: <span class="required">{{date.SoMayCanBoTri}}</span></div>
     </li>
 </ul>
+<p-dialog header="Sản lượng" [(visible)]="showDialog" [modal]="true" [style]="{width: '99vw'}" [baseZIndex]="10000">
+   <app-sanluong [TuNgay]="this.filter._tuNgay" [DenNgay]="this.filter._denNgay" [CongDoan]="this.filter.CongDoan"></app-sanluong>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="showDialog=false" label="Đóng" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

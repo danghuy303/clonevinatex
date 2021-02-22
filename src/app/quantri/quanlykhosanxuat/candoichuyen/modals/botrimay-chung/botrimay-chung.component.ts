@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { vn } from 'src/app/services/const';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
@@ -10,17 +12,60 @@ import { StoreService } from 'src/app/services/store.service';
   styleUrls: ['./botrimay-chung.component.css']
 })
 export class BotrimayChungComponent implements OnInit {
-  checkbutton:any={};
+  checkbutton:any={Ghi:true};
+  addonData:any={};
   TenCongDoan:any='';
+  listHangHoa:any = [];
   item:any={
-    listItem:[],
   }
+  filter:any={};
   newMay:any={};
-   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) { }
+  lang:any=vn;
+   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) { }
  
    ngOnInit(): void {
+     console.log(this.item);
+     this.listHangHoa = mapArrayForDropDown(this.item.listCanBoTri,'Ten','Id')
      this.newMay={}
    }
- 
+   GhiLai(){
+    this._services.CanDoiChuyen().SetCanDoiChuyen({...this.item,...this.addonData}).subscribe((res:any)=>{
+      if(res){
+        if(res.State===1){
+          this.toastr.success(res.message);
+        }else{
+          this.toastr.error(res.message);
+        }
+      }else{
+        this.toastr.error('Cập nhật không thành công!');
+      }
+    })
+   }
+   ApDungDenNgay(){
+    if(validVariable(this.filter.DenNgay)&& validVariable(this.filter.TuNgay)&& this.filter.TuNgay<this.filter.DenNgay){
+      this._services.CanDoiChuyen().SetCanDoiChuyen({...this.item,...this.addonData}).subscribe((res:any)=>{
+        if(res){
+          if(res.State===1){
+            // this.toastr.success(res.message);
+            let data = {
+              ...this.addonData,
+              TuNgayUnix:DateToUnix(this.filter.TuNgay),
+              DenNgayUnix:DateToUnix(this.filter.DenNgay),
+            }
+            this._services.CanDoiChuyen().SetCanDoiChuyen_ApDungNgay(data).subscribe(res=>{
+              console.log(res);
+            })
+          }else{
+            this.toastr.error(res.message);
+          }
+        }else{
+          this.toastr.error('Cập nhật không thành công!');
+        }
+      })
+    }
+    else{
+      this.toastr.error('Vui lòng nhập kiểm tra lại khoảng thời gian áp dụng!');
+    }
+  }
 
 }

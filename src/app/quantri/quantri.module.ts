@@ -81,6 +81,7 @@ import { isXoaPipe } from './../services/isXoaPipe';
 import { VNDPipe } from './../services/vnd.pipe';
 import { FilterPipe } from './../services/filter.pipe';
 import { CongDoanPipe } from './../services/congdoan.pipe';
+import {CaPipe} from './../services/ca.pipe';
 
 import { UploadmodalComponent } from './modal/uploadmodal/uploadmodal.component';
 import { ThongKeThongTinThuaDatComponent } from './components/thong-ke-thong-tin-thua-dat/thong-ke-thong-tin-thua-dat.component';
@@ -271,6 +272,7 @@ import { BotrimayChungComponent } from './quanlykhosanxuat/candoichuyen/modals/b
     ModaldmtaisanComponent,
     isXoaPipe,
     VNDPipe,
+    CaPipe,
     UploadmodalComponent,
     ThongKeThongTinThuaDatComponent,
     TinhComponent,
@@ -551,6 +553,7 @@ import { BotrimayChungComponent } from './quanlykhosanxuat/candoichuyen/modals/b
     VNDPipe,
     FilterPipe,
     CongDoanPipe,
+    CaPipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],

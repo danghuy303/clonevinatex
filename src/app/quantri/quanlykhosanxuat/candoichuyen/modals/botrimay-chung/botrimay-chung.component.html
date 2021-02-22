@@ -22,10 +22,23 @@
         </div>
 
     </div>
+    <div class="p-d-flex p-flex-row">
+        <label class="mr-3">Áp dụng trong khoảng:</label>
+        <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
+            [defaultDate]="minDateChonMay" [yearNavigator]="false"
+            [(ngModel)]="filter.TuNgay" placeholder="Từ ngày">
+        </p-calendar>
+        <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
+            [defaultDate]="maxDateChonMay" [yearNavigator]="false"
+            [(ngModel)]="filter.DenNgay" placeholder="Đến ngày">
+        </p-calendar>
+        <button pButton pRipple type="button" label="Áp dụng" class="p-mr-2 p-button-sm " (click)="ApDungDenNgay()"
+            *ngIf="checkbutton.Ghi"></button>
+    </div>
     <div class="p-grid">
         <div class="p-col-12 p-p-0 d-flex flex-column flex-lg-row">
             <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-                <p-table [value]="item.listItem"
+                <p-table [value]="item.listDaBoTri"
                     styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                     <ng-template pTemplate="colgroup">
                         <colgroup>
@@ -42,14 +55,19 @@
                             <th>Mặt hàng</th>
                             <th>Nm</th>
                             <th>Ne</th>
-                            <th></th>
+                            <!-- <th></th> -->
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-item let-i="rowIndex">
                         <tr>
+                            <td>{{item.TenMay}}</td>
+                            <td><p-dropdown [filter]="true" showClear="true" [options]="listHangHoa" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
+                                [(ngModel)]="item.IdCanDoiChuyen_CanBoTri"></p-dropdown></td>
+                            <td><input pInputText type="text" [(ngModel)]="item.Ne"></td>
+                            <td><input pInputText type="text" [(ngModel)]="item.Nm"></td>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="footer">
+                    <!-- <ng-template pTemplate="footer">
                         <td>
                             <input pInputText type="text" [(ngModel)]="newMay.NoiDung">
                         </td>
@@ -66,11 +84,11 @@
                             <button pButton pRipple type="button" icon="pi pi-plus"
                                 class="p-button-rounded p-button-sm " (click)="add()"></button>
                         </td>
-                    </ng-template>
+                    </ng-template> -->
                 </p-table>
             </div>
             <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-                <p-table [value]="item.listItem"
+                <p-table [value]="item.listCanBoTri"
                     styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                     <ng-template pTemplate="colgroup">
                         <colgroup>
@@ -94,6 +112,12 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-item let-i="rowIndex">
                         <tr>
+                            <td class="text-center">{{i+1}}</td>
+                            <td>{{item.Ten}}</td>
+                            <td class="text-right">{{item.SoMayCanBoTri|number:'0.0-2'}}</td>
+                            <td></td>
+                            <td class="text-right">{{item.SanLuongCa|number:'0.0-2'}}</td>
+                            <td></td>
                         </tr>
                     </ng-template>
                 </p-table>

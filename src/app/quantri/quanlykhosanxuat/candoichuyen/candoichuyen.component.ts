@@ -4,6 +4,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import {
     DateToUnix,
+    deepCopy,
     mapArrayForDropDown,
     validVariable,
 } from "src/app/services/globalfunction";
@@ -21,7 +22,9 @@ export class CandoichuyenComponent implements OnInit {
     listDates = [];
     filter: any = {
         CongDoan: "ONG",
+        IddmPhanXuong:"1cf3f340-0f55-4f34-938p-e629318e25et"
     };
+    showDialog:boolean=false;
     listCongDoan: any = [];
     listPhanXuong: any = [];
     mapMa_TenCongDoan: any = {};
@@ -40,7 +43,11 @@ export class CandoichuyenComponent implements OnInit {
 
     ngOnInit(): void {
         this.GetOptions();
-        this.boTriMay();
+        let date = new Date();
+        this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+        this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 2, 0);
+        // this.boTriMay();
+        this.GetCalendar()
     }
     GetOptions(): void {
         let data2 = {
@@ -60,7 +67,7 @@ export class CandoichuyenComponent implements OnInit {
                 this.mapMa_TenCongDoan[cd.Ma] = cd.Ten;
             });
             // this.listCongDoan.unshift({ label: 'Tất cả', value: '' })
-            // this.filter.CongDoan = this.listCongDoan[0].value;ß
+            // this.filter.CongDoan = this.listCongDoan[0].value;
         });
     }
     getDates(startDate, endDate) {
@@ -74,14 +81,14 @@ export class CandoichuyenComponent implements OnInit {
         while (currentDate <= endDate) {
             let data: any = {};
             if (currentDate.getDate() === 1) {
-                data.header = `01/${
-                    currentDate.getMonth() < 9
+                data.header = `01/${currentDate.getMonth() < 9
                         ? `0${currentDate.getMonth() + 1}`
                         : currentDate.getMonth() + 1
-                }`;
+                    }`;
             } else {
                 data.header = this.datepipe.transform(currentDate, "dd");
             }
+            data.Unix = DateToUnix(currentDate);
             data.prop = this.datepipe.transform(currentDate, "dd_MM_yyyy");
             data.value = currentDate;
             dates.push(data);
@@ -104,45 +111,76 @@ export class CandoichuyenComponent implements OnInit {
             validVariable(this.filter.TuNgayUnix) &&
             validVariable(this.filter.DenNgayUnix) &&
             this.filter.TuNgayUnix < this.filter.DenNgayUnix
+            && validVariable(this.filter.IddmPhanXuong) && validVariable(this.filter.CongDoan)
         ) {
-            this.listDates = this.getDates(
-                this.filter._tuNgay,
-                this.filter._denNgay
-            );
-            for (let i = 0; i < this.filter._tuNgay.getDay(); i++) {
-                this.listDates.unshift({ header: "none" });
-            }
+            let { IddmPhanXuong, TuNgayUnix, DenNgayUnix, CongDoan } = this.filter
+            this._services.CanDoiChuyen().GetListCanDoiChuyen(IddmPhanXuong, CongDoan, TuNgayUnix, DenNgayUnix,).subscribe((res: Array<any>) => {
+                this.listDates = this.getDates(
+                    this.filter._tuNgay,
+                    this.filter._denNgay
+                );
+                for (let i = 0; i < this.listDates.length; i++) {
+                    this.listDates[i] = { ...this.listDates[i], ...res[i] }
+                }
+                console.log(this.listDates);
+                for (let i = 0; i < this.filter._tuNgay.getDay(); i++) {
+                    this.listDates.unshift({ header: "none" });
+                }
+            })
+            console.log(this.filter);
+
         }
     }
     boTriMay(date?) {
-        console.log(date);
         if (this.filter.CongDoan === "ONG") {
-            let modalRef = this._modal.open(BotrimayOngComponent, {
-                size: "fullscreen",
-                backdrop: "static",
-            });
-            modalRef.componentInstance.item = {
-                listItem: [],
-            };
-            modalRef.result
-                .then((res) => {})
-                .catch((er) => {
-                    console.log(er);
+            this._services.CanDoiChuyen().GetCanDoiChuyen(this.filter.IddmPhanXuong, this.filter.CongDoan, date.Unix).subscribe(res => {
+                console.log(res);
+                let modalRef = this._modal.open(BotrimayOngComponent, {
+                    size: "fullscreen",
+                    backdrop: "static",
                 });
+                modalRef.componentInstance.item = deepCopy(res);
+                modalRef.componentInstance.addonData = {
+                    IddmPhanXuong: this.filter.IddmPhanXuong,
+                    CongDoan: this.filter.CongDoan,
+                    NgayUnix: date.Unix
+                };
+                modalRef.result
+                    .then((res) => { 
+                    })
+                    .catch((er) => {
+                        console.log(er);
+                    })
+                    .finally(()=>{
+                        this.GetCalendar();
+                    });
+            })
         } else {
-            let modalRef = this._modal.open(BotrimayChungComponent, {
-                size: "fullscreen",
-                backdrop: "static",
-            });
-            modalRef.componentInstance.TenCongDoan = this.mapMa_TenCongDoan[this.filter.CongDoan]
-            modalRef.componentInstance.item = {
-                listItem: [],
-            };
-            modalRef.result
-                .then((res) => {})
-                .catch((er) => {
-                    console.log(er);
+            this._services.CanDoiChuyen().GetCanDoiChuyen(this.filter.IddmPhanXuong, this.filter.CongDoan, date.Unix).subscribe(res => {
+                let modalRef = this._modal.open(BotrimayChungComponent, {
+                    size: "fullscreen",
+                    backdrop: "static",
                 });
+                modalRef.componentInstance.TenCongDoan = this.mapMa_TenCongDoan[this.filter.CongDoan];
+                modalRef.componentInstance.item = deepCopy(res);
+                modalRef.componentInstance.addonData = {
+                    IddmPhanXuong: this.filter.IddmPhanXuong,
+                    CongDoan: this.filter.CongDoan,
+                    NgayUnix: date.Unix
+                };
+                modalRef.result
+                    .then((res) => {
+                    })
+                    .catch((er) => {
+                        console.log(er);
+                    })
+                    .finally(()=>{
+                        this.GetCalendar();
+                    });
+            })
         }
+    }
+    showSanLuong(){
+        this.showDialog = true;
     }
 }

@@ -78,7 +78,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
     aspectRatio: (((window.innerWidth - 80) / 2) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
-  SelectItem: any = null;
+  SelectItem: any = {};
   dataPie: { labels: string[]; datasets: { data: number[]; backgroundColor: string[]; hoverBackgroundColor: string[]; }[]; };
   chatLuongSanPham: any = [];
   headerChatLuongSanPham: any = [];
