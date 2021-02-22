@@ -24,6 +24,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   listCongDoan:any=[];
   listCaSanXuat:any=[];
   listPhanXuong: any = [];
+  listItem: any = [];
   editTableItem: any = {};
   lang: any = vn;
   listLoHang: any = [];
@@ -39,12 +40,13 @@ export class ThongkesanluongmodalComponent implements OnInit {
     }
     else{
       this.KiemTraButtonModal();
+      this.item.CongDoan = this.listCongDoan[0]
+      this.getItemTheoCongDoan();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
     this.getListPhanXuong();
-    this.getListCongDoan();
     this.getListCaSanXuat();
     this.getListLoHang();
   }
@@ -132,7 +134,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     })
   }
   getMatHangThongKeSanLuong() {
-    if(this.item.CongDoan != undefined
+    if(this.item.IddmCaSanXuat != undefined
       && this.item.IddmPhanXuong != undefined
       && this.item.Ngay != undefined){
 
@@ -144,8 +146,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
               element.isXoa = true
             });
         }
-
-        this.services.ThongKeSanLuong().GetMatHang(this.item.IddmPhanXuong, this.item.NgayUnix, this.item.CongDoan).subscribe((res: any) => {
+        this.services.ThongKeSanLuong().GetMatHang(this.item.IddmPhanXuong,this.item.IddmCaSanXuat, this.item.NgayUnix).subscribe((res: any) => {
           res.forEach(element => {
             element.Id = null;
           });
@@ -203,5 +204,14 @@ export class ThongkesanluongmodalComponent implements OnInit {
       }, (reason) => {
         // không
       });
+  }
+  getItemTheoCongDoan() {
+    if(this.item.CongDoan != undefined && this.item.listItem != undefined  && this.item.listItem != null)
+    {
+      this.item.listItem.forEach(element => {
+        if(element.CongDoan === this.item.CongDoan)
+          this.listItem.push(element);
+      }
+    )}
   }
 }

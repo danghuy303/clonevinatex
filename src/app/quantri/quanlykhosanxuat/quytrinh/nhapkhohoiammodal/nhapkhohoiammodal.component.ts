@@ -208,9 +208,11 @@ export class NhapkhohoiammodalComponent implements OnInit {
   }
   
   delete(index) {
+    debugger
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
     } else {
+      debugger
       item.isXoa = true;
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }

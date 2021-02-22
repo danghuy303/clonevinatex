@@ -798,8 +798,8 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetThongKeSanLuong', data, httpOptions)
             },
-            GetMatHang: (IddmPhanXuong, Ngay, CongDoan) => {
-                return this.http.get(url + `GetMatHangThongKeSanLuong?IddmPhanXuong=${IddmPhanXuong}&Ngay=${Ngay}&CongDoan=${CongDoan}`, httpOptions)
+            GetMatHang: (IddmPhanXuong,IddmCaSanXuat, Ngay) => {
+                return this.http.get(url + `GetMatHangThongKeSanLuong?IddmPhanXuong=${IddmPhanXuong}&IddmCaSanXuat=${IddmCaSanXuat}&Ngay=${Ngay}`, httpOptions)
             },
         }
     }
@@ -1360,5 +1360,53 @@ export class SanXuatService {
             },
             
         }
+    }
+    PhieuKiemKeBanChePham() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuKiemKeBanChePham', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListPhieuKiemKeBanChePham', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuKiemKeBanChePham?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetPhieuKiemKeBanChePham', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuKiemKeBanChePham', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhieuKiemKeBanChePham', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuKiemKeBanChePham', data, httpOptions)
+            },
+        }
+    }
+    dmKiemKeBanChePham() {
+        let url = API.SCMDanhMuc;
+        return {
+            GetListAll: () => {
+                return this.http.get(url + `GetListdmKiemKeBanChePham`, httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListdmKiemKeBanChePham', data, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetdmKiemKeBanChePham', data, httpOptions);
+            },
+            Delete: (Id) => {
+                return this.http.get(url + `DeletedmKiemKeBanChePham?Id=${Id}`, httpOptions);
+            },
+        }
+    }
+    GetListCanDoiChuyenKiemKe(IddmPhanXuong, CongDoan, Ngay) {
+        let url = API.SCMQuanLyKho + `GetListCanDoiChuyenKiemKe?IddmPhanXuong=${IddmPhanXuong}&CongDoan=${CongDoan}&Ngay=${Ngay}`;
+        return this.http.get(url, httpOptions);
     }
 }

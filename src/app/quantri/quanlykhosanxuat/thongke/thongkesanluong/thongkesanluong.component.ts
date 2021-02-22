@@ -22,34 +22,32 @@ export class ThongkesanluongComponent implements OnInit {
     {
       header: 'Số quy trình',
       field: 'SoQuyTrinh',
-      width: '150px'
+      width: 'unset'
     },
     {
       header: 'Ngày',
       field: 'Ngay',
-      width: '150px',
-      type:'date'
+      width: 'unset'
     },
     {
       header: 'Ca làm việc',
       field: 'TendmCaSanXuat',
-      width: '200px'
-    },
-    {
-      header: 'Công đoạn',
-      field: 'TenCongDoan',
-      width: '200px'
+      width: 'unset'
     },
     {
       header: 'Phân xưởng',
       field: 'TendmPhanXuong',
-      width: '200px'
+      width: 'unset'
     },
-   
     {
       header: 'Trạng thái',
       field: 'TenTrangThai',
-      width: '150px'
+      width: 'unset'
+    },
+    {
+      header: 'Ghi chú',
+      field: 'GhiChu',
+      width: 'unset'
     }
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
