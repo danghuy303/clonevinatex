@@ -117,6 +117,7 @@ export class MathangComponent implements OnInit {
       Ma:"", 
       Ten:"",
       Loai:"1",
+      HoatDong:2,
     };
     this._services.GetListdmItem(data).subscribe((res:any)=>{
       this.items = res.items;

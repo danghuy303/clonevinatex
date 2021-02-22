@@ -5,10 +5,10 @@
     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
     <div></div>
     <div class="p-d-flex p-flex-row">
-        <div class="p-mr-2">
+        <!-- <div class="p-mr-2">
             <p-dropdown [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
                 [(ngModel)]="filter.CongDoan" optionLabel="name" [showClear]="true"></p-dropdown>
-        </div>
+        </div> -->
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày">

@@ -50,7 +50,6 @@ export class KiemkebcpmodalComponent implements OnInit {
     else{
       this.KiemTraButtonModal();
       this.GetQuyTrinh();
-      this.getListCanDoiChuyenKiemKe();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
@@ -144,7 +143,9 @@ export class KiemkebcpmodalComponent implements OnInit {
   }
   
   getItemTheoCongDoan(){
+    debugger
     if(this.item.CongDoan !== undefined && this.item.CongDoan !== null){
+      this.listMatHang=[];
       this.listItem=[];
       this.listCotCon = [];
       this.listItemFull.forEach(element => {
@@ -154,8 +155,14 @@ export class KiemkebcpmodalComponent implements OnInit {
             {
               this.listCotCon = this.listCotCon.concat(element.listCon)
             }
+            if(this.item.CongDoan === 'CON'){
+              this.listMatHang.push(element);
+            }
         }
       });
+      if(this.item.CongDoan === 'CON' && this.opt !== 'edit'){
+        this.getListCanDoiChuyenKiemKe();
+      }
     }
   }
   getListdmHangMuc() {
@@ -169,24 +176,27 @@ export class KiemkebcpmodalComponent implements OnInit {
     })
   }
   getListCanDoiChuyenKiemKe() {
+    this.listItem = []
     if(this.item.Ngay !== undefined){
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
       this.services.GetListCanDoiChuyenKiemKe(this.item.IddmPhanXuong, this.item.CongDoan, this.item.NgayUnix).subscribe((res: any) => {
-        var dataPush : any = [];
         res.forEach(element => {
+          element.IddmItem = element.IddmItem;
+          element.Id = "";
           this.listCotCon.forEach(con => {
             var data = {
               Id: "",
-              IddmItem: element.Id,
-              IddmMay: element.Id,
-              IddmHangMuc: element.Id,
+              IddmItem: element.IddmItem,
+              IddmMay: element.IddmMay,
+              IddmHangMuc: con.Id,
               TongKhoiLuong: 0,
               GiaTri: 0,
+              CongDoan: this.item.CongDoan,
             }
             element.listKiemKeBCP.push(data);
           });
         });
-  
+        this.listItem = res;
         this.listItemFull = this.listItemFull.concat(res);
         this.item.listItem = this.listItemFull;
       })

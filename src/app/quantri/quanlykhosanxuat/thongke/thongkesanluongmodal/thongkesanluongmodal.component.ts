@@ -208,6 +208,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   getItemTheoCongDoan() {
     if(this.item.CongDoan != undefined && this.item.listItem != undefined  && this.item.listItem != null)
     {
+      this.listItem = []
       this.item.listItem.forEach(element => {
         if(element.CongDoan === this.item.CongDoan)
           this.listItem.push(element);
