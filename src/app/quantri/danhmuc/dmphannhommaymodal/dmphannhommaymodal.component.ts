@@ -305,7 +305,7 @@ export class DmphannhommaymodalComponent implements OnInit {
       else if (this.item.CongDoan == "CON") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(obj.Nm))) {
-            obj.NangSuat = obj.TocDo * 1200 * 480 / obj.Nm / 1000 * 0.92;
+            obj.NangSuat = obj.TocDo * 1200 * 480 / obj.Nm / 1000 * 0.94;
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
@@ -313,7 +313,7 @@ export class DmphannhommaymodalComponent implements OnInit {
       else if (this.item.CongDoan == "ONG") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(obj.DoSan)) && (validVariable(obj.Nm))) {
-            obj.NangSuat = obj.TocDo * 450 * 60 / 1000 / obj.DoSan / obj.Nm * 0.92;
+            obj.NangSuat = obj.TocDo * 450 * 60 / 1000 / obj.DoSan / obj.Nm * 0.94;
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
