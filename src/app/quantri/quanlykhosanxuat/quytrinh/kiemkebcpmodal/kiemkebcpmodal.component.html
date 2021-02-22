@@ -104,13 +104,13 @@
                 </ng-template>
             </p-table>
             <p-table *ngIf="item.CongDoan==='CON'"
-            [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="item.listItem"
+            [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="listItem"
                 styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="text-center" rowspan="2">Máy số</th>
                         <th class="text-center" rowspan="2">Mặt hàng</th>
-                        <th class="text-center" *ngFor="let col of listItem" 
+                        <th class="text-center" *ngFor="let col of listMatHang" 
                                 [attr.colspan]="col.SoCotCon" [attr.rowspan]="col.SoDongCon">{{col.Ten}}</th>
                         <th class="text-center" rowspan="2">Tổng cộng (Kg)</th>
                         <th class="text-center" rowspan="2">Ghi chú</th>
@@ -128,11 +128,11 @@
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemsanpham.TongKhoiLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemindex.TongKhoiLuong">
                             </p-inputNumber>
                         </td> 
                         <td class="text-center">
-                            <input type="text" [(ngModel)]="itemsanpham.GhiChu" pInputText/>
+                            <input type="text" [(ngModel)]="itemindex.GhiChu" pInputText/>
                         </td>
                     </tr>
                 </ng-template>
