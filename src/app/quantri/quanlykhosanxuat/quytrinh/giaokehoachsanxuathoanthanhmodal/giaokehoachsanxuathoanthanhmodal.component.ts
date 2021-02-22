@@ -251,7 +251,7 @@ export class GiaokehoachsanxuathoanthanhmodalComponent implements OnInit {
       backdrop: 'static'
     });
     if (this.validData()) {
-      modalRef.componentInstance.message = "Bạn có chắc chắn muốn hoàn thành quy trình này?"
+      modalRef.componentInstance.message = "Bạn có chắc chắn các mặt hàng này đã hoàn thành?"
       modalRef.result.then(res => {
         this.services.GiaoKeHoachSanXuat().HoanThanh(this.item).subscribe((res: any) => {
           if (res) {

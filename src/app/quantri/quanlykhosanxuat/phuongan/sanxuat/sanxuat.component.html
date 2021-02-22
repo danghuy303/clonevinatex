@@ -42,6 +42,7 @@
                 <col style="width:50px">
                 <col>
                 <col>
+                <col>
                 <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
                 <col style="width: 100px;">
             </colgroup>
@@ -64,8 +65,8 @@
                     {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
                 <td class="text-center">{{item.SoQuyTrinh}}</td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
+                <td class="text-center">{{item.NoiDungTrienKhai}}</td>
+                <td class="text-center">{{item.NgayDuyet|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
                 </td>

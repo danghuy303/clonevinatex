@@ -20,46 +20,46 @@ export class KiemkebcpComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Tên kho',
+      header: 'Tổng KL',
       field: 'TendmKho',
       width: '200px'
     },
     {
-      header: 'Nội dung',
+      header: 'Quy PE',
       field: 'NoiDung',
       width: '200px'
     },
     {
-      header: 'Ghi chú',
+      header: 'Quy CD',
       field: 'GhiChu',
       width: '200px'
     },
     {
-      header: 'Trạng thái',
+      header: 'Quy CM',
       field: 'TenTrangThai',
       width: '150px'
     },
     //
     {
-      header: 'Tên kho',
+      header: 'Tổng KL',
       field: 'TendmKho',
       width: '200px'
     },
     {
-      header: 'Nội dung',
+      header: 'Quy PE',
       field: 'NoiDung',
       width: '200px'
     },
     {
-      header: 'Ghi chú',
+      header: 'Quy CD',
       field: 'GhiChu',
       width: '200px'
     },
     {
-      header: 'Trạng thái',
+      header: 'Quy CM',
       field: 'TenTrangThai',
       width: '150px'
-    }
+    },
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   title: any = '';
@@ -132,16 +132,7 @@ export class KiemkebcpComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    if(this.title === 'khobong'){
-      data.Loai = 2;
-    }
-    else if(this.title === 'khoxo'){
-      data.Loai = 5;
-    }
-    else if(this.title === 'khothanhpham'){
-      data.Loai = 11;
-    }
-    this._service.PhieuKiemKeKho().GetList(data).subscribe((res:any)=>{
+    this._service.PhieuKiemKeBanChePham().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })

@@ -37,7 +37,7 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
-                    [(ngModel)]="item.Ngay" inputId="icon" placeholder="dd/mm/yyyy" (onChange)="getMatHangThongKeSanLuong()">
+                    [(ngModel)]="item.Ngay" inputId="icon" placeholder="dd/mm/yyyy" (onSelect)="getMatHangThongKeSanLuong()">
                 </p-calendar>
             </div>
         </div>
@@ -45,7 +45,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca làm việc:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Chọn ca làm việc" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmCaSanXuat"></p-dropdown>
+                    [(ngModel)]="item.IddmCaSanXuat" (onChange)="getMatHangThongKeSanLuong()"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
@@ -59,7 +59,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.CongDoan" (onChange)="getMatHangThongKeSanLuong()"></p-dropdown>
+                    [(ngModel)]="item.CongDoan" (onChange)="getItemTheoCongDoan()"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.CongDoan=='ONG'">
@@ -78,7 +78,7 @@
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <p-table [lazy]="true" [scrollable]="true" scrollHeight="45vh"
-            [value]="item.listItem" styleClass="p-datatable-sm wrap-text">
+            [value]="listItem" styleClass="p-datatable-sm wrap-text">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">

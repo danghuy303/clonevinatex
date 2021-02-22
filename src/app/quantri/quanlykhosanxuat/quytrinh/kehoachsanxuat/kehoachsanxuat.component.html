@@ -48,7 +48,6 @@
                 <col>
                 <col>
                 <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
-                <col style="width: 100px;" *ngIf="trangThai===2">
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
@@ -64,7 +63,6 @@
                 <th *ngFor="let header of cols">
                     {{header.header}}
                 </th>
-                <th *ngIf="trangThai===2">Hoàn thành</th>
                 <th></th>
             </tr>
         </ng-template>
@@ -82,15 +80,12 @@
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
                 </td>
-                <td class="text-center" *ngIf="item.isDaHoanThanh!==true&&trangThai===2">
-                    <button pButton pRipple type="button" icon="fas fa-edit"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="hoanthanh(item.Id)"></button>
-                </td>
-                <td class="text-center" *ngIf="item.isDaHoanThanh===true&&trangThai===2">
-                </td>
                 <td class="text-center"> 
+                    <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false"
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành"
+                        (click)="hoanthanh(item.Id)"></button>
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item.Id)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="update(item.Id)"></button>
                 </td>
             </tr>
         </ng-template>
