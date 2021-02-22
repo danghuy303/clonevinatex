@@ -169,7 +169,7 @@ export class DmphannhommayChonmathangmodalComponent implements OnInit {
     this.activeModal.close(
       this.items.filter(item => item.checked).map(ele => {
         let data = {
-          ...ele,
+          ...ele,  
           IddmPhanNhomMay: this.IdQuyTrinh || "",
           Id: '',
         }
