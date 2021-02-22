@@ -1425,4 +1425,8 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho + `GetListCanDoiChuyenKiemKe?IddmPhanXuong=${IddmPhanXuong}&CongDoan=${CongDoan}&Ngay=${Ngay}`;
         return this.http.get(url, httpOptions);
     }
+    GetListThongKeSanLuong(IddmPhanXuong, CongDoan, Ngay) {
+        let url = API.SCMQuanLyKho + `GetListThongKeSanLuong?IddmPhanXuong=${IddmPhanXuong}&CongDoan=${CongDoan}&Ngay=${Ngay}`;
+        return this.http.get(url, httpOptions);
+    }
 }

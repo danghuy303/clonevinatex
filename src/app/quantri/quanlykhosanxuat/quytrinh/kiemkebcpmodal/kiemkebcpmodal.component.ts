@@ -30,7 +30,7 @@ export class KiemkebcpmodalComponent implements OnInit {
   listMatHang: any = [];
   title: any = '';
   lang: any = vn;
-
+  check: any = false;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
      public toastr: ToastrService, public _modal: NgbModal) {
   }
@@ -61,6 +61,7 @@ export class KiemkebcpmodalComponent implements OnInit {
       res1.CongDoan = this.listCongDoan[0].value;
       this.item = res1;
       debugger
+      this.check = true;
       console.log(this.item)
       this.listItemFull = this.item.listItem;
       this.getItemTheoCongDoan();
@@ -143,7 +144,6 @@ export class KiemkebcpmodalComponent implements OnInit {
   }
   
   getItemTheoCongDoan(){
-    debugger
     if(this.item.CongDoan !== undefined && this.item.CongDoan !== null){
       this.listMatHang=[];
       this.listItem=[];
@@ -157,10 +157,11 @@ export class KiemkebcpmodalComponent implements OnInit {
             }
             if(this.item.CongDoan === 'CON'){
               this.listMatHang.push(element);
+              console.log(this.listMatHang)
             }
         }
       });
-      if(this.item.CongDoan === 'CON' && this.opt !== 'edit'){
+      if(this.item.CongDoan === 'CON'){
         this.getListCanDoiChuyenKiemKe();
       }
     }
@@ -175,14 +176,16 @@ export class KiemkebcpmodalComponent implements OnInit {
       this.item.listItem = this.listItemFull;
     })
   }
-  getListCanDoiChuyenKiemKe() {
-    this.listItem = []
-    if(this.item.Ngay !== undefined){
+  getListCanDoiChuyenKiemKe(isThayDoi?) {
+    this.listItem = [];
+    if(this.item.Ngay !== undefined  && this.opt !== 'edit' && (this.check === false || isThayDoi == true)){
+      this.check = true;
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
       this.services.GetListCanDoiChuyenKiemKe(this.item.IddmPhanXuong, this.item.CongDoan, this.item.NgayUnix).subscribe((res: any) => {
         res.forEach(element => {
           element.IddmItem = element.IddmItem;
           element.Id = "";
+          element.listKiemKeBCP = []
           this.listCotCon.forEach(con => {
             var data = {
               Id: "",
@@ -197,8 +200,37 @@ export class KiemkebcpmodalComponent implements OnInit {
           });
         });
         this.listItem = res;
-        this.listItemFull = this.listItemFull.concat(res);
-        this.item.listItem = this.listItemFull;
+        // this.listItemFull = this.listItemFull.concat(res);
+        this.item.listItem = this.listItemFull.concat(res);
+      })
+    }
+  }
+  getListThongKeSanLuong(isThayDoi?) {
+    this.listItem = [];
+    if(this.item.Ngay !== undefined  && this.opt !== 'edit' && (this.check === false || isThayDoi == true)){
+      this.check = true;
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.services.GetListThongKeSanLuong(this.item.IddmPhanXuong, this.item.CongDoan, this.item.NgayUnix).subscribe((res: any) => {
+        res.forEach(element => {
+          element.IddmItem = element.IddmItem;
+          element.Id = "";
+          element.listKiemKeBCP = []
+          this.listCotCon.forEach(con => {
+            var data = {
+              Id: "",
+              IddmItem: element.IddmItem,
+              IddmMay: element.IddmMay,
+              IddmHangMuc: con.Id,
+              TongKhoiLuong: 0,
+              GiaTri: 0,
+              CongDoan: this.item.CongDoan,
+            }
+            element.listKiemKeBCP.push(data);
+          });
+        });
+        this.listItem = res;
+        // this.listItemFull = this.listItemFull.concat(res);
+        this.item.listItem = this.listItemFull.concat(res);
       })
     }
   }
