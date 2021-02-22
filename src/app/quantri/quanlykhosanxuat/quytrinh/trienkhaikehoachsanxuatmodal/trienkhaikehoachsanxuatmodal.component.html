@@ -63,7 +63,7 @@
             </div>
         </div>
 
-            <!-- <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+        <!-- <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch giao từ ngày:</label>
                 <div class="p-col-12 p-lg-8 p-p-0">
                     <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
@@ -102,8 +102,9 @@
                 icon="pi pi-refresh" class="p-button-danger p-button-text p-button-sm" style="padding:3px !important;width: unset;" (click)="boTriLai()"></button> -->
             </label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy" [defaultDate]="minDateChonMay"
-                    [yearNavigator]="false" [minDate]="minDateChonMay" [maxDate]="maxDateChonMay" [(ngModel)]="item.TuNgay" (onBlur)="TinhNangSuat()"
+                <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
+                    [defaultDate]="minDateChonMay" [yearNavigator]="false" [minDate]="minDateChonMay"
+                    [maxDate]="maxDateChonMay" [(ngModel)]="item.TuNgay" (onBlur)="TinhNangSuat()"
                     placeholder="dd/mm/yyyy">
                 </p-calendar>
                 <!-- [disabled]="validChonLai(item)" -->
@@ -113,10 +114,10 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đến ngày<span class="required">*</span>:
                 <!-- <button type="button" pButton pRipple
                     icon="pi pi-refresh" class="p-button-danger p-button-text p-button-sm" style="padding:3px !important;width: unset;" (click)="boTriLai()"></button> -->
-                </label>
+            </label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy" [defaultDate]="maxDateChonMay"
-                    [yearNavigator]="false" [minDate]="minDateChonMay"
+                <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
+                    [defaultDate]="maxDateChonMay" [yearNavigator]="false" [minDate]="minDateChonMay"
                     (onSelect)="validDenNgay(item,$event)" [maxDate]="maxDateChonMay" (onBlur)="TinhNangSuat()"
                     [(ngModel)]="item.DenNgay" placeholder="dd/mm/yyyy">
                 </p-calendar>
@@ -155,6 +156,18 @@
                         (click)="chonHangHoa()"></button>
                     <p-dropdown [filter]="true" [options]="listCongDoan" styleClass="p-inputtext-sm pl-2"
                         [(ngModel)]="filter.CongDoan"></p-dropdown>
+                    <div style="display: flex; align-items: center; height: 100%;"
+                        *ngIf="mapCongDoan_TinhTrangMay[filter.CongDoan]!==undefined">
+                        <span class="mr-5 ml-5">
+                            Số máy cân đối:{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayCanDoi|number:'0.0-2'}}
+                        </span>
+                        <span class="mr-5">
+                            Số máy hiện có:{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayHienCo|number:'0.0-2'}}
+                        </span>
+                        <span>
+                            Số máy tính toán:{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayTinhToan|number:'0.0-2'}}
+                        </span>
+                    </div>
                 </div>
                 <div>
                     <div class="p-inputgroup">
@@ -174,7 +187,7 @@
                         <col>
                         <col>
                         <col>
-                        <col>
+                        <!-- <col> -->
                         <!-- <col style="width:130px"> -->
                     </colgroup>
                 </ng-template>
@@ -185,7 +198,7 @@
                         <th>Kế hoạch giao(Tấn)</th>
                         <th>Kế hoạch triển khai(Tấn)</th>
                         <th>Số máy cần</th>
-                        <th>Số máy bố trí</th>
+                        <!-- <th>Số máy bố trí</th> -->
                         <!-- <th>Thao tác</th> -->
                     </tr>
                 </ng-template>
@@ -203,16 +216,14 @@
                         <td class="text-center">
                             {{mathang.SoMayTinhToan|number:'0.0-1'}}
                         </td>
-                        <td class="text-center">
+                        <!-- <td class="text-center">
                             {{mathang.SoMay|number:'0.0-1'}}
-                            <!-- <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="mathang.SoMay">
-                            </p-inputNumber> -->
-                        </td>
+                        </td> -->
                         <!-- <td class="text-center date"> -->
-                            <!-- <ng-container *ngIf="validVariable(item.TuNgay)&&validVariable(item.DenNgay)">
+                        <!-- <ng-container *ngIf="validVariable(item.TuNgay)&&validVariable(item.DenNgay)">
                                 <a href="javascript:void(0)" (click)="boTriMay(mathang,i)">Cân đối chuyền</a>
                             </ng-container> -->
-                            <!-- <ng-container *ngIf="validChonLai(mathang)">
+                        <!-- <ng-container *ngIf="validChonLai(mathang)">
                                 <button type="button" pButton pRipple icon="pi pi-refresh"
                                     class="p-button-danger p-button-text p-button-sm ml-3"
                                     (click)="boTriLai(mathang,i)"></button>

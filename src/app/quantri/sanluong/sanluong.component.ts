@@ -1,5 +1,5 @@
 import { formatNumber } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
@@ -11,6 +11,9 @@ import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangta
   styleUrls: ['./sanluong.component.css']
 })
 export class SanluongComponent implements OnInit {
+  @Input('TuNgay') TuNgay:any=null;
+  @Input('DenNgay') DenNgay:any=null;
+  @Input('CongDoan') CongDoan:any='';
   filter: any = {
     IddmItem: '',
     IddmMay:''
@@ -113,9 +116,14 @@ export class SanluongComponent implements OnInit {
   constructor(private _services: SanXuatService, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
-    let date = new Date();
-    this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
-    this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    if(validVariable(this.TuNgay) && validVariable(this.DenNgay)){
+      this.filter._tuNgay = this.TuNgay;
+      this.filter._denNgay = this.DenNgay;
+    }else{
+      let date = new Date();
+      this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+      this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    }
     this.GetBieuDo();
     this.getAllOptions()
   }
@@ -221,7 +229,11 @@ export class SanluongComponent implements OnInit {
     this._services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, "Ten", 'Ma')
       this.listCongDoan.unshift({ label: 'Tất cả', value: '' })
-      this.filter.CongDoan = this.listCongDoan[0].value;
+      if(this.CongDoan!==''){
+        this.filter.CongDoan = this.CongDoan
+      }else{
+        this.filter.CongDoan = this.listCongDoan[0].value;
+      }
     });
     // this._services.GetListdmMay(data).subscribe((res: any) => {
     //   this.listMay = mapArrayForDropDown(res, "Ma", 'Id')
