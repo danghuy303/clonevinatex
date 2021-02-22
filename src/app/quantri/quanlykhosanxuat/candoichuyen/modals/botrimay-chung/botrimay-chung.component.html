@@ -62,7 +62,7 @@
                         <tr>
                             <td>{{item.TenMay}}</td>
                             <td><p-dropdown [filter]="true" showClear="true" [options]="listHangHoa" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
-                                [(ngModel)]="item.IdCanDoiChuyen_CanBoTri"></p-dropdown></td>
+                                [(ngModel)]="item.IdCanDoiChuyen_CanBoTri" (onChange)="TinhSoLuongMatHang()"></p-dropdown></td>
                             <td><input pInputText type="text" [(ngModel)]="item.Ne"></td>
                             <td><input pInputText type="text" [(ngModel)]="item.Nm"></td>
                         </tr>
@@ -115,7 +115,7 @@
                             <td class="text-center">{{i+1}}</td>
                             <td>{{item.Ten}}</td>
                             <td class="text-right">{{item.SoMayCanBoTri|number:'0.0-2'}}</td>
-                            <td></td>
+                            <td class="text-right">{{item.SoMayDaBoTri|number:'0.0-2'}}</td>
                             <td class="text-right">{{item.SanLuongCa|number:'0.0-2'}}</td>
                             <td></td>
                         </tr>

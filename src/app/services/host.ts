@@ -2,7 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 // const host1 = 'http://eos.harmonyes.com.vn:1169';
 const host1 = 'http://vinatex.harmonyes.com.vn';
 const host = 'http://localhost:1169';
-//host public 'http://vinatex.harmonyes.com.vn';
+// host public 'http://vinatex.harmonyes.com.vn';
 //host phat trien 'http://eos.harmonyes.com.vn:1169'
 export const httpOptions = {
     headers: new HttpHeaders({
