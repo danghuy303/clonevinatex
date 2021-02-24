@@ -14,7 +14,8 @@ import { LohangmodalComponent } from '../lohangmodal/lohangmodal.component';
 })
 export class LohangComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
-  items: any = [{id:5,SoQuyTrinh:'PNK_0000_0000'}];
+  items: any = [
+  ];
   filter:any={};
   listLoaiPhuongAn:any=[];
   trangThai:any=1;
@@ -55,7 +56,7 @@ export class LohangComponent implements OnInit {
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
 
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
-    private activatedRoute: ActivatedRoute,private router:Router, public activeModal: NgbActiveModal,) { }
+    private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     this.GetListQuyTrinh()
@@ -133,8 +134,5 @@ export class LohangComponent implements OnInit {
   resetFilter(){
     this.filter={};
     this.GetListQuyTrinh(true);
-  }
-  Onclose() {
-    this.activeModal.close();
   }
 }

@@ -13,6 +13,7 @@ import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 export class LohangmodalComponent implements OnInit {
 
   opt: any = ''
+  listGiaoKeHoachFull: any = [];
   listGiaoKeHoach: any = [];
   listTrienKhaiKeHoach: any = [];
   item: any = {};
@@ -29,6 +30,7 @@ export class LohangmodalComponent implements OnInit {
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
+    console.log(this.item)
   }
   
   accept() {
@@ -55,8 +57,8 @@ export class LohangmodalComponent implements OnInit {
 
   getListGiaoKeHoach(){
     this.services.GetOptions().GetListGiaoKeHoachSanXuatChuaLapKeHoach().subscribe((res:any)=>{
-      // this.listGiaoKeHoach = mapArrayForDropDown(res, 'SoQuyTrinh', 'Id');
-      this.listGiaoKeHoach = res;
+      this.listGiaoKeHoach = mapArrayForDropDown(res, 'SoQuyTrinh', 'Id');
+      this.listGiaoKeHoachFull = res;
     })
   }
 
@@ -72,8 +74,10 @@ export class LohangmodalComponent implements OnInit {
     this.activeModal.close();
   }
   giaoKeHoach(event){
-    console.log(event);
-    this.item.IddmPhanXuong = event.value.IddmPhanXuong;
-    this.item.IdGiaoKeHoachSanXuat = event.value.Id;
+    var itemFind = this.listGiaoKeHoachFull.find(function (obj) {
+          return obj.Id == event.value; 
+    });
+    this.item.IddmPhanXuong = itemFind.IddmPhanXuong;
+    this.item.IdGiaoKeHoachSanXuat = itemFind.Id;
   }
 }

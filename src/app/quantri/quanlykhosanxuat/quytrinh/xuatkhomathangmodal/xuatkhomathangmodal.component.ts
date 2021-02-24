@@ -18,6 +18,11 @@ export class XuatkhomathangmodalComponent implements OnInit {
       width: 'unset'
     },
     {
+      header: 'Tên lô',
+      field: 'TenLoHang',
+      width: 'unset'
+    },
+    {
       header: 'Số lượng',
       field: 'Ton',
       width: 'unset'
@@ -25,7 +30,7 @@ export class XuatkhomathangmodalComponent implements OnInit {
   ];
   checkedAll: boolean = false;
   paging: any = {};
-
+  KeyWord: any = '';
   constructor(
     private activeModal: NgbActiveModal,
   ) { }
@@ -75,6 +80,22 @@ export class XuatkhomathangmodalComponent implements OnInit {
     console.log(event)
     this.paging.CurrentPage = event.page + 1;
     var start = 15 * (event.page);
+    var end =  start + 15;
+    if((start + 15) > this.paging.TotalItem)
+      end= this.paging.TotalItem;
+    this.listItem_new = this.listMatHang.slice(start,end);
+  }
+  timKiemMatHang() {
+    var listItem : any = [];
+    this.listItem_new.forEach(element => {
+      if(element.Ten.toLowerCase().includes(this.KeyWord.toLowerCase()) || element.TenLoHang.toLowerCase().includes(this.KeyWord.toLowerCase()))
+        listItem.push(element)
+    });
+    this.listItem_new = listItem;
+  }
+  refresh(){
+    this.KeyWord = '';
+    var start = 15 * (this.paging.CurrentPage - 1);
     var end =  start + 15;
     if((start + 15) > this.paging.TotalItem)
       end= this.paging.TotalItem;
