@@ -152,25 +152,25 @@ export class KiemkebcpmodalComponent implements OnInit {
           if (element.SoCotCon > 0 && element.SoDongCon === 1) {
             this.listCotCon = this.listCotCon.concat(element.listCon)
           }
-          if (this.item.CongDoan === 'CON' && this.opt !== 'edit') {
+          if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt !== 'edit') {
             this.listMatHang.push(element);
           }
           
         }
       });
-      if (this.item.CongDoan === 'CON' && this.opt === 'edit') {
+      if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt === 'edit') {
         this.services.dmKiemKeBanChePham().GetListAll().subscribe((res: any) => {
           res.forEach(element => {
-            if (element.SoCotCon > 0 && element.SoDongCon === 1) {
-              this.listCotCon = this.listCotCon.concat(element.listCon)
-            }
-            
-            if (element.CongDoan === 'CON')
+            if(element.CongDoan === this.item.CongDoan){
+              if (element.SoCotCon > 0 && element.SoDongCon === 1) {
+                this.listCotCon = this.listCotCon.concat(element.listCon)
+              }
               this.listMatHang.push(element);
+            }
           });
         })
       }
-      if (this.item.CongDoan === 'CON' && this.opt !== 'edit') {
+      if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt !== 'edit') {
         this.getListCanDoiChuyenKiemKe();
       }
     }

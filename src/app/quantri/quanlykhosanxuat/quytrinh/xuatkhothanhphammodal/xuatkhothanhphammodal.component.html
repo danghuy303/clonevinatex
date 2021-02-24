@@ -81,11 +81,12 @@
                         <th rowspan="2">Mặt hàng</th>
                         <th rowspan="2">Lô</th>
                         <th rowspan="2">Hợp đồng</th>
-                        <th colspan="2">Số lượng</th>
+                        <th colspan="3">Số lượng</th>
                         <th rowspan="2">Ghi chú</th>
                         <th rowspan="2" style="width: 100px;"></th>
                     </tr>
                     <tr>
+                        <th>Số lượng trong kho</th>
                         <th>Kg</th>
                         <th>Kiện</th>
                     </tr>
@@ -100,6 +101,10 @@
                         </td> -->
                         <td class="text-center">
                             <input pInputText type="text" [(ngModel)]="item.HopDong">
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                            </p-inputNumber>
                         </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.KgCoin">

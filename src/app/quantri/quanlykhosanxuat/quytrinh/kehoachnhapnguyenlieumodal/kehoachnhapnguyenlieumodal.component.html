@@ -104,7 +104,7 @@
                         <th>Số HĐ</th>
                         <th>SL Container</th>
                         <th>Tổng số kiện</th>
-                        <th>Giá bông CIF (USD)</th>
+                        <th>Giá bông CIF (USD/Kg)</th>
                         <th>Thời gian cập cảng</th>
                         <th>Thời gian dự kiến về kho</th>
                         <th>Số lượng nhập (Tấn)</th>
@@ -137,7 +137,7 @@
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.GiaBong">
+                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="items.GiaBong">
                             </p-inputNumber>
                         </td>
                         <td>

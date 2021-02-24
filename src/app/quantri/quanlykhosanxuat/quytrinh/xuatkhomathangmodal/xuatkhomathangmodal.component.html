@@ -10,6 +10,14 @@
                     <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
                         (click)="activeModal.dismiss('Cross click')"></button>
                 </div>
+                <div>
+                    <div class="p-inputgroup">
+                        <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
+                            (keyup.enter)="timKiemMatHang()" [(ngModel)]="KeyWord" />
+                        <button type="button" pButton pRipple icon="pi pi-refresh"
+                            class="p-button-secondary p-button-sm p-button-text" (click)="refresh()"></button>
+                    </div>
+                </div>
             </div>
             <p-table  [lazy]="true" [scrollable]="true" scrollHeight="45vh"
             [value]="listItem_new" styleClass="p-datatable-sm wrap-text p-datatable-striped">

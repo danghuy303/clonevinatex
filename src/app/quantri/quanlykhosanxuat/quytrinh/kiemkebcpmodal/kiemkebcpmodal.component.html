@@ -103,7 +103,7 @@
                     </tr>
                 </ng-template>
             </p-table>
-            <p-table *ngIf="item.CongDoan==='CON'"
+            <p-table *ngIf="item.CongDoan==='CON' ||item.CongDoan==='ONG'"
             [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="listItem"
                 styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="header">
@@ -137,7 +137,7 @@
                     </tr>
                 </ng-template>
             </p-table>
-            <p-table *ngIf="item.CongDoan==='ONG'"
+            <!-- <p-table *ngIf="item.CongDoan==='ONG'"
             [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="listItem"
                 styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
@@ -187,7 +187,7 @@
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </p-table> -->
         </div>
     </div>
 </div>
