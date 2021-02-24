@@ -128,7 +128,7 @@
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số ca:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" [max]="itemGiaoKeHoach.TongSoCa" locale="vi-VN"
+                <p-inputNumber locale="vi-VN"
                     [(ngModel)]="item.SoCa" (onBlur)="ThayDoiSoCa()">
                 </p-inputNumber>
             </div>
@@ -159,13 +159,13 @@
                     <div style="display: flex; align-items: center; height: 100%;"
                         *ngIf="mapCongDoan_TinhTrangMay[filter.CongDoan]!==undefined">
                         <span class="mr-5 ml-5">
-                            Số máy cân đối:{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayCanDoi|number:'0.0-2'}}
+                            Số máy cần:{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayTinhToan|number:'0.0-2'}}
                         </span>
                         <span class="mr-5">
                             Số máy hiện có:{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayHienCo|number:'0.0-2'}}
                         </span>
-                        <span>
-                            Số máy tính toán:{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayTinhToan|number:'0.0-2'}}
+                        <span >
+                            Số máy cân đối:{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayCanDoi|number:'0.0-2'}}
                         </span>
                     </div>
                 </div>

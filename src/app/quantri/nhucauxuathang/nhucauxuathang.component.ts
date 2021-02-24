@@ -204,7 +204,8 @@ export class NhucauxuathangComponent implements OnInit {
   }
 
   xemTruySuatNguonGoc() {
-    if (this.SelectItem.TenItem != undefined && this.SelectItem != null) {
+    console.log(this.SelectItem);
+    if (validVariable(this.SelectItem?.IddmItem)) {
       this.showTruySuatNguonGoc = true;
     }
     else {

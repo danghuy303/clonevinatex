@@ -13,7 +13,7 @@ import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangta
 export class SanluongComponent implements OnInit {
   @Input('TuNgay') TuNgay:any=null;
   @Input('DenNgay') DenNgay:any=null;
-  @Input('CongDoan') CongDoan:any='';
+  @Input('CongDoan') CongDoan:any=null;
   filter: any = {
     IddmItem: '',
     IddmMay:''
@@ -124,6 +124,9 @@ export class SanluongComponent implements OnInit {
       this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
       this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     }
+    if(validVariable(this.CongDoan)){
+      this.filter.CongDoan = this.CongDoan;
+    }
     this.GetBieuDo();
     this.getAllOptions()
   }
@@ -179,6 +182,12 @@ export class SanluongComponent implements OnInit {
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
           this.listMay.unshift({ label: 'Tất cả', value: '' })
           this.filter.IddmMay = this.listMay[0].value;
+        })
+      }
+      if(validVariable(this.CongDoan)){
+        this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
+          this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
+          this.listMay.unshift({ label: 'Tất cả', value: '' })
         })
       }
       this._services.DashBoard().BaoCaoSanLuongLuyKe_BieuDoCot(this.filter).subscribe((res: any) => {

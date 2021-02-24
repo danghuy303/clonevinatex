@@ -71,7 +71,7 @@
                 </div>
                 <div style="display:table;height:100%">
                     <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
-                        (click)="xemTruySuatNguonGoc()">Truy suất nguồn gốc</a>
+                        (click)="xemTruySuatNguonGoc()">Truy xuất nguồn gốc</a>
                 </div>
             </div>
             <p-table [value]="listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines"
@@ -84,10 +84,10 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="width: 35px !important;">#</th>
-                        <th>Ngày</th>
+                        <!-- <th>Ngày</th> -->
                         <th>Mặt hàng</th>
                         <th>Lô sản xuất</th>
-                        <th>Hợp đồng P/O</th>
+                        <!-- <th>Hợp đồng P/O</th> -->
                         <th>Tồn đầu</th>
                         <th>Nhập trong kỳ</th>
                         <th>Xuất trong kỳ</th>
@@ -98,12 +98,12 @@
                     <tr [ngClass]="{'p-text-bold': item.TendmItem=='TỔNG'}">
                         <td class="text-center" style="width: 35px !important;">
                             <p-checkbox [ngModel]="item.checked" (onChange)="checkMatHang($event,item,i)"
-                                binary="true" inputId="binary"></p-checkbox>
+                                binary="true" inputId="binary" *ngIf="item.TendmItem!=='TỔNG'"></p-checkbox>
                         </td>
-                        <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
+                        <!-- <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td> -->
                         <td>{{item.TendmItem}}</td>
                         <td>{{item.TenLoHang}}</td>
-                        <td>{{item.SoHopDong}}</td>
+                        <!-- <td>{{item.SoHopDong}}</td> -->
                         <td class="text-right">{{item.DauSoLuong|number:'0.0'}}</td>
                         <td class="text-right">{{item.NhapSoLuong|number:'0.0'}}</td>
                         <td class="text-right">{{item.XuatSoLuong|number:'0.0'}}</td>

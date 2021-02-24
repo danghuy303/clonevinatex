@@ -100,7 +100,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     if (validVariable(this.item.listCongDoan) && this.item.listCongDoan.length !== 0) {
       this.listCongDoan = mapArrayForDropDown(this.item.listCongDoan, 'Ten', 'Ma');
       // this.filter.CongDoan = this.listCongDoan[0].value;
-      this.filter.CongDoan = 'CON';
+      this.filter.CongDoan = 'ONG';
     }
     // this.minDateChonMay = UnixToDate(this.tempDataGiaoKeHoach.filter(ele => ele.Id === event.value)[0]?.TuNgayUnix);
     // this.maxDateChonMay = UnixToDate(this.tempDataGiaoKeHoach.filter(ele => ele.Id === event.value)[0]?.DenNgayUnix);
@@ -151,6 +151,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     //   });
     //   // console.log(this.PoolMaySanXuat)
     // });
+    this.TinhNangSuat();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
@@ -518,6 +519,8 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         setTimeout(() => {
           mathang.DenNgay = null;
         }, 500)
+      }else{
+        this.TinhNangSuat();
       }
     } else {
       setTimeout(() => {
@@ -543,9 +546,17 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     // }
   }
   TinhNangSuat() {
-    if (validVariable(this.item.listItem) && this.item.listItem.length !== 0 && validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)) {
+    // console.log(validVariable(this.item.SoCa))
+    if(validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)){
       this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
       this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
+      if(!validVariable(this.item.SoCa)|| this.item.SoCa===0){
+        this.item.SoCa = (this.item.DenNgayUnix - this.item.TuNgayUnix)/(24*3600)*3;
+        console.log(this.item.SoCa);
+      }
+    }
+    if (validVariable(this.item.listItem) && this.item.listItem.length !== 0 && validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)) {
+      
       this._services.TrienKhaiKeHoachSanXuat().TinhNangSuat(this.item).subscribe((res: any) => {
         this.listCongDoan = mapArrayForDropDown(res.listCongDoan, 'Ten', 'Ma');
         res.listCongDoan.forEach(cd => {
@@ -556,7 +567,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
           }
         });
         // this.filter.CongDoan = this.listCongDoan[0].value;
-        this.filter.CongDoan = 'CON';
+        this.filter.CongDoan = 'ONG';
         this.item.listItemMay = res.listItemMay;
         // console.table(this.item.listItemMay)
       })
