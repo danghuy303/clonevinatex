@@ -538,7 +538,6 @@ import { BotrimayChungComponent } from './quanlykhosanxuat/candoichuyen/modals/b
     NhapkhokhacmodalComponent,
     XuatkhothanhphammodalComponent,
     PhanquyentheophanxuongmodalComponent,
-    LohangComponent,
     LohangmodalComponent,
     GiaokehoachsanxuathoanthanhmodalComponent,
     KiemkebcpmodalComponent,

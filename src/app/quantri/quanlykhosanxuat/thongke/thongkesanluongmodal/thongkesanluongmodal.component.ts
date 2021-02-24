@@ -226,4 +226,13 @@ export class ThongkesanluongmodalComponent implements OnInit {
       }
     )}
   }
+  TinhSoQuaSoi(item, event) {
+    if(item.KhoiLuong !== undefined && item.KhoiLuong!== null)
+    {
+      if(event === 0 && item.KgCone !== 0 && item.KhoiLuong!== null)
+        item.SoQuaSoi =item.KhoiLuong/item.KgCone;
+      else if(event !== 0 && event.value !== 0 && event.value !== null)
+        item.SoQuaSoi =item.KhoiLuong/event.value;
+    }
+  }
 }
