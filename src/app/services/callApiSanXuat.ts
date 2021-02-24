@@ -609,6 +609,9 @@ export class SanXuatService {
             Import_Mic: (Id, FileName) => {
                 return this.http.get(url + `ImportExcelPhieuNhapLoBong_ChatLuong_Mic?Id=${Id}&FileName=${FileName}`, httpOptions)
             },
+            exportExcelMau: (Loai) => {
+                return this.http.get(url + `ExportMauExcelChatLuong?Loai=${Loai}`, httpOptions)
+            },
         }
     }
     //#endregion
