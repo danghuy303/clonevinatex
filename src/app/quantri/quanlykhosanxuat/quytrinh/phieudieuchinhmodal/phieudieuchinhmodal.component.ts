@@ -55,7 +55,7 @@ export class PhieudieuchinhmodalComponent implements OnInit {
   }
  
   ChuyenDuyet() {
-    if(this.item.IddmItemDieuChinh === '' || this.item.IddmItemDieuChinh === undefined || this.item.IddmItemDieuChinh === null){
+    if(this.item.listItem[0].IddmItemDieuChinh === '' || this.item.listItem[0].IddmItemDieuChinh === undefined || this.item.listItem[0].IddmItemDieuChinh === null){
       this.toastr.error("Bạn chưa chọn kiện điều chỉnh");
     }
     else{

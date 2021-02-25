@@ -86,6 +86,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  lô hàng cho công đoạn Ống");
     }
     else{
+      debugger
       this.item.listItem.forEach(element => {
         element.IdLoHang = this.item.IdLoHang
       });
@@ -224,5 +225,14 @@ export class ThongkesanluongmodalComponent implements OnInit {
           this.listItem.push(element);
       }
     )}
+  }
+  TinhSoQuaSoi(item, event) {
+    if(item.KhoiLuong !== undefined && item.KhoiLuong!== null)
+    {
+      if(event === 0 && item.KgCone !== 0 && item.KhoiLuong!== null)
+        item.SoQuaSoi =item.KhoiLuong/item.KgCone;
+      else if(event !== 0 && event.value !== 0 && event.value !== null)
+        item.SoQuaSoi =item.KhoiLuong/event.value;
+    }
   }
 }

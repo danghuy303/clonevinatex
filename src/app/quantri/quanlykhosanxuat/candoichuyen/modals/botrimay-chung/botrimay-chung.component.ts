@@ -25,6 +25,7 @@ export class BotrimayChungComponent implements OnInit {
  
    ngOnInit(): void {
      console.log(this.item);
+     this.initSpeedOption();
      this.listHangHoa = mapArrayForDropDown(this.item.listCanBoTri,'Ten','Id')
      this.item.listCanBoTri.forEach(mathang => {
       mathang.SoMayDaBoTri = 0;
@@ -45,11 +46,58 @@ export class BotrimayChungComponent implements OnInit {
       }
     })
    }
+   initSpeedOption() {
+    this.item.listDaBoTri.forEach(may => {
+      if (validVariable(may.IdCanDoiChuyen_CanBoTri)) {
+        let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === may.IdCanDoiChuyen_CanBoTri)?.[0].IddmItem;
+        may.listTocDo = mapArrayForDropDown(may.listDinhMucMay.filter(dinhmuc => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
+        may.SanLuongCa = may.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === may.listTocDo?.[0]?.value)?.[0]?.NangSuat||0;
+        if (!validVariable(may.IdPhanNhomMay_Item)) {
+          may.IdPhanNhomMay_Item = may.listTocDo?.[0]?.value
+        }
+      } else {
+        may.listTocDo = [];
+      }
+    });
+  }
    TinhSoLuongMatHang(){
      this.item.listCanBoTri.forEach(mathang => {
        mathang.SoMayDaBoTri = this.item.listDaBoTri.filter(may=>may.IdCanDoiChuyen_CanBoTri===mathang.Id)?.length||0;
+       
+       mathang.SanLuongBoTri = this.item.listDaBoTri.filter(may=>may.IdCanDoiChuyen_CanBoTri===mathang.Id)?.reduce((Tong,may)=>Tong+may.SanLuongCa,0)||0;
+       console.log(mathang.SanLuongBoTri);
      });
    }
+   inputChange(){
+     this.TinhSoLuongMatHang()
+   }
+   chonMatHang(item, event) {
+    if (event.value) {
+      // if(validVariable(item.SoCocDen)&& validVariable(item.SoCocTu)){
+      // }
+      // else{
+      //   item.SoCocDen = item.SoCocTu;
+      // }
+      let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === item.IdCanDoiChuyen_CanBoTri)?.[0].IddmItem;
+      item.listTocDo = mapArrayForDropDown(item.listDinhMucMay.filter(dinhmuc => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
+        item.IdPhanNhomMay_Item = item.listTocDo?.[0]?.value||null;
+        item.SanLuongCa = item.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === item.listTocDo?.[0]?.value)?.[0]?.NangSuat||0;
+      if (!validVariable(item.SoCocDen)) {
+        item.SoCocDen = 60;
+      }
+      if (!validVariable(item.SoCocTu)) {
+        item.SoCocTu = 1;
+      }
+      // item.listTocDo = item.
+    } else {
+      item.listTocDo = [];
+      item.IdPhanNhomMay_Item = null;
+      item.SanLuongCa = 0;
+      item.SoCocTu = null;
+      item.SoCocDen = null;
+    }
+    this.inputChange();
+  }
    ApDungDenNgay(){
     if(validVariable(this.filter.DenNgay)&& validVariable(this.filter.TuNgay)&& this.filter.TuNgay<this.filter.DenNgay){
       this._services.CanDoiChuyen().SetCanDoiChuyen({...this.item,...this.addonData}).subscribe((res:any)=>{

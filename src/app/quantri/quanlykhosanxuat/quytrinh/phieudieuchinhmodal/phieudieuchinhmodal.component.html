@@ -69,7 +69,7 @@
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+            <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
@@ -87,23 +87,27 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>#</th>
-                        <th>Phiếu xuất kho</th>
-                        <th>Số bàn</th>
-                        <th>Tên lô bông</th>
-                        <th>Kiện cũ</th>
-                        <th>Vị trí cũ</th>
-                        <th>Mic cũ</th>
-                        <th>Kiện mới</th>
-                        <th>Vị trí mới</th>
-                        <th>Mic mới</th>
-                        <th></th>
+                        <th rowspan="2">#</th>
+                        <th rowspan="2">Phiếu xuất kho</th>
+                        <th rowspan="2">Số bàn</th>
+                        <th rowspan="2">Tên lô bông</th>
+                        <th colspan="3">Kiện cũ</th>
+                        <th colspan="3">Kiện mới</th>
+                        <th rowspan="2"></th>
+                    </tr>
+                    <tr>
+                        <th>Kiện</th>
+                        <th>Mic</th>
+                        <th>Vị trí</th>
+                        <th>Kiện</th>
+                        <th>Mic</th>
+                        <th>Vị trí</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr *ngIf="item.editField !== true">
                         <td>{{i+1}}</td>
-                        <td>{{item.TenPhieuXuatKho}}</td>
+                        <td>{{item.TenPhieuXuatBong}}</td>
                         <td>{{item.ThuTu}}</td>
                         <td style="text-align: center;">{{item.TenLoBong}}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>

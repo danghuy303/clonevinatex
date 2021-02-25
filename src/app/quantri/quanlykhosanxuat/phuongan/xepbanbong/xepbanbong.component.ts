@@ -45,15 +45,14 @@ export class XepbanbongComponent implements OnInit {
     }
   }
   mapIdPhanXuong: any = {
-    '1cf3f340_0f55_4f34_9381_e629318e25et': 'px1',
-    '1cf3f340_0f55_4f34_938p_e629318e25et': 'px2'
+    '1cf3f340_0f55_4f34_9381_e329318e25et': 'px1',
+    '1cf3f340_0f55_4f34_938p_e329318e25et': 'px2'
   }
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
 
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private _store: StoreService) { }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== '0') {
         this._service.XepBanBong().Get(res.id).subscribe((res: any) => {
@@ -101,6 +100,7 @@ export class XepbanbongComponent implements OnInit {
   // }
   update(item) {
     let component = this.defineComponent[`${this._store.getCurrent()}`][this.mapIdPhanXuong[item.IddmPhanXuong.split('-').join('_')]]
+    console.log(component);
     item.PhuongAnPhaBong = undefined;
     let modalRef = this._modal.open(component, {
       size: 'fullscreen-100',
@@ -111,7 +111,6 @@ export class XepbanbongComponent implements OnInit {
     modalRef.componentInstance.item = deepCopy(item);
     // modalRef.componentInstance.ghostItem = deepCopy(item);
     modalRef.result.then((res: any) => {
-      console.log(res);
       this._toastr.success('Cập nhật thành công');
       this.GetListQuyTrinh();
       this.changeParam(0);

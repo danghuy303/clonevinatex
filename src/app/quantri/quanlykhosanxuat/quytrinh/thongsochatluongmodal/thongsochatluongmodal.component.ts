@@ -190,4 +190,9 @@ export class ThongsochatluongmodalComponent implements OnInit {
     })
     .catch(er=>console.log(er))
   }
+  exportExcelMau(Loai){
+    this.services.PhieuNhapLoBong_ChatLuong().exportExcelMau(Loai).subscribe((res: any) => {
+      this.services.download(res.TenFile);
+    })
+  }
 }

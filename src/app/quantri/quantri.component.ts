@@ -421,12 +421,12 @@ export class QuantriComponent implements OnInit {
                 ],
             },
             {
-                label: 'Điều hành sản xuất',
-                routerLink: '/quantri/kehoachsanxuat',
+                label: 'Giao kế hoạch',
+                routerLink: '/quantri/giaokehoachsanxuat',
                 icon: 'fas fa-circle',
                 items: [
                     {
-                        label: 'Kế hoạch được giao',
+                        label: 'Giao kế hoạch sản xuất',
                         routerLink: '/quantri/kehoachsanxuat/giaokehoachsanxuat/0',
                         separator: this.checkmenu("GIAOKEHOACHSANXUAT"),
                         command: () => {
@@ -434,7 +434,26 @@ export class QuantriComponent implements OnInit {
                         }
                     },
                     {
-                        label: 'Triển khai kế hoạch',
+                        label: 'Kế hoạch nhập bông',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/kehoachnhapnguyenlieu/0',
+                        separator: this.checkmenu("KEHOACHNHAPNGUYENLIEU"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Kế hoạch xuất sợi',
+                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/kehoachxuathang/0',
+                        separator: this.checkmenu("KEHOACHXUATHANG"),
+                        command: () => this.close()
+                    },
+                ]
+            },
+            {
+                label: 'Điều hành sản xuất',
+                routerLink: '/quantri/kehoachsanxuat',
+                icon: 'fas fa-circle',
+                items: [
+                    {
+                        label: 'Triển khai kế hoạch sản xuất',
                         routerLink: '/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/0',
                         separator: this.checkmenu("TRIENKHAIKEHOACHSANXUAT"),
                         command: () => {
@@ -450,21 +469,14 @@ export class QuantriComponent implements OnInit {
                         }
                     },
                     {
-                        label: 'Điều hành sản xuất',
+                        label: 'Yêu cầu xuất bông',
                         routerLink: '/quantri/kehoachsanxuat/sanxuat/0',
                         separator: this.checkmenu("PHUONGANSANXUAT"),
                         command: () => this.close()
                     },
                     {
-                        label: 'Kế hoạch xuất sợi',
-                        routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/kehoachxuathang/0',
-                        separator: this.checkmenu("KEHOACHXUATHANG"),
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Kế hoạch nhập nguyên liệu',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/kehoachnhapnguyenlieu/0',
-                        separator: this.checkmenu("KEHOACHNHAPNGUYENLIEU"),
+                        label: 'Lô hàng',
+                        routerLink: '/quantri/kehoachsanxuat/lohang',
                         command: () => this.close()
                     },
                 ]
@@ -532,15 +544,15 @@ export class QuantriComponent implements OnInit {
                         command: () => this.close()
                     },
                     {
-                        label: 'Hạ cấp',
-                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/hacap/0',
-                        separator: this.checkmenu("PHIEUHACAP"),
-                        command: () => this.close()
-                    },
-                    {
                         label: 'Chất lượng sợi',
                         routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/chatluongsoi/0',
                         separator: this.checkmenu("KIEMTRACHATLUONGSOI"),
+                        command: () => this.close()
+                    },
+                    {
+                        label: 'Hạ cấp',
+                        routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/hacap/0',
+                        separator: this.checkmenu("PHIEUHACAP"),
                         command: () => this.close()
                     },
                 ]
@@ -695,11 +707,11 @@ export class QuantriComponent implements OnInit {
                     },
                 ]
             },
-            // {
-            //     label: 'Kiểm kê BCP',
-            //     icon: 'fas fa-circle',
-            //     routerLink: '/quantri/quanlykhosanxuat/kiemkeBCP/0',
-            // },
+            {
+                label: 'Kiểm kê BCP',
+                icon: 'fas fa-circle',
+                routerLink: '/quantri/quanlykhosanxuat/kiemkeBCP/0',
+            },
             // {
             //     label: 'Báo cáo',
             //     icon: 'pi pi-chart-bar',

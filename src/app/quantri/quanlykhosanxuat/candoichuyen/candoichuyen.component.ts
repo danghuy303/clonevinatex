@@ -21,7 +21,7 @@ export class CandoichuyenComponent implements OnInit {
     listDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     listDates = [];
     filter: any = {
-        CongDoan: "ONG",
+        CongDoan: "CON",
         IddmPhanXuong:"1cf3f340-0f55-4f34-938p-e629318e25et"
     };
     showDialog:boolean=false;
@@ -44,8 +44,8 @@ export class CandoichuyenComponent implements OnInit {
     ngOnInit(): void {
         this.GetOptions();
         let date = new Date();
-        this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth() -1, 1);
-        this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() , 0);
+        this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+        this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() +1, 0);
         // this.boTriMay();
         this.GetCalendar()
     }
@@ -60,6 +60,7 @@ export class CandoichuyenComponent implements OnInit {
         };
         this._services.GetListdmPhanXuong(data2).subscribe((res: any) => {
             this.listPhanXuong = mapArrayForDropDown(res, "Ten", "Id");
+            this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
         });
         this._services.GetListCongDoan().subscribe((res: any) => {
             this.listCongDoan = mapArrayForDropDown(res, "Ten", "Ma");
