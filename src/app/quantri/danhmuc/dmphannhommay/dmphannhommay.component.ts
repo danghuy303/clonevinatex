@@ -170,7 +170,7 @@ export class DmphannhommayComponent implements OnInit {
       //   });
       // })
       let modalRef = this._modal.open(DmphannhommaymodalComponent, {
-        size: "xl",
+        size: "fullscreen-100",
         backdrop: 'static'
       });
       modalRef.componentInstance.opt = 'edit';
