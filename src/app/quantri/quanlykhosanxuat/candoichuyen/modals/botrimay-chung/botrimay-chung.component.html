@@ -70,7 +70,7 @@
                                     styleClass="p-inputtext-sm" [(ngModel)]="item.IdPhanNhomMay_Item"></p-dropdown>
                             </td>
                             <td class="text-right">
-                                {{item.SanLuongCa}}
+                                {{item.SanLuongCa|number:'0.0-2'}}
                             </td>
                             <!-- <td><input pInputText type="text" [(ngModel)]="item.Ne"></td>
                             <td><input pInputText type="text" [(ngModel)]="item.Nm"></td> -->
