@@ -123,8 +123,9 @@ export class QuantriComponent implements OnInit {
         this._services.GetAllQuyen().subscribe((res: any) => {
             this.dataphanquyen = res;
             this.CaiMeNu();
+            console.log(this.checkmenu('CANDOICHUYEN'))
         })
-        this.CaiMeNu();        
+        // this.CaiMeNu();        
         this.menuQLTS = [
             {
                 label: 'Bàn làm việc',
@@ -339,7 +340,7 @@ export class QuantriComponent implements OnInit {
             }
         ];
         // this.menu = this.menuQLTS;
-        this.menu = this.menuQLNS;
+        // this.menu = this.menuQLNS;
     }
 
     CaiMeNu() {
@@ -463,7 +464,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Cân đối chuyền',
                         routerLink: '/quantri/kehoachsanxuat/candoichuyen',
-                        separator: this.checkmenu("TRIENKHAIKEHOACHSANXUAT"),
+                        separator: this.checkmenu("CANDOICHUYEN"),
                         command: () => {
                             this.close()
                         }
@@ -854,6 +855,7 @@ export class QuantriComponent implements OnInit {
             //     icon: 'pi pi-copy',
             // }
         ];
+        this.menu = this.menuQLNS;
     }
 
     checkmenu(maaction) {
