@@ -91,6 +91,7 @@ export class CandoichuyenComponent implements OnInit {
             }
             data.Unix = DateToUnix(currentDate);
             data.prop = this.datepipe.transform(currentDate, "dd_MM_yyyy");
+            data.labelHienThi = this.datepipe.transform(currentDate, "dd/MM/yyyy");
             data.value = currentDate;
             dates.push(data);
             currentDate = addDays.call(currentDate, 1);
@@ -133,6 +134,7 @@ export class CandoichuyenComponent implements OnInit {
         }
     }
     boTriMay(date?) {
+        console.log(date);
         if (this.filter.CongDoan === "ONG") {
             this._services.CanDoiChuyen().GetCanDoiChuyen(this.filter.IddmPhanXuong, this.filter.CongDoan, date.Unix).subscribe(res => {
                 console.log(res);
@@ -145,6 +147,7 @@ export class CandoichuyenComponent implements OnInit {
                     IddmPhanXuong: this.filter.IddmPhanXuong,
                     CongDoan: this.filter.CongDoan,
                     NgayUnix: date.Unix,
+                    LabelNgay:date.labelHienThi
                 };
                 modalRef.result
                     .then((res) => { 
@@ -167,7 +170,8 @@ export class CandoichuyenComponent implements OnInit {
                 modalRef.componentInstance.addonData = {
                     IddmPhanXuong: this.filter.IddmPhanXuong,
                     CongDoan: this.filter.CongDoan,
-                    NgayUnix: date.Unix
+                    NgayUnix: date.Unix,
+                    LabelNgay:date.labelHienThi
                 };
                 modalRef.result
                     .then((res) => {
