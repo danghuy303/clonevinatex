@@ -72,7 +72,7 @@ export class DmthongkedienmodalComponent implements OnInit {
     this.item.lstMayBienAp.filter(objlstMayBienAp => {
       objlstMayBienAp.lstKhungGio.filter(objlstKhungGio => {
         objlstKhungGio.lstCongTo.filter(objlstCongTo => {
-          if (objlstCongTo.SoMoi < 0 || objlstCongTo.SoCu > objlstCongTo.SoMoi) {
+          if (objlstCongTo.SoMoi > 0 && objlstCongTo.SoCu > objlstCongTo.SoMoi) {
             return checkSoMoi = false;
           }
         });
