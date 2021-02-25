@@ -28,6 +28,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
   listLoaiBong: any = [];
   listCaLamViec: any = [];
   dataPie: any = {};
+  GiaTrungBinhCoCauBong:any=[];
   option1: any = {
     scales: {
       xAxes: [{
@@ -102,7 +103,8 @@ export class DieuhanhsanxuatComponent implements OnInit {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN')}`
+          console.log(data);
+          return `${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN')}kg - ${formatNumber(data.datasets[tooltipItem.datasetIndex].GiaTrungBinh[tooltipItem.index], 'vi-VN', '0.0-2')} USD`
         }
       }
     },
@@ -194,11 +196,14 @@ export class DieuhanhsanxuatComponent implements OnInit {
         }
       })
       this._services.DashBoard().CoCauTonBong(this.filter).subscribe((res:any)=>{
+        this.GiaTrungBinhCoCauBong = res.map(ele=>ele.DonGia);
+        console.log(this.GiaTrungBinhCoCauBong);
         this.dataPie = {
           labels: res.map(ele=>ele.Ten),
           datasets: [
             {
               data: res.map(ele=>ele.TrongLuong),
+              GiaTrungBinh:res.map(ele=>ele.DonGia),
               backgroundColor: [
                 "#009900",
                 "#36A2EB",

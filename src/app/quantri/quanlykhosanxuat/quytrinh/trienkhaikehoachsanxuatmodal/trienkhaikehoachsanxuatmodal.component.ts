@@ -568,6 +568,9 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         });
         // this.filter.CongDoan = this.listCongDoan[0].value;
         this.filter.CongDoan = 'ONG';
+        res.listItemMay.sort((a,b)=>{
+          return ('' + a.Ten).localeCompare(b.Ten);
+        })
         this.item.listItemMay = res.listItemMay;
         // console.table(this.item.listItemMay)
       })

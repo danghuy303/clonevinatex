@@ -51,13 +51,14 @@ export class KiemkebcpmodalComponent implements OnInit {
       this.KiemTraButtonModal();
       this.GetQuyTrinh();
     }
-    if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
-    }
+    
   }
   GetQuyTrinh() {
     this.services.PhieuKiemKeBanChePham().Get(this.item.Id).subscribe((res1: any) => {
       res1.CongDoan = this.listCongDoan[0].value;
+      if (res1.NgayUnix !== null && res1.NgayUnix !== undefined) {
+        res1.Ngay = new Date(res1.NgayUnix * 1000);
+      }
       this.item = res1;
       this.check = true;
       console.log(this.item)
@@ -178,7 +179,7 @@ export class KiemkebcpmodalComponent implements OnInit {
   getListdmHangMuc() {
     this.services.dmKiemKeBanChePham().GetListAll().subscribe((res: any) => {
       res.forEach(element => {
-        element.IddmItem = element.Id;
+        element.IddmHangMuc = element.Id;
         element.Id = "";
       });
       this.listItemFull = res;

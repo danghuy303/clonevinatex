@@ -47,7 +47,7 @@ export class CandoichuyenComponent implements OnInit {
         this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
         this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() +1, 0);
         // this.boTriMay();
-        this.GetCalendar()
+        this.GetCalendar();
     }
     GetOptions(): void {
         let data2 = {
@@ -144,7 +144,7 @@ export class CandoichuyenComponent implements OnInit {
                 modalRef.componentInstance.addonData = {
                     IddmPhanXuong: this.filter.IddmPhanXuong,
                     CongDoan: this.filter.CongDoan,
-                    NgayUnix: date.Unix
+                    NgayUnix: date.Unix,
                 };
                 modalRef.result
                     .then((res) => { 
