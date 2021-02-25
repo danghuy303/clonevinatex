@@ -196,7 +196,7 @@ export class NhucauxuathangComponent implements OnInit {
         mathang.checked = false
       });
       this.listItem[index].checked = true;
-      this.SelectItem = this.listItem[index];     
+      this.SelectItem = this.listItem[index];
     }
     else {
       this.SelectItem = {};
@@ -205,13 +205,14 @@ export class NhucauxuathangComponent implements OnInit {
 
   xemTruySuatNguonGoc() {
     if (this.SelectItem.TendmItem != undefined && this.SelectItem != null) {
-    console.log(this.SelectItem);
-    if (validVariable(this.SelectItem?.IddmItem)) {
-      this.showTruySuatNguonGoc = true;
+      console.log(this.SelectItem);
+      if (validVariable(this.SelectItem?.IddmItem)) {
+        this.showTruySuatNguonGoc = true;
+      }
+      else {
+        this.toastr.error("Yêu cầu chọn mặt hàng");
+      }
     }
-    else {
-      this.toastr.error("Yêu cầu chọn mặt hàng");
-    }
-  }
 
+  }
 }
