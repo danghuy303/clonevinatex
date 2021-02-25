@@ -25,6 +25,7 @@ export class BotrimayChungComponent implements OnInit {
  
    ngOnInit(): void {
      console.log(this.item);
+     this.sort()
      this.initSpeedOption();
      this.listHangHoa = mapArrayForDropDown(this.item.listCanBoTri,'Ten','Id')
      this.item.listCanBoTri.forEach(mathang => {
@@ -33,6 +34,11 @@ export class BotrimayChungComponent implements OnInit {
      this.newMay={}
      this.TinhSoLuongMatHang()
    }
+   sort() {
+    this.item.listDaBoTri = this.item.listDaBoTri.sort((a: any, b: any) => {
+      return a.TenMay.localeCompare(b.TenMay);
+    })
+  }
    GhiLai(){
     this._services.CanDoiChuyen().SetCanDoiChuyen({...this.item,...this.addonData}).subscribe((res:any)=>{
       if(res){
@@ -51,7 +57,7 @@ export class BotrimayChungComponent implements OnInit {
       if (validVariable(may.IdCanDoiChuyen_CanBoTri)) {
         let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === may.IdCanDoiChuyen_CanBoTri)?.[0].IddmItem;
         may.listTocDo = mapArrayForDropDown(may.listDinhMucMay.filter(dinhmuc => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
-        may.SanLuongCa = may.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === may.listTocDo?.[0]?.value)?.[0]?.NangSuat||0;
+        may.SanLuongCa = may.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === may.listTocDo?.[0]?.value)?.[0]?.DinhMucNangSuat||0;
         if (!validVariable(may.IdPhanNhomMay_Item)) {
           may.IdPhanNhomMay_Item = may.listTocDo?.[0]?.value
         }
@@ -81,7 +87,7 @@ export class BotrimayChungComponent implements OnInit {
       let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === item.IdCanDoiChuyen_CanBoTri)?.[0].IddmItem;
       item.listTocDo = mapArrayForDropDown(item.listDinhMucMay.filter(dinhmuc => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
         item.IdPhanNhomMay_Item = item.listTocDo?.[0]?.value||null;
-        item.SanLuongCa = item.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === item.listTocDo?.[0]?.value)?.[0]?.NangSuat||0;
+        item.SanLuongCa = item.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === item.listTocDo?.[0]?.value)?.[0]?.DinhMucNangSuat||0;
       if (!validVariable(item.SoCocDen)) {
         item.SoCocDen = 60;
       }

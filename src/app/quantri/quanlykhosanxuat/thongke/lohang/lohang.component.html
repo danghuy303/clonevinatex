@@ -44,15 +44,15 @@
                     <!-- <input type="checkbox"/> -->
                 </td>
                 <td class="text-center" *ngFor="let col of cols">
-                    {{item[col.field]}}
+                    {{col.type==='date'?(item[col.field]|date:'dd/MM/yyyy'):item[col.field]}}
                 </td>
                 <td class="text-center">
+                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item.Id)"></button>
                     <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(item.Id)" pTooltip="Xóa" showDelay="1000"
                                 tooltipPosition="bottom"></button>
-                    <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item.Id)"></button>
                 </td>
             </tr>
         </ng-template>

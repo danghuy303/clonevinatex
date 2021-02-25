@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Bố trí máy: Công đoạn {{TenCongDoan|lowercase}}</h5>
+    <h5 class="modal-title">Bố trí máy: Công đoạn {{TenCongDoan|lowercase}}-{{addonData.LabelNgay}}</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -70,7 +70,7 @@
                                     styleClass="p-inputtext-sm" [(ngModel)]="item.IdPhanNhomMay_Item"></p-dropdown>
                             </td>
                             <td class="text-right">
-                                {{item.SanLuongCa}}
+                                {{item.SanLuongCa|number:'0.0-2'}}
                             </td>
                             <!-- <td><input pInputText type="text" [(ngModel)]="item.Ne"></td>
                             <td><input pInputText type="text" [(ngModel)]="item.Nm"></td> -->

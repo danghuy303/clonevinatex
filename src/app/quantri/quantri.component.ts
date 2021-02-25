@@ -20,8 +20,8 @@ export class QuantriComponent implements OnInit {
     userBtn: any;
     userInfo: any;
     userSub: any;
-    newNoti:any = 0;
-    listNotis:any = [];
+    newNoti: any = 0;
+    listNotis: any = [];
     // userName: any = 'Vinatex';
     display: boolean = false;
     OSName: string = 'HỆ THỐNG Quản lý Nhà – Đất'
@@ -33,13 +33,13 @@ export class QuantriComponent implements OnInit {
     IdNhaMay: string = '';
     showDropDown: boolean = false;
     canSendMessage: any;
-    mapQuyTrinhRoute:any={
-        GIAOKEHOACHSANXUAT:'/quantri/kehoachsanxuat/giaokehoachsanxuat/',
-        PHUONGANSANXUAT:'/quantri/kehoachsanxuat/sanxuat/',
-        TRIENKHAIKEHOACHSANXUAT:'/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/',
+    mapQuyTrinhRoute: any = {
+        GIAOKEHOACHSANXUAT: '/quantri/kehoachsanxuat/giaokehoachsanxuat/',
+        PHUONGANSANXUAT: '/quantri/kehoachsanxuat/sanxuat/',
+        TRIENKHAIKEHOACHSANXUAT: '/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/',
     }
-    @ViewChild('listNoti')listNoti;
-    constructor(private _auth: AuthenticationService, private _modal: NgbModal, private _router: Router, private _services: SanXuatService, private store: StoreService, private _signalRService: SignalRService,private _toastr:ToastrService) {
+    @ViewChild('listNoti') listNoti;
+    constructor(private _auth: AuthenticationService, private _modal: NgbModal, private _router: Router, private _services: SanXuatService, private store: StoreService, private _signalRService: SignalRService, private _toastr: ToastrService) {
         this.userInfo = this._auth.currentUserValue;
         this.getOSName(this._router.url);
         this.subscribeToEvents();
@@ -69,47 +69,47 @@ export class QuantriComponent implements OnInit {
     setGlobalNhaMay(event) {
         this.store.setNhaMay(event.value);
     }
-    open(event){
+    open(event) {
         this.listNoti.toggle(event);
     }
-    readedAllNoti(){
+    readedAllNoti() {
         this.newNoti = 0;
     }
-    readOne(item){
-        let read = this.listNotis.find(ele=>ele.Id === item.Id);
-        if(read){
+    readOne(item) {
+        let read = this.listNotis.find(ele => ele.Id === item.Id);
+        if (read) {
             read.isRead = true
         }
-        this.newNoti = this.listNotis.filter(ele=>ele.isRead!==true).length;
+        this.newNoti = this.listNotis.filter(ele => ele.isRead !== true).length;
         let routerURL = this.mapQuyTrinhRoute[item.LoaiThongBao];
-        console.log(routerURL+item.IdQuyTrinh)
-        if(routerURL){
+        console.log(routerURL + item.IdQuyTrinh)
+        if (routerURL) {
             this._router.navigate([`${routerURL}${item.IdQuyTrinh}`])
-        }else{
+        } else {
             this._toastr.warning('Không tìm thấy điều hướng của thông báo!')
         }
     }
-    refreshNotis(){
+    refreshNotis() {
         this.GetCount();
         this.GetListNotis();
     }
 
-    GetCount(){
-        this._services.Notifications().GetNotiCounAndNew().subscribe((res:any)=>{
+    GetCount() {
+        this._services.Notifications().GetNotiCounAndNew().subscribe((res: any) => {
             this.newNoti = res.Count;
             res.ListNew.forEach(noti => {
-                this._toastr.info(noti.NoiDung,noti.TieuDe);
+                this._toastr.info(noti.NoiDung, noti.TieuDe);
             });
         })
     }
-    GetListNotis(){
-        this._services.Notifications().GetListNotification().subscribe((res:any)=>{
+    GetListNotis() {
+        this._services.Notifications().GetListNotification().subscribe((res: any) => {
             this.listNotis = res.ListItem;
         })
     }
-    GetMoreNotis(){
-        this._services.Notifications().GetMoreNotification(this.listNotis[this.listNotis.length-1].Id).subscribe((res:any)=>{
-            this.listNotis = [...this.listNotis,...res.ListItem];
+    GetMoreNotis() {
+        this._services.Notifications().GetMoreNotification(this.listNotis[this.listNotis.length - 1].Id).subscribe((res: any) => {
+            this.listNotis = [...this.listNotis, ...res.ListItem];
         })
     }
 
@@ -123,8 +123,9 @@ export class QuantriComponent implements OnInit {
         this._services.GetAllQuyen().subscribe((res: any) => {
             this.dataphanquyen = res;
             this.CaiMeNu();
+            console.log(this.checkmenu('CANDOICHUYEN'))
         })
-        this.CaiMeNu();
+        // this.CaiMeNu();        
         this.menuQLTS = [
             {
                 label: 'Bàn làm việc',
@@ -339,7 +340,7 @@ export class QuantriComponent implements OnInit {
             }
         ];
         // this.menu = this.menuQLTS;
-        this.menu = this.menuQLNS;
+        // this.menu = this.menuQLNS;
     }
 
     CaiMeNu() {
@@ -463,7 +464,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Cân đối chuyền',
                         routerLink: '/quantri/kehoachsanxuat/candoichuyen',
-                        separator: this.checkmenu("TRIENKHAIKEHOACHSANXUAT"),
+                        separator: this.checkmenu("CANDOICHUYEN"),
                         command: () => {
                             this.close()
                         }
@@ -707,11 +708,11 @@ export class QuantriComponent implements OnInit {
                     },
                 ]
             },
-            {
-                label: 'Kiểm kê BCP',
-                icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhosanxuat/kiemkeBCP/0',
-            },
+            // {
+            //     label: 'Kiểm kê BCP',
+            //     icon: 'fas fa-circle',
+            //     routerLink: '/quantri/quanlykhosanxuat/kiemkeBCP/0',
+            // },
             // {
             //     label: 'Báo cáo',
             //     icon: 'pi pi-chart-bar',
@@ -854,20 +855,23 @@ export class QuantriComponent implements OnInit {
             //     icon: 'pi pi-copy',
             // }
         ];
+        this.menu = this.menuQLNS;
     }
 
     checkmenu(maaction) {
         if (this.dataphanquyen == null) {
-            return false;
+            return true;
         } else if (this.dataphanquyen[maaction] == undefined) {
-            return false;
+            return true;
+        } else if (this.dataphanquyen[maaction].length == 0) {
+            return true;
         } else {
             for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
                 if (this.dataphanquyen[maaction][i].MaRight == "XEM") {
                     if (this.dataphanquyen[maaction][i].GioiHan > 0) {
-                        return true;
-                    } else
                         return false;
+                    } else
+                        return true;
                 }
             }
         }

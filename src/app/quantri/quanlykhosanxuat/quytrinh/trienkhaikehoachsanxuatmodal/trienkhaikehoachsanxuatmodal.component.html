@@ -159,13 +159,13 @@
                     <div style="display: flex; align-items: center; height: 100%;"
                         *ngIf="mapCongDoan_TinhTrangMay[filter.CongDoan]!==undefined">
                         <span class="mr-5 ml-5">
-                            Số máy cần:{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayTinhToan|number:'0.0-2'}}
+                            Số máy hiện có: &nbsp; <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayHienCo|number:'0.0-2'}}</strong>
                         </span>
                         <span class="mr-5">
-                            Số máy hiện có:{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayHienCo|number:'0.0-2'}}
+                            Số máy cần: &nbsp; <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayTinhToan|number:'0.0-2'}}</strong>
                         </span>
                         <span >
-                            Số máy cân đối:{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayCanDoi|number:'0.0-2'}}
+                            Số máy cân đối: &nbsp; <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayCanDoi|number:'0.0-2'}}</strong>
                         </span>
                     </div>
                 </div>
@@ -184,7 +184,7 @@
                     <colgroup>
                         <col style="width:50px">
                         <col>
-                        <col>
+                        <!-- <col> -->
                         <col>
                         <col>
                         <col>
@@ -197,11 +197,11 @@
                     <tr>
                         <th>#</th>
                         <th>Mặt hàng</th>
-                        <th>Kế hoạch giao(Tấn)</th>
+                        <!-- <th>Kế hoạch giao(Tấn)</th> -->
                         <th>Kế hoạch triển khai(Tấn)</th>
-                        <th>Số máy cần</th>
                         <th>Sản lượng ca (kg)</th>
                         <th>Năng suất định mức (kg/ca/máy)</th>
+                        <th>Số máy cần</th>
                         <!-- <th>Số máy bố trí</th> -->
                         <!-- <th>Thao tác</th> -->
                     </tr>
@@ -210,7 +210,7 @@
                     <tr>
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">{{mathang.Ten}}</td>
-                        <td class="text-center">{{mathang.KhoiLuongKeHoach|number:'0.0-2'}}</td>
+                        <!-- <td class="text-center">{{mathang.KhoiLuongKeHoach|number:'0.0-2'}}</td> -->
                         <td class="text-center">
                             {{mathang.KhoiLuongSanXuat|number:'0.0-2'}}
                             <!-- <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [max]="mathang.KhoiLuongKeHoach"
@@ -218,13 +218,13 @@
                             </p-inputNumber> -->
                         </td>
                         <td class="text-center">
-                            {{mathang.SoMayTinhToan|number:'0.0-1'}}
-                        </td>
-                        <td class="text-center">
                             {{mathang.SanLuongCa|number:'0.0-2'}}
                         </td>
                         <td class="text-center">
                             {{mathang.NangSuatDinhMuc|number:'0.0-2'}}
+                        </td>
+                        <td class="text-center">
+                            {{mathang.SoMayTinhToan|number:'0.0-2'}}
                         </td>
                         <!-- <td class="text-center">
                             {{mathang.SoMay|number:'0.0-1'}}

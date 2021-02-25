@@ -1,3 +1,4 @@
+import { formatNumber } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +13,7 @@ import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhan
 @Component({
   selector: 'app-phabongmodal',
   templateUrl: './phabongmodal.component.html',
-  styleUrls: ['./phabongmodal.component.css']
+  styleUrls: ['./phabongmodal.component.css'],
 })
 export class PhabongmodalComponent implements OnInit {
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
@@ -49,7 +50,11 @@ export class PhabongmodalComponent implements OnInit {
   }
   labelBong: any = {
   }
-  trongLuongLoBong:any={}
+  ThongSoKienTheoLoaiBong:any={
+
+  };
+  trongLuongLoBong:any={};
+  itemMicTT:any = {};
 
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
   }
@@ -126,10 +131,17 @@ export class PhabongmodalComponent implements OnInit {
           }
         });
         this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.M + this.labelBong.TP);
+        this.item.TyLePhaBong = `${formatNumber(this.labelBong.BR,'vi-VN','0.0-1')}% Brazil + ${formatNumber(this.labelBong.M,'vi-VN','0.0-1')}% Mỹ + ${formatNumber(this.labelBong.TP,'vi-VN','0.0-1')}% Tây Phi + ${formatNumber(this.labelBong.Hoi,'vi-VN','0.0-1')}% Hồi`
         for (let i = 0; i < this.item.listLoBong.length; i++) {
           for (let j = 1; j <= this.item.SoBanBong; j++) {
             this.CalAllTable(i, `${j}`);
           }
+        }
+        this.TinhThongTinKienTheoLoaiBong();
+        if(validVariable(this.item.listThongSo)){
+          this.item.listThongSo.forEach(thongso => {
+            this.itemMicTT[`${thongso.ThuTu}`] = thongso.MicTT;
+          });
         }
       }
     })
@@ -256,6 +268,7 @@ export class PhabongmodalComponent implements OnInit {
       }
     });
     this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.M + this.labelBong.TP);
+    this.item.TyLePhaBong = `${formatNumber(this.labelBong.BR,'vi-VN','0.0-1')}% Brazil + ${formatNumber(this.labelBong.M,'vi-VN','0.0-1')}% Mỹ + ${formatNumber(this.labelBong.TP,'vi-VN','0.0-1')}% Tây Phi + ${formatNumber(this.labelBong.Hoi,'vi-VN','0.0-1')}% Hồi`
   }
   TinhTongTrongLuong(){
     this.trongLuongLoBong = {};
@@ -277,6 +290,23 @@ export class PhabongmodalComponent implements OnInit {
         this.itemDeltaPlusB[`${i}`] = (this.itembBQ[`${i}`] - this.itembBQ[`${i - 1}`]);
       }
     }
+  }
+  TinhThongTinKienTheoLoaiBong(){
+    this.ThongSoKienTheoLoaiBong = {};
+    this.item.listLoBong.forEach(lobong => {
+      if(!validVariable(this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong])){
+        this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong]= {
+          TonDau:0,
+          TonCuoi:0,
+          SoLuongDung:0,
+          Mau:null
+        }
+      }
+      this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].TonDau+= lobong.SoLuongKien;
+      this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].TonCuoi += lobong.TonCuoi;
+      this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].SoLuongDung+= lobong.SoLuongDung;
+      this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].Mau = lobong.Mau;
+    });
   }
   CalAllTable(y, x) { //truc toa do y:tung x:hoanh
     let tempSLD = 0;
@@ -342,6 +372,7 @@ export class PhabongmodalComponent implements OnInit {
     this.TinhTyLeTong();
     this.TinhTongTrongLuong()
     this.TinhDeltaB();
+    this.TinhThongTinKienTheoLoaiBong();
   }
 
   KiemTraButtonModal() {
