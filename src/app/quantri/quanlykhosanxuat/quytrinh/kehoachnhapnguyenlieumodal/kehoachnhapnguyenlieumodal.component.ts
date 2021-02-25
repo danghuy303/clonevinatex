@@ -90,7 +90,20 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     }
     this._services.GetListdmLoaiBong(data).subscribe((res: any) => {
       // res.unshift({ Id: '', Ten: 'Tổng hợp' });
-      this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
+      let data: any = mapArrayForDropDown(res, "Ten", 'Id');
+      this.listLoaiBong = this.listLoaiBong.concat(data);
+    })
+    let data1 = {
+      CurrentPage: 0,
+      NumperPage: 10,
+      Ma: '',
+      Ten: "",
+      sFilter: '',
+      Loai: 5
+    }
+    this._services.GetListdmLoaiBong(data1).subscribe((res: any) => {
+      let data: any = mapArrayForDropDown(res, "Ten", 'Id');
+      this.listLoaiBong = this.listLoaiBong.concat(data);
     })
   }
   GetListdmCapBong() {
