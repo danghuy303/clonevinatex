@@ -25,6 +25,7 @@ export class BotrimayChungComponent implements OnInit {
  
    ngOnInit(): void {
      console.log(this.item);
+     this.sort()
      this.initSpeedOption();
      this.listHangHoa = mapArrayForDropDown(this.item.listCanBoTri,'Ten','Id')
      this.item.listCanBoTri.forEach(mathang => {
@@ -33,6 +34,11 @@ export class BotrimayChungComponent implements OnInit {
      this.newMay={}
      this.TinhSoLuongMatHang()
    }
+   sort() {
+    this.item.listDaBoTri = this.item.listDaBoTri.sort((a: any, b: any) => {
+      return a.TenMay.localeCompare(b.TenMay);
+    })
+  }
    GhiLai(){
     this._services.CanDoiChuyen().SetCanDoiChuyen({...this.item,...this.addonData}).subscribe((res:any)=>{
       if(res){

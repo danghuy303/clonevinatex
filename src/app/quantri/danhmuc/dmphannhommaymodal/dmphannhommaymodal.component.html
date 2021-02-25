@@ -63,7 +63,7 @@
         <div class="p-col-4 p-d-flex p-flex-row" *ngIf="item.CongDoan==='THO'">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số cọc:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoCoc">
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoCoc" (onBlur)="item_tinhNangSuatLyThuyet()">
                 </p-inputNumber>
             </div>
         </div>
