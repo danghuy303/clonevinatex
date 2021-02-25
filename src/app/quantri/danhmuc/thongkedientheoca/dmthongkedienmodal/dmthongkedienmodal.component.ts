@@ -68,12 +68,13 @@ export class DmthongkedienmodalComponent implements OnInit {
 
   GhiLai() {
     this.khongclicknhieu = !this.khongclicknhieu;
-    let checkSoMoi = false;
+    let checkSoMoi = true;
     this.item.lstMayBienAp.filter(objlstMayBienAp => {
       objlstMayBienAp.lstKhungGio.filter(objlstKhungGio => {
-        checkSoMoi = objlstKhungGio.lstCongTo.every(objlstCongTo => {
-          if (objlstCongTo.SoMoi > 0)
-            objlstCongTo.SoCu < objlstCongTo.SoMoi;
+        objlstKhungGio.lstCongTo.filter(objlstCongTo => {
+          if (objlstCongTo.SoMoi < 0 || objlstCongTo.SoCu > objlstCongTo.SoMoi) {
+            return checkSoMoi = false;
+          }
         });
       });
     });
