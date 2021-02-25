@@ -119,12 +119,12 @@ export class QuantriComponent implements OnInit {
         this.refreshNotis();
         this._router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((res: any) => {
             this.getOSName(res.url);
-        })
+        })        
         this._services.GetAllQuyen().subscribe((res: any) => {
             this.dataphanquyen = res;
             this.CaiMeNu();
         })
-        this.CaiMeNu();
+        this.CaiMeNu();        
         this.menuQLTS = [
             {
                 label: 'Bàn làm việc',
@@ -858,16 +858,16 @@ export class QuantriComponent implements OnInit {
 
     checkmenu(maaction) {
         if (this.dataphanquyen == null) {
-            return false;
+            return true;
         } else if (this.dataphanquyen[maaction] == undefined) {
-            return false;
+            return true;
         } else {
             for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
                 if (this.dataphanquyen[maaction][i].MaRight == "XEM") {
                     if (this.dataphanquyen[maaction][i].GioiHan > 0) {
-                        return true;
-                    } else
                         return false;
+                    } else
+                        return true;
                 }
             }
         }
