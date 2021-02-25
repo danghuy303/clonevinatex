@@ -319,11 +319,14 @@
                     <tr>
                         <td class="text-center tc-w-151" style="background-color:white !important;">
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        <td class="text-center tc-w-60" style="background-color:#82c940 !important;">
+                            {{ThongSoKienTheoLoaiBong?.BR?.TonDau}}
                         </td>
-                        <td class="text-center tc-w-100" style="background-color:white !important;">
+                        <td class="text-center tc-w-100" style="background-color:#82c940 !important;">
+                            {{ThongSoKienTheoLoaiBong?.BR?.SoLuongDung}}
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        <td class="text-center tc-w-60" style="background-color:#82c940 !important;">
+                            {{ThongSoKienTheoLoaiBong?.BR?.TonCuoi}}
                         </td>
                         <td class="text-center tc-w-80" style="color: rebeccapurple; background-color: yellow;">
                             Mic B/Q
@@ -366,11 +369,14 @@
                     <tr>
                         <td class="text-center tc-w-151" style="background-color:white !important;">
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        <td class="text-center tc-w-60" style="background-color:#fdff0c !important;">
+                            {{ThongSoKienTheoLoaiBong?.M?.TonDau}}
                         </td>
-                        <td class="text-center tc-w-100" style="background-color:white !important;">
+                        <td class="text-center tc-w-100" style="background-color:#fdff0c !important;">
+                            {{ThongSoKienTheoLoaiBong?.M?.SoLuongDung}}
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        <td class="text-center tc-w-60" style="background-color:#fdff0c !important;">
+                            {{ThongSoKienTheoLoaiBong?.M?.TonCuoi}}
                         </td>
                         <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">
                             CV%Mic
@@ -413,11 +419,14 @@
                     <tr>
                         <td class="text-center tc-w-151" style="background-color:white !important;">
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        <td class="text-center tc-w-60" style="background-color:#dfa8a9 !important;">
+                            {{ThongSoKienTheoLoaiBong?.TP?.TonDau}}
                         </td>
-                        <td class="text-center tc-w-100" style="background-color:white !important;">
+                        <td class="text-center tc-w-100" style="background-color:#dfa8a9 !important;">
+                            {{ThongSoKienTheoLoaiBong?.TP?.SoLuongDung}}
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        <td class="text-center tc-w-60" style="background-color:#dfa8a9 !important;">
+                            {{ThongSoKienTheoLoaiBong?.TP?.TonCuoi}}
                         </td>
                         <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">
                             Mic TT
@@ -452,7 +461,7 @@
                         </td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
-                                <!-- {{itemCVMic[prop]|number:'0.2-2'}} -->
+                                {{itemMicTT[prop]|number:'0.2-2'}}
                             </div>
                         </td>
                     </tr>

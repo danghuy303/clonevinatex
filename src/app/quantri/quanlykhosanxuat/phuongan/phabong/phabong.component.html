@@ -71,10 +71,10 @@
                     {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
                 <td class="text-center">{{item.SoQuyTrinh}}</td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
+                <td class="text-center">{{item.ThongTinTrienKhaiKeHoachSanXuat}}</td>
+                <td class="text-center">{{item.NgayHieuLuc|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.SoBanBong}}</td>
-                <td class="text-center"></td>
+                <td class="text-center">{{item.TyLePhaBong}}</td>
                 <td class="text-center">{{item.KhoiLuongBong|number:'0.2-2'}}</td>
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
