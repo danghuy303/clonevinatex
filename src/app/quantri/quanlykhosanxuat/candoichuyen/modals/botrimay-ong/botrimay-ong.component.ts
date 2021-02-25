@@ -87,6 +87,9 @@ export class BotrimayOngComponent implements OnInit {
         let mays = this.item.listDaBoTri.filter(may => may.IdCanDoiChuyen_CanBoTri === mathang.Id && may.IddmCaSanXuat === this.mapCa_Id[ca]);
         if (mays.length !== 0) {
           mathang.SoCocOng = mays.reduce((Total, may) => Total + may.SoCocSuDung, 0);
+          if(mathang.SoCocOng!==0&& mathang.SoMayCon !==0){
+            mathang.OngTrenCon = mathang.SoCocOng/mathang.SoMayCon;
+          }
         } else {
           mathang.SoCocOng = 0;
         }

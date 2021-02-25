@@ -187,6 +187,8 @@
                         <col>
                         <col>
                         <col>
+                        <col>
+                        <col>
                         <!-- <col> -->
                         <!-- <col style="width:130px"> -->
                     </colgroup>
@@ -198,6 +200,8 @@
                         <th>Kế hoạch giao(Tấn)</th>
                         <th>Kế hoạch triển khai(Tấn)</th>
                         <th>Số máy cần</th>
+                        <th>Sản lượng ca (kg)</th>
+                        <th>Năng suất định mức (kg/ca/máy)</th>
                         <!-- <th>Số máy bố trí</th> -->
                         <!-- <th>Thao tác</th> -->
                     </tr>
@@ -215,6 +219,12 @@
                         </td>
                         <td class="text-center">
                             {{mathang.SoMayTinhToan|number:'0.0-1'}}
+                        </td>
+                        <td class="text-center">
+                            {{mathang.SanLuongCa|number:'0.0-2'}}
+                        </td>
+                        <td class="text-center">
+                            {{mathang.NangSuatDinhMuc|number:'0.0-2'}}
                         </td>
                         <!-- <td class="text-center">
                             {{mathang.SoMay|number:'0.0-1'}}

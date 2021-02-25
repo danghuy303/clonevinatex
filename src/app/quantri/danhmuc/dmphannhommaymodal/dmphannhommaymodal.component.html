@@ -60,7 +60,7 @@
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-4 p-d-flex p-flex-row" *ngIf="item.CongDoan=='CON'">
+        <div class="p-col-4 p-d-flex p-flex-row" *ngIf="item.CongDoan==='THO'">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số cọc:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoCoc">
@@ -153,7 +153,7 @@
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DoSan"
+                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.DoSan"
                             [disabled]="childModalOpt==='MATHANG'">
                         </p-inputNumber>
                     </td>
@@ -217,7 +217,7 @@
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.DoSan"
+                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.DoSan"
                             [disabled]="childModalOpt==='MATHANG'">
                         </p-inputNumber>
                     </td>
