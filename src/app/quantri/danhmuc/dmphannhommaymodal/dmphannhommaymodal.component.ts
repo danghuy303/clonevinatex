@@ -110,6 +110,7 @@ export class DmphannhommaymodalComponent implements OnInit {
     }
     this.GetListPhanXuong();
     this.GetListCongDoan();
+    this.tinhNangSuatLyThuyet();
   }
   GetListPhanXuong() {
     this.sanXuatService.GetOptions().GetPhanXuong().subscribe((res: any) => {
@@ -297,23 +298,23 @@ export class DmphannhommaymodalComponent implements OnInit {
       else if (this.item.CongDoan == "THO") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(obj.DoSan)) && (validVariable(obj.Nm))) {
-            obj.NangSuat = obj.TocDo * 120 * 450 / obj.DoSan / obj.Nm;
+            obj.NangSuat = obj.TocDo * 120 * 450 / obj.DoSan / obj.Nm / 1000;
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
       }
       else if (this.item.CongDoan == "CON") {
         this.item.lstdmItem.forEach(obj => {
-          if ((validVariable(obj.TocDo)) && (validVariable(obj.Nm))) {
-            obj.NangSuat = obj.TocDo * 1200 * 480 / obj.Nm / 1000 * 0.94;
+          if ((validVariable(obj.TocDo)) && (validVariable(obj.Nm)) && (validVariable(obj.DoSan))) {
+            obj.NangSuat = obj.TocDo * 1200 * 480 / obj.Nm / 1000 / obj.DoSan * 0.94;
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
       }
       else if (this.item.CongDoan == "ONG") {
         this.item.lstdmItem.forEach(obj => {
-          if ((validVariable(obj.TocDo)) && (validVariable(obj.DoSan)) && (validVariable(obj.Nm))) {
-            obj.NangSuat = obj.TocDo * 450 * 60 / 1000 / obj.DoSan / obj.Nm * 0.94;
+          if ((validVariable(obj.TocDo)) && (validVariable(obj.Nm))) {
+            obj.NangSuat = obj.TocDo * 450 * 60 / 1000 / obj.Nm * 0.9875;
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
@@ -343,19 +344,19 @@ export class DmphannhommaymodalComponent implements OnInit {
       }
       else if (this.item.CongDoan == "THO") {
         if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.DoSan)) && (validVariable(this.newTableItem.Nm))) {
-          this.newTableItem.NangSuat = this.newTableItem.TocDo * 120 * 450 / this.newTableItem.DoSan / this.newTableItem.Nm;
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * 120 * 450 /1000/ this.newTableItem.DoSan / this.newTableItem.Nm;
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
       else if (this.item.CongDoan == "CON") {
-        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.Nm))) {
-          this.newTableItem.NangSuat = this.newTableItem.TocDo * 1200 * 480 / this.newTableItem.Nm / 1000 * 0.94;
+        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.Nm))&& (validVariable(this.newTableItem.DoSan))) {
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * 1200 * 480 / this.newTableItem.Nm / 1000 / this.newTableItem.DoSan * 0.94;
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
       else if (this.item.CongDoan == "ONG") {
-        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.DoSan)) && (validVariable(this.newTableItem.Nm))) {
-          this.newTableItem.NangSuat = this.newTableItem.TocDo * 450 * 60 / 1000 / this.newTableItem.DoSan / this.newTableItem.Nm * 0.94;
+        if ((validVariable(this.newTableItem.TocDo))  && (validVariable(this.newTableItem.Nm))) {
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * 450 * 60 / 1000 / this.newTableItem.Nm * 0.9875;
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
