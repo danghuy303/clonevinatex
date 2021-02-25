@@ -122,7 +122,7 @@
                 <ng-template pTemplate="body" let-itemindex let-i="rowIndex">
                     <tr>
                         <td class="align-content-center first-col sticky-col">{{itemindex.TendmMay}}</td>
-                        <td class="align-content-center first-col sticky-col">{{itemindex.TendmMatHang}}</td>
+                        <td class="align-content-center first-col sticky-col">{{itemindex.TenMatHang}}</td>
                         <td *ngFor="let itemsanpham of itemindex.listKiemKeBCP" class="text-center">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemsanpham.GiaTri">
                             </p-inputNumber>
