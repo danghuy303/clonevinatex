@@ -362,7 +362,7 @@ export class Dat09Service {
     SetQuyTrinh(data){
         let url = API.QLTSD + 'SetQuyTrinh';
         return this.http.post(url,data,httpOptions);
-    }
+    }   
     GetListQuyTrinh(data){
         let url = API.QLTSD + 'GetListQuyTrinh';
         return this.http.post(url,data,httpOptions);

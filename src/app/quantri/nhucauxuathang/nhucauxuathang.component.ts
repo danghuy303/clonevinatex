@@ -25,6 +25,7 @@ export class NhucauxuathangComponent implements OnInit {
   listOpts: any = [];
   listKho: any = [];
   listMatHang: any = [];
+  listTruySuatNguonGoc: any = [];
   listCongDoan: any = [];
   listMay: any = [];
   listLoaiBong: any = [];
@@ -207,11 +208,18 @@ export class NhucauxuathangComponent implements OnInit {
     if (this.SelectItem.TendmItem != undefined && this.SelectItem != null) {
       console.log(this.SelectItem);
       if (validVariable(this.SelectItem?.IddmItem)) {
-        this.showTruySuatNguonGoc = true;
+
+        this._services.GetDashBoard_TruyXuatNguonGoc(this.SelectItem.IddmItem, DateToUnix(this.filter._tuNgayCanDoiTon), DateToUnix(this.filter._tuNgayCanDoiTon)).subscribe((res: any) => {
+          this.showTruySuatNguonGoc = true;
+          this.listTruySuatNguonGoc = res;
+        })
       }
       else {
         this.toastr.error("Yêu cầu chọn mặt hàng");
       }
+    }
+    else {
+      this.toastr.error("Yêu cầu chọn mặt hàng");
     }
 
   }

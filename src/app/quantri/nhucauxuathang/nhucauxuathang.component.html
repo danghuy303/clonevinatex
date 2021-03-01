@@ -97,8 +97,8 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr [ngClass]="{'p-text-bold': item.TendmItem=='TỔNG'}">
                         <td class="text-center" style="width: 35px !important;">
-                            <p-checkbox [ngModel]="item.checked" (onChange)="checkMatHang($event,item,i)"
-                                binary="true" inputId="binary" *ngIf="item.TendmItem!=='TỔNG'"></p-checkbox>
+                            <p-checkbox [ngModel]="item.checked" (onChange)="checkMatHang($event,item,i)" binary="true"
+                                inputId="binary" *ngIf="item.TendmItem!=='TỔNG'"></p-checkbox>
                         </td>
                         <!-- <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td> -->
                         <td>{{item.TendmItem}}</td>
@@ -116,8 +116,8 @@
 </div>
 <p-dialog [header]="SelectItem.TenItem" [(visible)]="showTruySuatNguonGoc" [modal]="true" [style]="{width: '50vw'}"
     [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-    <p-table [value]="listMatHang" styleClass="p-datatable-sm p-datatable-gridlines wrap-text" [scrollable]="true"
-        scrollHeight="500px">
+    <p-table [value]="listTruySuatNguonGoc" styleClass="p-datatable-sm p-datatable-gridlines wrap-text"
+        [scrollable]="true" scrollHeight="500px">
         <ng-template pTemplate="header">
             <tr class="normal">
                 <th style="width: 50px !important;">STT</th>
@@ -129,9 +129,9 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center" style="width: 50px !important;">{{i+1}}</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{item.SoLuong}}</td>
+                <td class="p-text-right">{{item.Ngay|date:"dd/MM/yyyy"}}</td>
+                <td>{{item.GhiChu}}</td>
             </tr>
         </ng-template>
     </p-table>
