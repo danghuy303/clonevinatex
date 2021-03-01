@@ -5,23 +5,28 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
+import { BaseModalNavigation } from 'src/app/quantri/quanlykhosanxuat/candoichuyen/modals/navigation.class';
+import { TrangthaimaysanxuatComponent } from '../../../quytrinh/trangthaimaysanxuat/trangthaimaysanxuat.component';
 
 @Component({
   selector: 'app-botrimay-chung',
   templateUrl: './botrimay-chung.component.html',
   styleUrls: ['./botrimay-chung.component.css']
 })
-export class BotrimayChungComponent implements OnInit {
-  checkbutton:any={Ghi:true};
+export class BotrimayChungComponent extends BaseModalNavigation  implements OnInit {
+  checkbutton:any={};
   addonData:any={};
   TenCongDoan:any='';
   listHangHoa:any = [];
   item:any={
   }
+  TongMatHang:any={};
   filter:any={};
   newMay:any={};
   lang:any=vn;
-   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) { }
+   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) { 
+     super(activeModal)
+   }
  
    ngOnInit(): void {
      console.log(this.item);
@@ -32,7 +37,7 @@ export class BotrimayChungComponent implements OnInit {
       mathang.SoMayDaBoTri = 0;
      });
      this.newMay={}
-     this.TinhSoLuongMatHang()
+     this.inputChange();
    }
    sort() {
     this.item.listDaBoTri = this.item.listDaBoTri.sort((a: any, b: any) => {
@@ -69,21 +74,27 @@ export class BotrimayChungComponent implements OnInit {
    TinhSoLuongMatHang(){
      this.item.listCanBoTri.forEach(mathang => {
        mathang.SoMayDaBoTri = this.item.listDaBoTri.filter(may=>may.IdCanDoiChuyen_CanBoTri===mathang.Id)?.length||0;
-       
        mathang.SanLuongBoTri = this.item.listDaBoTri.filter(may=>may.IdCanDoiChuyen_CanBoTri===mathang.Id)?.reduce((Tong,may)=>Tong+may.SanLuongCa,0)||0;
-       console.log(mathang.SanLuongBoTri);
      });
    }
+   TinhTongMatHang(){
+    this.TongMatHang={
+      SoMayCanBoTri:0,
+      SoMayDaBoTri:0,
+      SanLuongCa:0,
+      SanLuongBoTri:0
+    }
+    for(let prop in this.TongMatHang){
+      this.TongMatHang[prop] = this.item.listCanBoTri.reduce((Tong,mathang)=>Tong+mathang[prop],0);
+    }
+    console.log(this.TongMatHang);
+   }
    inputChange(){
-     this.TinhSoLuongMatHang()
+     this.TinhSoLuongMatHang();
+     this.TinhTongMatHang();
    }
    chonMatHang(item, event) {
     if (event.value) {
-      // if(validVariable(item.SoCocDen)&& validVariable(item.SoCocTu)){
-      // }
-      // else{
-      //   item.SoCocDen = item.SoCocTu;
-      // }
       let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === item.IdCanDoiChuyen_CanBoTri)?.[0].IddmItem;
       item.listTocDo = mapArrayForDropDown(item.listDinhMucMay.filter(dinhmuc => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
         item.IdPhanNhomMay_Item = item.listTocDo?.[0]?.value||null;

@@ -103,7 +103,12 @@ export class PhabongmodalComponent implements OnInit {
         let TongChatLuong = {
           Mic: 0,
           Rd: 0,
-          b: 0
+          b: 0,
+          Mat:0,
+          Str:0,
+          Tap:0,
+          Am:0,
+          UHML:0
         }
         this.item.listLoBong.forEach(lobong => {
           for(let chatluong in TongChatLuong){
@@ -205,7 +210,12 @@ export class PhabongmodalComponent implements OnInit {
         let TongChatLuong = {
           Mic: 0,
           Rd: 0,
-          b: 0
+          b: 0,
+          Mat:0,
+          Str:0,
+          Tap:0,
+          Am:0,
+          UHML:0
         }
         res.forEach(lobong => {
           for(let chatluong in TongChatLuong){
@@ -284,6 +294,9 @@ export class PhabongmodalComponent implements OnInit {
   }
   TinhDeltaB() {
     for (let i = 1; i <= this.item.SoBanBong; i++) {
+      this.itembBQ[`${i}`] = Math.round(this.itembBQ[`${i}`] *100)/100;
+    }
+    for (let i = 1; i <= this.item.SoBanBong; i++) {
       if (i === 1) {
         this.itemDeltaPlusB[`${i}`] = 0;
       } else {
@@ -331,7 +344,7 @@ export class PhabongmodalComponent implements OnInit {
           tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
         }
         tempTongTrongLuong += (lobong.tempBanBong[`${x}`].SoKien * lobong.TrongLuong);
-        tempTongGia += (lobong.tempBanBong[`${x}`].SoKien * lobong.DonGia | 0 * lobong.TrongLuong);
+        tempTongGia += (lobong.tempBanBong[`${x}`].SoKien * lobong.GiaBong * lobong.TrongLuong);
         if (validVariable(lobong.Mic)) {
           tempSoKien1LineTruBongHoi += lobong.tempBanBong[`${x}`].SoKien;
           tempTongCLMic += (lobong.tempBanBong[`${x}`].SoKien * lobong.Mic);
@@ -435,6 +448,7 @@ export class PhabongmodalComponent implements OnInit {
               });
             });
             this.item = res.objectReturn;
+            this.GetListTrienKhaiKeHoach();
             this.KiemTraButtonModal();
           } else {
             this._toastr.error(res.message);

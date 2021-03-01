@@ -79,10 +79,6 @@ export class TimbongmodalComponent implements OnInit {
         // this.GetChiTietTrienKhaiKeHoachForMatHang({ value: this.item.IdTrienKhaiKeHoachSanXuat });
       }
       if (validVariable(this.item.SoBanBong) && this.item.SoBanBong !== 0) {
-        this.listProps = [];
-        for (let i = 1; i <= this.item.SoBanBong; i++) {
-          this.listProps.push(`${i}`);
-        }
         this.item.listLoBong.forEach((lobong, index) => {
           if (!validVariable(lobong.temBanBong)) {
             lobong.tempBanBong = {};
@@ -103,27 +99,32 @@ export class TimbongmodalComponent implements OnInit {
           //   console.log(res)
           // })
         });
+        this.listProps = [];
+        for (let i = 1; i <= this.item.SoBanBong; i++) {
+          this.listProps.push(`${i}`);
+        }
         this.GetPoolKienBong();
         let TongChatLuong = {
           Mic: 0,
           Rd: 0,
-          b: 0
+          b: 0,
+          Mat:0,
+          Str:0,
+          Tap:0,
+          Am:0,
+          UHML:0
         }
         this.item.listLoBong.forEach(lobong => {
-          if (validVariable(lobong.Mic)) {
-            TongChatLuong.Mic += lobong.Mic;
-          }
-          if (validVariable(lobong.Rd)) {
-            TongChatLuong.Rd += lobong.Rd;
-          }
-          if (validVariable(lobong.b)) {
-            TongChatLuong.b += lobong.b;
+          for(let chatluong in TongChatLuong){
+            if(validVariable(lobong[chatluong])){
+              TongChatLuong[chatluong]+=lobong[chatluong];
+            }
           }
         });
         this.ChatLuongBinhQuan = {
-          Mic: TongChatLuong.Mic / res.length,
-          Rd: TongChatLuong.Rd / res.length,
-          b: TongChatLuong.b / res.length,
+        }
+        for(let chatluong in TongChatLuong){
+          this.ChatLuongBinhQuan[chatluong]= TongChatLuong[chatluong]/(this.item.listLoBong.length-this.item.listLoBong.filter(ele=>!validVariable(ele[chatluong])).length);
         }
         this.labelBong = {}
         this.item.listLoBong.forEach(lobong => {
@@ -245,7 +246,7 @@ export class TimbongmodalComponent implements OnInit {
           tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
         }
         tempTongTrongLuong += (lobong.tempBanBong[`${x}`].SoKien * lobong.TrongLuong);
-        tempTongGia += (lobong.tempBanBong[`${x}`].SoKien * lobong.DonGia | 0 * lobong.TrongLuong);
+        tempTongGia += (lobong.tempBanBong[`${x}`].SoKien * lobong.GiaBong * lobong.TrongLuong);
         if (validVariable(lobong.Mic)) {
           tempSoKien1LineTruBongHoi += lobong.tempBanBong[`${x}`].SoKien;
           tempTongCLMic += (lobong.tempBanBong[`${x}`].SoKien * lobong.Mic);
@@ -301,6 +302,9 @@ export class TimbongmodalComponent implements OnInit {
     this.trongLuongLoBong.Hoi = this.TongKhoiLuongDung - (this.trongLuongLoBong.BR + this.trongLuongLoBong.M + this.trongLuongLoBong.TP);
   }
   TinhDeltaB() {
+    for (let i = 1; i <= this.item.SoBanBong; i++) {
+      this.itembBQ[`${i}`] = Math.round(this.itembBQ[`${i}`] *100)/100;
+    }
     for (let i = 1; i <= this.item.SoBanBong; i++) {
       if (i === 1) {
         this.itemDeltaPlusB[`${i}`] = 0;

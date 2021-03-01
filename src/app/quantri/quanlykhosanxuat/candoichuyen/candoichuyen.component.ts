@@ -1,5 +1,6 @@
 import { DatePipe } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
+import { ɵangular_packages_platform_browser_animations_animations_f } from "@angular/platform-browser/animations";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import {
@@ -22,9 +23,9 @@ export class CandoichuyenComponent implements OnInit {
     listDates = [];
     filter: any = {
         CongDoan: "CON",
-        IddmPhanXuong:"1cf3f340-0f55-4f34-938p-e629318e25et"
+        IddmPhanXuong: "1cf3f340-0f55-4f34-938p-e629318e25et"
     };
-    showDialog:boolean=false;
+    showDialog: boolean = false;
     listCongDoan: any = [];
     listPhanXuong: any = [];
     mapMa_TenCongDoan: any = {};
@@ -83,8 +84,8 @@ export class CandoichuyenComponent implements OnInit {
             let data: any = {};
             if (currentDate.getDate() === 1) {
                 data.header = `01/${currentDate.getMonth() < 9
-                        ? `0${currentDate.getMonth() + 1}`
-                        : currentDate.getMonth() + 1
+                    ? `0${currentDate.getMonth() + 1}`
+                    : currentDate.getMonth() + 1
                     }`;
             } else {
                 data.header = this.datepipe.transform(currentDate, "dd");
@@ -98,7 +99,7 @@ export class CandoichuyenComponent implements OnInit {
         }
         return dates;
     }
-    GetCalendar() {
+    GetCalendar(reset?) {
         if (validVariable(this.filter._tuNgay)) {
             this.filter.TuNgayUnix = DateToUnix(this.filter._tuNgay);
         } else {
@@ -124,68 +125,115 @@ export class CandoichuyenComponent implements OnInit {
                 for (let i = 0; i < this.listDates.length; i++) {
                     this.listDates[i] = { ...this.listDates[i], ...res[i] }
                 }
-                console.log(this.listDates);
                 for (let i = 0; i < this.filter._tuNgay.getDay(); i++) {
                     this.listDates.unshift({ header: "none" });
+                }
+                if(!reset){
+                    let date = new Date();
+                    let today = this.datepipe.transform(date, "dd/MM/yyyy");
+                    this.boTriMay(this.listDates.findIndex(ele=>ele.labelHienThi===today),this.listDates.find(ele=>ele.labelHienThi=== today));
                 }
             })
             console.log(this.filter);
 
         }
     }
-    boTriMay(date?) {
-        console.log(date);
-        if (this.filter.CongDoan === "ONG") {
-            this._services.CanDoiChuyen().GetCanDoiChuyen(this.filter.IddmPhanXuong, this.filter.CongDoan, date.Unix).subscribe(res => {
-                console.log(res);
-                let modalRef = this._modal.open(BotrimayOngComponent, {
-                    size: "fullscreen",
-                    backdrop: "static",
-                });
-                modalRef.componentInstance.item = deepCopy(res);
-                modalRef.componentInstance.addonData = {
-                    IddmPhanXuong: this.filter.IddmPhanXuong,
-                    CongDoan: this.filter.CongDoan,
-                    NgayUnix: date.Unix,
-                    LabelNgay:date.labelHienThi
-                };
-                modalRef.result
-                    .then((res) => { 
-                    })
-                    .catch((er) => {
-                        console.log(er);
-                    })
-                    .finally(()=>{
-                        this.GetCalendar();
-                    });
-            })
+    boTriMay(index, date?) {
+        if (date?.header === 'none') {
         } else {
-            this._services.CanDoiChuyen().GetCanDoiChuyen(this.filter.IddmPhanXuong, this.filter.CongDoan, date.Unix).subscribe(res => {
-                let modalRef = this._modal.open(BotrimayChungComponent, {
-                    size: "fullscreen",
-                    backdrop: "static",
-                });
-                modalRef.componentInstance.TenCongDoan = this.mapMa_TenCongDoan[this.filter.CongDoan];
-                modalRef.componentInstance.item = deepCopy(res);
-                modalRef.componentInstance.addonData = {
-                    IddmPhanXuong: this.filter.IddmPhanXuong,
-                    CongDoan: this.filter.CongDoan,
-                    NgayUnix: date.Unix,
-                    LabelNgay:date.labelHienThi
-                };
-                modalRef.result
-                    .then((res) => {
-                    })
-                    .catch((er) => {
-                        console.log(er);
-                    })
-                    .finally(()=>{
-                        this.GetCalendar();
+            if (this.filter.CongDoan === "ONG") {
+                this._services.CanDoiChuyen().GetCanDoiChuyen(this.filter.IddmPhanXuong, this.filter.CongDoan, date.Unix).subscribe(res => {
+                    console.log(res);
+                    let modalRef = this._modal.open(BotrimayOngComponent, {
+                        size: "fullscreen-100",
+                        backdrop: "static",
+                        keyboard:false
                     });
-            })
+                    modalRef.componentInstance.item = deepCopy(res);
+                    modalRef.componentInstance.checkbutton = this.checkNavigationButton(index);
+                    modalRef.componentInstance.addonData = {
+                        IddmPhanXuong: this.filter.IddmPhanXuong,
+                        CongDoan: this.filter.CongDoan,
+                        NgayUnix: date.Unix,
+                        LabelNgay: date.labelHienThi
+                    };
+                    modalRef.result
+                        .then((res) => {
+                            this.navigationAction(res.opt,index)
+                        })
+                        .catch((er) => {
+                            console.log(er);
+                        })
+                        .finally(() => {
+                            this.GetCalendar(true);
+                        });
+                })
+            } else {
+                this._services.CanDoiChuyen().GetCanDoiChuyen(this.filter.IddmPhanXuong, this.filter.CongDoan, date.Unix).subscribe(res => {
+                    let modalRef = this._modal.open(BotrimayChungComponent, {
+                        size: "fullscreen-100",
+                        backdrop: "static",
+                        keyboard:false
+                    });
+                    modalRef.componentInstance.TenCongDoan = this.mapMa_TenCongDoan[this.filter.CongDoan];
+                    modalRef.componentInstance.checkbutton = this.checkNavigationButton(index);
+                    modalRef.componentInstance.item = deepCopy(res);
+                    modalRef.componentInstance.addonData = {
+                        IddmPhanXuong: this.filter.IddmPhanXuong,
+                        CongDoan: this.filter.CongDoan,
+                        NgayUnix: date.Unix,
+                        LabelNgay: date.labelHienThi
+                    };
+                    modalRef.result
+                        .then((res) => {
+                            this.navigationAction(res.opt,index)
+                        })
+                        .catch((er) => {
+                            console.log(er);
+                        })
+                        .finally(() => {
+                            this.GetCalendar(true);
+                        });
+                })
+            }
         }
     }
-    showSanLuong(){
+    navigationAction(opt,index) {
+        switch (opt) {
+            case 'Next':
+                this.boTriMay(index+1,this.listDates[index+1])
+                break;
+            case 'Previous':
+                this.boTriMay(index-1,this.listDates[index-1])
+                break;
+            default:
+                break;
+        }
+    }
+    checkNavigationButton(index) {
+        return {
+            Previous: this.canPrevious(index, this.listDates),
+            Next: this.canNext(index, this.listDates),
+        }
+    }
+    canPrevious(index, list) {
+        if (index > 0) {
+            if (validVariable(list[index - 1]?.Unix)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    canNext(index, list) {
+        if (index < list.length - 1) {
+            return true;
+        }
+        return false
+    }
+    showSanLuong() {
         this.showDialog = true;
     }
 }
