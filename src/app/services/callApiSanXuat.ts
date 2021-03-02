@@ -1278,6 +1278,9 @@ export class SanXuatService {
             },
             BaoCaoSanLuongLuyKe_BieuDoCot: (data) => {
                 return this.http.post(`${url}/BaoCaoSanLuongLuyKe_BieuDoCot`, data, httpOptions);
+            },
+            ExportBaoCaoThongKeDien:(data)=>{
+                return this.http.post(`${url}/ExportBaoCaoThongKeDien`, data, httpOptions);
             }
         }
     }

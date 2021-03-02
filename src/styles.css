@@ -15,6 +15,7 @@ th {
 .wrap-text.p-datatable-sm td:not(.date) {
     word-wrap: break-word !important;
 }
+
 /* .unset-width.p-datatable-sm table{
     width: unset !important;
 } */
@@ -57,7 +58,8 @@ label {
         font-size: 14px;
     }
 }
-.modal-dialog.modal-fullscreen-100{
+
+.modal-dialog.modal-fullscreen-100 {
     max-width: 99%;
 }
 
@@ -110,7 +112,7 @@ a.p-panelmenu-header-link:hover, a.p-menuitem-link:hover {
 p-dropdown .p-dropdown {
     width: 100% !important;
     border-radius: 0px !important;
-    border:1px solid transparent !important;
+    border: 1px solid transparent !important;
     border-right: none !important;
     border-bottom: 1px solid #ced4da !important;
 }
@@ -132,10 +134,11 @@ p-table th {
     border-bottom: 1px solid #ced4da !important;
 }
 
-.p-inputgroup button.p-button-icon-only{
+.p-inputgroup button.p-button-icon-only {
     background-color: white !important;
 }
-p-calendar button.p-datepicker-trigger{
+
+p-calendar button.p-datepicker-trigger {
     background-color: white !important;
 }
 
@@ -177,7 +180,7 @@ p-calendar>span>button {
 
 .p-inputgroup p-inputnumber, p-inputnumber .p-inputnumber {
     width: 100% !important;
-    flex:1;
+    flex: 1;
 }
 
 p-inputnumber input.p-inputnumber-input {
@@ -189,6 +192,7 @@ tr.normal>th {
     background-color: transparent !important;
     border: none !important;
 }
+
 tr.normal-blv>th {
     color: black !important;
     background-color: transparent !important;
@@ -226,7 +230,8 @@ p-table.blv th {
     border-color: #999999 !important;
     color: black !important;
 }
-.p-menu.p-menu-overlay{
+
+.p-menu.p-menu-overlay {
     min-width: 200px !important;
 }
 
@@ -234,45 +239,53 @@ p-table.blv th {
     margin-right: -10px !important;
 }
 
-.right>.p-overlaypanel .p-overlaypanel:after,.p-overlaypanel:before {
-    right:1.25rem !important
+.right>.p-overlaypanel .p-overlaypanel:after, .p-overlaypanel:before {
+    right: 1.25rem !important
 }
-.p-overlaypanel .p-overlaypanel-content{
+
+.p-overlaypanel .p-overlaypanel-content {
     max-height: 500px !important;
     overflow: scroll !important;
 }
 
-.table thead th{
+.table thead th {
     vertical-align: middle !important;
 }
-.print{
+
+.print {
     display: none;
 }
-@media print
-{    
+
+@media print {
     * {
         font-size: 21px;
     }
-    .no-print, .no-print *
-    {
+    .no-print, .no-print * {
         display: none !important;
     }
-    .print{
+    .print {
         display: block !important;
     }
-    .modal-backdrop
-    {
+    .modal-backdrop {
         background-color: white !important;
         opacity: 1 !important;
     }
 }
-span.required{
+
+span.required {
     font-size: 16px;
     color: red;
 }
-.zero-padding .p-overlaypanel-content{
+
+.zero-padding .p-overlaypanel-content {
     padding: 0px !important;
 }
-#ThongLuongChart>div>svg>g>g:nth-child(2)>g:nth-child(2)>g>g:nth-child(3){
+
+#ThongLuongChart>div>svg>g>g:nth-child(2)>g:nth-child(2)>g>g:nth-child(3) {
     display: none !important;
-   }
+}
+
+.p-button.p-button-xs {
+    font-size: 0.875rem;
+    padding: 0.1rem !important;
+}

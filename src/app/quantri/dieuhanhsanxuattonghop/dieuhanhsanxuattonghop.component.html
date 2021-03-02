@@ -74,6 +74,8 @@
                                         </ng-template>
                                         <!-- a dũng chưa có  -->
                                         <!-- {{thongke.DonVi}} -->
+                                        
+                                        <span *ngIf="thongke?.button==='xuatexcel'"> <p-button styleClass="p-button-xs" icon="fas fa-file-excel" (click)="xuatBaoCaoDien()"></p-button></span>
                                     </td>
                                     <td class="text-right">{{thongke.ManHinh|number:'0.0'}}</td>
                                 </tr>

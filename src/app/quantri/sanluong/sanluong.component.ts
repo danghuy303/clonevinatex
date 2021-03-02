@@ -143,7 +143,7 @@ export class SanluongComponent implements OnInit {
       this.filter.DenNgayUnix = null;
     }
     if (validVariable(this.filter.TuNgayUnix) && validVariable(this.filter.DenNgayUnix) && this.filter.TuNgayUnix < this.filter.DenNgayUnix) {
-      if (!!!CongDoan) {
+      // if (!!!CongDoan) {
         this._services.DashBoard().BaoCaoSanLuongLuyKe_BieuDoDuong(this.filter).subscribe((res: any) => {
           this.monthlyConfig_sanluongtheomay = {
             labels: res.map(ele => ele.Label),
@@ -175,15 +175,15 @@ export class SanluongComponent implements OnInit {
             ]
           }
         })
-      }
-      if (!!CongDoan) {
+      // }
+      // if (!!CongDoan) {
         this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
           // console.log(res);
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
           this.listMay.unshift({ label: 'Tất cả', value: '' })
           this.filter.IddmMay = this.listMay[0].value;
         })
-      }
+      // }
       if(validVariable(this.CongDoan)){
         this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
