@@ -21,13 +21,13 @@ export class DactinhbongComponent implements OnInit {
   };
   cols: any = [
     {
-      header: 'Tên danh mục loại bông',
+      header: 'Tên loại bông',
       field: 'TendmLoaiBong',
       align:'center',
       width: 'unset',
     },
     {
-      header: 'Tên danh mục cấp bông',
+      header: 'Tên cấp bông',
       field: 'TendmCapBong',
       align:'center',
       width: 'unset',
