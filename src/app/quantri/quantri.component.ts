@@ -441,6 +441,12 @@ export class QuantriComponent implements OnInit {
                         command: () => this.close()
                     },
                     {
+                        label: 'Kế hoạch nhập bông invoice',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/kehoachnhapnguyenlieuinvoice/0',
+                        separator: this.checkmenu("KEHOACHNHAPNGUYENLIEU"),
+                        command: () => this.close()
+                    },
+                    {
                         label: 'Kế hoạch xuất sợi',
                         routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/kehoachxuathang/0',
                         separator: this.checkmenu("KEHOACHXUATHANG"),
@@ -528,6 +534,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Thống kê điện',
                         routerLink: '/quantri/theodoithongkebaocaosanxuat/thongkedien/0',
+                        separator: this.checkmenu("THONGKEDIEN"),
                         command: () => this.close()
                     },
                 ]
@@ -708,11 +715,11 @@ export class QuantriComponent implements OnInit {
                     },
                 ]
             },
-            // {
-            //     label: 'Kiểm kê BCP',
-            //     icon: 'fas fa-circle',
-            //     routerLink: '/quantri/quanlykhosanxuat/kiemkeBCP/0',
-            // },
+            {
+                label: 'Kiểm kê BCP',
+                icon: 'fas fa-circle',
+                routerLink: '/quantri/quanlykhosanxuat/kiemkeBCP/0',
+            },
             // {
             //     label: 'Báo cáo',
             //     icon: 'pi pi-chart-bar',
@@ -832,15 +839,9 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/danhmucsanxuat/dmquycachdonggoi',
                         command: () => this.close()
                     },
-                ]
-            },
-            {
-                label: 'Quản lý hệ thống',
-                icon: 'pi pi-cog',
-                items: [
                     {
-                        label: 'HDSD',
-                        routerLink: '/quantri/huongdansudung',
+                        label: 'Đặc tính bông',
+                        routerLink: '/quantri/danhmucsanxuat/dmdactinhbong',
                         command: () => this.close()
                     },
                     {
@@ -849,6 +850,19 @@ export class QuantriComponent implements OnInit {
                         command: () => this.close()
                     },
                 ]
+            },
+            {
+                label: 'HDSD',
+                icon: 'pi pi-cog',
+                routerLink: '/quantri/huongdansudung',
+                // items: [
+                //     {
+                //         label: 'HDSD',
+                //         routerLink: '/quantri/huongdansudung',
+                //         command: () => this.close()
+                //     },
+                    
+                // ]
             },
             // {
             //     label: 'Tài liệu tham khảo',

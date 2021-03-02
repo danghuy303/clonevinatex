@@ -49,7 +49,7 @@ export class LohangComponent implements OnInit {
     },
     {
       header: 'Ghi chú',
-      field: 'Ghi chú',
+      field: 'GhiChu',
       width: '200px'
     },
   ];

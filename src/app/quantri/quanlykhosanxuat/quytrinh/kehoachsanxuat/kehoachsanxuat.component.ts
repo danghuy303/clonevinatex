@@ -37,8 +37,8 @@ export class KehoachsanxuatComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Ghi chú',
-      field: 'GhiChu',
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
       width: 'unset'
     },
   ];

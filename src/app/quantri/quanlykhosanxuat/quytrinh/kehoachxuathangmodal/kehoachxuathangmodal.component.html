@@ -66,6 +66,8 @@
                         <col>
                         <col>
                         <col>
+                        <col>
+                        <col>
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
@@ -74,6 +76,8 @@
                         <th>#</th>
                         <th>Mặt hàng</th>
                         <th>Số hợp đồng</th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng Container</th>
                         <th>Số tấn</th>
                         <th>Thời gian xuất hàng</th>
                         <th>Người nhận hàng</th>
@@ -93,6 +97,14 @@
                         </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoLuongXuat">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.DonGia">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Container">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">

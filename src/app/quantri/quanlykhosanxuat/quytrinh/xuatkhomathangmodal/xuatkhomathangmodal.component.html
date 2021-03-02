@@ -13,14 +13,14 @@
                 <div>
                     <div class="p-inputgroup">
                         <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
-                            (keyup.enter)="timKiemMatHang()" [(ngModel)]="KeyWord" />
+                            (keyup.enter)="filtertable_add()" [(ngModel)]="KeyWord" />
                         <button type="button" pButton pRipple icon="pi pi-refresh"
-                            class="p-button-secondary p-button-sm p-button-text" (click)="refresh()"></button>
+                            class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
                     </div>
                 </div>
             </div>
             <p-table  [lazy]="true" [scrollable]="true" scrollHeight="45vh"
-            [value]="listItem_new" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+            [value]="item.listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">

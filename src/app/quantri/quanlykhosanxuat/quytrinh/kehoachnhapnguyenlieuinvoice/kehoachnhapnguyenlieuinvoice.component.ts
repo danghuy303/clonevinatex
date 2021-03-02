@@ -3,31 +3,38 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { PhieudieuchinhmodalComponent } from '../phieudieuchinhmodal/phieudieuchinhmodal.component';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { KehoachnhapnguyenlieuinvoicemodalComponent } from '../kehoachnhapnguyenlieuinvoicemodal/kehoachnhapnguyenlieuinvoicemodal.component';
 
 @Component({
-  selector: 'app-phieudieuchinh',
-  templateUrl: './phieudieuchinh.component.html',
-  styleUrls: ['./phieudieuchinh.component.css']
+  selector: 'app-kehoachnhapnguyenlieuinvoice',
+  templateUrl: './kehoachnhapnguyenlieuinvoice.component.html',
+  styleUrls: ['./kehoachnhapnguyenlieuinvoice.component.css']
 })
-export class PhieudieuchinhComponent implements OnInit {
+export class KehoachnhapnguyenlieuinvoiceComponent implements OnInit {
+
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
   listLoaiPhuongAn: any = [];
+  listKho: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  eAction: any = "PHIEUNHAPLOBONG";
   cols: any = [
     {
-      header: 'Phương án pha bông',
-      field: 'TenPhuongAnPhaBong',
+      header: 'Nội dung',
+      field: 'NoiDung',
       width: 'unset'
     },
     {
-      header: 'Bàn bông',
-      field: 'BanBong',
+      header: 'Khối lượng nhập (Tấn)',
+      field: 'TongKhoiLuongNhap',
       width: 'unset'
+    },
+    {
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
+      width: '100px'
     },
     {
       header: 'Ghi chú',
@@ -36,59 +43,41 @@ export class PhieudieuchinhComponent implements OnInit {
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-  title: any = "";
-  type: any = "";
-  nametype: any = "";
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, 
-    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
-     }
+
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0'){
-        this.update(res.id);
-      }
-    })
-    this.GetListQuyTrinh();
+    this.getListKho();
     this.KiemTraTabTrangThai();
+    this.GetListQuyTrinh()
   }
-  
   changeParam(id) {
-    if(this._modal.hasOpenModals()){
+    if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/trienkhaisanxuat/phieudieuchinh/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/quanlykhosanxuat/kehoachnhapnguyenlieuinvoice/${id}`], { replaceUrl: true })
   }
-  
-  add() {
-    this.changeParam(0);
-    let modalRef = this._modal.open(PhieudieuchinhmodalComponent, {
+  addPhieuBong() {
+    // this.changeParam(0);
+    let modalRef = this._modal.open(KehoachnhapnguyenlieuinvoicemodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-
-    modalRef.componentInstance.type = this.type;
-    modalRef.componentInstance.nametype = this.nametype;
-    
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
   }
- 
   update(Id) {
-    this.changeParam(Id);
-    this._service.PhuongAnDieuChinhTimBong().Get(Id).subscribe((res1: any) => {
-      let modalRef = this._modal.open(PhieudieuchinhmodalComponent, {
+    this._service.NhapKeHoachNguyenLieuInvoice().Get(Id).subscribe((res1: any) => {
+      let modalRef = this._modal.open(KehoachnhapnguyenlieuinvoicemodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
-      modalRef.componentInstance.type = this.type;
-      modalRef.componentInstance.nametype = this.nametype;
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
       })
@@ -96,19 +85,29 @@ export class PhieudieuchinhComponent implements OnInit {
     })
   }
   changeTab(e) {
-    this.trangThai = e.index+1;
+    this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
-    this.paging.CurrentPage = event.page + 1;
-    this.GetListQuyTrinh();
+    // this.paging.CurrentPage = event.page + 1;
+    // this.GetListQuyTrinh();
   }
+
+  getListKho() {
+    let data = {
+      CurrentPage: 0
+    }
+    this._service.GetListdmKho(data).subscribe((res: any) => {
+      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
   GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
-    let data: any = {
+    let data = {
       PageSize: 25,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
@@ -118,8 +117,7 @@ export class PhieudieuchinhComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-
-    this._service.PhuongAnDieuChinhTimBong().GetList(data).subscribe((res: any) => {
+    this._service.NhapKeHoachNguyenLieuInvoice().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })
