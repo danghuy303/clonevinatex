@@ -546,17 +546,14 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     // }
   }
   TinhNangSuat() {
-    // console.log(validVariable(this.item.SoCa))
     if(validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)){
       this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
       this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
       if(!validVariable(this.item.SoCa)|| this.item.SoCa===0){
-        this.item.SoCa = (this.item.DenNgayUnix - this.item.TuNgayUnix)/(24*3600)*3;
-        console.log(this.item.SoCa);
+        this.item.SoCa = ((this.item.DenNgayUnix - this.item.TuNgayUnix)/(24*3600)+1)*3;
       }
     }
     if (validVariable(this.item.listItem) && this.item.listItem.length !== 0 && validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)) {
-      
       this._services.TrienKhaiKeHoachSanXuat().TinhNangSuat(this.item).subscribe((res: any) => {
         this.listCongDoan = mapArrayForDropDown(res.listCongDoan, 'Ten', 'Ma');
         res.listCongDoan.forEach(cd => {
@@ -572,7 +569,6 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
           return ('' + a.Ten).localeCompare(b.Ten);
         })
         this.item.listItemMay = res.listItemMay;
-        // console.table(this.item.listItemMay)
       })
     }
   }

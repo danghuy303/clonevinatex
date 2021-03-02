@@ -217,7 +217,7 @@ export class PhabongmodalComponent implements OnInit {
           Am:0,
           UHML:0
         }
-        res.forEach(lobong => {
+        this.item.listLoBong.forEach(lobong => {
           for(let chatluong in TongChatLuong){
             if(validVariable(lobong[chatluong])){
               TongChatLuong[chatluong]+=lobong[chatluong];
@@ -230,7 +230,7 @@ export class PhabongmodalComponent implements OnInit {
           // b: TongChatLuong.b / res.length,
         }
         for(let chatluong in TongChatLuong){
-          this.ChatLuongBinhQuan[chatluong]= TongChatLuong[chatluong]/(res.length-res.filter(ele=>!validVariable(ele[chatluong])));
+          this.ChatLuongBinhQuan[chatluong]= TongChatLuong[chatluong]/(this.item.listLoBong.length-this.item.listLoBong.filter(ele=>!validVariable(ele[chatluong])).length);
         }
       }
       if (validVariable(this.item.TongSoKien)) {

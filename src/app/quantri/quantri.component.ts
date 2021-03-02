@@ -9,6 +9,7 @@ import { SanXuatService } from '../services/callApiSanXuat';
 import { StoreService } from '../services/store.service';
 import { mapArrayForDropDown } from '../services/globalfunction';
 import { SignalRService } from '../services/signalR.service';
+import { mapQuyTrinhRoute } from '../services/mapquytrinhroute';
 import { ToastrService } from 'ngx-toastr';
 import { HienTrangSuDungComponent } from './components/hien-trang-su-dung/hien-trang-su-dung.component';
 @Component({
@@ -33,11 +34,7 @@ export class QuantriComponent implements OnInit {
     IdNhaMay: string = '';
     showDropDown: boolean = false;
     canSendMessage: any;
-    mapQuyTrinhRoute: any = {
-        GIAOKEHOACHSANXUAT: '/quantri/kehoachsanxuat/giaokehoachsanxuat/',
-        PHUONGANSANXUAT: '/quantri/kehoachsanxuat/sanxuat/',
-        TRIENKHAIKEHOACHSANXUAT: '/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/',
-    }
+    mapQuyTrinhRoute: any = mapQuyTrinhRoute;
     @ViewChild('listNoti') listNoti;
     constructor(private _auth: AuthenticationService, private _modal: NgbModal, private _router: Router, private _services: SanXuatService, private store: StoreService, private _signalRService: SignalRService, private _toastr: ToastrService) {
         this.userInfo = this._auth.currentUserValue;
@@ -914,6 +911,7 @@ export class QuantriComponent implements OnInit {
                 }
             }
         }
+        // return false;
     }
 
     private subscribeToEvents(): void {
