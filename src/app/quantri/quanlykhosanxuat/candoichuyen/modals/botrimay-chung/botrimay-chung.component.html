@@ -32,11 +32,13 @@
         <div class="p-col-12 p-p-0 d-flex flex-column flex-lg-row">
             <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
                 <p-table [value]="item.listDaBoTri"
-                    styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+                    styleClass="p-datatable-sm wrap-text  p-datatable-gridlines" [scrollable]="true"
+                    scrollHeight="60vh">
                     <ng-template pTemplate="colgroup">
                         <colgroup>
                             <col>
                             <col style="width:200px">
+                            <col>
                             <col>
                             <col>
                             <!-- <col style="width:100px"> -->
@@ -50,11 +52,12 @@
                             <th>Ne</th> -->
                             <th>Tốc độ</th>
                             <th>Năng suất</th>
+                            <th>Màu</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-item let-i="rowIndex">
-                        <tr>
-                            <td>{{item.TenMay}}</td>
+                        <tr >
+                            <td [ngStyle]="{'background-color': item.hex}">{{item.TenMay}}</td>
                             <td>
                                 <p-dropdown [filter]="true" showClear="true" [options]="listHangHoa"
                                     placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
@@ -67,6 +70,15 @@
                             </td>
                             <td class="text-right">
                                 {{item.SanLuongCa|number:'0.0-2'}}
+                            </td>
+                            <td>
+                                <!--  -->
+                                <div style="display: flex; flex-direction: row;" *ngIf="item.IdCanDoiChuyen_CanBoTri!==null">
+                                    <input type="text" placeholder="Màu" class="p-inputtext-sm" pInputText [(ngModel)]="item.labelMau"/>
+                                    <div style="width:28px">
+                                        <p-colorPicker [(ngModel)]="item.hex"></p-colorPicker>
+                                    </div>
+                                </div>
                             </td>
                             <!-- <td><input pInputText type="text" [(ngModel)]="item.Ne"></td>
                             <td><input pInputText type="text" [(ngModel)]="item.Nm"></td> -->

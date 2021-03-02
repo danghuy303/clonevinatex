@@ -71,6 +71,8 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
         may.listTocDo = mapArrayForDropDown(may.listDinhMucMay.filter(dinhmuc => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
         if (!validVariable(may.IdPhanNhomMay_Item)) {
           may.IdPhanNhomMay_Item = may.listTocDo?.[0]?.value
+        }else{
+          may.DinhMucNangSuat = (may.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === may.IdPhanNhomMay_Item)?.[0]?.DinhMucNangSuat || 0)
         }
       } else {
         may.listTocDo = [];
@@ -129,7 +131,16 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       else {
         may.SoCocSuDung = 0;
       }
+      if(validVariable(may.DinhMucNangSuat)){
+        may.SanLuongCa = may.DinhMucNangSuat * may.SoCocSuDung/60;
+        console.log(may.SoCocSuDung);
+        console.log(may.SanLuongCa);
+      }
     })
+  }
+  chonTocDo(item,event){
+    item.DinhMucNangSuat = (item.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === event.value)?.[0]?.DinhMucNangSuat || 0);
+    this.inputChange()
   }
   chonMatHang(item, event) {
     if (event.value) {
@@ -141,14 +152,13 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === item.IdCanDoiChuyen_CanBoTri)?.[0].IddmItem;
       item.listTocDo = mapArrayForDropDown(item.listDinhMucMay.filter(dinhmuc => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
       item.IdPhanNhomMay_Item = item.listTocDo?.[0]?.value || null;
-      item.SanLuongCa = item.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === item.listTocDo?.[0]?.value)?.[0]?.NangSuat || 0;
+      item.DinhMucNangSuat = (item.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === item.listTocDo?.[0]?.value)?.[0]?.DinhMucNangSuat || 0);
       if (!validVariable(item.SoCocDen)) {
         item.SoCocDen = 60;
       }
       if (!validVariable(item.SoCocTu)) {
         item.SoCocTu = 1;
       }
-      // item.listTocDo = item.
     } else {
       item.listTocDo = [];
       item.IdPhanNhomMay_Item = null;

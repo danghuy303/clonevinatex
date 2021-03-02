@@ -234,18 +234,18 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     modalRef.result.then(res => {
       // merge(res, this.item.listItem, 'IddmQuyCachDongGoi');
       item.listItem = res.listItem;
-      // if (item.KhoiLuongKeHoach != undefined && item.KhoiLuongKeHoach != null && item.KhoiLuongKeHoach > 0
-      //   && item.listItem != undefined && item.listItem.length > 0) {
-      //   let tong = 0;
-      //   item.listItem.filter(obj => {
-      //     if(!obj.isXoa){
-      //       tong += obj.KhoiLuong;
-      //     }          
-      //   });
-      //   if (item.KhoiLuongKeHoach < tong) {
-      //     this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
-      //   }
-      // }
+      if (item.KhoiLuongKeHoach != undefined && item.KhoiLuongKeHoach != null && item.KhoiLuongKeHoach > 0
+        && item.listItem != undefined && item.listItem.length > 0) {
+        let tong = 0;
+        item.listItem.filter(obj => {
+          if(!obj.isXoa){
+            tong += obj.KhoiLuong;
+          }          
+        });
+        if (item.KhoiLuongKeHoach < tong) {
+          this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
+        }
+      }
     }).catch(er => {
       console.log(er);
     })
@@ -327,5 +327,34 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   }
   refreshFilterMatHang(){
     this.filter.KeyWord = '';
+  }
+  TinhSoCa(){
+    console.log(this.item.TuNgay,this.item.DenNgay);
+    if(validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)){
+      this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
+      this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
+      // console.log(this.item.TongSoCa);
+      if(!validVariable(this.item.TongSoCa)|| this.item.TongSoCa===0){
+        this.item.TongSoCa = ((this.item.DenNgayUnix - this.item.TuNgayUnix)/(24*3600)+1)*3;
+        // console.log(this.item.TongSoCa);
+      }
+    }
+  }
+  validDenNgay(mathang, e) {
+    if (validVariable(mathang.TuNgay)) {
+      if ((DateToUnix(e) - DateToUnix(mathang.TuNgay)) < 0) {
+        this.toastr.warning('Đến ngày phải lớn hơn Từ ngày!')
+        setTimeout(() => {
+          mathang.DenNgay = null;
+        }, 500)
+      }else{
+        this.TinhSoCa();
+      }
+    } else {
+      setTimeout(() => {
+        mathang.DenNgay = null;
+      }, 500)
+      this.toastr.warning('Vui lòng chọn Từ ngày trước!')
+    }
   }
 }

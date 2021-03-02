@@ -35,6 +35,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import {ProgressBarModule} from 'primeng/progressbar';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import {ColorPickerModule} from 'primeng/colorpicker';
 
 // import { FileUploadModule } from 'primeng/fileupload';
 import localeVi from '@angular/common/locales/vi';
@@ -462,7 +463,8 @@ import { BotrimayChungComponent } from './quanlykhosanxuat/candoichuyen/modals/b
     VoiLibModule,
     InputTextareaModule,
     ProgressBarModule,
-    NgbProgressbarModule
+    NgbProgressbarModule,
+    ColorPickerModule
   ],
   entryComponents: [
     ModalThuaDatComponent,
