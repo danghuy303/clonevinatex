@@ -349,6 +349,7 @@ export class QuantriComponent implements OnInit {
                 label: 'Quản trị sản xuất',
                 routerLink: '/quantri/quantrisanxuat',
                 icon: 'fas fa-warehouse',
+                visible: !this.checkmenu("P_QUANTRISANXUAT"),
                 items: [
                     {
                         label: 'Tổng hợp',
@@ -389,7 +390,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Thông lượng',
                         routerLink: '/quantri/quantrisanxuat/thongluong',
-                        // separator: this.checkmenu("DASHBOARD_SANLUONG"),
+                        separator: this.checkmenu("DASHBOARD_THONGLUONG"),
                         icon: 'fas fa-circle',
                         command: () => {
                             this.close()
@@ -425,6 +426,7 @@ export class QuantriComponent implements OnInit {
                 label: 'Giao kế hoạch',
                 routerLink: '/quantri/giaokehoachsanxuat',
                 icon: 'fas fa-circle',
+                visible: !this.checkmenu("P_GIAOKEHOACH"),
                 items: [
                     {
                         label: 'Giao kế hoạch sản xuất',
@@ -458,6 +460,7 @@ export class QuantriComponent implements OnInit {
                 label: 'Điều hành sản xuất',
                 routerLink: '/quantri/kehoachsanxuat',
                 icon: 'fas fa-circle',
+                visible: !this.checkmenu("P_DIEUHANHSANXUAT"),
                 items: [
                     {
                         label: 'Triển khai kế hoạch sản xuất',
@@ -492,6 +495,7 @@ export class QuantriComponent implements OnInit {
                 label: 'Phương án công nghệ',
                 routerLink: '/quantri/trienkhaisanxuat',
                 icon: 'fas fa-circle',
+                visible: !this.checkmenu("P_PHUONGANCONGNGHE"),
                 items: [
                     {
                         label: 'Phương án pha bông',
@@ -524,6 +528,7 @@ export class QuantriComponent implements OnInit {
                 icon: 'pi pi-chart-bar',
                 routerLink: '/quantri/theodoithongkebaocaosanxuat',
                 expanded: false,
+                visible: !this.checkmenu("P_THONGKESANXUAT"),
                 items: [
                     {
                         label: 'Thống kê sản lượng',
@@ -544,6 +549,7 @@ export class QuantriComponent implements OnInit {
                 icon: 'fas fa-circle',
                 routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam',
                 expanded: false,
+                visible: !this.checkmenu("P_KHOHOIAM"),
                 items: [
                     {
                         label: 'Nhập kho',
@@ -570,6 +576,7 @@ export class QuantriComponent implements OnInit {
                 icon: 'fas fa-circle',
                 routerLink: '/quantri/quanlysanxuatkhothanhpham/khothanhpham',
                 expanded: false,
+                visible: !this.checkmenu("P_KHOTHANHPHAM"),
                 items: [
                     {
                         label: 'Nhập kho',
@@ -596,6 +603,7 @@ export class QuantriComponent implements OnInit {
                 icon: 'fas fa-circle',
                 routerLink: '/quantri/quanlykhosanxuat/khobong',
                 expanded: false,
+                visible: !this.checkmenu("P_KHOBONG"),
                 items: [
 
                     {
@@ -639,6 +647,8 @@ export class QuantriComponent implements OnInit {
                 icon: 'fas fa-circle',
                 routerLink: '/quantri/quanlykhosanxuat/khoxo',
                 expanded: false,
+                visible: !this.checkmenu("P_KHOXO"),
+
                 items: [
                     {
                         label: 'Nhập kho',
@@ -668,6 +678,8 @@ export class QuantriComponent implements OnInit {
                 icon: 'fas fa-circle',
                 routerLink: '/quantri/quanlykhosanxuatbongkhac/khobonghoi',
                 expanded: false,
+                visible: !this.checkmenu("P_KHOBONGHOI"),
+
                 items: [
                     {
                         label: 'Nhập kho',
@@ -696,6 +708,7 @@ export class QuantriComponent implements OnInit {
                 icon: 'fas fa-circle',
                 routerLink: '/quantri/quanlykhosanxuatbongkhac/khobongphe',
                 expanded: false,
+                visible: !this.checkmenu("P_KHOBONGPHE"),
                 items: [
                     {
                         label: 'Nhập kho',
@@ -743,6 +756,7 @@ export class QuantriComponent implements OnInit {
                 routerLink: '/quantri/danhmuc',
                 icon: 'pi pi-bars',
                 expanded: false,
+                visible: !this.checkmenu("P_DANHMUC"),
                 items: [
                     {
                         label: 'Mặt hàng',
@@ -844,6 +858,17 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/danhmucsanxuat/dmdactinhbong',
                         command: () => this.close()
                     },
+                ]
+            },
+            {
+                label: 'Quản lý hệ thống',
+                icon: 'pi pi-cog',
+                items: [
+                    // {
+                    //     label: 'HDSD',
+                    //     routerLink: '/quantri/huongdansudung',
+                    //     command: () => this.close()
+                    // },
                     {
                         label: 'Phân quyền theo phân xưởng',
                         routerLink: '/quantri/phanquyensanxuat/phanquyentheophanxuong',
