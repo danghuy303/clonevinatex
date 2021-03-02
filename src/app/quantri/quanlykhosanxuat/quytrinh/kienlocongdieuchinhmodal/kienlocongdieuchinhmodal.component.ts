@@ -21,6 +21,12 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
       align: 'center',
     },
     {
+      header: 'Tên lô hàng',
+      field: 'TenLoHang',
+      width: 'unset',
+      align: 'center',
+    },
+    {
       header: 'Vị trí',
       field: 'TendmViTri',
       width: 'unset',

@@ -128,23 +128,22 @@
                             (ngModelChange)="itemtbl.KhoiLuong=TinhGiaTri(itemtbl, $event)" disabled>
                             </p-inputNumber>
                         </td>
-                        <!-- <td>
+                        <td>
                             <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" disabled
                             [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong">
                             </p-inputNumber>
                             <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" 
                             [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong">
                             </p-inputNumber>
-                        </td> -->
-                        <td>
+                        </td>
+                        <!-- <td>
                             <p-inputNumber
                             [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong"
                             (onInput)="TinhSoQuaSoi(itemtbl, 0)">
                             </p-inputNumber>
-                        </td>
+                        </td> -->
                         <td *ngIf="item.CongDoan==='ONG'">
-                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.KgCone"
-                            (onInput) ="TinhSoQuaSoi(itemtbl, $event)">
+                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.KgCone">
                             </p-inputNumber>
                         </td>
                         <td *ngIf="item.CongDoan==='ONG'">
