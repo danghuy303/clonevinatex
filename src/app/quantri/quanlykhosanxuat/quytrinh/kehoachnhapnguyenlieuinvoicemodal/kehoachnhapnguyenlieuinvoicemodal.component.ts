@@ -180,34 +180,33 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
       this.add();
     }
     if(isCheck == false){
-      
-    }
-    if (this.item.listItem.length > 0) {
-      this.item.listItem.filter(obj => {
-        if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
-          obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
-        if (obj.ThoiGianCapCang !== null && obj.ThoiGianCapCang !== undefined)
-          obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
-      });
-    }
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    this._services.NhapKeHoachNguyenLieuInvoice().Set(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.toastr.success(res.message)
-          this.opt = 'edit';
-          this.item = res.objectReturn;
-          this.item.listItem.filter(obj => {
-            obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
-            obj.ThoiGianCapCang = obj.ThoiGianCapCangUnix > 0 ? UnixToDate(obj.ThoiGianCapCangUnix) : 0;
-          });
-          this.KiemTraButtonModal();
-        } else {
-          this.toastr.error(res.message);
-        }
+      if (this.item.listItem.length > 0) {
+        this.item.listItem.filter(obj => {
+          if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
+            obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
+          if (obj.ThoiGianCapCang !== null && obj.ThoiGianCapCang !== undefined)
+            obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
+        });
       }
-    })
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this._services.NhapKeHoachNguyenLieuInvoice().Set(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message)
+            this.opt = 'edit';
+            this.item = res.objectReturn;
+            this.item.listItem.filter(obj => {
+              obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
+              obj.ThoiGianCapCang = obj.ThoiGianCapCangUnix > 0 ? UnixToDate(obj.ThoiGianCapCangUnix) : 0;
+            });
+            this.KiemTraButtonModal();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
   }
 
   XoaQuyTrinh() {
@@ -302,7 +301,7 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
     for(let i =0; i < this.listKeHoachNguyenLieuFull.length ; i ++){
       if(this.listKeHoachNguyenLieuFull[i].Id === this.item.IdKeHoachNhapNguyenLieu)
       {
-        this.item.GiaBong = this.listKeHoachNguyenLieuFull[i].GiaBong;
+        this.item.GiaBong = this.listKeHoachNguyenLieuFull[i].GiaBong / 1000;
         this.item.SoLuongNhap = this.listKeHoachNguyenLieuFull[i].SoLuongNhap;
         this.item.Container = this.listKeHoachNguyenLieuFull[i].Container;
         break;

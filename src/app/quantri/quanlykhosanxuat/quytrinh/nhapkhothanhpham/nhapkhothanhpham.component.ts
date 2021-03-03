@@ -52,8 +52,16 @@ export class NhapkhothanhphamComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
-    this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh()
+    this.activatedRoute.params.subscribe((res:any)=>{
+      console.log(res.id)
+      if(res.id!=='0'){
+        this.update(res.id);
+      }
+      // else
+        this.GetListQuyTrinh();
+      this.KiemTraTabTrangThai();
+      //
+    })
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {

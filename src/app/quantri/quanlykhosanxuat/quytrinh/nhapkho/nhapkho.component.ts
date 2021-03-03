@@ -79,9 +79,9 @@ export class NhapkhoComponent implements OnInit {
     this.activatedRoute.params.subscribe((res:any)=>{
       this.title = res.kho;
       // console.log(res.id)
-      // if(res.id!=='0'){
-      //   this.update(res.id);
-      // }
+      if(res.id!=='0'){
+        this.update(res.id);
+      }
       // else
         this.GetListQuyTrinh();
       //
