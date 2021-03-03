@@ -95,6 +95,7 @@ export class BotrimayChungComponent extends BaseModalNavigation  implements OnIn
    }
    chonMatHang(item, event) {
     if (event.value) {
+      item.Ten = this.listHangHoa.find(mathang=>mathang.value===event.value)?.label;
       let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === item.IdCanDoiChuyen_CanBoTri)?.[0].IddmItem;
       item.listTocDo = mapArrayForDropDown(item.listDinhMucMay.filter(dinhmuc => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
         item.IdPhanNhomMay_Item = item.listTocDo?.[0]?.value||null;
