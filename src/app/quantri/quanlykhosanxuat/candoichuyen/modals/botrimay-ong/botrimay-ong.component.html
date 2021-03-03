@@ -48,7 +48,7 @@
                                 <col>
                                 <col>
                                 <col>
-                                <col>
+                                <col style="width:200px">
                                 <col style="width:100px">
                             </colgroup>
                         </ng-template>
@@ -64,7 +64,7 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-item let-i="rowIndex">
                             <tr >
-                                <td>{{item.TenMay}}</td>
+                                <td [ngStyle]="{'background-color': item.MaMau}">{{item.TenMay}}</td>
                                 <td>
                                     <div class="d-flex flex-row">
                                         <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoCocTu"
@@ -86,10 +86,10 @@
                                 </td>
                                 <td>
                                     <div style="display: flex; flex-direction: row;" *ngIf="item.IdCanDoiChuyen_CanBoTri!==null">
-                                        <input type="text" placeholder="Màu" class="p-inputtext-sm" pInputText [(ngModel)]="item.labelMau"/>
                                         <div style="width:28px">
-                                            <p-colorPicker [(ngModel)]="item.hex"></p-colorPicker>
+                                            <p-colorPicker [(ngModel)]="item.MaMau"></p-colorPicker>
                                         </div>
+                                        <input type="text" placeholder="Màu" class="p-inputtext-sm" pInputText [(ngModel)]="item.TenMau"/>
                                     </div>
                                 </td>
                                 <td class="text-center">
@@ -149,6 +149,22 @@
                                 <td class="text-right">{{item.SoMayCon|number:'0.0-2'}}</td>
                                 <td class="text-right">{{item.SoCocOng}}</td>
                                 <td class="text-right">{{item.OngTrenCon|number:'0.0-2'}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body">
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="footer">

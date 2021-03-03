@@ -256,8 +256,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
         { Ten: 'Sản lượng ống', TieuHao: res.SanLuongOng, DonVi: 'quả', ManHinh: res.SanLuongOng_ManHinh },
         { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả', ManHinh: res.LuyKe_ManHinh },
         // Điện k có màn hình
-        { Ten: 'Điện AC', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.DienAC_KW, button: 'xuatexcel' },
-        { Ten: 'Tổng điện', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.TongDien_KW },
+        { Ten: 'Điện AC', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.DienAC_KW },
+        { Ten: 'Tổng điện', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.TongDien_KW, button: 'xuatexcel' },
         { Ten: 'Tỷ lệ điện AC', TieuHao: '%', DonVi: '%', ManHinh: res.DienAC_PhanTram },
       ]
       this.thongKes1 = [
@@ -384,8 +384,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     });
   }
   xuatBaoCaoDien() {
-    this._services.DashBoard().ExportBaoCaoThongKeDien(this.filter).subscribe(res => {
-      console.log(res)
+    this._services.DashBoard().ExportBaoCaoThongKeDien(this.filter).subscribe((res:any) => {
+      this._services.download(res.TenFile);
     })
   }
 }
