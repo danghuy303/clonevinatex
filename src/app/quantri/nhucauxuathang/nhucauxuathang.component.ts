@@ -212,6 +212,11 @@ export class NhucauxuathangComponent implements OnInit {
         this._services.GetDashBoard_TruyXuatNguonGoc(this.SelectItem.IddmItem, DateToUnix(this.filter._tuNgayCanDoiTon), DateToUnix(this.filter._denNgayCanDoiTon)).subscribe((res: any) => {
           this.showTruySuatNguonGoc = true;
           this.listTruySuatNguonGoc = res;
+          this.listTruySuatNguonGoc.forEach(obj=>{
+            obj.herfgiaokehoachsanxuat = `kehoachsanxuat/giaokehoachsanxuat/${obj.IdGiaoKeHoachSanXuat}`;
+            obj.herftrienkhaikehoachsanxuat = `kehoachsanxuat/trienkhaikehoachsanxuat/${obj.IdGiaoKeHoachSanXuat_TrienKhai}`;
+            obj.herfphabong = `trienkhaisanxuat/phabong/${obj.IdPhuongAnPhaBong}`;
+          });          
         })
       }
       else {
