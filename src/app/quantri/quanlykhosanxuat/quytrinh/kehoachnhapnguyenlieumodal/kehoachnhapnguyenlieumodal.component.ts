@@ -207,7 +207,6 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
         }
       });
     }
-
     if (this.newTableItem.ThoiGianDuKien != undefined && this.newTableItem.ThoiGianDuKien != null
       && this.newTableItem.ThoiGianCapCang != undefined && this.newTableItem.ThoiGianCapCang != null
       && this.newTableItem.Container != undefined &&
@@ -310,7 +309,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {
       "Id": "",
-      "idKeHoachNhapNguyenLieu": this.item.Id,
+      "IdKeHoachNhapNguyenLieu": this.item.Id,
     }
   }
   edit(item, index) {
@@ -362,7 +361,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
   getDacTinhBong(item) {
     if (item.IddmCapBong !== undefined && item.IddmLoaiBong !== undefined) {
       this._services.dmDacTinhBong().GetDacTinh(item.IddmLoaiBong, item.IddmCapBong).subscribe((res: any) => {
-        item.DacTinhBong = res.DacTinhBong;
+        item.DacTinh = res.DacTinh;
       })
     }
   }
