@@ -24,7 +24,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   @ViewChild('bangScroll') bangScroll: ElementRef;
   listNhaMay: any = [];
   listMatHang: any = [];
-  listSanLuongOng:any=[];
+  listSanLuongOng: any = [];
   listPhanXuong: any = [];
   listCa: any = [];
   listThang: any = [];
@@ -86,7 +86,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
 
   constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService, public toastr: ToastrService) {
     this.currentUser = this._auth.currentUserValue;
-    this.store.getNhaMay().subscribe(res=>{
+    this.store.getNhaMay().subscribe(res => {
       this.IdDuAn = res;
       this.BieuDoCoCau();
     })
@@ -196,7 +196,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     })
     this._services.BaoCao().GetDanhSachChiTieuChatLuong_BieuDo().subscribe((res: any) => {
       this.listtieuchi = mapArrayForDropDown(res, 'Ten', 'Id');
-      this.filter.IddmChiTieu = this.listtieuchi.filter(obj=>obj.value == "2a3dbea0-6c3f-4e10-9774-6201027f4bd0")[0].value;
+      this.filter.IddmChiTieu = this.listtieuchi.filter(obj => obj.value == "2a3dbea0-6c3f-4e10-9774-6201027f4bd0")[0].value;
     })
     // this._services.GetOptions().GetMatHang().subscribe((res: any) => {
     //   let fakeMatHang = [
@@ -256,7 +256,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
         { Ten: 'Sản lượng ống', TieuHao: res.SanLuongOng, DonVi: 'quả', ManHinh: res.SanLuongOng_ManHinh },
         { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả', ManHinh: res.LuyKe_ManHinh },
         // Điện k có màn hình
-        { Ten: 'Điện AC', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.DienAC_KW },
+        { Ten: 'Điện AC', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.DienAC_KW, button: 'xuatexcel' },
         { Ten: 'Tổng điện', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.TongDien_KW },
         { Ten: 'Tỷ lệ điện AC', TieuHao: '%', DonVi: '%', ManHinh: res.DienAC_PhanTram },
       ]
@@ -269,8 +269,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
         { Ten: 'LK % hoàn thành KHSX:', GiaTri: res.LuyKePhanTramHoanThanhKHSX },
       ]
     });
-    this._services.BaoCao().GetDashBoard_SanLuongOng(this.filter).subscribe((res:any)=>{
-      this.listSanLuongOng =res;
+    this._services.BaoCao().GetDashBoard_SanLuongOng(this.filter).subscribe((res: any) => {
+      this.listSanLuongOng = res;
     })
   }
 
@@ -335,7 +335,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
 
   xemSanLuong() {
     this.showSanLuong = true;
-  } 
+  }
 
   checkMatHang(e, item, index) {
     if (e.checked) {
@@ -383,5 +383,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
+  xuatBaoCaoDien() {
+    this._services.DashBoard().ExportBaoCaoThongKeDien(this.filter).subscribe(res => {
+      console.log(res)
+    })
+  }
 }
