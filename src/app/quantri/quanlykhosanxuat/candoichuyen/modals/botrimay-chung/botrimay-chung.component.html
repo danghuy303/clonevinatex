@@ -30,9 +30,9 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-p-0 d-flex flex-column flex-lg-row">
-            <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-                <p-table [value]="item.listDaBoTri"
-                    styleClass="p-datatable-sm wrap-text  p-datatable-gridlines" [scrollable]="true" [virtualScroll]="true"
+            <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row" id="aloalo">
+                <p-table [value]="item.listDaBoTri.concat([{},{},{},{},{},{},{},{},{},{},{}])"
+                    styleClass="p-datatable-sm wrap-text  p-datatable-gridlines" [scrollable]="true"
                     scrollHeight="60vh">
                     <ng-template pTemplate="colgroup">
                         <colgroup>
@@ -56,31 +56,43 @@
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-item let-i="rowIndex">
-                        <tr >
-                            <td [ngStyle]="{'background-color': item.MaMau}">{{item.TenMay}}</td>
-                            <td>
-                                <p-dropdown [filter]="true" showClear="true" [options]="listHangHoa"
-                                    placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
-                                    [(ngModel)]="item.IdCanDoiChuyen_CanBoTri" (onChange)="chonMatHang(item,$event)">
-                                </p-dropdown>
-                            </td>
-                            <td>
-                                <p-dropdown [options]="item.listTocDo" placeholder="Chọn tốc độ máy"
-                                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdPhanNhomMay_Item"></p-dropdown>
-                            </td>
-                            <td class="text-right">
-                                {{item.SanLuongCa|number:'0.0-2'}}
-                            </td>
-                            <td>
-                                <!--  -->
-                                <div style="display: flex; flex-direction: row;" *ngIf="item.IdCanDoiChuyen_CanBoTri!==null">
-                                    <div style="width:28px">
-                                        <p-colorPicker [(ngModel)]="item.MaMau"></p-colorPicker>
+                        <ng-container *ngIf="item.TenMay!== undefined; then normal else empty"></ng-container>
+                        <ng-template #normal>
+                            <tr>
+                                <td [ngStyle]="{'background-color': item.MaMau}">{{item.TenMay}}</td>
+                                <td>
+                                    <p-dropdown [filter]="true" showClear="true" [options]="listHangHoa"
+                                        placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
+                                        [(ngModel)]="item.IdCanDoiChuyen_CanBoTri" (onChange)="chonMatHang(item,$event)">
+                                    </p-dropdown>
+                                </td>
+                                <td>
+                                    <p-dropdown [options]="item.listTocDo" placeholder="Chọn tốc độ máy"
+                                        styleClass="p-inputtext-sm" [(ngModel)]="item.IdPhanNhomMay_Item"></p-dropdown>
+                                </td>
+                                <td class="text-right">
+                                    {{item.SanLuongCa|number:'0.0-2'}}
+                                </td>
+                                <td>
+                                    <!--  -->
+                                    <div style="display: flex; flex-direction: row;" *ngIf="item.IdCanDoiChuyen_CanBoTri!==null">
+                                        <div style="width:28px">
+                                            <p-colorPicker [(ngModel)]="item.MaMau"></p-colorPicker>
+                                        </div>
+                                        <input type="text" placeholder="Màu" class="p-inputtext-sm" pInputText [(ngModel)]="item.TenMau"/>
                                     </div>
-                                    <input type="text" placeholder="Màu" class="p-inputtext-sm" pInputText [(ngModel)]="item.TenMau"/>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template #empty>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </ng-template>
                     </ng-template>
                 </p-table>
             </div>

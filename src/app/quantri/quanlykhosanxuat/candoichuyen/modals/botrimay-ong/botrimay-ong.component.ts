@@ -57,6 +57,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       this.listCanBoTri[`${ca.prop}`] = deepCopy(this.item.listCanBoTri);
       this.TongMatHang[`${ca.prop}`]={};
     });
+    console.log(this.listCanBoTri);
     this.inputChange()
   }
   sort() {
@@ -133,8 +134,6 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       }
       if(validVariable(may.DinhMucNangSuat)){
         may.SanLuongCa = may.DinhMucNangSuat * may.SoCocSuDung/60;
-        console.log(may.SoCocSuDung);
-        console.log(may.SanLuongCa);
       }
     })
   }
