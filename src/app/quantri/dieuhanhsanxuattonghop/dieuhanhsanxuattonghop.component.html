@@ -64,7 +64,9 @@
                             <ng-template pTemplate="body" let-thongke let-i="rowIndex">
                                 <tr>
                                     <td class="text-center">{{i+1}}</td>
-                                    <td>{{thongke.Ten}}</td>
+                                    <td>{{thongke.Ten}}
+                                        <span *ngIf="thongke?.button==='xuatexcel'"> <p-button styleClass="p-button-xs" icon="fas fa-file-excel" (click)="xuatBaoCaoDien()"></p-button></span>
+                                    </td>
                                     <td class="text-center">
                                         <div *ngIf="thongke.TieuHao!='KwH'&&thongke.TieuHao!='%'; else elseTieuHao">
                                             {{thongke.TieuHao|number:'0.0-3'}}
@@ -74,6 +76,7 @@
                                         </ng-template>
                                         <!-- a dũng chưa có  -->
                                         <!-- {{thongke.DonVi}} -->
+                                        
                                     </td>
                                     <td class="text-right">{{thongke.ManHinh|number:'0.0'}}</td>
                                 </tr>

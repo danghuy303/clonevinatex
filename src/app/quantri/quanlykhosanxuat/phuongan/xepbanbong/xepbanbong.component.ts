@@ -45,8 +45,8 @@ export class XepbanbongComponent implements OnInit {
     }
   }
   mapIdPhanXuong: any = {
-    '1cf3f340_0f55_4f34_9381_e329318e25et': 'px1',
-    '1cf3f340_0f55_4f34_938p_e329318e25et': 'px2'
+    '1cf3f340_0f55_4f34_938p_e329318e25et': 'px1',
+    '1cf3f340_0f55_4f34_938p_e629318e25et': 'px2'
   }
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
 

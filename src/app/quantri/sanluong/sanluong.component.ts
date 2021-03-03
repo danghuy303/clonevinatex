@@ -143,7 +143,7 @@ export class SanluongComponent implements OnInit {
       this.filter.DenNgayUnix = null;
     }
     if (validVariable(this.filter.TuNgayUnix) && validVariable(this.filter.DenNgayUnix) && this.filter.TuNgayUnix < this.filter.DenNgayUnix) {
-      if (!!!CongDoan) {
+      // if (!!!CongDoan) {
         this._services.DashBoard().BaoCaoSanLuongLuyKe_BieuDoDuong(this.filter).subscribe((res: any) => {
           this.monthlyConfig_sanluongtheomay = {
             labels: res.map(ele => ele.Label),
@@ -175,7 +175,7 @@ export class SanluongComponent implements OnInit {
             ]
           }
         })
-      }
+      // }
       if (!!CongDoan) {
         this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
           // console.log(res);

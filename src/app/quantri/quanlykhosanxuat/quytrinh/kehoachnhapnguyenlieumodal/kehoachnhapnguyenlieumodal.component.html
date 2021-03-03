@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-5 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ngày:</label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ngày <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
                     [yearRange]="yearRange" [showIcon]="false" [(ngModel)]="item.Ngay" inputId="icon"
@@ -93,6 +93,7 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col style="width: 57px;">
                     </colgroup>
                 </ng-template>
@@ -101,15 +102,16 @@
                         <th>#</th>
                         <th>Loại bông</th>
                         <th>Cấp bông</th>
+                        <th>Đặc tính bông</th>
                         <th>Số HĐ</th>
+                        <th>Giá bông CIF (USD/Kg)</th>
+                        <th>Số lượng nhập (Tấn)</th>
                         <th>SL Container</th>
                         <th>Tổng số kiện</th>
-                        <th>Giá bông CIF (USD/Kg)</th>
-                        <th>Thời gian cập cảng</th>
-                        <th>Thời gian dự kiến về kho</th>
-                        <th>Số lượng nhập (Tấn)</th>
+                        <th>Thời gian cập cảng <span class="text-danger">*</span></th>
+                        <th>Thời gian dự kiến về kho <span class="text-danger">*</span></th>
                         <th>Ghi chú</th>
-                        <th style="width: 100px;"></th>
+                        <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-items let-i="rowIndex">
@@ -117,16 +119,27 @@
                         <td class="text-center">{{i+1}}</td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại bông"
-                                [(ngModel)]="items.IddmLoaiBong" styleClass="p-inputtext-sm">
+                                [(ngModel)]="items.IddmLoaiBong" styleClass="p-inputtext-sm" (onChange)="getDacTinhBong(items)">
                             </p-dropdown>
                         </td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listCapBong" placeholder="Chọn cấp bông"
-                                [(ngModel)]="items.IddmCapBong" styleClass="p-inputtext-sm">
+                                [(ngModel)]="items.IddmCapBong" styleClass="p-inputtext-sm" (onChange)="getDacTinhBong(items)">
                             </p-dropdown>
                         </td>
                         <td>
+                            <input pInputText type="text" [(ngModel)]="items.DacTinh" disabled/>
+                        </td>
+                        <td>
                             <input pInputText type="text" [(ngModel)]="items.SoHopDong"/>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="items.GiaBong">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="items.SoLuongNhap">
+                            </p-inputNumber>
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.Container">
@@ -134,10 +147,6 @@
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.TongSoKien">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="items.GiaBong">
                             </p-inputNumber>
                         </td>
                         <td>
@@ -157,13 +166,15 @@
                                 [disabled]="true">
                             </p-inputNumber>
                         </td> -->
-                        <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="items.SoLuongNhap">
-                            </p-inputNumber>
-                        </td>
+                        
                         <td>
                             <input pInputText type="text" [(ngModel)]="items.GhiChu"/>
                         </td>
+                        <!-- <td class="text-center">
+                            <button pButton pRipple icon="fas fa-edit"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                (click)="editItem(items)" pTooltip="Xóa" tooltipPosition="bottom"></button>
+                        </td> -->
                         <td class="text-center">
                             <button pButton pRipple icon="pi pi-times"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
@@ -177,15 +188,27 @@
                         </td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại bông"
-                                [(ngModel)]="newTableItem.IddmLoaiBong" styleClass="p-inputtext-sm"></p-dropdown>
+                                [(ngModel)]="newTableItem.IddmLoaiBong" styleClass="p-inputtext-sm"
+                                (onChange)="getDacTinhBong(newTableItem)"></p-dropdown>
                         </td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listCapBong" placeholder="Chọn cấp bông"
-                                [(ngModel)]="newTableItem.IddmCapBong" styleClass="p-inputtext-sm">
+                                [(ngModel)]="newTableItem.IddmCapBong" styleClass="p-inputtext-sm" (onChange)="getDacTinhBong(newTableItem)">
                             </p-dropdown>
                         </td>
                         <td>
+                            <input pInputText type="text" [(ngModel)]="newTableItem.DacTinhBong" disabled/>
+                        </td>
+                        <td>
                             <input pInputText type="text" [(ngModel)]="newTableItem.SoHopDong"/>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="newTableItem.GiaBong">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoLuongNhap">
+                            </p-inputNumber>
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.Container">
@@ -195,10 +218,7 @@
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.TongSoKien">
                             </p-inputNumber>
                         </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="newTableItem.GiaBong">
-                            </p-inputNumber>
-                        </td>
+                        
                         <td>
                             <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
                                 [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"
@@ -216,16 +236,18 @@
                                 [disabled]="true">
                             </p-inputNumber>
                         </td> -->
-                        <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoLuongNhap">
-                            </p-inputNumber>
-                        </td>
+                        
                         <!-- <td>
                             <input pInputText type="text" [(ngModel)]="newTableItem.NguonNhap">
                         </td> -->
                         <td>
                             <input pInputText type="text" [(ngModel)]="newTableItem.GhiChu"/>
                         </td>
+                        <!-- <td class="text-center">
+                            <button pButton pRipple icon="fas fa-edit"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                (click)="editItem(newTableItem)" pTooltip="Xóa" tooltipPosition="bottom"></button>
+                        </td> -->
                         <td class="text-center">
                             <button pButton pRipple type="button" icon="pi pi-plus"
                                 class="p-button-rounded p-button-sm " (click)="add()"></button>

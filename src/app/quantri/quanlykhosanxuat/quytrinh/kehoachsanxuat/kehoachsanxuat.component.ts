@@ -37,8 +37,8 @@ export class KehoachsanxuatComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Ghi chú',
-      field: 'GhiChu',
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
       width: 'unset'
     },
   ];
@@ -51,15 +51,15 @@ export class KehoachsanxuatComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== '0') {
-        // this.update(res.id)
-        // this._service.GiaoKeHoachSanXuat().Get(res.id).subscribe((res: any) => {
-        //   this.update(res);
-        // },(err)=>{
-        //   if(err.status ===500){
-        //     this._toastr.error('Hệ thống không tìm thấy dữ liệu bạn cần!')
-        //   }
-        //   console.log(err);
-        // })
+        this.update(res.id)
+        this._service.GiaoKeHoachSanXuat().Get(res.id).subscribe((res: any) => {
+          this.update(res);
+        },(err)=>{
+          if(err.status ===500){
+            this._toastr.error('Hệ thống không tìm thấy dữ liệu bạn cần!')
+          }
+          console.log(err);
+        })
       }
     })
     this.KiemTraTabTrangThai();

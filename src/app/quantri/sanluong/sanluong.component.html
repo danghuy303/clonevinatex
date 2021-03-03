@@ -23,10 +23,14 @@
             <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
                 [(ngModel)]="filter.IddmItem" (onChange)="GetBieuDo()"></p-dropdown>
         </div>
-        <!-- <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listCaLamViec" placeholder="Chọn ca làm việc"
-                styleClass="p-inputtext-sm" [(ngModel)]="filterSanLuong.CaLamViec"></p-dropdown>
-        </div>        -->
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listCongDoan" styleClass="p-inputtext-sm"
+                            [(ngModel)]="filter.CongDoan" (onChange)="GetBieuDo(true)"></p-dropdown>
+        </div>     
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listMay" styleClass="p-inputtext-sm"
+                            [(ngModel)]="filter.IddmMay" (onChange)="GetBieuDo()"></p-dropdown>
+        </div> 
         <!-- <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetBieuDoBong()"
                 [(ngModel)]="filterBong.KeyWord" />
@@ -43,7 +47,7 @@
             <div class="p-d-flex flex-column flex-lg-row p-jc-between">
                 <div class="p-d-flex flex-column flex-lg-row">
                     <span class="p-mr-2">
-                        <h5>Lũy kế sản lượng ống</h5>
+                        <h5>Lũy kế sản lượng</h5>
                     </span>
                     <!-- <p-inputSwitch [(ngModel)]="filterSanLuong.checked" (onChange)="changeOpt($event)"></p-inputSwitch> -->
                     <!-- <span class="p-ml-2">
@@ -71,14 +75,14 @@
                     <span class="p-ml-2">
                         <h5>Sản lượng theo máy</h5>
                     </span>
-                    <span class="p-ml-2">
+                    <!-- <span class="p-ml-2">
                         <p-dropdown [filter]="true" [options]="listCongDoan" styleClass="p-inputtext-sm"
                             [(ngModel)]="filter.CongDoan" (onChange)="GetBieuDo(true)"></p-dropdown>
                     </span>
                     <span class="p-ml-2">
                         <p-dropdown [filter]="true" [options]="listMay" styleClass="p-inputtext-sm"
                             [(ngModel)]="filter.IddmMay" (onChange)="GetBieuDo()"></p-dropdown>
-                    </span>
+                    </span> -->
                 </div>
                 <div class="p-d-flex flex-column flex-lg-row">
                     <div style="display:table;height:100%">

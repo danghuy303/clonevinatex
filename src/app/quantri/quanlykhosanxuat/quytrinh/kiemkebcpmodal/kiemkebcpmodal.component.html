@@ -3,7 +3,7 @@
     <div>Số quy trình: {{item.SoQuyTrinh}}</div>
     <div>Ngày tạo: {{item.Created|date:'dd/MM/yyyy'}}</div>
     <div>Ngày duyệt: {{item.Created|date:'dd/MM/yyyy'}}</div>
-    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="Onclose()">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
@@ -11,7 +11,7 @@
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
-                (click)="activeModal.dismiss('close')"></button>
+                (click)="Onclose()"></button>
             <button pButton pRipple type="button" label="Lưu nháp" class="p-mr-2 p-button-sm " (click)="GhiLai()"
                 *ngIf="checkbutton.Ghi"></button>
             <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
@@ -57,7 +57,7 @@
 
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <p-table *ngIf="item.CongDoan!=='ONG'&&item.CongDoan!=='CON'"
-            [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="listItem"
+            [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="listItem|isXoa"
                 styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -104,7 +104,7 @@
                 </ng-template>
             </p-table>
             <p-table *ngIf="item.CongDoan==='CON' ||item.CongDoan==='ONG'"
-            [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="listItem"
+            [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="listItem|isXoa"
                 styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="header">
                     <tr>
@@ -137,57 +137,6 @@
                     </tr>
                 </ng-template>
             </p-table>
-            <!-- <p-table *ngIf="item.CongDoan==='ONG'"
-            [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="listItem"
-                styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
-                <ng-template pTemplate="colgroup">
-                    <colgroup>
-                        <col style="width:100px">
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                    </colgroup>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th class="text-center" rowspan="2">Máy số</th>
-                        <th class="text-center" rowspan="2">Mặt hàng</th>
-                        <th class="text-center" colspan="6">Cone sợi ống</th>
-                        <th class="text-center" colspan="4">Ống sợi con</th>
-                        <th class="text-center" rowspan="2">Tổng</th>
-                    </tr>
-                    <tr>
-                        <th class="text-center">Đang chạy dở</th>
-                        <th class="text-center">Quy ống đầy</th>
-                        <th class="text-center">Cone đầy</th>
-                        <th class="text-center">Tổng số Cone</th>
-                        <th class="text-center">KL 1 Cone sợi</th>
-                        <th class="text-center">Cộng 1</th>
-                        <th class="text-center">Ở hộp chứa</th>
-                        <th class="text-center">Trên xe chứa ống</th>
-                        <th class="text-center">KL sợi 1 ống</th>
-                        <th class="text-center">Cộng 2</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-itemindex let-i="rowIndex">
-                    <tr>
-                        <td class="align-content-center first-col sticky-col">{{itemindex.TendmMay}}</td>
-                        <td class="align-content-center first-col sticky-col">{{itemindex.TendmMatHang}}</td>
-                        <td *ngFor="let itemsanpham of itemindex.lstChatLuongSanPham" class="text-center">
-                            <input type="text" [(ngModel)]="itemsanpham.isDat" />
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table> -->
         </div>
     </div>
 </div>

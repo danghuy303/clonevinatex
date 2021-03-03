@@ -7,6 +7,7 @@ import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
+import { KehoachnhapnguyenlieuitemmodalComponent } from '../kehoachnhapnguyenlieuitemmodal/kehoachnhapnguyenlieuitemmodal.component';
 
 @Component({
   selector: 'app-kehoachnhapnguyenlieumodal',
@@ -60,8 +61,8 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     else {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
-          obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
-          obj.ThoiGianCapCang = obj.ThoiGianCapCangUnix > 0 ? UnixToDate(obj.ThoiGianCapCangUnix) : 0;
+          obj.ThoiGianDuKien = new Date(obj.ThoiGianDuKienUnix * 1000);
+          obj.ThoiGianCapCang = new Date(obj.ThoiGianCapCangUnix * 1000);
         });
       }
       this.KiemTraButtonModal();
@@ -118,33 +119,46 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     }
   }
   ChuyenDuyet() {
-    // if (this.item.Ngay === null || this.item.Ngay === undefined) {
-    //   this.toastr.error("Bạn chưa chọn  ngày");
-    // }
-    // if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
-    //   this.add();
-    // }
-    if (this.item.listItem.length > 0) {
-      this.item.listItem.filter(obj => {
-        if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
-          obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
-        if (obj.ThoiGianCapCang !== null && obj.ThoiGianCapCang !== undefined)
-          obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
+    var isCheck: any = false;
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn  ngày");
+      isCheck = true;
+    }
+    else {
+      this.item.listItem.forEach(element => {
+        if (element.ThoiGianDuKien === null || element.ThoiGianDuKien === undefined || element.ThoiGianCapCang === null || element.ThoiGianCapCang === undefined) {
+          this.toastr.error("Bạn chưa chọn chọn thời gian dự kiến hoặc thời gian cập cảng");
+          isCheck = true;
+        }
       });
     }
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+
+    if (this.newTableItem.ThoiGianDuKien != undefined && this.newTableItem.ThoiGianDuKien != null
+      && this.newTableItem.ThoiGianCapCang != undefined && this.newTableItem.ThoiGianCapCang != null
+      && this.newTableItem.Container != undefined &&
+      this.newTableItem.TongSoKien != undefined) {
+      this.add();
+    }
+    if (isCheck == false) {
+      if (this.item.listItem.length > 0) {
+        this.item.listItem.filter(obj => {
+          obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
+          obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
+        });
+      }
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
 
-    this._services.NhapKeHoachNguyenLieu().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.toastr.success(res.message);
-          this.activeModal.close();
-        } else {
-          this.toastr.error(res.message);
+      this._services.NhapKeHoachNguyenLieu().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message);
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
         }
-      }
-    })
+      })
+    }
   }
 
   KhongDuyet() {
@@ -180,35 +194,50 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if ((this.newTableItem.IddmLoaiBong !== undefined) && (this.newTableItem.IddmCapBong !== undefined) && (this.newTableItem.ThoiGianDuKien !== undefined)) {
-      this.add();
+    var isCheck: any = false;
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn  ngày");
+      isCheck = true;
     }
-    if (this.item.listItem.length > 0) {
-      this.item.listItem.filter(obj => {
-        if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
-          obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
-        if (obj.ThoiGianCapCang !== null && obj.ThoiGianCapCang !== undefined)
-          obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
+    else {
+      this.item.listItem.forEach(element => {
+        if (element.ThoiGianDuKien === null || element.ThoiGianDuKien === undefined || element.ThoiGianCapCang === null || element.ThoiGianCapCang === undefined) {
+          this.toastr.error("Bạn chưa chọn chọn thời gian dự kiến hoặc thời gian cập cảng");
+          isCheck = true;
+        }
       });
     }
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    this._services.NhapKeHoachNguyenLieu().Set(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.toastr.success(res.message)
-          this.opt = 'edit';
-          this.item = res.objectReturn;
-          this.item.listItem.filter(obj => {
-            obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
-            obj.ThoiGianCapCang = obj.ThoiGianCapCangUnix > 0 ? UnixToDate(obj.ThoiGianCapCangUnix) : 0;
-          });
-          this.KiemTraButtonModal();
-        } else {
-          this.toastr.error(res.message);
-        }
+    if (this.newTableItem.ThoiGianDuKien != undefined && this.newTableItem.ThoiGianDuKien != null
+      && this.newTableItem.ThoiGianCapCang != undefined && this.newTableItem.ThoiGianCapCang != null
+      && this.newTableItem.Container != undefined &&
+      this.newTableItem.TongSoKien != undefined) {
+      this.add();
+    }
+    if (isCheck == false) {
+      if (this.item.listItem.length > 0) {
+        this.item.listItem.filter(obj => {
+          obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
+          obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
+        });
       }
-    })
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this._services.NhapKeHoachNguyenLieu().Set(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message)
+            this.opt = 'edit';
+            this.item = res.objectReturn;
+            this.item.listItem.filter(obj => {
+              obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
+              obj.ThoiGianCapCang = obj.ThoiGianCapCangUnix > 0 ? UnixToDate(obj.ThoiGianCapCangUnix) : 0;
+            });
+            this.KiemTraButtonModal();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
   }
 
   XoaQuyTrinh() {
@@ -280,7 +309,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {
       "Id": "",
-      "idKeHoachNhapNguyenLieu": this.item.Id,
+      "IdKeHoachNhapNguyenLieu": this.item.Id,
     }
   }
   edit(item, index) {
@@ -307,5 +336,33 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
   }
   Onclose() {
     this.activeModal.dismiss();
+  }
+  editItem(item) {
+    let modalRef = this._modal.open(KehoachnhapnguyenlieuitemmodalComponent, {
+      size: 'fullscreen',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.item = item;
+
+    modalRef.result.then((res: any) => {
+      item.Container = 0;
+      item.TongSoKien = 0;
+      item.SoLuongNhap = 0;
+      console.log(res)
+      item.listDot = res.data;
+      item.listDot.forEach(element => {
+        item.Container += element.Container;
+        item.TongSoKien += element.TongSoKien;
+        item.SoLuongNhap += element.SoLuongNhap;
+      });
+    })
+      .catch(er => { console.log(er) })
+  }
+  getDacTinhBong(item) {
+    if (item.IddmCapBong !== undefined && item.IddmLoaiBong !== undefined) {
+      this._services.dmDacTinhBong().GetDacTinh(item.IddmLoaiBong, item.IddmCapBong).subscribe((res: any) => {
+        item.DacTinh = res.DacTinh;
+      })
+    }
   }
 }

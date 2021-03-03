@@ -38,7 +38,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
-                        <td>{{item.Ma}}</td>
+                        <td>{{item.Ten}}</td>
                         <td>{{item.Mic |number:'0.0-3'}}</td>
                         <td class="text-center"><button pButton pRipple type="button" icon="pi pi-forward"
                                 class="p-button-rounded" (click)="pickItem(item.Id)"></button></td>
@@ -74,7 +74,7 @@
                     <tr>
                         <td class="text-center"><button pButton pRipple type="button" icon="pi pi-backward"
                                 class="p-button-rounded" (click)="refundItem(item.Id)"></button></td>
-                        <td>{{item.Ma}}</td>
+                        <td>{{item.Ten}}</td>
                         <td>{{item.Mic|number:'0.0-3'}}</td>
                     </tr>
                 </ng-template>

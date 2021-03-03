@@ -35,6 +35,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import {ProgressBarModule} from 'primeng/progressbar';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import {ColorPickerModule} from 'primeng/colorpicker';
 
 // import { FileUploadModule } from 'primeng/fileupload';
 import localeVi from '@angular/common/locales/vi';
@@ -234,6 +235,11 @@ import { KiemkebcpmodalComponent } from './quanlykhosanxuat/quytrinh/kiemkebcpmo
 import { CandoichuyenComponent } from './quanlykhosanxuat/candoichuyen/candoichuyen.component';
 import { BotrimayOngComponent } from './quanlykhosanxuat/candoichuyen/modals/botrimay-ong/botrimay-ong.component';
 import { BotrimayChungComponent } from './quanlykhosanxuat/candoichuyen/modals/botrimay-chung/botrimay-chung.component';
+import { DactinhbongComponent } from './danhmuc/danhmucsanxuat/dactinhbong/dactinhbong.component';
+import { DactinhbongmodalComponent } from './danhmuc/danhmucsanxuat/dactinhbongmodal/dactinhbongmodal.component';
+import { KehoachnhapnguyenlieuitemmodalComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieuitemmodal/kehoachnhapnguyenlieuitemmodal.component';
+import { KehoachnhapnguyenlieuinvoiceComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieuinvoice/kehoachnhapnguyenlieuinvoice.component';
+import { KehoachnhapnguyenlieuinvoicemodalComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieuinvoicemodal/kehoachnhapnguyenlieuinvoicemodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -424,6 +430,11 @@ import { BotrimayChungComponent } from './quanlykhosanxuat/candoichuyen/modals/b
     CandoichuyenComponent,
     BotrimayOngComponent,
     BotrimayChungComponent,
+    DactinhbongComponent,
+    DactinhbongmodalComponent,
+    KehoachnhapnguyenlieuitemmodalComponent,
+    KehoachnhapnguyenlieuinvoiceComponent,
+    KehoachnhapnguyenlieuinvoicemodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -462,7 +473,8 @@ import { BotrimayChungComponent } from './quanlykhosanxuat/candoichuyen/modals/b
     VoiLibModule,
     InputTextareaModule,
     ProgressBarModule,
-    NgbProgressbarModule
+    NgbProgressbarModule,
+    ColorPickerModule
   ],
   entryComponents: [
     ModalThuaDatComponent,
@@ -542,7 +554,10 @@ import { BotrimayChungComponent } from './quanlykhosanxuat/candoichuyen/modals/b
     GiaokehoachsanxuathoanthanhmodalComponent,
     KiemkebcpmodalComponent,
     BotrimayOngComponent,
-    BotrimayChungComponent
+    DactinhbongmodalComponent,
+    BotrimayChungComponent,
+    KehoachnhapnguyenlieuitemmodalComponent,
+    KehoachnhapnguyenlieuinvoicemodalComponent,
   ],
   providers: [
     SanXuatService,

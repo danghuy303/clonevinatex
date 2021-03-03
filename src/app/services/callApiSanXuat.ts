@@ -1278,6 +1278,9 @@ export class SanXuatService {
             },
             BaoCaoSanLuongLuyKe_BieuDoCot: (data) => {
                 return this.http.post(`${url}/BaoCaoSanLuongLuyKe_BieuDoCot`, data, httpOptions);
+            },
+            ExportBaoCaoThongKeDien:(data)=>{
+                return this.http.post(`${url}/ExportBaoCaoThongKeDien`, data, httpOptions);
             }
         }
     }
@@ -1435,5 +1438,57 @@ export class SanXuatService {
     GetListThongKeSanLuong(IddmPhanXuong, CongDoan, Ngay) {
         let url = API.SCMQuanLyKho + `GetListThongKeSanLuong?IddmPhanXuong=${IddmPhanXuong}&CongDoan=${CongDoan}&Ngay=${Ngay}`;
         return this.http.get(url, httpOptions);
+    }
+    dmDacTinhBong() {
+        let url = API.SCMDanhMuc;
+        return {
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetListdmDacTinhBong', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetdmDacTinhBong?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetdmDacTinhBong', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletedmDacTinhBong', data, httpOptions);
+            },
+            GetDacTinh: (IddmLoaiBong, IddmCapBong) => {
+                return this.http.get(url + `GetdmDacTinhBong?IddmLoaiBong=${IddmLoaiBong}&IddmCapBong=${IddmCapBong}`, httpOptions);
+            },
+        }
+    }
+    NhapKeHoachNguyenLieuInvoice() {
+        let url = API.KeHoachNguyenLieu;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhKeHoachNhapNguyenLieuInvoice', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListKeHoachNhapNguyenLieuInvoice', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetKeHoachNhapNguyenLieuInvoice?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetKeHoachNhapNguyenLieuInvoice', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteKeHoachNhapNguyenLieuInvoice', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'ChuyenTiepKeHoachNhapNguyenLieuInvoice', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetKeHoachNhapNguyenLieuInvoice', data, httpOptions)
+            },
+            KeHoachForInvoice: () => {
+                return this.http.get(url + `GetListKeHoachNhapNguyenLieuForInvoice`, httpOptions)
+            },
+        }
     }
 }

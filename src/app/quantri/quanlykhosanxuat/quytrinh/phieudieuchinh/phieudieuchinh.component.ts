@@ -25,6 +25,11 @@ export class PhieudieuchinhComponent implements OnInit {
       width: 'unset'
     },
     {
+      header: 'Bàn bông',
+      field: 'BanBong',
+      width: 'unset'
+    },
+    {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset'
