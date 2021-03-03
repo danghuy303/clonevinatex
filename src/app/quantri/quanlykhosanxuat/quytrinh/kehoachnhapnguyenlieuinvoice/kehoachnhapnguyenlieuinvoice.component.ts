@@ -47,6 +47,11 @@ export class KehoachnhapnguyenlieuinvoiceComponent implements OnInit {
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((res:any)=>{
+      if(res.id!=='0' && res.id!==undefined){
+        this.update(res.id);
+      }
+    })
     this.getListKho();
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh()
@@ -58,7 +63,7 @@ export class KehoachnhapnguyenlieuinvoiceComponent implements OnInit {
     this.router.navigate([`quantri/quanlykhosanxuat/kehoachnhapnguyenlieuinvoice/${id}`], { replaceUrl: true })
   }
   addPhieuBong() {
-    // this.changeParam(0);
+    this.changeParam(0);
     let modalRef = this._modal.open(KehoachnhapnguyenlieuinvoicemodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
@@ -71,6 +76,8 @@ export class KehoachnhapnguyenlieuinvoiceComponent implements OnInit {
       .catch(er => { console.log(er) })
   }
   update(Id) {
+    this.changeParam(Id);
+
     this._service.NhapKeHoachNguyenLieuInvoice().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(KehoachnhapnguyenlieuinvoicemodalComponent, {
         size: 'fullscreen',
