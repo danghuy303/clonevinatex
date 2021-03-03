@@ -31,6 +31,7 @@ export class NhapkhomodalComponent implements OnInit {
   lang: any = vn;
   data: any = {};
   listKeHoach: any = [];
+  listKeHoachFull: any = [];
   type: any = '';
   editField: any = false;
   nametype: any = '';
@@ -119,7 +120,7 @@ export class NhapkhomodalComponent implements OnInit {
   GhiLai() {
     if (this.opt !== 'edit') {
       if (this.type === 'bong')
-        this.item.Loai = 1;
+        this.item.Loai = 2;
       else if (this.type === 'xo')
         this.item.Loai = 5;
       else if (this.type === 'bonghoi')
@@ -285,16 +286,23 @@ export class NhapkhomodalComponent implements OnInit {
   }
   getListKeHoach() {
     this._services.NhapKeHoachNguyenLieu().GetListChuaNhap().subscribe((res: any) => {
-      this.listKeHoach = res;
+      this.listKeHoach = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listKeHoachFull = res;
     })
   }
   getKeHoach(item){
-    this.item.IddmLoaiBong = item.value.IddmLoaiBong;
-    this.item.IddmCapBong = item.value.IddmCapBong;
-    this.item.GiaBong = item.value.GiaBong;
-    this.item.SoHopDong = item.value.SoHopDong;
-    this.item.listItem = []
-    for(let i = 0; i < item.value.Container; i++){
+    let dataFilter : any = this.listKeHoachFull.filter(obj => {
+      return obj.Id === item.Id
+    });
+    this.item.IddmLoaiBong = dataFilter.IddmLoaiBong;
+    this.item.IddmCapBong = dataFilter.IddmCapBong;
+    this.item.GiaBong = dataFilter.GiaBong;
+    this.item.SoHopDong = dataFilter.SoHopDong;
+    this.item.listItem.forEach(element => {
+      element.isXoa = true;
+    });;
+    // this.item.listItem = []
+    for(let i = 0; i < dataFilter.Container; i++){
       this.add()
     }
   }

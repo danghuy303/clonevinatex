@@ -41,8 +41,8 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="this.type==='bong'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hợp đồng :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listKeHoach" optionLabel="SoHopDong"
-                 placeholder="Chọn kế hoạch" styleClass="p-inputtext-sm"
+                <p-dropdown [filter]="true" [options]="listKeHoach"
+                 placeholder="Chọn kế hoạch" styleClass="p-inputtext-sm" [(ngModel)]="item.IdKeHoachNhapNguyenLieuInvoice_Item"
                 (onChange)="getKeHoach($event)"></p-dropdown>
             </div>
         </div> 

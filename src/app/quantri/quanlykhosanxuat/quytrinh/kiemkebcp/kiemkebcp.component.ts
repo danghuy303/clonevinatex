@@ -78,8 +78,11 @@ export class KiemkebcpComponent implements OnInit {
     })
     this.KiemTraTabTrangThai();
   }
-  changeParam(id){
-    this.router.navigate([`quantri/quanlykhosanxuat/kiemkeBCP/${id}`],{replaceUrl: true})
+  changeParam(id) {
+    if (this._modal.hasOpenModals()) {
+      this._modal.dismissAll()
+    }
+    this.router.navigate([`quantri/quanlykhosanxuat/kiemkeBCP/${id}`], { replaceUrl: true })
   }
   add(){
     this.changeParam(0);
@@ -96,6 +99,8 @@ export class KiemkebcpComponent implements OnInit {
       .catch(er => { console.log(er) })
   }
   update(item){
+    this.changeParam(item);
+
     let modalRef = this._modal.open(KiemkebcpmodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'

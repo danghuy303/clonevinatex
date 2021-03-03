@@ -133,6 +133,7 @@
             <tr class="normal">
                 <th style="width: 50px !important;">STT</th>
                 <th>Số lô</th>
+                <th>Số HĐ</th>
                 <th>Thời gian sản xuất</th>
                 <th>Kế hoạch giao</th>
                 <th>Kế hoạch triển khai</th>              
@@ -143,15 +144,16 @@
             <tr>
                 <td class="text-center" style="width: 50px !important;">{{i+1}}</td>
                 <td>{{item.SoLuong}}</td>
-                <td class="p-text-right">{{item.Ngay|date:"dd/MM/yyyy"}}</td>
+                <td>{{item.HopDong}}</td>
+                <td class="text-center">{{item.Ngay|date:"dd/MM/yyyy"}}</td>
                 <td>
-                    <a [href]="item.herfgiaokehoachsanxuat">{{item.TenGiaoKeHoach}}</a>                    
+                    <a [href]="item.herfgiaokehoachsanxuat" target="_blank">{{item.TenGiaoKeHoach}}</a>                    
                 </td>                
                 <td>
-                    <a [href]="item.herftrienkhaikehoachsanxuat">{{item.TenTrienKhaiKeHoach}}</a>
+                    <a [href]="item.herftrienkhaikehoachsanxuat" target="_blank">{{item.TenTrienKhaiKeHoach}}</a>
                 </td>                
                 <td>
-                    <a [href]="item.herfphabong">{{item.TenPhuongAnPhaBong}}</a>
+                    <a [href]="item.herfphabong" target="_blank">{{item.TenPhuongAnPhaBong}}</a>
                 </td>                                                
             </tr>
         </ng-template>

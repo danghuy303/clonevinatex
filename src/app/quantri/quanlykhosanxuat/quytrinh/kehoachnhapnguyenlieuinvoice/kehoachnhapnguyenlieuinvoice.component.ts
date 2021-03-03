@@ -60,7 +60,7 @@ export class KehoachnhapnguyenlieuinvoiceComponent implements OnInit {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/kehoachnhapnguyenlieuinvoice/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/quanlykhosanxuat/khobong/kehoachnhapnguyenlieuinvoice/${id}`], { replaceUrl: true })
   }
   addPhieuBong() {
     this.changeParam(0);
