@@ -102,6 +102,10 @@
                 <p class="print">
                     {{item.GhiChu}}
                 </p>
+                <label class="no-print">Người lập biểu:</label>
+                <input type="text" class="p-inputtext-sm no-print"
+                    [(ngModel)]="item.NguoiLapBieu" pInputText />
+               
             </div>
 
         </div>
@@ -171,13 +175,12 @@
                 </tbody>
             </table>
         </div>
-        <!-- <div class="p-col-2 ">
-            <label>Lưu ý:</label>
-            <textarea class="no-print" rows="5" cols="30" pInputTextarea autoResize="autoResize" [(ngModel)]="item.GhiChu"></textarea>
-            <p class="print">
-                {{item.GhiChu}}
-            </p>
-        </div> -->
+    </div>
+    <div class="print text-center" style="float: right;">
+        <label class="print" >Nguời lập biểu</label>
+        <p class="print pt-sign" >
+            {{item.NguoiLapBieu}}
+        </p>
     </div>
 </div>
 <div class="modal-footer">

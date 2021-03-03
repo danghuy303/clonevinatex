@@ -85,7 +85,9 @@
         </div>
         <div class="p-col-12">
             <h3>
-                Sử dụng bông theo kế hoạch triển khai ({{itemTrienKhaiKeHoach.TuNgay|date:'dd/MM/yyyy'}}-{{itemTrienKhaiKeHoach.DenNgay|date:'dd/MM/yyyy'}}): {{labelBong.BR|number:'0.1-1'}}% Brazil +
+                Sử dụng bông theo kế hoạch triển khai
+                ({{itemTrienKhaiKeHoach.TuNgay|date:'dd/MM/yyyy'}}-{{itemTrienKhaiKeHoach.DenNgay|date:'dd/MM/yyyy'}}):
+                {{labelBong.BR|number:'0.1-1'}}% Brazil +
                 {{labelBong.M|number:'0.1-1'}}% Mỹ + {{labelBong.TP|number:'0.1-1'}}% Tây Phi +
                 {{labelBong.Hoi|number:'0.1-1'}}% Hồi
             </h3>
@@ -95,7 +97,7 @@
                 {{trongLuongLoBong.Hoi|number:'0.1-1'}}kg Hồi
             </h3>
         </div>
-        <div class="p-col-12 p-p-0 pintable-container" voiPintable [pinnedCols]="5">
+        <div class="p-col-12 p-p-0 pintable-container" voiPintable [pinnedCols]="6">
             <table>
                 <thead>
                     <tr>
@@ -106,6 +108,7 @@
                         <th rowspan="2" class="tc-w-100">Số lượng dùng</th>
                         <th rowspan="2" class="tc-w-60">Tồn cuối</th>
                         <th rowspan="2" class="tc-w-80">Tỷ lệ</th>
+                        <th rowspan="2" class="tc-w-80"> LK Tỷ lệ</th>
                         <th rowspan="2" class="tc-w-121">
                             Số hợp đồng
                         </th>
@@ -125,6 +128,7 @@
                         <th [attr.colspan]="listProps.length">Bàn bông</th>
                     </tr>
                     <tr>
+                        <th style="display: none;"></th>
                         <th style="display: none;"></th>
                         <th style="display: none;"></th>
                         <th style="display: none;"></th>
@@ -157,6 +161,8 @@
                             {{lobong.TonCuoi}}</td>
                         <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.TyLe|number:'0.2-4'}}</td>
+                        <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.LuyKeTyLe|number:'0.2-4'}}</td>
                         <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.SoHopDong}}
                         </td>
@@ -243,12 +249,16 @@
                     </tr> -->
                     <!-- Tong so kien tren ban bong -->
                     <tr style="background-color:skyblue !important; font-weight: bold;">
-                        <td class="text-center tc-w-151" style="background-color:skyblue !important;">Tổng kiện / bàn bông</td>
+                        <td class="text-center tc-w-151" style="background-color:skyblue !important;">Tổng kiện / bàn
+                            bông</td>
                         <td class="text-center tc-w-60" style="background-color:skyblue !important;">
                         </td>
-                        <td class="text-center tc-w-100" style="background-color:skyblue !important;"> {{TongKhoiLuongDung|number:'0.2-4'}}</td>
+                        <td class="text-center tc-w-100" style="background-color:skyblue !important;">
+                            {{TongKhoiLuongDung|number:'0.2-4'}}</td>
                         <td class="text-center tc-w-60" style="background-color:skyblue !important;"></td>
-                        <td class="text-center tc-w-80" style="background-color:skyblue !important;">{{TongTyLe|number:'0.2-4'}}</td>
+                        <td class="text-center tc-w-80" style="background-color:skyblue !important;">
+                            {{TongTyLe|number:'0.2-4'}}</td>
+                        <td class="text-center tc-w-80" style="background-color:skyblue !important;"></td>
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -285,11 +295,14 @@
                     </tr>
                     <!-- Binh quan ban bong & sokien tru bong hoi -->
                     <tr>
-                        <td class="text-center tc-w-151" style="background-color:white !important;">Bình quân bàn bông</td>
+                        <td class="text-center tc-w-151" style="background-color:white !important;">Bình quân bàn bông
+                        </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-100" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-60" style="background-color:white !important;"></td>
-                        <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">Số kiện nguyên</td>
+                        <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">
+                            Số kiện nguyên</td>
+                        <td class="text-center tc-w-80" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -331,6 +344,7 @@
                         <td class="text-center tc-w-80" style="color: rebeccapurple; background-color: yellow;">
                             Mic B/Q
                         </td>
+                        <td class="text-center tc-w-80" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -359,7 +373,8 @@
                         </td>
                         <td class="text-center tc-w-50">
                         </td>
-                        <td *ngFor="let prop of listProps" class="text-center tc-w-50" style="background-color: yellow;">
+                        <td *ngFor="let prop of listProps" class="text-center tc-w-50"
+                            style="background-color: yellow;">
                             <div style="width: 100%;">
                                 {{itemMicBQ[prop]|number:'0.2-2'}}
                             </div>
@@ -381,6 +396,7 @@
                         <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">
                             CV%Mic
                         </td>
+                        <td class="text-center tc-w-80" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -431,6 +447,7 @@
                         <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">
                             Mic TT
                         </td>
+                        <td class="text-center tc-w-80" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -478,6 +495,7 @@
                         <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">
                             CV%Mic TT
                         </td>
+                        <td class="text-center tc-w-80" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -525,6 +543,7 @@
                         <td class="text-center tc-w-80" style="color: red;background-color:white !important;">
                             Tỷ lệ hồi pha
                         </td>
+                        <td class="text-center tc-w-80" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -572,6 +591,7 @@
                         <td class="text-center tc-w-80" style="background-color: yellow; color: red;">
                             +b
                         </td>
+                        <td class="text-center tc-w-80" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -600,7 +620,8 @@
                         </td>
                         <td class="text-center tc-w-50">
                         </td>
-                        <td *ngFor="let prop of listProps" class="text-center tc-w-50" style="background-color: yellow;">
+                        <td *ngFor="let prop of listProps" class="text-center tc-w-50"
+                            style="background-color: yellow;">
                             <div style="width: 100%;">
                                 {{itembBQ[prop]|number:'0.2-2'}}
                             </div>
@@ -619,6 +640,7 @@
                         <td class="text-center tc-w-80" style="color: red;background-color:white !important;">
                             &Delta; +b
                         </td>
+                        <td class="text-center tc-w-80" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -663,9 +685,11 @@
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
-                        <td class="text-center tc-w-80" style="color: red;text-decoration: underline; background-color:white !important;">
+                        <td class="text-center tc-w-80"
+                            style="color: red;text-decoration: underline; background-color:white !important;">
                             Trọng lượng 1 bàn
                         </td>
+                        <td class="text-center tc-w-80" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -694,7 +718,8 @@
                         </td>
                         <td class="text-center tc-w-50">
                         </td>
-                        <td *ngFor="let prop of listProps" class="text-center tc-w-50" style="font-size: 12px;color: red;text-decoration: underline;">
+                        <td *ngFor="let prop of listProps" class="text-center tc-w-50"
+                            style="font-size: 12px;color: red;text-decoration: underline;">
                             <div style="width: 100%;">
                                 {{itemTrongLuong1Ban[prop]|number:'0.0-1'}}
                             </div>
@@ -702,17 +727,19 @@
                     </tr>
                     <!-- Binh quan gia bong -->
                     <tr>
-                        <td class="text-center tc-w-151"style="background-color:white !important;">
+                        <td class="text-center tc-w-151" style="background-color:white !important;">
                         </td>
-                        <td class="text-center tc-w-60"style="background-color:white !important;">
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
-                        <td class="text-center tc-w-100"style="background-color:white !important;">
+                        <td class="text-center tc-w-100" style="background-color:white !important;">
                         </td>
-                        <td class="text-center tc-w-60"style="background-color:white !important;">
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
-                        <td class="text-center tc-w-80" style="background-color:plum;font-weight:bold;text-decoration: underline;font-style: italic;">
+                        <td class="text-center tc-w-80"
+                            style="background-color:plum;font-weight:bold;text-decoration: underline;font-style: italic;">
                             B/Q giá bông
                         </td>
+                        <td class="text-center tc-w-80" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -741,7 +768,8 @@
                         </td>
                         <td class="text-center tc-w-50">
                         </td>
-                        <td *ngFor="let prop of listProps" class="text-center tc-w-50" style="background-color: yellow;">
+                        <td *ngFor="let prop of listProps" class="text-center tc-w-50"
+                            style="background-color: yellow;">
                             <div style="width: 100%;">
                                 {{itemGiaTrungBinh[prop]|number:'0.2-2'}}
                             </div>

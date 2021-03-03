@@ -266,6 +266,9 @@ p-table.blv th {
     .print {
         display: block !important;
     }
+    .print.pt-sign{
+        padding-top: 100px;
+    }
     .modal-backdrop {
         background-color: white !important;
         opacity: 1 !important;

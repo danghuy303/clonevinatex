@@ -21,11 +21,6 @@ export class KehoachsanxuatComponent implements OnInit {
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
-    // {
-    //   header: 'Nhà máy',
-    //   field: '',
-    //   width: 'unset'
-    // },
     {
       header: 'Tổng sản lượng(tấn)',
       field: 'TongSanLuong',
@@ -52,14 +47,6 @@ export class KehoachsanxuatComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== '0') {
         this.update(res.id)
-        this._service.GiaoKeHoachSanXuat().Get(res.id).subscribe((res: any) => {
-          this.update(res);
-        },(err)=>{
-          if(err.status ===500){
-            this._toastr.error('Hệ thống không tìm thấy dữ liệu bạn cần!')
-          }
-          console.log(err);
-        })
       }
     })
     this.KiemTraTabTrangThai();
@@ -88,7 +75,6 @@ export class KehoachsanxuatComponent implements OnInit {
       .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
   }
   update(Id) {
-    this.changeParam(Id);
     this._service.GiaoKeHoachSanXuat().Get(Id).subscribe((item: any) => {
       this._service.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
         this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -161,7 +147,7 @@ export class KehoachsanxuatComponent implements OnInit {
     // })
   }
   hoanthanh(Id) {
-    this.router.navigate([`quantri/kehoachsanxuat/giaokehoachsanxuat/${Id}`], { replaceUrl: true })
+    // this.router.navigate([`quantri/kehoachsanxuat/giaokehoachsanxuat/${Id}`], { replaceUrl: true })
     this._service.GiaoKeHoachSanXuat().Get(Id).subscribe((item: any) => {
       this._service.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
         this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
