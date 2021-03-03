@@ -209,7 +209,7 @@ export class NhucauxuathangComponent implements OnInit {
       console.log(this.SelectItem);
       if (validVariable(this.SelectItem?.IddmItem)) {
 
-        this._services.GetDashBoard_TruyXuatNguonGoc(this.SelectItem.IddmItem, DateToUnix(this.filter._tuNgayCanDoiTon), DateToUnix(this.filter._tuNgayCanDoiTon)).subscribe((res: any) => {
+        this._services.GetDashBoard_TruyXuatNguonGoc(this.SelectItem.IddmItem, DateToUnix(this.filter._tuNgayCanDoiTon), DateToUnix(this.filter._denNgayCanDoiTon)).subscribe((res: any) => {
           this.showTruySuatNguonGoc = true;
           this.listTruySuatNguonGoc = res;
         })
