@@ -213,9 +213,10 @@ export class NhucauxuathangComponent implements OnInit {
           this.showTruySuatNguonGoc = true;
           this.listTruySuatNguonGoc = res;
           this.listTruySuatNguonGoc.forEach(obj=>{
-            obj.herfgiaokehoachsanxuat = `kehoachsanxuat/giaokehoachsanxuat/${obj.IdGiaoKeHoachSanXuat}`;
-            obj.herftrienkhaikehoachsanxuat = `kehoachsanxuat/trienkhaikehoachsanxuat/${obj.IdGiaoKeHoachSanXuat_TrienKhai}`;
-            obj.herfphabong = `trienkhaisanxuat/phabong/${obj.IdPhuongAnPhaBong}`;
+            console.log(window.location.host);
+            obj.herfgiaokehoachsanxuat = `#/quantri/kehoachsanxuat/giaokehoachsanxuat/${obj.IdGiaoKeHoachSanXuat}`;
+            obj.herftrienkhaikehoachsanxuat = `#/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/${obj.IdGiaoKeHoachSanXuat_TrienKhai}`;
+            obj.herfphabong = `#/quantri/trienkhaisanxuat/phabong/${obj.IdPhuongAnPhaBong}`;
           });          
         })
       }
