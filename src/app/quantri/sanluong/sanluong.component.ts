@@ -176,14 +176,14 @@ export class SanluongComponent implements OnInit {
           }
         })
       // }
-      // if (!!CongDoan) {
+      if (!!CongDoan) {
         this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
           // console.log(res);
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
           this.listMay.unshift({ label: 'Tất cả', value: '' })
           this.filter.IddmMay = this.listMay[0].value;
         })
-      // }
+      }
       if(validVariable(this.CongDoan)){
         this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')

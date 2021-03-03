@@ -32,7 +32,7 @@
         <div class="p-col-12 p-p-0 d-flex flex-column flex-lg-row">
             <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
                 <p-table [value]="item.listDaBoTri"
-                    styleClass="p-datatable-sm wrap-text  p-datatable-gridlines" [scrollable]="true"
+                    styleClass="p-datatable-sm wrap-text  p-datatable-gridlines" [scrollable]="true" [virtualScroll]="true"
                     scrollHeight="60vh">
                     <ng-template pTemplate="colgroup">
                         <colgroup>
@@ -40,7 +40,7 @@
                             <col style="width:200px">
                             <col>
                             <col>
-                            <col>
+                            <col style="width:200px">
                             <!-- <col style="width:100px"> -->
                         </colgroup>
                     </ng-template>
@@ -57,7 +57,7 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-item let-i="rowIndex">
                         <tr >
-                            <td [ngStyle]="{'background-color': item.hex}">{{item.TenMay}}</td>
+                            <td [ngStyle]="{'background-color': item.MaMau}">{{item.TenMay}}</td>
                             <td>
                                 <p-dropdown [filter]="true" showClear="true" [options]="listHangHoa"
                                     placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
@@ -74,34 +74,14 @@
                             <td>
                                 <!--  -->
                                 <div style="display: flex; flex-direction: row;" *ngIf="item.IdCanDoiChuyen_CanBoTri!==null">
-                                    <input type="text" placeholder="Màu" class="p-inputtext-sm" pInputText [(ngModel)]="item.labelMau"/>
                                     <div style="width:28px">
-                                        <p-colorPicker [(ngModel)]="item.hex"></p-colorPicker>
+                                        <p-colorPicker [(ngModel)]="item.MaMau"></p-colorPicker>
                                     </div>
+                                    <input type="text" placeholder="Màu" class="p-inputtext-sm" pInputText [(ngModel)]="item.TenMau"/>
                                 </div>
                             </td>
-                            <!-- <td><input pInputText type="text" [(ngModel)]="item.Ne"></td>
-                            <td><input pInputText type="text" [(ngModel)]="item.Nm"></td> -->
                         </tr>
                     </ng-template>
-                    <!-- <ng-template pTemplate="footer">
-                        <td>
-                            <input pInputText type="text" [(ngModel)]="newMay.NoiDung">
-                        </td>
-                        <td>
-                            <input pInputText type="text" [(ngModel)]="newMay.NoiDung">
-                        </td>
-                        <td>
-                            <input pInputText type="text" [(ngModel)]="newMay.NoiDung">
-                        </td>
-                        <td>
-                            <input pInputText type="text" [(ngModel)]="newMay.NoiDung">
-                        </td>
-                        <td class="text-center">
-                            <button pButton pRipple type="button" icon="pi pi-plus"
-                                class="p-button-rounded p-button-sm " (click)="add()"></button>
-                        </td>
-                    </ng-template> -->
                 </p-table>
             </div>
             <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
