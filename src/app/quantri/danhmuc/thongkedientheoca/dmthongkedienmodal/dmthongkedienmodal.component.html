@@ -74,7 +74,7 @@
                                     </p-inputNumber>
                                 </td>
                                 <td class="text-right">
-                                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="items.SoMoi" (onInput)="tinhgiatri($event,items)">
+                                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="items.SoMoi" (onBlur)="tinhgiatri(items)">
                                     </p-inputNumber>
                                 </td>
                                 <td *ngFor="let col of cols" class="text-right">
