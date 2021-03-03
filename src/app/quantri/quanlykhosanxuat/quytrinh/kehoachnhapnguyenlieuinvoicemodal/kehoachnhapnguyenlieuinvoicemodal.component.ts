@@ -23,7 +23,7 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
   }
   newTableItem: any = {
     "Id": "",
-    "idKeHoachNhapNguyenLieu": this.item.Id,
+    "IdKeHoachNhapNguyenLieu_Item": this.item.Id,
   };
   editTableItem: any = [];
   listKho: any = [];
@@ -265,7 +265,7 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
     if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
     this.newTableItem.Id = "";
-    this.newTableItem.idKeHoachNhapNguyenLieu = this.item.Id;
+    this.newTableItem.IdKeHoachNhapNguyenLieuInvoice = this.item.Id;
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {
       "Id": "",
@@ -299,9 +299,9 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
   }
   getKeHoachNhapNguyenLieu(){
     for(let i =0; i < this.listKeHoachNguyenLieuFull.length ; i ++){
-      if(this.listKeHoachNguyenLieuFull[i].Id === this.item.IdKeHoachNhapNguyenLieu)
+      if(this.listKeHoachNguyenLieuFull[i].Id === this.item.IdKeHoachNhapNguyenLieu_Item)
       {
-        this.item.GiaBong = this.listKeHoachNguyenLieuFull[i].GiaBong / 1000;
+        this.item.GiaBong = this.listKeHoachNguyenLieuFull[i].GiaBong;
         this.item.SoLuongNhap = this.listKeHoachNguyenLieuFull[i].SoLuongNhap;
         this.item.Container = this.listKeHoachNguyenLieuFull[i].Container;
         break;
