@@ -138,6 +138,9 @@
                 <p class="print">
                     {{item.GhiChu}}
                 </p>
+                <label class="no-print">Người lập biểu:</label>
+                <input type="text" class="p-inputtext-sm"
+                    [(ngModel)]="item.NguoiLapBieu" pInputText />
             </div>
         </div>
         <div class="p-col-4 pr-0">
@@ -193,6 +196,12 @@
                 {{item.GhiChu}}
             </p>
         </div> -->
+    </div>
+    <div class="print text-center" style="float: right;">
+        <label class="print" >Nguời lập biểu</label>
+        <p class="print pt-sign" >
+            {{item.NguoiLapBieu}}
+        </p>
     </div>
 </div>
 <div class="modal-footer">

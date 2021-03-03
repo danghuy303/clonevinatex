@@ -35,9 +35,9 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch nhập nguyên liệu: </label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listKeHoachNguyenLieu" placeholder="Chọn kế hoạch nhập nguyên liệu" [(ngModel)]="item.IdKeHoachNhapNguyenLieu"
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">K/H nhập nguyên liệu: </label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <p-dropdown [filter]="true" [options]="listKeHoachNguyenLieu" placeholder="Chọn kế hoạch nhập nguyên liệu" [(ngModel)]="item.IdKeHoachNhapNguyenLieu_Item"
                     styleClass="p-inputtext-sm" (onChange)="getKeHoachNhapNguyenLieu()"></p-dropdown>
             </div>
         </div>
@@ -49,14 +49,14 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tổng số lượng nhập: </label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số lượng nhập: </label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoLuongNhap" disabled>
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tổng Container: </label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số Container: </label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Container" disabled>
                 </p-inputNumber>

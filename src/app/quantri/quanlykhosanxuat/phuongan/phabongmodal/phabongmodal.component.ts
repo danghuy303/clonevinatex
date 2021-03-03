@@ -322,6 +322,15 @@ export class PhabongmodalComponent implements OnInit {
       console.log(this.ThongSoKienTheoLoaiBong);
     });
   }
+  TinhLuyKeTyLeBong(){
+    let tempLK = 0
+    for(let i=1;i<this.item.listLoBong.length;i++){
+      if(validVariable(this.item.listLoBong[i-1].TyLe)){
+        tempLK+=this.item.listLoBong[i-1].TyLe;
+      }
+      this.item.listLoBong[i]=tempLK;
+    }
+  }
   CalAllTable(y, x) {
     let tempSLD = 0;
 
@@ -370,6 +379,12 @@ export class PhabongmodalComponent implements OnInit {
         tempTongKhoiLuongDung += (lobong.SoLuongDung * lobong.TrongLuong);
       }
     });
+    tempSLD=0;
+    for (let i = 1; i <= this.item.SoBanBong; i++) {
+      if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
+        tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
+      }
+    }
 
     this.item.listLoBong[y].SoLuongDung = tempSLD;
     this.item.listLoBong[y].TonCuoi = this.item.listLoBong[y].SoLuongKien - tempSLD;
@@ -395,6 +410,7 @@ export class PhabongmodalComponent implements OnInit {
     this.TinhTongTrongLuong()
     this.TinhDeltaB();
     this.TinhThongTinKienTheoLoaiBong();
+    // this.TinhLuyKeTyLeBong();
   }
 
   KiemTraButtonModal() {

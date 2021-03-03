@@ -6,7 +6,7 @@ import {AuthGuard} from'./services/auth.guard';
 const routes: Routes = [
   { path: '', redirectTo: 'quantri', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'quantri', loadChildren: () => QuantriModule,canActivate:[AuthGuard] }
+  { path: 'quantri', loadChildren: () => import('./quantri/quantri.module').then(m=>m.QuantriModule) ,canActivate:[AuthGuard] }
 ];
 
 @NgModule({
