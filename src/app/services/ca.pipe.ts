@@ -6,6 +6,7 @@ export class CaPipe implements PipeTransform {
     if(!!value){
       if(IdCa!==undefined&& IdCa!==null){
         return value.filter(ele=> ele.IddmCaSanXuat===IdCa)
+        // .concat([{},{},{},{},{},{},{},{},{},{},{}])
       }else{
         return [];
       }
