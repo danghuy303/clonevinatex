@@ -86,7 +86,7 @@
                         <th style="width: 35px !important;">#</th>
                         <!-- <th>Ngày</th> -->
                         <th>Mặt hàng</th>
-                        <th>Lô sản xuất</th>
+                        <!-- <th>Lô sản xuất</th> -->
                         <!-- <th>Hợp đồng P/O</th> -->
                         <th>Tồn đầu</th>
                         <th>Nhập trong kỳ</th>
@@ -102,7 +102,7 @@
                         </td>
                         <!-- <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td> -->
                         <td>{{item.TendmItem}}</td>
-                        <td>{{item.TenLoHang}}</td>
+                        <!-- <td>{{item.TenLoHang}}</td> -->
                         <!-- <td>{{item.SoHopDong}}</td> -->
                         <td class="text-right">{{item.DauSoLuong|number:'0.0'}}</td>
                         <td class="text-right">{{item.NhapSoLuong|number:'0.0'}}</td>
@@ -114,16 +114,29 @@
         </div>
     </div>
 </div>
-<p-dialog [header]="SelectItem.TenItem" [(visible)]="showTruySuatNguonGoc" [modal]="true" [style]="{width: '50vw'}"
+<p-dialog [header]="SelectItem.TenItem" [(visible)]="showTruySuatNguonGoc" [modal]="true" [style]="{width: '85vw'}"
     [baseZIndex]="10000" [draggable]="false" [resizable]="false">
     <p-table [value]="listTruySuatNguonGoc" styleClass="p-datatable-sm p-datatable-gridlines wrap-text"
         [scrollable]="true" scrollHeight="500px">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <!-- <col style="width:50px"> -->
+                <col style="width:50px">
+                <col style="width: 7rem;">
+                <col style="width: 10rem;">                
+                <col>
+                <col>
+                <col>           
+            </colgroup>
+        </ng-template>
         <ng-template pTemplate="header">
             <tr class="normal">
                 <th style="width: 50px !important;">STT</th>
                 <th>Số lô</th>
                 <th>Thời gian sản xuất</th>
-                <th>Nội dung</th>
+                <th>Kế hoạch giao</th>
+                <th>Kế hoạch triển khai</th>              
+                <th>Phương án pha bông</th>                            
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -131,7 +144,15 @@
                 <td class="text-center" style="width: 50px !important;">{{i+1}}</td>
                 <td>{{item.SoLuong}}</td>
                 <td class="p-text-right">{{item.Ngay|date:"dd/MM/yyyy"}}</td>
-                <td>{{item.GhiChu}}</td>
+                <td>
+                    <a [href]="item.herfgiaokehoachsanxuat">{{item.TenGiaoKeHoach}}</a>                    
+                </td>                
+                <td>
+                    <a [href]="item.herftrienkhaikehoachsanxuat">{{item.TenTrienKhaiKeHoach}}</a>
+                </td>                
+                <td>
+                    <a [href]="item.herfphabong">{{item.TenPhuongAnPhaBong}}</a>
+                </td>                                                
             </tr>
         </ng-template>
     </p-table>

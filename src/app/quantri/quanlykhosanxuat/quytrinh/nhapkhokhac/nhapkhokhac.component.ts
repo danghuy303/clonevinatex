@@ -39,10 +39,10 @@ export class NhapkhokhacComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res:any)=>{
       this.title = res.kho;
-      // console.log(res.id)
-      // if(res.id!=='0'){
-      //   this.update(res.id);
-      // }
+      console.log(res.id)
+      if(res.id!=='0'){
+        this.update(res.id);
+      }
       // else
         this.GetListQuyTrinh();
       //

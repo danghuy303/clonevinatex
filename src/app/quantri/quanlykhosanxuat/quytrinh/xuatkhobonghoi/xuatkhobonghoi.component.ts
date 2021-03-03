@@ -51,9 +51,9 @@ export class XuatkhobonghoiComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res:any)=>{
-      // if(res.id!=='0' && res.id!==undefined){
-      //   this.update(res.id);
-      // }
+      if(res.id!=='0' && res.id!==undefined){
+        this.update(res.id);
+      }
     })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh()

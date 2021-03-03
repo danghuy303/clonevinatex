@@ -49,14 +49,13 @@ export class XuatkhoxoComponent implements OnInit {
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    // this.activatedRoute.params.subscribe((res:any)=>{
-    //   if(res.id!=='0'){
-    //     this.update(res.id);
-    //   }
-    // })
+    this.activatedRoute.params.subscribe((res:any)=>{
+      if(res.id!=='0'){
+        this.update(res.id);
+      }
+    })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh()
-
   }
   changeParam(id){
     if(this._modal.hasOpenModals()){

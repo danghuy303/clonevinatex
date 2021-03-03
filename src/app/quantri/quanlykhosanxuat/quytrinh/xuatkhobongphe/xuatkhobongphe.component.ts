@@ -50,11 +50,11 @@ export class XuatkhobongpheComponent implements OnInit {
     private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    // this.activatedRoute.params.subscribe((res:any)=>{
-    //   if(res.id!=='0' && res.id!==undefined){
-    //     this.update(res.id);
-    //   }
-    // })
+    this.activatedRoute.params.subscribe((res:any)=>{
+      if(res.id!=='0' && res.id!==undefined){
+        this.update(res.id);
+      }
+    })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh()
 
