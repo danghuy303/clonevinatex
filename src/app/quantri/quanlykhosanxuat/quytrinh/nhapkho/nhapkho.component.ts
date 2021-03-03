@@ -163,7 +163,7 @@ export class NhapkhoComponent implements OnInit {
       Ten: "",
     }
     if(this.title === 'khobong'){
-      data.Loai = 1;
+      data.Loai = 2;
     }
     else if(this.title === 'khoxo'){
       data.Loai = 5;

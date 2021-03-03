@@ -119,7 +119,7 @@ export class NhapkhomodalComponent implements OnInit {
   GhiLai() {
     if (this.opt !== 'edit') {
       if (this.type === 'bong')
-        this.item.Loai = 1;
+        this.item.Loai = 2;
       else if (this.type === 'xo')
         this.item.Loai = 5;
       else if (this.type === 'bonghoi')

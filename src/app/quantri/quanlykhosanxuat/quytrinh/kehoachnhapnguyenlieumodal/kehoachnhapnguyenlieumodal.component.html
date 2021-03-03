@@ -12,7 +12,7 @@
         <!-- <div class="mr-2">TG tạo:&nbsp;{{item.Created}}</div>
         <div class="mr-2">TG duyệt:&nbsp;{{item.Modified}}</div> -->
     </div>
-    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="Onclose()">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
@@ -83,8 +83,8 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
-                        <col style="width:161px">
-                        <col style="width:165px">
+                        <col style="width:130px">
+                        <col style="width:100px">
                         <col>
                         <col>
                         <col>
@@ -94,7 +94,7 @@
                         <col>
                         <col>
                         <col>
-                        <col style="width: 57px;">
+                        <col style="width: 50px;">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
