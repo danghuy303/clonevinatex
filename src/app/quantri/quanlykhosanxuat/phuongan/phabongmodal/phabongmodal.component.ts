@@ -321,7 +321,7 @@ export class PhabongmodalComponent implements OnInit {
       this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].Mau = lobong.Mau;
     });
   }
-  TinhLuyKeTyLeBong(y,x) {
+  TinhLuyKeTyLeBong() {
     for (let i = 1; i < this.item.listLoBong.length; i++) {
       let tempLK = 0
       for (let j = 0; j <= i; j++) {
@@ -330,9 +330,6 @@ export class PhabongmodalComponent implements OnInit {
         }
       }
       this.item.listLoBong[i].LuyKeTyLe = tempLK;
-    }
-    if(this.item.listLoBong[this.item.listLoBong.length-1].LuyKeTyLe>100){
-      console.log('sai');
     }
   }
   CalAllTable(y, x) {
@@ -367,6 +364,17 @@ export class PhabongmodalComponent implements OnInit {
           lobong.tempBanBong[`${x}`].SoKien = this.item.TongSoKien - tempSoKien1Line;
           tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
         }
+      }
+    });
+    tempSLD = 0;
+    for (let i = 1; i <= this.item.SoBanBong; i++) {
+      if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
+        tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
+      }
+    }
+    this.item.listLoBong.forEach(lobong => {
+      if (validVariable(lobong.tempBanBong[`${x}`].SoKien)) {
+        tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
         tempTongTrongLuong += (lobong.tempBanBong[`${x}`].SoKien * lobong.TrongLuong);
         tempTongGia += (lobong.tempBanBong[`${x}`].SoKien * lobong.GiaBong * lobong.TrongLuong);
         if (validVariable(lobong.Mic)) {
@@ -377,25 +385,21 @@ export class PhabongmodalComponent implements OnInit {
           tempTongCLb += (lobong.tempBanBong[`${x}`].SoKien * lobong.b);
         }
       }
-      if (validVariable(lobong.SoLuongDung)) {
-        tempTongKhoiLuongDung += (lobong.SoLuongDung * lobong.TrongLuong);
-      }
     });
-    tempSLD = 0;
-    for (let i = 1; i <= this.item.SoBanBong; i++) {
-      if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
-        tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
-      }
-    }
     this.item.listLoBong[y].SoLuongDung = tempSLD;
     this.item.listLoBong[y].TonCuoi = this.item.listLoBong[y].SoLuongKien - tempSLD;
-    this.TongKhoiLuongDung = tempTongKhoiLuongDung;
     this.itemMicBQ[`${x}`] = tempTongCLMic / tempSoKien1LineTruBongHoi;
     this.itembBQ[`${x}`] = tempTongCLb / tempSoKien1LineTruBongHoi;
     this.itemSoKienTrenBan[`${x}`] = tempSoKien1Line > this.item.TongSoKien ? this.item.TongSoKien : tempSoKien1Line;
     this.itemSoKienTrenBanTruBongHoi[`${x}`] = tempSoKien1LineTruBongHoi;
     this.itemTrongLuong1Ban[`${x}`] = tempTongTrongLuong;
     this.itemGiaTrungBinh[`${x}`] = tempTongGia / tempTongTrongLuong;
+    this.item.listLoBong.forEach(lobong => {
+      if (validVariable(lobong.SoLuongDung)) {
+        tempTongKhoiLuongDung += (lobong.SoLuongDung * lobong.TrongLuong);
+      }
+    });
+    this.TongKhoiLuongDung = tempTongKhoiLuongDung;
     this.item.listLoBong.forEach(lobong => {
       if (validVariable(lobong.SoLuongDung)) {
         lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
@@ -411,9 +415,8 @@ export class PhabongmodalComponent implements OnInit {
     this.TinhTongTrongLuong()
     this.TinhDeltaB();
     this.TinhThongTinKienTheoLoaiBong();
-    this.TinhLuyKeTyLeBong(y,x);
+    this.TinhLuyKeTyLeBong();
   }
-
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
       this.checkbutton = res;

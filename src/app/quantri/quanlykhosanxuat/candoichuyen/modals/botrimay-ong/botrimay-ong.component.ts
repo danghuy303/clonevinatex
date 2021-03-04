@@ -218,8 +218,13 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
               TuNgayUnix: DateToUnix(this.filter.TuNgay),
               DenNgayUnix: DateToUnix(this.filter.DenNgay),
             }
-            this.services.CanDoiChuyen().SetCanDoiChuyen_ApDungNgay(data).subscribe(res => {
+            this.services.CanDoiChuyen().SetCanDoiChuyen_ApDungNgay(data).subscribe((res:any) => {
               console.log(res);
+              if (res?.State === 1) {
+                this.toastr.success('Cập nhật thành công!')
+              } else {
+                this.toastr.error('Cập nhật không thành công!');
+              }
             })
           } else {
             this.toastr.error(res.message);

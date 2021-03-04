@@ -146,12 +146,11 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
             TyLe: formatNumber(ele.TyLe, 'vi-VN', '0.0-2')
           }
         })
-        chart.numberFormatter.numberFormat = '#.###,##'
         let Series = chart.series.push(new am4charts.FunnelSeries());
         Series.dataFields.value = "value";
         Series.dataFields.category = "name";
         Series.labels.template.text = "{category}: [bold]{formated} kg[/] [bold red]{TyLe}%";
-        Series.slices.template.tooltipText = "{category}: [bold]{value} kg[/]";
+        Series.slices.template.tooltipText = "{category}: [bold]{formated} kg[/]";
         Series.alignLabels = true;
         this.chart = chart;
       })

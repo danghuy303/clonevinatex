@@ -178,7 +178,7 @@
                     </div>
                 </div>
             </div>
-            <p-table [value]="item.listItemMay | isXoa | CongDoan:filter.CongDoan"
+            <p-table [value]="item.listItemMay | isXoa | CongDoan:filter.CongDoan | filter: filter.KeyWord"
                 styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
