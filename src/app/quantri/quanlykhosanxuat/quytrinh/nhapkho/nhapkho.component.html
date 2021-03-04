@@ -3,7 +3,7 @@
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-      <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieu()" *ngIf="checkQuyen.ThemMoi"></button>
+      <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieu()" *ngIf="checkQuyen.ThemMoi&&type!=='bong'"></button>
       <!-- <button pButton pRipple label="Nhập xơ" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieuSo()" *ngIf="checkQuyen.ThemMoi"></button>
       <button pButton pRipple label="Nhập bông khác" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieuBongHoi()" *ngIf="checkQuyen.ThemMoi"></button> -->
     </div>

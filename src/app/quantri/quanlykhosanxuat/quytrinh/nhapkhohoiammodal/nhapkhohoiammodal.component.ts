@@ -106,7 +106,8 @@ export class NhapkhohoiammodalComponent implements OnInit {
       this._services.PhieuNhapHoiAm().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
-            this.activeModal.close();
+            // this.activeModal.close();
+            this.Onclose();
           } else {
             this.toastr.error(res.message);
           }
@@ -192,14 +193,18 @@ export class NhapkhohoiammodalComponent implements OnInit {
     itemSearch.IddmPhanXuong = this.item.IddmPhanXuong;
     this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
-        backdrop: 'static'
+        backdrop: 'static',
+        size: 'lg',
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.componentInstance.cols= this.cols;
       modalRef.result.then((data) => {
-        this.item.listItem = data.data;
+        this.item.listItem.forEach(element => {
+          element.isXoa = true;
+        });
+        this.item.listItem.push(data.data);
       }, (reason) => {
         // không
       });
@@ -221,6 +226,9 @@ export class NhapkhohoiammodalComponent implements OnInit {
     }
   }
   Onclose() {
-    this.activeModal.close();
+    if (this._modal.hasOpenModals()) {
+      this._modal.dismissAll()
+    }
+    // this.activeModal.close();
   }
 }

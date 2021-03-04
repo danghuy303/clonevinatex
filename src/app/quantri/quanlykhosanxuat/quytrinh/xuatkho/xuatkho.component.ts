@@ -59,6 +59,9 @@ export class XuatkhoComponent implements OnInit {
 
   }
   changeParam(id){
+    if(this._modal.hasOpenModals()){
+      this._modal.dismissAll()
+    }
     this.router.navigate([`quantri/quanlykhosanxuat/khobong/xuatkho/${id}`],{replaceUrl: true})
   }
   add(){
@@ -74,14 +77,14 @@ export class XuatkhoComponent implements OnInit {
     })
       .catch(er => { console.log(er) })
   }
-  update(item){
-    this.changeParam(item.Id);
+  update(Id){
+    this.changeParam(Id);
     let modalRef = this._modal.open(XuatkhomodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })

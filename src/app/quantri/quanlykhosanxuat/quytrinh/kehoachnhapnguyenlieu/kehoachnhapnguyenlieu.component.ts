@@ -25,7 +25,8 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
     {
       header: 'Nội dung',
       field: 'NoiDung',
-      width: 'unset'
+      width: 'unset',
+      align:'center' //'text-center': col.align==='center'
     },
     {
       header: 'Khối lượng nhập (Tấn)',
@@ -43,20 +44,22 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
       width: 'unset'
     },
   ];
-  checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
+  eAction: any = "KEHOACHNHAPNGUYENLIEU";
 
+  checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
+  isCheckModal : any = false;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0' && res.id!==undefined){
+      if(res.id!=='0' && res.id!==undefined && this.isCheckModal===false){
         this.update(res.id);
       }
     })
 
     this.getListKho();
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh()
+    // this.GetListQuyTrinh()
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
@@ -78,6 +81,7 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
       .catch(er => { console.log(er) })
   }
   update(Id) {
+    this.isCheckModal = true
     this.changeParam(Id);
     this._service.NhapKeHoachNguyenLieu().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(KehoachnhapnguyenlieumodalComponent, {
@@ -135,10 +139,10 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 
 }

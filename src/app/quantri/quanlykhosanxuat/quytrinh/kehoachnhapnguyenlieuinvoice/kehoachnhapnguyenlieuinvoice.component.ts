@@ -43,12 +43,12 @@ export class KehoachnhapnguyenlieuinvoiceComponent implements OnInit {
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-
+isCheckModal: any = false;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0' && res.id!==undefined){
+      if(res.id!=='0' && res.id!==undefined && this.isCheckModal===false){
         this.update(res.id);
       }
     })
@@ -76,6 +76,7 @@ export class KehoachnhapnguyenlieuinvoiceComponent implements OnInit {
       .catch(er => { console.log(er) })
   }
   update(Id) {
+    this.isCheckModal = true
     this.changeParam(Id);
 
     this._service.NhapKeHoachNguyenLieuInvoice().Get(Id).subscribe((res1: any) => {

@@ -14,7 +14,8 @@ import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomath
   styleUrls: ['./kiemkekhomodal.component.css']
 })
 export class KiemkekhomodalComponent implements OnInit {
-  opt: any = ''
+  opt: any = '';
+  Id: any = '';
   item: any = {};
   checkbutton: any = {
     Ghi: true,
@@ -37,8 +38,9 @@ export class KiemkekhomodalComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     }
     else{
-      this.KiemTraButtonModal();
       this.GetQuyTrinh();
+
+      this.KiemTraButtonModal();
     }
     this.item_new = this.item;
 
@@ -68,7 +70,7 @@ export class KiemkekhomodalComponent implements OnInit {
   }
   GetQuyTrinh()
   {
-    this.services.PhieuKiemKeKho().Get(this.item.Id).subscribe((res1:any)=>{
+    this.services.PhieuKiemKeKho().Get(this.Id).subscribe((res1:any)=>{
       this.item = res1;
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
