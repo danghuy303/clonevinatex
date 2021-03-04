@@ -51,14 +51,16 @@ export class KiemkekhoComponent implements OnInit {
     this.activatedRoute.params.subscribe((res:any)=>{
       this.title = res.kho;
       if(res.id!=='0'){
-        let getitem =()=>{return{}};
-        this.update(getitem());
+        this.update(res.id);
       }
       this.GetListQuyTrinh()
     })
     this.KiemTraTabTrangThai();
   }
   changeParam(id){
+    if(this._modal.hasOpenModals()){
+      this._modal.dismissAll()
+    }
     this.router.navigate([`quantri/quanlykhosanxuat/${this.title}/kiemkekho/${id}`],{replaceUrl: true})
   }
   add(){
@@ -75,13 +77,14 @@ export class KiemkekhoComponent implements OnInit {
     })
       .catch(er => { console.log(er) })
   }
-  update(item){
+  update(Id){
+    this.changeParam(Id);
     let modalRef = this._modal.open(KiemkekhomodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
     modalRef.componentInstance.title = this.title;
     modalRef.result.then((res: any) => {
       console.log(res);

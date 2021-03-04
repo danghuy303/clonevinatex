@@ -31,7 +31,7 @@ export class ChatluongsoiComponent implements OnInit {
     {
       header: 'Trạng thái',
       field: 'TenTrangThai',
-      width: '150px'
+      width: 'unset'
     }
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};

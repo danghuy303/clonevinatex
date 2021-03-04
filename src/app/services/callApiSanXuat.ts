@@ -408,7 +408,7 @@ export class SanXuatService {
         return this.http.get(url, httpOptions);
     }
     KiemTraTabTrangThai(eAction) {
-        let url = API.auth + `QuanTriQuyTrinh/KiemTraTabTrangThai?eAction=${eAction}`;
+        let url = API.auth + `QuanTriQuyTrinh/KiemTraTab?eAction=${eAction}`;
         return this.http.get(url, httpOptions);
     }
 

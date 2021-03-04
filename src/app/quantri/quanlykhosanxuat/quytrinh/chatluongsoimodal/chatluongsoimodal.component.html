@@ -101,7 +101,7 @@
                         <td *ngFor="let itemsanpham of itemindex.lstChatLuongSanPham" class="text-center" 
                             style="width: 7rem;">
                             <input *ngIf="itemindex.Ma==='DAT'" type="checkbox" [(ngModel)]="itemsanpham.isDat"/>
-                            <p-inputNumber *ngIf="itemindex.Ma!=='DAT'" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemsanpham.ChiTieuThucTe">
+                            <p-inputNumber *ngIf="itemindex.Ma!=='DAT'" [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemsanpham.ChiTieuThucTe">
                             </p-inputNumber>
                         </td>
                     </tr>

@@ -15,7 +15,8 @@ import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomath
   styleUrls: ['./xuatkhomodal.component.css']
 })
 export class XuatkhomodalComponent implements OnInit {
-  opt: any = ''
+  opt: any = '';
+  Id: any = '';
   item: any = {};
   checkbutton: any = {
     Ghi:true,
@@ -36,8 +37,9 @@ export class XuatkhomodalComponent implements OnInit {
     public toastr: ToastrService, public _modal: NgbModal) {  }
 
   ngOnInit(): void {
-    this.KiemTraButtonModal();
     this.GetQuyTrinh();
+    this.KiemTraButtonModal();
+
     //
     let data: any = {
       CurrentPage: 0
@@ -58,7 +60,7 @@ export class XuatkhomodalComponent implements OnInit {
   }
   GetQuyTrinh()
   {
-    this.services.PhieuXuatSanXuat().Get(this.item.Id).subscribe((res1:any)=>{
+    this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1:any)=>{
       this.item = res1;
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
