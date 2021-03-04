@@ -316,24 +316,27 @@ export class PhabongmodalComponent implements OnInit {
         }
       }
       this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].TonDau += lobong.SoLuongKien;
-      this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].TonCuoi += lobong.TonCuoi?lobong.TonCuoi:0;
-      this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].SoLuongDung += lobong.SoLuongDung?lobong.SoLuongDung:0;
+      this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].TonCuoi += lobong.TonCuoi ? lobong.TonCuoi : 0;
+      this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].SoLuongDung += lobong.SoLuongDung ? lobong.SoLuongDung : 0;
       this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].Mau = lobong.Mau;
-      console.log(this.ThongSoKienTheoLoaiBong);
     });
   }
-  TinhLuyKeTyLeBong(){
-    let tempLK = 0
-    for(let i=1;i<this.item.listLoBong.length;i++){
-      if(validVariable(this.item.listLoBong[i-1].TyLe)){
-        tempLK+=this.item.listLoBong[i-1].TyLe;
+  TinhLuyKeTyLeBong(y,x) {
+    for (let i = 1; i < this.item.listLoBong.length; i++) {
+      let tempLK = 0
+      for (let j = 0; j <= i; j++) {
+        if (validVariable(this.item.listLoBong[j].TyLe)) {
+          tempLK += this.item.listLoBong[j].TyLe;
+        }
       }
-      this.item.listLoBong[i]=tempLK;
+      this.item.listLoBong[i].LuyKeTyLe = tempLK;
+    }
+    if(this.item.listLoBong[this.item.listLoBong.length-1].LuyKeTyLe>100){
+      console.log('sai');
     }
   }
   CalAllTable(y, x) {
     let tempSLD = 0;
-
     let tempSoKien1Line = 0;
     let tempSoKien1LineTruBongHoi = 0;
     let tempTongCLMic = 0;
@@ -347,7 +350,6 @@ export class PhabongmodalComponent implements OnInit {
     for (let i = 1; i <= this.item.SoBanBong; i++) {
       if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
         tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
-        console.log(this.item.listLoBong[y].SoLuongKien)
         if (tempSLD > this.item.listLoBong[y].SoLuongKien) {
           this._toastr.warning('Bạn vừa nhập quá số lượng kiện tồn trong kho! Chúng tôi sẽ điều chỉnh về giá trị lớn nhất có thể tránh gây lỗi nghiêm trọng!')
           tempSLD -= this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
@@ -379,13 +381,12 @@ export class PhabongmodalComponent implements OnInit {
         tempTongKhoiLuongDung += (lobong.SoLuongDung * lobong.TrongLuong);
       }
     });
-    tempSLD=0;
+    tempSLD = 0;
     for (let i = 1; i <= this.item.SoBanBong; i++) {
       if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
         tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
       }
     }
-
     this.item.listLoBong[y].SoLuongDung = tempSLD;
     this.item.listLoBong[y].TonCuoi = this.item.listLoBong[y].SoLuongKien - tempSLD;
     this.TongKhoiLuongDung = tempTongKhoiLuongDung;
@@ -410,7 +411,7 @@ export class PhabongmodalComponent implements OnInit {
     this.TinhTongTrongLuong()
     this.TinhDeltaB();
     this.TinhThongTinKienTheoLoaiBong();
-    // this.TinhLuyKeTyLeBong();
+    this.TinhLuyKeTyLeBong(y,x);
   }
 
   KiemTraButtonModal() {

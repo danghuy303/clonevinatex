@@ -57,7 +57,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       this.listCanBoTri[`${ca.prop}`] = deepCopy(this.item.listCanBoTri);
       this.TongMatHang[`${ca.prop}`]={};
     });
-    console.log(this.listCanBoTri);
+    // console.log(this.listCanBoTri);
     this.inputChange()
   }
   sort() {
@@ -142,7 +142,9 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     this.inputChange()
   }
   chonMatHang(item, event) {
+    console.log(event);
     if (event.value) {
+      item.Ten = this.listHangHoa.find(mathang=>mathang.value===event.value)?.label;
       // if(validVariable(item.SoCocDen)&& validVariable(item.SoCocTu)){
       // }
       // else{
@@ -159,6 +161,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
         item.SoCocTu = 1;
       }
     } else {
+      item.Ten = null;
       item.listTocDo = [];
       item.IdPhanNhomMay_Item = null;
       item.SanLuongCa = 0;
