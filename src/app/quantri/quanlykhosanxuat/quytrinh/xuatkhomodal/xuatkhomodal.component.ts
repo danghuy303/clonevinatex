@@ -38,7 +38,6 @@ export class XuatkhomodalComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetQuyTrinh();
-    this.KiemTraButtonModal();
 
     //
     let data: any = {
@@ -68,6 +67,7 @@ export class XuatkhomodalComponent implements OnInit {
       this.paging.TotalItem = res1.listItem.length;
       this.item.listItem = res1.listItem.slice(0,15);
       this.items = res1.listItem.slice(0,15);
+      this.KiemTraButtonModal();
     })
   }
   KiemTraButtonModal() {

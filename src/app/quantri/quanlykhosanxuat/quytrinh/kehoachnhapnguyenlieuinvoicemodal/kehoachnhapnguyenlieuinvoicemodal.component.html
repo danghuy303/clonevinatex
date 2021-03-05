@@ -35,6 +35,12 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mã invoice: </label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.MaInvoice" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">K/H nhập nguyên liệu: </label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listKeHoachNguyenLieu" placeholder="Chọn kế hoạch nhập nguyên liệu" [(ngModel)]="item.IdKeHoachNhapNguyenLieu_Item"
@@ -60,6 +66,24 @@
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Container" disabled>
                 </p-inputNumber>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Thời gian cập cảng: </label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
+                    [yearRange]="yearRange" [showIcon]="false" [(ngModel)]="item.ThoiGianCapCang" inputId="icon"
+                    placeholder="dd/mm/yyyy" disabled>
+                </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Thời gian dự kiến: </label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
+                    [yearRange]="yearRange" [showIcon]="false" [(ngModel)]="item.ThoiGianDuKien" inputId="icon"
+                    placeholder="dd/mm/yyyy" disabled>
+                </p-calendar>
             </div>
         </div>
         <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">

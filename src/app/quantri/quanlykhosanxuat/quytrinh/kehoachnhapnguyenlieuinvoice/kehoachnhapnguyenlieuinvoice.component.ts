@@ -21,16 +21,16 @@ export class KehoachnhapnguyenlieuinvoiceComponent implements OnInit {
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
-    {
-      header: 'Nội dung',
-      field: 'NoiDung',
-      width: 'unset'
-    },
-    {
-      header: 'Khối lượng nhập (Tấn)',
-      field: 'TongKhoiLuongNhap',
-      width: 'unset'
-    },
+    // {
+    //   header: 'Nội dung',
+    //   field: 'NoiDung',
+    //   width: 'unset'
+    // },
+    // {
+    //   header: 'Khối lượng nhập (Tấn)',
+    //   field: 'TongKhoiLuongNhap',
+    //   width: 'unset'
+    // },
     {
       header: 'Trạng thái',
       field: 'TenTrangThai',
@@ -44,6 +44,7 @@ export class KehoachnhapnguyenlieuinvoiceComponent implements OnInit {
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
 isCheckModal: any = false;
+eAction = 'KEHOACHNHAPNGUYENLIEUINVOICE'
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -54,7 +55,6 @@ isCheckModal: any = false;
     })
     this.getListKho();
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh()
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
@@ -97,8 +97,8 @@ isCheckModal: any = false;
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListQuyTrinh();
   }
 
   getListKho() {
@@ -135,9 +135,9 @@ isCheckModal: any = false;
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }

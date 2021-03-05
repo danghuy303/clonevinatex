@@ -58,7 +58,8 @@ export class KehoachxuathangmodalComponent implements OnInit {
     else {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
-          obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
+          if (obj.ThoiGianDuKienUnix !== null && obj.ThoiGianDuKienUnix !== undefined) 
+            obj.ThoiGianDuKien = UnixToDate(obj.ThoiGianDuKienUnix);
         });
       }
       this.KiemTraButtonModal();
@@ -89,16 +90,25 @@ export class KehoachxuathangmodalComponent implements OnInit {
   }
 
   ChuyenTiep() {
+    var isCheck : any = false;
+    this.item.listItem.filter(obj => {
+      if(obj.ThoiGianDuKien == undefined || obj.ThoiGianDuKien === null){
+        isCheck = true;
+      }
+    })
+    if (isCheck) {
+      this.toastr.error("Bạn chưa chọn thời gian dự kiến");
+    }
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn ngày");
     }
-    else {
+    else if (!isCheck){
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
-          obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
+          obj.ThoiGianDuKienUnix = DateToUnix(obj.ThoiGianDuKien);
         });
       }
-      this.item.NgayUnix = validVariable(this.item.Ngay) ? DateToUnix(this.item.Ngay) : 0;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
       this._services.KeHoachXuatHang().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
@@ -143,10 +153,19 @@ export class KehoachxuathangmodalComponent implements OnInit {
   }
 
   GhiLai() {
+    var isCheck : any = false;
+    this.item.listItem.filter(obj => {
+      if(obj.ThoiGianDuKien == undefined || obj.ThoiGianDuKien === null){
+        isCheck = true;
+      }
+    })
+    if (isCheck) {
+      this.toastr.error("Bạn chưa chọn thời gian dự kiến");
+    }
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn ngày");
     }
-    else {
+    else if (!isCheck){
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
