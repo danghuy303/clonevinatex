@@ -57,8 +57,8 @@
                                 <tr class="normal">
                                     <th style="width: 50px;">#</th>
                                     <th>Tên</th>
-                                    <th>Khối lượng quả</th>
-                                    <th>Màn hình</th>
+                                    <th>Số lượng quả</th>
+                                    <th>Sản lượng theo màn hình</th>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-thongke let-i="rowIndex">
@@ -121,6 +121,10 @@
                             (keyup.enter)="GetList()" [(ngModel)]="filter.KeyWord" />
                         <button type="button" pButton pRipple icon="pi pi-refresh"
                             class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>                       
+                    </div>
+                    <div style="display:table;height:100%">
+                        <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
+                            (click)="xuatBaoCaoTieuChi()">Xuất báo cáo thống kê chất lượng</a>
                     </div>
                     <!-- <div style="display:table;height:100%">
                         <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"

@@ -846,6 +846,7 @@ export class SanXuatService {
                 return this.http.get(url + `GetPhuongAnPhaBong?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
+                data.IdDuAn = parseInt(this.store.getCurrent());
                 return this.http.post(url + 'SetPhuongAnPhaBong', data, httpOptions);
             },
             Delete: (data) => {
@@ -1274,13 +1275,16 @@ export class SanXuatService {
             //     return this.http.post(`${url}/GetCoCauTonBong`,data,httpOptions);
             // },
             BaoCaoSanLuongLuyKe_BieuDoDuong: (data) => {
-                return this.http.post(`${url}/BaoCaoSanLuongLuyKe_BieuDoDuong`, data, httpOptions);
+                return this.http.post(`${url}BaoCaoSanLuongLuyKe_BieuDoDuong`, data, httpOptions);
             },
             BaoCaoSanLuongLuyKe_BieuDoCot: (data) => {
-                return this.http.post(`${url}/BaoCaoSanLuongLuyKe_BieuDoCot`, data, httpOptions);
+                return this.http.post(`${url}BaoCaoSanLuongLuyKe_BieuDoCot`, data, httpOptions);
             },
             ExportBaoCaoThongKeDien:(data)=>{
-                return this.http.post(`${url}/ExportBaoCaoThongKeDien`, data, httpOptions);
+                return this.http.post(`${url}ExportBaoCaoThongKeDien`, data, httpOptions);
+            },
+            ExportBaoCaoThongKeChatLuong:(data)=>{
+                return this.http.post(`${url}ExportBaoCaoThongKeChatLuong`,data,httpOptions)
             }
         }
     }

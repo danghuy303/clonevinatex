@@ -388,4 +388,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
       this._services.download(res.TenFile);
     })
   }
+  xuatBaoCaoTieuChi(){
+    this._services.DashBoard().ExportBaoCaoThongKeChatLuong(this.filter).subscribe((res:any) => {
+      this._services.download(res.TenFile);
+    })
+  }
 }
