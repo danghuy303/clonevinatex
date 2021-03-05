@@ -42,6 +42,8 @@
                 <col style="width:50px">
                 <col>
                 <col>
+                <col>
+                <col>
                 <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
                 <col style="width: 100px;">
             </colgroup>
@@ -51,6 +53,8 @@
                 <th class="text-center">#</th>
                 <th>Số phiếu</th>
                 <th>Số phiếu phương án pha bông</th>
+                <th>Kế hoạch triển khai</th>
+                <th>Bàn bông</th>
                 <th *ngFor="let header of cols">
                     {{header.header}}
                 </th>
@@ -64,6 +68,8 @@
                 </td>
                 <td class="text-center">{{item.SoQuyTrinh}}</td>
                 <td class="text-center">{{item.TenPhuongAnPhaBong}}</td>
+                <td class="text-center">{{item.ThongTinTrienKhaiKeHoachSanXuat}}</td>
+                <td class="text-center">{{item.ThuTu}}</td>
                 <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
                 </td>

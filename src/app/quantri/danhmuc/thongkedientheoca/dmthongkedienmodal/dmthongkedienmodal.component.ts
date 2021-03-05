@@ -123,17 +123,19 @@ export class DmthongkedienmodalComponent implements OnInit {
     }
 
     tinhgiatri(item) {
-        if (item.SoMoi > 0 && item.SoCu < item.SoMoi) {
-            item.SoTieuThu = 0;
-            item.TieuThuTrongCa = 0;
-            item.SoTieuThu = item.SoMoi - item.SoCu;
-            item.TieuThuTrongCa = item.SoTieuThu * item.HeSoNhan;
-        } else {
-            item.SoTieuThu = 0;
-            item.TieuThuTrongCa = 0;
-            this.toastr.error(
-                "Yêu cầu nhập lớn hơn 0 và không được nhỏ hơn số cũ"
-            );
+        if(validVariable(item.SoMoi)){
+            if (item.SoMoi > 0 && item.SoCu < item.SoMoi) {
+                item.SoTieuThu = 0;
+                item.TieuThuTrongCa = 0;
+                item.SoTieuThu = item.SoMoi - item.SoCu;
+                item.TieuThuTrongCa = item.SoTieuThu * item.HeSoNhan;
+            } else {
+                item.SoTieuThu = 0;
+                item.TieuThuTrongCa = 0;
+                this.toastr.error(
+                    "Yêu cầu nhập lớn hơn 0 và không được nhỏ hơn số cũ"
+                );
+            }
         }
     }
 

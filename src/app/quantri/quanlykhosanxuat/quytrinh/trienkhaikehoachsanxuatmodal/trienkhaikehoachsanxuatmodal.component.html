@@ -159,6 +159,9 @@
                     <div style="display: flex; align-items: center; height: 100%;"
                         *ngIf="mapCongDoan_TinhTrangMay[filter.CongDoan]!==undefined">
                         <span class="mr-5 ml-5">
+                            Tổng kế hoạch triển khai(Tấn): &nbsp; <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.TongKhoiLuong|number:'0.0-2'}}</strong>
+                        </span>
+                        <span class="mr-5 ml-5">
                             Số máy hiện có: &nbsp; <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayHienCo|number:'0.0-2'}}</strong>
                         </span>
                         <span class="mr-5">
@@ -174,11 +177,11 @@
                         <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
                             [(ngModel)]="filter.KeyWord" />
                         <button type="button" pButton pRipple icon="pi pi-refresh"
-                            class="p-button-secondary p-button-sm p-button-text" (click)="chonThuaDat()"></button>
+                            class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
                     </div>
                 </div>
             </div>
-            <p-table [value]="item.listItemMay | isXoa | CongDoan:filter.CongDoan"
+            <p-table [value]="item.listItemMay | isXoa | CongDoan:filter.CongDoan | filter: filter.KeyWord"
                 styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>

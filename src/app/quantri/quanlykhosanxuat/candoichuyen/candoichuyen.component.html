@@ -15,11 +15,15 @@
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
-                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanXuong" (onChange)=GetCalendar(true)></p-dropdown>
+                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanXuong" (onChange)="GetCalendar(true)"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
-                styleClass="p-inputtext-sm" [(ngModel)]="filter.CongDoan" (onChange)=GetCalendar(true)></p-dropdown>
+                styleClass="p-inputtext-sm" [(ngModel)]="filter.CongDoan" (onChange)="GetCalendar(true)"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <button pButton pRipple type="button" label="Lọc" class="p-button-sm"
+                (click)="GetCalendar(true)"></button>
         </div>
         <div>
             <button pButton pRipple type="button" label="Kiểm tra sản lượng" class="p-button-sm"

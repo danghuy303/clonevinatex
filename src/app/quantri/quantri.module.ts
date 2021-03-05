@@ -240,6 +240,7 @@ import { DactinhbongmodalComponent } from './danhmuc/danhmucsanxuat/dactinhbongm
 import { KehoachnhapnguyenlieuitemmodalComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieuitemmodal/kehoachnhapnguyenlieuitemmodal.component';
 import { KehoachnhapnguyenlieuinvoiceComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieuinvoice/kehoachnhapnguyenlieuinvoice.component';
 import { KehoachnhapnguyenlieuinvoicemodalComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieuinvoicemodal/kehoachnhapnguyenlieuinvoicemodal.component';
+import { ChonkienbonghoimodalComponent } from './quanlykhosanxuat/phuongan/chonkienbonghoimodal/chonkienbonghoimodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -435,6 +436,7 @@ import { KehoachnhapnguyenlieuinvoicemodalComponent } from './quanlykhosanxuat/q
     KehoachnhapnguyenlieuitemmodalComponent,
     KehoachnhapnguyenlieuinvoiceComponent,
     KehoachnhapnguyenlieuinvoicemodalComponent,
+    ChonkienbonghoimodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -558,6 +560,7 @@ import { KehoachnhapnguyenlieuinvoicemodalComponent } from './quanlykhosanxuat/q
     BotrimayChungComponent,
     KehoachnhapnguyenlieuitemmodalComponent,
     KehoachnhapnguyenlieuinvoicemodalComponent,
+    ChonkienbonghoimodalComponent,
   ],
   providers: [
     SanXuatService,
