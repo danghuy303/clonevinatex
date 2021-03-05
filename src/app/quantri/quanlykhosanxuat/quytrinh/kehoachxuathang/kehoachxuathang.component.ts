@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { ModalquanComponent } from 'src/app/quantri/danhmuc/modal/modalquan/modalquan.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, formatdate } from 'src/app/services/globalfunction';
 import { KehoachxuathangmodalComponent } from '../kehoachxuathangmodal/kehoachxuathangmodal.component';
@@ -44,14 +43,13 @@ export class KehoachxuathangComponent implements OnInit {
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-
+  eAction = 	'KEHOACHXUATHANG';
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
     this.getListKho();
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh()
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
@@ -104,8 +102,8 @@ export class KehoachxuathangComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListQuyTrinh();
   }
 
   getListKho() {
@@ -152,9 +150,9 @@ export class KehoachxuathangComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }

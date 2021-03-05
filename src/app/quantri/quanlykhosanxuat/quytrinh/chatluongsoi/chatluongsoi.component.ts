@@ -34,17 +34,18 @@ export class ChatluongsoiComponent implements OnInit {
       width: 'unset'
     }
   ];
+  isCheckModal: any = false;
+  eAction = 'KIEMTRACHATLUONGSOI'
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh()
-    // this.activatedRoute.params.subscribe((res:any)=>{
-    //   if(res.id!=='0'){
-    //     this.update(res.id);
-    //   }
-    // })
+    this.activatedRoute.params.subscribe((res:any)=>{
+      if(res.id!=='0'&& this.isCheckModal === false){
+        this.update(res.id);
+      }
+    })
   }
   changeParam(id){
     if(this._modal.hasOpenModals()){
@@ -66,6 +67,7 @@ export class ChatluongsoiComponent implements OnInit {
       .catch(er => { console.log(er) })
   }
   update(Id){
+    this.isCheckModal = true;
     this.changeParam(Id);
     this._service.PhieuChatLuongSoi().Get(Id).subscribe((res1: any) => {
     let modalRef = this._modal.open(ChatluongsoimodalComponent, {
@@ -113,9 +115,9 @@ export class ChatluongsoiComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai(){
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }

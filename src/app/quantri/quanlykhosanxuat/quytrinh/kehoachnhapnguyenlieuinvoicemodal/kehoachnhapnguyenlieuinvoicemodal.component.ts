@@ -304,6 +304,8 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
         this.item.GiaBong = this.listKeHoachNguyenLieuFull[i].GiaBong;
         this.item.SoLuongNhap = this.listKeHoachNguyenLieuFull[i].SoLuongNhap;
         this.item.Container = this.listKeHoachNguyenLieuFull[i].Container;
+        this.item.ThoiGianCapCang = new Date(this.listKeHoachNguyenLieuFull[i].ThoiGianCapCangUnix * 1000);
+        this.item.ThoiGianDuKien = new Date(this.listKeHoachNguyenLieuFull[i].ThoiGianDuKienUnix * 1000);
         break;
       }
     }

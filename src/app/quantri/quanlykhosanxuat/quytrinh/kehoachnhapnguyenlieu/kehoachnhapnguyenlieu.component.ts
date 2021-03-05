@@ -22,17 +22,17 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
-    {
-      header: 'Nội dung',
-      field: 'NoiDung',
-      width: 'unset',
-      align:'center' //'text-center': col.align==='center'
-    },
-    {
-      header: 'Khối lượng nhập (Tấn)',
-      field: 'TongKhoiLuongNhap',
-      width: 'unset'
-    },
+    // {
+    //   header: 'Nội dung',
+    //   field: 'NoiDung',
+    //   width: 'unset',
+    //   align:'center' //'text-center': col.align==='center'
+    // },
+    // {
+    //   header: 'Khối lượng nhập (Tấn)',
+    //   field: 'TongKhoiLuongNhap',
+    //   width: 'unset'
+    // },
     {
       header: 'Trạng thái',
       field: 'TenTrangThai',
@@ -101,8 +101,8 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListQuyTrinh();
   }
 
   getListKho() {

@@ -39,13 +39,14 @@ export class PhieudieuchinhComponent implements OnInit {
   title: any = "";
   type: any = "";
   nametype: any = "";
+  isCheckModal: any = false;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, 
     private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
      }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0'){
+      if(res.id!=='0' && this.isCheckModal === false){
         this.update(res.id);
       }
     })
@@ -79,6 +80,7 @@ export class PhieudieuchinhComponent implements OnInit {
   }
  
   update(Id) {
+    this.isCheckModal = true;
     this.changeParam(Id);
     this._service.PhuongAnDieuChinhTimBong().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(PhieudieuchinhmodalComponent, {

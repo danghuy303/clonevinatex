@@ -518,6 +518,12 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/trienkhaisanxuat/phieudieuchinh/0',
                         command: () => this.close()
                     },
+                    {
+                        label: 'Thông số chất lượng',
+                        routerLink: '/quantri/quanlykhosanxuat/khobong/thongsochatluong/0',
+                        separator: this.checkmenu("PHIEUNHAPLOBONG_CHATLUONG"),
+                        command: () => this.close()
+                    },
                 ]
             },
             {
@@ -609,12 +615,7 @@ export class QuantriComponent implements OnInit {
                         separator: this.checkmenu("PHIEUNHAPLOBONG"),
                         command: () => this.close()
                     },
-                    {
-                        label: 'Thông số chất lượng',
-                        routerLink: '/quantri/quanlykhosanxuat/khobong/thongsochatluong/0',
-                        separator: this.checkmenu("PHIEUNHAPLOBONG_CHATLUONG"),
-                        command: () => this.close()
-                    },
+                    
                     {
                         label: 'Xuất kho',
                         routerLink: '/quantri/quanlykhosanxuat/khobong/xuatkho/0',
