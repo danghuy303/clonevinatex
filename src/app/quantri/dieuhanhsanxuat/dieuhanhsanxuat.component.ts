@@ -11,9 +11,9 @@ import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/ap
 export class DieuhanhsanxuatComponent implements OnInit {
   filterBong: any = {};
   filter: any = {
-    IddmLoaiBong:"",
-    IddmKho:'',
-    LoaiThoiGian:0
+    IddmLoaiBong: "",
+    IddmKho: '',
+    LoaiThoiGian: 0
   };
   filterSanLuong: any = {};
   filterNhuCau: any = {};
@@ -28,13 +28,17 @@ export class DieuhanhsanxuatComponent implements OnInit {
   listLoaiBong: any = [];
   listCaLamViec: any = [];
   dataPie: any = {};
-  GiaTrungBinhCoCauBong:any=[];
+  GiaTrungBinhCoCauBong: any = [];
   option1: any = {
     scales: {
       xAxes: [{
         beginAtZero: true
       }],
       yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Khối lượng ( Tấn)'
+        },
         ticks: {
           beginAtZero: true,
           callback: function (label, index, labels) {
@@ -120,7 +124,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     this.filter._tuNgayCanDoiTon = date;
     this.filter._denNgayCanDoiTon = date;
-    
+
     this.dataPie = {
       labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
       datasets: [
@@ -142,7 +146,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
       ]
     };
     this.listItem = [
-      
+
     ]
     this.getAllOptions();
     this.ChangeOpt();
@@ -172,7 +176,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
       DenNgay = null;
     }
     if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay < this.filter.DenNgay) {
-      this._services.DashBoard().NhuCauSuDungBong(this.filter).subscribe((res:any)=>{
+      this._services.DashBoard().NhuCauSuDungBong(this.filter).subscribe((res: any) => {
         this.dataSet1 = {
           labels: res.listThoiGian,
           datasets: [
@@ -182,7 +186,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
               borderColor: '#0000E5',
               borderDash: [10, 5],
               fill: false,
-              data: res.listKeHoach.map(ele=>ele.KhoiLuong),
+              data: res.listKeHoach.map(ele => ele.KhoiLuong),
               steppedLine: 'before'
             },
             {
@@ -190,20 +194,20 @@ export class DieuhanhsanxuatComponent implements OnInit {
               label: 'Nhu cầu',
               borderColor: '#FF0000',
               fill: false,
-              data: res.listNhuCau.map(ele=>ele.KhoiLuong),
+              data: res.listNhuCau.map(ele => ele.KhoiLuong),
             },
           ]
         }
       })
-      this._services.DashBoard().CoCauTonBong(this.filter).subscribe((res:any)=>{
-        this.GiaTrungBinhCoCauBong = res.map(ele=>ele.DonGia);
+      this._services.DashBoard().CoCauTonBong(this.filter).subscribe((res: any) => {
+        this.GiaTrungBinhCoCauBong = res.map(ele => ele.DonGia);
         console.log(this.GiaTrungBinhCoCauBong);
         this.dataPie = {
-          labels: res.map(ele=>ele.Ten),
+          labels: res.map(ele => ele.Ten),
           datasets: [
             {
-              data: res.map(ele=>ele.TrongLuong),
-              GiaTrungBinh:res.map(ele=>ele.DonGia),
+              data: res.map(ele => ele.TrongLuong),
+              GiaTrungBinh: res.map(ele => ele.DonGia),
               backgroundColor: [
                 "#009900",
                 "#36A2EB",
@@ -217,13 +221,13 @@ export class DieuhanhsanxuatComponent implements OnInit {
             }
           ]
         };
-      })    
+      })
     }
     if (validVariable(TuNgay) && validVariable(DenNgay) && TuNgay <= DenNgay) {
       let data = deepCopy(this.filter);
       data.TuNgay = TuNgay;
       data.DenNgay = DenNgay;
-      this._services.DashBoard().CanDoiTon(data).subscribe(res=>{
+      this._services.DashBoard().CanDoiTon(data).subscribe(res => {
         this.listItem = res;
       })
     }

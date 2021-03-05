@@ -1,3 +1,4 @@
+import { formatNumber } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -40,8 +41,15 @@ export class NhucauxuathangComponent implements OnInit {
         beginAtZero: true
       }],
       yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Khối lượng ( Tấn)'
+        },
         ticks: {
-          beginAtZero: true
+          beginAtZero: true,
+          callback: function (label, index, labels) {
+            return formatNumber(label, 'vi-VN', '0.0-0');
+          }
         }
       }],
     },
@@ -147,6 +155,7 @@ export class NhucauxuathangComponent implements OnInit {
     }
     if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay < this.filter.DenNgay) {
       this.filter.IdDuAn = this.IdDuAn;
+      this.filter.LoaiThoiGian = 0;
       this._services.BaoCao().GetDashBoard_NhuCauXuatHang(this.filter).subscribe((res: any) => {
         this.dataSet1 = res;
       })

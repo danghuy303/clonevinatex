@@ -12,7 +12,7 @@
 </div>
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
-        <div class="modal-bt p-mb-4 ">
+        <div class="modal-bt p-mb-1 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="_activeModal.dismiss('close')"></button>
             <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="GhiLai()"
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div> -->
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Triển khai kế hoạch <span class="required">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listTrienKhaiKeHoach" placeholder="Chọn triển khai kế hoạch"
@@ -60,14 +60,14 @@
                     (onChange)="GetChiTietTrienKhaiKeHoachForMatHang($event)"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-6 p-p-0 my-auto">Tổng số kiện 1 bàn <span class="required">*</span>:</label>
             <div class="p-col-12 p-lg-6 p-p-0">
                 <p-inputNumber locale="vi-VN" [(ngModel)]="item.TongSoKien" (onBlur)="TinhSoBanBong($event)">
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-6 p-p-0 my-auto">Khối lượng bông cần dùng:</label>
             <div class="p-col-12 p-lg-6 p-p-0">
                 <div class="p-inputgroup">
@@ -77,27 +77,32 @@
                 </div>
             </div>
         </div>
-        <div class="p-col-12 d-flex flex-row">
+        <div class="p-col-12 d-flex flex-row p-p-0">
             <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm"
                 (click)="chonHangHoa()"></button>
             <button pButton pRipple type="button" label="Chọn lô bông" class="p-mr-2 p-button-sm"
                 (click)="chonLoBong()"></button>
         </div>
         <div class="p-col-12">
-            <h3>
-                Sử dụng bông theo kế hoạch triển khai
+            <h5>
+                Kế hoạch triển khai
                 ({{itemTrienKhaiKeHoach.TuNgay|date:'dd/MM/yyyy'}}-{{itemTrienKhaiKeHoach.DenNgay|date:'dd/MM/yyyy'}}):
                 {{labelBong.BR|number:'0.1-1'}}% Brazil +
                 {{labelBong.M|number:'0.1-1'}}% Mỹ + {{labelBong.TP|number:'0.1-1'}}% Tây Phi +
                 {{labelBong.Hoi|number:'0.1-1'}}% Hồi
-            </h3>
-            <h3>
+                <span style="color:red">
+                    {{trongLuongLoBong.BR|number:'0.1-1'}}kg Brazil +
+                    {{trongLuongLoBong.M|number:'0.1-1'}}kg Mỹ + {{trongLuongLoBong.TP|number:'0.1-1'}}kg Tây Phi +
+                    {{trongLuongLoBong.Hoi|number:'0.1-1'}}kg Hồi
+                </span>
+            </h5>
+            <!-- <h5>Sử dụng bông theo 
                 {{trongLuongLoBong.BR|number:'0.1-1'}}kg Brazil +
                 {{trongLuongLoBong.M|number:'0.1-1'}}kg Mỹ + {{trongLuongLoBong.TP|number:'0.1-1'}}kg Tây Phi +
                 {{trongLuongLoBong.Hoi|number:'0.1-1'}}kg Hồi
-            </h3>
+            </h5> -->
         </div>
-        <div class="p-col-12 p-p-0 pintable-container" voiPintable [pinnedCols]="6">
+        <div class="p-col-12 p-p-0 pintable-container" style="height: 90vh;" voiPintable [pinnedCols]="6">
             <table>
                 <thead>
                     <tr>
