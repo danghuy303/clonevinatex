@@ -13,7 +13,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
   filter: any = {
     IddmLoaiBong:"",
     IddmKho:'',
-    LoaiThoiGian:1
+    LoaiThoiGian:0
   };
   filterSanLuong: any = {};
   filterNhuCau: any = {};
@@ -178,19 +178,19 @@ export class DieuhanhsanxuatComponent implements OnInit {
           datasets: [
             {
               type: 'line',
-              label: 'Nhu cầu',
-              borderColor: '#FF0000',
-              fill: false,
-              data: res.listNhuCau.map(ele=>ele.KhoiLuong),
-            },
-            {
-              type: 'line',
               label: 'Kế hoạch',
               borderColor: '#0000E5',
               borderDash: [10, 5],
               fill: false,
               data: res.listKeHoach.map(ele=>ele.KhoiLuong),
               steppedLine: 'before'
+            },
+            {
+              type: 'line',
+              label: 'Nhu cầu',
+              borderColor: '#FF0000',
+              fill: false,
+              data: res.listNhuCau.map(ele=>ele.KhoiLuong),
             },
           ]
         }

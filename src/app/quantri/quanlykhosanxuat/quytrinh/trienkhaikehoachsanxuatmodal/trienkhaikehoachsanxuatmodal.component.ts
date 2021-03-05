@@ -558,6 +558,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         this.listCongDoan = mapArrayForDropDown(res.listCongDoan, 'Ten', 'Ma');
         res.listCongDoan.forEach(cd => {
           this.mapCongDoan_TinhTrangMay[cd.Ma] = {
+            TongKhoiLuong:res.listItemMay.filter(mathang=>mathang.CongDoan===cd.Ma).reduce((Tong,mh)=>Tong+mh.KhoiLuongSanXuat,0),
             SoMayCanDoi:cd.SoMayCanDoi,
             SoMayHienCo:cd.SoMayHienCo,
             SoMayTinhToan:cd.SoMayTinhToan,
@@ -571,5 +572,8 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         this.item.listItemMay = res.listItemMay;
       })
     }
+  }
+  resetFilter(){
+    this.filter.KeyWord = '';
   }
 }

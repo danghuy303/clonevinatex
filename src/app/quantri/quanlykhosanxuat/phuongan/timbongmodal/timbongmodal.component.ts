@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { CVMic, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
+import { ChonkienbonghoimodalComponent } from '../chonkienbonghoimodal/chonkienbonghoimodal.component';
 import { ChonkienbongmodalComponent } from '../chonkienbongmodal/chonkienbongmodal.component';
 
 @Component({
@@ -46,10 +47,10 @@ export class TimbongmodalComponent implements OnInit {
   }
   itemGiaTrungBinh: any = {};
   itemTrongLuong1Ban: any = {};
-  ThongSoKienTheoLoaiBong:any={
+  ThongSoKienTheoLoaiBong: any = {
 
   };
-  trongLuongLoBong:any={};
+  trongLuongLoBong: any = {};
   itemDeltaPlusB: any = {};
   itemMicTT: any = {};
 
@@ -109,23 +110,23 @@ export class TimbongmodalComponent implements OnInit {
           Mic: 0,
           Rd: 0,
           b: 0,
-          Mat:0,
-          Str:0,
-          Tap:0,
-          Am:0,
-          UHML:0
+          Mat: 0,
+          Str: 0,
+          Tap: 0,
+          Am: 0,
+          UHML: 0
         }
         this.item.listLoBong.forEach(lobong => {
-          for(let chatluong in TongChatLuong){
-            if(validVariable(lobong[chatluong])){
-              TongChatLuong[chatluong]+=lobong[chatluong];
+          for (let chatluong in TongChatLuong) {
+            if (validVariable(lobong[chatluong])) {
+              TongChatLuong[chatluong] += lobong[chatluong];
             }
           }
         });
         this.ChatLuongBinhQuan = {
         }
-        for(let chatluong in TongChatLuong){
-          this.ChatLuongBinhQuan[chatluong]= TongChatLuong[chatluong]/(this.item.listLoBong.length-this.item.listLoBong.filter(ele=>!validVariable(ele[chatluong])).length);
+        for (let chatluong in TongChatLuong) {
+          this.ChatLuongBinhQuan[chatluong] = TongChatLuong[chatluong] / (this.item.listLoBong.length - this.item.listLoBong.filter(ele => !validVariable(ele[chatluong])).length);
         }
         this.labelBong = {}
         this.item.listLoBong.forEach(lobong => {
@@ -153,11 +154,18 @@ export class TimbongmodalComponent implements OnInit {
   GetPoolKienBong() {
     if (validVariable(this.item.listLoBong)) {
       this._services.TimBong().GetListKienBong(this.item.listLoBong.map(lobong => lobong.IdLoBong)).subscribe((res: any) => {
+        this.PoolLoBong={
+          BongHoi:[]
+        }
         res.forEach(kien => {
-          if (!validVariable(this.PoolLoBong[`${kien.IdLoBong.split('-').join('_')}`])) {
-            this.PoolLoBong[`${kien.IdLoBong.split('-').join('_')}`] = []
+          if (validVariable(kien.IdLoBong)) {
+            if (!validVariable(this.PoolLoBong[`${kien.IdLoBong.split('-').join('_')}`])) {
+              this.PoolLoBong[`${kien.IdLoBong.split('-').join('_')}`] = []
+            }
+            this.PoolLoBong[`${kien.IdLoBong.split('-').join('_')}`].push(kien);
+          }else{
+            this.PoolLoBong.BongHoi.push(kien);
           }
-          this.PoolLoBong[`${kien.IdLoBong.split('-').join('_')}`].push(kien);
         });
         console.log(this.PoolLoBong);
       })
@@ -271,7 +279,7 @@ export class TimbongmodalComponent implements OnInit {
       this.item.listLoBong[i].LuyKeTyLe = tempLK;
     }
   }
-  TinhTongTrongLuong(){
+  TinhTongTrongLuong() {
     this.trongLuongLoBong = {};
     this.item.listLoBong.forEach(lobong => {
       if (!validVariable(this.trongLuongLoBong[lobong.MadmLoaiBong])) {
@@ -285,7 +293,7 @@ export class TimbongmodalComponent implements OnInit {
   }
   TinhDeltaB() {
     for (let i = 1; i <= this.item.SoBanBong; i++) {
-      this.itembBQ[`${i}`] = Math.round(this.itembBQ[`${i}`] *100)/100;
+      this.itembBQ[`${i}`] = Math.round(this.itembBQ[`${i}`] * 100) / 100;
     }
     for (let i = 1; i <= this.item.SoBanBong; i++) {
       if (i === 1) {
@@ -295,35 +303,50 @@ export class TimbongmodalComponent implements OnInit {
       }
     }
   }
-  TinhThongTinKienTheoLoaiBong(){
+  TinhThongTinKienTheoLoaiBong() {
     this.ThongSoKienTheoLoaiBong = {};
     this.item.listLoBong.forEach(lobong => {
-      if(!validVariable(this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong])){
-        this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong]= {
-          TonDau:0,
-          TonCuoi:0,
-          SoLuongDung:0,
-          Mau:null
+      if (!validVariable(this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong])) {
+        this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong] = {
+          TonDau: 0,
+          TonCuoi: 0,
+          SoLuongDung: 0,
+          Mau: null
         }
       }
-      this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].TonDau+= lobong.SoLuongKien;
+      this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].TonDau += lobong.SoLuongKien;
       this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].TonCuoi += lobong.TonCuoi;
-      this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].SoLuongDung+= lobong.SoLuongDung;
+      this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].SoLuongDung += lobong.SoLuongDung;
       this.ThongSoKienTheoLoaiBong[lobong.MadmLoaiBong].Mau = lobong.Mau;
     });
   }
   chonKienBong(IdLoBong, y, x) {
-    let modalRef = this._modal.open(ChonkienbongmodalComponent, {
-      size: 'xl'
-    })
-    modalRef.componentInstance.items = this.PoolLoBong[`${IdLoBong.split('-').join('_')}`];
-    modalRef.componentInstance.selectedItems = this.item.listLoBong[y].tempBanBong[`${x}`].listItem;
-    modalRef.componentInstance.maxSelected = this.item.listLoBong[y].tempBanBong[`${x}`].SoKien;
-    modalRef.componentInstance.resultMic = this.itemMicBQ[`${x}`];
-    modalRef.componentInstance.TenLoBong = this.item.listLoBong[y].Ma;
-    modalRef.result.then((res) => {
-      console.log(this.item.listLoBong[y].tempBanBong[`${x}`].listItem);
-    })
+    if(validVariable(IdLoBong)){
+      let modalRef = this._modal.open(ChonkienbongmodalComponent, {
+        size: 'xl'
+      })
+      modalRef.componentInstance.items = this.PoolLoBong[`${IdLoBong.split('-').join('_')}`];
+      modalRef.componentInstance.selectedItems = this.item.listLoBong[y].tempBanBong[`${x}`].listItem;
+      modalRef.componentInstance.maxSelected = this.item.listLoBong[y].tempBanBong[`${x}`].SoKien;
+      modalRef.componentInstance.resultMic = this.itemMicBQ[`${x}`];
+      modalRef.componentInstance.TenLoBong = this.item.listLoBong[y].Ma;
+      modalRef.result.then((res) => {
+        console.log(this.item.listLoBong[y].tempBanBong[`${x}`].listItem);
+      })
+    }else{
+      let modalRef = this._modal.open(ChonkienbonghoimodalComponent, {
+        size: 'xl'
+      })
+      modalRef.componentInstance.items = this.PoolLoBong.BongHoi;
+      modalRef.componentInstance.selectedItems = this.item.listLoBong[y].tempBanBong[`${x}`].listItem;
+      modalRef.componentInstance.maxSelected = this.item.listLoBong[y].tempBanBong[`${x}`].SoKien;
+      // modalRef.componentInstance.resultTrongLuong = this.itemMicBQ[`${x}`];
+      modalRef.componentInstance.resultTrongLuong = this.item.listLoBong[y].TrongLuong;
+      modalRef.componentInstance.TenLoBong = this.item.listLoBong[y].Ma;
+      modalRef.result.then((res) => {
+        console.log(this.item.listLoBong[y].tempBanBong[`${x}`].listItem);
+      })
+    }
   }
   SetData() {
     this.item.listLoBong.forEach(lobong => {
