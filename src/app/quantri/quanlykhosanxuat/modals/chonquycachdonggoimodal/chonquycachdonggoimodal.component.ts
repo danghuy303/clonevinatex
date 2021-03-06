@@ -83,16 +83,16 @@ export class ChonquycachdonggoimodalComponent implements OnInit {
     if(validVariable(this.newTableItem.IddmQuyCachDongGoi) && validVariable(this.newTableItem.KhoiLuong) && this.newTableItem.KhoiLuong>0){
       this.add()
     }
-    let tong = 0;
-    this.selectedItems.filter(obj => {
-      tong += obj.KhoiLuong;
-    });
-    if (this.layitem.KhoiLuongKeHoach < tong) {
-      this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
-    }
-    else {
+    // let tong = 0;
+    // this.selectedItems.filter(obj => {
+    //   tong += obj.KhoiLuong;
+    // });
+    // if (this.layitem.KhoiLuongKeHoach < tong) {
+    //   this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
+    // }
+    // else {
       this._activeModal.close({ listItem: this.selectedItems });
-    }
+    // }
   }
 
 }

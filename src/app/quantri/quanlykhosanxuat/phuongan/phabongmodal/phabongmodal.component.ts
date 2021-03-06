@@ -1,5 +1,5 @@
 import { formatNumber } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ignoreElements } from 'rxjs/operators';
@@ -56,7 +56,7 @@ export class PhabongmodalComponent implements OnInit {
   trongLuongLoBong: any = {};
   itemMicTT: any = {};
 
-  constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
+  constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal, private zone: NgZone, private changeDec: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -277,7 +277,7 @@ export class PhabongmodalComponent implements OnInit {
         this.labelBong[lobong.MadmLoaiBong] += lobong.TyLe;
       }
     });
-    this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.M + this.labelBong.TP);
+    this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.M||0 + this.labelBong.TP);
     this.item.TyLePhaBong = `${formatNumber(this.labelBong.BR, 'vi-VN', '0.0-1')}% Brazil + ${formatNumber(this.labelBong.M, 'vi-VN', '0.0-1')}% Mỹ + ${formatNumber(this.labelBong.TP, 'vi-VN', '0.0-1')}% Tây Phi + ${formatNumber(this.labelBong.Hoi, 'vi-VN', '0.0-1')}% Hồi`
   }
   TinhTongTrongLuong() {
@@ -290,7 +290,7 @@ export class PhabongmodalComponent implements OnInit {
         this.trongLuongLoBong[lobong.MadmLoaiBong] += lobong.TongTrongLuong;
       }
     });
-    this.trongLuongLoBong.Hoi = this.TongKhoiLuongDung - (this.trongLuongLoBong.BR + this.trongLuongLoBong.M + this.trongLuongLoBong.TP);
+    this.trongLuongLoBong.Hoi = this.TongKhoiLuongDung - (this.trongLuongLoBong.BR + this.trongLuongLoBong.M||0 + this.trongLuongLoBong.TP);
   }
   TinhDeltaB() {
     for (let i = 1; i <= this.item.SoBanBong; i++) {
@@ -356,12 +356,18 @@ export class PhabongmodalComponent implements OnInit {
       }
     });
     if (tempSLD + this.item.listLoBong[y].tempBanBong[`${x}`].SoKien > this.item.listLoBong[y].SoLuongKien) {
-      this._toastr.warning('Bạn vừa nhập quá số lượng kiện tồn trong kho! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!')
-      this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = 0;
+      this._toastr.warning('Bạn vừa nhập quá số lượng kiện tồn trong kho! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!');
+      // this.zone.run(() => {
+        this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
+      // })
+      // this.changeDec.detectChanges();
     }
     if (tempSoKien1Line + this.item.listLoBong[y].tempBanBong[`${x}`].SoKien > this.item.TongSoKien) {
       this._toastr.warning('Bạn vừa nhập quá số lượng kiện bông trên 1 bàn bông! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!')
-      this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = 0;
+      // this.zone.run(() => {
+        this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
+      // })
+      // this.changeDec.detectChanges();
     }
     tempSLD = 0;
     tempSoKien1Line = 0;
@@ -414,10 +420,6 @@ export class PhabongmodalComponent implements OnInit {
     this.TinhDeltaB();
     this.TinhThongTinKienTheoLoaiBong();
     this.TinhLuyKeTyLeBong();
-    if(this.item.listLoBong[y].tempBanBong[`${x}`].SoKien===0){
-      this.item.listLoBong[y].tempBanBong[`${x}`].SoKien=1;
-      setTimeout(()=>{this.item.listLoBong[y].tempBanBong[`${x}`].SoKien=0},100)
-    }
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {

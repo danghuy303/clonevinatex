@@ -203,10 +203,11 @@
                             {{lobong.Am|number:'0.2-2'}}</td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
-                                <p-inputNumber locale="vi-VN" [(ngModel)]="lobong.tempBanBong[prop].SoKien"
+                                <input style="width: 100%; text-align: right; border: transparent; color:#495057" [tabindex]="lobong.tempBanBong[prop].tabIndex" type="number" [(ngModel)]="lobong.tempBanBong[prop].SoKien" (blur)="CalAllTable(i,prop)">
+                                <!-- <p-inputNumber locale="vi-VN" [(ngModel)]="lobong.tempBanBong[prop].SoKien"
                                     [tabindex]="lobong.tempBanBong[prop].tabIndex" [placeholder]="'_'"
-                                    (onBlur)="CalAllTable(i,prop)" (keyup.enter)="nextFocus($event)">
-                                </p-inputNumber>
+                                    (onBlur)="CalAllTable(i,prop)">
+                                </p-inputNumber> -->
                             </div>
                         </td>
                     </tr>
