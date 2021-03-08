@@ -30,6 +30,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
   lang: any = vn;
   editTableItem:any={};
   paging: any = {};
+  Id = "";
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private services: SanXuatService) {
@@ -46,7 +47,6 @@ export class ThongsochatluongmodalComponent implements OnInit {
         this.KiemTraButtonModal()
         this.GetQuyTrinh();
     }
-    this.item_new = this.item;
 
     this.data.CurrentPage = 0;
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
@@ -56,13 +56,14 @@ export class ThongsochatluongmodalComponent implements OnInit {
   }
   GetQuyTrinh()
   {
-    this.services.PhieuNhapLoBong_ChatLuong().Get(this.item.Id).subscribe((res1:any)=>{
+    this.services.PhieuNhapLoBong_ChatLuong().Get(this.Id).subscribe((res1:any)=>{
       this.item = res1;
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
       this.item.listItem = res1.listItem.slice(0,15);
+      this.item_new = this.item;
     })
   }
   KiemTraButtonModal() {

@@ -63,7 +63,12 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
-
+    if (this.item.ThoiGianCapCangUnix !== null && this.item.ThoiGianCapCangUnix !== undefined) {
+      this.item.ThoiGianCapCang = new Date(this.item.ThoiGianCapCangUnix * 1000);
+    }
+    if (this.item.ThoiGianDuKienUnix !== null && this.item.ThoiGianDuKienUnix !== undefined) {
+      this.item.ThoiGianDuKien = new Date(this.item.ThoiGianDuKienUnix * 1000);
+    }
     this._services.NhapKeHoachNguyenLieuInvoice().KeHoachForInvoice().subscribe((res: any) => {
       this.listKeHoachNguyenLieu = mapArrayForDropDown(res, 'Ten', 'Id');
       this.listKeHoachNguyenLieuFull =res;
