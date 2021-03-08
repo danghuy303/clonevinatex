@@ -201,6 +201,12 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            if (this.item.ThoiGianCapCangUnix !== null && this.item.ThoiGianCapCangUnix !== undefined) {
+              this.item.ThoiGianCapCang = new Date(this.item.ThoiGianCapCangUnix * 1000);
+            }
+            if (this.item.ThoiGianDuKienUnix !== null && this.item.ThoiGianDuKienUnix !== undefined) {
+              this.item.ThoiGianDuKien = new Date(this.item.ThoiGianDuKienUnix * 1000);
+            }
             this.item.listItem.filter(obj => {
               obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
               obj.ThoiGianCapCang = obj.ThoiGianCapCangUnix > 0 ? UnixToDate(obj.ThoiGianCapCangUnix) : 0;

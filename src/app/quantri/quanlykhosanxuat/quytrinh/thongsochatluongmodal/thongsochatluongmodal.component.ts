@@ -44,7 +44,6 @@ export class ThongsochatluongmodalComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     }
     else{
-        this.KiemTraButtonModal()
         this.GetQuyTrinh();
     }
 
@@ -58,12 +57,16 @@ export class ThongsochatluongmodalComponent implements OnInit {
   {
     this.services.PhieuNhapLoBong_ChatLuong().Get(this.Id).subscribe((res1:any)=>{
       this.item = res1;
+      if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+        this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      }
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
       this.item.listItem = res1.listItem.slice(0,15);
       this.item_new = this.item;
+        this.KiemTraButtonModal();
     })
   }
   KiemTraButtonModal() {

@@ -726,11 +726,11 @@ export class QuantriComponent implements OnInit {
                     },
                 ]
             },
-            {
-                label: 'Kiểm kê BCP',
-                icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhosanxuat/kiemkeBCP/0',
-            },
+            // {
+            //     label: 'Kiểm kê BCP',
+            //     icon: 'fas fa-circle',
+            //     routerLink: '/quantri/quanlykhosanxuat/kiemkeBCP/0',
+            // },
             // {
             //     label: 'Báo cáo',
             //     icon: 'pi pi-chart-bar',
@@ -856,17 +856,6 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/danhmucsanxuat/dmdactinhbong',
                         command: () => this.close()
                     },
-                ]
-            },
-            {
-                label: 'Quản lý hệ thống',
-                icon: 'pi pi-cog',
-                items: [
-                    // {
-                    //     label: 'HDSD',
-                    //     routerLink: '/quantri/huongdansudung',
-                    //     command: () => this.close()
-                    // },
                     {
                         label: 'Phân quyền theo phân xưởng',
                         routerLink: '/quantri/phanquyensanxuat/phanquyentheophanxuong',
@@ -874,6 +863,18 @@ export class QuantriComponent implements OnInit {
                     },
                 ]
             },
+            // {
+            //     label: 'Quản lý hệ thống',
+            //     icon: 'pi pi-cog',
+            //     items: [
+            //         // {
+            //         //     label: 'HDSD',
+            //         //     routerLink: '/quantri/huongdansudung',
+            //         //     command: () => this.close()
+            //         // },
+                    
+            //     ]
+            // },
             {
                 label: 'HDSD',
                 icon: 'pi pi-cog',

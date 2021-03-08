@@ -565,6 +565,8 @@ import { BanchephammodalComponent } from './danhmuc/danhmucsanxuat/banchephammod
     KehoachnhapnguyenlieuitemmodalComponent,
     KehoachnhapnguyenlieuinvoicemodalComponent,
     ChonkienbonghoimodalComponent,
+    BanchephammodalComponent,
+
   ],
   providers: [
     SanXuatService,
