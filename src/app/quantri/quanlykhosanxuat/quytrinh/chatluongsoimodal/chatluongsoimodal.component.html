@@ -86,7 +86,7 @@
                 </div>
             </div>
             <p-table [value]="item.lstDanhMuc|isXoa"
-                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" selectionMode="single"
+                styleClass="p-datatable-sm wrap-text p-datatable-gridlines" selectionMode="single"
                 [scrollable]="true" scrollHeight="53vh" [lazy]="true">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -112,10 +112,10 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-itemindex let-i="rowIndex">
                     <tr>
-                        <td class="align-content-center first-col sticky-col">{{itemindex.Ten}}</td>
+                        <td class="align-content-center first-col sticky-col" [ngStyle]="{'background-color': itemindex.isLoaiChiTieuUsterstatic?'antiquewhite':''}">{{itemindex.Ten}}</td>
                         <ng-container *ngFor="let itemsanpham of itemindex.lstChatLuongSanPham">
-                            <td class="text-right"></td>
-                            <td class="text-center">
+                            <td class="text-right">{{itemindex.Ma!=='DAT'?itemsanpham.ChiTieuLyThuyet:''}}</td>
+                            <td class="text-center" [ngStyle]="{'background-color': itemindex.Ma==='DAT'?'':(itemsanpham.ChiTieuThucTe>itemsanpham.ChiTieuLyThuyet?'red':'green')}">
                                 <input *ngIf="itemindex.Ma==='DAT'" type="checkbox" [(ngModel)]="itemsanpham.isDat" />
                                 <p-inputNumber *ngIf="itemindex.Ma!=='DAT'" [minFractionDigits]="2" locale="vi-VN"
                                     [(ngModel)]="itemsanpham.ChiTieuThucTe">

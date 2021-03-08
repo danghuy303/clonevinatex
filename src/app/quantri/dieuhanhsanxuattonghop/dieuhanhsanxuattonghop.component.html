@@ -185,8 +185,8 @@
             <tr class="normal">
                 <th style="width: 200px !important;">Mặt hàng</th>
                 <th>Chi số</th>
-                <th>Loại</th>
-                <th>Địa chỉ</th>
+                <!-- <th>Loại</th>
+                <th>Địa chỉ</th> -->
                 <th>Máy chạy</th>
                 <th>Sản lượng máy ống</th>
                 <th>Số quả</th>
@@ -196,10 +196,10 @@
             <tr>
                 <td style="width: 200px !important;">{{item.Ten}}</td>
                 <td class="text-right">{{item.Ne|number:'0.0-3'}}</td>
-                <td class="text-center">{{item.Loai}}</td>
-                <td></td>
+                <!-- <td class="text-center">{{item.Loai}}</td>
+                <td></td> -->
                 <td>{{item.TendmMay}}</td>
-                <td></td>
+                <td class="text-right">{{item.KhoiLuongTinhToan|number:'0.0-3'}}</td>
                 <td class="text-right">{{item.SoQuaSoi|number:'0.0-3'}}</td>
             </tr>
         </ng-template>

@@ -461,7 +461,13 @@ export class SanXuatService {
             GetTonKhoCuaNguyenLieu: (idKho, idNguyenLieu) => {
                 return this.http.get(`${API.KeHoachNguyenLieu}GetTonKhoCuaNguyenLieu?idKho=${idKho}&idNguyenLieu=${idNguyenLieu}`, httpOptions)
             },
-            // SmartEOSAPI/DanhMuc/GetDanhSachDuAnByIdUser?IdUser=5d8c24c9-77f9-42aa-801b-df506280e6ce
+            // DanhMuc/GetListdmLoaiBong_DashBoard
+            GetListdmLoaiBong_DashBoard:()=>{
+                return this.http.get(`${API.SCMDanhMuc}GetListdmLoaiBong_DashBoard`,httpOptions)
+            },
+            GetdmKhoTheoDuAn_DashBoard:()=>{
+                return this.http.get(`${API.SCMDanhMuc}GetdmKhoTheoDuAn_DashBoard?IdDuAn=${this.store.getCurrent()}`,httpOptions)
+            }
         }
     }
 

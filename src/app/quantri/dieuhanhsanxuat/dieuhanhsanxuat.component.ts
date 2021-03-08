@@ -245,11 +245,13 @@ export class DieuhanhsanxuatComponent implements OnInit {
       Ten: "",
       sFilter: ''
     }
-    this._services.GetListdmKho(data).subscribe((res: any) => {
+    setTimeout(()=>{
+      this._services.GetOptions().GetdmKhoTheoDuAn_DashBoard().subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tất cả' });
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id')
     });
-    this._services.GetListdmLoaiBong(data).subscribe((res: any) => {
+    },1000)
+    this._services.GetOptions().GetListdmLoaiBong_DashBoard().subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tổng hợp' });
       this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
     })

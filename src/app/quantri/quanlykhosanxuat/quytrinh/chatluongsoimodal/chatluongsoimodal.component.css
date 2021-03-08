@@ -3,7 +3,7 @@
     min-width: 7rem!important;
     max-width: 7rem!important;
     left: 0px!important;
-    background-color: antiquewhite;
+    /* background-color: antiquewhite; */
   }
   .sticky-col {
     position: -webkit-sticky!important;

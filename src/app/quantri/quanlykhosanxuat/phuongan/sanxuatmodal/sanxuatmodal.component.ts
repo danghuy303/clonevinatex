@@ -241,6 +241,7 @@ export class SanxuatmodalComponent implements OnInit {
     }
     return {
       Id: this.item.Id,
+      IdPhuongAnSanXuat:this.ghostItem.Id,
       listCotXuat: data
     }
   }
@@ -256,7 +257,7 @@ export class SanxuatmodalComponent implements OnInit {
       if (res) {
         if (res.State === 1) {
           this._toastr.success(res.message);
-          this._services.SanXuat().Get(this.item.Id).subscribe((res: any) => {
+          this._services.SanXuat().Get(this.ghostItem.Id).subscribe((res: any) => {
             this.item = deepCopy(res.PhuongAnPhaBong);
             res.PhuongAnPhaBong = undefined;
             this.ghostItem = res;

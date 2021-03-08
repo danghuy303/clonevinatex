@@ -157,7 +157,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
     modalRef.componentInstance.Name = 'PhieuNhapLoBong_ChatLuong';
     modalRef.componentInstance.data = this.item;
     modalRef.result.then(res=>{
-      this.toastr.success(res.message);
+      this.toastr.success('Cập nhật thành công!');
       this.GetQuyTrinh();
       // this.services.PhieuNhapLoBong_ChatLuong().Get(this.item.Id).subscribe((res: any) => {
       //   this.item = res;
@@ -185,7 +185,8 @@ export class ThongsochatluongmodalComponent implements OnInit {
     modalRef.componentInstance.data = this.item;
     modalRef.componentInstance.Loai = 'MIC';
     modalRef.result.then(res=>{
-      this.toastr.success(res.message);
+      // this.toastr.success(res.message);
+      this.toastr.success('Cập nhật thành công!');
       this.GetQuyTrinh();
     })
     .catch(er=>console.log(er))
