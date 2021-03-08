@@ -19,6 +19,7 @@ export class KehoachsanxuatComponent implements OnInit {
   filter: any = {};
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
+  eAction = 'GIAOKEHOACHSANXUAT';
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
@@ -141,10 +142,10 @@ export class KehoachsanxuatComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
   hoanthanh(Id) {
     // this.router.navigate([`quantri/kehoachsanxuat/giaokehoachsanxuat/${Id}`], { replaceUrl: true })

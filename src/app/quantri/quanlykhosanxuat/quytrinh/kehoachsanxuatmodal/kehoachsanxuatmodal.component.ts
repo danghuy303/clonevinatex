@@ -234,18 +234,18 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     modalRef.result.then(res => {
       // merge(res, this.item.listItem, 'IddmQuyCachDongGoi');
       item.listItem = res.listItem;
-      if (item.KhoiLuongKeHoach != undefined && item.KhoiLuongKeHoach != null && item.KhoiLuongKeHoach > 0
-        && item.listItem != undefined && item.listItem.length > 0) {
-        let tong = 0;
-        item.listItem.filter(obj => {
-          if(!obj.isXoa){
-            tong += obj.KhoiLuong;
-          }          
-        });
-        if (item.KhoiLuongKeHoach < tong) {
-          this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
-        }
-      }
+      // if (item.KhoiLuongKeHoach != undefined && item.KhoiLuongKeHoach != null && item.KhoiLuongKeHoach > 0
+      //   && item.listItem != undefined && item.listItem.length > 0) {
+      //   let tong = 0;
+      //   item.listItem.filter(obj => {
+      //     if(!obj.isXoa){
+      //       tong += obj.KhoiLuong;
+      //     }          
+      //   });
+      //   if (item.KhoiLuongKeHoach < tong) {
+      //     this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
+      //   }
+      // }
     }).catch(er => {
       console.log(er);
     })

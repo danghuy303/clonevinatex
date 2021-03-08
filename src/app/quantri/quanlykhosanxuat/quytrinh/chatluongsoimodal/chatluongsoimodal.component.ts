@@ -227,4 +227,7 @@ export class ChatluongsoimodalComponent implements OnInit {
   Onclose() {
     this.activeModal.close();
   }
+  test(){
+    console.log(this.item.lstDanhMuc)
+  }
 }

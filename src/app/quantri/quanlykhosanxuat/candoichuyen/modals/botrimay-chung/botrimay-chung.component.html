@@ -60,7 +60,7 @@
                         <ng-template #normal>
                             <tr>
                                 <td [ngStyle]="{'background-color': item.MaMau}">{{item.TenMay}}</td>
-                                <td>
+                                <td [ngStyle]="{'background-color': item.MaMau}">
                                     <p-dropdown [filter]="true" showClear="true" [options]="listHangHoa"
                                         placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
                                         [(ngModel)]="item.IdCanDoiChuyen_CanBoTri" (onChange)="chonMatHang(item,$event)">

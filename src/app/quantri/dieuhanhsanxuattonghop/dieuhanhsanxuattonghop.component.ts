@@ -38,6 +38,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   showTruySuatNguonGoc = false;
   currentUser: any;
   IdDuAn: any;
+  listTruySuatNguonGoc:any=[];
   optionPie: any = {
     plugins: {
       labels: {
@@ -351,6 +352,13 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
       this.dataSet1 = [];
     }
   }
+  checkXuatMatHang(e,item,index){
+    if(item.xuatChecked){
+      item.xuatChecked = !item.xuatChecked;
+    }else{
+      item.xuatChecked = true;
+    }
+  }
   GetBieuDoDuongKiemTraChatLuong_js() {
 
     this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem).subscribe((res: any) => {
@@ -388,4 +396,32 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
       this._services.download(res.TenFile);
     })
   }
+  xuatBaoCaoTieuChi(){
+    this._services.DashBoard().ExportBaoCaoThongKeChatLuong(this.filter).subscribe((res:any) => {
+      this._services.download(res.TenFile);
+    })
+  }
+  // xemTruySuatNguonGoc() {
+  //   if (this.SelectItem.TendmItem != undefined && this.SelectItem != null) {
+  //     console.log(this.SelectItem);
+  //     if (validVariable(this.SelectItem?.IddmItem)) {
+
+  //       this._services.GetDashBoard_TruyXuatNguonGoc(this.SelectItem.IddmItem, DateToUnix(this.filter._tuNgayCanDoiTon), DateToUnix(this.filter._denNgayCanDoiTon)).subscribe((res: any) => {
+  //         this.showTruySuatNguonGoc = true;
+  //         this.listTruySuatNguonGoc = res;
+  //         this.listTruySuatNguonGoc.forEach(obj=>{            
+  //           obj.herfgiaokehoachsanxuat = `#/quantri/kehoachsanxuat/giaokehoachsanxuat/${obj.IdGiaoKeHoachSanXuat}`;
+  //           obj.herftrienkhaikehoachsanxuat = `#/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/${obj.IdGiaoKeHoachSanXuat_TrienKhai}`;
+  //           obj.herfphabong = `#/quantri/trienkhaisanxuat/phabong/${obj.IdPhuongAnPhaBong}`;
+  //         });          
+  //       })
+  //     }
+  //     else {
+  //       this.toastr.error("Yêu cầu chọn mặt hàng");
+  //     }
+  //   }
+  //   else {
+  //     this.toastr.error("Yêu cầu chọn mặt hàng");
+  //   }
+  // }
 }

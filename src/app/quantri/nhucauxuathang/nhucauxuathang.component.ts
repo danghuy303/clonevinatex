@@ -235,6 +235,5 @@ export class NhucauxuathangComponent implements OnInit {
     else {
       this.toastr.error("Yêu cầu chọn mặt hàng");
     }
-
   }
 }

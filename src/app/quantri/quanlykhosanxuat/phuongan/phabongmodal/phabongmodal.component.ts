@@ -1,5 +1,5 @@
 import { formatNumber } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ignoreElements } from 'rxjs/operators';
@@ -56,7 +56,7 @@ export class PhabongmodalComponent implements OnInit {
   trongLuongLoBong: any = {};
   itemMicTT: any = {};
 
-  constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
+  constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal, private zone: NgZone, private changeDec: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -277,7 +277,7 @@ export class PhabongmodalComponent implements OnInit {
         this.labelBong[lobong.MadmLoaiBong] += lobong.TyLe;
       }
     });
-    this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.M + this.labelBong.TP);
+    this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.M||0 + this.labelBong.TP);
     this.item.TyLePhaBong = `${formatNumber(this.labelBong.BR, 'vi-VN', '0.0-1')}% Brazil + ${formatNumber(this.labelBong.M, 'vi-VN', '0.0-1')}% Mỹ + ${formatNumber(this.labelBong.TP, 'vi-VN', '0.0-1')}% Tây Phi + ${formatNumber(this.labelBong.Hoi, 'vi-VN', '0.0-1')}% Hồi`
   }
   TinhTongTrongLuong() {
@@ -290,7 +290,7 @@ export class PhabongmodalComponent implements OnInit {
         this.trongLuongLoBong[lobong.MadmLoaiBong] += lobong.TongTrongLuong;
       }
     });
-    this.trongLuongLoBong.Hoi = this.TongKhoiLuongDung - (this.trongLuongLoBong.BR + this.trongLuongLoBong.M + this.trongLuongLoBong.TP);
+    this.trongLuongLoBong.Hoi = this.TongKhoiLuongDung - (this.trongLuongLoBong.BR + this.trongLuongLoBong.M||0 + this.trongLuongLoBong.TP);
   }
   TinhDeltaB() {
     for (let i = 1; i <= this.item.SoBanBong; i++) {
@@ -344,29 +344,33 @@ export class PhabongmodalComponent implements OnInit {
     let tempTongKhoiLuongDung = 0;
     let arrayMic = [];
     let arrayKien = [];
+    console.log(this.item.listLoBong[y].tempBanBong[`${x}`].SoKien)
     for (let i = 1; i <= this.item.SoBanBong; i++) {
-      if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
+      if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien) && i !== parseInt(x)) {
         tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
-        if (tempSLD > this.item.listLoBong[y].SoLuongKien) {
-          this._toastr.warning('Bạn vừa nhập quá số lượng kiện tồn trong kho! Chúng tôi sẽ điều chỉnh về giá trị lớn nhất có thể tránh gây lỗi nghiêm trọng!')
-          tempSLD -= this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
-          this.item.listLoBong[y].tempBanBong[`${i}`].SoKien = this.item.listLoBong[y].SoLuongKien - tempSLD;
-          tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
-        }
       }
     }
-    this.item.listLoBong.forEach(lobong => {
-      if (validVariable(lobong.tempBanBong[`${x}`].SoKien)) {
+    this.item.listLoBong.forEach((lobong, index) => {
+      if (validVariable(lobong.tempBanBong[`${x}`].SoKien) && index !== y) {
         tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
-        if (tempSoKien1Line > this.item.TongSoKien) {
-          this._toastr.warning('Bạn vừa nhập quá số lượng kiện bông trên 1 bàn bông! Chúng tôi sẽ điều chỉnh về giá trị lớn nhất có thể tránh gây lỗi nghiêm trọng!')
-          tempSoKien1Line -= lobong.tempBanBong[`${x}`].SoKien;
-          lobong.tempBanBong[`${x}`].SoKien = this.item.TongSoKien - tempSoKien1Line;
-          tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
-        }
       }
     });
+    if (tempSLD + this.item.listLoBong[y].tempBanBong[`${x}`].SoKien > this.item.listLoBong[y].SoLuongKien) {
+      this._toastr.warning('Bạn vừa nhập quá số lượng kiện tồn trong kho! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!');
+      // this.zone.run(() => {
+        this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
+      // })
+      // this.changeDec.detectChanges();
+    }
+    if (tempSoKien1Line + this.item.listLoBong[y].tempBanBong[`${x}`].SoKien > this.item.TongSoKien) {
+      this._toastr.warning('Bạn vừa nhập quá số lượng kiện bông trên 1 bàn bông! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!')
+      // this.zone.run(() => {
+        this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
+      // })
+      // this.changeDec.detectChanges();
+    }
     tempSLD = 0;
+    tempSoKien1Line = 0;
     for (let i = 1; i <= this.item.SoBanBong; i++) {
       if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
         tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
@@ -429,6 +433,14 @@ export class PhabongmodalComponent implements OnInit {
     }
     if (!validVariable(this.item.TongSoKien) && this.item.TongSoKien <= 0) {
       this._toastr.error('Vui lòng nhập số kiện trên 1 bàn!')
+      return false
+    }
+    if (!validVariable(this.item.listLoBong) || this.item.listLoBong.length === 0) {
+      this._toastr.error('Vui lòng chọn lô bông!')
+      return false
+    }
+    if (!validVariable(this.item.KhoiLuongBong)) {
+      this._toastr.error('Vui lòng chọn mặt hàng!')
       return false
     }
     return true
