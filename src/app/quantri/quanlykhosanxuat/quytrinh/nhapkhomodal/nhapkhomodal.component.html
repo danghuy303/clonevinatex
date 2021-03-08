@@ -126,10 +126,10 @@
                     <tr>
                         <th>#</th>
                         <th>Container</th>
-                        <th>Khối lượng (kg)</th>
+                        <th>Khối lượng (tấn)</th>
                         <th>Số kiện (kiện)</th>
-                        <th *ngIf="this.type==='bong'">Số kiện ngắn (kiện)</th>
-                        <th *ngIf="this.type==='bong'">Số kiện dài (kiện)</th>
+                        <th *ngIf="this.type==='bong'">Số kiện ngắn (kiện) <span class="text-danger">*</span></th>
+                        <th *ngIf="this.type==='bong'">Số kiện dài (kiện) <span class="text-danger">*</span></th>
                         <th>Vị trí <span class="text-danger">*</span></th>
                         <th style="width: 100px;"></th>
                     </tr>
@@ -141,7 +141,7 @@
                             <input pInputText type="text" [(ngModel)]="item.Ten">
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoCan">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoCan">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
@@ -178,7 +178,7 @@
                         </td>
                         <td>
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoCan">
+                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoCan">
                                 </p-inputNumber>
                             </div>
                         </td>

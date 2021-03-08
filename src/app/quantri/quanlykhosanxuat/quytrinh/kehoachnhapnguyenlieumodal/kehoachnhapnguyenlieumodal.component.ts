@@ -208,9 +208,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
       });
     }
     if (this.newTableItem.ThoiGianDuKien != undefined && this.newTableItem.ThoiGianDuKien != null
-      && this.newTableItem.ThoiGianCapCang != undefined && this.newTableItem.ThoiGianCapCang != null
-      && this.newTableItem.Container != undefined &&
-      this.newTableItem.TongSoKien != undefined) {
+      && this.newTableItem.ThoiGianCapCang != undefined && this.newTableItem.ThoiGianCapCang != null) {
       this.add();
     }
     if (isCheck == false) {

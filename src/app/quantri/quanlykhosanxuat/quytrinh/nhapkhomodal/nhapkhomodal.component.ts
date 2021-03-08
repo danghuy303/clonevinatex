@@ -136,11 +136,17 @@ export class NhapkhomodalComponent implements OnInit {
           isCheck= true;
           break;
         }
+        if( this.type === 'bong' && (
+          this.item.listItem[i].SoKienNgan === null || this.item.listItem[i].SoKienNgan === undefined
+          || this.item.listItem[i].SoKienDai === null || this.item.listItem[i].SoKienDai === undefined)){
+          isCheck= true;
+          break;
+        }
       }
     }
     
     if (isCheck === true ) {
-      this.toastr.error("Bạn chưa chọn  vị trí");
+      this.toastr.error("Bạn chưa nhập đủ thông tin");
     }
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
@@ -285,24 +291,24 @@ export class NhapkhomodalComponent implements OnInit {
     })
   }
   getListKeHoach() {
-    this._services.NhapKeHoachNguyenLieu().GetListChuaNhap().subscribe((res: any) => {
+    this._services.NhapKeHoachNguyenLieu().GetListChuaNhap(this.item.IdKeHoachNhapNguyenLieuInvoice_Item).subscribe((res: any) => {
       this.listKeHoach = mapArrayForDropDown(res, 'Ten', 'Id');
       this.listKeHoachFull = res;
     })
   }
   getKeHoach(item){
     let dataFilter : any = this.listKeHoachFull.filter(obj => {
-      return obj.Id === item.Id
+      return obj.Id === item.value
     });
-    this.item.IddmLoaiBong = dataFilter.IddmLoaiBong;
-    this.item.IddmCapBong = dataFilter.IddmCapBong;
-    this.item.GiaBong = dataFilter.GiaBong;
-    this.item.SoHopDong = dataFilter.SoHopDong;
+    console.log(dataFilter)
+    this.item.IddmLoaiBong = dataFilter[0].IddmLoaiBong;
+    this.item.IddmCapBong = dataFilter[0].IddmCapBong;
+    this.item.GiaBong = dataFilter[0].GiaBong;
+    this.item.SoHopDong = dataFilter[0].SoHopDong;
     this.item.listItem.forEach(element => {
       element.isXoa = true;
     });;
-    // this.item.listItem = []
-    for(let i = 0; i < dataFilter.Container; i++){
+    for(let i = 0; i < dataFilter[0].Container; i++){
       this.add()
     }
   }
