@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
@@ -401,27 +401,29 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
       this._services.download(res.TenFile);
     })
   }
-  // xemTruySuatNguonGoc() {
-  //   if (this.SelectItem.TendmItem != undefined && this.SelectItem != null) {
-  //     console.log(this.SelectItem);
-  //     if (validVariable(this.SelectItem?.IddmItem)) {
-
-  //       this._services.GetDashBoard_TruyXuatNguonGoc(this.SelectItem.IddmItem, DateToUnix(this.filter._tuNgayCanDoiTon), DateToUnix(this.filter._denNgayCanDoiTon)).subscribe((res: any) => {
-  //         this.showTruySuatNguonGoc = true;
-  //         this.listTruySuatNguonGoc = res;
-  //         this.listTruySuatNguonGoc.forEach(obj=>{            
-  //           obj.herfgiaokehoachsanxuat = `#/quantri/kehoachsanxuat/giaokehoachsanxuat/${obj.IdGiaoKeHoachSanXuat}`;
-  //           obj.herftrienkhaikehoachsanxuat = `#/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/${obj.IdGiaoKeHoachSanXuat_TrienKhai}`;
-  //           obj.herfphabong = `#/quantri/trienkhaisanxuat/phabong/${obj.IdPhuongAnPhaBong}`;
-  //         });          
-  //       })
-  //     }
-  //     else {
-  //       this.toastr.error("Yêu cầu chọn mặt hàng");
-  //     }
-  //   }
-  //   else {
-  //     this.toastr.error("Yêu cầu chọn mặt hàng");
-  //   }
-  // }
+  xemTruySuatNguonGoc() {
+    console.log(this.SelectItem);
+    if (this.SelectItem.IddmItem != undefined) {
+      console.log(this.SelectItem);
+      if (validVariable(this.SelectItem?.IddmItem)) {
+        let data=this.filter;
+        data.IddmItem = this.SelectItem.IddmItem;
+        this._services.DashBoard().GetDashBoard_TruyXuatNguonGocTongHop(data).subscribe((res: any) => {
+          this.showTruySuatNguonGoc = true;
+          this.listTruySuatNguonGoc = res;
+          this.listTruySuatNguonGoc.forEach(obj=>{            
+            obj.herfgiaokehoachsanxuat = `#/quantri/kehoachsanxuat/giaokehoachsanxuat/${obj.IdGiaoKeHoachSanXuat}`;
+            obj.herftrienkhaikehoachsanxuat = `#/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/${obj.IdGiaoKeHoachSanXuat_TrienKhai}`;
+            obj.herfphabong = `#/quantri/trienkhaisanxuat/phabong/${obj.IdPhuongAnPhaBong}`;
+          });          
+        })
+      }
+      else {
+        this.toastr.error("Yêu cầu chọn mặt hàng");
+      }
+    }
+    else {
+      this.toastr.error("Yêu cầu chọn mặt hàng");
+    }
+  }
 }
