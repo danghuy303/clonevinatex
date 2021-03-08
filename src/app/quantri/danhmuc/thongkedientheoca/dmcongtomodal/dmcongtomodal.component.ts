@@ -26,7 +26,7 @@ export class DmcongtomodalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.item.SoDauKy = this.item.SoDauKy != undefined ? this.item.SoDauKy : 0;
+    // this.item.SoDauKy = this.item.SoDauKy != undefined ? this.item.SoDauKy : 0;
     if (this.opt == 'edit') {
 
     }

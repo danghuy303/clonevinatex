@@ -27,7 +27,7 @@ export class ChonkienbongmodalComponent implements OnInit {
     }
   }
   refundItem(Id) {
-    let index = this.items.findIndex((item: any) => item.Id === Id);
+    let index = this.selectedItems.findIndex((item: any) => item.Id === Id);
     let tempPickedItem = this.selectedItems.splice(index, 1)[0];
     this.items.push(tempPickedItem);
     this.averagePickedMic();

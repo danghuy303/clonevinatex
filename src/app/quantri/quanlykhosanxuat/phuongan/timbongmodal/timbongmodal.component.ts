@@ -218,6 +218,7 @@ export class TimbongmodalComponent implements OnInit {
       }
     });
     tempSLD = 0;
+    tempSoKien1Line=0;
     for (let i = 1; i <= this.item.SoBanBong; i++) {
       if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
         tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
