@@ -238,6 +238,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
             TenLoHang: element.TenLoHang,
             SoLuong: element.Ton,
             KgCoin: element.TrongLuong,
+            IdLoHang: element.IdLoHang,
           };
           listdatapush.push(datapush);
         });

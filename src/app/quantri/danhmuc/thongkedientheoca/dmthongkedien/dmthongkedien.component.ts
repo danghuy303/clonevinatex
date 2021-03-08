@@ -80,8 +80,8 @@ export class DmthongkedienComponent implements OnInit {
   }
 
   changePage(event) {
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetList();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetList();
   }
 
   GetList(reset?) {

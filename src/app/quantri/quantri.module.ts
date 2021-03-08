@@ -241,6 +241,8 @@ import { KehoachnhapnguyenlieuitemmodalComponent } from './quanlykhosanxuat/quyt
 import { KehoachnhapnguyenlieuinvoiceComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieuinvoice/kehoachnhapnguyenlieuinvoice.component';
 import { KehoachnhapnguyenlieuinvoicemodalComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieuinvoicemodal/kehoachnhapnguyenlieuinvoicemodal.component';
 import { ChonkienbonghoimodalComponent } from './quanlykhosanxuat/phuongan/chonkienbonghoimodal/chonkienbonghoimodal.component';
+import { BanchephamComponent } from './danhmuc/danhmucsanxuat/banchepham/banchepham.component';
+import { BanchephammodalComponent } from './danhmuc/danhmucsanxuat/banchephammodal/banchephammodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -437,6 +439,8 @@ import { ChonkienbonghoimodalComponent } from './quanlykhosanxuat/phuongan/chonk
     KehoachnhapnguyenlieuinvoiceComponent,
     KehoachnhapnguyenlieuinvoicemodalComponent,
     ChonkienbonghoimodalComponent,
+    BanchephamComponent,
+    BanchephammodalComponent,
   ],
   imports: [
     HttpClientModule,

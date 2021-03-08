@@ -783,6 +783,7 @@ export class SanXuatService {
         let url = API.ThongKeDien;
         return {
             GetList: (data) => {
+                // data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'GetListThongKeDien', data, httpOptions);
             },
             Get: (data) => {

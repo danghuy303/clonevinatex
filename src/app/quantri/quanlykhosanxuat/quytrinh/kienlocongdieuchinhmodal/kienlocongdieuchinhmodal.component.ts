@@ -51,17 +51,48 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
   filter: any = {};
   itemChuaXeps = [];
   itemFulls = [];
+  listItem:any = [];
   constructor(
     private activeModal: NgbActiveModal,
   ) { }
 
   ngOnInit(): void {
-    console.log(this.itemRemove)
+    console.log(this.listItem)
     this.paging1.CurrentPage = 1;
     this.paging1.TotalPage = 5;
     this.paging1.TotalItem = this.item_new.listFull.length;
     this.item.listFull = this.item_new.listFull.slice(0, 15);
     this.itemFulls = this.item_new.listFull.slice(0, 15);
+    if(this.listItem.length > 0){
+      let dem = 0;
+      for(let i = 0; i< this.item_new.listChuaXep.length; i++){
+        for(let j = 0; j< this.listItem.length; j++){
+        {
+          if(this.item_new.listChuaXep[i].IddmItem === this.listItem[j].IddmItemDieuChinh){
+            this.item_new.listChuaXep[i].isChon = true;
+            dem++;
+            break;
+          }
+        }
+        if(dem === (this.listItem.length ))
+          break
+        }
+      }
+      //
+      for(let i = 0; i< this.item_new.listFull.length; i++){
+        for(let j = 0; j< this.listItem.length; j++){
+        {
+          if(this.item_new.listFull[i].IddmItem === this.listItem[j].IddmItemDieuChinh){
+            this.item_new.listFull[i].isChon = true;
+            dem++;
+            break;
+          }
+        }
+        if(dem === (this.listItem.length ))
+          break
+        }
+      }
+    }
 
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
@@ -154,32 +185,50 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
   }
   GetQuyTrinhFilter()
   {
-    var items = [];
-    for(let i =0; i < this.itemChuaXeps.length; i++){
-      if(this.itemChuaXeps[i].Ten !== null){
-        if(this.itemChuaXeps[i].Ten.toLowerCase().includes(this.filter.KeyWord)){
-          items.push(this.itemChuaXeps[i]);
-          continue;
-        }
-      }
-      if(this.itemChuaXeps[i].TendmViTri !== null){
-        if(this.itemChuaXeps[i].TendmViTri.toLowerCase().includes(this.filter.KeyWord))
-        {
-          items.push(this.itemChuaXeps[i]);
-          continue;
-        }
-      }
+    let filter = this.item_new.listChuaXep.filter(obj => {
+      let Ten = obj.Ten.toLowerCase();
+      let indexOf = Ten.indexOf(this.filter.KeyWord);
+      return indexOf != -1
+    });
+    this.item.listChuaXep = filter;
+
+    let filterFull = this.item_new.itemFulls.filter(obj => {
+      let Ten = obj.Ten.toLowerCase();
+      let indexOf = Ten.indexOf(this.filter.KeyWord);
+      return indexOf != -1
+    });
+    this.item.itemChuaXeps = filterFull;
+    this.paging.CurrentPage = 1;
+    this.paging.TotalPage = 5;
+    this.paging.TotalItem = this.item.listChuaXep.length;
+    this.item.listChuaXep = this.item.listChuaXep.slice(0, 15);
+    this.itemChuaXeps = this.item.listChuaXep.slice(0, 15);
+
+    // for(let i =0; i < this.itemChuaXeps.length; i++){
+    //   if(this.itemChuaXeps[i].Ten !== null){
+    //     if(this.itemChuaXeps[i].Ten.toLowerCase().includes(this.filter.KeyWord)){
+    //       items.push(this.itemChuaXeps[i]);
+    //       continue;
+    //     }
+    //   }
+    //   if(this.itemChuaXeps[i].TendmViTri !== null){
+    //     if(this.itemChuaXeps[i].TendmViTri.toLowerCase().includes(this.filter.KeyWord))
+    //     {
+    //       items.push(this.itemChuaXeps[i]);
+    //       continue;
+    //     }
+    //   }
       
-    }
-    this.item.listChuaXep = items;
-    items = [];
-    for(let i =0; i < this.itemFulls.length; i++){
-      if(this.itemFulls[i].Ten !== null){
-        if(this.itemFulls[i].Ten.toLowerCase().includes(this.filter.KeyWord)){
-          items.push(this.itemFulls[i]);
-          continue;
-        }
-      }
+    // }
+    // this.item.listChuaXep = items;
+    // items = [];
+    // for(let i =0; i < this.itemFulls.length; i++){
+    //   if(this.itemFulls[i].Ten !== null){
+    //     if(this.itemFulls[i].Ten.toLowerCase().includes(this.filter.KeyWord)){
+    //       items.push(this.itemFulls[i]);
+    //       continue;
+    //     }
+    //   }
       // if(this.itemFulls[i].TendmViTri !== null){
       //   if(this.itemFulls[i].TendmViTri.toLowerCase().includes(this.filter.KeyWord))
       //   {
@@ -187,8 +236,8 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
       //     continue;
       //   }
       // }
-    }
-    this.item.listFull = items;
+    // }
+    // this.item.listFull = items;
   }
   GetQuyTrinhRefresh()
   {
