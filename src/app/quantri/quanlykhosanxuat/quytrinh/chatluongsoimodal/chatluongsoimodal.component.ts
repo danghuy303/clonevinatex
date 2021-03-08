@@ -175,7 +175,7 @@ export class ChatluongsoimodalComponent implements OnInit {
               IddmChiTieu: element.Id,
               IddmItem: danhmuc.IddmItem,
               IdLoHang: danhmuc.IdLoHang,
-              ChiTieuLyThuyet:0
+              ChiTieuLyThuyet:danhmuc.lstChiTieuTieuChuan.find(chitieumathang=>chitieumathang.idChiTieu===element.Id)?.TieuChuan
             }
             for (let i = 0; i < element.lstChatLuongSanPham.length; i++) {
               if (element.lstChatLuongSanPham[i].IddmItem === danhmuc.Id) {
