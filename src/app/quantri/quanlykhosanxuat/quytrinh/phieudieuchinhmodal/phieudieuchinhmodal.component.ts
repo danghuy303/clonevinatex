@@ -5,9 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { KienlocongdieuchinhmodalComponent } from '../kienlocongdieuchinhmodal/kienlocongdieuchinhmodal.component';
-
+ 
 @Component({
   selector: 'app-phieudieuchinhmodal',
   templateUrl: './phieudieuchinhmodal.component.html',
@@ -27,7 +27,7 @@ export class PhieudieuchinhmodalComponent implements OnInit {
   listPhuongAnPhaBong: any = [];
   listdmViTri: any = [];
   lang: any = vn;
-
+  listItemChon: any = []
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(
     private router: Router,
@@ -132,7 +132,13 @@ export class PhieudieuchinhmodalComponent implements OnInit {
   getPhuongAnPhaBong(Id) {
     this.router.navigate(['/ThongTinChung/GiaVatLieuNhanCongMay']);   
   }
-  getKienLoBongDieuChinh(item) {
+  getKienLoBongDieuChinh(i, item) {
+    this.listItemChon = deepCopy(this.item.listItem);
+
+    if(this.item.listItem !== null && this.item.listItem !== undefined){
+      this.listItemChon.splice(i, 1)
+    }
+    console.log(this.item.listItem)
     this.services.PhuongAnDieuChinhTimBong().GetKienLoBong(this.item.IdPhuongAnPhaBong, item.IdLoBong, this.item.IddmKho, item.Mic).subscribe((res:any)=>{
       let modalRef = this._modal.open(KienlocongdieuchinhmodalComponent, {
         size: 'lg',
@@ -142,6 +148,7 @@ export class PhieudieuchinhmodalComponent implements OnInit {
       modalRef.componentInstance.item_new = res;
       modalRef.componentInstance.itemRemove = item;
       modalRef.componentInstance.IddmItem = item.IddmItemDieuChinh;
+      modalRef.componentInstance.listItem = this.listItemChon;
       modalRef.result.then((data) => {
         item.IddmItemDieuChinh = data.data.IddmItem;
         item.TenDieuChinh = data.data.Ten;
