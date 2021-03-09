@@ -78,7 +78,6 @@ eAction = 'KEHOACHNHAPNGUYENLIEUINVOICE'
   update(Id) {
     this.isCheckModal = true
     this.changeParam(Id);
-
     this._service.NhapKeHoachNguyenLieuInvoice().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(KehoachnhapnguyenlieuinvoicemodalComponent, {
         size: 'fullscreen',
