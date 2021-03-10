@@ -51,31 +51,28 @@
     </div>
 </div>
 <div class="p-grid" style="align-self: stretch;">
-    <div class="p-col-12 p-xl-12 p-lg-8 p-p-3">
+    <div class="p-col-12 p-p-3">
         <div class="chart text-left">
-            <div class="p-d-flex flex-column flex-lgs-row">
+            <div class="p-d-flex flex-column flex-md-row">
                 <h5 class="p-mb-0 p-mr-2 p-mt-2">
                     Cân đối tồn
                 </h5>
-                <div class="d-flex flex-column flex-sm-row">
-                    <div class="p-mr-2">
-                        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                            [(ngModel)]="filter._tuNgayCanDoiTon" inputId="icon" placeholder="Từ ngày"
-                            (onSelect)="ChangeOpt()">
-                        </p-calendar>
-                    </div>
-                    <div class="p-mr-2">
-                        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                            [(ngModel)]="filter._denNgayCanDoiTon" inputId="icon" placeholder="Đến ngày"
-                            (onSelect)="ChangeOpt()">
-                        </p-calendar>
-                    </div>
-                    <div style="display:table;height:100%">
-                        <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
-                            (click)="xemTruySuatNguonGoc()">Truy xuất nguồn gốc</a>
-                    </div>
+                <div class="p-mr-2">
+                    <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                        [(ngModel)]="filter._tuNgayCanDoiTon" inputId="icon" placeholder="Từ ngày"
+                        (onSelect)="ChangeOpt()">
+                    </p-calendar>
                 </div>
-
+                <div class="p-mr-2">
+                    <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                        [(ngModel)]="filter._denNgayCanDoiTon" inputId="icon" placeholder="Đến ngày"
+                        (onSelect)="ChangeOpt()">
+                    </p-calendar>
+                </div>
+                <div style="display:table;height:100%">
+                    <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
+                        (click)="xemTruySuatNguonGoc()">Truy xuất nguồn gốc</a>
+                </div>
             </div>
             <p-table [value]="listItem"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines minimize-font"

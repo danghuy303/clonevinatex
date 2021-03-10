@@ -25,22 +25,22 @@ export class NhapkhoComponent implements OnInit {
     {
       header: 'Số quy trình',
       field: 'SoQuyTrinh',
-      width: 'unset'
+      width: '200px'
     },
     {
       header: 'Số hợp đồng',
       field: 'SoHopDong',
-      width: 'unset'
+      width: '200px'
     },
     {
       header: 'Lô bông',
       field: 'TenLoBong',
-      width: 'unset'
+      width: '200px'
     },
     {
       header: 'Loại bông',
       field: 'TendmLoaiBong',
-      width: 'unset'
+      width: '100px'
     },
   ];
   
@@ -48,22 +48,22 @@ export class NhapkhoComponent implements OnInit {
     {
       header: 'Số quy trình',
       field: 'SoQuyTrinh',
-      width: 'unset'
+      width: '200px'
     },
     {
       header: 'Số hợp đồng',
       field: 'SoHopDong',
-      width: 'unset'
+      width: '200px'
     },
     {
       header: 'Lô xơ',
       field: 'TenLoBong',
-      width: 'unset'
+      width: '200px'
     },
     {
       header: 'Loại xơ',
       field: 'TendmLoaiBong',
-      width: 'unset'
+      width: '100px'
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
@@ -146,8 +146,8 @@ export class NhapkhoComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?) {
     if (reset) {

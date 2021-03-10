@@ -30,16 +30,16 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-p-0 d-flex flex-column flex-lg-row">
-            <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row" id="aloalo">
+            <div class="p-col-12 p-lg-7 p-mb-3 p-p-3 d-flex flex-column flex-lg-row" id="aloalo">
                 <p-table [value]="item.listDaBoTri.concat([{},{},{},{},{},{},{},{},{},{},{}])"
                     styleClass="p-datatable-sm wrap-text  p-datatable-gridlines" [scrollable]="true"
                     scrollHeight="60vh">
                     <ng-template pTemplate="colgroup">
                         <colgroup>
-                            <col>
+                            <col style="width: 100px;">
                             <col style="width:200px">
-                            <col>
-                            <col>
+                            <col style="width: 100px;">
+                            <col style="width: 100px;">
                             <col style="width:200px" *ngIf="addonData.CongDoan==='THO' || addonData.CongDoan==='CON'">
                             <!-- <col style="width:100px"> -->
                         </colgroup>
@@ -68,7 +68,7 @@
                                 </td>
                                 <td>
                                     <p-dropdown [options]="item.listTocDo" placeholder="Chọn tốc độ máy"
-                                        styleClass="p-inputtext-sm" [(ngModel)]="item.IdPhanNhomMay_Item"></p-dropdown>
+                                        styleClass="p-inputtext-sm" [(ngModel)]="item.IdPhanNhomMay_Item" (onChange)="chonTocDo(item,$event)"></p-dropdown>
                                 </td>
                                 <td class="text-right">
                                     {{item.SanLuongCa|number:'0.2-2'}}
@@ -79,6 +79,7 @@
                                         <div style="width:28px">
                                             <p-colorPicker [(ngModel)]="item.MaMau"></p-colorPicker>
                                         </div>
+                                        <input type="text" placeholder="Mã màu" class="p-inputtext-sm" pInputText [(ngModel)]="item.MaMau"/>
                                         <input type="text" placeholder="Màu" class="p-inputtext-sm" pInputText [(ngModel)]="item.TenMau"/>
                                     </div>
                                 </td>
@@ -96,7 +97,7 @@
                     </ng-template>
                 </p-table>
             </div>
-            <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <div class="p-col-12 p-lg-5 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
                 <p-table [value]="item.listCanBoTri"
                     styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                     <ng-template pTemplate="colgroup">
