@@ -32,6 +32,13 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca sản xuất:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listdmCaSanXuat" placeholder="Chọn ca sản xuất"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmCaSanXuat"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
@@ -48,9 +55,9 @@
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú:</label>
-            <div class="p-col-12 p-lg-11 p-p-0">
+        <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>

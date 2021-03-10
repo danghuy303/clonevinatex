@@ -32,6 +32,12 @@ export class LoaibongComponent implements OnInit {
       center:'left'
     },
     {
+      header: 'Tên loại bông',
+      field: 'TenLoaiBong',
+      width: 'unset',
+      center:'center'
+    },
+    {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset',

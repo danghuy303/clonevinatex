@@ -21,6 +21,7 @@ export class KiemkebcpmodalComponent implements OnInit {
     Xoa: false,
   }
   listdmPhanXuong: any = [];
+  listdmCaSanXuat: any = [];
   listLoBong: any = [];
   paging: any = {};
   listItemFull: any = [];
@@ -43,7 +44,9 @@ export class KiemkebcpmodalComponent implements OnInit {
     this.services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
     })
-
+    this.services.GetListOptdmCaSanXuat().subscribe((res: any) => {
+      this.listdmCaSanXuat = mapArrayForDropDown(res, "Ten", 'Id');
+    })
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
       this.getListdmHangMuc();

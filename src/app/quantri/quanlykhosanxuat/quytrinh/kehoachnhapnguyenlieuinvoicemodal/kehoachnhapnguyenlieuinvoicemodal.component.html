@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số lượng nhập: </label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số lượng nhập (Tấn): </label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoLuongNhap" disabled>
                 </p-inputNumber>
@@ -78,7 +78,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Thời gian dự kiến: </label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Thời gian dự kiến về kho: </label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
                     [yearRange]="yearRange" [showIcon]="false" [(ngModel)]="item.ThoiGianDuKien" inputId="icon"

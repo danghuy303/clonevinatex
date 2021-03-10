@@ -130,37 +130,39 @@ export class NhapkhomodalComponent implements OnInit {
     }
     let isCheck = false;
 
+    if ( this.newTableItem.Ten!= undefined || this.newTableItem.SoCan!= undefined || this.newTableItem.SoKien!= undefined|| this.newTableItem.IddmViTri!= undefined) {
+      this.add();
+    }
+
     if(this.item.listItem!== undefined || this.item.listItem !== null){
       for(let i = 0; i < this.item.listItem.length; i++) {
         if(this.item.listItem[i].IddmViTri === null || this.item.listItem[i].IddmViTri === undefined){
           isCheck= true;
           break;
         }
-        if( this.type === 'bong' && (
-          this.item.listItem[i].SoKienNgan === null || this.item.listItem[i].SoKienNgan === undefined
-          || this.item.listItem[i].SoKienDai === null || this.item.listItem[i].SoKienDai === undefined)){
-          isCheck= true;
-          break;
-        }
+        // if( this.type === 'bong' && (
+        //   this.item.listItem[i].SoKienNgan === null || this.item.listItem[i].SoKienNgan === undefined
+        //   || this.item.listItem[i].SoKienDai === null || this.item.listItem[i].SoKienDai === undefined)){
+        //   isCheck= true;
+        //   break;
+        // }
       }
     }
     
     if (isCheck === true ) {
-      this.toastr.error("Bạn chưa nhập đủ thông tin");
+      this.toastr.error("Bạn chưa chọn vị trí");
     }
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
-    else if ((this.item.IddmCapBong === null || this.item.IddmCapBong  === undefined) && (this.type === 'bong' || this.type === 'xo')) {
+    else if ((this.item.IddmCapBong === null || this.item.IddmCapBong  === undefined || this.item.IddmCapBong  === "") && (this.type === 'bong' || this.type === 'xo')) {
       this.toastr.error("Bạn chưa chọn  danh mục cấp bông");
     }
-    else if (this.item.IddmLoaiBong === null || this.item.IddmLoaiBong === undefined) {
+    else if (this.item.IddmLoaiBong === null || this.item.IddmLoaiBong === undefined || this.item.IddmLoaiBong === "") {
       this.toastr.error("Bạn chưa chọn  danh mục loại bông");
     }
     else {
-      if ( this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined&& this.newTableItem.IddmViTri!= undefined) {
-        this.add();
-      }
+      
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
       this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
         if (res) {

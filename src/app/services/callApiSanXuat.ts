@@ -278,7 +278,7 @@ export class SanXuatService {
         return this.http.post(url, data, httpOptions);
     }
     GetListdmLoaiBongHoiPhe() {
-        let url = API.SCMDanhMuc + 'GetListdmLoaiBongHoiPhe';
+        let url = API.SCMDanhMuc + `GetListdmLoaiBongHoiPhe`;
         return this.http.get(url, httpOptions);
     }
     SetdmLoaiBong(data) {
@@ -289,7 +289,10 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'DeletedmLoaiBong';
         return this.http.post(url, data, httpOptions);
     }
-
+    GetListLoaiBong() {
+        let url = API.SCMDanhMuc + `GetListLoaiBong`;
+        return this.http.get(url, httpOptions);
+    }
 
     //máy
     GetListOptdmMay() {
@@ -1440,8 +1443,8 @@ export class SanXuatService {
             Set: (data) => {
                 return this.http.post(url + 'SetdmKiemKeBanChePham', data, httpOptions);
             },
-            Delete: (Id) => {
-                return this.http.get(url + `DeletedmKiemKeBanChePham?Id=${Id}`, httpOptions);
+            Delete: (data) => {
+                return this.http.post(url + 'DeletedmKiemKeBanChePham',data, httpOptions);
             },
         }
     }
