@@ -177,7 +177,7 @@ export class DmphannhommaymodalComponent implements OnInit {
         if (this.childModalOpt === 'MATHANG') {
           element.Iditem = this.listLoaiSoiHoacMatHang.filter(obj => element.IddmItem == obj.Id)[0];
         }
-        if (this.childModalOpt === 'SOI') { 
+        if (this.childModalOpt === 'SOI') {
           element.Iditem = this.listLoaiSoiHoacMatHang.filter(obj => element.IddmLoaiSoi == obj.Id)[0];
         }
         element.isXoa = false;
@@ -271,7 +271,7 @@ export class DmphannhommaymodalComponent implements OnInit {
 
   tinhNangSuatLyThuyet() {
     if (this.item.lstdmItem.length > 0) {
-      if (this.item.CongDoan == "BONGCHAI" || this.item.CongDoan == "CHAITHO" || this.item.CongDoan == "XOCHAI" || this.item.CongDoan == "CUONCUI" || this.item.CongDoan == "DAYBONG"|| this.item.CongDoan == "DAYPE"|| this.item.CongDoan == "CHAICOTTON"|| this.item.CongDoan == "CHAIPE") {
+      if (this.item.CongDoan == "BONGCHAI" || this.item.CongDoan == "CHAITHO" || this.item.CongDoan == "XOCHAI" || this.item.CongDoan == "CUONCUI" || this.item.CongDoan == "DAYBONG" || this.item.CongDoan == "DAYPE" || this.item.CongDoan == "CHAICOTTON" || this.item.CongDoan == "CHAIPE") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(obj.Nm))) {
             obj.NangSuat = obj.TocDo * 450 / obj.Nm / 1000;
@@ -324,7 +324,7 @@ export class DmphannhommaymodalComponent implements OnInit {
 
   item_tinhNangSuatLyThuyet() {
     if (this.newTableItem.Id != undefined) {
-      if (this.item.CongDoan == "BONGCHAI" || this.item.CongDoan == "CHAITHO" || this.item.CongDoan == "XOCHAI" || this.item.CongDoan == "CUONCUI"|| this.item.CongDoan == "DAYBONG"|| this.item.CongDoan == "DAYPE"|| this.item.CongDoan == "CHAICOTTON"|| this.item.CongDoan == "CHAIPE") {
+      if (this.item.CongDoan == "BONGCHAI" || this.item.CongDoan == "CHAITHO" || this.item.CongDoan == "XOCHAI" || this.item.CongDoan == "CUONCUI" || this.item.CongDoan == "DAYBONG" || this.item.CongDoan == "DAYPE" || this.item.CongDoan == "CHAICOTTON" || this.item.CongDoan == "CHAIPE") {
         if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.Nm))) {
           this.newTableItem.NangSuat = this.newTableItem.TocDo * 450 / this.newTableItem.Nm / 1000;
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
@@ -343,19 +343,19 @@ export class DmphannhommaymodalComponent implements OnInit {
         }
       }
       else if (this.item.CongDoan == "THO") {
-        if ((validVariable(this.newTableItem.TocDo))&& (validVariable(this.item.SoCoc)) && (validVariable(this.newTableItem.DoSan)) && (validVariable(this.newTableItem.Nm))) {
-          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoCoc * 450 /1000/ this.newTableItem.DoSan / this.newTableItem.Nm;
+        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.SoCoc)) && (validVariable(this.newTableItem.DoSan)) && (validVariable(this.newTableItem.Nm))) {
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoCoc * 450 / 1000 / this.newTableItem.DoSan / this.newTableItem.Nm;
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
       else if (this.item.CongDoan == "CON") {
-        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.Nm))&& (validVariable(this.newTableItem.DoSan))) {
+        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.Nm)) && (validVariable(this.newTableItem.DoSan))) {
           this.newTableItem.NangSuat = this.newTableItem.TocDo * 1200 * 480 / this.newTableItem.Nm / 1000 / this.newTableItem.DoSan * 0.94;
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
       else if (this.item.CongDoan == "ONG") {
-        if ((validVariable(this.newTableItem.TocDo))  && (validVariable(this.newTableItem.Nm))) {
+        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.Nm))) {
           this.newTableItem.NangSuat = this.newTableItem.TocDo * 450 * 60 / 1000 / this.newTableItem.Nm * 0.9875;
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
@@ -401,9 +401,20 @@ export class DmphannhommaymodalComponent implements OnInit {
   changeDMApDung(item) {
     this.item.lstdmItem.forEach(element => {
       if (element.Iditem != undefined && element.Iditem.Id == item.Iditem.Id) {
-        element.isApDung = false;
+        if (element.Id != item.Id) {
+          if (item.Nm != element.Nm) {
+            item.isApDung = true;
+          }
+          else {
+            element.isApDung = false;
+          }
+          // 
+        }
+
       }
     });
-    item.isApDung = true;
+
+
+
   }
 }
