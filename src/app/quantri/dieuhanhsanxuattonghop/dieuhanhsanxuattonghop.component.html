@@ -110,7 +110,7 @@
                     <h5>Danh sách mặt hàng</h5>
                     <div style="display:table;height:100%;margin-left: 15px;">
                         <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
-                            (click)="xemTruySuatNguonGoc()">Truy suất nguồn gốc</a>
+                            (click)="xemTruySuatNguonGoc()">Truy xuất nguồn gốc</a>
                     </div>
                 </div>
                 <div class="p-d-flex p-flex-row">
@@ -141,8 +141,8 @@
                     [scrollable]="true" scrollHeight="flex">
                     <ng-template pTemplate="header">
                         <tr class="normal">
-                            <th style="width: 35px !important;">#</th>
-                            <th style="width: 35px !important;">#</th>
+                            <th style="width: 35px !important;">BC</th>
+                            <th style="width: 35px !important;">NG</th>
                             <th style="width: 200px !important;">Mặt hàng</th>
                             <th *ngFor="let header of headerChatLuongSanPham" style="width: 55px !important;">
                                 {{header.label}}
