@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Dat09Service } from 'src/app/services/callApi';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-modaldanhmucchung',
@@ -14,10 +15,13 @@ export class ModaldanhmucchungComponent implements OnInit {
   public title: any = '';
   public type = '';
   khongclicknhieu: any = false;
+  listLoaiBong: any = [];
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-
+    if(this.type === 'loaibong'){
+      this.GetListLoaiBong();
+    }
   }
   accept() {
     this.item.HoatDong = true;
@@ -185,5 +189,10 @@ export class ModaldanhmucchungComponent implements OnInit {
       this.khongclicknhieu = !this.khongclicknhieu;
       this.toastr.error(res.message)
     }
+  }
+  GetListLoaiBong() {
+    this.sanXuatService.GetListLoaiBong().subscribe((res: any) => {
+      this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Loai');
+    })
   }
 }

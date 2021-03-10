@@ -91,6 +91,7 @@ import { CandoichuyenComponent } from './quanlykhosanxuat/candoichuyen/candoichu
 import { LohangComponent } from './quanlykhosanxuat/thongke/lohang/lohang.component';
 import { DactinhbongComponent } from './danhmuc/danhmucsanxuat/dactinhbong/dactinhbong.component';
 import { KehoachnhapnguyenlieuinvoiceComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieuinvoice/kehoachnhapnguyenlieuinvoice.component';
+import { BanchephamComponent } from './danhmuc/danhmucsanxuat/banchepham/banchepham.component';
 
 const routes: Routes = [
   {
@@ -166,6 +167,7 @@ const routes: Routes = [
       { path: 'danhmucsanxuat/dmvitri', component: VitriComponent },
       { path: 'theodoithongkebaocaosanxuat/thongkedien/:id', component: DmthongkedienComponent },
       { path: 'danhmucsanxuat/dmdactinhbong', component: DactinhbongComponent },
+      { path: 'danhmucsanxuat/dmbanchepham', component: BanchephamComponent },
 
       { path: 'theodoithongkebaocaosanxuat/thongkesanluong/:id', component: ThongkesanluongComponent },
 

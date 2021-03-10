@@ -165,6 +165,13 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
 
   GhiLai() {
     var isCheck: any = false;
+    if (this.newTableItem.ThoiGianDuKien!= undefined && this.newTableItem.ThoiGianDuKien!= null
+      && this.newTableItem.ThoiGianCapCang!= undefined && this.newTableItem.ThoiGianCapCang!= null
+      && this.newTableItem.Container!= undefined &&
+       this.newTableItem.TongSoKien!= undefined) {
+      this.add();
+    }
+    
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
       isCheck = true;
@@ -178,12 +185,7 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
       });
     }
     
-    if (this.newTableItem.ThoiGianDuKien!= undefined && this.newTableItem.ThoiGianDuKien!= null
-      && this.newTableItem.ThoiGianCapCang!= undefined && this.newTableItem.ThoiGianCapCang!= null
-      && this.newTableItem.Container!= undefined &&
-       this.newTableItem.TongSoKien!= undefined) {
-      this.add();
-    }
+    
     if(isCheck == false){
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
