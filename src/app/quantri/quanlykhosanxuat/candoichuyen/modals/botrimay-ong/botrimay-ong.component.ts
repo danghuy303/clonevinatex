@@ -8,6 +8,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { TrangthaimaysanxuatComponent } from '../../../quytrinh/trangthaimaysanxuat/trangthaimaysanxuat.component';
+import { ChoncaapdungmodalComponent } from '../choncaapdungmodal/choncaapdungmodal.component';
 import { BaseModalNavigation } from '../navigation.class';
 
 @Component({
@@ -183,14 +184,24 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       }
     })
   }
-  ApDungCa(ca) {
+  ChonCaApDung(ca){
+    console.log(ca);
+    let modalRef = this._modal.open(ChoncaapdungmodalComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.ca = ca;
+    modalRef.componentInstance.listCa = this.arrCa;
+    modalRef.result.then(res => {
+      console.log(res);
+    }).catch(er => console.log(er))
+  }
+  ApDungCa(ca,caapdung:Array<any>) {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     });
     modalRef.componentInstance.message = `Tất cả những máy đã bố trí trong 2 ca còn lại sẽ bị xóa để đồng bộ! \n Bạn chắc chắn muốn áp dụng?`
     modalRef.result.then(res => {
       let mayTheoCa = deepCopy(this.item.listDaBoTri.filter(may => may.IddmCaSanXuat === this.mapCa_Id[ca]));
-
       let newDaBoTri = deepCopy([...mayTheoCa])
       for (let caInMap in this.mapCa_Id) {
         if (caInMap !== ca) {
@@ -237,5 +248,8 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     else {
       this.toastr.error('Vui lòng nhập kiểm tra lại khoảng thời gian áp dụng!');
     }
+  }
+  ThemMatHangDao(){
+
   }
 }

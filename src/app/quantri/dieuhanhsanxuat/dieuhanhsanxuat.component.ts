@@ -53,7 +53,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')}`
+          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} tấn`
         }
       }
     },

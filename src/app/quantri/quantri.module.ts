@@ -243,6 +243,8 @@ import { KehoachnhapnguyenlieuinvoicemodalComponent } from './quanlykhosanxuat/q
 import { ChonkienbonghoimodalComponent } from './quanlykhosanxuat/phuongan/chonkienbonghoimodal/chonkienbonghoimodal.component';
 import { BanchephamComponent } from './danhmuc/danhmucsanxuat/banchepham/banchepham.component';
 import { BanchephammodalComponent } from './danhmuc/danhmucsanxuat/banchephammodal/banchephammodal.component';
+import { MathangdaomodalComponent } from './quanlykhosanxuat/candoichuyen/modals/mathangdaomodal/mathangdaomodal.component';
+import { ChoncaapdungmodalComponent } from './quanlykhosanxuat/candoichuyen/modals/choncaapdungmodal/choncaapdungmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -441,6 +443,8 @@ import { BanchephammodalComponent } from './danhmuc/danhmucsanxuat/banchephammod
     ChonkienbonghoimodalComponent,
     BanchephamComponent,
     BanchephammodalComponent,
+    MathangdaomodalComponent,
+    ChoncaapdungmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -566,7 +570,8 @@ import { BanchephammodalComponent } from './danhmuc/danhmucsanxuat/banchephammod
     KehoachnhapnguyenlieuinvoicemodalComponent,
     ChonkienbonghoimodalComponent,
     BanchephammodalComponent,
-
+    MathangdaomodalComponent,
+    ChoncaapdungmodalComponent,
   ],
   providers: [
     SanXuatService,
