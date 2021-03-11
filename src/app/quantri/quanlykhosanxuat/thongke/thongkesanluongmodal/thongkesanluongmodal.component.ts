@@ -162,15 +162,19 @@ export class ThongkesanluongmodalComponent implements OnInit {
 
         if(this.item.listItem != undefined && this.item.listItem != null){
           this.item.listItem.forEach(element => {
-          if(element.Id !== null && element.Id !== undefined)
-              element.isXoa = true
-            });
+            element.isXoa = true
+          });
         }
         this.services.ThongKeSanLuong().GetMatHang(this.item.IddmPhanXuong,this.item.IddmCaSanXuat, this.item.NgayUnix).subscribe((res: any) => {
           res.forEach(element => {
             element.Id = null;
           });
-          this.item.listItem = res;
+          if(this.item.listItem !== undefined && this.item.listItem !== null){
+            this.item.listItem = this.item.listItem.concat(res);
+          }
+          else
+            this.item.listItem= res;
+          this.getItemTheoCongDoan();
         })
       }
   }
