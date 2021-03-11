@@ -58,7 +58,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   ChuyenDuyet() {
     let isCheck : any = false;
     this.item.listItem.forEach(element => {
-      if (element.IdLoHang === null || element.IdLoHang === undefined) {
+      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG") {
         isCheck= true;
       }
     });
@@ -87,12 +87,13 @@ export class ThongkesanluongmodalComponent implements OnInit {
   GhiLai() {
     let isCheck : any = false;
     this.item.listItem.forEach(element => {
-      if (element.IdLoHang === null || element.IdLoHang === undefined) {
+      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG") {
         isCheck= true;
       }
     });
+    console.log(this.item)
     if (isCheck === true) {
-      this.toastr.error("Bạn chưa chọn  lô hàng cho công đoạn Ống");
+      this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
     }
     else{
       // this.item.listItem.forEach(element => {
@@ -141,6 +142,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   getListCongDoan() {
     this.services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+      
     })
   }
   getListCaSanXuat() {
@@ -197,6 +199,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
     var KhoiLuong = 0;
     if(item.Ne !== undefined && item.Ne !== null && item.Ne !== 0 && event !== undefined)
       KhoiLuong = event/item.Ne;
+    return KhoiLuong;
+  }
+  TinhCongThucMoi(item, event) {
+    var KhoiLuong = 0;
+    if(item.Ne !== undefined && item.Ne !== null && item.Ne !== 0 && event !== undefined)
+      KhoiLuong = event/item.Ne/1.693*1200;
     return KhoiLuong;
   }
   onClose(){
