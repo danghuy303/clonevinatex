@@ -204,7 +204,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
         this.item.listItem.forEach(element => {
           element.isXoa = true;
         });
-        this.item.listItem.push(data.data);
+      this.item.listItem = this.item.listItem.concat(data.data);
       }, (reason) => {
         // không
       });

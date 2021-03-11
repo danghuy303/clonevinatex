@@ -869,6 +869,12 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhuongAnPhaBong', data, httpOptions)
             },
+            GetHoanThanh: () => {
+                return this.http.get(url + `GetListPhuongAnPhaBongHoanThanh`, httpOptions);
+            },
+            TimBong_Kien: (IdPhuongAnPhaBong) => {
+                return this.http.get(url + `GetListPhuongAnTimBong_Kien?IdPhuongAnPhaBong=${IdPhuongAnPhaBong}`, httpOptions);
+            },
         }
     }
 
@@ -1455,6 +1461,10 @@ export class SanXuatService {
     }
     GetListThongKeSanLuong(IddmPhanXuong, CongDoan, Ngay) {
         let url = API.SCMQuanLyKho + `GetListThongKeSanLuong?IddmPhanXuong=${IddmPhanXuong}&CongDoan=${CongDoan}&Ngay=${Ngay}`;
+        return this.http.get(url, httpOptions);
+    }
+    GetListItemKiemKeBanChePham(IddmPhanXuong, Ngay, IddmCaSanXuat) {
+        let url = API.SCMQuanLyKho + `GetListItemKiemKeBanChePham?IddmPhanXuong=${IddmPhanXuong}&Ngay=${Ngay}&IddmCaSanXuat=${IddmCaSanXuat}`;
         return this.http.get(url, httpOptions);
     }
     dmDacTinhBong() {
