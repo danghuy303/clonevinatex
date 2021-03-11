@@ -257,4 +257,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
         item.SoQuaSoi =item.KhoiLuong/event.value;
     }
   }
+  TinhKhoiLuongHoiAm(item){
+    item.KhoiLuongHoiAm = item.SoQuaSoi * item.KgCone
+  }
 }
