@@ -555,6 +555,12 @@ export class SanXuatService {
             },
             SetCanDoiChuyen_ApDungNgay: (data) => {
                 return this.http.get(`${url}SetCanDoiChuyen_ApDungNgay?IddmPhanXuong=${data.IddmPhanXuong}&CongDoan=${data.CongDoan}&Ngay=${data.NgayUnix}&TuNgay=${data.TuNgayUnix}&DenNgay=${data.DenNgayUnix}&Xoa=true`)
+            },
+            GetlistdmMatHangDao:(IddmPhanXuong)=>{
+                return this.http.get(`${url}GetlistdmMatHangDao?IddmPhanXuong=${IddmPhanXuong}`,httpOptions);
+            },
+            ThemMatHangDao:(data)=>{
+                return this.http.post(`${url}ThemMatHangDao`,data,httpOptions);
             }
         }
     }
