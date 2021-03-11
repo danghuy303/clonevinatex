@@ -33,6 +33,7 @@ export class KiemkebcpmodalComponent implements OnInit {
   lang: any = vn;
   check: any = false;
   isLuu: any = false;
+  Id: any = '';
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
     public toastr: ToastrService, public _modal: NgbModal) {
   }
@@ -49,16 +50,16 @@ export class KiemkebcpmodalComponent implements OnInit {
     })
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
-      this.getListdmHangMuc();
+      // this.getListdmHangMuc();
+      this.GetListItemKiemKeBanChePham();
     }
     else {
-      this.KiemTraButtonModal();
       this.GetQuyTrinh();
     }
     
   }
   GetQuyTrinh() {
-    this.services.PhieuKiemKeBanChePham().Get(this.item.Id).subscribe((res1: any) => {
+    this.services.PhieuKiemKeBanChePham().Get(this.Id).subscribe((res1: any) => {
       res1.CongDoan = this.listCongDoan[0].value;
       if (res1.NgayUnix !== null && res1.NgayUnix !== undefined) {
         res1.Ngay = new Date(res1.NgayUnix * 1000);
@@ -68,6 +69,8 @@ export class KiemkebcpmodalComponent implements OnInit {
       console.log(this.item)
       this.listItemFull = this.item.listItem;
       this.getItemTheoCongDoan();
+      this.KiemTraButtonModal();
+      this.KiemTraButtonModal();
     })
   }
   KiemTraButtonModal() {
@@ -114,8 +117,8 @@ export class KiemkebcpmodalComponent implements OnInit {
             this.opt = 'edit';
             this.isLuu = true;
             this.item.Id = res.objectReturn.Id;
+            this.Id = res.objectReturn.Id
             // this.item.CongDoan = this.listCongDoan[0].value
-            this.KiemTraButtonModal();
             this.GetQuyTrinh();
           } else {
             this.toastr.error(res.message);
@@ -160,13 +163,14 @@ export class KiemkebcpmodalComponent implements OnInit {
           if (element.SoCotCon > 0 && element.SoDongCon === 1) {
             this.listCotCon = this.listCotCon.concat(element.listCon)
           }
-          if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt !== 'edit') {
-            this.listMatHang.push(element);
-          }
+          // if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt !== 'edit') {
+          //   this.listMatHang.push(element);
+          // }
           
         }
       });
-      if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt === 'edit') {
+      // if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt === 'edit') {
+        if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG')) {
         this.services.dmKiemKeBanChePham().GetListAll().subscribe((res: any) => {
           res.forEach(element => {
             if(element.CongDoan === this.item.CongDoan){
@@ -178,10 +182,10 @@ export class KiemkebcpmodalComponent implements OnInit {
           });
         })
       }
-      if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt !== 'edit') {
-        this.check = false;
-        this.getListCanDoiChuyenKiemKe();
-      }
+      // if ((this.item.CongDoan === 'CON' || this.item.CongDoan === 'ONG') && this.opt !== 'edit') {
+      //   this.check = false;
+      //   this.getListCanDoiChuyenKiemKe();
+      // }
     }
   }
   getListdmHangMuc() {
@@ -234,5 +238,21 @@ export class KiemkebcpmodalComponent implements OnInit {
         })
       }
     }
+  }
+  GetListItemKiemKeBanChePham(){
+    if (this.item.Ngay !== undefined) {
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+    }
+    this.services.GetListItemKiemKeBanChePham(this.item.IddmPhanXuong, this.item.NgayUnix, this.item.IddmCaSanXuat).subscribe((res: any) => {
+      this.listItemFull = res;
+      this.item.listItem = res;
+      var listItem: any = [];
+      this.listItemFull.forEach(element => {
+        if(element.CongDoan === this.item.CongDoan){
+          listItem.push(element)
+        }
+      });
+      this.listItem = listItem;
+    })
   }
 }

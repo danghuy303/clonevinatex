@@ -49,8 +49,19 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-5 p-p-0 my-auto">Phương án pha bông:</label>
             <div class="p-col-12 p-lg-7 p-p-0">
-                <input type="text" [(ngModel)]="item.TenPhuongAnPhaBong" disabled pInputText
-                (click)="getPhuongAnPhaBong(item.IdPhuongAnPhaBong)"/>
+                <p-dropdown [filter]="true" [options]="listPhuongAnPhaBong" placeholder="Chọn phương án pha bông" [(ngModel)]="item.IdPhuongAnPhaBong"
+                styleClass="p-inputtext-sm" (onChange)="getTimBong_Kien()"></p-dropdown>
+                <!-- <input type="text" [(ngModel)]="item.TenPhuongAnPhaBong" disabled pInputText
+                (click)="getPhuongAnPhaBong(item.IdPhuongAnPhaBong)"/> -->
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Số bàn:</label>
+            <div class="p-col-12 p-lg-7 p-p-0">
+                <p-dropdown [filter]="true" [options]="listSoBan" placeholder="Chọn số bàn" [(ngModel)]="item.SoBan"
+                styleClass="p-inputtext-sm"></p-dropdown>
+                <!-- <input type="text" [(ngModel)]="item.TenPhuongAnPhaBong" disabled pInputText
+                (click)="getPhuongAnPhaBong(item.IdPhuongAnPhaBong)"/> -->
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
