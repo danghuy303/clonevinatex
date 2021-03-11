@@ -13,6 +13,16 @@ export class ChoncaapdungmodalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.listCa);
+    console.log(this.ca);
+    this.listCa.forEach(c => {
+      if(this.ca === c.prop){
+        c.disabled = true;
+      }
+    });
+  }
+  accept(){
+    let arrCaApDung = this.listCa.filter(ele=>ele.checked === true).map(ele=>ele.prop);
+    this.activeModal.close(arrCaApDung);
   }
 
 }
