@@ -62,14 +62,14 @@
                     [(ngModel)]="item.CongDoan" (onChange)="getItemTheoCongDoan()"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.CongDoan=='ONG'">
+        <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.CongDoan=='ONG'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô hàng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoHang" placeholder="Chọn lô hàng" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IdLoHang"></p-dropdown>
             </div>
-            <!-- <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addLoHang()"></button> -->
-        </div>
+            <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addLoHang()"></button>
+        </div> -->
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -90,6 +90,7 @@
                         <col>
                         <col *ngIf="item.CongDoan==='ONG'">
                         <col *ngIf="item.CongDoan==='ONG'">
+                        <col *ngIf="item.CongDoan==='ONG'">
                         <col>
                     </colgroup>
                 </ng-template>
@@ -104,6 +105,7 @@
                         <th>Khối lượng (kg)</th>
                         <th *ngIf="item.CongDoan==='ONG'">Kg/cone</th>
                         <th *ngIf="item.CongDoan==='ONG'">Số quả</th>
+                        <th *ngIf="item.CongDoan==='ONG'">Lô hàng</th>
                         <th>Ghi chú</th>
                     </tr>
                 </ng-template>
@@ -149,6 +151,10 @@
                         <td *ngIf="item.CongDoan==='ONG'">
                             <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.SoQuaSoi">
                             </p-inputNumber>
+                        </td>
+                        <td *ngIf="item.CongDoan==='ONG'">
+                            <p-dropdown [filter]="true" [options]="listLoHang" placeholder="Chọn lô hàng" styleClass="p-inputtext-sm"
+                                [(ngModel)]="itemtbl.IdLoHang"></p-dropdown>
                         </td>
                         <td>
                             <input type="text" class="p-inputtext-sm" [(ngModel)]="itemtbl.GhiChu" pInputText/>
