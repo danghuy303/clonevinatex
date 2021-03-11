@@ -204,7 +204,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhCongThucMoi(item, event) {
     var KhoiLuong = 0;
     if(item.Ne !== undefined && item.Ne !== null && item.Ne !== 0 && event !== undefined)
-      KhoiLuong = event/item.Ne/1.693*1200;
+      KhoiLuong = event/item.Ne/1.693*1200/1000;
     return KhoiLuong;
   }
   onClose(){
