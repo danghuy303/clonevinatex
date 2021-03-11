@@ -16,6 +16,7 @@ th {
     word-wrap: break-word !important;
 }
 
+
 /* .unset-width.p-datatable-sm table{
     width: unset !important;
 } */
@@ -266,7 +267,7 @@ p-table.blv th {
     .print {
         display: block !important;
     }
-    .print.pt-sign{
+    .print.pt-sign {
         padding-top: 100px;
     }
     .modal-backdrop {
@@ -275,11 +276,11 @@ p-table.blv th {
     }
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
+
 span.required {
     font-size: 16px;
     color: red;
@@ -296,4 +297,15 @@ span.required {
 .p-button.p-button-xs {
     font-size: 0.875rem;
     padding: 0.1rem !important;
+}
+
+@media (min-width: 1025px) {
+    .flex-lgs-row {
+        flex-direction: row!important;
+    }
+}
+@media (min-width:768px) and (max-width:1024px){
+    .minimize-font.p-datatable{
+        font-size: 12px;
+    }
 }

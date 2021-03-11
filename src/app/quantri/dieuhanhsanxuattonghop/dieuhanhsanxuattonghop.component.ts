@@ -397,14 +397,20 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     })
   }
   xuatBaoCaoTieuChi(){
+    let data = this.filter;
+    data.listItem = this.listMatHang.filter(mathang=>mathang.xuatChecked ===true).map(ele=>ele.Id);
     this._services.DashBoard().ExportBaoCaoThongKeChatLuong(this.filter).subscribe((res:any) => {
-      this._services.download(res.TenFile);
+      if(res){
+        if(validVariable(res.State)){
+          this.toastr.error(res.message);
+        }else{
+          this._services.download(res.TenFile);
+        }
+      }
     })
   }
   xemTruySuatNguonGoc() {
-    console.log(this.SelectItem);
     if (this.SelectItem.IddmItem != undefined) {
-      console.log(this.SelectItem);
       if (validVariable(this.SelectItem?.IddmItem)) {
         let data=this.filter;
         data.IddmItem = this.SelectItem.IddmItem;

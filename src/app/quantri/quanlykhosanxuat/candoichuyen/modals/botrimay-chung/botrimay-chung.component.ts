@@ -24,11 +24,13 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   filter: any = {};
   newMay: any = {};
   lang: any = vn;
+  optionMatHang:string = '';
   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) {
     super(activeModal)
   }
 
   ngOnInit(): void {
+    this.initLoaiSoiHoacLoaiMatHang();
     console.log(this.item);
     this.sort()
     this.initSpeedOption();
@@ -38,6 +40,14 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
     });
     this.newMay = {}
     this.inputChange();
+  }
+  initLoaiSoiHoacLoaiMatHang(){
+    if(this.addonData.CongDoan!=='CON'&&this.addonData.CongDoan!=="ONG"){
+      this.optionMatHang = 'IddmLoaiSoi';
+    }else{
+      this.optionMatHang = 'IddmItem';
+    }
+    console.log(this.optionMatHang)
   }
   sort() {
     this.item.listDaBoTri = this.item.listDaBoTri.sort((a: any, b: any) => {
@@ -60,8 +70,8 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   initSpeedOption() {
     this.item.listDaBoTri.forEach(may => {
       if (validVariable(may.IdCanDoiChuyen_CanBoTri)) {
-        let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === may.IdCanDoiChuyen_CanBoTri)?.[0].IddmItem;
-        may.listTocDo = mapArrayForDropDown(may.listDinhMucMay.filter(dinhmuc => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
+        let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === may.IdCanDoiChuyen_CanBoTri)?.[0][this.optionMatHang];
+        may.listTocDo = mapArrayForDropDown(may.listDinhMucMay.filter(dinhmuc => dinhmuc[this.optionMatHang] === IddmItem), 'TocDo', 'Id');
         may.SanLuongCa = may.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === may.listTocDo?.[0]?.value)?.[0]?.DinhMucNangSuat || 0;
         if (!validVariable(may.IdPhanNhomMay_Item)) {
           may.IdPhanNhomMay_Item = may.listTocDo?.[0]?.value
@@ -96,8 +106,8 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   chonMatHang(item, event) {
     if (event.value) {
       item.Ten = this.listHangHoa.find(mathang => mathang.value === event.value)?.label;
-      let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === item.IdCanDoiChuyen_CanBoTri)?.[0].IddmItem;
-      item.listTocDo = mapArrayForDropDown(item.listDinhMucMay.filter(dinhmuc => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
+      let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === item.IdCanDoiChuyen_CanBoTri)?.[0][this.optionMatHang];
+      item.listTocDo = mapArrayForDropDown(item.listDinhMucMay.filter(dinhmuc => dinhmuc[this.optionMatHang] === IddmItem), 'TocDo', 'Id');
       item.IdPhanNhomMay_Item = item.listTocDo?.[0]?.value || null;
       item.SanLuongCa = item.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === item.listTocDo?.[0]?.value)?.[0]?.DinhMucNangSuat || 0;
       if (!validVariable(item.SoCocDen)) {
@@ -116,6 +126,11 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
     }
     this.inputChange();
   }
+
+  chonTocDo(item,event){
+    item.SanLuongCa = item.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === event.value)?.[0]?.DinhMucNangSuat || 0;
+  }
+
   ApDungDenNgay() {
     if (validVariable(this.filter.DenNgay) && validVariable(this.filter.TuNgay) && this.filter.TuNgay < this.filter.DenNgay) {
       this._services.CanDoiChuyen().SetCanDoiChuyen({ ...this.item, ...this.addonData }).subscribe((res: any) => {

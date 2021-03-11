@@ -56,7 +56,7 @@ export class NhucauxuathangComponent implements OnInit {
     legend: {
       position: 'bottom'
     },
-    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
+    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
     aspectRatio: (((window.innerWidth - 80) * 2 / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   option2: any = {
@@ -74,7 +74,7 @@ export class NhucauxuathangComponent implements OnInit {
         barPercentage: 1.0
       }]
     },
-    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
+    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
     aspectRatio: ((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   optionPie: any = {
@@ -88,7 +88,7 @@ export class NhucauxuathangComponent implements OnInit {
     legend: {
       position: 'left'
     },
-    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
+    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
