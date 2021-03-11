@@ -881,6 +881,9 @@ export class SanXuatService {
             TimBong_Kien: (IdPhuongAnPhaBong) => {
                 return this.http.get(url + `GetListPhuongAnTimBong_Kien?IdPhuongAnPhaBong=${IdPhuongAnPhaBong}`, httpOptions);
             },
+            GetListItemDieuChinhTimBong: (IdPhuongAnPhaBong, ThuTu) => {
+                return this.http.get(url + `GetListItemDieuChinhTimBong?IdPhuongAnPhaBong=${IdPhuongAnPhaBong}&ThuTu=${ThuTu}`, httpOptions);
+            },
         }
     }
 

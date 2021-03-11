@@ -56,13 +56,16 @@ export class ThongkesanluongmodalComponent implements OnInit {
     })
   }
   ChuyenDuyet() {
-    if (this.item.IdLoHang === null || this.item.IdLoHang === undefined) {
-      this.toastr.error("Bạn chưa chọn  lô hàng cho công đoạn Ống");
+    let isCheck : any = false;
+    this.item.listItem.forEach(element => {
+      if (element.IdLoHang === null || element.IdLoHang === undefined) {
+        isCheck= true;
+      }
+    });
+    if (isCheck === true) {
+      this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
     }
     else{
-      this.item.listItem.forEach(element => {
-        element.IdLoHang = this.item.IdLoHang
-      });
       this.services.ThongKeSanLuong().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -82,20 +85,26 @@ export class ThongkesanluongmodalComponent implements OnInit {
     })
   }
   GhiLai() {
-    if (this.item.IdLoHang === null || this.item.IdLoHang === undefined) {
+    let isCheck : any = false;
+    this.item.listItem.forEach(element => {
+      if (element.IdLoHang === null || element.IdLoHang === undefined) {
+        isCheck= true;
+      }
+    });
+    if (isCheck === true) {
       this.toastr.error("Bạn chưa chọn  lô hàng cho công đoạn Ống");
     }
     else{
-      debugger
-      this.item.listItem.forEach(element => {
-        element.IdLoHang = this.item.IdLoHang
-      });
+      // this.item.listItem.forEach(element => {
+      //   element.IdLoHang = this.item.IdLoHang
+      // });
       this.services.ThongKeSanLuong().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            this.listItem = [];
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
