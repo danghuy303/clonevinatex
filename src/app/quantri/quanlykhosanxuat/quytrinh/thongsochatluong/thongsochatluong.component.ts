@@ -41,6 +41,16 @@ export class ThongsochatluongComponent implements OnInit {
       width: 'unset'
     },
     {
+      header: 'Tổng số kiện',
+      field: 'TenContainer',
+      width: 'unset'
+    },
+    {
+      header: 'Trọng lượng bình quân',
+      field: 'TrongLuong',
+      width: 'unset'
+    },
+    {
       header: 'Tên trạng thái',
       field: 'TenTrangThai',
       width: 'unset'
