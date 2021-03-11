@@ -87,7 +87,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   GhiLai() {
     let isCheck : any = false;
     this.item.listItem.forEach(element => {
-      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG") {
+      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {
+        debugger
         isCheck= true;
       }
     });
@@ -204,7 +205,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhCongThucMoi(item, event) {
     var KhoiLuong = 0;
     if(item.Ne !== undefined && item.Ne !== null && item.Ne !== 0 && event !== undefined)
-      KhoiLuong = event/item.Ne/1.693*1200;
+      KhoiLuong = event/item.Ne/1.693*1200/1000;
     return KhoiLuong;
   }
   onClose(){
