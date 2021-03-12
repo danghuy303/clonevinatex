@@ -42,13 +42,14 @@ export class ThongsochatluongComponent implements OnInit {
     },
     {
       header: 'Tổng số kiện',
-      field: 'TenContainer',
+      field: 'TongSoKien',
       width: 'unset'
     },
     {
       header: 'Trọng lượng bình quân',
       field: 'TrongLuong',
-      width: 'unset'
+      width: 'unset',
+      type:'number'
     },
     {
       header: 'Tên trạng thái',

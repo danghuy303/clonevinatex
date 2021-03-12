@@ -190,10 +190,14 @@ export class NhucauxuathangComponent implements OnInit {
       Ma: "",
       Ten: ""
     };
-    this._services.GetListdmKho(data).subscribe((res: any) => {
+    setTimeout(
+      ()=>{
+        this._services.GetdmKhoThanhPhamHoiAm_DashBoard({IdDuAn:this.store.getCurrent()}).subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tất cả' });
       this.listKho = mapArrayForDropDown(res, "Ten", 'Id');
     })
+      },500
+    )
     this._services.GetOptions().GetMatHang().subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tổng hợp' });
       this.listMatHang = mapArrayForDropDown(res, "Ten", 'Id');
@@ -217,7 +221,6 @@ export class NhucauxuathangComponent implements OnInit {
     if (this.SelectItem.TendmItem != undefined && this.SelectItem != null) {
       console.log(this.SelectItem);
       if (validVariable(this.SelectItem?.IddmItem)) {
-
         this._services.GetDashBoard_TruyXuatNguonGoc(this.SelectItem.IddmItem, DateToUnix(this.filter._tuNgayCanDoiTon), DateToUnix(this.filter._denNgayCanDoiTon)).subscribe((res: any) => {
           this.showTruySuatNguonGoc = true;
           this.listTruySuatNguonGoc = res;

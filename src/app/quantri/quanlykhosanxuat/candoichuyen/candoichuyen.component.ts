@@ -22,7 +22,7 @@ export class CandoichuyenComponent implements OnInit {
     listDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     listDates = [];
     filter: any = {
-        CongDoan: "ONG",
+        CongDoan: "CON",
         IddmPhanXuong: "1cf3f340-0f55-4f34-938p-e629318e25et"
     };
     showDialog: boolean = false;
@@ -159,7 +159,12 @@ export class CandoichuyenComponent implements OnInit {
                     };
                     modalRef.result
                         .then((res) => {
-                            this.navigationAction(res.opt,index)
+                            if(res.opt){
+                                this.navigationAction(res.opt,index)
+                            }
+                            if(res.respawn){
+                                this.boTriMay(index,date);
+                            }
                         })
                         .catch((er) => {
                             console.log(er);
