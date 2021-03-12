@@ -314,4 +314,10 @@ export class NhapkhomodalComponent implements OnInit {
       this.add()
     }
   }
+  TongSoKien(item){
+    if(item.SoKienDai !== null && item.SoKienDai !== undefined && item.SoKienNgan !== null 
+      && item.SoKienNgan !== undefined ){
+        item.SoKien = item.SoKienDai + item.SoKienNgan;
+      }
+  }
 }

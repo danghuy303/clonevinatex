@@ -40,25 +40,30 @@ export class PhieudieuchinhmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.item)
+    this.getTimBong_Kien();
+
     if(this.item.isKhongTuDong === true){
       this.getlistPhuongAnPhaBong();
     }
+
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
       this.item.isKhongTuDong = true;
       this.getlistPhuongAnPhaBong();
     }
-    else
+    else{
       this.KiemTraButtonModal();
+    }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
-    
     this.getListdmViTri();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '',this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
+      
     })
   }
   getlistPhuongAnPhaBong() {
@@ -67,23 +72,27 @@ export class PhieudieuchinhmodalComponent implements OnInit {
     })
   }
   getTimBong_Kien() {
+    let datapush: any = [];
     this.services.PhuongAnPhaBong().TimBong_Kien(this.item.IdPhuongAnPhaBong).subscribe((res: any) => {
       res.forEach(element => {
         let data = {
           label:element,
-          value:element,
+          value:element
         };
-        this.listSoBan.push(data)
+        datapush.push(data)
       });
+      this.listSoBan = datapush;
+      console.log(this.listSoBan)
     })
   }
   getListItem() {
+    console.log(this.item)
     if(this.item.listItem!== undefined && this.item.listItem!== null){
       this.item.listItem.forEach(element => {
       element.isXoa = true;
     });
     }
-    this.services.PhuongAnPhaBong().GetListItemDieuChinhTimBong(this.item.IdPhuongAnPhaBong, this.item.SoBan).subscribe((res: any) => {
+    this.services.PhuongAnPhaBong().GetListItemDieuChinhTimBong(this.item.IdPhuongAnPhaBong, this.item.ThuTu).subscribe((res: any) => {
       if(this.item.listItem== undefined && this.item.listItem== null){
         this.item.listItem = res;
       }
