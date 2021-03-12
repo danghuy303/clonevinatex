@@ -278,12 +278,17 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
             IdDuAn: this._store.getCurrent(),
             CongDoan:this.addonData.CongDoan,
             IddmPhanXuong:this.addonData.IddmPhanXuong,
-            Ngay: this.addonData.NgayUnix,
+            NgayUnix: this.addonData.NgayUnix,
             SoLuong:ele.SoLuong,
           } 
         });
-        this.services.CanDoiChuyen().ThemMatHangDao(data).subscribe(result=>{
-          console.log(result);
+        this.services.CanDoiChuyen().ThemMatHangDao(data).subscribe((result:any)=>{
+          if(result?.State===1){
+            this.toastr.success(result.message);
+            this.activeModal.close({respawn:true});
+          }else{
+            this.toastr.error(result.message);
+          }
         })
       }).catch(er => console.log(er))
     });

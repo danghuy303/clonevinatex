@@ -39,6 +39,10 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'GetListdmKho';
         return this.http.post(url, data, httpOptions);
     }
+    GetdmKhoThanhPhamHoiAm_DashBoard(data){
+        let url = API.SCMDanhMuc + `GetdmKhoThanhPhamHoiAm_DashBoard?IdDuAn=${data.IdDuAn}`;
+        return this.http.get(url, httpOptions);
+    }
     SetdmKho(data) {
         let url = API.SCMDanhMuc + 'SetdmKho';
         return this.http.post(url, data, httpOptions);
@@ -257,6 +261,10 @@ export class SanXuatService {
     //Ca sản xuất
     GetListOptdmCaSanXuat() {
         let url = API.SCMDanhMuc + 'GetListdmCaSanXuat';
+        return this.http.get(url, httpOptions);
+    }
+    GetListOptdmCaSanXuatThucTe() {
+        let url = API.SCMDanhMuc + 'GetListdmCaSanXuatThucTe';
         return this.http.get(url, httpOptions);
     }
     GetListdmCaSanXuat(data) {
