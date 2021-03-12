@@ -81,7 +81,7 @@
                     (click)="GetMatHangTheoKho()"></button>
             </div>
             <p-table 
-             [value]="item.listItem|isXoa"
+             [value]="item.listItem|isXoa" [scrollable]="true" scrollHeight="40vh"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>

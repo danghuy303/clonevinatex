@@ -102,7 +102,8 @@
                         <th>Ne</th>
                         <th>Khối lượng tính toán</th>
                         <th>Chiều dài (m)</th>
-                        <th>Khối lượng (kg)</th>
+                        <th *ngIf="item.CongDoan!=='ONG'">Khối lượng (kg)</th>
+                        <th *ngIf="item.CongDoan==='ONG'">Khối lượng mà hình (kg)</th>
                         <th *ngIf="item.CongDoan==='ONG'">Số quả</th>
                         <th *ngIf="item.CongDoan==='ONG'">Kg/cone</th>
                         <th *ngIf="item.CongDoan==='ONG'">Khối lượng hồi ẩm</th>

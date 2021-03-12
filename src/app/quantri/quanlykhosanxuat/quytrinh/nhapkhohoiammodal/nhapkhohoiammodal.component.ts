@@ -44,15 +44,11 @@ export class NhapkhohoiammodalComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Số lượng sản xuất',
+      header: 'Số quả sợi',
       field: 'KhoiLuongSanXuat',
       width: 'unset'
     },
-    {
-      header: 'Số lượng thực tế',
-      field: 'KhoiLuongThucTe',
-      width: 'unset'
-    },
+  
   ];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
