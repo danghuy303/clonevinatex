@@ -56,6 +56,8 @@ export class PhabongmodalComponent implements OnInit {
   };
   trongLuongLoBong: any = {};
   itemMicTT: any = {};
+  itemCVMicTT: any = {};
+  itemTyLeHoiPha: any = {};
 
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal, private zone: NgZone, private changeDec: ChangeDetectorRef) {
   }
@@ -144,9 +146,16 @@ export class PhabongmodalComponent implements OnInit {
           }
         }
         this.TinhThongTinKienTheoLoaiBong();
+        // if (validVariable(this.item.listThongSo)) {
+        //   this.item.listThongSo.forEach(thongso => {
+        //     this.itemMicTT[`${thongso.ThuTu}`] = thongso.MicTT;
+        //   });
+        // }
         if (validVariable(this.item.listThongSo)) {
           this.item.listThongSo.forEach(thongso => {
             this.itemMicTT[`${thongso.ThuTu}`] = thongso.MicTT;
+            this.itemCVMicTT[`${thongso.ThuTu}`] = thongso.CVMicTT;
+            this.itemTyLeHoiPha[`${thongso.ThuTu}`] = thongso.TyLeHoiPha;
           });
         }
       }

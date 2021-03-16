@@ -391,13 +391,13 @@
                         <td class="text-center tc-w-151" style="background-color:white !important;">
                         </td>
                         <td class="text-center tc-w-60" style="background-color:#fdff0c !important;">
-                            {{ThongSoKienTheoLoaiBong?.M?.TonDau}}
+                            {{ThongSoKienTheoLoaiBong?.MY?.TonDau}}
                         </td>
                         <td class="text-center tc-w-100" style="background-color:#fdff0c !important;">
-                            {{ThongSoKienTheoLoaiBong?.M?.SoLuongDung}}
+                            {{ThongSoKienTheoLoaiBong?.MY?.SoLuongDung}}
                         </td>
                         <td class="text-center tc-w-60" style="background-color:#fdff0c !important;">
-                            {{ThongSoKienTheoLoaiBong?.M?.TonCuoi}}
+                            {{ThongSoKienTheoLoaiBong?.MY?.TonCuoi}}
                         </td>
                         <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">
                             CV%Mic
@@ -532,7 +532,7 @@
                         </td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
-                                <!-- {{itemCVMic[prop]|number:'0.2-2'}} -->
+                                {{itemCVMicTT[prop]|number:'0.2-2'}}
                             </div>
                         </td>
                     </tr>
@@ -580,7 +580,7 @@
                         </td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
-                                <!-- {{itemCVMic[prop]|number:'0.2-2'}} -->
+                                {{itemTyLeHoiPha[prop]|number:'0.2-2'}}
                             </div>
                         </td>
                     </tr>
