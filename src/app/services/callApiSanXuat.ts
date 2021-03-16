@@ -1540,4 +1540,8 @@ export class SanXuatService {
             },
         }
     }
+    GetListKgCone() {
+        let url = API.SCMDanhMuc + `GetListKgCone`;
+        return this.http.get(url, httpOptions);
+    }
 }

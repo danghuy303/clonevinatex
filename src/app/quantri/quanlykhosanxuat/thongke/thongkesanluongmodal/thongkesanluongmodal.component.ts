@@ -28,6 +28,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   editTableItem: any = {};
   lang: any = vn;
   listLoHang: any = [];
+  listCaThucTe: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
 
@@ -49,6 +50,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.getListPhanXuong();
     this.getListCaSanXuat();
     this.getListLoHang();
+    this.getListCaThucTe();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -144,6 +146,11 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
       
+    })
+  }
+  getListCaThucTe() {
+    this.services.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
+      this.listCaThucTe = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   getListCaSanXuat() {

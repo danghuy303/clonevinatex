@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs/internal/operators/filter';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, formatdate } from 'src/app/services/globalfunction';
 import { NhapkhomodalComponent } from '../nhapkhomodal/nhapkhomodal.component';
 
 @Component({
@@ -25,22 +25,32 @@ export class NhapkhoComponent implements OnInit {
     {
       header: 'Số quy trình',
       field: 'SoQuyTrinh',
-      width: '200px'
+      width: 'unset'
     },
     {
       header: 'Số hợp đồng',
       field: 'SoHopDong',
-      width: '200px'
+      width: 'unset'
+    },
+    {
+      header: 'Ngày nhập kho',
+      field: '_Ngay',
+      width: 'unset'
+    },
+    {
+      header: 'Mã Invoice',
+      field: 'TenKeHoachNhapNguyenLieuInvoice_Item',
+      width: 'unset'
     },
     {
       header: 'Lô bông',
       field: 'TenLoBong',
-      width: '200px'
+      width: 'unset'
     },
     {
       header: 'Loại bông',
       field: 'TendmLoaiBong',
-      width: '100px'
+      width: 'unset'
     },
   ];
   
@@ -48,22 +58,22 @@ export class NhapkhoComponent implements OnInit {
     {
       header: 'Số quy trình',
       field: 'SoQuyTrinh',
-      width: '200px'
+      width: 'unset'
     },
     {
       header: 'Số hợp đồng',
       field: 'SoHopDong',
-      width: '200px'
+      width: 'unset'
     },
     {
       header: 'Lô xơ',
       field: 'TenLoBong',
-      width: '200px'
+      width: 'unset'
     },
     {
       header: 'Loại xơ',
       field: 'TendmLoaiBong',
-      width: '100px'
+      width: 'unset'
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
@@ -173,6 +183,11 @@ export class NhapkhoComponent implements OnInit {
 
     this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
       this.items = res.items;
+      if (this.items.length > 0) {
+        this.items.forEach(element => {
+          element._Ngay = element.NgayUnix > 0 ? formatdate(element.Ngay, false) : null;
+        });
+      }
       this.paging = res.paging;
     })
   }
