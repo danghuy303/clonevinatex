@@ -89,7 +89,7 @@
                         <col>
                         <col>
                         <col>
-                        <col>
+                        <!-- <col> -->
                         <!-- <col> -->
                         <col>
                         <col>
@@ -101,7 +101,7 @@
                         <th>#</th>
                         <th>Tên</th>
                         <th>Kg/cone</th>
-                        <th>Quả sợi sản xuất</th>
+                        <!-- <th>Quả sợi sản xuất</th> -->
                         <th>Quả sợi thực tế</th>
                         <!-- <th>Số quả sợi</th> -->
                         <th>Khối lượng hồi ẩm</th>
@@ -125,16 +125,16 @@
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.KhoiLuong">
                             </p-inputNumber>
                         </td> -->
-                        <td class="text-center">
+                        <!-- <td class="text-center">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoQuaSoiSanXuat" disabled>
                             </p-inputNumber>
-                        </td>
+                        </td> -->
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiSanXuat * item.SoQuaSoiThucTe">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe * item.KgCone">
                             </p-inputNumber>
                         </td>
                         <!-- <td class="text-center">
