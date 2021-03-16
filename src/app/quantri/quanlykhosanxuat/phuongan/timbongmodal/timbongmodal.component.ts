@@ -137,7 +137,7 @@ export class TimbongmodalComponent implements OnInit {
             this.labelBong[lobong.MadmLoaiBong] += lobong.TyLe;
           }
         });
-        this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.M + this.labelBong.TP);
+        // this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.MY + this.labelBong.TP);
         for (let i = 0; i < this.item.listLoBong.length; i++) {
           for (let j = 1; j <= this.item.SoBanBong; j++) {
             this.CalAllTable(i, `${j}`);
@@ -181,7 +181,7 @@ export class TimbongmodalComponent implements OnInit {
         this.labelBong[lobong.MadmLoaiBong] += lobong.TyLe;
       }
     });
-    this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.M + this.labelBong.TP);
+    // this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.MY + this.labelBong.TP);
   }
   CalAllTable(y, x) {
     let tempSLD = 0;
@@ -290,7 +290,7 @@ export class TimbongmodalComponent implements OnInit {
         this.trongLuongLoBong[lobong.MadmLoaiBong] += lobong.TongTrongLuong;
       }
     });
-    this.trongLuongLoBong.Hoi = this.TongKhoiLuongDung - (this.trongLuongLoBong.BR + this.trongLuongLoBong.M + this.trongLuongLoBong.TP);
+    // this.trongLuongLoBong.Hoi = this.TongKhoiLuongDung - (this.trongLuongLoBong.BR + this.trongLuongLoBong.M + this.trongLuongLoBong.TP);
   }
   TinhDeltaB() {
     for (let i = 1; i <= this.item.SoBanBong; i++) {

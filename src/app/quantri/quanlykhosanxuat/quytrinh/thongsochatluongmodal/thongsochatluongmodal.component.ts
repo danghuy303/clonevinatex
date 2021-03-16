@@ -80,6 +80,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     this.item_new.TrongLuong = this.item.TrongLuong;
     this.item_new.listItem = this.listItem;
+    this.item_new.TongSoKien = this.listItem.length;
     return this.item_new;
   }
   ChuyenDuyet() {

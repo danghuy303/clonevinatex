@@ -81,6 +81,8 @@ import { SanXuatService } from '../services/callApiSanXuat';
 import { isXoaPipe } from './../services/isXoaPipe';
 import { VNDPipe } from './../services/vnd.pipe';
 import { FilterPipe } from './../services/filter.pipe';
+import { SumByKeyPipe } from './../services/sum.pipe';
+import { SortByKeyPipe } from './../services/sortPipe.pipe';
 import { CongDoanPipe } from './../services/congdoan.pipe';
 import {CaPipe} from './../services/ca.pipe';
 
@@ -357,9 +359,11 @@ import { ChoncaapdungmodalComponent } from './quanlykhosanxuat/candoichuyen/moda
     MathangComponent,
     MathangmodelComponent,
     PhanxuongComponent,
-    PhanxuongmodalComponent,
+    PhanxuongmodalComponent, 
     FilterPipe,
+    SumByKeyPipe,
     CongDoanPipe,
+    SortByKeyPipe,
     LoaisoiComponent,
     ChonmaytheocongdoanComponent,
     ImportdanhmucmodelComponent,
@@ -582,6 +586,8 @@ import { ChoncaapdungmodalComponent } from './quanlykhosanxuat/candoichuyen/moda
     FilterPipe,
     CongDoanPipe,
     CaPipe,
+    SortByKeyPipe,
+    SumByKeyPipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],

@@ -9,6 +9,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { CVMic, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
+import { TrangthaimaysanxuatComponent } from '../../quytrinh/trangthaimaysanxuat/trangthaimaysanxuat.component';
 
 @Component({
   selector: 'app-phabongmodal',
@@ -135,8 +136,8 @@ export class PhabongmodalComponent implements OnInit {
             this.labelBong[lobong.MadmLoaiBong] += lobong.TyLe;
           }
         });
-        this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.M + this.labelBong.TP);
-        this.item.TyLePhaBong = `${formatNumber(this.labelBong.BR, 'vi-VN', '0.0-1')}% Brazil + ${formatNumber(this.labelBong.M, 'vi-VN', '0.0-1')}% Mỹ + ${formatNumber(this.labelBong.TP, 'vi-VN', '0.0-1')}% Tây Phi + ${formatNumber(this.labelBong.Hoi, 'vi-VN', '0.0-1')}% Hồi`
+        // this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.MY + this.labelBong.TP);
+        this.item.TyLePhaBong = `${formatNumber(this.labelBong.BR, 'vi-VN', '0.0-1')}% Brazil + ${formatNumber(this.labelBong.MY, 'vi-VN', '0.0-1')}% Mỹ + ${formatNumber(this.labelBong.TP, 'vi-VN', '0.0-1')}% Tây Phi + ${formatNumber(this.labelBong.zH, 'vi-VN', '0.0-1')}% Hồi`
         for (let i = 0; i < this.item.listLoBong.length; i++) {
           for (let j = 1; j <= this.item.SoBanBong; j++) {
             this.CalAllTable(i, `${j}`);
@@ -277,8 +278,9 @@ export class PhabongmodalComponent implements OnInit {
         this.labelBong[lobong.MadmLoaiBong] += lobong.TyLe;
       }
     });
-    this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.M||0 + this.labelBong.TP);
-    this.item.TyLePhaBong = `${formatNumber(this.labelBong.BR, 'vi-VN', '0.0-1')}% Brazil + ${formatNumber(this.labelBong.M, 'vi-VN', '0.0-1')}% Mỹ + ${formatNumber(this.labelBong.TP, 'vi-VN', '0.0-1')}% Tây Phi + ${formatNumber(this.labelBong.Hoi, 'vi-VN', '0.0-1')}% Hồi`
+    console.log(this.labelBong);
+    // this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.MY||0 + this.labelBong.TP);
+    this.item.TyLePhaBong = `${formatNumber(this.labelBong.BR, 'vi-VN', '0.0-1')}% Brazil + ${formatNumber(this.labelBong.MY, 'vi-VN', '0.0-1')}% Mỹ + ${formatNumber(this.labelBong.TP, 'vi-VN', '0.0-1')}% Tây Phi + ${formatNumber(this.labelBong.zH, 'vi-VN', '0.0-1')}% Hồi`
   }
   TinhTongTrongLuong() {
     this.trongLuongLoBong = {};
@@ -290,7 +292,7 @@ export class PhabongmodalComponent implements OnInit {
         this.trongLuongLoBong[lobong.MadmLoaiBong] += lobong.TongTrongLuong;
       }
     });
-    this.trongLuongLoBong.Hoi = this.TongKhoiLuongDung - (this.trongLuongLoBong.BR + this.trongLuongLoBong.M||0 + this.trongLuongLoBong.TP);
+    // this.trongLuongLoBong.Hoi = this.TongKhoiLuongDung - (this.trongLuongLoBong.BR + this.trongLuongLoBong.M||0 + this.trongLuongLoBong.TP);
   }
   TinhDeltaB() {
     for (let i = 1; i <= this.item.SoBanBong; i++) {

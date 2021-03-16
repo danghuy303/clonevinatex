@@ -184,6 +184,39 @@
                         </td>
                     </tr>
                 </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">
+                            {{listItem|SumByKey:'KhoiLuongTinhToan'|number:'0.3-3'}}
+                        </td>
+                        <td *ngIf="item.CongDoan!=='CON'" class="text-right">
+                            {{listItem|SumByKey:'ChieuDai'|number:'0.3-3'}}
+                        </td>
+                        <td *ngIf="item.CongDoan==='CON'" class="text-right">
+                            {{listItem|SumByKey:'ChieuDai'|number:'0.3-3'}}
+                        </td>
+                        <td class="text-right">
+                            {{listItem|SumByKey:'KhoiLuong'|number:'0.3-3'}}
+                        </td>
+                        <td *ngIf="item.CongDoan==='ONG'" class="text-right">
+                            {{listItem|SumByKey:'SoQuaSoi'|number:'0.3-3'}}
+                        </td>
+                        <td *ngIf="item.CongDoan==='ONG'" class="text-right">
+                            {{listItem|SumByKey:'KgCone'|number:'0.3-3'}}
+                        </td>
+                        <td *ngIf="item.CongDoan==='ONG'" class="text-right">
+                            {{listItem|SumByKey:'KhoiLuongHoiAm'|number:'0.3-3'}}
+                        </td>
+                        <td *ngIf="item.CongDoan==='ONG'">
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </ng-template>
                 <ng-template pTemplate="emptymessage">
                     <!-- <tr>
                         <td colspan="11">Không tìm thấy dữ liệu nào phù hợp điều kiện.</td>

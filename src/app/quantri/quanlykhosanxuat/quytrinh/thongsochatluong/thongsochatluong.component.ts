@@ -46,7 +46,7 @@ export class ThongsochatluongComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Trọng lượng bình quân',
+      header: 'Trọng lượng bình quân(kg)',
       field: 'TrongLuong',
       width: 'unset',
       type:'number'

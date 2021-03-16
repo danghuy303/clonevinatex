@@ -79,7 +79,7 @@
                 <button pButton pRipple type="button" label="Chọn danh sách thửa đất" class="p-mr-2 p-button-sm"
                     (click)="chonThuaDat()"></button>
             </div> -->
-            <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+            <p-table [value]="item.listItem|isXoa|SortByKey:'ThoiGianCapCangUnix'" styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:30px">
@@ -104,7 +104,7 @@
                         <th>Cấp bông</th>
                         <th>Đặc tính bông</th>
                         <th>Số HĐ</th>
-                        <th>Giá bông CIF (USD/Kg)</th>
+                        <th>Giá CIF</th>
                         <th>Số lượng nhập (Tấn)</th>
                         <th>SL Container</th>
                         <th>Tổng số kiện</th>
