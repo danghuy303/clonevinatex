@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-nhapkhomodal',
@@ -150,20 +150,19 @@ export class NhapkhomodalComponent implements OnInit {
     }
     
     if (isCheck === true ) {
-      this.toastr.error("Bạn chưa chọn vị trí");
+      this.toastr.error("Bạn chưa chọn vị trí!");
     }
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn  ngày");
+      this.toastr.error("Bạn chưa chọn  ngày!");
     }
     else if ((this.item.IddmCapBong === null || this.item.IddmCapBong  === undefined || this.item.IddmCapBong  === "") && (this.type === 'bong' || this.type === 'xo')) {
-      this.toastr.error("Bạn chưa chọn  danh mục cấp bông");
+      this.toastr.error("Bạn chưa chọn  danh mục cấp bông!");
     }
     else if (this.item.IddmLoaiBong === null || this.item.IddmLoaiBong === undefined || this.item.IddmLoaiBong === "") {
-      this.toastr.error("Bạn chưa chọn  danh mục loại bông");
+      this.toastr.error("Bạn chưa chọn  danh mục loại bông!");
     }
     else {
-      
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
