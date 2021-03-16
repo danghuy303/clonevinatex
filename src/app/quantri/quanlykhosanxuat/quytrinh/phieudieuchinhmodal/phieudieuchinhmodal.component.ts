@@ -191,8 +191,7 @@ export class PhieudieuchinhmodalComponent implements OnInit {
     if(this.item.listItem !== null && this.item.listItem !== undefined){
       this.listItemChon.splice(i, 1)
     }
-    console.log(this.item.listItem)
-    this.services.PhuongAnDieuChinhTimBong().GetKienLoBong(this.item.IdPhuongAnPhaBong, item.IdLoBong, this.item.IddmKho, item.Mic).subscribe((res:any)=>{
+    this.services.PhuongAnPhaBong().GetLoBongTrongKho_DieuChinh(item.Mic, item.IdLoBong).subscribe((res:any)=>{
       let modalRef = this._modal.open(KienlocongdieuchinhmodalComponent, {
         size: 'lg',
         backdrop: 'static'
@@ -212,5 +211,8 @@ export class PhieudieuchinhmodalComponent implements OnInit {
         // không
       });
     })
+  }
+  GetLoBongTrongKho() {
+    
   }
 }

@@ -892,6 +892,10 @@ export class SanXuatService {
             GetListItemDieuChinhTimBong: (IdPhuongAnPhaBong, ThuTu) => {
                 return this.http.get(url + `GetListItemDieuChinhTimBong?IdPhuongAnPhaBong=${IdPhuongAnPhaBong}&ThuTu=${ThuTu}`, httpOptions);
             },
+            GetLoBongTrongKho_DieuChinh: (Mic, IdLoBong) => {
+                let IdDuAn = parseInt(this.store.getCurrent());
+                return this.http.get(url + `GetLoBongTrongKho_DieuChinh?IdDuAn=${IdDuAn}&Mic=${Mic}&IdLoBong=${IdLoBong}`, httpOptions);
+            },
         }
     }
 
