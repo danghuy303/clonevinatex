@@ -53,7 +53,8 @@ export class TimbongmodalComponent implements OnInit {
   trongLuongLoBong: any = {};
   itemDeltaPlusB: any = {};
   itemMicTT: any = {};
-
+  itemCVMicTT:any={};
+  itemTyLeHoiPha:any={};
   PoolLoBong: any = {
 
   }
@@ -146,6 +147,8 @@ export class TimbongmodalComponent implements OnInit {
         if (validVariable(this.item.listThongSo)) {
           this.item.listThongSo.forEach(thongso => {
             this.itemMicTT[`${thongso.ThuTu}`] = thongso.MicTT;
+            this.itemCVMicTT[`${thongso.ThuTu}`] = thongso.CVMicTT;
+            this.itemTyLeHoiPha[`${thongso.ThuTu}`] = thongso.TyLeHoiPha;
           });
         }
       }

@@ -79,7 +79,7 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Ngày</th>
+                        <!-- <th>Ngày</th> -->
                         <th>Loại bông</th>
                         <th>Lô bông</th>
                         <th>Hợp đồng P/O</th>
@@ -91,7 +91,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr [ngClass]="{'p-text-bold': item.TendmLoaiBong=='TỔNG'}">
-                        <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
+                        <!-- <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td> -->
                         <td>{{item.TendmLoaiBong}}</td>
                         <td>{{item.TenLoBong}}</td>
                         <td>{{item.SoHopDong}}</td>
