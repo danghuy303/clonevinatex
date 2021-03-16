@@ -81,7 +81,9 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-    
+    this.item.listItem = this.listItem
+    console.log(this.item)
+    debugger
     this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -103,7 +105,7 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-
+    this.item.listItem = this.listItem
       this.services.PhieuXuatSanXuat().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

@@ -59,7 +59,7 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.isKhongTuDong===true">
             <label class="p-col-12 p-lg-5 p-p-0 my-auto">Số bàn:</label>
             <div class="p-col-12 p-lg-7 p-p-0">
-                <p-dropdown [filter]="true" [options]="listSoBan" placeholder="Chọn số bàn" [(ngModel)]="item.SoBan"
+                <p-dropdown [filter]="true" [options]="listSoBan" placeholder="Chọn số bàn" [(ngModel)]="item.ThuTu"
                 styleClass="p-inputtext-sm" (onChange)="getListItem()"></p-dropdown>
                 <!-- <input type="text" [(ngModel)]="item.TenPhuongAnPhaBong" disabled pInputText
                 (click)="getPhuongAnPhaBong(item.IdPhuongAnPhaBong)"/> -->

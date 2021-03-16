@@ -152,15 +152,17 @@
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien" disable>
                             </p-inputNumber>
                         </td>
                         <td class="text-center"  *ngIf="this.type==='bong'">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienNgan">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienNgan" 
+                            (ngModelChange)="TongSoKien(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center"  *ngIf="this.type==='bong'">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienDai">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienDai"
+                            (ngModelChange)="TongSoKien(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
