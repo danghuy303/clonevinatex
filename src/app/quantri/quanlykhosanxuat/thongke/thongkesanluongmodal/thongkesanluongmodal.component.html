@@ -62,13 +62,13 @@
                     [(ngModel)]="item.CongDoan" (onChange)="getItemTheoCongDoan()"></p-dropdown>
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca làm việc thực tế:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCaThucTe" placeholder="Chọn ca thực tế" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmCaSanXuatThucTe" (onChange)="getMatHangThongKeSanLuong()"></p-dropdown>
+                    [(ngModel)]="item.IddmCaSanXuatThucTe"></p-dropdown>
             </div>
-        </div> -->
+        </div>
         <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.CongDoan=='ONG'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô hàng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -94,8 +94,6 @@
                         <col>
                         <col>
                         <col>
-                        <col>
-                        <col *ngIf="item.CongDoan==='ONG'">
                         <col *ngIf="item.CongDoan==='ONG'">
                         <col *ngIf="item.CongDoan==='ONG'">
                         <col>
@@ -110,10 +108,10 @@
                         <th>Khối lượng tính toán</th>
                         <th>Chiều dài (m)</th>
                         <th *ngIf="item.CongDoan!=='ONG'">Khối lượng (kg)</th>
-                        <th *ngIf="item.CongDoan==='ONG'">Khối lượng mà hình (kg)</th>
-                        <th *ngIf="item.CongDoan==='ONG'">Số quả</th>
+                        <th *ngIf="item.CongDoan==='ONG'">Khối lượng màn hình (kg)</th>
+                        <!-- <th *ngIf="item.CongDoan==='ONG'">Số quả</th>
                         <th *ngIf="item.CongDoan==='ONG'">Kg/cone</th>
-                        <th *ngIf="item.CongDoan==='ONG'">Khối lượng hồi ẩm</th>
+                        <th *ngIf="item.CongDoan==='ONG'">Khối lượng hồi ẩm</th> -->
                         <th *ngIf="item.CongDoan==='ONG'">Lô hàng</th>
                         <th>Ghi chú</th>
                     </tr>
@@ -163,7 +161,7 @@
                             (onInput)="TinhSoQuaSoi(itemtbl, 0)">
                             </p-inputNumber>
                         </td> -->
-                        <td *ngIf="item.CongDoan==='ONG'">
+                        <!-- <td *ngIf="item.CongDoan==='ONG'">
                             <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.SoQuaSoi" (ngModelChange)="TinhKhoiLuongHoiAm(itemtbl)">
                             </p-inputNumber>
                         </td>
@@ -174,7 +172,7 @@
                         <td *ngIf="item.CongDoan==='ONG'">
                             <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuongHoiAm">
                             </p-inputNumber>
-                        </td>
+                        </td> -->
                         <td *ngIf="item.CongDoan==='ONG'">
                             <p-dropdown [filter]="true" [options]="listLoHang" placeholder="Chọn lô hàng" styleClass="p-inputtext-sm"
                                 [(ngModel)]="itemtbl.IdLoHang" ></p-dropdown>
@@ -202,7 +200,7 @@
                         <td class="text-right">
                             {{listItem|SumByKey:'KhoiLuong'|number:'0.3-3'}}
                         </td>
-                        <td *ngIf="item.CongDoan==='ONG'" class="text-right">
+                        <!-- <td *ngIf="item.CongDoan==='ONG'" class="text-right">
                             {{listItem|SumByKey:'SoQuaSoi'|number:'0.3-3'}}
                         </td>
                         <td *ngIf="item.CongDoan==='ONG'" class="text-right">
@@ -210,8 +208,8 @@
                         </td>
                         <td *ngIf="item.CongDoan==='ONG'" class="text-right">
                             {{listItem|SumByKey:'KhoiLuongHoiAm'|number:'0.3-3'}}
-                        </td>
-                        <td *ngIf="item.CongDoan==='ONG'">
+                        </td> -->
+                        <td *ngIf="item.CongDoan==='ONG'" class="text-right">
                         </td>
                         <td>
                         </td>

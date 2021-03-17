@@ -63,6 +63,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKien = new Date(obj.ThoiGianDuKienUnix * 1000);
           obj.ThoiGianCapCang = new Date(obj.ThoiGianCapCangUnix * 1000);
+          obj.listDacTinh = mapArrayForDropDown(obj.listDacTinh, 'DacTinh', 'Id');
         });
       }
       this.KiemTraButtonModal();
@@ -359,7 +360,8 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
   getDacTinhBong(item) {
     if (item.IddmCapBong !== undefined && item.IddmLoaiBong !== undefined) {
       this._services.dmDacTinhBong().GetDacTinh(item.IddmLoaiBong, item.IddmCapBong).subscribe((res: any) => {
-        item.DacTinh = res.DacTinh;
+        item.listDacTinh = mapArrayForDropDown(res, 'DacTinh', 'Id');
+        // item.DacTinh = res.DacTinh;
       })
     }
   }

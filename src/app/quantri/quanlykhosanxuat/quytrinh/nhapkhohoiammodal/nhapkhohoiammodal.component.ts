@@ -26,6 +26,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
   listPhanXuong: any = [];
   listCaMay: any = [];
   listKho: any = [];
+  listKgCone: any = [];
   lang: any = vn;
   data: any = {};
   type: any = '';
@@ -77,6 +78,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     this.getListKho();
     this.getListCaMay();
     this.getListPhanXuong();
+    this.getListKgCone();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -226,5 +228,10 @@ export class NhapkhohoiammodalComponent implements OnInit {
       this._modal.dismissAll()
     }
     // this.activeModal.close();
+  }
+  getListKgCone() {
+    this._services.GetListKgCone().subscribe((res: any) => {
+      this.listKgCone = mapArrayForDropDown(res, 'GiaTri', 'Id');
+    })
   }
 }

@@ -313,10 +313,16 @@ export class NhapkhomodalComponent implements OnInit {
       this.add()
     }
   }
-  TongSoKien(item){
-    if(item.SoKienDai !== null && item.SoKienDai !== undefined && item.SoKienNgan !== null 
+  TinhSoKienDai(item){
+    if(item.SoKien !== null && item.SoKien !== undefined && item.SoKienDai !== null 
+      && item.SoKienDai !== undefined ){
+        item.SoKienNgan = item.SoKien - item.SoKienDai;
+      }
+  }
+  TinhSoKienNgan(item){
+    if(item.SoKien !== null && item.SoKien !== undefined && item.SoKienNgan !== null 
       && item.SoKienNgan !== undefined ){
-        item.SoKien = item.SoKienDai + item.SoKienNgan;
+        item.SoKienDai = item.SoKien - item.SoKienNgan;
       }
   }
 }

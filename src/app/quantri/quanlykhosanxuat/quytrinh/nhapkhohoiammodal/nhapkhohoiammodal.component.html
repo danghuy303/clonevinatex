@@ -81,7 +81,7 @@
                     (click)="GetMatHangTheoKho()"></button>
             </div>
             <p-table 
-             [value]="item.listItem|isXoa" [scrollable]="true" scrollHeight="40vh"
+             [value]="item.listItem.concat([{},{},{},{}])|isXoa" [scrollable]="true" scrollHeight="40vh"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -89,8 +89,9 @@
                         <col>
                         <col>
                         <col>
-                        <col>
                         <!-- <col> -->
+                        <!-- <col> -->
+                        <col>
                         <col>
                         <col style="width:100px">
                     </colgroup>
@@ -100,9 +101,10 @@
                         <th>#</th>
                         <th>Tên</th>
                         <th>Kg/cone</th>
-                        <th>Quả sợi sản xuất</th>
+                        <!-- <th>Quả sợi sản xuất</th> -->
                         <th>Quả sợi thực tế</th>
                         <!-- <th>Số quả sợi</th> -->
+                        <th>Khối lượng hồi ẩm</th>
                         <th>Ghi chú</th>
                         <th style="width: 100px;"></th>
                     </tr>
@@ -112,19 +114,27 @@
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">{{item.Ten}}</td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KgCone" disabled>
-                            </p-inputNumber>
+                            <p-dropdown [filter]="true" [options]="listKgCone" placeholder="Chọn KgCone" 
+                                [(ngModel)]="item.KgCone"
+                                styleClass="p-inputtext-sm"></p-dropdown>
+
+                            <!-- <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KgCone" disabled>
+                            </p-inputNumber> -->
                         </td>
                         <!-- <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.KhoiLuong">
                             </p-inputNumber>
                         </td> -->
-                        <td class="text-center">
+                        <!-- <td class="text-center">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoQuaSoiSanXuat" disabled>
+                            </p-inputNumber>
+                        </td> -->
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe * item.KgCone">
                             </p-inputNumber>
                         </td>
                         <!-- <td class="text-center">

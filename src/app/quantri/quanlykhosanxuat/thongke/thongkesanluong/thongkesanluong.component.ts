@@ -36,7 +36,7 @@ export class ThongkesanluongComponent implements OnInit {
     },
     {
       header: 'Khối lượng(kg)',
-      field: 'TendmCaSanXuat',
+      field: 'TongKhoiLuong',
       width: 'unset'
     },
     {
