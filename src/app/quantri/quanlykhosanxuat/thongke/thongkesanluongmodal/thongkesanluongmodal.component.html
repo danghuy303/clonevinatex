@@ -85,7 +85,7 @@
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <p-table [lazy]="true"
-            [value]="listItem" styleClass="p-datatable-sm wrap-text">
+            [value]="listItem|isXoa" styleClass="p-datatable-sm wrap-text">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
