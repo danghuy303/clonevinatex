@@ -13,6 +13,7 @@ import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 })
 export class XuatkhobonghoimodalComponent implements OnInit {
   opt: any = ''
+  Id: any = ''
   item: any = {};
   checkbutton: any = {
     Ghi:true,
@@ -53,7 +54,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   }
   GetQuyTrinh()
   {
-    this.services.PhieuXuatSanXuat().Get(this.item.Id).subscribe((res1:any)=>{
+    this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1:any)=>{
       this.item = res1;
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
@@ -158,5 +159,8 @@ export class XuatkhobonghoimodalComponent implements OnInit {
     if((start + 15) > this.paging.TotalItem)
       end= this.paging.TotalItem;
     this.item.listItem = this.listItem.slice(start,end);
+  }
+  Onclose() {
+    this.activeModal.close();
   }
 }

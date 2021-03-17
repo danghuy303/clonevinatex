@@ -38,6 +38,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.getListCongDoan();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
+      this.GetPhanXuongTheoUser()
     }
     else{
       this.KiemTraButtonModal();
@@ -156,6 +157,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
   getListCaSanXuat() {
     this.services.GetListOptdmCaSanXuat().subscribe((res: any) => {
       this.listCaSanXuat = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  GetPhanXuongTheoUser() {
+    this.services.GetListPhanXuongTheoUser().subscribe((res: any) => {
+      if(res != null)
+        this.item.IddmPhanXuong = res[0].Id;
     })
   }
   getListPhanXuong() {

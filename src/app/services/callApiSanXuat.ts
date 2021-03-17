@@ -347,6 +347,10 @@ export class SanXuatService {
     //#endregion
 
     //#region  phân xưởng
+    GetListPhanXuongTheoUser() {
+        let url = API.SCMDanhMuc + 'GetListPhanXuongTheoUser';
+        return this.http.get(url, httpOptions);
+    }
     GetListdmPhanXuongOpt() {
         let url = API.SCMDanhMuc + 'GetListdmPhanXuong';
         return this.http.get(url, httpOptions);
@@ -764,9 +768,9 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetKeHoachNhapNguyenLieu', data, httpOptions)
             },
-            GetListChuaNhap: (IdKeHoachInvoice_Item) => {
+            GetListChuaNhap: (IdKeHoachInvoice_Item, IddmLoaiBong) => {
                 let IdDuAn = this.store.getCurrent();
-                return this.http.get(url + `GetListKeHoachNhapNguyenLieu_ChuaNhapHang?IdDuAn=${IdDuAn}&IdKeHoachInvoice_Item=${IdKeHoachInvoice_Item}`, httpOptions)
+                return this.http.get(url + `GetListKeHoachNhapNguyenLieu_ChuaNhapHang?IdDuAn=${IdDuAn}&IdKeHoachInvoice_Item=${IdKeHoachInvoice_Item}&IddmLoaiBong=${IddmLoaiBong}`, httpOptions)
             },
         }
     }

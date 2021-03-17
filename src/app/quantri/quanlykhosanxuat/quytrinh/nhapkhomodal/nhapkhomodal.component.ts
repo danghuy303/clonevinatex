@@ -292,7 +292,7 @@ export class NhapkhomodalComponent implements OnInit {
     })
   }
   getListKeHoach() {
-    this._services.NhapKeHoachNguyenLieu().GetListChuaNhap(this.item.IdKeHoachNhapNguyenLieuInvoice_Item).subscribe((res: any) => {
+    this._services.NhapKeHoachNguyenLieu().GetListChuaNhap(this.item.IdKeHoachNhapNguyenLieuInvoice_Item, this.item.IddmLoaiBong).subscribe((res: any) => {
       this.listKeHoach = mapArrayForDropDown(res, 'Ten', 'Id');
       this.listKeHoachFull = res;
     })
@@ -303,6 +303,8 @@ export class NhapkhomodalComponent implements OnInit {
     });
     console.log(dataFilter)
     this.item.IddmLoaiBong = dataFilter[0].IddmLoaiBong;
+    this.item.MaInvoice = dataFilter[0].MaInvoice;
+    this.item.NoiDung = dataFilter[0].NoiDung;
     this.item.IddmCapBong = dataFilter[0].IddmCapBong;
     this.item.GiaBong = dataFilter[0].GiaBong;
     this.item.SoHopDong = dataFilter[0].SoHopDong;
@@ -317,12 +319,16 @@ export class NhapkhomodalComponent implements OnInit {
     if(item.SoKien !== null && item.SoKien !== undefined && item.SoKienDai !== null 
       && item.SoKienDai !== undefined ){
         item.SoKienNgan = item.SoKien - item.SoKienDai;
+        if(item.SoKienNgan < 0)
+          item.SoKienNgan = 0;
       }
   }
   TinhSoKienNgan(item){
     if(item.SoKien !== null && item.SoKien !== undefined && item.SoKienNgan !== null 
       && item.SoKienNgan !== undefined ){
         item.SoKienDai = item.SoKien - item.SoKienNgan;
+        if(item.SoKienDai < 0)
+          item.SoKienDai = 0;
       }
   }
 }

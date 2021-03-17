@@ -47,6 +47,18 @@
             </div>
         </div> 
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Mã Invoice:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.MaInvoice" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung Invoice:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label *ngIf="this.type!=='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông <span class="text-danger">*</span>:</label>
             <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại xơ <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -193,21 +205,21 @@
                         </td>
                         <td>
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKien">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKien" [min] = "0">
                                 </p-inputNumber>
                             </div>
                         </td>
                         <td  *ngIf="this.type==='bong'">
                             <div class="p-inputgroup">
                                 <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKienNgan"
-                                (ngModelChange)="TinhSoKienNgan(newTableItem)">
+                                (ngModelChange)="TinhSoKienNgan(newTableItem)" [min] = "0">
                                 </p-inputNumber>
                             </div>
                         </td>
                         <td  *ngIf="this.type==='bong'">
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKienDai"
-                                (ngModelChange)="TinhSoKienDai(newTableItem)">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKienDai" 
+                                (ngModelChange)="TinhSoKienDai(newTableItem)" [min] = "0">
                                 </p-inputNumber>
                             </div>
                         </td>
@@ -220,6 +232,26 @@
                             <button pButton pRipple type="button" icon="pi pi-plus"
                                 class="p-button-rounded p-button-sm " (click)="add()"></button>
                         </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'SoCan'|number:'0.0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'SoKien'|number:'0.0'}}
+                        </td>
+                        <td class="text-right" *ngIf="this.type==='bong'">
+                            {{item.listItem|SumByKey:'SoKienNgan'|number:'0.0'}}
+                        </td>
+                        <td class="text-right" *ngIf="this.type==='bong'">
+                            {{item.listItem|SumByKey:'SoKienDai'|number:'0.0'}}
+                        </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </ng-template>
             </p-table>
