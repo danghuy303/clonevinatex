@@ -551,21 +551,21 @@ export class SanXuatService {
             },
             ChuyenTiep: (data) => {
                 data.IdDuAn = this.store.getCurrent();
-                return this.http.post(url + 'ChuyenTiepTrienKhaiKeHoachSanXuat', data, httpOptions)
+                return this.http.post(url + 'ChuyenTiepTrienKhaiKeHoachSanXuat', data, httpOptions);
             },
             KhongDuyet: (data) => {
                 data.IdDuAn = this.store.getCurrent();
-                return this.http.post(url + 'KhongDuyetTrienKhaiKeHoachSanXuat', data, httpOptions)
+                return this.http.post(url + 'KhongDuyetTrienKhaiKeHoachSanXuat', data, httpOptions);
             },
             TinhNangSuat: (data) => {
                 data.IdDuAn = this.store.getCurrent();
-                return this.http.post(url + 'TinhNangSuat', data, httpOptions)
+                return this.http.post(url + 'TinhNangSuat', data, httpOptions);
             },
             GetChiSo:(data)=>{
-                return this.http.post(url + 'GetChiSo', data, httpOptions)
+                return this.http.post(url + 'GetChiSo', data, httpOptions);
             },
             SetChiSo:(data)=>{
-                return this.http.post(url + 'SetChiSo', data, httpOptions)
+                return this.http.post(url + 'SetChiSo', data, httpOptions);
             }
         }
     }

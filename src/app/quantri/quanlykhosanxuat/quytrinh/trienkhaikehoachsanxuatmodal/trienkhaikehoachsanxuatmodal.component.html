@@ -128,8 +128,7 @@
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số ca:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber locale="vi-VN"
-                    [(ngModel)]="item.SoCa" (onBlur)="ThayDoiSoCa()">
+                <p-inputNumber locale="vi-VN" [(ngModel)]="item.SoCa" (onBlur)="ThayDoiSoCa()">
                 </p-inputNumber>
             </div>
         </div>
@@ -159,16 +158,20 @@
                     <div style="display: flex; align-items: center; height: 100%;"
                         *ngIf="mapCongDoan_TinhTrangMay[filter.CongDoan]!==undefined">
                         <span class="mr-5 ml-5">
-                            Tổng kế hoạch triển khai(Tấn): &nbsp; <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.TongKhoiLuong|number:'0.0-2'}}</strong>
+                            Tổng kế hoạch triển khai(Tấn): &nbsp;
+                            <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.TongKhoiLuong|number:'0.0-2'}}</strong>
                         </span>
                         <span class="mr-5 ml-5">
-                            Số máy hiện có: &nbsp; <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayHienCo|number:'0.0-2'}}</strong>
+                            Số máy hiện có: &nbsp;
+                            <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayHienCo|number:'0.0-2'}}</strong>
                         </span>
                         <span class="mr-5">
-                            Số máy cần: &nbsp; <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayTinhToan|number:'0.0-2'}}</strong>
+                            Số máy cần: &nbsp;
+                            <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayTinhToan|number:'0.0-2'}}</strong>
                         </span>
-                        <span >
-                            Số máy cân đối: &nbsp; <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayCanDoi|number:'0.0-2'}}</strong>
+                        <span>
+                            Số máy cân đối: &nbsp;
+                            <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayCanDoi|number:'0.0-2'}}</strong>
                         </span>
                     </div>
                 </div>
@@ -214,7 +217,9 @@
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">{{mathang.Ten}}</td>
                         <td class="text-center" *ngIf="filter.CongDoan ==='THO'">
-                            {{mathang.listNMtemp}}
+                            <p-dropdown [options]="mathang.listNMtemp" placeholder="Chọn Nm"
+                                styleClass="p-inputtext-sm" [(ngModel)]="mathang.ChiSoMoi"
+                                (onChange)="SetChiSo($event,mathang)"></p-dropdown>
                         </td>
                         <td class="text-center">
                             {{mathang.KhoiLuongSanXuat|number:'0.0-2'}}
