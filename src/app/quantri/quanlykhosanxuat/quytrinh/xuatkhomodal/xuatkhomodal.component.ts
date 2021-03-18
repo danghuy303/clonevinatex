@@ -53,9 +53,6 @@ export class XuatkhomodalComponent implements OnInit {
     this.services.GetListdmPhanXuong(data).subscribe((res:any)=>{
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
-    }
   }
   GetQuyTrinh()
   {
@@ -68,6 +65,9 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.listItem = res1.listItem.slice(0,15);
       this.items = res1.listItem.slice(0,15);
       this.KiemTraButtonModal();
+      if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+        this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      }
     })
   }
   KiemTraButtonModal() {

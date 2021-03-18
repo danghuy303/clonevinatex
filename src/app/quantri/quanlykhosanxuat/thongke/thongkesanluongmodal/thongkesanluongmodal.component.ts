@@ -38,6 +38,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.getListCongDoan();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
+      this.GetPhanXuongTheoUser()
     }
     else{
       this.KiemTraButtonModal();
@@ -60,7 +61,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   ChuyenDuyet() {
     let isCheck : any = false;
     this.item.listItem.forEach(element => {
-      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG") {
+      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {
         isCheck= true;
       }
     });
@@ -90,7 +91,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
     let isCheck : any = false;
     this.item.listItem.forEach(element => {
       if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {
-        debugger
         isCheck= true;
       }
     });
@@ -156,6 +156,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
   getListCaSanXuat() {
     this.services.GetListOptdmCaSanXuat().subscribe((res: any) => {
       this.listCaSanXuat = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  GetPhanXuongTheoUser() {
+    this.services.GetListPhanXuongTheoUser().subscribe((res: any) => {
+      if(res != null)
+        this.item.IddmPhanXuong = res[0].Id;
     })
   }
   getListPhanXuong() {

@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày nhập:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày nhập <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
@@ -131,6 +131,17 @@
                             <button pButton pRipple type="button" icon="pi pi-plus"
                                 class="p-button-rounded p-button-sm " (click)="addBongHoi()"></button>
                         </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">
+                            {{item.listKien|SumByKey:'SoCan'|number:'0.0'}}
+                        </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </ng-template>
             </p-table>

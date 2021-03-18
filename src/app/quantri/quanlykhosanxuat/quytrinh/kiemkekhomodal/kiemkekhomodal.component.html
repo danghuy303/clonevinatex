@@ -83,7 +83,6 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
-                        <!-- <td>{{item.TenLoBong}}</td> -->
                         <td style="text-align: center;">{{item.Ma}}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>
                         <td>
@@ -100,6 +99,20 @@
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
                                 tooltipPosition="bottom"></button>
                         </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'Ton'|number:'0.0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'SoLuong'|number:'0.0'}}
+                        </td>
+                        <td></td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="summary">
