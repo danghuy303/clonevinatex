@@ -334,7 +334,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     this.item.listItem[index].editField = false;
   }
   Onclose() {
-    this.activeModal.dismiss();
+    this.activeModal.close();
   }
   editItem(item) {
     let modalRef = this._modal.open(KehoachnhapnguyenlieuitemmodalComponent, {

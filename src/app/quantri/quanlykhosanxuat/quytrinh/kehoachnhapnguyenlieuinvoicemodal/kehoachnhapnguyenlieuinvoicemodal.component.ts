@@ -77,6 +77,8 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
+      if(this.item.IdUserHienTai === this.item.CreatedBy)
+        this.checkbutton.Ghi = true;
     })
   }
 

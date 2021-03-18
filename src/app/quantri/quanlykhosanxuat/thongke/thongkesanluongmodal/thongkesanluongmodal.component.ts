@@ -61,7 +61,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   ChuyenDuyet() {
     let isCheck : any = false;
     this.item.listItem.forEach(element => {
-      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG") {
+      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {
         isCheck= true;
       }
     });
@@ -91,7 +91,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
     let isCheck : any = false;
     this.item.listItem.forEach(element => {
       if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {
-        debugger
         isCheck= true;
       }
     });
