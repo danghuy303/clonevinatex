@@ -789,9 +789,9 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetKeHoachNhapNguyenLieu', data, httpOptions)
             },
-            GetListChuaNhap: (IdKeHoachInvoice_Item, IddmLoaiBong) => {
+            GetListChuaNhap: (IdKeHoachInvoice_Item, Loai) => {
                 let IdDuAn = this.store.getCurrent();
-                return this.http.get(url + `GetListKeHoachNhapNguyenLieu_ChuaNhapHang?IdDuAn=${IdDuAn}&IdKeHoachInvoice_Item=${IdKeHoachInvoice_Item}&IddmLoaiBong=${IddmLoaiBong}`, httpOptions)
+                return this.http.get(url + `GetListKeHoachNhapNguyenLieu_ChuaNhapHang?IdDuAn=${IdDuAn}&IdKeHoachInvoice_Item=${IdKeHoachInvoice_Item}&Loai=${Loai}`, httpOptions)
             },
         }
     }
