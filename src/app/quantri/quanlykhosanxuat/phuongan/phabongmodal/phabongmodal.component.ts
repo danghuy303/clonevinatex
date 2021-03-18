@@ -572,10 +572,6 @@ export class PhabongmodalComponent implements OnInit {
         let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
         (listInput[realIndexInDom] as HTMLElement)?.focus();
       }
-      // if(event.key==='ArrowDown'){
-      //   console.log('ArrowDown',index)
-      // }
     }
-
   }
 }

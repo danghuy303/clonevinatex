@@ -560,6 +560,12 @@ export class SanXuatService {
             TinhNangSuat: (data) => {
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'TinhNangSuat', data, httpOptions)
+            },
+            GetChiSo:(data)=>{
+                return this.http.post(url + 'GetChiSo', data, httpOptions)
+            },
+            SetChiSo:(data)=>{
+                return this.http.post(url + 'SetChiSo', data, httpOptions)
             }
         }
     }
@@ -585,6 +591,9 @@ export class SanXuatService {
             },
             ThemMatHangDao: (data) => {
                 return this.http.post(`${url}ThemMatHangDao`, data, httpOptions);
+            },
+            SetDieuChinhCanDoiChuyen:(data)=>{
+                return this.http.post(`${url}SetDieuChinhCanDoiChuyen`, data, httpOptions);
             }
         }
     }

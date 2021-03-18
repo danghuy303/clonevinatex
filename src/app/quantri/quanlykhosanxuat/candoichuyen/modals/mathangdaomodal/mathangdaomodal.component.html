@@ -30,6 +30,8 @@
                         <col style="width:50px">
                         <col>
                         <col>
+                        <col>
+                        <col>
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -41,9 +43,9 @@
                         <th>
                             Tên mặt hàng
                         </th>
+                        <th>Lô bông</th>
                         <th>Tồn</th>
                         <th>Số kiện</th>
-                        <!-- <th>Ghi chú</th> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -55,13 +57,13 @@
                         <td class="text-center">
                             {{item.Ten}}
                         </td>
+                        <td>{{item.TenLoHang}}</td>
                         <td class="text-right">{{item.Ton}}</td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [max]="item.Ton"
                                 [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
-                        <!-- <td>{{item.GhiChu}}</td> -->
                     </tr>
                 </ng-template>
             </p-table>

@@ -36,7 +36,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   minDateChonMay: Date = null;
   IddmPhanXuong: string = '';
   PoolMaySanXuat: any = {};
-  mapCongDoan_TinhTrangMay:any={};
+  mapCongDoan_TinhTrangMay: any = {};
   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private datepipe: DatePipe) {
   }
 
@@ -217,7 +217,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     //   this.toastr.error('Vui lòng chọn kế hoạch giao!')
     //   return false
     // }
-    if(!validVariable(this.item.TuNgay)||!validVariable(this.item.DenNgay)){
+    if (!validVariable(this.item.TuNgay) || !validVariable(this.item.DenNgay)) {
       this.toastr.error('Vui lòng nhập khoảng thời gian!');
       return false;
     }
@@ -519,7 +519,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         setTimeout(() => {
           mathang.DenNgay = null;
         }, 500)
-      }else{
+      } else {
         this.TinhNangSuat();
       }
     } else {
@@ -546,11 +546,11 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     // }
   }
   TinhNangSuat() {
-    if(validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)){
+    if (validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)) {
       this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
       this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
-      if(!validVariable(this.item.SoCa)|| this.item.SoCa===0){
-        this.item.SoCa = ((this.item.DenNgayUnix - this.item.TuNgayUnix)/(24*3600)+1)*3;
+      if (!validVariable(this.item.SoCa) || this.item.SoCa === 0) {
+        this.item.SoCa = ((this.item.DenNgayUnix - this.item.TuNgayUnix) / (24 * 3600) + 1) * 3;
       }
     }
     if (validVariable(this.item.listItem) && this.item.listItem.length !== 0 && validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)) {
@@ -558,22 +558,32 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         this.listCongDoan = mapArrayForDropDown(res.listCongDoan, 'Ten', 'Ma');
         res.listCongDoan.forEach(cd => {
           this.mapCongDoan_TinhTrangMay[cd.Ma] = {
-            TongKhoiLuong:res.listItemMay.filter(mathang=>mathang.CongDoan===cd.Ma).reduce((Tong,mh)=>Tong+mh.KhoiLuongSanXuat,0),
-            SoMayCanDoi:cd.SoMayCanDoi,
-            SoMayHienCo:cd.SoMayHienCo,
-            SoMayTinhToan:cd.SoMayTinhToan,
+            TongKhoiLuong: res.listItemMay.filter(mathang => mathang.CongDoan === cd.Ma).reduce((Tong, mh) => Tong + mh.KhoiLuongSanXuat, 0),
+            SoMayCanDoi: cd.SoMayCanDoi,
+            SoMayHienCo: cd.SoMayHienCo,
+            SoMayTinhToan: cd.SoMayTinhToan,
           }
         });
         // this.filter.CongDoan = this.listCongDoan[0].value;
         this.filter.CongDoan = 'ONG';
-        res.listItemMay.sort((a,b)=>{
+        res.listItemMay.sort((a, b) => {
           return ('' + a.Ten).localeCompare(b.Ten);
         })
         this.item.listItemMay = res.listItemMay;
       })
     }
   }
-  resetFilter(){
+  resetFilter() {
     this.filter.KeyWord = '';
+  }
+  chonCongDoan(e) {
+    if (e === 'THO') {
+      console.log(this.item.listItemMay.filter(ele => ele.CongDoan === 'THO'))
+      this.item.listItemMay.filter(ele => ele.CongDoan === 'THO').forEach(mathang => {
+        this._services.TrienKhaiKeHoachSanXuat().GetChiSo(mathang).subscribe(res=>{
+          mathang.listNMtemp = res;
+        })
+      });
+    }
   }
 }
