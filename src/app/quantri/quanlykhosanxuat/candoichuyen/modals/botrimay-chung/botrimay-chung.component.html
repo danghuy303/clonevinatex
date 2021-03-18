@@ -52,7 +52,7 @@
                             <th>Ne</th> -->
                             <th>Tốc độ</th>
                             <th>Năng suất</th>
-                            <th *ngIf="addonData.CongDoan==='THO' || addonData.CongDoan==='CON'">Màu</th>
+                            <th *ngIf="addonData.CongDoan==='CON'">Màu</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -73,7 +73,7 @@
                                 <td class="text-right">
                                     {{item.SanLuongCa|number:'0.2-2'}}
                                 </td>
-                                <td *ngIf="addonData.CongDoan==='THO' || addonData.CongDoan==='CON'">
+                                <td *ngIf="addonData.CongDoan==='CON'">
                                     <!--  -->
                                     <div style="display: flex; flex-direction: row;" *ngIf="item.IdCanDoiChuyen_CanBoTri!==null">
                                         <div style="width:28px">

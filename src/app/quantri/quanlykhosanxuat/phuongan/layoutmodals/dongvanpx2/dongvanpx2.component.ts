@@ -142,7 +142,7 @@ export class Dongvanpx2Component implements OnInit {
   }
   returnSlot(event: MouseEvent, item) {
     if (validVariable(this.banBong[item].IdLoBong)) {
-      let _returnSlot = this.item.listLoBong.find(ele => ele.IdLoBong === this.banBong[item].IdLoBong);
+      let _returnSlot = this.item.listLoBong.find(ele => ele.Id === this.banBong[item].IdLoBong);
       if (validVariable(_returnSlot)) {
         _returnSlot.DaXep--;
         this.banBong[item].IdLoBong = null;
@@ -157,7 +157,7 @@ export class Dongvanpx2Component implements OnInit {
       if (validVariable(this.item.listLoBong[i].DaXep)) {
         if (this.item.listLoBong[i].DaXep < this.item.listLoBong[i].SoLuong) {
           if (validVariable(this.banBong[this.focusedSlot].IdLoBong)) {
-            let _returnSlot = this.item.listLoBong.find(ele => ele.IdLoBong === this.banBong[this.focusedSlot].IdLoBong);
+            let _returnSlot = this.item.listLoBong.find(ele => ele.Id === this.banBong[this.focusedSlot].IdLoBong);
             if (validVariable(_returnSlot)) {
               _returnSlot.DaXep--;
             }
@@ -165,13 +165,13 @@ export class Dongvanpx2Component implements OnInit {
           this.item.listLoBong[i].DaXep++
           this.banBong[`${this.focusedSlot}`].labelLoBong = lobong.TenLoBong;
           this.banBong[`${this.focusedSlot}`].Mau = lobong.Mau;
-          this.banBong[`${this.focusedSlot}`].IdLoBong = lobong.IdLoBong;
+          this.banBong[`${this.focusedSlot}`].IdLoBong = lobong.Id;
           this.clearFocus()
           this.getNextFocus()
         }
       } else {
         if (validVariable(this.banBong[this.focusedSlot].IdLoBong)) {
-          let _returnSlot = this.item.listLoBong.find(ele => ele.IdLoBong === this.banBong[this.focusedSlot].IdLoBong);
+          let _returnSlot = this.item.listLoBong.find(ele => ele.Id === this.banBong[this.focusedSlot].IdLoBong);
           if (validVariable(_returnSlot)) {
             _returnSlot.DaXep--;
           }
@@ -179,7 +179,7 @@ export class Dongvanpx2Component implements OnInit {
         this.item.listLoBong[i].DaXep = 1;
         this.banBong[`${this.focusedSlot}`].labelLoBong = lobong.TenLoBong;
         this.banBong[`${this.focusedSlot}`].Mau = lobong.Mau;
-        this.banBong[`${this.focusedSlot}`].IdLoBong = lobong.IdLoBong;
+        this.banBong[`${this.focusedSlot}`].IdLoBong = lobong.Id;
         this.clearFocus()
         this.getNextFocus()
       }
@@ -217,7 +217,7 @@ export class Dongvanpx2Component implements OnInit {
     for(let soban in this.banBong){
       let item = {
         TenLoBong:this.banBong[soban].labelLoBong,
-        IdLoBong: this.banBong[soban].IdLoBong,
+        Id: this.banBong[soban].IdLoBong,
         ThuTu:soban,
         isNgoaiQuan: this.banBong[soban]._ngoaiQuan
       }

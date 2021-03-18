@@ -188,7 +188,7 @@ export function merge(newArr: Array<any>, existingArr: Array<any>, diffProp: str
 export function CVMic(array:Array<any>,sokien:number){
     // array là mảng chứa mic và số lượng của từng lô từng bàn từ bông hồi
     // sokien là tổng số kiện trên bàn bông trừ bông hồi
-    return (Math.sqrt(array.map(x => Math.pow(x - (array.reduce((a, b) => a + b) / array.length), 2)).reduce((a, b) => a + b) / (array.length-1)))*sokien/100
+    return (Math.sqrt(array.map(x => Math.pow(x - (array.reduce((a, b) => a + b) / array.length), 2)).reduce((a, b) => a + b) / (array.length-1)))/sokien*100
 }
 
 export function formatdate(ngay: any, istime: boolean) {
