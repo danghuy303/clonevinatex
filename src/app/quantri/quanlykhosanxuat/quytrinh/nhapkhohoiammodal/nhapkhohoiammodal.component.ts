@@ -231,7 +231,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
   }
   getListKgCone() {
     this._services.GetListKgCone().subscribe((res: any) => {
-      this.listKgCone = mapArrayForDropDown(res, 'GiaTri', 'Id');
+      this.listKgCone = mapArrayForDropDown(res, 'GiaTri', 'GiaTri');
     })
   }
 }

@@ -46,7 +46,7 @@
                 (onChange)="getKeHoach($event)"></p-dropdown>
             </div>
         </div> 
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Mã Invoice:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.MaInvoice" pInputText />
@@ -57,7 +57,7 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
             </div>
-        </div>
+        </div> -->
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label *ngIf="this.type!=='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông <span class="text-danger">*</span>:</label>
             <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại xơ <span class="text-danger">*</span>:</label>
@@ -239,7 +239,7 @@
                         <td></td>
                         <td></td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'SoCan'|number:'0.0'}}
+                            {{item.listItem|SumByKey:'SoCan'|number:'0.3-3'}}
                         </td>
                         <td class="text-right">
                             {{item.listItem|SumByKey:'SoKien'|number:'0.0'}}
