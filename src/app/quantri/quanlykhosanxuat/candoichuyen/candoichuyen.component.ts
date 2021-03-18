@@ -191,7 +191,12 @@ export class CandoichuyenComponent implements OnInit {
                     };
                     modalRef.result
                         .then((res) => {
-                            this.navigationAction(res.opt,index)
+                            if(res.opt){
+                                this.navigationAction(res.opt,index);
+                            }
+                            if(res.respawn){
+                                this.boTriMay(index,date);
+                            }
                         })
                         .catch((er) => {
                             console.log(er);

@@ -156,13 +156,13 @@
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-item let-i="rowIndex">
-                            <tr>
-                                <td>{{i+1}}</td>
-                                <td>{{item.Ten}}</td>
+                            <tr >
+                                <td [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" >{{i+1}}</td>
+                                <td [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" >{{item.Ten}}</td>
                                 <!-- <td></td> -->
-                                <td class="text-right">{{item.SoMayCon|number:'0.0-2'}}</td>
-                                <td class="text-right">{{item.SoCocOng}}</td>
-                                <td class="text-right">{{item.OngTrenCon|number:'0.0-2'}}</td>
+                                <td  [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" class="text-right">{{item.SoMayCon|number:'0.0-2'}}</td>
+                                <td  [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" class="text-right">{{item.SoCocOng}}</td>
+                                <td  [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" class="text-right">{{item.OngTrenCon|number:'0.0-2'}}</td>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="footer">

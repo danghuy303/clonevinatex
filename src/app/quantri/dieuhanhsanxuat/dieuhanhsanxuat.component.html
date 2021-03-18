@@ -3,12 +3,12 @@
     <div class="p-d-flex flex-column flex-lg-row p-pl-3">
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter._tuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="ChangeOpt()">
+                [(ngModel)]="filter._tuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="ChangeOptBieuDo()">
             </p-calendar>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter._denNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="ChangeOpt()">
+                [(ngModel)]="filter._denNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="ChangeOptBieuDo()">
             </p-calendar>
         </div>
     </div>
@@ -25,13 +25,13 @@
                 </div>
                 <div class="p-d-flex flex-column flex-lg-row">
                     <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại bông"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmLoaiBong" (onChange)="ChangeOpt()">
+                        <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmKho" (onChange)="getMatHangNhuCau($event.value)">
                         </p-dropdown>
                     </div>
                     <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmKho" (onChange)="ChangeOpt()">
+                        <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại bông"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmLoaiBong" (onChange)="ChangeOptBieuDo()">
                         </p-dropdown>
                     </div>
                     <!-- <div style="display:table;height:100%">
@@ -60,15 +60,25 @@
                 </h5>
                 <div class="p-mr-2">
                     <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                        [(ngModel)]="filter._tuNgayCanDoiTon" inputId="icon" placeholder="Từ ngày"
-                        (onSelect)="ChangeOpt()">
+                        [(ngModel)]="filterNhuCau._tuNgayCanDoiTon" inputId="icon" placeholder="Từ ngày"
+                        (onSelect)="ChangeOptCanDoiTon()">
                     </p-calendar>
                 </div>
                 <div class="p-mr-2">
                     <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                        [(ngModel)]="filter._denNgayCanDoiTon" inputId="icon" placeholder="Đến ngày"
-                        (onSelect)="ChangeOpt()">
+                        [(ngModel)]="filterNhuCau._denNgayCanDoiTon" inputId="icon" placeholder="Đến ngày"
+                        (onSelect)="ChangeOptCanDoiTon()">
                     </p-calendar>
+                </div>
+                <div class="p-mr-2">
+                    <p-dropdown [filter]="true" [options]="listKhoCanDoiTon" placeholder="Chọn kho"
+                        styleClass="p-inputtext-sm" [(ngModel)]="filterNhuCau.IddmKho" (onChange)="getMatHangCanDoiTon($event.value)">
+                    </p-dropdown>
+                </div>
+                <div class="p-mr-2">
+                    <p-dropdown [filter]="true" [options]="listLoaiBongCanDoiTon" placeholder="Chọn loại bông"
+                        styleClass="p-inputtext-sm" [(ngModel)]="filterNhuCau.IddmLoaiBong" (onChange)="ChangeOptCanDoiTon()">
+                    </p-dropdown>
                 </div>
             </div>
             <p-table [value]="listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines minimize-font" [scrollable]="true" scrollHeight="260px">

@@ -18,12 +18,14 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   addonData: any = {};
   TenCongDoan: any = '';
   listHangHoa: any = [];
+  dangDieuChinh:boolean = false;
   item: any = {
   }
   TongMatHang: any = {};
   filter: any = {};
   newMay: any = {};
   lang: any = vn;
+  listItemDieuChinh:any = [];
   optionMatHang:string = '';
   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) {
     super(activeModal)
@@ -124,7 +126,14 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
       item.SoCocTu = null;
       item.SoCocDen = null;
     }
+    if(item.isDieuChinh){
+      item.isDieuChinh = false;
+    }
     this.inputChange();
+    if(this.dangDieuChinh){
+      this.listItemDieuChinh.push(item.Id);
+      item.isDieuChinh = true;
+    }
   }
 
   chonTocDo(item,event){
@@ -162,5 +171,19 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
       this.toastr.error('Vui lòng nhập kiểm tra lại khoảng thời gian áp dụng!');
     }
   }
-
+  beginDieuChinh(){
+    this.dangDieuChinh = true;
+  }
+  endDieuChinh(){
+    let unique = [...new Set(this.listItemDieuChinh)]
+    this._services.CanDoiChuyen().SetDieuChinhCanDoiChuyen({listItem:unique}).subscribe((res:any)=>{
+      if (res?.State === 1) {
+        this.toastr.success('Cập nhật thành công!');
+        this.activeModal.close({respawn:true});
+      } else {
+        this.toastr.error('Cập nhật không thành công!');
+        this.activeModal.close({respawn:true});
+      }
+    })
+  }
 }

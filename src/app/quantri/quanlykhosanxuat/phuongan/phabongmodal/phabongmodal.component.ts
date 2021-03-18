@@ -103,6 +103,7 @@ export class PhabongmodalComponent implements OnInit {
             lobong.tempBanBong[`${item.ThuTu}`] = data;
           });
         });
+        console.log(this.item.listLoBong)
         let TongChatLuong = {
           Mic: 0,
           Rd: 0,
@@ -163,7 +164,7 @@ export class PhabongmodalComponent implements OnInit {
   }
   GetChiTietTrienKhaiKeHoachForMatHang(event) {
     this._services.TrienKhaiKeHoachSanXuat().Get(event.value, false).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       // res.listItem.forEach(mathang => {
       //   mathang.KhoiLuongSanXuat = mathang.KhoiLuongSanXuat / 1000;
       // });
@@ -287,7 +288,6 @@ export class PhabongmodalComponent implements OnInit {
         this.labelBong[lobong.MadmLoaiBong] += lobong.TyLe;
       }
     });
-    console.log(this.labelBong);
     // this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.MY||0 + this.labelBong.TP);
     this.item.TyLePhaBong = `${formatNumber(this.labelBong.BR, 'vi-VN', '0.0-1')}% Brazil + ${formatNumber(this.labelBong.MY, 'vi-VN', '0.0-1')}% Mỹ + ${formatNumber(this.labelBong.TP, 'vi-VN', '0.0-1')}% Tây Phi + ${formatNumber(this.labelBong.zH, 'vi-VN', '0.0-1')}% Hồi`
   }
@@ -355,7 +355,7 @@ export class PhabongmodalComponent implements OnInit {
     let tempTongKhoiLuongDung = 0;
     let arrayMic = [];
     let arrayKien = [];
-    console.log(this.item.listLoBong[y].tempBanBong[`${x}`].SoKien)
+    // console.log(this.item.listLoBong[y].tempBanBong[`${x}`].SoKien)
     for (let i = 1; i <= this.item.SoBanBong; i++) {
       if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien) && i !== parseInt(x)) {
         tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
@@ -368,17 +368,11 @@ export class PhabongmodalComponent implements OnInit {
     });
     if (tempSLD + this.item.listLoBong[y].tempBanBong[`${x}`].SoKien > this.item.listLoBong[y].SoLuongKien) {
       this._toastr.warning('Bạn vừa nhập quá số lượng kiện tồn trong kho! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!');
-      // this.zone.run(() => {
-        this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
-      // })
-      // this.changeDec.detectChanges();
+      this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
     }
     if (tempSoKien1Line + this.item.listLoBong[y].tempBanBong[`${x}`].SoKien > this.item.TongSoKien) {
-      this._toastr.warning('Bạn vừa nhập quá số lượng kiện bông trên 1 bàn bông! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!')
-      // this.zone.run(() => {
-        this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
-      // })
-      // this.changeDec.detectChanges();
+      this._toastr.warning('Bạn vừa nhập quá số lượng kiện bông trên 1 bàn bông! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!');
+      this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
     }
     tempSLD = 0;
     tempSoKien1Line = 0;
@@ -425,6 +419,7 @@ export class PhabongmodalComponent implements OnInit {
         arrayKien.push(validVariable(lobong.tempBanBong[`${x}`].SoKien) ? lobong.tempBanBong[`${x}`].SoKien : 0);
       }
     });
+    console.log(arrayMic,arrayKien);
     this.itemCVMic[`${x}`] = CVMic([...arrayMic, ...arrayKien], tempSoKien1LineTruBongHoi);
     this.TinhTyLeTong();
     this.TinhTongTrongLuong()
@@ -548,7 +543,35 @@ export class PhabongmodalComponent implements OnInit {
   nextFocus(e) {
     console.log(e);
   }
-  test() {
-    console.log(this.itemGiaTrungBinh);
+  test(event, index) {
+    let string = 'ArrowRight,ArrowUp,ArrowDown,ArrowLeft'
+    if (string.includes(event.key)) {
+      event.preventDefault()
+      // console.log(event);
+      let listInput = document.querySelectorAll('.dat09focus');
+      let listTabIndex = [];
+      listInput.forEach(ele => listTabIndex.push(ele.getAttribute('tabindex')));
+      //  console.log(listInput);
+      if (event.key === 'ArrowRight') {
+        let nextFocusIndex = `${this.item.listLoBong.length + index}`;
+        let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+        (listInput[realIndexInDom] as HTMLElement)?.focus();
+      }
+      if (event.key === 'ArrowLeft') {
+        let nextFocusIndex = `${index - this.item.listLoBong.length}`;
+        let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+        (listInput[realIndexInDom] as HTMLElement)?.focus();
+      }
+      if (event.key === 'ArrowDown') {
+        let nextFocusIndex = `${index + 1}`;
+        let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+        (listInput[realIndexInDom] as HTMLElement)?.focus();
+      }
+      if (event.key === 'ArrowUp') {
+        let nextFocusIndex = `${index - 1}`;
+        let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+        (listInput[realIndexInDom] as HTMLElement)?.focus();
+      }
+    }
   }
 }
