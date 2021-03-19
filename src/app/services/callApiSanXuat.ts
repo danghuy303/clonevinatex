@@ -789,9 +789,9 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetKeHoachNhapNguyenLieu', data, httpOptions)
             },
-            GetListChuaNhap: (IdKeHoachInvoice_Item, IddmLoaiBong) => {
+            GetListChuaNhap: (IdKeHoachInvoice_Item, Loai) => {
                 let IdDuAn = this.store.getCurrent();
-                return this.http.get(url + `GetListKeHoachNhapNguyenLieu_ChuaNhapHang?IdDuAn=${IdDuAn}&IdKeHoachInvoice_Item=${IdKeHoachInvoice_Item}&IddmLoaiBong=${IddmLoaiBong}`, httpOptions)
+                return this.http.get(url + `GetListKeHoachNhapNguyenLieu_ChuaNhapHang?IdDuAn=${IdDuAn}&IdKeHoachInvoice_Item=${IdKeHoachInvoice_Item}&Loai=${Loai}`, httpOptions)
             },
         }
     }
@@ -1568,5 +1568,32 @@ export class SanXuatService {
     GetListKgCone() {
         let url = API.SCMDanhMuc + `GetListKgCone`;
         return this.http.get(url, httpOptions);
+    }
+    QuyTrinhPhieuBongPhe() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuNhapBongPhe', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListPhieuNhapBongPhe', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuNhapBongPhe?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetPhieuNhapBongPhe', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuNhapBongPhe', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhieuNhapBongPhe', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuNhapBongPhe', data, httpOptions)
+            },
+        }
     }
 }

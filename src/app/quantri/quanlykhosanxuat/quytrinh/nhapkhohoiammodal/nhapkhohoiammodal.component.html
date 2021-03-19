@@ -80,8 +80,9 @@
                     pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
                     (click)="GetMatHangTheoKho()"></button>
             </div>
+            <!-- // [scrollable]="true"  scrollHeight="40vh" -->
             <p-table 
-             [value]="item.listItem.concat([{},{},{},{}])|isXoa" [scrollable]="true" scrollHeight="40vh"
+             [value]="item.listItem|isXoa"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -104,7 +105,7 @@
                         <!-- <th>Quả sợi sản xuất</th> -->
                         <th>Quả sợi thực tế</th>
                         <!-- <th>Số quả sợi</th> -->
-                        <th>Khối lượng thành phẩm thực tế</th>
+                        <th>Khối lượng thành phẩm thực tế (Kg)</th>
                         <th>Ghi chú</th>
                         <th style="width: 100px;"></th>
                     </tr>

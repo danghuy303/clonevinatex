@@ -3,35 +3,27 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { NhapkhokhacmodalComponent } from '../nhapkhokhacmodal/nhapkhokhacmodal.component';
+import { NhapkhobongphemodalComponent } from '../nhapkhobongphemodal/nhapkhobongphemodal.component';
 
 @Component({
-  selector: 'app-nhapkhokhac',
-  templateUrl: './nhapkhokhac.component.html',
-  styleUrls: ['./nhapkhokhac.component.css']
+  selector: 'app-nhapkhobongphe',
+  templateUrl: './nhapkhobongphe.component.html',
+  styleUrls: ['./nhapkhobongphe.component.css']
 })
-export class NhapkhokhacComponent implements OnInit {
+export class NhapkhobongpheComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  eAction: any = "PHIEUNHAPLOBONG";
-  
-  colHois: any = [
-    {
-      header: 'Loại bông',
-      field: 'TendmLoaiBong',
-      width: 'unset'
-    },
-  ];
+  eAction: any = "PHIEUNHAPBONGPHE";
   
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";
   type: any = "";
   nametype: any = "";
-  isCheckModal: any = false;
+  isCheckModal : any =false;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, 
     private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
      }
@@ -44,18 +36,8 @@ export class NhapkhokhacComponent implements OnInit {
       if(res.id!=='0' && this.isCheckModal === false){
         this.update(res.id);
       }
-      // else
-        this.GetListQuyTrinh();
-      //
-      if(this.title === 'khobonghoi'){
-        this.type = 'bonghoi';
-        this.nametype = 'bông hồi';
-      }
-      else if(this.title === 'khobongphe'){
-        this.type = 'bongphe';
-        this.nametype = 'bông phế';
-      }
     })
+    this.GetListQuyTrinh();
     this.KiemTraTabTrangThai();
   }
   
@@ -63,12 +45,12 @@ export class NhapkhokhacComponent implements OnInit {
     if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuatbongkhac/${this.title}/nhapkho/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/quanlykhosanxuatbongkhac/khobongphe/nhapkho/${id}`], { replaceUrl: true })
   }
   
   addPhieu() {
     this.changeParam(0);
-    let modalRef = this._modal.open(NhapkhokhacmodalComponent, {
+    let modalRef = this._modal.open(NhapkhobongphemodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
@@ -85,10 +67,10 @@ export class NhapkhokhacComponent implements OnInit {
   }
  
   update(Id) {
-    this.isCheckModal = true
+    this.isCheckModal = true;
     this.changeParam(Id);
-    this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
-      let modalRef = this._modal.open(NhapkhokhacmodalComponent, {
+    this._service.QuyTrinhPhieuBongPhe().Get(Id).subscribe((res1: any) => {
+      let modalRef = this._modal.open(NhapkhobongphemodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
@@ -125,14 +107,7 @@ export class NhapkhokhacComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    if(this.title === 'khobonghoi'){
-      data.Loai = 6;
-    }
-    else if(this.title === 'khobongphe'){
-      data.Loai = 7;
-    }
-
-    this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
+    this._service.QuyTrinhPhieuBongPhe().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })

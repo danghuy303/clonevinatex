@@ -292,7 +292,13 @@ export class NhapkhomodalComponent implements OnInit {
     })
   }
   getListKeHoach() {
-    this._services.NhapKeHoachNguyenLieu().GetListChuaNhap(this.item.IdKeHoachNhapNguyenLieuInvoice_Item, this.item.IddmLoaiBong).subscribe((res: any) => {
+    let loai = 0;
+    if (this.type === 'bong')
+        loai = 2;
+    else  if (this.type === 'xo')
+      loai = 5;
+
+    this._services.NhapKeHoachNguyenLieu().GetListChuaNhap(this.item.IdKeHoachNhapNguyenLieuInvoice_Item, loai).subscribe((res: any) => {
       this.listKeHoach = mapArrayForDropDown(res, 'Ten', 'Id');
       this.listKeHoachFull = res;
     })
