@@ -6,7 +6,7 @@ import { ignoreElements } from 'rxjs/operators';
 import { TinhtrangtaisanComponent } from 'src/app/quantri/danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { CVMic, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { CVMic, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 import { TrangthaimaysanxuatComponent } from '../../quytrinh/trangthaimaysanxuat/trangthaimaysanxuat.component';
@@ -40,6 +40,12 @@ export class PhabongmodalComponent implements OnInit {
     Id: '',
     listItem: [],
     listLoBong: []
+  };
+  isCopying: boolean = false;
+  copyItem: any = {
+    name: null,
+    listSoKien: [],
+    BanSo:null
   };
   TongKhoiLuongDung: any = null;
   TongTyLe: number = 100;
@@ -419,7 +425,7 @@ export class PhabongmodalComponent implements OnInit {
         arrayKien.push(validVariable(lobong.tempBanBong[`${x}`].SoKien) ? lobong.tempBanBong[`${x}`].SoKien : 0);
       }
     });
-    console.log(arrayMic,arrayKien);
+    console.log(arrayMic, arrayKien);
     this.itemCVMic[`${x}`] = CVMic([...arrayMic, ...arrayKien], tempSoKien1LineTruBongHoi);
     this.TinhTyLeTong();
     this.TinhTongTrongLuong()
@@ -572,6 +578,31 @@ export class PhabongmodalComponent implements OnInit {
         let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
         (listInput[realIndexInDom] as HTMLElement)?.focus();
       }
+    }
+  }
+  copy(ban) {
+    this.isCopying = true;
+    this.copyItem = deepCopy({
+      name: `(Đang sao chép bàn số ${ban})`,
+      listSoKien: this.item.listLoBong.map(lobong => {
+        return lobong.tempBanBong[`${ban}`].SoKien;
+      }),
+      BanSo:ban
+    })
+    console.log(this.copyItem);
+  }
+  doneCopy() {
+    this.isCopying = false;
+    this.copyItem = deepCopy({
+      name: null,
+      listSoKien: [],
+      BanSo:null
+    })
+  }
+  paste(ban) {
+    for(let i = 0;i<this.item.listLoBong.length;i++){
+      this.item.listLoBong[i].tempBanBong[`${ban}`].SoKien = this.copyItem.listSoKien[i];
+      this.CalAllTable(i,ban);
     }
   }
 }

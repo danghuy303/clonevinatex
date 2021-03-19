@@ -105,7 +105,7 @@
         <div class="p-col-12 p-p-0 pintable-container" style="height: 90vh;" voiPintable [pinnedCols]="6">
             <table>
                 <thead>
-                    <tr>
+                    <!-- <tr>
                         <th rowspan="2" class="tc-w-151">
                             Thành phần bông
                         </th>
@@ -128,8 +128,6 @@
                             Neps bông
                         </th>
                         <th colspan="9">Chất lượng bông</th>
-                        <!-- <th style="display: none;"></th>
-                        <th style="display: none;"></th> -->
                         <th [attr.colspan]="listProps.length">Bàn bông</th>
                     </tr>
                     <tr>
@@ -150,6 +148,72 @@
                         <th class="tc-w-50">Ẩm</th>
                         <th *ngFor="let ban of listProps" class="tc-w-50">
                             {{ban}}
+                        </th>
+                    </tr> -->
+                    <tr>
+                        <th rowspan="3" class="tc-w-151">
+                            Thành phần bông
+                        </th>
+                        <th rowspan="3" class="tc-w-60">Tồn đầu</th>
+                        <th rowspan="3" class="tc-w-100">Số lượng dùng</th>
+                        <th rowspan="3" class="tc-w-60">Tồn cuối</th>
+                        <th rowspan="3" class="tc-w-80">Tỷ lệ</th>
+                        <th rowspan="3" class="tc-w-80"> LK Tỷ lệ</th>
+                        <th rowspan="3" class="tc-w-121">
+                            Số hợp đồng
+                        </th>
+                        <th rowspan="3" class="tc-w-60">
+                            Giá bông
+                        </th>
+                        <th rowspan="3" class="tc-w-80">TLBQ Kiện</th>
+                        <th rowspan="3" class="tc-w-121">
+                            Giá USD / kiện
+                        </th>
+                        <th rowspan="3" class="tc-w-60">
+                            Neps bông
+                        </th>
+                        <th colspan="9">Chất lượng bông</th>
+                        <!-- <th style="display: none;"></th>
+                        <th style="display: none;"></th> -->
+                        <th [attr.colspan]="listProps.length">Bàn bông {{isCopying?copyItem.name:''}} <span><button *ngIf="isCopying" class="btn btn-ss btn-primary" (click)="doneCopy()">
+                            <i class="fas fa-times"></i>
+                        </button></span></th>
+                    </tr>
+                    <tr>
+                        <th rowspan="2" style="display: none;"></th>
+                        <th rowspan="2" style="display: none;"></th>
+                        <th rowspan="2" style="display: none;"></th>
+                        <th rowspan="2" style="display: none;"></th>
+                        <th rowspan="2" style="display: none;"></th>
+                        <th rowspan="2" style="display: none;"></th>
+                        <th rowspan="2" class="tc-w-50">Mic</th>
+                        <th rowspan="2" class="tc-w-50">Mat</th>
+                        <th rowspan="2" class="tc-w-60">UHML</th>
+                        <th rowspan="2" class="tc-w-50">Str</th>
+                        <th rowspan="2" class="tc-w-50">SFI</th>
+                        <th rowspan="2" class="tc-w-50">Rd</th>
+                        <th rowspan="2" class="tc-w-50">+b</th>
+                        <th rowspan="2" class="tc-w-50">Tạp</th>
+                        <th rowspan="2" class="tc-w-50">Ẩm</th>
+                        <th *ngFor="let ban of listProps" class="tc-w-50">
+                            {{ban}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style="display: none;"></th>
+                        <th style="display: none;"></th>
+                        <th style="display: none;"></th>
+                        <th style="display: none;"></th>
+                        <th style="display: none;"></th>
+                        <th style="display: none;"></th>
+
+                        <th *ngFor="let ban of listProps" class="tc-w-50">
+                            <button *ngIf="!isCopying" class="btn btn-ss btn-primary" (click)="copy(ban)">
+                                <i class="fas fa-angle-double-up"></i>
+                            </button>
+                            <button *ngIf="isCopying&&copyItem.BanSo!==ban" class="btn btn-ss btn-primary" (click)="paste(ban)">
+                                <i class="fas fa-angle-double-down"></i>
+                            </button>
                         </th>
                     </tr>
                 </thead>

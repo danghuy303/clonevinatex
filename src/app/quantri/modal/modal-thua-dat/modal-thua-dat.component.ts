@@ -42,7 +42,7 @@ export class ModalThuaDatComponent implements OnInit {
       }
     })
   }
-  accept(){
+  accept(alo?){
     if(this.item?.TaiSanDat?.NgayCapGCN !== undefined && this.item?.TaiSanDat?.NgayCapGCN !== undefined){
       this.item.TaiSanDat.NgayCapGCNUnix = DateToUnix(this.item.TaiSanDat.NgayCapGCN);
     }

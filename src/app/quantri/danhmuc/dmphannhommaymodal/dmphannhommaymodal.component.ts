@@ -305,8 +305,9 @@ export class DmphannhommaymodalComponent implements OnInit {
       }
       else if (this.item.CongDoan == "CON") {
         this.item.lstdmItem.forEach(obj => {
-          if ((validVariable(obj.TocDo)) && (validVariable(obj.Nm)) && (validVariable(obj.DoSan))) {
-            obj.NangSuat = obj.TocDo * 1200 * 480 / obj.Nm / 1000 / obj.DoSan * 0.94;
+          if ((validVariable(obj.TocDo))&& (validVariable(this.item.SoCoc)) && (validVariable(obj.Nm)) && (validVariable(obj.DoSan))) {
+            // obj.NangSuat = obj.TocDo * 1200 * 480 / obj.Nm / 1000 / obj.DoSan * 0.94;
+            obj.NangSuat = obj.TocDo * this.item.SoCoc * 480 / obj.Nm / 1000 / obj.DoSan * 0.94;
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
@@ -349,8 +350,9 @@ export class DmphannhommaymodalComponent implements OnInit {
         }
       }
       else if (this.item.CongDoan == "CON") {
-        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.Nm)) && (validVariable(this.newTableItem.DoSan))) {
-          this.newTableItem.NangSuat = this.newTableItem.TocDo * 1200 * 480 / this.newTableItem.Nm / 1000 / this.newTableItem.DoSan * 0.94;
+        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.SoCoc)) && (validVariable(this.newTableItem.Nm)) && (validVariable(this.newTableItem.DoSan))) {
+          // this.newTableItem.NangSuat = this.newTableItem.TocDo * 1200 * 480 / this.newTableItem.Nm / 1000 / this.newTableItem.DoSan * 0.94;
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoCoc * 480 / this.newTableItem.Nm / 1000 / this.newTableItem.DoSan * 0.94;
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
@@ -408,13 +410,8 @@ export class DmphannhommaymodalComponent implements OnInit {
           else {
             element.isApDung = false;
           }
-          // 
         }
-
       }
     });
-
-
-
   }
 }

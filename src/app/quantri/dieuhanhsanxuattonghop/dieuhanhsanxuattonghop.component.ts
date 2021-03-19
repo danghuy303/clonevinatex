@@ -398,7 +398,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   }
   xuatBaoCaoTieuChi(){
     let data = this.filter;
-    data.listItem = this.listMatHang.filter(mathang=>mathang.xuatChecked ===true).map(ele=>ele.Id);
+    data.listItem = this.listMatHang.filter(mathang=>mathang.xuatChecked ===true).map(ele=>ele.IddmItem);
     this._services.DashBoard().ExportBaoCaoThongKeChatLuong(this.filter).subscribe((res:any) => {
       if(res){
         if(validVariable(res.State)){
