@@ -23,7 +23,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
   }
   lang: any = vn;
   listKho: any = [];
-  listPhanXuong: any = [];
+  listKhachHang: any = [];
   listPhuongAnPhaBong: any = [];
   listItem: any = [];
   paging: any = {CurrentPage: 1};
@@ -48,9 +48,9 @@ export class XuatkhobongphemodalComponent implements OnInit {
     this.services.GetListdmKho(data).subscribe((res:any)=>{
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    this.services.GetListdmPhanXuong(data).subscribe((res:any)=>{
-      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
+    // this.services.GetListdmPhanXuong(data).subscribe((res:any)=>{
+    //   this.listKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');
+    // })
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }

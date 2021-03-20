@@ -49,6 +49,7 @@ export class NhapkhomodalComponent implements OnInit {
         IddmCapBong: '',
         IdLoBong: '',
         listItem: [],
+        isTuDong: false,
       }
       this.GetNextSoQuyTrinh();
     }
@@ -151,6 +152,9 @@ export class NhapkhomodalComponent implements OnInit {
     
     if (isCheck === true ) {
       this.toastr.error("Bạn chưa chọn vị trí!");
+    }
+    else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
+      this.toastr.error("Bạn chưa chọn danh mục kho!");
     }
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày!");

@@ -56,7 +56,7 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca làm việc:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listCaMay" placeholder="Chọn ca máy" [(ngModel)]="item.IddmCaSanXuat"
+                <p-dropdown [filter]="true" [options]="listCaMay" placeholder="Chọn ca máy" [(ngModel)]="item.IddmCaSanXuatThucTe"
                 styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
@@ -90,6 +90,7 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <!-- <col> -->
                         <!-- <col> -->
                         <col>
@@ -101,6 +102,7 @@
                     <tr>
                         <th>#</th>
                         <th>Tên</th>
+                        <th>Tên lô hàng</th>
                         <th>Kg/cone</th>
                         <!-- <th>Quả sợi sản xuất</th> -->
                         <th>Quả sợi thực tế</th>
@@ -114,8 +116,9 @@
                     <tr>
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">{{item.Ten}}</td>
+                        <td class="text-center">{{item.TenLoHang}}</td>
                         <td class="text-center">
-                            <p-dropdown [filter]="true" [options]="listKgCone" placeholder="Chọn KgCone" 
+                            <p-dropdown [filter]="true" [options]="listKgCone" placeholder="Chọn Kg/cone" 
                                 [(ngModel)]="item.KgCone"
                                 styleClass="p-inputtext-sm"></p-dropdown>
 

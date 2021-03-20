@@ -30,8 +30,13 @@ export class ThongkesanluongComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Ca làm việc',
+      header: 'Thời điểm',
       field: 'TendmCaSanXuat',
+      width: 'unset'
+    },
+    {
+      header: 'Ca',
+      field: 'TendmCaSanXuatThucTe',
       width: 'unset'
     },
     {
@@ -67,7 +72,7 @@ export class ThongkesanluongComponent implements OnInit {
     this.getListPhanXuong();
   }
   getListCaSanXuat() {
-    this._service.GetListOptdmCaSanXuat().subscribe((res: any) => {
+    this._service.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
       this.listCaSanXuat = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -132,7 +137,7 @@ export class ThongkesanluongComponent implements OnInit {
       Ma: "",
       Ten: "",
       IddmPhanXuong: this.filter.IddmPhanXuong,
-      IddmCaSanXuat: this.filter.IddmCaSanXuat,
+      IddmCaSanXuatThucTe: this.filter.IddmCaSanXuatThucTe,
     }
     this._service.ThongKeSanLuong().GetList(data).subscribe((res:any)=>{
       this.items = res.items;

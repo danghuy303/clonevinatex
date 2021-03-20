@@ -11,7 +11,7 @@
         </div>
         <div class="p-mr-2">
             <p-dropdown [options]="listCaSanXuat" placeholder="Chọn ca làm việc" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.IddmCaSanXuat" [showClear]="true" (onClick)="GetListQuyTrinh(true)"></p-dropdown>
+                [(ngModel)]="filter.IddmCaSanXuatThucTe" [showClear]="true" (onClick)="GetListQuyTrinh(true)"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
@@ -70,6 +70,9 @@
                 </td>
                 <td class="text-center">
                     {{item.TendmCaSanXuat}}
+                </td>
+                <td class="text-center">
+                    {{item.TendmCaSanXuatThucTe}}
                 </td>
                 <td class="text-center">
                     {{item.TongKhoiLuong|number:'0.0'}}

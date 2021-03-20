@@ -72,7 +72,6 @@ export class NhapkhohoiammodalComponent implements OnInit {
       this.KiemTraButtonModal();
     }
     console.log(this.item)
-    debugger
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
@@ -181,7 +180,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     })
   }
   getListCaMay() {
-    this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
+    this._services.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
       this.listCaMay = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -201,13 +200,20 @@ export class NhapkhohoiammodalComponent implements OnInit {
       modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.componentInstance.cols= this.cols;
       modalRef.result.then((data) => {
-        debugger
         this.item.listItem.forEach(element => {
           element.isXoa = true;
         });
         console.log(data.data)
-      this.item.listItem = this.item.listItem.concat(data.data);
-      console.log(this.item.listItem)
+        for(let i = 0; i<data.data.length; i++){
+          for(let j = 0; j< this.item.listItem.length; j++){
+            if(data.data[i].IddmItem === this.item.listItem[j].IddmItem && data.data[i].IdLoBong === this.item.listItem[j].IdLoBong){
+              this.item.listItem[j].isXoa = false;
+              data.data[i].isXoa = true;
+            }
+          }
+        }
+        this.item.listItem = this.item.listItem.concat(data.data);
+        console.log(this.item.listItem)
       }, (reason) => {
         // không
       });
@@ -230,9 +236,10 @@ export class NhapkhohoiammodalComponent implements OnInit {
   }
   Onclose() {
     if (this._modal.hasOpenModals()) {
-      this._modal.dismissAll()
+      // this._modal.dismissAll()
+    this.activeModal.close();
+
     }
-    // this.activeModal.close();
   }
   getListKgCone() {
     this._services.GetListKgCone().subscribe((res: any) => {

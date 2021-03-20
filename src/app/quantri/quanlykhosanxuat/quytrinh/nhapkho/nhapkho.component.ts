@@ -39,7 +39,7 @@ export class NhapkhoComponent implements OnInit {
     },
     {
       header: 'Mã Invoice',
-      field: 'TenKeHoachNhapNguyenLieuInvoice_Item',
+      field: 'MaInvoice',
       width: 'unset'
     },
     {

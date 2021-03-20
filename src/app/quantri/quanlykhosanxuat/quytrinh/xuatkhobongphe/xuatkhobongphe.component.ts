@@ -25,8 +25,8 @@ export class XuatkhobongpheComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Tên phân xưởng',
-      field: 'TendmPhanXuong',
+      header: 'Tên khách hàng',
+      field: 'TendmKhachHang',
       width: 'unset'
     },
     // {

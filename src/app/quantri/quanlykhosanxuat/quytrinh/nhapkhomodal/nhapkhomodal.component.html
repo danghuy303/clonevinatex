@@ -96,7 +96,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" [(ngModel)]="item.IddmKho"
                 styleClass="p-inputtext-sm"></p-dropdown>
@@ -172,12 +172,14 @@
                             </p-inputNumber>
                         </td>
                         <td class="text-center"  *ngIf="this.type==='bong'">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienNgan" 
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienNgan"
+                            [max] = "item.SoKien"
                             (ngModelChange)="TinhSoKienNgan(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center"  *ngIf="this.type==='bong'">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienDai"
+                            [max] = "item.SoKien"
                             (ngModelChange)="TinhSoKienDai(item)">
                             </p-inputNumber>
                         </td>
