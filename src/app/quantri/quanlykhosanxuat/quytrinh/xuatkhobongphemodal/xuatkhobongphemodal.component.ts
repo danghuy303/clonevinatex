@@ -48,9 +48,9 @@ export class XuatkhobongphemodalComponent implements OnInit {
     this.services.GetListdmKho(data).subscribe((res:any)=>{
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    // this.services.GetListdmPhanXuong(data).subscribe((res:any)=>{
-    //   this.listKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');
-    // })
+    this.services.dmKhachHang().GetListOpt().subscribe((res:any)=>{
+      this.listKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
@@ -176,4 +176,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
       end= this.paging.TotalItem;
     this.item.listItem = this.listItem.slice(start,end);
   }
+  Onclose() {
+    this.activeModal.close();
+}
 }

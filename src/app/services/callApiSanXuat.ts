@@ -1596,4 +1596,22 @@ export class SanXuatService {
             },
         }
     }
+    dmKhachHang() {
+        let url = API.SCMDanhMuc;
+        return {
+            GetListOpt: () => {
+                return this.http.get(url + 'GetListdmKhachHang', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListdmKhachHang', data, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetdmKhachHang', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletedmKhachHang', data, httpOptions);
+            },
+        }
+    }
 }
