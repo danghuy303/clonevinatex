@@ -38,30 +38,29 @@ export class XuatkhomathangmodalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.cols)
+    console.log(this.listItem)
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
-    this.item.listItem = this.listMatHang.slice(0,15);
-    this.item.listItem_copy = this.listMatHang;
-    if(this.listItem != undefined && this.listItem!= null && this.item.listItem!= undefined && this.item.listItem!= null)
+    if(this.listItem != undefined && this.listItem!= null)
     {
       this.listItem.forEach(element => {
-        var itemFind = this.item.listItem.find(function (obj) {
-          return obj.IddmItem == element.IddmItem;
+        var itemFind = this.listMatHang.find(function (obj) {
+          return (obj.IddmItem == element.IddmItem && obj.IdLoHang == element.IdLoHang);
         });
         itemFind.checked = true;
       });
     }
-
+    this.item.listItem = this.listMatHang.slice(0,15);
+    this.item.listItem_copy = this.listMatHang;
   }
   accept() {
-    let data: any = []
-    this.listMatHang.forEach(element => {
-      if (element.checked == true)
-        data.push(element);
+    var itemFind: any = this.listMatHang.filter(function (obj) {
+      return obj.checked == true;
     });
+    console.log(itemFind);
     this.activeModal.close(
-      { data: data }
+      { data: itemFind }
     );
   }
   checkAll(e) {
@@ -74,7 +73,6 @@ export class XuatkhomathangmodalComponent implements OnInit {
         item.checked = false;
       });
     }
-
   }
   changePage(event) {
     console.log(event)
@@ -104,7 +102,7 @@ export class XuatkhomathangmodalComponent implements OnInit {
   // }
   filtertable_add() {
     if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
-      this.item.listItem_copy = deepCopy(this.listMatHang);
+      this.item.listItem_copy = this.listMatHang;
       let filter: any = this.item.listItem_copy.filter(
         ele=>ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase())
         // obj => {
@@ -122,8 +120,8 @@ export class XuatkhomathangmodalComponent implements OnInit {
       this.item.listItem_copy = filter;
     }
     else {
-      this.item.listItem = deepCopy(this.listMatHang);
-      this.item.listItem_copy = deepCopy(this.listMatHang);
+      this.item.listItem = this.listMatHang;
+      this.item.listItem_copy = this.listMatHang;
     }
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;

@@ -29,11 +29,11 @@ export class XuatkhobongpheComponent implements OnInit {
       field: 'TendmPhanXuong',
       width: 'unset'
     },
-    {
-      header: 'Phương án pha bông',
-      field: 'TenPhuongAnPhaBong',
-      width: 'unset'
-    },
+    // {
+    //   header: 'Phương án pha bông',
+    //   field: 'TenPhuongAnPhaBong',
+    //   width: 'unset'
+    // },
     {
       header: 'Trạng thái',
       field: 'TenTrangThai',

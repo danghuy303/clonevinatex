@@ -42,13 +42,6 @@ export class NhapkhobongphemodalComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.opt !== 'edit') {
-      this.item = {
-        NhaMay: '',
-        IddmLoaiBong: '',
-        IddmCapBong: '',
-        IdLoBong: '',
-        listItem: [],
-      }
       this.GetNextSoQuyTrinh();
     }
     else{
@@ -115,7 +108,9 @@ export class NhapkhobongphemodalComponent implements OnInit {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            console.log(this.item)
             console.log(this.type)
+            debugger
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);

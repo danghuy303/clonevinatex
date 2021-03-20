@@ -42,7 +42,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
     }
     else{
       this.KiemTraButtonModal();
-      this.item.CongDoan = this.listCongDoan[0]
       this.getItemTheoCongDoan();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
@@ -90,7 +89,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   GhiLai() {
     let isCheck : any = false;
     this.item.listItem.forEach(element => {
-      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {
+      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG" && element.KhoiLuong !== null && element.KhoiLuong !== undefined) {
         isCheck= true;
       }
     });
@@ -109,6 +108,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
             this.opt = 'edit';
             this.item = res.objectReturn;
             this.listItem = [];
+            this.getItemTheoCongDoan()
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
