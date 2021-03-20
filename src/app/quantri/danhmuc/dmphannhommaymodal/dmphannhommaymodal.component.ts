@@ -124,6 +124,8 @@ export class DmphannhommaymodalComponent implements OnInit {
   }
   accept() {
     this.khongclicknhieu = !this.khongclicknhieu;
+    if((this.newTableItem.Ne !== undefined && this.newTableItem.Ne !== null) || (this.newTableItem.Nm !== undefined && this.newTableItem.Nm !== null))
+      this.add();
     if (this.item.Ma !== undefined && this.item.Ma !== null && this.item.Ten !== undefined && this.item.Ten !== null) {
       this.Save();
     } else {

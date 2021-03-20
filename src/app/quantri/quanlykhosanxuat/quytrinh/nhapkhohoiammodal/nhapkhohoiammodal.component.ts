@@ -71,6 +71,8 @@ export class NhapkhohoiammodalComponent implements OnInit {
     else{
       this.KiemTraButtonModal();
     }
+    console.log(this.item)
+    debugger
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
@@ -199,10 +201,13 @@ export class NhapkhohoiammodalComponent implements OnInit {
       modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.componentInstance.cols= this.cols;
       modalRef.result.then((data) => {
+        debugger
         this.item.listItem.forEach(element => {
           element.isXoa = true;
         });
+        console.log(data.data)
       this.item.listItem = this.item.listItem.concat(data.data);
+      console.log(this.item.listItem)
       }, (reason) => {
         // không
       });

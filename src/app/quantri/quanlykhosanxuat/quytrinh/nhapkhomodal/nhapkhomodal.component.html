@@ -42,7 +42,10 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đợt nhập :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listKeHoach"
+                <p-dropdown [filter]="true" [options]="listKeHoach" *ngIf="item.isTuDong===true" disabled
+                 placeholder="Chọn kế hoạch" styleClass="p-inputtext-sm" [(ngModel)]="item.IdKeHoachNhapNguyenLieuInvoice_Item"
+                (onChange)="getKeHoach($event)"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listKeHoach" *ngIf="item.isTuDong===false"
                  placeholder="Chọn kế hoạch" styleClass="p-inputtext-sm" [(ngModel)]="item.IdKeHoachNhapNguyenLieuInvoice_Item"
                 (onChange)="getKeHoach($event)"></p-dropdown>
             </div>
