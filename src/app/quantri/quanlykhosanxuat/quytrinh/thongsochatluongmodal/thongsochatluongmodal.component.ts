@@ -6,7 +6,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-thongsochatluongmodal',
@@ -23,12 +23,16 @@ export class ThongsochatluongmodalComponent implements OnInit {
     ChuyenTiep: false,
     Xoa: false,
   }
+  filter:any={
+    KeyWord:''
+  }
+  loading:boolean = false;
   listItem = [];
   newTableItem: any = {};
   listLoBong: any = [];
   data: any = {};
   lang: any = vn;
-  editTableItem:any={};
+  editTableItem: any = {};
   paging: any = {};
   Id = "";
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
@@ -43,19 +47,19 @@ export class ThongsochatluongmodalComponent implements OnInit {
       }
       this.GetNextSoQuyTrinh();
     }
-    else{
-        this.GetQuyTrinh();
+    else {
+      this.GetQuyTrinh();
     }
 
     this.data.CurrentPage = 0;
-      if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-        this.item.Ngay = new Date(this.item.NgayUnix * 1000);
-      }
+    if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+    }
     this.getListLoBong();
   }
-  GetQuyTrinh()
-  {
-    this.services.PhieuNhapLoBong_ChatLuong().Get(this.Id).subscribe((res1:any)=>{
+  GetQuyTrinh() {
+    this.loading = true;
+    this.services.PhieuNhapLoBong_ChatLuong().Get(this.Id).subscribe((res1: any) => {
       this.item = res1;
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
         this.item.Ngay = new Date(this.item.NgayUnix * 1000);
@@ -64,29 +68,35 @@ export class ThongsochatluongmodalComponent implements OnInit {
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
-      this.item.listItem = res1.listItem.slice(0,15);
+      this.item.listItem = res1.listItem.slice(0, 15);
       this.item_new = this.item;
-        this.KiemTraButtonModal();
+      this.KiemTraButtonModal();
     })
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
+      this.loading = false;
     })
   }
-  SetData(){
+  SetData() {
+    this.loading = true;
+    let newItem: any = {};
     console.log(this.item)
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    this.item_new.TrongLuong = this.item.TrongLuong;
-    this.item_new.listItem = this.listItem;
-    this.item_new.TongSoKien = this.listItem.length;
-    return this.item_new;
+    }
+    newItem = deepCopy(this.item);
+    newItem.listItem = this.listItem;
+    newItem.TongSoKien = this.listItem.length;
+    return newItem;
   }
   ChuyenDuyet() {
+
     this.services.PhieuNhapLoBong_ChatLuong().ChuyenTiep(this.SetData()).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
+          this.toastr.success(res.message);
           this.activeModal.close();
         } else {
           this.toastr.error(res.message);
@@ -101,8 +111,9 @@ export class ThongsochatluongmodalComponent implements OnInit {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
-  
+
   GhiLai() {
+    this.loading = true;
     this.services.PhieuNhapLoBong_ChatLuong().Set(this.SetData()).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -112,10 +123,9 @@ export class ThongsochatluongmodalComponent implements OnInit {
           this.listItem = res.objectReturn.listItem;
           this.paging.CurrentPage = 1;
           this.paging.TotalPage = 5;
-          if(res.objectReturn.listItem != undefined && res.objectReturn.listItem != null)
+          if (res.objectReturn.listItem != undefined && res.objectReturn.listItem != null)
             this.paging.TotalItem = res.objectReturn.listItem.length;
-          this.item.listItem = res.objectReturn.listItem.slice(0,15);
-
+          this.item.listItem = res.objectReturn.listItem.slice(0, 15);
           this.KiemTraButtonModal();
         } else {
           this.toastr.error(res.message);
@@ -139,7 +149,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-  
+
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
@@ -155,48 +165,63 @@ export class ThongsochatluongmodalComponent implements OnInit {
     })
   }
 
-  importExcel(){
-    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
-      backdrop:'static',
+  importExcel() {
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
+      backdrop: 'static',
     })
     modalRef.componentInstance.Name = 'PhieuNhapLoBong_ChatLuong';
     modalRef.componentInstance.data = this.item;
-    modalRef.result.then(res=>{
+    modalRef.result.then(res => {
       this.toastr.success('Cập nhật thành công!');
       this.GetQuyTrinh();
       // this.services.PhieuNhapLoBong_ChatLuong().Get(this.item.Id).subscribe((res: any) => {
       //   this.item = res;
       // })
     })
-    .catch(er=>console.log(er))
+      .catch(er => console.log(er))
   }
-  onClose(){
+  onClose() {
     this.activeModal.close();
   }
   changePage(event) {
     console.log(event)
     this.paging.CurrentPage = event.page + 1;
     var start = 15 * (event.page);
-    var end =  start + 15;
-    if((start + 15) > this.paging.TotalItem)
-      end= this.paging.TotalItem;
-    this.item.listItem = this.listItem.slice(start,end);
+    var end = start + 15;
+    if (validVariable(this.filter.KeyWord)) {
+      if ((start + 15) > this.listItem.filter(ele=>ele.Ten.includes(this.filter.KeyWord)).length){
+        end = this.listItem.filter(ele=>ele.Ten.includes(this.filter.KeyWord)).length;
+      }
+      this.paging.TotalItem = this.listItem.filter(ele=>ele.Ten.includes(this.filter.KeyWord)).length
+      this.item.listItem = this.listItem.filter(ele=>ele.Ten.includes(this.filter.KeyWord)).slice(start, end);
+    } else {
+      if ((start + 15) > this.listItem.length){
+        end = this.listItem.length;
+      }
+      this.paging.TotalItem = this.listItem.length;
+      this.item.listItem = this.listItem.slice(start, end);
+    }
+
   }
-  importExcelMic(){
-    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
-      backdrop:'static',
+  refreshFilter(){
+    this.filter.KeyWord = null;
+    this.changePage({page:0})
+  }
+  importExcelMic() {
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
+      backdrop: 'static',
     })
     modalRef.componentInstance.Name = 'PhieuNhapLoBong_ChatLuong';
     modalRef.componentInstance.data = this.item;
     modalRef.componentInstance.Loai = 'MIC';
-    modalRef.result.then(res=>{
+    modalRef.result.then(res => {
       // this.toastr.success(res.message);
       this.toastr.success('Cập nhật thành công!');
       this.GetQuyTrinh();
     })
-    .catch(er=>console.log(er))
+      .catch(er => console.log(er))
   }
-  exportExcelMau(Loai){
+  exportExcelMau(Loai) {
     this.services.PhieuNhapLoBong_ChatLuong().exportExcelMau(Loai).subscribe((res: any) => {
       this.services.download(res.TenFile);
     })

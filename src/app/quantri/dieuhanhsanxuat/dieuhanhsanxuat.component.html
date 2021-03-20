@@ -26,12 +26,14 @@
                 <div class="p-d-flex flex-column flex-lg-row">
                     <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmKho" (onChange)="getMatHangNhuCau($event.value)">
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmKho"
+                            (onChange)="getMatHangNhuCau($event.value)">
                         </p-dropdown>
                     </div>
                     <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại bông"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmLoaiBong" (onChange)="ChangeOptBieuDo()">
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmLoaiBong"
+                            (onChange)="ChangeOptBieuDo()">
                         </p-dropdown>
                     </div>
                     <!-- <div style="display:table;height:100%">
@@ -72,31 +74,45 @@
                 </div>
                 <div class="p-mr-2">
                     <p-dropdown [filter]="true" [options]="listKhoCanDoiTon" placeholder="Chọn kho"
-                        styleClass="p-inputtext-sm" [(ngModel)]="filterNhuCau.IddmKho" (onChange)="getMatHangCanDoiTon($event.value)">
+                        styleClass="p-inputtext-sm" [(ngModel)]="filterNhuCau.IddmKho"
+                        (onChange)="getMatHangCanDoiTon($event.value)">
                     </p-dropdown>
                 </div>
                 <div class="p-mr-2">
                     <p-dropdown [filter]="true" [options]="listLoaiBongCanDoiTon" placeholder="Chọn loại bông"
-                        styleClass="p-inputtext-sm" [(ngModel)]="filterNhuCau.IddmLoaiBong" (onChange)="ChangeOptCanDoiTon()">
+                        styleClass="p-inputtext-sm" [(ngModel)]="filterNhuCau.IddmLoaiBong"
+                        (onChange)="ChangeOptCanDoiTon()">
                     </p-dropdown>
                 </div>
             </div>
-            <p-table [value]="listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines minimize-font" [scrollable]="true" scrollHeight="260px">
-                <ng-template pTemplate="colgroup">
+            <p-table [value]="listItem"
+                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines minimize-font"
+                [scrollable]="true" scrollHeight="260px">
+                <!-- <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col>
                     </colgroup>
-                </ng-template>
+                </ng-template> -->
                 <ng-template pTemplate="header">
                     <tr>
                         <!-- <th>Ngày</th> -->
-                        <th>Loại bông</th>
-                        <th>Lô bông</th>
-                        <th>Hợp đồng P/O</th>
-                        <th>Tồn đầu</th>
-                        <th>Nhập trong kỳ</th>
-                        <th>Xuất trong kỳ</th>
-                        <th>Tồn cuối kỳ</th>
+                        <th rowspan="2">Loại bông</th>
+                        <th rowspan="2">Lô bông</th>
+                        <th rowspan="2">Hợp đồng P/O</th>
+                        <th colspan="2">Tồn đầu</th>
+                        <th colspan="2">Nhập trong kỳ</th>
+                        <th colspan="2">Xuất trong kỳ</th>
+                        <th colspan="2">Tồn cuối kỳ</th>
+                    </tr>
+                    <tr>
+                        <th>Số kiện</th>
+                        <th>KL</th>
+                        <th>Số kiện</th>
+                        <th>KL</th>
+                        <th>Số kiện</th>
+                        <th>KL</th>
+                        <th>Số kiện</th>
+                        <th>KL</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -105,10 +121,14 @@
                         <td>{{item.TendmLoaiBong}}</td>
                         <td>{{item.TenLoBong}}</td>
                         <td>{{item.SoHopDong}}</td>
-                        <td class="text-right">{{item.DauSoLuong|number:'0.0' }}</td>
-                        <td class="text-right">{{item.NhapSoLuong|number:'0.0' }}</td>
-                        <td class="text-right">{{item.XuatSoLuong|number:'0.0' }}</td>
-                        <td class="text-right">{{item.CuoiSoLuong|number:'0.0' }}</td>
+                        <td class="text-right">{{item.DauSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.DauSoCan|number:'0.2-2' }}</td>
+                        <td class="text-right">{{item.NhapSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.NhapSoCan|number:'0.2-2' }}</td>
+                        <td class="text-right">{{item.XuatSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.XuatSoCan|number:'0.2-2' }}</td>
+                        <td class="text-right">{{item.CuoiSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.CuoiSoCan|number:'0.2-2' }}</td>
                     </tr>
                 </ng-template>
             </p-table>

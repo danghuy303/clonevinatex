@@ -81,7 +81,10 @@ export class QuantriComponent implements OnInit {
         let routerURL = this.mapQuyTrinhRoute[item.LoaiThongBao];
         console.log(routerURL + item.IdQuyTrinh)
         if (routerURL) {
-            this._router.navigate([`${routerURL}${item.IdQuyTrinh}`])
+            // this._router.navigate([`${routerURL}0`]);
+            // setTimeout(()=>{
+                this._router.navigate([`${routerURL}${item.IdQuyTrinh}`]);
+            // },1000)
         } else {
             this._toastr.warning('Không tìm thấy điều hướng của thông báo!')
         }

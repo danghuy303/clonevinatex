@@ -89,6 +89,9 @@ export class XuatkhobonghoiComponent implements OnInit {
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
+      .finally(()=>{
+        this.isCheckmodal = false;
+      })
   }
   changeTab(e){
     this.trangThai = e.index+1;

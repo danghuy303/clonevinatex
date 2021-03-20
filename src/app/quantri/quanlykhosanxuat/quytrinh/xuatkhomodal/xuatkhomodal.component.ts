@@ -44,7 +44,7 @@ export class XuatkhomodalComponent implements OnInit {
       CurrentPage: 0
     }
     this.services.PhuongAnPhaBong().GetList(data).subscribe((res:any)=>{
-      this.listPhuongAnPhaBong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listPhuongAnPhaBong = mapArrayForDropDown(res.items, 'Ten', 'Id');
     })
     // data.Loai = 2;
     this.services.GetListdmKho(data).subscribe((res:any)=>{
@@ -58,6 +58,9 @@ export class XuatkhomodalComponent implements OnInit {
   {
     this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1:any)=>{
       this.item = res1;
+      res1.listItem.sort((a,b)=>{
+        return a.TenLoBong.localeCompare(b.TenLoBong);
+      })
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
