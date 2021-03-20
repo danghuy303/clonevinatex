@@ -17,7 +17,7 @@
                                 </div>
                                 <div style="flex:1; padding-left: 15px;" (click)="readOne(noti)">
                                     <span>{{noti.TieuDe}}</span><br>
-                                    <span style="color:#777">{{noti.NoiDung}}</span><br>
+                                    <p style="color:#777;white-space:pre-wrap;margin:0">{{noti.NoiDung}}</p>
                                     <span style="color:#777">Thời gian: {{noti.Created|date:'dd/MM/yyyy hh:ss'}}</span>
                                 </div>
                             </div>

@@ -413,22 +413,34 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       console.log(this.item.listItemMay.filter(ele => ele.CongDoan === 'THO'))
       this.item.listItemMay.filter(ele => ele.CongDoan === 'THO').forEach(mathang => {
         mathang.IddmPhanXuong = this.item.IddmPhanXuong;
-        this._services.TrienKhaiKeHoachSanXuat().GetChiSo(mathang).subscribe((res:any)=>{
-          mathang.listNMtemp = res.map(ele=>{
-            return{
-              label:ele.toString(),
-              value:ele
+        this._services.TrienKhaiKeHoachSanXuat().GetChiSo(mathang).subscribe((res: any) => {
+          mathang.listNMtemp = res.map(ele => {
+            return {
+              label: ele.toString(),
+              value: ele
             }
           });
         })
       });
     }
   }
-  SetChiSo(e,item){
+  SetChiSo(e, item) {
     item.ChiSoMoi = e.value;
-    this._services.TrienKhaiKeHoachSanXuat().SetChiSo(item).subscribe(res=>{
-      item = {...item,...res};
-      console.log(this.item.listItemMay)
+    this._services.TrienKhaiKeHoachSanXuat().SetChiSo(item).subscribe((res: any) => {
+      item.Ten = res.Ten;
+      item.SoMayTinhToan = res.SoMayTinhToan;
+      item.SoMayCanDoi = res.SoMayCanDoi;
+      item.KhoiLuongSanXuat = res.KhoiLuongSanXuat;
+      this.TinhLaiTinhTrangMay('THO');
+      // console.log(this.item.listItemMay)
     })
+  }
+  TinhLaiTinhTrangMay(CongDoan) {
+    this.mapCongDoan_TinhTrangMay[CongDoan] = {
+      ...this.mapCongDoan_TinhTrangMay[CongDoan],
+      TongKhoiLuong: this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.KhoiLuongSanXuat, 0),
+      SoMayCanDoi: this.mapCongDoan_TinhTrangMay[CongDoan].SoMayHienCo - this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
+      SoMayTinhToan: this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
+    }
   }
 }

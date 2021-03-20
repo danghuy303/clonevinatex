@@ -7,7 +7,7 @@ import { deepCopy, DateToUnix } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { Dongvanpx1Component } from '../layoutmodals/dongvanpx1/dongvanpx1.component';
 import { Dongvanpx2Component } from '../layoutmodals/dongvanpx2/dongvanpx2.component';
-import { XepbanbongmodalComponent } from '../xepbanbongmodal/xepbanbongmodal.component';
+
 
 @Component({
   selector: 'app-xepbanbong',

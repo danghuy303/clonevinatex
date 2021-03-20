@@ -207,7 +207,6 @@ import { QuycachdonggoiComponent } from './danhmuc/quycachdonggoi/quycachdonggoi
 import { SanluongComponent } from './sanluong/sanluong.component';
 import { ChonquycachdonggoimodalComponent } from './quanlykhosanxuat/modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component';
 import { XepbanbongComponent } from './quanlykhosanxuat/phuongan/xepbanbong/xepbanbong.component';
-import { XepbanbongmodalComponent } from './quanlykhosanxuat/phuongan/xepbanbongmodal/xepbanbongmodal.component';
 import { Dongvanpx1Component } from './quanlykhosanxuat/phuongan/layoutmodals/dongvanpx1/dongvanpx1.component';
 import { Dongvanpx2Component } from './quanlykhosanxuat/phuongan/layoutmodals/dongvanpx2/dongvanpx2.component';
 import { KienlocongdieuchinhmodalComponent } from './quanlykhosanxuat/quytrinh/kienlocongdieuchinhmodal/kienlocongdieuchinhmodal.component';
@@ -411,7 +410,6 @@ import { NhapkhobongphemodalComponent } from './quanlykhosanxuat/nhapkhobongphem
     SanluongComponent,
     ChonquycachdonggoimodalComponent,
     XepbanbongComponent,
-    XepbanbongmodalComponent,
     Dongvanpx1Component,
     Dongvanpx2Component,
     KienlocongdieuchinhmodalComponent,
@@ -557,7 +555,6 @@ import { NhapkhobongphemodalComponent } from './quanlykhosanxuat/nhapkhobongphem
     PhieudieuchinhmodalComponent,
     ChonquycachdonggoimodalComponent,
     SanxuatmodalComponent,
-    XepbanbongmodalComponent,
     Dongvanpx1Component,
     Dongvanpx2Component,
     KienlocongdieuchinhmodalComponent,

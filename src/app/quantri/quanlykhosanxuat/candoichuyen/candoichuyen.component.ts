@@ -30,6 +30,7 @@ export class CandoichuyenComponent implements OnInit {
     listPhanXuong: any = [];
     mapMa_TenCongDoan: any = {};
     IdDuAn: any;
+    today:any;
 
     constructor(
         private _store: StoreService,
@@ -46,7 +47,8 @@ export class CandoichuyenComponent implements OnInit {
         this.GetOptions();
         let date = new Date();
         this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
-        this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() +1, 0);
+        this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        this.today = this.datepipe.transform(date, "dd/MM/yyyy");
         // this.boTriMay();
         this.GetCalendar();
     }
@@ -128,14 +130,12 @@ export class CandoichuyenComponent implements OnInit {
                 for (let i = 0; i < this.filter._tuNgay.getDay(); i++) {
                     this.listDates.unshift({ header: "none" });
                 }
-                if(!reset){
-                    let date = new Date();
-                    let today = this.datepipe.transform(date, "dd/MM/yyyy");
-                    this.boTriMay(this.listDates.findIndex(ele=>ele.labelHienThi===today),this.listDates.find(ele=>ele.labelHienThi=== today));
-                }
+                // if(!reset){
+                //     let date = new Date();
+                //     let today = this.datepipe.transform(date, "dd/MM/yyyy");
+                //     this.boTriMay(this.listDates.findIndex(ele=>ele.labelHienThi===today),this.listDates.find(ele=>ele.labelHienThi=== today));
+                // }
             })
-            console.log(this.filter);
-
         }
     }
     boTriMay(index, date?) {
@@ -147,7 +147,7 @@ export class CandoichuyenComponent implements OnInit {
                     let modalRef = this._modal.open(BotrimayOngComponent, {
                         size: "fullscreen-100",
                         backdrop: "static",
-                        keyboard:false
+                        keyboard: false
                     });
                     modalRef.componentInstance.item = deepCopy(res);
                     modalRef.componentInstance.checkbutton = this.checkNavigationButton(index);
@@ -159,11 +159,11 @@ export class CandoichuyenComponent implements OnInit {
                     };
                     modalRef.result
                         .then((res) => {
-                            if(res.opt){
-                                this.navigationAction(res.opt,index)
+                            if (res.opt) {
+                                this.navigationAction(res.opt, index)
                             }
-                            if(res.respawn){
-                                this.boTriMay(index,date);
+                            if (res.respawn) {
+                                this.boTriMay(index, date);
                             }
                         })
                         .catch((er) => {
@@ -178,24 +178,25 @@ export class CandoichuyenComponent implements OnInit {
                     let modalRef = this._modal.open(BotrimayChungComponent, {
                         size: "fullscreen-100",
                         backdrop: "static",
-                        keyboard:false
+                        keyboard: false
                     });
                     modalRef.componentInstance.TenCongDoan = this.mapMa_TenCongDoan[this.filter.CongDoan];
                     modalRef.componentInstance.checkbutton = this.checkNavigationButton(index);
                     modalRef.componentInstance.item = deepCopy(res);
-                    modalRef.componentInstance.addonData = {
-                        IddmPhanXuong: this.filter.IddmPhanXuong,
-                        CongDoan: this.filter.CongDoan,
-                        NgayUnix: date.Unix,
-                        LabelNgay: date.labelHienThi
-                    };
+                    modalRef.componentInstance.canDieuChinh = (date.labelHienThi === this.today);
+                        modalRef.componentInstance.addonData = {
+                            IddmPhanXuong: this.filter.IddmPhanXuong,
+                            CongDoan: this.filter.CongDoan,
+                            NgayUnix: date.Unix,
+                            LabelNgay: date.labelHienThi
+                        };
                     modalRef.result
                         .then((res) => {
-                            if(res.opt){
-                                this.navigationAction(res.opt,index);
+                            if (res.opt) {
+                                this.navigationAction(res.opt, index);
                             }
-                            if(res.respawn){
-                                this.boTriMay(index,date);
+                            if (res.respawn) {
+                                this.boTriMay(index, date);
                             }
                         })
                         .catch((er) => {
@@ -208,13 +209,13 @@ export class CandoichuyenComponent implements OnInit {
             }
         }
     }
-    navigationAction(opt,index) {
+    navigationAction(opt, index) {
         switch (opt) {
             case 'Next':
-                this.boTriMay(index+1,this.listDates[index+1])
+                this.boTriMay(index + 1, this.listDates[index + 1])
                 break;
             case 'Previous':
-                this.boTriMay(index-1,this.listDates[index-1])
+                this.boTriMay(index - 1, this.listDates[index - 1])
                 break;
             default:
                 break;

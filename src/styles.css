@@ -309,3 +309,7 @@ span.required {
         font-size: 12px;
     }
 }
+.btn-ss{
+    padding:0px 2px;
+    line-height: 1 !important;
+}

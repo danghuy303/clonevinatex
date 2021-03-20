@@ -19,6 +19,7 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   TenCongDoan: any = '';
   listHangHoa: any = [];
   dangDieuChinh:boolean = false;
+  canDieuChinh:boolean = false;
   item: any = {
   }
   TongMatHang: any = {};
