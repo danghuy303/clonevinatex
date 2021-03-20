@@ -82,6 +82,9 @@ export class NhapkhokhacComponent implements OnInit {
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
+      .finally(()=>{
+        this.isCheckModal = false;
+      })
   }
  
   update(Id) {

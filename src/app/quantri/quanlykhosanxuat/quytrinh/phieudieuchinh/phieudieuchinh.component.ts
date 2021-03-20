@@ -95,6 +95,9 @@ export class PhieudieuchinhComponent implements OnInit {
         this.GetListQuyTrinh();
       })
         .catch(er => { console.log(er) })
+        .finally(()=>{
+          this.isCheckModal = false;
+        })
     })
   }
   changeTab(e) {

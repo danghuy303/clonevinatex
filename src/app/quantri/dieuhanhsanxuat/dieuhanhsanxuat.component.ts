@@ -277,6 +277,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     this._services.GetOptions().GetListdmLoaiBong_NhuCauSuDungBong_DashBoard(IddmKho).subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tất cả' });
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmLoaiBong = '';
       this.ChangeOptBieuDo()
     })
   }
@@ -284,6 +285,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     this._services.GetOptions().GetListdmLoaiBong_CoCauTonBong_DashBoard(IddmKho).subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tất cả' });
       this.listLoaiBongCanDoiTon = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filterNhuCau.IddmLoaiBong = '';
       this.ChangeOptCanDoiTon()
     })
   }

@@ -65,6 +65,9 @@ export class ChatluongsoiComponent implements OnInit {
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
+      .finally(()=>{
+        this.isCheckModal = false;
+      })
   }
   update(Id){
     this.isCheckModal = true;

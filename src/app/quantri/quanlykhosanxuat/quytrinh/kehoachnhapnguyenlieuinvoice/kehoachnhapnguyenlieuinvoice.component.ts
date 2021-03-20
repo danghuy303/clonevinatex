@@ -89,6 +89,9 @@ eAction = 'KEHOACHNHAPNGUYENLIEUINVOICE'
         this.GetListQuyTrinh();
       })
         .catch(er => { console.log(er) })
+        .finally(()=>{
+          this.isCheckModal = false;
+        })
     })
   }
   changeTab(e) {

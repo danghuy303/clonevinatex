@@ -84,31 +84,45 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 35px !important;">#</th>
+                        <th style="width: 35px !important;" rowspan="2">#</th>
                         <!-- <th>Ngày</th> -->
-                        <th>Mặt hàng</th>
+                        <th rowspan="2">Mặt hàng</th>
                         <!-- <th>Lô sản xuất</th> -->
                         <!-- <th>Hợp đồng P/O</th> -->
-                        <th>Tồn đầu</th>
-                        <th>Nhập trong kỳ</th>
-                        <th>Xuất trong kỳ</th>
-                        <th>Tồn cuối kỳ</th>
+                        <th colspan="2">Tồn đầu</th>
+                        <th colspan="2">Nhập trong kỳ</th>
+                        <th colspan="2">Xuất trong kỳ</th>
+                        <th colspan="2">Tồn cuối kỳ</th>
+                    </tr>
+                    <tr>
+                        <th>Số kiện</th>
+                        <th>KL</th>
+                        <th>Số kiện</th>
+                        <th>KL</th>
+                        <th>Số kiện</th>
+                        <th>KL</th>
+                        <th>Số kiện</th>
+                        <th>KL</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
-                    <tr [ngClass]="{'p-text-bold': item.TendmItem=='TỔNG'}">
+                    <tr [ngClass]="{'p-text-bold': item.TendmItem===null}">
                         <td class="text-center" style="width: 35px !important;">
                             <p-checkbox [ngModel]="item.checked" (onChange)="checkMatHang($event,item,i)" binary="true"
-                                inputId="binary" *ngIf="item.TendmItem!=='TỔNG'"></p-checkbox>
+                                inputId="binary" *ngIf="item.TendmItem!==null"></p-checkbox>
                         </td>
                         <!-- <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td> -->
-                        <td>{{item.TendmItem}}</td>
+                        <td>{{item.TendmItem!==null?item.TendmItem:item.TendmLoaiBong}} </td>
                         <!-- <td>{{item.TenLoHang}}</td> -->
                         <!-- <td>{{item.SoHopDong}}</td> -->
-                        <td class="text-right">{{item.DauSoLuong|number:'0.0'}}</td>
-                        <td class="text-right">{{item.NhapSoLuong|number:'0.0'}}</td>
-                        <td class="text-right">{{item.XuatSoLuong|number:'0.0'}}</td>
-                        <td class="text-right">{{item.CuoiSoLuong|number:'0.0'}}</td>
+                        <td class="text-right">{{item.DauSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.DauSoCan|number:'0.2-2' }}</td>
+                        <td class="text-right">{{item.NhapSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.NhapSoCan|number:'0.2-2' }}</td>
+                        <td class="text-right">{{item.XuatSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.XuatSoCan|number:'0.2-2' }}</td>
+                        <td class="text-right">{{item.CuoiSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.CuoiSoCan|number:'0.2-2' }}</td>
                     </tr>
                 </ng-template>
             </p-table>

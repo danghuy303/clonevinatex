@@ -175,9 +175,14 @@
                         <th colspan="9">Chất lượng bông</th>
                         <!-- <th style="display: none;"></th>
                         <th style="display: none;"></th> -->
-                        <th [attr.colspan]="listProps.length">Bàn bông {{isCopying?copyItem.name:''}} <span><button *ngIf="isCopying" class="btn btn-ss btn-primary" (click)="doneCopy()">
-                            <i class="fas fa-times"></i>
-                        </button></span></th>
+                        <th [attr.colspan]="listProps.length">Bàn bông
+                            <!-- {{isCopying?copyItem.name:''}}
+                            <span>
+                                <button *ngIf="isCopying" class="btn btn-ss btn-primary" (click)="doneCopy()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </span> -->
+                        </th>
                     </tr>
                     <tr>
                         <th rowspan="2" style="display: none;"></th>
@@ -211,8 +216,12 @@
                             <button *ngIf="!isCopying" class="btn btn-ss btn-primary" (click)="copy(ban)">
                                 <i class="fas fa-angle-double-up"></i>
                             </button>
-                            <button *ngIf="isCopying&&copyItem.BanSo!==ban" class="btn btn-ss btn-primary" (click)="paste(ban)">
+                            <button *ngIf="isCopying&&copyItem.BanSo!==ban" class="btn btn-ss btn-success"
+                                (click)="paste(ban)">
                                 <i class="fas fa-angle-double-down"></i>
+                            </button>
+                            <button *ngIf="isCopying && copyItem.BanSo===ban" class="btn btn-ss btn-danger" (click)="doneCopy()">
+                                <i class="fas fa-times"></i>
                             </button>
                         </th>
                     </tr>
@@ -267,7 +276,11 @@
                             {{lobong.Am|number:'0.2-2'}}</td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
-                                <input style="width: 100%; text-align: right; border: transparent; color:#495057" class="dat09focus" [tabindex]="lobong.tempBanBong[prop].tabIndex" type="number" [(ngModel)]="lobong.tempBanBong[prop].SoKien" (keydown)="test($event,lobong.tempBanBong[prop].tabIndex)" (blur)="CalAllTable(i,prop)">
+                                <input style="width: 100%; text-align: right; border: transparent; color:#495057"
+                                    class="dat09focus" [tabindex]="lobong.tempBanBong[prop].tabIndex" type="number"
+                                    [(ngModel)]="lobong.tempBanBong[prop].SoKien"
+                                    (keydown)="test($event,lobong.tempBanBong[prop].tabIndex)"
+                                    (blur)="CalAllTable(i,prop)">
                                 <!-- <p-inputNumber locale="vi-VN" [(ngModel)]="lobong.tempBanBong[prop].SoKien"
                                     [tabindex]="lobong.tempBanBong[prop].tabIndex" [placeholder]="'_'"
                                     (onBlur)="CalAllTable(i,prop)">
