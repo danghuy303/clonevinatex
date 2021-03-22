@@ -21,7 +21,8 @@
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width:200px">
-            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh()" [(ngModel)]="filter.KeyWord"/>
+            <input type="text" placeholder="Tìm theo số quy trình" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh()" [(ngModel)]="filter.KeyWord"/>
+            <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text" (click)="GetListQuyTrinh()"></button>
             <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"(click)="resetFilter()"></button>
         </div>
         
@@ -40,7 +41,7 @@
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
-                <col>
+                <col style="width:200px">
                 <col>
                 <col>
                 <col>
@@ -54,7 +55,7 @@
                 <th class="text-center">Số quy trình</th>
                 <th class="text-center">Ngày tạo</th>
                 <th class="text-center">Nội dung</th>
-                <th class="text-center">Khối lượng nhập (Tấn)</th>
+                <th class="text-center">Khối lượng nhập (Kg)</th>
                 <th *ngFor="let header of cols">
                     {{header.header}}
                 </th>

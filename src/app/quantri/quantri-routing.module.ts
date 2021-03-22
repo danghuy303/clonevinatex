@@ -91,6 +91,8 @@ import { CandoichuyenComponent } from './quanlykhosanxuat/candoichuyen/candoichu
 import { LohangComponent } from './quanlykhosanxuat/thongke/lohang/lohang.component';
 import { DactinhbongComponent } from './danhmuc/danhmucsanxuat/dactinhbong/dactinhbong.component';
 import { KehoachnhapnguyenlieuinvoiceComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieuinvoice/kehoachnhapnguyenlieuinvoice.component';
+import { BanchephamComponent } from './danhmuc/danhmucsanxuat/banchepham/banchepham.component';
+import { NhapkhobongpheComponent } from './quanlykhosanxuat/nhapkhobongphe/nhapkhobongphe.component';
 
 const routes: Routes = [
   {
@@ -166,6 +168,7 @@ const routes: Routes = [
       { path: 'danhmucsanxuat/dmvitri', component: VitriComponent },
       { path: 'theodoithongkebaocaosanxuat/thongkedien/:id', component: DmthongkedienComponent },
       { path: 'danhmucsanxuat/dmdactinhbong', component: DactinhbongComponent },
+      { path: 'danhmucsanxuat/dmbanchepham', component: BanchephamComponent },
 
       { path: 'theodoithongkebaocaosanxuat/thongkesanluong/:id', component: ThongkesanluongComponent },
 
@@ -195,11 +198,12 @@ const routes: Routes = [
       { path: 'quanlysanxuatkhohoiam/khohoiam/chatluongsoi/:id', component: ChatluongsoiComponent },
 
 
-      { path: 'quanlykhosanxuatbongkhac/:kho/nhapkho/:id', component: NhapkhokhacComponent },
+      { path: 'quanlykhosanxuatbongkhac/khobonghoi/nhapkho/:id', component: NhapkhokhacComponent },
       { path: 'quanlykhosanxuatbongkhac/khobonghoi/xuatkho/:id', component: XuatkhobonghoiComponent },
       { path: 'quanlykhosanxuatbongkhac/khobonghoi/kiemkekho/:id', component: KiemkekhoComponent },
       { path: 'quanlykhosanxuatbongkhac/khobonghoi/dieuchuyen/:id', component: DieuchuyenComponent },
 
+      { path: 'quanlykhosanxuatbongkhac/khobongphe/nhapkho/:id', component: NhapkhobongpheComponent },
       { path: 'quanlykhosanxuatbongkhac/khobongphe/xuatkho/:id', component: XuatkhobongpheComponent },
       { path: 'quanlykhosanxuatbongkhac/khobongphe/kiemkekho/:id', component: KiemkekhoComponent },
 

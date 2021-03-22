@@ -38,14 +38,30 @@
 
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="this.type==='bong'">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hợp đồng :</label>
+        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="this.type==='bong'"> -->
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đợt nhập :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listKeHoach"
+                <p-dropdown [filter]="true" [options]="listKeHoach" *ngIf="item.isTuDong===true" disabled
+                 placeholder="Chọn kế hoạch" styleClass="p-inputtext-sm" [(ngModel)]="item.IdKeHoachNhapNguyenLieuInvoice_Item"
+                (onChange)="getKeHoach($event)"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listKeHoach" *ngIf="item.isTuDong===false"
                  placeholder="Chọn kế hoạch" styleClass="p-inputtext-sm" [(ngModel)]="item.IdKeHoachNhapNguyenLieuInvoice_Item"
                 (onChange)="getKeHoach($event)"></p-dropdown>
             </div>
         </div> 
+        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Mã Invoice:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.MaInvoice" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung Invoice:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
+            </div>
+        </div> -->
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label *ngIf="this.type!=='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông <span class="text-danger">*</span>:</label>
             <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại xơ <span class="text-danger">*</span>:</label>
@@ -80,7 +96,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" [(ngModel)]="item.IddmKho"
                 styleClass="p-inputtext-sm"></p-dropdown>
@@ -94,13 +110,20 @@
         </div>
        
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto" *ngIf="this.type==='bong'">Đơn giá Bông/Kg (USD):</label>
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto" *ngIf="this.type==='xo'">Đơn giá Xơ/Kg (USD):</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto" *ngIf="this.type==='bong'">Đơn giá bông/Kg (USD):</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto" *ngIf="this.type==='xo'">Đơn giá xơ/Kg (USD):</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.GiaBong">
                 </p-inputNumber>
             </div>
         </div>
+        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="this.type==='xo'">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đơn giá Xơ/Kg (VND):</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.GiaXo">
+                </p-inputNumber>
+            </div>
+        </div> -->
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -141,7 +164,7 @@
                             <input pInputText type="text" [(ngModel)]="item.Ten">
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoCan">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoCan">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
@@ -149,11 +172,15 @@
                             </p-inputNumber>
                         </td>
                         <td class="text-center"  *ngIf="this.type==='bong'">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienNgan">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienNgan"
+                            [max] = "item.SoKien"
+                            (ngModelChange)="TinhSoKienNgan(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center"  *ngIf="this.type==='bong'">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienDai">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienDai"
+                            [max] = "item.SoKien"
+                            (ngModelChange)="TinhSoKienDai(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
@@ -178,25 +205,27 @@
                         </td>
                         <td>
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoCan">
+                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoCan">
                                 </p-inputNumber>
                             </div>
                         </td>
                         <td>
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKien">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKien" [min] = "0">
                                 </p-inputNumber>
                             </div>
                         </td>
                         <td  *ngIf="this.type==='bong'">
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKienNgan">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKienNgan"
+                                (ngModelChange)="TinhSoKienNgan(newTableItem)" [min] = "0">
                                 </p-inputNumber>
                             </div>
                         </td>
                         <td  *ngIf="this.type==='bong'">
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKienDai">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKienDai" 
+                                (ngModelChange)="TinhSoKienDai(newTableItem)" [min] = "0">
                                 </p-inputNumber>
                             </div>
                         </td>
@@ -209,6 +238,26 @@
                             <button pButton pRipple type="button" icon="pi pi-plus"
                                 class="p-button-rounded p-button-sm " (click)="add()"></button>
                         </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'SoCan'|number:'0.3-3'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'SoKien'|number:'0.0'}}
+                        </td>
+                        <td class="text-right" *ngIf="this.type==='bong'">
+                            {{item.listItem|SumByKey:'SoKienNgan'|number:'0.0'}}
+                        </td>
+                        <td class="text-right" *ngIf="this.type==='bong'">
+                            {{item.listItem|SumByKey:'SoKienDai'|number:'0.0'}}
+                        </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </ng-template>
             </p-table>

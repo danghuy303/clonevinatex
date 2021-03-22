@@ -84,6 +84,7 @@ export class NhapkhokhacmodalComponent implements OnInit {
       this._services.QuyTrinhPhieuNhapLoBong().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
+            this.toastr.success(res.message)
             this.activeModal.close();
           } else {
             this.toastr.error(res.message);
@@ -159,6 +160,7 @@ export class NhapkhokhacmodalComponent implements OnInit {
       this._services.QuyTrinhPhieuNhapLoBong().Delete(this.item).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
+          this.toastr.success(res.message)
           this.activeModal.close();
         } else {
           this.toastr.error(res.message);

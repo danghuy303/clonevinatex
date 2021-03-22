@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { ThongkesanluongmodalComponent } from '../thongkesanluongmodal/thongkesanluongmodal.component';
 
 @Component({
@@ -30,8 +30,18 @@ export class ThongkesanluongComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Ca làm việc',
+      header: 'Thời điểm',
       field: 'TendmCaSanXuat',
+      width: 'unset'
+    },
+    {
+      header: 'Ca',
+      field: 'TendmCaSanXuatThucTe',
+      width: 'unset'
+    },
+    {
+      header: 'Khối lượng(kg)',
+      field: 'TongKhoiLuong',
       width: 'unset'
     },
     {
@@ -51,12 +61,25 @@ export class ThongkesanluongComponent implements OnInit {
     }
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-
+  listPhanXuong: any = [];
+  listCaSanXuat: any = [];
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh()
+    this.GetListQuyTrinh();
+    this.getListCaSanXuat();
+    this.getListPhanXuong();
+  }
+  getListCaSanXuat() {
+    this._service.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
+      this.listCaSanXuat = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  getListPhanXuong() {
+    this._service.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
   changeParam(id){
     if(this._modal.hasOpenModals()){
@@ -113,6 +136,8 @@ export class ThongkesanluongComponent implements OnInit {
       DenNgay:DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
+      IddmPhanXuong: this.filter.IddmPhanXuong,
+      IddmCaSanXuatThucTe: this.filter.IddmCaSanXuatThucTe,
     }
     this._service.ThongKeSanLuong().GetList(data).subscribe((res:any)=>{
       this.items = res.items;

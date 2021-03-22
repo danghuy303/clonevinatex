@@ -18,7 +18,7 @@
         </div>
     </div>
     <p-tabView>
-        <p-tabPanel header="Chưa xếp bàn bông">
+        <p-tabPanel header="Cùng lô bông">
             <ng-template pTemplate="content">
                 <p-table  [lazy]="true" [scrollable]="true" scrollHeight="45vh"
             [value]="item.listChuaXep" styleClass="p-datatable-sm wrap-text p-datatable-striped">
@@ -44,7 +44,7 @@
                             {{ 15 * (paging.CurrentPage - 1) + i + 1 }}
                         </td>
                         <td >
-                            <input type="checkbox" [(ngModel)]="item.checked" (click)="itemCheck(item)">
+                            <input type="checkbox" [(ngModel)]="item.checked" (click)="itemCheck(item)" [disabled]="item.isChon">
                         </td>
                         <td class="text-center" *ngFor="let col of cols" [ngClass]="{'text-center': col.align==='center'}">
                             {{item[col.field]}}
@@ -85,7 +85,7 @@
                             {{ 15 * (paging1.CurrentPage - 1) + i + 1 }}
                         </td>
                         <td >
-                            <input type="checkbox" [(ngModel)]="item.checked" (click)="itemCheck(item)">
+                            <input type="checkbox" [(ngModel)]="item.checked" (click)="itemCheck(item)" [disabled]="item.isChon">
                         </td>
                         <td class="text-center" *ngFor="let col of cols" [ngClass]="{'text-center': col.align==='center'}">
                             {{item[col.field]}}

@@ -56,7 +56,7 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca làm việc:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listCaMay" placeholder="Chọn ca máy" [(ngModel)]="item.IddmCaSanXuat"
+                <p-dropdown [filter]="true" [options]="listCaMay" placeholder="Chọn ca máy" [(ngModel)]="item.IddmCaSanXuatThucTe"
                 styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
@@ -80,6 +80,7 @@
                     pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
                     (click)="GetMatHangTheoKho()"></button>
             </div>
+            <!-- // [scrollable]="true"  scrollHeight="40vh" -->
             <p-table 
              [value]="item.listItem|isXoa"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped">
@@ -91,6 +92,8 @@
                         <col>
                         <col>
                         <!-- <col> -->
+                        <!-- <col> -->
+                        <col>
                         <col>
                         <col style="width:100px">
                     </colgroup>
@@ -99,10 +102,12 @@
                     <tr>
                         <th>#</th>
                         <th>Tên</th>
+                        <th>Tên lô hàng</th>
                         <th>Kg/cone</th>
-                        <th>Quả sợi sản xuất</th>
+                        <!-- <th>Quả sợi sản xuất</th> -->
                         <th>Quả sợi thực tế</th>
                         <!-- <th>Số quả sợi</th> -->
+                        <th>Khối lượng thành phẩm thực tế (Kg)</th>
                         <th>Ghi chú</th>
                         <th style="width: 100px;"></th>
                     </tr>
@@ -111,20 +116,29 @@
                     <tr>
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">{{item.Ten}}</td>
+                        <td class="text-center">{{item.TenLoHang}}</td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KgCone" disabled>
-                            </p-inputNumber>
+                            <p-dropdown [filter]="true" [options]="listKgCone" placeholder="Chọn Kg/cone" 
+                                [(ngModel)]="item.KgCone"
+                                styleClass="p-inputtext-sm"></p-dropdown>
+
+                            <!-- <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KgCone" disabled>
+                            </p-inputNumber> -->
                         </td>
                         <!-- <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.KhoiLuong">
                             </p-inputNumber>
                         </td> -->
-                        <td class="text-center">
+                        <!-- <td class="text-center">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoQuaSoiSanXuat" disabled>
+                            </p-inputNumber>
+                        </td> -->
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe * item.KgCone">
                             </p-inputNumber>
                         </td>
                         <!-- <td class="text-center">

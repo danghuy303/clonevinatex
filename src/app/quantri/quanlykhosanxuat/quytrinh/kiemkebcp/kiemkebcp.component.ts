@@ -63,6 +63,7 @@ export class KiemkebcpComponent implements OnInit {
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   title: any = '';
+  isCheckModal: any = false;
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
     private activatedRoute: ActivatedRoute,private router:Router) { }
 
@@ -70,9 +71,8 @@ export class KiemkebcpComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res:any)=>{
       this.title = res.kho;
-      if(res.id!=='0'){
-        let getitem =()=>{return{}};
-        this.update(getitem());
+      if(res.id!=='0' && this.isCheckModal === false){
+        this.update(res.id);
       }
       this.GetListQuyTrinh()
     })
@@ -98,21 +98,24 @@ export class KiemkebcpComponent implements OnInit {
     })
       .catch(er => { console.log(er) })
   }
-  update(item){
-    this.changeParam(item);
-
+  update(Id){
+    this.isCheckModal = true;
+    this.changeParam(Id);
     let modalRef = this._modal.open(KiemkebcpmodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
     modalRef.componentInstance.title = this.title;
     modalRef.result.then((res: any) => {
       console.log(res);
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
+      .finally(()=>{
+        this.isCheckModal = false;
+      })
   }
   changeTab(e){
     this.trangThai = e.index+1;

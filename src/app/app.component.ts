@@ -20,6 +20,7 @@ export class AppComponent {
   constructor(private router: Router,private _modal:NgbModal) { }
 
   ngOnInit() {
+    console.log(window.location);
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;

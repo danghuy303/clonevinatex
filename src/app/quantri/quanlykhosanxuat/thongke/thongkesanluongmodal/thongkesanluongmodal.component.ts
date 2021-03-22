@@ -28,6 +28,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   editTableItem: any = {};
   lang: any = vn;
   listLoHang: any = [];
+  listCaThucTe: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
 
@@ -37,10 +38,10 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.getListCongDoan();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
+      this.GetPhanXuongTheoUser()
     }
     else{
       this.KiemTraButtonModal();
-      this.item.CongDoan = this.listCongDoan[0]
       this.getItemTheoCongDoan();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
@@ -49,6 +50,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.getListPhanXuong();
     this.getListCaSanXuat();
     this.getListLoHang();
+    this.getListCaThucTe();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -56,13 +58,16 @@ export class ThongkesanluongmodalComponent implements OnInit {
     })
   }
   ChuyenDuyet() {
-    if (this.item.IdLoHang === null || this.item.IdLoHang === undefined) {
-      this.toastr.error("Bạn chưa chọn  lô hàng cho công đoạn Ống");
+    let isCheck : any = false;
+    this.item.listItem.forEach(element => {
+      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {
+        isCheck= true;
+      }
+    });
+    if (isCheck === true) {
+      this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
     }
     else{
-      this.item.listItem.forEach(element => {
-        element.IdLoHang = this.item.IdLoHang
-      });
       this.services.ThongKeSanLuong().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -82,20 +87,28 @@ export class ThongkesanluongmodalComponent implements OnInit {
     })
   }
   GhiLai() {
-    if (this.item.IdLoHang === null || this.item.IdLoHang === undefined) {
-      this.toastr.error("Bạn chưa chọn  lô hàng cho công đoạn Ống");
+    let isCheck : any = false;
+    this.item.listItem.forEach(element => {
+      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG" && element.KhoiLuong !== null && element.KhoiLuong !== undefined) {
+        isCheck= true;
+      }
+    });
+    console.log(this.item)
+    if (isCheck === true) {
+      this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
     }
     else{
-      debugger
-      this.item.listItem.forEach(element => {
-        element.IdLoHang = this.item.IdLoHang
-      });
+      // this.item.listItem.forEach(element => {
+      //   element.IdLoHang = this.item.IdLoHang
+      // });
       this.services.ThongKeSanLuong().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            this.listItem = [];
+            this.getItemTheoCongDoan()
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
@@ -132,11 +145,23 @@ export class ThongkesanluongmodalComponent implements OnInit {
   getListCongDoan() {
     this.services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+      
+    })
+  }
+  getListCaThucTe() {
+    this.services.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
+      this.listCaThucTe = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   getListCaSanXuat() {
     this.services.GetListOptdmCaSanXuat().subscribe((res: any) => {
       this.listCaSanXuat = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  GetPhanXuongTheoUser() {
+    this.services.GetListPhanXuongTheoUser().subscribe((res: any) => {
+      if(res != null)
+        this.item.IddmPhanXuong = res[0].Id;
     })
   }
   getListPhanXuong() {
@@ -153,15 +178,19 @@ export class ThongkesanluongmodalComponent implements OnInit {
 
         if(this.item.listItem != undefined && this.item.listItem != null){
           this.item.listItem.forEach(element => {
-          if(element.Id !== null && element.Id !== undefined)
-              element.isXoa = true
-            });
+            element.isXoa = true
+          });
         }
         this.services.ThongKeSanLuong().GetMatHang(this.item.IddmPhanXuong,this.item.IddmCaSanXuat, this.item.NgayUnix).subscribe((res: any) => {
           res.forEach(element => {
             element.Id = null;
           });
-          this.item.listItem = res;
+          if(this.item.listItem !== undefined && this.item.listItem !== null){
+            this.item.listItem = this.item.listItem.concat(res);
+          }
+          else
+            this.item.listItem= res;
+          this.getItemTheoCongDoan();
         })
       }
   }
@@ -184,6 +213,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
     var KhoiLuong = 0;
     if(item.Ne !== undefined && item.Ne !== null && item.Ne !== 0 && event !== undefined)
       KhoiLuong = event/item.Ne;
+    return KhoiLuong;
+  }
+  TinhCongThucMoi(item, event) {
+    var KhoiLuong = 0;
+    if(item.Ne !== undefined && item.Ne !== null && item.Ne !== 0 && event !== undefined)
+      KhoiLuong = event/item.Ne/1.693*1200/1000;
     return KhoiLuong;
   }
   onClose(){
@@ -234,5 +269,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
       else if(event !== 0 && event.value !== 0 && event.value !== null)
         item.SoQuaSoi =item.KhoiLuong/event.value;
     }
+  }
+  TinhKhoiLuongHoiAm(item){
+    item.KhoiLuongHoiAm = item.SoQuaSoi * item.KgCone
   }
 }

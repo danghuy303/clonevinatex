@@ -53,7 +53,8 @@ export class TimbongmodalComponent implements OnInit {
   trongLuongLoBong: any = {};
   itemDeltaPlusB: any = {};
   itemMicTT: any = {};
-
+  itemCVMicTT:any={};
+  itemTyLeHoiPha:any={};
   PoolLoBong: any = {
 
   }
@@ -137,7 +138,7 @@ export class TimbongmodalComponent implements OnInit {
             this.labelBong[lobong.MadmLoaiBong] += lobong.TyLe;
           }
         });
-        this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.M + this.labelBong.TP);
+        // this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.MY + this.labelBong.TP);
         for (let i = 0; i < this.item.listLoBong.length; i++) {
           for (let j = 1; j <= this.item.SoBanBong; j++) {
             this.CalAllTable(i, `${j}`);
@@ -146,6 +147,8 @@ export class TimbongmodalComponent implements OnInit {
         if (validVariable(this.item.listThongSo)) {
           this.item.listThongSo.forEach(thongso => {
             this.itemMicTT[`${thongso.ThuTu}`] = thongso.MicTT;
+            this.itemCVMicTT[`${thongso.ThuTu}`] = thongso.CVMicTT;
+            this.itemTyLeHoiPha[`${thongso.ThuTu}`] = thongso.TyLeHoiPha;
           });
         }
       }
@@ -181,7 +184,7 @@ export class TimbongmodalComponent implements OnInit {
         this.labelBong[lobong.MadmLoaiBong] += lobong.TyLe;
       }
     });
-    this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.M + this.labelBong.TP);
+    // this.labelBong.Hoi = 100 - (this.labelBong.BR + this.labelBong.MY + this.labelBong.TP);
   }
   CalAllTable(y, x) {
     let tempSLD = 0;
@@ -218,6 +221,7 @@ export class TimbongmodalComponent implements OnInit {
       }
     });
     tempSLD = 0;
+    tempSoKien1Line=0;
     for (let i = 1; i <= this.item.SoBanBong; i++) {
       if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
         tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
@@ -289,7 +293,7 @@ export class TimbongmodalComponent implements OnInit {
         this.trongLuongLoBong[lobong.MadmLoaiBong] += lobong.TongTrongLuong;
       }
     });
-    this.trongLuongLoBong.Hoi = this.TongKhoiLuongDung - (this.trongLuongLoBong.BR + this.trongLuongLoBong.M + this.trongLuongLoBong.TP);
+    // this.trongLuongLoBong.Hoi = this.TongKhoiLuongDung - (this.trongLuongLoBong.BR + this.trongLuongLoBong.M + this.trongLuongLoBong.TP);
   }
   TinhDeltaB() {
     for (let i = 1; i <= this.item.SoBanBong; i++) {

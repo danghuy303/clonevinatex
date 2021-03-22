@@ -56,7 +56,7 @@ export class NhucauxuathangComponent implements OnInit {
     legend: {
       position: 'bottom'
     },
-    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
+    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
     aspectRatio: (((window.innerWidth - 80) * 2 / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   option2: any = {
@@ -74,7 +74,7 @@ export class NhucauxuathangComponent implements OnInit {
         barPercentage: 1.0
       }]
     },
-    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
+    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
     aspectRatio: ((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   optionPie: any = {
@@ -88,7 +88,7 @@ export class NhucauxuathangComponent implements OnInit {
     legend: {
       position: 'left'
     },
-    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
+    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
@@ -190,10 +190,14 @@ export class NhucauxuathangComponent implements OnInit {
       Ma: "",
       Ten: ""
     };
-    this._services.GetListdmKho(data).subscribe((res: any) => {
+    setTimeout(
+      ()=>{
+        this._services.GetdmKhoThanhPhamHoiAm_DashBoard({IdDuAn:this.store.getCurrent()}).subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tất cả' });
       this.listKho = mapArrayForDropDown(res, "Ten", 'Id');
     })
+      },500
+    )
     this._services.GetOptions().GetMatHang().subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tổng hợp' });
       this.listMatHang = mapArrayForDropDown(res, "Ten", 'Id');
@@ -217,7 +221,6 @@ export class NhucauxuathangComponent implements OnInit {
     if (this.SelectItem.TendmItem != undefined && this.SelectItem != null) {
       console.log(this.SelectItem);
       if (validVariable(this.SelectItem?.IddmItem)) {
-
         this._services.GetDashBoard_TruyXuatNguonGoc(this.SelectItem.IddmItem, DateToUnix(this.filter._tuNgayCanDoiTon), DateToUnix(this.filter._denNgayCanDoiTon)).subscribe((res: any) => {
           this.showTruySuatNguonGoc = true;
           this.listTruySuatNguonGoc = res;
@@ -235,6 +238,5 @@ export class NhucauxuathangComponent implements OnInit {
     else {
       this.toastr.error("Yêu cầu chọn mặt hàng");
     }
-
   }
 }

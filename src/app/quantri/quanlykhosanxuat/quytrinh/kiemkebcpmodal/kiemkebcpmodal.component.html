@@ -32,11 +32,10 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ca sản xuất:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.CongDoan" (onChange)="getItemTheoCongDoan()">
-                </p-dropdown>
+                <p-dropdown [filter]="true" [options]="listdmCaSanXuat" placeholder="Chọn ca sản xuất"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmCaSanXuat"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
@@ -44,19 +43,28 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
-                    [(ngModel)]="item.Ngay" inputId="icon" placeholder="dd/mm/yyyy" (onSelect)="getListCanDoiChuyenKiemKe(true)">
+                    [(ngModel)]="item.Ngay" inputId="icon" placeholder="dd/mm/yyyy" (onSelect)="GetListItemKiemKeBanChePham()">
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú:</label>
-            <div class="p-col-12 p-lg-11 p-p-0">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.CongDoan" (onChange)="getItemTheoCongDoan()">
+                </p-dropdown>
+            </div>
+        </div>
+        
+        <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
 
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <p-table *ngIf="item.CongDoan!=='ONG'&&item.CongDoan!=='CON'"
+            <p-table *ngIf="item.CongDoan!=='ONG'&&item.CongDoan!=='CON'&&item.CongDoan!=='THO'"
             [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="listItem|isXoa"
                 styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
@@ -108,8 +116,8 @@
                 styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th class="text-center" rowspan="2">Máy số</th>
-                        <th class="text-center" rowspan="2">Mặt hàng</th>
+                        <th class="text-center" rowspan="2" style="width: 160px;">Máy số</th>
+                        <th class="text-center" rowspan="2" style="width: 140px;">Mặt hàng</th>
                         <th class="text-center" *ngFor="let col of listMatHang" 
                                 [attr.colspan]="col.SoCotCon" [attr.rowspan]="col.SoDongCon">{{col.Ten}}</th>
                         <th class="text-center" rowspan="2">Tổng cộng (Kg)</th>
@@ -121,8 +129,8 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-itemindex let-i="rowIndex">
                     <tr>
-                        <td class="align-content-center first-col sticky-col">{{itemindex.TendmMay}}</td>
-                        <td class="align-content-center first-col sticky-col">{{itemindex.TenMatHang}}</td>
+                        <td class="align-content-center" style="width: 160px;">{{itemindex.TendmMay}}</td>
+                        <td class="align-content-center" style="width: 140px;">{{itemindex.TenMatHang}}</td>
                         <td *ngFor="let itemsanpham of itemindex.listKiemKeBCP" class="text-center">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemsanpham.GiaTri">
                             </p-inputNumber>
@@ -133,6 +141,74 @@
                         </td> 
                         <td class="text-center">
                             <input type="text" [(ngModel)]="itemindex.GhiChu" pInputText/>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <p-table *ngIf="item.CongDoan==='THO'"
+            [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="listItem|isXoa"
+                styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
+                <ng-template pTemplate="colgroup">
+                    <colgroup>
+                        <col>
+                        <col style="width:90px; text-align: center;">
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="text-center">Nội dung</th>
+                        <th class="text-center">ĐVT</th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="text-center">KL đv</th>
+                        <th class="text-center">Tổng KL</th>
+                        <th class="text-center">Ghi chú</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-itemindex let-i="rowIndex">
+                    <tr>
+                        <td class="align-content-center first-col sticky-col">{{itemindex.TenMatHang}}</td>
+                        <td class="text-center">
+                            <input type="text" [(ngModel)]="itemindex.DonViTinh" pInputText disabled/>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemindex.SoLuong" disabled>
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemindex.KhoiLuongDV" disabled>
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemindex.TongKhoiLuong" disabled>
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <input type="text" [(ngModel)]="itemindex.GhiChu" pInputText disabled/>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let itemcon of itemindex.listKiemKeBCP">
+                        <td class="align-content-center first-col sticky-col">{{itemcon.Ten}}</td>
+                        <td class="text-center">
+                            <input type="text" [(ngModel)]="itemcon.DonViTinh" pInputText disabled/>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemcon.SoLuong">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemcon.KhoiLuongDV">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemcon.TongKhoiLuong">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <input type="text" [(ngModel)]="itemcon.GhiChu" pInputText/>
                         </td>
                     </tr>
                 </ng-template>

@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Phương án xếp bàn bông</h5>
+    <h5 class="modal-title">Phương án xếp bàn bông - Bàn số {{item.ThuTu}} - Phương án pha bông {{item.TenPhuongAnPhaBong}}</h5>
     <!-- {{opt==='add'?'Thêm mới':'Cập nhật'}}  -->
     <div class="p-d-flex p-flex-row">
         <div class="mr-2">Số quy trình:&nbsp;{{item.SoQuyTrinh}}</div>
@@ -124,12 +124,12 @@
                         </tr>
                         <tr>
                             <td colspan="2">Khối lượng 1 bàn</td>
-                            <td></td>
+                            <td class="text-right">{{item.KhoiLuongBan|number:'0.0-2'}}</td>
                             <!-- <td></td> -->
                         </tr>
                         <tr>
                             <td colspan="2">Khối lượng 1 tuần</td>
-                            <td></td>
+                            <td class="text-right">{{item.KhoiLuongBan*7|number:'0.0-2'}}</td>
                             <!-- <td></td> -->
                         </tr>
                     </tbody>

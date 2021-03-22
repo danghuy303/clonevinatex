@@ -12,7 +12,7 @@
         <!-- <div class="mr-2">TG tạo:&nbsp;{{item.Created}}</div>
         <div class="mr-2">TG duyệt:&nbsp;{{item.Modified}}</div> -->
     </div>
-    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="Onclose()">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
@@ -20,7 +20,7 @@
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
-                (click)="activeModal.dismiss('close')"></button>
+                (click)="Onclose()"></button>
             <button pButton pRipple type="button" label="Lưu nháp" class="p-mr-2 p-button-sm " (click)="GhiLai()"
                 *ngIf="checkbutton.Ghi"></button>
             <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
@@ -81,10 +81,11 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
+                        <col style="text-align: center;">
+                        <col style="text-align: center;">
+                        <col style="text-align: center;">
                         <col>
-                        <col>
-                        <col>
-                        <col>
+                        <col style="width:100px; text-align: center;">
                         <col style="width:90px">
                     </colgroup>
                 </ng-template>
@@ -95,18 +96,22 @@
                         <th>Tên kiện</th>
                         <th>Vị trí</th>
                         <th>Số lượng</th>
+                        <th>Thay đổi</th>
                         <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
-                        <td style="text-align: center;">{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
-                        <td style="text-align: center;">{{item.ThuTu}} </td>
+                        <td>{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
+                        <td style="text-align: center;" >{{item.ThuTu}} </td>
                         <td style="text-align: center;">{{item.Ten}}</td>
                         <td style="text-align: center;">{{item.TendmViTri}}</td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
+                        </td>
+                        <td style="text-align: center;">
+                            <input type="checkbox" [(ngModel)]="item.isDieuChinh">
                         </td>
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
@@ -114,6 +119,19 @@
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
                                 tooltipPosition="bottom"></button>
                         </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'SoLuong'|number:'0.0'}}
+                        </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="summary">

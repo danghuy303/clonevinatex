@@ -5,9 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { KienlocongdieuchinhmodalComponent } from '../kienlocongdieuchinhmodal/kienlocongdieuchinhmodal.component';
-
+ 
 @Component({
   selector: 'app-phieudieuchinhmodal',
   templateUrl: './phieudieuchinhmodal.component.html',
@@ -25,9 +25,11 @@ export class PhieudieuchinhmodalComponent implements OnInit {
   newTableItem:any={};
   filter:any = {};
   listPhuongAnPhaBong: any = [];
+  listSoBan: any = [];
+  listTimBong_Kien: any = [];
   listdmViTri: any = [];
   lang: any = vn;
-
+  listItemChon: any = []
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(
     private router: Router,
@@ -38,11 +40,21 @@ export class PhieudieuchinhmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.item)
+    this.getTimBong_Kien();
+
+    if(this.item.isKhongTuDong === true){
+      this.getlistPhuongAnPhaBong();
+    }
+
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
+      this.item.isKhongTuDong = true;
+      this.getlistPhuongAnPhaBong();
     }
-    else
+    else{
       this.KiemTraButtonModal();
+    }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
@@ -51,11 +63,52 @@ export class PhieudieuchinhmodalComponent implements OnInit {
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '',this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
+      
     })
   }
- 
+  getlistPhuongAnPhaBong() {
+    this.services.PhuongAnPhaBong().GetHoanThanh().subscribe((res: any) => {
+      this.listPhuongAnPhaBong = mapArrayForDropDown(res, 'SoQuyTrinh', 'Id');
+    })
+  }
+  getTimBong_Kien() {
+    let datapush: any = [];
+    this.services.PhuongAnPhaBong().TimBong_Kien(this.item.IdPhuongAnPhaBong).subscribe((res: any) => {
+      res.forEach(element => {
+        let data = {
+          label:element,
+          value:element
+        };
+        datapush.push(data)
+      });
+      this.listSoBan = datapush;
+      console.log(this.listSoBan)
+    })
+  }
+  getListItem() {
+    console.log(this.item)
+    if(this.item.listItem!== undefined && this.item.listItem!== null){
+      this.item.listItem.forEach(element => {
+      element.isXoa = true;
+    });
+    }
+    this.services.PhuongAnPhaBong().GetListItemDieuChinhTimBong(this.item.IdPhuongAnPhaBong, this.item.ThuTu).subscribe((res: any) => {
+      if(this.item.listItem== undefined && this.item.listItem== null){
+        this.item.listItem = res;
+      }
+    else{
+      this.item.listItem = this.item.listItem.concat(res);
+    }
+    });
+  }
   ChuyenDuyet() {
-    if(this.item.listItem[0].IddmItemDieuChinh === '' || this.item.listItem[0].IddmItemDieuChinh === undefined || this.item.listItem[0].IddmItemDieuChinh === null){
+    var isCheck: any = false;
+    this.item.listItem.forEach(element => {
+      if(element.IddmItemDieuChinh === '' || element.IddmItemDieuChinh === undefined || element.IddmItemDieuChinh === null){
+        isCheck = true;
+      }
+    });
+    if(isCheck === true){
       this.toastr.error("Bạn chưa chọn kiện điều chỉnh");
     }
     else{
@@ -132,8 +185,13 @@ export class PhieudieuchinhmodalComponent implements OnInit {
   getPhuongAnPhaBong(Id) {
     this.router.navigate(['/ThongTinChung/GiaVatLieuNhanCongMay']);   
   }
-  getKienLoBongDieuChinh(item) {
-    this.services.PhuongAnDieuChinhTimBong().GetKienLoBong(this.item.IdPhuongAnPhaBong, item.IdLoBong, this.item.IddmKho, item.Mic).subscribe((res:any)=>{
+  getKienLoBongDieuChinh(i, item) {
+    this.listItemChon = deepCopy(this.item.listItem);
+
+    if(this.item.listItem !== null && this.item.listItem !== undefined){
+      this.listItemChon.splice(i, 1)
+    }
+    this.services.PhuongAnPhaBong().GetLoBongTrongKho_DieuChinh(item.Mic, item.IdLoBong).subscribe((res:any)=>{
       let modalRef = this._modal.open(KienlocongdieuchinhmodalComponent, {
         size: 'lg',
         backdrop: 'static'
@@ -142,6 +200,7 @@ export class PhieudieuchinhmodalComponent implements OnInit {
       modalRef.componentInstance.item_new = res;
       modalRef.componentInstance.itemRemove = item;
       modalRef.componentInstance.IddmItem = item.IddmItemDieuChinh;
+      modalRef.componentInstance.listItem = this.listItemChon;
       modalRef.result.then((data) => {
         item.IddmItemDieuChinh = data.data.IddmItem;
         item.TenDieuChinh = data.data.Ten;
@@ -152,5 +211,8 @@ export class PhieudieuchinhmodalComponent implements OnInit {
         // không
       });
     })
+  }
+  GetLoBongTrongKho() {
+    
   }
 }

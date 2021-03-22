@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     {
       IdDuAn: 0,
       IddmPhanXuong: "",
-      IddmCaSanXuat: "",
+      IddmCaSanXuatThucTe: "",
       nNam: 0,
       nThang: 0,
       nNgay: 0,
@@ -38,6 +38,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   showTruySuatNguonGoc = false;
   currentUser: any;
   IdDuAn: any;
+  listTruySuatNguonGoc:any=[];
   optionPie: any = {
     plugins: {
       labels: {
@@ -219,7 +220,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     // this._services.GetListdmMay(data).subscribe((res: any) => {
     //   this.listMay = mapArrayForDropDown(res, "Ma", 'Id')
     // });
-    this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
+    this._services.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tổng ca' });
       this.listCa = mapArrayForDropDown(res, "Ten", 'Id')
     });
@@ -262,8 +263,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
       ]
       this.thongKes1 = [
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },
-        { Ten: 'Sản lượng quy Ne 30:', GiaTri: res.SanLuongQuyNe30 },
-        { Ten: 'Lũy kế quy Ne 30:', GiaTri: res.LuyKeQuyNe30 },
+        { Ten: 'Sản lượng quy Ne 30(kg):', GiaTri: res.SanLuongQuyNe30 },
+        { Ten: 'Lũy kế quy Ne 30(kg):', GiaTri: res.LuyKeQuyNe30 },
         // { Ten: 'Sản lượng quy Ne 30/ca:', GiaTri: res.SanLuongQuyNe30_Ca },
         // { Ten: 'Sản lượng Ne 30 KH/ca:', GiaTri: res.SanLuongQuyNe30KH_Ca },
         { Ten: 'LK % hoàn thành KHSX:', GiaTri: res.LuyKePhanTramHoanThanhKHSX },
@@ -351,6 +352,13 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
       this.dataSet1 = [];
     }
   }
+  checkXuatMatHang(e,item,index){
+    if(item.xuatChecked){
+      item.xuatChecked = !item.xuatChecked;
+    }else{
+      item.xuatChecked = true;
+    }
+  }
   GetBieuDoDuongKiemTraChatLuong_js() {
 
     this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem).subscribe((res: any) => {
@@ -389,8 +397,39 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     })
   }
   xuatBaoCaoTieuChi(){
+    let data = this.filter;
+    data.listItem = this.listMatHang.filter(mathang=>mathang.xuatChecked ===true).map(ele=>ele.IddmItem);
     this._services.DashBoard().ExportBaoCaoThongKeChatLuong(this.filter).subscribe((res:any) => {
-      this._services.download(res.TenFile);
+      if(res){
+        if(validVariable(res.State)){
+          this.toastr.error(res.message);
+        }else{
+          this._services.download(res.TenFile);
+        }
+      }
     })
+  }
+  xemTruySuatNguonGoc() {
+    if (this.SelectItem.IddmItem != undefined) {
+      if (validVariable(this.SelectItem?.IddmItem)) {
+        let data=this.filter;
+        data.IddmItem = this.SelectItem.IddmItem;
+        this._services.DashBoard().GetDashBoard_TruyXuatNguonGocTongHop(data).subscribe((res: any) => {
+          this.showTruySuatNguonGoc = true;
+          this.listTruySuatNguonGoc = res;
+          this.listTruySuatNguonGoc.forEach(obj=>{            
+            obj.herfgiaokehoachsanxuat = `#/quantri/kehoachsanxuat/giaokehoachsanxuat/${obj.IdGiaoKeHoachSanXuat}`;
+            obj.herftrienkhaikehoachsanxuat = `#/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/${obj.IdGiaoKeHoachSanXuat_TrienKhai}`;
+            obj.herfphabong = `#/quantri/trienkhaisanxuat/phabong/${obj.IdPhuongAnPhaBong}`;
+          });          
+        })
+      }
+      else {
+        this.toastr.error("Yêu cầu chọn mặt hàng");
+      }
+    }
+    else {
+      this.toastr.error("Yêu cầu chọn mặt hàng");
+    }
   }
 }

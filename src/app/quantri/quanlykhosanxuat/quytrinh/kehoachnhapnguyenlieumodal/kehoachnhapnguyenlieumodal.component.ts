@@ -63,6 +63,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKien = new Date(obj.ThoiGianDuKienUnix * 1000);
           obj.ThoiGianCapCang = new Date(obj.ThoiGianCapCangUnix * 1000);
+          obj.listDacTinh = mapArrayForDropDown(obj.listDacTinh, 'DacTinh', 'Id');
         });
       }
       this.KiemTraButtonModal();
@@ -77,6 +78,8 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
+      if(this.item.IdUserHienTai === this.item.CreatedBy)
+        this.checkbutton.Ghi = true;
     })
   }
 
@@ -208,9 +211,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
       });
     }
     if (this.newTableItem.ThoiGianDuKien != undefined && this.newTableItem.ThoiGianDuKien != null
-      && this.newTableItem.ThoiGianCapCang != undefined && this.newTableItem.ThoiGianCapCang != null
-      && this.newTableItem.Container != undefined &&
-      this.newTableItem.TongSoKien != undefined) {
+      && this.newTableItem.ThoiGianCapCang != undefined && this.newTableItem.ThoiGianCapCang != null) {
       this.add();
     }
     if (isCheck == false) {
@@ -335,7 +336,7 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     this.item.listItem[index].editField = false;
   }
   Onclose() {
-    this.activeModal.dismiss();
+    this.activeModal.close();
   }
   editItem(item) {
     let modalRef = this._modal.open(KehoachnhapnguyenlieuitemmodalComponent, {
@@ -361,7 +362,8 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
   getDacTinhBong(item) {
     if (item.IddmCapBong !== undefined && item.IddmLoaiBong !== undefined) {
       this._services.dmDacTinhBong().GetDacTinh(item.IddmLoaiBong, item.IddmCapBong).subscribe((res: any) => {
-        item.DacTinh = res.DacTinh;
+        item.listDacTinh = mapArrayForDropDown(res, 'DacTinh', 'Id');
+        // item.DacTinh = res.DacTinh;
       })
     }
   }

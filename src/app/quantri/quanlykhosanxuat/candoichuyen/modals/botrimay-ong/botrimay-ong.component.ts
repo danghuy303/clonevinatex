@@ -8,6 +8,8 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { TrangthaimaysanxuatComponent } from '../../../quytrinh/trangthaimaysanxuat/trangthaimaysanxuat.component';
+import { ChoncaapdungmodalComponent } from '../choncaapdungmodal/choncaapdungmodal.component';
+import { MathangdaomodalComponent } from '../mathangdaomodal/mathangdaomodal.component';
 import { BaseModalNavigation } from '../navigation.class';
 
 @Component({
@@ -35,7 +37,14 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   }
 
   ngOnInit(): void {
-    this.listHangHoa = mapArrayForDropDown(this.item.listCanBoTri, 'Ten', 'Id')
+    let listHangHoaJoinNameTemp = this.item.listCanBoTri.map(mathang=>{
+      return {
+        // Ten:`${mathang.Ten}${mathang.TenLoHang?(' - '+mathang.TenLoHang):''}`,
+        Ten:`${mathang.Ten}${mathang.IdLoHang?(' - Đảo'):''}`,
+        Id:mathang.Id
+      }
+    })
+    this.listHangHoa = mapArrayForDropDown(listHangHoaJoinNameTemp, 'Ten', 'Id')
     this.sort();
     this.initSpeedOption();
     this.mapCa_Id = {};
@@ -183,24 +192,46 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       }
     })
   }
-  ApDungCa(ca) {
+  ChonCaApDung(ca){
+    console.log(ca);
+    let modalRef = this._modal.open(ChoncaapdungmodalComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.ca = ca;
+    modalRef.componentInstance.listCa = deepCopy(this.arrCa);
+    modalRef.result.then((res:Array<string>) => {
+      if(res.length!==0){
+        this.ApDungCa(ca,res);
+      }
+    }).catch(er => console.log(er))
+  }
+  ApDungCa(ca:string,listCaApDung:Array<string>):void {
+    let tenCaDaChon = listCaApDung.map((caapdung:string)=>{
+      return this.arrCa.filter(ca=>ca.prop===caapdung)[0]?.Name ||''
+    }).join(', ');
+    console.log(tenCaDaChon);
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     });
-    modalRef.componentInstance.message = `Tất cả những máy đã bố trí trong 2 ca còn lại sẽ bị xóa để đồng bộ! \n Bạn chắc chắn muốn áp dụng?`
+    modalRef.componentInstance.message = `Tất cả những máy đã bố trí trong <strong>${tenCaDaChon}</strong> sẽ bị xóa để đồng bộ! \n Bạn chắc chắn muốn áp dụng?`
     modalRef.result.then(res => {
       let mayTheoCa = deepCopy(this.item.listDaBoTri.filter(may => may.IddmCaSanXuat === this.mapCa_Id[ca]));
-
       let newDaBoTri = deepCopy([...mayTheoCa])
       for (let caInMap in this.mapCa_Id) {
         if (caInMap !== ca) {
-          let mayCaConLai = mayTheoCa.map(may => {
-            return {
-              ...may,
-              IddmCaSanXuat: this.mapCa_Id[caInMap]
-            }
-          })
-          newDaBoTri = [...newDaBoTri, ...mayCaConLai]
+          let index = listCaApDung.findIndex(ele=>ele===caInMap);
+          if(index !== -1){
+            let mayCaDaChon = mayTheoCa.map(may => {
+                return {
+                  ...may,
+                  IddmCaSanXuat: this.mapCa_Id[caInMap]
+                }
+              })
+              newDaBoTri = [...newDaBoTri, ...mayCaDaChon]
+          }else{
+            let mayCaKhongChon = deepCopy(this.item.listDaBoTri.filter(may => may.IddmCaSanXuat === this.mapCa_Id[caInMap]));
+            newDaBoTri = [...newDaBoTri, ...mayCaKhongChon]
+          }
         }
       }
       this.item.listDaBoTri = deepCopy(newDaBoTri);
@@ -237,5 +268,36 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     else {
       this.toastr.error('Vui lòng nhập kiểm tra lại khoảng thời gian áp dụng!');
     }
+  }
+  ThemMatHangDao(){
+    this.services.CanDoiChuyen().GetlistdmMatHangDao(this.addonData.IddmPhanXuong).subscribe(res=>{
+      console.log(res);
+      let modalRef = this._modal.open(MathangdaomodalComponent, {
+        backdrop: 'static',
+        size:'lg'
+      });
+      modalRef.componentInstance.items = deepCopy(res);
+      modalRef.result.then((res:Array<any>) => {
+        let data = res.map(ele=>{
+          return {
+            IddmItem:ele.IddmItem,
+            IdLoHang:ele.IdLoHang,
+            IdDuAn: this._store.getCurrent(),
+            CongDoan:this.addonData.CongDoan,
+            IddmPhanXuong:this.addonData.IddmPhanXuong,
+            NgayUnix: this.addonData.NgayUnix,
+            SoLuong:ele.SoLuong,
+          } 
+        });
+        this.services.CanDoiChuyen().ThemMatHangDao(data).subscribe((result:any)=>{
+          if(result?.State===1){
+            this.toastr.success(result.message);
+            this.activeModal.close({respawn:true});
+          }else{
+            this.toastr.error(result.message);
+          }
+        })
+      }).catch(er => console.log(er))
+    });
   }
 }

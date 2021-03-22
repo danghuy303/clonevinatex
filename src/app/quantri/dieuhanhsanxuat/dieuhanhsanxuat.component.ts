@@ -16,12 +16,18 @@ export class DieuhanhsanxuatComponent implements OnInit {
     LoaiThoiGian: 0
   };
   filterSanLuong: any = {};
-  filterNhuCau: any = {};
+  filterNhuCau: any = {
+    IddmLoaiBong: "",
+    IddmKho: '',
+    LoaiThoiGian: 0
+  };
   monthlyConfig: any = {};
   dataSet1: any = {};
   dataSet2: any = {};
   listOpts: any = [];
   listKho: any = [];
+  listKhoCanDoiTon: any = [];
+  listLoaiBongCanDoiTon: any = [];
   listMatHang: any = [];
   listCongDoan: any = [];
   listMay: any = [];
@@ -53,7 +59,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')}`
+          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} tấn`
         }
       }
     },
@@ -122,8 +128,8 @@ export class DieuhanhsanxuatComponent implements OnInit {
     let date = new Date();
     this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    this.filter._tuNgayCanDoiTon = date;
-    this.filter._denNgayCanDoiTon = date;
+    this.filterNhuCau._tuNgayCanDoiTon = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    this.filterNhuCau._denNgayCanDoiTon = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
     this.dataPie = {
       labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
@@ -149,10 +155,11 @@ export class DieuhanhsanxuatComponent implements OnInit {
 
     ]
     this.getAllOptions();
-    this.ChangeOpt();
+    // this.ChangeOptBieuDo();
+    // this.ChangeOptCanDoiTon();
   }
 
-  ChangeOpt() {
+  ChangeOptBieuDo() {
     if (validVariable(this.filter._tuNgay)) {
       this.filter.TuNgay = DateToUnix(this.filter._tuNgay);
     } else {
@@ -163,18 +170,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     } else {
       this.filter.DenNgay = null;
     }
-    let TuNgay = 0;
-    let DenNgay = 0;
-    if (validVariable(this.filter._tuNgayCanDoiTon)) {
-      TuNgay = DateToUnix(this.filter._tuNgayCanDoiTon);
-    } else {
-      TuNgay = null;
-    }
-    if (validVariable(this.filter._denNgayCanDoiTon)) {
-      DenNgay = DateToUnix(this.filter._denNgayCanDoiTon);
-    } else {
-      DenNgay = null;
-    }
+
     if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay < this.filter.DenNgay) {
       this._services.DashBoard().NhuCauSuDungBong(this.filter).subscribe((res: any) => {
         this.dataSet1 = {
@@ -223,8 +219,24 @@ export class DieuhanhsanxuatComponent implements OnInit {
         };
       })
     }
+
+  }
+
+  ChangeOptCanDoiTon() {
+    let TuNgay = 0;
+    let DenNgay = 0;
+    if (validVariable(this.filterNhuCau._tuNgayCanDoiTon)) {
+      TuNgay = DateToUnix(this.filterNhuCau._tuNgayCanDoiTon);
+    } else {
+      TuNgay = null;
+    }
+    if (validVariable(this.filterNhuCau._denNgayCanDoiTon)) {
+      DenNgay = DateToUnix(this.filterNhuCau._denNgayCanDoiTon);
+    } else {
+      DenNgay = null;
+    }
     if (validVariable(TuNgay) && validVariable(DenNgay) && TuNgay <= DenNgay) {
-      let data = deepCopy(this.filter);
+      let data = deepCopy(this.filterNhuCau);
       data.TuNgay = TuNgay;
       data.DenNgay = DenNgay;
       this._services.DashBoard().CanDoiTon(data).subscribe(res => {
@@ -232,7 +244,6 @@ export class DieuhanhsanxuatComponent implements OnInit {
       })
     }
   }
-
   resetFilter() {
 
   }
@@ -245,13 +256,37 @@ export class DieuhanhsanxuatComponent implements OnInit {
       Ten: "",
       sFilter: ''
     }
-    this._services.GetListdmKho(data).subscribe((res: any) => {
+    setTimeout(() => {
+      this._services.GetOptions().GetdmKhoTheoDuAn_NhuCauSuDungBong_DashBoard().subscribe((res: any) => {
+        console.log(res);
+        res.unshift({ Id: '', Ten: 'Tất cả' });
+        this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+        this.getMatHangNhuCau(this.filter.IddmKho);
+      });
+    }, 1000)
+    setTimeout(() => {
+      this._services.GetOptions().GetdmKhoTheoDuAn_CoCauTonBong_DashBoard().subscribe((res: any) => {
+        console.log(res);
+        res.unshift({ Id: '', Ten: 'Tất cả' });
+        this.listKhoCanDoiTon = mapArrayForDropDown(res, 'Ten', 'Id');
+        this.getMatHangCanDoiTon(this.filterNhuCau.IddmKho);
+      });
+    }, 1000)
+  }
+  getMatHangNhuCau(IddmKho) {
+    this._services.GetOptions().GetListdmLoaiBong_NhuCauSuDungBong_DashBoard(IddmKho).subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tất cả' });
-      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id')
-    });
-    this._services.GetListdmLoaiBong(data).subscribe((res: any) => {
-      res.unshift({ Id: '', Ten: 'Tổng hợp' });
-      this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
+      this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmLoaiBong = '';
+      this.ChangeOptBieuDo()
+    })
+  }
+  getMatHangCanDoiTon(IddmKho) {
+    this._services.GetOptions().GetListdmLoaiBong_CoCauTonBong_DashBoard(IddmKho).subscribe((res: any) => {
+      res.unshift({ Id: '', Ten: 'Tất cả' });
+      this.listLoaiBongCanDoiTon = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filterNhuCau.IddmLoaiBong = '';
+      this.ChangeOptCanDoiTon()
     })
   }
 }

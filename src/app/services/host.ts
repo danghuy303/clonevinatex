@@ -1,9 +1,11 @@
 import { HttpHeaders } from '@angular/common/http';
-// const host1 = 'http://eos.harmonyes.com.vn:1169';
-const host1 = 'http://vinatex.harmonyes.com.vn';
-const host = 'http://localhost:1169';
+// const host1 = 'http://eos.harmonyes.com.vn:2269';
+const host1 = 'http://103.130.212.45:2269';//cong test
+// const host1 = 'http://103.130.212.45:2368';//Tong Cong Ty Det May Nam Dinh
+// const host1 = 'http://vinatex.harmonyes.com.vn'; //Nha May Soi Dong Van Hanosimex
+// const host = 'http://vinatex.harmonyes.com.vn';
 // host public 'http://vinatex.harmonyes.com.vn';
-//host phat trien 'http://eos.harmonyes.com.vn:1169'
+//host phat trien 'http://eos.harmonyes.com.vn:1169';
 export const httpOptions = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -15,9 +17,9 @@ export const httpOptions = {
     withCredentials: true,
 };
 export class API {    
-    public static auth = host1+'/SmartEOSAPI/';
+    // public static auth = host1+'/SmartEOSAPI/';
     public static baseUrl = host1 + '/QLTS/';
-    // public static auth = host + '/SmartEOSAPI/';
+    public static auth = host1 + '/SmartEOSAPI/';
     // public static baseUrl = host + '/';
     public static SCM = host1 + '/SCM/';
     public static ThongKeDien = host1 + '/SCM/ThongKeDien/';

@@ -81,6 +81,8 @@ import { SanXuatService } from '../services/callApiSanXuat';
 import { isXoaPipe } from './../services/isXoaPipe';
 import { VNDPipe } from './../services/vnd.pipe';
 import { FilterPipe } from './../services/filter.pipe';
+import { SumByKeyPipe } from './../services/sum.pipe';
+import { SortByKeyPipe } from './../services/sortPipe.pipe';
 import { CongDoanPipe } from './../services/congdoan.pipe';
 import {CaPipe} from './../services/ca.pipe';
 
@@ -205,7 +207,6 @@ import { QuycachdonggoiComponent } from './danhmuc/quycachdonggoi/quycachdonggoi
 import { SanluongComponent } from './sanluong/sanluong.component';
 import { ChonquycachdonggoimodalComponent } from './quanlykhosanxuat/modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component';
 import { XepbanbongComponent } from './quanlykhosanxuat/phuongan/xepbanbong/xepbanbong.component';
-import { XepbanbongmodalComponent } from './quanlykhosanxuat/phuongan/xepbanbongmodal/xepbanbongmodal.component';
 import { Dongvanpx1Component } from './quanlykhosanxuat/phuongan/layoutmodals/dongvanpx1/dongvanpx1.component';
 import { Dongvanpx2Component } from './quanlykhosanxuat/phuongan/layoutmodals/dongvanpx2/dongvanpx2.component';
 import { KienlocongdieuchinhmodalComponent } from './quanlykhosanxuat/quytrinh/kienlocongdieuchinhmodal/kienlocongdieuchinhmodal.component';
@@ -241,6 +242,12 @@ import { KehoachnhapnguyenlieuitemmodalComponent } from './quanlykhosanxuat/quyt
 import { KehoachnhapnguyenlieuinvoiceComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieuinvoice/kehoachnhapnguyenlieuinvoice.component';
 import { KehoachnhapnguyenlieuinvoicemodalComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieuinvoicemodal/kehoachnhapnguyenlieuinvoicemodal.component';
 import { ChonkienbonghoimodalComponent } from './quanlykhosanxuat/phuongan/chonkienbonghoimodal/chonkienbonghoimodal.component';
+import { BanchephamComponent } from './danhmuc/danhmucsanxuat/banchepham/banchepham.component';
+import { BanchephammodalComponent } from './danhmuc/danhmucsanxuat/banchephammodal/banchephammodal.component';
+import { MathangdaomodalComponent } from './quanlykhosanxuat/candoichuyen/modals/mathangdaomodal/mathangdaomodal.component';
+import { ChoncaapdungmodalComponent } from './quanlykhosanxuat/candoichuyen/modals/choncaapdungmodal/choncaapdungmodal.component';
+import { NhapkhobongpheComponent } from './quanlykhosanxuat/nhapkhobongphe/nhapkhobongphe.component';
+import { NhapkhobongphemodalComponent } from './quanlykhosanxuat/nhapkhobongphemodal/nhapkhobongphemodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -353,9 +360,11 @@ import { ChonkienbonghoimodalComponent } from './quanlykhosanxuat/phuongan/chonk
     MathangComponent,
     MathangmodelComponent,
     PhanxuongComponent,
-    PhanxuongmodalComponent,
+    PhanxuongmodalComponent, 
     FilterPipe,
+    SumByKeyPipe,
     CongDoanPipe,
+    SortByKeyPipe,
     LoaisoiComponent,
     ChonmaytheocongdoanComponent,
     ImportdanhmucmodelComponent,
@@ -401,7 +410,6 @@ import { ChonkienbonghoimodalComponent } from './quanlykhosanxuat/phuongan/chonk
     SanluongComponent,
     ChonquycachdonggoimodalComponent,
     XepbanbongComponent,
-    XepbanbongmodalComponent,
     Dongvanpx1Component,
     Dongvanpx2Component,
     KienlocongdieuchinhmodalComponent,
@@ -437,6 +445,12 @@ import { ChonkienbonghoimodalComponent } from './quanlykhosanxuat/phuongan/chonk
     KehoachnhapnguyenlieuinvoiceComponent,
     KehoachnhapnguyenlieuinvoicemodalComponent,
     ChonkienbonghoimodalComponent,
+    BanchephamComponent,
+    BanchephammodalComponent,
+    MathangdaomodalComponent,
+    ChoncaapdungmodalComponent,
+    NhapkhobongpheComponent,
+    NhapkhobongphemodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -541,7 +555,6 @@ import { ChonkienbonghoimodalComponent } from './quanlykhosanxuat/phuongan/chonk
     PhieudieuchinhmodalComponent,
     ChonquycachdonggoimodalComponent,
     SanxuatmodalComponent,
-    XepbanbongmodalComponent,
     Dongvanpx1Component,
     Dongvanpx2Component,
     KienlocongdieuchinhmodalComponent,
@@ -561,6 +574,10 @@ import { ChonkienbonghoimodalComponent } from './quanlykhosanxuat/phuongan/chonk
     KehoachnhapnguyenlieuitemmodalComponent,
     KehoachnhapnguyenlieuinvoicemodalComponent,
     ChonkienbonghoimodalComponent,
+    BanchephammodalComponent,
+    MathangdaomodalComponent,
+    ChoncaapdungmodalComponent,
+    NhapkhobongphemodalComponent,
   ],
   providers: [
     SanXuatService,
@@ -571,6 +588,8 @@ import { ChonkienbonghoimodalComponent } from './quanlykhosanxuat/phuongan/chonk
     FilterPipe,
     CongDoanPipe,
     CaPipe,
+    SortByKeyPipe,
+    SumByKeyPipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],

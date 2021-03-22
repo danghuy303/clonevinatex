@@ -38,31 +38,29 @@ export class XuatkhomathangmodalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.cols)
+    console.log(this.listItem)
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
-    this.item.listItem = this.listMatHang.slice(0,15);
-
-    if(this.listItem != undefined && this.listItem!= null && this.item.listItem!= undefined && this.item.listItem!= null)
+    if(this.listItem != undefined && this.listItem!= null)
     {
       this.listItem.forEach(element => {
-        var itemFind = this.item.listItem.find(function (obj) {
-          return obj.IddmItem == element.IddmItem;
-          // return obj.Id == element.IddmItem;
+        var itemFind = this.listMatHang.find(function (obj) {
+          return (obj.IddmItem == element.IddmItem && obj.IdLoHang == element.IdLoHang);
         });
         itemFind.checked = true;
       });
     }
-
+    this.item.listItem = this.listMatHang.slice(0,15);
+    this.item.listItem_copy = this.listMatHang;
   }
   accept() {
-    let data: any = []
-    this.listMatHang.forEach(element => {
-      if (element.checked == true)
-        data.push(element);
+    var itemFind: any = this.listMatHang.filter(function (obj) {
+      return obj.checked == true;
     });
+    console.log(itemFind);
     this.activeModal.close(
-      { data: data }
+      { data: itemFind }
     );
   }
   checkAll(e) {
@@ -75,7 +73,6 @@ export class XuatkhomathangmodalComponent implements OnInit {
         item.checked = false;
       });
     }
-
   }
   changePage(event) {
     console.log(event)
@@ -84,7 +81,7 @@ export class XuatkhomathangmodalComponent implements OnInit {
     var end =  start + 15;
     if((start + 15) > this.paging.TotalItem)
       end= this.paging.TotalItem;
-    this.item.listItem = this.listMatHang.slice(start,end);
+    this.item.listItem = this.item.listItem_copy.slice(start,end);
   }
   // timKiemMatHang() {
   //   var listItem : any = [];
@@ -105,17 +102,31 @@ export class XuatkhomathangmodalComponent implements OnInit {
   // }
   filtertable_add() {
     if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
-      this.item.listItem_copy = deepCopy(this.item.listItem);
-      let filter: any = this.item.listItem.filter(obj => {
-        let Ten = obj.Ten.toLowerCase();
-        let indexOf = Ten.indexOf(this.KeyWord.toLowerCase());
-        return indexOf != -1
-      });
+      this.item.listItem_copy = this.listMatHang;
+      let filter: any = this.item.listItem_copy.filter(
+        ele=>ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase())
+        // obj => {
+        // if(obj.Ten === "CD 23"){
+        //   debugger
+
+        // }
+        // let Ten = obj.Ten.toLowerCase();
+        // let indexOf = Ten.includes(this.KeyWord.toLowerCase());
+        // return indexOf != false
+      // }
+      );
+      console.log(filter)
       this.item.listItem = filter;
+      this.item.listItem_copy = filter;
     }
     else {
-      this.item.listItem = deepCopy(this.item.listItem_copy);
+      this.item.listItem = this.listMatHang;
+      this.item.listItem_copy = this.listMatHang;
     }
+    this.paging.CurrentPage = 1;
+    this.paging.TotalPage = 5;
+    this.paging.TotalItem = this.item.listItem.length;
+    this.item.listItem = this.item.listItem.slice(0,15);
   }
   resetFilter() {
     this.KeyWord = '';

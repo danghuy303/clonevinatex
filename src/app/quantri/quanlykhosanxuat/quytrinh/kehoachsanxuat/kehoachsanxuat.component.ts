@@ -25,17 +25,17 @@ export class KehoachsanxuatComponent implements OnInit {
     {
       header: 'Tổng sản lượng(tấn)',
       field: 'TongSanLuong',
-      width: 'unset'
+      width: '80px'
     },
     {
       header: 'Tổng số ca',
       field: 'TongSoCa',
-      width: 'unset'
+      width: '80px'
     },
     {
       header: 'Trạng thái',
       field: 'TenTrangThai',
-      width: 'unset'
+      width: '80px'
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };

@@ -5,10 +5,14 @@
     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
     <div></div>
     <div class="p-d-flex p-flex-row">
-        <!-- <div class="p-mr-2">
-            <p-dropdown [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.CongDoan" optionLabel="name" [showClear]="true"></p-dropdown>
-        </div> -->
+        <div class="p-mr-2">
+            <p-dropdown [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.IddmPhanXuong" [showClear]="true" (onClick)="GetListQuyTrinh(true)"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [options]="listCaSanXuat" placeholder="Chọn ca làm việc" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.IddmCaSanXuatThucTe" [showClear]="true" (onClick)="GetListQuyTrinh(true)"></p-dropdown>
+        </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày">
@@ -20,7 +24,8 @@
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width:200px">
-            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh()" [(ngModel)]="filter.KeyWord"/>
+            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh(true)" [(ngModel)]="filter.KeyWord"/>
+            <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text" (click)="GetListQuyTrinh(true)" pTooltip="Tìm kiếm" showDelay="1000" tooltipPosition="bottom"></button>
             <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"(click)="resetFilter()"></button>
         </div>
         
@@ -65,6 +70,12 @@
                 </td>
                 <td class="text-center">
                     {{item.TendmCaSanXuat}}
+                </td>
+                <td class="text-center">
+                    {{item.TendmCaSanXuatThucTe}}
+                </td>
+                <td class="text-center">
+                    {{item.TongKhoiLuong|number:'0.0'}}
                 </td>
                 <td class="text-center">
                     {{item.TendmPhanXuong}}

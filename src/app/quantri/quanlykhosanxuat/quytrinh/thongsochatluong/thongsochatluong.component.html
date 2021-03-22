@@ -64,11 +64,16 @@
                 <!-- <td class="text-center"></td> -->
                 <!-- <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td> -->
                 <td class="text-center" *ngFor="let col of cols">
-                    {{item[col.field]}}
+                    <ng-container *ngIf="col.type!=='number'">
+                        {{item[col.field]}}
+                    </ng-container>
+                    <ng-container *ngIf="col.type==='number'">
+                        {{item[col.field]|number:'0.0-2'}}
+                    </ng-container>
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item.Id)"></button>
                 </td>
             </tr>
         </ng-template>

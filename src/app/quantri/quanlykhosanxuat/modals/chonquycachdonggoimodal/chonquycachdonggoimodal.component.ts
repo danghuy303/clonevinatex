@@ -27,7 +27,7 @@ export class ChonquycachdonggoimodalComponent implements OnInit {
   ];
   newTableItem: any = {};
 
-  constructor(private _activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService) { }
+  constructor(public _activeModal: NgbActiveModal, public _services: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.newTableItem = {

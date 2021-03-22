@@ -74,26 +74,26 @@
                     class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
             </div>
         </div>
-        <div class="p-col-12 p-p-0 d-flex flex-column">
+        <div class="p-col-12 p-p-0 d-flex flex-column" style="font-size: 12px;">
             <!-- <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
                 <button pButton pRipple type="button" label="Chọn danh sách thửa đất" class="p-mr-2 p-button-sm"
                     (click)="chonThuaDat()"></button>
             </div> -->
-            <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+            <p-table [value]="item.listItem|isXoa|SortByKey:'ThoiGianCapCangUnix'" styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
-                        <col style="width:50px">
+                        <col style="width:30px">
                         <col style="width:130px">
+                        <col style="width:90px">
+                        <col style="width: 70px;">
+                        <col style="width: 100px;">
+                        <col style="width: 60px;">
+                        <col style="width: 70px;">
+                        <col style="width: 70px;">
+                        <col style="width: 70px;">
                         <col style="width:100px">
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
+                        <col style="width:100px">
+                        <col style="width:100px">
                         <col style="width: 50px;">
                     </colgroup>
                 </ng-template>
@@ -104,7 +104,7 @@
                         <th>Cấp bông</th>
                         <th>Đặc tính bông</th>
                         <th>Số HĐ</th>
-                        <th>Giá bông CIF (USD/Kg)</th>
+                        <th>Giá CIF</th>
                         <th>Số lượng nhập (Tấn)</th>
                         <th>SL Container</th>
                         <th>Tổng số kiện</th>
@@ -128,7 +128,10 @@
                             </p-dropdown>
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="items.DacTinh" disabled/>
+                            <p-dropdown [filter]="true" [options]="items.listDacTinh" placeholder="Chọn đặc tính"
+                                [(ngModel)]="items.IddmDacTinh" styleClass="p-inputtext-sm">
+                            </p-dropdown>
+                            <!-- <input pInputText type="text" [(ngModel)]="items.DacTinh" disabled/> -->
                         </td>
                         <td>
                             <input pInputText type="text" [(ngModel)]="items.SoHopDong"/>
@@ -197,7 +200,10 @@
                             </p-dropdown>
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="newTableItem.DacTinh" disabled/>
+                            <p-dropdown [filter]="true" [options]="newTableItem.listDacTinh" placeholder="Chọn đặc tính"
+                                [(ngModel)]="newTableItem.IddmDacTinh" styleClass="p-inputtext-sm">
+                            </p-dropdown>
+                            <!-- <input pInputText type="text" [(ngModel)]="newTableItem.DacTinh" disabled/> -->
                         </td>
                         <td>
                             <input pInputText type="text" [(ngModel)]="newTableItem.SoHopDong"/>

@@ -44,7 +44,7 @@ export class XuatkhomodalComponent implements OnInit {
       CurrentPage: 0
     }
     this.services.PhuongAnPhaBong().GetList(data).subscribe((res:any)=>{
-      this.listPhuongAnPhaBong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listPhuongAnPhaBong = mapArrayForDropDown(res.items, 'Ten', 'Id');
     })
     // data.Loai = 2;
     this.services.GetListdmKho(data).subscribe((res:any)=>{
@@ -53,14 +53,14 @@ export class XuatkhomodalComponent implements OnInit {
     this.services.GetListdmPhanXuong(data).subscribe((res:any)=>{
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
-    }
   }
   GetQuyTrinh()
   {
     this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1:any)=>{
       this.item = res1;
+      res1.listItem.sort((a,b)=>{
+        return a.TenLoBong.localeCompare(b.TenLoBong);
+      })
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
@@ -68,6 +68,9 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.listItem = res1.listItem.slice(0,15);
       this.items = res1.listItem.slice(0,15);
       this.KiemTraButtonModal();
+      if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+        this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      }
     })
   }
   KiemTraButtonModal() {
@@ -81,7 +84,9 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-    
+    this.item.listItem = this.listItem
+    console.log(this.item)
+    debugger
     this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -103,7 +108,7 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-
+    this.item.listItem = this.listItem
       this.services.PhieuXuatSanXuat().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

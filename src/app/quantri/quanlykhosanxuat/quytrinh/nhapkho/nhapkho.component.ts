@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs/internal/operators/filter';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, formatdate } from 'src/app/services/globalfunction';
 import { NhapkhomodalComponent } from '../nhapkhomodal/nhapkhomodal.component';
 
 @Component({
@@ -30,6 +30,16 @@ export class NhapkhoComponent implements OnInit {
     {
       header: 'Số hợp đồng',
       field: 'SoHopDong',
+      width: 'unset'
+    },
+    {
+      header: 'Ngày nhập kho',
+      field: '_Ngay',
+      width: 'unset'
+    },
+    {
+      header: 'Mã Invoice',
+      field: 'MaInvoice',
       width: 'unset'
     },
     {
@@ -139,6 +149,9 @@ export class NhapkhoComponent implements OnInit {
         this.GetListQuyTrinh();
       })
         .catch(er => { console.log(er) })
+        .finally(()=>{
+          this.isCheckModal = false;
+        })
     })
   }
   changeTab(e) {
@@ -146,8 +159,8 @@ export class NhapkhoComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?) {
     if (reset) {
@@ -173,6 +186,11 @@ export class NhapkhoComponent implements OnInit {
 
     this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
       this.items = res.items;
+      if (this.items.length > 0) {
+        this.items.forEach(element => {
+          element._Ngay = element.NgayUnix > 0 ? formatdate(element.Ngay, false) : null;
+        });
+      }
       this.paging = res.paging;
     })
   }

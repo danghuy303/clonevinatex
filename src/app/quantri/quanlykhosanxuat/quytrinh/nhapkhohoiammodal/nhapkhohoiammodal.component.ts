@@ -26,6 +26,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
   listPhanXuong: any = [];
   listCaMay: any = [];
   listKho: any = [];
+  listKgCone: any = [];
   lang: any = vn;
   data: any = {};
   type: any = '';
@@ -44,15 +45,11 @@ export class NhapkhohoiammodalComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Số lượng sản xuất',
+      header: 'Số quả sợi',
       field: 'KhoiLuongSanXuat',
       width: 'unset'
     },
-    {
-      header: 'Số lượng thực tế',
-      field: 'KhoiLuongThucTe',
-      width: 'unset'
-    },
+  
   ];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
@@ -74,6 +71,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     else{
       this.KiemTraButtonModal();
     }
+    console.log(this.item)
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
@@ -81,6 +79,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     this.getListKho();
     this.getListCaMay();
     this.getListPhanXuong();
+    this.getListKgCone();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -181,7 +180,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     })
   }
   getListCaMay() {
-    this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
+    this._services.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
       this.listCaMay = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -204,7 +203,17 @@ export class NhapkhohoiammodalComponent implements OnInit {
         this.item.listItem.forEach(element => {
           element.isXoa = true;
         });
-        this.item.listItem.push(data.data);
+        console.log(data.data)
+        for(let i = 0; i<data.data.length; i++){
+          for(let j = 0; j< this.item.listItem.length; j++){
+            if(data.data[i].IddmItem === this.item.listItem[j].IddmItem && data.data[i].IdLoBong === this.item.listItem[j].IdLoBong){
+              this.item.listItem[j].isXoa = false;
+              data.data[i].isXoa = true;
+            }
+          }
+        }
+        this.item.listItem = this.item.listItem.concat(data.data);
+        console.log(this.item.listItem)
       }, (reason) => {
         // không
       });
@@ -227,8 +236,14 @@ export class NhapkhohoiammodalComponent implements OnInit {
   }
   Onclose() {
     if (this._modal.hasOpenModals()) {
-      this._modal.dismissAll()
+      // this._modal.dismissAll()
+    this.activeModal.close();
+
     }
-    // this.activeModal.close();
+  }
+  getListKgCone() {
+    this._services.GetListKgCone().subscribe((res: any) => {
+      this.listKgCone = mapArrayForDropDown(res, 'GiaTri', 'GiaTri');
+    })
   }
 }

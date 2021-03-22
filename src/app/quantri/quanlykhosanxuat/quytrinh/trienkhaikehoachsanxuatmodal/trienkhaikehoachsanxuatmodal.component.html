@@ -128,8 +128,7 @@
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số ca:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber locale="vi-VN"
-                    [(ngModel)]="item.SoCa" (onBlur)="ThayDoiSoCa()">
+                <p-inputNumber locale="vi-VN" [(ngModel)]="item.SoCa" (onBlur)="ThayDoiSoCa()">
                 </p-inputNumber>
             </div>
         </div>
@@ -155,20 +154,24 @@
                     <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm"
                         (click)="chonHangHoa()"></button>
                     <p-dropdown [filter]="true" [options]="listCongDoan" styleClass="p-inputtext-sm pl-2"
-                        [(ngModel)]="filter.CongDoan"></p-dropdown>
+                        [(ngModel)]="filter.CongDoan" (onChange)="chonCongDoan($event.value)"></p-dropdown>
                     <div style="display: flex; align-items: center; height: 100%;"
                         *ngIf="mapCongDoan_TinhTrangMay[filter.CongDoan]!==undefined">
                         <span class="mr-5 ml-5">
-                            Tổng kế hoạch triển khai(Tấn): &nbsp; <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.TongKhoiLuong|number:'0.0-2'}}</strong>
+                            Tổng kế hoạch triển khai(Tấn): &nbsp;
+                            <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.TongKhoiLuong|number:'0.0-2'}}</strong>
                         </span>
                         <span class="mr-5 ml-5">
-                            Số máy hiện có: &nbsp; <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayHienCo|number:'0.0-2'}}</strong>
+                            Số máy hiện có: &nbsp;
+                            <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayHienCo|number:'0.0-2'}}</strong>
                         </span>
                         <span class="mr-5">
-                            Số máy cần: &nbsp; <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayTinhToan|number:'0.0-2'}}</strong>
+                            Số máy cần: &nbsp;
+                            <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayTinhToan|number:'0.0-2'}}</strong>
                         </span>
-                        <span >
-                            Số máy cân đối: &nbsp; <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayCanDoi|number:'0.0-2'}}</strong>
+                        <span>
+                            Số máy cân đối: &nbsp;
+                            <strong>{{mapCongDoan_TinhTrangMay[filter.CongDoan]?.SoMayCanDoi|number:'0.0-2'}}</strong>
                         </span>
                     </div>
                 </div>
@@ -187,7 +190,7 @@
                     <colgroup>
                         <col style="width:50px">
                         <col>
-                        <!-- <col> -->
+                        <col *ngIf="filter.CongDoan ==='THO'">
                         <col>
                         <col>
                         <col>
@@ -200,7 +203,7 @@
                     <tr>
                         <th>#</th>
                         <th>Mặt hàng</th>
-                        <!-- <th>Kế hoạch giao(Tấn)</th> -->
+                        <th *ngIf="filter.CongDoan ==='THO'">Nm</th>
                         <th>Kế hoạch triển khai(Tấn)</th>
                         <th>Sản lượng ca (kg)</th>
                         <th>Năng suất định mức (kg/ca/máy)</th>
@@ -213,7 +216,11 @@
                     <tr>
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">{{mathang.Ten}}</td>
-                        <!-- <td class="text-center">{{mathang.KhoiLuongKeHoach|number:'0.0-2'}}</td> -->
+                        <td class="text-center" *ngIf="filter.CongDoan ==='THO'">
+                            <p-dropdown [options]="mathang.listNMtemp" placeholder="Chọn Nm"
+                                styleClass="p-inputtext-sm" [(ngModel)]="mathang.ChiSoMoi"
+                                (onChange)="SetChiSo($event,mathang)"></p-dropdown>
+                        </td>
                         <td class="text-center">
                             {{mathang.KhoiLuongSanXuat|number:'0.0-2'}}
                             <!-- <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [max]="mathang.KhoiLuongKeHoach"

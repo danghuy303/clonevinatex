@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-nhapkhomodal',
@@ -49,6 +49,7 @@ export class NhapkhomodalComponent implements OnInit {
         IddmCapBong: '',
         IdLoBong: '',
         listItem: [],
+        isTuDong: false,
       }
       this.GetNextSoQuyTrinh();
     }
@@ -130,32 +131,42 @@ export class NhapkhomodalComponent implements OnInit {
     }
     let isCheck = false;
 
+    if ( this.newTableItem.Ten!= undefined || this.newTableItem.SoCan!= undefined || this.newTableItem.SoKien!= undefined|| this.newTableItem.IddmViTri!= undefined) {
+      this.add();
+    }
+
     if(this.item.listItem!== undefined || this.item.listItem !== null){
       for(let i = 0; i < this.item.listItem.length; i++) {
         if(this.item.listItem[i].IddmViTri === null || this.item.listItem[i].IddmViTri === undefined){
           isCheck= true;
           break;
         }
+        // if( this.type === 'bong' && (
+        //   this.item.listItem[i].SoKienNgan === null || this.item.listItem[i].SoKienNgan === undefined
+        //   || this.item.listItem[i].SoKienDai === null || this.item.listItem[i].SoKienDai === undefined)){
+        //   isCheck= true;
+        //   break;
+        // }
       }
     }
     
     if (isCheck === true ) {
-      this.toastr.error("Bạn chưa chọn  vị trí");
+      this.toastr.error("Bạn chưa chọn vị trí!");
+    }
+    else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
+      this.toastr.error("Bạn chưa chọn danh mục kho!");
     }
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn  ngày");
+      this.toastr.error("Bạn chưa chọn  ngày!");
     }
-    else if ((this.item.IddmCapBong === null || this.item.IddmCapBong  === undefined) && (this.type === 'bong' || this.type === 'xo')) {
-      this.toastr.error("Bạn chưa chọn  danh mục cấp bông");
+    else if ((this.item.IddmCapBong === null || this.item.IddmCapBong  === undefined || this.item.IddmCapBong  === "") && (this.type === 'bong' || this.type === 'xo')) {
+      this.toastr.error("Bạn chưa chọn  danh mục cấp bông!");
     }
-    else if (this.item.IddmLoaiBong === null || this.item.IddmLoaiBong === undefined) {
-      this.toastr.error("Bạn chưa chọn  danh mục loại bông");
+    else if (this.item.IddmLoaiBong === null || this.item.IddmLoaiBong === undefined || this.item.IddmLoaiBong === "") {
+      this.toastr.error("Bạn chưa chọn  danh mục loại bông!");
     }
     else {
-      if ( this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined&& this.newTableItem.IddmViTri!= undefined) {
-        this.add();
-      }
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -285,25 +296,49 @@ export class NhapkhomodalComponent implements OnInit {
     })
   }
   getListKeHoach() {
-    this._services.NhapKeHoachNguyenLieu().GetListChuaNhap().subscribe((res: any) => {
+    let loai = 0;
+    if (this.type === 'bong')
+        loai = 2;
+    else  if (this.type === 'xo')
+      loai = 5;
+
+    this._services.NhapKeHoachNguyenLieu().GetListChuaNhap(this.item.IdKeHoachNhapNguyenLieuInvoice_Item, loai).subscribe((res: any) => {
       this.listKeHoach = mapArrayForDropDown(res, 'Ten', 'Id');
       this.listKeHoachFull = res;
     })
   }
   getKeHoach(item){
     let dataFilter : any = this.listKeHoachFull.filter(obj => {
-      return obj.Id === item.Id
+      return obj.Id === item.value
     });
-    this.item.IddmLoaiBong = dataFilter.IddmLoaiBong;
-    this.item.IddmCapBong = dataFilter.IddmCapBong;
-    this.item.GiaBong = dataFilter.GiaBong;
-    this.item.SoHopDong = dataFilter.SoHopDong;
+    console.log(dataFilter)
+    this.item.IddmLoaiBong = dataFilter[0].IddmLoaiBong;
+    this.item.MaInvoice = dataFilter[0].MaInvoice;
+    this.item.NoiDung = dataFilter[0].NoiDung;
+    this.item.IddmCapBong = dataFilter[0].IddmCapBong;
+    this.item.GiaBong = dataFilter[0].GiaBong;
+    this.item.SoHopDong = dataFilter[0].SoHopDong;
     this.item.listItem.forEach(element => {
       element.isXoa = true;
     });;
-    // this.item.listItem = []
-    for(let i = 0; i < dataFilter.Container; i++){
+    for(let i = 0; i < dataFilter[0].Container; i++){
       this.add()
     }
+  }
+  TinhSoKienDai(item){
+    if(item.SoKien !== null && item.SoKien !== undefined && item.SoKienDai !== null 
+      && item.SoKienDai !== undefined ){
+        item.SoKienNgan = item.SoKien - item.SoKienDai;
+        if(item.SoKienNgan < 0)
+          item.SoKienNgan = 0;
+      }
+  }
+  TinhSoKienNgan(item){
+    if(item.SoKien !== null && item.SoKien !== undefined && item.SoKienNgan !== null 
+      && item.SoKienNgan !== undefined ){
+        item.SoKienDai = item.SoKien - item.SoKienNgan;
+        if(item.SoKienDai < 0)
+          item.SoKienDai = 0;
+      }
   }
 }

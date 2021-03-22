@@ -61,13 +61,13 @@
         <div class="p-col-12">
             <h3>
                 Sử dụng bông theo kế hoạch triển khai: {{labelBong.BR|number:'0.1-1'}}% Brazil +
-                {{labelBong.M|number:'0.1-1'}}% Mỹ + {{labelBong.TP|number:'0.1-1'}}% Tây Phi +
-                {{labelBong.Hoi|number:'0.1-1'}}% Hồi
+                {{labelBong.MY|number:'0.1-1'}}% Mỹ + {{labelBong.TP|number:'0.1-1'}}% Tây Phi +
+                {{labelBong.zH|number:'0.1-1'}}% Hồi
             </h3>
             <h3>
                 {{trongLuongLoBong.BR|number:'0.1-1'}}kg Brazil +
-                {{trongLuongLoBong.M|number:'0.1-1'}}kg Mỹ + {{trongLuongLoBong.TP|number:'0.1-1'}}kg Tây Phi +
-                {{trongLuongLoBong.Hoi|number:'0.1-1'}}kg Hồi
+                {{trongLuongLoBong.MY|number:'0.1-1'}}kg Mỹ + {{trongLuongLoBong.TP|number:'0.1-1'}}kg Tây Phi +
+                {{trongLuongLoBong.zH|number:'0.1-1'}}kg Hồi
             </h3>
         </div>
         <div class="p-col-12 p-p-0 pintable-container" voiPintable [pinnedCols]="6">
@@ -360,13 +360,13 @@
                         <td class="text-center tc-w-151" style="background-color:white !important;">
                         </td>
                         <td class="text-center tc-w-60" style="background-color:#fdff0c !important;">
-                            {{ThongSoKienTheoLoaiBong?.M?.TonDau}}
+                            {{ThongSoKienTheoLoaiBong?.MY?.TonDau}}
                         </td>
                         <td class="text-center tc-w-100" style="background-color:#fdff0c !important;">
-                            {{ThongSoKienTheoLoaiBong?.M?.SoLuongDung}}
+                            {{ThongSoKienTheoLoaiBong?.MY?.SoLuongDung}}
                         </td>
                         <td class="text-center tc-w-60" style="background-color:#fdff0c !important;">
-                            {{ThongSoKienTheoLoaiBong?.M?.TonCuoi}}
+                            {{ThongSoKienTheoLoaiBong?.MY?.TonCuoi}}
                         </td>
                         <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">
                             CV%Mic
@@ -501,7 +501,7 @@
                         </td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
-                                <!-- {{itemCVMic[prop]|number:'0.2-2'}} -->
+                                {{itemCVMicTT[prop]|number:'0.2-2'}}
                             </div>
                         </td>
                     </tr>
@@ -549,7 +549,7 @@
                         </td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
-                                <!-- {{itemCVMic[prop]|number:'0.2-2'}} -->
+                                {{itemTyLeHoiPha[prop]|number:'0.2-2'}}
                             </div>
                         </td>
                     </tr>

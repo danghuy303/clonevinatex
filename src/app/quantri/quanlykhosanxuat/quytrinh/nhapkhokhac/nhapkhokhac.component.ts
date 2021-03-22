@@ -31,6 +31,7 @@ export class NhapkhokhacComponent implements OnInit {
   title: any = "";
   type: any = "";
   nametype: any = "";
+  isCheckModal: any = false;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, 
     private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
      }
@@ -40,7 +41,7 @@ export class NhapkhokhacComponent implements OnInit {
     this.activatedRoute.params.subscribe((res:any)=>{
       this.title = res.kho;
       console.log(res.id)
-      if(res.id!=='0'){
+      if(res.id!=='0' && this.isCheckModal === false){
         this.update(res.id);
       }
       // else
@@ -81,9 +82,13 @@ export class NhapkhokhacComponent implements OnInit {
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
+      .finally(()=>{
+        this.isCheckModal = false;
+      })
   }
  
   update(Id) {
+    this.isCheckModal = true
     this.changeParam(Id);
     this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhokhacmodalComponent, {

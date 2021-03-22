@@ -17,7 +17,7 @@ export class PhieudieuchinhComponent implements OnInit {
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  eAction: any = "PHIEUNHAPLOBONG";
+  eAction: any = "DIEUCHINHDOIKIENBONG";
   cols: any = [
     {
       header: 'Phương án pha bông',
@@ -50,7 +50,7 @@ export class PhieudieuchinhComponent implements OnInit {
         this.update(res.id);
       }
     })
-    this.GetListQuyTrinh();
+    // this.GetListQuyTrinh();
     this.KiemTraTabTrangThai();
   }
   
@@ -95,6 +95,9 @@ export class PhieudieuchinhComponent implements OnInit {
         this.GetListQuyTrinh();
       })
         .catch(er => { console.log(er) })
+        .finally(()=>{
+          this.isCheckModal = false;
+        })
     })
   }
   changeTab(e) {
@@ -131,9 +134,9 @@ export class PhieudieuchinhComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }

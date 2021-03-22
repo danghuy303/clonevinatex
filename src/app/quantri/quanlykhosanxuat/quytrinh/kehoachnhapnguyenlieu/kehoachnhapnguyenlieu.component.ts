@@ -85,7 +85,7 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
     this.changeParam(Id);
     this._service.NhapKeHoachNguyenLieu().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(KehoachnhapnguyenlieumodalComponent, {
-        size: 'fullscreen',
+        size: 'fullscreen-100',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
@@ -94,6 +94,9 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
         this.GetListQuyTrinh();
       })
         .catch(er => { console.log(er) })
+        .finally(()=>{
+          this.isCheckModal = false;
+        })
     })
   }
   changeTab(e) {

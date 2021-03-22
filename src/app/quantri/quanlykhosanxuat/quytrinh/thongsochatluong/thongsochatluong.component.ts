@@ -41,6 +41,17 @@ export class ThongsochatluongComponent implements OnInit {
       width: 'unset'
     },
     {
+      header: 'Tổng số kiện',
+      field: 'TongSoKien',
+      width: 'unset'
+    },
+    {
+      header: 'Trọng lượng bình quân(kg)',
+      field: 'TrongLuong',
+      width: 'unset',
+      type:'number'
+    },
+    {
       header: 'Tên trạng thái',
       field: 'TenTrangThai',
       width: 'unset'
@@ -48,9 +59,15 @@ export class ThongsochatluongComponent implements OnInit {
     
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
+  isCheckModal : any = false;
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((res:any)=>{
+      if(res.id!=='0' && this.isCheckModal == false){
+        this.update(res.id);
+      }
+    })
     this.GetListQuyTrinh()
     this.KiemTraTabTrangThai();
   }
@@ -73,20 +90,22 @@ export class ThongsochatluongComponent implements OnInit {
     })
       .catch(er => { console.log(er) })
   }
-  update(item){
-    this.changeParam(item.Id);
-    // this._service.PhieuNhapLoBong_ChatLuong().Get(item.Id).subscribe((res1:any)=>{
-      
+  update(Id){
+    this.isCheckModal = true;
+    this.changeParam(Id);
     let modalRef = this._modal.open(ThongsochatluongmodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
+      .finally(()=>{
+        this.isCheckModal = false;
+      })
     // })
   }
   changeTab(e){
