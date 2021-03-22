@@ -37,7 +37,8 @@
     <div class="p-grid">
         <div class="p-col-12 p-p-0 d-flex flex-column flex-lg-row">
             <div class="p-col-12 p-lg-7 p-mb-3 p-p-3 d-flex flex-column flex-lg-row" id="aloalo">
-                <p-table [value]="item.listDaBoTri.concat([{},{},{},{},{},{},{},{},{},{},{}])"
+                <p-table [value]="item.listDaBoTri.concat([{},{},{},{},{},{},{},{},{},{},{}])|isDieuChinh"
+                
                     styleClass="p-datatable-sm wrap-text  p-datatable-gridlines" [scrollable]="true"
                     scrollHeight="60vh">
                     <ng-template pTemplate="colgroup">

@@ -90,7 +90,13 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         });
       }
     })
-    this.TinhNangSuat();
+    if(validVariable(this.item.listItemMay)&& this.item.listItemMay?.length!==0){
+      console.log('tinhlai')
+      this.item.listCongDoan.forEach(cd => {
+        this.TinhLaiTinhTrangMay(cd.Ma)
+      });
+    }
+    // this.TinhNangSuat();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
@@ -438,8 +444,9 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   TinhLaiTinhTrangMay(CongDoan) {
     this.mapCongDoan_TinhTrangMay[CongDoan] = {
       ...this.mapCongDoan_TinhTrangMay[CongDoan],
+      SoMayHienCo:this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan)[0]?.SoMayHienCo,
       TongKhoiLuong: this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.KhoiLuongSanXuat, 0),
-      SoMayCanDoi: this.mapCongDoan_TinhTrangMay[CongDoan].SoMayHienCo - this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
+      SoMayCanDoi: this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan)[0]?.SoMayHienCo - this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
       SoMayTinhToan: this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
     }
   }

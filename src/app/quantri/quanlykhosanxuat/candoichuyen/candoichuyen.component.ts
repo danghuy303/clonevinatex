@@ -99,6 +99,7 @@ export class CandoichuyenComponent implements OnInit {
             dates.push(data);
             currentDate = addDays.call(currentDate, 1);
         }
+        console.log(dates);
         return dates;
     }
     GetCalendar(reset?) {

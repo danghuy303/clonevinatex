@@ -71,7 +71,7 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
     })
   }
   initSpeedOption() {
-    this.item.listDaBoTri.forEach(may => {
+    this.item.listDaBoTri.filter(may=>may.isDieuChinh!==true).forEach(may => {
       if (validVariable(may.IdCanDoiChuyen_CanBoTri)) {
         let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === may.IdCanDoiChuyen_CanBoTri)?.[0][this.optionMatHang];
         may.listTocDo = mapArrayForDropDown(may.listDinhMucMay.filter(dinhmuc => dinhmuc[this.optionMatHang] === IddmItem), 'TocDo', 'Id');
@@ -86,8 +86,8 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   }
   TinhSoLuongMatHang() {
     this.item.listCanBoTri.forEach(mathang => {
-      mathang.SoMayDaBoTri = this.item.listDaBoTri.filter(may => may.IdCanDoiChuyen_CanBoTri === mathang.Id)?.length || 0;
-      mathang.SanLuongBoTri = this.item.listDaBoTri.filter(may => may.IdCanDoiChuyen_CanBoTri === mathang.Id)?.reduce((Tong, may) => Tong + may.SanLuongCa, 0) || 0;
+      mathang.SoMayDaBoTri = this.item.listDaBoTri.filter(may=>may.isDieuChinh!==true).filter(may => may.IdCanDoiChuyen_CanBoTri === mathang.Id)?.length || 0;
+      mathang.SanLuongBoTri = this.item.listDaBoTri.filter(may=>may.isDieuChinh!==true).filter(may => may.IdCanDoiChuyen_CanBoTri === mathang.Id)?.reduce((Tong, may) => Tong + may.SanLuongCa, 0) || 0;
     });
   }
   TinhTongMatHang() {

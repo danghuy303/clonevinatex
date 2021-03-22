@@ -85,6 +85,7 @@ import { SumByKeyPipe } from './../services/sum.pipe';
 import { SortByKeyPipe } from './../services/sortPipe.pipe';
 import { CongDoanPipe } from './../services/congdoan.pipe';
 import {CaPipe} from './../services/ca.pipe';
+import { isDieuChinhPipe } from './../services/isDieuChinh.pipe';
 
 import { UploadmodalComponent } from './modal/uploadmodal/uploadmodal.component';
 import { ThongKeThongTinThuaDatComponent } from './components/thong-ke-thong-tin-thua-dat/thong-ke-thong-tin-thua-dat.component';
@@ -250,6 +251,7 @@ import { NhapkhobongpheComponent } from './quanlykhosanxuat/nhapkhobongphe/nhapk
 import { NhapkhobongphemodalComponent } from './quanlykhosanxuat/nhapkhobongphemodal/nhapkhobongphemodal.component';
 import { DmkhachhangComponent } from './danhmuc/dmkhachhang/dmkhachhang.component';
 import { DmkhachhangmodalComponent } from './danhmuc/dmkhachhangmodal/dmkhachhangmodal.component';
+import { from } from 'rxjs';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -287,6 +289,7 @@ import { DmkhachhangmodalComponent } from './danhmuc/dmkhachhangmodal/dmkhachhan
     ModalthongbaoComponent,
     ModaldmtaisanComponent,
     isXoaPipe,
+    isDieuChinhPipe,
     VNDPipe,
     CaPipe,
     UploadmodalComponent,
@@ -589,6 +592,7 @@ import { DmkhachhangmodalComponent } from './danhmuc/dmkhachhangmodal/dmkhachhan
     Dat09Service,
     SignalRService,
     isXoaPipe,
+    isDieuChinhPipe,
     VNDPipe,
     FilterPipe,
     CongDoanPipe,
