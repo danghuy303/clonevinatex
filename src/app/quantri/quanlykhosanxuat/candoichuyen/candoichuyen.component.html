@@ -33,7 +33,7 @@
 </div>
 <ul style="margin-top: 10px;">
     <li class="days" *ngFor="let day of listDays" > {{day}} </li>
-    <li *ngFor="let date of listDates; let i = index" [ngClass]="{'dates': date.header!=='none','none':date.header==='none'}" (click)="boTriMay(i,date)">
+    <li *ngFor="let date of listDates; let i = index" [ngClass]="{'dates': date.header!=='none','none':date.header==='none'}" [ngStyle]="{'background-color': date.labelHienThi===today?'#81d4fa':''}" (click)="boTriMay(i,date)">
         <!-- {{date.value | date:'d'}} -->
         <div style="font-weight: bold;">
             {{date.header}}
