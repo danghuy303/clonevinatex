@@ -127,6 +127,7 @@ export class NhapkhokhacComponent implements OnInit {
       DenNgay: (new Date(this.filter.DenNgay).getTime() / 1000) || 0,
       Ma: "",
       Ten: "",
+      Loai: 6
     }
     if(this.title === 'khobonghoi'){
       data.Loai = 6;

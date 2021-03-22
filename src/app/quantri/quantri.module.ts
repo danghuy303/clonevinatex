@@ -248,6 +248,8 @@ import { MathangdaomodalComponent } from './quanlykhosanxuat/candoichuyen/modals
 import { ChoncaapdungmodalComponent } from './quanlykhosanxuat/candoichuyen/modals/choncaapdungmodal/choncaapdungmodal.component';
 import { NhapkhobongpheComponent } from './quanlykhosanxuat/nhapkhobongphe/nhapkhobongphe.component';
 import { NhapkhobongphemodalComponent } from './quanlykhosanxuat/nhapkhobongphemodal/nhapkhobongphemodal.component';
+import { DmkhachhangComponent } from './danhmuc/dmkhachhang/dmkhachhang.component';
+import { DmkhachhangmodalComponent } from './danhmuc/dmkhachhangmodal/dmkhachhangmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -451,6 +453,8 @@ import { NhapkhobongphemodalComponent } from './quanlykhosanxuat/nhapkhobongphem
     ChoncaapdungmodalComponent,
     NhapkhobongpheComponent,
     NhapkhobongphemodalComponent,
+    DmkhachhangComponent,
+    DmkhachhangmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -578,6 +582,7 @@ import { NhapkhobongphemodalComponent } from './quanlykhosanxuat/nhapkhobongphem
     MathangdaomodalComponent,
     ChoncaapdungmodalComponent,
     NhapkhobongphemodalComponent,
+    DmkhachhangmodalComponent,
   ],
   providers: [
     SanXuatService,

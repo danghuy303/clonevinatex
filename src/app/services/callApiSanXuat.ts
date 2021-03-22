@@ -566,7 +566,10 @@ export class SanXuatService {
             },
             SetChiSo:(data)=>{
                 return this.http.post(url + 'SetChiSo', data, httpOptions);
-            }
+            },
+            Export: (Id) => {
+                return this.http.get(url + `ExportTrienKhaiKeHoachSanXuat?Id=${Id}`, httpOptions);
+            },
         }
     }
     //CanDoiChuyen

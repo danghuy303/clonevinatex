@@ -17,7 +17,7 @@ export class NhapkhohoiamComponent implements OnInit {
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  eAction: any = "PHIEUNHAPHOIAM";
+  eAction: any = "NHAPHOIAM";
   cols: any = [
     {
       header: 'Kho',
@@ -52,7 +52,7 @@ export class NhapkhohoiamComponent implements OnInit {
         this.update(res.id);
       }
       // else
-        this.GetListQuyTrinh();
+        // this.GetListQuyTrinh();
       this.KiemTraTabTrangThai();
       //
     })
@@ -127,10 +127,10 @@ export class NhapkhohoiamComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
   
 }

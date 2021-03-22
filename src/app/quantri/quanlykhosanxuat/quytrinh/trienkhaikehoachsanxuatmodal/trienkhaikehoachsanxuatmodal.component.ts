@@ -443,4 +443,9 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       SoMayTinhToan: this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
     }
   }
+  exportExcelMau() {
+    this._services.TrienKhaiKeHoachSanXuat().Export(this.item.Id).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
+  }
 }
