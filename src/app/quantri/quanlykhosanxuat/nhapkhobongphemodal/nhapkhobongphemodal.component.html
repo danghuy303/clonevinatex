@@ -38,16 +38,22 @@
                 <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" styleClass="p-inputtext-sm"
                 [(ngModel)]="item.IddmLoaiBong" (onChange)="getListKho()"></p-dropdown>
             </div>
-        </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
-        *ngIf="this.type!=='bonghoi'">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp bông <span class="text-danger">*</span>:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listCapBong" placeholder="Chọn cấp" styleClass="p-inputtext-sm"
-                  [(ngModel)]="item.IddmCapBong"></p-dropdown>
-            </div>
         </div> -->
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng :</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+                  [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" [(ngModel)]="item.IddmKho"
+                styleClass="p-inputtext-sm"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày nhập <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
@@ -56,14 +62,7 @@
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" [(ngModel)]="item.IddmKho"
-                styleClass="p-inputtext-sm"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
