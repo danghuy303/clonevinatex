@@ -360,6 +360,7 @@ export class SanXuatService {
         return this.http.post(url, data, httpOptions);
     }
     SetdmPhanXuong(data) {
+        data.IdDuAn = this.store.getCurrent();
         let url = API.SCMDanhMuc + 'SetdmPhanXuong';
         return this.http.post(url, data, httpOptions);
     }
@@ -566,7 +567,10 @@ export class SanXuatService {
             },
             SetChiSo:(data)=>{
                 return this.http.post(url + 'SetChiSo', data, httpOptions);
-            }
+            },
+            Export: (Id) => {
+                return this.http.get(url + `ExportTrienKhaiKeHoachSanXuat?Id=${Id}`, httpOptions);
+            },
         }
     }
     //CanDoiChuyen

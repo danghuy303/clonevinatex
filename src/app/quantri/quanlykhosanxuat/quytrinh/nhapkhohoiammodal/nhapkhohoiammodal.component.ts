@@ -186,7 +186,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
   }
   GetMatHangTheoKho() {
     let itemSearch: any = {};
-    itemSearch.IddmCaSanXuat = this.item.IddmCaSanXuat;
+    itemSearch.IddmCaSanXuatThucTe = this.item.IddmCaSanXuatThucTe;
     if(this.item.Ngay !== undefined)
       itemSearch.Ngay = (new Date(this.item.Ngay)).getTime() / 1000;
     itemSearch.IddmPhanXuong = this.item.IddmPhanXuong;

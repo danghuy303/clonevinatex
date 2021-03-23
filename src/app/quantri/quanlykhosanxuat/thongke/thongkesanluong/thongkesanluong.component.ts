@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -63,9 +64,16 @@ export class ThongkesanluongComponent implements OnInit {
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   listPhanXuong: any = [];
   listCaSanXuat: any = [];
+  isCheckModal: any = false;
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((res:any)=>{
+      if(res.id!=='0' && this.isCheckModal == false){
+        this.update(res.id);
+      }
+    
+    })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
     this.getListCaSanXuat();
@@ -100,6 +108,7 @@ export class ThongkesanluongComponent implements OnInit {
     })
   }
   update(Id){
+    this.isCheckModal = true;
     this.changeParam(Id);
     this._service.ThongKeSanLuong().Get(Id).subscribe((res1: any) => {
     let modalRef = this._modal.open(ThongkesanluongmodalComponent, {

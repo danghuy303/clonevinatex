@@ -249,6 +249,8 @@ import { MathangdaomodalComponent } from './quanlykhosanxuat/candoichuyen/modals
 import { ChoncaapdungmodalComponent } from './quanlykhosanxuat/candoichuyen/modals/choncaapdungmodal/choncaapdungmodal.component';
 import { NhapkhobongpheComponent } from './quanlykhosanxuat/nhapkhobongphe/nhapkhobongphe.component';
 import { NhapkhobongphemodalComponent } from './quanlykhosanxuat/nhapkhobongphemodal/nhapkhobongphemodal.component';
+import { DmkhachhangComponent } from './danhmuc/dmkhachhang/dmkhachhang.component';
+import { DmkhachhangmodalComponent } from './danhmuc/dmkhachhangmodal/dmkhachhangmodal.component';
 import { from } from 'rxjs';
 import { NgxMaskModule } from 'ngx-mask';
 @NgModule({
@@ -455,6 +457,8 @@ import { NgxMaskModule } from 'ngx-mask';
     ChoncaapdungmodalComponent,
     NhapkhobongpheComponent,
     NhapkhobongphemodalComponent,
+    DmkhachhangComponent,
+    DmkhachhangmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -583,6 +587,7 @@ import { NgxMaskModule } from 'ngx-mask';
     MathangdaomodalComponent,
     ChoncaapdungmodalComponent,
     NhapkhobongphemodalComponent,
+    DmkhachhangmodalComponent,
   ],
   providers: [
     SanXuatService,
