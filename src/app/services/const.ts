@@ -31,3 +31,7 @@ export const congDoan = [
     { label: 'Sợi con', value: 'SOICON' },
     { label: 'Sợi ống', value: 'SOIONG' },
   ]
+  export const maskOption = {
+    mask: "separator.3",
+    thousand: ".",
+  }

@@ -250,6 +250,7 @@ import { ChoncaapdungmodalComponent } from './quanlykhosanxuat/candoichuyen/moda
 import { NhapkhobongpheComponent } from './quanlykhosanxuat/nhapkhobongphe/nhapkhobongphe.component';
 import { NhapkhobongphemodalComponent } from './quanlykhosanxuat/nhapkhobongphemodal/nhapkhobongphemodal.component';
 import { from } from 'rxjs';
+import { NgxMaskModule } from 'ngx-mask';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -493,7 +494,8 @@ import { from } from 'rxjs';
     InputTextareaModule,
     ProgressBarModule,
     NgbProgressbarModule,
-    ColorPickerModule
+    ColorPickerModule,
+    NgxMaskModule.forRoot(),
   ],
   entryComponents: [
     ModalThuaDatComponent,

@@ -23,5 +23,6 @@ export const mapQuyTrinhRoute = {
         CANDOICHUYEN: '',
         DIEUCHUYENKHO:'',
         KIEMKEKHOHANGNGAY:'',
+        DIEUCHINHCANDOICHUYEN:'/quantri/theodoithongkebaocaosanxuat/thongkesanluong/'
 
 }

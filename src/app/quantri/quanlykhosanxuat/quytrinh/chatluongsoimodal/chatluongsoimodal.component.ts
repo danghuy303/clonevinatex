@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { vn } from 'src/app/services/const';
+import { maskOption, vn } from 'src/app/services/const';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
@@ -21,6 +21,7 @@ export class ChatluongsoimodalComponent implements OnInit {
     ChuyenTiep: false,
     Xoa: false,
   }
+  MO:any = maskOption;
   listdmKho: any = [];
   editTableItem: any = {};
   newTableItem: any = {};
@@ -50,6 +51,7 @@ export class ChatluongsoimodalComponent implements OnInit {
       this.item.DenNgay = new Date(this.item.DenNgayUnix * 1000);
     }
     this.getListdmPhanXuong();
+    this.initTabIndex();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -198,6 +200,7 @@ export class ChatluongsoimodalComponent implements OnInit {
           sanphampush.push(datapush);
         });
         this.item.lstSanPham = sanphampush;
+        this.initTabIndex();
       }, (reason) => {
         // không
       });
@@ -228,7 +231,47 @@ export class ChatluongsoimodalComponent implements OnInit {
   Onclose() {
     this.activeModal.close();
   }
+  initTabIndex(){
+    console.log(this.item.lstDanhMuc);
+    for(let i = 0;i<this.item.lstDanhMuc.length;i++){
+      for(let j=0;j<this.item.lstDanhMuc[i].lstChatLuongSanPham.length;j++){
+        this.item.lstDanhMuc[i].lstChatLuongSanPham[j].tabIndex = i+1+(j*(this.item.lstDanhMuc.length));
+      }
+    }
+  }
+  move(event, index) {
+    console.log(event);
+    let string = 'ArrowRightArrowUpArrowDownArrowLeft'
+    if (string.includes(event.key) && event.shiftKey) {
+      event.preventDefault()
+      // console.log(event);
+      let listInput = document.querySelectorAll('.dat09focus');
+      let listTabIndex = [];
+      listInput.forEach(ele => listTabIndex.push(ele.getAttribute('tabindex')));
+      //  console.log(listInput);
+      if (event.key === 'ArrowRight') {
+        let nextFocusIndex = `${this.item.lstDanhMuc.length + index}`;
+        let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+        (listInput[realIndexInDom] as HTMLElement)?.focus();
+      }
+      if (event.key === 'ArrowLeft') {
+        let nextFocusIndex = `${index - this.item.lstDanhMuc.length}`;
+        let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+        (listInput[realIndexInDom] as HTMLElement)?.focus();
+      }
+      if (event.key === 'ArrowDown') {
+        let nextFocusIndex = `${index + 1}`;
+        let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+        (listInput[realIndexInDom] as HTMLElement)?.focus();
+      }
+      if (event.key === 'ArrowUp') {
+        let nextFocusIndex = `${index - 1}`;
+        let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+        (listInput[realIndexInDom] as HTMLElement)?.focus();
+      }
+    }
+  }
   test(){
-    console.log(this.item.lstDanhMuc)
+    console.log(this.item.lstDanhMuc);
   }
 }
