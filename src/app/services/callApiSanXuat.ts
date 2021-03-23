@@ -925,6 +925,9 @@ export class SanXuatService {
                 let IdDuAn = parseInt(this.store.getCurrent());
                 return this.http.get(url + `GetLoBongTrongKho_DieuChinh?IdDuAn=${IdDuAn}&Mic=${Mic}&IdLoBong=${IdLoBong}`, httpOptions);
             },
+            GetListdmLoaiBong_PAPB:()=>{
+                return this.http.get(API.SCMDanhMuc+`GetListdmLoaiBong_PAPB`,httpOptions);
+            }
         }
     }
 

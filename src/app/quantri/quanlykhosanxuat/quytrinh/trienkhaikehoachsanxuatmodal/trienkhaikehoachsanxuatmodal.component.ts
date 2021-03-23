@@ -434,9 +434,11 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     item.ChiSoMoi = e.value;
     this._services.TrienKhaiKeHoachSanXuat().SetChiSo(item).subscribe((res: any) => {
       item.Ten = res.Ten;
+      item.ChiSo = res.ChiSo;
       item.SoMayTinhToan = res.SoMayTinhToan;
       item.SoMayCanDoi = res.SoMayCanDoi;
       item.KhoiLuongSanXuat = res.KhoiLuongSanXuat;
+      item.NangSuatDinhMuc = res.NangSuatDinhMuc;
       this.TinhLaiTinhTrangMay('THO');
       // console.log(this.item.listItemMay)
     })

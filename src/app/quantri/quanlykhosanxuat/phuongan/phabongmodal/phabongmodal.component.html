@@ -86,21 +86,20 @@
         <div class="p-col-12">
             <h5>
                 Kế hoạch triển khai
-                ({{itemTrienKhaiKeHoach.TuNgay|date:'dd/MM/yyyy'}}-{{itemTrienKhaiKeHoach.DenNgay|date:'dd/MM/yyyy'}}):
-                {{labelBong.BR|number:'0.1-1'}}% Brazil +
+                ({{itemTrienKhaiKeHoach.TuNgay|date:'dd/MM/yyyy'}}-{{itemTrienKhaiKeHoach.DenNgay|date:'dd/MM/yyyy'}}):{{item.TyLePhaBong}}
+                <!-- {{labelBong.BR|number:'0.1-1'}}% Brazil +
                 {{labelBong.MY|number:'0.1-1'}}% Mỹ + {{labelBong.TP|number:'0.1-1'}}% Tây Phi +
-                {{labelBong.zH|number:'0.1-1'}}% Hồi
+                {{labelBong.zH|number:'0.1-1'}}% Hồi -->
+                
+            </h5>
+            <h5>
                 <span style="color:red">
-                    {{trongLuongLoBong.BR|number:'0.1-1'}}kg Brazil +
+                    {{item.TyLeTrongLuong}}
+                    <!-- {{trongLuongLoBong.BR|number:'0.1-1'}}kg Brazil +
                     {{trongLuongLoBong.MY|number:'0.1-1'}}kg Mỹ + {{trongLuongLoBong.TP|number:'0.1-1'}}kg Tây Phi +
-                    {{trongLuongLoBong.zH|number:'0.1-1'}}kg Hồi
+                    {{trongLuongLoBong.zH|number:'0.1-1'}}kg Hồi -->
                 </span>
             </h5>
-            <!-- <h5>Sử dụng bông theo 
-                {{trongLuongLoBong.BR|number:'0.1-1'}}kg Brazil +
-                {{trongLuongLoBong.M|number:'0.1-1'}}kg Mỹ + {{trongLuongLoBong.TP|number:'0.1-1'}}kg Tây Phi +
-                {{trongLuongLoBong.Hoi|number:'0.1-1'}}kg Hồi
-            </h5> -->
         </div>
         <div class="p-col-12 p-p-0 pintable-container" style="height: 90vh;" voiPintable [pinnedCols]="6">
             <table>
@@ -254,7 +253,8 @@
                             {{lobong.GiaKien|number:'0.2-2'}}
                         </td>
                         <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Nep}}
+                            {{lobong.Nep|number:'0.2-2'}}
+                            <!-- Neps -->
                         </td>
                         <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.Mic|number:'0.2-2'}}</td>
@@ -279,7 +279,7 @@
                                 <input style="width: 100%; text-align: right; border: transparent; color:#495057"
                                     class="dat09focus" [tabindex]="lobong.tempBanBong[prop].tabIndex" type="number"
                                     [(ngModel)]="lobong.tempBanBong[prop].SoKien"
-                                    (keydown)="test($event,lobong.tempBanBong[prop].tabIndex)"
+                                    (keydown)="move($event,lobong.tempBanBong[prop].tabIndex)"
                                     (blur)="CalAllTable(i,prop)">
                                 <!-- <p-inputNumber locale="vi-VN" [(ngModel)]="lobong.tempBanBong[prop].SoKien"
                                     [tabindex]="lobong.tempBanBong[prop].tabIndex" [placeholder]="'_'"
@@ -415,14 +415,14 @@
                     <tr>
                         <td class="text-center tc-w-151" style="background-color:white !important;">
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:#82c940 !important;">
-                            {{ThongSoKienTheoLoaiBong?.BR?.TonDau}}
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.BR?.TonDau}} -->
                         </td>
-                        <td class="text-center tc-w-100" style="background-color:#82c940 !important;">
-                            {{ThongSoKienTheoLoaiBong?.BR?.SoLuongDung}}
+                        <td class="text-center tc-w-100" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.BR?.SoLuongDung}} -->
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:#82c940 !important;">
-                            {{ThongSoKienTheoLoaiBong?.BR?.TonCuoi}}
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.BR?.TonCuoi}} -->
                         </td>
                         <td class="text-center tc-w-80" style="color: rebeccapurple; background-color: yellow;">
                             Mic B/Q
@@ -467,14 +467,14 @@
                     <tr>
                         <td class="text-center tc-w-151" style="background-color:white !important;">
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:#fdff0c !important;">
-                            {{ThongSoKienTheoLoaiBong?.MY?.TonDau}}
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.MY?.TonDau}} -->
                         </td>
-                        <td class="text-center tc-w-100" style="background-color:#fdff0c !important;">
-                            {{ThongSoKienTheoLoaiBong?.MY?.SoLuongDung}}
+                        <td class="text-center tc-w-100" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.MY?.SoLuongDung}} -->
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:#fdff0c !important;">
-                            {{ThongSoKienTheoLoaiBong?.MY?.TonCuoi}}
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.MY?.TonCuoi}} -->
                         </td>
                         <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">
                             CV%Mic
@@ -518,14 +518,14 @@
                     <tr>
                         <td class="text-center tc-w-151" style="background-color:white !important;">
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:#dfa8a9 !important;">
-                            {{ThongSoKienTheoLoaiBong?.TP?.TonDau}}
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.TP?.TonDau}} -->
                         </td>
-                        <td class="text-center tc-w-100" style="background-color:#dfa8a9 !important;">
-                            {{ThongSoKienTheoLoaiBong?.TP?.SoLuongDung}}
+                        <td class="text-center tc-w-100" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.TP?.SoLuongDung}} -->
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:#dfa8a9 !important;">
-                            {{ThongSoKienTheoLoaiBong?.TP?.TonCuoi}}
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.TP?.TonCuoi}} -->
                         </td>
                         <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">
                             Mic TT

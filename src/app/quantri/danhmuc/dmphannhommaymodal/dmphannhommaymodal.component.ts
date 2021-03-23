@@ -317,8 +317,8 @@ export class DmphannhommaymodalComponent implements OnInit {
       }
       else if (this.item.CongDoan == "ONG") {
         this.item.lstdmItem.forEach(obj => {
-          if ((validVariable(obj.TocDo)) && (validVariable(obj.Nm))) {
-            obj.NangSuat = obj.TocDo * 450 * 60 / 1000 / obj.Nm * 0.9875;
+          if ((validVariable(obj.TocDo)) && (validVariable(this.item.SoCoc)) && (validVariable(obj.Nm))) {
+            obj.NangSuat = obj.TocDo * 450 * this.item.SoCoc / 1000 / obj.Nm * 0.9875;
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
@@ -360,8 +360,8 @@ export class DmphannhommaymodalComponent implements OnInit {
         }
       }
       else if (this.item.CongDoan == "ONG") {
-        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.Nm))) {
-          this.newTableItem.NangSuat = this.newTableItem.TocDo * 450 * 60 / 1000 / this.newTableItem.Nm * 0.9875;
+        if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.SoCoc)) && (validVariable(this.newTableItem.Nm))) {
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * 450 * this.item.SoCoc / 1000 / this.newTableItem.Nm * 0.9875;
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
