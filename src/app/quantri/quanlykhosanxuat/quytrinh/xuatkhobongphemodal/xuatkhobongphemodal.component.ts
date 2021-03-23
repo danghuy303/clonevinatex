@@ -156,7 +156,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
         },
         {
           header: 'Khối lượng',
-          field: 'SoLuong',
+          field: 'Ton',
           width: 'unset'
         },
       ];

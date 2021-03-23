@@ -187,21 +187,21 @@ export class NhapkhokhacmodalComponent implements OnInit {
     })
   }
   getListLoaiBong() {
-    if (this.opt === 'edit') {
-      if (this.type === 'bong')
-        this.data.Loai = 2;
-      else
-        this.data.Loai = this.item.Loai;
-    }
-    else{
-     if (this.type === 'bonghoi'){
+    // if (this.opt === 'edit') {
+    //   if (this.type === 'bong')
+    //     this.data.Loai = 2;
+    //   else
+    //     this.data.Loai = this.item.Loai;
+    // }
+    // else{
+    //  if (this.type === 'bonghoi'){
         this.data.Loai = 6;
         this.data.IddmLoaiBong = this.item.IddmLoaiBong;
-      }
-      else  if (this.type === 'bongphe'){
-        this.data.Loai = 7;
-      }
-    }
+    //   }
+    //   else  if (this.type === 'bongphe'){
+    //     this.data.Loai = 7;
+    //   }
+    // }
     this._services.GetListdmLoaiBong(this.data).subscribe((res: any) => {
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
