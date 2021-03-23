@@ -137,7 +137,7 @@ export class NhapkhomodalComponent implements OnInit {
 
     if(this.item.listItem!== undefined || this.item.listItem !== null){
       for(let i = 0; i < this.item.listItem.length; i++) {
-        if(this.item.listItem[i].IddmViTri === null || this.item.listItem[i].IddmViTri === undefined){
+        if(this.item.listItem[i].isXoa !== true && (this.item.listItem[i].IddmViTri === null || this.item.listItem[i].IddmViTri === undefined)){
           isCheck= true;
           break;
         }
