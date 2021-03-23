@@ -37,19 +37,17 @@ export class XuatkhomathangmodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.cols)
-    console.log(this.listItem)
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
     if(this.listItem != undefined && this.listItem!= null)
     {
-      this.listItem.forEach(element => {
-        var itemFind = this.listMatHang.find(function (obj) {
-          return (obj.IddmItem == element.IddmItem && obj.IdLoHang == element.IdLoHang);
-        });
+      for(let i = 0; i < this.listItem.length; i++){
+        var itemFind = this.listMatHang.find(
+          ele => (ele.IddmItem === this.listMatHang[i].IddmItem && ele.IdLoHang == this.listMatHang[i].IdLoHang)
+        );
         itemFind.checked = true;
-      });
+      }
     }
     this.item.listItem = this.listMatHang.slice(0,15);
     this.item.listItem_copy = this.listMatHang;
