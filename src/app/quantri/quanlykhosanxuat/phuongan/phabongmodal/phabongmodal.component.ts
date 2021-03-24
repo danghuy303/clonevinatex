@@ -181,7 +181,7 @@ export class PhabongmodalComponent implements OnInit {
     })
   }
   GetLoBongTrongKho() {
-    this._services.PhuongAnPhaBong().GetLoBongTrongKho(this.itemTrienKhaiKeHoach.IdDuAn).subscribe((res: any) => {
+    this._services.PhuongAnPhaBong().GetLoBongTrongKho(this.itemTrienKhaiKeHoach.IdDuAn,this.itemTrienKhaiKeHoach.IddmPhanXuong).subscribe((res: any) => {
       this.listLoBong = res;
     })
   }

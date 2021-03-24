@@ -1,3 +1,4 @@
+import { formatNumber } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -235,12 +236,12 @@ export class ChatluongsoimodalComponent implements OnInit {
     console.log(this.item.lstDanhMuc);
     for(let i = 0;i<this.item.lstDanhMuc.length;i++){
       for(let j=0;j<this.item.lstDanhMuc[i].lstChatLuongSanPham.length;j++){
+        // this.item.lstDanhMuc[i].lstChatLuongSanPham[j].ChiTieuThucTe = formatNumber(this.item.lstDanhMuc[i].lstChatLuongSanPham[j].ChiTieuThucTe,'vi-VN','0.0-3')
         this.item.lstDanhMuc[i].lstChatLuongSanPham[j].tabIndex = i+1+(j*(this.item.lstDanhMuc.length));
       }
     }
   }
   move(event, index) {
-    console.log(event);
     let string = 'ArrowRightArrowUpArrowDownArrowLeft'
     if (string.includes(event.key) && event.shiftKey) {
       event.preventDefault()
@@ -271,7 +272,9 @@ export class ChatluongsoimodalComponent implements OnInit {
       }
     }
   }
-  test(){
-    console.log(this.item.lstDanhMuc);
+  rebind(e,item){
+    if(e!==undefined){
+      item.ChiTieuThucTe = parseFloat(e);
+    }
   }
 }

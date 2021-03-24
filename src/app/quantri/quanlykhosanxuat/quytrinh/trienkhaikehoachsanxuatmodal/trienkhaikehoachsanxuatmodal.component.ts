@@ -446,9 +446,9 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   TinhLaiTinhTrangMay(CongDoan) {
     this.mapCongDoan_TinhTrangMay[CongDoan] = {
       ...this.mapCongDoan_TinhTrangMay[CongDoan],
-      SoMayHienCo:this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan)[0]?.SoMayHienCo,
+      SoMayHienCo:this.item.listCongDoan.filter(cd=>cd.Ma === CongDoan)[0]?.SoMayHienCo,
       TongKhoiLuong: this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.KhoiLuongSanXuat, 0),
-      SoMayCanDoi: this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan)[0]?.SoMayHienCo - this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
+      SoMayCanDoi: this.item.listCongDoan.filter(cd=>cd.Ma === CongDoan)[0]?.SoMayHienCo - this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
       SoMayTinhToan: this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
     }
   }

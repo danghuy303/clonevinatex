@@ -887,8 +887,8 @@ export class SanXuatService {
             GetNextSo: () => {
                 return this.http.get(url + 'GetNextSoQuyTrinhPhuongAnPhaBong', httpOptions);
             },
-            GetLoBongTrongKho: (IdDuAn) => {
-                return this.http.get(url + `GetLoBongTrongKho?IdDuAn=${IdDuAn}`, httpOptions)
+            GetLoBongTrongKho: (IdDuAn,IddmPhanXuong) => {
+                return this.http.get(url + `GetLoBongTrongKho?IdDuAn=${IdDuAn}&IddmPhanXuong=${IddmPhanXuong}`, httpOptions)
             },
             TinhKhoiLuongBong: (data) => {
                 return this.http.post(url + 'TinhKhoiLuongBong', data, httpOptions)
