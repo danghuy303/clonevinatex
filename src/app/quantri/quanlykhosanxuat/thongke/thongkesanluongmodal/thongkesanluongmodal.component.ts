@@ -273,4 +273,10 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhKhoiLuongHoiAm(item){
     item.KhoiLuongHoiAm = item.SoQuaSoi * item.KgCone
   }
+  ApDung(item){
+    let cloneId = item.IdLoHang;
+    this.listItem.forEach(abc => {
+        abc.IdLoHang = cloneId;
+    });
+  }
 }

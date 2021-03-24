@@ -927,6 +927,12 @@ export class SanXuatService {
             },
             GetListdmLoaiBong_PAPB:()=>{
                 return this.http.get(API.SCMDanhMuc+`GetListdmLoaiBong_PAPB`,httpOptions);
+            },
+            KiemTraButtonDieuChinhPhuongAnPhaBong:(IdPhuongAnPhaBong)=>{
+                return this.http.get(url+`KiemTraButtonDieuChinhPhuongAnPhaBong?IdPhuongAnPhaBong=${IdPhuongAnPhaBong}`,httpOptions);
+            },
+            DieuChinhPhuongAnPhaBong:(IdPhuongAnPhaBong)=>{
+                return this.http.get(url+`DieuChinhPhuongAnPhaBong?IdPhuongAnPhaBong=${IdPhuongAnPhaBong}`,httpOptions);
             }
         }
     }

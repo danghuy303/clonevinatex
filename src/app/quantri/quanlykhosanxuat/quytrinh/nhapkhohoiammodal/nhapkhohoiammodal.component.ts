@@ -49,7 +49,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
       field: 'KhoiLuongSanXuat',
       width: 'unset'
     },
-  
+
   ];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
@@ -68,13 +68,14 @@ export class NhapkhohoiammodalComponent implements OnInit {
       }
       this.GetNextSoQuyTrinh();
     }
-    else{
+    else {
       this.KiemTraButtonModal();
     }
     console.log(this.item)
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
+    this.TinhAllKLTT();
     this.data.CurrentPage = 0;
     this.getListKho();
     this.getListCaMay();
@@ -95,7 +96,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  danh mục kho");
     }
     else {
-      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
+      if (this.newTableItem.Ten != undefined && this.newTableItem.SoCan != undefined && this.newTableItem.SoKien != undefined && this.newTableItem.ViTri != undefined) {
         this.add();
       }
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
@@ -129,7 +130,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  danh mục kho");
     }
     else {
-      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined && this.newTableItem.ViTri!= undefined) {
+      if (this.newTableItem.Ten != undefined && this.newTableItem.SoCan != undefined && this.newTableItem.SoKien != undefined && this.newTableItem.ViTri != undefined) {
         this.add();
       }
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
@@ -142,6 +143,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            this.TinhAllKLTT();
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
@@ -187,7 +189,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
   GetMatHangTheoKho() {
     let itemSearch: any = {};
     itemSearch.IddmCaSanXuatThucTe = this.item.IddmCaSanXuatThucTe;
-    if(this.item.Ngay !== undefined)
+    if (this.item.Ngay !== undefined)
       itemSearch.Ngay = (new Date(this.item.Ngay)).getTime() / 1000;
     itemSearch.IddmPhanXuong = this.item.IddmPhanXuong;
     this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res1: any) => {
@@ -198,15 +200,15 @@ export class NhapkhohoiammodalComponent implements OnInit {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.listItem;
-      modalRef.componentInstance.cols= this.cols;
+      modalRef.componentInstance.cols = this.cols;
       modalRef.result.then((data) => {
         this.item.listItem.forEach(element => {
           element.isXoa = true;
         });
         console.log(data.data)
-        for(let i = 0; i<data.data.length; i++){
-          for(let j = 0; j< this.item.listItem.length; j++){
-            if(data.data[i].IddmItem === this.item.listItem[j].IddmItem && data.data[i].IdLoBong === this.item.listItem[j].IdLoBong){
+        for (let i = 0; i < data.data.length; i++) {
+          for (let j = 0; j < this.item.listItem.length; j++) {
+            if (data.data[i].IddmItem === this.item.listItem[j].IddmItem && data.data[i].IdLoBong === this.item.listItem[j].IdLoBong) {
               this.item.listItem[j].isXoa = false;
               data.data[i].isXoa = true;
             }
@@ -214,6 +216,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
         }
         this.item.listItem = this.item.listItem.concat(data.data);
         console.log(this.item.listItem)
+        this.TinhAllKLTT()
       }, (reason) => {
         // không
       });
@@ -225,7 +228,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {}
   }
-  
+
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
@@ -237,7 +240,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
   Onclose() {
     if (this._modal.hasOpenModals()) {
       // this._modal.dismissAll()
-    this.activeModal.close();
+      this.activeModal.close();
 
     }
   }
@@ -245,5 +248,13 @@ export class NhapkhohoiammodalComponent implements OnInit {
     this._services.GetListKgCone().subscribe((res: any) => {
       this.listKgCone = mapArrayForDropDown(res, 'GiaTri', 'GiaTri');
     })
+  }
+  tinhKLTT(item) {
+    item.KLTT = (item.SoQuaSoiThucTe||0) * (item.KgCone||0);
+  }
+  TinhAllKLTT(){
+    this.item.listItem.forEach(mh => {
+      mh.KLTT = (mh.SoQuaSoiThucTe||0) * (mh.KgCone||0);
+    });
   }
 }

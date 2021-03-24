@@ -105,7 +105,7 @@
                         <th>Tên lô hàng</th>
                         <th>Kg/cone</th>
                         <!-- <th>Quả sợi sản xuất</th> -->
-                        <th>Quả sợi thực tế</th>
+                        <th>Số quả sợi thực tế</th>
                         <!-- <th>Số quả sợi</th> -->
                         <th>Khối lượng thành phẩm thực tế (Kg)</th>
                         <th>Ghi chú</th>
@@ -134,11 +134,12 @@
                             </p-inputNumber>
                         </td> -->
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe"
+                            (onBlur)="tinhKLTT(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe * item.KgCone">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KLTT">
                             </p-inputNumber>
                         </td>
                         <!-- <td class="text-center">
@@ -154,6 +155,32 @@
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
                                 tooltipPosition="bottom"></button>
                         </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td></td>
+                        <td class="text-center">TỔNG</td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'SoQuaSoiThucTe'|number:'0.0-0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'KLTT'|number:'0.2-2'}}
+                        </td>
+                        <td></td>
+                        <td></td>
+                        
+                        <!-- <td *ngIf="item.CongDoan!=='CON'" class="text-right">
+                            {{listItem|SumByKey:'ChieuDai'|number:'0.3-3'}}
+                        </td>
+                        <td *ngIf="item.CongDoan==='CON'" class="text-right">
+                            {{listItem|SumByKey:'ChieuDai'|number:'0.3-3'}}
+                        </td>
+                        <td class="text-right">
+                            {{listItem|SumByKey:'KhoiLuong'|number:'0.3-3'}}
+                        </td> -->
                     </tr>
                 </ng-template>
             </p-table>
