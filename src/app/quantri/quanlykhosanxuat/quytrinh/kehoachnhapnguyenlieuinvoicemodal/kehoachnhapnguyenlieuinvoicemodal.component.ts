@@ -325,4 +325,9 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
       }
     }
   }
+  exportExcel(){
+    this._services.NhapKeHoachNguyenLieuInvoice().ExportExcel(this.item.Id).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
+  }
 }

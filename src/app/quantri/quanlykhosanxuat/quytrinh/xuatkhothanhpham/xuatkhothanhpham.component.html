@@ -52,9 +52,18 @@
                 <td class="text-center">
                     {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
-                <td class="text-center" *ngFor="let col of cols">
+                <td class="text-center">{{item.SoQuyTrinh}}</td>
+                <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.TendmKho}}</td>
+                <td class="text-center">{{item.TongSoKien|number:'0.0' }}</td>
+                <td class="text-center">{{item.TongKhoiLuong|number:'0.2' }}</td>
+                <td class="text-center">{{item.NoiDung}}</td>
+                <td class="text-center">{{item.GhiChu}}</td>
+                <td class="text-center">{{item.TenTrangThai}}</td>
+
+                <!-- <td class="text-center" *ngFor="let col of cols">
                     {{item[col.field]}}
-                </td>
+                </td> -->
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
                         class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item.Id)"></button>

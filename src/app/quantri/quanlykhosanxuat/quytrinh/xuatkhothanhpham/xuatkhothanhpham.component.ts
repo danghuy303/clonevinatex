@@ -32,6 +32,21 @@ export class XuatkhothanhphamComponent implements OnInit {
       width: 'unset'
     },
     {
+      header: 'Tên kho',
+      field: 'TendmKho',
+      width: 'unset'
+    },
+    {
+      header: 'Tổng số kiện',
+      field: 'TongSoKien',
+      width: 'unset'
+    },
+    {
+      header: 'Tổng khối lượng',
+      field: 'TongKhoiLuong',
+      width: 'unset'
+    },
+    {
       header: 'Nội dung',
       field: 'NoiDung',
       width: 'unset'
@@ -39,6 +54,11 @@ export class XuatkhothanhphamComponent implements OnInit {
     {
       header: 'Ghi chú',
       field: 'GhiChu',
+      width: 'unset'
+    },
+    {
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
       width: 'unset'
     },
   ];

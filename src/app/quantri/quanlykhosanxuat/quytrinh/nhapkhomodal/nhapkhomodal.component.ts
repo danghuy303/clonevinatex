@@ -341,4 +341,9 @@ export class NhapkhomodalComponent implements OnInit {
           item.SoKienDai = 0;
       }
   }
+  exportExcel(){
+    this._services.QuyTrinhPhieuNhapLoBong().ExportExcel(this.item.Id).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
+  }
 }

@@ -184,7 +184,8 @@ export class CandoichuyenComponent implements OnInit {
                     modalRef.componentInstance.TenCongDoan = this.mapMa_TenCongDoan[this.filter.CongDoan];
                     modalRef.componentInstance.checkbutton = this.checkNavigationButton(index);
                     modalRef.componentInstance.item = deepCopy(res);
-                    modalRef.componentInstance.canDieuChinh = (date.labelHienThi === this.today);
+                    // modalRef.componentInstance.canDieuChinh = (date.labelHienThi === this.today);
+                    modalRef.componentInstance.canDieuChinh = true;
                         modalRef.componentInstance.addonData = {
                             IddmPhanXuong: this.filter.IddmPhanXuong,
                             CongDoan: this.filter.CongDoan,
