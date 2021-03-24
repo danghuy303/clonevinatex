@@ -60,6 +60,7 @@ export class PhabongmodalComponent implements OnInit {
   ThongSoKienTheoLoaiBong: any = {
 
   };
+  checkbuttonDieuChinh:boolean = false;
   trongLuongLoBong: any = {};
   itemMicTT: any = {};
   itemCVMicTT: any = {};
@@ -181,7 +182,7 @@ export class PhabongmodalComponent implements OnInit {
     })
   }
   GetLoBongTrongKho() {
-    this._services.PhuongAnPhaBong().GetLoBongTrongKho(this.itemTrienKhaiKeHoach.IdDuAn).subscribe((res: any) => {
+    this._services.PhuongAnPhaBong().GetLoBongTrongKho(this.itemTrienKhaiKeHoach.IdDuAn,this.itemTrienKhaiKeHoach.IddmPhanXuong).subscribe((res: any) => {
       this.listLoBong = res;
     })
   }
@@ -444,6 +445,11 @@ export class PhabongmodalComponent implements OnInit {
       this.checkbutton = res;
     })
   }
+  KiemTraButtonDieuChinhPhuongAnPhaBong(){
+    this._services.PhuongAnPhaBong().KiemTraButtonDieuChinhPhuongAnPhaBong(this.item.Id || '').subscribe((res: any) => {
+      this.checkbuttonDieuChinh = res;
+    })
+  }
   GetListdmLoaiBong_PAPB() {
     this._services.PhuongAnPhaBong().GetListdmLoaiBong_PAPB().subscribe((res: Array<any>) => {
       // console.log(res)
@@ -458,6 +464,7 @@ export class PhabongmodalComponent implements OnInit {
         })
         // console.log(this.listLoaiBong)
       }
+      this.KiemTraButtonDieuChinhPhuongAnPhaBong()
       this.KiemTraButtonModal();
       if (this.opt !== 'edit') {
         this.GetNextSoQuyTrinh();
@@ -531,6 +538,7 @@ export class PhabongmodalComponent implements OnInit {
             this.item = res.objectReturn;
             this.GetListTrienKhaiKeHoach();
             this.KiemTraButtonModal();
+            this.KiemTraButtonDieuChinhPhuongAnPhaBong()
           } else {
             this._toastr.error(res.message);
           }
@@ -538,6 +546,20 @@ export class PhabongmodalComponent implements OnInit {
       });
     }
 
+  }
+  DieuChinh(){
+    if (this.ValidData()) {
+      this._services.PhuongAnPhaBong().DieuChinhPhuongAnPhaBong(this.item.Id).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this._toastr.success(res.message);
+            // this._activeModal.close();
+          } else {
+            this._toastr.error(res.message);
+          }
+        }
+      })
+    }
   }
   ChuyenDuyet() {
     if (this.ValidData()) {

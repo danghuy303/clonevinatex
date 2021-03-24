@@ -890,8 +890,8 @@ export class SanXuatService {
             GetNextSo: () => {
                 return this.http.get(url + 'GetNextSoQuyTrinhPhuongAnPhaBong', httpOptions);
             },
-            GetLoBongTrongKho: (IdDuAn) => {
-                return this.http.get(url + `GetLoBongTrongKho?IdDuAn=${IdDuAn}`, httpOptions)
+            GetLoBongTrongKho: (IdDuAn,IddmPhanXuong) => {
+                return this.http.get(url + `GetLoBongTrongKho?IdDuAn=${IdDuAn}&IddmPhanXuong=${IddmPhanXuong}`, httpOptions)
             },
             TinhKhoiLuongBong: (data) => {
                 return this.http.post(url + 'TinhKhoiLuongBong', data, httpOptions)
@@ -930,6 +930,12 @@ export class SanXuatService {
             },
             GetListdmLoaiBong_PAPB:()=>{
                 return this.http.get(API.SCMDanhMuc+`GetListdmLoaiBong_PAPB`,httpOptions);
+            },
+            KiemTraButtonDieuChinhPhuongAnPhaBong:(IdPhuongAnPhaBong)=>{
+                return this.http.get(url+`KiemTraButtonDieuChinhPhuongAnPhaBong?IdPhuongAnPhaBong=${IdPhuongAnPhaBong}`,httpOptions);
+            },
+            DieuChinhPhuongAnPhaBong:(IdPhuongAnPhaBong)=>{
+                return this.http.get(url+`DieuChinhPhuongAnPhaBong?IdPhuongAnPhaBong=${IdPhuongAnPhaBong}`,httpOptions);
             }
         }
     }

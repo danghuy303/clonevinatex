@@ -7,6 +7,7 @@ import { deepCopy, DateToUnix } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { Dongvanpx1Component } from '../layoutmodals/dongvanpx1/dongvanpx1.component';
 import { Dongvanpx2Component } from '../layoutmodals/dongvanpx2/dongvanpx2.component';
+import { HoaxaComponent } from '../layoutmodals/hoaxa/hoaxa.component';
 
 
 @Component({
@@ -40,13 +41,12 @@ export class XepbanbongComponent implements OnInit {
   ];
   defineComponent: any = {
     '53': {
-      px1: Dongvanpx1Component,
-      px2: Dongvanpx2Component
+      '1cf3f340_0f55_4f34_938p_e329318e25et': Dongvanpx1Component,
+      '1cf3f340_0f55_4f34_938p_e629318e25et': Dongvanpx2Component
+    },
+    '55':{
+      '1cf3f340_0f55_4f34_938p_e329318e25et': HoaxaComponent
     }
-  }
-  mapIdPhanXuong: any = {
-    '1cf3f340_0f55_4f34_938p_e329318e25et': 'px1',
-    '1cf3f340_0f55_4f34_938p_e629318e25et': 'px2'
   }
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
 
@@ -56,10 +56,6 @@ export class XepbanbongComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== '0') {
         this._service.XepBanBong().Get(res.id).subscribe((res: any) => {
-          console.log(res);
-          // res.listItem.forEach(ele => {
-          //   ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
-          // });
           this.update(res);
         })
       }
@@ -70,37 +66,8 @@ export class XepbanbongComponent implements OnInit {
   changeParam(id) {
     this.router.navigate([`quantri/trienkhaisanxuat/xepbanbong/${id}`], { replaceUrl: true })
   }
-  // add() {
-  //   this.changeParam(0);
-  //   let modalRef = this._modal.open(XepbanbongmodalComponent, {
-  //     size: 'fullscreen-100',
-  //     backdrop: 'static',
-  //     keyboard:false
-  //   })
-  //   modalRef.componentInstance.opt = 'add';
-  //   modalRef.componentInstance.item = {
-  //     SoQuyTrinh: 'PKK_0000_0001',
-  //     listKienHang: []
-  //     // ID:null,
-  //     // TepDinhKems:[],
-  //     // templistTaiSanQuyTrinh:[],
-  //     // listTaiSanQuyTrinh:[]
-  //   }
-  //   modalRef.componentInstance.checkbutton = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true }
-  //   modalRef.result.then((res: any) => {
-  //     console.log(res);
-  //     this._toastr.success('Cập nhật thành công');
-  //     this.GetListQuyTrinh();
-  //     this.changeParam(0);
-  //   })
-  //     .catch(er => {
-  //       this.GetListQuyTrinh();
-  //       this.changeParam(0);
-  //     })
-  // }
   update(item) {
-    let component = this.defineComponent[`${this._store.getCurrent()}`][this.mapIdPhanXuong[item.IddmPhanXuong.split('-').join('_')]]
-    console.log(component);
+    let component = this.defineComponent[`${this._store.getCurrent()}`][item.IddmPhanXuong.split('-').join('_')];
     item.PhuongAnPhaBong = undefined;
     let modalRef = this._modal.open(component, {
       size: 'fullscreen-100',
