@@ -31,7 +31,7 @@ export class NhapkhokhacmodalComponent implements OnInit {
   lang: any = vn;
   data: any = {};
   listKeHoach: any = [];
-  type: any = '';
+  // type: any = '';
   editField: any = false;
   nametype: any = '';
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
@@ -105,12 +105,13 @@ export class NhapkhokhacmodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if (this.opt !== 'edit') {
-      if (this.type === 'bonghoi')
-        this.item.Loai = 6;
-      else if (this.type === 'bongphe')
-        this.item.Loai = 7;
-    }
+    this.item.Loai = 6;
+
+    // if (this.opt !== 'edit') {
+    //   if (this.type === 'bonghoi')
+    //   else if (this.type === 'bongphe')
+    //     this.item.Loai = 7;
+    // }
     let isCheck = false;
 
     if(this.item.listItem!== undefined || this.item.listItem !== null){
@@ -141,7 +142,7 @@ export class NhapkhokhacmodalComponent implements OnInit {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
-            console.log(this.type)
+            // console.log(this.type)
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
@@ -170,18 +171,19 @@ export class NhapkhokhacmodalComponent implements OnInit {
   }
 
   getListKho() {
-    if (this.opt === 'edit') {
-      this.data.Loai = this.item.Loai;
-    }
-    else{
-     if (this.type === 'bonghoi'){
-        this.data.Loai = 6;
-        this.data.IddmLoaiBong = this.item.IddmLoaiBong;
-      }
-      else  if (this.type === 'bongphe'){
-        this.data.Loai = 7;
-      }
-    }
+    this.data.Loai = 6;
+
+    // if (this.opt === 'edit') {
+    //   this.data.Loai = this.item.Loai;
+    // }
+    // else{
+    //  if (this.type === 'bonghoi'){
+    //     this.data.IddmLoaiBong = this.item.IddmLoaiBong;
+    //   }
+    //   else  if (this.type === 'bongphe'){
+    //     this.data.Loai = 7;
+    //   }
+    // }
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
