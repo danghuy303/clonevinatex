@@ -78,14 +78,16 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
-                        <th>Kiện</th>
-                        <th>Khối lượng (kg)</th>
+                        <th>Tên kiện</th>
+                        <th>Số kiện</th>
+                        <th>Tổng khối lượng (kg)</th>
                         <th>Ghi chú</th>
                         <th style="width: 100px;"></th>
                     </tr>
@@ -95,6 +97,11 @@
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">
                             <input pInputText type="text" [(ngModel)]="item.Ten">
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
+                            </p-inputNumber>
+                            <!-- <input pInputText type="text" [(ngModel)]="item.SoKien"> -->
                         </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoCan">
@@ -120,6 +127,12 @@
                         </td>
                         <td>
                             <div class="p-inputgroup">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKien">
+                                </p-inputNumber>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="p-inputgroup">
                                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoCan">
                                 </p-inputNumber>
                             </div>
@@ -133,10 +146,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
+                        <td colspan="2" class="text-left">
+                            Tổng cộng: 
+                        </td>
                         <td class="text-right">
-                            {{item.listKien|SumByKey:'SoCan'|number:'0.0'}}
+                            {{item.listKien|SumByKey:'SoKien'|number:'0.0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listKien|SumByKey:'SoCan'|number:'0.2'}}
                         </td>
                         <td></td>
                         <td></td>

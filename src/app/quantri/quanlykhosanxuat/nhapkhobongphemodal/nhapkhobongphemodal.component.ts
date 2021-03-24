@@ -54,7 +54,7 @@ export class NhapkhobongphemodalComponent implements OnInit {
     this.data.CurrentPage = 0;
     this.getListLoaiBong();
     this.getListKho();
-    this.getListPhanXuong();
+    // this.getListPhanXuong();
     // this.getListCapBong();
   }
   KiemTraButtonModal() {
@@ -139,11 +139,11 @@ export class NhapkhobongphemodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-  getListPhanXuong() {
-  this._services.GetListdmPhanXuongOpt().subscribe((res: any) => {
-    this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-  })
-}
+//   getListPhanXuong() {
+//   this._services.GetListdmPhanXuongOpt().subscribe((res: any) => {
+//     this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+//   })
+// }
   getListKho() {
       // else  if (this.type === 'bongphe'){
         this.data.Loai = 7;

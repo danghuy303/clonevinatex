@@ -58,22 +58,22 @@ export class NhapkhoComponent implements OnInit {
     {
       header: 'Số quy trình',
       field: 'SoQuyTrinh',
-      width: 'unset'
+      width: '100px'
     },
     {
       header: 'Số hợp đồng',
       field: 'SoHopDong',
-      width: 'unset'
+      width: '150px'
     },
     {
       header: 'Lô xơ',
       field: 'TenLoBong',
-      width: 'unset'
+      width: '100px'
     },
     {
       header: 'Loại xơ',
       field: 'TendmLoaiBong',
-      width: 'unset'
+      width: '100px'
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };

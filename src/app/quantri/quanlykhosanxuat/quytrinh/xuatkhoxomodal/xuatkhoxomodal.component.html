@@ -34,28 +34,21 @@
 
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho xuất:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IddmKho"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch triển khai: </label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listTrienKhaiKeHoachSanXuat" placeholder="Chọn kế hoạch" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IdGiaoKeHoachSanXuat_TrienKhai"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
@@ -106,8 +99,12 @@
                         <td style="text-align: center;">{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>
                         <td style="text-align: center;">{{item.TendmViTri}}</td>
-                        <td style="text-align: center;">{{item.TrongLuong}}</td>
-                        <td style="text-align: center;">{{item.Ton}}</td>
+                        <td style="text-align: center;">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TrongLuong" disabled>
+                            </p-inputNumber></td>
+                        <td style="text-align: center;">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ton" disabled>
+                            </p-inputNumber></td>
                         <td style="text-align: center;">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>

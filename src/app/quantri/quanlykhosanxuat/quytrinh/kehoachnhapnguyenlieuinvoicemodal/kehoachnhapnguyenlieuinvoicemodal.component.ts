@@ -310,7 +310,7 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
     this.item.listItem[index].editField = false;
   }
   Onclose() {
-    this.activeModal.dismiss();
+    this.activeModal.close();
   }
   getKeHoachNhapNguyenLieu(){
     for(let i =0; i < this.listKeHoachNguyenLieuFull.length ; i ++){

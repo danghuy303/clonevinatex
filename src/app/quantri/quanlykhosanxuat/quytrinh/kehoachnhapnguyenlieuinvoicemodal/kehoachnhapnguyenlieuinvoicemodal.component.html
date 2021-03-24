@@ -243,6 +243,23 @@
                                 class="p-button-rounded p-button-sm " (click)="add()"></button>
                         </td>
                     </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'SoLuongNhap'|number:'0.0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'Container'|number:'0.0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'TongSoKien'|number:'0.0'}}
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 </ng-template>
             </p-table>
         </div>

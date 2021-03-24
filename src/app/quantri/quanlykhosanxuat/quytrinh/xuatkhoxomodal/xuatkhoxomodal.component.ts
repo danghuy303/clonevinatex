@@ -26,7 +26,10 @@ export class XuatkhoxomodalComponent implements OnInit {
   listPhanXuong: any = [];
   listTrienKhaiKeHoachSanXuat: any = [];
   listItem: any = [];
-  paging: any = {};
+  paging: any = {
+    CurrentPage: 1,
+    TotalPage:5
+  };
 
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, 

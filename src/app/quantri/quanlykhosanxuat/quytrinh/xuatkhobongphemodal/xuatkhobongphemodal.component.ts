@@ -81,6 +81,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
     this.services.PhieuXuatBongPhe().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
+          this.toastr.success(res.message)
           this.activeModal.close();
         } else {
           this.toastr.error(res.message);
