@@ -41,14 +41,14 @@ export class NhapkhohoiamComponent implements OnInit {
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-
+isCheckModal: any = false;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res:any)=>{
       console.log(res.id)
-      if(res.id!=='0'){
+      if(res.id!=='0' && this.isCheckModal === false){
         this.update(res.id);
       }
       // else
@@ -79,6 +79,7 @@ export class NhapkhohoiamComponent implements OnInit {
   }
   
   update(Id) {
+    this.isCheckModal= true;
     this.changeParam(Id);
     this._service.PhieuNhapHoiAm().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhohoiammodalComponent, {

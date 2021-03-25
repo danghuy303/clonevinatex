@@ -6,6 +6,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
+import {DecimalPipe} from '@angular/common';
 
 @Component({
   selector: 'app-nhapkhothanhphammodal',
@@ -31,12 +32,13 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   type: any = '';
   editField: any = false;
   nametype: any = '';
+  format = '0.0-2';
   // listMucDich: any = [
   //   { value: 0, label: 'Xuất khẩu' },
   //   { value: 1, label: 'Nội địa' },
   // ]
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal,
+  constructor(public activeModal: NgbActiveModal,private decimalPipe: DecimalPipe,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
 
   }
@@ -164,6 +166,13 @@ export class NhapkhothanhphammodalComponent implements OnInit {
         size: 'lg',
         backdrop: 'static'
       })
+      if(res1 !== null && res1 !== undefined){
+        res1.forEach(element => {
+          element.Ton = this.decimalPipe.transform(element.Ton, this.format);
+          
+        });
+      }
+
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.listItem;

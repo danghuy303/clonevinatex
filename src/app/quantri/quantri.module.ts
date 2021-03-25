@@ -254,6 +254,9 @@ import { DmkhachhangmodalComponent } from './danhmuc/dmkhachhangmodal/dmkhachhan
 import { from } from 'rxjs';
 import { NgxMaskModule } from 'ngx-mask';
 import { HoaxaComponent } from './quanlykhosanxuat/phuongan/layoutmodals/hoaxa/hoaxa.component';
+import { LobongComponent } from './danhmuc/lobong/lobong.component';
+import { LobongmodalComponent } from './danhmuc/lobongmodal/lobongmodal.component';
+import { NhapkhoxoComponent } from './quanlykhosanxuat/quytrinh/nhapkhoxo/nhapkhoxo.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -461,6 +464,9 @@ import { HoaxaComponent } from './quanlykhosanxuat/phuongan/layoutmodals/hoaxa/h
     DmkhachhangComponent,
     DmkhachhangmodalComponent,
     HoaxaComponent,
+    LobongComponent,
+    LobongmodalComponent,
+    NhapkhoxoComponent,
   ],
   imports: [
     HttpClientModule,
@@ -590,7 +596,8 @@ import { HoaxaComponent } from './quanlykhosanxuat/phuongan/layoutmodals/hoaxa/h
     ChoncaapdungmodalComponent,
     NhapkhobongphemodalComponent,
     DmkhachhangmodalComponent,
-    HoaxaComponent
+    HoaxaComponent,
+    LobongmodalComponent,
   ],
   providers: [
     SanXuatService,

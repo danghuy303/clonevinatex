@@ -94,6 +94,7 @@ import { KehoachnhapnguyenlieuinvoiceComponent } from './quanlykhosanxuat/quytri
 import { BanchephamComponent } from './danhmuc/danhmucsanxuat/banchepham/banchepham.component';
 import { NhapkhobongpheComponent } from './quanlykhosanxuat/nhapkhobongphe/nhapkhobongphe.component';
 import { DmkhachhangComponent } from './danhmuc/dmkhachhang/dmkhachhang.component';
+import { LobongComponent } from './danhmuc/lobong/lobong.component';
 
 const routes: Routes = [
   {
@@ -223,6 +224,7 @@ const routes: Routes = [
 
       { path: 'kehoachsanxuat/lohang', component: LohangComponent },
       { path: 'phanquyensanxuat/dmkhachhang', component: DmkhachhangComponent },
+      { path: 'phanquyensanxuat/lobong', component: LobongComponent },
     ]
   }
 ];

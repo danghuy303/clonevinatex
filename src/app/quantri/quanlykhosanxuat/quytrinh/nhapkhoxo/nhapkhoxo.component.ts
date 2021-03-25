@@ -1,19 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavigationEnd } from '@angular/router';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { filter } from 'rxjs/internal/operators/filter';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, formatdate } from 'src/app/services/globalfunction';
+import { formatdate } from 'src/app/services/globalfunction';
 import { NhapkhomodalComponent } from '../nhapkhomodal/nhapkhomodal.component';
 
 @Component({
-  selector: 'app-nhapkho',
-  templateUrl: './nhapkho.component.html',
-  styleUrls: ['./nhapkho.component.css']
+  selector: 'app-nhapkhoxo',
+  templateUrl: './nhapkhoxo.component.html',
+  styleUrls: ['./nhapkhoxo.component.css']
 })
-export class NhapkhoComponent implements OnInit {
+export class NhapkhoxoComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
@@ -21,39 +19,28 @@ export class NhapkhoComponent implements OnInit {
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   eAction: any = "PHIEUNHAPLOBONG";
-  cols: any = [
+  colXos: any = [
     {
       header: 'Số quy trình',
       field: 'SoQuyTrinh',
-      width: 'unset'
+      width: '100px'
     },
     {
       header: 'Số hợp đồng',
       field: 'SoHopDong',
-      width: 'unset'
+      width: '150px'
     },
     {
-      header: 'Ngày nhập kho',
-      field: '_Ngay',
-      width: 'unset'
-    },
-    {
-      header: 'Mã Invoice',
-      field: 'MaInvoice',
-      width: 'unset'
-    },
-    {
-      header: 'Lô bông',
+      header: 'Lô xơ',
       field: 'TenLoBong',
-      width: 'unset'
+      width: '100px'
     },
     {
-      header: 'Loại bông',
+      header: 'Loại xơ',
       field: 'TendmLoaiBong',
-      width: 'unset'
+      width: '100px'
     },
   ];
-  
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";
   type: any = "";
@@ -74,11 +61,10 @@ export class NhapkhoComponent implements OnInit {
       // else
         // this.GetListQuyTrinh();
       //
-      
-      this.title === 'khobong'
-      this.type = 'bong';
-      this.nametype = 'bông';
     })
+    this.title = 'khoxo'
+    this.type = 'xo';
+    this.nametype = 'xơ';
     this.KiemTraTabTrangThai();
   }
   
@@ -86,7 +72,7 @@ export class NhapkhoComponent implements OnInit {
     if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/khobong/nhapkho/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/quanlykhosanxuat/khoxo/nhapkho/${id}`], { replaceUrl: true })
   }
   
   addPhieu() {
@@ -151,10 +137,10 @@ export class NhapkhoComponent implements OnInit {
       Ten: "",
     }
     // if(this.title === 'khobong'){
-      data.Loai = 2;
+    //   data.Loai = 2;
     // }
     // else if(this.title === 'khoxo'){
-    //   data.Loai = 5;
+      data.Loai = 5;
     // }
 
     this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
