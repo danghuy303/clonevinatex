@@ -35,13 +35,13 @@ export class XuatkhobongpheComponent implements OnInit {
     //   width: 'unset'
     // },
     {
-      header: 'Trạng thái',
-      field: 'TenTrangThai',
+      header: 'Ghi chú',
+      field: 'GhiChu',
       width: 'unset'
     },
     {
-      header: 'Ghi chú',
-      field: 'GhiChu',
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
       width: 'unset'
     },
   ];

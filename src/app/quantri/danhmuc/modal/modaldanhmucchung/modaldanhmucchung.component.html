@@ -31,6 +31,13 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Mau" pInputText />
             </div>
         </div>
+        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='dmnhomkho'">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại :</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [options]="listLoaiNhomKho" placeholder="Chọn loại" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.Loai"></p-dropdown>
+            </div>
+        </div>
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">

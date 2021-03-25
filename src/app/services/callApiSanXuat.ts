@@ -1633,4 +1633,8 @@ export class SanXuatService {
             },
         }
     }
+    GetListLoaiNhomKho() {
+        let url = API.SCMDanhMuc + 'GetListLoaiNhomKho';
+        return this.http.get(url, httpOptions);
+    }
 }

@@ -48,6 +48,7 @@
                 <col>
                 <col>
                 <col>
+                <col>
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
@@ -58,6 +59,7 @@
                 <th class="text-center">Ngày</th>
                 <th>Tổng số kiện</th>
                 <th>Tổng khối lượng (kg)</th>
+                <th>Ghi chú</th>
                 <th>Trạng thái</th>
                 <th></th>
             </tr>
@@ -76,6 +78,9 @@
                 </td>
                 <td class="text-center">
                     {{item.TongKhoiLuong|number:'0.0' }}
+                </td>
+                <td class="text-center">
+                    {{item.GhiChu}}
                 </td>
                 <td class="text-center">
                     {{item.TenTrangThai}}
