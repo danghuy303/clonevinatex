@@ -80,7 +80,16 @@ export class KehoachxuathangmodalComponent implements OnInit {
   }
   GetQuyCachDongGoi() {
     this._services.dmQuyCachDongGoi().GetList().subscribe((res:Array<any>) => {
-      this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');;
+      this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
+      if(validVariable(this.item.listItem)&& this.item.listItem.length!==0){
+        this.item.listItem.forEach(item => {
+          if(validVariable(item.listItem)&& item.listItem.length!==0){
+            item.listItem.forEach(quycach => {
+              quycach.label = res.find(ele=>ele.Id === quycach.IddmQuyCachDongGoi).Ten;
+            });
+          }
+        });
+      }
     })
   }
   GetListdmLoaiSoi() {
@@ -288,7 +297,6 @@ export class KehoachxuathangmodalComponent implements OnInit {
     })
   }
   chonQuyCachDongGoi(item) {
-
     let modalRef = this._modal.open(ChonquycachdonggoimodalComponent, {
       size: 'lg'
     })
@@ -298,6 +306,9 @@ export class KehoachxuathangmodalComponent implements OnInit {
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
       // merge(res, this.item.listItem, 'IddmQuyCachDongGoi');
+      res.listItem.forEach(item => {
+        item.label = item.objQuyCachDongGoi.label;
+      });
       item.listItem = res.listItem;
       // if (item.KhoiLuongKeHoach != undefined && item.KhoiLuongKeHoach != null && item.KhoiLuongKeHoach > 0
       //   && item.listItem != undefined && item.listItem.length > 0) {

@@ -81,6 +81,7 @@ isCheckModal: any = false;
   update(Id) {
     this.isCheckModal= true;
     this.changeParam(Id);
+    // this.changeParam(Id);
     this._service.PhieuNhapHoiAm().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhohoiammodalComponent, {
         size: 'fullscreen',
