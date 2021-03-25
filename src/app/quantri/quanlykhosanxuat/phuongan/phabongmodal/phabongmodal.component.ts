@@ -66,7 +66,7 @@ export class PhabongmodalComponent implements OnInit {
   itemCVMicTT: any = {};
   itemTyLeHoiPha: any = {};
   listLoaiBong: any = [];
-
+  listdmLoaiBong:any=[];
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal, private zone: NgZone, private changeDec: ChangeDetectorRef) {
   }
 
@@ -252,12 +252,20 @@ export class PhabongmodalComponent implements OnInit {
         for (let chatluong in TongChatLuong) {
           this.ChatLuongBinhQuan[chatluong] = TongChatLuong[chatluong] / (this.item.listLoBong.length - this.item.listLoBong.filter(ele => !validVariable(ele[chatluong])).length);
         }
-        this.GetListdmLoaiBong_PAPB();
+        let unique = [...new Set(this.item.listLoBong.map(ele => ele.IddmLoaiBong))]
+        // console.log(unique);
+        this.listLoaiBong = unique.map((ele: string) => {
+          return {
+            prop: ele.split('-').join('_'),
+            name: this.listdmLoaiBong.filter(loaibong => loaibong.Id === ele)?.[0]?.Ten,
+          }
+        })
+        // this.GetListdmLoaiBong_PAPB();
+        if (validVariable(this.item.TongSoKien)) {
+          this.TinhSoBanBong({ value: this.item.TongSoKien });
+        }
       }
 
-      if (validVariable(this.item.TongSoKien)) {
-        this.TinhSoBanBong({ value: this.item.TongSoKien });
-      }
     })
       .catch(er => {
         console.log(er);
@@ -267,19 +275,24 @@ export class PhabongmodalComponent implements OnInit {
     console.log(this.item.KhoiLuongKienTrungBinh);
     // console.log(this.item.TongSoKien);
     // this.item.TongSoKien = e.value;
-    if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh)) {
+    if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong)) {
       this.item.SoBanBong = Math.ceil(this.item.KhoiLuongBong / (this.item.TongSoKien * this.item.KhoiLuongKienTrungBinh));
+      console.log(this.item.SoBanBong);
+      console.log(this.item.listLoBong);
       this.listProps = [];
       for (let i = 1; i <= this.item.SoBanBong; i++) {
         this.listProps.push(`${i}`);
       }
+      // for(let i = 0; i<this.item.listLoBong.length)
       this.item.listLoBong.forEach((lobong, index) => {
         lobong.tempBanBong = {};
+        console.log(this.item.SoBanBong);
         for (let i = 1; i <= this.item.SoBanBong; i++) {
-          lobong.tempBanBong[`${i}`] = {
+          // console.log(i)
+          lobong.tempBanBong[`${i}`] = deepCopy({
             SoKien: null,
             tabIndex: ((i - 1) * this.item.listLoBong.length) + index + 1
-          };
+          });
         }
       })
       this.itemSoKienTrenBan = {};
@@ -287,6 +300,7 @@ export class PhabongmodalComponent implements OnInit {
         this.itemSoKienTrenBan[`${i}`] = null;
       }
       this.voiPintable.active();
+      console.log(this.item)
     }
   }
   TinhTyLeTong() {
@@ -371,7 +385,7 @@ export class PhabongmodalComponent implements OnInit {
     let arrayKien = [];
     // console.log(this.item.listLoBong[y].tempBanBong[`${x}`].SoKien)
     for (let i = 1; i <= this.item.SoBanBong; i++) {
-      if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien) && i !== parseInt(x)) {
+      if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`]?.SoKien) && i !== parseInt(x)) {
         tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
       }
     }
@@ -453,6 +467,7 @@ export class PhabongmodalComponent implements OnInit {
   GetListdmLoaiBong_PAPB() {
     this._services.PhuongAnPhaBong().GetListdmLoaiBong_PAPB().subscribe((res: Array<any>) => {
       // console.log(res)
+      this.listdmLoaiBong = res;
       if (validVariable(this.item.listLoBong) && this.item.listLoBong?.length !== 0) {
         let unique = [...new Set(this.item.listLoBong.map(ele => ele.IddmLoaiBong))]
         // console.log(unique);
@@ -464,7 +479,9 @@ export class PhabongmodalComponent implements OnInit {
         })
         // console.log(this.listLoaiBong)
       }
-      this.KiemTraButtonDieuChinhPhuongAnPhaBong()
+      if(validVariable(this.item.Id)){
+        this.KiemTraButtonDieuChinhPhuongAnPhaBong()
+      }
       this.KiemTraButtonModal();
       if (this.opt !== 'edit') {
         this.GetNextSoQuyTrinh();

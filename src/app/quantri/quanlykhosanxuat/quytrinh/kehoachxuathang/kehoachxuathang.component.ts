@@ -46,12 +46,12 @@ export class KehoachxuathangComponent implements OnInit {
     //   field: 'KhachHang',
     //   width: 'unset'
     // },
-    // {
-    //   header: 'Số tấn',
-    //   field: 'SoTan',
-    //   width: 'unset',
-    //   type:'number'
-    // },
+    {
+      header: 'Số tấn',
+      field: 'KhoiLuong',
+      width: 'unset',
+      type:'number'
+    },
     // {
     //   header: 'Ngày giao',
     //   field: 'NgayGiao',
