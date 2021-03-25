@@ -424,6 +424,10 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'GetListCongDoan';
         return this.http.get(url, httpOptions);
     }
+    GetlistCongDoanBoDayBongDayPE(){
+        let url = API.SCMDanhMuc + 'GetlistCongDoanBoDayBongDayPE';
+        return this.http.get(url, httpOptions);
+    }
     KiemTraTabTrangThai(eAction) {
         let url = API.auth + `QuanTriQuyTrinh/KiemTraTab?eAction=${eAction}`;
         return this.http.get(url, httpOptions);

@@ -91,7 +91,6 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       }
     })
     if(validVariable(this.item.listItemMay)&& this.item.listItemMay?.length!==0){
-      console.log('tinhlai')
       this.item.listCongDoan.forEach(cd => {
         this.TinhLaiTinhTrangMay(cd.Ma)
       });
@@ -408,6 +407,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
           return ('' + a.Ten).localeCompare(b.Ten);
         })
         this.item.listItemMay = res.listItemMay;
+        this.item.listCongDoan = res.listCongDoan;
       })
     }
   }

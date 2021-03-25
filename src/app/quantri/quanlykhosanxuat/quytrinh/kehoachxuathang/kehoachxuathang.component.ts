@@ -36,6 +36,28 @@ export class KehoachxuathangComponent implements OnInit {
       field: 'NoiDung',
       width: 'unset'
     },
+    // {
+    //   header: 'Hợp đồng',
+    //   field: 'HopDong',
+    //   width: 'unset'
+    // },
+    // {
+    //   header: 'Khách hàng',
+    //   field: 'KhachHang',
+    //   width: 'unset'
+    // },
+    // {
+    //   header: 'Số tấn',
+    //   field: 'SoTan',
+    //   width: 'unset',
+    //   type:'number'
+    // },
+    // {
+    //   header: 'Ngày giao',
+    //   field: 'NgayGiao',
+    //   width: 'unset',
+//       type:'date'
+    // },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
@@ -73,7 +95,7 @@ export class KehoachxuathangComponent implements OnInit {
   addPhieuSo() {
     this.changeParam(0);
     let modalRef = this._modal.open(KehoachxuathangmodalComponent, {
-      size: 'fullscreen',
+      size: 'fullscreen-100',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
@@ -86,7 +108,7 @@ export class KehoachxuathangComponent implements OnInit {
   update(Id) {
     this._service.KeHoachXuatHang().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(KehoachxuathangmodalComponent, {
-        size: 'fullscreen',
+        size: 'fullscreen-100',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
