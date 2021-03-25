@@ -233,10 +233,14 @@ export class ChatluongsoimodalComponent implements OnInit {
     this.activeModal.close();
   }
   initTabIndex(){
-    console.log(this.item.lstDanhMuc);
+    console.table(this.item.lstDanhMuc.map(ele=>{
+      return {
+          Ten:ele.Ten,
+          Ma:ele.Ma
+      }
+    }));
     for(let i = 0;i<this.item.lstDanhMuc.length;i++){
       for(let j=0;j<this.item.lstDanhMuc[i].lstChatLuongSanPham.length;j++){
-        // this.item.lstDanhMuc[i].lstChatLuongSanPham[j].ChiTieuThucTe = formatNumber(this.item.lstDanhMuc[i].lstChatLuongSanPham[j].ChiTieuThucTe,'vi-VN','0.0-3')
         this.item.lstDanhMuc[i].lstChatLuongSanPham[j].tabIndex = i+1+(j*(this.item.lstDanhMuc.length));
       }
     }
@@ -272,9 +276,16 @@ export class ChatluongsoimodalComponent implements OnInit {
       }
     }
   }
-  rebind(e,item){
+  rebind(e,item,indexChild,Ma){
     if(e!==undefined){
       item.ChiTieuThucTe = parseFloat(e);
+    }
+    let arr = 'Thin50Thick50Neps200';
+    if(arr.includes(Ma)){
+      let Thin = this.item.lstDanhMuc.find(ele=>ele.Ma ==='Thin50')?.lstChatLuongSanPham[indexChild].ChiTieuThucTe||0;
+      let Thick = this.item.lstDanhMuc.find(ele=>ele.Ma ==='Thick50')?.lstChatLuongSanPham[indexChild].ChiTieuThucTe||0;
+      let Neps = this.item.lstDanhMuc.find(ele=>ele.Ma ==='Neps200')?.lstChatLuongSanPham[indexChild].ChiTieuThucTe||0;
+      this.item.lstDanhMuc.find(ele=>ele.Ma ==='IPI').lstChatLuongSanPham[indexChild].ChiTieuThucTe = Thin + Thick + Neps;
     }
   }
 }

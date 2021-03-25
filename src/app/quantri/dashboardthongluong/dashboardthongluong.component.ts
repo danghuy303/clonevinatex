@@ -6,6 +6,7 @@ import * as am4core from '@amcharts/amcharts4/core';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import { formatNumber, isPlatformBrowser } from '@angular/common';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-dashboardthongluong',
@@ -30,7 +31,9 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
   listNhaMay: any = [];
   listMatHang: any = [];
   chart: am4charts.SlicedChart;
-  constructor(private _services: SanXuatService, private _toastr: ToastrService, @Inject(PLATFORM_ID) private platformId, private zone: NgZone) { }
+  constructor(private _services: SanXuatService, private _toastr: ToastrService, @Inject(PLATFORM_ID) private platformId, private zone: NgZone,private store:StoreService) { 
+    this.filter.IdDuAn = this.store.getCurrent();
+   }
 
   ngOnInit(): void {
     let date = new Date();

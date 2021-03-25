@@ -143,7 +143,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     }
   }
   getListCongDoan() {
-    this.services.GetListCongDoan().subscribe((res: any) => {
+    this.services.GetlistCongDoanBoDayBongDayPE().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
       
     })

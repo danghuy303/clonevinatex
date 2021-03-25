@@ -111,15 +111,15 @@
                         <td class="align-content-center first-col sticky-col"
                             [ngStyle]="{'background-color': itemindex.isLoaiChiTieuUsterstatic?'antiquewhite':'white'}">
                             {{itemindex.Ten}}</td>
-                        <ng-container *ngFor="let itemsanpham of itemindex.lstChatLuongSanPham">
+                        <ng-container *ngFor="let itemsanpham of itemindex.lstChatLuongSanPham,let iC = index">
                             <td class="text-right">{{itemindex.Ma!=='DAT'?itemsanpham.ChiTieuLyThuyet:''}}</td>
                             <td class="text-center"
                                 [ngStyle]="{'background-color': itemindex.Ma==='DAT'?'':(itemsanpham.ChiTieuThucTe>itemsanpham.ChiTieuLyThuyet?'#ef8888':'#99c199')}">
                                 <input *ngIf="itemindex.Ma==='DAT'" type="checkbox" [(ngModel)]="itemsanpham.isDat" />
                                 <input *ngIf="itemindex.Ma!=='DAT'" class="text-right dat09focus" style="width: 100%; text-align: right; border: transparent; color:#495057"
                                     type="text" [tabindex]="itemsanpham.tabIndex" [ngModel]="itemsanpham.ChiTieuThucTe|number:'0.0-3'"  [mask]="MO.mask" [allowNegativeNumbers]="true"
-                                    (keydown)="move($event,itemsanpham.tabIndex)" (ngModelChange)="rebind($event,itemsanpham)"
-                                    [thousandSeparator]="MO.thousand" [ngModelOptions]="{standalone: true}">
+                                    (keydown)="move($event,itemsanpham.tabIndex)" (ngModelChange)="rebind($event,itemsanpham,iC,itemindex.Ma)"
+                                    [thousandSeparator]="MO.thousand" [ngModelOptions]="{standalone: true}" [disabled]="itemindex.Ma==='IPI'">
                                 <!-- <div lang="vi-VN">
                                     <input style="width: 100%; text-align: right; border: transparent; color:#495057" step="0.01" lang="vi"
                                         class="dat09focus" type="number">
