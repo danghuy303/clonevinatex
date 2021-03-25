@@ -634,6 +634,9 @@ export class SanXuatService {
             GetNextSoLoBong: (IddmLoaiBong, IddmCapBong) => {
                 return this.http.get(url + `GetNextSoLoBong?IddmLoaiBong=${IddmLoaiBong}&IddmCapBong=${IddmCapBong}`, httpOptions)
             },
+            ExportExcel: (Id) => {
+                return this.http.get(url + `ExportPhieuNhapLoBong?Id=${Id}`, httpOptions)
+            },
         }
     }
     //#endregion
@@ -1580,6 +1583,9 @@ export class SanXuatService {
             KeHoachForInvoice: () => {
                 return this.http.get(url + `GetListKeHoachNhapNguyenLieuForInvoice`, httpOptions)
             },
+            ExportExcel:(Id) =>{
+                return this.http.get(url + `ExportKeHoachNhapNguyenLieuInvoice?Id=${Id}`, httpOptions)
+            }
         }
     }
     GetListKgCone() {
@@ -1630,5 +1636,9 @@ export class SanXuatService {
                 return this.http.post(url + 'DeletedmKhachHang', data, httpOptions);
             },
         }
+    }
+    GetListLoaiNhomKho() {
+        let url = API.SCMDanhMuc + 'GetListLoaiNhomKho';
+        return this.http.get(url, httpOptions);
     }
 }

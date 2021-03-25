@@ -310,7 +310,7 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
     this.item.listItem[index].editField = false;
   }
   Onclose() {
-    this.activeModal.dismiss();
+    this.activeModal.close();
   }
   getKeHoachNhapNguyenLieu(){
     for(let i =0; i < this.listKeHoachNguyenLieuFull.length ; i ++){
@@ -324,5 +324,10 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
         break;
       }
     }
+  }
+  exportExcel(){
+    this._services.NhapKeHoachNguyenLieuInvoice().ExportExcel(this.item.Id).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
   }
 }

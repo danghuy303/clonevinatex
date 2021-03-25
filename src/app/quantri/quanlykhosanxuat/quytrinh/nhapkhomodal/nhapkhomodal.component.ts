@@ -129,31 +129,31 @@ export class NhapkhomodalComponent implements OnInit {
       else if (this.type === 'bongphe')
         this.item.Loai = 7;
     }
-    let isCheck = false;
+    // let isCheck = false;
 
     if ( this.newTableItem.Ten!= undefined || this.newTableItem.SoCan!= undefined || this.newTableItem.SoKien!= undefined|| this.newTableItem.IddmViTri!= undefined) {
       this.add();
     }
 
-    if(this.item.listItem!== undefined || this.item.listItem !== null){
-      for(let i = 0; i < this.item.listItem.length; i++) {
-        if(this.item.listItem[i].isXoa !== true && (this.item.listItem[i].IddmViTri === null || this.item.listItem[i].IddmViTri === undefined)){
-          isCheck= true;
-          break;
-        }
-        // if( this.type === 'bong' && (
-        //   this.item.listItem[i].SoKienNgan === null || this.item.listItem[i].SoKienNgan === undefined
-        //   || this.item.listItem[i].SoKienDai === null || this.item.listItem[i].SoKienDai === undefined)){
-        //   isCheck= true;
-        //   break;
-        // }
-      }
-    }
+    // if(this.item.listItem!== undefined || this.item.listItem !== null){
+    //   for(let i = 0; i < this.item.listItem.length; i++) {
+    //     if(this.item.listItem[i].isXoa !== true && (this.item.listItem[i].IddmViTri === null || this.item.listItem[i].IddmViTri === undefined)){
+    //       isCheck= true;
+    //       break;
+    //     }
+    //     // if( this.type === 'bong' && (
+    //     //   this.item.listItem[i].SoKienNgan === null || this.item.listItem[i].SoKienNgan === undefined
+    //     //   || this.item.listItem[i].SoKienDai === null || this.item.listItem[i].SoKienDai === undefined)){
+    //     //   isCheck= true;
+    //     //   break;
+    //     // }
+    //   }
+    // }
     
-    if (isCheck === true ) {
-      this.toastr.error("Bạn chưa chọn vị trí!");
-    }
-    else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
+    // if (isCheck === true ) {
+    //   this.toastr.error("Bạn chưa chọn vị trí!");
+    // }
+    if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
       this.toastr.error("Bạn chưa chọn danh mục kho!");
     }
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
@@ -340,5 +340,10 @@ export class NhapkhomodalComponent implements OnInit {
         if(item.SoKienDai < 0)
           item.SoKienDai = 0;
       }
+  }
+  exportExcel(){
+    this._services.QuyTrinhPhieuNhapLoBong().ExportExcel(this.item.Id).subscribe((res: any) => {
+      this._services.download(res.TenFile);
+    })
   }
 }

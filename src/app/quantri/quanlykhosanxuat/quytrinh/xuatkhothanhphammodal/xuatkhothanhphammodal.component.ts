@@ -221,6 +221,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     var data = {
       Ngay: new Date(this.item.Ngay).getTime() / 1000,
       IddmKho: this.item.IddmKho,
+      // IddmPhanXuong: this.item.IddmPhanXuong,
     }
     this._services.GetlistdmMatHangXuatThanhPham(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {

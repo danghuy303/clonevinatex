@@ -16,12 +16,21 @@ export class ModaldanhmucchungComponent implements OnInit {
   public type = '';
   khongclicknhieu: any = false;
   listLoaiBong: any = [];
+  listLoaiNhomKho: any = [];
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
     if(this.type === 'loaibong'){
       this.GetListLoaiBong();
     }
+    if(this.type === 'dmnhomkho'){
+      this.GetListLoaiNhomKho();
+    }
+  }
+  GetListLoaiNhomKho() {
+    this.sanXuatService.GetListLoaiNhomKho().subscribe((res: any) => {
+      this.listLoaiNhomKho = mapArrayForDropDown(res, "Ten", 'Loai');
+    })
   }
   accept() {
     this.item.HoatDong = true;

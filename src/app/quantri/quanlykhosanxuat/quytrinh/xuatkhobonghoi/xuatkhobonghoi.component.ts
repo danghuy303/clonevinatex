@@ -34,14 +34,15 @@ export class XuatkhobonghoiComponent implements OnInit {
       field: 'TenPhuongAnPhaBong',
       width: 'unset'
     },
-    {
-      header: 'Trạng thái',
-      field: 'TenTrangThai',
-      width: 'unset'
-    },
+    
     {
       header: 'Ghi chú',
       field: 'GhiChu',
+      width: 'unset'
+    },
+    {
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
       width: 'unset'
     },
   ];
@@ -115,7 +116,7 @@ export class XuatkhobonghoiComponent implements OnInit {
       DenNgay:DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      Loai:"6"
+      Loai:6
     }
     this._service.PhieuXuatSanXuat().GetList(data).subscribe((res:any)=>{
       this.items = res.items;

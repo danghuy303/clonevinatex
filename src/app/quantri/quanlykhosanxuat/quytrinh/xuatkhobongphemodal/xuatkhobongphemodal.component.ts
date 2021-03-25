@@ -81,6 +81,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
     this.services.PhieuXuatBongPhe().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
+          this.toastr.success(res.message);
           this.activeModal.close();
         } else {
           this.toastr.error(res.message);
@@ -95,11 +96,15 @@ export class XuatkhobongphemodalComponent implements OnInit {
   }
  
   GhiLai() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
-      this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-
+    if (this.item.Ngay === null || this.item.Ngay === undefined)
+    {
+      this.toastr.error("Bạn chưa chọn chọn ngày");
+    }
+    else{
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
+        this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
       this.services.PhieuXuatBongPhe().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -107,12 +112,12 @@ export class XuatkhobongphemodalComponent implements OnInit {
             this.opt = 'edit';
             this.item = res.objectReturn;
             this.KiemTraButtonModal();
-            // this.activeModal.close(res.message);
           } else {
             this.toastr.error(res.message);
           }
         }
       })
+    }
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -155,8 +160,13 @@ export class XuatkhobongphemodalComponent implements OnInit {
           width: 'unset'
         },
         {
-          header: 'Khối lượng',
+          header: 'Số lượng',
           field: 'Ton',
+          width: 'unset'
+        },
+        {
+          header: 'Khối lượng / Kiện (kg)',
+          field: 'TrongLuong',
           width: 'unset'
         },
       ];

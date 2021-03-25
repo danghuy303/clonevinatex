@@ -38,7 +38,13 @@ export class DmphannhommayComponent implements OnInit {
       header: 'Công đoạn',
       field: 'TenCongDoan',
       width: 'unset',
-      align: 'left'
+      align: 'center'
+    },
+    {
+      header: 'Tên phân xưởng',
+      field: 'TendmPhanXuong',
+      width: 'unset',
+      align: 'center'
     },
     {
       header: 'Đơn vị năng suất',
@@ -59,9 +65,8 @@ export class DmphannhommayComponent implements OnInit {
   listnhamay: any = [];
   listDonViNangSuat: any = [];
   listCongDoan: any = [];
-  // listphanxuong: any = [];
-  // listdungsai: any = [];
-
+  listPhanXuong: any = [];
+  filter: any = {};
   constructor(private _modal: NgbModal, private _services: SanXuatService, private _toastr: ToastrService, private _auth: AuthenticationService) {
     this.userInfo = this._auth.currentUserValue;
   }
@@ -69,6 +74,8 @@ export class DmphannhommayComponent implements OnInit {
   ngOnInit(): void {
     this.GetDanhSachDuAnByIdUser();
     this.getDonViNangXuat();
+    this.GetListPhanXuong();
+    this.GetListCongDoan();
     this.GetListdm();
   }
 
@@ -94,39 +101,35 @@ export class DmphannhommayComponent implements OnInit {
   GetListdm(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
     }
     this.dataSearch = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       KeyWord: this.keyWord,
+      CongDoan: this.filter.CongDoan,
+      IddmPhanXuong: this.filter.IddmPhanXuong,
       Ma: "",
       Ten: ""
     };
     this._services.dmPhanNhomMaySanXuat().GetList(this.dataSearch).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
-      // this.items.forEach(element => {
-      //   this.listnhamay.filter(obj => {
-      //     if (element.idNhaMay == obj.value) {
-      //       element.TenNhaMay = obj.label;
-      //     }
-      //   });
-      //   this.listphanxuong.filter(obj => {
-      //     if (element.idPhanXuong == obj.value) {
-      //       element.TenPhanXuong = obj.label;
-      //     }
-      //   });
-      // });        
-      this._services.GetListCongDoan().subscribe((res: any) => {
-        this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
-        if (this.items.length > 0 && this.listDonViNangSuat.length > 0) {
-          this.items.forEach(el => {
-            el.TenDonViNangSuat = this.listDonViNangSuat.filter(obj => obj.value == el.DonViNangSuat)[0].label;
-            el.TenCongDoan = this.listCongDoan.filter(obj => obj.value == el.CongDoan)[0].label;
-          });
-        }
-      })
+      if (this.items.length > 0 && this.listDonViNangSuat.length > 0) {
+        this.items.forEach(el => {
+          el.TenDonViNangSuat = this.listDonViNangSuat.filter(obj => obj.value == el.DonViNangSuat)[0].label;
+          el.TenCongDoan = this.listCongDoan.filter(obj => obj.value == el.CongDoan)[0].label;
+        });
+      }
+    })
+  }
+  GetListPhanXuong() {
+    this._services.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
+    })
+  }
+  GetListCongDoan() {
+    this._services.GetListCongDoan().subscribe((res: any) => {
+      this.listCongDoan = mapArrayForDropDown(res, "Ten", 'Ma');
     })
   }
   add() {
