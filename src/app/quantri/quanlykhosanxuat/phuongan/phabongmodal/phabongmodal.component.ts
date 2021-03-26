@@ -672,4 +672,21 @@ export class PhabongmodalComponent implements OnInit {
       this.CalAllTable(i, ban);
     }
   }
+  allowDrop(ev) {
+    ev.preventDefault();
+    // console.log(ev)
+  }
+
+  drag(ev,SoKien,x,y) {
+    // console.log(ev)
+    console.log(x)
+    ev.dataTransfer.setData("x", {x,SoKien});
+  }
+
+  drop(ev,item,x,y) {
+    ev.preventDefault();
+    let alo = ev.dataTransfer.getData("x");
+    // console.log(x===alo)
+    console.log(alo);
+  }
 }

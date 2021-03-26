@@ -276,17 +276,16 @@
                             {{lobong.Tap|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.Am|number:'0.2-2'}}</td>
-                        <td *ngFor="let prop of listProps" class="text-center tc-w-50">
-                            <div style="width: 100%;">
+                        <td *ngFor="let prop of listProps" class="text-center tc-w-50" >
+                            <div style="width: 100%;" (drop)="drop($event,lobong.tempBanBong[prop],i,prop)" (dragover)="allowDrop($event)">
+                                <p draggable="true" (dragstart)="drag($event,lobong.tempBanBong[prop].SoKien,i,prop)">
+                                    <i class="fas fa-arrows-alt"></i>
+                                </p>
                                 <input style="width: 100%; text-align: right; border: transparent; color:#495057"
                                     class="dat09focus" [tabindex]="lobong.tempBanBong[prop].tabIndex" type="number"
                                     [(ngModel)]="lobong.tempBanBong[prop].SoKien"
                                     (keydown)="move($event,lobong.tempBanBong[prop].tabIndex)"
                                     (blur)="CalAllTable(i,prop)">
-                                <!-- <p-inputNumber locale="vi-VN" [(ngModel)]="lobong.tempBanBong[prop].SoKien"
-                                    [tabindex]="lobong.tempBanBong[prop].tabIndex" [placeholder]="'_'"
-                                    (onBlur)="CalAllTable(i,prop)">
-                                </p-inputNumber> -->
                             </div>
                         </td>
                     </tr>

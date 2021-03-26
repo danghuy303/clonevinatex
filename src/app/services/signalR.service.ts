@@ -20,10 +20,10 @@ export class SignalRService {
         this.messageReceived = new EventEmitter<any>();
         this.connectionExists = false;
         // create hub connection
-        // const host1 = 'http://103.130.212.45:2269';//cong test
+        const host1 = 'http://103.130.212.45:2269';//cong test
         // const host1 = 'http://103.130.212.45:2368';//Tong Cong Ty Det May Nam Dinh
         // const host1 = 'http://hoaxa.vinatex.harmonyes.com.vn';//Tong Cong Ty Det May Nam Dinh moi
-        const host1 = 'http://vinatex.harmonyes.com.vn'; //Nha May Soi Dong Van Hanosimex
+        // const host1 = 'http://vinatex.harmonyes.com.vn'; //Nha May Soi Dong Van Hanosimex
         this.connection = $.hubConnection(`${host1}/SmartEOSAPI`);
         // create new proxy as name already given in top
         this.proxy = this.connection.createHubProxy(this.proxyName);
