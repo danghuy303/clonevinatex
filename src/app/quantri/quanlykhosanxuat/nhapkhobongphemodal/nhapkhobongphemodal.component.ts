@@ -35,6 +35,7 @@ export class NhapkhobongphemodalComponent implements OnInit {
   editField: any = false;
   nametype: any = '';
   listPhanXuong: any = []
+  listCongDoan: any = []
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -54,7 +55,7 @@ export class NhapkhobongphemodalComponent implements OnInit {
     this.data.CurrentPage = 0;
     this.getListLoaiBong();
     this.getListKho();
-    // this.getListPhanXuong();
+    this.getListCongDoan();
     // this.getListCapBong();
   }
   KiemTraButtonModal() {
@@ -139,11 +140,11 @@ export class NhapkhobongphemodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-//   getListPhanXuong() {
-//   this._services.GetListdmPhanXuongOpt().subscribe((res: any) => {
-//     this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-//   })
-// }
+  getListCongDoan() {
+  this._services.GetListCongDoan().subscribe((res: any) => {
+    this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+  })
+}
   getListKho() {
       // else  if (this.type === 'bongphe'){
         this.data.Loai = 7;

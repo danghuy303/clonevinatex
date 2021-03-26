@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-lobongmodal',
@@ -29,19 +29,19 @@ export class LobongmodalComponent implements OnInit {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
     console.log(this.item)
-    debugger
   }
   
   accept() {
     this.item.HoatDong = true;
     this.khongclicknhieu = !this.khongclicknhieu;
     if (this.item.Ma !== undefined && this.item.Ma.trim() !== '' && this.item.Ten.trim() !== '' && this.item.Ten !== undefined && this.item.Ngay !== undefined) {
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this.services.SetLoBong(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.khongclicknhieu = !this.khongclicknhieu;
-            this.activeModal.close(res.message);
+            this.toastr.success(res.message)
+            this.activeModal.close();
           } else {
             this.khongclicknhieu = !this.khongclicknhieu;
             this.toastr.error(res.message)

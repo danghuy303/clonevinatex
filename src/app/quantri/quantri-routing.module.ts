@@ -95,6 +95,7 @@ import { BanchephamComponent } from './danhmuc/danhmucsanxuat/banchepham/banchep
 import { NhapkhobongpheComponent } from './quanlykhosanxuat/nhapkhobongphe/nhapkhobongphe.component';
 import { DmkhachhangComponent } from './danhmuc/dmkhachhang/dmkhachhang.component';
 import { LobongComponent } from './danhmuc/lobong/lobong.component';
+import { NhapkhoxoComponent } from './quanlykhosanxuat/quytrinh/nhapkhoxo/nhapkhoxo.component';
 
 const routes: Routes = [
   {
@@ -182,7 +183,8 @@ const routes: Routes = [
 
       { path: 'trienkhaisanxuat/phieudieuchinh/:id', component: PhieudieuchinhComponent },
 
-      { path: 'quanlykhosanxuat/:kho/nhapkho/:id', component: NhapkhoComponent },
+      { path: 'quanlykhosanxuat/khobong/nhapkho/:id', component: NhapkhoComponent },
+      { path: 'quanlykhosanxuat/khoxo/nhapkho/:id', component: NhapkhoxoComponent },
       { path: 'quanlykhosanxuat/khobong/thongsochatluong/:id', component: ThongsochatluongComponent },
       { path: 'quanlykhosanxuat/khobong/xuatkho/:id', component: XuatkhoComponent },
       { path: 'quanlykhosanxuat/:kho/kiemkekho/:id', component: KiemkekhoComponent },
