@@ -38,7 +38,7 @@
             </div>
         </div> -->
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô bông:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô sản xuất:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoBong" placeholder="Chọn lô bông" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IdLoBong" (onChange)="GetMatHangTheoKho()"></p-dropdown>
@@ -69,6 +69,7 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col style="width:90px">
                     </colgroup>
                 </ng-template>
@@ -77,15 +78,16 @@
                         <th rowspan="2">#</th>
                         <th rowspan="2">Mã</th>
                         <th rowspan="2">Tên</th>
-                        <th colspan="2">Tồn số sách</th>
+                        <th colspan="2">Tồn sổ sách</th>
                         <th colspan="2">Tồn thực tế</th>
+                        <th rowspan="2">Lô hàng</th>
                         <th rowspan="2"></th>
                     </tr>
                     <tr>
+                        <th>Khối lượng</th>
                         <th>Số lượng</th>
-                        <th>Số kiện</th>
+                        <th>Khối lượng</th>
                         <th>Số lượng</th>
-                        <th>Số kiện</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -98,16 +100,20 @@
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong" disable>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ton">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ton" disable>
                             </p-inputNumber>
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-dropdown [filter]="true" [options]="listLoHang" placeholder="Chọn lô hàng" styleClass="p-inputtext-sm"
+                            [(ngModel)]="item.IdLoHang"></p-dropdown>
                         </td>
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
@@ -119,15 +125,20 @@
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <tr>
-                        <td colspan="3"></td>
-                        <td></td>
-                        <td></td>
+                        <td colspan="3">Tổng</td>
                         <td class="text-right">
                             {{item.listItem|SumByKey:'Ton'|number:'0.0'}}
                         </td>
                         <td class="text-right">
                             {{item.listItem|SumByKey:'SoLuong'|number:'0.0'}}
                         </td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'Ton'|number:'0.0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'SoLuong'|number:'0.0'}}
+                        </td>
+                        <td></td>
                         <td></td>
                     </tr>
                 </ng-template>
