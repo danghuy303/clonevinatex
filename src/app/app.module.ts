@@ -35,6 +35,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
+import {DecimalPipe} from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +74,7 @@ import { CommonModule } from '@angular/common';
     InputSwitchModule,
     ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

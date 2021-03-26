@@ -41,7 +41,7 @@
 <div class="p-mt-3">
     <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
         <ng-template pTemplate="colgroup">
-            <colgroup  *ngIf="this.title === 'khobong'">
+            <colgroup>
                 <col style="width:50px">
                 <col *ngFor="let col of cols" [ngStyle]="{'width': col.width}">
                 <col style="width: 100px;">
@@ -50,18 +50,9 @@
                 <col style="width: 150px;">
                 <col style="width: 50px;">
             </colgroup>
-            <colgroup  *ngIf="this.title === 'khoxo'">
-                <col style="width:50px">
-                <col *ngFor="let col of colXos" [ngStyle]="{'width': col.width}">
-                <col style="width: 100px;">
-                <col style="width: 70px;">
-                <col style="width: 100px;">
-                <col style="width: 150px;">
-                <col style="width: 50px;">
-            </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
-            <tr *ngIf="this.title === 'khobong'">
+            <tr>
                 <th class="text-center">#</th>
                 <th *ngFor="let header of cols">
                     {{header.header}}
@@ -72,48 +63,13 @@
                 <th>Trạng thái</th>
                 <th></th>
             </tr>
-            <tr *ngIf="this.title === 'khoxo'">
-                <th class="text-center">#</th>
-                <th *ngFor="let header of colXos">
-                    {{header.header}}
-                </th>
-                <th>Tổng số kiện</th>
-                <th>Số Container</th>
-                <th>Tổng khối lượng (kg)</th>
-                <th>Trạng thái</th>
-                <th></th>
-            </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr *ngIf="this.title === 'khobong'">
+            <tr>
                 <td class="text-center">
                     {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
                 <td  class="text-center" *ngFor="let col of cols">
-                    {{item[col.field]}}
-                </td>
-                <td class="text-center">
-                    {{item.TongSoKien|number:'0.0' }}
-                </td>
-                <td class="text-center">
-                    {{item.SoContainer}}
-                </td>
-                <td class="text-center">
-                    {{item.TongKhoiLuong|number:'0.0' }}
-                </td>
-                <td class="text-center">
-                    {{item.TenTrangThai}}
-                </td>
-                <td class="text-center">
-                    <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item.Id)"></button>
-                </td>
-            </tr>
-            <tr *ngIf="this.title === 'khoxo'">
-                <td class="text-center">
-                    {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
-                </td>
-                <td  class="text-center" *ngFor="let col of colXos">
                     {{item[col.field]}}
                 </td>
                 <td class="text-center">

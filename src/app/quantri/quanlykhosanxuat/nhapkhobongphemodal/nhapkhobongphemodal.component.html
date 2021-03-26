@@ -78,6 +78,7 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
@@ -87,6 +88,7 @@
                         <th>Loại bông</th>
                         <th>Số kiện</th>
                         <th>Tổng khối lượng (kg)</th>
+                        <th>Công đoạn</th>
                         <th>Ghi chú</th>
                         <th style="width: 100px;"></th>
                     </tr>
@@ -109,6 +111,10 @@
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoCan">
                             </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn" [(ngModel)]="item.CongDoan"
+                                styleClass="p-inputtext-sm"></p-dropdown>
                         </td>
                         <td class="text-center">
                             <input pInputText type="text" [(ngModel)]="item.GhiChu">
@@ -144,6 +150,10 @@
                             </div>
                         </td>
                         <td>
+                            <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn" [(ngModel)]="newTableItem.CongDoan"
+                                styleClass="p-inputtext-sm"></p-dropdown>
+                        </td>
+                        <td>
                             <input pInputText type="text" [(ngModel)]="newTableItem.GhiChu">
                         </td>
                         <td class="text-center">
@@ -159,6 +169,7 @@
                         <td class="text-right">
                             {{item.listItem|SumByKey:'SoCan'|number:'0.2-2'}}
                         </td>
+                        <td></td>
                         <td></td>
                         <td></td>
                     </tr>

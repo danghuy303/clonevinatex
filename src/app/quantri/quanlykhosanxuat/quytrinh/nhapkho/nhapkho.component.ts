@@ -54,28 +54,6 @@ export class NhapkhoComponent implements OnInit {
     },
   ];
   
-  colXos: any = [
-    {
-      header: 'Số quy trình',
-      field: 'SoQuyTrinh',
-      width: '100px'
-    },
-    {
-      header: 'Số hợp đồng',
-      field: 'SoHopDong',
-      width: '150px'
-    },
-    {
-      header: 'Lô xơ',
-      field: 'TenLoBong',
-      width: '100px'
-    },
-    {
-      header: 'Loại xơ',
-      field: 'TendmLoaiBong',
-      width: '100px'
-    },
-  ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";
   type: any = "";
@@ -97,14 +75,9 @@ export class NhapkhoComponent implements OnInit {
         // this.GetListQuyTrinh();
       //
       
-      if(this.title === 'khobong'){
-        this.type = 'bong';
-        this.nametype = 'bông';
-      }
-      else if(this.title === 'khoxo'){
-        this.type = 'xo';
-        this.nametype = 'xơ';
-      }
+      this.title === 'khobong'
+      this.type = 'bong';
+      this.nametype = 'bông';
     })
     this.KiemTraTabTrangThai();
   }
@@ -113,7 +86,7 @@ export class NhapkhoComponent implements OnInit {
     if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/${this.title}/nhapkho/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/quanlykhosanxuat/khobong/nhapkho/${id}`], { replaceUrl: true })
   }
   
   addPhieu() {
@@ -177,12 +150,12 @@ export class NhapkhoComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    if(this.title === 'khobong'){
+    // if(this.title === 'khobong'){
       data.Loai = 2;
-    }
-    else if(this.title === 'khoxo'){
-      data.Loai = 5;
-    }
+    // }
+    // else if(this.title === 'khoxo'){
+    //   data.Loai = 5;
+    // }
 
     this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
       this.items = res.items;
