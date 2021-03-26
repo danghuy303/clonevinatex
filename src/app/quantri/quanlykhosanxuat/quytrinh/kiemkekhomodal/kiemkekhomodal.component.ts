@@ -27,6 +27,8 @@ export class KiemkekhomodalComponent implements OnInit {
   listdmViTri:any= [];
   listLoBong:any= [];
   listLoHang:any= [];
+  listQuyCachDongGoi:any= [];
+  listNewMatHang:any=[];
   paging: any = {};
   listItem: any = [];
   item_new: any = {};
@@ -70,6 +72,9 @@ export class KiemkekhomodalComponent implements OnInit {
     })
     this.services.LoHang().GetList(data).subscribe((res: any) => {
       this.listLoHang = mapArrayForDropDown(res, "Ten", 'Id');
+    })
+    this.services.dmQuyCachDongGoi().GetList().subscribe((res: any) => {
+      this.listQuyCachDongGoi = mapArrayForDropDown(res, "Ten", 'Id');
     })
   }
   GetQuyTrinh()

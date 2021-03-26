@@ -971,7 +971,8 @@ export class SanXuatService {
     }
     getLuuKhoKiemKe(IddmKho, IdLoBong, sFilter) {
         // let IdDuAn =this.store.getCurrent();
-        let url = API.SCMQuanLyKho + `getLuuKhoKiemKe?IdDuAn=0&IddmKho=${IddmKho}&IdLoBong=${IdLoBong}&sFilter=${sFilter}`;
+        let url = API.SCMQuanLyKho + `getLuuKhoKiemKe?IdDuAn=0&IddmKho=${IddmKho}&IdLoHang=&sFilter=${sFilter}`;
+        // ${IdLoBong||''}
         return this.http.get(url, httpOptions);
     }
     KhoiTaoItem() {
@@ -1202,6 +1203,9 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhieuKiemKeKho', data, httpOptions)
             },
+            GetlistdmMatHangThanhPhamKiemKe:(Id)=>{
+                return this.http.get(url + `GetlistdmMatHangThanhPhamKiemKe?Id=${Id}`, httpOptions);
+            }
         }
     }
     //#region  định lượng
