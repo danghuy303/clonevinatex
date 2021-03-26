@@ -150,6 +150,10 @@
                             </div>
                         </td>
                         <td>
+                            <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn" [(ngModel)]="newTableItem.CongDoan"
+                                styleClass="p-inputtext-sm"></p-dropdown>
+                        </td>
+                        <td>
                             <input pInputText type="text" [(ngModel)]="newTableItem.GhiChu">
                         </td>
                         <td class="text-center">
@@ -165,6 +169,7 @@
                         <td class="text-right">
                             {{item.listItem|SumByKey:'SoCan'|number:'0.2-2'}}
                         </td>
+                        <td></td>
                         <td></td>
                         <td></td>
                     </tr>
