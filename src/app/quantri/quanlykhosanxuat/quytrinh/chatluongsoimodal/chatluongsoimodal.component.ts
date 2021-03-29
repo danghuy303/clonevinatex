@@ -6,7 +6,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { maskOption, vn } from 'src/app/services/const';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
+import { ChatluongsoimathangmodalComponent } from '../chatluongsoimathangmodal/chatluongsoimathangmodal.component';
 
 @Component({
   selector: 'app-chatluongsoimodal',
@@ -145,29 +145,14 @@ export class ChatluongsoimodalComponent implements OnInit {
       DenNgay: new Date(this.item.DenNgay).getTime() / 1000,
     };
     this.services.GetlistdmMatHangKiemTraChatLuong(data).subscribe((res1: any) => {
-      let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
+      let modalRef = this._modal.open(ChatluongsoimathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.lstSanPham;
-      modalRef.componentInstance.cols = [{
-          header: 'Tên lô hàng',
-          field: 'TenLoHang',
-          width: 'unset'
-        },
-        {
-          header: 'Tên mặt hàng',
-          field: 'Ten',
-          width: 'unset'
-        },
-        // {
-        //   header: 'Tên mặt hàng',
-        //   field: 'Ten',
-        //   width: 'unset'
-        // },
-      ];
+      modalRef.componentInstance.
 
       modalRef.result.then((data) => {
         this.lstSanPham = data.data;

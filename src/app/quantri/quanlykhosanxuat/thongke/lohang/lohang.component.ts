@@ -108,8 +108,8 @@ export class LohangComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   changePage(event){
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?){
     if (reset) {

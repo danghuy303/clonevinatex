@@ -223,6 +223,10 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       IddmKho: this.item.IddmKho,
       // IddmPhanXuong: this.item.IddmPhanXuong,
     }
+    let listItem : any = []
+    if(this.item.listItem !== undefined && this.item.listItem !== null){
+      listItem = this.item.listItem.filter((e: any) => e.isXoa !== true);
+    }
     this._services.GetlistdmMatHangXuatThanhPham(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'lg',
@@ -230,22 +234,53 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
-      modalRef.componentInstance.listItem = this.item.listItem;
+      modalRef.componentInstance.listItem = listItem;
       modalRef.result.then((data) => {
+        if( this.item.listItem !== undefined &&  this.item.listItem.length > 0){
+          this.item.listItem.forEach(element => {
+            element.isXoa = true;
+          });
+        }
+        
         let listdatapush = [];
         data.data.forEach(element => {
-          let datapush = {
+          let datapush: any = {
             Ten: element.Ten,
             IddmItem: element.IddmItem,
             TenLoHang: element.TenLoHang,
-            SoLuong: element.Ton,
+            SoLuong: element.SoLuong,
             KgCoin: element.TrongLuong,
             IdLoHang: element.IdLoHang,
-            ThanhTien: element.IdLoHang,
           };
-          listdatapush.push(datapush);
+          debugger
+          var isCheck : any = false
+          if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
+            for(let i =0 ; i < this.item.listItem.length; i++){
+              if(this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang)
+              {
+                this.item.listItem[i].isXoa = false;
+                this.item.listItem[i].Ten = element.Ten;
+                this.item.listItem[i].IddmItem = element.IddmItem;
+                this.item.listItem[i].TenLoHang = element.TenLoHang;
+                this.item.listItem[i].SoLuong = element.SoLuong;
+                this.item.listItem[i].KgCoin = element.TrongLuong;
+                this.item.listItem[i].IdLoHang = element.IdLoHang;
+                isCheck = true;
+                break;
+              }
+            }
+            if(isCheck === false)
+            listdatapush.push(datapush);
+          }
+          else
+            listdatapush.push(datapush);
         });
-        this.item.listItem = this.item.listItem.concat(listdatapush);
+        if(this.item.listItem !== undefined && this.item.listItem !== null){
+          this.item.listItem =this.item.listItem.concat(listdatapush);
+        }
+        else{
+          this.item.listItem = listdatapush
+        }
       }, (reason) => {
         // không
       });

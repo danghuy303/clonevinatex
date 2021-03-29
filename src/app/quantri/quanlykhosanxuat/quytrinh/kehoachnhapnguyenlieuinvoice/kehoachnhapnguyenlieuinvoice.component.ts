@@ -32,14 +32,14 @@ export class KehoachnhapnguyenlieuinvoiceComponent implements OnInit {
     //   width: 'unset'
     // },
     {
-      header: 'Trạng thái',
-      field: 'TenTrangThai',
-      width: '100px'
-    },
-    {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset'
+    },
+    {
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
+      width: '100px'
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };

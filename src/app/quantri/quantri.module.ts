@@ -259,6 +259,8 @@ import { LobongComponent } from './danhmuc/lobong/lobong.component';
 import { LobongmodalComponent } from './danhmuc/lobongmodal/lobongmodal.component';
 import { NhapkhoxoComponent } from './quanlykhosanxuat/quytrinh/nhapkhoxo/nhapkhoxo.component';
 import { ImportnhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhphammodal/modals/importnhapkhothanhpham/importnhapkhothanhpham.component';
+import { ChatluongsoimathangmodalComponent } from './quanlykhosanxuat/quytrinh/chatluongsoimathangmodal/chatluongsoimathangmodal.component';
+import { NhapkhohoiammathangmodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiammathangmodal/nhapkhohoiammathangmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -471,6 +473,8 @@ import { ImportnhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nha
     LobongmodalComponent,
     NhapkhoxoComponent,
     ImportnhapkhothanhphamComponent,
+    ChatluongsoimathangmodalComponent,
+    NhapkhohoiammathangmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -603,6 +607,9 @@ import { ImportnhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nha
     HoaxaComponent,
     LobongmodalComponent,
     ImportnhapkhothanhphamComponent,
+    ChatluongsoimathangmodalComponent,
+    NhapkhohoiammathangmodalComponent,
+
   ],
   providers: [
     SanXuatService,

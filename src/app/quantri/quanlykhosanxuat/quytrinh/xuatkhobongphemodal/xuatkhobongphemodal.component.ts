@@ -151,12 +151,6 @@ export class XuatkhobongphemodalComponent implements OnInit {
         size: 'lg',
         backdrop: 'static'
       })
-      if (res1 !== null && res1 !== undefined) {
-        res1.forEach(element => {
-          element.SoLuong = this.decimalPipe.transform(element.SoLuong, this.format, 'vi-VN');
-          element.TrongLuong = this.decimalPipe.transform(element.TrongLuong, this.format, 'vi-VN');
-        });
-      }
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.listItem;

@@ -33,24 +33,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
   editField: any = false;
   nametype: any = '';
   checkedAll: boolean = false;
-  cols: any = [
-    {
-      header: 'Tên',
-      field: 'Ten',
-      width: 'unset'
-    },
-    {
-      header: 'Tên lô hàng',
-      field: 'TenLoHang',
-      width: 'unset'
-    },
-    {
-      header: 'Số quả sợi',
-      field: 'KhoiLuongSanXuat',
-      width: 'unset'
-    },
-
-  ];
+  
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -200,7 +183,6 @@ export class NhapkhohoiammodalComponent implements OnInit {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.listItem;
-      modalRef.componentInstance.cols = this.cols;
       modalRef.result.then((data) => {
         this.item.listItem.forEach(element => {
           element.isXoa = true;

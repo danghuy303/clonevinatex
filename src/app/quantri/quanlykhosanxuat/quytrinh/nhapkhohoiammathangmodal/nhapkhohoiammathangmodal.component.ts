@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { deepCopy } from 'src/app/services/globalfunction';
 
 @Component({
-  selector: 'app-xuatkhomathangmodal',
-  templateUrl: './xuatkhomathangmodal.component.html',
-  styleUrls: ['./xuatkhomathangmodal.component.css']
+  selector: 'app-nhapkhohoiammathangmodal',
+  templateUrl: './nhapkhohoiammathangmodal.component.html',
+  styleUrls: ['./nhapkhohoiammathangmodal.component.css']
 })
-export class XuatkhomathangmodalComponent implements OnInit {
-
+export class NhapkhohoiammathangmodalComponent implements OnInit {
   listMatHang: any = [];
   listItem: any = [];
   cols: any = [
@@ -18,20 +16,16 @@ export class XuatkhomathangmodalComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Tên lô',
+      header: 'Tên lô hàng',
       field: 'TenLoHang',
       width: 'unset'
     },
     {
-      header: 'Số kiện',
-      field: 'SoLuong',
+      header: 'Số quả sợi',
+      field: 'KhoiLuongSanXuat',
       width: 'unset'
     },
-    {
-      header: 'Khối lượng /kiện (kg)',
-      field: 'TrongLuong',
-      width: 'unset'
-    },
+
   ];
   loai='';
   checkedAll: boolean = false;
@@ -46,15 +40,13 @@ export class XuatkhomathangmodalComponent implements OnInit {
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
-    console.log(this.listItem)
-    if(this.listItem != undefined && this.listItem!= null && this.listItem.length > 0)
+    if(this.listItem != undefined && this.listItem!= null)
     {
       for(let i = 0; i < this.listItem.length; i++){
         var itemFind = this.listMatHang.find(
           ele => (ele.IddmItem === this.listMatHang[i].IddmItem && ele.IdLoHang == this.listMatHang[i].IdLoHang)
         );
-        if(itemFind !== undefined)
-          itemFind.checked = true;
+        itemFind.checked = true;
       }
     }
     this.item.listItem = this.listMatHang.slice(0,15);

@@ -1,38 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { deepCopy } from 'src/app/services/globalfunction';
 
 @Component({
-  selector: 'app-xuatkhomathangmodal',
-  templateUrl: './xuatkhomathangmodal.component.html',
-  styleUrls: ['./xuatkhomathangmodal.component.css']
+  selector: 'app-chatluongsoimathangmodal',
+  templateUrl: './chatluongsoimathangmodal.component.html',
+  styleUrls: ['./chatluongsoimathangmodal.component.css']
 })
-export class XuatkhomathangmodalComponent implements OnInit {
-
+export class ChatluongsoimathangmodalComponent implements OnInit {
   listMatHang: any = [];
   listItem: any = [];
-  cols: any = [
-    {
-      header: 'Tên',
-      field: 'Ten',
-      width: 'unset'
-    },
-    {
-      header: 'Tên lô',
-      field: 'TenLoHang',
-      width: 'unset'
-    },
-    {
-      header: 'Số kiện',
-      field: 'SoLuong',
-      width: 'unset'
-    },
-    {
-      header: 'Khối lượng /kiện (kg)',
-      field: 'TrongLuong',
-      width: 'unset'
-    },
-  ];
+  cols = [{
+    header: 'Tên lô hàng',
+    field: 'TenLoHang',
+    width: 'unset'
+  },
+  {
+    header: 'Tên mặt hàng',
+    field: 'Ten',
+    width: 'unset'
+  },
+];
   loai='';
   checkedAll: boolean = false;
   paging: any = {};
@@ -46,15 +33,13 @@ export class XuatkhomathangmodalComponent implements OnInit {
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
-    console.log(this.listItem)
-    if(this.listItem != undefined && this.listItem!= null && this.listItem.length > 0)
+    if(this.listItem != undefined && this.listItem!= null)
     {
       for(let i = 0; i < this.listItem.length; i++){
         var itemFind = this.listMatHang.find(
           ele => (ele.IddmItem === this.listMatHang[i].IddmItem && ele.IdLoHang == this.listMatHang[i].IdLoHang)
         );
-        if(itemFind !== undefined)
-          itemFind.checked = true;
+        itemFind.checked = true;
       }
     }
     this.item.listItem = this.listMatHang.slice(0,15);

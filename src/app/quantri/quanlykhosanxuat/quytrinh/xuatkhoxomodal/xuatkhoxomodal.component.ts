@@ -150,49 +150,53 @@ export class XuatkhoxomodalComponent implements OnInit {
   }
   
   GetLuuKho(sFilter) {
-    let cols: any = [
-      {
-        header: 'Cont',
-        field: 'Ten',
-        width: 'unset'
-      },
-      {
-        header: 'Tên lô',
-        field: 'TenLoHang',
-        width: 'unset'
-      },
-      {
-        header: 'Số kiện',
-        field: 'SoLuong',
-        width: 'unset'
-      },
-      {
-        header: 'Khối lượng / kiện (kg)',
-        field: 'TrongLuong',
-        width: 'unset'
-      },
-    ];
+    let data : any = []
+    if(this.item.listItem !== undefined && this.item.listItem !== null){
+      data = this.item.listItem.filter((e: any) => e.isXoa === false);
+    }
     this.services.getLuuKhoKhac(this.item.IddmKho,'', 0 , sFilter).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
-        backdrop: 'static'
+        backdrop: 'static',
+        size:'lg'
       })
-      if(res1 !== null && res1 !== undefined){
-        res1.forEach(element => {
-          element.SoLuong = this.decimalPipe.transform(element.SoLuong, this.format, 'vi-VN');
-          element.TrongLuong = this.decimalPipe.transform(element.TrongLuong, this.format, 'vi-VN');
-        });
-      }
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
-      modalRef.componentInstance.listItem = this.item.listItem;
-      modalRef.componentInstance.cols = cols;
+      modalRef.componentInstance.listItem = data;
       modalRef.result.then((data) => {
-        this.item.listItem = data.data;
-        this.item.listItem.forEach(element => {
-          element.Ton = element.SoLuong.replaceAll('.', '')
-          element.TrongLuong = element.TrongLuong.replaceAll('.', '')
-          element.TrongLuong = element.TrongLuong.replaceAll(',', '.')
+        if( this.item.listItem !== undefined &&  this.item.listItem.length > 0){
+          this.item.listItem.forEach(element => {
+            element.isXoa = true;
+          });
+        }
+        
+        data.data.forEach(element => {
+          element.Ton = element.SoLuong;
+          element.TrongLuong = element.TrongLuong;
+          if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
+            var data = this.item.listItem.filter(
+              function (obj) {
+                return (obj.IddmItem == element.IddmItem);
+              });
+            if (data != undefined && data.length > 0)
+            {
+              element.Id = data[0].Id;
+              element.isXoa = false;
+              element.TrongLuong = data[0].TrongLuong;
+              element.SoLuong = data[0].SoLuong;
+            }
+            else{
+              element.SoLuong = 0;
+            }
+          }
+          else
+            element.SoLuong = 0;
         });
+        if(this.item.listItem !== undefined && this.item.listItem !== null){
+          this.item.listItem =this.item.listItem.concat(data.data);
+        }
+        else{
+          this.item.listItem = data.data
+        }
       }, (reason) => {
         // không
       });

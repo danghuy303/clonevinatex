@@ -141,12 +141,9 @@
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DonGia">
                             </p-inputNumber>
                         </td>
-                        <td class="text-center" *ngIf="item.DonGia > 0 || item.SoKien > 0">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [ngModel]="(item.DonGia * item.SoKien)" disabled>
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-center" *ngIf="item.DonGia === 0 && item.SoKien === 0">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [ngModel]="0" disabled>
+                        <td class="text-center" >
+                            <p-inputNumber *ngIf="item.DonGia > 0 && item.KgCoin > 0"
+                                [minFractionDigits]="0" locale="vi-VN" [ngModel]="(item.DonGia * item.KgCoin)" disabled>
                             </p-inputNumber>
                         </td>
                         <td>
