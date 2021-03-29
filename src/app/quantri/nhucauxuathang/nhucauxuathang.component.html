@@ -87,7 +87,7 @@
                         <th style="width: 35px !important;" rowspan="2">#</th>
                         <!-- <th>Ngày</th> -->
                         <th rowspan="2">Mặt hàng</th>
-                        <!-- <th>Lô sản xuất</th> -->
+                        <th rowspan="2">Lô</th>
                         <!-- <th>Hợp đồng P/O</th> -->
                         <th colspan="2">Tồn đầu</th>
                         <th colspan="2">Nhập trong kỳ</th>
@@ -113,7 +113,7 @@
                         </td>
                         <!-- <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td> -->
                         <td>{{item.TendmItem!==null?item.TendmItem:item.TendmLoaiBong}} </td>
-                        <!-- <td>{{item.TenLoHang}}</td> -->
+                        <td>{{item.TenLoHang}}</td>
                         <!-- <td>{{item.SoHopDong}}</td> -->
                         <td class="text-right">{{item.DauSoKien|number:'0.0-0' }}</td>
                         <td class="text-right">{{item.DauSoCan|number:'0.2-2' }}</td>

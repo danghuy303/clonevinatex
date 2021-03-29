@@ -1376,9 +1376,13 @@ export class SanXuatService {
             ExportBaoCaoThongKeChatLuong: (data) => {
                 return this.http.post(`${url}ExportBaoCaoThongKeChatLuong`, data, httpOptions)
             },
+            ExportThongKeSanLuong:(data)=>{
+                return this.http.post(`${url}ExportThongKeSanLuong`,data, httpOptions);
+            },
             GetDashBoard_TruyXuatNguonGocTongHop: (data) => {
                 return this.http.post(`${url}GetDashBoard_TruyXuatNguonGocTongHop`, data, httpOptions)
             }
+
         }
     }
 
