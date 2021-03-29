@@ -13,7 +13,6 @@ import {
     validVariable,
 } from "src/app/services/globalfunction";
 import { ImportnhapkhothanhphamComponent } from "../nhapkhothanhphammodal/modals/importnhapkhothanhpham/importnhapkhothanhpham.component";
-import { XuatkhomathangmodalComponent } from "../xuatkhomathangmodal/xuatkhomathangmodal.component";
 
 @Component({
     selector: "app-kiemkekhomodal",

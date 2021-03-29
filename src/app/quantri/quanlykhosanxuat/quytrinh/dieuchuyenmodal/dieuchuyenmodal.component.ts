@@ -132,7 +132,6 @@ export class DieuchuyenmodalComponent implements OnInit {
       modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.result.then((data) => {
         this.item.listItem = data.data;
-        debugger
       }, (reason) => {
         // không
       });

@@ -63,12 +63,17 @@ export class XuatkhothanhphamComponent implements OnInit {
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-
+  isCheckModal: any = false;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, 
     private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
+    this.activatedRoute.params.subscribe((res:any)=>{
+      if(res.id!=='0' && this.isCheckModal === false){
+        this.update(res.id);
+      }
+    })
     this.getListKho();
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh()
@@ -94,6 +99,8 @@ export class XuatkhothanhphamComponent implements OnInit {
       .catch(er => { console.log(er) })
   }
   update(Id) {
+    this.changeParam(Id);
+this.isCheckModal = true;
     this._service.PhieuXuatThanhPham().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhothanhphammodalComponent, {
         size: 'fullscreen',

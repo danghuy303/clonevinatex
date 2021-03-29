@@ -6,6 +6,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-xuatkhobongphemodal',
@@ -16,54 +17,54 @@ export class XuatkhobongphemodalComponent implements OnInit {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
-    Ghi:true,
-    KhongDuyet:false,
-    ChuyenTiep:false,
-    Xoa:false,
+    Ghi: true,
+    KhongDuyet: false,
+    ChuyenTiep: false,
+    Xoa: false,
   }
   lang: any = vn;
   listKho: any = [];
   listKhachHang: any = [];
   listPhuongAnPhaBong: any = [];
   listItem: any = [];
-  paging: any = {CurrentPage: 1};
+  paging: any = { CurrentPage: 1 };
+  format = '0.0-2';
 
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, 
-    public toastr: ToastrService, public _modal: NgbModal) {  }
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
+    public toastr: ToastrService, public _modal: NgbModal, private decimalPipe: DecimalPipe,) { }
 
   ngOnInit(): void {
     this.KiemTraButtonModal();
-    if(this.opt === 'edit'){
+    if (this.opt === 'edit') {
       this.GetQuyTrinh();
     }
     //
-    let data:any = {
+    let data: any = {
       CurrentPage: 0
     }
-    this.services.PhuongAnPhaBong().GetList(data).subscribe((res:any)=>{
+    this.services.PhuongAnPhaBong().GetList(data).subscribe((res: any) => {
       this.listPhuongAnPhaBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     data.Loai = 7;
-    this.services.GetListdmKho(data).subscribe((res:any)=>{
+    this.services.GetListdmKho(data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    this.services.dmKhachHang().GetListOpt().subscribe((res:any)=>{
+    this.services.dmKhachHang().GetListOpt().subscribe((res: any) => {
       this.listKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
   }
-  GetQuyTrinh()
-  {
-    this.services.PhieuXuatBongPhe().Get(this.item.Id).subscribe((res1:any)=>{
+  GetQuyTrinh() {
+    this.services.PhieuXuatBongPhe().Get(this.item.Id).subscribe((res1: any) => {
       this.item = res1;
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
-      this.item.listItem = res1.listItem.slice(0,15);
+      this.item.listItem = res1.listItem.slice(0, 15);
     })
   }
   KiemTraButtonModal() {
@@ -71,13 +72,13 @@ export class XuatkhobongphemodalComponent implements OnInit {
       this.checkbutton = res;
     })
   }
- 
+
   ChuyenDuyet() {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-    
+
     this.services.PhieuXuatBongPhe().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -94,13 +95,12 @@ export class XuatkhobongphemodalComponent implements OnInit {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
- 
+
   GhiLai() {
-    if (this.item.Ngay === null || this.item.Ngay === undefined)
-    {
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn chọn ngày");
     }
-    else{
+    else {
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
         this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
       if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
@@ -134,7 +134,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
- 
+
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
@@ -143,34 +143,60 @@ export class XuatkhobongphemodalComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  
+
   GetLuuKho(sFilter) {
     console.log(this.item)
-    this.services.getLuuKhoKhac(this.item.IddmKho,'', 0 , sFilter).subscribe((res1: any) => {
+    this.services.getLuuKhoKhac(this.item.IddmKho, '', 0, sFilter).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'
       })
+      if (res1 !== null && res1 !== undefined) {
+        res1.forEach(element => {
+          element.SoLuong = this.decimalPipe.transform(element.SoLuong, this.format, 'vi-VN');
+          element.TrongLuong = this.decimalPipe.transform(element.TrongLuong, this.format, 'vi-VN');
+        });
+      }
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.listItem;
-      modalRef.componentInstance.cols = [{
-          header: 'Tên',
-          field: 'Ten',
-          width: 'unset'
-        },
-        {
-          header: 'Số lượng',
-          field: 'Ton',
-          width: 'unset'
-        },
-        {
-          header: 'Khối lượng / Kiện (kg)',
-          field: 'TrongLuong',
-          width: 'unset'
-        },
-      ];
       modalRef.result.then((data) => {
+        console.log(data.data)
+        if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
+          this.item.listItem.forEach(element => {
+            element.isXoa = true
+          });
+        }
+
+        data.data.forEach(element => {
+          console.log(element)
+          element.TonSoLuong = element.SoLuong
+          element.TonTrongLuong = element.TrongLuong
+          
+          if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
+            var data = this.item.listItem.filter(
+              function (obj) {
+                return obj.IddmItem == element.IddmItem;
+              });
+            if (data != undefined && data.length > 0)
+            {
+              element.Id = data[0].Id;
+              element.isXoa = false;
+              element.TrongLuong = data[0].TrongLuong;
+              element.SoLuong = data[0].SoLuong;
+            }
+            else{
+              element.TrongLuong = 0;
+              element.SoLuong = 0;
+            }
+          }
+          else{
+            element.TrongLuong = 0;
+            element.SoLuong = 0;
+          }
+          // element.SoLuongTon = parseInt(element.SoLuong);
+          // element.TrongLuongTon = parseFloat(element.TrongLuong);
+        });
         this.item.listItem = data.data;
       }, (reason) => {
         // không
@@ -180,13 +206,13 @@ export class XuatkhobongphemodalComponent implements OnInit {
   changePage(event) {
     console.log(event)
     this.paging.CurrentPage = event.page + 1;
-    var start = 15 * (event.page)  + 1;
-    var end =  start + 14;
-    if((start + 15) > this.paging.TotalItem)
-      end= this.paging.TotalItem;
-    this.item.listItem = this.listItem.slice(start,end);
+    var start = 15 * (event.page) + 1;
+    var end = start + 14;
+    if ((start + 15) > this.paging.TotalItem)
+      end = this.paging.TotalItem;
+    this.item.listItem = this.listItem.slice(start, end);
   }
   Onclose() {
     this.activeModal.close();
-}
+  }
 }

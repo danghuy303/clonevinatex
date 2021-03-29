@@ -76,11 +76,13 @@
                     (click)="GetLuuKho('')"></button>
             </div>
             <p-table [lazy]="true" [scrollable]="true" scrollHeight="40vh"
-            [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text"
+            [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines"
                 selectionMode="single">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
+                        <col>
+                        <col>
                         <col>
                         <col>
                         <col>
@@ -89,11 +91,17 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>#</th>
-                        <th>Tên loại bông phế</th>
-                        <th>Khối lượng / Kiện (kg)</th>
-                        <th>Số lượng</th>
-                        <th></th>
+                        <th rowspan="2">#</th>
+                        <th rowspan="2">Tên loại bông phế</th>
+                        <th colspan="2">Tồn</th>
+                        <th colspan="2">Xuất</th>
+                        <th rowspan="2"></th>
+                    </tr>
+                    <tr>
+                        <th>Số kiện</th>
+                        <th>Khối lượng / kiện (kg)</th>
+                        <th>Số kiện</th>
+                        <th>Tổng khối lượng</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -101,11 +109,21 @@
                         <td style="text-align: center;">{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TrongLuong" disabled>
+                            <!-- <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TrongLuong" disabled>
+                            </p-inputNumber> -->
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TonSoLuong" disabled>
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TonTrongLuong" disabled>
                             </p-inputNumber>
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TonTrongLuong * item.SoLuong" disabled>
                             </p-inputNumber>
                         </td>
                         <td>
@@ -120,8 +138,12 @@
                     <tr>
                         <td colspan="2">Tổng cộng:</td>
                         <td></td>
+                        <td></td>
                         <td class="text-right">
                             {{item.listItem|SumByKey:'SoLuong'|number:'0.0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'(TonTrongLuong *SoLuong)'|number:'0.2'}}
                         </td>
                         <td></td>
                     </tr>

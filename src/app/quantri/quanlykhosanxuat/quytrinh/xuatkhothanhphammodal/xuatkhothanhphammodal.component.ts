@@ -230,6 +230,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
+      modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.result.then((data) => {
         let listdatapush = [];
         data.data.forEach(element => {
@@ -240,6 +241,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
             SoLuong: element.Ton,
             KgCoin: element.TrongLuong,
             IdLoHang: element.IdLoHang,
+            ThanhTien: element.IdLoHang,
           };
           listdatapush.push(datapush);
         });

@@ -161,28 +161,55 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       Ngay: new Date(this.item.Ngay).getTime() / 1000,
       IddmKho: this.item.IddmKhoHoiAm,
     }
+    // var cols: any = [
+    //   {
+    //     header: 'Tên',
+    //     field: 'Ten',
+    //     width: 'unset'
+    //   },
+    //   {
+    //     header: 'Tên lô',
+    //     field: 'TenLoHang',
+    //     width: 'unset'
+    //   },
+    //   {
+    //     header: 'Số kiện',
+    //     field: 'SoLuong',
+    //     width: 'unset'
+    //   },
+    //   {
+    //     header: 'Khối lượng/ Kiện (kg)',
+    //     field: 'TrongLuong',
+    //     width: 'unset'
+    //   },
+    // ];
     this._services.GetlistdmMatHangThanhPham(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'
       })
-      if(res1 !== null && res1 !== undefined){
-        res1.forEach(element => {
-          element.Ton = this.decimalPipe.transform(element.Ton, this.format);
-          
-        });
-      }
+      // if(res1 !== null && res1 !== undefined){
+      //   res1.forEach(element => {
+      //     element.SoLuong = this.decimalPipe.transform(element.SoLuong, this.format, 'vi-VN');
+      //     element.TrongLuong = this.decimalPipe.transform(element.TrongLuong, this.format, 'vi-VN');
+      //   });
+      // }
 
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
+      // modalRef.componentInstance.cols = cols;
       modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.result.then((data) => {
         
         this.item.listItem = data.data;
         this.item.listItem.forEach(element => {
+          // element.SoLuong = element.SoLuong.replaceAll('.', '')
+          // element.TrongLuong = element.TrongLuong.replaceAll('.', '')
+          // element.TrongLuong = element.TrongLuong.replaceAll(',', '.')
+//
           element.Id = "";
-          element.SoQuaSoiHoiAm = element.Ton;
-          element.SoQuaSoiThanhPham = element.Ton;
+          element.SoQuaSoiHoiAm = element.SoLuong;
+          element.SoQuaSoiThanhPham = element.SoLuong;
           element.KgCone = element.TrongLuong;
           element.IddmKho = this.item.IddmKhoThanhPham;
         });

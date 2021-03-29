@@ -1,3 +1,4 @@
+import { DecimalPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -31,10 +32,10 @@ export class XuatkhoxomodalComponent implements OnInit {
     CurrentPage: 1,
     TotalPage:5
   };
-
+  format = '0.0-2';
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, 
-    public toastr: ToastrService, public _modal: NgbModal) {  }
+    public toastr: ToastrService, public _modal: NgbModal, private decimalPipe: DecimalPipe,) {  }
 
   ngOnInit(): void {
     if (this.opt !== 'edit') {
@@ -161,8 +162,13 @@ export class XuatkhoxomodalComponent implements OnInit {
         width: 'unset'
       },
       {
-        header: 'Số lượng',
-        field: 'Ton',
+        header: 'Số kiện',
+        field: 'SoLuong',
+        width: 'unset'
+      },
+      {
+        header: 'Khối lượng / kiện (kg)',
+        field: 'TrongLuong',
         width: 'unset'
       },
     ];
@@ -170,12 +176,23 @@ export class XuatkhoxomodalComponent implements OnInit {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         backdrop: 'static'
       })
+      if(res1 !== null && res1 !== undefined){
+        res1.forEach(element => {
+          element.SoLuong = this.decimalPipe.transform(element.SoLuong, this.format, 'vi-VN');
+          element.TrongLuong = this.decimalPipe.transform(element.TrongLuong, this.format, 'vi-VN');
+        });
+      }
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.componentInstance.cols = cols;
       modalRef.result.then((data) => {
         this.item.listItem = data.data;
+        this.item.listItem.forEach(element => {
+          element.Ton = element.SoLuong.replaceAll('.', '')
+          element.TrongLuong = element.TrongLuong.replaceAll('.', '')
+          element.TrongLuong = element.TrongLuong.replaceAll(',', '.')
+        });
       }, (reason) => {
         // không
       });

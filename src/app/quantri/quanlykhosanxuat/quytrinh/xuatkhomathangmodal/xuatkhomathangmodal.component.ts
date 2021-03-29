@@ -23,11 +23,17 @@ export class XuatkhomathangmodalComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Số lượng',
-      field: 'Ton',
+      header: 'Số kiện',
+      field: 'SoLuong',
+      width: 'unset'
+    },
+    {
+      header: 'Khối lượng /kiện (kg)',
+      field: 'TrongLuong',
       width: 'unset'
     },
   ];
+  loai='';
   checkedAll: boolean = false;
   paging: any = {};
   item: any = {};

@@ -61,13 +61,13 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Người vận chuyển:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input pInputText type="text" [(ngModel)]="item.GhiChu">
+                <input pInputText type="text" [(ngModel)]="item.NguoiVanChuyen">
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phương tiện vận chuyển:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input pInputText type="text" [(ngModel)]="item.GhiChu">
+                <input pInputText type="text" [(ngModel)]="item.PhuongTienVanChuyen">
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
@@ -141,8 +141,12 @@
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DonGia">
                             </p-inputNumber>
                         </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [ngModel]="(item.DonGia * item.SoKien)">
+                        <td class="text-center" *ngIf="item.DonGia > 0 || item.SoKien > 0">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [ngModel]="(item.DonGia * item.SoKien)" disabled>
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center" *ngIf="item.DonGia === 0 && item.SoKien === 0">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [ngModel]="0" disabled>
                             </p-inputNumber>
                         </td>
                         <td>

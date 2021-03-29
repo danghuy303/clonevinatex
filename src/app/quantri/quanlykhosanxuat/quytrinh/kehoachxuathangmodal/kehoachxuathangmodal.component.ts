@@ -274,12 +274,21 @@ export class KehoachxuathangmodalComponent implements OnInit {
       CurrentPage: 0,
       Loai: 1,
     };
+    let cols: any = [
+      {
+        header: 'Tên',
+        field: 'Ten',
+        width: 'unset'
+      },
+    ];
     this._services.GetListdmItem(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.loai = 'dmMatHang';
+      modalRef.componentInstance.cols = cols;
       modalRef.componentInstance.listMatHang = res1;
       modalRef.result.then((data) => {
         let listdatapush = [];
