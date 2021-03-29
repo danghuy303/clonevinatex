@@ -112,7 +112,7 @@
                             [ngStyle]="{'background-color': itemindex.isLoaiChiTieuUsterstatic?'antiquewhite':'white'}">
                             {{itemindex.Ten}}</td>
                         <ng-container *ngFor="let itemsanpham of itemindex.lstChatLuongSanPham,let iC = index">
-                            <td class="text-right">{{itemindex.Ma!=='DAT'?itemsanpham.ChiTieuLyThuyet:''}}</td>
+                            <td class="text-right">{{itemindex.Ma!=='DAT'?(itemsanpham.ChiTieuLyThuyet===0?'':itemsanpham.ChiTieuLyThuyet):''}}</td>
                             <td class="text-center"
                                 [ngStyle]="{'background-color': itemindex.Ma==='DAT'?'':(itemsanpham.ChiTieuThucTe>itemsanpham.ChiTieuLyThuyet?'#ef8888':'#99c199')}">
                                 <input *ngIf="itemindex.Ma==='DAT'" type="checkbox" [(ngModel)]="itemsanpham.isDat" />

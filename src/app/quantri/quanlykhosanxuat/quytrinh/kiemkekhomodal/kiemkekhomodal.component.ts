@@ -37,6 +37,7 @@ export class KiemkekhomodalComponent implements OnInit {
     listQuyCachDongGoi: any = [];
     listNewMatHang: any = [];
     listNewMatHang_ref: any = [];
+    isKhoThanhPham:any=false;
     paging: any = {};
     listItem: any = [];
     item_new: any = {};

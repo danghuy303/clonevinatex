@@ -64,6 +64,23 @@ export class Dongvanpx2Component implements OnInit {
       }
     };
     this.block3.reverse();
+    if (validVariable(this.item.Id)) {
+      for (let i = 1; i <= (this.length + this.ngoaiQuan.length); i++) {
+        let data = this.item.listItem.find(ele => ele.ThuTu === i);
+        this.banBong[`${i}`] = {
+          _focus: false,
+          _ngoaiQuan: data?.isNgoaiQuan,
+          labelLoBong: data?.TenLoBong,
+          STT: `${i}. `,
+          IdLoBong: data?.IdLoBong,
+          Mau: data?.Mau
+        }
+      }
+      this.item.listLoBong.forEach(lobong => {
+        lobong.DaXep = this.item.listItem.filter(banbong=>banbong.IdLoBong === lobong.IdLoBong)?.length||0;
+      });
+    }
+    
   }
   
   veLayout() {

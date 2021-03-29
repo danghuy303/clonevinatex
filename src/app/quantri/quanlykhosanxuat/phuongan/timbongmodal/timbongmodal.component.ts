@@ -136,7 +136,8 @@ export class TimbongmodalComponent implements OnInit {
           Str: 0,
           Tap: 0,
           Am: 0,
-          UHML: 0
+          UHML: 0,
+          SFI:0
         }
         this.item.listLoBong.forEach(lobong => {
           for (let chatluong in TongChatLuong) {
@@ -423,7 +424,8 @@ export class TimbongmodalComponent implements OnInit {
           this.item = res.objectReturn.PhuongAnPhaBong;
           res.objectReturn.PhuongAnPhaBong = undefined;
           this.ghostItem = res.objectReturn;
-          this.KiemTraButtonModal();
+          // this.KiemTraButtonModal();
+          this.GetListdmLoaiBong_PAPB()
         } else {
           this._toastr.error(res.message);
         }
@@ -457,7 +459,7 @@ export class TimbongmodalComponent implements OnInit {
       this.item = deepCopy(res.PhuongAnPhaBong);
       res.PhuongAnPhaBong = undefined;
       this.ghostItem = deepCopy(res)
-      this.GetListTrienKhaiKeHoach()
+      this.GetListdmLoaiBong_PAPB()
     })
   }
 }
