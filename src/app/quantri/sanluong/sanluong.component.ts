@@ -255,4 +255,10 @@ export class SanluongComponent implements OnInit {
     //   this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
     // })
   }
+  ExportExcel(){
+    
+    this._services.DashBoard().ExportThongKeSanLuong(this.filter).subscribe((res:any) => {
+      this._services.download(res.TenFile);
+    })
+  }
 }

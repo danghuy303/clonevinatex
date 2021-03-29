@@ -121,7 +121,8 @@ export class PhabongmodalComponent implements OnInit {
           Str: 0,
           Tap: 0,
           Am: 0,
-          UHML: 0
+          UHML: 0,
+          SFI:0
         }
         this.item.listLoBong.forEach(lobong => {
           for (let chatluong in TongChatLuong) {
@@ -235,7 +236,8 @@ export class PhabongmodalComponent implements OnInit {
           Str: 0,
           Tap: 0,
           Am: 0,
-          UHML: 0
+          UHML: 0,
+          SFI:0
         }
         this.item.listLoBong.forEach(lobong => {
           for (let chatluong in TongChatLuong) {
@@ -617,7 +619,7 @@ export class PhabongmodalComponent implements OnInit {
     console.log(e);
   }
   move(event, index) {
-    let string = 'ArrowRightArrowUpArrowDownArrowLeft'
+    let string = 'ArrowRightArrowUpArrowDownArrowLeftTabEnter'
     if (string.includes(event.key)) {
       event.preventDefault()
       // console.log(event);
@@ -625,7 +627,7 @@ export class PhabongmodalComponent implements OnInit {
       let listTabIndex = [];
       listInput.forEach(ele => listTabIndex.push(ele.getAttribute('tabindex')));
       //  console.log(listInput);
-      if (event.key === 'ArrowRight') {
+      if (event.key === 'ArrowRight'||event.key==='Tab') {
         let nextFocusIndex = `${this.item.listLoBong.length + index}`;
         let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
         (listInput[realIndexInDom] as HTMLElement)?.focus();
@@ -635,7 +637,7 @@ export class PhabongmodalComponent implements OnInit {
         let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
         (listInput[realIndexInDom] as HTMLElement)?.focus();
       }
-      if (event.key === 'ArrowDown') {
+      if (event.key === 'ArrowDown'||event.key==='Enter') {
         let nextFocusIndex = `${index + 1}`;
         let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
         (listInput[realIndexInDom] as HTMLElement)?.focus();
@@ -672,21 +674,5 @@ export class PhabongmodalComponent implements OnInit {
       this.CalAllTable(i, ban);
     }
   }
-  allowDrop(ev) {
-    ev.preventDefault();
-    // console.log(ev)
-  }
-
-  drag(ev,SoKien,x,y) {
-    // console.log(ev)
-    console.log(x)
-    ev.dataTransfer.setData("x", {x,SoKien});
-  }
-
-  drop(ev,item,x,y) {
-    ev.preventDefault();
-    let alo = ev.dataTransfer.getData("x");
-    // console.log(x===alo)
-    console.log(alo);
-  }
+  
 }

@@ -47,7 +47,7 @@ export class KehoachxuathangComponent implements OnInit {
     //   width: 'unset'
     // },
     {
-      header: 'Số tấn',
+      header: 'Khối lượng(kg)',
       field: 'KhoiLuong',
       width: 'unset',
       type:'number'
