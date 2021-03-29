@@ -121,7 +121,8 @@ export class PhabongmodalComponent implements OnInit {
           Str: 0,
           Tap: 0,
           Am: 0,
-          UHML: 0
+          UHML: 0,
+          SFI:0
         }
         this.item.listLoBong.forEach(lobong => {
           for (let chatluong in TongChatLuong) {
@@ -235,7 +236,8 @@ export class PhabongmodalComponent implements OnInit {
           Str: 0,
           Tap: 0,
           Am: 0,
-          UHML: 0
+          UHML: 0,
+          SFI:0
         }
         this.item.listLoBong.forEach(lobong => {
           for (let chatluong in TongChatLuong) {

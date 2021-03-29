@@ -257,6 +257,7 @@ import { HoaxaComponent } from './quanlykhosanxuat/phuongan/layoutmodals/hoaxa/h
 import { LobongComponent } from './danhmuc/lobong/lobong.component';
 import { LobongmodalComponent } from './danhmuc/lobongmodal/lobongmodal.component';
 import { NhapkhoxoComponent } from './quanlykhosanxuat/quytrinh/nhapkhoxo/nhapkhoxo.component';
+import { ImportnhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhphammodal/modals/importnhapkhothanhpham/importnhapkhothanhpham.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -467,6 +468,7 @@ import { NhapkhoxoComponent } from './quanlykhosanxuat/quytrinh/nhapkhoxo/nhapkh
     LobongComponent,
     LobongmodalComponent,
     NhapkhoxoComponent,
+    ImportnhapkhothanhphamComponent,
   ],
   imports: [
     HttpClientModule,
@@ -598,6 +600,7 @@ import { NhapkhoxoComponent } from './quanlykhosanxuat/quytrinh/nhapkhoxo/nhapkh
     DmkhachhangmodalComponent,
     HoaxaComponent,
     LobongmodalComponent,
+    ImportnhapkhothanhphamComponent,
   ],
   providers: [
     SanXuatService,

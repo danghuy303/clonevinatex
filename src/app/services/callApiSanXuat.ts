@@ -76,7 +76,9 @@ export class SanXuatService {
         }
     }
     //#endregion
-
+    ImportPhieuKiemKeKho(FileName){
+        return this.http.get(`${API.SCMQuanLyKho}ImportPhieuKiemKeKho?FileName=${FileName}`,httpOptions)
+    }
     //#region  Danh mục loại điện
     dmLoaiDienKV() {
         let url = API.ThongKeDien;
@@ -969,10 +971,10 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho + `GetLuuKhoKhac?IdDuAn=0&IddmKho=${IddmKho}&IddmViTri=${IddmViTri}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
         return this.http.get(url, httpOptions);
     }
-    getLuuKhoKiemKe(IddmKho, IdLoBong, sFilter) {
+    getLuuKhoKiemKe(IddmKho, IdLoBong, sFilter,IdLoHang) {
         // let IdDuAn =this.store.getCurrent();
-        let url = API.SCMQuanLyKho + `getLuuKhoKiemKe?IdDuAn=0&IddmKho=${IddmKho}&IdLoHang=&sFilter=${sFilter}`;
-        // ${IdLoBong||''}
+        let url = API.SCMQuanLyKho + `getLuuKhoKiemKe?IdDuAn=0&IddmKho=${IddmKho}&IdLoHang=${IdLoHang||''}&IdLoBong=${IdLoBong||''}&sFilter=${sFilter}`;
+        // 
         return this.http.get(url, httpOptions);
     }
     KhoiTaoItem() {
@@ -1185,6 +1187,7 @@ export class SanXuatService {
                 return this.http.get(url + 'GetNextSoQuyTrinhPhieuKiemKeKho', httpOptions);
             },
             GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'GetListPhieuKiemKeKho', data, httpOptions);
             },
             Get: (Id) => {
@@ -1203,8 +1206,8 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhieuKiemKeKho', data, httpOptions)
             },
-            GetlistdmMatHangThanhPhamKiemKe:(Id)=>{
-                return this.http.get(url + `GetlistdmMatHangThanhPhamKiemKe?Id=${Id}`, httpOptions);
+            GetlistdmMatHangThanhPhamKiemKe:()=>{
+                return this.http.get(url + `GetlistdmMatHangThanhPhamKiemKe`, httpOptions);
             }
         }
     }
