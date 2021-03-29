@@ -11,16 +11,15 @@
                     <div>
                         <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
                     </div>
-                    <!-- <div>
+                    <div>
                         <div class="p-inputgroup">
-                            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
-                                (keyup.enter)="chonThuaDat()" [(ngModel)]="KeyWord" />
+                            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText[(ngModel)]="KeyWord" />
                             <button type="button" pButton pRipple icon="pi pi-refresh"
                                 class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
-                <p-table [value]="items" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="true" scrollHeight="500px">
+                <p-table [value]="items|filterByKey:'Ten':KeyWord" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="true" scrollHeight="500px">
                     <ng-template pTemplate="colgroup">
                         <colgroup>
                             <!-- <col style="width:50px"> -->

@@ -13,6 +13,7 @@ export class ChonkienbonghoimodalComponent implements OnInit {
   resultTrongLuong: any = 0;
   TenLoBong: any = '';
   currentTrongLuong: any = 0;
+  KeyWord:any='';
   constructor(private _activeModal:NgbActiveModal) { }
 
   ngOnInit(): void {
@@ -38,7 +39,7 @@ export class ChonkienbonghoimodalComponent implements OnInit {
       return sum + item.TrongLuong
     }, 0);
     this.currentTrongLuong = TotalTrongLuong / this.selectedItems.length;
-    this.itemsSort();
+    // this.itemsSort();
   }
   itemsSort(){
     this.items.sort((a, b) => {
@@ -47,5 +48,8 @@ export class ChonkienbonghoimodalComponent implements OnInit {
   }
   accept(){
     this._activeModal.close({listItem :this.selectedItems,BQMic:this.currentTrongLuong})
+  }
+  resetFilter(){
+    this.KeyWord = '';
   }
 }

@@ -81,6 +81,7 @@ export class KiemkekhoComponent implements OnInit {
         modalRef.componentInstance.opt = "add";
         modalRef.componentInstance.title = this.title;
         modalRef.componentInstance.item = {};
+        modalRef.componentInstance.isKhoThanhPham = (this.title==='khothanhpham');
         modalRef.result
             .then((res: any) => {
                 this.GetListQuyTrinh();
@@ -99,6 +100,7 @@ export class KiemkekhoComponent implements OnInit {
         modalRef.componentInstance.opt = "edit";
         modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
         modalRef.componentInstance.title = this.title;
+        modalRef.componentInstance.isKhoThanhPham = (this.title==='khothanhpham');
         modalRef.result
             .then((res: any) => {
                 console.log(res);

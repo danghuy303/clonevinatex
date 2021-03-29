@@ -11,7 +11,7 @@ import { validVariable } from 'src/app/services/globalfunction';
 })
 export class Dongvanpx1Component implements OnInit {
   checkbutton: any = {
-    Ghi:true
+    Ghi: true
   };
   listLoBong: any = [];
   item: any = {};
@@ -22,20 +22,20 @@ export class Dongvanpx1Component implements OnInit {
   poolLoBong: any = [];
   banBong: any = {};
   ngoaiQuan: any = [];
-  SoViTriNgoaiQuan:number=0;
-  ViTriNgoaiQuan:any = '';
+  SoViTriNgoaiQuan: number = 0;
+  ViTriNgoaiQuan: any = '';
   // 18, 24, 30, 33, 36, 42, 47
-  listBongNgoaiQuan:any =[];
+  listBongNgoaiQuan: any = [];
   focusedSlot: any = null;
-  length:number = 0;
+  length: number = 0;
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
   }
 
   ngOnInit(): void {
-    this.length = this.item.listLoBong.reduce((total,ele)=>{
+    this.length = this.item.listLoBong.reduce((total, ele) => {
       return total + ele.SoLuong
-    },0)
-    for (let i = 1; i <= (this.length+this.SoViTriNgoaiQuan); i++) {
+    }, 0)
+    for (let i = 1; i <= (this.length + this.SoViTriNgoaiQuan); i++) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -51,26 +51,42 @@ export class Dongvanpx1Component implements OnInit {
       if (2 < i && i <= 16) {
         this.block2.push(`${i}`)
       }
-      if (16 < i && i <= (this.length+this.SoViTriNgoaiQuan-2)) {
+      if (16 < i && i <= (this.length + this.SoViTriNgoaiQuan - 2)) {
         this.block3.push(`${i}`)
       }
-      if ((this.length+this.SoViTriNgoaiQuan-2) < i && i <= (this.length+this.SoViTriNgoaiQuan) && (this.length+this.SoViTriNgoaiQuan>=18)) {
+      if ((this.length + this.SoViTriNgoaiQuan - 2) < i && i <= (this.length + this.SoViTriNgoaiQuan) && (this.length + this.SoViTriNgoaiQuan >= 18)) {
         this.block4.push(`${i}`)
       }
     };
+    if (validVariable(this.item.Id)) {
+      for (let i = 1; i <= (this.length + this.SoViTriNgoaiQuan); i++) {
+        let data = this.item.listItem.find(ele => ele.ThuTu === i);
+        this.banBong[`${i}`] = {
+          _focus: false,
+          _ngoaiQuan: data?.isNgoaiQuan,
+          labelLoBong: data?.TenLoBong,
+          STT: `${i}. `,
+          IdLoBong: data?.IdLoBong,
+          Mau: data?.Mau
+        }
+      }
+      this.item.listLoBong.forEach(lobong => {
+        lobong.DaXep = this.item.listItem.filter(banbong=>banbong.IdLoBong ===lobong.IdLoBong)?.length||0;
+      });
+    }
   }
-  veLayout(){
+  veLayout() {
     this.resetAllPicked();
     this.block1 = [];
     this.block2 = [];
     this.block3 = [];
     this.block4 = [];
-    this.ngoaiQuan = this.ViTriNgoaiQuan.split(',').map(ele=>parseInt(ele));
+    this.ngoaiQuan = this.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
     console.log(this.ngoaiQuan)
-    this.length = this.item.listLoBong.reduce((total,ele)=>{
+    this.length = this.item.listLoBong.reduce((total, ele) => {
       return total + ele.SoLuong
-    },0)
-    for (let i = 1; i <= (this.length+this.SoViTriNgoaiQuan); i++) {
+    }, 0)
+    for (let i = 1; i <= (this.length + this.SoViTriNgoaiQuan); i++) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -86,16 +102,16 @@ export class Dongvanpx1Component implements OnInit {
       if (2 < i && i <= 16) {
         this.block2.push(`${i}`)
       }
-      if (16 < i && i <= (this.length+this.SoViTriNgoaiQuan-2)) {
+      if (16 < i && i <= (this.length + this.SoViTriNgoaiQuan - 2)) {
         this.block3.push(`${i}`)
       }
-      if ((this.length+this.SoViTriNgoaiQuan-2) < i && i <= (this.length+this.SoViTriNgoaiQuan)) {
+      if ((this.length + this.SoViTriNgoaiQuan - 2) < i && i <= (this.length + this.SoViTriNgoaiQuan)) {
         this.block4.push(`${i}`)
       }
     };
   }
   changeNgoaiQuanBong() {
-    if (validVariable(this.ViTriNgoaiQuan)&& this.ViTriNgoaiQuan.trim()!=='') {
+    if (validVariable(this.ViTriNgoaiQuan) && this.ViTriNgoaiQuan.trim() !== '') {
       this.ngoaiQuan = this.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
       this.ngoaiQuan.forEach(vitri => {
         this.banBong[`${vitri}`]._ngoaiQuan = true;
@@ -103,8 +119,8 @@ export class Dongvanpx1Component implements OnInit {
           this.banBong[`${vitri}`].labelLoBong = 'Ngoại quan bông'
         }
       });
-    }else{
-      for(let prop in this.banBong){
+    } else {
+      for (let prop in this.banBong) {
         this.banBong[prop]._ngoaiQuan = false;
         if (!validVariable(this.banBong[`${prop}`].IdLoBong)) {
           this.banBong[`${prop}`].labelLoBong = null
@@ -205,14 +221,14 @@ export class Dongvanpx1Component implements OnInit {
   //   }
   //   console.log(listItem);
   // }
-  SetData(){
-    this.item.listItem =[]
+  SetData() {
+    this.item.listItem = []
     console.log(this.banBong)
-    for(let soban in this.banBong){
+    for (let soban in this.banBong) {
       let item = {
-        TenLoBong:this.banBong[soban].labelLoBong,
+        TenLoBong: this.banBong[soban].labelLoBong,
         Id: this.banBong[soban].IdLoBong,
-        ThuTu:soban,
+        ThuTu: soban,
         isNgoaiQuan: this.banBong[soban]._ngoaiQuan
       }
       this.item.listItem.push(item)
@@ -220,8 +236,8 @@ export class Dongvanpx1Component implements OnInit {
     return this.item
   }
   GhiLai() {
-    this._services.XepBanBong().Set(this.SetData()).subscribe(res=>{
-      console.log(res); 
+    this._services.XepBanBong().Set(this.SetData()).subscribe(res => {
+      console.log(res);
     })
   }
 }
