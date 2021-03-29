@@ -29,14 +29,14 @@
 
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" [(ngModel)]="item.IddmKho"
                 styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
@@ -52,13 +52,25 @@
                 styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div> -->
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input pInputText type="text" [(ngModel)]="item.NoiDung">
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Người vận chuyển:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input pInputText type="text" [(ngModel)]="item.GhiChu">
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phương tiện vận chuyển:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input pInputText type="text" [(ngModel)]="item.GhiChu">
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input pInputText type="text" [(ngModel)]="item.GhiChu">
@@ -79,6 +91,8 @@
                         <col>
                         <col>
                         <col>
+                        <col>
+                        <col>
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
@@ -89,6 +103,8 @@
                         <th rowspan="2">Lô</th>
                         <th rowspan="2">Hợp đồng</th>
                         <th colspan="3">Số lượng</th>
+                        <th rowspan="2">Đơn giá</th>
+                        <th rowspan="2">Thành tiền</th>
                         <th rowspan="2">Ghi chú</th>
                         <th rowspan="2" style="width: 100px;"></th>
                     </tr>
@@ -119,6 +135,14 @@
                         </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DonGia">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [ngModel]="(item.DonGia * item.SoKien)">
                             </p-inputNumber>
                         </td>
                         <td>

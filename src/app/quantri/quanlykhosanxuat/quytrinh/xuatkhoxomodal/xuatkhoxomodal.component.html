@@ -85,13 +85,16 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>#</th>
-                        <th>Tên kiện</th>
-                        <th>Vị trí</th>
+                        <th rowspan="2">#</th>
+                        <th rowspan="2">Tên kiện</th>
+                        <th rowspan="2">Vị trí</th>
+                        <th colspan="2">Tồn sổ sách</th>
+                        <th rowspan="2">Số lượng xuất (Kiện)</th>
+                        <th rowspan="2"></th>
+                    </tr>
+                    <tr>
                         <th>Khối lượng / Kiện</th>
                         <th>Số lượng tồn</th>
-                        <th>Số lượng</th>
-                        <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -115,6 +118,21 @@
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
                                 tooltipPosition="bottom"></button>
                         </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td colspan="3">Tổng</td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'TrongLuong'|number:'0.0-3'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'Ton'|number:'0.0-0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'SoLuong'|number:'0.0'}}
+                        </td>
+                        <td></td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="summary">

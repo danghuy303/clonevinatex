@@ -15,6 +15,7 @@ import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomath
 export class XuatkhoxomodalComponent implements OnInit {
   opt: any = ''
   item: any = {};
+  Id: any = '';
   checkbutton: any = {
     Ghi:true,
     KhongDuyet:false,
@@ -40,10 +41,8 @@ export class XuatkhoxomodalComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     }
     else{
-      this.KiemTraButtonModal();
       this.GetQuyTrinh();
     }
-    
     //
     let data: any = {
       CurrentPage: 0
@@ -59,19 +58,21 @@ export class XuatkhoxomodalComponent implements OnInit {
     this.services.GetListdmKho(data).subscribe((res:any)=>{
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
-    }
+    
   }
   GetQuyTrinh()
   {
-    this.services.PhieuXuatKhoXo().Get(this.item.Id).subscribe((res1:any)=>{
+    this.services.PhieuXuatKhoXo().Get(this.Id).subscribe((res1:any)=>{
       this.item = res1;
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
       this.item.listItem = res1.listItem.slice(0,15);
+      this.KiemTraButtonModal();
+      if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+        this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      }
     })
   }
   KiemTraButtonModal() {
@@ -148,12 +149,31 @@ export class XuatkhoxomodalComponent implements OnInit {
   }
   
   GetLuuKho(sFilter) {
+    let cols: any = [
+      {
+        header: 'Cont',
+        field: 'Ten',
+        width: 'unset'
+      },
+      {
+        header: 'Tên lô',
+        field: 'TenLoHang',
+        width: 'unset'
+      },
+      {
+        header: 'Số lượng',
+        field: 'Ton',
+        width: 'unset'
+      },
+    ];
     this.services.getLuuKhoKhac(this.item.IddmKho,'', 0 , sFilter).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
+      modalRef.componentInstance.listItem = this.item.listItem;
+      modalRef.componentInstance.cols = cols;
       modalRef.result.then((data) => {
         this.item.listItem = data.data;
       }, (reason) => {

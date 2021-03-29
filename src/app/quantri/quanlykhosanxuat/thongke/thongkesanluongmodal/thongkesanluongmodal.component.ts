@@ -88,14 +88,19 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
   GhiLai() {
     let isCheck : any = false;
-    this.item.listItem.forEach(element => {
-      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG" && element.KhoiLuong !== null && element.KhoiLuong !== undefined) {
-        isCheck= true;
-      }
-    });
+    if(this.item.listItem !== null && this.item.listItem !== undefined){
+      this.item.listItem.forEach(element => {
+        if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan==="ONG" && element.KhoiLuong !== null && element.KhoiLuong !== undefined) {
+          isCheck= true;
+        }
+      });
+    }
     console.log(this.item)
     if (isCheck === true) {
       this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
+    }
+    else if (this.item.IddmCaSanXuatThucTe === undefined || this.item.IddmCaSanXuatThucTe === null) {
+      this.toastr.error("Bạn chưa chọn ca thống kê");
     }
     else{
       // this.item.listItem.forEach(element => {

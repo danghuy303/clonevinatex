@@ -41,6 +41,7 @@ export class NhapkhothanhphamComponent implements OnInit {
       width: 'unset'
     },
   ];
+  isCheckModal: any = false;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
 
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
@@ -49,7 +50,7 @@ export class NhapkhothanhphamComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res:any)=>{
       console.log(res.id)
-      if(res.id!=='0'){
+      if(res.id!=='0' && this.isCheckModal === false){
         this.update(res.id);
       }
       // else
@@ -80,6 +81,7 @@ export class NhapkhothanhphamComponent implements OnInit {
       .catch(er => { console.log(er) })
   }
   update(Id) {
+    this.isCheckModal = true
     this.changeParam(Id);
     this._service.PhieuNhapThanhPham().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhothanhphammodalComponent, {
