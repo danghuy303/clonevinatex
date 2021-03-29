@@ -116,7 +116,10 @@
                         <td>
                             <input pInputText type="text" [(ngModel)]="item.SoHopDong">
                         </td> -->
-                        <td>{{item.SoQuaSoiHoiAm}}</td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiHoiAm" disabled>
+                            </p-inputNumber>
+                        </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThanhPham">
                             </p-inputNumber>
