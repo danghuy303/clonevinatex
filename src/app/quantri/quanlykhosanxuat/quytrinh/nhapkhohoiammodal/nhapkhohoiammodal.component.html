@@ -95,6 +95,8 @@
                         <!-- <col> -->
                         <col>
                         <col>
+                        <col>
+                        <col>
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
@@ -106,8 +108,10 @@
                         <th>Kg/cone</th>
                         <!-- <th>Quả sợi sản xuất</th> -->
                         <th>Số quả sợi thực tế</th>
+                        <th>Số quả sợi lũy kế</th>
                         <!-- <th>Số quả sợi</th> -->
                         <th>Sản lượng thành phẩm thực tế (Kg)</th>
+                        <th>Sản lượng thành phẩm lũy kế (Kg)</th>
                         <th>Ghi chú</th>
                         <th style="width: 100px;"></th>
                     </tr>
@@ -121,7 +125,6 @@
                             <p-dropdown [filter]="true" [options]="listKgCone" placeholder="Chọn Kg/cone" 
                                 [(ngModel)]="item.KgCone"
                                 styleClass="p-inputtext-sm"></p-dropdown>
-
                             <!-- <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KgCone" disabled>
                             </p-inputNumber> -->
                         </td>
@@ -135,17 +138,19 @@
                         </td> -->
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe"
-                            (onBlur)="tinhKLTT(item)">
+                            (onBlur)="tinhKLTT(item)" [tabindex]="i+1">
                             </p-inputNumber>
+                        </td>
+                        <td class="text-right">
+                            {{item.LuyKeSoQua}}
                         </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KLTT">
                             </p-inputNumber>
                         </td>
-                        <!-- <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoi">
-                            </p-inputNumber>
-                        </td> -->
+                        <td class="text-right">
+                            {{item.LuyKeKhoiLuong}}
+                        </td>
                         <td class="text-center">
                             <input pInputText type="text" [(ngModel)]="item.GhiChu">
                         </td>
@@ -167,7 +172,13 @@
                             {{item.listItem|isXoa|SumByKey:'SoQuaSoiThucTe'|number:'0.0-0'}}
                         </td>
                         <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'LuyKeSoQuaSoi'|number:'0.0-0'}}
+                        </td>
+                        <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'KLTT'|number:'0.2-2'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'LuyKeKhoiLuong'|number:'0.0-0'}}
                         </td>
                         <td></td>
                         <td></td>

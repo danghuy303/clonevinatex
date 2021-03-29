@@ -25,7 +25,7 @@ export class NhapkhohoiamComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Ca máy',
+      header: 'Ca',
       field: 'TendmCaSanXuat',
       width: 'unset'
     },
@@ -41,18 +41,18 @@ export class NhapkhohoiamComponent implements OnInit {
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-isCheckModal: any = false;
+  isCheckModal: any = false;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
-    this.activatedRoute.params.subscribe((res:any)=>{
+    this.activatedRoute.params.subscribe((res: any) => {
       console.log(res.id)
-      if(res.id!=='0' && this.isCheckModal === false){
+      if (res.id !== '0' && this.isCheckModal === false) {
         this.update(res.id);
       }
       // else
-        // this.GetListQuyTrinh();
+      // this.GetListQuyTrinh();
       this.KiemTraTabTrangThai();
       //
     })
@@ -73,15 +73,15 @@ isCheckModal: any = false;
     modalRef.componentInstance.nametype = 'kho hồi ẩm';
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
     })
       .catch(er => { console.log(er) })
+      .finally(() => {
+        this.GetListQuyTrinh();
+        this.changeParam(0);
+      })
   }
-  
+
   update(Id) {
-    this.isCheckModal= true;
-    this.changeParam(Id);
-    // this.changeParam(Id);
     this._service.PhieuNhapHoiAm().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhohoiammodalComponent, {
         size: 'fullscreen',
@@ -91,13 +91,16 @@ isCheckModal: any = false;
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
       modalRef.result.then((res: any) => {
-        this.GetListQuyTrinh();
       })
         .catch(er => { console.log(er) })
+        .finally(() => {
+          this.GetListQuyTrinh();
+          this.changeParam(0);
+        })
     })
   }
   changeTab(e) {
-    this.trangThai = e.index+1;
+    this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
@@ -129,10 +132,10 @@ isCheckModal: any = false;
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
   }
-  
+
 }
