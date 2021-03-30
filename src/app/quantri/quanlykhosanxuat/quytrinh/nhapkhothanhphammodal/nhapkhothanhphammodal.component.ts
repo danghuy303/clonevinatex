@@ -207,7 +207,6 @@ export class NhapkhothanhphammodalComponent implements OnInit {
             for(let i = 0; i< listItem.length;i++){
               if(listItem[i].IddmItem === element.IddmItem && listItem[i].IdLoHang === element.IdLoHang)
                 isCheck = true;
-                debugger
                 element.SoQuaSoiHoiAm = listItem[i].SoQuaSoiHoiAm;
                 element.SoQuaSoiThanhPham = listItem[i].SoQuaSoiHoiAm;
                 element.KgCone = listItem[i].KgCone;
