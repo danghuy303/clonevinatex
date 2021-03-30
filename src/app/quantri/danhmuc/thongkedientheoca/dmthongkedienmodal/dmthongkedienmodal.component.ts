@@ -40,6 +40,12 @@ export class DmthongkedienmodalComponent implements OnInit {
             align: "right",
         },
         {
+            header: "Hệ số TI",
+            field: "HeSoTI",
+            width: "unset",
+            align: "right",
+        },
+        {
             header: "Tiêu thụ trong ca (KW)",
             field: "TieuThuTrongCa",
             width: "unset",
@@ -128,7 +134,7 @@ export class DmthongkedienmodalComponent implements OnInit {
                 item.SoTieuThu = 0;
                 item.TieuThuTrongCa = 0;
                 item.SoTieuThu = item.SoMoi - item.SoCu;
-                item.TieuThuTrongCa = item.SoTieuThu * item.HeSoNhan;
+                item.TieuThuTrongCa = item.SoTieuThu * item.HeSoNhan * item.HeSoTI;
             } else {
                 item.SoTieuThu = 0;
                 item.TieuThuTrongCa = 0;

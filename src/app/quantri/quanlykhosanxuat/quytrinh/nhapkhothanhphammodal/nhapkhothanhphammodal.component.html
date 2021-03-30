@@ -85,6 +85,7 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col style="width:50px">
                     </colgroup>
                 </ng-template>
@@ -92,10 +93,11 @@
                     <tr>
                         <th>#</th>
                         <th>Tên</th>
+                        <th>Tên lô</th>
                         <th>Số quả hồi ẩm</th>
                         <th>Số quả nhập</th>
                         <th>Số kiện</th>
-                        <th>Khối lượng(kg)</th>
+                        <th>Tổng khối lượng(kg)</th>
                         <th>Số khoang</th>
                         <th>Ghi chú</th>
                         <th></th>
@@ -105,6 +107,7 @@
                     <tr>
                         <td>{{i+1}}</td>
                         <td>{{item.Ten}}</td>
+                        <td>{{item.TenLoHang}}</td>
                         <!-- <td>
                             <p-dropdown [filter]="true" [options]="listdmQuyCachDongGoi" placeholder="Chọn quy cách" styleClass="p-inputtext-sm"
                                 [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
@@ -121,7 +124,7 @@
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThanhPham">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThanhPham" (ngModelChange)="TongKhoiLuong(item)">
                             </p-inputNumber>
                         </td>
                         <td>

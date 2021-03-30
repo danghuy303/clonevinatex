@@ -248,11 +248,10 @@ export class XuatkhothanhphammodalComponent implements OnInit {
             Ten: element.Ten,
             IddmItem: element.IddmItem,
             TenLoHang: element.TenLoHang,
-            SoLuong: element.SoLuong,
-            KgCoin: element.TrongLuong,
+            TonSoLuong: element.SoLuong,
+            KhoiLuong: element.TrongLuong,
             IdLoHang: element.IdLoHang,
           };
-          debugger
           var isCheck : any = false
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
             for(let i =0 ; i < this.item.listItem.length; i++){
@@ -262,8 +261,8 @@ export class XuatkhothanhphammodalComponent implements OnInit {
                 this.item.listItem[i].Ten = element.Ten;
                 this.item.listItem[i].IddmItem = element.IddmItem;
                 this.item.listItem[i].TenLoHang = element.TenLoHang;
-                this.item.listItem[i].SoLuong = element.SoLuong;
-                this.item.listItem[i].KgCoin = element.TrongLuong;
+                this.item.listItem[i].TonSoLuong = element.SoLuong;
+                this.item.listItem[i].KhoiLuong = element.TrongLuong;
                 this.item.listItem[i].IdLoHang = element.IdLoHang;
                 isCheck = true;
                 break;

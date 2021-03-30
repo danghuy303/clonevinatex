@@ -62,15 +62,15 @@ export class XuatkhothanhphamComponent implements OnInit {
       width: 'unset'
     },
   ];
+  eAction = 'XUATTHANHPHAM';
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-  isCheckModal: any = false;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, 
     private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0' && this.isCheckModal === false){
+      if(res.id!=='0'){
         this.update(res.id);
       }
     })
@@ -82,7 +82,7 @@ export class XuatkhothanhphamComponent implements OnInit {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/khothanhpham/xuatkhothanhpham/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkhothanhpham/${id}`], { replaceUrl: true })
   }
  
   add() {
@@ -95,12 +95,11 @@ export class XuatkhothanhphamComponent implements OnInit {
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+      this.changeParam(0);
     })
       .catch(er => { console.log(er) })
   }
   update(Id) {
-    this.changeParam(Id);
-this.isCheckModal = true;
     this._service.PhieuXuatThanhPham().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhothanhphammodalComponent, {
         size: 'fullscreen',
@@ -110,6 +109,7 @@ this.isCheckModal = true;
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
+        this.changeParam(0);
       })
         .catch(er => { console.log(er) })
     })
@@ -119,8 +119,8 @@ this.isCheckModal = true;
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
-    // this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.paging.CurrentPage = event.page + 1;
+    this.GetListQuyTrinh();
   }
 
   getListKho() {
@@ -167,10 +167,10 @@ this.isCheckModal = true;
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    //XUATTHANHPHAM
-    // this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    //
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }

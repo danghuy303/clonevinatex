@@ -7,6 +7,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
+import { XuatkhoxomathangmodalComponent } from '../xuatkhoxomathangmodal/xuatkhoxomathangmodal.component';
 
 @Component({
   selector: 'app-xuatkhoxomodal',
@@ -150,52 +151,62 @@ export class XuatkhoxomodalComponent implements OnInit {
   }
   
   GetLuuKho(sFilter) {
-    let data : any = []
+    let listItem : any = []
     if(this.item.listItem !== undefined && this.item.listItem !== null){
-      data = this.item.listItem.filter((e: any) => e.isXoa === false);
+      listItem = this.item.listItem.filter((e: any) => e.isXoa !== true);
     }
     this.services.getLuuKhoKhac(this.item.IddmKho,'', 0 , sFilter).subscribe((res1: any) => {
-      let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
+      let modalRef = this._modal.open(XuatkhoxomathangmodalComponent, {
         backdrop: 'static',
         size:'lg'
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
-      modalRef.componentInstance.listItem = data;
+      modalRef.componentInstance.listItem = listItem;
       modalRef.result.then((data) => {
         if( this.item.listItem !== undefined &&  this.item.listItem.length > 0){
           this.item.listItem.forEach(element => {
             element.isXoa = true;
           });
         }
+        let listdatapush = [];
         
         data.data.forEach(element => {
-          element.Ton = element.SoLuong;
-          element.TrongLuong = element.TrongLuong;
+          let datapush: any = {};
+          datapush.Ton = element.SoLuong;
+          datapush.TrongLuong = element.TrongLuong;
+          datapush.IddmItem = element.IddmItem;
+          datapush.Ten = element.Ten;
+          datapush.IddmViTri = element.IddmViTri;
+          datapush.TendmViTri = element.TendmViTri;
+          var isCheck : any = false
+
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
-            var data = this.item.listItem.filter(
-              function (obj) {
-                return (obj.IddmItem == element.IddmItem);
-              });
-            if (data != undefined && data.length > 0)
-            {
-              element.Id = data[0].Id;
-              element.isXoa = false;
-              element.TrongLuong = data[0].TrongLuong;
-              element.SoLuong = data[0].SoLuong;
+            for(let i =0 ; i < this.item.listItem.length; i++){
+
+              if(this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang)
+              {
+                this.item.listItem[i].isXoa = false;
+                this.item.listItem[i].Ten = element.Ten;
+                this.item.listItem[i].TendmViTri = element.TendmViTri;
+                this.item.listItem[i].TrongLuong = element.TrongLuong;
+                this.item.listItem[i].Ton = element.SoLuong;
+                this.item.listItem[i].IdLoHang = element.IdLoHang;
+                isCheck = true;
+                break;
+              }
             }
-            else{
-              element.SoLuong = 0;
-            }
+            if(isCheck === false)
+            listdatapush.push(datapush);
           }
           else
-            element.SoLuong = 0;
+            listdatapush.push(datapush);
         });
         if(this.item.listItem !== undefined && this.item.listItem !== null){
-          this.item.listItem =this.item.listItem.concat(data.data);
+          this.item.listItem =this.item.listItem.concat(listdatapush);
         }
         else{
-          this.item.listItem = data.data
+          this.item.listItem = listdatapush
         }
       }, (reason) => {
         // không

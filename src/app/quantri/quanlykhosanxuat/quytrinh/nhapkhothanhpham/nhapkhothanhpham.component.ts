@@ -41,7 +41,6 @@ export class NhapkhothanhphamComponent implements OnInit {
       width: 'unset'
     },
   ];
-  isCheckModal: any = false;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
 
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
@@ -50,7 +49,7 @@ export class NhapkhothanhphamComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res:any)=>{
       console.log(res.id)
-      if(res.id!=='0' && this.isCheckModal === false){
+      if(res.id!=='0'){
         this.update(res.id);
       }
       // else
@@ -77,12 +76,12 @@ export class NhapkhothanhphamComponent implements OnInit {
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+      this.changeParam(0);
+
     })
       .catch(er => { console.log(er) })
   }
   update(Id) {
-    this.isCheckModal = true
-    this.changeParam(Id);
     this._service.PhieuNhapThanhPham().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhothanhphammodalComponent, {
         size: 'fullscreen',
@@ -93,6 +92,7 @@ export class NhapkhothanhphamComponent implements OnInit {
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
+        this.changeParam(0);
       })
         .catch(er => { console.log(er) })
     })
