@@ -37,7 +37,9 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
     console.log(this.item);
     this.sort()
     this.initSpeedOption();
-    this.listHangHoa = mapArrayForDropDown(this.item.listCanBoTri, 'Ten', 'Id')
+    this.listHangHoa = mapArrayForDropDown(this.item.listCanBoTri.sort((a,b)=>{
+      return parseInt(a.Ten.split(' ')[0])-parseInt(b.Ten.split(' ')[0]);
+    }), 'Ten', 'Id')
     this.item.listCanBoTri.forEach(mathang => {
       mathang.SoMayDaBoTri = 0;
     });

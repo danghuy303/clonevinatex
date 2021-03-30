@@ -234,7 +234,9 @@ export class ThongkesanluongmodalComponent implements OnInit {
       CurrentPage:0
     }
     this.services.LoHang().GetList(data).subscribe((res: any) => {
-      this.listLoHang = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listLoHang = mapArrayForDropDown(res, 'Ten', 'Id').sort((a,b)=>{
+        return a.label.localeCompare(b.label)
+      });
     })
   }
   addLoHang(){

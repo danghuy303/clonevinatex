@@ -152,7 +152,7 @@ export class ChatluongsoimodalComponent implements OnInit {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.lstSanPham;
-      modalRef.componentInstance.
+      // modalRef.componentInstance.
 
       modalRef.result.then((data) => {
         this.lstSanPham = data.data;

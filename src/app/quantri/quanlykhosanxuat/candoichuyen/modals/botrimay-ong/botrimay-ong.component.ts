@@ -45,7 +45,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       }
     })
     this.listHangHoa = mapArrayForDropDown(listHangHoaJoinNameTemp, 'Ten', 'Id').sort((a,b)=>{
-      return a.label.localeCompare(b.label);
+      return parseInt(a.label.split(' ')[0])-parseInt(b.label.split(' ')[0]);
     })
     this.sort();
     this.initSpeedOption();
