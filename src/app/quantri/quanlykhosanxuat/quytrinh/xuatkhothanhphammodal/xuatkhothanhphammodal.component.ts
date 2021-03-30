@@ -264,7 +264,6 @@ export class XuatkhothanhphammodalComponent implements OnInit {
                 this.item.listItem[i].TonSoLuong = element.SoLuong;
                 this.item.listItem[i].KhoiLuong = element.TrongLuong;
                 this.item.listItem[i].IdLoHang = element.IdLoHang;
-                this.item.listItem[i].HopDong = element.HopDong;
                 isCheck = true;
                 break;
               }
