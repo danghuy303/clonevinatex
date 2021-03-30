@@ -4,14 +4,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix } from 'src/app/services/globalfunction';
-import { KhobongkiemkekhomodalComponent } from '../khobongkiemkekhomodal/khobongkiemkekhomodal.component';
+import { KhobonghoikiemkekhomodalComponent } from '../khobonghoikiemkekhomodal/khobonghoikiemkekhomodal.component';
 
 @Component({
-  selector: 'app-khobongkiemkekho',
-  templateUrl: './khobongkiemkekho.component.html',
-  styleUrls: ['./khobongkiemkekho.component.css']
+  selector: 'app-khobonghoikiemkekho',
+  templateUrl: './khobonghoikiemkekho.component.html',
+  styleUrls: ['./khobonghoikiemkekho.component.css']
 })
-export class KhobongkiemkekhoComponent implements OnInit {
+export class KhobonghoikiemkekhoComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: "PKK_0000_0000" }];
   filter: any = {};
@@ -42,7 +42,7 @@ export class KhobongkiemkekhoComponent implements OnInit {
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";
-  eAction = 'KIEMKEKHOBONG';
+  eAction = 'KIEMKEKHOBONGHOI'
   constructor(
       public _modal: NgbModal,
       public _toastr: ToastrService,
@@ -54,7 +54,7 @@ export class KhobongkiemkekhoComponent implements OnInit {
   ngOnInit(): void {
       console.log(this.activatedRoute);
       this.activatedRoute.params.subscribe((res: any) => {
-          this.title = 'khobong';
+          this.title = 'khobonghoi';
           if (res.id !== "0") {
               this.update(res.id);
           }
@@ -67,13 +67,13 @@ export class KhobongkiemkekhoComponent implements OnInit {
           this._modal.dismissAll();
       }
       this.router.navigate(
-          [`quantri/quanlykhosanxuat/khobong/kiemkekhobong/${id}`],
+          [`quantri/quanlykhosanxuat/khobonghoi/kiemkekhobonghoi/${id}`],
           { replaceUrl: true }
       );
   }
   add() {
       this.changeParam(0);
-      let modalRef = this._modal.open(KhobongkiemkekhomodalComponent, {
+      let modalRef = this._modal.open(KhobonghoikiemkekhomodalComponent, {
           size: "fullscreen",
           backdrop: "static",
       });
@@ -88,10 +88,13 @@ export class KhobongkiemkekhoComponent implements OnInit {
           .catch((er) => {
               this.GetListQuyTrinh();
               console.log(er);
+            this.changeParam(0);
+
           });
   }
   update(Id) {
-      let modalRef = this._modal.open(KhobongkiemkekhomodalComponent, {
+      this.changeParam(Id);
+      let modalRef = this._modal.open(KhobonghoikiemkekhomodalComponent, {
           size: "fullscreen",
           backdrop: "static",
       });
@@ -107,6 +110,8 @@ export class KhobongkiemkekhoComponent implements OnInit {
           .catch((er) => {
               this.GetListQuyTrinh();
               console.log(er);
+      this.changeParam(0);
+
           });
   }
   changeTab(e) {
@@ -132,13 +137,7 @@ export class KhobongkiemkekhoComponent implements OnInit {
           Ma: "",
           Ten: "",
       };
-      if (this.title === "khobong") {
-          data.Loai = 2;
-      } else if (this.title === "khoxo") {
-          data.Loai = 5;
-      } else if (this.title === "khothanhpham") {
-          data.Loai = 11;
-      }
+          data.Loai = 6;
       this._service
           .PhieuKiemKeKho()
           .GetList(data)

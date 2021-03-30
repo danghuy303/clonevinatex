@@ -64,13 +64,13 @@ export class XuatkhothanhphamComponent implements OnInit {
   ];
   eAction = 'XUATTHANHPHAM';
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, 
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService,
     private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
-    this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0'){
+    this.activatedRoute.params.subscribe((res: any) => {
+      if (res.id !== '0') {
         this.update(res.id);
       }
     })
@@ -84,7 +84,7 @@ export class XuatkhothanhphamComponent implements OnInit {
     }
     this.router.navigate([`quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkhothanhpham/${id}`], { replaceUrl: true })
   }
- 
+
   add() {
     this.changeParam(0);
     let modalRef = this._modal.open(XuatkhothanhphammodalComponent, {
@@ -97,7 +97,12 @@ export class XuatkhothanhphamComponent implements OnInit {
       this.GetListQuyTrinh();
       this.changeParam(0);
     })
-      .catch(er => { console.log(er) })
+      .catch(er => {
+        console.log(er)
+        this.GetListQuyTrinh();
+
+        this.changeParam(0);
+      })
   }
   update(Id) {
     this._service.PhieuXuatThanhPham().Get(Id).subscribe((res1: any) => {
@@ -111,7 +116,12 @@ export class XuatkhothanhphamComponent implements OnInit {
         this.GetListQuyTrinh();
         this.changeParam(0);
       })
-        .catch(er => { console.log(er) })
+        .catch(er => {
+          console.log(er)
+          this.GetListQuyTrinh();
+
+          this.changeParam(0);
+        })
     })
   }
   changeTab(e) {
@@ -168,7 +178,7 @@ export class XuatkhothanhphamComponent implements OnInit {
   }
   KiemTraTabTrangThai() {
     //
-    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })

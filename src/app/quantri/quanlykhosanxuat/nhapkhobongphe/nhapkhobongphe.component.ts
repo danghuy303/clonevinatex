@@ -23,7 +23,6 @@ export class NhapkhobongpheComponent implements OnInit {
   title: any = "";
   type: any = "";
   nametype: any = "";
-  isCheckModal : any =false;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, 
     private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
      }
@@ -33,7 +32,7 @@ export class NhapkhobongpheComponent implements OnInit {
     this.activatedRoute.params.subscribe((res:any)=>{
       this.title = res.kho;
       console.log(res.id)
-      if(res.id!=='0' && this.isCheckModal === false){
+      if(res.id!=='0'){
         this.update(res.id);
       }
     })
@@ -65,7 +64,9 @@ export class NhapkhobongpheComponent implements OnInit {
     this.changeParam(0);
 
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er) 
+        this.GetListQuyTrinh();
+        this.changeParam(0);})
   }
  
   update(Id) {
@@ -83,10 +84,10 @@ export class NhapkhobongpheComponent implements OnInit {
     this.changeParam(0);
 
       })
-        .catch(er => { console.log(er) })
-        .finally(()=>{
-          this.isCheckModal = false;
-        })
+        .catch(er => { console.log(er) 
+          this.GetListQuyTrinh();
+          this.changeParam(0);})
+       
     })
   }
   changeTab(e) {

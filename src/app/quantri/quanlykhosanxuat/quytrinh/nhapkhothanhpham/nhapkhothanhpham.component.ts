@@ -79,7 +79,10 @@ export class NhapkhothanhphamComponent implements OnInit {
       this.changeParam(0);
 
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er)
+        this.GetListQuyTrinh();
+        this.changeParam(0);
+       })
   }
   update(Id) {
     this._service.PhieuNhapThanhPham().Get(Id).subscribe((res1: any) => {
@@ -94,7 +97,10 @@ export class NhapkhothanhphamComponent implements OnInit {
         this.GetListQuyTrinh();
         this.changeParam(0);
       })
-        .catch(er => { console.log(er) })
+        .catch(er => { console.log(er)
+          this.GetListQuyTrinh();
+          this.changeParam(0);
+        })
     })
   }
   changeTab(e) {

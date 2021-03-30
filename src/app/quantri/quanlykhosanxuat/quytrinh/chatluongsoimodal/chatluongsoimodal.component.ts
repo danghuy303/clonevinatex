@@ -86,12 +86,14 @@ export class ChatluongsoimodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if (this.item.NgayKiemTra === null && this.item.NgayKiemTra === undefined)
+    if (this.item.NgayKiemTra === null || this.item.NgayKiemTra === undefined)
       this.toastr.error("Bạn chưa chọn  ngày");
-    else if (this.item.TuNgay === null && this.item.TuNgay === undefined)
+    else if (this.item.TuNgay === null || this.item.TuNgay === undefined)
       this.toastr.error("Bạn chưa chọn  ngày");
-    else if (this.item.DenNgay === null && this.item.DenNgay === undefined)
+    else if (this.item.DenNgay === null || this.item.DenNgay === undefined)
       this.toastr.error("Bạn chưa chọn  ngày");
+    else if (this.item.IddmPhanXuong === null || this.item.IddmPhanXuong === undefined)
+      this.toastr.error("Bạn chưa chọn phân xưởng");
     else {
       this.item.NgayKiemTraUnix = (new Date(this.item.NgayKiemTra)).getTime() / 1000;
       this.item.TuNgayUnix = (new Date(this.item.TuNgay)).getTime() / 1000;

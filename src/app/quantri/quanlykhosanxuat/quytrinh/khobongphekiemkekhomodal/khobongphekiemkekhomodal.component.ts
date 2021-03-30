@@ -7,11 +7,11 @@ import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/g
 import { ImportnhapkhothanhphamComponent } from '../nhapkhothanhphammodal/modals/importnhapkhothanhpham/importnhapkhothanhpham.component';
 
 @Component({
-  selector: 'app-khobongkiemkekhomodal',
-  templateUrl: './khobongkiemkekhomodal.component.html',
-  styleUrls: ['./khobongkiemkekhomodal.component.css']
+  selector: 'app-khobongphekiemkekhomodal',
+  templateUrl: './khobongphekiemkekhomodal.component.html',
+  styleUrls: ['./khobongphekiemkekhomodal.component.css']
 })
-export class KhobongkiemkekhomodalComponent implements OnInit {
+export class KhobongphekiemkekhomodalComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   opt: any = "";
   Id: any = "";
@@ -52,8 +52,8 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
 
       var data: any = {};
       data.CurrentPage = 0;
-      data.Loai = 2;
-      this.item_new.Loai = 2;
+          data.Loai = 7;
+          this.item_new.Loai = 7;
       this.services.GetListdmKho(data).subscribe((res: any) => {
           this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
       });

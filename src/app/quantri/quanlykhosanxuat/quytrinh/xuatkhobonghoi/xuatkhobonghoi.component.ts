@@ -47,13 +47,12 @@ export class XuatkhobonghoiComponent implements OnInit {
     },
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-  isCheckmodal: any= false;
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
     private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0' && res.id!==undefined && this.isCheckmodal ===false){
+      if(res.id!=='0'){
         this.update(res.id);
       }
     })
@@ -62,6 +61,9 @@ export class XuatkhobonghoiComponent implements OnInit {
 
   }
   changeParam(id){
+    if(this._modal.hasOpenModals()){
+      this._modal.dismissAll()
+    }
     this.router.navigate([`quantri/quanlykhosanxuat/khobonghoi/xuatkho/${id}`],{replaceUrl: true})
   }
   add(){
@@ -74,12 +76,14 @@ export class XuatkhobonghoiComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
+
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er) 
+        this.GetListQuyTrinh();
+        this.changeParam(0);})
   }
   update(Id){
-    this.isCheckmodal = true;
-    this.changeParam(Id);
     let modalRef = this._modal.open(XuatkhobonghoimodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
@@ -88,11 +92,11 @@ export class XuatkhobonghoiComponent implements OnInit {
     modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
     })
-      .catch(er => { console.log(er) })
-      .finally(()=>{
-        this.isCheckmodal = false;
-      })
+      .catch(er => { console.log(er)
+        this.GetListQuyTrinh();
+        this.changeParam(0); })
   }
   changeTab(e){
     this.trangThai = e.index+1;

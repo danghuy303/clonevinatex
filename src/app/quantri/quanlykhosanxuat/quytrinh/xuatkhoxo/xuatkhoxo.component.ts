@@ -47,13 +47,12 @@ export class XuatkhoxoComponent implements OnInit {
     },
   ];
   eAction = 'PHIEUXUATXO';
-  isCheckModal: any =false;
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0' && this.isCheckModal== false ){
+      if(res.id!=='0'){
         this.update(res.id);
       }
     })
@@ -76,12 +75,13 @@ export class XuatkhoxoComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er)
+        this.GetListQuyTrinh();
+        this.changeParam(0); })
   }
   update(Id){
-    this.isCheckModal = true;
-    this.changeParam(Id);
     let modalRef = this._modal.open(XuatkhoxomodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
@@ -90,8 +90,12 @@ export class XuatkhoxoComponent implements OnInit {
     modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
+
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er)
+        this.GetListQuyTrinh();
+        this.changeParam(0); })
   }
   changeTab(e){
     this.trangThai = e.index+1;

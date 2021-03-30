@@ -664,7 +664,7 @@ export class QuantriComponent implements OnInit {
                     },
                     {
                         label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khoxo/kiemkekho/0',
+                        routerLink: '/quantri/quanlykhosanxuat/khoxo/kiemkekhoxo/0',
                         command: () => this.close()
                     },
                     // {
@@ -694,7 +694,7 @@ export class QuantriComponent implements OnInit {
                     },
                     {
                         label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobonghoi/kiemkekho/0',
+                        routerLink: '/quantri/quanlykhosanxuat/khobonghoi/kiemkekhobonghoi/0',
                         command: () => this.close()
                     },
                     // {
@@ -724,7 +724,7 @@ export class QuantriComponent implements OnInit {
                     },
                     {
                         label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlykhosanxuat/khobongphe/kiemkekho/0',
+                        routerLink: '/quantri/quanlykhosanxuat/khobongphe/kiemkekhobongphe/0',
                         command: () => this.close()
                     },
                 ]

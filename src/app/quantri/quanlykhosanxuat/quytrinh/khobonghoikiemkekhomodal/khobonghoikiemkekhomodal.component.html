@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Kiểm kê kho bông</h5>
+    <h5 class="modal-title">Kiểm kê kho bông hồi</h5>
     <div>Số quy trình: {{item.SoQuyTrinh}}</div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
@@ -99,10 +99,14 @@
                         <td style="text-align: center;">{{item.Ma}}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>
                         <td>
-                            {{item.TonTongTrongLuong|number:'0.0'}}
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TonTongTrongLuong"
+                                disabled>
+                            </p-inputNumber>
                         </td>
                         <td>
-                            {{item.TonSoLuong|number:'0.0'}}
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TonSoLuong"
+                                disabled>
+                            </p-inputNumber>
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.TongTrongLuong">

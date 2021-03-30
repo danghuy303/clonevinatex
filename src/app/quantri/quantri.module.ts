@@ -264,6 +264,12 @@ import { NhapkhohoiammathangmodalComponent } from './quanlykhosanxuat/quytrinh/n
 import { XuatkhoxomathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhoxomathangmodal/xuatkhoxomathangmodal.component';
 import { KhobongkiemkekhoComponent } from './quanlykhosanxuat/quytrinh/khobongkiemkekho/khobongkiemkekho.component';
 import { KhobongkiemkekhomodalComponent } from './quanlykhosanxuat/quytrinh/khobongkiemkekhomodal/khobongkiemkekhomodal.component';
+import { KhoxokiemkeComponent } from './quanlykhosanxuat/quytrinh/khoxokiemke/khoxokiemke.component';
+import { KhoxokiemkemodalComponent } from './quanlykhosanxuat/quytrinh/khoxokiemkemodal/khoxokiemkemodal.component';
+import { KhobonghoikiemkekhoComponent } from './quanlykhosanxuat/quytrinh/khobonghoikiemkekho/khobonghoikiemkekho.component';
+import { KhobonghoikiemkekhomodalComponent } from './quanlykhosanxuat/quytrinh/khobonghoikiemkekhomodal/khobonghoikiemkekhomodal.component';
+import { KhobongphekiemkekhoComponent } from './quanlykhosanxuat/quytrinh/khobongphekiemkekho/khobongphekiemkekho.component';
+import { KhobongphekiemkekhomodalComponent } from './quanlykhosanxuat/quytrinh/khobongphekiemkekhomodal/khobongphekiemkekhomodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -481,6 +487,12 @@ import { KhobongkiemkekhomodalComponent } from './quanlykhosanxuat/quytrinh/khob
     XuatkhoxomathangmodalComponent,
     KhobongkiemkekhoComponent,
     KhobongkiemkekhomodalComponent,
+    KhoxokiemkeComponent,
+    KhoxokiemkemodalComponent,
+    KhobonghoikiemkekhoComponent,
+    KhobonghoikiemkekhomodalComponent,
+    KhobongphekiemkekhoComponent,
+    KhobongphekiemkekhomodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -616,7 +628,10 @@ import { KhobongkiemkekhomodalComponent } from './quanlykhosanxuat/quytrinh/khob
     ChatluongsoimathangmodalComponent,
     NhapkhohoiammathangmodalComponent,
     XuatkhoxomathangmodalComponent,
+    KhoxokiemkemodalComponent,
     KhobongkiemkekhomodalComponent,
+    KhobonghoikiemkekhomodalComponent,
+    KhobongphekiemkekhomodalComponent,
 
   ],
   providers: [
