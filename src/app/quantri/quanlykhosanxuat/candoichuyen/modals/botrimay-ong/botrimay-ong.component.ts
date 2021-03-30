@@ -37,16 +37,19 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   }
 
   ngOnInit(): void {
-    let listHangHoaJoinNameTemp = this.item.listCanBoTri.map(mathang=>{
+    let listHangHoaJoinNameTemp = this.item.listCanBoTri.sort((a,b)=>{
+      return parseInt(a.Ten.split(' ')[0])-parseInt(b.Ten.split(' ')[0]);
+    }).map(mathang=>{
       return {
         // Ten:`${mathang.Ten}${mathang.TenLoHang?(' - '+mathang.TenLoHang):''}`,
         Ten:`${mathang.Ten}${mathang.IdLoHang?(' - Đảo'):''}`,
         Id:mathang.Id
       }
     })
-    this.listHangHoa = mapArrayForDropDown(listHangHoaJoinNameTemp, 'Ten', 'Id').sort((a,b)=>{
-      return parseInt(a.label.split(' ')[0])-parseInt(b.label.split(' ')[0]);
-    })
+    this.listHangHoa = mapArrayForDropDown(listHangHoaJoinNameTemp, 'Ten', 'Id')
+    // .sort((a,b)=>{
+    //   return parseInt(a.label.split(' ')[0])-parseInt(b.label.split(' ')[0]);
+    // })
     this.sort();
     this.initSpeedOption();
     this.mapCa_Id = {};
