@@ -64,12 +64,12 @@ export class ThongkesanluongComponent implements OnInit {
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   listPhanXuong: any = [];
   listCaSanXuat: any = [];
-  isCheckModal: any = false;
+  eAction = 'THONGKESANLUONG'
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0' && this.isCheckModal == false){
+      if(res.id!=='0'){
         this.update(res.id);
       }
     
@@ -105,11 +105,10 @@ export class ThongkesanluongComponent implements OnInit {
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
     })
   }
   update(Id){
-    this.isCheckModal = true;
-    this.changeParam(Id);
     this._service.ThongKeSanLuong().Get(Id).subscribe((res1: any) => {
     let modalRef = this._modal.open(ThongkesanluongmodalComponent, {
       size: 'fullscreen',
@@ -119,6 +118,7 @@ export class ThongkesanluongComponent implements OnInit {
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
     })
       .catch(er => { console.log(er) })
     })
@@ -158,9 +158,9 @@ export class ThongkesanluongComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai(){
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }

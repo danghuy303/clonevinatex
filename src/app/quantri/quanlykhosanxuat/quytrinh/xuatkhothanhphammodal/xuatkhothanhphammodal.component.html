@@ -135,8 +135,9 @@
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" *ngIf="item.KhoiLuong>0&&item.SoLuong>0" locale="vi-VN" [ngModel]="item.KhoiLuong * item.SoLuong" disabled>
-                            </p-inputNumber>
+                            <!-- <p-inputNumber [minFractionDigits]="0" *ngIf="item.KhoiLuong>0&&item.SoLuong>0" locale="vi-VN" [ngModel]="item.KhoiLuong * item.SoLuong" disabled>
+                            </p-inputNumber> -->
+                            {{item.KhoiLuong * item.SoLuong|number:'0.2-2'}}
                         </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DonGia">
@@ -155,6 +156,29 @@
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Hủy" tooltipPosition="bottom"></button>
                         </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td></td>
+                        <td class="text-center" colspan="3">TỔNG</td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'TonSoLuong'|number:'0.0-0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0-0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.2-2'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'DonGia'|number:'0.2-2'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.2-2'}}
+                        </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </ng-template>
             </p-table>

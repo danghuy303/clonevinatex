@@ -75,11 +75,14 @@ export class XuatkhobongpheComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
+
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er) 
+        this.GetListQuyTrinh();
+        this.changeParam(0);})
   }
   update(item){
-    this.changeParam(item.Id);
     let modalRef = this._modal.open(XuatkhobongphemodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
@@ -88,8 +91,11 @@ export class XuatkhobongpheComponent implements OnInit {
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er) 
+        this.GetListQuyTrinh();
+        this.changeParam(0);})
   }
   changeTab(e){
     this.trangThai = e.index+1;

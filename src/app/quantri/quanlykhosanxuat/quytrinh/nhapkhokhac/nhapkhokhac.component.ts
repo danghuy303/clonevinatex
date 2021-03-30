@@ -31,7 +31,6 @@ export class NhapkhokhacComponent implements OnInit {
   title: any = "";
   type: any = "";
   nametype: any = "";
-  isCheckModal: any = false;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, 
     private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
      }
@@ -41,20 +40,15 @@ export class NhapkhokhacComponent implements OnInit {
     this.activatedRoute.params.subscribe((res:any)=>{
       this.title = res.kho;
       console.log(res.id)
-      if(res.id!=='0' && this.isCheckModal === false){
+      if(res.id!=='0'){
         this.update(res.id);
       }
       // else
         this.GetListQuyTrinh();
       //
-      if(this.title === 'khobonghoi'){
         this.type = 'bonghoi';
         this.nametype = 'bông hồi';
-      }
-      else if(this.title === 'khobongphe'){
-        this.type = 'bongphe';
-        this.nametype = 'bông phế';
-      }
+      
     })
     this.KiemTraTabTrangThai();
   }
@@ -63,7 +57,7 @@ export class NhapkhokhacComponent implements OnInit {
     if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuatbongkhac/${this.title}/nhapkho/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/quanlykhosanxuatbongkhac/khobonghoi/nhapkho/${id}`], { replaceUrl: true })
   }
   
   addPhieu() {
@@ -80,16 +74,15 @@ export class NhapkhokhacComponent implements OnInit {
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
+
     })
-      .catch(er => { console.log(er) })
-      .finally(()=>{
-        this.isCheckModal = false;
-      })
+      .catch(er => { console.log(er) 
+        this.GetListQuyTrinh();
+        this.changeParam(0);})
   }
  
   update(Id) {
-    this.isCheckModal = true
-    this.changeParam(Id);
     this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhokhacmodalComponent, {
         size: 'fullscreen',
@@ -101,8 +94,11 @@ export class NhapkhokhacComponent implements OnInit {
       modalRef.componentInstance.nametype = this.nametype;
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
+        this.changeParam(0);
       })
-        .catch(er => { console.log(er) })
+        .catch(er => { console.log(er)
+          this.GetListQuyTrinh();
+          this.changeParam(0); })
     })
   }
   changeTab(e) {

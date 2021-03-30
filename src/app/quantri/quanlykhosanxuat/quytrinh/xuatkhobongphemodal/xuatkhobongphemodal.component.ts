@@ -28,8 +28,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
   listPhuongAnPhaBong: any = [];
   listItem: any = [];
   paging: any = { CurrentPage: 1 };
-  format = '0.0-2';
-
+TongKhoiLuong = 0;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
     public toastr: ToastrService, public _modal: NgbModal, private decimalPipe: DecimalPipe,) { }
@@ -65,6 +64,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
       this.item.listItem = res1.listItem.slice(0, 15);
+      this.TinhTongKhoiLuong();
     })
   }
   KiemTraButtonModal() {
@@ -112,6 +112,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
             this.opt = 'edit';
             this.item = res.objectReturn;
             this.KiemTraButtonModal();
+            this.TinhTongKhoiLuong();
           } else {
             this.toastr.error(res.message);
           }
@@ -208,5 +209,10 @@ export class XuatkhobongphemodalComponent implements OnInit {
   }
   Onclose() {
     this.activeModal.close();
+  }
+  TinhTongKhoiLuong() {
+    for(let i = 0 ; i < this.item.listItem.length; i ++){
+      this.TongKhoiLuong += (this.item.listItem[i].TonTrongLuong * this.item.listItem[i].SoLuong) || 0;
+    }
   }
 }

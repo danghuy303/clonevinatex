@@ -108,23 +108,19 @@
                     <tr>
                         <td style="text-align: center;">{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>
-                        <td>
-                            <!-- <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TrongLuong" disabled>
-                            </p-inputNumber> -->
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TonSoLuong" disabled>
-                            </p-inputNumber>
+                        <td style="text-align: right;">
+                            {{item.TonSoLuong|number:'0.0'}}
+                        </td>
+                        <td style="text-align: right;">
+                            {{item.TonTrongLuong|number:'0.2'}}
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TonTrongLuong" disabled>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong"
+                            (onBlur)="TinhTongKhoiLuong()">
                             </p-inputNumber>
                         </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TonTrongLuong * item.SoLuong" disabled>
-                            </p-inputNumber>
+                        <td style="text-align: right;">
+                            {{(item.TonTrongLuong * item.SoLuong)|number:'0.2'}}
                         </td>
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
@@ -143,7 +139,7 @@
                             {{item.listItem|SumByKey:'SoLuong'|number:'0.0'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'(TonTrongLuong *SoLuong)'|number:'0.2'}}
+                            {{TongKhoiLuong|number:'0.0'}}
                         </td>
                         <td></td>
                     </tr>
