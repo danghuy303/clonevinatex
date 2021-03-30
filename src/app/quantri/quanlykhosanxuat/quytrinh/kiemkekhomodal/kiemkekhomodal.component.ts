@@ -245,6 +245,7 @@ export class KiemkekhomodalComponent implements OnInit {
     }
     add() {
         if (validVariable(this.newItem.IddmItem)) {
+            debugger
             this.listItem.push(deepCopy(this.newItem));
             this.newItem = {};
             console.log(this.paging);

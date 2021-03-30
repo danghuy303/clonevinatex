@@ -62,13 +62,13 @@ export class NhapkhobongpheComponent implements OnInit {
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
+
     })
       .catch(er => { console.log(er) })
   }
  
   update(Id) {
-    this.isCheckModal = true;
-    this.changeParam(Id);
     this._service.QuyTrinhPhieuBongPhe().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhobongphemodalComponent, {
         size: 'fullscreen',
@@ -80,6 +80,8 @@ export class NhapkhobongpheComponent implements OnInit {
       modalRef.componentInstance.nametype = this.nametype;
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
+    this.changeParam(0);
+
       })
         .catch(er => { console.log(er) })
         .finally(()=>{
@@ -120,9 +122,9 @@ export class NhapkhobongpheComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }
