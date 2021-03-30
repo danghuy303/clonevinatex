@@ -1,11 +1,11 @@
 import { HttpHeaders } from '@angular/common/http';
 // const host1 = 'http://eos.harmonyes.com.vn:2269';
-const host1 = 'http://103.130.212.45:2269';//cong test
+// const host1 = 'http://103.130.212.45:2269';//cong test
 // const host1 = 'http://103.130.212.45:2368';//Tong Cong Ty Det May Nam Dinh
 // const host1 = 'http://hoaxa.vinatex.harmonyes.com.vn:2368';//Tong Cong Ty Det May Nam Dinh moi
 // const host1 = 'http://hoaxa.vinatex.harmonyes.com.vn';//Tong Cong Ty Det May Nam Dinh moi
 
-// const host1 = 'http://vinatex.harmonyes.com.vn'; //Nha. May Soi Dong Van Hanosimex
+const host1 = 'http://vinatex.harmonyes.com.vn'; //Nha. May Soi Dong Van Hanosimex
 // const host = 'http://vinatex.harmonyes.com.vn';
 // host public 'http://vinatex.harmonyes.com.vn';
 //host phat trien 'http://eos.harmonyes.com.vn:1169';
