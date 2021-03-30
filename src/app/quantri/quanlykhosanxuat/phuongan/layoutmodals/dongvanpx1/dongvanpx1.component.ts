@@ -35,7 +35,7 @@ export class Dongvanpx1Component implements OnInit {
     this.length = this.item.listLoBong.reduce((total, ele) => {
       return total + ele.SoLuong
     }, 0)
-    for (let i = 1; i <= (this.length + this.SoViTriNgoaiQuan); i++) {
+    for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -51,15 +51,15 @@ export class Dongvanpx1Component implements OnInit {
       if (2 < i && i <= 16) {
         this.block2.push(`${i}`)
       }
-      if (16 < i && i <= (this.length + this.SoViTriNgoaiQuan - 2)) {
+      if (16 < i && i <= (this.length + this.item.SoViTriNgoaiQuan - 2)) {
         this.block3.push(`${i}`)
       }
-      if ((this.length + this.SoViTriNgoaiQuan - 2) < i && i <= (this.length + this.SoViTriNgoaiQuan) && (this.length + this.SoViTriNgoaiQuan >= 18)) {
+      if ((this.length + this.item.SoViTriNgoaiQuan - 2) < i && i <= (this.length + this.item.SoViTriNgoaiQuan) && (this.length + this.item.SoViTriNgoaiQuan >= 18)) {
         this.block4.push(`${i}`)
       }
     };
     if (validVariable(this.item.Id)) {
-      for (let i = 1; i <= (this.length + this.SoViTriNgoaiQuan); i++) {
+      for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
         let data = this.item.listItem.find(ele => ele.ThuTu === i);
         this.banBong[`${i}`] = {
           _focus: false,
@@ -81,12 +81,13 @@ export class Dongvanpx1Component implements OnInit {
     this.block2 = [];
     this.block3 = [];
     this.block4 = [];
-    this.ngoaiQuan = this.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
+    console.log(this.item.ViTriNgoaiQuan)
+    this.ngoaiQuan = this.item.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
     console.log(this.ngoaiQuan)
     this.length = this.item.listLoBong.reduce((total, ele) => {
       return total + ele.SoLuong
     }, 0)
-    for (let i = 1; i <= (this.length + this.SoViTriNgoaiQuan); i++) {
+    for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -102,17 +103,17 @@ export class Dongvanpx1Component implements OnInit {
       if (2 < i && i <= 16) {
         this.block2.push(`${i}`)
       }
-      if (16 < i && i <= (this.length + this.SoViTriNgoaiQuan - 2)) {
+      if (16 < i && i <= (this.length + this.item.SoViTriNgoaiQuan - 2)) {
         this.block3.push(`${i}`)
       }
-      if ((this.length + this.SoViTriNgoaiQuan - 2) < i && i <= (this.length + this.SoViTriNgoaiQuan)) {
+      if ((this.length + this.item.SoViTriNgoaiQuan - 2) < i && i <= (this.length + this.item.SoViTriNgoaiQuan)) {
         this.block4.push(`${i}`)
       }
     };
   }
   changeNgoaiQuanBong() {
-    if (validVariable(this.ViTriNgoaiQuan) && this.ViTriNgoaiQuan.trim() !== '') {
-      this.ngoaiQuan = this.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
+    if (validVariable(this.item.ViTriNgoaiQuan) && this.item.ViTriNgoaiQuan.trim() !== '') {
+      this.ngoaiQuan = this.item.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
       this.ngoaiQuan.forEach(vitri => {
         this.banBong[`${vitri}`]._ngoaiQuan = true;
         if (!validVariable(this.banBong[`${vitri}`].IdLoBong)) {
@@ -190,7 +191,7 @@ export class Dongvanpx1Component implements OnInit {
   }
   getNextFocus() {
     for (let prop in this.banBong) {
-      if (!this.banBong[prop]._focus && !validVariable(this.banBong[prop].labelLoBong) && parseInt(prop) <= (this.length + this.SoViTriNgoaiQuan)) {
+      if (!this.banBong[prop]._focus && !validVariable(this.banBong[prop].labelLoBong) && parseInt(prop) <= (this.length + this.item.SoViTriNgoaiQuan)) {
         this.focusedSlot = parseInt(prop);
         this.banBong[prop]._focus = true;
         break;
@@ -233,11 +234,16 @@ export class Dongvanpx1Component implements OnInit {
       }
       this.item.listItem.push(item)
     }
+    this.item.ViTriNgoaiQuan = this.item.ViTriNgoaiQuan;
     return this.item
   }
   GhiLai() {
-    this._services.XepBanBong().Set(this.SetData()).subscribe(res => {
-      console.log(res);
+    this._services.XepBanBong().Set(this.SetData()).subscribe((res:any) => {
+      if(res?.State===1){
+        this._toastr.success(res.message)
+      }else{
+        this._toastr.error(res.message)
+      }
     })
   }
 }

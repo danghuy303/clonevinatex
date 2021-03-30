@@ -23,9 +23,6 @@ export class Dongvanpx2Component implements OnInit {
   poolLoBong: any = [];
   banBong: any = {};
   ngoaiQuan: any = [];
-  // SoViTriNgoaiQuan: number = 0;
-  ViTriNgoaiQuan: any = '';
-  // 18, 24, 30, 33, 36, 42, 47
   listBongNgoaiQuan: any = [];
   focusedSlot: any = null;
   length: number = 0;
@@ -90,7 +87,7 @@ export class Dongvanpx2Component implements OnInit {
     this.block3 = [];
     this.block4 = [];
     this.block5 = [];
-    this.ngoaiQuan = this.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
+    this.ngoaiQuan = this.item.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
     // console.log(this.ngoaiQuan)
     this.length = this.item.listLoBong.reduce((total, ele) => {
       return total + ele.SoLuong
@@ -124,8 +121,8 @@ export class Dongvanpx2Component implements OnInit {
   }
   changeNgoaiQuanBong() {
     // this.veLayout();
-    if (validVariable(this.ViTriNgoaiQuan)&& this.ViTriNgoaiQuan.trim()!=='') {
-      console.log(this.ViTriNgoaiQuan);
+    if (validVariable(this.item.ViTriNgoaiQuan)&& this.item.ViTriNgoaiQuan.trim()!=='') {
+      console.log(this.item.ViTriNgoaiQuan);
     for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
       if(this.banBong[`${i}`]._ngoaiQuan){
         this.banBong[`${i}`]._ngoaiQuan = false;
@@ -134,7 +131,7 @@ export class Dongvanpx2Component implements OnInit {
         }
       }
     }
-      this.ngoaiQuan = this.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
+      this.ngoaiQuan = this.item.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
       this.ngoaiQuan.forEach(vitri => {
         this.banBong[`${vitri}`]._ngoaiQuan = true;
         if (!validVariable(this.banBong[`${vitri}`].IdLoBong)) {
@@ -243,8 +240,12 @@ export class Dongvanpx2Component implements OnInit {
     return this.item
   }
   GhiLai() {
-    this._services.XepBanBong().Set(this.SetData()).subscribe(res=>{
-      console.log(res); 
+    this._services.XepBanBong().Set(this.SetData()).subscribe((res:any)=>{
+      if(res?.State===1){
+        this._toastr.success(res.message)
+      }else{
+        this._toastr.error(res.message)
+      }
     })
   }
 }

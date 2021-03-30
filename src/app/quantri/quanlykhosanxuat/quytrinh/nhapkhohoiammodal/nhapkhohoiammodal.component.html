@@ -123,7 +123,7 @@
                         <td class="text-center">{{item.TenLoHang}}</td>
                         <td class="text-center">
                             <p-dropdown [filter]="true" [options]="listKgCone" placeholder="Chọn Kg/cone" 
-                                [(ngModel)]="item.KgCone"
+                                [(ngModel)]="item.KgCone" (onChange)="tinhKLTT(item)"
                                 styleClass="p-inputtext-sm"></p-dropdown>
                             <!-- <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KgCone" disabled>
                             </p-inputNumber> -->
@@ -138,15 +138,16 @@
                         </td> -->
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe"
-                            (onBlur)="tinhKLTT(item)" [tabindex]="i+1">
+                            (onBlur)="tinhKLTT(item)">
                             </p-inputNumber>
                         </td>
                         <!-- <td class="text-right">
                             {{item.LuyKeSoQua}}
                         </td> -->
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KLTT">
-                            </p-inputNumber>
+                        <td class="text-right">
+                            {{item.KLTT|number:'0.2-2'}}
+                            <!-- <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KLTT">
+                            </p-inputNumber> -->
                         </td>
                         <!-- <td class="text-right">
                             {{item.LuyKeKhoiLuong}}
@@ -158,7 +159,7 @@
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
+                                tooltipPosition="bottom" tabindex="-1"></button>
                         </td>
                     </tr>
                 </ng-template>

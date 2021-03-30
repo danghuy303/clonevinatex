@@ -47,7 +47,7 @@ export class NhucauxuathangComponent implements OnInit {
         },
         ticks: {
           beginAtZero: true,
-          callback: function (label, index, labels) {
+          callback: function (label) {
             return formatNumber(label, 'vi-VN', '0.0-0');
           }
         }
@@ -55,6 +55,13 @@ export class NhucauxuathangComponent implements OnInit {
     },
     legend: {
       position: 'bottom'
+    },
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          return `${formatNumber(tooltipItem.yLabel, 'vi-VN','0.0-2')} tấn`
+        }
+      }
     },
     maintainAspectRatio: window.innerWidth <= 768 ? false : true,
     aspectRatio: (((window.innerWidth - 80) * 2 / 3) / ((window.innerHeight - (225 + 32.5)) / 2))

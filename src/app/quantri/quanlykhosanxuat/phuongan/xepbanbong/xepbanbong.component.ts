@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { deepCopy, DateToUnix } from 'src/app/services/globalfunction';
+import { deepCopy, DateToUnix, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { Dongvanpx1Component } from '../layoutmodals/dongvanpx1/dongvanpx1.component';
 import { Dongvanpx2Component } from '../layoutmodals/dongvanpx2/dongvanpx2.component';
@@ -69,6 +69,9 @@ export class XepbanbongComponent implements OnInit {
   update(item) {
     let component = this.defineComponent[`${this._store.getCurrent()}`][item.IddmPhanXuong.split('-').join('_')];
     item.PhuongAnPhaBong = undefined;
+    if(!validVariable(item.ViTriNgoaiQuan)){
+      item.ViTriNgoaiQuan = ''
+    }
     let modalRef = this._modal.open(component, {
       size: 'fullscreen-100',
       backdrop: 'static',
@@ -76,6 +79,8 @@ export class XepbanbongComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = deepCopy(item);
+    modalRef.componentInstance.SoViTriNgoaiQuan = item.SoViTriNgoaiQuan;
+    modalRef.componentInstance.ViTriNgoaiQuan = item.ViTriNgoaiQuan;
     // modalRef.componentInstance.ghostItem = deepCopy(item);
     modalRef.result.then((res: any) => {
       this._toastr.success('Cập nhật thành công');
@@ -101,7 +106,7 @@ export class XepbanbongComponent implements OnInit {
       this.paginator.changePage(0);
     }
     let data = {
-      PageSize: 25,
+      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter: this.filter.KeyWord,
