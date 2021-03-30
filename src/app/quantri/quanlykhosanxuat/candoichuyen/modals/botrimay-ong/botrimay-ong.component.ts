@@ -44,7 +44,9 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
         Id:mathang.Id
       }
     })
-    this.listHangHoa = mapArrayForDropDown(listHangHoaJoinNameTemp, 'Ten', 'Id')
+    this.listHangHoa = mapArrayForDropDown(listHangHoaJoinNameTemp, 'Ten', 'Id').sort((a,b)=>{
+      return a.label.localeCompare(b.label);
+    })
     this.sort();
     this.initSpeedOption();
     this.mapCa_Id = {};
