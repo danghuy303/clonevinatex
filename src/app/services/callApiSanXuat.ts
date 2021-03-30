@@ -502,7 +502,11 @@ export class SanXuatService {
             },
             GetListdmLoaiBong_CoCauTonBong_DashBoard:(IddmKho)=>{
                 return this.http.get(`${API.SCMDanhMuc}GetListdmLoaiBong_CoCauTonBong_DashBoard?IddmKho=${IddmKho}`, httpOptions)
+            },
+            GetListdmItemTheoKhoThanhPhamHoiAm_DashboardNhuCauXuatHang:(data)=>{
+                return this.http.post(`${API.SCMDanhMuc}GetListdmItemTheoKhoThanhPhamHoiAm_DashboardNhuCauXuatHang`,data,httpOptions);
             }
+            // DanhMuc/GetListdmItemTheoKhoThanhPhamHoiAm_DashboardNhuCauXuatHang
         }
     }
 
@@ -1054,8 +1058,8 @@ export class SanXuatService {
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetQuyTrinhKiemTraChatLuong', data, httpOptions);
             },
-            Delete: (data) => {
-                return this.http.post(url + 'DeleteQuyTrinhKiemTraChatLuong', data, httpOptions);
+            Delete: (Id) => {
+                return this.http.get(url + 'DeleteQuyTrinhKiemTraChatLuong?Id='+Id, httpOptions);
             },
             ChuyenTiep: (data) => {
                 data.IdDuAn = this.store.getCurrent();
