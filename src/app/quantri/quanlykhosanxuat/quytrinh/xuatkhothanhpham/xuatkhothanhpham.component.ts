@@ -38,7 +38,7 @@ export class XuatkhothanhphamComponent implements OnInit {
     },
     {
       header: 'Tổng số kiện',
-      field: 'TongSoKien',
+      field: 'TongSoLuong',
       width: 'unset'
     },
     {
