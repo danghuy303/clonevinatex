@@ -88,8 +88,8 @@ export class SanluongComponent implements OnInit {
       callbacks: {
         label: function (tooltipItem, data) {
           console.log(tooltipItem,data);
-          if(tooltipItem.datasetIndex ===0){
-            return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg - ${formatNumber(Math.ceil(tooltipItem.yLabel/data.datasets[1].data[tooltipItem.index]*10000)/100,'vi-VN')}%`
+          if(tooltipItem.datasetIndex ===1){
+            return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg - ${formatNumber(Math.ceil(tooltipItem.yLabel/data.datasets[0].data[tooltipItem.index]*10000)/100,'vi-VN')}%`
           }else{
             return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg`
           }
@@ -150,19 +150,19 @@ export class SanluongComponent implements OnInit {
             datasets: [
               {
                 type: 'line',
-                label: 'Thực tế',
-                borderColor: '#FF671F',
-                // borderWidth: 2,
-                fill: false,
-                data: res.map(ele => Math.round(ele.ThucTe))
-              },
-              {
-                type: 'line',
                 label: 'Kế hoạch',
                 borderColor: '#009900',
                 // borderWidth: 2,
                 fill: false,
                 data: res.map(ele => Math.round(ele.KeHoach))
+              },
+              {
+                type: 'line',
+                label: 'Thực tế',
+                borderColor: '#FF671F',
+                // borderWidth: 2,
+                fill: false,
+                data: res.map(ele => Math.round(ele.ThucTe))
               },
               {
                 type: 'bar',
@@ -196,16 +196,16 @@ export class SanluongComponent implements OnInit {
           datasets: [
             {
               type: 'bar',
-              label: 'Sản lượng thực tế',
-              backgroundColor: '#3c5cbb',
-              data: res.map(ele => Math.round(ele.ThucTe)),
+              label: 'Sản lượng tiêu chuẩn',
+              backgroundColor: '#009900',
+              data: res.map(ele => Math.round(ele.KeHoach)),
               borderColor: 'white',
             },
             {
               type: 'bar',
-              label: 'Sản lượng tiêu chuẩn',
-              backgroundColor: '#009900',
-              data: res.map(ele => Math.round(ele.KeHoach)),
+              label: 'Sản lượng thực tế',
+              backgroundColor: '#3c5cbb',
+              data: res.map(ele => Math.round(ele.ThucTe)),
               borderColor: 'white',
             },
           ]
