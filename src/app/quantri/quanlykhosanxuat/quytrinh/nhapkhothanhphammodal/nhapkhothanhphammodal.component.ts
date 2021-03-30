@@ -161,28 +161,28 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       Ngay: new Date(this.item.Ngay).getTime() / 1000,
       IddmKho: this.item.IddmKhoHoiAm,
     }
-    // var cols: any = [
-    //   {
-    //     header: 'Tên',
-    //     field: 'Ten',
-    //     width: 'unset'
-    //   },
-    //   {
-    //     header: 'Tên lô',
-    //     field: 'TenLoHang',
-    //     width: 'unset'
-    //   },
-    //   {
-    //     header: 'Số kiện',
-    //     field: 'SoLuong',
-    //     width: 'unset'
-    //   },
-    //   {
-    //     header: 'Khối lượng/ Kiện (kg)',
-    //     field: 'TrongLuong',
-    //     width: 'unset'
-    //   },
-    // ];
+    var cols: any = [
+      {
+        header: 'Tên',
+        field: 'Ten',
+        width: 'unset'
+      },
+      {
+        header: 'Tên lô',
+        field: 'TenLoHang',
+        width: 'unset'
+      },
+      {
+        header: 'Số quả',
+        field: 'SoLuong',
+        width: 'unset'
+      },
+      {
+        header: 'Khối lượng/ quả (kg)',
+        field: 'TrongLuong',
+        width: 'unset'
+      },
+    ];
     this._services.GetlistdmMatHangThanhPham(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'lg',
@@ -194,28 +194,49 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       //     element.TrongLuong = this.decimalPipe.transform(element.TrongLuong, this.format, 'vi-VN');
       //   });
       // }
-
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
-      // modalRef.componentInstance.cols = cols;
+      modalRef.componentInstance.cols = cols;
       modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.result.then((data) => {
-        
+        let listItem = deepCopy(this.item.listItem);
         this.item.listItem = data.data;
         this.item.listItem.forEach(element => {
-          // element.SoLuong = element.SoLuong.replaceAll('.', '')
-          // element.TrongLuong = element.TrongLuong.replaceAll('.', '')
-          // element.TrongLuong = element.TrongLuong.replaceAll(',', '.')
-//
-          element.Id = "";
-          element.SoQuaSoiHoiAm = element.SoLuong;
-          element.SoQuaSoiThanhPham = element.SoLuong;
-          element.KgCone = element.TrongLuong;
-          element.IddmKho = this.item.IddmKhoThanhPham;
+          let isCheck: any = false;
+          if(listItem !== undefined && listItem.length > 0){
+            for(let i = 0; i< listItem.length;i++){
+              if(listItem[i].IddmItem === element.IddmItem && listItem[i].IdLoHang === element.IdLoHang)
+                isCheck = true;
+                debugger
+                element.SoQuaSoiHoiAm = listItem[i].SoQuaSoiHoiAm;
+                element.SoQuaSoiThanhPham = listItem[i].SoQuaSoiHoiAm;
+                element.KgCone = listItem[i].KgCone;
+                element.IddmKho = this.item.IddmKhoThanhPham;
+                element.SoKhoang = listItem[i].SoKhoang;
+                element.GhiChu = listItem[i].GhiChu;
+                element.SoKien = listItem[i].SoKien;
+                element.Id = "";
+                element.TongKhoiLuong = element.KgCone * element.SoQuaSoiThanhPham;
+                break;
+            }
+          }
+          if(isCheck === false)
+          {
+            element.SoQuaSoiHoiAm = element.SoLuong;
+            element.SoQuaSoiThanhPham = element.SoLuong;
+            element.KgCone = element.TrongLuong;
+            element.IddmKho = this.item.IddmKhoThanhPham;
+            element.Id = "";
+            element.TongKhoiLuong = element.KgCone * element.SoQuaSoiThanhPham;
+          }
         });
+        
       }, (reason) => {
         // không
       });
     })
+  }
+  TongKhoiLuong(item){
+    item.TongKhoiLuong = (item.SoQuaSoiThanhPham||0) * (item.KgCone||0);
   }
 }

@@ -110,8 +110,9 @@
                     </tr>
                     <tr>
                         <th>Số lượng trong kho</th>
-                        <th>Kg</th>
                         <th>Kiện</th>
+                        <th>Tổng khối lượng (kg)</th>
+
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -126,15 +127,15 @@
                             <input pInputText type="text" [(ngModel)]="item.HopDong">
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong" disabled>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TonSoLuong" disabled>
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.KgCoin">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.KhoiLuong * item.SoLuong" disabled>
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
@@ -142,8 +143,8 @@
                             </p-inputNumber>
                         </td>
                         <td class="text-center" >
-                            <p-inputNumber *ngIf="item.DonGia > 0 && item.KgCoin > 0"
-                                [minFractionDigits]="0" locale="vi-VN" [ngModel]="(item.DonGia * item.KgCoin)" disabled>
+                            <p-inputNumber *ngIf="item.DonGia > 0 && item.SoLuong > 0"
+                                [minFractionDigits]="0" locale="vi-VN" [ngModel]="(item.DonGia * item.SoLuong)" disabled>
                             </p-inputNumber>
                         </td>
                         <td>
