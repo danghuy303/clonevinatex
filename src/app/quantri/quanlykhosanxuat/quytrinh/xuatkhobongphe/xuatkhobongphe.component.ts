@@ -45,6 +45,7 @@ export class XuatkhobongpheComponent implements OnInit {
       width: 'unset'
     },
   ];
+  eAction = 'PHIEUXUATBONGPHE'
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
     private activatedRoute: ActivatedRoute,private router:Router) { }
@@ -56,8 +57,6 @@ export class XuatkhobongpheComponent implements OnInit {
       }
     })
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh()
-
   }
   changeParam(id){
     if(this._modal.hasOpenModals()){
@@ -131,10 +130,10 @@ export class XuatkhobongpheComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai(){
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
   
 }

@@ -231,7 +231,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
   getListLoHang() {
     var data={
-      CurrentPage:0
+      CurrentPage:0,
+      IddmPhanXuong: this.item.IddmPhanXuong,
     }
     this.services.LoHang().GetList(data).subscribe((res: any) => {
       this.listLoHang = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -283,5 +284,9 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.listItem.forEach(abc => {
         abc.IdLoHang = cloneId;
     });
+  }
+  ThayDoiPhanXuong(){
+    this.getListLoHang();
+    this.getMatHangThongKeSanLuong();
   }
 }

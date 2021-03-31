@@ -28,7 +28,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
   listPhuongAnPhaBong: any = [];
   listItem: any = [];
   paging: any = { CurrentPage: 1 };
-TongKhoiLuong = 0;
+  TongKhoiLuong = 0;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
     public toastr: ToastrService, public _modal: NgbModal, private decimalPipe: DecimalPipe,) { }
@@ -167,25 +167,24 @@ TongKhoiLuong = 0;
           console.log(element)
           element.TonSoLuong = element.SoLuong
           element.TonTrongLuong = element.TrongLuong
-          
+
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
             var data = this.item.listItem.filter(
               function (obj) {
                 return obj.IddmItem == element.IddmItem;
               });
-            if (data != undefined && data.length > 0)
-            {
+            if (data != undefined && data.length > 0) {
               element.Id = data[0].Id;
               element.isXoa = false;
               element.TrongLuong = data[0].TrongLuong;
               element.SoLuong = data[0].SoLuong;
             }
-            else{
+            else {
               element.TrongLuong = 0;
               element.SoLuong = 0;
             }
           }
-          else{
+          else {
             element.TrongLuong = 0;
             element.SoLuong = 0;
           }
@@ -212,7 +211,7 @@ TongKhoiLuong = 0;
   }
   TinhTongKhoiLuong() {
     this.TongKhoiLuong = 0;
-    for(let i = 0 ; i < this.item.listItem.length; i ++){
+    for (let i = 0; i < this.item.listItem.length; i++) {
       this.TongKhoiLuong += (this.item.listItem[i].TonTrongLuong * this.item.listItem[i].SoLuong) || 0;
     }
   }
