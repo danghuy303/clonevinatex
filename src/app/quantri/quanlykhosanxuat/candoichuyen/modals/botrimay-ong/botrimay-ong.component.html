@@ -158,7 +158,7 @@
                         <ng-template pTemplate="body" let-item let-i="rowIndex">
                             <tr >
                                 <td [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" >{{i+1}}</td>
-                                <td [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" >{{item.Ten}}</td>
+                                <td [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" >{{item.Ten}} <a *ngIf="item.IdLoHang!==null" href="javascript:void(0)" style="color: red;" (click)="boMatHangDao(item)"><i class="fas fa-times-circle"></i></a></td>
                                 <!-- <td></td> -->
                                 <td  [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" class="text-right">{{item.SoMayCon|number:'0.0-2'}}</td>
                                 <td  [ngStyle]="{'background-color': item.IdLoHang!==null?'#f79797':''}" class="text-right">{{item.SoCocOng}}</td>

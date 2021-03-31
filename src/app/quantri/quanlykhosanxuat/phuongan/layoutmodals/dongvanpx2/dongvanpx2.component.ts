@@ -74,7 +74,7 @@ export class Dongvanpx2Component implements OnInit {
         }
       }
       this.item.listLoBong.forEach(lobong => {
-        lobong.DaXep = this.item.listItem.filter(banbong=>banbong.IdLoBong === lobong.IdLoBong)?.length||0;
+        lobong.DaXep = this.item.listItem.filter(banbong=> banbong.IdLoBong === lobong.IdLoBong && banbong.TenLoBong !== "Ngoại quan bông")?.length||0;
       });
     }
     

@@ -1,5 +1,6 @@
 import { formatNumber } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
@@ -33,7 +34,7 @@ export class NhucauxuathangComponent implements OnInit {
   listMay: any = [];
   listLoaiBong: any = [];
   listCaLamViec: any = [];
-  listXuatNhap:any=[];
+  listXuatNhap: any = [];
   dataPie: any = {};
   IdDuAn: any;
   SelectItem: any = {};
@@ -42,6 +43,11 @@ export class NhucauxuathangComponent implements OnInit {
   mapXuatNhap = {
     Xuat: 'Xuất',
     Nhap: 'Nhập'
+  }
+  mapXuatNhapRoute={
+    Xuat:'/quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkhothanhpham/',
+    Nhap:'/quantri/quanlysanxuatkhothanhpham/khothanhpham/nhapkho/',
+    KiemKe:'/quantri/quanlykhosanxuat/khothanhpham/kiemkekho/'
   }
   option1: any = {
     scales: {
@@ -107,7 +113,7 @@ export class NhucauxuathangComponent implements OnInit {
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
-  constructor(private _services: SanXuatService, private store: StoreService, public toastr: ToastrService) {
+  constructor(private _services: SanXuatService, private store: StoreService, public toastr: ToastrService, private _router:Router) {
     this.IdDuAn = this.store.getCurrent();
   }
 
@@ -275,18 +281,25 @@ export class NhucauxuathangComponent implements OnInit {
       DenNgay = null;
     }
     if (validVariable(TuNgay) && validVariable(DenNgay) && TuNgay <= DenNgay) {
-      this._services.DashBoard()[`GetDashBoard_Phieu${opt}Kho`](TuNgay,DenNgay,item.IddmItem).subscribe(res => {
+      this._services.DashBoard()[`GetDashBoard_Phieu${opt}Kho`](TuNgay, DenNgay, item.IddmItem, item.IdLoHang).subscribe(res => {
         this.listXuatNhap = res;
         this.showXuatNhap = true;
         this.selectedXuatNhap = {
-          Ten: `${this.mapXuatNhap[opt]} - ${item.TendmItem}`,
-          opt:opt,
-          field:`SoPhieu${opt}`,
+          Ten: `${this.mapXuatNhap[opt]} - ${item.TendmItem} - ${item.TenLoHang}`,
+          opt: opt,
+          field: `SoPhieu${opt}`,
           TenOpt: this.mapXuatNhap[opt],
         }
       })
     }
-    
 
+  }
+  navigateXuatNhap(item) {
+    window.open(`#${this.mapXuatNhapRoute[this.selectedXuatNhap.opt]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`]||0}`, "_blank");
+    // this._router.navigate([`${this.mapXuatNhapRoute[this.selectedXuatNhap.opt]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`]||0}`])
+  }
+  navigateKiemKe(item){
+    window.open(`#${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKe||0}`, "_blank");
+    // this._router.navigate([`${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKeKho||0}`])
   }
 }
