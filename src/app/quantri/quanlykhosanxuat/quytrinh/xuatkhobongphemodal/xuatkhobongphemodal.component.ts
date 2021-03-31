@@ -5,8 +5,8 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 import { DecimalPipe } from '@angular/common';
+import { BongphemathangmodalComponent } from '../bongphemathangmodal/bongphemathangmodal.component';
 
 @Component({
   selector: 'app-xuatkhobongphemodal',
@@ -148,7 +148,7 @@ TongKhoiLuong = 0;
   GetLuuKho(sFilter) {
     console.log(this.item)
     this.services.getLuuKhoKhac(this.item.IddmKho, '', 0, sFilter).subscribe((res1: any) => {
-      let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
+      let modalRef = this._modal.open(BongphemathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'
       })
@@ -211,6 +211,7 @@ TongKhoiLuong = 0;
     this.activeModal.close();
   }
   TinhTongKhoiLuong() {
+    this.TongKhoiLuong = 0;
     for(let i = 0 ; i < this.item.listItem.length; i ++){
       this.TongKhoiLuong += (this.item.listItem[i].TonTrongLuong * this.item.listItem[i].SoLuong) || 0;
     }

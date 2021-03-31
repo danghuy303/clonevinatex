@@ -50,12 +50,12 @@ export class KiemkekhoComponent implements OnInit {
         private _service: SanXuatService,
         private activatedRoute: ActivatedRoute,
         private router: Router
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         console.log(this.activatedRoute);
         this.activatedRoute.params.subscribe((res: any) => {
-            this.title = res.kho;
+            this.title = 'khothanhpham';
             if (res.id !== "0") {
                 this.update(res.id);
             }
@@ -68,7 +68,7 @@ export class KiemkekhoComponent implements OnInit {
             this._modal.dismissAll();
         }
         this.router.navigate(
-            [`quantri/quanlykhosanxuat/${this.title}/kiemkekho/${id}`],
+            [`quantri/quanlykhosanxuat/khothanhpham/kiemkekho/${id}`],
             { replaceUrl: true }
         );
     }
@@ -81,18 +81,19 @@ export class KiemkekhoComponent implements OnInit {
         modalRef.componentInstance.opt = "add";
         modalRef.componentInstance.title = this.title;
         modalRef.componentInstance.item = {};
-        modalRef.componentInstance.isKhoThanhPham = (this.title==='khothanhpham');
+        modalRef.componentInstance.isKhoThanhPham = (this.title === 'khothanhpham');
         modalRef.result
             .then((res: any) => {
                 this.GetListQuyTrinh();
+                this.changeParam(0);
             })
             .catch((er) => {
                 this.GetListQuyTrinh();
+                this.changeParam(0);
                 console.log(er);
             });
     }
     update(Id) {
-        this.changeParam(Id);
         let modalRef = this._modal.open(KiemkekhomodalComponent, {
             size: "fullscreen",
             backdrop: "static",
@@ -100,14 +101,16 @@ export class KiemkekhoComponent implements OnInit {
         modalRef.componentInstance.opt = "edit";
         modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
         modalRef.componentInstance.title = this.title;
-        modalRef.componentInstance.isKhoThanhPham = (this.title==='khothanhpham');
+        modalRef.componentInstance.isKhoThanhPham = (this.title === 'khothanhpham');
         modalRef.result
             .then((res: any) => {
                 console.log(res);
                 this.GetListQuyTrinh();
+                this.changeParam(0);
             })
             .catch((er) => {
                 this.GetListQuyTrinh();
+                this.changeParam(0);
                 console.log(er);
             });
     }
@@ -122,7 +125,6 @@ export class KiemkekhoComponent implements OnInit {
     GetListQuyTrinh(reset?) {
         if (reset) {
             this.paging.CurrentPage = 1;
-            this.paginator.changePage(0);
         }
         let data: any = {
             PageSize: 20,
@@ -134,13 +136,7 @@ export class KiemkekhoComponent implements OnInit {
             Ma: "",
             Ten: "",
         };
-        if (this.title === "khobong") {
-            data.Loai = 2;
-        } else if (this.title === "khoxo") {
-            data.Loai = 5;
-        } else if (this.title === "khothanhpham") {
-            data.Loai = 11;
-        }
+        data.Loai = 11;
         this._service
             .PhieuKiemKeKho()
             .GetList(data)

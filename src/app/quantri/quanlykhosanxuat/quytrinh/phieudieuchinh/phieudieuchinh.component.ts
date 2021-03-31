@@ -39,28 +39,27 @@ export class PhieudieuchinhComponent implements OnInit {
   title: any = "";
   type: any = "";
   nametype: any = "";
-  isCheckModal: any = false;
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, 
+  constructor(public _modal: NgbModal, public _toastr: ToastrService,
     private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
-     }
+  }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0' && this.isCheckModal === false){
+    this.activatedRoute.params.subscribe((res: any) => {
+      if (res.id !== '0') {
         this.update(res.id);
       }
     })
     // this.GetListQuyTrinh();
     this.KiemTraTabTrangThai();
   }
-  
+
   changeParam(id) {
-    if(this._modal.hasOpenModals()){
+    if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
     this.router.navigate([`quantri/trienkhaisanxuat/phieudieuchinh/${id}`], { replaceUrl: true })
   }
-  
+
   add() {
     this.changeParam(0);
     let modalRef = this._modal.open(PhieudieuchinhmodalComponent, {
@@ -71,17 +70,21 @@ export class PhieudieuchinhComponent implements OnInit {
 
     modalRef.componentInstance.type = this.type;
     modalRef.componentInstance.nametype = this.nametype;
-    
+
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+      this.changeParam(0);
+
     })
-      .catch(er => { console.log(er) })
+      .catch(er => {
+        console.log(er)
+        this.GetListQuyTrinh();
+        this.changeParam(0);
+      })
   }
- 
+
   update(Id) {
-    this.isCheckModal = true;
-    this.changeParam(Id);
     this._service.PhuongAnDieuChinhTimBong().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(PhieudieuchinhmodalComponent, {
         size: 'fullscreen',
@@ -93,15 +96,21 @@ export class PhieudieuchinhComponent implements OnInit {
       modalRef.componentInstance.nametype = this.nametype;
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
+        this.changeParam(0);
       })
-        .catch(er => { console.log(er) })
-        .finally(()=>{
-          this.isCheckModal = false;
+        .catch(er => {
+          console.log(er)
+          this.GetListQuyTrinh();
+          this.changeParam(0);
+        })
+        .finally(() => {
+          this.GetListQuyTrinh();
+          this.changeParam(0);
         })
     })
   }
   changeTab(e) {
-    this.trangThai = e.index+1;
+    this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
@@ -111,7 +120,6 @@ export class PhieudieuchinhComponent implements OnInit {
   GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
     }
     let data: any = {
       PageSize: 25,
@@ -134,7 +142,7 @@ export class PhieudieuchinhComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })

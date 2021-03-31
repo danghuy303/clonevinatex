@@ -74,6 +74,7 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col style="width:90px">
                     </colgroup>
                 </ng-template>
@@ -84,6 +85,7 @@
                         <th rowspan="2">Tên</th>
                         <th colspan="2" >Tồn sổ sách</th>
                         <th [attr.colspan]="isKhoThanhPham?4:3">Tồn thực tế</th>
+                        <th rowspan="2">Ghi chú</th>
                         <th rowspan="2"></th>
                     </tr>
                     <tr>
@@ -100,22 +102,26 @@
                         <td>{{ 10 * (paging.CurrentPage - 1) + i + 1 }}</td>
                         <td style="text-align: center;">{{item.Ma}}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>
-                        <td>
+                        <td  style="text-align: right;">
+                            {{item.TonTongTrongLuong|number:'0.2'}}
+<!-- 
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TonTongTrongLuong"
                                 disabled>
-                            </p-inputNumber>
+                            </p-inputNumber> -->
                         </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TonSoLuong"
+                        <td style="text-align: right;">
+                            {{item.TonSoLuong|number:'0.0-0'}}
+
+                            <!-- <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TonSoLuong"
                                 disabled>
-                            </p-inputNumber>
+                            </p-inputNumber> -->
                         </td>
                         <td *ngIf="isKhoThanhPham">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoi">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.TongTrongLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuong">
                             </p-inputNumber>
                         </td>
                         <td>
@@ -126,6 +132,9 @@
                             <p-dropdown [filter]="true" [options]="listQuyCachDongGoi"
                                 placeholder="Chọn quy cách đóng gói" styleClass="p-inputtext-sm"
                                 [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
+                        </td>
+                        <td>
+                            <input pInputText type="text" [(ngModel)]="item.GhiChu">
                         </td>
                         <td class="text-center">
                             <button pButton pRipple icon="pi pi-trash"
@@ -164,28 +173,32 @@
                                 placeholder="Chọn quy cách đóng gói" styleClass="p-inputtext-sm"
                                 [(ngModel)]="newItem.IddmQuyCachDongGoi"></p-dropdown>
                         </td>
+                        <td>
+                            <input pInputText type="text" [(ngModel)]="newItem.GhiChu">
+                        </td>
                         <td class="text-center"> <button pButton pRipple icon="pi pi-plus"
                                 class="p-button-sm p-button-rounded p-button-success p-mr-2" (click)="add()"
                                 pTooltip="Thêm" showDelay="1000" tooltipPosition="bottom"></button> </td>
                     </tr>
                     <tr>
-                        <td colspan="3">Tổng</td>
+                        <td colspan="3">TỔNG:</td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'TonTongTrongLuong'|number:'0.0-2'}}
+                            {{item.listItem|SumByKey:'TonTongTrongLuong'|number:'0.2'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'TonSoLuong'|number:'0.0-2'}}
+                            {{item.listItem|SumByKey:'TonSoLuong'|number:'0.0'}}
                         </td>
                         <td class="text-right" *ngIf="isKhoThanhPham">
-                            {{item.listItem|SumByKey:'SoQuaSoi'|number:'0.0'}}
+                            {{item.listItem|SumByKey:'SoQuaSoi'|number:'0.0-0'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'TongTrongLuong'|number:'0.0-2'}}
+                            {{item.listItem|SumByKey:'TongTrongLuong'|number:'0.2'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'SoLuong'|number:'0.0'}}
+                            {{item.listItem|SumByKey:'SoLuong'|number:'0.0-0'}}
                         </td>
                         <td></td>
+                        <td class="text-center"></td>
                         <td class="text-center"></td>
                     </tr>
                 </ng-template>
