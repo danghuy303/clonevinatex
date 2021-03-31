@@ -305,4 +305,15 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       }).catch(er => console.log(er))
     });
   }
+  boMatHangDao(item){
+    console.log(item);
+    this.services.CanDoiChuyen().XoaMatHangDao(item.Id).subscribe((res:any)=>{
+      if(res?.State===1){
+        this.toastr.success(res.message);
+        this.activeModal.close({respawn:true});
+      }else{
+        this.toastr.error(res.message);
+      }
+    })
+  }
 }

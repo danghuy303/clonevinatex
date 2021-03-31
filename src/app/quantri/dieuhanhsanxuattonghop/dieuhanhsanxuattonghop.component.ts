@@ -255,12 +255,12 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
     this._services.BaoCao().TongHop(this.filter).subscribe((res: any) => {
       this.thongKes = res;
       this.thongKes = [
-        { Ten: 'Sản lượng ống', TieuHao: res.SanLuongOng, DonVi: 'quả', ManHinh: res.SanLuongOng_ManHinh },
-        { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả', ManHinh: res.LuyKe_ManHinh },
+        { Ten: 'Sản lượng ống', TieuHao: res.SanLuongOng, DonVi: 'quả',DonViManHinh:'(kg)', ManHinh: res.SanLuongOng_ManHinh,button:'chitietsanluongong' },
+        { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả',DonViManHinh:'(kg)', ManHinh: res.LuyKe_ManHinh },
         // Điện k có màn hình
-        { Ten: 'Điện AC', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.DienAC_KW },
-        { Ten: 'Tổng điện', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.TongDien_KW, button: 'xuatexcel' },
-        { Ten: 'Tỷ lệ điện AC', TieuHao: '%', DonVi: '%', ManHinh: res.DienAC_PhanTram },
+        { Ten: 'Điện AC theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.DienAC_KW },
+        { Ten: 'Tổng điện theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.TongDien_KW, button: 'xuatexcel' },
+        { Ten: 'Tỷ lệ điện AC theo ngày (3)/(4)', TieuHao: '%', DonVi: '%', ManHinh: res.DienAC_PhanTram },
       ]
       this.thongKes1 = [
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },

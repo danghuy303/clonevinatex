@@ -608,6 +608,9 @@ export class SanXuatService {
             },
             SetDieuChinhCanDoiChuyen: (data) => {
                 return this.http.post(`${url}SetDieuChinhCanDoiChuyen`, data, httpOptions);
+            },
+            XoaMatHangDao:(Id)=>{
+                return this.http.get(`${url}XoaMatHangDao?Id=${Id}`,httpOptions)
             }
         }
     }
@@ -1386,11 +1389,11 @@ export class SanXuatService {
             GetDashBoard_TruyXuatNguonGocTongHop: (data) => {
                 return this.http.post(`${url}GetDashBoard_TruyXuatNguonGocTongHop`, data, httpOptions)
             },
-            GetDashBoard_PhieuNhapKho: (TuNgay,DenNgay,IddmItem) => {
-                return this.http.get(`${url}GetDashBoard_PhieuNhapKho?IddmItem=${IddmItem}&TuNgay=${TuNgay}&DenNgay=${DenNgay}`, httpOptions);
+            GetDashBoard_PhieuNhapKho: (TuNgay,DenNgay,IddmItem,IdLoHang) => {
+                return this.http.get(`${url}GetDashBoard_PhieuNhapKho?IddmItem=${IddmItem}&TuNgay=${TuNgay}&DenNgay=${DenNgay}&IdLoHang=${IdLoHang}`, httpOptions);
             },
-            GetDashBoard_PhieuXuatKho: (TuNgay,DenNgay,IddmItem) => {
-                return this.http.get(`${url}GetDashBoard_PhieuXuatKho?IddmItem=${IddmItem}&TuNgay=${TuNgay}&DenNgay=${DenNgay}`, httpOptions);
+            GetDashBoard_PhieuXuatKho: (TuNgay,DenNgay,IddmItem,IdLoHang) => {
+                return this.http.get(`${url}GetDashBoard_PhieuXuatKho?IddmItem=${IddmItem}&TuNgay=${TuNgay}&DenNgay=${DenNgay}&IdLoHang=${IdLoHang}`, httpOptions);
             },
         }
     }
