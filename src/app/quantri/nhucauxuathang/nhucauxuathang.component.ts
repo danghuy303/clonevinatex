@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
+import { TrienkhaikehoachsanxuatComponent } from '../quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuat/trienkhaikehoachsanxuat.component';
 
 @Component({
   selector: 'app-nhucauxuathang',
@@ -18,6 +19,7 @@ export class NhucauxuathangComponent implements OnInit {
     IddmKho: '',
     // LoaiThoiGian: 1
   };
+  selectedXuatNhap: any = {};
   filterSanLuong: any = {};
   filterNhuCau: any = {};
   monthlyConfig: any = {};
@@ -31,10 +33,16 @@ export class NhucauxuathangComponent implements OnInit {
   listMay: any = [];
   listLoaiBong: any = [];
   listCaLamViec: any = [];
+  listXuatNhap:any=[];
   dataPie: any = {};
   IdDuAn: any;
   SelectItem: any = {};
+  showXuatNhap: boolean = false;
   showTruySuatNguonGoc = false;
+  mapXuatNhap = {
+    Xuat: 'Xuất',
+    Nhap: 'Nhập'
+  }
   option1: any = {
     scales: {
       xAxes: [{
@@ -59,7 +67,7 @@ export class NhucauxuathangComponent implements OnInit {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${formatNumber(tooltipItem.yLabel, 'vi-VN','0.0-2')} tấn`
+          return `${formatNumber(tooltipItem.yLabel, 'vi-VN', '0.0-2')} tấn`
         }
       }
     },
@@ -198,15 +206,15 @@ export class NhucauxuathangComponent implements OnInit {
       Ten: ""
     };
     setTimeout(
-      ()=>{
-        this._services.GetdmKhoThanhPhamHoiAm_DashBoard({IdDuAn:this.store.getCurrent()}).subscribe((res: any) => {
-      res.unshift({ Id: '', Ten: 'Tất cả' });
-      this.listKho = mapArrayForDropDown(res, "Ten", 'Id');
-      this.getMatHang();
-    })
-      },500
+      () => {
+        this._services.GetdmKhoThanhPhamHoiAm_DashBoard({ IdDuAn: this.store.getCurrent() }).subscribe((res: any) => {
+          res.unshift({ Id: '', Ten: 'Tất cả' });
+          this.listKho = mapArrayForDropDown(res, "Ten", 'Id');
+          this.getMatHang();
+        })
+      }, 500
     )
-    
+
   }
   getMatHang() {
     this._services.GetOptions().GetListdmItemTheoKhoThanhPhamHoiAm_DashboardNhuCauXuatHang(this.filter).subscribe((res: any) => {
@@ -237,11 +245,11 @@ export class NhucauxuathangComponent implements OnInit {
         this._services.GetDashBoard_TruyXuatNguonGoc(this.SelectItem.IddmItem, DateToUnix(this.filter._tuNgayCanDoiTon), DateToUnix(this.filter._denNgayCanDoiTon)).subscribe((res: any) => {
           this.showTruySuatNguonGoc = true;
           this.listTruySuatNguonGoc = res;
-          this.listTruySuatNguonGoc.forEach(obj=>{            
+          this.listTruySuatNguonGoc.forEach(obj => {
             obj.herfgiaokehoachsanxuat = `#/quantri/kehoachsanxuat/giaokehoachsanxuat/${obj.IdGiaoKeHoachSanXuat}`;
             obj.herftrienkhaikehoachsanxuat = `#/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/${obj.IdGiaoKeHoachSanXuat_TrienKhai}`;
             obj.herfphabong = `#/quantri/trienkhaisanxuat/phabong/${obj.IdPhuongAnPhaBong}`;
-          });          
+          });
         })
       }
       else {
@@ -251,5 +259,34 @@ export class NhucauxuathangComponent implements OnInit {
     else {
       this.toastr.error("Yêu cầu chọn mặt hàng");
     }
+  }
+  callDataXuatNhap(opt, item) {
+    // console.log(item);
+    let TuNgay = 0;
+    let DenNgay = 0;
+    if (validVariable(this.filter._tuNgayCanDoiTon)) {
+      TuNgay = DateToUnix(this.filter._tuNgayCanDoiTon);
+    } else {
+      TuNgay = null;
+    }
+    if (validVariable(this.filter._denNgayCanDoiTon)) {
+      DenNgay = DateToUnix(this.filter._denNgayCanDoiTon);
+    } else {
+      DenNgay = null;
+    }
+    if (validVariable(TuNgay) && validVariable(DenNgay) && TuNgay <= DenNgay) {
+      this._services.DashBoard()[`GetDashBoard_Phieu${opt}Kho`](TuNgay,DenNgay,item.IddmItem).subscribe(res => {
+        this.listXuatNhap = res;
+        this.showXuatNhap = true;
+        this.selectedXuatNhap = {
+          Ten: `${this.mapXuatNhap[opt]} - ${item.TendmItem}`,
+          opt:opt,
+          field:`SoPhieu${opt}`,
+          TenOpt: this.mapXuatNhap[opt],
+        }
+      })
+    }
+    
+
   }
 }
