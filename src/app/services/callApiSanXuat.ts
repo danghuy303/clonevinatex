@@ -1188,27 +1188,27 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho;
         return {
             GetNextSo: () => {
-                return this.http.get(url + 'GetNextSoQuyTrinhPhieuKiemKeKho', httpOptions);
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuKiemKeThanhPham', httpOptions);
             },
             GetList: (data) => {
                 data.IdDuAn = this.store.getCurrent();
-                return this.http.post(url + 'GetListPhieuKiemKeKho', data, httpOptions);
+                return this.http.post(url + 'GetListPhieuKiemKeThanhPham', data, httpOptions);
             },
             Get: (Id) => {
-                return this.http.get(url + `GetPhieuKiemKeKho?Id=${Id}`, httpOptions);
+                return this.http.get(url + `GetPhieuKiemKeThanhPham?Id=${Id}`, httpOptions);
             },
             Set: (data) => {
                 data.IdDuAn = this.store.getCurrent();
-                return this.http.post(url + 'SetPhieuKiemKeKho', data, httpOptions);
+                return this.http.post(url + 'SetPhieuKiemKeThanhPham', data, httpOptions);
             },
             Delete: (data) => {
-                return this.http.post(url + 'DeletePhieuKiemKeKho', data, httpOptions);
+                return this.http.post(url + 'DeletePhieuKiemKeThanhPham', data, httpOptions);
             },
             ChuyenTiep: (data) => {
-                return this.http.post(url + 'ChuyenTiepPhieuKiemKeKho', data, httpOptions)
+                return this.http.post(url + 'ChuyenTiepPhieuKiemKeThanhPham', data, httpOptions)
             },
             KhongDuyet: (data) => {
-                return this.http.post(url + 'KhongDuyetPhieuKiemKeKho', data, httpOptions)
+                return this.http.post(url + 'KhongDuyetPhieuKiemKeThanhPham', data, httpOptions)
             },
             GetlistdmMatHangThanhPhamKiemKe: () => {
                 return this.http.get(url + `GetlistdmMatHangThanhPhamKiemKe`, httpOptions);
