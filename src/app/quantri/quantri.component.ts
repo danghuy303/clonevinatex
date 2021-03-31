@@ -56,7 +56,6 @@ export class QuantriComponent implements OnInit {
         }
     }
     getListNhaMay() {
-        console.log(this.userInfo);
         this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
             this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", 'Id');
             this.IdNhaMay = res[0].Id;

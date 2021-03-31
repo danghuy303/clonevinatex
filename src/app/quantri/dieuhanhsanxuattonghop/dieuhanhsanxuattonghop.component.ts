@@ -1,5 +1,5 @@
 import { formatNumber } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -11,7 +11,7 @@ import { StoreService } from 'src/app/services/store.service';
   templateUrl: './dieuhanhsanxuattonghop.component.html',
   styleUrls: ['./dieuhanhsanxuattonghop.component.css']
 })
-export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
+export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,OnDestroy {
   filter: any =
     {
       IdDuAn: 0,
@@ -84,10 +84,11 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
   chatLuongSanPham: any = [];
   headerChatLuongSanPham: any = [];
   chatLuongSanPhamScrollHeight: any = 0;
+  suber:any;
 
   constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService, public toastr: ToastrService) {
     this.currentUser = this._auth.currentUserValue;
-    this.store.getNhaMay().subscribe(res => {
+    this.suber=this.store.getNhaMay().subscribe(res => {
       this.IdDuAn = res;
       this.BieuDoCoCau();
     })
@@ -431,5 +432,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit {
     else {
       this.toastr.error("Yêu cầu chọn mặt hàng");
     }
+  }
+  ngOnDestroy(){
+    this.suber.unsubscribe();
   }
 }

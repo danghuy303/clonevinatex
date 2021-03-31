@@ -118,9 +118,15 @@
                         <td class="text-right">{{item.DauSoKien|number:'0.0-0' }}</td>
                         <td class="text-right">{{item.DauSoCan|number:'0.2-2' }}</td>
                         <td class="text-right">{{item.NhapSoKien|number:'0.0-0' }}</td>
-                        <td class="text-right">{{item.NhapSoCan|number:'0.2-2' }}</td>
+                        <td class="text-right">
+                            <a href="javascript:void(0)" *ngIf="item.TendmItem!==null"  (click)="callDataXuatNhap('Nhap', item)"> {{item.NhapSoCan|number:'0.2-2' }}</a>
+                            <ng-container *ngIf="item.TendmItem===null">{{item.NhapSoCan|number:'0.2-2' }}</ng-container>
+                        </td>
                         <td class="text-right">{{item.XuatSoKien|number:'0.0-0' }}</td>
-                        <td class="text-right">{{item.XuatSoCan|number:'0.2-2' }}</td>
+                        <td class="text-right">
+                            <a href="javascript:void(0)" *ngIf="item.TendmItem!==null" (click)="callDataXuatNhap('Xuat', item)">{{item.XuatSoCan|number:'0.2-2' }}</a>
+                            <ng-container *ngIf="item.TendmItem===null">{{item.XuatSoCan|number:'0.2-2' }}</ng-container>
+                        </td>
                         <td class="text-right">{{item.CuoiSoKien|number:'0.0-0' }}</td>
                         <td class="text-right">{{item.CuoiSoCan|number:'0.2-2' }}</td>
                     </tr>
@@ -169,6 +175,43 @@
                 </td>
                 <td>
                     <a [href]="item.herfphabong" target="_blank">{{item.TenPhuongAnPhaBong}}</a>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>
+<p-dialog [header]="selectedXuatNhap.Ten" [(visible)]="showXuatNhap" [modal]="true" [style]="{width: '85vw'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-table [value]="listXuatNhap" styleClass="p-datatable-sm p-datatable-gridlines wrap-text" [scrollable]="true"
+        scrollHeight="500px">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <!-- <col style="width:50px"> -->
+                <col style="width:50px">
+                <col>
+                <col >
+                <col>
+                <col>
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr class="normal">
+                <th style="width: 50px !important;">STT</th>
+                <th>Số phiếu {{selectedXuatNhap.TenOpt| lowercase}}</th>
+                <th>Số phiếu kiểm kê</th>
+                <th>Số lượng</th>
+                <th>Trọng lượng</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td class="text-center" style="width: 50px !important;">{{i+1}}</td>
+                <td>{{item[selectedXuatNhap.field]}}</td>
+                <td>{{item.SoPhieuKiemKe}}</td>
+                <td class="text-right">{{item.SoLuong}}</td>
+                <td class="text-right">
+                    {{item.TongTrongLuong|number:'0.0-2'}}
+                    <!-- <a [href]="item.herfgiaokehoachsanxuat" target="_blank">{{item.TenGiaoKeHoach}}</a> -->
                 </td>
             </tr>
         </ng-template>
