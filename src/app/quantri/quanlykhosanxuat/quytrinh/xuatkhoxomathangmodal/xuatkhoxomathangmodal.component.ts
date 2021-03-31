@@ -26,8 +26,8 @@ export class XuatkhoxomathangmodalComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Khối lượng /kiện (kg)',
-      field: 'TrongLuong',
+      header: 'Tổng khối lượng (kg)',
+      field: 'TongTrongLuong',
       width: 'unset'
     },
   ];
@@ -49,7 +49,7 @@ export class XuatkhoxomathangmodalComponent implements OnInit {
     {
       for(let i = 0; i < this.listItem.length; i++){
         var itemFind = this.listMatHang.find(
-          ele => (ele.IddmItem === this.listMatHang[i].IddmItem && ele.IdLoHang == this.listMatHang[i].IdLoHang)
+          ele => (ele.IddmItem === this.listItem[i].IddmItem)
         );
         if(itemFind !== undefined)
           itemFind.checked = true;

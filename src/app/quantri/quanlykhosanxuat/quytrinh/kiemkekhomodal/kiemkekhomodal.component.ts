@@ -1,5 +1,5 @@
 import { truncateWithEllipsis } from "@amcharts/amcharts4/.internal/core/utils/Utils";
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, resolveForwardRef, ViewChild } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { throwIfEmpty } from "rxjs/operators";
@@ -31,6 +31,7 @@ export class KiemkekhomodalComponent implements OnInit {
         Xoa: false,
     };
     listdmKho: any = [];
+    listdmKhoFull: any = [];
     listdmViTri: any = [];
     listLoBong: any = [];
     listLoHang: any = [];
@@ -60,24 +61,22 @@ export class KiemkekhomodalComponent implements OnInit {
 
         var data: any = {};
         data.CurrentPage = 0;
-        if (this.title === "khobong") {
-            data.Loai = 2;
-            this.item_new.Loai = 2;
-        } else if (this.title === "khoxo") {
-            data.Loai = 5;
-            this.item_new.Loai = 5;
-        } else if (this.title === "khothanhpham") {
+        // if (this.title === "khobong") {
+        //     data.Loai = 2;
+        //     this.item_new.Loai = 2;
+        // } else if (this.title === "khoxo") {
+        //     data.Loai = 5;
+        //     this.item_new.Loai = 5;
+        // } else if (this.title === "khothanhpham") {
             data.Loai = 11;
             this.item_new.Loai = 11;
-        }
+        // }
         this.services.GetListdmKho(data).subscribe((res: any) => {
             this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
+            this.listdmKhoFull = res;
         });
         this.services.GetListdmViTriOpt().subscribe((res: any) => {
             this.listdmViTri = mapArrayForDropDown(res, "Ten", "Id");
-        });
-        this.services.GetListLoBong(data).subscribe((res: any) => {
-            this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
         });
         this.services
             .LoHang()
@@ -85,6 +84,7 @@ export class KiemkekhomodalComponent implements OnInit {
             .subscribe((res: any) => {
                 this.listLoHang = mapArrayForDropDown(res, "Ten", "Id");
             });
+        
         this.services
             .dmQuyCachDongGoi()
             .GetList()
@@ -98,6 +98,21 @@ export class KiemkekhomodalComponent implements OnInit {
                 this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
                 this.listNewMatHang_ref = res;
             });
+    }
+    getdmKhoFunc(){
+        this.getListLoHangTheodmkho();
+        this.GetMatHangTheoKho();
+    }
+    getListLoHangTheodmkho(){
+        let dmkhoFull = this.listdmKhoFull.find(ele=>ele.Id === this.item.IddmKho);
+        if(dmkhoFull != undefined){
+            var data: any = {};
+            data.CurrentPage = 0;
+            data.IddmPhanXuong = dmkhoFull.IddmPhanXuong;
+            this.services.LoHang().GetList(data).subscribe((res: any) => {
+                this.listLoHang = mapArrayForDropDown(res, "Ten", "Id");
+            });
+        }
     }
     GetQuyTrinh() {
         this.services
@@ -201,6 +216,7 @@ export class KiemkekhomodalComponent implements OnInit {
     delete(index) {
         let item = this.item.listItem.splice(index, 1)[0];
         if (item.Id === "" || item.Id === null || item.Id === undefined) {
+            this.item.listItem.splice(index, 1);
         } else {
             item.isXoa = true;
             this.item.listItem.push(JSON.parse(JSON.stringify(item)));

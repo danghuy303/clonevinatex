@@ -170,7 +170,6 @@ export class XuatkhoxomodalComponent implements OnInit {
           });
         }
         let listdatapush = [];
-        
         data.data.forEach(element => {
           let datapush: any = {};
           datapush.Ton = element.SoLuong;
@@ -183,15 +182,13 @@ export class XuatkhoxomodalComponent implements OnInit {
 
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
             for(let i =0 ; i < this.item.listItem.length; i++){
-
-              if(this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang)
+              if(this.item.listItem[i].IddmItem == element.IddmItem)
               {
                 this.item.listItem[i].isXoa = false;
                 this.item.listItem[i].Ten = element.Ten;
                 this.item.listItem[i].TendmViTri = element.TendmViTri;
                 this.item.listItem[i].TrongLuong = element.TrongLuong;
                 this.item.listItem[i].Ton = element.SoLuong;
-                this.item.listItem[i].IdLoHang = element.IdLoHang;
                 isCheck = true;
                 break;
               }

@@ -35,6 +35,11 @@ export class NhapkhohoiamComponent implements OnInit {
       width: 'unset'
     },
     {
+      header: 'Ghi chú',
+      field: 'GhiChu',
+      width: 'unset'
+    },
+    {
       header: 'Trạng thái',
       field: 'TenTrangThai',
       width: 'unset'
