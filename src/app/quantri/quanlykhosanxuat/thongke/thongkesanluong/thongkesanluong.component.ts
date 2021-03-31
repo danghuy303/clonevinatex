@@ -51,15 +51,15 @@ export class ThongkesanluongComponent implements OnInit {
       width: 'unset'
     },
     {
+      header: 'Ghi chú',
+      field: 'GhiChu',
+      width: 'unset'
+    },
+    {
       header: 'Trạng thái',
       field: 'TenTrangThai',
       width: 'unset'
     },
-    {
-      header: 'Ghi chú',
-      field: 'GhiChu',
-      width: 'unset'
-    }
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   listPhanXuong: any = [];
@@ -107,6 +107,9 @@ export class ThongkesanluongComponent implements OnInit {
       this.GetListQuyTrinh();
     this.changeParam(0);
     })
+    .catch(er => { console.log(er)
+      this.GetListQuyTrinh();
+      this.changeParam(0); })
   }
   update(Id){
     this._service.ThongKeSanLuong().Get(Id).subscribe((res1: any) => {
@@ -120,7 +123,9 @@ export class ThongkesanluongComponent implements OnInit {
       this.GetListQuyTrinh();
     this.changeParam(0);
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er)
+        this.GetListQuyTrinh();
+        this.changeParam(0); })
     })
   }
   changeTab(e){
@@ -134,7 +139,6 @@ export class ThongkesanluongComponent implements OnInit {
   GetListQuyTrinh(reset?){
     if (reset) {
       this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
     }
     let data={
       PageSize: 20,

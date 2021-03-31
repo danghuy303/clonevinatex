@@ -50,6 +50,7 @@
                 <col>
                 <col>
                 <col>
+                <col>
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
@@ -58,6 +59,7 @@
                 <th class="text-center">#</th>
                 <th class="text-center">Số quy trình</th>
                 <th class="text-center">Ngày</th>
+                <th class="text-center">Tên kho</th>
                 <th>Tổng số kiện</th>
                 <th>Tổng khối lượng (kg)</th>
                 <th>Ghi chú</th>
@@ -74,6 +76,9 @@
                     {{item.SoQuyTrinh}}
                 </td>
                 <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">
+                    {{item.TendmKho}}
+                </td>
                 <td class="text-center">
                     {{item.TongSoKien|number:'0.0' }}
                 </td>

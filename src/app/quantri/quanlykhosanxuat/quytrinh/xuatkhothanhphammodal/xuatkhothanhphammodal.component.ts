@@ -38,6 +38,8 @@ export class XuatkhothanhphammodalComponent implements OnInit {
   type: any = '';
   editField: any = false;
   nametype: any = '';
+  TongKhoiLuong = 0;
+  TongThanhTien = 0;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -284,5 +286,20 @@ export class XuatkhothanhphammodalComponent implements OnInit {
         // không
       });
     })
+  }
+  TinhTongKhoiLuong(){
+    this.TongKhoiLuong = 0;
+    this.TongThanhTien = 0;
+    this.item.listItem.forEach(element => {
+      this.TongKhoiLuong += (element.KhoiLuong ?? 0) * (element.SoLuong ?? 0);
+      this.TongThanhTien += (element.DonGia ?? 0) * (element.SoLuong ?? 0);
+    });
+  }
+  TinhTongThanhTien(){
+    this.TongThanhTien = 0;
+    this.item.listItem.forEach(element => {
+      let thanhTien = (element.DonGia ?? 0) * (element.SoLuong ?? 0);
+      this.TongThanhTien = this.TongThanhTien + thanhTien;
+    });
   }
 }

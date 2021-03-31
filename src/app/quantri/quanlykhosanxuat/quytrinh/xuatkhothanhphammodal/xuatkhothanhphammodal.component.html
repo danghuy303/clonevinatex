@@ -131,7 +131,8 @@
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong"
+                            (onBlur)="TinhTongKhoiLuong()">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
@@ -140,7 +141,8 @@
                             {{item.KhoiLuong * item.SoLuong|number:'0.2-2'}}
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DonGia">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DonGia"
+                            (onBlur)="TinhTongThanhTien()">
                             </p-inputNumber>
                         </td>
                         <td class="text-center" >
@@ -161,7 +163,7 @@
                 <ng-template pTemplate="footer">
                     <tr>
                         <td></td>
-                        <td class="text-center" colspan="3">TỔNG</td>
+                        <td colspan="3">TỔNG:</td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'TonSoLuong'|number:'0.0-0'}}
                         </td>
@@ -169,13 +171,13 @@
                             {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0-0'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.2-2'}}
+                            {{TongKhoiLuong|number:'0.2-2'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'DonGia'|number:'0.2-2'}}
+                            {{item.listItem|isXoa|SumByKey:'DonGia'|number:'0.0'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.2-2'}}
+                            {{TongThanhTien|number:'0.0'}}
                         </td>
                         <td></td>
                         <td></td>
