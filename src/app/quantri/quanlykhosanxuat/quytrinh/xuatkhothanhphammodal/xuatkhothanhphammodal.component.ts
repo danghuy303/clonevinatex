@@ -6,6 +6,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
+import { XuatthanhphammathangmodalComponent } from '../xuatthanhphammathangmodal/xuatthanhphammathangmodal.component';
 
 @Component({
   selector: 'app-xuatkhothanhphammodal',
@@ -230,7 +231,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       listItem = this.item.listItem.filter((e: any) => e.isXoa !== true);
     }
     this._services.GetlistdmMatHangXuatThanhPham(data).subscribe((res1: any) => {
-      let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
+      let modalRef = this._modal.open(XuatthanhphammathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'
       })
@@ -253,6 +254,8 @@ export class XuatkhothanhphammodalComponent implements OnInit {
             TonSoLuong: element.SoLuong,
             KhoiLuong: element.TrongLuong,
             IdLoHang: element.IdLoHang,
+            IddmQuyCachDongGoi: element.IddmQuyCachDongGoi,
+            TendmQuyCachDongGoi: element.TendmQuyCachDongGoi,
           };
           var isCheck : any = false
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
@@ -266,6 +269,8 @@ export class XuatkhothanhphammodalComponent implements OnInit {
                 this.item.listItem[i].TonSoLuong = element.SoLuong;
                 this.item.listItem[i].KhoiLuong = element.TrongLuong;
                 this.item.listItem[i].IdLoHang = element.IdLoHang;
+                this.item.listItem[i].IddmQuyCachDongGoi = element.IddmQuyCachDongGoi;
+                this.item.listItem[i].TendmQuyCachDongGoi = element.TendmQuyCachDongGoi;
                 isCheck = true;
                 break;
               }

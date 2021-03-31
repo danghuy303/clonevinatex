@@ -27,6 +27,11 @@ export class KiemkekhoComponent implements OnInit {
             width: "200px",
         },
         {
+            header: "Tên lô hàng",
+            field: "TenLoHang",
+            width: "200px",
+        },
+        {
             header: "Nội dung",
             field: "NoiDung",
             width: "200px",
