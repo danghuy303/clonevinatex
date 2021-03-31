@@ -114,14 +114,15 @@ export class ChatluongsoimodalComponent implements OnInit {
     }
   }
   XoaQuyTrinh() {
-    let modalRef = this._modal.open(ModalthongbaoComponent, {
+    let modalRef = this._modal.open(ModalthongbaoComponent, { 
       backdrop: 'static'
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this.services.PhieuChatLuongSoi().Delete(this.item).subscribe((res: any) => {
+      this.services.PhieuChatLuongSoi().Delete(this.item.Id).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
+          this.toastr.success(res.message);
           this.activeModal.close();
         } else {
           this.toastr.error(res.message);

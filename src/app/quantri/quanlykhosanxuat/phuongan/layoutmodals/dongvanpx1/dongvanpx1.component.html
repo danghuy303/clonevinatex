@@ -32,7 +32,7 @@
             <div class="p-col-12 p-lg-10 p-p-0">
                 <!-- <input type="text" class="p-inputtext-sm" (onblur)="veLayout()" [(ngModel)]="SoViTriNgoaiQuan" pInputText /> -->
                 <div class="p-inputgroup">
-                    <p-inputNumber locale="vi-VN" [(ngModel)]="SoViTriNgoaiQuan" (onBlur)="veLayout()">
+                    <p-inputNumber locale="vi-VN" [(ngModel)]="item.SoViTriNgoaiQuan" (onBlur)="veLayout()">
                     </p-inputNumber>
                     <button type="button" pButton pRipple icon="pi pi-check"
                         class="p-button-secondary p-button-text p-button-sm" (click)="veLayout()"></button>
@@ -47,7 +47,7 @@
             <div class="p-col-12 p-lg-10 p-p-0">
                 <div class="p-inputgroup">
                     <input type="text" class="p-inputtext-sm" (keyup.enter)="changeNgoaiQuanBong()"
-                        [(ngModel)]="ViTriNgoaiQuan" pInputText />
+                        [(ngModel)]="item.ViTriNgoaiQuan" pInputText />
                     <button type="button" pButton pRipple icon="pi pi-check"
                         class="p-button-success p-button-text p-button-sm" (click)="changeNgoaiQuanBong()"></button>
                 </div>
@@ -118,8 +118,8 @@
                                     Tổng số
                                 </div>
                             </td>
-                            <td></td>
-                            <td></td>
+                            <td class="text-right">{{item.listLoBong|SumByKey:'SoLuong'}}</td>
+                            <td class="text-right">{{item.listLoBong|SumByKey:'DaXep'}}</td>
                             <!-- <td></td> -->
                         </tr>
                         <tr>

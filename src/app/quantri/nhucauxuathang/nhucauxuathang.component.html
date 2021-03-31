@@ -24,13 +24,13 @@
                 </div>
                 <div class="p-d-flex flex-column flex-lg-row">
                     <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Tổng hợp"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmItem" (onChange)="ChangeOpt()">
+                        <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmKho" (onChange)="getMatHang()">
                         </p-dropdown>
                     </div>
                     <div class="p-mr-2">
-                        <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
-                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmKho" (onChange)="ChangeOpt()">
+                        <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Tổng hợp"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmItem" (onChange)="ChangeOpt()">
                         </p-dropdown>
                     </div>
                     <!-- <div style="display:table;height:100%">
