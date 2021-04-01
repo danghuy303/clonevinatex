@@ -67,6 +67,12 @@ export class XuatkhoxomodalComponent implements OnInit {
     this.services.PhieuXuatKhoXo().Get(this.Id).subscribe((res1:any)=>{
       this.item = res1;
       this.listItem = res1.listItem;
+      if(this.listItem !== null && this.listItem.length > 0){
+        for(let i = 0; i<this.listItem.length ; i ++){
+          this.tinhTongTrongLuong(this.listItem[i]);
+        }
+      }
+      
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
@@ -218,5 +224,9 @@ export class XuatkhoxomodalComponent implements OnInit {
     if((start + 15) > this.paging.TotalItem)
       end= this.paging.TotalItem;
     this.item.listItem = this.listItem.slice(start,end);
+  }
+  tinhTongTrongLuong(item){
+    let TrongLuong = Math.round(item.TrongLuong * 1000);
+    item.TongTrongLuong = TrongLuong * item.SoLuong / 1000;
   }
 }

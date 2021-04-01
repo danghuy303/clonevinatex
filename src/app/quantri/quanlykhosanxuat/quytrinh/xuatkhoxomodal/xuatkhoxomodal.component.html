@@ -107,17 +107,19 @@
                         <td style="text-align: right;">
                             <!-- <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TrongLuong" disabled>
                             </p-inputNumber></td> -->
-                            {{item.TrongLuong|number:'0.2-2'}}
-                        <td >
+                            {{item.TrongLuong|number:'0.3-3'}}
+                        <td style="text-align: right;">
                             <!-- <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Ton" disabled>
                             </p-inputNumber></td> -->
                             {{item.Ton|number:'0.0'}}
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong"
+                            (onBlur)="tinhTongTrongLuong(item)">
                             </p-inputNumber>
                         </td>
                         <td style="text-align: right;">
-                            {{(item.TrongLuong * item.SoLuong)|number:'0.2-2'}}
+                            {{item.TongTrongLuong|number:'0.3-3'}}
+                            <!-- {{(item.TrongLuong * item.SoLuong)|number:'0.3-3'}} -->
                         </td>
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
@@ -131,7 +133,7 @@
                     <tr>
                         <td colspan="3">Tổng</td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'TrongLuong'|number:'0.0-3'}}
+                            {{item.listItem|SumByKey:'TrongLuong'|number:'0.3-3'}}
                         </td>
                         <td class="text-right">
                             {{item.listItem|SumByKey:'Ton'|number:'0.0-0'}}

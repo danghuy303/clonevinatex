@@ -6,14 +6,6 @@
     <div></div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-dropdown [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.IddmPhanXuong" [showClear]="true" (onClick)="GetListQuyTrinh(true)"></p-dropdown>
-        </div>
-        <div class="p-mr-2">
-            <p-dropdown [options]="listCaSanXuat" placeholder="Chọn ca làm việc" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.IddmCaSanXuatThucTe" [showClear]="true" (onClick)="GetListQuyTrinh(true)"></p-dropdown>
-        </div>
-        <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetListQuyTrinh(true)">
             </p-calendar>
@@ -23,38 +15,48 @@
                 [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetListQuyTrinh(true)">
             </p-calendar>
         </div>
-        <div class="p-inputgroup" style="width:200px">
+        <!-- <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh(true)" [(ngModel)]="filter.KeyWord"/>
             <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text" (click)="GetListQuyTrinh(true)" pTooltip="Tìm kiếm" showDelay="1000" tooltipPosition="bottom"></button>
             <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"(click)="resetFilter()"></button>
-        </div>
+        </div> -->
         
     </div>
 </div>
- <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
-    </p-tabPanel>
-    <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
-    </p-tabPanel>
-   <!-- <p-tabPanel header="Tổng hợp" [disabled]="!checkQuyen.TongHop">
-    </p-tabPanel>-->
-</p-tabView> 
 <div class="p-mt-3">
     <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
-                <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th class="text-center">STT</th>
-                <th *ngFor="let header of cols">
-                    {{header.header}}
-                </th>
-                <th></th>
+                <th class="text-center" rowspan="2">STT</th>
+                <th class="text-center" rowspan="2">Thời gian</th>
+                <th class="text-center" rowspan="2">Đơn giá</th>
+                <th class="text-center" rowspan="2">Tồn đầu kỳ</th>
+                <th class="text-center" colspan="2">Nhập</th>
+                <th class="text-center" colspan="2">Xuất</th>
+                <th class="text-center" rowspan="2">Tồn cuối</th>
+                <th class="text-center" rowspan="2">Số phiếu</th>
+                <th rowspan="2"></th>
+            </tr>
+            <tr>
+                <th class="text-center">Nhập</th>
+                <th class="text-center">Kiểm kê</th>
+                <th class="text-center">Nhập</th>
+                <th class="text-center">Kiểm kê</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -63,28 +65,31 @@
                     {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
                 <td class="text-center">
-                    {{item.SoQuyTrinh}}
-                </td>
-                <td class="text-center">
                     {{item.NgayUnix > 0 ? (item.Ngay|date:'dd/MM/yyyy'):''}}
                 </td>
-                <td class="text-center">
-                    {{item.TendmCaSanXuat}}
+                <td class="text-right">
+                    {{item.DonGia|number:'0.0'}}
                 </td>
-                <td class="text-center">
-                    {{item.TendmCaSanXuatThucTe}}
+                <td class="text-right">
+                    {{item.TonDauKy|number:'0.0'}}
                 </td>
-                <td class="text-center">
-                    {{item.TongKhoiLuong|number:'0.0'}}
+                <td class="text-right">
+                    {{item.Nhap|number:'0.0'}}
                 </td>
-                <td class="text-center">
-                    {{item.TendmPhanXuong}}
+                <td class="text-right">
+                    {{item.KiemKeNhap|number:'0.0'}}
                 </td>
-                <td class="text-center">
-                    {{item.GhiChu}}
+                <td class="text-right">
+                    {{item.Xuat|number:'0.0'}}
                 </td>
-                <td class="text-center">
-                    {{item.TenTrangThai}}
+                <td class="text-right">
+                    {{item.KiemKeXuat|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TonCuoi|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.SoPhieu}}
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"

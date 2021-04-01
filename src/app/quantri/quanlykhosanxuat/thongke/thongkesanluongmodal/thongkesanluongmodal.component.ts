@@ -165,7 +165,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
   GetPhanXuongTheoUser() {
     this.services.GetListPhanXuongTheoUser().subscribe((res: any) => {
-      if(res != null)
+      if(res != null && res.length > 0)
         this.item.IddmPhanXuong = res[0].Id;
     })
   }
@@ -262,10 +262,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
     {
       this.listItem = []
       this.item.listItem.forEach(element => {
-        if(element.CongDoan === this.item.CongDoan)
+        if(element.CongDoan === this.item.CongDoan){
           this.listItem.push(element);
+        }
       }
     )}
+    console.log(this.listItem)
   }
   TinhSoQuaSoi(item, event) {
     if(item.KhoiLuong !== undefined && item.KhoiLuong!== null)
@@ -288,5 +290,92 @@ export class ThongkesanluongmodalComponent implements OnInit {
   ThayDoiPhanXuong(){
     this.getListLoHang();
     this.getMatHangThongKeSanLuong();
+  }
+  //cotton
+  TinhTyLeCottonBongPhe(){
+    let TongKhoiLuong = this.item.CottonBongPhe ?? 0;
+    for(let i = 0 ; i <this.listItem.length ; i ++)
+    {
+      TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
+    }
+    if(TongKhoiLuong > 0 )
+      this.item.TyLeCottonBongPhe = this.item.CottonBongPhe/ (TongKhoiLuong) * 100;
+  }
+  TinhTyLeCottonBongMun(){
+    let TongKhoiLuong = this.item.CottonBongMun ?? 0;
+    for(let i = 0 ; i <this.listItem.length ; i ++)
+    {
+      TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
+    }
+    if(TongKhoiLuong > 0 )
+      this.item.TyLeCottonBongMun = this.item.CottonBongMun/ (TongKhoiLuong) * 100;
+  }
+  //PE
+  TinhTyLePEBongPhe(){
+    let TongKhoiLuong = this.item.PEBongPhe ?? 0;
+    for(let i = 0 ; i <this.listItem.length ; i ++)
+    {
+      TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
+    }
+    if(TongKhoiLuong > 0 )
+      this.item.TyLePEBongPhe = this.item.PEBongPhe/ (TongKhoiLuong) * 100;
+  }
+  TinhTyLePEBongMun(){
+    let TongKhoiLuong = this.item.PEBongMun ?? 0;
+    for(let i = 0 ; i <this.listItem.length ; i ++)
+    {
+      TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
+    }
+    if(TongKhoiLuong > 0 )
+      this.item.TyLePEBongMun = this.item.PEBongMun/ (TongKhoiLuong) * 100;
+  }
+  //chai ki
+  TinhTyLeBongChaiKy(){
+    let TongKhoiLuong = this.item.ChaiKy ?? 0;
+    for(let i = 0 ; i <this.listItem.length ; i ++)
+    {
+      TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
+    }
+    if(TongKhoiLuong > 0 )
+      this.item.TyLeBongChaiKy = this.item.ChaiKy/ (TongKhoiLuong) * 100;
+  }
+  //thô
+  TinhTyLeBongCuiHoi(){
+    let TongKhoiLuong = this.item.CuiHoi ?? 0;
+    for(let i = 0 ; i <this.listItem.length ; i ++)
+    {
+      TongKhoiLuong+= this.listItem[i].KhoiLuong ?? 0;
+    }
+    if(TongKhoiLuong > 0 )
+      this.item.TyLeBongCuiHoi = this.item.CuiHoi/ (TongKhoiLuong) * 100;
+  }
+  //con
+  TinhTyLeBongThoMang(){
+    let TongKhoiLuong = this.item.ThoMang ?? 0;
+    for(let i = 0 ; i <this.listItem.length ; i ++)
+    {
+      TongKhoiLuong+= this.listItem[i].KhoiLuong ?? 0;
+    }
+    if(TongKhoiLuong > 0 )
+      this.item.TyLeThoMang = (this.item.ThoMang ?? 0) / (TongKhoiLuong) * 100;
+  }
+  TinhTyLeBongHutMoi(){
+    let TongKhoiLuong = this.item.BongHutMoi ?? 0;
+    for(let i = 0 ; i <this.listItem.length ; i ++)
+    {
+      TongKhoiLuong+= this.listItem[i].KhoiLuong ?? 0;
+    }
+    if(TongKhoiLuong > 0 )
+      this.item.TyLeBongHutMoi = (this.item.BongHutMoi ?? 0) / (TongKhoiLuong) * 100;
+  }
+  //ong
+  TinhTyLeSoiCat(){
+    let TongKhoiLuong = this.item.SoiCat ?? 0;
+    for(let i = 0 ; i <this.listItem.length ; i ++)
+    {
+      TongKhoiLuong+= this.listItem[i].KhoiLuong ?? 0;
+    }
+    if(TongKhoiLuong > 0 )
+      this.item.TyLeSoiCat = this.item.SoiCat/ (TongKhoiLuong) * 100;
   }
 }

@@ -5,7 +5,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { Dat09Service } from "src/app/services/callApi";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
-import { DateToUnix } from "src/app/services/globalfunction";
+import { DateToUnix, mapArrayForDropDown } from "src/app/services/globalfunction";
 import { KiemkekhomodalComponent } from "../kiemkekhomodal/kiemkekhomodal.component";
 
 @Component({
@@ -49,6 +49,8 @@ export class KiemkekhoComponent implements OnInit {
     ];
     checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
     title: any = "";
+    listdmKho: any = [];
+    listLoHang: any = []
     constructor(
         public _modal: NgbModal,
         public _toastr: ToastrService,
@@ -58,6 +60,9 @@ export class KiemkekhoComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.getListdmKho();
+        this.getListLoHang();
+
         console.log(this.activatedRoute);
         this.activatedRoute.params.subscribe((res: any) => {
             this.title = 'khothanhpham';
@@ -68,6 +73,22 @@ export class KiemkekhoComponent implements OnInit {
         this.GetListQuyTrinh();
         this.KiemTraTabTrangThai();
     }
+    getListdmKho() {
+        let data = {
+          CurrentPage : 0
+        }
+        this._service.GetListdmKho(data).subscribe((res: any) => {
+          this.listdmKho = mapArrayForDropDown(res, 'Ten', 'Id');
+        })
+      }
+      getListLoHang() {
+        let data = {
+          CurrentPage : 0
+        }
+        this._service.LoHang().GetList(data).subscribe((res: any) => {
+          this.listLoHang = mapArrayForDropDown(res, 'Ten', 'Id');
+        })
+      }
     changeParam(id) {
         if (this._modal.hasOpenModals()) {
             this._modal.dismissAll();
@@ -140,6 +161,8 @@ export class KiemkekhoComponent implements OnInit {
             DenNgay: DateToUnix(this.filter.DenNgay),
             Ma: "",
             Ten: "",
+            IddmKho: this.filter.IddmKho,
+            IdLoHang: this.filter.IdLoHang
         };
         data.Loai = 11;
         this._service

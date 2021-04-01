@@ -54,8 +54,8 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân xưởng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"
-                    (onChange)="ThayDoiPhanXuong()"></p-dropdown>
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong" (onChange)="ThayDoiPhanXuong()">
+                </p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
@@ -180,10 +180,11 @@
                             <div class="p-inputgroup">
                                 <div style="flex:1">
                                     <p-dropdown [filter]="true" [options]="listLoHang" placeholder="Chọn lô hàng"
-                                    styleClass="p-inputtext-sm" [(ngModel)]="itemtbl.IdLoHang"></p-dropdown>
+                                        styleClass="p-inputtext-sm" [(ngModel)]="itemtbl.IdLoHang"></p-dropdown>
                                 </div>
                                 <button pButton pRipple icon="pi pi-copy"
-                                    class="p-button-sm p-button-rounded p-button-text p-mr-2" (click)="ApDung(itemtbl)"></button>
+                                    class="p-button-sm p-button-rounded p-button-text p-mr-2"
+                                    (click)="ApDung(itemtbl)"></button>
                             </div>
 
                         </td>
@@ -231,9 +232,149 @@
                     </tr> -->
                 </ng-template>
             </p-table>
+            <br/>
             <div class="p-col-12 p-p-0 d-flex flex-row p-jc-end">
-                <div class="p-col-12 p-lg-6 p-p-0 d-flex">
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='_00_BONGCHAI'">
+                <div class="p-col-12 p-p-0 d-flex flex-row p-jc-end">
+                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='CHAICOTTON'">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông F:</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.CottonBongPhe"
+                                (onBlur)="TinhTyLeCottonBongPhe()">
+                                </p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                {{item.TyLeCottonBongPhe|number:'0.3-3'}}
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông mùn:</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.CottonBongMun"
+                                (onBlur)="TinhTyLeCottonBongMun()">
+                                </p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                {{item.TyLeCottonBongMun|number:'0.3-3'}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='CHAIPE'">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông F:</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.PEBongPhe"
+                                (onBlur)="TinhTyLePEBongPhe()">
+                                </p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                {{item.TyLePEBongPhe|number:'0.3-3'}}
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông mùn:</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.PEBongMun"
+                                (onBlur)="TinhTyLePEBongMun()">
+                                </p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                {{item.TyLePEBongMun|number:'0.3-3'}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='CHAIKY'">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông chải kỹ:</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.ChaiKy"
+                                (onBlur)="TinhTyLeBongChaiKy()">
+                                </p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                {{item.TyLeBongChaiKy|number:'0.3-3'}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='THO'">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.CuiHoi"
+                                (onBlur)="TinhTyLeBongCuiHoi()">
+                                </p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                {{item.TyLeBongCuiHoi|number:'0.3-3'}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='CON'">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng thô màng:</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.ThoMang"
+                                (onBlur)="TinhTyLeBongThoMang()">
+                                </p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                {{item.TyLeThoMang|number:'0.3-3'}}
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông hút mối:</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.BongHutMoi"
+                                (onBlur)="TinhTyLeBongHutMoi()">
+                                </p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                {{item.TyLeBongHutMoi|number:'0.3-3'}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='ONG'">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng sợi cắt:</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.SoiCat"
+                                (onBlur)="TinhTyLeSoiCat()">
+                                </p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                {{item.TyLeSoiCat|number:'0.3-3'}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='_00_BONGCHAI'">
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bông phế:</label>
                             <div class="p-col-12 p-lg-8 p-p-0">
@@ -276,8 +417,7 @@
                                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoiCat" pInputText />
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div> -->
             </div>
         </div>
     </div>

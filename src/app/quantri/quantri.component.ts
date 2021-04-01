@@ -628,6 +628,11 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/quanlykhosanxuat/khobong/kiemkekhobong/0',
                         command: () => this.close()
                     },
+                    {
+                        label: 'Tồn kho',
+                        routerLink: '/quantri/quanlykhosanxuat/tonkho/0',
+                        command: () => this.close()
+                    },
                     // {
                     //     label: 'Điều chuyển',
                     //     routerLink: '/quantri/quanlykhosanxuat/khobong/dieuchuyen/0',
