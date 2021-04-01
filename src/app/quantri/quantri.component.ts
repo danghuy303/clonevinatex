@@ -69,16 +69,20 @@ export class QuantriComponent implements OnInit {
         this.listNoti.toggle(event);
     }
     readedAllNoti() {
-        this.newNoti = 0;
+        this._services.Notifications().MarkAllRead().subscribe(res=>{
+            console.log(res);
+        })
     }
     readOne(item) {
+        this._services.Notifications().XemNotification(item).subscribe((res)=>{
+            console.log(res);
+        })
         let read = this.listNotis.find(ele => ele.Id === item.Id);
         if (read) {
             read.isRead = true
         }
         this.newNoti = this.listNotis.filter(ele => ele.isRead !== true).length;
         let routerURL = this.mapQuyTrinhRoute[item.LoaiThongBao];
-        console.log(routerURL + item.IdQuyTrinh)
         if (routerURL) {
             // this._router.navigate([`${routerURL}0`]);
             // setTimeout(()=>{

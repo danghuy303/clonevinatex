@@ -34,7 +34,7 @@ export class Dongvanpx2Component implements OnInit {
     this.length = this.item.listLoBong.reduce((total, ele) => {
       return total + ele.SoLuong
     }, 0)
-    for (let i = 1; i <= (this.length + this.ngoaiQuan.length); i++) {
+    for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -51,7 +51,7 @@ export class Dongvanpx2Component implements OnInit {
         this.block2.push(`${i}`)
       }
       if (24 < i && i <= 26) {
-        this.block3.push(`${i}`)
+        this.block3.unshift(`${i}`)
       }
       if (26 < i && i <= 57) {
         this.block4.push(`${i}`)
@@ -62,7 +62,7 @@ export class Dongvanpx2Component implements OnInit {
     };
     this.block3.reverse();
     if (validVariable(this.item.Id)) {
-      for (let i = 1; i <= (this.length + this.ngoaiQuan.length); i++) {
+      for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
         let data = this.item.listItem.find(ele => ele.ThuTu === i);
         this.banBong[`${i}`] = {
           _focus: false,
@@ -109,7 +109,7 @@ export class Dongvanpx2Component implements OnInit {
         this.block2.push(`${i}`)
       }
       if (24 < i && i <= 26) {
-        this.block3.push(`${i}`)
+        this.block3.unshift(`${i}`)
       }
       if (26 < i && i <= 57) {
         this.block4.push(`${i}`)
