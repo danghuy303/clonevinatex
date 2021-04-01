@@ -293,41 +293,27 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
   //cotton
   TinhTyLeCottonBongPhe(){
-    let TongKhoiLuong = this.item.CottonBongPhe ?? 0;
+    let TongKhoiLuong = (this.item.CottonBongPhe ?? 0) + (this.item.CottonBongMun ?? 0);
     for(let i = 0 ; i <this.listItem.length ; i ++)
     {
       TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
     }
-    if(TongKhoiLuong > 0 )
+    if(TongKhoiLuong > 0 ){
       this.item.TyLeCottonBongPhe = this.item.CottonBongPhe/ (TongKhoiLuong) * 100;
-  }
-  TinhTyLeCottonBongMun(){
-    let TongKhoiLuong = this.item.CottonBongMun ?? 0;
-    for(let i = 0 ; i <this.listItem.length ; i ++)
-    {
-      TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
-    }
-    if(TongKhoiLuong > 0 )
       this.item.TyLeCottonBongMun = this.item.CottonBongMun/ (TongKhoiLuong) * 100;
+    }
   }
   //PE
   TinhTyLePEBongPhe(){
-    let TongKhoiLuong = this.item.PEBongPhe ?? 0;
+    let TongKhoiLuong = (this.item.PEBongPhe ?? 0) + (this.item.PEBongMun ?? 0);
     for(let i = 0 ; i <this.listItem.length ; i ++)
     {
       TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
     }
-    if(TongKhoiLuong > 0 )
+    if(TongKhoiLuong > 0 ){
       this.item.TyLePEBongPhe = this.item.PEBongPhe/ (TongKhoiLuong) * 100;
-  }
-  TinhTyLePEBongMun(){
-    let TongKhoiLuong = this.item.PEBongMun ?? 0;
-    for(let i = 0 ; i <this.listItem.length ; i ++)
-    {
-      TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
-    }
-    if(TongKhoiLuong > 0 )
       this.item.TyLePEBongMun = this.item.PEBongMun/ (TongKhoiLuong) * 100;
+    }
   }
   //chai ki
   TinhTyLeBongChaiKy(){
@@ -351,22 +337,15 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
   //con
   TinhTyLeBongThoMang(){
-    let TongKhoiLuong = this.item.ThoMang ?? 0;
+    let TongKhoiLuong = (this.item.ThoMang ?? 0) + (this.item.BongHutMoi ?? 0);
     for(let i = 0 ; i <this.listItem.length ; i ++)
     {
       TongKhoiLuong+= this.listItem[i].KhoiLuong ?? 0;
     }
-    if(TongKhoiLuong > 0 )
+    if(TongKhoiLuong > 0 ){
       this.item.TyLeThoMang = (this.item.ThoMang ?? 0) / (TongKhoiLuong) * 100;
-  }
-  TinhTyLeBongHutMoi(){
-    let TongKhoiLuong = this.item.BongHutMoi ?? 0;
-    for(let i = 0 ; i <this.listItem.length ; i ++)
-    {
-      TongKhoiLuong+= this.listItem[i].KhoiLuong ?? 0;
-    }
-    if(TongKhoiLuong > 0 )
       this.item.TyLeBongHutMoi = (this.item.BongHutMoi ?? 0) / (TongKhoiLuong) * 100;
+    }
   }
   //ong
   TinhTyLeSoiCat(){
