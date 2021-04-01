@@ -26,7 +26,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   listLoaiBong: any = [];
   listKhoHoiAm: any = [];
   listKhoThanhPham: any = [];
-  // listdmQuyCachDongGoi: any = [];
+  listdmQuyCachDongGoi: any = [];
   lang: any = vn;
   data: any = {};
   type: any = '';
@@ -63,6 +63,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     this.data.CurrentPage = 0;
 
     this.getListKho();
+    this.getListdmQuyCachDongGoi();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -143,7 +144,11 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       this.listKhoThanhPham = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-
+  getListdmQuyCachDongGoi() {
+    this._services.dmQuyCachDongGoi().GetList().subscribe((res: any) => {
+      this.listdmQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
