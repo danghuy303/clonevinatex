@@ -214,7 +214,7 @@ export class NhucauxuathangComponent implements OnInit {
     setTimeout(
       () => {
         this._services.GetdmKhoThanhPhamHoiAm_DashBoard({ IdDuAn: this.store.getCurrent() }).subscribe((res: any) => {
-          res.unshift({ Id: '', Ten: 'Tất cả' });
+          res.unshift({ Id: '', Ten: 'Tất cả kho' });
           this.listKho = mapArrayForDropDown(res, "Ten", 'Id');
           this.getMatHang();
         })
@@ -224,7 +224,7 @@ export class NhucauxuathangComponent implements OnInit {
   }
   getMatHang() {
     this._services.GetOptions().GetListdmItemTheoKhoThanhPhamHoiAm_DashboardNhuCauXuatHang(this.filter).subscribe((res: any) => {
-      res.unshift({ Id: '', Ten: 'Tổng hợp' });
+      res.unshift({ Id: '', Ten: 'Tất cả mặt hàng' });
       this.listMatHang = mapArrayForDropDown(res, "Ten", 'Id');
       this.filter.IddmLoaiBong = '';
       this.ChangeOpt()

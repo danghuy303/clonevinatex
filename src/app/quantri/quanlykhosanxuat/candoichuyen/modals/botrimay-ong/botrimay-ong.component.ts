@@ -306,7 +306,8 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     });
   }
   boMatHangDao(item){
-    console.log(item);
+    // let exist = this.item.listDaBoTri.some(ele=>ele.IdCanDoiChuyen_CanBoTri===item.Id);
+    // console.log(exist);
     this.services.CanDoiChuyen().XoaMatHangDao(item.Id).subscribe((res:any)=>{
       if(res?.State===1){
         this.toastr.success(res.message);

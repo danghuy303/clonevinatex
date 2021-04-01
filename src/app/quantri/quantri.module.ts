@@ -44,7 +44,7 @@ import { QuanlytaisannhadatComponent } from './quanlytaisannhadat/quanlytaisannh
 import { ThongTinChungComponent } from './components/thong-tin-chung/thong-tin-chung.component';
 import { HienTrangSuDungComponent } from './components/hien-trang-su-dung/hien-trang-su-dung.component';
 import { ModalThuaDatComponent } from './modal/modal-thua-dat/modal-thua-dat.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TaiSanTrenDatComponent } from './components/tai-san-tren-dat/tai-san-tren-dat.component';
 import { SoDoComponent } from './components/so-do/so-do.component';
 import { TinhTrangPhapLyComponent } from './components/tinh-trang-phap-ly/tinh-trang-phap-ly.component';
@@ -271,6 +271,9 @@ import { KhobonghoikiemkekhomodalComponent } from './quanlykhosanxuat/quytrinh/k
 import { KhobongphekiemkekhoComponent } from './quanlykhosanxuat/quytrinh/khobongphekiemkekho/khobongphekiemkekho.component';
 import { KhobongphekiemkekhomodalComponent } from './quanlykhosanxuat/quytrinh/khobongphekiemkekhomodal/khobongphekiemkekhomodal.component';
 import { BongphemathangmodalComponent } from './quanlykhosanxuat/quytrinh/bongphemathangmodal/bongphemathangmodal.component';
+import { LoaderInterceptor } from '../services/loader.interceptor';
+import { LoaderService } from '../services/loader.service';
+import { LoaderComponent } from '../loader/loader.component';
 import { XuatthanhphammathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatthanhphammathangmodal/xuatthanhphammathangmodal.component';
 import { TonkhoComponent } from './quanlykhosanxuat/quytrinh/tonkho/tonkho.component';
 import { TonkhodanhsachchitietComponent } from './quanlykhosanxuat/quytrinh/tonkhodanhsachchitiet/tonkhodanhsachchitiet.component';
@@ -498,6 +501,7 @@ import { TonkhodanhsachchitietComponent } from './quanlykhosanxuat/quytrinh/tonk
     KhobongphekiemkekhoComponent,
     KhobongphekiemkekhomodalComponent,
     BongphemathangmodalComponent,
+    LoaderComponent,
     XuatthanhphammathangmodalComponent,
     TonkhoComponent,
     TonkhodanhsachchitietComponent,
@@ -659,6 +663,8 @@ import { TonkhodanhsachchitietComponent } from './quanlykhosanxuat/quytrinh/tonk
     SumByKeyPipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
+    LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
   ],
 })
 export class QuantriModule { }

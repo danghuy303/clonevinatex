@@ -1497,7 +1497,12 @@ export class SanXuatService {
             GetNotiCounAndNew: () => {
                 return this.http.get(`${url}GetNotification`, httpOptions)
             },
-
+            MarkAllRead:()=>{
+                return this.http.post(`${url}MarkAllRead`,{}, httpOptions)
+            },
+            XemNotification:(data)=>{
+                return this.http.post(`${url}XemNotification`,data, httpOptions)
+            }
         }
     }
     PhieuKiemKeBanChePham() {

@@ -180,14 +180,14 @@ export class SanluongComponent implements OnInit {
         this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
           // console.log(res);
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
-          this.listMay.unshift({ label: 'Tất cả', value: '' })
+          this.listMay.unshift({ label: 'Tất cả công đoạn', value: '' })
           this.filter.IddmMay = this.listMay[0].value;
         })
       }
       if(validVariable(this.CongDoan)){
         this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
-          this.listMay.unshift({ label: 'Tất cả', value: '' })
+          this.listMay.unshift({ label: 'Tất cả công đoạn', value: '' })
         })
       }
       this._services.DashBoard().BaoCaoSanLuongLuyKe_BieuDoCot(this.filter).subscribe((res: any) => {
@@ -229,7 +229,7 @@ export class SanluongComponent implements OnInit {
       sFilter: ''
     }
     this._services.GetOptions().GetMatHang().subscribe((res: any) => {
-      res.unshift({ Id: '', Ten: 'Tất cả' });
+      res.unshift({ Id: '', Ten: 'Tất cả mặt hàng' });
       this.listMatHang = mapArrayForDropDown(res, 'Ten', 'Id')
     });
     // this._services.GetListdmKho(data).subscribe((res: any) => {
@@ -237,7 +237,7 @@ export class SanluongComponent implements OnInit {
     // });
     this._services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, "Ten", 'Ma')
-      this.listCongDoan.unshift({ label: 'Tất cả', value: '' })
+      this.listCongDoan.unshift({ label: 'Tất cả công đoạn', value: '' })
       if(this.CongDoan!==''){
         this.filter.CongDoan = this.CongDoan
       }else{
