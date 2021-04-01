@@ -277,7 +277,8 @@
                         <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.Am|number:'0.2-2'}}</td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50" >
-                            <div style="width: 100%;">
+                            <div style="width: 100%; display: flex;flex-direction: row;">
+                                <!-- <span>+</span> -->
                                 <input style="width: 100%; text-align: right; border: transparent; color:#495057"
                                     class="dat09focus" [tabindex]="lobong.tempBanBong[prop].tabIndex" type="number"
                                     [(ngModel)]="lobong.tempBanBong[prop].SoKien"

@@ -259,7 +259,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     setTimeout(() => {
       this._services.GetOptions().GetdmKhoTheoDuAn_NhuCauSuDungBong_DashBoard().subscribe((res: any) => {
         console.log(res);
-        res.unshift({ Id: '', Ten: 'Tất cả' });
+        res.unshift({ Id: '', Ten: 'Tất cả kho' });
         this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
         this.getMatHangNhuCau(this.filter.IddmKho);
       });
@@ -267,7 +267,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     setTimeout(() => {
       this._services.GetOptions().GetdmKhoTheoDuAn_CoCauTonBong_DashBoard().subscribe((res: any) => {
         console.log(res);
-        res.unshift({ Id: '', Ten: 'Tất cả' });
+        res.unshift({ Id: '', Ten: 'Tất cả kho' });
         this.listKhoCanDoiTon = mapArrayForDropDown(res, 'Ten', 'Id');
         this.getMatHangCanDoiTon(this.filterNhuCau.IddmKho);
       });
@@ -275,7 +275,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
   }
   getMatHangNhuCau(IddmKho) {
     this._services.GetOptions().GetListdmLoaiBong_NhuCauSuDungBong_DashBoard(IddmKho).subscribe((res: any) => {
-      res.unshift({ Id: '', Ten: 'Tất cả' });
+      res.unshift({ Id: '', Ten: 'Tất cả bông' });
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.filter.IddmLoaiBong = '';
       this.ChangeOptBieuDo()
@@ -283,7 +283,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
   }
   getMatHangCanDoiTon(IddmKho) {
     this._services.GetOptions().GetListdmLoaiBong_CoCauTonBong_DashBoard(IddmKho).subscribe((res: any) => {
-      res.unshift({ Id: '', Ten: 'Tất cả' });
+      res.unshift({ Id: '', Ten: 'Tất cả nguyên liệu' });
       this.listLoaiBongCanDoiTon = mapArrayForDropDown(res, 'Ten', 'Id');
       this.filterNhuCau.IddmLoaiBong = '';
       this.ChangeOptCanDoiTon()

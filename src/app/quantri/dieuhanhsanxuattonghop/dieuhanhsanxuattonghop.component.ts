@@ -195,6 +195,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
     };
     this._services.GetListdmPhanXuong(data2).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
     })
     this._services.BaoCao().GetDanhSachChiTieuChatLuong_BieuDo().subscribe((res: any) => {
       this.listtieuchi = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -222,7 +223,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
     //   this.listMay = mapArrayForDropDown(res, "Ma", 'Id')
     // });
     this._services.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
-      res.unshift({ Id: '', Ten: 'Tổng ca' });
+      res.unshift({ Id: '', Ten: 'Tổng ca sản xuất' });
       this.listCa = mapArrayForDropDown(res, "Ten", 'Id')
     });
     // this._services.GetListdmLoaiBong(data).subscribe((res: any) => {
