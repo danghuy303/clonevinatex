@@ -144,7 +144,7 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   }
 
   ApDungDenNgay() {
-    if (validVariable(this.filter.DenNgay) && validVariable(this.filter.TuNgay) && this.filter.TuNgay < this.filter.DenNgay) {
+    if (validVariable(this.filter.DenNgay) && validVariable(this.filter.TuNgay) && this.filter.TuNgay <= this.filter.DenNgay) {
       this._services.CanDoiChuyen().SetCanDoiChuyen({ ...this.item, ...this.addonData }).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

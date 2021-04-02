@@ -18,6 +18,7 @@ export class NhucauxuathangComponent implements OnInit {
   filter: any = {
     IddmItem: "",
     IddmKho: '',
+    IddmKhoAll: '',
     // LoaiThoiGian: 1
   };
   selectedXuatNhap: any = {};
@@ -28,6 +29,7 @@ export class NhucauxuathangComponent implements OnInit {
   dataSet2: any = {};
   listOpts: any = [];
   listKho: any = [];
+  listKhoAll: any = [];
   listMatHang: any = [];
   listTruySuatNguonGoc: any = [];
   listCongDoan: any = [];
@@ -188,6 +190,7 @@ export class NhucauxuathangComponent implements OnInit {
       let data = deepCopy(this.filter);
       data.TuNgay = TuNgay;
       data.DenNgay = DenNgay;
+      data.IddmKho  = this.filter.IddmKhoAll;
       this._services.BaoCao().GetDashBoard_CanDoiTonXuatHang(data).subscribe(res => {
         this.listItem = res;
       })
@@ -213,14 +216,25 @@ export class NhucauxuathangComponent implements OnInit {
     };
     setTimeout(
       () => {
-        this._services.GetdmKhoThanhPhamHoiAm_DashBoard({ IdDuAn: this.store.getCurrent() }).subscribe((res: any) => {
+        let data = {
+          CurrentPage: 0,
+          Loai: 11,
+        }
+        this._services.GetListdmKho(data).subscribe((res: any) => {
           res.unshift({ Id: '', Ten: 'Tất cả kho' });
-          this.listKho = mapArrayForDropDown(res, "Ten", 'Id');
+          this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
           this.getMatHang();
         })
       }, 500
     )
-
+    setTimeout(
+      () => {
+        this._services.GetdmKhoThanhPhamHoiAm_DashBoard({ IdDuAn: this.store.getCurrent() }).subscribe((res: any) => {
+          res.unshift({ Id: '', Ten: 'Tất cả kho' });
+          this.listKhoAll = mapArrayForDropDown(res, "Ten", 'Id');
+        })
+      }, 500
+    )
   }
   getMatHang() {
     this._services.GetOptions().GetListdmItemTheoKhoThanhPhamHoiAm_DashboardNhuCauXuatHang(this.filter).subscribe((res: any) => {

@@ -69,6 +69,11 @@
                         (onSelect)="ChangeOpt()">
                     </p-calendar>
                 </div>
+                <div class="p-mr-2">
+                    <p-dropdown [filter]="true" [options]="listKhoAll" placeholder="Chọn kho" styleClass="p-inputtext-sm"
+                        [(ngModel)]="filter.IddmKhoAll" (onChange)="ChangeOpt()">
+                    </p-dropdown>
+                </div>
                 <div style="display:table;height:100%">
                     <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
                         (click)="xemTruySuatNguonGoc()">Truy xuất nguồn gốc</a>
@@ -211,7 +216,8 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center" style="width: 50px !important;">{{i+1}}</td>
-                <td><a href="javascript:void(0)" (click)="navigateXuatNhap(item)">{{item[selectedXuatNhap.field]}}</a></td>
+                <td><a href="javascript:void(0)" (click)="navigateXuatNhap(item)">{{item[selectedXuatNhap.field]}}</a>
+                </td>
                 <td><a href="javascript:void(0)" (click)="navigateKiemKe(item)">{{item.SoPhieuKiemKe}}</a></td>
                 <td class="text-right">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
                 <td class="text-right">{{item.SoLuong|number:'0.0-0'}}</td>
