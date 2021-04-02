@@ -40,11 +40,10 @@ export class TonkhoComponent implements OnInit {
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    this.filter.KeyWord = ''
-    this.GetListQuyTrinh();
+    this.filter.KeyWord = '';
+    this.getListdmKho();
     this.getListCaSanXuat();
     this.getListPhanXuong();
-    this.getListdmKho();
   }
   getListdmKho() {
     let data = {
@@ -52,6 +51,10 @@ export class TonkhoComponent implements OnInit {
     }
     this._service.GetListdmKho(data).subscribe((res: any) => {
       this.listdmKho = res;
+      if(this.listdmKho.length > 0 && this.listdmKho !== undefined){
+        this.filter.IddmKho = this.listdmKho[0].Id;
+        this.GetListQuyTrinh();
+      }
     })
   }
   getListCaSanXuat() {

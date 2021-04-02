@@ -7,11 +7,11 @@
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
             <p-dropdown [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.IddmPhanXuong" [showClear]="true" (onClick)="GetListQuyTrinh(true)"></p-dropdown>
+                [(ngModel)]="filter.IddmPhanXuong" [showClear]="true" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-dropdown [options]="listCaSanXuat" placeholder="Chọn ca làm việc" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.IddmCaSanXuatThucTe" [showClear]="true" (onClick)="GetListQuyTrinh(true)"></p-dropdown>
+                [(ngModel)]="filter.IddmCaSanXuatThucTe" [showClear]="true" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"

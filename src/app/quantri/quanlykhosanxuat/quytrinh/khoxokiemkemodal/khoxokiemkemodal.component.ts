@@ -23,7 +23,6 @@ export class KhoxokiemkemodalComponent implements OnInit {
       Xoa: false,
   };
   listdmKho: any = [];
-  listdmViTri: any = [];
   listLoBong: any = [];
   listLoHang: any = [];
   listQuyCachDongGoi: any = [];
@@ -57,9 +56,6 @@ export class KhoxokiemkemodalComponent implements OnInit {
       this.services.GetListdmKho(data).subscribe((res: any) => {
           this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
       });
-      this.services.GetListdmViTriOpt().subscribe((res: any) => {
-          this.listdmViTri = mapArrayForDropDown(res, "Ten", "Id");
-      });
       this.services.GetListLoBong(data).subscribe((res: any) => {
           this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
       });
@@ -85,7 +81,7 @@ export class KhoxokiemkemodalComponent implements OnInit {
   }
   GetQuyTrinh() {
       this.services
-          .PhieuKiemKeKho()
+          .PhieuKiemKeKhoBong()
           .Get(this.Id)
           .subscribe((res1: any) => {
               this.item = res1;
@@ -109,7 +105,7 @@ export class KhoxokiemkemodalComponent implements OnInit {
   ChuyenDuyet() {
       this.item.listItem = deepCopy(this.listItem);
       this.services
-          .PhieuKiemKeKho()
+          .PhieuKiemKeKhoBong()
           .ChuyenTiep(this.item)
           .subscribe((res: any) => {
               if (res) {
@@ -134,7 +130,7 @@ export class KhoxokiemkemodalComponent implements OnInit {
   GhiLai() {
       this.item_new.listItem = this.listItem;
       this.services
-          .PhieuKiemKeKho()
+          .PhieuKiemKeKhoBong()
           .Set(this.item_new)
           .subscribe((res: any) => {
               if (res) {
@@ -168,7 +164,7 @@ export class KhoxokiemkemodalComponent implements OnInit {
       modalRef.result
           .then((res) => {
               this.services
-                  .PhieuKiemKeKho()
+                  .PhieuKiemKeKhoBong()
                   .Delete(this.item)
                   .subscribe((res: any) => {
                       console.log(res);

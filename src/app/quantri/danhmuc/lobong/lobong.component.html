@@ -1,23 +1,21 @@
 <h4 class="title">
-    Lô hàng
+    Lô bông
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
     </div>
     <div class="p-d-flex p-flex-row">
-        <!-- <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button> -->
-        <!-- <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày">
-            </p-calendar>
+        <div class="p-mr-2">
+            <p-dropdown [options]="listdmLoaiBong" placeholder="Chọn loại bông" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.IddmLoaiBong" [showClear]="true" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
         </div>
         <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày">
-            </p-calendar>
-        </div>-->
+            <p-dropdown [options]="listisDaDuyet" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.isDaDuyet" [showClear]="true" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
+        </div>
         <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh()" [(ngModel)]="filter.KeyWord"/>
+            <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text"(click)="GetListQuyTrinh(true)"></button>
             <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"(click)="resetFilter()"></button>
         </div> 
     </div>

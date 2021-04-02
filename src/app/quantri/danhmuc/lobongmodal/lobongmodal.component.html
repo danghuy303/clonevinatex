@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} lô hàng</h5>
+    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} lô bông</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -36,11 +36,11 @@
         <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Năm:</label>
             <div class="p-col-12 p-lg-4 p-p-0">
-                <input type="number" class="p-inputtext-sm" [(ngModel)]="item.Nam" pInputText />
+                <input type="number" class="p-inputtext-sm text-right" [(ngModel)]="item.Nam" pInputText />
             </div>
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Đợt:</label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Đợt:</label>
             <div class="p-col-12 p-lg-4 p-p-0">
-                <input type="number" class="p-inputtext-sm" [(ngModel)]="item.Dot" pInputText />
+                <input type="number" class="p-inputtext-sm text-right" [(ngModel)]="item.Dot" pInputText />
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
@@ -49,7 +49,7 @@
                 <p-dropdown [filter]="true" [options]="listdmLoaiBong" placeholder="Chọn loại bông" 
                 [(ngModel)]="item.IddmLoaiBong" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Cấp bông:</label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cấp bông:</label>
             <div class="p-col-12 p-lg-4 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmCapBong" 
                 placeholder="Chọn cấp bông" [(ngModel)]="item.IddmCapBong"
@@ -62,7 +62,7 @@
                 <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuongKien" [min] = "0">
                 </p-inputNumber>
             </div>
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Trọng lượng:</label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Trọng lượng:</label>
             <div class="p-col-12 p-lg-4 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TrongLuong" [min] = "0">
                 </p-inputNumber>
@@ -74,7 +74,7 @@
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.GiaKien" [min] = "0">
                 </p-inputNumber>
             </div>
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Giá bông:</label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Giá bông:</label>
             <div class="p-col-12 p-lg-4 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.GiaBong" [min] = "0">
                 </p-inputNumber>
@@ -82,56 +82,61 @@
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mic:</label>
-            <div class="p-col-12 p-lg-2 p-p-0">
+            <div class="p-col-12 p-lg-4 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Mic" [min] = "0">
                 </p-inputNumber>
             </div>
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Rd:</label>
-            <div class="p-col-12 p-lg-2 p-p-0">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rd:</label>
+            <div class="p-col-12 p-lg-4 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Rd" [min] = "0">
                 </p-inputNumber>
             </div>
+            
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">b:</label>
-            <div class="p-col-12 p-lg-2 p-p-0">
+            <div class="p-col-12 p-lg-4 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.b" [min] = "0">
+                </p-inputNumber>
+            </div>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nep:</label>
+            <div class="p-col-12 p-lg-4 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Nep" [min] = "0">
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nep:</label>
-            <div class="p-col-12 p-lg-2 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Nep" [min] = "0">
-                </p-inputNumber>
-            </div>
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mat:</label>
-            <div class="p-col-12 p-lg-2 p-p-0">
+            <div class="p-col-12 p-lg-4 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Mat" [min] = "0">
                 </p-inputNumber>
             </div>
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">UHML:</label>
-            <div class="p-col-12 p-lg-2 p-p-0">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UHML:</label>
+            <div class="p-col-12 p-lg-4 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.UHML" [min] = "0">
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-1 p-p-0 my-auto">Str:</label>
-            <div class="p-col-12 p-lg-2 p-p-0">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Str:</label>
+            <div class="p-col-12 p-lg-4 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Str" [min] = "0">
                 </p-inputNumber>
             </div>
-            <label class="p-col-12 p-lg-1 p-p-0 my-auto">Tap:</label>
-            <div class="p-col-12 p-lg-2 p-p-0">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tap:</label>
+            <div class="p-col-12 p-lg-4 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Tap" [min] = "0">
                 </p-inputNumber>
             </div>
-            <label class="p-col-12 p-lg-1 p-p-0 my-auto">SFI:</label>
-            <div class="p-col-12 p-lg-2 p-p-0">
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">SFI:</label>
+            <div class="p-col-12 p-lg-4 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SFI" [min] = "0">
                 </p-inputNumber>
             </div>
-            <label class="p-col-12 p-lg-1 p-p-0 my-auto">Am:</label>
-            <div class="p-col-12 p-lg-2 p-p-0">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Am:</label>
+            <div class="p-col-12 p-lg-4 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Am" [min] = "0">
                 </p-inputNumber>
             </div>
