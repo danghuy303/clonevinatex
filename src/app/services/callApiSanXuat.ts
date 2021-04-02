@@ -1695,8 +1695,8 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhieuKiemKeBongXo', data, httpOptions)
             },
-            GetlistdmMatHangThanhPhamKiemKe: () => {
-                return this.http.get(url + `GetlistdmMatHangThanhPhamBongXo`, httpOptions);
+            GetlistdmMatHangKiemKe: (IddmKho, IdLoBong) => {
+                return this.http.get(url + `getLuuKhoKiemKeKhoBong?IdDuAn=0&IddmKho=${IddmKho}&IdLoBong=${IdLoBong}`, httpOptions);
             }
         }
     }

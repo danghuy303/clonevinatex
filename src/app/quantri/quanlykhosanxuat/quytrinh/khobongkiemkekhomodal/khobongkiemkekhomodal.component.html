@@ -61,7 +61,7 @@
             <button pButton pRipple type="button" label="Nhận từ Excel" class="p-mr-2 p-button-sm" (click)="ImportExcel()" ></button>
         </div> -->
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <p-table [value]="listItem|isXoa"
+            <p-table [value]="item.listItem|isXoa"
                 styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
