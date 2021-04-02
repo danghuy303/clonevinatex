@@ -233,6 +233,20 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       })
     }
   }
+  KhongDuyet() {
+    if (this.ValidData()) {
+      this._services.TrienKhaiKeHoachSanXuat().KhongDuyet(this.SetData()).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message)
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'

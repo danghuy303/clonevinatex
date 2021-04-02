@@ -23,16 +23,14 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
       Xoa: false,
   };
   listdmKho: any = [];
-  listdmViTri: any = [];
+  listdmKhoFull: any = [];
   listLoBong: any = [];
-  listLoHang: any = [];
   listQuyCachDongGoi: any = [];
   listNewMatHang: any = [];
   listNewMatHang_ref: any = [];
   isKhoThanhPham:any=false;
   paging: any = {};
   listItem: any = [];
-  item_new: any = {};
   title: any = "";
   newItem: any = {};
   constructor(
@@ -48,27 +46,18 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
       } else {
           this.GetQuyTrinh();
       }
-      this.item_new = this.item;
-
       var data: any = {};
       data.CurrentPage = 0;
       data.Loai = 2;
-      this.item_new.Loai = 2;
+      this.item.Loai = 2;
       this.services.GetListdmKho(data).subscribe((res: any) => {
           this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
-      });
-      this.services.GetListdmViTriOpt().subscribe((res: any) => {
-          this.listdmViTri = mapArrayForDropDown(res, "Ten", "Id");
+          this.listdmKhoFull = res;
       });
       this.services.GetListLoBong(data).subscribe((res: any) => {
           this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
       });
-      this.services
-          .LoHang()
-          .GetList(data)
-          .subscribe((res: any) => {
-              this.listLoHang = mapArrayForDropDown(res, "Ten", "Id");
-          });
+      
       this.services
           .dmQuyCachDongGoi()
           .GetList()
@@ -85,7 +74,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
   }
   GetQuyTrinh() {
       this.services
-          .PhieuKiemKeKho()
+          .PhieuKiemKeKhoBong()
           .Get(this.Id)
           .subscribe((res1: any) => {
               this.item = res1;
@@ -94,7 +83,6 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
               this.paging.TotalPage = 5;
               this.paging.TotalItem = res1.listItem.length;
               this.item.listItem = res1.listItem.slice(0, 10);
-              this.item_new = res1;
               this.KiemTraButtonModal();
           });
   }
@@ -107,9 +95,8 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
   }
 
   ChuyenDuyet() {
-      this.item.listItem = deepCopy(this.listItem);
       this.services
-          .PhieuKiemKeKho()
+          .PhieuKiemKeKhoBong()
           .ChuyenTiep(this.item)
           .subscribe((res: any) => {
               if (res) {
@@ -124,7 +111,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
 
   GetNextSoQuyTrinh() {
       this.services
-          .PhieuKiemKeKho()
+          .PhieuKiemKeKhoBong()
           .GetNextSo()
           .subscribe((res: any) => {
               this.item.SoQuyTrinh = res.SoQuyTrinh;
@@ -132,10 +119,9 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
   }
 
   GhiLai() {
-      this.item_new.listItem = this.listItem;
       this.services
-          .PhieuKiemKeKho()
-          .Set(this.item_new)
+          .PhieuKiemKeKhoBong()
+          .Set(this.item)
           .subscribe((res: any) => {
               if (res) {
                   if (res.State === 1) {
@@ -143,7 +129,6 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
                       this.opt = "edit";
                       this.item = res.objectReturn;
                       this.Id = res.objectReturn.Id;
-                      this.listItem = res.objectReturn.listItem;
                       this.paging.CurrentPage = 1;
                       this.paging.TotalPage = 5;
                       if (
@@ -151,7 +136,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
                           res.objectReturn.listItem != null
                       )
                           this.paging.TotalItem = res.objectReturn.listItem.length;
-                      this.item.listItem = res.objectReturn.listItem.slice(0, 10);
+                      this.listItem = res.objectReturn.listItem.slice(0, 10);
                       this.KiemTraButtonModal();
                   } else {
                       this.toastr.error(res.message);
@@ -168,7 +153,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
       modalRef.result
           .then((res) => {
               this.services
-                  .PhieuKiemKeKho()
+                  .PhieuKiemKeKhoBong()
                   .Delete(this.item)
                   .subscribe((res: any) => {
                       console.log(res);
@@ -190,22 +175,19 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
           this.item.listItem.push(JSON.parse(JSON.stringify(item)));
       }
   }
-
   GetMatHangTheoKho() {
-      this.services
-          .getLuuKhoKiemKe(
+      this.services.PhieuKiemKeKhoBong()
+          .GetlistdmMatHangKiemKe(
               this.item.IddmKho,
-              this.item.IdLoBong,
-              "",
-              this.item.IdLoHang
+              this.item.IdLoBong
           )
           .subscribe((res1: any) => {
               res1.forEach((mathang) => {
                   mathang.SoLuong = mathang.TonSoLuong;
                   mathang.TongTrongLuong = mathang.TonTongTrongLuong;
               });
-              this.item.listItem = res1.slice(0, 10);
-              this.listItem = res1;
+              this.item.listItem = res1;
+              this.listItem = res1.slice(0, 10);
               this.paging.CurrentPage = 1;
               this.paging.TotalPage = 5;
               this.paging.TotalItem = res1.length;
@@ -215,10 +197,10 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
       this.paging.CurrentPage = event.page + 1;
       let start = 10 * event.page;
       let end = start + 10;
-      if (start + 10 > this.listItem.length) {
-          end = this.listItem.length;
+      if (start + 10 > this.item.listItem.length) {
+          end = this.listItem.item.length;
       }
-      this.item.listItem = this.listItem.slice(start, end);
+      this.listItem = this.item.listItem.slice(start, end);
   }
   setNewItemName(event) {
       let selected = this.listNewMatHang_ref.find(
@@ -250,7 +232,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
       })
       modalRef.result.then(res => {
         this.toastr.success('Cập nhật thành công!');
-          this.listItem = res.items;
+          this.item.listItem = res.items;
           this.paginator.changePage(0);
       })
         .catch(er => console.log(er))

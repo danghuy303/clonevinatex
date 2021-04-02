@@ -275,6 +275,8 @@ import { LoaderInterceptor } from '../services/loader.interceptor';
 import { LoaderService } from '../services/loader.service';
 import { LoaderComponent } from '../loader/loader.component';
 import { XuatthanhphammathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatthanhphammathangmodal/xuatthanhphammathangmodal.component';
+import { TonkhoComponent } from './quanlykhosanxuat/quytrinh/tonkho/tonkho.component';
+import { TonkhodanhsachchitietComponent } from './quanlykhosanxuat/quytrinh/tonkhodanhsachchitiet/tonkhodanhsachchitiet.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -501,6 +503,8 @@ import { XuatthanhphammathangmodalComponent } from './quanlykhosanxuat/quytrinh/
     BongphemathangmodalComponent,
     LoaderComponent,
     XuatthanhphammathangmodalComponent,
+    TonkhoComponent,
+    TonkhodanhsachchitietComponent,
   ],
   imports: [
     HttpClientModule,

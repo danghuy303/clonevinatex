@@ -139,7 +139,7 @@ export class KhoxokiemkeComponent implements OnInit {
             Loai:5
         };
         this._service
-            .PhieuKiemKeKho()
+            .PhieuKiemKeKhoBong()
             .GetList(data)
             .subscribe((res: any) => {
                 this.items = res.items;

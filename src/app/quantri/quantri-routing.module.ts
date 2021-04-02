@@ -100,6 +100,8 @@ import { KhobongkiemkekhoComponent } from './quanlykhosanxuat/quytrinh/khobongki
 import { KhoxokiemkeComponent } from './quanlykhosanxuat/quytrinh/khoxokiemke/khoxokiemke.component';
 import { KhobonghoikiemkekhoComponent } from './quanlykhosanxuat/quytrinh/khobonghoikiemkekho/khobonghoikiemkekho.component';
 import { KhobongphekiemkekhoComponent } from './quanlykhosanxuat/quytrinh/khobongphekiemkekho/khobongphekiemkekho.component';
+import { TonkhoComponent } from './quanlykhosanxuat/quytrinh/tonkho/tonkho.component';
+import { TonkhodanhsachchitietComponent } from './quanlykhosanxuat/quytrinh/tonkhodanhsachchitiet/tonkhodanhsachchitiet.component';
 
 const routes: Routes = [
   {
@@ -227,6 +229,8 @@ const routes: Routes = [
       
       { path: 'phanquyensanxuat/phanquyentheophanxuong', component: PhanquyentheophanxuongComponent },
       { path: 'quanlykhosanxuat/kiemkeBCP/:id', component: KiemkebcpComponent },
+      { path: 'quanlykhosanxuat/tonkho/:id', component: TonkhoComponent },
+      { path: 'quanlykhosanxuat/tonkhodanhsachchitiet/:id', component: TonkhodanhsachchitietComponent },
 
       { path: 'kehoachsanxuat/lohang', component: LohangComponent },
       { path: 'phanquyensanxuat/dmkhachhang', component: DmkhachhangComponent },

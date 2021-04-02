@@ -59,7 +59,6 @@ export class KhobongkiemkekhoComponent implements OnInit {
                 this.update(res.id);
             }
         });
-        this.GetListQuyTrinh();
         this.KiemTraTabTrangThai();
     }
     changeParam(id) {
@@ -137,7 +136,7 @@ export class KhobongkiemkekhoComponent implements OnInit {
             Loai: 2
         };
         this._service
-            .PhieuKiemKeKho()
+            .PhieuKiemKeKhoBong()
             .GetList(data)
             .subscribe((res: any) => {
                 this.items = res.items;

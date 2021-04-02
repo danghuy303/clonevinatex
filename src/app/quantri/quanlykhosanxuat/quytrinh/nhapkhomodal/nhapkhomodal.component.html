@@ -132,6 +132,12 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Gộp phiếu:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isGopPhieu"/>
+            </div>
+        </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <p-table
              [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
