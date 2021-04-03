@@ -7,6 +7,7 @@ import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 import {DecimalPipe} from '@angular/common';
+import { truncateWithEllipsis } from '@amcharts/amcharts4/.internal/core/utils/Utils';
 
 @Component({
   selector: 'app-nhapkhothanhphammodal',
@@ -72,7 +73,9 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   }
 
   ChuyenTiep() {
-    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+    if(!this.checkValidate())
+      this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
+    else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
     else {
@@ -95,9 +98,22 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
-
+  checkValidate(){
+    if(this.item.listItem.length > 0 && this.item.listItem.length !== undefined){
+      for(let i = 0; i < this.item.listItem.length ; i ++){
+        if(this.item.listItem[i].IdLoHang !== null && this.item.listItem[i].IdLoHang !== undefined){
+          if(this.item.listItem[i].IddmQuyCachDongGoi === null || this.item.listItem[i].IddmQuyCachDongGoi === undefined){
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
   GhiLai() {
-    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+    if(!this.checkValidate())
+      this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
+    else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
     else {

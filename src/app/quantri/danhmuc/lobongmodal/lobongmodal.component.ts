@@ -14,6 +14,7 @@ export class LobongmodalComponent implements OnInit {
 
   opt: any = ''
   listdmLoaiBong: any = [];
+  listLoBong: any = [];
   listdmCapBong: any = [];
   item: any = {};
   khongclicknhieu: any = false;
@@ -25,6 +26,7 @@ export class LobongmodalComponent implements OnInit {
   ngOnInit(): void {
     this.getListdmCapBong();
     this.GetListdmLoaiBong();
+    this.GetListLoBong();
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = new Date(this.item.NgayUnix * 1000);
     }
@@ -62,7 +64,14 @@ export class LobongmodalComponent implements OnInit {
       this.listdmLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-
+  GetListLoBong(){
+    let data={
+      CurrentPage: 0,
+    }
+    this.services.GetListLoBong(data).subscribe((res:any)=>{
+      this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
   getListdmCapBong(){
     this.services.GetListOptdmCapBong().subscribe((res:any)=>{
       this.listdmCapBong = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -70,5 +79,10 @@ export class LobongmodalComponent implements OnInit {
   }
   Onclose() {
     this.activeModal.close();
+  }
+  CopyLoBong(){
+    // this.services.CopyLoBong(this.item).subscribe((res:any)=>{
+    //   this.listdmCapBong = mapArrayForDropDown(res, 'Ten', 'Id');
+    // })
   }
 }

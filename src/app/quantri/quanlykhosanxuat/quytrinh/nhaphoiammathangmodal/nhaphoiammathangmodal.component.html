@@ -51,19 +51,6 @@
                         <td class="text-left" *ngIf="loai !== 'dmMatHang'">
                             {{item.TenLoHang}}
                         </td>
-                        <td class="text-center" *ngIf="loai !== 'dmMatHang'">
-                            {{item.TendmQuyCachDongGoi}}
-                        </td>
-                        <td class="text-right" *ngIf="loai !== 'dmMatHang'">
-                            {{item.SoLuong|number:'0.0' }}
-                        </td>
-                        <td class="text-right" *ngIf="loai !== 'dmMatHang'">
-                            {{item.TrongLuong|number:'0.2-2' }}
-                        </td>
-                        <!-- <td class="text-center" *ngFor="let col of cols">
-                            {{item[col.field]}} <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiHoiAm" disabled>
-                            </p-inputNumber>
-                        </td> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="summary">

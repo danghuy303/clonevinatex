@@ -419,6 +419,10 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'DeleteLoBong';
         return this.http.post(url, data, httpOptions);
     }
+    CopyLoBong(IdLoBong_Nguon, IdLoBong_Dich) {
+        let url = API.SCMDanhMuc + `CopyLoBong?IdLoBong_Nguon=${IdLoBong_Nguon}IdLoBong_Dich=${IdLoBong_Dich}`;
+        return this.http.get(url, httpOptions);
+    }
     //#endregion
 
     //Dùng chung

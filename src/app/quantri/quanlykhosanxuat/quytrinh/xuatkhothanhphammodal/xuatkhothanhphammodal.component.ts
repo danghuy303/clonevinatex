@@ -92,9 +92,22 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       this.listloaisoi = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-
+  checkValidate(){
+    if(this.item.listItem.length > 0 && this.item.listItem.length !== undefined){
+      for(let i = 0; i < this.item.listItem.length ; i ++){
+        if(this.item.listItem[i].IdLoHang !== null && this.item.listItem[i].IdLoHang !== undefined){
+          if(this.item.listItem[i].IddmQuyCachDongGoi === null || this.item.listItem[i].IddmQuyCachDongGoi === undefined){
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
   ChuyenTiep() {
-    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+    if(!this.checkValidate())
+      this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
+    else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn ngày");
     }
     else {
@@ -138,7 +151,9 @@ export class XuatkhothanhphammodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+    if(!this.checkValidate())
+      this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
+    else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn ngày");
     }
     else {
