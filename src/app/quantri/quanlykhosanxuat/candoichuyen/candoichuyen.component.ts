@@ -22,7 +22,7 @@ export class CandoichuyenComponent implements OnInit {
     listDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     listDates = [];
     filter: any = {
-        CongDoan: "CON",
+        CongDoan: "ONG",
         IddmPhanXuong: "1cf3f340-0f55-4f34-938p-e629318e25et"
     };
     showDialog: boolean = false;

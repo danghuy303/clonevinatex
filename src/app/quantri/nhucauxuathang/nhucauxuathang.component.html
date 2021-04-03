@@ -45,7 +45,7 @@
 
     <div class="p-col-12 p-xl-4 p-lg-4 p-p-3">
         <div class="chart text-left">
-            <h5>Cơ cấu mặt hàng theo kế hoạch xuất</h5>
+            <h5>Cơ cấu mặt hàng theo thực xuất</h5>
             <p-chart type="pie" [data]="dataPie" [options]='optionPie'></p-chart>
         </div>
     </div>
@@ -59,19 +59,24 @@
                 </h5>
                 <div class="p-mr-2">
                     <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                        [(ngModel)]="filter._tuNgayCanDoiTon" inputId="icon" placeholder="Từ ngày"
-                        (onSelect)="ChangeOpt()">
+                        [(ngModel)]="filterAll._tuNgay" inputId="icon" placeholder="Từ ngày"
+                        (onSelect)="getMatHangAll()">
                     </p-calendar>
                 </div>
                 <div class="p-mr-2">
                     <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                        [(ngModel)]="filter._denNgayCanDoiTon" inputId="icon" placeholder="Đến ngày"
-                        (onSelect)="ChangeOpt()">
+                        [(ngModel)]="filterAll._denNgay" inputId="icon" placeholder="Đến ngày"
+                        (onSelect)="getMatHangAll()">
                     </p-calendar>
                 </div>
                 <div class="p-mr-2">
                     <p-dropdown [filter]="true" [options]="listKhoAll" placeholder="Chọn kho" styleClass="p-inputtext-sm"
-                        [(ngModel)]="filter.IddmKhoAll" (onChange)="ChangeOpt()">
+                        [(ngModel)]="filterAll.IddmKho" (onChange)="getMatHangAll()">
+                    </p-dropdown>
+                </div>
+                <div class="p-mr-2">
+                    <p-dropdown [filter]="true" [options]="listMatHangAll" placeholder="Tổng hợp"
+                        styleClass="p-inputtext-sm" [(ngModel)]="filterAll.IddmItem" (onChange)="ChangeOptCanDoiTon()">
                     </p-dropdown>
                 </div>
                 <div style="display:table;height:100%">
@@ -220,13 +225,13 @@
                 <td><a href="javascript:void(0)" (click)="navigateXuatNhap(item)">{{item[selectedXuatNhap.field]}}</a>
                 </td>
                 <td><a href="javascript:void(0)" (click)="navigateKiemKe(item)">{{item.SoPhieuKiemKe}}</a></td>
-                <td class="text-right">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
                 <td class="text-right">{{item.SoLuong|number:'0.0-0'}}</td>
                 <td class="text-right">
                     {{item.TongTrongLuong|number:'0.2-2'}}
                     <!-- <a [href]="item.herfgiaokehoachsanxuat" target="_blank">{{item.TenGiaoKeHoach}}</a> -->
                 </td>
-                <td class="text-right">
+                <td >
                     {{item.TendmKho}}
                 </td>
             </tr>
