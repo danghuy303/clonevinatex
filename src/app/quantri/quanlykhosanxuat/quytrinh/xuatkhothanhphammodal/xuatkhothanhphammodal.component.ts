@@ -64,6 +64,8 @@ export class XuatkhothanhphammodalComponent implements OnInit {
           obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
         });
       }
+      this.TinhTongKhoiLuong();
+      this.TinhTongThanhTien();
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
@@ -303,7 +305,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
   TinhTongThanhTien(){
     this.TongThanhTien = 0;
     this.item.listItem.forEach(element => {
-      let thanhTien = (element.DonGia ?? 0) * (element.SoLuong ?? 0);
+      let thanhTien = (element.DonGia ?? 0) * (element.SoLuong ?? 0) * (element.KhoiLuong ?? 0);
       this.TongThanhTien = this.TongThanhTien + thanhTien;
     });
   }
