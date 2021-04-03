@@ -51,6 +51,7 @@ export class KiemkekhoComponent implements OnInit {
     title: any = "";
     listdmKho: any = [];
     listLoHang: any = []
+    eAction:'KIEMKEKHOTHANHPHAM'
     constructor(
         public _modal: NgbModal,
         public _toastr: ToastrService,
@@ -178,9 +179,9 @@ export class KiemkekhoComponent implements OnInit {
         this.GetListQuyTrinh(true);
     }
     KiemTraTabTrangThai() {
-        // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-        //   this.checkQuyen = res;
-        //   this.GetListQuyTrinh();
-        // })
+        this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+          this.checkQuyen = res;
+          this.GetListQuyTrinh();
+        })
     }
 }

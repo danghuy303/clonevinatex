@@ -277,6 +277,7 @@ import { LoaderComponent } from '../loader/loader.component';
 import { XuatthanhphammathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatthanhphammathangmodal/xuatthanhphammathangmodal.component';
 import { TonkhoComponent } from './quanlykhosanxuat/quytrinh/tonkho/tonkho.component';
 import { TonkhodanhsachchitietComponent } from './quanlykhosanxuat/quytrinh/tonkhodanhsachchitiet/tonkhodanhsachchitiet.component';
+import { NhaphoiammathangmodalComponent } from './quanlykhosanxuat/quytrinh/nhaphoiammathangmodal/nhaphoiammathangmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -505,6 +506,7 @@ import { TonkhodanhsachchitietComponent } from './quanlykhosanxuat/quytrinh/tonk
     XuatthanhphammathangmodalComponent,
     TonkhoComponent,
     TonkhodanhsachchitietComponent,
+    NhaphoiammathangmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -646,6 +648,7 @@ import { TonkhodanhsachchitietComponent } from './quanlykhosanxuat/quytrinh/tonk
     KhobongphekiemkekhomodalComponent,
     BongphemathangmodalComponent,
     XuatthanhphammathangmodalComponent,
+    NhaphoiammathangmodalComponent,
 
   ],
   providers: [

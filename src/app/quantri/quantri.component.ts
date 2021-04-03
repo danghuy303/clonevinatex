@@ -491,6 +491,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Lô hàng',
                         routerLink: '/quantri/kehoachsanxuat/lohang',
+                        separator: this.checkmenu("LOHANG"),
                         command: () => this.close()
                     },
                 ]
@@ -603,6 +604,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Kiểm kê kho',
                         routerLink: '/quantri/quanlykhosanxuat/khothanhpham/kiemkekho/0',
+                        separator: this.checkmenu("KIEMKEKHOTHANHPHAM"),
                         command: () => this.close()
                     },
                 ]
@@ -631,6 +633,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Kiểm kê kho',
                         routerLink: '/quantri/quanlykhosanxuat/khobong/kiemkekhobong/0',
+                        separator: this.checkmenu("KIEMKEKHOBONG"),
                         command: () => this.close()
                     },
                     {
@@ -673,6 +676,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Kiểm kê kho',
                         routerLink: '/quantri/quanlykhosanxuat/khoxo/kiemkekhoxo/0',
+                        separator: this.checkmenu("KIEMKEKHOXO"),
                         command: () => this.close()
                     },
                     // {
@@ -703,6 +707,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Kiểm kê kho',
                         routerLink: '/quantri/quanlykhosanxuat/khobonghoi/kiemkekhobonghoi/0',
+                        separator: this.checkmenu("KIEMKEKHOBONGHOI"),
                         command: () => this.close()
                     },
                     // {
@@ -733,6 +738,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Kiểm kê kho',
                         routerLink: '/quantri/quanlykhosanxuat/khobongphe/kiemkekhobongphe/0',
+                        separator: this.checkmenu("KIEMKEKHOBONGPHE"),
                         command: () => this.close()
                     },
                 ]

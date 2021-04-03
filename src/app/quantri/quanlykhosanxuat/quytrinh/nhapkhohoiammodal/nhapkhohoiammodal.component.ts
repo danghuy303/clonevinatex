@@ -5,7 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
+import { NhaphoiammathangmodalComponent } from '../nhaphoiammathangmodal/nhaphoiammathangmodal.component';
 
 @Component({
   selector: 'app-nhapkhohoiammodal',
@@ -176,7 +176,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
       itemSearch.Ngay = (new Date(this.item.Ngay)).getTime() / 1000;
     itemSearch.IddmPhanXuong = this.item.IddmPhanXuong;
     this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res1: any) => {
-      let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
+      let modalRef = this._modal.open(NhaphoiammathangmodalComponent, {
         backdrop: 'static',
         size: 'lg',
       })
