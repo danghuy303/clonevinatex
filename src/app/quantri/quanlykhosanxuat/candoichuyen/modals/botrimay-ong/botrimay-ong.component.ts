@@ -46,7 +46,9 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
         Id:mathang.Id
       }
     })
-    this.listHangHoa = mapArrayForDropDown(listHangHoaJoinNameTemp, 'Ten', 'Id')
+    this.listHangHoa = mapArrayForDropDown(listHangHoaJoinNameTemp, 'Ten', 'Id');
+    console.log(this.listHangHoa);
+    console.log(this.item.listDaBoTri.map(ele=>ele.IdCanDoiChuyen_CanBoTri))
     // .sort((a,b)=>{
     //   return parseInt(a.label.split(' ')[0])-parseInt(b.label.split(' ')[0]);
     // })
@@ -82,7 +84,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   initSpeedOption() {
     this.item.listDaBoTri.forEach(may => {
       if (validVariable(may.IdCanDoiChuyen_CanBoTri)) {
-        let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === may.IdCanDoiChuyen_CanBoTri)?.[0].IddmItem;
+        let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === may.IdCanDoiChuyen_CanBoTri)?.[0]?.IddmItem;
         may.listTocDo = mapArrayForDropDown(may.listDinhMucMay.filter(dinhmuc => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
         if (!validVariable(may.IdPhanNhomMay_Item)) {
           may.IdPhanNhomMay_Item = may.listTocDo?.[0]?.value
@@ -244,7 +246,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     }).catch(er => console.log(er))
   }
   ApDungDenNgay() {
-    if (validVariable(this.filter.DenNgay) && validVariable(this.filter.TuNgay) && this.filter.TuNgay < this.filter.DenNgay) {
+    if (validVariable(this.filter.DenNgay) && validVariable(this.filter.TuNgay) && this.filter.TuNgay <= this.filter.DenNgay) {
       this.services.CanDoiChuyen().SetCanDoiChuyen({ ...this.item, ...this.addonData }).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

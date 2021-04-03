@@ -23,8 +23,8 @@
                 *ngIf="checkbutton.KhongDuyet"></button>
             <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
                 (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
-                <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
-                (click)="DieuChinh()" *ngIf="checkbuttonDieuChinh"></button>
+            <button pButton pRipple type="button" label="Điều chỉnh phương án" class="p-mr-2 p-button-sm" (click)="DieuChinh()"
+                *ngIf="checkbuttonDieuChinh"></button>
             <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm" (click)="test()"></button> -->
         </div>
     </div>
@@ -92,7 +92,7 @@
                 <!-- {{labelBong.BR|number:'0.1-1'}}% Brazil +
                 {{labelBong.MY|number:'0.1-1'}}% Mỹ + {{labelBong.TP|number:'0.1-1'}}% Tây Phi +
                 {{labelBong.zH|number:'0.1-1'}}% Hồi -->
-                
+
             </h5>
             <h5>
                 <span style="color:red">
@@ -221,7 +221,8 @@
                                 (click)="paste(ban)">
                                 <i class="fas fa-angle-double-down"></i>
                             </button>
-                            <button *ngIf="isCopying && copyItem.BanSo===ban" class="btn btn-ss btn-danger" (click)="doneCopy()">
+                            <button *ngIf="isCopying && copyItem.BanSo===ban" class="btn btn-ss btn-danger"
+                                (click)="doneCopy()">
                                 <i class="fas fa-times"></i>
                             </button>
                         </th>
@@ -230,17 +231,17 @@
                 <tbody>
                     <tr *ngFor="let lobong of item.listLoBong; let i = index"
                         [ngStyle]="{'background-color': lobong.Mau}">
-                        <td class="text-center tc-w-151" [ngStyle]="{'background-color': lobong.Mau}">{{lobong.Ma}}
+                        <td class="text-center tc-w-151 z1" [ngStyle]="{'background-color': lobong.Mau}">{{lobong.Ma}}
                         </td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
+                        <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.SoLuongKien}}</td>
-                        <td class="text-center tc-w-100" [ngStyle]="{'background-color': lobong.Mau}">
+                        <td class="text-center tc-w-100 z1" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.SoLuongDung}}</td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
+                        <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.TonCuoi}}</td>
-                        <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
+                        <td class="text-center tc-w-80 z1" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.TyLe|number:'0.2-4'}}</td>
-                        <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
+                        <td class="text-center tc-w-80 z1" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.LuyKeTyLe|number:'0.2-4'}}</td>
                         <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.SoHopDong}}
@@ -276,9 +277,13 @@
                             {{lobong.Tap|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.Am|number:'0.2-2'}}</td>
-                        <td *ngFor="let prop of listProps" class="text-center tc-w-50" >
-                            <div style="width: 100%; display: flex;flex-direction: row;">
-                                <!-- <span style="position: absolute;font-size: 0.5em; cursor: pointer;"><i class="fas fa-arrows-alt"></i></span> -->
+                        <td *ngFor="let prop of listProps" class="text-center tc-w-50">
+                            <div class="drag-zone" style="width: 100%; display: flex;flex-direction: row;" (drop)="drop($event,prop,i)"
+                                (dragover)="allowDrop($event)">
+                                <span class="drag-point" draggable="true"
+                                    (dragstart)="drag($event,prop,i,lobong.tempBanBong[prop].SoKien)">
+                                    <i class="fas fa-arrows-alt"></i>
+                                </span>
                                 <input style="width: 100%; text-align: right; border: transparent; color:#495057"
                                     class="dat09focus" [tabindex]="lobong.tempBanBong[prop].tabIndex" type="number"
                                     [(ngModel)]="lobong.tempBanBong[prop].SoKien"

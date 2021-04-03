@@ -674,5 +674,32 @@ export class PhabongmodalComponent implements OnInit {
       this.CalAllTable(i, ban);
     }
   }
-  
+  allowDrop(ev) {
+    ev.preventDefault();
+    // console.log(ev)
+  }
+
+  drag(ev,x,y,sokien) {
+    let data = {
+      x:x,
+      y:y,
+      SoKien:sokien
+    }
+    ev.dataTransfer.setData("data", JSON.stringify(data));
+  }
+
+  drop(ev,x,y) {
+    ev.preventDefault();
+    var data = JSON.parse(ev.dataTransfer.getData("data"));
+    data.c = parseInt(data.x)
+    if(data.y!==y){
+      this._toastr.error('Vui lòng chỉ kéo trong lô bông!');
+    }else if (data.y ===y){
+      let c = parseInt(x);
+      for(let i =(c>data.c?data.c:c);i <=(c>data.c?c:data.c);i++){
+        this.item.listLoBong[y].tempBanBong[`${i}`].SoKien = data.SoKien;
+        this.CalAllTable(y, i);
+      }
+    }
+  }
 }
