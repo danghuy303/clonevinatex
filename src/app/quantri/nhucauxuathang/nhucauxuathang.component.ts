@@ -295,7 +295,14 @@ export class NhucauxuathangComponent implements OnInit {
       DenNgay = null;
     }
     if (validVariable(TuNgay) && validVariable(DenNgay) && TuNgay <= DenNgay) {
-      this._services.DashBoard()[`GetDashBoard_Phieu${opt}Kho`](TuNgay, DenNgay, item.IddmItem, item.IdLoHang).subscribe(res => {
+      let data ={
+        IddmItem:item.IddmItem,
+        TuNgay:TuNgay,
+        DenNgay:DenNgay,
+        IdLoHang:item.IdLoHang,
+        IddmKho:this.filter.IddmKhoAll
+      }
+      this._services.DashBoard()[`GetDashBoard_Phieu${opt}Kho`](data).subscribe(res => {
         this.listXuatNhap = res;
         this.showXuatNhap = true;
         this.selectedXuatNhap = {

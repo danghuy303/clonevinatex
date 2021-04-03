@@ -1389,11 +1389,11 @@ export class SanXuatService {
             GetDashBoard_TruyXuatNguonGocTongHop: (data) => {
                 return this.http.post(`${url}GetDashBoard_TruyXuatNguonGocTongHop`, data, httpOptions)
             },
-            GetDashBoard_PhieuNhapKho: (TuNgay,DenNgay,IddmItem,IdLoHang) => {
-                return this.http.get(`${url}GetDashBoard_PhieuNhapKho?IddmItem=${IddmItem}&TuNgay=${TuNgay}&DenNgay=${DenNgay}&IdLoHang=${IdLoHang}`, httpOptions);
+            GetDashBoard_PhieuNhapKho: (data) => {
+                return this.http.get(`${url}GetDashBoard_PhieuNhapKho`, httpOptions);
             },
-            GetDashBoard_PhieuXuatKho: (TuNgay,DenNgay,IddmItem,IdLoHang) => {
-                return this.http.get(`${url}GetDashBoard_PhieuXuatKho?IddmItem=${IddmItem}&TuNgay=${TuNgay}&DenNgay=${DenNgay}&IdLoHang=${IdLoHang}`, httpOptions);
+            GetDashBoard_PhieuXuatKho: (data) => {
+                return this.http.get(`${url}GetDashBoard_PhieuXuatKho`, httpOptions);
             },
         }
     }
