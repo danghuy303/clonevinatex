@@ -137,7 +137,7 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
     } else {
       this.filter.DenNgayUnix = null;
     }
-    if (validVariable(this.filter.TuNgayUnix) && validVariable(this.filter.DenNgayUnix) && this.filter.TuNgayUnix < this.filter.DenNgayUnix) {
+    if (validVariable(this.filter.TuNgayUnix) && validVariable(this.filter.DenNgayUnix) && this.filter.TuNgayUnix <= this.filter.DenNgayUnix) {
       this._services.BaoCao().BaoCaoThongLuongSanXuat(this.filter).subscribe((res: any) => {
         let chart = am4core.create("ThongLuongChart", am4charts.SlicedChart);
         chart.data = res.map(ele => {

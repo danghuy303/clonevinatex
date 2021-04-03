@@ -292,7 +292,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
       this.listMatHang.forEach(mathang => {
         mathang.checked = false;
       });
-      this.SelectItem = {};
+      this.listMatHang[0].checked = true;
+      this.SelectItem = this.listMatHang[0];
+      this.GetBieuDoDuongKiemTraChatLuong_js();
       this.dataSet1 = [];
     });
   }
