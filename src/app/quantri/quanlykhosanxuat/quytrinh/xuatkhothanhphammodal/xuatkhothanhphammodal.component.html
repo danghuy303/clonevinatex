@@ -132,7 +132,7 @@
                             (onBlur)="TinhTongKhoiLuong()">
                             </p-inputNumber>
                         </td>
-                        <td class="text-center">
+                        <td class="text-right">
                             <!-- <p-inputNumber [minFractionDigits]="0" *ngIf="item.KhoiLuong>0&&item.SoLuong>0" locale="vi-VN" [ngModel]="item.KhoiLuong * item.SoLuong" disabled>
                             </p-inputNumber> -->
                             {{item.KhoiLuong * item.SoLuong|number:'0.2-2'}}
@@ -142,10 +142,8 @@
                             (onBlur)="TinhTongThanhTien()">
                             </p-inputNumber>
                         </td>
-                        <td class="text-center" >
-                            <p-inputNumber *ngIf="item.DonGia > 0 && item.SoLuong > 0"
-                                [minFractionDigits]="0" locale="vi-VN" [ngModel]="(item.DonGia * item.SoLuong)" disabled>
-                            </p-inputNumber>
+                        <td class="text-right">
+                            {{item.DonGia * item.SoLuong * item.KhoiLuong|number:'0.0'}}
                         </td>
                         <td>
                             <input pInputText type="text" [(ngModel)]="item.GhiChu">
