@@ -211,6 +211,7 @@
                 <th>Ngày</th>
                 <th>Số lượng(kiện)</th>
                 <th>Trọng lượng(kg)</th>
+                <th>Tên kho</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -238,6 +239,7 @@
                 <td></td>
                 <td class="text-right">{{listXuatNhap|SumByKey:'SoLuong'|number:'0.0-0'}}</td>
                 <td class="text-right">{{listXuatNhap|SumByKey:'TongTrongLuong'|number:'0.2-2'}}</td>
+                <td></td>
             </tr>
         </ng-template>
     </p-table>
