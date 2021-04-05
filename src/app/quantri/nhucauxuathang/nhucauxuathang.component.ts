@@ -1,7 +1,8 @@
 import { formatNumber } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Subject, Subscription } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
@@ -12,7 +13,7 @@ import { TrienkhaikehoachsanxuatComponent } from '../quanlykhosanxuat/quytrinh/t
   templateUrl: './nhucauxuathang.component.html',
   styleUrls: ['./nhucauxuathang.component.css']
 })
-export class NhucauxuathangComponent implements OnInit {
+export class NhucauxuathangComponent implements OnInit,OnDestroy {
 
   filterBong: any = {};
   filter: any = {
@@ -23,6 +24,7 @@ export class NhucauxuathangComponent implements OnInit {
     IddmItem: "",
     IddmKho: '',
   };
+  Tong:any=null;
   selectedXuatNhap: any = {};
   filterSanLuong: any = {};
   filterNhuCau: any = {};
@@ -43,6 +45,7 @@ export class NhucauxuathangComponent implements OnInit {
   SelectItem: any = {};
   showXuatNhap: boolean = false;
   showTruySuatNguonGoc = false;
+  $IdDuAn:Subscription=null;
   mapXuatNhap = {
     Xuat: 'Xuất',
     Nhap: 'Nhập'
@@ -121,15 +124,18 @@ export class NhucauxuathangComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let date = new Date();
-    this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
-    this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    this.filterAll._tuNgay= date;
-    this.filterAll._denNgay = date;
-    this.listItem = [];
-    this.getAllOptions();
-    this.ChangeOpt();
-    this.ChangeOptCanDoiTon();
+    this.$IdDuAn = this.store.getNhaMay().subscribe(res=>{
+      this.IdDuAn =res;
+      let date = new Date();
+      this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+      this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+      this.filterAll._tuNgay= date;
+      this.filterAll._denNgay = date;
+      this.listItem = [];
+      this.getAllOptions();
+      this.ChangeOpt();
+      this.ChangeOptCanDoiTon();
+    })
   }
 
   ChangeOpt() {
@@ -176,7 +182,7 @@ export class NhucauxuathangComponent implements OnInit {
           this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
           this.getMatHang();
         })
-      }, 500
+      }, 1000
     )
     setTimeout(
       () => {
@@ -185,7 +191,7 @@ export class NhucauxuathangComponent implements OnInit {
           this.listKhoAll = mapArrayForDropDown(res, "Ten", 'Id');
           this.getMatHangAll()
         })
-      }, 500
+      }, 1000
     )
   }
   getMatHang() {
@@ -217,7 +223,8 @@ export class NhucauxuathangComponent implements OnInit {
     }
     if (validVariable(this.filterAll.TuNgay) && validVariable(this.filterAll.DenNgay) && this.filterAll.TuNgay <= this.filterAll.DenNgay) {
       this.filterAll.IdDuAn = this.store.getCurrent();
-      this._services.BaoCao().GetDashBoard_CanDoiTonXuatHang(this.filterAll).subscribe(res => {
+      this._services.BaoCao().GetDashBoard_CanDoiTonXuatHang(this.filterAll).subscribe((res:Array<any>) => {
+        this.Tong =res.splice(0,1);
         this.listItem = res;
       })
     }
@@ -297,5 +304,8 @@ export class NhucauxuathangComponent implements OnInit {
   navigateKiemKe(item){
     window.open(`#${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKe||0}`, "_blank");
     // this._router.navigate([`${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKeKho||0}`])
+  }
+  ngOnDestroy():void{
+    this.$IdDuAn.unsubscribe();
   }
 }

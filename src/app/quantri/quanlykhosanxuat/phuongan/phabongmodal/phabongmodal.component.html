@@ -288,7 +288,7 @@
                                     class="dat09focus" [tabindex]="lobong.tempBanBong[prop].tabIndex" type="number"
                                     [(ngModel)]="lobong.tempBanBong[prop].SoKien"
                                     (keydown)="move($event,lobong.tempBanBong[prop].tabIndex)"
-                                    (blur)="CalAllTable(i,prop)">
+                                    (blur)="CalAllTable(i,prop)" [disabled]="lobong.isLoBongTuongLai && prop<lobong.lim">
                             </div>
                         </td>
                     </tr>

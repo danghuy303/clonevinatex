@@ -21,6 +21,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     IddmKho: '',
     LoaiThoiGian: 0
   };
+  Tong:any=null;
   monthlyConfig: any = {};
   dataSet1: any = {};
   dataSet2: any = {};
@@ -239,7 +240,8 @@ export class DieuhanhsanxuatComponent implements OnInit {
       let data = deepCopy(this.filterNhuCau);
       data.TuNgay = TuNgay;
       data.DenNgay = DenNgay;
-      this._services.DashBoard().CanDoiTon(data).subscribe(res => {
+      this._services.DashBoard().CanDoiTon(data).subscribe((res:Array<any>) => {
+        this.Tong =res.splice(0,1);
         this.listItem = res;
       })
     }

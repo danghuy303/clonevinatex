@@ -41,7 +41,7 @@ export class PhabongComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       if (res.id !== '0') {
         this._service.PhuongAnPhaBong().Get(res.id).subscribe((res: any) => {
           // res.listItem.forEach(ele => {

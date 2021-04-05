@@ -84,7 +84,7 @@
                         (click)="xemTruySuatNguonGoc()">Truy xuất nguồn gốc</a>
                 </div>
             </div>
-            <p-table [value]="listItem"
+            <p-table [value]="listItem" [frozenValue]="Tong"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines minimize-font"
                 [scrollable]="true" scrollHeight="260px">
                 <ng-template pTemplate="colgroup">
@@ -116,6 +116,36 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
+                    <tr [ngClass]="{'p-text-bold': item.TendmItem===null}">
+                        <td class="text-center" style="width: 35px !important;">
+                            <p-checkbox [ngModel]="item.checked" (onChange)="checkMatHang($event,item,i)" binary="true"
+                                inputId="binary" *ngIf="item.TendmItem!==null"></p-checkbox>
+                        </td>
+                        <!-- <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td> -->
+                        <td>{{item.TendmItem!==null?item.TendmItem:item.TendmLoaiBong}} </td>
+                        <td>{{item.TenLoHang}}</td>
+                        <!-- <td>{{item.SoHopDong}}</td> -->
+                        <td class="text-right">{{item.DauSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.DauSoCan|number:'0.2-2' }}</td>
+                        <td class="text-right">{{item.NhapSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">
+                            <a href="javascript:void(0)" *ngIf="item.TendmItem!==null"
+                                (click)="callDataXuatNhap('Nhap', item)"> {{item.NhapSoCan|number:'0.2-2' }}</a>
+                            <ng-container *ngIf="item.TendmItem===null">{{item.NhapSoCan|number:'0.2-2' }}
+                            </ng-container>
+                        </td>
+                        <td class="text-right">{{item.XuatSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">
+                            <a href="javascript:void(0)" *ngIf="item.TendmItem!==null"
+                                (click)="callDataXuatNhap('Xuat', item)">{{item.XuatSoCan|number:'0.2-2' }}</a>
+                            <ng-container *ngIf="item.TendmItem===null">{{item.XuatSoCan|number:'0.2-2' }}
+                            </ng-container>
+                        </td>
+                        <td class="text-right">{{item.CuoiSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.CuoiSoCan|number:'0.2-2' }}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="frozenrows" let-item let-i="rowIndex">
                     <tr [ngClass]="{'p-text-bold': item.TendmItem===null}">
                         <td class="text-center" style="width: 35px !important;">
                             <p-checkbox [ngModel]="item.checked" (onChange)="checkMatHang($event,item,i)" binary="true"
