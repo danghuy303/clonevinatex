@@ -532,6 +532,11 @@ export class QuantriComponent implements OnInit {
                         separator: this.checkmenu("PHIEUNHAPLOBONG_CHATLUONG"),
                         command: () => this.close()
                     },
+                    {
+                        label: 'Lô bông',
+                        routerLink: '/quantri/phanquyensanxuat/lobong',
+                        command: () => this.close()
+                    },
                 ]
             },
             {
@@ -889,11 +894,7 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/phanquyensanxuat/dmkhachhang',
                         command: () => this.close()
                     },
-                    {
-                        label: 'Lô bông',
-                        routerLink: '/quantri/phanquyensanxuat/lobong',
-                        command: () => this.close()
-                    },
+                    
                 ]
             },
             // {
