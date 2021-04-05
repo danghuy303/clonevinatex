@@ -109,7 +109,6 @@ export class XuatkhoComponent implements OnInit {
   GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
     }
     let data = {
       PageSize: 25,

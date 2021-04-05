@@ -70,7 +70,8 @@
                         <col>
                         <col>
                         <col>
-                        <col *ngIf="isKhoThanhPham">
+                        <col>
+                        <col>
                         <col>
                         <col>
                         <col>
@@ -84,15 +85,16 @@
                         <th rowspan="2">Mã</th>
                         <th rowspan="2">Tên</th>
                         <th colspan="2" >Tồn sổ sách</th>
-                        <th [attr.colspan]="isKhoThanhPham?4:3">Tồn thực tế</th>
+                        <th colspan="5">Tồn thực tế</th>
                         <th rowspan="2">Ghi chú</th>
                         <th rowspan="2"></th>
                     </tr>
                     <tr>
                         <th>Tổng khối lượng</th>
                         <th>Số kiện</th>
-                        <th *ngIf="isKhoThanhPham">Số quả sợi</th>
+                        <th>Số quả sợi</th>
                         <th>Tổng khối lượng</th>
+                        <th>Trọng lượng chênh lệch</th>
                         <th>Số kiện</th>
                         <th>Quy cách đóng gói</th>
                     </tr>
@@ -116,12 +118,16 @@
                                 disabled>
                             </p-inputNumber> -->
                         </td>
-                        <td *ngIf="isKhoThanhPham">
+                        <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoi">
                             </p-inputNumber>
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuong">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuongChenhLech">
                             </p-inputNumber>
                         </td>
                         <td>
@@ -164,6 +170,10 @@
                             <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="newItem.TongTrongLuong">
                             </p-inputNumber>
                         </td>
+                        <td class="text-right">
+                            <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="newItem.TongTrongLuongChenhLech">
+                            </p-inputNumber>
+                        </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newItem.SoLuong">
                             </p-inputNumber>
@@ -193,6 +203,9 @@
                         </td>
                         <td class="text-right">
                             {{item.listItem|SumByKey:'TongTrongLuong'|number:'0.2'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|SumByKey:'TongTrongLuongChenhLech'|number:'0.2'}}
                         </td>
                         <td class="text-right">
                             {{item.listItem|SumByKey:'SoLuong'|number:'0.0-0'}}

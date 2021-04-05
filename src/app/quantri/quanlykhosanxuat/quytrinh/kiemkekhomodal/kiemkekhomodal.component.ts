@@ -100,13 +100,11 @@ export class KiemkekhomodalComponent implements OnInit {
             });
     }
     getdmKhoFunc(){
-        debugger
         this.getListLoHangTheodmkho();
         this.GetMatHangTheoKho();
     }
     getListLoHangTheodmkho(){
         let dmkhoFull = this.listdmKhoFull.find(ele=>ele.Id === this.item.IddmKho);
-        debugger
         if(dmkhoFull != undefined){
             var data: any = {};
             data.CurrentPage = 0;

@@ -58,7 +58,8 @@ export class TonkhoComponent implements OnInit {
     this._service.GetListdmKho(data).subscribe((res: any) => {
       this.listdmKho = res;
       if(this.listdmKho.length > 0 && this.listdmKho !== undefined){
-        this.filter.IddmKho = this.listdmKho[0].Id;
+        this.filter.IddmKho = this.listdmKho[3].Id;
+        this.listdmKho[3].select = true
         this.GetListQuyTrinh();
       }
     })
@@ -82,12 +83,25 @@ export class TonkhoComponent implements OnInit {
     this.paging.CurrentPage = event.page + 1;
     this.GetListQuyTrinh();
   }
-  GetListQuyTrinh(reset?, IddmKho = ''){
+  GetListQuyTrinh(reset?, item : any= {}){
+    if(item.Id !== undefined){
+      this.listdmKho.forEach(element => {
+        element.select = false;
+      });
+      item.select = true;
+    }
+
     if (reset) {
       this.paging.CurrentPage = 1;
-      this.filter.IddmKho = IddmKho;
+      this.filter.IddmKho = item.Id;
     }
-    this._service.getLuuKhoKhac(this.filter.IddmKho, '', this.paging.CurrentPage, this.filter.KeyWord).subscribe((res: any) => {
+    let data: any = {
+      IddmKho: this.filter.IddmKho,
+      CurrentPage: this.paging.CurrentPage,
+      sFilter: this.filter.KeyWord
+    }
+    // this._service.getLuuKhoKhac(this.filter.IddmKho, '', this.paging.CurrentPage, this.filter.KeyWord).subscribe((res: any) => {
+    this._service.GetLuuKhoTheKho(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })

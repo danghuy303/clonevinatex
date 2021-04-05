@@ -1712,4 +1712,9 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho + 'GetTheKho';
         return this.http.post(url,data, httpOptions);
     }
+    GetLuuKhoTheKho(data) {
+        // data.IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + 'GetLuuKhoTheKho';
+        return this.http.post(url, data, httpOptions);
+    }
 }

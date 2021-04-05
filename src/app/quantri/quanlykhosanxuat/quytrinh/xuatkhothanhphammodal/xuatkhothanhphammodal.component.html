@@ -89,7 +89,9 @@
                         <col>
                         <col>
                         <col>
-                        <col style="width:100px">
+                        <col>
+                        <col>
+                        <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -99,18 +101,18 @@
                         <th rowspan="2">Lô</th>
                         <th rowspan="2">Quy cách đóng gói</th>
                         <th rowspan="2">Hợp đồng</th>
-                        <th colspan="4">Số lượng</th>
+                        <th colspan="5">Số lượng</th>
                         <th rowspan="2">Đơn giá</th>
                         <th rowspan="2">Thành tiền</th>
                         <th rowspan="2">Ghi chú</th>
-                        <th rowspan="2" style="width: 100px;"></th>
+                        <th rowspan="2"></th>
                     </tr>
                     <tr>
                         <th>Số lượng trong kho</th>
                         <th>Số quả sợi</th>
                         <th>Số kiện</th>
                         <th>Tổng khối lượng (kg)</th>
-
+                        <th>Trọng lượng chênh lệch (kg)</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -145,6 +147,10 @@
                             {{item.KhoiLuong * item.SoLuong|number:'0.2-2'}}
                         </td>
                         <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuongChenhLech">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DonGia"
                             (onBlur)="TinhTongThanhTien()">
                             </p-inputNumber>
@@ -177,6 +183,9 @@
                         </td>
                         <td class="text-right">
                             {{TongKhoiLuong|number:'0.2-2'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'TongTrongLuongChenhLech'|number:'0.0-0'}}
                         </td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'DonGia'|number:'0.0'}}
