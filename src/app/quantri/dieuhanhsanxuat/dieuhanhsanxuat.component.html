@@ -85,7 +85,7 @@
                     </p-dropdown>
                 </div>
             </div>
-            <p-table [value]="listItem"
+            <p-table [value]="listItem" [frozenValue]="Tong"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines minimize-font"
                 [scrollable]="true" scrollHeight="260px">
                 <!-- <ng-template pTemplate="colgroup">
@@ -116,6 +116,22 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
+                    <tr [ngClass]="{'p-text-bold': item.TendmLoaiBong=='TỔNG'}">
+                        <!-- <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td> -->
+                        <td>{{item.TendmLoaiBong}}</td>
+                        <td>{{item.TenLoBong}}</td>
+                        <td>{{item.SoHopDong}}</td>
+                        <td class="text-right">{{item.DauSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.DauSoCan|number:'0.2-2' }}</td>
+                        <td class="text-right">{{item.NhapSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.NhapSoCan|number:'0.2-2' }}</td>
+                        <td class="text-right">{{item.XuatSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.XuatSoCan|number:'0.2-2' }}</td>
+                        <td class="text-right">{{item.CuoiSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.CuoiSoCan|number:'0.2-2' }}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="frozenrows" let-item let-i="rowIndex">
                     <tr [ngClass]="{'p-text-bold': item.TendmLoaiBong=='TỔNG'}">
                         <!-- <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td> -->
                         <td>{{item.TendmLoaiBong}}</td>

@@ -55,6 +55,7 @@
                         <th *ngIf="opt==='LoBong'">Mic BQ</th>
                         <th *ngIf="opt==='LoBong'">Giá bông</th>
                         <th *ngIf="opt==='LoBong'">Ngày nhập</th>
+                        <th *ngIf="opt==='LoBong'">Dự kiến về</th>
                         <th *ngIf="opt==='KhoiLuongKeHoach'">Khối lượng giao(Tấn)</th>
                         <th *ngIf="opt==='KhoiLuongKeHoach'">Khối lượng hoàn thành(Tấn)</th>
                         <th *ngIf="opt==='KhoiLuongKeHoach'">Khối lượng đã triển khai(Tấn)</th>
@@ -74,10 +75,11 @@
                         <td *ngIf="opt===''" class="text-right">{{item.DoSan|number:'0.0'}}</td>
 
                         <td *ngIf="opt==='LoBong'" [ngStyle]="{'color': item.isLoBongTuongLai?'red':''}">{{item.Ma}}</td>
-                        <td *ngIf="opt==='LoBong'">{{item.SoLuongKien}}</td>
-                        <td *ngIf="opt==='LoBong'">{{item.Mic|number:'0.0-2'}}</td>
-                        <td *ngIf="opt==='LoBong'">{{item.GiaBong}}</td>
-                        <td *ngIf="opt==='LoBong'">{{item.NgayNhap|date:'dd/MM/yyyy'}}</td>
+                        <td *ngIf="opt==='LoBong'" class="text-right">{{item.SoLuongKien}}</td>
+                        <td *ngIf="opt==='LoBong'" class="text-right">{{item.Mic|number:'0.0-2'}}</td>
+                        <td *ngIf="opt==='LoBong'" class="text-right">{{item.GiaBong}}</td>
+                        <td *ngIf="opt==='LoBong'" class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
+                        <td *ngIf="opt==='LoBong'" class="text-center">{{item.NgayVeDuKien|date:'dd/MM/yyyy'}}</td>
                         <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongKeHoach|number:'0.0-2'}}</td>
                         <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongHoanThanh|number:'0.0-2'}}</td>
                         <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongDaSanXuat|number:'0.0-2'}}</td>
