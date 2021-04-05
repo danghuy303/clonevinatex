@@ -509,6 +509,9 @@ export class SanXuatService {
             },
             GetListdmItemTheoKhoThanhPhamHoiAm_DashboardNhuCauXuatHang: (data) => {
                 return this.http.post(`${API.SCMDanhMuc}GetListdmItemTheoKhoThanhPhamHoiAm_DashboardNhuCauXuatHang`, data, httpOptions);
+            },
+            GetDashBoard_CanDoiTonXuatHang_TenMatHang:(data)=>{
+                return this.http.post(`${API.SCMBaoCao}GetDashBoard_CanDoiTonXuatHang_TenMatHang`, data, httpOptions);
             }
             // DanhMuc/GetListdmItemTheoKhoThanhPhamHoiAm_DashboardNhuCauXuatHang
         }
@@ -1394,10 +1397,10 @@ export class SanXuatService {
                 return this.http.post(`${url}GetDashBoard_TruyXuatNguonGocTongHop`, data, httpOptions)
             },
             GetDashBoard_PhieuNhapKho: (data) => {
-                return this.http.get(`${url}GetDashBoard_PhieuNhapKho`, httpOptions);
+                return this.http.post(`${url}GetDashBoard_PhieuNhapKho`,data, httpOptions);
             },
             GetDashBoard_PhieuXuatKho: (data) => {
-                return this.http.get(`${url}GetDashBoard_PhieuXuatKho`, httpOptions);
+                return this.http.post(`${url}GetDashBoard_PhieuXuatKho`,data, httpOptions);
             },
         }
     }

@@ -17,9 +17,11 @@ export class NhucauxuathangComponent implements OnInit {
   filterBong: any = {};
   filter: any = {
     IddmItem: "",
+    IddmKho: ''
+  };
+  filterAll:any={
+    IddmItem: "",
     IddmKho: '',
-    IddmKhoAll: '',
-    // LoaiThoiGian: 1
   };
   selectedXuatNhap: any = {};
   filterSanLuong: any = {};
@@ -29,13 +31,12 @@ export class NhucauxuathangComponent implements OnInit {
   dataSet2: any = {};
   listOpts: any = [];
   listKho: any = [];
-  listKhoAll: any = [];
   listMatHang: any = [];
+  listKhoAll: any = [];
+  listMatHangAll: any = [];
   listTruySuatNguonGoc: any = [];
   listCongDoan: any = [];
   listMay: any = [];
-  listLoaiBong: any = [];
-  listCaLamViec: any = [];
   listXuatNhap: any = [];
   dataPie: any = {};
   IdDuAn: any;
@@ -123,33 +124,12 @@ export class NhucauxuathangComponent implements OnInit {
     let date = new Date();
     this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    this.filter._tuNgayCanDoiTon = date;
-    this.filter._denNgayCanDoiTon = date;
-    // this.dataPie = {
-    //   labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
-    //   datasets: [
-    //     {
-    //       data: [300, 50, 100, 200],
-    //       backgroundColor: [
-    //         "#009900",
-    //         "#36A2EB",
-    //         "#FFCE56",
-    //         "#FF671F"
-    //       ],
-    //       hoverBackgroundColor: [
-    //         "#009900",
-    //         "#36A2EB",
-    //         "#FFCE56",
-    //         "#FF671F"
-    //       ]
-    //     }
-    //   ]
-    // };
-    this.listItem = [
-
-    ]
+    this.filterAll._tuNgay= date;
+    this.filterAll._denNgay = date;
+    this.listItem = [];
     this.getAllOptions();
     this.ChangeOpt();
+    this.ChangeOptCanDoiTon();
   }
 
   ChangeOpt() {
@@ -163,19 +143,6 @@ export class NhucauxuathangComponent implements OnInit {
     } else {
       this.filter.DenNgay = null;
     }
-
-    let TuNgay = 0;
-    let DenNgay = 0;
-    if (validVariable(this.filter._tuNgayCanDoiTon)) {
-      TuNgay = DateToUnix(this.filter._tuNgayCanDoiTon);
-    } else {
-      TuNgay = null;
-    }
-    if (validVariable(this.filter._denNgayCanDoiTon)) {
-      DenNgay = DateToUnix(this.filter._denNgayCanDoiTon);
-    } else {
-      DenNgay = null;
-    }
     if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay < this.filter.DenNgay) {
       this.filter.IdDuAn = this.IdDuAn;
       this.filter.LoaiThoiGian = 0;
@@ -186,23 +153,7 @@ export class NhucauxuathangComponent implements OnInit {
         this.dataPie = res;
       });
     }
-    if (validVariable(TuNgay) && validVariable(DenNgay) && TuNgay <= DenNgay) {
-      let data = deepCopy(this.filter);
-      data.TuNgay = TuNgay;
-      data.DenNgay = DenNgay;
-      data.IddmKho  = this.filter.IddmKhoAll;
-      this._services.BaoCao().GetDashBoard_CanDoiTonXuatHang(data).subscribe(res => {
-        this.listItem = res;
-      })
-    }
-  }
-
-  BieuDoCoCau() {
-
-  }
-
-  resetFilter() {
-
+    
   }
 
   getAllOptions() {
@@ -232,6 +183,7 @@ export class NhucauxuathangComponent implements OnInit {
         this._services.GetdmKhoThanhPhamHoiAm_DashBoard({ IdDuAn: this.store.getCurrent() }).subscribe((res: any) => {
           res.unshift({ Id: '', Ten: 'Tất cả kho' });
           this.listKhoAll = mapArrayForDropDown(res, "Ten", 'Id');
+          this.getMatHangAll()
         })
       }, 500
     )
@@ -244,7 +196,32 @@ export class NhucauxuathangComponent implements OnInit {
       this.ChangeOpt()
     })
   }
-
+  getMatHangAll(){
+    this._services.GetOptions().GetDashBoard_CanDoiTonXuatHang_TenMatHang(this.filterAll).subscribe((res: any) => {
+      res.unshift({ Id: '', Ten: 'Tất cả mặt hàng' });
+      this.listMatHangAll = mapArrayForDropDown(res, "Ten", 'Id');
+      this.filterAll.IddmItem = '';
+      this.ChangeOptCanDoiTon()
+    })
+  }
+  ChangeOptCanDoiTon(){
+    if (validVariable(this.filterAll._tuNgay)) {
+      this.filterAll.TuNgay = DateToUnix(this.filterAll._tuNgay);
+    } else {
+      this.filterAll.TuNgay = null;
+    }
+    if (validVariable(this.filterAll._denNgay)) {
+      this.filterAll.DenNgay = DateToUnix(this.filterAll._denNgay);
+    } else {
+      this.filterAll.DenNgay = null;
+    }
+    if (validVariable(this.filterAll.TuNgay) && validVariable(this.filterAll.DenNgay) && this.filterAll.TuNgay <= this.filterAll.DenNgay) {
+      this.filterAll.IdDuAn = this.store.getCurrent();
+      this._services.BaoCao().GetDashBoard_CanDoiTonXuatHang(this.filterAll).subscribe(res => {
+        this.listItem = res;
+      })
+    }
+  }
   checkMatHang(e, item, index) {
     if (e.checked) {
       this.listItem.forEach(mathang => {
@@ -281,24 +258,22 @@ export class NhucauxuathangComponent implements OnInit {
     }
   }
   callDataXuatNhap(opt, item) {
-    // console.log(item);
-    let TuNgay = 0;
-    let DenNgay = 0;
-    if (validVariable(this.filter._tuNgayCanDoiTon)) {
-      TuNgay = DateToUnix(this.filter._tuNgayCanDoiTon);
+    console.log(opt,item)
+    if (validVariable(this.filterAll._tuNgay)) {
+      this.filterAll.TuNgay = DateToUnix(this.filterAll._tuNgay);
     } else {
-      TuNgay = null;
+      this.filterAll.TuNgay = null;
     }
-    if (validVariable(this.filter._denNgayCanDoiTon)) {
-      DenNgay = DateToUnix(this.filter._denNgayCanDoiTon);
+    if (validVariable(this.filterAll._denNgay)) {
+      this.filterAll.DenNgay = DateToUnix(this.filterAll._denNgay);
     } else {
-      DenNgay = null;
+      this.filterAll.DenNgay = null;
     }
-    if (validVariable(TuNgay) && validVariable(DenNgay) && TuNgay <= DenNgay) {
+    if (validVariable(this.filterAll.TuNgay) && validVariable(this.filterAll.DenNgay) && this.filterAll.TuNgay <= this.filterAll.DenNgay) {
       let data ={
         IddmItem:item.IddmItem,
-        TuNgay:TuNgay,
-        DenNgay:DenNgay,
+        TuNgay:this.filterAll.TuNgay,
+        DenNgay:this.filterAll.DenNgay,
         IdLoHang:item.IdLoHang,
         IddmKho:this.filter.IddmKhoAll
       }

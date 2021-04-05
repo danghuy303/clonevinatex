@@ -73,7 +73,7 @@
                         <td *ngIf="opt===''" class="text-right">{{item.Ne|number:'0.0' }}</td>
                         <td *ngIf="opt===''" class="text-right">{{item.DoSan|number:'0.0'}}</td>
 
-                        <td *ngIf="opt==='LoBong'">{{item.Ma}}</td>
+                        <td *ngIf="opt==='LoBong'" [ngStyle]="{'color': item.isLoBongTuongLai?'red':''}">{{item.Ma}}</td>
                         <td *ngIf="opt==='LoBong'">{{item.SoLuongKien}}</td>
                         <td *ngIf="opt==='LoBong'">{{item.Mic|number:'0.0-2'}}</td>
                         <td *ngIf="opt==='LoBong'">{{item.GiaBong}}</td>
