@@ -24,10 +24,10 @@ export class TonkhodanhsachchitietComponent implements OnInit {
     this.GetTheKho();
   }
   
-  // changePage(event){
-  //   this.paging.CurrentPage = event.page + 1;
-  //   this.GetTheKho();
-  // }
+  changePage(event){
+    this.paging.CurrentPage = event.page + 1;
+    this.GetTheKho();
+  }
   GetTheKho(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;

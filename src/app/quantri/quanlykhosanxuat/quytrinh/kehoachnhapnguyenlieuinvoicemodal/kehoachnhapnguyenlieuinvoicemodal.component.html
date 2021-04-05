@@ -248,13 +248,13 @@
                         <td></td>
                         <td></td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'SoLuongNhap'|number:'0.0'}}
+                            {{item.listItem|isXoa|SumByKey:'SoLuongNhap'|number:'0.0'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'Container'|number:'0.0'}}
+                            {{item.listItem|isXoa|SumByKey:'Container'|number:'0.0'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'TongSoKien'|number:'0.0'}}
+                            {{item.listItem|isXoa|SumByKey:'TongSoKien'|number:'0.0'}}
                         </td>
                         <td></td>
                         <td></td>

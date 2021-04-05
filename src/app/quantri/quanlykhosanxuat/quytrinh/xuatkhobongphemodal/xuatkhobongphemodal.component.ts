@@ -212,7 +212,9 @@ export class XuatkhobongphemodalComponent implements OnInit {
   TinhTongKhoiLuong() {
     this.TongKhoiLuong = 0;
     for (let i = 0; i < this.item.listItem.length; i++) {
-      this.TongKhoiLuong += (this.item.listItem[i].TonTrongLuong * this.item.listItem[i].SoLuong) || 0;
+      if(this.item.listItem[i].isXoa !== true){
+        this.TongKhoiLuong += (this.item.listItem[i].TonTrongLuong * this.item.listItem[i].SoLuong) || 0;
+      }
     }
   }
 }

@@ -163,6 +163,7 @@ export class KiemkekhomodalComponent implements OnInit {
     }
 
     GhiLai() {
+        this.add();
         this.item_new.listItem = this.listItem;
         this.services
             .PhieuKiemKeKho()
@@ -172,18 +173,19 @@ export class KiemkekhomodalComponent implements OnInit {
                     if (res.State === 1) {
                         this.toastr.success(res.message);
                         this.opt = "edit";
-                        this.item = res.objectReturn;
-                        this.Id = res.objectReturn.Id;
-                        this.listItem = res.objectReturn.listItem;
-                        this.paging.CurrentPage = 1;
-                        this.paging.TotalPage = 5;
-                        if (
-                            res.objectReturn.listItem != undefined &&
-                            res.objectReturn.listItem != null
-                        )
-                            this.paging.TotalItem = res.objectReturn.listItem.length;
-                        this.item.listItem = res.objectReturn.listItem.slice(0, 10);
-                        this.KiemTraButtonModal();
+                        this.GetQuyTrinh()
+                        // this.item = res.objectReturn;
+                        // this.Id = res.objectReturn.Id;
+                        // this.listItem = res.objectReturn.listItem;
+                        // this.paging.CurrentPage = 1;
+                        // this.paging.TotalPage = 5;
+                        // if (
+                        //     res.objectReturn.listItem != undefined &&
+                        //     res.objectReturn.listItem != null
+                        // )
+                        //     this.paging.TotalItem = res.objectReturn.listItem.length;
+                        // this.item.listItem = res.objectReturn.listItem.slice(0, 10);
+                        // this.KiemTraButtonModal();
                     } else {
                         this.toastr.error(res.message);
                     }

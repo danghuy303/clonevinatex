@@ -159,16 +159,16 @@
                     <tr>
                         <td colspan="3">TỔNG: </td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'SoQuaSoiHoiAm'|number:'0.0'}}
+                            {{item.listItem|isXoa|SumByKey:'SoQuaSoiHoiAm'|number:'0.0'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'SoQuaSoiThanhPham'|number:'0.0'}}
+                            {{item.listItem|isXoa|SumByKey:'SoQuaSoiThanhPham'|number:'0.0'}}
                         </td>
                         <td class="text-right" >
-                            {{item.listItem|SumByKey:'SoKien'|number:'0.0'}}
+                            {{item.listItem|isXoa|SumByKey:'SoKien'|number:'0.0'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'TongKhoiLuong'|number:'0.2-2'}}
+                            {{item.listItem|isXoa|SumByKey:'TongKhoiLuong'|number:'0.2-2'}}
                         </td>
                         <td class="text-right">
                         </td>
