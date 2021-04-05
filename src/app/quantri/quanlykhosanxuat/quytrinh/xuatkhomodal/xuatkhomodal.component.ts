@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
-import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
@@ -29,7 +27,7 @@ export class XuatkhomodalComponent implements OnInit {
   listPhanXuong: any = [];
   listPhuongAnPhaBong: any = [];
   listItem: any = [];
-  items: any = [];
+  listItemRoot: any = [];
   paging: any = {};
   filter: any = {}
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
@@ -62,11 +60,12 @@ export class XuatkhomodalComponent implements OnInit {
         return a.TenLoBong.localeCompare(b.TenLoBong);
       })
       this.listItem = res1.listItem;
+      this.listItemRoot = deepCopy(res1.listItem);
+
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
       this.item.listItem = res1.listItem.slice(0,15);
-      this.items = res1.listItem.slice(0,15);
       this.KiemTraButtonModal();
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
         this.item.Ngay = new Date(this.item.NgayUnix * 1000);
@@ -86,7 +85,6 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
     this.item.listItem = this.listItem
     console.log(this.item)
-    debugger
     this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -171,40 +169,55 @@ export class XuatkhomodalComponent implements OnInit {
     if((start + 15) > this.paging.TotalItem)
       end= this.paging.TotalItem;
     this.item.listItem = this.listItem.slice(start,end);
-    this.items = this.listItem.slice(start,end);
-    if(this.filter.KeyWord !== '' || this.filter.KeyWord !== undefined)
-      this.GetQuyTrinhFilter();
+    // if(this.filter.KeyWord !== '' || this.filter.KeyWord !== undefined)
+    //   this.GetQuyTrinhFilter();
   }
 
   GetQuyTrinhFilter()
   {
     var items = [];
-    for(let i =0; i < this.items.length; i++){
-      if(this.items[i].TenLoBong !== null){
-        if(this.items[i].TenLoBong.toLowerCase().includes(this.filter.KeyWord)){
-           items.push(this.items[i]);
-          continue;
-        }
-      }
-      if(this.items[i].Ten !== null){
-        if(this.items[i].Ten.toLowerCase().includes(this.filter.KeyWord)){
-          items.push(this.items[i]);
-          continue;
-        }
-      }
-      if(this.items[i].TendmViTri !== null){
-        if(this.items[i].TendmViTri.toLowerCase().includes(this.filter.KeyWord))
-        {
-          items.push(this.items[i]);
-          continue;
-        }
-      }
-    }
+    items = this.listItemRoot.filter(obj =>{
+      let Ten = obj.Ten.toLowerCase();
+      let indexOf =  Ten.indexOf(this.filter.KeyWord)
+     return indexOf != -1
+    });
+
+    // for(let i =0; i < this.listItemRoot.length; i++){
+    //   if(this.listItemRoot[i].TenLoBong !== null){
+    //     if(this.listItemRoot[i].TenLoBong.toLowerCase().includes(this.filter.KeyWord)){
+    //        items.push(this.listItemRoot[i]);
+    //       continue;
+    //     }
+    //   }
+    //   if(this.listItemRoot[i].Ten !== null){
+    //     if(this.listItemRoot[i].Ten.toLowerCase().includes(this.filter.KeyWord)){
+    //       items.push(this.listItemRoot[i]);
+    //       continue;
+    //     }
+    //   }
+    //   if(this.listItemRoot[i].TendmViTri !== null){
+    //     if(this.listItemRoot[i].TendmViTri.toLowerCase().includes(this.filter.KeyWord))
+    //     {
+    //       items.push(this.listItemRoot[i]);
+    //       continue;
+    //     }
+    //   }
+    // }
+    this.listItem = deepCopy(items);
+
+    this.paging.CurrentPage = 1;
+    this.paging.TotalPage = 5;
+    this.paging.TotalItem = items.length;
+    this.item.listItem = items.slice(0,15);
     this.item.listItem = items;
   }
   GetQuyTrinhRefresh()
   {
     this.filter.KeyWord = '';
-    this.item.listItem = this.items;
+    this.listItem = deepCopy(this.listItemRoot);
+    this.paging.CurrentPage = 1;
+    this.paging.TotalPage = 5;
+    this.paging.TotalItem = this.listItem.length;
+    this.item.listItem = this.listItem.slice(0,15);
   }
 }

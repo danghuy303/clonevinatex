@@ -81,8 +81,21 @@ export class LobongmodalComponent implements OnInit {
     this.activeModal.close();
   }
   CopyLoBong(){
-    // this.services.CopyLoBong(this.item).subscribe((res:any)=>{
-    //   this.listdmCapBong = mapArrayForDropDown(res, 'Ten', 'Id');
-    // })
+    let data = {
+      IdLoBong_Nguon: this.item.IdLoBongCopy,
+      IdLoBong_Dich: this.item.Id
+    }
+    this.services.CopyLoBong(data).subscribe((res:any)=>{
+      if (res) {
+        if (res.State === 1) {
+          this.khongclicknhieu = !this.khongclicknhieu;
+          this.toastr.success(res.message)
+          this.activeModal.close();
+        } else {
+          this.khongclicknhieu = !this.khongclicknhieu;
+          this.toastr.error(res.message)
+        }
+      }
+    })
   }
 }

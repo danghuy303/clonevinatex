@@ -200,16 +200,16 @@
                         <td></td>
                         <td></td>
                         <td class="text-right">
-                            {{listItem|SumByKey:'KhoiLuongTinhToan'|number:'0.3-3'}}
+                            {{listItem|isXoa|SumByKey:'KhoiLuongTinhToan'|number:'0.3-3'}}
                         </td>
                         <td *ngIf="item.CongDoan!=='CON'" class="text-right">
-                            {{listItem|SumByKey:'ChieuDai'|number:'0.3-3'}}
+                            {{listItem|isXoa|SumByKey:'ChieuDai'|number:'0.3-3'}}
                         </td>
                         <td *ngIf="item.CongDoan==='CON'" class="text-right">
-                            {{listItem|SumByKey:'ChieuDai'|number:'0.3-3'}}
+                            {{listItem|isXoa|SumByKey:'ChieuDai'|number:'0.3-3'}}
                         </td>
                         <td class="text-right">
-                            {{listItem|SumByKey:'KhoiLuong'|number:'0.3-3'}}
+                            {{listItem|isXoa|SumByKey:'KhoiLuong'|number:'0.3-3'}}
                         </td>
                         <!-- <td *ngIf="item.CongDoan==='ONG'" class="text-right">
                             {{listItem|SumByKey:'SoQuaSoi'|number:'0.3-3'}}

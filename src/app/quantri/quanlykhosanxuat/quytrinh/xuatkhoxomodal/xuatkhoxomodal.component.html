@@ -133,13 +133,13 @@
                     <tr>
                         <td colspan="3">Tổng</td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'TrongLuong'|number:'0.2-2'}}
+                            {{item.listItem|isXoa|SumByKey:'TrongLuong'|number:'0.2-2'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'Ton'|number:'0.0-0'}}
+                            {{item.listItem|isXoa|SumByKey:'Ton'|number:'0.0-0'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'SoLuong'|number:'0.0'}}
+                            {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0'}}
                         </td>
                         <td></td>
                         <td></td>

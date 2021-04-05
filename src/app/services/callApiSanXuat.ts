@@ -419,9 +419,9 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'DeleteLoBong';
         return this.http.post(url, data, httpOptions);
     }
-    CopyLoBong(IdLoBong_Nguon, IdLoBong_Dich) {
-        let url = API.SCMDanhMuc + `CopyLoBong?IdLoBong_Nguon=${IdLoBong_Nguon}IdLoBong_Dich=${IdLoBong_Dich}`;
-        return this.http.get(url, httpOptions);
+    CopyLoBong(data) {
+        let url = API.SCMDanhMuc + 'CopyLoBong';
+        return this.http.post(url,data, httpOptions);
     }
     //#endregion
 
@@ -1706,5 +1706,15 @@ export class SanXuatService {
                 return this.http.get(url + `getLuuKhoKiemKeKhoBong?IdDuAn=0&IddmKho=${IddmKho}&IdLoBong=${IdLoBong}`, httpOptions);
             }
         }
+    }
+    GetTheKho(data) {
+        // let IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + 'GetTheKho';
+        return this.http.post(url,data, httpOptions);
+    }
+    GetLuuKhoTheKho(data) {
+        // data.IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + 'GetLuuKhoTheKho';
+        return this.http.post(url, data, httpOptions);
     }
 }

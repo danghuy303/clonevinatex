@@ -51,7 +51,7 @@ export class KiemkekhoComponent implements OnInit {
     title: any = "";
     listdmKho: any = [];
     listLoHang: any = []
-    eAction:'KIEMKEKHOTHANHPHAM'
+    eAction = 'KIEMKEKHOTHANHPHAM';
     constructor(
         public _modal: NgbModal,
         public _toastr: ToastrService,

@@ -26,7 +26,7 @@
         <div class="card-body border scollTable">
             <dd style="max-height: 37rem; overflow-y: auto;">
                 <li *ngFor="let item of listdmKho">
-                    <span (click)="GetListQuyTrinh(true, item.Id)">
+                    <span (click)="GetListQuyTrinh(true, item)" [ngClass]="{'badge-info':item.select==true}">
                         {{item.Ten}}
                     </span>
                 </li>
@@ -66,16 +66,19 @@
                         {{item.SoLuong|number:'0.0'}}
                     </td>
                     <td class="text-center">
+                        {{item.TongTrongLuong|number:'0.2-2'}}
+                    </td>
+                    <td class="text-center">
                         <button pButton pRipple type="button" icon="pi pi-pencil"
                             class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                            (click)="changeParam(item.Id)"></button>
+                            (click)="GetTheKho(item)"></button>
                     </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="summary">
                 <div class="p-d-flex p-ai-center p-jc-between">
                     Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
-                        [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
+                        [rows]="50" (onPageChange)="changePage($event)"></p-paginator>
                 </div>
             </ng-template>
         </p-table>

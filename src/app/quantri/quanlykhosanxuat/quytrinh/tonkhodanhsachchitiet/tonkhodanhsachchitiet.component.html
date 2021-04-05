@@ -1,30 +1,33 @@
-<div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Thống kê sản lượng</h4>
+<div class="modal-header">
+    <h4 style="color:#1f2779">Danh sách thẻ kho</h4>
 </div>
-<div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
-    <div></div>
-    <div class="p-d-flex p-flex-row">
-        <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetListQuyTrinh(true)">
-            </p-calendar>
+<div class="modal-body">
+    <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+        <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
+        (click)="activeModal.dismiss('Cross click')"></button>
+        <!-- <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>-->
+        <div class="p-d-flex p-flex-row">
         </div>
-        <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetListQuyTrinh(true)">
-            </p-calendar>
-        </div>
-        <!-- <div class="p-inputgroup" style="width:200px">
+        <div class="p-d-flex p-flex-row">
+            <div class="p-mr-2">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetTheKho(true)">
+                </p-calendar>
+            </div>
+            <div class="p-mr-2">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetTheKho(true)">
+                </p-calendar>
+            </div>
+            <!-- <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh(true)" [(ngModel)]="filter.KeyWord"/>
             <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text" (click)="GetListQuyTrinh(true)" pTooltip="Tìm kiếm" showDelay="1000" tooltipPosition="bottom"></button>
             <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"(click)="resetFilter()"></button>
         </div> -->
-        
+
+        </div>
     </div>
-</div>
-<div class="p-mt-3">
-    <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
+    <p-table [value]="items" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
@@ -37,7 +40,8 @@
                 <col>
                 <col>
                 <col>
-                <col style="width: 100px;">
+                <col style="width:200px">
+                <!-- <col style="width: 100px;"> -->
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -46,16 +50,17 @@
                 <th class="text-center" rowspan="2">Thời gian</th>
                 <th class="text-center" rowspan="2">Đơn giá</th>
                 <th class="text-center" rowspan="2">Tồn đầu kỳ</th>
+                <th class="text-center" rowspan="2">Trọng lượng</th>
                 <th class="text-center" colspan="2">Nhập</th>
                 <th class="text-center" colspan="2">Xuất</th>
                 <th class="text-center" rowspan="2">Tồn cuối</th>
                 <th class="text-center" rowspan="2">Số phiếu</th>
-                <th rowspan="2"></th>
+                <!-- <th rowspan="2"></th> -->
             </tr>
             <tr>
                 <th class="text-center">Nhập</th>
                 <th class="text-center">Kiểm kê</th>
-                <th class="text-center">Nhập</th>
+                <th class="text-center">Xuất</th>
                 <th class="text-center">Kiểm kê</th>
             </tr>
         </ng-template>
@@ -65,7 +70,7 @@
                     {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
                 <td class="text-center">
-                    {{item.NgayUnix > 0 ? (item.Ngay|date:'dd/MM/yyyy'):''}}
+                    {{(item.Ngay|date:'dd/MM/yyyy')}}
                 </td>
                 <td class="text-right">
                     {{item.DonGia|number:'0.0'}}
@@ -74,33 +79,78 @@
                     {{item.TonDauKy|number:'0.0'}}
                 </td>
                 <td class="text-right">
+                    {{item.TrongLuong|number:'0.2-2'}}
+                </td>
+                <td class="text-right">
                     {{item.Nhap|number:'0.0'}}
                 </td>
                 <td class="text-right">
-                    {{item.KiemKeNhap|number:'0.0'}}
+                    {{item.NhapKiemKe|number:'0.0'}}
                 </td>
                 <td class="text-right">
                     {{item.Xuat|number:'0.0'}}
                 </td>
                 <td class="text-right">
-                    {{item.KiemKeXuat|number:'0.0'}}
+                    {{item.XuatKiemKe|number:'0.0'}}
                 </td>
                 <td class="text-right">
-                    {{item.TonCuoi|number:'0.0'}}
-                </td>
-                <td class="text-right">
-                    {{item.SoPhieu}}
+                    {{item.TonCuoiKy|number:'0.0'}}
                 </td>
                 <td class="text-center">
-                    <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.Id)"></button>
+                    {{item.SoQuyTrinh}}
                 </td>
+                <!-- <td class="text-center">
+                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2"
+                        (click)="changeParam(item.Id)"></button>
+                </td> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr>
+                <td class="text-center">
+                </td>
+                <td class="text-center">
+                    {{itemTongCong.NgayUnix > 0 ? (itemTongCong.Ngay|date:'dd/MM/yyyy'):''}}
+                </td>
+                <td class="text-right">
+                    {{itemTongCong.DonGia|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{itemTongCong.TonDauKy|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{itemTongCong.TrongLuong|number:'0.2-2'}}
+                </td>
+                <td class="text-right">
+                    {{itemTongCong.Nhap|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{itemTongCong.NhapKiemKe|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{itemTongCong.Xuat|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{itemTongCong.XuatKiemKe|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{itemTongCong.TonCuoiKy|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{itemTongCong.SoPhieu}}
+                </td>
+                <!-- <td class="text-center">
+                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2"
+                        (click)="changeParam(item.Id)"></button>
+                </td> -->
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20"
-                    (onPageChange)="changePage($event)"></p-paginator>
+                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
+                    [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
         </ng-template>
     </p-table>

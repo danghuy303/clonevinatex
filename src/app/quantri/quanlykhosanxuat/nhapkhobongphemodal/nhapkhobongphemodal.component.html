@@ -164,10 +164,10 @@
                     <tr>
                         <td colspan="2"> Tổng cộng:</td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'SoKien'|number:'0.0'}}
+                            {{item.listItem|isXoa|SumByKey:'SoKien'|number:'0.0'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|SumByKey:'SoCan'|number:'0.2-2'}}
+                            {{item.listItem|isXoa|SumByKey:'SoCan'|number:'0.2-2'}}
                         </td>
                         <td></td>
                         <td></td>

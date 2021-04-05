@@ -636,11 +636,11 @@ export class QuantriComponent implements OnInit {
                         separator: this.checkmenu("KIEMKEKHOBONG"),
                         command: () => this.close()
                     },
-                    {
-                        label: 'Tồn kho',
-                        routerLink: '/quantri/quanlykhosanxuat/tonkho/0',
-                        command: () => this.close()
-                    },
+                    // {
+                    //     label: 'Tồn kho',
+                    //     routerLink: '/quantri/quanlykhosanxuat/tonkho/0',
+                    //     command: () => this.close()
+                    // },
                     // {
                     //     label: 'Điều chuyển',
                     //     routerLink: '/quantri/quanlykhosanxuat/khobong/dieuchuyen/0',
@@ -743,12 +743,12 @@ export class QuantriComponent implements OnInit {
                     },
                 ]
             },
-            {
-                label: 'Kiểm kê BCP',
-                icon: 'fas fa-circle',
-                routerLink: '/quantri/quanlykhosanxuat/kiemkeBCP/0',
-                visible: !this.checkmenu("P_DANHMUC"),
-            },
+            // {
+            //     label: 'Kiểm kê BCP',
+            //     icon: 'fas fa-circle',
+            //     routerLink: '/quantri/quanlykhosanxuat/kiemkeBCP/0',
+            //     visible: !this.checkmenu("P_DANHMUC"),
+            // },
             // {
             //     label: 'Báo cáo',
             //     icon: 'pi pi-chart-bar',
