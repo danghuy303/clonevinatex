@@ -27,12 +27,12 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Số kiện',
+      header: 'Số quả sợi',
       field: 'SoLuong',
       width: 'unset'
     },
     {
-      header: 'Khối lượng /kiện (kg)',
+      header: 'Khối lượng /quả sợi (kg)',
       field: 'TrongLuong',
       width: 'unset'
     },

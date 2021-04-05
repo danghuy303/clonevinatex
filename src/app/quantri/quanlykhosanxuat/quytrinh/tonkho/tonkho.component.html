@@ -66,9 +66,12 @@
                         {{item.SoLuong|number:'0.0'}}
                     </td>
                     <td class="text-center">
+                        {{item.TongTrongLuong|number:'0.2-2'}}
+                    </td>
+                    <td class="text-center">
                         <button pButton pRipple type="button" icon="pi pi-pencil"
                             class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                            (click)="changeParam(item.Id)"></button>
+                            (click)="GetTheKho(item)"></button>
                     </td>
                 </tr>
             </ng-template>

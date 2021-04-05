@@ -88,6 +88,7 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
@@ -98,7 +99,7 @@
                         <th rowspan="2">Lô</th>
                         <th rowspan="2">Quy cách đóng gói</th>
                         <th rowspan="2">Hợp đồng</th>
-                        <th colspan="3">Số lượng</th>
+                        <th colspan="4">Số lượng</th>
                         <th rowspan="2">Đơn giá</th>
                         <th rowspan="2">Thành tiền</th>
                         <th rowspan="2">Ghi chú</th>
@@ -106,7 +107,8 @@
                     </tr>
                     <tr>
                         <th>Số lượng trong kho</th>
-                        <th>Kiện</th>
+                        <th>Số quả sợi</th>
+                        <th>Số kiện</th>
                         <th>Tổng khối lượng (kg)</th>
 
                     </tr>
@@ -129,6 +131,11 @@
                         </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong"
+                            (onBlur)="TinhTongKhoiLuong()">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien"
                             (onBlur)="TinhTongKhoiLuong()">
                             </p-inputNumber>
                         </td>
@@ -164,6 +171,9 @@
                         </td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0-0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'SoKien'|number:'0.0-0'}}
                         </td>
                         <td class="text-right">
                             {{TongKhoiLuong|number:'0.2-2'}}

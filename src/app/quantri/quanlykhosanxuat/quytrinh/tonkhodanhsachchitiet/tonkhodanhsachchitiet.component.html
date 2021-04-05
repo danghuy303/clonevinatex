@@ -1,7 +1,7 @@
-<div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Thống kê sản lượng</h4>
+<div class="modal-header">
+    <h4 style="color:#1f2779">Danh sách thẻ kho</h4>
 </div>
-<div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+<div class="modal-body">
     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
     <div></div>
     <div class="p-d-flex p-flex-row">
@@ -22,12 +22,12 @@
         </div> -->
         
     </div>
-</div>
-<div class="p-mt-3">
-    <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
+    <p-table
+    [value]="items" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
+                <col>
                 <col>
                 <col>
                 <col>
@@ -46,6 +46,7 @@
                 <th class="text-center" rowspan="2">Thời gian</th>
                 <th class="text-center" rowspan="2">Đơn giá</th>
                 <th class="text-center" rowspan="2">Tồn đầu kỳ</th>
+                <th class="text-center" rowspan="2">Trọng lượng</th>
                 <th class="text-center" colspan="2">Nhập</th>
                 <th class="text-center" colspan="2">Xuất</th>
                 <th class="text-center" rowspan="2">Tồn cuối</th>
@@ -55,7 +56,7 @@
             <tr>
                 <th class="text-center">Nhập</th>
                 <th class="text-center">Kiểm kê</th>
-                <th class="text-center">Nhập</th>
+                <th class="text-center">Xuất</th>
                 <th class="text-center">Kiểm kê</th>
             </tr>
         </ng-template>
@@ -72,6 +73,9 @@
                 </td>
                 <td class="text-right">
                     {{item.TonDauKy|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TrongLuong|number:'0.2-2'}}
                 </td>
                 <td class="text-right">
                     {{item.Nhap|number:'0.0'}}

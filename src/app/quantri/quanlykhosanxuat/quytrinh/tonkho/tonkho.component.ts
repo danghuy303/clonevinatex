@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { TonkhodanhsachchitietComponent } from '../tonkhodanhsachchitiet/tonkhodanhsachchitiet.component';
 
 @Component({
   selector: 'app-tonkho',
@@ -29,8 +30,13 @@ export class TonkhoComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Tồn',
+      header: 'Số lượng',
       field: 'SoLuong',
+      width: 'unset'
+    },
+    {
+      header: 'Trọng lượng',
+      field: 'TongTrongLuong',
       width: 'unset'
     },
   ];
@@ -89,5 +95,19 @@ export class TonkhoComponent implements OnInit {
   resetFilter(){
     this.filter={};
     this.GetListQuyTrinh(true);
+  }
+  GetTheKho(item) {
+    item.IddmKho = this.filter.IddmKho
+    let modalRef = this._modal.open(TonkhodanhsachchitietComponent, {
+      size: 'fullscreen',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.result.then((res: any) => {
+      this.GetListQuyTrinh();
+    })
+      .catch(er => { console.log(er) 
+        this.GetListQuyTrinh();
+    })
   }
 }
