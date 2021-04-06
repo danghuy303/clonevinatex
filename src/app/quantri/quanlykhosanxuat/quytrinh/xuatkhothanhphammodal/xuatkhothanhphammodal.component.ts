@@ -309,18 +309,18 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       });
     })
   }
-  TinhTongKhoiLuong(){
+  TinhTongKhoiLuong(){ 
     this.TongKhoiLuong = 0;
     this.TongThanhTien = 0;
     this.item.listItem.forEach(element => {
-      this.TongKhoiLuong += (element.KhoiLuong ?? 0) * (element.SoLuong ?? 0);
-      this.TongThanhTien += (element.DonGia ?? 0) * (element.SoLuong ?? 0);
+      this.TongKhoiLuong += (element.KhoiLuong ?? 0) * (element.SoLuong ?? 0) + (element.TongTrongLuongChenhLech ?? 0);
+      this.TongThanhTien += (element.DonGia ?? 0) * ((element.SoLuong ?? 0) * (element.KhoiLuong ?? 0) + (element.TongTrongLuongChenhLech ?? 0));
     });
   }
   TinhTongThanhTien(){
     this.TongThanhTien = 0;
     this.item.listItem.forEach(element => {
-      let thanhTien = (element.DonGia ?? 0) * (element.SoLuong ?? 0) * (element.KhoiLuong ?? 0);
+      let thanhTien = (element.DonGia ?? 0) * ((element.SoLuong ?? 0) * (element.KhoiLuong ?? 0) + (element.TongTrongLuongChenhLech ?? 0));
       this.TongThanhTien = this.TongThanhTien + thanhTien;
     });
   }

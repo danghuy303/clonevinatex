@@ -138,6 +138,10 @@ export class KiemkekhomodalComponent implements OnInit {
     }
 
     ChuyenDuyet() {
+        if (validVariable(this.newItem.IddmItem)) {
+            this.listItem.push(deepCopy(this.newItem));
+            this.newItem = {};
+        } 
         this.item.listItem = deepCopy(this.listItem);
         this.services
             .PhieuKiemKeKho()
@@ -163,7 +167,10 @@ export class KiemkekhomodalComponent implements OnInit {
     }
 
     GhiLai() {
-        this.add();
+        if (validVariable(this.newItem.IddmItem)) {
+            this.listItem.push(deepCopy(this.newItem));
+            this.newItem = {};
+        }
         this.item_new.listItem = this.listItem;
         this.services
             .PhieuKiemKeKho()
@@ -171,11 +178,12 @@ export class KiemkekhomodalComponent implements OnInit {
             .subscribe((res: any) => {
                 if (res) {
                     if (res.State === 1) {
+      this.paginator.changePage(0);
                         this.toastr.success(res.message);
                         this.opt = "edit";
+                        this.Id = res.objectReturn.Id;
                         this.GetQuyTrinh()
                         // this.item = res.objectReturn;
-                        // this.Id = res.objectReturn.Id;
                         // this.listItem = res.objectReturn.listItem;
                         // this.paging.CurrentPage = 1;
                         // this.paging.TotalPage = 5;
@@ -219,9 +227,12 @@ export class KiemkekhomodalComponent implements OnInit {
         let item = this.item.listItem.splice(index, 1)[0];
         if (item.Id === "" || item.Id === null || item.Id === undefined) {
             this.item.listItem.splice(index, 1);
+            this.listItem.splice(index, 1);
         } else {
             item.isXoa = true;
             this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+            this.listItem.push(JSON.parse(JSON.stringify(item)));
+
         }
     }
 
@@ -289,4 +300,8 @@ export class KiemkekhomodalComponent implements OnInit {
         })
           .catch(er => console.log(er))
       }
+      TinhTongKhoiLuong(item) {
+          if(item.SoQuaSoi > 0)
+            item.TongTrongLuong = (item.SoQuaSoi ?? 0) *  (item.TonTrongLuong ?? 0) + (item.TongTrongLuongChenhLech ?? 0);
+    }
 }

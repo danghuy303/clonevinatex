@@ -50,6 +50,7 @@ export class NhapkhomodalComponent implements OnInit {
         IdLoBong: '',
         listItem: [],
         isTuDong: false,
+        isGopPhieu: true,
       }
       this.GetNextSoQuyTrinh();
     }

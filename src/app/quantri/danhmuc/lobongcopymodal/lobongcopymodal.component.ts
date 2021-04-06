@@ -4,17 +4,17 @@ import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { LobongcopymodalComponent } from '../lobongcopymodal/lobongcopymodal.component';
 
 @Component({
-  selector: 'app-lobongmodal',
-  templateUrl: './lobongmodal.component.html',
-  styleUrls: ['./lobongmodal.component.css']
+  selector: 'app-lobongcopymodal',
+  templateUrl: './lobongcopymodal.component.html',
+  styleUrls: ['./lobongcopymodal.component.css']
 })
-export class LobongmodalComponent implements OnInit {
+export class LobongcopymodalComponent implements OnInit {
   opt: any = ''
   listdmLoaiBong: any = [];
   listLoBong: any = [];
+  listLoBongFull : any = [];
   listdmCapBong: any = [];
   item: any = {};
   khongclicknhieu: any = false;
@@ -70,6 +70,7 @@ export class LobongmodalComponent implements OnInit {
     }
     this.services.GetListLoBong(data).subscribe((res:any)=>{
       this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listLoBongFull = res;
     })
   }
   getListdmCapBong(){
@@ -81,46 +82,16 @@ export class LobongmodalComponent implements OnInit {
     this.activeModal.close();
   }
   CopyLoBong(){
-    let data = {
-      IdLoBong_Nguon: this.item.IdLoBongCopy,
-      IdLoBong_Dich: this.item.Id
-    }
-    this.services.CopyLoBong(data).subscribe((res:any)=>{
-      if (res) {
-        if (res.State === 1) {
-          this.khongclicknhieu = !this.khongclicknhieu;
-          this.toastr.success(res.message)
-          this.services.getLoBong(this.item.Id).subscribe((res:any)=>{
-            this.item = res;
-          })
-        } else {
-          this.khongclicknhieu = !this.khongclicknhieu;
-          this.toastr.error(res.message)
-        }
-      }
-    })
+    this.activeModal.close(
+      {data:this.item}
+  );
   }
-  CopyLoBongModal(){
-    let modalRef = this._modal.open(LobongcopymodalComponent, {
-      size: 'lg',
-      backdrop: 'static'
-    })
-    modalRef.result.then((res: any) => {
-      console.log(res)
-      this.item.TrongLuong = res.data.TrongLuong;
-      this.item.Nep = res.data.Nep;
-      this.item.Mic = res.data.Mic;
-      this.item.Mat = res.data.Mat;
-      this.item.UHML = res.data.UHML;
-      this.item.Str = res.data.Str;
-      this.item.SFI = res.data.SFI;
-      this.item.Rd = res.data.Rd;
-      this.item.b = res.data.b;
-      this.item.Tap = res.data.Tap;
-      this.item.Am = res.data.Am;
-      // this.services.getLoBong(this.item.Id).subscribe((res:any)=>{
-      //   this.item = res;
-      // })
-    })
+  luaChonLoBong(){
+   let data =  this.listLoBongFull.find(obj => (obj.Id == this.item.IdLoBongCopy));
+   let IdLoBongCopy = this.item.IdLoBongCopy;
+   if(data !== undefined){
+    this.item = data;
+    this.item.IdLoBongCopy = IdLoBongCopy;
+   }
   }
 }

@@ -85,11 +85,11 @@ export class KhoxokiemkemodalComponent implements OnInit {
           .Get(this.Id)
           .subscribe((res1: any) => {
               this.item = res1;
-              this.listItem = res1.listItem;
               this.paging.CurrentPage = 1;
               this.paging.TotalPage = 5;
               this.paging.TotalItem = res1.listItem.length;
-              this.item.listItem = res1.listItem.slice(0, 10);
+              this.item.listItem = res1.listItem;
+              this.listItem = this.item.listItem.slice(0, 10);
               this.item_new = res1;
               this.KiemTraButtonModal();
           });
@@ -103,6 +103,10 @@ export class KhoxokiemkemodalComponent implements OnInit {
   }
 
   ChuyenDuyet() {
+    if (validVariable(this.newItem.IddmItem)) {
+        this.listItem.push(deepCopy(this.newItem));
+        this.newItem = {};
+    } 
       this.item.listItem = deepCopy(this.listItem);
       this.services
           .PhieuKiemKeKhoBong()
@@ -120,7 +124,7 @@ export class KhoxokiemkemodalComponent implements OnInit {
 
   GetNextSoQuyTrinh() {
       this.services
-          .PhieuKiemKeKho()
+          .PhieuKiemKeKhoBong()
           .GetNextSo()
           .subscribe((res: any) => {
               this.item.SoQuyTrinh = res.SoQuyTrinh;
@@ -128,27 +132,33 @@ export class KhoxokiemkemodalComponent implements OnInit {
   }
 
   GhiLai() {
-      this.item_new.listItem = this.listItem;
+    if (validVariable(this.newItem.IddmItem)) {
+        this.listItem.push(deepCopy(this.newItem));
+        this.newItem = {};
+    } 
+    //   this.item_new.listItem = this.listItem;
       this.services
           .PhieuKiemKeKhoBong()
-          .Set(this.item_new)
+          .Set(this.item)
           .subscribe((res: any) => {
               if (res) {
                   if (res.State === 1) {
                       this.toastr.success(res.message);
                       this.opt = "edit";
-                      this.item = res.objectReturn;
+                      this.paginator.changePage(0);
+                    //   this.item = res.objectReturn;
                       this.Id = res.objectReturn.Id;
-                      this.listItem = res.objectReturn.listItem;
-                      this.paging.CurrentPage = 1;
-                      this.paging.TotalPage = 5;
-                      if (
-                          res.objectReturn.listItem != undefined &&
-                          res.objectReturn.listItem != null
-                      )
-                          this.paging.TotalItem = res.objectReturn.listItem.length;
-                      this.item.listItem = res.objectReturn.listItem.slice(0, 10);
-                      this.KiemTraButtonModal();
+                      this.GetQuyTrinh();
+                    //   this.listItem = res.objectReturn.listItem;
+                    //   this.paging.CurrentPage = 1;
+                    //   this.paging.TotalPage = 5;
+                    //   if (
+                    //       res.objectReturn.listItem != undefined &&
+                    //       res.objectReturn.listItem != null
+                    //   )
+                    //       this.paging.TotalItem = res.objectReturn.listItem.length;
+                    //   this.item.listItem = res.objectReturn.listItem.slice(0, 10);
+                    //   this.KiemTraButtonModal();
                   } else {
                       this.toastr.error(res.message);
                   }
@@ -181,15 +191,18 @@ export class KhoxokiemkemodalComponent implements OnInit {
   delete(index) {
       let item = this.item.listItem.splice(index, 1)[0];
       if (item.Id === "" || item.Id === null || item.Id === undefined) {
+        // this.item.listItem.splice(index, 1);
+        this.listItem.splice(index, 1);
       } else {
           item.isXoa = true;
-          this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+        //   this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+          this.listItem.push(JSON.parse(JSON.stringify(item)));
       }
   }
 
   GetMatHangTheoKho() {
       this.services
-          .getLuuKhoKiemKe(
+          .getLuuKhoKiemKeKhoXo(
               this.item.IddmKho,
               this.item.IdLoBong,
               "",
@@ -200,8 +213,8 @@ export class KhoxokiemkemodalComponent implements OnInit {
                   mathang.SoLuong = mathang.TonSoLuong;
                   mathang.TongTrongLuong = mathang.TonTongTrongLuong;
               });
-              this.item.listItem = res1.slice(0, 10);
-              this.listItem = res1;
+              this.item.listItem = res1;
+              this.listItem = this.item.listItem.slice(0, 10);
               this.paging.CurrentPage = 1;
               this.paging.TotalPage = 5;
               this.paging.TotalItem = res1.length;
@@ -211,10 +224,10 @@ export class KhoxokiemkemodalComponent implements OnInit {
       this.paging.CurrentPage = event.page + 1;
       let start = 10 * event.page;
       let end = start + 10;
-      if (start + 10 > this.listItem.length) {
-          end = this.listItem.length;
+      if (start + 10 > this.item.listItem.length) {
+          end = this.item.listItem.length;
       }
-      this.item.listItem = this.listItem.slice(start, end);
+      this.listItem = this.item.listItem.slice(start, end);
   }
   setNewItemName(event) {
       let selected = this.listNewMatHang_ref.find(

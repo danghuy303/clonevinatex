@@ -102,7 +102,7 @@
                             {{item.TonTongTrongLuong|number:'0.0'}}
                         </td>
                         <td>
-                            {{item.TonSoLuong|number:'0.0'}}
+                            {{item.TonSoLuong|number:'0.0'}} - {{item.isXoa}}
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.TongTrongLuong">
@@ -181,7 +181,7 @@
                 </ng-template>
                 <ng-template pTemplate="summary">
                     <div class="p-d-flex p-ai-center p-jc-between">
-                        Tổng số bản ghi {{listItem.length}}.<p-paginator #paginator [totalRecords]="listItem.length"
+                        Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
                             [rows]="10" (onPageChange)="changePage($event)"></p-paginator>
                     </div>
                 </ng-template>

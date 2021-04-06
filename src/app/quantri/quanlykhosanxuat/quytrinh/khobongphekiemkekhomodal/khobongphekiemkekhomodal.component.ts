@@ -89,11 +89,11 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
           .Get(this.Id)
           .subscribe((res1: any) => {
               this.item = res1;
-              this.listItem = res1.listItem;
               this.paging.CurrentPage = 1;
               this.paging.TotalPage = 5;
               this.paging.TotalItem = res1.listItem.length;
-              this.item.listItem = res1.listItem.slice(0, 10);
+              this.item.listItem = res1.listItem;
+              this.listItem = this.item.listItem.slice(0, 10);
               this.item_new = res1;
               this.KiemTraButtonModal();
           });
@@ -185,9 +185,11 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
   delete(index) {
       let item = this.item.listItem.splice(index, 1)[0];
       if (item.Id === "" || item.Id === null || item.Id === undefined) {
+        this.listItem.splice(index, 1);
       } else {
+          debugger
           item.isXoa = true;
-          this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+          this.listItem.push(JSON.parse(JSON.stringify(item)));
       }
   }
 
@@ -215,10 +217,10 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
       this.paging.CurrentPage = event.page + 1;
       let start = 10 * event.page;
       let end = start + 10;
-      if (start + 10 > this.listItem.length) {
-          end = this.listItem.length;
+      if (start + 10 > this.item.listItem.length) {
+          end = this.item.listItem.length;
       }
-      this.item.listItem = this.listItem.slice(start, end);
+      this.listItem = this.item.listItem.slice(start, end);
   }
   setNewItemName(event) {
       let selected = this.listNewMatHang_ref.find(
