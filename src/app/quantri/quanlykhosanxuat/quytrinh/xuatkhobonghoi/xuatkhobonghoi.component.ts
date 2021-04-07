@@ -64,7 +64,7 @@ export class XuatkhobonghoiComponent implements OnInit {
     if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/khobonghoi/xuatkho/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/quanlykhosanxuatbongkhac/khobonghoi/xuatkho/${id}`],{replaceUrl: true})
   }
   add(){
     this.changeParam(0);
