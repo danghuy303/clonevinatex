@@ -1251,6 +1251,7 @@ export class SanXuatService {
     //#endregion
     PhieuXuatSanXuat() {
         let url = API.SCMQuanLyKho;
+        let urlDM = API.SCMDanhMuc;
         return {
             GetNextSo: () => {
                 return this.http.get(url + 'GetNextSoQuyTrinhPhieuXuatBong', httpOptions);
@@ -1274,6 +1275,9 @@ export class SanXuatService {
             },
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhieuXuatBong', data, httpOptions)
+            },
+            ExportExcel: (Id) => {
+                return this.http.get(urlDM + `ExportPhieuXuatKhoBong?Id=${Id}`, httpOptions);
             },
         }
     }

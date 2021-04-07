@@ -93,8 +93,8 @@
                         <th>Tổng khối lượng</th>
                         <th>Số quả sợi</th>
                         <th>Số quả sợi</th>
-                        <th>Tổng khối lượng</th>
                         <th>Trọng lượng chênh lệch</th>
+                        <th>Tổng khối lượng</th>
                         <th>Số kiện</th>
                         <th>Quy cách đóng gói</th>
                     </tr>
@@ -123,16 +123,16 @@
                             (ngModelChange)="TinhTongKhoiLuong(item)">
                             </p-inputNumber>
                         </td>
-                        
-                        <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuong">
-                            </p-inputNumber>
-                        </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuongChenhLech"
                             (ngModelChange)="TinhTongKhoiLuong(item)">
                             </p-inputNumber>
                         </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuong">
+                            </p-inputNumber>
+                        </td>
+                        
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
@@ -170,16 +170,16 @@
                             (onBlur)="TinhTongKhoiLuong(newItem)">
                             </p-inputNumber>
                         </td>
-                       
-                        <td class="text-right">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newItem.TongTrongLuong">
-                            </p-inputNumber>
-                        </td>
                         <td class="text-right">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newItem.TongTrongLuongChenhLech"
                             (onBlur)="TinhTongKhoiLuong(newItem)">
                             </p-inputNumber>
                         </td>
+                        <td class="text-right">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newItem.TongTrongLuong">
+                            </p-inputNumber>
+                        </td>
+                        
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newItem.SoLuong">
                             </p-inputNumber>
@@ -207,13 +207,13 @@
                         <td class="text-right" *ngIf="isKhoThanhPham">
                             {{item.listItem|isXoa|SumByKey:'SoQuaSoi'|number:'0.0-0'}}
                         </td>
-                        
-                        <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'TongTrongLuong'|number:'0.2'}}
-                        </td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'TongTrongLuongChenhLech'|number:'0.2'}}
                         </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'TongTrongLuong'|number:'0.2'}}
+                        </td>
+                        
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0-0'}}
                         </td>
