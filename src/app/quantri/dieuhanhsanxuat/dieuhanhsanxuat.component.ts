@@ -129,8 +129,8 @@ export class DieuhanhsanxuatComponent implements OnInit {
     let date = new Date();
     this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    this.filterNhuCau._tuNgayCanDoiTon = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    this.filterNhuCau._denNgayCanDoiTon = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    this.filterNhuCau._tuNgayCanDoiTon = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.filterNhuCau._denNgayCanDoiTon = date;
 
     this.dataPie = {
       labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],

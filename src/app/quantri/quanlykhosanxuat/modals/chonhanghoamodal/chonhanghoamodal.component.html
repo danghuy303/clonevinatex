@@ -28,11 +28,13 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
+                        <col style="width: 170px;">
+                        <col *ngIf="opt==='LoBong'" style="width: 70px;">
+                        <col *ngIf="opt==='LoBong'" style="width: 70px;">
+                        <col *ngIf="opt==='LoBong'" style="width: 70px;">
                         <col>
-                        <!-- <col> -->
                         <col *ngIf="opt==='KhoiLuongKeHoach'">
                         <col *ngIf="opt==='KhoiLuongSanXuat'">
-                        <!-- <col *ngIf="opt==='LoBong'"> -->
                         <col>
                     </colgroup>
                 </ng-template>

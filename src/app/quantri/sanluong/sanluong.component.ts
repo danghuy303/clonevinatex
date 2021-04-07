@@ -16,7 +16,8 @@ export class SanluongComponent implements OnInit {
   @Input('CongDoan') CongDoan:any=null;
   filter: any = {
     IddmItem: '',
-    IddmMay:''
+    IddmMay:'',
+    CongDoan:'ONG'
   };
   monthlyConfig_luykesanluong: any = {};
   monthlyConfig_sanluongtheomay: any = {};
@@ -127,7 +128,7 @@ export class SanluongComponent implements OnInit {
     if(validVariable(this.CongDoan)){
       this.filter.CongDoan = this.CongDoan;
     }
-    this.GetBieuDo();
+    this.GetBieuDo('ONG');
     this.getAllOptions()
   }
 
@@ -180,14 +181,14 @@ export class SanluongComponent implements OnInit {
         this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
           // console.log(res);
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
-          this.listMay.unshift({ label: 'Tất cả công đoạn', value: '' })
+          this.listMay.unshift({ label: 'Tất cả máy', value: '' })
           this.filter.IddmMay = this.listMay[0].value;
         })
       }
       if(validVariable(this.CongDoan)){
         this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
-          this.listMay.unshift({ label: 'Tất cả công đoạn', value: '' })
+          this.listMay.unshift({ label: 'Tất cả máy', value: '' })
         })
       }
       this._services.DashBoard().BaoCaoSanLuongLuyKe_BieuDoCot(this.filter).subscribe((res: any) => {
@@ -237,11 +238,12 @@ export class SanluongComponent implements OnInit {
     // });
     this._services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, "Ten", 'Ma')
-      this.listCongDoan.unshift({ label: 'Tất cả công đoạn', value: '' })
-      if(this.CongDoan!==''){
+      // this.listCongDoan.unshift({ label: 'Tất cả công đoạn', value: '' })
+      console.log(this.CongDoan);
+      if(this.CongDoan!==null){
         this.filter.CongDoan = this.CongDoan
       }else{
-        this.filter.CongDoan = this.listCongDoan[0].value;
+        this.filter.CongDoan = 'ONG';
       }
     });
     // this._services.GetListdmMay(data).subscribe((res: any) => {
