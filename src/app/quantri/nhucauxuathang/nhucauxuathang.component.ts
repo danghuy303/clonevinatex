@@ -129,7 +129,7 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
       let date = new Date();
       this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
       this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-      this.filterAll._tuNgay= date;
+      this.filterAll._tuNgay= new Date(date.getFullYear(), date.getMonth(), 1);
       this.filterAll._denNgay = date;
       this.listItem = [];
       this.getAllOptions();

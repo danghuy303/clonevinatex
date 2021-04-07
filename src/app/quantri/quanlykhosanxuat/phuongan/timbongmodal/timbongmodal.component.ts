@@ -350,7 +350,10 @@ export class TimbongmodalComponent implements OnInit {
     });
   }
   chonKienBong(IdLoBong, y, x) {
-    if (validVariable(IdLoBong)) {
+    if(this.item.listLoBong[y].isLoBongTuongLai){
+      this._toastr.error('Lô bông này là lô tương lai!')
+    }else{
+      if (validVariable(IdLoBong)) {
       let modalRef = this._modal.open(ChonkienbongmodalComponent, {
         size: 'xl'
       })
@@ -376,6 +379,8 @@ export class TimbongmodalComponent implements OnInit {
         console.log(this.item.listLoBong[y].tempBanBong[`${x}`].listItem);
       })
     }
+    }
+    
   }
   SetData() {
     this.item.listLoBong.forEach(lobong => {
