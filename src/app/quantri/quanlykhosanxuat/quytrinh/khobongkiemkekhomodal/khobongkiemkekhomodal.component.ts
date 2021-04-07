@@ -78,11 +78,12 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
           .Get(this.Id)
           .subscribe((res1: any) => {
               this.item = res1;
-              this.listItem = res1.listItem;
+            //   this.listItem = res1.listItem;
+              this.item.listItem = res1.listItem;
               this.paging.CurrentPage = 1;
               this.paging.TotalPage = 5;
               this.paging.TotalItem = res1.listItem.length;
-              this.item.listItem = res1.listItem.slice(0, 10);
+              this.listItem = res1.listItem.slice(0, 10);
               this.KiemTraButtonModal();
           });
   }
@@ -127,17 +128,18 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
                   if (res.State === 1) {
                       this.toastr.success(res.message);
                       this.opt = "edit";
-                      this.item = res.objectReturn;
+                    //   this.item = res.objectReturn;
                       this.Id = res.objectReturn.Id;
-                      this.paging.CurrentPage = 1;
-                      this.paging.TotalPage = 5;
-                      if (
-                          res.objectReturn.listItem != undefined &&
-                          res.objectReturn.listItem != null
-                      )
-                          this.paging.TotalItem = res.objectReturn.listItem.length;
-                      this.listItem = res.objectReturn.listItem.slice(0, 10);
-                      this.KiemTraButtonModal();
+                      this.GetQuyTrinh();
+                    //   this.paging.CurrentPage = 1;
+                    //   this.paging.TotalPage = 5;
+                    //   if (
+                    //       res.objectReturn.listItem != undefined &&
+                    //       res.objectReturn.listItem != null
+                    //   )
+                    //       this.paging.TotalItem = res.objectReturn.listItem.length;
+                    //   this.listItem = res.objectReturn.listItem.slice(0, 10);
+                    //   this.KiemTraButtonModal();
                   } else {
                       this.toastr.error(res.message);
                   }
@@ -170,9 +172,12 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
   delete(index) {
       let item = this.item.listItem.splice(index, 1)[0];
       if (item.Id === "" || item.Id === null || item.Id === undefined) {
+        this.item.listItem.splice(index, 1);
+        this.listItem.splice(index, 1);
       } else {
           item.isXoa = true;
           this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+          this.listItem.push(JSON.parse(JSON.stringify(item)));
       }
   }
   GetMatHangTheoKho() {
@@ -198,7 +203,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
       let start = 10 * event.page;
       let end = start + 10;
       if (start + 10 > this.item.listItem.length) {
-          end = this.listItem.item.length;
+          end = this.item.listItem.length;
       }
       this.listItem = this.item.listItem.slice(start, end);
   }

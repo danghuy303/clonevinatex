@@ -72,7 +72,6 @@ export class KhobongphekiemkekhoComponent implements OnInit {
       );
   }
   add() {
-      this.changeParam(0);
       let modalRef = this._modal.open(KhobongphekiemkekhomodalComponent, {
           size: "fullscreen",
           backdrop: "static",
@@ -93,7 +92,6 @@ export class KhobongphekiemkekhoComponent implements OnInit {
           });
   }
   update(Id) {
-      this.changeParam(Id);
       let modalRef = this._modal.open(KhobongphekiemkekhomodalComponent, {
           size: "fullscreen",
           backdrop: "static",
@@ -125,7 +123,6 @@ export class KhobongphekiemkekhoComponent implements OnInit {
   GetListQuyTrinh(reset?) {
       if (reset) {
           this.paging.CurrentPage = 1;
-          this.paginator.changePage(0);
       }
       let data: any = {
           PageSize: 20,

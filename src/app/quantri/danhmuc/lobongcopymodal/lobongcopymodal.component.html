@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} lô bông</h5>
+    <h5 class="modal-title">Chọn lô bông</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -7,9 +7,16 @@
 <div class="modal-body">
     <div class="p-grid">
         <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Sao chép từ:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <p-dropdown [filter]="true" [options]="listLoBong" placeholder="Chọn lô bông" 
+                [(ngModel)]="item.IdLoBongCopy" styleClass="p-inputtext-sm" (onChange)="luaChonLoBong()"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mã<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.Ma" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
@@ -144,22 +151,12 @@
         <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.GhiChu" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
-        </div>
-        <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <button pButton pRipple label="Xem dữ liệu lô đã về" class="p-button-sm p-mr-2" (click)="CopyLoBongModal()"></button>
-            
-            <!-- <label class="p-col-12 p-lg-2 p-p-0 my-auto">Sao chép từ:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoBong" placeholder="Chọn lô bông" 
-                [(ngModel)]="item.IdLoBongCopy" styleClass="p-inputtext-sm"></p-dropdown>
-            </div>
-            <button pButton pRipple label="Sao chép" class="p-button-sm p-mr-2" (click)="CopyLoBong()"></button> -->
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()" [disabled]="khongclicknhieu"></button>
+    <button pButton pRipple label="Áp dụng" class="p-button-sm p-mr-2" (click)="CopyLoBong()" [disabled]="khongclicknhieu"></button>
     <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2" (click)="activeModal.dismiss()"></button>
 </div>

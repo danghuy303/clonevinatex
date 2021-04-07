@@ -111,8 +111,8 @@
                         <th>Số lượng trong kho</th>
                         <th>Số quả sợi</th>
                         <th>Số kiện</th>
-                        <th>Tổng khối lượng (kg)</th>
                         <th>Trọng lượng chênh lệch (kg)</th>
+                        <th>Tổng khối lượng (kg)</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -141,14 +141,19 @@
                             (onBlur)="TinhTongKhoiLuong()">
                             </p-inputNumber>
                         </td>
-                        <td class="text-right">
-                            <!-- <p-inputNumber [minFractionDigits]="0" *ngIf="item.KhoiLuong>0&&item.SoLuong>0" locale="vi-VN" [ngModel]="item.KhoiLuong * item.SoLuong" disabled>
-                            </p-inputNumber> -->
-                            {{item.KhoiLuong * item.SoLuong|number:'0.2-2'}}
-                        </td>
+                        
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuongChenhLech">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuongChenhLech"
+                            (onBlur)="TinhTongKhoiLuong()">
                             </p-inputNumber>
+                        </td>
+                        <td class="text-right">
+                            <span *ngIf="item.TongTrongLuongChenhLech === null || item.TongTrongLuongChenhLech === undefined">
+                                {{(item.KhoiLuong * item.SoLuong)|number:'0.2-2'}}
+                            </span>
+                            <span *ngIf="item.TongTrongLuongChenhLech !== null && item.TongTrongLuongChenhLech !== undefined">
+                                {{((item.KhoiLuong * item.SoLuong) + (item.TongTrongLuongChenhLech))|number:'0.2-2'}}
+                            </span>
                         </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DonGia"
@@ -156,7 +161,12 @@
                             </p-inputNumber>
                         </td>
                         <td class="text-right">
-                            {{item.DonGia * item.SoLuong * item.KhoiLuong|number:'0.0'}}
+                            <span *ngIf="item.TongTrongLuongChenhLech !== null && item.TongTrongLuongChenhLech !== undefined">
+                                {{item.DonGia * (item.SoLuong * item.KhoiLuong + (item.TongTrongLuongChenhLech))|number:'0.0'}}
+                            </span>
+                            <span *ngIf="item.TongTrongLuongChenhLech === null || item.TongTrongLuongChenhLech === undefined">
+                                {{item.DonGia * (item.SoLuong * item.KhoiLuong)|number:'0.0'}}
+                            </span>
                         </td>
                         <td>
                             <input pInputText type="text" [(ngModel)]="item.GhiChu">
@@ -182,11 +192,12 @@
                             {{item.listItem|isXoa|SumByKey:'SoKien'|number:'0.0-0'}}
                         </td>
                         <td class="text-right">
-                            {{TongKhoiLuong|number:'0.2-2'}}
-                        </td>
-                        <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'TongTrongLuongChenhLech'|number:'0.0-0'}}
                         </td>
+                        <td class="text-right">
+                            {{TongKhoiLuong|number:'0.2-2'}}
+                        </td>
+                        
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'DonGia'|number:'0.0'}}
                         </td>

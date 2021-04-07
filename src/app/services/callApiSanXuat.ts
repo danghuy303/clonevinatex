@@ -423,6 +423,10 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + 'CopyLoBong';
         return this.http.post(url,data, httpOptions);
     }
+    getLoBong(Id) {
+        let url = API.SCMDanhMuc + `GetLoBongTheoId?Id=${Id}`;
+        return this.http.get(url, httpOptions);
+    }
     //#endregion
 
     //Dùng chung
@@ -1716,5 +1720,11 @@ export class SanXuatService {
         // data.IdDuAn =this.store.getCurrent();
         let url = API.SCMQuanLyKho + 'GetLuuKhoTheKho';
         return this.http.post(url, data, httpOptions);
+    }
+    getLuuKhoKiemKeKhoXo(IddmKho, IdLoBong, sFilter, IdLoHang) {
+        // let IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + `getLuuKhoKiemKeKhoXo?IdDuAn=0&IddmKho=${IddmKho}&IdLoHang=${IdLoHang || ''}&IdLoBong=${IdLoBong || ''}&sFilter=${sFilter}`;
+        // 
+        return this.http.get(url, httpOptions);
     }
 }
