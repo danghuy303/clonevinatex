@@ -171,12 +171,13 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
 
   delete(index) {
       let item = this.item.listItem.splice(index, 1)[0];
-      if (item.Id === "" || item.Id === null || item.Id === undefined) {
-        this.item.listItem.splice(index, 1);
+    //   this.item.listItem.splice(index, 1);
         this.listItem.splice(index, 1);
+      if (item.Id === "" || item.Id === null || item.Id === undefined) {
+        
       } else {
           item.isXoa = true;
-          this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+        //   this.item.listItem.push(JSON.parse(JSON.stringify(item)));
           this.listItem.push(JSON.parse(JSON.stringify(item)));
       }
   }
@@ -207,39 +208,4 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
       }
       this.listItem = this.item.listItem.slice(start, end);
   }
-  setNewItemName(event) {
-      let selected = this.listNewMatHang_ref.find(
-          (ele) => ele.Id === event.value
-      );
-      this.newItem.Ten = selected?.Ten;
-      this.newItem.Ma = selected?.Ma;
-  }
-  add() {
-      if (validVariable(this.newItem.IddmItem)) {
-          this.listItem.push(deepCopy(this.newItem));
-          this.newItem = {};
-          console.log(this.paging);
-          if (this.listItem.length > this.paging.CurrentPage * 10) {
-              console.log(Math.floor(this.listItem.length / 10));
-              this.paginator.changePage(
-                  Math.floor(this.listItem.length / 10)
-              );
-          } else {
-              this.changePage({ page: this.paging.CurrentPage - 1 });
-          }
-      } else {
-          this.toastr.error("Vui lòng chọn mặt hàng cần thêm!");
-      }
-  }
-  ImportExcel() {
-      let modalRef = this._modal.open(ImportnhapkhothanhphamComponent, {
-        backdrop: 'static',
-      })
-      modalRef.result.then(res => {
-        this.toastr.success('Cập nhật thành công!');
-          this.item.listItem = res.items;
-          this.paginator.changePage(0);
-      })
-        .catch(er => console.log(er))
-    }
 }

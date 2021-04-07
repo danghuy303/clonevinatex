@@ -93,6 +93,7 @@ export class TonkhoComponent implements OnInit {
 
     if (reset) {
       this.paging.CurrentPage = 1;
+      this.paginator.changePage(0);
       this.filter.IddmKho = item.Id;
     }
     let data: any = {

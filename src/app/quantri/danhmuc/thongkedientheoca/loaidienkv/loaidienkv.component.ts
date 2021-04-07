@@ -52,6 +52,7 @@ export class LoaidienkvComponent implements OnInit {
   GetDanhSachLoaiDienKV(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
+      this.paginator.changePage(0);
     }
     let data = {
       CurrentPage: this.paging.CurrentPage,

@@ -1708,7 +1708,7 @@ export class SanXuatService {
             },
             GetlistdmMatHangKiemKe: (IddmKho, IdLoBong) => {
                 return this.http.get(url + `getLuuKhoKiemKeKhoBong?IdDuAn=0&IddmKho=${IddmKho}&IdLoBong=${IdLoBong}`, httpOptions);
-            }
+            },
         }
     }
     GetTheKho(data) {
@@ -1726,5 +1726,42 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho + `getLuuKhoKiemKeKhoXo?IdDuAn=0&IddmKho=${IddmKho}&IdLoHang=${IdLoHang || ''}&IdLoBong=${IdLoBong || ''}&sFilter=${sFilter}`;
         // 
         return this.http.get(url, httpOptions);
+    }
+    getLuuKhoKiemKeKhoBongPhe(IddmKho, sFilter) {
+        // let IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + `getLuuKhoKiemKeKhoBongPhe?IdDuAn=0&IddmKho=${IddmKho}&sFilter=${sFilter}`;
+        // 
+        return this.http.get(url, httpOptions);
+    }
+    PhieuKiemKeKhoBongPhe() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuKiemKeBongXo', httpOptions);
+            },
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetListPhieuKiemKeBongPhe', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuKiemKeBongPhe?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetPhieuKiemKeBongPhe', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuKiemKeBongPhe', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhieuKiemKeBongPhe', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuKiemKeBongPhe', data, httpOptions)
+            },
+            GetlistdmMatHangKiemKeBongPhe: (Loai) => {
+                return this.http.get(url + `GetlistdmMatHangKiemKeBongPhe?Loai=${Loai}`, httpOptions);
+            }
+        }
     }
 }
