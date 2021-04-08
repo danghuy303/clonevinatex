@@ -151,7 +151,7 @@
                             <th style="width: 35px !important;">BC</th>
                             <th style="width: 35px !important;">NG</th>
                             <th style="width: 200px !important;">Mặt hàng</th>
-                            <th *ngFor="let header of headerChatLuongSanPham" style="width: 70px !important;">
+                            <th *ngFor="let header of headerChatLuongSanPham" style="width: 80px !important;">
                                 {{header.label}}
                             </th>
                         </tr>
@@ -167,7 +167,7 @@
                                     binary="true" inputId="binary"></p-checkbox>
                             </td>
                             <td style="width: 200px !important;">{{item.TenItem}}</td>
-                            <td *ngFor="let body of headerChatLuongSanPham" style="width: 55px !important;">
+                            <td *ngFor="let body of headerChatLuongSanPham" style="width: 80px !important;">
                                 {{item[body.prop]|number:'0.0-2'}}
                             </td>
                         </tr>
