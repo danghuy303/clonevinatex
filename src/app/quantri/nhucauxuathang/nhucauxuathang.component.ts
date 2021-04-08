@@ -246,7 +246,7 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
     if (this.SelectItem.TendmItem != undefined && this.SelectItem != null) {
       console.log(this.SelectItem);
       if (validVariable(this.SelectItem?.IddmItem)) {
-        this._services.GetDashBoard_TruyXuatNguonGoc(this.SelectItem.IddmItem, DateToUnix(this.filter._tuNgayCanDoiTon), DateToUnix(this.filter._denNgayCanDoiTon)).subscribe((res: any) => {
+        this._services.GetDashBoard_TruyXuatNguonGoc(this.SelectItem.IddmItem, DateToUnix(this.filterAll._tuNgay), DateToUnix(this.filterAll._denNgay)).subscribe((res: any) => {
           this.showTruySuatNguonGoc = true;
           this.listTruySuatNguonGoc = res;
           this.listTruySuatNguonGoc.forEach(obj => {
