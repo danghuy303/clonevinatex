@@ -28,6 +28,10 @@
                 [(ngModel)]="filter.CongDoan" (onChange)="GetBieuDo(true)"></p-dropdown>
         </div>
         <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
+                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanXuong" (onChange)="GetBieuDo()"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listMay" styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmMay"
                 (onChange)="GetBieuDo()"></p-dropdown>
         </div>

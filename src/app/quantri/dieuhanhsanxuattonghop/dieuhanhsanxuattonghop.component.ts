@@ -39,6 +39,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
   currentUser: any;
   IdDuAn: any;
   listTruySuatNguonGoc:any=[];
+  listHienThiSanLuongOng:any=[];
+  labelSanLuongOng:any='';
   optionPie: any = {
     plugins: {
       labels: {
@@ -273,7 +275,22 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
       ]
     });
     this._services.BaoCao().GetDashBoard_SanLuongOng(this.filter).subscribe((res: any) => {
+      this.labelSanLuongOng=`Sản lượng ống ${this.filter.nNgay}/${this.filter.nThang}/${this.filter.nNam}`
+      let distinct = [...new Set(res.map(ele=>ele.IddmItem))]
+      let listSanLuongOngtemp = distinct.map(IdMatHang=>{
+        let listMay = res.filter(ele=>ele.IddmItem === IdMatHang).sort((a,b)=>{
+          return a.TendmMay.localeCompare(b.TendmMay);
+        });
+        return {
+          IddmItem:IdMatHang,
+          Ne:listMay[0]?.Ne,
+          TenMatHang:listMay[0]?.Ten,
+          listMay: listMay,
+        }
+      })
+      console.log(listSanLuongOngtemp)
       this.listSanLuongOng = res;
+      this.listHienThiSanLuongOng = listSanLuongOngtemp;
     })
   }
 

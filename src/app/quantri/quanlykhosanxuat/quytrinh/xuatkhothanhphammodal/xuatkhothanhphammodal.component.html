@@ -177,10 +177,10 @@
                         </td>
                         <td class="text-right">
                             <span *ngIf="item.TongTrongLuongChenhLech !== null && item.TongTrongLuongChenhLech !== undefined">
-                                {{item.DonGia * (item.SoLuong * item.KhoiLuong + (item.TongTrongLuongChenhLech))|number:'0.2'}}
+                                {{item.DonGia * (item.SoLuong * item.KhoiLuong + (item.TongTrongLuongChenhLech))|number:'0.2-2'}}
                             </span>
                             <span *ngIf="item.TongTrongLuongChenhLech === null || item.TongTrongLuongChenhLech === undefined">
-                                {{item.DonGia * (item.SoLuong * item.KhoiLuong)|number:'0.2'}}
+                                {{item.DonGia * (item.SoLuong * item.KhoiLuong)|number:'0.2-2'}}
                             </span>
                         </td>
                         <td>

@@ -15,7 +15,8 @@ import { StoreService } from 'src/app/services/store.service';
 })
 export class DashboardthongluongComponent implements OnInit, AfterViewInit {
   filter: any = {
-    IddmItem: ''
+    IddmItem: '',
+    opt:'TyLe'
   };
   infos: any = {
     NgayMax: {
@@ -30,6 +31,14 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
   listPhanXuong: any = [];
   listNhaMay: any = [];
   listMatHang: any = [];
+  listOpt:any=[
+    {value:'TyLe',label:'Hiệu suất sử dụng'},
+    {value:'KhoiLuong',label:'Sản lượng'},
+  ];
+  mapValue_Prop:any={
+    'TyLe':'TyLe',
+    'KhoiLuong':'KhoiLuongCongDoan'
+  }
   chart: am4charts.SlicedChart;
   constructor(private _services: SanXuatService, private _toastr: ToastrService, @Inject(PLATFORM_ID) private platformId, private zone: NgZone,private store:StoreService) { 
     this.filter.IdDuAn = this.store.getCurrent();
@@ -143,8 +152,8 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
         chart.data = res.map(ele => {
           return {
             name: ele.TenCongDoan,
-            // value: ele.KhoiLuongCongDoan ,
-            value: ele.KhoiLuongCongDoan,
+            // value: ele.TyLe ,
+            value: ele[this.mapValue_Prop[this.filter.opt]],
             formated:formatNumber(ele.KhoiLuongCongDoan, 'vi-VN', '0.0-2'),
             TyLe: formatNumber(ele.TyLe, 'vi-VN', '0.0-2')
           }

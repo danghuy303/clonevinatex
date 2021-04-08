@@ -31,6 +31,13 @@ export class Dongvanpx2Component implements OnInit {
   }
 
   ngOnInit(): void {
+    this.checkbutton = {
+      Ghi: false,
+      Xoa: false,
+      ChuyenTiep: false,
+      KhongDuyet: false
+    }
+    this.KiemTraButtonModal()
     this.length = this.item.listLoBong.reduce((total, ele) => {
       return total + ele.SoLuong
     }, 0)
@@ -118,6 +125,11 @@ export class Dongvanpx2Component implements OnInit {
         this.block5.push(`${i}`)
       }
     };
+  }
+  KiemTraButtonModal() {
+    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
+      this.checkbutton = res;
+    })
   }
   changeNgoaiQuanBong() {
     // this.veLayout();

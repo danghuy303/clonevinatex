@@ -598,7 +598,7 @@ export class PhabongmodalComponent implements OnInit {
   }
   DieuChinh() {
     if (this.ValidData()) {
-      this._services.PhuongAnPhaBong().DieuChinhPhuongAnPhaBong(this.item.Id).subscribe((res: any) => {
+      this._services.PhuongAnPhaBong().UpdateDieuChinhPhuongAnPhaBong(this.SetData()).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);

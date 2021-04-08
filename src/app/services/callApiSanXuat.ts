@@ -960,6 +960,9 @@ export class SanXuatService {
             },
             DieuChinhPhuongAnPhaBong: (IdPhuongAnPhaBong) => {
                 return this.http.get(url + `DieuChinhPhuongAnPhaBong?IdPhuongAnPhaBong=${IdPhuongAnPhaBong}`, httpOptions);
+            },
+            UpdateDieuChinhPhuongAnPhaBong:(data)=>{
+                return this.http.post(`${url}UpdateDieuChinhPhuongAnPhaBong`,data,httpOptions)
             }
         }
     }
