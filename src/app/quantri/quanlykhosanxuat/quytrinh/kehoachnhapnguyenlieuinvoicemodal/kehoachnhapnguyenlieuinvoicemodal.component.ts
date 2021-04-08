@@ -53,10 +53,11 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
     }
     else {
       if (this.item.listItem.length > 0) {
-        this.item.listItem.filter(obj => {
+        this.item.listItem.forEach(obj => {
           obj.ThoiGianDuKien = new Date(obj.ThoiGianDuKienUnix * 1000);
           obj.ThoiGianCapCang = new Date(obj.ThoiGianCapCangUnix * 1000);
         });
+        this.sort()
       }
       this.KiemTraButtonModal();
     }
@@ -71,13 +72,13 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
     }
     this._services.NhapKeHoachNguyenLieuInvoice().KeHoachForInvoice().subscribe((res: any) => {
       this.listKeHoachNguyenLieu = mapArrayForDropDown(res, 'Ten', 'Id');
-      this.listKeHoachNguyenLieuFull =res;
+      this.listKeHoachNguyenLieuFull = res;
     })
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
-      if(this.item.IdUserHienTai === this.item.CreatedBy)
+      if (this.item.IdUserHienTai === this.item.CreatedBy)
         this.checkbutton.Ghi = true;
     })
   }
@@ -94,22 +95,22 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  ngày");
       isCheck = true;
     }
-    else{
-        this.item.listItem.forEach(element => {
+    else {
+      this.item.listItem.forEach(element => {
         if (element.ThoiGianDuKien === null || element.ThoiGianDuKien === undefined || element.ThoiGianCapCang === null || element.ThoiGianCapCang === undefined) {
           this.toastr.error("Bạn chưa chọn chọn thời gian dự kiến hoặc thời gian cập cảng");
           isCheck = true;
         }
       });
     }
-    
-    if (this.newTableItem.ThoiGianDuKien!= undefined && this.newTableItem.ThoiGianDuKien!= null
-      && this.newTableItem.ThoiGianCapCang!= undefined && this.newTableItem.ThoiGianCapCang!= null
-      && this.newTableItem.Container!= undefined &&
-       this.newTableItem.TongSoKien!= undefined) {
+
+    if (this.newTableItem.ThoiGianDuKien != undefined && this.newTableItem.ThoiGianDuKien != null
+      && this.newTableItem.ThoiGianCapCang != undefined && this.newTableItem.ThoiGianCapCang != null
+      && this.newTableItem.Container != undefined &&
+      this.newTableItem.TongSoKien != undefined) {
       this.add();
     }
-    if(isCheck ==false){
+    if (isCheck == false) {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
@@ -167,28 +168,28 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
 
   GhiLai() {
     var isCheck: any = false;
-    if (this.newTableItem.ThoiGianDuKien!= undefined && this.newTableItem.ThoiGianDuKien!= null
-      && this.newTableItem.ThoiGianCapCang!= undefined && this.newTableItem.ThoiGianCapCang!= null
-      && this.newTableItem.Container!= undefined &&
-       this.newTableItem.TongSoKien!= undefined) {
+    if (this.newTableItem.ThoiGianDuKien != undefined && this.newTableItem.ThoiGianDuKien != null
+      && this.newTableItem.ThoiGianCapCang != undefined && this.newTableItem.ThoiGianCapCang != null
+      && this.newTableItem.Container != undefined &&
+      this.newTableItem.TongSoKien != undefined) {
       this.add();
     }
-    
+
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
       isCheck = true;
     }
-    else{
-        this.item.listItem.forEach(element => {
+    else {
+      this.item.listItem.forEach(element => {
         if (element.ThoiGianDuKien === null || element.ThoiGianDuKien === undefined || element.ThoiGianCapCang === null || element.ThoiGianCapCang === undefined) {
           this.toastr.error("Bạn chưa chọn chọn thời gian dự kiến hoặc thời gian cập cảng");
           isCheck = true;
         }
       });
     }
-    
-    
-    if(isCheck == false){
+
+
+    if (isCheck == false) {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
@@ -212,14 +213,14 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
               if (this.item.ThoiGianDuKienUnix !== null && this.item.ThoiGianDuKienUnix !== undefined) {
                 this.item.ThoiGianDuKien = new Date(this.item.ThoiGianDuKienUnix * 1000);
               }
-              if(this.item.listItem.length > 0 && this.item.listItem !== null){
+              if (this.item.listItem.length > 0 && this.item.listItem !== null) {
                 this.item.listItem.filter(obj => {
                   obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
                   obj.ThoiGianCapCang = obj.ThoiGianCapCangUnix > 0 ? UnixToDate(obj.ThoiGianCapCangUnix) : 0;
                 });
               }
-              
-            this.KiemTraButtonModal();
+
+              this.KiemTraButtonModal();
             })
           } else {
             this.toastr.error(res.message);
@@ -291,6 +292,7 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
       "Id": "",
       "IdKeHoachNhapNguyenLieuInvoice": this.item.Id,
     }
+    this.sort()
   }
   edit(item, index) {
     this.item.listItem.forEach(element => {
@@ -306,10 +308,17 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
       item.isXoa = true;
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
+    this.sort()
+  }
+  sort() {
+    this.item.listItem.sort((a: any, b: any) => {
+      return (new Date(a.ThoiGianDuKien).getTime() - new Date(b.ThoiGianDuKien).getTime())
+    })
   }
   saveEdit(item, index) {
     this.item.listItem[index] = item;
     this.item.listItem[index].editField = false;
+    this.sort()
   }
   cancelEdit(item, index) {
     this.item.listItem[index].editField = false;
@@ -317,10 +326,9 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
   Onclose() {
     this.activeModal.close();
   }
-  getKeHoachNhapNguyenLieu(){
-    for(let i =0; i < this.listKeHoachNguyenLieuFull.length ; i ++){
-      if(this.listKeHoachNguyenLieuFull[i].Id === this.item.IdKeHoachNhapNguyenLieu_Item)
-      {
+  getKeHoachNhapNguyenLieu() {
+    for (let i = 0; i < this.listKeHoachNguyenLieuFull.length; i++) {
+      if (this.listKeHoachNguyenLieuFull[i].Id === this.item.IdKeHoachNhapNguyenLieu_Item) {
         this.item.GiaBong = this.listKeHoachNguyenLieuFull[i].GiaBong;
         this.item.SoLuongNhap = this.listKeHoachNguyenLieuFull[i].SoLuongNhap;
         this.item.Container = this.listKeHoachNguyenLieuFull[i].Container;
@@ -330,7 +338,7 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
       }
     }
   }
-  exportExcel(){
+  exportExcel() {
     this._services.NhapKeHoachNguyenLieuInvoice().ExportExcel(this.item.Id).subscribe((res: any) => {
       this._services.download(res.TenFile);
     })
