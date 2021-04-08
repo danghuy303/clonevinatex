@@ -163,7 +163,12 @@
                             {{(item.KhoiLuong * item.SoLuong)/ item.SoLuong|number:'0.2'}}
                         </td>
                         <td class="text-right">
-                            {{((item.KhoiLuong * item.SoLuong) + (item.TongTrongLuongChenhLech))/ item.SoKien|number:'0.2'}}
+                            <span *ngIf="item.TongTrongLuongChenhLech === null || item.TongTrongLuongChenhLech === undefined">
+                                {{(item.KhoiLuong * item.SoLuong)/ item.SoKien|number:'0.2'}}
+                            </span>
+                            <span *ngIf="item.TongTrongLuongChenhLech !== null && item.TongTrongLuongChenhLech !== undefined">
+                                {{((item.KhoiLuong * item.SoLuong) + (item.TongTrongLuongChenhLech))/ item.SoKien|number:'0.2'}}
+                            </span>
                         </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DonGia"
@@ -172,10 +177,10 @@
                         </td>
                         <td class="text-right">
                             <span *ngIf="item.TongTrongLuongChenhLech !== null && item.TongTrongLuongChenhLech !== undefined">
-                                {{item.DonGia * (item.SoLuong * item.KhoiLuong + (item.TongTrongLuongChenhLech))|number:'0.0'}}
+                                {{item.DonGia * (item.SoLuong * item.KhoiLuong + (item.TongTrongLuongChenhLech))|number:'0.2'}}
                             </span>
                             <span *ngIf="item.TongTrongLuongChenhLech === null || item.TongTrongLuongChenhLech === undefined">
-                                {{item.DonGia * (item.SoLuong * item.KhoiLuong)|number:'0.0'}}
+                                {{item.DonGia * (item.SoLuong * item.KhoiLuong)|number:'0.2'}}
                             </span>
                         </td>
                         <td>
