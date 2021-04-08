@@ -17,6 +17,7 @@ export class SanluongComponent implements OnInit {
   filter: any = {
     IddmItem: '',
     IddmMay:'',
+    IddmPhanXuong:'',
     CongDoan:'ONG'
   };
   monthlyConfig_luykesanluong: any = {};
@@ -29,6 +30,7 @@ export class SanluongComponent implements OnInit {
   listMay: any = [];
   listLoaiBong: any = [];
   listCaLamViec: any = [];
+  listPhanXuong:any=[];
   option1: any = {
     plugins: {
       labels: {
@@ -143,7 +145,7 @@ export class SanluongComponent implements OnInit {
     } else {
       this.filter.DenNgayUnix = null;
     }
-    if (validVariable(this.filter.TuNgayUnix) && validVariable(this.filter.DenNgayUnix) && this.filter.TuNgayUnix < this.filter.DenNgayUnix) {
+    if (validVariable(this.filter.TuNgayUnix) && validVariable(this.filter.DenNgayUnix) && this.filter.TuNgayUnix <= this.filter.DenNgayUnix) {
       // if (!!!CongDoan) {
         this._services.DashBoard().BaoCaoSanLuongLuyKe_BieuDoDuong(this.filter).subscribe((res: any) => {
           this.monthlyConfig_sanluongtheomay = {
@@ -229,6 +231,14 @@ export class SanluongComponent implements OnInit {
       Ten: "",
       sFilter: ''
     }
+    let data2 = {
+      PageSize: 20,
+      CurrentPage: 0,
+      sFilter: this.filter.keyWord ? this.filter.keyWord : '',
+      CongDoan: this.filter.CongDoan ? this.filter.CongDoan : '',
+      Ma: "",
+      Ten: ""
+    };
     this._services.GetOptions().GetMatHang().subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tất cả mặt hàng' });
       this.listMatHang = mapArrayForDropDown(res, 'Ten', 'Id')
@@ -236,6 +246,11 @@ export class SanluongComponent implements OnInit {
     // this._services.GetListdmKho(data).subscribe((res: any) => {
     //   this.listKho = mapArrayForDropDown(res, 'Ten', 'Id')
     // });
+    this._services.GetListdmPhanXuong(data2).subscribe((res: any) => {
+      res.unshift({ Id: '', Ten: 'Tất cả phân xưởng' });
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+    })
     this._services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, "Ten", 'Ma')
       // this.listCongDoan.unshift({ label: 'Tất cả công đoạn', value: '' })

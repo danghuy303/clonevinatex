@@ -23,6 +23,10 @@
             </p-calendar>
         </div>
         <div class="p-mr-2">
+            <p-dropdown [options]="listOpt"
+            styleClass="p-inputtext-sm" [(ngModel)]="filter.opt" (onChange)="GetBieuDo()"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
             <button pButton label="Lọc" (click)="GetBieuDo()"
                 class="p-button-sm mr-4"></button>
         </div>
