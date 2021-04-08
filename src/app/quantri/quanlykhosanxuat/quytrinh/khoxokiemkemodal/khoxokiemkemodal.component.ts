@@ -179,6 +179,7 @@ export class KhoxokiemkemodalComponent implements OnInit {
                   .subscribe((res: any) => {
                       console.log(res);
                       if (res?.State === 1) {
+                        this.toastr.success(res.message);
                           this.activeModal.close();
                       } else {
                           this.toastr.error(res.message);
@@ -190,9 +191,9 @@ export class KhoxokiemkemodalComponent implements OnInit {
 
   delete(index) {
       let item = this.item.listItem.splice(index, 1)[0];
+      this.listItem.splice(index, 1);
       if (item.Id === "" || item.Id === null || item.Id === undefined) {
         // this.item.listItem.splice(index, 1);
-        this.listItem.splice(index, 1);
       } else {
           item.isXoa = true;
         //   this.item.listItem.push(JSON.parse(JSON.stringify(item)));
@@ -222,6 +223,8 @@ export class KhoxokiemkemodalComponent implements OnInit {
   }
   changePage(event) {
       this.paging.CurrentPage = event.page + 1;
+      this.paging.TotalItem = this.item.listItem.length;
+
       let start = 10 * event.page;
       let end = start + 10;
       if (start + 10 > this.item.listItem.length) {
@@ -238,7 +241,8 @@ export class KhoxokiemkemodalComponent implements OnInit {
   }
   add() {
       if (validVariable(this.newItem.IddmItem)) {
-          this.listItem.push(deepCopy(this.newItem));
+        //   this.listItem.push(deepCopy(this.newItem));
+          this.item.listItem.push(deepCopy(this.newItem));
           this.newItem = {};
           console.log(this.paging);
           if (this.listItem.length > this.paging.CurrentPage * 10) {

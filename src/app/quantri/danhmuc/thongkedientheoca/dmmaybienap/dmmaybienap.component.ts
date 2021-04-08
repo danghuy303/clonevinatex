@@ -88,7 +88,7 @@ export class DmmaybienapComponent implements OnInit {
   GetListdm(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
-      // this.paginator.changePage(0);
+      this.paginator.changePage(0);
     }
     this.dataSearch = {
       CurrentPage: this.paging.CurrentPage,

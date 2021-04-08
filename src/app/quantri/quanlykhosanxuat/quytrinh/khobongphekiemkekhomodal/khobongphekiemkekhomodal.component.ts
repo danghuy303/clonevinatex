@@ -26,15 +26,13 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
   listdmViTri: any = [];
   listLoBong: any = [];
   listLoHang: any = [];
-  listQuyCachDongGoi: any = [];
-  listNewMatHang: any = [];
-  listNewMatHang_ref: any = [];
-  isKhoThanhPham:any=false;
   paging: any = {};
   listItem: any = [];
-  item_new: any = {};
   title: any = "";
   newItem: any = {};
+  listNewMatHang: any = [];
+  listNewMatHang_ref: any = [];
+  listQuyCachDongGoi: any = [];
   constructor(
       public activeModal: NgbActiveModal,
       private services: SanXuatService,
@@ -48,27 +46,13 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
       } else {
           this.GetQuyTrinh();
       }
-      this.item_new = this.item;
-
       var data: any = {};
       data.CurrentPage = 0;
           data.Loai = 7;
-          this.item_new.Loai = 7;
+          this.item.Loai = 7;
       this.services.GetListdmKho(data).subscribe((res: any) => {
           this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
       });
-      this.services.GetListdmViTriOpt().subscribe((res: any) => {
-          this.listdmViTri = mapArrayForDropDown(res, "Ten", "Id");
-      });
-      this.services.GetListLoBong(data).subscribe((res: any) => {
-          this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
-      });
-      this.services
-          .LoHang()
-          .GetList(data)
-          .subscribe((res: any) => {
-              this.listLoHang = mapArrayForDropDown(res, "Ten", "Id");
-          });
       this.services
           .dmQuyCachDongGoi()
           .GetList()
@@ -76,8 +60,8 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
               this.listQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
           });
       this.services
-          .PhieuKiemKeKho()
-          .GetlistdmMatHangThanhPhamKiemKe()
+          .PhieuKiemKeKhoBongPhe()
+          .GetlistdmMatHangKiemKeBongPhe(data.Loai = 7)
           .subscribe((res: any) => {
               this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
               this.listNewMatHang_ref = res;
@@ -94,7 +78,6 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
               this.paging.TotalItem = res1.listItem.length;
               this.item.listItem = res1.listItem;
               this.listItem = this.item.listItem.slice(0, 10);
-              this.item_new = res1;
               this.KiemTraButtonModal();
           });
   }
@@ -132,27 +115,28 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
   }
 
   GhiLai() {
-      this.item_new.listItem = this.listItem;
       this.services
           .PhieuKiemKeKho()
-          .Set(this.item_new)
+          .Set(this.item)
           .subscribe((res: any) => {
               if (res) {
                   if (res.State === 1) {
                       this.toastr.success(res.message);
                       this.opt = "edit";
-                      this.item = res.objectReturn;
+                    //   this.item = res.objectReturn;
+                    this.paginator.changePage(0);
                       this.Id = res.objectReturn.Id;
-                      this.listItem = res.objectReturn.listItem;
-                      this.paging.CurrentPage = 1;
-                      this.paging.TotalPage = 5;
-                      if (
-                          res.objectReturn.listItem != undefined &&
-                          res.objectReturn.listItem != null
-                      )
-                          this.paging.TotalItem = res.objectReturn.listItem.length;
-                      this.item.listItem = res.objectReturn.listItem.slice(0, 10);
-                      this.KiemTraButtonModal();
+                      this.GetQuyTrinh();
+                    //   this.listItem = res.objectReturn.listItem;
+                    //   this.paging.CurrentPage = 1;
+                    //   this.paging.TotalPage = 5;
+                    //   if (
+                    //       res.objectReturn.listItem != undefined &&
+                    //       res.objectReturn.listItem != null
+                    //   )
+                    //       this.paging.TotalItem = res.objectReturn.listItem.length;
+                    //   this.item.listItem = res.objectReturn.listItem.slice(0, 10);
+                    //   this.KiemTraButtonModal();
                   } else {
                       this.toastr.error(res.message);
                   }
@@ -184,10 +168,10 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
 
   delete(index) {
       let item = this.item.listItem.splice(index, 1)[0];
+      this.item.listItem.splice(index, 1);
+
       if (item.Id === "" || item.Id === null || item.Id === undefined) {
-        this.listItem.splice(index, 1);
       } else {
-          debugger
           item.isXoa = true;
           this.listItem.push(JSON.parse(JSON.stringify(item)));
       }
@@ -195,19 +179,17 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
 
   GetMatHangTheoKho() {
       this.services
-          .getLuuKhoKiemKe(
+          .getLuuKhoKiemKeKhoBongPhe(
               this.item.IddmKho,
-              this.item.IdLoBong,
-              "",
-              this.item.IdLoHang
+              ""
           )
           .subscribe((res1: any) => {
               res1.forEach((mathang) => {
                   mathang.SoLuong = mathang.TonSoLuong;
                   mathang.TongTrongLuong = mathang.TonTongTrongLuong;
               });
-              this.item.listItem = res1.slice(0, 10);
-              this.listItem = res1;
+              this.item.listItem = res1;
+              this.listItem = this.item.listItem.slice(0, 10);
               this.paging.CurrentPage = 1;
               this.paging.TotalPage = 5;
               this.paging.TotalItem = res1.length;
@@ -231,7 +213,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
   }
   add() {
       if (validVariable(this.newItem.IddmItem)) {
-          this.listItem.push(deepCopy(this.newItem));
+          this.item.listItem.push(deepCopy(this.newItem));
           this.newItem = {};
           console.log(this.paging);
           if (this.listItem.length > this.paging.CurrentPage * 10) {

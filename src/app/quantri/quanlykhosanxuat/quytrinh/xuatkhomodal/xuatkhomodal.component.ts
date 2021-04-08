@@ -220,4 +220,9 @@ export class XuatkhomodalComponent implements OnInit {
     this.paging.TotalItem = this.listItem.length;
     this.item.listItem = this.listItem.slice(0,15);
   }
+  exportExcel(){
+    this.services.PhieuXuatSanXuat().ExportExcel(this.item.Id).subscribe((res: any) => {
+      this.services.download(res.TenFile);
+    })
+  }
 }

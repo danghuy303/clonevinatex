@@ -39,7 +39,11 @@ export class KiemkekhomodalComponent implements OnInit {
     listNewMatHang: any = [];
     listNewMatHang_ref: any = [];
     isKhoThanhPham:any=false;
-    paging: any = {};
+    paging: any ={
+        CurrentPage: 1,
+        TotalPage:5,
+        TotalItem: 10
+};
     listItem: any = [];
     item_new: any = {};
     title: any = "";
@@ -178,7 +182,7 @@ export class KiemkekhomodalComponent implements OnInit {
             .subscribe((res: any) => {
                 if (res) {
                     if (res.State === 1) {
-      this.paginator.changePage(0);
+                        this.paginator.changePage(0);
                         this.toastr.success(res.message);
                         this.opt = "edit";
                         this.Id = res.objectReturn.Id;
@@ -214,6 +218,7 @@ export class KiemkekhomodalComponent implements OnInit {
                     .subscribe((res: any) => {
                         console.log(res);
                         if (res?.State === 1) {
+                            this.toastr.success(res.message);
                             this.activeModal.close();
                         } else {
                             this.toastr.error(res.message);
@@ -225,14 +230,13 @@ export class KiemkekhomodalComponent implements OnInit {
 
     delete(index) {
         let item = this.item.listItem.splice(index, 1)[0];
+        this.item.listItem.splice(index, 1);
+        this.listItem.splice(index, 1);
         if (item.Id === "" || item.Id === null || item.Id === undefined) {
-            this.item.listItem.splice(index, 1);
-            this.listItem.splice(index, 1);
         } else {
             item.isXoa = true;
             this.item.listItem.push(JSON.parse(JSON.stringify(item)));
             this.listItem.push(JSON.parse(JSON.stringify(item)));
-
         }
     }
 

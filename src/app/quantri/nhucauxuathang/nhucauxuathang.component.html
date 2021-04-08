@@ -99,19 +99,23 @@
                         <th rowspan="2">Mặt hàng</th>
                         <th rowspan="2">Lô</th>
                         <!-- <th>Hợp đồng P/O</th> -->
-                        <th colspan="2">Tồn đầu</th>
-                        <th colspan="2">Nhập trong kỳ</th>
-                        <th colspan="2">Xuất trong kỳ</th>
-                        <th colspan="2">Tồn cuối kỳ</th>
+                        <th colspan="3">Tồn đầu</th>
+                        <th colspan="3">Nhập trong kỳ</th>
+                        <th colspan="3">Xuất trong kỳ</th>
+                        <th colspan="3">Tồn cuối kỳ</th>
                     </tr>
                     <tr>
                         <th>Số quả sợi</th>
+                        <th>Số kiện</th>
                         <th>KL</th>
                         <th>Số quả sợi</th>
+                        <th>Số kiện</th>
                         <th>KL</th>
                         <th>Số quả sợi</th>
+                        <th>Số kiện</th>
                         <th>KL</th>
                         <th>Số quả sợi</th>
+                        <th>Số kiện</th>
                         <th>KL</th>
                     </tr>
                 </ng-template>
@@ -125,23 +129,27 @@
                         <td>{{item.TendmItem!==null?item.TendmItem:item.TendmLoaiBong}} </td>
                         <td>{{item.TenLoHang}}</td>
                         <!-- <td>{{item.SoHopDong}}</td> -->
-                        <td class="text-right">{{item.DauSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.DauSoQuaSoi|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.DauSoKien|number:'0.2-2' }}</td>
                         <td class="text-right">{{item.DauSoCan|number:'0.2-2' }}</td>
-                        <td class="text-right">{{item.NhapSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.NhapSoQuaSoi|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.NhapSoKien|number:'0.2-2' }}</td>
                         <td class="text-right">
                             <a href="javascript:void(0)" *ngIf="item.TendmItem!==null"
                                 (click)="callDataXuatNhap('Nhap', item)"> {{item.NhapSoCan|number:'0.2-2' }}</a>
                             <ng-container *ngIf="item.TendmItem===null">{{item.NhapSoCan|number:'0.2-2' }}
                             </ng-container>
                         </td>
-                        <td class="text-right">{{item.XuatSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.XuatSoQuaSoi|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.XuatSoKien|number:'0.2-2' }}</td>
                         <td class="text-right">
                             <a href="javascript:void(0)" *ngIf="item.TendmItem!==null"
                                 (click)="callDataXuatNhap('Xuat', item)">{{item.XuatSoCan|number:'0.2-2' }}</a>
                             <ng-container *ngIf="item.TendmItem===null">{{item.XuatSoCan|number:'0.2-2' }}
                             </ng-container>
                         </td>
-                        <td class="text-right">{{item.CuoiSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.CuoiSoQuaSoi|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.CuoiSoKien|number:'0.2-2' }}</td>
                         <td class="text-right">{{item.CuoiSoCan|number:'0.2-2' }}</td>
                     </tr>
                 </ng-template>
@@ -155,23 +163,27 @@
                         <td>{{item.TendmItem!==null?item.TendmItem:item.TendmLoaiBong}} </td>
                         <td>{{item.TenLoHang}}</td>
                         <!-- <td>{{item.SoHopDong}}</td> -->
-                        <td class="text-right">{{item.DauSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.DauSoQuaSoi|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.DauSoKien|number:'0.2-2' }}</td>
                         <td class="text-right">{{item.DauSoCan|number:'0.2-2' }}</td>
-                        <td class="text-right">{{item.NhapSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.NhapSoQuaSoi|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.NhapSoKien|number:'0.2-2' }}</td>
                         <td class="text-right">
                             <a href="javascript:void(0)" *ngIf="item.TendmItem!==null"
                                 (click)="callDataXuatNhap('Nhap', item)"> {{item.NhapSoCan|number:'0.2-2' }}</a>
                             <ng-container *ngIf="item.TendmItem===null">{{item.NhapSoCan|number:'0.2-2' }}
                             </ng-container>
                         </td>
-                        <td class="text-right">{{item.XuatSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.XuatSoQuaSoi|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.XuatSoKien|number:'0.2-2' }}</td>
                         <td class="text-right">
                             <a href="javascript:void(0)" *ngIf="item.TendmItem!==null"
                                 (click)="callDataXuatNhap('Xuat', item)">{{item.XuatSoCan|number:'0.2-2' }}</a>
                             <ng-container *ngIf="item.TendmItem===null">{{item.XuatSoCan|number:'0.2-2' }}
                             </ng-container>
                         </td>
-                        <td class="text-right">{{item.CuoiSoKien|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.CuoiSoQuaSoi|number:'0.0-0' }}</td>
+                        <td class="text-right">{{item.CuoiSoKien|number:'0.2-2' }}</td>
                         <td class="text-right">{{item.CuoiSoCan|number:'0.2-2' }}</td>
                     </tr>
                 </ng-template>
@@ -244,7 +256,7 @@
                 <th>Số phiếu {{selectedXuatNhap.TenOpt| lowercase}}</th>
                 <th>Số phiếu kiểm kê</th>
                 <th>Ngày</th>
-                <th>Số lượng(kiện)</th>
+                <th>Số quả sợi</th>
                 <th>Trọng lượng(kg)</th>
                 <th>Tên kho</th>
             </tr>

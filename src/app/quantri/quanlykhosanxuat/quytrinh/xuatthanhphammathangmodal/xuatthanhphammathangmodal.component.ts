@@ -36,6 +36,11 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
       field: 'TrongLuong',
       width: 'unset'
     },
+    {
+      header: 'Trọng lượng chênh lệch',
+      field: 'TrongLuongChenhLech',
+      width: 'unset'
+    },
   ];
   loai='';
   checkedAll: boolean = false;
