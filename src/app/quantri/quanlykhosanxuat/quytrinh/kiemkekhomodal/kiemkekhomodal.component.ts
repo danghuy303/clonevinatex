@@ -39,7 +39,11 @@ export class KiemkekhomodalComponent implements OnInit {
     listNewMatHang: any = [];
     listNewMatHang_ref: any = [];
     isKhoThanhPham:any=false;
-    paging: any = {};
+    paging: any ={
+        CurrentPage: 1,
+        TotalPage:5,
+        TotalItem: 10
+};
     listItem: any = [];
     item_new: any = {};
     title: any = "";
