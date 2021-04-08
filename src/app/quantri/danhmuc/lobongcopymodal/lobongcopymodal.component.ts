@@ -69,6 +69,9 @@ export class LobongcopymodalComponent implements OnInit {
       CurrentPage: 0,
     }
     this.services.GetListLoBong(data).subscribe((res:any)=>{
+      res.sort((a,b)=>{
+        return a.Ten.localeCompare(b.Ten)
+      })
       this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.listLoBongFull = res;
     })
