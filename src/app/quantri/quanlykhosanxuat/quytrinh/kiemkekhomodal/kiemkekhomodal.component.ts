@@ -143,10 +143,10 @@ export class KiemkekhomodalComponent implements OnInit {
 
     ChuyenDuyet() {
         if (validVariable(this.newItem.IddmItem)) {
-            this.listItem.push(deepCopy(this.newItem));
+            this.item.listItem.push(deepCopy(this.newItem));
             this.newItem = {};
         }
-        this.item.listItem = deepCopy(this.listItem);
+        // this.item.listItem = deepCopy(this.listItem);
         this.services
             .PhieuKiemKeKho()
             .ChuyenTiep(this.item)
@@ -172,7 +172,7 @@ export class KiemkekhomodalComponent implements OnInit {
 
     GhiLai() {
         if (validVariable(this.newItem.IddmItem)) {
-            this.listItem.push(deepCopy(this.newItem));
+            this.item.listItem.push(deepCopy(this.newItem));
             this.newItem = {};
         }
         this.services
@@ -228,14 +228,14 @@ export class KiemkekhomodalComponent implements OnInit {
     }
 
     delete(index) {
-        let item = this.listItem.splice(index, 1)[0];
+        let item = this.item.listItem.splice(index, 1)[0];
         // this.item.listItem.splice(index, 1);
         this.listItem.splice(index, 1);
         if (item.Id === "" || item.Id === null || item.Id === undefined) {
         } else {
             item.isXoa = true;
             // this.item.listItem.push(JSON.parse(JSON.stringify(item)));
-            this.listItem.push(JSON.parse(JSON.stringify(item)));
+            this.item.listItem.push(JSON.parse(JSON.stringify(item)));
         }
     }
 
