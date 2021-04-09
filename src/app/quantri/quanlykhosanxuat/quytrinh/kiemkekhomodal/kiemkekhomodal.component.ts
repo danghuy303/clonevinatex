@@ -38,14 +38,14 @@ export class KiemkekhomodalComponent implements OnInit {
     listQuyCachDongGoi: any = [];
     listNewMatHang: any = [];
     listNewMatHang_ref: any = [];
-    isKhoThanhPham:any=false;
-    paging: any ={
+    isKhoThanhPham: any = false;
+    paging: any = {
         CurrentPage: 1,
-        TotalPage:5,
+        TotalPage: 5,
         TotalItem: 10
-};
+    };
     listItem: any = [];
-    item_new: any = {};
+    // item_new: any = {};
     title: any = "";
     newItem: any = {};
     constructor(
@@ -61,7 +61,7 @@ export class KiemkekhomodalComponent implements OnInit {
         } else {
             this.GetQuyTrinh();
         }
-        this.item_new = this.item;
+        // this.item_new = this.item;
 
         var data: any = {};
         data.CurrentPage = 0;
@@ -72,8 +72,8 @@ export class KiemkekhomodalComponent implements OnInit {
         //     data.Loai = 5;
         //     this.item_new.Loai = 5;
         // } else if (this.title === "khothanhpham") {
-            data.Loai = 11;
-            this.item_new.Loai = 11;
+        data.Loai = 11;
+        this.item.Loai = 11;
         // }
         this.services.GetListdmKho(data).subscribe((res: any) => {
             this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
@@ -88,7 +88,7 @@ export class KiemkekhomodalComponent implements OnInit {
             .subscribe((res: any) => {
                 this.listLoHang = mapArrayForDropDown(res, "Ten", "Id");
             });
-        
+
         this.services
             .dmQuyCachDongGoi()
             .GetList()
@@ -103,13 +103,13 @@ export class KiemkekhomodalComponent implements OnInit {
                 this.listNewMatHang_ref = res;
             });
     }
-    getdmKhoFunc(){
+    getdmKhoFunc() {
         this.getListLoHangTheodmkho();
         this.GetMatHangTheoKho();
     }
-    getListLoHangTheodmkho(){
-        let dmkhoFull = this.listdmKhoFull.find(ele=>ele.Id === this.item.IddmKho);
-        if(dmkhoFull != undefined){
+    getListLoHangTheodmkho() {
+        let dmkhoFull = this.listdmKhoFull.find(ele => ele.Id === this.item.IddmKho);
+        if (dmkhoFull != undefined) {
             var data: any = {};
             data.CurrentPage = 0;
             data.IddmPhanXuong = dmkhoFull.IddmPhanXuong;
@@ -124,12 +124,12 @@ export class KiemkekhomodalComponent implements OnInit {
             .Get(this.Id)
             .subscribe((res1: any) => {
                 this.item = res1;
-                this.listItem = res1.listItem;
                 this.paging.CurrentPage = 1;
                 this.paging.TotalPage = 5;
                 this.paging.TotalItem = res1.listItem.length;
-                this.item.listItem = res1.listItem.slice(0, 10);
-                this.item_new = res1;
+                this.item.listItem = res1.listItem;
+                this.listItem = this.item.listItem.slice(0, 10);
+
                 this.KiemTraButtonModal();
             });
     }
@@ -145,7 +145,7 @@ export class KiemkekhomodalComponent implements OnInit {
         if (validVariable(this.newItem.IddmItem)) {
             this.listItem.push(deepCopy(this.newItem));
             this.newItem = {};
-        } 
+        }
         this.item.listItem = deepCopy(this.listItem);
         this.services
             .PhieuKiemKeKho()
@@ -175,10 +175,9 @@ export class KiemkekhomodalComponent implements OnInit {
             this.listItem.push(deepCopy(this.newItem));
             this.newItem = {};
         }
-        this.item_new.listItem = this.listItem;
         this.services
             .PhieuKiemKeKho()
-            .Set(this.item_new)
+            .Set(this.item)
             .subscribe((res: any) => {
                 if (res) {
                     if (res.State === 1) {
@@ -229,13 +228,13 @@ export class KiemkekhomodalComponent implements OnInit {
     }
 
     delete(index) {
-        let item = this.item.listItem.splice(index, 1)[0];
-        this.item.listItem.splice(index, 1);
+        let item = this.listItem.splice(index, 1)[0];
+        // this.item.listItem.splice(index, 1);
         this.listItem.splice(index, 1);
         if (item.Id === "" || item.Id === null || item.Id === undefined) {
         } else {
             item.isXoa = true;
-            this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+            // this.item.listItem.push(JSON.parse(JSON.stringify(item)));
             this.listItem.push(JSON.parse(JSON.stringify(item)));
         }
     }
@@ -253,8 +252,8 @@ export class KiemkekhomodalComponent implements OnInit {
                     mathang.SoLuong = mathang.TonSoLuong;
                     mathang.TongTrongLuong = mathang.TonTongTrongLuong;
                 });
-                this.item.listItem = res1.slice(0, 10);
-                this.listItem = res1;
+                this.item.listItem = res1;
+                this.listItem = this.item.listItem.slice(0, 10);
                 this.paging.CurrentPage = 1;
                 this.paging.TotalPage = 5;
                 this.paging.TotalItem = res1.length;
@@ -264,10 +263,10 @@ export class KiemkekhomodalComponent implements OnInit {
         this.paging.CurrentPage = event.page + 1;
         let start = 10 * event.page;
         let end = start + 10;
-        if (start + 10 > this.listItem.length) {
-            end = this.listItem.length;
+        if (start + 10 > this.item.listItem.length) {
+            end = this.item.listItem.length;
         }
-        this.item.listItem = this.listItem.slice(start, end);
+        this.listItem = this.item.listItem.slice(start, end);
     }
     setNewItemName(event) {
         let selected = this.listNewMatHang_ref.find(
@@ -281,10 +280,10 @@ export class KiemkekhomodalComponent implements OnInit {
             this.listItem.push(deepCopy(this.newItem));
             this.newItem = {};
             console.log(this.paging);
-            if (this.listItem.length > this.paging.CurrentPage * 10) {
-                console.log(Math.floor(this.listItem.length / 10));
+            if (this.item.listItem.length > this.paging.CurrentPage * 10) {
+                console.log(Math.floor(this.item.listItem.length / 10));
                 this.paginator.changePage(
-                    Math.floor(this.listItem.length / 10)
+                    Math.floor(this.item.listItem.length / 10)
                 );
             } else {
                 this.changePage({ page: this.paging.CurrentPage - 1 });
@@ -295,17 +294,17 @@ export class KiemkekhomodalComponent implements OnInit {
     }
     ImportExcel() {
         let modalRef = this._modal.open(ImportnhapkhothanhphamComponent, {
-          backdrop: 'static',
+            backdrop: 'static',
         })
         modalRef.result.then(res => {
-          this.toastr.success('Cập nhật thành công!');
-            this.listItem = res.items;
+            this.toastr.success('Cập nhật thành công!');
+            this.item.listItem = res.items;
             this.paginator.changePage(0);
         })
-          .catch(er => console.log(er))
-      }
-      TinhTongKhoiLuong(item) {
-          if(item.SoQuaSoi > 0)
-            item.TongTrongLuong = (item.SoQuaSoi ?? 0) *  (item.TonTrongLuong ?? 0) + (item.TongTrongLuongChenhLech ?? 0);
+            .catch(er => console.log(er))
+    }
+    TinhTongKhoiLuong(item) {
+        if (item.SoQuaSoi > 0)
+            item.TongTrongLuong = (item.SoQuaSoi ?? 0) * (item.TonTrongLuong ?? 0) + (item.TongTrongLuongChenhLech ?? 0);
     }
 }
