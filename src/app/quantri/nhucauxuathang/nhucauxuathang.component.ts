@@ -282,7 +282,7 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
         TuNgay:this.filterAll.TuNgay,
         DenNgay:this.filterAll.DenNgay,
         IdLoHang:item.IdLoHang,
-        IddmKho:this.filter.IddmKhoAll
+        IddmKho:this.filter.IddmKho
       }
       this._services.DashBoard()[`GetDashBoard_Phieu${opt}Kho`](data).subscribe(res => {
         this.listXuatNhap = res;

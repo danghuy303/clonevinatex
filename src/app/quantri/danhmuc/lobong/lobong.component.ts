@@ -32,6 +32,16 @@ export class LobongComponent implements OnInit {
       width: '150px'
     },
     {
+      header: 'Hợp đồng',
+      field: 'SoHopDong',
+      width: '150px'
+    },
+    {
+      header: 'Mã Invoice',
+      field: 'MaInvoice',
+      width: '150px'
+    },
+    {
       header: 'Ngày',
       field: 'Ngay',
       width: '150px',
