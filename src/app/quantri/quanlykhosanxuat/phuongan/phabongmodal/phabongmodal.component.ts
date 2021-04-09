@@ -61,6 +61,7 @@ export class PhabongmodalComponent implements OnInit {
   ThongSoKienTheoLoaiBong: any = {
 
   };
+  listCotDaXuat:Array<string>= []
   checkbuttonDieuChinh: boolean = false;
   trongLuongLoBong: any = {};
   itemMicTT: any = {};
@@ -77,6 +78,9 @@ export class PhabongmodalComponent implements OnInit {
       Xoa: false,
       ChuyenTiep: false,
       KhongDuyet: false
+    }
+    if(validVariable(this.item.listCotDaXuat)){
+      this.listCotDaXuat = this.item.listCotDaXuat.map((ele:number)=> ele.toString())
     }
     this.GetListdmLoaiBong_PAPB();
     // this.KiemTraButtonModal();
