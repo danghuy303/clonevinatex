@@ -15,7 +15,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
   filter: any =
     {
       IdDuAn: 0,
-      IddmPhanXuong: "",
+      IddmPhanXuong: "1cf3f340-0f55-4f34-938p-e329318e25et",
       IddmCaSanXuatThucTe: "",
       nNam: 0,
       nThang: 0,
