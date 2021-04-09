@@ -109,6 +109,7 @@ export class LobongComponent implements OnInit {
       Ten: "",
       isDaDuyet: this.filter.isDaDuyet,
       IddmLoaiBong: this.filter.IddmLoaiBong,
+      Loai:2
     }
     this._service.GetListLoBong(data).subscribe((res: any) => {
       this.items = res.items;
@@ -123,7 +124,7 @@ export class LobongComponent implements OnInit {
     let data = {
       CurrentPage: 0,
     }
-    this._service.GetListdmLoaiBong(data).subscribe((res: any) => {
+    this._service.GetListdmLoaiBongOnly(data).subscribe((res: any) => {
       this.listdmLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

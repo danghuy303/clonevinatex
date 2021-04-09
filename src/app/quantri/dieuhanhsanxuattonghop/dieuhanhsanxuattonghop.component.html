@@ -219,6 +219,16 @@
                 <th>Sản lượng màn hình</th>
                 <th>Số quả thực tế</th>
                 <th>Sản lượng thực tế</th>
+                <th>Lô</th>
+            </tr>
+            <tr class="normal">
+                <th style="width: 200px !important;">Tổng</th>
+               <th></th>
+               <th></th>
+               <th></th>
+               <th></th>
+               <th></th>
+               <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -230,6 +240,7 @@
                 <td class="text-right">
                 </td>
                 <td class="text-right">{{item.KhoiLuongTinhToan|number:'0.0-3'}}</td>
+                <td class="text-right"></td>
             </tr>
             <ng-container *ngFor="let may of item.listMay">
                 <tr>
@@ -239,6 +250,7 @@
                     <td></td>
                     <td class="text-right"></td>
                     <td class="text-right">{{may.KhoiLuongTinhToan|number:'0.0-3'}}</td>
+                    <td></td>
                 </tr>
             </ng-container>
         </ng-template>

@@ -61,6 +61,7 @@ export class LobongmodalComponent implements OnInit {
       CurrentPage: 0,
     }
     this.services.GetListdmLoaiBong(data).subscribe((res:any)=>{
+      
       this.listdmLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -69,6 +70,7 @@ export class LobongmodalComponent implements OnInit {
       CurrentPage: 0,
     }
     this.services.GetListLoBong(data).subscribe((res:any)=>{
+    
       this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
