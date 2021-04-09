@@ -55,7 +55,9 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"
-                    (onChange)="GetListMatHangChuaLapKeHoach($event,true)"></p-dropdown>
+                    (onChange)="getListGiaoKeHoach($event,true)"
+                    ></p-dropdown>
+                    <!-- (onChange)="GetListMatHangChuaLapKeHoach($event,true)" -->
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
@@ -64,6 +66,7 @@
                 <p-dropdown [filter]="true" [options]="listGiaoKeHoach" placeholder="Chọn kế hoạch giao"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IdGiaoKeHoachSanXuat"
                     (onChange)="GetListMatHangChuaLapKeHoach($event,true)"></p-dropdown>
+                    
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">

@@ -52,10 +52,12 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   }
   getListPhanXuong() {
     this._services.GetOptions().GetPhanXuong().subscribe((res: Array<any>) => {
-      console.log(res)
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       if (validVariable(this.item.IddmPhanXuong)) {
-        this.GetListMatHangChuaLapKeHoach({ value: this.item.IddmPhanXuong });
+        this.getListGiaoKeHoach({ value: this.item.IddmPhanXuong });
+      }
+      if (validVariable(this.item.IdGiaoKeHoachSanXuat)) {
+        this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
       }
     })
   }
@@ -71,7 +73,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       this.listCongDoan = mapArrayForDropDown(this.item.listCongDoan, 'Ten', 'Ma');
       this.filter.CongDoan = 'ONG';
     }
-    this._services.GetOptions().GetListMatHangChuaLapKeHoach(event.value).subscribe((res: any) => {
+    this._services.GetOptions().GetListMatHangChuaLapKeHoach(event.value,this.item.IddmPhanXuong).subscribe((res: any) => {
       this.listMatHangGiaoKeHoach = res;
       if (reset) {
         this.item.listItem = [];
@@ -108,6 +110,19 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
+  getListGiaoKeHoach(event, reset?){
+    this._services.TrienKhaiKeHoachSanXuat().GetListGiaoKeHoachSanXuatChuaLapKeHoach(event.value).subscribe((res:any)=>{
+      this.listGiaoKeHoach = mapArrayForDropDown(res,'NoiDung','Id');
+      if (reset) {
+        this.item.listItem = [];
+        this.item.TuNgay = null;
+        this.item.DenNgay = null;
+        this.item.listItemMay = [];
+        this.item.listCongDoan = [];
+        this.filter.CongDoan = null;
+      }
+    })
+  }
   chonHangHoa() {
     let modalRef = this._modal.open(ChonhanghoamodalComponent, {
       size: 'lg',
@@ -130,6 +145,10 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     }
     if (!validVariable(this.item.IddmPhanXuong)) {
       this.toastr.error('Vui lòng chọn phân xưởng!');
+      return false
+    }
+    if (!validVariable(this.item.IdGiaoKeHoachSanXuat)) {
+      this.toastr.error('Vui lòng chọn kế hoạch giao!');
       return false
     }
     if (!validVariable(this.item.NoiDung)) {

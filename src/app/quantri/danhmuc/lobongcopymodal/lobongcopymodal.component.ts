@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-lobongcopymodal',
@@ -69,10 +69,13 @@ export class LobongcopymodalComponent implements OnInit {
       CurrentPage: 0,
     }
     this.services.GetListLoBong(data).subscribe((res:any)=>{
+      res.forEach(ele => {
+        ele.TenHienThi = `${ele.Ten} ${validVariable(ele.MaInvoice)?`- ${ele.MaInvoice}`:''} ${validVariable(ele.SoHopDong)?`- ${ele.SoHopDong}`:''}`
+      });
       res.sort((a,b)=>{
-        return a.Ten.localeCompare(b.Ten)
+        return a.TenHienThi.localeCompare(b.TenHienThi)
       })
-      this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listLoBong = mapArrayForDropDown(res, 'TenHienThi', 'Id');
       this.listLoBongFull = res;
     })
   }

@@ -58,8 +58,8 @@
                         <th *ngIf="opt==='LoBong'">Ngày nhập</th>
                         <th *ngIf="opt==='LoBong'">Dự kiến về</th>
                         <th *ngIf="opt==='KhoiLuongKeHoach'">Khối lượng giao(Tấn)</th>
-                        <th *ngIf="opt==='KhoiLuongKeHoach'">Khối lượng hoàn thành(Tấn)</th>
-                        <th *ngIf="opt==='KhoiLuongKeHoach'">Khối lượng đã triển khai(Tấn)</th>
+                        <!-- <th *ngIf="opt==='KhoiLuongKeHoach'">Khối lượng hoàn thành(Tấn)</th> -->
+                        <!-- <th *ngIf="opt==='KhoiLuongKeHoach'">Khối lượng đã triển khai(Tấn)</th> -->
                         <th *ngIf="opt==='KhoiLuongKeHoach'">Khối lượng triển khai(Tấn)</th>
                         <th *ngIf="opt==='KhoiLuongSanXuat'">Khối lượng triển khai(Tấn)</th>
                         <th>Ghi chú</th>
@@ -82,8 +82,8 @@
                         <td *ngIf="opt==='LoBong'" class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
                         <td *ngIf="opt==='LoBong'" class="text-center">{{item.NgayVeDuKien|date:'dd/MM/yyyy'}}</td>
                         <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongKeHoach|number:'0.0-2'}}</td>
-                        <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongHoanThanh|number:'0.0-2'}}</td>
-                        <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongDaSanXuat|number:'0.0-2'}}</td>
+                        <!-- <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongHoanThanh|number:'0.0-2'}}</td> -->
+                        <!-- <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongDaSanXuat|number:'0.0-2'}}</td> -->
                         <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [max]="item.KhoiLuongKeHoach"
                                 [(ngModel)]="item.KhoiLuongSanXuat">

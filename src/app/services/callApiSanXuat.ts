@@ -284,6 +284,10 @@ export class SanXuatService {
 
 
     // Loại bông
+    GetListdmLoaiBongOnly(data){
+        let url = API.SCMDanhMuc + 'GetListdmLoaiBongOnly';
+        return this.http.post(url, data, httpOptions);
+    }
     GetListdmLoaiBong(data) {
         let url = API.SCMDanhMuc + 'GetListdmLoaiBong';
         return this.http.post(url, data, httpOptions);
@@ -474,8 +478,8 @@ export class SanXuatService {
             // GetListMatHangChuaLapKeHoach: (IdGiaoKeHoachSanXuat) => {
             //     return this.http.get(`${API.SCMQuanLyKho}GetListMatHangChuaLapKeHoach?IdGiaoKeHoachSanXuat=${IdGiaoKeHoachSanXuat}`, httpOptions)
             // },
-            GetListMatHangChuaLapKeHoach: (IddmPhanXuong) => {
-                return this.http.get(`${API.SCMQuanLyKho}GetListMatHangChuaLapKeHoach?IddmPhanXuong=${IddmPhanXuong}`, httpOptions)
+            GetListMatHangChuaLapKeHoach: (IdGiaoKeHoachSanXuat,IddmPhanXuong) => {
+                return this.http.get(`${API.SCMQuanLyKho}GetListMatHangChuaLapKeHoach?IdGiaoKeHoachSanXuat=${IdGiaoKeHoachSanXuat}&IddmPhanXuong=${IddmPhanXuong}`, httpOptions)
             },
             GetListCongDoanTheoMatHang: (IddmMatHang) => {
                 return this.http.get(`${API.SCMQuanLyKho}GetListCongDoanTheoMatHang?IddmMatHang=${IddmMatHang}`, httpOptions)
@@ -592,6 +596,9 @@ export class SanXuatService {
             Export: (Id) => {
                 return this.http.get(url + `ExportTrienKhaiKeHoachSanXuat?Id=${Id}`, httpOptions);
             },
+            GetListGiaoKeHoachSanXuatChuaLapKeHoach:(IddmPhanXuong)=>{
+                return this.http.get(url + `GetListGiaoKeHoachSanXuatChuaLapKeHoach?IddmPhanXuong=${IddmPhanXuong}`,httpOptions)
+            }
         }
     }
     //CanDoiChuyen
