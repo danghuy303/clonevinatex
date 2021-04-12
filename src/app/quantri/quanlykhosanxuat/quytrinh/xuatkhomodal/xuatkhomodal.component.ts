@@ -56,9 +56,9 @@ export class XuatkhomodalComponent implements OnInit {
   {
     this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1:any)=>{
       this.item = res1;
-      res1.listItem.sort((a,b)=>{
-        return a.TenLoBong.localeCompare(b.TenLoBong);
-      })
+      // res1.listItem.sort((a,b)=>{
+      //   return a.TenLoBong.localeCompare(b.TenLoBong);
+      // })
       this.listItem = res1.listItem;
       this.listItemRoot = deepCopy(res1.listItem);
 
