@@ -4,7 +4,7 @@
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
     <div></div>
-    <div class="p-d-flex p-flex-row">
+    <div class="d-flex flex-column flex-lg-row">
         <div class="p-mr-2">
             <p-dropdown [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
                 [(ngModel)]="filter.IddmPhanXuong" [showClear]="true" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
@@ -45,7 +45,7 @@
             <colgroup>
                 <col style="width:50px">
                 <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
-                <col style="width: 100px;">
+                <col style="width: 50px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">

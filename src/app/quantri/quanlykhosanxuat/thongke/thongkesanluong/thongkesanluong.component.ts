@@ -23,12 +23,12 @@ export class ThongkesanluongComponent implements OnInit {
     {
       header: 'Số phiếu',
       field: 'SoQuyTrinh',
-      width: 'unset'
+      width: '150px'
     },
     {
       header: 'Ngày',
       field: 'Ngay',
-      width: 'unset'
+      width: '100px'
     },
     {
       header: 'Thời điểm',
@@ -43,7 +43,7 @@ export class ThongkesanluongComponent implements OnInit {
     {
       header: 'Khối lượng(kg)',
       field: 'TongKhoiLuong',
-      width: 'unset'
+      width: '100px'
     },
     {
       header: 'Phân xưởng',
