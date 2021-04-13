@@ -72,12 +72,13 @@ eAction = 'KEHOACHNHAPNGUYENLIEUINVOICE'
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+      this.changeParam(0);
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er) 
+        this.GetListQuyTrinh();
+        this.changeParam(0);})
   }
   update(Id) {
-    this.isCheckModal = true
-    this.changeParam(Id);
     this._service.NhapKeHoachNguyenLieuInvoice().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(KehoachnhapnguyenlieuinvoicemodalComponent, {
         size: 'fullscreen',
@@ -87,10 +88,11 @@ eAction = 'KEHOACHNHAPNGUYENLIEUINVOICE'
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
+        this.changeParam(0);
       })
-        .catch(er => { console.log(er) })
-        .finally(()=>{
-          this.isCheckModal = false;
+        .catch(er => { console.log(er) 
+          this.GetListQuyTrinh();
+          this.changeParam(0);
         })
     })
   }

@@ -86,6 +86,28 @@ export class NhapkhobongphemodalComponent implements OnInit {
       })
     }
   }
+  KhongDuyet() {
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn  ngày");
+    }
+    else {
+      if (this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined) {
+        this.addBongHoi();
+      }
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this._services.QuyTrinhPhieuBongPhe().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message)
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
   getListCapBong() {
     this._services.GetListdmCapBong(this.data).subscribe((res: any) => {
       this.listCapBong = mapArrayForDropDown(res, 'Ten', 'Id');
