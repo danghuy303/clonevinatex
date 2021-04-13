@@ -62,7 +62,7 @@ export class XuatkhobongpheComponent implements OnInit {
     if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/khobongphe/xuatkho/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/${id}`],{replaceUrl: true})
   }
   add(){
     this.changeParam(0);
@@ -107,7 +107,7 @@ export class XuatkhobongpheComponent implements OnInit {
   GetListQuyTrinh(reset?){
     if (reset) {
       this.paging.CurrentPage = 1;
-      // this.paginator.changePage(0);
+      this.paginator.changePage(0);
     }
     let data={
       PageSize: 25,

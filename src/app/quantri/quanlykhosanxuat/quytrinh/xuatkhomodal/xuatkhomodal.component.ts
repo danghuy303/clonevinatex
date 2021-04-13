@@ -56,9 +56,9 @@ export class XuatkhomodalComponent implements OnInit {
   {
     this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1:any)=>{
       this.item = res1;
-      res1.listItem.sort((a,b)=>{
-        return a.TenLoBong.localeCompare(b.TenLoBong);
-      })
+      // res1.listItem.sort((a,b)=>{
+      //   return a.TenLoBong.localeCompare(b.TenLoBong);
+      // })
       this.listItem = res1.listItem;
       this.listItemRoot = deepCopy(res1.listItem);
 
@@ -219,5 +219,10 @@ export class XuatkhomodalComponent implements OnInit {
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listItem.length;
     this.item.listItem = this.listItem.slice(0,15);
+  }
+  exportExcel(){
+    this.services.PhieuXuatSanXuat().ExportExcel(this.item.Id).subscribe((res: any) => {
+      this.services.download(res.TenFile);
+    })
   }
 }

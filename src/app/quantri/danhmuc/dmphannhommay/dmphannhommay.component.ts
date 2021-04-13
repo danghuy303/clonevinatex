@@ -101,6 +101,7 @@ export class DmphannhommayComponent implements OnInit {
   GetListdm(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
+      this.paginator.changePage(0);
     }
     this.dataSearch = {
       PageSize: 20,

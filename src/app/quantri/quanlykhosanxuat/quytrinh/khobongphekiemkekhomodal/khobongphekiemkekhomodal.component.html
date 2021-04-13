@@ -1,6 +1,16 @@
 <div class="modal-header">
     <h5 class="modal-title">Kiểm kê kho bông phế</h5>
-    <div>Số quy trình: {{item.SoQuyTrinh}}</div>
+    <div class="d-flex flex-column flex-lg-row">
+            <div>
+               <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+            </div>
+            <div class="ml-lg-3 mr-lg-3">
+                <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+            </div>
+            <div>
+                <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+            </div>
+        </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -30,22 +40,7 @@
                     [(ngModel)]="item.IddmKho" (onChange)="GetMatHangTheoKho()"></p-dropdown>
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Vị trí:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listdmViTri" placeholder="Chọn vị trí" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmViTri" (onChange)="GetMatHangTheoKho()"></p-dropdown>
-            </div>
-        </div> -->
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô hàng:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoHang" placeholder="Chọn lô hàng"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdLoHang" (onChange)="GetMatHangTheoKho()">
-                </p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />

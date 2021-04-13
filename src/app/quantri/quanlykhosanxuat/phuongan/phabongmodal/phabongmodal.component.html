@@ -1,10 +1,16 @@
 <div class="modal-header">
     <h5 class="modal-title">Phương án pha bông</h5>
     <!-- {{opt==='add'?'Thêm mới':'Cập nhật'}}  -->
-    <div class="p-d-flex p-flex-row">
-        <div class="mr-2">Số quy trình:&nbsp;{{item.SoQuyTrinh}}</div>
-        <div class="mr-2">TG tạo:&nbsp;{{item.Created|date:'dd/MM/yyyy'}}</div>
-        <div class="mr-2">TG duyệt:&nbsp;{{item.Modified|date:'dd/MM/yyyy'}}</div>
+    <div class="d-flex flex-column flex-lg-row">
+        <div>
+           <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+        </div>
+        <div class="ml-lg-3 mr-lg-3">
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+        <div>
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+        </div>
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="_activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
@@ -231,7 +237,12 @@
                 <tbody>
                     <tr *ngFor="let lobong of item.listLoBong; let i = index"
                         [ngStyle]="{'background-color': lobong.Mau}">
-                        <td class="text-center tc-w-151 z1" [ngStyle]="{'background-color': lobong.Mau}">{{lobong.Ma}}
+                        <td class="text-center tc-w-151 z1" [ngStyle]="{'background-color': lobong.Mau,'color':lobong.isLoBongTuongLai?'red':''}">
+                            {{lobong.Ma}}
+                            <ng-container *ngIf="lobong.isLoBongTuongLai">
+                                <br>
+                                ({{lobong.NgayVeDuKien|date:'dd/MM/yyyy'}})
+                            </ng-container>
                         </td>
                         <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.SoLuongKien}}</td>
@@ -240,9 +251,9 @@
                         <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.TonCuoi}}</td>
                         <td class="text-center tc-w-80 z1" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.TyLe|number:'0.2-4'}}</td>
+                            {{lobong.TyLe|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-80 z1" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.LuyKeTyLe|number:'0.2-4'}}</td>
+                            {{lobong.LuyKeTyLe|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.SoHopDong}}
                         </td>
@@ -280,7 +291,7 @@
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div class="drag-zone" style="width: 100%; display: flex;flex-direction: row;" (drop)="drop($event,prop,i)"
                                 (dragover)="allowDrop($event)">
-                                <span class="drag-point" draggable="true"
+                                <span class="drag-point" draggable="true" *ngIf="!(lobong.isLoBongTuongLai && prop<lobong.lim)&&!listCotDaXuat.includes(prop)"
                                     (dragstart)="drag($event,prop,i,lobong.tempBanBong[prop].SoKien)">
                                     <i class="fas fa-arrows-alt"></i>
                                 </span>
@@ -288,7 +299,7 @@
                                     class="dat09focus" [tabindex]="lobong.tempBanBong[prop].tabIndex" type="number"
                                     [(ngModel)]="lobong.tempBanBong[prop].SoKien"
                                     (keydown)="move($event,lobong.tempBanBong[prop].tabIndex)"
-                                    (blur)="CalAllTable(i,prop)" [disabled]="lobong.isLoBongTuongLai && prop<lobong.lim">
+                                    (blur)="CalAllTable(i,prop)" [disabled]="(lobong.isLoBongTuongLai && prop<lobong.lim)|| listCotDaXuat.includes(prop)">
                             </div>
                         </td>
                     </tr>

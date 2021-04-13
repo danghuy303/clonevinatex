@@ -81,8 +81,7 @@ export class NhapkhobongpheComponent implements OnInit {
       modalRef.componentInstance.nametype = this.nametype;
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
-    this.changeParam(0);
-
+        this.changeParam(0);
       })
         .catch(er => { console.log(er) 
           this.GetListQuyTrinh();
@@ -101,7 +100,7 @@ export class NhapkhobongpheComponent implements OnInit {
   GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
-      // this.paginator.changePage(0);
+      this.paginator.changePage(0);
     }
     let data: any = {
       PageSize: 20,

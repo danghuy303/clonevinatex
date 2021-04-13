@@ -93,6 +93,7 @@ export class TonkhoComponent implements OnInit {
 
     if (reset) {
       this.paging.CurrentPage = 1;
+      this.paginator.changePage(0);
       this.filter.IddmKho = item.Id;
     }
     let data: any = {
@@ -122,6 +123,15 @@ export class TonkhoComponent implements OnInit {
     })
       .catch(er => { console.log(er) 
         this.GetListQuyTrinh();
+    })
+  }
+  exportExcel(IddmItem) {
+    let data: any = {
+      IddmKho: this.filter.IddmKho,
+      IddmItem: IddmItem,
+    }
+    this._service.ExportNhuCauXuatHangTheoMatHang(data).subscribe((res: any) => {
+      this._service.download(res.TenFile);
     })
   }
 }

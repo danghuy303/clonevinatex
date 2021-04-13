@@ -11,7 +11,7 @@ import { validVariable } from 'src/app/services/globalfunction';
 })
 export class Dongvanpx1Component implements OnInit {
   checkbutton: any = {
-    Ghi: true
+    Ghi: false
   };
   listLoBong: any = [];
   item: any = {};
@@ -32,6 +32,13 @@ export class Dongvanpx1Component implements OnInit {
   }
 
   ngOnInit(): void {
+    this.checkbutton = {
+      Ghi: false,
+      Xoa: false,
+      ChuyenTiep: false,
+      KhongDuyet: false
+    }
+    this.KiemTraButtonModal()
     this.length = this.item.listLoBong.reduce((total, ele) => {
       return total + ele.SoLuong
     }, 0)
@@ -200,6 +207,11 @@ export class Dongvanpx1Component implements OnInit {
       }
     }
   }
+  KiemTraButtonModal() {
+    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
+      this.checkbutton = res;
+    })
+  }
   print() {
     window.print();
   }
@@ -208,20 +220,6 @@ export class Dongvanpx1Component implements OnInit {
       lobong.DaXep = null;
     });
   }
-  // GhiLai() {
-  //   let listItem = [];
-  //   for(let prop in this.banBong){
-  //     let item = {
-  //       ThuTu:prop,
-  //       Id:this.banBong[prop].IdLoBong,
-  //       Mau:this.banBong[prop].Mau,
-  //       TenLoBong:this.banBong[prop].labelLoBong,
-  //       isNgoaiQuan:this.banBong[prop]._ngoaiQuan
-  //     }
-  //     listItem.push(item);
-  //   }
-  //   console.log(listItem);
-  // }
   SetData() {
     this.item.listItem = []
     console.log(this.banBong)

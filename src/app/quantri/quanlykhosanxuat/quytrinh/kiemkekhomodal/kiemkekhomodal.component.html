@@ -1,6 +1,16 @@
 <div class="modal-header">
     <h5 class="modal-title">Kiểm kê thành phẩm</h5>
-    <div>Số quy trình: {{item.SoQuyTrinh}}</div>
+    <div class="d-flex flex-column flex-lg-row">
+            <div>
+               <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+            </div>
+            <div class="ml-lg-3 mr-lg-3">
+                <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+            </div>
+            <div>
+                <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+            </div>
+        </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -61,7 +71,7 @@
             <button pButton pRipple type="button" label="Nhận từ Excel" class="p-mr-2 p-button-sm" (click)="ImportExcel()" ></button>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <p-table [value]="item.listItem|isXoa"
+            <p-table [value]="listItem|isXoa"
                 styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -76,6 +86,8 @@
                         <col>
                         <col>
                         <col>
+                        <col>
+                        <!-- <col> -->
                         <col style="width:90px">
                     </colgroup>
                 </ng-template>
@@ -85,7 +97,7 @@
                         <th rowspan="2">Mã</th>
                         <th rowspan="2">Tên</th>
                         <th colspan="2" >Tồn sổ sách</th>
-                        <th colspan="5">Tồn thực tế</th>
+                        <th colspan="6">Tồn thực tế</th>
                         <th rowspan="2">Ghi chú</th>
                         <th rowspan="2"></th>
                     </tr>
@@ -93,9 +105,11 @@
                         <th>Tổng khối lượng</th>
                         <th>Số quả sợi</th>
                         <th>Số quả sợi</th>
-                        <th>Tổng khối lượng</th>
                         <th>Trọng lượng chênh lệch</th>
+                        <th>Tổng khối lượng</th>
                         <th>Số kiện</th>
+                        <th>Trọng lượng quả sợi</th>
+                        <!-- <th>Trọng lượng kiện</th> -->
                         <th>Quy cách đóng gói</th>
                     </tr>
                 </ng-template>
@@ -123,20 +137,31 @@
                             (ngModelChange)="TinhTongKhoiLuong(item)">
                             </p-inputNumber>
                         </td>
-                        
-                        <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuong">
-                            </p-inputNumber>
-                        </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuongChenhLech"
                             (ngModelChange)="TinhTongKhoiLuong(item)">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuong">
                             </p-inputNumber>
                         </td>
+                        
+                        <td>
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-right">
+                            <span *ngIf="item.TongTrongLuongChenhLech !== undefined && item.TongTrongLuongChenhLech !== null">
+                                {{(item.TongTrongLuong - item.TongTrongLuongChenhLech)/ item.SoQuaSoi|number:'0.2'}}
+                            </span>
+                            <span *ngIf="item.TongTrongLuongChenhLech === undefined || item.TongTrongLuongChenhLech === null">
+                                {{(item.TongTrongLuong)/ item.SoQuaSoi|number:'0.2'}}
+                            </span>
+                        </td>
+                        <!-- <td class="text-right">
+                            {{item.TongTrongLuong/ item.SoLuong|number:'0.2'}}
+                        </td> -->
                         <td>
                             <p-dropdown [filter]="true" [options]="listQuyCachDongGoi"
                                 placeholder="Chọn quy cách đóng gói" styleClass="p-inputtext-sm"
@@ -170,20 +195,26 @@
                             (onBlur)="TinhTongKhoiLuong(newItem)">
                             </p-inputNumber>
                         </td>
-                       
-                        <td class="text-right">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newItem.TongTrongLuong">
-                            </p-inputNumber>
-                        </td>
                         <td class="text-right">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newItem.TongTrongLuongChenhLech"
                             (onBlur)="TinhTongKhoiLuong(newItem)">
                             </p-inputNumber>
                         </td>
+                        <td class="text-right">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newItem.TongTrongLuong">
+                            </p-inputNumber>
+                        </td>
+                        
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newItem.SoLuong">
                             </p-inputNumber>
                         </td>
+                        <td class="text-right">
+                            {{(newItem.TongTrongLuong - newItem.TongTrongLuongChenhLech)/ newItem.SoQuaSoi|number:'0.3-3'}}
+                        </td>
+                        <!-- <td class="text-right">
+                            {{newItem.TongTrongLuong/ newItem.SoLuong|number:'0.2'}}
+                        </td> -->
                         <td>
                             <p-dropdown [filter]="true" [options]="listQuyCachDongGoi"
                                 placeholder="Chọn quy cách đóng gói" styleClass="p-inputtext-sm"
@@ -207,17 +238,19 @@
                         <td class="text-right" *ngIf="isKhoThanhPham">
                             {{item.listItem|isXoa|SumByKey:'SoQuaSoi'|number:'0.0-0'}}
                         </td>
-                        
-                        <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'TongTrongLuong'|number:'0.2'}}
-                        </td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'TongTrongLuongChenhLech'|number:'0.2'}}
                         </td>
                         <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'TongTrongLuong'|number:'0.2'}}
+                        </td>
+                        
+                        <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0-0'}}
                         </td>
                         <td></td>
+                        <td></td>
+                        <!-- <td></td> -->
                         <td class="text-center"></td>
                         <td class="text-center"></td>
                     </tr>

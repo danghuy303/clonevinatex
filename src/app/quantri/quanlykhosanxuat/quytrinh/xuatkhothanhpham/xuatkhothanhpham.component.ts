@@ -37,7 +37,7 @@ export class XuatkhothanhphamComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Tổng số kiện',
+      header: 'Tổng số quả sợi',
       field: 'TongSoLuong',
       width: 'unset'
     },
@@ -145,6 +145,7 @@ export class XuatkhothanhphamComponent implements OnInit {
   GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
+      this.paginator.changePage(0);
     }
     let data = {
       PageSize: 25,

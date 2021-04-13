@@ -151,7 +151,7 @@
                             <th style="width: 35px !important;">BC</th>
                             <th style="width: 35px !important;">NG</th>
                             <th style="width: 200px !important;">Mặt hàng</th>
-                            <th *ngFor="let header of headerChatLuongSanPham" style="width: 55px !important;">
+                            <th *ngFor="let header of headerChatLuongSanPham" style="width: 80px !important;">
                                 {{header.label}}
                             </th>
                         </tr>
@@ -167,7 +167,7 @@
                                     binary="true" inputId="binary"></p-checkbox>
                             </td>
                             <td style="width: 200px !important;">{{item.TenItem}}</td>
-                            <td *ngFor="let body of headerChatLuongSanPham" style="width: 55px !important;">
+                            <td *ngFor="let body of headerChatLuongSanPham" style="width: 80px !important;">
                                 {{item[body.prop]|number:'0.0-2'}}
                             </td>
                         </tr>
@@ -184,9 +184,9 @@
     </div>
 
 </div>
-<p-dialog header="Sản lượng ống" [(visible)]="showSanLuong" [modal]="true" [style]="{width: '80vw'}"
+<p-dialog [header]="labelSanLuongOng" [(visible)]="showSanLuong" [modal]="true" [style]="{width: '80vw'}"
     [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-    <p-table [value]="listSanLuongOng" styleClass="p-datatable-sm p-datatable-gridlines wrap-text" [scrollable]="true"
+    <!-- <p-table [value]="listSanLuongOng" styleClass="p-datatable-sm p-datatable-gridlines wrap-text" [scrollable]="true"
         scrollHeight="500px">
         <ng-template pTemplate="header">
             <tr class="normal">
@@ -207,6 +207,52 @@
                 <td class="text-right">{{item.SoQuaSoi|number:'0.0-3'}}</td>
                 <td class="text-right">{{item.KhoiLuongTinhToan|number:'0.0-3'}}</td>
             </tr>
+        </ng-template>
+    </p-table> -->
+    <p-table [value]="listHienThiSanLuongOng" styleClass="p-datatable-sm p-datatable-gridlines wrap-text" [scrollable]="true"
+        scrollHeight="500px">
+        <ng-template pTemplate="header">
+            <tr class="normal">
+                <th style="width: 200px !important;">Mặt hàng</th>
+                <th>Chi số</th>
+                <th>Máy chạy</th>
+                <th>Sản lượng màn hình</th>
+                <th>Số quả thực tế</th>
+                <th>Sản lượng thực tế</th>
+                <th>Lô</th>
+            </tr>
+            <tr class="normal">
+                <th style="width: 200px !important;">Tổng</th>
+               <th></th>
+               <th></th>
+               <th></th>
+               <th></th>
+               <th></th>
+               <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr style="font-weight: bold;">
+                <td style="width: 200px !important;">{{item.TenMatHang}}</td>
+                <td class="text-right">{{item.Ne|number:'0.0-3'}}</td>
+                <td></td>
+                <td></td>
+                <td class="text-right">
+                </td>
+                <td class="text-right">{{item.KhoiLuongTinhToan|number:'0.0-3'}}</td>
+                <td class="text-right"></td>
+            </tr>
+            <ng-container *ngFor="let may of item.listMay">
+                <tr>
+                    <td colspan="2">
+                    </td>
+                    <td>{{may.TendmMay}}</td>
+                    <td></td>
+                    <td class="text-right"></td>
+                    <td class="text-right">{{may.KhoiLuongTinhToan|number:'0.0-3'}}</td>
+                    <td></td>
+                </tr>
+            </ng-container>
         </ng-template>
     </p-table>
 </p-dialog>

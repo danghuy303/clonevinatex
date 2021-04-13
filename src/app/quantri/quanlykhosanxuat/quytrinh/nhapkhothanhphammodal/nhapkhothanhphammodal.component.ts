@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 import {DecimalPipe} from '@angular/common';
 import { truncateWithEllipsis } from '@amcharts/amcharts4/.internal/core/utils/Utils';
@@ -258,5 +258,20 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   }
   TongKhoiLuong(item){
     item.TongKhoiLuong = (item.SoQuaSoiThanhPham||0) * (item.KgCone||0);
+  }
+  ExportExcel(){
+    if(validVariable(this.item.Id)){
+      this._services.BaoCao().ExportPhieuNhapKhoThanhPham_Bieu1({IdPhieuNhapKho:this.item.Id}).subscribe((res:any)=>{
+        if (res) {
+          if (validVariable(res.State)) {
+            this.toastr.error(res.message);
+          } else {
+            this._services.download(res.TenFile);
+          }
+        }
+      })
+    }else{
+      this.toastr.error('Vui lòng ghi lại phiếu sau đó xuất!')
+    }
   }
 }

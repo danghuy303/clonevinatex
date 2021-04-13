@@ -11,11 +11,11 @@ import { StoreService } from 'src/app/services/store.service';
   templateUrl: './dieuhanhsanxuattonghop.component.html',
   styleUrls: ['./dieuhanhsanxuattonghop.component.css']
 })
-export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,OnDestroy {
+export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, OnDestroy {
   filter: any =
     {
       IdDuAn: 0,
-      IddmPhanXuong: "",
+      IddmPhanXuong: "1cf3f340-0f55-4f34-938p-e329318e25et",
       IddmCaSanXuatThucTe: "",
       nNam: 0,
       nThang: 0,
@@ -38,7 +38,10 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
   showTruySuatNguonGoc = false;
   currentUser: any;
   IdDuAn: any;
-  listTruySuatNguonGoc:any=[];
+  listTruySuatNguonGoc: any = [];
+  listHienThiSanLuongOng: any = [];
+  labelSanLuongOng: any = '';
+  TongSanLuongOng: any = [];
   optionPie: any = {
     plugins: {
       labels: {
@@ -84,11 +87,11 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
   chatLuongSanPham: any = [];
   headerChatLuongSanPham: any = [];
   chatLuongSanPhamScrollHeight: any = 0;
-  suber:any;
+  suber: any;
 
   constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService, public toastr: ToastrService) {
     this.currentUser = this._auth.currentUserValue;
-    this.suber=this.store.getNhaMay().subscribe(res => {
+    this.suber = this.store.getNhaMay().subscribe(res => {
       this.IdDuAn = res;
       this.BieuDoCoCau();
     })
@@ -256,8 +259,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
     this._services.BaoCao().TongHop(this.filter).subscribe((res: any) => {
       this.thongKes = res;
       this.thongKes = [
-        { Ten: 'Sản lượng ống', TieuHao: res.SanLuongOng, DonVi: 'quả',DonViManHinh:'(kg)', ManHinh: res.SanLuongOng_ManHinh,button:'chitietsanluongong' },
-        { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả',DonViManHinh:'(kg)', ManHinh: res.LuyKe_ManHinh },
+        { Ten: 'Sản lượng ống', TieuHao: res.SanLuongOng, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: res.SanLuongOng_ManHinh, button: 'chitietsanluongong' },
+        { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: res.LuyKe_ManHinh },
         // Điện k có màn hình
         { Ten: 'Điện AC theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.DienAC_KW },
         { Ten: 'Tổng điện theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.TongDien_KW, button: 'xuatexcel' },
@@ -273,7 +276,26 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
       ]
     });
     this._services.BaoCao().GetDashBoard_SanLuongOng(this.filter).subscribe((res: any) => {
+      this.labelSanLuongOng = `Sản lượng ống ${this.filter.nNgay}/${this.filter.nThang}/${this.filter.nNam}`
+      let distinct = [...new Set(res.map(ele => ele.IddmItem))]
+      let listSanLuongOngtemp = distinct.map(IdMatHang => {
+        let listMay = res.filter(ele => ele.IddmItem === IdMatHang).sort((a, b) => {
+          return a.TendmMay.localeCompare(b.TendmMay);
+        });
+        return {
+          IddmItem: IdMatHang,
+          Ne: listMay[0]?.Ne,
+          TenMatHang: listMay[0]?.Ten,
+          listMay: listMay,
+          KhoiLuongTinhToan: listMay.reduce((total, ele) => {
+            return total + ele.KhoiLuongTinhToan
+          }, 0)
+        }
+      })
+
+      console.log(listSanLuongOngtemp)
       this.listSanLuongOng = res;
+      this.listHienThiSanLuongOng = listSanLuongOngtemp;
     })
   }
 
@@ -356,10 +378,10 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
       this.dataSet1 = [];
     }
   }
-  checkXuatMatHang(e,item,index){
-    if(item.xuatChecked){
+  checkXuatMatHang(e, item, index) {
+    if (item.xuatChecked) {
       item.xuatChecked = !item.xuatChecked;
-    }else{
+    } else {
       item.xuatChecked = true;
     }
   }
@@ -396,18 +418,18 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
     });
   }
   xuatBaoCaoDien() {
-    this._services.DashBoard().ExportBaoCaoThongKeDien(this.filter).subscribe((res:any) => {
+    this._services.DashBoard().ExportBaoCaoThongKeDien(this.filter).subscribe((res: any) => {
       this._services.download(res.TenFile);
     })
   }
-  xuatBaoCaoTieuChi(){
+  xuatBaoCaoTieuChi() {
     let data = this.filter;
-    data.listItem = this.listMatHang.filter(mathang=>mathang.xuatChecked ===true).map(ele=>ele.IddmItem);
-    this._services.DashBoard().ExportBaoCaoThongKeChatLuong(this.filter).subscribe((res:any) => {
-      if(res){
-        if(validVariable(res.State)){
+    data.listItem = this.listMatHang.filter(mathang => mathang.xuatChecked === true).map(ele => ele.IddmItem);
+    this._services.DashBoard().ExportBaoCaoThongKeChatLuong(this.filter).subscribe((res: any) => {
+      if (res) {
+        if (validVariable(res.State)) {
           this.toastr.error(res.message);
-        }else{
+        } else {
           this._services.download(res.TenFile);
         }
       }
@@ -416,16 +438,16 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
   xemTruySuatNguonGoc() {
     if (this.SelectItem.IddmItem != undefined) {
       if (validVariable(this.SelectItem?.IddmItem)) {
-        let data=this.filter;
+        let data = this.filter;
         data.IddmItem = this.SelectItem.IddmItem;
         this._services.DashBoard().GetDashBoard_TruyXuatNguonGocTongHop(data).subscribe((res: any) => {
           this.showTruySuatNguonGoc = true;
           this.listTruySuatNguonGoc = res;
-          this.listTruySuatNguonGoc.forEach(obj=>{            
+          this.listTruySuatNguonGoc.forEach(obj => {
             obj.herfgiaokehoachsanxuat = `#/quantri/kehoachsanxuat/giaokehoachsanxuat/${obj.IdGiaoKeHoachSanXuat}`;
             obj.herftrienkhaikehoachsanxuat = `#/quantri/kehoachsanxuat/trienkhaikehoachsanxuat/${obj.IdGiaoKeHoachSanXuat_TrienKhai}`;
             obj.herfphabong = `#/quantri/trienkhaisanxuat/phabong/${obj.IdPhuongAnPhaBong}`;
-          });          
+          });
         })
       }
       else {
@@ -436,7 +458,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit,On
       this.toastr.error("Yêu cầu chọn mặt hàng");
     }
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.suber.unsubscribe();
   }
 }

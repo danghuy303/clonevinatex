@@ -8,10 +8,10 @@
       <button pButton pRipple label="Nhập bông khác" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="addPhieuBongHoi()" *ngIf="checkQuyen.ThemMoi"></button> -->
     </div>
     <div class="p-d-flex p-flex-row">
-        <!-- <div class="p-mr-2">
-            <p-dropdown [options]="listLoaiPhuongAn" placeholder="Chọn phương án" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.LoaiPhuongAn" optionLabel="name" [showClear]="true"></p-dropdown>
-        </div> -->
+        <div class="p-mr-2">
+            <p-dropdown [options]="listLoBong" placeholder="Chọn lô bông" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.IdLoBong" [showClear]="true" [filter] ="true" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
+        </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetListQuyTrinh(true)">

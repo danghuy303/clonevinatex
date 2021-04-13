@@ -642,11 +642,11 @@ export class QuantriComponent implements OnInit {
                         separator: this.checkmenu("KIEMKEKHOBONG"),
                         command: () => this.close()
                     },
-                    // {
-                    //     label: 'Tồn kho',
-                    //     routerLink: '/quantri/quanlykhosanxuat/tonkho/0',
-                    //     command: () => this.close()
-                    // },
+                    {
+                        label: 'Tồn kho',
+                        routerLink: '/quantri/quanlykhosanxuat/tonkho/0',
+                        command: () => this.close()
+                    },
                     // {
                     //     label: 'Điều chuyển',
                     //     routerLink: '/quantri/quanlykhosanxuat/khobong/dieuchuyen/0',

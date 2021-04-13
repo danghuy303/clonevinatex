@@ -129,7 +129,7 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
       let date = new Date();
       this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
       this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-      this.filterAll._tuNgay= date;
+      this.filterAll._tuNgay= new Date(date.getFullYear(), date.getMonth(), 1);
       this.filterAll._denNgay = date;
       this.listItem = [];
       this.getAllOptions();
@@ -246,7 +246,7 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
     if (this.SelectItem.TendmItem != undefined && this.SelectItem != null) {
       console.log(this.SelectItem);
       if (validVariable(this.SelectItem?.IddmItem)) {
-        this._services.GetDashBoard_TruyXuatNguonGoc(this.SelectItem.IddmItem, DateToUnix(this.filter._tuNgayCanDoiTon), DateToUnix(this.filter._denNgayCanDoiTon)).subscribe((res: any) => {
+        this._services.GetDashBoard_TruyXuatNguonGoc(this.SelectItem.IddmItem, DateToUnix(this.filterAll._tuNgay), DateToUnix(this.filterAll._denNgay)).subscribe((res: any) => {
           this.showTruySuatNguonGoc = true;
           this.listTruySuatNguonGoc = res;
           this.listTruySuatNguonGoc.forEach(obj => {
@@ -282,7 +282,7 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
         TuNgay:this.filterAll.TuNgay,
         DenNgay:this.filterAll.DenNgay,
         IdLoHang:item.IdLoHang,
-        IddmKho:this.filter.IddmKhoAll
+        IddmKho:this.filterAll.IddmKho
       }
       this._services.DashBoard()[`GetDashBoard_Phieu${opt}Kho`](data).subscribe(res => {
         this.listXuatNhap = res;
@@ -307,5 +307,16 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
   }
   ngOnDestroy():void{
     this.$IdDuAn.unsubscribe();
+  }
+  XuatBaoCaoCanDoiTon(){
+    this._services.BaoCao().ExportNhuCauXuatHang(this.filterAll).subscribe((res:any)=>{
+      if (res) {
+        if (validVariable(res.State)) {
+          this.toastr.error(res.message);
+        } else {
+          this._services.download(res.TenFile);
+        }
+      }
+    })
   }
 }

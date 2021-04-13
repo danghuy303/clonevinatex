@@ -1,10 +1,16 @@
 <div class="modal-header">
     <h5 class="modal-title">Phương án tìm bông</h5>
     <!-- {{opt==='add'?'Thêm mới':'Cập nhật'}} -->
-    <div class="p-d-flex p-flex-row">
-        <div class="mr-2">Số quy trình:&nbsp;{{item.SoQuyTrinh}}</div>
-        <div class="mr-2">TG tạo:&nbsp;{{item.Created|date:'dd/MM/yyyy'}}</div>
-        <div class="mr-2">TG duyệt:&nbsp;{{item.Modified|date:'dd/MM/yyyy'}}</div>
+    <div class="d-flex flex-column flex-lg-row">
+        <div>
+           <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+        </div>
+        <div class="ml-lg-3 mr-lg-3">
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+        <div>
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+        </div>
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="_activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
@@ -120,7 +126,12 @@
                 <tbody>
                     <tr *ngFor="let lobong of item.listLoBong; let i = index"
                         [ngStyle]="{'background-color': lobong.Mau}">
-                        <td class="text-center tc-w-151" [ngStyle]="{'background-color': lobong.Mau}">{{lobong.Ma}}
+                        <td class="text-center tc-w-151" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.Ma}}
+                            <ng-container *ngIf="lobong.isLoBongTuongLai">
+                                <br>
+                                ({{lobong.NgayVeDuKien|date:'dd/MM/yyyy'}})
+                            </ng-container>
                         </td>
                         <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.SoLuongKien}}</td>
@@ -129,9 +140,9 @@
                         <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.TonCuoi}}</td>
                         <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.TyLe|number:'0.2-4'}}</td>
+                            {{lobong.TyLe|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.LuyKeTyLe|number:'0.2-4'}}</td>
+                            {{lobong.LuyKeTyLe|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.SoHopDong}}
                         </td>
