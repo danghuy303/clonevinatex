@@ -125,4 +125,13 @@ export class TonkhoComponent implements OnInit {
         this.GetListQuyTrinh();
     })
   }
+  exportExcel(IddmItem) {
+    let data: any = {
+      IddmKho: this.filter.IddmKho,
+      IddmItem: IddmItem,
+    }
+    this._service.ExportNhuCauXuatHangTheoMatHang(data).subscribe((res: any) => {
+      this._service.download(res.TenFile);
+    })
+  }
 }
