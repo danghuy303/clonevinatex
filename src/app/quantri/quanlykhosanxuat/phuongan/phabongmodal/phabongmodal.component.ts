@@ -349,10 +349,7 @@ export class PhabongmodalComponent implements OnInit {
         this.labelBong[lobong.IddmLoaiBong.split('-').join('_')] += lobong.TyLe;
       }
     });
-    // console.log(this.labelBong);
-    this.item.TyLePhaBong = this.listLoaiBong.reduce((Tong, ele, index) => { return Tong + `${index === 0 ? '' : ' + '}${formatNumber(this.labelBong[ele.prop], 'vi-VN', '0.0-2')}% ${ele.name}` }, '')
-    // console.log(this.item.TyLePhaBong);
-    // this.item.TyLePhaBong = `${formatNumber(this.labelBong.BR, 'vi-VN', '0.0-1')}% Brazil + ${formatNumber(this.labelBong.MY, 'vi-VN', '0.0-1')}% Mỹ + ${formatNumber(this.labelBong.TP, 'vi-VN', '0.0-1')}% Tây Phi + ${formatNumber(this.labelBong.zH, 'vi-VN', '0.0-1')}% Hồi`
+    this.item.TyLePhaBong = this.listLoaiBong.reduce((Tong, ele, index) => { return Tong + `${index === 0 ? '' : ' + '}${formatNumber(this.labelBong[ele.prop], 'vi-VN', '0.0-2')}% ${ele.name}` }, '') 
   }
   TinhTongTrongLuong() {
     this.trongLuongLoBong = {};
