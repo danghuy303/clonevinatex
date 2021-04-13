@@ -1787,4 +1787,9 @@ export class SanXuatService {
             }
         }
     }
+    ExportNhuCauXuatHangTheoMatHang(data) {
+        data.IdDuAn = this.store.getCurrent();
+        let url = API.SCMBaoCao + 'ExportNhuCauXuatHangTheoMatHang';
+        return this.http.post(url, data, httpOptions);
+    }
 }
