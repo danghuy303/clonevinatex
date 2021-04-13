@@ -133,7 +133,7 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
       this.filterAll._denNgay = date;
       this.listItem = [];
       this.getAllOptions();
-      this.ChangeOpt();
+      // this.ChangeOpt();
       this.ChangeOptCanDoiTon();
     })
   }
@@ -311,7 +311,7 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
   XuatBaoCaoCanDoiTon(){
     this._services.BaoCao().ExportNhuCauXuatHang(this.filterAll).subscribe((res:any)=>{
       if (res) {
-        if (validVariable(res.State)) {
+        if (validVariable(res.State) && !validVariable(res.TenFile)) {
           this.toastr.error(res.message);
         } else {
           this._services.download(res.TenFile);
