@@ -277,7 +277,6 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
       this.filterAll.DenNgay = null;
     }
     if (validVariable(this.filterAll.TuNgay) && validVariable(this.filterAll.DenNgay) && this.filterAll.TuNgay <= this.filterAll.DenNgay) {
-
       let data ={
         IddmItem:item.IddmItem,
         TuNgay:this.filterAll.TuNgay,
@@ -308,5 +307,16 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
   }
   ngOnDestroy():void{
     this.$IdDuAn.unsubscribe();
+  }
+  XuatBaoCaoCanDoiTon(){
+    this._services.BaoCao().ExportNhuCauXuatHang(this.filterAll).subscribe((res:any)=>{
+      if (res) {
+        if (validVariable(res.State)) {
+          this.toastr.error(res.message);
+        } else {
+          this._services.download(res.TenFile);
+        }
+      }
+    })
   }
 }

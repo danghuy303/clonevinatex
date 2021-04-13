@@ -7,11 +7,17 @@
                 [(ngModel)]="item.NhaMay"></p-dropdown>
         </div>
     </div> -->
-    <div class="p-d-flex p-flex-row">
-        <div class="mr-2">Số quy trình:&nbsp;{{item.SoQuyTrinh}}</div>
-        <!-- <div class="mr-2">TG tạo:&nbsp;{{item.Created}}</div>
-        <div class="mr-2">TG duyệt:&nbsp;{{item.Modified}}</div> -->
-    </div>
+    <div class="d-flex flex-column flex-lg-row">
+            <div>
+               <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+            </div>
+            <div class="ml-lg-3 mr-lg-3">
+                <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+            </div>
+            <div>
+                <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+            </div>
+        </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -121,7 +127,7 @@
                             {{item.TongTrongLuong|number:'0.2-2'}}
                             <!-- {{(item.TrongLuong * item.SoLuong)|number:'0.3-3'}} -->
                         </td>
-                        <td>
+                        <td class="text-center">
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
@@ -141,7 +147,7 @@
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0'}}
                         </td>
-                        <td></td>
+                        <td>{{item.listItem|isXoa|SumByKey:'TongTrongLuong'|number:'0.2-2'}}</td>
                         <td></td>
                     </tr>
                 </ng-template>

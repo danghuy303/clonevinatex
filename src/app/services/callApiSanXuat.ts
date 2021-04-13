@@ -199,6 +199,15 @@ export class SanXuatService {
             },
             GetListdmMayTheoCongDoan: (congDoan) => {
                 return this.http.get(`${API.SCMDanhMuc}GetListdmMayTheoCongDoan?CongDoan=${congDoan}`, httpOptions);
+            },
+            ExportPhieuNhapKhoThanhPham_Bieu1:(data)=>{
+                return this.http.post(`${url}ExportPhieuNhapKhoThanhPham_Bieu1`,data,httpOptions);
+            },
+            ExportPhieuXuatKhoThanhPham_Bieu6:(data)=>{
+                return this.http.post(`${url}ExportPhieuXuatKhoThanhPham_Bieu6`,data,httpOptions);
+            },
+            ExportNhuCauXuatHang:(data)=>{
+                return this.http.post(`${url}ExportNhuCauXuatHang`,data,httpOptions)
             }
         }
     }

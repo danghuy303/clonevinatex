@@ -79,9 +79,13 @@
                         styleClass="p-inputtext-sm" [(ngModel)]="filterAll.IddmItem" (onChange)="ChangeOptCanDoiTon()">
                     </p-dropdown>
                 </div>
-                <div style="display:table;height:100%">
+                <div class="p-mr-2" style="display:table;height:100%">
                     <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
                         (click)="xemTruySuatNguonGoc()">Truy xuất nguồn gốc</a>
+                </div>
+                <div style="display:table;height:100%">
+                    <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
+                        (click)="XuatBaoCaoCanDoiTon()">Xuất báo cáo</a>
                 </div>
             </div>
             <p-table [value]="listItem" [frozenValue]="Tong"
@@ -271,6 +275,7 @@
                 <th>Số phiếu kiểm kê</th>
                 <th>Ngày</th>
                 <th>Số quả sợi</th>
+                <th>Số kiện</th>
                 <th>Trọng lượng(kg)</th>
                 <th>Tên kho</th>
             </tr>
@@ -283,6 +288,7 @@
                 <td><a href="javascript:void(0)" (click)="navigateKiemKe(item)">{{item.SoPhieuKiemKe}}</a></td>
                 <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
                 <td class="text-right">{{item.SoLuong|number:'0.0-0'}}</td>
+                <td class="text-right">{{item.SoKien|number:'0.2-2'}}</td>
                 <td class="text-right">
                     {{item.TongTrongLuong|number:'0.2-2'}}
                     <!-- <a [href]="item.herfgiaokehoachsanxuat" target="_blank">{{item.TenGiaoKeHoach}}</a> -->
@@ -299,6 +305,7 @@
                 <td></td>
                 <td></td>
                 <td class="text-right">{{listXuatNhap|SumByKey:'SoLuong'|number:'0.0-0'}}</td>
+                <td class="text-right">{{listXuatNhap|SumByKey:'SoKien'|number:'0.2-2'}}</td>
                 <td class="text-right">{{listXuatNhap|SumByKey:'TongTrongLuong'|number:'0.2-2'}}</td>
                 <td></td>
             </tr>
