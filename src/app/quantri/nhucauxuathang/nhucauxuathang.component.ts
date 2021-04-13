@@ -277,12 +277,13 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
       this.filterAll.DenNgay = null;
     }
     if (validVariable(this.filterAll.TuNgay) && validVariable(this.filterAll.DenNgay) && this.filterAll.TuNgay <= this.filterAll.DenNgay) {
+
       let data ={
         IddmItem:item.IddmItem,
         TuNgay:this.filterAll.TuNgay,
         DenNgay:this.filterAll.DenNgay,
         IdLoHang:item.IdLoHang,
-        IddmKho:this.filter.IddmKho
+        IddmKho:this.filterAll.IddmKho
       }
       this._services.DashBoard()[`GetDashBoard_Phieu${opt}Kho`](data).subscribe(res => {
         this.listXuatNhap = res;

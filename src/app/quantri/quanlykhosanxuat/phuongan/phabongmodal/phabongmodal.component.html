@@ -285,7 +285,7 @@
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div class="drag-zone" style="width: 100%; display: flex;flex-direction: row;" (drop)="drop($event,prop,i)"
                                 (dragover)="allowDrop($event)">
-                                <span class="drag-point" draggable="true" *ngIf="!listCotDaXuat.includes(prop)"
+                                <span class="drag-point" draggable="true" *ngIf="!(lobong.isLoBongTuongLai && prop<lobong.lim)&&!listCotDaXuat.includes(prop)"
                                     (dragstart)="drag($event,prop,i,lobong.tempBanBong[prop].SoKien)">
                                     <i class="fas fa-arrows-alt"></i>
                                 </span>
