@@ -13,18 +13,18 @@ import { TrienkhaikehoachsanxuatComponent } from '../quanlykhosanxuat/quytrinh/t
   templateUrl: './nhucauxuathang.component.html',
   styleUrls: ['./nhucauxuathang.component.css']
 })
-export class NhucauxuathangComponent implements OnInit,OnDestroy {
+export class NhucauxuathangComponent implements OnInit, OnDestroy {
 
   filterBong: any = {};
   filter: any = {
     IddmItem: "",
     IddmKho: ''
   };
-  filterAll:any={
+  filterAll: any = {
     IddmItem: "",
     IddmKho: '',
   };
-  Tong:any=null;
+  Tong: any = null;
   selectedXuatNhap: any = {};
   filterSanLuong: any = {};
   filterNhuCau: any = {};
@@ -45,15 +45,15 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
   SelectItem: any = {};
   showXuatNhap: boolean = false;
   showTruySuatNguonGoc = false;
-  $IdDuAn:Subscription=null;
+  $IdDuAn: Subscription = null;
   mapXuatNhap = {
     Xuat: 'Xuất',
     Nhap: 'Nhập'
   }
-  mapXuatNhapRoute={
-    Xuat:'/quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkhothanhpham/',
-    Nhap:'/quantri/quanlysanxuatkhothanhpham/khothanhpham/nhapkho/',
-    KiemKe:'/quantri/quanlykhosanxuat/khothanhpham/kiemkekho/'
+  mapXuatNhapRoute = {
+    Xuat: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkhothanhpham/',
+    Nhap: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/nhapkho/',
+    KiemKe: '/quantri/quanlykhosanxuat/khothanhpham/kiemkekho/'
   }
   option1: any = {
     scales: {
@@ -119,21 +119,21 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
-  constructor(private _services: SanXuatService, private store: StoreService, public toastr: ToastrService, private _router:Router) {
+  constructor(private _services: SanXuatService, private store: StoreService, public toastr: ToastrService, private _router: Router) {
     this.IdDuAn = this.store.getCurrent();
   }
 
   ngOnInit(): void {
-    this.$IdDuAn = this.store.getNhaMay().subscribe(res=>{
-      this.IdDuAn =res;
+    this.$IdDuAn = this.store.getNhaMay().subscribe(res => {
+      this.IdDuAn = res;
       let date = new Date();
       this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
       this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-      this.filterAll._tuNgay= new Date(date.getFullYear(), date.getMonth(), 1);
+      this.filterAll._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
       this.filterAll._denNgay = date;
       this.listItem = [];
       this.getAllOptions();
-      this.ChangeOpt();
+      // this.ChangeOpt();
       this.ChangeOptCanDoiTon();
     })
   }
@@ -159,7 +159,7 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
         this.dataPie = res;
       });
     }
-    
+
   }
 
   getAllOptions() {
@@ -202,7 +202,7 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
       this.ChangeOpt()
     })
   }
-  getMatHangAll(){
+  getMatHangAll() {
     this._services.GetOptions().GetDashBoard_CanDoiTonXuatHang_TenMatHang(this.filterAll).subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tất cả mặt hàng' });
       this.listMatHangAll = mapArrayForDropDown(res, "Ten", 'Id');
@@ -210,7 +210,7 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
       this.ChangeOptCanDoiTon()
     })
   }
-  ChangeOptCanDoiTon(){
+  ChangeOptCanDoiTon() {
     if (validVariable(this.filterAll._tuNgay)) {
       this.filterAll.TuNgay = DateToUnix(this.filterAll._tuNgay);
     } else {
@@ -223,8 +223,8 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
     }
     if (validVariable(this.filterAll.TuNgay) && validVariable(this.filterAll.DenNgay) && this.filterAll.TuNgay <= this.filterAll.DenNgay) {
       this.filterAll.IdDuAn = this.store.getCurrent();
-      this._services.BaoCao().GetDashBoard_CanDoiTonXuatHang(this.filterAll).subscribe((res:Array<any>) => {
-        this.Tong =res.splice(0,1);
+      this._services.BaoCao().GetDashBoard_CanDoiTonXuatHang(this.filterAll).subscribe((res: Array<any>) => {
+        this.Tong = res.splice(0, 1);
         this.listItem = res;
       })
     }
@@ -265,7 +265,7 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
     }
   }
   callDataXuatNhap(opt, item) {
-    console.log(opt,item)
+    console.log(opt, item)
     if (validVariable(this.filterAll._tuNgay)) {
       this.filterAll.TuNgay = DateToUnix(this.filterAll._tuNgay);
     } else {
@@ -277,13 +277,12 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
       this.filterAll.DenNgay = null;
     }
     if (validVariable(this.filterAll.TuNgay) && validVariable(this.filterAll.DenNgay) && this.filterAll.TuNgay <= this.filterAll.DenNgay) {
-
-      let data ={
-        IddmItem:item.IddmItem,
-        TuNgay:this.filterAll.TuNgay,
-        DenNgay:this.filterAll.DenNgay,
-        IdLoHang:item.IdLoHang,
-        IddmKho:this.filterAll.IddmKho
+      let data = {
+        IddmItem: item.IddmItem,
+        TuNgay: this.filterAll.TuNgay,
+        DenNgay: this.filterAll.DenNgay,
+        IdLoHang: item.IdLoHang,
+        IddmKho: this.filterAll.IddmKho
       }
       this._services.DashBoard()[`GetDashBoard_Phieu${opt}Kho`](data).subscribe(res => {
         this.listXuatNhap = res;
@@ -299,14 +298,38 @@ export class NhucauxuathangComponent implements OnInit,OnDestroy {
 
   }
   navigateXuatNhap(item) {
-    window.open(`#${this.mapXuatNhapRoute[this.selectedXuatNhap.opt]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`]||0}`, "_blank");
+    let prefix = '';
+    let route = [
+      '',
+      '/quantri/quanlysanxuatkhohoiam/khohoiam/nhapkho/',
+      '/quantri/quanlysanxuatkhothanhpham/khothanhpham/nhapkho/',
+      '/quantri/quanlykhosanxuat/khothanhpham/kiemkekho/',
+      '/quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkhothanhpham/',
+    ]
+    // if (this.selectedXuatNhap.opt === 'Xuat') {
+    //   window.open(`#${this.mapXuatNhapRoute[this.selectedXuatNhap.opt]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`] || 0}`, "_blank");
+    // }else{
+      window.open(`#${route[item.LoaiPhieu]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`] || 0}`, "_blank");
+    // }
+
     // this._router.navigate([`${this.mapXuatNhapRoute[this.selectedXuatNhap.opt]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`]||0}`])
   }
-  navigateKiemKe(item){
-    window.open(`#${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKe||0}`, "_blank");
+  navigateKiemKe(item) {
+    window.open(`#${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKe || 0}`, "_blank");
     // this._router.navigate([`${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKeKho||0}`])
   }
-  ngOnDestroy():void{
+  ngOnDestroy(): void {
     this.$IdDuAn.unsubscribe();
+  }
+  XuatBaoCaoCanDoiTon() {
+    this._services.BaoCao().ExportNhuCauXuatHang(this.filterAll).subscribe((res: any) => {
+      if (res) {
+        if (validVariable(res.State) && !validVariable(res.TenFile)) {
+          this.toastr.error(res.message);
+        } else {
+          this._services.download(res.TenFile);
+        }
+      }
+    })
   }
 }

@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { NhaphoiammathangmodalComponent } from '../nhaphoiammathangmodal/nhaphoiammathangmodal.component';
 
 @Component({
@@ -73,10 +73,12 @@ export class NhapkhohoiammodalComponent implements OnInit {
 
   ChuyenTiep() {
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn  ngày");
+      this.toastr.error("Bạn chưa chọn ngày!");
     }
     else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
-      this.toastr.error("Bạn chưa chọn  danh mục kho");
+      this.toastr.error("Bạn chưa chọn danh mục kho!");
+    }else if(!this.item.listItem.every(ele=>validVariable(ele.KgCone))){
+      this.toastr.error("Vui lòng chọn Kg/cone ở tất cả các mặt hàng!")
     }
     else {
       if (this.newTableItem.Ten != undefined && this.newTableItem.SoCan != undefined && this.newTableItem.SoKien != undefined && this.newTableItem.ViTri != undefined) {
@@ -107,10 +109,12 @@ export class NhapkhohoiammodalComponent implements OnInit {
 
   GhiLai() {
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn  ngày");
+      this.toastr.error("Bạn chưa chọn ngày!");
     }
     else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
-      this.toastr.error("Bạn chưa chọn  danh mục kho");
+      this.toastr.error("Bạn chưa chọn danh mục kho!");
+    }else if(!this.item.listItem.every(ele=>validVariable(ele.KgCone))){
+      this.toastr.error("Vui lòng chọn Kg/cone ở tất cả các mặt hàng!")
     }
     else {
       if (this.newTableItem.Ten != undefined && this.newTableItem.SoCan != undefined && this.newTableItem.SoKien != undefined && this.newTableItem.ViTri != undefined) {

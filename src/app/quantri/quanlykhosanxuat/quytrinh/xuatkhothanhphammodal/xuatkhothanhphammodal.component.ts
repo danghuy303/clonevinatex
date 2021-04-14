@@ -324,4 +324,19 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       this.TongThanhTien = this.TongThanhTien + thanhTien;
     });
   }
+  ExportExcel(){
+    if(validVariable(this.item.Id)){
+      this._services.BaoCao().ExportPhieuXuatKhoThanhPham_Bieu6({IdPhieuXuatKho:this.item.Id}).subscribe((res:any)=>{
+        if (res) {
+          if (validVariable(res.State)) {
+            this.toastr.error(res.message);
+          } else {
+            this._services.download(res.TenFile);
+          }
+        }
+      })
+    }else{
+      this.toastr.error('Vui lòng ghi lại phiếu sau đó xuất!')
+    }
+  }
 }

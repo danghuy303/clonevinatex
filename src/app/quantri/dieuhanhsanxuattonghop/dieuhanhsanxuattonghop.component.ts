@@ -42,6 +42,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   listHienThiSanLuongOng: any = [];
   labelSanLuongOng: any = '';
   TongSanLuongOng: any = [];
+  tempSanLuongOng:any=[];
   optionPie: any = {
     plugins: {
       labels: {
@@ -287,8 +288,14 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
           Ne: listMay[0]?.Ne,
           TenMatHang: listMay[0]?.Ten,
           listMay: listMay,
-          KhoiLuongTinhToan: listMay.reduce((total, ele) => {
-            return total + ele.KhoiLuongTinhToan
+          KhoiLuong:listMay.reduce((total, ele) => {
+            return total + (ele.KhoiLuong||0)
+          }, 0),
+          KhoiLuongThucTe:listMay.reduce((total, ele) => {
+            return total + (ele.KhoiLuongThucTe||0)
+          }, 0),
+          SoQuaSoiThucTe:listMay.reduce((total, ele) => {
+            return total + (ele.SoQuaSoiThucTe||0)
           }, 0)
         }
       })

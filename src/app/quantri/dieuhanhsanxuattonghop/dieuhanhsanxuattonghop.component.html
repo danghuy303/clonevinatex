@@ -225,9 +225,9 @@
                 <th style="width: 200px !important;">Tổng</th>
                <th></th>
                <th></th>
-               <th></th>
-               <th></th>
-               <th></th>
+               <th class="text-right">{{listSanLuongOng|SumByKey:'KhoiLuong'|number:'0.0-3'}}</th>
+               <th class="text-right">{{listSanLuongOng|SumByKey:'SoQuaSoiThucTe'|number:'0.0-3'}}</th>
+               <th class="text-right">{{listSanLuongOng|SumByKey:'KhoiLuongThucTe'|number:'0.0-3'}}</th>
                <th></th>
             </tr>
         </ng-template>
@@ -236,21 +236,22 @@
                 <td style="width: 200px !important;">{{item.TenMatHang}}</td>
                 <td class="text-right">{{item.Ne|number:'0.0-3'}}</td>
                 <td></td>
-                <td></td>
+                <td class="text-right">{{item.KhoiLuong|number:'0.0-3'}}</td>
                 <td class="text-right">
+                    {{item.SoQuaSoiThucTe|number:'0.0-3'}}
                 </td>
-                <td class="text-right">{{item.KhoiLuongTinhToan|number:'0.0-3'}}</td>
-                <td class="text-right"></td>
+                <td class="text-right">{{item.KhoiLuongThucTe|number:'0.0-3'}}</td>
+                <td class="text-center"></td>
             </tr>
             <ng-container *ngFor="let may of item.listMay">
                 <tr>
                     <td colspan="2">
                     </td>
                     <td>{{may.TendmMay}}</td>
-                    <td></td>
-                    <td class="text-right"></td>
-                    <td class="text-right">{{may.KhoiLuongTinhToan|number:'0.0-3'}}</td>
-                    <td></td>
+                    <td class="text-right"> {{may.KhoiLuong|number:'0.0-3'}}</td>
+                    <td class="text-right"> {{may.SoQuaSoiThucTe|number:'0.0-3'}}</td>
+                    <td class="text-right">{{may.KhoiLuongThucTe|number:'0.0-3'}}</td>
+                    <td>{{may.TenLoHang}}</td>
                 </tr>
             </ng-container>
         </ng-template>
