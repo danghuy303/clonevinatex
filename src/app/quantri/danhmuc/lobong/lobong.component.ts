@@ -56,10 +56,10 @@ export class LobongComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listdmLoaiBong: any = [];
   listisDaDuyet: any = [
-    {
-      value: 2,
-      label: 'Tất cả'
-    },
+    // {
+    //   value: 2,
+    //   label: 'Tất cả'
+    // },
     {
       value: 0,
       label: 'Kế hoạch'
