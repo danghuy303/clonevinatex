@@ -326,7 +326,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
   }
   ExportExcel(){
     if(validVariable(this.item.Id)){
-      this._services.BaoCao().ExportPhieuNhapKhoThanhPham_Bieu1({IdPhieuNhapKho:this.item.Id}).subscribe((res:any)=>{
+      this._services.BaoCao().ExportPhieuXuatKhoThanhPham_Bieu6({IdPhieuXuatKho:this.item.Id}).subscribe((res:any)=>{
         if (res) {
           if (validVariable(res.State)) {
             this.toastr.error(res.message);
