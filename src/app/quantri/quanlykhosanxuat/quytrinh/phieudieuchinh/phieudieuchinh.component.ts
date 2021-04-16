@@ -34,6 +34,11 @@ export class PhieudieuchinhComponent implements OnInit {
       field: 'GhiChu',
       width: 'unset'
     },
+    {
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
+      width: 'unset'
+    },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";

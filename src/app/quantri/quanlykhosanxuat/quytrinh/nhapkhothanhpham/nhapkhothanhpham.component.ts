@@ -42,8 +42,8 @@ export class NhapkhothanhphamComponent implements OnInit {
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, 
+    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);

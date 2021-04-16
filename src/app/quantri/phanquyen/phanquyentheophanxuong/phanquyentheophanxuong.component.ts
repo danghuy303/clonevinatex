@@ -46,15 +46,19 @@ export class PhanquyentheophanxuongComponent implements OnInit {
   dataSearch: any = {};
   userInfo: any;
   listPhanXuong: any = [];
-
+  IdDuAn: any = '';
   constructor(private _modal: NgbModal, private _services: SanXuatService, 
     private _toastr: ToastrService, private _auth: AuthenticationService,
-    private store: StoreService) {
+    private store: StoreService,) {
     this.userInfo = this._auth.currentUserValue;
   }
 
   ngOnInit(): void {
-    this.GetListdm();
+    this.store.getNhaMay().subscribe(res => {
+      debugger
+      this.IdDuAn = res;
+      this.GetListdm();
+    })
   }
 
   resetFilter() {
@@ -71,8 +75,10 @@ export class PhanquyentheophanxuongComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage,
       sFilter: this.keyWord,
       Ma: "",
-      Ten: ""
+      Ten: "",
+      IdDuAn: this.IdDuAn,
     };
+    debugger
     this._services.PhanQuyen().GetList(this.dataSearch).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
