@@ -13,9 +13,10 @@
         </div>
     </div>
 </div>
-<div class="p-grid" style="align-self: stretch;">
+<div class="p-grid" >
+    <!-- style="align-self: stretch;" -->
     <div class="p-col-12 p-xl-8 p-lg-8 p-p-3">
-        <div class="chart">
+        <div class="chart text-left">
             <div class="p-d-flex flex-column flex-lg-row p-jc-between">
                 <div>
                     <h5>
@@ -45,10 +46,10 @@
             <p-chart type="line" [data]=dataSet1 [options]="option1"></p-chart>
         </div>
     </div>
-
     <div class="p-col-12 p-xl-4 p-lg-4 p-p-3">
         <div class="chart text-left">
-            <h5>{{filterNhuCau.Kho ==='8cb622a8-b2c5-4232-a9f1-7fdebb40e3cb'?'Cơ cấu mặt hàng':'Cơ cấu bông'}}</h5>
+            <!-- <h5>{{filterNhuCau.Kho ==='8cb622a8-b2c5-4232-a9f1-7fdebb40e3cb'?'Cơ cấu mặt hàng':'Cơ cấu bông'}}</h5> -->
+            <h5>Cơ cấu bông</h5>
             <p-chart type="pie" [data]="dataPie" [options]='optionPie'></p-chart>
         </div>
     </div>
@@ -88,11 +89,21 @@
             <p-table [value]="listItem" [frozenValue]="Tong"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines minimize-font"
                 [scrollable]="true" scrollHeight="260px">
-                <!-- <ng-template pTemplate="colgroup">
+                <ng-template pTemplate="colgroup">
                     <colgroup>
-                        <col>
+                        <col style="width: 100px;">
+                        <col style="width: 100px;">
+                        <col style="width: 100px;">
+                        <col style="width: 100px;">
+                        <col style="width: 100px;">
+                        <col style="width: 100px;">
+                        <col style="width: 100px;">
+                        <col style="width: 100px;">
+                        <col style="width: 100px;">
+                        <col style="width: 100px;">
+                        <col style="width: 100px;">
                     </colgroup>
-                </ng-template> -->
+                </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <!-- <th>Ngày</th> -->

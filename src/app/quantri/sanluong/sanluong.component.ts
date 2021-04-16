@@ -254,7 +254,7 @@ export class SanluongComponent implements OnInit {
     this._services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, "Ten", 'Ma')
       // this.listCongDoan.unshift({ label: 'Tất cả công đoạn', value: '' })
-      console.log(this.CongDoan);
+      // console.log(this.CongDoan);
       if(this.CongDoan!==null){
         this.filter.CongDoan = this.CongDoan
       }else{

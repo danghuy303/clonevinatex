@@ -1,13 +1,18 @@
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-    <div class="p-col-3">
+    <!-- <div class="p-col-3">
         <h4 style="color:#1f2779">Thẻ kho</h4>
-    </div>
-    <div class=" p-d-flex p-ai-center p-jc-between p-col-9">
+    </div> -->
+    <div class=" p-d-flex p-ai-center p-jc-between p-col-12">
         <div class="p-mr-2">
             <h4 style="color:#1f2779">Danh sách chi tiết</h4>
         </div>
         <div></div>
         <div class="p-d-flex p-flex-row">
+            <div class="p-mr-2">
+                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho"
+                    styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmKho" (onChange)="GetListQuyTrinh(true, item)">
+                </p-dropdown>
+            </div>
             <div class="p-inputgroup" style="width:200px">
                 <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
                     (keyup.enter)="GetListQuyTrinh(true)" [(ngModel)]="filter.KeyWord" />
@@ -22,7 +27,7 @@
 
 </div>
 <div class="p-grid">
-    <div class="p-col-3">
+    <!-- <div class="p-col-3">
         <div class="card-body border scollTable">
             <dd style="max-height: 37rem; overflow-y: auto;">
                 <li *ngFor="let item of listdmKho">
@@ -32,8 +37,8 @@
                 </li>
             </dd>
         </div>
-    </div>
-    <div class="p-col-9">
+    </div> -->
+    <div class="p-col-12">
         <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
             <ng-template pTemplate="colgroup">
                 <colgroup>

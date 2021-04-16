@@ -64,8 +64,8 @@ export class DieuhanhsanxuatComponent implements OnInit {
         }
       }
     },
-    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
-    aspectRatio: (((window.innerWidth - 80) * 2 / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
+    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
+    aspectRatio: window.innerWidth <= 768?1:(((window.innerWidth - 80) * 2 / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   option2: any = {
     plugins: {
@@ -97,8 +97,8 @@ export class DieuhanhsanxuatComponent implements OnInit {
         }
       }
     },
-    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
-    aspectRatio: ((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
+    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
+    aspectRatio: window.innerWidth <= 768?null:((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   optionPie: any = {
     plugins: {
@@ -119,13 +119,14 @@ export class DieuhanhsanxuatComponent implements OnInit {
         }
       }
     },
-    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
-    aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
+    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
+    aspectRatio: window.innerWidth <= 768?null:(((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
   constructor(private _services: SanXuatService) { }
 
   ngOnInit(): void {
+    console.log(this.optionPie.maintainAspectRatio);
     let date = new Date();
     this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);

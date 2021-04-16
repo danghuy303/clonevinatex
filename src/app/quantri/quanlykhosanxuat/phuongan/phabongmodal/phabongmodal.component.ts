@@ -100,6 +100,8 @@ export class PhabongmodalComponent implements OnInit {
     this._services.TrienKhaiKeHoachSanXuat().Get(event.value, false).subscribe((res: any) => {
       this.itemTrienKhaiKeHoach = res;
       console.log(this.item.KhoiLuongBong,this.item.TongSoKien,this.item.KhoiLuongKienTrungBinh,this.item.listLoBong)
+      this.item.KhoiLuongKienTrungBinh=this.item.listLoBong.reduce((total,lobong)=>total+lobong.TrongLuong,0)/this.item.listLoBong.length
+      console.log(this.item.listLoBong.reduce((total,lobong)=>total+lobong.TrongLuong,0)/this.item.listLoBong.length)
       if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong)) {
         let SoNgayTrienKhai = Math.floor((this.itemTrienKhaiKeHoach.DenNgayUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60)+1);
         let _1NgayCan = this.item.KhoiLuongBong / SoNgayTrienKhai;
@@ -108,7 +110,7 @@ export class PhabongmodalComponent implements OnInit {
         this.item.listLoBong.forEach((lobong) => {
           if (lobong.isLoBongTuongLai) {
             let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60)+1)
-            // console.log(SoNgayDuKien);ß
+            // console.log(SoNgayDuKien);
             lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
           }
         })
