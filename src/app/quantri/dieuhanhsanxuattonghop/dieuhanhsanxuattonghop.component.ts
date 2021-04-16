@@ -61,8 +61,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         }
       }
     },
-    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
-    aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
+    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
+    aspectRatio: window.innerWidth <= 768?null:(((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   option1: any = {
     scales: {
@@ -80,8 +80,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     legend: {
       position: 'bottom'
     },
-    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
-    aspectRatio: (((window.innerWidth - 80) / 2) / ((window.innerHeight - (225 + 32.5)) / 2))
+    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
+    aspectRatio: window.innerWidth <= 768?1:(((window.innerWidth - 80) / 2) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   SelectItem: any = {};
   dataPie: { labels: string[]; datasets: { data: number[]; backgroundColor: string[]; hoverBackgroundColor: string[]; }[]; };

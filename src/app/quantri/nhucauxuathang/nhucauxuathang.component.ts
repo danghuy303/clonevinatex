@@ -116,7 +116,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
       position: 'left'
     },
     maintainAspectRatio: window.innerWidth <= 768 ? false : true,
-    aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
+    aspectRatio: window.innerWidth <= 768?null:(((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
   constructor(private _services: SanXuatService, private store: StoreService, public toastr: ToastrService, private _router: Router) {

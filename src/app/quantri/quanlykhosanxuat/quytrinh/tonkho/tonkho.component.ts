@@ -40,40 +40,53 @@ export class TonkhoComponent implements OnInit {
       width: 'unset'
     },
   ];
+  mapLoaiKhoBong:any={
+    khobong:3,
+    khoxo:5,
+    khobonghoi:6,
+    khobongphe:7,
+    khohoiam:10,
+    khothanhpham:11,
+  }
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   listPhanXuong: any = [];
   listCaSanXuat: any = [];
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
+  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) {
+
+  }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe(res=>{
+      console.log(this.mapLoaiKhoBong[`${res.kho}`])
+      console.log(res);
+      this.getListdmKho(this.mapLoaiKhoBong[`${res.kho}`]);
+    })
     this.filter.KeyWord = '';
-    this.getListdmKho();
-    this.getListCaSanXuat();
-    this.getListPhanXuong();
   }
-  getListdmKho() {
+  getListdmKho(Loai?) {
     let data = {
-      CurrentPage : 0
+      CurrentPage : 0,
+      Loai:Loai
     }
     this._service.GetListdmKho(data).subscribe((res: any) => {
-      this.listdmKho = res;
+      this.listdmKho = mapArrayForDropDown(res,'Ten','Id');
       if(this.listdmKho.length > 0 && this.listdmKho !== undefined){
-        this.filter.IddmKho = this.listdmKho[3].Id;
-        this.listdmKho[3].select = true
+        this.filter.IddmKho = this.listdmKho[0].value;
+        // this.listdmKho[0].select = true
         this.GetListQuyTrinh();
       }
     })
   }
-  getListCaSanXuat() {
-    this._service.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
-      this.listCaSanXuat = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
-  getListPhanXuong() {
-    this._service.GetListdmPhanXuongOpt().subscribe((res: any) => {
-      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
+  // getListCaSanXuat() {
+  //   this._service.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
+  //     this.listCaSanXuat = mapArrayForDropDown(res, 'Ten', 'Id');
+  //   })
+  // }
+  // getListPhanXuong() {
+  //   this._service.GetListdmPhanXuongOpt().subscribe((res: any) => {
+  //     this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+  //   })
+  // }
   
   changeTab(e){
     this.trangThai = e.index+1;
@@ -84,17 +97,17 @@ export class TonkhoComponent implements OnInit {
     this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?, item : any= {}){
-    if(item.Id !== undefined){
-      this.listdmKho.forEach(element => {
-        element.select = false;
-      });
-      item.select = true;
-    }
+    // if(item.value !== undefined){
+    //   this.listdmKho.forEach(element => {
+    //     element.select = false;
+    //   });
+    //   item.select = true;
+    // }
 
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
-      this.filter.IddmKho = item.Id;
+      this.filter.IddmKho = item.value;
     }
     let data: any = {
       IddmKho: this.filter.IddmKho,

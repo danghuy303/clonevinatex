@@ -229,7 +229,7 @@ const routes: Routes = [
       
       { path: 'phanquyensanxuat/phanquyentheophanxuong', component: PhanquyentheophanxuongComponent },
       { path: 'quanlykhosanxuat/kiemkeBCP/:id', component: KiemkebcpComponent },
-      { path: 'quanlykhosanxuat/tonkho/:id', component: TonkhoComponent },
+      { path: 'quanlykhosanxuat/tonkho/:kho/:id', component: TonkhoComponent },
       { path: 'quanlykhosanxuat/tonkhodanhsachchitiet/:id', component: TonkhodanhsachchitietComponent },
 
       { path: 'kehoachsanxuat/lohang', component: LohangComponent },

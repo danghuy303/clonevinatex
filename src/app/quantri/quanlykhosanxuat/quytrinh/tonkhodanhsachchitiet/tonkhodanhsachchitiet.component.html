@@ -49,19 +49,26 @@
                 <th class="text-center" rowspan="2">STT</th>
                 <th class="text-center" rowspan="2">Thời gian</th>
                 <th class="text-center" rowspan="2">Đơn giá</th>
-                <th class="text-center" rowspan="2">Tồn đầu kỳ</th>
-                <th class="text-center" rowspan="2">Trọng lượng</th>
-                <th class="text-center" colspan="2">Nhập</th>
-                <th class="text-center" colspan="2">Xuất</th>
-                <th class="text-center" rowspan="2">Tồn cuối</th>
-                <th class="text-center" rowspan="2">Số phiếu</th>
+                <th class="text-center" colspan="2">Tồn đầu kỳ</th>
+                <!-- <th class="text-center" rowspan="2">Trọng lượng</th> -->
+                <th class="text-center" colspan="3">Nhập</th>
+                <th class="text-center" colspan="3">Xuất</th>
+                <th class="text-center" colspan="2">Tồn cuối</th>
+                <!-- <th class="text-center" rowspan="2">Số phiếu</th> -->
+                <th class="text-center" rowspan="2">Ghi chú</th>
                 <!-- <th rowspan="2"></th> -->
             </tr>
             <tr>
-                <th class="text-center">Nhập</th>
-                <th class="text-center">Kiểm kê</th>
-                <th class="text-center">Xuất</th>
-                <th class="text-center">Kiểm kê</th>
+                <th class="text-center">Số kiện</th>
+                <th class="text-center">Trọng lượng</th>
+                <th class="text-center">Số kiện</th>
+                <th class="text-center">Trọng lượng</th>
+                <th class="text-center">Số phiếu</th>
+                <th class="text-center">Số kiện</th>
+                <th class="text-center">Trọng lượng</th>
+                <th class="text-center">Số phiếu</th>
+                <th class="text-center">Số kiện</th>
+                <th class="text-center">Trọng lượng</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -87,17 +94,26 @@
                 <td class="text-right">
                     {{item.NhapKiemKe|number:'0.0'}}
                 </td>
+                <td class="text-center">
+                    {{item.SoQuyTrinh}}
+                </td>
                 <td class="text-right">
                     {{item.Xuat|number:'0.0'}}
                 </td>
                 <td class="text-right">
                     {{item.XuatKiemKe|number:'0.0'}}
                 </td>
+                <td class="text-center">
+                    {{item.SoQuyTrinh}}
+                </td>
                 <td class="text-right">
                     {{item.TonCuoiKy|number:'0.0'}}
                 </td>
-                <td class="text-center">
-                    {{item.SoQuyTrinh}}
+                <td class="text-right">
+                    {{item.TonCuoiKy|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TonCuoiKy|number:'0.0'}}
                 </td>
                 <!-- <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
@@ -139,6 +155,15 @@
                 </td>
                 <td class="text-right">
                     {{itemTongCong.SoPhieu}}
+                </td>
+                <td class="text-right">
+                    {{item.TonCuoiKy|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TonCuoiKy|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TonCuoiKy|number:'0.0'}}
                 </td>
                 <!-- <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
