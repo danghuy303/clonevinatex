@@ -294,9 +294,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
           KhoiLuongThucTe:listMay.reduce((total, ele) => {
             return total + (ele.KhoiLuongThucTe||0)
           }, 0),
-          SoQuaSoiThucTe:listMay.reduce((total, ele) => {
-            return total + (ele.SoQuaSoiThucTe||0)
-          }, 0)
+          SoQuaSoiThucTe:listMay[0].SoQuaSoiThucTe
         }
       })
 
