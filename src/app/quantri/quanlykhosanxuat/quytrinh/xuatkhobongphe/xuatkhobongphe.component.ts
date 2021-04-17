@@ -87,7 +87,7 @@ export class XuatkhobongpheComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify({Id:item}));
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     this.changeParam(0);

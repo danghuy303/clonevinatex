@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
@@ -17,10 +17,10 @@ export class XuatkhomodalComponent implements OnInit {
   Id: any = '';
   item: any = {};
   checkbutton: any = {
-    Ghi:true,
-    KhongDuyet:false,
-    ChuyenTiep:false,
-    Xoa:false,
+    Ghi: true,
+    KhongDuyet: false,
+    ChuyenTiep: false,
+    Xoa: false,
   }
   lang: any = vn;
   listKho: any = [];
@@ -31,8 +31,8 @@ export class XuatkhomodalComponent implements OnInit {
   paging: any = {};
   filter: any = {}
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, 
-    public toastr: ToastrService, public _modal: NgbModal) {  }
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
+    public toastr: ToastrService, public _modal: NgbModal) { }
 
   ngOnInit(): void {
     this.GetQuyTrinh();
@@ -41,20 +41,19 @@ export class XuatkhomodalComponent implements OnInit {
     let data: any = {
       CurrentPage: 0
     }
-    this.services.PhuongAnPhaBong().GetList(data).subscribe((res:any)=>{
+    this.services.PhuongAnPhaBong().GetList(data).subscribe((res: any) => {
       this.listPhuongAnPhaBong = mapArrayForDropDown(res.items, 'Ten', 'Id');
     })
     // data.Loai = 2;
-    this.services.GetListdmKho(data).subscribe((res:any)=>{
+    this.services.GetListdmKho(data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    this.services.GetListdmPhanXuong(data).subscribe((res:any)=>{
+    this.services.GetListdmPhanXuong(data).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  GetQuyTrinh()
-  {
-    this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1:any)=>{
+  GetQuyTrinh() {
+    this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1: any) => {
       this.item = res1;
       // res1.listItem.sort((a,b)=>{
       //   return a.TenLoBong.localeCompare(b.TenLoBong);
@@ -65,7 +64,7 @@ export class XuatkhomodalComponent implements OnInit {
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
-      this.item.listItem = res1.listItem.slice(0,15);
+      this.item.listItem = res1.listItem.slice(0, 15);
       this.KiemTraButtonModal();
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
         this.item.Ngay = new Date(this.item.NgayUnix * 1000);
@@ -77,36 +76,43 @@ export class XuatkhomodalComponent implements OnInit {
       this.checkbutton = res;
     })
   }
- 
+
   ChuyenDuyet() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
+    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined) {
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-    this.item.listItem = this.listItem
-    console.log(this.item)
-    this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.activeModal.close();
-        } else {
-          this.toastr.error(res.message);
+    }
+    if (validVariable(this.item.Ngay)) {
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.listItem = this.listItem;
+      this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
         }
-      }
-    })
+      })
+    } else {
+      this.toastr.error('Bạn chưa nhập ngày chứng từ!')
+    }
+
+
+    console.log(this.item)
+
   }
   GetNextSoQuyTrinh() {
     this.services.PhieuXuatSanXuat().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
- 
+
   GhiLai() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-    this.item.listItem = this.listItem
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.listItem = this.listItem
       this.services.PhieuXuatSanXuat().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -120,6 +126,10 @@ export class XuatkhomodalComponent implements OnInit {
           }
         }
       })
+    }
+    else {
+      this.toastr.error('Bạn chưa nhập ngày chứng từ!')
+    }
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -136,7 +146,7 @@ export class XuatkhomodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
- 
+
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
@@ -145,9 +155,9 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  
+
   GetLuuKho(sFilter) {
-    this.services.getLuuKho(this.item.IddmKho,'', 0 , sFilter).subscribe((res1: any) => {
+    this.services.getLuuKho(this.item.IddmKho, '', 0, sFilter).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
@@ -165,21 +175,20 @@ export class XuatkhomodalComponent implements OnInit {
     console.log(event)
     this.paging.CurrentPage = event.page + 1;
     var start = 15 * (event.page);
-    var end =  start + 15;
-    if((start + 15) > this.paging.TotalItem)
-      end= this.paging.TotalItem;
-    this.item.listItem = this.listItem.slice(start,end);
+    var end = start + 15;
+    if ((start + 15) > this.paging.TotalItem)
+      end = this.paging.TotalItem;
+    this.item.listItem = this.listItem.slice(start, end);
     // if(this.filter.KeyWord !== '' || this.filter.KeyWord !== undefined)
     //   this.GetQuyTrinhFilter();
   }
 
-  GetQuyTrinhFilter()
-  {
+  GetQuyTrinhFilter() {
     var items = [];
-    items = this.listItemRoot.filter(obj =>{
+    items = this.listItemRoot.filter(obj => {
       let Ten = obj.Ten.toLowerCase();
-      let indexOf =  Ten.indexOf(this.filter.KeyWord)
-     return indexOf != -1
+      let indexOf = Ten.indexOf(this.filter.KeyWord)
+      return indexOf != -1
     });
 
     // for(let i =0; i < this.listItemRoot.length; i++){
@@ -208,19 +217,18 @@ export class XuatkhomodalComponent implements OnInit {
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = items.length;
-    this.item.listItem = items.slice(0,15);
+    this.item.listItem = items.slice(0, 15);
     this.item.listItem = items;
   }
-  GetQuyTrinhRefresh()
-  {
+  GetQuyTrinhRefresh() {
     this.filter.KeyWord = '';
     this.listItem = deepCopy(this.listItemRoot);
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listItem.length;
-    this.item.listItem = this.listItem.slice(0,15);
+    this.item.listItem = this.listItem.slice(0, 15);
   }
-  exportExcel(){
+  exportExcel() {
     this.services.PhieuXuatSanXuat().ExportExcel(this.item.Id).subscribe((res: any) => {
       this.services.download(res.TenFile);
     })

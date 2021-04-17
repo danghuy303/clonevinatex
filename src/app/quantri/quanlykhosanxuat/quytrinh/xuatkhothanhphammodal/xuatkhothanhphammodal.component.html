@@ -2,7 +2,7 @@
     <h5 class="modal-title">Phiếu xuất kho thành phẩm</h5>
     <div class="d-flex flex-column flex-lg-row">
             <div>
-               <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+               <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
             </div>
             <div class="ml-lg-3 mr-lg-3">
                 <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày chứng từ:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày chứng từ <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true"
                                 [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="false"

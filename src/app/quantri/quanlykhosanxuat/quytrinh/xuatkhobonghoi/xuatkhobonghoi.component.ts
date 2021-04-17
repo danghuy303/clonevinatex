@@ -89,7 +89,7 @@ export class XuatkhobonghoiComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
+    modalRef.componentInstance.Id = Id;
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     this.changeParam(0);

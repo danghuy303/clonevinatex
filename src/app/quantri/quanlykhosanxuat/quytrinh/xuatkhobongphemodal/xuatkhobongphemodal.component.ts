@@ -42,9 +42,9 @@ export class XuatkhobongphemodalComponent implements OnInit {
     let data: any = {
       CurrentPage: 0
     }
-    this.services.PhuongAnPhaBong().GetList(data).subscribe((res: any) => {
-      this.listPhuongAnPhaBong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
+    // this.services.PhuongAnPhaBong().GetList(data).subscribe((res: any) => {
+    //   this.listPhuongAnPhaBong = mapArrayForDropDown(res, 'Ten', 'Id');
+    // })
     data.Loai = 7;
     this.services.GetListdmKho(data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -52,13 +52,14 @@ export class XuatkhobongphemodalComponent implements OnInit {
     this.services.dmKhachHang().GetListOpt().subscribe((res: any) => {
       this.listKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
-    }
+    
   }
   GetQuyTrinh() {
     this.services.PhieuXuatBongPhe().Get(this.item.Id).subscribe((res1: any) => {
       this.item = res1;
+      if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+        this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      }
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
@@ -74,21 +75,26 @@ export class XuatkhobongphemodalComponent implements OnInit {
   }
 
   ChuyenDuyet() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
-      this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn chọn ngày chứng từ!");
+    }
+    else {
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
+        this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
 
-    this.services.PhieuXuatBongPhe().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.toastr.success(res.message);
-          this.activeModal.close();
-        } else {
-          this.toastr.error(res.message);
+      this.services.PhieuXuatBongPhe().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message);
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
         }
-      }
-    })
+      })
+    }
   }
   GetNextSoQuyTrinh() {
     this.services.PhieuXuatBongPhe().GetNextSo().subscribe((res: any) => {
@@ -98,7 +104,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
 
   GhiLai() {
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn chọn ngày");
+      this.toastr.error("Bạn chưa chọn chọn ngày chứng từ!");
     }
     else {
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
@@ -212,7 +218,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
   TinhTongKhoiLuong() {
     this.TongKhoiLuong = 0;
     for (let i = 0; i < this.item.listItem.length; i++) {
-      if(this.item.listItem[i].isXoa !== true){
+      if (this.item.listItem[i].isXoa !== true) {
         this.TongKhoiLuong += (this.item.listItem[i].TonTrongLuong * this.item.listItem[i].SoLuong) || 0;
       }
     }

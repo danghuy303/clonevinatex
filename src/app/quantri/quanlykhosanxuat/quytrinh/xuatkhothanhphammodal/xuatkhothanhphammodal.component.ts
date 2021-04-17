@@ -108,7 +108,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     if(!this.checkValidate())
       this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn ngày");
+      this.toastr.error("Bạn chưa chọn ngày chứng từ!");
     }
     else {
       this.item.NgayUnix = validVariable(this.item.Ngay) ? DateToUnix(this.item.Ngay) : 0;
@@ -127,7 +127,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
 
   KhongDuyet() {
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn ngày");
+      this.toastr.error("Bạn chưa chọn ngày chứng từ!");
     }
     else {
       this.item.NgayUnix = validVariable(this.item.Ngay) ? DateToUnix(this.item.Ngay) : 0;
@@ -154,11 +154,10 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     if(!this.checkValidate())
       this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn ngày");
+      this.toastr.error("Bạn chưa chọn ngày chứng từ!");
     }
     else {
       this.item.NgayUnix = validVariable(this.item.Ngay) ? DateToUnix(this.item.Ngay) : 0;
-
       this._services.PhieuXuatThanhPham().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

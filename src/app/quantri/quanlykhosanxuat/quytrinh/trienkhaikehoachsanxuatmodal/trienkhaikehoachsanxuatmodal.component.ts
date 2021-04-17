@@ -73,7 +73,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       this.listCongDoan = mapArrayForDropDown(this.item.listCongDoan, 'Ten', 'Ma');
       this.filter.CongDoan = 'ONG';
     }
-    this._services.GetOptions().GetListMatHangChuaLapKeHoach(event.value,this.item.IddmPhanXuong).subscribe((res: any) => {
+    this._services.GetOptions().GetListMatHangChuaLapKeHoach(event.value, this.item.IddmPhanXuong).subscribe((res: any) => {
       this.listMatHangGiaoKeHoach = res;
       if (reset) {
         this.item.listItem = [];
@@ -92,7 +92,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         });
       }
     })
-    if(validVariable(this.item.listItemMay)&& this.item.listItemMay?.length!==0){
+    if (validVariable(this.item.listItemMay) && this.item.listItemMay?.length !== 0) {
       this.item.listCongDoan.forEach(cd => {
         this.TinhLaiTinhTrangMay(cd.Ma)
       });
@@ -110,9 +110,10 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
-  getListGiaoKeHoach(event, reset?){
-    this._services.TrienKhaiKeHoachSanXuat().GetListGiaoKeHoachSanXuatChuaLapKeHoach(event.value).subscribe((res:any)=>{
-      this.listGiaoKeHoach = mapArrayForDropDown(res,'NoiDung','Id');
+  getListGiaoKeHoach(event, reset?) {
+    this._services.TrienKhaiKeHoachSanXuat().GetListGiaoKeHoachSanXuatChuaLapKeHoach(event.value).subscribe((res: any) => {
+      res.sort((a, b) => new Date(b.Modified).getTime() - new Date(a.Modified).getTime());
+      this.listGiaoKeHoach = mapArrayForDropDown(res, 'NoiDung', 'Id');
       if (reset) {
         this.item.listItem = [];
         this.item.TuNgay = null;
@@ -479,9 +480,9 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   TinhLaiTinhTrangMay(CongDoan) {
     this.mapCongDoan_TinhTrangMay[CongDoan] = {
       ...this.mapCongDoan_TinhTrangMay[CongDoan],
-      SoMayHienCo:this.item.listCongDoan.filter(cd=>cd.Ma === CongDoan)[0]?.SoMayHienCo,
+      SoMayHienCo: this.item.listCongDoan.filter(cd => cd.Ma === CongDoan)[0]?.SoMayHienCo,
       TongKhoiLuong: this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.KhoiLuongSanXuat, 0),
-      SoMayCanDoi: this.item.listCongDoan.filter(cd=>cd.Ma === CongDoan)[0]?.SoMayHienCo - this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
+      SoMayCanDoi: this.item.listCongDoan.filter(cd => cd.Ma === CongDoan)[0]?.SoMayHienCo - this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
       SoMayTinhToan: this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
     }
   }
