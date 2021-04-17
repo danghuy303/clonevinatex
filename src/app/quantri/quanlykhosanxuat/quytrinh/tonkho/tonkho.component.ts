@@ -96,18 +96,16 @@ export class TonkhoComponent implements OnInit {
     this.paging.CurrentPage = event.page + 1;
     this.GetListQuyTrinh();
   }
-  GetListQuyTrinh(reset?, item : any= {}){
+  GetListQuyTrinh(reset?){
     // if(item.value !== undefined){
     //   this.listdmKho.forEach(element => {
     //     element.select = false;
     //   });
     //   item.select = true;
     // }
-
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
-      this.filter.IddmKho = item.value;
     }
     let data: any = {
       IddmKho: this.filter.IddmKho,
