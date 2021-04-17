@@ -21,7 +21,7 @@ export class NhapkhoxoComponent implements OnInit {
   eAction: any = "PHIEUNHAPLOBONG";
   colXos: any = [
     {
-      header: 'Số quy trình',
+      header: 'Số phiếu',
       field: 'SoQuyTrinh',
       width: '100px'
     },
