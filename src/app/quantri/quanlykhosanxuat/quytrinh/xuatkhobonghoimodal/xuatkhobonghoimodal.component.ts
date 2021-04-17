@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-xuatkhobonghoimodal',
@@ -16,10 +16,10 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   Id: any = ''
   item: any = {};
   checkbutton: any = {
-    Ghi:true,
-    KhongDuyet:false,
-    ChuyenTiep:false,
-    Xoa:false,
+    Ghi: true,
+    KhongDuyet: false,
+    ChuyenTiep: false,
+    Xoa: false,
   }
   lang: any = vn;
   listKho: any = [];
@@ -29,8 +29,8 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   paging: any = {};
 
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, 
-    public toastr: ToastrService, public _modal: NgbModal) {  }
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
+    public toastr: ToastrService, public _modal: NgbModal) { }
 
   ngOnInit(): void {
     this.KiemTraButtonModal();
@@ -39,28 +39,29 @@ export class XuatkhobonghoimodalComponent implements OnInit {
     let data = {
       CurrentPage: 0
     }
-    this.services.PhuongAnPhaBong().GetList(data).subscribe((res:any)=>{
-      this.listPhuongAnPhaBong = mapArrayForDropDown(res, 'Ten', 'Id');
+    this.services.PhuongAnPhaBong().GetList(data).subscribe((res: any) => {
+      this.listPhuongAnPhaBong = mapArrayForDropDown((typeof res) === 'object'?res.items:res, 'Ten', 'Id');
     })
-    this.services.GetListdmKho(data).subscribe((res:any)=>{
+    this.services.GetListdmKho(data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    this.services.GetListdmPhanXuong(data).subscribe((res:any)=>{
+    this.services.GetListdmPhanXuong(data).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
-    }
+    
   }
-  GetQuyTrinh()
-  {
-    this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1:any)=>{
+  GetQuyTrinh() {
+    this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1: any) => {
       this.item = res1;
+      if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+        console.log(this.item.NgayUnix)
+        this.item.Ngay = UnixToDate(Math.round(this.item.NgayUnix));
+      }
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
-      this.item.listItem = res1.listItem.slice(0,15);
+      this.item.listItem = res1.listItem.slice(0, 15);
     })
   }
   KiemTraButtonModal() {
@@ -68,35 +69,38 @@ export class XuatkhobonghoimodalComponent implements OnInit {
       this.checkbutton = res;
     })
   }
- 
+
   ChuyenDuyet() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-    
-    this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.activeModal.close();
-        } else {
-          this.toastr.error(res.message);
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
         }
-      }
-    })
+      })
+    } else {
+      this.toastr.error('Bạn chưa nhập ngày chứng từ!');
+    }
+
+
   }
   GetNextSoQuyTrinh() {
     this.services.PhieuXuatSanXuat().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
- 
+
   GhiLai() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
+      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
       this.services.PhieuXuatSanXuat().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -110,6 +114,9 @@ export class XuatkhobonghoimodalComponent implements OnInit {
           }
         }
       })
+    }else{
+      this.toastr.error('Bạn chưa chọn ngày chứng từ!')
+    }
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -126,7 +133,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
- 
+
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
@@ -135,7 +142,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  
+
   // GetLuuKho(sFilter) {
   //   this.services.getLuuKho(this.item.IddmKho,'', 0 , sFilter).subscribe((res1: any) => {
   //     let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
@@ -154,11 +161,11 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   changePage(event) {
     console.log(event)
     this.paging.CurrentPage = event.page + 1;
-    var start = 15 * (event.page)  + 1;
-    var end =  start + 14;
-    if((start + 15) > this.paging.TotalItem)
-      end= this.paging.TotalItem;
-    this.item.listItem = this.listItem.slice(start,end);
+    var start = 15 * (event.page) + 1;
+    var end = start + 14;
+    if ((start + 15) > this.paging.TotalItem)
+      end = this.paging.TotalItem;
+    this.item.listItem = this.listItem.slice(start, end);
   }
   Onclose() {
     this.activeModal.close();

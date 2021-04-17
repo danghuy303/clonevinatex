@@ -90,20 +90,25 @@ export class XuatkhoxomodalComponent implements OnInit {
   }
  
   ChuyenDuyet() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined){
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.services.PhieuXuatKhoXo().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+    else{
+      this.toastr.error('Vui lòng nhập ngày chứng từ!');
+    }
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
     
-    this.services.PhieuXuatKhoXo().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.activeModal.close();
-        } else {
-          this.toastr.error(res.message);
-        }
-      }
-    })
+    
   }
   GetNextSoQuyTrinh() {
     this.services.PhieuXuatKhoXo().GetNextSo().subscribe((res: any) => {
@@ -112,11 +117,8 @@ export class XuatkhoxomodalComponent implements OnInit {
   }
  
   GhiLai() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined){
       this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
-      this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-
       this.services.PhieuXuatKhoXo().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -130,6 +132,13 @@ export class XuatkhoxomodalComponent implements OnInit {
           }
         }
       })
+    }else{
+      this.toastr.error('Vui lòng nhập ngày chứng từ!');
+    }
+    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
+      this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
+
+      
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
