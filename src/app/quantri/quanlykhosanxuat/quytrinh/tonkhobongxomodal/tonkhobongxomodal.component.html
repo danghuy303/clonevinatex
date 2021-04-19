@@ -92,7 +92,7 @@
                     {{item.SoLuong|number:'0.0'}}
                 </td>
                 <td class="text-right">
-                    {{item.TrongLuong|number:'0.2-2'}}
+                    {{item.TrongLuong|number:'0.0'}}
                 </td>
                 <td class="text-center">
                     {{item.SoQuyTrinh}}
@@ -113,7 +113,7 @@
                     <!-- {{item.TonCuoiKy|number:'0.0'}} -->
                 </td>
                 <td class="text-right">
-                    <!-- {{item.TrongLuongCuoiKy|number:'0.2-2'}} -->
+                    <!-- {{item.TrongLuongCuoiKy|number:'0.0'}} -->
                 </td>
                 <td class="text-right">
                     {{item.GhiChu}}
@@ -124,7 +124,7 @@
                         (click)="changeParam(item.Id)"></button>
                 </td> -->
             </tr>
-            <tr *ngIf="item.Id === 'X'">
+            <tr  *ngIf="item.Id === 'X'">
                 <td class="text-center">
                     {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
@@ -143,11 +143,21 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <!-- <td class="text-right">
+                    {{item.Nhap|number:'0.0'}}
+                </td>
                 <td class="text-right">
+                    {{item.NhapKiemKe|number:'0.0'}}
+                </td>
+                <td class="text-center">
+                    {{item.SoQuyTrinh}}
+                </td> -->
+                <td class="text-right">
+                    <!-- {{item.Xuat|number:'0.0'}} -->
                     {{item.SoLuong|number:'0.0'}}
                 </td>
                 <td class="text-right">
-                    {{item.TrongLuong|number:'0.2-2'}}
+                    {{item.TrongLuong|number:'0.0'}}
                 </td>
                 <td class="text-center">
                     {{item.SoQuyTrinh}}
@@ -156,7 +166,7 @@
                     <!-- {{item.TonCuoiKy|number:'0.0'}} -->
                 </td>
                 <td class="text-right">
-                    <!-- {{item.TrongLuongCuoiKy|number:'0.2-2'}} -->
+                    <!-- {{item.TrongLuongCuoiKy|number:'0.0'}} -->
                 </td>
                 <td class="text-right">
                     {{item.GhiChu}}
@@ -180,7 +190,6 @@
                     {{itemTongCong.TonDauKy|number:'0.0'}}
                 </td>
                 <td class="text-right">
-                    {{itemTongCong.TrongLuongDauKy|number:'0.2-2'}}
                 </td>
                 <td class="text-right">
                 </td>
@@ -198,7 +207,6 @@
                     {{itemTongCong.TonCuoiKy|number:'0.0'}}
                 </td>
                 <td class="text-right">
-                    {{itemTongCong.TrongLuongCuoiKy|number:'0.2-2'}}
                 </td>
                 <td class="text-right">
                 </td>

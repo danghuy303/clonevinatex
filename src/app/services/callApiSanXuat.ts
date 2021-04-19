@@ -1245,7 +1245,7 @@ export class SanXuatService {
             },
             GetlistdmMatHangThanhPhamKiemKe: () => {
                 return this.http.get(url + `GetlistdmMatHangThanhPhamKiemKe`, httpOptions);
-            }
+            },
         }
     }
     //#region  định lượng
@@ -1789,6 +1789,11 @@ export class SanXuatService {
     ExportNhuCauXuatHangTheoMatHang(data) {
         data.IdDuAn = this.store.getCurrent();
         let url = API.SCMBaoCao + 'ExportNhuCauXuatHangTheoMatHang';
+        return this.http.post(url, data, httpOptions);
+    }
+    GetLuuKhoTheKhoBongXo(data) {
+        // data.IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + 'GetLuuKhoTheKhoBongXo';
         return this.http.post(url, data, httpOptions);
     }
 }

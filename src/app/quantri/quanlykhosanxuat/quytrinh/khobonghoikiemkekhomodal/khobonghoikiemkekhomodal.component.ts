@@ -57,27 +57,27 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
         this.services.GetListdmKho(data).subscribe((res: any) => {
             this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
         });
-        this.services.GetListdmViTriOpt().subscribe((res: any) => {
-            this.listdmViTri = mapArrayForDropDown(res, "Ten", "Id");
-        });
-        this.services.GetListLoBong(data).subscribe((res: any) => {
-            this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
-        });
+        // this.services.GetListdmViTriOpt().subscribe((res: any) => {
+        //     this.listdmViTri = mapArrayForDropDown(res, "Ten", "Id");
+        // });
+        // this.services.GetListLoBong(data).subscribe((res: any) => {
+        //     this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
+        // });
+        // this.services
+        //     .LoHang()
+        //     .GetList(data)
+        //     .subscribe((res: any) => {
+        //         this.listLoHang = mapArrayForDropDown(res, "Ten", "Id");
+        //     });
+        // this.services
+        //     .dmQuyCachDongGoi()
+        //     .GetList()
+        //     .subscribe((res: any) => {
+        //         this.listQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
+        //     });
         this.services
-            .LoHang()
-            .GetList(data)
-            .subscribe((res: any) => {
-                this.listLoHang = mapArrayForDropDown(res, "Ten", "Id");
-            });
-        this.services
-            .dmQuyCachDongGoi()
-            .GetList()
-            .subscribe((res: any) => {
-                this.listQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
-            });
-        this.services
-            .PhieuKiemKeKho()
-            .GetlistdmMatHangThanhPhamKiemKe()
+            .PhieuKiemKeKhoBongPhe()
+            .GetlistdmMatHangKiemKeBongPhe(6)
             .subscribe((res: any) => {
                 this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
                 this.listNewMatHang_ref = res;
