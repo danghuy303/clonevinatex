@@ -36,12 +36,12 @@ export class TonkhobongxoComponent implements OnInit {
     },
     {
       header: 'Trọng lượng',
-      field: 'TongTrongLuong',
+      field: 'TrongLuong',
       width: 'unset'
     },
   ];
   mapLoaiKhoBong:any={
-    khobong:3,
+    khobong:2,
     khoxo:5,
     khobonghoi:6,
     khobongphe:7,
@@ -60,6 +60,7 @@ export class TonkhobongxoComponent implements OnInit {
       console.log(this.mapLoaiKhoBong[`${res.kho}`])
       console.log(res);
       this.getListdmKho(this.mapLoaiKhoBong[`${res.kho}`]);
+      this.filter.Loai = this.mapLoaiKhoBong[`${res.kho}`];
     })
     this.filter.KeyWord = '';
   }
@@ -94,7 +95,8 @@ export class TonkhobongxoComponent implements OnInit {
     let data: any = {
       IddmKho: this.filter.IddmKho,
       CurrentPage: this.paging.CurrentPage,
-      sFilter: this.filter.KeyWord
+      sFilter: this.filter.KeyWord,
+      Loai: this.filter.Loai
     }
     this._service.GetLuuKhoTheKhoBongXo(data).subscribe((res: any) => {
       this.items = res.items;

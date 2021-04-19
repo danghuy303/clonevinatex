@@ -34,6 +34,7 @@ export class NhapkhokhacmodalComponent implements OnInit {
   // type: any = '';
   editField: any = false;
   nametype: any = '';
+  TenLoaiBong: any = '';
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -206,6 +207,9 @@ export class NhapkhokhacmodalComponent implements OnInit {
     // }
     this._services.GetListdmLoaiBong(this.data).subscribe((res: any) => {
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
+      var loaiBong: any = this.listLoaiBong.filter((e: any) => e.value === this.item.IddmLoaiBong);
+      this.newTableItem.Ten = loaiBong[0].label;
+      this.TenLoaiBong = loaiBong[0].label
     })
   }
   
@@ -213,7 +217,8 @@ export class NhapkhokhacmodalComponent implements OnInit {
     if (this.item.listKien == undefined || this.item.listKien == null)
       this.item.listKien = [];
     this.item.listKien.push(this.newTableItem);
-    this.newTableItem = {}
+    this.newTableItem.Ten = this.TenLoaiBong;
+
   }
  
   deleteBongHoi(index) {
@@ -227,5 +232,17 @@ export class NhapkhokhacmodalComponent implements OnInit {
   
   Onclose() {
     this.activeModal.close();
+  }
+  
+  getnewitem(event){
+    var loaiBong: any = this.listLoaiBong.filter((e: any) => e.value === event.value);
+    console.log(loaiBong)
+    this.newTableItem.Ten = loaiBong[0].label;
+    this.TenLoaiBong = loaiBong[0].label;
+    if(this.item.listKien !== undefined && this.item.listKien.length > 0 && this.item.listKien !== null){
+      this.item.listKien.forEach(element => {
+        element.Ten = loaiBong[0].label;
+    });
+    }
   }
 }
