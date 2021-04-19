@@ -208,6 +208,10 @@ export class SanXuatService {
             },
             ExportNhuCauXuatHang:(data)=>{
                 return this.http.post(`${url}ExportNhuCauXuatHang`,data,httpOptions)
+            },
+            ExportBaoCaoCanDoiSuDungBong:(data)=>{
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${url}ExportBaoCaoCanDoiSuDungBong`,data,httpOptions)
             }
         }
     }

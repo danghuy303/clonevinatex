@@ -1,5 +1,6 @@
 import { formatNumber } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 
@@ -123,7 +124,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     aspectRatio: window.innerWidth <= 768?null:(((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
-  constructor(private _services: SanXuatService) { }
+  constructor(private _services: SanXuatService,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
     console.log(this.optionPie.maintainAspectRatio);
@@ -290,6 +291,20 @@ export class DieuhanhsanxuatComponent implements OnInit {
       this.listLoaiBongCanDoiTon = mapArrayForDropDown(res, 'Ten', 'Id');
       this.filterNhuCau.IddmLoaiBong = '';
       this.ChangeOptCanDoiTon()
+    })
+  }
+  XuatBaoCaoCanDoiTon(){
+    let data = {
+      TuNgayUnix: DateToUnix(this.filterNhuCau._tuNgayCanDoiTon)
+    }
+    this._services.BaoCao().ExportBaoCaoCanDoiSuDungBong(data).subscribe((res:any)=>{
+      if (res) {
+        if (validVariable(res.State) && !validVariable(res.TenFile)) {
+          this._toastr.error(res.message);
+        } else {
+          this._services.download(res.TenFile);
+        }
+      }
     })
   }
 }
