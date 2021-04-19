@@ -677,6 +677,9 @@ export class SanXuatService {
             ExportExcel: (Id) => {
                 return this.http.get(url + `ExportPhieuNhapLoBong?Id=${Id}`, httpOptions)
             },
+            ExportPhieuNhapLoBongXo:(Id)=>{
+                return this.http.get(url + `ExportPhieuNhapLoBongXo?Id=${Id}`, httpOptions)
+            }
         }
     }
     //#endregion
@@ -1360,6 +1363,9 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhieuXuatXo', data, httpOptions)
             },
+            ExportPhieuXuatKhoXo:(Id)=>{
+                return this.http.get(`${url}ExportPhieuXuatKhoXo?Id=${Id}`,httpOptions)
+            }
         }
     }
     PhieuXuatBongPhe() {
