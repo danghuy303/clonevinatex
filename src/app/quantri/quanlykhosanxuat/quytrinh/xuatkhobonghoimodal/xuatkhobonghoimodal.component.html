@@ -91,7 +91,7 @@
                         <col style="text-align: center;">
                         <col style="text-align: center;">
                         <col>
-                        <col style="width:100px; text-align: center;">
+                        <!-- <col style="width:100px; text-align: center;"> -->
                         <col style="width:90px">
                     </colgroup>
                 </ng-template>
@@ -102,7 +102,7 @@
                         <th>Tên kiện</th>
                         <th>Vị trí</th>
                         <th>Số lượng</th>
-                        <th>Thay đổi</th>
+                        <!-- <th>Thay đổi</th> -->
                         <th></th>
                     </tr>
                 </ng-template>
@@ -116,9 +116,9 @@
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
-                        <td style="text-align: center;">
+                        <!-- <td style="text-align: center;">
                             <input type="checkbox" [(ngModel)]="item.isDieuChinh">
-                        </td>
+                        </td> -->
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
@@ -136,7 +136,7 @@
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0'}}
                         </td>
-                        <td></td>
+                        <!-- <td></td> -->
                         <td></td>
                     </tr>
                 </ng-template>

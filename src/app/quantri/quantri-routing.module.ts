@@ -102,6 +102,7 @@ import { KhobonghoikiemkekhoComponent } from './quanlykhosanxuat/quytrinh/khobon
 import { KhobongphekiemkekhoComponent } from './quanlykhosanxuat/quytrinh/khobongphekiemkekho/khobongphekiemkekho.component';
 import { TonkhoComponent } from './quanlykhosanxuat/quytrinh/tonkho/tonkho.component';
 import { TonkhodanhsachchitietComponent } from './quanlykhosanxuat/quytrinh/tonkhodanhsachchitiet/tonkhodanhsachchitiet.component';
+import { TonkhobongxoComponent } from './quanlykhosanxuat/quytrinh/tonkhobongxo/tonkhobongxo.component';
 
 const routes: Routes = [
   {
@@ -239,6 +240,7 @@ const routes: Routes = [
       { path: 'quanlykhosanxuat/khoxo/kiemkekhoxo/:id', component: KhoxokiemkeComponent },
       { path: 'quanlykhosanxuat/khobonghoi/kiemkekhobonghoi/:id', component: KhobonghoikiemkekhoComponent },
       { path: 'quanlykhosanxuat/khobongphe/kiemkekhobongphe/:id', component: KhobongphekiemkekhoComponent },
+      { path: 'quanlykhosanxuat/tonkhobongxo/:kho/:id', component: TonkhobongxoComponent },
 
     ]
   }
