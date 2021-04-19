@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 import { XuatkhoxomathangmodalComponent } from '../xuatkhoxomathangmodal/xuatkhoxomathangmodal.component';
 
@@ -237,5 +237,14 @@ export class XuatkhoxomodalComponent implements OnInit {
   tinhTongTrongLuong(item){
     let TrongLuong = Math.round(item.TrongLuong * 1000);
     item.TongTrongLuong = TrongLuong * item.SoLuong / 1000;
+  }
+  exportExcel() {
+    if(validVariable(this.item.Id)){
+      this.services.PhieuXuatKhoXo().ExportPhieuXuatKhoXo(this.item.Id).subscribe((res: any) => {
+        this.services.download(res.TenFile);
+      })
+    }else{
+      this.toastr.error('Vui lòng ghi lại sau đó xuất Excel!')
+    }
   }
 }

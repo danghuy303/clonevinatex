@@ -54,16 +54,16 @@ export class Dongvanpx2Component implements OnInit {
       if (i <= 2) {
         this.block1.push(`${i}`)
       }
-      if (2 < i && i <= 24) {
+      if (2 < i && i <= 19) {
         this.block2.push(`${i}`)
       }
-      if (24 < i && i <= 26) {
-        this.block3.unshift(`${i}`)
+      if (58 <= i && i <= 59) {
+        this.block3.push(`${i}`)
       }
-      if (26 < i && i <= 57) {
+      if (20 < i && i <= 39) {
         this.block4.push(`${i}`)
       }
-      if (57 < i && i <= 80) {
+      if (40 < i && i <= 57) {
         this.block5.push(`${i}`)
       }
     };
@@ -112,16 +112,16 @@ export class Dongvanpx2Component implements OnInit {
       if (i <= 2) {
         this.block1.push(`${i}`)
       }
-      if (2 < i && i <= 24) {
+      if (2 < i && i <= 19) {
         this.block2.push(`${i}`)
       }
-      if (24 < i && i <= 26) {
-        this.block3.unshift(`${i}`)
+      if (58 <= i && i <= 59) {
+        this.block3.push(`${i}`)
       }
-      if (26 < i && i <= 57) {
+      if (20 < i && i <= 39) {
         this.block4.push(`${i}`)
       }
-      if (57 < i && i <= 80) {
+      if (40 < i && i <= 57) {
         this.block5.push(`${i}`)
       }
     };

@@ -54,7 +54,7 @@ export class NhapkhomodalComponent implements OnInit {
       }
       this.GetNextSoQuyTrinh();
     }
-    else{
+    else {
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
@@ -96,7 +96,7 @@ export class NhapkhomodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  danh mục kho");
     }
     else {
-      if (this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined && this.newTableItem.SoKien!= undefined) {
+      if (this.newTableItem.Ten != undefined && this.newTableItem.SoCan != undefined && this.newTableItem.SoKien != undefined) {
         this.add();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
@@ -132,7 +132,7 @@ export class NhapkhomodalComponent implements OnInit {
     }
     // let isCheck = false;
 
-    if ( this.newTableItem.Ten!= undefined || this.newTableItem.SoCan!= undefined || this.newTableItem.SoKien!= undefined|| this.newTableItem.IddmViTri!= undefined) {
+    if (this.newTableItem.Ten != undefined || this.newTableItem.SoCan != undefined || this.newTableItem.SoKien != undefined || this.newTableItem.IddmViTri != undefined) {
       this.add();
     }
 
@@ -150,7 +150,7 @@ export class NhapkhomodalComponent implements OnInit {
     //     // }
     //   }
     // }
-    
+
     // if (isCheck === true ) {
     //   this.toastr.error("Bạn chưa chọn vị trí!");
     // }
@@ -160,7 +160,7 @@ export class NhapkhomodalComponent implements OnInit {
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày!");
     }
-    else if ((this.item.IddmCapBong === null || this.item.IddmCapBong  === undefined || this.item.IddmCapBong  === "") && (this.type === 'bong' || this.type === 'xo')) {
+    else if ((this.item.IddmCapBong === null || this.item.IddmCapBong === undefined || this.item.IddmCapBong === "") && (this.type === 'bong' || this.type === 'xo')) {
       this.toastr.error("Bạn chưa chọn  danh mục cấp bông!");
     }
     else if (this.item.IddmLoaiBong === null || this.item.IddmLoaiBong === undefined || this.item.IddmLoaiBong === "") {
@@ -206,16 +206,16 @@ export class NhapkhomodalComponent implements OnInit {
     if (this.opt === 'edit') {
       this.data.Loai = this.item.Loai;
     }
-    else{
+    else {
       if (this.type === 'bong')
-      this.data.Loai = 1;
-      else  if (this.type === 'xo')
+        this.data.Loai = 1;
+      else if (this.type === 'xo')
         this.data.Loai = 5;
-      else  if (this.type === 'bonghoi'){
+      else if (this.type === 'bonghoi') {
         this.data.Loai = 6;
         this.data.IddmLoaiBong = this.item.IddmLoaiBong;
       }
-      else  if (this.type === 'bongphe'){
+      else if (this.type === 'bongphe') {
         this.data.Loai = 7;
       }
     }
@@ -230,16 +230,16 @@ export class NhapkhomodalComponent implements OnInit {
       else
         this.data.Loai = this.item.Loai;
     }
-    else{
+    else {
       if (this.type === 'bong')
         this.data.Loai = 2;
-      else  if (this.type === 'xo')
+      else if (this.type === 'xo')
         this.data.Loai = 5;
-      else  if (this.type === 'bonghoi'){
+      else if (this.type === 'bonghoi') {
         this.data.Loai = 6;
         this.data.IddmLoaiBong = this.item.IddmLoaiBong;
       }
-      else  if (this.type === 'bongphe'){
+      else if (this.type === 'bongphe') {
         this.data.Loai = 7;
       }
     }
@@ -247,7 +247,7 @@ export class NhapkhomodalComponent implements OnInit {
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  
+
   getListLoBong() {
     if (this.type === 'bong')
       this.data.Loai = 1;
@@ -273,12 +273,12 @@ export class NhapkhomodalComponent implements OnInit {
     })
   }
   add() {
-      if (this.item.listItem == undefined || this.item.listItem == null)
+    if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {}
   }
-  
+
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
@@ -287,7 +287,7 @@ export class NhapkhomodalComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  
+
   Onclose() {
     this.activeModal.close();
   }
@@ -299,8 +299,8 @@ export class NhapkhomodalComponent implements OnInit {
   getListKeHoach() {
     let loai = 0;
     if (this.type === 'bong')
-        loai = 2;
-    else  if (this.type === 'xo')
+      loai = 2;
+    else if (this.type === 'xo')
       loai = 5;
 
     this._services.NhapKeHoachNguyenLieu().GetListChuaNhap(this.item.IdKeHoachNhapNguyenLieuInvoice_Item, loai).subscribe((res: any) => {
@@ -308,8 +308,8 @@ export class NhapkhomodalComponent implements OnInit {
       this.listKeHoachFull = res;
     })
   }
-  getKeHoach(item){
-    let dataFilter : any = this.listKeHoachFull.filter(obj => {
+  getKeHoach(item) {
+    let dataFilter: any = this.listKeHoachFull.filter(obj => {
       return obj.Id === item.value
     });
     console.log(dataFilter)
@@ -322,29 +322,36 @@ export class NhapkhomodalComponent implements OnInit {
     this.item.listItem.forEach(element => {
       element.isXoa = true;
     });;
-    for(let i = 0; i < dataFilter[0].Container; i++){
+    for (let i = 0; i < dataFilter[0].Container; i++) {
       this.add()
     }
   }
-  TinhSoKienDai(item){
-    if(item.SoKien !== null && item.SoKien !== undefined && item.SoKienDai !== null 
-      && item.SoKienDai !== undefined ){
-        item.SoKienNgan = item.SoKien - item.SoKienDai;
-        if(item.SoKienNgan < 0)
-          item.SoKienNgan = 0;
-      }
+  TinhSoKienDai(item) {
+    if (item.SoKien !== null && item.SoKien !== undefined && item.SoKienDai !== null
+      && item.SoKienDai !== undefined) {
+      item.SoKienNgan = item.SoKien - item.SoKienDai;
+      if (item.SoKienNgan < 0)
+        item.SoKienNgan = 0;
+    }
   }
-  TinhSoKienNgan(item){
-    if(item.SoKien !== null && item.SoKien !== undefined && item.SoKienNgan !== null 
-      && item.SoKienNgan !== undefined ){
-        item.SoKienDai = item.SoKien - item.SoKienNgan;
-        if(item.SoKienDai < 0)
-          item.SoKienDai = 0;
-      }
+  TinhSoKienNgan(item) {
+    if (item.SoKien !== null && item.SoKien !== undefined && item.SoKienNgan !== null
+      && item.SoKienNgan !== undefined) {
+      item.SoKienDai = item.SoKien - item.SoKienNgan;
+      if (item.SoKienDai < 0)
+        item.SoKienDai = 0;
+    }
   }
-  exportExcel(){
-    this._services.QuyTrinhPhieuNhapLoBong().ExportExcel(this.item.Id).subscribe((res: any) => {
-      this._services.download(res.TenFile);
-    })
+  exportExcel() {
+    if (this.type === 'bong') {
+      this._services.QuyTrinhPhieuNhapLoBong().ExportExcel(this.item.Id).subscribe((res: any) => {
+        this._services.download(res.TenFile);
+      })
+    }
+    if(this.type ==='xo'){
+      this._services.QuyTrinhPhieuNhapLoBong().ExportPhieuNhapLoBongXo(this.item.Id).subscribe((res: any) => {
+        this._services.download(res.TenFile);
+      })
+    }
   }
 }
