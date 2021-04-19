@@ -219,30 +219,27 @@ export class TimbongmodalComponent implements OnInit {
     let tempTongGia = 0;
     let tempTongTrongLuong = 0;
     let tempTongKhoiLuongDung = 0;
+    let tempTongTrongLuongTruBongHoi = 0;
     let arrayMic = [];
     let arrayKien = [];
     for (let i = 1; i <= this.item.SoBanBong; i++) {
-      if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
+      if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`]?.SoKien) && i !== parseInt(x)) {
         tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
-        if (tempSLD > this.item.listLoBong[y].SoLuongKien) {
-          this._toastr.warning('Bạn vừa nhập quá số lượng kiện tồn trong kho! Chúng tôi sẽ điều chỉnh về giá trị lớn nhất có thể tránh gây lỗi nghiêm trọng!')
-          tempSLD -= this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
-          this.item.listLoBong[y].tempBanBong[`${i}`].SoKien = this.item.listLoBong[y].SoLuongKien - tempSLD;
-          tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
-        }
       }
     }
-    this.item.listLoBong.forEach(lobong => {
-      if (validVariable(lobong.tempBanBong[`${x}`].SoKien)) {
+    this.item.listLoBong.forEach((lobong, index) => {
+      if (validVariable(lobong.tempBanBong[`${x}`].SoKien) && index !== y) {
         tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
-        if (tempSoKien1Line > this.item.TongSoKien) {
-          this._toastr.warning('Bạn vừa nhập quá số lượng kiện bông trên 1 bàn bông! Chúng tôi sẽ điều chỉnh về giá trị lớn nhất có thể tránh gây lỗi nghiêm trọng!')
-          tempSoKien1Line -= lobong.tempBanBong[`${x}`].SoKien;
-          lobong.tempBanBong[`${x}`].SoKien = this.item.TongSoKien - tempSoKien1Line;
-          tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
-        }
       }
     });
+    if (tempSLD + this.item.listLoBong[y].tempBanBong[`${x}`].SoKien > this.item.listLoBong[y].SoLuongKien) {
+      this._toastr.warning('Bạn vừa nhập quá số lượng kiện tồn trong kho! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!');
+      this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
+    }
+    if (tempSoKien1Line + this.item.listLoBong[y].tempBanBong[`${x}`].SoKien > this.item.TongSoKien) {
+      this._toastr.warning('Bạn vừa nhập quá số lượng kiện bông trên 1 bàn bông! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!');
+      this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
+    }
     tempSLD = 0;
     tempSoKien1Line = 0;
     for (let i = 1; i <= this.item.SoBanBong; i++) {
@@ -254,8 +251,9 @@ export class TimbongmodalComponent implements OnInit {
       if (validVariable(lobong.tempBanBong[`${x}`].SoKien)) {
         tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
         tempTongTrongLuong += (lobong.tempBanBong[`${x}`].SoKien * lobong.TrongLuong);
-        tempTongGia += (lobong.tempBanBong[`${x}`].SoKien * lobong.GiaBong * lobong.TrongLuong);
         if (validVariable(lobong.Mic)) {
+          tempTongGia += (lobong.tempBanBong[`${x}`].SoKien * lobong.GiaBong * lobong.TrongLuong);
+          tempTongTrongLuongTruBongHoi += (lobong.tempBanBong[`${x}`].SoKien * lobong.TrongLuong)
           tempSoKien1LineTruBongHoi += lobong.tempBanBong[`${x}`].SoKien;
           tempTongCLMic += (lobong.tempBanBong[`${x}`].SoKien * lobong.Mic);
         }
@@ -271,7 +269,7 @@ export class TimbongmodalComponent implements OnInit {
     this.itemSoKienTrenBan[`${x}`] = tempSoKien1Line > this.item.TongSoKien ? this.item.TongSoKien : tempSoKien1Line;
     this.itemSoKienTrenBanTruBongHoi[`${x}`] = tempSoKien1LineTruBongHoi;
     this.itemTrongLuong1Ban[`${x}`] = tempTongTrongLuong;
-    this.itemGiaTrungBinh[`${x}`] = tempTongGia / tempTongTrongLuong;
+    this.itemGiaTrungBinh[`${x}`] = tempTongGia / tempTongTrongLuongTruBongHoi;
     this.item.listLoBong.forEach(lobong => {
       if (validVariable(lobong.SoLuongDung)) {
         tempTongKhoiLuongDung += (lobong.SoLuongDung * lobong.TrongLuong);
@@ -283,8 +281,8 @@ export class TimbongmodalComponent implements OnInit {
         lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
         lobong.TongTrongLuong = lobong.SoLuongDung * lobong.TrongLuong;
       }
-      if (validVariable(lobong.Mic)) {
-        arrayMic.push(lobong.Mic);
+      if (validVariable(lobong.Mic)||lobong.isLoBongTuongLai) {
+        arrayMic.push(validVariable(lobong.Mic)?lobong.Mic:0);
         arrayKien.push(validVariable(lobong.tempBanBong[`${x}`].SoKien) ? lobong.tempBanBong[`${x}`].SoKien : 0);
       }
     });
@@ -295,6 +293,92 @@ export class TimbongmodalComponent implements OnInit {
     this.TinhThongTinKienTheoLoaiBong();
     this.TinhLuyKeTyLeBong();
   }
+  // CalAllTable(y, x) {
+  //   let tempSLD = 0;
+  //   let tempSoKien1Line = 0;
+  //   let tempSoKien1LineTruBongHoi = 0;
+  //   let tempTongCLMic = 0;
+  //   let tempTongCLRd = 0;
+  //   let tempTongCLb = 0;
+  //   let tempTongGia = 0;
+  //   let tempTongTrongLuong = 0;
+  //   let tempTongKhoiLuongDung = 0;
+  //   let arrayMic = [];
+  //   let arrayKien = [];
+  //   for (let i = 1; i <= this.item.SoBanBong; i++) {
+  //     if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
+  //       tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
+  //       if (tempSLD > this.item.listLoBong[y].SoLuongKien) {
+  //         this._toastr.warning('Bạn vừa nhập quá số lượng kiện tồn trong kho! Chúng tôi sẽ điều chỉnh về giá trị lớn nhất có thể tránh gây lỗi nghiêm trọng!')
+  //         tempSLD -= this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
+  //         this.item.listLoBong[y].tempBanBong[`${i}`].SoKien = this.item.listLoBong[y].SoLuongKien - tempSLD;
+  //         tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
+  //       }
+  //     }
+  //   }
+  //   this.item.listLoBong.forEach(lobong => {
+  //     if (validVariable(lobong.tempBanBong[`${x}`].SoKien)) {
+  //       tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
+  //       if (tempSoKien1Line > this.item.TongSoKien) {
+  //         this._toastr.warning('Bạn vừa nhập quá số lượng kiện bông trên 1 bàn bông! Chúng tôi sẽ điều chỉnh về giá trị lớn nhất có thể tránh gây lỗi nghiêm trọng!')
+  //         tempSoKien1Line -= lobong.tempBanBong[`${x}`].SoKien;
+  //         lobong.tempBanBong[`${x}`].SoKien = this.item.TongSoKien - tempSoKien1Line;
+  //         tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
+  //       }
+  //     }
+  //   });
+  //   tempSLD = 0;
+  //   tempSoKien1Line = 0;
+  //   for (let i = 1; i <= this.item.SoBanBong; i++) {
+  //     if (validVariable(this.item.listLoBong[y].tempBanBong[`${i}`].SoKien)) {
+  //       tempSLD += this.item.listLoBong[y].tempBanBong[`${i}`].SoKien;
+  //     }
+  //   }
+  //   this.item.listLoBong.forEach(lobong => {
+  //     if (validVariable(lobong.tempBanBong[`${x}`].SoKien)) {
+  //       tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
+  //       tempTongTrongLuong += (lobong.tempBanBong[`${x}`].SoKien * lobong.TrongLuong);
+  //       tempTongGia += (lobong.tempBanBong[`${x}`].SoKien * lobong.GiaBong * lobong.TrongLuong);
+  //       if (validVariable(lobong.Mic)) {
+  //         tempSoKien1LineTruBongHoi += lobong.tempBanBong[`${x}`].SoKien;
+  //         tempTongCLMic += (lobong.tempBanBong[`${x}`].SoKien * lobong.Mic);
+  //       }
+  //       if (validVariable(lobong.b)) {
+  //         tempTongCLb += (lobong.tempBanBong[`${x}`].SoKien * lobong.b);
+  //       }
+  //     }
+  //   });
+  //   this.item.listLoBong[y].SoLuongDung = tempSLD;
+  //   this.item.listLoBong[y].TonCuoi = this.item.listLoBong[y].SoLuongKien - tempSLD;
+  //   this.itemMicBQ[`${x}`] = tempTongCLMic / tempSoKien1LineTruBongHoi;
+  //   this.itembBQ[`${x}`] = tempTongCLb / tempSoKien1LineTruBongHoi;
+  //   this.itemSoKienTrenBan[`${x}`] = tempSoKien1Line > this.item.TongSoKien ? this.item.TongSoKien : tempSoKien1Line;
+  //   this.itemSoKienTrenBanTruBongHoi[`${x}`] = tempSoKien1LineTruBongHoi;
+  //   this.itemTrongLuong1Ban[`${x}`] = tempTongTrongLuong;
+  //   this.itemGiaTrungBinh[`${x}`] = tempTongGia / tempTongTrongLuong;
+  //   this.item.listLoBong.forEach(lobong => {
+  //     if (validVariable(lobong.SoLuongDung)) {
+  //       tempTongKhoiLuongDung += (lobong.SoLuongDung * lobong.TrongLuong);
+  //     }
+  //   });
+  //   this.TongKhoiLuongDung = tempTongKhoiLuongDung;
+  //   this.item.listLoBong.forEach(lobong => {
+  //     if (validVariable(lobong.SoLuongDung)) {
+  //       lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
+  //       lobong.TongTrongLuong = lobong.SoLuongDung * lobong.TrongLuong;
+  //     }
+  //     if (validVariable(lobong.Mic)) {
+  //       arrayMic.push(lobong.Mic);
+  //       arrayKien.push(validVariable(lobong.tempBanBong[`${x}`].SoKien) ? lobong.tempBanBong[`${x}`].SoKien : 0);
+  //     }
+  //   });
+  //   this.itemCVMic[`${x}`] = CVMic([...arrayMic, ...arrayKien], tempSoKien1LineTruBongHoi);
+  //   this.TinhTyLeTong();
+  //   this.TinhTongTrongLuong()
+  //   this.TinhDeltaB();
+  //   this.TinhThongTinKienTheoLoaiBong();
+  //   this.TinhLuyKeTyLeBong();
+  // }
   TinhLuyKeTyLeBong() {
     for (let i = 1; i < this.item.listLoBong.length; i++) {
       let tempLK = 0

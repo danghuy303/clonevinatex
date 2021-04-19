@@ -378,6 +378,7 @@ export class PhabongmodalComponent implements OnInit {
     let tempTongGia = 0;
     let tempTongTrongLuong = 0;
     let tempTongKhoiLuongDung = 0;
+    let tempTongTrongLuongTruBongHoi = 0;
     let arrayMic = [];
     let arrayKien = [];
     for (let i = 1; i <= this.item.SoBanBong; i++) {
@@ -409,8 +410,9 @@ export class PhabongmodalComponent implements OnInit {
       if (validVariable(lobong.tempBanBong[`${x}`].SoKien)) {
         tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
         tempTongTrongLuong += (lobong.tempBanBong[`${x}`].SoKien * lobong.TrongLuong);
-        tempTongGia += (lobong.tempBanBong[`${x}`].SoKien * lobong.GiaBong * lobong.TrongLuong);
         if (validVariable(lobong.Mic)) {
+          tempTongGia += (lobong.tempBanBong[`${x}`].SoKien * lobong.GiaBong * lobong.TrongLuong);
+          tempTongTrongLuongTruBongHoi += (lobong.tempBanBong[`${x}`].SoKien * lobong.TrongLuong)
           tempSoKien1LineTruBongHoi += lobong.tempBanBong[`${x}`].SoKien;
           tempTongCLMic += (lobong.tempBanBong[`${x}`].SoKien * lobong.Mic);
         }
@@ -426,7 +428,7 @@ export class PhabongmodalComponent implements OnInit {
     this.itemSoKienTrenBan[`${x}`] = tempSoKien1Line > this.item.TongSoKien ? this.item.TongSoKien : tempSoKien1Line;
     this.itemSoKienTrenBanTruBongHoi[`${x}`] = tempSoKien1LineTruBongHoi;
     this.itemTrongLuong1Ban[`${x}`] = tempTongTrongLuong;
-    this.itemGiaTrungBinh[`${x}`] = tempTongGia / tempTongTrongLuong;
+    this.itemGiaTrungBinh[`${x}`] = tempTongGia / tempTongTrongLuongTruBongHoi;
     this.item.listLoBong.forEach(lobong => {
       if (validVariable(lobong.SoLuongDung)) {
         tempTongKhoiLuongDung += (lobong.SoLuongDung * lobong.TrongLuong);
@@ -438,8 +440,8 @@ export class PhabongmodalComponent implements OnInit {
         lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
         lobong.TongTrongLuong = lobong.SoLuongDung * lobong.TrongLuong;
       }
-      if (validVariable(lobong.Mic)) {
-        arrayMic.push(lobong.Mic);
+      if (validVariable(lobong.Mic)||lobong.isLoBongTuongLai) {
+        arrayMic.push(validVariable(lobong.Mic)?lobong.Mic:0);
         arrayKien.push(validVariable(lobong.tempBanBong[`${x}`].SoKien) ? lobong.tempBanBong[`${x}`].SoKien : 0);
       }
     });
