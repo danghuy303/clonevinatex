@@ -1200,7 +1200,10 @@ export class SanXuatService {
             // },
             // GetListKienBong: (data) => {
             //     return this.http.post(url + `GetListKienLoBong`, data, httpOptions)
-            // }
+            // },
+            GetListForCopyXepBanBong:(data)=>{
+                return this.http.post(url + `GetListForCopyXepBanBong`, data, httpOptions)
+            }
         }
     }
 

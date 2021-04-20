@@ -14,6 +14,7 @@ export class ChonkienbongmodalComponent implements OnInit {
   TenLoBong: any = '';
   currentMic: any = 0;
   KeyWord:any='';
+  isTimBongThuCong:any=false;
   constructor(private _activeModal:NgbActiveModal) { }
 
   ngOnInit(): void {
@@ -24,12 +25,18 @@ export class ChonkienbongmodalComponent implements OnInit {
       let index = this.items.findIndex((item: any) => item.Id === Id);
       let tempPickedItem = this.items.splice(index, 1)[0];
       this.selectedItems.push(tempPickedItem);
+      this.isTimBongThuCong = true;
       this.averagePickedMic();
     }
   }
   refundItem(Id) {
     let index = this.selectedItems.findIndex((item: any) => item.Id === Id);
     let tempPickedItem = this.selectedItems.splice(index, 1)[0];
+    if(this.selectedItems.length===0){
+      this.isTimBongThuCong = false;
+    }else{
+      this.isTimBongThuCong = true;
+    }
     this.items.push(tempPickedItem);
     this.averagePickedMic();
   }
@@ -46,7 +53,7 @@ export class ChonkienbongmodalComponent implements OnInit {
     })
   }
   accept(){
-    this._activeModal.close({listItem :this.selectedItems,BQMic:this.currentMic})
+    this._activeModal.close({listItem :this.selectedItems,BQMic:this.currentMic,isTimBongThuCong:this.isTimBongThuCong})
   }
   resetFilter(){
     this.KeyWord = '';

@@ -446,7 +446,10 @@ export class TimbongmodalComponent implements OnInit {
       modalRef.componentInstance.maxSelected = this.item.listLoBong[y].tempBanBong[`${x}`].SoKien;
       modalRef.componentInstance.resultMic = this.itemMicBQ[`${x}`];
       modalRef.componentInstance.TenLoBong = this.item.listLoBong[y].Ma;
+      modalRef.componentInstance.isTimBongThuCong = this.item.listLoBong[y].tempBanBong[`${x}`].isTimBongThuCong;
       modalRef.result.then((res) => {
+        // console.log(res);
+        this.item.listLoBong[y].tempBanBong[`${x}`].isTimBongThuCong = res.isTimBongThuCong;
         console.log(this.item.listLoBong[y].tempBanBong[`${x}`].listItem);
       })
     } else {
@@ -459,7 +462,9 @@ export class TimbongmodalComponent implements OnInit {
       // modalRef.componentInstance.resultTrongLuong = this.itemMicBQ[`${x}`];
       modalRef.componentInstance.resultTrongLuong = this.item.listLoBong[y].TrongLuong;
       modalRef.componentInstance.TenLoBong = this.item.listLoBong[y].Ma;
+      modalRef.componentInstance.isTimBongThuCong = this.item.listLoBong[y].tempBanBong[`${x}`].isTimBongThuCong;
       modalRef.result.then((res) => {
+        this.item.listLoBong[y].tempBanBong[`${x}`].isTimBongThuCong = res.isTimBongThuCong;
         console.log(this.item.listLoBong[y].tempBanBong[`${x}`].listItem);
       })
     }
@@ -476,7 +481,8 @@ export class TimbongmodalComponent implements OnInit {
         let data = {
           SoLuongKien: lobong.tempBanBong[`${i}`].SoKien,
           ThuTu: i,
-          listItem: lobong.tempBanBong[`${i}`].listItem
+          listItem: lobong.tempBanBong[`${i}`].listItem,
+          isTimBongThuCong:lobong.tempBanBong[`${i}`].isTimBongThuCong
         };
         lobong.listItem.push(data)
       }
