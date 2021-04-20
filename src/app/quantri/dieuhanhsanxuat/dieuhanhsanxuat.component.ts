@@ -22,7 +22,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     IddmKho: '',
     LoaiThoiGian: 0
   };
-  Tong:any=null;
+  Tong: any = null;
   monthlyConfig: any = {};
   dataSet1: any = {};
   dataSet2: any = {};
@@ -66,7 +66,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
       }
     },
     maintainAspectRatio: window.innerWidth <= 768 ? false : true,
-    aspectRatio: window.innerWidth <= 768?1:(((window.innerWidth - 80) * 2 / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
+    aspectRatio: window.innerWidth <= 768 ? 1 : (((window.innerWidth - 80) * 2 / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   option2: any = {
     plugins: {
@@ -99,7 +99,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
       }
     },
     maintainAspectRatio: window.innerWidth <= 768 ? false : true,
-    aspectRatio: window.innerWidth <= 768?null:((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
+    aspectRatio: window.innerWidth <= 768 ? null : ((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   optionPie: any = {
     plugins: {
@@ -121,10 +121,10 @@ export class DieuhanhsanxuatComponent implements OnInit {
       }
     },
     maintainAspectRatio: window.innerWidth <= 768 ? false : true,
-    aspectRatio: window.innerWidth <= 768?null:(((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
+    aspectRatio: window.innerWidth <= 768 ? null : (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
-  constructor(private _services: SanXuatService,private _toastr:ToastrService) { }
+  constructor(private _services: SanXuatService, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
     console.log(this.optionPie.maintainAspectRatio);
@@ -173,56 +173,62 @@ export class DieuhanhsanxuatComponent implements OnInit {
     } else {
       this.filter.DenNgay = null;
     }
-
-    if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay < this.filter.DenNgay) {
-      this._services.DashBoard().NhuCauSuDungBong(this.filter).subscribe((res: any) => {
-        this.dataSet1 = {
-          labels: res.listThoiGian,
-          datasets: [
-            {
-              type: 'line',
-              label: 'Kế hoạch',
-              borderColor: '#0000E5',
-              borderDash: [10, 5],
-              fill: false,
-              data: res.listKeHoach.map(ele => ele.KhoiLuong),
-              steppedLine: 'before'
-            },
-            {
-              type: 'line',
-              label: 'Nhu cầu',
-              borderColor: '#FF0000',
-              fill: false,
-              data: res.listNhuCau.map(ele => ele.KhoiLuong),
-            },
-          ]
-        }
-      })
-      this._services.DashBoard().CoCauTonBong(this.filter).subscribe((res: any) => {
-        this.GiaTrungBinhCoCauBong = res.map(ele => ele.DonGia);
-        console.log(this.GiaTrungBinhCoCauBong);
-        this.dataPie = {
-          labels: res.map(ele => ele.Ten),
-          datasets: [
-            {
-              data: res.map(ele => ele.TrongLuong),
-              GiaTrungBinh: res.map(ele => ele.DonGia),
-              backgroundColor: [
-                "#009900",
-                "#36A2EB",
-                "#FFCE56",
-                "#FF671F",
-                '#ab8169',
-                '#6a942f',
-                '#46018f',
-                '#d70ca1'
-              ]
-            }
-          ]
-        };
-      })
+    if (this.filter.DenNgay < this.filter.TuNgay) {
+      this._toastr.error('Vui lòng chọn ngày kết thúc lớn hơn ngày bắt đầu');
+      setTimeout(() => {
+        this.filter._denNgay = this.filter._tuNgay;
+        this.ChangeOptBieuDo()
+      }, 200)
+    } else {
+      if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay <= this.filter.DenNgay) {
+        this._services.DashBoard().NhuCauSuDungBong(this.filter).subscribe((res: any) => {
+          this.dataSet1 = {
+            labels: res.listThoiGian,
+            datasets: [
+              {
+                type: 'line',
+                label: 'Kế hoạch',
+                borderColor: '#0000E5',
+                borderDash: [10, 5],
+                fill: false,
+                data: res.listKeHoach.map(ele => ele.KhoiLuong),
+                steppedLine: 'before'
+              },
+              {
+                type: 'line',
+                label: 'Nhu cầu',
+                borderColor: '#FF0000',
+                fill: false,
+                data: res.listNhuCau.map(ele => ele.KhoiLuong),
+              },
+            ]
+          }
+        })
+        this._services.DashBoard().CoCauTonBong(this.filter).subscribe((res: any) => {
+          this.GiaTrungBinhCoCauBong = res.map(ele => ele.DonGia);
+          console.log(this.GiaTrungBinhCoCauBong);
+          this.dataPie = {
+            labels: res.map(ele => ele.Ten),
+            datasets: [
+              {
+                data: res.map(ele => ele.TrongLuong),
+                GiaTrungBinh: res.map(ele => ele.DonGia),
+                backgroundColor: [
+                  "#009900",
+                  "#36A2EB",
+                  "#FFCE56",
+                  "#FF671F",
+                  '#ab8169',
+                  '#6a942f',
+                  '#46018f',
+                  '#d70ca1'
+                ]
+              }
+            ]
+          };
+        })
+      }
     }
-
   }
 
   ChangeOptCanDoiTon() {
@@ -238,14 +244,22 @@ export class DieuhanhsanxuatComponent implements OnInit {
     } else {
       DenNgay = null;
     }
-    if (validVariable(TuNgay) && validVariable(DenNgay) && TuNgay <= DenNgay) {
-      let data = deepCopy(this.filterNhuCau);
-      data.TuNgay = TuNgay;
-      data.DenNgay = DenNgay;
-      this._services.DashBoard().CanDoiTon(data).subscribe((res:Array<any>) => {
-        this.Tong =res.splice(0,1);
-        this.listItem = res;
-      })
+    if (DenNgay < TuNgay) {
+      this._toastr.error('Vui lòng chọn ngày kết thúc lớn hơn ngày bắt đầu');
+      setTimeout(() => {
+        this.filterNhuCau._denNgayCanDoiTon = this.filterNhuCau._tuNgayCanDoiTon;
+        this.ChangeOptCanDoiTon()
+      }, 200)
+    } else {
+      if (validVariable(TuNgay) && validVariable(DenNgay) && TuNgay <= DenNgay) {
+        let data = deepCopy(this.filterNhuCau);
+        data.TuNgay = TuNgay;
+        data.DenNgay = DenNgay;
+        this._services.DashBoard().CanDoiTon(data).subscribe((res: Array<any>) => {
+          this.Tong = res.splice(0, 1);
+          this.listItem = res;
+        })
+      }
     }
   }
   resetFilter() {
@@ -293,11 +307,11 @@ export class DieuhanhsanxuatComponent implements OnInit {
       this.ChangeOptCanDoiTon()
     })
   }
-  XuatBaoCaoCanDoiTon(){
+  XuatBaoCaoCanDoiTon() {
     let data = {
       TuNgayUnix: DateToUnix(this.filterNhuCau._tuNgayCanDoiTon)
     }
-    this._services.BaoCao().ExportBaoCaoCanDoiSuDungBong(data).subscribe((res:any)=>{
+    this._services.BaoCao().ExportBaoCaoCanDoiSuDungBong(data).subscribe((res: any) => {
       if (res) {
         if (validVariable(res.State) && !validVariable(res.TenFile)) {
           this._toastr.error(res.message);
