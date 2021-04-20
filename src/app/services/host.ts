@@ -9,6 +9,7 @@ export const host1 = `${window.location.origin.includes('localhost')?'http://103
 // const host = 'http://vinatex.harmonyes.com.vn';
 // host public 'http://vinatex.harmonyes.com.vn';
 //host phat trien 'http://eos.harmonyes.com.vn:1169';
+// const host1 = 'http://serverda:1169'
 export const httpOptions = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',

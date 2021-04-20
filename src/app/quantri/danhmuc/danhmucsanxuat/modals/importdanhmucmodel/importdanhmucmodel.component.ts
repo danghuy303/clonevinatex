@@ -57,6 +57,7 @@ export class ImportdanhmucmodelComponent implements OnInit {
   onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
   }
   accept() {
+    console.log(this.TepImport)
     if(this.Name == 'dinhmuctieuchichatluongsoi'){
       this.service.ImportDanhSachChiTieuChatLuongTheoSanPham(this.IdDuAn, '', this.TepImport.TenGui).subscribe((res: any) => {
         if (res.State === 1) {
