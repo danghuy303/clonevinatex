@@ -33,19 +33,50 @@
         </div>
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 flex-column flex-lg-row d-flex no-print">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số vị trí cộng thêm:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+        <div class="p-col-12 p-lg-4 flex-column flex-lg-row d-flex no-print">
+            <div class="p-inputgroup" style="display: flex;">
+                <div style="flex:1;display:flex ;flex-direction: column;justify-content:flex-end">
+                    <p-dropdown [filter]="true" [options]="listBanBong" placeholder="Chọn bàn bông copy"
+                        styleClass="p-inputtext-sm" (onChange)="GetBanBongConLai($event)"></p-dropdown>
+                </div>
+                <!-- icon="pi pi-check" -->
+                <button type="button" pButton pRipple label="Sao chép"
+                    class="p-button-text p-button-sm" (click)="copyBanBong()" [disabled]="!canCopy"></button>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 flex-column flex-lg-row d-flex no-print">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Số vị trí cộng thêm:</label>
+            <div class="p-col-12 p-lg-7 p-p-0">
                 <!-- <input type="text" class="p-inputtext-sm" (onblur)="veLayout()" [(ngModel)]="SoViTriNgoaiQuan" pInputText /> -->
                 <div class="p-inputgroup">
                     <p-inputNumber locale="vi-VN" [(ngModel)]="item.SoViTriNgoaiQuan" (onBlur)="veLayout()">
                     </p-inputNumber>
                     <button type="button" pButton pRipple icon="pi pi-check"
-                        class="p-button-secondary p-button-text p-button-sm" (click)="veLayout()"></button>
+                        class="p-button-success p-button-text p-button-sm" (click)="veLayout()"></button>
                     <!-- <input type="text" class="p-inputtext-sm" pInputText disabled /> -->
                 </div>
-                <!-- <p-inputNumber locale="vi-VN" [(ngModel)]="SoViTriNgoaiQuan" (onBlur)="veLayout()">
-                </p-inputNumber> -->
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 flex-column flex-lg-row d-flex no-print">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Vị trí ngoại quan bông:</label>
+            <div class="p-col-12 p-lg-7 p-p-0">
+                <div class="p-inputgroup">
+                    <input type="text" class="p-inputtext-sm" (keyup.enter)="changeNgoaiQuanBong()"
+                        [(ngModel)]="item.ViTriNgoaiQuan" pInputText />
+                    <button type="button" pButton pRipple icon="pi pi-check"
+                        class="p-button-success p-button-text p-button-sm" (click)="changeNgoaiQuanBong()"></button>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="p-col-12 p-lg-6 flex-column flex-lg-row d-flex no-print">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số vị trí cộng thêm:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <div class="p-inputgroup">
+                    <p-inputNumber locale="vi-VN" [(ngModel)]="item.SoViTriNgoaiQuan" (onBlur)="veLayout()">
+                    </p-inputNumber>
+                    <button type="button" pButton pRipple icon="pi pi-check"
+                        class="p-button-secondary p-button-text p-button-sm" (click)="veLayout()"></button>
+                </div>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 flex-column flex-lg-row d-flex no-print">
@@ -58,7 +89,7 @@
                         class="p-button-success p-button-text p-button-sm" (click)="changeNgoaiQuanBong()"></button>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="p-col-4">
             <!-- <table class="table table-sm table-bordered" style="position: sticky;top:0">
                 <thead>

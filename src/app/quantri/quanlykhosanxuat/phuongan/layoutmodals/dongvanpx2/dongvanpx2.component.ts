@@ -91,7 +91,12 @@ export class Dongvanpx2Component implements OnInit {
         lobong.DaXep = this.item.listItem.filter(banbong => banbong.IdLoBong === lobong.IdLoBong && banbong.TenLoBong !== "Ngoại quan bông")?.length || 0;
       });
       this._services.XepBanBong().GetListForCopyXepBanBong({ IdPhuongAnXepBanBong: this.item.Id }).subscribe((res: any) => {
-        this.listBanBong = mapArrayForDropDown(res, 'SoQuyTrinh', 'Id');
+        this.listBanBong = mapArrayForDropDown(res.map(ele=>{
+          return {
+            ...ele,
+            HienThi:`${ele.SoQuyTrinh} / ${ele.ThuTu_BanBong}`
+          }
+        }), 'HienThi', 'Id');
       })
     }
   }
