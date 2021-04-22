@@ -153,7 +153,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
 
   GetLuuKho(sFilter) {
     console.log(this.item)
-    this.services.getLuuKhoKhac(this.item.IddmKho, '', 0, sFilter).subscribe((res1: any) => {
+    this.services.GetLuuKhoBongPhe(this.item.IddmKho, '', 0, sFilter).subscribe((res1: any) => {
       let modalRef = this._modal.open(BongphemathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'

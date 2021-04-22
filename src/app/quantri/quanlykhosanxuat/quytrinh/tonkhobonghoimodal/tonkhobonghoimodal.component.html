@@ -50,7 +50,7 @@
                 <th class="text-center" colspan="2">Tồn đầu kỳ</th>
                 <!-- <th class="text-center" rowspan="2">Trọng lượng</th> -->
                 <th class="text-center" colspan="2">Nhập</th>
-                <th class="text-center" colspan="2">Xuất</th>
+                <th class="text-center" colspan="2" style="background-color: #99CCFF;">Xuất</th>
                 <th class="text-center" colspan="2">Tồn cuối</th>
                 <!-- <th class="text-center" rowspan="2">Số phiếu</th> -->
                 <th class="text-center" rowspan="2">Số phiếu</th>
@@ -59,11 +59,11 @@
             <tr>
                 <th class="text-center">Số kiện</th>
                 <th class="text-center">Trọng lượng</th>
-                <th class="text-center">Số kiện</th>
-                <th class="text-center">Trọng lượng</th>
+                <th class="text-center" style="background-color: #FFCCCC;">Số kiện</th>
+                <th class="text-center" style="background-color: #FFCCCC;">Trọng lượng</th>
                 <!-- <th class="text-center">Số phiếu</th> -->
-                <th class="text-center">Số kiện</th>
-                <th class="text-center">Trọng lượng</th>
+                <th class="text-center" style="background-color: #99CCFF;">Số kiện</th>
+                <th class="text-center" style="background-color: #99CCFF;">Trọng lượng</th>
                 <!-- <th class="text-center">Số phiếu</th> -->
                 <th class="text-center">Số kiện</th>
                 <th class="text-center">Trọng lượng</th>
@@ -74,6 +74,7 @@
                 <td class="text-center">
                 </td>
                 <td class="text-center">
+                    <b>TỔNG CỘNG</b>
                     <!-- {{(item.Ngay|date:'dd/MM/yyyy')}} -->
                 </td>
                 <td class="text-right">
@@ -82,11 +83,11 @@
                 <td class="text-right">
                     <b>{{item.TrongLuongDauKy|number:'0.2-2'}}</b>
                 </td>
-                <td class="text-right">
-                    <b>{{item.SoLuong|number:'0.0'}}</b>
+                <td class="text-right" style="background-color: #FFCCCC;">
+                    <b *ngIf="item.Nhap > 0">{{item.Nhap|number:'0.0'}}</b>
                 </td>
-                <td class="text-right">
-                    <b>{{item.TrongLuong|number:'0.2-2'}}</b>
+                <td class="text-right" style="background-color: #FFCCCC;">
+                    <b *ngIf="item.TrongLuongNhap > 0">{{item.TrongLuongNhap|number:'0.2-2'}}</b>
                 </td>
                 <!-- <td class="text-center">
                     {{item.SoQuyTrinh}}
@@ -101,8 +102,12 @@
                     {{item.SoQuyTrinh}}
                 </td>
                 <td></td> -->
-                <td></td>
-                <td></td>
+                <td class="text-right" style="background-color: #99CCFF;">
+                    <b *ngIf="item.Xuat > 0">{{item.Xuat|number:'0.0'}}</b>
+                </td>
+                <td class="text-right" style="background-color: #99CCFF;">
+                    <b *ngIf="item.TrongLuongXuat > 0">{{item.TrongLuongXuat|number:'0.2-2'}}</b>
+                </td>
                 <td class="text-right">
                     <b>{{item.TonCuoiKy|number:'0.0'}}</b>
                 </td>
@@ -118,9 +123,9 @@
                         (click)="changeParam(item.Id)"></button>
                 </td> -->
             </tr>
-            <tr *ngIf="item.Id === 'N'">
+            <tr *ngIf="item.Id !== null">
                 <td class="text-center">
-                    {{ 20 * (paging.CurrentPage - 1) + i}}
+                    {{ 20 * (paging.CurrentPage - 1) + i }}
                 </td>
                 <td class="text-center">
                     {{(item.Ngay|date:'dd/MM/yyyy')}}
@@ -131,11 +136,15 @@
                 <td class="text-right">
                     {{item.TrongLuongDauKy|number:'0.2-2'}}
                 </td>
-                <td class="text-right">
-                    {{item.SoLuong|number:'0.0'}}
+                <td class="text-right" style="background-color: #FFCCCC;">
+                    <span *ngIf="item.Nhap > 0">
+                        {{item.Nhap|number:'0.0'}}
+                    </span>
                 </td>
-                <td class="text-right">
-                    {{item.TrongLuong|number:'0.2-2'}}
+                <td class="text-right" style="background-color: #FFCCCC;">
+                    <span *ngIf="item.TrongLuongNhap > 0">
+                        {{item.TrongLuongNhap|number:'0.2-2'}}
+                    </span>
                 </td>
                 <!-- <td class="text-center">
                     {{item.SoQuyTrinh}}
@@ -150,58 +159,16 @@
                     {{item.SoQuyTrinh}}
                 </td> 
                 <td></td>-->
-                <td></td>
-                <td></td>
-                <td class="text-right">
-                    {{item.TonCuoiKy|number:'0.0'}}
+                <td class="text-right" style="background-color: #99CCFF;">
+                    <span *ngIf="item.Xuat > 0">
+                     {{item.Xuat|number:'0.0'}}
+                    </span>
                 </td>
-                <td class="text-right">
-                    {{item.TrongLuongCuoiKy|number:'0.2-2'}}
+                <td class="text-right" style="background-color: #99CCFF;">
+                    <span *ngIf="item.TrongLuongXuat > 0">
+                        {{item.TrongLuongXuat|number:'0.2-2'}}
+                    </span>
                 </td>
-                <td class="text-right">
-                    {{item.SoQuyTrinh}}
-                </td>
-                <!-- <td class="text-center">
-                    <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                        (click)="changeParam(item.Id)"></button>
-                </td> -->
-            </tr>
-            <tr  *ngIf="item.Id === 'X'">
-                <td class="text-center">
-                    {{ 20 * (paging.CurrentPage - 1) + i}}
-                </td>
-                <td class="text-center">
-                    {{(item.Ngay|date:'dd/MM/yyyy')}}
-                </td>
-                <td class="text-right">
-                    {{item.TonDauKy|number:'0.0'}}
-                </td>
-                <td class="text-right">
-                    {{item.TrongLuongDauKy|number:'0.2-2'}}
-                </td>
-                <td></td>
-                <td></td>
-                <!--<td></td>
-                 <td class="text-right">
-                    {{item.Nhap|number:'0.0'}}
-                </td>
-                <td class="text-right">
-                    {{item.NhapKiemKe|number:'0.0'}}
-                </td>
-                <td class="text-center">
-                    {{item.SoQuyTrinh}}
-                </td> -->
-                <td class="text-right">
-                    <!-- {{item.Xuat|number:'0.0'}} -->
-                    {{item.SoLuong|number:'0.0'}}
-                </td>
-                <td class="text-right">
-                    {{item.TrongLuong|number:'0.2-2'}}
-                </td>
-                <!-- <td class="text-center">
-                    {{item.SoQuyTrinh}}
-                </td> -->
                 <td class="text-right">
                     {{item.TonCuoiKy|number:'0.0'}}
                 </td>
