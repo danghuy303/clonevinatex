@@ -62,6 +62,8 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
+          obj.ThoiGianDuKien = UnixToDate(obj.ThoiGianDuKienUnix);
+
         });
       }
       this.TinhTongKhoiLuong();
@@ -69,7 +71,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.data.CurrentPage = 0;
     this.getListKho();
@@ -111,7 +113,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn ngày chứng từ!");
     }
     else {
-      this.item.NgayUnix = validVariable(this.item.Ngay) ? DateToUnix(this.item.Ngay) : 0;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
       this._services.PhieuXuatThanhPham().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
@@ -130,7 +132,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn ngày chứng từ!");
     }
     else {
-      this.item.NgayUnix = validVariable(this.item.Ngay) ? DateToUnix(this.item.Ngay) : 0;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
       this._services.PhieuXuatThanhPham().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
@@ -157,7 +159,8 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn ngày chứng từ!");
     }
     else {
-      this.item.NgayUnix = validVariable(this.item.Ngay) ? DateToUnix(this.item.Ngay) : 0;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+
       this._services.PhieuXuatThanhPham().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

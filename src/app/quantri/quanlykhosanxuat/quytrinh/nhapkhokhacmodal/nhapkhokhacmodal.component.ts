@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown,UnixToDate,DateToUnix } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-nhapkhokhacmodal',
@@ -56,7 +56,7 @@ export class NhapkhokhacmodalComponent implements OnInit {
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.data.CurrentPage = 0;
     this.getListLoaiBong();
@@ -81,7 +81,7 @@ export class NhapkhokhacmodalComponent implements OnInit {
         this.addBongHoi();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuNhapLoBong().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -136,13 +136,15 @@ export class NhapkhokhacmodalComponent implements OnInit {
     else {
       if ( this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined)
           this.addBongHoi();
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            this.item.Ngay = UnixToDate(this.item.NgayUnix);
             // console.log(this.type)
             this.KiemTraButtonModal();
           } else {

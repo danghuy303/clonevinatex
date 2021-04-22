@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-kehoachnhapnguyenlieuinvoicemodal',
@@ -114,13 +114,13 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
-            obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
+            obj.ThoiGianDuKienUnix = DateToUnix(obj.ThoiGianDuKien);
           if (obj.ThoiGianCapCang !== null && obj.ThoiGianCapCang !== undefined)
-            obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
+            obj.ThoiGianCapCangUnix = DateToUnix(obj.ThoiGianCapCang);
         });
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.NhapKeHoachNguyenLieuInvoice().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -141,13 +141,14 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
     if (this.item.listItem.length > 0) {
       this.item.listItem.filter(obj => {
         if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
-          obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
+          obj.ThoiGianDuKienUnix = DateToUnix(obj.ThoiGianDuKien);
         if (obj.ThoiGianCapCang !== null && obj.ThoiGianCapCang !== undefined)
-          obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
+          obj.ThoiGianCapCangUnix = DateToUnix(obj.ThoiGianCapCang);
       });
     }
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+
 
     this._services.NhapKeHoachNguyenLieuInvoice().KhongDuyet(this.item).subscribe((res: any) => {
       if (res) {
@@ -193,13 +194,14 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
-            obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
+            obj.ThoiGianDuKienUnix = DateToUnix(obj.ThoiGianDuKien);
           if (obj.ThoiGianCapCang !== null && obj.ThoiGianCapCang !== undefined)
-            obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
+            obj.ThoiGianCapCangUnix = DateToUnix(obj.ThoiGianCapCang);
         });
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
+
       this._services.NhapKeHoachNguyenLieuInvoice().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

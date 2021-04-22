@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
@@ -52,7 +52,7 @@ export class HacapmodalComponent implements OnInit {
   
   ChuyenDuyet() {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+    this.item.NgayUnix = DateToUnix(this.item.Ngay);
     this.services.PhieuHaCap().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -72,7 +72,7 @@ export class HacapmodalComponent implements OnInit {
  
   GhiLai() {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+    this.item.NgayUnix = DateToUnix(this.item.Ngay);
     this.services.PhieuHaCap().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
