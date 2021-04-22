@@ -75,10 +75,11 @@ export class QuantriComponent implements OnInit {
         })
     }
     readOne(item) {
+        console.log(item);
         this._services.Notifications().XemNotification({Item:item}).subscribe((res)=>{
             this.refreshNotis();
         })
-        let read = this.listNotis.find(ele => ele.Id === item.Id);
+        // let read = this.listNotis.find(ele => ele.Id === item.Id);
         // if (read) {
         //     read.isRead = true
         // }

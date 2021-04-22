@@ -18,7 +18,7 @@ export class NhapkhokhacComponent implements OnInit {
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   eAction: any = "PHIEUNHAPLOBONG";
-  
+
   colHois: any = [
     {
       header: 'Loại bông',
@@ -26,40 +26,40 @@ export class NhapkhokhacComponent implements OnInit {
       width: 'unset'
     },
   ];
-  
+
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";
   type: any = "";
   nametype: any = "";
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, 
+  constructor(public _modal: NgbModal, public _toastr: ToastrService,
     private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
-     }
+  }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
-    this.activatedRoute.params.subscribe((res:any)=>{
+    this.activatedRoute.params.subscribe((res: any) => {
       this.title = res.kho;
       console.log(res.id)
-      if(res.id!=='0'){
+      if (res.id !== '0') {
         this.update(res.id);
       }
       // else
-        this.GetListQuyTrinh();
+      this.GetListQuyTrinh();
       //
-        this.type = 'bonghoi';
-        this.nametype = 'bông hồi';
-      
+      this.type = 'bonghoi';
+      this.nametype = 'bông hồi';
+
     })
     this.KiemTraTabTrangThai();
   }
-  
+
   changeParam(id) {
-    if(this._modal.hasOpenModals()){
+    if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
     this.router.navigate([`quantri/quanlykhosanxuatbongkhac/khobonghoi/nhapkho/${id}`], { replaceUrl: true })
   }
-  
+
   addPhieu() {
     this.changeParam(0);
     let modalRef = this._modal.open(NhapkhokhacmodalComponent, {
@@ -70,18 +70,20 @@ export class NhapkhokhacComponent implements OnInit {
 
     modalRef.componentInstance.type = this.type;
     modalRef.componentInstance.nametype = this.nametype;
-    
+
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
-    this.changeParam(0);
+      this.changeParam(0);
 
     })
-      .catch(er => { console.log(er) 
+      .catch(er => {
+        console.log(er)
         this.GetListQuyTrinh();
-        this.changeParam(0);})
+        this.changeParam(0);
+      })
   }
- 
+
   update(Id) {
     this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhokhacmodalComponent, {
@@ -96,13 +98,15 @@ export class NhapkhokhacComponent implements OnInit {
         this.GetListQuyTrinh();
         this.changeParam(0);
       })
-        .catch(er => { console.log(er)
+        .catch(er => {
+          console.log(er)
           this.GetListQuyTrinh();
-          this.changeParam(0); })
+          this.changeParam(0);
+        })
     })
   }
   changeTab(e) {
-    this.trangThai = e.index+1;
+    this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
@@ -125,10 +129,10 @@ export class NhapkhokhacComponent implements OnInit {
       Ten: "",
       Loai: 6
     }
-    if(this.title === 'khobonghoi'){
+    if (this.title === 'khobonghoi') {
       data.Loai = 6;
     }
-    else if(this.title === 'khobongphe'){
+    else if (this.title === 'khobongphe') {
       data.Loai = 7;
     }
 
