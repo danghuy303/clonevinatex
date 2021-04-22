@@ -1442,6 +1442,12 @@ export class SanXuatService {
             GetDashBoard_PhieuXuatKho: (data) => {
                 return this.http.post(`${url}GetDashBoard_PhieuXuatKho`,data, httpOptions);
             },
+            GetDashBoard_PhieuNhapKhoBong: (data) => {
+                return this.http.post(`${url}GetDashBoard_PhieuNhapKhoBong`,data, httpOptions);
+            },
+            GetDashBoard_PhieuXuatKhoBong: (data) => {
+                return this.http.post(`${url}GetDashBoard_PhieuXuatKhoBong`,data, httpOptions);
+            },
         }
     }
 

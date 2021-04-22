@@ -139,9 +139,16 @@
                         <td class="text-right">{{item.DauSoKien|number:'0.0-0' }}</td>
                         <td class="text-right">{{item.DauSoCan|number:'0.2-2' }}</td>
                         <td class="text-right">{{item.NhapSoKien|number:'0.0-0' }}</td>
-                        <td class="text-right">{{item.NhapSoCan|number:'0.2-2' }}</td>
+                        <td class="text-right">
+                            <a href="javascript:void(0)" *ngIf="item.TendmLoaiSoi!==null"
+                                (click)="callDataXuatNhap('Nhap', item)"> {{item.NhapSoCan|number:'0.2-2' }}</a>
+                        </td>
                         <td class="text-right">{{item.XuatSoKien|number:'0.0-0' }}</td>
-                        <td class="text-right">{{item.XuatSoCan|number:'0.2-2' }}</td>
+                        <td class="text-right">
+                            <a href="javascript:void(0)" *ngIf="item.TendmLoaiSoi!==null"
+                                (click)="callDataXuatNhap('Xuat', item)">{{item.XuatSoCan|number:'0.2-2'}}</a>
+                            
+                        </td>
                         <td class="text-right">{{item.CuoiSoKien|number:'0.0-0' }}</td>
                         <td class="text-right">{{item.CuoiSoCan|number:'0.2-2' }}</td>
                     </tr>
@@ -166,3 +173,61 @@
         </div>
     </div>
 </div>
+<p-dialog [header]="selectedXuatNhap.Ten" [(visible)]="showXuatNhap" [modal]="true" [style]="{width: '85vw'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-table [value]="listXuatNhap" styleClass="p-datatable-sm p-datatable-gridlines wrap-text" [scrollable]="true"
+        scrollHeight="500px">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <!-- <col style="width:50px"> -->
+                <col style="width:50px">
+                <col>
+                <col>
+                <col>
+                <col>
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr class="normal">
+                <th style="width: 50px !important;">STT</th>
+                <th>Số phiếu {{selectedXuatNhap.TenOpt| lowercase}}</th>
+                <th>Số phiếu kiểm kê</th>
+                <th>Ngày</th>
+                <!-- <th>Số quả sợi</th> -->
+                <th>Số kiện</th>
+                <th>Trọng lượng(kg)</th>
+                <th>Tên kho</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+                <td class="text-center" style="width: 50px !important;">{{i+1}}</td>
+                <td><a href="javascript:void(0)" (click)="navigateXuatNhap(item)">{{item[selectedXuatNhap.field]}}</a>
+                </td>
+                <td><a href="javascript:void(0)" (click)="navigateKiemKe(item)">{{item.SoPhieuKiemKe}}</a></td>
+                <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
+                <td class="text-right">{{item.SoLuong|number:'0.0-0'}}</td>
+                <!-- <td class="text-right">{{item.SoKien|number:'0.2-2'}}</td> -->
+                <td class="text-right">
+                    {{item.TrongLuong|number:'0.2-2'}}
+                    <!-- <a [href]="item.herfgiaokehoachsanxuat" target="_blank">{{item.TenGiaoKeHoach}}</a> -->
+                </td>
+                <td >
+                    {{item.TendmKho}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-right">{{listXuatNhap|SumByKey:'SoLuong'|number:'0.0-0'}}</td>
+                <!-- <td class="text-right">{{listXuatNhap|SumByKey:'SoKien'|number:'0.2-2'}}</td> -->
+                <td class="text-right">{{listXuatNhap|SumByKey:'TrongLuong'|number:'0.2-2'}}</td>
+                <td></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>

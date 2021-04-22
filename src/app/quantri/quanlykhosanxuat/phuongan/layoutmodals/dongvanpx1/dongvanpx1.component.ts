@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { validVariable } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-dongvanpx1',
@@ -28,6 +28,10 @@ export class Dongvanpx1Component implements OnInit {
   listBongNgoaiQuan: any = [];
   focusedSlot: any = null;
   length: number = 0;
+  canCopy: boolean = false;
+  listBanBong:any=[];
+  BanBongForCopy:any={};
+  banBongCopy:any={};
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
   }
 
@@ -38,7 +42,11 @@ export class Dongvanpx1Component implements OnInit {
       ChuyenTiep: false,
       KhongDuyet: false
     }
-    this.KiemTraButtonModal()
+    this.KiemTraButtonModal();
+    this.renderBanDau();
+
+  }
+  renderBanDau() {
     this.length = this.item.listLoBong.reduce((total, ele) => {
       return total + ele.SoLuong
     }, 0)
@@ -78,10 +86,84 @@ export class Dongvanpx1Component implements OnInit {
         }
       }
       this.item.listLoBong.forEach(lobong => {
-        lobong.DaXep = this.item.listItem.filter(banbong=> banbong.IdLoBong === lobong.IdLoBong && banbong.TenLoBong !== "Ngoại quan bông")?.length||0;
+        lobong.DaXep = this.item.listItem.filter(banbong => banbong.IdLoBong === lobong.IdLoBong && banbong.TenLoBong !== "Ngoại quan bông")?.length || 0;
       });
+      this._services.XepBanBong().GetListForCopyXepBanBong({ IdPhuongAnXepBanBong: this.item.Id }).subscribe((res: any) => {
+        this.listBanBong = mapArrayForDropDown(res.map(ele=>{
+          return {
+            ...ele,
+            HienThi:`${ele.SoQuyTrinh} / ${ele.ThuTu_BanBong}`
+          }
+        }), 'SoQuyTrinh', 'Id');
+      })
     }
   }
+
+  GetBanBongConLai(event) {
+    this._services.XepBanBong().Get(event.value).subscribe((res: any) => {
+      if (res?.Id) {
+        if (validVariable(res.listItem) && res.listItem !== 0) {
+          this._toastr.success(`Tải thành công bàn bông số phiếu: ${res.SoQuyTrinh}! Bạn có thể sao chép!`)
+          this.BanBongForCopy = res;
+          this.canCopy = true;
+        } else {
+          this._toastr.warning(`Bàn bông này chưa được xếp!`);
+          this.canCopy = false;
+        }
+      } else {
+        this._toastr.error(`Tải thành công bàn bông không thành công! Vui lòng thử lại bàn khác!`)
+        this.canCopy = false;
+      }
+    })
+  }
+
+  copyBanBong() {
+    this.item.ViTriNgoaiQuan = this.BanBongForCopy.ViTriNgoaiQuan;
+    this.item.SoViTriNgoaiQuan = this.BanBongForCopy.SoViTriNgoaiQuan;
+    this.block1 = [];
+    this.block2 = [];
+    this.block3 = [];
+    this.block4 = [];
+    this.veLayout();
+    this.pasteBanBong();
+  }
+
+  pasteBanBong() {
+    console.log(this.BanBongForCopy.listItem);
+    for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
+      let data = this.BanBongForCopy.listItem.find(ele => ele.ThuTu === i);
+      this.banBongCopy[`${i}`] = {
+        _focus: false,
+        _ngoaiQuan: data?.isNgoaiQuan,
+        labelLoBong: data?.TenLoBong,
+        STT: `${i}. `,
+        IdLoBong: data?.IdLoBong,
+        Mau: data?.Mau
+      }
+      if (!validVariable(data.IdLoBong)) {
+        if (data?.isNgoaiQuan) {
+          this.banBong[`${i}`] = this.banBongCopy[`${i}`];
+        } else {
+          this.focusedSlot = i;
+          let lobong = this.item.listLoBong.find(ele => ele.IdLoBong === data.IdLoBong);
+          if (validVariable(lobong)) {
+            let index = this.item.listLoBong.findIndex(ele => ele.IdLoBong === data.IdLoBong);
+            this.xepLoBong(lobong, index);
+          }
+        }
+        // if(data.TenLoBong ==='')
+      }
+      else {
+        this.focusedSlot = i;
+        let lobong = this.item.listLoBong.find(ele => ele.IdLoBong === data.IdLoBong);
+        if (validVariable(lobong)) {
+          let index = this.item.listLoBong.findIndex(ele => ele.IdLoBong === data.IdLoBong);
+          this.xepLoBong(lobong, index);
+        }
+      }
+    }
+  }
+
   veLayout() {
     this.resetAllPicked();
     this.block1 = [];
@@ -236,10 +318,10 @@ export class Dongvanpx1Component implements OnInit {
     return this.item
   }
   GhiLai() {
-    this._services.XepBanBong().Set(this.SetData()).subscribe((res:any) => {
-      if(res?.State===1){
+    this._services.XepBanBong().Set(this.SetData()).subscribe((res: any) => {
+      if (res?.State === 1) {
         this._toastr.success(res.message)
-      }else{
+      } else {
         this._toastr.error(res.message)
       }
     })

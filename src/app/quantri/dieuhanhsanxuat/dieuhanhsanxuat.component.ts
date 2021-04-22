@@ -37,6 +37,13 @@ export class DieuhanhsanxuatComponent implements OnInit {
   listCaLamViec: any = [];
   dataPie: any = {};
   GiaTrungBinhCoCauBong: any = [];
+  listXuatNhap: any = [];
+  showXuatNhap: boolean = false;
+  selectedXuatNhap: any = {};
+  mapXuatNhap = {
+    Xuat: 'Xuất',
+    Nhap: 'Nhập'
+  }
   option1: any = {
     scales: {
       xAxes: [{
@@ -320,5 +327,75 @@ export class DieuhanhsanxuatComponent implements OnInit {
         }
       }
     })
+  }
+  callDataXuatNhap(opt, item) {
+    console.log(opt, item)
+    if (validVariable(this.filterNhuCau._tuNgayCanDoiTon)) {
+      this.filterNhuCau.TuNgay = DateToUnix(this.filterNhuCau._tuNgayCanDoiTon);
+    } else {
+      this.filterNhuCau.TuNgay = null;
+    }
+    if (validVariable(this.filterNhuCau._denNgayCanDoiTon)) {
+      this.filterNhuCau.DenNgay = DateToUnix(this.filterNhuCau._denNgayCanDoiTon);
+    } else {
+      this.filterNhuCau.DenNgay = null;
+    }
+
+    if (validVariable(this.filterNhuCau.TuNgay) && validVariable(this.filterNhuCau.DenNgay) && this.filterNhuCau.TuNgay <= this.filterNhuCau.DenNgay) {
+      let data = {
+        IddmLoaiBong: item.IddmLoaiBong,
+        TuNgay: this.filterNhuCau.TuNgay,
+        DenNgay: this.filterNhuCau.DenNgay,
+        IdLoBong: item.IdLoBong,
+        IddmKho: this.filterNhuCau.IddmKho,
+      }
+      this._services.DashBoard()[`GetDashBoard_Phieu${opt}KhoBong`](data).subscribe(res => {
+        console.log(res);
+        this.listXuatNhap = res;
+        this.showXuatNhap = true;
+        this.selectedXuatNhap = {
+          Ten: `${this.mapXuatNhap[opt]} - ${item.TendmLoaiBong} - ${item.TenLoBong}`,
+          opt: opt,
+          field: `SoPhieu${opt}`,
+          TenOpt: this.mapXuatNhap[opt],
+        }
+      })
+    }
+  }
+  navigateXuatNhap(item) {
+    let prefix = '';
+    let route = {
+      '1': '/quantri/quanlysanxuatkhohoiam/khohoiam/nhapkho/',
+      '5': '/quantri/quanlykhosanxuatbongkhac/khobongphe/nhapkho/',
+      '6': '/quantri/quanlykhosanxuat/khoxo/kiemkekhoxo/',
+      '7': '/quantri/quanlykhosanxuat/khobong/thongsochatluong/',
+      '8': '/quantri/quanlykhosanxuat/khobong/nhapkho/',
+      '12': '/quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/',
+      '13': '/quantri/quanlykhosanxuat/khoxo/xuatkho/',
+      '14': '/quantri/quanlykhosanxuat/khobong/xuatkho/',
+      '15': '/quantri/quanlykhosanxuat/khobong/kiemkekhobong/',
+    }
+    // if (this.selectedXuatNhap.opt === 'Xuat') {
+    //   window.open(`#${this.mapXuatNhapRoute[this.selectedXuatNhap.opt]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`] || 0}`, "_blank");
+    // }else{
+    window.open(`#${route[`${item.LoaiPhieu}`]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`] || 0}`, "_blank");
+    // }
+
+    // this._router.navigate([`${this.mapXuatNhapRoute[this.selectedXuatNhap.opt]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`]||0}`])
+  }
+  navigateKiemKe(item) {
+    let route = {
+      '1': '/quantri/quanlysanxuatkhohoiam/khohoiam/nhapkho/',
+      '5': '/quantri/quanlykhosanxuatbongkhac/khobongphe/nhapkho/',
+      '6': '/quantri/quanlykhosanxuat/khoxo/kiemkekhoxo/',
+      '7': '/quantri/quanlykhosanxuat/khobong/thongsochatluong/',
+      '8': '/quantri/quanlykhosanxuat/khobong/nhapkho/',
+      '12': '/quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/',
+      '13': '/quantri/quanlykhosanxuat/khoxo/xuatkho/',
+      '14': '/quantri/quanlykhosanxuat/khobong/xuatkho/',
+      '15': '/quantri/quanlykhosanxuat/khobong/kiemkekhobong/',
+    }
+    window.open(`#${route[`${item.LoaiPhieu}`]}${item.IdPhieuKiemKe || 0}`, "_blank");
+    // this._router.navigate([`${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKeKho||0}`])
   }
 }
