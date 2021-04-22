@@ -58,6 +58,9 @@ export class KiemkekhomodalComponent implements OnInit {
     ngOnInit(): void {
         if (this.opt !== "edit") {
             this.GetNextSoQuyTrinh();
+            this.item.listItem = [];
+            this.listItem = this.item.listItem;
+
         } else {
             this.GetQuyTrinh();
         }
@@ -260,6 +263,8 @@ export class KiemkekhomodalComponent implements OnInit {
             });
     }
     changePage(event) {
+        debugger
+
         this.paging.CurrentPage = event.page + 1;
         let start = 10 * event.page;
         let end = start + 10;
@@ -277,13 +282,15 @@ export class KiemkekhomodalComponent implements OnInit {
     }
     add() {
         if (validVariable(this.newItem.IddmItem)) {
-            this.listItem.push(deepCopy(this.newItem));
+            debugger
+            this.item.listItem.push(deepCopy(this.newItem));
+            this.paging.TotalItem = this.item.listItem.length;
             this.newItem = {};
             console.log(this.paging);
-            if (this.item.listItem.length > this.paging.CurrentPage * 10) {
-                console.log(Math.floor(this.item.listItem.length / 10));
+            if (this.listItem.length > this.paging.CurrentPage * 10) {
+                console.log(Math.floor(this.listItem.length / 10));
                 this.paginator.changePage(
-                    Math.floor(this.item.listItem.length / 10)
+                    Math.floor(this.listItem.length / 10)
                 );
             } else {
                 this.changePage({ page: this.paging.CurrentPage - 1 });

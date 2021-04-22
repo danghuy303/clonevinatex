@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 
 @Component({
@@ -73,7 +73,8 @@ export class NhapkhobongphemodalComponent implements OnInit {
         this.addBongHoi();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
+
       this._services.QuyTrinhPhieuBongPhe().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -95,7 +96,7 @@ export class NhapkhobongphemodalComponent implements OnInit {
         this.addBongHoi();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuBongPhe().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -126,7 +127,7 @@ export class NhapkhobongphemodalComponent implements OnInit {
     else {
       if ( this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined)
           this.addBongHoi();
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+          this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuBongPhe().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

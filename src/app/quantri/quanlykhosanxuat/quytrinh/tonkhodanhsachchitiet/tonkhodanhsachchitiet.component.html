@@ -4,7 +4,7 @@
 <div class="modal-body">
     <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
         <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
-        (click)="activeModal.dismiss('Cross click')"></button>
+            (click)="activeModal.dismiss('Cross click')"></button>
         <!-- <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>-->
         <div class="p-d-flex p-flex-row">
         </div>
@@ -71,105 +71,8 @@
                 <th class="text-center">Trọng lượng</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr *ngIf="item.Id === 'N'">
-                <td class="text-center">
-                    {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
-                </td>
-                <td class="text-center">
-                    {{(item.Ngay|date:'dd/MM/yyyy')}}
-                </td>
-                <td class="text-right">
-                    {{item.DonGia|number:'0.0'}}
-                </td>
-                <td class="text-right">
-                    <!-- {{item.TonDauKy|number:'0.0'}} -->
-                </td>
-                <td class="text-right">
-                    <!-- {{item.TrongLuongDauKy|number:'0.2-2'}} -->
-                </td>
-                <td class="text-right">
-                    {{item.SoLuong|number:'0.0'}}
-                </td>
-                <td class="text-right">
-                    {{item.TrongLuong|number:'0.2-2'}}
-                </td>
-                <td class="text-center">
-                    {{item.SoQuyTrinh}}
-                </td>
-                <!-- <td class="text-right">
-                    {{item.Xuat|number:'0.0'}}
-                </td>
-                <td class="text-right">
-                    {{item.XuatKiemKe|number:'0.0'}}
-                </td>
-                <td class="text-center">
-                    {{item.SoQuyTrinh}}
-                </td> -->
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="text-right">
-                    <!-- {{item.TonCuoiKy|number:'0.0'}} -->
-                </td>
-                <td class="text-right">
-                    <!-- {{item.TrongLuongCuoiKy|number:'0.2-2'}} -->
-                </td>
-                <td class="text-right">
-                    {{item.GhiChu}}
-                </td>
-                <!-- <td class="text-center">
-                    <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                        (click)="changeParam(item.Id)"></button>
-                </td> -->
-            </tr>
-            <tr *ngIf="item.Id === 'X'">
-                <td class="text-center">
-                    {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
-                </td>
-                <td class="text-center">
-                    {{(item.Ngay|date:'dd/MM/yyyy')}}
-                </td>
-                <td class="text-right">
-                    {{item.DonGia|number:'0.0'}}
-                </td>
-                <td class="text-right">
-                    <!-- {{item.TonDauKy|number:'0.0'}} -->
-                </td>
-                <td class="text-right">
-                    <!-- {{item.TrongLuongDauKy|number:'0.2-2'}} -->
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="text-right">
-                    {{item.SoLuong|number:'0.0'}}
-                </td>
-                <td class="text-right">
-                    {{item.TrongLuong|number:'0.2-2'}}
-                </td>
-                <td class="text-center">
-                    {{item.SoQuyTrinh}}
-                </td>
-                <td class="text-right">
-                    <!-- {{item.TonCuoiKy|number:'0.0'}} -->
-                </td>
-                <td class="text-right">
-                    <!-- {{item.TrongLuongCuoiKy|number:'0.2-2'}} -->
-                </td>
-                <td class="text-right">
-                    {{item.GhiChu}}
-                </td>
-                <!-- <td class="text-center">
-                    <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                        (click)="changeParam(item.Id)"></button>
-                </td> -->
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="footer">
-            <tr>
+        <ng-template pTemplate="body"  let-item let-i="rowIndex">
+            <!-- <tr>
                 <td class="text-center">
                 </td>
                 <td class="text-center">
@@ -201,6 +104,147 @@
                     {{itemTongCong.TrongLuongCuoiKy|number:'0.2-2'}}
                 </td>
                 <td class="text-right">
+                </td>
+            </tr> -->
+            <tr *ngIf="item.Id === null">
+                <td class="text-center">
+                </td>
+                <td class="text-center">
+                    {{(item.Ngay|date:'dd/MM/yyyy')}}
+                </td>
+                <td class="text-right">
+                    {{item.DonGia|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TonDauKy|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TrongLuongDauKy|number:'0.2-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.SoLuong|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TrongLuong|number:'0.2-2'}}
+                </td>
+                <td class="text-center">
+                    {{item.SoQuyTrinh}}
+                </td>
+                <!-- <td class="text-right">
+                    {{item.Xuat|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.XuatKiemKe|number:'0.0'}}
+                </td>
+                <td class="text-center">
+                    {{item.SoQuyTrinh}}
+                </td> -->
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-right">
+                    {{item.TonCuoiKy|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TrongLuongCuoiKy|number:'0.2-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.GhiChu}}
+                </td>
+                <!-- <td class="text-center">
+                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2"
+                        (click)="changeParam(item.Id)"></button>
+                </td> -->
+            </tr>
+            <tr *ngIf="item.Id === 'X'">
+                <td class="text-center">
+                    {{ 20 * (paging.CurrentPage - 1) + i}}
+                </td>
+                <td class="text-center">
+                    {{(item.Ngay|date:'dd/MM/yyyy')}}
+                </td>
+                <td class="text-right">
+                    {{item.DonGia|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TonDauKy|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TrongLuongDauKy|number:'0.2-2'}}
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-right">
+                    {{item.SoLuong|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TrongLuong|number:'0.2-2'}}
+                </td>
+                <td class="text-center">
+                    {{item.SoQuyTrinh}}
+                </td>
+                <td class="text-right">
+                    {{item.TonCuoiKy|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TrongLuongCuoiKy|number:'0.2-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.GhiChu}}
+                </td>
+                <!-- <td class="text-center">
+                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2"
+                        (click)="changeParam(item.Id)"></button>
+                </td> -->
+            </tr>
+            <tr *ngIf="item.Id === 'N'">
+                <td class="text-center">
+                    {{ 20 * (paging.CurrentPage - 1) + i}}
+                </td>
+                <td class="text-center">
+                    {{(item.Ngay|date:'dd/MM/yyyy')}}
+                </td>
+                <td class="text-right">
+                    {{item.DonGia|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TonDauKy|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TrongLuongDauKy|number:'0.2-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.SoLuong|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TrongLuong|number:'0.2-2'}}
+                </td>
+                <td class="text-center">
+                    {{item.SoQuyTrinh}}
+                </td>
+                <!-- <td class="text-right">
+                    {{item.Xuat|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.XuatKiemKe|number:'0.0'}}
+                </td>
+                <td class="text-center">
+                    {{item.SoQuyTrinh}}
+                </td> -->
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-right">
+                    {{item.TonCuoiKy|number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{item.TrongLuongCuoiKy|number:'0.2-2'}}
+                </td>
+                <td class="text-right">
+                    {{item.GhiChu}}
                 </td>
                 <!-- <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"

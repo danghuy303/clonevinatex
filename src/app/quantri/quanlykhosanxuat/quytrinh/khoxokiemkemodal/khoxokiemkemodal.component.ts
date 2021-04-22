@@ -72,8 +72,8 @@ export class KhoxokiemkemodalComponent implements OnInit {
               this.listQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
           });
       this.services
-          .PhieuKiemKeKho()
-          .GetlistdmMatHangThanhPhamKiemKe()
+          .PhieuKiemKeKhoBongPhe()
+          .GetlistdmMatHangKiemKeBongPhe(data.Loai)
           .subscribe((res: any) => {
               this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
               this.listNewMatHang_ref = res;
@@ -104,10 +104,10 @@ export class KhoxokiemkemodalComponent implements OnInit {
 
   ChuyenDuyet() {
     if (validVariable(this.newItem.IddmItem)) {
-        this.listItem.push(deepCopy(this.newItem));
+        this.item.listItem.push(deepCopy(this.newItem));
         this.newItem = {};
     } 
-      this.item.listItem = deepCopy(this.listItem);
+    //   this.item.listItem = deepCopy(this.listItem);
       this.services
           .PhieuKiemKeKhoBong()
           .ChuyenTiep(this.item)
@@ -133,7 +133,7 @@ export class KhoxokiemkemodalComponent implements OnInit {
 
   GhiLai() {
     if (validVariable(this.newItem.IddmItem)) {
-        this.listItem.push(deepCopy(this.newItem));
+        this.item.listItem.push(deepCopy(this.newItem));
         this.newItem = {};
     } 
     //   this.item_new.listItem = this.listItem;
@@ -233,11 +233,17 @@ export class KhoxokiemkemodalComponent implements OnInit {
       this.listItem = this.item.listItem.slice(start, end);
   }
   setNewItemName(event) {
-      let selected = this.listNewMatHang_ref.find(
-          (ele) => ele.Id === event.value
-      );
-      this.newItem.Ten = selected?.Ten;
-      this.newItem.Ma = selected?.Ma;
+    this.services
+    .PhieuKiemKeKhoBong().getLuuKhoKiemKeKhoXoTheoItem(event.value)
+    .subscribe((res1: any) => {
+       console.log(res1)
+       this.newItem = res1[0]
+    });
+    //   let selected = this.listNewMatHang_ref.find(
+    //       (ele) => ele.Id === event.value
+    //   );
+    //   this.newItem.Ten = selected?.Ten;
+    //   this.newItem.Ma = selected?.Ma;
   }
   add() {
       if (validVariable(this.newItem.IddmItem)) {
@@ -246,9 +252,9 @@ export class KhoxokiemkemodalComponent implements OnInit {
           this.newItem = {};
           console.log(this.paging);
           if (this.listItem.length > this.paging.CurrentPage * 10) {
-              console.log(Math.floor(this.listItem.length / 10));
+              console.log(Math.floor(this.item.listItem.length / 10));
               this.paginator.changePage(
-                  Math.floor(this.listItem.length / 10)
+                  Math.floor(this.item.listItem.length / 10)
               );
           } else {
               this.changePage({ page: this.paging.CurrentPage - 1 });

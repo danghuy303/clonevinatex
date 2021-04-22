@@ -30,6 +30,11 @@ export class TonkhoComponent implements OnInit {
       width: 'unset'
     },
     {
+      header: 'Tên lô hàng',
+      field: 'TenLoHang',
+      width: 'unset'
+    },
+    {
       header: 'Số lượng',
       field: 'SoLuong',
       width: 'unset'

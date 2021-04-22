@@ -20,6 +20,10 @@ export class TonkhobongxomodalComponent implements OnInit {
     private activatedRoute: ActivatedRoute,private router:Router, public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
+    let date = new Date();
+    this.filter.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.filter.DenNgay = date;
+    
     this.GetTheKho();
   }
   

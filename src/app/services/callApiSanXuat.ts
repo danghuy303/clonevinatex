@@ -1741,6 +1741,9 @@ export class SanXuatService {
             GetlistdmMatHangKiemKe: (IddmKho, IdLoBong) => {
                 return this.http.get(url + `getLuuKhoKiemKeKhoBong?IdDuAn=0&IddmKho=${IddmKho}&IdLoBong=${IdLoBong}`, httpOptions);
             },
+            getLuuKhoKiemKeKhoXoTheoItem: (IddmItem) => {
+                return this.http.get(url + `getLuuKhoKiemKeKhoXoTheoItem?IddmItem=${IddmItem}`, httpOptions);
+            }
         }
     }
     GetTheKho(data) {

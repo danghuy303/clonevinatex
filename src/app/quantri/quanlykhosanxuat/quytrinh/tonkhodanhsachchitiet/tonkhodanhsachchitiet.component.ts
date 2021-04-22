@@ -21,6 +21,10 @@ export class TonkhodanhsachchitietComponent implements OnInit {
     private activatedRoute: ActivatedRoute,private router:Router, public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
+    let date = new Date();
+    this.filter.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.filter.DenNgay = date;
+
     this.GetTheKho();
   }
   
@@ -44,11 +48,11 @@ export class TonkhodanhsachchitietComponent implements OnInit {
     this._service.GetTheKho(data).subscribe((res: any) => {
       this.items = res.items;
       this.itemTongCong = res.items[0];
-      this.items.shift();
+      // this.items.shift();
       this.paging = res.paging;
       console.log(res)
-      console.log(this.items)
-      console.log(this.paging)
+      // console.log(this.items)
+      // console.log(this.paging)
     })
   }
 }
