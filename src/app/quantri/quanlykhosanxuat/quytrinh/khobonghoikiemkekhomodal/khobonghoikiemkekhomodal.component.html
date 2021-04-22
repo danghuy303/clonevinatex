@@ -40,13 +40,13 @@
                     [(ngModel)]="item.IddmKho" (onChange)="GetMatHangTheoKho()"></p-dropdown>
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Vị trí:</label>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listdmViTri" placeholder="Chọn vị trí" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmViTri" (onChange)="GetMatHangTheoKho()"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại bông" styleClass="p-inputtext-sm"
+                [(ngModel)]="item.IddmLoaiBong" (onChange)="getListMatHangKiemKe($event)"></p-dropdown>
             </div>
-        </div> -->
+        </div>
         <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô hàng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -61,16 +61,16 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
-        <div class="p-d-flex p-flex-row p-jc-between">
+        <!-- <div class="p-d-flex p-flex-row p-jc-between">
             <button pButton pRipple type="button" label="Nhận từ Excel" class="p-mr-2 p-button-sm"
                 (click)="ImportExcel()"></button>
-        </div>
+        </div> -->
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <p-table [value]="listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">

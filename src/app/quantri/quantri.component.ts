@@ -732,7 +732,7 @@ export class QuantriComponent implements OnInit {
                     },
                     {
                         label: 'Thẻ kho',
-                        routerLink: '/quantri/quanlykhosanxuat/tonkho/khobonghoi/0',
+                        routerLink: '/quantri/quanlykhosanxuat/tonkhobonghoi/khobonghoi/0',
                         command: () => this.close()
                     },
                     // {
@@ -768,7 +768,7 @@ export class QuantriComponent implements OnInit {
                     },
                     {
                         label: 'Thẻ kho',
-                        routerLink: '/quantri/quanlykhosanxuat/tonkho/khobongphe/0',
+                        routerLink: '/quantri/quanlykhosanxuat/tonkhobongphe/khobongphe/0',
                         command: () => this.close()
                     },
                 ]

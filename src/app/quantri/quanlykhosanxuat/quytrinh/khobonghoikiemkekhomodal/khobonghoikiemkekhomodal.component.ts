@@ -26,7 +26,7 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
     listdmViTri: any = [];
     listLoBong: any = [];
     listLoHang: any = [];
-    listQuyCachDongGoi: any = [];
+    listLoaiBong: any = [];
     listNewMatHang: any = [];
     listNewMatHang_ref: any = [];
     isKhoThanhPham: any = false;
@@ -69,23 +69,25 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
         //     .subscribe((res: any) => {
         //         this.listLoHang = mapArrayForDropDown(res, "Ten", "Id");
         //     });
-        // this.services
-        //     .dmQuyCachDongGoi()
-        //     .GetList()
-        //     .subscribe((res: any) => {
-        //         this.listQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
-        //     });
         this.services
-            .PhieuKiemKeKhoBongPhe()
-            .GetlistdmMatHangKiemKeBongPhe(6)
+            .GetListdmLoaiBong(data)
             .subscribe((res: any) => {
-                this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
-                this.listNewMatHang_ref = res;
+                this.listLoaiBong = mapArrayForDropDown(res, "Ten", "Id");
             });
+        
+    }
+    getListMatHangKiemKe(event){
+        this.services
+        .PhieuKiemKeKhoBong()
+        .GetlistdmMatHangKiemKeBongHoi(6, event.value)
+        .subscribe((res: any) => {
+            this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
+            this.listNewMatHang_ref = res;
+        });
     }
     GetQuyTrinh() {
         this.services
-            .PhieuKiemKeKho()
+            .PhieuKiemKeKhoBong()
             .Get(this.Id)
             .subscribe((res1: any) => {
                 this.item = res1;
@@ -96,6 +98,16 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
                 this.item.listItem = res1.listItem.slice(0, 10);
                 this.item_new = res1;
                 this.KiemTraButtonModal();
+                //
+                if(this.item.IddmLoaiBong != undefined ){
+                    this.services
+                    .PhieuKiemKeKhoBong()
+                    .GetlistdmMatHangKiemKeBongHoi(6,this.item.IddmLoaiBong)
+                    .subscribe((res: any) => {
+                        this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
+                        this.listNewMatHang_ref = res;
+                    });
+                }
             });
     }
     KiemTraButtonModal() {
@@ -107,9 +119,14 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
     }
 
     ChuyenDuyet() {
+        if (validVariable(this.newItem.IddmItem)) {
+            this.listItem.push(deepCopy(this.newItem));
+            this.newItem = {};
+        }
+
         this.item.listItem = deepCopy(this.listItem);
         this.services
-            .PhieuKiemKeKho()
+            .PhieuKiemKeKhoBong()
             .ChuyenTiep(this.item)
             .subscribe((res: any) => {
                 if (res) {
@@ -124,7 +141,7 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
 
     GetNextSoQuyTrinh() {
         this.services
-            .PhieuKiemKeKho()
+            .PhieuKiemKeKhoBong()
             .GetNextSo()
             .subscribe((res: any) => {
                 this.item.SoQuyTrinh = res.SoQuyTrinh;
@@ -132,9 +149,14 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
     }
 
     GhiLai() {
+        if (validVariable(this.newItem.IddmItem)) {
+            this.listItem.push(deepCopy(this.newItem));
+            this.newItem = {};
+        }
+
         this.item_new.listItem = this.listItem;
         this.services
-            .PhieuKiemKeKho()
+            .PhieuKiemKeKhoBong()
             .Set(this.item_new)
             .subscribe((res: any) => {
                 if (res) {
@@ -168,7 +190,7 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
         modalRef.result
             .then((res) => {
                 this.services
-                    .PhieuKiemKeKho()
+                    .PhieuKiemKeKhoBong()
                     .Delete(this.item)
                     .subscribe((res: any) => {
                         console.log(res);

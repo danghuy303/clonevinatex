@@ -281,6 +281,10 @@ import { NhaphoiammathangmodalComponent } from './quanlykhosanxuat/quytrinh/nhap
 import { LobongcopymodalComponent } from './danhmuc/lobongcopymodal/lobongcopymodal.component';
 import { TonkhobongxoComponent } from './quanlykhosanxuat/quytrinh/tonkhobongxo/tonkhobongxo.component';
 import { TonkhobongxomodalComponent } from './quanlykhosanxuat/quytrinh/tonkhobongxomodal/tonkhobongxomodal.component';
+import { TonkhobonghoiComponent } from './quanlykhosanxuat/quytrinh/tonkhobonghoi/tonkhobonghoi.component';
+import { TonkhobonghoimodalComponent } from './quanlykhosanxuat/quytrinh/tonkhobonghoimodal/tonkhobonghoimodal.component';
+import { TonkhobongpheComponent } from './quanlykhosanxuat/quytrinh/tonkhobongphe/tonkhobongphe.component';
+import { TonkhobongphemodalComponent } from './quanlykhosanxuat/quytrinh/tonkhobongphemodal/tonkhobongphemodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -513,6 +517,10 @@ import { TonkhobongxomodalComponent } from './quanlykhosanxuat/quytrinh/tonkhobo
     LobongcopymodalComponent,
     TonkhobongxoComponent,
     TonkhobongxomodalComponent,
+    TonkhobonghoiComponent,
+    TonkhobongpheComponent,
+    TonkhobonghoimodalComponent,
+    TonkhobongphemodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -657,7 +665,8 @@ import { TonkhobongxomodalComponent } from './quanlykhosanxuat/quytrinh/tonkhobo
     NhaphoiammathangmodalComponent,
     LobongcopymodalComponent,
     TonkhobongxomodalComponent,
-
+    TonkhobonghoimodalComponent,
+    TonkhobongphemodalComponent,
   ],
   providers: [
     SanXuatService,

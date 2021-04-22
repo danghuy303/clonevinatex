@@ -5,11 +5,11 @@ import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
-  selector: 'app-tonkhobongxomodal',
-  templateUrl: './tonkhobongxomodal.component.html',
-  styleUrls: ['./tonkhobongxomodal.component.css']
+  selector: 'app-tonkhobongphemodal',
+  templateUrl: './tonkhobongphemodal.component.html',
+  styleUrls: ['./tonkhobongphemodal.component.css']
 })
-export class TonkhobongxomodalComponent implements OnInit {
+export class TonkhobongphemodalComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{id:5,SoQuyTrinh:'PNK_0000_0000'}];
   filter:any={};
@@ -43,6 +43,7 @@ export class TonkhobongxomodalComponent implements OnInit {
       "IddmKho": this.item.IddmKho,
       "IdLoHang": this.item.IdLoHang,
       "CurrentPage": this.paging.CurrentPage,
+      "IddmLoaiBong": this.item.IddmLoaiBong,
     }
     this._service.GetTheKho(data).subscribe((res: any) => {
       this.items = res.items;

@@ -92,7 +92,6 @@ export class KhobonghoikiemkekhoComponent implements OnInit {
           });
   }
   update(Id) {
-      this.changeParam(Id);
       let modalRef = this._modal.open(KhobonghoikiemkekhomodalComponent, {
           size: "fullscreen",
           backdrop: "static",
@@ -137,7 +136,7 @@ export class KhobonghoikiemkekhoComponent implements OnInit {
       };
           data.Loai = 6;
       this._service
-          .PhieuKiemKeKho()
+          .PhieuKiemKeKhoBong()
           .GetList(data)
           .subscribe((res: any) => {
               this.items = res.items;

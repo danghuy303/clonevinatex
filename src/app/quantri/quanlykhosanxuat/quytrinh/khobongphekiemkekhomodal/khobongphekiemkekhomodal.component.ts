@@ -69,7 +69,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
   }
   GetQuyTrinh() {
       this.services
-          .PhieuKiemKeKho()
+          .PhieuKiemKeKhoBongPhe()
           .Get(this.Id)
           .subscribe((res1: any) => {
               this.item = res1;
@@ -92,7 +92,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
   ChuyenDuyet() {
       this.item.listItem = deepCopy(this.listItem);
       this.services
-          .PhieuKiemKeKho()
+          .PhieuKiemKeKhoBongPhe()
           .ChuyenTiep(this.item)
           .subscribe((res: any) => {
               if (res) {
@@ -107,7 +107,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
 
   GetNextSoQuyTrinh() {
       this.services
-          .PhieuKiemKeKho()
+          .PhieuKiemKeKhoBongPhe()
           .GetNextSo()
           .subscribe((res: any) => {
               this.item.SoQuyTrinh = res.SoQuyTrinh;
@@ -116,7 +116,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
 
   GhiLai() {
       this.services
-          .PhieuKiemKeKho()
+          .PhieuKiemKeKhoBongPhe()
           .Set(this.item)
           .subscribe((res: any) => {
               if (res) {
@@ -152,7 +152,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
       modalRef.result
           .then((res) => {
               this.services
-                  .PhieuKiemKeKho()
+                  .PhieuKiemKeKhoBongPhe()
                   .Delete(this.item)
                   .subscribe((res: any) => {
                       console.log(res);
