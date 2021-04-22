@@ -116,7 +116,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
       position: 'left'
     },
     maintainAspectRatio: window.innerWidth <= 768 ? false : true,
-    aspectRatio: window.innerWidth <= 768?null:(((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
+    aspectRatio: window.innerWidth <= 768 ? null : (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
   constructor(private _services: SanXuatService, private store: StoreService, public toastr: ToastrService, private _router: Router) {
@@ -130,7 +130,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
       this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
       this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
       this.filterAll._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
-      this.filterAll._denNgay = date;
+      this.filterAll._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
       this.listItem = [];
       this.getAllOptions();
       // this.ChangeOpt();
@@ -149,16 +149,25 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     } else {
       this.filter.DenNgay = null;
     }
-    if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay < this.filter.DenNgay) {
-      this.filter.IdDuAn = this.IdDuAn;
-      this.filter.LoaiThoiGian = 0;
-      this._services.BaoCao().GetDashBoard_NhuCauXuatHang(this.filter).subscribe((res: any) => {
-        this.dataSet1 = res;
-      })
-      this._services.BaoCao().GetDashBoard_CoCauMatHang(this.filter).subscribe((res: any) => {
-        this.dataPie = res;
-      });
+    if (this.filter.DenNgay < this.filter.TuNgay) {
+      this.toastr.error('Vui lòng chọn ngày kết thúc lớn hơn ngày bắt đầu');
+      setTimeout(()=>{
+        this.filter._denNgay = this.filter._tuNgay;
+        this.ChangeOptCanDoiTon()
+      },200)
+    } else {
+      if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay <= this.filter.DenNgay) {
+        this.filter.IdDuAn = this.IdDuAn;
+        this.filter.LoaiThoiGian = 0;
+        this._services.BaoCao().GetDashBoard_NhuCauXuatHang(this.filter).subscribe((res: any) => {
+          this.dataSet1 = res;
+        })
+        this._services.BaoCao().GetDashBoard_CoCauMatHang(this.filter).subscribe((res: any) => {
+          this.dataPie = res;
+        });
+      }
     }
+
 
   }
 
@@ -207,7 +216,9 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
       res.unshift({ Id: '', Ten: 'Tất cả mặt hàng' });
       this.listMatHangAll = mapArrayForDropDown(res, "Ten", 'Id');
       this.filterAll.IddmItem = '';
-      this.ChangeOptCanDoiTon()
+      setTimeout(()=>{
+        this.ChangeOptCanDoiTon()
+      },500)
     })
   }
   ChangeOptCanDoiTon() {
@@ -221,13 +232,22 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     } else {
       this.filterAll.DenNgay = null;
     }
-    if (validVariable(this.filterAll.TuNgay) && validVariable(this.filterAll.DenNgay) && this.filterAll.TuNgay <= this.filterAll.DenNgay) {
+    if (this.filterAll.DenNgay < this.filterAll.TuNgay) {
+      this.toastr.error('Vui lòng chọn ngày kết thúc lớn hơn hoặc bằng ngày bắt đầu');
+      setTimeout(()=>{
+        this.filterAll._denNgay = this.filterAll._tuNgay;
+        this.ChangeOptCanDoiTon()
+      },200)
+    }else{
+      if (validVariable(this.filterAll.TuNgay) && validVariable(this.filterAll.DenNgay) && this.filterAll.TuNgay <= this.filterAll.DenNgay) {
       this.filterAll.IdDuAn = this.store.getCurrent();
       this._services.BaoCao().GetDashBoard_CanDoiTonXuatHang(this.filterAll).subscribe((res: Array<any>) => {
         this.Tong = res.splice(0, 1);
         this.listItem = res;
       })
     }
+    }
+    
   }
   checkMatHang(e, item, index) {
     if (e.checked) {
@@ -276,13 +296,15 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     } else {
       this.filterAll.DenNgay = null;
     }
+
     if (validVariable(this.filterAll.TuNgay) && validVariable(this.filterAll.DenNgay) && this.filterAll.TuNgay <= this.filterAll.DenNgay) {
       let data = {
         IddmItem: item.IddmItem,
         TuNgay: this.filterAll.TuNgay,
         DenNgay: this.filterAll.DenNgay,
         IdLoHang: item.IdLoHang,
-        IddmKho: this.filterAll.IddmKho
+        IddmKho: this.filterAll.IddmKho,
+        IddmQuyCachDongGoi:item.IddmQuyCachDongGoi
       }
       this._services.DashBoard()[`GetDashBoard_Phieu${opt}Kho`](data).subscribe(res => {
         this.listXuatNhap = res;
@@ -309,7 +331,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     // if (this.selectedXuatNhap.opt === 'Xuat') {
     //   window.open(`#${this.mapXuatNhapRoute[this.selectedXuatNhap.opt]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`] || 0}`, "_blank");
     // }else{
-      window.open(`#${route[item.LoaiPhieu]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`] || 0}`, "_blank");
+    window.open(`#${route[item.LoaiPhieu]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`] || 0}`, "_blank");
     // }
 
     // this._router.navigate([`${this.mapXuatNhapRoute[this.selectedXuatNhap.opt]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`]||0}`])
