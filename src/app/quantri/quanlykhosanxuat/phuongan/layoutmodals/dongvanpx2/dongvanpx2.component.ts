@@ -74,7 +74,7 @@ export class Dongvanpx2Component implements OnInit {
         this.block5.push(`${i}`)
       }
     };
-    this.block3.reverse();
+    // this.block3.reverse();
     if (validVariable(this.item.Id)) {
       for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
         let data = this.item.listItem.find(ele => ele.ThuTu === i);

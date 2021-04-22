@@ -94,7 +94,7 @@ export class Dongvanpx1Component implements OnInit {
             ...ele,
             HienThi:`${ele.SoQuyTrinh} / ${ele.ThuTu_BanBong}`
           }
-        }), 'SoQuyTrinh', 'Id');
+        }), 'HienThi', 'Id');
       })
     }
   }

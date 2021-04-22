@@ -34,6 +34,7 @@ export class PhabongmodalComponent implements OnInit {
   itemCVMic = {};
   itemGiaTrungBinh: any = {};
   itemTrongLuong1Ban: any = {};
+  itemTrongLuong1BanTruBongHoi:any={};
   itemDeltaPlusB: any = {};
   itemSoKienTrenBanTruBongHoi = {};
   item: any = {
@@ -427,6 +428,7 @@ export class PhabongmodalComponent implements OnInit {
     this.itembBQ[`${x}`] = tempTongCLb / tempSoKien1LineTruBongHoi;
     this.itemSoKienTrenBan[`${x}`] = tempSoKien1Line > this.item.TongSoKien ? this.item.TongSoKien : tempSoKien1Line;
     this.itemSoKienTrenBanTruBongHoi[`${x}`] = tempSoKien1LineTruBongHoi;
+    this.itemTrongLuong1BanTruBongHoi[`${x}`] = tempTongTrongLuongTruBongHoi;
     this.itemTrongLuong1Ban[`${x}`] = tempTongTrongLuong;
     this.itemGiaTrungBinh[`${x}`] = tempTongGia / tempTongTrongLuongTruBongHoi;
     this.item.listLoBong.forEach(lobong => {

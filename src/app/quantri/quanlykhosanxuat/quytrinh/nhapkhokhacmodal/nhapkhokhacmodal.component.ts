@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown,UnixToDate,DateToUnix } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-nhapkhokhacmodal',
@@ -218,10 +218,8 @@ export class NhapkhokhacmodalComponent implements OnInit {
   addBongHoi() {
     if (this.item.listKien == undefined || this.item.listKien == null)
       this.item.listKien = [];
-    this.item.listKien.push(this.newTableItem);
-    this.newTableItem = {}
-    this.newTableItem.Ten = this.TenLoaiBong;
-
+    this.item.listKien.push(deepCopy(this.newTableItem));
+    this.newTableItem = {Ten:this.TenLoaiBong};
   }
  
   deleteBongHoi(index) {
