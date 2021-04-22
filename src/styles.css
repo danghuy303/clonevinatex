@@ -326,3 +326,6 @@ span.required {
     padding: 0px 2px;
     line-height: 1 !important;
 }
+.p-datatable-scrollable-header-box{
+    padding: 0px !important;
+}
