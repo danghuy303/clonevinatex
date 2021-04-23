@@ -39,27 +39,34 @@
         </div>
     </div> -->
     <div class="p-col-12">
-        <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
+        <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines" [scrollable]="true">
             <ng-template pTemplate="colgroup">
                 <colgroup>
                     <col style="width:50px">
-                    <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
+                    <col>
+                    <col>
+                    <col>
+                    <col>
                     <col style="width: 200px;">
                 </colgroup>
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th class="text-center">STT</th>
-                    <th *ngFor="let header of cols">
-                        {{header.header}}
-                    </th>
-                    <th></th>
+                    <th rowspan="2" class="text-center">STT</th>
+                    <th rowspan="2">Mã</th>
+                    <th rowspan="2">Tên</th>
+                    <th colspan="2">Tồn</th>
+                    <th rowspan="2"></th>
+                </tr>
+                <tr>
+                    <th>Số lượng</th>
+                    <th>Trọng lượng</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item let-i="rowIndex">
                 <tr>
                     <td class="text-center">
-                        {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
+                        {{ 50 * (paging.CurrentPage - 1) + i + 1 }}
                     </td>
                     <td class="text-center">
                         {{item.Ma}}
@@ -74,7 +81,7 @@
                         {{item.TrongLuong|number:'0.2-2'}}
                     </td>
                     <td class="text-center">
-                        <button pButton pRipple type="button" icon="pi pi-pencil"
+                        <button pButton pRipple type="button" icon="pi pi-eye"
                             class="p-button-text p-button-sm p-button-secondary p-mr-2"
                             (click)="GetTheKho(item)"></button>
                         <button pButton pRipple type="button" icon="fas fa-file-excel"

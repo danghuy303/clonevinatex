@@ -19,28 +19,28 @@ export class TonkhobonghoiComponent implements OnInit {
   listdmKho:any=[];
   trangThai:any=1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  cols: any = [
-    {
-      header: 'Mã',
-      field: 'Ma',
-      width: 'unset'
-    },
-    {
-      header: 'Tên',
-      field: 'Ten',
-      width: 'unset'
-    },
-    {
-      header: 'Số lượng',
-      field: 'SoLuong',
-      width: 'unset'
-    },
-    {
-      header: 'Trọng lượng',
-      field: 'TrongLuong',
-      width: 'unset'
-    },
-  ];
+  // cols: any = [
+  //   {
+  //     header: 'Mã',
+  //     field: 'Ma',
+  //     width: 'unset'
+  //   },
+  //   {
+  //     header: 'Tên',
+  //     field: 'Ten',
+  //     width: 'unset'
+  //   },
+  //   {
+  //     header: 'Số lượng',
+  //     field: 'SoLuong',
+  //     width: 'unset'
+  //   },
+  //   {
+  //     header: 'Trọng lượng',
+  //     field: 'TrongLuong',
+  //     width: 'unset'
+  //   },
+  // ];
   mapLoaiKhoBong:any={
     khobong:2,
     khoxo:5,
