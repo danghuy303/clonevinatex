@@ -33,7 +33,6 @@ export class XuatkhobonghoimodalComponent implements OnInit {
     public toastr: ToastrService, public _modal: NgbModal) { }
 
   ngOnInit(): void {
-    this.KiemTraButtonModal();
     this.GetQuyTrinh();
     //
     let data = {
@@ -64,6 +63,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
       this.item.listItem = res1.listItem.slice(0, 15);
+      this.KiemTraButtonModal();
     })
   }
   KiemTraButtonModal() {
