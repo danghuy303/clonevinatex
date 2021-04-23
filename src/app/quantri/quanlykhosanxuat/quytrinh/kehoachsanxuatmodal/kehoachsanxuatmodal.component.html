@@ -2,7 +2,7 @@
     <h5 class="modal-title">Phiếu giao kế hoạch sản xuất</h5>
     <div class="d-flex flex-column flex-lg-row">
         <div>
-           <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+            <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
         </div>
         <div class="ml-lg-3 mr-lg-3">
             <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
@@ -32,6 +32,16 @@
         </div>
 
     </div>
+    <!-- <div class="p-grid">
+        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+            <div style="flex:1;display:flex ;flex-direction: column;justify-content:flex-end">
+                <p-dropdown [filter]="true" [options]="listKeHoachForCopy" placeholder="Chọn kế hoạch để sao chép"
+                    styleClass="p-inputtext-sm" (onChange)="copyKeHoach($event)"></p-dropdown>
+            </div>
+            <button type="button" pButton pRipple label="Sao chép" class="p-button-text p-button-sm"
+                (click)="copyBanBong()" [disabled]="!canCopy"></button>
+        </div>
+    </div> -->
     <div class="p-grid">
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Nội dung<span class="required">*</span>:</label>
@@ -57,8 +67,8 @@
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Từ ngày<span class="required">*</span>:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                    [yearNavigator]="true" [yearRange]="yearRange" (onBlur)="TinhSoCa()"
-                    [(ngModel)]="item.TuNgay" placeholder="dd/mm/yyyy">
+                    [yearNavigator]="true" [yearRange]="yearRange" (onBlur)="TinhSoCa()" [(ngModel)]="item.TuNgay"
+                    placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>
@@ -128,7 +138,8 @@
                         <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
                             [(ngModel)]="filter.KeyWord" />
                         <button type="button" pButton pRipple icon="pi pi-refresh"
-                            class="p-button-secondary p-button-sm p-button-text" (click)="refreshFilterMatHang()"></button>
+                            class="p-button-secondary p-button-sm p-button-text"
+                            (click)="refreshFilterMatHang()"></button>
                     </div>
                 </div>
             </div>
