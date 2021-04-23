@@ -68,6 +68,32 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
                 this.listNewMatHang_ref = res;
             });
     }
+    checklistMatHang(item){
+        if(this.listNewMatHang !== undefined && this.listNewMatHang !== null){
+            for(let i = 0; i < this.listNewMatHang.length ; i ++){
+                if(this.listNewMatHang[i].label ===item.Ten){
+                    this.listNewMatHang.splice(i, 1);
+                    break;
+                }
+            }
+        }
+    }
+    checklistMatHangTheoKho(){
+        if(this.listNewMatHang !== undefined && this.listNewMatHang !== null && this.listNewMatHang.length > 0){
+            if(this.item.listItem !== undefined && this.item.listItem !== null  && this.item.listItem.length > 0)
+            {
+                for(let i = 0; i < this.listNewMatHang.length ; i ++){
+                    for(let j = 0; j < this.item.listItem.length ; j ++){
+                        if(this.listNewMatHang[i].label === this.item.listItem[j].Ten){
+                            this.listNewMatHang.splice(i, 1);
+                            break;
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
     resetFilter() {
         this.KeyWord = null;
     }
@@ -86,6 +112,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
                 this.item.listItem = res1.listItem;
                 this.listItem = this.item.listItem.slice(0, 10);
                 this.KiemTraButtonModal();
+                this.checklistMatHangTheoKho();
             });
     }
     KiemTraButtonModal() {
@@ -185,22 +212,18 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
     }
 
     GetMatHangTheoKho() {
-        this.services
-            .getLuuKhoKiemKeKhoBongPhe(
-                this.item.IddmKho,
-                ""
-            )
-            .subscribe((res1: any) => {
-                res1.forEach((mathang) => {
-                    mathang.SoLuong = mathang.TonSoLuong;
-                    mathang.TongTrongLuong = mathang.TonTongTrongLuong;
-                });
-                this.item.listItem = res1;
-                this.listItem = this.item.listItem.slice(0, 10);
-                this.paging.CurrentPage = 1;
-                this.paging.TotalPage = 5;
-                this.paging.TotalItem = res1.length;
+        this.services.getLuuKhoKiemKeKhoBongPhe(this.item.IddmKho,"").subscribe((res1: any) => {
+            res1.forEach((mathang) => {
+                mathang.SoLuong = mathang.TonSoLuong;
+                mathang.TongTrongLuong = mathang.TonTongTrongLuong;
             });
+            this.item.listItem = res1;
+            this.listItem = this.item.listItem.slice(0, 10);
+            this.paging.CurrentPage = 1;
+            this.paging.TotalPage = 5;
+            this.paging.TotalItem = res1.length;
+        });
+        this.checklistMatHangTheoKho();
     }
     changePage(event) {
         let clone = [];
@@ -228,6 +251,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
         );
         this.newItem.Ten = selected?.Ten;
         this.newItem.Ma = selected?.Ma;
+        this.checklistMatHang(this.newItem);
     }
     add() {
         if (validVariable(this.newItem.IddmItem)) {
