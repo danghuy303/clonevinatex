@@ -1831,4 +1831,10 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho + 'ExportGetTheKho';
         return this.http.post(url, data, httpOptions);
     }
+    getLuuKhoKiemKeKhoBongHoi(IddmKho, IdLoBong, sFilter, IdLoHang) {
+        // let IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + `getLuuKhoKiemKeKhoBongHoi?IdDuAn=0&IddmKho=${IddmKho}&IdLoHang=${IdLoHang || ''}&IdLoBong=${IdLoBong || ''}&sFilter=${sFilter}`;
+        // 
+        return this.http.get(url, httpOptions);
+    }
 }
