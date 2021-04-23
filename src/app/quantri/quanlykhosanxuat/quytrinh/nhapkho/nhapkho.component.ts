@@ -160,8 +160,8 @@ export class NhapkhoComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter: this.filter.KeyWord,
-      TuNgay: (new Date(this.filter.TuNgay).getTime() / 1000) || 0,
-      DenNgay: (new Date(this.filter.DenNgay).getTime() / 1000) || 0,
+      TuNgay: DateToUnix(this.filter.TuNgay) ,
+      DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
       IdLoBong: this.filter.IdLoBong

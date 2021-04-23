@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-lohangmodal',
@@ -28,7 +28,7 @@ export class LohangmodalComponent implements OnInit {
     this.getListGiaoKeHoach();
     this.getListTrienKhaiKeHoach();
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix );
     }
     console.log(this.item)
   }
@@ -37,7 +37,7 @@ export class LohangmodalComponent implements OnInit {
     this.item.HoatDong = true;
     this.khongclicknhieu = !this.khongclicknhieu;
     if (this.item.Ma !== undefined && this.item.Ma.trim() !== '' && this.item.Ten.trim() !== '' && this.item.Ten !== undefined && this.item.Ngay !== undefined) {
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this.services.LoHang().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

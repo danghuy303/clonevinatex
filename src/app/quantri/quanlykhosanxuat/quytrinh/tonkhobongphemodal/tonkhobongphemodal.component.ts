@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { DateToUnix } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-tonkhobongphemodal',
@@ -38,8 +39,8 @@ export class TonkhobongphemodalComponent implements OnInit {
     }
     let data = {
       "IdLoBong": this.item.IdLoBong,
-      "TuNgay": (new Date(this.filter.TuNgay).getTime() / 1000) || 0,
-      "DenNgay": (new Date(this.filter.DenNgay).getTime() / 1000) || 0,
+      "TuNgay": DateToUnix(this.filter.TuNgay),
+      "DenNgay": DateToUnix(this.filter.DenNgay),
       "IddmKho": this.item.IddmKho,
       "IdLoHang": this.item.IdLoHang,
       "CurrentPage": this.paging.CurrentPage,

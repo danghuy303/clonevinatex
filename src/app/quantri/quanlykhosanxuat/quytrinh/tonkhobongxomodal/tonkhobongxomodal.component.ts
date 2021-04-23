@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { DateToUnix } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-tonkhobongxomodal',
@@ -15,6 +16,7 @@ export class TonkhobongxomodalComponent implements OnInit {
   filter:any={};
   item:any={};
   itemTongCong:any={};
+  data: any = {};
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
     private activatedRoute: ActivatedRoute,private router:Router, public activeModal: NgbActiveModal) { }
@@ -36,15 +38,15 @@ export class TonkhobongxomodalComponent implements OnInit {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
-    let data = {
+    this.data = {
       "IdLoBong": this.item.IdLoBong,
-      "TuNgay": (new Date(this.filter.TuNgay).getTime() / 1000) || 0,
-      "DenNgay": (new Date(this.filter.DenNgay).getTime() / 1000) || 0,
+      "TuNgay": DateToUnix(this.filter.TuNgay),
+      "DenNgay": DateToUnix(this.filter.DenNgay),
       "IddmKho": this.item.IddmKho,
       "IdLoHang": this.item.IdLoHang,
       "CurrentPage": this.paging.CurrentPage,
     }
-    this._service.GetTheKho(data).subscribe((res: any) => {
+    this._service.GetTheKho(this.data).subscribe((res: any) => {
       this.items = res.items;
       // this.itemTongCong = res.items[0];
       // this.items.shift();
@@ -52,6 +54,11 @@ export class TonkhobongxomodalComponent implements OnInit {
       console.log(res)
       console.log(this.items)
       console.log(this.paging)
+    })
+  }
+  exportExcel() {
+    this._service.ExportGetTheKho(this.data).subscribe((res: any) => {
+      this._service.download(res.TenFile);
     })
   }
 }

@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 import { XuatkhoxomathangmodalComponent } from '../xuatkhoxomathangmodal/xuatkhoxomathangmodal.component';
 
@@ -79,7 +79,10 @@ export class XuatkhoxomodalComponent implements OnInit {
       this.item.listItem = res1.listItem.slice(0,15);
       this.KiemTraButtonModal();
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-        this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+        this.item.Ngay = UnixToDate(this.item.NgayUnix );
+      }
+      if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
+        this.item.NgayChungTu = UnixToDate(this.item.NgayChungTuUnix );
       }
     })
   }
@@ -91,7 +94,9 @@ export class XuatkhoxomodalComponent implements OnInit {
  
   ChuyenDuyet() {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined){
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
+        this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
       this.services.PhieuXuatKhoXo().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -106,7 +111,7 @@ export class XuatkhoxomodalComponent implements OnInit {
       this.toastr.error('Vui lòng nhập ngày chứng từ!');
     }
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
-      this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
+      this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
     
     
   }
@@ -118,15 +123,22 @@ export class XuatkhoxomodalComponent implements OnInit {
  
   GhiLai() {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined){
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
+        this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
       this.services.PhieuXuatKhoXo().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+              this.item.Ngay = UnixToDate(this.item.NgayUnix );
+            }
+            if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
+              this.item.NgayChungTu = UnixToDate(this.item.NgayChungTuUnix );
+            }
             this.KiemTraButtonModal();
-            // this.activeModal.close(res.message);
           } else {
             this.toastr.error(res.message);
           }
@@ -135,10 +147,7 @@ export class XuatkhoxomodalComponent implements OnInit {
     }else{
       this.toastr.error('Vui lòng nhập ngày chứng từ!');
     }
-    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
-      this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-
-      
+    
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {

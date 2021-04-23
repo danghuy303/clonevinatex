@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { LohangComponent } from '../lohang/lohang.component';
 
 @Component({
@@ -45,7 +45,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
       this.getItemTheoCongDoan();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.getListPhanXuong();
     this.getListCaSanXuat();
@@ -178,8 +178,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     if(this.item.IddmCaSanXuat != undefined
       && this.item.IddmPhanXuong != undefined
       && this.item.Ngay != undefined){
-
-        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
         if(this.item.listItem != undefined && this.item.listItem != null){
           this.item.listItem.forEach(element => {

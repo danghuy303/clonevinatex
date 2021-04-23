@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { NhaphoiammathangmodalComponent } from '../nhaphoiammathangmodal/nhaphoiammathangmodal.component';
 
 @Component({
@@ -56,7 +56,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     }
     console.log(this.item)
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.TinhAllKLTT();
     this.data.CurrentPage = 0;
@@ -84,7 +84,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
       if (this.newTableItem.Ten != undefined && this.newTableItem.SoCan != undefined && this.newTableItem.SoKien != undefined && this.newTableItem.ViTri != undefined) {
         this.add();
       }
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this.item.listItem.forEach(element => {
         element.IddmKho = this.item.IddmKho
       });
@@ -120,7 +120,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
       if (this.newTableItem.Ten != undefined && this.newTableItem.SoCan != undefined && this.newTableItem.SoKien != undefined && this.newTableItem.ViTri != undefined) {
         this.add();
       }
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this.item.listItem.forEach(element => {
         element.IddmKho = this.item.IddmKho
       });
@@ -177,7 +177,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     let itemSearch: any = {};
     itemSearch.IddmCaSanXuatThucTe = this.item.IddmCaSanXuatThucTe;
     if (this.item.Ngay !== undefined)
-      itemSearch.Ngay = (new Date(this.item.Ngay)).getTime() / 1000;
+      itemSearch.Ngay = DateToUnix(this.item.Ngay);
     itemSearch.IddmPhanXuong = this.item.IddmPhanXuong;
     this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhaphoiammathangmodalComponent, {

@@ -51,6 +51,7 @@ export class TonkhobongxoComponent implements OnInit {
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   listPhanXuong: any = [];
   listCaSanXuat: any = [];
+  tenKho: any = "kho bông";
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) {
 
   }
@@ -61,6 +62,8 @@ export class TonkhobongxoComponent implements OnInit {
       console.log(res);
       this.getListdmKho(this.mapLoaiKhoBong[`${res.kho}`]);
       this.filter.Loai = this.mapLoaiKhoBong[`${res.kho}`];
+      if(this.mapLoaiKhoBong[`${res.kho}`] === 5)
+        this.tenKho = "kho xơ";
     })
     this.filter.KeyWord = '';
   }
@@ -108,7 +111,7 @@ export class TonkhobongxoComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   GetTheKho(item) {
-    item.IddmKho = this.filter.IddmKho
+    item.IddmKho = this.filter.IddmKho;
     let modalRef = this._modal.open(TonkhobongxomodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
