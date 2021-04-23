@@ -68,7 +68,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.data.CurrentPage = 0;
     this.getListKho();

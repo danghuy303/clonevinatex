@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-kiemkebcpmodal',
@@ -62,7 +62,7 @@ export class KiemkebcpmodalComponent implements OnInit {
     this.services.PhieuKiemKeBanChePham().Get(this.Id).subscribe((res1: any) => {
       res1.CongDoan = this.listCongDoan[0].value;
       if (res1.NgayUnix !== null && res1.NgayUnix !== undefined) {
-        res1.Ngay = new Date(res1.NgayUnix * 1000);
+        res1.Ngay = UnixToDate(res1.NgayUnix);
       }
       this.item = res1;
       this.check = true;
@@ -84,7 +84,7 @@ export class KiemkebcpmodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
     else {
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this.services.PhieuKiemKeBanChePham().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -109,7 +109,7 @@ export class KiemkebcpmodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
     else {
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this.services.PhieuKiemKeBanChePham().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -212,7 +212,7 @@ export class KiemkebcpmodalComponent implements OnInit {
   //   });
   //   if (this.item.Ngay !== undefined && this.opt !== 'edit' && (this.check === false || isThayDoi == true)) {
   //     this.check = true;
-  //     this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+  //     this.item.NgayUnix = DateToUnix(this.item.Ngay);
   //     this.services.GetListCanDoiChuyenKiemKe(this.item.IddmPhanXuong, this.item.CongDoan, this.item.NgayUnix).subscribe((res: any) => {
   //       this.listItem = res;
   //       // this.listItemFull = this.listItemFull.concat(res);
@@ -231,7 +231,7 @@ export class KiemkebcpmodalComponent implements OnInit {
           element.isXoa = true;
       });
       if (this.item.Ngay !== undefined) {
-        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
         this.services.GetListCanDoiChuyenKiemKe(this.item.IddmPhanXuong, this.item.CongDoan, this.item.NgayUnix).subscribe((res: any) => {
           this.listItem = res;
           this.item.listItem = this.item.listItem.concat(res);
@@ -241,7 +241,7 @@ export class KiemkebcpmodalComponent implements OnInit {
   }
   GetListItemKiemKeBanChePham(){
     if (this.item.Ngay !== undefined) {
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
     }
     this.services.GetListItemKiemKeBanChePham(this.item.IddmPhanXuong, this.item.NgayUnix, this.item.IddmCaSanXuat).subscribe((res: any) => {
       this.listItemFull = res;

@@ -167,6 +167,9 @@ export class XuatkhothanhphammodalComponent implements OnInit {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+              this.item.Ngay = UnixToDate(this.item.NgayUnix);
+            }
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
@@ -241,7 +244,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
   }
   GetMatHangTheoKho() {
     var data = {
-      Ngay: new Date(this.item.Ngay).getTime() / 1000,
+      Ngay: UnixToDate(this.item.Ngay),
       IddmKho: this.item.IddmKho,
       // IddmPhanXuong: this.item.IddmPhanXuong,
     }

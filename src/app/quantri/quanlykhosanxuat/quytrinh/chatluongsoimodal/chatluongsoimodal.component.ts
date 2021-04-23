@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { maskOption, vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { ChatluongsoimathangmodalComponent } from '../chatluongsoimathangmodal/chatluongsoimathangmodal.component';
 
 @Component({
@@ -43,13 +43,13 @@ export class ChatluongsoimodalComponent implements OnInit {
     else
       this.KiemTraButtonModal();
     if (this.item.NgayKiemTraUnix !== null && this.item.NgayKiemTraUnix !== undefined) {
-      this.item.NgayKiemTra = new Date(this.item.NgayKiemTraUnix * 1000);
+      this.item.NgayKiemTra = UnixToDate(this.item.NgayKiemTraUnix);
     }
     if (this.item.TuNgayUnix !== null && this.item.TuNgayUnix !== undefined) {
-      this.item.TuNgay = new Date(this.item.TuNgayUnix * 1000);
+      this.item.TuNgay = UnixToDate(this.item.TuNgayUnix);
     }
     if (this.item.DenNgayUnix !== null && this.item.DenNgayUnix !== undefined) {
-      this.item.DenNgay = new Date(this.item.DenNgayUnix * 1000);
+      this.item.DenNgay = UnixToDate(this.item.DenNgayUnix);
     }
     this.getListdmPhanXuong();
     this.initTabIndex();
@@ -62,11 +62,11 @@ export class ChatluongsoimodalComponent implements OnInit {
 
   ChuyenDuyet() {
     if (this.item.NgayKiemTra !== null && this.item.NgayKiemTra !== undefined)
-      this.item.NgayKiemTraUnix = (new Date(this.item.NgayKiemTra)).getTime() / 1000;
+      this.item.NgayKiemTraUnix = DateToUnix(this.item.NgayKiemTra);
     if (this.item.TuNgay !== null && this.item.TuNgay !== undefined)
-      this.item.TuNgayUnix = (new Date(this.item.TuNgay)).getTime() / 1000;
+      this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
     if (this.item.DenNgay !== null && this.item.DenNgay !== undefined)
-      this.item.DenNgayUnix = (new Date(this.item.DenNgay)).getTime() / 1000;
+      this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
     this.services.PhieuChatLuongSoi().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -95,9 +95,10 @@ export class ChatluongsoimodalComponent implements OnInit {
     else if (this.item.IddmPhanXuong === null || this.item.IddmPhanXuong === undefined)
       this.toastr.error("Bạn chưa chọn phân xưởng");
     else {
-      this.item.NgayKiemTraUnix = (new Date(this.item.NgayKiemTra)).getTime() / 1000;
-      this.item.TuNgayUnix = (new Date(this.item.TuNgay)).getTime() / 1000;
-      this.item.DenNgayUnix = (new Date(this.item.DenNgay)).getTime() / 1000;
+      this.item.NgayKiemTraUnix = DateToUnix(this.item.NgayKiemTra);
+      this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
+      this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
+
       this.services.PhieuChatLuongSoi().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -143,9 +144,9 @@ export class ChatluongsoimodalComponent implements OnInit {
   GetMatHangTheoKho() {
     let data = {
       IddmPhanXuong: this.item.IddmPhanXuong,
-      Ngay: new Date(this.item.NgayKiemTra).getTime() / 1000,
-      TuNgay: new Date(this.item.TuNgay).getTime() / 1000,
-      DenNgay: new Date(this.item.DenNgay).getTime() / 1000,
+      Ngay: DateToUnix(this.item.NgayKiemTra),
+      TuNgay: DateToUnix(this.item.TuNgay) ,
+      DenNgay: DateToUnix(this.item.DenNgay),
     };
     this.services.GetlistdmMatHangKiemTraChatLuong(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(ChatluongsoimathangmodalComponent, {

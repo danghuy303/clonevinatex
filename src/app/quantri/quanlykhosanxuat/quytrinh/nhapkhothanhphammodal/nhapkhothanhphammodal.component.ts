@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 import {DecimalPipe} from '@angular/common';
 import { truncateWithEllipsis } from '@amcharts/amcharts4/.internal/core/utils/Utils';
@@ -59,7 +59,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay =UnixToDate(this.item.NgayUnix);
     }
     this.data.CurrentPage = 0;
 
@@ -80,7 +80,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     }
     else {
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.PhieuNhapThanhPham().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -117,7 +117,8 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
     else {
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+
       this._services.PhieuNhapThanhPham().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -179,7 +180,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   }
   GetMatHangTheoKho() {
     var data = {
-      Ngay: new Date(this.item.Ngay).getTime() / 1000,
+      Ngay: DateToUnix(this.item.Ngay),
       IddmKho: this.item.IddmKhoHoiAm,
     }
     var cols: any = [

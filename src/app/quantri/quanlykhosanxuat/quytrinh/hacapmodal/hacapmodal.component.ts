@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
@@ -40,7 +40,7 @@ export class HacapmodalComponent implements OnInit {
     else
       this.KiemTraButtonModal();
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.getListHangHoaSauHaCap();
   }
@@ -113,7 +113,7 @@ export class HacapmodalComponent implements OnInit {
 
   GetLuuKho(sFilter) {
     var data = {
-      Ngay: new Date(this.item.Ngay).getTime() / 1000,
+      Ngay: DateToUnix(this.item.Ngay),
       IddmKho: this.item.IddmKho,
     }
     this.services.GetlistdmMatHangHaCap(data).subscribe((res1: any) => {

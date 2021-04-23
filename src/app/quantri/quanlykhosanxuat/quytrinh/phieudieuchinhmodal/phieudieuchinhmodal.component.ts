@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { KienlocongdieuchinhmodalComponent } from '../kienlocongdieuchinhmodal/kienlocongdieuchinhmodal.component';
  
 @Component({
@@ -56,7 +56,7 @@ export class PhieudieuchinhmodalComponent implements OnInit {
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.getListdmViTri();
   }
@@ -113,13 +113,12 @@ export class PhieudieuchinhmodalComponent implements OnInit {
     }
     else{
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this.services.PhuongAnDieuChinhTimBong().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
+            this.toastr.success(res.message);
             this.activeModal.close();
-            this.item = res.objectReturn;
-            this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
           }
@@ -136,7 +135,7 @@ export class PhieudieuchinhmodalComponent implements OnInit {
 
   GhiLai() {
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
       this.services.PhuongAnDieuChinhTimBong().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -144,6 +143,7 @@ export class PhieudieuchinhmodalComponent implements OnInit {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            this.item.Ngay = UnixToDate(this.item.NgayUnix);
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);

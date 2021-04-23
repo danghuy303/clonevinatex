@@ -54,21 +54,21 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
     else {
       if (this.item.listItem.length > 0) {
         this.item.listItem.forEach(obj => {
-          obj.ThoiGianDuKien = new Date(obj.ThoiGianDuKienUnix * 1000);
-          obj.ThoiGianCapCang = new Date(obj.ThoiGianCapCangUnix * 1000);
+          obj.ThoiGianDuKien = UnixToDate(obj.ThoiGianDuKienUnix);
+          obj.ThoiGianCapCang = UnixToDate(obj.ThoiGianCapCangUnix);
         });
         this.sort()
       }
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix );
     }
     if (this.item.ThoiGianCapCangUnix !== null && this.item.ThoiGianCapCangUnix !== undefined) {
-      this.item.ThoiGianCapCang = new Date(this.item.ThoiGianCapCangUnix * 1000);
+      this.item.ThoiGianCapCang = UnixToDate(this.item.ThoiGianCapCangUnix);
     }
     if (this.item.ThoiGianDuKienUnix !== null && this.item.ThoiGianDuKienUnix !== undefined) {
-      this.item.ThoiGianDuKien = new Date(this.item.ThoiGianDuKienUnix * 1000);
+      this.item.ThoiGianDuKien = UnixToDate(this.item.ThoiGianDuKienUnix);
     }
     this._services.NhapKeHoachNguyenLieuInvoice().KeHoachForInvoice().subscribe((res: any) => {
       this.listKeHoachNguyenLieu = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -210,10 +210,10 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
             this._services.NhapKeHoachNguyenLieuInvoice().Get(res.objectReturn.Id).subscribe((res1: any) => {
               this.item = res1;
               if (this.item.ThoiGianCapCangUnix !== null && this.item.ThoiGianCapCangUnix !== undefined) {
-                this.item.ThoiGianCapCang = new Date(this.item.ThoiGianCapCangUnix * 1000);
+                this.item.ThoiGianCapCang = UnixToDate(this.item.ThoiGianCapCangUnix);
               }
               if (this.item.ThoiGianDuKienUnix !== null && this.item.ThoiGianDuKienUnix !== undefined) {
-                this.item.ThoiGianDuKien = new Date(this.item.ThoiGianDuKienUnix * 1000);
+                this.item.ThoiGianDuKien = UnixToDate(this.item.ThoiGianDuKienUnix);
               }
               if (this.item.listItem.length > 0 && this.item.listItem !== null) {
                 this.item.listItem.filter(obj => {
@@ -334,8 +334,8 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
         this.item.GiaBong = this.listKeHoachNguyenLieuFull[i].GiaBong;
         this.item.SoLuongNhap = this.listKeHoachNguyenLieuFull[i].SoLuongNhap;
         this.item.Container = this.listKeHoachNguyenLieuFull[i].Container;
-        this.item.ThoiGianCapCang = new Date(this.listKeHoachNguyenLieuFull[i].ThoiGianCapCangUnix * 1000);
-        this.item.ThoiGianDuKien = new Date(this.listKeHoachNguyenLieuFull[i].ThoiGianDuKienUnix * 1000);
+        this.item.ThoiGianCapCang = UnixToDate(this.listKeHoachNguyenLieuFull[i].ThoiGianCapCangUnix);
+        this.item.ThoiGianDuKien = UnixToDate(this.listKeHoachNguyenLieuFull[i].ThoiGianDuKienUnix);
         break;
       }
     }

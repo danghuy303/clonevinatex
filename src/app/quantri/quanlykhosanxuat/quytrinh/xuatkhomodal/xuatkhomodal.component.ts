@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToDatePicker, DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
@@ -67,7 +67,10 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.listItem = res1.listItem.slice(0, 15);
       this.KiemTraButtonModal();
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-        this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+        this.item.Ngay = UnixToDate(this.item.NgayUnix);
+      }
+      if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
+        this.item.NgayChungTu = UnixToDate(this.item.NgayChungTuUnix);
       }
     })
   }
@@ -79,10 +82,10 @@ export class XuatkhomodalComponent implements OnInit {
 
   ChuyenDuyet() {
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined) {
-      this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
+      this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
     }
     if (validVariable(this.item.Ngay)) {
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this.item.listItem = this.listItem;
       this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
@@ -109,9 +112,9 @@ export class XuatkhomodalComponent implements OnInit {
 
   GhiLai() {
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
-      this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
+      this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
     if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this.item.listItem = this.listItem
       this.services.PhieuXuatSanXuat().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -119,8 +122,13 @@ export class XuatkhomodalComponent implements OnInit {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+              this.item.Ngay = UnixToDate(this.item.NgayUnix);
+            }
+            if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
+              this.item.NgayChungTu = UnixToDate(this.item.NgayChungTuUnix);
+            }
             this.KiemTraButtonModal();
-            // this.activeModal.close(res.message);
           } else {
             this.toastr.error(res.message);
           }
