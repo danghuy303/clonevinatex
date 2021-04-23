@@ -93,14 +93,22 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   CopyKeHoach() {
     this.GiaoKeHoachForCopy.Created=null;
     this.GiaoKeHoachForCopy.Modified=null;
-
+    this.GiaoKeHoachForCopy.IdTrangThai='';
     let cloneData = deepCopy({
       ...this.GiaoKeHoachForCopy,
       SoQuyTrinh: this.item.SoQuyTrinh,
+      Id:''
     });
     cloneData.TuNgay = DateToDatePicker(this.GiaoKeHoachForCopy.TuNgay);
     cloneData.DenNgay = DateToDatePicker(this.GiaoKeHoachForCopy.DenNgay);
     this.item = cloneData;
+    if (this.item.listItem != undefined && this.item.listItem != null) {
+      this.item.listItem.filter(objlistItem => {
+        objlistItem.listItem.filter(objlistItem2 => {
+          objlistItem2.objQuyCachDongGoi = this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
+        });
+      });
+    }
   }
   GetFormOptions() {
     this.services.GetOptions().GetMatHang().subscribe((res: Array<any>) => {
@@ -243,7 +251,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
       if (res.length > 0) {
-        res.filter(obj => this.item.listItem.push(obj))
+        res.forEach(obj => this.item.listItem.push(obj))
       }
       // merge(res, this.item.listItem, 'IddmItem')
     }).catch(er => {
@@ -255,7 +263,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     if (e.value != undefined && item.value != null && item.value > 0
       && item.listItem != undefined && item.listItem.length > 0) {
       let tong = 0;
-      item.listItem.filter(obj => {
+      item.listItem.forEach(obj => {
         if (!obj.isXoa) {
           tong += obj.KhoiLuong;
         }
