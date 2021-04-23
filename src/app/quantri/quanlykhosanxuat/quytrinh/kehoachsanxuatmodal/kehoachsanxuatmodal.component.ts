@@ -36,6 +36,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   ]
   listPhanXuong: any = []; listMatHang: any = [];
   listQuyCachDongGoi: any = [];
+  listKeHoachForCopy:any=[];
   yearRange: string = `${((new Date()).getFullYear())}:${((new Date()).getFullYear()) + 5}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) {
 
@@ -57,6 +58,21 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
       this.checkbutton = res;
+    })
+  }
+  GetListGiaoKeHoachForCopy(){
+    let data = {
+      PageSize: 25,
+      CurrentPage: 0,
+      TabTrangThai: 3,
+      sFilter: null,
+      TuNgay: null,
+      DenNgay: null,
+      Ma: "",
+      Ten: "",
+    }
+    this.services.GiaoKeHoachSanXuat().GetList(data).subscribe((res: any) => {
+      this.listKeHoachForCopy = res;
     })
   }
   GetFormOptions() {
