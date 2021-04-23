@@ -6,7 +6,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, deepCopy, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
+import { DateToDatePicker, DateToUnix, deepCopy, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 import { ChonquycachdonggoimodalComponent } from '../../modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component';
@@ -36,7 +36,9 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   ]
   listPhanXuong: any = []; listMatHang: any = [];
   listQuyCachDongGoi: any = [];
-  listKeHoachForCopy:any=[];
+  listKeHoachForCopy: any = [];
+  GiaoKeHoachForCopy: any = {};
+  canCopy: boolean = false;
   yearRange: string = `${((new Date()).getFullYear())}:${((new Date()).getFullYear()) + 5}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) {
 
@@ -47,6 +49,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
+      this.GetListGiaoKeHoachForCopy();
       if (this._store.getCurrent()) {
         this.item.IdDuAn = this._store.getCurrent();
       }
@@ -60,7 +63,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       this.checkbutton = res;
     })
   }
-  GetListGiaoKeHoachForCopy(){
+  GetListGiaoKeHoachForCopy() {
     let data = {
       PageSize: 25,
       CurrentPage: 0,
@@ -72,8 +75,32 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       Ten: "",
     }
     this.services.GiaoKeHoachSanXuat().GetList(data).subscribe((res: any) => {
-      this.listKeHoachForCopy = res;
+      this.listKeHoachForCopy = mapArrayForDropDown(res, 'SoQuyTrinh', "Id");
     })
+  }
+  GetGiaoKeHoachForCopy({ value: Id }) {
+    this.services.GiaoKeHoachSanXuat().Get(Id).subscribe((res: any) => {
+      if (validVariable(res.Id)) {
+        this.toastr.success('Tải thành công dữ liệu! Bạn có thể sao chép!')
+        this.GiaoKeHoachForCopy = res;
+        this.canCopy = true;
+      }
+      else {
+        this.toastr.error('Tải dữ liệu từ kế hoạch không thành công! Vui lòng thử kế hoạch khác!')
+      }
+    })
+  }
+  CopyKeHoach() {
+    this.GiaoKeHoachForCopy.Created=null;
+    this.GiaoKeHoachForCopy.Modified=null;
+
+    let cloneData = deepCopy({
+      ...this.GiaoKeHoachForCopy,
+      SoQuyTrinh: this.item.SoQuyTrinh,
+    });
+    cloneData.TuNgay = DateToDatePicker(this.GiaoKeHoachForCopy.TuNgay);
+    cloneData.DenNgay = DateToDatePicker(this.GiaoKeHoachForCopy.DenNgay);
+    this.item = cloneData;
   }
   GetFormOptions() {
     this.services.GetOptions().GetMatHang().subscribe((res: Array<any>) => {
@@ -229,9 +256,9 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       && item.listItem != undefined && item.listItem.length > 0) {
       let tong = 0;
       item.listItem.filter(obj => {
-        if(!obj.isXoa){
+        if (!obj.isXoa) {
           tong += obj.KhoiLuong;
-        }   
+        }
       });
       if (item.value < tong) {
         this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
@@ -341,17 +368,17 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  refreshFilterMatHang(){
+  refreshFilterMatHang() {
     this.filter.KeyWord = '';
   }
-  TinhSoCa(){
-    console.log(this.item.TuNgay,this.item.DenNgay);
-    if(validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)){
+  TinhSoCa() {
+    console.log(this.item.TuNgay, this.item.DenNgay);
+    if (validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)) {
       this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
       this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
       // console.log(this.item.TongSoCa);
-      if(!validVariable(this.item.TongSoCa)|| this.item.TongSoCa===0){
-        this.item.TongSoCa = ((this.item.DenNgayUnix - this.item.TuNgayUnix)/(24*3600)+1)*3;
+      if (!validVariable(this.item.TongSoCa) || this.item.TongSoCa === 0) {
+        this.item.TongSoCa = ((this.item.DenNgayUnix - this.item.TuNgayUnix) / (24 * 3600) + 1) * 3;
         // console.log(this.item.TongSoCa);
       }
     }
@@ -363,7 +390,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
         setTimeout(() => {
           mathang.DenNgay = null;
         }, 500)
-      }else{
+      } else {
         this.TinhSoCa();
       }
     } else {
