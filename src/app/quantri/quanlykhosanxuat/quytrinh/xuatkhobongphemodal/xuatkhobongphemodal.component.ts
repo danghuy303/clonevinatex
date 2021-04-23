@@ -51,7 +51,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
     this.services.dmKhachHang().GetListOpt().subscribe((res: any) => {
       this.listKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    
+
   }
   GetQuyTrinh() {
     this.services.PhieuXuatBongPhe().Get(this.item.Id).subscribe((res1: any) => {
@@ -111,7 +111,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
     }
     else {
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
       if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
         this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
       this.services.PhieuXuatBongPhe().Set(this.item).subscribe((res: any) => {
@@ -120,7 +120,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
-            
+
             if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
               this.item.Ngay = UnixToDate(this.item.NgayUnix);
             }
@@ -230,6 +230,7 @@ export class XuatkhobongphemodalComponent implements OnInit {
     for (let i = 0; i < this.item.listItem.length; i++) {
       if (this.item.listItem[i].isXoa !== true) {
         this.TongKhoiLuong += (this.item.listItem[i].TonTrongLuong * this.item.listItem[i].SoLuong) || 0;
+        this.TongKhoiLuong += (this.item.listItem[i].TongTrongLuongChenhLech || 0)
       }
     }
   }

@@ -326,6 +326,19 @@ span.required {
     padding: 0px 2px;
     line-height: 1 !important;
 }
-.p-datatable-scrollable-header-box{
+
+.p-datatable-scrollable-header-box {
     padding: 0px !important;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* .p-datatable-scrollable-body::-webkit-scrollbar{
+    margin-left: -17px;
+} */
+
+.p-datatable-scrollable-body {
+    
 }

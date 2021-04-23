@@ -32,16 +32,16 @@
         </div>
 
     </div>
-    <!-- <div class="p-grid">
+    <div class="p-grid" *ngIf="item.Id===''">
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <div style="flex:1;display:flex ;flex-direction: column;justify-content:flex-end">
                 <p-dropdown [filter]="true" [options]="listKeHoachForCopy" placeholder="Chọn kế hoạch để sao chép"
-                    styleClass="p-inputtext-sm" (onChange)="copyKeHoach($event)"></p-dropdown>
+                    styleClass="p-inputtext-sm" (onChange)="GetGiaoKeHoachForCopy($event)"></p-dropdown>
             </div>
             <button type="button" pButton pRipple label="Sao chép" class="p-button-text p-button-sm"
-                (click)="copyBanBong()" [disabled]="!canCopy"></button>
+                (click)="CopyKeHoach()" [disabled]="!canCopy"></button>
         </div>
-    </div> -->
+    </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Nội dung<span class="required">*</span>:</label>

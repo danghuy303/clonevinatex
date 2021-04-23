@@ -245,7 +245,7 @@ export class XuatkhoxomodalComponent implements OnInit {
   }
   tinhTongTrongLuong(item){
     let TrongLuong = Math.round(item.TrongLuong * 1000);
-    item.TongTrongLuong = TrongLuong * item.SoLuong / 1000;
+    item.TongTrongLuong = (TrongLuong * item.SoLuong / 1000)+(item.TongTrongLuongChenhLech);
   }
   exportExcel() {
     if(validVariable(this.item.Id)){
