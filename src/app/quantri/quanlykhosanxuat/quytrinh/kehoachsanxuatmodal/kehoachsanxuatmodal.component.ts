@@ -75,7 +75,10 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       Ten: "",
     }
     this.services.GiaoKeHoachSanXuat().GetList(data).subscribe((res: any) => {
-      this.listKeHoachForCopy = mapArrayForDropDown(res, 'SoQuyTrinh', "Id");
+      res.forEach(kehoach => {
+        kehoach.HienThi = `${kehoach.SoQuyTrinh} - ${kehoach.NoiDung} - ${kehoach.TendmPhanXuong}`
+      });
+      this.listKeHoachForCopy = mapArrayForDropDown(res, 'HienThi', "Id");
     })
   }
   GetGiaoKeHoachForCopy({ value: Id }) {
@@ -101,6 +104,10 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     });
     cloneData.TuNgay = DateToDatePicker(this.GiaoKeHoachForCopy.TuNgay);
     cloneData.DenNgay = DateToDatePicker(this.GiaoKeHoachForCopy.DenNgay);
+    cloneData.listItem.forEach(ele => {
+      ele.Id='';
+      ele.IdQuyTrinh = this.item.Id;
+    });
     this.item = cloneData;
     if (this.item.listItem != undefined && this.item.listItem != null) {
       this.item.listItem.filter(objlistItem => {
