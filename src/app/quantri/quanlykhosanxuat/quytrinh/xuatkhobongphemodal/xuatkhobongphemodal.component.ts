@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DecimalPipe } from '@angular/common';
 import { BongphemathangmodalComponent } from '../bongphemathangmodal/bongphemathangmodal.component';
 
@@ -196,13 +196,13 @@ export class XuatkhobongphemodalComponent implements OnInit {
               element.SoLuong = data[0].SoLuong;
             }
             else {
-              element.TrongLuong = 0;
-              element.SoLuong = 0;
+              element.TrongLuong = null;
+              element.SoLuong = null;
             }
           }
           else {
-            element.TrongLuong = 0;
-            element.SoLuong = 0;
+            element.TrongLuong = null;
+            element.SoLuong = null;
           }
           // element.SoLuongTon = parseInt(element.SoLuong);
           // element.TrongLuongTon = parseFloat(element.TrongLuong);
@@ -230,6 +230,10 @@ export class XuatkhobongphemodalComponent implements OnInit {
     for (let i = 0; i < this.item.listItem.length; i++) {
       if (this.item.listItem[i].isXoa !== true) {
         this.TongKhoiLuong += ((this.item.listItem[i].TonTrongLuong || 0) * (this.item.listItem[i].SoLuong || 0)) + (this.item.listItem[i].TongTrongLuongChenhLech || 0);
+        // this.TongKhoiLuong += (this.item.listItem[i].TonTrongLuong * this.item.listItem[i].SoLuong) || 0;
+        // if(validVariable(this.item.listItem[i].TongTrongLuongChenhLech)){
+        //   this.TongKhoiLuong += (this.item.listItem[i].TongTrongLuongChenhLech || 0)
+        // }
       }
     }
   }

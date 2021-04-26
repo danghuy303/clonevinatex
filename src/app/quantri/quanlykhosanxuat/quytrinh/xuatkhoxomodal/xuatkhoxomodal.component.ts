@@ -138,6 +138,12 @@ export class XuatkhoxomodalComponent implements OnInit {
             if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
               this.item.NgayChungTu = UnixToDate(this.item.NgayChungTuUnix );
             }
+            this.listItem = res.objectReturn.listItem;
+            if(this.listItem !== null && this.listItem.length > 0){
+              for(let i = 0; i<this.listItem.length ; i ++){
+                this.tinhTongTrongLuong(this.listItem[i]);
+              }
+            }
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
@@ -245,7 +251,7 @@ export class XuatkhoxomodalComponent implements OnInit {
   }
   tinhTongTrongLuong(item){
     let TrongLuong = Math.round(item.TrongLuong * 1000);
-    item.TongTrongLuong = (TrongLuong * item.SoLuong / 1000)+(item.TongTrongLuongChenhLech);
+    item.TongTrongLuong = (TrongLuong * item.SoLuong / 1000)+(item.TongTrongLuongChenhLech||0);
   }
   exportExcel() {
     if(validVariable(this.item.Id)){
