@@ -33,6 +33,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
   listItem: any = [];
   title: any = "";
   newItem: any = {};
+  filter: any = {};
   constructor(
       public activeModal: NgbActiveModal,
       private services: SanXuatService,
@@ -131,6 +132,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
                     //   this.item = res.objectReturn;
                       this.Id = res.objectReturn.Id;
                       this.GetQuyTrinh();
+                      this.refreshFilter();
                     //   this.paging.CurrentPage = 1;
                     //   this.paging.TotalPage = 5;
                     //   if (
@@ -184,8 +186,8 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
   GetMatHangTheoKho() {
       this.services.PhieuKiemKeKhoBong()
           .GetlistdmMatHangKiemKe(
-              this.item.IddmKho,
-              this.item.IdLoBong
+              this.item.IddmKho || "",
+              this.item.IdLoBong || ""
           )
           .subscribe((res1: any) => {
               res1.forEach((mathang) => {
@@ -199,13 +201,37 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
               this.paging.TotalItem = res1.length;
           });
   }
+//   changePage(event) {
+//       this.paging.CurrentPage = event.page + 1;
+//       let start = 10 * event.page;
+//       let end = start + 10;
+//       if (start + 10 > this.item.listItem.length) {
+//           end = this.item.listItem.length;
+//       }
+//       this.listItem = this.item.listItem.slice(start, end);
+//   }
   changePage(event) {
-      this.paging.CurrentPage = event.page + 1;
-      let start = 10 * event.page;
-      let end = start + 10;
-      if (start + 10 > this.item.listItem.length) {
-          end = this.item.listItem.length;
+    console.log(event)
+    this.paging.CurrentPage = event.page + 1;
+    var start = 10 * (event.page);
+    var end = start + 10;
+    if (validVariable(this.filter.KeyWord)) {
+      if ((start + 10) > this.item.listItem.filter(ele=>ele.Ten.includes(this.filter.KeyWord)).length){
+        end = this.item.listItem.filter(ele=>ele.Ten.includes(this.filter.KeyWord)).length;
       }
+      this.paging.TotalItem = this.item.listItem.filter(ele=>ele.Ten.includes(this.filter.KeyWord)).length
+      this.listItem = this.item.listItem.filter(ele=>ele.Ten.includes(this.filter.KeyWord)).slice(start, end);
+    } else {
+      if ((start + 10) > this.listItem.length){
+        end = this.item.listItem.length;
+      }
+      this.paging.TotalItem = this.item.listItem.length;
       this.listItem = this.item.listItem.slice(start, end);
+    }
+
+  }
+  refreshFilter(){
+    this.filter.KeyWord = null;
+    this.changePage({page:0})
   }
 }

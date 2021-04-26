@@ -4,7 +4,9 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { KhoxokiemkemathangmodalComponent } from '../khoxokiemkemathangmodal/khoxokiemkemathangmodal.component';
 import { ImportnhapkhothanhphamComponent } from '../nhapkhothanhphammodal/modals/importnhapkhothanhpham/importnhapkhothanhpham.component';
+import { XuatkhoxomathangmodalComponent } from '../xuatkhoxomathangmodal/xuatkhoxomathangmodal.component';
 
 @Component({
   selector: 'app-khoxokiemkemodal',
@@ -274,4 +276,49 @@ export class KhoxokiemkemodalComponent implements OnInit {
       })
         .catch(er => console.log(er))
     }
+    luacChonMatHang(){
+        let listItem : any = []
+        if(this.item.listItem !== undefined && this.item.listItem !== null){
+        listItem = this.item.listItem.filter((e: any) => e.isXoa !== true);
+        }
+        this.services.getLuuKhoKiemKeKhoXo(this.item.IddmKho, this.item.IdLoBong, "", this.item.IdLoHang).subscribe((res1: any) => {
+            let modalRef = this._modal.open(KhoxokiemkemathangmodalComponent, {
+              backdrop: 'static',
+              size:'lg'
+            })
+            modalRef.componentInstance.opt = 'edit';
+            modalRef.componentInstance.listMatHang = res1;
+            modalRef.componentInstance.listItem = listItem;
+            modalRef.result.then((data) => {
+
+                console.log(data)
+              if( this.item.listItem !== undefined &&  this.item.listItem.length > 0){
+                this.item.listItem.forEach(element => {
+                  element.isXoa = true;
+                });
+              }
+              else
+                this.item.listItem= [];
+             for(let i = 0; i < data.data.length ; i++){
+                let isCheck : any = false;
+                    for(let j = 0; j < this.item.listItem.length ; j++){
+                        if( data.data[i].IddmItem === this.item.listItem[j].IddmItem && data.data[i].IdLoBong === this.item.listItem[j].IdLoBong)
+                        {
+                            this.item.listItem[j].isXoa = false;
+                            isCheck = true;
+                            break;
+                        }
+                    }
+                
+                if(isCheck == false)
+                {
+                    this.item.listItem.push(data.data[i])
+                }
+             }
+             this.changePage({ page: 0 });
+
+            }, (reason) => {
+            });
+          })
+        }
 }
