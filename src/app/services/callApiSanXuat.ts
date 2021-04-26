@@ -1448,6 +1448,10 @@ export class SanXuatService {
             GetDashBoard_PhieuXuatKhoBong: (data) => {
                 return this.http.post(`${url}GetDashBoard_PhieuXuatKhoBong`,data, httpOptions);
             },
+            GetListdmItemTheoPhanXuong_DashboardSanLuong:(data)=>{
+                return this.http.post(`${API.SCMDanhMuc}GetListdmItemTheoPhanXuong_DashboardSanLuong`,data,httpOptions)
+            }
+            
         }
     }
 

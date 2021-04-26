@@ -239,10 +239,10 @@ export class SanluongComponent implements OnInit {
       Ma: "",
       Ten: ""
     };
-    this._services.GetOptions().GetMatHang().subscribe((res: any) => {
-      res.unshift({ Id: '', Ten: 'Tất cả mặt hàng' });
-      this.listMatHang = mapArrayForDropDown(res, 'Ten', 'Id')
-    });
+    // this._services.GetOptions().GetMatHang().subscribe((res: any) => {
+    //   res.unshift({ Id: '', Ten: 'Tất cả mặt hàng' });
+    //   this.listMatHang = mapArrayForDropDown(res, 'Ten', 'Id')
+    // });
     // this._services.GetListdmKho(data).subscribe((res: any) => {
     //   this.listKho = mapArrayForDropDown(res, 'Ten', 'Id')
     // });
@@ -250,6 +250,7 @@ export class SanluongComponent implements OnInit {
       res.unshift({ Id: '', Ten: 'Tất cả phân xưởng' });
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+      this.GetMatHang();
     })
     this._services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, "Ten", 'Ma')
@@ -271,6 +272,17 @@ export class SanluongComponent implements OnInit {
     //   res.unshift({ Id: '', Ten: 'Tổng hợp' });
     //   this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
     // })
+  }
+  GetMatHang(reset?:any){
+    this._services.DashBoard().GetListdmItemTheoPhanXuong_DashboardSanLuong(this.filter).subscribe((res1:any)=>{
+      console.log(res1);
+      res1.unshift({ Id: '', Ten: 'Tất cả mặt hàng' });
+      this.listMatHang = mapArrayForDropDown(res1, 'Ten', 'Id')
+      if(reset){
+        this.filter.IddmItem='';
+        this.GetBieuDo();
+      }
+    })
   }
   ExportExcel(){
     
