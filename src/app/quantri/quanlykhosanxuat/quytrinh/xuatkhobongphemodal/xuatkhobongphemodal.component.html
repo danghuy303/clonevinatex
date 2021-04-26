@@ -124,7 +124,7 @@
                             {{item.TonTrongLuong|number:'0.2'}}
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong"
+                            <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.SoLuong"
                             (onBlur)="TinhTongKhoiLuong()">
                             </p-inputNumber>
                         </td>
@@ -134,7 +134,7 @@
                             </p-inputNumber>
                         </td>
                         <td style="text-align: right;">
-                            {{(item.TonTrongLuong * item.SoLuong)+item.TongTrongLuongChenhLech|number:'0.2-2'}}
+                            {{(item.TonTrongLuong * item.SoLuong)+(item.TongTrongLuongChenhLech||0)|number:'0.2-2'}}
                             <!-- {{item.TongKhoiLuong|number:'0.2-2'}} -->
                         </td>
                         <td>

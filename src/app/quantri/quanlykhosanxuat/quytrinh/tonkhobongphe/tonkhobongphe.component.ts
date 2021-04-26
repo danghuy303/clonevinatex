@@ -51,6 +51,7 @@ export class TonkhobongpheComponent implements OnInit {
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   listPhanXuong: any = [];
   listCaSanXuat: any = [];
+  Loai:any=7;
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,
     private router:Router) {
 
@@ -107,7 +108,11 @@ export class TonkhobongpheComponent implements OnInit {
     })
   }
   resetFilter(){
-    this.filter={};
+    this.filter={
+      Loai:this.Loai,
+      IddmKho:this.listdmKho[0].value,
+      KeyWord:''
+    };
     this.GetListQuyTrinh(true);
   }
   GetTheKho(item) {

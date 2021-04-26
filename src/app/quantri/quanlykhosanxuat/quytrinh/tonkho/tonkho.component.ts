@@ -133,7 +133,11 @@ export class TonkhoComponent implements OnInit {
     })
   }
   resetFilter(){
-    this.filter={};
+    this.filter={
+      IddmKho: this.listdmKho[0].value,
+      Loai:this.loai,
+      KeyWord:''
+    };
     this.GetListQuyTrinh(true);
   }
   GetTheKho(item) {
