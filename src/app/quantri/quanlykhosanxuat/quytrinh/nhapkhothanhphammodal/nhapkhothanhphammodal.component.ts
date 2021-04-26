@@ -275,4 +275,24 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       this.toastr.error('Vui lòng ghi lại phiếu sau đó xuất!')
     }
   }
+  KhongDuyet() {
+    if(!this.checkValidate())
+      this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
+    else if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn  ngày");
+    }
+    else {
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      this._services.PhieuNhapThanhPham().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
 }

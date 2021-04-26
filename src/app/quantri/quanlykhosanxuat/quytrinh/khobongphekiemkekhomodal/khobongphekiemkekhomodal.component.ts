@@ -222,8 +222,8 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
             this.paging.CurrentPage = 1;
             this.paging.TotalPage = 5;
             this.paging.TotalItem = res1.length;
+            this.checklistMatHangTheoKho();
         });
-        this.checklistMatHangTheoKho();
     }
     changePage(event) {
         let clone = [];
@@ -281,4 +281,8 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
         })
             .catch(er => console.log(er))
     }
+    refreshFilter(){
+        this.KeyWord = null;
+        this.changePage({page:0})
+      }
 }

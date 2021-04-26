@@ -243,28 +243,30 @@ export class KiemkekhomodalComponent implements OnInit {
     }
 
     GetMatHangTheoKho() {
-        this.services
-            .getLuuKhoKiemKe(
-                this.item.IddmKho,
-                this.item.IdLoBong,
-                "",
-                this.item.IdLoHang
-            )
-            .subscribe((res1: any) => {
-                res1.forEach((mathang) => {
-                    mathang.SoLuong = mathang.TonSoLuong;
-                    mathang.TongTrongLuong = mathang.TonTongTrongLuong;
+        if(this.item.IddmKho !== undefined && this.item.IddmKho !== null
+            && this.item.IdLoHang !== undefined && this.item.IdLoHang !== null ){
+                this.services
+                .getLuuKhoKiemKe(
+                    this.item.IddmKho,
+                    this.item.IdLoBong,
+                    "",
+                    this.item.IdLoHang
+                )
+                .subscribe((res1: any) => {
+                    res1.forEach((mathang) => {
+                        mathang.SoLuong = mathang.TonSoLuong;
+                        mathang.SoQuaSoi = mathang.TonSoLuong;
+                        mathang.TongTrongLuong = mathang.TonTongTrongLuong;
+                    });
+                    this.item.listItem = res1;
+                    this.listItem = this.item.listItem.slice(0, 10);
+                    this.paging.CurrentPage = 1;
+                    this.paging.TotalPage = 5;
+                    this.paging.TotalItem = res1.length;
                 });
-                this.item.listItem = res1;
-                this.listItem = this.item.listItem.slice(0, 10);
-                this.paging.CurrentPage = 1;
-                this.paging.TotalPage = 5;
-                this.paging.TotalItem = res1.length;
-            });
+            }
     }
     changePage(event) {
-        debugger
-
         this.paging.CurrentPage = event.page + 1;
         let start = 10 * event.page;
         let end = start + 10;
@@ -282,7 +284,6 @@ export class KiemkekhomodalComponent implements OnInit {
     }
     add() {
         if (validVariable(this.newItem.IddmItem)) {
-            debugger
             this.item.listItem.push(deepCopy(this.newItem));
             this.paging.TotalItem = this.item.listItem.length;
             this.newItem = {};
