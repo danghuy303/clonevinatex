@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-xuatkhoxomathangmodal',
-  templateUrl: './xuatkhoxomathangmodal.component.html',
-  styleUrls: ['./xuatkhoxomathangmodal.component.css']
+  selector: 'app-khoxokiemkemathangmodal',
+  templateUrl: './khoxokiemkemathangmodal.component.html',
+  styleUrls: ['./khoxokiemkemathangmodal.component.css']
 })
-export class XuatkhoxomathangmodalComponent implements OnInit {
+export class KhoxokiemkemathangmodalComponent implements OnInit {
+
   listMatHang: any = [];
   listItem: any = [];
   cols: any = [
@@ -16,23 +17,18 @@ export class XuatkhoxomathangmodalComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Tên vị trí',
-      field: 'TendmViTri',
-      width: 'unset'
-    },
-    {
       header: 'Tên lô bông',
       field: 'TenLoBong',
       width: 'unset'
     },
     {
       header: 'Số kiện',
-      field: 'SoLuong',
+      field: 'TonSoLuong',
       width: 'unset'
     },
     {
       header: 'Tổng khối lượng (kg)',
-      field: 'TongTrongLuong',
+      field: 'TonTongTrongLuong',
       width: 'unset'
     },
   ];
@@ -54,7 +50,7 @@ export class XuatkhoxomathangmodalComponent implements OnInit {
     {
       for(let i = 0; i < this.listItem.length; i++){
         var itemFind = this.listMatHang.find(
-          ele => (ele.IddmItem === this.listItem[i].IddmItem)
+          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoBong === this.listItem[i].IdLoBong)
         );
         if(itemFind !== undefined)
           itemFind.checked = true;

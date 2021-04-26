@@ -179,7 +179,7 @@ export class XuatkhoxomodalComponent implements OnInit {
     if(this.item.listItem !== undefined && this.item.listItem !== null){
       listItem = this.item.listItem.filter((e: any) => e.isXoa !== true);
     }
-    this.services.getLuuKhoKhac(this.item.IddmKho,'', 0 , sFilter).subscribe((res1: any) => {
+    this.services.GetLuuKhoXo(this.item.IddmKho,'', 0 , sFilter).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhoxomathangmodalComponent, {
         backdrop: 'static',
         size:'lg'
@@ -218,7 +218,7 @@ export class XuatkhoxomodalComponent implements OnInit {
               }
             }
             if(isCheck === false)
-            listdatapush.push(datapush);
+              listdatapush.push(datapush);
           }
           else
             listdatapush.push(datapush);

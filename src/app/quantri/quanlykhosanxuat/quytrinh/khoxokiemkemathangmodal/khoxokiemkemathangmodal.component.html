@@ -49,16 +49,13 @@
                             {{item.Ten}}
                         </td>
                         <td class="text-center">
-                            {{item.TendmViTri}}
-                        </td>
-                        <td class="text-center">
                             {{item.TenLoBong}}
                         </td>
                         <td class="text-right">
-                            {{item.SoLuong|number:'0.0' }}
+                            {{item.TonSoLuong|number:'0.0' }}
                         </td>
                         <td class="text-right">
-                            {{item.TongTrongLuong|number:'0.2-2' }}
+                            {{item.TonTongTrongLuong|number:'0.2-2' }}
                         </td>
                         <!-- <td class="text-center" *ngFor="let col of cols">
                             {{item[col.field]}} <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiHoiAm" disabled>

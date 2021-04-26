@@ -37,7 +37,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmKho" (onChange)="GetMatHangTheoKho()"></p-dropdown>
+                    [(ngModel)]="item.IddmKho"></p-dropdown>
             </div>
         </div>
         <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -47,17 +47,17 @@
                     [(ngModel)]="item.IddmViTri" (onChange)="GetMatHangTheoKho()"></p-dropdown>
             </div>
         </div> -->
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô xơ:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoBong" placeholder="Chọn lô xơ"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IdLoBong" (onChange)="GetMatHangTheoKho()">
                 </p-dropdown>
             </div>
-        </div>
-        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+        </div> -->
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
             </div>
         </div>
@@ -67,9 +67,9 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
-        <!-- <div class="p-d-flex p-flex-row p-jc-between">
-            <button pButton pRipple type="button" label="Nhận từ Excel" class="p-mr-2 p-button-sm" (click)="ImportExcel()" ></button>
-        </div> -->
+        <div class="p-d-flex p-flex-row p-jc-between">
+            <button pButton pRipple type="button" label="Lựa chọn mặt hàng" class="p-mr-2 p-button-sm" (click)="luacChonMatHang()" ></button>
+        </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <p-table [value]="listItem|isXoa"
                 styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
@@ -105,7 +105,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
-                        <td>{{ 10 * (paging.CurrentPage - 1) + i + 1 }}</td>
+                        <td style="text-align: center;">{{ 10 * (paging.CurrentPage - 1) + i + 1 }}</td>
                         <td style="text-align: center;">{{item.Ma}}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>
                         <td style="text-align: right;">
@@ -135,7 +135,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <tr>
+                    <!-- <tr>
                         <td></td>
                         <td class="text-center">{{newItem.Ma}}</td>
                         <td>
@@ -149,10 +149,6 @@
                         <td class="text-right">
                             {{newItem.TonSoLuong | number : '0.0-0'}}
                         </td>
-                        <!-- <td class="text-right" *ngIf="isKhoThanhPham">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newItem.SoQuaSoi">
-                            </p-inputNumber>
-                        </td> -->
                         <td class="text-right">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newItem.TongTrongLuong">
                             </p-inputNumber>
@@ -161,15 +157,10 @@
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newItem.SoLuong">
                             </p-inputNumber>
                         </td>
-                        <!-- <td>
-                            <p-dropdown [filter]="true" [options]="listQuyCachDongGoi"
-                                placeholder="Chọn quy cách đóng gói" styleClass="p-inputtext-sm"
-                                [(ngModel)]="newItem.IddmQuyCachDongGoi"></p-dropdown>
-                        </td> -->
                         <td class="text-center"> <button pButton pRipple icon="pi pi-plus"
                                 class="p-button-sm p-button-rounded p-button-success p-mr-2" (click)="add()"
                                 pTooltip="Thêm" showDelay="1000" tooltipPosition="bottom"></button> </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <td colspan="3">Tổng</td>
                         <td class="text-right">
@@ -178,16 +169,12 @@
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'TonSoLuong'|number:'0.0-0'}}
                         </td>
-                        <!-- <td class="text-right" *ngIf="isKhoThanhPham">
-                            {{item.listItem|isXoa|SumByKey:'SoQuaSoi'|number:'0.0'}}
-                        </td> -->
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'TongTrongLuong'|number:'0.0-2'}}
                         </td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0'}}
                         </td>
-                        <!-- <td></td> -->
                         <td class="text-center"></td>
                     </tr>
                 </ng-template>

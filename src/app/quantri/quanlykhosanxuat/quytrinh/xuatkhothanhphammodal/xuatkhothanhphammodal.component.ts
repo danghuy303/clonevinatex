@@ -107,6 +107,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     return true;
   }
   ChuyenTiep() {
+    
     if(!this.checkValidate())
       this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
@@ -114,7 +115,6 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     }
     else {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
-
       this._services.PhieuXuatThanhPham().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

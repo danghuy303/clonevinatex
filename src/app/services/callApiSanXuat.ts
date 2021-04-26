@@ -1837,4 +1837,9 @@ export class SanXuatService {
         // 
         return this.http.get(url, httpOptions);
     }
+    GetLuuKhoXo(IddmKho, IddmViTri, CurrentPage, sFilter) {
+        // let IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + `GetLuuKhoXo?IdDuAn=0&IddmKho=${IddmKho}&IddmViTri=${IddmViTri}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
+        return this.http.get(url, httpOptions);
+    }
 }
