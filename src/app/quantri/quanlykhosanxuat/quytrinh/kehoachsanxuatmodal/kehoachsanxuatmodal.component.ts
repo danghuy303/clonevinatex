@@ -93,7 +93,6 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   CopyKeHoach() {
     this.GiaoKeHoachForCopy.Created=null;
     this.GiaoKeHoachForCopy.Modified=null;
-
     let cloneData = deepCopy({
       ...this.GiaoKeHoachForCopy,
       SoQuyTrinh: this.item.SoQuyTrinh,
