@@ -286,6 +286,7 @@ import { TonkhobonghoimodalComponent } from './quanlykhosanxuat/quytrinh/tonkhob
 import { TonkhobongpheComponent } from './quanlykhosanxuat/quytrinh/tonkhobongphe/tonkhobongphe.component';
 import { TonkhobongphemodalComponent } from './quanlykhosanxuat/quytrinh/tonkhobongphemodal/tonkhobongphemodal.component';
 import { KhoxokiemkemathangmodalComponent } from './quanlykhosanxuat/quytrinh/khoxokiemkemathangmodal/khoxokiemkemathangmodal.component';
+import { LoxomodalComponent } from './danhmuc/loxomodal/loxomodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -523,6 +524,7 @@ import { KhoxokiemkemathangmodalComponent } from './quanlykhosanxuat/quytrinh/kh
     TonkhobonghoimodalComponent,
     TonkhobongphemodalComponent,
     KhoxokiemkemathangmodalComponent,
+    LoxomodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -670,6 +672,7 @@ import { KhoxokiemkemathangmodalComponent } from './quanlykhosanxuat/quytrinh/kh
     TonkhobonghoimodalComponent,
     TonkhobongphemodalComponent,
     KhoxokiemkemathangmodalComponent,
+    LoxomodalComponent,
 
   ],
   providers: [

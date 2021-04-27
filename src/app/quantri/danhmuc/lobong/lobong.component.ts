@@ -1,3 +1,4 @@
+import { ifStmt } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -6,6 +7,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 import { LobongmodalComponent } from '../lobongmodal/lobongmodal.component';
+import { LoxomodalComponent } from '../loxomodal/loxomodal.component';
 
 @Component({
   selector: 'app-lobong',
@@ -69,25 +71,49 @@ export class LobongComponent implements OnInit {
       label: 'Đã về'
     }
   ];
+  listLoaiBongXo: any = [
+    {
+      value: 2,
+      label: 'Lô bông'
+    },
+    {
+      value: 5,
+      label: 'Lô xơ'
+    }
+  ];
 
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService,
     private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.filter.isDaDuyet = this.listisDaDuyet[0].value;
+    this.filter.Loai = this.listLoaiBongXo[0].value;
     this.GetListQuyTrinh();
     this.GetListdmLoaiBong();
   }
   update(item) {
-    let modalRef = this._modal.open(LobongmodalComponent, {
-      size: 'lg',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-    })
+    if(this.filter.Loai === 2){
+      let modalRef = this._modal.open(LobongmodalComponent, {
+        size: 'lg',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+      modalRef.result.then((res: any) => {
+        this.GetListQuyTrinh();
+      })
+    }
+    else if(this.filter.Loai === 5){
+      let modalRef = this._modal.open(LoxomodalComponent, {
+        size: 'lg',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+      modalRef.result.then((res: any) => {
+        this.GetListQuyTrinh();
+      })
+    }
   }
 
   changePage(event) {
@@ -109,7 +135,7 @@ export class LobongComponent implements OnInit {
       Ten: "",
       isDaDuyet: this.filter.isDaDuyet,
       IddmLoaiBong: this.filter.IddmLoaiBong,
-      Loai:2
+      Loai: this.filter.Loai
     }
     this._service.GetListLoBong(data).subscribe((res: any) => {
       this.items = res.items;

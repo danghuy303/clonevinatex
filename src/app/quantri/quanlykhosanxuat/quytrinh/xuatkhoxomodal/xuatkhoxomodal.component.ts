@@ -208,11 +208,12 @@ export class XuatkhoxomodalComponent implements OnInit {
           datapush.Ten = element.Ten;
           datapush.IddmViTri = element.IddmViTri;
           datapush.TendmViTri = element.TendmViTri;
+          datapush.IdLoBong = element.IdLoBong;
           var isCheck : any = false
 
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
             for(let i =0 ; i < this.item.listItem.length; i++){
-              if(this.item.listItem[i].IddmItem == element.IddmItem)
+              if(this.item.listItem[i].IddmItem === element.IddmItem && this.item.listItem[i].IdLoBong === element.IdLoBong)
               {
                 this.item.listItem[i].isXoa = false;
                 this.item.listItem[i].Ten = element.Ten;

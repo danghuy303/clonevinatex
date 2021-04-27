@@ -34,7 +34,7 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
                     [(ngModel)]="item.IddmKho" (onChange)="getdmKhoFunc()"></p-dropdown>
@@ -48,7 +48,7 @@
             </div>
         </div> -->
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô hàng:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô hàng <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoHang" placeholder="Chọn lô hàng"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IdLoHang" (onChange)="GetMatHangTheoKho()">
@@ -152,11 +152,11 @@
                             </p-inputNumber>
                         </td>
                         <td class="text-right">
-                            <span *ngIf="item.TongTrongLuongChenhLech !== undefined && item.TongTrongLuongChenhLech !== null">
-                                {{(item.TongTrongLuong - item.TongTrongLuongChenhLech)/ item.SoQuaSoi|number:'0.2'}}
+                            <span *ngIf="item.TongTrongLuongChenhLech !== undefined && item.TongTrongLuongChenhLech !== null && item.SoQuaSoi > 0">
+                                {{(item.TongTrongLuong - item.TongTrongLuongChenhLech)/ item.SoQuaSoi|number:'0.2-2'}}
                             </span>
-                            <span *ngIf="item.TongTrongLuongChenhLech === undefined || item.TongTrongLuongChenhLech === null">
-                                {{(item.TongTrongLuong)/ item.SoQuaSoi|number:'0.2'}}
+                            <span *ngIf="item.TongTrongLuongChenhLech === undefined || item.TongTrongLuongChenhLech === null && item.SoQuaSoi > 0">
+                                {{(item.TongTrongLuong)/ item.SoQuaSoi|number:'0.2-2'}}
                             </span>
                         </td>
                         <!-- <td class="text-right">
@@ -190,7 +190,7 @@
                         </td>
                         <td class="text-right">
                         </td>
-                        <td class="text-right" *ngIf="isKhoThanhPham">
+                        <td class="text-right">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newItem.SoQuaSoi"
                             (onBlur)="TinhTongKhoiLuong(newItem)">
                             </p-inputNumber>

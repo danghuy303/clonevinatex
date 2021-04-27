@@ -297,6 +297,7 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
                 for(let i = 0; i < this.listNewMatHang.length ; i ++){
                     for(let j = 0; j < this.listItem.length ; j ++){
                         if(this.listNewMatHang[i].label === this.listItem[j].Ten){
+                            debugger
                             this.listNewMatHang.splice(i, 1);
                             break;
                         }
