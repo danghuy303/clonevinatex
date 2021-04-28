@@ -81,7 +81,7 @@
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
                 Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
-                    [rows]="25" (onPageChange)="changePage($event)"></p-paginator>
+                    [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
         </ng-template>
     </p-table>

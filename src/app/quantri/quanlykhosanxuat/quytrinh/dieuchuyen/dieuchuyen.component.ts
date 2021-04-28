@@ -105,7 +105,7 @@ export class DieuchuyenComponent implements OnInit {
       this.paginator.changePage(0);
     }
     let data={
-      PageSize: 25,
+      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter:this.filter.KeyWord,
