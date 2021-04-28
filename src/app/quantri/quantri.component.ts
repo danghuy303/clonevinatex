@@ -525,6 +525,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Phiếu điều chỉnh',
                         routerLink: '/quantri/trienkhaisanxuat/phieudieuchinh/0',
+                        separator: this.checkmenu("DIEUCHINHDOIKIENBONG"),
                         command: () => this.close()
                     },
                     {
