@@ -2,12 +2,12 @@
     <!-- <div class="p-col-3">
         <h4 style="color:#1f2779">Thẻ kho</h4>
     </div> -->
-    <div class=" p-d-flex p-ai-center p-jc-between p-col-12">
+    <div class=" d-flex flex-column flex-lg-row p-ai-center p-jc-between p-col-12">
         <div class="p-mr-2">
             <h4 style="color:#1f2779">Danh sách chi tiết {{tenkho}}</h4>
         </div>
         <div></div>
-        <div class="p-d-flex p-flex-row">
+        <div class="d-flex flex-column flex-lg-row">
             <div class="p-mr-2">
                 <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho"
                     styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmKho" (onChange)="GetListQuyTrinh(true)">
@@ -43,12 +43,12 @@
             <ng-template pTemplate="colgroup">
                 <colgroup>
                     <col style="width:50px">
-                    <col>
-                    <col>
-                    <col *ngIf="loai === 11">
-                    <col>
-                    <col>
-                    <col style="width: 200px;">
+                    <col style="width:10rem">
+                    <col style="width:10rem">
+                    <col *ngIf="loai === 11" style="width:10rem">
+                    <col style="width:10rem">
+                    <col style="width:10rem">
+                    <col style="width: 5rem;">
                 </colgroup>
             </ng-template>
             <ng-template pTemplate="header">

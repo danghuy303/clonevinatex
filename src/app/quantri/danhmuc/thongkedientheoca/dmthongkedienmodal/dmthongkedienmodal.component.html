@@ -33,15 +33,13 @@
 
             <div class="p-grid">
                 <div class="p-col-12 p-p-0 d-flex flex-column">
-                    <p-table [value]="item.lstCongTo" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+                    <p-table [value]="item.lstCongTo" styleClass="p-datatable-sm wrap-text p-datatable-striped" [scrollable]="true">
                         <ng-template pTemplate="colgroup">
                             <colgroup>
-                                <col>
-                                <col>
-                                <col>                                
-                                <col>
-                                <col>
-                                <col>
+                                <col style="width: 10rem;">
+                                <col style="width: 10rem;">
+                                <col style="width: 10rem;">                                
+                                <col *ngFor="let header of cols" style="width: 7rem;">
                                 <!-- <col style="width: 5rem;"> -->
                             </colgroup>
                         </ng-template>

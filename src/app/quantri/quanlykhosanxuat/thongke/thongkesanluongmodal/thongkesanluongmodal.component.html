@@ -96,18 +96,19 @@
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <p-table [lazy]="true" [value]="listItem|isXoa" styleClass="p-datatable-sm wrap-text">
+            <p-table [lazy]="true" [value]="listItem|isXoa" styleClass="p-datatable-sm wrap-text" [scrollable]='true'>
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col *ngIf="item.CongDoan==='ONG'">
-                        <col *ngIf="item.CongDoan==='ONG'">
-                        <col>
+                        <col style="width: 10rem;" >
+                        <col style="width: 10rem;" >
+                        <col style="width: 5rem;" >
+                        <col style="width: 10rem;" >
+                        <col style="width: 10rem;" >
+                        <col *ngIf="item.CongDoan==='ONG'" style="width: 10rem;" >
+                        <col *ngIf="item.CongDoan==='ONG'" style="width: 10rem;" >
+                        <col *ngIf="item.CongDoan!=='ONG'" style="width: 10rem;" >
+                        <col style="width: 10rem;" >
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
