@@ -51,7 +51,7 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center">
-                    {{ 10 * (paging.CurrentPage - 1) + i + 1 }}
+                    {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
                 <td class="text-center">{{item.SoQuyTrinh}}</td>
                 <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
@@ -73,7 +73,7 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="25"
+                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20"
                     (onPageChange)="changePage($event)"></p-paginator>
             </div>
         </ng-template>
