@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { NhapkhohoiammodalComponent } from '../nhapkhohoiammodal/nhapkhohoiammodal.component';
 
 @Component({
@@ -48,10 +48,14 @@ export class NhapkhohoiamComponent implements OnInit {
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   isCheckModal: any = false;
+  listdmPhanXuong: any = [];
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
+    this._service.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
     this.activatedRoute.params.subscribe((res: any) => {
       console.log(res.id)
       if (res.id !== '0' && this.isCheckModal === false) {
@@ -116,7 +120,7 @@ export class NhapkhohoiamComponent implements OnInit {
   GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
+      // this.paginator.changePage(0);
     }
     let data = {
       PageSize: 20,
@@ -127,6 +131,7 @@ export class NhapkhohoiamComponent implements OnInit {
       DenNgay:  DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
+      IddmPhanXuong: this.filter.IddmPhanXuong
     }
     this._service.PhieuNhapHoiAm().GetList(data).subscribe((res: any) => {
       this.items = res.items;
