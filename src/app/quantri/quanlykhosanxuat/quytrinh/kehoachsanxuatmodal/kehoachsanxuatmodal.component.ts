@@ -94,18 +94,18 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     })
   }
   CopyKeHoach() {
-    this.GiaoKeHoachForCopy.Created=null;
-    this.GiaoKeHoachForCopy.Modified=null;
-    this.GiaoKeHoachForCopy.IdTrangThai='';
+    this.GiaoKeHoachForCopy.Created = null;
+    this.GiaoKeHoachForCopy.Modified = null;
+    this.GiaoKeHoachForCopy.IdTrangThai = '';
     let cloneData = deepCopy({
       ...this.GiaoKeHoachForCopy,
       SoQuyTrinh: this.item.SoQuyTrinh,
-      Id:''
+      Id: ''
     });
     cloneData.TuNgay = DateToDatePicker(this.GiaoKeHoachForCopy.TuNgay);
     cloneData.DenNgay = DateToDatePicker(this.GiaoKeHoachForCopy.DenNgay);
     cloneData.listItem.forEach(ele => {
-      ele.Id='';
+      ele.Id = '';
       ele.IdQuyTrinh = this.item.Id;
     });
     this.item = cloneData;
@@ -266,7 +266,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     })
   }
 
-  changeKeHoachSanXuat(e, item) {
+  changeKeHoachSanXuat(e, item, index) {
     if (e.value != undefined && item.value != null && item.value > 0
       && item.listItem != undefined && item.listItem.length > 0) {
       let tong = 0;
@@ -278,6 +278,9 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       if (item.value < tong) {
         this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
       }
+    }
+    if(validVariable(this.item.Id)){
+      item.isEdited = true;
     }
   }
 
@@ -291,6 +294,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
       // merge(res, this.item.listItem, 'IddmQuyCachDongGoi');
+      item.isEdited = true;
       item.listItem = res.listItem;
       // if (item.KhoiLuongKeHoach != undefined && item.KhoiLuongKeHoach != null && item.KhoiLuongKeHoach > 0
       //   && item.listItem != undefined && item.listItem.length > 0) {
@@ -413,6 +417,11 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
         mathang.DenNgay = null;
       }, 500)
       this.toastr.warning('Vui lòng chọn Từ ngày trước!')
+    }
+  }
+  change(index) {
+    if(validVariable(this.item.Id)){
+      this.item.listItem[index].isEdited = true;
     }
   }
 }

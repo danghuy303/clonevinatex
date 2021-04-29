@@ -33,12 +33,12 @@ export class ThongkesanluongComponent implements OnInit {
     {
       header: 'Thời điểm',
       field: 'TendmCaSanXuat',
-      width: 'unset'
+      width: '150px'
     },
     {
       header: 'Ca',
       field: 'TendmCaSanXuatThucTe',
-      width: 'unset'
+      width: '150px'
     },
     {
       header: 'Khối lượng(kg)',
@@ -48,17 +48,17 @@ export class ThongkesanluongComponent implements OnInit {
     {
       header: 'Phân xưởng',
       field: 'TendmPhanXuong',
-      width: 'unset'
+      width: '150px'
     },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
-      width: 'unset'
+      width: '150px'
     },
     {
       header: 'Trạng thái',
       field: 'TenTrangThai',
-      width: 'unset'
+      width: '150px'
     },
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};

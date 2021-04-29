@@ -175,19 +175,19 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
-                    <tr>
+                    <tr [ngStyle]="{'background-color': item.isEdited?'#f5d3ce':''}">
                         <td>{{i+1}}</td>
                         <!-- <td>{{item.Ma}}</td> -->
                         <td>{{item.Ten}}</td>
-                        <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.HopDong" pInputText /></td>
+                        <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.HopDong" (ngModelChange)="change(i)" pInputText /></td>
                         <td>
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KhoiLuongKeHoach"
-                                (onInput)="changeKeHoachSanXuat($event,item)">
+                                (onInput)="changeKeHoachSanXuat($event,item,i)" >
                             </p-inputNumber>
                         </td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listMucDich" placeholder="Chọn loại"
-                                styleClass="p-inputtext-sm" [(ngModel)]="item.Loai"></p-dropdown>
+                                styleClass="p-inputtext-sm" [(ngModel)]="item.Loai" (onChange)="change(i)"></p-dropdown>
                         </td>
                         <td>
                             <div class="p-d-flex p-flex-row p-jc-between">
@@ -206,7 +206,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText /></td>
+                        <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" (ngModelChange)="change(i)" pInputText /></td>
                         <!-- <td></td>
                         <td></td>
                         <td></td>
