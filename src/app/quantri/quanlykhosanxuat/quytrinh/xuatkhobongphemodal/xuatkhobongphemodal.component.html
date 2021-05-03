@@ -93,7 +93,6 @@
                         <col>
                         <col>
                         <col>
-                        <col>
                         <col style="width:90px">
                     </colgroup>
                 </ng-template>
@@ -102,14 +101,14 @@
                         <th rowspan="2">#</th>
                         <th rowspan="2">Tên loại bông phế</th>
                         <th colspan="2">Tồn</th>
-                        <th colspan="3">Xuất</th>
+                        <th colspan="2">Xuất</th>
                         <th rowspan="2"></th>
                     </tr>
                     <tr>
                         <th>Số kiện</th>
-                        <th>Khối lượng / kiện (kg)</th>
+                        <th>Tổng khối lượng</th>
                         <th>Số kiện</th>
-                        <th>Chênh lệch</th>
+                        <!-- <th>Chênh lệch</th> -->
                         <th>Tổng khối lượng</th>
                     </tr>
                 </ng-template>
@@ -124,19 +123,21 @@
                             {{item.TonTrongLuong|number:'0.2'}}
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.SoLuong"
-                            (onBlur)="TinhTongKhoiLuong()">
+                            <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
-                        <td>
+                        <!-- <td>
                             <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.TongTrongLuongChenhLech"
                             (onBlur)="TinhTongKhoiLuong()">
                             </p-inputNumber>
+                        </td> -->
+                        <td>
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TrongLuong">
+                            </p-inputNumber>
                         </td>
-                        <td style="text-align: right;">
+                        <!-- <td style="text-align: right;">
                             {{(item.TonTrongLuong * item.SoLuong)+(item.TongTrongLuongChenhLech||0)|number:'0.2-2'}}
-                            <!-- {{item.TongKhoiLuong|number:'0.2-2'}} -->
-                        </td>
+                        </td> -->
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
@@ -151,14 +152,14 @@
                         <td></td>
                         <td></td>
                         <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0'}}
+                            {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0-1'}}
                         </td>
                         <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'TongTrongLuongChenhLech'|number:'0.2-2'}}
+                            {{item.listItem|isXoa|SumByKey:'TrongLuong'|number:'0.2-2'}}
                         </td>
-                        <td class="text-right">
+                        <!-- <td class="text-right">
                             {{TongKhoiLuong|number:'0.2-2'}}
-                        </td>
+                        </td> -->
                         <td></td>
                     </tr>
                 </ng-template>
