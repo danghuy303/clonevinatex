@@ -212,6 +212,10 @@ export class SanXuatService {
             ExportBaoCaoCanDoiSuDungBong:(data)=>{
                 data.IdDuAn = this.store.getCurrent()
                 return this.http.post(`${url}ExportBaoCaoCanDoiSuDungBong`,data,httpOptions)
+            },
+            GetDashBoard_TongHop_LuyKe_ChiTiet:(data)=>{
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${url}GetDashBoard_TongHop_LuyKe_ChiTiet`,data,httpOptions)
             }
         }
     }

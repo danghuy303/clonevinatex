@@ -32,6 +32,7 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -44,8 +45,9 @@
                             Tên mặt hàng
                         </th>
                         <th>Lô bông</th>
-                        <th>Tồn(kiện)</th>
-                        <th>Số kiện đảo</th>
+                        <th>Tồn(quả)</th>
+                        <th>Tồn(kg)</th>
+                        <th>Số quả đảo</th>
                         <th>Tổng trọng lượng</th>
                     </tr>
                 </ng-template>
@@ -60,12 +62,13 @@
                         </td>
                         <td>{{item.TenLoHang}}</td>
                         <td class="text-right">{{item.TonSoLuong|number:'0.0-0'}}</td>
+                        <td class="text-right">{{item.TonTongTrongLuong|number:'0.2-2'}}</td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [max]="item.Ton"
                                 [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
-                        <td>
+                        <td class="text-right">
                             {{item.SoLuong*item.TrongLuong|number:'0.2-2'}}
                         </td>
                     </tr>

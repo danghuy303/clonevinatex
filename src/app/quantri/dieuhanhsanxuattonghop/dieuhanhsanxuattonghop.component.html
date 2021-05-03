@@ -68,6 +68,9 @@
                                         <span *ngIf="thongke?.button==='chitietsanluongong'">
                                             <a href="javascript:void(0)" (click)="xemSanLuong()">Chi tiết</a>
                                         </span>
+                                        <span *ngIf="thongke?.button==='chitietluyke'">
+                                            <a href="javascript:void(0)" (click)="xemLuyKeChiTiet()">Chi tiết</a>
+                                        </span>
                                         <span *ngIf="thongke?.button==='xuatexcel'">
                                             <p-button styleClass="p-button-xs" icon="fas fa-file-excel"
                                                 (click)="xuatBaoCaoDien()"></p-button>
@@ -187,29 +190,6 @@
 </div>
 <p-dialog [header]="labelSanLuongOng" [(visible)]="showSanLuong" [modal]="true" [style]="{width: '95vw'}"
     [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-    <!-- <p-table [value]="listSanLuongOng" styleClass="p-datatable-sm p-datatable-gridlines wrap-text" [scrollable]="true"
-        scrollHeight="500px">
-        <ng-template pTemplate="header">
-            <tr class="normal">
-                <th style="width: 200px !important;">Mặt hàng</th>
-                <th>Chi số</th>
-                <th>Máy chạy</th>
-                <th>Sản lượng màn hình</th>
-                <th>Số quả thực tế</th>
-                <th>Sản lượng thực tế</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr>
-                <td style="width: 200px !important;">{{item.Ten}}</td>
-                <td class="text-right">{{item.Ne|number:'0.0-3'}}</td>
-                <td></td>
-                <td></td>
-                <td class="text-right">{{item.SoQuaSoi|number:'0.0-3'}}</td>
-                <td class="text-right">{{item.KhoiLuongTinhToan|number:'0.0-3'}}</td>
-            </tr>
-        </ng-template>
-    </p-table> -->
     <p-table [value]="listHienThiSanLuongOng" styleClass="p-datatable-sm p-datatable-gridlines wrap-text"
         [scrollable]="true" scrollHeight="500px">
         <ng-template pTemplate="colgroup">
@@ -318,6 +298,75 @@
                     <a [href]="item.herfphabong" target="_blank">{{item.TenPhuongAnPhaBong}}</a>
                 </td>
             </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>
+
+<p-dialog [header]="labelLuyKeChiTiet" [(visible)]="showLuyKeChiTiet" [modal]="true" [style]="{width: '95vw'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-table [value]="listLuyKeChiTiet" styleClass="p-datatable-sm p-datatable-gridlines wrap-text"
+        [scrollable]="true" scrollHeight="500px">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col style="width: 150px;">
+                <col style="width: 50px;">
+                <!-- <col style="width: 90px;"> -->
+                <col style="width: 90px;">
+                <col style="width: 100px;">
+                <col style="width: 100px;">
+                <col style="width: 150px;">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr class="normal">
+                <th style="width: 200px !important;">Mặt hàng</th>
+                <th>Chi số</th>
+                <!-- <th>Máy chạy</th> -->
+                <th>Sản lượng màn hình</th>
+                <th>Số quả thực tế</th>
+                <th>Sản lượng thực tế</th>
+                <th>Lô</th>
+            </tr>
+            <tr class="normal">
+                <th style="width: 200px !important;">Tổng</th>
+                <th></th>
+                <!-- <th></th> -->
+                <th class="text-right">{{listLuyKeChiTiet|SumByKey:'KhoiLuong'|number:'0.0-3'}}</th>
+                <th class="text-right">{{listLuyKeChiTiet|SumByKey:'SoQuaSoiThucTe'|number:'0.0-3'}}</th>
+                <th class="text-right">{{listLuyKeChiTiet|SumByKey:'KhoiLuongThucTe'|number:'0.0-3'}}</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr style="font-weight: bold;">
+                <td style="width: 200px !important;">{{item.Ten}}</td>
+                <td class="text-right">{{item.Ne|number:'0.0-3'}}</td>
+                <!-- <td></td> -->
+                <td class="text-right">{{item.KhoiLuong|number:'0.0-3'}}</td>
+                <td class="text-right">
+                    {{item.SoQuaSoiThucTe|number:'0.0-3'}}
+                </td>
+                <td class="text-right">
+                    {{item.KhoiLuongThucTe|number:'0.0-3'}}
+                </td>
+                <td class="text-center"></td>
+            </tr>
+            <!-- <ng-container *ngFor="let may of item.listMay">
+                <tr>
+                    <td colspan="2">
+                    </td>
+                    <td>{{may.TendmMay}}</td>
+                    <td class="text-right"> {{may.KhoiLuong|number:'0.0-3'}}</td>
+                    <td class="text-right">
+                        {{may.SoQuaSoiThucTe|number:'0.0-3'}}
+                    </td>
+                    <td class="text-right">
+                        {{may.KhoiLuongThucTe|number:'0.0-3'}}
+
+                    </td>
+                    <td>{{may.TenLoHang}}</td>
+                </tr>
+            </ng-container> -->
         </ng-template>
     </p-table>
 </p-dialog>
