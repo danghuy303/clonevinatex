@@ -99,7 +99,6 @@
                         <th rowspan="2">Vị trí</th>
                         <th colspan="2">Tồn sổ sách</th>
                         <th rowspan="2">Số kiện xuất</th>
-                        <th rowspan="2">Chênh lệch</th>
                         <th rowspan="2">Tổng khối lượng</th>
                         <th rowspan="2"></th>
                     </tr>
@@ -122,18 +121,17 @@
                             </p-inputNumber></td> -->
                             {{item.Ton|number:'0.0'}}
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong"
-                            (onBlur)="tinhTongTrongLuong(item)">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
-                        <td>
+                        <!-- <td>
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuongChenhLech"
                             (onBlur)="tinhTongTrongLuong(item)">
                             </p-inputNumber>
-                        </td>
-                        <td style="text-align: right;">
-                            {{item.TongTrongLuong|number:'0.2-2'}}
-                            <!-- {{(item.TrongLuong * item.SoLuong)|number:'0.3-3'}} -->
+                        </td> -->
+                        <td>
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuong">
+                            </p-inputNumber>
                         </td>
                         <td class="text-center">
                             <button pButton pRipple icon="pi pi-trash"
@@ -154,9 +152,6 @@
                         </td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoLuong'|number:'0.0'}}
-                        </td>
-                        <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'TongTrongLuongChenhLech'|number:'0.2-2'}}
                         </td>
                         <td class="text-right">{{item.listItem|isXoa|SumByKey:'TongTrongLuong'|number:'0.2-2'}}</td>
                         <td></td>
