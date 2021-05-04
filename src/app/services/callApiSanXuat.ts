@@ -1850,4 +1850,15 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho + `GetLuuKhoXo?IdDuAn=0&IddmKho=${IddmKho}&IddmViTri=${IddmViTri}&CurrentPage=${CurrentPage}&sFilter=${sFilter}`;
         return this.http.get(url, httpOptions);
     }
+    HDSD(){
+        let url = API.SCMDanhMuc
+        return {
+            Set:(data)=>{
+                return this.http.post(`${url}SetTepDinhKemHuongDanSuDung`,data, httpOptions)
+            },
+            Get:()=>{
+                return this.http.get(`${url}GetTepDinhKemHuongDanSuDung`,httpOptions)
+            }
+        }
+    }
 }

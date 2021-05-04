@@ -945,22 +945,19 @@ export class QuantriComponent implements OnInit {
             //     ]
             // },
             {
-                label: 'HDSD',
+                label: 'Sửa HDSD',
                 icon: 'pi pi-cog',
-                routerLink: '/quantri/huongdansudung',
-                // items: [
-                //     {
-                //         label: 'HDSD',
-                //         routerLink: '/quantri/huongdansudung',
-                //         command: () => this.close()
-                //     },
-                    
-                // ]
+                separator: this.checkmenu("TAOHUONGDANSUDUNG"),
+                routerLink: '/quantri/quanlykhosanxuat/hdsd',
             },
-            // {
-            //     label: 'Tài liệu tham khảo',
-            //     icon: 'pi pi-copy',
-            // }
+            {
+                label: 'Tải HDSD',
+                icon: 'pi pi-download',
+                separator: this.checkmenu("XEMHUONGDANSUDUNG"),
+                command:()=>{
+                    this.downloadHDSD()
+                }
+            }
         ];
         this.menu = this.menuQLNS;
     }
@@ -993,5 +990,10 @@ export class QuantriComponent implements OnInit {
         this._signalRService.messageReceived.subscribe((message: any) => {
             this.refreshNotis()
         });
+    }
+    downloadHDSD(){
+        this._services.HDSD().Get().subscribe((res:any)=>{
+            this._services.download(res.Link)
+        })
     }
 }
