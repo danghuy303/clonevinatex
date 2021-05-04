@@ -105,6 +105,7 @@ import { TonkhodanhsachchitietComponent } from './quanlykhosanxuat/quytrinh/tonk
 import { TonkhobongxoComponent } from './quanlykhosanxuat/quytrinh/tonkhobongxo/tonkhobongxo.component';
 import { TonkhobonghoiComponent } from './quanlykhosanxuat/quytrinh/tonkhobonghoi/tonkhobonghoi.component';
 import { TonkhobongpheComponent } from './quanlykhosanxuat/quytrinh/tonkhobongphe/tonkhobongphe.component';
+import { UploadhdsdsanxuatComponent } from './quanlykhosanxuat/uploadhdsdsanxuat/uploadhdsdsanxuat.component';
 
 const routes: Routes = [
   {
@@ -245,6 +246,7 @@ const routes: Routes = [
       { path: 'quanlykhosanxuat/tonkhobongxo/:kho/:id', component: TonkhobongxoComponent },
       { path: 'quanlykhosanxuat/tonkhobonghoi/khobonghoi/:id', component: TonkhobonghoiComponent},
       { path: 'quanlykhosanxuat/tonkhobongphe/khobongphe/:id', component: TonkhobongpheComponent},
+      { path: 'quanlykhosanxuat/hdsd', component: UploadhdsdsanxuatComponent},
 
     ]
   }
