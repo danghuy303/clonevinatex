@@ -35,12 +35,14 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   Nams: any = [];
   dataSet1: any = {};
   showSanLuong = false;
+  showLuyKeChiTiet = false;
   showTruySuatNguonGoc = false;
   currentUser: any;
   IdDuAn: any;
   listTruySuatNguonGoc: any = [];
   listHienThiSanLuongOng: any = [];
   labelSanLuongOng: any = '';
+  labelLuyKeChiTiet: any = '';
   TongSanLuongOng: any = [];
   tempSanLuongOng:any=[];
   optionPie: any = {
@@ -89,6 +91,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   headerChatLuongSanPham: any = [];
   chatLuongSanPhamScrollHeight: any = 0;
   suber: any;
+  listLuyKeChiTiet:any=[];
 
   constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService, public toastr: ToastrService) {
     this.currentUser = this._auth.currentUserValue;
@@ -261,7 +264,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       this.thongKes = res;
       this.thongKes = [
         { Ten: 'Sản lượng ống', TieuHao: res.SanLuongOng, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: res.SanLuongOng_ManHinh, button: 'chitietsanluongong' },
-        { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: res.LuyKe_ManHinh },
+        { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: res.LuyKe_ManHinh , button: 'chitietluyke'},
         // Điện k có màn hình
         { Ten: 'Điện AC theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.DienAC_KW },
         { Ten: 'Tổng điện theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.TongDien_KW, button: 'xuatexcel' },
@@ -297,10 +300,14 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
           SoQuaSoiThucTe:listMay[0].SoQuaSoiThucTe
         }
       })
-
       console.log(listSanLuongOngtemp)
       this.listSanLuongOng = res;
       this.listHienThiSanLuongOng = listSanLuongOngtemp;
+    })
+    this._services.BaoCao().GetDashBoard_TongHop_LuyKe_ChiTiet(this.filter).subscribe((res: any) => {
+      this.listLuyKeChiTiet = res;
+      this.labelLuyKeChiTiet =`Lũy kế chi tiết ${this.filter.nNgay}/${this.filter.nThang}/${this.filter.nNam}`
+      console.log("LuyKeChiTiet",res);
     })
   }
 
@@ -367,6 +374,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
 
   xemSanLuong() {
     this.showSanLuong = true;
+  }
+  xemLuyKeChiTiet() {
+    this.showLuyKeChiTiet = true;
   }
 
   checkMatHang(e, item, index) {
