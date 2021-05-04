@@ -4,7 +4,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { LohangmodalComponent } from '../lohangmodal/lohangmodal.component';
 
 @Component({
@@ -54,11 +54,14 @@ export class LohangComponent implements OnInit {
     },
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-
+  listdmPhanXuong: any = [];
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
     private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
+    this._service.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
     this.GetListQuyTrinh()
   }
   add(){
@@ -125,6 +128,7 @@ export class LohangComponent implements OnInit {
       DenNgay:DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
+      IddmPhanXuong: this.filter.IddmPhanXuong,
     }
     this._service.LoHang().GetList(data).subscribe((res:any)=>{
       this.items = res.items;

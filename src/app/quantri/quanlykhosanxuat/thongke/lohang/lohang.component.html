@@ -16,6 +16,10 @@
                 [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày">
             </p-calendar>
         </div>-->
+        <div class="p-mr-2">
+            <p-dropdown [options]="listdmPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm" [showClear]="true"
+                [(ngModel)]="filter.IddmPhanXuong" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
+        </div>
         <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh(true)" [(ngModel)]="filter.KeyWord"/>
             <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text"(click)="GetListQuyTrinh(true)"></button>
