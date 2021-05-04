@@ -138,7 +138,7 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="this.type==='bong'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Gộp phiếu:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isGopPhieu"/>
@@ -155,7 +155,7 @@
                         <col>
                         <col *ngIf="this.type==='bong'">
                         <col *ngIf="this.type==='bong'">
-                        <col>
+                        <col *ngIf="this.type==='bong'">
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
@@ -167,7 +167,7 @@
                         <th>Số kiện (kiện)</th>
                         <th *ngIf="this.type==='bong'">Số kiện ngắn (kiện)</th>
                         <th *ngIf="this.type==='bong'">Số kiện dài (kiện)</th>
-                        <th>Vị trí</th>
+                        <th *ngIf="this.type==='bong'">Vị trí</th>
                         <th style="width: 100px;"></th>
                     </tr>
                 </ng-template>
@@ -197,7 +197,7 @@
                             (ngModelChange)="TinhSoKienDai(item)">
                             </p-inputNumber>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" *ngIf="this.type==='bong'">
                             <p-dropdown [filter]="true" [options]="listdmViTri" placeholder="Chọn vị trí" styleClass="p-inputtext-sm"
                                     [(ngModel)]="item.IddmViTri"></p-dropdown>
                         </td>
@@ -243,7 +243,7 @@
                                 </p-inputNumber>
                             </div>
                         </td>
-                        <td>
+                        <td *ngIf="this.type==='bong'">
                             <!-- <input pInputText type="text" [(ngModel)]="newTableItem.ViTri"> -->
                             <p-dropdown [filter]="true" [options]="listdmViTri" placeholder="Chọn vị trí" styleClass="p-inputtext-sm"
                                     [(ngModel)]="newTableItem.IddmViTri"></p-dropdown>
@@ -268,7 +268,7 @@
                         <td class="text-right" *ngIf="this.type==='bong'">
                             {{item.listItem|isXoa|SumByKey:'SoKienDai'|number:'0.0'}}
                         </td>
-                        <td></td>
+                        <td *ngIf="this.type==='bong'"></td>
                         <td></td>
                     </tr>
                 </ng-template>
