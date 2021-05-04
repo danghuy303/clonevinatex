@@ -306,7 +306,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     })
     this._services.BaoCao().GetDashBoard_TongHop_LuyKe_ChiTiet(this.filter).subscribe((res: any) => {
       this.listLuyKeChiTiet = res;
-      this.labelLuyKeChiTiet =`Lũy kế chi tiết ${this.filter.nNgay}/${this.filter.nThang}/${this.filter.nNam}`
+      this.labelLuyKeChiTiet =`Lũy kế chi tiết đến ngày ${this.filter.nNgay}/${this.filter.nThang}/${this.filter.nNam}`
       console.log("LuyKeChiTiet",res);
     })
   }

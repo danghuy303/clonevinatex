@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 
 @Component({
@@ -201,5 +201,14 @@ export class NhapkhobongphemodalComponent implements OnInit {
   
   Onclose() {
     this.activeModal.close();
+  }
+  exportHoaDon(){
+    if(validVariable(this.item.Id)){
+      this._services.QuyTrinhPhieuBongPhe().ExportHoaDonNhapKhoBongPhe(this.item.Id).subscribe((res: any) => {
+        this._services.download(res.TenFile);
+      })
+    }else{
+      this.toastr.error('Vui lòng ghi lại sau đó xuất Excel!')
+    }
   }
 }

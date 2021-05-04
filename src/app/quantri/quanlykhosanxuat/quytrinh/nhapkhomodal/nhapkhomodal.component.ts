@@ -356,4 +356,16 @@ export class NhapkhomodalComponent implements OnInit {
       })
     }
   }
+  exportHoaDon(){
+    if (this.type === 'bong') {
+      this._services.QuyTrinhPhieuNhapLoBong().ExportHoaDonNhapKhoBong(this.item.Id).subscribe((res: any) => {
+        this._services.download(res.TenFile);
+      })
+    }
+    if(this.type ==='xo'){
+      this._services.QuyTrinhPhieuNhapLoBong().ExportHoaDonNhapKhoXo(this.item.Id).subscribe((res: any) => {
+        this._services.download(res.TenFile);
+      })
+    }
+  }
 }

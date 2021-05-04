@@ -241,4 +241,9 @@ export class XuatkhomodalComponent implements OnInit {
       this.services.download(res.TenFile);
     })
   }
+  exportHoaDon(){
+    this.services.PhieuXuatSanXuat().ExportHoaDon(this.item.Id).subscribe((res: any) => {
+      this.services.download(res.TenFile);
+    })
+  }
 }
