@@ -86,6 +86,7 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col style="width:90px">
                     </colgroup>
                 </ng-template>
@@ -118,8 +119,7 @@
                             </p-inputNumber></td> -->
                             {{item.Ton|number:'0.0'}}
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong"
-                            (onBlur)="tinhTongTrongLuong(item)">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
                         <!-- <td>
@@ -127,7 +127,7 @@
                             (onBlur)="tinhTongTrongLuong(item)">
                             </p-inputNumber>
                         </td> -->
-                        <td style="text-align: right;">
+                        <td>
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuong">
                             </p-inputNumber>
                         </td>
