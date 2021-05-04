@@ -16,11 +16,6 @@ export class XuatkhoxomathangmodalComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Tên vị trí',
-      field: 'TendmViTri',
-      width: 'unset'
-    },
-    {
       header: 'Tên lô bông',
       field: 'TenLoBong',
       width: 'unset'
