@@ -263,4 +263,13 @@ export class XuatkhoxomodalComponent implements OnInit {
       this.toastr.error('Vui lòng ghi lại sau đó xuất Excel!')
     }
   }
+  exportHoaDon() {
+    if(validVariable(this.item.Id)){
+      this.services.PhieuXuatKhoXo().ExportHoaDonXuatKhoXo(this.item.Id).subscribe((res: any) => {
+        this.services.download(res.TenFile);
+      })
+    }else{
+      this.toastr.error('Vui lòng ghi lại sau đó xuất Excel!')
+    }
+  }
 }

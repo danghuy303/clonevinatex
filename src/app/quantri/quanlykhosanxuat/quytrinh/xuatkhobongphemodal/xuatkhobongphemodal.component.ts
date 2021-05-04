@@ -237,4 +237,13 @@ export class XuatkhobongphemodalComponent implements OnInit {
       }
     }
   }
+  exportHoaDon() {
+    if(validVariable(this.item.Id)){
+      this.services.PhieuXuatBongPhe().ExportHoaDonXuatKhoBongPhe(this.item.Id).subscribe((res: any) => {
+        this.services.download(res.TenFile);
+      })
+    }else{
+      this.toastr.error('Vui lòng ghi lại sau đó xuất Excel!')
+    }
+  }
 }
