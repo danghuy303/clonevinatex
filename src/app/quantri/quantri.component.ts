@@ -954,8 +954,8 @@ export class QuantriComponent implements OnInit {
             {
                 label: 'Tải HDSD',
                 icon: 'pi pi-download',
-                visible: !this.checkmenu("XEMHUONGDANSUDUNG"),
-                separator: this.checkmenu("XEMHUONGDANSUDUNG"),
+                // visible: !this.checkmenu("XEMHUONGDANSUDUNG"),
+                // separator: this.checkmenu("XEMHUONGDANSUDUNG"),
                 command:()=>{
                     this.downloadHDSD()
                 }

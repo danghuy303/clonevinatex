@@ -107,7 +107,6 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     return true;
   }
   ChuyenTiep() {
-    
     if(!this.checkValidate())
       this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
@@ -160,7 +159,6 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     }
     else {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
-
       this._services.PhieuXuatThanhPham().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -244,7 +242,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
   }
   GetMatHangTheoKho() {
     var data = {
-      Ngay: UnixToDate(this.item.Ngay),
+      Ngay: DateToUnix(this.item.Ngay),
       IddmKho: this.item.IddmKho,
       // IddmPhanXuong: this.item.IddmPhanXuong,
     }
