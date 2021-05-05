@@ -8,7 +8,7 @@ export const host1 = `${window.location.origin.includes('localhost')?'http://103
 // const host1 = 'http://vinatex.harmonyes.com.vn'; //Nha. May Soi Dong Van Hanosimex
 // const host = 'http://vinatex.harmonyes.com.vn';
 // host public 'http://vinatex.harmonyes.com.vn';
-//host phat trien 'http://eos.harmonyes.com.vn:1169';
+// host phat trien 'http://eos.harmonyes.com.vn:1169';
 // const host1 = 'http://serverda:1169'
 export const httpOptions = {
     headers: new HttpHeaders({

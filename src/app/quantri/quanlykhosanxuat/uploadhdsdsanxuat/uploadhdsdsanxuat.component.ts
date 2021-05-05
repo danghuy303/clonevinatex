@@ -20,10 +20,10 @@ export class UploadhdsdsanxuatComponent implements OnInit {
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.result.then((data) => {
-      this.hdsd.ID = 0;
-      this.hdsd.TenGui = data[data.length - 1].Name;
-      this.hdsd.TenGoc = data[data.length - 1].NameLocal;
-      this.hdsd.DuongDan = data[data.length - 1].Url;
+      // this.hdsd.ID = 0;
+      this.hdsd.FileNameGUI = data[data.length - 1].Name;
+      this.hdsd.FileName = data[data.length - 1].NameLocal;
+      // this.hdsd.DuongDan = data[data.length - 1].Url;
     }, (reason) => {
     });
   }
@@ -38,7 +38,6 @@ export class UploadhdsdsanxuatComponent implements OnInit {
   }
   getiHDSD(){
     this._service.HDSD().Get().subscribe((res:any)=>{
-      console.log(res)
       this.hdsd = res;
     })
   }
