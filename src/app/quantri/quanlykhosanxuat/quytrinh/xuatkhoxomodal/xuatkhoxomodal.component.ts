@@ -67,11 +67,11 @@ export class XuatkhoxomodalComponent implements OnInit {
     this.services.PhieuXuatKhoXo().Get(this.Id).subscribe((res1:any)=>{
       this.item = res1;
       this.listItem = res1.listItem;
-      if(this.listItem !== null && this.listItem.length > 0){
-        for(let i = 0; i<this.listItem.length ; i ++){
-          this.tinhTongTrongLuong(this.listItem[i]);
-        }
-      }
+      // if(this.listItem !== null && this.listItem.length > 0){
+      //   for(let i = 0; i<this.listItem.length ; i ++){
+      //     this.tinhTongTrongLuong(this.listItem[i]);
+      //   }
+      // }
       
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
@@ -139,11 +139,11 @@ export class XuatkhoxomodalComponent implements OnInit {
               this.item.NgayChungTu = UnixToDate(this.item.NgayChungTuUnix );
             }
             this.listItem = res.objectReturn.listItem;
-            if(this.listItem !== null && this.listItem.length > 0){
-              for(let i = 0; i<this.listItem.length ; i ++){
-                this.tinhTongTrongLuong(this.listItem[i]);
-              }
-            }
+            // if(this.listItem !== null && this.listItem.length > 0){
+            //   for(let i = 0; i<this.listItem.length ; i ++){
+            //     this.tinhTongTrongLuong(this.listItem[i]);
+            //   }
+            // }
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
@@ -202,12 +202,12 @@ export class XuatkhoxomodalComponent implements OnInit {
         let listdatapush = [];
         data.data.forEach(element => {
           let datapush: any = {};
-          datapush.Ton = element.SoLuong;
-          datapush.TrongLuong = element.TrongLuong;
+          datapush.TonSoLuong = element.SoLuong;
+          datapush.TonTrongLuong = element.TrongLuong;
           datapush.IddmItem = element.IddmItem;
           datapush.Ten = element.Ten;
-          datapush.IddmViTri = element.IddmViTri;
-          datapush.TendmViTri = element.TendmViTri;
+          // datapush.IddmViTri = element.IddmViTri;
+          // datapush.TendmViTri = element.TendmViTri;
           datapush.IdLoBong = element.IdLoBong;
           var isCheck : any = false
 
@@ -217,9 +217,9 @@ export class XuatkhoxomodalComponent implements OnInit {
               {
                 this.item.listItem[i].isXoa = false;
                 this.item.listItem[i].Ten = element.Ten;
-                this.item.listItem[i].TendmViTri = element.TendmViTri;
-                this.item.listItem[i].TrongLuong = element.TrongLuong;
-                this.item.listItem[i].Ton = element.SoLuong;
+                // this.item.listItem[i].TendmViTri = element.TendmViTri;
+                this.item.listItem[i].TonTrongLuong = element.TrongLuong;
+                this.item.listItem[i].TonSoLuong = element.SoLuong;
                 isCheck = true;
                 break;
               }

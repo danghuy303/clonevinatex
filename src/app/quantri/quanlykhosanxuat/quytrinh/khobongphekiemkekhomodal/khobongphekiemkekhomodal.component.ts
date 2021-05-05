@@ -202,7 +202,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
 
     delete(index) {
         let item = this.item.listItem.splice(index, 1)[0];
-        this.item.listItem.splice(index, 1);
+        this.listItem.splice(index, 1);
 
         if (item.Id === "" || item.Id === null || item.Id === undefined) {
         } else {
