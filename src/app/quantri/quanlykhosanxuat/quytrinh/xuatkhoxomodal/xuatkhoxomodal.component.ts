@@ -209,6 +209,7 @@ export class XuatkhoxomodalComponent implements OnInit {
           // datapush.IddmViTri = element.IddmViTri;
           // datapush.TendmViTri = element.TendmViTri;
           datapush.IdLoBong = element.IdLoBong;
+          datapush.TenLoBong = element.TenLoBong;
           var isCheck : any = false
 
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
@@ -217,6 +218,7 @@ export class XuatkhoxomodalComponent implements OnInit {
               {
                 this.item.listItem[i].isXoa = false;
                 this.item.listItem[i].Ten = element.Ten;
+                this.item.listItem[i].TenLoBong = element.TenLoBong;
                 // this.item.listItem[i].TendmViTri = element.TendmViTri;
                 this.item.listItem[i].TonTrongLuong = element.TrongLuong;
                 this.item.listItem[i].TonSoLuong = element.SoLuong;

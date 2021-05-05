@@ -213,10 +213,10 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
 
     GetMatHangTheoKho() {
         this.services.getLuuKhoKiemKeKhoBongPhe(this.item.IddmKho,"").subscribe((res1: any) => {
-            res1.forEach((mathang) => {
-                mathang.SoLuong = mathang.TonSoLuong;
-                mathang.TongTrongLuong = mathang.TonTongTrongLuong;
-            });
+            // res1.forEach((mathang) => {
+            //     mathang.SoLuong = mathang.TonSoLuong;
+            //     mathang.TrongLuong = mathang.TonTrongLuong;
+            // });
             this.item.listItem = res1;
             this.listItem = this.item.listItem.slice(0, 10);
             this.paging.CurrentPage = 1;

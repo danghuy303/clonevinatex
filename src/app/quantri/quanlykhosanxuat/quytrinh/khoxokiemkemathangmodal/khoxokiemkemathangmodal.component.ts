@@ -28,7 +28,7 @@ export class KhoxokiemkemathangmodalComponent implements OnInit {
     },
     {
       header: 'Tổng khối lượng (kg)',
-      field: 'TonTongTrongLuong',
+      field: 'TonTrongLuong',
       width: 'unset'
     },
   ];
