@@ -947,12 +947,14 @@ export class QuantriComponent implements OnInit {
             {
                 label: 'Sửa HDSD',
                 icon: 'pi pi-cog',
+                visible: !this.checkmenu("TAOHUONGDANSUDUNG"),
                 separator: this.checkmenu("TAOHUONGDANSUDUNG"),
                 routerLink: '/quantri/quanlykhosanxuat/hdsd',
             },
             {
                 label: 'Tải HDSD',
                 icon: 'pi pi-download',
+                visible: !this.checkmenu("XEMHUONGDANSUDUNG"),
                 separator: this.checkmenu("XEMHUONGDANSUDUNG"),
                 command:()=>{
                     this.downloadHDSD()
