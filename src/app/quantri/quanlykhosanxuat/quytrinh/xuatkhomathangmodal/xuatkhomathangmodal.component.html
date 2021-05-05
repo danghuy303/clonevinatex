@@ -19,22 +19,32 @@
                     </div>
                 </div>
             </div>
-            <p-table  [lazy]="true" [scrollable]="true" scrollHeight="45vh"
+            <p-table  [scrollable]="true" scrollHeight="45vh"
             [value]="item.listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
                         <col style="width:50px">
-                        <col style="text-align: center;" *ngFor="let header of cols">
+                        <col >
+                        <col style="width: 22rem;">
+                        <col *ngIf="loai !== 'dmMatHang'">
+                        <col *ngIf="loai !== 'dmMatHang'">
+                        <col *ngIf="loai !== 'dmMatHang'">
+                        <!-- <col *ngFor="let header of cols" [ngStyle]="{'width': header.width}"> -->
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th><p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true" inputId="binary"></p-checkbox></th>
                         <th class="text-center">STT</th>
-                        <th class="text-center" *ngFor="let header of cols">
+                        <th class="text-center">Tên</th>
+                        <th class="text-center">Mã</th>
+                        <th class="text-center" *ngIf="loai !== 'dmMatHang'">Tên lô hàng</th>
+                        <th class="text-center" *ngIf="loai !== 'dmMatHang'">Số kiện</th>
+                        <th class="text-center" *ngIf="loai !== 'dmMatHang'">Khối lượng /kiện (kg)</th>
+                        <!-- <th class="text-center" *ngFor="let header of cols">
                             {{header.header}}
-                        </th>
+                        </th> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -47,6 +57,9 @@
                         </td>
                         <td class="text-left">
                             {{item.Ten}}
+                        </td>
+                        <td class="text-left">
+                            {{item.Ma}}
                         </td>
                         <td class="text-left" *ngIf="loai !== 'dmMatHang'">
                             {{item.TenLoHang}}
