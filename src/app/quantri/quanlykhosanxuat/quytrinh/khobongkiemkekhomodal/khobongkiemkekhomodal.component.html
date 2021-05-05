@@ -126,7 +126,7 @@
 
                         </td>
                         <td style="text-align: right;">
-                            {{item.TonTongTrongLuong|number:'0.0'}}
+                            {{item.TonTrongLuong|number:'0.0'}}
 
                         </td>
                         <td>
@@ -134,7 +134,7 @@
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.TongTrongLuong">
+                            <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.TrongLuong">
                             </p-inputNumber>
                         </td>
                         <!-- <td>
@@ -190,7 +190,7 @@
 
                         </td>
                         <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'TonTongTrongLuong'|number:'0.2-2'}}
+                            {{item.listItem|isXoa|SumByKey:'TonTrongLuong'|number:'0.2-2'}}
 
                         </td>
                         <td class="text-right">
@@ -198,7 +198,7 @@
 
                         </td>
                         <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'TongTrongLuong'|number:'0.2-2'}}
+                            {{item.listItem|isXoa|SumByKey:'TrongLuong'|number:'0.2-2'}}
 
                         </td>
                         <!-- <td></td> -->
