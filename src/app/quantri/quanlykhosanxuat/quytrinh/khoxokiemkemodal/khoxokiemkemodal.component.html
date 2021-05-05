@@ -89,8 +89,8 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th rowspan="2">#</th>
-                        <th rowspan="2">Mã</th>
                         <th rowspan="2">Tên</th>
+                        <th rowspan="2">Tên lô bông</th>
                         <th colspan="2" >Tồn sổ sách</th>
                         <th colspan="2">Tồn thực tế</th>
                         <th rowspan="2"></th>
@@ -106,8 +106,8 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td style="text-align: center;">{{ 10 * (paging.CurrentPage - 1) + i + 1 }}</td>
-                        <td style="text-align: center;">{{item.Ma}}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>
+                        <td style="text-align: center;">{{item.TenLoBong}}</td>
                         <td style="text-align: right;">
                             {{item.TonSoLuong|number:'0.0'}}
 
@@ -168,7 +168,6 @@
                         <td colspan="3">Tổng</td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'TonSoLuong'|number:'0.0-0'}}
-
                         </td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'TonTrongLuong'|number:'0.0-2'}}
