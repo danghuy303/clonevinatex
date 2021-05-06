@@ -132,7 +132,6 @@ export class KiemkekhomodalComponent implements OnInit {
                 this.paging.TotalItem = res1.listItem.length;
                 this.item.listItem = res1.listItem;
                 this.listItem = this.item.listItem.slice(0, 10);
-
                 this.KiemTraButtonModal();
             });
     }
