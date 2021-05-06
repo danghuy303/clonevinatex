@@ -29,7 +29,7 @@
                     <colgroup>
                         <col style="width:50px">
                         <col style="width: 170px;">
-                        <col style="width: 21rem;">
+                        <col *ngIf="opt===''" style="width: 21rem;">
                         <col *ngIf="opt==='LoBong'" style="width: 70px;">
                         <col *ngIf="opt==='LoBong'" style="width: 70px;">
                         <col *ngIf="opt==='LoBong'" style="width: 70px;">
@@ -48,7 +48,7 @@
                         </th>
                         <!-- <th>Mã hàng</th> -->
                         <th *ngIf="opt===''|| opt==='KhoiLuongKeHoach'||opt==='KhoiLuongSanXuat'">Mặt hàng</th>
-                        <th *ngIf="opt===''|| opt==='KhoiLuongKeHoach'||opt==='KhoiLuongSanXuat'">Mã</th>
+                        <th *ngIf="opt===''">Mã</th>
                         <th *ngIf="opt===''">Loại sợi</th>
                         <th *ngIf="opt===''">Chi số Ne</th>
                         <th *ngIf="opt===''">Độ săn</th>
@@ -75,7 +75,7 @@
                             <p-checkbox [(ngModel)]="item.checked" (onChange)="checked()" binary="true" inputId="binary"></p-checkbox>
                         </td>
                         <td *ngIf="opt===''||opt==='KhoiLuongKeHoach'||opt==='KhoiLuongSanXuat'">{{item.Ten}}</td>
-                        <td *ngIf="opt===''||opt==='KhoiLuongKeHoach'||opt==='KhoiLuongSanXuat'">{{item.Ma}}</td>
+                        <td *ngIf="opt===''">{{item.Ma}}</td>
                         <td *ngIf="opt===''">{{item.TendmLoaiSoi}}</td>
                         <td *ngIf="opt===''" class="text-right">{{item.Ne|number:'0.0' }}</td>
                         <td *ngIf="opt===''" class="text-right">{{item.DoSan|number:'0.0'}}</td>

@@ -115,9 +115,17 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     legend: {
       position: 'left'
     },
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          return `${this._data.labels2[tooltipItem.index]}: ${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN', '0.0-2')} tấn`
+        }
+      }
+    },
     maintainAspectRatio: window.innerWidth <= 768 ? false : true,
     aspectRatio: window.innerWidth <= 768 ? null : (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
+  mapIndex_Ma:any=[];
   listItem: any = [];
   constructor(private _services: SanXuatService, private store: StoreService, public toastr: ToastrService, private _router: Router) {
     this.IdDuAn = this.store.getCurrent();
@@ -163,6 +171,9 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
           this.dataSet1 = res;
         })
         this._services.BaoCao().GetDashBoard_CoCauMatHang(this.filter).subscribe((res: any) => {
+          this.mapIndex_Ma = deepCopy(res.labels);
+          res.labels= this.mapIndex_Ma.map(lb=>lb.split(' - ')[1]);
+          res.labels2 = this.mapIndex_Ma;
           this.dataPie = res;
         });
       }

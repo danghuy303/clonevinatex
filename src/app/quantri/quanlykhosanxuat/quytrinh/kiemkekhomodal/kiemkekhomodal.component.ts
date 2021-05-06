@@ -102,7 +102,7 @@ export class KiemkekhomodalComponent implements OnInit {
             .PhieuKiemKeKho()
             .GetlistdmMatHangThanhPhamKiemKe()
             .subscribe((res: any) => {
-                this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
+                this.listNewMatHang = mapArrayForDropDown(res.map(ele=>{return{...ele,Ten:`${ele.Ma} - ${ele.Ten}`}}), "Ten", "Id");
                 this.listNewMatHang_ref = res;
             });
     }
@@ -279,7 +279,7 @@ export class KiemkekhomodalComponent implements OnInit {
         let selected = this.listNewMatHang_ref.find(
             (ele) => ele.Id === event.value
         );
-        this.newItem.Ten = selected?.Ten;
+        this.newItem.Ten = `${selected?.Ma} - ${selected?.Ten}` ;
         this.newItem.Ma = selected?.Ma;
     }
     add() {

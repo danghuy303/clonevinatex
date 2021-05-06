@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } fr
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
@@ -44,7 +44,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   labelSanLuongOng: any = '';
   labelLuyKeChiTiet: any = '';
   TongSanLuongOng: any = [];
-  tempSanLuongOng:any=[];
+  tempSanLuongOng: any = [];
   optionPie: any = {
     plugins: {
       labels: {
@@ -56,15 +56,22 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     legend: {
       position: 'left'
     },
+    // tooltips: {
+    //   callbacks: {
+    //     label: function (tooltipItem, data) {
+    //       return `${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN')} kg`
+    //     }
+    //   }
+    // },
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN')} kg`
+          return `${this._data.labels2[tooltipItem.index]}: ${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN', '0.0-2')} kg`
         }
       }
     },
     maintainAspectRatio: window.innerWidth <= 768 ? false : true,
-    aspectRatio: window.innerWidth <= 768?null:(((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
+    aspectRatio: window.innerWidth <= 768 ? null : (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   option1: any = {
     scales: {
@@ -82,8 +89,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     legend: {
       position: 'bottom'
     },
+    
     maintainAspectRatio: window.innerWidth <= 768 ? false : true,
-    aspectRatio: window.innerWidth <= 768?1:(((window.innerWidth - 80) / 2) / ((window.innerHeight - (225 + 32.5)) / 2))
+    aspectRatio: window.innerWidth <= 768 ? 1 : (((window.innerWidth - 80) / 2) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   SelectItem: any = {};
   dataPie: { labels: string[]; datasets: { data: number[]; backgroundColor: string[]; hoverBackgroundColor: string[]; }[]; };
@@ -91,7 +99,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   headerChatLuongSanPham: any = [];
   chatLuongSanPhamScrollHeight: any = 0;
   suber: any;
-  listLuyKeChiTiet:any=[];
+  listLuyKeChiTiet: any = [];
+  mapIndex_Ma:any=[];
 
   constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService, public toastr: ToastrService) {
     this.currentUser = this._auth.currentUserValue;
@@ -264,7 +273,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       this.thongKes = res;
       this.thongKes = [
         { Ten: 'Sản lượng ống', TieuHao: res.SanLuongOng, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: res.SanLuongOng_ManHinh, button: 'chitietsanluongong' },
-        { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: res.LuyKe_ManHinh , button: 'chitietluyke'},
+        { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: res.LuyKe_ManHinh, button: 'chitietluyke' },
         // Điện k có màn hình
         { Ten: 'Điện AC theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.DienAC_KW },
         { Ten: 'Tổng điện theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.TongDien_KW, button: 'xuatexcel' },
@@ -291,13 +300,13 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
           Ne: listMay[0]?.Ne,
           TenMatHang: listMay[0]?.Ten,
           listMay: listMay,
-          KhoiLuong:listMay.reduce((total, ele) => {
-            return total + (ele.KhoiLuong||0)
+          KhoiLuong: listMay.reduce((total, ele) => {
+            return total + (ele.KhoiLuong || 0)
           }, 0),
-          KhoiLuongThucTe:listMay.reduce((total, ele) => {
-            return total + (ele.KhoiLuongThucTe||0)
+          KhoiLuongThucTe: listMay.reduce((total, ele) => {
+            return total + (ele.KhoiLuongThucTe || 0)
           }, 0),
-          SoQuaSoiThucTe:listMay[0].SoQuaSoiThucTe
+          SoQuaSoiThucTe: listMay[0].SoQuaSoiThucTe
         }
       })
       console.log(listSanLuongOngtemp)
@@ -306,8 +315,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     })
     this._services.BaoCao().GetDashBoard_TongHop_LuyKe_ChiTiet(this.filter).subscribe((res: any) => {
       this.listLuyKeChiTiet = res;
-      this.labelLuyKeChiTiet =`Lũy kế chi tiết đến ngày ${this.filter.nNgay}/${this.filter.nThang}/${this.filter.nNam}`
-      console.log("LuyKeChiTiet",res);
+      this.labelLuyKeChiTiet = `Lũy kế chi tiết đến ngày ${this.filter.nNgay}/${this.filter.nThang}/${this.filter.nNam}`
+      console.log("LuyKeChiTiet", res);
     })
   }
 
@@ -315,6 +324,21 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     this.filter.IdDuAn = this.IdDuAn;
     let data: any = { IdDuAn: this.filter.IdDuAn, IddmPhanXuong: this.filter.IddmPhanXuong, nNam: this.filter.nNam };
     this._services.BaoCao().BieuDoCoCau(data).subscribe((res: any) => {
+      this.mapIndex_Ma = deepCopy(res.labels);
+      res.labels = this.mapIndex_Ma.map(lb => {
+        let arr = lb.split(' - ')
+        if(arr.length===1){
+          return arr[0]
+        }
+        if(arr.length>1){
+          arr.shift()
+          return arr.join(' - ')
+        }
+      });
+      res.labels2 = this.mapIndex_Ma;
+      // res.labels.forEach(lb => {
+      //   console.log(lb.split(' - '))
+      // });
       this.dataPie = res;
     });
   }
