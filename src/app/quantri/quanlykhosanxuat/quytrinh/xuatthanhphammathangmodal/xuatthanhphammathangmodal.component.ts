@@ -14,7 +14,12 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
     {
       header: 'Tên',
       field: 'Ten',
-      width: 'unset'
+      width: '10rem'
+    },
+    {
+      header: 'Mã',
+      field: 'Ma',
+      width: '15rem'
     },
     {
       header: 'Tên lô',
@@ -52,6 +57,9 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.listMatHang.forEach((mh:any) => {
+      mh.TenHienThi = mh.Ten?.split(" - ")[1];
+    });
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
@@ -59,7 +67,7 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
     if(this.listItem != undefined && this.listItem!= null && this.listItem.length > 0)
     {
       for(let i = 0; i < this.listItem.length; i++){
-        var itemFind = this.listMatHang.find(
+        let itemFind = this.listMatHang.find(
           ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang == this.listItem[i].IdLoHang)
         );
         if(itemFind !== undefined)
