@@ -143,7 +143,7 @@ export class TonkhoComponent implements OnInit {
   GetTheKho(item) {
     item.IddmKho = this.filter.IddmKho
     let modalRef = this._modal.open(TonkhodanhsachchitietComponent, {
-      size: 'fullscreen',
+      size: 'fullscreen-100',
       backdrop: 'static'
     })
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
