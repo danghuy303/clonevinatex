@@ -148,19 +148,28 @@ export class KiemkekhomodalComponent implements OnInit {
             this.item.listItem.push(deepCopy(this.newItem));
             this.newItem = {};
         }
-        // this.item.listItem = deepCopy(this.listItem);
-        this.services
-            .PhieuKiemKeKho()
-            .ChuyenTiep(this.item)
-            .subscribe((res: any) => {
-                if (res) {
-                    if (res.State === 1) {
-                        this.activeModal.close();
-                    } else {
-                        this.toastr.error(res.message);
+        if (this.item.IdLoHang === null || this.item.IdLoHang === undefined) {
+            this.toastr.error("Bạn chưa chọn lô hàng");
+        }
+        else if (this.checkQuyCach()) {
+            this.toastr.error("Bạn chưa chọn quy cách đóng gói");
+        }
+        else {
+            // this.item.listItem = deepCopy(this.listItem);
+            this.services
+                .PhieuKiemKeKho()
+                .ChuyenTiep(this.item)
+                .subscribe((res: any) => {
+                    if (res) {
+                        if (res.State === 1) {
+                            this.activeModal.close();
+                        } else {
+                            this.toastr.error(res.message);
+                        }
                     }
-                }
-            });
+                });
+        }
+
     }
 
     GetNextSoQuyTrinh() {
@@ -174,36 +183,46 @@ export class KiemkekhomodalComponent implements OnInit {
 
     GhiLai() {
         if (validVariable(this.newItem.IddmItem)) {
-            this.item.listItem.push(deepCopy(this.newItem));
-            this.newItem = {};
+            // this.item.listItem.push(deepCopy(this.newItem));
+            // this.newItem = {};
+            this.add();
         }
-        this.services
-            .PhieuKiemKeKho()
-            .Set(this.item)
-            .subscribe((res: any) => {
-                if (res) {
-                    if (res.State === 1) {
-                        this.paginator.changePage(0);
-                        this.toastr.success(res.message);
-                        this.opt = "edit";
-                        this.Id = res.objectReturn.Id;
-                        this.GetQuyTrinh()
-                        // this.item = res.objectReturn;
-                        // this.listItem = res.objectReturn.listItem;
-                        // this.paging.CurrentPage = 1;
-                        // this.paging.TotalPage = 5;
-                        // if (
-                        //     res.objectReturn.listItem != undefined &&
-                        //     res.objectReturn.listItem != null
-                        // )
-                        //     this.paging.TotalItem = res.objectReturn.listItem.length;
-                        // this.item.listItem = res.objectReturn.listItem.slice(0, 10);
-                        // this.KiemTraButtonModal();
-                    } else {
-                        this.toastr.error(res.message);
+        if (this.item.IdLoHang === null || this.item.IdLoHang === undefined) {
+            this.toastr.error("Bạn chưa chọn lô hàng");
+        }
+        else if (this.checkQuyCach()) {
+            this.toastr.error("Bạn chưa chọn quy cách đóng gói");
+        }
+        else {
+            this.services
+                .PhieuKiemKeKho()
+                .Set(this.item)
+                .subscribe((res: any) => {
+                    if (res) {
+                        if (res.State === 1) {
+                            this.paginator.changePage(0);
+                            this.toastr.success(res.message);
+                            this.opt = "edit";
+                            this.Id = res.objectReturn.Id;
+                            this.GetQuyTrinh()
+                            // this.item = res.objectReturn;
+                            // this.listItem = res.objectReturn.listItem;
+                            // this.paging.CurrentPage = 1;
+                            // this.paging.TotalPage = 5;
+                            // if (
+                            //     res.objectReturn.listItem != undefined &&
+                            //     res.objectReturn.listItem != null
+                            // )
+                            //     this.paging.TotalItem = res.objectReturn.listItem.length;
+                            // this.item.listItem = res.objectReturn.listItem.slice(0, 10);
+                            // this.KiemTraButtonModal();
+                        } else {
+                            this.toastr.error(res.message);
+                        }
                     }
-                }
-            });
+                });
+        }
+
     }
     XoaQuyTrinh() {
         let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -242,9 +261,9 @@ export class KiemkekhomodalComponent implements OnInit {
     }
 
     GetMatHangTheoKho() {
-        if(this.item.IddmKho !== undefined && this.item.IddmKho !== null
-            && this.item.IdLoHang !== undefined && this.item.IdLoHang !== null ){
-                this.services
+        if (this.item.IddmKho !== undefined && this.item.IddmKho !== null
+            && this.item.IdLoHang !== undefined && this.item.IdLoHang !== null) {
+            this.services
                 .getLuuKhoKiemKe(
                     this.item.IddmKho,
                     this.item.IdLoBong,
@@ -263,7 +282,7 @@ export class KiemkekhomodalComponent implements OnInit {
                     this.paging.TotalPage = 5;
                     this.paging.TotalItem = res1.length;
                 });
-            }
+        }
     }
     changePage(event) {
         this.paging.CurrentPage = event.page + 1;
@@ -313,5 +332,15 @@ export class KiemkekhomodalComponent implements OnInit {
     TinhTongKhoiLuong(item) {
         if (item.SoQuaSoi > 0)
             item.TongTrongLuong = (item.SoQuaSoi ?? 0) * (item.TonTrongLuong ?? 0) + (item.TongTrongLuongChenhLech ?? 0);
+    }
+    checkQuyCach() {
+        let isCheck: any = false;
+        this.item.listItem.forEach(element => {
+            if (element.IddmQuyCachDongGoi === null || element.IddmQuyCachDongGoi === undefined) {
+                isCheck = true;
+                return ;
+            }
+        });
+        return isCheck;
     }
 }
