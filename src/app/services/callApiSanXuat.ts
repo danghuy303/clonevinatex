@@ -197,8 +197,8 @@ export class SanXuatService {
             BaoCaoThongLuongSanXuatMinMax: (data) => {
                 return this.http.post(`${url}BaoCaoThongLuongSanXuatMinMax`, data, httpOptions)
             },
-            GetListdmMayTheoCongDoan: (congDoan) => {
-                return this.http.get(`${API.SCMDanhMuc}GetListdmMayTheoCongDoan?CongDoan=${congDoan}`, httpOptions);
+            GetListdmMayTheoCongDoan: (congDoan,PX) => {
+                return this.http.get(`${API.SCMDanhMuc}GetListdmMayTheoCongDoan?CongDoan=${congDoan}&IddmPhanXuong=${PX}`, httpOptions);
             },
             ExportPhieuNhapKhoThanhPham_Bieu1: (data) => {
                 return this.http.post(`${url}ExportPhieuNhapKhoThanhPham_Bieu1`, data, httpOptions);
