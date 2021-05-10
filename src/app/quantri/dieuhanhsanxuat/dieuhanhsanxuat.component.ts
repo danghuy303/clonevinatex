@@ -315,9 +315,21 @@ export class DieuhanhsanxuatComponent implements OnInit {
     })
   }
   XuatBaoCaoCanDoiTon() {
-    let data = {
-      TuNgayUnix: DateToUnix(this.filterNhuCau._tuNgayCanDoiTon)
+    let TuNgay = 0;
+    let DenNgay = 0;
+    if (validVariable(this.filterNhuCau._tuNgayCanDoiTon)) {
+      TuNgay = DateToUnix(this.filterNhuCau._tuNgayCanDoiTon);
+    } else {
+      TuNgay = null;
     }
+    if (validVariable(this.filterNhuCau._denNgayCanDoiTon)) {
+      DenNgay = DateToUnix(this.filterNhuCau._denNgayCanDoiTon);
+    } else {
+      DenNgay = null;
+    }
+    let data = deepCopy(this.filterNhuCau);
+    data.TuNgay = TuNgay;
+    data.DenNgay = DenNgay;
     this._services.BaoCao().ExportBaoCaoCanDoiSuDungBong(data).subscribe((res: any) => {
       if (res) {
         if (validVariable(res.State) && !validVariable(res.TenFile)) {

@@ -252,7 +252,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     }
     this._services.GetlistdmMatHangXuatThanhPham(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatthanhphammathangmodalComponent, {
-        size: 'lg',
+        size: 'xl',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';

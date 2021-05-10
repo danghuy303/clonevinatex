@@ -251,7 +251,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   }
   chonHangHoa() {
     let modalRef = this._modal.open(ChonhanghoamodalComponent, {
-      size: 'lg'
+      size: 'xl'
     })
     modalRef.componentInstance.items = this.listMatHang;
     modalRef.componentInstance.selectedItems = [];

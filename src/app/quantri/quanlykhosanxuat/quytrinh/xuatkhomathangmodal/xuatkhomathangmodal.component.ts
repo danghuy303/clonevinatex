@@ -18,6 +18,11 @@ export class XuatkhomathangmodalComponent implements OnInit {
       width: 'unset'
     },
     {
+      header: 'Mã',
+      field: 'Ma',
+      width: 'unset'
+    },
+    {
       header: 'Tên lô',
       field: 'TenLoHang',
       width: 'unset'

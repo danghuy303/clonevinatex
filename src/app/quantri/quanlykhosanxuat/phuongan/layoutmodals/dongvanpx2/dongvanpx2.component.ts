@@ -58,21 +58,36 @@ export class Dongvanpx2Component implements OnInit {
         IdLoBong: null,
         Mau: 'white'
       }
-      if (i <= 2) {
+      if (i <= 2) { //thang 5
         this.block1.push(`${i}`)
       }
-      if (2 < i && i <= 19) {
+      if (2 < i && i <= 14) {
         this.block2.push(`${i}`)
       }
-      if (58 <= i && i <= 59) {
+      if (37 <= i && i <= 38) {
         this.block3.push(`${i}`)
       }
-      if (20 <= i && i <= 39) {
+      if (15 <= i && i <= 25) {
         this.block4.push(`${i}`)
       }
-      if (40 <= i && i <= 57) {
+      if (26 <= i && i <= 36) {
         this.block5.push(`${i}`)
       }
+      // if (i <= 2) { //backup
+      //   this.block1.push(`${i}`)
+      // }
+      // if (2 < i && i <= 19) {
+      //   this.block2.push(`${i}`)
+      // }
+      // if (58 <= i && i <= 59) {
+      //   this.block3.push(`${i}`)
+      // }
+      // if (20 <= i && i <= 39) {
+      //   this.block4.push(`${i}`)
+      // }
+      // if (40 <= i && i <= 57) {
+      //   this.block5.push(`${i}`)
+      // }
     };
     // this.block3.reverse();
     if (validVariable(this.item.Id)) {
@@ -189,19 +204,34 @@ export class Dongvanpx2Component implements OnInit {
         IdLoBong: null,
         Mau: 'white'
       }
-      if (i <= 2) {
+      // if (i <= 2) { //backup
+      //   this.block1.push(`${i}`)
+      // }
+      // if (2 < i && i <= 19) {
+      //   this.block2.push(`${i}`)
+      // }
+      // if (58 <= i && i <= 59) {
+      //   this.block3.push(`${i}`)
+      // }
+      // if (20 <= i && i <= 39) {
+      //   this.block4.push(`${i}`)
+      // }
+      // if (40 <= i && i <= 57) {
+      //   this.block5.push(`${i}`)
+      // }
+      if (i <= 2) { //thang 5
         this.block1.push(`${i}`)
       }
-      if (2 < i && i <= 19) {
+      if (2 < i && i <= 14) {
         this.block2.push(`${i}`)
       }
-      if (58 <= i && i <= 59) {
+      if (37 <= i && i <= 38) {
         this.block3.push(`${i}`)
       }
-      if (20 <= i && i <= 39) {
+      if (15 <= i && i <= 25) {
         this.block4.push(`${i}`)
       }
-      if (40 <= i && i <= 57) {
+      if (26 <= i && i <= 36) {
         this.block5.push(`${i}`)
       }
     };

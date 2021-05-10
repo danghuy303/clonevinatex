@@ -130,11 +130,11 @@
 
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                            <p-inputNumber [minFractionDigits]="0" [max]="item.TonSoLuong" locale="vi-VN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.TrongLuong">
+                            <p-inputNumber [minFractionDigits]="1" [max]="item.TonTrongLuong" locale="vi-VN" [(ngModel)]="item.TrongLuong">
                             </p-inputNumber>
                         </td>
                         <!-- <td>
