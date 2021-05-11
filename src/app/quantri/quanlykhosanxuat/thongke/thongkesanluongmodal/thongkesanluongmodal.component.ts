@@ -58,6 +58,20 @@ export class ThongkesanluongmodalComponent implements OnInit {
     })
   }
   ChuyenDuyet() {
+    switch (this.item.CongDoan) {
+      case 'CHAICOTTON':
+        this.TinhTyLeCottonBongPhe();
+      case 'CHAIPE':
+        this.TinhTyLePEBongPhe();
+      case 'CHAIKY':
+        this.TinhTyLeBongChaiKy();
+      case 'THO':
+        this.TinhTyLeBongCuiHoi();
+      case 'CON':
+        this.TinhTyLeBongThoMang();
+      case 'ONG':
+        this.TinhTyLeSoiCat();
+    }
     let isCheck: any = false;
     this.item.listItem.forEach(element => {
       if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan === "ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {

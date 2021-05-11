@@ -44,7 +44,7 @@
                 <col style="width:5rem">
                 <col style="width:10rem">
                 <col style="width:200px">
-                <!-- <col style="width: 100px;"> -->
+                <col style="width: 100px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -58,7 +58,7 @@
                 <th class="text-center" colspan="2">Tồn cuối</th>
                 <!-- <th class="text-center" rowspan="2">Số phiếu</th> -->
                 <th class="text-center" rowspan="2">Số phiếu</th>
-                <!-- <th rowspan="2"></th> -->
+                <th rowspan="2">Ghi chú</th>
             </tr>
             <tr>
                 <th class="text-center">Số quả sợi</th>
@@ -121,6 +121,8 @@
                 <td class="text-right">
                     <!-- {{item.SoQuyTrinh}} -->
                 </td>
+                <td class="text-right">
+                </td>
                 <!-- <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
                         class="p-button-text p-button-sm p-button-secondary p-mr-2"
@@ -181,6 +183,9 @@
                 </td>
                 <td class="text-right">
                     {{item.SoQuyTrinh}}
+                </td>
+                <td class="text-right">
+                    {{item.GhiChu}}
                 </td>
                 <!-- <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"

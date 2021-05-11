@@ -33,7 +33,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
   editField: any = false;
   nametype: any = '';
   checkedAll: boolean = false;
-  
+  listCaSanXuat: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -64,6 +64,12 @@ export class NhapkhohoiammodalComponent implements OnInit {
     this.getListCaMay();
     this.getListPhanXuong();
     this.getListKgCone();
+    this.getListCaSanXuat();
+  }
+  getListCaSanXuat() {
+    this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
+      this.listCaSanXuat = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
