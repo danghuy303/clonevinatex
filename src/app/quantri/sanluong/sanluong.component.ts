@@ -180,7 +180,7 @@ export class SanluongComponent implements OnInit {
         })
       // }
       if (!!CongDoan) {
-        this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
+        this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan,this.filter.IddmPhanXuong).subscribe((res: any) => {
           // console.log(res);
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
           this.listMay.unshift({ label: 'Tất cả máy', value: '' })
@@ -188,7 +188,7 @@ export class SanluongComponent implements OnInit {
         })
       }
       if(validVariable(this.CongDoan)){
-        this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
+        this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan,this.filter.IddmPhanXuong).subscribe((res: any) => {
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
           this.listMay.unshift({ label: 'Tất cả máy', value: '' })
         })
@@ -280,12 +280,11 @@ export class SanluongComponent implements OnInit {
       this.listMatHang = mapArrayForDropDown(res1, 'Ten', 'Id')
       if(reset){
         this.filter.IddmItem='';
-        this.GetBieuDo();
+        this.GetBieuDo(true);
       }
     })
   }
   ExportExcel(){
-    
     this._services.DashBoard().ExportThongKeSanLuong(this.filter).subscribe((res:any) => {
       this._services.download(res.TenFile);
     })

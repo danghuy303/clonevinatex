@@ -314,7 +314,7 @@
                 <col style="width: 90px;">
                 <col style="width: 100px;">
                 <col style="width: 100px;">
-                <!-- <col style="width: 150px;"> -->
+                <col style="width: 150px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -325,7 +325,7 @@
                 <th>Sản lượng màn hình</th>
                 <th>Số quả thực tế</th>
                 <th>Sản lượng thực tế</th>
-                <!-- <th>Lô</th> -->
+                <th>Lô</th>
             </tr>
             <tr class="normal">
                 <th style="width: 200px !important;">Tổng</th>
@@ -334,11 +334,11 @@
                 <th class="text-right">{{listLuyKeChiTiet|SumByKey:'KhoiLuong'|number:'0.0-3'}}</th>
                 <th class="text-right">{{listLuyKeChiTiet|SumByKey:'SoQuaSoiThucTe'|number:'0.0-3'}}</th>
                 <th class="text-right">{{listLuyKeChiTiet|SumByKey:'KhoiLuongThucTe'|number:'0.0-3'}}</th>
-                <!-- <th></th> -->
+                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr style="font-weight: bold;">
+            <tr>
                 <td style="width: 200px !important;">{{item.Ten}}</td>
                 <td class="text-right">{{item.Ne|number:'0.0-3'}}</td>
                 <!-- <td></td> -->
@@ -349,7 +349,7 @@
                 <td class="text-right">
                     {{item.KhoiLuongThucTe|number:'0.0-3'}}
                 </td>
-                <!-- <td class="text-center"></td> -->
+                <td class="text-center"></td>
             </tr>
             <!-- <ng-container *ngFor="let may of item.listMay">
                 <tr>

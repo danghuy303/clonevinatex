@@ -57,9 +57,6 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.listMatHang.forEach((mh:any) => {
-      mh.TenHienThi = mh.Ten?.split(" - ")[1];
-    });
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
