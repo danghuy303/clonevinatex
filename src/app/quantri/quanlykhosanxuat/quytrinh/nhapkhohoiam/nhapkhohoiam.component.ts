@@ -27,6 +27,11 @@ export class NhapkhohoiamComponent implements OnInit {
     },
     {
       header: 'Ca',
+      field: 'TendmCaSanXuatThucTe',
+      width: 'unset'
+    },
+    {
+      header: 'Thời điểm',
       field: 'TendmCaSanXuat',
       width: 'unset'
     },
