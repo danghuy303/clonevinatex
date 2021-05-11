@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-chatluongsoimathangmodal',
@@ -36,22 +37,30 @@ export class ChatluongsoimathangmodalComponent implements OnInit {
     if(this.listItem != undefined && this.listItem!= null)
     {
       for(let i = 0; i < this.listItem.length; i++){
-        var itemFind = this.listMatHang.find(
-          ele => (ele.IddmItem === this.listMatHang[i].IddmItem && ele.IdLoHang == this.listMatHang[i].IdLoHang)
+        console.log(this.listItem[i])
+        let itemFind = this.listMatHang.find(
+          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang === this.listItem[i].IdLoHang)
         );
-        itemFind.checked = true;
+        if(validVariable(itemFind)){
+          itemFind.checked = true;
+        }
       }
     }
     this.item.listItem = this.listMatHang.slice(0,15);
     this.item.listItem_copy = this.listMatHang;
   }
   accept() {
-    var itemFind: any = this.listMatHang.filter(function (obj) {
+    let itemFind: any = this.listMatHang.filter(function (obj) {
       return obj.checked == true;
     });
     console.log(itemFind);
     this.activeModal.close(
-      { data: itemFind }
+      { data: itemFind.map(ele=>{
+        return {
+          ...ele,
+          Ten:`${ele.TenLoHang} - ${ele.Ten}`
+        }
+      }) }
     );
   }
   checkAll(e) {

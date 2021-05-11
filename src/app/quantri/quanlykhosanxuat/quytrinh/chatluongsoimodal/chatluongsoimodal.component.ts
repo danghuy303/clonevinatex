@@ -186,6 +186,7 @@ export class ChatluongsoimodalComponent implements OnInit {
         this.lstSanPham.forEach(danhmuc => {
           let datapush: any = {
             IddmItem: danhmuc.IddmItem,
+            IdLoHang: danhmuc.IdLoHang,
             Ten: danhmuc.Ten,
           }
           sanphampush.push(datapush);
