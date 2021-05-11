@@ -13,6 +13,13 @@
                 [(ngModel)]="filter.LoaiPhuongAn" optionLabel="name" [showClear]="true"></p-dropdown>
         </div> -->
         <div class="p-mr-2">
+            <button pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm" (click)="exportExcel()"></button>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
+                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanXuong"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetListQuyTrinh(true)">
             </p-calendar>

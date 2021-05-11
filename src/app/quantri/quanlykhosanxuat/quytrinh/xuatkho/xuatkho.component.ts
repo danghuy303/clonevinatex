@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhomodalComponent } from '../xuatkhomodal/xuatkhomodal.component';
 
 @Component({
@@ -17,6 +17,7 @@ export class XuatkhoComponent implements OnInit {
   filter: any = {};
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
+  listPhanXuong:any=[];
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
@@ -56,6 +57,7 @@ export class XuatkhoComponent implements OnInit {
       }
     })
     this.KiemTraTabTrangThai();
+    this.GetdmPhanXuong();
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
@@ -137,5 +139,42 @@ export class XuatkhoComponent implements OnInit {
       this.GetListQuyTrinh();
     })
   }
+  GetdmPhanXuong() {
+    let data2 = {
+      PageSize: 20,
+      CurrentPage: 0,
+      sFilter: this.filter.keyWord ? this.filter.keyWord : '',
+      CongDoan: this.filter.CongDoan ? this.filter.CongDoan : '',
+      Ma: "",
+      Ten: ""
+    };
+    this._service.GetListdmPhanXuong(data2).subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+    })
+  }
+  validateFilter() {
+    if (!validVariable(this.filter.TuNgay) || !validVariable(this.filter.DenNgay) || DateToUnix(this.filter.DenNgay) < DateToUnix(this.filter.TuNgay)) {
+      this._toastr.error('Vui lòng nhập khoảng thời gian hợp lệ!')
+      return false
+    }
+    if(!validVariable(this.filter.IddmPhanXuong)){
+      this._toastr.error('Vui lòng chọn phân xưởng!')
+      return false
+    }
+    return true
+  }
 
+  exportExcel() {
+    if (this.validateFilter()) {
+      let data = {
+        IddmPhanXuong:this.filter.IddmPhanXuong,
+        TuNgayUnix:DateToUnix(this.filter.TuNgay),
+        DenNgayUnix:DateToUnix(this.filter.DenNgay),
+      }
+      this._service.PhieuXuatSanXuat().ExportBangKeXuatKhoBong(data).subscribe((res: any) => {
+        this._service.download(res.TenFile);
+      })
+    }
+  }
 }

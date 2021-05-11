@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { NhapkhobongphemodalComponent } from '../nhapkhobongphemodal/nhapkhobongphemodal.component';
 
 @Component({
@@ -24,6 +24,7 @@ export class NhapkhobongpheComponent implements OnInit {
   title: any = "";
   type: any = "";
   nametype: any = "";
+  listPhanXuong:any=[];
   constructor(public _modal: NgbModal, public _toastr: ToastrService, 
     private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
      }
@@ -37,6 +38,7 @@ export class NhapkhobongpheComponent implements OnInit {
         this.update(res.id);
       }
     })
+    this.GetdmPhanXuong();
     this.GetListQuyTrinh();
     this.KiemTraTabTrangThai();
   }
@@ -127,5 +129,43 @@ export class NhapkhobongpheComponent implements OnInit {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
+  }
+  GetdmPhanXuong() {
+    let data2 = {
+      PageSize: 20,
+      CurrentPage: 0,
+      sFilter: this.filter.keyWord ? this.filter.keyWord : '',
+      CongDoan: this.filter.CongDoan ? this.filter.CongDoan : '',
+      Ma: "",
+      Ten: ""
+    };
+    this._service.GetListdmPhanXuong(data2).subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+    })
+  }
+  validateFilter() {
+    if (!validVariable(this.filter.TuNgay) || !validVariable(this.filter.DenNgay) || DateToUnix(this.filter.DenNgay) < DateToUnix(this.filter.TuNgay)) {
+      this._toastr.error('Vui lòng nhập khoảng thời gian hợp lệ!')
+      return false
+    }
+    if(!validVariable(this.filter.IddmPhanXuong)){
+      this._toastr.error('Vui lòng chọn phân xưởng!')
+      return false
+    }
+    return true
+  }
+
+  exportExcel() {
+    if (this.validateFilter()) {
+      let data = {
+        IddmPhanXuong:this.filter.IddmPhanXuong,
+        TuNgayUnix:DateToUnix(this.filter.TuNgay),
+        DenNgayUnix:DateToUnix(this.filter.DenNgay),
+      }
+      this._service.QuyTrinhPhieuBongPhe().ExportBangKeNhapKhoBongPhe(data).subscribe((res: any) => {
+        this._service.download(res.TenFile);
+      })
+    }
   }
 }

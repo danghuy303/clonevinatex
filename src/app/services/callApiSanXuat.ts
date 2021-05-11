@@ -692,6 +692,14 @@ export class SanXuatService {
                 url = API.SCMDanhMuc
                 return this.http.get(`${url}ExportHoaDonNhapKhoXo?Id=${Id}`, httpOptions)
             },
+            ExportBangKeNhapKhoXo:(data)=>{
+                url = API.SCMDanhMuc
+                return this.http.post(`${url}ExportBangKeNhapKhoXo`,data, httpOptions)
+            },
+            ExportBangKeNhapKhoBong:(data)=>{
+                url = API.SCMDanhMuc
+                return this.http.post(`${url}ExportBangKeNhapKhoBong`,data, httpOptions)
+            }
         }
     }
     //#endregion
@@ -1321,7 +1329,10 @@ export class SanXuatService {
                 return this.http.get(urlDM + `ExportPhieuXuatKhoBong?Id=${Id}`, httpOptions);
             },
             ExportHoaDon: (Id) => {
-                return this.http.get(urlDM + `ExportHoaDonXuatKhoBong?Id=${Id}`, httpOptions)
+                return this.http.get(urlDM + `ExportHoaDonXuatKhoBong?Id=${Id}`, httpOptions);
+            },
+            ExportBangKeXuatKhoBong:(data)=>{
+                return this.http.post(urlDM+'ExportBangKeXuatKhoBong',data,httpOptions);
             }
         }
     }
@@ -1388,6 +1399,10 @@ export class SanXuatService {
                 url = API.SCMDanhMuc;
                 return this.http.get(`${url}ExportHoaDonXuatKhoXo?Id=${Id}`, httpOptions)
             },
+            ExportPhieuXuatKhoXo_BangKe:(data)=>{
+                url = API.SCMDanhMuc;
+                return this.http.post(`${url}ExportPhieuXuatKhoXo`,data, httpOptions)
+            }
         }
     }
     PhieuXuatBongPhe() {
@@ -1418,6 +1433,10 @@ export class SanXuatService {
             ExportHoaDonXuatKhoBongPhe:(Id)=>{
                 url = API.SCMDanhMuc
                 return this.http.get(`${url}ExportHoaDonXuatKhoBongPhe?Id=${Id}`,httpOptions)
+            },
+            ExportBangKeXuatKhoBongPhe:(data)=>{
+                url = API.SCMDanhMuc
+                return this.http.post(`${url}ExportBangKeXuatKhoBongPhe`,data,httpOptions)
             }
         }
     }
@@ -1727,6 +1746,10 @@ export class SanXuatService {
             ExportHoaDonNhapKhoBongPhe:(Id)=>{
                 url = API.SCMDanhMuc
                 return this.http.get(url + 'ExportHoaDonNhapKhoBongPhe?Id='+Id, httpOptions)
+            },
+            ExportBangKeNhapKhoBongPhe:(data)=>{
+                url = API.SCMDanhMuc
+                return this.http.post(`${url}ExportBangKeNhapKhoBongPhe`,data, httpOptions)
             }
         }
     }

@@ -15,6 +15,7 @@ export class TonkhobongphemodalComponent implements OnInit {
   items: any = [{id:5,SoQuyTrinh:'PNK_0000_0000'}];
   filter:any={};
   item:any={};
+  data:any={};
   itemTongCong:any={};
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
@@ -37,7 +38,7 @@ export class TonkhobongphemodalComponent implements OnInit {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
-    let data = {
+    this.data = {
       "IdLoBong": this.item.IdLoBong,
       "TuNgay": DateToUnix(this.filter.TuNgay),
       "DenNgay": DateToUnix(this.filter.DenNgay),
@@ -46,7 +47,7 @@ export class TonkhobongphemodalComponent implements OnInit {
       "CurrentPage": this.paging.CurrentPage,
       "IddmLoaiBong": this.item.IddmLoaiBong,
     }
-    this._service.GetTheKho(data).subscribe((res: any) => {
+    this._service.GetTheKho(this.data).subscribe((res: any) => {
       this.items = res.items;
       // this.itemTongCong = res.items[0];
       // this.items.shift();
@@ -54,6 +55,11 @@ export class TonkhobongphemodalComponent implements OnInit {
       console.log(res)
       console.log(this.items)
       console.log(this.paging)
+    })
+  }
+  exportExcel() {
+    this._service.ExportGetTheKho(this.data).subscribe((res: any) => {
+      this._service.download(res.TenFile);
     })
   }
 }
