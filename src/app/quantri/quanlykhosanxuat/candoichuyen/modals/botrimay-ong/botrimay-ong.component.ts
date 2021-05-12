@@ -78,7 +78,11 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   }
   sort() {
     this.item.listDaBoTri = this.item.listDaBoTri.sort((a: any, b: any) => {
-      return a.TenMay.localeCompare(b.TenMay);
+      if(a.TenMay===b.TenMay){
+        return a.SoCocTu-b.SoCocTu;
+      }else{
+        return a.TenMay.localeCompare(b.TenMay);
+      }
     })
   }
   initSpeedOption() {
@@ -187,6 +191,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     this.inputChange();
   }
   GhiLai() {
+    this.sort();
     this.services.CanDoiChuyen().SetCanDoiChuyen({ ...this.item, ...this.addonData }).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
