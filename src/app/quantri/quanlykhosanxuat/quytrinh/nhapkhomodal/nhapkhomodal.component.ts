@@ -32,6 +32,7 @@ export class NhapkhomodalComponent implements OnInit {
   data: any = {};
   listKeHoach: any = [];
   listKeHoachFull: any = [];
+  listKhachHang: any = [];
   type: any = '';
   editField: any = false;
   nametype: any = '';
@@ -70,6 +71,7 @@ export class NhapkhomodalComponent implements OnInit {
     this.getListCaMay();
     this.getListdmViTri();
     this.getListKeHoach();
+    // this.getListKhachHang();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -267,6 +269,11 @@ export class NhapkhomodalComponent implements OnInit {
   getListCapBong() {
     this._services.GetListdmCapBong(this.data).subscribe((res: any) => {
       this.listCapBong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  getListKhachHang() {
+    this._services.dmKhachHang().GetListOpt().subscribe((res: any) => {
+      this.listKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   getListCaMay() {

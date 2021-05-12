@@ -30,7 +30,9 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
     listNewMatHang: any = [];
     listNewMatHang_ref: any = [];
     isKhoThanhPham: any = false;
-    paging: any = {};
+    paging: any = {
+        CurrentPage:1
+    };
     listItem: any = [];
     item_new: any = {};
     title: any = "";
@@ -49,7 +51,7 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
             this.GetQuyTrinh();
         }
         this.item_new = this.item;
-
+        this.paging.CurrentPage = 1;
         var data: any = {};
         data.CurrentPage = 0;
         data.Loai = 6;
@@ -206,12 +208,17 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
     }
 
     delete(index) {
-        let item = this.item.listItem.splice(index, 1)[0];
+        console.log(index);
+        console.log((this.paging.CurrentPage-1)*10+index);
+        console.log((this.paging.CurrentPage-1)*10);
+        let item = this.item.listItem.splice((this.paging.CurrentPage-1)*10+index, 1)[0];
         if (item.Id === "" || item.Id === null || item.Id === undefined) {
         } else {
             item.isXoa = true;
             this.item.listItem.push(JSON.parse(JSON.stringify(item)));
         }
+        this.listItem = this.item.listItem.slice((this.paging.CurrentPage-1)*10,10);
+        this.paging.TotalItem = Math.ceil(this.item.listItem.length/10);
     }
 
     GetMatHangTheoKho() {
@@ -297,7 +304,6 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
                 for(let i = 0; i < this.listNewMatHang.length ; i ++){
                     for(let j = 0; j < this.listItem.length ; j ++){
                         if(this.listNewMatHang[i].label === this.listItem[j].Ten){
-                            debugger
                             this.listNewMatHang.splice(i, 1);
                             break;
                         }
