@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { ThongsochatluongmodalComponent } from '../thongsochatluongmodal/thongsochatluongmodal.component';
 
 @Component({
@@ -59,6 +59,7 @@ export class ThongsochatluongComponent implements OnInit {
 
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
+  listLoBong: any = [];
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -67,8 +68,15 @@ export class ThongsochatluongComponent implements OnInit {
         this.update(res.id);
       }
     })
+    let data = {
+      CurrentPage : 0
+    }
+    this._service.GetListLoBong(data).subscribe((res: any) => {
+      this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');;
+    })
     this.GetListQuyTrinh()
     this.KiemTraTabTrangThai();
+
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
@@ -139,6 +147,7 @@ export class ThongsochatluongComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
+      IdLoBong: this.filter.IdLoBong
     }
     this._service.PhieuNhapLoBong_ChatLuong().GetList(data).subscribe((res: any) => {
       this.items = res.items;
