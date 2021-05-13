@@ -63,6 +63,13 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khách hàng:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listdmKhachHang" placeholder="Chọn khách hàng" [(ngModel)]="item.IddmKhachHang"
+                styleClass="p-inputtext-sm"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Người vận chuyển:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input pInputText type="text" [(ngModel)]="item.NguoiVanChuyen">

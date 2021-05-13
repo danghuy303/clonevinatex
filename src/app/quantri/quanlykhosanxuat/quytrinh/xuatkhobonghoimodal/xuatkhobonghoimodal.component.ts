@@ -27,7 +27,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   listPhuongAnPhaBong: any = [];
   listItem: any = [];
   paging: any = {};
-
+  listdmKhachHang: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
     public toastr: ToastrService, public _modal: NgbModal) { }
@@ -47,7 +47,9 @@ export class XuatkhobonghoimodalComponent implements OnInit {
     this.services.GetListdmPhanXuong(data).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    
+    this.services.dmKhachHang().GetListOpt().subscribe((res: any) => {
+      this.listdmKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
   GetQuyTrinh() {
     this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1: any) => {
