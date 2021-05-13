@@ -126,7 +126,7 @@ export class ChonhanghoamodalComponent implements OnInit {
         this._activeModal.close(this.items.filter(item => item.checked).map(ele => {
           return {
             ...ele,
-            Ten: `${ele.Ma} - ${ele.Ten}`,
+            // Ten: `${ele.Ma} - ${ele.Ten}`,
             IdGiaoKeHoachSanXuat: this.IdQuyTrinh,
             IddmItem: ele.Id,
             Id: '',
