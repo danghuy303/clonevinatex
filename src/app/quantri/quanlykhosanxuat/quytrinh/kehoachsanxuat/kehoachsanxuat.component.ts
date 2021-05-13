@@ -86,7 +86,7 @@ export class KehoachsanxuatComponent implements OnInit {
             });          
           });
           let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
-            size: 'fullscreen',
+            size: 'fullscreen-100',
             backdrop: 'static'
           })
           modalRef.componentInstance.opt = 'edit';
@@ -160,7 +160,7 @@ export class KehoachsanxuatComponent implements OnInit {
             });          
           });
           let modalRef = this._modal.open(GiaokehoachsanxuathoanthanhmodalComponent, {
-            size: 'fullscreen',
+            size: 'fullscreen-100',
             backdrop: 'static'
           })
           modalRef.componentInstance.opt = 'edit';
