@@ -148,7 +148,8 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
-                        <col>
+                        <col style="width: 12rem;">
+                        <col style="width: 15rem;">
                         <col>
                         <col>
                         <col>
@@ -162,6 +163,7 @@
                         <th>#</th>
                         <!-- <th>Mã hàng</th> -->
                         <th>Mặt hàng</th>
+                        <th>Mã</th>
                         <th>Hợp đồng</th>
                         <th>Kế hoạch sản xuất(Tấn)</th>
                         <th>Loại</th>
@@ -177,8 +179,8 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr [ngStyle]="{'background-color': item.isEdited?'#f5d3ce':''}">
                         <td>{{i+1}}</td>
-                        <!-- <td>{{item.Ma}}</td> -->
                         <td>{{item.Ten}}</td>
+                        <td>{{item.Ma}}</td>
                         <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.HopDong" (ngModelChange)="change(i)" pInputText /></td>
                         <td>
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KhoiLuongKeHoach"

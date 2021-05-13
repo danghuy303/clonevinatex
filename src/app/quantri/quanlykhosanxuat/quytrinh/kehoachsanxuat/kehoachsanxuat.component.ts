@@ -59,7 +59,7 @@ export class KehoachsanxuatComponent implements OnInit {
   add() {
     this.changeParam(0);
     let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
-      size: 'fullscreen',
+      size: 'fullscreen-100',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
