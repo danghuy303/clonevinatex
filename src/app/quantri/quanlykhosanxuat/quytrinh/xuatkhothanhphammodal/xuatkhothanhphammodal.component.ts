@@ -41,6 +41,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
   nametype: any = '';
   TongKhoiLuong = 0;
   TongThanhTien = 0;
+  listdmKhachHang: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -75,6 +76,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     }
     this.data.CurrentPage = 0;
     this.getListKho();
+    this.getListdmKhachHang();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -203,7 +205,11 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-
+  getListdmKhachHang() {
+    this._services.dmKhachHang().GetListOpt().subscribe((res: any) => {
+      this.listdmKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
   filtertable_add() {
     if (this.filter.KeyWord != undefined && this.filter.KeyWord != null && this.filter.KeyWord != "") {
       this.item.listItem_copy = deepCopy(this.item.listItem);
