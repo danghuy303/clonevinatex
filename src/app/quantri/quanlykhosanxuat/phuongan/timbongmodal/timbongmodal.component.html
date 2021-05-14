@@ -177,11 +177,12 @@
                             {{lobong.Am|number:'0.2-2'}}</td>
                         <td *ngFor="let prop of listProps" class="text-center tc-w-50">
                             <div style="width: 100%;">
-                                <a href="javascript:void(0)" *ngIf="lobong.tempBanBong[prop].SoKien!==0"
+                                <a href="javascript:void(0)" *ngIf="lobong.tempBanBong[prop].SoKien!==0&&!lobong.tempBanBong[prop].disabled"
                                     [ngStyle]="{'font-weight': lobong.tempBanBong[prop].listItem.length===lobong.tempBanBong[prop].SoKien?'900':'unset','text-decoration':lobong.tempBanBong[prop].listItem.length===lobong.tempBanBong[prop].SoKien?'underline':'none'}"
                                     (click)="chonKienBong(lobong.IdLoBong,i,prop)">
                                     {{lobong.tempBanBong[prop].SoKien}}
                                 </a>
+                                <div *ngIf="lobong.tempBanBong[prop].disabled">{{lobong.tempBanBong[prop].SoKien}}</div>
                                 <div *ngIf="lobong.tempBanBong[prop].SoKien===0">
                                     <!-- {{lobong.tempBanBong[prop].SoKien}} -->
                                 </div>
