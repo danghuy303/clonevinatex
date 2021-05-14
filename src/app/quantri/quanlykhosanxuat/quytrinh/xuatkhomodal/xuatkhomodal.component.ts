@@ -5,6 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToDatePicker, DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DoikienbongmodalComponent } from '../doikienbongmodal/doikienbongmodal.component';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
@@ -241,9 +242,23 @@ export class XuatkhomodalComponent implements OnInit {
       this.services.download(res.TenFile);
     })
   }
-  exportHoaDon(){
+  exportHoaDon() {
     this.services.PhieuXuatSanXuat().ExportHoaDon(this.item.Id).subscribe((res: any) => {
       this.services.download(res.TenFile);
+    })
+  }
+  changeKien(item, index) {
+    this.services.GetLoBongTrongKhoIdLoBong(item.IdLoBong).subscribe(res=>{
+      let modalRef = this._modal.open(DoikienbongmodalComponent, { size: 'xl' })
+      modalRef.componentInstance.CurrentItem = [deepCopy(item)];
+      modalRef.componentInstance.items = res;
+      modalRef.result
+        .then(res => {
+          item.Ten = res[0].Ten;
+          item.Ma = res[0].Ma;
+          item.Mic = res[0].Mic;
+        })
+        .catch(er => { console.log('err:', er) })
     })
   }
 }

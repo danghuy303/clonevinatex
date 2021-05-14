@@ -211,24 +211,28 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
     //       this.listItem = this.item.listItem.slice(start, end);
     //   }
     changePage(event) {
-        console.log(event)
         this.paging.CurrentPage = event.page + 1;
-        var start = 10 * (event.page);
-        var end = start + 10;
+        let start = 10 * (event.page);
+        let end = start + 10;
         if (validVariable(this.filter.KeyWord)) {
-            if ((start + 10) > this.item.listItem.filter(ele => ele.Ten.includes(this.filter.KeyWord)).length) {
-                end = this.item.listItem.filter(ele => ele.Ten.includes(this.filter.KeyWord)).length;
+            let clone = this.item.listItem.filter(ele => ele.Ten.includes(this.filter.KeyWord))
+            if ((start + 10) > clone.length + 1) {
+                end = clone.length;
             }
-            this.paging.TotalItem = this.item.listItem.filter(ele => ele.Ten.includes(this.filter.KeyWord)).length
-            this.listItem = this.item.listItem.filter(ele => ele.Ten.includes(this.filter.KeyWord)).slice(start, end);
+            this.paging.TotalItem = clone.length
+            this.listItem = clone.slice(start, end);
         } else {
-            if ((start + 10) > this.listItem.length) {
+            if ((start + 10) > this.item.listItem.length) {
                 end = this.item.listItem.length;
             }
             this.paging.TotalItem = this.item.listItem.length;
             this.listItem = this.item.listItem.slice(start, end);
         }
-
+    }
+    copy(value) {
+        this.item.listItem.forEach(itemTon => {
+            itemTon.TrongLuong = value;
+        });
     }
     refreshFilter() {
         this.filter.KeyWord = null;
