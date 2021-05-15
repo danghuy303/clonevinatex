@@ -192,7 +192,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
             .subscribe((res1: any) => {
                 res1.forEach((mathang) => {
                     mathang.SoLuong = mathang.TonSoLuong;
-                    mathang.TongTrongLuong = mathang.TonTongTrongLuong;
+                    mathang.TrongLuong = mathang.TonTongTrongLuong;
                 });
                 this.item.listItem = res1;
                 this.listItem = res1.slice(0, 10);
