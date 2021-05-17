@@ -176,9 +176,11 @@ export class NhapkhobongphemodalComponent implements OnInit {
     })
   }
   getListLoaiBong() {
-   
     this.data.Loai = 7;
     this._services.GetListdmLoaiBong(this.data).subscribe((res: any) => {
+      res.sort((a,b)=>{
+        return a.Ten.localeCompare(b.Ten);
+      })
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

@@ -250,13 +250,15 @@ export class XuatkhomodalComponent implements OnInit {
   changeKien(item, index) {
     this.services.GetLoBongTrongKhoIdLoBong(item.IdLoBong).subscribe(res=>{
       let modalRef = this._modal.open(DoikienbongmodalComponent, { size: 'xl' })
+      modalRef.componentInstance.IdPhieu = this.item.Id;
       modalRef.componentInstance.CurrentItem = [deepCopy(item)];
       modalRef.componentInstance.items = res;
       modalRef.result
         .then(res => {
-          item.Ten = res[0].Ten;
-          item.Ma = res[0].Ma;
-          item.Mic = res[0].Mic;
+          let findIndex = this.item.listItem.findIndex(ele =>ele.IddmItem===item.IddmItem)
+          if(findIndex>=0){
+            this.item.listItem[findIndex] = res[0];
+          }
         })
         .catch(er => { console.log('err:', er) })
     })
