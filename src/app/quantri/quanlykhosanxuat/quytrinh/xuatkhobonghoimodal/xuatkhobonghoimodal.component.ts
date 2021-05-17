@@ -28,6 +28,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   listItem: any = [];
   paging: any = {};
   listdmKhachHang: any = [];
+  listKien: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
     public toastr: ToastrService, public _modal: NgbModal) { }
@@ -66,6 +67,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
       this.paging.TotalItem = res1.listItem.length;
       this.item.listItem = res1.listItem.slice(0, 15);
       this.KiemTraButtonModal();
+      this.getLuuKho();
     })
   }
   KiemTraButtonModal() {
@@ -179,5 +181,10 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   }
   Onclose() {
     this.activeModal.close();
+  }
+  getLuuKho(){
+    this.services.getLuuKhoKiemKeKhoBongHoi(this.item.IddmKho, "", "", "").subscribe((res: any) => {
+      this.listKien = mapArrayForDropDown(res, 'Ten', 'IddmItem');
+    })
   }
 }
