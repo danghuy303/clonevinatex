@@ -29,6 +29,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   paging: any = {};
   listdmKhachHang: any = [];
   listKien: any = [];
+  listKienFull: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
     public toastr: ToastrService, public _modal: NgbModal) { }
@@ -185,6 +186,15 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   getLuuKho(){
     this.services.getLuuKhoKiemKeKhoBongHoi(this.item.IddmKho, "", "", "").subscribe((res: any) => {
       this.listKien = mapArrayForDropDown(res, 'Ten', 'IddmItem');
+      this.listKienFull = res;
     })
+  }
+  getTon(item){
+    this.listKienFull.forEach(element => {
+      if(element.IddmItem == item.IddmItem){
+        item.TonSoLuong = element.TonSoLuong;
+        item.TonTongTrongLuong = element.TonTongTrongLuong;
+      }
+    });
   }
 }

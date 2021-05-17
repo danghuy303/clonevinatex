@@ -89,7 +89,7 @@
                     (click)="GetLuuKho('')"></button>
             </div>  [scrollable]="true"  scrollHeight="40vh"-->
             <p-table [lazy]="true" 
-            [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text"
+            [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines"
                 selectionMode="single">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -98,39 +98,57 @@
                         <col style="text-align: center;">
                         <col style="text-align: center;">
                         <col>
-                        <!-- <col style="width:100px; text-align: center;"> -->
+                        <col>
+                        <col>
                         <col style="width:90px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>#</th>
-                        <th>Số bàn</th>
-                        <th>Tên kiện</th>
-                        <!-- <th>Vị trí</th> -->
+                        <th rowspan="2">#</th>
+                        <th rowspan="2">Số bàn</th>
+                        <th rowspan="2">Tên kiện</th>
+                        <!-- <th rowspan="2">Số lượng</th>
+                        <th rowspan="2">Tổng khối lượng</th> -->
+                        <th colspan="2">Tồn sổ sách</th>
+                        <th colspan="2">Xuất</th>
+                        <th rowspan="2"></th>
+                    </tr>
+                    <tr>
                         <th>Số lượng</th>
                         <th>Tổng khối lượng</th>
-                        <!-- <th>Thay đổi</th> -->
-                        <th></th>
+                        <th>Số lượng</th>
+                        <th>Tổng khối lượng</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
                         <td style="text-align: center;" >{{item.ThuTu}} </td>
-                        <!-- <td style="text-align: center;">{{item.Ten}}</td> -->
                         <td style="text-align: center;">
                             <p-dropdown [filter]="true" [options]="listKien" placeholder="Chọn kiện"
-                            styleClass="p-inputtext-sm" [(ngModel)]="item.IddmItem"></p-dropdown>
+                            styleClass="p-inputtext-sm" [(ngModel)]="item.IddmItem" (onChange)="getTon(item)"></p-dropdown>
                         </td>
-                        <!-- <td style="text-align: center;">{{item.TendmViTri}}</td> -->
+                        <!-- <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TrongLuong">
+                            </p-inputNumber>
+                        </td> -->
+                        <td style="text-align: right;">
+                            {{item.TonSoLuong|number:'0.0'}}
+
+                        </td>
+                        <td style="text-align: right;">
+                            {{item.TonTongTrongLuong|number:'0.0-2'}}
+
+                        </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
-                        <!-- <td style="text-align: center;">
-                            <input type="checkbox" [(ngModel)]="item.isDieuChinh">
-                        </td> -->
                         <td>
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TrongLuong">
                             </p-inputNumber>
@@ -145,6 +163,8 @@
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <tr>
+                        <td></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
