@@ -312,4 +312,9 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
             }
         }
     }
+    copy(value) {
+        this.item.listItem.forEach(itemTon => {
+            itemTon.TrongLuong = value;
+        });
+    }
 }

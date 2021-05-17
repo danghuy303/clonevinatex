@@ -112,7 +112,8 @@ export class TimbongmodalComponent implements OnInit {
               ...item,
               listItem: (validVariable(item.listItem) && item.listItem?.length !== 0) ? item.listItem : [],
               SoKien: item.SoLuongKien,
-              tabIndex: index + 1 + (item.ThuTu * this.item.listLoBong.length)
+              tabIndex: index + 1 + (item.ThuTu * this.item.listLoBong.length),
+              disabled: this.item.listCotDaXuat.some(ele=>ele===item.ThuTu)
             }
             lobong.tempBanBong[`${item.ThuTu}`] = data;
           });

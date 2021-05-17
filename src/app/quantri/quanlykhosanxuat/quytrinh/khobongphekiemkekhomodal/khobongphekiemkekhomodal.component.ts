@@ -68,37 +68,36 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
                 this.listNewMatHang_ref = res;
             });
     }
-    checklistMatHang(item){
-        if(this.listNewMatHang !== undefined && this.listNewMatHang !== null){
-            for(let i = 0; i < this.listNewMatHang.length ; i ++){
-                if(this.listNewMatHang[i].label ===item.Ten){
+    checklistMatHang(item) {
+        if (this.listNewMatHang !== undefined && this.listNewMatHang !== null) {
+            for (let i = 0; i < this.listNewMatHang.length; i++) {
+                if (this.listNewMatHang[i].label === item.Ten) {
                     this.listNewMatHang.splice(i, 1);
                     break;
                 }
             }
         }
     }
-    checklistMatHangTheoKho(){
-        if(this.listNewMatHang !== undefined && this.listNewMatHang !== null && this.listNewMatHang.length > 0){
-            if(this.item.listItem !== undefined && this.item.listItem !== null  && this.item.listItem.length > 0)
-            {
-                for(let i = 0; i < this.listNewMatHang.length ; i ++){
-                    for(let j = 0; j < this.item.listItem.length ; j ++){
-                        if(this.listNewMatHang[i].label === this.item.listItem[j].Ten){
+    checklistMatHangTheoKho() {
+        if (this.listNewMatHang !== undefined && this.listNewMatHang !== null && this.listNewMatHang.length > 0) {
+            if (this.item.listItem !== undefined && this.item.listItem !== null && this.item.listItem.length > 0) {
+                for (let i = 0; i < this.listNewMatHang.length; i++) {
+                    for (let j = 0; j < this.item.listItem.length; j++) {
+                        if (this.listNewMatHang[i].label === this.item.listItem[j].Ten) {
                             this.listNewMatHang.splice(i, 1);
                             break;
                         }
                     }
                 }
             }
-            
+
         }
     }
     resetFilter() {
         this.KeyWord = null;
     }
-    filter(){
-        this.changePage({page:0})
+    filter() {
+        this.changePage({ page: 0 })
     }
     GetQuyTrinh() {
         this.services
@@ -212,7 +211,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
     }
 
     GetMatHangTheoKho() {
-        this.services.getLuuKhoKiemKeKhoBongPhe(this.item.IddmKho,"").subscribe((res1: any) => {
+        this.services.getLuuKhoKiemKeKhoBongPhe(this.item.IddmKho, "").subscribe((res1: any) => {
             // res1.forEach((mathang) => {
             //     mathang.SoLuong = mathang.TonSoLuong;
             //     mathang.TrongLuong = mathang.TonTrongLuong;
@@ -229,7 +228,7 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
         let clone = [];
         console.log(this.KeyWord);
         if (validVariable(this.KeyWord)) {
-            clone = this.item.listItem.filter(ele=>ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase()));
+            clone = this.item.listItem.filter(ele => ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase()));
         } else {
             clone = this.item.listItem
         }
@@ -281,8 +280,13 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
         })
             .catch(er => console.log(er))
     }
-    refreshFilter(){
+    refreshFilter() {
         this.KeyWord = null;
-        this.changePage({page:0})
-      }
+        this.changePage({ page: 0 })
+    }
+    copy(value) {
+        this.item.listItem.forEach(itemTon => {
+            itemTon.TrongLuong = value;
+        });
+    }
 }

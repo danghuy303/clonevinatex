@@ -1,16 +1,16 @@
 <div class="modal-header">
     <h5 class="modal-title">Kiểm kê kho bông</h5>
     <div class="d-flex flex-column flex-lg-row">
-            <div>
-               <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
-            </div>
-            <div class="ml-lg-3 mr-lg-3">
-                <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
-            </div>
-            <div>
-                <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
-            </div>
+        <div>
+            <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
         </div>
+        <div class="ml-lg-3 mr-lg-3">
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+        <div>
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+    </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -78,14 +78,14 @@
                         <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
                             [(ngModel)]="filter.KeyWord" (keyup.enter)="changePage({page:0})" />
                         <button type="button" pButton pRipple icon="pi pi-search"
-                            class="p-button-secondary p-button-sm p-button-text" (click)="changePage({page:0})"></button>
+                            class="p-button-secondary p-button-sm p-button-text"
+                            (click)="changePage({page:0})"></button>
                         <button type="button" pButton pRipple icon="pi pi-refresh"
                             class="p-button-secondary p-button-sm p-button-text" (click)="refreshFilter()"></button>
                     </div>
                 </div>
             </div>
-            <p-table [value]="listItem|isXoa"
-                styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
+            <p-table [value]="listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
@@ -104,7 +104,7 @@
                         <th rowspan="2">#</th>
                         <th rowspan="2">Mã</th>
                         <th rowspan="2">Tên</th>
-                        <th colspan="2" >Tồn sổ sách</th>
+                        <th colspan="2">Tồn sổ sách</th>
                         <th colspan="2">Tồn thực tế</th>
                         <th rowspan="2"></th>
                     </tr>
@@ -130,12 +130,19 @@
 
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" [max]="item.TonSoLuong" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                            <p-inputNumber [minFractionDigits]="0" [max]="item.TonSoLuong" locale="vi-VN"
+                                [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="1" [max]="item.TonTrongLuong" locale="vi-VN" [(ngModel)]="item.TrongLuong">
-                            </p-inputNumber>
+                            <div class="p-inputgroup" style="align-items: flex-end">
+                                <p-inputNumber [minFractionDigits]="1" locale="vi-VN"
+                                    [(ngModel)]="item.TrongLuong">
+                                </p-inputNumber>
+                                <button pButton pRipple icon="pi pi-copy"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                (click)="copy(item.TrongLuong)" pTooltip="Copy" showDelay="1000" tooltipPosition="bottom"></button>
+                            </div>
                         </td>
                         <!-- <td>
                             <p-dropdown [filter]="true" [options]="listQuyCachDongGoi"
