@@ -13,6 +13,11 @@ export class SanXuatService {
     //Cấp bông
     //this.store.getCurrent();
     //data.IdNhaMay =this.store.getCurrent().toString();
+    DoiKienPhieuXuatBong(IdPhieu,IdCu,IdMoi){
+        let url = API.SCMQuanLyKho;
+        return this.http.get(`${url}DoiKienPhieuXuatBong?IdPhieuXuatBong=${IdPhieu}&IddmItemKienCu=${IdCu}&IddmItemKienMoi=${IdMoi}`,httpOptions)
+        
+    }
     GetLoBongTrongKhoIdLoBong(IdLoBong) {
         let url = API.SCMQuanLyKho;
         return this.http.get(`${url}GetLoBongTrongKhoIdLoBong?IdLoBong=${IdLoBong}`,httpOptions)
