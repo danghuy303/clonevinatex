@@ -193,7 +193,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
     this.listKienFull.forEach(element => {
       if(element.IddmItem == item.IddmItem){
         item.TonSoLuong = element.TonSoLuong;
-        item.TonTongTrongLuong = element.TonTongTrongLuong;
+        item.TonTrongLuong = element.TonTrongLuong;
       }
     });
   }
