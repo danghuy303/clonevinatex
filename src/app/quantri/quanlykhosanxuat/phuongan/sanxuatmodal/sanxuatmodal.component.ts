@@ -53,8 +53,8 @@ export class SanxuatmodalComponent implements OnInit {
   trongLuongLoBong: any = {};
   itemDeltaPlusB: any = {};
   itemMicTT: any = {};
-  itemCVMicTT:any={};
-  itemTyLeHoiPha:any={};
+  itemCVMicTT: any = {};
+  itemTyLeHoiPha: any = {};
   PoolLoBong: any = {
 
   }
@@ -249,8 +249,8 @@ export class SanxuatmodalComponent implements OnInit {
         lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
         lobong.TongTrongLuong = lobong.SoLuongDung * lobong.TrongLuong;
       }
-      if (validVariable(lobong.Mic)||lobong.isLoBongTuongLai) {
-        arrayMic.push(validVariable(lobong.Mic)?lobong.Mic:0);
+      if (validVariable(lobong.Mic) || lobong.isLoBongTuongLai) {
+        arrayMic.push(validVariable(lobong.Mic) ? lobong.Mic : 0);
         arrayKien.push(validVariable(lobong.tempBanBong[`${x}`].SoKien) ? lobong.tempBanBong[`${x}`].SoKien : 0);
       }
     });
@@ -418,16 +418,42 @@ export class SanxuatmodalComponent implements OnInit {
     //   ...this.ghostItem,
     //   PhuongAnPhaBong: this.item
     // }
+
     let data = [];
+    let status = true;
+    let banLoi ={};
     for (let prop in this.itemCheckBan) {
       if (this.itemCheckBan[prop].checked && !this.itemCheckBan[prop].isDisabled) {
         data.push(prop)
       }
     }
+    this.item.listLoBong.forEach(lobong => {
+      data.forEach(ban=>{
+        if((lobong.tempBanBong[ban].SoLuongKien?lobong.tempBanBong[ban].SoLuongKien:0) !== lobong.tempBanBong[ban].SoLuongKienDaTim){
+          status = false;
+          if(!validVariable(banLoi[ban])){
+            banLoi[ban]=[]
+          }
+          banLoi[ban].push(lobong.Ma);
+        }
+      })
+    });
+    if(!status){
+      for(let key in banLoi){
+        let string = '';
+        banLoi[key].forEach(lo => {
+          string += `${lo};  `
+        });
+        this._toastr.error(`Bàn ${key} - Lô ${string} chưa được tìm bông!`)
+      }
+    }
     return {
-      Id: this.item.Id,
-      IdPhuongAnSanXuat:this.ghostItem.Id,
-      listCotXuat: data
+      status: status,
+      data: {
+        Id: this.item.Id,
+        IdPhuongAnSanXuat: this.ghostItem.Id,
+        listCotXuat: data
+      }
     }
   }
   KiemTraButtonModal() {
@@ -436,39 +462,45 @@ export class SanxuatmodalComponent implements OnInit {
     })
   }
   GhiLai() {
+    let res = this.SetData()
     // this.SetData()
-    this._services.SanXuat().Set(this.SetData()).subscribe((res: any) => {
-      console.log(res);
-      if (res) {
-        if (res.State === 1) {
-          this._toastr.success(res.message);
-          this._services.SanXuat().Get(this.ghostItem.Id).subscribe((res: any) => {
-            this.item = deepCopy(res.PhuongAnPhaBong);
-            res.PhuongAnPhaBong = undefined;
-            this.ghostItem = res;
-            this.GetListTrienKhaiKeHoach();
-            this.KiemTraButtonModal();
-          })
-        } else {
-          this._toastr.error(res.message);
+    if (res.status) {
+      this._services.SanXuat().Set(res.data).subscribe((res: any) => {
+        console.log(res);
+        if (res) {
+          if (res.State === 1) {
+            this._toastr.success(res.message);
+            this._services.SanXuat().Get(this.ghostItem.Id).subscribe((res: any) => {
+              this.item = deepCopy(res.PhuongAnPhaBong);
+              res.PhuongAnPhaBong = undefined;
+              this.ghostItem = res;
+              this.GetListTrienKhaiKeHoach();
+              this.KiemTraButtonModal();
+            })
+          } else {
+            this._toastr.error(res.message);
+          }
         }
-      }
-    });
+      });
+    }
   }
   checkBanBong(ban) {
     console.log(ban)
     console.log(this.itemCheckBan);
   }
   ChuyenDuyet() {
-    this._services.PhuongAnPhaBong().ChuyenTiep(this.SetData()).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this._toastr.success(res.message);
-          this._activeModal.close();
-        } else {
-          this._toastr.error(res.message);
+    let res = this.SetData()
+    if (res.status) {
+      this._services.PhuongAnPhaBong().ChuyenTiep(res.data).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this._toastr.success(res.message);
+            this._activeModal.close();
+          } else {
+            this._toastr.error(res.message);
+          }
         }
-      }
-    })
+      })
+    }
   }
 }

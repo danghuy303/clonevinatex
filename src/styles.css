@@ -336,3 +336,6 @@ span.required {
 .p-datatable-scrollable-body{
     overflow-y: scroll !important;
 }
+.pi-check:before{
+    z-index: 1 !important;
+}
