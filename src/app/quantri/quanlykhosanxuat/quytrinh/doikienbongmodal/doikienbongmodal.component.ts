@@ -46,4 +46,7 @@ export class DoikienbongmodalComponent implements OnInit {
     })
     // this._activeModal.close(this.CurrentItem);
   }
+  cancel(){
+    this._activeModal.dismiss();
+  }
 }
