@@ -166,6 +166,7 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
                     if (res.State === 1) {
                         this.toastr.success(res.message);
                         this.opt = "edit";
+                        this.item_new = res.objectReturn;
                         this.item = res.objectReturn;
                         this.Id = res.objectReturn.Id;
                         this.listItem = res.objectReturn.listItem;

@@ -113,7 +113,7 @@
 
                         </td>
                         <td style="text-align: right;">
-                            {{item.TonTongTrongLuong|number:'0.0-2'}}
+                            {{item.TonTrongLuong|number:'0.0-2'}}
 
                         </td>
                         <td>
@@ -121,7 +121,7 @@
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongTrongLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TrongLuong">
                             </p-inputNumber>
                             <!-- <div class="p-inputgroup" style="align-items: flex-end">
                                 <p-inputNumber [minFractionDigits]="1" locale="vi-VN"
@@ -163,7 +163,7 @@
                         </td>
                         <td>
                             
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newItem.TongTrongLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newItem.TrongLuong">
                             </p-inputNumber>
                         </td>
                         <!-- <td>
@@ -182,7 +182,7 @@
 
                         </td>
                         <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'TonTongTrongLuong'|number:'0.0-2'}}
+                            {{item.listItem|isXoa|SumByKey:'TonTrongLuong'|number:'0.0-2'}}
 
                         </td>
                         <td class="text-right">
@@ -190,7 +190,7 @@
 
                         </td>
                         <td class="text-right">
-                            {{item.listItem|isXoa|SumByKey:'TongTrongLuong'|number:'0.0-2'}}
+                            {{item.listItem|isXoa|SumByKey:'TrongLuong'|number:'0.0-2'}}
 
                         </td>
                         <!-- <td></td> -->
