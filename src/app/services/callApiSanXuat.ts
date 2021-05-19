@@ -16,7 +16,10 @@ export class SanXuatService {
     DoiKienPhieuXuatBong(IdPhieu,IdCu,IdMoi){
         let url = API.SCMQuanLyKho;
         return this.http.get(`${url}DoiKienPhieuXuatBong?IdPhieuXuatBong=${IdPhieu}&IddmItemKienCu=${IdCu}&IddmItemKienMoi=${IdMoi}`,httpOptions)
-        
+    }
+    GetDanhSachKienCoTheThayThe(IddmItem){
+        let url = API.SCMQuanLyKho;
+        return this.http.get(`${url}GetDanhSachKienCoTheThayThe?IddmItem=${IddmItem}`,httpOptions)
     }
     GetLoBongTrongKhoIdLoBong(IdLoBong) {
         let url = API.SCMQuanLyKho;

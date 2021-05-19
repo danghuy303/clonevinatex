@@ -248,7 +248,7 @@ export class XuatkhomodalComponent implements OnInit {
     })
   }
   changeKien(item, index) {
-    this.services.GetLoBongTrongKhoIdLoBong(item.IdLoBong).subscribe(res=>{
+    this.services.GetDanhSachKienCoTheThayThe(item.IddmItem).subscribe(res=>{
       let modalRef = this._modal.open(DoikienbongmodalComponent, { size: 'xl' })
       modalRef.componentInstance.IdPhieu = this.item.Id;
       modalRef.componentInstance.CurrentItem = [deepCopy(item)];
