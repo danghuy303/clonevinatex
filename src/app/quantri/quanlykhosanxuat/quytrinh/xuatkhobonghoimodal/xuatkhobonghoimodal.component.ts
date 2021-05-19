@@ -35,17 +35,15 @@ export class XuatkhobonghoimodalComponent implements OnInit {
     public toastr: ToastrService, public _modal: NgbModal) { }
 
   ngOnInit(): void {
-    this.GetQuyTrinh();
+      this.GetQuyTrinh();
     //
-    let data = {
+    let data: any = {
       CurrentPage: 0
     }
     this.services.PhuongAnPhaBong().GetList(data).subscribe((res: any) => {
       this.listPhuongAnPhaBong = mapArrayForDropDown((typeof res) === 'object'?res.items:res, 'Ten', 'Id');
     })
-    this.services.GetListdmKho(data).subscribe((res: any) => {
-      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
+    
     this.services.GetListdmPhanXuong(data).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
@@ -69,6 +67,14 @@ export class XuatkhobonghoimodalComponent implements OnInit {
       this.item.listItem = res1.listItem.slice(0, 15);
       this.KiemTraButtonModal();
       this.getLuuKho();
+      let data: any = {
+        CurrentPage: 0,
+        Loai: 6,
+        IddmPhanXuong: this.item.IddmPhanXuong || "",
+      }
+      this.services.GetListdmKho(data).subscribe((res: any) => {
+        this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+      })
     })
   }
   KiemTraButtonModal() {
