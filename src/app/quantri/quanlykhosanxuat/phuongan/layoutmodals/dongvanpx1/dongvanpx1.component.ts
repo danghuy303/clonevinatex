@@ -19,6 +19,7 @@ export class Dongvanpx1Component implements OnInit {
   block2: any = [];
   block3: any = [];
   block4: any = [];
+  block5: any = [];
   poolLoBong: any = [];
   banBong: any = {};
   ngoaiQuan: any = [];
@@ -60,18 +61,33 @@ export class Dongvanpx1Component implements OnInit {
         IdLoBong: null,
         Mau: 'white'
       }
-      if (i <= 2) {
+      if (i <= 2) { //thang 5
         this.block1.push(`${i}`)
       }
-      if (2 < i && i <= 16) {
+      if (2 < i && i <= 15) {
         this.block2.push(`${i}`)
       }
-      if (16 < i && i <= (this.length + this.item.SoViTriNgoaiQuan - 2)) {
+      if (45 <= i && i <= 46) {
         this.block3.push(`${i}`)
       }
-      if ((this.length + this.item.SoViTriNgoaiQuan - 2) < i && i <= (this.length + this.item.SoViTriNgoaiQuan) && (this.length + this.item.SoViTriNgoaiQuan >= 18)) {
+      if (16 <= i && i <= 30) {
         this.block4.push(`${i}`)
       }
+      if (31 <= i && i <= 44) {
+        this.block5.push(`${i}`)
+      }
+      // if (i <= 2) {
+      //   this.block1.push(`${i}`)
+      // }
+      // if (2 < i && i <= 16) {
+      //   this.block2.push(`${i}`)
+      // }
+      // if (16 < i && i <= (this.length + this.item.SoViTriNgoaiQuan - 2)) {
+      //   this.block3.push(`${i}`)
+      // }
+      // if ((this.length + this.item.SoViTriNgoaiQuan - 2) < i && i <= (this.length + this.item.SoViTriNgoaiQuan) && (this.length + this.item.SoViTriNgoaiQuan >= 18)) {
+      //   this.block4.push(`${i}`)
+      // }
     };
     if (validVariable(this.item.Id)) {
       for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
@@ -124,6 +140,7 @@ export class Dongvanpx1Component implements OnInit {
     this.block2 = [];
     this.block3 = [];
     this.block4 = [];
+    this.block5 = [];
     this.veLayout();
     this.pasteBanBong();
   }
@@ -170,6 +187,7 @@ export class Dongvanpx1Component implements OnInit {
     this.block2 = [];
     this.block3 = [];
     this.block4 = [];
+    this.block5 = [];
     console.log(this.item.ViTriNgoaiQuan)
     this.ngoaiQuan = this.item.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
     console.log(this.ngoaiQuan)
@@ -186,18 +204,33 @@ export class Dongvanpx1Component implements OnInit {
         IdLoBong: null,
         Mau: 'white'
       }
-      if (i <= 2) {
+      if (i <= 2) { //thang 5
         this.block1.push(`${i}`)
       }
-      if (2 < i && i <= 16) {
+      if (2 < i && i <= 15) {
         this.block2.push(`${i}`)
       }
-      if (16 < i && i <= (this.length + this.item.SoViTriNgoaiQuan - 2)) {
+      if (45 <= i && i <= 46) {
         this.block3.push(`${i}`)
       }
-      if ((this.length + this.item.SoViTriNgoaiQuan - 2) < i && i <= (this.length + this.item.SoViTriNgoaiQuan)) {
+      if (16 <= i && i <= 30) {
         this.block4.push(`${i}`)
       }
+      if (31 <= i && i <= 44) {
+        this.block5.push(`${i}`)
+      }
+      // if (i <= 2) {
+      //   this.block1.push(`${i}`)
+      // }
+      // if (2 < i && i <= 16) {
+      //   this.block2.push(`${i}`)
+      // }
+      // if (16 < i && i <= (this.length + this.item.SoViTriNgoaiQuan - 2)) {
+      //   this.block3.push(`${i}`)
+      // }
+      // if ((this.length + this.item.SoViTriNgoaiQuan - 2) < i && i <= (this.length + this.item.SoViTriNgoaiQuan)) {
+      //   this.block4.push(`${i}`)
+      // }
     };
   }
   changeNgoaiQuanBong() {
