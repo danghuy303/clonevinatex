@@ -929,7 +929,11 @@ export class QuantriComponent implements OnInit {
                         routerLink: '/quantri/phanquyensanxuat/dmkhachhang',
                         command: () => this.close()
                     },
-                    
+                    {
+                        label: 'Chi số triển khai',
+                        routerLink: '/quantri/phanquyensanxuat/dmchisotrienkhai',
+                        command: () => this.close()
+                    },
                 ]
             },
             // {
