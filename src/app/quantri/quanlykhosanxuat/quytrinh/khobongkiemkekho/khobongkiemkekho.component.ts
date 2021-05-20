@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { KhobongkiemkekhomodalComponent } from '../khobongkiemkekhomodal/khobongkiemkekhomodal.component';
 
 @Component({
@@ -15,13 +15,18 @@ export class KhobongkiemkekhoComponent implements OnInit {
     @ViewChild("paginator") paginator: any;
     items: any = [{ id: 5, SoQuyTrinh: "PKK_0000_0000" }];
     filter: any = {};
-    listLoaiPhuongAn: any = [];
+    listLoBong: any = [];
     trangThai: any = 1;
     paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
     cols: any = [
         {
             header: "Tên kho",
             field: "TendmKho",
+            width: "200px",
+        },
+        {
+            header: "Tên lô bông",
+            field: "TenLoBong",
             width: "200px",
         },
         {
@@ -60,6 +65,11 @@ export class KhobongkiemkekhoComponent implements OnInit {
             }
         });
         this.KiemTraTabTrangThai();
+        var data: any = {};
+        data.CurrentPage = 0;
+        this._service.GetListLoBong(data).subscribe((res: any) => {
+            this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
+        });
     }
     changeParam(id) {
         if (this._modal.hasOpenModals()) {
@@ -134,7 +144,8 @@ export class KhobongkiemkekhoComponent implements OnInit {
             DenNgay: DateToUnix(this.filter.DenNgay),
             Ma: "",
             Ten: "",
-            Loai: 2
+            Loai: 2,
+            IdLoBong: this.filter.IdLoBong,
         };
         this._service
             .PhieuKiemKeKhoBong()
