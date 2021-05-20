@@ -67,6 +67,7 @@ export class KhobongkiemkekhoComponent implements OnInit {
         this.KiemTraTabTrangThai();
         var data: any = {};
         data.CurrentPage = 0;
+        data.Loai = 2;
         this._service.GetListLoBong(data).subscribe((res: any) => {
             this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
         });

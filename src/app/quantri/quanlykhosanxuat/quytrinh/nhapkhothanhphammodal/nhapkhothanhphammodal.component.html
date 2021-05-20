@@ -93,12 +93,14 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
+                        <th>Mã</th>
                         <th>Tên</th>
                         <th>Tên lô</th>
                         <th>Số quả hồi ẩm</th>
@@ -114,6 +116,7 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>{{i+1}}</td>
+                        <td>{{item.Ma}}</td>
                         <td>{{item.Ten}}</td>
                         <td>{{item.TenLoHang}}</td>
                         <!-- <td>
@@ -163,7 +166,7 @@
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <tr>
-                        <td colspan="3">TỔNG: </td>
+                        <td colspan="4">TỔNG: </td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoQuaSoiHoiAm'|number:'0.0'}}
                         </td>
