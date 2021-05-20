@@ -1919,4 +1919,21 @@ export class SanXuatService {
             }
         }
     }
+    dmChiSoTrienKhai() {
+        let url = API.SCMDanhMuc;
+        return {
+            GetListOpt: () => {
+                return this.http.get(url + 'GetListdmChiSoTrienKhai', httpOptions);
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListdmChiSoTrienKhai', data, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetChiSoTrienKhai', data, httpOptions);
+            },
+            Delete: (Id) => {
+                return this.http.get(url + `DeletedmChiSoTrienKhai?Id=${Id}`, httpOptions);
+            },
+        }
+    }
 }
