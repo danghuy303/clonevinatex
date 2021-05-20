@@ -6,7 +6,7 @@ import { ignoreElements } from 'rxjs/operators';
 import { TinhtrangtaisanComponent } from 'src/app/quantri/danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { CVMic, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { CVMic, CVMic2, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 import { TrangthaimaysanxuatComponent } from '../../quytrinh/trangthaimaysanxuat/trangthaimaysanxuat.component';
@@ -34,7 +34,7 @@ export class PhabongmodalComponent implements OnInit {
   itemCVMic = {};
   itemGiaTrungBinh: any = {};
   itemTrongLuong1Ban: any = {};
-  itemTrongLuong1BanTruBongHoi:any={};
+  itemTrongLuong1BanTruBongHoi: any = {};
   itemDeltaPlusB: any = {};
   itemSoKienTrenBanTruBongHoi = {};
   item: any = {
@@ -62,7 +62,7 @@ export class PhabongmodalComponent implements OnInit {
   ThongSoKienTheoLoaiBong: any = {
 
   };
-  listCotDaXuat:Array<string>= []
+  listCotDaXuat: Array<string> = []
   checkbuttonDieuChinh: boolean = false;
   trongLuongLoBong: any = {};
   itemMicTT: any = {};
@@ -80,8 +80,8 @@ export class PhabongmodalComponent implements OnInit {
       ChuyenTiep: false,
       KhongDuyet: false
     }
-    if(validVariable(this.item.listCotDaXuat)){
-      this.listCotDaXuat = this.item.listCotDaXuat.map((ele:number)=> ele.toString())
+    if (validVariable(this.item.listCotDaXuat)) {
+      this.listCotDaXuat = this.item.listCotDaXuat.map((ele: number) => ele.toString())
     }
     this.GetListdmLoaiBong_PAPB();
   }
@@ -94,7 +94,7 @@ export class PhabongmodalComponent implements OnInit {
       if (validVariable(this.item.IdTrienKhaiKeHoachSanXuat)) {
         this.GetChiTietTrienKhaiKeHoachForMatHang({ value: this.item.IdTrienKhaiKeHoachSanXuat });
       }
-      
+
     })
   }
   GetChiTietTrienKhaiKeHoachForMatHang(event) {
@@ -104,13 +104,13 @@ export class PhabongmodalComponent implements OnInit {
       // this.item.KhoiLuongKienTrungBinh=this.item.listLoBong.reduce((total,lobong)=>total+lobong.TrongLuong,0)/this.item.listLoBong.length
       // console.log(this.item.listLoBong.reduce((total,lobong)=>total+lobong.TrongLuong,0)/this.item.listLoBong.length)
       if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong)) {
-        let SoNgayTrienKhai = Math.floor((this.itemTrienKhaiKeHoach.DenNgayUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60)+1);
+        let SoNgayTrienKhai = Math.floor((this.itemTrienKhaiKeHoach.DenNgayUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1);
         let _1NgayCan = this.item.KhoiLuongBong / SoNgayTrienKhai;
         let TrongLuongTrungBinh1Ban = this.item.KhoiLuongKienTrungBinh * this.item.TongSoKien;
         let TyLeBongCan = _1NgayCan / TrongLuongTrungBinh1Ban;
         this.item.listLoBong.forEach((lobong) => {
           if (lobong.isLoBongTuongLai) {
-            let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60)+1)
+            let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
             // console.log(SoNgayDuKien);
             lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
           }
@@ -128,7 +128,7 @@ export class PhabongmodalComponent implements OnInit {
             lobong.listItem.forEach((item) => {
               let data = {
                 ...item,
-                SoKien: (lobong.isLoBongTuongLai&&item.ThuTu<lobong.lim)?null:item.SoLuongKien,
+                SoKien: (lobong.isLoBongTuongLai && item.ThuTu < lobong.lim) ? null : item.SoLuongKien,
                 tabIndex: index + 1 + (item.ThuTu * this.item.listLoBong.length)
               }
               lobong.tempBanBong[`${item.ThuTu}`] = data;
@@ -275,7 +275,7 @@ export class PhabongmodalComponent implements OnInit {
     if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong)) {
       this.item.SoBanBong = Math.ceil(this.item.KhoiLuongBong / (this.item.TongSoKien * this.item.KhoiLuongKienTrungBinh));
       this.listProps = [];
-      let SoNgayTrienKhai = Math.floor((this.itemTrienKhaiKeHoach.DenNgayUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60)+1);
+      let SoNgayTrienKhai = Math.floor((this.itemTrienKhaiKeHoach.DenNgayUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1);
       let _1NgayCan = this.item.KhoiLuongBong / SoNgayTrienKhai;
       let TrongLuongTrungBinh1Ban = this.item.KhoiLuongKienTrungBinh * this.item.TongSoKien;
       let TyLeBongCan = _1NgayCan / TrongLuongTrungBinh1Ban;
@@ -293,7 +293,7 @@ export class PhabongmodalComponent implements OnInit {
           });
         }
         if (lobong.isLoBongTuongLai) {
-          let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60)+1)
+          let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
           lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
         }
       })
@@ -315,7 +315,7 @@ export class PhabongmodalComponent implements OnInit {
         this.labelBong[lobong.IddmLoaiBong.split('-').join('_')] += lobong.TyLe;
       }
     });
-    this.item.TyLePhaBong = this.listLoaiBong.reduce((Tong, ele, index) => { return Tong + `${index === 0 ? '' : ' + '}${formatNumber(this.labelBong[ele.prop], 'vi-VN', '0.0-2')}% ${ele.name}` }, '') 
+    this.item.TyLePhaBong = this.listLoaiBong.reduce((Tong, ele, index) => { return Tong + `${index === 0 ? '' : ' + '}${formatNumber(this.labelBong[ele.prop], 'vi-VN', '0.0-2')}% ${ele.name}` }, '')
   }
   TinhTongTrongLuong() {
     this.trongLuongLoBong = {};
@@ -442,12 +442,19 @@ export class PhabongmodalComponent implements OnInit {
         lobong.TyLe = (lobong.SoLuongDung * lobong.TrongLuong) / tempTongKhoiLuongDung * 100;
         lobong.TongTrongLuong = lobong.SoLuongDung * lobong.TrongLuong;
       }
-      if (validVariable(lobong.Mic)||lobong.isLoBongTuongLai) {
-        arrayMic.push(validVariable(lobong.Mic)?lobong.Mic:0);
+      if (validVariable(lobong.Mic) || lobong.isLoBongTuongLai) {
+        // if(validVariable(lobong.Mic)&&validVariable(lobong.tempBanBong[`${x}`].SoKien)){
+        //   for(let i=0;i<lobong.tempBanBong[`${x}`].SoKien;i++){
+        //     arrayMic.push(lobong.Mic)
+        //   }
+        // }
+        arrayMic.push(validVariable(lobong.Mic) ? lobong.Mic : 0);
         arrayKien.push(validVariable(lobong.tempBanBong[`${x}`].SoKien) ? lobong.tempBanBong[`${x}`].SoKien : 0);
       }
     });
     this.itemCVMic[`${x}`] = CVMic([...arrayMic, ...arrayKien], tempSoKien1LineTruBongHoi);
+    console.log(arrayMic)
+    // this.itemCVMic[`${x}`]=CVMic2([...arrayMic],tempSoKien1LineTruBongHoi)
     this.TinhTyLeTong();
     this.TinhTongTrongLuong()
     this.TinhDeltaB();
