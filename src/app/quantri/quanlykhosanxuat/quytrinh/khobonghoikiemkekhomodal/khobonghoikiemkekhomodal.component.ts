@@ -76,6 +76,13 @@ export class KhobonghoikiemkekhomodalComponent implements OnInit {
             .subscribe((res: any) => {
                 this.listLoaiBong = mapArrayForDropDown(res, "Ten", "Id");
             });
+        this.services
+            .PhieuKiemKeKhoBongPhe()
+            .GetlistdmMatHangKiemKeBongPhe(data.Loai = 6)
+            .subscribe((res: any) => {
+                this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
+                this.listNewMatHang_ref = res;
+            });
     }
     getListMatHangKiemKe(){
         this.services
