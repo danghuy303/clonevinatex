@@ -114,6 +114,9 @@ export class XuatkhothanhphammodalComponent implements OnInit {
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn ngày chứng từ!");
     }
+    else if (this.item.IddmKhachHang === null || this.item.IddmKhachHang === undefined) {
+      this.toastr.error("Bạn chưa chọn khách hàng!");
+    }
     else {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.PhieuXuatThanhPham().ChuyenTiep(this.item).subscribe((res: any) => {
@@ -158,6 +161,9 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn ngày chứng từ!");
+    }
+    else if (this.item.IddmKhachHang === null || this.item.IddmKhachHang === undefined) {
+      this.toastr.error("Bạn chưa chọn khách hàng!");
     }
     else {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
