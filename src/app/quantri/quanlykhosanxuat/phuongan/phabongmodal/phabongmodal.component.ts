@@ -443,18 +443,17 @@ export class PhabongmodalComponent implements OnInit {
         lobong.TongTrongLuong = lobong.SoLuongDung * lobong.TrongLuong;
       }
       if (validVariable(lobong.Mic) || lobong.isLoBongTuongLai) {
-        // if(validVariable(lobong.Mic)&&validVariable(lobong.tempBanBong[`${x}`].SoKien)){
-        //   for(let i=0;i<lobong.tempBanBong[`${x}`].SoKien;i++){
-        //     arrayMic.push(lobong.Mic)
-        //   }
-        // }
-        arrayMic.push(validVariable(lobong.Mic) ? lobong.Mic : 0);
-        arrayKien.push(validVariable(lobong.tempBanBong[`${x}`].SoKien) ? lobong.tempBanBong[`${x}`].SoKien : 0);
+        if(validVariable(lobong.Mic)&&validVariable(lobong.tempBanBong[`${x}`].SoKien)){
+          for(let i=0;i<lobong.tempBanBong[`${x}`].SoKien;i++){
+            arrayMic.push(lobong.Mic)
+          }
+        }
+        // arrayMic.push(validVariable(lobong.Mic) ? lobong.Mic : 0);
+        // arrayKien.push(validVariable(lobong.tempBanBong[`${x}`].SoKien) ? lobong.tempBanBong[`${x}`].SoKien : 0);
       }
     });
-    this.itemCVMic[`${x}`] = CVMic([...arrayMic, ...arrayKien], tempSoKien1LineTruBongHoi);
-    console.log(arrayMic)
-    // this.itemCVMic[`${x}`]=CVMic2([...arrayMic],tempSoKien1LineTruBongHoi)
+    // this.itemCVMic[`${x}`] = CVMic([...arrayMic, ...arrayKien], tempSoKien1LineTruBongHoi);
+    this.itemCVMic[`${x}`]=CVMic2([...arrayMic],tempSoKien1LineTruBongHoi)
     this.TinhTyLeTong();
     this.TinhTongTrongLuong()
     this.TinhDeltaB();

@@ -1541,6 +1541,10 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhieuXuatThanhPham', data, httpOptions)
             },
+            ExportBangKeXuatKhoThanhPham:(data)=>{
+                url = API.SCMBaoCao
+                return this.http.post(url + 'ExportBangKeXuatKhoThanhPham', data, httpOptions)
+            }
         }
     }
     PhanQuyen() {
