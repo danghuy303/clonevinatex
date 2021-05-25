@@ -163,7 +163,7 @@
                             <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" disabled [minFractionDigits]="3"
                                 locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong">
                             </p-inputNumber>
-                            <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" [minFractionDigits]="3" locale="vi-VN"
+                            <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1" [minFractionDigits]="3" locale="vi-VN"
                                 [(ngModel)]="itemtbl.KhoiLuong">
                             </p-inputNumber>
                         </td>

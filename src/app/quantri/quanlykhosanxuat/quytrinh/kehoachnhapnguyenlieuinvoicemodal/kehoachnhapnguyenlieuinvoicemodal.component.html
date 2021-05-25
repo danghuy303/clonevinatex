@@ -174,18 +174,18 @@
                     <tr>
                         <td class="text-center">{{i+1}}</td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="items.Ten"/>
+                            <input pInputText type="text" [(ngModel)]="items.Ten" [disabled]="!canEdit"/>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="items.SoLuongNhap">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="items.SoLuongNhap" [disabled]="!canEdit">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.Container">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.Container" [disabled]="!canEdit">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.TongSoKien">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.TongSoKien" [disabled]="!canEdit">
                             </p-inputNumber>
                         </td>
                         <td>
@@ -211,7 +211,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="footer" *ngIf="opt!=='modal'">
-                    <tr>
+                    <tr *ngIf="canEdit">
                         <td>
                         </td>
                         <td>
@@ -246,7 +246,7 @@
                             <input pInputText type="text" [(ngModel)]="newTableItem.GhiChu"/>
                         </td>
                         <td class="text-center">
-                            <button pButton pRipple type="button" icon="pi pi-plus"
+                            <button  pButton pRipple type="button" icon="pi pi-plus"
                                 class="p-button-rounded p-button-sm " (click)="add()"></button>
                         </td>
                     </tr>

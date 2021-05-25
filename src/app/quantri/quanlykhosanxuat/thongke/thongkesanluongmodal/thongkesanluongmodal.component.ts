@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -13,6 +13,7 @@ import { LohangComponent } from '../lohang/lohang.component';
   styleUrls: ['./thongkesanluongmodal.component.css']
 })
 export class ThongkesanluongmodalComponent implements OnInit {
+  @ViewChildren('inputNumber') inputNumbers:any;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -381,5 +382,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
     }
     if (TongKhoiLuong > 0)
       this.item.TyLeSoiCat = this.item.SoiCat / (TongKhoiLuong) * 100;
+  }
+  enter(i){
+    if(i+1<this.inputNumbers.toArray().length){
+      this.inputNumbers.toArray()[i+1].el.nativeElement.children[0].children[0].focus();
+    }else{
+      this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
+    }
   }
 }

@@ -1940,4 +1940,8 @@ export class SanXuatService {
             },
         }
     }
+    GetThongTinKien(IddmItem){
+        let url = API.SCMQuanLyKho;
+        return this.http.get(url + `GetThongTinKien?IddmItem=${IddmItem}`, httpOptions);
+    }
 }
