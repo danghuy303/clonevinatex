@@ -70,6 +70,7 @@ export class PhabongmodalComponent implements OnInit {
   itemTyLeHoiPha: any = {};
   listLoaiBong: any = [];
   listdmLoaiBong: any = [];
+  isEditing: boolean = false;
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal, private zone: NgZone, private changeDec: ChangeDetectorRef) {
   }
 
@@ -443,8 +444,8 @@ export class PhabongmodalComponent implements OnInit {
         lobong.TongTrongLuong = lobong.SoLuongDung * lobong.TrongLuong;
       }
       if (validVariable(lobong.Mic) || lobong.isLoBongTuongLai) {
-        if(validVariable(lobong.Mic)&&validVariable(lobong.tempBanBong[`${x}`].SoKien)){
-          for(let i=0;i<lobong.tempBanBong[`${x}`].SoKien;i++){
+        if (validVariable(lobong.Mic) && validVariable(lobong.tempBanBong[`${x}`].SoKien)) {
+          for (let i = 0; i < lobong.tempBanBong[`${x}`].SoKien; i++) {
             arrayMic.push(lobong.Mic)
           }
         }
@@ -453,7 +454,7 @@ export class PhabongmodalComponent implements OnInit {
       }
     });
     // this.itemCVMic[`${x}`] = CVMic([...arrayMic, ...arrayKien], tempSoKien1LineTruBongHoi);
-    this.itemCVMic[`${x}`]=CVMic2([...arrayMic],tempSoKien1LineTruBongHoi)
+    this.itemCVMic[`${x}`] = CVMic2([...arrayMic], tempSoKien1LineTruBongHoi)
     this.TinhTyLeTong();
     this.TinhTongTrongLuong()
     this.TinhDeltaB();
@@ -578,6 +579,27 @@ export class PhabongmodalComponent implements OnInit {
         }
       })
     }
+  }
+  LamMoiDeDieuChinh() {
+    this._services.PhuongAnPhaBong().LamMoiDuLieu(this.item.Id).subscribe((res: any) => {
+      res.listLoBong.forEach(lobong => {
+        if (!validVariable(lobong.temBanBong)) {
+          lobong.tempBanBong = {};
+        }
+        lobong.listItem.forEach(item => {
+          let data = {
+            ...item,
+            SoKien: item.SoLuongKien
+          }
+          lobong.tempBanBong[`${item.ThuTu}`] = data;
+        });
+      });
+      this.item = res;
+      this.GetListTrienKhaiKeHoach();
+      this.KiemTraButtonModal();
+      this.KiemTraButtonDieuChinhPhuongAnPhaBong();
+      this.isEditing =true;
+    })
   }
   ChuyenDuyet() {
     if (this.ValidData()) {

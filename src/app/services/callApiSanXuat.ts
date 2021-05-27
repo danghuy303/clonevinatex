@@ -981,6 +981,9 @@ export class SanXuatService {
             Get: (Id) => {
                 return this.http.get(url + `GetPhuongAnPhaBong?Id=${Id}`, httpOptions);
             },
+            LamMoiDuLieu: (Id) => {
+                return this.http.get(url + `GetPhuongAnPhaBong?Id=${Id}&isDieuChinh=true`, httpOptions);
+            },
             Set: (data) => {
                 data.IdDuAn = parseInt(this.store.getCurrent());
                 return this.http.post(url + 'SetPhuongAnPhaBong', data, httpOptions);
