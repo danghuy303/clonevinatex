@@ -42,8 +42,11 @@
                         <td >
                             <input type="checkbox" [(ngModel)]="item.checked">
                         </td>
-                        <td>
+                        <td class="text-center">
                             {{ 15 * (paging.CurrentPage - 1) + i + 1 }}
+                        </td>
+                        <td class="text-left">
+                            {{item.Ma}}
                         </td>
                         <td class="text-left">
                             {{item.Ten}}

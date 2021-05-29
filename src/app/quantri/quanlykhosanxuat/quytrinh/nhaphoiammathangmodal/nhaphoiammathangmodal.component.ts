@@ -11,6 +11,11 @@ export class NhaphoiammathangmodalComponent implements OnInit {
   listItem: any = [];
   cols: any = [
     {
+      header: 'Mã ',
+      field: 'Ma',
+      width: 'unset'
+    },
+    {
       header: 'Tên',
       field: 'Ten',
       width: 'unset'
