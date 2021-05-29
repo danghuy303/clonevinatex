@@ -291,6 +291,7 @@ import { UploadhdsdsanxuatComponent } from './quanlykhosanxuat/uploadhdsdsanxuat
 import { DoikienbongmodalComponent } from './quanlykhosanxuat/quytrinh/doikienbongmodal/doikienbongmodal.component';
 import { DmchisotrienkhaiComponent } from './danhmuc/danhmucsanxuat/dmchisotrienkhai/dmchisotrienkhai.component';
 import { DmchisotrienkhaimodalComponent } from './danhmuc/danhmucsanxuat/dmchisotrienkhaimodal/dmchisotrienkhaimodal.component';
+import { CalcmodalComponent } from './modal/calcmodal/calcmodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -533,6 +534,7 @@ import { DmchisotrienkhaimodalComponent } from './danhmuc/danhmucsanxuat/dmchiso
     DoikienbongmodalComponent,
     DmchisotrienkhaiComponent,
     DmchisotrienkhaimodalComponent,
+    CalcmodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -683,7 +685,7 @@ import { DmchisotrienkhaimodalComponent } from './danhmuc/danhmucsanxuat/dmchiso
     LoxomodalComponent,
     DoikienbongmodalComponent,
     DmchisotrienkhaimodalComponent,
-
+    CalcmodalComponent,
   ],
   providers: [
     SanXuatService,

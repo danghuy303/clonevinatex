@@ -1,6 +1,7 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { Dat09Service } from 'src/app/services/callApi';
@@ -423,5 +424,11 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     if(validVariable(this.item.Id)){
       this.item.listItem[index].isEdited = true;
     }
+  }
+  tinhToan(item, opt) {
+    let modalRef = this._modal.open(CalcmodalComponent)
+    modalRef.result.then((res) => {
+      item[opt]=res;
+    })
   }
 }

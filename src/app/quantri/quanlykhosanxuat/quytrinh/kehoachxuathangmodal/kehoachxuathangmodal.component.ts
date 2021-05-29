@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
@@ -79,13 +80,13 @@ export class KehoachxuathangmodalComponent implements OnInit {
     })
   }
   GetQuyCachDongGoi() {
-    this._services.dmQuyCachDongGoi().GetList().subscribe((res:Array<any>) => {
+    this._services.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
       this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
-      if(validVariable(this.item.listItem)&& this.item.listItem.length!==0){
+      if (validVariable(this.item.listItem) && this.item.listItem.length !== 0) {
         this.item.listItem.forEach(item => {
-          if(validVariable(item.listItem)&& item.listItem.length!==0){
+          if (validVariable(item.listItem) && item.listItem.length !== 0) {
             item.listItem.forEach(quycach => {
-              quycach.label = res.find(ele=>ele.Id === quycach.IddmQuyCachDongGoi).Ten;
+              quycach.label = res.find(ele => ele.Id === quycach.IddmQuyCachDongGoi).Ten;
             });
           }
         });
@@ -333,6 +334,15 @@ export class KehoachxuathangmodalComponent implements OnInit {
       // }
     }).catch(er => {
       console.log(er);
+    })
+  }
+
+  tinhToan(item, opt) {
+    let modalRef = this._modal.open(CalcmodalComponent)
+    modalRef.result.then((res) => {
+      item[opt]=res;
+      console.log(res)
+      console.log(item[opt]);
     })
   }
 }
