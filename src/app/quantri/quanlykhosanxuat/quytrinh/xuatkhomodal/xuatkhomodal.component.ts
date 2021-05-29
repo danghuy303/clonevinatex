@@ -255,9 +255,11 @@ export class XuatkhomodalComponent implements OnInit {
       modalRef.componentInstance.items = res;
       modalRef.result
         .then(res => {
-          let findIndex = this.item.listItem.findIndex(ele =>ele.IddmItem===item.IddmItem)
+          let findIndex = this.item.listItem.findIndex(ele =>ele.IddmItem===item.IddmItem);
+          let tenlo = item.TenLoBong
           if(findIndex>=0){
-            this.item.listItem[findIndex] = res[0];
+            res[0].TenLoBong = tenlo;
+            this.item.listItem[findIndex] = deepCopy(res[0]);
           }
         })
         .catch(er => { console.log('err:', er) })

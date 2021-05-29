@@ -981,6 +981,9 @@ export class SanXuatService {
             Get: (Id) => {
                 return this.http.get(url + `GetPhuongAnPhaBong?Id=${Id}`, httpOptions);
             },
+            LamMoiDuLieu: (Id) => {
+                return this.http.get(url + `GetPhuongAnPhaBong?Id=${Id}&isDieuChinh=true`, httpOptions);
+            },
             Set: (data) => {
                 data.IdDuAn = parseInt(this.store.getCurrent());
                 return this.http.post(url + 'SetPhuongAnPhaBong', data, httpOptions);
@@ -1541,6 +1544,10 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhieuXuatThanhPham', data, httpOptions)
             },
+            ExportBangKeXuatKhoThanhPham:(data)=>{
+                url = API.SCMBaoCao
+                return this.http.post(url + 'ExportBangKeXuatKhoThanhPham', data, httpOptions)
+            }
         }
     }
     PhanQuyen() {
@@ -1935,5 +1942,9 @@ export class SanXuatService {
                 return this.http.get(url + `DeletedmChiSoTrienKhai?Id=${Id}`, httpOptions);
             },
         }
+    }
+    GetThongTinKien(IddmItem){
+        let url = API.SCMQuanLyKho;
+        return this.http.get(url + `GetThongTinKien?IddmItem=${IddmItem}`, httpOptions);
     }
 }

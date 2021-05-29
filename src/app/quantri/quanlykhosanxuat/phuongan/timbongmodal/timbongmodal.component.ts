@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { CVMic, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { CVMic, CVMic2, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 import { ChonkienbonghoimodalComponent } from '../chonkienbonghoimodal/chonkienbonghoimodal.component';
 import { ChonkienbongmodalComponent } from '../chonkienbongmodal/chonkienbongmodal.component';
@@ -283,11 +283,17 @@ export class TimbongmodalComponent implements OnInit {
         lobong.TongTrongLuong = lobong.SoLuongDung * lobong.TrongLuong;
       }
       if (validVariable(lobong.Mic)||lobong.isLoBongTuongLai) {
-        arrayMic.push(validVariable(lobong.Mic)?lobong.Mic:0);
-        arrayKien.push(validVariable(lobong.tempBanBong[`${x}`].SoKien) ? lobong.tempBanBong[`${x}`].SoKien : 0);
+        if(validVariable(lobong.Mic)&&validVariable(lobong.tempBanBong[`${x}`].SoKien)){
+          for(let i=0;i<lobong.tempBanBong[`${x}`].SoKien;i++){
+            arrayMic.push(lobong.Mic)
+          }
+        }
+        // arrayMic.push(validVariable(lobong.Mic)?lobong.Mic:0);
+        // arrayKien.push(validVariable(lobong.tempBanBong[`${x}`].SoKien) ? lobong.tempBanBong[`${x}`].SoKien : 0);
       }
     });
-    this.itemCVMic[`${x}`] = CVMic([...arrayMic, ...arrayKien], tempSoKien1LineTruBongHoi);
+    // this.itemCVMic[`${x}`] = CVMic([...arrayMic, ...arrayKien], tempSoKien1LineTruBongHoi);
+    this.itemCVMic[`${x}`]=CVMic2([...arrayMic],tempSoKien1LineTruBongHoi)
     this.TinhTyLeTong();
     this.TinhTongTrongLuong()
     this.TinhDeltaB();

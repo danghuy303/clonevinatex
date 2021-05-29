@@ -22,6 +22,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
         ChuyenTiep: false,
         Xoa: false,
     };
+    InfoDialog: any = false;
     listdmKho: any = [];
     listdmKhoFull: any = [];
     listLoBong: any = [];
@@ -34,6 +35,7 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
     title: any = "";
     newItem: any = {};
     filter: any = {};
+    itemInfo:any={};
     constructor(
         public activeModal: NgbActiveModal,
         private services: SanXuatService,
@@ -237,5 +239,13 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
     refreshFilter() {
         this.filter.KeyWord = null;
         this.changePage({ page: 0 })
+    }
+    showItemInfo(item) {
+        console.log(item);
+        this.services.GetThongTinKien(item.IddmItem).subscribe(res => {
+            console.log(res);
+            this.InfoDialog = true;
+            this.itemInfo = res;
+        })
     }
 }

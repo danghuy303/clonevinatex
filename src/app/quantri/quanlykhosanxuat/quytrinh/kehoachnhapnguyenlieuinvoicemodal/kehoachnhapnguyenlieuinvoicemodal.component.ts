@@ -21,6 +21,7 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
     ChuyenTiep: false,
     Xoa: false,
   }
+  canEdit:any=false;
   newTableItem: any = {
     "Id": "",
     "IdKeHoachNhapNguyenLieu_Item": this.item.Id,
@@ -50,6 +51,7 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
         listItem: [],
       }
       this.GetNextSoQuyTrinh();
+      this.canEdit = true;
     }
     else {
       if (this.item.listItem.length > 0) {
@@ -76,8 +78,15 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
     })
   }
   KiemTraButtonModal() {
-    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
+    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res:any) => {
       this.checkbutton = res;
+      console.log(res);
+      if(res.ChuyenTiep || this.item.Id ===''){
+        this.canEdit = true;
+      }else{
+        this.canEdit = false;
+      }
+      console.log(this.canEdit);
       if (this.item.IdUserHienTai === this.item.CreatedBy)
         this.checkbutton.Ghi = true;
     })
