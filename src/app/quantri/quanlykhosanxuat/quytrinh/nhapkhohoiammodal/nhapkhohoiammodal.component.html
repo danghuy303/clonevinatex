@@ -104,6 +104,7 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <!-- <col> -->
                         <!-- <col> -->
                         <col>
@@ -116,6 +117,7 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
+                        <th>Mã</th>
                         <th>Tên</th>
                         <th>Tên lô hàng</th>
                         <th>Kg/cone</th>
@@ -132,6 +134,7 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">{{item.Ma}}</td>
                         <td class="text-center">{{item.Ten}}</td>
                         <td class="text-center">{{item.TenLoHang}}</td>
                         <td class="text-center">
@@ -178,6 +181,7 @@
                 </ng-template>
                 <ng-template pTemplate="footer">
                     <tr>
+                        <td></td>
                         <td></td>
                         <td class="text-center">TỔNG</td>
                         <td></td>
