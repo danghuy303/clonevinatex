@@ -254,6 +254,11 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
         return false;
       }
     }
+    let checkArray = this.item.listItem.every(ele=>validVariable(ele.KhoiLuongKeHoach)&&ele.KhoiLuongKeHoach!==0)
+    if (!checkArray) {
+      this.toastr.error('Có mặt hàng không nhập khối lượng!')
+      return false;
+    }
     return true;
   }
   chonHangHoa() {
