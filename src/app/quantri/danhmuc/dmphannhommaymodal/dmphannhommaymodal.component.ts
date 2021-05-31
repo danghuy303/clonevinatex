@@ -7,7 +7,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
 import { DmphannhommayChonmathangmodalComponent } from '../dmphannhommay-chonmathangmodal/dmphannhommay-chonmathangmodal.component';
 
 @Component({
@@ -69,7 +69,8 @@ export class DmphannhommaymodalComponent implements OnInit {
         Ten: "",
       };
       this.sanXuatService.GetListdmLoaiSoi(data1).subscribe((res: any) => {
-        let listLoaiSoiHoacMatHang1 = res;
+        let listLoaiSoiHoacMatHang1 = this.mapHienThi(res);
+        this.GetListLoaiSoi()
         this.item.lstdmItem.forEach(element => {
           // if (this.childModalOpt === 'MATHANG') {
           //   this.GetLoaiSoi();
@@ -77,7 +78,6 @@ export class DmphannhommaymodalComponent implements OnInit {
           //   element.Iditem = element.IddmItem;
           // }
           if (this.childModalOpt === 'SOI') {
-            this.GetListLoaiSoi()
             element.Iditem = listLoaiSoiHoacMatHang1.filter(objlistLoaiSoiHoacMatHang => element.IddmLoaiSoi == objlistLoaiSoiHoacMatHang.Id)[0];
           }
         });
@@ -94,11 +94,11 @@ export class DmphannhommaymodalComponent implements OnInit {
         IddmLoaiSoi: this.filter.IddmLoaiSoi
       };
       this.sanXuatService.GetListdmItem(data2).subscribe((res: any) => {
-        let listLoaiSoiHoacMatHang2 = res;
+        let listLoaiSoiHoacMatHang2 =this.mapHienThi(res);
+        this.GetLoaiSoi();
+        this.GetDMMatHang();
         this.item.lstdmItem.forEach(element => {
           if (this.childModalOpt === 'MATHANG') {
-            this.GetLoaiSoi();
-            this.GetDMMatHang();
             element.Iditem = listLoaiSoiHoacMatHang2.filter(objlistLoaiSoiHoacMatHang => element.IddmItem == objlistLoaiSoiHoacMatHang.Id)[0];
           }
           // if (this.childModalOpt === 'SOI') {
@@ -112,6 +112,14 @@ export class DmphannhommaymodalComponent implements OnInit {
     this.GetListPhanXuong();
     this.GetListCongDoan();
     this.tinhNangSuatLyThuyet();
+  }
+  mapHienThi(array:Array<any>){
+    return deepCopy(array.map(ele=>{
+      return {
+        ...ele,
+        Ten:`${ele.Ten}-${ele.Ma}`
+      }
+    }))
   }
   GetListPhanXuong() {
     this.sanXuatService.GetOptions().GetPhanXuong().subscribe((res: any) => {
@@ -252,7 +260,7 @@ export class DmphannhommaymodalComponent implements OnInit {
       Ten: "",
     };
     this.sanXuatService.GetListdmLoaiSoi(data).subscribe((res: any) => {
-      this.listLoaiSoiHoacMatHang = res;
+      this.listLoaiSoiHoacMatHang = this.mapHienThi(res);
     })
   }
 
@@ -268,7 +276,7 @@ export class DmphannhommaymodalComponent implements OnInit {
       IddmLoaiSoi: this.filter.IddmLoaiSoi
     };
     this.sanXuatService.GetListdmItem(data).subscribe((res: any) => {
-      this.listLoaiSoiHoacMatHang = res;
+      this.listLoaiSoiHoacMatHang = this.mapHienThi(res);
     })
   }
 
