@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
@@ -24,6 +25,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
     ChuyenTiep: false,
     Xoa: false,
   }
+  canDieuChinh:boolean = false;
   newTableItem: any = {
     "Id": "",
     "idKeHoachXuatNguyenLieu": this.item.Id,
@@ -43,7 +45,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   listQuyCachDongGoi: any = [];
   constructor(public activeModal: NgbActiveModal,
-    public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
+    public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService,private _auth:AuthenticationService) {
   }
 
   ngOnInit(): void {
@@ -75,8 +77,13 @@ export class KehoachxuathangmodalComponent implements OnInit {
     this.getListKho();
   }
   KiemTraButtonModal() {
-    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
+    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res:any) => {
       this.checkbutton = res;
+        if(!res.Ghi && this.item.CreatedBy===this._auth.currentUserValue.Id){
+          this.canDieuChinh = true;
+        }else{
+          this.canDieuChinh =false;
+        }
     })
   }
   GetQuyCachDongGoi() {

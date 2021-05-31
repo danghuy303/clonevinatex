@@ -24,6 +24,8 @@
                 *ngIf="checkbutton.KhongDuyet"></button> -->
             <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm" (click)="ChuyenTiep()"
                 *ngIf="checkbutton.ChuyenTiep"></button>
+                <button pButton pRipple type="button" label="Điều chỉnh" class="p-mr-2 p-button-sm " (click)="GhiLai()"
+                *ngIf="canDieuChinh"></button>
             <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
         </div>
 

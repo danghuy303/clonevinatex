@@ -19,7 +19,6 @@ export class CalcmodalComponent implements OnInit {
   accept() {
     try {
       let result = new Function(`return ${this.calcString.replace(',', '.')};`)();
-      console.log(typeof result)
       if (typeof result === 'number') {
         this.activeModal.close(result)
       } else {
