@@ -162,6 +162,33 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="footer">
+                    <!-- <tr *ngIf="opt !== 'edit'"> -->
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <p-dropdown [filter]="true" [options]="listKien" placeholder="Chọn kiện"
+                            styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.IddmItem" (onChange)="getTon(newTableItem)"></p-dropdown>
+                        </td>
+                        <td class="text-right">
+                                {{newTableItem.TonSoLuong| number:'0.0'}}
+                        </td>
+                        <td class="text-right">
+                            {{newTableItem.TonTrongLuong| number:'0.0-2'}}
+                        </td>
+                        <td >
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoLuong" [min] = "0">
+                                </p-inputNumber>
+                        </td>
+                        <td >
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.TrongLuong" [min] = "0">
+                            </p-inputNumber>
+                    </td>
+                        <td class="text-center">
+                            <button pButton pRipple type="button" icon="pi pi-plus"
+                                class="p-button-rounded p-button-sm " (click)="add()"></button>
+                        </td>
+                    </tr>
                     <tr>
                         <td></td>
                         <td></td>
