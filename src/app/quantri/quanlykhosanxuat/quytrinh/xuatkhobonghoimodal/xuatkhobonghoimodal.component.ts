@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-xuatkhobonghoimodal',
@@ -12,6 +12,7 @@ import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/gl
   styleUrls: ['./xuatkhobonghoimodal.component.css']
 })
 export class XuatkhobonghoimodalComponent implements OnInit {
+  @ViewChild("paginator") paginator: any;
   opt: any = ''
   Id: any = ''
   item: any = {};
@@ -26,17 +27,16 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   listPhanXuong: any = [];
   listPhuongAnPhaBong: any = [];
   listItem: any = [];
-  paging: any = {};
+  paging: any = {CurrentPage: 1};
   listdmKhachHang: any = [];
   listKien: any = [];
   listKienFull: any = [];
+  newTableItem: any = {};
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
     public toastr: ToastrService, public _modal: NgbModal) { }
 
   ngOnInit(): void {
-      this.GetQuyTrinh();
-    //
     let data: any = {
       CurrentPage: 0
     }
@@ -50,6 +50,16 @@ export class XuatkhobonghoimodalComponent implements OnInit {
     this.services.dmKhachHang().GetListOpt().subscribe((res: any) => {
       this.listdmKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');
     })
+    if (this.opt !== 'edit') {
+      data.Loai = 6;
+      data.IddmPhanXuong =  this.item.IddmPhanXuong || "";
+      this.services.GetListdmKho(data).subscribe((res: any) => {
+        this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+      })
+      this.item.Loai =6;
+    }
+    else
+      this.GetQuyTrinh();
   }
   GetQuyTrinh() {
     this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1: any) => {
@@ -88,6 +98,12 @@ export class XuatkhobonghoimodalComponent implements OnInit {
       this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
     if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      if (validVariable(this.newTableItem.IddmItem)) {
+        if(this.item.listItem === undefined || this.item.listItem === null)
+          this.item.listItem = [];
+        this.item.listItem.push(deepCopy(this.newTableItem));
+        this.newTableItem = {};
+      }
       this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -114,6 +130,12 @@ export class XuatkhobonghoimodalComponent implements OnInit {
       this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
     if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      if (validVariable(this.newTableItem.IddmItem)) {
+        if(this.item.listItem === undefined || this.item.listItem === null)
+          this.item.listItem = [];
+        this.item.listItem.push(deepCopy(this.newTableItem));
+        this.newTableItem = {};
+      }
       this.services.PhieuXuatSanXuat().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -202,5 +224,24 @@ export class XuatkhobonghoimodalComponent implements OnInit {
         item.TonTrongLuong = element.TonTrongLuong;
       }
     });
+  }
+  add() {
+    if (validVariable(this.newTableItem.IddmItem)) {
+      if(this.item.listItem === undefined || this.item.listItem === null)
+        this.item.listItem = [];
+      this.item.listItem.push(deepCopy(this.newTableItem));
+      this.newTableItem = {};
+      console.log(this.paging);
+      if (this.item.listItem.length > this.paging.CurrentPage * 10) {
+          console.log(Math.floor(this.item.listItem.length / 10));
+          this.paginator.changePage(
+              Math.floor(this.item.listItem.length / 10)
+          );
+      } else {
+          this.changePage({ page: this.paging.CurrentPage - 1 });
+      }
+    } else {
+        this.toastr.error("Vui lòng chọn mặt hàng cần thêm!");
+    }
   }
 }

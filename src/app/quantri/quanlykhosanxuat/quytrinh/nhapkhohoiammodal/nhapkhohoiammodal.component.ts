@@ -119,7 +119,10 @@ export class NhapkhohoiammodalComponent implements OnInit {
     }
     else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
       this.toastr.error("Bạn chưa chọn danh mục kho!");
-    }else if(!this.item.listItem.every(ele=>validVariable(ele.KgCone))){
+    }
+    else if(!this.item.listItem.every(ele=>validVariable(ele.KgCone) && ele.isXoa !== true)){
+      console.log(this.item.listItem)
+      debugger
       this.toastr.error("Vui lòng chọn Kg/cone ở tất cả các mặt hàng!")
     }
     else {
@@ -185,6 +188,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
     if (this.item.Ngay !== undefined)
       itemSearch.Ngay = DateToUnix(this.item.Ngay);
     itemSearch.IddmPhanXuong = this.item.IddmPhanXuong;
+    let listItem : any = (this.item.listItem || []).filter(ele => ele.isXoa !== true)
     this._services.PhieuNhapHoiAm().GetListMatHang(itemSearch).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhaphoiammathangmodalComponent, {
         backdrop: 'static',
@@ -192,16 +196,17 @@ export class NhapkhohoiammodalComponent implements OnInit {
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
-      modalRef.componentInstance.listItem = this.item.listItem;
+      modalRef.componentInstance.listItem = listItem;
       modalRef.result.then((data) => {
         this.item.listItem.forEach(element => {
           element.isXoa = true;
         });
         console.log(data.data)
+        debugger
         for (let i = 0; i < data.data.length; i++) {
-          for (let j = 0; j < this.item.listItem.length; j++) {
-            if (data.data[i].IddmItem === this.item.listItem[j].IddmItem && data.data[i].IdLoBong === this.item.listItem[j].IdLoBong) {
-              this.item.listItem[j].isXoa = false;
+          for (let j = 0; j < listItem.length; j++) {
+            if (data.data[i].IddmItem === listItem[j].IddmItem && data.data[i].IdLoBong === listItem[j].IdLoBong) {
+              listItem[j].isXoa = false;
               data.data[i].isXoa = true;
             }
           }
