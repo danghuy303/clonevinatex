@@ -19,6 +19,7 @@ export class LohangmodalComponent implements OnInit {
   item: any = {};
   khongclicknhieu: any = false;
   lang: any = vn;
+  listGiaoKeHoach_TrienKhaiFull: any = [];
   listGiaoKeHoach_TrienKhai: any = [];
   constructor(public activeModal: NgbActiveModal,
      private services: SanXuatService,
@@ -67,6 +68,7 @@ export class LohangmodalComponent implements OnInit {
       CurrentPage: 0,
     }
     this.services.TrienKhaiKeHoachSanXuat().GetList(data).subscribe((res:any)=>{
+      this.listGiaoKeHoach_TrienKhaiFull = res;
       this.listGiaoKeHoach_TrienKhai = mapArrayForDropDown(res, 'SoQuyTrinh', 'Id');
     })
   }
@@ -79,5 +81,7 @@ export class LohangmodalComponent implements OnInit {
     });
     this.item.IddmPhanXuong = itemFind.IddmPhanXuong;
     this.item.IdGiaoKeHoachSanXuat = itemFind.Id;
+    let dataFilter: any = this.listGiaoKeHoach_TrienKhaiFull.filter(ele=>ele.IdGiaoKeHoachSanXuat===itemFind.Id);
+    this.listGiaoKeHoach_TrienKhai = mapArrayForDropDown(dataFilter, 'SoQuyTrinh', 'Id');
   }
 }

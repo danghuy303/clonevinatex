@@ -163,7 +163,7 @@
                             <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" disabled [minFractionDigits]="3"
                                 locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong">
                             </p-inputNumber>
-                            <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" [minFractionDigits]="3" locale="vi-VN"
+                            <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1" [minFractionDigits]="3" locale="vi-VN"
                                 [(ngModel)]="itemtbl.KhoiLuong">
                             </p-inputNumber>
                         </td>
@@ -188,7 +188,7 @@
                         <td *ngIf="itemtbl.CongDoan==='ONG'">
                             <div class="p-inputgroup">
                                 <div style="flex:1">
-                                    <p-dropdown [filter]="true" [options]="listLoHang" placeholder="Chọn lô hàng"
+                                    <p-dropdown [filter]="true" [options]="listLoHang" [autofocusFilter]="false" placeholder="Chọn lô hàng"
                                         styleClass="p-inputtext-sm" [(ngModel)]="itemtbl.IdLoHang"></p-dropdown>
                                 </div>
                                 <button pButton pRipple icon="pi pi-copy"
