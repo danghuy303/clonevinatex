@@ -227,6 +227,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   }
   add() {
     if (validVariable(this.newTableItem.IddmItem)) {
+      debugger
       if(this.item.listItem === undefined || this.item.listItem === null)
         this.item.listItem = [];
       this.item.listItem.push(deepCopy(this.newTableItem));
@@ -237,9 +238,10 @@ export class XuatkhobonghoimodalComponent implements OnInit {
           this.paginator.changePage(
               Math.floor(this.item.listItem.length / 10)
           );
-      } else {
-          this.changePage({ page: this.paging.CurrentPage - 1 });
-      }
+      } 
+      // else {
+      //     this.changePage({ page: this.paging.CurrentPage - 1 });
+      // }
     } else {
         this.toastr.error("Vui lòng chọn mặt hàng cần thêm!");
     }
