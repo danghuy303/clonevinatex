@@ -414,7 +414,7 @@ export class PhabongmodalComponent implements OnInit {
         tempTongTrongLuong += (lobong.tempBanBong[`${x}`].SoKien * lobong.TrongLuong);
         if (validVariable(lobong.Mic)) {
           tempTongGia += (lobong.tempBanBong[`${x}`].SoKien * lobong.GiaBong * lobong.TrongLuong);
-          tempTongTrongLuongTruBongHoi += (lobong.tempBanBong[`${x}`].SoKien * lobong.TrongLuong)
+          tempTongTrongLuongTruBongHoi += (lobong.tempBanBong[`${x}`].SoKien * lobong.TrongLuong);
           tempSoKien1LineTruBongHoi += lobong.tempBanBong[`${x}`].SoKien;
           tempTongCLMic += (lobong.tempBanBong[`${x}`].SoKien * lobong.Mic);
         }
@@ -530,6 +530,8 @@ export class PhabongmodalComponent implements OnInit {
     for (let prop in this.itemMicBQ) {
       this.item.listThongSo.push({
         Mic: this.itemMicBQ[prop],
+        b:this.itembBQ[prop],
+        CVMic:this.itemCVMic[prop],
         ThuTu: prop
       })
     }
