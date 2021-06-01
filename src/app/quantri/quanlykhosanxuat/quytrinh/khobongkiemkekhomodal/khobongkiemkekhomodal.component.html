@@ -138,7 +138,7 @@
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" [max]="item.TonSoLuong" locale="vi-VN"
-                                [(ngModel)]="item.SoLuong">
+                                [(ngModel)]="item.SoLuong" (onBlur)="checkSoLuong(item)">
                             </p-inputNumber>
                         </td>
                         <td>
