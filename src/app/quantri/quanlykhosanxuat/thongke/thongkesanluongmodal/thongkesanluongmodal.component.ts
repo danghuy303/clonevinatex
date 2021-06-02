@@ -247,11 +247,13 @@ export class ThongkesanluongmodalComponent implements OnInit {
       KhoiLuong = event / item.Ne;
     return KhoiLuong;
   }
-  TinhCongThucMoi(item, event) {
+  TinhCongThucMoi(item) {
     var KhoiLuong = 0;
-    if (item.Ne !== undefined && item.Ne !== null && item.Ne !== 0 && event !== undefined)
-      KhoiLuong = event / item.Ne / 1.693 * 1200 / 1000;
-    return KhoiLuong;
+    if (item.Ne !== undefined && item.Ne !== null && item.Ne !== 0)
+      KhoiLuong = item.ChieuDai / item.Ne / 1.693 * 1200 / 1000;
+
+    item.KhoiLuong = KhoiLuong;
+    this.TinhTyLeBongThoMang();
   }
   onClose() {
     this.activeModal.close();
@@ -320,10 +322,11 @@ export class ThongkesanluongmodalComponent implements OnInit {
   //cotton
   TinhTyLeCottonBongPhe() {
     let TongKhoiLuong = (this.item.CottonBongPhe ?? 0) + (this.item.CottonBongMun ?? 0);
-    for (let i = 0; i < this.listItem.length; i++) {
-      if (this.listItem[i].CongDoan === 'CHAICOTTON')
-        TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
-    }
+    TongKhoiLuong += this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
+    // for (let i = 0; i < this.listItem.length; i++) {
+    //   if (this.listItem[i].CongDoan === 'CHAICOTTON')
+    //     TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
+    // }
     if (TongKhoiLuong > 0) {
       this.item.TyLeCottonBongPhe = this.item.CottonBongPhe / (TongKhoiLuong) * 100;
       this.item.TyLeCottonBongMun = this.item.CottonBongMun / (TongKhoiLuong) * 100;
@@ -332,10 +335,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
   //PE
   TinhTyLePEBongPhe() {
     let TongKhoiLuong = (this.item.PEBongPhe ?? 0) + (this.item.PEBongMun ?? 0);
-    for (let i = 0; i < this.listItem.length; i++) {
-      if (this.listItem[i].CongDoan === 'CHAIPE')
-        TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
-    }
+    TongKhoiLuong += this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
+
+    // for (let i = 0; i < this.listItem.length; i++) {
+    //   if (this.listItem[i].CongDoan === 'CHAIPE')
+    //     TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
+    // }
     if (TongKhoiLuong > 0) {
       this.item.TyLePEBongPhe = this.item.PEBongPhe / (TongKhoiLuong) * 100;
       this.item.TyLePEBongMun = this.item.PEBongMun / (TongKhoiLuong) * 100;
@@ -344,30 +349,36 @@ export class ThongkesanluongmodalComponent implements OnInit {
   //chai ki
   TinhTyLeBongChaiKy() {
     let TongKhoiLuong = this.item.ChaiKy ?? 0;
-    for (let i = 0; i < this.listItem.length; i++) {
-      if (this.listItem[i].CongDoan === 'CHAIKY')
-        TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
-    }
+    TongKhoiLuong += this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
+
+    // for (let i = 0; i < this.listItem.length; i++) {
+    //   if (this.listItem[i].CongDoan === 'CHAIKY')
+    //     TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
+    // }
     if (TongKhoiLuong > 0)
       this.item.TyLeBongChaiKy = this.item.ChaiKy / (TongKhoiLuong) * 100;
   }
   //thô
   TinhTyLeBongCuiHoi() {
     let TongKhoiLuong = this.item.CuiHoi ?? 0;
-    for (let i = 0; i < this.listItem.length; i++) {
-      if (this.listItem[i].CongDoan === 'THO')
-        TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
-    }
+    TongKhoiLuong += this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
+
+    // for (let i = 0; i < this.listItem.length; i++) {
+    //   if (this.listItem[i].CongDoan === 'THO')
+    //     TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
+    // }
     if (TongKhoiLuong > 0)
       this.item.TyLeBongCuiHoi = this.item.CuiHoi / (TongKhoiLuong) * 100;
   }
   //con
   TinhTyLeBongThoMang() {
     let TongKhoiLuong = (this.item.ThoMang ?? 0) + (this.item.BongHutMoi ?? 0);
-    for (let i = 0; i < this.listItem.length; i++) {
-      if (this.listItem[i].CongDoan === 'CON')
-        TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
-    }
+    TongKhoiLuong += this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
+
+    // for (let i = 0; i < this.listItem.length; i++) {
+    //   if (this.listItem[i].CongDoan === 'CON')
+    //     TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
+    // }
     if (TongKhoiLuong > 0) {
       this.item.TyLeThoMang = (this.item.ThoMang ?? 0) / (TongKhoiLuong) * 100;
       this.item.TyLeBongHutMoi = (this.item.BongHutMoi ?? 0) / (TongKhoiLuong) * 100;
@@ -376,10 +387,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
   //ong
   TinhTyLeSoiCat() {
     let TongKhoiLuong = this.item.SoiCat ?? 0;
-    for (let i = 0; i < this.listItem.length; i++) {
-      if (this.listItem[i].CongDoan === 'ONG')
-        TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
-    }
+    TongKhoiLuong += this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
+
+    // for (let i = 0; i < this.listItem.length; i++) {
+    //   if (this.listItem[i].CongDoan === 'ONG')
+    //     TongKhoiLuong += this.listItem[i].KhoiLuong ?? 0;
+    // }
     if (TongKhoiLuong > 0)
       this.item.TyLeSoiCat = this.item.SoiCat / (TongKhoiLuong) * 100;
   }
@@ -389,5 +402,29 @@ export class ThongkesanluongmodalComponent implements OnInit {
     }else{
       this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
     }
+  }
+  TinhTongKhoiLuongBong() {
+    switch(this.item.CongDoan){
+        case 'CHAICOTTON':
+          this.TinhTyLeCottonBongPhe();
+          break;
+        case 'CHAIPE':
+          this.TinhTyLePEBongPhe();
+          break;
+        case 'CHAIKY':
+            this.TinhTyLeBongChaiKy();
+            break;
+        case 'THO':
+          this.TinhTyLeBongCuiHoi();
+          break;
+        case 'ONG':
+          this.TinhTyLeSoiCat();
+          break;
+        case 'CON':
+          this.TinhTyLeBongThoMang();
+          break;
+        default:
+          break;
+      }
   }
 }

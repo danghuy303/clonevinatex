@@ -145,26 +145,24 @@
                                 (ngModelChange)="itemtbl.KhoiLuong=TinhGiaTri(itemtbl, $event)">
                             </p-inputNumber>
                             <p-inputNumber *ngIf="itemtbl.DonViNangSuat===1" [minFractionDigits]="3" locale="vi-VN"
-                                [(ngModel)]="itemtbl.ChieuDai"
-                                (ngModelChange)="itemtbl.KhoiLuong=TinhGiaTri(itemtbl, $event)" disabled>
+                                [(ngModel)]="itemtbl.ChieuDai">
                             </p-inputNumber>
                         </td>
                         <td *ngIf="item.CongDoan==='CON'">
                             <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" [minFractionDigits]="3" locale="vi-VN"
                                 [(ngModel)]="itemtbl.ChieuDai"
-                                (ngModelChange)="itemtbl.KhoiLuong=TinhCongThucMoi(itemtbl, $event)">
+                                (onBlur)="TinhCongThucMoi(itemtbl)">
                             </p-inputNumber>
                             <p-inputNumber *ngIf="itemtbl.DonViNangSuat===1" [minFractionDigits]="3" locale="vi-VN"
-                                [(ngModel)]="itemtbl.ChieuDai"
-                                (ngModelChange)="itemtbl.KhoiLuong=TinhCongThucMoi(itemtbl, $event)" disabled>
+                                [(ngModel)]="itemtbl.ChieuDai" disabled>
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" disabled [minFractionDigits]="3"
-                                locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong">
+                            <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" [minFractionDigits]="3"
+                                locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong" disabled>
                             </p-inputNumber>
                             <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1" [minFractionDigits]="3" locale="vi-VN"
-                                [(ngModel)]="itemtbl.KhoiLuong">
+                                [(ngModel)]="itemtbl.KhoiLuong" (onBlur)="TinhTongKhoiLuongBong()">
                             </p-inputNumber>
                         </td>
                         <!-- <td>
