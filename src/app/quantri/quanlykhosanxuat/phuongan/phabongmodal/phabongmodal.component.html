@@ -33,7 +33,7 @@
                 (click)="LamMoiDeDieuChinh()" *ngIf="checkbuttonDieuChinh&&!isEditing"></button>
             <button pButton pRipple type="button" label="Chấp nhận điều chỉnh" class="p-mr-2 p-button-sm p-button-success"
                 (click)="DieuChinh()" *ngIf="checkbuttonDieuChinh&&isEditing"></button>
-            <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm" (click)="test()"></button> -->
+            <button *ngIf="item.Id!==''" pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm" (click)="ExportExcel()"></button>
         </div>
     </div>
     <div class="p-grid">

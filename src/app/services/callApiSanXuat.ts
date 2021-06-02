@@ -1024,6 +1024,10 @@ export class SanXuatService {
             },
             UpdateDieuChinhPhuongAnPhaBong: (data) => {
                 return this.http.post(`${url}UpdateDieuChinhPhuongAnPhaBong`, data, httpOptions)
+            },
+            ExportPhuongAnPhaBong:(IdPhuongAnPhaBong)=>{
+                url = API.SCMBaoCao;
+                return this.http.get(url + `ExportPhuongAnPhaBong?Id=${IdPhuongAnPhaBong}`, httpOptions);
             }
         }
     }

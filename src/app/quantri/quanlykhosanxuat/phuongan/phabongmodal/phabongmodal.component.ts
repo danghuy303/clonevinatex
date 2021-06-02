@@ -272,7 +272,7 @@ export class PhabongmodalComponent implements OnInit {
       })
   }
   TinhSoBanBong(e?) {
-    console.log(this.item.KhoiLuongKienTrungBinh);
+    
     if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong)) {
       this.item.SoBanBong = Math.ceil(this.item.KhoiLuongBong / (this.item.TongSoKien * this.item.KhoiLuongKienTrungBinh));
       this.listProps = [];
@@ -303,6 +303,7 @@ export class PhabongmodalComponent implements OnInit {
         this.itemSoKienTrenBan[`${i}`] = null;
       }
       this.voiPintable.active();
+      console.log(this.item.KhoiLuongKienTrungBinh);
       console.log(this.item)
     }
   }
@@ -721,5 +722,11 @@ export class PhabongmodalComponent implements OnInit {
         this.CalAllTable(y, i);
       }
     }
+  }
+
+  ExportExcel(){
+    this._services.PhuongAnPhaBong().ExportPhuongAnPhaBong(this.item.Id).subscribe((res:any)=>{
+      this._services.download(res.TenFile);
+    })
   }
 }
