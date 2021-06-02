@@ -56,6 +56,28 @@ export class KiemkekhomodalComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        var data: any = {};
+        data.CurrentPage = 0;
+        // if (this.title === "khobong") {
+        //     data.Loai = 2;
+        //     this.item_new.Loai = 2;
+        // } else if (this.title === "khoxo") {
+        //     data.Loai = 5;
+        //     this.item_new.Loai = 5;
+        // } else if (this.title === "khothanhpham") {
+        data.Loai = 11;
+        this.item.Loai = 11;
+
+        this.services
+            .LoHang()
+            .GetList(data)
+            .subscribe((res: any) => {
+                this.listLoHang = mapArrayForDropDown(res, "Ten", "Id");
+            });
+        this.services.GetListdmKho(data).subscribe((res: any) => {
+                this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
+                this.listdmKhoFull = res;
+            });
         if (this.opt !== "edit") {
             this.GetNextSoQuyTrinh();
             this.item.listItem = [];
@@ -78,20 +100,11 @@ export class KiemkekhomodalComponent implements OnInit {
         data.Loai = 11;
         this.item.Loai = 11;
         // }
-        this.services.GetListdmKho(data).subscribe((res: any) => {
-            this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
-            this.listdmKhoFull = res;
-        });
+        
         this.services.GetListdmViTriOpt().subscribe((res: any) => {
             this.listdmViTri = mapArrayForDropDown(res, "Ten", "Id");
         });
-        this.services
-            .LoHang()
-            .GetList(data)
-            .subscribe((res: any) => {
-                this.listLoHang = mapArrayForDropDown(res, "Ten", "Id");
-            });
-
+        
         this.services
             .dmQuyCachDongGoi()
             .GetList()
@@ -133,6 +146,7 @@ export class KiemkekhomodalComponent implements OnInit {
                 this.item.listItem = res1.listItem;
                 this.listItem = this.item.listItem.slice(0, 10);
                 this.KiemTraButtonModal();
+                this.getListLoHangTheodmkho();
             });
     }
     KiemTraButtonModal() {
