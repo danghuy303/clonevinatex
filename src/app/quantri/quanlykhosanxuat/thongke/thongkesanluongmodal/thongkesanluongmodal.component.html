@@ -161,10 +161,10 @@
                         </td>
                         <td>
                             <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" disabled [minFractionDigits]="3"
-                                locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong">
+                                locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong" (onBlur)="TinhTongKhoiLuongBong()">
                             </p-inputNumber>
                             <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1" [minFractionDigits]="3" locale="vi-VN"
-                                [(ngModel)]="itemtbl.KhoiLuong">
+                                [(ngModel)]="itemtbl.KhoiLuong" (onBlur)="TinhTongKhoiLuongBong()">
                             </p-inputNumber>
                         </td>
                         <!-- <td>
