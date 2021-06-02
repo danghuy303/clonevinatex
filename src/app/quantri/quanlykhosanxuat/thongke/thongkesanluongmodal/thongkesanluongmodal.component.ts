@@ -247,11 +247,13 @@ export class ThongkesanluongmodalComponent implements OnInit {
       KhoiLuong = event / item.Ne;
     return KhoiLuong;
   }
-  TinhCongThucMoi(item, event) {
+  TinhCongThucMoi(item) {
     var KhoiLuong = 0;
-    if (item.Ne !== undefined && item.Ne !== null && item.Ne !== 0 && event !== undefined)
-      KhoiLuong = event / item.Ne / 1.693 * 1200 / 1000;
-    return KhoiLuong;
+    if (item.Ne !== undefined && item.Ne !== null && item.Ne !== 0)
+      KhoiLuong = item.ChieuDai / item.Ne / 1.693 * 1200 / 1000;
+
+    item.KhoiLuong = KhoiLuong;
+    this.TinhTyLeBongThoMang();
   }
   onClose() {
     this.activeModal.close();
@@ -409,7 +411,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
         case 'CHAIPE':
           this.TinhTyLePEBongPhe();
           break;
-        case 'CHAIPE':
+        case 'CHAIKY':
             this.TinhTyLeBongChaiKy();
             break;
         case 'THO':
