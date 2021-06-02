@@ -248,8 +248,18 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
             this.itemInfo = res;
         })
     }
-    checkSoLuong(item){
-        if(item.SoLuong === 0)
-            item.TrongLuong = 0;
+    checkSoLuong(item, check){
+        switch(check){
+            case 0:
+                if(item.SoLuong === 0)
+                    item.TrongLuong = 0;
+                break;
+            case 1:
+                if(item.TrongLuong === 0)
+                    item.SoLuong = 0;
+                break;
+            default:
+                break;
+        }
     }
 }
