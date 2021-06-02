@@ -138,12 +138,12 @@
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" [max]="item.TonSoLuong" locale="vi-VN"
-                                [(ngModel)]="item.SoLuong" (onBlur)="checkSoLuong(item)">
+                                [(ngModel)]="item.SoLuong" (onBlur)="checkSoLuong(item, 0)">
                             </p-inputNumber>
                         </td>
                         <td>
                             <div class="p-inputgroup" style="align-items: flex-end">
-                                <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.TrongLuong">
+                                <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="item.TrongLuong" (onBlur)="checkSoLuong(item, 1)">
                                 </p-inputNumber>
                                 <button pButton pRipple icon="pi pi-copy"
                                     class="p-button-sm p-button-rounded p-button-secondary p-button-text"
