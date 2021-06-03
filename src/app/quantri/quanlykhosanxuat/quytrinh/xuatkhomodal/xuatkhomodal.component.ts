@@ -53,7 +53,7 @@ export class XuatkhomodalComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  GetQuyTrinh() {
+  GetQuyTrinh(page?) {
     this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1: any) => {
       this.item = res1;
       // res1.listItem.sort((a,b)=>{
@@ -72,6 +72,9 @@ export class XuatkhomodalComponent implements OnInit {
       }
       if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
         this.item.NgayChungTu = UnixToDate(this.item.NgayChungTuUnix);
+      }
+      if(validVariable(page)){
+        this.changePage(page);
       }
     })
   }
@@ -255,12 +258,14 @@ export class XuatkhomodalComponent implements OnInit {
       modalRef.componentInstance.items = res;
       modalRef.result
         .then(res => {
-          let findIndex = this.item.listItem.findIndex(ele =>ele.IddmItem===item.IddmItem);
-          let tenlo = item.TenLoBong
-          if(findIndex>=0){
-            res[0].TenLoBong = tenlo;
-            this.item.listItem[findIndex] = deepCopy(res[0]);
-          }
+          let page = {page:this.paging.CurrentPage-1};
+          this.GetQuyTrinh(page);
+          // let findIndex = this.item.listItem.findIndex(ele =>ele.IddmItem===item.IddmItem);
+          // let tenlo = item.TenLoBong
+          // if(findIndex>=0){
+          //   res[0].TenLoBong = tenlo;
+          //   this.item.listItem[findIndex] = deepCopy(res[0]);
+          // }
         })
         .catch(er => { console.log('err:', er) })
     })

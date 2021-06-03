@@ -138,7 +138,7 @@
                         <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText
                         [disabled]="true" /> -->
                         <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" styleClass="p-inputtext-sm"
-                            [(ngModel)]="item.Iditem" optionLabel="Ten" optionValue="Id"
+                            [(ngModel)]="item.Iditem"
                             (onChange)="changeLoaiSoiHoacMatHang($event,item)"></p-dropdown>
                     </td>
                     <td>
@@ -202,7 +202,7 @@
                         <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.Ten" pInputText
                         [disabled]="true" /> -->
                         <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
-                            [(ngModel)]="newTableItem.Iditem" optionLabel="Ten" optionValue="Id"
+                            [(ngModel)]="newTableItem.Iditem"
                             (onChange)="changeLoaiSoiHoacMatHang($event,newTableItem)"></p-dropdown>
                     </td>
                     <td>

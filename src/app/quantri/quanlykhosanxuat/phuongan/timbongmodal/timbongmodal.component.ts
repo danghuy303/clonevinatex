@@ -462,7 +462,7 @@ export class TimbongmodalComponent implements OnInit {
       modalRef.result.then((res) => {
         // console.log(res);
         this.item.listLoBong[y].tempBanBong[`${x}`].isTimBongThuCong = res.isTimBongThuCong;
-        console.log(this.item.listLoBong[y].tempBanBong[`${x}`].listItem);
+        console.log(this.item.listLoBong[y].tempBanBong[`${x}`]);
       })
     } else {
       let modalRef = this._modal.open(ChonkienbonghoimodalComponent, {
@@ -565,8 +565,8 @@ export class TimbongmodalComponent implements OnInit {
     this._services.TimBong().Get(this.ghostItem.Id).subscribe((res: any) => {
       this.item = deepCopy(res.PhuongAnPhaBong);
       res.PhuongAnPhaBong = undefined;
-      this.ghostItem = deepCopy(res)
-      this.GetListdmLoaiBong_PAPB()
+      this.ghostItem = deepCopy(res);
+      this.GetListdmLoaiBong_PAPB();
     })
   }
 }
