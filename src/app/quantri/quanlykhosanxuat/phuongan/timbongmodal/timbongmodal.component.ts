@@ -183,6 +183,11 @@ export class TimbongmodalComponent implements OnInit {
         this.PoolLoBong = {
           BongHoi: []
         }
+        this.item.listLoBong.forEach(lobong => {
+          if(validVariable(lobong.IdLoBong)){
+            this.PoolLoBong[`${lobong.IdLoBong.split('-').join('_')}`]=[];
+          }
+        });
         res.forEach(kien => {
           if (validVariable(kien.IdLoBong)) {
             if (!validVariable(this.PoolLoBong[`${kien.IdLoBong.split('-').join('_')}`])) {

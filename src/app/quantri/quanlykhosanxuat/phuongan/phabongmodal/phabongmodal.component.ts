@@ -232,6 +232,8 @@ export class PhabongmodalComponent implements OnInit {
           return sum + ele.TrongLuong
         }, 0)
         this.item.KhoiLuongKienTrungBinh = TongKhoiLuong / (res.length);
+        // .filter(ele=>!ele.isLoBongTuongLai)
+        // .filter(ele=>!ele.isLoBongTuongLai)
         let TongChatLuong = {
           Mic: 0,
           Rd: 0,
