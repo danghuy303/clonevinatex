@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-tonkhobongxomodal',
@@ -18,6 +18,11 @@ export class TonkhobongxomodalComponent implements OnInit {
   itemTongCong:any={};
   data: any = {};
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
+  mapXuatNhapRoute = {
+    Xuat: '/quantri/quanlykhosanxuat/khobong/xuatkho/',
+    Nhap: '/quantri/quanlykhosanxuat/khobong//nhapkho/',
+    KiemKe: '/quantri/quanlykhosanxuat/khobong/kiemkekhobong/'
+  }
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
     private activatedRoute: ActivatedRoute,private router:Router, public activeModal: NgbActiveModal) { }
 
@@ -60,5 +65,16 @@ export class TonkhobongxomodalComponent implements OnInit {
     this._service.ExportGetTheKho(this.data).subscribe((res: any) => {
       this._service.download(res.TenFile);
     })
+  }
+  navigateKiemKe(item) {
+    if(validVariable(item.IdPhieuKiemKeBongXo)){
+      window.open(`#${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKeBongXo || 0}`, "_blank");
+    }
+    else if(item.Id === 'N'){
+      window.open(`#${this.mapXuatNhapRoute.Nhap}${item.IdPhieuNhapLoBong || 0}`, "_blank");
+    }
+    else if(item.Id === 'X'){
+      window.open(`#${this.mapXuatNhapRoute.Xuat}${item.IdPhieuXuatBong || 0}`, "_blank");
+    }
   }
 }

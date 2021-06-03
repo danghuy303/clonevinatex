@@ -181,7 +181,8 @@
                     {{item.TrongLuongCuoiKy|number:'0.2-2'}}
                 </td>
                 <td class="text-right">
-                    {{item.SoQuyTrinh}}
+                    <a href="javascript:void(0)" (click)="navigateKiemKe(item)">{{item.SoQuyTrinh}}</a>
+                    <!-- {{item.SoQuyTrinh}} -->
                 </td>
                 <td class="text-left">
                     {{item.GhiChu}}

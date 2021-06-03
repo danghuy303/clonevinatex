@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-tonkhodanhsachchitiet',
@@ -17,7 +17,12 @@ export class TonkhodanhsachchitietComponent implements OnInit {
   item:any={};
   itemTongCong:any={};
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  data: any = {}
+  data: any = {};
+  mapXuatNhapRoute = {
+    Xuat: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkhothanhpham/',
+    Nhap: '/quantri/quanlysanxuatkhothanhpham/khothanhpham/nhapkho/',
+    KiemKe: '/quantri/quanlykhosanxuat/khothanhpham/kiemkekho/'
+  }
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
     private activatedRoute: ActivatedRoute,private router:Router, public activeModal: NgbActiveModal) { }
 
@@ -61,5 +66,16 @@ export class TonkhodanhsachchitietComponent implements OnInit {
     this._service.ExportGetTheKho(this.data).subscribe((res: any) => {
       this._service.download(res.TenFile);
     })
+  }
+  navigateKiemKe(item) {
+    if(validVariable(item.IdPhieuKiemKeThanhPham)){
+      window.open(`#${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKeThanhPham || 0}`, "_blank");
+    }
+    else if(item.Id === 'N'){
+      window.open(`#${this.mapXuatNhapRoute.Nhap}${item.IdPhieuNhapThanhPham || 0}`, "_blank");
+    }
+    else if(item.Id === 'X'){
+      window.open(`#${this.mapXuatNhapRoute.Xuat}${item.IdPhieuXuatThanhPham || 0}`, "_blank");
+    }
   }
 }
