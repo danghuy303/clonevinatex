@@ -56,8 +56,8 @@ export class XuatkhoComponent implements OnInit {
         this.update(res.id);
       }
     })
-    this.KiemTraTabTrangThai();
     this.GetdmPhanXuong();
+    this.KiemTraTabTrangThai();
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
