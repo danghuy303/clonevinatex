@@ -49,6 +49,7 @@ export class NhapkhohoiammodalComponent implements OnInit {
         IdLoBong: '',
         listItem: [],
       }
+      this.GetPhanXuongTheoUser();
       this.GetNextSoQuyTrinh();
     }
     else {
@@ -170,6 +171,9 @@ export class NhapkhohoiammodalComponent implements OnInit {
     this.data.Loai = 10;
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+      if(!validVariable(this.item.IddmKho)){
+        this.item.IddmKho = res[0]?.Id
+      }
     })
   }
   getListPhanXuong() {
@@ -180,6 +184,12 @@ export class NhapkhohoiammodalComponent implements OnInit {
   getListCaMay() {
     this._services.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
       this.listCaMay = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  GetPhanXuongTheoUser() {
+    this._services.GetListPhanXuongTheoUser().subscribe((res: any) => {
+      if (res != null && res.length > 0)
+        this.item.IddmPhanXuong = res[0].Id;
     })
   }
   GetMatHangTheoKho() {

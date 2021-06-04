@@ -186,7 +186,7 @@
                         <td *ngIf="itemtbl.CongDoan==='ONG'">
                             <div class="p-inputgroup">
                                 <div style="flex:1">
-                                    <p-dropdown [filter]="true" [options]="listLoHang" [autofocusFilter]="false" placeholder="Chọn lô hàng"
+                                    <p-dropdown [filter]="true" [options]="listLoHang" [autofocusFilter]="true" placeholder="Chọn lô hàng"
                                         styleClass="p-inputtext-sm" [(ngModel)]="itemtbl.IdLoHang"></p-dropdown>
                                 </div>
                                 <button pButton pRipple icon="pi pi-copy"

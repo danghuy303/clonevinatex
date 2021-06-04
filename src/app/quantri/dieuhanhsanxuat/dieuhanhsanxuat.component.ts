@@ -1,8 +1,10 @@
 import { formatNumber } from '@angular/common';
+import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { PintableDirective } from 'voi-lib';
 
 @Component({
   selector: 'app-dieuhanhsanxuat',
@@ -10,6 +12,7 @@ import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/ap
   styleUrls: ['./dieuhanhsanxuat.component.css']
 })
 export class DieuhanhsanxuatComponent implements OnInit {
+  @ViewChild(PintableDirective) voiPintable: PintableDirective;
   filterBong: any = {};
   filter: any = {
     IddmLoaiBong: "",
@@ -263,7 +266,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
         data.TuNgay = TuNgay;
         data.DenNgay = DenNgay;
         this._services.DashBoard().CanDoiTon(data).subscribe((res: Array<any>) => {
-          this.Tong = res.splice(0, 1);
+          // this.Tong = res.splice(0, 1);
           this.listItem = res;
         })
       }
