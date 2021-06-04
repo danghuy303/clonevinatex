@@ -123,6 +123,7 @@ export class XuatkhoComponent implements OnInit {
       Ma: "",
       Ten: "",
       Loai: "2",
+      IddmPhanXuong: this.filter.IddmPhanXuong,
     }
     this._service.PhieuXuatSanXuat().GetList(data).subscribe((res: any) => {
       this.items = res.items;
