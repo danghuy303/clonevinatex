@@ -382,13 +382,16 @@ export class DieuhanhsanxuatComponent implements OnInit {
     let route = {
       '1': '/quantri/quanlysanxuatkhohoiam/khohoiam/nhapkho/',
       '5': '/quantri/quanlykhosanxuatbongkhac/khobongphe/nhapkho/',
-      '6': '/quantri/quanlykhosanxuat/khoxo/kiemkekhoxo/',
+      '6': '/quantri/quanlykhosanxuat/khobong/kiemkekhobong/',
       '7': '/quantri/quanlykhosanxuat/khobong/thongsochatluong/',
       '8': '/quantri/quanlykhosanxuat/khobong/nhapkho/',
       '12': '/quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/',
       '13': '/quantri/quanlykhosanxuat/khoxo/xuatkho/',
       '14': '/quantri/quanlykhosanxuat/khobong/xuatkho/',
-      '15': '/quantri/quanlykhosanxuat/khobong/kiemkekhobong/',
+      '15': '/quantri/quanlykhosanxuat/khoxo/kiemkekhoxo/',
+
+      '20': '/quantri/quanlykhosanxuat/khoxo/nhapkho/',
+      '21': '/quantri/quanlykhosanxuatbongkhac/khobonghoi/nhapkho/',
     }
     // if (this.selectedXuatNhap.opt === 'Xuat') {
     //   window.open(`#${this.mapXuatNhapRoute[this.selectedXuatNhap.opt]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`] || 0}`, "_blank");
@@ -409,6 +412,9 @@ export class DieuhanhsanxuatComponent implements OnInit {
       '13': '/quantri/quanlykhosanxuat/khoxo/xuatkho/',
       '14': '/quantri/quanlykhosanxuat/khobong/xuatkho/',
       '15': '/quantri/quanlykhosanxuat/khoxo/kiemkekhoxo/',
+
+      '20': '/quantri/quanlykhosanxuat/khoxo/nhapkho/',
+      '21': '/quantri/quanlykhosanxuatbongkhac/khobonghoi/nhapkho/',
     }
     window.open(`#${route[`${item.LoaiPhieu}`]}${item.IdPhieuKiemKe || 0}`, "_blank");
     // this._router.navigate([`${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKeKho||0}`])
