@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { NhapkhokhacmodalComponent } from '../nhapkhokhacmodal/nhapkhokhacmodal.component';
 
 @Component({
@@ -19,7 +19,7 @@ export class NhapkhokhacComponent implements OnInit {
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   eAction: any = "PHIEUNHAPLOBONG";
-
+  listKho:any=[];
   colHois: any = [
     {
       header: 'Loại bông',
@@ -44,8 +44,8 @@ export class NhapkhokhacComponent implements OnInit {
       if (res.id !== '0') {
         this.update(res.id);
       }
+      this.getListKho();
       // else
-      this.GetListQuyTrinh();
       //
       this.type = 'bonghoi';
       this.nametype = 'bông hồi';
@@ -61,6 +61,12 @@ export class NhapkhokhacComponent implements OnInit {
     this.router.navigate([`quantri/quanlykhosanxuatbongkhac/khobonghoi/nhapkho/${id}`], { replaceUrl: true })
   }
 
+  getListKho() {
+    this._service.GetListdmKho({Loai:6}).subscribe((res: any) => {
+      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.GetListQuyTrinh();
+    })
+  }
   addPhieu() {
     this.changeParam(0);
     let modalRef = this._modal.open(NhapkhokhacmodalComponent, {
@@ -124,6 +130,7 @@ export class NhapkhokhacComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter: this.filter.KeyWord,
+      IddmKho:validVariable(this.filter.IddmKho)?this.filter.IddmKho:'',
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
@@ -138,7 +145,12 @@ export class NhapkhokhacComponent implements OnInit {
     }
 
     this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
-      this.items = res.items;
+      this.items = res.items.map(ele=>{
+        return {
+          ...ele,
+          KhoNhap: this.listKho.find(alo=>alo.value === ele.IddmKho)?.label
+        }
+      });
       this.paging = res.paging;
     })
   }

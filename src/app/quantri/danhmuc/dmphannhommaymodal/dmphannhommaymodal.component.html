@@ -137,7 +137,7 @@
                     <td *ngIf="childModalOpt!==''">
                         <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText
                         [disabled]="true" /> -->
-                        <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" styleClass="p-inputtext-sm"
+                        <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
                             [(ngModel)]="item.Iditem"
                             (onChange)="changeLoaiSoiHoacMatHang($event,item)"></p-dropdown>
                     </td>

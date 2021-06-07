@@ -1,5 +1,5 @@
 import { formatNumber } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, Subscription } from 'rxjs';
@@ -7,14 +7,14 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { TrienkhaikehoachsanxuatComponent } from '../quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuat/trienkhaikehoachsanxuat.component';
-
+import { PintableDirective } from 'voi-lib';
 @Component({
   selector: 'app-nhucauxuathang',
   templateUrl: './nhucauxuathang.component.html',
   styleUrls: ['./nhucauxuathang.component.css']
 })
 export class NhucauxuathangComponent implements OnInit, OnDestroy {
-
+  @ViewChild(PintableDirective) voiPintable: PintableDirective;
   filterBong: any = {};
   filter: any = {
     IddmItem: "",
@@ -253,8 +253,10 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
       if (validVariable(this.filterAll.TuNgay) && validVariable(this.filterAll.DenNgay) && this.filterAll.TuNgay <= this.filterAll.DenNgay) {
       this.filterAll.IdDuAn = this.store.getCurrent();
       this._services.BaoCao().GetDashBoard_CanDoiTonXuatHang(this.filterAll).subscribe((res: Array<any>) => {
-        this.Tong = res.splice(0, 1);
+        // this.Tong = res.splice(0, 1);
         this.listItem = res;
+        console.log(this.voiPintable);
+        this.voiPintable.active();
       })
     }
     }

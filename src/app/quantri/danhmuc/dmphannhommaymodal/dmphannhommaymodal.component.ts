@@ -190,10 +190,10 @@ export class DmphannhommaymodalComponent implements OnInit {
       let listdatapush = [];
       res.forEach(element => {
         if (this.childModalOpt === 'MATHANG') {
-          element.Iditem = this.listLoaiSoiHoacMatHang.filter(obj => element.IddmItem === obj.Id)[0]?.Id;
+          element.Iditem = this.listLoaiSoiHoacMatHang.filter(obj => element.IddmItem === obj.value)[0]?.value;
         }
         if (this.childModalOpt === 'SOI') {
-          element.Iditem = this.listLoaiSoiHoacMatHang.filter(obj => element.IddmLoaiSoi === obj.Id)[0]?.Id;
+          element.Iditem = this.listLoaiSoiHoacMatHang.filter(obj => element.IddmLoaiSoi === obj.value)[0]?.value;
         }
         element.isXoa = false;
         listdatapush.push(element);

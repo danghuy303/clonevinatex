@@ -13,7 +13,7 @@
         </div>
     </div>
 </div>
-<div class="p-grid" >
+<div class="p-grid">
     <!-- style="align-self: stretch;" -->
     <div class="p-col-12 p-xl-8 p-lg-8 p-p-3">
         <div class="chart text-left">
@@ -56,7 +56,7 @@
 </div>
 <div class="p-grid" style="align-self: stretch;">
     <div class="p-col-12 p-p-3">
-        <div class="chart text-left">
+        <div class="chart text-left" style="display: flex;flex-direction: column;">
             <div class="p-d-flex flex-column flex-lg-row">
                 <h5 class="p-mb-0 p-mr-2 p-mt-2">
                     Cân đối tồn
@@ -90,7 +90,60 @@
                         (click)="XuatBaoCaoCanDoiTon()">Xuất báo cáo</a>
                 </div>
             </div>
-            <p-table [value]="listItem" [frozenValue]="Tong"
+            <div class="pintable-container" style="height: calc( 50vh - 72.25px );width: 100%;" voiPintable
+                [pinnedCols]="3">
+                <table>
+                    <thead>
+                        <tr>
+                            <!-- <th>Ngày</th> -->
+                            <th rowspan="2" class="width-150">Loại bông</th>
+                            <th rowspan="2" class="width-150">Lô bông</th>
+                            <th rowspan="2" class="width-150">Hợp đồng P/O</th>
+                            <th colspan="2">Tồn đầu</th>
+                            <th colspan="2">Nhập trong kỳ</th>
+                            <th colspan="2">Xuất trong kỳ</th>
+                            <th colspan="2">Tồn cuối kỳ</th>
+                        </tr>
+                        <tr>
+                            <th style="display: none;"></th>
+                            <th style="display: none;"></th>
+                            <th style="display: none;"></th>
+                            <th class="width-150">Số kiện</th>
+                            <th class="width-150">KL</th>
+                            <th class="width-150">Số kiện</th>
+                            <th class="width-150">KL</th>
+                            <th class="width-150">Số kiện</th>
+                            <th class="width-150">KL</th>
+                            <th class="width-150">Số kiện</th>
+                            <th class="width-150">KL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let item of listItem">
+                            <tr [ngStyle]="{'font-weight':item.TendmLoaiBong !== 'TỔNG'?'normal':'bold'}">
+                                <td class="width-150 bg-white">{{item.TendmLoaiBong}}</td>
+                                <td class="width-150 bg-white">{{item.TenLoBong}}</td>
+                                <td class="width-150 bg-white">{{item.SoHopDong}}</td>
+                                <td class="text-right width-150">{{item.DauSoKien|number:'0.0-0' }}</td>
+                                <td class="text-right width-150">{{item.DauSoCan|number:'0.2-2' }}</td>
+                                <td class="text-right width-150">{{item.NhapSoKien|number:'0.0-0' }}</td>
+                                <td class="text-right width-150">
+                                    <a href="javascript:void(0)" *ngIf="item.TendmLoaiSoi!==null"
+                                        (click)="callDataXuatNhap('Nhap', item)"> {{item.NhapSoCan|number:'0.2-2' }}</a>
+                                </td>
+                                <td class="text-right width-150">{{item.XuatSoKien|number:'0.0-0' }}</td>
+                                <td class="text-right width-150">
+                                    <a href="javascript:void(0)" *ngIf="item.TendmLoaiSoi!==null"
+                                        (click)="callDataXuatNhap('Xuat', item)">{{item.XuatSoCan|number:'0.2-2'}}</a>
+                                </td>
+                                <td class="text-right width-150">{{item.CuoiSoKien|number:'0.0-0' }}</td>
+                                <td class="text-right width-150">{{item.CuoiSoCan|number:'0.2-2' }}</td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+            <!-- <p-table [value]="listItem" [frozenValue]="Tong"
                 styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines minimize-font"
                 [scrollable]="true" scrollHeight="260px">
                 <ng-template pTemplate="colgroup">
@@ -110,7 +163,6 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <!-- <th>Ngày</th> -->
                         <th rowspan="2">Loại bông</th>
                         <th rowspan="2">Lô bông</th>
                         <th rowspan="2">Hợp đồng P/O</th>
@@ -132,7 +184,6 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr [ngClass]="{'p-text-bold': item.TendmLoaiBong=='TỔNG'}">
-                        <!-- <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td> -->
                         <td>{{item.TendmLoaiBong}}</td>
                         <td>{{item.TenLoBong}}</td>
                         <td>{{item.SoHopDong}}</td>
@@ -147,7 +198,7 @@
                         <td class="text-right">
                             <a href="javascript:void(0)" *ngIf="item.TendmLoaiSoi!==null"
                                 (click)="callDataXuatNhap('Xuat', item)">{{item.XuatSoCan|number:'0.2-2'}}</a>
-                            
+
                         </td>
                         <td class="text-right">{{item.CuoiSoKien|number:'0.0-0' }}</td>
                         <td class="text-right">{{item.CuoiSoCan|number:'0.2-2' }}</td>
@@ -155,7 +206,6 @@
                 </ng-template>
                 <ng-template pTemplate="frozenrows" let-item let-i="rowIndex">
                     <tr [ngClass]="{'p-text-bold': item.TendmLoaiBong=='TỔNG'}">
-                        <!-- <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td> -->
                         <td>{{item.TendmLoaiBong}}</td>
                         <td>{{item.TenLoBong}}</td>
                         <td>{{item.SoHopDong}}</td>
@@ -169,7 +219,7 @@
                         <td class="text-right">{{item.CuoiSoCan|number:'0.2-2' }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </p-table> -->
         </div>
     </div>
 </div>
@@ -212,7 +262,7 @@
                     {{item.TrongLuong|number:'0.2-2'}}
                     <!-- <a [href]="item.herfgiaokehoachsanxuat" target="_blank">{{item.TenGiaoKeHoach}}</a> -->
                 </td>
-                <td >
+                <td>
                     {{item.TendmKho}}
                 </td>
             </tr>
