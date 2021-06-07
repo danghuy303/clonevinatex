@@ -10,7 +10,7 @@
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" [(ngModel)]="filter.IddmKho" (onChange)="GetListQuyTrinh(true)"
-                styleClass="p-inputtext-sm"></p-dropdown>
+            [showClear]="true" styleClass="p-inputtext-sm"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"

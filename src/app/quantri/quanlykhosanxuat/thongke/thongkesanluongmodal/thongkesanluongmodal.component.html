@@ -115,16 +115,16 @@
                     <tr>
                         <th>#</th>
                         <th>Số máy</th>
-                        <th>Mặt hàng</th>
                         <th>Ne</th>
+                        <th>Mặt hàng</th>
+                        <th *ngIf="item.CongDoan==='ONG'">Lô hàng</th>
+                        <th *ngIf="item.CongDoan==='ONG'">Sản lượng màn hình (kg)</th>
                         <th>Sản lượng định mức</th>
                         <th>Chiều dài (m)</th>
                         <th *ngIf="item.CongDoan!=='ONG'">Khối lượng (kg)</th>
-                        <th *ngIf="item.CongDoan==='ONG'">Sản lượng màn hình (kg)</th>
                         <!-- <th *ngIf="item.CongDoan==='ONG'">Số quả</th>
                         <th *ngIf="item.CongDoan==='ONG'">Kg/cone</th>
                         <th *ngIf="item.CongDoan==='ONG'">Khối lượng hồi ẩm</th> -->
-                        <th *ngIf="item.CongDoan==='ONG'">Lô hàng</th>
                         <th>Ghi chú</th>
                     </tr>
                 </ng-template>
@@ -132,8 +132,28 @@
                     <tr>
                         <td>{{i+1}}</td>
                         <td class="text-left">{{itemtbl.TendmMay}}</td>
-                        <td class="text-left">{{itemtbl.Ten}}</td>
                         <td class="text-left">{{itemtbl.Ne}}</td>
+                        <td class="text-left">{{itemtbl.Ten}}</td>
+                        <td *ngIf="itemtbl.CongDoan==='ONG'">
+                            <div class="p-inputgroup">
+                                <div style="flex:1">
+                                    <p-dropdown [filter]="true" [options]="listLoHang" [autofocusFilter]="true" placeholder="Chọn lô hàng"
+                                        styleClass="p-inputtext-sm" [(ngModel)]="itemtbl.IdLoHang"></p-dropdown>
+                                </div>
+                                <button pButton pRipple icon="pi pi-copy"
+                                    class="p-button-sm p-button-rounded p-button-text p-mr-2"
+                                    (click)="ApDung(itemtbl)"></button>
+                            </div>
+
+                        </td>
+                        <td>
+                            <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" [minFractionDigits]="3"
+                                locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong" disabled>
+                            </p-inputNumber>
+                            <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1" [minFractionDigits]="3" locale="vi-VN"
+                                [(ngModel)]="itemtbl.KhoiLuong" (onBlur)="TinhTongKhoiLuongBong()">
+                            </p-inputNumber>
+                        </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="3" locale="vi-VN"
                                 [(ngModel)]="itemtbl.KhoiLuongTinhToan" disabled>
@@ -157,14 +177,7 @@
                                 [(ngModel)]="itemtbl.ChieuDai" disabled>
                             </p-inputNumber>
                         </td>
-                        <td>
-                            <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" [minFractionDigits]="3"
-                                locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong" disabled>
-                            </p-inputNumber>
-                            <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1" [minFractionDigits]="3" locale="vi-VN"
-                                [(ngModel)]="itemtbl.KhoiLuong" (onBlur)="TinhTongKhoiLuongBong()">
-                            </p-inputNumber>
-                        </td>
+                        
                         <!-- <td>
                             <p-inputNumber
                             [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong"
@@ -183,18 +196,7 @@
                             <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuongHoiAm">
                             </p-inputNumber>
                         </td> -->
-                        <td *ngIf="itemtbl.CongDoan==='ONG'">
-                            <div class="p-inputgroup">
-                                <div style="flex:1">
-                                    <p-dropdown [filter]="true" [options]="listLoHang" [autofocusFilter]="true" placeholder="Chọn lô hàng"
-                                        styleClass="p-inputtext-sm" [(ngModel)]="itemtbl.IdLoHang"></p-dropdown>
-                                </div>
-                                <button pButton pRipple icon="pi pi-copy"
-                                    class="p-button-sm p-button-rounded p-button-text p-mr-2"
-                                    (click)="ApDung(itemtbl)"></button>
-                            </div>
-
-                        </td>
+                        
                         <td>
                             <input type="text" class="p-inputtext-sm" [(ngModel)]="itemtbl.GhiChu" pInputText />
                         </td>
