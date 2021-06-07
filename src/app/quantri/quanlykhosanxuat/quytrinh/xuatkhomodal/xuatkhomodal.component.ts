@@ -119,7 +119,7 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
     if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
-      this.item.listItem = this.listItem
+      this.item.listItem = deepCopy(this.listItemRoot);
       this.services.PhieuXuatSanXuat().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -225,7 +225,6 @@ export class XuatkhomodalComponent implements OnInit {
     //   }
     // }
     this.listItem = deepCopy(items);
-
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = items.length;

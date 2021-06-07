@@ -121,9 +121,9 @@
                     <tbody>
                         <ng-container *ngFor="let item of listItem">
                             <tr [ngStyle]="{'font-weight':item.TendmLoaiBong !== 'TỔNG'?'normal':'bold'}">
-                                <td class="width-150">{{item.TendmLoaiBong}}</td>
-                                <td class="width-150">{{item.TenLoBong}}</td>
-                                <td class="width-150">{{item.SoHopDong}}</td>
+                                <td class="width-150 bg-white">{{item.TendmLoaiBong}}</td>
+                                <td class="width-150 bg-white">{{item.TenLoBong}}</td>
+                                <td class="width-150 bg-white">{{item.SoHopDong}}</td>
                                 <td class="text-right width-150">{{item.DauSoKien|number:'0.0-0' }}</td>
                                 <td class="text-right width-150">{{item.DauSoCan|number:'0.2-2' }}</td>
                                 <td class="text-right width-150">{{item.NhapSoKien|number:'0.0-0' }}</td>
