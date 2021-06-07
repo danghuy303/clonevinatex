@@ -1423,7 +1423,7 @@ export class SanXuatService {
             },
             ExportPhieuXuatKhoXo_BangKe: (data) => {
                 url = API.SCMDanhMuc;
-                return this.http.post(`${url}ExportPhieuXuatKhoXo`, data, httpOptions)
+                return this.http.post(`${url}ExportBangKeXuatKhoXo`, data, httpOptions)
             }
         }
     }
