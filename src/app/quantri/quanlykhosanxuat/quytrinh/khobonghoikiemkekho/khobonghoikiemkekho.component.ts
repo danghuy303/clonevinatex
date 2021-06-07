@@ -42,7 +42,7 @@ export class KhobonghoikiemkekhoComponent implements OnInit {
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";
-  eAction = 'KIEMKEKHOBONGHOI'
+  eAction = 'KIEMKEKHOBONG'
   constructor(
       public _modal: NgbModal,
       public _toastr: ToastrService,
