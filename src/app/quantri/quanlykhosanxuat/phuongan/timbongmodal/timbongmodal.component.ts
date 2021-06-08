@@ -7,6 +7,7 @@ import { CVMic, CVMic2, deepCopy, mapArrayForDropDown, validVariable } from 'src
 import { PintableDirective } from 'voi-lib';
 import { ChonkienbonghoimodalComponent } from '../chonkienbonghoimodal/chonkienbonghoimodal.component';
 import { ChonkienbongmodalComponent } from '../chonkienbongmodal/chonkienbongmodal.component';
+import { XuatexceltimbongmodalComponent } from '../xuatexceltimbongmodal/xuatexceltimbongmodal.component';
 
 @Component({
   selector: 'app-timbongmodal',
@@ -568,5 +569,10 @@ export class TimbongmodalComponent implements OnInit {
       this.ghostItem = deepCopy(res);
       this.GetListdmLoaiBong_PAPB();
     })
+  }
+  XuatExcel(){
+    let modalref = this._modal.open(XuatexceltimbongmodalComponent)
+    modalref.componentInstance.BanBong='';
+    modalref.componentInstance.IdPhuongAnPhaBong=this.ghostItem.IdPhuongAnPhaBong;
   }
 }

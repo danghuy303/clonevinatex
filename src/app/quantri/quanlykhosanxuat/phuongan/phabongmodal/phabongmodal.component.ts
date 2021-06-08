@@ -10,6 +10,7 @@ import { CVMic, CVMic2, deepCopy, mapArrayForDropDown, validVariable } from 'src
 import { PintableDirective } from 'voi-lib';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 import { TrangthaimaysanxuatComponent } from '../../quytrinh/trangthaimaysanxuat/trangthaimaysanxuat.component';
+import { ThemlotuonglaimodalComponent } from '../layoutmodals/themlotuonglaimodal/themlotuonglaimodal.component';
 
 @Component({
   selector: 'app-phabongmodal',
@@ -233,7 +234,6 @@ export class PhabongmodalComponent implements OnInit {
         }, 0)
         this.item.KhoiLuongKienTrungBinh = TongKhoiLuong / (res.length);
         // .filter(ele=>!ele.isLoBongTuongLai)
-        // .filter(ele=>!ele.isLoBongTuongLai)
         let TongChatLuong = {
           Mic: 0,
           Rd: 0,
@@ -274,7 +274,33 @@ export class PhabongmodalComponent implements OnInit {
       })
   }
   themLoTuongLai(){
-
+    let modalRef = this._modal.open(ThemlotuonglaimodalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.items = deepCopy((this.listLoBong || []).filter(ele=>ele.isLoBongTuongLai));
+    modalRef.componentInstance.selectedItems = deepCopy((this.item.listLoBong || []).filter(ele=>ele.isLoBongTuongLai));
+    modalRef.componentInstance.IdQuyTrinh = this.item.Id;
+    modalRef.result.then(res=>{
+      console.log(res);
+      let SoNgayTrienKhai = Math.floor((this.itemTrienKhaiKeHoach.DenNgayUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1);
+      let _1NgayCan = this.item.KhoiLuongBong / SoNgayTrienKhai;
+      let TrongLuongTrungBinh1Ban = this.item.KhoiLuongKienTrungBinh * this.item.TongSoKien;
+      let TyLeBongCan = _1NgayCan / TrongLuongTrungBinh1Ban;
+      res.forEach((lobong, index) => {
+        lobong.tempBanBong = {};
+        for (let i = 1; i <= this.item.SoBanBong; i++) {
+          lobong.tempBanBong[`${i}`] = deepCopy({
+            SoKien: null,
+            tabIndex: -1
+          });
+        }
+        if (lobong.isLoBongTuongLai) {
+          console.log('tuonglaiiiiii')
+          let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
+          lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
+        }
+      })
+      this.item.listLoBong=[...this.item.listLoBong,...res];
+    })
+    .catch()
   }
   TinhSoBanBong(e?) {
     if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong)) {
@@ -578,6 +604,7 @@ export class PhabongmodalComponent implements OnInit {
       this._services.PhuongAnPhaBong().UpdateDieuChinhPhuongAnPhaBong(this.SetData()).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
+            this.isEditing = false;
             this._toastr.success(res.message);
           } else {
             this._toastr.error(res.message);
