@@ -273,8 +273,10 @@ export class PhabongmodalComponent implements OnInit {
         console.log(er);
       })
   }
+  themLoTuongLai(){
+
+  }
   TinhSoBanBong(e?) {
-    
     if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong)) {
       this.item.SoBanBong = Math.ceil(this.item.KhoiLuongBong / (this.item.TongSoKien * this.item.KhoiLuongKienTrungBinh));
       this.listProps = [];
@@ -289,7 +291,6 @@ export class PhabongmodalComponent implements OnInit {
         lobong.tempBanBong = {};
         console.log(this.item.SoBanBong);
         for (let i = 1; i <= this.item.SoBanBong; i++) {
-
           lobong.tempBanBong[`${i}`] = deepCopy({
             SoKien: null,
             tabIndex: ((i - 1) * this.item.listLoBong.length) + index + 1
@@ -603,7 +604,8 @@ export class PhabongmodalComponent implements OnInit {
       this.GetListTrienKhaiKeHoach();
       this.KiemTraButtonModal();
       this.KiemTraButtonDieuChinhPhuongAnPhaBong();
-      this.isEditing =true;
+      this.GetLoBongTrongKho();
+      this.isEditing = true;
     })
   }
   ChuyenDuyet() {
@@ -730,5 +732,8 @@ export class PhabongmodalComponent implements OnInit {
     this._services.PhuongAnPhaBong().ExportPhuongAnPhaBong(this.item.Id).subscribe((res:any)=>{
       this._services.download(res.TenFile);
     })
+  }
+  test(){
+    console.log(this.item)
   }
 }

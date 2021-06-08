@@ -89,9 +89,13 @@
         </div>
         <div class="p-col-12 d-flex flex-row p-p-0">
             <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm"
-                (click)="chonHangHoa()"></button>
+                (click)="chonHangHoa()" *ngIf="checkbutton.Ghi"></button>
             <button pButton pRipple type="button" label="Chọn lô bông" class="p-mr-2 p-button-sm"
-                (click)="chonLoBong()"></button>
+                (click)="chonLoBong()" *ngIf="checkbutton.Ghi"></button>
+                <!-- <button pButton pRipple type="button" label="Thêm lô bông tương lai" class="p-mr-2 p-button-sm"
+                (click)="themLoTuongLai()"></button>
+                <button pButton pRipple type="button" label="test" class="p-mr-2 p-button-sm"
+                (click)="test()"></button> -->
         </div>
         <div class="p-col-12">
             <h5>

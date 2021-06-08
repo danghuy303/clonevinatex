@@ -117,6 +117,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
         render: 'percentage',
         fontColor: '#fff',
         fontStyle: 'bold',
+        precision: 2
       }
     },
     legend: {
