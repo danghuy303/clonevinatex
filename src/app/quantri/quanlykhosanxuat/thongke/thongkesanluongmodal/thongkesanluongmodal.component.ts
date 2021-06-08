@@ -255,6 +255,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
     item.KhoiLuong = KhoiLuong;
     this.TinhTyLeBongThoMang();
   }
+
+  
   onClose() {
     this.activeModal.close();
   }

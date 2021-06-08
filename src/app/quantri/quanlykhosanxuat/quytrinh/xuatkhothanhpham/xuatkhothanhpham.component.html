@@ -7,6 +7,10 @@
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
+            <p-dropdown [options]="listKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.IddmKho" [showClear]="true" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetListQuyTrinh(true)">
             </p-calendar>

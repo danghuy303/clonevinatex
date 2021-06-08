@@ -76,7 +76,8 @@ export class KiemkekhoComponent implements OnInit {
     }
     getListdmKho() {
         let data = {
-          CurrentPage : 0
+          CurrentPage : 0,
+          Loai : 11,
         }
         this._service.GetListdmKho(data).subscribe((res: any) => {
           this.listdmKho = mapArrayForDropDown(res, 'Ten', 'Id');
