@@ -153,31 +153,28 @@
                             </p-inputNumber>
                         </td>
 
-                        <td>
-                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN"
-                                [(ngModel)]="itemtbl.KhoiLuongTinhToan" disabled>
-                            </p-inputNumber>
+                        <td class="text-right">
+                            {{itemtbl.KhoiLuongTinhToan |number:'0.3-3'}}
                         </td>
                         
-                        <td *ngIf="item.CongDoan!=='CON'">
-                            <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" [minFractionDigits]="3" locale="vi-VN"
+                        <td *ngIf="itemtbl.DonViNangSuat===1" class="text-right">
+                            {{itemtbl.ChieuDai |number:'0.3-3'}}
+                        </td>
+                        <td *ngIf="itemtbl.DonViNangSuat===0">
+                            <p-inputNumber *ngIf="item.CongDoan!=='CON'" [minFractionDigits]="3" locale="vi-VN"
                                 [(ngModel)]="itemtbl.ChieuDai"
                                 (ngModelChange)="itemtbl.KhoiLuong=TinhGiaTri(itemtbl, $event)">
                             </p-inputNumber>
-                            <p-inputNumber *ngIf="itemtbl.DonViNangSuat===1" [minFractionDigits]="3" locale="vi-VN"
-                                [(ngModel)]="itemtbl.ChieuDai">
-                            </p-inputNumber>
-                        </td>
-                        <td *ngIf="item.CongDoan==='CON'">
-                            <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" [minFractionDigits]="3" locale="vi-VN"
+                            <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="vi-VN"
                                 [(ngModel)]="itemtbl.ChieuDai"
                                 (onBlur)="TinhCongThucMoi(itemtbl)">
                             </p-inputNumber>
-                            <p-inputNumber *ngIf="itemtbl.DonViNangSuat===1" [minFractionDigits]="3" locale="vi-VN"
-                                [(ngModel)]="itemtbl.ChieuDai" disabled>
-                            </p-inputNumber>
+                            <!-- <p-inputNumber *ngIf="item.CongDoan==='CHAICOTTON'" [minFractionDigits]="3" locale="vi-VN"
+                                [(ngModel)]="itemtbl.ChieuDai"
+                                (onBlur)="TinhKhoiLuongChaiCotton(itemtbl)">
+                            </p-inputNumber> -->
                         </td>
-                        
+
                         <td>
                             <input type="text" class="p-inputtext-sm" [(ngModel)]="itemtbl.GhiChu" pInputText />
                         </td>
@@ -231,7 +228,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông mùn:</label>
                             <div class="p-col-12 p-lg-8 p-p-0">
-                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.CottonBongMun"
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.CottonBongMun"
                                 (onBlur)="TinhTyLeCottonBongPhe()">
                                 </p-inputNumber>
                             </div>
