@@ -129,7 +129,7 @@
                     <tr *ngFor="let lobong of item.listLoBong; let i = index"
                         [ngStyle]="{'background-color': lobong.Mau}">
                         <td class="text-center tc-w-151" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Ma}}
+                            <a href="javascript:void(0)" (click)="timTheoBan(lobong)">{{lobong.Ma}}</a>
                             <ng-container *ngIf="lobong.isLoBongTuongLai">
                                 <br>
                                 ({{lobong.NgayVeDuKien|date:'dd/MM/yyyy'}})
@@ -247,7 +247,8 @@
                             {{TongKhoiLuongDung|number:'0.2-4'}}</td>
                         <td class="text-center tc-w-60" style="background-color:skyblue !important;"></td>
                         <td class="text-center tc-w-80" style="background-color:skyblue !important;">
-                            {{TongTyLe|number:'0.2-4'}}</td>
+                            {{TongTyLe|number:'0.2-4'}}
+                        </td>
                         <td class="text-center tc-w-80" style="background-color:skyblue !important;"></td>
                         <td class="text-center tc-w-121">
                         </td>

@@ -11,6 +11,7 @@ import { PintableDirective } from 'voi-lib';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 import { TrangthaimaysanxuatComponent } from '../../quytrinh/trangthaimaysanxuat/trangthaimaysanxuat.component';
 import { ThemlotuonglaimodalComponent } from '../layoutmodals/themlotuonglaimodal/themlotuonglaimodal.component';
+import { TimbongtheobanmodalComponent } from '../timbongtheobanmodal/timbongtheobanmodal.component';
 
 @Component({
   selector: 'app-phabongmodal',
@@ -762,5 +763,13 @@ export class PhabongmodalComponent implements OnInit {
   }
   test(){
     console.log(this.item)
+  }
+  timTheoBan(item) {
+    let modalref = this._modal.open(TimbongtheobanmodalComponent)
+    modalref.componentInstance.BanBong = '';
+    modalref.componentInstance.TenLo = item.Ma;
+    modalref.result.then(res => {
+      item.SoBanTimTuDongMax = res;
+    })
   }
 }

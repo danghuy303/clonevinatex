@@ -1031,6 +1031,9 @@ export class SanXuatService {
             },
             ExportTimBong:(IdPhuongAnPhaBong,BanBong)=>{
                 return this.http.get(url + `ExportTimBong?IdPhuongAnPhaBong=${IdPhuongAnPhaBong}&BanBong=${BanBong}`, httpOptions);
+            },
+            SetSoBanTimTuDongMax:(data)=>{
+                return this.http.post(`${url}SetSoBanTimTuDongMax`, data, httpOptions)
             }
         }
     }

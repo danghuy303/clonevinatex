@@ -247,7 +247,8 @@
                         [ngStyle]="{'background-color': lobong.Mau}">
                         <td class="text-center tc-w-151 z1"
                             [ngStyle]="{'background-color': lobong.Mau,'color':lobong.isLoBongTuongLai?'red':''}">
-                            {{lobong.Ma}}
+                            <a href="javascript:void(0)" (click)="timTheoBan(lobong)" *ngIf="isEditing">{{lobong.Ma}}</a>
+                            <span *ngIf="!isEditing">{{lobong.Ma}}</span>
                             <ng-container *ngIf="lobong.isLoBongTuongLai">
                                 <br>
                                 ({{lobong.NgayVeDuKien|date:'dd/MM/yyyy'}})
