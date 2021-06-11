@@ -274,12 +274,12 @@ export class PhabongmodalComponent implements OnInit {
         console.log(er);
       })
   }
-  themLoTuongLai(){
+  themLoTuongLai() {
     let modalRef = this._modal.open(ThemlotuonglaimodalComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.items = deepCopy((this.listLoBong || []).filter(ele=>ele.isLoBongTuongLai));
-    modalRef.componentInstance.selectedItems = deepCopy((this.item.listLoBong || []).filter(ele=>ele.isLoBongTuongLai));
+    modalRef.componentInstance.items = deepCopy((this.listLoBong || []).filter(ele => ele.isLoBongTuongLai));
+    modalRef.componentInstance.selectedItems = deepCopy((this.item.listLoBong || []).filter(ele => ele.isLoBongTuongLai));
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
-    modalRef.result.then(res=>{
+    modalRef.result.then(res => {
       console.log(res);
       let SoNgayTrienKhai = Math.floor((this.itemTrienKhaiKeHoach.DenNgayUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1);
       let _1NgayCan = this.item.KhoiLuongBong / SoNgayTrienKhai;
@@ -299,9 +299,9 @@ export class PhabongmodalComponent implements OnInit {
           lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
         }
       })
-      this.item.listLoBong=[...this.item.listLoBong,...res];
+      this.item.listLoBong = [...this.item.listLoBong, ...res];
     })
-    .catch()
+      .catch()
   }
   TinhSoBanBong(e?) {
     if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong)) {
@@ -561,8 +561,8 @@ export class PhabongmodalComponent implements OnInit {
     for (let prop in this.itemMicBQ) {
       this.item.listThongSo.push({
         Mic: this.itemMicBQ[prop],
-        b:this.itembBQ[prop],
-        CVMic:this.itemCVMic[prop],
+        b: this.itembBQ[prop],
+        CVMic: this.itemCVMic[prop],
         ThuTu: prop
       })
     }
@@ -756,12 +756,12 @@ export class PhabongmodalComponent implements OnInit {
     }
   }
 
-  ExportExcel(){
-    this._services.PhuongAnPhaBong().ExportPhuongAnPhaBong(this.item.Id).subscribe((res:any)=>{
+  ExportExcel() {
+    this._services.PhuongAnPhaBong().ExportPhuongAnPhaBong(this.item.Id).subscribe((res: any) => {
       this._services.download(res.TenFile);
     })
   }
-  test(){
+  test() {
     console.log(this.item)
   }
   timTheoBan(item) {
@@ -769,7 +769,12 @@ export class PhabongmodalComponent implements OnInit {
     modalref.componentInstance.BanBong = '';
     modalref.componentInstance.TenLo = item.Ma;
     modalref.result.then(res => {
-      item.SoBanTimTuDongMax = res;
+      if (validVariable(res.trim())){
+        item.SoBanTimTuDongMax = res;
+      }
+      else {
+        item.SoBanTimTuDongMax = null;
+      }
     })
   }
 }
