@@ -60,10 +60,10 @@
                             {{item.Ten}}
                         </td>
                         <td>{{item.TenLoHang}}</td>
-                        <td class="text-right">{{item.TonSoLuong|number:'0.0-0'}}</td>
+                        <td class="text-right">{{item.TonSoLuong|number:'0.0-3'}}</td>
                         <!-- <td class="text-right">{{item.TonTongTrongLuong|number:'0.2-2'}}</td> -->
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [max]="item.Ton"
+                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [max]="item.Ton"
                                 [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>

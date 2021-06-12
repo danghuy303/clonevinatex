@@ -17,6 +17,11 @@ export class MathangdaomodalComponent implements OnInit {
   constructor(private _activeModal: NgbActiveModal, private _services: SanXuatService) { }
 
   ngOnInit(): void {
+    if(this.items.length > 0){
+      this.items.forEach(element => {
+        element.SoLuong = element.TonSoLuong
+      });
+    }
   }
   resetFilter() {
     this.KeyWord = '';

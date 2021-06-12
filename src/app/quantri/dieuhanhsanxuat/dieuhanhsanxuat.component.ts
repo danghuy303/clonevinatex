@@ -392,6 +392,9 @@ export class DieuhanhsanxuatComponent implements OnInit {
 
       '20': '/quantri/quanlykhosanxuat/khoxo/nhapkho/',
       '21': '/quantri/quanlykhosanxuatbongkhac/khobonghoi/nhapkho/',
+      '22': '/quantri/quanlykhosanxuatbongkhac/khobonghoi/xuatkho/',
+      '23': '/quantri/quanlykhosanxuat/khobonghoi/kiemkekhobonghoi/',
+      '24': '/quantri/quanlykhosanxuat/khobongphe/kiemkekhobongphe/',
     }
     // if (this.selectedXuatNhap.opt === 'Xuat') {
     //   window.open(`#${this.mapXuatNhapRoute[this.selectedXuatNhap.opt]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`] || 0}`, "_blank");
@@ -415,6 +418,9 @@ export class DieuhanhsanxuatComponent implements OnInit {
 
       '20': '/quantri/quanlykhosanxuat/khoxo/nhapkho/',
       '21': '/quantri/quanlykhosanxuatbongkhac/khobonghoi/nhapkho/',
+      '22': '/quantri/quanlykhosanxuatbongkhac/khobonghoi/xuatkho/',
+      '23': '/quantri/quanlykhosanxuat/khobonghoi/kiemkekhobonghoi/',
+      '24': '/quantri/quanlykhosanxuat/khobongphe/kiemkekhobongphe/',
     }
     window.open(`#${route[`${item.LoaiPhieu}`]}${item.IdPhieuKiemKe || 0}`, "_blank");
     // this._router.navigate([`${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKeKho||0}`])
