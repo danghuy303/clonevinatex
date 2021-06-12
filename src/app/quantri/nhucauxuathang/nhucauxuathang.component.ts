@@ -110,6 +110,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
         render: 'percentage',
         fontColor: '#fff',
         fontStyle: 'bold',
+        precision: 2
       }
     },
     legend: {

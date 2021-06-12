@@ -200,10 +200,10 @@ export class SanxuatmodalComponent implements OnInit {
         tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
       }
     });
-    if (tempSLD + this.item.listLoBong[y].tempBanBong[`${x}`].SoKien > this.item.listLoBong[y].SoLuongKien) {
-      this._toastr.warning('Bạn vừa nhập quá số lượng kiện tồn trong kho! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!');
-      this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
-    }
+    // if (tempSLD + this.item.listLoBong[y].tempBanBong[`${x}`].SoKien > this.item.listLoBong[y].SoLuongKien) {
+    //   this._toastr.warning('Bạn vừa nhập quá số lượng kiện tồn trong kho! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!');
+    //   this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
+    // }
     if (tempSoKien1Line + this.item.listLoBong[y].tempBanBong[`${x}`].SoKien > this.item.TongSoKien) {
       this._toastr.warning('Bạn vừa nhập quá số lượng kiện bông trên 1 bàn bông! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!');
       this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;

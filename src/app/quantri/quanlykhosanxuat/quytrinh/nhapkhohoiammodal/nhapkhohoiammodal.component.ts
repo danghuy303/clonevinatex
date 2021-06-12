@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
@@ -263,5 +264,12 @@ export class NhapkhohoiammodalComponent implements OnInit {
     this.item.listItem.forEach(mh => {
       mh.KLTT = (mh.SoQuaSoiThucTe||0) * (mh.KgCone||0);
     });
+  }
+  tinhToan(item, opt) {
+    let modalRef = this._modal.open(CalcmodalComponent)
+    modalRef.result.then((res) => {
+      item[opt]=res;
+      this.tinhKLTT(item);
+    })
   }
 }

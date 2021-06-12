@@ -282,13 +282,13 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     }
   }
   ThemMatHangDao() {
-    this.services.CanDoiChuyen().GetlistdmMatHangDao(this.addonData.IddmPhanXuong).subscribe(res => {
+    this.services.CanDoiChuyen().GetlistdmMatHangDao(this.addonData.IddmPhanXuong).subscribe((res:Array<any>) => {
       console.log(res);
       let modalRef = this._modal.open(MathangdaomodalComponent, {
         backdrop: 'static',
         size: 'lg'
       });
-      modalRef.componentInstance.items = deepCopy(res);
+      modalRef.componentInstance.items = deepCopy(res.map(ele=>{return{...ele,SoLuong:ele.TonSoLuong}}));
       modalRef.result.then((res: Array<any>) => {
         let data = res.map(ele => {
           return {

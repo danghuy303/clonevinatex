@@ -153,9 +153,15 @@
                             </p-inputNumber>
                         </td> -->
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe"
-                            (onBlur)="tinhKLTT(item)">
-                            </p-inputNumber>
+                            <div style="display: inline-flex;">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe"
+                                (onBlur)="tinhKLTT(item)">
+                                </p-inputNumber>
+                                <button pButton pRipple icon="pi pi-ellipsis-v"
+                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                    (click)="tinhToan(item,'SoQuaSoiThucTe')" pTooltip="Tính toán" showDelay="1000"
+                                    tooltipPosition="bottom"></button>
+                            </div>
                         </td>
                         <!-- <td class="text-right">
                             {{item.LuyKeSoQua}}

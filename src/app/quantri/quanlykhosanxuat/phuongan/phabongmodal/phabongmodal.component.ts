@@ -10,6 +10,8 @@ import { CVMic, CVMic2, deepCopy, mapArrayForDropDown, validVariable } from 'src
 import { PintableDirective } from 'voi-lib';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 import { TrangthaimaysanxuatComponent } from '../../quytrinh/trangthaimaysanxuat/trangthaimaysanxuat.component';
+import { ThemlotuonglaimodalComponent } from '../layoutmodals/themlotuonglaimodal/themlotuonglaimodal.component';
+import { TimbongtheobanmodalComponent } from '../timbongtheobanmodal/timbongtheobanmodal.component';
 
 @Component({
   selector: 'app-phabongmodal',
@@ -233,7 +235,6 @@ export class PhabongmodalComponent implements OnInit {
         }, 0)
         this.item.KhoiLuongKienTrungBinh = TongKhoiLuong / (res.length);
         // .filter(ele=>!ele.isLoBongTuongLai)
-        // .filter(ele=>!ele.isLoBongTuongLai)
         let TongChatLuong = {
           Mic: 0,
           Rd: 0,
@@ -273,8 +274,36 @@ export class PhabongmodalComponent implements OnInit {
         console.log(er);
       })
   }
+  themLoTuongLai() {
+    let modalRef = this._modal.open(ThemlotuonglaimodalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.items = deepCopy((this.listLoBong || []).filter(ele => ele.isLoBongTuongLai));
+    modalRef.componentInstance.selectedItems = deepCopy((this.item.listLoBong || []).filter(ele => ele.isLoBongTuongLai));
+    modalRef.componentInstance.IdQuyTrinh = this.item.Id;
+    modalRef.result.then(res => {
+      console.log(res);
+      let SoNgayTrienKhai = Math.floor((this.itemTrienKhaiKeHoach.DenNgayUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1);
+      let _1NgayCan = this.item.KhoiLuongBong / SoNgayTrienKhai;
+      let TrongLuongTrungBinh1Ban = this.item.KhoiLuongKienTrungBinh * this.item.TongSoKien;
+      let TyLeBongCan = _1NgayCan / TrongLuongTrungBinh1Ban;
+      res.forEach((lobong, index) => {
+        lobong.tempBanBong = {};
+        for (let i = 1; i <= this.item.SoBanBong; i++) {
+          lobong.tempBanBong[`${i}`] = deepCopy({
+            SoKien: null,
+            tabIndex: -1
+          });
+        }
+        if (lobong.isLoBongTuongLai) {
+          console.log('tuonglaiiiiii')
+          let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
+          lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
+        }
+      })
+      this.item.listLoBong = [...this.item.listLoBong, ...res];
+    })
+      .catch()
+  }
   TinhSoBanBong(e?) {
-    
     if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong)) {
       this.item.SoBanBong = Math.ceil(this.item.KhoiLuongBong / (this.item.TongSoKien * this.item.KhoiLuongKienTrungBinh));
       this.listProps = [];
@@ -289,7 +318,6 @@ export class PhabongmodalComponent implements OnInit {
         lobong.tempBanBong = {};
         console.log(this.item.SoBanBong);
         for (let i = 1; i <= this.item.SoBanBong; i++) {
-
           lobong.tempBanBong[`${i}`] = deepCopy({
             SoKien: null,
             tabIndex: ((i - 1) * this.item.listLoBong.length) + index + 1
@@ -396,10 +424,10 @@ export class PhabongmodalComponent implements OnInit {
         tempSoKien1Line += lobong.tempBanBong[`${x}`].SoKien;
       }
     });
-    if (tempSLD + this.item.listLoBong[y].tempBanBong[`${x}`].SoKien > this.item.listLoBong[y].SoLuongKien) {
-      this._toastr.warning('Bạn vừa nhập quá số lượng kiện tồn trong kho! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!');
-      this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
-    }
+    // if (tempSLD + this.item.listLoBong[y].tempBanBong[`${x}`].SoKien > this.item.listLoBong[y].SoLuongKien) {
+    //   this._toastr.warning('Bạn vừa nhập quá số lượng kiện tồn trong kho! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!');
+    //   this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
+    // }
     if (tempSoKien1Line + this.item.listLoBong[y].tempBanBong[`${x}`].SoKien > this.item.TongSoKien) {
       this._toastr.warning('Bạn vừa nhập quá số lượng kiện bông trên 1 bàn bông! Chúng tôi sẽ điều chỉnh về 0 tránh gây lỗi nghiêm trọng!');
       this.item.listLoBong[y].tempBanBong[`${x}`].SoKien = null;
@@ -533,8 +561,8 @@ export class PhabongmodalComponent implements OnInit {
     for (let prop in this.itemMicBQ) {
       this.item.listThongSo.push({
         Mic: this.itemMicBQ[prop],
-        b:this.itembBQ[prop],
-        CVMic:this.itemCVMic[prop],
+        b: this.itembBQ[prop],
+        CVMic: this.itemCVMic[prop],
         ThuTu: prop
       })
     }
@@ -577,6 +605,7 @@ export class PhabongmodalComponent implements OnInit {
       this._services.PhuongAnPhaBong().UpdateDieuChinhPhuongAnPhaBong(this.SetData()).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
+            this.isEditing = false;
             this._toastr.success(res.message);
           } else {
             this._toastr.error(res.message);
@@ -603,7 +632,8 @@ export class PhabongmodalComponent implements OnInit {
       this.GetListTrienKhaiKeHoach();
       this.KiemTraButtonModal();
       this.KiemTraButtonDieuChinhPhuongAnPhaBong();
-      this.isEditing =true;
+      this.GetLoBongTrongKho();
+      this.isEditing = true;
     })
   }
   ChuyenDuyet() {
@@ -726,9 +756,25 @@ export class PhabongmodalComponent implements OnInit {
     }
   }
 
-  ExportExcel(){
-    this._services.PhuongAnPhaBong().ExportPhuongAnPhaBong(this.item.Id).subscribe((res:any)=>{
+  ExportExcel() {
+    this._services.PhuongAnPhaBong().ExportPhuongAnPhaBong(this.item.Id).subscribe((res: any) => {
       this._services.download(res.TenFile);
+    })
+  }
+  test() {
+    console.log(this.item)
+  }
+  timTheoBan(item) {
+    let modalref = this._modal.open(TimbongtheobanmodalComponent)
+    modalref.componentInstance.BanBong = '';
+    modalref.componentInstance.TenLo = item.Ma;
+    modalref.result.then(res => {
+      if (validVariable(res.trim())){
+        item.SoBanTimTuDongMax = res;
+      }
+      else {
+        item.SoBanTimTuDongMax = null;
+      }
     })
   }
 }

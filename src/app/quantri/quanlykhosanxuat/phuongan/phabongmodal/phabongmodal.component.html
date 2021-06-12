@@ -31,9 +31,11 @@
                 (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
             <button pButton pRipple type="button" label="Điều chỉnh phương án" class="p-mr-2 p-button-sm"
                 (click)="LamMoiDeDieuChinh()" *ngIf="checkbuttonDieuChinh&&!isEditing"></button>
-            <button pButton pRipple type="button" label="Chấp nhận điều chỉnh" class="p-mr-2 p-button-sm p-button-success"
-                (click)="DieuChinh()" *ngIf="checkbuttonDieuChinh&&isEditing"></button>
-            <button *ngIf="item.Id!==''" pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm" (click)="ExportExcel()"></button>
+            <button pButton pRipple type="button" label="Chấp nhận điều chỉnh"
+                class="p-mr-2 p-button-sm p-button-success" (click)="DieuChinh()"
+                *ngIf="checkbuttonDieuChinh&&isEditing"></button>
+            <button *ngIf="item.Id!==''" pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm"
+                (click)="ExportExcel()"></button>
         </div>
     </div>
     <div class="p-grid">
@@ -89,9 +91,11 @@
         </div>
         <div class="p-col-12 d-flex flex-row p-p-0">
             <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm"
-                (click)="chonHangHoa()"></button>
-            <button pButton pRipple type="button" label="Chọn lô bông" class="p-mr-2 p-button-sm"
-                (click)="chonLoBong()"></button>
+                (click)="chonHangHoa()" *ngIf="checkbutton.Ghi"></button>
+            <button pButton pRipple type="button" label="Chọn lô bông" class="p-mr-2 p-button-sm" (click)="chonLoBong()"
+                *ngIf="checkbutton.Ghi"></button>
+            <button pButton pRipple type="button" label="Thêm lô bông tương lai" class="p-mr-2 p-button-sm"
+                (click)="themLoTuongLai()" *ngIf="checkbuttonDieuChinh&&isEditing"></button>
         </div>
         <div class="p-col-12">
             <h5>
@@ -163,12 +167,12 @@
                         <th rowspan="3" class="tc-w-151">
                             Thành phần bông
                         </th>
-                        <th rowspan="3" class="tc-w-60">Tồn đầu</th>
+                        <th rowspan="3" class="tc-w-60">Tồn kiểm kê</th>
+                        <th rowspan="3" class="tc-w-60">Tồn thực tế</th>
                         <th rowspan="3" class="tc-w-100">Số lượng dùng</th>
                         <th rowspan="3" class="tc-w-60">Tồn cuối</th>
                         <th rowspan="3" class="tc-w-80">Tỷ lệ</th>
                         <th rowspan="3" class="tc-w-80"> LK Tỷ lệ</th>
-                        <th rowspan="3" class="tc-w-50">Mic</th>
                         <th rowspan="3" class="tc-w-121">
                             Số hợp đồng
                         </th>
@@ -182,7 +186,7 @@
                         <th rowspan="3" class="tc-w-60">
                             Neps bông
                         </th>
-                        <th colspan="8">Chất lượng bông</th>
+                        <th colspan="9">Chất lượng bông</th>
                         <!-- <th style="display: none;"></th>
                         <th style="display: none;"></th> -->
                         <th [attr.colspan]="listProps.length">Bàn bông
@@ -202,6 +206,7 @@
                         <th rowspan="2" style="display: none;"></th>
                         <th rowspan="2" style="display: none;"></th>
                         <th rowspan="2" style="display: none;"></th>
+                        <th rowspan="2" class="tc-w-50">Mic</th>
                         <th rowspan="2" class="tc-w-50">Mat</th>
                         <th rowspan="2" class="tc-w-60">UHML</th>
                         <th rowspan="2" class="tc-w-50">Str</th>
@@ -222,7 +227,6 @@
                         <th style="display: none;"></th>
                         <th style="display: none;"></th>
                         <th style="display: none;"></th>
-
                         <th *ngFor="let ban of listProps" class="tc-w-50">
                             <button *ngIf="!isCopying" class="btn btn-ss btn-primary" (click)="copy(ban)">
                                 <i class="fas fa-angle-double-up"></i>
@@ -243,12 +247,16 @@
                         [ngStyle]="{'background-color': lobong.Mau}">
                         <td class="text-center tc-w-151 z1"
                             [ngStyle]="{'background-color': lobong.Mau,'color':lobong.isLoBongTuongLai?'red':''}">
+                            <!-- <a href="javascript:void(0)" (click)="timTheoBan(lobong)" *ngIf="isEditing">{{lobong.Ma}}</a> -->
+                            <!-- <span *ngIf="!isEditing">{{lobong.Ma}}</span> -->
                             {{lobong.Ma}}
                             <ng-container *ngIf="lobong.isLoBongTuongLai">
                                 <br>
                                 ({{lobong.NgayVeDuKien|date:'dd/MM/yyyy'}})
                             </ng-container>
                         </td>
+                        <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.SoLuongKien_KiemKe}}</td>
                         <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.SoLuongKien}}</td>
                         <td class="text-center tc-w-100 z1" [ngStyle]="{'background-color': lobong.Mau}">
@@ -259,8 +267,7 @@
                             {{lobong.TyLe|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-80 z1" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.LuyKeTyLe|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Mic|number:'0.2-2'}}</td>
+
                         <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.SoHopDong}}
                         </td>
@@ -277,6 +284,8 @@
                             {{lobong.Nep|number:'0.2-2'}}
                             <!-- Neps -->
                         </td>
+                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                            {{lobong.Mic|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
                             {{lobong.Mat|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
@@ -358,14 +367,14 @@
                             bông</td>
                         <td class="text-center tc-w-60" style="background-color:skyblue !important;">
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:skyblue !important;">
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:skyblue !important;">
                             {{TongKhoiLuongDung|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-60" style="background-color:skyblue !important;"></td>
                         <td class="text-center tc-w-80" style="background-color:skyblue !important;">
                             {{TongTyLe|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-80" style="background-color:skyblue !important;"></td>
-                        <td class="text-center tc-w-50" style="background-color:skyblue !important;">
-                        </td>
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -376,7 +385,8 @@
                         </td>
                         <td class="text-center tc-w-60">
                         </td>
-                        
+                        <td class="text-center tc-w-50">
+                        </td>
                         <td class="text-center tc-w-50">
                         </td>
                         <td class="text-center tc-w-60">
@@ -404,12 +414,12 @@
                         <td class="text-center tc-w-151" style="background-color:white !important;">Bình quân bàn bông
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;"></td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-100" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-60" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">
                             Số kiện nguyên</td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
-                        <td class="text-center tc-w-50" style="background-color:white !important;">{{ChatLuongBinhQuan.Mic|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -420,6 +430,7 @@
                         </td>
                         <td class="text-center tc-w-60">
                         </td>
+                        <td class="text-center tc-w-50">{{ChatLuongBinhQuan.Mic|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-50">{{ChatLuongBinhQuan.Mat|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-60">{{ChatLuongBinhQuan.UHML|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-50">{{ChatLuongBinhQuan.Str|number:'0.2-2'}}</td>
@@ -441,6 +452,9 @@
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                             <!-- {{ThongSoKienTheoLoaiBong?.BR?.TonDau}} -->
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.BR?.TonDau}} -->
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:white !important;">
                             <!-- {{ThongSoKienTheoLoaiBong?.BR?.SoLuongDung}} -->
                         </td>
@@ -451,8 +465,7 @@
                             Mic B/Q
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
-                        <td class="text-center tc-w-50" style="background-color:white !important;">
-                        </td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -462,6 +475,8 @@
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
                         </td>
                         <td class="text-center tc-w-50">
                         </td>
@@ -493,6 +508,9 @@
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                             <!-- {{ThongSoKienTheoLoaiBong?.MY?.TonDau}} -->
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.MY?.TonDau}} -->
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:white !important;">
                             <!-- {{ThongSoKienTheoLoaiBong?.MY?.SoLuongDung}} -->
                         </td>
@@ -503,8 +521,7 @@
                             CV%Mic
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
-                        <td class="text-center tc-w-50" style="background-color:white !important;">
-                        </td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -515,6 +532,7 @@
                         </td>
                         <td class="text-center tc-w-60">
                         </td>
+                        <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50">
                         </td>
                         <td class="text-center tc-w-60">
@@ -544,6 +562,9 @@
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                             <!-- {{ThongSoKienTheoLoaiBong?.TP?.TonDau}} -->
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.TP?.TonDau}} -->
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:white !important;">
                             <!-- {{ThongSoKienTheoLoaiBong?.TP?.SoLuongDung}} -->
                         </td>
@@ -554,8 +575,7 @@
                             Mic TT
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
-                        <td class="text-center tc-w-50" style="background-color:white !important;">
-                        </td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -565,6 +585,8 @@
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
                         </td>
                         <td class="text-center tc-w-50">
                         </td>
@@ -594,6 +616,8 @@
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:white !important;">
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
@@ -602,8 +626,7 @@
                             CV%Mic TT
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
-                        <td class="text-center tc-w-50" style="background-color:white !important;">
-                        </td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -613,6 +636,8 @@
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
                         </td>
                         <td class="text-center tc-w-50">
                         </td>
@@ -642,6 +667,8 @@
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:white !important;">
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
@@ -650,8 +677,7 @@
                             Tỷ lệ hồi pha
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
-                        <td class="text-center tc-w-50" style="background-color:white !important;">
-                        </td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -661,6 +687,8 @@
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
                         </td>
                         <td class="text-center tc-w-50">
                         </td>
@@ -690,6 +718,8 @@
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:white !important;">
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
@@ -698,8 +728,7 @@
                             +b
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
-                        <td class="text-center tc-w-50" style="background-color:white !important;">
-                        </td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -709,6 +738,8 @@
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
                         </td>
                         <td class="text-center tc-w-50">
                         </td>
@@ -739,6 +770,8 @@
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:white !important;">
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
@@ -747,8 +780,7 @@
                             &Delta; +b
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
-                        <td class="text-center tc-w-50" style="background-color:white !important;">
-                        </td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -758,6 +790,8 @@
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
                         </td>
                         <td class="text-center tc-w-50">
                         </td>
@@ -787,6 +821,8 @@
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:white !important;">
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
@@ -796,8 +832,7 @@
                             Trọng lượng 1 bàn
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
-                        <td class="text-center tc-w-50" style="background-color:white !important;">
-                        </td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -807,6 +842,8 @@
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
                         </td>
                         <td class="text-center tc-w-50">
                         </td>
@@ -838,6 +875,8 @@
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:white !important;">
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
@@ -847,8 +886,7 @@
                             B/Q giá bông
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
-                        <td class="text-center tc-w-50" style="background-color:white !important;">
-                        </td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -858,6 +896,8 @@
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
+                        </td>
+                        <td class="text-center tc-w-50">
                         </td>
                         <td class="text-center tc-w-50">
                         </td>

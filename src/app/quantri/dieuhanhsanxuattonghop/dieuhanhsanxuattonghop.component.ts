@@ -51,6 +51,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         render: 'percentage',
         fontColor: '#fff',
         fontStyle: 'bold',
+        precision: 2
       }
     },
     legend: {
@@ -322,7 +323,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
 
   BieuDoCoCau() {
     this.filter.IdDuAn = this.IdDuAn;
-    let data: any = { IdDuAn: this.filter.IdDuAn, IddmPhanXuong: this.filter.IddmPhanXuong, nNam: this.filter.nNam };
+    let data: any = { IdDuAn: this.filter.IdDuAn, IddmPhanXuong: this.filter.IddmPhanXuong, nNam: this.filter.nNam,nThang:this.filter.nThang };
     this._services.BaoCao().BieuDoCoCau(data).subscribe((res: any) => {
       this.mapIndex_Ma = deepCopy(res.labels);
       res.labels = this.mapIndex_Ma.map(lb => {
