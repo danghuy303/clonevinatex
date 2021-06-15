@@ -1960,5 +1960,32 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho;
         return this.http.get(url + `GetThongTinKien?IddmItem=${IddmItem}`, httpOptions);
     }
-
+    PhieuKiemKeHoiAm() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuKiemKeHoiAm', httpOptions);
+            },
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetListPhieuKiemKeHoiAm', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuKiemKeHoiAm?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetPhieuKiemKeHoiAm', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuKiemKeHoiAm', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhieuKiemKeHoiAm', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuKiemKeHoiAm', data, httpOptions)
+            },
+        }
+    }
 }

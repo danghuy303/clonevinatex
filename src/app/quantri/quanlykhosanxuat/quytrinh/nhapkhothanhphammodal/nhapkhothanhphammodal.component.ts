@@ -7,7 +7,6 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 import {DecimalPipe} from '@angular/common';
-import { truncateWithEllipsis } from '@amcharts/amcharts4/.internal/core/utils/Utils';
 
 @Component({
   selector: 'app-nhapkhothanhphammodal',

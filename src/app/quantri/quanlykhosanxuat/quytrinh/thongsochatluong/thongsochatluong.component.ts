@@ -69,7 +69,8 @@ export class ThongsochatluongComponent implements OnInit {
       }
     })
     let data = {
-      CurrentPage : 0
+      Loai: 1,
+      CurrentPage : 0,
     }
     this._service.GetListLoBong(data).subscribe((res: any) => {
       this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');;

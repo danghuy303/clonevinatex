@@ -295,6 +295,12 @@ import { CalcmodalComponent } from './modal/calcmodal/calcmodal.component';
 import { ThemlotuonglaimodalComponent } from './quanlykhosanxuat/phuongan/layoutmodals/themlotuonglaimodal/themlotuonglaimodal.component';
 import { XuatexceltimbongmodalComponent } from './quanlykhosanxuat/phuongan/xuatexceltimbongmodal/xuatexceltimbongmodal.component';
 import { TimbongtheobanmodalComponent } from './quanlykhosanxuat/phuongan/timbongtheobanmodal/timbongtheobanmodal.component';
+import { HoiamkiemkekhoComponent } from './quanlykhosanxuat/quytrinh/hoiamkiemkekho/hoiamkiemkekho.component';
+import { HoiamkiemkekhomodalComponent } from './quanlykhosanxuat/quytrinh/hoiamkiemkekhomodal/hoiamkiemkekhomodal.component';
+import { TonkhohoiamComponent } from './quanlykhosanxuat/quytrinh/tonkhohoiam/tonkhohoiam.component';
+import { TonkhohoiammodalComponent } from './quanlykhosanxuat/quytrinh/tonkhohoiammodal/tonkhohoiammodal.component';
+import { XuatkhohoiamComponent } from './quanlykhosanxuat/quytrinh/xuatkhohoiam/xuatkhohoiam.component';
+import { XuatkhohoiammodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhohoiammodal/xuatkhohoiammodal.component';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -541,6 +547,12 @@ import { TimbongtheobanmodalComponent } from './quanlykhosanxuat/phuongan/timbon
     ThemlotuonglaimodalComponent,
     XuatexceltimbongmodalComponent,
     TimbongtheobanmodalComponent,
+    HoiamkiemkekhoComponent,
+    HoiamkiemkekhomodalComponent,
+    TonkhohoiamComponent,
+    TonkhohoiammodalComponent,
+    XuatkhohoiamComponent,
+    XuatkhohoiammodalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -694,7 +706,11 @@ import { TimbongtheobanmodalComponent } from './quanlykhosanxuat/phuongan/timbon
     CalcmodalComponent,
     ThemlotuonglaimodalComponent,
     XuatexceltimbongmodalComponent,
-    TimbongtheobanmodalComponent
+    TimbongtheobanmodalComponent,
+    HoiamkiemkekhomodalComponent,
+    TonkhohoiammodalComponent,
+    XuatkhohoiammodalComponent,
+
   ],
   providers: [
     SanXuatService,

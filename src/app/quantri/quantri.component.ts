@@ -584,6 +584,12 @@ export class QuantriComponent implements OnInit {
                         separator: this.checkmenu("NHAPHOIAM"),
                         command: () => this.close()
                     },
+                    // {
+                    //     label: 'Xuất kho',
+                    //     routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/xuatkho/0',
+                    //     separator: this.checkmenu("NHAPTHANHPHAM"),
+                    //     command: () => this.close()
+                    // },
                     {
                         label: 'Chất lượng sợi',
                         routerLink: '/quantri/quanlysanxuatkhohoiam/khohoiam/chatluongsoi/0',
@@ -596,6 +602,12 @@ export class QuantriComponent implements OnInit {
                         separator: this.checkmenu("PHIEUHACAP"),
                         command: () => this.close()
                     },
+                    // {
+                    //     label: 'Kiểm kê kho',
+                    //     routerLink: '/quantri/quanlysanxuatkhohoiam/quanlysanxuatkhohoiam/kiemkekho/0',
+                    //     separator: this.checkmenu("KIEMKEKHOHOIAM"),
+                    //     command: () => this.close()
+                    // },
                     // {
                     //     label: 'Thẻ kho',
                     //     routerLink: '/quantri/quanlykhosanxuat/tonkho/khohoiam/0',

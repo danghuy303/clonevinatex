@@ -178,6 +178,9 @@ export class NhapkhomodalComponent implements OnInit {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+              this.item.Ngay = UnixToDate(this.item.NgayUnix);
+            }
             console.log(this.type)
             this.KiemTraButtonModal();
           } else {

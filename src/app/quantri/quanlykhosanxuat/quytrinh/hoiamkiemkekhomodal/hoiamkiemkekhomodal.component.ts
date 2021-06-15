@@ -1,23 +1,18 @@
-import { truncateWithEllipsis } from "@amcharts/amcharts4/.internal/core/utils/Utils";
-import { Component, OnInit, resolveForwardRef, ViewChild } from "@angular/core";
-import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { ToastrService } from "ngx-toastr";
-import { ModalthongbaoComponent } from "src/app/quantri/modal/modalthongbao/modalthongbao.component";
-import { SanXuatService } from "src/app/services/callApiSanXuat";
-import {
-    deepCopy,
-    mapArrayForDropDown,
-    validVariable,
-} from "src/app/services/globalfunction";
-import { ImportnhapkhothanhphamComponent } from "../nhapkhothanhphammodal/modals/importnhapkhothanhpham/importnhapkhothanhpham.component";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
-    selector: "app-kiemkekhomodal",
-    templateUrl: "./kiemkekhomodal.component.html",
-    styleUrls: ["./kiemkekhomodal.component.css"],
+  selector: 'app-hoiamkiemkekhomodal',
+  templateUrl: './hoiamkiemkekhomodal.component.html',
+  styleUrls: ['./hoiamkiemkekhomodal.component.css']
 })
-export class KiemkekhomodalComponent implements OnInit {
-    @ViewChild("paginator") paginator: any;
+export class HoiamkiemkekhomodalComponent implements OnInit {
+
+  @ViewChild("paginator") paginator: any;
     opt: any = "";
     Id: any = "";
     item: any = {};
@@ -32,17 +27,15 @@ export class KiemkekhomodalComponent implements OnInit {
     listdmViTri: any = [];
     listLoBong: any = [];
     listLoHang: any = [];
-    listQuyCachDongGoi: any = [];
     listNewMatHang: any = [];
     listNewMatHang_ref: any = [];
     isKhoThanhPham: any = false;
     paging: any = {
         CurrentPage: 1,
         TotalPage: 5,
-        TotalItem: 10
+        TotalItem: 0
     };
     listItem: any = [];
-    // item_new: any = {};
     title: any = "";
     newItem: any = {};
     constructor(
@@ -55,16 +48,8 @@ export class KiemkekhomodalComponent implements OnInit {
     ngOnInit(): void {
         var data: any = {};
         data.CurrentPage = 0;
-        // if (this.title === "khobong") {
-        //     data.Loai = 2;
-        //     this.item_new.Loai = 2;
-        // } else if (this.title === "khoxo") {
-        //     data.Loai = 5;
-        //     this.item_new.Loai = 5;
-        // } else if (this.title === "khothanhpham") {
-        data.Loai = 11;
-        this.item.Loai = 11;
-
+        data.Loai = 10;
+        this.item.Loai = 10;
         this.services
             .LoHang()
             .GetList(data)
@@ -80,41 +65,22 @@ export class KiemkekhomodalComponent implements OnInit {
             this.item.listItem = [];
             this.listItem = this.item.listItem;
 
-        } else {
+        } 
+        else {
             this.GetQuyTrinh();
         }
-        // this.item_new = this.item;
 
-        var data: any = {};
-        data.CurrentPage = 0;
-        // if (this.title === "khobong") {
-        //     data.Loai = 2;
-        //     this.item_new.Loai = 2;
-        // } else if (this.title === "khoxo") {
-        //     data.Loai = 5;
-        //     this.item_new.Loai = 5;
-        // } else if (this.title === "khothanhpham") {
-        data.Loai = 11;
-        this.item.Loai = 11;
-        // }
-        
         this.services.GetListdmViTriOpt().subscribe((res: any) => {
             this.listdmViTri = mapArrayForDropDown(res, "Ten", "Id");
         });
         
-        this.services
-            .dmQuyCachDongGoi()
-            .GetList()
-            .subscribe((res: any) => {
-                this.listQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
-            });
-        this.services
-            .PhieuKiemKeKho()
-            .GetlistdmMatHangThanhPhamKiemKe()
-            .subscribe((res: any) => {
-                this.listNewMatHang = mapArrayForDropDown(res.map(ele=>{return{...ele,Ten:`${ele.Ma} - ${ele.Ten}`}}), "Ten", "Id");
-                this.listNewMatHang_ref = res;
-            });
+        // this.services
+        //     .PhieuKiemKeKho()
+        //     .GetlistdmMatHangThanhPhamKiemKe()
+        //     .subscribe((res: any) => {
+        //         this.listNewMatHang = mapArrayForDropDown(res.map(ele=>{return{...ele,Ten:`${ele.Ma} - ${ele.Ten}`}}), "Ten", "Id");
+        //         this.listNewMatHang_ref = res;
+        //     });
     }
     getdmKhoFunc() {
         this.getListLoHangTheodmkho();
@@ -133,7 +99,7 @@ export class KiemkekhomodalComponent implements OnInit {
     }
     GetQuyTrinh() {
         this.services
-            .PhieuKiemKeKho()
+            .PhieuKiemKeHoiAm()
             .Get(this.Id)
             .subscribe((res1: any) => {
                 this.item = res1;
@@ -162,13 +128,9 @@ export class KiemkekhomodalComponent implements OnInit {
         if (this.item.IdLoHang === null || this.item.IdLoHang === undefined) {
             this.toastr.error("Bạn chưa chọn lô hàng");
         }
-        else if (this.checkQuyCach()) {
-            this.toastr.error("Bạn chưa chọn quy cách đóng gói");
-        }
         else {
-            // this.item.listItem = deepCopy(this.listItem);
             this.services
-                .PhieuKiemKeKho()
+                .PhieuKiemKeHoiAm()
                 .ChuyenTiep(this.item)
                 .subscribe((res: any) => {
                     if (res) {
@@ -185,7 +147,7 @@ export class KiemkekhomodalComponent implements OnInit {
 
     GetNextSoQuyTrinh() {
         this.services
-            .PhieuKiemKeKho()
+            .PhieuKiemKeHoiAm()
             .GetNextSo()
             .subscribe((res: any) => {
                 this.item.SoQuyTrinh = res.SoQuyTrinh;
@@ -194,19 +156,14 @@ export class KiemkekhomodalComponent implements OnInit {
 
     GhiLai() {
         if (validVariable(this.newItem.IddmItem)) {
-            // this.item.listItem.push(deepCopy(this.newItem));
-            // this.newItem = {};
             this.add();
         }
         if (this.item.IdLoHang === null || this.item.IdLoHang === undefined) {
             this.toastr.error("Bạn chưa chọn lô hàng");
         }
-        else if (this.checkQuyCach()) {
-            this.toastr.error("Bạn chưa chọn quy cách đóng gói");
-        }
         else {
             this.services
-                .PhieuKiemKeKho()
+                .PhieuKiemKeHoiAm()
                 .Set(this.item)
                 .subscribe((res: any) => {
                     if (res) {
@@ -216,17 +173,6 @@ export class KiemkekhomodalComponent implements OnInit {
                             this.opt = "edit";
                             this.Id = res.objectReturn.Id;
                             this.GetQuyTrinh()
-                            // this.item = res.objectReturn;
-                            // this.listItem = res.objectReturn.listItem;
-                            // this.paging.CurrentPage = 1;
-                            // this.paging.TotalPage = 5;
-                            // if (
-                            //     res.objectReturn.listItem != undefined &&
-                            //     res.objectReturn.listItem != null
-                            // )
-                            //     this.paging.TotalItem = res.objectReturn.listItem.length;
-                            // this.item.listItem = res.objectReturn.listItem.slice(0, 10);
-                            // this.KiemTraButtonModal();
                         } else {
                             this.toastr.error(res.message);
                         }
@@ -244,7 +190,7 @@ export class KiemkekhomodalComponent implements OnInit {
         modalRef.result
             .then((res) => {
                 this.services
-                    .PhieuKiemKeKho()
+                    .PhieuKiemKeHoiAm()
                     .Delete(this.item)
                     .subscribe((res: any) => {
                         console.log(res);
@@ -261,17 +207,17 @@ export class KiemkekhomodalComponent implements OnInit {
 
     delete(index) {
         let item = this.item.listItem.splice(index, 1)[0];
-        // this.item.listItem.splice(index, 1);
         this.listItem.splice(index, 1);
         if (item.Id === "" || item.Id === null || item.Id === undefined) {
         } else {
             item.isXoa = true;
-            // this.item.listItem.push(JSON.parse(JSON.stringify(item)));
             this.item.listItem.push(JSON.parse(JSON.stringify(item)));
         }
     }
 
     GetMatHangTheoKho() {
+      this.item.listItem = []
+      this.listItem = []
         if (this.item.IddmKho !== undefined && this.item.IddmKho !== null
             && this.item.IdLoHang !== undefined && this.item.IdLoHang !== null) {
             this.services
@@ -329,29 +275,9 @@ export class KiemkekhomodalComponent implements OnInit {
             this.toastr.error("Vui lòng chọn mặt hàng cần thêm!");
         }
     }
-    ImportExcel() {
-        let modalRef = this._modal.open(ImportnhapkhothanhphamComponent, {
-            backdrop: 'static',
-        })
-        modalRef.result.then(res => {
-            this.toastr.success('Cập nhật thành công!');
-            this.item.listItem = res.items;
-            this.paginator.changePage(0);
-        })
-            .catch(er => console.log(er))
-    }
+   
     TinhTongKhoiLuong(item) {
         if (item.SoQuaSoi > 0)
             item.TongTrongLuong = (item.SoQuaSoi ?? 0) * (item.TonTrongLuong ?? 0) + (item.TongTrongLuongChenhLech ?? 0);
-    }
-    checkQuyCach() {
-        let isCheck: any = false;
-        this.item.listItem.forEach(element => {
-            if (element.IddmQuyCachDongGoi === null || element.IddmQuyCachDongGoi === undefined) {
-                isCheck = true;
-                return ;
-            }
-        });
-        return isCheck;
     }
 }

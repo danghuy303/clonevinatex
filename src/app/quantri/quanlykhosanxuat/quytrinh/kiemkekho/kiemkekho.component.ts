@@ -3,7 +3,6 @@ import { ActivatedRoute } from "@angular/router";
 import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
-import { Dat09Service } from "src/app/services/callApi";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { DateToUnix, mapArrayForDropDown } from "src/app/services/globalfunction";
 import { KiemkekhomodalComponent } from "../kiemkekhomodal/kiemkekhomodal.component";
