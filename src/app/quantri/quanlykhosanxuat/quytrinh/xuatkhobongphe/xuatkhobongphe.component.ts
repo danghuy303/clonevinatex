@@ -160,6 +160,7 @@ export class XuatkhobongpheComponent implements OnInit {
       let data = {
         TuNgayUnix:DateToUnix(this.filter.TuNgay),
         DenNgayUnix:DateToUnix(this.filter.DenNgay),
+        IddmKho: this.filter.IddmKho,
       }
       this._service.PhieuXuatBongPhe().ExportBangKeXuatKhoBongPhe(data).subscribe((res: any) => {
         this._service.download(res.TenFile);
