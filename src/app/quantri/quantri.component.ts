@@ -602,17 +602,17 @@ export class QuantriComponent implements OnInit {
                         separator: this.checkmenu("PHIEUHACAP"),
                         command: () => this.close()
                     },
-                    {
-                        label: 'Kiểm kê kho',
-                        routerLink: '/quantri/quanlysanxuatkhohoiam/quanlysanxuatkhohoiam/kiemkekho/0',
-                        separator: this.checkmenu("KIEMKEKHOHOIAM"),
-                        command: () => this.close()
-                    },
-                    {
-                        label: 'Thẻ kho',
-                        routerLink: '/quantri/quanlykhosanxuat/tonkho/khohoiam/0',
-                        command: () => this.close()
-                    },
+                    // {
+                    //     label: 'Kiểm kê kho',
+                    //     routerLink: '/quantri/quanlysanxuatkhohoiam/quanlysanxuatkhohoiam/kiemkekho/0',
+                    //     separator: this.checkmenu("KIEMKEKHOHOIAM"),
+                    //     command: () => this.close()
+                    // },
+                    // {
+                    //     label: 'Thẻ kho',
+                    //     routerLink: '/quantri/quanlykhosanxuat/tonkho/khohoiam/0',
+                    //     command: () => this.close()
+                    // },
                 ]
             },
             {
