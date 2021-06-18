@@ -39,6 +39,8 @@
                 (click)="exportExcel()"></button>
             <button pButton pRipple type="button" label="Xuất hóa đơn" class="p-mr-2 p-button-sm"
                 (click)="exportHoaDon()"></button>
+            <!-- <button pButton pRipple type="button" label="Test" class="p-mr-2 p-button-sm"
+                (click)="test()"></button> -->
         </div>
 
     </div>
@@ -108,8 +110,8 @@
                         <col>
                         <col>
                         <col>
-                        <col style="width:100px">
-                        <col style="width:90px">
+                        <!-- <col style="width:100px"> -->
+                        <!-- <col style="width:90px"> -->
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -118,11 +120,12 @@
                         <th>Lô</th>
                         <th>Số bàn</th>
                         <th>Tên kiện</th>
+                        <th>Tên kiện thay thế</th>
                         <th>Mic</th>
                         <th>Vị trí</th>
                         <th>Số lượng</th>
-                        <th style="text-align: center;">Thay đổi</th>
-                        <th></th>
+                        <!-- <th style="text-align: center;">Thay đổi</th> -->
+                        <!-- <th></th> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -131,24 +134,27 @@
                         <td style="text-align: center;">{{item.TenLoBong}}</td>
                         <td style="text-align: center;">{{item.ThuTu}} </td>
                         <td style="text-align: center;">{{item.Ten}}</td>
-                        <td style="text-align: center;vertical-align: middle;"><span >{{item.Mic|number:'0.2-2'}}</span>
-                            <button pButton pRipple icon="fas fa-exchange-alt"
+                        <td><input [tabindex]="i+1" type="text" class="p-inputtext-sm focus-tag" (keyup.enter)="next($event)"
+                                [(ngModel)]="item.MaKienDoi" (ngModelChange)="changeKienDoi($event,item.Ten)" pInputText /></td>
+                        <td style="text-align: center;vertical-align: middle;"><span>{{item.Mic|number:'0.2-2'}}</span>
+                            <!-- <button pButton pRipple icon="fas fa-exchange-alt"
                             class="p-button-sm p-button-rounded p-ml-3" (click)="changeKien(item)"
-                             pTooltip="Đổi kiện" showDelay="1000" tooltipPosition="bottom"></button>
+                             pTooltip="Đổi kiện" showDelay="1000" tooltipPosition="bottom"></button> -->
                         </td>
                         <td style="text-align: center;">{{item.TendmViTri}}</td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                            <p-inputNumber tabindex="-1" [minFractionDigits]="0" locale="vi-VN"
+                                [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
-                        <td style="text-align: center;">
+                        <!-- <td style="text-align: center;">
                             <input type="checkbox" [(ngModel)]="item.isDieuChinh">
                         </td>
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
-                        </td>
+                        </td> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="summary">

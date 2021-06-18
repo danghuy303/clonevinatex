@@ -19,7 +19,8 @@ export class XuatexceltimbongmodalComponent implements OnInit {
   accept() {
     this._services.PhuongAnPhaBong().ExportTimBong(this.IdPhuongAnPhaBong,this.BanBong).subscribe((res:any)=>{
       console.log(res);
-      this._services.download(res.TenFile)
+      this._services.download(res.TenFile);
+      this.activeModal.dismiss('');
     })
   }
 }
