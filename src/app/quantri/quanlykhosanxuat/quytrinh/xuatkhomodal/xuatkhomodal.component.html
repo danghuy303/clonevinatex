@@ -135,7 +135,7 @@
                         <td style="text-align: center;">{{item.ThuTu}} </td>
                         <td style="text-align: center;">{{item.Ten}}</td>
                         <td><input [tabindex]="i+1" type="text" class="p-inputtext-sm focus-tag" (keyup.enter)="next($event)"
-                                [(ngModel)]="item.MaKienDoi" (ngModelChange)="changeKienDoi($event,item.Ten)" pInputText /></td>
+                                [(ngModel)]="item.MaKienDoi" (ngModelChange)="changeKienDoi($event,item.IddmItem)" pInputText /></td>
                         <td style="text-align: center;vertical-align: middle;"><span>{{item.Mic|number:'0.2-2'}}</span>
                             <!-- <button pButton pRipple icon="fas fa-exchange-alt"
                             class="p-button-sm p-button-rounded p-ml-3" (click)="changeKien(item)"

@@ -284,8 +284,8 @@ export class XuatkhomodalComponent implements OnInit {
   // test(){
   //   console.log(this.listItemRoot);
   // }
-  changeKienDoi(event,Ten){
-    let itemInRoot = this.listItemRoot.filter(ele=>ele.Ten === Ten)?.[0];
+  changeKienDoi(event,IddmItem){
+    let itemInRoot = this.listItemRoot.filter(ele=>ele.IddmItem === IddmItem)?.[0];
     itemInRoot.MaKienDoi = event;
   }
 }
