@@ -1,3 +1,5 @@
+import { ElementRef } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +16,7 @@ import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomath
   styleUrls: ['./xuatkhomodal.component.css']
 })
 export class XuatkhomodalComponent implements OnInit {
+  @ViewChild('paginator') paginator;
   opt: any = '';
   Id: any = '';
   item: any = {};
@@ -133,6 +136,7 @@ export class XuatkhomodalComponent implements OnInit {
               this.item.NgayChungTu = UnixToDate(this.item.NgayChungTuUnix);
             }
             this.KiemTraButtonModal();
+            this.GetQuyTrinhRefresh();
           } else {
             this.toastr.error(res.message);
           }
@@ -196,13 +200,12 @@ export class XuatkhomodalComponent implements OnInit {
   }
 
   GetQuyTrinhFilter() {
-    var items = [];
+    let items = [];
     items = this.listItemRoot.filter(obj => {
       let Ten = obj.Ten.toLowerCase();
       let indexOf = Ten.indexOf(this.filter.KeyWord)
       return indexOf != -1
     });
-
     // for(let i =0; i < this.listItemRoot.length; i++){
     //   if(this.listItemRoot[i].TenLoBong !== null){
     //     if(this.listItemRoot[i].TenLoBong.toLowerCase().includes(this.filter.KeyWord)){
@@ -225,11 +228,13 @@ export class XuatkhomodalComponent implements OnInit {
     //   }
     // }
     this.listItem = deepCopy(items);
+    this.paginator.changePage(0)
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = items.length;
     this.item.listItem = items.slice(0, 15);
-    this.item.listItem = items;
+    // this.item.listItem = items;
+    console.log(this.item.listItem)
   }
   GetQuyTrinhRefresh() {
     this.filter.KeyWord = '';
@@ -268,5 +273,19 @@ export class XuatkhomodalComponent implements OnInit {
         })
         .catch(er => { console.log('err:', er) })
     })
+  }
+  next(event){
+    let nextIndex = event.srcElement.tabIndex;
+    let items:any = document.querySelectorAll('.focus-tag');
+    if(nextIndex <15){
+      items[nextIndex].focus();
+    }
+  }
+  // test(){
+  //   console.log(this.listItemRoot);
+  // }
+  changeKienDoi(event,IddmItem){
+    let itemInRoot = this.listItemRoot.filter(ele=>ele.IddmItem === IddmItem)?.[0];
+    itemInRoot.MaKienDoi = event;
   }
 }
