@@ -65,7 +65,7 @@ export class XuatthanhphammathangmodalComponent implements OnInit {
     {
       for(let i = 0; i < this.listItem.length; i++){
         let itemFind = this.listMatHang.find(
-          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang == this.listItem[i].IdLoHang)
+          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang == this.listItem[i].IdLoHang && ele.IddmQuyCachDongGoi == this.listItem[i].IddmQuyCachDongGoi)
         );
         if(itemFind !== undefined)
           itemFind.checked = true;
