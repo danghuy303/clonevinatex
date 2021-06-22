@@ -108,13 +108,25 @@ export class PhabongmodalComponent implements OnInit {
       // console.log(this.item.listLoBong.reduce((total,lobong)=>total+lobong.TrongLuong,0)/this.item.listLoBong.length)
       if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong)) {
         let SoNgayTrienKhai = Math.floor((this.itemTrienKhaiKeHoach.DenNgayUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1);
+        console.log('SoNgayTrienKhai',SoNgayTrienKhai)
         let _1NgayCan = this.item.KhoiLuongBong / SoNgayTrienKhai;
-        let TrongLuongTrungBinh1Ban = this.item.KhoiLuongKienTrungBinh * this.item.TongSoKien;
+        console.log('KhoiLuongBong',this.item.KhoiLuongBong)
+        console.log('_1NgayCan',_1NgayCan)
+        // let TrongLuongTrungBinh1Ban = this.item.KhoiLuongKienTrungBinh * this.item.TongSoKien;
+        let TrongLuongTrungBinh1Ban = 200.339885047457412 * this.item.TongSoKien;
+        // 200.339885047457412
+        console.log('KhoiLuongKienTrungBinh',this.item.KhoiLuongKienTrungBinh)
+        console.log('TrongLuongTrungBinh1Ban',TrongLuongTrungBinh1Ban)
         let TyLeBongCan = _1NgayCan / TrongLuongTrungBinh1Ban;
+        console.log('HeSo',TyLeBongCan)
         this.item.listLoBong.forEach((lobong) => {
           if (lobong.isLoBongTuongLai) {
             let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
             // console.log(SoNgayDuKien);
+            // if(lobong.IdLoBong ==="7194fde0-cf6c-4cfd-89ff-76666944a53c"){
+            //   // 1623862800
+            //   SoNgayDuKien = Math.floor((1623862800 - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
+            // }
             lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
           }
         })
