@@ -36,6 +36,9 @@ export class NhapkhomodalComponent implements OnInit {
   type: any = '';
   editField: any = false;
   nametype: any = '';
+  HeThong: any = {
+    Ma: 'SCM_PhieuNhapLoBong'
+  }
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -67,11 +70,14 @@ export class NhapkhomodalComponent implements OnInit {
     this.getListLoaiBong();
     this.getListCapBong();
     this.getListLoBong();
-    this.getListKho();
     this.getListCaMay();
     this.getListdmViTri();
     this.getListKeHoach();
     // this.getListKhachHang();
+    this._services.GetHeThong(this.HeThong.Ma).subscribe((res: any) => {
+      this.HeThong = res;
+      this.getListKho();
+    })
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -93,16 +99,7 @@ export class NhapkhomodalComponent implements OnInit {
   // }
 
   ChuyenTiep() {
-    if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn  ngày");
-    }
-    else if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
-      this.toastr.error("Bạn chưa chọn  danh mục kho");
-    }
-    else {
-      if (this.newTableItem.Ten != undefined && this.newTableItem.SoCan != undefined && this.newTableItem.SoKien != undefined) {
-        this.add();
-      }
+    if(this.CheckTruocKhiLuu()){
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
         this.item.NgayUnix =  DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuNhapLoBong().ChuyenTiep(this.item).subscribe((res: any) => {
@@ -135,42 +132,8 @@ export class NhapkhomodalComponent implements OnInit {
         this.item.Loai = 7;
     }
     // let isCheck = false;
-
-    if (this.newTableItem.Ten != undefined || this.newTableItem.SoCan != undefined || this.newTableItem.SoKien != undefined || this.newTableItem.IddmViTri != undefined) {
-      this.add();
-    }
-
-    // if(this.item.listItem!== undefined || this.item.listItem !== null){
-    //   for(let i = 0; i < this.item.listItem.length; i++) {
-    //     if(this.item.listItem[i].isXoa !== true && (this.item.listItem[i].IddmViTri === null || this.item.listItem[i].IddmViTri === undefined)){
-    //       isCheck= true;
-    //       break;
-    //     }
-    //     // if( this.type === 'bong' && (
-    //     //   this.item.listItem[i].SoKienNgan === null || this.item.listItem[i].SoKienNgan === undefined
-    //     //   || this.item.listItem[i].SoKienDai === null || this.item.listItem[i].SoKienDai === undefined)){
-    //     //   isCheck= true;
-    //     //   break;
-    //     // }
-    //   }
-    // }
-
-    // if (isCheck === true ) {
-    //   this.toastr.error("Bạn chưa chọn vị trí!");
-    // }
-    if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
-      this.toastr.error("Bạn chưa chọn danh mục kho!");
-    }
-    else if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn  ngày!");
-    }
-    else if ((this.item.IddmCapBong === null || this.item.IddmCapBong === undefined || this.item.IddmCapBong === "") && (this.type === 'bong' || this.type === 'xo')) {
-      this.toastr.error("Bạn chưa chọn  danh mục cấp bông!");
-    }
-    else if (this.item.IddmLoaiBong === null || this.item.IddmLoaiBong === undefined || this.item.IddmLoaiBong === "") {
-      this.toastr.error("Bạn chưa chọn  danh mục loại bông!");
-    }
-    else {
+    if(this.CheckTruocKhiLuu())
+    {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -215,7 +178,7 @@ export class NhapkhomodalComponent implements OnInit {
     }
     else {
       if (this.type === 'bong')
-        this.data.Loai = 1;
+        this.data.Loai = 2;
       else if (this.type === 'xo')
         this.data.Loai = 5;
       else if (this.type === 'bonghoi') {
@@ -226,8 +189,14 @@ export class NhapkhomodalComponent implements OnInit {
         this.data.Loai = 7;
       }
     }
-    this._services.GetListdmKho(this.data).subscribe((res: any) => {
+    this._services.GetListdmKhoForLoaiBong(this.data.Loai).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+      if(this.HeThong.GiaTri === 1 && this.item.listItem.length > 0){
+        this.item.listItem.forEach(element => {
+          if(element.IddmKho === null || element.IddmKho === undefined)
+            element.IddmKho = this.listKho[0].value
+        });
+      }
     })
   }
   getListLoaiBong() {
@@ -287,8 +256,11 @@ export class NhapkhomodalComponent implements OnInit {
   add() {
     if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
+      if(this.HeThong.GiaTri === 1 && (this.newTableItem.IddmKho === null || this.newTableItem.IddmKho === undefined))
+      this.newTableItem.IddmKho = this.listKho[0].value
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {}
+    
   }
 
   delete(index) {
@@ -377,5 +349,55 @@ export class NhapkhomodalComponent implements OnInit {
         this._services.download(res.TenFile);
       })
     }
+  }
+  CheckTruocKhiLuu(){
+    if (this.newTableItem.Ten != undefined || this.newTableItem.SoCan != undefined || this.newTableItem.SoKien != undefined || this.newTableItem.IddmViTri != undefined) {
+      this.add();
+    }
+    // if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
+    //   this.toastr.error("Bạn chưa chọn danh mục kho!");
+    //   return false;
+    // }
+    // else
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn  ngày!");
+      return false;
+    }
+    else if ((this.item.IddmCapBong === null || this.item.IddmCapBong === undefined || this.item.IddmCapBong === "") && (this.type === 'bong' || this.type === 'xo')) {
+      this.toastr.error("Bạn chưa chọn  danh mục cấp bông!");
+      return false;
+    }
+    else if (this.item.IddmLoaiBong === null || this.item.IddmLoaiBong === undefined || this.item.IddmLoaiBong === "") {
+      this.toastr.error("Bạn chưa chọn  danh mục loại bông!");
+      return false;
+    }
+    // else{
+    //   var listIddmKhoCheck: any = []
+    //   this.item.listItem.forEach(element => {
+    //     if(listIddmKhoCheck.indexOf(element.IddmKho)  === (-1))
+    //     {
+    //       listIddmKhoCheck.push(element.IddmKho)
+    //     }
+    //   });
+    //   if(listIddmKhoCheck.length > 1 && this.item.isGopPhieu == true && this.item.Loai == 2){
+    //     this.toastr.error("Bạn không thể gộp phiếu khi nhập kiện cho nhiều kho!");
+    //     return false;
+    //   }
+    // }
+    else{
+      let isCheck : any = false;
+      console.log(this.item.listItem)
+      this.item.listItem.forEach(element => {
+        if(element.IddmKho === null || element.IddmKho === undefined)
+        {
+          isCheck = true;
+        }
+      });
+      if(isCheck === true){
+        this.toastr.error("Bạn chưa chọn danh mục kho!");
+          return false;
+      }
+    }
+    return true;
   }
 }

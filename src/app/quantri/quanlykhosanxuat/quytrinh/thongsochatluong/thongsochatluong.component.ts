@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { ThongsochatluongmodalComponent } from '../thongsochatluongmodal/thongsochatluongmodal.component';
@@ -60,7 +61,12 @@ export class ThongsochatluongComponent implements OnInit {
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listLoBong: any = [];
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  nhaMay : any = {};
+  userInfo: any;
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, 
+    private router: Router, private _auth: AuthenticationService) {
+      this.userInfo = this._auth.currentUserValue;
+     }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
@@ -75,8 +81,10 @@ export class ThongsochatluongComponent implements OnInit {
     this._service.GetListLoBong(data).subscribe((res: any) => {
       this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');;
     })
-    this.GetListQuyTrinh()
-    this.KiemTraTabTrangThai();
+    this._service.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
+      this.nhaMay = res[0];
+      this.KiemTraTabTrangThai();
+    })
 
   }
   changeParam(id) {
@@ -148,7 +156,8 @@ export class ThongsochatluongComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      IdLoBong: this.filter.IdLoBong
+      IdLoBong: this.filter.IdLoBong,
+      IdDuAn:  this.nhaMay.Id,
     }
     this._service.PhieuNhapLoBong_ChatLuong().GetList(data).subscribe((res: any) => {
       this.items = res.items;
@@ -160,10 +169,10 @@ export class ThongsochatluongComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    //  this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
-    //     this.checkQuyen = res;
-    //     this.GetListQuyTrinh();
-    //   })
+     this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+        this.checkQuyen = res;
+        this.GetListQuyTrinh();
+      })
   }
 
 }
