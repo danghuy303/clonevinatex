@@ -89,6 +89,26 @@
                 </div>
             </div>
         </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-6 p-p-0 my-auto">Khối lượng bông hồi trên 1 bàn:</label>
+            <div class="p-col-12 p-lg-6 p-p-0">
+                <div class="p-inputgroup">
+                    <p-inputNumber [(ngModel)]="item.TrongLuongBongHoi" mode="decimal" [minFractionDigits]="2"
+                        locale="vi-VN" [disabled]="!checkbutton.Ghi" (onBlur)="TinhSoBanBong($event)"></p-inputNumber>
+                    <span class="p-inputgroup-addon">kg</span>
+                </div>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-6 p-p-0 my-auto">Số lượng kiện bông hồi trên 1 bàn:</label>
+            <div class="p-col-12 p-lg-6 p-p-0">
+                <div class="p-inputgroup">
+                    <p-inputNumber [(ngModel)]="item.SoKienBongHoi" mode="decimal" [minFractionDigits]="0"
+                        locale="vi-VN" [disabled]="!checkbutton.Ghi" (onBlur)="TinhSoBanBong($event)"></p-inputNumber>
+                    <span class="p-inputgroup-addon">kiện</span>
+                </div>
+            </div>
+        </div>
         <div class="p-col-12 d-flex flex-row p-p-0">
             <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm"
                 (click)="chonHangHoa()" *ngIf="checkbutton.Ghi"></button>
@@ -96,6 +116,8 @@
                 *ngIf="checkbutton.Ghi"></button>
             <button pButton pRipple type="button" label="Thêm lô bông tương lai" class="p-mr-2 p-button-sm"
                 (click)="themLoTuongLai()" *ngIf="checkbuttonDieuChinh&&isEditing"></button>
+            <!-- <button pButton pRipple type="button" label="Xóa lô bông tương lai không sử dụng" class="p-mr-2 p-button-sm"
+                (click)="xoaLoTuongLai()" *ngIf="checkbuttonDieuChinh&&isEditing"></button> -->
         </div>
         <div class="p-col-12">
             <h5>
@@ -243,82 +265,84 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let lobong of item.listLoBong; let i = index"
-                        [ngStyle]="{'background-color': lobong.Mau}">
-                        <td class="text-center tc-w-151 z1"
-                            [ngStyle]="{'background-color': lobong.Mau,'color':lobong.isLoBongTuongLai?'red':''}">
-                            <!-- <a href="javascript:void(0)" (click)="timTheoBan(lobong)" *ngIf="isEditing">{{lobong.Ma}}</a> -->
-                            <!-- <span *ngIf="!isEditing">{{lobong.Ma}}</span> -->
-                            {{lobong.Ma}}
-                            <ng-container *ngIf="lobong.isLoBongTuongLai">
-                                <br>
-                                ({{lobong.NgayVeDuKien|date:'dd/MM/yyyy'}})
-                            </ng-container>
-                        </td>
-                        <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.SoLuongKien_KiemKe}}</td>
-                        <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.SoLuongKien}}</td>
-                        <td class="text-center tc-w-100 z1" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.SoLuongDung}}</td>
-                        <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.TonCuoi}}</td>
-                        <td class="text-center tc-w-80 z1" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.TyLe|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-80 z1" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.LuyKeTyLe|number:'0.2-2'}}</td>
+                    <ng-container *ngFor="let lobong of item.listLoBong; let i = index">
+                        <tr [ngStyle]="{'background-color': lobong.Mau}" *ngIf="!lobong.isXoa">
+                            <td class="text-center tc-w-151 z1"
+                                [ngStyle]="{'background-color': lobong.Mau,'color':lobong.isLoBongTuongLai?'red':''}">
+                                <!-- <a href="javascript:void(0)" (click)="timTheoBan(lobong)" *ngIf="isEditing">{{lobong.Ma}}</a> -->
+                                <!-- <span *ngIf="!isEditing">{{lobong.Ma}}</span> -->
+                                {{lobong.Ma}} <span *ngIf="lobong.canDelete&&isEditing&&lobong.SoLuongDung===0" (click)="xoaLoTuongLai(lobong)" style="border-radius: 50%;background-color: red;padding: 2px 5px;font-size: 12px;color: white;cursor: pointer;"><i class="fas fa-times"></i></span>
+                                <ng-container *ngIf="lobong.isLoBongTuongLai">
+                                    <br>
+                                    ({{lobong.NgayVeDuKien|date:'dd/MM/yyyy'}})
+                                </ng-container>
+                            </td>
+                            <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.SoLuongKien_KiemKe}}</td>
+                            <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.SoLuongKien}}</td>
+                            <td class="text-center tc-w-100 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.SoLuongDung}}</td>
+                            <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.TonCuoi}}</td>
+                            <td class="text-center tc-w-80 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.TyLe|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-80 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.LuyKeTyLe|number:'0.2-2'}}</td>
 
-                        <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.SoHopDong}}
-                        </td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.GiaBong|number:'0.0-3'}}
-                        </td>
-                        <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.TrongLuong|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
-                            <!-- {{lobong.GiaUSD|number:'0.0-2'}} -->
-                            {{lobong.GiaKien|number:'0.2-2'}}
-                        </td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Nep|number:'0.2-2'}}
-                            <!-- Neps -->
-                        </td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Mic|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Mat|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.UHML|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Str|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.SFI|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Rd|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.b|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Tap|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Am|number:'0.2-2'}}</td>
-                        <td *ngFor="let prop of listProps" class="text-center tc-w-50">
-                            <div class="drag-zone" style="width: 100%; display: flex;flex-direction: row;"
-                                (drop)="drop($event,prop,i)" (dragover)="allowDrop($event)">
-                                <span class="drag-point" draggable="true"
-                                    *ngIf="!(lobong.isLoBongTuongLai && prop<lobong.lim)&&!listCotDaXuat.includes(prop)"
-                                    (dragstart)="drag($event,prop,i,lobong.tempBanBong[prop].SoKien)">
-                                    <i class="fas fa-arrows-alt"></i>
-                                </span>
-                                <input style="width: 100%; text-align: right; border: transparent; color:#495057"
-                                    class="dat09focus" [tabindex]="lobong.tempBanBong[prop].tabIndex" type="number"
-                                    [(ngModel)]="lobong.tempBanBong[prop].SoKien"
-                                    (keydown)="move($event,lobong.tempBanBong[prop].tabIndex)"
-                                    (blur)="CalAllTable(i,prop)"
-                                    [disabled]="(lobong.isLoBongTuongLai && prop<lobong.lim)|| listCotDaXuat.includes(prop)">
-                            </div>
-                        </td>
-                    </tr>
+                            <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.SoHopDong}}
+                            </td>
+                            <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.GiaBong|number:'0.0-3'}}
+                            </td>
+                            <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.TrongLuong|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
+                                <!-- {{lobong.GiaUSD|number:'0.0-2'}} -->
+                                {{lobong.GiaKien|number:'0.2-2'}}
+                            </td>
+                            <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.Nep|number:'0.2-2'}}
+                                <!-- Neps -->
+                            </td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.Mic|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.Mat|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.UHML|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.Str|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.SFI|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.Rd|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.b|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.Tap|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.Am|number:'0.2-2'}}</td>
+                            <td *ngFor="let prop of listProps" class="text-center tc-w-50">
+                                <div class="drag-zone" style="width: 100%; display: flex;flex-direction: row;"
+                                    (drop)="drop($event,prop,i)" (dragover)="allowDrop($event)">
+                                    <span class="drag-point" draggable="true"
+                                        *ngIf="!(lobong.isLoBongTuongLai && prop<lobong.lim)&&!listCotDaXuat.includes(prop)"
+                                        (dragstart)="drag($event,prop,i,lobong.tempBanBong[prop].SoKien)">
+                                        <i class="fas fa-arrows-alt"></i>
+                                    </span>
+                                    <input style="width: 100%; text-align: right; border: transparent; color:#495057"
+                                        class="dat09focus" [tabindex]="lobong.tempBanBong[prop].tabIndex" type="number"
+                                        [(ngModel)]="lobong.tempBanBong[prop].SoKien"
+                                        (keydown)="move($event,lobong.tempBanBong[prop].tabIndex)"
+                                        (blur)="CalAllTable(i,prop)"
+                                        [disabled]="(lobong.isLoBongTuongLai && prop<lobong.lim)|| listCotDaXuat.includes(prop)">
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+
                     <!-- TongKhoiLuongDung -->
                     <!-- <tr>
                         <td class="text-center tc-w-151">
