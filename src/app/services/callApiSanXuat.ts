@@ -67,8 +67,8 @@ export class SanXuatService {
         let url = API.SCMDashBoard + `GetDashBoard_TruyXuatNguonGoc?IddmItem=${IddmItem}&TuNgay=${TuNgay}&DenNgay=${DenNgay}`;
         return this.http.get(url, httpOptions);
     }
-    GetListdmKhoForLoaiBong(IddmLoaiBong) {
-        let url = API.SCMDanhMuc + `GetListdmKhoForLoaiBong?IddmLoaiBong=${IddmLoaiBong}`;
+    GetListdmKhoForLoaiBong(Loai) {
+        let url = API.SCMDanhMuc + `GetListdmKhoForLoaiBong?Loai=${Loai}`;
         return this.http.get(url, httpOptions);
     }
     //#endregion
@@ -1991,5 +1991,9 @@ export class SanXuatService {
                 return this.http.post(url + 'KhongDuyetPhieuKiemKeHoiAm', data, httpOptions)
             },
         }
+    }
+    GetHeThong(MaHeThong) {
+        let url = API.SCMDanhMuc + `GetHeThong?MaHeThong=${MaHeThong}`;
+        return this.http.get(url, httpOptions);
     }
 }

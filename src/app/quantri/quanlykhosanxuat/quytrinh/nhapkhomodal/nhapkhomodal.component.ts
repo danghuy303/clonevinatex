@@ -36,6 +36,9 @@ export class NhapkhomodalComponent implements OnInit {
   type: any = '';
   editField: any = false;
   nametype: any = '';
+  HeThong: any = {
+    Ma: 'SCM_PhieuNhapLoBong'
+  }
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -67,11 +70,14 @@ export class NhapkhomodalComponent implements OnInit {
     this.getListLoaiBong();
     this.getListCapBong();
     this.getListLoBong();
-    this.getListKho();
     this.getListCaMay();
     this.getListdmViTri();
     this.getListKeHoach();
     // this.getListKhachHang();
+    this._services.GetHeThong(this.HeThong.Ma).subscribe((res: any) => {
+      this.HeThong = res;
+      this.getListKho();
+    })
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -172,7 +178,7 @@ export class NhapkhomodalComponent implements OnInit {
     }
     else {
       if (this.type === 'bong')
-        this.data.Loai = 1;
+        this.data.Loai = 2;
       else if (this.type === 'xo')
         this.data.Loai = 5;
       else if (this.type === 'bonghoi') {
@@ -183,8 +189,13 @@ export class NhapkhomodalComponent implements OnInit {
         this.data.Loai = 7;
       }
     }
-    this._services.GetListdmKhoForLoaiBong(this.item.IddmLoaiBong).subscribe((res: any) => {
+    this._services.GetListdmKhoForLoaiBong(this.data.Loai).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+      if(this.HeThong.GiaTri === 1 && this.item.listItem.length > 0){
+        this.item.listItem.forEach(element => {
+          element.IddmKho = this.listKho[0].value
+        });
+      }
     })
   }
   getListLoaiBong() {
@@ -244,8 +255,11 @@ export class NhapkhomodalComponent implements OnInit {
   add() {
     if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
+      if(this.HeThong.GiaTri === 1 && (this.newTableItem.IddmKho === null || this.newTableItem.IddmKho === undefined))
+      this.newTableItem.IddmKho = this.listKho[0].value
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {}
+    
   }
 
   delete(index) {
@@ -356,17 +370,31 @@ export class NhapkhomodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  danh mục loại bông!");
       return false;
     }
+    // else{
+    //   var listIddmKhoCheck: any = []
+    //   this.item.listItem.forEach(element => {
+    //     if(listIddmKhoCheck.indexOf(element.IddmKho)  === (-1))
+    //     {
+    //       listIddmKhoCheck.push(element.IddmKho)
+    //     }
+    //   });
+    //   if(listIddmKhoCheck.length > 1 && this.item.isGopPhieu == true && this.item.Loai == 2){
+    //     this.toastr.error("Bạn không thể gộp phiếu khi nhập kiện cho nhiều kho!");
+    //     return false;
+    //   }
+    // }
     else{
-      var listIddmKhoCheck: any = []
+      let isCheck : any = false;
+      console.log(this.item.listItem)
       this.item.listItem.forEach(element => {
-        if(listIddmKhoCheck.indexOf(element.IddmKho)  === (-1))
+        if(element.IddmKho === null || element.IddmKho === undefined)
         {
-          listIddmKhoCheck.push(element.IddmKho)
+          isCheck = true;
         }
       });
-      if(listIddmKhoCheck.length > 1 && this.item.isGopPhieu == true){
-        this.toastr.error("Bạn không thể gộp phiếu khi nhập kiện cho nhiều kho!");
-        return false;
+      if(isCheck === true){
+        this.toastr.error("Bạn chưa chọn danh mục kho!");
+          return false;
       }
     }
     return true;

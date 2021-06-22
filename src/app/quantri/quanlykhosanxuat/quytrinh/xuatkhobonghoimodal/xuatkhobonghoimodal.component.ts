@@ -107,6 +107,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
       this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
+            this.toastr.success(res.message);
             this.activeModal.close();
           } else {
             this.toastr.error(res.message);
@@ -142,6 +143,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            this.Id = this.item.Id;
             if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
               this.item.Ngay = UnixToDate(Math.round(this.item.NgayUnix));
             }
@@ -149,6 +151,8 @@ export class XuatkhobonghoimodalComponent implements OnInit {
               this.item.NgayChungTu = UnixToDate(Math.round(this.item.NgayChungTuUnix));
             }
             this.KiemTraButtonModal();
+            this.GetQuyTrinh();
+
             // this.activeModal.close(res.message);
           } else {
             this.toastr.error(res.message);
