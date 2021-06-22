@@ -193,7 +193,8 @@ export class NhapkhomodalComponent implements OnInit {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
       if(this.HeThong.GiaTri === 1 && this.item.listItem.length > 0){
         this.item.listItem.forEach(element => {
-          element.IddmKho = this.listKho[0].value
+          if(element.IddmKho === null || element.IddmKho === undefined)
+            element.IddmKho = this.listKho[0].value
         });
       }
     })
