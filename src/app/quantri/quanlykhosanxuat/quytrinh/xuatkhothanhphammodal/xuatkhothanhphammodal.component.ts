@@ -292,7 +292,7 @@ export class XuatkhothanhphammodalComponent implements OnInit {
           var isCheck : any = false
           if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
             for(let i =0 ; i < this.item.listItem.length; i++){
-              if(this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang)
+              if(this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang && this.item.listItem[i].IddmQuyCachDongGoi == element.IddmQuyCachDongGoi)
               {
                 this.item.listItem[i].isXoa = false;
                 this.item.listItem[i].Ten = element.Ten;

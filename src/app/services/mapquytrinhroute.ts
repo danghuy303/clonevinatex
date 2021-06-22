@@ -24,5 +24,10 @@ export const mapQuyTrinhRoute = {
         DIEUCHUYENKHO:'',
         KIEMKEKHOHANGNGAY:'',
         DIEUCHINHCANDOICHUYEN:'/quantri/theodoithongkebaocaosanxuat/thongkesanluong/',
-        PHIEUNHAPBONGPHE:'/quantri/quanlykhosanxuatbongkhac/khobongphe/nhapkho/'
+        PHIEUNHAPBONGPHE:'/quantri/quanlykhosanxuatbongkhac/khobongphe/nhapkho/',
+
+        PHIEUXUATBONGHOI:'/quantri/quanlykhosanxuatbongkhac/khobonghoi/xuatkho/',
+        PHIEUNHAPBONGHOI:'/quantri/quanlykhosanxuatbongkhac/khobonghoi/nhapkho/',
+        KIEMKEKHOBONGHOI:'/quantri/quanlykhosanxuat/khobonghoi/kiemkekhobonghoi/',
+
 }

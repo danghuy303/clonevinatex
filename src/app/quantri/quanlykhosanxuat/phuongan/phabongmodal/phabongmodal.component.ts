@@ -106,28 +106,34 @@ export class PhabongmodalComponent implements OnInit {
       // console.log(this.item.KhoiLuongBong,this.item.TongSoKien,this.item.KhoiLuongKienTrungBinh,this.item.listLoBong)
       // this.item.KhoiLuongKienTrungBinh=this.item.listLoBong.reduce((total,lobong)=>total+lobong.TrongLuong,0)/this.item.listLoBong.length
       // console.log(this.item.listLoBong.reduce((total,lobong)=>total+lobong.TrongLuong,0)/this.item.listLoBong.length)
-      if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong)) {
+      // this.item.TrongLuongBongHoi = 500;
+      // this.item.SoKienBongHoi = 3;
+      if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong) && validVariable(this.item.TrongLuongBongHoi) && validVariable(this.item.SoKienBongHoi)) {
         let SoNgayTrienKhai = Math.floor((this.itemTrienKhaiKeHoach.DenNgayUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1);
         console.log('SoNgayTrienKhai',SoNgayTrienKhai)
         let _1NgayCan = this.item.KhoiLuongBong / SoNgayTrienKhai;
-        console.log('KhoiLuongBong',this.item.KhoiLuongBong)
-        console.log('_1NgayCan',_1NgayCan)
-        // let TrongLuongTrungBinh1Ban = this.item.KhoiLuongKienTrungBinh * this.item.TongSoKien;
-        let TrongLuongTrungBinh1Ban = 200.339885047457412 * this.item.TongSoKien;
-        // 200.339885047457412
-        console.log('KhoiLuongKienTrungBinh',this.item.KhoiLuongKienTrungBinh)
-        console.log('TrongLuongTrungBinh1Ban',TrongLuongTrungBinh1Ban)
+        // this.item.KhoiLuongKienTrungBinh = (this.item.listLoBong.filter(ele => ele.IdLoBong !== null).reduce((Tong, ele) => {
+        //   return Tong + ele.TrongLuong
+        // }, 0)) / this.item.listLoBong.filter(ele => ele.IdLoBong !== null).length;
+        let TrongLuongTrungBinh1Ban = (this.item.KhoiLuongKienTrungBinh * (this.item.TongSoKien - this.item.SoKienBongHoi)) + this.item.TrongLuongBongHoi;
         let TyLeBongCan = _1NgayCan / TrongLuongTrungBinh1Ban;
-        console.log('HeSo',TyLeBongCan)
+        console.log('SoNgayTrienKhai', SoNgayTrienKhai);
+        console.log('KhoiLuongBong', this.item.KhoiLuongBong);
+        console.log('_1NgayCan', _1NgayCan);
+        console.log('this.item.KhoiLuongKienTrungBinh', this.item.KhoiLuongKienTrungBinh);
+        console.log('TrongLuongTrungBinh1Ban_Nguyen',this.item.KhoiLuongKienTrungBinh*(this.item.TongSoKien - this.item.SoKienBongHoi));
+        console.log('TrongLuongTrungBinh1Ban', TrongLuongTrungBinh1Ban);
+        console.log('TyLeBongCan', TyLeBongCan);
+
         this.item.listLoBong.forEach((lobong) => {
           if (lobong.isLoBongTuongLai) {
             let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
             // console.log(SoNgayDuKien);
-            // if(lobong.IdLoBong ==="7194fde0-cf6c-4cfd-89ff-76666944a53c"){
-            //   // 1623862800
-            //   SoNgayDuKien = Math.floor((1623862800 - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
-            // }
-            lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
+            
+            lobong.lim = Math.round(SoNgayDuKien * TyLeBongCan);
+            if(lobong.NgayVeDuKien ===null){
+              lobong.canDelete = true;
+            }
           }
         })
         if (validVariable(this.item.SoBanBong) && this.item.SoBanBong !== 0) {
@@ -242,10 +248,10 @@ export class PhabongmodalComponent implements OnInit {
     modalRef.result.then(res => {
       this.item.listLoBong = res;
       if (res.length > 0) {
-        let TongKhoiLuong = res.reduce((sum, ele) => {
+        let TongKhoiLuong = res.filter(ele => ele.IdLoBong !== null).reduce((sum, ele) => {
           return sum + ele.TrongLuong
         }, 0)
-        this.item.KhoiLuongKienTrungBinh = TongKhoiLuong / (res.length);
+        this.item.KhoiLuongKienTrungBinh = TongKhoiLuong / (res.filter(ele => ele.IdLoBong !== null).length);
         // .filter(ele=>!ele.isLoBongTuongLai)
         let TongChatLuong = {
           Mic: 0,
@@ -308,15 +314,19 @@ export class PhabongmodalComponent implements OnInit {
         if (lobong.isLoBongTuongLai) {
           console.log('tuonglaiiiiii')
           let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
-          lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
+          lobong.lim = Math.round(SoNgayDuKien * TyLeBongCan);
         }
       })
       this.item.listLoBong = [...this.item.listLoBong, ...res];
     })
       .catch()
   }
+  xoaLoTuongLai(item){
+    item.isXoa = true;
+    // console.log(this.item.listLoBong.filter(ele=>ele.NgayVeDuKien===null&&ele.isLoBongTuongLai));
+  }
   TinhSoBanBong(e?) {
-    if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong)) {
+    if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong) && validVariable(this.item.TrongLuongBongHoi) && validVariable(this.item.SoKienBongHoi)) {
       this.item.SoBanBong = Math.ceil(this.item.KhoiLuongBong / (this.item.TongSoKien * this.item.KhoiLuongKienTrungBinh));
       this.listProps = [];
       let SoNgayTrienKhai = Math.floor((this.itemTrienKhaiKeHoach.DenNgayUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1);
@@ -337,7 +347,7 @@ export class PhabongmodalComponent implements OnInit {
         }
         if (lobong.isLoBongTuongLai) {
           let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
-          lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
+          lobong.lim = Math.round(SoNgayDuKien * TyLeBongCan);
         }
       })
       this.itemSoKienTrenBan = {};
@@ -781,7 +791,7 @@ export class PhabongmodalComponent implements OnInit {
     modalref.componentInstance.BanBong = '';
     modalref.componentInstance.TenLo = item.Ma;
     modalref.result.then(res => {
-      if (validVariable(res.trim())){
+      if (validVariable(res.trim())) {
         item.SoBanTimTuDongMax = res;
       }
       else {

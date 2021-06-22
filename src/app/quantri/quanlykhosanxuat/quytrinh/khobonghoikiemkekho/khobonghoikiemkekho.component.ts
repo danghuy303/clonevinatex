@@ -42,7 +42,7 @@ export class KhobonghoikiemkekhoComponent implements OnInit {
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";
-  eAction = 'KIEMKEKHOBONG'
+  eAction = 'KIEMKEKHOBONGHOI'
   constructor(
       public _modal: NgbModal,
       public _toastr: ToastrService,
@@ -102,13 +102,13 @@ export class KhobonghoikiemkekhoComponent implements OnInit {
       modalRef.result
           .then((res: any) => {
               console.log(res);
+            this.changeParam(0);
               this.GetListQuyTrinh();
           })
           .catch((er) => {
               this.GetListQuyTrinh();
               console.log(er);
       this.changeParam(0);
-
           });
   }
   changeTab(e) {

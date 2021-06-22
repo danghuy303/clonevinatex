@@ -306,7 +306,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
     });
   }
   getItemTheoCongDoan() {
-    this.TongKhoiLuong = 0;
     if (this.item.CongDoan != undefined && this.item.listItem != undefined && this.item.listItem != null) {
       this.listItem = []
       this.item.listItem.forEach(element => {
@@ -341,99 +340,100 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
   //cotton
   TinhTyLeCottonBongPhe() {
+    this.TongKhoiLuong = 0;
+
     this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
     if(this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.CottonBongPhe || 0) - (this.item.CottonBongMun || 0) - (this.item.KhoiLuongCuiHoiChaiCotton || 0);
 
-    let TongKhoiLuong = this.TongKhoiLuong + (this.item.CottonBongPhe || 0) + (this.item.CottonBongMun || 0) + (this.item.KhoiLuongCuiHoiChaiCotton || 0);
-
-    if (TongKhoiLuong > 0) {
-      this.item.TyLeCottonBongPhe = (this.item.CottonBongPhe || 0) / (TongKhoiLuong) * 100;
-      this.item.TyLeCottonBongMun = (this.item.CottonBongMun || 0) / (TongKhoiLuong) * 100;
-      this.item.TyLeCuiHoiChaiCotton = (this.item.KhoiLuongCuiHoiChaiCotton || 0) / (TongKhoiLuong) * 100;
+    if (this.TongKhoiLuong > 0) {
+      this.item.TyLeCottonBongPhe = (this.item.CottonBongPhe || 0) / (this.TongKhoiLuong + (this.item.CottonBongPhe || 0)) * 100;
+      this.item.TyLeCottonBongMun = (this.item.CottonBongMun || 0) / (this.TongKhoiLuong + (this.item.CottonBongMun || 0)) * 100;
+      this.item.TyLeCuiHoiChaiCotton = (this.item.KhoiLuongCuiHoiChaiCotton || 0) / (this.TongKhoiLuong + (this.item.KhoiLuongCuiHoiChaiCotton || 0)) * 100;
     }
   }
   //PE
   TinhTyLePEBongPhe() {
+    this.TongKhoiLuong = 0;
+
     this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
     if(this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.PEBongPhe || 0) - (this.item.PEBongMun || 0);
 
-    let TongKhoiLuong = this.TongKhoiLuong + (this.item.PEBongPhe ?? 0) + (this.item.PEBongMun ?? 0);
-
-    if (TongKhoiLuong > 0) {
-      this.item.TyLePEBongPhe = this.item.PEBongPhe / (TongKhoiLuong) * 100;
-      this.item.TyLePEBongMun = this.item.PEBongMun / (TongKhoiLuong) * 100;
+    if (this.TongKhoiLuong > 0) {
+      this.item.TyLePEBongPhe = this.item.PEBongPhe / (this.TongKhoiLuong + (this.item.PEBongPhe || 0)) * 100;
+      this.item.TyLePEBongMun = this.item.PEBongMun / (this.TongKhoiLuong + (this.item.PEBongMun || 0)) * 100;
     }
   }
   //chai ki
   TinhTyLeBongChaiKy() {
+    this.TongKhoiLuong = 0;
+
     this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
     if(this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ChaiKy || 0);
 
-    let TongKhoiLuong = this.TongKhoiLuong + (this.item.ChaiKy || 0);
-
-    if (TongKhoiLuong > 0)
-      this.item.TyLeBongChaiKy = this.item.ChaiKy / (TongKhoiLuong) * 100;
+    if (this.TongKhoiLuong > 0)
+      this.item.TyLeBongChaiKy = this.item.ChaiKy / (this.TongKhoiLuong + (this.item.ChaiKy || 0)) * 100;
   }
   //thô
   TinhTyLeBongCuiHoi() {
+    this.TongKhoiLuong = 0;
+
     this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
     if(this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.CuiHoi || 0) - (this.item.ThoMangTho || 0);
-    let TongKhoiLuong = this.TongKhoiLuong + (this.item.CuiHoi || 0) + (this.item.ThoMangTho || 0);
 
-    if (TongKhoiLuong > 0){
-      this.item.TyLeBongCuiHoi = this.item.CuiHoi / (TongKhoiLuong) * 100;
-      this.item.TyLeThoMangTho = this.item.ThoMangTho / (TongKhoiLuong) * 100;
+    if (this.TongKhoiLuong > 0){
+      this.item.TyLeBongCuiHoi = this.item.CuiHoi / (this.TongKhoiLuong + (this.item.CuiHoi || 0)) * 100;
+      this.item.TyLeThoMangTho = this.item.ThoMangTho / (this.TongKhoiLuong + (this.item.ThoMangTho || 0)) * 100;
     }
   }
   //con
   TinhTyLeBongThoMang() {
+    this.TongKhoiLuong = 0;
+
     this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
     if(this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ThoMang || 0);
       // this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ThoMang || 0) - (this.item.BongHutMoi || 0);
-    let TongKhoiLuong = this.TongKhoiLuong + (this.item.ThoMang || 0) + (this.item.BongHutMoi || 0);
-
-    if (TongKhoiLuong > 0) {
-      this.item.TyLeThoMang = (this.item.ThoMang ?? 0) / (TongKhoiLuong) * 100;
+    if (this.TongKhoiLuong > 0) {
+      this.item.TyLeThoMang = (this.item.ThoMang ?? 0) / (this.TongKhoiLuong + (this.item.ThoMang || 0)) * 100;
       this.item.TyLeBongHutMoi = (this.item.BongHutMoi ?? 0) / (this.TongKhoiLuong) * 100;
     }
   }
   //ong
   TinhTyLeSoiCat() {
+    this.TongKhoiLuong = 0;
+
     this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
     if(this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.SoiCat || 0);
 
-    let TongKhoiLuong = this.TongKhoiLuong + (this.item.SoiCat || 0);
-    
-    if (TongKhoiLuong > 0)
-      this.item.TyLeSoiCat = this.item.SoiCat / (TongKhoiLuong) * 100;
+    if (this.TongKhoiLuong > 0)
+      this.item.TyLeSoiCat = this.item.SoiCat / (this.TongKhoiLuong + (this.item.SoiCat || 0)) * 100;
   }
   // ghep dau ra
   TinhTyLeCuiHoiGhepDauRa() {
+    this.TongKhoiLuong = 0;
+
     this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
     if(this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.KhoiLuongCuiHoiGhepDauRa || 0);
 
-    let TongKhoiLuong = this.TongKhoiLuong + (this.item.KhoiLuongCuiHoiGhepDauRa || 0);
-    
-    if (TongKhoiLuong > 0)
-      this.item.TyLeCuiHoiGhepDauRa = this.item.KhoiLuongCuiHoiGhepDauRa / (TongKhoiLuong) * 100;
+    if (this.TongKhoiLuong > 0)
+      this.item.TyLeCuiHoiGhepDauRa = this.item.KhoiLuongCuiHoiGhepDauRa / (this.TongKhoiLuong + (this.item.KhoiLuongCuiHoiGhepDauRa || 0)) * 100;
   }
   // ghep so bo cotton
   TinhTyLeCuiHoiGhepSoBoCotton() {
+    this.TongKhoiLuong = 0;
+
     this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
     if(this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong -= (this.item.TongKhoiLuongCuiHoi || 0);
 
-    let TongKhoiLuong = this.TongKhoiLuong + (this.item.TongKhoiLuongCuiHoi || 0);
-    
-    if (TongKhoiLuong > 0)
-      this.item.TyLeCuiHoiGhepSoBoCotton = this.item.TongKhoiLuongCuiHoi / (TongKhoiLuong) * 100;
+    if (this.TongKhoiLuong > 0)
+      this.item.TyLeCuiHoiGhepSoBoCotton = this.item.TongKhoiLuongCuiHoi / (this.TongKhoiLuong + (this.item.TongKhoiLuongCuiHoi || 0)) * 100;
   }
   enter(i){
     if(i+1<this.inputNumbers.toArray().length){
@@ -469,6 +469,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
          this.TinhTyLeCuiHoiGhepSoBoCotton();
           break;
         default:
+          this.TongKhoiLuong = 0;
           this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
           break;
       }
