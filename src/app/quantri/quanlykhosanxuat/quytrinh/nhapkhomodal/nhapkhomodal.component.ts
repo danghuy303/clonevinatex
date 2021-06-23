@@ -339,12 +339,11 @@ export class NhapkhomodalComponent implements OnInit {
     if (this.newTableItem.Ten != undefined || this.newTableItem.SoCan != undefined || this.newTableItem.SoKien != undefined || this.newTableItem.IddmViTri != undefined) {
       this.add();
     }
-    // if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
-    //   this.toastr.error("Bạn chưa chọn danh mục kho!");
-    //   return false;
-    // }
-    // else
-    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+    if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
+      this.toastr.error("Bạn chưa chọn danh mục kho!");
+      return false;
+    }
+    else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày!");
       return false;
     }
@@ -369,20 +368,20 @@ export class NhapkhomodalComponent implements OnInit {
     //     return false;
     //   }
     // }
-    else{
-      let isCheck : any = false;
-      console.log(this.item.listItem)
-      this.item.listItem.forEach(element => {
-        if(element.IddmKho === null || element.IddmKho === undefined)
-        {
-          isCheck = true;
-        }
-      });
-      if(isCheck === true){
-        this.toastr.error("Bạn chưa chọn danh mục kho!");
-          return false;
-      }
-    }
+    // else{
+    //   let isCheck : any = false;
+    //   console.log(this.item.listItem)
+    //   this.item.listItem.forEach(element => {
+    //     if(element.IddmKho === null || element.IddmKho === undefined)
+    //     {
+    //       isCheck = true;
+    //     }
+    //   });
+    //   if(isCheck === true){
+    //     this.toastr.error("Bạn chưa chọn danh mục kho!");
+    //       return false;
+    //   }
+    // }
     return true;
   }
 }
