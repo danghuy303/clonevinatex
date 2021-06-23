@@ -60,6 +60,7 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
           obj.ThoiGianDuKien = UnixToDate(obj.ThoiGianDuKienUnix);
           obj.ThoiGianCapCang = UnixToDate(obj.ThoiGianCapCangUnix);
         });
+        this.getListKho(this.item.listItem[0].IddmLoaiBong);
         this.sort()
       }
       this.KiemTraButtonModal();
@@ -106,13 +107,17 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
   ChuyenDuyet() {
     var isCheck: any = false;
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn  ngày");
+      this.toastr.error("Bạn chưa chọn  ngày chứng từ");
       isCheck = true;
     }
     else {
       this.item.listItem.forEach(element => {
         if (element.ThoiGianDuKien === null || element.ThoiGianDuKien === undefined || element.ThoiGianCapCang === null || element.ThoiGianCapCang === undefined) {
           this.toastr.error("Bạn chưa chọn chọn thời gian dự kiến hoặc thời gian cập cảng");
+          isCheck = true;
+        }
+        if (element.IddmKho === null || element.IddmKho === undefined) {
+          this.toastr.error("Bạn chưa chọn kho");
           isCheck = true;
         }
       });
@@ -197,7 +202,11 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
     else {
       this.item.listItem.forEach(element => {
         if (element.ThoiGianDuKien === null || element.ThoiGianDuKien === undefined || element.ThoiGianCapCang === null || element.ThoiGianCapCang === undefined) {
-          this.toastr.error("Bạn chưa chọn chọn thời gian dự kiến hoặc thời gian cập cảng");
+          this.toastr.error("Bạn chưa chọn thời gian dự kiến hoặc thời gian cập cảng");
+          isCheck = true;
+        }
+        if (element.IddmKho === null || element.IddmKho === undefined) {
+          this.toastr.error("Bạn chưa chọn kho");
           isCheck = true;
         }
       });
@@ -350,6 +359,7 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
         this.item.Container = this.listKeHoachNguyenLieuFull[i].Container;
         this.item.ThoiGianCapCang = UnixToDate(this.listKeHoachNguyenLieuFull[i].ThoiGianCapCangUnix);
         this.item.ThoiGianDuKien = UnixToDate(this.listKeHoachNguyenLieuFull[i].ThoiGianDuKienUnix);
+        this.getListKho(this.listKeHoachNguyenLieuFull[i].IddmLoaiBong)
         break;
       }
     }
@@ -363,6 +373,11 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
     let modalRef = this._modal.open(CalcmodalComponent)
     modalRef.result.then((res) => {
       item[opt]=res;
+    })
+  }
+  getListKho(IddmLoaiBong) {
+    this._services.GetListdmKhoForLoaiBong(IddmLoaiBong).subscribe((res: any) => {
+      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 }

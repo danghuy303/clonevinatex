@@ -36,9 +36,6 @@ export class NhapkhomodalComponent implements OnInit {
   type: any = '';
   editField: any = false;
   nametype: any = '';
-  HeThong: any = {
-    Ma: 'SCM_PhieuNhapLoBong'
-  }
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -73,11 +70,7 @@ export class NhapkhomodalComponent implements OnInit {
     this.getListCaMay();
     this.getListdmViTri();
     this.getListKeHoach();
-    // this.getListKhachHang();
-    this._services.GetHeThong(this.HeThong.Ma).subscribe((res: any) => {
-      this.HeThong = res;
-      this.getListKho();
-    })
+    this.getListKho();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -189,14 +182,8 @@ export class NhapkhomodalComponent implements OnInit {
         this.data.Loai = 7;
       }
     }
-    this._services.GetListdmKhoForLoaiBong(this.data.Loai).subscribe((res: any) => {
+    this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
-      if(this.HeThong.GiaTri === 1 && this.item.listItem.length > 0){
-        this.item.listItem.forEach(element => {
-          if(element.IddmKho === null || element.IddmKho === undefined)
-            element.IddmKho = this.listKho[0].value
-        });
-      }
     })
   }
   getListLoaiBong() {
@@ -256,8 +243,6 @@ export class NhapkhomodalComponent implements OnInit {
   add() {
     if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
-      if(this.HeThong.GiaTri === 1 && (this.newTableItem.IddmKho === null || this.newTableItem.IddmKho === undefined))
-      this.newTableItem.IddmKho = this.listKho[0].value
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {}
     
