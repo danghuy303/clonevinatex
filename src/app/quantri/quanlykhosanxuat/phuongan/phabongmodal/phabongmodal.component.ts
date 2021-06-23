@@ -110,6 +110,7 @@ export class PhabongmodalComponent implements OnInit {
       // this.item.SoKienBongHoi = 3;
       if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong) && validVariable(this.item.TrongLuongBongHoi) && validVariable(this.item.SoKienBongHoi)) {
         let SoNgayTrienKhai = Math.floor((this.itemTrienKhaiKeHoach.DenNgayUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1);
+        console.log('SoNgayTrienKhai',SoNgayTrienKhai)
         let _1NgayCan = this.item.KhoiLuongBong / SoNgayTrienKhai;
         // this.item.KhoiLuongKienTrungBinh = (this.item.listLoBong.filter(ele => ele.IdLoBong !== null).reduce((Tong, ele) => {
         //   return Tong + ele.TrongLuong

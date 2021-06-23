@@ -105,13 +105,13 @@
                 </p-calendar>
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kho <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" [(ngModel)]="item.IddmKho"
                 styleClass="p-inputtext-sm"></p-dropdown>
             </div>
-        </div> -->
+        </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -165,7 +165,6 @@
                         <col *ngIf="this.type==='bong'">
                         <col *ngIf="this.type==='bong'">
                         <col *ngIf="this.type==='bong'">
-                        <col>
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
@@ -178,7 +177,7 @@
                         <th *ngIf="this.type==='bong'">Số kiện ngắn (kiện)</th>
                         <th *ngIf="this.type==='bong'">Số kiện dài (kiện)</th>
                         <th *ngIf="this.type==='bong'">Vị trí</th>
-                        <th>Chọn kho</th>
+                        <!-- <th>Chọn kho</th> -->
                         <th></th>
                     </tr>
                 </ng-template>
@@ -212,10 +211,10 @@
                             <p-dropdown [filter]="true" [options]="listdmViTri" placeholder="Chọn vị trí" styleClass="p-inputtext-sm"
                                     [(ngModel)]="item.IddmViTri"></p-dropdown>
                         </td>
-                        <td class="text-center">
+                        <!-- <td class="text-center">
                             <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
                                     [(ngModel)]="item.IddmKho"></p-dropdown>
-                        </td>
+                        </td> -->
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
@@ -262,10 +261,10 @@
                             <p-dropdown [filter]="true" [options]="listdmViTri" placeholder="Chọn vị trí" styleClass="p-inputtext-sm"
                                     [(ngModel)]="newTableItem.IddmViTri"></p-dropdown>
                         </td>
-                        <td class="text-center">
+                        <!-- <td class="text-center">
                             <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
                                     [(ngModel)]="newTableItem.IddmKho"></p-dropdown>
-                        </td>
+                        </td> -->
                         <td class="text-center">
                             <button pButton pRipple type="button" icon="pi pi-plus"
                                 class="p-button-rounded p-button-sm " (click)="add()"></button>
@@ -287,7 +286,6 @@
                             {{item.listItem|isXoa|SumByKey:'SoKienDai'|number:'0.0'}}
                         </td>
                         <td *ngIf="this.type==='bong'"></td>
-                        <td></td>
                         <td></td>
                     </tr>
                 </ng-template>

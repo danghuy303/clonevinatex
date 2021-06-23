@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { NhapkhokhacmodalComponent } from '../nhapkhokhacmodal/nhapkhokhacmodal.component';
@@ -32,8 +33,11 @@ export class NhapkhokhacComponent implements OnInit {
   title: any = "";
   type: any = "";
   nametype: any = "";
+  nhaMay : any = {};
+  userInfo: any;
   constructor(public _modal: NgbModal, public _toastr: ToastrService,
-    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
+    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private _auth: AuthenticationService) {
+      this.userInfo = this._auth.currentUserValue;
   }
 
   ngOnInit(): void {
@@ -51,7 +55,10 @@ export class NhapkhokhacComponent implements OnInit {
       this.nametype = 'bông hồi';
 
     })
-    this.KiemTraTabTrangThai();
+    this._service.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
+      this.nhaMay = res[0];
+      this.KiemTraTabTrangThai();
+    })
   }
 
   changeParam(id) {
@@ -135,7 +142,8 @@ export class NhapkhokhacComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      Loai: 6
+      Loai: 6,
+      IdDuAn:  this.nhaMay.Id,
     }
     if (this.title === 'khobonghoi') {
       data.Loai = 6;
