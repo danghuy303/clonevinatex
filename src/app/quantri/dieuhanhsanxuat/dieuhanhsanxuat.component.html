@@ -128,13 +128,19 @@
                                 <td class="text-right width-150">{{item.DauSoCan|number:'0.2-2' }}</td>
                                 <td class="text-right width-150">{{item.NhapSoKien|number:'0.0-0' }}</td>
                                 <td class="text-right width-150">
-                                    <a href="javascript:void(0)" *ngIf="item.TendmLoaiSoi!==null"
+                                    <a href="javascript:void(0)" *ngIf="item.TendmLoaiBong!=='TỔNG'"
                                         (click)="callDataXuatNhap('Nhap', item)"> {{item.NhapSoCan|number:'0.2-2' }}</a>
+                                        <ng-container *ngIf="item.TendmLoaiBong === 'TỔNG'">
+                                            {{item.NhapSoCan|number:'0.2-2' }}
+                                        </ng-container>
                                 </td>
                                 <td class="text-right width-150">{{item.XuatSoKien|number:'0.0-0' }}</td>
                                 <td class="text-right width-150">
-                                    <a href="javascript:void(0)" *ngIf="item.TendmLoaiSoi!==null"
+                                    <a href="javascript:void(0)" *ngIf="item.TendmLoaiBong!=='TỔNG'"
                                         (click)="callDataXuatNhap('Xuat', item)">{{item.XuatSoCan|number:'0.2-2'}}</a>
+                                        <ng-container *ngIf="item.TendmLoaiBong === 'TỔNG'">
+                                            {{item.XuatSoCan|number:'0.2-2' }}
+                                        </ng-container>
                                 </td>
                                 <td class="text-right width-150">{{item.CuoiSoKien|number:'0.0-0' }}</td>
                                 <td class="text-right width-150">{{item.CuoiSoCan|number:'0.2-2' }}</td>
