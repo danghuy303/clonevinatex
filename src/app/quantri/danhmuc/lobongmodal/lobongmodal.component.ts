@@ -125,4 +125,7 @@ export class LobongmodalComponent implements OnInit {
       // })
     })
   }
+  TinhGiaKien(){
+    this.item.GiaKien = (this.item.TrongLuong || 0) *  (this.item.GiaBong || 0)
+  }
 }
