@@ -130,7 +130,7 @@ export class PhabongmodalComponent implements OnInit {
             let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
             // console.log(SoNgayDuKien);
             
-            lobong.lim = Math.round(SoNgayDuKien * TyLeBongCan);
+            lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
             if(lobong.NgayVeDuKien ===null){
               lobong.canDelete = true;
             }
@@ -314,7 +314,7 @@ export class PhabongmodalComponent implements OnInit {
         if (lobong.isLoBongTuongLai) {
           console.log('tuonglaiiiiii')
           let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
-          lobong.lim = Math.round(SoNgayDuKien * TyLeBongCan);
+          lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
         }
       })
       this.item.listLoBong = [...this.item.listLoBong, ...res];
@@ -347,7 +347,7 @@ export class PhabongmodalComponent implements OnInit {
         }
         if (lobong.isLoBongTuongLai) {
           let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
-          lobong.lim = Math.round(SoNgayDuKien * TyLeBongCan);
+          lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
         }
       })
       this.itemSoKienTrenBan = {};
