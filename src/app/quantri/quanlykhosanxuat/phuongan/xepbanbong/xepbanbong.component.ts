@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { deepCopy, DateToUnix, validVariable } from 'src/app/services/globalfunction';
+import { deepCopy, DateToUnix, validVariable, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { Dongvanpx1Component } from '../layoutmodals/dongvanpx1/dongvanpx1.component';
 import { Dongvanpx2Component } from '../layoutmodals/dongvanpx2/dongvanpx2.component';
@@ -49,7 +49,7 @@ export class XepbanbongComponent implements OnInit {
     }
   }
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-
+  listdmPhanXuong : any = [];
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private _store: StoreService) { }
 
   ngOnInit(): void {
@@ -59,6 +59,9 @@ export class XepbanbongComponent implements OnInit {
           this.update(res);
         })
       }
+    })
+    this._service.GetListdmPhanXuongOpt().subscribe((res:any)=>{
+      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh()
@@ -98,7 +101,7 @@ export class XepbanbongComponent implements OnInit {
   }
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
-    this.GetListQuyTrinh();
+    // this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?) {
     if (reset) {
@@ -114,6 +117,7 @@ export class XepbanbongComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
+      IddmPhanXuong: this.filter.IddmPhanXuong || "",
     }
     this._service.XepBanBong().GetList(data).subscribe((res: any) => {
       this.items = res.items;
