@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalquanComponent } from 'src/app/quantri/danhmuc/modal/modalquan/modalquan.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, formatdate } from 'src/app/services/globalfunction';
+import { KehoachnhapnguyenlieuhoanthanhmodalComponent } from '../kehoachnhapnguyenlieuhoanthanhmodal/kehoachnhapnguyenlieuhoanthanhmodal.component';
 import { KehoachnhapnguyenlieumodalComponent } from '../kehoachnhapnguyenlieumodal/kehoachnhapnguyenlieumodal.component';
 
 @Component({
@@ -147,5 +148,25 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
       this.GetListQuyTrinh();
     })
   }
-
+  hoanthanh(Id) {
+    this._service.NhapKeHoachNguyenLieu().Get(Id).subscribe((item: any) => {
+        console.log(item)
+        if (item.listItem != undefined && item.listItem != null) {
+          let modalRef = this._modal.open(KehoachnhapnguyenlieuhoanthanhmodalComponent, {
+            size: 'fullscreen-100',
+            backdrop: 'static'
+          })
+          modalRef.componentInstance.opt = 'edit';
+          modalRef.componentInstance.item = item;
+          
+          modalRef.result.then((res: any) => {
+            console.log(res);
+            this._toastr.success('Cập nhật thành công');
+            this.GetListQuyTrinh();
+            this.changeParam(0)
+          })
+            .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
+        }
+      }) 
+  }
 }
