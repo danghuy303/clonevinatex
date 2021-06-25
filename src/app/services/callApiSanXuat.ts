@@ -887,6 +887,10 @@ export class SanXuatService {
                 let IdDuAn = this.store.getCurrent();
                 return this.http.get(url + `GetListKeHoachNhapNguyenLieu_ChuaNhapHang?IdDuAn=${IdDuAn}&IdKeHoachInvoice_Item=${IdKeHoachInvoice_Item}&Loai=${Loai}`, httpOptions)
             },
+            HoanThanh: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'HoanThanhKeHoachNhapNguyenLieu', data, httpOptions);
+            },
         }
     }
 
