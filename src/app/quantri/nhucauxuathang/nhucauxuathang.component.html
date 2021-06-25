@@ -121,7 +121,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngFor="let item of listItem">
+                        <ng-container *ngFor="let item of listItem;let i = index">
                             <tr [ngStyle]="{'font-weight':item.TendmItem !== null?'normal':'bold'}">
                                 <td class="text-center width-35 bg-white">
                                     <p-checkbox [ngModel]="item.checked" (onChange)="checkMatHang($event,item,i)" binary="true"
