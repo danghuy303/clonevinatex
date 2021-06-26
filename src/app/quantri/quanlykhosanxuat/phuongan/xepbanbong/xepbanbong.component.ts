@@ -62,9 +62,9 @@ export class XepbanbongComponent implements OnInit {
     })
     this._service.GetListdmPhanXuongOpt().subscribe((res:any)=>{
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmPhanXuong = this.listdmPhanXuong[0].value;
+      this.KiemTraTabTrangThai();
     })
-    this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh()
   }
   changeParam(id) {
     this.router.navigate([`quantri/trienkhaisanxuat/xepbanbong/${id}`], { replaceUrl: true })
@@ -101,7 +101,7 @@ export class XepbanbongComponent implements OnInit {
   }
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
-    // this.GetListQuyTrinh();
+    this.GetListQuyTrinh();
   }
   GetListQuyTrinh(reset?) {
     if (reset) {
