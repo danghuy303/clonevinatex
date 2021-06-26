@@ -91,6 +91,7 @@ export class PhabongmodalComponent implements OnInit {
   GetListTrienKhaiKeHoach() {
     let data = {
       CurrentPage: 0,
+      isHoanThanh: false
     }
     this._services.TrienKhaiKeHoachSanXuat().GetList(data).subscribe((res: any) => {
       this.listTrienKhaiKeHoach = mapArrayForDropDown(res, 'NoiDung', "Id")

@@ -635,7 +635,10 @@ export class SanXuatService {
             },
             GetListGiaoKeHoachSanXuatChuaLapKeHoach: (IddmPhanXuong) => {
                 return this.http.get(url + `GetListGiaoKeHoachSanXuatChuaLapKeHoach?IddmPhanXuong=${IddmPhanXuong}`, httpOptions)
-            }
+            },
+            HoanThanh: (data) => {
+                return this.http.post(url + 'HoanThanhTrienKhaiKeHoachSanXuat', data, httpOptions);
+            },
         }
     }
     //CanDoiChuyen
