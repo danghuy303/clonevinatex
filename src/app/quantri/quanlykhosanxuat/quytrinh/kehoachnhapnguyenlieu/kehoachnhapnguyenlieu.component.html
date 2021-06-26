@@ -77,11 +77,11 @@
                     {{item[col.field]}}
                 </td>
                 <td class="text-center">
-                    <!-- <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false"
+                    <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false"
                         class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành"
-                        (click)="hoanthanh(item.Id)"></button> -->
+                        (click)="hoanthanh(item.Id)"></button>
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item.Id)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.Id)"></button>
                 </td>
             </tr>
         </ng-template>

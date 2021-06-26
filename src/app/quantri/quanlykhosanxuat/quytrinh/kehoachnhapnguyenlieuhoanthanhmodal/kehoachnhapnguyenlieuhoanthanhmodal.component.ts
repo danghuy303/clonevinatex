@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
@@ -34,6 +35,7 @@ export class KehoachnhapnguyenlieuhoanthanhmodalComponent implements OnInit {
   data: any = {};
   filter: any = {};
   type: any = '';
+  checkedAll: boolean = false;
   editField: any = false;
   nametype: any = '';
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
@@ -93,23 +95,23 @@ export class KehoachnhapnguyenlieuhoanthanhmodalComponent implements OnInit {
   }
 
   GhiLai() {
-    this._services.NhapKeHoachNguyenLieu().Set(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.toastr.success(res.message)
-          this.opt = 'edit';
-          this.item = res.objectReturn;
-          this.item.listItem.filter(obj => {
-            obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
-            obj.ThoiGianCapCang = obj.ThoiGianCapCangUnix > 0 ? UnixToDate(obj.ThoiGianCapCangUnix) : 0;
-          });
-        } else {
-          this.toastr.error(res.message);
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn các mặt hàng này đã hoàn thành?"
+    modalRef.result.then(res => {
+      this._services.NhapKeHoachNguyenLieu().HoanThanh(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message)
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
         }
-      }
-    })
+      })
+    }).catch(er => console.log(er))
   }
-
 
   getListKho() {
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
@@ -152,5 +154,19 @@ export class KehoachnhapnguyenlieuhoanthanhmodalComponent implements OnInit {
         item.listDacTinh = mapArrayForDropDown(res, 'DacTinh', 'Id');
       })
     }
+  }
+  checkAll(e) {
+    if (e.checked) {
+      this.item.listItem.forEach(item => {
+        item.isDaHoanThanh = true;
+      });
+    } else {
+      this.item.listItem.forEach(item => {
+        item.isDaHoanThanh = false;
+      });
+    }
+  }
+  checked() {
+    this.checkedAll = this.item.listItem.every(ele => ele.checked)
   }
 }

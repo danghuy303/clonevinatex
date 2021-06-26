@@ -106,10 +106,26 @@ export class XuatkhomodalComponent implements OnInit {
     } else {
       this.toastr.error('Bạn chưa nhập ngày chứng từ!')
     }
-
-
-    console.log(this.item)
-
+  }
+  KhongDuyet() {
+    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined) {
+      this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
+    }
+    if (validVariable(this.item.Ngay)) {
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      this.item.listItem = this.listItem;
+      this.services.PhieuXuatSanXuat().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    } else {
+      this.toastr.error('Bạn chưa nhập ngày chứng từ!')
+    }
   }
   GetNextSoQuyTrinh() {
     this.services.PhieuXuatSanXuat().GetNextSo().subscribe((res: any) => {

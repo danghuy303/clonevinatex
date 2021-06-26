@@ -635,7 +635,10 @@ export class SanXuatService {
             },
             GetListGiaoKeHoachSanXuatChuaLapKeHoach: (IddmPhanXuong) => {
                 return this.http.get(url + `GetListGiaoKeHoachSanXuatChuaLapKeHoach?IddmPhanXuong=${IddmPhanXuong}`, httpOptions)
-            }
+            },
+            HoanThanh: (data) => {
+                return this.http.post(url + 'HoanThanhTrienKhaiKeHoachSanXuat', data, httpOptions);
+            },
         }
     }
     //CanDoiChuyen
@@ -886,6 +889,10 @@ export class SanXuatService {
             GetListChuaNhap: (IdKeHoachInvoice_Item, Loai) => {
                 let IdDuAn = this.store.getCurrent();
                 return this.http.get(url + `GetListKeHoachNhapNguyenLieu_ChuaNhapHang?IdDuAn=${IdDuAn}&IdKeHoachInvoice_Item=${IdKeHoachInvoice_Item}&Loai=${Loai}`, httpOptions)
+            },
+            HoanThanh: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'HoanThanhKeHoachNhapNguyenLieu', data, httpOptions);
             },
         }
     }

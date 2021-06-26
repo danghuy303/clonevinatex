@@ -66,6 +66,7 @@ export class LohangmodalComponent implements OnInit {
   getListTrienKhaiKeHoach(){
     let data={
       CurrentPage: 0,
+      isHoanThanh: false
     }
     this.services.TrienKhaiKeHoachSanXuat().GetList(data).subscribe((res:any)=>{
       this.listGiaoKeHoach_TrienKhaiFull = res;

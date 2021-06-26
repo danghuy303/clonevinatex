@@ -47,7 +47,8 @@ export class XuatkhoxomodalComponent implements OnInit {
     }
     //
     let data: any = {
-      CurrentPage: 0
+      CurrentPage: 0,
+      isHoanThanh: false
     }
     this.services.TrienKhaiKeHoachSanXuat().GetList(data).subscribe((res:any)=>{
       this.listTrienKhaiKeHoachSanXuat = mapArrayForDropDown(res, 'SoQuyTrinh', 'Id');
