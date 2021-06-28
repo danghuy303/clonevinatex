@@ -61,6 +61,7 @@ export class TimbongmodalComponent implements OnInit {
   PoolLoBong: any = {
 
   }
+  cloneLoBong:any=[];
   listLoaiBong: any = [];
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
 
@@ -491,7 +492,7 @@ export class TimbongmodalComponent implements OnInit {
       lobong.listItem = [];
       // }
       for (let i = 1; i <= this.item.SoBanBong; i++) {
-        console.log(lobong.tempBanBong[`${i}`].listItem)
+        // console.log(lobong.tempBanBong[`${i}`].listItem)
         let data = {
           SoLuongKien: lobong.tempBanBong[`${i}`].SoKien,
           ThuTu: i,
@@ -501,6 +502,14 @@ export class TimbongmodalComponent implements OnInit {
         lobong.listItem.push(data)
       }
     });
+    
+    this.cloneLoBong = this.item.listLoBong.map(ele=>{
+      return {...ele}
+    })
+    this.item.listLoBong.forEach(ele => {
+      ele.tempBanBong = undefined;
+    });
+    console.table(this.item.listLoBong)
     return {
       ...this.ghostItem,
       PhuongAnPhaBong: this.item
@@ -534,8 +543,10 @@ export class TimbongmodalComponent implements OnInit {
           res.objectReturn.PhuongAnPhaBong = undefined;
           this.ghostItem = res.objectReturn;
           // this.KiemTraButtonModal();
+          this.cloneLoBong = [];
           this.GetListdmLoaiBong_PAPB()
         } else {
+          this.item.listLoBong = this.cloneLoBong;
           this._toastr.error(res.message);
         }
       }
@@ -548,6 +559,7 @@ export class TimbongmodalComponent implements OnInit {
           this._toastr.success(res.message);
           this._activeModal.close();
         } else {
+          this.item.listLoBong = this.cloneLoBong;
           this._toastr.error(res.message);
         }
       }
