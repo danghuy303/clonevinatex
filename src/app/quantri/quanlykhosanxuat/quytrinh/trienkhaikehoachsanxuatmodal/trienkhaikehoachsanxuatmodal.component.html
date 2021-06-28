@@ -76,8 +76,8 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung<span class="required">*</span>:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung<span class="required">*</span>:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
             </div>
         </div>
@@ -145,14 +145,20 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số ca:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số ca :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-inputNumber locale="vi-VN" [(ngModel)]="item.SoCa" (onBlur)="ThayDoiSoCa()">
                 </p-inputNumber>
             </div>
         </div>
+        <!-- <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Thay thế :</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isThayThe" />
+            </div>
+        </div> -->
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>

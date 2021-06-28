@@ -212,11 +212,13 @@ export class ThongkesanluongmodalComponent implements OnInit {
       && this.item.Ngay != undefined) {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
-      if (this.item.listItem != undefined && this.item.listItem != null) {
-        this.item.listItem.forEach(element => {
-          element.isXoa = true
-        });
-      }
+      this.item.listItem = []
+
+      // if (this.item.listItem != undefined && this.item.listItem != null) {
+      //   this.item.listItem.forEach(element => {
+      //     element.isXoa = true
+      //   });
+      // }
       this.services.ThongKeSanLuong().GetMatHang(this.item.IddmPhanXuong, this.item.IddmCaSanXuat, this.item.NgayUnix).subscribe((res: any) => {
         res.forEach(element => {
           element.Id = null;
