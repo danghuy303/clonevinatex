@@ -6,11 +6,11 @@
     <div></div>
     <div class="d-flex flex-column flex-lg-row">
         <div class="p-mr-2">
-            <p-dropdown [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
                 [(ngModel)]="filter.IddmPhanXuong" [showClear]="true" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [options]="listCaSanXuat" placeholder="Chọn ca làm việc" styleClass="p-inputtext-sm"
+            <p-dropdown [filter]="true" [options]="listCaSanXuat" placeholder="Chọn ca làm việc" styleClass="p-inputtext-sm"
                 [(ngModel)]="filter.IddmCaSanXuatThucTe" [showClear]="true" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
         </div>
         <div class="p-mr-2">

@@ -23,7 +23,7 @@
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listnhamay" placeholder="Chọn nhà máy" [(ngModel)]="filter.IddmItem"
-                styleClass="p-inputtext-sm" (onChange)="GetList()"></p-dropdown>
+                styleClass="p-inputtext-sm" (onChange)="GetList()" [showClear]="true" [filter]="true"></p-dropdown>
         </div>
         <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetList()"

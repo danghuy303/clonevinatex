@@ -211,14 +211,18 @@ export class ThongkesanluongmodalComponent implements OnInit {
       && this.item.IddmPhanXuong != undefined
       && this.item.Ngay != undefined) {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
-
-      this.item.listItem = []
-
-      // if (this.item.listItem != undefined && this.item.listItem != null) {
-      //   this.item.listItem.forEach(element => {
-      //     element.isXoa = true
-      //   });
-      // }
+      if (this.opt !== 'edit') {
+        this.item.listItem = []
+      }
+      else{
+        if (this.item.listItem != undefined && this.item.listItem != null) {
+          this.item.listItem = this.item.listItem.filter((e: any) => e.Id !== null)
+          for(let i=0; i<  this.item.listItem.length; i ++){
+            this.item.listItem[i].isXoa = true;
+          }
+        }
+      }
+      
       this.services.ThongKeSanLuong().GetMatHang(this.item.IddmPhanXuong, this.item.IddmCaSanXuat, this.item.NgayUnix).subscribe((res: any) => {
         res.forEach(element => {
           element.Id = null;

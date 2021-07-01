@@ -13,7 +13,7 @@
         <div style="width:200px; margin-right:10px ;">
             <div class="p-col-12 p-p-0">
                 <p-dropdown [filter]="true" [options]="listphannhommay" placeholder="Chọn phân nhóm máy"
-                    styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanNhom" (onChange)="GetListdm(true)"></p-dropdown>
+                    styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanNhom" (onChange)="GetListdm(true)" [showClear]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-inputgroup p-inputgroup-sm" style="width:200px">

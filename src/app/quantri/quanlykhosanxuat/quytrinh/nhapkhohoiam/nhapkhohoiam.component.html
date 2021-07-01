@@ -7,7 +7,7 @@
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-dropdown [options]="listdmPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+            <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
                 [(ngModel)]="filter.IddmPhanXuong" [showClear]="true" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
         </div>
         <div class="p-mr-2">

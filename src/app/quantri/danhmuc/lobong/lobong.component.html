@@ -7,15 +7,15 @@
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
             <p-dropdown [options]="listLoaiBongXo" placeholder="Chọn loại lô" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.Loai" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
+                [(ngModel)]="filter.Loai" (onChange)="GetListQuyTrinh(true)" [showClear]="true" [filter]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-dropdown [options]="listdmLoaiBong" placeholder="Chọn loại bông" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.IddmLoaiBong" [showClear]="true" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
+                [(ngModel)]="filter.IddmLoaiBong" [showClear]="true" (onChange)="GetListQuyTrinh(true)" [filter]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-dropdown [options]="listisDaDuyet" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.isDaDuyet" [showClear]="true" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
+                [(ngModel)]="filter.isDaDuyet" [showClear]="true" (onChange)="GetListQuyTrinh(true)" [filter]="true"></p-dropdown>
         </div>
         <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh()" [(ngModel)]="filter.KeyWord"/>

@@ -22,7 +22,7 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại sợi</label>
             <div class="p-col-12 p-lg-4 p-p-0">
                 <p-dropdown [options]="listLoaiSoi" placeholder="Chọn loại sợi" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IddmLoaiSoi"></p-dropdown>
+                    [(ngModel)]="item.IddmLoaiSoi" [showClear]="true" [filter]="true"></p-dropdown>
             </div>
             <label class="p-col-12 p-lg-2 p-p-0 my-auto text-right">Đơn vị tính</label>
             <div class="p-col-12 p-lg-4 p-p-0">

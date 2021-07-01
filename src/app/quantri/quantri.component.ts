@@ -458,7 +458,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Kế hoạch nhập bông invoice',
                         routerLink: '/quantri/quanlykhosanxuat/khobong/kehoachnhapnguyenlieuinvoice/0',
-                        separator: this.checkmenu("KEHOACHNHAPNGUYENLIEU"),
+                        separator: this.checkmenu("KEHOACHNHAPNGUYENLIEUINVOICE"),
                         command: () => this.close()
                     },
                     {

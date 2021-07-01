@@ -9,11 +9,11 @@
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
             <p-dropdown [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.IddmPhanXuong" [showClear]="true" (onChange)="GetListdm(true)"></p-dropdown>
+                [(ngModel)]="filter.IddmPhanXuong" [showClear]="true" (onChange)="GetListdm(true)" [showClear]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-dropdown [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.CongDoan" [showClear]="true" (onChange)="GetListdm(true)"></p-dropdown>
+                [(ngModel)]="filter.CongDoan" [showClear]="true" (onChange)="GetListdm(true)" [filter]="true"></p-dropdown>
         </div>
         <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" [(ngModel)]="keyWord" (keyup.enter)="GetListdm(true)" class="p-inputtext-sm" pInputText />

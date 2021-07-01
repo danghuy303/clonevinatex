@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { ThongsochatluongmodalComponent } from '../thongsochatluongmodal/thongsochatluongmodal.component';
@@ -61,11 +60,8 @@ export class ThongsochatluongComponent implements OnInit {
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listLoBong: any = [];
-  nhaMay : any = {};
-  userInfo: any;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, 
-    private router: Router, private _auth: AuthenticationService) {
-      this.userInfo = this._auth.currentUserValue;
+    private router: Router) {
      }
 
   ngOnInit(): void {
@@ -81,10 +77,7 @@ export class ThongsochatluongComponent implements OnInit {
     this._service.GetListLoBong(data).subscribe((res: any) => {
       this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');;
     })
-    this._service.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
-      this.nhaMay = res[0];
       this.KiemTraTabTrangThai();
-    })
 
   }
   changeParam(id) {
@@ -157,7 +150,6 @@ export class ThongsochatluongComponent implements OnInit {
       Ma: "",
       Ten: "",
       IdLoBong: this.filter.IdLoBong,
-      IdDuAn:  this.nhaMay.Id,
     }
     this._service.PhieuNhapLoBong_ChatLuong().GetList(data).subscribe((res: any) => {
       this.items = res.items;
