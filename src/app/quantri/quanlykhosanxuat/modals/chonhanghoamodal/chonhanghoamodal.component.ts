@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-chonhanghoamodal',
@@ -14,7 +16,7 @@ export class ChonhanghoamodalComponent implements OnInit {
   KeyWord: any = '';
   opt: any = '';
   checkedAll: boolean = false;
-  constructor(private _activeModal: NgbActiveModal, private _services: SanXuatService) { }
+  constructor(private _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.items.forEach(item => {
@@ -57,13 +59,13 @@ export class ChonhanghoamodalComponent implements OnInit {
           });
           break;
       }
-    }else{
+    } else {
       this.items.forEach(item => {
         item.checked = false;
       });
     }
-    if(this.items.length!==0){
-      this.checkedAll = this.items.every((ele)=>ele.checked);
+    if (this.items.length !== 0) {
+      this.checkedAll = this.items.every((ele) => ele.checked);
     }
   }
   resetFilter() {
@@ -80,8 +82,8 @@ export class ChonhanghoamodalComponent implements OnInit {
       });
     }
   }
-  checked(){
-    this.checkedAll = this.items.every(ele=>ele.checked)
+  checked() {
+    this.checkedAll = this.items.every(ele => ele.checked)
   }
   accept() {
     switch (this.opt) {
@@ -114,14 +116,46 @@ export class ChonhanghoamodalComponent implements OnInit {
         }));
         break;
       case "LoBong":
-        this._activeModal.close(this.items.filter(item => item.checked).map(ele => {
-          return {
-            ...ele,
-            IdPhuongAnPhaBong: this.IdQuyTrinh,
-            tempBanBong: {},
-            Id: '',
+        let selected = this.items.filter(item => item.checked)
+        if (selected.length > 0) {
+          let loBongNguyen = selected.filter(ele => ele.IdLoBong !== null);
+          if (loBongNguyen.length !== 0) {
+            let valid = loBongNguyen.every(ele => validVariable(ele.TrongLuong) && validVariable(ele.Mic));
+            if (valid) {
+              this._activeModal.close(selected.map(ele => {
+                return {
+                  ...ele,
+                  IdPhuongAnPhaBong: this.IdQuyTrinh,
+                  tempBanBong: {},
+                  Id: '',
+                }
+              }))
+            } else {
+              this._toastr.error('Vui lòng chỉ chọn lô bông có "Trọng Lượng Bình Quân" và "Mic Bình Quân"!!!')
+            }
+          } else {
+            this._activeModal.close(selected.map(ele => {
+              return {
+                ...ele,
+                IdPhuongAnPhaBong: this.IdQuyTrinh,
+                tempBanBong: {},
+                Id: '',
+              }
+            }))
           }
-        }))
+        } else {
+          this._activeModal.close([]);
+        }
+        // this._activeModal.close(this.items.filter(item => item.checked).map(ele => {
+        //   return {
+        //     ...ele,
+        //     IdPhuongAnPhaBong: this.IdQuyTrinh,
+        //     tempBanBong: {},
+        //     Id: '',
+        //   }
+        // }))
+        console.log(this.items.filter(item => item.checked));
+        break;
       default:
         this._activeModal.close(this.items.filter(item => item.checked).map(ele => {
           return {
