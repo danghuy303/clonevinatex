@@ -117,6 +117,7 @@ export class TonkhobongxoComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.tenKho = JSON.parse(JSON.stringify(this.tenKho));
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })

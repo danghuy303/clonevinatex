@@ -17,11 +17,16 @@ export class TonkhobongxomodalComponent implements OnInit {
   item:any={};
   itemTongCong:any={};
   data: any = {};
+  tenKho: any = '';
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   mapXuatNhapRoute = {
-    Xuat: '/quantri/quanlykhosanxuat/khobong/xuatkho/',
-    Nhap: '/quantri/quanlykhosanxuat/khobong//nhapkho/',
-    KiemKe: '/quantri/quanlykhosanxuat/khobong/kiemkekhobong/'
+    XuatBong: '/quantri/quanlykhosanxuat/khobong/xuatkho/',
+    NhapBong: '/quantri/quanlykhosanxuat/khobong/nhapkho/',
+    KiemKeBong: '/quantri/quanlykhosanxuat/khobong/kiemkekhobong/',
+
+    XuatXo: '/quantri/quanlykhosanxuat/khoxo/xuatkho/',
+    NhapXo: '/quantri/quanlykhosanxuat/khoxo/nhapkho/',
+    KiemKeXo: '/quantri/quanlykhosanxuat/khoxo/kiemkekhoxo/'
   }
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
     private activatedRoute: ActivatedRoute,private router:Router, public activeModal: NgbActiveModal) { }
@@ -67,14 +72,28 @@ export class TonkhobongxomodalComponent implements OnInit {
     })
   }
   navigateKiemKe(item) {
-    if(validVariable(item.IdPhieuKiemKeBongXo)){
-      window.open(`#${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKeBongXo || 0}`, "_blank");
+    if(this.tenKho === "kho xơ"){
+      if(validVariable(item.IdPhieuKiemKeBongXo)){
+        window.open(`#${this.mapXuatNhapRoute.KiemKeXo}${item.IdPhieuKiemKeBongXo || 0}`, "_blank");
+      }
+      else if(item.Id === 'N'){
+        window.open(`#${this.mapXuatNhapRoute.NhapXo}${item.IdPhieuNhapLoBong || 0}`, "_blank");
+      }
+      else if(item.Id === 'X'){
+        window.open(`#${this.mapXuatNhapRoute.XuatXo}${item.IdPhieuXuatBong || 0}`, "_blank");
+      }
     }
-    else if(item.Id === 'N'){
-      window.open(`#${this.mapXuatNhapRoute.Nhap}${item.IdPhieuNhapLoBong || 0}`, "_blank");
+    else{
+      if(validVariable(item.IdPhieuKiemKeBongXo)){
+        window.open(`#${this.mapXuatNhapRoute.KiemKeBong}${item.IdPhieuKiemKeBongXo || 0}`, "_blank");
+      }
+      else if(item.Id === 'N'){
+        window.open(`#${this.mapXuatNhapRoute.NhapBong}${item.IdPhieuNhapLoBong || 0}`, "_blank");
+      }
+      else if(item.Id === 'X'){
+        window.open(`#${this.mapXuatNhapRoute.XuatBong}${item.IdPhieuXuatBong || 0}`, "_blank");
+      }
     }
-    else if(item.Id === 'X'){
-      window.open(`#${this.mapXuatNhapRoute.Xuat}${item.IdPhieuXuatBong || 0}`, "_blank");
-    }
+    
   }
 }

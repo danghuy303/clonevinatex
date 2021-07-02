@@ -123,6 +123,8 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
     }
 
     GhiLai() {
+        debugger
+        console.log(this.item)
         this.services
             .PhieuKiemKeKhoBong()
             .Set(this.item)
@@ -174,11 +176,14 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
     }
 
     delete(index) {
-        let item = this.item.listItem.splice(index, 1)[0];
+        console.log(this.item.listItem.length)
+        let item = this.listItem.splice(index, 1)[0];
+        console.log(this.item.listItem.length)
+debugger
         //   this.item.listItem.splice(index, 1);
         this.listItem.splice(index, 1);
         if (item.Id === "" || item.Id === null || item.Id === undefined) {
-
+            item.isXoa = true;
         } else {
             item.isXoa = true;
             //   this.item.listItem.push(JSON.parse(JSON.stringify(item)));
