@@ -85,6 +85,7 @@ export class QuantriComponent implements OnInit {
         // }
         // this.newNoti = this.listNotis.filter(ele => ele.isRead !== true).length;
         let routerURL = this.mapQuyTrinhRoute[item.LoaiThongBao];
+
         if (routerURL) {
             // this._router.navigate([`${routerURL}0`]);
             // setTimeout(()=>{
