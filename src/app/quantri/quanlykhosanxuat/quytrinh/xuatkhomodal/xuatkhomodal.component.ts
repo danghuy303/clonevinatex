@@ -307,7 +307,7 @@ export class XuatkhomodalComponent implements OnInit {
   }
   ViTriKien(item){
     let modalRef = this._modal.open(VitrikienmodalComponent, {
-      size: 'fullscreen',
+      size: 'lg',
       backdrop: 'static'
     })
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
