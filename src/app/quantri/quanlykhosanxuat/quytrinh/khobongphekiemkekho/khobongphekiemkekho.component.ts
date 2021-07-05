@@ -82,6 +82,7 @@ export class KhobongphekiemkekhoComponent implements OnInit {
       modalRef.componentInstance.isKhoThanhPham = (this.title==='khothanhpham');
       modalRef.result
           .then((res: any) => {
+            this.changeParam(0);
               this.GetListQuyTrinh();
           })
           .catch((er) => {
@@ -103,6 +104,7 @@ export class KhobongphekiemkekhoComponent implements OnInit {
       modalRef.result
           .then((res: any) => {
               console.log(res);
+              this.changeParam(0);
               this.GetListQuyTrinh();
           })
           .catch((er) => {

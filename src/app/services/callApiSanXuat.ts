@@ -2030,4 +2030,8 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + `GetHeThong?MaHeThong=${MaHeThong}`;
         return this.http.get(url, httpOptions);
     }
+    CheckViTriKien(TenLoBong, TenKien) {
+        let url = API.SCMDanhMuc + `CheckViTriKien?TenLoBong=${TenLoBong}&TenKien=${TenKien}`;
+        return this.http.get(url, httpOptions);
+    }
 }

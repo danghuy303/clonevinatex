@@ -9,6 +9,7 @@ import { vn } from 'src/app/services/const';
 import { DateToDatePicker, DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DoikienbongmodalComponent } from '../doikienbongmodal/doikienbongmodal.component';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
+import { VitrikienmodalComponent } from './vitrikienmodal/vitrikienmodal.component';
 
 @Component({
   selector: 'app-xuatkhomodal',
@@ -303,5 +304,16 @@ export class XuatkhomodalComponent implements OnInit {
   changeKienDoi(event,IddmItem){
     let itemInRoot = this.listItemRoot.filter(ele=>ele.IddmItem === IddmItem)?.[0];
     itemInRoot.MaKienDoi = event;
+  }
+  ViTriKien(item){
+    let modalRef = this._modal.open(VitrikienmodalComponent, {
+      size: 'fullscreen',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.result.then((res: any) => {
+    })
+      .catch(er => { console.log(er)
+      })
   }
 }
