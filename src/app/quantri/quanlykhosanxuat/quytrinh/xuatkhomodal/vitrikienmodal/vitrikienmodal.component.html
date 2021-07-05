@@ -13,17 +13,18 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto"><b>Thông tin kiện: </b></label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto"><b>Thông tin kiện: </b> <br> {{item.MaKien}}</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <textarea [rows]="2" class="p-inputtextarea" pInputTextarea autoResize="autoResize"
-                            [ngModel]="itemBanDau"></textarea>
+                <p class="paragraph" [innerHTML]="itemBanDau">
+                </p>
             </div>
         </div>
         <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto"><b>Thông tin kiện thay thế: </b></label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto"><b>Thông tin kiện thay thế: </b> <br>
+                {{item.MaKienDoi}}</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <textarea [rows]="2" class="p-inputtextarea" pInputTextarea autoResize="autoResize"
-                            [ngModel]="itemThayThe"></textarea>
+                <p class="paragraph" [innerHTML]="itemThayThe">
+                </p>
             </div>
         </div>
     </div>

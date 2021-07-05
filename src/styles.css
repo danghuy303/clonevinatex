@@ -339,3 +339,6 @@ span.required {
 .pi-check:before{
     z-index: 1 !important;
 }
+.paragraph{
+    white-space: pre-line;
+}
