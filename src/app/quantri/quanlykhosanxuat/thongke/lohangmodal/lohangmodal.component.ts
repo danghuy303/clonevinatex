@@ -26,6 +26,8 @@ export class LohangmodalComponent implements OnInit {
       public toastr: ToastrService, private _modal: NgbModal) { }
 
   ngOnInit(): void {
+    if(this.opt !== 'edit')
+      this.item.HoatDong = true
     this.getListGiaoKeHoach();
     this.getListTrienKhaiKeHoach();
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {

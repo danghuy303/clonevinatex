@@ -94,7 +94,7 @@ export class XuatkhomodalComponent implements OnInit {
     }
     if (validVariable(this.item.Ngay)) {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
-      this.item.listItem = this.listItem;
+      this.item.listItem = deepCopy(this.listItemRoot);
       this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -114,7 +114,7 @@ export class XuatkhomodalComponent implements OnInit {
     }
     if (validVariable(this.item.Ngay)) {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
-      this.item.listItem = this.listItem;
+      this.item.listItem = deepCopy(this.listItemRoot);
       this.services.PhieuXuatSanXuat().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -218,11 +218,14 @@ export class XuatkhomodalComponent implements OnInit {
 
   GetQuyTrinhFilter() {
     let items = [];
-    items = this.listItemRoot.filter(obj => {
-      let Ten = obj.Ten.toLowerCase();
-      let indexOf = Ten.indexOf(this.filter.KeyWord)
-      return indexOf != -1
-    });
+    //ele=>ele.ID===ID
+    // items = this.listItemRoot.filter(obj => {
+    //   let Ten = obj.Ten.toLowerCase();
+    //   let indexOf = Ten.indexOf(this.filter.KeyWord)
+    //   return indexOf != -1
+    // });
+    items = this.listItemRoot.filter(ele=>ele.Ten.toLowerCase().indexOf(this.filter.KeyWord)!== -1
+                                      || ele.MaKienDoi.toLowerCase().indexOf(this.filter.KeyWord)!== -1);
     // for(let i =0; i < this.listItemRoot.length; i++){
     //   if(this.listItemRoot[i].TenLoBong !== null){
     //     if(this.listItemRoot[i].TenLoBong.toLowerCase().includes(this.filter.KeyWord)){
