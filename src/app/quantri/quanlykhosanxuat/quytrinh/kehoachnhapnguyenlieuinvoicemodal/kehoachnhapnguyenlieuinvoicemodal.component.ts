@@ -60,10 +60,10 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
           obj.ThoiGianDuKien = UnixToDate(obj.ThoiGianDuKienUnix);
           obj.ThoiGianCapCang = UnixToDate(obj.ThoiGianCapCangUnix);
         });
-        this.getListKho(this.item.IdKeHoachNhapNguyenLieu_Item);
         this.sort()
       }
       this.KiemTraButtonModal();
+      this.getListKho(this.item.IdKeHoachNhapNguyenLieu_Item);
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
       this.item.Ngay = UnixToDate(this.item.NgayUnix );
