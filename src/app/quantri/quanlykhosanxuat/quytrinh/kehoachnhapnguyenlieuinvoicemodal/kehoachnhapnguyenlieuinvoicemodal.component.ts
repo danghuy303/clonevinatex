@@ -60,7 +60,7 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
           obj.ThoiGianDuKien = UnixToDate(obj.ThoiGianDuKienUnix);
           obj.ThoiGianCapCang = UnixToDate(obj.ThoiGianCapCangUnix);
         });
-        this.getListKho(this.item.listItem[0].IddmLoaiBong);
+        this.getListKho(this.item.IdKeHoachNhapNguyenLieu_Item);
         this.sort()
       }
       this.KiemTraButtonModal();
@@ -359,7 +359,7 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
         this.item.Container = this.listKeHoachNguyenLieuFull[i].Container;
         this.item.ThoiGianCapCang = UnixToDate(this.listKeHoachNguyenLieuFull[i].ThoiGianCapCangUnix);
         this.item.ThoiGianDuKien = UnixToDate(this.listKeHoachNguyenLieuFull[i].ThoiGianDuKienUnix);
-        this.getListKho(this.listKeHoachNguyenLieuFull[i].IddmLoaiBong)
+        this.getListKho(this.listKeHoachNguyenLieuFull[i].Id)
         break;
       }
     }
@@ -375,8 +375,8 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
       item[opt]=res;
     })
   }
-  getListKho(IddmLoaiBong) {
-    this._services.GetListdmKhoForLoaiBong(IddmLoaiBong).subscribe((res: any) => {
+  getListKho(IdKeHoachNhapNguyenLieu_Item) {
+    this._services.GetListdmKhoForLoaiBong(IdKeHoachNhapNguyenLieu_Item).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }

@@ -68,8 +68,8 @@ export class SanXuatService {
         let url = API.SCMDashBoard + `GetDashBoard_TruyXuatNguonGoc?IddmItem=${IddmItem}&TuNgay=${TuNgay}&DenNgay=${DenNgay}`;
         return this.http.get(url, httpOptions);
     }
-    GetListdmKhoForLoaiBong(IddmLoaiBong) {
-        let url = API.SCMDanhMuc + `GetListdmKhoForLoaiBong?IddmLoaiBong=${IddmLoaiBong}`;
+    GetListdmKhoForLoaiBong(IdKeHoachNhapNguyenLieu_Item) {
+        let url = API.SCMDanhMuc + `GetListdmKhoForLoaiBong?IdKeHoachNhapNguyenLieu_Item=${IdKeHoachNhapNguyenLieu_Item}`;
         return this.http.get(url, httpOptions);
     }
     //#endregion
