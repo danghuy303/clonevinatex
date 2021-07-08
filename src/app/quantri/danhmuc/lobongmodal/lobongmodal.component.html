@@ -64,6 +64,18 @@
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Giá gốc:</label>
+            <div class="p-col-12 p-lg-4 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.GiaGoc" [min] = "0" disabled>
+                </p-inputNumber>
+            </div>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Giá vận chuyển:</label>
+            <div class="p-col-12 p-lg-4 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.GiaVanChuyen" [min] = "0" >
+                </p-inputNumber>
+            </div>
+        </div>
+        <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Giá kiện:</label>
             <div class="p-col-12 p-lg-4 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.GiaKien" [min] = "0">
