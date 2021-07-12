@@ -177,7 +177,7 @@
                         <td *ngIf="itemtbl.DonViNangSuat===0">
                             <p-inputNumber *ngIf="item.CongDoan!=='CON' && item.CongDoan!=='CHAICOTTON' && item.CongDoan!=='GHEPSOBOCOTTON'" [minFractionDigits]="3" locale="vi-VN"
                                 [(ngModel)]="itemtbl.ChieuDai"
-                                (ngModelChange)="itemtbl.KhoiLuong=TinhGiaTri(itemtbl, $event)">
+                                (ngModelChange)="TinhGiaTri(itemtbl)">
                             </p-inputNumber>
                             <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="vi-VN"
                                 [(ngModel)]="itemtbl.ChieuDai"
