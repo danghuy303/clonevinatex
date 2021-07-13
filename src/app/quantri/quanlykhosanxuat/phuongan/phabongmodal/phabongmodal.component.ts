@@ -110,27 +110,26 @@ export class PhabongmodalComponent implements OnInit {
       // this.item.SoKienBongHoi = 3;
       if (validVariable(this.item.KhoiLuongBong) && validVariable(this.item.TongSoKien) && validVariable(this.item.KhoiLuongKienTrungBinh) && validVariable(this.item.listLoBong) && validVariable(this.item.TrongLuongBongHoi) && validVariable(this.item.SoKienBongHoi)) {
         let SoNgayTrienKhai = Math.floor((this.itemTrienKhaiKeHoach.DenNgayUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1);
-        console.log('SoNgayTrienKhai',SoNgayTrienKhai)
         let _1NgayCan = this.item.KhoiLuongBong / SoNgayTrienKhai;
         // this.item.KhoiLuongKienTrungBinh = (this.item.listLoBong.filter(ele => ele.IdLoBong !== null).reduce((Tong, ele) => {
         //   return Tong + ele.TrongLuong
         // }, 0)) / this.item.listLoBong.filter(ele => ele.IdLoBong !== null).length;
         let TrongLuongTrungBinh1Ban = (this.item.KhoiLuongKienTrungBinh * (this.item.TongSoKien - this.item.SoKienBongHoi)) + this.item.TrongLuongBongHoi;
         let TyLeBongCan = _1NgayCan / TrongLuongTrungBinh1Ban;
-        console.log('SoNgayTrienKhai', SoNgayTrienKhai);
-        console.log('KhoiLuongBong', this.item.KhoiLuongBong);
-        console.log('_1NgayCan', _1NgayCan);
-        console.log('this.item.KhoiLuongKienTrungBinh', this.item.KhoiLuongKienTrungBinh);
-        console.log('TrongLuongTrungBinh1Ban_Nguyen',this.item.KhoiLuongKienTrungBinh*(this.item.TongSoKien - this.item.SoKienBongHoi));
-        console.log('TrongLuongTrungBinh1Ban', TrongLuongTrungBinh1Ban);
-        console.log('TyLeBongCan', TyLeBongCan);
+        console.log('Số ngày triển khai', SoNgayTrienKhai);
+        console.log('Khối lượng bông cần dùng', this.item.KhoiLuongBong);
+        console.log('1 ngày cần bao nhiêu bông', _1NgayCan);
+        console.log('Khối lượng kiện trung bình', this.item.KhoiLuongKienTrungBinh);
+        console.log('Trọng lượng trung bình 1 bàn (chỉ tính bông nguyên)',this.item.KhoiLuongKienTrungBinh*(this.item.TongSoKien - this.item.SoKienBongHoi));
+        console.log('Trọng lưọng trung bình 1 bàn', TrongLuongTrungBinh1Ban);
+        console.log('Tỷ lệ bông cần', TyLeBongCan);
 
         this.item.listLoBong.forEach((lobong) => {
           if (lobong.isLoBongTuongLai) {
             let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
-            // console.log(SoNgayDuKien);
             
             lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
+            console.log(`Lô bông ${lobong.Ma} - Số ngày dự kiến ${SoNgayDuKien} - Số bàn có thể điền ${lobong.lim} - Số bàn có thể điền không làm tròn ${SoNgayDuKien * TyLeBongCan}`);
             if(lobong.NgayVeDuKien ===null){
               lobong.canDelete = true;
             }
@@ -141,7 +140,7 @@ export class PhabongmodalComponent implements OnInit {
           for (let i = 1; i <= this.item.SoBanBong; i++) {
             this.listProps.push(`${i}`);
           }
-          console.log(this.item.listLoBong)
+          // console.log(this.item.listLoBong)
           this.item.listLoBong.forEach((lobong, index) => {
             if (!validVariable(lobong.temBanBong)) {
               lobong.tempBanBong = {};

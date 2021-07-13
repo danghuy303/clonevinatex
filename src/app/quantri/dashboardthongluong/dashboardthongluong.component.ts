@@ -16,7 +16,7 @@ import { StoreService } from 'src/app/services/store.service';
 export class DashboardthongluongComponent implements OnInit, AfterViewInit {
   filter: any = {
     IddmItem: '',
-    opt:'TyLe'
+    opt: 'TyLe'
   };
   infos: any = {
     NgayMax: {
@@ -31,18 +31,18 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
   listPhanXuong: any = [];
   listNhaMay: any = [];
   listMatHang: any = [];
-  listOpt:any=[
-    {value:'TyLe',label:'Hiệu suất sử dụng'},
-    {value:'KhoiLuong',label:'Sản lượng'},
+  listOpt: any = [
+    { value: 'TyLe', label: 'Hiệu suất sử dụng' },
+    { value: 'KhoiLuong', label: 'Sản lượng' },
   ];
-  mapValue_Prop:any={
-    'TyLe':'TyLe',
-    'KhoiLuong':'KhoiLuongCongDoan'
+  mapValue_Prop: any = {
+    'TyLe': 'TyLe',
+    'KhoiLuong': 'KhoiLuongCongDoan'
   }
   chart: am4charts.SlicedChart;
-  constructor(private _services: SanXuatService, private _toastr: ToastrService, @Inject(PLATFORM_ID) private platformId, private zone: NgZone,private store:StoreService) { 
+  constructor(private _services: SanXuatService, private _toastr: ToastrService, @Inject(PLATFORM_ID) private platformId, private zone: NgZone, private store: StoreService) {
     this.filter.IdDuAn = this.store.getCurrent();
-   }
+  }
 
   ngOnInit(): void {
     let date = new Date();
@@ -154,16 +154,25 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
             name: ele.TenCongDoan,
             // value: ele.TyLe ,
             value: ele[this.mapValue_Prop[this.filter.opt]],
-            formated:formatNumber(ele.KhoiLuongCongDoan, 'vi-VN', '0.0-2'),
+            formated: formatNumber(ele.KhoiLuongCongDoan, 'vi-VN', '0.0-2'),
             TyLe: formatNumber(ele.TyLe, 'vi-VN', '0.0-2')
           }
         })
         let Series = chart.series.push(new am4charts.FunnelSeries());
+        Series.orientation = "horizontal";
         Series.dataFields.value = "value";
         Series.dataFields.category = "name";
+        Series.labels.template.disabled = true;
         Series.labels.template.text = "{category}: [bold]{formated} kg[/] [bold red]{TyLe}%";
-        Series.slices.template.tooltipText = "{category}: [bold]{formated} kg[/]";
-        Series.alignLabels = true;
+        // Series.labels.template.text = "{category}";
+        // Series.labels.template.verticalCenter="middle";
+        // Series.labels.template.horizontalCenter="middle";
+        // Series.labels.template.rotation = -75;
+        Series.slices.template.tooltipText = "{category}: [bold]{formated} kg[/] [bold red]{TyLe}%";
+        // Series.alignLabels = true;
+        chart.legend = new am4charts.Legend();
+        chart.legend.position = "top";
+        chart.legend.valueLabels.template.text="[bold]{formated} kg[/] [bold red]{TyLe}%";
         this.chart = chart;
       })
       this._services.BaoCao().BaoCaoThongLuongSanXuatMinMax(this.filter).subscribe((res: any) => {

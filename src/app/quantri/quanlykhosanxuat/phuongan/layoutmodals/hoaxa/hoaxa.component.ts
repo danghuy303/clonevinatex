@@ -77,19 +77,59 @@ export class HoaxaComponent implements OnInit {
     this.renderBanDau();
 
   }
+  // veLayout() {
+  //   this.resetAllPicked();
+  //   this.block1 = [];
+  //   this.block2 = [];
+  //   this.block3 = [];
+  //   this.block4 = [];
+  //   this.ngoaiQuan = this.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
+  //   console.log(this.ngoaiQuan)
+  //   for (let i = 1; i <= (this.length + this.SoViTriNgoaiQuan); i++) {
+  //     let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
+  //     this.banBong[`${i}`] = {
+  //       _focus: false,
+  //       _ngoaiQuan: isNgoaiQuan,
+  //       labelLoBong: isNgoaiQuan ? 'Ngoại quan bông' : null,
+  //       STT: `${i}. `,
+  //       IdLoBong: null,
+  //       Mau: 'white'
+  //     }
+  //     if (i <= 2) {
+  //       this.block1.push(`${i}`)
+  //     }
+  //     if (2 < i && i <= 16) {
+  //       this.block2.push(`${i}`)
+  //     }
+  //     if (16 < i && i <= (this.length + this.SoViTriNgoaiQuan - 3)) {
+  //       this.block3.push(`${i}`)
+  //     }
+  //     if ((this.length + this.SoViTriNgoaiQuan - 3) < i && i <= (this.length + this.SoViTriNgoaiQuan - 1) && (this.length + this.SoViTriNgoaiQuan >= 18)) {
+  //       this.block4.push(`${i}`)
+  //     }
+  //     if (i === (this.length + this.SoViTriNgoaiQuan)) {
+  //       this.block2.push(`${i}`)
+  //     }
+  //   };
+  // }
   veLayout() {
     this.resetAllPicked();
     this.block1 = [];
     this.block2 = [];
     this.block3 = [];
     this.block4 = [];
-    this.ngoaiQuan = this.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
+    console.log(this.item.ViTriNgoaiQuan)
+    if(validVariable(this.item.ViTriNgoaiQuan)){
+      this.ngoaiQuan = this.item.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
+    }
+    else{
+      this.ngoaiQuan = [];
+    }
     console.log(this.ngoaiQuan)
-    // this.length = this.item.listLoBong.reduce((total,ele)=>{
-    //   return total + ele.SoLuong
-    // },0)
-    // this.length = 48;
-    for (let i = 1; i <= (this.length + this.SoViTriNgoaiQuan); i++) {
+    this.length = this.item.listLoBong.reduce((total, ele) => {
+      return total + ele.SoLuong
+    }, 0)
+    for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -111,14 +151,14 @@ export class HoaxaComponent implements OnInit {
       if ((this.length + this.SoViTriNgoaiQuan - 3) < i && i <= (this.length + this.SoViTriNgoaiQuan - 1) && (this.length + this.SoViTriNgoaiQuan >= 18)) {
         this.block4.push(`${i}`)
       }
-      if (i === (this.length + this.SoViTriNgoaiQuan)) {
+      if (i >= (this.length + this.SoViTriNgoaiQuan)) {
         this.block2.push(`${i}`)
       }
     };
   }
   changeNgoaiQuanBong() {
-    if (validVariable(this.ViTriNgoaiQuan) && this.ViTriNgoaiQuan.trim() !== '') {
-      this.ngoaiQuan = this.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
+    if (validVariable(this.item.ViTriNgoaiQuan) && this.item.ViTriNgoaiQuan.trim() !== '') {
+      this.ngoaiQuan = this.item.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
       this.ngoaiQuan.forEach(vitri => {
         this.banBong[`${vitri}`]._ngoaiQuan = true;
         if (!validVariable(this.banBong[`${vitri}`].IdLoBong)) {
@@ -133,7 +173,6 @@ export class HoaxaComponent implements OnInit {
         }
       }
     }
-
   }
   slotFocus(slot) {
     for (let prop in this.banBong) {
@@ -280,18 +319,6 @@ export class HoaxaComponent implements OnInit {
       if (i === (this.length + this.SoViTriNgoaiQuan)) {
         this.block2.push(`${i}`)
       }
-      // if (i <= 2) {
-      //   this.block1.push(`${i}`)
-      // }
-      // if (2 < i && i <= 16) {
-      //   this.block2.push(`${i}`)
-      // }
-      // if (16 < i && i <= (this.length + this.item.SoViTriNgoaiQuan - 2)) {
-      //   this.block3.push(`${i}`)
-      // }
-      // if ((this.length + this.item.SoViTriNgoaiQuan - 2) < i && i <= (this.length + this.item.SoViTriNgoaiQuan) && (this.length + this.item.SoViTriNgoaiQuan >= 18)) {
-      //   this.block4.push(`${i}`)
-      // }
     };
     if (validVariable(this.item.Id)) {
       for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {

@@ -25,7 +25,7 @@
         <p-tabPanel [header]="item.Ten" *ngFor="let item of item.lstMayBienAp">
         </p-tabPanel>
     </p-tabView>
-    <div *ngFor="let item of lstKhungGio" class="p-mb-3">
+    <div *ngFor="let item of lstKhungGio;let page = index;" class="p-mb-3">
         <p-panel toggler="header" [toggleable]="true" [collapsed]="true" styleClass="p-pl-0">
             <p-header (click)="collapsed.toggle($event)">
                 {{item.HeaderPanel}}
@@ -72,7 +72,7 @@
                                     </p-inputNumber>
                                 </td>
                                 <td class="text-right">
-                                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="items.SoMoi" (onBlur)="tinhgiatri(items)">
+                                    <p-inputNumber #input [minFractionDigits]="2"  locale="vi-VN" (keyup.enter)="Enter(page,i)" [(ngModel)]="items.SoMoi" (onBlur)="tinhgiatri(items)">
                                     </p-inputNumber>
                                 </td>
                                 <td *ngFor="let col of cols" class="text-right">
