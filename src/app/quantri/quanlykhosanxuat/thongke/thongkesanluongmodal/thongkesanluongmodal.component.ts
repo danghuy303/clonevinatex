@@ -251,11 +251,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
   cancelEdit(item, index) {
     this.item.listItem[index].editField = false;
   }
-  TinhGiaTri(item, event) {
+  TinhGiaTri(item) {
     var KhoiLuong = 0;
-    if (item.Ne !== undefined && item.Ne !== null && item.Ne !== 0 && event !== undefined)
-      KhoiLuong = event / item.Ne;
-    return KhoiLuong;
+    if (item.Ne !== undefined && item.Ne !== null && item.Ne !== 0)
+      KhoiLuong = item.ChieuDai / (item.Ne * 1.693 * 1000)*item.SoCoc;
+    item.KhoiLuong = KhoiLuong;
+    this.TinhTongKhoiLuongBong();
   }
   TinhCongThucMoi(item) {
     var KhoiLuong = 0;
