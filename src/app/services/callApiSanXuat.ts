@@ -934,6 +934,10 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetKeHoachXuatHang', data, httpOptions)
             },
+            ExportThongBaoXuatHang:(Id)=>{
+                url = API.SCMBaoCao
+                return this.http.get(url + `ExportThongBaoXuatHang?Id=${Id}`, httpOptions);
+            }
         }
     }
     //#endregion

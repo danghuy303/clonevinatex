@@ -162,17 +162,17 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
         Series.orientation = "horizontal";
         Series.dataFields.value = "value";
         Series.dataFields.category = "name";
-        Series.labels.template.disabled = true;
+        // Series.labels.template.disabled = true;
         Series.labels.template.text = "{category}: [bold]{formated} kg[/] [bold red]{TyLe}%";
         // Series.labels.template.text = "{category}";
         // Series.labels.template.verticalCenter="middle";
         // Series.labels.template.horizontalCenter="middle";
-        // Series.labels.template.rotation = -75;
+        // Series.labels.template.rotation = 90;
         Series.slices.template.tooltipText = "{category}: [bold]{formated} kg[/] [bold red]{TyLe}%";
         // Series.alignLabels = true;
-        chart.legend = new am4charts.Legend();
-        chart.legend.position = "top";
-        chart.legend.valueLabels.template.text="[bold]{formated} kg[/] [bold red]{TyLe}%";
+        // chart.legend = new am4charts.Legend();
+        // chart.legend.position = "top";
+        // chart.legend.valueLabels.template.text="[bold]{formated} kg[/] [bold red]{TyLe}%";
         this.chart = chart;
       })
       this._services.BaoCao().BaoCaoThongLuongSanXuatMinMax(this.filter).subscribe((res: any) => {

@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
 
 @Component({
@@ -25,6 +26,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     IddmKho: '',
     LoaiThoiGian: 0
   };
+  colsNum:any=3;
   Tong: any = null;
   monthlyConfig: any = {};
   dataSet1: any = {};
@@ -135,7 +137,9 @@ export class DieuhanhsanxuatComponent implements OnInit {
     aspectRatio: window.innerWidth <= 768 ? null : (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
-  constructor(private _services: SanXuatService, private _toastr: ToastrService) { }
+  constructor(private _services: SanXuatService, private _toastr: ToastrService, private store: StoreService) {
+    this.colsNum = this.store.isMobile?0:3;
+   }
 
   ngOnInit(): void {
     console.log(this.optionPie.maintainAspectRatio);

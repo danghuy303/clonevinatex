@@ -24,6 +24,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     IddmItem: "",
     IddmKho: '',
   };
+  colsNum:any = 4;
   Tong: any = null;
   selectedXuatNhap: any = {};
   filterSanLuong: any = {};
@@ -129,6 +130,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
   mapIndex_Ma:any=[];
   listItem: any = [];
   constructor(private _services: SanXuatService, private store: StoreService, public toastr: ToastrService, private _router: Router) {
+    this.colsNum = this.store.isMobile?0:4;
     this.IdDuAn = this.store.getCurrent();
   }
 
