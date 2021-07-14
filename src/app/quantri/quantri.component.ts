@@ -360,7 +360,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Tổng hợp',
                         routerLink: '/quantri/quantrisanxuat/tonghop',
-                        // separator: this.checkmenu("DASHBOARD_TONGHOP"),
+                        separator: this.checkmenu("DASHBOARD_TONGHOP"),
                         icon: 'fas fa-circle',
                         command: () => {
                             this.close()
@@ -369,7 +369,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Nhu cầu SD nguyên liệu',
                         routerLink: '/quantri/quantrisanxuat/nguyenlieu',
-                        // separator: this.checkmenu("DASHBOARD_NHUCAUNGUYENLIEU"),
+                        separator: this.checkmenu("DASHBOARD_NHUCAUNGUYENLIEU"),
                         icon: 'fas fa-circle',
                         command: () => {
                             this.close()
@@ -378,7 +378,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Nhu cầu xuất hàng',
                         routerLink: '/quantri/quantrisanxuat/nhucauxuathang',
-                        // separator: this.checkmenu("DASHBOARD_NHUCAUXUATHANG"),
+                        separator: this.checkmenu("DASHBOARD_NHUCAUXUATHANG"),
                         icon: 'fas fa-circle',
                         command: () => {
                             this.close()
@@ -387,7 +387,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Sản lượng',
                         routerLink: '/quantri/quantrisanxuat/sanluong',
-                        // separator: this.checkmenu("DASHBOARD_SANLUONG"),
+                        separator: this.checkmenu("DASHBOARD_SANLUONG"),
                         icon: 'fas fa-circle',
                         command: () => {
                             this.close()
@@ -396,7 +396,7 @@ export class QuantriComponent implements OnInit {
                     {
                         label: 'Thông lượng',
                         routerLink: '/quantri/quantrisanxuat/thongluong',
-                        // separator: this.checkmenu("DASHBOARD_THONGLUONG"),
+                        separator: this.checkmenu("DASHBOARD_THONGLUONG"),
                         icon: 'fas fa-circle',
                         command: () => {
                             this.close()
