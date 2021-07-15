@@ -175,7 +175,8 @@
                             {{itemtbl.ChieuDai |number:'0.3-3'}}
                         </td>
                         <td *ngIf="itemtbl.DonViNangSuat===0">
-                            <p-inputNumber *ngIf="item.CongDoan!=='CON' && item.CongDoan!=='CHAICOTTON' && item.CongDoan!=='GHEPSOBOCOTTON'" [minFractionDigits]="3" locale="vi-VN"
+                            <p-inputNumber *ngIf="item.CongDoan!=='CON' && item.CongDoan!=='CHAICOTTON' && item.CongDoan!=='GHEPSOBOCOTTON' && item.CongDoan!=='THO'" 
+                            [minFractionDigits]="3" locale="vi-VN"
                                 [(ngModel)]="itemtbl.ChieuDai"
                                 (ngModelChange)="TinhGiaTri(itemtbl)">
                             </p-inputNumber>
@@ -190,6 +191,10 @@
                             <p-inputNumber *ngIf="item.CongDoan==='GHEPSOBOCOTTON'" [minFractionDigits]="3" locale="vi-VN"
                                 [(ngModel)]="itemtbl.ChieuDai"
                                 (ngModelChange)="TinhKhoiLuongGhepSoBoChaiCotton(itemtbl)">
+                            </p-inputNumber>
+                            <p-inputNumber *ngIf="item.CongDoan==='THO'" [minFractionDigits]="3" locale="vi-VN"
+                                [(ngModel)]="itemtbl.ChieuDai"
+                                (ngModelChange)="TinhKhoiLuongTho(itemtbl)">
                             </p-inputNumber>
                         </td>
 

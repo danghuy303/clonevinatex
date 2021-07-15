@@ -269,18 +269,24 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhKhoiLuongChaiCotton(item) {
     var KhoiLuong = 0;
     if (item.Ne !== undefined && item.Ne !== null && item.Ne !== 0)
-      KhoiLuong = item.ChieuDai / (item.Ne * 1.693 * 1000);
+      KhoiLuong = item.ChieuDai / (item.Nm * 1000);
     item.KhoiLuong = KhoiLuong;
     this.TinhTyLeCottonBongPhe();
   }
   TinhKhoiLuongGhepSoBoChaiCotton(item) {
     var KhoiLuong = 0;
     if (item.Ne !== undefined && item.Ne !== null && item.Ne !== 0)
-      KhoiLuong = item.ChieuDai / (item.Ne * 1.693 * 1000) * (item.SoDauRa|| 0) - (item.KhoiLuongCuiHoi || 0);
+      KhoiLuong = item.ChieuDai / (item.Nm * 1000) * (item.SoDauRa|| 0) - (item.KhoiLuongCuiHoi || 0);
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong();
   }
-
+  TinhKhoiLuongTho(item) {
+    var KhoiLuong = 0;
+    if (item.Ne !== undefined && item.Ne !== null && item.Ne !== 0)
+      KhoiLuong = item.ChieuDai / (item.Nm * 1000)*item.SoCoc;
+    item.KhoiLuong = KhoiLuong;
+    this.TinhTongKhoiLuongBong();
+  }
   onClose() {
     this.activeModal.close();
   }
