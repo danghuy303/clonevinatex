@@ -949,18 +949,17 @@ export class QuantriComponent implements OnInit {
                     },
                 ]
             },
-            // {
-            //     label: 'Quản lý hệ thống',
-            //     icon: 'pi pi-cog',
-            //     items: [
-            //         // {
-            //         //     label: 'HDSD',
-            //         //     routerLink: '/quantri/huongdansudung',
-            //         //     command: () => this.close()
-            //         // },
-                    
-            //     ]
-            // },
+            {
+                label: 'TEST HopDong Module',
+                icon: 'pi pi-cog',
+                items: [
+                    {
+                        label: 'HopDong',
+                        routerLink: '/quantri/hopdongsanxuat',
+                        command: () => this.close()
+                    },
+                ]
+            },
             {
                 label: 'Sửa HDSD',
                 icon: 'pi pi-cog',

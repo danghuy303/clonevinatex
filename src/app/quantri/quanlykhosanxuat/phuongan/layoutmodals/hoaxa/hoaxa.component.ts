@@ -142,10 +142,10 @@ export class HoaxaComponent implements OnInit {
       if (i <= 2) {
         this.block1.push(`${i}`)
       }
-      if (2 < i && i <= 16) {
+      if (2 < i && i <= 15) {
         this.block2.push(`${i}`)
       }
-      if (16 < i && i <= (this.length + this.SoViTriNgoaiQuan - 3)) {
+      if (15 < i && i <= (this.length + this.SoViTriNgoaiQuan - 3)) {
         this.block3.push(`${i}`)
       }
       if ((this.length + this.SoViTriNgoaiQuan - 3) < i && i <= (this.length + this.SoViTriNgoaiQuan - 1) && (this.length + this.SoViTriNgoaiQuan >= 18)) {
@@ -307,10 +307,10 @@ export class HoaxaComponent implements OnInit {
       if (i <= 2) {
         this.block1.push(`${i}`)
       }
-      if (2 < i && i <= 16) {
+      if (2 < i && i <= 15) {
         this.block2.push(`${i}`)
       }
-      if (16 < i && i <= (this.length + this.SoViTriNgoaiQuan - 3)) {
+      if (15 < i && i <= (this.length + this.SoViTriNgoaiQuan - 3)) {
         this.block3.push(`${i}`)
       }
       if ((this.length + this.SoViTriNgoaiQuan - 3) < i && i <= (this.length + this.SoViTriNgoaiQuan - 1) && (this.length + this.SoViTriNgoaiQuan >= 18)) {
