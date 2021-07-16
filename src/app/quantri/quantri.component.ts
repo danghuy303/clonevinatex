@@ -950,17 +950,6 @@ export class QuantriComponent implements OnInit {
                 ]
             },
             {
-                label: 'TEST HopDong Module',
-                icon: 'pi pi-cog',
-                items: [
-                    {
-                        label: 'HopDong',
-                        routerLink: '/quantri/hopdongsanxuat',
-                        command: () => this.close()
-                    },
-                ]
-            },
-            {
                 label: 'Sửa HDSD',
                 icon: 'pi pi-cog',
                 visible: !this.checkmenu("TAOHUONGDANSUDUNG"),
