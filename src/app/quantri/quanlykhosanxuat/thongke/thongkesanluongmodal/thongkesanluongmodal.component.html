@@ -175,14 +175,11 @@
                             {{itemtbl.ChieuDai |number:'0.3-3'}}
                         </td>
                         <td *ngIf="itemtbl.DonViNangSuat===0">
-<<<<<<< HEAD
-                            <p-inputNumber *ngIf="item.CongDoan!=='CON' && item.CongDoan!=='CHAICOTTON' && item.CongDoan!=='GHEPSOBOCOTTON' && item.CongDoan!=='THO'" 
+                            <!-- <p-inputNumber *ngIf="item.CongDoan!=='CON' && item.CongDoan!=='CHAICOTTON' && item.CongDoan!=='GHEPSOBOCOTTON' && item.CongDoan!=='THO'" 
                             [minFractionDigits]="3" locale="vi-VN"
-                                [(ngModel)]="itemtbl.ChieuDai"
-=======
-                            <p-inputNumber *ngIf="item.CongDoan!=='CON' && item.CongDoan!=='CHAICOTTON' && item.CongDoan!=='GHEPSOBOCOTTON'" [minFractionDigits]="3" locale="vi-VN"
+                                [(ngModel)]="itemtbl.ChieuDai" -->
+                            <p-inputNumber *ngIf="item.CongDoan!=='CON' && item.CongDoan!=='CHAICOTTON' && item.CongDoan!=='GHEPSOBOCOTTON' && item.CongDoan!=='THO'" [minFractionDigits]="3" locale="vi-VN"
                                 [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1"
->>>>>>> 538e58c25d9c0236a7707ea17fd316c77ff70c63
                                 (ngModelChange)="TinhGiaTri(itemtbl)">
                             </p-inputNumber>
                             <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="vi-VN"
