@@ -240,17 +240,17 @@ export class ChatluongsoimodalComponent implements OnInit {
     }
   }
   move(event, index) {
-    let string = 'ArrowRightArrowUpArrowDownArrowLeft'
-    if (string.includes(event.key) && event.shiftKey) {
+    let string = 'ArrowRightArrowUpArrowDownArrowLeftEnter'
+    if (string.includes(event.key)) {
       event.preventDefault()
-      // console.log(event);
       let listInput = document.querySelectorAll('.dat09focus');
       let listTabIndex = [];
       listInput.forEach(ele => listTabIndex.push(ele.getAttribute('tabindex')));
-      //  console.log(listInput);
       if (event.key === 'ArrowRight') {
         let nextFocusIndex = `${this.item.lstDanhMuc.length + index}`;
+        console.log(nextFocusIndex);
         let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+        console.log(realIndexInDom);
         (listInput[realIndexInDom] as HTMLElement)?.focus();
       }
       if (event.key === 'ArrowLeft') {
@@ -258,15 +258,27 @@ export class ChatluongsoimodalComponent implements OnInit {
         let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
         (listInput[realIndexInDom] as HTMLElement)?.focus();
       }
-      if (event.key === 'ArrowDown') {
+      if (event.key === 'ArrowDown' || event.key === 'Enter' ) {
         let nextFocusIndex = `${index + 1}`;
         let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
-        (listInput[realIndexInDom] as HTMLElement)?.focus();
+        let domObject:HTMLElement = (listInput[realIndexInDom] as HTMLElement);
+        if(domObject.hasAttribute('disabled')){
+          nextFocusIndex = `${index + 2}`;
+          realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+          domObject = (listInput[realIndexInDom] as HTMLElement);
+        }
+        domObject?.focus();
       }
       if (event.key === 'ArrowUp') {
         let nextFocusIndex = `${index - 1}`;
         let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
-        (listInput[realIndexInDom] as HTMLElement)?.focus();
+        let domObject:HTMLElement = (listInput[realIndexInDom] as HTMLElement);
+        if(domObject.hasAttribute('disabled')){
+          nextFocusIndex = `${index - 2}`;
+          realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+          domObject = (listInput[realIndexInDom] as HTMLElement);
+        }
+        domObject?.focus();
       }
     }
   }

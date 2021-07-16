@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChildren } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { ModalthongbaoComponent } from "src/app/quantri/modal/modalthongbao/modalthongbao.component";
@@ -26,6 +26,7 @@ export class DmthongkedienmodalComponent implements OnInit {
     nametype: any = "";
     lstKhungGio: any = [];
     khongclicknhieu: any = false;
+    @ViewChildren('input') listInput;
     cols: any = [
         {
             header: "Số tiêu thụ (KW)",
@@ -129,6 +130,7 @@ export class DmthongkedienmodalComponent implements OnInit {
     }
 
     tinhgiatri(item) {
+        // console.log(this.listInput.toArray());
         if(validVariable(item.SoMoi)){
             if (item.SoMoi > 0 && item.SoCu < item.SoMoi) {
                 item.SoTieuThu = 0;
@@ -147,5 +149,13 @@ export class DmthongkedienmodalComponent implements OnInit {
 
     Onclose() {
         this.activeModal.close();
+    }
+    Enter(page,index){
+        let i = page*9+index;
+        if(i<this.listInput.toArray().length){
+            this.listInput.toArray()[i+1].el.nativeElement.children[0].children[0].focus();
+          }else{
+            this.listInput.toArray()[0].el.nativeElement.children[0].children[0].focus();
+          }
     }
 }

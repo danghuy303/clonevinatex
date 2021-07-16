@@ -455,6 +455,13 @@ export class ThongkesanluongmodalComponent implements OnInit {
       this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
     }
   }
+  enterCon(i){
+    if(i+3<this.inputNumbers.toArray().length){
+      this.inputNumbers.toArray()[i+3].el.nativeElement.children[0].children[0].focus();
+    }else{
+      this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
+    }
+  }
   TinhTongKhoiLuongBong() {
     switch(this.item.CongDoan){
         case 'CHAICOTTON':

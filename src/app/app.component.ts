@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavigationEnd } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { StoreService } from './services/store.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ export class AppComponent {
       this._modal.dismissAll();
     }
   }
-  constructor(private router: Router,private _modal:NgbModal) { }
+  constructor(private router: Router,private _modal:NgbModal, private store:StoreService) { }
   
   ngOnInit() {
     console.log(window.location)
@@ -27,6 +28,7 @@ export class AppComponent {
       }
       window.scrollTo(0, 0)
     });
+    this.store._isMobile();
   }
   title = 'vinatexv1';
 }

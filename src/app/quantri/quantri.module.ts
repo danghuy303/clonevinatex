@@ -78,15 +78,6 @@ import { ModaldmtaisanComponent } from './danhmuc/modal/modaldmtaisan/modaldmtai
 import { Dat09Service } from '../services/callApi';
 import { SignalRService } from '../services/signalR.service';
 import { SanXuatService } from '../services/callApiSanXuat';
-import { isXoaPipe } from './../services/isXoaPipe';
-import { VNDPipe } from './../services/vnd.pipe';
-import { FilterPipe } from './../services/filter.pipe';
-import { FilterByKeyPipe } from './../services/filterbykey.pipe';
-import { SumByKeyPipe } from './../services/sum.pipe';
-import { SortByKeyPipe } from './../services/sortPipe.pipe';
-import { CongDoanPipe } from './../services/congdoan.pipe';
-import {CaPipe} from './../services/ca.pipe';
-import { isDieuChinhPipe } from './../services/isDieuChinh.pipe';
 
 import { UploadmodalComponent } from './modal/uploadmodal/uploadmodal.component';
 import { ThongKeThongTinThuaDatComponent } from './components/thong-ke-thong-tin-thua-dat/thong-ke-thong-tin-thua-dat.component';
@@ -304,6 +295,7 @@ import { XuatkhohoiammodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhoh
 import { KehoachnhapnguyenlieuhoanthanhmodalComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieuhoanthanhmodal/kehoachnhapnguyenlieuhoanthanhmodal.component';
 import { TrienkhaikehoachsanxuathoanthanhmodalComponent } from './quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuathoanthanhmodal/trienkhaikehoachsanxuathoanthanhmodal.component';
 import { VitrikienmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomodal/vitrikienmodal/vitrikienmodal.component';
+import { SharedModule } from './../shared/shared.module';
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -340,10 +332,6 @@ import { VitrikienmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomoda
     DmnguongocdatComponent,
     ModalthongbaoComponent,
     ModaldmtaisanComponent,
-    isXoaPipe,
-    isDieuChinhPipe,
-    VNDPipe,
-    CaPipe,
     UploadmodalComponent,
     ThongKeThongTinThuaDatComponent,
     TinhComponent,
@@ -418,11 +406,6 @@ import { VitrikienmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomoda
     MathangmodelComponent,
     PhanxuongComponent,
     PhanxuongmodalComponent, 
-    FilterPipe,
-    FilterByKeyPipe,
-    SumByKeyPipe,
-    CongDoanPipe,
-    SortByKeyPipe,
     LoaisoiComponent,
     ChonmaytheocongdoanComponent,
     ImportdanhmucmodelComponent,
@@ -564,6 +547,7 @@ import { VitrikienmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomoda
     HttpClientModule,
     CommonModule,
     QuantriRoutingModule,
+    SharedModule,
     MenubarModule,
     InputTextModule,
     ButtonModule,
@@ -719,25 +703,15 @@ import { VitrikienmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomoda
     KehoachnhapnguyenlieuhoanthanhmodalComponent,
     TrienkhaikehoachsanxuathoanthanhmodalComponent,
     VitrikienmodalComponent,
-
   ],
   providers: [
     SanXuatService,
     Dat09Service,
     SignalRService,
-    isXoaPipe,
-    isDieuChinhPipe,
-    VNDPipe,
-    FilterPipe,
-    FilterByKeyPipe,
-    CongDoanPipe,
-    CaPipe,
-    SortByKeyPipe,
-    SumByKeyPipe,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
     LoaderService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
   ],
 })
 export class QuantriModule { }

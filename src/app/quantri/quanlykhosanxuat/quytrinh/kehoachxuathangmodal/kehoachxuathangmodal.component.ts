@@ -352,4 +352,13 @@ export class KehoachxuathangmodalComponent implements OnInit {
       console.log(item[opt]);
     })
   }
+  exportExcel(){
+    if(validVariable(this.item.Id)){
+      this._services.KeHoachXuatHang().ExportThongBaoXuatHang(this.item.Id).subscribe((res: any) => {
+        this._services.download(res.TenFile);
+      })
+    }else{
+      this.toastr.error('Vui lòng ghi lại sau đó xuất Excel!')
+    }
+  }
 }
