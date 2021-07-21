@@ -1,3 +1,4 @@
+import { ViewChildren } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +15,7 @@ import { NhaphoiammathangmodalComponent } from '../nhaphoiammathangmodal/nhaphoi
   styleUrls: ['./nhapkhohoiammodal.component.css']
 })
 export class NhapkhohoiammodalComponent implements OnInit {
+  @ViewChildren('inputNumber') inputNumbers:any;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -229,6 +231,13 @@ export class NhapkhohoiammodalComponent implements OnInit {
         // không
       });
     })
+  }
+  enter(i){
+    if(i+1<this.inputNumbers.toArray().length){
+      this.inputNumbers.toArray()[i+1].el.nativeElement.children[0].children[0].focus();
+    }else{
+      this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
+    }
   }
   add() {
     if (this.item.listItem == undefined || this.item.listItem == null)

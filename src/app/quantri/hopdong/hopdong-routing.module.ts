@@ -1,3 +1,5 @@
+import { DanhsachhopdongbongxoComponent } from './screen/danhsachhopdongbongxo/danhsachhopdongbongxo.component';
+import { DmLoaiHopDongComponent } from './danhmuc/dm-loai-hop-dong/dm-loai-hop-dong.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DanhmuchinhthucthanhtoanComponent } from './danhmuc/danhmuchinhthucthanhtoan/danhmuchinhthucthanhtoan.component';
@@ -15,6 +17,8 @@ const routes: Routes = [
   {path:'danhmucloaitiente',component:DanhmucloaitienteComponent},
   {path:'danhmuctrangthaibaolanh',component:DanhmuctrangthaibaolanhComponent},
   {path:'danhmucthutucthanhtoan',component:DanhmucthutucthanhtoanComponent},
+  { path: 'dmloaihopdong', component: DmLoaiHopDongComponent },
+  { path: 'danhsachhopdongbongxo', component: DanhsachhopdongbongxoComponent },
 ];
 
 @NgModule({
