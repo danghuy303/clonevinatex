@@ -46,11 +46,31 @@ import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { LoaderInterceptor } from 'src/app/services/loader.interceptor';
 import localeVi from '@angular/common/locales/vi';
+import { DanhmuchinhthucthanhtoanComponent } from './danhmuc/danhmuchinhthucthanhtoan/danhmuchinhthucthanhtoan.component';
+import { ModaldanhmuchinhthucthanhtoanComponent } from './danhmuc/modal/modaldanhmuchinhthucthanhtoan/modaldanhmuchinhthucthanhtoan.component';
+import { DanhmucloaihopdongComponent } from './danhmuc/danhmucloaihopdong/danhmucloaihopdong.component';
+import { ModaldanhmucloaihopdongComponent } from './danhmuc/modal/modaldanhmucloaihopdong/modaldanhmucloaihopdong.component';
+import { DanhmucloaitienteComponent } from './danhmuc/danhmucloaitiente/danhmucloaitiente.component';
+import { ModaldanhmucloaitienteComponent } from './danhmuc/modal/modaldanhmucloaitiente/modaldanhmucloaitiente.component';
+import { DanhmucthutucthanhtoanComponent } from './danhmuc/danhmucthutucthanhtoan/danhmucthutucthanhtoan.component';
+import { ModaldanhmucthutucthanhtoanComponent } from './danhmuc/modal/modaldanhmucthutucthanhtoan/modaldanhmucthutucthanhtoan.component';
+import { DanhmuctrangthaibaolanhComponent } from './danhmuc/danhmuctrangthaibaolanh/danhmuctrangthaibaolanh.component';
+import { ModaldanhmuctrangthaibaolanhComponent } from './danhmuc/modal/modaldanhmuctrangthaibaolanh/modaldanhmuctrangthaibaolanh.component';
 registerLocaleData(localeVi);
 
 @NgModule({
   declarations: [
     HopdongComponent,
+    DanhmuchinhthucthanhtoanComponent,
+    ModaldanhmuchinhthucthanhtoanComponent,
+    DanhmucloaihopdongComponent,
+    ModaldanhmucloaihopdongComponent,
+    DanhmucloaitienteComponent,
+    ModaldanhmucloaitienteComponent,
+    DanhmucthutucthanhtoanComponent,
+    ModaldanhmucthutucthanhtoanComponent,
+    DanhmuctrangthaibaolanhComponent,
+    ModaldanhmuctrangthaibaolanhComponent,
   ],
   imports: [
     CommonModule,
@@ -101,6 +121,13 @@ registerLocaleData(localeVi);
     DanhMucHopDongService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
+  ],
+  entryComponents:[
+    ModaldanhmuchinhthucthanhtoanComponent,
+    ModaldanhmucloaihopdongComponent,
+    ModaldanhmucloaitienteComponent,
+    // ModaldanhmuctrangthaibaolanhComponent,
+    ModaldanhmucthutucthanhtoanComponent
   ]
 })
 export class HopdongModule { }
