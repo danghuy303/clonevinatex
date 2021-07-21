@@ -1,3 +1,4 @@
+// import { DmLoaiHopDongComponent } from './hopdong/danhmuc/dm-loai-hop-dong/dm-loai-hop-dong.component';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule, LocationStrategy, HashLocationStrategy, registerLocaleData } from '@angular/common';
 import { QuantriRoutingModule } from './quantri-routing.module';
@@ -374,6 +375,7 @@ import { SharedModule } from './../shared/shared.module';
     KiemkekhomodalComponent,
     NhapkhoComponent,
     NhapkhomodalComponent,
+  
     PhabongComponent,
     ThongsochatluongComponent,
     ThongsochatluongmodalComponent,
