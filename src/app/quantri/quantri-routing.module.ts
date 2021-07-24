@@ -111,7 +111,7 @@ import { HoiamkiemkekhoComponent } from './quanlykhosanxuat/quytrinh/hoiamkiemke
 import { TonkhohoiamComponent } from './quanlykhosanxuat/quytrinh/tonkhohoiam/tonkhohoiam.component';
 import { XuatkhohoiamComponent } from './quanlykhosanxuat/quytrinh/xuatkhohoiam/xuatkhohoiam.component';
 import { HopdongModule } from './hopdong/hopdong.module';
-
+//danhmuchinhthucthanhtoan
 const routes: Routes = [
   {
     path: '', component: QuantriComponent,
@@ -257,7 +257,6 @@ const routes: Routes = [
       { path: 'quanlykhosanxuat/hdsd', component: UploadhdsdsanxuatComponent },
       { path: 'phanquyensanxuat/dmchisotrienkhai', component: DmchisotrienkhaiComponent },
       { path: 'hopdongsanxuat', loadChildren: () => HopdongModule },
-
     ]
   }
 ];

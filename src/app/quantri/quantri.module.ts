@@ -297,6 +297,7 @@ import { KehoachnhapnguyenlieuhoanthanhmodalComponent } from './quanlykhosanxuat
 import { TrienkhaikehoachsanxuathoanthanhmodalComponent } from './quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuathoanthanhmodal/trienkhaikehoachsanxuathoanthanhmodal.component';
 import { VitrikienmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomodal/vitrikienmodal/vitrikienmodal.component';
 import { SharedModule } from './../shared/shared.module';
+
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -544,6 +545,7 @@ import { SharedModule } from './../shared/shared.module';
     KehoachnhapnguyenlieuhoanthanhmodalComponent,
     TrienkhaikehoachsanxuathoanthanhmodalComponent,
     VitrikienmodalComponent,
+  
   ],
   imports: [
     HttpClientModule,

@@ -45,6 +45,7 @@ label {
     -webkit-box-shadow: 7px 7px 14px 0px rgba(0, 0, 0, .5);
     -moz-box-shadow: 7px 7px 14px 0px rgba(0, 0, 0, .5);
     box-shadow: 7px 7px 14px 0px rgba(0, 0, 0, .5);
+    
 }
 
 @media (min-width: 576px) {
@@ -56,6 +57,7 @@ label {
 @media (max-width: 576px) {
     h2#Name {
         font-size: 14px;
+        
     }
 }
 
