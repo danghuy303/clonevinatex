@@ -48,6 +48,7 @@ export class SanXuatService {
     }
     //#region  Danh Muc Kho
     GetListdmKho(data) {
+        data.IdDuAn = this.store.getCurrent();
         let url = API.SCMDanhMuc + 'GetListdmKho';
         return this.http.post(url, data, httpOptions);
     }

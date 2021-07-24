@@ -178,7 +178,8 @@
                             <!-- <p-inputNumber *ngIf="item.CongDoan!=='CON' && item.CongDoan!=='CHAICOTTON' && item.CongDoan!=='GHEPSOBOCOTTON' && item.CongDoan!=='THO'" 
                             [minFractionDigits]="3" locale="vi-VN"
                                 [(ngModel)]="itemtbl.ChieuDai" -->
-                            <p-inputNumber *ngIf="item.CongDoan!=='CON' && item.CongDoan!=='CHAICOTTON' && item.CongDoan!=='GHEPSOBOCOTTON' && item.CongDoan!=='THO'" [minFractionDigits]="3" locale="vi-VN"
+                            <p-inputNumber *ngIf="item.CongDoan!=='CON' && item.CongDoan!=='CHAICOTTON' && item.CongDoan!=='GHEPSOBOCOTTON' && item.CongDoan!=='THO'
+                            && item.CongDoan==='GHEPTRONB' && item.CongDoan==='GHEPTRONA' && item.CongDoan==='GHEPDAURA'" [minFractionDigits]="3" locale="vi-VN"
                                 [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1"
                                 (ngModelChange)="TinhGiaTri(itemtbl)">
                             </p-inputNumber>
@@ -190,7 +191,7 @@
                                 [(ngModel)]="itemtbl.ChieuDai"
                                 (ngModelChange)="TinhKhoiLuongChaiCotton(itemtbl)">
                             </p-inputNumber>
-                            <p-inputNumber *ngIf="item.CongDoan==='GHEPSOBOCOTTON'" [minFractionDigits]="3" locale="vi-VN"
+                            <p-inputNumber *ngIf="item.CongDoan==='GHEPSOBOCOTTON' || item.CongDoan==='GHEPTRONB' || item.CongDoan==='GHEPTRONA' || item.CongDoan==='GHEPDAURA'" [minFractionDigits]="3" locale="vi-VN"
                                 [(ngModel)]="itemtbl.ChieuDai"
                                 (ngModelChange)="TinhKhoiLuongGhepSoBoChaiCotton(itemtbl)">
                             </p-inputNumber>
