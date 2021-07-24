@@ -76,6 +76,12 @@ import { ChitiethopdongbongxomodalComponent } from './screen/danhsachhopdongbong
 import { ChitietdieukhoanmodalComponent } from './screen/modal/share/chitietdieukhoanthanhtoan/chitietdieukhoanmodal/chitietdieukhoanmodal.component';
 import { NhansuthuchienmodalComponent } from './screen/modal/share/chitietnhansuthuchien/nhansuthuchienmodal/nhansuthuchienmodal.component';
 import { ChitietbaolanhmodalComponent } from './screen/modal/share/chitietbaolanh/chitietbaolanhmodal/chitietbaolanhmodal.component';
+// import { GiaonhanhopdongComponent } from './screen/thuchienhopdong/giaonhanhopdong/giaonhanhopdong.component';
+import { ThanhtoanhopdongComponent } from './screen/thuchienhopdong/thanhtoanhopdong/thanhtoanhopdong.component';
+import { PhathopdongComponent } from './screen/thuchienhopdong/phathopdong/phathopdong.component';
+import { QuyettoanhopdongComponent } from './screen/thuchienhopdong/quyettoanhopdong/quyettoanhopdong.component';
+import { GiaonhanhanghoaComponent } from './screen/thuchienhopdong/giaonhanhanghoa/giaonhanhanghoa.component';
+import { GiahanhopdongComponent } from './screen/thuchienhopdong/giahanhopdong/giahanhopdong.component';
 
 @NgModule({
   declarations: [
@@ -118,6 +124,18 @@ import { ChitietbaolanhmodalComponent } from './screen/modal/share/chitietbaolan
     NhansuthuchienmodalComponent,
 
     ChitietbaolanhmodalComponent,
+
+   
+
+    ThanhtoanhopdongComponent,
+
+    PhathopdongComponent,
+
+    QuyettoanhopdongComponent,
+
+    GiaonhanhanghoaComponent,
+
+    GiahanhopdongComponent,
 
 
   ],

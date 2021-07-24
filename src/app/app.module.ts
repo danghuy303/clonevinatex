@@ -37,12 +37,14 @@ import { CommonModule } from '@angular/common';
 // import { LoaderService } from './services/loader.service';
 // import { LoaderInterceptor } from './services/loader.interceptor';
 import { DecimalPipe } from '@angular/common';
+
 // import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+  
     // LoaderComponent
   ],
   imports: [
