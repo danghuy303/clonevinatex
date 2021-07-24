@@ -98,7 +98,7 @@ export class NhapkhohoiamComponent implements OnInit {
 
   update(Id) {
     this._service.PhieuNhapHoiAm().Get(Id).subscribe((res1: any) => {
-      let modalRef = this._modal.open(NhapkhohoiammodalComponent, {
+      let modalRef = this._modal.open(  NhapkhohoiammodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })

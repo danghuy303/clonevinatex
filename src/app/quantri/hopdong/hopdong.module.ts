@@ -1,6 +1,6 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { ModalloaihopdongComponent } from './danhmuc/modal/modalloaihopdong/modalloaihopdong.component';
+import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
-
 import { HopdongRoutingModule } from './hopdong-routing.module';
 import { HopdongComponent } from './hopdong.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -9,6 +9,7 @@ import { NgbModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
+
 import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ColorPickerModule } from 'primeng/colorpicker';
@@ -46,14 +47,103 @@ import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { LoaderInterceptor } from 'src/app/services/loader.interceptor';
 import localeVi from '@angular/common/locales/vi';
+import { DanhmuchinhthucthanhtoanComponent } from './danhmuc/danhmuchinhthucthanhtoan/danhmuchinhthucthanhtoan.component';
+import { ModaldanhmuchinhthucthanhtoanComponent } from './danhmuc/modal/modaldanhmuchinhthucthanhtoan/modaldanhmuchinhthucthanhtoan.component';
+import { DanhmucloaihopdongComponent } from './danhmuc/danhmucloaihopdong/danhmucloaihopdong.component';
+import { ModaldanhmucloaihopdongComponent } from './danhmuc/modal/modaldanhmucloaihopdong/modaldanhmucloaihopdong.component';
+import { DanhmucloaitienteComponent } from './danhmuc/danhmucloaitiente/danhmucloaitiente.component';
+import { ModaldanhmucloaitienteComponent } from './danhmuc/modal/modaldanhmucloaitiente/modaldanhmucloaitiente.component';
+import { DanhmucthutucthanhtoanComponent } from './danhmuc/danhmucthutucthanhtoan/danhmucthutucthanhtoan.component';
+import { ModaldanhmucthutucthanhtoanComponent } from './danhmuc/modal/modaldanhmucthutucthanhtoan/modaldanhmucthutucthanhtoan.component';
+import { DanhmuctrangthaibaolanhComponent } from './danhmuc/danhmuctrangthaibaolanh/danhmuctrangthaibaolanh.component';
+import { ModaldanhmuctrangthaibaolanhComponent } from './danhmuc/modal/modaldanhmuctrangthaibaolanh/modaldanhmuctrangthaibaolanh.component';
+
+import { DmLoaiHopDongComponent } from './danhmuc/dm-loai-hop-dong/dm-loai-hop-dong.component';
+import { DanhsachhopdongbongxoComponent } from './screen/danhsachhopdongbongxo/danhsachhopdongbongxo.component';
+// import { ChitiethopdongbongxomodalComponent } from './screen/danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
 registerLocaleData(localeVi);
+import { CardModule } from 'primeng/card';
+
+// import { ChitietdanhsachhopdongbongxoComponent } from './screen/chitietdanhsachhopdongbongxo/chitietdanhsachhopdongbongxo.component';
+import { ChitiethopdongbongxoComponent } from './screen/modal/share/chitiethopdongbongxo/chitiethopdongbongxo.component';
+import { ChitietdanhsachhanghoaComponent } from './screen/modal/share/chitietdanhsachhanghoa/chitietdanhsachhanghoa.component';
+import { ChitietdieukhoanthanhtoanComponent } from './screen/modal/share/chitietdieukhoanthanhtoan/chitietdieukhoanthanhtoan.component';
+import { ChitietnhansuthuchienComponent } from './screen/modal/share/chitietnhansuthuchien/chitietnhansuthuchien.component';
+import { ChitietbaolanhComponent } from './screen/modal/share/chitietbaolanh/chitietbaolanh.component';
+import { ChitietthanhtoanComponent } from './screen/modal/share/chitietthanhtoan/chitietthanhtoan.component';
+import { ChitietphathopdongComponent } from './screen/modal/share/chitietphathopdong/chitietphathopdong.component';
+import { ChitiethopdongbongxomodalComponent } from './screen/danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
+import { ChitietdieukhoanmodalComponent } from './screen/modal/share/chitietdieukhoanthanhtoan/chitietdieukhoanmodal/chitietdieukhoanmodal.component';
+import { NhansuthuchienmodalComponent } from './screen/modal/share/chitietnhansuthuchien/nhansuthuchienmodal/nhansuthuchienmodal.component';
+import { ChitietbaolanhmodalComponent } from './screen/modal/share/chitietbaolanh/chitietbaolanhmodal/chitietbaolanhmodal.component';
+// import { GiaonhanhopdongComponent } from './screen/thuchienhopdong/giaonhanhopdong/giaonhanhopdong.component';
+import { ThanhtoanhopdongComponent } from './screen/thuchienhopdong/thanhtoanhopdong/thanhtoanhopdong.component';
+import { PhathopdongComponent } from './screen/thuchienhopdong/phathopdong/phathopdong.component';
+import { QuyettoanhopdongComponent } from './screen/thuchienhopdong/quyettoanhopdong/quyettoanhopdong.component';
+import { GiaonhanhanghoaComponent } from './screen/thuchienhopdong/giaonhanhanghoa/giaonhanhanghoa.component';
+import { GiahanhopdongComponent } from './screen/thuchienhopdong/giahanhopdong/giahanhopdong.component';
 
 @NgModule({
   declarations: [
     HopdongComponent,
+    DanhmuchinhthucthanhtoanComponent,
+    ModaldanhmuchinhthucthanhtoanComponent,
+    DanhmucloaihopdongComponent,
+    ModaldanhmucloaihopdongComponent,
+    DanhmucloaitienteComponent,
+    ModaldanhmucloaitienteComponent,
+    DanhmucthutucthanhtoanComponent,
+    ModaldanhmucthutucthanhtoanComponent,
+    DanhmuctrangthaibaolanhComponent,
+    ModaldanhmuctrangthaibaolanhComponent,
+    DmLoaiHopDongComponent,
+    ModalloaihopdongComponent,
+    DanhsachhopdongbongxoComponent,
+
+    DanhsachhopdongbongxoComponent,
+
+
+    ChitiethopdongbongxoComponent,
+
+    ChitietdanhsachhanghoaComponent,
+
+    ChitietdieukhoanthanhtoanComponent,
+
+    ChitietnhansuthuchienComponent,
+
+    ChitietbaolanhComponent,
+
+    ChitietthanhtoanComponent,
+
+    ChitietphathopdongComponent,
+
+    ChitiethopdongbongxomodalComponent,
+
+    ChitietdieukhoanmodalComponent,
+
+    NhansuthuchienmodalComponent,
+
+    ChitietbaolanhmodalComponent,
+
+   
+
+    ThanhtoanhopdongComponent,
+
+    PhathopdongComponent,
+
+    QuyettoanhopdongComponent,
+
+    GiaonhanhanghoaComponent,
+
+    GiahanhopdongComponent,
+
+
   ],
   imports: [
     CommonModule,
+
+    PanelModule,
+    CardModule,
     SharedModule,
     HopdongRoutingModule,
     HttpClientModule,
@@ -99,8 +189,16 @@ registerLocaleData(localeVi);
     Dat09Service,
     HopDongService,
     DanhMucHopDongService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true, },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
-  ]
+  ],
+  entryComponents:[
+    ModaldanhmuchinhthucthanhtoanComponent,
+    ModaldanhmucloaihopdongComponent,
+    ModaldanhmucloaitienteComponent,
+    ModaldanhmuctrangthaibaolanhComponent,
+    ModaldanhmucthutucthanhtoanComponent
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HopdongModule { }
