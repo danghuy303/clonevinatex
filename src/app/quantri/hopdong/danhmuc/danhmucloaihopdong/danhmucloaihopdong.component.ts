@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Dat09Service } from 'src/app/services/callApi';
 import { ToastrService } from 'ngx-toastr';
-import { ModalthongbaoComponent } from '../../../modal/modalthongbao/modalthongbao.component';
-import { ModalimportexcelComponent } from '../../../modal/modalimportexcel/modalimportexcel.component';
+
 import { ModaldanhmucloaihopdongComponent } from '../modal/modaldanhmucloaihopdong/modaldanhmucloaihopdong.component';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 
 @Component({
   selector: 'app-danhmucloaihopdong',
@@ -22,19 +21,21 @@ export class DanhmucloaihopdongComponent implements OnInit {
   cols: any = [
     {
       header: 'Mã loại hợp đồng',
-      field: 'MaLoaiHopDong',
+      field: 'ma',
       width: '350px',
       align:'center'
     },
     {
       header: 'Tên loại hợp đồng',
-      field: 'TenLoaiHopDong',
-      width: '300px'
+      field: 'ten',
+      width: '300px',
+      align:'center'
     },
     {
       header: 'Ghi chú',
-      field: 'GhiChu',
-      width: '200px'
+      field: 'ghiChu',
+      width: '200px',
+      align:'center'
     }
   ];
   selectedItems:any=[];
@@ -60,8 +61,9 @@ export class DanhmucloaihopdongComponent implements OnInit {
       Ten:""
     };
     this. _danhMucHopDong.DanhMucLoaiHopDong().GetList().subscribe((res:any)=>{
-      this.items = res.items;
-      this.paging = res.paging;
+      debugger;
+      this.items = res.data.items;
+      this.paging.TotalItem = res.data.totalCount;
     })
   }
   add(){
@@ -70,11 +72,12 @@ export class DanhmucloaihopdongComponent implements OnInit {
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'loaihopdong';
-    modalRef.componentInstance.title = 'Thêm mới loại hợp đồng';
+    modalRef.componentInstance.title = 'Thêm mới hình thức thanh toán';
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListdmLoaiHopDong()
     }).catch(er=>console.log(er))
+    debugger;
   }
   edit(item){
     let modalRef = this._modal.open(ModaldanhmucloaihopdongComponent,{
@@ -89,31 +92,31 @@ export class DanhmucloaihopdongComponent implements OnInit {
       this.GetListdmLoaiHopDong()
     }).catch(er=>console.log(er))
   }
-  // delete(item){
-  //   let modalRef = this._modal.open(ModalthongbaoComponent,{
-  //     backdrop:'static'
-  //   });
-  //   modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-  //   modalRef.result.then(res=>{
-  //     this._services.DeletedmTinhTrangTaiSan([item]).subscribe((res: any) => {
-  //       if (res) {
-  //         if (res.State === 1) {
-  //           this._toastr.success(res.message);
-  //           this.GetListdmTinhTrangTaiSan();
-  //         } else {
-  //           this._toastr.error(res.message);
-  //         }
-  //       }
-  //     })
-  //   }).catch(er=>console.log(er))
-  // }
+  delete(item){
+    let modalRef = this._modal.open(ModalthongbaoComponent,{
+      backdrop:'static'
+    });
+    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res=>{
+      this._danhMucHopDong.DanhMucLoaiHopDong().Delete([item]).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this._toastr.success(res.message);
+            this.GetListdmLoaiHopDong();
+          } else {
+            this._toastr.error(res.message);
+          }
+        }
+      })
+    }).catch(er=>console.log(er))
+  }
   deleteAll(){
     let modalRef = this._modal.open(ModalthongbaoComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this. _danhMucHopDong.DanhMucLoaiHopDong().Delete(this.selectedItems).subscribe((res: any) => {
+      this._danhMucHopDong.DanhMucLoaiHopDong().Delete(this.selectedItems).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);
@@ -130,15 +133,5 @@ export class DanhmucloaihopdongComponent implements OnInit {
     this.paging.CurrentPage = event.page+1;
     this.GetListdmLoaiHopDong()
   }
-  importExcel(){
-    let modalRef = this._modal.open(ModalimportexcelComponent,{
-      backdrop:'static',
-    })
-    modalRef.componentInstance.importFunc = 'LoaiHopDong';
-    modalRef.result.then(res=>{
-      this.GetListdmLoaiHopDong();
-      this._toastr.success(res.mess);
-    })
-    .catch(er=>console.log(er))
+  
   }
-}

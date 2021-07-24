@@ -87,24 +87,24 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
       this.GetListdmHinhThucThanhToan()
     }).catch(er=>console.log(er))
   }
-  // delete(item){
-  //   let modalRef = this._modal.open(ModalthongbaoComponent,{
-  //     backdrop:'static'
-  //   });
-  //   modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-  //   modalRef.result.then(res=>{
-  //     this._services.DeletedmTinhTrangTaiSan([item]).subscribe((res: any) => {
-  //       if (res) {
-  //         if (res.State === 1) {
-  //           this._toastr.success(res.message);
-  //           this.GetListdmHinhThucThanhToan();
-  //         } else {
-  //           this._toastr.error(res.message);
-  //         }
-  //       }
-  //     })
-  //   }).catch(er=>console.log(er))
-  // }
+  delete(item){
+    let modalRef = this._modal.open(ModalthongbaoComponent,{
+      backdrop:'static'
+    });
+    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res=>{
+      this._danhMucHopDong.DanhMucHinhThucThanhToan().Delete([item]).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this._toastr.success(res.message);
+            this.GetListdmHinhThucThanhToan();
+          } else {
+            this._toastr.error(res.message);
+          }
+        }
+      })
+    }).catch(er=>console.log(er))
+  }
   deleteAll(){
     let modalRef = this._modal.open(ModalthongbaoComponent,{
       backdrop:'static'
@@ -128,16 +128,16 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
     this.paging.CurrentPage = event.page+1;
     this.GetListdmHinhThucThanhToan()
   }
-  importExcel(){
-    let modalRef = this._modal.open(ModalimportexcelComponent,{
-      backdrop:'static',
-    })
-    modalRef.componentInstance.importFunc = 'HinhThucThanhToan';
-    modalRef.result.then(res=>{
-      this.GetListdmHinhThucThanhToan();
-      this._toastr.success(res.mess);
-    })
-    .catch(er=>console.log(er))
-  }
+  // importExcel(){
+  //   let modalRef = this._modal.open(ModalimportexcelComponent,{
+  //     backdrop:'static',
+  //   })
+  //   modalRef.componentInstance.importFunc = 'HinhThucThanhToan';
+  //   modalRef.result.then(res=>{
+  //     this.GetListdmHinhThucThanhToan();
+  //     this._toastr.success(res.mess);
+  //   })
+  //   .catch(er=>console.log(er))
+  // }
 }
 

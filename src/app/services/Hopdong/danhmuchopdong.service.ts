@@ -70,9 +70,10 @@ export class DanhMucHopDongService {
         let url = API.HopDong
         return {
             GetList:()=>{
-                return this.http.get(`${url}DanhMuc/GetListdmHinhThucThanhToan`,httpOptions)
+                return this.http.get(`${url}HopDong/DanhMuc/GetListdmHinhThucThanhToan`,httpOptions)
             },
             Set:(data)=>{
+    
                 return this.http.post(`${url}DanhMuc/SetdmHinhThucThanhToan`,data,httpOptions)
             },
             Delete:(data)=>{

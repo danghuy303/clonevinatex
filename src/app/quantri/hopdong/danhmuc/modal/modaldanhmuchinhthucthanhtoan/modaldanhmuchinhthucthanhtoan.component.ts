@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Dat09Service } from 'src/app/services/callApi';
 import { ToastrService } from 'ngx-toastr';
-import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 @Component({
   selector: 'app-modaldanhmuchinhthucthanhtoan',
   templateUrl: './modaldanhmuchinhthucthanhtoan.component.html',
@@ -13,36 +12,38 @@ export class ModaldanhmuchinhthucthanhtoanComponent implements OnInit {
   public item: any = {};
   public title: any = '';
   public type = '';
-  khongclicknhieu: any = false;
-  listLoaiBong: any = [];
-  listLoaiNhomKho: any = [];
-  constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
+
+  constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    
+
   }
-  // GetListLoaiNhomKho() {
-  //   this.sanXuatService.GetListLoaiNhomKho().subscribe((res: any) => {
-  //     this.listLoaiNhomKho = mapArrayForDropDown(res, "Ten", 'Loai');
-  //   })
-  // }
-  // accept() {
-  //   this.item.HoatDong = true;
-  //   this.khongclicknhieu = !this.khongclicknhieu;
-    
-  // }
-  // resAction(res: any) {
-  //   if (res.State === 1) {
-  //     this.khongclicknhieu = !this.khongclicknhieu;
-  //     this.activeModal.close(res.message);
-  //   } else {
-  //     this.khongclicknhieu = !this.khongclicknhieu;
-  //     this.toastr.error(res.message)
-  //   }
-  // }
-  // GetListLoaiBong() {
-  //   this.sanXuatService.GetListLoaiBong().subscribe((res: any) => {
-  //     this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Loai');
-  //   })
-  // }
+  Setdata() {
+    let data: any = {
+      "Id": this.type == "add" ? "" : this.item.Id,
+      IdHinhThucThanhToan: this.item.IdHinhThucThanhToan,
+      "Ma": this.item.Ma,
+      "Ten": this.item.Ten,
+      "GhiChu": this.item.GhiChu != undefined && this.item.GhiChu != null && this.item.GhiChu != "" ? this.item.GhiChu : "",
+    };
+    return data;
+  }
+  async luu1() {
+    if (validVariable(this.item.Ma) == true && validVariable(this.item.Ten) == true) {
+      debugger;
+      console.log(this.Setdata())
+      let res: any = await this._danhMucHopDong.DanhMucHinhThucThanhToan().Set(this.Setdata());
+      if (res.Error === 4) {
+        this.toastr.success(res.Detail, 'Thông báo');
+        //  this.Onclose();
+      }
+      //     else {
+      //       this.toastr.error(res.Detail, 'Thông báo');
+      //     }
+      //    }
+      //    else {
+      //      this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc", 'Thông báo');
+      //  }
+    }
+  }
 }

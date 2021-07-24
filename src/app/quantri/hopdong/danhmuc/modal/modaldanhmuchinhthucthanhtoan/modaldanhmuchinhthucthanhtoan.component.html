@@ -22,27 +22,6 @@
                 <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.Ten" pInputText />
             </div>
         </div>
-      
-        <!-- <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='loaibong'">
-            <label class="p-col-12 p-lg-12 p-p-0 my-auto">Loại :</label>
-            <div class="p-col-12 p-lg-12 p-p-0">
-                <p-dropdown [options]="listLoaiBong" placeholder="Chọn loại" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.Loai"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type=='loaibong'">
-            <label class="p-col-12 p-lg-12 p-p-0 my-auto">Màu:</label>
-            <div class="p-col-12 p-lg-12 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Mau" pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='dmnhomkho'">
-            <label class="p-col-12 p-lg-12 p-p-0 my-auto">Loại :</label>
-            <div class="p-col-12 p-lg-12 p-p-0">
-                <p-dropdown [options]="listLoaiNhomKho" placeholder="Chọn loại" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.Loai"></p-dropdown>
-            </div>
-        </div> -->
         <div class="p-col-12 p-md-6 p-lg-12 p-d-flex p-flex-column">
             <label class="p-col-12 p-lg-12 p-p-0 my-auto">Ghi chú <span class="text-danger">(*)</span></label>
             <div class="p-col-12 p-lg-12 p-p-0">
@@ -53,7 +32,7 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button pButton pRipple label="Lưu" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="accept()" [disabled]="khongclicknhieu"></button>
+    <button pButton pRipple label="Lưu" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="luu1()" [disabled]="khongclicknhieu"></button>
     <button pButton pRipple label="Đóng" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
         (click)="activeModal.dismiss()"></button>
 </div>
