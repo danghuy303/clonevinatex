@@ -18,7 +18,7 @@ const routes: Routes = [
   {path:'danhmuctrangthaibaolanh',component:DanhmuctrangthaibaolanhComponent},
   {path:'danhmucthutucthanhtoan',component:DanhmucthutucthanhtoanComponent},
   { path: 'dmloaihopdong', component: DmLoaiHopDongComponent },
-  { path: 'danhsachhopdongbongxo', component: DanhsachhopdongbongxoComponent },
+  { path: 'danhsachhopdongbongxo/:id', component: DanhsachhopdongbongxoComponent },
 ];
 
 @NgModule({

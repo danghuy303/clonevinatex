@@ -1,5 +1,16 @@
 <div class="modal-header">
     <h5 class="modal-title">Phiếu danh sách hợp đồng bông/xơ</h5>
+    <div class="d-flex flex-column flex-lg-row">
+        <div>
+           <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+        </div>
+        <div class="ml-lg-3 mr-lg-3">
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+        <div>
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+    </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -8,7 +19,7 @@
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="activeModal.dismiss('close')"></button>
-            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm"></button>
+            <button pButton pRipple type="button"   (click)="HoanThanh()" label="Ghi lại" class="p-mr-2 p-button-sm"></button>
             <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm"></button>
             <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm"></button>
             <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"></button>

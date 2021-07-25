@@ -1,4 +1,4 @@
-import { number } from '@amcharts/amcharts4/core';
+import { number } from "@amcharts/amcharts4/core";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 
 import { Component, OnInit, ViewChild } from "@angular/core";
@@ -22,8 +22,8 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   items: any = [];
   filter: any = {};
-  tuNgay: number = 0
-  denNgay: number = 0
+  tuNgay: number = 0;
+  denNgay: number = 0;
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
   //    this.paging.TotalItem = res.data.totalCount;
@@ -36,19 +36,23 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     public _modal: NgbModal,
     public _toastr: ToastrService,
     private _service: HopDongService,
+    private _serviceSanXuat: SanXuatService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
-    // this.activatedRoute.params.subscribe((res: any) => {
-    //   if (res.id !== '0') {
-    //     this._service.QuyTrinhHopDong().Get(res.id).subscribe((res: any) => {
-    //       this.update(res);
-    //     })
-    //   }
-    // })
+    this.activatedRoute.params.subscribe((res: any) => {
+      if (res.id !== "0") {
+        this._service
+          .QuyTrinhHopDong()
+          .Get(res.id)
+          .subscribe((res: any) => {
+            this.update(res);
+          });
+      }
+    });
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
   }
@@ -59,6 +63,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     );
   }
   add() {
+   
     let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
       size: "fullscreen",
       backdrop: "static",
@@ -80,33 +85,35 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
         this.changeParam(0);
       });
   }
-  // update(item) {
-  //   this._service.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
-  //     this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
-  //     if (item.listItem != undefined && item.listItem != null) {
-  //       item.listItem.filter(objlistItem => {
-  //         objlistItem.listItem.filter(async objlistItem2 => {
-  //           objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
-  //         });
-  //       });
-  //       let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
-  //         size: 'fullscreen',
-  //         backdrop: 'static'
-  //       })
-  //       modalRef.componentInstance.opt = 'edit';
-  //       modalRef.componentInstance.item = item;
-  //       modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
-  //       modalRef.componentInstance.item.DenNgay = UnixToDate(item.DenNgayUnix);
-  //       modalRef.result.then((res: any) => {
-  //         console.log(res);
-  //         this._toastr.success('Cập nhật thành công');
-  //         this.GetListQuyTrinh();
-  //         this.changeParam(0)
-  //       })
-  //         .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
-  //     }
-  //   })
-  // }
+  update(item) {
+    this._serviceSanXuat.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
+     
+      this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
+      if (item.listItem != undefined && item.listItem != null) {
+        item.listItem.filter(objlistItem => {
+          objlistItem.listItem.filter(async objlistItem2 => {
+            objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
+          });          
+        });
+        let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
+          size: 'fullscreen',
+          backdrop: 'static'
+        })
+        console.log('modalRef',modalRef);
+        modalRef.componentInstance.opt = 'edit';
+        modalRef.componentInstance.item = item;
+        modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
+        modalRef.componentInstance.item.DenNgay = UnixToDate(item.DenNgayUnix);
+        modalRef.result.then((res: any) => {
+         
+          this._toastr.success('Cập nhật thành công');
+          this.GetListQuyTrinh();
+          this.changeParam(0)
+        })
+          .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
+      }
+    })  
+  }
   changeTab(e) {
     this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
@@ -124,7 +131,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       pageSize: 20,
       currentPage: this.paging.currentPage,
       tabTrangThai: this.trangThai,
-      sFilter: this.filter.keyWord,
+      keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
     };
@@ -132,12 +139,10 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       .QuyTrinhHopDong()
       .GetList(data)
       .subscribe((res: any) => {
-    
         this.items = res.data.items;
         this.paging.TotalItem = res.data.totalCount;
       });
   }
-
 
   resetFilter() {
     this.filter = {};
