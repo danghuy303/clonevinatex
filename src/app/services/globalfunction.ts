@@ -136,7 +136,8 @@ export function validVariable(value: any) {
     }
 }
 export function DateToUnix(date: any): any {
-    return (new Date(date)).getTime() / 1000;
+     (new Date(date)).getTime() / 1000 
+     return 0
 }
 export function DateToDatePicker(date: any): any {
     return validVariable(date) ? new Date(date) : undefined;

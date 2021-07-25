@@ -36,7 +36,7 @@ export class HopDongService {
          
             GetList: (data) => {
                 console.log(data);
-                data.IdDuAn  = 0
+                data.idDuAn  =53
                 return this.http.post(url + 'HopDong/GetListQuyTrinhHopDong', data, httpOptions);
             },
             Get: (Id) => {
