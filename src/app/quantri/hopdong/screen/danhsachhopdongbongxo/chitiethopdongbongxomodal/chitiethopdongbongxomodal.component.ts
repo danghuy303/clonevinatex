@@ -1,3 +1,4 @@
+import { AuthenticationService } from "./../../../../../services/auth.service";
 import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.service";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 import { FileUploader } from "ng2-file-upload";
@@ -35,12 +36,9 @@ import { StoreService } from "src/app/services/store.service";
 //   }
 // }
 export class ChitiethopdongbongxomodalComponent implements OnInit {
-  opt: any = "";
-  item: any = {
-    Id: "",
-    // SoQuyTrinh: 'PKK_0000_001',
-    // listKienHang: []
-  };
+  opt: any = "add";
+  item: any = {};
+  userInfo: any;
   lang: any = vn;
   filter: any = {
     keyWord: "",
@@ -55,239 +53,71 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   };
   listPhuongAnSapXep: any = [];
   listDonVi: any = [];
-  listMucDich: any = [
-    { value: 0, label: "Xuất khẩu" },
-    { value: 1, label: "Nội địa" },
-  ];
-  listPhanXuong: any = [];
-  listMatHang: any = [];
-  listQuyCachDongGoi: any = [];
+
   yearRange: string = `${new Date().getFullYear()}:${
     new Date().getFullYear() + 5
   }`;
   constructor(
     public activeModal: NgbActiveModal,
-    private services: SanXuatService,
-    private _servicesdmHopDong: DanhMucHopDongService,
-    public toastr: ToastrService,
+
+    private _auth: AuthenticationService,
+
     public _modal: NgbModal,
-    private _store: StoreService
-  ) {}
+
+    private _servicesdmHopDong: DanhMucHopDongService,
+    private _service: HopDongService,
+    private _store: StoreService,
+    private _servicesSanXuat: SanXuatService,
+    private _toastr: ToastrService
+  ) {
+    this.userInfo = this._auth.currentUserValue;
+  }
 
   ngOnInit(): void {
-    this.GetFormOptions();
-    if (this.opt !== "edit") {
-      this.GetNextSoQuyTrinh();
-      if (this._store.getCurrent()) {
-        this.item.IdDuAn = this._store.getCurrent();
-      }
-    }
-  }
-  ngDoCheck(): void {
-    this.Calculate();
-  }
-  KiemTraButtonModal() {
-    this.services
-      .KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "")
-      .subscribe((res: any) => {
-        this.checkbutton = res;
-      });
-  }
-  GetFormOptions() {
-    this.services
-      .GetOptions()
-      .GetMatHang()
-      .subscribe((res: Array<any>) => {
-        this.listMatHang = res;
-      });
-    this._servicesdmHopDong
-      .DanhMucLoaiHopDong()
-      .GetList()
-      .subscribe((res: Array<any>) => {
-        this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
-      });
-
-    this._servicesdmHopDong
-      .DanhMucLoaiTienTe()
-      .GetList()
-      .subscribe((res: Array<any>) => {
-        this.listQuyCachDongGoi = mapArrayForDropDown(res, "ten", "id");
-      });
-
-    this._servicesdmHopDong
-      .DanhMucThuTucThanhToan()
-      .GetList()
-      .subscribe((res: Array<any>) => {
-        this.listQuyCachDongGoi = mapArrayForDropDown(res, "ten", "id");
-      });
-    this.services
-      .GetOptions()
-      .GetNhaMay()
-      .subscribe((res: Array<any>) => {
-        this.listDonVi = mapArrayForDropDown(res, "TenDuAn", "Id");
-        if (validVariable(this.item.IdDuAn)) {
-          this.getPhanXuong(this.item.IdDuAn, true);
-        }
-      });
-  }
-  getPhanXuong(IdDuAn, update?) {
-    this.listPhanXuong = [];
-    if (!!!update) {
-      this.item.IddmPhanXuong = null;
-    }
-    this.services
-      .GetOptions()
-      .GetPhanXuong(IdDuAn)
-      .subscribe((res: any) => {
-        this.listPhanXuong = mapArrayForDropDown(res, "Ten", "Id");
-      });
-  }
-
-  ChuyenDuyet() {}
-  KhongDuyet() {
-    this.services
-      .GiaoKeHoachSanXuat()
-      .KhongDuyet(this.item)
-      .subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.activeModal.close();
-          } else {
-            this.toastr.error(res.message);
-          }
-        }
-      });
-    // if (this.validData()) {
-    //   this.services.GiaoKeHoachSanXuat().KhongDuyet(this.item).subscribe((res: any) => {
-    //     if (res) {
-    //       if (res.State === 1) {
-    //         this.activeModal.close();
-    //       } else {
-    //         this.toastr.error(res.message);
-    //       }
-    //     }
-    //   })
+    // this.GetFormOptions();
+    // if (this.opt !== "edit") {
+    //   this.GetNextSoQuyTrinh();
+    //   if (this._store.getCurrent()) {
+    //     this.item.IdDuAn = this._store.getCurrent();
+    //   }
     // }
   }
-  GetListdmPhuongAnSapXep() {}
-  GetNextSoQuyTrinh() {
-    this.services
-      .GiaoKeHoachSanXuat()
-      .GetNextSo()
-      .subscribe((res: any) => {
-        this.item.SoQuyTrinh = res.SoQuyTrinh;
-      });
-  }
-  GetQuyTrinh(Id) {
-    this.services
-      .GiaoKeHoachSanXuat()
-      .Get(Id)
-      .subscribe((res: any) => {
-        this.item = res;
-        // console.log(res);
-      });
-  }
-  validData() {}
-  chonHangHoa() {}
 
-  changeKeHoachSanXuat(e, item) {}
-
-  chonQuyCachDongGoi(item) {
-    let modalRef = this._modal.open(ChonquycachdonggoimodalComponent, {
-      size: "lg",
-    });
-    modalRef.componentInstance.items = this.listQuyCachDongGoi;
-    modalRef.componentInstance.layitem = item;
-    modalRef.componentInstance.selectedItems = deepCopy(item.listItem || []);
-    modalRef.componentInstance.IdQuyTrinh = this.item.Id;
-    modalRef.result
-      .then((res) => {
-        // merge(res, this.item.listItem, 'IddmQuyCachDongGoi');
-        item.listItem = res.listItem;
-        // if (item.KhoiLuongKeHoach != undefined && item.KhoiLuongKeHoach != null && item.KhoiLuongKeHoach > 0
-        //   && item.listItem != undefined && item.listItem.length > 0) {
-        //   let tong = 0;
-        //   item.listItem.filter(obj => {
-        //     if(!obj.isXoa){
-        //       tong += obj.KhoiLuong;
-        //     }
-        //   });
-        //   if (item.KhoiLuongKeHoach < tong) {
-        //     this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
-        //   }
-        // }
-      })
-      .catch((er) => {
-        console.log(er);
-      });
-  }
-
-  Calculate() {}
   HoanThanh() {
-    let modalRef = this._modal.open(ModalthongbaoComponent, {
-      backdrop: "static",
-    });
-
-    this.services
-      .GiaoKeHoachSanXuat()
-      .HoanThanh(this.item)
+    this._service
+      .QuyTrinhHopDong()
+      .Set(this.item)
       .subscribe((res: any) => {
+        console.log(res);
         if (res) {
           if (res.State === 1) {
-            this.toastr.success(res.message);
-            this.activeModal.close();
+            this._toastr.success(res.message);
+            this.opt = "edit";
+
+            this.item = res.objectReturn;
           } else {
-            this.toastr.error(res.message);
+            this._toastr.error(res.detail);
           }
         }
       });
-    // if (this.validData()) {
-    //   modalRef.componentInstance.message = "Bạn có chắc chắn các mặt hàng này đã hoàn thành?"
-    //   modalRef.result.then(res => {
-    //     this.services.GiaoKeHoachSanXuat().HoanThanh(this.item).subscribe((res: any) => {
-    //       if (res) {
-    //         if (res.State === 1) {
-    //           this.toastr.success(res.message)
-    //           this.activeModal.close();
-    //         } else {
-    //           this.toastr.error(res.message);
-    //         }
-    //       }
-    //     })
-    //   }).catch(er => console.log(er))
-    // }
   }
-  XoaQuyTrinh() {}
 
-  changePhuongAnDeXuat(event, item) {
-    item.TenPhuongAnDeXuat = event.Ten;
-    item.IDdmPhuongAnDeXuat = event.ID;
+  XoaQuyTrinh() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
+    modalRef.result.then(res => {
+      this._service.QuyTrinhHopDong().Deletes(this.item).subscribe((res: any) => {
+        console.log(res);
+        if (res?.State === 1) {
+          this._toastr.success(res.message)
+          this.activeModal.close();
+        } else {
+          this._toastr.error(res.message);
+        }
+      })
+    }).catch(er => console.log(er))
   }
-  delete(index) {
-    let item = this.item.listItem.splice(index, 1)[0];
-    console.log(item);
-    // let item = this.items.splice(i, 1)[0];
-    if (item.Id.trim() === "") {
-    } else {
-      item.isXoa = true;
-      this.item.listItem.push(JSON.parse(JSON.stringify(item)));
-    }
-  }
-  refreshFilterMatHang() {
-    this.filter.keyWord = "";
-  }
-  checkAll(e) {
-    if (e.checked) {
-      this.item.listItem.forEach((item) => {
-        item.isDaHoanThanh = true;
-      });
-    } else {
-      this.item.listItem.forEach((item) => {
-        item.isDaHoanThanh = false;
-      });
-    }
-  }
-  checked() {
-    this.checkedAll = this.item.listItem.every((ele) => ele.checked);
-  }
+
 }
