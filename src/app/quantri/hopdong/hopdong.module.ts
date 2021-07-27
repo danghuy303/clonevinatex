@@ -161,7 +161,7 @@ import { ThanhtoanhopdongmodalComponent } from './screen/thuchienhopdong/thanhto
     PhathopdongmodalComponent,
 
     QuyettoanhopdongmodalComponent,
-
+   
     ThanhtoanhopdongmodalComponent,
 
 
@@ -224,7 +224,8 @@ import { ThanhtoanhopdongmodalComponent } from './screen/thuchienhopdong/thanhto
     ModaldanhmucloaihopdongComponent,
     ModaldanhmucloaitienteComponent,
     ModaldanhmuctrangthaibaolanhComponent,
-    ModaldanhmucthutucthanhtoanComponent
+    ModaldanhmucthutucthanhtoanComponent,
+    QuyettoanhopdongmodalComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

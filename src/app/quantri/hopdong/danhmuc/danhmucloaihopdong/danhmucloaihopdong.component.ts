@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ModaldanhmucloaihopdongComponent } from '../modal/modaldanhmucloaihopdong/modaldanhmucloaihopdong.component';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
+import { variable } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-danhmucloaihopdong',
@@ -57,11 +59,10 @@ export class DanhmucloaihopdongComponent implements OnInit {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
       sFilter:this.keyWord,  
-      Ma:"", 
-      Ten:""
+      ma:"", 
+      ten:""    
     };
-    this. _danhMucHopDong.DanhMucLoaiHopDong().GetList().subscribe((res:any)=>{
-      debugger;
+    this. _danhMucHopDong.DanhMucLoaiHopDong().GetList(data).subscribe((res:any)=>{
       this.items = res.data.items;
       this.paging.TotalItem = res.data.totalCount;
     })
@@ -92,15 +93,16 @@ export class DanhmucloaihopdongComponent implements OnInit {
       this.GetListdmLoaiHopDong()
     }).catch(er=>console.log(er))
   }
-  delete(item){
+  delete(){
     let modalRef = this._modal.open(ModalthongbaoComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this._danhMucHopDong.DanhMucLoaiHopDong().Delete([item]).subscribe((res: any) => {
+      const    item=    this.selectedItems[0];
+      this._danhMucHopDong.DanhMucLoaiHopDong().Delete([item.id]).subscribe((res: any) => {
         if (res) {
-          if (res.State === 1) {
+          if (res.message === "Xử lý thành công") {
             this._toastr.success(res.message);
             this.GetListdmLoaiHopDong();
           } else {
@@ -115,10 +117,17 @@ export class DanhmucloaihopdongComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    // console.log(this.selectedItems)
+    const listId=this.selectedItems.map(({id}) => id);
+    // console.log(listId)
+    // debugger;
     modalRef.result.then(res=>{
-      this._danhMucHopDong.DanhMucLoaiHopDong().Delete(this.selectedItems).subscribe((res: any) => {
+   
+      this._danhMucHopDong.DanhMucLoaiHopDong().DeleteList(listId).subscribe((res: any) => {
         if (res) {
-          if (res.State === 1) {
+          debugger;
+          console.log(res)
+          if (res.statusCode === 200) {
             this._toastr.success(res.message);
             this.GetListdmLoaiHopDong();
             this.selectedItems = [];

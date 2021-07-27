@@ -39,12 +39,13 @@ export class ModaldanhmucloaihopdongComponent implements OnInit {
     if (validVariable(this.item.ma) == true && validVariable(this.item.ten) == true) {
       console.log(this.Setdata());
       this._danhMucHopDong.DanhMucLoaiHopDong().Set(this.Setdata()).subscribe((res: any) => {
-        if (res.status !== 200) {
-          this.toastr.error(res.message);
-        } else {
-          this.toastr.success(res.message);
-          this.activeModal.close();
-        }
+        // if (res.status !== 200) {
+        //   this.toastr.error(res.message);
+        // } else {
+        //   this.toastr.success(res.message);
+        //   this.activeModal.close();
+        // } 
+        this.activeModal.close();
       })
 
     }

@@ -53,15 +53,27 @@ export class DanhMucHopDongService {
     DanhMucLoaiHopDong(){
         let url = API.HopDong
         return {
-            GetList:()=>{
-                return this.http.get(`${url}DanhMuc/GetListdmLoaiHopDong`,httpOptions)
+            GetList:(data)=>{
+                return this.http.get(`${url}DanhMuc/GetListdmLoaiHopDong?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}` ,httpOptions)
             },
             Set:(data)=>{
                 return this.http.post(`${url}DanhMuc/SetdmLoaiHopDong`,data,httpOptions)
             },
-            Delete:(data)=>{
-                return this.http.post(`${url}DanhMuc/DeletedmLoaiHopDong`,data,httpOptions)
-            }
+            // Delete:(Id)=>{
+            //     debugger;
+            //     return this.http.get(`${url}DanhMuc/DeletedmLoaiHopDong`,httpOptions)
+            // },         
+            
+            DeleteList:(data)=>{
+                debugger;
+                return this.http.post(`${url}DanhMuc/DeleteListdmLoaiHopDong`,data,httpOptions)
+            },
+
+            Delete:(id)=>{
+                return this.http.get(`${url}DanhMuc/DeletedmLoaiHopDong?id=${id}`,httpOptions)
+
+            }   
+          
         }
     }
 
