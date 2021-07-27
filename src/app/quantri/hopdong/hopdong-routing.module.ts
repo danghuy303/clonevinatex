@@ -1,3 +1,5 @@
+import { LaphopdongsoiComponent } from './screen/laphopdongsoi/laphopdongsoi.component';
+import { LaphopdongbongxoComponent } from './screen/laphopdongbongxo/laphopdongbongxo.component';
 import { PhathopdongComponent } from './screen/thuchienhopdong/phathopdong/phathopdong.component';
 import { QuyettoanhopdongComponent } from './screen/thuchienhopdong/quyettoanhopdong/quyettoanhopdong.component';
 import { GiahanhopdongComponent } from './screen/thuchienhopdong/giahanhopdong/giahanhopdong.component';
@@ -29,6 +31,8 @@ const routes: Routes = [
   { path: 'phathopdong/:id', component: PhathopdongComponent },
   { path: 'giahanhopdong/:id', component: GiahanhopdongComponent },
   { path: 'quyettoanhopdong/:id', component: QuyettoanhopdongComponent },
+  { path: 'laphopdongbongxo/:id', component: LaphopdongbongxoComponent },
+  { path: 'laphopdongsoi/:id', component: LaphopdongsoiComponent },
 ];
 
 @NgModule({

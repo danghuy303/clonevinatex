@@ -1,6 +1,23 @@
-import { PhathopdongmodalComponent } from "./phathopdongmodal/phathopdongmodal.component";
+import { ModallaphopdongsoiComponent } from './modallaphopdongsoi/modallaphopdongsoi.component';
+import { ModallaphopdongbongxoComponent } from './../laphopdongbongxo/modallaphopdongbongxo/modallaphopdongbongxo.component';
+// import { Component, OnInit } from '@angular/core';
 
-import { ChitiethopdongbongxomodalComponent } from "./../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
+// @Component({
+//   selector: 'app-laphopdongsoi',
+//   templateUrl: './laphopdongsoi.component.html',
+//   styleUrls: ['./laphopdongsoi.component.css']
+// })
+// export class LaphopdongsoiComponent implements OnInit {
+
+//   constructor() { }
+
+//   ngOnInit(): void {
+//   }
+
+// }
+
+import { ChitiethopdongbongxomodalComponent } from './../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
+
 
 import { number } from "@amcharts/amcharts4/core";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
@@ -16,13 +33,14 @@ import {
   UnixToDate,
 } from "src/app/services/globalfunction";
 
-ChitiethopdongbongxomodalComponent;
+
+
 @Component({
-  selector: "app-phathopdong",
-  templateUrl: "./phathopdong.component.html",
-  styleUrls: ["./phathopdong.component.css"],
+  selector: 'app-laphopdongsoi',
+  templateUrl: './laphopdongsoi.component.html',
+  styleUrls: ['./laphopdongsoi.component.css']
 })
-export class PhathopdongComponent implements OnInit {
+export class LaphopdongsoiComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   items: any = [];
   filter: any = {};
@@ -64,12 +82,13 @@ export class PhathopdongComponent implements OnInit {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll();
     }
-    this.router.navigate([`quantri/hopdongsanxuat/phathopdong/${id}`], {
-      replaceUrl: true,
-    });
+    this.router.navigate(
+      [`quantri/hopdongsanxuat/laphopdongsoi/${id}`],
+      { replaceUrl: true }
+    );
   }
   add() {
-    let modalRef = this._modal.open(PhathopdongmodalComponent, {
+    let modalRef = this._modal.open(ModallaphopdongsoiComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
@@ -183,7 +202,7 @@ export class PhathopdongComponent implements OnInit {
       .GetList(data)
       .subscribe((res: any) => {
         // this.items = res.data.items;
-        this.paging.TotalItem = res.data.totalCount;
+        // this.paging.TotalItem = res.data.totalCount;
       });
   }
 

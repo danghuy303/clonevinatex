@@ -840,20 +840,20 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/hopdongsanxuat/danhsachhopdongbongxo/0",
             command: () => this.close(),
           },
-          // {
-          //   label: "Lập hợp đồng bông xơ",
-          //   routerLink:
-          //     "/quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/0",
+          {
+            label: "Lập hợp đồng bông xơ",
+            routerLink:
+              "/quantri/hopdongsanxuat/laphopdongbongxo/0",
 
-          //   command: () => this.close(),
-          // },
-          // {
-          //   label: "Lập hợp đồng sợi",
-          //   routerLink:
-          //     "/quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Lập hợp đồng sợi",
+            routerLink:
+              "/quantri/hopdongsanxuat/laphopdongsoi/0",
 
-          //   command: () => this.close(),
-          // },
+            command: () => this.close(),
+          },
         ],
       },
       {
@@ -887,7 +887,7 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
-            label: "Quyết to hợp đồng",
+            label: "Quyết toán hợp đồng",
             routerLink: "/quantri/hopdongsanxuat/quyettoanhopdong/0",
 
             command: () => this.close(),

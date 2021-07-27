@@ -1,6 +1,21 @@
-import { PhathopdongmodalComponent } from "./phathopdongmodal/phathopdongmodal.component";
+import { ModallaphopdongbongxoComponent } from './modallaphopdongbongxo/modallaphopdongbongxo.component';
+import { ChitiethopdongbongxomodalComponent } from './../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
+// import { Component, OnInit } from '@angular/core';
 
-import { ChitiethopdongbongxomodalComponent } from "./../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
+// @Component({
+//   selector: 'app-laphopdongbongxo',
+//   templateUrl: './laphopdongbongxo.component.html',
+//   styleUrls: ['./laphopdongbongxo.component.css']
+// })
+// export class LaphopdongbongxoComponent implements OnInit {
+
+//   constructor() { }
+
+//   ngOnInit(): void {
+//   }
+
+// }
+
 
 import { number } from "@amcharts/amcharts4/core";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
@@ -16,13 +31,14 @@ import {
   UnixToDate,
 } from "src/app/services/globalfunction";
 
-ChitiethopdongbongxomodalComponent;
+
+ChitiethopdongbongxomodalComponent
 @Component({
-  selector: "app-phathopdong",
-  templateUrl: "./phathopdong.component.html",
-  styleUrls: ["./phathopdong.component.css"],
+  selector: 'app-laphopdongbongxo',
+  templateUrl: './laphopdongbongxo.component.html',
+  styleUrls: ['./laphopdongbongxo.component.css']
 })
-export class PhathopdongComponent implements OnInit {
+export class LaphopdongbongxoComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   items: any = [];
   filter: any = {};
@@ -64,12 +80,13 @@ export class PhathopdongComponent implements OnInit {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll();
     }
-    this.router.navigate([`quantri/hopdongsanxuat/phathopdong/${id}`], {
-      replaceUrl: true,
-    });
+    this.router.navigate(
+      [`quantri/hopdongsanxuat/laphopdongbongxo/${id}`],
+      { replaceUrl: true }
+    );
   }
   add() {
-    let modalRef = this._modal.open(PhathopdongmodalComponent, {
+    let modalRef = this._modal.open(ModallaphopdongbongxoComponent, {
       size: "fullscreen",
       backdrop: "static",
     });

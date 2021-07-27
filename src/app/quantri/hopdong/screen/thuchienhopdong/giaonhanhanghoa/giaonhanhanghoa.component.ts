@@ -1,19 +1,5 @@
+import { GiaonhanhanghoamodalComponent } from './giaonhanhanghoamodal/giaonhanhanghoamodal.component';
 import { ChitiethopdongbongxomodalComponent } from './../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-giaonhanhanghoa',
-//   templateUrl: './giaonhanhanghoa.component.html',
-//   styleUrls: ['./giaonhanhanghoa.component.css']
-// })
-// export class GiaonhanhanghoaComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
 
 
 import { number } from "@amcharts/amcharts4/core";
@@ -84,7 +70,7 @@ export class GiaonhanhanghoaComponent implements OnInit {
     );
   }
   add() {
-    let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
+    let modalRef = this._modal.open(GiaonhanhanghoamodalComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
@@ -197,7 +183,7 @@ export class GiaonhanhanghoaComponent implements OnInit {
       .QuyTrinhHopDong()
       .GetList(data)
       .subscribe((res: any) => {
-        this.items = res.data.items;
+        // this.items = res.data.items;
         this.paging.TotalItem = res.data.totalCount;
       });
   }

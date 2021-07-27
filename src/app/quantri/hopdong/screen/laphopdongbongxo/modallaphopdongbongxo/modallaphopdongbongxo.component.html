@@ -1,0 +1,56 @@
+<div class="modal-header">
+      <h5 class="modal-title">Lập sách hợp đồng bông/xơ</h5>
+      <div class="d-flex flex-column flex-lg-row">
+          <div>
+             <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+          </div>
+          <div class="ml-lg-3 mr-lg-3">
+              <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+          </div>
+          <div>
+              <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+          </div>
+      </div>
+      <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      <div class="p-d-flex p-flex-row p-jc-between">
+          <div class="modal-bt p-mb-4">
+              <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="activeModal.dismiss('close')"></button>
+              <button pButton pRipple type="button"   label="Ghi lại" (click)="HoanThanh()" class="p-mr-2 p-button-sm"></button>
+         <!-- <button pButton pRipple type="button"   (click)="XoaQuyTrinh()" label="Xóa" class="p-mr-2 p-button-sm"></button> -->
+              <!-- <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm"></button> -->
+              <!-- <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"></button> --> 
+              <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
+          </div>
+      </div>
+      <p-tabView>
+          <p-tabPanel header="Thông tin chung">
+              <app-chitiethopdongbongxo  [(item)]="item" [opt]="opt">
+              </app-chitiethopdongbongxo>
+          </p-tabPanel>
+          <p-tabPanel header="Danh sách hàng hóa">
+              <app-chitietdanhsachhanghoa>
+              </app-chitietdanhsachhanghoa>
+          </p-tabPanel>
+          <p-tabPanel header="Điều khoản thanh toán">
+              <app-chitietdieukhoanthanhtoan></app-chitietdieukhoanthanhtoan>
+          </p-tabPanel>
+          <p-tabPanel header="Nhân sự thực hiện">
+              <app-chitietnhansuthuchien></app-chitietnhansuthuchien>
+          </p-tabPanel>
+          <p-tabPanel header="Bảo lãnh">
+              <app-chitietbaolanh></app-chitietbaolanh>
+          </p-tabPanel>
+        
+        
+      </p-tabView>
+      <div class="modal-footer">
+          <!-- <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
+      <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
+          (click)="activeModal.dismiss()"></button> -->
+      </div>
+  </div>
+  

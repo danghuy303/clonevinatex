@@ -1,5 +1,5 @@
 <div class="p-mb-3 p-mt-3">
-      <h4 class="text-uppercase" style="color:#1f2779">thanh toán hợp đồng</h4>
+      <h4 style="color:#1f2779">Lập hợp đồng sợi</h4>
   </div>
   <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
       <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
@@ -80,8 +80,8 @@
           <ng-template pTemplate="summary">
               <!-- <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
               </div> -->
-              <!-- Tổng số bản ghi {{paging.TotalItem}}. -->
-              Tổng số bản ghi 0
+           <!-- Tổng số bản ghi {{paging.TotalItem}}. -->
+           Tổng số bản ghi 0
               <div class="p-d-flex p-jc-end"><p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20"
                   (onPageChange)="changePage($event)"></p-paginator></div>
           </ng-template>
