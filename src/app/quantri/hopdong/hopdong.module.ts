@@ -225,7 +225,24 @@ import { ThanhtoanhopdongmodalComponent } from './screen/thuchienhopdong/thanhto
     ModaldanhmucloaitienteComponent,
     ModaldanhmuctrangthaibaolanhComponent,
     ModaldanhmucthutucthanhtoanComponent,
-    QuyettoanhopdongmodalComponent
+    QuyettoanhopdongmodalComponent,
+
+    ModallaphopdongbongxoComponent,
+    ModallaphopdongsoiComponent,
+    GiahanhopdongmodalComponent,
+    GiaonhanhanghoamodalComponent,
+    PhathopdongmodalComponent,
+    ThanhtoanhopdongmodalComponent,
+    ChitietbaolanhComponent,
+    ChitietdanhsachhanghoaComponent,
+    ChitietdieukhoanthanhtoanComponent,
+    ChitietnhansuthuchienComponent,
+    ChitietphathopdongComponent,
+    ChitietthanhtoanComponent
+
+
+
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
