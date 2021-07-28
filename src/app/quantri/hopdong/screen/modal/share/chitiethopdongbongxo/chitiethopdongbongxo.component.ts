@@ -69,12 +69,11 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   }
 
 
-
+  data: any
   GetFormOptions() {
-    let data = {}
     this._servicesdmHopDong
       .DanhMucLoaiHopDong()
-      .GetList(data)
+      .GetList(this.data)
       .subscribe((res: Array<any>) => {
         this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
       });
@@ -92,13 +91,10 @@ export class ChitiethopdongbongxoComponent implements OnInit {
       });
   }
 
-    GetNextSoQuyTrinh() {
-    this._servicesSanXuat
-      .GiaoKeHoachSanXuat()
-      .GetNextSo()
-      .subscribe((res: any) => {
-        this.item.SoQuyTrinh = res.SoQuyTrinh;
-      });
+  GetNextSoQuyTrinh() {
+    this._service.QuyTrinhHopDong().GetNextSoQuyTrinh().subscribe((res: any) => {
+      this.item.data = res.data;
+    })
   }
 
   Loai(loai: boolean) {

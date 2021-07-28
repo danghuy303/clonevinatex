@@ -515,6 +515,7 @@ export class PhabongmodalComponent implements OnInit {
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
+      console.log(this.checkbutton = res);
       this.checkbutton = res;
     })
   }

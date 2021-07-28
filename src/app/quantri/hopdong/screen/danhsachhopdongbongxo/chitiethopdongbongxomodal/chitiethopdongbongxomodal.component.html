@@ -2,13 +2,13 @@
     <h5 class="modal-title">Phiếu danh sách hợp đồng bông/xơ</h5>
     <div class="d-flex flex-column flex-lg-row">
         <div>
-           <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+           <span style="font-weight: bold;">Số quy trình:</span> {{item.data}}
         </div>
         <div class="ml-lg-3 mr-lg-3">
-            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.created|date:"dd/MM/yyyy HH:mm"}}
         </div>
         <div>
-            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.modified|date:"dd/MM/yyyy HH:mm"}}
         </div>
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
