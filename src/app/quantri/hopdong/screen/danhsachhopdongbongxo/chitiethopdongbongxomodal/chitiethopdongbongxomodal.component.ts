@@ -75,14 +75,18 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
 
   ngOnInit(): void {
     // this.GetFormOptions();
-    // if (this.opt !== "edit") {
-    //   this.GetNextSoQuyTrinh();
-    //   if (this._store.getCurrent()) {
-    //     this.item.IdDuAn = this._store.getCurrent();
-    //   }
-    // }
+    if (this.opt !== "edit") {
+      this.GetNextSoQuyTrinh();
+      if (this._store.getCurrent()) {
+        this.item.idDuAn = this._store.getCurrent();
+      }
+    }
   }
-
+  GetNextSoQuyTrinh() {
+    this._service.QuyTrinhHopDong().GetNextSoQuyTrinh().subscribe((res: any) => {
+      this.item.data = res.data;
+    })
+  }
   HoanThanh() {
     this._service
       .QuyTrinhHopDong()
