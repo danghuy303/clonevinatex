@@ -61,7 +61,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   ngOnInit() {
     this.GetFormOptions();
         if (this.opt !== "edit") {
-      this.GetNextSoQuyTrinh();
+      // this.GetNextSoQuyTrinh();
       if (this._store.getCurrent()) {
         this.item.IdDuAn = this._store.getCurrent();
       }
@@ -69,14 +69,14 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   }
 
 
-  data: any
+
   GetFormOptions() {
-    this._servicesdmHopDong
-      .DanhMucLoaiHopDong()
-      .GetList(this.data)
-      .subscribe((res: Array<any>) => {
-        this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
-      });
+    // this._servicesdmHopDong
+    //   .DanhMucLoaiHopDong()
+    //   .GetList()
+    //   .subscribe((res: Array<any>) => {
+    //     this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
+    //   });
     this._servicesdmHopDong
       .DanhMucLoaiTienTe()
       .GetList()
@@ -91,10 +91,13 @@ export class ChitiethopdongbongxoComponent implements OnInit {
       });
   }
 
-  GetNextSoQuyTrinh() {
-    this._service.QuyTrinhHopDong().GetNextSoQuyTrinh().subscribe((res: any) => {
-      this.item.data = res.data;
-    })
+    GetNextSoQuyTrinh() {
+    this._service
+      .QuyTrinhHopDong()
+      .GetNextSoQuyTrinh()
+      .subscribe((res: any) => {
+        this.item.soQuyTrinh = res.data;
+      });
   }
 
   Loai(loai: boolean) {

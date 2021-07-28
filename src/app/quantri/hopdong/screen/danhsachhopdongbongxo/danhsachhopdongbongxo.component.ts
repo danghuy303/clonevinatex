@@ -29,7 +29,7 @@
     trangThai: any = 1;
     //    this.paging.TotalItem = res.data.totalCount;
     paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
-
+    hopDong: any = {}
     checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
     listQuyCachDongGoi: any = [];
 
@@ -73,9 +73,23 @@
       });
       modalRef.componentInstance.opt = "add";
       modalRef.componentInstance.item = {
-        Id: "",
-        listItem: [],
+
+        listNhanSu:[],
+        listDieuKhoanThanhToan:[],
+       
+        listVatTu:[],
+        listBaoLanh:[],
+   
+     
+        listTaiLieu:[],
+  
+        lstFileUploadCu:[],
       };
+      modalRef.componentInstance.item.hopDong = {
+        Id : "",
+
+        };
+       
       modalRef.result
         .then((res: any) => {
           console.log(res);
@@ -88,45 +102,7 @@
           this.changeParam(0);
         });
     }
-    // update(item) {
-    //   this._serviceSanXuat
-    //     .dmQuyCachDongGoi()
-    //     .GetList()
-    //     .subscribe((res: Array<any>) => {
-    //       this.listQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
-    //       if (item.listItem != undefined && item.listItem != null) {
-    //         item.listItem.filter((objlistItem) => {
-    //           objlistItem.listItem.filter(async (objlistItem2) => {
-    //             objlistItem2.objQuyCachDongGoi =
-    //               await this.listQuyCachDongGoi.filter(
-    //                 (obj) => objlistItem2.IddmQuyCachDongGoi == obj.value
-    //               )[0];
-    //           });
-    //         });
-    //         let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
-    //           size: "fullscreen",
-    //           backdrop: "static",
-    //         });
-    //         console.log("modalRef", modalRef);
-    //         modalRef.componentInstance.opt = "edit";
-    //         modalRef.componentInstance.item = item;
-    //         modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
-    //         modalRef.componentInstance.item.DenNgay = UnixToDate(
-    //           item.DenNgayUnix
-    //         );
-    //         modalRef.result
-    //           .then((res: any) => {
-    //             this._toastr.success("Cập nhật thành công");
-    //             this.GetListQuyTrinh();
-    //             this.changeParam(0);
-    //           })
-    //           .catch((er) => {
-    //             this.GetListQuyTrinh();
-    //             this.changeParam(0);
-    //           });
-    //       }
-    //     });
-    // }
+   
     update(id) {
       this._service
         .QuyTrinhHopDong()

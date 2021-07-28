@@ -2,7 +2,7 @@
     <h5 class="modal-title">Phiếu danh sách hợp đồng bông/xơ</h5>
     <div class="d-flex flex-column flex-lg-row">
         <div>
-           <span style="font-weight: bold;">Số quy trình:</span> {{item.data}}
+           <span style="font-weight: bold;">Số quy trình:</span> {{item.soQuyTrinh}}
         </div>
         <div class="ml-lg-3 mr-lg-3">
             <span style="font-weight: bold;">TG Tạo:</span> {{item.created|date:"dd/MM/yyyy HH:mm"}}
@@ -15,20 +15,46 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
+
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4">
-            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="activeModal.dismiss('close')"></button>
-            <button pButton pRipple type="button"   label="Ghi lại" (click)="HoanThanh()" class="p-mr-2 p-button-sm"></button>
-       <button pButton pRipple type="button"   (click)="XoaQuyTrinh()" label="Xóa" class="p-mr-2 p-button-sm"></button>
-            <!-- <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm"></button> -->
-            <!-- <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"></button> --> 
-            <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
+            <button pButton
+            pRipple
+            type="button"
+            label="Quay lại"
+            class="p-mr-2 p-button-sm"
+            (click)="activeModal.dismiss('close')"></button>
+    <button pButton
+            pRipple
+            type="button"
+            label="Ghi lại"
+            class="p-mr-2 p-button-sm "
+            (click)="HoanThanh()"
+            *ngIf="checkbutton.Ghi"></button>
+    <button pButton
+            pRipple
+            type="button"
+            label="Xóa"
+            class="p-mr-2 p-button-sm"
+            *ngIf="checkbutton.Xoa"
+            (click)="XoaQuyTrinh()"></button>
+    <button pButton
+            pRipple
+            type="button"
+            label="Không duyệt"
+            class="p-mr-2 p-button-sm"
+            (click)="KhongDuyet()"
+            *ngIf="checkbutton.KhongDuyet"></button>
         </div>
     </div>
+    <div class="p-d-flex p-flex-row p-jc-between">
+   
+
+
     <p-tabView>
         <p-tabPanel header="Thông tin chung">
-            <app-chitiethopdongbongxo  [(item)]="item" [opt]="opt">
+            <app-chitiethopdongbongxo  [(item)]="item" [(hopDong)]="hopDong"   [opt]="opt">
             </app-chitiethopdongbongxo>
         </p-tabPanel>
         <p-tabPanel header="Danh sách hàng hóa">
