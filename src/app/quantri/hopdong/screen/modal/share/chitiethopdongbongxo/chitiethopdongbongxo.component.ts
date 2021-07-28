@@ -71,7 +71,6 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
   data: any
   GetFormOptions() {
-
     this._servicesdmHopDong
       .DanhMucLoaiHopDong()
       .GetList(this.data)
