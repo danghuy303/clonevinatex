@@ -71,9 +71,10 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
 
   GetFormOptions() {
+    let data = {}
     this._servicesdmHopDong
       .DanhMucLoaiHopDong()
-      .GetList()
+      .GetList(data)
       .subscribe((res: Array<any>) => {
         this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
       });
