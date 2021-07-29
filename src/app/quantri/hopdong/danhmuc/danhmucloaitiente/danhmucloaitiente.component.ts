@@ -56,10 +56,10 @@ export class DanhmucloaitienteComponent implements OnInit {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
       sFilter:this.keyWord,  
-      Ma:"", 
-      Ten:""
+      ma:"", 
+      ten:""
     };
-    this. _danhMucHopDong.DanhMucLoaiTienTe().GetList().subscribe((res:any)=>{
+    this. _danhMucHopDong.DanhMucLoaiTienTe().GetList(data).subscribe((res:any)=>{
       debugger;
       this.items = res.data.items;
       this.paging.TotalItem = res.data.totalCount;

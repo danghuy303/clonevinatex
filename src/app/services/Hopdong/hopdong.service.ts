@@ -36,13 +36,15 @@ export class HopDongService {
           httpOptions
         );
       },
-      Deletes: (data) => {
-        return this.http.post(
-          url + "HopDong/DeleteQuyTrinhHopDong",
-          data,
-          httpOptions
-        );
-      },
+      Delete: (Id) => {
+        return this.http.get(url + 'HopDong/DeleteQuyTrinhHopDong?Id=' + Id, httpOptions);
+    },
+
+      Deletes: (Id) => {
+        return this.http.get(url + `HopDong/DeleteQuyTrinhHopDong?Id=${Id}`, httpOptions);
+        // return this.http.get(url + 'DeleteQuyTrinhKiemTraChatLuong?Id=' + Id, httpOptions);
+        
+    },
     };
   }
 
