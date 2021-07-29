@@ -64,50 +64,31 @@ export class DanhmucloaihopdongComponent implements OnInit {
       this.paging.TotalItem = res.data.totalCount;
     })
   }
-  // add(){
-  //   let modalRef = this._modal.open(ModaldanhmucloaihopdongComponent,{
-  //     backdrop:'static'
-  //   });
-  //   modalRef.componentInstance.opt='add';
-  //   modalRef.componentInstance.type = 'themmoi';
-  //   modalRef.componentInstance.title = 'Thêm mới hình thức thanh toán';
-  //   modalRef.result.then(res=>{
-  //     this._toastr.success(res);
-  //     this.GetListdmLoaiHopDong()
-  //   }).catch(er=>console.log(er))
-  //   debugger;
-  // }
-  // edit(item){
-  //   let modalRef = this._modal.open(ModaldanhmucloaihopdongComponent,{
-  //     backdrop:'static'
-  //   });
-  //   modalRef.componentInstance.opt='edit';
-  //   modalRef.componentInstance.type = 'capnhat';
-  //   modalRef.componentInstance.title = 'Cập nhật loại hợp đồng';
-  //   modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));  
-  //   modalRef.result.then(res=>{
-  //     this._toastr.success(res);
-  //     this.GetListdmLoaiHopDong()
-  //   }).catch(er=>console.log(er))
-  // }
-  add() {
-    const modalRef = this._modal.open(ModaldanhmucloaihopdongComponent, { backdrop: 'static' });
-    modalRef.componentInstance.type = "themmoi";
-    modalRef.result.then((data) => {
-      this.GetListdmLoaiHopDong();
-    }, (reason) => {
+  add(){
+    let modalRef = this._modal.open(ModaldanhmucloaihopdongComponent,{
+      backdrop:'static'
     });
-  }
-  edit(item) {
-    let modalRef = this._modal.open(ModaldanhmucloaihopdongComponent, {
-      backdrop: 'static'
-    });
-    modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.result.then(res => {
+    modalRef.componentInstance.opt='add';
+    modalRef.componentInstance.type = 'themmoi';
+    modalRef.componentInstance.title = 'Thêm mới hình thức thanh toán';
+    modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListdmLoaiHopDong()
-    }).catch(er => console.log(er))
+    }).catch(er=>console.log(er))
+    debugger;
+  }
+  edit(item){
+    let modalRef = this._modal.open(ModaldanhmucloaihopdongComponent,{
+      backdrop:'static'
+    });
+    modalRef.componentInstance.opt='edit';
+    modalRef.componentInstance.type = 'capnhat';
+    modalRef.componentInstance.title = 'Cập nhật loại hợp đồng';
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));  
+    modalRef.result.then(res=>{
+      this._toastr.success(res);
+      this.GetListdmLoaiHopDong()
+    }).catch(er=>console.log(er))
   }
   delete(item){
     let modalRef = this._modal.open(ModalthongbaoComponent,{
