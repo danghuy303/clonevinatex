@@ -10,27 +10,33 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 })
 export class ModaldanhmucloaihopdongComponent implements OnInit {
 
-  public item: any = {};
+  public item: any= {};
   public title: any = '';
-  public type = '';
+  public type:any = '';
 
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    console.log(this.type);
+    // console.log(this.type);
+    if (this.type == "themmoi") {
+      this.title = "Thêm mới hình thức thanh toán";
+    }
+    else if (this.type == "capnhat") {
+      this.title = "Cập nhật loại hợp đồng";
+    }
   }
 
   Setdata() {
     let data: any = {
 
-      "id": this.type == "loaihopdong" ? "" : this.item.Id,
+      "id": this.type == "themmoi" ? "" : this.item.Id,
       "ma": this.item.ma,
       "ten": this.item.ten,
-      "ghiChu": this.item.ghiChu,
-      "created": this.type == "loaihopdong" ? new Date() : this.item.created,
+       "ghiChu": validVariable(this.item.ghiChu) ? this.item.ghiChu : "",
+      "created": this.type == "themmoi" ? new Date() : this.item.created,
       "modified":new Date() ,
-      "isGiaTriHopDong":this.type == "loaihopdong" ? false : this.item.isGiaTriHopDong,
-      "isDelete":this.type == "isDelete" ? false : this.item.isDelete,
+      "isGiaTriHopDong":this.type == "themmoi" ? false : this.item.isGiaTriHopDong,
+      "isDelete":this.type == "themmoi" ? false : this.item.isDelete,
     };
     return data;
   }
@@ -39,12 +45,12 @@ export class ModaldanhmucloaihopdongComponent implements OnInit {
     if (validVariable(this.item.ma) == true && validVariable(this.item.ten) == true) {
       console.log(this.Setdata());
       this._danhMucHopDong.DanhMucLoaiHopDong().Set(this.Setdata()).subscribe((res: any) => {
-        // if (res.status !== 200) {
-        //   this.toastr.error(res.message);
-        // } else {
-        //   this.toastr.success(res.message);
-        //   this.activeModal.close();
-        // } 
+        if (res.statusCode !== 200) {
+          this.toastr.error(res.message);
+        } else {
+          this.toastr.success(res.message);
+          this.activeModal.close();
+        } 
         this.activeModal.close();
       })
 

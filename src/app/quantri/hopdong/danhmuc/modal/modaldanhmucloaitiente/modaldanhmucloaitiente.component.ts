@@ -27,10 +27,10 @@ export class ModaldanhmucloaitienteComponent implements OnInit {
       "ma": this.item.ma,
       "ten": this.item.ten,
       "ghiChu": this.item.ghiChu,
-      // "created": this.type == "loaihopdong" ? new Date() : this.item.created,
-      // "modified":new Date() ,
-      // "isGiaTriHopDong":this.type == "loaihopdong" ? false : this.item.isGiaTriHopDong,
-      // "isDelete":this.type == "isDelete" ? false : this.item.isDelete,
+      "created": this.type == "loaitiente" ? new Date() : this.item.created,
+      "modified":new Date() ,
+      "isGiaTriHopDong":this.type == "loaitiente" ? false : this.item.isGiaTriHopDong,
+      "isDelete":this.type == "loaitiente" ? false : this.item.isDelete,
     };
     return data;
   }
@@ -38,7 +38,7 @@ export class ModaldanhmucloaitienteComponent implements OnInit {
   async luu() {
     if (validVariable(this.item.ma) == true && validVariable(this.item.ten) == true) {
       console.log(this.Setdata());
-      this._danhMucHopDong.DanhMucLoaiHopDong().Set(this.Setdata()).subscribe((res: any) => {
+      this._danhMucHopDong.DanhMucLoaiTienTe().Set(this.Setdata()).subscribe((res: any) => {
         // if (res.status !== 200) {
         //   this.toastr.error(res.message);
         // } else {
