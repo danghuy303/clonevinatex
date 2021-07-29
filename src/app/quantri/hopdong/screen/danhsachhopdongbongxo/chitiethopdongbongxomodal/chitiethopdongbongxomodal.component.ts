@@ -99,13 +99,9 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
       .subscribe((res: any) => {
         console.log(res);
         if (res) {
-          if (res.State === 1) {
-         
-         
-          
+          if (res.State === 1) {              
             this._toastr.success(res.message);
-            this.activeModal.close()
-            
+            this.activeModal.close()    
           } else {
             this._toastr.error(res.detail);
           }
@@ -113,19 +109,45 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
       });
   }
 
-  XoaQuyTrinh() {
+
+
+  // XoaQuyTrinh() {
+  //   let modalRef = this._modal.open(ModalthongbaoComponent, {
+  //     backdrop: 'static'
+  //   });
+  //   modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+  //   modalRef.result.then(res => {
+  //     this._service.QuyTrinhHopDong().Deletes(id).subscribe((res: any) => {
+  //       if (res) {
+  //         console.log(JSON.parse(JSON.stringify(res.data.hopDong.id)));
+  //         if (res.State === 1) {
+  //           this._toastr.success(res.message);
+  //           this.activeModal.close();
+  //         } else {
+  //           this._toastr.error(res.message);
+  //         }
+  //       }
+  //     })
+  //   }).catch(er => console.log(er))
+  // }
+  delete(item) {
+
+  }
+
+  XoaQuyTrinh(item) {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
     });
-    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
-    modalRef.result.then(res => {
-      this._service.QuyTrinhHopDong().Deletes(this.item).subscribe((res: any) => {
-        console.log(res);
-        if (res?.State === 1) {
-          this._toastr.success(res.message)
-          this.activeModal.close();
-        } else {
-          this._toastr.error(res.message);
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res1 => {
+      this._service.QuyTrinhHopDong().Deletes(item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this._toastr.success(res.message);
+           
+          } else {
+            this._toastr.error(res.message);
+          }
         }
       })
     }).catch(er => console.log(er))

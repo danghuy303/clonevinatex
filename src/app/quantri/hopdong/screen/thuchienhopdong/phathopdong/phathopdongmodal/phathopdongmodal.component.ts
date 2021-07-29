@@ -185,6 +185,7 @@ export class PhathopdongmodalComponent implements OnInit {
       "Bạn có chắc chắn muốn xóa quy trình này chứ?";
     modalRef.result
       .then((res) => {
+        console.log(res);
         this._services
           .PhatHopDong()
           .Delete(this.item)

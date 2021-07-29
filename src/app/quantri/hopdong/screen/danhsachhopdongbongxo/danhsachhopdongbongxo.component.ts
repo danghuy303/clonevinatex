@@ -52,7 +52,6 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
           .QuyTrinhHopDong()
           .Get(res.id)
           .subscribe((res: any) => {
-          
             this.update(res.data.hopDong);
           });
       }
@@ -88,7 +87,6 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     };
     modalRef.componentInstance.item.hopDong = {
       Id: "",
-      
     };
 
     modalRef.result
@@ -132,7 +130,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       .QuyTrinhHopDong()
       .Get(item.id)
       .subscribe((res1: any) => {
-        console.log(JSON.parse(JSON.stringify(res1.data.hopDong.created)))
+        console.log(JSON.parse(JSON.stringify(res1.data.hopDong.created)));
         let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
           size: "fullscreen",
           backdrop: "static",
@@ -183,7 +181,6 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       .QuyTrinhHopDong()
       .GetList(data)
       .subscribe((res: any) => {
-     
         this.items = res.data.items;
         this.paging.TotalItem = res.data.totalCount;
       });

@@ -260,7 +260,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     this.TongHop();
     this.BieuDoCoCau();
     this.GetBaoCaoQuyTrinhKiemTraChatLuong();
-    this.SelectItem = null;
+    this.SelectItem = {};
   }
 
   filterdatatonghop() {
