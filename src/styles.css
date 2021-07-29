@@ -167,7 +167,7 @@ p-calendar>span>button {
 }
 
 .p-toggleable-content.ng-trigger {
-    padding-left: 0 !important
+    padding-left: 44px !important
 }
 
 .p-inputgroup button:last-child {
