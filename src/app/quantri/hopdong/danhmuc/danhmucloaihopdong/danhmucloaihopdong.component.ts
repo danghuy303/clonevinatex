@@ -1,13 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-
 import { ModaldanhmucloaihopdongComponent } from '../modal/modaldanhmucloaihopdong/modaldanhmucloaihopdong.component';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
-import { variable } from '@angular/compiler/src/output/output_ast';
-
 @Component({
   selector: 'app-danhmucloaihopdong',
   templateUrl: './danhmucloaihopdong.component.html',
@@ -18,6 +14,7 @@ export class DanhmucloaihopdongComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [
   ];
+  item: any={};
   keyWord:any='';
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 1 };
   cols: any = [
@@ -48,7 +45,7 @@ export class DanhmucloaihopdongComponent implements OnInit {
   }
   resetFilter(){
     this.keyWord = '';
-    this.GetListdmLoaiHopDong()
+    this.GetListdmLoaiHopDong(true);
   }
   GetListdmLoaiHopDong(reset?){
     if(reset){
@@ -58,7 +55,7 @@ export class DanhmucloaihopdongComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
-      sFilter:this.keyWord,  
+      // sFilter:this.keyWord,  
       ma:"", 
       ten:""    
     };
@@ -72,7 +69,7 @@ export class DanhmucloaihopdongComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.opt='add';
-    modalRef.componentInstance.type = 'loaihopdong';
+    modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = 'Thêm mới hình thức thanh toán';
     modalRef.result.then(res=>{
       this._toastr.success(res);
@@ -85,24 +82,25 @@ export class DanhmucloaihopdongComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.opt='edit';
+    modalRef.componentInstance.type = 'capnhat';
     modalRef.componentInstance.title = 'Cập nhật loại hợp đồng';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.componentInstance.type = 'loaihopdong';
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));  
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListdmLoaiHopDong()
     }).catch(er=>console.log(er))
   }
-  delete(){
+  delete(item){
     let modalRef = this._modal.open(ModalthongbaoComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      const    item=    this.selectedItems[0];
+      const item=this.selectedItems[0];    
       this._danhMucHopDong.DanhMucLoaiHopDong().Delete([item.id]).subscribe((res: any) => {
         if (res) {
-          if (res.message === "Xử lý thành công") {
+          debugger;
+          if (res.statusCode === 200) {
             this._toastr.success(res.message);
             this.GetListdmLoaiHopDong();
           } else {

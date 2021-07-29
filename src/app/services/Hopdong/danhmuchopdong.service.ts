@@ -21,15 +21,19 @@ export class DanhMucHopDongService {
     DanhMucThuTucThanhToan(){
         let url = API.HopDong
         return {
-            GetList:()=>{
-                return this.http.get(`${url}DanhMuc/GetListdmThuTucThanhToan`,httpOptions)
+            GetList:(data)=>{
+                return this.http.get(`${url}DanhMuc/GetListdmThuTucThanhToan?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
             },
             Set:(data)=>{
                 return this.http.post(`${url}DanhMuc/SetdmThuTucThanhToan`,data,httpOptions)
             },
-            Delete:(data)=>{
-                return this.http.post(`${url}DanhMuc/DeletedmThuTucThanhToan`,data,httpOptions)
-            }
+            DeleteList:(data)=>{
+                debugger;
+                return this.http.post(`${url}DanhMuc/DeleteListdmThuTucThanhToan`,data,httpOptions)
+            },
+            Delete:(id)=>{
+                return this.http.get(`${url}DanhMuc/DeletedmThuTucThanhToan?id=${id}`,httpOptions)
+            } 
         }
     }
 
@@ -37,14 +41,14 @@ export class DanhMucHopDongService {
     DanhMucLoaiTienTe(){
         let url = API.HopDong
         return {
-            GetList:()=>{
-                return this.http.get(`${url}DanhMuc/GetListdmLoaiTienTe`,httpOptions)
+            GetList:(data)=>{
+                return this.http.get(`${url}DanhMuc/GetListdmLoaiTienTe?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
             },
             Set:(data)=>{
                 return this.http.post(`${url}DanhMuc/SetdmLoaiTienTe`,data,httpOptions)
             },
-            Delete:(data)=>{
-                return this.http.post(`${url}DanhMuc/DeletedmLoaiTienTe`,data,httpOptions)
+            Delete:(id)=>{
+                return this.http.get(`${url}DanhMuc/DeletedmLoaiTienTe?id=${id}`,httpOptions)
             }
         }
     }
@@ -59,19 +63,12 @@ export class DanhMucHopDongService {
             Set:(data)=>{
                 return this.http.post(`${url}DanhMuc/SetdmLoaiHopDong`,data,httpOptions)
             },
-            // Delete:(Id)=>{
-            //     debugger;
-            //     return this.http.get(`${url}DanhMuc/DeletedmLoaiHopDong`,httpOptions)
-            // },         
-            
             DeleteList:(data)=>{
                 debugger;
                 return this.http.post(`${url}DanhMuc/DeleteListdmLoaiHopDong`,data,httpOptions)
             },
-
             Delete:(id)=>{
                 return this.http.get(`${url}DanhMuc/DeletedmLoaiHopDong?id=${id}`,httpOptions)
-
             }   
           
         }
@@ -98,14 +95,18 @@ export class DanhMucHopDongService {
     DanhMucTrangThaiBaoLanh(){
         let url = API.HopDong
         return {
-            GetList:()=>{
-                return this.http.get(`${url}DanhMuc/GetListdmTrangThaiBaoLanh`,httpOptions)
+            GetList:(data)=>{
+                return this.http.get(`${url}DanhMuc/GetListdmTrangThaiBaoLanh?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
             },
             Set:(data)=>{
                 return this.http.post(`${url}DanhMuc/SetdmTrangThaiBaoLanh`,data,httpOptions)
             },
-            Delete:(data)=>{
-                return this.http.post(`${url}DanhMuc/DeletedmTrangThaiBaoLanh`,data,httpOptions)
+            DeleteList:(data)=>{
+                debugger;
+                return this.http.post(`${url}DanhMuc/DeleteListdmTrangThaiBaoLanh`,data,httpOptions)
+            },
+            Delete:(id)=>{
+                return this.http.get(`${url}DanhMuc/DeletedmTrangThaiBaoLanh?id=${id}`,httpOptions)
             }
         }
     }

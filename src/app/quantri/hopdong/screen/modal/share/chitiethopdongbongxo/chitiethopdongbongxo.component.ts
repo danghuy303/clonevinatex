@@ -42,6 +42,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   listLoaiHopDong: any = [];
   listLoaiTienTe: any = [];
   @Input() item: any;
+  @Input() hopDong: any;
   @Output() itemChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input("opt") opt: string;
 
