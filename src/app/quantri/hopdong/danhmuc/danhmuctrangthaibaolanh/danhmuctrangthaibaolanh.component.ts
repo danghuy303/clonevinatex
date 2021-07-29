@@ -21,18 +21,18 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
   cols: any = [
     {
       header: 'Mã trạng thái bảo lãnh',
-      field: 'MaLoaiHopDong',
+      field: 'ma',
       width: '350px',
       align:'center'
     },
     {
       header: 'Tên trạng thái bảo lãnh',
-      field: 'TenLoaiHopDong',
+      field: 'ten',
       width: '300px'
     },
     {
       header: 'Ghi chú',
-      field: 'GhiChu',
+      field: 'ghiChu',
       width: '200px'
     }
   ];
@@ -55,12 +55,12 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
       sFilter:this.keyWord,  
-      Ma:"", 
-      Ten:""
+      ma:"", 
+      ten:""
     };
-    this._danhMucHopDong.DanhMucTrangThaiBaoLanh().GetList().subscribe((res:any)=>{
-      this.items = res.items;
-      this.paging = res.paging;
+    this._danhMucHopDong.DanhMucTrangThaiBaoLanh().GetList(data).subscribe((res:any)=>{
+      this.items = res.data.items;
+      this.paging.TotalItem = res.data.totalCount;
     })
   }
   add(){
@@ -88,33 +88,35 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
       this.GetListdmTrangThaiBaoLanh()
     }).catch(er=>console.log(er))
   }
-  // delete(item){
-  //   let modalRef = this._modal.open(ModalthongbaoComponent,{
-  //     backdrop:'static'
-  //   });
-  //   modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-  //   modalRef.result.then(res=>{
-  //     this._services.DeletedmTinhTrangTaiSan([item]).subscribe((res: any) => {
-  //       if (res) {
-  //         if (res.State === 1) {
-  //           this._toastr.success(res.message);
-  //           this.GetListdmTrangThaiBaoHanh();
-  //         } else {
-  //           this._toastr.error(res.message);
-  //         }
-  //       }
-  //     })
-  //   }).catch(er=>console.log(er))
-  // }
-  deleteAll(){
+  delete(item){
     let modalRef = this._modal.open(ModalthongbaoComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this._danhMucHopDong.DanhMucTrangThaiBaoLanh().Delete(this.selectedItems).subscribe((res: any) => {
+      const item=this.selectedItems[0];
+      this._danhMucHopDong.DanhMucTrangThaiBaoLanh().Delete([item.id]).subscribe((res: any) => {
         if (res) {
-          if (res.State === 1) {
+          if (res.statusCode === 200) {
+            this._toastr.success(res.message);
+            this.GetListdmTrangThaiBaoLanh();
+          } else {
+            this._toastr.error(res.message);
+          }
+        }
+      })
+    }).catch(er=>console.log(er))
+  }
+  deleteAll(){
+    let modalRef = this._modal.open(ModalthongbaoComponent,{
+      backdrop:'static'
+    });
+    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    const listId=this.selectedItems.map(({id}) => id);
+    modalRef.result.then(res=>{
+      this._danhMucHopDong.DanhMucTrangThaiBaoLanh().DeleteList(listId).subscribe((res: any) => {
+        if (res) {
+          if (res.statusCode === 200) {
             this._toastr.success(res.message);
             this.GetListdmTrangThaiBaoLanh();
             this.selectedItems = [];
@@ -128,16 +130,5 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
   changePage(event){
     this.paging.CurrentPage = event.page+1;
     this.GetListdmTrangThaiBaoLanh()
-  }
-  importExcel(){
-    let modalRef = this._modal.open(ModalimportexcelComponent,{
-      backdrop:'static',
-    })
-    modalRef.componentInstance.importFunc = 'TrangThaiBaoLanh';
-    modalRef.result.then(res=>{
-      this.GetListdmTrangThaiBaoLanh();
-      this._toastr.success(res.mess);
-    })
-    .catch(er=>console.log(er))
   }
 }

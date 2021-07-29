@@ -1,3 +1,10 @@
+import { LaphopdongsoiComponent } from './screen/laphopdongsoi/laphopdongsoi.component';
+import { LaphopdongbongxoComponent } from './screen/laphopdongbongxo/laphopdongbongxo.component';
+import { PhathopdongComponent } from './screen/thuchienhopdong/phathopdong/phathopdong.component';
+import { QuyettoanhopdongComponent } from './screen/thuchienhopdong/quyettoanhopdong/quyettoanhopdong.component';
+import { GiahanhopdongComponent } from './screen/thuchienhopdong/giahanhopdong/giahanhopdong.component';
+import { ThanhtoanhopdongComponent } from './screen/thuchienhopdong/thanhtoanhopdong/thanhtoanhopdong.component';
+import { GiaonhanhanghoaComponent } from './screen/thuchienhopdong/giaonhanhanghoa/giaonhanhanghoa.component';
 import { DanhsachhopdongbongxoComponent } from './screen/danhsachhopdongbongxo/danhsachhopdongbongxo.component';
 import { DmLoaiHopDongComponent } from './danhmuc/dm-loai-hop-dong/dm-loai-hop-dong.component';
 import { NgModule } from '@angular/core';
@@ -19,6 +26,13 @@ const routes: Routes = [
   {path:'danhmucthutucthanhtoan',component:DanhmucthutucthanhtoanComponent},
   { path: 'dmloaihopdong', component: DmLoaiHopDongComponent },
   { path: 'danhsachhopdongbongxo/:id', component: DanhsachhopdongbongxoComponent },
+  { path: 'giaonhanhanghoa/:id', component: GiaonhanhanghoaComponent },
+  { path: 'thanhtoanhopdong/:id', component: ThanhtoanhopdongComponent },
+  { path: 'phathopdong/:id', component: PhathopdongComponent },
+  { path: 'giahanhopdong/:id', component: GiahanhopdongComponent },
+  { path: 'quyettoanhopdong/:id', component: QuyettoanhopdongComponent },
+  { path: 'laphopdongbongxo/:id', component: LaphopdongbongxoComponent },
+  { path: 'laphopdongsoi/:id', component: LaphopdongsoiComponent },
 ];
 
 @NgModule({

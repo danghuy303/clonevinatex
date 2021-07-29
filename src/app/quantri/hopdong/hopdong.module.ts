@@ -82,6 +82,15 @@ import { PhathopdongComponent } from './screen/thuchienhopdong/phathopdong/phath
 import { QuyettoanhopdongComponent } from './screen/thuchienhopdong/quyettoanhopdong/quyettoanhopdong.component';
 import { GiaonhanhanghoaComponent } from './screen/thuchienhopdong/giaonhanhanghoa/giaonhanhanghoa.component';
 import { GiahanhopdongComponent } from './screen/thuchienhopdong/giahanhopdong/giahanhopdong.component';
+import { LaphopdongbongxoComponent } from './screen/laphopdongbongxo/laphopdongbongxo.component';
+import { LaphopdongsoiComponent } from './screen/laphopdongsoi/laphopdongsoi.component';
+import { ModallaphopdongbongxoComponent } from './screen/laphopdongbongxo/modallaphopdongbongxo/modallaphopdongbongxo.component';
+import { ModallaphopdongsoiComponent } from './screen/laphopdongsoi/modallaphopdongsoi/modallaphopdongsoi.component';
+import { GiahanhopdongmodalComponent } from './screen/thuchienhopdong/giahanhopdong/giahanhopdongmodal/giahanhopdongmodal.component';
+import { GiaonhanhanghoamodalComponent } from './screen/thuchienhopdong/giaonhanhanghoa/giaonhanhanghoamodal/giaonhanhanghoamodal.component';
+import { PhathopdongmodalComponent } from './screen/thuchienhopdong/phathopdong/phathopdongmodal/phathopdongmodal.component';
+import { QuyettoanhopdongmodalComponent } from './screen/thuchienhopdong/quyettoanhopdong/quyettoanhopdongmodal/quyettoanhopdongmodal.component';
+import { ThanhtoanhopdongmodalComponent } from './screen/thuchienhopdong/thanhtoanhopdong/thanhtoanhopdongmodal/thanhtoanhopdongmodal.component';
 
 @NgModule({
   declarations: [
@@ -136,6 +145,24 @@ import { GiahanhopdongComponent } from './screen/thuchienhopdong/giahanhopdong/g
     GiaonhanhanghoaComponent,
 
     GiahanhopdongComponent,
+
+    LaphopdongbongxoComponent,
+
+    LaphopdongsoiComponent,
+
+    ModallaphopdongbongxoComponent,
+
+    ModallaphopdongsoiComponent,
+
+    GiahanhopdongmodalComponent,
+
+    GiaonhanhanghoamodalComponent,
+
+    PhathopdongmodalComponent,
+
+    QuyettoanhopdongmodalComponent,
+   
+    ThanhtoanhopdongmodalComponent,
 
 
   ],
@@ -197,7 +224,25 @@ import { GiahanhopdongComponent } from './screen/thuchienhopdong/giahanhopdong/g
     ModaldanhmucloaihopdongComponent,
     ModaldanhmucloaitienteComponent,
     ModaldanhmuctrangthaibaolanhComponent,
-    ModaldanhmucthutucthanhtoanComponent
+    ModaldanhmucthutucthanhtoanComponent,
+    QuyettoanhopdongmodalComponent,
+
+    ModallaphopdongbongxoComponent,
+    ModallaphopdongsoiComponent,
+    GiahanhopdongmodalComponent,
+    GiaonhanhanghoamodalComponent,
+    PhathopdongmodalComponent,
+    ThanhtoanhopdongmodalComponent,
+    ChitietbaolanhComponent,
+    ChitietdanhsachhanghoaComponent,
+    ChitietdieukhoanthanhtoanComponent,
+    ChitietnhansuthuchienComponent,
+    ChitietphathopdongComponent,
+    ChitietthanhtoanComponent
+
+
+
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
