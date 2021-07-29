@@ -56,8 +56,8 @@ export class DanhmucloaitienteComponent implements OnInit {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
       sFilter:this.keyWord,  
-      Ma:"", 
-      Ten:""
+      ma:"", 
+      ten:""
     };
     this. _danhMucHopDong.DanhMucLoaiTienTe().GetList(data).subscribe((res:any)=>{
       debugger;
