@@ -42,6 +42,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   listLoaiHopDong: any = [];
   listLoaiTienTe: any = [];
   @Input() item: any;
+  @Input() hopDong: any;
   @Output() itemChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input("opt") opt: string;
 
@@ -61,7 +62,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   ngOnInit() {
     this.GetFormOptions();
         if (this.opt !== "edit") {
-      this.GetNextSoQuyTrinh();
+      // this.GetNextSoQuyTrinh();
       if (this._store.getCurrent()) {
         this.item.IdDuAn = this._store.getCurrent();
       }
@@ -71,12 +72,12 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
 
   GetFormOptions() {
-    this._servicesdmHopDong
-      .DanhMucLoaiHopDong()
-      .GetList()
-      .subscribe((res: Array<any>) => {
-        this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
-      });
+    // this._servicesdmHopDong
+    //   .DanhMucLoaiHopDong()
+    //   .GetList()
+    //   .subscribe((res: Array<any>) => {
+    //     this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
+    //   });
     this._servicesdmHopDong
       .DanhMucLoaiTienTe()
       .GetList()
@@ -92,11 +93,11 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   }
 
     GetNextSoQuyTrinh() {
-    this._servicesSanXuat
-      .GiaoKeHoachSanXuat()
-      .GetNextSo()
+    this._service
+      .QuyTrinhHopDong()
+      .GetNextSoQuyTrinh()
       .subscribe((res: any) => {
-        this.item.SoQuyTrinh = res.SoQuyTrinh;
+        this.item.soQuyTrinh = res.data;
       });
   }
 

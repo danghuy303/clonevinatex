@@ -1,13 +1,4 @@
-<!-- <div class="p-d-flex p-flex-row p-jc-between">
-        <div class="modal-bt p-mb-4">
-            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="activeModal.dismiss('close')"></button>
-            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm" (click)="GhiLai()" *ngIf="checkbutton.Ghi"></button>
-            <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa" (click)="XoaQuyTrinh()"></button>
-            <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()" *ngIf="checkbutton.KhongDuyet"></button>
-            <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm" (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
-            <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button>
-        </div>
-    </div> -->
+
 <p-panel header="Thông tin hợp đồng"
          [style]="{ 'margin-bottom': '2em'}"
          [toggleable]="true">
@@ -25,7 +16,7 @@
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Số hợp đồng:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
                 <input type="text"
-                       [(ngModel)]="item.createdByName"
+                       [(ngModel)]="item.soHopDong"
                        class="p-inputtext-sm"
                        pInputText />
             </div>

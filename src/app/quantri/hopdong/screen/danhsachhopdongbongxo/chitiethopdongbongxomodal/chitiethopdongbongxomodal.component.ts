@@ -29,41 +29,28 @@ import { StoreService } from "src/app/services/store.service";
   templateUrl: "./chitiethopdongbongxomodal.component.html",
   styleUrls: ["./chitiethopdongbongxomodal.component.css"],
 })
-// export class ChitiethopdongbongxomodalComponent implements OnInit{
-//   constructor(public activeModal:NgbActiveModal){}
-//   ngOnInit() {
-//     // this.updateInjectorAndContext();
-//   }
-// }
+
 export class ChitiethopdongbongxomodalComponent implements OnInit {
   opt: any = "add";
   item: any = {};
+  hopDong: any = {};
   userInfo: any;
   lang: any = vn;
   filter: any = {
     keyWord: "",
   };
-  listLoaiHopDong: any = [];
+ 
   checkedAll: boolean = false;
-  checkbutton: any = {
-    Ghi: true,
-    Xoa: true,
-    KhongDuyet: true,
-    ChuyenTiep: true,
-  };
-  listPhuongAnSapXep: any = [];
-  listDonVi: any = [];
+  checkbutton: any = {};
+
 
   yearRange: string = `${new Date().getFullYear()}:${
     new Date().getFullYear() + 5
   }`;
   constructor(
     public activeModal: NgbActiveModal,
-
     private _auth: AuthenticationService,
-
     public _modal: NgbModal,
-
     private _servicesdmHopDong: DanhMucHopDongService,
     private _service: HopDongService,
     private _store: StoreService,
@@ -74,13 +61,35 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.checkbutton = {
+      Ghi: false,
+      Xoa: false,
+      ChuyenTiep: false,
+      KhongDuyet: false,
+    };
     // this.GetFormOptions();
-    // if (this.opt !== "edit") {
-    //   this.GetNextSoQuyTrinh();
-    //   if (this._store.getCurrent()) {
-    //     this.item.IdDuAn = this._store.getCurrent();
-    //   }
-    // }
+    this.GetNextSoQuyTrinh();
+    if (this.opt !== "edit") {
+
+      this.KiemTraButtonModal();
+     
+
+    }
+  }
+
+  KiemTraButtonModal() {
+    this._servicesSanXuat
+      .KiemTraButton(this.item.id || "", this.item.idTrangThai || "")
+      .subscribe((res: any) => {
+        console.log(this.checkbutton = res);
+        this.checkbutton = res;
+      });
+  }
+
+  GetNextSoQuyTrinh() {
+    this._service.QuyTrinhHopDong().GetNextSoQuyTrinh().subscribe((res: any) => {
+      this.item.soQuyTrinh = res.data;
+    })
   }
 
   HoanThanh() {
@@ -91,10 +100,12 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
         console.log(res);
         if (res) {
           if (res.State === 1) {
+         
+         
+          
             this._toastr.success(res.message);
-            this.opt = "edit";
-
-            this.item = res.objectReturn;
+            this.activeModal.close()
+            
           } else {
             this._toastr.error(res.detail);
           }
@@ -120,4 +131,5 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
     }).catch(er => console.log(er))
   }
 
+  
 }

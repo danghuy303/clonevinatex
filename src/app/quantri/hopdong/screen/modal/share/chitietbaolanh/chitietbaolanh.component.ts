@@ -1,19 +1,5 @@
 import { ChitietbaolanhmodalComponent } from './chitietbaolanhmodal/chitietbaolanhmodal.component';
-// import { Component, OnInit } from '@angular/core';
 
-// @Component({
-//   selector: 'app-chitietbaolanh',
-//   templateUrl: './chitietbaolanh.component.html',
-//   styleUrls: ['./chitietbaolanh.component.css']
-// })
-// export class ChitietbaolanhComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
 
 
 import { Router } from '@angular/router';

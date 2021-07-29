@@ -9,15 +9,15 @@
       </div> -->
       <div class="d-flex flex-column flex-lg-row">
             <div>
-                  <span style="font-weight: bold;">Số phiếu:</span>
+                <span style="font-weight: bold;">Số phiếu:</span> {{item.data}}
             </div>
             <div class="ml-lg-3 mr-lg-3">
-                  <span style="font-weight: bold;">TG Tạo:</span>
+                <span style="font-weight: bold;">TG Tạo:</span> {{data.Created|date:"dd/MM/yyyy HH:mm"}}
             </div>
             <div>
-                  <span style="font-weight: bold;">TG Duyệt:</span>
+                <span style="font-weight: bold;">TG Duyệt:</span> {{data.Modified|date:"dd/MM/yyyy HH:mm"}}
             </div>
-      </div>
+        </div>
       <button *ngIf="false"
               type="button"
               class="close"
@@ -29,36 +29,46 @@
 <div class="modal-body">
       <div class="p-d-flex p-flex-row p-jc-between">
             <div class="modal-bt p-mb-4 ">
-                  <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="activeModal.dismiss('close')"></button>
+                  <button pButton
+                  pRipple
+                  type="button"
+                  label="Quay lại"
+                  class="p-mr-2 p-button-sm"
+                  (click)="activeModal.dismiss('close')"></button>
+          <button pButton
+                  pRipple
+                  type="button"
+                  label="Ghi lại"
+                  class="p-mr-2 p-button-sm "
+                  (click)="GhiLai()"
+                  *ngIf="checkbutton.Ghi"></button>
+          <button pButton
+                  pRipple
+                  type="button"
+                  label="Xóa"
+                  class="p-mr-2 p-button-sm"
+                  *ngIf="checkbutton.Xoa"
+                  (click)="XoaQuyTrinh()"></button>
+          <button pButton
+                  pRipple
+                  type="button"
+                  label="Không duyệt"
+                  class="p-mr-2 p-button-sm"
+                  (click)="KhongDuyet()"
+                  *ngIf="checkbutton.KhongDuyet"></button>
 
-                  <button pButton
-                          pRipple
-                          type="button"
-                          label="Lưu nháp"
-                          class="p-mr-2 p-button-sm "></button>
-                  <button pButton
-                          pRipple
-                          type="button"
-                          label="Xóa"
-                          class="p-mr-2 p-button-sm"></button>
-                  <!-- <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
-                  *ngIf="checkbutton.KhongDuyet"></button> -->
-                  <!-- <button pButton pRipple type="button" label="" class="p-mr-2 p-button-sm"
-                  (click)="GhiLai()" *ngIf="checkbutton.ChuyenTiep"></button> -->
-                  <button pButton
-                          pRipple
-                          type="button"
-                          label="Xác nhận"
-                          class="p-mr-2 p-button-sm"></button>
-                  <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
+        
+
+
             </div>
 
       </div>
       <div class="p-grid">
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                  <label class="p-col-12 p-lg-1 p-p-0 my-auto">Nội dug <span class="required"></span></label>
-                  <div class="p-col-12 p-lg-11 p-p-0">
+                  <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung <span class="required">*</span></label>
+                  <div class="p-col-12 p-lg-10 p-p-0">
                         <input type="text"
+                        [(ngModel)]="item.noiDung"
                                class="p-inputtext-sm"
                                pInputText />
                   </div>
