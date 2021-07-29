@@ -70,7 +70,6 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   }
 
 
-
   GetFormOptions() {
     // this._servicesdmHopDong
     //   .DanhMucLoaiHopDong()
@@ -78,18 +77,18 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     //   .subscribe((res: Array<any>) => {
     //     this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
     //   });
-    this._servicesdmHopDong
-      .DanhMucLoaiTienTe()
-      .GetList()
-      .subscribe((res: Array<any>) => {
-        this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
-      });
-    this._servicesdmHopDong
-      .DanhMucThuTucThanhToan()
-      .GetList()
-      .subscribe((res: Array<any>) => {
-        this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
-      });
+    // this._servicesdmHopDong
+    //   .DanhMucLoaiTienTe()
+    //   .GetList()
+    //   .subscribe((res: Array<any>) => {
+    //     this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
+    //   });
+    // this._servicesdmHopDong
+    //   .DanhMucThuTucThanhToan()
+    //   .GetList()
+    //   .subscribe((res: Array<any>) => {
+    //     this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
+    //   });
   }
 
     GetNextSoQuyTrinh() {
