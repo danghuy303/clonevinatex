@@ -68,10 +68,11 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
       KhongDuyet: false,
     };
     // this.GetFormOptions();
+    this.GetNextSoQuyTrinh();
     if (this.opt !== "edit") {
 
       this.KiemTraButtonModal();
-      this.GetNextSoQuyTrinh();
+     
 
     }
   }
@@ -99,10 +100,12 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
         console.log(res);
         if (res) {
           if (res.State === 1) {
+         
+         
+          
             this._toastr.success(res.message);
-            this.opt = "edit";
-
-            this.item = res.objectReturn;
+            this.activeModal.close()
+            
           } else {
             this._toastr.error(res.detail);
           }
