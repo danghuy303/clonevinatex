@@ -31,6 +31,7 @@ import {
   validVariable,
 } from "src/app/services/globalfunction";
 import { StoreService } from "src/app/services/store.service";
+import { elementAt } from "rxjs/operators";
 
 @Component({
   selector: "app-chitiethopdongbongxo",
@@ -40,6 +41,7 @@ import { StoreService } from "src/app/services/store.service";
 export class ChitiethopdongbongxoComponent implements OnInit {
   listHinhThucThanhToan: any = [];
   listLoaiHopDong: any = [];
+  listLoaiHopDongFull: any = [];
   listLoaiTienTe: any = [];
   @Input() item: any;
   @Input() hopDong: any;
@@ -48,20 +50,23 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
   checkbutton: any = {};
   lang: any = vn;
-  yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
+  yearRange: string = `${
+    new Date().getFullYear() - 50
+  }:${new Date().getFullYear()}`;
 
   constructor(
     public activeModal: NgbActiveModal,
     private _servicesdmHopDong: DanhMucHopDongService,
     private _service: HopDongService,
     private _store: StoreService,
-    private _servicesSanXuat: SanXuatService, 
-    private _toastr : ToastrService
+    private _servicesSanXuat: SanXuatService,
+    private _toastr: ToastrService
   ) {}
 
   ngOnInit() {
     this.GetFormOptions();
-        if (this.opt !== "edit") {
+
+    if (this.opt !== "edit") {
       // this.GetNextSoQuyTrinh();
       if (this._store.getCurrent()) {
         this.item.IdDuAn = this._store.getCurrent();
@@ -69,29 +74,39 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     }
   }
 
-
   GetFormOptions() {
+    this._servicesdmHopDong
+      .DanhMucLoaiHopDong()
+      .GetListAll()
+      .subscribe((res: any) => {
+        this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
+      });
+
+      this._servicesdmHopDong
+      .DanhMucLoaiTienTe()
+      .GetListAll()
+      .subscribe((res: any) => {
+        this.listLoaiTienTe = mapArrayForDropDown(res, "ten", "id");
+      });
+
+
+      this._servicesdmHopDong
+      .DanhMucThuTucThanhToan()
+      .GetListAll()
+      .subscribe((res: any) => {
+        this.listHinhThucThanhToan = mapArrayForDropDown(res, "ten", "id");
+      });
     // this._servicesdmHopDong
     //   .DanhMucLoaiHopDong()
-    //   .GetList()
+    //   .GetListdm()
     //   .subscribe((res: Array<any>) => {
     //     this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
     //   });
-    // this._servicesdmHopDong
-    //   .DanhMucLoaiTienTe()
-    //   .GetList()
-    //   .subscribe((res: Array<any>) => {
-    //     this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
-    //   });
-    // this._servicesdmHopDong
-    //   .DanhMucThuTucThanhToan()
-    //   .GetList()
-    //   .subscribe((res: Array<any>) => {
-    //     this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
-    //   });
+
+
   }
 
-    GetNextSoQuyTrinh() {
+  GetNextSoQuyTrinh() {
     this._service
       .QuyTrinhHopDong()
       .GetNextSoQuyTrinh()

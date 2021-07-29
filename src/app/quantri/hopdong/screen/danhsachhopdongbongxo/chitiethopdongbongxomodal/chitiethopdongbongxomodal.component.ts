@@ -29,7 +29,6 @@ import { StoreService } from "src/app/services/store.service";
   templateUrl: "./chitiethopdongbongxomodal.component.html",
   styleUrls: ["./chitiethopdongbongxomodal.component.css"],
 })
-
 export class ChitiethopdongbongxomodalComponent implements OnInit {
   opt: any = "add";
   item: any = {};
@@ -39,10 +38,9 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   filter: any = {
     keyWord: "",
   };
- 
+
   checkedAll: boolean = false;
   checkbutton: any = {};
-
 
   yearRange: string = `${new Date().getFullYear()}:${
     new Date().getFullYear() + 5
@@ -61,6 +59,7 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.item.hopDong.id);
     this.checkbutton = {
       Ghi: false,
       Xoa: false,
@@ -70,10 +69,7 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
     // this.GetFormOptions();
     this.GetNextSoQuyTrinh();
     if (this.opt !== "edit") {
-
       this.KiemTraButtonModal();
-     
-
     }
   }
 
@@ -81,15 +77,18 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
     this._servicesSanXuat
       .KiemTraButton(this.item.id || "", this.item.idTrangThai || "")
       .subscribe((res: any) => {
-        console.log(this.checkbutton = res);
+        console.log((this.checkbutton = res));
         this.checkbutton = res;
       });
   }
 
   GetNextSoQuyTrinh() {
-    this._service.QuyTrinhHopDong().GetNextSoQuyTrinh().subscribe((res: any) => {
-      this.item.soQuyTrinh = res.data;
-    })
+    this._service
+      .QuyTrinhHopDong()
+      .GetNextSoQuyTrinh()
+      .subscribe((res: any) => {
+        this.item.soQuyTrinh = res.data;
+      });
   }
 
   HoanThanh() {
@@ -99,59 +98,39 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
       .subscribe((res: any) => {
         console.log(res);
         if (res) {
-          if (res.State === 1) {              
+          if (res.State === 1) {
             this._toastr.success(res.message);
-            this.activeModal.close()    
+            this.activeModal.close();
           } else {
-            this._toastr.error(res.detail);
+            this._toastr.error(res.message);
           }
         }
       });
   }
 
-
-
-  // XoaQuyTrinh() {
-  //   let modalRef = this._modal.open(ModalthongbaoComponent, {
-  //     backdrop: 'static'
-  //   });
-  //   modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-  //   modalRef.result.then(res => {
-  //     this._service.QuyTrinhHopDong().Deletes(id).subscribe((res: any) => {
-  //       if (res) {
-  //         console.log(JSON.parse(JSON.stringify(res.data.hopDong.id)));
-  //         if (res.State === 1) {
-  //           this._toastr.success(res.message);
-  //           this.activeModal.close();
-  //         } else {
-  //           this._toastr.error(res.message);
-  //         }
-  //       }
-  //     })
-  //   }).catch(er => console.log(er))
-  // }
-  delete(item) {
-
-  }
-
-  XoaQuyTrinh(item) {
+  XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
-      backdrop: 'static'
+      backdrop: "static",
     });
-    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res1 => {
-      this._service.QuyTrinhHopDong().Deletes(item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this._toastr.success(res.message);
-           
-          } else {
-            this._toastr.error(res.message);
-          }
-        }
+    modalRef.componentInstance.message =
+      "Bạn có chắc chắn muốn xóa quy trình này chứ?";
+    modalRef.result
+      .then((res) => {
+        this._service
+          .QuyTrinhHopDong()
+          .Deletes(this.item.hopDong.id)
+          .subscribe((res: any) => {
+            console.log(res);
+            if (res?.statusCode === 200) {
+              this.activeModal.close();
+              this._toastr.success(res.message);
+            } else {
+            
+            
+              this._toastr.error(res.message);
+            }
+          });
       })
-    }).catch(er => console.log(er))
+      .catch((er) => console.log(er));
   }
-
-  
 }
