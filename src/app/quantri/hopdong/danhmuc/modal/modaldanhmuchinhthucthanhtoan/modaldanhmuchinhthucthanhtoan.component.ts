@@ -16,34 +16,34 @@ export class ModaldanhmuchinhthucthanhtoanComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-
   }
+
   Setdata() {
     let data: any = {
-      "Id": this.type == "add" ? "" : this.item.Id,
-      IdHinhThucThanhToan: this.item.IdHinhThucThanhToan,
-      "Ma": this.item.Ma,
-      "Ten": this.item.Ten,
-      "GhiChu": this.item.GhiChu != undefined && this.item.GhiChu != null && this.item.GhiChu != "" ? this.item.GhiChu : "",
+      "id":this.item.id,
+      "ma": this.item.ma,
+      "ten": this.item.ten,
+      "ghiChu": this.item.ghiChu,
+      "created": this.type == "hinhthucthanhtoan" ? new Date() : this.item.created,
+      "modified":new Date() ,
+      "isDelete":this.type == "hinhthucthanhtoan" ? false : this.item.isDelete,
     };
     return data;
   }
-  async luu1() {
-    if (validVariable(this.item.Ma) == true && validVariable(this.item.Ten) == true) {
-      debugger;
-      console.log(this.Setdata())
-      let res: any = await this._danhMucHopDong.DanhMucHinhThucThanhToan().Set(this.Setdata());
-      if (res.Error === 4) {
-        this.toastr.success(res.Detail, 'Thông báo');
-        //  this.Onclose();
-      }
-      //     else {
-      //       this.toastr.error(res.Detail, 'Thông báo');
-      //     }
-      //    }
-      //    else {
-      //      this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc", 'Thông báo');
-      //  }
+
+   luu() {
+    if (validVariable(this.item.ma) == true && validVariable(this.item.ten) == true) 
+   {
+      this._danhMucHopDong.DanhMucHinhThucThanhToan().Set(this.Setdata()).subscribe((res: any) => {
+        if (res.statusCode !== 200) {
+          this.toastr.error(res.message);
+        } else {
+          this.toastr.success(res.message);
+          this.activeModal.close();
+        } 
+        this.activeModal.close();
+      })
+
     }
   }
 }

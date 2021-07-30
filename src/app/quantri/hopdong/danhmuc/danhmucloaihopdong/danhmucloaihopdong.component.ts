@@ -12,9 +12,8 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 export class DanhmucloaihopdongComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
-  items: any = [
-  ];
-  item: any={};
+  items: any = [];
+  // item: any={};
   keyWord:any='';
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 1 };
   cols: any = [
@@ -55,7 +54,7 @@ export class DanhmucloaihopdongComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
-      // sFilter:this.keyWord,  
+      sFilter:this.keyWord,  
       ma:"", 
       ten:""    
     };
@@ -70,7 +69,7 @@ export class DanhmucloaihopdongComponent implements OnInit {
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới hình thức thanh toán';
+    modalRef.componentInstance.title = 'Thêm mới loại hợp đồng';
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListdmLoaiHopDong()
@@ -84,7 +83,9 @@ export class DanhmucloaihopdongComponent implements OnInit {
     modalRef.componentInstance.opt='edit';
     modalRef.componentInstance.type = 'capnhat';
     modalRef.componentInstance.title = 'Cập nhật loại hợp đồng';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));  
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
+    console.log(item);
+    debugger; 
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListdmLoaiHopDong()
@@ -99,7 +100,6 @@ export class DanhmucloaihopdongComponent implements OnInit {
       const item=this.selectedItems[0];    
       this._danhMucHopDong.DanhMucLoaiHopDong().Delete([item.id]).subscribe((res: any) => {
         if (res) {
-          debugger;
           if (res.statusCode === 200) {
             this._toastr.success(res.message);
             this.GetListdmLoaiHopDong();
@@ -119,12 +119,9 @@ export class DanhmucloaihopdongComponent implements OnInit {
     const listId=this.selectedItems.map(({id}) => id);
     // console.log(listId)
     // debugger;
-    modalRef.result.then(res=>{
-   
+    modalRef.result.then(res=>{  
       this._danhMucHopDong.DanhMucLoaiHopDong().DeleteList(listId).subscribe((res: any) => {
         if (res) {
-          debugger;
-          console.log(res)
           if (res.statusCode === 200) {
             this._toastr.success(res.message);
             this.GetListdmLoaiHopDong();

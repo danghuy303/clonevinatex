@@ -22,29 +22,28 @@ export class ModaldanhmucloaitienteComponent implements OnInit {
 
   Setdata() {
     let data: any = {
-
-      "id": this.type == "loaitiente" ? "" : this.item.Id,
+      // "id": this.type == "loaitiente" ? "" : this.item.Id,
+      "id":this.item.id,
       "ma": this.item.ma,
       "ten": this.item.ten,
       "ghiChu": this.item.ghiChu,
       "created": this.type == "loaitiente" ? new Date() : this.item.created,
       "modified":new Date() ,
-      "isGiaTriHopDong":this.type == "loaitiente" ? false : this.item.isGiaTriHopDong,
       "isDelete":this.type == "loaitiente" ? false : this.item.isDelete,
     };
     return data;
   }
 
-  async luu() {
+  luu() {
     if (validVariable(this.item.ma) == true && validVariable(this.item.ten) == true) {
       console.log(this.Setdata());
       this._danhMucHopDong.DanhMucLoaiTienTe().Set(this.Setdata()).subscribe((res: any) => {
-        // if (res.status !== 200) {
-        //   this.toastr.error(res.message);
-        // } else {
-        //   this.toastr.success(res.message);
-        //   this.activeModal.close();
-        // } 
+        if (res.statusCode !== 200) {
+          this.toastr.error(res.message);
+        } else {
+          this.toastr.success(res.message);
+          this.activeModal.close();
+        } 
         this.activeModal.close();
       })
 
