@@ -1,4 +1,3 @@
-
 <p-panel header="Thông tin hợp đồng"
          [style]="{ 'margin-bottom': '2em'}"
          [toggleable]="true">
@@ -68,7 +67,8 @@
                             [showIcon]="true"
                             [(ngModel)]="item.ngayKy"
                             inputId="icon"
-                            placeholder="dd/mm/yyyy">
+                            placeholder="dd/mm/yyyy"
+                           >
                 </p-calendar>
             </div>
         </div>
@@ -131,8 +131,8 @@
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Loại tiền tệ:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
                 <p-dropdown [filter]="true"
-                [(ngModel)]="item.iddmLoaiTienTe"
-                [options]="listLoaiTienTe"
+                            [(ngModel)]="item.iddmLoaiTienTe"
+                            [options]="listLoaiTienTe"
                             placeholder="Chọn loại tiền tệ"
                             styleClass="p-inputtext-sm"></p-dropdown>
             </div>
@@ -141,8 +141,8 @@
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Hình thức thanh toán:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true"
-                [(ngModel)]="item.iddmHinhThucThanhToan"
-                [options]="listHinhThucThanhToan"
+                            [(ngModel)]="item.iddmHinhThucThanhToan"
+                            [options]="listHinhThucThanhToan"
                             placeholder="Chọn hình thức thanh toán"
                             styleClass="p-inputtext-sm"></p-dropdown>
             </div>

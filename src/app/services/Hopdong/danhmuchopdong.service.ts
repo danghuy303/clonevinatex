@@ -21,6 +21,9 @@ export class DanhMucHopDongService {
     DanhMucThuTucThanhToan(){
         let url = API.HopDong
         return {
+            GetListAll: () => {
+                return this.http.get(url + `DanhMuc/GetListAlldmThuTucThanhToan`, httpOptions);
+            },
             GetList:(data)=>{
                 return this.http.get(`${url}DanhMuc/GetListdmThuTucThanhToan?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
             },
@@ -40,6 +43,9 @@ export class DanhMucHopDongService {
     DanhMucLoaiTienTe(){
         let url = API.HopDong
         return {
+            GetListAll: () => {
+                return this.http.get(url + `DanhMuc/GetListAlldmLoaiTienTe`, httpOptions);
+            },
             GetList:(data)=>{
                 return this.http.get(`${url}DanhMuc/GetListdmLoaiTienTe?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
             },
@@ -59,6 +65,10 @@ export class DanhMucHopDongService {
     DanhMucLoaiHopDong(){
         let url = API.HopDong
         return {
+            GetListAll: () => {
+                return this.http.get(url + `DanhMuc/GetListAlldmLoaiHopDong`, httpOptions);
+            },
+          
             GetList:(data)=>{
                 return this.http.get(`${url}DanhMuc/GetListdmLoaiHopDong?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}` ,httpOptions)
             },

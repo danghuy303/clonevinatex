@@ -1,22 +1,6 @@
+import { vn } from 'src/app/services/const';
 import { GiahanhopdongmodalComponent } from './giahanhopdongmodal/giahanhopdongmodal.component';
 import { ChitiethopdongbongxomodalComponent } from './../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-giahanhopdong',
-//   templateUrl: './giahanhopdong.component.html',
-//   styleUrls: ['./giahanhopdong.component.css']
-// })
-// export class GiahanhopdongComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
-
-
 import { number } from "@amcharts/amcharts4/core";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 
@@ -40,6 +24,10 @@ export class GiahanhopdongComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   items: any = [];
   filter: any = {};
+  lang: any = vn;
+  yearRange: string = `${
+    new Date().getFullYear() - 50
+  }:${new Date().getFullYear()}`;
   tuNgay: number = 0;
   denNgay: number = 0;
   listLoaiPhuongAn: any = [];
@@ -64,7 +52,7 @@ export class GiahanhopdongComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._service
-          .QuyTrinhHopDong()
+          .GiaHanHopDong()
           .Get(res.id)
           .subscribe((res: any) => {
             this.update(res);
@@ -91,7 +79,7 @@ export class GiahanhopdongComponent implements OnInit {
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.item = {
       Id: "",
-      listItem: [],
+
     };
     modalRef.result
       .then((res: any) => {
@@ -105,48 +93,10 @@ export class GiahanhopdongComponent implements OnInit {
         this.changeParam(0);
       });
   }
-  // update(item) {
-  //   this._serviceSanXuat
-  //     .dmQuyCachDongGoi()
-  //     .GetList()
-  //     .subscribe((res: Array<any>) => {
-  //       this.listQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
-  //       if (item.listItem != undefined && item.listItem != null) {
-  //         item.listItem.filter((objlistItem) => {
-  //           objlistItem.listItem.filter(async (objlistItem2) => {
-  //             objlistItem2.objQuyCachDongGoi =
-  //               await this.listQuyCachDongGoi.filter(
-  //                 (obj) => objlistItem2.IddmQuyCachDongGoi == obj.value
-  //               )[0];
-  //           });
-  //         });
-  //         let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
-  //           size: "fullscreen",
-  //           backdrop: "static",
-  //         });
-  //         console.log("modalRef", modalRef);
-  //         modalRef.componentInstance.opt = "edit";
-  //         modalRef.componentInstance.item = item;
-  //         modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
-  //         modalRef.componentInstance.item.DenNgay = UnixToDate(
-  //           item.DenNgayUnix
-  //         );
-  //         modalRef.result
-  //           .then((res: any) => {
-  //             this._toastr.success("Cập nhật thành công");
-  //             this.GetListQuyTrinh();
-  //             this.changeParam(0);
-  //           })
-  //           .catch((er) => {
-  //             this.GetListQuyTrinh();
-  //             this.changeParam(0);
-  //           });
-  //       }
-  //     });
-  // }
+  
   update(id) {
     this._service
-      .QuyTrinhHopDong()
+      .GiaHanHopDong()
       .Get(id)
       .subscribe((res1: any) => {
         let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
@@ -194,14 +144,22 @@ export class GiahanhopdongComponent implements OnInit {
       denNgay: DateToUnix(this.filter.DenNgay),
     };
     this._service
-      .QuyTrinhHopDong()
+      .GiaHanHopDong()
       .GetList(data)
       .subscribe((res: any) => {
         // this.items = res.data.items;
         this.paging.TotalItem = res.data.totalCount;
       });
   }
-
+  GetNextSoQuyTrinh() {
+    this._service
+      .GiaHanHopDong()
+      .GetNextSoQuyTrinh()
+      .subscribe((res: any) => {
+        console.log('GetNextSoQuyTrinh',res);
+        this.items = res.data;
+      });
+  }
   resetFilter() {
     this.filter = {};
     this.GetListQuyTrinh(true);
