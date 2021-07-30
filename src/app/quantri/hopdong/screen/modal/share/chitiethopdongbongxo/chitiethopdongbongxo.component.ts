@@ -106,6 +106,8 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
   }
 
+
+
   GetNextSoQuyTrinh() {
     this._service
       .QuyTrinhHopDong()

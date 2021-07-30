@@ -20,6 +20,7 @@ import {
   deepCopy,
   mapArrayForDropDown,
   merge,
+  UnixToDate,
   validVariable,
 } from "src/app/services/globalfunction";
 import { StoreService } from "src/app/services/store.service";
@@ -59,7 +60,10 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.item.hopDong.id);
+    // if (this.item.ngayKyUnix !== null && this.item.ngayKyUnix !== undefined) {
+    //   this.item.ngayKy = UnixToDate(this.item.ngayKyUnix);
+    // }
+
     this.checkbutton = {
       Ghi: false,
       Xoa: false,
@@ -87,20 +91,23 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
       .QuyTrinhHopDong()
       .GetNextSoQuyTrinh()
       .subscribe((res: any) => {
-        this.item.soQuyTrinh = res.data;
+        this.item.hopDong.soQuyTrinh = res.data;
       });
   }
 
   HoanThanh() {
+    this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
+    this.item.hopDong.ngayKetThucUnix = DateToUnix( this.item.hopDong.ngayKetThuc );
+    this.item.hopDong.ngayBatDauUnix = DateToUnix(this.item.hopDong.ngayBatDau);
     this._service
       .QuyTrinhHopDong()
       .Set(this.item)
       .subscribe((res: any) => {
-        console.log(res);
+        console.log(this.item.hopDong.ngayKy);
         if (res) {
-          if (res.State === 1) {
-            this._toastr.success(res.message);
+          if (res?.statusCode === 200) {
             this.activeModal.close();
+            this._toastr.success(res.message);
           } else {
             this._toastr.error(res.message);
           }
@@ -125,8 +132,6 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
               this.activeModal.close();
               this._toastr.success(res.message);
             } else {
-            
-            
               this._toastr.error(res.message);
             }
           });
