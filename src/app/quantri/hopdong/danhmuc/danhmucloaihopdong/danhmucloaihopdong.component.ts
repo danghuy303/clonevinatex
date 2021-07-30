@@ -115,10 +115,7 @@ export class DanhmucloaihopdongComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    // console.log(this.selectedItems)
     const listId=this.selectedItems.map(({id}) => id);
-    // console.log(listId)
-    // debugger;
     modalRef.result.then(res=>{  
       this._danhMucHopDong.DanhMucLoaiHopDong().DeleteList(listId).subscribe((res: any) => {
         if (res) {

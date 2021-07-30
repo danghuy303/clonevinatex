@@ -53,7 +53,7 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}DanhMuc/SetdmLoaiTienTe`,data,httpOptions)
             },
             DeleteList:(data)=>{
-                return this.http.post(`${url}DanhMucDeletedmLoaiTienTe`,data,httpOptions)
+                return this.http.post(`${url}DanhMuc/DeleteListdmLoaiTienTe`,data,httpOptions)
             },
             Delete:(id)=>{
                 return this.http.get(`${url}DanhMuc/DeletedmLoaiTienTe?id=${id}`,httpOptions)

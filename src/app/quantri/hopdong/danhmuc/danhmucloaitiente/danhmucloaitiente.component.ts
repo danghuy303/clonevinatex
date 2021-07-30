@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Dat09Service } from 'src/app/services/callApi';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from '../../../modal/modalthongbao/modalthongbao.component';
-import { ModalimportexcelComponent } from '../../../modal/modalimportexcel/modalimportexcel.component';
 import { ModaldanhmucloaitienteComponent } from '../modal/modaldanhmucloaitiente/modaldanhmucloaitiente.component';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 
@@ -56,7 +54,7 @@ export class DanhmucloaitienteComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
-      // sFilter:this.keyWord,  
+      sFilter:this.keyWord,  
       ma:"", 
       ten:""
     };
