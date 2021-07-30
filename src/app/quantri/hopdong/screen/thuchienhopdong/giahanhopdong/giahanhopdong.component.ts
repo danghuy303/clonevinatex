@@ -1,22 +1,6 @@
+import { vn } from 'src/app/services/const';
 import { GiahanhopdongmodalComponent } from './giahanhopdongmodal/giahanhopdongmodal.component';
 import { ChitiethopdongbongxomodalComponent } from './../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-giahanhopdong',
-//   templateUrl: './giahanhopdong.component.html',
-//   styleUrls: ['./giahanhopdong.component.css']
-// })
-// export class GiahanhopdongComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
-
-
 import { number } from "@amcharts/amcharts4/core";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 
@@ -40,6 +24,10 @@ export class GiahanhopdongComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   items: any = [];
   filter: any = {};
+  lang: any = vn;
+  yearRange: string = `${
+    new Date().getFullYear() - 50
+  }:${new Date().getFullYear()}`;
   tuNgay: number = 0;
   denNgay: number = 0;
   listLoaiPhuongAn: any = [];
