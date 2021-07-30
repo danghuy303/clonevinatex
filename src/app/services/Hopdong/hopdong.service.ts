@@ -51,8 +51,13 @@ export class HopDongService {
           url + `HopDong/DeleteQuyTrinhHopDong?Id=${Id}`,
           httpOptions
         );
-        // return this.http.get(url + 'DeleteQuyTrinhKiemTraChatLuong?Id=' + Id, httpOptions);
+       
       },
+
+      // get all danh sach hop dong theo ten
+      GetListAll: () => {
+        return this.http.get(url + `HopDong/GetAllQuyTrinhHopDong_Opt`, httpOptions);
+    },
     };
   }
 
@@ -108,6 +113,8 @@ export class HopDongService {
           httpOptions
         );
       },
+
+ 
     };
   }
 

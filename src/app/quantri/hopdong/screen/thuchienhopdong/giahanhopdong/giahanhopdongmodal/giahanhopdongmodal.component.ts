@@ -60,11 +60,11 @@ listHopDong: any = {}
       });
   }
   GetFormOptions() {
-    this._servicesdmHopDong
-      .DanhMucLoaiHopDong()
+    this._service
+      .QuyTrinhHopDong()
       .GetListAll()
       .subscribe((res: any) => {
-        this.listHopDong = mapArrayForDropDown(res, "ten", "id");
+        this.listHopDong = mapArrayForDropDown(res, "soHopDong", "id");
       });
 
   }
@@ -73,6 +73,7 @@ listHopDong: any = {}
       .GiaHanHopDong()
       .GetNextSoQuyTrinh()
       .subscribe((res: any) => {
+        console.log(res);
         this.item.soQuyTrinh = res.data;
       });
   }
@@ -81,7 +82,10 @@ listHopDong: any = {}
   HoanThanh() {
     this.item.ngayPhatHanhUnix = DateToUnix(this.item.ngayPhatHanh);
     this.item.ngayGiaHanUnix = DateToUnix( this.item.ngayGiaHan );
- 
+    if (this.item.idHopDong == null){
+      this._toastr.error("Vui lòng chọn hợp đồng");
+    }
+    else{
     this._service
       .GiaHanHopDong()
       .Set(this.item)
@@ -96,6 +100,7 @@ listHopDong: any = {}
           }
         }
       });
+    }
   }
 
   XoaQuyTrinh() {
