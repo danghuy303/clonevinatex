@@ -20,19 +20,21 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
   cols: any = [
     {
       header: 'Mã hình thức thanh toán',
-      field: 'MaHinhThucThanhToan',
+      field: 'ma',
       width: '200px',
       align:'center'
     },
     {
       header: 'Tên hình thức thanh toán',
-      field: 'TenHinhThucThanhToan',
-      width: '300px'
+      field: 'ten',
+      width: '300px',
+      align:'center'
     },
     {
       header: 'Ghi chú',
-      field: 'GhiChu',
-      width: '200px'
+      field: 'ghiChu',
+      width: '200px',
+      align:'center'
     }
   ];
   selectedItems:any=[];
@@ -54,12 +56,12 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
       sFilter:this.keyWord,  
-      Ma:"", 
-      Ten:""
+      ma:"", 
+      ten:""
     };
-    this._danhMucHopDong.DanhMucHinhThucThanhToan().GetList().subscribe((res:any)=>{
-      this.items = res.items;
-      this.paging = res.paging;
+    this._danhMucHopDong.DanhMucHinhThucThanhToan().GetList(data).subscribe((res:any)=>{
+      this.items = res.data.items;
+      this.paging.TotalItem = res.data.totalCount;
     })
   }
   add(){
@@ -93,9 +95,10 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this._danhMucHopDong.DanhMucHinhThucThanhToan().Delete([item]).subscribe((res: any) => {
+      const item= this.selectedItems[0];
+      this._danhMucHopDong.DanhMucHinhThucThanhToan().Delete([item.id]).subscribe((res: any) => {
         if (res) {
-          if (res.State === 1) {
+          if (res.statusCode === 200) {
             this._toastr.success(res.message);
             this.GetListdmHinhThucThanhToan();
           } else {
@@ -110,10 +113,11 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    const listId=this.selectedItems.map(({id}) => id);
     modalRef.result.then(res=>{
-      this._danhMucHopDong.DanhMucHinhThucThanhToan().Delete(this.selectedItems).subscribe((res: any) => {
+      this._danhMucHopDong.DanhMucHinhThucThanhToan().DeleteList(listId).subscribe((res: any) => {
         if (res) {
-          if (res.State === 1) {
+          if (res.statusCode === 200) {
             this._toastr.success(res.message);
             this.GetListdmHinhThucThanhToan();
             this.selectedItems = [];
@@ -128,16 +132,6 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
     this.paging.CurrentPage = event.page+1;
     this.GetListdmHinhThucThanhToan()
   }
-  // importExcel(){
-  //   let modalRef = this._modal.open(ModalimportexcelComponent,{
-  //     backdrop:'static',
-  //   })
-  //   modalRef.componentInstance.importFunc = 'HinhThucThanhToan';
-  //   modalRef.result.then(res=>{
-  //     this.GetListdmHinhThucThanhToan();
-  //     this._toastr.success(res.mess);
-  //   })
-  //   .catch(er=>console.log(er))
-  // }
+ 
 }
 

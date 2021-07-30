@@ -31,7 +31,6 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}DanhMuc/SetdmThuTucThanhToan`,data,httpOptions)
             },
             DeleteList:(data)=>{
-                debugger;
                 return this.http.post(`${url}DanhMuc/DeleteListdmThuTucThanhToan`,data,httpOptions)
             },
             Delete:(id)=>{
@@ -53,9 +52,12 @@ export class DanhMucHopDongService {
             Set:(data)=>{
                 return this.http.post(`${url}DanhMuc/SetdmLoaiTienTe`,data,httpOptions)
             },
+            DeleteList:(data)=>{
+                return this.http.post(`${url}DanhMuc/DeleteListdmLoaiTienTe`,data,httpOptions)
+            },
             Delete:(id)=>{
                 return this.http.get(`${url}DanhMuc/DeletedmLoaiTienTe?id=${id}`,httpOptions)
-            }
+            } 
         }
     }
 
@@ -74,7 +76,6 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}DanhMuc/SetdmLoaiHopDong`,data,httpOptions)
             },
             DeleteList:(data)=>{
-                debugger;
                 return this.http.post(`${url}DanhMuc/DeleteListdmLoaiHopDong`,data,httpOptions)
             },
             Delete:(id)=>{
@@ -88,16 +89,19 @@ export class DanhMucHopDongService {
     DanhMucHinhThucThanhToan(){
         let url = API.HopDong
         return {
-            GetList:()=>{
-                return this.http.get(`${url}HopDong/DanhMuc/GetListdmHinhThucThanhToan`,httpOptions)
+            GetList:(data)=>{
+                return this.http.get(`${url}DanhMuc/GetListdmHinhThucThanhToan?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}` ,httpOptions)
             },
             Set:(data)=>{
     
                 return this.http.post(`${url}DanhMuc/SetdmHinhThucThanhToan`,data,httpOptions)
             },
-            Delete:(data)=>{
-                return this.http.post(`${url}DanhMuc/DeletedmHinhThucThanhToan`,data,httpOptions)
-            }
+            DeleteList:(data)=>{
+                return this.http.post(`${url}DanhMuc/DeleteListdmHinhThucThanhToan`,data,httpOptions)
+            },
+            Delete:(id)=>{
+                return this.http.get(`${url}DanhMuc/DeletedmHinhThucThanhToan?id=${id}`,httpOptions)
+            }   
         }
     }
 

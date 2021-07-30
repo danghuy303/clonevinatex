@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Dat09Service } from 'src/app/services/callApi';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from '../../../modal/modalthongbao/modalthongbao.component';
-import { ModalimportexcelComponent } from '../../../modal/modalimportexcel/modalimportexcel.component';
 import { ModaldanhmucloaitienteComponent } from '../modal/modaldanhmucloaitiente/modaldanhmucloaitiente.component';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 
@@ -15,8 +13,7 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 export class DanhmucloaitienteComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
-  items: any = [
-  ];
+  items: any = [];
   keyWord:any='';
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 1 };
   cols: any = [
@@ -29,12 +26,14 @@ export class DanhmucloaitienteComponent implements OnInit {
     {
       header: 'Tên tên tiền tệ',
       field: 'ten',
-      width: '300px'
+      width: '300px',
+      align:'center'
     },
     {
       header: 'Ghi chú',
-      field: 'GhiChu',
-      width: '200px'
+      field: 'ghiChu',
+      width: '200px',
+      align:'center'
     }
   ];
   selectedItems:any=[];
@@ -59,7 +58,7 @@ export class DanhmucloaitienteComponent implements OnInit {
       ma:"", 
       ten:""
     };
-    this. _danhMucHopDong.DanhMucLoaiTienTe().GetList(data).subscribe((res:any)=>{
+    this._danhMucHopDong.DanhMucLoaiTienTe().GetList(data).subscribe((res:any)=>{
       debugger;
       this.items = res.data.items;
       this.paging.TotalItem = res.data.totalCount;
@@ -76,7 +75,6 @@ export class DanhmucloaitienteComponent implements OnInit {
       this._toastr.success(res);
       this.GetListdmLoaiTienTe()
     }).catch(er=>console.log(er))
-    // debugger;
   }
   edit(item){
     let modalRef = this._modal.open(ModaldanhmucloaitienteComponent,{
@@ -115,12 +113,11 @@ export class DanhmucloaitienteComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    debugger;
-    console.log(this.selectedItems)
-    modalRef.result.then(res=>{      
-      this._danhMucHopDong.DanhMucLoaiTienTe().Delete(this.selectedItems).subscribe((res: any) => {
+    const listId=this.selectedItems.map(({id}) => id);
+    modalRef.result.then(res=>{
+      this._danhMucHopDong.DanhMucLoaiTienTe().DeleteList(listId).subscribe((res: any) => {
         if (res) {
-          if (res.State === 1) {
+          if (res.statusCode === 200) {
             this._toastr.success(res.message);
             this.GetListdmLoaiTienTe();
             this.selectedItems = [];

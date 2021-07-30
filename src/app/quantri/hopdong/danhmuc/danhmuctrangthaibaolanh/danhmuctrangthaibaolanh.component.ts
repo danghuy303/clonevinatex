@@ -14,8 +14,7 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 })
 export class DanhmuctrangthaibaolanhComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
-  items: any = [
-  ];
+  items: any = [];
   keyWord:any='';
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 1 };
   cols: any = [

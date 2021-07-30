@@ -17,19 +17,17 @@ export class ModaldanhmuctrangthaibaolanhComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    console.log(this.type);
+
   }
 
   Setdata() {
     let data: any = {
-
-      "id": this.type == "trangthaibaolanh" ? "" : this.item.Id,
+      "id": this.item.id,
       "ma": this.item.ma,
       "ten": this.item.ten,
       "ghiChu": this.item.ghiChu,
       "created": this.type == "trangthaibaolanh" ? new Date() : this.item.created,
       "modified":new Date() ,
-      "isGiaTriHopDong":this.type == "trangthaibaolanh" ? false : this.item.isGiaTriHopDong,
       "isDelete":this.type == "trangthaibaolanh" ? false : this.item.isDelete,
     };
     return data;
@@ -39,12 +37,12 @@ export class ModaldanhmuctrangthaibaolanhComponent implements OnInit {
     if (validVariable(this.item.ma) == true && validVariable(this.item.ten) == true) {
       console.log(this.Setdata());
       this._danhMucHopDong.DanhMucTrangThaiBaoLanh().Set(this.Setdata()).subscribe((res: any) => {
-        // if (res.status !== 200) {
-        //   this.toastr.error(res.message);
-        // } else {
-        //   this.toastr.success(res.message);
-        //   this.activeModal.close();
-        // } 
+        if (res.statusCode !== 200) {
+          this.toastr.error(res.message);
+        } else {
+          this.toastr.success(res.message);
+          this.activeModal.close();
+        } 
         this.activeModal.close();
       })
 
