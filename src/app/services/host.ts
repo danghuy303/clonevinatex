@@ -16,7 +16,7 @@ export const host1 = 'http://eos.harmonyes.com.vn:1169';
 export const httpOptions = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Accept': 'application/json,text/plain, */*',
+          'Accept': 'application/json,text/plain, */*',
     }),
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
