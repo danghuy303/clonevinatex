@@ -123,6 +123,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
         });
       });
     }
+    this.item.isDieuChinh = true;
   }
   GetFormOptions() {
     this.services.GetOptions().GetMatHang().subscribe((res: Array<any>) => {

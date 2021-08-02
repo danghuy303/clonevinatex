@@ -41,6 +41,12 @@
             <button type="button" pButton pRipple label="Sao chép" class="p-button-text p-button-sm"
                 (click)="CopyKeHoach()" [disabled]="!canCopy"></button>
         </div>
+        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Kế hoạch điều chỉnh:</label>
+            <div class="p-col-12 p-xl-10 p-p-0">
+                <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isDieuChinh" [disabled]="!item.isDieuChinh"/>
+            </div>
+        </div>
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
