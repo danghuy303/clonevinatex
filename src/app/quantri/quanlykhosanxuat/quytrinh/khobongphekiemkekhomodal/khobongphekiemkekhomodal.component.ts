@@ -200,14 +200,15 @@ export class KhobongphekiemkekhomodalComponent implements OnInit {
     }
 
     delete(index) {
-        let item = this.item.listItem.splice(index, 1)[0];
-        this.listItem.splice(index, 1);
-
+        let item = this.item.listItem.splice((this.paging.CurrentPage-1)*10+index, 1)[0];
         if (item.Id === "" || item.Id === null || item.Id === undefined) {
         } else {
+            this.toastr.warning("Thao tác này đồng nghĩa việc không kiểm kê, không đồng nghĩa việc xóa khỏi kho");
             item.isXoa = true;
-            this.listItem.push(JSON.parse(JSON.stringify(item)));
+            this.item.listItem.push(JSON.parse(JSON.stringify(item)));
         }
+        this.listItem = this.item.listItem.filter(ele => ele.isXoa !== true).slice((this.paging.CurrentPage-1)*10,10);
+        this.paging.TotalItem = Math.ceil(this.item.listItem.filter(ele => ele.isXoa !== true).length);
     }
 
     GetMatHangTheoKho() {
