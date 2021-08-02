@@ -43,9 +43,8 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   checkedAll: boolean = false;
   checkbutton: any = {};
 
-  yearRange: string = `${new Date().getFullYear()}:${
-    new Date().getFullYear() + 5
-  }`;
+  yearRange: string = `${new Date().getFullYear()}:${new Date().getFullYear() + 5
+    }`;
   constructor(
     public activeModal: NgbActiveModal,
     private _auth: AuthenticationService,
@@ -95,24 +94,35 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
       });
   }
 
-  HoanThanh() {
+  ValidData() {
+    // if (!validVariable(this.item.noiDung)) {
+    //   this._toastr.error("Vui lòng chọn nội dung");
+    //   return false;
+    // }
+
+
+    return true;
+  }
+  GhiLai() {
     this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
-    this.item.hopDong.ngayKetThucUnix = DateToUnix( this.item.hopDong.ngayKetThuc );
+    this.item.hopDong.ngayKetThucUnix = DateToUnix(this.item.hopDong.ngayKetThuc);
     this.item.hopDong.ngayBatDauUnix = DateToUnix(this.item.hopDong.ngayBatDau);
-    this._service
-      .QuyTrinhHopDong()
-      .Set(this.item)
-      .subscribe((res: any) => {
-        console.log(this.item.hopDong.ngayKy);
-        if (res) {
-          if (res?.statusCode === 200) {
-            this.activeModal.close();
-            this._toastr.success(res.message);
-          } else {
-            this._toastr.error(res.message);
+    if (this.ValidData()) {
+      this._service
+        .QuyTrinhHopDong()
+        .Set(this.item)
+        .subscribe((res: any) => {
+          console.log(this.item.hopDong.ngayKy);
+          if (res) {
+            if (res?.statusCode === 200) {
+              this.activeModal.close();
+              this._toastr.success(res.message);
+            } else {
+              this._toastr.error(res.message);
+            }
           }
-        }
-      });
+        });
+    }
   }
 
   XoaQuyTrinh() {
@@ -137,5 +147,31 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
           });
       })
       .catch((er) => console.log(er));
+  }
+  ChuyenTiep() {
+    this._service.QuyTrinhHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res?.statusCode === 200) {
+          this._toastr.success(res.message)
+          this.activeModal.close();
+        } else {
+          this._toastr.error(res.message);
+        }
+      }
+    })
+
+  }
+  KhongDuyet() {
+    this._service.QuyTrinhHopDong().KhongDuyet(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res?.statusCode === 200) {
+          this._toastr.success(res.message)
+          this.activeModal.close();
+        } else {
+          this._toastr.error(res.message);
+        }
+      }
+    })
+
   }
 }

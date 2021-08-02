@@ -201,6 +201,8 @@ export class PhathopdongmodalComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
+
+ 
   getListHopDong() {
     this.KiemTraButtonModal();
     if (this.opt !== 'edit') {

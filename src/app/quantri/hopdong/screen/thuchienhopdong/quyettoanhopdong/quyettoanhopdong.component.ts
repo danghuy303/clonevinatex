@@ -1,9 +1,37 @@
-import { QuyettoanhopdongmodalComponent } from './quyettoanhopdongmodal/quyettoanhopdongmodal.component';
+// import { QuyettoanhopdongmodalComponent } from './quyettoanhopdongmodal/quyettoanhopdongmodal.component';
 
 
 
-import { ChitiethopdongbongxomodalComponent } from "./../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
+// import { ChitiethopdongbongxomodalComponent } from "./../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
 
+// import { number } from "@amcharts/amcharts4/core";
+// import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
+
+// import { Component, OnInit, ViewChild } from "@angular/core";
+// import { ActivatedRoute, Router } from "@angular/router";
+// import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+// import { ToastrService } from "ngx-toastr";
+// import { SanXuatService } from "src/app/services/callApiSanXuat";
+// import {
+//   DateToUnix,
+//   mapArrayForDropDown,
+//   UnixToDate,
+// } from "src/app/services/globalfunction";
+
+
+// @Component({
+//   selector: 'app-quyettoanhopdong',
+//   templateUrl: './quyettoanhopdong.component.html',
+//   styleUrls: ['./quyettoanhopdong.component.css']
+// })
+// export class QuyettoanhopdongComponent implements OnInit {
+
+// }
+
+
+import { vn } from 'src/app/services/const';
+
+import { ChitiethopdongbongxomodalComponent } from './../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
 import { number } from "@amcharts/amcharts4/core";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 
@@ -17,7 +45,7 @@ import {
   mapArrayForDropDown,
   UnixToDate,
 } from "src/app/services/globalfunction";
-
+import { QuyettoanhopdongmodalComponent } from './quyettoanhopdongmodal/quyettoanhopdongmodal.component';
 
 @Component({
   selector: 'app-quyettoanhopdong',
@@ -28,6 +56,10 @@ export class QuyettoanhopdongComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   items: any = [];
   filter: any = {};
+  lang: any = vn;
+  yearRange: string = `${
+    new Date().getFullYear() - 50
+  }:${new Date().getFullYear()}`;
   tuNgay: number = 0;
   denNgay: number = 0;
   listLoaiPhuongAn: any = [];
@@ -52,7 +84,7 @@ export class QuyettoanhopdongComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._service
-          .QuyTrinhHopDong()
+          .QuyetToanHopDong()
           .Get(res.id)
           .subscribe((res: any) => {
             this.update(res);
@@ -62,13 +94,16 @@ export class QuyettoanhopdongComponent implements OnInit {
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
   }
+
+
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll();
     }
-    this.router.navigate([`quantri/hopdongsanxuat/quyettoanhopdong/${id}`], {
-      replaceUrl: true,
-    });
+    this.router.navigate(
+      [`quantri/hopdongsanxuat/quyettoanhopdong/${id}`],
+      { replaceUrl: true }
+    );
   }
   add() {
     let modalRef = this._modal.open(QuyettoanhopdongmodalComponent, {
@@ -77,8 +112,10 @@ export class QuyettoanhopdongComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.item = {
-      Id: "",
-      listItem: [],
+      id: "",
+      listHoSoDinhKem: [],
+      listFileDinhKem: []
+
     };
     modalRef.result
       .then((res: any) => {
@@ -92,51 +129,43 @@ export class QuyettoanhopdongComponent implements OnInit {
         this.changeParam(0);
       });
   }
-  // update(item) {
-  //   this._serviceSanXuat
-  //     .dmQuyCachDongGoi()
-  //     .GetList()
-  //     .subscribe((res: Array<any>) => {
-  //       this.listQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
-  //       if (item.listItem != undefined && item.listItem != null) {
-  //         item.listItem.filter((objlistItem) => {
-  //           objlistItem.listItem.filter(async (objlistItem2) => {
-  //             objlistItem2.objQuyCachDongGoi =
-  //               await this.listQuyCachDongGoi.filter(
-  //                 (obj) => objlistItem2.IddmQuyCachDongGoi == obj.value
-  //               )[0];
-  //           });
+  
+  // update(id) {
+  //   this._service
+  //     .QuyetToanHopDong()
+  //     .Get(id)
+  //     .subscribe((res1: any) => {
+  //       let modalRef = this._modal.open(QuyettoanhopdongmodalComponent, {
+  //         size: "fullscreen",
+  //         backdrop: "static",
+  //       });
+  //       modalRef.componentInstance.opt = "edit";
+  //       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
+  //       //       modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
+  //       // modalRef.componentInstance.item.DenNgay = UnixToDate(
+  //       //   item.DenNgayUnix
+  //       // );
+
+  //       modalRef.result
+  //         .then((res: any) => {
+  //           this.GetListQuyTrinh();
+  //           this.changeParam(0);
+  //         })
+  //         .catch((er) => {
+  //           console.log(er);
+  //           this.GetListQuyTrinh();
+  //           this.changeParam(0);
   //         });
-  //         let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
-  //           size: "fullscreen",
-  //           backdrop: "static",
-  //         });
-  //         console.log("modalRef", modalRef);
-  //         modalRef.componentInstance.opt = "edit";
-  //         modalRef.componentInstance.item = item;
-  //         modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
-  //         modalRef.componentInstance.item.DenNgay = UnixToDate(
-  //           item.DenNgayUnix
-  //         );
-  //         modalRef.result
-  //           .then((res: any) => {
-  //             this._toastr.success("Cập nhật thành công");
-  //             this.GetListQuyTrinh();
-  //             this.changeParam(0);
-  //           })
-  //           .catch((er) => {
-  //             this.GetListQuyTrinh();
-  //             this.changeParam(0);
-  //           });
-  //       }
   //     });
   // }
-  update(id) {
+
+  update(item) {
     this._service
-      .QuyTrinhHopDong()
-      .Get(id)
+      .QuyetToanHopDong()
+      .Get(item.id)
       .subscribe((res1: any) => {
-        let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
+       
+        let modalRef = this._modal.open(QuyettoanhopdongmodalComponent, {
           size: "fullscreen",
           backdrop: "static",
         });
@@ -181,14 +210,22 @@ export class QuyettoanhopdongComponent implements OnInit {
       denNgay: DateToUnix(this.filter.DenNgay),
     };
     this._service
-      .QuyTrinhHopDong()
+      .QuyetToanHopDong()
       .GetList(data)
       .subscribe((res: any) => {
-        // this.items = res.data.items;
+        this.items = res.data.items;
         this.paging.TotalItem = res.data.totalCount;
       });
   }
-
+  GetNextSoQuyTrinh() {
+    this._service
+      .QuyetToanHopDong()
+      .GetNextSoQuyTrinh()
+      .subscribe((res: any) => {
+        console.log('GetNextSoQuyTrinh',res);
+        this.items = res.data;
+      });
+  }
   resetFilter() {
     this.filter = {};
     this.GetListQuyTrinh(true);
