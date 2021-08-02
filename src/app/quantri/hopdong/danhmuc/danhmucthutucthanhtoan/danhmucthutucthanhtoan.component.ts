@@ -13,8 +13,7 @@ import { ModaldanhmucthutucthanhtoanComponent } from '../modal/modaldanhmucthutu
 export class DanhmucthutucthanhtoanComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
-  items: any = [
-  ];
+  items: any = [];
   keyWord:any='';
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 1 };
   cols: any = [
@@ -27,12 +26,14 @@ export class DanhmucthutucthanhtoanComponent implements OnInit {
     {
       header: 'Tên thủ tục',
       field: 'ten',
-      width: '300px'
+      width: '300px',
+      align:'center'
     },
     {
       header: 'Ghi chú',
       field: 'ghiChu',
-      width: '400px'
+      width: '400px',
+      align:'center'
     }
   ];
   selectedItems:any=[];

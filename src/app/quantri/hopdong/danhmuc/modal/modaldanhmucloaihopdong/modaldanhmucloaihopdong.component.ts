@@ -9,7 +9,6 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
   styleUrls: ['./modaldanhmucloaihopdong.component.css']
 })
 export class ModaldanhmucloaihopdongComponent implements OnInit {
-
   public item: any= {};
   public title: any = '';
   public type:any = '';
@@ -27,21 +26,21 @@ export class ModaldanhmucloaihopdongComponent implements OnInit {
   }
 
   Setdata() {
-    let data: any = {
-
-      "id": this.type == "themmoi" ? "" : this.item.Id,
+    let data: any = {     
+      // "id":  this.item.Id  == null ? "": this.item.id,
+      "id":this.item.id,
       "ma": this.item.ma,
       "ten": this.item.ten,
        "ghiChu": validVariable(this.item.ghiChu) ? this.item.ghiChu : "",
       "created": this.type == "themmoi" ? new Date() : this.item.created,
       "modified":new Date() ,
-      "isGiaTriHopDong":this.type == "themmoi" ? false : this.item.isGiaTriHopDong,
+      "isGiaTriHopDong":this.type == "themmoi" ? true : this.item.isGiaTriHopDong,
       "isDelete":this.type == "themmoi" ? false : this.item.isDelete,
     };
     return data;
   }
 
-  async luu() {
+   luu() {
     if (validVariable(this.item.ma) == true && validVariable(this.item.ten) == true) {
       console.log(this.Setdata());
       this._danhMucHopDong.DanhMucLoaiHopDong().Set(this.Setdata()).subscribe((res: any) => {
