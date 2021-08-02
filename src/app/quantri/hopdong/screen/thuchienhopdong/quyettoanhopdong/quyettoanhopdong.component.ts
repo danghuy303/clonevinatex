@@ -94,12 +94,14 @@ export class QuyettoanhopdongComponent implements OnInit {
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
   }
+
+
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll();
     }
     this.router.navigate(
-      [`quantri/hopdongsanxuat/QuyetToanHopDong/${id}`],
+      [`quantri/hopdongsanxuat/quyettoanhopdong/${id}`],
       { replaceUrl: true }
     );
   }
@@ -110,7 +112,7 @@ export class QuyettoanhopdongComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.item = {
-      Id: "",
+      id: "",
       listHoSoDinhKem: [],
       listFileDinhKem: []
 
@@ -128,11 +130,41 @@ export class QuyettoanhopdongComponent implements OnInit {
       });
   }
   
-  update(id) {
+  // update(id) {
+  //   this._service
+  //     .QuyetToanHopDong()
+  //     .Get(id)
+  //     .subscribe((res1: any) => {
+  //       let modalRef = this._modal.open(QuyettoanhopdongmodalComponent, {
+  //         size: "fullscreen",
+  //         backdrop: "static",
+  //       });
+  //       modalRef.componentInstance.opt = "edit";
+  //       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
+  //       //       modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
+  //       // modalRef.componentInstance.item.DenNgay = UnixToDate(
+  //       //   item.DenNgayUnix
+  //       // );
+
+  //       modalRef.result
+  //         .then((res: any) => {
+  //           this.GetListQuyTrinh();
+  //           this.changeParam(0);
+  //         })
+  //         .catch((er) => {
+  //           console.log(er);
+  //           this.GetListQuyTrinh();
+  //           this.changeParam(0);
+  //         });
+  //     });
+  // }
+
+  update(item) {
     this._service
       .QuyetToanHopDong()
-      .Get(id)
+      .Get(item.id)
       .subscribe((res1: any) => {
+       
         let modalRef = this._modal.open(QuyettoanhopdongmodalComponent, {
           size: "fullscreen",
           backdrop: "static",
@@ -181,7 +213,7 @@ export class QuyettoanhopdongComponent implements OnInit {
       .QuyetToanHopDong()
       .GetList(data)
       .subscribe((res: any) => {
-        // this.items = res.data.items;
+        this.items = res.data.items;
         this.paging.TotalItem = res.data.totalCount;
       });
   }
