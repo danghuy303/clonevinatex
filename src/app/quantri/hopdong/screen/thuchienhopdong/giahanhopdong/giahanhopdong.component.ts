@@ -147,7 +147,7 @@ export class GiahanhopdongComponent implements OnInit {
       .GiaHanHopDong()
       .GetList(data)
       .subscribe((res: any) => {
-        // this.items = res.data.items;
+        this.items = res.items;
         this.paging.TotalItem = res.data.totalCount;
       });
   }
