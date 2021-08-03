@@ -833,7 +833,7 @@ export class QuantriComponent implements OnInit {
         label: "Thông tin hợp đồng",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
-        visible:false,
+        visible:true,
         items: [
           {
             label: "Danh sách hợp đồng bông/xơ",
@@ -860,7 +860,7 @@ export class QuantriComponent implements OnInit {
         label: "Thực hiện hợp đồng",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
-        visible:false,
+        visible:true,
         items: [
           {
             label: "Giao nhận hàng hoá",

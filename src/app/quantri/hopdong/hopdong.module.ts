@@ -238,11 +238,8 @@ import { ThanhtoanhopdongmodalComponent } from './screen/thuchienhopdong/thanhto
     ChitietdieukhoanthanhtoanComponent,
     ChitietnhansuthuchienComponent,
     ChitietphathopdongComponent,
-    ChitietthanhtoanComponent
-
-
-
-
+    ChitietthanhtoanComponent,
+    ChitiethopdongbongxomodalComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
