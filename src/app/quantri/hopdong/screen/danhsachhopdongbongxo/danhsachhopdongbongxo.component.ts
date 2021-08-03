@@ -23,7 +23,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   items: any = [];
   filter: any = {};
-
+  eAction: any = "QUYTRINHHOPDONG";
   tuNgay: number = 0;
   denNgay: number = 0;
   listLoaiPhuongAn: any = [];
@@ -38,7 +38,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     public _modal: NgbModal,
     public _toastr: ToastrService,
     private _service: HopDongService,
-    private _serviceSanXuat: SanXuatService,
+    private _serviceDungChung: SanXuatService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
@@ -191,9 +191,9 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }

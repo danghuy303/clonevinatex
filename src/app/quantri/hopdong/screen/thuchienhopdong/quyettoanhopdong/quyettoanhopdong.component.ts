@@ -1,33 +1,3 @@
-// import { QuyettoanhopdongmodalComponent } from './quyettoanhopdongmodal/quyettoanhopdongmodal.component';
-
-
-
-// import { ChitiethopdongbongxomodalComponent } from "./../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
-
-// import { number } from "@amcharts/amcharts4/core";
-// import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
-
-// import { Component, OnInit, ViewChild } from "@angular/core";
-// import { ActivatedRoute, Router } from "@angular/router";
-// import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-// import { ToastrService } from "ngx-toastr";
-// import { SanXuatService } from "src/app/services/callApiSanXuat";
-// import {
-//   DateToUnix,
-//   mapArrayForDropDown,
-//   UnixToDate,
-// } from "src/app/services/globalfunction";
-
-
-// @Component({
-//   selector: 'app-quyettoanhopdong',
-//   templateUrl: './quyettoanhopdong.component.html',
-//   styleUrls: ['./quyettoanhopdong.component.css']
-// })
-// export class QuyettoanhopdongComponent implements OnInit {
-
-// }
-
 
 import { vn } from 'src/app/services/const';
 
@@ -57,6 +27,7 @@ export class QuyettoanhopdongComponent implements OnInit {
   items: any = [];
   filter: any = {};
   lang: any = vn;
+  eAction: any = "QUYETTOANHOPDONG";
   yearRange: string = `${
     new Date().getFullYear() - 50
   }:${new Date().getFullYear()}`;
@@ -74,7 +45,7 @@ export class QuyettoanhopdongComponent implements OnInit {
     public _modal: NgbModal,
     public _toastr: ToastrService,
     private _service: HopDongService,
-    private _serviceSanXuat: SanXuatService,
+    private _serviceDungChung: SanXuatService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -231,9 +202,9 @@ export class QuyettoanhopdongComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }

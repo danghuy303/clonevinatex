@@ -24,10 +24,10 @@
         </div>
     </div>
 </div>
-<p-tabView styleClass="no-content">
-    <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
+<p-tabView (onChange)="changeTab($event)" styleClass="no-content">
+    <p-tabPanel header="Chưa xử lý" *ngIf="checkQuyen.ChuaXuLy">
     </p-tabPanel>
-    <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
+    <p-tabPanel header="Đã xử lý" *ngIf="checkQuyen.DaXyLy">
     </p-tabPanel>
 
 </p-tabView>
