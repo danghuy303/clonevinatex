@@ -11,11 +11,7 @@
             <span style="font-weight: bold;">TG Duyệt:</span> {{item.hopDong.modified|date:"dd/MM/yyyy HH:mm"}}
         </div>
     </div>
-    <button *ngIf="false"
-            type="button"
-            class="close"
-            aria-label="Close"
-            (click)="activeModal.dismiss('Cross click')">
+    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
@@ -23,32 +19,10 @@
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4">
-            <button pButton
-                    pRipple
-                    type="button"
-                    label="Quay lại"
-                    class="p-mr-2 p-button-sm"
-                    (click)="activeModal.dismiss('close')"></button>
-            <button pButton
-                    pRipple
-                    type="button"
-                    label="Ghi lại"
-                    class="p-mr-2 p-button-sm "
-                    (click)="HoanThanh()"
-                    *ngIf="checkbutton.Ghi"></button>
-            <button pButton
-                    pRipple
-                    type="button"
-                    label="Xóa"
-                    class="p-mr-2 p-button-sm"
-                    (click)="XoaQuyTrinh()"></button>
-            <button pButton
-                    pRipple
-                    type="button"
-                    label="Không duyệt"
-                    class="p-mr-2 p-button-sm"
-                    (click)="KhongDuyet()"
-                    *ngIf="checkbutton.KhongDuyet"></button>
+            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="activeModal.dismiss('close')"></button>
+            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="HoanThanh()" *ngIf="checkbutton.Ghi"></button>
+            <button pButton pRipple type="button" label="Xóa" *ngIf="checkbutton.Xoa" class="p-mr-2 p-button-sm" (click)="XoaQuyTrinh()"></button>
+            <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()" *ngIf="checkbutton.KhongDuyet"></button>
         </div>
     </div>
     <div class="p-d-flex p-flex-row p-jc-between">
@@ -57,8 +31,7 @@
 
         <p-tabView>
             <p-tabPanel header="Thông tin chung">
-                <app-chitiethopdongbongxo [(item)]="item.hopDong"
-                                          [opt]="opt">
+                <app-chitiethopdongbongxo [(item)]="item.hopDong" [opt]="opt">
                 </app-chitiethopdongbongxo>
             </p-tabPanel>
             <p-tabPanel header="Danh sách hàng hóa">

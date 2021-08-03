@@ -1,9 +1,8 @@
 
-
 import { SanXuatService } from "./../../../../../../services/callApiSanXuat";
 import { vn } from "./../../../../../../services/const";
 import { ModalthongbaoComponent } from "./../../../../../modal/modalthongbao/modalthongbao.component";
-import { UnixToDate, validVariable } from "src/app/services/globalfunction";
+import { mapArrayForDropDown, UnixToDate, validVariable } from "src/app/services/globalfunction";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 import { ToastrService } from "ngx-toastr";
 import { Component, OnInit } from "@angular/core";
@@ -41,7 +40,7 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
     }
-   
+   this.GetFormOptions()
     this.checkbutton = {
       Ghi: false,
       Xoa: false,
@@ -100,8 +99,9 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
         .QuyTrinhThanhToan()
         .Set(this.item)
         .subscribe((res: any) => {
-          if (res) {
-            if (res.State === 1) {
+        
+            if (res?.State === 200) {
+              this.activeModal.close();
               this._toastr.success(res.message);
               this.opt = "edit";
               this.item = res.objectReturn;
@@ -110,7 +110,7 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
             } else {
               this._toastr.error(res.message);
             }
-          }
+         
         });
     }
 
@@ -164,6 +164,16 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
         }
       }
     })
+
+  }
+
+  GetFormOptions() {
+    this._services
+      .QuyTrinhHopDong()
+      .GetListAll()
+      .subscribe((res: any) => {
+        this.listHopDong = mapArrayForDropDown(res, "soHopDong", "id");
+      });
 
   }
 

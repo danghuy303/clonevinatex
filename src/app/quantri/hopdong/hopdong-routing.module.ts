@@ -1,3 +1,4 @@
+import { GiaokehoachsanxuatComponent } from './screen/thuchienhopdong/giaokehoachsanxuat/giaokehoachsanxuat.component';
 import { LaphopdongsoiComponent } from './screen/laphopdongsoi/laphopdongsoi.component';
 import { LaphopdongbongxoComponent } from './screen/laphopdongbongxo/laphopdongbongxo.component';
 import { PhathopdongComponent } from './screen/thuchienhopdong/phathopdong/phathopdong.component';
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'giaonhanhanghoa/:id', component: GiaonhanhanghoaComponent },
   { path: 'thanhtoanhopdong/:id', component: ThanhtoanhopdongComponent },
   { path: 'phathopdong/:id', component: PhathopdongComponent },
+  { path: 'giaokehoachsanxuat/:id', component: GiaokehoachsanxuatComponent },
   { path: 'giahanhopdong/:id', component: GiahanhopdongComponent },
   { path: 'quyettoanhopdong/:id', component: QuyettoanhopdongComponent },
   { path: 'laphopdongbongxo/:id', component: LaphopdongbongxoComponent },

@@ -29,6 +29,7 @@ export class GiaonhanhanghoaComponent implements OnInit {
   tuNgay: number = 0;
   denNgay: number = 0;
   listLoaiPhuongAn: any = [];
+  eAction: any = "GIAONHANHANGHOA";
   trangThai: any = 1;
   //    this.paging.TotalItem = res.data.totalCount;
   paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
@@ -40,7 +41,7 @@ export class GiaonhanhanghoaComponent implements OnInit {
     public _modal: NgbModal,
     public _toastr: ToastrService,
     private _service: HopDongService,
-    private _serviceSanXuat: SanXuatService,
+    private _serviceDungChung: SanXuatService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -193,9 +194,9 @@ export class GiaonhanhanghoaComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }

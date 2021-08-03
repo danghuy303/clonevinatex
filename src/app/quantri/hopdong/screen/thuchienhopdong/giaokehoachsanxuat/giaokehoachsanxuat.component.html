@@ -1,9 +1,8 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 class="text-uppercase" style="color:#1f2779">quyết toán hợp đồng</h4>
+    <h4 class="text-uppercase" style="color:#1f2779">giao kế hoạch sản xuất</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
-
     <div></div>
     <div class="p-d-flex p-flex-row">
         <!-- <div class="p-mr-2">
@@ -38,32 +37,36 @@
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">STT</th>
+
                 <th>Ngày tạo</th>
                 <th>Số phiếu</th>
+                <th>Nội dung phi phạm</th>
                 <th>Số hợp đồng</th>
-                <th>Giá trị quyết toán</th>
-                <th>Còn phải trả</th>
-                <th>Giữ lại bảo hành</th>
-                <th>Ghi chú</th>
-                <!-- <th *ngFor="let header of cols"> {{header.header}} </th> -->
+                <th>Số công văn</th>
+                <th>Ngày phát hành</th>
+                <th>Ngày phi phạm</th>
+                <th>Giá trị phạt</th>
                 <th></th>
+
+
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center"> {{ 20 * (paging.currentPage - 1) + i + 1 }} </td>
-                <td class="text-center">{{item.created | date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.soQuyTrinh}}</td>
 
+                <td class="text-center">{{item.created|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.SoQuyTrinh}}</td>
+                <td class="text-center">{{item.noiDung}}</td>
                 <td class="text-center">{{item.idHopDong}}</td>
-                <td class="text-center">{{item.giaTriQuyetToan}}</td>
-                <td class="text-center">{{item.conPhaiThanhToan}}</td>
-                <td class="text-center">{{item.giaTriBaoHanhGiuLai}}</td>
-                <td class="text-center">{{item.ghiChu}}</td>
-                <!-- <td class="text-center" *ngFor="let col of cols"> {{item[col.field]}} </td> -->
+                <td class="text-center">{{item.soCongVan}}</td>
+                <td class="text-center">{{item.ngayPhatHanh|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.DenNgay|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.giaTri}}</td>
+
                 <td class="text-center">
-                    <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành" (click)="hoanthanh(item.d)"></button>
-                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.id)"></button>
+                    <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành" (click)="hoanthanh(item.Id)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.Id)"></button>
                 </td>
             </tr>
         </ng-template>

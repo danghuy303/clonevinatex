@@ -1,20 +1,20 @@
-import { StoreService } from './../../../../../../services/store.service';
+
+
 import { SanXuatService } from "./../../../../../../services/callApiSanXuat";
 import { vn } from "./../../../../../../services/const";
 import { ModalthongbaoComponent } from "./../../../../../modal/modalthongbao/modalthongbao.component";
-import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from "src/app/services/globalfunction";
+import { UnixToDate, validVariable } from "src/app/services/globalfunction";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 import { ToastrService } from "ngx-toastr";
 import { Component, OnInit } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { HopdongRoutingModule } from "src/app/quantri/hopdong/hopdong-routing.module";
-
 @Component({
-  selector: "app-phathopdongmodal",
-  templateUrl: "./phathopdongmodal.component.html",
-  styleUrls: ["./phathopdongmodal.component.css"],
+  selector: 'app-giaokehoachsanxuatmodal',
+  templateUrl: './giaokehoachsanxuatmodal.component.html',
+  styleUrls: ['./giaokehoachsanxuatmodal.component.css']
 })
-export class PhathopdongmodalComponent implements OnInit {
+export class GiaokehoachsanxuatmodalComponent implements OnInit {
   lang: any = vn;
   checkbutton: any = {};
   opt: any = "";
@@ -30,8 +30,7 @@ export class PhathopdongmodalComponent implements OnInit {
     public _toastr: ToastrService,
     public _modal: NgbModal,
     private _services: HopDongService,
-    private _servicesDungChung: SanXuatService,
-    private _store: StoreService
+    private _servicesDungChung: SanXuatService
   ) {}
 
   ngOnInit(): void {
@@ -41,14 +40,15 @@ export class PhathopdongmodalComponent implements OnInit {
       ChuyenTiep: false,
       KhongDuyet: false,
     };
-    this.GetFormOptions();
-    if (this.opt !== "edit") {
-      this.GetNextSoQuyTrinh();
-      this.KiemTraButtonModal();
-      if (this._store.getCurrent()) {
-        this.item.IdDuAn = this._store.getCurrent();
-      }
-    }0;
+    // if (this.opt !== "edit") {
+    //   this.GetNextSoQuyTrinh();
+    // } else {
+    //   this.KiemTraButtonModal();
+    // }
+    // if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+    //   this.item.Ngay = UnixToDate(this.item.NgayUnix);
+    // }
+    // this.data.currentPage = 0;
     
     this.getListHopDong();
    
@@ -61,22 +61,13 @@ export class PhathopdongmodalComponent implements OnInit {
       this._toastr.error("Vui lòng chọn lý do");
       return false;
     }
-
+    // if (!validVariable(this.data.idHopDong)) {
+    //   this._toastr.error('Vui lòng chọn hợp đồng')
+    //   return false
+    // }
 
     return true;
   }
-
-
-  GetFormOptions() {
-    this._services
-      .QuyTrinhHopDong()
-      .GetListAll()
-      .subscribe((res: any) => {
-        this.listHopDong = mapArrayForDropDown(res, "soHopDong", "id");
-      });
-
-  }
-
   KiemTraButtonModal() {
     this._servicesDungChung
       .KiemTraButton(this.item.id || "", this.item.idTrangThai || "")
@@ -159,27 +150,24 @@ export class PhathopdongmodalComponent implements OnInit {
   }
 
   GetNextSoQuyTrinh() {
-    this._services
-    .PhatHopDong()
-    .GetNextSoQuyTrinh()
-    .subscribe((res: any) => {
-      console.log(res);
-      this.item.soQuyTrinh = res.data;
-    });
+    // this._services.QuyTrinhPhieuBongPhe().GetNextSo().subscribe((res: any) => {
+    //   this.item.SoQuyTrinh = res.SoQuyTrinh;
+    // })
   }
 
   GhiLai() {
-    this.item.ngayPhatHanhUnix = DateToUnix(this.item.ngayPhatHanh);
-
     if (this.ValidData()) {
       this._services
         .PhatHopDong()
         .Set(this.item)
         .subscribe((res: any) => {
           if (res) {
-            if (res?.statusCode === 200) {
-              this.activeModal.close();
+            if (res.State === 1) {
               this._toastr.success(res.message);
+              this.opt = "edit";
+              this.item = res.objectReturn;
+              this.KiemTraButtonModal();
+              // this.KiemTraButtonModal();
             } else {
               this._toastr.error(res.message);
             }
@@ -204,13 +192,11 @@ export class PhathopdongmodalComponent implements OnInit {
           .Delete(this.item)
           .subscribe((res: any) => {
             console.log(res);
-            if (res) {
-              if (res?.statusCode === 200) {
-                this.activeModal.close();
-                this._toastr.success(res.message);
-              } else {
-                this._toastr.error(res.message);
-              }
+            if (res?.State === 1) {
+              this._toastr.success(res.message);
+              this.activeModal.close();
+            } else {
+              this._toastr.error(res.message);
             }
           });
       })
