@@ -220,6 +220,7 @@ import { ThanhtoanhopdongmodalComponent } from './screen/thuchienhopdong/thanhto
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
   entryComponents:[
+    ChitiethopdongbongxomodalComponent,
     ModaldanhmuchinhthucthanhtoanComponent,
     ModaldanhmucloaihopdongComponent,
     ModaldanhmucloaitienteComponent,

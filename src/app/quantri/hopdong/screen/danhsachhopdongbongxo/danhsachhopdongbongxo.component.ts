@@ -41,7 +41,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     private _serviceSanXuat: SanXuatService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
@@ -181,8 +181,8 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       .QuyTrinhHopDong()
       .GetList(data)
       .subscribe((res: any) => {
-        this.items = res.data.items;
-        this.paging.TotalItem = res.data.totalCount;
+        this.items = res.data?.items;
+        this.paging.TotalItem = res.data?.totalCount;
       });
   }
 

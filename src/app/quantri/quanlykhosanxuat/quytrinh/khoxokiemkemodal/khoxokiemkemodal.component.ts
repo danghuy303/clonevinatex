@@ -192,15 +192,15 @@ export class KhoxokiemkemodalComponent implements OnInit {
   }
 
   delete(index) {
-      let item = this.item.listItem.splice(index, 1)[0];
-      this.listItem.splice(index, 1);
+      let item = this.item.listItem.splice((this.paging.CurrentPage-1)*10+index, 1)[0];
       if (item.Id === "" || item.Id === null || item.Id === undefined) {
-        // this.item.listItem.splice(index, 1);
       } else {
-          item.isXoa = true;
-        //   this.item.listItem.push(JSON.parse(JSON.stringify(item)));
-          this.listItem.push(JSON.parse(JSON.stringify(item)));
+        this.toastr.warning("Thao tác này đồng nghĩa việc không kiểm kê, không đồng nghĩa việc xóa khỏi kho");
+        item.isXoa = true;
+        this.item.listItem.push(JSON.parse(JSON.stringify(item)));
       }
+      this.listItem = this.item.listItem.filter(ele => ele.isXoa !== true).slice((this.paging.CurrentPage-1)*10,10);
+        this.paging.TotalItem = Math.ceil(this.item.listItem.filter(ele => ele.isXoa !== true).length);
   }
 
   GetMatHangTheoKho() {
@@ -225,14 +225,14 @@ export class KhoxokiemkemodalComponent implements OnInit {
   }
   changePage(event) {
       this.paging.CurrentPage = event.page + 1;
-      this.paging.TotalItem = this.item.listItem.length;
+      this.paging.TotalItem = this.item.listItem.filter(ele => ele.isXoa !== true).length;
 
       let start = 10 * event.page;
       let end = start + 10;
       if (start + 10 > this.item.listItem.length) {
-          end = this.item.listItem.length;
+          end = this.item.listItem.filter(ele => ele.isXoa !== true).length;
       }
-      this.listItem = this.item.listItem.slice(start, end);
+      this.listItem = this.item.listItem.filter(ele => ele.isXoa !== true).slice(start, end);
   }
   setNewItemName(event) {
     this.services
@@ -279,7 +279,7 @@ export class KhoxokiemkemodalComponent implements OnInit {
     luacChonMatHang(){
         let listItem : any = []
         if(this.item.listItem !== undefined && this.item.listItem !== null){
-        listItem = this.item.listItem.filter((e: any) => e.isXoa !== true);
+            listItem = this.item.listItem.filter((e: any) => e.isXoa !== true);
         }
         this.services.getLuuKhoKiemKeKhoXo(this.item.IddmKho, this.item.IdLoBong, "", this.item.IdLoHang).subscribe((res1: any) => {
             let modalRef = this._modal.open(KhoxokiemkemathangmodalComponent, {
