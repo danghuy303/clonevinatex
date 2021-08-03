@@ -201,6 +201,12 @@ export class HopDongService {
       PhatHopDong: (data) => {
         return this.http.post(url + "PhatHopDong", data, httpOptions);
       },
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(
+          url + "PhatHopDong/GetNextSoQuyTrinh",
+          httpOptions
+        );
+      },
       GetList: (data) => {
         data.IdDuAn = 53
         return this.http.post(

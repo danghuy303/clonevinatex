@@ -9,13 +9,13 @@
       </div> -->
     <div class="d-flex flex-column flex-lg-row">
         <div>
-            <span style="font-weight: bold;">Số phiếu:</span>
+            <span style="font-weight: bold">Số quy trình:</span> {{ item.soQuyTrinh }}
         </div>
         <div class="ml-lg-3 mr-lg-3">
-            <span style="font-weight: bold;">TG Tạo:</span>
+            <span style="font-weight: bold">TG Tạo:</span> {{ item.created | date: "dd/MM/yyyy HH:mm" }}
         </div>
         <div>
-            <span style="font-weight: bold;">TG Duyệt:</span>
+            <span style="font-weight: bold">TG Duyệt:</span> {{ item.modified | date: "dd/MM/yyyy HH:mm" }}
         </div>
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -48,7 +48,7 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-3 p-xl-2 p-p-0 my-auto">Hợp đồng: <span class="required">*</span></label>
             <div class="p-col-12 p-xl-10 p-lg-9 p-p-0">
-                <p-dropdown [filter]="true" [options]="listHopDong" placeholder="Chọn hợp đồng" [(ngModel)]="data.idHopDong" styleClass="p-inputtext-sm"></p-dropdown>
+                <p-dropdown [filter]="true" [(ngModel)]="item.idHopDong" [options]="listHopDong" placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12  p-xl-7 p-p-3 d-flex flex-column flex-lg-row">

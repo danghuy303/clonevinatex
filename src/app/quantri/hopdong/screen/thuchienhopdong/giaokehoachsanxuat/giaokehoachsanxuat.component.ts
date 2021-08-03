@@ -1,6 +1,4 @@
-import { PhathopdongmodalComponent } from "./phathopdongmodal/phathopdongmodal.component";
-
-import { ChitiethopdongbongxomodalComponent } from "./../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
+import { GiaokehoachsanxuatmodalComponent } from './giaokehoachsanxuatmodal/giaokehoachsanxuatmodal.component';
 
 import { number } from "@amcharts/amcharts4/core";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
@@ -16,13 +14,15 @@ import {
   UnixToDate,
 } from "src/app/services/globalfunction";
 
-ChitiethopdongbongxomodalComponent;
+
 @Component({
-  selector: "app-phathopdong",
-  templateUrl: "./phathopdong.component.html",
-  styleUrls: ["./phathopdong.component.css"],
+  selector: 'app-giaokehoachsanxuat',
+  templateUrl: './giaokehoachsanxuat.component.html',
+  styleUrls: ['./giaokehoachsanxuat.component.css']
 })
-export class PhathopdongComponent implements OnInit {
+
+// chua co api nen tam thoi lay tam api phat hop dong 
+export class GiaokehoachsanxuatComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   items: any = [];
   filter: any = {};
@@ -46,7 +46,7 @@ export class PhathopdongComponent implements OnInit {
     private _serviceDungChung: SanXuatService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
@@ -63,21 +63,21 @@ export class PhathopdongComponent implements OnInit {
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
   }
-  changeParam(id) {
+  changeParam(Id) {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll();
     }
-    this.router.navigate([`quantri/hopdongsanxuat/phathopdong/${id}`], {
+    this.router.navigate([`quantri/hopdongsanxuat/giaokehoachsanxuat/${Id}`], {
       replaceUrl: true,
     });
   }
   add() {
-    let modalRef = this._modal.open(PhathopdongmodalComponent, {
+    let modalRef = this._modal.open(GiaokehoachsanxuatmodalComponent, {
       size: "fullscreen",
       backdrop: "static",
       keyboard: false,
     });
-    
+
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.item = {
       Id: "",
@@ -101,9 +101,9 @@ export class PhathopdongComponent implements OnInit {
       });
   }
 
-  
+
   update(item) {
-    let modalRef = this._modal.open(PhathopdongmodalComponent, {
+    let modalRef = this._modal.open(GiaokehoachsanxuatmodalComponent, {
       size: "fullscreen-100",
       backdrop: "static",
       keyboard: false,
@@ -120,7 +120,7 @@ export class PhathopdongComponent implements OnInit {
         this.changeParam(0);
         this.GetListQuyTrinh();
       });
-    }
+  }
 
   changeTab(e) {
     this.trangThai = e.index + 1;
@@ -147,8 +147,6 @@ export class PhathopdongComponent implements OnInit {
       .PhatHopDong()
       .GetList(data)
       .subscribe((res: any) => {
-        console.log(res.data.items);
-        
         this.items = res.data.items;
         this.paging.TotalItem = res.data.totalCount;
       });
@@ -159,7 +157,7 @@ export class PhathopdongComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+    this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
