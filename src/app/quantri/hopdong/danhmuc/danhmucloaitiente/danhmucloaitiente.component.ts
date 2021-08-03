@@ -117,7 +117,7 @@ export class DanhmucloaitienteComponent implements OnInit {
     modalRef.result.then(res=>{
       this._danhMucHopDong.DanhMucLoaiTienTe().DeleteList(listId).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
+          if (res.state === 1) {
             this._toastr.success(res.message);
             this.GetListdmLoaiTienTe();
             this.selectedItems = [];
