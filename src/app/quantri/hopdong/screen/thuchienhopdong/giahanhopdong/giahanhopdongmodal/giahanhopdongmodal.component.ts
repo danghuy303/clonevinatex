@@ -1,4 +1,4 @@
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, validVariable } from 'src/app/services/globalfunction';
 import { ModalthongbaoComponent } from './../../../../../modal/modalthongbao/modalthongbao.component';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -60,11 +60,11 @@ listHopDong: any = {}
       });
   }
   GetFormOptions() {
-    this._servicesdmHopDong
-      .DanhMucLoaiHopDong()
+    this._service
+      .QuyTrinhHopDong()
       .GetListAll()
       .subscribe((res: any) => {
-        this.listHopDong = mapArrayForDropDown(res, "ten", "id");
+        this.listHopDong = mapArrayForDropDown(res, "soHopDong", "id");
       });
 
   }
@@ -73,29 +73,43 @@ listHopDong: any = {}
       .GiaHanHopDong()
       .GetNextSoQuyTrinh()
       .subscribe((res: any) => {
+        console.log(res);
         this.item.soQuyTrinh = res.data;
       });
   }
 
+  ValidData() {
+    // if (!validVariable(this.item.noiDung)) {
+    //   this._toastr.error("Vui lòng chọn nội dung");
+    //   return false;
+    // }
+    if (!validVariable(this.item.idHopDong)) {
+      this._toastr.error('Vui lòng chọn hợp đồng')
+      return false
+    }
 
-  HoanThanh() {
+    return true;
+  }
+  GhiLai() {
     this.item.ngayPhatHanhUnix = DateToUnix(this.item.ngayPhatHanh);
     this.item.ngayGiaHanUnix = DateToUnix( this.item.ngayGiaHan );
- 
+   
+  if(this.ValidData()){
     this._service
-      .GiaHanHopDong()
-      .Set(this.item)
-      .subscribe((res: any) => {
+    .GiaHanHopDong()
+    .Set(this.item)
+    .subscribe((res: any) => {
 
-        if (res) {
-          if (res?.statusCode === 200) {
-            this.activeModal.close();
-            this._toastr.success(res.message);
-          } else {
-            this._toastr.error(res.message);
-          }
+      if (res) {
+        if (res?.statusCode === 200) {
+          this.activeModal.close();
+          this._toastr.success(res.message);
+        } else {
+          this._toastr.error(res.message);
         }
-      });
+      }
+    });
+  }
   }
 
   XoaQuyTrinh() {
@@ -120,5 +134,32 @@ listHopDong: any = {}
           });
       })
       .catch((er) => console.log(er));
+  }
+
+  ChuyenTiep() {
+    this._service.GiaHanHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res?.statusCode === 200) {
+          this._toastr.success(res.message)
+          this.activeModal.close();
+        } else {
+          this._toastr.error(res.message);
+        }
+      }
+    })
+
+  }
+  KhongDuyet() {
+    this._service.GiaHanHopDong().KhongDuyet(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res?.statusCode === 200) {
+          this._toastr.success(res.message)
+          this.activeModal.close();
+        } else {
+          this._toastr.error(res.message);
+        }
+      }
+    })
+
   }
 }

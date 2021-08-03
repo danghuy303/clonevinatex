@@ -140,6 +140,33 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
+  ChuyenTiep() {
+    this._services.QuyTrinhThanhToan().ChuyenTiep(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res?.statusCode === 200) {
+          this._toastr.success(res.message)
+          this.activeModal.close();
+        } else {
+          this._toastr.error(res.message);
+        }
+      }
+    })
+
+  }
+  KhongDuyet() {
+    this._services.QuyTrinhThanhToan().KhongDuyet(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res?.statusCode === 200) {
+          this._toastr.success(res.message)
+          this.activeModal.close();
+        } else {
+          this._toastr.error(res.message);
+        }
+      }
+    })
+
+  }
+
   getListHopDong() {
     this.KiemTraButtonModal();
  
@@ -156,12 +183,12 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
     // this.newTableItem = {}
   }
 
-  delete(index) {
-    let item = this.item.listItem.splice(index, 1)[0];
-    if (item.Id === "" || item.Id === null || item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      this.item.listItem.push(JSON.parse(JSON.stringify(item)));
-    }
-  }
+  // delete(index) {
+  //   let item = this.item.listItem.splice(index, 1)[0];
+  //   if (item.Id === "" || item.Id === null || item.Id === undefined) {
+  //   } else {
+  //     item.isXoa = true;
+  //     this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+  //   }
+  // }
 }

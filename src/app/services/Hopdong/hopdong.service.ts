@@ -7,7 +7,7 @@ import { number } from "@amcharts/amcharts4/core";
   providedIn: "root",
 })
 export class HopDongService {
-  constructor(private http: HttpClient, public store: StoreService) {}
+  constructor(private http: HttpClient, public store: StoreService) { }
 
   QuyTrinhHopDong() {
     let url = API.HopDong;
@@ -51,7 +51,25 @@ export class HopDongService {
           url + `HopDong/DeleteQuyTrinhHopDong?Id=${Id}`,
           httpOptions
         );
-        // return this.http.get(url + 'DeleteQuyTrinhKiemTraChatLuong?Id=' + Id, httpOptions);
+
+      },
+      KhongDuyet: (data) => {
+        return this.http.post(
+          url + "HopDong/KhongDuyetQuyTrinhHopDong",
+          data,
+          httpOptions
+        );
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(
+          url + "HopDong/ChuyenTiepQuyTrinhHopDong",
+          data,
+          httpOptions
+        );
+      },
+      // get all danh sach hop dong theo ten
+      GetListAll: () => {
+        return this.http.get(url + `HopDong/GetAllQuyTrinhHopDong_Opt`, httpOptions);
       },
     };
   }
@@ -62,41 +80,41 @@ export class HopDongService {
     return {
       GetNextSoQuyTrinh: () => {
         return this.http.get(
-          url + "GiaHanHopDong/GetNextSoQuyTrinh",
+          url + "GetNextSoQuyTrinh",
           httpOptions
         );
       },
       GetList: (data) => {
         data.idDuAn = parseInt(this.store.getCurrent());
         return this.http.post(
-          url + "GiaHanHopDong/GetListQuyTrinh",
+          url + "GetListQuyTrinh",
           data,
           httpOptions
         );
       },
       Get: (Id) => {
         return this.http.get(
-          url + `GiaHanHopDong/GetById?Id=${Id}`,
+          url + `GetById?Id=${Id}`,
           httpOptions
         );
       },
       Set: (data) => {
         return this.http.post(
-          url + "GiaHanHopDong/SetQuyTrinh",
+          url + "SetQuyTrinh",
           data,
           httpOptions
         );
       },
       KhongDuyet: (data) => {
         return this.http.post(
-          url + "GiaHanHopDong/KhongDuyetQuyTrinh",
+          url + "KhongDuyetQuyTrinh",
           data,
           httpOptions
         );
       },
       ChuyenTiep: (data) => {
         return this.http.post(
-          url + "GiaHanHopDong/ChuyenTiepQuyTrinh",
+          url + "ChuyenTiepQuyTrinh",
           data,
           httpOptions
         );
@@ -108,9 +126,74 @@ export class HopDongService {
           httpOptions
         );
       },
+
+
     };
   }
 
+
+  QuyetToanHopDong() {
+    let url = API.HopDong;
+    return {
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(
+          url + "QuyetToan/GetNextSoQuyTrinh",
+          httpOptions
+        );
+      },
+      GetList: (data) => {
+        data.idDuAn = parseInt(this.store.getCurrent());
+        return this.http.post(
+          url + "QuyetToan/GetListQuyTrinh",
+          data,
+          httpOptions
+        );
+      },
+      Get: (Id) => {
+        return this.http.get(
+          url + `QuyetToan/GetById?Id=${Id}`,
+          httpOptions
+        );
+      },
+      Set: (data) => {
+        return this.http.post(
+          url + "QuyetToan/SetQuyTrinh",
+          data,
+          httpOptions
+        );
+      },
+      KhongDuyet: (data) => {
+        return this.http.post(
+          url + "QuyetToan/KhongDuyetQuyTrinh",
+          data,
+          httpOptions
+        );
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(
+          url + "QuyetToan/ChuyenTiepQuyTrinh",
+          data,
+          httpOptions
+        );
+      },
+      Delete: (data) => {
+        return this.http.post(
+          url + "QuyetToan/DeleteQuyTrinh",
+          data,
+          httpOptions
+        );
+      },
+
+
+      GGetThongTinQuyetToanByHopDonget: (IdHopDong) => {
+        return this.http.get(
+          url + `QuyetToan/GetThongTinQuyetToanByHopDong?IdHopDong=${IdHopDong}`,
+          httpOptions
+        );
+      },
+
+    };
+  }
 
   PhatHopDong() {
     let url = API.HopDong;
@@ -194,6 +277,22 @@ export class HopDongService {
           httpOptions
         );
       },
+      KhongDuyet: (data) => {
+        return this.http.post(
+          url + "ThanhToan/KhongDuyetQuyTrinh",
+          data,
+          httpOptions
+        );
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(
+          url + "ThanhToan/ChuyenTiepQuyTrinh",
+          data,
+          httpOptions
+        );
+      },
     };
   }
+
+
 }

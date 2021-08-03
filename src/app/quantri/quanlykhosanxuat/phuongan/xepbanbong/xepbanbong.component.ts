@@ -44,12 +44,15 @@ export class XepbanbongComponent implements OnInit {
       '1cf3f340_0f55_4f34_938p_e329318e25et': Dongvanpx1Component,
       '1cf3f340_0f55_4f34_938p_e629318e25et': Dongvanpx2Component
     },
-    '55':{
-      '1cf3f340_0f55_4f34_938p_e329318e25et': HoaxaComponent
-    }
+    '55': {
+      '1cf3f340_0f55_4f34_938p_e329318e25et': HoaxaComponent,
+    },
+    '56':{
+      '1cf3f340_0f55_4f34_938p_e629318e25et': HoaxaComponent
+    },
   }
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-  listdmPhanXuong : any = [];
+  listdmPhanXuong: any = [];
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private _store: StoreService) { }
 
   ngOnInit(): void {
@@ -60,7 +63,7 @@ export class XepbanbongComponent implements OnInit {
         })
       }
     })
-    this._service.GetListdmPhanXuongOpt().subscribe((res:any)=>{
+    this._service.GetListdmPhanXuongOpt().subscribe((res: any) => {
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.filter.IddmPhanXuong = this.listdmPhanXuong[0].value;
       this.KiemTraTabTrangThai();
@@ -72,7 +75,7 @@ export class XepbanbongComponent implements OnInit {
   update(item) {
     let component = this.defineComponent[`${this._store.getCurrent()}`][item.IddmPhanXuong.split('-').join('_')];
     item.PhuongAnPhaBong = undefined;
-    if(!validVariable(item.ViTriNgoaiQuan)){
+    if (!validVariable(item.ViTriNgoaiQuan)) {
       item.ViTriNgoaiQuan = ''
     }
     let modalRef = this._modal.open(component, {
@@ -129,7 +132,7 @@ export class XepbanbongComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    this._service.KiemTraTabTrangThai('PHUONGANXEPBANBONG').subscribe((res:any)=>{
+    this._service.KiemTraTabTrangThai('PHUONGANXEPBANBONG').subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
