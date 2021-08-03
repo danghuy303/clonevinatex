@@ -18,7 +18,7 @@ export class ModaldanhmuchinhthucthanhtoanComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  Setdata() {
+  SetData() {
     let data: any = {
       "id":this.item.id,
       "ma": this.item.ma,
@@ -31,10 +31,22 @@ export class ModaldanhmuchinhthucthanhtoanComponent implements OnInit {
     return data;
   }
 
-   luu() {
-    if (validVariable(this.item.ma) == true && validVariable(this.item.ten) == true) 
+  ValidateData() {
+    if (!validVariable(this.item.ma)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ mã hình thuc thanh toán!");
+      return false;
+    }
+    if (!validVariable(this.item.ten)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ tên hình thức thanh toán!");
+      return false;
+    }
+    return true;
+  }
+
+   GhiLai() {
+    if (this.ValidateData()) 
    {
-      this._danhMucHopDong.DanhMucHinhThucThanhToan().Set(this.Setdata()).subscribe((res: any) => {
+      this._danhMucHopDong.DanhMucHinhThucThanhToan().Set(this.SetData()).subscribe((res: any) => {
         if (res.statusCode !== 200) {
           this.toastr.error(res.message);
         } else {

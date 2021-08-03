@@ -20,7 +20,7 @@ export class ModaldanhmuctrangthaibaolanhComponent implements OnInit {
 
   }
 
-  Setdata() {
+  SetData() {
     let data: any = {
       "id": this.item.id,
       "ma": this.item.ma,
@@ -33,10 +33,22 @@ export class ModaldanhmuctrangthaibaolanhComponent implements OnInit {
     return data;
   }
 
-  async luu() {
-    if (validVariable(this.item.ma) == true && validVariable(this.item.ten) == true) {
-      console.log(this.Setdata());
-      this._danhMucHopDong.DanhMucTrangThaiBaoLanh().Set(this.Setdata()).subscribe((res: any) => {
+  ValidateData() {
+    if (!validVariable(this.item.ma)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ mã trạng thái bảo lãnh!");
+      return false;
+    }
+    if (!validVariable(this.item.ten)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ tên trạng thái bảo lãnh!");
+      return false;
+    }
+    return true;
+  }
+
+  GhiLai() {
+    if (this.ValidateData()) {
+      console.log(this.SetData());
+      this._danhMucHopDong.DanhMucTrangThaiBaoLanh().Set(this.SetData()).subscribe((res: any) => {
         if (res.statusCode !== 200) {
           this.toastr.error(res.message);
         } else {

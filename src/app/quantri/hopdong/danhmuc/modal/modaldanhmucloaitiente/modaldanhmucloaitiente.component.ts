@@ -20,7 +20,7 @@ export class ModaldanhmucloaitienteComponent implements OnInit {
     console.log(this.type);
   }
 
-  Setdata() {
+  SetData() {
     let data: any = {
       // "id": this.type == "loaitiente" ? "" : this.item.Id,
       "id":this.item.id,
@@ -33,11 +33,22 @@ export class ModaldanhmucloaitienteComponent implements OnInit {
     };
     return data;
   }
+  ValidateData() {
+    if (!validVariable(this.item.ma)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ mã loại tiền tệ!");
+      return false;
+    }
+    if (!validVariable(this.item.ten)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ tên loại tiền tệ!");
+      return false;
+    }
+    return true;
+  }
 
-  luu() {
-    if (validVariable(this.item.ma) == true && validVariable(this.item.ten) == true) {
-      console.log(this.Setdata());
-      this._danhMucHopDong.DanhMucLoaiTienTe().Set(this.Setdata()).subscribe((res: any) => {
+  GhiLai() {
+    if (this.ValidateData()) {
+      console.log(this.SetData());
+      this._danhMucHopDong.DanhMucLoaiTienTe().Set(this.SetData()).subscribe((res: any) => {
         if (res.statusCode !== 200) {
           this.toastr.error(res.message);
         } else {
