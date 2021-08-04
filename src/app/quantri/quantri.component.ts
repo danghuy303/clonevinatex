@@ -833,7 +833,11 @@ export class QuantriComponent implements OnInit {
         label: "Thông tin hợp đồng",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
+<<<<<<< HEAD
         visible: true,
+=======
+        visible:false,
+>>>>>>> f19c3b70cc7910abadf90f75e8781928501f60b7
         items: [
           {
             label: "Danh sách hợp đồng bông/xơ",
@@ -857,8 +861,7 @@ export class QuantriComponent implements OnInit {
           },
         ],
       },
-
-
+      
 
       {
         label: "Thực hiện hợp đồng",
@@ -902,40 +905,40 @@ export class QuantriComponent implements OnInit {
       {
         label: "Danh mục hợp đồng",
         icon: "fas fa-circle",
-        routerLink: "/quantri/hopdongsanxuat",
-        visible: true,
+        routerLink: "/quantri/hopdongsanxuat/danhmuc",
+        visible:false,
         items: [
           {
             label: "Danh mục hình thức thanh toán",
-            routerLink: "/quantri/hopdongsanxuat/danhmuchinhthucthanhtoan",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmuchinhthucthanhtoan",
             command: () => this.close(),
           },
           {
             label: "Danh mục loại hợp đồng",
             routerLink:
-              "/quantri/hopdongsanxuat/danhmucloaihopdong",
+              "/quantri/hopdongsanxuat/danhmuc/danhmucloaihopdong",
 
             command: () => this.close(),
           },
           {
             label: "Danh mục loại tiền tệ",
             routerLink:
-              "/quantri/hopdongsanxuat/danhmucloaitiente",
+              "/quantri/hopdongsanxuat/danhmuc/danhmucloaitiente",
 
             command: () => this.close(),
           },
           {
             label: "Danh mục thủ tục thanh toán",
-
+            
             routerLink:
-              "/quantri/hopdongsanxuat/danhmucthutucthanhtoan",
+              "/quantri/hopdongsanxuat/danhmuc/danhmucthutucthanhtoan",
 
             command: () => this.close(),
           },
           {
             label: "Danh mục trạng thái bảo lãnh",
             routerLink:
-              "/quantri/hopdongsanxuat/danhmuctrangthaibaolanh",
+              "/quantri/hopdongsanxuat/danhmuc/danhmuctrangthaibaolanh",
 
             command: () => this.close(),
           },
