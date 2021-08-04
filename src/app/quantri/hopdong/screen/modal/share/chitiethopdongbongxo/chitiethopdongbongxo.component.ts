@@ -40,6 +40,7 @@ import { elementAt } from "rxjs/operators";
 })
 export class ChitiethopdongbongxoComponent implements OnInit {
   listHinhThucThanhToan: any = [];
+
   listLoaiHopDong: any = [];
   listLoaiHopDongFull: any = [];
   listLoaiTienTe: any = [];
@@ -47,7 +48,9 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   @Input() hopDong: any;
   @Output() itemChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input("opt") opt: string;
+  cities: City[];
 
+  selectedCityCode: string;
   checkbutton: any = {};
   lang: any = vn;
   yearRange: string = `${
@@ -60,8 +63,15 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     private _service: HopDongService,
     private _store: StoreService,
     private _servicesSanXuat: SanXuatService,
-    private _toastr: ToastrService
-  ) {}
+    private _toastr: ToastrService,
+
+  ) {
+    this.cities = [
+      {name: 'Bông', code: 'NY'},
+      {name: 'Xơ', code: 'RM'},
+    
+  ];
+  }
 
   ngOnInit() {
     this.GetFormOptions();
@@ -120,4 +130,8 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   Loai(loai: boolean) {
     this.item.IsBong = loai;
   }
+}
+interface City {
+  name: string,
+  code: string
 }
