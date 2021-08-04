@@ -604,7 +604,7 @@ export class QuantriComponent implements OnInit {
         visible: !this.checkmenu("P_KHOHOIAM"),
         items: [
           {
-            label: "Danh sách hợp đồng",
+            label: "Nhập kho",
             routerLink: "/quantri/quanlysanxuatkhohoiam/khohoiam/nhapkho/0",
             separator: this.checkmenu("NHAPHOIAM"),
             command: () => this.close(),
@@ -850,12 +850,57 @@ export class QuantriComponent implements OnInit {
           {
             label: "Lập hợp đồng sợi",
             routerLink:
+            
               "/quantri/hopdongsanxuat/laphopdongsoi/0",
 
             command: () => this.close(),
           },
         ],
       },
+      /////////////      Danh Mục Hợp Đồng
+      {
+        label: "Danh mục hợp đồng",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/hopdongsanxuat",
+        visible:false,
+        items: [
+          {
+            label: "Danh mục hình thức thanh toán",
+            routerLink: "/quantri/hopdongsanxuat/danhmuchinhthucthanhtoan",
+            command: () => this.close(),
+          },
+          {
+            label: "Danh mục loại hợp đồng",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmucloaihopdong",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Danh mục loại tiền tệ",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmucloaitiente",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Danh mục thủ tục thanh toán",
+            
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmucthutucthanhtoan",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Danh mục trạng thái bảo lãnh",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuctrangthaibaolanh",
+
+            command: () => this.close(),
+          },
+        ],
+      },
+
       {
         label: "Thực hiện hợp đồng",
         icon: "fas fa-circle",

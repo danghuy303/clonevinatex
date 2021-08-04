@@ -19,7 +19,7 @@ export class ModaldanhmucloaihopdongComponent implements OnInit {
   ngOnInit(): void {
     // console.log(this.type);
     if (this.type == "themmoi") {
-      this.title = "Thêm mới hình thức thanh toán";
+      this.title = "Thêm mới loại hơp đồng";
     }
     else if (this.type == "capnhat") {
       this.title = "Cập nhật loại hợp đồng";

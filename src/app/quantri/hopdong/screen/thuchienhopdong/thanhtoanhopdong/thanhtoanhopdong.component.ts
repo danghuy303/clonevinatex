@@ -30,6 +30,7 @@ export class ThanhtoanhopdongComponent implements OnInit {
   trangThai: any = 1;
   type: any = "";
   nametype: any = "";
+  eAction: any = "THANHTOANHOPDONG";
   //    this.paging.TotalItem = res.data.totalCount;
   paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
 
@@ -40,7 +41,7 @@ export class ThanhtoanhopdongComponent implements OnInit {
     public _modal: NgbModal,
     public _toastr: ToastrService,
     private _service: HopDongService,
-    private _serviceSanXuat: SanXuatService,
+    private _serviceDungChung: SanXuatService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -154,9 +155,9 @@ export class ThanhtoanhopdongComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }

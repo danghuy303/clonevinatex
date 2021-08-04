@@ -31,6 +31,7 @@ export class PhathopdongComponent implements OnInit {
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
   type: any = "";
+  eAction: any = "PHATHOPDONG";
   nametype: any = "";
   //    this.paging.TotalItem = res.data.totalCount;
   paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
@@ -42,7 +43,7 @@ export class PhathopdongComponent implements OnInit {
     public _modal: NgbModal,
     public _toastr: ToastrService,
     private _service: HopDongService,
-    private _serviceSanXuat: SanXuatService,
+    private _serviceDungChung: SanXuatService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -62,11 +63,11 @@ export class PhathopdongComponent implements OnInit {
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
   }
-  changeParam(Id) {
+  changeParam(id) {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll();
     }
-    this.router.navigate([`quantri/hopdongsanxuat/phathopdong/${Id}`], {
+    this.router.navigate([`quantri/hopdongsanxuat/phathopdong/${id}`], {
       replaceUrl: true,
     });
   }
@@ -146,6 +147,8 @@ export class PhathopdongComponent implements OnInit {
       .PhatHopDong()
       .GetList(data)
       .subscribe((res: any) => {
+        console.log(res.data.items);
+        
         this.items = res.data.items;
         this.paging.TotalItem = res.data.totalCount;
       });
@@ -156,9 +159,9 @@ export class PhathopdongComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }

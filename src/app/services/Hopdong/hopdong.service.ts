@@ -19,7 +19,7 @@ export class HopDongService {
         );
       },
       GetList: (data) => {
-        data.idDuAn = parseInt(this.store.getCurrent());
+        data.idDuAn = 53
         return this.http.post(
           url + "HopDong/GetListQuyTrinhHopDong",
           data,
@@ -80,48 +80,48 @@ export class HopDongService {
     return {
       GetNextSoQuyTrinh: () => {
         return this.http.get(
-          url + "GetNextSoQuyTrinh",
+          url + "GiaHanHopDong/GetNextSoQuyTrinh",
           httpOptions
         );
       },
       GetList: (data) => {
-        data.idDuAn = parseInt(this.store.getCurrent());
+        data.idDuAn = 53
         return this.http.post(
-          url + "GetListQuyTrinh",
+          url + "GiaHanHopDong/GetListQuyTrinh",
           data,
           httpOptions
         );
       },
       Get: (Id) => {
         return this.http.get(
-          url + `GetById?Id=${Id}`,
+          url + `GiaHanHopDong/GetById?Id=${Id}`,
           httpOptions
         );
       },
       Set: (data) => {
         return this.http.post(
-          url + "SetQuyTrinh",
+          url + "GiaHanHopDong/SetQuyTrinh",
           data,
           httpOptions
         );
       },
       KhongDuyet: (data) => {
         return this.http.post(
-          url + "KhongDuyetQuyTrinh",
+          url + "GiaHanHopDong/KhongDuyetQuyTrinh",
           data,
           httpOptions
         );
       },
       ChuyenTiep: (data) => {
         return this.http.post(
-          url + "ChuyenTiepQuyTrinh",
+          url + "GiaHanHopDong/ChuyenTiepQuyTrinh",
           data,
           httpOptions
         );
       },
       Delete: (data) => {
         return this.http.post(
-          url + "PhatHopDong/DeleteQuyTrinh",
+          url + "GiaHanHopDong/PhatHopDong/DeleteQuyTrinh",
           data,
           httpOptions
         );
@@ -142,7 +142,7 @@ export class HopDongService {
         );
       },
       GetList: (data) => {
-        data.idDuAn = parseInt(this.store.getCurrent());
+        data.idDuAn = 53
         return this.http.post(
           url + "QuyetToan/GetListQuyTrinh",
           data,
@@ -201,8 +201,14 @@ export class HopDongService {
       PhatHopDong: (data) => {
         return this.http.post(url + "PhatHopDong", data, httpOptions);
       },
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(
+          url + "PhatHopDong/GetNextSoQuyTrinh",
+          httpOptions
+        );
+      },
       GetList: (data) => {
-        data.IdDuAn = parseInt(this.store.getCurrent());
+        data.IdDuAn = 53
         return this.http.post(
           url + "PhatHopDong/GetListQuyTrinh",
           data,
@@ -213,7 +219,7 @@ export class HopDongService {
         return this.http.get(url + `PhatHopDong/GetById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.idDuAn = parseInt(this.store.getCurrent());
+        data.idDuAn = 53
         return this.http.post(
           url + "PhatHopDong/SetQuyTrinh",
           data,
@@ -249,33 +255,33 @@ export class HopDongService {
     let url = API.HopDong;
     return {
       GetList: (data) => {
-        data.idDuAn = parseInt(this.store.getCurrent());
+        data.idDuAn = 53
         return this.http.post(
-          url + "HopDong/GetListQuyTrinhThanhToan",
+          url + "ThanhToan/GetListQuyTrinh",
           data,
           httpOptions
         );
       },
       Get: (Id) => {
         return this.http.get(
-          url + `HopDong/GetQuyTrinhThanhToan?Id=${Id}`,
+          url + `ThanhToan/GetById?Id=${Id}`,
           httpOptions
         );
       },
       Set: (data) => {
-        data.idDuAn = parseInt(this.store.getCurrent());
+        data.idDuAn = 53
         return this.http.post(
-          url + "HopDong/SetQuyTrinhThanhToan",
+          url + "ThanhToan/SetQuyTrinh",
           data,
           httpOptions
         );
       },
-      Delete: (data) => {
-        return this.http.post(
-          url + "HopDong/DeleteQuyTrinhThanhToan",
-          data,
+      Delete: (Id) => {
+        return this.http.get(
+          url + `ThanhToan/DeleteQuyTrinh?Id=${Id}`,
           httpOptions
         );
+
       },
       KhongDuyet: (data) => {
         return this.http.post(

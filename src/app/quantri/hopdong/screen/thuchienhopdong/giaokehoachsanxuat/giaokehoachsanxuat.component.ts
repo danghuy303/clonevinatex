@@ -1,4 +1,5 @@
-import { ChitiethopdongbongxoComponent } from "./../modal/share/chitiethopdongbongxo/chitiethopdongbongxo.component";
+import { GiaokehoachsanxuatmodalComponent } from './giaokehoachsanxuatmodal/giaokehoachsanxuatmodal.component';
+
 import { number } from "@amcharts/amcharts4/core";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 
@@ -12,25 +13,29 @@ import {
   mapArrayForDropDown,
   UnixToDate,
 } from "src/app/services/globalfunction";
-import { ChitiethopdongbongxomodalComponent } from "./chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
+
 
 @Component({
-  selector: "app-danhsachhopdongbongxo",
-  templateUrl: "./danhsachhopdongbongxo.component.html",
-  styleUrls: ["./danhsachhopdongbongxo.component.css"],
+  selector: 'app-giaokehoachsanxuat',
+  templateUrl: './giaokehoachsanxuat.component.html',
+  styleUrls: ['./giaokehoachsanxuat.component.css']
 })
-export class DanhsachhopdongbongxoComponent implements OnInit {
+
+// chua co api nen tam thoi lay tam api phat hop dong 
+export class GiaokehoachsanxuatComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   items: any = [];
   filter: any = {};
-  eAction: any = "QUYTRINHHOPDONG";
   tuNgay: number = 0;
   denNgay: number = 0;
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
+  type: any = "";
+  eAction: any = "PHATHOPDONG";
+  nametype: any = "";
   //    this.paging.TotalItem = res.data.totalCount;
   paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
-  hopDong: any = {};
+
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listQuyCachDongGoi: any = [];
 
@@ -47,48 +52,42 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
-        console.log(res.id);
         this._service
-          .QuyTrinhHopDong()
+          .PhatHopDong()
           .Get(res.id)
           .subscribe((res: any) => {
-            this.update(res.data.hopDong);
+            this.update(res);
           });
       }
     });
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
   }
-  changeParam(id) {
+  changeParam(Id) {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll();
     }
-    this.router.navigate(
-      [`quantri/hopdongsanxuat/danhsachhopdongbongxo/${id}`],
-      { replaceUrl: true }
-    );
+    this.router.navigate([`quantri/hopdongsanxuat/giaokehoachsanxuat/${Id}`], {
+      replaceUrl: true,
+    });
   }
   add() {
-    let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
+    let modalRef = this._modal.open(GiaokehoachsanxuatmodalComponent, {
       size: "fullscreen",
       backdrop: "static",
+      keyboard: false,
     });
+
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.item = {
-      listNhanSu: [],
-      listDieuKhoanThanhToan: [],
-
-      listVatTu: [],
-      listBaoLanh: [],
-
-      listTaiLieu: [],
-
-      lstFileUploadCu: [],
-    };
-    modalRef.componentInstance.item.hopDong = {
       Id: "",
     };
-
+    modalRef.componentInstance.checkbutton = {
+      Ghi: true,
+      Xoa: true,
+      KhongDuyet: true,
+      ChuyenTiep: true,
+    };
     modalRef.result
       .then((res: any) => {
         console.log(res);
@@ -97,65 +96,32 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
         this.changeParam(0);
       })
       .catch((er) => {
-        this.GetListQuyTrinh();
         this.changeParam(0);
+        this.GetListQuyTrinh();
       });
   }
 
-  edit(item) {
-    this._service
-      .QuyTrinhHopDong()
-      .Get(item.id)
-      .subscribe((res: any) => {
-        let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
-          size: "fullscreen",
-          backdrop: "static",
-        });
-        modalRef.componentInstance.opt = "edit";
-        modalRef.componentInstance.item = JSON.parse(JSON.stringify(res));
-
-        modalRef.result
-          .then((res: any) => {
-            this._toastr.success("Cập nhật thành công");
-            this.GetListQuyTrinh(item.id);
-          })
-          .catch((er) => {
-            console.log(er);
-          });
-      });
-  }
 
   update(item) {
-    this._service
-      .QuyTrinhHopDong()
-      .Get(item.id)
-      .subscribe((res1: any) => {
-        console.log(JSON.parse(JSON.stringify(res1.data.hopDong.created)));
-        let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
-          size: "fullscreen",
-          backdrop: "static",
-        });
-        modalRef.componentInstance.opt = "edit";
-        modalRef.componentInstance.item.hopDong = JSON.parse(
-          JSON.stringify(res1.data.hopDong)
-        );
-        //       modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
-        // modalRef.componentInstance.item.DenNgay = UnixToDate(
-        //   item.DenNgayUnix
-        // );
-
-        modalRef.result
-          .then((res: any) => {
-            this.GetListQuyTrinh();
-            this.changeParam(0);
-          })
-          .catch((er) => {
-            console.log(er);
-            this.GetListQuyTrinh();
-            this.changeParam(0);
-          });
+    let modalRef = this._modal.open(GiaokehoachsanxuatmodalComponent, {
+      size: "fullscreen-100",
+      backdrop: "static",
+      keyboard: false,
+    });
+    modalRef.componentInstance.opt = "edit";
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.result
+      .then((res: any) => {
+        // this._toastr.success('Cập nhật thành công');
+        this.GetListQuyTrinh();
+        this.changeParam(0);
+      })
+      .catch((er) => {
+        this.changeParam(0);
+        this.GetListQuyTrinh();
       });
   }
+
   changeTab(e) {
     this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
@@ -178,11 +144,11 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       denNgay: DateToUnix(this.filter.DenNgay),
     };
     this._service
-      .QuyTrinhHopDong()
+      .PhatHopDong()
       .GetList(data)
       .subscribe((res: any) => {
-        this.items = res.data?.items;
-        this.paging.TotalItem = res.data?.totalCount;
+        this.items = res.data.items;
+        this.paging.TotalItem = res.data.totalCount;
       });
   }
 
@@ -191,7 +157,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+    this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })

@@ -17,7 +17,7 @@ export class ModaldanhmucloaitienteComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    console.log(this.type);
+  
   }
 
   SetData() {
