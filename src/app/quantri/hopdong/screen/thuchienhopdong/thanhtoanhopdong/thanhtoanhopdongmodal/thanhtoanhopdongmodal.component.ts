@@ -1,8 +1,9 @@
+import { DanhMucHopDongService } from './../../../../../../services/Hopdong/danhmuchopdong.service';
 
 import { SanXuatService } from "./../../../../../../services/callApiSanXuat";
 import { vn } from "./../../../../../../services/const";
 import { ModalthongbaoComponent } from "./../../../../../modal/modalthongbao/modalthongbao.component";
-import { mapArrayForDropDown, UnixToDate, validVariable } from "src/app/services/globalfunction";
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from "src/app/services/globalfunction";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 import { ToastrService } from "ngx-toastr";
 import { Component, OnInit } from "@angular/core";
@@ -33,7 +34,8 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
     public _toastr: ToastrService,
     public _modal: NgbModal,
     private _services: HopDongService,
-    private _servicesDungChung: SanXuatService
+    private _servicesDungChung: SanXuatService,
+     private _servicesdmHopDong : DanhMucHopDongService
   ) {}
 
   ngOnInit(): void {
@@ -68,10 +70,10 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
       this._toastr.error("Vui lòng nhập nội dung");
       return false;
     }
-    // if (!validVariable(this.data.idHopDong)) {
-    //   this._toastr.error('Vui lòng chọn hợp đồng')
-    //   return false
-    // }
+    if (!validVariable(this.item.idHopDong)) {
+      this._toastr.error('Vui lòng chọn hợp đồng')
+      return false
+    }
 
     return true;
   }
@@ -88,13 +90,18 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
 
 
   GetNextSoQuyTrinh() {
-    this._services.QuyTrinhHopDong().GetNextSoQuyTrinh().subscribe((res: any) => {
-      this.item.data = res.data;
-    })
+    this._services
+    .PhatHopDong()
+    .GetNextSoQuyTrinh()
+    .subscribe((res: any) => {
+      console.log(res);
+      this.item.soQuyTrinh = res.data;
+    });
   }
 
   GhiLai() {
     if (this.ValidData()) {
+      this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
       this._services
         .QuyTrinhThanhToan()
         .Set(this.item)
@@ -174,7 +181,12 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
       .subscribe((res: any) => {
         this.listHopDong = mapArrayForDropDown(res, "soHopDong", "id");
       });
-
+      this._servicesdmHopDong
+      .DanhMucThuTucThanhToan()
+      .GetListAll()
+      .subscribe((res: any) => {
+        this.listHinhThucThanhToan = mapArrayForDropDown(res, "ten", "id");
+      });
   }
 
   getListHopDong() {

@@ -604,7 +604,7 @@ export class QuantriComponent implements OnInit {
         visible: !this.checkmenu("P_KHOHOIAM"),
         items: [
           {
-            label: "Danh sách hợp đồng",
+            label: "Nhập kho",
             routerLink: "/quantri/quanlysanxuatkhohoiam/khohoiam/nhapkho/0",
             separator: this.checkmenu("NHAPHOIAM"),
             command: () => this.close(),

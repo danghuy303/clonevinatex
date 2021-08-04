@@ -26,6 +26,7 @@ export class DmthongkedienmodalComponent implements OnInit {
     nametype: any = "";
     lstKhungGio: any = [];
     khongclicknhieu: any = false;
+    idCaSanXuat: any = '';
     @ViewChildren('input') listInput;
     cols: any = [
         {
@@ -53,7 +54,7 @@ export class DmthongkedienmodalComponent implements OnInit {
             align: "right",
         },
     ];
-
+    listdmCaSanXuat: any = []
     constructor(
         public activeModal: NgbActiveModal,
         public toastr: ToastrService,
@@ -66,6 +67,7 @@ export class DmthongkedienmodalComponent implements OnInit {
             this.item.Ten
         }`;
         if (this.item.lstMayBienAp.length > 0) {
+
             this.lstKhungGio = this.item.lstMayBienAp[0].lstKhungGio;
             this.lstKhungGio.forEach((element) => {
                 let liststring: any = [];
@@ -73,6 +75,11 @@ export class DmthongkedienmodalComponent implements OnInit {
                 element.HeaderPanel = `Thống kê cho khung giờ ${liststring[0]} đến ${liststring[1]}`;
             });
         }
+        this._services
+          .GetListOptdmCaSanXuat()
+          .subscribe((res: any) => {
+              this.listdmCaSanXuat = mapArrayForDropDown(res, "Ten", "Id");
+          });
     }
 
     changeTab(e) {
@@ -157,5 +164,26 @@ export class DmthongkedienmodalComponent implements OnInit {
           }else{
             this.listInput.toArray()[0].el.nativeElement.children[0].children[0].focus();
           }
+    }
+    GetQuyTrinh(IddmCaSanXuat) {
+        if (this.item.lstMayBienAp.length > 0) {
+            this.lstKhungGio = [];
+            this.item.lstMayBienAp[0].lstKhungGio.forEach((element) => {
+                if( IddmCaSanXuat !== null && IddmCaSanXuat !== ''){
+                    if(element.idCaSanXuat === IddmCaSanXuat){
+                        let liststring: any = [];
+                        liststring = element.Ten.split(" ÷ ");
+                        element.HeaderPanel = `Thống kê cho khung giờ ${liststring[0]} đến ${liststring[1]}`;
+                        this.lstKhungGio.push(element);
+                    }
+                }
+                else{
+                    let liststring: any = [];
+                    liststring = element.Ten.split(" ÷ ");
+                    element.HeaderPanel = `Thống kê cho khung giờ ${liststring[0]} đến ${liststring[1]}`;
+                    this.lstKhungGio.push(element);
+                }
+            });
+        }
     }
 }
