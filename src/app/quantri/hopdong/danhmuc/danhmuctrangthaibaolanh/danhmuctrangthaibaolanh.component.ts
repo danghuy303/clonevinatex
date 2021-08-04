@@ -27,12 +27,14 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
     {
       header: 'Tên trạng thái bảo lãnh',
       field: 'ten',
-      width: '300px'
+      width: '300px',
+      align:'center'
     },
     {
       header: 'Ghi chú',
       field: 'ghiChu',
-      width: '200px'
+      width: '200px',
+      align:'center'
     }
   ];
   selectedItems:any=[];
