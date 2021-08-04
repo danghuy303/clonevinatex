@@ -35,7 +35,7 @@
                 </app-chitiethopdongbongxo>
             </p-tabPanel>
             <p-tabPanel header="Danh sách hàng hóa">
-                <app-chitietdanhsachhanghoa [(hangHoa)]="item.hangHoa">
+                <app-chitietdanhsachhanghoa [isBongXo]='isBongXo' [(hangHoa)]="item.hangHoa">
                 </app-chitietdanhsachhanghoa>
             </p-tabPanel>
             <p-tabPanel header="Điều khoản thanh toán">
