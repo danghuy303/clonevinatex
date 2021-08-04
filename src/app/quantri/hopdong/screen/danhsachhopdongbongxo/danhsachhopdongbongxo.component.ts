@@ -25,6 +25,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   filter: any = {};
   eAction: any = "QUYTRINHHOPDONG";
   tuNgay: number = 0;
+  title:string
   denNgay: number = 0;
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
@@ -69,11 +70,13 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     );
   }
   add() {
+    this.title = 'fsdfsdfs'
     let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "add";
+    
     modalRef.componentInstance.item = {
       listNhanSu: [],
       listDieuKhoanThanhToan: [],
@@ -128,7 +131,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   update(item) {
     this._service
       .QuyTrinhHopDong()
-      .Get(item.id)
+      .Get(item.hopDong.id)
       .subscribe((res1: any) => {
         console.log(JSON.parse(JSON.stringify(res1.data.hopDong.created)));
         let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {

@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Phiếu danh sách hợp đồng bông/xơ</h5>
+    <h5 class="modal-title">{{title}}</h5>
     <div class="d-flex flex-column flex-lg-row">
         <div>
             <span style="font-weight: bold;">Số quy trình:</span> {{item.hopDong.soQuyTrinh}}
@@ -35,21 +35,21 @@
                 </app-chitiethopdongbongxo>
             </p-tabPanel>
             <p-tabPanel header="Danh sách hàng hóa">
-                <app-chitietdanhsachhanghoa>
+                <app-chitietdanhsachhanghoa [(hangHoa)]="item.hangHoa">
                 </app-chitietdanhsachhanghoa>
             </p-tabPanel>
             <p-tabPanel header="Điều khoản thanh toán">
-                <app-chitietdieukhoanthanhtoan></app-chitietdieukhoanthanhtoan>
+                <app-chitietdieukhoanthanhtoan [(thanhToan)]="item.thanhToan"></app-chitietdieukhoanthanhtoan>
             </p-tabPanel>
             <p-tabPanel header="Nhân sự thực hiện">
-                <app-chitietnhansuthuchien></app-chitietnhansuthuchien>
+                <app-chitietnhansuthuchien [(nhanSu)]="item.nhanSu"></app-chitietnhansuthuchien>
             </p-tabPanel>
             <p-tabPanel header="Bảo lãnh">
-                <app-chitietbaolanh></app-chitietbaolanh>
+                <app-chitietbaolanh [(baoLanh)]="item.baoLanh"></app-chitietbaolanh>
             </p-tabPanel>
-            <p-tabPanel header="Thanh toán"> Content 3 </p-tabPanel>
+            <!-- <p-tabPanel header="Thanh toán"> Content 3 </p-tabPanel> -->
             <p-tabPanel header="Phạt hợp đồng">
-                <app-chitietphathopdong></app-chitietphathopdong>
+                <app-chitietphathopdong [(phatHopDong)]="item.phatHopDong"></app-chitietphathopdong>
             </p-tabPanel>
         </p-tabView>
         <div class="modal-footer">

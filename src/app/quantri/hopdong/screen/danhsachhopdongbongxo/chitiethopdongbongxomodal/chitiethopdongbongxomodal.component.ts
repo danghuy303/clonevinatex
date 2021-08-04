@@ -5,7 +5,7 @@ import { FileUploader } from "ng2-file-upload";
 import { ChonquycachdonggoimodalComponent } from "../../../../quanlykhosanxuat/modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component";
 import { ChonhanghoamodalComponent } from "../../../../quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component";
 
-import { Component, DoCheck, OnInit } from "@angular/core";
+import { Component, DoCheck, Input, OnInit } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { CalcmodalComponent } from "src/app/quantri/modal/calcmodal/calcmodal.component";
@@ -32,10 +32,12 @@ import { StoreService } from "src/app/services/store.service";
 })
 export class ChitiethopdongbongxomodalComponent implements OnInit {
   opt: any = "add";
+title:string
   item: any = {};
   hopDong: any = {};
   userInfo: any;
   lang: any = vn;
+
   filter: any = {
     keyWord: "",
   };
@@ -72,7 +74,10 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
     // this.GetFormOptions();
     this.GetNextSoQuyTrinh();
     if (this.opt !== "edit") {
+this.title = 'Thêm phiếu hợp đồng bông/xơ'
       this.KiemTraButtonModal();
+    }else {
+      this.title = "Phiếu hợp đồng bông/xơ"
     }
   }
 
