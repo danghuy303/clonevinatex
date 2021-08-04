@@ -1,20 +1,6 @@
 import { ModallaphopdongsoiComponent } from './modallaphopdongsoi/modallaphopdongsoi.component';
 import { ModallaphopdongbongxoComponent } from './../laphopdongbongxo/modallaphopdongbongxo/modallaphopdongbongxo.component';
-// import { Component, OnInit } from '@angular/core';
 
-// @Component({
-//   selector: 'app-laphopdongsoi',
-//   templateUrl: './laphopdongsoi.component.html',
-//   styleUrls: ['./laphopdongsoi.component.css']
-// })
-// export class LaphopdongsoiComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
 
 import { ChitiethopdongbongxomodalComponent } from './../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
 
@@ -95,8 +81,10 @@ export class LaphopdongsoiComponent implements OnInit {
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.item = {
       Id: "",
-      listItem: [],
+     
     };
+   
+    
     modalRef.result
       .then((res: any) => {
         console.log(res);

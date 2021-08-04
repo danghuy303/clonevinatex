@@ -42,6 +42,7 @@ export class ModallaphopdongsoiComponent implements OnInit {
   item: any = {};
   userInfo: any;
   lang: any = vn;
+  isSoi : boolean = true
   filter: any = {
     keyWord: "",
   };

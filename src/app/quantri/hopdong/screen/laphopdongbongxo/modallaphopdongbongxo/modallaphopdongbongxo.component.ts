@@ -45,17 +45,13 @@ import { StoreService } from "src/app/services/store.service";
   templateUrl: './modallaphopdongbongxo.component.html',
   styleUrls: ['./modallaphopdongbongxo.component.css']
 })
-// export class ChitiethopdongbongxomodalComponent implements OnInit{
-//   constructor(public activeModal:NgbActiveModal){}
-//   ngOnInit() {
-//     // this.updateInjectorAndContext();
-//   }
-// }
+
 export class ModallaphopdongbongxoComponent implements OnInit {
   opt: any = "add";
   item: any = {};
   userInfo: any;
   lang: any = vn;
+  isBongXo: boolean = true
   filter: any = {
     keyWord: "",
   };
@@ -99,7 +95,7 @@ export class ModallaphopdongbongxoComponent implements OnInit {
     // }
   }
 
-  HoanThanh() {
+  GhiLai() {
     this._service
       .QuyTrinhHopDong()
       .Set(this.item)

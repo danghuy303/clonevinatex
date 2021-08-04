@@ -37,7 +37,7 @@ title:string
   hopDong: any = {};
   userInfo: any;
   lang: any = vn;
-
+  isBongXo:boolean = true
   filter: any = {
     keyWord: "",
   };
