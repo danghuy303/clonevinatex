@@ -905,26 +905,26 @@ export class QuantriComponent implements OnInit {
         visible:true,
         items: [
           {
-            label: "Danh mục hình thức thanh toán",
+            label: "Hình Thức Thanh Toán",
             routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmuchinhthucthanhtoan",
             command: () => this.close(),
           },
           {
-            label: "Danh mục loại hợp đồng",
+            label: "Loại Hợp Đồng",
             routerLink:
               "/quantri/hopdongsanxuat/danhmuc/danhmucloaihopdong",
 
             command: () => this.close(),
           },
           {
-            label: "Danh mục loại tiền tệ",
+            label: "Loại Tiền Tệ",
             routerLink:
               "/quantri/hopdongsanxuat/danhmuc/danhmucloaitiente",
 
             command: () => this.close(),
           },
           {
-            label: "Danh mục thủ tục thanh toán",
+            label: "Thủ Tục Thanh Toán",
             
             routerLink:
               "/quantri/hopdongsanxuat/danhmuc/danhmucthutucthanhtoan",
@@ -932,7 +932,7 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
-            label: "Danh mục trạng thái bảo lãnh",
+            label: "Trạng Thái Bảo Lãnh",
             routerLink:
               "/quantri/hopdongsanxuat/danhmuc/danhmuctrangthaibaolanh",
 
