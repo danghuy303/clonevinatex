@@ -245,11 +245,8 @@ import { GiaokehoachsanxuatmodalComponent } from './screen/thuchienhopdong/giaok
     ChitietdieukhoanthanhtoanComponent,
     ChitietnhansuthuchienComponent,
     ChitietphathopdongComponent,
-    ChitietthanhtoanComponent
-
-
-
-
+    ChitietthanhtoanComponent,
+    ChitiethopdongbongxomodalComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

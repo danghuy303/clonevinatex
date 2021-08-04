@@ -833,7 +833,7 @@ export class QuantriComponent implements OnInit {
         label: "Thông tin hợp đồng",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
-        visible:false,
+        visible:true,
         items: [
           {
             label: "Danh sách hợp đồng bông/xơ",
@@ -850,62 +850,20 @@ export class QuantriComponent implements OnInit {
           {
             label: "Lập hợp đồng sợi",
             routerLink:
-            
+
               "/quantri/hopdongsanxuat/laphopdongsoi/0",
 
             command: () => this.close(),
           },
         ],
       },
-      /////////////      Danh Mục Hợp Đồng
-      {
-        label: "Danh mục hợp đồng",
-        icon: "fas fa-circle",
-        routerLink: "/quantri/hopdongsanxuat",
-        visible:false,
-        items: [
-          {
-            label: "Danh mục hình thức thanh toán",
-            routerLink: "/quantri/hopdongsanxuat/danhmuchinhthucthanhtoan",
-            command: () => this.close(),
-          },
-          {
-            label: "Danh mục loại hợp đồng",
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmucloaihopdong",
-
-            command: () => this.close(),
-          },
-          {
-            label: "Danh mục loại tiền tệ",
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmucloaitiente",
-
-            command: () => this.close(),
-          },
-          {
-            label: "Danh mục thủ tục thanh toán",
-            
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmucthutucthanhtoan",
-
-            command: () => this.close(),
-          },
-          {
-            label: "Danh mục trạng thái bảo lãnh",
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmuctrangthaibaolanh",
-
-            command: () => this.close(),
-          },
-        ],
-      },
+      
 
       {
         label: "Thực hiện hợp đồng",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
-        visible:false,
+        visible: true,
         items: [
           {
             label: "Giao nhận hàng hoá",
@@ -939,7 +897,49 @@ export class QuantriComponent implements OnInit {
           },
         ],
       },
+      /////////////      Danh Mục Hợp Đồng
+      {
+        label: "Danh mục hợp đồng",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/hopdongsanxuat/danhmuc",
+        visible:true,
+        items: [
+          {
+            label: "Hình Thức Thanh Toán",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmuchinhthucthanhtoan",
+            command: () => this.close(),
+          },
+          {
+            label: "Loại Hợp Đồng",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/danhmucloaihopdong",
 
+            command: () => this.close(),
+          },
+          {
+            label: "Loại Tiền Tệ",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/danhmucloaitiente",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Thủ Tục Thanh Toán",
+            
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/danhmucthutucthanhtoan",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Trạng Thái Bảo Lãnh",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/danhmuctrangthaibaolanh",
+
+            command: () => this.close(),
+          },
+        ],
+      },
       {
         label: "Danh mục dùng chung",
         routerLink: "/quantri/danhmuc",
