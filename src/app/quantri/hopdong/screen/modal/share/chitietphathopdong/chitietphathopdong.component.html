@@ -1,26 +1,16 @@
-
 <div class="p-mt-3">
-    <p-table  styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
-        <ng-template pTemplate="colgroup">
-            <colgroup>
-                <col style="width:50px">
-                <col style="width: 100px;">
-                <col style="width: 100px;">
-                <col style="width: 100px;">
-                <col style="width: 100px;">
+    <p-table styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
 
-            </colgroup>
-        </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">STT</th>
-               
+
                 <th>Ngày </th>
                 <th>Giá trị </th>
                 <th>Số CV/BB</th>
                 <th>Ngày phát hành</th>
-               
-                
+
+
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -40,7 +30,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi 
+            <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi
             </div>
         </ng-template>
     </p-table>
