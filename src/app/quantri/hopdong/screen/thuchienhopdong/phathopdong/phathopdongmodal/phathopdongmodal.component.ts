@@ -57,7 +57,7 @@ export class PhathopdongmodalComponent implements OnInit {
 
   // validate form
   ValidData() {
-    if (!validVariable(this.data.lyDoKhongDuyet)) {
+    if (!validVariable(this.item.lyDoKhongDuyet)) {
       this._toastr.error("Vui lòng chọn lý do");
       return false;
     }
