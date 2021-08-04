@@ -1,14 +1,15 @@
-<div *ngIf="isBongXo" class="p-d-flex p-flex-row p-ai-center p-pb-3">
+<div style="margin-bottom: -30px;" *ngIf="isBongXo" class="p-d-flex p-flex-row p-ai-center ">
 
 
 
-    <div class="p-col-12 p-lg-5 padding0 d-flex flex-column flex-xl-row p-mr-4">
-        <p-checkbox class="p-mr-3 p-lg-1" name="groupname" value="val1"></p-checkbox>
-        <label class="p-col-12  p-pl-3 p-xl-3 p-lg-4 p-p-0 my-auto">Đã tình thuế </label>
-        <div class="p-col-12 p-lg-8  p-p-0">
+    <div class="p-col-12 p-lg-5 padding0 d-flex flex-column flex-xl-row">
+        <!-- <p-checkbox class="p-mr-3 p-xl-1 p-lg-1" name="groupname" value="val1"></p-checkbox> -->
 
-
+        <label class=" p-pl-3 p-xl-4 p-lg-6 p-p-0 my-auto">Đã tình thuế </label>
+        <div class="p-lg-8  p-p-0">
             <div class="p-inputgroup p-d-flex">
+
+
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
                 </p-inputNumber>
                 <span class="p-inputgroup-addon">%</span>
@@ -36,7 +37,7 @@
 
 
 
-<div *ngIf="isSoi" class="p-d-flex p-flex-row p-ai-center p-pb-3">
+<div style="margin-bottom: -30px;" *ngIf="isSoi" class="p-d-flex p-flex-row p-ai-center ">
 
 
 

@@ -74,7 +74,7 @@
             </div>
 
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3  padding0 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-4 p-mb-3  padding0 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-lg-5 p-p-0 my-auto">HĐ gốc: </label>
             <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
                 <div class="p-inputgroup">
@@ -83,18 +83,20 @@
                 </div>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3  padding0 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-3 p-lg-5 p-p-0 my-auto">Chọn loại bông xơ: </label>
-            <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
+        <div class="p-col-12 p-lg-4 p-mb-3  padding0 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-5 p-lg-7 p-p-0 my-auto">Chọn loại bông xơ: </label>
+            <div class="p-col-12 p-xl-7 p-lg-12 p-p-0">
                 <p-dropdown [options]="cities" [(ngModel)]="selectedCityCode" optionLabel="name" optionValue="code"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3  padding0 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-4 p-mb-3  padding0 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-lg-5 p-p-0 my-auto">Chiết khấu: </label>
-            <div class="p-inputgroup">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
-                </p-inputNumber>
-                <span class="p-inputgroup-addon">%</span>
+            <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
+                <div class="p-inputgroup p-d-flex">
+                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
+                    </p-inputNumber>
+                    <span class="p-inputgroup-addon">%</span>
+                </div>
             </div>
         </div>
 
@@ -110,21 +112,44 @@
 </p-panel>
 <p-panel header="Thông tin nhà cung cấp" [style]="{ 'margin-bottom': '2em'}" [toggleable]="true">
     <div class="p-grid">
-        <div class="p-col-12 p-lg-8 p-mb-3  padding0 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-xl-6 p-lg-6 p-mb-3  padding0 d-flex flex-column flex-xl-row">
+
+            <label class="p-col-12 p-lg-4 p-xl-3 p-p-0 my-auto">Tên công ty:</label>
+            <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
+                <p-dropdown [filter]="true" placeholder="Chọn công ty" styleClass="p-inputtext-sm"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-xl-6 p-lg-6 p-mb-3  padding0 d-flex flex-column flex-xl-row">
+
+            <label class="p-col-12 p-xl-3 p-lg-3 p-p-0 my-auto">Điện thoại:</label>
+            <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
+                </p-inputNumber>
+            </div>
+        </div>
+
+
+        <!-- <div class="p-col-12 p-lg-7 p-mb-3   d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Tên công ty:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
                 <p-dropdown [filter]="true" placeholder="Chọn tên công ty" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-mb-3  padding0 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Điện thoại:</label>
+        <div class="p-col-12 p-lg-5 p-mb-3   d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-3 p-lg-4 p-p-0 my-auto">Điện thoại:</label>
+            <div class="p-col-12 p-xl-9 p-p-0">
+                <input type="text" readonly class="p-inputtext-sm" pInputText />
+            </div>
+        </div> -->
+        <!-- <div class="p-col-12 p-lg-4 p-mb-3  padding0 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-3 p-lg-5 p-p-0 my-auto">Điện thoại:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
                 <input type="text" readonly [(ngModel)]="item.ten" class="p-inputtext-sm" pInputText />
             </div>
-        </div>
+        </div> -->
         <div class="p-col-12 p-mb-3  padding0 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Địa chỉ:</label>
-            <div class="p-col-12 p-xl-10 p-p-0">
+            <label class="p-col-12 p-xl-1 p-p-0 my-auto">Địa chỉ:</label>
+            <div class="p-col-12 p-xl-11 p-p-0">
                 <input type="text" readonly class="p-inputtext-sm" pInputText />
             </div>
         </div>
@@ -141,21 +166,21 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-mb-3  padding0 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Mã số thuế:</label>
+            <label class="p-col-12 p-xl-4 p-lg-5 p-p-0 my-auto">Mã số thuế:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
                 <input type="text" readonly class="p-inputtext-sm" pInputText />
             </div>
         </div>
 
         <div class="p-col-12 p-lg-4 p-mb-3  padding0 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Người đại diện:</label>
+            <label class="p-col-12 p-xl-5 p-lg-5 p-p-0 my-auto">Người đại diện:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" readonly class="p-inputtext-sm" pInputText />
             </div>
         </div>
 
         <div class="p-col-12 p-lg-4 p-mb-3  padding0 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Chức vụ:</label>
+            <label class="p-col-12 p-xl-3 p-lg-4 p-p-0 my-auto">Chức vụ:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
                 <input type="text" readonly class="p-inputtext-sm" pInputText />
             </div>
