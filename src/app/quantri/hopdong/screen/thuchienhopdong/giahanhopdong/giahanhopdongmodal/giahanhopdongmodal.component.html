@@ -33,8 +33,8 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Lý do gia hạn <span class="required"></span></label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+            <label class="p-col-12 p-lg-3  p-xl-2  p-p-0 my-auto">Lý do gia hạn <span class="required"></span></label>
+            <div class="p-col-12 p-xl-10 p-lg-9  p-p-0">
                 <input type="text" [(ngModel)]="item.lyDo" class="p-inputtext-sm" pInputText />
             </div>
         </div>
@@ -44,27 +44,27 @@
                 <p-dropdown [filter]="true" [(ngModel)]="item.idHopDong" [options]="listHopDong" placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-8 p-xl-6 p-p-3 d-flex flex-column flex-lg-row">
 
             <label class="p-col-12 p-lg-2 p-p-0 my-auto p-mr-3">Số CV/BB</label>
             <div class="p-col-12 p-lg-4 p-p-0">
                 <input type="text" [(ngModel)]="item.soCongVan" class="p-inputtext-sm" pInputText />
             </div>
-            <label class="p-col-12 p-lg-3 p-p-0 my-auto">Ngày phát hành CV/BB</label>
-            <div class="p-col-12 p-lg-3 p-p-0">
+            <label class="p-col-12 p-lg-4 p-xl-3 p-p-0 my-auto">Ngày phát hành CV/BB</label>
+            <div class="p-col-12 p-lg-2 p-xl-3 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ngayPhatHanh" inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
 
 
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ngày gia hạn</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <div class="p-col-12 p-lg-10 p-p-0">
-                    <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ngayGiaHan" inputId="icon" placeholder="dd/mm/yyyy">
-                    </p-calendar>
-                </div>
+        <div class="p-col-12 p-lg-4 p-xl-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-5 p-xl-2 p-p-0 my-auto">Ngày gia hạn</label>
+            <div class="p-col-12 p-xl-10 p-lg-7 p-p-0">
+
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ngayGiaHan" inputId="icon" placeholder="dd/mm/yyyy">
+                </p-calendar>
+
             </div>
         </div>
         <div class="p-col-12 p-p-3 d-flex flex-column flex-lg-row">

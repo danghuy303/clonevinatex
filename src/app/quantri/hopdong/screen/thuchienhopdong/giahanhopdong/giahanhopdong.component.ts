@@ -28,6 +28,7 @@ export class GiahanhopdongComponent implements OnInit {
   yearRange: string = `${
     new Date().getFullYear() - 50
   }:${new Date().getFullYear()}`;
+  eAction: any = "GIAHANHOPDONG";
   tuNgay: number = 0;
   denNgay: number = 0;
   listLoaiPhuongAn: any = [];
@@ -42,7 +43,7 @@ export class GiahanhopdongComponent implements OnInit {
     public _modal: NgbModal,
     public _toastr: ToastrService,
     private _service: HopDongService,
-    private _serviceSanXuat: SanXuatService,
+    private _serviceDungChung: SanXuatService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -147,7 +148,7 @@ export class GiahanhopdongComponent implements OnInit {
       .GiaHanHopDong()
       .GetList(data)
       .subscribe((res: any) => {
-        // this.items = res.data.items;
+        this.items = res.items;
         this.paging.TotalItem = res.data.totalCount;
       });
   }
@@ -165,9 +166,9 @@ export class GiahanhopdongComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }

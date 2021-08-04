@@ -119,12 +119,12 @@ export class DanhmucloaihopdongComponent implements OnInit {
     modalRef.result.then(res=>{  
       this._danhMucHopDong.DanhMucLoaiHopDong().DeleteList(listId).subscribe((res: any) => {
         if (res) {
-          if (res.statusCode === 200) {
+          if (res.state === 1) {
             this._toastr.success(res.message);
             this.GetListdmLoaiHopDong();
             this.selectedItems = [];
           } else {
-            this._toastr.error(res.message);
+           this._toastr.error(res.message);
           }
         }
       })

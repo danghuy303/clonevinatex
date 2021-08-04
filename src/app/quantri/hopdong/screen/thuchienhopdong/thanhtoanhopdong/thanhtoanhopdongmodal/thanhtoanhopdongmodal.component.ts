@@ -1,9 +1,9 @@
-
+import { DanhMucHopDongService } from './../../../../../../services/Hopdong/danhmuchopdong.service';
 
 import { SanXuatService } from "./../../../../../../services/callApiSanXuat";
 import { vn } from "./../../../../../../services/const";
 import { ModalthongbaoComponent } from "./../../../../../modal/modalthongbao/modalthongbao.component";
-import { UnixToDate, validVariable } from "src/app/services/globalfunction";
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from "src/app/services/globalfunction";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 import { ToastrService } from "ngx-toastr";
 import { Component, OnInit } from "@angular/core";
@@ -34,14 +34,15 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
     public _toastr: ToastrService,
     public _modal: NgbModal,
     private _services: HopDongService,
-    private _servicesDungChung: SanXuatService
+    private _servicesDungChung: SanXuatService,
+     private _servicesdmHopDong : DanhMucHopDongService
   ) {}
 
   ngOnInit(): void {
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
     }
-   
+   this.GetFormOptions()
     this.checkbutton = {
       Ghi: false,
       Xoa: false,
@@ -69,10 +70,10 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
       this._toastr.error("Vui lòng nhập nội dung");
       return false;
     }
-    // if (!validVariable(this.data.idHopDong)) {
-    //   this._toastr.error('Vui lòng chọn hợp đồng')
-    //   return false
-    // }
+    if (!validVariable(this.item.idHopDong)) {
+      this._toastr.error('Vui lòng chọn hợp đồng')
+      return false
+    }
 
     return true;
   }
@@ -89,19 +90,25 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
 
 
   GetNextSoQuyTrinh() {
-    this._services.QuyTrinhHopDong().GetNextSoQuyTrinh().subscribe((res: any) => {
-      this.item.data = res.data;
-    })
+    this._services
+    .PhatHopDong()
+    .GetNextSoQuyTrinh()
+    .subscribe((res: any) => {
+      console.log(res);
+      this.item.soQuyTrinh = res.data;
+    });
   }
 
   GhiLai() {
     if (this.ValidData()) {
+      this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
       this._services
         .QuyTrinhThanhToan()
         .Set(this.item)
         .subscribe((res: any) => {
-          if (res) {
-            if (res.State === 1) {
+        
+            if (res?.State === 200) {
+              this.activeModal.close();
               this._toastr.success(res.message);
               this.opt = "edit";
               this.item = res.objectReturn;
@@ -110,7 +117,7 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
             } else {
               this._toastr.error(res.message);
             }
-          }
+         
         });
     }
 
@@ -165,6 +172,21 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
       }
     })
 
+  }
+
+  GetFormOptions() {
+    this._services
+      .QuyTrinhHopDong()
+      .GetListAll()
+      .subscribe((res: any) => {
+        this.listHopDong = mapArrayForDropDown(res, "soHopDong", "id");
+      });
+      this._servicesdmHopDong
+      .DanhMucThuTucThanhToan()
+      .GetListAll()
+      .subscribe((res: any) => {
+        this.listHinhThucThanhToan = mapArrayForDropDown(res, "ten", "id");
+      });
   }
 
   getListHopDong() {
