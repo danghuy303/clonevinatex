@@ -858,7 +858,47 @@ export class QuantriComponent implements OnInit {
         ],
       },
       /////////////      Danh Mục Hợp Đồng
+      
+
       {
+        label: "Thực hiện hợp đồng",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/hopdongsanxuat",
+        visible:true,
+        items: [
+          {
+            label: "Giao nhận hàng hoá",
+            routerLink: "/quantri/hopdongsanxuat/giaonhanhanghoa/0",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Thanh toán hợp đồng",
+            routerLink: "/quantri/hopdongsanxuat/thanhtoanhopdong/0",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Phạt hợp đồng",
+            routerLink: "/quantri/hopdongsanxuat/phathopdong/0",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Gia hạn hợp đồng",
+            routerLink: "/quantri/hopdongsanxuat/giahanhopdong/0",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Quyết toán hợp đồng",
+            routerLink: "/quantri/hopdongsanxuat/quyettoanhopdong/0",
+
+            command: () => this.close(),
+          },
+        ],
+      },
+{
         label: "Danh mục hợp đồng",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
@@ -900,46 +940,6 @@ export class QuantriComponent implements OnInit {
           },
         ],
       },
-
-      {
-        label: "Thực hiện hợp đồng",
-        icon: "fas fa-circle",
-        routerLink: "/quantri/hopdongsanxuat",
-        visible:true,
-        items: [
-          {
-            label: "Giao nhận hàng hoá",
-            routerLink: "/quantri/hopdongsanxuat/giaonhanhanghoa/0",
-
-            command: () => this.close(),
-          },
-          {
-            label: "Thanh toán hợp đồng",
-            routerLink: "/quantri/hopdongsanxuat/thanhtoanhopdong/0",
-
-            command: () => this.close(),
-          },
-          {
-            label: "Phạt hợp đồng",
-            routerLink: "/quantri/hopdongsanxuat/phathopdong/0",
-
-            command: () => this.close(),
-          },
-          {
-            label: "Gia hạn hợp đồng",
-            routerLink: "/quantri/hopdongsanxuat/giahanhopdong/0",
-
-            command: () => this.close(),
-          },
-          {
-            label: "Quyết toán hợp đồng",
-            routerLink: "/quantri/hopdongsanxuat/quyettoanhopdong/0",
-
-            command: () => this.close(),
-          },
-        ],
-      },
-
       {
         label: "Danh mục dùng chung",
         routerLink: "/quantri/danhmuc",
