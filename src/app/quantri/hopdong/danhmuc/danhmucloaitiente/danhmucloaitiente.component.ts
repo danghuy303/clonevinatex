@@ -72,7 +72,6 @@ export class DanhmucloaitienteComponent implements OnInit {
     modalRef.componentInstance.type = 'loaitiente';
     modalRef.componentInstance.title = 'Thêm mới loại tiền tệ';
     modalRef.result.then(res=>{
-      this._toastr.success(res);
       this.GetListdmLoaiTienTe()
     }).catch(er=>console.log(er))
   }
@@ -85,7 +84,6 @@ export class DanhmucloaitienteComponent implements OnInit {
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.type = 'loaitiente';
     modalRef.result.then(res=>{
-      this._toastr.success(res);
       this.GetListdmLoaiTienTe()
     }).catch(er=>console.log(er))
   }

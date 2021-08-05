@@ -16,6 +16,7 @@ import { DanhmucloaitienteComponent } from './danhmuc/danhmucloaitiente/danhmucl
 import { DanhmucthutucthanhtoanComponent } from './danhmuc/danhmucthutucthanhtoan/danhmucthutucthanhtoan.component';
 import { DanhmuctrangthaibaolanhComponent } from './danhmuc/danhmuctrangthaibaolanh/danhmuctrangthaibaolanh.component';
 
+import { TheodoihopdonhnhapkhauComponent } from './baocao/theodoihopdonhnhapkhau/theodoihopdonhnhapkhau.component';
 import { HopdongComponent } from './hopdong.component';
 
 const routes: Routes = [
@@ -25,6 +26,10 @@ const routes: Routes = [
   {path:'danhmuc/danhmucloaitiente',component:DanhmucloaitienteComponent},
   {path:'danhmuc/danhmuctrangthaibaolanh',component:DanhmuctrangthaibaolanhComponent},
   {path:'danhmuc/danhmucthutucthanhtoan',component:DanhmucthutucthanhtoanComponent},
+
+  {path:'theodoihopdongnhapkhau',component:TheodoihopdonhnhapkhauComponent},
+
+
   { path: 'dmloaihopdong', component: DmLoaiHopDongComponent },
   { path: 'danhsachhopdongbongxo/:id', component: DanhsachhopdongbongxoComponent },
   { path: 'giaonhanhanghoa/:id', component: GiaonhanhanghoaComponent },
