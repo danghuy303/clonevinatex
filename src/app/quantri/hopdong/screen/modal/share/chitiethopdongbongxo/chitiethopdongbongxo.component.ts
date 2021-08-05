@@ -102,7 +102,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
 
       this._servicesdmHopDong
-      .DanhMucThuTucThanhToan()
+      .DanhMucHinhThucThanhToan()
       .GetListAll()
       .subscribe((res: any) => {
         this.listHinhThucThanhToan = mapArrayForDropDown(res, "ten", "id");
