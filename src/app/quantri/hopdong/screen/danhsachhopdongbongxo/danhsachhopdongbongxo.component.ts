@@ -133,7 +133,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       .QuyTrinhHopDong()
       .Get(item.hopDong.id)
       .subscribe((res1: any) => {
-        console.log(JSON.parse(JSON.stringify(res1.data.hopDong.created)));
+        
         let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
           size: "fullscreen",
           backdrop: "static",
