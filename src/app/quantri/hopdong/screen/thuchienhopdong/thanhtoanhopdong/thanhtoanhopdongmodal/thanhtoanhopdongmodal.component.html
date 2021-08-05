@@ -1,7 +1,5 @@
 <div class="modal-header">
-    <h5 style="color: #1f2779" class="modal-title text-uppercase">
-        quy trình thanh toán
-    </h5>
+    <h5 style="color: #1f2779" class="modal-title">Quy trình thanh toán</h5>
     <!-- <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-lg-row">
           <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
           <div class="p-col-12 p-lg-8 p-p-0">
@@ -10,7 +8,9 @@
           </div>
       </div> -->
     <div class="d-flex flex-column flex-lg-row">
-        <div><span style="font-weight: bold">Số phiếu:</span> {{ item.soQuyTrinh }}</div>
+        <div>
+            <span style="font-weight: bold">Số phiếu:</span> {{ item.soQuyTrinh }}
+        </div>
         <div class="ml-lg-3 mr-lg-3">
             <span style="font-weight: bold">TG Tạo:</span> {{ item.created | date: "dd/MM/yyyy HH:mm" }}
         </div>
@@ -19,8 +19,8 @@
         </div>
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-    </button>
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
@@ -32,46 +32,61 @@
         </div>
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung <span class="required">*</span></label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <input type="text" [(ngModel)]="item.noiDung" class="p-inputtext-sm" pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-3 p-xl-2 p-p-0 my-auto">Số hợp đồng:</label>
+        <div class="p-col-12 p-lg-6 p-p-3 p-mb-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung <span class="required">*</span></label
+      >
+      <div class="p-col-12 p-lg-10 p-p-0">
+        <input
+          type="text"
+          [(ngModel)]="item.noiDung"
+          class="p-inputtext-sm"
+          pInputText
+        />
+      </div>
+    </div>
+    <div class="p-col-12 p-lg-6 p-p-3 p-mb-3 d-flex flex-column flex-lg-row">
+      <label class="p-col-12 p-lg-3 p-xl-2 p-p-0 my-auto">Số hợp đồng:</label>
             <div class="p-col-12 p-lg-9 p-xl-10 p-p-0">
                 <p-dropdown [filter]="true" [(ngModel)]="item.idHopDong" [options]="listHopDong" placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-8 p-xl-6 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-8 p-xl-6 p-p-3 p-mb-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-3 p-p-0 my-auto">Ngày giao/nhận hàng</label>
-            <div class="p-col-12 p-lg-3 p-p-0">
+            <div class="p-col-12 p-lg-3 p-mb-3 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ngayThanhToan" inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
 
-            <label class="p-col-12 p-lg-3 p-p-0 my-auto p-ml-3">Lựa chọn thanh toán</label>
-            <div class="p-col-12 p-lg-3 p-p-0">
-                <p-dropdown [filter]="true" [(ngModel)]="item.iddmHinhThucThanhToan" [options]="listHinhThucThanhToan" placeholder="Chọn hình thức thanh toán" styleClass="p-inputtext-sm"></p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-4 p-xl-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-xl-2 p-p-0 my-auto">Chọn invoce</label>
+            <label class="p-col-12 p-lg-3 p-mb-3 p-p-0 my-auto p-ml-3">Lựa chọn thanh toán</label
+      >
+      <div class="p-col-12 p-lg-3 p-p-0">
+        <p-dropdown
+          [filter]="true"
+          [(ngModel)]="item.iddmHinhThucThanhToan"
+          [options]="listHinhThucThanhToan"
+          placeholder="Chọn hình thức thanh toán"
+          styleClass="p-inputtext-sm"
+        ></p-dropdown>
+      </div>
+    </div>
+    <div
+      class="p-col-12 p-lg-4 p-xl-6 p-p-3 p-mb-3 d-flex flex-column flex-lg-row"
+    >
+      <label class="p-col-12 p-lg-4 p-xl-2 p-p-0 my-auto">Chọn invoce</label>
             <div class="p-col-12 p-lg-8 p-xl-10 p-p-0">
                 <p-dropdown [filter]="true" [(ngModel)]="item.iddmHinhThucThanhToan" [options]="listHinhThucThanhToan" placeholder="Chọn invoce" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-6 p-p-3 p-mb-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú </label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" pInputText />
             </div>
         </div>
 
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-6 p-p-3 p-mb-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-xl-3 p-p-0 my-auto">Giá trị thanh toán
-            </label>
+      </label>
             <div class="p-col-12 p-lg-8 p-xl-9 p-p-0">
                 <p-inputNumber [(ngModel)]="item.giaTriThanhToan" #inputNumber [minFractionDigits]="0" locale="vi-VN">
                 </p-inputNumber>

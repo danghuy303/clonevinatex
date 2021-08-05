@@ -16,15 +16,20 @@ import { DanhmucloaitienteComponent } from './danhmuc/danhmucloaitiente/danhmucl
 import { DanhmucthutucthanhtoanComponent } from './danhmuc/danhmucthutucthanhtoan/danhmucthutucthanhtoan.component';
 import { DanhmuctrangthaibaolanhComponent } from './danhmuc/danhmuctrangthaibaolanh/danhmuctrangthaibaolanh.component';
 
+import { TheodoihopdonhnhapkhauComponent } from './baocao/theodoihopdonhnhapkhau/theodoihopdonhnhapkhau.component';
 import { HopdongComponent } from './hopdong.component';
 
 const routes: Routes = [
   {path:'',component:HopdongComponent},
-  {path:'danhmuchinhthucthanhtoan',component:DanhmuchinhthucthanhtoanComponent},
-  {path:'danhmucloaihopdong',component:DanhmucloaihopdongComponent},
-  {path:'danhmucloaitiente',component:DanhmucloaitienteComponent},
-  {path:'danhmuctrangthaibaolanh',component:DanhmuctrangthaibaolanhComponent},
-  {path:'danhmucthutucthanhtoan',component:DanhmucthutucthanhtoanComponent},
+  {path:'danhmuc/danhmuchinhthucthanhtoan',component:DanhmuchinhthucthanhtoanComponent},
+  {path:'danhmuc/danhmucloaihopdong',component:DanhmucloaihopdongComponent},
+  {path:'danhmuc/danhmucloaitiente',component:DanhmucloaitienteComponent},
+  {path:'danhmuc/danhmuctrangthaibaolanh',component:DanhmuctrangthaibaolanhComponent},
+  {path:'danhmuc/danhmucthutucthanhtoan',component:DanhmucthutucthanhtoanComponent},
+
+  {path:'theodoihopdongnhapkhau',component:TheodoihopdonhnhapkhauComponent},
+
+
   { path: 'dmloaihopdong', component: DmLoaiHopDongComponent },
   { path: 'danhsachhopdongbongxo/:id', component: DanhsachhopdongbongxoComponent },
   { path: 'giaonhanhanghoa/:id', component: GiaonhanhanghoaComponent },
