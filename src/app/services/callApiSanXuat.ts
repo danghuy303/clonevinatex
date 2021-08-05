@@ -1098,6 +1098,12 @@ export class SanXuatService {
         // 
         return this.http.get(url, httpOptions);
     }
+    getLuuKhoKiemKeThanhPham(IddmKho, IdLoBong, sFilter, IdLoHang) {
+        // let IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + `getLuuKhoKiemKeThanhPham?IdDuAn=0&IddmKho=${IddmKho}&IdLoHang=${IdLoHang || ''}&IdLoBong=${IdLoBong || ''}&sFilter=${sFilter}`;
+        // 
+        return this.http.get(url, httpOptions);
+    }
     KhoiTaoItem() {
         let url = API.SCMDanhMuc + 'KhoiTaoDinhMuc';
         return this.http.get(url, httpOptions);

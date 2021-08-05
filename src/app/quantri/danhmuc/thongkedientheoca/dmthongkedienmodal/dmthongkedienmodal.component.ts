@@ -82,14 +82,14 @@ export class DmthongkedienmodalComponent implements OnInit {
           });
     }
 
-    changeTab(e) {
-        this.lstKhungGio = this.item.lstMayBienAp[e.index].lstKhungGio;
-        this.lstKhungGio.forEach((element) => {
-            let liststring: any = [];
-            liststring = element.Ten.split(" ÷ ");
-            element.HeaderPanel = `Thống kê cho khung giờ ${liststring[0]} đến ${liststring[1]}`;
-        });
-    }
+    // changeTab(e) {
+    //     this.lstKhungGio = this.item.lstMayBienAp[e.index].lstKhungGio;
+    //     this.lstKhungGio.forEach((element) => {
+    //         let liststring: any = [];
+    //         liststring = element.Ten.split(" ÷ ");
+    //         element.HeaderPanel = `Thống kê cho khung giờ ${liststring[0]} đến ${liststring[1]}`;
+    //     });
+    // }
 
     GhiLai() {
         this.khongclicknhieu = !this.khongclicknhieu;
@@ -165,12 +165,16 @@ export class DmthongkedienmodalComponent implements OnInit {
             this.listInput.toArray()[0].el.nativeElement.children[0].children[0].focus();
           }
     }
-    GetQuyTrinh(IddmCaSanXuat) {
+    changeTab(e) {
+        let index = 0;
+        if(e !== undefined)
+            index = e.index;
+
         if (this.item.lstMayBienAp.length > 0) {
             this.lstKhungGio = [];
-            this.item.lstMayBienAp[0].lstKhungGio.forEach((element) => {
-                if( IddmCaSanXuat !== null && IddmCaSanXuat !== ''){
-                    if(element.idCaSanXuat === IddmCaSanXuat){
+            this.item.lstMayBienAp[index].lstKhungGio.forEach((element) => {
+                if( this.idCaSanXuat !== null && this.idCaSanXuat !== ''){
+                    if(element.idCaSanXuat === this.idCaSanXuat){
                         let liststring: any = [];
                         liststring = element.Ten.split(" ÷ ");
                         element.HeaderPanel = `Thống kê cho khung giờ ${liststring[0]} đến ${liststring[1]}`;

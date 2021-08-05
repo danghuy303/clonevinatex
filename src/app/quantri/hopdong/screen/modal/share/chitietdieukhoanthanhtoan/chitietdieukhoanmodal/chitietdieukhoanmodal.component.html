@@ -18,29 +18,30 @@
         <div class="p-col-12 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-xl-2 p-lg-3 p-p-0 my-auto">Nội dung thanh toán/tạm ứng:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" pInputText />
+                <input type="text" [(ngModel)]="item.noiDung" class="p-inputtext-sm" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3  padding0 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-lg-5 p-p-0 my-auto">Chiết khấu: </label>
+            <label class="p-col-12 p-xl-4 p-lg-5 p-p-0 my-auto">Giá trị: </label>
             <div class="p-col-12 p-xl-8  p-p-0">
                 <div class="p-inputgroup p-d-flex">
-                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
+                    <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.giaTri" locale="vi-VN">
                     </p-inputNumber>
-                    <span class="p-inputgroup-addon">%</span>
+                    <!-- <span class="p-inputgroup-addon">%</span> -->
                 </div>
             </div>
         </div>
         <div class="p-col-12 p-lg-5 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-5 p-p-0 my-auto">Loại thanh toán/tạm ứng:</label>
             <div class="p-col-12 p-xl-7 p-p-0">
-                <p-dropdown [filter]="true" placeholder="Chọn loại thanh toán" styleClass="p-inputtext-sm"></p-dropdown>
+                <p-dropdown [filter]="true" [(ngModel)]="item.loaiThanhToan" placeholder="Chọn loại thanh toán" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-6 p-p-0 my-auto">Ngày thanh toán/tạm ứng:</label>
             <div class="p-col-12 p-xl-6 p-p-0">
-                <p-calendar inputStyleClass="p-inputtext-sm" dateFormat="dd/mm/yy" [yearNavigator]="true" placeholder="dd/mm/yyyy"> </p-calendar>
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ngayThanhToan" inputId="icon" placeholder="dd/mm/yyyy">
+                </p-calendar>
             </div>
         </div>
         <div class="p-mb-3 p-py-2">
@@ -48,7 +49,7 @@
             <div></div>
             <div class="p-col-12 p-p-0 d-flex flex-column">
                 <p-table styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
-                    <ng-template pTemplate="colgroup">
+                    <!-- <ng-template pTemplate="colgroup">
                         <colgroup>
                             <col style="width: 50px" />
                             <col />
@@ -56,10 +57,9 @@
                             <col />
                             <col />
 
-                            <!-- <col> -->
-                            <!-- <col style="width:130px"> -->
+
                         </colgroup>
-                    </ng-template>
+                    </ng-template> -->
                     <ng-template pTemplate="header">
                         <tr>
                             <th>STT</th>
