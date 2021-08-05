@@ -100,10 +100,20 @@ this.title = 'Thêm phiếu hợp đồng bông/xơ'
   }
 
   ValidData() {
-    // if (!validVariable(this.item.noiDung)) {
-    //   this._toastr.error("Vui lòng chọn nội dung");
-    //   return false;
-    // }
+    if (!validVariable(this.item.hopDong.iddmLoaiHopDong)) {
+      this._toastr.error("Vui lòng chọn loại hợp đồng");
+      return false;
+    }
+
+    if (!validVariable(this.item.hopDong.tenHopDong)) {
+      this._toastr.error("Vui lòng chọn tên hợp đồng");
+      return false;
+    }
+
+    if (!validVariable(this.item.hopDong.soHopDong)) {
+      this._toastr.error("Vui lòng chọn số hợp đồng");
+      return false;
+    }
 
 
     return true;

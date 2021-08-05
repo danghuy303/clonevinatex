@@ -89,6 +89,9 @@ export class DanhMucHopDongService {
     DanhMucHinhThucThanhToan(){
         let url = API.HopDong
         return {
+            GetListAll: () => {
+                return this.http.get(url + `DanhMuc/GetListAlldmHinhThucThanhToan`, httpOptions);
+            },
             GetList:(data)=>{
                 return this.http.get(`${url}DanhMuc/GetListdmHinhThucThanhToan?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}` ,httpOptions)
             },
