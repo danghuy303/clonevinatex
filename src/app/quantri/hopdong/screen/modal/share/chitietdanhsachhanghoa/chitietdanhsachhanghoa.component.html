@@ -1,205 +1,199 @@
-<div style="margin-bottom: -30px;" *ngIf="isBongXo" class="p-d-flex p-flex-row p-ai-center ">
+<div class="p-grid">
+
+    <div *ngIf="isBongXo" style="display: contents;">
+        <div class="p-col-12 p-lg-5 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-xl-3 p-p-0 my-auto">Đã tình thuế:</label>
+
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <div class="p-inputgroup p-d-flex">
 
 
+                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
+                    </p-inputNumber>
+                    <span class="p-inputgroup-addon">%</span>
+                </div>
+            </div>
+        </div>
 
-    <div class="p-col-12 p-lg-5 padding0 d-flex flex-column flex-xl-row">
-        <!-- <p-checkbox class="p-mr-3 p-xl-1 p-lg-1" name="groupname" value="val1"></p-checkbox> -->
+        <div class="p-col-12 p-lg-5 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Thành tiền:</label>
 
-        <label class=" p-pl-3 p-xl-4 p-lg-6 p-p-0 my-auto">Đã tình thuế </label>
-        <div class="p-lg-8  p-p-0">
-            <div class="p-inputgroup p-d-flex">
-
-
+            <div class="p-col-12 p-lg-12 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
                 </p-inputNumber>
-                <span class="p-inputgroup-addon">%</span>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div style="display: contents;" *ngIf="isSoi">
+
+        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-6 p-xl-5 p-p-0 my-auto">Đã tình thuế:</label>
+
+            <div class="p-col-12 p-lg-6 p-p-0">
+                <div class="p-inputgroup p-d-flex">
+
+
+                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
+                    </p-inputNumber>
+                    <span class="p-inputgroup-addon">%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-5 p-xl-4 p-p-0 my-auto">Giảm giá:</label>
+
+            <div class="p-col-12 p-lg-7 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
+                </p-inputNumber>
+            </div>
+        </div>
+
+        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-5 p-xl-4 p-p-0 my-auto">Thành tiền:</label>
+
+            <div class="p-col-12 p-lg-7 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
+                </p-inputNumber>
+            </div>
+        </div>
+
+        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-5 p-xl-4  p-p-0 my-auto">Làm tròn:</label>
+
+            <div class="p-col-12 p-lg-7 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
+                </p-inputNumber>
             </div>
         </div>
     </div>
-    <!-- <div class="p-col-12 p-lg-4 padding0 d-flex flex-column flex-xl-row">
-            <label class="p-col-12  p-lg-8 p-p-0 my-auto">Giảm giá: </label>
-    
-            <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
-            </p-inputNumber>
-    
-    
-        </div> -->
-
-    <div class="p-col-12 p-lg-5 padding0 d-flex flex-column flex-xl-row">
-        <label class="p-col-12  p-pl-3 p-xl-3 p-lg-4 p-p-0 my-auto">Thành tiền: </label>
-        <div class="p-col-12 p-lg-12   p-p-0">
-            <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
-            </p-inputNumber>
-        </div>
-
-    </div>
-</div>
 
 
 
-<div style="margin-bottom: -30px;" *ngIf="isSoi" class="p-d-flex p-flex-row p-ai-center ">
 
 
 
-    <div class="p-col-12 p-md-3 p-mb-3 padding0 d-flex flex-column flex-xl-row p-mr-4">
-        <!-- <p-checkbox class="p-mr-3 p-xl-1 p-lg-1" name="groupname" value="val1"></p-checkbox> -->
-
-        <label class=" p-pl-3 p-xl-4 p-lg-6 p-p-0 my-auto">Đã tình thuế </label>
-        <div class="p-lg-8  p-p-0">
-            <div class="p-inputgroup p-d-flex">
 
 
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
-                </p-inputNumber>
-                <span class="p-inputgroup-addon">%</span>
-            </div>
-        </div>
-    </div>
-    <div class="p-col-12 p-md-3   p-mb-3  padding0 d-flex flex-column flex-xl-row">
 
-        <label class="p-col-12 p-xl-3 p-lg-5 p-p-0 my-auto">Giảm giá:</label>
-        <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
-            <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
-            </p-inputNumber>
-        </div>
-    </div>
+    <div *ngIf="isBongXo" class="p-mt-3">
+        <!-- bang 4.3.1 -->
+        <p-table styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>STT</th>
+                    <th>Loại bông</th>
+                    <th>Chi tiêu chất lượng</th>
+                    <th>Số lượng</th>
+                    <th>Số container</th>
+                    <th>Số kiện</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                    <th style="min-width: 200px;">Ngày giao/về hàng</th>
+                    <th>Ghi chú</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <tr>
+                    <!-- <td class="text-center"> {{ 20 * (paging.CurrentPage - 1) + i + 1 }} </td>
+                    <td class="text-center">{{item.SoQuyTrinh}}</td>
+                    <td class="text-center">{{item.Modified|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{item.NoiDung}}</td>
+                    <td class="text-center">{{item.TendmPhanXuong}}</td>
+                    <td class="text-center">{{item.TuNgay|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{item.DenNgay|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center" *ngFor="let col of cols"> {{item[col.field]}} </td>
+                    <td class="text-center">
+                        <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành" (click)="hoanthanh(item.Id)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.Id)"></button>
+                    </td> -->
+                </tr>
+            </ng-template>
 
-    <div class="p-col-12 p-md-3   p-mb-3  padding0 d-flex flex-column flex-xl-row">
-
-        <label class="p-col-12 p-xl-3 p-lg-5 p-p-0 my-auto">Thành tiền:</label>
-        <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
-            <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
-            </p-inputNumber>
-        </div>
+        </p-table>
     </div>
 
-    <div class="p-col-12 p-md-3  p-mb-3  padding0 d-flex flex-column flex-xl-row">
+    <div *ngIf="isSoi" class="p-mt-3 mb-4">
+        <!-- bang 4.3.2 -->
+        <p-table styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>STT</th>
+                    <th>Loại bông</th>
+                    <th>Chi tiêu chất lượng</th>
+                    <th>Số lượng</th>
+                    <th>Số container</th>
+                    <th>Số kiện</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
 
-        <label class="p-col-12 p-xl-3 p-lg-5 p-p-0 my-auto">Làm tròn:</label>
-        <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
-            <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
-            </p-inputNumber>
-        </div>
+                    <th style="min-width: 200px;">Ngày giao/về hàng</th>
+                    <th>Ghi chú</th>
+                    <th></th>
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <tr>
+                    <!-- <td class="text-center"> {{ 20 * (paging.CurrentPage - 1) + i + 1 }} </td>
+                    <td class="text-center">{{item.SoQuyTrinh}}</td>
+                    <td class="text-center">{{item.Modified|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{item.NoiDung}}</td>
+                    <td class="text-center">{{item.TendmPhanXuong}}</td>
+                    <td class="text-center">{{item.TuNgay|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{item.DenNgay|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center" *ngFor="let col of cols"> {{item[col.field]}} </td>
+                    <td class="text-center">
+                        <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành" (click)="hoanthanh(item.Id)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.Id)"></button>
+                    </td> -->
+                </tr>
+            </ng-template>
+
+        </p-table>
     </div>
-</div>
 
+    <div *ngIf="isSoi" class="p-mt-3">
+        <!-- bang 4.3.3 -->
+        <p-table styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>STT</th>
+                    <th>Loại sợi</th>
+                    <th>Chi tiêu chất lượng</th>
+                    <th>Số lượng</th>
 
+                    <th>Số kiện</th>
+                    <th>Đơn vị giá</th>
+                    <th>Đơn giá HĐ</th>
+                    <th>Giảm giá</th>
+                    <th>Thành tiền</th>
+                    <th>Quy cách đóng gói</th>
+                    <th>Thời gian giao hàng</th>
+                    <th>Ghi chú</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <tr>
+                    <!-- <td class="text-center"> {{ 20 * (paging.CurrentPage - 1) + i + 1 }} </td>
+                    <td class="text-center">{{item.SoQuyTrinh}}</td>
+                    <td class="text-center">{{item.Modified|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{item.NoiDung}}</td>
+                    <td class="text-center">{{item.TendmPhanXuong}}</td>
+                    <td class="text-center">{{item.TuNgay|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{item.DenNgay|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center" *ngFor="let col of cols"> {{item[col.field]}} </td>
+                    <td class="text-center">
+                        <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành" (click)="hoanthanh(item.Id)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.Id)"></button>
+                    </td> -->
+                </tr>
+            </ng-template>
 
-
-<div *ngIf="isBongXo" class="p-mt-3">
-    <!-- bang 4.3.1 -->
-    <p-table styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>STT</th>
-                <th>Loại bông</th>
-                <th>Chi tiêu chất lượng</th>
-                <th>Số lượng</th>
-                <th>Số container</th>
-                <th>Số kiện</th>
-                <th>Đơn giá</th>
-                <th>Thành tiền</th>
-                <th style="min-width: 200px;">Ngày giao/về hàng</th>
-                <th>Ghi chú</th>
-                <th></th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr>
-                <!-- <td class="text-center"> {{ 20 * (paging.CurrentPage - 1) + i + 1 }} </td>
-                <td class="text-center">{{item.SoQuyTrinh}}</td>
-                <td class="text-center">{{item.Modified|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.NoiDung}}</td>
-                <td class="text-center">{{item.TendmPhanXuong}}</td>
-                <td class="text-center">{{item.TuNgay|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.DenNgay|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center" *ngFor="let col of cols"> {{item[col.field]}} </td>
-                <td class="text-center">
-                    <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành" (click)="hoanthanh(item.Id)"></button>
-                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.Id)"></button>
-                </td> -->
-            </tr>
-        </ng-template>
-
-    </p-table>
-</div>
-
-<div *ngIf="isSoi" class="p-mt-3 mb-4">
-    <!-- bang 4.3.2 -->
-    <p-table styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>STT</th>
-                <th>Loại bông</th>
-                <th>Chi tiêu chất lượng</th>
-                <th>Số lượng</th>
-                <th>Số container</th>
-                <th>Số kiện</th>
-                <th>Đơn giá</th>
-                <th>Thành tiền</th>
-
-                <th style="min-width: 200px;">Ngày giao/về hàng</th>
-                <th>Ghi chú</th>
-                <th></th>
-            </tr>
-
-        </ng-template>
-        <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr>
-                <!-- <td class="text-center"> {{ 20 * (paging.CurrentPage - 1) + i + 1 }} </td>
-                <td class="text-center">{{item.SoQuyTrinh}}</td>
-                <td class="text-center">{{item.Modified|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.NoiDung}}</td>
-                <td class="text-center">{{item.TendmPhanXuong}}</td>
-                <td class="text-center">{{item.TuNgay|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.DenNgay|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center" *ngFor="let col of cols"> {{item[col.field]}} </td>
-                <td class="text-center">
-                    <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành" (click)="hoanthanh(item.Id)"></button>
-                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.Id)"></button>
-                </td> -->
-            </tr>
-        </ng-template>
-
-    </p-table>
-</div>
-
-<div *ngIf="isSoi" class="p-mt-3">
-    <!-- bang 4.3.3 -->
-    <p-table styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>STT</th>
-                <th>Loại sợi</th>
-                <th>Chi tiêu chất lượng</th>
-                <th>Số lượng</th>
-
-                <th>Số kiện</th>
-                <th>Đơn vị giá</th>
-                <th>Đơn giá HĐ</th>
-                <th>Giảm giá</th>
-                <th>Thành tiền</th>
-                <th>Quy cách đóng gói</th>
-                <th>Thời gian giao hàng</th>
-                <th>Ghi chú</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr>
-                <!-- <td class="text-center"> {{ 20 * (paging.CurrentPage - 1) + i + 1 }} </td>
-                <td class="text-center">{{item.SoQuyTrinh}}</td>
-                <td class="text-center">{{item.Modified|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.NoiDung}}</td>
-                <td class="text-center">{{item.TendmPhanXuong}}</td>
-                <td class="text-center">{{item.TuNgay|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.DenNgay|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center" *ngFor="let col of cols"> {{item[col.field]}} </td>
-                <td class="text-center">
-                    <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành" (click)="hoanthanh(item.Id)"></button>
-                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.Id)"></button>
-                </td> -->
-            </tr>
-        </ng-template>
-
-    </p-table>
+        </p-table>
+    </div>
 </div>

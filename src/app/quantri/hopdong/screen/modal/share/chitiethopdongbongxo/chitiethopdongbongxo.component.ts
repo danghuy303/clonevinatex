@@ -64,6 +64,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     private _store: StoreService,
     private _servicesSanXuat: SanXuatService,
     private _toastr: ToastrService,
+    private _modal: NgbModal
 
   ) {
     this.cities = [
@@ -116,7 +117,17 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
   }
 
+  taiLenFileDinhKem() {
+    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.result.then((data) => {
+      this.item.ID = this.item.ID !== undefined ? this.item.ID : 0;
+      this.item.TenGui = data[data.length - 1].Name;
+      this.item.TenGoc = data[data.length - 1].NameLocal;
+      this.item.DuongDan = data[data.length - 1].Url;
+    }, (reason) => {
 
+    });
+  }
 
   GetNextSoQuyTrinh() {
     this._service
