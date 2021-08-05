@@ -18,6 +18,14 @@
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
+                <td class="text-center">{{item.ten}}</td>
+                <td class="text-center">{{item.chucVu}}</td>
+                <td class="text-center">{{item.NoiDung}}</td>
+                <td class="text-center">{{item.TendmPhanXuong}}</td>
+                <td class="text-center">{{item.soQuyetDinh}}</td>
+                <td class="text-center">{{item.ngayBatDau|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.ngayKetThuc|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.tenTrangThai}}</td>
                 <!-- <td class="text-center"> {{ 20 * (paging.CurrentPage - 1) + i + 1 }} </td>
                 <td class="text-center">{{item.SoQuyTrinh}}</td>
                 <td class="text-center">{{item.Modified|date:'dd/MM/yyyy'}}</td>
