@@ -71,10 +71,8 @@ export class DanhmucloaihopdongComponent implements OnInit {
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = 'Thêm mới loại hợp đồng';
     modalRef.result.then(res=>{
-      this._toastr.success(res);
       this.GetListdmLoaiHopDong()
     }).catch(er=>console.log(er))
-    debugger;
   }
   edit(item){
     let modalRef = this._modal.open(ModaldanhmucloaihopdongComponent,{
@@ -84,8 +82,6 @@ export class DanhmucloaihopdongComponent implements OnInit {
     modalRef.componentInstance.type = 'capnhat';
     modalRef.componentInstance.title = 'Cập nhật loại hợp đồng';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
-    console.log(item);
-    debugger; 
     modalRef.result.then(res=>{
       this._toastr.success(res);
       this.GetListdmLoaiHopDong()

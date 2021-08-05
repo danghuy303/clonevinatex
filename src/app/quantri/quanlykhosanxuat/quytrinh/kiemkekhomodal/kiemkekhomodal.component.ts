@@ -275,7 +275,7 @@ export class KiemkekhomodalComponent implements OnInit {
         if (this.item.IddmKho !== undefined && this.item.IddmKho !== null
             && this.item.IdLoHang !== undefined && this.item.IdLoHang !== null) {
             this.services
-                .getLuuKhoKiemKe(
+                .getLuuKhoKiemKeThanhPham(
                     this.item.IddmKho,
                     this.item.IdLoBong,
                     "",
@@ -283,7 +283,7 @@ export class KiemkekhomodalComponent implements OnInit {
                 )
                 .subscribe((res1: any) => {
                     res1.forEach((mathang) => {
-                        mathang.SoLuong = mathang.TonSoLuong;
+                        // mathang.SoLuong = mathang.TonSoLuong;
                         mathang.SoQuaSoi = mathang.TonSoLuong;
                         mathang.TongTrongLuong = mathang.TonTongTrongLuong;
                     });

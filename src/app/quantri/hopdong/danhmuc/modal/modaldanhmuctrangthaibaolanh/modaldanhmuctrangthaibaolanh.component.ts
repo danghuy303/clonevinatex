@@ -47,7 +47,6 @@ export class ModaldanhmuctrangthaibaolanhComponent implements OnInit {
 
   GhiLai() {
     if (this.ValidateData()) {
-      console.log(this.SetData());
       this._danhMucHopDong.DanhMucTrangThaiBaoLanh().Set(this.SetData()).subscribe((res: any) => {
         if (res.statusCode !== 200) {
           this.toastr.error(res.message);
@@ -55,7 +54,7 @@ export class ModaldanhmuctrangthaibaolanhComponent implements OnInit {
           this.toastr.success(res.message);
           this.activeModal.close();
         } 
-        this.activeModal.close();
+      
       })
 
     }

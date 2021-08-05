@@ -72,7 +72,6 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
     modalRef.componentInstance.type = 'hinhthucthanhtoan';
     modalRef.componentInstance.title = 'Thêm mới hình thức thanh toán';
     modalRef.result.then(res=>{
-      this._toastr.success(res);
       this.GetListdmHinhThucThanhToan()
     }).catch(er=>console.log(er))
   }
