@@ -95,7 +95,8 @@ import { GiaokehoachsanxuatComponent } from './screen/thuchienhopdong/giaokehoac
 import { GiaokehoachsanxuatmodalComponent } from './screen/thuchienhopdong/giaokehoachsanxuat/giaokehoachsanxuatmodal/giaokehoachsanxuatmodal.component';
 
 // import báo cáo theo dõi 
-import { TheodoihopdonhnhapkhauComponent } from './baocao/theodoihopdonhnhapkhau/theodoihopdonhnhapkhau.component';
+
+import { TheodoihopdongnhapkhauComponent } from './baocao/theodoihopdongnhapkhau/theodoihopdongnhapkhau.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { TheodoihopdonhnhapkhauComponent } from './baocao/theodoihopdonhnhapkhau
     ModaldanhmuctrangthaibaolanhComponent,
 //báo cáo
      
-TheodoihopdonhnhapkhauComponent,
+
+TheodoihopdongnhapkhauComponent,
 
 
     DmLoaiHopDongComponent,
@@ -178,7 +180,8 @@ TheodoihopdonhnhapkhauComponent,
    
     GiaokehoachsanxuatmodalComponent,
    
-    TheodoihopdonhnhapkhauComponent,
+   
+    TheodoihopdongnhapkhauComponent,
 
 
   ],

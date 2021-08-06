@@ -68,8 +68,9 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
   ) {
     this.cities = [
-      {name: 'Bông', code: 'NY'},
-      {name: 'Xơ', code: 'RM'},
+      {name: 'Bông', code: 'B'},
+      {name: 'Xơ', code: 'X'},
+      {name: 'Vật tư phụ', code: 'VT'},
     
   ];
   }

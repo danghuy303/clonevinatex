@@ -36,8 +36,9 @@
                 </app-chitietdanhsachhanghoa>
             </p-tabPanel>
             <p-tabPanel header="Điều khoản thanh toán">
-                <app-chitietdieukhoanthanhtoan [(thanhToan)]="item.thanhToan"></app-chitietdieukhoanthanhtoan>
+                <app-chitietdieukhoanthanhtoan [opt]="opt" [(listDieuKhoanThanhToan)]="item.listDieuKhoanThanhToan"></app-chitietdieukhoanthanhtoan>
             </p-tabPanel>
+
             <p-tabPanel header="Nhân sự thực hiện">
                 <app-chitietnhansuthuchien [(nhanSu)]="item.nhanSu"></app-chitietnhansuthuchien>
             </p-tabPanel>

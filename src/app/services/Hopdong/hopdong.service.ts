@@ -26,9 +26,9 @@ export class HopDongService {
           httpOptions
         );
       },
-      Get: (id) => {
+      Get: (Id) => {
         return this.http.get(
-          url + `HopDong/GetQuyTrinhHopDong?Id=${id}`,
+          url + `HopDong/GetQuyTrinhHopDong?Id=${Id}`,
           httpOptions
         );
       },
