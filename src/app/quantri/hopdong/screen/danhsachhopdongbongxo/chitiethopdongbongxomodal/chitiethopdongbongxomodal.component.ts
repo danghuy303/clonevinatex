@@ -119,15 +119,16 @@ this.title = 'Thêm phiếu hợp đồng bông/xơ'
     return true;
   }
   GhiLai() {
-    this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
-    this.item.hopDong.ngayKetThucUnix = DateToUnix(this.item.hopDong.ngayKetThuc);
-    this.item.hopDong.ngayBatDauUnix = DateToUnix(this.item.hopDong.ngayBatDau);
+
     if (this.ValidData()) {
+      this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
+      this.item.hopDong.ngayKetThucUnix = DateToUnix(this.item.hopDong.ngayKetThuc);
+      this.item.hopDong.ngayBatDauUnix = DateToUnix(this.item.hopDong.ngayBatDau);
       this._service
         .QuyTrinhHopDong()
         .Set(this.item)
         .subscribe((res: any) => {
-          console.log(this.item.hopDong.ngayKy);
+      
           if (res) {
             if (res?.statusCode === 200) {
               this.activeModal.close();

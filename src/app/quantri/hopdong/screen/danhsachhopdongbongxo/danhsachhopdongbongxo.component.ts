@@ -79,7 +79,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     
     modalRef.componentInstance.item = {
       listNhanSu: [],
-      listDieuKhoanThanhToan: [],
+      
 
       listVatTu: [],
       listBaoLanh: [],
@@ -89,7 +89,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       lstFileUploadCu: [],
     };
     modalRef.componentInstance.item.hopDong = {
-      Id: "",
+      id: "",
     };
 
     modalRef.result
@@ -129,9 +129,11 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   }
 
   update(item) {
+    console.log(item.id);
+    
     this._service
       .QuyTrinhHopDong()
-      .Get(item.hopDong.id)
+      .Get(item.id)
       .subscribe((res1: any) => {
         
         let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {

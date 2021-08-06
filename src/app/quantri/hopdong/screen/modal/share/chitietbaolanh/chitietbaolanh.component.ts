@@ -1,3 +1,4 @@
+import { DateToUnix } from 'src/app/services/globalfunction';
 import { ChitietbaolanhmodalComponent } from './chitietbaolanhmodal/chitietbaolanhmodal.component';
 
 
@@ -6,7 +7,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChitiethopdongbongxomodalComponent } from './../../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
 
 
 @Component({
@@ -14,9 +15,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   templateUrl: './chitietbaolanh.component.html',
   styleUrls: ['./chitietbaolanh.component.css']
 })
-export class ChitietbaolanhComponent implements OnInit {
-  @Input('baoLanh')items:any=[];
+export class ChitietbaolanhComponent implements OnInit,DoCheck {
+ items:any=[];
   @Input('opt') opt:string='';
+  item: any = {};
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   @Output('baoLanh')baoLanhChange: EventEmitter<any> = new EventEmitter<any>();
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private router: Router) { }
@@ -28,25 +30,22 @@ export class ChitietbaolanhComponent implements OnInit {
     this.baoLanhChange.emit(this.items);
   }
   add() {
-    // this.changeParam(0);
-    let modalRef = this._modal.open(ChitietbaolanhmodalComponent, {
-      size: 'fullscreen-100',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'add';
+    this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+    let modalRef = this._modal.open(ChitietbaolanhmodalComponent, { size: 'xl', backdrop: 'static' });
     modalRef.componentInstance.item = {
-      Id: '',
-      listItem: []
-    }
-    // modalRef.result.then((res: any) => {
-    //   console.log(res);
-    //   this._toastr.success('Cập nhật thành công');
-    //   this.GetListQuyTrinh();
-    //   this.changeParam(0)
-    // })
-    //   .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
+      Id: 0,
+     
+      
+    };
+    modalRef.componentInstance.opt = 'add';
+    modalRef.result.then(res => {
+      console.log(res.item);
+      this.items.push(res.item);
+      if (res.opt !== 'add') {
+        this.add()
+      }
+    }).catch(er => { console.log(er) });
   }
-
   edit(item, i) {
     let modalRef = this._modal.open(ChitietbaolanhmodalComponent, { size: 'xl', backdrop: 'static' });
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
