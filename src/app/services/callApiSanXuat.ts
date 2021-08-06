@@ -1282,12 +1282,12 @@ export class SanXuatService {
             // Delete: (data) => {
             //     return this.http.post(url + 'DeleteGiaoKeHoachSanXuat', data, httpOptions);
             // },
-            // ChuyenTiep: (data) => {
-            //     return this.http.post(url + 'ChuyenTiepPhuongAnSanXuat', data, httpOptions)
-            // },
-            // KhongDuyet: (data) => {
-            //     return this.http.post(url + 'KhongDuyetGiaoKeHoachSanXuat', data, httpOptions)
-            // },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhuongAnXepBanBong', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhuongAnXepBanBong', data, httpOptions)
+            },
             // GetListKienBong: (data) => {
             //     return this.http.post(url + `GetListKienLoBong`, data, httpOptions)
             // },

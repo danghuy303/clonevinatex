@@ -359,4 +359,24 @@ export class Dongvanpx1Component implements OnInit {
       }
     })
   }
+  KhongDuyet() {
+    this._services.XepBanBong().KhongDuyet(this.SetData()).subscribe((res: any) => {
+      if (res?.State === 1) {
+        this._toastr.success(res.message);
+        this._activeModal.close();
+      } else {
+        this._toastr.error(res.message)
+      }
+    })
+  }
+  ChuyenDuyet() {
+    this._services.XepBanBong().ChuyenTiep(this.SetData()).subscribe((res: any) => {
+      if (res?.State === 1) {
+        this._toastr.success(res.message);
+        this._activeModal.close();
+      } else {
+        this._toastr.error(res.message)
+      }
+    })
+  }
 }
