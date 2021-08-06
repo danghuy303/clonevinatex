@@ -95,24 +95,19 @@
         </div>
 
 
-        <div class="p-col-12 p-xl-4 p-lg-6 p-mb-3  padding0 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-6 p-p-0 my-auto">HĐ gốc: </label>
-            <div class="p-col-12 p-xl-6   p-ml-xl-2 p-ml-lg-0 p-p-0">
+        <div class="p-col-12 p-xl-6 p-lg-6 p-mb-3  padding0 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">HĐ gốc: </label>
+            <div class="p-col-12 p-xl-8   p-ml-xl-2 p-ml-lg-0 p-p-0">
                 <div class="p-inputgroup  p-ml-lg-0">
                     <input type="text" pInputText class="p-inputtext-sm" disabled>
                     <button type="button" pButton pRipple icon="pi pi-upload" (click)="taiLenFileDinhKem()" class="p-button-sm p-button-text p-button-secondary"></button>
                 </div>
             </div>
         </div>
-        <div class="p-col-12 p-xl-4 p-lg-6 p-mb-3  padding0 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4  p-p-0 my-auto">Số hợp đồng:<span class="required">*</span></label>
+
+        <div class="p-col-12 p-xl-6 p-lg-12 p-mb-3  padding0 d-flex flex-column flex-xl-row">
+            <label class="p-col-12  p-xl-4 p-p-0 my-auto">Hình thức thanh toán:</label>
             <div class="p-col-12 p-xl-8 p-lg-12  p-p-0">
-                <input type="text" [(ngModel)]="item.soHopDong" class="p-inputtext-sm" pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 p-xl-4 p-lg-6 p-mb-3  padding0 d-flex flex-column flex-xl-row">
-            <label class="p-col-12  p-xl-6 p-p-0 my-auto">Hình thức thanh toán:</label>
-            <div class="p-col-12 p-xl-6 p-lg-12  p-p-0">
                 <p-dropdown [filter]="true" [(ngModel)]="item.iddmHinhThucThanhToan" [options]="listHinhThucThanhToan" placeholder="Chọn hình thức thanh toán" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>

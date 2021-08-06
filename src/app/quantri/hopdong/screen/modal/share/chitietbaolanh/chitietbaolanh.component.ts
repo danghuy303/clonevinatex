@@ -1,13 +1,30 @@
+// import { DateToUnix } from 'src/app/services/globalfunction';
+// import { ChitietbaolanhmodalComponent } from './chitietbaolanhmodal/chitietbaolanhmodal.component';
+
+
+
+// import { Router } from '@angular/router';
+// import { ToastrService } from 'ngx-toastr';
+// import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+// import { ChitiethopdongbongxomodalComponent } from './../../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
+// import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
+
+
+// @Component({
+//   selector: 'app-chitietbaolanh',
+//   templateUrl: './chitietbaolanh.component.html',
+//   styleUrls: ['./chitietbaolanh.component.css']
+// })
+// export class ChitietbaolanhComponent implements OnInit,DoCheck {
+ 
+// }
 import { DateToUnix } from 'src/app/services/globalfunction';
-import { ChitietbaolanhmodalComponent } from './chitietbaolanhmodal/chitietbaolanhmodal.component';
-
-
-
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChitiethopdongbongxomodalComponent } from './../../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
-import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, DoCheck } from '@angular/core';
+import { ChitietbaolanhmodalComponent } from './chitietbaolanhmodal/chitietbaolanhmodal.component';
 
 
 @Component({
@@ -15,32 +32,38 @@ import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angula
   templateUrl: './chitietbaolanh.component.html',
   styleUrls: ['./chitietbaolanh.component.css']
 })
-export class ChitietbaolanhComponent implements OnInit,DoCheck {
- items:any=[];
-  @Input('opt') opt:string='';
+export class ChitietbaolanhComponent implements OnInit, DoCheck {
+
   item: any = {};
+
+  @Input() listBaoLanh: any = [];
+  @Output() itemChange: EventEmitter<any> = new EventEmitter<any>();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  @Output('baoLanh')baoLanhChange: EventEmitter<any> = new EventEmitter<any>();
+
+
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private router: Router) { }
 
 
   ngOnInit(): void {
   }
   ngDoCheck(): void {
-    this.baoLanhChange.emit(this.items);
+    this.itemChange.emit(this.listBaoLanh);
+
   }
   add() {
-    this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+
+
+    this.item.hieuLucBaoLanhUnix = DateToUnix(this.item.hieuLucBaoLanh);
     let modalRef = this._modal.open(ChitietbaolanhmodalComponent, { size: 'xl', backdrop: 'static' });
     modalRef.componentInstance.item = {
-      Id: 0,
-     
-      
+      Id: "",
+    
+
     };
     modalRef.componentInstance.opt = 'add';
     modalRef.result.then(res => {
       console.log(res.item);
-      this.items.push(res.item);
+      this.listBaoLanh.push(res.item);
       if (res.opt !== 'add') {
         this.add()
       }
@@ -51,24 +74,24 @@ export class ChitietbaolanhComponent implements OnInit,DoCheck {
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.opt = 'edit';
     modalRef.result.then(res => {
-      this.items.splice(i, 1);
-      this.items.push(res.item);
+      this.listBaoLanh.splice(i, 1);
+      this.listBaoLanh.push(res.item);
       if (res.opt !== 'add') {
         this.add()
       }
     }).catch(er => { console.log(er) });
   }
   delete(i) {
-    let item = this.items.splice(i, 1)[0];
+    let item = this.listBaoLanh.splice(i, 1)[0];
     if (item.ID === 0) {
     } else {
       item.isXoa = true;
-      this.items.push(JSON.parse(JSON.stringify(item)));
+      this.listBaoLanh.push(JSON.parse(JSON.stringify(item)));
     }
 
-    // this.items[i].isXoa = true;
-    // this.items.push(this.items.splice(i,1));
+    // this.listBaoLanh[i].isXoa = true;
+    // this.listBaoLanh.push(this.listBaoLanh.splice(i,1));
     console.log(item);
-    console.log(this.items);
+    console.log(this.listBaoLanh);
   }
 }
