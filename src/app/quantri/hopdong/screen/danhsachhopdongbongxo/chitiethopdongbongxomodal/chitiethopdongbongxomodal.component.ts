@@ -35,6 +35,7 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
 title:string
   item: any = {};
   hopDong: any = {};
+  listDieuKhoanThanhToan: any = [];
   userInfo: any;
   lang: any = vn;
   isBongXo:boolean = true
@@ -128,6 +129,7 @@ this.title = 'Thêm phiếu hợp đồng bông/xơ'
         .QuyTrinhHopDong()
         .Set(this.item)
         .subscribe((res: any) => {
+      console.log(res);
       
           if (res) {
             if (res?.statusCode === 200) {

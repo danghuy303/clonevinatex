@@ -79,7 +79,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     
     modalRef.componentInstance.item = {
       listNhanSu: [],
-      
+      listDieuKhoanThanhToan: [],
 
       listVatTu: [],
       listBaoLanh: [],

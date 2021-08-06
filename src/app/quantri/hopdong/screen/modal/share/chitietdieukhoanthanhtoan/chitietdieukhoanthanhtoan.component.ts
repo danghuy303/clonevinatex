@@ -14,9 +14,9 @@ import { ChitietdieukhoanmodalComponent } from './chitietdieukhoanmodal/chitietd
 export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
 
   item: any = {};
-  
-  @Input()listDieuKhoanThanhToan:  any = [];
-  @Output('listDieuKhoanThanhToan')itemChange: EventEmitter<any> = new EventEmitter<any>();
+
+  @Input() listDieuKhoanThanhToan: any = [];
+  @Output() itemChange: EventEmitter<any> = new EventEmitter<any>();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
 
 
@@ -30,22 +30,19 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
 
   }
   add() {
-    
-    
+
+
     this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
     let modalRef = this._modal.open(ChitietdieukhoanmodalComponent, { size: 'xl', backdrop: 'static' });
     modalRef.componentInstance.item = {
-      Id: 0,
+      Id: "",
       listThanhToanThuTuc: [],
 
     };
     modalRef.componentInstance.opt = 'add';
     modalRef.result.then(res => {
-     
-      console.log(res);
-      
       console.log(res.item);
-      this.listDieuKhoanThanhToan.push(res);
+      this.listDieuKhoanThanhToan.push(res.item);
       if (res.opt !== 'add') {
         this.add()
       }
