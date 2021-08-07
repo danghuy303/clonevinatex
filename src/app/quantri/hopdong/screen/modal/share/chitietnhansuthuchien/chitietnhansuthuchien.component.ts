@@ -51,10 +51,11 @@ export class ChitietnhansuthuchienComponent implements OnInit, DoCheck {
 
     this.item.ngayBatDauUnix = DateToUnix(this.item.ngayBatDau);
     this.item.ngayKetThucUnix = DateToUnix(this.item.ngayKetThuc);
+    this.item.ngayQuyetDinhUnix = DateToUnix(this.item.ngayQuyetDinh);
     let modalRef = this._modal.open(NhansuthuchienmodalComponent, { size: 'xl', backdrop: 'static' });
     modalRef.componentInstance.item = {
       Id: "",
-      listThanhToanThuTuc: [],
+
 
     };
     modalRef.componentInstance.opt = 'add';
@@ -78,6 +79,7 @@ export class ChitietnhansuthuchienComponent implements OnInit, DoCheck {
       }
     }).catch(er => { console.log(er) });
   }
+  
   delete(i) {
     let item = this.listNhanSu.splice(i, 1)[0];
     if (item.ID === 0) {

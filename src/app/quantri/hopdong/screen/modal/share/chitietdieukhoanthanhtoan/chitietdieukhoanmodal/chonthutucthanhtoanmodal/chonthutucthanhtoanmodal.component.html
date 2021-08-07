@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Lựa chọn mặt hàng</h5>
+    <h5 class="modal-title">Danh mục thủ tục thanh toán</h5>
 </div>
 <div class="modal-body">
     <div class="p-grid">
@@ -19,9 +19,9 @@
             <p-table [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="item.listItem" styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
-                        <col style="width:50px">
-                        <col style="width:50px">
-                        <col style="text-align: center;" *ngFor="let header of cols">
+                        <col style="width: 50px" />
+                        <col style="width: 50px" />
+                        <col style="text-align: center" *ngFor="let header of cols" />
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -31,32 +31,29 @@
                         </th>
                         <th class="text-center">STT</th>
                         <th class="text-center" *ngFor="let header of cols">
-                            {{header.header}}
+                            {{ header.header }}
                         </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <!-- <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>
-                            <input type="checkbox" [(ngModel)]="item.checked">
+                            <input type="checkbox" [(ngModel)]="item.checked" />
                         </td>
-                        <td class="text-center">
-                            {{ 15 * (paging.CurrentPage - 1) + i + 1 }}
+
+                        <td class="text-left">
+                            {{ item.Ma }}
                         </td>
                         <td class="text-left">
-                            {{item.Ma}}
+                            {{ item.Ten }}
+
                         </td>
-                        <td class="text-left">
-                            {{item.Ten}} <span *ngIf="item.IdLoHangDao!==null"> - Đảo</span>
-                        </td>
-                        <td class="text-left" *ngIf="loai !== 'dmMatHang'">
-                            {{item.TenLoHang}}
-                        </td>
+
                     </tr>
-                </ng-template>
+                </ng-template> -->
                 <ng-template pTemplate="summary">
                     <div class="p-d-flex p-ai-center p-jc-between">
-                        Tổng số bản ghi {{paging.TotalItem}}.
+                        Tổng số bản ghi {{ paging.TotalItem }}.
                         <p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="15" (onPageChange)="changePage($event)"></p-paginator>
                     </div>
                 </ng-template>
