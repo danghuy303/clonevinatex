@@ -45,6 +45,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+      
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
@@ -89,7 +90,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       lstFileUploadCu: [],
     };
     modalRef.componentInstance.item.hopDong = {
-      Id: "",
+      id: "",
     };
 
     modalRef.result
@@ -129,9 +130,11 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   }
 
   update(item) {
+    console.log(item.id);
+    
     this._service
       .QuyTrinhHopDong()
-      .Get(item.hopDong.id)
+      .Get(item.id)
       .subscribe((res1: any) => {
         
         let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {

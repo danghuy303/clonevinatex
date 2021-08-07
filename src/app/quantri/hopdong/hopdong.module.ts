@@ -97,6 +97,9 @@ import { GiaokehoachsanxuatmodalComponent } from './screen/thuchienhopdong/giaok
 // import báo cáo theo dõi 
 
 import { TheodoihopdongnhapkhauComponent } from './baocao/theodoihopdongnhapkhau/theodoihopdongnhapkhau.component';
+import { ChonthutucthanhtoanmodalComponent } from './screen/modal/share/chitietdieukhoanthanhtoan/chitietdieukhoanmodal/chonthutucthanhtoanmodal/chonthutucthanhtoanmodal.component';
+import { ChitiethanghoamodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/chitiethanghoamodal/chitiethanghoamodal.component';
+import { ThoigiannhaphangmodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/chitiethanghoamodal/thoigiannhaphangmodal/thoigiannhaphangmodal.component';
 
 @NgModule({
   declarations: [
@@ -182,6 +185,15 @@ TheodoihopdongnhapkhauComponent,
    
    
     TheodoihopdongnhapkhauComponent,
+   
+   
+    ChonthutucthanhtoanmodalComponent,
+   
+   
+    ChitiethanghoamodalComponent,
+   
+   
+    ThoigiannhaphangmodalComponent,
 
 
   ],
@@ -239,6 +251,9 @@ TheodoihopdongnhapkhauComponent,
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
   entryComponents:[
+    ChitiethanghoamodalComponent,
+    ChitiethanghoamodalComponent,
+    ChonthutucthanhtoanmodalComponent,
     ChitiethopdongbongxomodalComponent,
     ModaldanhmuchinhthucthanhtoanComponent,
     ModaldanhmucloaihopdongComponent,

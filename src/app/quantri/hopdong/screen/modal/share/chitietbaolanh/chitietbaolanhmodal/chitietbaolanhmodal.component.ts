@@ -1,3 +1,4 @@
+import { vn } from './../../../../../../../services/const';
 
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -12,29 +13,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chitietbaolanhmodal.component.css']
 })
 export class ChitietbaolanhmodalComponent implements OnInit {
-
+  lang: any = vn;
+  listTinhTrang: any = []
+  listLoaiBaoLanh: any = []
+ 
+  opt: any = '';
+  item: any = {};
+  yearRange: string = `${
+    new Date().getFullYear() - 50
+  }:${new Date().getFullYear()}`;
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal) { }
 
 
   ngOnInit(): void {
   }
-  add() {
-    // this.changeParam(0);
-    let modalRef = this._modal.open(ChitietbaolanhmodalComponent, {
-      size: 'fullscreen-100',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = {
-      Id: '',
-      listItem: []
-    }
-    // modalRef.result.then((res: any) => {
-    //   console.log(res);
-    //   this._toastr.success('Cập nhật thành công');
-    //   this.GetListQuyTrinh();
-    //   this.changeParam(0)
-    // })
-    //   .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
+  accept(opt){
+    // if (this.item.tempCapHang !== undefined && this.item.tempCapHang !== null) {
+    //   this.item.IDdmCapHang = this.item.tempCapHang.ID;
+    //   this.item.TendmCapHang = this.item.tempCapHang.Ten;
+    // }
+    console.log(this.item);
+    
+    this.activeModal.close({ opt: opt, item: this.item });
   }
 }

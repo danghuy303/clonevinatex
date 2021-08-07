@@ -21,7 +21,7 @@
         <div class="modal-bt p-mb-4">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="activeModal.dismiss('close')"></button>
             <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm" (click)="GhiLai()" *ngIf="checkbutton.Ghi"></button>
-            <button pButton pRipple type="button" label="Xóa" *ngIf="checkbutton.Xoa" class="p-mr-2 p-button-sm" (click)="XoaQuyTrinh()"></button>
+            <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" (click)="XoaQuyTrinh()"></button>
             <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()" *ngIf="checkbutton.KhongDuyet"></button>
         </div>
     </div>
@@ -32,17 +32,18 @@
                 </app-chitiethopdongbongxo>
             </p-tabPanel>
             <p-tabPanel header="Danh sách hàng hóa">
-                <app-chitietdanhsachhanghoa [isBongXo]="isBongXo" [(hangHoa)]="item.hangHoa">
+                <app-chitietdanhsachhanghoa [isBongXo]="isBongXo" [(listVatTu)]="item.listVatTu">
                 </app-chitietdanhsachhanghoa>
             </p-tabPanel>
             <p-tabPanel header="Điều khoản thanh toán">
-                <app-chitietdieukhoanthanhtoan [(thanhToan)]="item.thanhToan"></app-chitietdieukhoanthanhtoan>
+                <app-chitietdieukhoanthanhtoan [(listDieuKhoanThanhToan)]="item.listDieuKhoanThanhToan"></app-chitietdieukhoanthanhtoan>
             </p-tabPanel>
+
             <p-tabPanel header="Nhân sự thực hiện">
-                <app-chitietnhansuthuchien [(nhanSu)]="item.nhanSu"></app-chitietnhansuthuchien>
+                <app-chitietnhansuthuchien [(listNhanSu)]="item.listNhanSu"></app-chitietnhansuthuchien>
             </p-tabPanel>
             <p-tabPanel header="Bảo lãnh">
-                <app-chitietbaolanh [(baoLanh)]="item.baoLanh"></app-chitietbaolanh>
+                <app-chitietbaolanh [(listBaoLanh)]="item.listBaoLanh"></app-chitietbaolanh>
             </p-tabPanel>
             <!-- <p-tabPanel header="Thanh toán"> Content 3 </p-tabPanel> -->
             <p-tabPanel header="Phạt hợp đồng">

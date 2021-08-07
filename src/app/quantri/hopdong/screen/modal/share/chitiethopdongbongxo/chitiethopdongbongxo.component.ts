@@ -53,9 +53,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   selectedCityCode: string;
   checkbutton: any = {};
   lang: any = vn;
-  yearRange: string = `${
-    new Date().getFullYear() - 50
-  }:${new Date().getFullYear()}`;
+  yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -68,8 +66,9 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
   ) {
     this.cities = [
-      {name: 'Bông', code: 'NY'},
-      {name: 'Xơ', code: 'RM'},
+      {name: 'Bông', code: 'B'},
+      {name: 'Xơ', code: 'X'},
+      {name: 'Vật tư phụ', code: 'VT'},
     
   ];
   }
