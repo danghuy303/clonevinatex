@@ -102,8 +102,7 @@ export class TheodoihopdongnhapkhauComponent implements OnInit {
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:Dat09Service) { }
 
   ngOnInit(): void {
-    this.KiemTraTabTrangThai();
-    // this.GetListQuyTrinh()
+    
   }
  
   changeTab(e){
@@ -117,6 +116,10 @@ export class TheodoihopdongnhapkhauComponent implements OnInit {
   GetListQuyTrinh(reset?){
     if (reset) {
       this.paging.CurrentPage = 1;
+
+
+      
+      
       this.paginator.changePage(0);
     }
     let data={

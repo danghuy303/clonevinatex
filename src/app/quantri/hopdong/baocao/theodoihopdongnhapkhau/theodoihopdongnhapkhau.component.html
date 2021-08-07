@@ -23,7 +23,7 @@
                     </p-calendar>
                 </div>
                 <div class="p-inputgroup" style="width:200px">
-                    <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh()" [(ngModel)]="filter.KeyWord"/>
+                    <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh" [(ngModel)]="filter.KeyWord"/>
                     <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"(click)="resetFilter()"></button>
                 </div>
                 <div>
@@ -36,12 +36,14 @@
          </ng-template>
     </p-toolbar>
 
-<p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <p-tabPanel header="Đang giao dịch" [disabled]="!checkQuyen.DangGiaoDich">
-    </p-tabPanel>
-    <p-tabPanel header="Đã kết thúc" [disabled]="!checkQuyen.DaKetThuc">
-    </p-tabPanel>
-</p-tabView>
+    <p-tabView (onChange)="changetab($event)">
+        <p-tabPanel header="Đang giao dịch">
+
+        </p-tabPanel>
+        <p-tabPanel header="Đã kết thúc">
+
+        </p-tabPanel>
+    </p-tabView>
 
 
 <div class="p-mt-3">
