@@ -45,6 +45,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+      
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {

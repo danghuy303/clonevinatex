@@ -62,10 +62,8 @@ title:string
   }
 
   ngOnInit(): void {
-    // if (this.item.ngayKyUnix !== null && this.item.ngayKyUnix !== undefined) {
-    //   this.item.ngayKy = UnixToDate(this.item.ngayKyUnix);
-    // }
 
+   
     this.checkbutton = {
       Ghi: false,
       Xoa: false,
@@ -167,6 +165,9 @@ this.title = 'Thêm phiếu hợp đồng bông/xơ'
       .catch((er) => console.log(er));
   }
   ChuyenTiep() {
+    this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
+    this.item.hopDong.ngayKetThucUnix = DateToUnix(this.item.hopDong.ngayKetThuc);
+    this.item.hopDong.ngayBatDauUnix = DateToUnix(this.item.hopDong.ngayBatDau);
     this._service.QuyTrinhHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res?.statusCode === 200) {
@@ -180,6 +181,9 @@ this.title = 'Thêm phiếu hợp đồng bông/xơ'
 
   }
   KhongDuyet() {
+    this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
+    this.item.hopDong.ngayKetThucUnix = DateToUnix(this.item.hopDong.ngayKetThuc);
+    this.item.hopDong.ngayBatDauUnix = DateToUnix(this.item.hopDong.ngayBatDau);
     this._service.QuyTrinhHopDong().KhongDuyet(this.item).subscribe((res: any) => {
       if (res) {
         if (res?.statusCode === 200) {
