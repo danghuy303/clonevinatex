@@ -1850,6 +1850,9 @@ export class SanXuatService {
             Delete: (data) => {
                 return this.http.post(url + 'DeletedmKhachHang', data, httpOptions);
             },
+            GetListdmKhachHangTheoId: (Id) => {
+                return this.http.get(url + `GetListdmKhachHangTheoId?Id=${Id}`, httpOptions);
+            },
         }
     }
     GetListLoaiNhomKho() {

@@ -1,3 +1,4 @@
+import { UnixToDate } from 'src/app/services/globalfunction';
 // import { StoreService } from './../../../../../../services/store.service';
 import { HopDongService } from "./../../../../../../services/Hopdong/hopdong.service";
 import { DanhMucHopDongService } from "./../../../../../../services/Hopdong/danhmuchopdong.service";
@@ -40,17 +41,20 @@ import { elementAt } from "rxjs/operators";
 })
 export class ChitiethopdongbongxoComponent implements OnInit {
   listHinhThucThanhToan: any = [];
-
+  listNguyenVatLieu: any = [];
   listLoaiHopDong: any = [];
   listLoaiHopDongFull: any = [];
   listLoaiTienTe: any = [];
+  listdmKhachHang: any = [];
+  getdmKhachHangForCopy: any = {};
+  canCopy: boolean = false;
   @Input() item: any;
   @Input() hopDong: any;
   @Output() itemChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input("opt") opt: string;
-  cities: City[];
+  options: LoaiBongXo[];
 
-  selectedCityCode: string;
+  selectedLoaiBongXo: string;
   checkbutton: any = {};
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
@@ -65,7 +69,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     private _modal: NgbModal
 
   ) {
-    this.cities = [
+    this.options = [
       {name: 'Bông', code: 'B'},
       {name: 'Xơ', code: 'X'},
       {name: 'Vật tư phụ', code: 'VT'},
@@ -75,6 +79,8 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
   ngOnInit() {
     this.GetFormOptions();
+    this.item.ngayKy = UnixToDate(this.item.ngayKyUnix);
+    this.item.ngayHieuLuc = UnixToDate(this.item.ngayHieuLucUnix);
 
     if (this.opt !== "edit") {
       // this.GetNextSoQuyTrinh();
@@ -92,11 +98,20 @@ export class ChitiethopdongbongxoComponent implements OnInit {
         this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
       });
 
-      this._servicesdmHopDong
-      .DanhMucLoaiTienTe()
-      .GetListAll()
+      this._service
+      .QuyTrinhHopDong()
+      .GetOptionsVatLieu()
       .subscribe((res: any) => {
-        this.listLoaiTienTe = mapArrayForDropDown(res, "ten", "id");
+        this.listNguyenVatLieu = mapArrayForDropDown(res, "ten", "id");
+      });
+   
+
+      this._servicesSanXuat
+      .dmKhachHang()
+      .GetListOpt()
+      .subscribe((res: any) => {
+       
+        this.listdmKhachHang = mapArrayForDropDown(res, "Ten", "Id");
       });
 
 
@@ -105,6 +120,12 @@ export class ChitiethopdongbongxoComponent implements OnInit {
       .GetListAll()
       .subscribe((res: any) => {
         this.listHinhThucThanhToan = mapArrayForDropDown(res, "ten", "id");
+      });
+      this._servicesdmHopDong
+      .DanhMucLoaiTienTe()
+      .GetListAll()
+      .subscribe((res: any) => {
+        this.listLoaiTienTe = mapArrayForDropDown(res, "ten", "id");
       });
     // this._servicesdmHopDong
     //   .DanhMucLoaiHopDong()
@@ -141,7 +162,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     this.item.IsBong = loai;
   }
 }
-interface City {
+interface LoaiBongXo {
   name: string,
   code: string
 }

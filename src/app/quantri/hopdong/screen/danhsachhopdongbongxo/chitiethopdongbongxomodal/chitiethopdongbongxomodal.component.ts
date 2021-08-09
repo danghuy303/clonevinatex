@@ -62,8 +62,11 @@ title:string
   }
 
   ngOnInit(): void {
+console.log(this.item);
 
-   
+    this.item.ngayKy = UnixToDate(this.item.ngayKyUnix);
+    this.item.ngayHieuLuc = UnixToDate(this.item.ngayHieuLucUnix);
+ 
     this.checkbutton = {
       Ghi: false,
       Xoa: false,
@@ -73,10 +76,10 @@ title:string
     // this.GetFormOptions();
     this.GetNextSoQuyTrinh();
     if (this.opt !== "edit") {
-this.title = 'Thêm phiếu hợp đồng bông/xơ'
+this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
       this.KiemTraButtonModal();
     }else {
-      this.title = "Phiếu hợp đồng bông/xơ"
+      this.title = "Hợp đồng nguyên/vật liệu"
     }
   }
 
@@ -121,8 +124,8 @@ this.title = 'Thêm phiếu hợp đồng bông/xơ'
 
     if (this.ValidData()) {
       this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
-      this.item.hopDong.ngayKetThucUnix = DateToUnix(this.item.hopDong.ngayKetThuc);
-      this.item.hopDong.ngayBatDauUnix = DateToUnix(this.item.hopDong.ngayBatDau);
+      this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
+     
       this._service
         .QuyTrinhHopDong()
         .Set(this.item)
@@ -166,8 +169,8 @@ this.title = 'Thêm phiếu hợp đồng bông/xơ'
   }
   ChuyenTiep() {
     this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
-    this.item.hopDong.ngayKetThucUnix = DateToUnix(this.item.hopDong.ngayKetThuc);
-    this.item.hopDong.ngayBatDauUnix = DateToUnix(this.item.hopDong.ngayBatDau);
+    this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
+   
     this._service.QuyTrinhHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res?.statusCode === 200) {
@@ -182,8 +185,8 @@ this.title = 'Thêm phiếu hợp đồng bông/xơ'
   }
   KhongDuyet() {
     this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
-    this.item.hopDong.ngayKetThucUnix = DateToUnix(this.item.hopDong.ngayKetThuc);
-    this.item.hopDong.ngayBatDauUnix = DateToUnix(this.item.hopDong.ngayBatDau);
+    this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
+   
     this._service.QuyTrinhHopDong().KhongDuyet(this.item).subscribe((res: any) => {
       if (res) {
         if (res?.statusCode === 200) {
