@@ -58,23 +58,39 @@
         ></p-dropdown>
       </div>
     </div>
-    <div class="p-col-12 p-xl-7 p-p-3 d-flex flex-column flex-lg-row">
-      <label class="p-col-12 p-lg-1 p-xl-1 p-p-0 my-auto p-mr-3"
+
+    <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+      <label class="p-col-12 p-lg-1 p-p-0 my-auto "
         >Số CV/BB</label
       >
-      <div class="p-col-12 p-lg-5 p-xl-5 p-p-0">
+      <div class="p-col-12 p-lg-4 p-p-0">
         <input
           type="text"
           [(ngModel)]="item.soVanBan"
-          class="p-inputtext-sm"
+         
           pInputText
         />
       </div>
-      <label class="p-col-12 p-lg-2 p-xl-3 p-p-0 my-auto"
-        >Ngày phát hành CV/BB</label
-      >
-      <div class="p-col-12 p-lg-4 p-xl-3 p-p-0">
-        <p-calendar
+    </div> -->
+    <div class="p-col-12 p-lg-4 p-p-3 p-d-flex flex-lg-row ">
+      <label class="p-col-12 p-lg-3 p-p-0 my-auto"> Số CV/BB </label
+>
+<div class="p-col-12 p-lg-9 p-p-0">
+  <input
+    type="text"
+    [(ngModel)]="item.soVanBan"
+    class="p-inputtext-sm"
+    pInputText
+  />
+</div>
+</div>
+
+<div class="p-col-12 p-lg-4 p-p-3 d-flex flex-lg-row">
+  <label class="p-col-12 p-lg-5 p-p-0 my-auto"> Ngày phát hành CV/BB </label
+>
+<div class="p-col-12 p-lg-7 p-p-0">
+
+<p-calendar
           dateFormat="dd/mm/yy"
           inputStyleClass="p-inputtext-sm"
           [locale]="lang"
@@ -87,22 +103,54 @@
           placeholder="dd/mm/yyyy"
         >
         </p-calendar>
+</div>
+</div>
+<div class="p-col-12 p-lg-4 p-p-3 d-flex flex-lg-row">
+  <label class="p-col-12 p-lg-3 p-p-0 my-auto"> Giá trị phạt </label
+>
+<div class="p-col-12 p-lg-9 p-p-0">
+  <p-inputNumber #inputNumber [(ngModel)]="item.giaTri" [minFractionDigits]="0" locale="vi-VN">
+  </p-inputNumber>
+</div>
+</div>
+<!-- </div>
+    <div  class="p-col-12 p-xl-4 p-p-3 d-flex flex-column flex-lg-row">
+      <label class="p-col-12 p-lg-2 p-xl-3 p-p-0 my-auto">Ngày phát hành CV/BB</label
+      >
+      <div class="p-col-12 p-lg-4 p-p-0">
+        <p-calendar
+          dateFormat="dd/mm/yy"
+         
+          [locale]="lang"
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          [yearRange]="yearRange"
+          [showIcon]="true"
+          [(ngModel)]="item.ngayPhatHanh"
+          inputId="icon"
+          placeholder="dd/mm/yyyy"
+        >
+        </p-calendar>
       </div>
     </div>
-    <div class="p-col-12 p-p-3 p-xl-5 d-flex flex-column flex-lg-row">
+  
+    <div class="p-col-12 p-p-3 p-xl-4 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-lg-2 p-p-0 my-auto">Giá trị phạt</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+            <div class="p-col-12 p-lg-4 p-p-0">
                 <p-inputNumber #inputNumber [(ngModel)]="item.giaTri" [minFractionDigits]="0" locale="vi-VN">
                 </p-inputNumber>
             </div>
-        </div>
+        </div> -->
+
+
+
         <div class="p-col-12 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú </label>
             <div class="p-col-12 p-lg-11 p-p-0">
                 <input type="text" [(ngModel)]="item.ghiChu" class="p-inputtext-sm" pInputText />
             </div>
         </div>
-    </div>
+   
 </div>
 <div class="modal-footer">
     <!-- <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
