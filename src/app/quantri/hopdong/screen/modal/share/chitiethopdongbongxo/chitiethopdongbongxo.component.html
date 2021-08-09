@@ -159,7 +159,7 @@
         <div class="p-col-12 p-lg12 p-mb-3 padding0 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-3 p-xl-2 p-p-0 my-auto">Tên công ty:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <p-dropdown [filter]="true" [options]='listdmKhachHang' [(ngModel)]="item.idKhachHang" placeholder="Chọn công ty" styleClass="p-inputtext-sm"></p-dropdown>
+                <p-dropdown [filter]="true" [options]='listdmKhachHang' [(ngModel)]="item.idKhachHang" (onChange)="GetgetdmKhachHangByIdForCopy($event)" placeholder="Chọn công ty" styleClass="p-inputtext-sm"></p-dropdown>
                 <!-- <button type="button" pButton pRipple label="Sao chép" class="p-button-text p-button-sm" (click)="CopydmKhachHang()" [disabled]="!canCopy"></button> -->
             </div>
         </div>

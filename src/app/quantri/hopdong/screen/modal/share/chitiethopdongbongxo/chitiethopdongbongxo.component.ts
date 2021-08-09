@@ -52,7 +52,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   @Input() hopDong: any;
   @Output() itemChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input("opt") opt: string;
-  options: LoaiBongXo[];
+  
 
   selectedLoaiBongXo: string;
   checkbutton: any = {};
@@ -69,15 +69,33 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     private _modal: NgbModal
 
   ) {
-    this.options = [
-      {name: 'Bông', code: 'B'},
-      {name: 'Xơ', code: 'X'},
-      {name: 'Vật tư phụ', code: 'VT'},
-    
-  ];
+   
   }
 
   ngOnInit() {
+    let Id = this.item.idKhachHang
+if(this.item.idKhachHang !== null){
+  this._servicesSanXuat.dmKhachHang().GetListdmKhachHangTheoId(Id).subscribe((res: any) => {
+    this.getdmKhachHangForCopy = res;
+    this.item.DiaChi = this.getdmKhachHangForCopy.DiaChi
+    this.item.ChucVu = this.getdmKhachHangForCopy.ChucVu
+    this.item.Ma = this.getdmKhachHangForCopy.Ma
+    this.item.MaSoThue = this.getdmKhachHangForCopy.MaSoThue
+    this.item.NguoiDaiDien = this.getdmKhachHangForCopy.NguoiDaiDien
+    this.item.SoDienThoai = this.getdmKhachHangForCopy.SoDienThoai
+    this.item.SoFax = this.getdmKhachHangForCopy.SoFax
+    this.item.Ten = this.getdmKhachHangForCopy.Ten
+    this.item.listTaiKhoanNganHang = this.getdmKhachHangForCopy.listTaiKhoanNganHang
+
+
+  })
+  
+}
+else {
+
+  
+}
+
     this.GetFormOptions();
     this.item.ngayKy = UnixToDate(this.item.ngayKyUnix);
     this.item.ngayHieuLuc = UnixToDate(this.item.ngayHieuLucUnix);
@@ -88,8 +106,42 @@ export class ChitiethopdongbongxoComponent implements OnInit {
         this.item.IdDuAn = this._store.getCurrent();
       }
     }
+
   }
 
+  GetgetdmKhachHangByIdForCopy({ value: Id }) {
+    this._servicesSanXuat.dmKhachHang().GetListdmKhachHangTheoId(Id).subscribe((res: any) => {
+      this.getdmKhachHangForCopy = res;
+      this.item.DiaChi = this.getdmKhachHangForCopy.DiaChi
+      this.item.ChucVu = this.getdmKhachHangForCopy.ChucVu
+      this.item.Ma = this.getdmKhachHangForCopy.Ma
+      this.item.MaSoThue = this.getdmKhachHangForCopy.MaSoThue
+      this.item.NguoiDaiDien = this.getdmKhachHangForCopy.NguoiDaiDien
+      this.item.SoDienThoai = this.getdmKhachHangForCopy.SoDienThoai
+      this.item.SoFax = this.getdmKhachHangForCopy.SoFax
+      this.item.Ten = this.getdmKhachHangForCopy.Ten
+      this.item.listTaiKhoanNganHang = this.getdmKhachHangForCopy.listTaiKhoanNganHang
+  
+  
+    })
+  }
+  // CopydmKhachHang() {   
+  //   let cloneData = deepCopy({
+  //     ...this.getdmKhachHangForCopy,
+  //     Id: ""
+  //     // SoQuyTrinh: this.item.SoQuyTrinh,   
+  //   });
+  //   this.item = cloneData;
+  // }
+  // ongChange(aValue){
+  //   this.item.DiaChi = null;
+
+  //   if (aValue != null) {
+
+  //     this.item.DiaChi = aValue.DiaChi;
+
+  //   }
+  // }
   GetFormOptions() {
     this._servicesdmHopDong
       .DanhMucLoaiHopDong()
@@ -98,30 +150,30 @@ export class ChitiethopdongbongxoComponent implements OnInit {
         this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
       });
 
-      this._service
+    this._service
       .QuyTrinhHopDong()
       .GetOptionsVatLieu()
       .subscribe((res: any) => {
         this.listNguyenVatLieu = mapArrayForDropDown(res, "ten", "id");
       });
-   
 
-      this._servicesSanXuat
+
+    this._servicesSanXuat
       .dmKhachHang()
       .GetListOpt()
       .subscribe((res: any) => {
-       
+
         this.listdmKhachHang = mapArrayForDropDown(res, "Ten", "Id");
       });
 
 
-      this._servicesdmHopDong
+    this._servicesdmHopDong
       .DanhMucHinhThucThanhToan()
       .GetListAll()
       .subscribe((res: any) => {
         this.listHinhThucThanhToan = mapArrayForDropDown(res, "ten", "id");
       });
-      this._servicesdmHopDong
+    this._servicesdmHopDong
       .DanhMucLoaiTienTe()
       .GetListAll()
       .subscribe((res: any) => {
@@ -161,8 +213,4 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   Loai(loai: boolean) {
     this.item.IsBong = loai;
   }
-}
-interface LoaiBongXo {
-  name: string,
-  code: string
 }
