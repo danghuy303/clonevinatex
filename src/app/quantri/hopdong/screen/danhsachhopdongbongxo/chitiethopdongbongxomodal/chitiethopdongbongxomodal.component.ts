@@ -134,7 +134,10 @@ this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
       
           if (res) {
             if (res?.statusCode === 200) {
-              this.activeModal.close();
+              // this.activeModal.close();
+              // setTimeout(() => {
+              //   checkbutton.GhiLai = false
+              // }, 1000);
               this._toastr.success(res.message);
             } else {
               this._toastr.error(res.message);
