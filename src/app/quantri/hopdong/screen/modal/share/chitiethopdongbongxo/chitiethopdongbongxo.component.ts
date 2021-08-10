@@ -159,7 +159,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   onChangeVatLieu(event) {
     console.log(this.item);
 
-    this.item.LoaiNguyenVatLieu = event.value;
+    this.item.LoaiNguyenVatLieu = event.value.code;
   }
   ngOnInit() {
     console.log(this.item);
