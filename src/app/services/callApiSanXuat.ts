@@ -73,6 +73,11 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + `GetListdmKhoForLoaiBong?IdKeHoachNhapNguyenLieu_Item=${IdKeHoachNhapNguyenLieu_Item}`;
         return this.http.get(url, httpOptions);
     }
+
+    GetListdmLoaiBongForHopDong(Loai) {
+        let url = API.SCMDanhMuc + `GetListdmLoaiBongForHopDong?Loai=${Loai}`;
+        return this.http.get(url, httpOptions);
+    }
     //#endregion
 
     //#region  Danh mục máy biến áp

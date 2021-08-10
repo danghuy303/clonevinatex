@@ -33,6 +33,7 @@ import {
 } from "src/app/services/globalfunction";
 import { StoreService } from "src/app/services/store.service";
 import { elementAt } from "rxjs/operators";
+import { FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: "app-chitiethopdongbongxo",
@@ -40,6 +41,16 @@ import { elementAt } from "rxjs/operators";
   styleUrls: ["./chitiethopdongbongxo.component.css"],
 })
 export class ChitiethopdongbongxoComponent implements OnInit {
+
+  getKhachHang: any 
+
+  optionsVatLieu: LoaiVatLieu[];
+  cities: LoaiVatLieu[];
+  selectedCity: any
+
+  listKhachHangA: any = []
+  listKhachHangB: any = []
+  selectedCityCode: string;
   listHinhThucThanhToan: any = [];
   listNguyenVatLieu: any = [];
   listLoaiHopDong: any = [];
@@ -47,18 +58,18 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   listLoaiTienTe: any = [];
   listdmKhachHang: any = [];
   getdmKhachHangForCopy: any = {};
+  LoaiNguyenVatLieu: number
   canCopy: boolean = false;
   @Input() item: any;
   @Input() hopDong: any;
   @Output() itemChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input("opt") opt: string;
-  
+  selectedReport: any;
 
-  selectedLoaiBongXo: string;
+
   checkbutton: any = {};
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-
   constructor(
     public activeModal: NgbActiveModal,
     private _servicesdmHopDong: DanhMucHopDongService,
@@ -66,35 +77,56 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     private _store: StoreService,
     private _servicesSanXuat: SanXuatService,
     private _toastr: ToastrService,
-    private _modal: NgbModal
+    private _modal: NgbModal,
+
 
   ) {
-   
+    this.cities = [
+      { name: 'Bông', code: 2 },  
+      { name: 'Xơ', code: 5 },
+      { name: 'Vật tư khác', code: 6 },
+    ]
+
   }
-
+  onChangBenA(){
+  
+  console.log(this.item.iddmKhachHangA);
+  this.item.iddmKhachHangA = this.getKhachHang.Id
+  this.item.DiaChi = this.getKhachHang.DiaChi
+  // this.item.DiaChi = this.getKhachHang.DiaChi;
+  //  this.listdmKhachHang.iddmKhachHangA = this.item.iddmKhachHangA
+  //  this.listdmKhachHang.DiaChi = this.item.DiaChi
+  
+  
+    
+  }
+  onReportChange(event) {
+    this.item.LoaiNguyenVatLieu = event.value.code;
+  }
   ngOnInit() {
+
     let Id = this.item.idKhachHang
-if(this.item.idKhachHang !== null){
-  this._servicesSanXuat.dmKhachHang().GetListdmKhachHangTheoId(Id).subscribe((res: any) => {
-    this.getdmKhachHangForCopy = res;
-    this.item.DiaChi = this.getdmKhachHangForCopy.DiaChi
-    this.item.ChucVu = this.getdmKhachHangForCopy.ChucVu
-    this.item.Ma = this.getdmKhachHangForCopy.Ma
-    this.item.MaSoThue = this.getdmKhachHangForCopy.MaSoThue
-    this.item.NguoiDaiDien = this.getdmKhachHangForCopy.NguoiDaiDien
-    this.item.SoDienThoai = this.getdmKhachHangForCopy.SoDienThoai
-    this.item.SoFax = this.getdmKhachHangForCopy.SoFax
-    this.item.Ten = this.getdmKhachHangForCopy.Ten
-    this.item.listTaiKhoanNganHang = this.getdmKhachHangForCopy.listTaiKhoanNganHang
+    // if(this.item.idKhachHang !== null){
+    //   this._servicesSanXuat.dmKhachHang().GetListdmKhachHangTheoId(Id).subscribe((res: any) => {
+    //     this.getdmKhachHangForCopy = res;
+    //     this.item.DiaChi = this.getdmKhachHangForCopy.DiaChi
+    //     this.item.ChucVu = this.getdmKhachHangForCopy.ChucVu
+    //     this.item.Ma = this.getdmKhachHangForCopy.Ma
+    //     this.item.MaSoThue = this.getdmKhachHangForCopy.MaSoThue
+    //     this.item.NguoiDaiDien = this.getdmKhachHangForCopy.NguoiDaiDien
+    //     this.item.SoDienThoai = this.getdmKhachHangForCopy.SoDienThoai
+    //     this.item.SoFax = this.getdmKhachHangForCopy.SoFax
+    //     this.item.Ten = this.getdmKhachHangForCopy.Ten
+    //     this.item.listTaiKhoanNganHang = this.getdmKhachHangForCopy.listTaiKhoanNganHang
 
 
-  })
-  
-}
-else {
+    //   })
 
-  
-}
+    // }
+    // else {
+
+
+    // }
 
     this.GetFormOptions();
     this.item.ngayKy = UnixToDate(this.item.ngayKyUnix);
@@ -109,39 +141,23 @@ else {
 
   }
 
-  GetgetdmKhachHangByIdForCopy({ value: Id }) {
-    this._servicesSanXuat.dmKhachHang().GetListdmKhachHangTheoId(Id).subscribe((res: any) => {
-      this.getdmKhachHangForCopy = res;
-      this.item.DiaChi = this.getdmKhachHangForCopy.DiaChi
-      this.item.ChucVu = this.getdmKhachHangForCopy.ChucVu
-      this.item.Ma = this.getdmKhachHangForCopy.Ma
-      this.item.MaSoThue = this.getdmKhachHangForCopy.MaSoThue
-      this.item.NguoiDaiDien = this.getdmKhachHangForCopy.NguoiDaiDien
-      this.item.SoDienThoai = this.getdmKhachHangForCopy.SoDienThoai
-      this.item.SoFax = this.getdmKhachHangForCopy.SoFax
-      this.item.Ten = this.getdmKhachHangForCopy.Ten
-      this.item.listTaiKhoanNganHang = this.getdmKhachHangForCopy.listTaiKhoanNganHang
-  
-  
-    })
-  }
-  // CopydmKhachHang() {   
-  //   let cloneData = deepCopy({
-  //     ...this.getdmKhachHangForCopy,
-  //     Id: ""
-  //     // SoQuyTrinh: this.item.SoQuyTrinh,   
-  //   });
-  //   this.item = cloneData;
+  // GetgetdmKhachHangByIdForCopy({ value: Id }) {
+  //   this._servicesSanXuat.dmKhachHang().GetListdmKhachHangTheoId(Id).subscribe((res: any) => {
+  //     this.getdmKhachHangForCopy = res;
+  //     this.item.DiaChi = this.getdmKhachHangForCopy.DiaChi
+  //     this.item.ChucVu = this.getdmKhachHangForCopy.ChucVu
+  //     this.item.Ma = this.getdmKhachHangForCopy.Ma
+  //     this.item.MaSoThue = this.getdmKhachHangForCopy.MaSoThue
+  //     this.item.NguoiDaiDien = this.getdmKhachHangForCopy.NguoiDaiDien
+  //     this.item.SoDienThoai = this.getdmKhachHangForCopy.SoDienThoai
+  //     this.item.SoFax = this.getdmKhachHangForCopy.SoFax
+  //     this.item.Ten = this.getdmKhachHangForCopy.Ten
+  //     this.item.listTaiKhoanNganHang = this.getdmKhachHangForCopy.listTaiKhoanNganHang
+
+
+  //   })
   // }
-  // ongChange(aValue){
-  //   this.item.DiaChi = null;
 
-  //   if (aValue != null) {
-
-  //     this.item.DiaChi = aValue.DiaChi;
-
-  //   }
-  // }
   GetFormOptions() {
     this._servicesdmHopDong
       .DanhMucLoaiHopDong()
@@ -162,9 +178,12 @@ else {
       .dmKhachHang()
       .GetListOpt()
       .subscribe((res: any) => {
-
+        
+        // console.log('GetListOpt',  this.listdmKhachHang.DiaChi);
+        this.getKhachHang = res
         this.listdmKhachHang = mapArrayForDropDown(res, "Ten", "Id");
-      });
+      
+      }, );
 
 
     this._servicesdmHopDong
@@ -177,6 +196,7 @@ else {
       .DanhMucLoaiTienTe()
       .GetListAll()
       .subscribe((res: any) => {
+       
         this.listLoaiTienTe = mapArrayForDropDown(res, "ten", "id");
       });
     // this._servicesdmHopDong
@@ -213,4 +233,8 @@ else {
   Loai(loai: boolean) {
     this.item.IsBong = loai;
   }
+}
+interface LoaiVatLieu {
+  name: string,
+  code: number
 }

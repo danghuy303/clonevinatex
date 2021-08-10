@@ -3,21 +3,17 @@
         <div class="p-col-12 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại hợp đồng:<span class="required">*</span></label>
             <div class="p-col-12 p-xl-8 p-p-0">
+
                 <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiHopDong" [options]="listLoaiHopDong" placeholder="Chọn loại hợp đồng" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-6 p-mb-3  padding0 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-lg-5 p-p-0 my-auto">Số hợp đồng:<span class="required">*</span></label>
-            <div class="p-col-12 p-xl-8  p-p-0">
-                <input type="text" [(ngModel)]="item.soHopDong" class="p-inputtext-sm" pInputText />
-            </div>
-        </div> -->
+
         <div class="p-col-12 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-lg-6 p-p-0 my-auto">Chọn loại nguyên/vật liệu:
             </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-dropdown [options]="listNguyenVatLieu" placeholder="Chọn nguyên/vật liệu" [(ngModel)]="item.iddmLoaiNguyenVatLieu">
-                </p-dropdown>
+                <p-dropdown [options]="cities" [(ngModel)]="item.LoaiNguyenVatLieu" (onChange)="onReportChange($event)" name="selectedCity" placeholder="Chọn nguyên/vật liệu" optionLabel="name" optionValue="code"></p-dropdown>
+
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row">
@@ -153,13 +149,94 @@
     </div>
 </p-panel>
 
-<p-panel header="Thông tin nhà cung cấp" [style]="{ 'margin-bottom': '2em' }" [toggleable]="true">
+<p-panel header="Thông tin bên A" [style]="{ 'margin-bottom': '2em' }" [toggleable]="true">
 
     <div class="p-grid">
         <div class="p-col-12 p-lg12 p-mb-3 padding0 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-3 p-xl-2 p-p-0 my-auto">Tên công ty:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <p-dropdown [filter]="true" [options]='listdmKhachHang' [(ngModel)]="item.idKhachHang" (onChange)="GetgetdmKhachHangByIdForCopy($event)" placeholder="Chọn công ty" styleClass="p-inputtext-sm"></p-dropdown>
+                <p-dropdown [filter]="true" [options]='listdmKhachHang' [(ngModel)]="item.iddmKhachHangA" (onChange)="onChangBenA()" placeholder="Chọn công ty" styleClass="p-inputtext-sm"></p-dropdown>
+                <!-- <button type="button" pButton pRipple label="Sao chép" class="p-button-text p-button-sm" (click)="CopydmKhachHang()" [disabled]="!canCopy"></button> -->
+            </div>
+        </div>
+        <div class="
+        p-col-12 p-lg-12 p-mb-3
+        padding0
+        d-flex
+        flex-column flex-xl-row
+      ">
+            <label class="p-col-12 p-lg-4 p-xl-2 marginleft p-p-0 my-auto">Địa chỉ:</label>
+            <div class="p-col-12 p-xl-10 p-p-0">
+                <input type="text" [(ngModel)]="item.DiaChi" disabled class="p-inputtext-sm" pInputText />
+            </div>
+        </div>
+        <div class="
+        p-col-12 p-xl-6 p-lg-6 p-mb-3
+        padding0
+        d-flex
+        flex-column flex-xl-row
+      ">
+            <label class="p-col-12 p-xl-4 p-lg-3 p-p-0 my-auto">Điện thoại:</label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <p-inputNumber disabled [(ngModel)]="item.SoDienThoai" [minFractionDigits]="2" locale="vi-VN">
+                </p-inputNumber>
+            </div>
+        </div>
+
+        <div class="p-col-12 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-lg-3 p-p-0 my-auto">Fax:</label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <input type="text" disabled [(ngModel)]="item.SoFax" class="p-inputtext-sm" pInputText />
+            </div>
+        </div>
+
+        <div class="
+        p-col-12 p-lg-12 p-mb-3
+        padding0
+        d-flex
+        flex-column flex-xl-row
+      ">
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Tài khoản:</label>
+            <div class="p-col-12 p-xl-10 p-p-0">
+                <input type="text" disabled [(ngModel)]="item.listTaiKhoanNganHang" class="p-inputtext-sm" pInputText />
+            </div>
+        </div>
+        <div class="
+        p-col-12 p-lg-12 p-mb-3
+        padding0
+        d-flex
+        flex-column flex-xl-row
+      ">
+            <label class="p-col-12 p-xl-2 p-lg-5 p-p-0 my-auto">Mã số thuế:</label>
+            <div class="p-col-12 p-xl-10 p-p-0">
+                <input type="text" disabled [(ngModel)]="item.MaSoThue" class="p-inputtext-sm" pInputText />
+            </div>
+        </div>
+
+        <div class="p-col-12 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-lg-6 p-p-0 my-auto">Người đại diện:</label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <input type="text" [(ngModel)]="item.NguoiDaiDien" disabled class="p-inputtext-sm" pInputText />
+            </div>
+        </div>
+
+        <div class="p-col-12 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-lg-4 p-p-0 my-auto">Chức vụ:</label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <input type="text" disabled class="p-inputtext-sm" [(ngModel)]="item.ChucVu" pInputText />
+            </div>
+        </div>
+    </div>
+
+</p-panel>
+
+<p-panel header="Thông tin bên B" [style]="{ 'margin-bottom': '2em' }" [toggleable]="true">
+
+    <div class="p-grid">
+        <div class="p-col-12 p-lg12 p-mb-3 padding0 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-3 p-xl-2 p-p-0 my-auto">Tên công ty:</label>
+            <div class="p-col-12 p-xl-10 p-p-0">
+                <p-dropdown [filter]="true" [options]='listdmKhachHang' [(ngModel)]="item.iddmKhachHangB" placeholder="Chọn công ty" styleClass="p-inputtext-sm"></p-dropdown>
                 <!-- <button type="button" pButton pRipple label="Sao chép" class="p-button-text p-button-sm" (click)="CopydmKhachHang()" [disabled]="!canCopy"></button> -->
             </div>
         </div>
