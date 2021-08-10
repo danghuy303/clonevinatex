@@ -12,7 +12,7 @@
             <label class="p-col-12 p-xl-4 p-lg-6 p-p-0 my-auto">Chọn loại nguyên/vật liệu:
             </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-dropdown [options]="cities" [(ngModel)]="item.LoaiNguyenVatLieu" (onChange)="onReportChange($event)" name="selectedCity" placeholder="Chọn nguyên/vật liệu" optionLabel="name" optionValue="code"></p-dropdown>
+                <p-dropdown [options]="optionsVatLieu" [(ngModel)]="item.LoaiNguyenVatLieu" (onChange)="onChangeVatLieu($event)" name="selectedCity" placeholder="Chọn nguyên/vật liệu" optionLabel="name" optionValue="code"></p-dropdown>
 
             </div>
         </div>
@@ -155,7 +155,9 @@
         <div class="p-col-12 p-lg12 p-mb-3 padding0 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-3 p-xl-2 p-p-0 my-auto">Tên công ty:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <p-dropdown [filter]="true" [options]='listdmKhachHang' [(ngModel)]="item.iddmKhachHangA" (onChange)="onChangBenA()" placeholder="Chọn công ty" styleClass="p-inputtext-sm"></p-dropdown>
+                <!-- <p-dropdown [options]="listdmKhachHang" [(ngModel)]="item.iddmKhachHangA" (onChange)="onReportChange($event)" name="selectedCity" placeholder="Chọn nguyên/vật liệu" optionLabel="Ten" optionValue="Id"></p-dropdown> -->
+
+                <p-dropdown [filter]="true" [options]='listdmKhachHang' [(ngModel)]="item.iddmKhachHangA" name="iddmKhachHangA" (onChange)="onChangBenA($event)" placeholder="Chọn công ty" styleClass="p-inputtext-sm"></p-dropdown>
                 <!-- <button type="button" pButton pRipple label="Sao chép" class="p-button-text p-button-sm" (click)="CopydmKhachHang()" [disabled]="!canCopy"></button> -->
             </div>
         </div>
@@ -178,8 +180,7 @@
       ">
             <label class="p-col-12 p-xl-4 p-lg-3 p-p-0 my-auto">Điện thoại:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber disabled [(ngModel)]="item.SoDienThoai" [minFractionDigits]="2" locale="vi-VN">
-                </p-inputNumber>
+                <input type="text" disabled [(ngModel)]="item.SoDienThoai" class="p-inputtext-sm" pInputText />
             </div>
         </div>
 
@@ -236,7 +237,7 @@
         <div class="p-col-12 p-lg12 p-mb-3 padding0 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-3 p-xl-2 p-p-0 my-auto">Tên công ty:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <p-dropdown [filter]="true" [options]='listdmKhachHang' [(ngModel)]="item.iddmKhachHangB" placeholder="Chọn công ty" styleClass="p-inputtext-sm"></p-dropdown>
+                <p-dropdown [filter]="true" [options]='listdmKhachHang' (onChange)="onChangBenB()" [(ngModel)]="item.iddmKhachHangB" placeholder="Chọn công ty" styleClass="p-inputtext-sm"></p-dropdown>
                 <!-- <button type="button" pButton pRipple label="Sao chép" class="p-button-text p-button-sm" (click)="CopydmKhachHang()" [disabled]="!canCopy"></button> -->
             </div>
         </div>
@@ -259,8 +260,7 @@
       ">
             <label class="p-col-12 p-xl-4 p-lg-3 p-p-0 my-auto">Điện thoại:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber disabled [(ngModel)]="item.SoDienThoai" [minFractionDigits]="2" locale="vi-VN">
-                </p-inputNumber>
+                <input type="text" disabled [(ngModel)]="item.SoDienThoai" class="p-inputtext-sm" pInputText />
             </div>
         </div>
 
@@ -341,8 +341,8 @@
               ">
                     <label class="p-col-12 p-xl-4 p-lg-3 p-p-0 my-auto">Điện thoại:</label>
                     <div class="p-col-12 p-xl-8 p-p-0">
-                        <p-inputNumber disabled [(ngModel)]="item.SoDienThoai" [minFractionDigits]="2" locale="vi-VN">
-                        </p-inputNumber>
+                        <input disabled [(ngModel)]="item.SoDienThoai" [minFractionDigits]="2" locale="vi-VN">
+                        </input>
                     </div>
                 </div>
 
@@ -419,8 +419,8 @@
           ">
                     <label class="p-col-12 p-xl-4 p-lg-3 p-p-0 my-auto">Điện thoại:</label>
                     <div class="p-col-12 p-xl-8 p-p-0">
-                        <p-inputNumber disabled [(ngModel)]="item.SoDienThoai" [minFractionDigits]="2" locale="vi-VN">
-                        </p-inputNumber>
+                        <input disabled [(ngModel)]="item.SoDienThoai" [minFractionDigits]="2" locale="vi-VN">
+                        </input>
                     </div>
                 </div>
 

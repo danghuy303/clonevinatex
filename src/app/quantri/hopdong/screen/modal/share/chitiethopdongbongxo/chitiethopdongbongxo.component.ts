@@ -42,11 +42,12 @@ import { FormGroup, Validators } from '@angular/forms';
 })
 export class ChitiethopdongbongxoComponent implements OnInit {
 
-  getKhachHang: any 
+  getKhachHang: any = []
+  getKhachHang1: any = []
 
   optionsVatLieu: LoaiVatLieu[];
   cities: LoaiVatLieu[];
-  selectedCity: any
+
 
   listKhachHangA: any = []
   listKhachHangB: any = []
@@ -65,7 +66,9 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   @Output() itemChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input("opt") opt: string;
   selectedReport: any;
-
+  selectedCity: any
+  previousVal: any;
+  currentVal: any;
 
   checkbutton: any = {};
   lang: any = vn;
@@ -81,30 +84,85 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
 
   ) {
-    this.cities = [
-      { name: 'Bông', code: 2 },  
+    this.optionsVatLieu = [
+      { name: 'Bông', code: 2 },
       { name: 'Xơ', code: 5 },
       { name: 'Vật tư khác', code: 6 },
     ]
 
   }
-  onChangBenA(){
-  
-  console.log(this.item.iddmKhachHangA);
-  this.item.iddmKhachHangA = this.getKhachHang.Id
-  this.item.DiaChi = this.getKhachHang.DiaChi
+
+
   // this.item.DiaChi = this.getKhachHang.DiaChi;
   //  this.listdmKhachHang.iddmKhachHangA = this.item.iddmKhachHangA
   //  this.listdmKhachHang.DiaChi = this.item.DiaChi
-  
-  
-    
+
+  onChangBenA(value) {
+
+    this.getKhachHang.forEach( item => {
+      console.log(item);
+      this.item.DiaChi = item.DiaChi;
+      this.item.Id = item.Id;
+      this.item.Ma = item.Ma;
+      // item.forEach( childValue => {
+      //   console.log(childValue);
+        
+      //    childValue.additionalValue = item.value;
+      // })
+  } );
+// console.log(this.item);
+
+    this.getKhachHang.filter(val => {
+     console.log(val.DiaChi);
+     val.Ten = this.item.Ten
+     val.DiaChi = this.item.DiaChi
+
+      // this.item.Ten = val.Ten;
+      // this.item.Id = val.iddmKhachHangA;
+      // this.item.DiaChi = val.DiaChi;
+      // this.item.ChucVu = val.ChucVu;
+      // this.item.Ma = val.Ma;
+      // this.item.MaSoThue = val.MaSoThue;
+      // this.item.NguoiDaiDien = val.NguoiDaiDien;
+      // this.item.SoDienThoai = val.SoDienThoai;
+      // this.item.SoFax = val.SoFax;
+      // this.item.listTaiKhoanNganHang = val.listTaiKhoanNganHang;
+
+
+    })
+
+
   }
-  onReportChange(event) {
-    this.item.LoaiNguyenVatLieu = event.value.code;
+
+  onChangBenB() {
+
+    this.getKhachHang1.filter(val => {
+
+
+
+      this.item.iddmKhachHangB = val.Id;
+      this.item.DiaChi = val.DiaChi;
+      this.item.ChucVu = val.ChucVu;
+      this.item.Ma = val.Ma;
+      this.item.MaSoThue = val.MaSoThue;
+      this.item.NguoiDaiDien = val.NguoiDaiDien;
+      this.item.SoDienThoai = val.SoDienThoai;
+      this.item.SoFax = val.SoFax;
+      this.item.listTaiKhoanNganHang = val.listTaiKhoanNganHang;
+
+
+    })
+
+
+  }
+
+  onChangeVatLieu(event) {
+    console.log(this.item);
+
+    this.item.LoaiNguyenVatLieu = event.value;
   }
   ngOnInit() {
-
+    console.log(this.item);
     let Id = this.item.idKhachHang
     // if(this.item.idKhachHang !== null){
     //   this._servicesSanXuat.dmKhachHang().GetListdmKhachHangTheoId(Id).subscribe((res: any) => {
@@ -166,24 +224,17 @@ export class ChitiethopdongbongxoComponent implements OnInit {
         this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
       });
 
-    this._service
-      .QuyTrinhHopDong()
-      .GetOptionsVatLieu()
-      .subscribe((res: any) => {
-        this.listNguyenVatLieu = mapArrayForDropDown(res, "ten", "id");
-      });
-
-
     this._servicesSanXuat
       .dmKhachHang()
       .GetListOpt()
       .subscribe((res: any) => {
-        
+
         // console.log('GetListOpt',  this.listdmKhachHang.DiaChi);
         this.getKhachHang = res
+        this.getKhachHang1 = res
         this.listdmKhachHang = mapArrayForDropDown(res, "Ten", "Id");
-      
-      }, );
+
+      });
 
 
     this._servicesdmHopDong
@@ -196,7 +247,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
       .DanhMucLoaiTienTe()
       .GetListAll()
       .subscribe((res: any) => {
-       
+
         this.listLoaiTienTe = mapArrayForDropDown(res, "ten", "id");
       });
     // this._servicesdmHopDong
