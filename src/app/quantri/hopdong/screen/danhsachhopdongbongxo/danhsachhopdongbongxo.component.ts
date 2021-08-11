@@ -145,10 +145,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
         modalRef.componentInstance.item.hopDong = JSON.parse(
           JSON.stringify(res1.data.hopDong)
         );
-              modalRef.componentInstance.item.ngayKy = UnixToDate(item.ngayKyUnix);
-        modalRef.componentInstance.item.DenNgay = UnixToDate(
-          item.DenNgayUnix
-        );
+   
 
         modalRef.result
           .then((res: any) => {

@@ -119,7 +119,8 @@ this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
     return true;
   }
   GhiLai() {
-  
+    this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
+    this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
     if (this.ValidData()) {
 
      
@@ -169,7 +170,8 @@ this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
   }
   ChuyenTiep() {
  
-
+   console.log(this.item);
+   
    
     this._service.QuyTrinhHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
