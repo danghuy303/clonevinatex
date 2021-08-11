@@ -32,13 +32,13 @@ import { StoreService } from "src/app/services/store.service";
 })
 export class ChitiethopdongbongxomodalComponent implements OnInit {
   opt: any = "add";
-title:string
+  title: string
   item: any = {};
   hopDong: any = {};
   listDieuKhoanThanhToan: any = [];
   userInfo: any;
   lang: any = vn;
-  isBongXo:boolean = true
+  isBongXo: boolean = true
   filter: any = {
     keyWord: "",
   };
@@ -73,10 +73,10 @@ title:string
     // this.GetFormOptions();
     this.GetNextSoQuyTrinh();
     if (this.opt !== "edit") {
-this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
-    
-    }else {
-      
+      this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
+
+    } else {
+
       this.title = "Hợp đồng nguyên/vật liệu"
     }
   }
@@ -85,7 +85,8 @@ this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
     this._servicesSanXuat
       .KiemTraButton(this.item.hopDong.id || "", this.item.hopDong.idTrangThai || "")
       .subscribe((res: any) => {
-        console.log((this.checkbutton = res));
+        console.log(this.item.idTrangThai);
+
         this.checkbutton = res;
       });
   }
@@ -123,20 +124,35 @@ this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
     this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
     if (this.ValidData()) {
 
-     
+
       this._service
         .QuyTrinhHopDong()
         .Set(this.item)
         .subscribe((res: any) => {
-      console.log(res);
-      
+          console.log(res);
+
           if (res) {
             if (res?.statusCode === 200) {
+
+
+              this._toastr.success(res.message);
+
+              this._service.QuyTrinhHopDong().Get(res.data).subscribe((res1: any) => {
+
+                console.log(res1.data.hopDong);
+                this.item.hopDong = res1.data.hopDong
+                this.item.hopDong.idTrangThai = res1.data.hopDong.idTrangThai
+                this.item.hopDong.id = res1.data.hopDong.id
+                this.KiemTraButtonModal();
+              })
+
+
+
               // this.activeModal.close();
               // setTimeout(() => {
               //   checkbutton.GhiLai = false
               // }, 1000);
-              this._toastr.success(res.message);
+
             } else {
               this._toastr.error(res.message);
             }
@@ -169,11 +185,11 @@ this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
       .catch((er) => console.log(er));
   }
   ChuyenTiep() {
- 
-   console.log(this.item);
-   
-   
+
+  
     this._service.QuyTrinhHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
+      console.log(res);
+      
       if (res) {
         console.log(res);
         if (res?.statusCode === 200) {
@@ -189,7 +205,7 @@ this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
   KhongDuyet() {
     this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
     this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
-   
+
     this._service.QuyTrinhHopDong().KhongDuyet(this.item).subscribe((res: any) => {
       if (res) {
         if (res?.statusCode === 200) {
@@ -203,5 +219,5 @@ this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
 
   }
 
- 
+
 }

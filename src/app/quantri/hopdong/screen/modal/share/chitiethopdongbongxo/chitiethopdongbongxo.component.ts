@@ -67,12 +67,14 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   getdmKhachHangForCopy: any = {};
   LoaiNguyenVatLieu: number
   canCopy: boolean = false;
+  selectedCity = null;
+  cities = [{ name: 'pushkar', code: 21 }, { name: 'nagpur', code: 22 }];
   @Input() item: any;
   @Input() hopDong: any;
   @Output() itemChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input("opt") opt: string;
   selectedReport: any;
-  selectedCity: any
+
   previousVal: any;
   currentVal: any;
 
@@ -116,16 +118,9 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   }
 
   onChangBenB(event) {
-
-
     let selected1 = this.getKhachHang1.find(
-
-
       (ele) => ele.Id === event.value
-
     );
-  
-
     // this.item.iddmKhachHangB = selected1?.Id;
     this.selected1.DiaChi = selected1?.DiaChi
     this.selected1.ChucVu = selected1?.ChucVu
@@ -135,22 +130,16 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     this.selected1.SoDienThoai = selected1?.SoDienThoai
     this.selected1.SoFax = selected1?.SoFax
     this.selected1.Ten = selected1?.Ten
-    this.selected1.listTaiKhoanNganHang = selected1?.listTaiKhoanNganHang
-  
+  this.selected1.listTaiKhoanNganHang = selected1?.listTaiKhoanNganHang
+  }
 
+  onChangeVatLieu(even) {
+    console.log(even.value);
+   this.item.loaiNguyenVatLieu = even.value
 
   }
 
-  onChangeVatLieu(event) {
-  
-    
-this.item.loaiNguyenVatLieu = event.value.value
-
-
-  }
-  ngOnInit() { 
-    
-    
+  ngOnInit() {
 
     // if(this.item.idKhachHang !== null){
     //   this._servicesSanXuat.dmKhachHang().GetListdmKhachHangTheoId(Id).subscribe((res: any) => {
@@ -173,6 +162,7 @@ this.item.loaiNguyenVatLieu = event.value.value
 
 
     // }
+
 
     this.GetFormOptions();
     this.item.ngayKy = UnixToDate(this.item.ngayKyUnix);

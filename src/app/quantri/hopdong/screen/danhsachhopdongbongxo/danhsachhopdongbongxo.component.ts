@@ -159,6 +159,25 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
           });
       });
   }
+
+  updates(Id) {
+    let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
+      size: 'fullscreen',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.opt = 'edit';
+    modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
+    modalRef.result.then((res: any) => {
+      this.GetListQuyTrinh();
+      this.changeParam(0);
+
+    })
+      .catch(er => {
+        console.log(er)
+        this.GetListQuyTrinh();
+        this.changeParam(0);
+      })
+  }
   changeTab(e) {
     this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
