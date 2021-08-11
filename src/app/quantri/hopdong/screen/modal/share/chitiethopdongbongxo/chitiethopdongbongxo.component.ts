@@ -45,7 +45,11 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   getKhachHang: any = []
   getKhachHang1: any = []
 
-  optionsVatLieu: LoaiVatLieu[];
+  optionsVatLieu = [
+    { label: 'Bông', value: 2 },
+    { label: 'Xơ', value: 5 },
+    { label: 'Vật tư khác', value: 6 }
+  ]
 
   data: any = {};
   selected1: any = {};
@@ -86,12 +90,6 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
 
   ) {
-
-    this.optionsVatLieu = [
-      { label: 'Bông', value: 2 },
-      { label: 'Xơ', value: 5 },
-      { label: 'Vật tư khác', value: 6 },
-    ]
   }
 
 
@@ -275,8 +273,4 @@ this.item.loaiNguyenVatLieu = event.value.value
   Loai(loai: boolean) {
     this.item.IsBong = loai;
   }
-}
-interface LoaiVatLieu {
-  label: string,
-  value: number
 }
