@@ -62,10 +62,7 @@ title:string
   }
 
   ngOnInit(): void {
-console.log(this.item);
 
-    this.item.ngayKy = UnixToDate(this.item.ngayKyUnix);
-    this.item.ngayHieuLuc = UnixToDate(this.item.ngayHieuLucUnix);
     this.KiemTraButtonModal();
     this.checkbutton = {
       Ghi: false,
@@ -122,10 +119,9 @@ this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
     return true;
   }
   GhiLai() {
-
+  
     if (this.ValidData()) {
-      this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
-      this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
+
      
       this._service
         .QuyTrinhHopDong()
@@ -172,11 +168,12 @@ this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
       .catch((er) => console.log(er));
   }
   ChuyenTiep() {
-    this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
-    this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
+ 
+
    
     this._service.QuyTrinhHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
+        console.log(res);
         if (res?.statusCode === 200) {
           this._toastr.success(res.message)
           this.activeModal.close();

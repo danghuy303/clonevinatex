@@ -86,12 +86,12 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
 
   ) {
-    this.optionsVatLieu = [
-      { name: 'Bông', code: 2 },
-      { name: 'Xơ', code: 5 },
-      { name: 'Vật tư khác', code: 6 },
-    ]
 
+    this.optionsVatLieu = [
+      { label: 'Bông', value: 2 },
+      { label: 'Xơ', value: 5 },
+      { label: 'Vật tư khác', value: 6 },
+    ]
   }
 
 
@@ -146,8 +146,9 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   onChangeVatLieu(event) {
   
     
-  this.item.loaiNguyenVatLieu = event.value.code
-   
+this.item.loaiNguyenVatLieu = event.value.value
+
+
   }
   ngOnInit() { 
     
@@ -276,6 +277,6 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   }
 }
 interface LoaiVatLieu {
-  name: string,
-  code: number
+  label: string,
+  value: number
 }

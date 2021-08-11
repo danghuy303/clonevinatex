@@ -130,7 +130,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   }
 
   update(item) {
-    console.log(UnixToDate(item.ngayKyUnix));
+  
     
     this._service
       .QuyTrinhHopDong()
