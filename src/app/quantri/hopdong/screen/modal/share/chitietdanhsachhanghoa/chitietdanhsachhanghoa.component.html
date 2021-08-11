@@ -3,7 +3,7 @@
         <div class="p-col-12 p-lg-4  paddingbot padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
             <label class="p-col-12 p-xl-6  p-p-0 my-auto">Mặt hàng:</label>
             <div class="p-col-12 p-xl-6 p-p-0">
-                <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiHopDong" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"></p-dropdown>
+                <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiHopDong" [options]='listLoaiMatHang' placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
 
