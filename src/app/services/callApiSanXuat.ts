@@ -498,7 +498,7 @@ export class SanXuatService {
     }
     GetListUser() {
         var IdDuAn = this.store.getCurrent();
-        let url = API.auth + `DanhMuc/GetListNhanSuDuAn?IdDuAn=53&MaDuAn=`;
+        let url = API.auth + `DanhMuc/GetListNhanSuDuAn?IdDuAn=${IdDuAn}&MaDuAn=`;
         return this.http.get(url, httpOptions);
     }
 
