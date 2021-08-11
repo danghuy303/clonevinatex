@@ -1,10 +1,12 @@
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { SanXuatService } from './../../../../../../services/callApiSanXuat';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { ChitiethanghoamodalComponent } from './chitiethanghoamodal/chitiethanghoamodal.component';
 import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
+// import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
   selector: 'app-chitietdanhsachhanghoa',
@@ -18,14 +20,23 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
 
   item: any = {}
+  data: any = {}
   listThanhToanThuTuc: any = []
+  listLoaiMatHang: any = []
+  listLoaiMatHang_ref: any = []
   @Input() isBongXo: boolean;
   @Input() isSoi: boolean;
 
   @Output() newItemEvent = new EventEmitter<string>();
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal) { }
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private _servicesSanXuat: SanXuatService) { }
 
   ngOnInit(): void {
+    this._servicesSanXuat
+    .GetListdmLoaiBongForHopDong(this.data.Loai = 5)
+    .subscribe((res: any) => {
+        this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
+        this.listLoaiMatHang_ref = res;
+    });
   }
   ngDoCheck(): void {
     this.itemChange.emit(this.listVatTu);

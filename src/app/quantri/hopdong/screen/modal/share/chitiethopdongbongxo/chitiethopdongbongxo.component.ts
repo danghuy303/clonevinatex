@@ -46,8 +46,10 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   getKhachHang1: any = []
 
   optionsVatLieu: LoaiVatLieu[];
-  cities: LoaiVatLieu[];
 
+  data: any = {};
+  selected1: any = {};
+  selected: any = {};
 
   listKhachHangA: any = []
   listKhachHangB: any = []
@@ -97,73 +99,60 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   //  this.listdmKhachHang.iddmKhachHangA = this.item.iddmKhachHangA
   //  this.listdmKhachHang.DiaChi = this.item.DiaChi
 
-  onChangBenA(value) {
+  onChangBenA(event) {
 
-    this.getKhachHang.forEach( item => {
-      console.log(item);
-      this.item.DiaChi = item.DiaChi;
-      this.item.Id = item.Id;
-      this.item.Ma = item.Ma;
-      // item.forEach( childValue => {
-      //   console.log(childValue);
-        
-      //    childValue.additionalValue = item.value;
-      // })
-  } );
-// console.log(this.item);
+    let selected = this.getKhachHang.find(
+      (ele) => ele.Id === event.value
+    );
 
-    this.getKhachHang.filter(val => {
-     console.log(val.DiaChi);
-     val.Ten = this.item.Ten
-     val.DiaChi = this.item.DiaChi
-
-      // this.item.Ten = val.Ten;
-      // this.item.Id = val.iddmKhachHangA;
-      // this.item.DiaChi = val.DiaChi;
-      // this.item.ChucVu = val.ChucVu;
-      // this.item.Ma = val.Ma;
-      // this.item.MaSoThue = val.MaSoThue;
-      // this.item.NguoiDaiDien = val.NguoiDaiDien;
-      // this.item.SoDienThoai = val.SoDienThoai;
-      // this.item.SoFax = val.SoFax;
-      // this.item.listTaiKhoanNganHang = val.listTaiKhoanNganHang;
-
-
-    })
-
-
+    // this.item.iddmKhachHangB = selected?.Id;
+    this.selected.DiaChi = selected?.DiaChi
+    this.selected.ChucVu = selected?.ChucVu
+    this.selected.Ma = selected?.Ma
+    this.selected.MaSoThue = selected?.MaSoThue
+    this.selected.NguoiDaiDien = selected?.NguoiDaiDien
+    this.selected.SoDienThoai = selected?.SoDienThoai
+    this.selected.SoFax = selected?.SoFax
+    this.selected.Ten = selected?.Ten
+    this.selected.listTaiKhoanNganHang = selected?.listTaiKhoanNganHang
   }
 
-  onChangBenB() {
-
-    this.getKhachHang1.filter(val => {
+  onChangBenB(event) {
 
 
-
-      this.item.iddmKhachHangB = val.Id;
-      this.item.DiaChi = val.DiaChi;
-      this.item.ChucVu = val.ChucVu;
-      this.item.Ma = val.Ma;
-      this.item.MaSoThue = val.MaSoThue;
-      this.item.NguoiDaiDien = val.NguoiDaiDien;
-      this.item.SoDienThoai = val.SoDienThoai;
-      this.item.SoFax = val.SoFax;
-      this.item.listTaiKhoanNganHang = val.listTaiKhoanNganHang;
+    let selected1 = this.getKhachHang1.find(
 
 
-    })
+      (ele) => ele.Id === event.value
+
+    );
+  
+
+    // this.item.iddmKhachHangB = selected1?.Id;
+    this.selected1.DiaChi = selected1?.DiaChi
+    this.selected1.ChucVu = selected1?.ChucVu
+    this.selected1.Ma = selected1?.Ma
+    this.selected1.MaSoThue = selected1?.MaSoThue
+    this.selected1.NguoiDaiDien = selected1?.NguoiDaiDien
+    this.selected1.SoDienThoai = selected1?.SoDienThoai
+    this.selected1.SoFax = selected1?.SoFax
+    this.selected1.Ten = selected1?.Ten
+    this.selected1.listTaiKhoanNganHang = selected1?.listTaiKhoanNganHang
+  
 
 
   }
 
   onChangeVatLieu(event) {
-    console.log(this.item);
-
-    this.item.LoaiNguyenVatLieu = event.value.code;
+  
+    
+  this.item.loaiNguyenVatLieu = event.value.code
+   
   }
-  ngOnInit() {
-    console.log(this.item);
-    let Id = this.item.idKhachHang
+  ngOnInit() { 
+    
+    
+
     // if(this.item.idKhachHang !== null){
     //   this._servicesSanXuat.dmKhachHang().GetListdmKhachHangTheoId(Id).subscribe((res: any) => {
     //     this.getdmKhachHangForCopy = res;
@@ -217,6 +206,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   // }
 
   GetFormOptions() {
+
     this._servicesdmHopDong
       .DanhMucLoaiHopDong()
       .GetListAll()

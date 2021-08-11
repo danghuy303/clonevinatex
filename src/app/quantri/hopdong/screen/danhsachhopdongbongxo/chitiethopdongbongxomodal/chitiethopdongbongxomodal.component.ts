@@ -66,7 +66,7 @@ console.log(this.item);
 
     this.item.ngayKy = UnixToDate(this.item.ngayKyUnix);
     this.item.ngayHieuLuc = UnixToDate(this.item.ngayHieuLucUnix);
- 
+    this.KiemTraButtonModal();
     this.checkbutton = {
       Ghi: false,
       Xoa: false,
@@ -77,15 +77,16 @@ console.log(this.item);
     this.GetNextSoQuyTrinh();
     if (this.opt !== "edit") {
 this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
-      this.KiemTraButtonModal();
+    
     }else {
+      
       this.title = "Hợp đồng nguyên/vật liệu"
     }
   }
 
   KiemTraButtonModal() {
     this._servicesSanXuat
-      .KiemTraButton(this.item.id || "", this.item.idTrangThai || "")
+      .KiemTraButton(this.item.hopDong.id || "", this.item.hopDong.idTrangThai || "")
       .subscribe((res: any) => {
         console.log((this.checkbutton = res));
         this.checkbutton = res;
