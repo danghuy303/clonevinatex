@@ -297,6 +297,12 @@ import { KehoachnhapnguyenlieuhoanthanhmodalComponent } from './quanlykhosanxuat
 import { TrienkhaikehoachsanxuathoanthanhmodalComponent } from './quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuathoanthanhmodal/trienkhaikehoachsanxuathoanthanhmodal.component';
 import { VitrikienmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomodal/vitrikienmodal/vitrikienmodal.component';
 import { SharedModule } from './../shared/shared.module';
+import { NhapkhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/nhapkhovattuphu/nhapkhovattuphu.component';
+import { NhapkhovattuphumodalComponent } from './quanlykhosanxuat/quytrinh/vattuphu/nhapkhovattuphumodal/nhapkhovattuphumodal.component';
+import { XuatkhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/xuatkhovattuphu/xuatkhovattuphu.component';
+import { XuatkhovattuphumodalComponent } from './quanlykhosanxuat/quytrinh/vattuphu/xuatkhovattuphumodal/xuatkhovattuphumodal.component';
+import { KiemkekhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/kiemkekhovattuphu/kiemkekhovattuphu.component';
+import { KiemkekhovattuphumodalComponent } from './quanlykhosanxuat/quytrinh/vattuphu/kiemkekhovattuphumodal/kiemkekhovattuphumodal.component';
 
 @NgModule({
   declarations: [
@@ -545,6 +551,12 @@ import { SharedModule } from './../shared/shared.module';
     KehoachnhapnguyenlieuhoanthanhmodalComponent,
     TrienkhaikehoachsanxuathoanthanhmodalComponent,
     VitrikienmodalComponent,
+    NhapkhovattuphuComponent,
+    XuatkhovattuphuComponent,
+    KiemkekhovattuphuComponent,
+    KiemkekhovattuphumodalComponent,
+    NhapkhovattuphumodalComponent,
+    XuatkhovattuphumodalComponent,
   
   ],
   imports: [
@@ -707,6 +719,10 @@ import { SharedModule } from './../shared/shared.module';
     KehoachnhapnguyenlieuhoanthanhmodalComponent,
     TrienkhaikehoachsanxuathoanthanhmodalComponent,
     VitrikienmodalComponent,
+    KiemkekhovattuphumodalComponent,
+    NhapkhovattuphumodalComponent,
+    XuatkhovattuphumodalComponent,
+  
   ],
   providers: [
     SanXuatService,

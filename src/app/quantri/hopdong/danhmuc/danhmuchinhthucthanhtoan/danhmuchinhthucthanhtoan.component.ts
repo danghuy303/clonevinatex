@@ -84,7 +84,6 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.type = 'hinhthucthanhtoan';
     modalRef.result.then(res=>{
-      this._toastr.success(res);
       this.GetListdmHinhThucThanhToan()
     }).catch(er=>console.log(er))
   }
