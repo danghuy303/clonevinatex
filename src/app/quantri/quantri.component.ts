@@ -905,26 +905,26 @@ export class QuantriComponent implements OnInit {
         visible:true,
         items: [
           {
-            label: "Hình Thức Thanh Toán",
+            label: "Hình thức thanh toán",
             routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmuchinhthucthanhtoan",
             command: () => this.close(),
           },
           {
-            label: "Loại Hợp Đồng",
+            label: "Loại hợp đồng",
             routerLink:
               "/quantri/hopdongsanxuat/danhmuc/danhmucloaihopdong",
 
             command: () => this.close(),
           },
           {
-            label: "Loại Tiền Tệ",
+            label: "Loại tiền tệ",
             routerLink:
               "/quantri/hopdongsanxuat/danhmuc/danhmucloaitiente",
 
             command: () => this.close(),
           },
           {
-            label: "Thủ Tục Thanh Toán",
+            label: "Thủ tục thanh toán",
             
             routerLink:
               "/quantri/hopdongsanxuat/danhmuc/danhmucthutucthanhtoan",
@@ -932,9 +932,51 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
-            label: "Trạng Thái Bảo Lãnh",
+            label: "Trạng thái bảo lãnh",
             routerLink:
               "/quantri/hopdongsanxuat/danhmuc/danhmuctrangthaibaolanh",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Vật tư phụ",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/danhmucvattuphu",
+
+            command: () => this.close(),
+          },
+          {
+            label: "cơ cấu nhân sự",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/danhmuccocaunhansu",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Tài sản",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/danhmuctaisan",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Tính lương",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/danhmuctinhluong",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Phí bán hàng",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/danhmucphibanhang",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Định mức mặt hàng",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/danhmucdinhmucmathang",
 
             command: () => this.close(),
           },
