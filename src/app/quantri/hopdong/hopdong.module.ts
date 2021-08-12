@@ -251,6 +251,8 @@ TheodoihopdongnhapkhauComponent,
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
   entryComponents:[
+    ChitietbaolanhmodalComponent,
+    NhansuthuchienmodalComponent,
     ChitietdieukhoanmodalComponent,
     ChitiethanghoamodalComponent,
     ChitiethanghoamodalComponent,
