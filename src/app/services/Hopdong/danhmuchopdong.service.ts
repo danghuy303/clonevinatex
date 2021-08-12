@@ -127,5 +127,120 @@ export class DanhMucHopDongService {
             }
         }
     }
+// Modal danh mục kế hoạch
+    //
+    DanhMucVatTuPhu(){
+        let url = API.KeHoach
+        return {
+            GetList:(data)=>{
+                return this.http.get(`${url}DanhMuc/GetListdmVatTuPhu?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
+            },
+            Set:(data)=>{
+                return this.http.post(`${url}DanhMuc/SetdmVatTuPhu`,data,httpOptions)
+            },
+            DeleteList:(data)=>{
+                debugger;
+                return this.http.post(`${url}DanhMuc/DeleteListdmVatTuPhu`,data,httpOptions)
+            },
+            Delete:(id)=>{
+                return this.http.get(`${url}DanhMuc/DeletedmVatTuPhu?id=${id}`,httpOptions)
+            }
+        }
+    }
+    //
+    DanhMucCoCauNhanSu(){
+        let url = API.KeHoach
+        return {
+            GetList:(data)=>{
+                return this.http.get(`${url}DanhMuc/GetListdmCoCauNhanSu?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
+            },
+            Set:(data)=>{
+                return this.http.post(`${url}DanhMuc/SetdmCoCauNhanSu`,data,httpOptions)
+            },
+            DeleteList:(data)=>{
+                debugger;
+                return this.http.post(`${url}DanhMuc/DeleteListdmCoCauNhanSu`,data,httpOptions)
+            },
+            Delete:(id)=>{
+                return this.http.get(`${url}DanhMuc/DeletedmCoCauNhanSu?id=${id}`,httpOptions)
+            }
+        }
+    }
+    //
+    DanhMucDinhMucMatHang(){
+        let url = API.KeHoach
+        return {
+            GetList:(data)=>{
+                return this.http.get(`${url}DanhMuc/GetListdmDinhMucMatHang?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
+            },
+            Set:(data)=>{
+                return this.http.post(`${url}DanhMuc/SetdmDinhMucMatHang`,data,httpOptions)
+            },
+            DeleteList:(data)=>{
+                debugger;
+                return this.http.post(`${url}DanhMuc/DeleteListdmDinhMucMatHang`,data,httpOptions)
+            },
+            Delete:(id)=>{
+                return this.http.get(`${url}DanhMuc/DeletedmDinhMucMatHang?id=${id}`,httpOptions)
+            }
+        }
+    }
+    //
+    DanhMucChiPhiBanHang(){
+        let url = API.KeHoach
+        return {
+            GetList:(data)=>{
+                return this.http.get(`${url}DanhMuc/GetListdmChiPhiBanHang?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
+            },
+            Set:(data)=>{
+                return this.http.post(`${url}DanhMuc/SetdmChiPhiBanHang`,data,httpOptions)
+            },
+            DeleteList:(data)=>{
+                debugger;
+                return this.http.post(`${url}DanhMuc/DeleteListdmChiPhiBanHang`,data,httpOptions)
+            },
+            Delete:(id)=>{
+                return this.http.get(`${url}DanhMuc/DeletedmChiPhiBanHang?id=${id}`,httpOptions)
+            }
+        }
+    }
+    //
+    DanhMucTaiSan(){
+        let url = API.KeHoach
+        return {
+            GetList:(data)=>{
+                return this.http.get(`${url}DanhMuc/GetListdmTaiSan?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
+            },
+            Set:(data)=>{
+                return this.http.post(`${url}DanhMuc/SetdmTaiSan`,data,httpOptions)
+            },
+            DeleteList:(data)=>{
+                debugger;
+                return this.http.post(`${url}DanhMuc/DeleteListdmTaiSan`,data,httpOptions)
+            },
+            Delete:(id)=>{
+                return this.http.get(`${url}DanhMuc/DeletedmTaiSan?id=${id}`,httpOptions)
+            }
+        }
+    }
+    //
+    DanhMucTinhLuong(){
+        let url = API.KeHoach
+        return {
+            GetList:(data)=>{
+                return this.http.get(`${url}DanhMuc/GetListdmTinhLuong?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
+            },
+            Set:(data)=>{
+                return this.http.post(`${url}DanhMuc/SetdmTinhLuong`,data,httpOptions)
+            },
+            DeleteList:(data)=>{
+                debugger;
+                return this.http.post(`${url}DanhMuc/DeleteListdmTinhLuong`,data,httpOptions)
+            },
+            Delete:(id)=>{
+                return this.http.get(`${url}DanhMuc/DeletedmTinhLuong?id=${id}`,httpOptions)
+            }
+        }
+    }
 
 }

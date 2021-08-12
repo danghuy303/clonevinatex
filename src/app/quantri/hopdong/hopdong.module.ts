@@ -47,6 +47,8 @@ import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { LoaderInterceptor } from 'src/app/services/loader.interceptor';
 import localeVi from '@angular/common/locales/vi';
+
+//danh mục
 import { DanhmuchinhthucthanhtoanComponent } from './danhmuc/danhmuchinhthucthanhtoan/danhmuchinhthucthanhtoan.component';
 import { ModaldanhmuchinhthucthanhtoanComponent } from './danhmuc/modal/modaldanhmuchinhthucthanhtoan/modaldanhmuchinhthucthanhtoan.component';
 import { DanhmucloaihopdongComponent } from './danhmuc/danhmucloaihopdong/danhmucloaihopdong.component';
@@ -57,6 +59,16 @@ import { DanhmucthutucthanhtoanComponent } from './danhmuc/danhmucthutucthanhtoa
 import { ModaldanhmucthutucthanhtoanComponent } from './danhmuc/modal/modaldanhmucthutucthanhtoan/modaldanhmucthutucthanhtoan.component';
 import { DanhmuctrangthaibaolanhComponent } from './danhmuc/danhmuctrangthaibaolanh/danhmuctrangthaibaolanh.component';
 import { ModaldanhmuctrangthaibaolanhComponent } from './danhmuc/modal/modaldanhmuctrangthaibaolanh/modaldanhmuctrangthaibaolanh.component';
+import { DanhmucvattuphuComponent } from './danhmuc/danhmucvattuphu/danhmucvattuphu.component';
+import { ModaldanhmucvattuphuComponent } from './danhmuc/modal/modaldanhmucvattuphu/modaldanhmucvattuphu.component';
+import { DanhmuccocaunhansuComponent } from './danhmuc/danhmuccocaunhansu/danhmuccocaunhansu.component';
+import { ModaldanhmuccocaunhansuComponent } from './danhmuc/modal/modaldanhmuccocaunhansu/modaldanhmuccocaunhansu.component';
+import { DanhmuctinhluongComponent } from './danhmuc/danhmuctinhluong/danhmuctinhluong.component';
+import { ModaldanhmuctinhluongComponent } from './danhmuc/modal/modaldanhmuctinhluong/modaldanhmuctinhluong.component';
+import { DanhmuctaisanComponent } from './danhmuc/danhmuctaisan/danhmuctaisan.component';
+import { ModaldanhmuctaisanComponent } from './danhmuc/modal/modaldanhmuctaisan/modaldanhmuctaisan.component';
+
+
 
 import { DmLoaiHopDongComponent } from './danhmuc/dm-loai-hop-dong/dm-loai-hop-dong.component';
 import { DanhsachhopdongbongxoComponent } from './screen/danhsachhopdongbongxo/danhsachhopdongbongxo.component';
@@ -100,6 +112,11 @@ import { TheodoihopdongnhapkhauComponent } from './baocao/theodoihopdongnhapkhau
 import { ChonthutucthanhtoanmodalComponent } from './screen/modal/share/chitietdieukhoanthanhtoan/chitietdieukhoanmodal/chonthutucthanhtoanmodal/chonthutucthanhtoanmodal.component';
 import { ChitiethanghoamodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/chitiethanghoamodal/chitiethanghoamodal.component';
 import { ThoigiannhaphangmodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/chitiethanghoamodal/thoigiannhaphangmodal/thoigiannhaphangmodal.component';
+import { DanhmucphibanhangComponent } from './danhmuc/danhmucphibanhang/danhmucphibanhang.component';
+import { ModaldanhmucphibanhangComponent } from './danhmuc/modal/modaldanhmucphibanhang/modaldanhmucphibanhang.component';
+import { DanhmucdinhmucmathangComponent } from './danhmuc/danhmucdinhmucmathang/danhmucdinhmucmathang.component';
+import { ModaldanhmucdinhmucmathangComponent } from './danhmuc/modal/modaldanhmucdinhmucmathang/modaldanhmucdinhmucmathang.component';
+
 
 @NgModule({
   declarations: [
@@ -114,6 +131,16 @@ import { ThoigiannhaphangmodalComponent } from './screen/modal/share/chitietdanh
     ModaldanhmucthutucthanhtoanComponent,
     DanhmuctrangthaibaolanhComponent,
     ModaldanhmuctrangthaibaolanhComponent,
+
+    DanhmucvattuphuComponent,
+    ModaldanhmucvattuphuComponent,
+    DanhmuccocaunhansuComponent,
+    ModaldanhmuccocaunhansuComponent,    
+    DanhmuctinhluongComponent,
+    ModaldanhmuctinhluongComponent,
+    DanhmuctaisanComponent, 
+    ModaldanhmuctaisanComponent,
+    
 //báo cáo
      
 
@@ -194,7 +221,18 @@ TheodoihopdongnhapkhauComponent,
    
    
     ThoigiannhaphangmodalComponent,
-
+   
+   
+    DanhmucphibanhangComponent,
+   
+   
+    ModaldanhmucphibanhangComponent,
+   
+   
+    DanhmucdinhmucmathangComponent,
+   
+   
+    ModaldanhmucdinhmucmathangComponent,
 
   ],
   imports: [
@@ -251,6 +289,8 @@ TheodoihopdongnhapkhauComponent,
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
   entryComponents:[
+    ChitietbaolanhmodalComponent,
+    NhansuthuchienmodalComponent,
     ChitietdieukhoanmodalComponent,
     ChitiethanghoamodalComponent,
     ChitiethanghoamodalComponent,
@@ -261,6 +301,14 @@ TheodoihopdongnhapkhauComponent,
     ModaldanhmucloaitienteComponent,
     ModaldanhmuctrangthaibaolanhComponent,
     ModaldanhmucthutucthanhtoanComponent,
+
+    ModaldanhmucvattuphuComponent,
+    ModaldanhmuccocaunhansuComponent,
+    ModaldanhmuctinhluongComponent,
+    ModaldanhmuctaisanComponent,
+    ModaldanhmucphibanhangComponent,
+    ModaldanhmucdinhmucmathangComponent,
+    
     QuyettoanhopdongmodalComponent,
     GiaokehoachsanxuatmodalComponent,
     ModallaphopdongbongxoComponent,

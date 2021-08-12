@@ -1,23 +1,4 @@
-// import { DateToUnix } from 'src/app/services/globalfunction';
-// import { ChitietbaolanhmodalComponent } from './chitietbaolanhmodal/chitietbaolanhmodal.component';
 
-
-
-// import { Router } from '@angular/router';
-// import { ToastrService } from 'ngx-toastr';
-// import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-// import { ChitiethopdongbongxomodalComponent } from './../../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
-// import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
-
-
-// @Component({
-//   selector: 'app-chitietbaolanh',
-//   templateUrl: './chitietbaolanh.component.html',
-//   styleUrls: ['./chitietbaolanh.component.css']
-// })
-// export class ChitietbaolanhComponent implements OnInit,DoCheck {
- 
-// }
 import { DateToUnix } from 'src/app/services/globalfunction';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';

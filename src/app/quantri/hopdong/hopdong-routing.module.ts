@@ -19,6 +19,12 @@ import { DanhmuctrangthaibaolanhComponent } from './danhmuc/danhmuctrangthaibaol
 
 import { HopdongComponent } from './hopdong.component';
 import { TheodoihopdongnhapkhauComponent } from './baocao/theodoihopdongnhapkhau/theodoihopdongnhapkhau.component';
+import { DanhmucvattuphuComponent } from './danhmuc/danhmucvattuphu/danhmucvattuphu.component';
+import { DanhmuccocaunhansuComponent } from './danhmuc/danhmuccocaunhansu/danhmuccocaunhansu.component';
+import { DanhmuctinhluongComponent } from './danhmuc/danhmuctinhluong/danhmuctinhluong.component';
+import { DanhmuctaisanComponent } from './danhmuc/danhmuctaisan/danhmuctaisan.component';
+import { DanhmucphibanhangComponent } from './danhmuc/danhmucphibanhang/danhmucphibanhang.component';
+import { DanhmucdinhmucmathangComponent } from './danhmuc/danhmucdinhmucmathang/danhmucdinhmucmathang.component';
 
 const routes: Routes = [
   {path:'',component:HopdongComponent},
@@ -27,6 +33,12 @@ const routes: Routes = [
   {path:'danhmuc/danhmucloaitiente',component:DanhmucloaitienteComponent},
   {path:'danhmuc/danhmuctrangthaibaolanh',component:DanhmuctrangthaibaolanhComponent},
   {path:'danhmuc/danhmucthutucthanhtoan',component:DanhmucthutucthanhtoanComponent},
+  {path:'danhmuc/danhmucvattuphu',component: DanhmucvattuphuComponent},
+  {path:'danhmuc/danhmuccocaunhansu',component: DanhmuccocaunhansuComponent},
+  {path:'danhmuc/danhmuctinhluong',component: DanhmuctinhluongComponent},
+  {path:'danhmuc/danhmuctaisan',component: DanhmuctaisanComponent},
+  {path:'danhmuc/danhmucphibanhang',component: DanhmucphibanhangComponent},
+  {path:'danhmuc/danhmucdinhmucmathang',component: DanhmucdinhmucmathangComponent},
 
 
   {path:'theodoihopdongnhapkhau',component:TheodoihopdongnhapkhauComponent},
