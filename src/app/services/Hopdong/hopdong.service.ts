@@ -18,6 +18,9 @@ export class HopDongService {
           httpOptions
         );
       },
+      GetOptionsVatLieu: () => {
+        return this.http.get(url + `DanhMuc/GetListAlldmLoaiNguyenVatLieu`, httpOptions);
+    },
       GetList: (data) => {
         data.idDuAn = 53
         return this.http.post(

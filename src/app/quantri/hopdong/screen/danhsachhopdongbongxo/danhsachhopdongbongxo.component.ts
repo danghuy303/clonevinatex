@@ -49,7 +49,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
-        console.log(res.id);
+
         this._service
           .QuyTrinhHopDong()
           .Get(res.id)
@@ -71,7 +71,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     );
   }
   add() {
-    this.title = 'fsdfsdfs'
+   
     let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
       size: "fullscreen",
       backdrop: "static",
@@ -130,7 +130,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   }
 
   update(item) {
-    console.log(item.id);
+  
     
     this._service
       .QuyTrinhHopDong()
@@ -145,10 +145,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
         modalRef.componentInstance.item.hopDong = JSON.parse(
           JSON.stringify(res1.data.hopDong)
         );
-        //       modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
-        // modalRef.componentInstance.item.DenNgay = UnixToDate(
-        //   item.DenNgayUnix
-        // );
+   
 
         modalRef.result
           .then((res: any) => {
@@ -161,6 +158,25 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
             this.changeParam(0);
           });
       });
+  }
+
+  updates(Id) {
+    let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
+      size: 'fullscreen',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.opt = 'edit';
+    modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
+    modalRef.result.then((res: any) => {
+      this.GetListQuyTrinh();
+      this.changeParam(0);
+
+    })
+      .catch(er => {
+        console.log(er)
+        this.GetListQuyTrinh();
+        this.changeParam(0);
+      })
   }
   changeTab(e) {
     this.trangThai = e.index + 1;

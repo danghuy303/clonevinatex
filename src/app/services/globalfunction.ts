@@ -149,9 +149,7 @@ export function DateToDatePicker(date: any): any {
 export function UnixToDate(unix: number): Date | null {
     if (unix !== undefined && unix !== null && unix !== 0) {
         return new Date(unix * 1000);
-    } else {
-        return null;
-    }
+    } 
 
 }
 export function mapArrayForDropDown(array: Array<any>, labelProp: string, valueProp: string): Array<any> {

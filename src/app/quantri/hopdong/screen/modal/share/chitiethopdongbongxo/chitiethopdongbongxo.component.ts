@@ -1,3 +1,4 @@
+import { UnixToDate } from 'src/app/services/globalfunction';
 // import { StoreService } from './../../../../../../services/store.service';
 import { HopDongService } from "./../../../../../../services/Hopdong/hopdong.service";
 import { DanhMucHopDongService } from "./../../../../../../services/Hopdong/danhmuchopdong.service";
@@ -32,6 +33,7 @@ import {
 } from "src/app/services/globalfunction";
 import { StoreService } from "src/app/services/store.service";
 import { elementAt } from "rxjs/operators";
+import { FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: "app-chitiethopdongbongxo",
@@ -39,22 +41,46 @@ import { elementAt } from "rxjs/operators";
   styleUrls: ["./chitiethopdongbongxo.component.css"],
 })
 export class ChitiethopdongbongxoComponent implements OnInit {
-  listHinhThucThanhToan: any = [];
 
+  getKhachHang: any = []
+  getKhachHang1: any = []
+
+  optionsVatLieu = [
+    { label: 'Bông', value: 2 },
+    { label: 'Xơ', value: 5 },
+    { label: 'Vật tư khác', value: 6 }
+  ]
+
+  data: any = {};
+  selected1: any = {};
+  selected: any = {};
+
+  listKhachHangA: any = []
+  listKhachHangB: any = []
+  selectedCityCode: string;
+  listHinhThucThanhToan: any = [];
+  listNguyenVatLieu: any = [];
   listLoaiHopDong: any = [];
   listLoaiHopDongFull: any = [];
   listLoaiTienTe: any = [];
+  listdmKhachHang: any = [];
+  getdmKhachHangForCopy: any = {};
+  LoaiNguyenVatLieu: number
+  canCopy: boolean = false;
+  selectedCity = null;
+  cities = [{ name: 'pushkar', code: 21 }, { name: 'nagpur', code: 22 }];
   @Input() item: any;
   @Input() hopDong: any;
   @Output() itemChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input("opt") opt: string;
-  cities: City[];
+  selectedReport: any;
 
-  selectedCityCode: string;
+  previousVal: any;
+  currentVal: any;
+
   checkbutton: any = {};
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-
   constructor(
     public activeModal: NgbActiveModal,
     private _servicesdmHopDong: DanhMucHopDongService,
@@ -62,19 +88,85 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     private _store: StoreService,
     private _servicesSanXuat: SanXuatService,
     private _toastr: ToastrService,
-    private _modal: NgbModal
+    private _modal: NgbModal,
+
 
   ) {
-    this.cities = [
-      {name: 'Bông', code: 'B'},
-      {name: 'Xơ', code: 'X'},
-      {name: 'Vật tư phụ', code: 'VT'},
-    
-  ];
+  }
+
+
+  // this.item.DiaChi = this.getKhachHang.DiaChi;
+  //  this.listdmKhachHang.iddmKhachHangA = this.item.iddmKhachHangA
+  //  this.listdmKhachHang.DiaChi = this.item.DiaChi
+
+  onChangBenA(event) {
+
+    let selected = this.getKhachHang.find(
+      (ele) => ele.Id === event.value
+    );
+
+    // this.item.iddmKhachHangB = selected?.Id;
+    this.selected.DiaChi = selected?.DiaChi
+    this.selected.ChucVu = selected?.ChucVu
+    this.selected.Ma = selected?.Ma
+    this.selected.MaSoThue = selected?.MaSoThue
+    this.selected.NguoiDaiDien = selected?.NguoiDaiDien
+    this.selected.SoDienThoai = selected?.SoDienThoai
+    this.selected.SoFax = selected?.SoFax
+    this.selected.Ten = selected?.Ten
+    this.selected.listTaiKhoanNganHang = selected?.listTaiKhoanNganHang
+  }
+
+  onChangBenB(event) {
+    let selected1 = this.getKhachHang1.find(
+      (ele) => ele.Id === event.value
+    );
+    // this.item.iddmKhachHangB = selected1?.Id;
+    this.selected1.DiaChi = selected1?.DiaChi
+    this.selected1.ChucVu = selected1?.ChucVu
+    this.selected1.Ma = selected1?.Ma
+    this.selected1.MaSoThue = selected1?.MaSoThue
+    this.selected1.NguoiDaiDien = selected1?.NguoiDaiDien
+    this.selected1.SoDienThoai = selected1?.SoDienThoai
+    this.selected1.SoFax = selected1?.SoFax
+    this.selected1.Ten = selected1?.Ten
+  this.selected1.listTaiKhoanNganHang = selected1?.listTaiKhoanNganHang
+  }
+
+  onChangeVatLieu(even) {
+    console.log(even.value);
+   this.item.loaiNguyenVatLieu = even.value
+
   }
 
   ngOnInit() {
+
+    // if(this.item.idKhachHang !== null){
+    //   this._servicesSanXuat.dmKhachHang().GetListdmKhachHangTheoId(Id).subscribe((res: any) => {
+    //     this.getdmKhachHangForCopy = res;
+    //     this.item.DiaChi = this.getdmKhachHangForCopy.DiaChi
+    //     this.item.ChucVu = this.getdmKhachHangForCopy.ChucVu
+    //     this.item.Ma = this.getdmKhachHangForCopy.Ma
+    //     this.item.MaSoThue = this.getdmKhachHangForCopy.MaSoThue
+    //     this.item.NguoiDaiDien = this.getdmKhachHangForCopy.NguoiDaiDien
+    //     this.item.SoDienThoai = this.getdmKhachHangForCopy.SoDienThoai
+    //     this.item.SoFax = this.getdmKhachHangForCopy.SoFax
+    //     this.item.Ten = this.getdmKhachHangForCopy.Ten
+    //     this.item.listTaiKhoanNganHang = this.getdmKhachHangForCopy.listTaiKhoanNganHang
+
+
+    //   })
+
+    // }
+    // else {
+
+
+    // }
+
+
     this.GetFormOptions();
+    this.item.ngayKy = UnixToDate(this.item.ngayKyUnix);
+    this.item.ngayHieuLuc = UnixToDate(this.item.ngayHieuLucUnix);
 
     if (this.opt !== "edit") {
       // this.GetNextSoQuyTrinh();
@@ -82,9 +174,28 @@ export class ChitiethopdongbongxoComponent implements OnInit {
         this.item.IdDuAn = this._store.getCurrent();
       }
     }
+
   }
 
+  // GetgetdmKhachHangByIdForCopy({ value: Id }) {
+  //   this._servicesSanXuat.dmKhachHang().GetListdmKhachHangTheoId(Id).subscribe((res: any) => {
+  //     this.getdmKhachHangForCopy = res;
+  //     this.item.DiaChi = this.getdmKhachHangForCopy.DiaChi
+  //     this.item.ChucVu = this.getdmKhachHangForCopy.ChucVu
+  //     this.item.Ma = this.getdmKhachHangForCopy.Ma
+  //     this.item.MaSoThue = this.getdmKhachHangForCopy.MaSoThue
+  //     this.item.NguoiDaiDien = this.getdmKhachHangForCopy.NguoiDaiDien
+  //     this.item.SoDienThoai = this.getdmKhachHangForCopy.SoDienThoai
+  //     this.item.SoFax = this.getdmKhachHangForCopy.SoFax
+  //     this.item.Ten = this.getdmKhachHangForCopy.Ten
+  //     this.item.listTaiKhoanNganHang = this.getdmKhachHangForCopy.listTaiKhoanNganHang
+
+
+  //   })
+  // }
+
   GetFormOptions() {
+
     this._servicesdmHopDong
       .DanhMucLoaiHopDong()
       .GetListAll()
@@ -92,19 +203,31 @@ export class ChitiethopdongbongxoComponent implements OnInit {
         this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
       });
 
-      this._servicesdmHopDong
-      .DanhMucLoaiTienTe()
-      .GetListAll()
+    this._servicesSanXuat
+      .dmKhachHang()
+      .GetListOpt()
       .subscribe((res: any) => {
-        this.listLoaiTienTe = mapArrayForDropDown(res, "ten", "id");
+
+        // console.log('GetListOpt',  this.listdmKhachHang.DiaChi);
+        this.getKhachHang = res
+        this.getKhachHang1 = res
+        this.listdmKhachHang = mapArrayForDropDown(res, "Ten", "Id");
+
       });
 
 
-      this._servicesdmHopDong
+    this._servicesdmHopDong
       .DanhMucHinhThucThanhToan()
       .GetListAll()
       .subscribe((res: any) => {
         this.listHinhThucThanhToan = mapArrayForDropDown(res, "ten", "id");
+      });
+    this._servicesdmHopDong
+      .DanhMucLoaiTienTe()
+      .GetListAll()
+      .subscribe((res: any) => {
+
+        this.listLoaiTienTe = mapArrayForDropDown(res, "ten", "id");
       });
     // this._servicesdmHopDong
     //   .DanhMucLoaiHopDong()
@@ -140,8 +263,4 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   Loai(loai: boolean) {
     this.item.IsBong = loai;
   }
-}
-interface City {
-  name: string,
-  code: string
 }

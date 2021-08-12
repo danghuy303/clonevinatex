@@ -73,6 +73,11 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + `GetListdmKhoForLoaiBong?IdKeHoachNhapNguyenLieu_Item=${IdKeHoachNhapNguyenLieu_Item}`;
         return this.http.get(url, httpOptions);
     }
+
+    GetListdmLoaiBongForHopDong(Loai) {
+        let url = API.SCMDanhMuc + `GetListdmLoaiBongForHopDong?Loai=${Loai}`;
+        return this.http.get(url, httpOptions);
+    }
     //#endregion
 
     //#region  Danh mục máy biến áp
@@ -493,7 +498,7 @@ export class SanXuatService {
     }
     GetListUser() {
         var IdDuAn = this.store.getCurrent();
-        let url = API.auth + `DanhMuc/GetListNhanSuDuAn?IdDuAn=53&MaDuAn=`;
+        let url = API.auth + `DanhMuc/GetListNhanSuDuAn?IdDuAn=${IdDuAn}&MaDuAn=`;
         return this.http.get(url, httpOptions);
     }
 
@@ -1849,6 +1854,9 @@ export class SanXuatService {
             },
             Delete: (data) => {
                 return this.http.post(url + 'DeletedmKhachHang', data, httpOptions);
+            },
+            GetListdmKhachHangTheoId: (Id) => {
+                return this.http.get(url + `GetListdmKhachHangTheoId?Id=${Id}`, httpOptions);
             },
         }
     }

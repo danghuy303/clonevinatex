@@ -1,7 +1,9 @@
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { vn } from 'src/app/services/const';
 import { DanhMucHopDongService } from './../../../../../../../services/Hopdong/danhmuchopdong.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
   selector: 'app-chitiethanghoamodal',
@@ -10,21 +12,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChitiethanghoamodalComponent implements OnInit {
   lang: any = vn;
-
+  listLoaiMatHang_ref: any = [];
   opt: any = '';
   item: any = {};
   listLoaiBong:any = []
   listThanhToanThuTuc:any = []
-  
-
+   data: any = {};
+  listLoaiMatHang: any = []
   listDieuKhoanThanhToan :any = {}
   yearRange: string = `${
     new Date().getFullYear() - 50
   }:${new Date().getFullYear()}`;
-  constructor(public activeModal:NgbActiveModal, private _servicesdmHopDong: DanhMucHopDongService, private _modal : NgbModal) { }
+  constructor(public activeModal:NgbActiveModal, private _servicesdmHopDong: DanhMucHopDongService, private _modal : NgbModal, private _SCMDungChung : SanXuatService) { }
   
 
   ngOnInit(): void {
+  
+
+
   }
   accept(opt){
     // if (this.item.tempCapHang !== undefined && this.item.tempCapHang !== null) {

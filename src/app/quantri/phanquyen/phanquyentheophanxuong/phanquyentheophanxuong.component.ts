@@ -55,7 +55,6 @@ export class PhanquyentheophanxuongComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.getNhaMay().subscribe(res => {
-      debugger
       this.IdDuAn = res;
       this.GetListdm();
     })
@@ -78,7 +77,6 @@ export class PhanquyentheophanxuongComponent implements OnInit {
       Ten: "",
       IdDuAn: this.IdDuAn,
     };
-    debugger
     this._services.PhanQuyen().GetList(this.dataSearch).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
