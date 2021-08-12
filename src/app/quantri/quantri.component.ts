@@ -828,7 +828,35 @@ export class QuantriComponent implements OnInit {
           },
         ],
       },
-
+      {
+        label: "Quản lý kho vật tư phụ",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/quanlykhosanxuatbongkhac/khovattuphu",
+        expanded: false,
+        visible: false,
+        items: [
+          {
+            label: "Nhập kho",
+            routerLink:
+              "/quantri/quanlykhosanxuatbongkhac/khovattuphu/nhapkho/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Xuất kho",
+            routerLink:
+              "/quantri/quanlykhosanxuatbongkhac/khovattuphu/xuatkho/0",
+            separator: this.checkmenu("PHIEUXUATBONGPHE"),
+            command: () => this.close(),
+          },
+          {
+            label: "Kiểm kê kho",
+            routerLink:
+              "/quantri/quanlykhosanxuatbongkhac/khovattuphu/kiemkekho/0",
+            separator: this.checkmenu("KIEMKEKHOBONGPHE"),
+            command: () => this.close(),
+          },
+        ],
+      },
       {
         label: "Thông tin hợp đồng",
         icon: "fas fa-circle",
