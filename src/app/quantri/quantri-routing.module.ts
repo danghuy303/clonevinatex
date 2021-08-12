@@ -111,6 +111,9 @@ import { HoiamkiemkekhoComponent } from './quanlykhosanxuat/quytrinh/hoiamkiemke
 import { TonkhohoiamComponent } from './quanlykhosanxuat/quytrinh/tonkhohoiam/tonkhohoiam.component';
 import { XuatkhohoiamComponent } from './quanlykhosanxuat/quytrinh/xuatkhohoiam/xuatkhohoiam.component';
 import { HopdongModule } from './hopdong/hopdong.module';
+import { NhapkhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/nhapkhovattuphu/nhapkhovattuphu.component';
+import { XuatkhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/xuatkhovattuphu/xuatkhovattuphu.component';
+import { KiemkekhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/kiemkekhovattuphu/kiemkekhovattuphu.component';
 //danhmuchinhthucthanhtoan
 const routes: Routes = [
   {
@@ -257,6 +260,11 @@ const routes: Routes = [
       { path: 'quanlykhosanxuat/hdsd', component: UploadhdsdsanxuatComponent },
       { path: 'phanquyensanxuat/dmchisotrienkhai', component: DmchisotrienkhaiComponent },
       { path: 'hopdongsanxuat', loadChildren: () => HopdongModule },
+
+      { path: 'quanlykhosanxuatbongkhac/khovattuphu/nhapkho/:id', component: NhapkhovattuphuComponent },
+      { path: 'quanlykhosanxuatbongkhac/khovattuphu/xuatkho/:id', component: XuatkhovattuphuComponent },
+      { path: 'quanlykhosanxuatbongkhac/khovattuphu/kiemkekho/:id', component: KiemkekhovattuphuComponent },
+
     ]
   }
 ];
