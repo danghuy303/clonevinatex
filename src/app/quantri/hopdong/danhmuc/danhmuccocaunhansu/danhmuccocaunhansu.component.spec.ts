@@ -1,0 +1,25 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { DanhmuccocaunhansuComponent } from './danhmuccocaunhansu.component';
+
+describe('DanhmuccocaunhansuComponent', () => {
+  let component: DanhmuccocaunhansuComponent;
+  let fixture: ComponentFixture<DanhmuccocaunhansuComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ DanhmuccocaunhansuComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(DanhmuccocaunhansuComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
