@@ -251,14 +251,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     });
   }
 
-  GetNextSoQuyTrinh() {
-    this._service
-      .QuyTrinhHopDong()
-      .GetNextSoQuyTrinh()
-      .subscribe((res: any) => {
-        this.item.soQuyTrinh = res.data;
-      });
-  }
+ 
 
   Loai(loai: boolean) {
     this.item.IsBong = loai;

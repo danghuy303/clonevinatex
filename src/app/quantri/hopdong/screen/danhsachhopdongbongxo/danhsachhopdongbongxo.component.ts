@@ -32,6 +32,8 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   //    this.paging.TotalItem = res.data.totalCount;
   paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
   hopDong: any = {};
+  listVatTu: any = {};
+  
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listQuyCachDongGoi: any = [];
 
@@ -80,9 +82,10 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     
     modalRef.componentInstance.item = {
       listNhanSu: [],
+     
       listDieuKhoanThanhToan: [],
-
-      listVatTu: [],
+      listTieuChuanChatLuong: [],
+    
       listBaoLanh: [],
 
       listTaiLieu: [],
@@ -92,6 +95,10 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     modalRef.componentInstance.item.hopDong = {
       id: "",
     };
+    modalRef.componentInstance.item.listVatTu = [
+      
+    ]
+    
 
     modalRef.result
       .then((res: any) => {

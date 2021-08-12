@@ -15,7 +15,8 @@ import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angula
 })
 export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Input() listVatTu: any = [];
-  @Input('opt') opt: string = '';
+  @Input("opt") opt: string;
+ 
   @Output() itemChange: EventEmitter<any> = new EventEmitter<any>();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
 
@@ -42,22 +43,11 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     this.itemChange.emit(this.listVatTu);
 
   }
-  chonHangHoa() {
-    let modalRef = this._modal.open(ChitiethanghoamodalComponent, {
-      size: 'xl'
-    })
-    modalRef.componentInstance.listVatTu = this.listThanhToanThuTuc;
-    modalRef.componentInstance.selectedlistVatTu = [];
-    modalRef.componentInstance.IdQuyTrinh = this.item.Id;
-    modalRef.result.then(res => {
-      if (res.length > 0) {
-        res.forEach(obj => this.item.listItem.push(obj))
-      }
-      // merge(res, this.item.listItem, 'IddmItem')
-    }).catch(er => {
-      console.log(er);
-    })
+  clearFilter(){
+    console.log(this.item.soLuong);
+    
   }
+
   add() {
 
 

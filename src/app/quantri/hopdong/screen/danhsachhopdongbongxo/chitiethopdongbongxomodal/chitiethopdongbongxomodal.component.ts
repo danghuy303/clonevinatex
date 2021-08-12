@@ -129,12 +129,9 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
         .QuyTrinhHopDong()
         .Set(this.item)
         .subscribe((res: any) => {
-          console.log(res);
-
+          console.log(this.item);
           if (res) {
             if (res?.statusCode === 200) {
-
-
               this._toastr.success(res.message);
 
               this._service.QuyTrinhHopDong().Get(res.data).subscribe((res1: any) => {

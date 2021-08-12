@@ -1,6 +1,6 @@
 <p-panel header="THÔNG TIN MẶT HÀNG" [style]="{ 'margin-bottom': '2em' }" [toggleable]="true">
     <div class="p-grid">
-        <div class="p-col-12 p-lg-4  paddingbot padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
+        <div class="p-col-12 p-xl-4 p-lg-6  paddingbot padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
             <label class="p-col-12 p-xl-6  p-p-0 my-auto">Mặt hàng:</label>
             <div class="p-col-12 p-xl-6 p-p-0">
                 <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiVatTu" [options]='listLoaiMatHang' placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"></p-dropdown>
@@ -8,7 +8,7 @@
         </div>
 
 
-        <div class="p-col-12 p-lg-8 p-mb-3 padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
+        <div class="p-col-12 p-xl-8 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Tên chi tiết:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.tenChiTiet" pInputText />
@@ -23,7 +23,7 @@
         <div class="p-col-12 p-lg-6 p-xl-4 p-mb-3 padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
             <label class="p-col-12 p-xl-6  p-p-0 my-auto">Số lượng:</label>
             <div class="p-col-12 p-xl-6 p-p-0">
-                <p-inputNumber [(ngModel)]="item.soLuong" [minFractionDigits]="2" locale="vi-VN">
+                <p-inputNumber [(ngModel)]="item.soLuong" (ngModelChange)="clearFilter()" [minFractionDigits]="2" locale="vi-VN">
                 </p-inputNumber>
             </div>
         </div>
@@ -83,7 +83,7 @@
 
 <p-panel header="TIÊU CHUẨN KỸ THUẬT-CHẤT LƯỢNG" [style]="{ 'margin-bottom': '2em' }" [toggleable]="true">
     <div class="p-d-flex p-ai-center p-jc-start  p-py-3">
-        <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2"></button>
+        <button pButton pRipple label="Thêm mới" (click)="add()" icon="pi pi-plus" class="p-button-sm p-mr-2"></button>
         <div></div>
     </div>
     <div class="p-grid">
@@ -160,14 +160,14 @@
         <div class="p-col-12 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
             <label class="p-col-12 p-xl-4  p-lg-4 p-p-0 my-auto">Chi phí vận chuyển:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
+                <p-inputNumber [(ngModel)]="item.chiPhiVanChuyen" [minFractionDigits]="2" locale="vi-VN">
                 </p-inputNumber>
             </div>
         </div>
 
 
 
-        <!-- <div class="
+        <div class="
         p-col-12 p-xl-3 p-lg-6 p-mb-3
         padding0
         d-flex
@@ -190,7 +190,7 @@
                 <p-checkbox [(ngModel)]="item.layTheoGiaTri" binary="true" inputId="binary"></p-checkbox>
             </div>
             <label class="p-col-12 p-lg-6 p-p-0 my-auto">Bên mua chịu:</label>
-        </div> -->
+        </div>
     </div>
 
 </p-panel>
