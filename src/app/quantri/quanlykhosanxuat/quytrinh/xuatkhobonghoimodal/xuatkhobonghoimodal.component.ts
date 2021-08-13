@@ -206,8 +206,8 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   changePage(event) {
     console.log(event)
     this.paging.CurrentPage = event.page + 1;
-    var start = 15 * (event.page) + 1;
-    var end = start + 14;
+    var start = 15 * (event.page);
+    var end = start + 15;
     if ((start + 15) > this.paging.TotalItem)
       end = this.paging.TotalItem;
     this.item.listItem = this.listItem.slice(start, end);
