@@ -1540,9 +1540,11 @@ export class SanXuatService {
             //     return this.http.post(`${url}/GetCoCauTonBong`,data,httpOptions);
             // },
             BaoCaoSanLuongLuyKe_BieuDoDuong: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}BaoCaoSanLuongLuyKe_BieuDoDuong`, data, httpOptions);
             },
             BaoCaoSanLuongLuyKe_BieuDoCot: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}BaoCaoSanLuongLuyKe_BieuDoCot`, data, httpOptions);
             },
             ExportBaoCaoThongKeDien: (data) => {
