@@ -1,6 +1,6 @@
 import { formatNumber } from '@angular/common';
 import { ViewChild } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
@@ -12,7 +12,7 @@ import { PintableDirective } from 'voi-lib';
   templateUrl: './dieuhanhsanxuat.component.html',
   styleUrls: ['./dieuhanhsanxuat.component.css']
 })
-export class DieuhanhsanxuatComponent implements OnInit {
+export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   filterBong: any = {};
   filter: any = {
@@ -26,7 +26,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     IddmKho: '',
     LoaiThoiGian: 0
   };
-  colsNum:any=3;
+  colsNum: any = 3;
   Tong: any = null;
   monthlyConfig: any = {};
   dataSet1: any = {};
@@ -137,9 +137,42 @@ export class DieuhanhsanxuatComponent implements OnInit {
     aspectRatio: window.innerWidth <= 768 ? null : (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
+  suber: any;
   constructor(private _services: SanXuatService, private _toastr: ToastrService, private store: StoreService) {
-    this.colsNum = this.store.isMobile?0:3;
-   }
+    this.suber = this.store.getNhaMay().subscribe(res => {
+      let date = new Date();
+      this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+      this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+      this.filterNhuCau._tuNgayCanDoiTon = new Date(date.getFullYear(), date.getMonth(), 1);
+      this.filterNhuCau._denNgayCanDoiTon = date;
+
+      this.dataPie = {
+        labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
+        datasets: [
+          {
+            data: [300, 50, 100, 200],
+            backgroundColor: [
+              "#009900",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF671F"
+            ],
+            hoverBackgroundColor: [
+              "#009900",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF671F"
+            ]
+          }
+        ]
+      };
+      this.listItem = [
+
+      ]
+      this.getAllOptions();
+    })
+    this.colsNum = this.store.isMobile ? 0 : 3;
+  }
 
   ngOnInit(): void {
     console.log(this.optionPie.maintainAspectRatio);
@@ -429,5 +462,8 @@ export class DieuhanhsanxuatComponent implements OnInit {
     }
     window.open(`#${route[`${item.LoaiPhieu}`]}${item.IdPhieuKiemKe || 0}`, "_blank");
     // this._router.navigate([`${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKeKho||0}`])
+  }
+  ngOnDestroy() {
+    this.suber.unsubscribe();
   }
 }

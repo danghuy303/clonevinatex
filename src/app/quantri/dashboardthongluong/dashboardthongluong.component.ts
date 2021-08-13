@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, NgZone, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { AfterViewInit, Component, NgZone, OnInit, PLATFORM_ID, Inject,OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
@@ -13,7 +13,7 @@ import { StoreService } from 'src/app/services/store.service';
   templateUrl: './dashboardthongluong.component.html',
   styleUrls: ['./dashboardthongluong.component.css']
 })
-export class DashboardthongluongComponent implements OnInit, AfterViewInit {
+export class DashboardthongluongComponent implements OnInit, AfterViewInit,OnDestroy {
   filter: any = {
     IddmItem: '',
     opt: 'TyLe'
@@ -40,8 +40,13 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
     'KhoiLuong': 'KhoiLuongCongDoan'
   }
   chart: am4charts.SlicedChart;
+  suber:any;
   constructor(private _services: SanXuatService, private _toastr: ToastrService, @Inject(PLATFORM_ID) private platformId, private zone: NgZone, private store: StoreService) {
     this.filter.IdDuAn = this.store.getCurrent();
+    this.suber = this.store.getNhaMay().subscribe(res=>{
+      this.filter.IdDuAn = res;
+      this.ngOnInit();
+    })
   }
 
   ngOnInit(): void {
@@ -122,11 +127,12 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
       this.listMatHang.unshift({ value: '', label: 'Tất cả' })
       // console.log(res);
     });
-    this._services.GetOptions().GetNhaMay().subscribe(async (res: any) => {
-      this.listNhaMay = mapArrayForDropDown(res, 'TenDuAn', 'Id');
-      this.filter.IdDuAn = await res[0].Id;
-      this.getPhanXuongTheoNhaMay(res[0].Id)
-    });
+    this.getPhanXuongTheoNhaMay();
+    // this._services.GetOptions().GetNhaMay().subscribe(async (res: any) => {
+    //   this.listNhaMay = mapArrayForDropDown(res, 'TenDuAn', 'Id');
+    //   this.filter.IdDuAn = await res[0].Id;
+    //   this.getPhanXuongTheoNhaMay(res[0].Id)
+    // });
   }
   getPhanXuongTheoNhaMay(IdNhaMay?) {
     this._services.GetOptions().GetPhanXuong(IdNhaMay ? IdNhaMay : this.filter.IdDuAn).subscribe(async (res: any) => {
@@ -189,5 +195,7 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
       this._toastr.warning('Vui lòng chọn đến ngày lớn hơn từ ngày để ra được dữ liệu chuẩn!');
     }
   }
-
+  ngOnDestroy(){
+    this.suber.unsubscribe();
+  }
 }
