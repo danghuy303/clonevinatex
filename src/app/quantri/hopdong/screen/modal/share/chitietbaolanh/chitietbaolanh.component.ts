@@ -17,7 +17,7 @@ export class ChitietbaolanhComponent implements OnInit, DoCheck {
 
   item: any = {};
 
-  @Input() listBaoLanh: any = [];
+  @Input('listBaoLanh') listBaoLanh: any = [];
   @Output() itemChange: EventEmitter<any> = new EventEmitter<any>();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
 
@@ -26,6 +26,8 @@ export class ChitietbaolanhComponent implements OnInit, DoCheck {
 
 
   ngOnInit(): void {
+    console.log(this.itemChange.emit(this.listBaoLanh));
+    
   }
   ngDoCheck(): void {
     this.itemChange.emit(this.listBaoLanh);

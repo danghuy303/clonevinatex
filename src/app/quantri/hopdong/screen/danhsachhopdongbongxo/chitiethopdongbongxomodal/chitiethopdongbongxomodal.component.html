@@ -44,7 +44,7 @@
                 </app-chitiethopdongbongxo>
             </p-tabPanel>
             <p-tabPanel header="Thông tin hàng hóa">
-                <app-chitietdanhsachhanghoa [isBongXo]="isBongXo" [opt]="opt" [(listVatTu)]="item.listVatTu">
+                <app-chitietdanhsachhanghoa [isBongXo]="isBongXo" [opt]="opt" [(listVatTu)]="item.listVatTu[0]" [(listTieuChuanChatLuong)]="item.listTieuChuanChatLuong">
                 </app-chitietdanhsachhanghoa>
             </p-tabPanel>
             <p-tabPanel header="Điều khoản thanh toán">
