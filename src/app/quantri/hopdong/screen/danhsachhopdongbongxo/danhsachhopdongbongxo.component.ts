@@ -121,29 +121,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       });
   }
 
-  edit(item) {
-    this._service
-      .QuyTrinhHopDong()
-      .Get(item.id)
-      .subscribe((res: any) => {
-        let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
-          size: "fullscreen",
-          backdrop: "static",
-        });
-        modalRef.componentInstance.opt = "edit";
-        modalRef.componentInstance.item = JSON.parse(JSON.stringify(res));
-
-        modalRef.result
-          .then((res: any) => {
-            this._toastr.success("Cập nhật thành công");
-            this.GetListQuyTrinh(item.id);
-          })
-          .catch((er) => {
-            console.log(er);
-          });
-      });
-  }
-
+ 
   update(item) {
   
     
@@ -157,8 +135,8 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
           backdrop: "static",
         });
         modalRef.componentInstance.opt = "edit";
-        modalRef.componentInstance.item.hopDong = JSON.parse(
-          JSON.stringify(res1.data.hopDong)
+        modalRef.componentInstance.item = JSON.parse(
+          JSON.stringify(res1.data)
         );
    
 
