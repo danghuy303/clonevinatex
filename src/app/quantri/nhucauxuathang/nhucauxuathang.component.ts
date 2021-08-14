@@ -120,7 +120,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${this._data.labels[tooltipItem.index]}: ${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN', '0.0-2')} tấn`
+          return `${this._data.labels2[tooltipItem.index]}: ${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN', '0.0-2')} tấn`
         }
       }
     },
@@ -182,9 +182,9 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
           this.dataSet1 = res;
         })
         this._services.BaoCao().GetDashBoard_CoCauMatHang(this.filter).subscribe((res: any) => {
-          // this.mapIndex_Ma = deepCopy(res.labels);
-          // res.labels= this.mapIndex_Ma.map(lb=>lb.split(' - ')[1]);
-          // res.labels2 = this.mapIndex_Ma;
+          this.mapIndex_Ma = deepCopy(res.labels);
+          res.labels= this.mapIndex_Ma.map(lb=>lb.split(' - ')[1]);
+          res.labels2 = this.mapIndex_Ma;
           this.dataPie = res;
         });
       }
