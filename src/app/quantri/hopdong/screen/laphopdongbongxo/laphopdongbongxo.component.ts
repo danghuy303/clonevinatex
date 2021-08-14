@@ -1,22 +1,7 @@
-import { ModallaphopdongbongxoComponent } from './modallaphopdongbongxo/modallaphopdongbongxo.component';
-import { ChitiethopdongbongxomodalComponent } from './../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-laphopdongbongxo',
-//   templateUrl: './laphopdongbongxo.component.html',
-//   styleUrls: ['./laphopdongbongxo.component.css']
-// })
-// export class LaphopdongbongxoComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
 
 
+
+import { ChitiethopdongbongxoComponent } from "./../modal/share/chitiethopdongbongxo/chitiethopdongbongxo.component";
 import { number } from "@amcharts/amcharts4/core";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 
@@ -30,9 +15,9 @@ import {
   mapArrayForDropDown,
   UnixToDate,
 } from "src/app/services/globalfunction";
+import { ModallaphopdongbongxoComponent } from "./modallaphopdongbongxo/modallaphopdongbongxo.component";
+// import { ChitiethopdongbongxomodalComponent } from "./chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
 
-
-ChitiethopdongbongxomodalComponent
 @Component({
   selector: 'app-laphopdongbongxo',
   templateUrl: './laphopdongbongxo.component.html',
@@ -41,14 +26,20 @@ ChitiethopdongbongxomodalComponent
 export class LaphopdongbongxoComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   items: any = [];
+  listVatTu: any = {};
+  newTableItem: any = {};
   filter: any = {};
+  eAction: any = "QUYTRINHHOPDONG";
   tuNgay: number = 0;
+  title:string
   denNgay: number = 0;
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
   //    this.paging.TotalItem = res.data.totalCount;
   paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
+  hopDong: any = {};
 
+  
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listQuyCachDongGoi: any = [];
 
@@ -56,20 +47,22 @@ export class LaphopdongbongxoComponent implements OnInit {
     public _modal: NgbModal,
     public _toastr: ToastrService,
     private _service: HopDongService,
-    private _serviceSanXuat: SanXuatService,
+    private _serviceDungChung: SanXuatService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+      
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
+
         this._service
           .QuyTrinhHopDong()
           .Get(res.id)
           .subscribe((res: any) => {
-            this.update(res);
+            this.update(res.data.hopDong);
           });
       }
     });
@@ -86,15 +79,39 @@ export class LaphopdongbongxoComponent implements OnInit {
     );
   }
   add() {
+   
     let modalRef = this._modal.open(ModallaphopdongbongxoComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "add";
+    
     modalRef.componentInstance.item = {
-      Id: "",
-      listItem: [],
+      listNhanSu: [],
+    
+     
+      listDieuKhoanThanhToan: [],
+      listTieuChuanChatLuong: [],
+    
+      listBaoLanh: [],
+
+      listTaiLieu: [],
+
+      lstFileUploadCu: [],
     };
+    modalRef.componentInstance.item.hopDong = {
+      id: "",
+      Loai: 0
+    };
+    modalRef.componentInstance.item.listVatTu = [
+      {
+
+      }
+    ]
+   
+ 
+    
+
     modalRef.result
       .then((res: any) => {
         console.log(res);
@@ -107,72 +124,80 @@ export class LaphopdongbongxoComponent implements OnInit {
         this.changeParam(0);
       });
   }
-  // update(item) {
-  //   this._serviceSanXuat
-  //     .dmQuyCachDongGoi()
-  //     .GetList()
-  //     .subscribe((res: Array<any>) => {
-  //       this.listQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
-  //       if (item.listItem != undefined && item.listItem != null) {
-  //         item.listItem.filter((objlistItem) => {
-  //           objlistItem.listItem.filter(async (objlistItem2) => {
-  //             objlistItem2.objQuyCachDongGoi =
-  //               await this.listQuyCachDongGoi.filter(
-  //                 (obj) => objlistItem2.IddmQuyCachDongGoi == obj.value
-  //               )[0];
-  //           });
-  //         });
-  //         let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
-  //           size: "fullscreen",
-  //           backdrop: "static",
-  //         });
-  //         console.log("modalRef", modalRef);
-  //         modalRef.componentInstance.opt = "edit";
-  //         modalRef.componentInstance.item = item;
-  //         modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
-  //         modalRef.componentInstance.item.DenNgay = UnixToDate(
-  //           item.DenNgayUnix
-  //         );
-  //         modalRef.result
-  //           .then((res: any) => {
-  //             this._toastr.success("Cập nhật thành công");
-  //             this.GetListQuyTrinh();
-  //             this.changeParam(0);
-  //           })
-  //           .catch((er) => {
-  //             this.GetListQuyTrinh();
-  //             this.changeParam(0);
-  //           });
-  //       }
-  //     });
-  // }
-  update(id) {
+
+  edit(item) {
     this._service
       .QuyTrinhHopDong()
-      .Get(id)
-      .subscribe((res1: any) => {
-        let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
+      .Get(item.id)
+      .subscribe((res: any) => {
+        let modalRef = this._modal.open(ModallaphopdongbongxoComponent, {
           size: "fullscreen",
           backdrop: "static",
         });
         modalRef.componentInstance.opt = "edit";
-        modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
-        //       modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
-        // modalRef.componentInstance.item.DenNgay = UnixToDate(
-        //   item.DenNgayUnix
-        // );
+        modalRef.componentInstance.item = JSON.parse(JSON.stringify(res));
+
+        modalRef.result
+          .then((res: any) => {
+            this._toastr.success("Cập nhật thành công");
+            this.GetListQuyTrinh(item.id);
+          })
+          .catch((er) => {
+            console.log(er);
+          });
+      });
+  }
+
+  update(item) {
+  
+    
+    this._service
+      .QuyTrinhHopDong()
+      .Get(item.id)
+      .subscribe((res1: any) => {
+        
+        let modalRef = this._modal.open(ModallaphopdongbongxoComponent, {
+          size: "fullscreen",
+          backdrop: "static",
+        });
+        modalRef.componentInstance.opt = "edit";
+        modalRef.componentInstance.item.hopDong = JSON.parse(
+          JSON.stringify(res1.data.hopDong)
+        );
+   
 
         modalRef.result
           .then((res: any) => {
             this.GetListQuyTrinh();
             this.changeParam(0);
+            this.listVatTu[0]
           })
           .catch((er) => {
             console.log(er);
             this.GetListQuyTrinh();
+            
             this.changeParam(0);
           });
       });
+  }
+
+  updates(Id) {
+    let modalRef = this._modal.open(ModallaphopdongbongxoComponent, {
+      size: 'fullscreen',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.opt = 'edit';
+    modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
+    modalRef.result.then((res: any) => {
+      this.GetListQuyTrinh();
+      this.changeParam(0);
+
+    })
+      .catch(er => {
+        console.log(er)
+        this.GetListQuyTrinh();
+        this.changeParam(0);
+      })
   }
   changeTab(e) {
     this.trangThai = e.index + 1;
@@ -194,13 +219,14 @@ export class LaphopdongbongxoComponent implements OnInit {
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
+      Loai:0
     };
     this._service
       .QuyTrinhHopDong()
       .GetList(data)
       .subscribe((res: any) => {
-        // this.items = res.data.items;
-        this.paging.TotalItem = res.data.totalCount;
+        this.items = res.data?.items;
+        this.paging.TotalItem = res.data?.totalCount;
       });
   }
 
@@ -209,9 +235,9 @@ export class LaphopdongbongxoComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }

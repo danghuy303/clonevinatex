@@ -11,19 +11,19 @@
         <div class="p-col-12 p-xl-8 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Tên chi tiết:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.tenChiTiet" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.tenChiTiet" (ngModelChange)="changInput()" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-xl-4 p-mb-3 padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
             <label class="p-col-12 p-xl-6  p-p-0 my-auto">Xuất xứ:</label>
             <div class="p-col-12 p-xl-6 p-p-0">
-                <input type="text" [(ngModel)]="item.xuatXu" class="p-inputtext-sm" pInputText />
+                <input type="text" [(ngModel)]="item.xuatXu" (ngModelChange)="changInput()" class="p-inputtext-sm" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-xl-4 p-mb-3 padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
             <label class="p-col-12 p-xl-6  p-p-0 my-auto">Số lượng:</label>
             <div class="p-col-12 p-xl-6 p-p-0">
-                <p-inputNumber [(ngModel)]="item.soLuong" (ngModelChange)="clearFilter()" [minFractionDigits]="2" locale="vi-VN">
+                <p-inputNumber [(ngModel)]="item.soLuong" (ngModelChange)="changInput()" [minFractionDigits]="2" locale="vi-VN">
                 </p-inputNumber>
             </div>
         </div>
@@ -82,7 +82,7 @@
 </p-panel>
 
 <p-panel header="TIÊU CHUẨN KỸ THUẬT-CHẤT LƯỢNG" [style]="{ 'margin-bottom': '2em' }" [toggleable]="true">
-    <div class="p-d-flex p-ai-center p-jc-start  p-py-3">
+    <div class="p-d-flex p-ai-center p-jc-start ">
         <button pButton pRipple label="Thêm mới" (click)="add()" icon="pi pi-plus" class="p-button-sm p-mr-2"></button>
         <div></div>
     </div>
@@ -102,38 +102,52 @@
         </div>
     </div>
     <div class="p-mt-3">
-        <p-table styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines" [scrollable]="true">
+        <p-table [value]="listTieuChuanChatLuong | isXoa" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines" [scrollable]="true">
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col style="width:100px">
+                    <col style="width: 100px;">
+                    <col style="width: 100px;">
+                    <col style="width: 100px;">
+                    <col style="width: 100px;">
 
+                    <col style="width: 100px;">
+
+
+
+                </colgroup>
+            </ng-template>
             <ng-template pTemplate="header">
                 <tr>
 
-                    <th class="text-center"> Speccification(Đặc tính) </th>
+                    <th class="text-center"> Đặc tính </th>
                     <th class="text-center">Đơn vị </th>
                     <th class="text-center">Tiêu chuẩn</th>
                     <th class="text-center">Kết quả</th>
                     <th class="text-center">Ghi chú</th>
+                    <th class="text-center"></th>
 
 
                 </tr>
 
             </ng-template>
-            <!-- <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
                 <tr>
-                    <td class="text-center"> {{ 20 * (paging.CurrentPage - 1) + i + 1 }} </td>
-                    <td class="text-center">{{item.loaiThanhToan}}</td>
 
-                    <td class="text-center">{{item.noiDung}}</td>
+                    <td class="text-center">{{item.dacTinh}}</td>
+                    <td class="text-center">{{item.donVi}}</td>
+                    <td class="text-center">{{item.tieuChuan}}</td>
+                    <td class="text-center">{{item.ketQua}}</td>
+                    <td class="text-center">{{item.ghiChu}}</td>
 
-                    <td class="text-center">{{item.ngayThanhToan|date:'dd/MM/yyyy'}}</td>
-                    <td class="text-center">{{item.giaTri}}</td>
-                    <td class="text-center">{{item.tyLe}}</td>
+
                     <td class="text-center date">
                         <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="edit(item, i)"></button>
                         <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-text p-button-sm p-button-secondary" (click)="delete(i)"></button>
                     </td>
                 </tr>
 
-            </ng-template> -->
+            </ng-template>
 
         </p-table>
     </div>
@@ -165,32 +179,33 @@
             </div>
         </div>
 
+        <!-- <div class="p-col-12 p-xl-6 p-lg-12 p-mb-3 padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
 
-
-        <div class="
-        p-col-12 p-xl-3 p-lg-6 p-mb-3
+            <div class="
+        p-col-12  p-lg-6 p-mb-3
         padding0
         d-flex
         flex-column flex-xl-row p-px-3 p-py-0
       ">
 
-            <div class="p-col-12 p-lg-6 p-d-flex p-jc-end p-mr-4 p-ml-xl-2 p-ml-lg-0 p-p-0">
-                <p-checkbox [(ngModel)]="item.layTheoGiaTri" binary="true" inputId="binary"></p-checkbox>
+                <div class="p-col-12 p-lg-6 p-d-flex p-jc-end p-mr-4 p-ml-xl-2 p-ml-lg-0 p-p-0">
+                    <p-checkbox [(ngModel)]="item.layTheoGiaTri" binary="true" inputId="binary"></p-checkbox>
+                </div>
+                <label class="p-col-12 p-lg-6  p-p-0 my-auto">Bên bán chịu:</label>
             </div>
-            <label class="p-col-12 p-lg-6  p-p-0 my-auto">Bên bán chịu:</label>
-        </div>
-        <div class="
-        p-col-12 p-xl-3 p-lg-6 p-mb-3
+            <div class="
+        p-col-12  p-lg-6 p-mb-3
         padding0
         d-flex
         flex-column flex-xl-row p-px-3 p-py-0
       ">
 
-            <div class="p-col-12 p-lg-6 p-d-flex p-jc-end p-mr-4 p-ml-xl-2 p-ml-lg-0 p-p-0">
-                <p-checkbox [(ngModel)]="item.layTheoGiaTri" binary="true" inputId="binary"></p-checkbox>
+                <div class="p-col-12 p-lg-6 p-d-flex p-jc-end p-mr-4 p-ml-xl-2 p-ml-lg-0 p-p-0">
+                    <p-checkbox [(ngModel)]="item.layTheoGiaTri" binary="true" inputId="binary"></p-checkbox>
+                </div>
+                <label class="p-col-12 p-lg-6 p-p-0 my-auto">Bên mua chịu:</label>
             </div>
-            <label class="p-col-12 p-lg-6 p-p-0 my-auto">Bên mua chịu:</label>
-        </div>
+        </div> -->
     </div>
 
 </p-panel>

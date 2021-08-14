@@ -40,20 +40,5 @@ export class ChitiethanghoamodalComponent implements OnInit {
     
     this.activeModal.close({ opt: opt, item: this.item });
   }
-  chonHangHoa() {
-    // let modalRef = this._modal.open(ChonthutucthanhtoanmodalComponent, {
-    //   size: 'xl'
-    // })
-    // modalRef.componentInstance.items = this.listThanhToanThuTuc;
-    // modalRef.componentInstance.selectedItems = [];
-    // modalRef.componentInstance.IdQuyTrinh = this.item.Id;
-    // modalRef.result.then(res => {
-    //   if (res.length > 0) {
-    //     res.forEach(obj => this.item.listItem.push(obj))
-    //   }
-    //   // merge(res, this.item.listItem, 'IddmItem')
-    // }).catch(er => {
-    //   console.log(er);
-    // })
-  }
+
 }

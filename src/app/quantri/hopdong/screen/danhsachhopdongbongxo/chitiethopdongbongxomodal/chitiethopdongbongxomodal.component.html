@@ -18,13 +18,6 @@
 
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
-        <!-- <div class="modal-bt p-mb-4">
-            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="activeModal.dismiss('close')"></button>
-            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm" (click)="GhiLai()" *ngIf="checkbutton.Ghi"></button>
-            <button pButton pRipple type="button" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa" (click)="XoaQuyTrinh()">Xóa</button>
-            <button pButton pRipple type="button" class="p-mr-2 p-button-sm" *ngIf="checkbutton.ChuyenTiep" (click)="ChuyenTiep()">Chuyển tiếp</button>
-            <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()" *ngIf="checkbutton.KhongDuyet"></button>
-        </div> -->
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="activeModal.dismiss('close')"></button>
             <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="GhiLai()" *ngIf="checkbutton.Ghi"></button>
@@ -44,7 +37,7 @@
                 </app-chitiethopdongbongxo>
             </p-tabPanel>
             <p-tabPanel header="Thông tin hàng hóa">
-                <app-chitietdanhsachhanghoa [isBongXo]="isBongXo" [opt]="opt" [(listVatTu)]="item.listVatTu">
+                <app-chitietdanhsachhanghoa [isBongXo]="isBongXo" [opt]="opt" [(listVatTu)]="item.listVatTu" [(listTieuChuanChatLuong)]="item.listTieuChuanChatLuong">
                 </app-chitietdanhsachhanghoa>
             </p-tabPanel>
             <p-tabPanel header="Điều khoản thanh toán">
