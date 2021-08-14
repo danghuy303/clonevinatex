@@ -183,7 +183,17 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
         })
         this._services.BaoCao().GetDashBoard_CoCauMatHang(this.filter).subscribe((res: any) => {
           this.mapIndex_Ma = deepCopy(res.labels);
-          res.labels= this.mapIndex_Ma.map(lb=>lb.split(' - ')[1]);
+          // res.labels= this.mapIndex_Ma.map(lb=>lb.split(' - ')[1]);
+          res.labels = this.mapIndex_Ma.map(lb => {
+            let arr = lb.split(' - ')
+            if(arr.length===1){
+              return arr[0]
+            }
+            if(arr.length>1){
+              arr.shift()
+              return arr.join(' - ')
+            }
+          });
           res.labels2 = this.mapIndex_Ma;
           this.dataPie = res;
         });
