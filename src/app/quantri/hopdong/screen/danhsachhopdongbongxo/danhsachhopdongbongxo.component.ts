@@ -138,6 +138,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
         modalRef.componentInstance.item = JSON.parse(
           JSON.stringify(res1.data)
         );
+    
    
 
         modalRef.result

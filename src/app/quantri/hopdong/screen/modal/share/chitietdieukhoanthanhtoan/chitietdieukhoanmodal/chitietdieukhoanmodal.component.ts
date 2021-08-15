@@ -15,9 +15,11 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   lang: any = vn;
 
   opt: any = '';
-  item: any = {};
+  item: any = [];
   listLoaiThanhToan:any = []
-  listThanhToanThuTuc:any = []
+  listThuTucThanhToan_ref:any = []
+  listThuTucThanhToan:any = []
+
   
 
   listDieuKhoanThanhToan :any = {}
@@ -29,19 +31,22 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   ngOnInit(): void {
   }
   chonDanhMuc() {
-    let modalRef = this._modal.open(ChonthutucthanhtoanmodalComponent, {
-      size: 'xl'
-    })
-    modalRef.componentInstance.items = this.listThanhToanThuTuc;
-    modalRef.componentInstance.selectedItems = [];
-    modalRef.componentInstance.IdQuyTrinh = this.item.Id;
-    modalRef.result.then(res => {
-      if (res.length > 0) {
-        res.forEach(obj => this.item.listItem.push(obj))
-      }
-      // merge(res, this.item.listItem, 'IddmItem')
-    }).catch(er => {
-      console.log(er);
+     let   listThanhToanThuTuc:any = []
+    this._servicesdmHopDong.DanhMucThuTucThanhToan().GetListAll().subscribe((res1: any) => {
+      console.log(res1);
+      
+      let modalRef = this._modal.open(ChonthutucthanhtoanmodalComponent, {
+        size: 'lg',
+        backdrop: 'static'
+      })
+      console.log(modalRef.componentInstance.listThanhToanThuTuc);
+      this.listThuTucThanhToan_ref = res1
+      modalRef.componentInstance.opt = 'edit';
+    
+     
+      modalRef.componentInstance.listThanhToanThuTuc = res1;
+      // modalRef.componentInstance.item = this.item.listDieuKhoanThanhToan;
+ 
     })
   }
   
