@@ -35,6 +35,7 @@ export class QuantriComponent implements OnInit {
   showDropDown: boolean = false;
   canSendMessage: any;
   mapQuyTrinhRoute: any = mapQuyTrinhRoute;
+  showHopDongModule:any=false;
   @ViewChild("listNoti") listNoti;
   constructor(
     private _auth: AuthenticationService,
@@ -148,6 +149,7 @@ export class QuantriComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.showHopDongModule = (window.location.origin.includes('localhost')||window.location.origin.includes('2269'))
     this.refreshNotis();
     this._router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
@@ -863,7 +865,7 @@ export class QuantriComponent implements OnInit {
         label: "Thông tin hợp đồng",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
-        visible: true,
+        visible: this.showHopDongModule,
         items: [
           {
             label: "Danh sách hợp đồng bông/xơ",
@@ -893,7 +895,7 @@ export class QuantriComponent implements OnInit {
         label: "Thực hiện hợp đồng",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
-        visible: true,
+        visible: this.showHopDongModule,
         items: [
           {
             label: "Giao nhận hàng hoá",
@@ -932,7 +934,7 @@ export class QuantriComponent implements OnInit {
         label: "Danh mục hợp đồng",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
-        visible: true,
+        visible: this.showHopDongModule,
         items: [
           {
             label: "Hình thức thanh toán",

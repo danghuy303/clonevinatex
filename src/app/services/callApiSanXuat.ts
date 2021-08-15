@@ -191,6 +191,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetDashBoard_TongHop', data, httpOptions);
             },
             BieuDoCoCau: (data) => {
+                data.IdDuAn =this.store.getCurrent();
                 return this.http.post(url + 'GetDashBoard_BieuDoCoCau', data, httpOptions);
             },
             GetDashBoard_NhuCauXuatHang: (data) => {
