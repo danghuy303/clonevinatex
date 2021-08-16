@@ -73,7 +73,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
 
   GetOptions() {
     this._servicesSanXuat
-      .GetListdmLoaiBongForHopDong(this.data.Loai = this.item.hopDong.loadLoaiVatLieu)
+      .GetListdmLoaiBongForHopDong(this.data.Loai =2)
       .subscribe((res: any) => {
         this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
         this.listLoaiMatHang_ref = res;
