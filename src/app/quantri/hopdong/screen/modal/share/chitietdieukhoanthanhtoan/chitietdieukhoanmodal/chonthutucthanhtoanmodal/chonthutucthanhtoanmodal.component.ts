@@ -1,3 +1,4 @@
+import { validVariable } from 'src/app/services/globalfunction';
 
 
 import { Component, OnInit } from '@angular/core';
@@ -10,17 +11,18 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./chonthutucthanhtoanmodal.component.css']
 })
 export class ChonthutucthanhtoanmodalComponent implements OnInit {
-  listMatHang: any = [];
-  listItem: any = [];
+  listThuTucThanhToan_ref: any = [];
+  item: any = {};
+  listThanhToanThuTuc: any = [];
   cols: any = [
     {
       header: 'Mã thủ tục',
-      field: 'Ma',
+      field: 'ma',
       width: 'unset'
     },
     {
       header: 'Tên  thủ tục',
-      field: 'Ten',
+      field: 'ten',
       width: 'unset'
     },
  
@@ -28,50 +30,48 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
   loai='';
   checkedAll: boolean = false;
   paging: any = {};
-  item: any = {};
+
   KeyWord: any = '';
   constructor(
     public activeModal: NgbActiveModal,
   ) { }
 
   ngOnInit(): void {
+    console.log(this.listThanhToanThuTuc.length);
+    
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
-    this.paging.TotalItem = this.listMatHang.length;
-    console.log(this.listItem)
-    if(this.listItem != undefined && this.listItem!= null && this.listItem.length > 0)
-    {
-      for(let i = 0; i < this.listItem.length; i++){
-        var itemFind = this.listMatHang.find(
-          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang == this.listItem[i].IdLoHang)
-        );
-        if(itemFind !== undefined)
-          itemFind.checked = true;
-      }
-    }
-    this.item.listItem = this.listMatHang.slice(0,15);
-    this.item.listItem_copy = this.listMatHang;
-  }
-  accept() {
-    var itemFind: any = this.listMatHang.filter(function (obj) {
-      return obj.checked == true;
-    });
-    console.log(itemFind);
-    this.activeModal.close(
-      { data: itemFind }
-    );
+    this.paging.TotalItem = this.listThanhToanThuTuc.length;
+    // if(this.listThuTucThanhToan_ref != undefined && this.listThuTucThanhToan_ref!= null)
+    // {
+    //   for(let i = 0; i < this.listThuTucThanhToan_ref.length; i++){
+    //     console.log(this.listThuTucThanhToan_ref[i])
+    //     let itemFind = this.listThanhToanThuTuc.find(
+        
+          
+    //       ele =>ele.id === this.listThuTucThanhToan_ref[i].id)
+          
+      
+    //     if(validVariable(itemFind)){
+    //       itemFind.checked = true;
+    //     }
+    //   }
+    // }
+    this.item.listThuTucThanhToan_ref = this.listThanhToanThuTuc.slice(0,15);
+    this.item.listThuTucThanhToan_ref_copy = this.listThanhToanThuTuc;
   }
   checkAll(e) {
     if (e.checked) {
-      this.listMatHang.forEach(item => {
+      this.listThanhToanThuTuc.forEach(item => {
         item.checked = true;
       });
     } else {
-      this.listMatHang.forEach(item => {
+      this.listThanhToanThuTuc.forEach(item => {
         item.checked = false;
       });
     }
   }
+
   changePage(event) {
     console.log(event)
     this.paging.CurrentPage = event.page + 1;
@@ -79,30 +79,27 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
     var end =  start + 15;
     if((start + 15) > this.paging.TotalItem)
       end= this.paging.TotalItem;
-    this.item.listItem = this.item.listItem_copy.slice(start,end);
+    this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref_copy.slice(start,end);
   }
-  // timKiemMatHang() {
-  //   var listItem : any = [];
-  //   this.listItem_new.forEach(element => {
-  //     if(element.Ten.toLowerCase().includes(this.KeyWord.toLowerCase()) || element.TenLoHang.toLowerCase().includes(this.KeyWord.toLowerCase()))
-  //       listItem.push(element)
-  //   });
-  //   debugger
-  //   this.listItem_new = listItem;
-  // }
-  // refresh(){
-  //   this.KeyWord = '';
-  //   var start = 15 * (this.paging.CurrentPage - 1);
-  //   var end =  start + 15;
-  //   if((start + 15) > this.paging.TotalItem)
-  //     end= this.paging.TotalItem;
-  //   this.item.listItem = this.listMatHang.slice(start,end);
-  // }
+  accept() {
+    let itemFind: any = this.listThanhToanThuTuc.filter(function (obj) {
+      return obj.checked == true;
+    });
+    console.log(itemFind);
+    this.activeModal.close(
+      { data: itemFind.map(ele=>{
+        return {
+          ...ele,
+          Ten:`${ele.TenLoHang} - ${ele.ten}`
+        }
+      }) }
+    );
+  }
   filtertable_add() {
     if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
-      this.item.listItem_copy = this.listMatHang;
-      let filter: any = this.item.listItem_copy.filter(
-        ele=>ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase())
+      this.item.listThuTucThanhToan_ref_copy = this.listThanhToanThuTuc;
+      let filter: any = this.item.listThuTucThanhToan_ref_copy.filter(
+        ele=>ele.ten.toLowerCase().includes(this.KeyWord.toLowerCase())
         // obj => {
         // if(obj.Ten === "CD 23"){
         //   debugger
@@ -114,17 +111,17 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
       // }
       );
       console.log(filter)
-      this.item.listItem = filter;
-      this.item.listItem_copy = filter;
+      this.item.listThuTucThanhToan_ref = filter;
+      this.item.listThuTucThanhToan_ref_copy = filter;
     }
     else {
-      this.item.listItem = this.listMatHang;
-      this.item.listItem_copy = this.listMatHang;
+      this.item.listThuTucThanhToan_ref = this.listThanhToanThuTuc;
+      this.item.listThuTucThanhToan_ref_copy = this.listThanhToanThuTuc;
     }
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
-    this.paging.TotalItem = this.item.listItem.length;
-    this.item.listItem = this.item.listItem.slice(0,15);
+    this.paging.TotalItem = this.item.listThuTucThanhToan_ref.length;
+    this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref.slice(0,15);
   }
   resetFilter() {
     this.KeyWord = '';

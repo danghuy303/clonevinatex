@@ -35,6 +35,8 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   title: string
   item: any = {};
   hopDong: any = {};
+  listLoaiMatHang: any = []
+  listLoaiMatHang_ref: any = []
   listDieuKhoanThanhToan: any = [];
 listVatTu: any = [];
   userInfo: any;
@@ -64,7 +66,14 @@ listVatTu: any = [];
   }
 
   ngOnInit(): void {
+console.log(this.item.hopDong.loaiNguyenVatLieu);
 
+    this._servicesSanXuat
+    .GetListdmLoaiBongForHopDong(this.item.hopDong.loaiNguyenVatLieu)
+    .subscribe((res: any) => {
+      this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
+      this.listLoaiMatHang_ref = res;
+    })
     this.KiemTraButtonModal();
     this.checkbutton = {
       Ghi: false,

@@ -56,14 +56,14 @@
         <div class="p-col-12 p-xl-4 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
             <label class="p-col-12 p-xl-6  p-lg-12 p-p-0 my-auto">Đơn giá thanh toán:</label>
             <div class="p-col-12 p-xl-6 p-p-0">
-                <p-inputNumber disabled [(ngModel)]="item.SoDienThoai" [minFractionDigits]="2" locale="vi-VN">
+                <p-inputNumber disabled [ngModel]="item.donGia * (1 + item.thueGTGT/100)" [minFractionDigits]="2" locale="vi-VN">
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-xl-4 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
             <label class="p-col-12 p-xl-6  p-p-0 my-auto">Giá trị hợp đồng:</label>
             <div class="p-col-12 p-xl-6 p-p-0">
-                <p-inputNumber disabled [(ngModel)]="item.SoDienThoai" [minFractionDigits]="2" locale="vi-VN">
+                <p-inputNumber disabled [ngModel]="item.donGia * (1 + item.thueGTGT/100) *item.soLuong" [minFractionDigits]="2" locale="vi-VN">
                 </p-inputNumber>
             </div>
         </div>
@@ -167,14 +167,14 @@
         <div class="p-col-12 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
             <label class="p-col-12 p-xl-6 p-lg-8 p-p-0 my-auto">Phương thức và địa điểm giao hàng:</label>
             <div class="p-col-12 p-xl-6 p-p-0">
-                <input type="text" [(ngModel)]="item.SoFax" class="p-inputtext-sm" pInputText />
+                <input type="text" [(ngModel)]="hopDong.diaDiemGiaoHang" (ngModelChange)="changeDiaDiem($event)" class="p-inputtext-sm" pInputText />
             </div>
         </div>
 
         <div class="p-col-12 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
             <label class="p-col-12 p-xl-4  p-lg-4 p-p-0 my-auto">Chi phí vận chuyển:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber [(ngModel)]="item.chiPhiVanChuyen" [minFractionDigits]="2" locale="vi-VN">
+                <p-inputNumber [(ngModel)]="hopDong.chiPhiVanChuyen" [minFractionDigits]="2" locale="vi-VN">
                 </p-inputNumber>
             </div>
         </div>
@@ -189,7 +189,7 @@
       ">
 
                 <div class="p-col-12 p-lg-6 p-d-flex p-jc-end p-mr-4 p-ml-xl-2 p-ml-lg-0 p-p-0">
-                    <p-checkbox [(ngModel)]="item.layTheoGiaTri" binary="true" inputId="binary"></p-checkbox>
+                    <p-checkbox [(ngModel)]="layTheoGiaTri" binary="true" inputId="binary"></p-checkbox>
                 </div>
                 <label class="p-col-12 p-lg-6  p-p-0 my-auto">Bên bán chịu:</label>
             </div>
