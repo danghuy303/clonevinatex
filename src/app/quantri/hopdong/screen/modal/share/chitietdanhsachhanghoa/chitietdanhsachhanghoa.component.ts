@@ -36,10 +36,10 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     console.log(this.item.donGia);
-    this.item.listVatTu.donGia = 0
-    this.item.thueGTGT = 0
-    this.item.soLuong = 0
-    this.item.saiLech = 0
+    // this.item.listVatTu.donGia = 0
+    // this.item.thueGTGT = 0
+    // this.item.soLuong = 0
+    // this.item.saiLech = 0
     // if(this.item.donGia == null && this.item.thueGTGT == null){
     //  parseInt(this.item.donGia) * parseInt(this.item.thueGTGT) 
     // }
