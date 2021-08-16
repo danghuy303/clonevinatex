@@ -107,19 +107,19 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     this.currentUser = this._auth.currentUserValue;
     this.suber = this.store.getNhaMay().subscribe(res => {
       this.IdDuAn = res;
-      for (let i = 0; i < 20; i++) {
-        this.Nams.push({ value: (new Date()).getFullYear() - i, label: (new Date()).getFullYear() - i });
-      }
-      for (let i = 1; i <= 12; i++) {
-        this.listThang.push({ value: i, label: `Tháng ${i}` });
-        this.headerChatLuongSanPham.push({
-          label: `T ${i}`,
-          prop: `Thang${i}`
-        })
-      }
-      for (let i = 1; i <= 31; i++) {
-        this.listNgay.push({ value: i, label: `${i}` });
-      }
+      // for (let i = 0; i < 20; i++) {
+      //   this.Nams.push({ value: (new Date()).getFullYear() - i, label: (new Date()).getFullYear() - i });
+      // }
+      // for (let i = 1; i <= 12; i++) {
+      //   this.listThang.push({ value: i, label: `Tháng ${i}` });
+      //   this.headerChatLuongSanPham.push({
+      //     label: `T ${i}`,
+      //     prop: `Thang${i}`
+      //   })
+      // }
+      // for (let i = 1; i <= 31; i++) {
+      //   this.listNgay.push({ value: i, label: `${i}` });
+      // }
       this.filter.nNgay = (new Date()).getDate();
       this.filter.nThang = (new Date()).getMonth() + 1;
       this.filter.nNam = (new Date()).getFullYear();
@@ -174,7 +174,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     })
     this._services.BaoCao().GetDanhSachChiTieuChatLuong_BieuDo().subscribe((res: any) => {
       this.listtieuchi = mapArrayForDropDown(res, 'Ten', 'Id');
-      this.filter.IddmChiTieu = this.listtieuchi.filter(obj => obj.value == "2a3dbea0-6c3f-4e10-9774-6201027f4bd0")[0].value;
+      this.filter.IddmChiTieu = this.listtieuchi.filter(obj => obj.label === "IPI")[0].value;
+      // 2a3dbea0-6c3f-4e10-9774-6201027f4bd0
     })
     // this._services.GetOptions().GetMatHang().subscribe((res: any) => {
     //   let fakeMatHang = [
