@@ -1549,6 +1549,7 @@ export class SanXuatService {
                 return this.http.post(`${url}BaoCaoSanLuongLuyKe_BieuDoCot`, data, httpOptions);
             },
             ExportBaoCaoThongKeDien: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}ExportBaoCaoThongKeDien`, data, httpOptions);
             },
             ExportBaoCaoThongKeChatLuong: (data) => {
