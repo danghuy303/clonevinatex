@@ -145,7 +145,12 @@ export class ChitiethopdongbongxoComponent implements OnInit {
        this.onChange.emit(even);
    this.item.loaiNguyenVatLieu = even.value
 
-
+   this._servicesSanXuat
+   .GetListdmLoaiBongForHopDong(this.data.Loai =even.value)
+   .subscribe((res: any) => {
+     this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
+     this.listLoaiMatHang_ref = res;
+   });
 
 
   }

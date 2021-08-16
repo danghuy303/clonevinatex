@@ -145,7 +145,7 @@ console.log(this.item.hopDong.loaiNguyenVatLieu);
               this._toastr.success(res.message);
               this._service.QuyTrinhHopDong().Get(res.data).subscribe((res1: any) => {
                 console.log(res1.data.hopDong);
-                this.item.hopDong = res1.data.hopDong
+                this.item = res1.data
                 this.item.hopDong.idTrangThai = res1.data.hopDong.idTrangThai
                 this.item.hopDong.id = res1.data.hopDong.id
                 this.KiemTraButtonModal();

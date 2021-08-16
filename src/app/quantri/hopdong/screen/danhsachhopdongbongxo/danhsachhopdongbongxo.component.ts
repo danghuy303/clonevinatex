@@ -101,7 +101,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     };
     modalRef.componentInstance.item.listVatTu = [
       {
-
+        
       }
     ]
    

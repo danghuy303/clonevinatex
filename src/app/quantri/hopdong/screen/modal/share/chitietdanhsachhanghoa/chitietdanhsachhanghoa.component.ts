@@ -14,14 +14,15 @@ import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angula
   styleUrls: ['./chitietdanhsachhanghoa.component.css']
 })
 export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
-  @Input() item: any = {};
+  @Input('listVatTu') item: any = {};
   @Input() hopDong: any = {};
   @Input() listTieuChuanChatLuong: any = {}
   @Input() listLoaiMatHang: any
+  @Input() listVatTu: any = []
   @Input("opt") opt: string;
   @Input() loaiNguyenVatLieu: any;
   @Output() onChange = new EventEmitter();
-  @Output() itemChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output('listVatTu') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
 
@@ -35,7 +36,8 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private _servicesSanXuat: SanXuatService) { }
 
   ngOnInit(): void {
-    console.log(this.item.donGia);
+  console.log(this.item);
+  
     // this.item.listVatTu.donGia = 0
     // this.item.thueGTGT = 0
     // this.item.soLuong = 0
@@ -45,8 +47,8 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     // }
     // console.log(this.item.donGia);
     this.GetOptions()
-    console.log(this.item.hopDong.loadLoaiVatLieu);
-  this.onChange.emit(this.item)
+ 
+  
     // console.log(this.item.hopDong.loaiNguyenVatLieu);
   }
 
