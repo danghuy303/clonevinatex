@@ -7,7 +7,7 @@ import { ModaldoimatkhauComponent } from "./modal/modaldoimatkhau/modaldoimatkha
 import { filter, timestamp } from "rxjs/operators";
 import { SanXuatService } from "../services/callApiSanXuat";
 import { StoreService } from "../services/store.service";
-import { mapArrayForDropDown, validVariable } from "../services/globalfunction";
+import { mapArrayForDropDown } from "../services/globalfunction";
 import { SignalRService } from "../services/signalR.service";
 import { mapQuyTrinhRoute } from "../services/mapquytrinhroute";
 import { ToastrService } from "ngx-toastr";
@@ -69,10 +69,8 @@ export class QuantriComponent implements OnInit {
       .GetDanhSachDuAnByIdUser(this.userInfo.Id)
       .subscribe((res: any) => {
         this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id");
-        if (!validVariable(this.store.getCurrent())) {
-          this.IdNhaMay = res[0].Id;
-          this.setGlobalNhaMay({ value: res[0].Id });
-        }
+        this.IdNhaMay = res[0].Id;
+        this.setGlobalNhaMay({ value: res[0].Id });
       });
   }
   setGlobalNhaMay(event) {
@@ -631,10 +629,10 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
-            label: 'Kiểm kê kho',
-            routerLink: '/quantri/quanlysanxuatkhohoiam/quanlysanxuatkhohoiam/kiemkekho/0',
-            separator: this.checkmenu("KIEMKEKHOHOIAM"),
-            command: () => this.close()
+              label: 'Kiểm kê kho',
+              routerLink: '/quantri/quanlysanxuatkhohoiam/quanlysanxuatkhohoiam/kiemkekho/0',
+              separator: this.checkmenu("KIEMKEKHOHOIAM"),
+              command: () => this.close()
           },
           // {
           //     label: 'Thẻ kho',
@@ -863,7 +861,7 @@ export class QuantriComponent implements OnInit {
         label: "Thông tin hợp đồng",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
-        visible: true,
+        visible:true,
         items: [
           {
             label: "Danh sách hợp đồng bông/xơ",
@@ -887,13 +885,13 @@ export class QuantriComponent implements OnInit {
           },
         ],
       },
-
+      
 
       {
         label: "Thực hiện hợp đồng",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
-        visible: true,
+        visible:true,
         items: [
           {
             label: "Giao nhận hàng hoá",
@@ -932,7 +930,7 @@ export class QuantriComponent implements OnInit {
         label: "Danh mục hợp đồng",
         icon: "fas fa-circle",
         routerLink: "/quantri/hopdongsanxuat",
-        visible: true,
+        visible:true,
         items: [
           {
             label: "Hình thức thanh toán",
@@ -955,7 +953,7 @@ export class QuantriComponent implements OnInit {
           },
           {
             label: "Thủ tục thanh toán",
-
+            
             routerLink:
               "/quantri/hopdongsanxuat/danhmuc/danhmucthutucthanhtoan",
 
