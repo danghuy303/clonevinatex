@@ -24,7 +24,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     IddmItem: "",
     IddmKho: '',
   };
-  colsNum:any = 4;
+  colsNum: any = 4;
   Tong: any = null;
   selectedXuatNhap: any = {};
   filterSanLuong: any = {};
@@ -120,21 +120,18 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${this._data.labels[tooltipItem.index]}: ${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN', '0.0-2')} tấn`
+          return `${this._data.labels2[tooltipItem.index]}: ${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN', '0.0-2')} tấn`
         }
       }
     },
     maintainAspectRatio: window.innerWidth <= 768 ? false : true,
     aspectRatio: window.innerWidth <= 768 ? null : (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
-  mapIndex_Ma:any=[];
+  mapIndex_Ma: any = [];
   listItem: any = [];
   constructor(private _services: SanXuatService, private store: StoreService, public toastr: ToastrService, private _router: Router) {
-    this.colsNum = this.store.isMobile?0:4;
+    this.colsNum = this.store.isMobile ? 0 : 4;
     this.IdDuAn = this.store.getCurrent();
-  }
-
-  ngOnInit(): void {
     this.$IdDuAn = this.store.getNhaMay().subscribe(res => {
       this.IdDuAn = res;
       let date = new Date();
@@ -147,6 +144,17 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
       // this.ChangeOpt();
       this.ChangeOptCanDoiTon();
     })
+  }
+  ngOnInit(): void {
+    let date = new Date();
+    this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.filterAll._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.filterAll._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.listItem = [];
+    this.getAllOptions();
+    // this.ChangeOpt();
+    this.ChangeOptCanDoiTon();
   }
 
   ChangeOpt() {
@@ -162,10 +170,10 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     }
     if (this.filter.DenNgay < this.filter.TuNgay) {
       this.toastr.error('Vui lòng chọn ngày kết thúc lớn hơn ngày bắt đầu');
-      setTimeout(()=>{
+      setTimeout(() => {
         this.filter._denNgay = this.filter._tuNgay;
         this.ChangeOptCanDoiTon()
-      },200)
+      }, 200)
     } else {
       if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay <= this.filter.DenNgay) {
         this.filter.IdDuAn = this.IdDuAn;
@@ -174,15 +182,23 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
           this.dataSet1 = res;
         })
         this._services.BaoCao().GetDashBoard_CoCauMatHang(this.filter).subscribe((res: any) => {
-          // this.mapIndex_Ma = deepCopy(res.labels);
+          this.mapIndex_Ma = deepCopy(res.labels);
           // res.labels= this.mapIndex_Ma.map(lb=>lb.split(' - ')[1]);
-          // res.labels2 = this.mapIndex_Ma;
+          res.labels = this.mapIndex_Ma.map(lb => {
+            let arr = lb.split(' - ')
+            if(arr.length===1){
+              return arr[0]
+            }
+            if(arr.length>1){
+              arr.shift()
+              return arr.join(' - ')
+            }
+          });
+          res.labels2 = this.mapIndex_Ma;
           this.dataPie = res;
         });
       }
-    }
-
-
+    }0
   }
 
   getAllOptions() {
@@ -230,9 +246,9 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
       res.unshift({ Id: '', Ten: 'Tất cả mặt hàng' });
       this.listMatHangAll = mapArrayForDropDown(res, "Ten", 'Id');
       this.filterAll.IddmItem = '';
-      setTimeout(()=>{
+      setTimeout(() => {
         this.ChangeOptCanDoiTon()
-      },500)
+      }, 500)
     })
   }
   ChangeOptCanDoiTon() {
@@ -248,22 +264,22 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     }
     if (this.filterAll.DenNgay < this.filterAll.TuNgay) {
       this.toastr.error('Vui lòng chọn ngày kết thúc lớn hơn hoặc bằng ngày bắt đầu');
-      setTimeout(()=>{
+      setTimeout(() => {
         this.filterAll._denNgay = this.filterAll._tuNgay;
         this.ChangeOptCanDoiTon()
-      },200)
-    }else{
+      }, 200)
+    } else {
       if (validVariable(this.filterAll.TuNgay) && validVariable(this.filterAll.DenNgay) && this.filterAll.TuNgay <= this.filterAll.DenNgay) {
-      this.filterAll.IdDuAn = this.store.getCurrent();
-      this._services.BaoCao().GetDashBoard_CanDoiTonXuatHang(this.filterAll).subscribe((res: Array<any>) => {
-        // this.Tong = res.splice(0, 1);
-        this.listItem = res;
-        console.log(this.voiPintable);
-        this.voiPintable.active();
-      })
+        this.filterAll.IdDuAn = this.store.getCurrent();
+        this._services.BaoCao().GetDashBoard_CanDoiTonXuatHang(this.filterAll).subscribe((res: Array<any>) => {
+          // this.Tong = res.splice(0, 1);
+          this.listItem = res;
+          console.log(this.voiPintable);
+          this.voiPintable.active();
+        })
+      }
     }
-    }
-    
+
   }
   checkMatHang(e, item, index) {
     if (e.checked) {
@@ -320,7 +336,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
         DenNgay: this.filterAll.DenNgay,
         IdLoHang: item.IdLoHang,
         IddmKho: this.filterAll.IddmKho,
-        IddmQuyCachDongGoi:item.IddmQuyCachDongGoi
+        IddmQuyCachDongGoi: item.IddmQuyCachDongGoi
       }
       this._services.DashBoard()[`GetDashBoard_Phieu${opt}Kho`](data).subscribe(res => {
         this.listXuatNhap = res;

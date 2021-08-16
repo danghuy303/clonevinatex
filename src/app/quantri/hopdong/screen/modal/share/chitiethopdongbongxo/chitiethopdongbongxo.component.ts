@@ -56,6 +56,8 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   selected: any = {};
 
   listKhachHangA: any = []
+  listLoaiMatHang: any = []
+  listLoaiMatHang_ref: any = []
   listKhachHangB: any = []
   selectedCityCode: string;
   listHinhThucThanhToan: any = [];
@@ -65,15 +67,19 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   listLoaiTienTe: any = [];
   listdmKhachHang: any = [];
   getdmKhachHangForCopy: any = {};
-  LoaiNguyenVatLieu: number
+ 
   canCopy: boolean = false;
   selectedCity = null;
   cities = [{ name: 'pushkar', code: 21 }, { name: 'nagpur', code: 22 }];
   @Input() item: any;
+  @Input() loaiNguyenVatLieu: number;
   @Input() hopDong: any;
+  @Output() onChange = new EventEmitter<any>();
   @Output() itemChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input("opt") opt: string;
   selectedReport: any;
+  @Input() getSearchStatus: boolean;
+@Output() getSearchStatusChange = new EventEmitter<boolean>();
 
   previousVal: any;
   currentVal: any;
@@ -133,14 +139,19 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   this.selected1.listTaiKhoanNganHang = selected1?.listTaiKhoanNganHang
   }
 
+
   onChangeVatLieu(even) {
-    console.log(even.value);
+
+       this.onChange.emit(even);
    this.item.loaiNguyenVatLieu = even.value
+
+
+
 
   }
 
   ngOnInit() {
-
+    
     // if(this.item.idKhachHang !== null){
     //   this._servicesSanXuat.dmKhachHang().GetListdmKhachHangTheoId(Id).subscribe((res: any) => {
     //     this.getdmKhachHangForCopy = res;
@@ -194,8 +205,13 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   //   })
   // }
 
-  GetFormOptions() {
 
+
+  GetFormOptions() {
+    console.log(this.item.loaiNguyenVatLieu);
+
+ 
+  
     this._servicesdmHopDong
       .DanhMucLoaiHopDong()
       .GetListAll()
