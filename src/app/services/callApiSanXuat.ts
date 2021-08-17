@@ -1855,6 +1855,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetListdmKhachHang', data, httpOptions);
             },
             Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetdmKhachHang', data, httpOptions);
             },
             Delete: (data) => {
