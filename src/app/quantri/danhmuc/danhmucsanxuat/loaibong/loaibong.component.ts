@@ -38,6 +38,12 @@ export class LoaibongComponent implements OnInit {
       center:'center'
     },
     {
+      header: 'Màu',
+      field: 'Mau',
+      width: 'unset',
+      center:'center'
+    },
+    {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset',

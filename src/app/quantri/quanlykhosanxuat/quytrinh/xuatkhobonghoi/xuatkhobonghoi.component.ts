@@ -34,34 +34,37 @@ export class XuatkhobonghoiComponent implements OnInit {
       field: 'TenPhuongAnPhaBong',
       width: 'unset'
     },
-    {
-      header: 'Trạng thái',
-      field: 'TenTrangThai',
-      width: 'unset'
-    },
+    
     {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset'
     },
+    {
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
+      width: 'unset'
+    },
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-  isCheckmodal: any= false;
+  eAction : any = 'PHIEUXUATBONGHOI'
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
     private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0' && res.id!==undefined && this.isCheckmodal ===false){
+      if(res.id!=='0'){
         this.update(res.id);
       }
     })
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh()
 
   }
   changeParam(id){
-    this.router.navigate([`quantri/quanlykhosanxuat/khobonghoi/xuatkho/${id}`],{replaceUrl: true})
+    if(this._modal.hasOpenModals()){
+      this._modal.dismissAll()
+    }
+    this.router.navigate([`quantri/quanlykhosanxuatbongkhac/khobonghoi/xuatkho/${id}`],{replaceUrl: true})
   }
   add(){
     this.changeParam(0);
@@ -73,25 +76,27 @@ export class XuatkhobonghoiComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
+
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er) 
+        this.GetListQuyTrinh();
+        this.changeParam(0);})
   }
   update(Id){
-    this.isCheckmodal = true;
-    this.changeParam(Id);
     let modalRef = this._modal.open(XuatkhobonghoimodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
+    modalRef.componentInstance.Id = Id;
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+      this.changeParam(0);
     })
-      .catch(er => { console.log(er) })
-      .finally(()=>{
-        this.isCheckmodal = false;
-      })
+      .catch(er => { console.log(er)
+        this.GetListQuyTrinh();
+        this.changeParam(0); })
   }
   changeTab(e){
     this.trangThai = e.index+1;
@@ -107,7 +112,7 @@ export class XuatkhobonghoiComponent implements OnInit {
       this.paginator.changePage(0);
     }
     let data={
-      PageSize: 25,
+      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter:this.filter.KeyWord,
@@ -115,7 +120,7 @@ export class XuatkhobonghoiComponent implements OnInit {
       DenNgay:DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      Loai:"6"
+      Loai:6
     }
     this._service.PhieuXuatSanXuat().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
@@ -127,10 +132,10 @@ export class XuatkhobonghoiComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai(){
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
   
 }

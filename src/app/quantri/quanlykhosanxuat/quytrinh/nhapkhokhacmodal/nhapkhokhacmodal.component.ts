@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown,UnixToDate,DateToUnix } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-nhapkhokhacmodal',
@@ -31,9 +31,10 @@ export class NhapkhokhacmodalComponent implements OnInit {
   lang: any = vn;
   data: any = {};
   listKeHoach: any = [];
-  type: any = '';
+  // type: any = '';
   editField: any = false;
   nametype: any = '';
+  TenLoaiBong: any = '';
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -55,7 +56,7 @@ export class NhapkhokhacmodalComponent implements OnInit {
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.data.CurrentPage = 0;
     this.getListLoaiBong();
@@ -80,7 +81,7 @@ export class NhapkhokhacmodalComponent implements OnInit {
         this.addBongHoi();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuNhapLoBong().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -105,12 +106,13 @@ export class NhapkhokhacmodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if (this.opt !== 'edit') {
-      if (this.type === 'bonghoi')
-        this.item.Loai = 6;
-      else if (this.type === 'bongphe')
-        this.item.Loai = 7;
-    }
+    this.item.Loai = 6;
+
+    // if (this.opt !== 'edit') {
+    //   if (this.type === 'bonghoi')
+    //   else if (this.type === 'bongphe')
+    //     this.item.Loai = 7;
+    // }
     let isCheck = false;
 
     if(this.item.listItem!== undefined || this.item.listItem !== null){
@@ -134,14 +136,16 @@ export class NhapkhokhacmodalComponent implements OnInit {
     else {
       if ( this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined)
           this.addBongHoi();
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuNhapLoBong().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
-            console.log(this.type)
+            this.item.Ngay = UnixToDate(this.item.NgayUnix);
+            // console.log(this.type)
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
@@ -170,48 +174,53 @@ export class NhapkhokhacmodalComponent implements OnInit {
   }
 
   getListKho() {
-    if (this.opt === 'edit') {
-      this.data.Loai = this.item.Loai;
-    }
-    else{
-     if (this.type === 'bonghoi'){
-        this.data.Loai = 6;
-        this.data.IddmLoaiBong = this.item.IddmLoaiBong;
-      }
-      else  if (this.type === 'bongphe'){
-        this.data.Loai = 7;
-      }
-    }
+    this.data.Loai = 6;
+
+    // if (this.opt === 'edit') {
+    //   this.data.Loai = this.item.Loai;
+    // }
+    // else{
+    //  if (this.type === 'bonghoi'){
+    //     this.data.IddmLoaiBong = this.item.IddmLoaiBong;
+    //   }
+    //   else  if (this.type === 'bongphe'){
+    //     this.data.Loai = 7;
+    //   }
+    // }
     this._services.GetListdmKho(this.data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   getListLoaiBong() {
-    if (this.opt === 'edit') {
-      if (this.type === 'bong')
-        this.data.Loai = 2;
-      else
-        this.data.Loai = this.item.Loai;
-    }
-    else{
-     if (this.type === 'bonghoi'){
+    // if (this.opt === 'edit') {
+    //   if (this.type === 'bong')
+    //     this.data.Loai = 2;
+    //   else
+    //     this.data.Loai = this.item.Loai;
+    // }
+    // else{
+    //  if (this.type === 'bonghoi'){
         this.data.Loai = 6;
         this.data.IddmLoaiBong = this.item.IddmLoaiBong;
-      }
-      else  if (this.type === 'bongphe'){
-        this.data.Loai = 7;
-      }
-    }
+    //   }
+    //   else  if (this.type === 'bongphe'){
+    //     this.data.Loai = 7;
+    //   }
+    // }
     this._services.GetListdmLoaiBong(this.data).subscribe((res: any) => {
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
+      var loaiBong: any = this.listLoaiBong.filter((e: any) => e.value === this.item.IddmLoaiBong);
+      this.newTableItem.Ten = loaiBong[0].label;
+      this.TenLoaiBong = loaiBong[0].label
     })
   }
   
   addBongHoi() {
     if (this.item.listKien == undefined || this.item.listKien == null)
       this.item.listKien = [];
-    this.item.listKien.push(this.newTableItem);
-    this.newTableItem = {}
+      this.newTableItem.IddmLoaiBong = this.item.IddmLoaiBong
+    this.item.listKien.push(deepCopy(this.newTableItem));
+    this.newTableItem = {Ten:this.TenLoaiBong};
   }
  
   deleteBongHoi(index) {
@@ -225,5 +234,18 @@ export class NhapkhokhacmodalComponent implements OnInit {
   
   Onclose() {
     this.activeModal.close();
+  }
+  
+  getnewitem(event){
+    var loaiBong: any = this.listLoaiBong.filter((e: any) => e.value === event.value);
+    console.log(loaiBong)
+    this.newTableItem.Ten = loaiBong[0].label;
+    this.TenLoaiBong = loaiBong[0].label;
+    if(this.item.listKien !== undefined && this.item.listKien.length > 0 && this.item.listKien !== null){
+      this.item.listKien.forEach(element => {
+        element.Ten = loaiBong[0].label;
+        element.IddmLoaiBong = loaiBong[0].value;
+    });
+    }
   }
 }

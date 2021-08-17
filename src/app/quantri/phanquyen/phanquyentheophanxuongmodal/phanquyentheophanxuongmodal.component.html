@@ -22,14 +22,14 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tên user</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [options]="listUser" placeholder="Chọn user" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IdUser"></p-dropdown>
+                    [(ngModel)]="item.IdUser" [showClear]="true" [filter]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tên phân xưởng</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [options]="listdmPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm" 
-                    [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
+                    [(ngModel)]="item.IddmPhanXuong" [showClear]="true" [filter]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">

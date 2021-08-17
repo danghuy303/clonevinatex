@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 
 @Component({
@@ -34,6 +34,8 @@ export class NhapkhobongphemodalComponent implements OnInit {
   type: any = '';
   editField: any = false;
   nametype: any = '';
+  listPhanXuong: any = []
+  listCongDoan: any = []
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -48,11 +50,12 @@ export class NhapkhobongphemodalComponent implements OnInit {
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.data.CurrentPage = 0;
     this.getListLoaiBong();
     this.getListKho();
+    this.getListCongDoan();
     // this.getListCapBong();
   }
   KiemTraButtonModal() {
@@ -70,8 +73,31 @@ export class NhapkhobongphemodalComponent implements OnInit {
         this.addBongHoi();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-        this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
+
       this._services.QuyTrinhPhieuBongPhe().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message)
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
+  KhongDuyet() {
+    if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn  ngày");
+    }
+    else {
+      if (this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined) {
+        this.addBongHoi();
+      }
+      if (this.item.Ngay !== null && this.item.Ngay !== undefined)
+        this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      this._services.QuyTrinhPhieuBongPhe().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -101,16 +127,16 @@ export class NhapkhobongphemodalComponent implements OnInit {
     else {
       if ( this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined)
           this.addBongHoi();
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+          this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuBongPhe().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            this.item.Ngay = UnixToDate(this.item.NgayUnix);
             console.log(this.item)
             console.log(this.type)
-            debugger
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
@@ -137,7 +163,11 @@ export class NhapkhobongphemodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-
+  getListCongDoan() {
+  this._services.GetListCongDoan().subscribe((res: any) => {
+    this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+  })
+}
   getListKho() {
       // else  if (this.type === 'bongphe'){
         this.data.Loai = 7;
@@ -146,9 +176,11 @@ export class NhapkhobongphemodalComponent implements OnInit {
     })
   }
   getListLoaiBong() {
-   
     this.data.Loai = 7;
     this._services.GetListdmLoaiBong(this.data).subscribe((res: any) => {
+      res.sort((a,b)=>{
+        return a.Ten.localeCompare(b.Ten);
+      })
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -171,5 +203,14 @@ export class NhapkhobongphemodalComponent implements OnInit {
   
   Onclose() {
     this.activeModal.close();
+  }
+  exportHoaDon(){
+    if(validVariable(this.item.Id)){
+      this._services.QuyTrinhPhieuBongPhe().ExportHoaDonNhapKhoBongPhe(this.item.Id).subscribe((res: any) => {
+        this._services.download(res.TenFile);
+      })
+    }else{
+      this.toastr.error('Vui lòng ghi lại sau đó xuất Excel!')
+    }
   }
 }

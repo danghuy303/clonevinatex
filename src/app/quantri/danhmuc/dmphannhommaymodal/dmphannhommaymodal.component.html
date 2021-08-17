@@ -60,7 +60,7 @@
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-4 p-d-flex p-flex-row" *ngIf="item.CongDoan==='THO'||item.CongDoan ==='CON'">
+        <div class="p-col-4 p-d-flex p-flex-row" *ngIf="item.CongDoan==='THO'||item.CongDoan ==='CON'||item.CongDoan ==='ONG'">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số cọc:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoCoc" (onBlur)="item_tinhNangSuatLyThuyet()">
@@ -137,8 +137,8 @@
                     <td *ngIf="childModalOpt!==''">
                         <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText
                         [disabled]="true" /> -->
-                        <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" styleClass="p-inputtext-sm"
-                            [(ngModel)]="item.Iditem" optionLabel="Ten" optionValue="Id"
+                        <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
+                            [(ngModel)]="item.Iditem"
                             (onChange)="changeLoaiSoiHoacMatHang($event,item)"></p-dropdown>
                     </td>
                     <td>
@@ -148,7 +148,7 @@
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Nm"
+                        <p-inputNumber [minFractionDigits]="5" locale="vi-VN" [(ngModel)]="item.Nm"
                             (onBlur)="tinhNangSuatLyThuyet()">
                         </p-inputNumber>
                     </td>
@@ -201,8 +201,8 @@
                     <td *ngIf="childModalOpt!==''">
                         <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.Ten" pInputText
                         [disabled]="true" /> -->
-                        <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" styleClass="p-inputtext-sm"
-                            [(ngModel)]="newTableItem.Iditem" optionLabel="Ten" optionValue="Id"
+                        <p-dropdown [filter]="true" [options]="listLoaiSoiHoacMatHang" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
+                            [(ngModel)]="newTableItem.Iditem"
                             (onChange)="changeLoaiSoiHoacMatHang($event,newTableItem)"></p-dropdown>
                     </td>
                     <td>
@@ -212,7 +212,7 @@
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.Nm"
+                        <p-inputNumber [minFractionDigits]="5" locale="vi-VN" [(ngModel)]="newTableItem.Nm"
                             (onBlur)="item_tinhNangSuatLyThuyet()">
                         </p-inputNumber>
                     </td>

@@ -1,11 +1,12 @@
+import { formatNumber } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
+import { maskOption, vn } from 'src/app/services/const';
+import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { ChatluongsoimathangmodalComponent } from '../chatluongsoimathangmodal/chatluongsoimathangmodal.component';
 
 @Component({
   selector: 'app-chatluongsoimodal',
@@ -21,6 +22,7 @@ export class ChatluongsoimodalComponent implements OnInit {
     ChuyenTiep: false,
     Xoa: false,
   }
+  MO:any = maskOption;
   listdmKho: any = [];
   editTableItem: any = {};
   newTableItem: any = {};
@@ -41,15 +43,16 @@ export class ChatluongsoimodalComponent implements OnInit {
     else
       this.KiemTraButtonModal();
     if (this.item.NgayKiemTraUnix !== null && this.item.NgayKiemTraUnix !== undefined) {
-      this.item.NgayKiemTra = new Date(this.item.NgayKiemTraUnix * 1000);
+      this.item.NgayKiemTra = UnixToDate(this.item.NgayKiemTraUnix);
     }
     if (this.item.TuNgayUnix !== null && this.item.TuNgayUnix !== undefined) {
-      this.item.TuNgay = new Date(this.item.TuNgayUnix * 1000);
+      this.item.TuNgay = UnixToDate(this.item.TuNgayUnix);
     }
     if (this.item.DenNgayUnix !== null && this.item.DenNgayUnix !== undefined) {
-      this.item.DenNgay = new Date(this.item.DenNgayUnix * 1000);
+      this.item.DenNgay = UnixToDate(this.item.DenNgayUnix);
     }
     this.getListdmPhanXuong();
+    this.initTabIndex();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -59,11 +62,11 @@ export class ChatluongsoimodalComponent implements OnInit {
 
   ChuyenDuyet() {
     if (this.item.NgayKiemTra !== null && this.item.NgayKiemTra !== undefined)
-      this.item.NgayKiemTraUnix = (new Date(this.item.NgayKiemTra)).getTime() / 1000;
+      this.item.NgayKiemTraUnix = DateToUnix(this.item.NgayKiemTra);
     if (this.item.TuNgay !== null && this.item.TuNgay !== undefined)
-      this.item.TuNgayUnix = (new Date(this.item.TuNgay)).getTime() / 1000;
+      this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
     if (this.item.DenNgay !== null && this.item.DenNgay !== undefined)
-      this.item.DenNgayUnix = (new Date(this.item.DenNgay)).getTime() / 1000;
+      this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
     this.services.PhieuChatLuongSoi().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -83,16 +86,19 @@ export class ChatluongsoimodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if (this.item.NgayKiemTra === null && this.item.NgayKiemTra === undefined)
+    if (this.item.NgayKiemTra === null || this.item.NgayKiemTra === undefined)
       this.toastr.error("Bạn chưa chọn  ngày");
-    else if (this.item.TuNgay === null && this.item.TuNgay === undefined)
+    else if (this.item.TuNgay === null || this.item.TuNgay === undefined)
       this.toastr.error("Bạn chưa chọn  ngày");
-    else if (this.item.DenNgay === null && this.item.DenNgay === undefined)
+    else if (this.item.DenNgay === null || this.item.DenNgay === undefined)
       this.toastr.error("Bạn chưa chọn  ngày");
+    else if (this.item.IddmPhanXuong === null || this.item.IddmPhanXuong === undefined)
+      this.toastr.error("Bạn chưa chọn phân xưởng");
     else {
-      this.item.NgayKiemTraUnix = (new Date(this.item.NgayKiemTra)).getTime() / 1000;
-      this.item.TuNgayUnix = (new Date(this.item.TuNgay)).getTime() / 1000;
-      this.item.DenNgayUnix = (new Date(this.item.DenNgay)).getTime() / 1000;
+      this.item.NgayKiemTraUnix = DateToUnix(this.item.NgayKiemTra);
+      this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
+      this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
+
       this.services.PhieuChatLuongSoi().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -100,6 +106,7 @@ export class ChatluongsoimodalComponent implements OnInit {
             this.opt = 'edit';
             this.item = res.objectReturn;
             this.KiemTraButtonModal();
+            this.initTabIndex()
           } else {
             this.toastr.error(res.message);
           }
@@ -108,14 +115,15 @@ export class ChatluongsoimodalComponent implements OnInit {
     }
   }
   XoaQuyTrinh() {
-    let modalRef = this._modal.open(ModalthongbaoComponent, {
+    let modalRef = this._modal.open(ModalthongbaoComponent, { 
       backdrop: 'static'
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this.services.PhieuChatLuongSoi().Delete(this.item).subscribe((res: any) => {
+      this.services.PhieuChatLuongSoi().Delete(this.item.Id).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
+          this.toastr.success(res.message);
           this.activeModal.close();
         } else {
           this.toastr.error(res.message);
@@ -136,34 +144,19 @@ export class ChatluongsoimodalComponent implements OnInit {
   GetMatHangTheoKho() {
     let data = {
       IddmPhanXuong: this.item.IddmPhanXuong,
-      Ngay: new Date(this.item.NgayKiemTra).getTime() / 1000,
-      TuNgay: new Date(this.item.TuNgay).getTime() / 1000,
-      DenNgay: new Date(this.item.DenNgay).getTime() / 1000,
+      Ngay: DateToUnix(this.item.NgayKiemTra),
+      TuNgay: DateToUnix(this.item.TuNgay) ,
+      DenNgay: DateToUnix(this.item.DenNgay),
     };
     this.services.GetlistdmMatHangKiemTraChatLuong(data).subscribe((res1: any) => {
-      let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
+      let modalRef = this._modal.open(ChatluongsoimathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
       modalRef.componentInstance.listItem = this.item.lstSanPham;
-      modalRef.componentInstance.cols = [{
-          header: 'Tên lô hàng',
-          field: 'TenLoHang',
-          width: 'unset'
-        },
-        {
-          header: 'Tên mặt hàng',
-          field: 'Ten',
-          width: 'unset'
-        },
-        // {
-        //   header: 'Tên mặt hàng',
-        //   field: 'Ten',
-        //   width: 'unset'
-        // },
-      ];
+      // modalRef.componentInstance.
 
       modalRef.result.then((data) => {
         this.lstSanPham = data.data;
@@ -193,11 +186,13 @@ export class ChatluongsoimodalComponent implements OnInit {
         this.lstSanPham.forEach(danhmuc => {
           let datapush: any = {
             IddmItem: danhmuc.IddmItem,
+            IdLoHang: danhmuc.IdLoHang,
             Ten: danhmuc.Ten,
           }
           sanphampush.push(datapush);
         });
         this.item.lstSanPham = sanphampush;
+        this.initTabIndex();
       }, (reason) => {
         // không
       });
@@ -228,7 +223,75 @@ export class ChatluongsoimodalComponent implements OnInit {
   Onclose() {
     this.activeModal.close();
   }
-  test(){
-    console.log(this.item.lstDanhMuc)
+  initTabIndex(){
+    console.table(this.item.lstDanhMuc.map(ele=>{
+      return {
+          Ten:ele.Ten,
+          Ma:ele.Ma
+      }
+    }));
+    for(let i = 0;i<this.item.lstDanhMuc.length;i++){
+      for(let j=0;j<this.item.lstDanhMuc[i].lstChatLuongSanPham.length;j++){
+        this.item.lstDanhMuc[i].lstChatLuongSanPham[j].tabIndex = i+1+(j*(this.item.lstDanhMuc.length));
+        if(this.item.lstDanhMuc[i].lstChatLuongSanPham[j].ChiTieuThucTe===0){
+          this.item.lstDanhMuc[i].lstChatLuongSanPham[j].ChiTieuThucTe = null;
+        }
+      }
+    }
+  }
+  move(event, index) {
+    let string = 'ArrowRightArrowUpArrowDownArrowLeftEnter'
+    if (string.includes(event.key)) {
+      event.preventDefault()
+      let listInput = document.querySelectorAll('.dat09focus');
+      let listTabIndex = [];
+      listInput.forEach(ele => listTabIndex.push(ele.getAttribute('tabindex')));
+      if (event.key === 'ArrowRight') {
+        let nextFocusIndex = `${this.item.lstDanhMuc.length + index}`;
+        console.log(nextFocusIndex);
+        let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+        console.log(realIndexInDom);
+        (listInput[realIndexInDom] as HTMLElement)?.focus();
+      }
+      if (event.key === 'ArrowLeft') {
+        let nextFocusIndex = `${index - this.item.lstDanhMuc.length}`;
+        let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+        (listInput[realIndexInDom] as HTMLElement)?.focus();
+      }
+      if (event.key === 'ArrowDown' || event.key === 'Enter' ) {
+        let nextFocusIndex = `${index + 1}`;
+        let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+        let domObject:HTMLElement = (listInput[realIndexInDom] as HTMLElement);
+        if(domObject.hasAttribute('disabled')){
+          nextFocusIndex = `${index + 2}`;
+          realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+          domObject = (listInput[realIndexInDom] as HTMLElement);
+        }
+        domObject?.focus();
+      }
+      if (event.key === 'ArrowUp') {
+        let nextFocusIndex = `${index - 1}`;
+        let realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+        let domObject:HTMLElement = (listInput[realIndexInDom] as HTMLElement);
+        if(domObject.hasAttribute('disabled')){
+          nextFocusIndex = `${index - 2}`;
+          realIndexInDom = listTabIndex.findIndex(ele => ele === nextFocusIndex);
+          domObject = (listInput[realIndexInDom] as HTMLElement);
+        }
+        domObject?.focus();
+      }
+    }
+  }
+  rebind(e,item,indexChild,Ma){
+    if(e!==undefined){
+      item.ChiTieuThucTe = parseFloat(e);
+    }
+    let arr = 'Thin50Thick50Neps200';
+    if(arr.includes(Ma)){
+      let Thin = this.item.lstDanhMuc.find(ele=>ele.Ma ==='Thin50')?.lstChatLuongSanPham[indexChild].ChiTieuThucTe||0;
+      let Thick = this.item.lstDanhMuc.find(ele=>ele.Ma ==='Thick50')?.lstChatLuongSanPham[indexChild].ChiTieuThucTe||0;
+      let Neps = this.item.lstDanhMuc.find(ele=>ele.Ma ==='Neps200')?.lstChatLuongSanPham[indexChild].ChiTieuThucTe||0;
+      this.item.lstDanhMuc.find(ele=>ele.Ma ==='IPI').lstChatLuongSanPham[indexChild].ChiTieuThucTe = Thin + Thick + Neps;
+    }
   }
 }

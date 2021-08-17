@@ -7,11 +7,17 @@
                 [(ngModel)]="item.NhaMay"></p-dropdown>
         </div>
     </div> -->
-    <div class="p-d-flex p-flex-row">
-        <div class="mr-2">Số quy trình:&nbsp;{{item.SoQuyTrinh}}</div>
-        <!-- <div class="mr-2">TG tạo:&nbsp;{{item.Created}}</div>
-        <div class="mr-2">TG duyệt:&nbsp;{{item.Modified}}</div> -->
-    </div>
+    <div class="d-flex flex-column flex-lg-row">
+            <div>
+               <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
+            </div>
+            <div class="ml-lg-3 mr-lg-3">
+                <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+            </div>
+            <div>
+                <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+            </div>
+        </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -26,13 +32,13 @@
                 *ngIf="checkbutton.Ghi"></button>
             <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
                 (click)="XoaQuyTrinh()"></button>
-            <!-- <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
-                *ngIf="checkbutton.KhongDuyet"></button> -->
+            <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
+                *ngIf="checkbutton.KhongDuyet"></button>
             <!-- <button pButton pRipple type="button" label="" class="p-mr-2 p-button-sm"
                 (click)="GhiLai()" *ngIf="checkbutton.ChuyenTiep"></button> -->
             <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm"
                 (click)="ChuyenTiep()" *ngIf="checkbutton.ChuyenTiep"></button>
-            <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
+            <button pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm" (click)="ExportExcel()"></button>
         </div>
 
     </div>
@@ -84,17 +90,25 @@
                         <col>
                         <col>
                         <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
                         <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
+                        <th>Mã</th>
                         <th>Tên</th>
+                        <th>Tên lô</th>
                         <th>Số quả hồi ẩm</th>
                         <th>Số quả nhập</th>
                         <th>Số kiện</th>
+                        <th>Tổng khối lượng(kg)</th>
                         <th>Số khoang</th>
+                        <th>Quy cách đóng gói</th>
                         <th>Ghi chú</th>
                         <th></th>
                     </tr>
@@ -102,7 +116,9 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>{{i+1}}</td>
+                        <td>{{item.Ma}}</td>
                         <td>{{item.Ten}}</td>
+                        <td>{{item.TenLoHang}}</td>
                         <!-- <td>
                             <p-dropdown [filter]="true" [options]="listdmQuyCachDongGoi" placeholder="Chọn quy cách" styleClass="p-inputtext-sm"
                                 [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
@@ -114,9 +130,12 @@
                         <td>
                             <input pInputText type="text" [(ngModel)]="item.SoHopDong">
                         </td> -->
-                        <td>{{item.SoQuaSoiHoiAm}}</td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThanhPham">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiHoiAm" disabled>
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThanhPham" (ngModelChange)="TongKhoiLuong(item)">
                             </p-inputNumber>
                         </td>
                         <td>
@@ -124,7 +143,15 @@
                             </p-inputNumber>
                         </td>
                         <td>
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongKhoiLuong" disabled>
+                            </p-inputNumber>
+                        </td>
+                        <td>
                             <input pInputText type="text" [(ngModel)]="item.SoKhoang">
+                        </td>
+                        <td>
+                            <p-dropdown [filter]="true" [options]="listdmQuyCachDongGoi" placeholder="Chọn quy cách" styleClass="p-inputtext-sm"
+                            [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
                         </td>
                         <td>
                             <input pInputText type="text" [(ngModel)]="item.GhiChu">
@@ -135,6 +162,27 @@
                                 (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
                                 tooltipPosition="bottom"></button>
                         </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td colspan="4">TỔNG: </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'SoQuaSoiHoiAm'|number:'0.0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'SoQuaSoiThanhPham'|number:'0.0'}}
+                        </td>
+                        <td class="text-right" >
+                            {{item.listItem|isXoa|SumByKey:'SoKien'|number:'0.0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.listItem|isXoa|SumByKey:'TongKhoiLuong'|number:'0.2-2'}}
+                        </td>
+                        <td class="text-right">
+                        </td>
+                        <td></td>
+                        <td class="text-center"></td>
                     </tr>
                 </ng-template>
             </p-table>

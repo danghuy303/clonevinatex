@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, UnixToDate } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
@@ -40,7 +40,7 @@ export class DieuchuyenmodalComponent implements OnInit {
     else
       this.KiemTraButtonModal();
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
   }
   KiemTraButtonModal() {
@@ -51,7 +51,7 @@ export class DieuchuyenmodalComponent implements OnInit {
  
   ChuyenDuyet() {
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+    this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
     this.services.PhieuDieuChuyen().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res) {
@@ -78,7 +78,7 @@ export class DieuchuyenmodalComponent implements OnInit {
     }
     else{
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
       this.services.PhieuDieuChuyen().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -132,7 +132,6 @@ export class DieuchuyenmodalComponent implements OnInit {
       modalRef.componentInstance.listItem = this.item.listItem;
       modalRef.result.then((data) => {
         this.item.listItem = data.data;
-        debugger
       }, (reason) => {
         // không
       });

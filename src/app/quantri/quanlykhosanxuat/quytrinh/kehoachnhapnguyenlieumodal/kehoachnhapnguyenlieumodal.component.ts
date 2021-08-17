@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
-import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
@@ -61,15 +59,15 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     else {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
-          obj.ThoiGianDuKien = new Date(obj.ThoiGianDuKienUnix * 1000);
-          obj.ThoiGianCapCang = new Date(obj.ThoiGianCapCangUnix * 1000);
+          obj.ThoiGianDuKien = UnixToDate(obj.ThoiGianDuKienUnix);
+          obj.ThoiGianCapCang = UnixToDate(obj.ThoiGianCapCangUnix);
           obj.listDacTinh = mapArrayForDropDown(obj.listDacTinh, 'DacTinh', 'Id');
         });
       }
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
 
     this.data.CurrentPage = 0;
@@ -145,11 +143,11 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     if (isCheck == false) {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
-          obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
-          obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
+          obj.ThoiGianDuKienUnix = DateToUnix(obj.ThoiGianDuKien);
+          obj.ThoiGianCapCangUnix = DateToUnix(obj.ThoiGianCapCang);
         });
       }
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix =  DateToUnix(this.item.Ngay);
 
       this._services.NhapKeHoachNguyenLieu().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
@@ -171,13 +169,13 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     if (this.item.listItem.length > 0) {
       this.item.listItem.filter(obj => {
         if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
-          obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
+          obj.ThoiGianDuKienUnix = DateToUnix(obj.ThoiGianDuKien);
         if (obj.ThoiGianCapCang !== null && obj.ThoiGianCapCang !== undefined)
-          obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
+          obj.ThoiGianCapCangUnix = DateToUnix(obj.ThoiGianCapCang);
       });
     }
     if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix =  DateToUnix(this.item.Ngay);
 
     this._services.NhapKeHoachNguyenLieu().KhongDuyet(this.item).subscribe((res: any) => {
       if (res) {
@@ -217,11 +215,11 @@ export class KehoachnhapnguyenlieumodalComponent implements OnInit {
     if (isCheck == false) {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
-          obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
-          obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
+          obj.ThoiGianDuKienUnix = DateToUnix(obj.ThoiGianDuKien);
+          obj.ThoiGianCapCangUnix = DateToUnix(obj.ThoiGianCapCang);
         });
       }
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix =  DateToUnix(this.item.Ngay);
       this._services.NhapKeHoachNguyenLieu().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {

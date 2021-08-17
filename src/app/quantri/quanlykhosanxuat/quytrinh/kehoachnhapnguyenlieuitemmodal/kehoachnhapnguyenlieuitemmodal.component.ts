@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-kehoachnhapnguyenlieuitemmodal',
@@ -41,7 +41,7 @@ export class KehoachnhapnguyenlieuitemmodalComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
   }
 
@@ -52,9 +52,9 @@ export class KehoachnhapnguyenlieuitemmodalComponent implements OnInit {
     if (this.item.listDot.length > 0) {
       this.item.listDot.filter(obj => {
         if (obj.ThoiGianDuKien !== null && obj.ThoiGianDuKien !== undefined)
-          obj.ThoiGianDuKienUnix = (new Date(obj.ThoiGianDuKien)).getTime() / 1000;
+          obj.ThoiGianDuKienUnix = DateToUnix(obj.ThoiGianDuKien);
         if (obj.ThoiGianCapCang !== null && obj.ThoiGianCapCang !== undefined)
-          obj.ThoiGianCapCangUnix = (new Date(obj.ThoiGianCapCang)).getTime() / 1000;
+          obj.ThoiGianCapCangUnix = DateToUnix(obj.ThoiGianCapCang);
       });
     }
     this.activeModal.close(

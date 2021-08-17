@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhobongphemodalComponent } from '../xuatkhobongphemodal/xuatkhobongphemodal.component';
 
 @Component({
@@ -35,17 +35,19 @@ export class XuatkhobongpheComponent implements OnInit {
     //   width: 'unset'
     // },
     {
-      header: 'Trạng thái',
-      field: 'TenTrangThai',
-      width: 'unset'
-    },
-    {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset'
     },
+    {
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
+      width: 'unset'
+    },
   ];
+  eAction = 'PHIEUXUATBONGPHE'
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
+  listdmKho: any = [];
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
     private activatedRoute: ActivatedRoute,private router:Router) { }
 
@@ -55,15 +57,24 @@ export class XuatkhobongpheComponent implements OnInit {
         this.update(res.id);
       }
     })
+    this.GetListdmKho();
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh()
-
+  }
+  GetListdmKho() {
+    let data2 = {
+      CurrentPage: 0,
+      Loai: 7,
+    };
+    this._service.GetListdmKho(data2).subscribe((res: any) => {
+      this.listdmKho = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmKho = this.listdmKho[0].value;
+    })
   }
   changeParam(id){
     if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/khobongphe/xuatkho/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/${id}`],{replaceUrl: true})
   }
   add(){
     this.changeParam(0);
@@ -75,21 +86,27 @@ export class XuatkhobongpheComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
+
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er) 
+        this.GetListQuyTrinh();
+        this.changeParam(0);})
   }
   update(item){
-    this.changeParam(item.Id);
     let modalRef = this._modal.open(XuatkhobongphemodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify({Id:item}));
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er) 
+        this.GetListQuyTrinh();
+        this.changeParam(0);})
   }
   changeTab(e){
     this.trangThai = e.index+1;
@@ -105,7 +122,7 @@ export class XuatkhobongpheComponent implements OnInit {
       this.paginator.changePage(0);
     }
     let data={
-      PageSize: 25,
+      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter:this.filter.KeyWord,
@@ -113,7 +130,8 @@ export class XuatkhobongpheComponent implements OnInit {
       DenNgay:DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      Loai:"6"
+      Loai:"6",
+      IddmKho: this.filter.IddmKho,
     }
     this._service.PhieuXuatBongPhe().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
@@ -125,10 +143,28 @@ export class XuatkhobongpheComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai(){
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
-  
+  validateFilter() {
+    if (!validVariable(this.filter.TuNgay) || !validVariable(this.filter.DenNgay) || DateToUnix(this.filter.DenNgay) < DateToUnix(this.filter.TuNgay)) {
+      this._toastr.error('Vui lòng nhập khoảng thời gian hợp lệ!')
+      return false
+    }
+    return true
+  }
+  exportExcel() {
+    if (this.validateFilter()) {
+      let data = {
+        TuNgayUnix:DateToUnix(this.filter.TuNgay),
+        DenNgayUnix:DateToUnix(this.filter.DenNgay),
+        IddmKho: this.filter.IddmKho,
+      }
+      this._service.PhieuXuatBongPhe().ExportBangKeXuatKhoBongPhe(data).subscribe((res: any) => {
+        this._service.download(res.TenFile);
+      })
+    }
+  }
 }

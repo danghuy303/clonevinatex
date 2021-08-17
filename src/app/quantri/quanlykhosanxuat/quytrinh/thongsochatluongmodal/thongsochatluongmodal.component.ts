@@ -6,7 +6,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-thongsochatluongmodal',
@@ -52,9 +52,6 @@ export class ThongsochatluongmodalComponent implements OnInit {
     }
 
     this.data.CurrentPage = 0;
-    if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
-    }
     this.getListLoBong();
   }
   GetQuyTrinh() {
@@ -62,7 +59,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
     this.services.PhieuNhapLoBong_ChatLuong().Get(this.Id).subscribe((res1: any) => {
       this.item = res1;
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-        this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+        this.item.Ngay = UnixToDate(this.item.NgayUnix);
       }
       this.listItem = res1.listItem;
       this.paging.CurrentPage = 1;
@@ -84,7 +81,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
     let newItem: any = {};
     console.log(this.item)
     if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
     }
     newItem = deepCopy(this.item);
     newItem.listItem = this.listItem;
@@ -120,6 +117,7 @@ export class ThongsochatluongmodalComponent implements OnInit {
           this.toastr.success(res.message)
           this.opt = 'edit';
           this.item = res.objectReturn;
+          this.item.Ngay = UnixToDate(this.item.NgayUnix)
           this.listItem = res.objectReturn.listItem;
           this.paging.CurrentPage = 1;
           this.paging.TotalPage = 5;

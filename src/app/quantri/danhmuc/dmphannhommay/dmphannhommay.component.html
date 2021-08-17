@@ -1,14 +1,20 @@
 <h4 class="title">
     Danh mục phân nhóm máy
 </h4>
-<div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
-    <div class="p-d-flex p-flex-row">
-        <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
+<div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
         <!-- <button pButton pRipple label="Nhập excel" class="p-button-sm p-button-outlined p-mr-2" (click)="importExcel()"></button>
         <button pButton pRipple label="Xuất excel" class="p-button-sm p-button-outlined p-mr-2" (click)="exportExcel()"></button> -->
         <!-- <button pButton pRipple label="Xóa tất cả" *ngIf="selectedItems.length!==0" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button> -->
-    </div>
-    <div class="p-d-flex p-flex-row" style="width:200px">
+    <div class="p-d-flex p-flex-row">
+        <div class="p-mr-2">
+            <p-dropdown [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.IddmPhanXuong" [showClear]="true" (onChange)="GetListdm(true)" [showClear]="true"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.CongDoan" [showClear]="true" (onChange)="GetListdm(true)" [filter]="true"></p-dropdown>
+        </div>
         <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" [(ngModel)]="keyWord" (keyup.enter)="GetListdm(true)" class="p-inputtext-sm" pInputText />
             <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-text"(click)="resetFilter()" pTooltip="Làm mới" showDelay="1000" tooltipPosition="bottom"></button>

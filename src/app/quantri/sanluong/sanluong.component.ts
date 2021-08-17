@@ -1,8 +1,9 @@
 import { formatNumber } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
 
 @Component({
@@ -10,13 +11,15 @@ import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangta
   templateUrl: './sanluong.component.html',
   styleUrls: ['./sanluong.component.css']
 })
-export class SanluongComponent implements OnInit {
+export class SanluongComponent implements OnInit,OnDestroy {
   @Input('TuNgay') TuNgay:any=null;
   @Input('DenNgay') DenNgay:any=null;
   @Input('CongDoan') CongDoan:any=null;
   filter: any = {
     IddmItem: '',
-    IddmMay:''
+    IddmMay:'',
+    IddmPhanXuong:'',
+    CongDoan:'ONG'
   };
   monthlyConfig_luykesanluong: any = {};
   monthlyConfig_sanluongtheomay: any = {};
@@ -28,6 +31,7 @@ export class SanluongComponent implements OnInit {
   listMay: any = [];
   listLoaiBong: any = [];
   listCaLamViec: any = [];
+  listPhanXuong:any=[];
   option1: any = {
     plugins: {
       labels: {
@@ -88,8 +92,8 @@ export class SanluongComponent implements OnInit {
       callbacks: {
         label: function (tooltipItem, data) {
           console.log(tooltipItem,data);
-          if(tooltipItem.datasetIndex ===0){
-            return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg - ${formatNumber(Math.ceil(tooltipItem.yLabel/data.datasets[1].data[tooltipItem.index]*10000)/100,'vi-VN')}%`
+          if(tooltipItem.datasetIndex ===1){
+            return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg - ${formatNumber(Math.ceil(tooltipItem.yLabel/data.datasets[0].data[tooltipItem.index]*10000)/100,'vi-VN')}%`
           }else{
             return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg`
           }
@@ -113,7 +117,12 @@ export class SanluongComponent implements OnInit {
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
-  constructor(private _services: SanXuatService, private _toastr: ToastrService) { }
+  suber: any;
+  constructor(private _services: SanXuatService, private _toastr: ToastrService,private store: StoreService) { 
+    this.suber = this.store.getNhaMay().subscribe(res => {
+      this.ngOnInit();
+    })
+  }
 
   ngOnInit(): void {
     if(validVariable(this.TuNgay) && validVariable(this.DenNgay)){
@@ -127,7 +136,7 @@ export class SanluongComponent implements OnInit {
     if(validVariable(this.CongDoan)){
       this.filter.CongDoan = this.CongDoan;
     }
-    this.GetBieuDo();
+    this.GetBieuDo('ONG');
     this.getAllOptions()
   }
 
@@ -142,7 +151,7 @@ export class SanluongComponent implements OnInit {
     } else {
       this.filter.DenNgayUnix = null;
     }
-    if (validVariable(this.filter.TuNgayUnix) && validVariable(this.filter.DenNgayUnix) && this.filter.TuNgayUnix < this.filter.DenNgayUnix) {
+    if (validVariable(this.filter.TuNgayUnix) && validVariable(this.filter.DenNgayUnix) && this.filter.TuNgayUnix <= this.filter.DenNgayUnix) {
       // if (!!!CongDoan) {
         this._services.DashBoard().BaoCaoSanLuongLuyKe_BieuDoDuong(this.filter).subscribe((res: any) => {
           this.monthlyConfig_sanluongtheomay = {
@@ -150,19 +159,19 @@ export class SanluongComponent implements OnInit {
             datasets: [
               {
                 type: 'line',
-                label: 'Thực tế',
-                borderColor: '#FF671F',
-                // borderWidth: 2,
-                fill: false,
-                data: res.map(ele => Math.round(ele.ThucTe))
-              },
-              {
-                type: 'line',
                 label: 'Kế hoạch',
                 borderColor: '#009900',
                 // borderWidth: 2,
                 fill: false,
                 data: res.map(ele => Math.round(ele.KeHoach))
+              },
+              {
+                type: 'line',
+                label: 'Thực tế',
+                borderColor: '#FF671F',
+                // borderWidth: 2,
+                fill: false,
+                data: res.map(ele => Math.round(ele.ThucTe))
               },
               {
                 type: 'bar',
@@ -177,17 +186,17 @@ export class SanluongComponent implements OnInit {
         })
       // }
       if (!!CongDoan) {
-        this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
+        this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan,this.filter.IddmPhanXuong).subscribe((res: any) => {
           // console.log(res);
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
-          this.listMay.unshift({ label: 'Tất cả', value: '' })
+          this.listMay.unshift({ label: 'Tất cả máy', value: '' })
           this.filter.IddmMay = this.listMay[0].value;
         })
       }
       if(validVariable(this.CongDoan)){
-        this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan).subscribe((res: any) => {
+        this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan,this.filter.IddmPhanXuong).subscribe((res: any) => {
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
-          this.listMay.unshift({ label: 'Tất cả', value: '' })
+          this.listMay.unshift({ label: 'Tất cả máy', value: '' })
         })
       }
       this._services.DashBoard().BaoCaoSanLuongLuyKe_BieuDoCot(this.filter).subscribe((res: any) => {
@@ -196,16 +205,16 @@ export class SanluongComponent implements OnInit {
           datasets: [
             {
               type: 'bar',
-              label: 'Sản lượng thực tế',
-              backgroundColor: '#3c5cbb',
-              data: res.map(ele => Math.round(ele.ThucTe)),
+              label: 'Sản lượng tiêu chuẩn',
+              backgroundColor: '#009900',
+              data: res.map(ele => Math.round(ele.KeHoach)),
               borderColor: 'white',
             },
             {
               type: 'bar',
-              label: 'Sản lượng tiêu chuẩn',
-              backgroundColor: '#009900',
-              data: res.map(ele => Math.round(ele.KeHoach)),
+              label: 'Sản lượng thực tế',
+              backgroundColor: '#3c5cbb',
+              data: res.map(ele => Math.round(ele.ThucTe)),
               borderColor: 'white',
             },
           ]
@@ -228,20 +237,35 @@ export class SanluongComponent implements OnInit {
       Ten: "",
       sFilter: ''
     }
-    this._services.GetOptions().GetMatHang().subscribe((res: any) => {
-      res.unshift({ Id: '', Ten: 'Tất cả' });
-      this.listMatHang = mapArrayForDropDown(res, 'Ten', 'Id')
-    });
+    let data2 = {
+      PageSize: 20,
+      CurrentPage: 0,
+      sFilter: this.filter.keyWord ? this.filter.keyWord : '',
+      CongDoan: this.filter.CongDoan ? this.filter.CongDoan : '',
+      Ma: "",
+      Ten: ""
+    };
+    // this._services.GetOptions().GetMatHang().subscribe((res: any) => {
+    //   res.unshift({ Id: '', Ten: 'Tất cả mặt hàng' });
+    //   this.listMatHang = mapArrayForDropDown(res, 'Ten', 'Id')
+    // });
     // this._services.GetListdmKho(data).subscribe((res: any) => {
     //   this.listKho = mapArrayForDropDown(res, 'Ten', 'Id')
     // });
+    this._services.GetListdmPhanXuong(data2).subscribe((res: any) => {
+      res.unshift({ Id: '', Ten: 'Tất cả phân xưởng' });
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+      this.GetMatHang();
+    })
     this._services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, "Ten", 'Ma')
-      this.listCongDoan.unshift({ label: 'Tất cả', value: '' })
-      if(this.CongDoan!==''){
+      // this.listCongDoan.unshift({ label: 'Tất cả công đoạn', value: '' })
+      // console.log(this.CongDoan);
+      if(this.CongDoan!==null){
         this.filter.CongDoan = this.CongDoan
       }else{
-        this.filter.CongDoan = this.listCongDoan[0].value;
+        this.filter.CongDoan = 'ONG';
       }
     });
     // this._services.GetListdmMay(data).subscribe((res: any) => {
@@ -254,5 +278,24 @@ export class SanluongComponent implements OnInit {
     //   res.unshift({ Id: '', Ten: 'Tổng hợp' });
     //   this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
     // })
+  }
+  GetMatHang(reset?:any){
+    this._services.DashBoard().GetListdmItemTheoPhanXuong_DashboardSanLuong(this.filter).subscribe((res1:any)=>{
+      console.log(res1);
+      res1.unshift({ Id: '', Ten: 'Tất cả mặt hàng' });
+      this.listMatHang = mapArrayForDropDown(res1, 'Ten', 'Id')
+      if(reset){
+        this.filter.IddmItem='';
+        this.GetBieuDo(true);
+      }
+    })
+  }
+  ExportExcel(){
+    this._services.DashBoard().ExportThongKeSanLuong(this.filter).subscribe((res:any) => {
+      this._services.download(res.TenFile);
+    })
+  }
+  ngOnDestroy() {
+    this.suber.unsubscribe();
   }
 }

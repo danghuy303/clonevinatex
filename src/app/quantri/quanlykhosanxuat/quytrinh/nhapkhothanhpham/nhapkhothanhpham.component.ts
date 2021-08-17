@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { formatdate } from 'src/app/services/globalfunction';
+import { DateToUnix, formatdate, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { NhapkhothanhphammodalComponent } from '../nhapkhothanhphammodal/nhapkhothanhphammodal.component';
 
 @Component({
@@ -18,7 +18,7 @@ export class NhapkhothanhphamComponent implements OnInit {
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  eAction: any = "PHIEUNHAPTHANHPHAM";
+  eAction: any = "NHAPTHANHPHAM";
   cols: any = [
     // {
     //   header: 'Số quy trình',
@@ -31,8 +31,8 @@ export class NhapkhothanhphamComponent implements OnInit {
     //   width: 'unset'
     // },
     {
-      header: 'Tên kho',
-      field: 'TendmKho',
+      header: 'Ghi chú',
+      field: 'GhiChu',
       width: 'unset'
     },
     {
@@ -40,15 +40,11 @@ export class NhapkhothanhphamComponent implements OnInit {
       field: 'TenTrangThai',
       width: 'unset'
     },
-    {
-      header: 'Ghi chú',
-      field: 'GhiChu',
-      width: 'unset'
-    },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  listdmKho: any = [];
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, 
+    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
@@ -57,6 +53,13 @@ export class NhapkhothanhphamComponent implements OnInit {
       if(res.id!=='0'){
         this.update(res.id);
       }
+      let data = {
+        CurrentPage: 0,
+        Loai: 11
+      };
+      this._service.GetListdmKho(data).subscribe((res: any) => {
+        this.listdmKho = mapArrayForDropDown(res, 'Ten', 'Id');
+      })
       // else
         this.GetListQuyTrinh();
       this.KiemTraTabTrangThai();
@@ -81,11 +84,15 @@ export class NhapkhothanhphamComponent implements OnInit {
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+      this.changeParam(0);
+
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er)
+        this.GetListQuyTrinh();
+        this.changeParam(0);
+       })
   }
   update(Id) {
-    this.changeParam(Id);
     this._service.PhieuNhapThanhPham().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhothanhphammodalComponent, {
         size: 'fullscreen',
@@ -96,8 +103,12 @@ export class NhapkhothanhphamComponent implements OnInit {
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
+        this.changeParam(0);
       })
-        .catch(er => { console.log(er) })
+        .catch(er => { console.log(er)
+          this.GetListQuyTrinh();
+          this.changeParam(0);
+        })
     })
   }
   changeTab(e) {
@@ -114,14 +125,15 @@ export class NhapkhothanhphamComponent implements OnInit {
       this.paginator.changePage(0);
     }
     let data = {
-      PageSize: 25,
+      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter: this.filter.KeyWord,
-      TuNgay: (new Date(this.filter.TuNgay).getTime() / 1000) || 0,
-      DenNgay: (new Date(this.filter.DenNgay).getTime() / 1000) || 0,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
+      IddmKhoThanhPham: this.filter.IddmKho,
     }
     this._service.PhieuNhapThanhPham().GetList(data).subscribe((res: any) => {
       this.items = res.items;
@@ -138,10 +150,10 @@ export class NhapkhothanhphamComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 
 }

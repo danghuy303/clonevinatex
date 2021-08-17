@@ -1,10 +1,16 @@
 <div class="modal-header">
     <h5 class="modal-title">Phương án pha bông</h5>
     <!-- {{opt==='add'?'Thêm mới':'Cập nhật'}}  -->
-    <div class="p-d-flex p-flex-row">
-        <div class="mr-2">Số quy trình:&nbsp;{{item.SoQuyTrinh}}</div>
-        <div class="mr-2">TG tạo:&nbsp;{{item.Created|date:'dd/MM/yyyy'}}</div>
-        <div class="mr-2">TG duyệt:&nbsp;{{item.Modified|date:'dd/MM/yyyy'}}</div>
+    <div class="d-flex flex-column flex-lg-row">
+        <div>
+            <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
+        </div>
+        <div class="ml-lg-3 mr-lg-3">
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+        <div>
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+        </div>
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="_activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
@@ -23,7 +29,13 @@
                 *ngIf="checkbutton.KhongDuyet"></button>
             <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
                 (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
-            <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm" (click)="test()"></button> -->
+            <button pButton pRipple type="button" label="Điều chỉnh phương án" class="p-mr-2 p-button-sm"
+                (click)="LamMoiDeDieuChinh()" *ngIf="checkbuttonDieuChinh&&!isEditing"></button>
+            <button pButton pRipple type="button" label="Chấp nhận điều chỉnh"
+                class="p-mr-2 p-button-sm p-button-success" (click)="DieuChinh()"
+                *ngIf="checkbuttonDieuChinh&&isEditing"></button>
+            <button *ngIf="item.Id!==''" pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm"
+                (click)="ExportExcel()"></button>
         </div>
     </div>
     <div class="p-grid">
@@ -77,32 +89,55 @@
                 </div>
             </div>
         </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-6 p-p-0 my-auto">Khối lượng bông hồi trên 1 bàn:</label>
+            <div class="p-col-12 p-lg-6 p-p-0">
+                <div class="p-inputgroup">
+                    <p-inputNumber [(ngModel)]="item.TrongLuongBongHoi" mode="decimal" [minFractionDigits]="2"
+                        locale="vi-VN" [disabled]="!checkbutton.Ghi" (onBlur)="TinhSoBanBong($event)"></p-inputNumber>
+                    <span class="p-inputgroup-addon">kg</span>
+                </div>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-6 p-p-0 my-auto">Số lượng kiện bông hồi trên 1 bàn:</label>
+            <div class="p-col-12 p-lg-6 p-p-0">
+                <div class="p-inputgroup">
+                    <p-inputNumber [(ngModel)]="item.SoKienBongHoi" mode="decimal" [minFractionDigits]="0"
+                        locale="vi-VN" [disabled]="!checkbutton.Ghi" (onBlur)="TinhSoBanBong($event)"></p-inputNumber>
+                    <span class="p-inputgroup-addon">kiện</span>
+                </div>
+            </div>
+        </div>
         <div class="p-col-12 d-flex flex-row p-p-0">
             <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm"
-                (click)="chonHangHoa()"></button>
-            <button pButton pRipple type="button" label="Chọn lô bông" class="p-mr-2 p-button-sm"
-                (click)="chonLoBong()"></button>
+                (click)="chonHangHoa()" *ngIf="checkbutton.Ghi"></button>
+            <button pButton pRipple type="button" label="Chọn lô bông" class="p-mr-2 p-button-sm" (click)="chonLoBong()"
+                *ngIf="checkbutton.Ghi"></button>
+            <button pButton pRipple type="button" label="Thêm lô bông tương lai" class="p-mr-2 p-button-sm"
+                (click)="themLoTuongLai()" *ngIf="checkbuttonDieuChinh&&isEditing"></button>
+            <!-- <button pButton pRipple type="button" label="Xóa lô bông tương lai không sử dụng" class="p-mr-2 p-button-sm"
+                (click)="xoaLoTuongLai()" *ngIf="checkbuttonDieuChinh&&isEditing"></button> -->
         </div>
         <div class="p-col-12">
             <h5>
                 Kế hoạch triển khai
-                ({{itemTrienKhaiKeHoach.TuNgay|date:'dd/MM/yyyy'}}-{{itemTrienKhaiKeHoach.DenNgay|date:'dd/MM/yyyy'}}):
-                {{labelBong.BR|number:'0.1-1'}}% Brazil +
+                ({{itemTrienKhaiKeHoach.TuNgay|date:'dd/MM/yyyy'}}-{{itemTrienKhaiKeHoach.DenNgay|date:'dd/MM/yyyy'}}):{{item.TyLePhaBong}}
+                <!-- {{labelBong.BR|number:'0.1-1'}}% Brazil +
                 {{labelBong.MY|number:'0.1-1'}}% Mỹ + {{labelBong.TP|number:'0.1-1'}}% Tây Phi +
-                {{labelBong.zH|number:'0.1-1'}}% Hồi
+                {{labelBong.zH|number:'0.1-1'}}% Hồi -->
+
+            </h5>
+            <h5>
                 <span style="color:red">
-                    {{trongLuongLoBong.BR|number:'0.1-1'}}kg Brazil +
+                    {{item.TyLeTrongLuong}}
+                    <!-- {{trongLuongLoBong.BR|number:'0.1-1'}}kg Brazil +
                     {{trongLuongLoBong.MY|number:'0.1-1'}}kg Mỹ + {{trongLuongLoBong.TP|number:'0.1-1'}}kg Tây Phi +
-                    {{trongLuongLoBong.zH|number:'0.1-1'}}kg Hồi
+                    {{trongLuongLoBong.zH|number:'0.1-1'}}kg Hồi -->
                 </span>
             </h5>
-            <!-- <h5>Sử dụng bông theo 
-                {{trongLuongLoBong.BR|number:'0.1-1'}}kg Brazil +
-                {{trongLuongLoBong.M|number:'0.1-1'}}kg Mỹ + {{trongLuongLoBong.TP|number:'0.1-1'}}kg Tây Phi +
-                {{trongLuongLoBong.Hoi|number:'0.1-1'}}kg Hồi
-            </h5> -->
         </div>
-        <div class="p-col-12 p-p-0 pintable-container" style="height: 90vh;" voiPintable [pinnedCols]="6">
+        <div class="p-col-12 p-p-0 pintable-container" style="height: 90vh;" voiPintable [pinnedCols]="7">
             <table>
                 <thead>
                     <!-- <tr>
@@ -154,7 +189,8 @@
                         <th rowspan="3" class="tc-w-151">
                             Thành phần bông
                         </th>
-                        <th rowspan="3" class="tc-w-60">Tồn đầu</th>
+                        <th rowspan="3" class="tc-w-60">Tồn kiểm kê</th>
+                        <th rowspan="3" class="tc-w-60">Tồn đầu thực tế</th>
                         <th rowspan="3" class="tc-w-100">Số lượng dùng</th>
                         <th rowspan="3" class="tc-w-60">Tồn cuối</th>
                         <th rowspan="3" class="tc-w-80">Tỷ lệ</th>
@@ -191,6 +227,7 @@
                         <th rowspan="2" style="display: none;"></th>
                         <th rowspan="2" style="display: none;"></th>
                         <th rowspan="2" style="display: none;"></th>
+                        <th rowspan="2" style="display: none;"></th>
                         <th rowspan="2" class="tc-w-50">Mic</th>
                         <th rowspan="2" class="tc-w-50">Mat</th>
                         <th rowspan="2" class="tc-w-60">UHML</th>
@@ -211,7 +248,7 @@
                         <th style="display: none;"></th>
                         <th style="display: none;"></th>
                         <th style="display: none;"></th>
-
+                        <th style="display: none;"></th>
                         <th *ngFor="let ban of listProps" class="tc-w-50">
                             <button *ngIf="!isCopying" class="btn btn-ss btn-primary" (click)="copy(ban)">
                                 <i class="fas fa-angle-double-up"></i>
@@ -220,74 +257,98 @@
                                 (click)="paste(ban)">
                                 <i class="fas fa-angle-double-down"></i>
                             </button>
-                            <button *ngIf="isCopying && copyItem.BanSo===ban" class="btn btn-ss btn-danger" (click)="doneCopy()">
+                            <button *ngIf="isCopying && copyItem.BanSo===ban" class="btn btn-ss btn-danger"
+                                (click)="doneCopy()">
                                 <i class="fas fa-times"></i>
                             </button>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let lobong of item.listLoBong; let i = index"
-                        [ngStyle]="{'background-color': lobong.Mau}">
-                        <td class="text-center tc-w-151" [ngStyle]="{'background-color': lobong.Mau}">{{lobong.Ma}}
-                        </td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.SoLuongKien}}</td>
-                        <td class="text-center tc-w-100" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.SoLuongDung}}</td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.TonCuoi}}</td>
-                        <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.TyLe|number:'0.2-4'}}</td>
-                        <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.LuyKeTyLe|number:'0.2-4'}}</td>
-                        <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.SoHopDong}}
-                        </td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.GiaBong|number:'0.0-3'}}
-                        </td>
-                        <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.TrongLuong|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
-                            <!-- {{lobong.GiaUSD|number:'0.0-2'}} -->
-                            {{lobong.GiaKien|number:'0.2-2'}}
-                        </td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Nep}}
-                        </td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Mic|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Mat|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.UHML|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Str|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.SFI|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Rd|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.b|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Tap|number:'0.2-2'}}</td>
-                        <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
-                            {{lobong.Am|number:'0.2-2'}}</td>
-                        <td *ngFor="let prop of listProps" class="text-center tc-w-50">
-                            <div style="width: 100%;">
-                                <input style="width: 100%; text-align: right; border: transparent; color:#495057"
-                                    class="dat09focus" [tabindex]="lobong.tempBanBong[prop].tabIndex" type="number"
-                                    [(ngModel)]="lobong.tempBanBong[prop].SoKien"
-                                    (keydown)="test($event,lobong.tempBanBong[prop].tabIndex)"
-                                    (blur)="CalAllTable(i,prop)">
-                                <!-- <p-inputNumber locale="vi-VN" [(ngModel)]="lobong.tempBanBong[prop].SoKien"
-                                    [tabindex]="lobong.tempBanBong[prop].tabIndex" [placeholder]="'_'"
-                                    (onBlur)="CalAllTable(i,prop)">
-                                </p-inputNumber> -->
-                            </div>
-                        </td>
-                    </tr>
+                    <ng-container *ngFor="let lobong of item.listLoBong; let i = index">
+                        <tr [ngStyle]="{'background-color': lobong.Mau}" *ngIf="!lobong.isXoa">
+                            <td class="text-center tc-w-151 z1"
+                                [ngStyle]="{'background-color': lobong.Mau,'color':lobong.isLoBongTuongLai?'red':''}">
+                                <!-- <a href="javascript:void(0)" (click)="timTheoBan(lobong)" *ngIf="isEditing">{{lobong.Ma}}</a> -->
+                                <!-- <span *ngIf="!isEditing">{{lobong.Ma}}</span> -->
+                                {{lobong.Ma}} <span *ngIf="lobong.canDelete&&isEditing&&lobong.SoLuongDung===0" (click)="xoaLoTuongLai(lobong)" style="border-radius: 50%;background-color: red;padding: 2px 5px;font-size: 12px;color: white;cursor: pointer;"><i class="fas fa-times"></i></span>
+                                <ng-container *ngIf="lobong.isLoBongTuongLai">
+                                    <br>
+                                    ({{lobong.NgayVeDuKien|date:'dd/MM/yyyy'}})
+                                </ng-container>
+                            </td>
+                            <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                <ng-container *ngIf="isEditing">
+                                    <input style="width: 100%; text-align: right; border: transparent; color:#495057" [tabindex]="-1" type="number"
+                                        [(ngModel)]="lobong.SoLuongKien_KiemKe">
+                                </ng-container>
+                                <ng-container *ngIf="!isEditing">{{lobong.SoLuongKien_KiemKe}}</ng-container>
+                                
+                            </td>
+                            <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.SoLuongKien}}</td>
+                            <td class="text-center tc-w-100 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.SoLuongDung}}</td>
+                            <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.TonCuoi}}</td>
+                            <td class="text-center tc-w-80 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.TyLe|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-80 z1" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.LuyKeTyLe|number:'0.2-2'}}</td>
+
+                            <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.SoHopDong}}
+                            </td>
+                            <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.GiaBong|number:'0.0-3'}}
+                            </td>
+                            <td class="text-center tc-w-80" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.TrongLuong|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-121" [ngStyle]="{'background-color': lobong.Mau}">
+                                <!-- {{lobong.GiaUSD|number:'0.0-2'}} -->
+                                {{lobong.GiaKien|number:'0.2-2'}}
+                            </td>
+                            <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.Nep|number:'0.2-2'}}
+                                <!-- Neps -->
+                            </td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.Mic|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.Mat|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-60" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.UHML|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.Str|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.SFI|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.Rd|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.b|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.Tap|number:'0.2-2'}}</td>
+                            <td class="text-center tc-w-50" [ngStyle]="{'background-color': lobong.Mau}">
+                                {{lobong.Am|number:'0.2-2'}}</td>
+                            <td *ngFor="let prop of listProps" class="text-center tc-w-50">
+                                <div class="drag-zone" style="width: 100%; display: flex;flex-direction: row;"
+                                    (drop)="drop($event,prop,i)" (dragover)="allowDrop($event)">
+                                    <span class="drag-point" draggable="true"
+                                        *ngIf="!(lobong.isLoBongTuongLai && prop<lobong.lim)&&!listCotDaXuat.includes(prop)"
+                                        (dragstart)="drag($event,prop,i,lobong.tempBanBong[prop].SoKien)">
+                                        <i class="fas fa-arrows-alt"></i>
+                                    </span>
+                                    <input style="width: 100%; text-align: right; border: transparent; color:#495057"
+                                        class="dat09focus" [tabindex]="lobong.tempBanBong[prop].tabIndex" type="number"
+                                        [(ngModel)]="lobong.tempBanBong[prop].SoKien"
+                                        (keydown)="move($event,lobong.tempBanBong[prop].tabIndex)"
+                                        (blur)="CalAllTable(i,prop)"
+                                        [disabled]="(lobong.isLoBongTuongLai && prop<lobong.lim)|| listCotDaXuat.includes(prop)">
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+
                     <!-- TongKhoiLuongDung -->
                     <!-- <tr>
                         <td class="text-center tc-w-151">
@@ -336,11 +397,13 @@
                             bông</td>
                         <td class="text-center tc-w-60" style="background-color:skyblue !important;">
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:skyblue !important;">
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:skyblue !important;">
-                            {{TongKhoiLuongDung|number:'0.2-4'}}</td>
+                            {{TongKhoiLuongDung|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-60" style="background-color:skyblue !important;"></td>
                         <td class="text-center tc-w-80" style="background-color:skyblue !important;">
-                            {{TongTyLe|number:'0.2-4'}}</td>
+                            {{TongTyLe|number:'0.2-2'}}</td>
                         <td class="text-center tc-w-80" style="background-color:skyblue !important;"></td>
                         <td class="text-center tc-w-121">
                         </td>
@@ -381,6 +444,7 @@
                         <td class="text-center tc-w-151" style="background-color:white !important;">Bình quân bàn bông
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;"></td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-100" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-60" style="background-color:white !important;"></td>
                         <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">
@@ -415,19 +479,23 @@
                     <tr>
                         <td class="text-center tc-w-151" style="background-color:white !important;">
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:#82c940 !important;">
-                            {{ThongSoKienTheoLoaiBong?.BR?.TonDau}}
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.BR?.TonDau}} -->
                         </td>
-                        <td class="text-center tc-w-100" style="background-color:#82c940 !important;">
-                            {{ThongSoKienTheoLoaiBong?.BR?.SoLuongDung}}
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.BR?.TonDau}} -->
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:#82c940 !important;">
-                            {{ThongSoKienTheoLoaiBong?.BR?.TonCuoi}}
+                        <td class="text-center tc-w-100" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.BR?.SoLuongDung}} -->
+                        </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.BR?.TonCuoi}} -->
                         </td>
                         <td class="text-center tc-w-80" style="color: rebeccapurple; background-color: yellow;">
                             Mic B/Q
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -467,19 +535,23 @@
                     <tr>
                         <td class="text-center tc-w-151" style="background-color:white !important;">
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:#fdff0c !important;">
-                            {{ThongSoKienTheoLoaiBong?.MY?.TonDau}}
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.MY?.TonDau}} -->
                         </td>
-                        <td class="text-center tc-w-100" style="background-color:#fdff0c !important;">
-                            {{ThongSoKienTheoLoaiBong?.MY?.SoLuongDung}}
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.MY?.TonDau}} -->
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:#fdff0c !important;">
-                            {{ThongSoKienTheoLoaiBong?.MY?.TonCuoi}}
+                        <td class="text-center tc-w-100" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.MY?.SoLuongDung}} -->
+                        </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.MY?.TonCuoi}} -->
                         </td>
                         <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">
                             CV%Mic
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -490,8 +562,7 @@
                         </td>
                         <td class="text-center tc-w-60">
                         </td>
-                        <td class="text-center tc-w-50">
-                        </td>
+                        <td class="text-center tc-w-50"></td>
                         <td class="text-center tc-w-50">
                         </td>
                         <td class="text-center tc-w-60">
@@ -518,19 +589,23 @@
                     <tr>
                         <td class="text-center tc-w-151" style="background-color:white !important;">
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:#dfa8a9 !important;">
-                            {{ThongSoKienTheoLoaiBong?.TP?.TonDau}}
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.TP?.TonDau}} -->
                         </td>
-                        <td class="text-center tc-w-100" style="background-color:#dfa8a9 !important;">
-                            {{ThongSoKienTheoLoaiBong?.TP?.SoLuongDung}}
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.TP?.TonDau}} -->
                         </td>
-                        <td class="text-center tc-w-60" style="background-color:#dfa8a9 !important;">
-                            {{ThongSoKienTheoLoaiBong?.TP?.TonCuoi}}
+                        <td class="text-center tc-w-100" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.TP?.SoLuongDung}} -->
+                        </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                            <!-- {{ThongSoKienTheoLoaiBong?.TP?.TonCuoi}} -->
                         </td>
                         <td class="text-center tc-w-80" style="color: rebeccapurple;background-color:white !important;">
                             Mic TT
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -571,6 +646,8 @@
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:white !important;">
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
@@ -579,6 +656,7 @@
                             CV%Mic TT
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -619,6 +697,8 @@
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:white !important;">
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
@@ -627,6 +707,7 @@
                             Tỷ lệ hồi pha
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -667,6 +748,8 @@
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:white !important;">
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
@@ -675,6 +758,7 @@
                             +b
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -716,6 +800,8 @@
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:white !important;">
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
@@ -724,6 +810,7 @@
                             &Delta; +b
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -764,6 +851,8 @@
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
+                        </td>
                         <td class="text-center tc-w-100" style="background-color:white !important;">
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
@@ -773,6 +862,7 @@
                             Trọng lượng 1 bàn
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">
@@ -805,12 +895,15 @@
                             style="font-size: 12px;color: red;text-decoration: underline;">
                             <div style="width: 100%;">
                                 {{itemTrongLuong1Ban[prop]|number:'0.0-1'}}
+                                <!-- {{itemTrongLuong1BanTruBongHoi[prop]|number:'0.0-1'}} -->
                             </div>
                         </td>
                     </tr>
                     <!-- Binh quan gia bong -->
                     <tr>
                         <td class="text-center tc-w-151" style="background-color:white !important;">
+                        </td>
+                        <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
                         <td class="text-center tc-w-60" style="background-color:white !important;">
                         </td>
@@ -823,6 +916,7 @@
                             B/Q giá bông
                         </td>
                         <td class="text-center tc-w-80" style="background-color:white !important;"></td>
+
                         <td class="text-center tc-w-121">
                         </td>
                         <td class="text-center tc-w-60">

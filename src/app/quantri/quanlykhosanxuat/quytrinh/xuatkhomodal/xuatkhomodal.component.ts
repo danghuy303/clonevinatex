@@ -1,13 +1,15 @@
+import { ElementRef } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
-import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToDatePicker, DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DoikienbongmodalComponent } from '../doikienbongmodal/doikienbongmodal.component';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
+import { VitrikienmodalComponent } from './vitrikienmodal/vitrikienmodal.component';
 
 @Component({
   selector: 'app-xuatkhomodal',
@@ -15,26 +17,27 @@ import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomath
   styleUrls: ['./xuatkhomodal.component.css']
 })
 export class XuatkhomodalComponent implements OnInit {
+  @ViewChild('paginator') paginator;
   opt: any = '';
   Id: any = '';
   item: any = {};
   checkbutton: any = {
-    Ghi:true,
-    KhongDuyet:false,
-    ChuyenTiep:false,
-    Xoa:false,
+    Ghi: true,
+    KhongDuyet: false,
+    ChuyenTiep: false,
+    Xoa: false,
   }
   lang: any = vn;
   listKho: any = [];
   listPhanXuong: any = [];
   listPhuongAnPhaBong: any = [];
   listItem: any = [];
-  items: any = [];
+  listItemRoot: any = [];
   paging: any = {};
   filter: any = {}
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, 
-    public toastr: ToastrService, public _modal: NgbModal) {  }
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
+    public toastr: ToastrService, public _modal: NgbModal) { }
 
   ngOnInit(): void {
     this.GetQuyTrinh();
@@ -43,33 +46,39 @@ export class XuatkhomodalComponent implements OnInit {
     let data: any = {
       CurrentPage: 0
     }
-    this.services.PhuongAnPhaBong().GetList(data).subscribe((res:any)=>{
+    this.services.PhuongAnPhaBong().GetList(data).subscribe((res: any) => {
       this.listPhuongAnPhaBong = mapArrayForDropDown(res.items, 'Ten', 'Id');
     })
     // data.Loai = 2;
-    this.services.GetListdmKho(data).subscribe((res:any)=>{
+    this.services.GetListdmKho(data).subscribe((res: any) => {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    this.services.GetListdmPhanXuong(data).subscribe((res:any)=>{
+    this.services.GetListdmPhanXuong(data).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  GetQuyTrinh()
-  {
-    this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1:any)=>{
+  GetQuyTrinh(page?) {
+    this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1: any) => {
       this.item = res1;
-      res1.listItem.sort((a,b)=>{
-        return a.TenLoBong.localeCompare(b.TenLoBong);
-      })
+      // res1.listItem.sort((a,b)=>{
+      //   return a.TenLoBong.localeCompare(b.TenLoBong);
+      // })
       this.listItem = res1.listItem;
+      this.listItemRoot = deepCopy(res1.listItem);
+
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
-      this.item.listItem = res1.listItem.slice(0,15);
-      this.items = res1.listItem.slice(0,15);
+      this.item.listItem = res1.listItem.slice(0, 15);
       this.KiemTraButtonModal();
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-        this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+        this.item.Ngay = UnixToDate(this.item.NgayUnix);
+      }
+      if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
+        this.item.NgayChungTu = UnixToDate(this.item.NgayChungTuUnix);
+      }
+      if(validVariable(page)){
+        this.changePage(page);
       }
     })
   }
@@ -78,50 +87,82 @@ export class XuatkhomodalComponent implements OnInit {
       this.checkbutton = res;
     })
   }
- 
+
   ChuyenDuyet() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
-    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
-      this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-    this.item.listItem = this.listItem
-    console.log(this.item)
-    debugger
-    this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res.State === 1) {
-          this.activeModal.close();
-        } else {
-          this.toastr.error(res.message);
+    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined) {
+      this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
+    }
+    if (validVariable(this.item.Ngay)) {
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      this.item.listItem = deepCopy(this.listItemRoot);
+      this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
         }
-      }
-    })
+      })
+    } else {
+      this.toastr.error('Bạn chưa nhập ngày chứng từ!')
+    }
+  }
+  KhongDuyet() {
+    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined) {
+      this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
+    }
+    if (validVariable(this.item.Ngay)) {
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      this.item.listItem = deepCopy(this.listItemRoot);
+      this.services.PhieuXuatSanXuat().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    } else {
+      this.toastr.error('Bạn chưa nhập ngày chứng từ!')
+    }
   }
   GetNextSoQuyTrinh() {
     this.services.PhieuXuatSanXuat().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
- 
+
   GhiLai() {
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
-      this.item.NgayChungTuUnix = (new Date(this.item.NgayChungTu)).getTime() / 1000;
-    this.item.listItem = this.listItem
+      this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
+    if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
+      this.item.listItem = deepCopy(this.listItemRoot);
       this.services.PhieuXuatSanXuat().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+              this.item.Ngay = UnixToDate(this.item.NgayUnix);
+            }
+            if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
+              this.item.NgayChungTu = UnixToDate(this.item.NgayChungTuUnix);
+            }
             this.KiemTraButtonModal();
-            // this.activeModal.close(res.message);
+            this.GetQuyTrinhRefresh();
           } else {
             this.toastr.error(res.message);
           }
         }
       })
+    }
+    else {
+      this.toastr.error('Bạn chưa nhập ngày chứng từ!')
+    }
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -138,7 +179,7 @@ export class XuatkhomodalComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
- 
+
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
@@ -147,9 +188,9 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  
+
   GetLuuKho(sFilter) {
-    this.services.getLuuKho(this.item.IddmKho,'', 0 , sFilter).subscribe((res1: any) => {
+    this.services.getLuuKho(this.item.IddmKho, '', 0, sFilter).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
@@ -167,44 +208,115 @@ export class XuatkhomodalComponent implements OnInit {
     console.log(event)
     this.paging.CurrentPage = event.page + 1;
     var start = 15 * (event.page);
-    var end =  start + 15;
-    if((start + 15) > this.paging.TotalItem)
-      end= this.paging.TotalItem;
-    this.item.listItem = this.listItem.slice(start,end);
-    this.items = this.listItem.slice(start,end);
-    if(this.filter.KeyWord !== '' || this.filter.KeyWord !== undefined)
-      this.GetQuyTrinhFilter();
+    var end = start + 15;
+    if ((start + 15) > this.paging.TotalItem)
+      end = this.paging.TotalItem;
+    this.item.listItem = this.listItem.slice(start, end);
+    // if(this.filter.KeyWord !== '' || this.filter.KeyWord !== undefined)
+    //   this.GetQuyTrinhFilter();
   }
 
-  GetQuyTrinhFilter()
-  {
-    var items = [];
-    for(let i =0; i < this.items.length; i++){
-      if(this.items[i].TenLoBong !== null){
-        if(this.items[i].TenLoBong.toLowerCase().includes(this.filter.KeyWord)){
-           items.push(this.items[i]);
-          continue;
-        }
-      }
-      if(this.items[i].Ten !== null){
-        if(this.items[i].Ten.toLowerCase().includes(this.filter.KeyWord)){
-          items.push(this.items[i]);
-          continue;
-        }
-      }
-      if(this.items[i].TendmViTri !== null){
-        if(this.items[i].TendmViTri.toLowerCase().includes(this.filter.KeyWord))
-        {
-          items.push(this.items[i]);
-          continue;
-        }
-      }
-    }
-    this.item.listItem = items;
+  GetQuyTrinhFilter() {
+    let items = [];
+    //ele=>ele.ID===ID
+    // items = this.listItemRoot.filter(obj => {
+    //   let Ten = obj.Ten.toLowerCase();
+    //   let indexOf = Ten.indexOf(this.filter.KeyWord)
+    //   return indexOf != -1
+    // });
+    items = this.listItemRoot.filter(ele=>ele.Ten.toLowerCase().indexOf(this.filter.KeyWord)!== -1
+                                      || ele.MaKienDoi.toLowerCase().indexOf(this.filter.KeyWord)!== -1);
+    // for(let i =0; i < this.listItemRoot.length; i++){
+    //   if(this.listItemRoot[i].TenLoBong !== null){
+    //     if(this.listItemRoot[i].TenLoBong.toLowerCase().includes(this.filter.KeyWord)){
+    //        items.push(this.listItemRoot[i]);
+    //       continue;
+    //     }
+    //   }
+    //   if(this.listItemRoot[i].Ten !== null){
+    //     if(this.listItemRoot[i].Ten.toLowerCase().includes(this.filter.KeyWord)){
+    //       items.push(this.listItemRoot[i]);
+    //       continue;
+    //     }
+    //   }
+    //   if(this.listItemRoot[i].TendmViTri !== null){
+    //     if(this.listItemRoot[i].TendmViTri.toLowerCase().includes(this.filter.KeyWord))
+    //     {
+    //       items.push(this.listItemRoot[i]);
+    //       continue;
+    //     }
+    //   }
+    // }
+    this.listItem = deepCopy(items);
+    this.paginator.changePage(0)
+    this.paging.CurrentPage = 1;
+    this.paging.TotalPage = 5;
+    this.paging.TotalItem = items.length;
+    this.item.listItem = items.slice(0, 15);
+    // this.item.listItem = items;
+    console.log(this.item.listItem)
   }
-  GetQuyTrinhRefresh()
-  {
+  GetQuyTrinhRefresh() {
     this.filter.KeyWord = '';
-    this.item.listItem = this.items;
+    this.listItem = deepCopy(this.listItemRoot);
+    this.paging.CurrentPage = 1;
+    this.paging.TotalPage = 5;
+    this.paging.TotalItem = this.listItem.length;
+    this.item.listItem = this.listItem.slice(0, 15);
+  }
+  exportExcel() {
+    this.services.PhieuXuatSanXuat().ExportExcel(this.item.Id).subscribe((res: any) => {
+      this.services.download(res.TenFile);
+    })
+  }
+  exportHoaDon() {
+    this.services.PhieuXuatSanXuat().ExportHoaDon(this.item.Id).subscribe((res: any) => {
+      this.services.download(res.TenFile);
+    })
+  }
+  changeKien(item, index) {
+    this.services.GetDanhSachKienCoTheThayThe(item.IddmItem).subscribe(res=>{
+      let modalRef = this._modal.open(DoikienbongmodalComponent, { size: 'xl' })
+      modalRef.componentInstance.IdPhieu = this.item.Id;
+      modalRef.componentInstance.CurrentItem = [deepCopy(item)];
+      modalRef.componentInstance.items = res;
+      modalRef.result
+        .then(res => {
+          let page = {page:this.paging.CurrentPage-1};
+          this.GetQuyTrinh(page);
+          // let findIndex = this.item.listItem.findIndex(ele =>ele.IddmItem===item.IddmItem);
+          // let tenlo = item.TenLoBong
+          // if(findIndex>=0){
+          //   res[0].TenLoBong = tenlo;
+          //   this.item.listItem[findIndex] = deepCopy(res[0]);
+          // }
+        })
+        .catch(er => { console.log('err:', er) })
+    })
+  }
+  next(event){
+    let nextIndex = event.srcElement.tabIndex;
+    let items:any = document.querySelectorAll('.focus-tag');
+    if(nextIndex <15){
+      items[nextIndex].focus();
+    }
+  }
+  // test(){
+  //   console.log(this.listItemRoot);
+  // }
+  changeKienDoi(event,IddmItem){
+    let itemInRoot = this.listItemRoot.filter(ele=>ele.IddmItem === IddmItem)?.[0];
+    itemInRoot.MaKienDoi = event;
+  }
+  ViTriKien(item){
+    let modalRef = this._modal.open(VitrikienmodalComponent, {
+      size: 'lg',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.result.then((res: any) => {
+    })
+      .catch(er => { console.log(er)
+      })
   }
 }

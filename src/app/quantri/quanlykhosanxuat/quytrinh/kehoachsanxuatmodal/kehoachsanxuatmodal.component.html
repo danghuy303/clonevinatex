@@ -1,6 +1,16 @@
 <div class="modal-header">
     <h5 class="modal-title">Phiếu giao kế hoạch sản xuất</h5>
-    <div>Số quy trình: {{item.SoQuyTrinh}}</div>
+    <div class="d-flex flex-column flex-lg-row">
+        <div>
+            <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+        </div>
+        <div class="ml-lg-3 mr-lg-3">
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+        <div>
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+    </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -18,9 +28,25 @@
                 *ngIf="checkbutton.KhongDuyet"></button>
             <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
                 (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
-            <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
+            <button pButton pRipple type="button" label="Kết xuất" *ngIf="canExport" (click)="exportExcel()" class="p-mr-2 p-button-sm"></button>
         </div>
 
+    </div>
+    <div class="p-grid" *ngIf="item.Id===''">
+        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+            <div style="flex:1;display:flex ;flex-direction: column;justify-content:flex-end">
+                <p-dropdown [filter]="true" [options]="listKeHoachForCopy" placeholder="Chọn kế hoạch để sao chép"
+                    styleClass="p-inputtext-sm" (onChange)="GetGiaoKeHoachForCopy($event)"></p-dropdown>
+            </div>
+            <button type="button" pButton pRipple label="Sao chép" class="p-button-text p-button-sm"
+                (click)="CopyKeHoach()" [disabled]="!canCopy"></button>
+        </div>
+        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Kế hoạch điều chỉnh:</label>
+            <div class="p-col-12 p-xl-10 p-p-0">
+                <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isDieuChinh" [disabled]="!item.isDieuChinh"/>
+            </div>
+        </div>
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
@@ -47,8 +73,8 @@
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Từ ngày<span class="required">*</span>:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                    [yearNavigator]="true" [yearRange]="yearRange" (onBlur)="TinhSoCa()"
-                    [(ngModel)]="item.TuNgay" placeholder="dd/mm/yyyy">
+                    [yearNavigator]="true" [yearRange]="yearRange" (onBlur)="TinhSoCa()" [(ngModel)]="item.TuNgay"
+                    placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>
@@ -118,7 +144,8 @@
                         <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
                             [(ngModel)]="filter.KeyWord" />
                         <button type="button" pButton pRipple icon="pi pi-refresh"
-                            class="p-button-secondary p-button-sm p-button-text" (click)="refreshFilterMatHang()"></button>
+                            class="p-button-secondary p-button-sm p-button-text"
+                            (click)="refreshFilterMatHang()"></button>
                     </div>
                 </div>
             </div>
@@ -127,7 +154,8 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
-                        <col>
+                        <col style="width: 12rem;">
+                        <col style="width: 15rem;">
                         <col>
                         <col>
                         <col>
@@ -141,6 +169,7 @@
                         <th>#</th>
                         <!-- <th>Mã hàng</th> -->
                         <th>Mặt hàng</th>
+                        <th>Mã</th>
                         <th>Hợp đồng</th>
                         <th>Kế hoạch sản xuất(Tấn)</th>
                         <th>Loại</th>
@@ -154,24 +183,33 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
-                    <tr>
+                    <tr [ngStyle]="{'background-color': item.isEdited?'#f5d3ce':''}">
                         <td>{{i+1}}</td>
-                        <!-- <td>{{item.Ma}}</td> -->
                         <td>{{item.Ten}}</td>
-                        <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.HopDong" pInputText /></td>
+                        <td>{{item.Ma}}</td>
+                        <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.HopDong"
+                                (ngModelChange)="change(i)" pInputText /></td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KhoiLuongKeHoach"
-                                (onInput)="changeKeHoachSanXuat($event,item)">
-                            </p-inputNumber>
+                            <div style="display: flex;">
+                                <div style="flex:1">
+                                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN"
+                                        [(ngModel)]="item.KhoiLuongKeHoach"
+                                        (onInput)="changeKeHoachSanXuat($event,item,i)">
+                                    </p-inputNumber>
+                                </div>
+                                <button pButton pRipple icon="pi pi-ellipsis-v"
+                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                    (click)="tinhToan(item,'KhoiLuongKeHoach')" pTooltip="Tính toán" showDelay="1000"
+                                    tooltipPosition="bottom"></button>
+                            </div>
                         </td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listMucDich" placeholder="Chọn loại"
-                                styleClass="p-inputtext-sm" [(ngModel)]="item.Loai"></p-dropdown>
+                                styleClass="p-inputtext-sm" [(ngModel)]="item.Loai" (onChange)="change(i)"></p-dropdown>
                         </td>
                         <td>
                             <div class="p-d-flex p-flex-row p-jc-between">
                                 <div>
-                                    <!-- {{item.listItem|json}} -->
                                     <div *ngFor="let items of item.listItem">
                                         <span *ngIf="!items.isXoa">
                                             {{items.objQuyCachDongGoi.label}} - {{items.KhoiLuong}}
@@ -186,7 +224,8 @@
                                 </div>
                             </div>
                         </td>
-                        <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText /></td>
+                        <td><input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu"
+                                (ngModelChange)="change(i)" pInputText /></td>
                         <!-- <td></td>
                         <td></td>
                         <td></td>

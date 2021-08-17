@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -20,52 +21,59 @@ export class ThongkesanluongComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Số quy trình',
+      header: 'Số phiếu',
       field: 'SoQuyTrinh',
-      width: 'unset'
+      width: '150px'
     },
     {
       header: 'Ngày',
       field: 'Ngay',
-      width: 'unset'
+      width: '100px'
     },
     {
       header: 'Thời điểm',
       field: 'TendmCaSanXuat',
-      width: 'unset'
+      width: '150px'
     },
     {
       header: 'Ca',
       field: 'TendmCaSanXuatThucTe',
-      width: 'unset'
+      width: '150px'
     },
     {
       header: 'Khối lượng(kg)',
       field: 'TongKhoiLuong',
-      width: 'unset'
+      width: '100px'
     },
     {
       header: 'Phân xưởng',
       field: 'TendmPhanXuong',
-      width: 'unset'
-    },
-    {
-      header: 'Trạng thái',
-      field: 'TenTrangThai',
-      width: 'unset'
+      width: '150px'
     },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
-      width: 'unset'
-    }
+      width: '150px'
+    },
+    {
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
+      width: '150px'
+    },
   ];
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   listPhanXuong: any = [];
   listCaSanXuat: any = [];
+  eAction = 'THONGKESANLUONG'
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((res:any)=>{
+      if(res.id!=='0'){
+        this.update(res.id);
+      }
+    
+    })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
     this.getListCaSanXuat();
@@ -97,10 +105,13 @@ export class ThongkesanluongComponent implements OnInit {
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
     })
+    .catch(er => { console.log(er)
+      this.GetListQuyTrinh();
+      this.changeParam(0); })
   }
   update(Id){
-    this.changeParam(Id);
     this._service.ThongKeSanLuong().Get(Id).subscribe((res1: any) => {
     let modalRef = this._modal.open(ThongkesanluongmodalComponent, {
       size: 'fullscreen',
@@ -110,8 +121,11 @@ export class ThongkesanluongComponent implements OnInit {
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er)
+        this.GetListQuyTrinh();
+        this.changeParam(0); })
     })
   }
   changeTab(e){
@@ -149,9 +163,9 @@ export class ThongkesanluongComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai(){
-    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
   }
 }

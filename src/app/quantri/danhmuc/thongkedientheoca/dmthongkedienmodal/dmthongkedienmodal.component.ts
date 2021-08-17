@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChildren } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { ModalthongbaoComponent } from "src/app/quantri/modal/modalthongbao/modalthongbao.component";
@@ -26,6 +26,8 @@ export class DmthongkedienmodalComponent implements OnInit {
     nametype: any = "";
     lstKhungGio: any = [];
     khongclicknhieu: any = false;
+    idCaSanXuat: any = '';
+    @ViewChildren('input') listInput;
     cols: any = [
         {
             header: "Số tiêu thụ (KW)",
@@ -40,13 +42,19 @@ export class DmthongkedienmodalComponent implements OnInit {
             align: "right",
         },
         {
+            header: "Hệ số TI",
+            field: "HeSoTI",
+            width: "unset",
+            align: "right",
+        },
+        {
             header: "Tiêu thụ trong ca (KW)",
             field: "TieuThuTrongCa",
             width: "unset",
             align: "right",
         },
     ];
-
+    listdmCaSanXuat: any = []
     constructor(
         public activeModal: NgbActiveModal,
         public toastr: ToastrService,
@@ -59,6 +67,7 @@ export class DmthongkedienmodalComponent implements OnInit {
             this.item.Ten
         }`;
         if (this.item.lstMayBienAp.length > 0) {
+
             this.lstKhungGio = this.item.lstMayBienAp[0].lstKhungGio;
             this.lstKhungGio.forEach((element) => {
                 let liststring: any = [];
@@ -66,16 +75,21 @@ export class DmthongkedienmodalComponent implements OnInit {
                 element.HeaderPanel = `Thống kê cho khung giờ ${liststring[0]} đến ${liststring[1]}`;
             });
         }
+        this._services
+          .GetListOptdmCaSanXuat()
+          .subscribe((res: any) => {
+              this.listdmCaSanXuat = mapArrayForDropDown(res, "Ten", "Id");
+          });
     }
 
-    changeTab(e) {
-        this.lstKhungGio = this.item.lstMayBienAp[e.index].lstKhungGio;
-        this.lstKhungGio.forEach((element) => {
-            let liststring: any = [];
-            liststring = element.Ten.split(" ÷ ");
-            element.HeaderPanel = `Thống kê cho khung giờ ${liststring[0]} đến ${liststring[1]}`;
-        });
-    }
+    // changeTab(e) {
+    //     this.lstKhungGio = this.item.lstMayBienAp[e.index].lstKhungGio;
+    //     this.lstKhungGio.forEach((element) => {
+    //         let liststring: any = [];
+    //         liststring = element.Ten.split(" ÷ ");
+    //         element.HeaderPanel = `Thống kê cho khung giờ ${liststring[0]} đến ${liststring[1]}`;
+    //     });
+    // }
 
     GhiLai() {
         this.khongclicknhieu = !this.khongclicknhieu;
@@ -123,12 +137,13 @@ export class DmthongkedienmodalComponent implements OnInit {
     }
 
     tinhgiatri(item) {
+        // console.log(this.listInput.toArray());
         if(validVariable(item.SoMoi)){
             if (item.SoMoi > 0 && item.SoCu < item.SoMoi) {
                 item.SoTieuThu = 0;
                 item.TieuThuTrongCa = 0;
                 item.SoTieuThu = item.SoMoi - item.SoCu;
-                item.TieuThuTrongCa = item.SoTieuThu * item.HeSoNhan;
+                item.TieuThuTrongCa = item.SoTieuThu * item.HeSoNhan * item.HeSoTI;
             } else {
                 item.SoTieuThu = 0;
                 item.TieuThuTrongCa = 0;
@@ -141,5 +156,38 @@ export class DmthongkedienmodalComponent implements OnInit {
 
     Onclose() {
         this.activeModal.close();
+    }
+    Enter(page,index){
+        let i = page*9+index;
+        if(i<this.listInput.toArray().length){
+            this.listInput.toArray()[i+1].el.nativeElement.children[0].children[0].focus();
+          }else{
+            this.listInput.toArray()[0].el.nativeElement.children[0].children[0].focus();
+          }
+    }
+    changeTab(e) {
+        let index = 0;
+        if(e !== undefined)
+            index = e.index;
+
+        if (this.item.lstMayBienAp.length > 0) {
+            this.lstKhungGio = [];
+            this.item.lstMayBienAp[index].lstKhungGio.forEach((element) => {
+                if( this.idCaSanXuat !== null && this.idCaSanXuat !== ''){
+                    if(element.idCaSanXuat === this.idCaSanXuat){
+                        let liststring: any = [];
+                        liststring = element.Ten.split(" ÷ ");
+                        element.HeaderPanel = `Thống kê cho khung giờ ${liststring[0]} đến ${liststring[1]}`;
+                        this.lstKhungGio.push(element);
+                    }
+                }
+                else{
+                    let liststring: any = [];
+                    liststring = element.Ten.split(" ÷ ");
+                    element.HeaderPanel = `Thống kê cho khung giờ ${liststring[0]} đến ${liststring[1]}`;
+                    this.lstKhungGio.push(element);
+                }
+            });
+        }
     }
 }

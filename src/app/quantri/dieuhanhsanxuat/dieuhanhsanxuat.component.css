@@ -4,7 +4,7 @@
     /* background-color: white; */
 }
 
-@media (min-width: 576px) {
+@media (min-width: 769px) {
     .p-grid>div>div.chart{
         padding:5px;
         height: calc((100vh - 192.5px)/2);
@@ -13,12 +13,17 @@
         position: relative;
     }
 }
-@media (max-width: 576px) {
+@media (max-width: 769px) {
     .p-grid>div>div.chart{
         padding:5px;
+        /* height: unset !important; */
         /* height: calc((100vh - 192.5px)/2); */
         border-radius: 5px;
         background-color: white;
         position: relative;
     }
+}
+.width-150{
+    min-width:150px !important;
+    max-width:150px !important;
 }

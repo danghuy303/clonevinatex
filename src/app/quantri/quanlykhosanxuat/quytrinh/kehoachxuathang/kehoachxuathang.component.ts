@@ -36,9 +36,36 @@ export class KehoachxuathangComponent implements OnInit {
       field: 'NoiDung',
       width: 'unset'
     },
+    // {
+    //   header: 'Hợp đồng',
+    //   field: 'HopDong',
+    //   width: 'unset'
+    // },
+    // {
+    //   header: 'Khách hàng',
+    //   field: 'KhachHang',
+    //   width: 'unset'
+    // },
+    {
+      header: 'Khối lượng(kg)',
+      field: 'KhoiLuong',
+      width: 'unset',
+      type:'number'
+    },
+    // {
+    //   header: 'Ngày giao',
+    //   field: 'NgayGiao',
+    //   width: 'unset',
+//       type:'date'
+    // },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
+      width: 'unset'
+    },
+    {
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
       width: 'unset'
     },
   ];
@@ -48,6 +75,11 @@ export class KehoachxuathangComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
+    this.activatedRoute.params.subscribe((res:any)=>{
+      if(res.id!=='0'){
+        this.update(res.id);
+      }
+    })
     this.getListKho();
     this.KiemTraTabTrangThai();
   }
@@ -55,7 +87,7 @@ export class KehoachxuathangComponent implements OnInit {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlykhosanxuat/khothanhpham/kehoachxuathang/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/quanlysanxuatkhothanhpham/khothanhpham/kehoachxuathang/${id}`], { replaceUrl: true })
   }
   addPhieuBong() {
     this.changeParam(0);
@@ -67,34 +99,27 @@ export class KehoachxuathangComponent implements OnInit {
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+      this.changeParam(0);
     })
-      .catch(er => { console.log(er) })
-  }
-  addPhieuSo() {
-    this.changeParam(0);
-    let modalRef = this._modal.open(KehoachxuathangmodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = {}
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-    })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er)
+        this.GetListQuyTrinh();
+        this.changeParam(0); })
   }
   update(Id) {
     this._service.KeHoachXuatHang().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(KehoachxuathangmodalComponent, {
-        size: 'fullscreen',
+        size: 'fullscreen-100',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
+      this.changeParam(0);
       })
-        .catch(er => { console.log(er) })
+        .catch(er => { console.log(er)
+          this.GetListQuyTrinh();
+          this.changeParam(0); })
     })
   }
   changeTab(e) {
@@ -121,12 +146,12 @@ export class KehoachxuathangComponent implements OnInit {
       this.paginator.changePage(0);
     }
     let data = {
-      PageSize: 25,
+      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter: this.filter.KeyWord,
-      TuNgay: (new Date(this.filter.TuNgay).getTime() / 1000) || 0,
-      DenNgay: (new Date(this.filter.DenNgay).getTime() / 1000) || 0,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
     }

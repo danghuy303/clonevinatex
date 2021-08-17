@@ -1,0 +1,87 @@
+<div class="modal-header">
+
+    <h5 class="modal-title"> {{opt==='add'?'Thêm mới':'Cập nhật'}}&nbsp;bảo lãnh hợp đồng</h5>
+    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <div class="p-d-flex p-flex-row p-jc-between">
+        <div class="modal-bt p-mb-4">
+            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="activeModal.dismiss('close')"></button>
+            <button pButton pRipple type="button" label="Ghi lại" (click)="accept('add')" class="p-mr-2 p-button-sm"></button>
+
+        </div>
+    </div>
+    <div class="p-grid">
+        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bảo lãnh:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+
+                <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiBaoLanh" [options]='listLoaiBaoLanh' placeholder="Chọn loại bảo lãnh" styleClass="p-inputtext-sm"></p-dropdown>
+
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số bảo lãnh:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+
+                <input type="text" [(ngModel)]="item.soQuyTrinh" class="p-inputtext-sm" pInputText />
+
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị bảo lãnh <span class="required">*</span> :</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-inputNumber class="p-col-6" [(ngModel)]="item.giaTri" [minFractionDigits]="2" locale="vi-VN"> </p-inputNumber>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-d-flex p-flex-row p-ai-center p-pb-3 ">
+            <!-- <p-checkbox [(ngModel)]="item.giaTriTruocThueDaTinh" name="groupname" value="val1"></p-checkbox> -->
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Trước thuế </label>
+            <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+                <div class="p-inputgroup p-d-flex">
+                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
+                    </p-inputNumber>
+                    <span class="p-inputgroup-addon">%</span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hiệu lực bảo lãnh:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.hieuLucBaoLanh" inputId="icon" placeholder="dd/mm/yyyy">
+                </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tình trạng bảo lãnh:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+
+                <p-dropdown [filter]="true" [(ngModel)]="item.iddmTinhTrangBaoLanh" [options]="listTinhTrangBaoLanh" placeholder="Chọn tình trạng" styleClass="p-inputtext-sm"></p-dropdown>
+
+
+            </div>
+        </div>
+        <div class="p-col-12  p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú</label>
+
+            <div class="p-col-10 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ghiChu" pInputText />
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+    </div>

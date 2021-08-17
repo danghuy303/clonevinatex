@@ -16,7 +16,6 @@ th {
     word-wrap: break-word !important;
 }
 
-
 /* .unset-width.p-datatable-sm table{
     width: unset !important;
 } */
@@ -46,6 +45,7 @@ label {
     -webkit-box-shadow: 7px 7px 14px 0px rgba(0, 0, 0, .5);
     -moz-box-shadow: 7px 7px 14px 0px rgba(0, 0, 0, .5);
     box-shadow: 7px 7px 14px 0px rgba(0, 0, 0, .5);
+    
 }
 
 @media (min-width: 576px) {
@@ -57,6 +57,7 @@ label {
 @media (max-width: 576px) {
     h2#Name {
         font-size: 14px;
+        
     }
 }
 
@@ -258,9 +259,6 @@ p-table.blv th {
 }
 
 @media print {
-    * {
-        font-size: 21px;
-    }
     .no-print, .no-print * {
         display: none !important;
     }
@@ -270,9 +268,24 @@ p-table.blv th {
     .print.pt-sign {
         padding-top: 100px;
     }
+    body * {
+        visibility: hidden;
+    }
     .modal-backdrop {
-        background-color: white !important;
-        opacity: 1 !important;
+        visibility: hidden;
+    }
+    .modal-content, .modal-content * {
+        visibility: visible;
+        font-size: 16px !important;
+    }
+    /* .modal-content table,table *{
+        word-wrap: break-word;
+        word-break:break-all;
+    } */
+    .modal-content {
+        position: absolute;
+        left: 0;
+        top: 0;
     }
 }
 
@@ -304,12 +317,30 @@ span.required {
         flex-direction: row!important;
     }
 }
-@media (min-width:768px) and (max-width:1024px){
-    .minimize-font.p-datatable{
+
+@media (min-width:768px) and (max-width:1024px) {
+    .minimize-font.p-datatable {
         font-size: 12px;
     }
 }
-.btn-ss{
-    padding:0px 2px;
+
+.btn-ss {
+    padding: 0px 2px;
     line-height: 1 !important;
+}
+
+.p-datatable-scrollable-header-box {
+    padding-right: 15px !important;
+}
+.p-datatable-scrollable-footer-box {
+    padding-right: 15px !important;
+}
+.p-datatable-scrollable-body{
+    overflow-y: scroll !important;
+}
+.pi-check:before{
+    z-index: 1 !important;
+}
+.paragraph{
+    white-space: pre-line;
 }

@@ -28,7 +28,7 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
-                        <col>
+                        <col style="width: 15rem;">
                         <col>
                         <col>
                         <col>
@@ -44,8 +44,10 @@
                             Tên mặt hàng
                         </th>
                         <th>Lô bông</th>
-                        <th>Tồn</th>
-                        <th>Số kiện</th>
+                        <th>Tồn (kg)</th>
+                        <!-- <th>Tồn(kg)</th> -->
+                        <th>Khối lượng đảo</th>
+                        <!-- <th>Tổng trọng lượng</th> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -58,12 +60,16 @@
                             {{item.Ten}}
                         </td>
                         <td>{{item.TenLoHang}}</td>
-                        <td class="text-right">{{item.Ton}}</td>
+                        <td class="text-right">{{item.TonSoLuong|number:'0.0-3'}}</td>
+                        <!-- <td class="text-right">{{item.TonTongTrongLuong|number:'0.2-2'}}</td> -->
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [max]="item.Ton"
+                            <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [max]="item.Ton"
                                 [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>
+                        <!-- <td class="text-right">
+                            {{item.SoLuong*item.TrongLuong|number:'0.2-2'}}
+                        </td> -->
                     </tr>
                 </ng-template>
             </p-table>

@@ -16,11 +16,13 @@ export class ModaldmkhoComponent implements OnInit {
   public title: any = '';
   public type = '';
   listNhomKho: any = [];
+  listPhanXuong: any = [];
   khongclicknhieu: any = false;
   constructor(public activeModal: NgbActiveModal,private sanXuatService:SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getListNhomKho();
+    this.getListPhanXuong();
   }
   accept() {
     this.item.HoatDong  = true;
@@ -37,6 +39,11 @@ export class ModaldmkhoComponent implements OnInit {
     data.CurrentPage = 0;
     this.sanXuatService.GetListdmNhomKho(data).subscribe((res: any) => {
       this.listNhomKho = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  getListPhanXuong() {
+    this.sanXuatService.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   resAction(res: any) {

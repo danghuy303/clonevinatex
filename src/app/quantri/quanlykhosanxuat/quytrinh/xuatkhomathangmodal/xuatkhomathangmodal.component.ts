@@ -18,16 +18,27 @@ export class XuatkhomathangmodalComponent implements OnInit {
       width: 'unset'
     },
     {
+      header: 'Mã',
+      field: 'Ma',
+      width: 'unset'
+    },
+    {
       header: 'Tên lô',
       field: 'TenLoHang',
       width: 'unset'
     },
     {
-      header: 'Số lượng',
-      field: 'Ton',
+      header: 'Số kiện',
+      field: 'SoLuong',
+      width: 'unset'
+    },
+    {
+      header: 'Khối lượng /kiện (kg)',
+      field: 'TrongLuong',
       width: 'unset'
     },
   ];
+  loai='';
   checkedAll: boolean = false;
   paging: any = {};
   item: any = {};
@@ -37,19 +48,19 @@ export class XuatkhomathangmodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.cols)
-    console.log(this.listItem)
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
-    if(this.listItem != undefined && this.listItem!= null)
+    console.log(this.listItem)
+    if(this.listItem != undefined && this.listItem!= null && this.listItem.length > 0)
     {
-      this.listItem.forEach(element => {
-        var itemFind = this.listMatHang.find(function (obj) {
-          return (obj.IddmItem == element.IddmItem && obj.IdLoHang == element.IdLoHang);
-        });
-        itemFind.checked = true;
-      });
+      for(let i = 0; i < this.listItem.length; i++){
+        var itemFind = this.listMatHang.find(
+          ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang == this.listItem[i].IdLoHang)
+        );
+        if(itemFind !== undefined)
+          itemFind.checked = true;
+      }
     }
     this.item.listItem = this.listMatHang.slice(0,15);
     this.item.listItem_copy = this.listMatHang;

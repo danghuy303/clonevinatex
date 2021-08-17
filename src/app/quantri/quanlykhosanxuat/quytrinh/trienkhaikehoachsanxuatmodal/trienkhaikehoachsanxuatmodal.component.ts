@@ -52,10 +52,12 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   }
   getListPhanXuong() {
     this._services.GetOptions().GetPhanXuong().subscribe((res: Array<any>) => {
-      console.log(res)
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       if (validVariable(this.item.IddmPhanXuong)) {
-        this.GetListMatHangChuaLapKeHoach({ value: this.item.IddmPhanXuong });
+        this.getListGiaoKeHoach({ value: this.item.IddmPhanXuong });
+      }
+      if (validVariable(this.item.IdGiaoKeHoachSanXuat)) {
+        this.GetListMatHangChuaLapKeHoach({ value: this.item.IdGiaoKeHoachSanXuat });
       }
     })
   }
@@ -71,7 +73,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       this.listCongDoan = mapArrayForDropDown(this.item.listCongDoan, 'Ten', 'Ma');
       this.filter.CongDoan = 'ONG';
     }
-    this._services.GetOptions().GetListMatHangChuaLapKeHoach(event.value).subscribe((res: any) => {
+    this._services.GetOptions().GetListMatHangChuaLapKeHoach(event.value, this.item.IddmPhanXuong).subscribe((res: any) => {
       this.listMatHangGiaoKeHoach = res;
       if (reset) {
         this.item.listItem = [];
@@ -90,8 +92,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
         });
       }
     })
-    if(validVariable(this.item.listItemMay)&& this.item.listItemMay?.length!==0){
-      console.log('tinhlai')
+    if (validVariable(this.item.listItemMay) && this.item.listItemMay?.length !== 0) {
       this.item.listCongDoan.forEach(cd => {
         this.TinhLaiTinhTrangMay(cd.Ma)
       });
@@ -107,6 +108,20 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   GetNextSoQuyTrinh() {
     this._services.TrienKhaiKeHoachSanXuat().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
+    })
+  }
+  getListGiaoKeHoach(event, reset?) {
+    this._services.TrienKhaiKeHoachSanXuat().GetListGiaoKeHoachSanXuatChuaLapKeHoach(event.value).subscribe((res: any) => {
+      res.sort((a, b) => new Date(b.Modified).getTime() - new Date(a.Modified).getTime());
+      this.listGiaoKeHoach = mapArrayForDropDown(res, 'NoiDung', 'Id');
+      if (reset) {
+        this.item.listItem = [];
+        this.item.TuNgay = null;
+        this.item.DenNgay = null;
+        this.item.listItemMay = [];
+        this.item.listCongDoan = [];
+        this.filter.CongDoan = null;
+      }
     })
   }
   chonHangHoa() {
@@ -131,6 +146,10 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     }
     if (!validVariable(this.item.IddmPhanXuong)) {
       this.toastr.error('Vui lòng chọn phân xưởng!');
+      return false
+    }
+    if (!validVariable(this.item.IdGiaoKeHoachSanXuat)) {
+      this.toastr.error('Vui lòng chọn kế hoạch giao!');
       return false
     }
     if (!validVariable(this.item.NoiDung)) {
@@ -223,6 +242,20 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   ChuyenDuyet() {
     if (this.ValidData()) {
       this._services.TrienKhaiKeHoachSanXuat().ChuyenTiep(this.SetData()).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this.toastr.success(res.message)
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
+  KhongDuyet() {
+    if (this.ValidData()) {
+      this._services.TrienKhaiKeHoachSanXuat().KhongDuyet(this.SetData()).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -408,6 +441,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
           return ('' + a.Ten).localeCompare(b.Ten);
         })
         this.item.listItemMay = res.listItemMay;
+        this.item.listCongDoan = res.listCongDoan;
       })
     }
   }
@@ -434,9 +468,11 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
     item.ChiSoMoi = e.value;
     this._services.TrienKhaiKeHoachSanXuat().SetChiSo(item).subscribe((res: any) => {
       item.Ten = res.Ten;
+      item.ChiSo = res.ChiSo;
       item.SoMayTinhToan = res.SoMayTinhToan;
       item.SoMayCanDoi = res.SoMayCanDoi;
       item.KhoiLuongSanXuat = res.KhoiLuongSanXuat;
+      item.NangSuatDinhMuc = res.NangSuatDinhMuc;
       this.TinhLaiTinhTrangMay('THO');
       // console.log(this.item.listItemMay)
     })
@@ -444,9 +480,9 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   TinhLaiTinhTrangMay(CongDoan) {
     this.mapCongDoan_TinhTrangMay[CongDoan] = {
       ...this.mapCongDoan_TinhTrangMay[CongDoan],
-      SoMayHienCo:this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan)[0]?.SoMayHienCo,
+      SoMayHienCo: this.item.listCongDoan.filter(cd => cd.Ma === CongDoan)[0]?.SoMayHienCo,
       TongKhoiLuong: this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.KhoiLuongSanXuat, 0),
-      SoMayCanDoi: this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan)[0]?.SoMayHienCo - this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
+      SoMayCanDoi: this.item.listCongDoan.filter(cd => cd.Ma === CongDoan)[0]?.SoMayHienCo - this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
       SoMayTinhToan: this.item.listItemMay.filter(mathang => mathang.CongDoan === CongDoan).reduce((Tong, mh) => Tong + mh.SoMayTinhToan, 0),
     }
   }

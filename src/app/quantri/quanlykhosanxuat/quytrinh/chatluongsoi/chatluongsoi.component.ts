@@ -13,9 +13,9 @@ import { ChatluongsoimodalComponent } from '../chatluongsoimodal/chatluongsoimod
 })
 export class ChatluongsoiComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
-  items: any = [{id:5,SoQuyTrinh:'PKK_0000_0000'}];
-  filter:any={};
-  trangThai:any=1;
+  items: any = [{ id: 5, SoQuyTrinh: 'PKK_0000_0000' }];
+  filter: any = {};
+  trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
@@ -36,24 +36,24 @@ export class ChatluongsoiComponent implements OnInit {
   ];
   isCheckModal: any = false;
   eAction = 'KIEMTRACHATLUONGSOI'
-  checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { }
+  checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.KiemTraTabTrangThai();
-    this.activatedRoute.params.subscribe((res:any)=>{
-      if(res.id!=='0'&& this.isCheckModal === false){
+    this.activatedRoute.params.subscribe((res: any) => {
+      if (res.id !== '0') {
         this.update(res.id);
       }
     })
   }
-  changeParam(id){
-    if(this._modal.hasOpenModals()){
+  changeParam(id) {
+    if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlysanxuatkhohoiam/khohoiam/chatluongsoi/${id}`],{replaceUrl: true})
+    this.router.navigate([`quantri/quanlysanxuatkhohoiam/khohoiam/chatluongsoi/${id}`], { replaceUrl: true })
   }
-  add(){
+  add() {
     this.changeParam(0);
     let modalRef = this._modal.open(ChatluongsoimodalComponent, {
       size: 'fullscreen',
@@ -63,62 +63,66 @@ export class ChatluongsoiComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+      this.changeParam(0);
+
     })
-      .catch(er => { console.log(er) })
-      .finally(()=>{
-        this.isCheckModal = false;
+      .catch(er => {
+        this.GetListQuyTrinh();
+        this.changeParam(0);
       })
   }
-  update(Id){
-    this.isCheckModal = true;
-    this.changeParam(Id);
+  update(Id) {
     this._service.PhieuChatLuongSoi().Get(Id).subscribe((res1: any) => {
-    let modalRef = this._modal.open(ChatluongsoimodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
+      let modalRef = this._modal.open(ChatluongsoimodalComponent, {
+        size: 'fullscreen',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
+      modalRef.result.then((res: any) => {
+        this.GetListQuyTrinh();
+        this.changeParam(0);
+      })
+        .catch(er => {
+          console.log(er)
+          this.changeParam(0);
+        })
     })
-    modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-    })
-      .catch(er => { console.log(er) })
-  })
-}
-  changeTab(e){
-    this.trangThai = e.index+1;
+  }
+  changeTab(e) {
+    this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
   }
-  changePage(event){
+  changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetListQuyTrinh();
   }
-  GetListQuyTrinh(reset?){
+  GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
-    let data={
-      PageSize: 25,
+    let data = {
+      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
-      sFilter:this.filter.KeyWord,
-      TuNgay:DateToUnix(this.filter.TuNgay),
-      DenNgay:DateToUnix(this.filter.DenNgay),
+      sFilter: this.filter.KeyWord,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
     }
-    this._service.PhieuChatLuongSoi().GetList(data).subscribe((res:any)=>{
+    this._service.PhieuChatLuongSoi().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })
   }
-  resetFilter(){
-    this.filter={};
+  resetFilter() {
+    this.filter = {};
     this.GetListQuyTrinh(true);
   }
-  KiemTraTabTrangThai(){
-    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+  KiemTraTabTrangThai() {
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })

@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix } from 'src/app/services/globalfunction';
+import { TrienkhaikehoachsanxuathoanthanhmodalComponent } from '../trienkhaikehoachsanxuathoanthanhmodal/trienkhaikehoachsanxuathoanthanhmodal.component';
 import { TrienkhaikehoachsanxuatmodalComponent } from '../trienkhaikehoachsanxuatmodal/trienkhaikehoachsanxuatmodal.component';
 
 @Component({
@@ -117,7 +118,7 @@ export class TrienkhaikehoachsanxuatComponent implements OnInit {
       this.paginator.changePage(0);
     }
     let data={
-      PageSize: 25,
+      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter:this.filter.KeyWord,
@@ -140,5 +141,25 @@ export class TrienkhaikehoachsanxuatComponent implements OnInit {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
+  }
+  hoanthanh(Id) {
+    this._service.TrienKhaiKeHoachSanXuat().Get(Id).subscribe((item: any) => {
+        if (item.listItemMay != undefined && item.listItemMay != null) {
+          let modalRef = this._modal.open(TrienkhaikehoachsanxuathoanthanhmodalComponent, {
+            size: 'fullscreen',
+            backdrop: 'static'
+          })
+          modalRef.componentInstance.opt = 'edit';
+          modalRef.componentInstance.item = item;
+          
+          modalRef.result.then((res: any) => {
+            console.log(res);
+            this._toastr.success('Cập nhật thành công');
+            this.GetListQuyTrinh();
+            this.changeParam(0)
+          })
+            .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
+        }
+      }) 
   }
 }

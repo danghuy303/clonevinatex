@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, NgZone, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { AfterViewInit, Component, NgZone, OnInit, PLATFORM_ID, Inject,OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
@@ -6,15 +6,17 @@ import * as am4core from '@amcharts/amcharts4/core';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import { formatNumber, isPlatformBrowser } from '@angular/common';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-dashboardthongluong',
   templateUrl: './dashboardthongluong.component.html',
   styleUrls: ['./dashboardthongluong.component.css']
 })
-export class DashboardthongluongComponent implements OnInit, AfterViewInit {
+export class DashboardthongluongComponent implements OnInit, AfterViewInit,OnDestroy {
   filter: any = {
-    IddmItem: ''
+    IddmItem: '',
+    opt: 'TyLe'
   };
   infos: any = {
     NgayMax: {
@@ -29,8 +31,23 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
   listPhanXuong: any = [];
   listNhaMay: any = [];
   listMatHang: any = [];
+  listOpt: any = [
+    { value: 'TyLe', label: 'Hiệu suất sử dụng' },
+    { value: 'KhoiLuong', label: 'Sản lượng' },
+  ];
+  mapValue_Prop: any = {
+    'TyLe': 'TyLe',
+    'KhoiLuong': 'KhoiLuongCongDoan'
+  }
   chart: am4charts.SlicedChart;
-  constructor(private _services: SanXuatService, private _toastr: ToastrService, @Inject(PLATFORM_ID) private platformId, private zone: NgZone) { }
+  suber:any;
+  constructor(private _services: SanXuatService, private _toastr: ToastrService, @Inject(PLATFORM_ID) private platformId, private zone: NgZone, private store: StoreService) {
+    this.filter.IdDuAn = this.store.getCurrent();
+    this.suber = this.store.getNhaMay().subscribe(res=>{
+      this.filter.IdDuAn = res;
+      this.ngOnInit();
+    })
+  }
 
   ngOnInit(): void {
     let date = new Date();
@@ -110,11 +127,12 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
       this.listMatHang.unshift({ value: '', label: 'Tất cả' })
       // console.log(res);
     });
-    this._services.GetOptions().GetNhaMay().subscribe(async (res: any) => {
-      this.listNhaMay = mapArrayForDropDown(res, 'TenDuAn', 'Id');
-      this.filter.IdDuAn = await res[0].Id;
-      this.getPhanXuongTheoNhaMay(res[0].Id)
-    });
+    this.getPhanXuongTheoNhaMay();
+    // this._services.GetOptions().GetNhaMay().subscribe(async (res: any) => {
+    //   this.listNhaMay = mapArrayForDropDown(res, 'TenDuAn', 'Id');
+    //   this.filter.IdDuAn = await res[0].Id;
+    //   this.getPhanXuongTheoNhaMay(res[0].Id)
+    // });
   }
   getPhanXuongTheoNhaMay(IdNhaMay?) {
     this._services.GetOptions().GetPhanXuong(IdNhaMay ? IdNhaMay : this.filter.IdDuAn).subscribe(async (res: any) => {
@@ -134,24 +152,34 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
     } else {
       this.filter.DenNgayUnix = null;
     }
-    if (validVariable(this.filter.TuNgayUnix) && validVariable(this.filter.DenNgayUnix) && this.filter.TuNgayUnix < this.filter.DenNgayUnix) {
+    if (validVariable(this.filter.TuNgayUnix) && validVariable(this.filter.DenNgayUnix) && this.filter.TuNgayUnix <= this.filter.DenNgayUnix) {
       this._services.BaoCao().BaoCaoThongLuongSanXuat(this.filter).subscribe((res: any) => {
         let chart = am4core.create("ThongLuongChart", am4charts.SlicedChart);
         chart.data = res.map(ele => {
           return {
             name: ele.TenCongDoan,
-            // value: ele.KhoiLuongCongDoan ,
-            value: ele.KhoiLuongCongDoan,
-            formated:formatNumber(ele.KhoiLuongCongDoan, 'vi-VN', '0.0-2'),
+            // value: ele.TyLe ,
+            value: ele[this.mapValue_Prop[this.filter.opt]],
+            formated: formatNumber(ele.KhoiLuongCongDoan, 'vi-VN', '0.0-2'),
             TyLe: formatNumber(ele.TyLe, 'vi-VN', '0.0-2')
           }
         })
         let Series = chart.series.push(new am4charts.FunnelSeries());
+        Series.orientation = "horizontal";
         Series.dataFields.value = "value";
         Series.dataFields.category = "name";
-        Series.labels.template.text = "{category}: [bold]{formated} kg[/] [bold red]{TyLe}%";
-        Series.slices.template.tooltipText = "{category}: [bold]{formated} kg[/]";
-        Series.alignLabels = true;
+        // Series.labels.template.disabled = true;
+        Series.labels.template.text = "{category}: [bold]{formated} kg[/] [bold white]{TyLe}%";
+        // Series.labels.template.text = "{category}";
+        // Series.labels.template.verticalCenter="middle";
+        // Series.labels.template.horizontalCenter="middle";
+        Series.labels.template.fontSize = 10;
+        Series.labels.template.rotation = 45;
+        Series.slices.template.tooltipText = "{category}: [bold]{formated} kg[/] [bold white]{TyLe}%";
+        // Series.alignLabels = true;
+        // chart.legend = new am4charts.Legend();
+        // chart.legend.position = "top";
+        // chart.legend.valueLabels.template.text="[bold]{formated} kg[/] [bold red]{TyLe}%";
         this.chart = chart;
       })
       this._services.BaoCao().BaoCaoThongLuongSanXuatMinMax(this.filter).subscribe((res: any) => {
@@ -167,5 +195,7 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit {
       this._toastr.warning('Vui lòng chọn đến ngày lớn hơn từ ngày để ra được dữ liệu chuẩn!');
     }
   }
-
+  ngOnDestroy(){
+    this.suber.unsubscribe();
+  }
 }

@@ -136,7 +136,12 @@ export function validVariable(value: any) {
     }
 }
 export function DateToUnix(date: any): any {
-    return (new Date(date)).getTime() / 1000;
+  if(date == null){
+      return 0
+  }else {
+    return  (new Date(date)).getTime() / 1000 
+  }
+    
 }
 export function DateToDatePicker(date: any): any {
     return validVariable(date) ? new Date(date) : undefined;
@@ -144,9 +149,7 @@ export function DateToDatePicker(date: any): any {
 export function UnixToDate(unix: number): Date | null {
     if (unix !== undefined && unix !== null && unix !== 0) {
         return new Date(unix * 1000);
-    } else {
-        return null;
-    }
+    } 
 
 }
 export function mapArrayForDropDown(array: Array<any>, labelProp: string, valueProp: string): Array<any> {
@@ -189,6 +192,11 @@ export function CVMic(array:Array<any>,sokien:number){
     // array là mảng chứa mic và số lượng của từng lô từng bàn từ bông hồi
     // sokien là tổng số kiện trên bàn bông trừ bông hồi
     return (Math.sqrt(array.map(x => Math.pow(x - (array.reduce((a, b) => a + b) / array.length), 2)).reduce((a, b) => a + b) / (array.length-1)))/sokien*100
+}
+export function CVMic2(array:Array<any>,sokien:number){
+    // array là mảng chứa mic và số lượng của từng lô từng bàn từ bông hồi
+    // sokien là tổng số kiện trên bàn bông trừ bông hồi
+    return (Math.sqrt(array.map(x => Math.pow(x - (array.reduce((a, b) => a + b,0) / array.length), 2)).reduce((a, b) => a + b,0) / (array.length-1)))*100/(array.reduce((a, b) => a + b,0) / array.length)
 }
 
 export function formatdate(ngay: any, istime: boolean) {

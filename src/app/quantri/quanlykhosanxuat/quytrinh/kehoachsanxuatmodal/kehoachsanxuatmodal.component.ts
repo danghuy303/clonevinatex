@@ -1,12 +1,13 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, deepCopy, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
+import { DateToDatePicker, DateToUnix, deepCopy, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { ChonhanghoamodalComponent } from '../../modals/chonhanghoamodal/chonhanghoamodal.component';
 import { ChonquycachdonggoimodalComponent } from '../../modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component';
@@ -36,6 +37,10 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   ]
   listPhanXuong: any = []; listMatHang: any = [];
   listQuyCachDongGoi: any = [];
+  listKeHoachForCopy: any = [];
+  GiaoKeHoachForCopy: any = {};
+  canCopy: boolean = false;
+  canExport:boolean = false;
   yearRange: string = `${((new Date()).getFullYear())}:${((new Date()).getFullYear()) + 5}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) {
 
@@ -46,6 +51,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
+      this.GetListGiaoKeHoachForCopy();
       if (this._store.getCurrent()) {
         this.item.IdDuAn = this._store.getCurrent();
       }
@@ -57,7 +63,67 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res: any) => {
       this.checkbutton = res;
+      if(validVariable(this.item.Id)){
+        this.canExport = true;
+      }else{
+        this.canExport = false;
+      }
     })
+  }
+  GetListGiaoKeHoachForCopy() {
+    let data = {
+      PageSize: 25,
+      CurrentPage: 0,
+      TabTrangThai: 3,
+      sFilter: null,
+      TuNgay: null,
+      DenNgay: null,
+      Ma: "",
+      Ten: "",
+    }
+    this.services.GiaoKeHoachSanXuat().GetList(data).subscribe((res: any) => {
+      res.forEach(kehoach => {
+        kehoach.HienThi = `${kehoach.SoQuyTrinh} - ${kehoach.NoiDung} - ${kehoach.TendmPhanXuong}`
+      });
+      this.listKeHoachForCopy = mapArrayForDropDown(res, 'HienThi', "Id");
+    })
+  }
+  GetGiaoKeHoachForCopy({ value: Id }) {
+    this.services.GiaoKeHoachSanXuat().Get(Id).subscribe((res: any) => {
+      if (validVariable(res.Id)) {
+        this.toastr.success('Tải thành công dữ liệu! Bạn có thể sao chép!')
+        this.GiaoKeHoachForCopy = res;
+        this.canCopy = true;
+      }
+      else {
+        this.toastr.error('Tải dữ liệu từ kế hoạch không thành công! Vui lòng thử kế hoạch khác!')
+      }
+    })
+  }
+  CopyKeHoach() {
+    this.GiaoKeHoachForCopy.Created = null;
+    this.GiaoKeHoachForCopy.Modified = null;
+    this.GiaoKeHoachForCopy.IdTrangThai = '';
+    let cloneData = deepCopy({
+      ...this.GiaoKeHoachForCopy,
+      SoQuyTrinh: this.item.SoQuyTrinh,
+      Id: ''
+    });
+    cloneData.TuNgay = DateToDatePicker(this.GiaoKeHoachForCopy.TuNgay);
+    cloneData.DenNgay = DateToDatePicker(this.GiaoKeHoachForCopy.DenNgay);
+    cloneData.listItem.forEach(ele => {
+      ele.Id = '';
+      ele.IdQuyTrinh = this.item.Id;
+    });
+    this.item = cloneData;
+    if (this.item.listItem != undefined && this.item.listItem != null) {
+      this.item.listItem.filter(objlistItem => {
+        objlistItem.listItem.filter(objlistItem2 => {
+          objlistItem2.objQuyCachDongGoi = this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
+        });
+      });
+    }
+    this.item.isDieuChinh = true;
   }
   GetFormOptions() {
     this.services.GetOptions().GetMatHang().subscribe((res: Array<any>) => {
@@ -189,18 +255,23 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
         return false;
       }
     }
+    let checkArray = this.item.listItem.every(ele=>validVariable(ele.KhoiLuongKeHoach)&&ele.KhoiLuongKeHoach!==0)
+    if (!checkArray) {
+      this.toastr.error('Có mặt hàng không nhập khối lượng!')
+      return false;
+    }
     return true;
   }
   chonHangHoa() {
     let modalRef = this._modal.open(ChonhanghoamodalComponent, {
-      size: 'lg'
+      size: 'xl'
     })
     modalRef.componentInstance.items = this.listMatHang;
     modalRef.componentInstance.selectedItems = [];
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
       if (res.length > 0) {
-        res.filter(obj => this.item.listItem.push(obj))
+        res.forEach(obj => this.item.listItem.push(obj))
       }
       // merge(res, this.item.listItem, 'IddmItem')
     }).catch(er => {
@@ -208,18 +279,21 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     })
   }
 
-  changeKeHoachSanXuat(e, item) {
+  changeKeHoachSanXuat(e, item, index) {
     if (e.value != undefined && item.value != null && item.value > 0
       && item.listItem != undefined && item.listItem.length > 0) {
       let tong = 0;
-      item.listItem.filter(obj => {
-        if(!obj.isXoa){
+      item.listItem.forEach(obj => {
+        if (!obj.isXoa) {
           tong += obj.KhoiLuong;
-        }   
+        }
       });
       if (item.value < tong) {
         this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
       }
+    }
+    if(validVariable(this.item.Id)){
+      item.isEdited = true;
     }
   }
 
@@ -233,6 +307,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
     modalRef.componentInstance.IdQuyTrinh = this.item.Id;
     modalRef.result.then(res => {
       // merge(res, this.item.listItem, 'IddmQuyCachDongGoi');
+      item.isEdited = true;
       item.listItem = res.listItem;
       // if (item.KhoiLuongKeHoach != undefined && item.KhoiLuongKeHoach != null && item.KhoiLuongKeHoach > 0
       //   && item.listItem != undefined && item.listItem.length > 0) {
@@ -325,17 +400,17 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  refreshFilterMatHang(){
+  refreshFilterMatHang() {
     this.filter.KeyWord = '';
   }
-  TinhSoCa(){
-    console.log(this.item.TuNgay,this.item.DenNgay);
-    if(validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)){
+  TinhSoCa() {
+    console.log(this.item.TuNgay, this.item.DenNgay);
+    if (validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)) {
       this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
       this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
       // console.log(this.item.TongSoCa);
-      if(!validVariable(this.item.TongSoCa)|| this.item.TongSoCa===0){
-        this.item.TongSoCa = ((this.item.DenNgayUnix - this.item.TuNgayUnix)/(24*3600)+1)*3;
+      if (!validVariable(this.item.TongSoCa) || this.item.TongSoCa === 0) {
+        this.item.TongSoCa = ((this.item.DenNgayUnix - this.item.TuNgayUnix) / (24 * 3600) + 1) * 3;
         // console.log(this.item.TongSoCa);
       }
     }
@@ -347,7 +422,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
         setTimeout(() => {
           mathang.DenNgay = null;
         }, 500)
-      }else{
+      } else {
         this.TinhSoCa();
       }
     } else {
@@ -356,5 +431,21 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       }, 500)
       this.toastr.warning('Vui lòng chọn Từ ngày trước!')
     }
+  }
+  change(index) {
+    if(validVariable(this.item.Id)){
+      this.item.listItem[index].isEdited = true;
+    }
+  }
+  tinhToan(item, opt) {
+    let modalRef = this._modal.open(CalcmodalComponent)
+    modalRef.result.then((res) => {
+      item[opt]=res;
+    })
+  }
+  exportExcel(){
+    this.services.GiaoKeHoachSanXuat().ExportGiaoKeHoachSanXuat(this.item.Id).subscribe((res:any)=>{
+      this.services.download(res.TenFile);
+    })
   }
 }

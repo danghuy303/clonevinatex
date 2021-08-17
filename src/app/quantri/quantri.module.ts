@@ -1,3 +1,4 @@
+// import { DmLoaiHopDongComponent } from './hopdong/danhmuc/dm-loai-hop-dong/dm-loai-hop-dong.component';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule, LocationStrategy, HashLocationStrategy, registerLocaleData } from '@angular/common';
 import { QuantriRoutingModule } from './quantri-routing.module';
@@ -44,7 +45,7 @@ import { QuanlytaisannhadatComponent } from './quanlytaisannhadat/quanlytaisannh
 import { ThongTinChungComponent } from './components/thong-tin-chung/thong-tin-chung.component';
 import { HienTrangSuDungComponent } from './components/hien-trang-su-dung/hien-trang-su-dung.component';
 import { ModalThuaDatComponent } from './modal/modal-thua-dat/modal-thua-dat.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TaiSanTrenDatComponent } from './components/tai-san-tren-dat/tai-san-tren-dat.component';
 import { SoDoComponent } from './components/so-do/so-do.component';
 import { TinhTrangPhapLyComponent } from './components/tinh-trang-phap-ly/tinh-trang-phap-ly.component';
@@ -78,14 +79,6 @@ import { ModaldmtaisanComponent } from './danhmuc/modal/modaldmtaisan/modaldmtai
 import { Dat09Service } from '../services/callApi';
 import { SignalRService } from '../services/signalR.service';
 import { SanXuatService } from '../services/callApiSanXuat';
-import { isXoaPipe } from './../services/isXoaPipe';
-import { VNDPipe } from './../services/vnd.pipe';
-import { FilterPipe } from './../services/filter.pipe';
-import { SumByKeyPipe } from './../services/sum.pipe';
-import { SortByKeyPipe } from './../services/sortPipe.pipe';
-import { CongDoanPipe } from './../services/congdoan.pipe';
-import {CaPipe} from './../services/ca.pipe';
-import { isDieuChinhPipe } from './../services/isDieuChinh.pipe';
 
 import { UploadmodalComponent } from './modal/uploadmodal/uploadmodal.component';
 import { ThongKeThongTinThuaDatComponent } from './components/thong-ke-thong-tin-thua-dat/thong-ke-thong-tin-thua-dat.component';
@@ -252,6 +245,65 @@ import { NhapkhobongphemodalComponent } from './quanlykhosanxuat/nhapkhobongphem
 import { DmkhachhangComponent } from './danhmuc/dmkhachhang/dmkhachhang.component';
 import { DmkhachhangmodalComponent } from './danhmuc/dmkhachhangmodal/dmkhachhangmodal.component';
 import { from } from 'rxjs';
+import { NgxMaskModule } from 'ngx-mask';
+import { HoaxaComponent } from './quanlykhosanxuat/phuongan/layoutmodals/hoaxa/hoaxa.component';
+import { LobongComponent } from './danhmuc/lobong/lobong.component';
+import { LobongmodalComponent } from './danhmuc/lobongmodal/lobongmodal.component';
+import { NhapkhoxoComponent } from './quanlykhosanxuat/quytrinh/nhapkhoxo/nhapkhoxo.component';
+import { ImportnhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhphammodal/modals/importnhapkhothanhpham/importnhapkhothanhpham.component';
+import { ChatluongsoimathangmodalComponent } from './quanlykhosanxuat/quytrinh/chatluongsoimathangmodal/chatluongsoimathangmodal.component';
+import { NhapkhohoiammathangmodalComponent } from './quanlykhosanxuat/quytrinh/nhapkhohoiammathangmodal/nhapkhohoiammathangmodal.component';
+import { XuatkhoxomathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhoxomathangmodal/xuatkhoxomathangmodal.component';
+import { KhobongkiemkekhoComponent } from './quanlykhosanxuat/quytrinh/khobongkiemkekho/khobongkiemkekho.component';
+import { KhobongkiemkekhomodalComponent } from './quanlykhosanxuat/quytrinh/khobongkiemkekhomodal/khobongkiemkekhomodal.component';
+import { KhoxokiemkeComponent } from './quanlykhosanxuat/quytrinh/khoxokiemke/khoxokiemke.component';
+import { KhoxokiemkemodalComponent } from './quanlykhosanxuat/quytrinh/khoxokiemkemodal/khoxokiemkemodal.component';
+import { KhobonghoikiemkekhoComponent } from './quanlykhosanxuat/quytrinh/khobonghoikiemkekho/khobonghoikiemkekho.component';
+import { KhobonghoikiemkekhomodalComponent } from './quanlykhosanxuat/quytrinh/khobonghoikiemkekhomodal/khobonghoikiemkekhomodal.component';
+import { KhobongphekiemkekhoComponent } from './quanlykhosanxuat/quytrinh/khobongphekiemkekho/khobongphekiemkekho.component';
+import { KhobongphekiemkekhomodalComponent } from './quanlykhosanxuat/quytrinh/khobongphekiemkekhomodal/khobongphekiemkekhomodal.component';
+import { BongphemathangmodalComponent } from './quanlykhosanxuat/quytrinh/bongphemathangmodal/bongphemathangmodal.component';
+import { LoaderInterceptor } from '../services/loader.interceptor';
+import { LoaderService } from '../services/loader.service';
+import { LoaderComponent } from '../loader/loader.component';
+import { XuatthanhphammathangmodalComponent } from './quanlykhosanxuat/quytrinh/xuatthanhphammathangmodal/xuatthanhphammathangmodal.component';
+import { TonkhoComponent } from './quanlykhosanxuat/quytrinh/tonkho/tonkho.component';
+import { TonkhodanhsachchitietComponent } from './quanlykhosanxuat/quytrinh/tonkhodanhsachchitiet/tonkhodanhsachchitiet.component';
+import { NhaphoiammathangmodalComponent } from './quanlykhosanxuat/quytrinh/nhaphoiammathangmodal/nhaphoiammathangmodal.component';
+import { LobongcopymodalComponent } from './danhmuc/lobongcopymodal/lobongcopymodal.component';
+import { TonkhobongxoComponent } from './quanlykhosanxuat/quytrinh/tonkhobongxo/tonkhobongxo.component';
+import { TonkhobongxomodalComponent } from './quanlykhosanxuat/quytrinh/tonkhobongxomodal/tonkhobongxomodal.component';
+import { TonkhobonghoiComponent } from './quanlykhosanxuat/quytrinh/tonkhobonghoi/tonkhobonghoi.component';
+import { TonkhobonghoimodalComponent } from './quanlykhosanxuat/quytrinh/tonkhobonghoimodal/tonkhobonghoimodal.component';
+import { TonkhobongpheComponent } from './quanlykhosanxuat/quytrinh/tonkhobongphe/tonkhobongphe.component';
+import { TonkhobongphemodalComponent } from './quanlykhosanxuat/quytrinh/tonkhobongphemodal/tonkhobongphemodal.component';
+import { KhoxokiemkemathangmodalComponent } from './quanlykhosanxuat/quytrinh/khoxokiemkemathangmodal/khoxokiemkemathangmodal.component';
+import { LoxomodalComponent } from './danhmuc/loxomodal/loxomodal.component';
+import { UploadhdsdsanxuatComponent } from './quanlykhosanxuat/uploadhdsdsanxuat/uploadhdsdsanxuat.component';
+import { DoikienbongmodalComponent } from './quanlykhosanxuat/quytrinh/doikienbongmodal/doikienbongmodal.component';
+import { DmchisotrienkhaiComponent } from './danhmuc/danhmucsanxuat/dmchisotrienkhai/dmchisotrienkhai.component';
+import { DmchisotrienkhaimodalComponent } from './danhmuc/danhmucsanxuat/dmchisotrienkhaimodal/dmchisotrienkhaimodal.component';
+import { CalcmodalComponent } from './modal/calcmodal/calcmodal.component';
+import { ThemlotuonglaimodalComponent } from './quanlykhosanxuat/phuongan/layoutmodals/themlotuonglaimodal/themlotuonglaimodal.component';
+import { XuatexceltimbongmodalComponent } from './quanlykhosanxuat/phuongan/xuatexceltimbongmodal/xuatexceltimbongmodal.component';
+import { TimbongtheobanmodalComponent } from './quanlykhosanxuat/phuongan/timbongtheobanmodal/timbongtheobanmodal.component';
+import { HoiamkiemkekhoComponent } from './quanlykhosanxuat/quytrinh/hoiamkiemkekho/hoiamkiemkekho.component';
+import { HoiamkiemkekhomodalComponent } from './quanlykhosanxuat/quytrinh/hoiamkiemkekhomodal/hoiamkiemkekhomodal.component';
+import { TonkhohoiamComponent } from './quanlykhosanxuat/quytrinh/tonkhohoiam/tonkhohoiam.component';
+import { TonkhohoiammodalComponent } from './quanlykhosanxuat/quytrinh/tonkhohoiammodal/tonkhohoiammodal.component';
+import { XuatkhohoiamComponent } from './quanlykhosanxuat/quytrinh/xuatkhohoiam/xuatkhohoiam.component';
+import { XuatkhohoiammodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhohoiammodal/xuatkhohoiammodal.component';
+import { KehoachnhapnguyenlieuhoanthanhmodalComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieuhoanthanhmodal/kehoachnhapnguyenlieuhoanthanhmodal.component';
+import { TrienkhaikehoachsanxuathoanthanhmodalComponent } from './quanlykhosanxuat/quytrinh/trienkhaikehoachsanxuathoanthanhmodal/trienkhaikehoachsanxuathoanthanhmodal.component';
+import { VitrikienmodalComponent } from './quanlykhosanxuat/quytrinh/xuatkhomodal/vitrikienmodal/vitrikienmodal.component';
+import { SharedModule } from './../shared/shared.module';
+import { NhapkhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/nhapkhovattuphu/nhapkhovattuphu.component';
+import { NhapkhovattuphumodalComponent } from './quanlykhosanxuat/quytrinh/vattuphu/nhapkhovattuphumodal/nhapkhovattuphumodal.component';
+import { XuatkhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/xuatkhovattuphu/xuatkhovattuphu.component';
+import { XuatkhovattuphumodalComponent } from './quanlykhosanxuat/quytrinh/vattuphu/xuatkhovattuphumodal/xuatkhovattuphumodal.component';
+import { KiemkekhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/kiemkekhovattuphu/kiemkekhovattuphu.component';
+import { KiemkekhovattuphumodalComponent } from './quanlykhosanxuat/quytrinh/vattuphu/kiemkekhovattuphumodal/kiemkekhovattuphumodal.component';
+
 @NgModule({
   declarations: [
     QuantriComponent,
@@ -288,10 +340,6 @@ import { from } from 'rxjs';
     DmnguongocdatComponent,
     ModalthongbaoComponent,
     ModaldmtaisanComponent,
-    isXoaPipe,
-    isDieuChinhPipe,
-    VNDPipe,
-    CaPipe,
     UploadmodalComponent,
     ThongKeThongTinThuaDatComponent,
     TinhComponent,
@@ -334,6 +382,7 @@ import { from } from 'rxjs';
     KiemkekhomodalComponent,
     NhapkhoComponent,
     NhapkhomodalComponent,
+  
     PhabongComponent,
     ThongsochatluongComponent,
     ThongsochatluongmodalComponent,
@@ -366,10 +415,6 @@ import { from } from 'rxjs';
     MathangmodelComponent,
     PhanxuongComponent,
     PhanxuongmodalComponent, 
-    FilterPipe,
-    SumByKeyPipe,
-    CongDoanPipe,
-    SortByKeyPipe,
     LoaisoiComponent,
     ChonmaytheocongdoanComponent,
     ImportdanhmucmodelComponent,
@@ -458,11 +503,67 @@ import { from } from 'rxjs';
     NhapkhobongphemodalComponent,
     DmkhachhangComponent,
     DmkhachhangmodalComponent,
+    HoaxaComponent,
+    LobongComponent,
+    LobongmodalComponent,
+    NhapkhoxoComponent,
+    ImportnhapkhothanhphamComponent,
+    ChatluongsoimathangmodalComponent,
+    NhapkhohoiammathangmodalComponent,
+    XuatkhoxomathangmodalComponent,
+    KhobongkiemkekhoComponent,
+    KhobongkiemkekhomodalComponent,
+    KhoxokiemkeComponent,
+    KhoxokiemkemodalComponent,
+    KhobonghoikiemkekhoComponent,
+    KhobonghoikiemkekhomodalComponent,
+    KhobongphekiemkekhoComponent,
+    KhobongphekiemkekhomodalComponent,
+    BongphemathangmodalComponent,
+    LoaderComponent,
+    XuatthanhphammathangmodalComponent,
+    TonkhoComponent,
+    TonkhodanhsachchitietComponent,
+    NhaphoiammathangmodalComponent,
+    LobongcopymodalComponent,
+    TonkhobongxoComponent,
+    TonkhobongxomodalComponent,
+    TonkhobonghoiComponent,
+    TonkhobongpheComponent,
+    TonkhobonghoimodalComponent,
+    TonkhobongphemodalComponent,
+    KhoxokiemkemathangmodalComponent,
+    LoxomodalComponent,
+    UploadhdsdsanxuatComponent,
+    DoikienbongmodalComponent,
+    DmchisotrienkhaiComponent,
+    DmchisotrienkhaimodalComponent,
+    CalcmodalComponent,
+    ThemlotuonglaimodalComponent,
+    XuatexceltimbongmodalComponent,
+    TimbongtheobanmodalComponent,
+    HoiamkiemkekhoComponent,
+    HoiamkiemkekhomodalComponent,
+    TonkhohoiamComponent,
+    TonkhohoiammodalComponent,
+    XuatkhohoiamComponent,
+    XuatkhohoiammodalComponent,
+    KehoachnhapnguyenlieuhoanthanhmodalComponent,
+    TrienkhaikehoachsanxuathoanthanhmodalComponent,
+    VitrikienmodalComponent,
+    NhapkhovattuphuComponent,
+    XuatkhovattuphuComponent,
+    KiemkekhovattuphuComponent,
+    KiemkekhovattuphumodalComponent,
+    NhapkhovattuphumodalComponent,
+    XuatkhovattuphumodalComponent,
+  
   ],
   imports: [
     HttpClientModule,
     CommonModule,
     QuantriRoutingModule,
+    SharedModule,
     MenubarModule,
     InputTextModule,
     ButtonModule,
@@ -497,7 +598,8 @@ import { from } from 'rxjs';
     InputTextareaModule,
     ProgressBarModule,
     NgbProgressbarModule,
-    ColorPickerModule
+    ColorPickerModule,
+    NgxMaskModule.forRoot(),
   ],
   entryComponents: [
     ModalThuaDatComponent,
@@ -586,21 +688,50 @@ import { from } from 'rxjs';
     ChoncaapdungmodalComponent,
     NhapkhobongphemodalComponent,
     DmkhachhangmodalComponent,
+    HoaxaComponent,
+    LobongmodalComponent,
+    ImportnhapkhothanhphamComponent,
+    ChatluongsoimathangmodalComponent,
+    NhapkhohoiammathangmodalComponent,
+    XuatkhoxomathangmodalComponent,
+    KhoxokiemkemodalComponent,
+    KhobongkiemkekhomodalComponent,
+    KhobonghoikiemkekhomodalComponent,
+    KhobongphekiemkekhomodalComponent,
+    BongphemathangmodalComponent,
+    XuatthanhphammathangmodalComponent,
+    NhaphoiammathangmodalComponent,
+    LobongcopymodalComponent,
+    TonkhobongxomodalComponent,
+    TonkhobonghoimodalComponent,
+    TonkhobongphemodalComponent,
+    KhoxokiemkemathangmodalComponent,
+    LoxomodalComponent,
+    DoikienbongmodalComponent,
+    DmchisotrienkhaimodalComponent,
+    CalcmodalComponent,
+    ThemlotuonglaimodalComponent,
+    XuatexceltimbongmodalComponent,
+    TimbongtheobanmodalComponent,
+    HoiamkiemkekhomodalComponent,
+    TonkhohoiammodalComponent,
+    XuatkhohoiammodalComponent,
+    KehoachnhapnguyenlieuhoanthanhmodalComponent,
+    TrienkhaikehoachsanxuathoanthanhmodalComponent,
+    VitrikienmodalComponent,
+    KiemkekhovattuphumodalComponent,
+    NhapkhovattuphumodalComponent,
+    XuatkhovattuphumodalComponent,
+  
   ],
   providers: [
     SanXuatService,
     Dat09Service,
     SignalRService,
-    isXoaPipe,
-    isDieuChinhPipe,
-    VNDPipe,
-    FilterPipe,
-    CongDoanPipe,
-    CaPipe,
-    SortByKeyPipe,
-    SumByKeyPipe,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
+    LoaderService,
   ],
 })
 export class QuantriModule { }

@@ -6,6 +6,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
+import { XuatthanhphammathangmodalComponent } from '../xuatthanhphammathangmodal/xuatthanhphammathangmodal.component';
 
 @Component({
   selector: 'app-xuatkhothanhphammodal',
@@ -38,6 +39,9 @@ export class XuatkhothanhphammodalComponent implements OnInit {
   type: any = '';
   editField: any = false;
   nametype: any = '';
+  TongKhoiLuong = 0;
+  TongThanhTien = 0;
+  listdmKhachHang: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -59,15 +63,20 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKien = obj.ThoiGianDuKienUnix > 0 ? UnixToDate(obj.ThoiGianDuKienUnix) : 0;
+          obj.ThoiGianDuKien = UnixToDate(obj.ThoiGianDuKienUnix);
+
         });
       }
+      this.TinhTongKhoiLuong();
+      this.TinhTongThanhTien();
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.data.CurrentPage = 0;
     this.getListKho();
+    this.getListdmKhachHang();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -87,14 +96,29 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       this.listloaisoi = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-
+  checkValidate(){
+    if(this.item.listItem.length > 0 && this.item.listItem.length !== undefined){
+      for(let i = 0; i < this.item.listItem.length ; i ++){
+        if(this.item.listItem[i].IdLoHang !== null && this.item.listItem[i].IdLoHang !== undefined){
+          if(this.item.listItem[i].IddmQuyCachDongGoi === null || this.item.listItem[i].IddmQuyCachDongGoi === undefined){
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
   ChuyenTiep() {
-    if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn ngày");
+    if(!this.checkValidate())
+      this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
+    else if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn ngày chứng từ!");
+    }
+    else if (this.item.IddmKhachHang === null || this.item.IddmKhachHang === undefined) {
+      this.toastr.error("Bạn chưa chọn khách hàng!");
     }
     else {
-      this.item.NgayUnix = validVariable(this.item.Ngay) ? DateToUnix(this.item.Ngay) : 0;
-
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.PhieuXuatThanhPham().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -109,10 +133,10 @@ export class XuatkhothanhphammodalComponent implements OnInit {
 
   KhongDuyet() {
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn ngày");
+      this.toastr.error("Bạn chưa chọn ngày chứng từ!");
     }
     else {
-      this.item.NgayUnix = validVariable(this.item.Ngay) ? DateToUnix(this.item.Ngay) : 0;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
       this._services.PhieuXuatThanhPham().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
@@ -133,18 +157,25 @@ export class XuatkhothanhphammodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn ngày");
+    if(!this.checkValidate())
+      this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
+    else if (this.item.Ngay === null || this.item.Ngay === undefined) {
+      this.toastr.error("Bạn chưa chọn ngày chứng từ!");
+    }
+    else if (this.item.IddmKhachHang === null || this.item.IddmKhachHang === undefined) {
+      this.toastr.error("Bạn chưa chọn khách hàng!");
     }
     else {
-      this.item.NgayUnix = validVariable(this.item.Ngay) ? DateToUnix(this.item.Ngay) : 0;
-
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.PhieuXuatThanhPham().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.item = res.objectReturn;
+            if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
+              this.item.Ngay = UnixToDate(this.item.NgayUnix);
+            }
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
@@ -180,7 +211,11 @@ export class XuatkhothanhphammodalComponent implements OnInit {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-
+  getListdmKhachHang() {
+    this._services.dmKhachHang().GetListOpt().subscribe((res: any) => {
+      this.listdmKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
   filtertable_add() {
     if (this.filter.KeyWord != undefined && this.filter.KeyWord != null && this.filter.KeyWord != "") {
       this.item.listItem_copy = deepCopy(this.item.listItem);
@@ -219,33 +254,104 @@ export class XuatkhothanhphammodalComponent implements OnInit {
   }
   GetMatHangTheoKho() {
     var data = {
-      Ngay: new Date(this.item.Ngay).getTime() / 1000,
+      Ngay: DateToUnix(this.item.Ngay),
       IddmKho: this.item.IddmKho,
+      // IddmPhanXuong: this.item.IddmPhanXuong,
+    }
+    let listItem : any = []
+    if(this.item.listItem !== undefined && this.item.listItem !== null){
+      listItem = this.item.listItem.filter((e: any) => e.isXoa !== true);
     }
     this._services.GetlistdmMatHangXuatThanhPham(data).subscribe((res1: any) => {
-      let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
-        size: 'lg',
+      let modalRef = this._modal.open(XuatthanhphammathangmodalComponent, {
+        size: 'xl',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listMatHang = res1;
+      modalRef.componentInstance.listItem = listItem;
       modalRef.result.then((data) => {
+        if( this.item.listItem !== undefined &&  this.item.listItem.length > 0){
+          this.item.listItem.forEach(element => {
+            element.isXoa = true;
+          });
+        }
+        
         let listdatapush = [];
         data.data.forEach(element => {
-          let datapush = {
+          let datapush: any = {
             Ten: element.Ten,
             IddmItem: element.IddmItem,
             TenLoHang: element.TenLoHang,
-            SoLuong: element.Ton,
-            KgCoin: element.TrongLuong,
+            TonSoLuong: element.SoLuong,
+            KhoiLuong: element.TrongLuong,
             IdLoHang: element.IdLoHang,
+            IddmQuyCachDongGoi: element.IddmQuyCachDongGoi,
+            TendmQuyCachDongGoi: element.TendmQuyCachDongGoi,
           };
-          listdatapush.push(datapush);
+          var isCheck : any = false
+          if (this.item.listItem !== undefined && this.item.listItem.length > 0) {
+            for(let i =0 ; i < this.item.listItem.length; i++){
+              if(this.item.listItem[i].IddmItem == element.IddmItem && this.item.listItem[i].IdLoHang == element.IdLoHang && this.item.listItem[i].IddmQuyCachDongGoi == element.IddmQuyCachDongGoi)
+              {
+                this.item.listItem[i].isXoa = false;
+                this.item.listItem[i].Ten = element.Ten;
+                this.item.listItem[i].IddmItem = element.IddmItem;
+                this.item.listItem[i].TenLoHang = element.TenLoHang;
+                this.item.listItem[i].TonSoLuong = element.SoLuong;
+                this.item.listItem[i].KhoiLuong = element.TrongLuong;
+                this.item.listItem[i].IdLoHang = element.IdLoHang;
+                this.item.listItem[i].IddmQuyCachDongGoi = element.IddmQuyCachDongGoi;
+                this.item.listItem[i].TendmQuyCachDongGoi = element.TendmQuyCachDongGoi;
+                isCheck = true;
+                break;
+              }
+            }
+            if(isCheck === false)
+            listdatapush.push(datapush);
+          }
+          else
+            listdatapush.push(datapush);
         });
-        this.item.listItem = this.item.listItem.concat(listdatapush);
+        if(this.item.listItem !== undefined && this.item.listItem !== null){
+          this.item.listItem =this.item.listItem.concat(listdatapush);
+        }
+        else{
+          this.item.listItem = listdatapush
+        }
       }, (reason) => {
         // không
       });
     })
+  }
+  TinhTongKhoiLuong(){ 
+    this.TongKhoiLuong = 0;
+    this.TongThanhTien = 0;
+    this.item.listItem.forEach(element => {
+      this.TongKhoiLuong += (element.KhoiLuong ?? 0) * (element.SoLuong ?? 0) + (element.TongTrongLuongChenhLech ?? 0);
+      this.TongThanhTien += (element.DonGia ?? 0) * ((element.SoLuong ?? 0) * (element.KhoiLuong ?? 0) + (element.TongTrongLuongChenhLech ?? 0));
+    });
+  }
+  TinhTongThanhTien(){
+    this.TongThanhTien = 0;
+    this.item.listItem.forEach(element => {
+      let thanhTien = (element.DonGia ?? 0) * ((element.SoLuong ?? 0) * (element.KhoiLuong ?? 0) + (element.TongTrongLuongChenhLech ?? 0));
+      this.TongThanhTien = this.TongThanhTien + thanhTien;
+    });
+  }
+  ExportExcel(){
+    if(validVariable(this.item.Id)){
+      this._services.BaoCao().ExportPhieuXuatKhoThanhPham_Bieu6({IdPhieuXuatKho:this.item.Id}).subscribe((res:any)=>{
+        if (res) {
+          if (validVariable(res.State)) {
+            this.toastr.error(res.message);
+          } else {
+            this._services.download(res.TenFile);
+          }
+        }
+      })
+    }else{
+      this.toastr.error('Vui lòng ghi lại phiếu sau đó xuất!')
+    }
   }
 }

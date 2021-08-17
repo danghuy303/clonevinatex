@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, IterableDiffers, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { DinhmuctieuchichatluongsoimodalComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/dinhmuctieuchichatluongsoimodal/dinhmuctieuchichatluongsoimodal.component';
@@ -37,14 +37,21 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   }
 
   ngOnInit(): void {
-    let listHangHoaJoinNameTemp = this.item.listCanBoTri.map(mathang=>{
+    let listHangHoaJoinNameTemp = this.item.listCanBoTri.sort((a, b) => {
+      return parseInt(a.Ten.split(' ')[0]) - parseInt(b.Ten.split(' ')[0]);
+    }).map(mathang => {
       return {
         // Ten:`${mathang.Ten}${mathang.TenLoHang?(' - '+mathang.TenLoHang):''}`,
-        Ten:`${mathang.Ten}${mathang.IdLoHang?(' - Đảo'):''}`,
-        Id:mathang.Id
+        Ten: `${mathang.Ten}${mathang.IdLoHang ? (' - Đảo') : ''}`,
+        Id: mathang.Id
       }
     })
-    this.listHangHoa = mapArrayForDropDown(listHangHoaJoinNameTemp, 'Ten', 'Id')
+    this.listHangHoa = mapArrayForDropDown(listHangHoaJoinNameTemp, 'Ten', 'Id');
+    console.log(this.listHangHoa);
+    console.log(this.item.listDaBoTri.map(ele => ele.IdCanDoiChuyen_CanBoTri))
+    // .sort((a,b)=>{
+    //   return parseInt(a.label.split(' ')[0])-parseInt(b.label.split(' ')[0]);
+    // })
     this.sort();
     this.initSpeedOption();
     this.mapCa_Id = {};
@@ -64,24 +71,28 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     })
     this.arrCa.forEach(ca => {
       this.listCanBoTri[`${ca.prop}`] = deepCopy(this.item.listCanBoTri);
-      this.TongMatHang[`${ca.prop}`]={};
+      this.TongMatHang[`${ca.prop}`] = {};
     });
     // console.log(this.listCanBoTri);
     this.inputChange()
   }
   sort() {
     this.item.listDaBoTri = this.item.listDaBoTri.sort((a: any, b: any) => {
-      return a.TenMay.localeCompare(b.TenMay);
+      if(a.TenMay===b.TenMay){
+        return a.SoCocTu-b.SoCocTu;
+      }else{
+        return a.TenMay.localeCompare(b.TenMay);
+      }
     })
   }
   initSpeedOption() {
     this.item.listDaBoTri.forEach(may => {
       if (validVariable(may.IdCanDoiChuyen_CanBoTri)) {
-        let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === may.IdCanDoiChuyen_CanBoTri)?.[0].IddmItem;
+        let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === may.IdCanDoiChuyen_CanBoTri)?.[0]?.IddmItem;
         may.listTocDo = mapArrayForDropDown(may.listDinhMucMay.filter(dinhmuc => dinhmuc.IddmItem === IddmItem), 'TocDo', 'Id');
         if (!validVariable(may.IdPhanNhomMay_Item)) {
           may.IdPhanNhomMay_Item = may.listTocDo?.[0]?.value
-        }else{
+        } else {
           may.DinhMucNangSuat = (may.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === may.IdPhanNhomMay_Item)?.[0]?.DinhMucNangSuat || 0)
         }
       } else {
@@ -101,13 +112,13 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   TinhTongMatHang() {
     for (let ca in this.TongMatHang) {
       let tempTong = {
-        SoMayCon:0,
-        SoCocOng:0,
-        OngTrenCon:0
+        SoMayCon: 0,
+        SoCocOng: 0,
+        OngTrenCon: 0
       }
-     for(let prop in tempTong){
-       tempTong[`${prop}`] = this.listCanBoTri[`${ca}`].reduce((Tong,mathang)=>Tong+mathang[`${prop}`],0);
-     }
+      for (let prop in tempTong) {
+        tempTong[`${prop}`] = this.listCanBoTri[`${ca}`].reduce((Tong, mathang) => Tong + mathang[`${prop}`], 0);
+      }
       this.TongMatHang[`${ca}`] = tempTong;
     }
   }
@@ -141,19 +152,19 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       else {
         may.SoCocSuDung = 0;
       }
-      if(validVariable(may.DinhMucNangSuat)){
-        may.SanLuongCa = may.DinhMucNangSuat * may.SoCocSuDung/60;
+      if (validVariable(may.DinhMucNangSuat)) {
+        may.SanLuongCa = may.DinhMucNangSuat * may.SoCocSuDung / 60;
       }
     })
   }
-  chonTocDo(item,event){
+  chonTocDo(item, event) {
     item.DinhMucNangSuat = (item.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === event.value)?.[0]?.DinhMucNangSuat || 0);
     this.inputChange()
   }
   chonMatHang(item, event) {
     console.log(event);
     if (event.value) {
-      item.Ten = this.listHangHoa.find(mathang=>mathang.value===event.value)?.label;
+      item.Ten = this.listHangHoa.find(mathang => mathang.value === event.value)?.label;
       // if(validVariable(item.SoCocDen)&& validVariable(item.SoCocTu)){
       // }
       // else{
@@ -180,6 +191,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     this.inputChange();
   }
   GhiLai() {
+    this.sort();
     this.services.CanDoiChuyen().SetCanDoiChuyen({ ...this.item, ...this.addonData }).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
@@ -192,22 +204,22 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       }
     })
   }
-  ChonCaApDung(ca){
+  ChonCaApDung(ca) {
     console.log(ca);
     let modalRef = this._modal.open(ChoncaapdungmodalComponent, {
       backdrop: 'static'
     });
     modalRef.componentInstance.ca = ca;
     modalRef.componentInstance.listCa = deepCopy(this.arrCa);
-    modalRef.result.then((res:Array<string>) => {
-      if(res.length!==0){
-        this.ApDungCa(ca,res);
+    modalRef.result.then((res: Array<string>) => {
+      if (res.length !== 0) {
+        this.ApDungCa(ca, res);
       }
     }).catch(er => console.log(er))
   }
-  ApDungCa(ca:string,listCaApDung:Array<string>):void {
-    let tenCaDaChon = listCaApDung.map((caapdung:string)=>{
-      return this.arrCa.filter(ca=>ca.prop===caapdung)[0]?.Name ||''
+  ApDungCa(ca: string, listCaApDung: Array<string>): void {
+    let tenCaDaChon = listCaApDung.map((caapdung: string) => {
+      return this.arrCa.filter(ca => ca.prop === caapdung)[0]?.Name || ''
     }).join(', ');
     console.log(tenCaDaChon);
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -219,16 +231,16 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       let newDaBoTri = deepCopy([...mayTheoCa])
       for (let caInMap in this.mapCa_Id) {
         if (caInMap !== ca) {
-          let index = listCaApDung.findIndex(ele=>ele===caInMap);
-          if(index !== -1){
+          let index = listCaApDung.findIndex(ele => ele === caInMap);
+          if (index !== -1) {
             let mayCaDaChon = mayTheoCa.map(may => {
-                return {
-                  ...may,
-                  IddmCaSanXuat: this.mapCa_Id[caInMap]
-                }
-              })
-              newDaBoTri = [...newDaBoTri, ...mayCaDaChon]
-          }else{
+              return {
+                ...may,
+                IddmCaSanXuat: this.mapCa_Id[caInMap]
+              }
+            })
+            newDaBoTri = [...newDaBoTri, ...mayCaDaChon]
+          } else {
             let mayCaKhongChon = deepCopy(this.item.listDaBoTri.filter(may => may.IddmCaSanXuat === this.mapCa_Id[caInMap]));
             newDaBoTri = [...newDaBoTri, ...mayCaKhongChon]
           }
@@ -239,7 +251,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
     }).catch(er => console.log(er))
   }
   ApDungDenNgay() {
-    if (validVariable(this.filter.DenNgay) && validVariable(this.filter.TuNgay) && this.filter.TuNgay < this.filter.DenNgay) {
+    if (validVariable(this.filter.DenNgay) && validVariable(this.filter.TuNgay) && this.filter.TuNgay <= this.filter.DenNgay) {
       this.services.CanDoiChuyen().SetCanDoiChuyen({ ...this.item, ...this.addonData }).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -249,7 +261,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
               TuNgayUnix: DateToUnix(this.filter.TuNgay),
               DenNgayUnix: DateToUnix(this.filter.DenNgay),
             }
-            this.services.CanDoiChuyen().SetCanDoiChuyen_ApDungNgay(data).subscribe((res:any) => {
+            this.services.CanDoiChuyen().SetCanDoiChuyen_ApDungNgay(data).subscribe((res: any) => {
               console.log(res);
               if (res?.State === 1) {
                 this.toastr.success('Cập nhật thành công!')
@@ -269,35 +281,52 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       this.toastr.error('Vui lòng nhập kiểm tra lại khoảng thời gian áp dụng!');
     }
   }
-  ThemMatHangDao(){
-    this.services.CanDoiChuyen().GetlistdmMatHangDao(this.addonData.IddmPhanXuong).subscribe(res=>{
+  ThemMatHangDao() {
+    this.services.CanDoiChuyen().GetlistdmMatHangDao(this.addonData.IddmPhanXuong).subscribe((res:Array<any>) => {
       console.log(res);
       let modalRef = this._modal.open(MathangdaomodalComponent, {
         backdrop: 'static',
-        size:'lg'
+        size: 'lg'
       });
-      modalRef.componentInstance.items = deepCopy(res);
-      modalRef.result.then((res:Array<any>) => {
-        let data = res.map(ele=>{
+      modalRef.componentInstance.items = deepCopy(res.map(ele=>{return{...ele,SoLuong:ele.TonSoLuong}}));
+      modalRef.result.then((res: Array<any>) => {
+        let data = res.map(ele => {
           return {
-            IddmItem:ele.IddmItem,
-            IdLoHang:ele.IdLoHang,
+            IddmItem: ele.IddmItem,
+            IdLoHang: ele.IdLoHang,
             IdDuAn: this._store.getCurrent(),
-            CongDoan:this.addonData.CongDoan,
-            IddmPhanXuong:this.addonData.IddmPhanXuong,
+            CongDoan: this.addonData.CongDoan,
+            IddmPhanXuong: this.addonData.IddmPhanXuong,
             NgayUnix: this.addonData.NgayUnix,
-            SoLuong:ele.SoLuong,
-          } 
+            SoLuong: ele.SoLuong,
+          }
         });
-        this.services.CanDoiChuyen().ThemMatHangDao(data).subscribe((result:any)=>{
-          if(result?.State===1){
+        this.services.CanDoiChuyen().ThemMatHangDao(data).subscribe((result: any) => {
+          if (result?.State === 1) {
             this.toastr.success(result.message);
-            this.activeModal.close({respawn:true});
-          }else{
+            this.activeModal.close({ respawn: true });
+          } else {
             this.toastr.error(result.message);
           }
         })
       }).catch(er => console.log(er))
     });
+  }
+  boMatHangDao(item) {
+    let exist = this.item.listDaBoTri.some(ele => ele.IdCanDoiChuyen_CanBoTri === item.Id);
+    if (exist) {
+      let listMay = this.item.listDaBoTri.filter(ele=>ele.IdCanDoiChuyen_CanBoTri ===item.Id);
+      let message = `Mặt hàng này đã được bố trí vào ${listMay?.length>1?'các':''} máy ${listMay.map(ele=>ele.TenMay).join(', ')}!`
+      this.toastr.warning(message)
+    } else {
+      this.services.CanDoiChuyen().XoaMatHangDao(item.Id).subscribe((res: any) => {
+        if (res?.State === 1) {
+          this.toastr.success(res.message);
+          this.activeModal.close({ respawn: true });
+        } else {
+          this.toastr.error(res.message);
+        }
+      })
+    }
   }
 }

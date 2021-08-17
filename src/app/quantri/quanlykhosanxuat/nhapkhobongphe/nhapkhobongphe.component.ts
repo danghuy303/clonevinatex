@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { NhapkhobongphemodalComponent } from '../nhapkhobongphemodal/nhapkhobongphemodal.component';
 
 @Component({
@@ -23,7 +24,7 @@ export class NhapkhobongpheComponent implements OnInit {
   title: any = "";
   type: any = "";
   nametype: any = "";
-  isCheckModal : any =false;
+  listPhanXuong:any=[];
   constructor(public _modal: NgbModal, public _toastr: ToastrService, 
     private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
      }
@@ -33,10 +34,11 @@ export class NhapkhobongpheComponent implements OnInit {
     this.activatedRoute.params.subscribe((res:any)=>{
       this.title = res.kho;
       console.log(res.id)
-      if(res.id!=='0' && this.isCheckModal === false){
+      if(res.id!=='0'){
         this.update(res.id);
       }
     })
+    this.GetdmPhanXuong();
     this.GetListQuyTrinh();
     this.KiemTraTabTrangThai();
   }
@@ -62,13 +64,15 @@ export class NhapkhobongpheComponent implements OnInit {
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+    this.changeParam(0);
+
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er) 
+        this.GetListQuyTrinh();
+        this.changeParam(0);})
   }
  
   update(Id) {
-    this.isCheckModal = true;
-    this.changeParam(Id);
     this._service.QuyTrinhPhieuBongPhe().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhobongphemodalComponent, {
         size: 'fullscreen',
@@ -80,11 +84,12 @@ export class NhapkhobongpheComponent implements OnInit {
       modalRef.componentInstance.nametype = this.nametype;
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
+        this.changeParam(0);
       })
-        .catch(er => { console.log(er) })
-        .finally(()=>{
-          this.isCheckModal = false;
-        })
+        .catch(er => { console.log(er) 
+          this.GetListQuyTrinh();
+          this.changeParam(0);})
+       
     })
   }
   changeTab(e) {
@@ -105,8 +110,8 @@ export class NhapkhobongpheComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter: this.filter.KeyWord,
-      TuNgay: (new Date(this.filter.TuNgay).getTime() / 1000) || 0,
-      DenNgay: (new Date(this.filter.DenNgay).getTime() / 1000) || 0,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
     }
@@ -120,9 +125,47 @@ export class NhapkhobongpheComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    // this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
-    //   this.checkQuyen = res;
-    //   this.GetListQuyTrinh();
-    // })
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen = res;
+      this.GetListQuyTrinh();
+    })
+  }
+  GetdmPhanXuong() {
+    let data2 = {
+      PageSize: 20,
+      CurrentPage: 0,
+      sFilter: this.filter.keyWord ? this.filter.keyWord : '',
+      CongDoan: this.filter.CongDoan ? this.filter.CongDoan : '',
+      Ma: "",
+      Ten: ""
+    };
+    this._service.GetListdmPhanXuong(data2).subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+    })
+  }
+  validateFilter() {
+    if (!validVariable(this.filter.TuNgay) || !validVariable(this.filter.DenNgay) || DateToUnix(this.filter.DenNgay) < DateToUnix(this.filter.TuNgay)) {
+      this._toastr.error('Vui lòng nhập khoảng thời gian hợp lệ!')
+      return false
+    }
+    if(!validVariable(this.filter.IddmPhanXuong)){
+      this._toastr.error('Vui lòng chọn phân xưởng!')
+      return false
+    }
+    return true
+  }
+
+  exportExcel() {
+    if (this.validateFilter()) {
+      let data = {
+        IddmPhanXuong:this.filter.IddmPhanXuong,
+        TuNgayUnix:DateToUnix(this.filter.TuNgay),
+        DenNgayUnix:DateToUnix(this.filter.DenNgay),
+      }
+      this._service.QuyTrinhPhieuBongPhe().ExportBangKeNhapKhoBongPhe(data).subscribe((res: any) => {
+        this._service.download(res.TenFile);
+      })
+    }
   }
 }

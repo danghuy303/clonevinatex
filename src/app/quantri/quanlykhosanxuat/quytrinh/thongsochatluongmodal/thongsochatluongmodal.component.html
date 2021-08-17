@@ -1,11 +1,15 @@
 <div class="modal-header">
     <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} thông số chất lượng</h5>
-    <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-lg-row">
-        <!-- <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
-        <div class="p-col-12 p-lg-8 p-p-0">
-            <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
-                [(ngModel)]="item.NhaMay"></p-dropdown>
-        </div> -->
+    <div class="d-flex flex-column flex-lg-row">
+        <div>
+            <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
+        </div>
+        <div class="ml-lg-3 mr-lg-3">
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+        <div>
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+        </div>
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="onClose()">
         <span aria-hidden="true">&times;</span>

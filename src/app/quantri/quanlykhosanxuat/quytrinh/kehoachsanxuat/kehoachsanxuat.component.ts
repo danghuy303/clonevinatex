@@ -59,7 +59,7 @@ export class KehoachsanxuatComponent implements OnInit {
   add() {
     this.changeParam(0);
     let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
-      size: 'fullscreen',
+      size: 'fullscreen-100',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
@@ -86,7 +86,7 @@ export class KehoachsanxuatComponent implements OnInit {
             });          
           });
           let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
-            size: 'fullscreen',
+            size: 'fullscreen-100',
             backdrop: 'static'
           })
           modalRef.componentInstance.opt = 'edit';
@@ -123,7 +123,7 @@ export class KehoachsanxuatComponent implements OnInit {
       this.paginator.changePage(0);
     }
     let data = {
-      PageSize: 25,
+      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter: this.filter.KeyWord,
@@ -160,7 +160,7 @@ export class KehoachsanxuatComponent implements OnInit {
             });          
           });
           let modalRef = this._modal.open(GiaokehoachsanxuathoanthanhmodalComponent, {
-            size: 'fullscreen',
+            size: 'fullscreen-100',
             backdrop: 'static'
           })
           modalRef.componentInstance.opt = 'edit';

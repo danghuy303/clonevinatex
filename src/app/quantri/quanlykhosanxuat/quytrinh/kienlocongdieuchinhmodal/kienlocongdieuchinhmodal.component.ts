@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { deepCopy } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-kienlocongdieuchinhmodal',
@@ -11,6 +12,7 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
   item: any = {};
   itemRemove: any = {};
   item_new: any = {};
+  item_root: any = {};
   selected: any = {};
   IddmItem: any = '';
   cols: any = [
@@ -49,20 +51,21 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
   paging: any = {};
   isCheck = false;
   filter: any = {};
-  itemChuaXeps = [];
-  itemFulls = [];
+  // itemChuaXeps = [];
+  // itemFulls = [];
   listItem:any = [];
   constructor(
     private activeModal: NgbActiveModal,
   ) { }
 
   ngOnInit(): void {
+    this.item_root = deepCopy(this.item_new);
     console.log(this.listItem)
     this.paging1.CurrentPage = 1;
     this.paging1.TotalPage = 5;
     this.paging1.TotalItem = this.item_new.listFull.length;
     this.item.listFull = this.item_new.listFull.slice(0, 15);
-    this.itemFulls = this.item_new.listFull.slice(0, 15);
+    // this.itemFulls = this.item_new.listFull.slice(0, 15);
     if(this.listItem.length > 0){
       let dem = 0;
       for(let i = 0; i< this.item_new.listChuaXep.length; i++){
@@ -98,12 +101,11 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.item_new.listChuaXep.length;
     this.item.listChuaXep = this.item_new.listChuaXep.slice(0, 15);
-    this.itemChuaXeps = this.item_new.listChuaXep.slice(0, 15);
+    // this.itemChuaXeps = this.item_new.listChuaXep.slice(0, 15);
 
     this.item_new.listChuaXep.filter(obj => {
       obj.checked = false;
     });
-
     this.item_new.listFull.filter(obj => {
       obj.checked = false;
     });
@@ -151,7 +153,7 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
     if ((start + 15) > this.paging1.TotalItem)
       end = this.paging1.TotalItem;
     this.item.listFull = this.item_new.listFull.slice(start, end);
-    this.itemFulls = this.item_new.listFull.slice(start, end);
+    // this.itemFulls = this.item_new.listFull.slice(start, end);
     if (this.isCheck === false) {
       for (let i = 0; i < this.item.listFull.length; i++) {
         if (this.item.listFull[i].IddmItem == this.IddmItem) {
@@ -170,7 +172,7 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
     if ((start + 15) > this.paging.TotalItem)
       end = this.paging.TotalItem;
     this.item.listChuaXep = this.item_new.listChuaXep.slice(start, end);
-    this.itemChuaXeps = this.item_new.listChuaXep.slice(start, end);
+    // this.itemChuaXeps = this.item_new.listChuaXep.slice(start, end);
     if(this.isCheck === false){
       for (let i = 0; i < this.item.listChuaXep.length; i++) {
         if (this.item.listChuaXep[i].IddmItem == this.IddmItem) {
@@ -185,25 +187,29 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
   }
   GetQuyTrinhFilter()
   {
-    let filter = this.item_new.listChuaXep.filter(obj => {
+    let filter = this.item_root.listChuaXep.filter(obj => {
       let Ten = obj.Ten.toLowerCase();
       let indexOf = Ten.indexOf(this.filter.KeyWord);
       return indexOf != -1
     });
     this.item.listChuaXep = filter;
+    this.item_new.listChuaXep = filter;
 
-    let filterFull = this.item_new.itemFulls.filter(obj => {
+    let filterFull = this.item_root.listFull.filter(obj => {
       let Ten = obj.Ten.toLowerCase();
       let indexOf = Ten.indexOf(this.filter.KeyWord);
       return indexOf != -1
     });
-    this.item.itemChuaXeps = filterFull;
+    this.item_new.listFull = filterFull;
+
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
-    this.paging.TotalItem = this.item.listChuaXep.length;
-    this.item.listChuaXep = this.item.listChuaXep.slice(0, 15);
-    this.itemChuaXeps = this.item.listChuaXep.slice(0, 15);
-
+    this.paging.TotalItem = this.item_new.listChuaXep.length;
+    this.item.listChuaXep = this.item_new.listChuaXep.slice(0, 15);
+    this.paging1.CurrentPage = 1;
+    this.paging1.TotalPage = 5;
+    this.paging1.TotalItem = this.item_new.listFull.length;
+    this.item.listFull = this.item_new.listFull.slice(0, 15);
     // for(let i =0; i < this.itemChuaXeps.length; i++){
     //   if(this.itemChuaXeps[i].Ten !== null){
     //     if(this.itemChuaXeps[i].Ten.toLowerCase().includes(this.filter.KeyWord)){
@@ -241,9 +247,15 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
   }
   GetQuyTrinhRefresh()
   {
+    this.item_new = deepCopy(this.item_root);
+    this.paging1.CurrentPage = 1;
+    this.paging1.TotalPage = 5;
+    this.paging1.TotalItem = this.item_new.listFull.length;
+    this.item.listFull = this.item_new.listFull.slice(0, 15);
+    this.item.listChuaXep = this.item_new.listChuaXep.slice(0, 15);
     this.filter.KeyWord = '';
-    this.item.listChuaXep = this.itemChuaXeps;
-    this.item.listFull = this.itemFulls;
+    // this.item.listChuaXep = this.itemChuaXeps;
+    // this.item.listFull = this.itemFulls;
 
   }
 }

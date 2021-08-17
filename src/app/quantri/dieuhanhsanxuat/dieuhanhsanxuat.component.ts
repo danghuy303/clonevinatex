@@ -1,14 +1,19 @@
 import { formatNumber } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { PintableDirective } from 'voi-lib';
 
 @Component({
   selector: 'app-dieuhanhsanxuat',
   templateUrl: './dieuhanhsanxuat.component.html',
   styleUrls: ['./dieuhanhsanxuat.component.css']
 })
-export class DieuhanhsanxuatComponent implements OnInit {
+export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
+  @ViewChild(PintableDirective) voiPintable: PintableDirective;
   filterBong: any = {};
   filter: any = {
     IddmLoaiBong: "",
@@ -21,6 +26,8 @@ export class DieuhanhsanxuatComponent implements OnInit {
     IddmKho: '',
     LoaiThoiGian: 0
   };
+  colsNum: any = 3;
+  Tong: any = null;
   monthlyConfig: any = {};
   dataSet1: any = {};
   dataSet2: any = {};
@@ -35,6 +42,13 @@ export class DieuhanhsanxuatComponent implements OnInit {
   listCaLamViec: any = [];
   dataPie: any = {};
   GiaTrungBinhCoCauBong: any = [];
+  listXuatNhap: any = [];
+  showXuatNhap: boolean = false;
+  selectedXuatNhap: any = {};
+  mapXuatNhap = {
+    Xuat: 'Xuất',
+    Nhap: 'Nhập'
+  }
   option1: any = {
     scales: {
       xAxes: [{
@@ -63,8 +77,8 @@ export class DieuhanhsanxuatComponent implements OnInit {
         }
       }
     },
-    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
-    aspectRatio: (((window.innerWidth - 80) * 2 / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
+    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
+    aspectRatio: window.innerWidth <= 768 ? 1 : (((window.innerWidth - 80) * 2 / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   option2: any = {
     plugins: {
@@ -96,8 +110,8 @@ export class DieuhanhsanxuatComponent implements OnInit {
         }
       }
     },
-    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
-    aspectRatio: ((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
+    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
+    aspectRatio: window.innerWidth <= 768 ? null : ((window.innerWidth - 80) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
   optionPie: any = {
     plugins: {
@@ -105,6 +119,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
         render: 'percentage',
         fontColor: '#fff',
         fontStyle: 'bold',
+        precision: 2
       }
     },
     legend: {
@@ -118,18 +133,54 @@ export class DieuhanhsanxuatComponent implements OnInit {
         }
       }
     },
-    maintainAspectRatio: window.innerWidth <= 375 ? false : true,
-    aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
+    maintainAspectRatio: window.innerWidth <= 768 ? false : true,
+    aspectRatio: window.innerWidth <= 768 ? null : (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   listItem: any = [];
-  constructor(private _services: SanXuatService) { }
+  suber: any;
+  constructor(private _services: SanXuatService, private _toastr: ToastrService, private store: StoreService) {
+    this.suber = this.store.getNhaMay().subscribe(res => {
+      let date = new Date();
+      this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+      this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+      this.filterNhuCau._tuNgayCanDoiTon = new Date(date.getFullYear(), date.getMonth(), 1);
+      this.filterNhuCau._denNgayCanDoiTon = date;
+
+      this.dataPie = {
+        labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
+        datasets: [
+          {
+            data: [300, 50, 100, 200],
+            backgroundColor: [
+              "#009900",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF671F"
+            ],
+            hoverBackgroundColor: [
+              "#009900",
+              "#36A2EB",
+              "#FFCE56",
+              "#FF671F"
+            ]
+          }
+        ]
+      };
+      this.listItem = [
+
+      ]
+      this.getAllOptions();
+    })
+    this.colsNum = this.store.isMobile ? 0 : 3;
+  }
 
   ngOnInit(): void {
+    console.log(this.optionPie.maintainAspectRatio);
     let date = new Date();
     this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    this.filterNhuCau._tuNgayCanDoiTon = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    this.filterNhuCau._denNgayCanDoiTon = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    this.filterNhuCau._tuNgayCanDoiTon = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.filterNhuCau._denNgayCanDoiTon = date;
 
     this.dataPie = {
       labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
@@ -170,56 +221,62 @@ export class DieuhanhsanxuatComponent implements OnInit {
     } else {
       this.filter.DenNgay = null;
     }
-
-    if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay < this.filter.DenNgay) {
-      this._services.DashBoard().NhuCauSuDungBong(this.filter).subscribe((res: any) => {
-        this.dataSet1 = {
-          labels: res.listThoiGian,
-          datasets: [
-            {
-              type: 'line',
-              label: 'Kế hoạch',
-              borderColor: '#0000E5',
-              borderDash: [10, 5],
-              fill: false,
-              data: res.listKeHoach.map(ele => ele.KhoiLuong),
-              steppedLine: 'before'
-            },
-            {
-              type: 'line',
-              label: 'Nhu cầu',
-              borderColor: '#FF0000',
-              fill: false,
-              data: res.listNhuCau.map(ele => ele.KhoiLuong),
-            },
-          ]
-        }
-      })
-      this._services.DashBoard().CoCauTonBong(this.filter).subscribe((res: any) => {
-        this.GiaTrungBinhCoCauBong = res.map(ele => ele.DonGia);
-        console.log(this.GiaTrungBinhCoCauBong);
-        this.dataPie = {
-          labels: res.map(ele => ele.Ten),
-          datasets: [
-            {
-              data: res.map(ele => ele.TrongLuong),
-              GiaTrungBinh: res.map(ele => ele.DonGia),
-              backgroundColor: [
-                "#009900",
-                "#36A2EB",
-                "#FFCE56",
-                "#FF671F",
-                '#ab8169',
-                '#6a942f',
-                '#46018f',
-                '#d70ca1'
-              ]
-            }
-          ]
-        };
-      })
+    if (this.filter.DenNgay < this.filter.TuNgay) {
+      this._toastr.error('Vui lòng chọn ngày kết thúc lớn hơn ngày bắt đầu');
+      setTimeout(() => {
+        this.filter._denNgay = this.filter._tuNgay;
+        this.ChangeOptBieuDo()
+      }, 200)
+    } else {
+      if (validVariable(this.filter.TuNgay) && validVariable(this.filter.DenNgay) && this.filter.TuNgay <= this.filter.DenNgay) {
+        this._services.DashBoard().NhuCauSuDungBong(this.filter).subscribe((res: any) => {
+          this.dataSet1 = {
+            labels: res.listThoiGian,
+            datasets: [
+              {
+                type: 'line',
+                label: 'Kế hoạch',
+                borderColor: '#0000E5',
+                borderDash: [10, 5],
+                fill: false,
+                data: res.listKeHoach.map(ele => ele.KhoiLuong),
+                steppedLine: 'before'
+              },
+              {
+                type: 'line',
+                label: 'Nhu cầu',
+                borderColor: '#FF0000',
+                fill: false,
+                data: res.listNhuCau.map(ele => ele.KhoiLuong),
+              },
+            ]
+          }
+        })
+        this._services.DashBoard().CoCauTonBong(this.filter).subscribe((res: any) => {
+          this.GiaTrungBinhCoCauBong = res.map(ele => ele.DonGia);
+          console.log(this.GiaTrungBinhCoCauBong);
+          this.dataPie = {
+            labels: res.map(ele => ele.Ten),
+            datasets: [
+              {
+                data: res.map(ele => ele.TrongLuong),
+                GiaTrungBinh: res.map(ele => ele.DonGia),
+                backgroundColor: [
+                  "#009900",
+                  "#36A2EB",
+                  "#FFCE56",
+                  "#FF671F",
+                  '#ab8169',
+                  '#6a942f',
+                  '#46018f',
+                  '#d70ca1'
+                ]
+              }
+            ]
+          };
+        })
+      }
     }
-
   }
 
   ChangeOptCanDoiTon() {
@@ -235,13 +292,22 @@ export class DieuhanhsanxuatComponent implements OnInit {
     } else {
       DenNgay = null;
     }
-    if (validVariable(TuNgay) && validVariable(DenNgay) && TuNgay <= DenNgay) {
-      let data = deepCopy(this.filterNhuCau);
-      data.TuNgay = TuNgay;
-      data.DenNgay = DenNgay;
-      this._services.DashBoard().CanDoiTon(data).subscribe(res => {
-        this.listItem = res;
-      })
+    if (DenNgay < TuNgay) {
+      this._toastr.error('Vui lòng chọn ngày kết thúc lớn hơn ngày bắt đầu');
+      setTimeout(() => {
+        this.filterNhuCau._denNgayCanDoiTon = this.filterNhuCau._tuNgayCanDoiTon;
+        this.ChangeOptCanDoiTon()
+      }, 200)
+    } else {
+      if (validVariable(TuNgay) && validVariable(DenNgay) && TuNgay <= DenNgay) {
+        let data = deepCopy(this.filterNhuCau);
+        data.TuNgay = TuNgay;
+        data.DenNgay = DenNgay;
+        this._services.DashBoard().CanDoiTon(data).subscribe((res: Array<any>) => {
+          // this.Tong = res.splice(0, 1);
+          this.listItem = res;
+        })
+      }
     }
   }
   resetFilter() {
@@ -259,7 +325,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     setTimeout(() => {
       this._services.GetOptions().GetdmKhoTheoDuAn_NhuCauSuDungBong_DashBoard().subscribe((res: any) => {
         console.log(res);
-        res.unshift({ Id: '', Ten: 'Tất cả' });
+        res.unshift({ Id: '', Ten: 'Tất cả kho' });
         this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
         this.getMatHangNhuCau(this.filter.IddmKho);
       });
@@ -267,7 +333,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
     setTimeout(() => {
       this._services.GetOptions().GetdmKhoTheoDuAn_CoCauTonBong_DashBoard().subscribe((res: any) => {
         console.log(res);
-        res.unshift({ Id: '', Ten: 'Tất cả' });
+        res.unshift({ Id: '', Ten: 'Tất cả kho' });
         this.listKhoCanDoiTon = mapArrayForDropDown(res, 'Ten', 'Id');
         this.getMatHangCanDoiTon(this.filterNhuCau.IddmKho);
       });
@@ -275,7 +341,7 @@ export class DieuhanhsanxuatComponent implements OnInit {
   }
   getMatHangNhuCau(IddmKho) {
     this._services.GetOptions().GetListdmLoaiBong_NhuCauSuDungBong_DashBoard(IddmKho).subscribe((res: any) => {
-      res.unshift({ Id: '', Ten: 'Tất cả' });
+      res.unshift({ Id: '', Ten: 'Tất cả bông' });
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.filter.IddmLoaiBong = '';
       this.ChangeOptBieuDo()
@@ -283,10 +349,121 @@ export class DieuhanhsanxuatComponent implements OnInit {
   }
   getMatHangCanDoiTon(IddmKho) {
     this._services.GetOptions().GetListdmLoaiBong_CoCauTonBong_DashBoard(IddmKho).subscribe((res: any) => {
-      res.unshift({ Id: '', Ten: 'Tất cả' });
+      res.unshift({ Id: '', Ten: 'Tất cả nguyên liệu' });
       this.listLoaiBongCanDoiTon = mapArrayForDropDown(res, 'Ten', 'Id');
       this.filterNhuCau.IddmLoaiBong = '';
       this.ChangeOptCanDoiTon()
     })
+  }
+  XuatBaoCaoCanDoiTon() {
+    let TuNgay = 0;
+    let DenNgay = 0;
+    if (validVariable(this.filterNhuCau._tuNgayCanDoiTon)) {
+      TuNgay = DateToUnix(this.filterNhuCau._tuNgayCanDoiTon);
+    } else {
+      TuNgay = null;
+    }
+    if (validVariable(this.filterNhuCau._denNgayCanDoiTon)) {
+      DenNgay = DateToUnix(this.filterNhuCau._denNgayCanDoiTon);
+    } else {
+      DenNgay = null;
+    }
+    let data = deepCopy(this.filterNhuCau);
+    data.TuNgay = TuNgay;
+    data.DenNgay = DenNgay;
+    this._services.BaoCao().ExportBaoCaoCanDoiSuDungBong(data).subscribe((res: any) => {
+      if (res) {
+        if (validVariable(res.State) && !validVariable(res.TenFile)) {
+          this._toastr.error(res.message);
+        } else {
+          this._services.download(res.TenFile);
+        }
+      }
+    })
+  }
+  callDataXuatNhap(opt, item) {
+    console.log(opt, item)
+    if (validVariable(this.filterNhuCau._tuNgayCanDoiTon)) {
+      this.filterNhuCau.TuNgay = DateToUnix(this.filterNhuCau._tuNgayCanDoiTon);
+    } else {
+      this.filterNhuCau.TuNgay = null;
+    }
+    if (validVariable(this.filterNhuCau._denNgayCanDoiTon)) {
+      this.filterNhuCau.DenNgay = DateToUnix(this.filterNhuCau._denNgayCanDoiTon);
+    } else {
+      this.filterNhuCau.DenNgay = null;
+    }
+
+    if (validVariable(this.filterNhuCau.TuNgay) && validVariable(this.filterNhuCau.DenNgay) && this.filterNhuCau.TuNgay <= this.filterNhuCau.DenNgay) {
+      let data = {
+        IddmLoaiBong: item.IddmLoaiBong,
+        TuNgay: this.filterNhuCau.TuNgay,
+        DenNgay: this.filterNhuCau.DenNgay,
+        IdLoBong: item.IdLoBong,
+        IddmKho: this.filterNhuCau.IddmKho,
+      }
+      this._services.DashBoard()[`GetDashBoard_Phieu${opt}KhoBong`](data).subscribe(res => {
+        console.log(res);
+        this.listXuatNhap = res;
+        this.showXuatNhap = true;
+        this.selectedXuatNhap = {
+          Ten: `${this.mapXuatNhap[opt]} - ${item.TendmLoaiBong} - ${item.TenLoBong}`,
+          opt: opt,
+          field: `SoPhieu${opt}`,
+          TenOpt: this.mapXuatNhap[opt],
+        }
+      })
+    }
+  }
+  navigateXuatNhap(item) {
+    let prefix = '';
+    let route = {
+      '1': '/quantri/quanlysanxuatkhohoiam/khohoiam/nhapkho/',
+      '5': '/quantri/quanlykhosanxuatbongkhac/khobongphe/nhapkho/',
+      '6': '/quantri/quanlykhosanxuat/khobong/kiemkekhobong/',
+      '7': '/quantri/quanlykhosanxuat/khobong/thongsochatluong/',
+      '8': '/quantri/quanlykhosanxuat/khobong/nhapkho/',
+      '12': '/quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/',
+      '13': '/quantri/quanlykhosanxuat/khoxo/xuatkho/',
+      '14': '/quantri/quanlykhosanxuat/khobong/xuatkho/',
+      '15': '/quantri/quanlykhosanxuat/khoxo/kiemkekhoxo/',
+
+      '20': '/quantri/quanlykhosanxuat/khoxo/nhapkho/',
+      '21': '/quantri/quanlykhosanxuatbongkhac/khobonghoi/nhapkho/',
+      '22': '/quantri/quanlykhosanxuatbongkhac/khobonghoi/xuatkho/',
+      '23': '/quantri/quanlykhosanxuat/khobonghoi/kiemkekhobonghoi/',
+      '24': '/quantri/quanlykhosanxuat/khobongphe/kiemkekhobongphe/',
+    }
+    // if (this.selectedXuatNhap.opt === 'Xuat') {
+    //   window.open(`#${this.mapXuatNhapRoute[this.selectedXuatNhap.opt]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`] || 0}`, "_blank");
+    // }else{
+    window.open(`#${route[`${item.LoaiPhieu}`]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`] || 0}`, "_blank");
+    // }
+
+    // this._router.navigate([`${this.mapXuatNhapRoute[this.selectedXuatNhap.opt]}${item[`IdPhieu${this.selectedXuatNhap.opt}Kho`]||0}`])
+  }
+  navigateKiemKe(item) {
+    let route = {
+      '1': '/quantri/quanlysanxuatkhohoiam/khohoiam/nhapkho/',
+      '5': '/quantri/quanlykhosanxuatbongkhac/khobongphe/nhapkho/',
+      '6': '/quantri/quanlykhosanxuat/khobong/kiemkekhobong/',
+      '7': '/quantri/quanlykhosanxuat/khobong/thongsochatluong/',
+      '8': '/quantri/quanlykhosanxuat/khobong/nhapkho/',
+      '12': '/quantri/quanlykhosanxuatbongkhac/khobongphe/xuatkho/',
+      '13': '/quantri/quanlykhosanxuat/khoxo/xuatkho/',
+      '14': '/quantri/quanlykhosanxuat/khobong/xuatkho/',
+      '15': '/quantri/quanlykhosanxuat/khoxo/kiemkekhoxo/',
+
+      '20': '/quantri/quanlykhosanxuat/khoxo/nhapkho/',
+      '21': '/quantri/quanlykhosanxuatbongkhac/khobonghoi/nhapkho/',
+      '22': '/quantri/quanlykhosanxuatbongkhac/khobonghoi/xuatkho/',
+      '23': '/quantri/quanlykhosanxuat/khobonghoi/kiemkekhobonghoi/',
+      '24': '/quantri/quanlykhosanxuat/khobongphe/kiemkekhobongphe/',
+    }
+    window.open(`#${route[`${item.LoaiPhieu}`]}${item.IdPhieuKiemKe || 0}`, "_blank");
+    // this._router.navigate([`${this.mapXuatNhapRoute.KiemKe}${item.IdPhieuKiemKeKho||0}`])
+  }
+  ngOnDestroy() {
+    this.suber.unsubscribe();
   }
 }

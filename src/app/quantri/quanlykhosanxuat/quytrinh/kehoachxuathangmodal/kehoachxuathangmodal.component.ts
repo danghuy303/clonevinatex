@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
+import { ChonquycachdonggoimodalComponent } from '../../modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 
 @Component({
@@ -22,6 +25,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
     ChuyenTiep: false,
     Xoa: false,
   }
+  canDieuChinh:boolean = false;
   newTableItem: any = {
     "Id": "",
     "idKeHoachXuatNguyenLieu": this.item.Id,
@@ -39,12 +43,14 @@ export class KehoachxuathangmodalComponent implements OnInit {
   editField: any = false;
   nametype: any = '';
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
+  listQuyCachDongGoi: any = [];
   constructor(public activeModal: NgbActiveModal,
-    public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
+    public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService,private _auth:AuthenticationService) {
   }
 
   ngOnInit(): void {
     this.GetListdmLoaiSoi();
+    this.GetQuyCachDongGoi();
     if (this.opt !== 'edit') {
       this.item = {
         NhaMay: '',
@@ -58,24 +64,42 @@ export class KehoachxuathangmodalComponent implements OnInit {
     else {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
-          if (obj.ThoiGianDuKienUnix !== null && obj.ThoiGianDuKienUnix !== undefined) 
+          if (obj.ThoiGianDuKienUnix !== null && obj.ThoiGianDuKienUnix !== undefined)
             obj.ThoiGianDuKien = UnixToDate(obj.ThoiGianDuKienUnix);
         });
       }
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.data.CurrentPage = 0;
     this.getListKho();
   }
   KiemTraButtonModal() {
-    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
+    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res:any) => {
       this.checkbutton = res;
+        if(!res.Ghi && this.item.CreatedBy===this._auth.currentUserValue.Id){
+          this.canDieuChinh = true;
+        }else{
+          this.canDieuChinh =false;
+        }
     })
   }
-
+  GetQuyCachDongGoi() {
+    this._services.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
+      this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
+      if (validVariable(this.item.listItem) && this.item.listItem.length !== 0) {
+        this.item.listItem.forEach(item => {
+          if (validVariable(item.listItem) && item.listItem.length !== 0) {
+            item.listItem.forEach(quycach => {
+              quycach.label = res.find(ele => ele.Id === quycach.IddmQuyCachDongGoi).Ten;
+            });
+          }
+        });
+      }
+    })
+  }
   GetListdmLoaiSoi() {
     let dataSearch: any = {
       PageSize: 20,
@@ -90,9 +114,9 @@ export class KehoachxuathangmodalComponent implements OnInit {
   }
 
   ChuyenTiep() {
-    var isCheck : any = false;
+    var isCheck: any = false;
     this.item.listItem.filter(obj => {
-      if(obj.ThoiGianDuKien == undefined || obj.ThoiGianDuKien === null){
+      if (obj.ThoiGianDuKien == undefined || obj.ThoiGianDuKien === null) {
         isCheck = true;
       }
     })
@@ -102,7 +126,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn ngày");
     }
-    else if (!isCheck){
+    else if (!isCheck) {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKienUnix = DateToUnix(obj.ThoiGianDuKien);
@@ -153,9 +177,9 @@ export class KehoachxuathangmodalComponent implements OnInit {
   }
 
   GhiLai() {
-    var isCheck : any = false;
+    var isCheck: any = false;
     this.item.listItem.filter(obj => {
-      if(obj.ThoiGianDuKien == undefined || obj.ThoiGianDuKien === null){
+      if (obj.ThoiGianDuKien == undefined || obj.ThoiGianDuKien === null) {
         isCheck = true;
       }
     })
@@ -165,7 +189,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn ngày");
     }
-    else if (!isCheck){
+    else if (!isCheck) {
       if (this.item.listItem.length > 0) {
         this.item.listItem.filter(obj => {
           obj.ThoiGianDuKienUnix = validVariable(obj.ThoiGianDuKien) ? DateToUnix(obj.ThoiGianDuKien) : 0;
@@ -249,7 +273,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
- 
+
   Onclose() {
     this.activeModal.close();
   }
@@ -258,12 +282,21 @@ export class KehoachxuathangmodalComponent implements OnInit {
       CurrentPage: 0,
       Loai: 1,
     };
+    let cols: any = [
+      {
+        header: 'Tên',
+        field: 'Ten',
+        width: 'unset'
+      },
+    ];
     this._services.GetListdmItem(data).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhomathangmodalComponent, {
         size: 'lg',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.loai = 'dmMatHang';
+      modalRef.componentInstance.cols = cols;
       modalRef.componentInstance.listMatHang = res1;
       modalRef.result.then((data) => {
         let listdatapush = [];
@@ -279,5 +312,53 @@ export class KehoachxuathangmodalComponent implements OnInit {
         // không
       });
     })
+  }
+  chonQuyCachDongGoi(item) {
+    let modalRef = this._modal.open(ChonquycachdonggoimodalComponent, {
+      size: 'lg'
+    })
+    modalRef.componentInstance.items = this.listQuyCachDongGoi;
+    modalRef.componentInstance.layitem = item;
+    modalRef.componentInstance.selectedItems = deepCopy(item.listItem || []);
+    modalRef.componentInstance.IdQuyTrinh = this.item.Id;
+    modalRef.result.then(res => {
+      // merge(res, this.item.listItem, 'IddmQuyCachDongGoi');
+      res.listItem.forEach(item => {
+        item.label = item.objQuyCachDongGoi.label;
+      });
+      item.listItem = res.listItem;
+      // if (item.KhoiLuongKeHoach != undefined && item.KhoiLuongKeHoach != null && item.KhoiLuongKeHoach > 0
+      //   && item.listItem != undefined && item.listItem.length > 0) {
+      //   let tong = 0;
+      //   item.listItem.filter(obj => {
+      //     if(!obj.isXoa){
+      //       tong += obj.KhoiLuong;
+      //     }          
+      //   });
+      //   if (item.KhoiLuongKeHoach < tong) {
+      //     this.toastr.error("Không được lớn hơn Kế hoạch sản xuất");
+      //   }
+      // }
+    }).catch(er => {
+      console.log(er);
+    })
+  }
+
+  tinhToan(item, opt) {
+    let modalRef = this._modal.open(CalcmodalComponent)
+    modalRef.result.then((res) => {
+      item[opt]=res;
+      console.log(res)
+      console.log(item[opt]);
+    })
+  }
+  exportExcel(){
+    if(validVariable(this.item.Id)){
+      this._services.KeHoachXuatHang().ExportThongBaoXuatHang(this.item.Id).subscribe((res: any) => {
+        this._services.download(res.TenFile);
+      })
+    }else{
+      this.toastr.error('Vui lòng ghi lại sau đó xuất Excel!')
+    }
   }
 }

@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-lohangmodal',
@@ -19,16 +19,19 @@ export class LohangmodalComponent implements OnInit {
   item: any = {};
   khongclicknhieu: any = false;
   lang: any = vn;
+  listGiaoKeHoach_TrienKhaiFull: any = [];
   listGiaoKeHoach_TrienKhai: any = [];
   constructor(public activeModal: NgbActiveModal,
      private services: SanXuatService,
       public toastr: ToastrService, private _modal: NgbModal) { }
 
   ngOnInit(): void {
+    if(this.opt !== 'edit')
+      this.item.HoatDong = true
     this.getListGiaoKeHoach();
     this.getListTrienKhaiKeHoach();
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay = new Date(this.item.NgayUnix * 1000);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix );
     }
     console.log(this.item)
   }
@@ -37,7 +40,7 @@ export class LohangmodalComponent implements OnInit {
     this.item.HoatDong = true;
     this.khongclicknhieu = !this.khongclicknhieu;
     if (this.item.Ma !== undefined && this.item.Ma.trim() !== '' && this.item.Ten.trim() !== '' && this.item.Ten !== undefined && this.item.Ngay !== undefined) {
-      this.item.NgayUnix = (new Date(this.item.Ngay)).getTime() / 1000;
+      this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this.services.LoHang().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -65,8 +68,10 @@ export class LohangmodalComponent implements OnInit {
   getListTrienKhaiKeHoach(){
     let data={
       CurrentPage: 0,
+      isHoanThanh: false
     }
     this.services.TrienKhaiKeHoachSanXuat().GetList(data).subscribe((res:any)=>{
+      this.listGiaoKeHoach_TrienKhaiFull = res;
       this.listGiaoKeHoach_TrienKhai = mapArrayForDropDown(res, 'SoQuyTrinh', 'Id');
     })
   }
@@ -79,5 +84,7 @@ export class LohangmodalComponent implements OnInit {
     });
     this.item.IddmPhanXuong = itemFind.IddmPhanXuong;
     this.item.IdGiaoKeHoachSanXuat = itemFind.Id;
+    let dataFilter: any = this.listGiaoKeHoach_TrienKhaiFull.filter(ele=>ele.IdGiaoKeHoachSanXuat===itemFind.Id);
+    this.listGiaoKeHoach_TrienKhai = mapArrayForDropDown(dataFilter, 'SoQuyTrinh', 'Id');
   }
 }

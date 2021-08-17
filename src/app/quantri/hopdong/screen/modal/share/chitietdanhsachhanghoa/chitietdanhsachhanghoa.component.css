@@ -1,0 +1,11 @@
+@media screen and (max-width:1199px) {
+    .paddingbot {
+        margin-bottom: 1rem !important;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .paddingbot {
+        margin-bottom: 1rem !important;
+    }
+}

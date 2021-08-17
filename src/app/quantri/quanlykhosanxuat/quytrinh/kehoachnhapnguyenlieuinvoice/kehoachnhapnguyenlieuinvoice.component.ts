@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { KehoachnhapnguyenlieuinvoicemodalComponent } from '../kehoachnhapnguyenlieuinvoicemodal/kehoachnhapnguyenlieuinvoicemodal.component';
 
 @Component({
@@ -32,14 +32,14 @@ export class KehoachnhapnguyenlieuinvoiceComponent implements OnInit {
     //   width: 'unset'
     // },
     {
-      header: 'Trạng thái',
-      field: 'TenTrangThai',
-      width: '100px'
-    },
-    {
       header: 'Ghi chú',
       field: 'GhiChu',
       width: 'unset'
+    },
+    {
+      header: 'Trạng thái',
+      field: 'TenTrangThai',
+      width: '100px'
     },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
@@ -72,12 +72,13 @@ eAction = 'KEHOACHNHAPNGUYENLIEUINVOICE'
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
+      this.changeParam(0);
     })
-      .catch(er => { console.log(er) })
+      .catch(er => { console.log(er) 
+        this.GetListQuyTrinh();
+        this.changeParam(0);})
   }
   update(Id) {
-    this.isCheckModal = true
-    this.changeParam(Id);
     this._service.NhapKeHoachNguyenLieuInvoice().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(KehoachnhapnguyenlieuinvoicemodalComponent, {
         size: 'fullscreen',
@@ -87,10 +88,11 @@ eAction = 'KEHOACHNHAPNGUYENLIEUINVOICE'
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
+        this.changeParam(0);
       })
-        .catch(er => { console.log(er) })
-        .finally(()=>{
-          this.isCheckModal = false;
+        .catch(er => { console.log(er) 
+          this.GetListQuyTrinh();
+          this.changeParam(0);
         })
     })
   }
@@ -118,12 +120,12 @@ eAction = 'KEHOACHNHAPNGUYENLIEUINVOICE'
       this.paginator.changePage(0);
     }
     let data = {
-      PageSize: 25,
+      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter: this.filter.KeyWord,
-      TuNgay: (new Date(this.filter.TuNgay).getTime() / 1000) || 0,
-      DenNgay: (new Date(this.filter.DenNgay).getTime() / 1000) || 0,
+      TuNgay: DateToUnix(this.filter.TuNgay) ,
+      DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
     }
