@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+import { ChitiethanghoacuahopdongsoimodalComponent } from './chitiethanghoacuahopdongsoimodal/chitiethanghoacuahopdongsoimodal.component';
 import { SanXuatService } from './../../../../../../services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -5,7 +7,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { ChitiethanghoamodalComponent } from './chitiethanghoamodal/chitiethanghoamodal.component';
-import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, DoCheck, SimpleChanges } from '@angular/core';
 // import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
@@ -18,25 +20,27 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Input() hopDong: any = {};
   @Input() listTieuChuanChatLuong: any = {}
   @Input() listLoaiMatHang: any
+  @Input() isXo:boolean
+  @Input() isBong: boolean
   @Input() listVatTu: any = []
   @Input("opt") opt: string;
   @Input() loaiNguyenVatLieu: any;
-  @Output() onChange = new EventEmitter();
+  @Output('loaiNguyenVatLieu') onChange = new EventEmitter();
   @Output('listVatTu') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-
+unsup: Subscription
   // item: any = {}
   currentMyText: number = 5
 
-  data: any = {}
   listThanhToanThuTuc: any = []
+  listKeHoachNhapBong: any = []
   listLoaiMatHang_ref: any = []
   @Output() newItemEvent = new EventEmitter<string>();
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private _servicesSanXuat: SanXuatService) { }
 
   ngOnInit(): void {
-  console.log(this.item);
+  
   
     // this.item.listVatTu.donGia = 0
     // this.item.thueGTGT = 0
@@ -46,7 +50,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     //  parseInt(this.item.donGia) * parseInt(this.item.thueGTGT) 
     // }
     // console.log(this.item.donGia);
-    this.GetOptions()
+    
  
   
     // console.log(this.item.hopDong.loaiNguyenVatLieu);
@@ -54,12 +58,17 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
 
 
   ngDoCheck(): void {
-    this.onChange.emit(this.item);
+
+
+
+
     this.itemChange.emit(this.item);
+    this.onChange.emit(this.hopDong.loaiNguyenVatLieu);
     this.chiTieuChange.emit(this.listTieuChuanChatLuong);
 
   }
   changeDiaDiem(e) {
+console.log(this.hopDong.loaiNguyenVatLieu);
 
     console.log(this.hopDong.diaDiemGiaoHang);
 
@@ -67,15 +76,25 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
 
 
 
-
   }
   changInput() {
     console.log(this.item);
+  
+  }
+  ngOnChanges(change: SimpleChanges) {
+    console.log('ngOnChanges',this.hopDong.loaiNguyenVatLieu);
+    
+    // this._servicesSanXuat
+    // .GetListdmLoaiBongForHopDong(this.hopDong.loaiNguyenVatLieu)
+    // .subscribe((res: any) => {
+    //   this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
+    //   this.listLoaiMatHang_ref = res;
+    // })  
   }
 
   GetOptions() {
     this._servicesSanXuat
-      .GetListdmLoaiBongForHopDong(this.data.Loai =2)
+      .GetListdmLoaiBongForHopDong(this.hopDong.loaiNguyenVatLieu)
       .subscribe((res: any) => {
         this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
         this.listLoaiMatHang_ref = res;
@@ -123,4 +142,29 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     console.log(item);
     console.log(this.listTieuChuanChatLuong);
   }
+
+
+  chonKeHoach() {
+    let data = {
+      CurrentPage: 0,
+      Loai: 1,
+    };
+    this._servicesSanXuat.GetListdmItem(data).subscribe((res1: any) => {
+      console.log(res1);
+
+      let modalRef = this._modal.open(ChitiethanghoacuahopdongsoimodalComponent, {
+        size: 'lg',
+        backdrop: 'static'
+      })
+      
+      this.listKeHoachNhapBong = res1
+      modalRef.componentInstance.opt = 'edit';
+
+
+      modalRef.componentInstance.listThanhToanThuTuc = res1;
+      // modalRef.componentInstance.item = this.item.listDieuKhoanThanhToan;
+
+    })
+  }
+
 }

@@ -96,7 +96,7 @@
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Theo :</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [(ngModel)]="item.loaiThanhToan" [options]="listLoaiThanhToan" placeholder="Chọn loại thanh toán" styleClass="p-inputtext-sm"></p-dropdown>
+                <p-dropdown [filter]="true" [(ngModel)]="item.theoThoiGian" (onChange)="onChangeLoaiNgay($event)" [options]="optionsTheoNgay" placeholder="Chọn loại thanh toán" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-12 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">

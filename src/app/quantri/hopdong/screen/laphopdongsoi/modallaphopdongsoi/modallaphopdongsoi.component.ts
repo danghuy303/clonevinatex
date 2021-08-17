@@ -40,6 +40,7 @@ export class ModallaphopdongsoiComponent implements OnInit {
 listVatTu: any = [];
   userInfo: any;
   newItem: any = {};
+  isXo :boolean = true
   lang: any = vn;
   isBongXo: boolean = true
   filter: any = {

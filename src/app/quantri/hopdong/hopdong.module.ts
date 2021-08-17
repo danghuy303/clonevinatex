@@ -116,6 +116,7 @@ import { DanhmucphibanhangComponent } from './danhmuc/danhmucphibanhang/danhmucp
 import { ModaldanhmucphibanhangComponent } from './danhmuc/modal/modaldanhmucphibanhang/modaldanhmucphibanhang.component';
 import { DanhmucdinhmucmathangComponent } from './danhmuc/danhmucdinhmucmathang/danhmucdinhmucmathang.component';
 import { ModaldanhmucdinhmucmathangComponent } from './danhmuc/modal/modaldanhmucdinhmucmathang/modaldanhmucdinhmucmathang.component';
+import { ChitiethanghoacuahopdongsoimodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/chitiethanghoacuahopdongsoimodal/chitiethanghoacuahopdongsoimodal.component';
 
 
 @NgModule({
@@ -233,6 +234,9 @@ TheodoihopdongnhapkhauComponent,
    
    
     ModaldanhmucdinhmucmathangComponent,
+   
+   
+    ChitiethanghoacuahopdongsoimodalComponent,
 
   ],
   imports: [
@@ -289,6 +293,7 @@ TheodoihopdongnhapkhauComponent,
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
   entryComponents:[
+    ChitiethanghoacuahopdongsoimodalComponent,
     ChitietbaolanhmodalComponent,
     NhansuthuchienmodalComponent,
     ChitietdieukhoanmodalComponent,
