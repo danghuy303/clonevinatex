@@ -728,10 +728,12 @@ export class SanXuatService {
             },
             ExportBangKeNhapKhoXo: (data) => {
                 url = API.SCMDanhMuc
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}ExportBangKeNhapKhoXo`, data, httpOptions)
             },
             ExportBangKeNhapKhoBong: (data) => {
                 url = API.SCMDanhMuc
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}ExportBangKeNhapKhoBong`, data, httpOptions)
             }
         }
@@ -1841,6 +1843,7 @@ export class SanXuatService {
             },
             ExportBangKeNhapKhoBongPhe: (data) => {
                 url = API.SCMDanhMuc
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}ExportBangKeNhapKhoBongPhe`, data, httpOptions)
             }
         }
