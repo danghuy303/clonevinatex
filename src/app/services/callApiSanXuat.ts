@@ -191,6 +191,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetDashBoard_TongHop', data, httpOptions);
             },
             BieuDoCoCau: (data) => {
+                data.IdDuAn =this.store.getCurrent();
                 return this.http.post(url + 'GetDashBoard_BieuDoCoCau', data, httpOptions);
             },
             GetDashBoard_NhuCauXuatHang: (data) => {
@@ -727,10 +728,12 @@ export class SanXuatService {
             },
             ExportBangKeNhapKhoXo: (data) => {
                 url = API.SCMDanhMuc
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}ExportBangKeNhapKhoXo`, data, httpOptions)
             },
             ExportBangKeNhapKhoBong: (data) => {
                 url = API.SCMDanhMuc
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}ExportBangKeNhapKhoBong`, data, httpOptions)
             }
         }
@@ -1540,15 +1543,19 @@ export class SanXuatService {
             //     return this.http.post(`${url}/GetCoCauTonBong`,data,httpOptions);
             // },
             BaoCaoSanLuongLuyKe_BieuDoDuong: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}BaoCaoSanLuongLuyKe_BieuDoDuong`, data, httpOptions);
             },
             BaoCaoSanLuongLuyKe_BieuDoCot: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}BaoCaoSanLuongLuyKe_BieuDoCot`, data, httpOptions);
             },
             ExportBaoCaoThongKeDien: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}ExportBaoCaoThongKeDien`, data, httpOptions);
             },
             ExportBaoCaoThongKeChatLuong: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}ExportBaoCaoThongKeChatLuong`, data, httpOptions)
             },
             ExportThongKeSanLuong: (data) => {
@@ -1836,6 +1843,7 @@ export class SanXuatService {
             },
             ExportBangKeNhapKhoBongPhe: (data) => {
                 url = API.SCMDanhMuc
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}ExportBangKeNhapKhoBongPhe`, data, httpOptions)
             }
         }
@@ -1850,6 +1858,7 @@ export class SanXuatService {
                 return this.http.post(url + 'GetListdmKhachHang', data, httpOptions);
             },
             Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetdmKhachHang', data, httpOptions);
             },
             Delete: (data) => {

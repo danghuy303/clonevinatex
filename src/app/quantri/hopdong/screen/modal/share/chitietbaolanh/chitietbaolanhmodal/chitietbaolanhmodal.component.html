@@ -1,6 +1,6 @@
 <div class="modal-header">
 
-    <h5 class="modal-title">Bảo lãnh hợp đồng</h5>
+    <h5 class="modal-title"> {{opt==='add'?'Thêm mới':'Cập nhật'}}&nbsp;bảo lãnh hợp đồng</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -19,7 +19,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bảo lãnh:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
 
-                <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiBaoLanh" [options]='listLoaiBaoLanh' laceholder="Chọn loại bảo lãnh" styleClass="p-inputtext-sm"></p-dropdown>
+                <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiBaoLanh" [options]='listLoaiBaoLanh' placeholder="Chọn loại bảo lãnh" styleClass="p-inputtext-sm"></p-dropdown>
 
             </div>
         </div>
@@ -68,7 +68,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tình trạng bảo lãnh:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
 
-                <p-dropdown [filter]="true" [(ngModel)]="item.iddmTinhTrangBaoLanh" [options]="listTinhTrang" placeholder="Chọn tình trạng" styleClass="p-inputtext-sm"></p-dropdown>
+                <p-dropdown [filter]="true" [(ngModel)]="item.iddmTinhTrangBaoLanh" [options]="listTinhTrangBaoLanh" placeholder="Chọn tình trạng" styleClass="p-inputtext-sm"></p-dropdown>
 
 
             </div>

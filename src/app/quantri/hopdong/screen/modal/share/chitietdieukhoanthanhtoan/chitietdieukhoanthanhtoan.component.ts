@@ -31,7 +31,10 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
   }
   add() {
 
-
+    if (this.item.ngayThanhToan !== undefined && this.item.ngayThanhToan !== null) {
+      this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+    
+    }
     this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
     let modalRef = this._modal.open(ChitietdieukhoanmodalComponent, { size: 'xl', backdrop: 'static' });
     modalRef.componentInstance.item = {
@@ -49,8 +52,15 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
     }).catch(er => { console.log(er) });
   }
   edit(item, i) {
+    if (this.item.ngayThanhToan !== undefined && this.item.ngayThanhToan !== null) {
+      this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+    
+    }
     let modalRef = this._modal.open(ChitietdieukhoanmodalComponent, { size: 'xl', backdrop: 'static' });
+    console.log('modalRef',item);
+    
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.item.ngayThanhToan = new Date(item.ngayThanhToan);
     modalRef.componentInstance.opt = 'edit';
     modalRef.result.then(res => {
       this.listDieuKhoanThanhToan.splice(i, 1);

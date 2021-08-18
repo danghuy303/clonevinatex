@@ -1,8 +1,9 @@
 import { formatNumber } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
 
 @Component({
@@ -10,7 +11,7 @@ import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangta
   templateUrl: './sanluong.component.html',
   styleUrls: ['./sanluong.component.css']
 })
-export class SanluongComponent implements OnInit {
+export class SanluongComponent implements OnInit,OnDestroy {
   @Input('TuNgay') TuNgay:any=null;
   @Input('DenNgay') DenNgay:any=null;
   @Input('CongDoan') CongDoan:any=null;
@@ -116,7 +117,12 @@ export class SanluongComponent implements OnInit {
     maintainAspectRatio: window.innerWidth <= 375 ? false : true,
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
-  constructor(private _services: SanXuatService, private _toastr: ToastrService) { }
+  suber: any;
+  constructor(private _services: SanXuatService, private _toastr: ToastrService,private store: StoreService) { 
+    this.suber = this.store.getNhaMay().subscribe(res => {
+      this.ngOnInit();
+    })
+  }
 
   ngOnInit(): void {
     if(validVariable(this.TuNgay) && validVariable(this.DenNgay)){
@@ -288,5 +294,8 @@ export class SanluongComponent implements OnInit {
     this._services.DashBoard().ExportThongKeSanLuong(this.filter).subscribe((res:any) => {
       this._services.download(res.TenFile);
     })
+  }
+  ngOnDestroy() {
+    this.suber.unsubscribe();
   }
 }

@@ -112,6 +112,12 @@ export class DanhMucHopDongService {
     DanhMucTrangThaiBaoLanh(){
         let url = API.HopDong
         return {
+            GetListAlldmLoaiBaoLanh: () => {
+                return this.http.get(url + `DanhMuc/GetListAlldmLoaiBaoLanh`, httpOptions);
+              },
+            GetdmTrangThaiBaoLanh: () => {
+                return this.http.get(url + `DanhMuc/GetListAlldmTrangThaiBaoLanh`, httpOptions);
+              },
             GetList:(data)=>{
                 return this.http.get(`${url}DanhMuc/GetListdmTrangThaiBaoLanh?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
             },

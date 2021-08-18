@@ -1,3 +1,19 @@
+// import { Component, OnInit } from '@angular/core';
+
+// @Component({
+//   selector: 'app-chitiethanghoacuahopdongsoimodal',
+//   templateUrl: './chitiethanghoacuahopdongsoimodal.component.html',
+//   styleUrls: ['./chitiethanghoacuahopdongsoimodal.component.css']
+// })
+// export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
+
+//   constructor() { }
+
+//   ngOnInit(): void {
+//   }
+
+// }
+
 import { validVariable } from 'src/app/services/globalfunction';
 
 
@@ -6,23 +22,47 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
-  selector: 'app-chonthutucthanhtoanmodal',
-  templateUrl: './chonthutucthanhtoanmodal.component.html',
-  styleUrls: ['./chonthutucthanhtoanmodal.component.css']
+  selector: 'app-chitiethanghoacuahopdongsoimodal',
+  templateUrl: './chitiethanghoacuahopdongsoimodal.component.html',
+  styleUrls: ['./chitiethanghoacuahopdongsoimodal.component.css']
 })
-export class ChonthutucthanhtoanmodalComponent implements OnInit {
+export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
   listThuTucThanhToan_ref: any = [];
   item: any = {};
   listThanhToanThuTuc: any = [];
   cols: any = [
     {
-      header: 'Mã thủ tục',
-      field: 'ma',
+      header: 'Mã',
+      field: 'Ma',
       width: 'unset'
     },
     {
-      header: 'Tên  thủ tục',
-      field: 'ten',
+      header: 'Tên ',
+      field: 'Ten',
+      width: 'unset'
+    },
+ 
+    {
+      header: 'Loại sợi ',
+      field: 'TendmLoaiSoi',
+      width: 'unset'
+    },
+ 
+    {
+      header: 'Đơn vị tính',
+      field: 'DonViDatHang',
+      width: 'unset'
+    },
+ 
+    {
+      header: 'Đặc tính sợi',
+      field: 'DacTinhSoi',
+      width: 'unset'
+    },
+ 
+    {
+      header: 'Ghi chú',
+      field: 'GhiChu',
       width: 'unset'
     },
  

@@ -162,7 +162,6 @@ const routes: Routes = [
 
       { path: 'quantrisanxuat/nguyenlieu', component: DieuhanhsanxuatComponent },
       { path: 'quantrisanxuat/nhucauxuathang', component: NhucauxuathangComponent },
-
       { path: 'quantrisanxuat/sanluong', component: SanluongComponent },
       { path: 'quantrisanxuat/tonghop', component: DieuhanhsanxuattonghopComponent },
       { path: 'quantrisanxuat/chatluong', component: DieuhanhsanxuatComponent },

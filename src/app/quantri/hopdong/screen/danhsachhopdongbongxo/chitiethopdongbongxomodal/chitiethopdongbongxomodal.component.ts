@@ -35,10 +35,14 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   title: string
   item: any = {};
   hopDong: any = {};
+  listLoaiMatHang: any = []
+  listLoaiMatHang_ref: any = []
   listDieuKhoanThanhToan: any = [];
+listVatTu: any = [];
   userInfo: any;
+  newItem: any = {};
   lang: any = vn;
-  isBongXo: boolean = true
+  isBong: boolean = true
   filter: any = {
     keyWord: "",
   };
@@ -62,7 +66,14 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+console.log(this.item.hopDong.loaiNguyenVatLieu);
 
+    this._servicesSanXuat
+    .GetListdmLoaiBongForHopDong(this.item.hopDong.loaiNguyenVatLieu)
+    .subscribe((res: any) => {
+      this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
+      this.listLoaiMatHang_ref = res;
+    })
     this.KiemTraButtonModal();
     this.checkbutton = {
       Ghi: false,
@@ -85,8 +96,7 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
     this._servicesSanXuat
       .KiemTraButton(this.item.hopDong.id || "", this.item.hopDong.idTrangThai || "")
       .subscribe((res: any) => {
-        console.log(this.item.idTrangThai);
-
+       
         this.checkbutton = res;
       });
   }
@@ -119,28 +129,27 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
 
     return true;
   }
+  abcd(){
+    console.log('fsdfsf');
+    
+  }
   GhiLai() {
     this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
     this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
     if (this.ValidData()) {
-
-
       this._service
         .QuyTrinhHopDong()
         .Set(this.item)
         .subscribe((res: any) => {
           console.log(res);
-
           if (res) {
             if (res?.statusCode === 200) {
-
-
+               
+               
               this._toastr.success(res.message);
-
               this._service.QuyTrinhHopDong().Get(res.data).subscribe((res1: any) => {
-
-                console.log(res1.data.hopDong);
-                this.item.hopDong = res1.data.hopDong
+               
+                this.item = res1.data
                 this.item.hopDong.idTrangThai = res1.data.hopDong.idTrangThai
                 this.item.hopDong.id = res1.data.hopDong.id
                 this.KiemTraButtonModal();
@@ -148,7 +157,7 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
 
 
 
-              // this.activeModal.close();
+              // this.activeModal.close({opt: opt});
               // setTimeout(() => {
               //   checkbutton.GhiLai = false
               // }, 1000);

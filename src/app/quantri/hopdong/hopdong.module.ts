@@ -111,11 +111,12 @@ import { GiaokehoachsanxuatmodalComponent } from './screen/thuchienhopdong/giaok
 import { TheodoihopdongnhapkhauComponent } from './baocao/theodoihopdongnhapkhau/theodoihopdongnhapkhau.component';
 import { ChonthutucthanhtoanmodalComponent } from './screen/modal/share/chitietdieukhoanthanhtoan/chitietdieukhoanmodal/chonthutucthanhtoanmodal/chonthutucthanhtoanmodal.component';
 import { ChitiethanghoamodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/chitiethanghoamodal/chitiethanghoamodal.component';
-import { ThoigiannhaphangmodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/chitiethanghoamodal/thoigiannhaphangmodal/thoigiannhaphangmodal.component';
+// import { ThoigiannhaphangmodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/chitiethanghoamodal/thoigiannhaphangmodal/thoigiannhaphangmodal.component';
 import { DanhmucphibanhangComponent } from './danhmuc/danhmucphibanhang/danhmucphibanhang.component';
 import { ModaldanhmucphibanhangComponent } from './danhmuc/modal/modaldanhmucphibanhang/modaldanhmucphibanhang.component';
 import { DanhmucdinhmucmathangComponent } from './danhmuc/danhmucdinhmucmathang/danhmucdinhmucmathang.component';
 import { ModaldanhmucdinhmucmathangComponent } from './danhmuc/modal/modaldanhmucdinhmucmathang/modaldanhmucdinhmucmathang.component';
+import { ChitiethanghoacuahopdongsoimodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/chitiethanghoacuahopdongsoimodal/chitiethanghoacuahopdongsoimodal.component';
 
 
 
@@ -223,7 +224,7 @@ TheodoihopdongnhapkhauComponent,
     ChitiethanghoamodalComponent,
    
    
-    ThoigiannhaphangmodalComponent,
+  
    
    
     DanhmucphibanhangComponent,
@@ -238,10 +239,14 @@ TheodoihopdongnhapkhauComponent,
     ModaldanhmucdinhmucmathangComponent,
    
    
+
    
    
    
   
+
+    ChitiethanghoacuahopdongsoimodalComponent,
+
 
   ],
   imports: [
@@ -298,6 +303,7 @@ TheodoihopdongnhapkhauComponent,
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
   entryComponents:[
+    ChitiethanghoacuahopdongsoimodalComponent,
     ChitietbaolanhmodalComponent,
     NhansuthuchienmodalComponent,
     ChitietdieukhoanmodalComponent,
