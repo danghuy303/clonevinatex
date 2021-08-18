@@ -26,6 +26,7 @@ import { DanhmuctaisanComponent } from './danhmuc/danhmuctaisan/danhmuctaisan.co
 import { DanhmucphibanhangComponent } from './danhmuc/danhmucphibanhang/danhmucphibanhang.component';
 import { DanhmucdinhmucmathangComponent } from './danhmuc/danhmucdinhmucmathang/danhmucdinhmucmathang.component';
 
+
 const routes: Routes = [
   {path:'',component:HopdongComponent},
   {path:'danhmuc/danhmuchinhthucthanhtoan',component:DanhmuchinhthucthanhtoanComponent},
@@ -53,6 +54,9 @@ const routes: Routes = [
   { path: 'quyettoanhopdong/:id', component: QuyettoanhopdongComponent },
   { path: 'laphopdongbongxo/:id', component: LaphopdongbongxoComponent },
   { path: 'laphopdongsoi/:id', component: LaphopdongsoiComponent },
+
+  //
+ 
 ];
 
 @NgModule({

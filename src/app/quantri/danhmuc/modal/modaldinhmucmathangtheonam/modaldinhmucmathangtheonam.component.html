@@ -1,0 +1,95 @@
+<div class="modal-header">
+    <h5 class="modal-title">
+        {{title}}</h5>
+    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <!-- <span class="p-button-sm p-button-sm p-button-text close" aria-hidden="true"
+    (click)="activeModal.dismiss('Cross click')">×</span> -->
+</div>
+<div class="modal-footer">
+    <button pButton pRipple label="Ghi lại" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"
+        [disabled]="khongclicknhieu"></button>
+    <button pButton pRipple label="Đóng" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
+        (click)="activeModal.dismiss()"></button>
+</div>
+
+<div class="modal-body">
+    <div class="col-12 col-lg-12">
+        <div class="p-grid">
+            <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
+                <div class="p-col-12 p-lg-8 p-p-0">
+                    <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy"
+                        styleClass="p-inputtext-sm" [(ngModel)]="item.idDuAn"></p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Năm: <span class="required">*</span></label>
+                <div class="p-col-12 p-lg-8 p-p-0">
+                    <input type="text" [(ngModel)]="item.nam" class="p-inputtext-sm" pInputText />
+                </div>
+            </div>
+        </div>
+        <p-table [value]="items" [(selection)]="selectedItems" styleClass="p-datatable-sm wrap-text p-datatable-striped"
+            [scrollable]="true">
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col style="width:100px">
+                    <col style="width: 300px;">
+                    <col style="width: 100px;">
+                    <col style="width: 100px;">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <!-- <th>
+                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                 </th> -->
+                    <th class="text-center">Loại</th>
+                    <th class="text-center"> Đơn vị</th>
+                    <th class="text-center">Gía trị</th>
+                    <th class="text-center"> Edit</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <tr>
+                    <!-- <td class="text-center">
+                     <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                 </td> -->
+                    <td class="text-center">
+                        {{item.Loai}}
+                    </td>
+                    <td class="text-center">{{item.donViTinh}}</td>
+                    <td class="text-center">{{item.giaTri}}</td>
+                    <td class="text-center date">
+                        <button pButton pRipple type="button" icon="pi pi-pencil"
+                            class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="edit(item)"
+                            pTooltip="Sửa" showDelay="1000" tooltipPosition="bottom"></button>
+                        <!-- <button pButton pRipple type="button" icon="pi pi-trash"
+                         class="p-button-text p-button-sm p-button-secondary" (click)="delete(item)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>  -->
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                   
+                    <td class="text-center">  <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy"
+                        styleClass="p-inputtext-sm" [(ngModel)]="item.loai"></p-dropdown>
+                    </td>
+                    <td class="text-center"> </td>
+                    <td class="text-center">
+                        <input type="text" [(ngModel)]="item.giaTri" class="p-inputtext-sm" pInputText />
+                    </td>
+                    <td class="text-center"> <button> +</button></td>
+                </tr>
+            </ng-template>
+            <!-- <ng-template pTemplate="summary">
+             <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between">
+                 Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20"
+                     (onPageChange)="changePage($event)"></p-paginator>
+             </div>
+         </ng-template> -->
+        </p-table>
+    </div>
+</div>

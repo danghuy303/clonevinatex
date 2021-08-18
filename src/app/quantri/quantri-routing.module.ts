@@ -114,7 +114,12 @@ import { HopdongModule } from './hopdong/hopdong.module';
 import { NhapkhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/nhapkhovattuphu/nhapkhovattuphu.component';
 import { XuatkhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/xuatkhovattuphu/xuatkhovattuphu.component';
 import { KiemkekhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/kiemkekhovattuphu/kiemkekhovattuphu.component';
-//danhmuchinhthucthanhtoan
+import { DinhmucmathangtheonamComponent } from './danhmuc/dinhmucmathangtheonam/dinhmucmathangtheonam.component';
+import { KehoachkinhdoanhTaomoiComponent } from './danhmuc/kehoachkinhdoanh-taomoi/kehoachkinhdoanh-taomoi.component';
+import { Modalchitietkehoachkinhdoanhtheodoi1Component } from './danhmuc/modal/modalchitietkehoachkinhdoanhtheodoi1/modalchitietkehoachkinhdoanhtheodoi1.component';
+import { DanhsachkehoachkinhdoanhComponent } from './danhmuc/danhsachkehoachkinhdoanh/danhsachkehoachkinhdoanh.component';
+
+
 const routes: Routes = [
   {
     path: '', component: QuantriComponent,
@@ -263,6 +268,12 @@ const routes: Routes = [
       { path: 'quanlykhosanxuatbongkhac/khovattuphu/nhapkho/:id', component: NhapkhovattuphuComponent },
       { path: 'quanlykhosanxuatbongkhac/khovattuphu/xuatkho/:id', component: XuatkhovattuphuComponent },
       { path: 'quanlykhosanxuatbongkhac/khovattuphu/kiemkekho/:id', component: KiemkekhovattuphuComponent },
+
+      //..................................
+      { path: 'danhmuc/dinhmucmathangtheonam', component: DinhmucmathangtheonamComponent },
+      { path: 'danhmuc/kehoachkinhdoanhtaomoi', component: KehoachkinhdoanhTaomoiComponent },
+      { path: 'danhmuc/kehoachkinhdoanhtheodoi', component: Modalchitietkehoachkinhdoanhtheodoi1Component },
+      { path: 'danhmuc/danhsachkehoachkinhdoanh', component: DanhsachkehoachkinhdoanhComponent },
 
     ]
   }

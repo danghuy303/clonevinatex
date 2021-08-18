@@ -249,4 +249,26 @@ export class DanhMucHopDongService {
         }
     }
 
+    //.......... quantri/danhmuc ......................
+
+    //
+   DinhMucMatHangTheoNam(){
+        let url = API.KeHoach
+        return {
+            GetList:(data)=>{
+                return this.http.get(`${url}DinhMucMatHangHangNam/GetAllPaging?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
+            },
+            Set:(data)=>{
+                return this.http.post(`${url}DinhMucMatHangHangNam/AddDinhMucMatHangHangNam`,data,httpOptions)
+            },
+            // DeleteList:(data)=>{
+            //     debugger;
+            //     return this.http.post(`${url}DanhMuc/DeleteListdmTinhLuong`,data,httpOptions)
+            // },
+            // Delete:(id)=>{
+            //     return this.http.get(`${url}DanhMuc/DeletedmTinhLuong?id=${id}`,httpOptions)
+            // }
+        }
+    }
+
 }

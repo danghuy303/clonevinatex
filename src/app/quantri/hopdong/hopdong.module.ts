@@ -119,6 +119,9 @@ import { ModaldanhmucdinhmucmathangComponent } from './danhmuc/modal/modaldanhmu
 import { ChitiethanghoacuahopdongsoimodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/chitiethanghoacuahopdongsoimodal/chitiethanghoacuahopdongsoimodal.component';
 
 
+
+
+
 @NgModule({
   declarations: [
     HopdongComponent,
@@ -236,7 +239,14 @@ TheodoihopdongnhapkhauComponent,
     ModaldanhmucdinhmucmathangComponent,
    
    
+
+   
+   
+   
+  
+
     ChitiethanghoacuahopdongsoimodalComponent,
+
 
   ],
   imports: [
@@ -329,6 +339,7 @@ TheodoihopdongnhapkhauComponent,
     ChitietphathopdongComponent,
     ChitietthanhtoanComponent,
     ChitiethopdongbongxomodalComponent,
+   
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
