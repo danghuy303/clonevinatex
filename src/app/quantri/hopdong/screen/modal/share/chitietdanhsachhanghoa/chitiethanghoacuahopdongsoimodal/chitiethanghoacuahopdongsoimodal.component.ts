@@ -43,28 +43,12 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
     },
  
     {
-      header: 'Loại sợi ',
-      field: 'TendmLoaiSoi',
+      header: 'Ne',
+      field: 'Ne',
       width: 'unset'
     },
  
-    {
-      header: 'Đơn vị tính',
-      field: 'DonViDatHang',
-      width: 'unset'
-    },
- 
-    {
-      header: 'Đặc tính sợi',
-      field: 'DacTinhSoi',
-      width: 'unset'
-    },
- 
-    {
-      header: 'Ghi chú',
-      field: 'GhiChu',
-      width: 'unset'
-    },
+   
  
   ];
   loai='';

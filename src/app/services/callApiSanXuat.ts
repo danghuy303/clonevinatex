@@ -369,6 +369,10 @@ export class SanXuatService {
     }
 
     //#region  mặt hàng
+    GetListdmItemByHangHoa() {
+        let url = API.SCMDanhMuc + 'GetListdmItem';
+        return this.http.get(url, httpOptions);
+    }
 
     GetListdmItem(data) {
         let url = API.SCMDanhMuc + 'GetListdmItem';
