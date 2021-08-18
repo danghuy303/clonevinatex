@@ -145,11 +145,8 @@ console.log(this.hopDong.loaiNguyenVatLieu);
 
 
   chonKeHoach() {
-    let data = {
-      CurrentPage: 0,
-      Loai: 1,
-    };
-    this._servicesSanXuat.GetListdmItem(data).subscribe((res1: any) => {
+ 
+    this._servicesSanXuat.GetListdmItemByHangHoa().subscribe((res1: any) => {
       console.log(res1);
 
       let modalRef = this._modal.open(ChitiethanghoacuahopdongsoimodalComponent, {

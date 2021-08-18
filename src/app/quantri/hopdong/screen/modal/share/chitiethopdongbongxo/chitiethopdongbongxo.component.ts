@@ -72,6 +72,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   selectedCity = null;
   cities = [{ name: 'pushkar', code: 21 }, { name: 'nagpur', code: 22 }];
   @Input() item: any;
+  @Input() isSoi
   @Input() loaiNguyenVatLieu: number;
   @Input() hopDong: any;
   @Output() onChange = new EventEmitter<any>();

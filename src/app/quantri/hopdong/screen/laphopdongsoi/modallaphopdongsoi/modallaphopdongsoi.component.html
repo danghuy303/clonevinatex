@@ -40,7 +40,7 @@
     <div class="p-d-flex p-flex-row p-jc-between">
         <p-tabView>
             <p-tabPanel header="Thông tin hợp đồng">
-                <app-chitiethopdongbongxo [(item)]="item.hopDong" [opt]="opt">
+                <app-chitiethopdongbongxo [(item)]="item.hopDong" [(isSoi)]='isSoi' [opt]="opt">
                 </app-chitiethopdongbongxo>
             </p-tabPanel>
             <p-tabPanel header="Thông tin hàng hóa">

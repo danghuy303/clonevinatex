@@ -1,6 +1,6 @@
 <p-panel header="Thông tin chung" [style]="{ 'margin-bottom': '2em' }" [toggleable]="true">
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row">
+        <div [ngStyle]="{'display':!isSoi ? 'flex' : 'none' }" class="p-col-12 p-lg-6 p-mb-3 padding0 flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại hợp đồng:<span class="required">*</span></label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiHopDong" [options]="listLoaiHopDong" placeholder="Chọn loại hợp đồng" styleClass="p-inputtext-sm"></p-dropdown>
@@ -14,6 +14,7 @@
                 <p-dropdown [options]="optionsVatLieu" [(ngModel)]="item.loaiNguyenVatLieu" (onChange)="onChangeVatLieu($event)" placeholder="Chọn nguyên/vật liệu"></p-dropdown>
             </div>
         </div>
+
         <div class="p-col-12 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số hợp đồng:<span class="required">*</span></label>
             <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
@@ -26,6 +27,7 @@
                 <input type="text" [(ngModel)]="item.tenHopDong" class="p-inputtext-sm" pInputText />
             </div>
         </div>
+
         <div class="p-col-12 p-lg-12 p-mb-3 padding0 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Trích yếu:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
@@ -70,14 +72,8 @@
             </div>
         </div>
 
-        <!-- <div class="p-col-12 p-xl-4 p-lg-6 p-mb-3  padding0 d-flex flex-column flex-xl-row">
 
-            <label class="p-col-12 p-lg-6 p-xl-6 p-p-0 my-auto">Hình thức thanh toán:</label>
-            <div class="p-col-12 p-xl-6  p-p-0">
-                <p-dropdown [filter]="true" [(ngModel)]="item.iddmHinhThucThanhToan" [options]="listHinhThucThanhToan" placeholder="Chọn hình thức thanh toán" styleClass="p-inputtext-sm"></p-dropdown>
-            </div>
-        </div> -->
-        <div class="
+        <!-- <div class="
         p-col-12 p-xl-6 p-lg-6 p-mb-3
         padding0
         d-flex
@@ -91,7 +87,7 @@
                     <span class="p-inputgroup-addon">%</span>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="p-col-12 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Hình thức thanh toán:</label>
             <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">
@@ -120,12 +116,7 @@
             </div>
         </div>
 
-        <div class="
-        p-col-12 p-xl-6 p-lg-6 p-mb-3
-        padding0
-        d-flex
-        flex-column flex-xl-row
-      ">
+        <div class=" p-col-12 p-xl-6 p-lg-6 p-mb-3 flex-column flex-xl-row" [ngStyle]="{'display':!isSoi ? 'flex' : 'none' }">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">HĐ gốc: </label>
             <div class="p-col-12 p-xl-8 p-ml-xl-2 p-ml-lg-0 p-p-0">
                 <div class="p-inputgroup p-ml-lg-0">
