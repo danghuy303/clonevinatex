@@ -836,7 +836,7 @@ export class QuantriComponent implements OnInit {
         icon: "fas fa-circle",
         routerLink: "/quantri/quanlykhosanxuatbongkhac/khovattuphu",
         expanded: false,
-        visible: false,
+        visible: this.showHopDongModule,
         items: [
           {
             label: "Nhập kho",

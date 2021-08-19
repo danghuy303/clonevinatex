@@ -25,10 +25,10 @@
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Công đoạn</label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mặt hàng</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [options]="listCongDoan" placeholder="Chọn công đoạn" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.CongDoan"></p-dropdown>
+                <p-dropdown [options]="listMatHang" placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm" [filter]="true"
+                    [(ngModel)]="item.IddmItem" [showClear]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">

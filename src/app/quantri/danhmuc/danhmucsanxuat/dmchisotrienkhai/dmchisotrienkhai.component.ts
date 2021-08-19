@@ -32,8 +32,8 @@ export class DmchisotrienkhaiComponent implements OnInit {
       align: 'center'
     },
     {
-      header: 'Công đoạn',
-      field: 'CongDoan',
+      header: 'Mặt hàng',
+      field: 'TendmItem',
       width: 'unset',
       align: 'center'
     },

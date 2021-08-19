@@ -128,15 +128,7 @@ export class NhapkhovattuphuComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      Loai: 6,
     }
-    if (this.title === 'khobonghoi') {
-      data.Loai = 6;
-    }
-    else if (this.title === 'khobongphe') {
-      data.Loai = 7;
-    }
-
     this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
       this.items = res.items.map(ele=>{
         return {
