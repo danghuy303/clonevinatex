@@ -1566,6 +1566,7 @@ export class SanXuatService {
                 return this.http.post(`${url}ExportBaoCaoThongKeChatLuong`, data, httpOptions)
             },
             ExportThongKeSanLuong: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}ExportThongKeSanLuong`, data, httpOptions);
             },
             GetDashBoard_TruyXuatNguonGocTongHop: (data) => {
