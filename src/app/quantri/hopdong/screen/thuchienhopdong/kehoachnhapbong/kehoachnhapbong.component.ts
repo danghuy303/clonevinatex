@@ -69,7 +69,7 @@ export class KehoachnhapbongComponent implements OnInit {
   update(item) {
     // this.changeParam(item.id);
     let modalRef = this._modal.open(ChitietkehoachnhapbongComponent, {
-      size: 'fullscreen-100',
+      size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
