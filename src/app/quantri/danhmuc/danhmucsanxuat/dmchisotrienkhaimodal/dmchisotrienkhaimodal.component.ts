@@ -14,7 +14,7 @@ export class DmchisotrienkhaimodalComponent implements OnInit {
   public title: any = '';
   public type = '';
   opt: any = "";
-  listCongDoan: any = [];
+  listMatHang: any = [];
   khongclicknhieu: any = false;
   newTableItem: any = {
     Id: "",
@@ -26,12 +26,12 @@ export class DmchisotrienkhaimodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.GetListCongDoan();
+    this.GetListMatHang();
   }
   
-  GetListCongDoan() {
-    this.sanXuatService.GetListCongDoan().subscribe((res: any) => {
-      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+  GetListMatHang() {
+    this.sanXuatService.GetOptions().GetMatHang().subscribe((res: any) => {
+      this.listMatHang = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   accept() {

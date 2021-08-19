@@ -2066,4 +2066,32 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + `CheckViTriKien?TenLoBong=${TenLoBong}&TenKien=${TenKien}`;
         return this.http.get(url, httpOptions);
     }
+    QuyTrinhPhieuNhapVatTuPhu() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhNhapVatTuPhu', httpOptions);
+            },
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetListPhieuNhapVatTuPhu', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuNhapVatTuPhu?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetPhieuNhapVatTuPhu', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuNhapVatTuPhu', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepPhieuNhapVatTuPhu', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuNhapVatTuPhu', data, httpOptions)
+            },
+        }
+    }
 }
