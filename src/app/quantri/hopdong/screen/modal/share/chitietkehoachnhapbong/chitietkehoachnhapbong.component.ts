@@ -259,12 +259,12 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     this.item.listInvoice[index].editField = true;
     this.editTableItem = deepCopy(item);
   }
-  delete(index) {
-    let item = this.item.listInvoice.splice(index, 1)[0];
-    if (item.Id === '' || item.Id === null || item.Id === undefined) {
+  delete(index) { 
+    if (this.item.listInvoice[index].id === '' || this.item.listInvoice[index].id === null || this.item.listInvoice[index].id === undefined) {
+      this.item.listInvoice.splice(index, 1)
     } else {
-      item.isXoa = true;
-      this.item.listInvoice.push(JSON.parse(JSON.stringify(item)));
+      this.item.listInvoice[index].isXoa = true;
+      // this.item.listInvoice.push(JSON.parse(JSON.stringify(item)));
     }
   }
   saveEdit(item, index) {
