@@ -128,7 +128,7 @@ export function download(tepdinhkems: Array<any>) {
 export function deepCopy(value: any) {
     return JSON.parse(JSON.stringify(value));
 }
-export function validVariable(value: any) {
+export function validVariable(value: any) {    
     if (value !== undefined && value !== null && value.toString().trim() !== "") {
         return true;
     } else {

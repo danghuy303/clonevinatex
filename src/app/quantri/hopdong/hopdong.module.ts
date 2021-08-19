@@ -116,6 +116,8 @@ import { DanhmucphibanhangComponent } from './danhmuc/danhmucphibanhang/danhmucp
 import { ModaldanhmucphibanhangComponent } from './danhmuc/modal/modaldanhmucphibanhang/modaldanhmucphibanhang.component';
 import { DanhmucdinhmucmathangComponent } from './danhmuc/danhmucdinhmucmathang/danhmucdinhmucmathang.component';
 import { ModaldanhmucdinhmucmathangComponent } from './danhmuc/modal/modaldanhmucdinhmucmathang/modaldanhmucdinhmucmathang.component';
+import { KehoachnhapbongComponent } from './screen/thuchienhopdong/kehoachnhapbong/kehoachnhapbong.component';
+import { ChitietkehoachnhapbongComponent } from './screen/modal/share/chitietkehoachnhapbong/chitietkehoachnhapbong.component';
 
 
 @NgModule({
@@ -233,6 +235,12 @@ TheodoihopdongnhapkhauComponent,
    
    
     ModaldanhmucdinhmucmathangComponent,
+   
+   
+    KehoachnhapbongComponent,
+   
+   
+    ChitietkehoachnhapbongComponent,
 
   ],
   imports: [
@@ -324,6 +332,7 @@ TheodoihopdongnhapkhauComponent,
     ChitietphathopdongComponent,
     ChitietthanhtoanComponent,
     ChitiethopdongbongxomodalComponent,
+    ChitietkehoachnhapbongComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
