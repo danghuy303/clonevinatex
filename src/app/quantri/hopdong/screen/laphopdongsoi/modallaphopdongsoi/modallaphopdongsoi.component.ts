@@ -40,6 +40,8 @@ export class ModallaphopdongsoiComponent implements OnInit {
 listVatTu: any = [];
   userInfo: any;
   newItem: any = {};
+  isXo :boolean = true
+  isSoi :boolean = true
   lang: any = vn;
   isBongXo: boolean = true
   filter: any = {
@@ -103,10 +105,7 @@ listVatTu: any = [];
   }
 
   ValidData() {
-    if (!validVariable(this.item.hopDong.iddmLoaiHopDong)) {
-      this._toastr.error("Vui lòng chọn loại hợp đồng");
-      return false;
-    }
+ 
 
     if (!validVariable(this.item.hopDong.tenHopDong)) {
       this._toastr.error("Vui lòng chọn tên hợp đồng");

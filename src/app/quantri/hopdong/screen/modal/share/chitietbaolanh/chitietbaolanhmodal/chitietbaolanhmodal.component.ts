@@ -1,3 +1,6 @@
+import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
+import { mapArrayForDropDown, DateToUnix } from 'src/app/services/globalfunction';
+import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 import { vn } from './../../../../../../../services/const';
 
 import { Router } from '@angular/router';
@@ -16,24 +19,39 @@ export class ChitietbaolanhmodalComponent implements OnInit {
   lang: any = vn;
   listTinhTrang: any = []
   listLoaiBaoLanh: any = []
+  listTinhTrangBaoLanh: any = []
+
  
   opt: any = '';
   item: any = {};
   yearRange: string = `${
     new Date().getFullYear() - 50
   }:${new Date().getFullYear()}`;
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal) { }
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private _servicedmHopDong: DanhMucHopDongService) { }
 
 
   ngOnInit(): void {
+    this.GetOptions()
+  }
+  GetOptions() {
+    this._servicedmHopDong
+    .DanhMucTrangThaiBaoLanh()
+    .GetdmTrangThaiBaoLanh()
+    .subscribe((res: any) => {
+      this.listTinhTrangBaoLanh = mapArrayForDropDown(res, "ten", "id");
+    });
+
+    this._servicedmHopDong
+    .DanhMucTrangThaiBaoLanh()
+    .GetListAlldmLoaiBaoLanh()
+    .subscribe((res: any) => {
+      this.listLoaiBaoLanh = mapArrayForDropDown(res, "ten", "id");
+    });
   }
   accept(opt){
-    // if (this.item.tempCapHang !== undefined && this.item.tempCapHang !== null) {
-    //   this.item.IDdmCapHang = this.item.tempCapHang.ID;
-    //   this.item.TendmCapHang = this.item.tempCapHang.Ten;
-    // }
-    console.log(this.item);
-    
+    if (this.item.hieuLucBaoLanh !== undefined && this.item.hieuLucBaoLanh !== null) {
+      this.item.hieuLucBaoLanhUnix = DateToUnix(this.item.hieuLucBaoLanh);    
+    }
     this.activeModal.close({ opt: opt, item: this.item });
   }
 }

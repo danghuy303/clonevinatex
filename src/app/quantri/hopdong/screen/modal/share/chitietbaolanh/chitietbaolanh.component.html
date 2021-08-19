@@ -3,6 +3,7 @@
 
 </div>
 <div class="p-mt-3">
+
     <p-table [value]="listBaoLanh | isXoa" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines " [scrollable]="true">
         <ng-template pTemplate="colgroup">
             <colgroup>
@@ -28,7 +29,7 @@
                 <th>Ghi chú</th>
                 <th>Hồ sơ</th>
                 <th></th>
-                <!-- <th *ngFor="let header of cols"> {{header.header}} </th> -->
+
 
             </tr>
         </ng-template>
@@ -43,7 +44,7 @@
                 <td class="text-center">{{item.tinhTrang}}</td>
                 <td class="text-center">{{item.ghiChu}}</td>
                 <td class="text-center"></td>
-                <!-- <td class="text-center">{{item.ghiChu}}</td> -->
+
 
                 <td class="text-center date">
                     <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="edit(item, i)"></button>
@@ -51,8 +52,6 @@
                 </td>
             </tr>
         </ng-template>
-        <!-- <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi {{ (listBaoLanh | isXoa).length }}.</div>
-        </ng-template> -->
+
     </p-table>
 </div>

@@ -303,6 +303,12 @@ import { XuatkhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/x
 import { XuatkhovattuphumodalComponent } from './quanlykhosanxuat/quytrinh/vattuphu/xuatkhovattuphumodal/xuatkhovattuphumodal.component';
 import { KiemkekhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/kiemkekhovattuphu/kiemkekhovattuphu.component';
 import { KiemkekhovattuphumodalComponent } from './quanlykhosanxuat/quytrinh/vattuphu/kiemkekhovattuphumodal/kiemkekhovattuphumodal.component';
+import { DinhmucmathangtheonamComponent } from './danhmuc/dinhmucmathangtheonam/dinhmucmathangtheonam.component';
+import { ModaldinhmucmathangtheonamComponent } from './danhmuc/modal/modaldinhmucmathangtheonam/modaldinhmucmathangtheonam.component';
+import { KehoachkinhdoanhTaomoiComponent } from './danhmuc/kehoachkinhdoanh-taomoi/kehoachkinhdoanh-taomoi.component';
+import { Modalchitietkehoachkinhdoanhtheodoi1Component } from './danhmuc/modal/modalchitietkehoachkinhdoanhtheodoi1/modalchitietkehoachkinhdoanhtheodoi1.component';
+import { DanhsachkehoachkinhdoanhComponent } from './danhmuc/danhsachkehoachkinhdoanh/danhsachkehoachkinhdoanh.component';
+
 
 @NgModule({
   declarations: [
@@ -557,6 +563,19 @@ import { KiemkekhovattuphumodalComponent } from './quanlykhosanxuat/quytrinh/vat
     KiemkekhovattuphumodalComponent,
     NhapkhovattuphumodalComponent,
     XuatkhovattuphumodalComponent,
+    DinhmucmathangtheonamComponent,
+    ModaldinhmucmathangtheonamComponent,
+    KehoachkinhdoanhTaomoiComponent,
+  
+    Modalchitietkehoachkinhdoanhtheodoi1Component,
+  
+    DanhsachkehoachkinhdoanhComponent,
+
+    //....
+    
+
+    //.......
+
   
   ],
   imports: [
@@ -722,6 +741,8 @@ import { KiemkekhovattuphumodalComponent } from './quanlykhosanxuat/quytrinh/vat
     KiemkekhovattuphumodalComponent,
     NhapkhovattuphumodalComponent,
     XuatkhovattuphumodalComponent,
+    ModaldinhmucmathangtheonamComponent,
+    KehoachkinhdoanhTaomoiComponent,
   
   ],
   providers: [

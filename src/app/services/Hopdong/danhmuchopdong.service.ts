@@ -112,6 +112,12 @@ export class DanhMucHopDongService {
     DanhMucTrangThaiBaoLanh(){
         let url = API.HopDong
         return {
+            GetListAlldmLoaiBaoLanh: () => {
+                return this.http.get(url + `DanhMuc/GetListAlldmLoaiBaoLanh`, httpOptions);
+              },
+            GetdmTrangThaiBaoLanh: () => {
+                return this.http.get(url + `DanhMuc/GetListAlldmTrangThaiBaoLanh`, httpOptions);
+              },
             GetList:(data)=>{
                 return this.http.get(`${url}DanhMuc/GetListdmTrangThaiBaoLanh?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
             },
@@ -240,6 +246,28 @@ export class DanhMucHopDongService {
             Delete:(id)=>{
                 return this.http.get(`${url}DanhMuc/DeletedmTinhLuong?id=${id}`,httpOptions)
             }
+        }
+    }
+
+    //.......... quantri/danhmuc ......................
+
+    //
+   DinhMucMatHangTheoNam(){
+        let url = API.KeHoach
+        return {
+            GetList:(data)=>{
+                return this.http.get(`${url}DinhMucMatHangHangNam/GetAllPaging?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
+            },
+            Set:(data)=>{
+                return this.http.post(`${url}DinhMucMatHangHangNam/AddDinhMucMatHangHangNam`,data,httpOptions)
+            },
+            // DeleteList:(data)=>{
+            //     debugger;
+            //     return this.http.post(`${url}DanhMuc/DeleteListdmTinhLuong`,data,httpOptions)
+            // },
+            // Delete:(id)=>{
+            //     return this.http.get(`${url}DanhMuc/DeletedmTinhLuong?id=${id}`,httpOptions)
+            // }
         }
     }
 

@@ -54,6 +54,7 @@ export class ChitietbaolanhComponent implements OnInit, DoCheck {
   edit(item, i) {
     let modalRef = this._modal.open(ChitietbaolanhmodalComponent, { size: 'xl', backdrop: 'static' });
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.item.hieuLucBaoLanh = new Date(item.hieuLucBaoLanh);
     modalRef.componentInstance.opt = 'edit';
     modalRef.result.then(res => {
       this.listBaoLanh.splice(i, 1);

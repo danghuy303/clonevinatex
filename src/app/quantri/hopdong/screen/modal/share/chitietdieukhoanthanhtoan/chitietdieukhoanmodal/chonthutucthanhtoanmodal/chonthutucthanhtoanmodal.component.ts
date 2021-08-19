@@ -87,12 +87,7 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
     });
     console.log(itemFind);
     this.activeModal.close(
-      { data: itemFind.map(ele=>{
-        return {
-          ...ele,
-          Ten:`${ele.TenLoHang} - ${ele.ten}`
-        }
-      }) }
+     {itemFind:itemFind}
     );
   }
   filtertable_add() {
