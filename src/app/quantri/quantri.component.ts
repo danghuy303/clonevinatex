@@ -1006,6 +1006,7 @@ export class QuantriComponent implements OnInit {
           {
             label: "Phí bán hàng",
             routerLink:
+            
               "/quantri/hopdongsanxuat/danhmuc/danhmucphibanhang",
 
             command: () => this.close(),
@@ -1019,6 +1020,30 @@ export class QuantriComponent implements OnInit {
           },
         ],
       },
+      /////  menu kế hoạch sau tách..................................
+      {
+        label: "Menu kế hoạch kinh doanh",
+        icon: "fas fa-circle",
+        routerLink: "/quantri",
+        visible: this.showHopDongModule,
+        items: [
+          {
+            label: "Danh sách kế hoạch kinh doanh",
+            routerLink: "/quantri/danhmuc/danhsachkehoachkinhdoanh",
+            command: () => this.close(),
+          },
+          {
+            label: "Định mức mặt hàng theo năm",
+            routerLink: "/quantri/danhmuc/dinhmucmathangtheonam",
+            command: () => this.close(),
+          },
+         
+          
+         
+        ],
+      },
+
+
       {
         label: "Danh mục dùng chung",
         routerLink: "/quantri/danhmuc",

@@ -42,7 +42,7 @@ listVatTu: any = [];
   userInfo: any;
   newItem: any = {};
   lang: any = vn;
-  isBongXo: boolean = true
+  isBong: boolean = true
   filter: any = {
     keyWord: "",
   };
@@ -129,6 +129,10 @@ console.log(this.item.hopDong.loaiNguyenVatLieu);
 
     return true;
   }
+  abcd(){
+    console.log('fsdfsf');
+    
+  }
   GhiLai() {
     this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
     this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
@@ -137,14 +141,14 @@ console.log(this.item.hopDong.loaiNguyenVatLieu);
         .QuyTrinhHopDong()
         .Set(this.item)
         .subscribe((res: any) => {
-          console.log(this.item);
+          console.log(res);
           if (res) {
             if (res?.statusCode === 200) {
                
                
               this._toastr.success(res.message);
               this._service.QuyTrinhHopDong().Get(res.data).subscribe((res1: any) => {
-                console.log(res1.data.hopDong);
+               
                 this.item = res1.data
                 this.item.hopDong.idTrangThai = res1.data.hopDong.idTrangThai
                 this.item.hopDong.id = res1.data.hopDong.id

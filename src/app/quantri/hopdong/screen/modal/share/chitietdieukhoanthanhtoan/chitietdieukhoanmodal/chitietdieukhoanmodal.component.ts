@@ -18,6 +18,7 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   opt: any = '';
   item: any = [];
   listLoaiThanhToan: any = []
+  listLoaiTheoNgay: any = []
   listTinhTrangBaoLanh: any = []
   listThuTucThanhToan_ref: any = []
   listThuTucThanhToan: any = []
@@ -27,6 +28,15 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
     { label: 'Thanh toán', value: 1 },
     { label: 'Thanh toán vật tư', value: 2 }
   ]
+
+
+  optionsTheoNgay = [
+    { label: 'Thời gian giao hàng', value: 2 },
+    { label: 'Ngày nhận hàng', value: 3 },
+    { label: 'Ngày nhận được tài liệu giao hàng', value: 4 },
+    { label: 'Ngày ký hợp đồng', value: 0 },
+    { label: 'Ngày ký hợp đồng có hiệu lực', value: 1 },
+  ] 
 
   listDieuKhoanThanhToan: any = {}
   yearRange: string = `${new Date().getFullYear() - 50
@@ -51,10 +61,13 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   onChangeLoaiThanhToan(even) {
     console.log('onChangeLoaiThanhToan>>>>>>>>>>', even.value);
     this.item.loaiThanhToan = even.value
-
-
-
   }
+
+  onChangeLoaiNgay(even) {
+    console.log('onChangeLoaiNgay>>>>>>>>>>', even.value);
+    this.item.theoThoiGian  = even.value
+  }
+
   chonDanhMuc() {
     let listThanhToanThuTuc: any = []
     this._servicesdmHopDong.DanhMucThuTucThanhToan().GetListAll().subscribe((res1: any) => {

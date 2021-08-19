@@ -72,6 +72,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   selectedCity = null;
   cities = [{ name: 'pushkar', code: 21 }, { name: 'nagpur', code: 22 }];
   @Input() item: any;
+  @Input() isSoi
   @Input() loaiNguyenVatLieu: number;
   @Input() hopDong: any;
   @Output() onChange = new EventEmitter<any>();
@@ -141,16 +142,17 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
 
   onChangeVatLieu(even) {
+// console.log('onChangeVatLieu',loaiNguyenVatLieu);
 
        this.onChange.emit(even);
    this.item.loaiNguyenVatLieu = even.value
 
-   this._servicesSanXuat
-   .GetListdmLoaiBongForHopDong(this.data.Loai =even.value)
-   .subscribe((res: any) => {
-     this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
-     this.listLoaiMatHang_ref = res;
-   });
+  //  this._servicesSanXuat
+  //  .GetListdmLoaiBongForHopDong(this.data.Loai =even.value)
+  //  .subscribe((res: any) => {
+  //    this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
+  //    this.listLoaiMatHang_ref = res;
+  //  });
 
 
   }

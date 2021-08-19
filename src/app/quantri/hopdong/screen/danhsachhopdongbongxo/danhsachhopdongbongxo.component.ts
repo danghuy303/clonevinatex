@@ -104,10 +104,6 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
         
       }
     ]
-   
- 
-    
-
     modalRef.result
       .then((res: any) => {
         console.log(res);
