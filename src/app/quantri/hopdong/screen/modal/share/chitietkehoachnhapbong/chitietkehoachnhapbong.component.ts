@@ -69,21 +69,14 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     }
     else {
-      if (this.item.listInvoice.length > 0) {
-        this.item.listInvoice.filter(obj => {
-          obj.thoiGianDuKien = UnixToDate(obj.thoiGianDuKienUnix);
-          obj.thoiGianCapCang = UnixToDate(obj.thoiGianCapCangUnix);
-          // obj.listDacTinh = mapArrayForDropDown(obj.listDacTinh, 'DacTinh', 'Id');
-        });
-      }
-      this.KiemTraButtonModal();
+      this.GetItem(this.item.id); 
     }
     this.data.CurrentPage = 0;
   }
   KiemTraButtonModal() {
-    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
+    this._services.KiemTraButton(this.item.id || '', this.item.idTrangThai || '').subscribe(res => {
       this.checkbutton = res;
-      if (this.item.IdUserHienTai === this.item.CreatedBy)
+      if (this.item.IdUserHienTai === this.item.createdBy)
         this.checkbutton.Ghi = true;
     })
   }
@@ -126,7 +119,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     if (this.setdata()) {
       this._services.KeHoachNhapBong().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
-          if (res.State === 1) {
+          if (res.statusCode === 200) {
             this.toastr.success(res.message);
             this.activeModal.close();
           } else {
@@ -141,19 +134,19 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     if (this.setdata()) {
       this._services.KeHoachNhapBong().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
-          if (res.State === 1) {
+          if (res.statusCode === 200) {
             this.activeModal.close();
           } else {
             this.toastr.error(res.message);
           }
         }
-      })  
-    }    
+      })
+    }
   }
 
   GetNextSoQuyTrinh() {
     this._services.KeHoachNhapBong().GetNextSo().subscribe((res: any) => {
-      this.item.SoQuyTrinh = res.data;
+      this.item.soQuyTrinh = res.data;
     })
   }
 
@@ -164,10 +157,12 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     }
     this.item.thoiGianDuKienUnix = DateToUnix(this.item.thoiGianDuKien);
     this.item.thoiGianCapCangUnix = DateToUnix(this.item.thoiGianCapCang);
-    this.item.listInvoice.filter(obj => {
-      obj.thoiGianDuKienUnix = DateToUnix(obj.thoiGianDuKien);
-      obj.thoiGianCapCangUnix = DateToUnix(obj.thoiGianCapCang);
-    });
+    if (this.item.listInvoice.length > 0) {
+      this.item.listInvoice.forEach(obj => {
+        obj.thoiGianDuKienUnix = DateToUnix(obj.thoiGianDuKien);
+        obj.thoiGianCapCangUnix = DateToUnix(obj.thoiGianCapCang);
+      });
+    }
     return true;
   }
 
@@ -175,21 +170,33 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     if (this.setdata()) {
       this._services.KeHoachNhapBong().Set(this.item).subscribe((res: any) => {
         if (res) {
-          if (res.State === 1) {
+          if (res.statusCode === 200) {
             this.toastr.success(res.message)
             this.opt = 'edit';
-            this.item = res.objectReturn;
-            this.item.listInvoice.filter(obj => {
-              obj.thoiGianDuKien = obj.thoiGianDuKienUnix > 0 ? UnixToDate(obj.thoiGianDuKienUnix) : 0;
-              obj.thoiGianCapCang = obj.thoiGianCapCangUnix > 0 ? UnixToDate(obj.thoiGianCapCangUnix) : 0;
-            });
-            this.KiemTraButtonModal();
+            this.GetItem(res.data);
           } else {
             this.toastr.error(res.message);
           }
         }
       })
     }
+  }
+
+  GetItem(Id) {
+    this._services.KeHoachNhapBong().Get(Id).subscribe((res: any) => {
+      this.item = res.data;
+      this.item.thoiGianDuKien = this.item.thoiGianDuKienUnix > 0 ? UnixToDate(this.item.thoiGianDuKienUnix) : "";
+      this.item.thoiGianCapCang = this.item.thoiGianCapCangUnix > 0 ? UnixToDate(this.item.thoiGianCapCangUnix) : "";
+      if (this.item.listInvoice.length > 0) {
+        this.item.listInvoice.forEach(obj => {
+          obj.thoiGianDuKien = obj.thoiGianDuKienUnix > 0 ? UnixToDate(obj.thoiGianDuKienUnix) : "";
+          obj.thoiGianCapCang = obj.thoiGianCapCangUnix > 0 ? UnixToDate(obj.thoiGianCapCangUnix) : "";
+        });
+      }
+      this.GetDanhSachHopDongByNhaThau(); 
+      this.GetListdmLoaiBongForHopDong();    
+      this.KiemTraButtonModal();
+    })
   }
 
   XoaQuyTrinh() {
@@ -200,7 +207,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     modalRef.result.then(res => {
       this._services.KeHoachNhapBong().Delete(this.item).subscribe((res: any) => {
         console.log(res);
-        if (res?.State === 1) {
+        if (res?.statusCode === 200) {
           this.activeModal.close();
         } else {
           this.toastr.error(res.message);
@@ -232,7 +239,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     this.filter = {};
     this.filter.KeyWord = '';
     this.filtertable_add();
-  }  
+  }
 
   add() {
     if (this.item.listInvoice == undefined || this.item.listInvoice == null)

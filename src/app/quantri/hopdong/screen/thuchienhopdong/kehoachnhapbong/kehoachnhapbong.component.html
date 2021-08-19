@@ -45,26 +45,26 @@
                 <col style="width:50px">
                 <col style="width:200px">
                 <col style="width:200px">
-                <col style="width:200px">
-                <col style="width:200px">
-                <col style="width:200px">
-                <col style="width:200px">
-                <col style="width:200px">
-                <col style="width: 100px;">
+                <col>
+                <col>
+                <col>
+                <col>
+                <col style="width:100px">
+                <col style="width:200px">                
+                <col style="width: 50px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">#</th>
                 <th class="text-center">Số phiếu</th>
-                <th class="text-center">Ngày tạo</th>
+                <th class="text-center">Ngày tạo</th>                
                 <th class="text-center">Số hợp đồng</th>
-                <th class="text-center">Số lượng</th>
                 <th class="text-center">Nội dung</th>
+                <th class="text-center">Số lượng</th> 
                 <th class="text-center">Khối lượng nhập (tấn)</th>
-                <th *ngFor="let header of cols">
-                    {{header.header}}
-                </th>
+                <th class="text-center">Trạng thái</th>
+                <th class="text-center">Ghi chú</th>               
                 <th></th>
             </tr>
         </ng-template>
@@ -73,16 +73,18 @@
                 <td class="text-center">
                     {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
-                <td class="text-center">{{item.SoQuyTrinh}}</td>
-                <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td>
-                <td class="text-left">{{item.NoiDung}}</td>
+                <td class="text-center">{{item.soQuyTrinh}}</td>
+                <td class="text-center">{{item.created|date:'dd/MM/yyyy'}}</td>                  
+                <td class="text-center">{{item.soHopDong}}</td>
+                <td class="text-center">{{item.noiDung}}</td>
+                <td class="text-center">{{item.soLuong}}</td>                               
                 <td class="text-center">{{item.TongKhoiLuongNhap|number:'0.0'}}</td>
-                <td class="text-center" *ngFor="let col of cols">
-                    {{item[col.field]}}
-                </td>
+                <td class="text-center">{{item.tenTrangThai}}</td>                               
+                <td class="text-center">{{item.ghiChu}}</td>                               
+               
                 <td class="text-center">                 
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.Id)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item)"></button>
                 </td>
             </tr>
         </ng-template>
