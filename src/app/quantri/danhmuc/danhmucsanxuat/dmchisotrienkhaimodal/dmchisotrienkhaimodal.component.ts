@@ -36,6 +36,8 @@ export class DmchisotrienkhaimodalComponent implements OnInit {
   }
   accept() {
     this.khongclicknhieu = !this.khongclicknhieu;
+    this.item.Tu = this.item.Tu || 0;
+    this.item.Den = this.item.Den || 0;
     this.sanXuatService.dmChiSoTrienKhai().Set(this.item).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
