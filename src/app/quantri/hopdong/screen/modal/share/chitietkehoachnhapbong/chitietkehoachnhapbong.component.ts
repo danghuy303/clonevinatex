@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { async } from 'rxjs/internal/scheduler/async';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -25,8 +26,8 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     Xoa: false,
   }
   newTableItem: any = {
-    "Id": "",
-    "idKeHoachNhapNguyenLieu": this.item.Id,
+    "id": "",
+    "idKeHoachNhapBong": this.item.Id,
   };
   editTableItem: any = [];
   listPhuongAnSapXep: any = [];
@@ -69,7 +70,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     }
     else {
-      this.GetItem(this.item.id); 
+      this.GetItem(this.item.id);
     }
     this.data.CurrentPage = 0;
   }
@@ -88,14 +89,15 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   }
 
   GetDanhSachHopDongByNhaThau() {
-    this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn).subscribe((res: any) => {
+    let subscribe = this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn).toPromise();
+    subscribe.then((res: any) => {
       this.listhopdong = mapArrayForDropDown(res, 'soHopDong', 'id');
       this.listhopdong_copy = deepCopy(res);
     })
   }
 
   GetListdmLoaiBongForHopDong() {
-    let item = this.listhopdong_copy.find(obj => obj.id == this.item.idHopDong);
+    let item = this.listhopdong_copy.find(obj => obj.id == this.item.idHopDong);    
     this.item.soLuong = item.soLuong;
     this.item.giaCif = item.giaCif;
     this._services.GetListdmLoaiBongForHopDong(item.loaiHangHoa).subscribe((res: any) => {
@@ -110,11 +112,6 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     })
   }
 
-  ChuyenTiep() {
-    if ((this.newTableItem.IddmLoaiBong !== undefined) && (this.newTableItem.IddmCapBong !== undefined) && (this.newTableItem.ThoiGianDuKien !== undefined)) {
-      this.add();
-    }
-  }
   ChuyenDuyet() {
     if (this.setdata()) {
       this._services.KeHoachNhapBong().ChuyenTiep(this.item).subscribe((res: any) => {
@@ -193,8 +190,11 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
           obj.thoiGianCapCang = obj.thoiGianCapCangUnix > 0 ? UnixToDate(obj.thoiGianCapCangUnix) : "";
         });
       }
-      this.GetDanhSachHopDongByNhaThau(); 
-      this.GetListdmLoaiBongForHopDong();    
+      this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn).subscribe((res: any) => {
+        this.listhopdong = mapArrayForDropDown(res, 'soHopDong', 'id');
+        this.listhopdong_copy = deepCopy(res);
+        this.GetListdmLoaiBongForHopDong();
+      })
       this.KiemTraButtonModal();
     })
   }
