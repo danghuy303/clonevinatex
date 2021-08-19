@@ -260,11 +260,10 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     this.editTableItem = deepCopy(item);
   }
   delete(index) { 
-    if (this.item.listInvoice[index].id === '' || this.item.listInvoice[index].id === null || this.item.listInvoice[index].id === undefined) {
+    if (!validVariable(this.item.listInvoice[index].id)) {
       this.item.listInvoice.splice(index, 1)
     } else {
-      this.item.listInvoice[index].isXoa = true;
-      // this.item.listInvoice.push(JSON.parse(JSON.stringify(item)));
+      this.item.listInvoice[index].isXoa = true;     
     }
   }
   saveEdit(item, index) {
