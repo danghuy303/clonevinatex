@@ -16,6 +16,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 export class ChitietdieukhoanmodalComponent implements OnInit {
   lang: any = vn;
   listThanhToanThuTuc = []
+  isThoiDiem: boolean = false;
   opt: any = '';
   item: any = [];
   listLoaiThanhToan: any = []
@@ -65,7 +66,10 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
         this.listTheoLoaiThanhToan = mapArrayForDropDown(res, "ten", "id");
       });
   }
-
+  toggleVisibility(){
+    this.isThoiDiem = true
+    
+  }
 
   onChangeLoaiThanhToan(even) {
     console.log('onChangeLoaiThanhToan>>>>>>>>>>', even.value);

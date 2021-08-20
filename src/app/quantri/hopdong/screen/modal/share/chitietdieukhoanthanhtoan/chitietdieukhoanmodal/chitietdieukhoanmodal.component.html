@@ -79,12 +79,12 @@
         </div>
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <div class="p-col-12 p-xl-1 p-d-flex   p-ml-lg-0 p-p-0">
-                <p-checkbox binary="true" inputId="binary"></p-checkbox>
+                <p-checkbox binary="true" (onChange)="toggleVisibility()" inputId="binary"></p-checkbox>
             </div>
             <label class="p-col-12 p-xl-11  p-p-0 my-auto">Chọn thời điểm khác</label>
         </div>
 
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div *ngIf="isThoiDiem" class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-lg-3  p-p-0 my-auto">Số ngày: </label>
             <div class="p-col-12 p-xl-10   p-p-0">
 
@@ -93,7 +93,7 @@
 
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div *ngIf="isThoiDiem" class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Theo :</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [filter]="true" [(ngModel)]="item.theoThoiGian" (onChange)="onChangeLoaiNgay($event)" [options]="optionsTheoNgay" placeholder="Chọn loại thanh toán" styleClass="p-inputtext-sm"></p-dropdown>
