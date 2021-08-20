@@ -84,7 +84,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
 
   GetDanhSachDuAnByIdUser() {
     this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
-      this.listduan = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listduan = mapArrayForDropDown(res, 'TenDuAn', 'Id');
     })
   }
 
