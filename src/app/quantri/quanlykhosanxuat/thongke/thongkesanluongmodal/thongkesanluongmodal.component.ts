@@ -529,7 +529,10 @@ export class ThongkesanluongmodalComponent implements OnInit {
 
   KhoiLuongBongCongDoanCon(item){
     this.item.BongHutMoi = this.listItem.reduce((Total,ele)=>Total+(ele.HutMoi||0),0);
-    item.KhoiLuong = (item.ChuDongHo || 0) * ((item.SoCoc || 0) - (item.CocChet || 0)) / 1000 - (item.HutMoi || 0);
+    if(item.isM == true)
+      item.KhoiLuong = item.ChieuDai/(item.Ne * 1.693 * 1000) *((item.SoCoc || 0) - (item.CocChet || 0)) - (item.HutMoi || 0) ;
+    else
+      item.KhoiLuong = (item.ChuDongHo || 0) * ((item.SoCoc || 0) - (item.CocChet || 0)) / 1000 - (item.HutMoi || 0);
     this.TinhTongKhoiLuongBong();
   }
   // ThayDoiTongKhoiLuong(){
