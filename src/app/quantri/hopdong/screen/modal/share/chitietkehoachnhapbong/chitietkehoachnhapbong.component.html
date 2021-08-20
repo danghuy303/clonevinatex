@@ -54,9 +54,10 @@
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Loại bông/xơ:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
-                    <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại bông"
-                        [(ngModel)]="item.iddmLoaiBong" styleClass="p-inputtext-sm">
-                    </p-dropdown>
+                    <!-- <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại bông"
+                        [(ngModel)]="item.iddmLoaiBong" styleClass="p-inputtext-sm" >
+                    </p-dropdown> -->
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TenLoaiBong" pInputText disabled/>
                 </div>
             </div>
             
@@ -114,14 +115,14 @@
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Số container:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
-                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soContainer">
+                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soContainer" disabled>
                     </p-inputNumber>
                 </div>
             </div>
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Số kiện:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
-                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soKien">
+                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soKien" disabled>
                     </p-inputNumber>
                 </div>
             </div>
@@ -193,11 +194,11 @@
                                 </p-inputNumber>
                             </td>
                             <td>
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.soContainer">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.soContainer" (onBlur)="tinhTongContainer_SoKien()">
                                 </p-inputNumber>
                             </td>
                             <td>
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.soKien">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.soKien" (onBlur)="tinhTongContainer_SoKien()">
                                 </p-inputNumber>
                             </td>
                             <td>

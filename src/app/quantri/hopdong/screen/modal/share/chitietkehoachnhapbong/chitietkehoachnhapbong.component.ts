@@ -104,7 +104,11 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     this.item.giaCif = item.giaCif;
     this._services.GetListdmLoaiBongForHopDong(item.loaiHangHoa).subscribe((res: any) => {
       // res.unshift({ Id: '', Ten: 'Tổng hợp' });
-      this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
+      // this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
+      this.listLoaiBong = res;
+      let itemLoaiBong = this.listLoaiBong.find(obj => obj.Id === item.loaiHangHoa);
+      this.item.TenLoaiBong = itemLoaiBong.TenLoaiBong;
+      this.item.iddmLoaiBong = itemLoaiBong.Id;
     })
   }
 
@@ -252,6 +256,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     this.newTableItem.id = "";
     this.newTableItem.idKeHoachNhapBong = this.item.id;
     this.item.listInvoice.push(this.newTableItem);
+    this.tinhTongContainer_SoKien();
     this.newTableItem = {
       "id": "",
       "idKeHoachNhapBong": this.item.id,
@@ -270,6 +275,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     } else {
       this.item.listInvoice[index].isXoa = true;
     }
+    this.tinhTongContainer_SoKien();
   }
   saveEdit(item, index) {
     this.item.listInvoice[index] = item;
@@ -301,6 +307,17 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     //   });
     // })
     //   .catch(er => { console.log(er) })
+  }
+
+  tinhTongContainer_SoKien() {
+    this.item.soContainer = 0;
+    this.item.soKien = 0;
+    this.item.listInvoice.forEach(obj => {
+      if (this.item.isXoa == undefined || this.item.isXoa == false) {
+        this.item.soContainer += obj.soContainer;
+        this.item.soKien += obj.soKien;
+      }
+    });
   }
 
 }
