@@ -1,3 +1,4 @@
+import { vn } from './../../../../../../services/const';
 import { Subscription } from 'rxjs';
 import { ChitiethanghoacuahopdongsoimodalComponent } from './chitiethanghoacuahopdongsoimodal/chitiethanghoacuahopdongsoimodal.component';
 import { SanXuatService } from './../../../../../../services/callApiSanXuat';
@@ -31,7 +32,8 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
 unsup: Subscription
-  
+lang: any = vn;
+yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   currentMyText: number = 5
 
   listThanhToanThuTuc: any = []

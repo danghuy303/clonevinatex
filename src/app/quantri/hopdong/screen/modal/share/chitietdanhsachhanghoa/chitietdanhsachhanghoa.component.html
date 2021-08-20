@@ -332,7 +332,22 @@
         />
       </div>
     </div>
-
+    <div
+    class="
+      p-col-12 p-lg-6 p-mb-3
+      d-flex
+      flex-column flex-xl-row
+      p-px-3 p-py-0
+    "
+  >
+    <label class="p-col-12 p-xl-4 p-lg-8 p-p-0 my-auto"
+      >Ngày giao hàng:</label
+    >
+    <div class="p-col-12 p-xl-8 p-p-0">
+        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="hopDong.ngayGiaoHang" inputId="icon" placeholder="dd/mm/yyyy">
+        </p-calendar>
+    </div>
+  </div>
     <div
       class="
         p-col-12 p-lg-6 p-mb-3
@@ -341,10 +356,10 @@
         p-px-3 p-py-0
       "
     >
-      <label class="p-col-12 p-xl-4 p-lg-4 p-p-0 my-auto"
+      <label class="p-col-12 p-xl-6 p-lg-4 p-p-0 my-auto"
         >Chi phí vận chuyển:</label
       >
-      <div class="p-col-12 p-xl-8 p-p-0">
+      <div class="p-col-12 p-xl-6 p-p-0">
         <p-inputNumber
           [(ngModel)]="hopDong.chiPhiVanChuyen"
           [minFractionDigits]="2"
@@ -353,8 +368,33 @@
         </p-inputNumber>
       </div>
     </div>
+    <div class="p-col-12 p-xl-6 p-lg-12 p-mb-3 padding0 d-flex flex-column flex-xl-row p-px-3 p-py-0">
 
-    <div
+
+        <div style="padding:0; margin:0" class="p-col-12  p-xl-6 p-mb-3 d-flex flex-column flex-xl-row  p-py-0 ">
+
+            <div class="p-col-12 p-lg-2 p-d-flex p-ml-lg-0 p-p-0">
+                <p-checkbox
+            [(ngModel)]="hopDong.isBenBanChiu"
+            binary="true"
+            inputId="binary"
+          ></p-checkbox>
+            </div>
+            <label class="p-col-12 p-lg-10 p-p-0 my-auto">Bên bán chịu</label>
+        </div>
+
+
+
+        <div class="p-col-12  p-xl-6  p-mb-3 d-flex flex-column flex-xl-row p-px-0 p-py-0">
+
+            <div class="p-col-12 p-lg-2 p-d-flex p-jc-end p-mr-4 p-ml-xl-2 p-ml-lg-0 p-p-0">
+                <p-checkbox [(ngModel)]="hopDong.isBenBanChiu" binary="true" inputId="binary"></p-checkbox>
+            </div>
+            <label class="p-col-12 p-lg-10 p-p-0 my-auto">Bên mua chịu</label>
+        </div>
+    </div>
+
+    <!-- <div
       class="p-col-12 p-xl-6 p-lg-12 p-mb-3 d-flex flex-xl-row p-px-3 p-py-0"
     >
       <div class="p-col-12 p-xl-6 p-mb-3 d-flex flex-lg-row p-px-3 p-py-0">
@@ -379,6 +419,6 @@
             </div>
             <label class="p-col-12 p-lg-6 p-p-0 my-auto">Bên mua chịu:</label>
         </div>
-    </div>
+    </div> -->
     </div>
 </p-panel>
