@@ -59,7 +59,7 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
       });
 
 
-    this._serviceDungChung
+    this._servicesdmHopDong
       .GetListAlldmTheoLoaiThanhToan()
       .subscribe((res: any) => {
         this.listTheoLoaiThanhToan = mapArrayForDropDown(res, "ten", "id");

@@ -16,7 +16,7 @@ import { Component, OnInit, Input, Output, EventEmitter, DoCheck, SimpleChanges,
   templateUrl: './chitietdanhsachhanghoa.component.html',
   styleUrls: ['./chitietdanhsachhanghoa.component.css']
 })
-export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck, OnChanges {
+export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Input('listVatTu') item: any = {};
   @Input() hopDong: any = {};
   @Input() listTieuChuanChatLuong: any = {}
@@ -31,7 +31,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck, OnChang
   @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
 unsup: Subscription
-  // item: any = {}
+  
   currentMyText: number = 5
 
   listThanhToanThuTuc: any = []
@@ -42,7 +42,7 @@ unsup: Subscription
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private _servicesSanXuat: SanXuatService) { }
 
   ngOnInit(): void {
-  
+ 
   
     // this.item.listVatTu.donGia = 0
     // this.item.thueGTGT = 0
@@ -83,26 +83,31 @@ console.log(this.hopDong.loaiNguyenVatLieu);
     console.log(this.item);
   
   }
-  ngOnChanges(changes: SimpleChanges) {
-    if ('loaiNguyenVatLieu' in changes) {
-    if (typeof changes['loaiNguyenVatLieu'].currentValue !== 'number') {
-    const loaiNguyenVatLieu = Number(changes['loaiNguyenVatLieu'].currentValue);
-    if (Number.isNaN(loaiNguyenVatLieu)) {
-    this.hopDong.loaiNguyenVatLieu = null;
-    } else {
-    this.hopDong.loaiNguyenVatLieu = this.item.iddmLoaiVatTu;
-    }
-    }
-    }
-    }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if ('loaiNguyenVatLieu' in changes) {
+  //   if (typeof changes['loaiNguyenVatLieu'].currentValue !== 'number') {
+  //   const loaiNguyenVatLieu = Number(changes['loaiNguyenVatLieu'].currentValue);
+  //   if (Number.isNaN(loaiNguyenVatLieu)) {
+  //   this.hopDong.loaiNguyenVatLieu = null;
+  //   } else {
+  //   this.hopDong.loaiNguyenVatLieu = this.item.iddmLoaiVatTu;
+  //   }
+  //   }
+  //   }
+  //   }
 
   GetOptions() {
+    if(this.opt == 'add'){
+      this.hopDong.loaiNguyenVatLieu = this.item.data
+ 
+    
     this._servicesSanXuat
-      .GetListdmLoaiBongForHopDong(this.hopDong.loaiNguyenVatLieu)
+      .GetListdmLoaiBongForHopDong(this.item.data = 2 )
       .subscribe((res: any) => {
         this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
         this.listLoaiMatHang_ref = res;
       });
+    }
   }
   add() {
     this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
