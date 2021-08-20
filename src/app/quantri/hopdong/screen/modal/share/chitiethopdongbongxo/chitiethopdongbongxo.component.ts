@@ -150,12 +150,14 @@ export class ChitiethopdongbongxoComponent implements OnInit,OnChanges {
 
    this.item.loaiNguyenVatLieu = even.value
 
-  //  this._servicesSanXuat
-  //  .GetListdmLoaiBongForHopDong(this.data.Loai =even.value)
-  //  .subscribe((res: any) => {
-  //    this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
-  //    this.listLoaiMatHang_ref = res;
-  //  });
+   this._servicesSanXuat
+   .GetListdmLoaiBongForHopDong(this.data.Loai =even.value)
+   .subscribe((res1: any) => {
+     console.log('GetListdmLoaiBongForHopDong',res1);
+     
+     this.listLoaiMatHang = mapArrayForDropDown(res1, "Ten", "Id");
+     this.listLoaiMatHang_ref = res1;
+   });
 
 
   }

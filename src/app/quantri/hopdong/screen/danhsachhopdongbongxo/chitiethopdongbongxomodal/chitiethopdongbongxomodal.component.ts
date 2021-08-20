@@ -24,6 +24,7 @@ import {
   validVariable,
 } from "src/app/services/globalfunction";
 import { StoreService } from "src/app/services/store.service";
+import { isEmptyExpression } from "@angular/compiler";
 
 @Component({
   selector: "app-chitiethopdongbongxomodal",
@@ -34,6 +35,7 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   opt: any = "add";
   title: string
   item: any = {};
+  @Input() res1: any = [];
   hopDong: any = {};
   listLoaiMatHang: any = []
   listLoaiMatHang_ref: any = []
