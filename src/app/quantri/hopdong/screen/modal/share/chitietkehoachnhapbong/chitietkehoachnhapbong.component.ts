@@ -84,20 +84,22 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
 
   GetDanhSachDuAnByIdUser() {
     this._services.GetOptions().GetDanhSachDuAnByIdUser(this.userInfo.Id).subscribe((res: any) => {
-      this.listduan = mapArrayForDropDown(res, 'TenDuAn', 'Id');
+      this.listduan = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 
   GetDanhSachHopDongByNhaThau() {
-    let subscribe = this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn).toPromise();
-    subscribe.then((res: any) => {
-      this.listhopdong = mapArrayForDropDown(res, 'soHopDong', 'id');
+    this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn).subscribe((res: any) => {
+      res.forEach(obj => {
+        obj.TenFull = `${obj.soHopDong} - ${obj.tenHopDong}`;
+      });
+      this.listhopdong = mapArrayForDropDown(res, 'TenFull', 'id');
       this.listhopdong_copy = deepCopy(res);
     })
   }
 
   GetListdmLoaiBongForHopDong() {
-    let item = this.listhopdong_copy.find(obj => obj.id == this.item.idHopDong);    
+    let item = this.listhopdong_copy.find(obj => obj.id == this.item.idHopDong);
     this.item.soLuong = item.soLuong;
     this.item.giaCif = item.giaCif;
     this._services.GetListdmLoaiBongForHopDong(item.loaiHangHoa).subscribe((res: any) => {
@@ -191,7 +193,10 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
         });
       }
       this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn).subscribe((res: any) => {
-        this.listhopdong = mapArrayForDropDown(res, 'soHopDong', 'id');
+        res.forEach(obj => {
+          obj.TenFull = `${obj.soHopDong} - ${obj.tenHopDong}`;
+        });
+        this.listhopdong = mapArrayForDropDown(res, 'TenFull', 'id');
         this.listhopdong_copy = deepCopy(res);
         this.GetListdmLoaiBongForHopDong();
       })
@@ -259,11 +264,11 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     this.item.listInvoice[index].editField = true;
     this.editTableItem = deepCopy(item);
   }
-  delete(index) { 
+  delete(index) {
     if (!validVariable(this.item.listInvoice[index].id)) {
       this.item.listInvoice.splice(index, 1)
     } else {
-      this.item.listInvoice[index].isXoa = true;     
+      this.item.listInvoice[index].isXoa = true;
     }
   }
   saveEdit(item, index) {

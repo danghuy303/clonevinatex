@@ -52,6 +52,22 @@
                 </div>
             </div>
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                <label class="p-col-12 p-lg-3 p-p-0 my-auto">Loại bông/xơ:</label>
+                <div class="p-col-12 p-lg-9 p-p-0">
+                    <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại bông"
+                        [(ngModel)]="item.iddmLoaiBong" styleClass="p-inputtext-sm">
+                    </p-dropdown>
+                </div>
+            </div>
+            
+            
+            <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                <label class="p-col-12 p-lg-3 p-p-0 my-auto">Mã invoice:</label>
+                <div class="p-col-12 p-lg-9 p-p-0">
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.MaInvoice" pInputText />
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Cấp bông:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
                     <p-dropdown [filter]="true" [options]="listCapBong" placeholder="Chọn cấp bông"
@@ -60,11 +76,12 @@
                 </div>
             </div>
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                <label class="p-col-12 p-lg-3 p-p-0 my-auto">Loại bông:</label>
+                <label class="p-col-12 p-lg-3 p-p-0 my-auto">Thời gian dự kiến về kho:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
-                    <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại bông"
-                        [(ngModel)]="item.iddmLoaiBong" styleClass="p-inputtext-sm">
-                    </p-dropdown>
+                    <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
+                        [yearRange]="yearRange" [showIcon]="false" [(ngModel)]="item.thoiGianDuKien" inputId="icon"
+                        placeholder="dd/mm/yyyy">
+                    </p-calendar>
                 </div>
             </div>
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -77,15 +94,7 @@
                 </div>
             </div>
 
-            <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                <label class="p-col-12 p-lg-3 p-p-0 my-auto">Thời gian dự kiến về kho:</label>
-                <div class="p-col-12 p-lg-9 p-p-0">
-                    <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
-                        [yearRange]="yearRange" [showIcon]="false" [(ngModel)]="item.thoiGianDuKien" inputId="icon"
-                        placeholder="dd/mm/yyyy">
-                    </p-calendar>
-                </div>
-            </div>
+          
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Giá CIF:</label>
                 <div class="p-col-12 p-lg-9 p-p-0">
@@ -100,9 +109,7 @@
                     </p-inputNumber>
                 </div>
             </div>
-            <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-
-            </div>
+          
 
             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-3 p-p-0 my-auto">Số container:</label>
@@ -120,13 +127,13 @@
             </div>
             <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-1 p-p-0 my-auto">Nội dung:</label>
-                <div class="p-col-12 p-lg-11 p-p-0">
+                <div class="p-col-12 p-lg-11 p-p-0 p-pl-theokieunaodo">
                     <input type="text" class="p-inputtext-sm" [(ngModel)]="item.noiDung" pInputText />
                 </div>
             </div>
             <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú:</label>
-                <div class="p-col-12 p-lg-11 p-p-0">
+                <div class="p-col-12 p-lg-11 p-p-0 p-pl-theokieunaodo">
                     <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ghiChu" pInputText />
                 </div>
             </div>
