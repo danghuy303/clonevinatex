@@ -72,7 +72,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
         this.item.NgayUnix = DateToUnix(this.item.Ngay);
 
-      this._services.QuyTrinhPhieuBongPhe().ChuyenTiep(this.item).subscribe((res: any) => {
+      this._services.QuyTrinhPhieuNhapVatTuPhu().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -94,7 +94,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
         this.item.NgayUnix = DateToUnix(this.item.Ngay);
-      this._services.QuyTrinhPhieuBongPhe().KhongDuyet(this.item).subscribe((res: any) => {
+      this._services.QuyTrinhPhieuNhapVatTuPhu().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -108,7 +108,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
   }
   
   GetNextSoQuyTrinh() {
-    this._services.QuyTrinhPhieuBongPhe().GetNextSo().subscribe((res: any) => {
+    this._services.QuyTrinhPhieuNhapVatTuPhu().GetNextSo().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
@@ -121,7 +121,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
       if ( this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined)
           this.addBongHoi();
           this.item.NgayUnix = DateToUnix(this.item.Ngay);
-      this._services.QuyTrinhPhieuBongPhe().Set(this.item).subscribe((res: any) => {
+      this._services.QuyTrinhPhieuNhapVatTuPhu().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -145,7 +145,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this._services.QuyTrinhPhieuBongPhe().Delete(this.item).subscribe((res: any) => {
+      this._services.QuyTrinhPhieuNhapVatTuPhu().Delete(this.item).subscribe((res: any) => {
         console.log(res);
         if (res?.State === 1) {
           this.toastr.success(res.message)

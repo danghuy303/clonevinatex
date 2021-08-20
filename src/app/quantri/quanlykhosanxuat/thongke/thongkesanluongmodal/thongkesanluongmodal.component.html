@@ -133,7 +133,10 @@
                         <th>Sản lượng định mức</th>
                         <th>Chiều dài (m)</th>
                         <!-- <th *ngIf="item.CongDoan==='GHEPSOBOCOTTON'">Cúi hồi (kg)</th> -->
-                        <th *ngIf="item.CongDoan==='CON'">Chữ đồng hồ (kg/cọc)</th>
+                        <th *ngIf="item.CongDoan==='CON'">Chữ đồng hồ (kg/cọc)
+                            <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true"
+                                inputId="binary"></p-checkbox>
+                        </th>
                         <th *ngIf="item.CongDoan==='CON'">Cọc chết (cọc)</th>
                         <th *ngIf="item.CongDoan==='CON'">Hút mối (kg)</th>
                         <th>Ghi chú</th>
@@ -214,7 +217,7 @@
                             <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*4+2)" [tabindex]="i*4+2"
                                 [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChuDongHo"
                                 (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
-                                [disabled]="itemtbl.DonViNangSuat===1">
+                                [disabled]="itemtbl.DonViNangSuat===1 || itemtbl.isM === true">
                             </p-inputNumber>
                             <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="itemtbl.isM" 
                             (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)" style="margin: 5px!important"/>

@@ -2019,12 +2019,14 @@ export class SanXuatService {
         let url = API.SCMDanhMuc;
         return {
             GetListOpt: () => {
-                return this.http.get(url + 'GetListdmChiSoTrienKhai', httpOptions);
+                return this.http.get(url + `GetListdmChiSoTrienKhai?IdDuAn=${this.store.getCurrent()}`, httpOptions);
             },
             GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'GetListdmChiSoTrienKhai', data, httpOptions);
             },
             Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetChiSoTrienKhai', data, httpOptions);
             },
             Delete: (Id) => {
