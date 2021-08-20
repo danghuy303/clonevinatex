@@ -129,10 +129,7 @@ console.log(this.item.hopDong.loaiNguyenVatLieu);
 
     return true;
   }
-  abcd(){
-    console.log('fsdfsf');
-    
-  }
+
   GhiLai() {
     this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
     this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);

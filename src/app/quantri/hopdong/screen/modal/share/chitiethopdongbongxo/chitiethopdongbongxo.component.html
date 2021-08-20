@@ -56,7 +56,7 @@
       ">
             <label class="p-col-12 p-lg-6 p-xl-6 p-p-0 my-auto">Lấy theo giá trị hàng hóa:</label>
             <div class="p-col-12 p-xl-6 p-d-flex p-ml-xl-2 p-ml-lg-0 p-p-0">
-                <p-checkbox [(ngModel)]="item.layTheoGiaTri" binary="true" inputId="binary"></p-checkbox>
+                <p-checkbox [(ngModel)]="item.isLayTheoGiaTriHangHoa" binary="true" inputId="binary"></p-checkbox>
             </div>
         </div>
 
@@ -73,21 +73,7 @@
         </div>
 
 
-        <!-- <div class="
-        p-col-12 p-xl-6 p-lg-6 p-mb-3
-        padding0
-        d-flex
-        flex-column flex-xl-row
-      ">
-            <label class="p-col-12 p-lg-4 p-xl-4 p-p-0 my-auto">Chiết khấu: </label>
-            <div class="p-col-12 p-xl-8 p-p-0">
-                <div class="p-inputgroup p-d-flex">
-                    <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.giaTriChietKhau" locale="vi-VN">
-                    </p-inputNumber>
-                    <span class="p-inputgroup-addon">%</span>
-                </div>
-            </div>
-        </div> -->
+
         <div class="p-col-12 p-lg-6 p-mb-3 padding0 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Hình thức thanh toán:</label>
             <div class="p-col-12 p-xl-8 p-lg-12 p-p-0">

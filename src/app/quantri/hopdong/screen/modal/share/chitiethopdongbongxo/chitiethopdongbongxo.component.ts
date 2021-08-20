@@ -11,8 +11,10 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
 } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -40,7 +42,7 @@ import { FormGroup, Validators } from '@angular/forms';
   templateUrl: "./chitiethopdongbongxo.component.html",
   styleUrls: ["./chitiethopdongbongxo.component.css"],
 })
-export class ChitiethopdongbongxoComponent implements OnInit {
+export class ChitiethopdongbongxoComponent implements OnInit,OnChanges {
 
   getKhachHang: any = []
   getKhachHang1: any = []
@@ -48,7 +50,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   optionsVatLieu = [
     { label: 'Bông', value: 2 },
     { label: 'Xơ', value: 5 },
-    { label: 'Vật tư khác', value: 6 }
+   
   ]
 
   data: any = {};
@@ -77,6 +79,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   @Input() hopDong: any;
   @Output() onChange = new EventEmitter<any>();
   @Output() itemChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() onVatLieu: EventEmitter<number> = new EventEmitter<number>();
   @Input("opt") opt: string;
   selectedReport: any;
   @Input() getSearchStatus: boolean;
@@ -144,7 +147,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   onChangeVatLieu(even) {
 // console.log('onChangeVatLieu',loaiNguyenVatLieu);
 
-       this.onChange.emit(even);
+
    this.item.loaiNguyenVatLieu = even.value
 
   //  this._servicesSanXuat
@@ -157,30 +160,22 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    for (const propName in changes) {
+      const chng = changes[propName];
+      const cur  = JSON.stringify(chng.currentValue.soQuyTrinh);
+      const prev = JSON.stringify(chng.previousValue);
+      console.log('ngOnChanges',chng);
+      console.log('cur',cur);
+      console.log('prev',prev);
+      
+      // this.changeLog.push(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
+    }
+  }
+
   ngOnInit() {
     
-    // if(this.item.idKhachHang !== null){
-    //   this._servicesSanXuat.dmKhachHang().GetListdmKhachHangTheoId(Id).subscribe((res: any) => {
-    //     this.getdmKhachHangForCopy = res;
-    //     this.item.DiaChi = this.getdmKhachHangForCopy.DiaChi
-    //     this.item.ChucVu = this.getdmKhachHangForCopy.ChucVu
-    //     this.item.Ma = this.getdmKhachHangForCopy.Ma
-    //     this.item.MaSoThue = this.getdmKhachHangForCopy.MaSoThue
-    //     this.item.NguoiDaiDien = this.getdmKhachHangForCopy.NguoiDaiDien
-    //     this.item.SoDienThoai = this.getdmKhachHangForCopy.SoDienThoai
-    //     this.item.SoFax = this.getdmKhachHangForCopy.SoFax
-    //     this.item.Ten = this.getdmKhachHangForCopy.Ten
-    //     this.item.listTaiKhoanNganHang = this.getdmKhachHangForCopy.listTaiKhoanNganHang
-
-
-    //   })
-
-    // }
-    // else {
-
-
-    // }
-
+ 
 
     this.GetFormOptions();
     this.item.ngayKy = UnixToDate(this.item.ngayKyUnix);
@@ -194,23 +189,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     }
 
   }
-
-  // GetgetdmKhachHangByIdForCopy({ value: Id }) {
-  //   this._servicesSanXuat.dmKhachHang().GetListdmKhachHangTheoId(Id).subscribe((res: any) => {
-  //     this.getdmKhachHangForCopy = res;
-  //     this.item.DiaChi = this.getdmKhachHangForCopy.DiaChi
-  //     this.item.ChucVu = this.getdmKhachHangForCopy.ChucVu
-  //     this.item.Ma = this.getdmKhachHangForCopy.Ma
-  //     this.item.MaSoThue = this.getdmKhachHangForCopy.MaSoThue
-  //     this.item.NguoiDaiDien = this.getdmKhachHangForCopy.NguoiDaiDien
-  //     this.item.SoDienThoai = this.getdmKhachHangForCopy.SoDienThoai
-  //     this.item.SoFax = this.getdmKhachHangForCopy.SoFax
-  //     this.item.Ten = this.getdmKhachHangForCopy.Ten
-  //     this.item.listTaiKhoanNganHang = this.getdmKhachHangForCopy.listTaiKhoanNganHang
-
-
-  //   })
-  // }
+ 
 
 
 

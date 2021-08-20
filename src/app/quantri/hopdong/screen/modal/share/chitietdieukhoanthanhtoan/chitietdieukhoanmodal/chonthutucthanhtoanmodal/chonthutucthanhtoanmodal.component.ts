@@ -14,6 +14,7 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
   listThuTucThanhToan_ref: any = [];
   item: any = {};
   listThanhToanThuTuc: any = [];
+  listDieuKhoanThanhToan: any = [];
   cols: any = [
     {
       header: 'Mã thủ tục',
@@ -37,28 +38,13 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.listThanhToanThuTuc.length);
-    
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
-    this.paging.TotalItem = this.listThanhToanThuTuc.length;
-    // if(this.listThuTucThanhToan_ref != undefined && this.listThuTucThanhToan_ref!= null)
-    // {
-    //   for(let i = 0; i < this.listThuTucThanhToan_ref.length; i++){
-    //     console.log(this.listThuTucThanhToan_ref[i])
-    //     let itemFind = this.listThanhToanThuTuc.find(
-        
-          
-    //       ele =>ele.id === this.listThuTucThanhToan_ref[i].id)
-          
-      
-    //     if(validVariable(itemFind)){
-    //       itemFind.checked = true;
-    //     }
-    //   }
-    // }
-    this.item.listThuTucThanhToan_ref = this.listThanhToanThuTuc.slice(0,15);
-    this.item.listThuTucThanhToan_ref_copy = this.listThanhToanThuTuc;
+    this.paging.TotalItem = this.listDieuKhoanThanhToan.length;
+  
+  
+    this.item.listThanhToanThuTuc = this.listDieuKhoanThanhToan.slice(0,15);
+    this.item.listThanhToanThuTuc_copy = this.listDieuKhoanThanhToan;
   }
   checkAll(e) {
     if (e.checked) {
@@ -82,12 +68,12 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
     this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref_copy.slice(start,end);
   }
   accept() {
-    let itemFind: any = this.listThanhToanThuTuc.filter(function (obj) {
+    var itemFind: any = this.listDieuKhoanThanhToan.filter(function (obj) {
       return obj.checked == true;
     });
     console.log(itemFind);
     this.activeModal.close(
-     {itemFind:itemFind}
+      { data: itemFind }
     );
   }
   filtertable_add() {
