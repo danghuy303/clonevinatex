@@ -40,6 +40,12 @@ export class DanhMucHopDongService {
     }
 
     //
+
+    GetListAlldmTheoLoaiThanhToan() {
+        let url = API.HopDong + 'DanhMuc/GetListAlldmTheoLoaiThanhToan';
+        return this.http.get(url, httpOptions);
+    }
+
     DanhMucLoaiTienTe(){
         let url = API.HopDong
         return {

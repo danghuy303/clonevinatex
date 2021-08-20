@@ -7,15 +7,16 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { ChitiethanghoamodalComponent } from './chitiethanghoamodal/chitiethanghoamodal.component';
-import { Component, OnInit, Input, Output, EventEmitter, DoCheck, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, DoCheck, SimpleChanges, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 // import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
   selector: 'app-chitietdanhsachhanghoa',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './chitietdanhsachhanghoa.component.html',
   styleUrls: ['./chitietdanhsachhanghoa.component.css']
 })
-export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
+export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck, OnChanges {
   @Input('listVatTu') item: any = {};
   @Input() hopDong: any = {};
   @Input() listTieuChuanChatLuong: any = {}
@@ -37,6 +38,7 @@ unsup: Subscription
   listKeHoachNhapBong: any = []
   listLoaiMatHang_ref: any = []
   @Output() newItemEvent = new EventEmitter<string>();
+
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private _servicesSanXuat: SanXuatService) { }
 
   ngOnInit(): void {
@@ -81,16 +83,18 @@ console.log(this.hopDong.loaiNguyenVatLieu);
     console.log(this.item);
   
   }
-  ngOnChanges(change: SimpleChanges) {
-    console.log('ngOnChanges',this.hopDong.loaiNguyenVatLieu);
-    
-    // this._servicesSanXuat
-    // .GetListdmLoaiBongForHopDong(this.hopDong.loaiNguyenVatLieu)
-    // .subscribe((res: any) => {
-    //   this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
-    //   this.listLoaiMatHang_ref = res;
-    // })  
-  }
+  ngOnChanges(changes: SimpleChanges) {
+    if ('loaiNguyenVatLieu' in changes) {
+    if (typeof changes['loaiNguyenVatLieu'].currentValue !== 'number') {
+    const loaiNguyenVatLieu = Number(changes['loaiNguyenVatLieu'].currentValue);
+    if (Number.isNaN(loaiNguyenVatLieu)) {
+    this.hopDong.loaiNguyenVatLieu = null;
+    } else {
+    this.hopDong.loaiNguyenVatLieu = this.item.iddmLoaiVatTu;
+    }
+    }
+    }
+    }
 
   GetOptions() {
     this._servicesSanXuat

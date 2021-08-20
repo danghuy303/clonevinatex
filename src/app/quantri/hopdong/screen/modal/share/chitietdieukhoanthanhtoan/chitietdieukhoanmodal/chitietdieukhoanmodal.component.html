@@ -112,7 +112,7 @@
             <button pButton pRipple (click)="chonDanhMuc()" label="Danh mục tài liệu yêu cầu" class="p-button-sm p-mr-2 p-my-3"></button>
             <div></div>
             <div class="p-col-12 p-p-0 d-flex flex-column">
-                <p-table [value]="item.listThuTucThanhToan_ref|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
+                <p-table [value]="listThanhToanThuTuc|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                     <!-- <ng-template pTemplate="colgroup">
                         <colgroup>
                             <col style="width: 50px" />
@@ -127,7 +127,7 @@
                     <ng-template pTemplate="header">
                         <tr>
                             <th>STT</th>
-                            <th>Tên thủ tục</th>
+                            <th>Tên tài liệu</th>
                             <th>Bản gốc</th>
                             <th>Bản photo</th>
                             <th></th>
@@ -136,28 +136,22 @@
                             <!-- <th>Thao tác</th> -->
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-mathang let-i="rowIndex">
+                    <ng-template pTemplate="body" let-item let-i="rowIndex">
                         <tr>
                             <td class="text-center">{{ i + 1 }}</td>
-                            <td class="text-center">{{ mathang.ten }}</td>
-                            <td class="text-center">
-                                <p-dropdown [options]="mathang.listNMtemp" placeholder="Chọn Nm" styleClass="p-inputtext-sm" [(ngModel)]="mathang.ChiSoMoi" (onChange)="SetChiSo($event, mathang)"></p-dropdown>
-                            </td>
-                            <td class="text-center"> {{ mathang.KhoiLuongSanXuat | number: "0.0-2" }}
+                            <td class="text-center">{{ item.iddmThanhToanThuTuc }}</td>
+                            <!-- <td class="text-center">
+                                <p-dropdown [options]="item.banGoc" placeholder="Chọn Nm" styleClass="p-inputtext-sm" [(ngModel)]="item.ChiSoMoi" (onChange)="SetChiSo($event, item)"></p-dropdown>
+                            </td> -->
+                            <td class="text-center"> {{ item.banGoc }}
+                                <td class="text-center"> {{ item.banPhoTo }} }}
 
-                            </td>
-                            <td class="text-center">{{ mathang.SanLuongCa | number: "0.0-2" }}</td>
-                            <td class="text-center">{{ mathang.NangSuatDinhMuc | number: "0.0-2" }}</td>
-                            <td class="text-center">{{ mathang.SoMayTinhToan | number: "0.0-2" }}</td>
+                                </td>
+
 
                         </tr>
                     </ng-template>
                 </p-table>
             </div>
         </div>
-    </div>
-    <div class="modal-footer">
-        <!-- <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
-    <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
-        (click)="activeModal.dismiss()"></button> -->
     </div>

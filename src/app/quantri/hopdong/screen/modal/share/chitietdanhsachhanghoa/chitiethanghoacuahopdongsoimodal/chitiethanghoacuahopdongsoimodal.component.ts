@@ -66,21 +66,21 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listThanhToanThuTuc.length;
-    // if(this.listThuTucThanhToan_ref != undefined && this.listThuTucThanhToan_ref!= null)
-    // {
-    //   for(let i = 0; i < this.listThuTucThanhToan_ref.length; i++){
-    //     console.log(this.listThuTucThanhToan_ref[i])
-    //     let itemFind = this.listThanhToanThuTuc.find(
-        
+    if(this.listThuTucThanhToan_ref != undefined && this.listThuTucThanhToan_ref!= null)
+    {
+      for(let i = 0; i < this.listThuTucThanhToan_ref.length; i++){
+        console.log(this.listThuTucThanhToan_ref[i])
+        let itemFind = this.listThanhToanThuTuc.find(
+          ele => (ele.IddmItem === this.listThuTucThanhToan_ref[i].IddmItem )
           
-    //       ele =>ele.id === this.listThuTucThanhToan_ref[i].id)
+         )
           
       
-    //     if(validVariable(itemFind)){
-    //       itemFind.checked = true;
-    //     }
-    //   }
-    // }
+        if(validVariable(itemFind)){
+          itemFind.checked = true;
+        }
+      }
+    }
     this.item.listThuTucThanhToan_ref = this.listThanhToanThuTuc.slice(0,15);
     this.item.listThuTucThanhToan_ref_copy = this.listThanhToanThuTuc;
   }
@@ -111,7 +111,7 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
     });
     console.log(itemFind);
     this.activeModal.close(
-     {itemFind:itemFind}
+     { data: itemFind}
     );
   }
   filtertable_add() {
