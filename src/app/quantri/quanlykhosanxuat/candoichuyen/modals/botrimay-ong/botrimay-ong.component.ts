@@ -175,7 +175,7 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
       item.IdPhanNhomMay_Item = item.listTocDo?.[0]?.value || null;
       item.DinhMucNangSuat = (item.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === item.listTocDo?.[0]?.value)?.[0]?.DinhMucNangSuat || 0);
       if (!validVariable(item.SoCocDen)) {
-        item.SoCocDen = 60;
+        item.SoCocDen = item.SoCoc;
       }
       if (!validVariable(item.SoCocTu)) {
         item.SoCocTu = 1;

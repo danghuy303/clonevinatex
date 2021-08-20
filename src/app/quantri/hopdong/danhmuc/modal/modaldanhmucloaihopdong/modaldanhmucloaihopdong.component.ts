@@ -35,7 +35,7 @@ export class ModaldanhmucloaihopdongComponent implements OnInit {
       "ghiChu":this.item.ghiChu,
       "created": this.type == "themmoi" ? new Date() : this.item.created,
       "modified": new Date(),
-      "isGiaTriHopDong": this.type == "themmoi" ? true : this.item.isGiaTriHopDong,
+      // "isGiaTriHopDong": this.type == "themmoi" ? true : this.item.isGiaTriHopDong,
       "isDelete": this.type == "themmoi" ? false : this.item.isDelete,
     };
     return data;
