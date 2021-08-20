@@ -79,7 +79,7 @@
         </div>
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <div class="p-col-12 p-xl-1 p-d-flex   p-ml-lg-0 p-p-0">
-                <p-checkbox binary="true" (onChange)="toggleVisibility()" inputId="binary"></p-checkbox>
+                <p-checkbox binary="true" [(ngModel)]="item.isChonThoiDiemKhac" (onChange)="toggleVisibility()" inputId="binary"></p-checkbox>
             </div>
             <label class="p-col-12 p-xl-11  p-p-0 my-auto">Chọn thời điểm khác</label>
         </div>
