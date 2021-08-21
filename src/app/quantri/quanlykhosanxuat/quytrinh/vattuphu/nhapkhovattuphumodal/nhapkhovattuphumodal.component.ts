@@ -5,6 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-nhapkhovattuphumodal',
@@ -23,22 +24,16 @@ export class NhapkhovattuphumodalComponent implements OnInit {
   newTableItem: any = {};
   editTableItem: any = [];
   listLoaiBong: any = [];
-  listLoBong: any = [];
-  listCapBong: any = [];
-  listdmViTri: any = [];
-  listCaMay: any = [];
+  listHopDong: any = [];
   listKho: any = [];
   lang: any = vn;
   data: any = {};
-  listKeHoach: any = [];
   type: any = '';
-  editField: any = false;
   nametype: any = '';
   listPhanXuong: any = []
-  listCongDoan: any = []
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
-    public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
+    public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService, private store: StoreService) {
   }
 
   ngOnInit(): void {
@@ -54,6 +49,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
     this.data.CurrentPage = 0;
     this.getListLoaiBong();
     this.getListKho();
+    this.getListHopDong();
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -67,7 +63,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
     }
     else {
       if (this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined) {
-        this.addBongHoi();
+        this.add();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
         this.item.NgayUnix = DateToUnix(this.item.Ngay);
@@ -90,7 +86,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
     }
     else {
       if (this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined) {
-        this.addBongHoi();
+        this.add();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
         this.item.NgayUnix = DateToUnix(this.item.Ngay);
@@ -119,7 +115,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
     }
     else {
       if ( this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined)
-          this.addBongHoi();
+          this.add();
           this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuNhapVatTuPhu().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -163,23 +159,29 @@ export class NhapkhovattuphumodalComponent implements OnInit {
     })
   }
   getListLoaiBong() {
-    this.data.Loai = 7;
-    this._services.GetListdmLoaiBong(this.data).subscribe((res: any) => {
+    this.data.Loai = 23;
+    this._services.GetOptions().GetMatHangVatTuPhu().subscribe((res: any) => {
       res.sort((a,b)=>{
         return a.Ten.localeCompare(b.Ten);
       })
       this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
+  getListHopDong() {
+    let IdDuAn = this.store.getCurrent();
+    this._services.GetOptions().GetDanhSachHopDongByNhaThau(IdDuAn).subscribe((res: any) => {
+      this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'Id');
+    })
+  }
   
-  addBongHoi() {
+  add() {
     if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {}
   }
  
-  deleteBongHoi(index) {
+  delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
     } else {
