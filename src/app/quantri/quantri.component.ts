@@ -1050,9 +1050,6 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/danhmuc/dinhmucmathangtheonam",
             command: () => this.close(),
           },
-         
-          
-         
         ],
       },
 
