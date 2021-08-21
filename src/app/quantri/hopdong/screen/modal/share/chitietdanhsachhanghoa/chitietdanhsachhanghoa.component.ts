@@ -21,13 +21,15 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Input('listVatTu') item: any = {};
   @Input() hopDong: any = {};
   @Input() listTieuChuanChatLuong: any = {}
-  @Input() listLoaiMatHang: any
+  // @Input() listLoaiMatHang: any
   @Input() isXo:boolean
   @Input() isBong: boolean
   @Input() listVatTu: any = []
+  @Input() res1: any = []
   @Input("opt") opt: string;
-  @Input() loaiNguyenVatLieu: any;
+  @Input() iddmLoaiHopDong: any
   @Output('loaiNguyenVatLieu') onChange = new EventEmitter();
+  @Output('listLoaiMatHang_ref') Change = new EventEmitter();
   @Output('listVatTu') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
@@ -38,13 +40,14 @@ yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFul
 
   listThanhToanThuTuc: any = []
   listKeHoachNhapBong: any = []
-  listLoaiMatHang_ref: any = []
+  
   @Output() newItemEvent = new EventEmitter<string>();
 
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private router: Router, public activeModal: NgbActiveModal, private _servicesSanXuat: SanXuatService) { }
 
   ngOnInit(): void {
- 
+ this.GetOptions()
+  console.log('GetOptions',this.res1);
   
     // this.item.listVatTu.donGia = 0
     // this.item.thueGTGT = 0
@@ -67,18 +70,13 @@ yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFul
 
 
     this.itemChange.emit(this.item);
+    this.Change.emit(this.item.listLoaiMatHang_ref);
     this.onChange.emit(this.hopDong.loaiNguyenVatLieu);
     this.chiTieuChange.emit(this.listTieuChuanChatLuong);
 
   }
   changeDiaDiem(e) {
-console.log(this.hopDong.loaiNguyenVatLieu);
-
-    console.log(this.hopDong.diaDiemGiaoHang);
-
-    this.hopDong.diaDiemGiaoHang = e
-
-
+console.log(this.res1);
 
   }
   changInput() {
@@ -98,19 +96,15 @@ console.log(this.hopDong.loaiNguyenVatLieu);
   //   }
   //   }
 
-  GetOptions() {
-    if(this.opt == 'add'){
-      this.hopDong.loaiNguyenVatLieu = this.item.data
- 
-    
-    this._servicesSanXuat
-      .GetListdmLoaiBongForHopDong(this.item.data = 2 )
-      .subscribe((res: any) => {
-        this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
-        this.listLoaiMatHang_ref = res;
-      });
+  GetOptions() {   
+    // this._servicesSanXuat
+    //   .GetListdmLoaiBongForHopDong(this.hopDong.loaiNguyenVatLieu)
+    //   .subscribe((res: any) => {
+    //     this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
+    //     this.listLoaiMatHang_ref = res;
+    //   });
     }
-  }
+  
   add() {
     this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
     let modalRef = this._modal.open(ChitiethanghoamodalComponent, { size: 'lg', backdrop: 'static' });

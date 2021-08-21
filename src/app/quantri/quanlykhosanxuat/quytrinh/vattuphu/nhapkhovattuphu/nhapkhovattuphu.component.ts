@@ -129,7 +129,7 @@ export class NhapkhovattuphuComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
+    this._service.QuyTrinhPhieuNhapVatTuPhu().GetList(data).subscribe((res: any) => {
       this.items = res.items.map(ele=>{
         return {
           ...ele,
