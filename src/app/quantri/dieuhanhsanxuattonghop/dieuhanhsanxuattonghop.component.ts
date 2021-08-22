@@ -45,6 +45,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   labelLuyKeChiTiet: any = '';
   TongSanLuongOng: any = [];
   tempSanLuongOng: any = [];
+  timKiem : any ={};
   optionPie: any = {
     plugins: {
       labels: {
@@ -168,7 +169,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       Ma: "",
       Ten: ""
     };
-    this._services.GetListdmPhanXuong(data2).subscribe((res: any) => {
+    this._services.GetOptions().GetPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
     })
@@ -276,6 +277,13 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     })
     this._services.BaoCao().GetDashBoard_TongHop_LuyKe_ChiTiet(this.filter).subscribe((res: any) => {
       this.listLuyKeChiTiet = res;
+      if(this.listLuyKeChiTiet.length < 9){
+
+        for(let i = 0; i <12; i++){
+          let item = {};
+          this.listLuyKeChiTiet.push(item);
+        }
+      }
       this.labelLuyKeChiTiet = `Lũy kế chi tiết đến ngày ${this.filter.nNgay}/${this.filter.nThang}/${this.filter.nNam}`
       console.log("LuyKeChiTiet", res);
     })
@@ -460,5 +468,21 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   }
   ngOnDestroy() {
     this.suber.unsubscribe();
+  }
+  getBaoCaoLuyKe(){
+    this.filter.TuNgay = DateToUnix(this.timKiem.TuNgayDate),
+    this.filter.DenNgay = DateToUnix(this.timKiem.DenNgayDate),
+    this._services.BaoCao().GetDashBoard_TongHop_LuyKe_ChiTiet(this.filter).subscribe((res: any) => {
+      this.listLuyKeChiTiet = res;
+      if(this.listLuyKeChiTiet.length < 9){
+
+        for(let i = 0; i <12; i++){
+          let item = {};
+          this.listLuyKeChiTiet.push(item);
+        }
+      }
+      this.labelLuyKeChiTiet = `Lũy kế chi tiết đến ngày ${this.filter.nNgay}/${this.filter.nThang}/${this.filter.nNam}`
+      console.log("LuyKeChiTiet", res);
+    })
   }
 }

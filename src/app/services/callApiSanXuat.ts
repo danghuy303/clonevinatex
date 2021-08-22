@@ -572,7 +572,9 @@ export class SanXuatService {
             GetDanhSachHopDongByNhaThau: (IdDuAn) => {
                 return this.http.get(`${API.HopDong}HopDong/GetDanhSachHopDongByNhaThau?IdDuAn=${IdDuAn}`, httpOptions)
             },
-            // DanhMuc/GetListdmItemTheoKhoThanhPhamHoiAm_DashboardNhuCauXuatHang
+            GetMatHangVatTuPhu: () => {
+                return this.http.get(`${API.SCMDanhMuc}GetListdmItemLoaiVatTuPhu`, httpOptions)
+            },
         }
     }
 
@@ -2078,7 +2080,7 @@ export class SanXuatService {
         let url = API.SCMQuanLyKho;
         return {
             GetNextSo: () => {
-                return this.http.get(url + 'GetNextSoQuyTrinhNhapVatTuPhu', httpOptions);
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuNhapVatTuPhu', httpOptions);
             },
             GetList: (data) => {
                 data.IdDuAn = this.store.getCurrent();

@@ -301,10 +301,26 @@
     </p-table>
 </p-dialog>
 
-<p-dialog [header]="labelLuyKeChiTiet" [(visible)]="showLuyKeChiTiet" [modal]="true" [style]="{width: '95vw'}"
-    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-    <p-table [value]="listLuyKeChiTiet" styleClass="p-datatable-sm p-datatable-gridlines wrap-text"
-        [scrollable]="true" scrollHeight="500px">
+<p-dialog [header]="labelLuyKeChiTiet" [(visible)]="showLuyKeChiTiet" [modal]="true"
+    [style]="{width: '95vw', height:auto}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+        <div class="p-d-flex p-flex-row">
+            <div class="p-mr-2">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    [(ngModel)]="timKiem.TuNgayDate" inputId="icon" placeholder="Từ ngày" (onSelect)="getBaoCaoLuyKe()">
+                </p-calendar>
+            </div>
+            <div class="p-mr-2">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    [(ngModel)]="timKiem.DenNgayDate" inputId="icon" placeholder="Đến ngày"
+                    (onSelect)="getBaoCaoLuyKe()">
+                </p-calendar>
+            </div>
+            <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-2" (click)="getBaoCaoLuyKe()"></button>
+        </div>
+    </div>
+    <p-table [value]="listLuyKeChiTiet" styleClass="p-datatable-sm p-datatable-gridlines wrap-text" [scrollable]="true"
+        scrollHeight="500px">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width: 150px;">
