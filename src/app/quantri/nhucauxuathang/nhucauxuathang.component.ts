@@ -64,7 +64,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
       yAxes: [{
         scaleLabel: {
           display: true,
-          labelString: 'Khối lượng ( Tấn)'
+          labelString: 'Khối lượng ( kg)'
         },
         ticks: {
           beginAtZero: true,
