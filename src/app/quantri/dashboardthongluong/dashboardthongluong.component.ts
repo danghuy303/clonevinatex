@@ -169,13 +169,13 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit,OnDes
         Series.dataFields.value = "value";
         Series.dataFields.category = "name";
         // Series.labels.template.disabled = true;
-        Series.labels.template.text = "{category}: [bold]{formated} kg[/] [bold white]{TyLe}%";
+        Series.labels.template.text = "[bold white]{category}: [bold white]{formated} kg[/] [bold white]{TyLe}%";
         // Series.labels.template.text = "{category}";
         // Series.labels.template.verticalCenter="middle";
         // Series.labels.template.horizontalCenter="middle";
-        Series.labels.template.fontSize = 10;
+        Series.labels.template.fontSize = 14;
         Series.labels.template.rotation = 45;
-        Series.slices.template.tooltipText = "{category}: [bold]{formated} kg[/] [bold white]{TyLe}%";
+        Series.slices.template.tooltipText = "[bold white]{category}: [bold white]{formated} kg[/] [bold white]{TyLe}%";
         // Series.alignLabels = true;
         // chart.legend = new am4charts.Legend();
         // chart.legend.position = "top";

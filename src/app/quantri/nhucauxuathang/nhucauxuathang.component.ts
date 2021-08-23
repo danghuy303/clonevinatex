@@ -272,7 +272,8 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
       if (validVariable(this.filterAll.TuNgay) && validVariable(this.filterAll.DenNgay) && this.filterAll.TuNgay <= this.filterAll.DenNgay) {
         this.filterAll.IdDuAn = this.store.getCurrent();
         this._services.BaoCao().GetDashBoard_CanDoiTonXuatHang(this.filterAll).subscribe((res: Array<any>) => {
-          // this.Tong = res.splice(0, 1);
+          this.Tong = res.splice(0, 1)[0];
+          console.log(this.Tong);
           this.listItem = res;
           console.log(this.voiPintable);
           this.voiPintable.active();

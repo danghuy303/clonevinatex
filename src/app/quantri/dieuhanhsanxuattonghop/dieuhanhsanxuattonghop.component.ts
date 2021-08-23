@@ -169,7 +169,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       Ma: "",
       Ten: ""
     };
-    this._services.GetListdmPhanXuong(data2).subscribe((res: any) => {
+    this._services.GetOptions().GetPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
     })

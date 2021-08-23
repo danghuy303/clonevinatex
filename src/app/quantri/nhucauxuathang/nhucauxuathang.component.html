@@ -88,7 +88,8 @@
                         (click)="XuatBaoCaoCanDoiTon()">Xuất báo cáo</a>
                 </div>
             </div>
-            <div class="pintable-container" style="height: calc( 50vh - 72.25px );width: 100%;" voiPintable [pinnedCols]="colsNum">
+            <div class="pintable-container" style="height: calc( 50vh - 72.25px );width: 100%;" voiPintable
+                [pinnedCols]="colsNum">
                 <table>
                     <thead>
                         <tr>
@@ -96,10 +97,10 @@
                             <th rowspan="2" class="width-180">Mặt hàng</th>
                             <th rowspan="2" class="width-220">Mã</th>
                             <th rowspan="2" class="width-180">Lô</th>
-                            <th colspan="3" >Tồn đầu</th>
-                            <th colspan="3" >Nhập trong kỳ</th>
-                            <th colspan="3" >Xuất trong kỳ</th>
-                            <th colspan="3" >Tồn cuối kỳ</th>
+                            <th colspan="3">Tồn đầu</th>
+                            <th colspan="3">Nhập trong kỳ</th>
+                            <th colspan="3">Xuất trong kỳ</th>
+                            <th colspan="3">Tồn cuối kỳ</th>
                         </tr>
                         <tr>
                             <th style="display: none;"></th>
@@ -119,16 +120,36 @@
                             <th class="width-180">Số kiện</th>
                             <th class="width-180">KL</th>
                         </tr>
+                        <tr>
+                            <td class="width-35"></td>
+                            <td class="width-180">Tổng</td>
+                            <td class="width-220"></td>
+                            <td class="width-180"></td>
+                            <td class="text-right width-180">{{Tong.DauSoQuaSoi|number:'0.0-0' }}</td>
+                            <td class="text-right width-180">{{Tong.DauSoKien|number:'0.0-0' }}</td>
+                            <td class="text-right width-180">{{Tong.DauSoCan|number:'0.2-2' }}</td>
+                            <td class="text-right width-180">{{Tong.NhapSoQuaSoi|number:'0.0-0' }}</td>
+                            <td class="text-right width-180">{{Tong.NhapSoKien|number:'0.0-0' }}</td>
+                            <td class="text-right width-180">{{Tong.NhapSoCan|number:'0.2-2' }}</td>
+                            <td class="text-right width-180">{{Tong.XuatSoQuaSoi|number:'0.0-0' }}</td>
+                            <td class="text-right width-180">{{Tong.XuatSoKien|number:'0.0-0' }}</td>
+                            <td class="text-right width-180">{{Tong.XuatSoCan|number:'0.2-2' }}</td>
+                            <td class="text-right width-180">{{Tong.CuoiSoQuaSoi|number:'0.0-0' }}</td>
+                            <td class="text-right width-180">{{Tong.CuoiSoKien|number:'0.0-0' }}</td>
+                            <td class="text-right width-180">{{Tong.CuoiSoCan|number:'0.2-2' }}</td>
+                        </tr>
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let item of listItem;let i = index">
                             <tr [ngStyle]="{'font-weight':item.TendmItem !== null?'normal':'bold'}">
                                 <td class="text-center width-35 bg-white">
-                                    <p-checkbox [ngModel]="item.checked" (onChange)="checkMatHang($event,item,i)" binary="true"
-                                        inputId="binary" *ngIf="item.TendmItem!==null"></p-checkbox>
+                                    <p-checkbox [ngModel]="item.checked" (onChange)="checkMatHang($event,item,i)"
+                                        binary="true" inputId="binary" *ngIf="item.TendmItem!==null"></p-checkbox>
                                 </td>
-                                <td class="width-180 bg-white">{{item.TendmItem!==null?item.TendmItem:item.TendmLoaiBong}} </td>
-                                <td class="width-220 bg-white">{{item.TendmItem!==null?item.MadmItem:item.MadmLoaiBong}} </td>
+                                <td class="width-180 bg-white">
+                                    {{item.TendmItem!==null?item.TendmItem:item.TendmLoaiBong}} </td>
+                                <td class="width-220 bg-white">{{item.TendmItem!==null?item.MadmItem:item.MadmLoaiBong}}
+                                </td>
                                 <td class="width-180 bg-white">{{item.TenLoHang}}</td>
                                 <td class="text-right width-180">{{item.DauSoQuaSoi|number:'0.0-0' }}</td>
                                 <td class="text-right width-180">{{item.DauSoKien|number:'0.0-0' }}</td>
@@ -154,7 +175,7 @@
                                 <td class="text-right width-180">{{item.CuoiSoCan|number:'0.2-2' }}</td>
                             </tr>
                         </ng-container>
-                        
+
                     </tbody>
                 </table>
 
