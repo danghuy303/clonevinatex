@@ -62,7 +62,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
     else {
-      if (this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined) {
+      if (this.newTableItem.SoKien!= undefined) {
         this.add();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
@@ -85,7 +85,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
     else {
-      if (this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined) {
+      if (this.newTableItem.SoKien!= undefined) {
         this.add();
       }
       if (this.item.Ngay !== null && this.item.Ngay !== undefined)
@@ -114,7 +114,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  ngày");
     }
     else {
-      if ( this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined)
+      if ( this.newTableItem.SoKien!= undefined)
           this.add();
           this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this._services.QuyTrinhPhieuNhapVatTuPhu().Set(this.item).subscribe((res: any) => {

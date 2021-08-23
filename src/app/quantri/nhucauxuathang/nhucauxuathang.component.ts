@@ -120,7 +120,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${this._data.labels2[tooltipItem.index]}: ${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN', '0.0-2')} tấn`
+          return `${this._data.labels2[tooltipItem.index]}: ${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN', '0.0-2')} kg`
         }
       }
     },
