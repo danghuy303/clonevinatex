@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 
 @Component({
@@ -186,10 +186,16 @@ export class NhapkhobongphemodalComponent implements OnInit {
   }
   
   addBongHoi() {
-    if (this.item.listItem == undefined || this.item.listItem == null)
+    if(validVariable(this.newTableItem.IddmLoaiBong) && validVariable(this.newTableItem.SoKien) && validVariable(this.newTableItem.SoCan)){
+      if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
-    this.item.listItem.push(this.newTableItem);
+    this.item.listItem.push(deepCopy(this.newTableItem));
     this.newTableItem = {}
+    }
+    else{
+      this.toastr.warning('Bạn cần nhập đầy đủ thông tin!')
+
+    }
   }
  
   deleteBongHoi(index) {
