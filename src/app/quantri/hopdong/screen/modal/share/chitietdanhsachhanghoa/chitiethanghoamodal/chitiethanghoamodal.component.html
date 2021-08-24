@@ -2,21 +2,61 @@
     <!-- {{opt==='add'?'Thêm mới':'Cập nhật'}} -->
     <h5 class="modal-title">Tiêu chuẩn chất lượng- kỹ thuật</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
 
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4">
-            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="activeModal.dismiss('close')"></button>
-            <button pButton pRipple type="button" label="Ghi lại" (click)="accept('add')" class="p-mr-2 p-button-sm"></button>
+            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
+                (click)="activeModal.dismiss('close')"></button>
+            <button pButton pRipple type="button" label="Chập nhận" (click)="accept()"
+                class="p-mr-2 p-button-sm"></button>
         </div>
     </div>
     <div class="p-grid">
+        <div class="p-col-12 p-p-0 d-flex flex-column">
+            <p-table [value]="items|filter:KeyWord"
+                styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines" [scrollable]="false"
+                scrollHeight="500px" [virtualScroll]="false" [virtualRowHeight]="30">
+                <ng-template pTemplate="colgroup">
+                    <colgroup>
+                        <col style="width:50px">
+                        <col style="width:50px">
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true"
+                                inputId="binary"></p-checkbox>
+                        </th>
+                        <th>STT</th>
+                        <th>Đặc tính</th>
+                        <th>Đơn vị</th>
+                        <th>Tiêu chuẩn</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                    <tr>
+                        <td class="text-center">
+                            <p-checkbox [(ngModel)]="item.checked" (onChange)="checked()" binary="true"
+                                inputId="binary"></p-checkbox>
+                        </td>
+                        <td class="text-center">{{i + 1 }}</td>
+                        <td>{{item.dacTinh}}</td>
+                        <td>{{item.donVi}}</td>
+                        <td>{{item.tieuChuan}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
 
-
-        <div class="p-col-12 p-lg-12 p-mb-3  d-flex flex-column flex-xl-row">
+        <!-- <div class="p-col-12 p-lg-12 p-mb-3  d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Đặc tính: </label>
             <div class="p-col-12 p-xl-10 p-lg-12 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.dacTinh" pInputText />
@@ -48,7 +88,7 @@
             <div class="p-col-12 p-xl-10 p-lg-12 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ghiChu" pInputText />
             </div>
-        </div>
+        </div> -->
 
         <!-- <div class="p-col-12 p-xl-6 p-lg-12 p-mb-3   d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3  p-p-0 my-auto">Giá CIF: </label>
