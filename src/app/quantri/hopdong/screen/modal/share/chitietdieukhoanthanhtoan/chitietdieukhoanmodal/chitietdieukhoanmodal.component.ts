@@ -67,7 +67,7 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
       });
   }
   toggleVisibility(){
-    this.isThoiDiem = true
+    this.isThoiDiem = this.item.isChonThoiDiemKhac;
     
   }
 

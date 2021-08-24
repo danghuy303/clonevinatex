@@ -198,8 +198,9 @@
                     </tr>
 
                 </ng-template>
-                <ng-template pTemplate="footer" *ngIf="opt!=='modal'">
-                    <tr>
+                <!-- opt!=='modal' -->
+                <ng-template pTemplate="footer">
+                    <tr *ngIf="false">
                         <td>
                         </td>
                         <td>

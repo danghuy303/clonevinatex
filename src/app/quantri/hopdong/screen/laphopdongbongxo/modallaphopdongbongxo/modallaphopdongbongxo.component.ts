@@ -36,10 +36,10 @@ import { StoreService } from "src/app/services/store.service";
 export class ModallaphopdongbongxoComponent implements OnInit {
   opt: any = "add";
   title: string
-  item: any = {};
+  item: any = { listTieuChuanChatLuong: [] };
   hopDong: any = {};
   listDieuKhoanThanhToan: any = [];
-listVatTu: any = [];
+  listVatTu: any = [];
   userInfo: any;
   newItem: any = {};
   lang: any = vn;
@@ -90,7 +90,7 @@ listVatTu: any = [];
     this._servicesSanXuat
       .KiemTraButton(this.item.hopDong.id || "", this.item.hopDong.idTrangThai || "")
       .subscribe((res: any) => {
-       
+
         this.checkbutton = res;
       });
   }
@@ -125,8 +125,8 @@ listVatTu: any = [];
   }
   GhiLai() {
     // console.log(this.newItem);
-    
-  
+
+
     this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
     this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
     if (this.ValidData()) {
@@ -137,8 +137,8 @@ listVatTu: any = [];
           console.log(this.item);
           if (res) {
             if (res?.statusCode === 200) {
-               
-                
+
+
               this._toastr.success(res.message);
               this._service.QuyTrinhHopDong().Get(res.data).subscribe((res1: any) => {
                 console.log(res1.data.hopDong);
@@ -188,10 +188,10 @@ listVatTu: any = [];
   }
   ChuyenTiep() {
 
-  
+
     this._service.QuyTrinhHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
       console.log(res);
-      
+
       if (res) {
         console.log(res);
         if (res?.statusCode === 200) {
