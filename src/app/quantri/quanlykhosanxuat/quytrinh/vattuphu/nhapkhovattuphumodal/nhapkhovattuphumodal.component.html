@@ -29,8 +29,6 @@
                 *ngIf="checkbutton.KhongDuyet"></button>
             <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm"
                 (click)="ChuyenTiep()" *ngIf="checkbutton.ChuyenTiep"></button>
-            <button pButton pRipple type="button" label="Xuất hóa đơn" (click)="exportHoaDon()" class="p-mr-2 p-button-sm"></button>
-            
         </div>
 
     </div>
@@ -45,7 +43,7 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Hợp đồng:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho" [(ngModel)]="item.IdHopDong"
+                <p-dropdown [filter]="true" [options]="listHopDong" placeholder="Chọn hợp đồng" [(ngModel)]="item.IdHopDong"
                 styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
@@ -97,14 +95,13 @@
                                 [(ngModel)]="item.IddmLoaiBong"></p-dropdown>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-center">
-                            
+                            <input pInputText type="text" [(ngModel)]="item.Ten">
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                            <input pInputText type="text" [(ngModel)]="item.DonViTinh">
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
@@ -113,7 +110,7 @@
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="deleteBongHoi(i)" pTooltip="Xóa" showDelay="1000"
+                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
                                 tooltipPosition="bottom"></button>
                         </td>
                     </tr>
@@ -127,15 +124,13 @@
                                 [(ngModel)]="newTableItem.IddmLoaiBong"></p-dropdown>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKien">
-                            </p-inputNumber>
+                            <input pInputText type="text" [(ngModel)]="newTableItem.Ten">
                         </td>
                         <td>
-                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoCan">
-                                </p-inputNumber>
+                            <input pInputText type="text" [(ngModel)]="newTableItem.DonViTinh">
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoKien">
                             </p-inputNumber>
                         </td>
                         <td>
@@ -143,7 +138,7 @@
                         </td>
                         <td class="text-center">
                             <button pButton pRipple type="button" icon="pi pi-plus"
-                                class="p-button-rounded p-button-sm " (click)="addBongHoi()"></button>
+                                class="p-button-rounded p-button-sm " (click)="add()"></button>
                         </td>
                     </tr>
                     <tr>

@@ -52,9 +52,9 @@ export class NhapkhomodalComponent implements OnInit {
         listItem: [],
         isTuDong: false,
       }
-      if(this.type==='bong'){
-        this.item.isGopPhieu= true;
-      }
+      // if(this.type==='bong'){
+      //   this.item.isGopPhieu= true;
+      // }
       this.GetNextSoQuyTrinh();
     }
     else {
@@ -383,5 +383,19 @@ export class NhapkhomodalComponent implements OnInit {
     //   }
     // }
     return true;
+  }
+  CheckGopPhieu(event){
+    if(event == true){
+      let modalRef = this._modal.open(ModalthongbaoComponent, {
+        backdrop: 'static'
+      });
+      modalRef.componentInstance.message = "Bạn có chắc chắn muốn gộp phiếu này?"
+      modalRef.result.then(res => {
+        this.item.isGopPhieuCheck = true
+        this.item.isGopPhieu = true
+      }).catch(er => { console.log(er) 
+        this.item.isGopPhieu = false
+      })
+    }
   }
 }

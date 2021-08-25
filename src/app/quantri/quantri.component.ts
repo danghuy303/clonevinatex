@@ -836,7 +836,7 @@ export class QuantriComponent implements OnInit {
         icon: "fas fa-circle",
         routerLink: "/quantri/quanlykhosanxuatbongkhac/khovattuphu",
         expanded: false,
-        visible: false,
+        visible: this.showHopDongModule,
         items: [
           {
             label: "Nhập kho",
@@ -896,6 +896,25 @@ export class QuantriComponent implements OnInit {
         routerLink: "/quantri/hopdongsanxuat",
         visible: this.showHopDongModule,
         items: [
+          {
+            label: "Kế hoạch nhập bông",
+            routerLink: "/quantri/hopdongsanxuat/kehoachnhapbong/0",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Nhập kho",
+            routerLink: "/quantri/hopdongsanxuat/nhapkho/0",
+      
+            command: () => this.close(),
+          },
+          {
+            label: "Xuất kho",
+            routerLink:
+              "/quantri/hopdongsanxuat/xuatkhothanhpham/0",
+            
+            command: () => this.close(),
+          },
           {
             label: "Giao nhận hàng hoá",
             routerLink: "/quantri/hopdongsanxuat/giaonhanhanghoa/0",
@@ -1039,8 +1058,11 @@ export class QuantriComponent implements OnInit {
 
             command: () => this.close(),
           },
+<<<<<<< HEAD
           
          
+=======
+>>>>>>> bae9429132a31163ad89905a2af79843db73c43d
         ],
       },
 

@@ -116,7 +116,14 @@ import { DanhmucphibanhangComponent } from './danhmuc/danhmucphibanhang/danhmucp
 import { ModaldanhmucphibanhangComponent } from './danhmuc/modal/modaldanhmucphibanhang/modaldanhmucphibanhang.component';
 import { DanhmucdinhmucmathangComponent } from './danhmuc/danhmucdinhmucmathang/danhmucdinhmucmathang.component';
 import { ModaldanhmucdinhmucmathangComponent } from './danhmuc/modal/modaldanhmucdinhmucmathang/modaldanhmucdinhmucmathang.component';
+import { KehoachnhapbongComponent } from './screen/thuchienhopdong/kehoachnhapbong/kehoachnhapbong.component';
+import { ChitietkehoachnhapbongComponent } from './screen/modal/share/chitietkehoachnhapbong/chitietkehoachnhapbong.component';
 import { ChitiethanghoacuahopdongsoimodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/chitiethanghoacuahopdongsoimodal/chitiethanghoacuahopdongsoimodal.component';
+import { NhapkhoComponent } from './screen/thuchienhopdong/nhapkho/nhapkho.component';
+import { ChitietnhapkhoComponent } from './screen/modal/chitietnhapkho/chitietnhapkho.component';
+import { XuatkhothanhphamhopdongComponent } from './screen/thuchienhopdong/xuatkhothanhphamhopdong/xuatkhothanhphamhopdong.component';
+import { ChitietxuatkhothanhphamhopdongComponent } from './screen/modal/chitietxuatkhothanhphamhopdong/chitietxuatkhothanhphamhopdong.component';
+import { XuatthanhphammathangmodalComponent } from './screen/modal/xuatthanhphammathangmodal/xuatthanhphammathangmodal.component';
 
 
 
@@ -239,6 +246,10 @@ TheodoihopdongnhapkhauComponent,
     ModaldanhmucdinhmucmathangComponent,
    
    
+    KehoachnhapbongComponent,
+   
+   
+    ChitietkehoachnhapbongComponent,
 
    
    
@@ -246,6 +257,41 @@ TheodoihopdongnhapkhauComponent,
   
 
     ChitiethanghoacuahopdongsoimodalComponent,
+
+   
+   
+   
+  
+
+    NhapkhoComponent,
+
+   
+   
+   
+  
+
+    ChitietnhapkhoComponent,
+
+   
+   
+   
+  
+
+    XuatkhothanhphamhopdongComponent,
+
+   
+   
+   
+  
+
+    ChitietxuatkhothanhphamhopdongComponent,
+
+   
+   
+   
+  
+
+    XuatthanhphammathangmodalComponent,
 
 
   ],
@@ -339,7 +385,10 @@ TheodoihopdongnhapkhauComponent,
     ChitietphathopdongComponent,
     ChitietthanhtoanComponent,
     ChitiethopdongbongxomodalComponent,
-   
+    ChitietkehoachnhapbongComponent,
+    ChitietnhapkhoComponent,
+    ChitietxuatkhothanhphamhopdongComponent,
+    XuatthanhphammathangmodalComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

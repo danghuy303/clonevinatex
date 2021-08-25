@@ -27,3 +27,9 @@
     min-width:150px !important;
     max-width:150px !important;
 }
+.pintable-container thead td{
+    font-weight: bold;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}

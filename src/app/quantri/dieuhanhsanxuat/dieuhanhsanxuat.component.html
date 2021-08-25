@@ -117,6 +117,19 @@
                             <th class="width-150">Số kiện</th>
                             <th class="width-150">KL</th>
                         </tr>
+                        <tr>
+                            <td class="width-150 bg-white">Tổng</td>
+                                <td class="width-150 bg-white"></td>
+                                <td class="width-150 bg-white"></td>
+                                <td class="text-right width-150">{{Tong.DauSoKien|number:'0.0-0' }}</td>
+                                <td class="text-right width-150">{{Tong.DauSoCan|number:'0.2-2' }}</td>
+                                <td class="text-right width-150">{{Tong.NhapSoKien|number:'0.0-0' }}</td>
+                                <td class="text-right width-150">{{Tong.NhapSoCan|number:'0.2-2' }}</td>
+                                <td class="text-right width-150">{{Tong.XuatSoKien|number:'0.0-0' }}</td>
+                                <td class="text-right width-150">{{Tong.XuatSoCan|number:'0.2-2' }}</td>
+                                <td class="text-right width-150">{{Tong.CuoiSoKien|number:'0.0-0' }}</td>
+                                <td class="text-right width-150">{{Tong.CuoiSoCan|number:'0.2-2' }}</td>
+                        </tr>
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let item of listItem">

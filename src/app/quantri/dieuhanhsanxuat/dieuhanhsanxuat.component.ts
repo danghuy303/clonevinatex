@@ -304,7 +304,7 @@ export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
         data.TuNgay = TuNgay;
         data.DenNgay = DenNgay;
         this._services.DashBoard().CanDoiTon(data).subscribe((res: Array<any>) => {
-          // this.Tong = res.splice(0, 1);
+          this.Tong = res.splice(0, 1)[0];
           this.listItem = res;
         })
       }

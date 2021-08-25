@@ -260,9 +260,11 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
   TinhCongThucMoi(item) {
     var KhoiLuong = 0;
-    if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
+    if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0){
       KhoiLuong = item.ChieuDai / (item.Nm * 1000) * item.SoCoc;;
-
+      if(item.isM == true)
+        item.ChuDongHo = item.ChieuDai/(item.Nm * 1000);
+    }
     item.KhoiLuong = KhoiLuong;
     this.TinhTyLeBongThoMang();
   }
@@ -283,7 +285,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhKhoiLuongTho(item) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
-      KhoiLuong = item.ChieuDai / (item.Nm * 1000)*item.SoCoc;
+      KhoiLuong = item.ChieuDai / (item.Nm * 1000)*( (item.SoCoc || 0 )- (item.CocChet || 0 ));
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong();
   }
@@ -371,11 +373,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
 
     this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
     if(this.item.isTruVaoSanLuong === true)
-      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.PEBongPhe || 0) - (this.item.PEBongMun || 0);
+      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.PEBongPhe || 0) - (this.item.PEBongMun || 0) -  (this.item.PECuiHoi || 0);
 
     if (this.TongKhoiLuong > 0) {
       this.item.TyLePEBongPhe = this.item.PEBongPhe / (this.TongKhoiLuong + (this.item.PEBongPhe || 0)) * 100;
       this.item.TyLePEBongMun = this.item.PEBongMun / (this.TongKhoiLuong + (this.item.PEBongMun || 0)) * 100;
+      this.item.TyLePECuiHoi = this.item.PECuiHoi / (this.TongKhoiLuong + (this.item.PECuiHoi || 0)) * 100;
     }
   }
   //chai ki
@@ -529,7 +532,13 @@ export class ThongkesanluongmodalComponent implements OnInit {
 
   KhoiLuongBongCongDoanCon(item){
     this.item.BongHutMoi = this.listItem.reduce((Total,ele)=>Total+(ele.HutMoi||0),0);
-    item.KhoiLuong = (item.ChuDongHo || 0) * ((item.SoCoc || 0) - (item.CocChet || 0)) / 1000 - (item.HutMoi || 0);
+    if(item.isM == true && item.Nm > 0){
+      item.ChuDongHo = item.ChieuDai/(item.Nm * 1000);
+      item.KhoiLuong = (item.ChuDongHo || 0) * ((item.SoCoc || 0) - (item.CocChet || 0)) - (item.HutMoi || 0);
+    }
+    else{
+      item.KhoiLuong = (item.ChuDongHo || 0) * ((item.SoCoc || 0) - (item.CocChet || 0)) / 1000 - (item.HutMoi || 0);
+    }
     this.TinhTongKhoiLuongBong();
   }
   // ThayDoiTongKhoiLuong(){
@@ -544,5 +553,16 @@ export class ThongkesanluongmodalComponent implements OnInit {
       item[opt]=res;
       this.TinhTongKhoiLuongBong();
     })
+  }
+  checkAll(e) {
+    if (e.checked) {
+      this.listItem.forEach(item => {
+        item.isM = true;
+      });
+    } else {
+      this.listItem.forEach(item => {
+        item.isM = false;
+      });
+    }
   }
 }

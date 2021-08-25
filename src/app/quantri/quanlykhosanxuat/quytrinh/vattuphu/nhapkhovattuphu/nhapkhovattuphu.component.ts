@@ -85,7 +85,7 @@ export class NhapkhovattuphuComponent implements OnInit {
   }
 
   update(Id) {
-    this._service.QuyTrinhPhieuNhapLoBong().Get(Id).subscribe((res1: any) => {
+    this._service.QuyTrinhPhieuNhapVatTuPhu().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhovattuphumodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
@@ -128,16 +128,8 @@ export class NhapkhovattuphuComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      Loai: 6,
     }
-    if (this.title === 'khobonghoi') {
-      data.Loai = 6;
-    }
-    else if (this.title === 'khobongphe') {
-      data.Loai = 7;
-    }
-
-    this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
+    this._service.QuyTrinhPhieuNhapVatTuPhu().GetList(data).subscribe((res: any) => {
       this.items = res.items.map(ele=>{
         return {
           ...ele,

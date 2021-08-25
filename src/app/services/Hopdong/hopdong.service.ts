@@ -76,6 +76,10 @@ export class HopDongService {
       GetListAll: () => {
         return this.http.get(url + `HopDong/GetAllQuyTrinhHopDong_Opt`, httpOptions);
       },
+
+      GetListAlldmTieuChuanChatLuong: () => {
+        return this.http.get(url + `DanhMuc/GetListAlldmTieuChuanChatLuong`, httpOptions);
+      },
     };
   }
 

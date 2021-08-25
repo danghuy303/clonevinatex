@@ -1,14 +1,14 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Lập hợp đồng bông xơ</h4>
+    <h4 style="color:#1f2779">Danh sách hợp đồng bông xơ</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
     <div></div>
     <div class="p-d-flex p-flex-row">
         <!-- <div class="p-mr-2">
-              <p-dropdown [options]="listLoaiPhuongAn" placeholder="Chọn phương án" styleClass="p-inputtext-sm"
-                  [(ngModel)]="filter.LoaiPhuongAn" optionLabel="name" [showClear]="true"></p-dropdown>
-          </div> -->
+            <p-dropdown [options]="listLoaiPhuongAn" placeholder="Chọn phương án" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.LoaiPhuongAn" optionLabel="name" [showClear]="true"></p-dropdown>
+        </div> -->
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày">
             </p-calendar>
@@ -24,13 +24,13 @@
         </div>
     </div>
 </div>
-<!-- <p-tabView styleClass="no-content">
-      <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
-      </p-tabPanel>
-      <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
-      </p-tabPanel>
-  
-  </p-tabView> -->
+<p-tabView (onChange)="changeTab($event)" styleClass="no-content">
+    <p-tabPanel header="Chưa xử lý" *ngIf="checkQuyen.ChuaXuLy">
+    </p-tabPanel>
+    <p-tabPanel header="Đã xử lý" *ngIf="checkQuyen.DaXyLy">
+    </p-tabPanel>
+
+</p-tabView>
 <div class="p-mt-3">
     <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
         <ng-template pTemplate="colgroup">
@@ -49,13 +49,14 @@
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">STT</th>
+                <th class="text-center">Sô quy trình</th>
                 <th>Số-Tên HĐ</th>
                 <th>Ngày ký</th>
                 <th>Giá trị hợp đồng</th>
-                <th>Giá trị quyết toán</th>
-                <th>Giá trị đã chi/nhận</th>
-                <th>Giá trị còn lại</th>
-                <th>Nhà cung cấp/Khách hàng</th>
+                <th>Mặt hàng</th>
+
+                <th>Bên A</th>
+                <th>Bên B</th>
                 <!-- <th *ngFor="let header of cols"> {{header.header}} </th> -->
                 <th></th>
             </tr>
@@ -63,13 +64,14 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center"> {{ 20 * (paging.currentPage - 1) + i + 1 }} </td>
-                <td class="text-center">{{item.soQuyTrinh}}</td>
+                <td class="text-center"> {{item.soQuyTrinh}} </td>
+                <td class="text-center">{{item.soHopDong}} - {{item.tenHopDong}} </td>
                 <td class="text-center">{{item.ngayKy | date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.giaTri}}</td>
-                <td class="text-center">{{item.giaTriQuyetToan}}</td>
-                <td class="text-center">{{item.giaTriChietKhau}}</td>
-                <td class="text-center">{{item.giaTriConLai}}</td>
-                <td class="text-center">{{item.tenKhachHang}}</td>
+                <td class="text-center">{{item.giaTri |number:'0.0-3'}}</td>
+                <td class="text-center">{{item.loaiHangHoa }}</td>
+                <td class="text-center">{{item.iddmKhachHangA }}</td>
+                <td class="text-center">{{item.iddmKhachHangB }}</td>
+
                 <!-- <td class="text-center" *ngFor="let col of cols"> {{item[col.field]}} </td> -->
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành" (click)="hoanthanh(item.d)"></button>
@@ -78,13 +80,11 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
-            <!-- <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
-              </div> -->
-            <!-- Tổng số bản ghi {{paging.TotalItem}}. -->
-            Tổng số bản ghi 0
-            <div class="p-d-flex p-jc-end">
+            <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi {{paging.TotalItem}}.
                 <p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
+
+
         </ng-template>
     </p-table>
 </div>
