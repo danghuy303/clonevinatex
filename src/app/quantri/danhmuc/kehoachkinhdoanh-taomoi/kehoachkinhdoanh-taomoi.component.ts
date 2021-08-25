@@ -97,24 +97,4 @@ this.GetListdmLoaiSoi();
     this.newitemlap = {}
   }
 
-
-
-  // sửa 
-  // public additem() {
-   
-  //    console.log(this.item);
-  //     this.items.push(this.newItem);
-  //     this.newItem = { id: '123', idSanPham: this.idSanPham, soLuongTonKho: this.item.soLuongTonKho};
-  //     this.fakeid();
-  //   console.log(this.newItem);
-  //   console.log(itemms);
-  // }
-  // fakeid() {
-  //   for (let i = 0; i < this.items.length; i++) {
-  //      this.items[i].fakeid = i;
-
-  //   }
-
-  // }
-
 }
