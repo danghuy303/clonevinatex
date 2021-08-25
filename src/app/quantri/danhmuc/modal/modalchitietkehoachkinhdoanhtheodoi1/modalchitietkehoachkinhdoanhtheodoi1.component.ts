@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Modalchitietkehoachkinhdoanhtheodoi1Component implements OnInit {
 
-  constructor() { }
+  constructor(private _modal:NgbModal) { }
 
   ngOnInit(): void {
   }

@@ -7,13 +7,21 @@
     <!-- <span class="p-button-sm p-button-sm p-button-text close" aria-hidden="true"
     (click)="activeModal.dismiss('Cross click')">×</span> -->
 </div>
-<div class="modal-footer">
+<!-- <div class="modal-footer">
     <button pButton pRipple label="Ghi lại" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"
         [disabled]="khongclicknhieu"></button>
     <button pButton pRipple label="Đóng" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
         (click)="activeModal.dismiss()"></button>
+</div> -->
+<div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
+    <div class="p-d-flex p-flex-row">
+        <button pButton pRipple label="Ghi lại" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"
+        [disabled]="khongclicknhieu"></button>
+    <button pButton pRipple label="Quay lại" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
+        (click)="activeModal.dismiss()"></button>
+    </div>
+   
 </div>
-
 <div class="modal-body">
     <div class="col-12 col-lg-12">
         <div class="p-grid">

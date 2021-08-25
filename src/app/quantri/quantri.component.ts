@@ -969,6 +969,26 @@ export class QuantriComponent implements OnInit {
 
             command: () => this.close(),
           },
+          
+        ],
+      },
+      /////  menu kế hoạch sau tách..................................
+      {
+        label: "Menu kế hoạch kinh doanh",
+        icon: "fas fa-circle",
+        routerLink: "/quantri",
+        visible: this.showHopDongModule,
+        items: [
+          {
+            label: "Danh sách kế hoạch kinh doanh",
+            routerLink: "/quantri/danhmuc/danhsachkehoachkinhdoanh",
+            command: () => this.close(),
+          },
+          {
+            label: "Định mức mặt hàng theo năm",
+            routerLink: "/quantri/danhmuc/dinhmucmathangtheonam",
+            command: () => this.close(),
+          },
           {
             label: "Vật tư phụ",
             routerLink:
@@ -1012,26 +1032,13 @@ export class QuantriComponent implements OnInit {
 
             command: () => this.close(),
           },
-        ],
-      },
-      /////  menu kế hoạch sau tách..................................
-      {
-        label: "Menu kế hoạch kinh doanh",
-        icon: "fas fa-circle",
-        routerLink: "/quantri",
-        visible: this.showHopDongModule,
-        items: [
           {
-            label: "Danh sách kế hoạch kinh doanh",
-            routerLink: "/quantri/danhmuc/danhsachkehoachkinhdoanh",
+            label: "Chi tiết kế hoạch kinh doanh - theo dõi ",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhtheodoi",
+
             command: () => this.close(),
           },
-          {
-            label: "Định mức mặt hàng theo năm",
-            routerLink: "/quantri/danhmuc/dinhmucmathangtheonam",
-            command: () => this.close(),
-          },
-         
           
          
         ],
