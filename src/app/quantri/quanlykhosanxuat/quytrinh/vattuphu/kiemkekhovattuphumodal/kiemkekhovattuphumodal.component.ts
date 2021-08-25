@@ -31,7 +31,6 @@ export class KiemkekhovattuphumodalComponent implements OnInit {
   newItem: any = {};
   listNewMatHang: any = [];
   listNewMatHang_ref: any = [];
-  listQuyCachDongGoi: any = [];
   KeyWord: string;
   constructor(
       public activeModal: NgbActiveModal,
@@ -48,24 +47,18 @@ export class KiemkekhovattuphumodalComponent implements OnInit {
       }
       var data: any = {};
       data.CurrentPage = 0;
-      data.Loai = 7;
-      this.item.Loai = 7;
+      data.Loai = 23;
+      this.item.Loai = 23;
       this.services.GetListdmKho(data).subscribe((res: any) => {
           this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
       });
-      this.services
-          .dmQuyCachDongGoi()
-          .GetList()
-          .subscribe((res: any) => {
-              this.listQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
-          });
-      this.services
-          .PhieuKiemKeKhoBongPhe()
-          .GetlistdmMatHangKiemKeBongPhe(data.Loai = 7)
-          .subscribe((res: any) => {
-              this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
-              this.listNewMatHang_ref = res;
-          });
+      // this.services
+      //     .PhieuKiemKeKhoBongPhe()
+      //     .GetlistdmMatHangKiemKeBongPhe(data.Loai = 7)
+      //     .subscribe((res: any) => {
+      //         this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
+      //         this.listNewMatHang_ref = res;
+      //     });
   }
   checklistMatHang(item) {
       if (this.listNewMatHang !== undefined && this.listNewMatHang !== null) {
@@ -200,7 +193,7 @@ export class KiemkekhovattuphumodalComponent implements OnInit {
   }
 
   GetMatHangTheoKho() {
-      this.services.getLuuKhoKiemKeKhoBongPhe(this.item.IddmKho, "").subscribe((res1: any) => {
+      this.services.PhieuKiemKeVatTuPhu().luuKhoKiemKeKhoVatTuPhu(this.item.IddmKho).subscribe((res1: any) => {
           this.item.listItem = res1;
           this.listItem = this.item.listItem.slice(0, 10);
           this.paging.CurrentPage = 1;

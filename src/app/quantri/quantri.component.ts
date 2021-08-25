@@ -1058,11 +1058,6 @@ export class QuantriComponent implements OnInit {
 
             command: () => this.close(),
           },
-<<<<<<< HEAD
-          
-         
-=======
->>>>>>> bae9429132a31163ad89905a2af79843db73c43d
         ],
       },
 

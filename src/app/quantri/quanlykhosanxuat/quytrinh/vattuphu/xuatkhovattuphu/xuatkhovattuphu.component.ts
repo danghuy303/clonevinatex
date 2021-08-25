@@ -58,7 +58,7 @@ export class XuatkhovattuphuComponent implements OnInit {
   GetListdmKho() {
     let data2 = {
       CurrentPage: 0,
-      Loai: 7,
+      Loai: 23,
     };
     this._service.GetListdmKho(data2).subscribe((res: any) => {
       this.listdmKho = mapArrayForDropDown(res, 'Ten', 'Id');

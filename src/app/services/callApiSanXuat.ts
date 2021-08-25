@@ -2158,6 +2158,9 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhieuKiemKeVatTuPhu', data, httpOptions)
             },
+            luuKhoKiemKeKhoVatTuPhu:(IddmKho) => {
+                return this.http.get(url + `getLuuKhoKiemKeKhoVatTuPhu?IdDuAn=0&IddmKho=${IddmKho}&sFilter=`, httpOptions);
+            }
         }
     }
     KeHoachNhapBong() {
