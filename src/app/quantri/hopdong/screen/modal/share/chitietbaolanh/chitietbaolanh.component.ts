@@ -38,9 +38,7 @@ export class ChitietbaolanhComponent implements OnInit, DoCheck {
     this.item.hieuLucBaoLanhUnix = DateToUnix(this.item.hieuLucBaoLanh);
     let modalRef = this._modal.open(ChitietbaolanhmodalComponent, { size: 'xl', backdrop: 'static' });
     modalRef.componentInstance.item = {
-      Id: "",
-    
-
+      id: "",    
     };
     modalRef.componentInstance.opt = 'add';
     modalRef.result.then(res => {

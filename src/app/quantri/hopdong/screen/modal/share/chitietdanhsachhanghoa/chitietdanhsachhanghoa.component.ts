@@ -2,7 +2,7 @@ import { vn } from './../../../../../../services/const';
 import { Subscription } from 'rxjs';
 import { ChitiethanghoacuahopdongsoimodalComponent } from './chitiethanghoacuahopdongsoimodal/chitiethanghoacuahopdongsoimodal.component';
 import { SanXuatService } from './../../../../../../services/callApiSanXuat';
-import { DateToUnix, deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -32,7 +32,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit {
   @Output('listLoaiMatHang_ref') Change = new EventEmitter();
   @Output('listVatTu') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
-  @Output('listTieuChuanChatLuong') listTieuChuanChatLuongChange: EventEmitter<any> = new EventEmitter<any>();
+  // @Output('listTieuChuanChatLuong') listTieuChuanChatLuongChange: EventEmitter<any> = new EventEmitter();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   unsup: Subscription
   lang: any = vn;
@@ -69,17 +69,17 @@ export class ChitietdanhsachhanghoaComponent implements OnInit {
   }
 
 
-  // ngDoCheck(): void {
+  ngDoCheck(): void {
 
 
 
 
-  //   this.itemChange.emit(this.item);
-  //   this.Change.emit(this.item.listLoaiMatHang_ref);
-  //   this.onChange.emit(this.hopDong.loaiNguyenVatLieu);
-  //   this.chiTieuChange.emit(this.listTieuChuanChatLuong);
+    this.itemChange.emit(this.item);
+    this.Change.emit(this.item.listLoaiMatHang_ref);
+    this.onChange.emit(this.hopDong.loaiNguyenVatLieu);
+    this.chiTieuChange.emit(this.listTieuChuanChatLuong);
 
-  // }
+  }
   changeDiaDiem(e) {
     console.log(this.res1);
 
@@ -113,10 +113,10 @@ export class ChitietdanhsachhanghoaComponent implements OnInit {
   add() {
     let modalRef = this._modal.open(ChitiethanghoamodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.selectedItems = deepCopy(this.listTieuChuanChatLuong);
+    modalRef.componentInstance.selectedItems = this.listTieuChuanChatLuong;
     modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
     modalRef.result.then(res => {
-      // console.log(res.item);   
+      // console.log(res.item);         
       res.forEach(obj => {
         if (!this.listTieuChuanChatLuong.every(element => element.iddmTieuChuanChatLuong === obj.iddmTieuChuanChatLuong) || this.listTieuChuanChatLuong.length == 0) {
           this.listTieuChuanChatLuong.push(obj);          
@@ -139,18 +139,22 @@ export class ChitietdanhsachhanghoaComponent implements OnInit {
   //     }
   //   }).catch(er => { console.log(er) });
   // }
-  delete(i) {
-    let item = this.listTieuChuanChatLuong.splice(i, 1)[0];
-    if (item.ID === 0) {
+  delete(index) {
+    // let item = this.listTieuChuanChatLuong.splice(i, 1)[0];
+    // if (item.ID === 0) {
+    // } else {
+    //   item.isXoa = true;
+    //   this.listTieuChuanChatLuong.push(JSON.parse(JSON.stringify(item)));
+    // }
+
+    if (!validVariable(this.listTieuChuanChatLuong[index].id)) {
+      this.listTieuChuanChatLuong.splice(index, 1);
     } else {
-      item.isXoa = true;
-      this.listTieuChuanChatLuong.push(JSON.parse(JSON.stringify(item)));
+      this.listTieuChuanChatLuong[index].isXoa = true;
     }
 
     // this.listTieuChuanChatLuong[i].isXoa = true;
-    // this.listTieuChuanChatLuong.push(this.listTieuChuanChatLuong.splice(i,1));
-    console.log(item);
-    console.log(this.listTieuChuanChatLuong);
+    // this.listTieuChuanChatLuong.push(this.listTieuChuanChatLuong.splice(i,1));  
   }
 
 

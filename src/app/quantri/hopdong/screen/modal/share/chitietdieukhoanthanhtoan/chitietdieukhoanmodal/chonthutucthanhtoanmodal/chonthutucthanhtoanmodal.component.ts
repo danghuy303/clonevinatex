@@ -3,6 +3,7 @@ import { validVariable } from 'src/app/services/globalfunction';
 
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
   item: any = {};
   listThanhToanThuTuc: any = [];
   listDieuKhoanThanhToan: any = [];
+  IdQuyTrinh:any="";
   cols: any = [
     {
       header: 'Mã thủ tục',
@@ -35,28 +37,29 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
   KeyWord: any = '';
   constructor(
     public activeModal: NgbActiveModal,
+    private _servicesdmHopDong: DanhMucHopDongService,
   ) { }
 
   ngOnInit(): void {
-    this.paging.CurrentPage = 1;
-    this.paging.TotalPage = 5;
-    this.paging.TotalItem = this.listDieuKhoanThanhToan.length;
-  
-  
-    this.item.listThanhToanThuTuc = this.listDieuKhoanThanhToan.slice(0,15);
-    this.item.listThanhToanThuTuc_copy = this.listDieuKhoanThanhToan;
-  }
-  checkAll(e) {
-    if (e.checked) {
-      this.listThanhToanThuTuc.forEach(item => {
-        item.checked = true;
+    this._servicesdmHopDong.DanhMucThuTucThanhToan().GetListAll().subscribe((res: any) => {
+      this.listDieuKhoanThanhToan = res;     
+      this.paging.CurrentPage = 1;
+      this.paging.TotalPage = 5;
+      this.paging.TotalItem = this.listDieuKhoanThanhToan.length;      
+      this.listDieuKhoanThanhToan.forEach(obj => {
+        obj.checked = false;
+        if (this.listThanhToanThuTuc.length > 0) {
+          if (this.listThanhToanThuTuc.some(item => obj.id === item.iddmThanhToanThuTuc && (item.isXoa != true || item.isXoa == undefined))) {
+            obj.checked = true;
+          }
+        }
       });
-    } else {
-      this.listThanhToanThuTuc.forEach(item => {
-        item.checked = false;
-      });
-    }
+      if (this.listDieuKhoanThanhToan.every(obj => obj.checked === true)) {
+        this.checkedAll = true;
+      }    
+    });  
   }
+
 
   changePage(event) {
     console.log(event)
@@ -68,17 +71,24 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
     this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref_copy.slice(start,end);
   }
   accept() {
-    var itemFind: any = this.listDieuKhoanThanhToan.filter(function (obj) {
-      return obj.checked == true;
-    });
-    console.log(itemFind);
-    this.activeModal.close(
-      { data: itemFind }
-    );
+    // var itemFind: any = this.listDieuKhoanThanhToan.filter(function (obj) {
+    //   return obj.checked == true;
+    // });
+    // console.log(itemFind);
+    this.activeModal.close(this.listDieuKhoanThanhToan.filter(item => item.checked).map(ele => {
+      return {
+        ...ele,
+        idHopDong: this.IdQuyTrinh,
+        iddmThanhToanThuTuc: ele.id,
+        TendmThanhToanThuTuc: ele.ten,
+        isXoa: false,
+        id: '',      
+      }
+    }));
   }
   filtertable_add() {
     if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
-      this.item.listThuTucThanhToan_ref_copy = this.listThanhToanThuTuc;
+      this.item.listThuTucThanhToan_ref_copy = this.listDieuKhoanThanhToan;
       let filter: any = this.item.listThuTucThanhToan_ref_copy.filter(
         ele=>ele.ten.toLowerCase().includes(this.KeyWord.toLowerCase())
         // obj => {
@@ -107,5 +117,20 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
   resetFilter() {
     this.KeyWord = '';
     this.filtertable_add();
+  }
+
+  checkAll(e) {
+    if (e.checked) {
+      this.listDieuKhoanThanhToan.forEach(item => {
+        item.checked = true;
+      });
+    } else {
+      this.listDieuKhoanThanhToan.forEach(item => {
+        item.checked = false;
+      });
+    }
+  }
+  checked() {
+    this.checkedAll = this.listDieuKhoanThanhToan.every(ele => ele.checked)
   }
 }

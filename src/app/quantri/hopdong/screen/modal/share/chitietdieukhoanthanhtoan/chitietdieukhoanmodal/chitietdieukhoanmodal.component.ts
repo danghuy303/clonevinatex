@@ -5,7 +5,7 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 import { vn } from 'src/app/services/const';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, Input, OnInit } from '@angular/core';
-import { mapArrayForDropDown, DateToUnix } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, DateToUnix, deepCopy } from 'src/app/services/globalfunction';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
@@ -18,13 +18,14 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   listThanhToanThuTuc = []
   isThoiDiem: boolean = false;
   opt: any = '';
-  item: any = [];
+  item: any = {listThanhToanThuTuc:[]};
   listLoaiThanhToan: any = []
   listTheoLoaiThanhToan: any = []
   listLoaiTheoNgay: any = []
   listTinhTrangBaoLanh: any = []
   listThuTucThanhToan_ref: any = []
-  listThuTucThanhToan: any = []
+  listThuTucThanhToan: any = [];
+  IdQuyTrinh: any
 
   optionsLoaiThanhToan = [
     { label: 'Tạm ứng', value: 0 },
@@ -47,7 +48,8 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private _servicesdmHopDong: DanhMucHopDongService, private _modal: NgbModal, private _service: HopDongService, private _serviceDungChung: SanXuatService,) { }
 
   ngOnInit(): void {
-    this.GetOptions()
+    this.item.TheoGiaTri = "TheoHopDong";
+    this.GetOptions();
   }
 
 
@@ -60,15 +62,15 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
       });
 
 
-    this._servicesdmHopDong
-      .GetListAlldmTheoLoaiThanhToan()
-      .subscribe((res: any) => {
-        this.listTheoLoaiThanhToan = mapArrayForDropDown(res, "ten", "id");
-      });
+    // this._servicesdmHopDong
+    //   .GetListAlldmTheoLoaiThanhToan()
+    //   .subscribe((res: any) => {
+    //     this.listTheoLoaiThanhToan = mapArrayForDropDown(res, "ten", "id");
+    //   });
   }
-  toggleVisibility(){
+  toggleVisibility() {
     this.isThoiDiem = this.item.isChonThoiDiemKhac;
-    
+
   }
 
   onChangeLoaiThanhToan(even) {
@@ -85,47 +87,38 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
 
     // modalRef.componentInstance.listDieuKhoanThanhToan = res1;
     // modalRef.componentInstance.listThuTucThanhToan = listThuTucThanhToan;
-    if (this.item.listThanhToanThuTuc !== undefined && this.item.listThanhToanThuTuc !== null) {
-      this.listThanhToanThuTuc = this.item.listThanhToanThuTuc.filter((e: any) => e.isXoa !== true);
-    }
-    this._servicesdmHopDong.DanhMucThuTucThanhToan().GetListAll().subscribe((res1: any) => {
-
-
-      let modalRef = this._modal.open(ChonthutucthanhtoanmodalComponent, {
-        size: 'lg',
-        backdrop: 'static'
-      })
-      console.log(this.listThanhToanThuTuc);
-
-
-      modalRef.componentInstance.listDieuKhoanThanhToan = res1;
-      modalRef.componentInstance.listThanhToanThuTuc = this.listThanhToanThuTuc;
-      modalRef.componentInstance.opt = 'edit';
-      modalRef.result.then((data) => {
-        this.item.listThanhToanThuTuc.forEach(element => {
-          console.log('listThanhToanThuTuc', element);
-
-          element.isXoa = true;
-        });
-
-
-        for (let i = 0; i < data.data.length; i++) {
-          for (let j = 0; j < this.listThanhToanThuTuc.length; j++) {
-
-            this.listThanhToanThuTuc[j].isXoa = false;
-            data.data[i].isXoa = true;
-
-          }
+    let modalRef = this._modal.open(ChonthutucthanhtoanmodalComponent, {
+      size: 'lg',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.listThanhToanThuTuc = this.item.listThanhToanThuTuc;
+    modalRef.componentInstance.opt = 'edit';
+    modalRef.componentInstance.IdQuyTrinh = this.IdQuyTrinh;
+    modalRef.result.then((res) => {
+      res.forEach(obj => {
+        if (!this.item.listThanhToanThuTuc.every(element => element.iddmThanhToanThuTuc === obj.iddmThanhToanThuTuc) || this.item.listThanhToanThuTuc.length == 0) {
+          this.item.listThanhToanThuTuc.push(obj);
         }
+      });
+      // this.item.listThanhToanThuTuc.forEach(element => {
+      //   console.log('listThanhToanThuTuc', element);
+
+      //   element.isXoa = true;
+      // });
 
 
-      }, (reason) => {
-        // không
-      })
+      // for (let i = 0; i < data.length; i++) {
+      //   for (let j = 0; j < this.listThanhToanThuTuc.length; j++) {
 
-      modalRef.componentInstance.listThanhToanThuTuc = res1;
-      // modalRef.componentInstance.item = this.item.listDieuKhoanThanhToan;
+      //     this.listThanhToanThuTuc[j].isXoa = false;
+      //     data[i].isXoa = true;
 
+      //   }
+      // }
+
+
+    }, (reason) => {
+      // không
     })
   }
 
@@ -134,11 +127,8 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
       this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
 
     }
-
-
+    this.item.isTheoGiaTriHopDong = this.item.TheoGiaTri === "TheoHopDong" ? true : false;    
     this.activeModal.close({ opt: opt, item: this.item });
-    console.log(this.item);
-
   }
 
 }

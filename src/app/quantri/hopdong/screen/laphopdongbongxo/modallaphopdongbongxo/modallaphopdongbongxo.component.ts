@@ -120,7 +120,11 @@ export class ModallaphopdongbongxoComponent implements OnInit {
       return false;
     }
 
-
+    // if (this.item.listDieuKhoanThanhToa.length > 0) {
+    //   this.item.listDieuKhoanThanhToan.forEach(element => {
+    //     element
+    //   });
+    // }
     return true;
   }
   GhiLai() {
