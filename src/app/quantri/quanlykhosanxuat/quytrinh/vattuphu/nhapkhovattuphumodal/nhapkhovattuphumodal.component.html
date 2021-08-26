@@ -72,17 +72,17 @@
                         <col>
                         <col>
                         <col>
-                        <col>
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
-                        <th>Mã</th>
+                        <!-- <th>Mã</th> -->
                         <th>Tên</th>
                         <th>Đơn vị tính</th>
                         <th>Số lượng</th>
+                        <th>Khối lượng</th>
                         <th>Ghi chú</th>
                         <th style="width: 100px;"></th>
                     </tr>
@@ -91,17 +91,21 @@
                     <tr>
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">
-                            <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" styleClass="p-inputtext-sm"
-                                [(ngModel)]="item.IddmLoaiBong"></p-dropdown>
+                            <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn loại" styleClass="p-inputtext-sm"
+                                [(ngModel)]="item.IddmItem"></p-dropdown>
                         </td>
-                        <td class="text-center">
+                        <!-- <td class="text-center">
                             <input pInputText type="text" [(ngModel)]="item.Ten">
-                        </td>
+                        </td> -->
                         <td>
                             <input pInputText type="text" [(ngModel)]="item.DonViTinh">
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoCan">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
@@ -120,17 +124,21 @@
                         <td>
                         </td>
                         <td class="text-center">
-                            <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" styleClass="p-inputtext-sm"
-                                [(ngModel)]="newTableItem.IddmLoaiBong"></p-dropdown>
+                            <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn loại" styleClass="p-inputtext-sm"
+                                [(ngModel)]="newTableItem.IddmItem"></p-dropdown>
                         </td>
-                        <td>
+                        <!-- <td>
                             <input pInputText type="text" [(ngModel)]="newTableItem.Ten">
-                        </td>
+                        </td> -->
                         <td>
                             <input pInputText type="text" [(ngModel)]="newTableItem.DonViTinh">
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoKien">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoCan">
                             </p-inputNumber>
                         </td>
                         <td>
@@ -142,14 +150,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2"> Tổng cộng:</td>
+                        <td colspan="3"> Tổng cộng:</td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoKien'|number:'0.0'}}
                         </td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'SoCan'|number:'0.2-2'}}
                         </td>
-                        <td></td>
                         <td></td>
                         <td></td>
                     </tr>

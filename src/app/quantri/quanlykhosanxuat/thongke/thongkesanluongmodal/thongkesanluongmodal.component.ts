@@ -285,7 +285,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhKhoiLuongTho(item) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
-      KhoiLuong = item.ChieuDai / (item.Nm * 1000)*item.SoCoc;
+      KhoiLuong = item.ChieuDai / (item.Nm * 1000)*( (item.SoCoc || 0 )- (item.CocChet || 0 ));
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong();
   }
@@ -373,11 +373,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
 
     this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
     if(this.item.isTruVaoSanLuong === true)
-      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.PEBongPhe || 0) - (this.item.PEBongMun || 0);
+      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.PEBongPhe || 0) - (this.item.PEBongMun || 0) -  (this.item.PECuiHoi || 0);
 
     if (this.TongKhoiLuong > 0) {
       this.item.TyLePEBongPhe = this.item.PEBongPhe / (this.TongKhoiLuong + (this.item.PEBongPhe || 0)) * 100;
       this.item.TyLePEBongMun = this.item.PEBongMun / (this.TongKhoiLuong + (this.item.PEBongMun || 0)) * 100;
+      this.item.TyLePECuiHoi = this.item.PECuiHoi / (this.TongKhoiLuong + (this.item.PECuiHoi || 0)) * 100;
     }
   }
   //chai ki

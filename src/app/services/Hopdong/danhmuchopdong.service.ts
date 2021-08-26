@@ -276,5 +276,24 @@ export class DanhMucHopDongService {
             // }
         }
     }
+/////
+    DanhSachKeHoachKinhDoanh(){
+        let url = API.KeHoach
+        return {
+            GetList:(data)=>{
+                return this.http.get(`${url}KeHoachKinhDoanh/GetListQuyTrinh?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
+            },
+            Set:(data)=>{
+                return this.http.post(`${url}KeHoachKinhDoanh/SetQuyTrinh`,data,httpOptions)
+            },
+            // DeleteList:(data)=>{
+            //     debugger;
+            //     return this.http.post(`${url}DanhMuc/DeleteListdmTinhLuong`,data,httpOptions)
+            // },
+            // Delete:(id)=>{
+            //     return this.http.get(`${url}DanhMuc/DeletedmTinhLuong?id=${id}`,httpOptions)
+            // }
+        }
+    }
 
 }

@@ -118,6 +118,7 @@
                         <col *ngIf="item.CongDoan==='CON'" style="width: 16rem;">
                         <col *ngIf="item.CongDoan==='CON'" style="width: 6rem;">
                         <col *ngIf="item.CongDoan==='CON'" style="width: 6rem;">
+                        <col *ngIf="item.CongDoan==='THO'" style="width: 6rem;">
                         <col style="width: 10rem;">
                     </colgroup>
                 </ng-template>
@@ -137,7 +138,7 @@
                             <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true"
                                 inputId="binary"></p-checkbox>
                         </th>
-                        <th *ngIf="item.CongDoan==='CON'">Cọc chết (cọc)</th>
+                        <th *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'">Cọc chết (cọc)</th>
                         <th *ngIf="item.CongDoan==='CON'">Hút mối (kg)</th>
                         <th>Ghi chú</th>
                     </tr>
@@ -202,8 +203,9 @@
                                 [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
                                 (ngModelChange)="TinhKhoiLuongGhepSoBoChaiCotton(itemtbl)">
                             </p-inputNumber>
-                            <p-inputNumber *ngIf="item.CongDoan==='THO'" [minFractionDigits]="3" locale="vi-VN"
-                                [(ngModel)]="itemtbl.ChieuDai" (ngModelChange)="TinhKhoiLuongTho(itemtbl)">
+                            <p-inputNumber #inputNumber *ngIf="item.CongDoan==='THO'" [minFractionDigits]="3" locale="vi-VN"
+                                [(ngModel)]="itemtbl.ChieuDai" (ngModelChange)="TinhKhoiLuongTho(itemtbl)"
+                                (keyup.enter)="enter(i*2+1)" [tabindex]="i*2+1">
                             </p-inputNumber>
                         </td>
 
@@ -237,7 +239,13 @@
                                 [disabled]="itemtbl.DonViNangSuat===1">
                             </p-inputNumber>
                         </td>
-
+                        <td *ngIf="item.CongDoan==='THO'">
+                            <p-inputNumber #inputNumber (keyup.enter)="enter(i*2+2)" [tabindex]="i*2+2"
+                                [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.CocChet"
+                                (ngModelChange)="TinhKhoiLuongTho(itemtbl)"
+                                [disabled]="itemtbl.DonViNangSuat===1">
+                            </p-inputNumber>
+                        </td>
                         <td>
                             <input type="text" class="p-inputtext-sm" [(ngModel)]="itemtbl.GhiChu" pInputText />
                         </td>
@@ -266,7 +274,7 @@
                         <td *ngIf="item.CongDoan==='CON'" class="text-right">
                             {{listItem|isXoa|SumByKey:'ChuDongHo'|number:'0.3-3'}}
                         </td>
-                        <td *ngIf="item.CongDoan==='CON'" class="text-right">
+                        <td *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'" class="text-right">
                             {{listItem|isXoa|SumByKey:'CocChet'|number:'0.0'}}
                         </td>
                         <td *ngIf="item.CongDoan==='CON'" class="text-right">
@@ -348,6 +356,26 @@
                         </div>
                     </div>
                     <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='CHAIPE'">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
+                            <div class="p-col-12 p-lg-7 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.PECuiHoi"
+                                    (ngModelChange)="TinhTyLePEBongPhe()">
+                                </p-inputNumber>
+                            </div>
+                            <div class="p-col-12 p-lg-1 p-p-0">
+                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
+                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                    (click)="tinhToan(item,'PECuiHoi')" pTooltip="Tính toán" showDelay="1000"
+                                    tooltipPosition="bottom"></button>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                {{item.TyLePECuiHoi|number:'0.3-3'}}
+                            </div>
+                        </div>
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông F:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">

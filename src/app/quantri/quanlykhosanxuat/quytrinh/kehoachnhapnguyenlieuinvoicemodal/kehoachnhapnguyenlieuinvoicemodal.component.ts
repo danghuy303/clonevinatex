@@ -74,10 +74,20 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
     if (this.item.ThoiGianDuKienUnix !== null && this.item.ThoiGianDuKienUnix !== undefined) {
       this.item.ThoiGianDuKien = UnixToDate(this.item.ThoiGianDuKienUnix);
     }
-    this._services.NhapKeHoachNguyenLieuInvoice().KeHoachForInvoice().subscribe((res: any) => {
-      this.listKeHoachNguyenLieu = mapArrayForDropDown(res, 'Ten', 'Id');
-      this.listKeHoachNguyenLieuFull = res;
-    })
+    if(this.item.isKetThuc == true)
+    {
+      this.listKeHoachNguyenLieu = [{
+            label: this.item.TenKeHoachNhapNguyenLieuItem,
+            value: this.item.IdKeHoachNhapNguyenLieu_Item
+      }];
+    }
+    else{
+      this._services.NhapKeHoachNguyenLieuInvoice().KeHoachForInvoice().subscribe((res: any) => {
+        this.listKeHoachNguyenLieu = mapArrayForDropDown(res, 'Ten', 'Id');
+        this.listKeHoachNguyenLieuFull = res;
+      })
+    }
+    
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res:any) => {
