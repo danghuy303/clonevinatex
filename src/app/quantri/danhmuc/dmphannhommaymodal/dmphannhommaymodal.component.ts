@@ -43,6 +43,7 @@ export class DmphannhommaymodalComponent implements OnInit {
     CON: 'MATHANG',
     CUONCUI: '',
     GHEPSOBO: '',
+    GHEPSOBOPE: '',
     GHEPSOBOCOTTON: '',
     BONGCHAI: '',
     XOCHAI: '',
@@ -295,7 +296,7 @@ export class DmphannhommaymodalComponent implements OnInit {
           }
         });
       }
-      else if (this.item.CongDoan == "GHEPSOBO" || this.item.CongDoan == "GHEPSOBOCOTTON" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
+      else if (this.item.CongDoan == "GHEPSOBO"|| this.item.CongDoan == "GHEPSOBOPE" || this.item.CongDoan == "GHEPSOBOCOTTON" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(this.item.SoDauRa)) && (validVariable(obj.Nm))) {
             obj.NangSuat = obj.TocDo * this.item.SoDauRa * 450 / obj.Nm / 1000;
@@ -347,7 +348,7 @@ export class DmphannhommaymodalComponent implements OnInit {
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
-      else if (this.item.CongDoan == "GHEPSOBO" || this.item.CongDoan == "GHEPSOBOCOTTON" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
+      else if (this.item.CongDoan == "GHEPSOBO"|| this.item.CongDoan == "GHEPSOBOPE" || this.item.CongDoan == "GHEPSOBOCOTTON" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
         if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.SoDauRa)) && (validVariable(this.newTableItem.Nm))) {
           this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoDauRa * 450 / this.newTableItem.Nm / 1000;
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
