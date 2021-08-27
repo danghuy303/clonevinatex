@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs/internal/operators/filter';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, formatdate, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { ChitietnhapkhoComponent } from '../../modal/chitietnhapkho/chitietnhapkho.component';
 
 @Component({
@@ -54,45 +55,35 @@ export class NhapkhoComponent implements OnInit {
       width: 'unset'
     },
   ];
-  listLoBong: any = [];
+  listHopDong: any = [];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";
   type: any = "";
   nametype: any = "";
+  suber: any;
+
   constructor(public _modal: NgbModal, public _toastr: ToastrService, 
-    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
+    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private store: StoreService) {
      }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res:any)=>{
       this.title = res.kho;
-      // console.log(res.id)
       if(res.id!=='0'){
         this.update(res.id);
       }
-      // else
-        // this.GetListQuyTrinh();
-      //
-      
-      this.title === 'khobong'
-      this.type = 'bong';
-      this.nametype = 'bông';
     })
-    let data={
-      CurrentPage: 0,
-      Loai: 2
-    }
-    this._service.GetListLoBong(data).subscribe((res:any)=>{
-      res.sort((a,b)=>{
-        return a.Ten.localeCompare(b.Ten)
+    this.suber = this.store.getNhaMay().subscribe(res => {
+      this._service.GetOptions().GetDanhSachHopDongByNhaThau(res).subscribe((res: any) => {
+        this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
       })
-      this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-      this.KiemTraTabTrangThai();
-
+    this.KiemTraTabTrangThai();
   }
-  
+  ngOnDestroy() {
+    this.suber.unsubscribe();
+  }
   changeParam(id) {
     if(this._modal.hasOpenModals()){
       this._modal.dismissAll()

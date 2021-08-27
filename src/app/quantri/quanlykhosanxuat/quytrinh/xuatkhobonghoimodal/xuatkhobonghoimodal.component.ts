@@ -70,7 +70,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
       if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
         this.item.NgayChungTu = UnixToDate(Math.round(this.item.NgayChungTuUnix));
       }
-      this.listItem = res1.listItem;
+      this.listItem = deepCopy(res1.listItem);
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
@@ -231,7 +231,6 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   }
   add() {
     if (validVariable(this.newTableItem.IddmItem)) {
-      debugger
       if(this.item.listItem === undefined || this.item.listItem === null)
         this.item.listItem = [];
       this.item.listItem.push(deepCopy(this.newTableItem));

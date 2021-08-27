@@ -121,13 +121,16 @@
                         <th>Tổng khối lượng</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <ng-template pTemplate="body" let-itemC let-i="rowIndex">
                     <tr>
                         <td>{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
-                        <td style="text-align: center;" >{{item.ThuTu}} </td>
-                        <td style="text-align: center;">
+                        <td style="text-align: center;" >{{itemC.ThuTu}} </td>
+                        <td style="text-align: center;" *ngIf="item.isKetThuc!==true">
                             <p-dropdown [filter]="true" [options]="listKien" placeholder="Chọn kiện"
-                            styleClass="p-inputtext-sm" [(ngModel)]="item.IddmItem" (onChange)="getTon(item)"></p-dropdown>
+                            styleClass="p-inputtext-sm" [(ngModel)]="itemC.IddmItem" (onChange)="getTon(item)"></p-dropdown>
+                        </td>
+                        <td style="text-align: center;" *ngIf="item.isKetThuc===true">
+                            {{itemC.TendmItem}}
                         </td>
                         <!-- <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
@@ -138,19 +141,19 @@
                             </p-inputNumber>
                         </td> -->
                         <td style="text-align: right;">
-                            {{item.TonSoLuong|number:'0.0'}}
+                            {{itemC.TonSoLuong|number:'0.0'}}
 
                         </td>
                         <td style="text-align: right;">
-                            {{item.TonTrongLuong|number:'0.0-2'}}
+                            {{itemC.TonTrongLuong|number:'0.0-2'}}
 
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemC.SoLuong">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TrongLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemC.TrongLuong">
                             </p-inputNumber>
                         </td>
                         <td>
