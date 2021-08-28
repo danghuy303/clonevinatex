@@ -157,16 +157,9 @@ export class NhapkhoComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      IdLoBong: this.filter.IdLoBong,
+      IdHopDong: this.filter.IdHopDong,
     }
-    // if(this.title === 'khobong'){
-      data.Loai = 2;
-    // }
-    // else if(this.title === 'khoxo'){
-    //   data.Loai = 5;
-    // }
-
-    this._service.QuyTrinhPhieuNhapLoBong().GetList(data).subscribe((res: any) => {
+    this._service.QuyTrinhPhieuNhapLoBong().GetListChoHopDong(data).subscribe((res: any) => {
       this.items = res.items;
       if (this.items.length > 0) {
         this.items.forEach(element => {

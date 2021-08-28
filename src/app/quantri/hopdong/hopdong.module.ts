@@ -126,6 +126,8 @@ import { ChitietxuatkhothanhphamhopdongComponent } from './screen/modal/chitietx
 import { XuatthanhphammathangmodalComponent } from './screen/modal/xuatthanhphammathangmodal/xuatthanhphammathangmodal.component';
 import { DmtieuchichatluonghopdongComponent } from './danhmuc/dmtieuchichatluonghopdong/dmtieuchichatluonghopdong.component';
 import { DmtieuchichatluonghopdongmodalComponent } from './danhmuc/dmtieuchichatluonghopdongmodal/dmtieuchichatluonghopdongmodal.component';
+import { QuytrinhthanhtoanbongComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbong/quytrinhthanhtoanbong.component';
+import { QuytrinhthanhtoanbongmodalComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbongmodal/quytrinhthanhtoanbongmodal.component';
 
 
 
@@ -309,6 +311,20 @@ TheodoihopdongnhapkhauComponent,
 
     DmtieuchichatluonghopdongmodalComponent,
 
+   
+   
+   
+  
+
+    QuytrinhthanhtoanbongComponent,
+
+   
+   
+   
+  
+
+    QuytrinhthanhtoanbongmodalComponent,
+
 
   ],
   imports: [
@@ -406,6 +422,8 @@ TheodoihopdongnhapkhauComponent,
     ChitietxuatkhothanhphamhopdongComponent,
     XuatthanhphammathangmodalComponent,
     DmtieuchichatluonghopdongmodalComponent,
+    QuytrinhthanhtoanbongmodalComponent,
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

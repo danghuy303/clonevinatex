@@ -92,7 +92,7 @@ export class XuatkhothanhphamhopdongComponent implements OnInit {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkhothanhpham/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/hopdongsanxuat/xuatkhothanhpham/${id}`], { replaceUrl: true })
   }
 
   add() {
@@ -167,9 +167,9 @@ export class XuatkhothanhphamhopdongComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      IddmKhoThanhPham: this.filter.IddmKho,
+      IdHopDong: this.filter.IdHopDong,
     }
-    this._service.PhieuXuatThanhPham().GetList(data).subscribe((res: any) => {
+    this._service.PhieuXuatThanhPham().GetListChoHopDong(data).subscribe((res: any) => {
       this.items = res.items;
       if (this.items.length > 0) {
         this.items.forEach(element => {

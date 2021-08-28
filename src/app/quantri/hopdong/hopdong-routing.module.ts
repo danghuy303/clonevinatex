@@ -29,6 +29,7 @@ import { KehoachnhapbongComponent } from './screen/thuchienhopdong/kehoachnhapbo
 import { NhapkhoComponent } from './screen/thuchienhopdong/nhapkho/nhapkho.component';
 import { XuatkhothanhphamhopdongComponent } from './screen/thuchienhopdong/xuatkhothanhphamhopdong/xuatkhothanhphamhopdong.component';
 import { DmtieuchichatluonghopdongComponent } from './danhmuc/dmtieuchichatluonghopdong/dmtieuchichatluonghopdong.component';
+import { QuytrinhthanhtoanbongComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbong/quytrinhthanhtoanbong.component';
 
 const routes: Routes = [
   {path:'',component:HopdongComponent},
@@ -61,6 +62,7 @@ const routes: Routes = [
   { path: 'quyettoanhopdong/:id', component: QuyettoanhopdongComponent },
   { path: 'laphopdongbongxo/:id', component: LaphopdongbongxoComponent },
   { path: 'laphopdongsoi/:id', component: LaphopdongsoiComponent },
+  { path: 'thanhtoanhopdong/:id', component: QuytrinhthanhtoanbongComponent },
 
   //
  
