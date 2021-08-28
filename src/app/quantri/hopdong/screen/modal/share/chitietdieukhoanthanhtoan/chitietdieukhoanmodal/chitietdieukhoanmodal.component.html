@@ -40,22 +40,30 @@
 
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-lg-3  p-p-0 my-auto">Giá trị: </label>
-            <div class="p-col-12 p-xl-10   p-p-0">
-
-                <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.giaTri" locale="vi-VN">
+            <div class="p-col-12 p-xl-6 p-p-0">
+                <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.giaTri" locale="vi-VN" [disabled]="item.TheoGiaTri">
                 </p-inputNumber>
-
+            </div>
+            <label class="p-col-12 p-xl-2 p-lg-3 my-auto">Phần trăm: </label>
+            <div class="p-col-12 p-xl-2 p-p-0">
+                <div class="p-inputgroup p-d-flex">
+                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
+                    </p-inputNumber>
+                    <span class="p-inputgroup-addon">%</span>
+                </div>
             </div>
         </div>
         <div class="p-col-12 p-xl-6 p-lg-12 p-mb-3  d-flex flex-column flex-xl-row p-px-3 p-py-0">
 
 
-            <div class="p-col-12  p-lg-6 p-mb-3 d-flex flex-column flex-xl-row  p-py-0 ">
+            <div class="p-col-12  p-lg-6 p-mb-3 p-p-0 d-flex flex-column flex-xl-row  p-py-0 ">
 
                 <div class="p-col-12 p-lg-2 p-d-flex p-ml-lg-0 p-p-0">
                     <!-- <p-radioButton name="groupname" value="val1"></p-radioButton> -->
-                    <p-radioButton inputId="theogiatrihopdong" name="theogiatri" value="TheoHopDong"
-                        [(ngModel)]="item.TheoGiaTri"></p-radioButton>
+                    <!-- <p-radioButton inputId="theogiatrihopdong" name="theogiatri" value="TheoHopDong"
+                        [(ngModel)]="item.TheoGiaTri"></p-radioButton> -->
+                    <p-checkbox binary="true" [(ngModel)]="item.TheoHopDong" inputId="theogiatrihopdong"
+                        (onChange)="item.TheoGiaTri=!item.TheoHopDong"></p-checkbox>
                 </div>
                 <label class="p-col-12 p-lg-10 p-p-0 my-auto" for="theogiatrihopdong">Theo giá trị hợp đồng</label>
             </div>
@@ -66,8 +74,10 @@
 
                 <div class="p-col-12 p-lg-2 p-d-flex p-jc-end p-mr-4 p-ml-xl-2 p-ml-lg-0 p-p-0">
                     <!-- <p-radioButton name="groupname" value="val2"></p-radioButton> -->
-                    <p-radioButton inputId="gttheodotgiaohang" name="theogiatri" value="TheoDotGiaoHang"
-                        [(ngModel)]="item.TheoGiaTri"></p-radioButton>
+                    <!-- <p-radioButton inputId="gttheodotgiaohang" name="theogiatri" value="TheoDotGiaoHang"
+                        [(ngModel)]="item.TheoGiaTri"></p-radioButton> -->
+                    <p-checkbox binary="true" [(ngModel)]="item.TheoGiaTri" inputId="gttheodotgiaohang"
+                        (onChange)="item.TheoHopDong=!item.TheoGiaTri"></p-checkbox>
                 </div>
                 <label class="p-col-12 p-lg-10 p-p-0 my-auto" for="gttheodotgiaohang">Theo giá trị đợt giao hàng</label>
             </div>
@@ -95,20 +105,20 @@
             <label class="p-col-12 p-xl-11  p-p-0 my-auto">Chọn thời điểm khác</label>
         </div>
 
-        <div *ngIf="isThoiDiem" class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div *ngIf="item.isChonThoiDiemKhac" class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-lg-3  p-p-0 my-auto">Số ngày: </label>
             <div class="p-col-12 p-xl-10   p-p-0">
 
-                <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.ngay" locale="vi-VN">
+                <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.soNgayCong" locale="vi-VN">
                 </p-inputNumber>
 
             </div>
         </div>
-        <div *ngIf="isThoiDiem" class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div *ngIf="item.isChonThoiDiemKhac" class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Theo :</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [(ngModel)]="item.theoThoiGian" (onChange)="onChangeLoaiNgay($event)"
-                    [options]="optionsTheoNgay" placeholder="Chọn loại thanh toán" styleClass="p-inputtext-sm">
+                <p-dropdown [filter]="true" [(ngModel)]="item.loaiNgay"
+                    [options]="listLoaiThanhToan" placeholder="Chọn loại thanh toán" styleClass="p-inputtext-sm">
                 </p-dropdown>
             </div>
         </div>
@@ -130,14 +140,14 @@
                     styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
                     <ng-template pTemplate="colgroup">
                         <colgroup>
-                            <col style="width: 50px"/>
+                            <col style="width: 50px" />
                             <col>
                             <col>
-                            <col>                      
+                            <col>
 
 
                         </colgroup>
-                    </ng-template>                  
+                    </ng-template>
                     <ng-template pTemplate="header">
                         <tr>
                             <th>STT</th>
@@ -157,8 +167,14 @@
                             <!-- <td class="text-center">
                                 <p-dropdown [options]="item.banGoc" placeholder="Chọn Nm" styleClass="p-inputtext-sm" [(ngModel)]="item.ChiSoMoi" (onChange)="SetChiSo($event, item)"></p-dropdown>
                             </td> -->
-                            <td class="text-center"> {{ item.banGoc }}</td>
-                            <td class="text-center">{{ item.banPhoTo }}</td>
+                            <td class="text-center">
+                                <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.banGoc" locale="vi-VN">
+                                </p-inputNumber>
+                            </td>
+                            <td class="text-center">
+                                <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.banPhoTo" locale="vi-VN">
+                                </p-inputNumber>
+                            </td>
                         </tr>
                     </ng-template>
                 </p-table>

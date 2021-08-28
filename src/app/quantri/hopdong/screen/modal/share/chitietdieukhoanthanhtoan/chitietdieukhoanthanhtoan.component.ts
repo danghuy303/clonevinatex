@@ -38,11 +38,7 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
 
     }
     this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
-    let modalRef = this._modal.open(ChitietdieukhoanmodalComponent, { size: 'xl', backdrop: 'static' });
-    modalRef.componentInstance.item = {
-      id: "",
-      listThanhToanThuTuc: [],
-    };
+    let modalRef = this._modal.open(ChitietdieukhoanmodalComponent, { size: 'xl', backdrop: 'static' });    
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.hopDong = this.hopDong;
     modalRef.result.then(res => {

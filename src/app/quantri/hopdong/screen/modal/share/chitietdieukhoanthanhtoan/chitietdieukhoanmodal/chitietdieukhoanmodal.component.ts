@@ -5,7 +5,7 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 import { vn } from 'src/app/services/const';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, Input, OnInit } from '@angular/core';
-import { mapArrayForDropDown, DateToUnix, deepCopy } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, DateToUnix, deepCopy, validVariable } from 'src/app/services/globalfunction';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
@@ -18,7 +18,12 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   listThanhToanThuTuc = []
   isThoiDiem: boolean = false;
   opt: any = '';
-  item: any = {listThanhToanThuTuc:[]};
+  item: any = {
+    TheoHopDong: true,
+    TheoGiaTri: false,
+    listThanhToanThuTuc: [],
+    id: "",
+  };
   listLoaiThanhToan: any = []
   listTheoLoaiThanhToan: any = []
   listLoaiTheoNgay: any = []
@@ -34,24 +39,37 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   ]
 
 
-  optionsTheoNgay = [
-    { label: 'Thời gian giao hàng', value: 2 },
-    { label: 'Ngày nhận hàng', value: 3 },
-    { label: 'Ngày nhận được tài liệu giao hàng', value: 4 },
-    { label: 'Ngày ký hợp đồng', value: 0 },
-    { label: 'Ngày ký hợp đồng có hiệu lực', value: 1 },
-  ]
+  // optionsTheoNgay = [
+  //   { label: 'Thời gian giao hàng', value: 2 },
+  //   { label: 'Ngày nhận hàng', value: 3 },
+  //   { label: 'Ngày nhận được tài liệu giao hàng', value: 4 },
+  //   { label: 'Ngày ký hợp đồng', value: 0 },
+  //   { label: 'Ngày ký hợp đồng có hiệu lực', value: 1 },
+  // ]
 
   listDieuKhoanThanhToan: any = {}
   yearRange: string = `${new Date().getFullYear() - 50
     }:${new Date().getFullYear()}`;
-  constructor(public activeModal: NgbActiveModal, private _servicesdmHopDong: DanhMucHopDongService, private _modal: NgbModal, private _service: HopDongService, private _serviceDungChung: SanXuatService,) { }
+  constructor(
+    public activeModal: NgbActiveModal,
+    private _servicesdmHopDong: DanhMucHopDongService,
+    private _modal: NgbModal,
+    private _service: HopDongService,
+    private _serviceDungChung: SanXuatService,) { }
 
   ngOnInit(): void {
-    this.item.TheoGiaTri = "TheoHopDong";
     this.GetOptions();
+    if (this.opt === "edit") {
+      if (this.item.isTheoGiaTriHopDong) {
+        this.item.TheoHopDong = this.item.isTheoGiaTriHopDong;
+        this.item.TheoGiaTri = !this.item.TheoHopDong;
+      }
+      else {
+        this.item.TheoGiaTri = !this.item.isTheoGiaTriHopDong;
+        this.item.TheoHopDong = !this.item.TheoGiaTri;
+      }
+    }
   }
-
 
   GetOptions() {
     this._servicesdmHopDong
@@ -61,6 +79,11 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
         this.listTinhTrangBaoLanh = mapArrayForDropDown(res, "ten", "id");
       });
 
+    this._serviceDungChung
+      .GetListThanhToanTheo()
+      .subscribe((res: any) => {
+        this.listLoaiThanhToan = mapArrayForDropDown(res, "ten", "id");
+      });
 
     // this._servicesdmHopDong
     //   .GetListAlldmTheoLoaiThanhToan()
@@ -68,9 +91,12 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
     //     this.listTheoLoaiThanhToan = mapArrayForDropDown(res, "ten", "id");
     //   });
   }
-  toggleVisibility() {
-    this.isThoiDiem = this.item.isChonThoiDiemKhac;
 
+  toggleVisibility() {
+    if (this.item.isChonThoiDiemKhac) {
+      this.item.soNgayCong = undefined;
+      this.item.loaiNgay = undefined;
+    }
   }
 
   onChangeLoaiThanhToan(even) {
@@ -127,8 +153,9 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
       this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
 
     }
-    this.item.isTheoGiaTriHopDong = this.item.TheoGiaTri === "TheoHopDong" ? true : false;    
+    this.item.isTheoGiaTriHopDong = this.item.TheoHopDong;
+    this.item.TenloaiThanhToan = this.optionsLoaiThanhToan.find(obj => obj.value == this.item.loaiThanhToan).label;
     this.activeModal.close({ opt: opt, item: this.item });
-  }
+  } 
 
 }

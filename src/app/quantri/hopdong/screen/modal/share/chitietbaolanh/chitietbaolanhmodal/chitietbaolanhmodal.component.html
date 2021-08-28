@@ -38,15 +38,18 @@
                 <p-inputNumber class="p-col-6" [(ngModel)]="item.giaTri" [minFractionDigits]="2" locale="vi-VN"> </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-d-flex p-flex-row p-ai-center p-pb-3 ">
-            <!-- <p-checkbox [(ngModel)]="item.giaTriTruocThueDaTinh" name="groupname" value="val1"></p-checkbox> -->
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Trước thuế </label>
-            <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+
+        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Trước thuế:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+
                 <div class="p-inputgroup p-d-flex">
                     <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
                     </p-inputNumber>
                     <span class="p-inputgroup-addon">%</span>
                 </div>
+
+
             </div>
         </div>
 

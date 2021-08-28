@@ -36,10 +36,18 @@ import { StoreService } from "src/app/services/store.service";
 export class ModallaphopdongbongxoComponent implements OnInit {
   opt: any = "add";
   title: string
-  item: any = { listTieuChuanChatLuong: [] };
+  item: any = {
+    hopDong: {
+      BenBanChiu: true,
+      BenMuaChiu: false,
+    },
+    listTieuChuanChatLuong: []
+  };
   hopDong: any = {};
   listDieuKhoanThanhToan: any = [];
   listVatTu: any = [];
+  listHangHoa: any = [];
+  listLoaiMatHang: any = [];
   userInfo: any;
   newItem: any = {};
   lang: any = vn;
@@ -125,8 +133,10 @@ export class ModallaphopdongbongxoComponent implements OnInit {
     //     element
     //   });
     // }
+    this.item.hopDong.isBenBanChiu = this.item.hopDong.BenBanChiu;
     return true;
   }
+
   GhiLai() {
     // console.log(this.newItem);
 
@@ -224,6 +234,7 @@ export class ModallaphopdongbongxoComponent implements OnInit {
     })
 
   }
+
 
 
 }

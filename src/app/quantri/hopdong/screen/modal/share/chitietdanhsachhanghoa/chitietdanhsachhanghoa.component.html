@@ -3,7 +3,7 @@
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mặt hàng:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-dropdown [filter]="true" [(ngModel)]="iddmLoaiVatTu" [options]="listLoaiMatHang_ref"
+        <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiVatTu" [options]="listLoaiMatHang"
           placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"></p-dropdown>
       </div>
     </div>
@@ -23,7 +23,7 @@
     <div class="p-col-12 p-lg-6 p-xl-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số lượng:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [(ngModel)]="item.soLuong" [minFractionDigits]="2" locale="vi-VN">
+        <p-inputNumber [(ngModel)]="item.soLuong" [minFractionDigits]="2" locale="vi-VN" (onBlur)="tinhgiaTriHopDong()">
         </p-inputNumber>
       </div>
     </div>
@@ -39,7 +39,7 @@
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Đơn giá chưa thuế:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.donGia" locale="vi-VN">
+        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.donGia" locale="vi-VN" (onBlur)="tinhDonGiaThanhToan()">
         </p-inputNumber>
       </div>
     </div>
@@ -54,7 +54,7 @@
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Đơn giá thanh toán:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber disabled [ngModel]="item.donGia * (1 + item.thueGTGT / 100)" [minFractionDigits]="2"
+        <p-inputNumber disabled [(ngModel)]="item.DonGiaThanhToan" [minFractionDigits]="2"
           locale="vi-VN">
         </p-inputNumber>
       </div>
@@ -62,7 +62,7 @@
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giá trị hợp đồng:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber disabled [ngModel]="item.donGia * (1 + item.thueGTGT / 100) * item.soLuong"
+        <p-inputNumber disabled [ngModel]="hopDong.giaTri"
           [minFractionDigits]="2" locale="vi-VN">
         </p-inputNumber>
       </div>
@@ -157,13 +157,15 @@
     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-2 p-p-0 my-auto">Loại:</label>
       <div class="p-col-12 p-xl-10 p-p-0">
-        <input type="text" class="p-inputtext-sm" pInputText />
+        <!-- <input type="text" class="p-inputtext-sm" pInputText /> -->
+        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.loai" locale="vi-VN">
+        </p-inputNumber>
       </div>
     </div>
     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-2 p-p-0 my-auto">Kích thước:</label>
       <div class="p-col-12 p-xl-10 p-p-0">
-        <input type="text" class="p-inputtext-sm" pInputText />
+        <input type="text" class="p-inputtext-sm" [(ngModel)]="hopDong.kichThuoc" pInputText />
       </div>
     </div>
   </div>
@@ -188,7 +190,6 @@
           <th class="text-center">Tiêu chuẩn</th>
           <th class="text-center">Kết quả</th>
           <th class="text-center">Ghi chú</th>
-          <th class="text-center"></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -216,7 +217,9 @@
     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-lg-5 p-p-0 my-auto">Thời gian giao hàng:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <input type="text" class="p-inputtext-sm" pInputText />
+        <!-- <input type="text" class="p-inputtext-sm" pInputText /> -->
+        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.thoiGianGiaoHang" locale="vi-VN">
+        </p-inputNumber>
       </div>
     </div>
     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
@@ -249,9 +252,10 @@
       <div style="padding:0; margin:0" class="p-col-12  p-xl-6 p-p-3 d-flex flex-column flex-xl-row  p-py-0 ">
 
         <div class="p-col-12 p-lg-2 p-d-flex p-ml-lg-0 p-p-0">
-          <p-checkbox [(ngModel)]="hopDong.isBenBanChiu" binary="true" inputId="binary"></p-checkbox>
+          {{hopDong.BenBanChiu}}
+          <p-checkbox [(ngModel)]="hopDong.BenBanChiu" binary="true" inputId="BenBanChiu" (onChange)="hopDong.BenMuaChiu=!hopDong.BenBanChiu"></p-checkbox>
         </div>
-        <label class="p-col-12 p-lg-10 p-p-0 my-auto">Bên bán chịu</label>
+        <label class="p-col-12 p-lg-10 p-p-0 my-auto" for="BenBanChiu">Bên bán chịu</label>
       </div>
 
 
@@ -259,9 +263,9 @@
       <div class="p-col-12  p-xl-6  p-p-3 d-flex flex-column flex-xl-row p-px-0 p-py-0 p-m-0">
 
         <div class="p-col-12 p-lg-2 p-d-flex p-jc-end p-mr-4 p-ml-xl-2 p-ml-lg-0 p-p-0">
-          <p-checkbox [(ngModel)]="hopDong.isBenBanChiu" binary="true" inputId="binary"></p-checkbox>
+          <p-checkbox [(ngModel)]="hopDong.BenMuaChiu" binary="true" inputId="BenMuaChiu" (onChange)="hopDong.BenBanChiu=!hopDong.BenMuaChiu"></p-checkbox>
         </div>
-        <label class="p-col-12 p-lg-10 p-p-0 my-auto">Bên mua chịu</label>
+        <label class="p-col-12 p-lg-10 p-p-0 my-auto" for="BenMuaChiu">Bên mua chịu</label>
       </div>
     </div>
 

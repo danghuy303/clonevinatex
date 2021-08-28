@@ -23,7 +23,7 @@ export class ChitietbaolanhmodalComponent implements OnInit {
 
  
   opt: any = '';
-  item: any = {};
+  item: any = {id: "",};
   yearRange: string = `${
     new Date().getFullYear() - 50
   }:${new Date().getFullYear()}`;
@@ -52,7 +52,7 @@ export class ChitietbaolanhmodalComponent implements OnInit {
     if (this.item.hieuLucBaoLanh !== undefined && this.item.hieuLucBaoLanh !== null) {
       this.item.hieuLucBaoLanhUnix = DateToUnix(this.item.hieuLucBaoLanh);    
     }
-    this.item.TendmLoaiBaoLanh = this.listLoaiBaoLanh.find(obj=>obj.value === this.item.iddmLoaiBaoLanh).label;
+    this.item.TendmLoaiBaoLanh = this.listLoaiBaoLanh.find(obj=>obj.value == this.item.iddmLoaiBaoLanh).label;
     this.activeModal.close({ opt: opt, item: this.item });
   }
 }

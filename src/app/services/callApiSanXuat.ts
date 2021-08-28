@@ -29,6 +29,10 @@ export class SanXuatService {
         let url = API.auth;
         return this.http.get(url + `QuanTri/GetAllQuyen`, httpOptions);
     }
+    
+    GetListThanhToanTheo() {        
+        return this.http.get(`${API.HopDong}DanhMuc/GetListThanhToanTheo`, httpOptions);
+    }
 
     GetListOptdmCapBong() {
         let url = API.SCMDanhMuc + 'GetListdmCapBong';
