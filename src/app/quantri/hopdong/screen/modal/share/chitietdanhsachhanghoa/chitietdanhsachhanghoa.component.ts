@@ -83,8 +83,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
 
   ngDoCheck(): void {
     this.itemChange.emit(this.item);
-    this.hopDongChange.emit(this.hopDong);
-    debugger
+    this.hopDongChange.emit(this.hopDong);    
     this.chiTieuChange.emit(this.listTieuChuanChatLuong);
     // this.chiTieuChange.emit(this.listLoaiMatHang);
     this.listLoaiMatHang = mapArrayForDropDown(this.listLoaiMatHang_copy, "Ten", "Id")

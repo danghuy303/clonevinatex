@@ -7,6 +7,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, Input, OnInit } from '@angular/core';
 import { mapArrayForDropDown, DateToUnix, deepCopy, validVariable } from 'src/app/services/globalfunction';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-chitietdieukhoanmodal',
@@ -30,7 +31,8 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   listTinhTrangBaoLanh: any = []
   listThuTucThanhToan_ref: any = []
   listThuTucThanhToan: any = [];
-  IdQuyTrinh: any
+  IdQuyTrinh: any;
+  hopDong: any;
 
   optionsLoaiThanhToan = [
     { label: 'Tạm ứng', value: 0 },
@@ -55,7 +57,9 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
     private _servicesdmHopDong: DanhMucHopDongService,
     private _modal: NgbModal,
     private _service: HopDongService,
-    private _serviceDungChung: SanXuatService,) { }
+    private _serviceDungChung: SanXuatService,
+    private _toastr: ToastrService,
+  ) { }
 
   ngOnInit(): void {
     this.GetOptions();
@@ -156,6 +160,41 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
     this.item.isTheoGiaTriHopDong = this.item.TheoHopDong;
     this.item.TenloaiThanhToan = this.optionsLoaiThanhToan.find(obj => obj.value == this.item.loaiThanhToan).label;
     this.activeModal.close({ opt: opt, item: this.item });
-  } 
+  }
 
+  changeGiaTri() {
+    if (this.item.TheoHopDong) {
+      if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0) {
+        this.item.tyLe = (this.item.giaTri / this.hopDong.giaTri) * 100;
+      }
+      else {
+        this._toastr.error("Yêu cầu nhập giá trị Hợp đồng", "Thông báo");
+      }
+    }
+  }
+
+  changeTyLe() {
+    if (this.item.TheoHopDong) {
+      if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0) {        
+        this.item.giaTri = (this.item.tyLe / 100) * this.hopDong.giaTri;
+      }
+      else {
+        this._toastr.error("Yêu cầu nhập giá trị Hợp đồng", "Thông báo");
+      }
+    }
+  }
+
+  selectTheoGiaTriHopDong() {
+    this.item.TheoGiaTri = !this.item.TheoHopDong;
+    if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0) {
+      this.item.tyLe = (this.item.giaTri / this.hopDong.giaTri) * 100;
+    }
+    else {
+      this._toastr.error("Yêu cầu nhập giá trị Hợp đồng", "Thông báo");
+    }
+  }
+
+  selectTheoGiaTriDotGiaoHang() {
+    this.item.TheoHopDong = !this.item.TheoGiaTri;
+  }
 }

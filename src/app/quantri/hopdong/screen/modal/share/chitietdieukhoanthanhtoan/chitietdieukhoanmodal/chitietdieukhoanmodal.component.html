@@ -41,13 +41,13 @@
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-lg-3  p-p-0 my-auto">Giá trị: </label>
             <div class="p-col-12 p-xl-6 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.giaTri" locale="vi-VN" [disabled]="item.TheoGiaTri">
+                <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.giaTri" locale="vi-VN" (onBlur)="changeGiaTri()">
                 </p-inputNumber>
             </div>
             <label class="p-col-12 p-xl-2 p-lg-3 my-auto">Phần trăm: </label>
             <div class="p-col-12 p-xl-2 p-p-0">
                 <div class="p-inputgroup p-d-flex">
-                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
+                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.tyLe" (onBlur)="changeTyLe()">
                     </p-inputNumber>
                     <span class="p-inputgroup-addon">%</span>
                 </div>
@@ -63,7 +63,7 @@
                     <!-- <p-radioButton inputId="theogiatrihopdong" name="theogiatri" value="TheoHopDong"
                         [(ngModel)]="item.TheoGiaTri"></p-radioButton> -->
                     <p-checkbox binary="true" [(ngModel)]="item.TheoHopDong" inputId="theogiatrihopdong"
-                        (onChange)="item.TheoGiaTri=!item.TheoHopDong"></p-checkbox>
+                        (onChange)="selectTheoGiaTriHopDong()"></p-checkbox>
                 </div>
                 <label class="p-col-12 p-lg-10 p-p-0 my-auto" for="theogiatrihopdong">Theo giá trị hợp đồng</label>
             </div>
@@ -77,7 +77,7 @@
                     <!-- <p-radioButton inputId="gttheodotgiaohang" name="theogiatri" value="TheoDotGiaoHang"
                         [(ngModel)]="item.TheoGiaTri"></p-radioButton> -->
                     <p-checkbox binary="true" [(ngModel)]="item.TheoGiaTri" inputId="gttheodotgiaohang"
-                        (onChange)="item.TheoHopDong=!item.TheoGiaTri"></p-checkbox>
+                        (onChange)="selectTheoGiaTriDotGiaoHang()"></p-checkbox>
                 </div>
                 <label class="p-col-12 p-lg-10 p-p-0 my-auto" for="gttheodotgiaohang">Theo giá trị đợt giao hàng</label>
             </div>

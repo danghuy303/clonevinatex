@@ -39,7 +39,8 @@
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Đơn giá chưa thuế:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.donGia" locale="vi-VN" (onBlur)="tinhDonGiaThanhToan()">
+        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.donGia" locale="vi-VN"
+          (onBlur)="tinhDonGiaThanhToan()">
         </p-inputNumber>
       </div>
     </div>
@@ -54,16 +55,14 @@
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Đơn giá thanh toán:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber disabled [(ngModel)]="item.DonGiaThanhToan" [minFractionDigits]="2"
-          locale="vi-VN">
+        <p-inputNumber disabled [(ngModel)]="item.DonGiaThanhToan" [minFractionDigits]="2" locale="vi-VN">
         </p-inputNumber>
       </div>
     </div>
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giá trị hợp đồng:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber disabled [ngModel]="hopDong.giaTri"
-          [minFractionDigits]="2" locale="vi-VN">
+        <p-inputNumber disabled [ngModel]="hopDong.giaTri" [minFractionDigits]="2" locale="vi-VN">
         </p-inputNumber>
       </div>
     </div>
@@ -169,7 +168,7 @@
       </div>
     </div>
   </div>
-  <div class="p-mt-3">  
+  <div class="p-mt-3">
     <p-table [value]="listTieuChuanChatLuong | isXoa"
       styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines" [scrollable]="true">
       <ng-template pTemplate="colgroup">
@@ -197,8 +196,14 @@
           <td class="text-center">{{ item.dacTinh }}</td>
           <td class="text-center">{{ item.donVi }}</td>
           <td class="text-center">{{ item.tieuChuan }}</td>
-          <td class="text-center">{{ item.ketQua }}</td>
-          <td class="text-center">{{ item.ghiChu }}</td>
+          <td class="text-center">
+            <!-- {{ item.ketQua }} -->
+            <input type="text" [(ngModel)]="item.ketQua" class="p-inputtext-sm p-pl-0" pInputText />
+          </td>
+          <td class="text-center">
+            <!-- {{ item.ghiChu }} -->
+            <input type="text" [(ngModel)]="item.ghiChu" class="p-inputtext-sm p-pl-0" pInputText />
+          </td>
 
           <!-- <td class="text-center date">
             <button pButton pRipple type="button" icon="pi pi-pencil"
@@ -238,7 +243,7 @@
           class="p-inputtext-sm p-pl-0" pInputText />
       </div>
     </div>
-  
+
     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-lg-4 p-p-0 my-auto">Chi phí vận chuyển:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
@@ -253,7 +258,8 @@
 
         <div class="p-col-12 p-lg-2 p-d-flex p-ml-lg-0 p-p-0">
           {{hopDong.BenBanChiu}}
-          <p-checkbox [(ngModel)]="hopDong.BenBanChiu" binary="true" inputId="BenBanChiu" (onChange)="hopDong.BenMuaChiu=!hopDong.BenBanChiu"></p-checkbox>
+          <p-checkbox [(ngModel)]="hopDong.BenBanChiu" binary="true" inputId="BenBanChiu"
+            (onChange)="hopDong.BenMuaChiu=!hopDong.BenBanChiu"></p-checkbox>
         </div>
         <label class="p-col-12 p-lg-10 p-p-0 my-auto" for="BenBanChiu">Bên bán chịu</label>
       </div>
@@ -263,7 +269,8 @@
       <div class="p-col-12  p-xl-6  p-p-3 d-flex flex-column flex-xl-row p-px-0 p-py-0 p-m-0">
 
         <div class="p-col-12 p-lg-2 p-d-flex p-jc-end p-mr-4 p-ml-xl-2 p-ml-lg-0 p-p-0">
-          <p-checkbox [(ngModel)]="hopDong.BenMuaChiu" binary="true" inputId="BenMuaChiu" (onChange)="hopDong.BenBanChiu=!hopDong.BenMuaChiu"></p-checkbox>
+          <p-checkbox [(ngModel)]="hopDong.BenMuaChiu" binary="true" inputId="BenMuaChiu"
+            (onChange)="hopDong.BenBanChiu=!hopDong.BenMuaChiu"></p-checkbox>
         </div>
         <label class="p-col-12 p-lg-10 p-p-0 my-auto" for="BenMuaChiu">Bên mua chịu</label>
       </div>
