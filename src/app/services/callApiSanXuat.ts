@@ -750,7 +750,11 @@ export class SanXuatService {
                 url = API.SCMDanhMuc
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}ExportBangKeNhapKhoBong`, data, httpOptions)
-            }
+            },
+            GetListChoHopDong: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(API.SCMChoModuleHopDong + 'GetListPhieuNhapLoBong', data, httpOptions);
+            },
         }
     }
     //#endregion
@@ -1635,7 +1639,11 @@ export class SanXuatService {
             ExportBangKeXuatKhoThanhPham:(data)=>{
                 url = API.SCMBaoCao
                 return this.http.post(url + 'ExportBangKeXuatKhoThanhPham', data, httpOptions)
-            }
+            },
+            GetListChoHopDong: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(API.SCMChoModuleHopDong + 'GetListPhieuXuatThanhPham', data, httpOptions);
+            },
         }
     }
     PhanQuyen() {

@@ -101,13 +101,19 @@ export class TonkhobongxoComponent implements OnInit {
       sFilter: this.filter.KeyWord,
       Loai: this.filter.Loai
     }
-    this._service.GetLuuKhoTheKhoBongXo(data).subscribe((res: any) => {
-      this.items = res.items;
-      this.paging = res.paging;
-    })
+    try{
+      this._service.GetLuuKhoTheKhoBongXo(data).subscribe((res: any) => {
+        this.items = res.items;
+        this.paging = res.paging;
+      })
+    }
+    catch {
+      this.paging = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
+    }
   }
   resetFilter(){
     this.filter={};
+    this.filter.IddmKho = this.listdmKho[0].value,
     this.GetListQuyTrinh(true);
   }
   GetTheKho(item) {
