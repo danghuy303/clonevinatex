@@ -114,13 +114,28 @@
                         <col *ngIf="item.CongDoan==='ONG'" style="width: 10rem;">
                         <col *ngIf="item.CongDoan==='ONG'" style="width: 10rem;">
                         <col *ngIf="item.CongDoan!=='ONG'" style="width: 10rem;">
-                        <!-- <col *ngIf="item.CongDoan==='GHEPSOBOCOTTON'" style="width: 10rem;" > -->
-                        <col *ngIf="item.CongDoan==='CON'" style="width: 16rem;">
+                        <col *ngIf="item.CongDoan==='CON'" style="width: 9rem;">
                         <col *ngIf="item.CongDoan==='CON'" style="width: 5rem;">
                         <col *ngIf="item.CongDoan==='CON'" style="width: 5rem;">
                         <col *ngIf="item.CongDoan==='THO'" style="width: 6rem;">
                         <col style="width: 10rem;">
                     </colgroup>
+                    <!-- <colgroup>
+                        <col style="width:50px">
+                        <col style="width: 10rem;">
+                        <col>
+                        <col style="width: 10rem;">
+                        <col *ngIf="item.CongDoan==='ONG'" style="width: 10rem;">
+                        <col *ngIf="item.CongDoan==='ONG'" style="width: 10rem;">
+                        <col *ngIf="item.CongDoan!=='ONG'" style="width: 10rem;">
+                        <col>
+                        <col>
+                        <col *ngIf="item.CongDoan==='CON'" style="width: 10rem;">
+                        <col *ngIf="item.CongDoan==='CON'">
+                        <col *ngIf="item.CongDoan==='CON'">
+                        <col *ngIf="item.CongDoan==='THO'">
+                        <col>
+                    </colgroup> -->
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
@@ -187,7 +202,7 @@
                                 [(ngModel)]="itemtbl.ChieuDai" -->
                             <p-inputNumber
                                 *ngIf="item.CongDoan!=='CON' && item.CongDoan!=='CHAICOTTON' && item.CongDoan!=='GHEPSOBOCOTTON' && item.CongDoan!=='THO'
-                            && item.CongDoan==='GHEPTRONB' && item.CongDoan==='GHEPTRONA' && item.CongDoan==='GHEPDAURA'"
+                            && item.CongDoan!=='GHEPTRONB' && item.CongDoan!=='GHEPTRONA' && item.CongDoan!=='GHEPDAURA' && item.CongDoan!=='GHEPSOBOPE'"
                                 [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
                                 (keyup.enter)="enter(i)" [tabindex]="i+1" (ngModelChange)="TinhGiaTri(itemtbl)">
                             </p-inputNumber>
@@ -199,7 +214,8 @@
                                 [(ngModel)]="itemtbl.ChieuDai" (ngModelChange)="TinhKhoiLuongChaiCotton(itemtbl)">
                             </p-inputNumber>
                             <p-inputNumber
-                                *ngIf="item.CongDoan==='GHEPSOBOCOTTON' || item.CongDoan==='GHEPTRONB' || item.CongDoan==='GHEPTRONA' || item.CongDoan==='GHEPDAURA'"
+                                *ngIf="item.CongDoan==='GHEPSOBOCOTTON' || item.CongDoan==='GHEPTRONB' || item.CongDoan==='GHEPTRONA' 
+                                || item.CongDoan==='GHEPDAURA' || item.CongDoan==='GHEPSOBOPE'"
                                 [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
                                 (ngModelChange)="TinhKhoiLuongGhepSoBoChaiCotton(itemtbl)">
                             </p-inputNumber>
@@ -591,6 +607,52 @@
                             </div>
                         </div>
                     </div>
+                    <!-- <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='GHEPTRONA'">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
+                            <div class="p-col-12 p-lg-7 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN"
+                                    [(ngModel)]="item.KhoiLuongCuiHoiGhepTronA"
+                                    (ngModelChange)="TinhTyLeCuiHoiGhepTronA()">
+                                </p-inputNumber>
+                            </div>
+                            <div class="p-col-12 p-lg-1 p-p-0">
+                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
+                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                    (click)="tinhToan(item,'KhoiLuongCuiHoiGhepTronA')" pTooltip="Tính toán"
+                                    showDelay="1000" tooltipPosition="bottom"></button>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ cúi hồi (%):</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                {{item.TyLeCuiHoiGhepTronA|number:'0.3-3'}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='GHEPTRONB'">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
+                            <div class="p-col-12 p-lg-7 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN"
+                                    [(ngModel)]="item.KhoiLuongCuiHoiGhepTronB"
+                                    (ngModelChange)="TinhTyLeCuiHoiGhepTronB()">
+                                </p-inputNumber>
+                            </div>
+                            <div class="p-col-12 p-lg-1 p-p-0">
+                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
+                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                    (click)="tinhToan(item,'KhoiLuongCuiHoiGhepTronB')" pTooltip="Tính toán"
+                                    showDelay="1000" tooltipPosition="bottom"></button>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ cúi hồi (%):</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                {{item.TyLeCuiHoiGhepTronB|number:'0.3-3'}}
+                            </div>
+                        </div>
+                    </div> -->
                 </div>
                 <div class="p-col-12 p-p-0 d-flex flex-row p-jc-end">
                     <div class="p-grid" style="width:100%">
@@ -603,50 +665,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='_00_BONGCHAI'">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bông phế:</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.BongPhe">
-                                </p-inputNumber>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bông mùn:</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.BongMun">
-                                </p-inputNumber>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='_09_THO'">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Cúi hồi:</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.CuiHoi" pInputText />
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Thô màng:</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ThoMang" pInputText />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='_10_CON'">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bông hút mối:</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.BongHutMoi" pInputText />
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Sợi cắt:</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoiCat" pInputText />
-                            </div>
-                        </div>
-                    </div> -->
             </div>
         </div>
     </div>

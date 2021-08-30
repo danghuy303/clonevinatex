@@ -893,7 +893,7 @@ export class QuantriComponent implements OnInit {
       {
         label: "Thực hiện hợp đồng",
         icon: "fas fa-circle",
-        routerLink: "/quantri/hopdongsanxuat",
+        routerLink: "/quantri/thuchienhopdong",
         visible: this.showHopDongModule,
         items: [
           {
@@ -947,7 +947,7 @@ export class QuantriComponent implements OnInit {
           },
           {
             label: "Thanh toán bông",
-            routerLink: "/quantri/hopdongsanxuat/thanhtoanhopdong/0",
+            routerLink: "/quantri/hopdongsanxuat/quytrinhthanhtoanbong/0",
 
             command: () => this.close(),
           },
@@ -957,7 +957,7 @@ export class QuantriComponent implements OnInit {
       {
         label: "Danh mục hợp đồng",
         icon: "fas fa-circle",
-        routerLink: "/quantri/hopdongsanxuat",
+        routerLink: "/quantri/danhmuchopdong",
         visible: this.showHopDongModule,
         items: [
           {

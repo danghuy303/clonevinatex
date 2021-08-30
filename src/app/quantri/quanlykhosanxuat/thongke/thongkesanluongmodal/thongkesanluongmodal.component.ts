@@ -440,6 +440,28 @@ export class ThongkesanluongmodalComponent implements OnInit {
     if (this.TongKhoiLuong > 0)
       this.item.TyLeCuiHoiGhepDauRa = this.item.KhoiLuongCuiHoiGhepDauRa / (this.TongKhoiLuong + (this.item.KhoiLuongCuiHoiGhepDauRa || 0)) * 100;
   }
+  // ghep trộn a
+  TinhTyLeCuiHoiGhepTronA() {
+    this.TongKhoiLuong = 0;
+
+    this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
+    if(this.item.isTruVaoSanLuong === true)
+      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.KhoiLuongCuiHoiGhepTronA || 0);
+
+    if (this.TongKhoiLuong > 0)
+      this.item.TyLeCuiHoiGhepTronA = this.item.KhoiLuongCuiHoiGhepTronA / (this.TongKhoiLuong + (this.item.KhoiLuongCuiHoiGhepTronA || 0)) * 100;
+  }
+  // ghep tron B
+  TinhTyLeCuiHoiGhepTronB() {
+    this.TongKhoiLuong = 0;
+
+    this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
+    if(this.item.isTruVaoSanLuong === true)
+      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.KhoiLuongCuiHoiGhepTronB || 0);
+
+    if (this.TongKhoiLuong > 0)
+      this.item.TyLeCuiHoiGhepTronB = this.item.KhoiLuongCuiHoiGhepTronB / (this.TongKhoiLuong + (this.item.KhoiLuongCuiHoiGhepTronB || 0)) * 100;
+  }
   // ghep so bo cotton
   TinhTyLeCuiHoiGhepSoBoCotton() {
     this.TongKhoiLuong = 0;
