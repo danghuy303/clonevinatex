@@ -28,9 +28,10 @@ import { DanhmucdinhmucmathangComponent } from './danhmuc/danhmucdinhmucmathang/
 import { KehoachnhapbongComponent } from './screen/thuchienhopdong/kehoachnhapbong/kehoachnhapbong.component';
 import { NhapkhoComponent } from './screen/thuchienhopdong/nhapkho/nhapkho.component';
 import { XuatkhothanhphamhopdongComponent } from './screen/thuchienhopdong/xuatkhothanhphamhopdong/xuatkhothanhphamhopdong.component';
+import { KehoachkinhdoanhdanhsachComponent } from './kehoachkinhdoanh/kehoachkinhdoanhdanhsach/kehoachkinhdoanhdanhsach.component';
+
 import { DmtieuchichatluonghopdongComponent } from './danhmuc/dmtieuchichatluonghopdong/dmtieuchichatluonghopdong.component';
 import { QuytrinhthanhtoanbongComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbong/quytrinhthanhtoanbong.component';
-
 const routes: Routes = [
   {path:'',component:HopdongComponent},
   {path:'danhmuc/danhmuchinhthucthanhtoan',component:DanhmuchinhthucthanhtoanComponent},
@@ -44,7 +45,11 @@ const routes: Routes = [
   {path:'danhmuc/danhmuctaisan',component: DanhmuctaisanComponent},
   {path:'danhmuc/danhmucphibanhang',component: DanhmucphibanhangComponent},
   {path:'danhmuc/danhmucdinhmucmathang',component: DanhmucdinhmucmathangComponent},
+
+  {path:'danhmuc/kehoachkinhdoanhdanhsach',component: KehoachkinhdoanhdanhsachComponent},
+
   {path:'danhmuc/dmtieuchichatluong',component: DmtieuchichatluonghopdongComponent},
+
 
 
   {path:'theodoihopdongnhapkhau',component:TheodoihopdongnhapkhauComponent},

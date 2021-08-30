@@ -156,9 +156,9 @@
     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-2 p-p-0 my-auto">Loại:</label>
       <div class="p-col-12 p-xl-10 p-p-0">
-        <!-- <input type="text" class="p-inputtext-sm" pInputText /> -->
-        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.loai" locale="vi-VN">
-        </p-inputNumber>
+        <input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="hopDong.loai"/>
+        <!-- <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.loai" locale="vi-VN">
+        </p-inputNumber> -->
       </div>
     </div>
     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
@@ -222,9 +222,9 @@
     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-lg-5 p-p-0 my-auto">Thời gian giao hàng:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <!-- <input type="text" class="p-inputtext-sm" pInputText /> -->
-        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.thoiGianGiaoHang" locale="vi-VN">
-        </p-inputNumber>
+        <input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="hopDong.thoiGianGiaoHang"/>
+        <!-- <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.thoiGianGiaoHang" locale="vi-VN">
+        </p-inputNumber> -->
       </div>
     </div>
     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
@@ -247,8 +247,9 @@
     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-lg-4 p-p-0 my-auto">Chi phí vận chuyển:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [(ngModel)]="hopDong.chiPhiVanChuyen" [minFractionDigits]="2" locale="vi-VN">
-        </p-inputNumber>
+        <input type="text" [(ngModel)]="hopDong.chiPhiVanChuyen" class="p-inputtext-sm p-pl-0" pInputText />
+        <!-- <p-inputNumber [(ngModel)]="hopDong.chiPhiVanChuyen" [minFractionDigits]="2" locale="vi-VN">
+        </p-inputNumber> -->
       </div>
     </div>
     <div class="p-col-12 p-xl-6 p-lg-6 p-p-3  d-flex flex-column flex-xl-row">
@@ -257,7 +258,6 @@
       <div style="padding:0; margin:0" class="p-col-12  p-xl-6 p-p-3 d-flex flex-column flex-xl-row  p-py-0 ">
 
         <div class="p-col-12 p-lg-2 p-d-flex p-ml-lg-0 p-p-0">
-          {{hopDong.BenBanChiu}}
           <p-checkbox [(ngModel)]="hopDong.BenBanChiu" binary="true" inputId="BenBanChiu"
             (onChange)="hopDong.BenMuaChiu=!hopDong.BenBanChiu"></p-checkbox>
         </div>

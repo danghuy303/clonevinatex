@@ -124,10 +124,18 @@ import { ChitietnhapkhoComponent } from './screen/modal/chitietnhapkho/chitietnh
 import { XuatkhothanhphamhopdongComponent } from './screen/thuchienhopdong/xuatkhothanhphamhopdong/xuatkhothanhphamhopdong.component';
 import { ChitietxuatkhothanhphamhopdongComponent } from './screen/modal/chitietxuatkhothanhphamhopdong/chitietxuatkhothanhphamhopdong.component';
 import { XuatthanhphammathangmodalComponent } from './screen/modal/xuatthanhphammathangmodal/xuatthanhphammathangmodal.component';
-import { DmtieuchichatluonghopdongComponent } from './danhmuc/dmtieuchichatluonghopdong/dmtieuchichatluonghopdong.component';
+import { KehoachkinhdoanhdanhsachComponent } from './kehoachkinhdoanh/kehoachkinhdoanhdanhsach/kehoachkinhdoanhdanhsach.component';
+import { ModalkehoachkinhdoanhchitiettaomoiComponent } from './kehoachkinhdoanh/modal/modalkehoachkinhdoanhchitiettaomoi/modalkehoachkinhdoanhchitiettaomoi.component';
+import { ModalkehoachkinhdoanhtheodoiComponent } from './kehoachkinhdoanh/modal/modalkehoachkinhdoanhtheodoi/modalkehoachkinhdoanhtheodoi.component';
 import { DmtieuchichatluonghopdongmodalComponent } from './danhmuc/dmtieuchichatluonghopdongmodal/dmtieuchichatluonghopdongmodal.component';
+import { DmtieuchichatluonghopdongComponent } from './danhmuc/dmtieuchichatluonghopdong/dmtieuchichatluonghopdong.component';
 import { QuytrinhthanhtoanbongComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbong/quytrinhthanhtoanbong.component';
+
+// import { DmtieuchichatluonghopdongComponent } from './danhmuc/dmtieuchichatluonghopdong/dmtieuchichatluonghopdong.component';
+// import { DmtieuchichatluonghopdongmodalComponent } from './danhmuc/dmtieuchichatluonghopdongmodal/dmtieuchichatluonghopdongmodal.component';
+// import { QuytrinhthanhtoanbongComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbong/quytrinhthanhtoanbong.component';
 import { QuytrinhthanhtoanbongmodalComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbongmodal/quytrinhthanhtoanbongmodal.component';
+
 
 
 
@@ -302,6 +310,11 @@ TheodoihopdongnhapkhauComponent,
    
   
 
+
+    KehoachkinhdoanhdanhsachComponent,
+    ModalkehoachkinhdoanhchitiettaomoiComponent,
+    ModalkehoachkinhdoanhtheodoiComponent,
+
     DmtieuchichatluonghopdongComponent,
 
    
@@ -324,6 +337,7 @@ TheodoihopdongnhapkhauComponent,
   
 
     QuytrinhthanhtoanbongmodalComponent,
+
 
 
   ],
@@ -421,9 +435,14 @@ TheodoihopdongnhapkhauComponent,
     ChitietnhapkhoComponent,
     ChitietxuatkhothanhphamhopdongComponent,
     XuatthanhphammathangmodalComponent,
+
+
+    ModalkehoachkinhdoanhchitiettaomoiComponent,
+    ModalkehoachkinhdoanhtheodoiComponent,
     DmtieuchichatluonghopdongmodalComponent,
     QuytrinhthanhtoanbongmodalComponent,
 
+ 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

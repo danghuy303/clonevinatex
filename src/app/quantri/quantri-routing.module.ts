@@ -115,9 +115,6 @@ import { NhapkhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/n
 import { XuatkhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/xuatkhovattuphu/xuatkhovattuphu.component';
 import { KiemkekhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/kiemkekhovattuphu/kiemkekhovattuphu.component';
 import { DinhmucmathangtheonamComponent } from './danhmuc/dinhmucmathangtheonam/dinhmucmathangtheonam.component';
-import { KehoachkinhdoanhTaomoiComponent } from './danhmuc/kehoachkinhdoanh-taomoi/kehoachkinhdoanh-taomoi.component';
-import { Modalchitietkehoachkinhdoanhtheodoi1Component } from './danhmuc/modal/modalchitietkehoachkinhdoanhtheodoi1/modalchitietkehoachkinhdoanhtheodoi1.component';
-import { DanhsachkehoachkinhdoanhComponent } from './danhmuc/danhsachkehoachkinhdoanh/danhsachkehoachkinhdoanh.component';
 
 
 const routes: Routes = [
@@ -271,9 +268,7 @@ const routes: Routes = [
 
       //..................................
       { path: 'danhmuc/dinhmucmathangtheonam', component: DinhmucmathangtheonamComponent },
-      { path: 'danhmuc/kehoachkinhdoanhtaomoi', component: KehoachkinhdoanhTaomoiComponent },
-      { path: 'danhmuc/kehoachkinhdoanhtheodoi', component: Modalchitietkehoachkinhdoanhtheodoi1Component },
-      { path: 'danhmuc/danhsachkehoachkinhdoanh', component: DanhsachkehoachkinhdoanhComponent },
+     
 
     ]
   }

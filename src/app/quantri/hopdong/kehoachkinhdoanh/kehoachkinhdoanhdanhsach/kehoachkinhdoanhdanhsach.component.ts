@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { KehoachkinhdoanhTaomoiComponent } from '../kehoachkinhdoanh-taomoi/kehoachkinhdoanh-taomoi.component';
+import { ModalkehoachkinhdoanhchitiettaomoiComponent } from '../modal/modalkehoachkinhdoanhchitiettaomoi/modalkehoachkinhdoanhchitiettaomoi.component';
 
 @Component({
-  selector: 'app-danhsachkehoachkinhdoanh',
-  templateUrl: './danhsachkehoachkinhdoanh.component.html',
-  styleUrls: ['./danhsachkehoachkinhdoanh.component.css']
+  selector: 'app-kehoachkinhdoanhdanhsach',
+  templateUrl: './kehoachkinhdoanhdanhsach.component.html',
+  styleUrls: ['./kehoachkinhdoanhdanhsach.component.css']
 })
-export class DanhsachkehoachkinhdoanhComponent implements OnInit {
+export class KehoachkinhdoanhdanhsachComponent implements OnInit {
 
   constructor(private _modal:NgbModal) { }
 
   ngOnInit(): void {
   }
+
   add(){
-    let modalRef = this._modal.open(KehoachkinhdoanhTaomoiComponent,{
+    let modalRef = this._modal.open(ModalkehoachkinhdoanhchitiettaomoiComponent,{
       backdrop:'static',
       size:'fullscreen'
     });
@@ -25,4 +26,5 @@ export class DanhsachkehoachkinhdoanhComponent implements OnInit {
     //   this.GetListdmCoCauNhanSu()
     // }).catch(er=>console.log(er))
   }
+
 }

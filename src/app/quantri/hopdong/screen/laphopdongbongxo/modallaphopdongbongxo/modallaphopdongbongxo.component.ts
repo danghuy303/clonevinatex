@@ -119,12 +119,12 @@ export class ModallaphopdongbongxoComponent implements OnInit {
     }
 
     if (!validVariable(this.item.hopDong.tenHopDong)) {
-      this._toastr.error("Vui lòng chọn tên hợp đồng");
+      this._toastr.error("Vui lòng nhập tên hợp đồng");
       return false;
     }
 
     if (!validVariable(this.item.hopDong.soHopDong)) {
-      this._toastr.error("Vui lòng chọn số hợp đồng");
+      this._toastr.error("Vui lòng nhập số hợp đồng");
       return false;
     }
 
