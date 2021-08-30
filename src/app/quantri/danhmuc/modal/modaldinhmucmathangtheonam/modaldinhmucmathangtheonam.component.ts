@@ -11,7 +11,7 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 })
 export class ModaldinhmucmathangtheonamComponent implements OnInit {
 
-
+  public newitem: any=[];
   listdmLoaiSoi:any = [];
 listNhaMay: Array<any> = [];
 
@@ -47,20 +47,20 @@ oldEditItem:any=[];
       this.listdmLoaiSoi = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  // addBongHoi() {
-  //   if (this.item.listItem == undefined || this.item.listItem == null)
-  //     this.item.listItem = [];
-  //   this.item.listItem.push(this.newitem);
-  //   this.newitem = {}
-  // }
-  // deleteBongHoi(index) {
-  //   let item = this.item.listItem.splice(index, 1)[0];
-  //   if (item.Id === '' || item.Id === null || item.Id === undefined) {
-  //   } else {
-  //     item.isXoa = true;
-  //     this.item.listItem.push(JSON.parse(JSON.stringify(item)));
-  //   }
-  // }
+  add2() {
+    if (this.item.listItem == undefined || this.item.listItem == null)
+      this.item.listItem = [];
+    this.item.listItem.push(this.newitem);
+    this.newitem = {}
+  }
+  deleteBongHoi(index) {
+    let item = this.item.listItem.splice(index, 1)[0];
+    if (item.Id === '' || item.Id === null || item.Id === undefined) {
+    } else {
+      item.isXoa = true;
+      this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+    }
+  }
   SetData() {
     let data: any = {
       "id": this.item.id,

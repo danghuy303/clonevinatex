@@ -1000,7 +1000,7 @@ export class QuantriComponent implements OnInit {
         items: [
           {
             label: "Danh sách kế hoạch kinh doanh",
-            routerLink: "/quantri/danhmuc/danhsachkehoachkinhdoanh",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhdanhsach",
             command: () => this.close(),
           },
           {
@@ -1048,13 +1048,6 @@ export class QuantriComponent implements OnInit {
             label: "Định mức mặt hàng",
             routerLink:
               "/quantri/hopdongsanxuat/danhmuc/danhmucdinhmucmathang",
-
-            command: () => this.close(),
-          },
-          {
-            label: "Chi tiết kế hoạch kinh doanh - theo dõi ",
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhtheodoi",
 
             command: () => this.close(),
           },

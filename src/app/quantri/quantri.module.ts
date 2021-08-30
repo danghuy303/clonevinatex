@@ -305,9 +305,8 @@ import { KiemkekhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu
 import { KiemkekhovattuphumodalComponent } from './quanlykhosanxuat/quytrinh/vattuphu/kiemkekhovattuphumodal/kiemkekhovattuphumodal.component';
 import { DinhmucmathangtheonamComponent } from './danhmuc/dinhmucmathangtheonam/dinhmucmathangtheonam.component';
 import { ModaldinhmucmathangtheonamComponent } from './danhmuc/modal/modaldinhmucmathangtheonam/modaldinhmucmathangtheonam.component';
-import { KehoachkinhdoanhTaomoiComponent } from './danhmuc/kehoachkinhdoanh-taomoi/kehoachkinhdoanh-taomoi.component';
-import { Modalchitietkehoachkinhdoanhtheodoi1Component } from './danhmuc/modal/modalchitietkehoachkinhdoanhtheodoi1/modalchitietkehoachkinhdoanhtheodoi1.component';
-import { DanhsachkehoachkinhdoanhComponent } from './danhmuc/danhsachkehoachkinhdoanh/danhsachkehoachkinhdoanh.component';
+
+
 
 
 @NgModule({
@@ -565,11 +564,9 @@ import { DanhsachkehoachkinhdoanhComponent } from './danhmuc/danhsachkehoachkinh
     XuatkhovattuphumodalComponent,
     DinhmucmathangtheonamComponent,
     ModaldinhmucmathangtheonamComponent,
-    KehoachkinhdoanhTaomoiComponent,
+    
   
-    Modalchitietkehoachkinhdoanhtheodoi1Component,
-  
-    DanhsachkehoachkinhdoanhComponent,
+   
 
     //....
     
@@ -742,7 +739,8 @@ import { DanhsachkehoachkinhdoanhComponent } from './danhmuc/danhsachkehoachkinh
     NhapkhovattuphumodalComponent,
     XuatkhovattuphumodalComponent,
     ModaldinhmucmathangtheonamComponent,
-    KehoachkinhdoanhTaomoiComponent,
+    
+   
   
   ],
   providers: [

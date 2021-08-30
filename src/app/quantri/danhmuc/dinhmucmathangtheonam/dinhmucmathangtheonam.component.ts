@@ -46,7 +46,7 @@ export class DinhmucmathangtheonamComponent implements OnInit {
   add(){
     let modalRef = this._modal.open(ModaldinhmucmathangtheonamComponent,{
       backdrop:'static',
-      size:'lg'
+      size:'fullscreen'
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'dinhmucmathanghangnam';
