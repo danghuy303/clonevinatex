@@ -26,8 +26,9 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
 
 
   ngOnInit(): void {
+  
   }
-  ngDoCheck(): void {
+  ngDoCheck(): void {  
     this.itemChange.emit(this.listDieuKhoanThanhToan);
 
   }

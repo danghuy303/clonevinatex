@@ -66,6 +66,10 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
         this.hopDong.BenBanChiu = !this.hopDong.BenMuaChiu;
       }
     }
+    else {
+      this.item.DonGiaThanhToan = 0;
+      this.hopDong.giaTri = 0;
+    }
     // this.item.listVatTu.donGia = 0
     // this.item.thueGTGT = 0
     // this.item.soLuong = 0
@@ -83,7 +87,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
 
   ngDoCheck(): void {
     this.itemChange.emit(this.item);
-    this.hopDongChange.emit(this.hopDong);    
+    this.hopDongChange.emit(this.hopDong);
     this.chiTieuChange.emit(this.listTieuChuanChatLuong);
     // this.chiTieuChange.emit(this.listLoaiMatHang);
     this.listLoaiMatHang = mapArrayForDropDown(this.listLoaiMatHang_copy, "Ten", "Id")
@@ -187,12 +191,14 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   }
 
   tinhDonGiaThanhToan() {
-    this.item.DonGiaThanhToan = this.item.donGia || 0 * 1.1;
+    this.item.DonGiaThanhToan = 0;
+    this.item.DonGiaThanhToan = this.item.donGia * 1.1;
     this.tinhgiaTriHopDong();
   }
 
   tinhgiaTriHopDong() {
-    this.hopDong.giaTri = this.item.DonGiaThanhToan || 0 * this.item.soLuong || 0;
+    this.hopDong.giaTri = 0;
+    this.hopDong.giaTri = this.item.DonGiaThanhToan * this.item.soLuong;
   }
 
   // changeData() {

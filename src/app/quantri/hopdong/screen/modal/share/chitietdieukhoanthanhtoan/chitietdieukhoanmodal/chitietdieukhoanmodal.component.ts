@@ -158,7 +158,9 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
 
     }
     this.item.isTheoGiaTriHopDong = this.item.TheoHopDong;
-    this.item.TenloaiThanhToan = this.optionsLoaiThanhToan.find(obj => obj.value == this.item.loaiThanhToan).label;
+    if (!validVariable(this.item.loaiThanhToan)) {
+      this.item.TenloaiThanhToan = this.optionsLoaiThanhToan.find(obj => obj.value == this.item.loaiThanhToan).label;
+    }
     this.activeModal.close({ opt: opt, item: this.item });
   }
 
@@ -168,14 +170,14 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
         this.item.tyLe = (this.item.giaTri / this.hopDong.giaTri) * 100;
       }
       else {
-        this._toastr.error("Yêu cầu nhập giá trị Hợp đồng", "Thông báo");
+        this._toastr.error("Yêu cầu nhập giá trị trong tab Hợp đồng", "Thông báo");
       }
     }
   }
 
   changeTyLe() {
     if (this.item.TheoHopDong) {
-      if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0) {        
+      if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0) {
         this.item.giaTri = (this.item.tyLe / 100) * this.hopDong.giaTri;
       }
       else {

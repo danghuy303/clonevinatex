@@ -77,13 +77,13 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   @Input() loaiNguyenVatLieu: number;
   @Input() hopDong: any;
   @Output() onChange = new EventEmitter<any>();
-  @Output('itemChange') itemChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output('itemChange') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() onVatLieu: EventEmitter<number> = new EventEmitter<number>();
   @Input("opt") opt: string;
   selectedReport: any;
   @Input() getSearchStatus: boolean;
-  @Output() getSearchStatusChange = new EventEmitter<boolean>(); 
-  
+  @Output() getSearchStatusChange = new EventEmitter<boolean>();
+
   previousVal: any;
   currentVal: any;
 
@@ -176,9 +176,16 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
 
     if (this.opt !== "edit") {
       // this.GetNextSoQuyTrinh();
+      this.item.lstFileUploadCu = [];
       if (this._store.getCurrent()) {
         this.item.IdDuAn = this._store.getCurrent();
       }
+    }
+    else {
+      this.item.listTen = "";
+      this.item.lstFileUploadCu.forEach(element => {
+        this.item.listTen += `${element.TenGoc}`;
+      });
     }
 
   }
@@ -241,10 +248,19 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.result.then((data) => {
-      this.item.ID = this.item.ID !== undefined ? this.item.ID : 0;
-      this.item.TenGui = data[data.length - 1].Name;
-      this.item.TenGoc = data[data.length - 1].NameLocal;
-      this.item.DuongDan = data[data.length - 1].Url;
+      let item: any = {}
+      item.id = 0;
+      item.TenGui = data[data.length - 1].Name;
+      item.TenGoc = data[data.length - 1].NameLocal;
+      item.DuongDan = data[data.length - 1].Url;
+      // "idDuAn": 0,
+      // "maDuAn": "string",
+      this.item.listTaiLieu.push(item);
+      this.item.listTen = "";
+      this.item.listTaiLieu.forEach(element => {
+        this.item.listTen += `${element.TenGoc}`;
+      });
+
     }, (reason) => {
 
     });
