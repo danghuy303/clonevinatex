@@ -106,7 +106,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
       // res.unshift({ Id: '', Ten: 'Tổng hợp' });
       // this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
       this.listLoaiBong = res;
-      let itemLoaiBong = this.listLoaiBong.find(obj => obj.Id === item.loaiHangHoa);
+      let itemLoaiBong = this.listLoaiBong.find(obj => obj.Id === item.iddmLoaiBong);
       this.item.TenLoaiBong = itemLoaiBong.TenLoaiBong;
       this.item.iddmLoaiBong = itemLoaiBong.Id;
     })

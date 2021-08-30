@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
   }
   newTableItem: any = {};
   editTableItem: any = [];
-  listLoaiBong: any = [];
+  listMatHang: any = [];
   listHopDong: any = [];
   listKho: any = [];
   lang: any = vn;
@@ -47,7 +47,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
       this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.data.CurrentPage = 0;
-    this.getListLoaiBong();
+    this.getListMatHang();
     this.getListKho();
     this.getListHopDong();
   }
@@ -122,10 +122,7 @@ export class NhapkhovattuphumodalComponent implements OnInit {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
-            this.item = res.objectReturn;
-            this.item.Ngay = UnixToDate(this.item.NgayUnix);
-            console.log(this.item)
-            console.log(this.type)
+            this.GetQuyTrinh(res.objectReturn.Id);
             this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
@@ -134,7 +131,12 @@ export class NhapkhovattuphumodalComponent implements OnInit {
       })
     }
   }
-
+  GetQuyTrinh(Id) {
+    this._services.QuyTrinhPhieuNhapVatTuPhu().Get(Id).subscribe((res: any) => {
+      this.item = res;
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
+    })
+  }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
@@ -158,26 +160,23 @@ export class NhapkhovattuphumodalComponent implements OnInit {
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  getListLoaiBong() {
+  getListMatHang() {
     this.data.Loai = 23;
     this._services.GetOptions().GetMatHangVatTuPhu().subscribe((res: any) => {
-      res.sort((a,b)=>{
-        return a.Ten.localeCompare(b.Ten);
-      })
-      this.listLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listMatHang = mapArrayForDropDown(res, 'Ten', 'IddmItem');
     })
   }
   getListHopDong() {
     let IdDuAn = this.store.getCurrent();
     this._services.GetOptions().GetDanhSachHopDongByNhaThau(IdDuAn).subscribe((res: any) => {
-      this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'Id');
+      this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
     })
   }
   
   add() {
     if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
-    this.item.listItem.push(this.newTableItem);
+    this.item.listItem.push(deepCopy(this.newTableItem));
     this.newTableItem = {}
   }
  

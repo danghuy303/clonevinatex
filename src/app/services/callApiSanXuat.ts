@@ -29,6 +29,10 @@ export class SanXuatService {
         let url = API.auth;
         return this.http.get(url + `QuanTri/GetAllQuyen`, httpOptions);
     }
+    
+    GetListThanhToanTheo() {        
+        return this.http.get(`${API.HopDong}DanhMuc/GetListThanhToanTheo`, httpOptions);
+    }
 
     GetListOptdmCapBong() {
         let url = API.SCMDanhMuc + 'GetListdmCapBong';
@@ -746,7 +750,11 @@ export class SanXuatService {
                 url = API.SCMDanhMuc
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}ExportBangKeNhapKhoBong`, data, httpOptions)
-            }
+            },
+            GetListChoHopDong: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(API.SCMChoModuleHopDong + 'GetListPhieuNhapLoBong', data, httpOptions);
+            },
         }
     }
     //#endregion
@@ -1631,7 +1639,11 @@ export class SanXuatService {
             ExportBangKeXuatKhoThanhPham:(data)=>{
                 url = API.SCMBaoCao
                 return this.http.post(url + 'ExportBangKeXuatKhoThanhPham', data, httpOptions)
-            }
+            },
+            GetListChoHopDong: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(API.SCMChoModuleHopDong + 'GetListPhieuXuatThanhPham', data, httpOptions);
+            },
         }
     }
     PhanQuyen() {
@@ -2158,6 +2170,9 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetPhieuKiemKeVatTuPhu', data, httpOptions)
             },
+            luuKhoKiemKeKhoVatTuPhu:(IddmKho) => {
+                return this.http.get(url + `getLuuKhoKiemKeKhoVatTuPhu?IdDuAn=0&IddmKho=${IddmKho}&sFilter=`, httpOptions);
+            }
         }
     }
     KeHoachNhapBong() {

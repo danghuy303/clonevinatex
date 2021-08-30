@@ -139,6 +139,27 @@ export class DanhMucHopDongService {
             }
         }
     }
+    DanhMucTieuChuanChatLuong(){
+        let url = API.HopDong
+        return {
+            GetListAll: () => {
+                return this.http.get(url + `DanhMuc/GetListAlldmTieuChuanChatLuong`, httpOptions);
+            },
+            GetList:(data)=>{
+                return this.http.get(`${url}DanhMuc/GetListdmTieuChuanChatLuong?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`,httpOptions)
+            },
+            Set:(data)=>{
+                return this.http.post(`${url}DanhMuc/SetdmTieuChuanChatLuong`,data,httpOptions)
+            },
+            DeleteList:(data)=>{
+                return this.http.post(`${url}DanhMuc/DeleteListdmTieuChuanChatLuong`,data,httpOptions)
+            },
+            Delete:(id)=>{
+                return this.http.get(`${url}DanhMuc/DeletedmTieuChuanChatLuong?id=${id}`,httpOptions)
+            } 
+        }
+    }
+
 // Modal danh mục kế hoạch
     //
     DanhMucVatTuPhu(){

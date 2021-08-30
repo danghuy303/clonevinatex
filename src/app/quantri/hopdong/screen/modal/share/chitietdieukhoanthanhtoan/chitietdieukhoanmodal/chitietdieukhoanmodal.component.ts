@@ -5,8 +5,9 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 import { vn } from 'src/app/services/const';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, Input, OnInit } from '@angular/core';
-import { mapArrayForDropDown, DateToUnix } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, DateToUnix, deepCopy, validVariable } from 'src/app/services/globalfunction';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-chitietdieukhoanmodal',
@@ -18,13 +19,20 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   listThanhToanThuTuc = []
   isThoiDiem: boolean = false;
   opt: any = '';
-  item: any = [];
+  item: any = {
+    TheoHopDong: true,
+    TheoGiaTri: false,
+    listThanhToanThuTuc: [],
+    id: "",
+  };
   listLoaiThanhToan: any = []
   listTheoLoaiThanhToan: any = []
   listLoaiTheoNgay: any = []
   listTinhTrangBaoLanh: any = []
   listThuTucThanhToan_ref: any = []
-  listThuTucThanhToan: any = []
+  listThuTucThanhToan: any = [];
+  IdQuyTrinh: any;
+  hopDong: any;
 
   optionsLoaiThanhToan = [
     { label: 'Tạm ứng', value: 0 },
@@ -33,23 +41,39 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   ]
 
 
-  optionsTheoNgay = [
-    { label: 'Thời gian giao hàng', value: 2 },
-    { label: 'Ngày nhận hàng', value: 3 },
-    { label: 'Ngày nhận được tài liệu giao hàng', value: 4 },
-    { label: 'Ngày ký hợp đồng', value: 0 },
-    { label: 'Ngày ký hợp đồng có hiệu lực', value: 1 },
-  ]
+  // optionsTheoNgay = [
+  //   { label: 'Thời gian giao hàng', value: 2 },
+  //   { label: 'Ngày nhận hàng', value: 3 },
+  //   { label: 'Ngày nhận được tài liệu giao hàng', value: 4 },
+  //   { label: 'Ngày ký hợp đồng', value: 0 },
+  //   { label: 'Ngày ký hợp đồng có hiệu lực', value: 1 },
+  // ]
 
   listDieuKhoanThanhToan: any = {}
   yearRange: string = `${new Date().getFullYear() - 50
     }:${new Date().getFullYear()}`;
-  constructor(public activeModal: NgbActiveModal, private _servicesdmHopDong: DanhMucHopDongService, private _modal: NgbModal, private _service: HopDongService, private _serviceDungChung: SanXuatService,) { }
+  constructor(
+    public activeModal: NgbActiveModal,
+    private _servicesdmHopDong: DanhMucHopDongService,
+    private _modal: NgbModal,
+    private _service: HopDongService,
+    private _serviceDungChung: SanXuatService,
+    private _toastr: ToastrService,
+  ) { }
 
   ngOnInit(): void {
-    this.GetOptions()
+    this.GetOptions();
+    if (this.opt === "edit") {
+      if (this.item.isTheoGiaTriHopDong) {
+        this.item.TheoHopDong = this.item.isTheoGiaTriHopDong;
+        this.item.TheoGiaTri = !this.item.TheoHopDong;
+      }
+      else {
+        this.item.TheoGiaTri = !this.item.isTheoGiaTriHopDong;
+        this.item.TheoHopDong = !this.item.TheoGiaTri;
+      }
+    }
   }
-
 
   GetOptions() {
     this._servicesdmHopDong
@@ -59,16 +83,24 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
         this.listTinhTrangBaoLanh = mapArrayForDropDown(res, "ten", "id");
       });
 
-
-    this._servicesdmHopDong
-      .GetListAlldmTheoLoaiThanhToan()
+    this._serviceDungChung
+      .GetListThanhToanTheo()
       .subscribe((res: any) => {
-        this.listTheoLoaiThanhToan = mapArrayForDropDown(res, "ten", "id");
+        this.listLoaiThanhToan = mapArrayForDropDown(res, "ten", "id");
       });
+
+    // this._servicesdmHopDong
+    //   .GetListAlldmTheoLoaiThanhToan()
+    //   .subscribe((res: any) => {
+    //     this.listTheoLoaiThanhToan = mapArrayForDropDown(res, "ten", "id");
+    //   });
   }
-  toggleVisibility(){
-    this.isThoiDiem = this.item.isChonThoiDiemKhac;
-    
+
+  toggleVisibility() {
+    if (this.item.isChonThoiDiemKhac) {
+      this.item.soNgayCong = undefined;
+      this.item.loaiNgay = undefined;
+    }
   }
 
   onChangeLoaiThanhToan(even) {
@@ -85,47 +117,38 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
 
     // modalRef.componentInstance.listDieuKhoanThanhToan = res1;
     // modalRef.componentInstance.listThuTucThanhToan = listThuTucThanhToan;
-    if (this.item.listThanhToanThuTuc !== undefined && this.item.listThanhToanThuTuc !== null) {
-      this.listThanhToanThuTuc = this.item.listThanhToanThuTuc.filter((e: any) => e.isXoa !== true);
-    }
-    this._servicesdmHopDong.DanhMucThuTucThanhToan().GetListAll().subscribe((res1: any) => {
-
-
-      let modalRef = this._modal.open(ChonthutucthanhtoanmodalComponent, {
-        size: 'lg',
-        backdrop: 'static'
-      })
-      console.log(this.listThanhToanThuTuc);
-
-
-      modalRef.componentInstance.listDieuKhoanThanhToan = res1;
-      modalRef.componentInstance.listThanhToanThuTuc = this.listThanhToanThuTuc;
-      modalRef.componentInstance.opt = 'edit';
-      modalRef.result.then((data) => {
-        this.item.listThanhToanThuTuc.forEach(element => {
-          console.log('listThanhToanThuTuc', element);
-
-          element.isXoa = true;
-        });
-
-
-        for (let i = 0; i < data.data.length; i++) {
-          for (let j = 0; j < this.listThanhToanThuTuc.length; j++) {
-
-            this.listThanhToanThuTuc[j].isXoa = false;
-            data.data[i].isXoa = true;
-
-          }
+    let modalRef = this._modal.open(ChonthutucthanhtoanmodalComponent, {
+      size: 'lg',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.listThanhToanThuTuc = this.item.listThanhToanThuTuc;
+    modalRef.componentInstance.opt = 'edit';
+    modalRef.componentInstance.IdQuyTrinh = this.IdQuyTrinh;
+    modalRef.result.then((res) => {
+      res.forEach(obj => {
+        if (!this.item.listThanhToanThuTuc.every(element => element.iddmThanhToanThuTuc === obj.iddmThanhToanThuTuc) || this.item.listThanhToanThuTuc.length == 0) {
+          this.item.listThanhToanThuTuc.push(obj);
         }
+      });
+      // this.item.listThanhToanThuTuc.forEach(element => {
+      //   console.log('listThanhToanThuTuc', element);
+
+      //   element.isXoa = true;
+      // });
 
 
-      }, (reason) => {
-        // không
-      })
+      // for (let i = 0; i < data.length; i++) {
+      //   for (let j = 0; j < this.listThanhToanThuTuc.length; j++) {
 
-      modalRef.componentInstance.listThanhToanThuTuc = res1;
-      // modalRef.componentInstance.item = this.item.listDieuKhoanThanhToan;
+      //     this.listThanhToanThuTuc[j].isXoa = false;
+      //     data[i].isXoa = true;
 
+      //   }
+      // }
+
+
+    }, (reason) => {
+      // không
     })
   }
 
@@ -134,11 +157,46 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
       this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
 
     }
-
-
+    this.item.isTheoGiaTriHopDong = this.item.TheoHopDong;
+    if (!validVariable(this.item.loaiThanhToan)) {
+      this.item.TenloaiThanhToan = this.optionsLoaiThanhToan.find(obj => obj.value == this.item.loaiThanhToan).label;
+    }
     this.activeModal.close({ opt: opt, item: this.item });
-    console.log(this.item);
-
   }
 
+  changeGiaTri() {
+    if (this.item.TheoHopDong) {
+      if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0) {
+        this.item.tyLe = (this.item.giaTri / this.hopDong.giaTri) * 100;
+      }
+      else {
+        this._toastr.error("Yêu cầu nhập giá trị trong tab Hợp đồng", "Thông báo");
+      }
+    }
+  }
+
+  changeTyLe() {
+    if (this.item.TheoHopDong) {
+      if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0) {
+        this.item.giaTri = (this.item.tyLe / 100) * this.hopDong.giaTri;
+      }
+      else {
+        this._toastr.error("Yêu cầu nhập giá trị Hợp đồng", "Thông báo");
+      }
+    }
+  }
+
+  selectTheoGiaTriHopDong() {
+    this.item.TheoGiaTri = !this.item.TheoHopDong;
+    if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0) {
+      this.item.tyLe = (this.item.giaTri / this.hopDong.giaTri) * 100;
+    }
+    else {
+      this._toastr.error("Yêu cầu nhập giá trị Hợp đồng", "Thông báo");
+    }
+  }
+
+  selectTheoGiaTriDotGiaoHang() {
+    this.item.TheoHopDong = !this.item.TheoGiaTri;
+  }
 }

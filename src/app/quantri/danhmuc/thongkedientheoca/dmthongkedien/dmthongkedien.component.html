@@ -69,7 +69,7 @@
                     <div class="p-d-flex p-ai-center p-jc-between">
                         <div class="p-d-flex p-flex-row">
                             <div *ngFor="let col of item.lstTenPhanXuong; let i = index">
-                                {{col}},
+                                <span>{{col}},&nbsp;</span>
                             </div>
                         </div>
                     </div>
@@ -77,8 +77,8 @@
                 <td>
                     <div class="p-d-flex p-ai-center p-jc-between">
                         <div class="p-d-flex p-flex-row">
-                            <div *ngFor="let col of item.lstTongSoDienPhanXuong; let i = index" style="color:#000099">
-                                <u>{{col|number:'0.0'}}|</u>
+                            <div *ngFor="let col of item.lstTongSoDienPhanXuong; let i = index">
+                                <span style="color:#000099">&nbsp;<u>{{col|number:'0.0'}}</u>&nbsp;</span>| 
                             </div>
                         </div>
                     </div>
@@ -86,8 +86,8 @@
                 <td *ngFor="let col of item.lstTongSoDienPhanXuong_Ca; let i = index">
                     <div class="p-d-flex p-ai-center p-jc-between">
                         <div class="p-d-flex p-flex-row">
-                            <div *ngFor="let colchil of col.lstTongSoDienPhanXuong" style="color: #000099;">
-                                <u >{{colchil|number:'0.0'}}|</u>
+                            <div *ngFor="let colchil of col.lstTongSoDienPhanXuong">
+                                <span style="color: #000099;">&nbsp;<u>{{colchil|number:'0.0'}}</u>&nbsp;</span>| 
                             </div>
                         </div>
                         <div class="p-d-flex p-flex-row">

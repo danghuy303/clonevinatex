@@ -36,10 +36,18 @@ import { StoreService } from "src/app/services/store.service";
 export class ModallaphopdongbongxoComponent implements OnInit {
   opt: any = "add";
   title: string
-  item: any = { listTieuChuanChatLuong: [] };
+  item: any = {
+    hopDong: {
+      BenBanChiu: true,
+      BenMuaChiu: false,
+    },
+    listTieuChuanChatLuong: []
+  };
   hopDong: any = {};
   listDieuKhoanThanhToan: any = [];
   listVatTu: any = [];
+  listHangHoa: any = [];
+  listLoaiMatHang: any = [];
   userInfo: any;
   newItem: any = {};
   lang: any = vn;
@@ -111,18 +119,24 @@ export class ModallaphopdongbongxoComponent implements OnInit {
     }
 
     if (!validVariable(this.item.hopDong.tenHopDong)) {
-      this._toastr.error("Vui lòng chọn tên hợp đồng");
+      this._toastr.error("Vui lòng nhập tên hợp đồng");
       return false;
     }
 
     if (!validVariable(this.item.hopDong.soHopDong)) {
-      this._toastr.error("Vui lòng chọn số hợp đồng");
+      this._toastr.error("Vui lòng nhập số hợp đồng");
       return false;
     }
 
-
+    // if (this.item.listDieuKhoanThanhToa.length > 0) {
+    //   this.item.listDieuKhoanThanhToan.forEach(element => {
+    //     element
+    //   });
+    // }
+    this.item.hopDong.isBenBanChiu = this.item.hopDong.BenBanChiu;
     return true;
   }
+
   GhiLai() {
     // console.log(this.newItem);
 
@@ -220,6 +234,7 @@ export class ModallaphopdongbongxoComponent implements OnInit {
     })
 
   }
+
 
 
 }

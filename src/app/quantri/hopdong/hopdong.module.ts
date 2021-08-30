@@ -124,9 +124,16 @@ import { ChitietnhapkhoComponent } from './screen/modal/chitietnhapkho/chitietnh
 import { XuatkhothanhphamhopdongComponent } from './screen/thuchienhopdong/xuatkhothanhphamhopdong/xuatkhothanhphamhopdong.component';
 import { ChitietxuatkhothanhphamhopdongComponent } from './screen/modal/chitietxuatkhothanhphamhopdong/chitietxuatkhothanhphamhopdong.component';
 import { XuatthanhphammathangmodalComponent } from './screen/modal/xuatthanhphammathangmodal/xuatthanhphammathangmodal.component';
+<<<<<<< HEAD
 import { KehoachkinhdoanhdanhsachComponent } from './kehoachkinhdoanh/kehoachkinhdoanhdanhsach/kehoachkinhdoanhdanhsach.component';
 import { ModalkehoachkinhdoanhchitiettaomoiComponent } from './kehoachkinhdoanh/modal/modalkehoachkinhdoanhchitiettaomoi/modalkehoachkinhdoanhchitiettaomoi.component';
 import { ModalkehoachkinhdoanhtheodoiComponent } from './kehoachkinhdoanh/modal/modalkehoachkinhdoanhtheodoi/modalkehoachkinhdoanhtheodoi.component';
+=======
+import { DmtieuchichatluonghopdongComponent } from './danhmuc/dmtieuchichatluonghopdong/dmtieuchichatluonghopdong.component';
+import { DmtieuchichatluonghopdongmodalComponent } from './danhmuc/dmtieuchichatluonghopdongmodal/dmtieuchichatluonghopdongmodal.component';
+import { QuytrinhthanhtoanbongComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbong/quytrinhthanhtoanbong.component';
+import { QuytrinhthanhtoanbongmodalComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbongmodal/quytrinhthanhtoanbongmodal.component';
+>>>>>>> 2f16ca2f8d88e02cff70ce2efb85c6b3176452b1
 
 
 
@@ -301,9 +308,34 @@ TheodoihopdongnhapkhauComponent,
    
   
 
+<<<<<<< HEAD
     KehoachkinhdoanhdanhsachComponent,
     ModalkehoachkinhdoanhchitiettaomoiComponent,
     ModalkehoachkinhdoanhtheodoiComponent,
+=======
+    DmtieuchichatluonghopdongComponent,
+
+   
+   
+   
+  
+
+    DmtieuchichatluonghopdongmodalComponent,
+
+   
+   
+   
+  
+
+    QuytrinhthanhtoanbongComponent,
+
+   
+   
+   
+  
+
+    QuytrinhthanhtoanbongmodalComponent,
+>>>>>>> 2f16ca2f8d88e02cff70ce2efb85c6b3176452b1
 
 
   ],
@@ -401,9 +433,15 @@ TheodoihopdongnhapkhauComponent,
     ChitietnhapkhoComponent,
     ChitietxuatkhothanhphamhopdongComponent,
     XuatthanhphammathangmodalComponent,
+<<<<<<< HEAD
 
     ModalkehoachkinhdoanhchitiettaomoiComponent,
     ModalkehoachkinhdoanhtheodoiComponent,
+=======
+    DmtieuchichatluonghopdongmodalComponent,
+    QuytrinhthanhtoanbongmodalComponent,
+
+>>>>>>> 2f16ca2f8d88e02cff70ce2efb85c6b3176452b1
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
