@@ -176,7 +176,8 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
 
     if (this.opt !== "edit") {
       // this.GetNextSoQuyTrinh();
-      this.item.lstFileUploadCu = [];
+      this.item.listTaiLieu=[];
+      // this.item.lstFileUploadCu = [];
       if (this._store.getCurrent()) {
         this.item.IdDuAn = this._store.getCurrent();
       }
