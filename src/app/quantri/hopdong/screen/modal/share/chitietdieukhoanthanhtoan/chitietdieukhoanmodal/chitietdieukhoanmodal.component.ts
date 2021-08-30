@@ -158,7 +158,7 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
 
     }
     this.item.isTheoGiaTriHopDong = this.item.TheoHopDong;
-    if (!validVariable(this.item.loaiThanhToan)) {
+    if (this.item.loaiThanhToan!=undefined) {
       this.item.TenloaiThanhToan = this.optionsLoaiThanhToan.find(obj => obj.value == this.item.loaiThanhToan).label;
     }
     this.activeModal.close({ opt: opt, item: this.item });
