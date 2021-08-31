@@ -513,6 +513,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
         case 'GHEPSOBOCOTTON':
          this.TinhTyLeCuiHoiGhepSoBoCotton();
           break;
+        case 'GHEPTRONA':
+          this.TinhTyLeCuiHoiGhepTronA();
+          break;
+        case 'GHEPTRONB':
+          this.TinhTyLeCuiHoiGhepTronB();
+          break;
         default:
           this.TongKhoiLuong = 0;
           this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);

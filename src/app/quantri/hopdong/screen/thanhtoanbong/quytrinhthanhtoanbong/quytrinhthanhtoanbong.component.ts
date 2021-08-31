@@ -113,13 +113,12 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
   }
  
   update(Id) {
-    this._hopdong.QuyTrinhThanhToan().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(QuytrinhthanhtoanbongmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
+      modalRef.componentInstance.item.id = JSON.parse(JSON.stringify(Id));
       modalRef.componentInstance.type = this.type;
       modalRef.componentInstance.nametype = this.nametype;
       modalRef.result.then((res: any) => {
@@ -133,7 +132,6 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
           this.GetListQuyTrinh();
           this.changeParam(0);
         })
-    })
   }
   changeTab(e) {
     this.trangThai = e.index+1;
@@ -166,7 +164,7 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
           element._Ngay = element.NgayUnix > 0 ? formatdate(element.Ngay, false) : null;
         });
       }
-      this.paging.CurrentPage = res.data.paging;
+      this.paging.CurrentPage = res.data.page;
       this.paging.TotalPage = res.data.totalPages;
       this.paging.TotalItem = res.data.totalCount;
     })
@@ -184,7 +182,7 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
 
       }
       // this.checkQuyen = res;
-      // this.GetListQuyTrinh();
+      this.GetListQuyTrinh();
     })
   }
   validateFilter() {

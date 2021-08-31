@@ -25,11 +25,15 @@
     </div>
 </div>
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <p-tabPanel header="Chưa xử lý" *ngIf="checkQuyen.ChuaXuLy">
+    <!-- <p-tabPanel header="Chưa xử lý" *ngIf="checkQuyen.ChuaXuLy">
     </p-tabPanel>
     <p-tabPanel header="Đã xử lý" *ngIf="checkQuyen.DaXyLy">
-    </p-tabPanel>
-
+    </p-tabPanel> -->
+    <p-tabPanel header="Tổng hợp"></p-tabPanel>
+    <p-tabPanel header="Hợp đồng sắp hết hạn BG"></p-tabPanel>
+    <p-tabPanel header="Hợp đồng sắp hết hạn TT"></p-tabPanel>
+    <p-tabPanel header="Hợp đồng quá hạn BG"></p-tabPanel>
+    <p-tabPanel header="Hợp đồng quá hạn TT"></p-tabPanel>
 </p-tabView>
 <div class="p-mt-3">
     <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
