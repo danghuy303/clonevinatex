@@ -481,8 +481,10 @@ export class ThongkesanluongmodalComponent implements OnInit {
     }
   }
   enterCon(i){
-    if(i+3<this.inputNumbers.toArray().length){
-      this.inputNumbers.toArray()[i+3].el.nativeElement.children[0].children[0].focus();
+    console.log(i)
+    console.log(this.inputNumbers.toArray().map(ele=>ele.tabindex))
+    if(i+4<(this.listItem.length*5-1)){
+      this.inputNumbers.toArray()[i+4].el.nativeElement.children[0].children[0].focus();
     }else{
       this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
     }
