@@ -73,11 +73,15 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   selectedCity = null;
   cities = [{ name: 'pushkar', code: 21 }, { name: 'nagpur', code: 22 }];
   @Input('item') item: any;
+  @Input('itemcha') itemcha: any;
+  
   @Input() isSoi;
   @Input() loaiNguyenVatLieu: number;
   @Input() hopDong: any;
   @Output() onChange = new EventEmitter<any>();
   @Output('itemChange') itemChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output('itemchaChange') itemchaChange: EventEmitter<any> = new EventEmitter<any>();
+  
   @Output() onVatLieu: EventEmitter<number> = new EventEmitter<number>();
   @Input("opt") opt: string;
   selectedReport: any;
@@ -176,16 +180,16 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
 
     if (this.opt !== "edit") {
       // this.GetNextSoQuyTrinh();
-      this.item.listTaiLieu=[];
+      this.itemcha.listTaiLieu=[];
       // this.item.lstFileUploadCu = [];
       if (this._store.getCurrent()) {
         this.item.IdDuAn = this._store.getCurrent();
       }
     }
     else {
-      this.item.listTen = "";
-      this.item.lstFileUploadCu.forEach(element => {
-        this.item.listTen += `${element.TenGoc}`;
+      this.itemcha.listTen = "";
+      this.itemcha.lstFileUploadCu.forEach(element => {
+        this.itemcha.listTen += `${element.TenGoc}`;
       });
     }
 
@@ -194,6 +198,9 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
 
   ngDoCheck() {
     this.itemChange.emit(this.item);
+    this.itemchaChange.emit(this.itemcha);
+
+    
   }
 
   GetFormOptions() {
@@ -256,10 +263,10 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
       item.DuongDan = data[data.length - 1].Url;
       // "idDuAn": 0,
       // "maDuAn": "string",
-      this.item.listTaiLieu.push(item);
-      this.item.listTen = "";
-      this.item.listTaiLieu.forEach(element => {
-        this.item.listTen += `${element.TenGoc}`;
+      this.itemcha.listTaiLieu.push(item);
+      this.itemcha.listTen = "";
+      this.itemcha.listTaiLieu.forEach(element => {
+        this.itemcha.listTen += `${element.TenGoc}`;
       });
 
     }, (reason) => {
