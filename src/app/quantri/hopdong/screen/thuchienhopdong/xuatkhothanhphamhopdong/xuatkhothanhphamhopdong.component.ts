@@ -57,11 +57,6 @@ export class XuatkhothanhphamhopdongComponent implements OnInit {
       field: 'GhiChu',
       width: 'unset'
     },
-    {
-      header: 'Trạng thái',
-      field: 'TenTrangThai',
-      width: 'unset'
-    },
   ];
   eAction = 'XUATTHANHPHAM';
   suber: any;

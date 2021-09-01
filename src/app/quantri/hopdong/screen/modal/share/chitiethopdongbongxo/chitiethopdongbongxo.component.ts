@@ -72,12 +72,12 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   canCopy: boolean = false;
   selectedCity = null;
   cities = [{ name: 'pushkar', code: 21 }, { name: 'nagpur', code: 22 }];
-  @Input('item') item: any;
-  @Input('itemcha') itemcha: any;
+  @Input('item') item: any = {};
+  @Input('itemcha') itemcha: any = {};
   
   @Input() isSoi;
   @Input() loaiNguyenVatLieu: number;
-  @Input() hopDong: any;
+  @Input() hopDong: any = {};
   @Output() onChange = new EventEmitter<any>();
   @Output('itemChange') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @Output('itemchaChange') itemchaChange: EventEmitter<any> = new EventEmitter<any>();
@@ -188,6 +188,8 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
     }
     else {
       this.itemcha.listTen = "";
+      if(this.itemcha.lstFileUploadCu === undefined || this.itemcha.lstFileUploadCu === null)
+        this.itemcha.lstFileUploadCu = [];
       this.itemcha.lstFileUploadCu.forEach(element => {
         this.itemcha.listTen += `${element.TenGoc}`;
       });

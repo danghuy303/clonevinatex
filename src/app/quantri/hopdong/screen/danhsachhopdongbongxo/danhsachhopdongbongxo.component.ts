@@ -119,8 +119,6 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
 
  
   update(item) {
-  
-    
     this._service
       .QuyTrinhHopDong()
       .Get(item.id)

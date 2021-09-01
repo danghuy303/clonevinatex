@@ -2,7 +2,6 @@ import { AuthenticationService } from "./../../../../../services/auth.service";
 import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.service";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 import { FileUploader } from "ng2-file-upload";
-import { ChonquycachdonggoimodalComponent } from "../../../../quanlykhosanxuat/modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component";
 import { ChonhanghoamodalComponent } from "../../../../quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component";
 
 import { Component, DoCheck, Input, OnInit } from "@angular/core";
@@ -11,7 +10,6 @@ import { ToastrService } from "ngx-toastr";
 import { CalcmodalComponent } from "src/app/quantri/modal/calcmodal/calcmodal.component";
 import { ModalthongbaoComponent } from "src/app/quantri/modal/modalthongbao/modalthongbao.component";
 import { UploadmodalComponent } from "src/app/quantri/modal/uploadmodal/uploadmodal.component";
-import { Dat09Service } from "src/app/services/callApi";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { vn } from "src/app/services/const";
 import {
@@ -34,13 +32,18 @@ import { isEmptyExpression } from "@angular/compiler";
 export class ChitiethopdongbongxomodalComponent implements OnInit {
   opt: any = "add";
   title: string
-  item: any = {};
+  item: any = {
+    hopDong: {},
+    listHangHoa:[],
+    listDieuKhoanThanhToan:[],
+    listBaoLanh:[],
+  };
   @Input() res1: any = [];
   hopDong: any = {};
   listLoaiMatHang: any = []
   listLoaiMatHang_ref: any = []
   listDieuKhoanThanhToan: any = [];
-listVatTu: any = [];
+  listVatTu: any = [];
   userInfo: any;
   newItem: any = {};
   lang: any = vn;
@@ -50,7 +53,12 @@ listVatTu: any = [];
   };
 
   checkedAll: boolean = false;
-  checkbutton: any = {};
+  checkbutton: any = {
+    Ghi: true,
+    KhongDuyet: false,
+    ChuyenTiep: false,
+    Xoa: false,
+  };
 
   yearRange: string = `${new Date().getFullYear()}:${new Date().getFullYear() + 5
     }`;
@@ -68,46 +76,32 @@ listVatTu: any = [];
   }
 
   ngOnInit(): void {
-console.log(this.item.hopDong.loaiNguyenVatLieu);
-
-    this._servicesSanXuat
-    .GetListdmLoaiBongForHopDong(this.item.hopDong.loaiNguyenVatLieu)
-    .subscribe((res: any) => {
+    console.log(this.item)
+    this._servicesSanXuat.GetListdmLoaiBongForHopDong(this.item.hopDong.loaiNguyenVatLieu || 0).subscribe((res: any) => {
       this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
       this.listLoaiMatHang_ref = res;
     })
-    this.KiemTraButtonModal();
-    this.checkbutton = {
-      Ghi: false,
-      Xoa: false,
-      ChuyenTiep: false,
-      KhongDuyet: false,
-    };
-    // this.GetFormOptions();
-    this.GetNextSoQuyTrinh();
+
     if (this.opt !== "edit") {
+      this.GetNextSoQuyTrinh();
       this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
 
     } else {
-
+      this.KiemTraButtonModal();
+      if(this.item.listHangHoa.length > 0)
+        this.listVatTu = this.item.listHangHoa[0];
       this.title = "Hợp đồng nguyên/vật liệu"
     }
   }
 
   KiemTraButtonModal() {
-    this._servicesSanXuat
-      .KiemTraButton(this.item.hopDong.id || "", this.item.hopDong.idTrangThai || "")
-      .subscribe((res: any) => {
-       
+    this._servicesSanXuat.KiemTraButton(this.item.hopDong.id || "", this.item.hopDong.idTrangThai || "").subscribe((res: any) => {
         this.checkbutton = res;
       });
   }
 
   GetNextSoQuyTrinh() {
-    this._service
-      .QuyTrinhHopDong()
-      .GetNextSoQuyTrinh()
-      .subscribe((res: any) => {
+    this._service.QuyTrinhHopDong().GetNextSoQuyTrinh().subscribe((res: any) => {
         this.item.hopDong.soQuyTrinh = res.data;
       });
   }
@@ -127,8 +121,6 @@ console.log(this.item.hopDong.loaiNguyenVatLieu);
       this._toastr.error("Vui lòng chọn số hợp đồng");
       return false;
     }
-
-
     return true;
   }
 
