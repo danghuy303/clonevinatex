@@ -65,7 +65,7 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Chọn invoice :</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-multiSelect [options]="listThanhToanInvoice" [(ngModel)]="listIdThanhToanInvoice " display="chip" [filter]="false"
-                class="p-inputtext-sm" [showToggleAll]="true" [maxSelectedLabels] = "4"></p-multiSelect>
+                class="p-inputtext-sm" [showToggleAll]="true" (onChange)="getListItem()"></p-multiSelect>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">

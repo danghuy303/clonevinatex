@@ -120,7 +120,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
         let data = {
           id : "",
           idInvoice : element,
-          idHopDong:"",
+          idHopDong: this.item.idHopDong,
           idThanhToanQuyTrinh:"",
         }
         this.item.listThanhToanInvoice.push(data)
@@ -146,9 +146,9 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this._services.QuyTrinhPhieuNhapLoBong().Delete(this.item).subscribe((res: any) => {
+      this._hopdong.QuyTrinhThanhToan().Delete(this.item.id).subscribe((res: any) => {
         console.log(res);
-        if (res?.State === 1) {
+        if (res?.statusCode === 200) {
           this.activeModal.close();
           this.toastr.success(res.message);
         } else {
@@ -161,12 +161,16 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   getQuyTrinh(Id) {
     this._hopdong.QuyTrinhThanhToan().Get(Id).subscribe((res1: any) => {
       this.item=res1.data;
+      this.listIdThanhToanInvoice = []
       if (this.item.ngayThanhToanUnix !== null && this.item.ngayThanhToanUnix !== undefined) {
         this.item.ngayThanhToan = UnixToDate(this.item.ngayThanhToanUnix);
       }
-      this.listIdThanhToanInvoice = this.item.listThanhToanInvoice["idInvoice"];
+      this.item.listThanhToanInvoice.forEach(element => {
+        this.listIdThanhToanInvoice.push(element["idInvoice"])
+      });
       this.KiemTraButtonModal();
       this.getListHopDong();
+      this.getListDieuKhoanThanhToan();
     })
   }
   add() {
@@ -203,15 +207,16 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
     }
     return true;
   }
-  // SetData() {
-  //   let data: any = {
-  //     "id":this.item.id,
-  //     "ma": this.item.ma,
-  //     "dacTinh": this.item.dacTinh,
-  //     "donVi": this.item.donVi,
-  //     "tieuChuan": this.item.tieuChuan,
-  //     "ghiChu": this.item.ghiChu,
-  //   };
-  //   return data;
-  // }
+  getListItem() {
+    this.item.listThanhToanVatTu=[];
+    this.listIdThanhToanInvoice.forEach(element => {
+      let data = {
+        id : "",
+        idInvoice : element,
+        idHopDong: "",
+        idThanhToanQuyTrinh:"",
+      }
+      this.item.listThanhToanVatTu.push(data)
+    });
+  }
 }
