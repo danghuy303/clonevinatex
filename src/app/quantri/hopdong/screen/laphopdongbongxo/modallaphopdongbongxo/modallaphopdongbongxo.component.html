@@ -45,10 +45,10 @@
     <div class="p-d-flex p-flex-row p-jc-between">
         <p-tabView>
             <p-tabPanel header="Thông tin hợp đồng">
-                <app-chitiethopdongbongxo [(item)]="item.hopDong" [opt]="opt" [(listLoaiMatHang)]="listLoaiMatHang">
+                <app-chitiethopdongbongxo [(itemcha)]="item" [(item)]="item.hopDong" [opt]="opt" [(listLoaiMatHang)]="listLoaiMatHang">
                 </app-chitiethopdongbongxo>
             </p-tabPanel>
-            <p-tabPanel header="Thông tin hàng hóa">
+            <p-tabPanel header="Thông tin hàng hóa">                
                 <app-chitietdanhsachhanghoa [isBong]="isBong" [(hopDong)]="item.hopDong" [opt]="opt" [(listHangHoa)]="listHangHoa"
                     [(listTieuChuanChatLuong)]="item.listTieuChuanChatLuong" [listLoaiMatHang]="listLoaiMatHang">
                 </app-chitietdanhsachhanghoa>

@@ -59,7 +59,7 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
     }
     let modalRef = this._modal.open(ChitietdieukhoanmodalComponent, { size: 'xl', backdrop: 'static' });
     modalRef.componentInstance.item = deepCopy(item);
-    modalRef.componentInstance.item.ngayThanhToan = new Date(item.ngayThanhToan);
+    // modalRef.componentInstance.item.ngayThanhToan = new Date(item.ngayThanhToan);
     modalRef.componentInstance.hopDong = deepCopy(this.hopDong);    
     modalRef.componentInstance.opt = 'edit';
     modalRef.result.then(res => {

@@ -31,7 +31,7 @@ export class LaphopdongbongxoComponent implements OnInit {
   filter: any = {};
   eAction: any = "QUYTRINHHOPDONG";
   tuNgay: number = 0;
-  title:string
+  title: string
   denNgay: number = 0;
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
@@ -39,7 +39,7 @@ export class LaphopdongbongxoComponent implements OnInit {
   paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
   hopDong: any = {};
 
-  
+
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listQuyCachDongGoi: any = [];
 
@@ -53,7 +53,7 @@ export class LaphopdongbongxoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      
+
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
@@ -79,20 +79,20 @@ export class LaphopdongbongxoComponent implements OnInit {
     );
   }
   add() {
-   
+
     let modalRef = this._modal.open(ModallaphopdongbongxoComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "add";
-    
+
     modalRef.componentInstance.item = {
       listNhanSu: [],
-    
-     
+
+
       listDieuKhoanThanhToan: [],
       listTieuChuanChatLuong: [],
-    
+
       listBaoLanh: [],
 
       listTaiLieu: [],
@@ -108,9 +108,9 @@ export class LaphopdongbongxoComponent implements OnInit {
 
       }
     ]
-   
- 
-    
+
+
+
 
     modalRef.result
       .then((res: any) => {
@@ -149,13 +149,13 @@ export class LaphopdongbongxoComponent implements OnInit {
   }
 
   update(item) {
-  
-    
+
+
     this._service
       .QuyTrinhHopDong()
       .Get(item.id)
       .subscribe((res1: any) => {
-        
+
         let modalRef = this._modal.open(ModallaphopdongbongxoComponent, {
           size: "fullscreen",
           backdrop: "static",
@@ -164,7 +164,7 @@ export class LaphopdongbongxoComponent implements OnInit {
         modalRef.componentInstance.item.hopDong = JSON.parse(
           JSON.stringify(res1.data.hopDong)
         );
-   
+
 
         modalRef.result
           .then((res: any) => {
@@ -175,7 +175,7 @@ export class LaphopdongbongxoComponent implements OnInit {
           .catch((er) => {
             console.log(er);
             this.GetListQuyTrinh();
-            
+
             this.changeParam(0);
           });
       });
@@ -219,7 +219,7 @@ export class LaphopdongbongxoComponent implements OnInit {
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
-      Loai:0
+      Loai: 0
     };
     this._service
       .QuyTrinhHopDong()
@@ -227,6 +227,10 @@ export class LaphopdongbongxoComponent implements OnInit {
       .subscribe((res: any) => {
         this.items = res.data?.items;
         this.paging.TotalItem = res.data?.totalCount;
+
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
       });
   }
 
@@ -235,7 +239,7 @@ export class LaphopdongbongxoComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+    this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })

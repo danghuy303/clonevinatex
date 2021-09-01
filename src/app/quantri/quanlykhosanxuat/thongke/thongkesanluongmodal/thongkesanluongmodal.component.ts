@@ -5,7 +5,7 @@ import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.co
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { LohangComponent } from '../lohang/lohang.component';
 
 @Component({
@@ -14,7 +14,7 @@ import { LohangComponent } from '../lohang/lohang.component';
   styleUrls: ['./thongkesanluongmodal.component.css']
 })
 export class ThongkesanluongmodalComponent implements OnInit {
-  @ViewChildren('inputNumber') inputNumbers:any;
+  @ViewChildren('inputNumber') inputNumbers: any;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -39,8 +39,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListCongDoan();
-    if(this.item.isTruVaoSanLuong === undefined)
-    this.item.isTruVaoSanLuong = false;
+    if (this.item.isTruVaoSanLuong === undefined)
+      this.item.isTruVaoSanLuong = false;
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
       this.GetPhanXuongTheoUser()
@@ -214,15 +214,15 @@ export class ThongkesanluongmodalComponent implements OnInit {
       if (this.opt !== 'edit') {
         this.item.listItem = []
       }
-      else{
+      else {
         if (this.item.listItem != undefined && this.item.listItem != null) {
           this.item.listItem = this.item.listItem.filter((e: any) => e.Id !== null)
-          for(let i=0; i<  this.item.listItem.length; i ++){
+          for (let i = 0; i < this.item.listItem.length; i++) {
             this.item.listItem[i].isXoa = true;
           }
         }
       }
-      
+
       this.services.ThongKeSanLuong().GetMatHang(this.item.IddmPhanXuong, this.item.IddmCaSanXuat, this.item.NgayUnix).subscribe((res: any) => {
         res.forEach(element => {
           element.Id = null;
@@ -254,16 +254,16 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhGiaTri(item) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
-      KhoiLuong = item.ChieuDai / (item.Nm * 1000)*item.SoCoc;
+      KhoiLuong = item.ChieuDai / (item.Nm * 1000) * item.SoCoc;
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong();
   }
   TinhCongThucMoi(item) {
     var KhoiLuong = 0;
-    if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0){
+    if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0) {
       KhoiLuong = item.ChieuDai / (item.Nm * 1000) * item.SoCoc;;
-      if(item.isM == true)
-        item.ChuDongHo = item.ChieuDai/(item.Nm * 1000);
+      if (item.isM == true)
+        item.ChuDongHo = item.ChieuDai / (item.Nm * 1000);
     }
     item.KhoiLuong = KhoiLuong;
     this.TinhTyLeBongThoMang();
@@ -278,14 +278,14 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhKhoiLuongGhepSoBoChaiCotton(item) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
-      KhoiLuong = item.ChieuDai / (item.Nm * 1000) * (item.SoDauRa|| 0) - (item.KhoiLuongCuiHoi || 0);
+      KhoiLuong = item.ChieuDai / (item.Nm * 1000) * (item.SoDauRa || 0) - (item.KhoiLuongCuiHoi || 0);
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong();
   }
   TinhKhoiLuongTho(item) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
-      KhoiLuong = item.ChieuDai / (item.Nm * 1000)*( (item.SoCoc || 0 )- (item.CocChet || 0 ));
+      KhoiLuong = item.ChieuDai / (item.Nm * 1000) * ((item.SoCoc || 0) - (item.CocChet || 0));
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong();
   }
@@ -357,8 +357,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhTyLeCottonBongPhe() {
     this.TongKhoiLuong = 0;
 
-    this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
-    if(this.item.isTruVaoSanLuong === true)
+    this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+    if (this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.CottonBongPhe || 0) - (this.item.CottonBongMun || 0) - (this.item.KhoiLuongCuiHoiChaiCotton || 0);
 
     if (this.TongKhoiLuong > 0) {
@@ -371,9 +371,9 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhTyLePEBongPhe() {
     this.TongKhoiLuong = 0;
 
-    this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
-    if(this.item.isTruVaoSanLuong === true)
-      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.PEBongPhe || 0) - (this.item.PEBongMun || 0) -  (this.item.PECuiHoi || 0);
+    this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+    if (this.item.isTruVaoSanLuong === true)
+      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.PEBongPhe || 0) - (this.item.PEBongMun || 0) - (this.item.PECuiHoi || 0);
 
     if (this.TongKhoiLuong > 0) {
       this.item.TyLePEBongPhe = this.item.PEBongPhe / (this.TongKhoiLuong + (this.item.PEBongPhe || 0)) * 100;
@@ -385,8 +385,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhTyLeBongChaiKy() {
     this.TongKhoiLuong = 0;
 
-    this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
-    if(this.item.isTruVaoSanLuong === true)
+    this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+    if (this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ChaiKy || 0);
 
     if (this.TongKhoiLuong > 0)
@@ -396,11 +396,11 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhTyLeBongCuiHoi() {
     this.TongKhoiLuong = 0;
 
-    this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
-    if(this.item.isTruVaoSanLuong === true)
+    this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+    if (this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.CuiHoi || 0) - (this.item.ThoMangTho || 0);
 
-    if (this.TongKhoiLuong > 0){
+    if (this.TongKhoiLuong > 0) {
       this.item.TyLeBongCuiHoi = this.item.CuiHoi / (this.TongKhoiLuong + (this.item.CuiHoi || 0)) * 100;
       this.item.TyLeThoMangTho = this.item.ThoMangTho / (this.TongKhoiLuong + (this.item.ThoMangTho || 0)) * 100;
     }
@@ -409,10 +409,10 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhTyLeBongThoMang() {
     this.TongKhoiLuong = 0;
 
-    this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
-    if(this.item.isTruVaoSanLuong === true)
+    this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+    if (this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ThoMang || 0);
-      // this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ThoMang || 0) - (this.item.BongHutMoi || 0);
+    // this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ThoMang || 0) - (this.item.BongHutMoi || 0);
     if (this.TongKhoiLuong > 0) {
       this.item.TyLeThoMang = (this.item.ThoMang ?? 0) / (this.TongKhoiLuong + (this.item.ThoMang || 0)) * 100;
       this.item.TyLeBongHutMoi = (this.item.BongHutMoi ?? 0) / (this.TongKhoiLuong) * 100;
@@ -422,8 +422,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhTyLeSoiCat() {
     this.TongKhoiLuong = 0;
 
-    this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
-    if(this.item.isTruVaoSanLuong === true)
+    this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+    if (this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.SoiCat || 0);
 
     if (this.TongKhoiLuong > 0)
@@ -433,8 +433,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhTyLeCuiHoiGhepDauRa() {
     this.TongKhoiLuong = 0;
 
-    this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
-    if(this.item.isTruVaoSanLuong === true)
+    this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+    if (this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.KhoiLuongCuiHoiGhepDauRa || 0);
 
     if (this.TongKhoiLuong > 0)
@@ -444,8 +444,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhTyLeCuiHoiGhepTronA() {
     this.TongKhoiLuong = 0;
 
-    this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
-    if(this.item.isTruVaoSanLuong === true)
+    this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+    if (this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.KhoiLuongCuiHoiGhepTronA || 0);
 
     if (this.TongKhoiLuong > 0)
@@ -455,8 +455,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhTyLeCuiHoiGhepTronB() {
     this.TongKhoiLuong = 0;
 
-    this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
-    if(this.item.isTruVaoSanLuong === true)
+    this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+    if (this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.KhoiLuongCuiHoiGhepTronB || 0);
 
     if (this.TongKhoiLuong > 0)
@@ -466,107 +466,118 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TinhTyLeCuiHoiGhepSoBoCotton() {
     this.TongKhoiLuong = 0;
 
-    this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
-    if(this.item.isTruVaoSanLuong === true)
+    this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+    if (this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong -= (this.item.TongKhoiLuongCuiHoi || 0);
 
     if (this.TongKhoiLuong > 0)
       this.item.TyLeCuiHoiGhepSoBoCotton = this.item.TongKhoiLuongCuiHoi / (this.TongKhoiLuong + (this.item.TongKhoiLuongCuiHoi || 0)) * 100;
   }
-  enter(i){
-    if(i+1<this.inputNumbers.toArray().length){
-      this.inputNumbers.toArray()[i+1].el.nativeElement.children[0].children[0].focus();
-    }else{
+  enter(i) {
+    if (i + 1 < this.inputNumbers.toArray().length) {
+      this.inputNumbers.toArray()[i + 1].el.nativeElement.children[0].children[0].focus();
+    } else {
       this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
     }
   }
-  enterCon(i){
+  enterCon(i) {
     console.log(i)
-    console.log(this.inputNumbers.toArray().map(ele=>ele.tabindex))
-    if(i+4<(this.listItem.length*5-1)){
-      this.inputNumbers.toArray()[i+4].el.nativeElement.children[0].children[0].focus();
-    }else{
-      this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
+    console.log(this.inputNumbers.toArray().map(ele => ele.tabindex))
+    if (this.item.CongDoan === 'CON') {
+      if (i + 4 < (this.listItem.length * 5 - 1)) {
+        this.inputNumbers.toArray()[i + 4].el.nativeElement.children[0].children[0].focus();
+      } else {
+        this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
+      }
     }
+    if(this.item.CongDoan === 'ONG'){
+      let nextFocus = this.inputNumbers.toArray().find(ele=>ele.tabindex ===i+5);
+      if(validVariable(nextFocus)){
+        nextFocus.el.nativeElement.children[0].children[0].focus()
+      }else{
+        this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
+      }
+    }
+
   }
   TinhTongKhoiLuongBong() {
-    switch(this.item.CongDoan){
-        case 'CHAICOTTON':
-          this.TinhTyLeCottonBongPhe();
-          break;
-        case 'CHAIPE':
-          this.TinhTyLePEBongPhe();
-          break;
-        case 'CHAIKY':
-            this.TinhTyLeBongChaiKy();
-            break;
-        case 'THO':
-          this.TinhTyLeBongCuiHoi();
-          break;
-        case 'ONG':
-          this.TinhTyLeSoiCat();
-          break;
-        case 'CON':
-          this.TinhTyLeBongThoMang();
-          break;
-        case 'GHEPDAURA':
-          this.TinhTyLeCuiHoiGhepDauRa();
-          break;
-        case 'GHEPSOBOCOTTON':
-         this.TinhTyLeCuiHoiGhepSoBoCotton();
-          break;
-        case 'GHEPTRONA':
-          this.TinhTyLeCuiHoiGhepTronA();
-          break;
-        case 'GHEPTRONB':
-          this.TinhTyLeCuiHoiGhepTronB();
-          break;
-        default:
-          this.TongKhoiLuong = 0;
-          this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
-          break;
-      }
+    switch (this.item.CongDoan) {
+      case 'CHAICOTTON':
+        this.TinhTyLeCottonBongPhe();
+        break;
+      case 'CHAIPE':
+        this.TinhTyLePEBongPhe();
+        break;
+      case 'CHAIKY':
+        this.TinhTyLeBongChaiKy();
+        break;
+      case 'THO':
+        this.TinhTyLeBongCuiHoi();
+        break;
+      case 'ONG':
+        this.TinhTyLeSoiCat();
+        break;
+      case 'CON':
+        this.TinhTyLeBongThoMang();
+        break;
+      case 'GHEPDAURA':
+        this.TinhTyLeCuiHoiGhepDauRa();
+        break;
+      case 'GHEPSOBOCOTTON':
+        this.TinhTyLeCuiHoiGhepSoBoCotton();
+        break;
+      case 'GHEPTRONA':
+        this.TinhTyLeCuiHoiGhepTronA();
+        break;
+      case 'GHEPTRONB':
+        this.TinhTyLeCuiHoiGhepTronB();
+        break;
+      default:
+        this.TongKhoiLuong = 0;
+        this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+        break;
+    }
   }
-  resetKhoiLuongCuiHoi(){
+  resetKhoiLuongCuiHoi() {
     this.TongKhoiLuong = 0;
-    if(this.listItem.length > 0){
+    if (this.listItem.length > 0) {
       for (let i = 0; i < this.listItem.length; i++) {
         this.listItem[i].KhoiLuongCuiHoi = 0;
-        if (this.listItem[i].Ne !== undefined && this.listItem[i].Ne !== null && this.listItem[i].Ne !== 0 && this.listItem[i].DonViNangSuat===0)
-          this.listItem[i].KhoiLuong = this.listItem[i].ChieuDai / (this.listItem[i].Ne * 1.693 * 1000) * (this.listItem[i].SoDauRa|| 0) - (this.listItem[i].KhoiLuongCuiHoi || 0);
+        if (this.listItem[i].Ne !== undefined && this.listItem[i].Ne !== null && this.listItem[i].Ne !== 0 && this.listItem[i].DonViNangSuat === 0)
+          this.listItem[i].KhoiLuong = this.listItem[i].ChieuDai / (this.listItem[i].Ne * 1.693 * 1000) * (this.listItem[i].SoDauRa || 0) - (this.listItem[i].KhoiLuongCuiHoi || 0);
         this.TongKhoiLuong += (this.listItem[i].KhoiLuong || 0);
       }
-      if(this.item.isTruVaoSanLuong === true)
-          this.TongKhoiLuong -= (this.item.TongKhoiLuongCuiHoi || 0);
+      if (this.item.isTruVaoSanLuong === true)
+        this.TongKhoiLuong -= (this.item.TongKhoiLuongCuiHoi || 0);
     }
-    
+
     let TongKhoiLuong = this.TongKhoiLuong + (this.item.TongKhoiLuongCuiHoi || 0);
-    
+
     if (TongKhoiLuong > 0)
       this.item.TyLeCuiHoiGhepSoBoCotton = this.item.TongKhoiLuongCuiHoi / (TongKhoiLuong) * 100;
   }
 
-  KhoiLuongBongTheoCuiHoi(item){
+  KhoiLuongBongTheoCuiHoi(item) {
     this.TongKhoiLuong = 0;
     var KhoiLuong = 0;
-    this.item.TongKhoiLuongCuiHoi = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuongCuiHoi||0),0);
-    
-    if (item.Ne !== undefined && item.Ne !== null && item.Ne !== 0 && item.DonViNangSuat===0)
-      KhoiLuong = item.ChieuDai / (item.Ne * 1.693 * 1000) * (item.SoDauRa|| 0) - (item.KhoiLuongCuiHoi || 0);
-    item.KhoiLuong = KhoiLuong;
-    this.TongKhoiLuong = this.listItem.reduce((Total,ele)=>Total+(ele.KhoiLuong||0),0);
+    this.item.TongKhoiLuongCuiHoi = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuongCuiHoi || 0), 0);
 
-    if(this.item.isTruVaoSanLuong === true)
+    if (item.Ne !== undefined && item.Ne !== null && item.Ne !== 0 && item.DonViNangSuat === 0)
+      KhoiLuong = item.ChieuDai / (item.Ne * 1.693 * 1000) * (item.SoDauRa || 0) - (item.KhoiLuongCuiHoi || 0);
+    item.KhoiLuong = KhoiLuong;
+    this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+
+    if (this.item.isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.TongKhoiLuongCuiHoi || 0);
   }
 
-  KhoiLuongBongCongDoanCon(item){
-    this.item.BongHutMoi = this.listItem.reduce((Total,ele)=>Total+(ele.HutMoi||0),0);
-    if(item.isM == true && item.Nm > 0){
-      item.ChuDongHo = item.ChieuDai/(item.Nm * 1000);
+  KhoiLuongBongCongDoanCon(item) {
+    this.item.BongHutMoi = this.listItem.reduce((Total, ele) => Total + (ele.HutMoi || 0), 0);
+    if (item.isM == true && item.Nm > 0) {
+      item.ChuDongHo = item.ChieuDai / (item.Nm * 1000);
       item.KhoiLuong = (item.ChuDongHo || 0) * ((item.SoCoc || 0) - (item.CocChet || 0)) - (item.HutMoi || 0);
     }
-    else{
+    else {
       item.KhoiLuong = (item.ChuDongHo || 0) * ((item.SoCoc || 0) - (item.CocChet || 0)) / 1000 - (item.HutMoi || 0);
     }
     this.TinhTongKhoiLuongBong();
@@ -580,7 +591,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
   tinhToan(item, opt) {
     let modalRef = this._modal.open(CalcmodalComponent)
     modalRef.result.then((res) => {
-      item[opt]=res;
+      item[opt] = res;
       this.TinhTongKhoiLuongBong();
     })
   }

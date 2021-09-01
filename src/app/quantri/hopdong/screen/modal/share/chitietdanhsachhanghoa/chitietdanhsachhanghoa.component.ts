@@ -30,8 +30,9 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Input("opt") opt: string;
   @Input() iddmLoaiHopDong: any
   @Output('loaiNguyenVatLieu') onChange = new EventEmitter();
-  @Output('listHangHoaChange') itemChange: EventEmitter<any> = new EventEmitter<any>();
+  // @Output('listHangHoaChange') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @Output('hopDongChange') hopDongChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output('listHangHoaChange') listHangHoaChange: EventEmitter<any> = new EventEmitter<any>(); 
   @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
   // @Output('listTieuChuanChatLuong') listTieuChuanChatLuongChange: EventEmitter<any> = new EventEmitter();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
@@ -85,8 +86,8 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   }
 
 
-  ngDoCheck(): void {
-    this.itemChange.emit(this.item);
+  ngDoCheck() {
+    this.listHangHoaChange.emit(this.item);    
     this.hopDongChange.emit(this.hopDong);
     this.chiTieuChange.emit(this.listTieuChuanChatLuong);
     // this.chiTieuChange.emit(this.listLoaiMatHang);
