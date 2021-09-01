@@ -80,6 +80,9 @@ export class HopDongService {
       GetListAlldmTieuChuanChatLuong: () => {
         return this.http.get(url + `DanhMuc/GetListAlldmTieuChuanChatLuong`, httpOptions);
       },
+      getListDieuKhoan: (IdHopDong) => {
+        return this.http.get(url + `HopDong/GetListDieuKhoanThanhToan?IdHopDong=${IdHopDong}`, httpOptions);
+      },
     };
   }
 
@@ -278,7 +281,7 @@ export class HopDongService {
         );
       },
       Set: (data) => {
-        data.idDuAn = 53
+        // data.idDuAn = 53
         return this.http.post(
           url + "ThanhToan/SetQuyTrinh",
           data,
@@ -304,6 +307,11 @@ export class HopDongService {
           url + "ThanhToan/ChuyenTiepQuyTrinh",
           data,
           httpOptions
+        );
+      },
+      getListInvoice: (IdHopDong) => {
+        return this.http.get(
+          url + `ThanhToan/GetListInvoiceHopDong?IdHopDong=${IdHopDong}`,httpOptions
         );
       },
     };
