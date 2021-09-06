@@ -500,8 +500,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
       } else {
         this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
       }
-    }
-    if(this.item.CongDoan === 'ONG'){
+    }else{
       let nextFocus = this.inputNumbers.toArray().find(ele=>ele.tabindex ===i+5);
       if(validVariable(nextFocus)){
         nextFocus.el.nativeElement.children[0].children[0].focus()
@@ -509,7 +508,6 @@ export class ThongkesanluongmodalComponent implements OnInit {
         this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
       }
     }
-
   }
   TinhTongKhoiLuongBong() {
     switch (this.item.CongDoan) {

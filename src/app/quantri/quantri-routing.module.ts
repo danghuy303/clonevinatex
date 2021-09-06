@@ -268,8 +268,6 @@ const routes: Routes = [
 
       //..................................
       { path: 'danhmuc/dinhmucmathangtheonam', component: DinhmucmathangtheonamComponent },
-     
-
     ]
   }
 ];
