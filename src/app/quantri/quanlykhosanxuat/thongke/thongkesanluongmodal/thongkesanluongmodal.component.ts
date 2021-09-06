@@ -462,6 +462,17 @@ export class ThongkesanluongmodalComponent implements OnInit {
     if (this.TongKhoiLuong > 0)
       this.item.TyLeCuiHoiGhepTronB = this.item.KhoiLuongCuiHoiGhepTronB / (this.TongKhoiLuong + (this.item.KhoiLuongCuiHoiGhepTronB || 0)) * 100;
   }
+  // ghep so bo pe
+  TinhTyLeCuiHoiGhepSoBoPE() {
+    this.TongKhoiLuong = 0;
+
+    this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+    if (this.item.isTruVaoSanLuong === true)
+      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.KhoiLuongCuiHoiGhepSoBoPE || 0);
+
+    if (this.TongKhoiLuong > 0)
+      this.item.TyLeCuiHoiGhepSoBoPE = this.item.KhoiLuongCuiHoiGhepSoBoPE / (this.TongKhoiLuong + (this.item.KhoiLuongCuiHoiGhepSoBoPE || 0)) * 100;
+  }
   // ghep so bo cotton
   TinhTyLeCuiHoiGhepSoBoCotton() {
     this.TongKhoiLuong = 0;
@@ -531,6 +542,9 @@ export class ThongkesanluongmodalComponent implements OnInit {
         break;
       case 'GHEPTRONB':
         this.TinhTyLeCuiHoiGhepTronB();
+        break;
+      case 'GHEPSOBOPE':
+        this.TinhTyLeCuiHoiGhepSoBoPE();
         break;
       default:
         this.TongKhoiLuong = 0;

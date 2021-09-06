@@ -658,6 +658,29 @@
                             </div>
                         </div>
                     </div>
+                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='GHEPSOBOPE'">
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
+                            <div class="p-col-12 p-lg-7 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN"
+                                    [(ngModel)]="item.KhoiLuongCuiHoiGhepSoBoPE"
+                                    (ngModelChange)="TinhTyLeCuiHoiGhepSoBoPE()">
+                                </p-inputNumber>
+                            </div>
+                            <div class="p-col-12 p-lg-1 p-p-0">
+                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
+                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                    (click)="tinhToan(item,'KhoiLuongCuiHoiGhepSoBoPE')" pTooltip="Tính toán"
+                                    showDelay="1000" tooltipPosition="bottom"></button>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ cúi hồi (%):</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                {{item.TyLeCuiHoiGhepSoBoPE|number:'0.3-3'}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="p-col-12 p-p-0 d-flex flex-row p-jc-end">
                     <div class="p-grid" style="width:100%">

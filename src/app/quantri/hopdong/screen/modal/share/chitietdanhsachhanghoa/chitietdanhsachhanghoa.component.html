@@ -3,7 +3,7 @@
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mặt hàng:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiVatTu" [options]="listLoaiMatHang"
+        <p-dropdown [filter]="true" [(ngModel)]="item.iddmItem" [options]="listLoaiMatHang"
           placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"></p-dropdown>
       </div>
     </div>
@@ -62,7 +62,7 @@
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giá trị hợp đồng:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber disabled [ngModel]="hopDong.giaTri" [minFractionDigits]="2" locale="vi-VN">
+        <p-inputNumber disabled [ngModel]="item.giaTriHopDongMatHang" [minFractionDigits]="2" locale="vi-VN">
         </p-inputNumber>
       </div>
     </div>

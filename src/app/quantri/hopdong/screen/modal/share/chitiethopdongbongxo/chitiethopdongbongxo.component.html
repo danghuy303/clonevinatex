@@ -53,7 +53,7 @@
         <div class="p-col-12 p-xl-6 p-lg-6  d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-6 p-xl-3 p-p-0 my-auto">Lấy theo giá trị hàng hóa:</label>
             <div class="p-col-12 p-xl-9 p-d-flex p-ml-xl-2 p-ml-lg-0 p-p-0">
-                <p-checkbox [(ngModel)]="item.isLayTheoGiaTriHangHoa" binary="true" inputId="binary"></p-checkbox>
+                <p-checkbox [(ngModel)]="item.isLayTheoGiaTriHangHoa" binary="true" inputId="binary" (onChange)="LayGiaTriHopDong()"></p-checkbox>
             </div>
         </div>
 

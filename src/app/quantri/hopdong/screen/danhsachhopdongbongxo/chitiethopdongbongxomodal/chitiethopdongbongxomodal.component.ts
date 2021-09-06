@@ -32,18 +32,12 @@ import { isEmptyExpression } from "@angular/compiler";
 export class ChitiethopdongbongxomodalComponent implements OnInit {
   opt: any = "add";
   title: string
-  item: any = {
-    hopDong: {},
-    listHangHoa:[],
-    listDieuKhoanThanhToan:[],
-    listBaoLanh:[],
-  };
+  item: any = {};
   @Input() res1: any = [];
   hopDong: any = {};
   listLoaiMatHang: any = []
   listLoaiMatHang_ref: any = []
   listDieuKhoanThanhToan: any = [];
-  listVatTu: any = [];
   userInfo: any;
   newItem: any = {};
   lang: any = vn;
@@ -77,23 +71,20 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.item)
-    this._servicesSanXuat.GetListdmLoaiBongForHopDong(this.item.hopDong.loaiNguyenVatLieu || 0).subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmLoaiBongForHopDong(this.item.hopDong.loaiHangHoa || 0).subscribe((res: any) => {
       this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
       this.listLoaiMatHang_ref = res;
     })
-
     if (this.opt !== "edit") {
       this.GetNextSoQuyTrinh();
       this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
-
+      this.item.listHangHoa[0].DonGiaThanhToan = 0;
+      this.item.listHangHoa[0].donGia = 0;
     } else {
       this.KiemTraButtonModal();
-      if(this.item.listHangHoa.length > 0)
-        this.listVatTu = this.item.listHangHoa[0];
       this.title = "Hợp đồng nguyên/vật liệu"
     }
   }
-
   KiemTraButtonModal() {
     this._servicesSanXuat.KiemTraButton(this.item.hopDong.id || "", this.item.hopDong.idTrangThai || "").subscribe((res: any) => {
         this.checkbutton = res;
@@ -143,16 +134,12 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
                 this.item = res1.data
                 this.item.hopDong.idTrangThai = res1.data.hopDong.idTrangThai
                 this.item.hopDong.id = res1.data.hopDong.id
+                if(this.item.listHangHoa.length > 0){
+                  this.item.listHangHoa[0].DonGiaThanhToan =  (this.item.listHangHoa[0].donGia || 0) * 1.1;
+                  this.item.listHangHoa[0].giaTriHopDongMatHang =  (this.item.listHangHoa[0].DonGiaThanhToan || 0) * (this.item.listHangHoa[0].soLuong || 0);
+                }
                 this.KiemTraButtonModal();
               })
-
-
-
-              // this.activeModal.close({opt: opt});
-              // setTimeout(() => {
-              //   checkbutton.GhiLai = false
-              // }, 1000);
-
             } else {
               this._toastr.error(res.message);
             }

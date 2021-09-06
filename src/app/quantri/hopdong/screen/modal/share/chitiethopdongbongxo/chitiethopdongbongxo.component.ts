@@ -45,6 +45,7 @@ import { FormGroup, Validators } from '@angular/forms';
 export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck {
   @Input('listLoaiMatHang') listLoaiMatHang: any = [];
   @Output('listLoaiMatHangChange') listLoaiMatHangChange: EventEmitter<any> = new EventEmitter<any>();
+  
   getKhachHang: any = []
   getKhachHang1: any = []
 
@@ -73,6 +74,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   selectedCity = null;
   cities = [{ name: 'pushkar', code: 21 }, { name: 'nagpur', code: 22 }];
   @Input('item') item: any = {};
+  @Input('listHangHoa') hangHoa: any = {};
   @Input('itemcha') itemcha: any = {};
   
   @Input() isSoi;
@@ -148,18 +150,21 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
 
 
   GetListdmLoaiBongForHopDong() {
-    // console.log('onChangeVatLieu',loaiNguyenVatLieu);
-
     this._servicesSanXuat
       .GetListdmLoaiBongForHopDong(this.item.loaiHangHoa)
       .subscribe((res: any) => {
+        this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
 
-        this.listLoaiMatHang = res;
+        // this.listLoaiMatHang = res;
         this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
       });
 
   }
+  LayGiaTriHopDong() {
+    if(this.item.isLayTheoGiaTriHangHoa == true)
+      this.item.giaTri = this.hangHoa.giaTriHopDongMatHang || 0
 
+  }
   ngOnChanges(changes: SimpleChanges) {
     for (const propName in changes) {
       const chng = changes[propName];
@@ -201,6 +206,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   ngDoCheck() {
     this.itemChange.emit(this.item);
     this.itemchaChange.emit(this.itemcha);
+    this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
 
     
   }

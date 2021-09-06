@@ -99,7 +99,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       id: "",
       Loai: 0
     };
-    modalRef.componentInstance.item.listVatTu = [
+    modalRef.componentInstance.item.listHangHoa = [
       {
         
       }
