@@ -19,12 +19,12 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
   IdQuyTrinh:any="";
   cols: any = [
     {
-      header: 'Mã thủ tục',
+      header: 'Mã',
       field: 'ma',
       width: 'unset'
     },
     {
-      header: 'Tên  thủ tục',
+      header: 'Tên',
       field: 'ten',
       width: 'unset'
     },

@@ -45,7 +45,7 @@
                     <tr>
                         <td class="text-center">
                             <p-checkbox [(ngModel)]="item.checked" (onChange)="checked()" binary="true"
-                                inputId="binary"></p-checkbox>
+                                inputId="binary" (onChange)="checkItem(item)"></p-checkbox>
                         </td>
                         <td class="text-center">{{i + 1 }}</td>
                         <td>{{item.dacTinh}}</td>

@@ -4,7 +4,7 @@
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Loại hợp đồng:<span class="required">*</span></label>
             <div class="p-col-12 p-xl-9 p-p-0">
                 <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiHopDong" [options]="listLoaiHopDong"
-                    placeholder="Chọn loại hợp đồng" styleClass="p-inputtext-sm"></p-dropdown>
+                    placeholder="Chọn loại hợp đồng" styleClass="p-inputtext-sm" (onChange)="chonHopDongGoc()"></p-dropdown>
             </div>
         </div>
 
@@ -12,8 +12,8 @@
             <label class="p-col-12 p-xl-3 p-lg-6 p-p-0 my-auto">Chọn loại hàng hóa:
             </label>
             <div class="p-col-12 p-xl-9 p-p-0">
-                <p-dropdown [options]="optionsVatLieu" [(ngModel)]="item.loaiHangHoa"
-                    placeholder="Chọn nguyên/vật liệu" (onChange)="GetListdmLoaiBongForHopDong()"></p-dropdown>
+                <p-dropdown [options]="optionsVatLieu" [(ngModel)]="item.loaiHangHoa" placeholder="Chọn nguyên/vật liệu"
+                    (onChange)="GetListdmLoaiBongForHopDong()"></p-dropdown>
             </div>
         </div>
 
@@ -37,12 +37,7 @@
             </div>
         </div>
 
-        <div class="
-        p-col-12 p-xl-6 p-lg-6 
-        
-        d-flex
-        flex-column flex-xl-row
-      ">
+        <div class="p-col-12 p-xl-6 p-lg-6  d-flex flex-column flex-xl-row ">
             <label class="p-col-12 p-lg-4 p-xl-3 p-p-0 my-auto">Giá trị hợp đồng:</label>
             <div class="p-col-12 p-xl-9 p-ml-xl-2 p-ml-lg-0 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.giaTri" locale="vi-VN">
@@ -53,7 +48,8 @@
         <div class="p-col-12 p-xl-6 p-lg-6  d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-6 p-xl-3 p-p-0 my-auto">Lấy theo giá trị hàng hóa:</label>
             <div class="p-col-12 p-xl-9 p-d-flex p-ml-xl-2 p-ml-lg-0 p-p-0">
-                <p-checkbox [(ngModel)]="item.isLayTheoGiaTriHangHoa" binary="true" inputId="binary" (onChange)="LayGiaTriHopDong()"></p-checkbox>
+                <p-checkbox [(ngModel)]="item.isLayTheoGiaTriHangHoa" binary="true" inputId="binary"
+                    (onChange)="LayGiaTriHopDong()"></p-checkbox>
             </div>
         </div>
 
@@ -90,12 +86,7 @@
             </div>
         </div>
 
-        <div class="
-        p-col-12 p-xl-6 p-lg-6 
-        
-        d-flex
-        flex-column flex-xl-row
-      ">
+        <div class="p-col-12 p-xl-6 p-lg-6 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Ngày hiệu lực:</label>
             <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
@@ -105,8 +96,7 @@
             </div>
         </div>
 
-        <div class=" p-col-12 p-xl-6 p-lg-6  flex-column flex-xl-row"
-            [ngStyle]="{'display':!isSoi ? 'flex' : 'none' }">
+        <div class=" p-col-12 p-xl-6 p-lg-6 d-flex flex-column flex-xl-row" *ngIf="isHienHopDongGoc === true">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">HĐ gốc: </label>
             <div class="p-col-12 p-xl-9 p-ml-xl-2 p-ml-lg-0 p-p-0">
                 <div class="p-inputgroup p-ml-lg-0">

@@ -55,31 +55,7 @@ export class ChitiethanghoamodalComponent implements OnInit {
 
 
   accept() {
-    this.activeModal.close(this.items.filter(item => item.checked).map(ele => {
-      return {
-        ...ele,
-        idHopDong: this.IdQuyTrinh,
-        iddmTieuChuanChatLuong: ele.id,
-        isXoa: false,
-        id: '',
-
-        // "id": "string",
-        // "created": "2021-08-23T07:28:30.560Z",
-        // "createdBy": "string",
-        // "createdByName": "string",
-        // "modified": "2021-08-23T07:28:30.560Z",
-        // "modifiedBy": "string",
-        // "modifiedByName": "string",
-        // "idHopDong": "string",
-        // "iddmTieuChuanChatLuong": "string",
-        // "ketQua": "string",
-        // "ghiChu": "string",
-        // "isXoa": true,
-        // "dacTinh": "string",
-        // "donVi": "string",
-        // "tieuChuan": "string"
-      }
-    }));
+    this.activeModal.close(this.selectedItems)
   }
 
   checkAll(e) {
@@ -96,5 +72,29 @@ export class ChitiethanghoamodalComponent implements OnInit {
   checked() {
     this.checkedAll = this.items.every(ele => ele.checked)
   }
-
+checkItem(item){
+if(item.checked == true)
+{
+  let itemFind: any = this.selectedItems.filter((e: any) =>e.iddmTieuChuanChatLuong === item.id)[0]
+  if(itemFind === undefined){
+    let itemFinds = this.items.find(e => e.checked === true && e.id === item.id);
+    itemFinds = {
+      idHopDong: this.IdQuyTrinh,
+      iddmTieuChuanChatLuong: itemFinds.id,
+      dacTinh: itemFinds.dacTinh,
+      donVi: itemFinds.donVi,
+      tieuChuan: itemFinds.tieuChuan,
+      isXoa: false,
+      id: '',
+    }
+    this.selectedItems.push(itemFinds)
+  }
+  else
+    itemFind.isXoa = false;
+}
+  else{
+    let itemFind = this.selectedItems.filter((e: any) =>e.iddmTieuChuanChatLuong === item.id)[0]
+    itemFind.isXoa = true;
+  }
+}
 }

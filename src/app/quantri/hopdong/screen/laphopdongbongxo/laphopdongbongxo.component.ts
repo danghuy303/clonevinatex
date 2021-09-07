@@ -16,6 +16,7 @@ import {
   UnixToDate,
 } from "src/app/services/globalfunction";
 import { ModallaphopdongbongxoComponent } from "./modallaphopdongbongxo/modallaphopdongbongxo.component";
+import { ChitiethopdongbongxomodalComponent } from "../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
 // import { ChitiethopdongbongxomodalComponent } from "./chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
 
 @Component({
@@ -53,21 +54,12 @@ export class LaphopdongbongxoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
-
-        this._service
-          .QuyTrinhHopDong()
-          .Get(res.id)
-          .subscribe((res: any) => {
-            this.update(res.data.hopDong);
-          });
+        this.update(res.id);
       }
     });
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh();
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
@@ -79,20 +71,20 @@ export class LaphopdongbongxoComponent implements OnInit {
     );
   }
   add() {
-
-    let modalRef = this._modal.open(ModallaphopdongbongxoComponent, {
+   
+    let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "add";
-
+    
     modalRef.componentInstance.item = {
       listNhanSu: [],
-
-
+    
+     
       listDieuKhoanThanhToan: [],
       listTieuChuanChatLuong: [],
-
+    
       listBaoLanh: [],
 
       listTaiLieu: [],
@@ -101,17 +93,13 @@ export class LaphopdongbongxoComponent implements OnInit {
     };
     modalRef.componentInstance.item.hopDong = {
       id: "",
-      Loai: 1
+      Loai: 0
     };
-    modalRef.componentInstance.item.listVatTu = [
+    modalRef.componentInstance.item.listHangHoa = [
       {
-
+        
       }
     ]
-
-
-
-
     modalRef.result
       .then((res: any) => {
         console.log(res);
@@ -125,47 +113,17 @@ export class LaphopdongbongxoComponent implements OnInit {
       });
   }
 
-  edit(item) {
-    this._service
-      .QuyTrinhHopDong()
-      .Get(item.id)
-      .subscribe((res: any) => {
-        let modalRef = this._modal.open(ModallaphopdongbongxoComponent, {
+  update(id) {
+    this._service.QuyTrinhHopDong().Get(id).subscribe((res1: any) => {
+        let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
           size: "fullscreen",
           backdrop: "static",
         });
         modalRef.componentInstance.opt = "edit";
-        modalRef.componentInstance.item = JSON.parse(JSON.stringify(res));
-
-        modalRef.result
-          .then((res: any) => {
-            this._toastr.success("Cập nhật thành công");
-            this.GetListQuyTrinh(item.id);
-          })
-          .catch((er) => {
-            console.log(er);
-          });
-      });
-  }
-
-  update(item) {
-
-
-    this._service
-      .QuyTrinhHopDong()
-      .Get(item.id)
-      .subscribe((res1: any) => {
-
-        let modalRef = this._modal.open(ModallaphopdongbongxoComponent, {
-          size: "fullscreen",
-          backdrop: "static",
-        });
-        modalRef.componentInstance.opt = "edit";
-        modalRef.componentInstance.item.hopDong = JSON.parse(
-          JSON.stringify(res1.data.hopDong)
+        modalRef.componentInstance.Id = id;
+        modalRef.componentInstance.item = JSON.parse(
+          JSON.stringify(res1.data)
         );
-
-
         modalRef.result
           .then((res: any) => {
             this.GetListQuyTrinh();
@@ -175,29 +133,10 @@ export class LaphopdongbongxoComponent implements OnInit {
           .catch((er) => {
             console.log(er);
             this.GetListQuyTrinh();
-
+            
             this.changeParam(0);
           });
       });
-  }
-
-  updates(Id) {
-    let modalRef = this._modal.open(ModallaphopdongbongxoComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-      this.changeParam(0);
-
-    })
-      .catch(er => {
-        console.log(er)
-        this.GetListQuyTrinh();
-        this.changeParam(0);
-      })
   }
   changeTab(e) {
     this.trangThai = e.index + 1;

@@ -134,12 +134,12 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
     modalRef.result.then(res => {
       // console.log(res.item);         
-      res.forEach(obj => {
-        if (!this.listTieuChuanChatLuong.every(element => element.iddmTieuChuanChatLuong === obj.iddmTieuChuanChatLuong) || this.listTieuChuanChatLuong.length == 0) {
-          this.listTieuChuanChatLuong.push(obj);
-        }
-      });
-      // this.listTieuChuanChatLuong.push(res);  
+      // res.forEach(obj => {
+      //   if (!this.listTieuChuanChatLuong.every(element => element.iddmTieuChuanChatLuong === obj.iddmTieuChuanChatLuong) || this.listTieuChuanChatLuong.length == 0) {
+      //     this.listTieuChuanChatLuong.push(obj);
+      //   }
+      // });
+      this.listTieuChuanChatLuong= res;  
     }).catch(er => { console.log(er) });
   }
 

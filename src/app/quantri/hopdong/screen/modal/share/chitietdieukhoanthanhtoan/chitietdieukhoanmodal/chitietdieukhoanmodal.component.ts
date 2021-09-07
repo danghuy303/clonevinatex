@@ -32,23 +32,13 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   listThuTucThanhToan_ref: any = []
   listThuTucThanhToan: any = [];
   IdQuyTrinh: any;
-  hopDong: any;
+  hopDong: any = {};
 
   optionsLoaiThanhToan = [
     { label: 'Tạm ứng', value: 0 },
     { label: 'Thanh toán', value: 1 },
     { label: 'Thanh toán vật tư', value: 2 }
   ]
-
-
-  // optionsTheoNgay = [
-  //   { label: 'Thời gian giao hàng', value: 2 },
-  //   { label: 'Ngày nhận hàng', value: 3 },
-  //   { label: 'Ngày nhận được tài liệu giao hàng', value: 4 },
-  //   { label: 'Ngày ký hợp đồng', value: 0 },
-  //   { label: 'Ngày ký hợp đồng có hiệu lực', value: 1 },
-  // ]
-
   listDieuKhoanThanhToan: any = {}
   yearRange: string = `${new Date().getFullYear() - 50
     }:${new Date().getFullYear()}`;
@@ -72,6 +62,10 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
         this.item.TheoGiaTri = !this.item.isTheoGiaTriHopDong;
         this.item.TheoHopDong = !this.item.TheoGiaTri;
       }
+    }
+    else
+    {
+      this.item.giaTri = this.hopDong.giaTri || 0;
     }
   }
 
@@ -159,7 +153,7 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
     }
     this.item.isTheoGiaTriHopDong = this.item.TheoHopDong;
     if (this.item.loaiThanhToan!=undefined) {
-      this.item.TenloaiThanhToan = this.optionsLoaiThanhToan.find(obj => obj.value == this.item.loaiThanhToan).label;
+      this.item.tenLoaiThanhToan = this.optionsLoaiThanhToan.find(obj => obj.value == this.item.loaiThanhToan).label;
     }
     this.activeModal.close({ opt: opt, item: this.item });
   }
@@ -188,7 +182,8 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
 
   selectTheoGiaTriHopDong() {
     this.item.TheoGiaTri = !this.item.TheoHopDong;
-    if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0) {
+    if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0 && this.item.TheoHopDong === true) {
+      this.item.giaTri = this.hopDong.giaTri || 0;
       this.item.tyLe = (this.item.giaTri / this.hopDong.giaTri) * 100;
     }
     else {

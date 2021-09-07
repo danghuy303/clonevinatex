@@ -53,17 +53,10 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
-
-        this._service
-          .QuyTrinhHopDong()
-          .Get(res.id)
-          .subscribe((res: any) => {
-            this.update(res.data.hopDong);
-          });
+        this.update(res.id);
       }
     });
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh();
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
@@ -118,23 +111,17 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   }
 
  
-  update(item) {
-    this._service
-      .QuyTrinhHopDong()
-      .Get(item.id)
-      .subscribe((res1: any) => {
-        
+  update(id) {
+    this._service.QuyTrinhHopDong().Get(id).subscribe((res1: any) => {
         let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
           size: "fullscreen",
           backdrop: "static",
         });
         modalRef.componentInstance.opt = "edit";
+        modalRef.componentInstance.Id = id;
         modalRef.componentInstance.item = JSON.parse(
           JSON.stringify(res1.data)
         );
-    
-   
-
         modalRef.result
           .then((res: any) => {
             this.GetListQuyTrinh();
@@ -150,24 +137,6 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       });
   }
 
-  updates(Id) {
-    let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-      this.changeParam(0);
-
-    })
-      .catch(er => {
-        console.log(er)
-        this.GetListQuyTrinh();
-        this.changeParam(0);
-      })
-  }
   changeTab(e) {
     this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
