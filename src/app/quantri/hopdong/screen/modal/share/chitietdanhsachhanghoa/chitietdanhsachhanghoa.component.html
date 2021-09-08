@@ -3,7 +3,7 @@
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mặt hàng:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiVatTu" [options]="listLoaiMatHang"
+        <p-dropdown [filter]="true" [(ngModel)]="item.iddmItem" [options]="listLoaiMatHang"
           placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"></p-dropdown>
       </div>
     </div>
@@ -29,7 +29,7 @@
     </div>
 
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-      <label class="p-col-12 p-xl-4 p-p-0 my-auto">Sai lệch:</label>
+      <label class="p-col-12 p-xl-4 p-p-0 my-auto">Sai lệch (%):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
         <p-inputNumber [(ngModel)]="item.saiLech" [minFractionDigits]="2" locale="vi-VN">
         </p-inputNumber>
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
-      <label class="p-col-12 p-xl-4 p-lg-5 p-p-0 my-auto">Thuế GTGT(%):</label>
+      <label class="p-col-12 p-xl-4 p-lg-5 p-p-0 my-auto">Thuế GTGT (%):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
         <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.thueGTGT" locale="vi-VN">
         </p-inputNumber>
@@ -62,7 +62,7 @@
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giá trị hợp đồng:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber disabled [ngModel]="hopDong.giaTri" [minFractionDigits]="2" locale="vi-VN">
+        <p-inputNumber disabled [ngModel]="item.giaTriHopDongMatHang" [minFractionDigits]="2" locale="vi-VN">
         </p-inputNumber>
       </div>
     </div>
@@ -70,7 +70,7 @@
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Sai lệch(%):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [minFractionDigits]="2" locale="vi-VN"> </p-inputNumber>
+        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="hopDong.saiLech"> </p-inputNumber>
       </div>
     </div>
   </div>
@@ -156,7 +156,7 @@
     <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-2 p-p-0 my-auto">Loại:</label>
       <div class="p-col-12 p-xl-10 p-p-0">
-        <input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="hopDong.loai"/>
+        <input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="hopDong.loaiTieuChuan"/>
         <!-- <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.loai" locale="vi-VN">
         </p-inputNumber> -->
       </div>
@@ -169,7 +169,7 @@
     </div>
   </div>
   <div class="p-mt-3">
-    <p-table [value]="listTieuChuanChatLuong | isXoa"
+    <p-table [value]="listTieuChuanChatLuong|isXoa"
       styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines" [scrollable]="true">
       <ng-template pTemplate="colgroup">
         <colgroup>

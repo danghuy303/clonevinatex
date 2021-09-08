@@ -16,7 +16,7 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
   item: any = {};
 
   @Input('listDieuKhoanThanhToan') listDieuKhoanThanhToan: any = [];
-  @Input('hopDong') hopDong: any;
+  @Input('hopDong') hopDong: any = {};
 
   @Output('listDieuKhoanThanhToan') itemChange: EventEmitter<any> = new EventEmitter<any>();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
@@ -33,23 +33,17 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
 
   }
   add() {
-
     if (this.item.ngayThanhToan !== undefined && this.item.ngayThanhToan !== null) {
       this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
-
     }
     this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
     let modalRef = this._modal.open(ChitietdieukhoanmodalComponent, { size: 'xl', backdrop: 'static' });    
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.hopDong = this.hopDong;
+    modalRef.componentInstance.hopDong = deepCopy(this.hopDong);
     modalRef.result.then(res => {
 
       this.listDieuKhoanThanhToan.push(res.item);
       this.itemChange.emit(this.listDieuKhoanThanhToan);
-      // if (res.opt !== 'add') {
-      //   this.add()
-      // }
-
     }).catch(er => { console.log(er) });
   }
   edit(item, i) {

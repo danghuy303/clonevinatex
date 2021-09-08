@@ -45,6 +45,7 @@ import { FormGroup, Validators } from '@angular/forms';
 export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck {
   @Input('listLoaiMatHang') listLoaiMatHang: any = [];
   @Output('listLoaiMatHangChange') listLoaiMatHangChange: EventEmitter<any> = new EventEmitter<any>();
+  
   getKhachHang: any = []
   getKhachHang1: any = []
 
@@ -65,6 +66,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   listNguyenVatLieu: any = [];
   listLoaiHopDong: any = [];
   listLoaiHopDongFull: any = [];
+  isHienHopDongGoc: any = false;
   listLoaiTienTe: any = [];
   listdmKhachHang: any = [];
   getdmKhachHangForCopy: any = {};
@@ -73,6 +75,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   selectedCity = null;
   cities = [{ name: 'pushkar', code: 21 }, { name: 'nagpur', code: 22 }];
   @Input('item') item: any = {};
+  @Input('listHangHoa') hangHoa: any = {};
   @Input('itemcha') itemcha: any = {};
   
   @Input() isSoi;
@@ -107,17 +110,15 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   ) {
   }
 
-
-  // this.item.DiaChi = this.getKhachHang.DiaChi;
-  //  this.listdmKhachHang.iddmKhachHangA = this.item.iddmKhachHangA
-  //  this.listdmKhachHang.DiaChi = this.item.DiaChi
-
-  onChangBenA(event) {
-
+  onChangBenA(event, isChange = false) {
+    let IddmKhachHang = "";
+    if(isChange === false)
+      IddmKhachHang = event.value;
+    else
+      IddmKhachHang = this.item.iddmKhachHangA;
     let selected = this.getKhachHang.find(
-      (ele) => ele.Id === event.value
+      (ele) => ele.Id === IddmKhachHang
     );
-
     // this.item.iddmKhachHangB = selected?.Id;
     this.selected.DiaChi = selected?.DiaChi
     this.selected.ChucVu = selected?.ChucVu
@@ -130,9 +131,14 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
     this.selected.listTaiKhoanNganHang = selected?.listTaiKhoanNganHang
   }
 
-  onChangBenB(event) {
-    let selected1 = this.getKhachHang1.find(
-      (ele) => ele.Id === event.value
+  onChangBenB(event, isChange = false) {
+    let IddmKhachHang = "";
+    if(isChange === false)
+      IddmKhachHang = event.value;
+    else
+      IddmKhachHang = this.item.iddmKhachHangA;
+    let selected1 = this.getKhachHang.find(
+      (ele) => ele.Id === IddmKhachHang
     );
     // this.item.iddmKhachHangB = selected1?.Id;
     this.selected1.DiaChi = selected1?.DiaChi
@@ -148,19 +154,24 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
 
 
   GetListdmLoaiBongForHopDong() {
-    // console.log('onChangeVatLieu',loaiNguyenVatLieu);
-
     this._servicesSanXuat
       .GetListdmLoaiBongForHopDong(this.item.loaiHangHoa)
       .subscribe((res: any) => {
+        this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
 
-        this.listLoaiMatHang = res;
+        // this.listLoaiMatHang = res;
         this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
       });
 
   }
+  LayGiaTriHopDong() {
+    if(this.item.isLayTheoGiaTriHangHoa == true)
+      this.item.giaTri = this.hangHoa.giaTriHopDongMatHang || 0
 
+  }
   ngOnChanges(changes: SimpleChanges) {
+    this.onChangBenA("",true);
+    this.onChangBenB("",true);
     for (const propName in changes) {
       const chng = changes[propName];
       const cur = JSON.stringify(chng.currentValue.soQuyTrinh);
@@ -175,13 +186,8 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
 
   ngOnInit() {
     this.GetFormOptions();
-    this.item.ngayKy = UnixToDate(this.item.ngayKyUnix);
-    this.item.ngayHieuLuc = UnixToDate(this.item.ngayHieuLucUnix);
-
     if (this.opt !== "edit") {
-      // this.GetNextSoQuyTrinh();
       this.itemcha.listTaiLieu=[];
-      // this.item.lstFileUploadCu = [];
       if (this._store.getCurrent()) {
         this.item.IdDuAn = this._store.getCurrent();
       }
@@ -201,33 +207,33 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   ngDoCheck() {
     this.itemChange.emit(this.item);
     this.itemchaChange.emit(this.itemcha);
-
+    this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
     
   }
 
   GetFormOptions() {
-    console.log(this.item.loaiNguyenVatLieu);
-
-
-
     this._servicesdmHopDong
       .DanhMucLoaiHopDong()
       .GetListAll()
       .subscribe((res: any) => {
         this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
         this.listLoaiHopDongFull = res;
+        if (this.opt === "edit") 
+          this.chonHopDongGoc();
       });
 
     this._servicesSanXuat
       .dmKhachHang()
       .GetListOpt()
       .subscribe((res: any) => {
-
-        // console.log('GetListOpt',  this.listdmKhachHang.DiaChi);
         this.getKhachHang = res
         this.getKhachHang1 = res
         this.listdmKhachHang = mapArrayForDropDown(res, "Ten", "Id");
-
+        if (this.opt === "edit") {
+          this.onChangBenA('', true)
+          this.onChangBenB('', true)
+    
+        }
       });
 
 
@@ -280,5 +286,12 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
 
   Loai(loai: boolean) {
     this.item.IsBong = loai;
+  }
+  chonHopDongGoc(){
+    let itemFind = this.listLoaiHopDongFull.filter(el=> el.id == this.item.iddmLoaiHopDong)
+    if(itemFind!== undefined){
+        if(itemFind[0].ma == "MUA" || itemFind[0].ma == "BAN")
+          this.isHienHopDongGoc = true;
+    }
   }
 }

@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bảo lãnh:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
 
@@ -26,7 +26,7 @@
 
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số bảo lãnh:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
 
@@ -34,7 +34,7 @@
 
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
 
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị bảo lãnh <span class="required">*</span> :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -43,64 +43,48 @@
             </div>
         </div>
 
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Trước thuế:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
 
                 <div class="p-inputgroup p-d-flex">
-                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN">
+                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.tyLe">
                     </p-inputNumber>
                     <span class="p-inputgroup-addon">%</span>
                 </div>
-
-
             </div>
         </div>
-
-
-
-
-
-
-
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hiệu lực bảo lãnh:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
                     [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true"
                     [(ngModel)]="item.hieuLucBaoLanh" inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tình trạng bảo lãnh:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-
                 <p-dropdown [filter]="true" [(ngModel)]="item.iddmTinhTrangBaoLanh" [options]="listTinhTrangBaoLanh"
                     placeholder="Chọn tình trạng" styleClass="p-inputtext-sm"></p-dropdown>
-
-
             </div>
         </div>
-        <div class="p-col-12  p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú</label>
-
-            <div class="p-col-10 p-p-0">
+        <div class="pp-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú</label>
+            <div class="p-col-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ghiChu" pInputText />
 
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hồ sơ:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-
                 <div class="p-inputgroup p-ml-lg-0">
                     <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="item.listTen" disabled />
                     <button type="button" pButton pRipple icon="pi pi-upload" (click)="taiLenFileDinhKem()"
                         class="p-button-sm p-button-text p-button-secondary"></button>
                 </div>
-
             </div>
         </div>    
     </div>

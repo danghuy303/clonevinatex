@@ -18,10 +18,12 @@ import { Component, OnInit, Input, Output, EventEmitter, DoCheck, SimpleChanges,
   styleUrls: ['./chitietdanhsachhanghoa.component.css']
 })
 export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
-  @Input('listHangHoa') item: any = {};
+  @Input('listHangHoa') item: any = {
+    iddmLoaiVatTu: '',
+  };
   @Input('hopDong') hopDong: any = {};
   @Input('listTieuChuanChatLuong') listTieuChuanChatLuong: any = [];
-  @Input('listLoaiMatHang') listLoaiMatHang_copy: any = [];
+  @Input('listLoaiMatHang') listLoaiMatHang: any = [];
   // @Input() listLoaiMatHang: any
   @Input() isXo: boolean
   @Input() isBong: boolean
@@ -33,6 +35,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   // @Output('listHangHoaChange') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @Output('hopDongChange') hopDongChange: EventEmitter<any> = new EventEmitter<any>();
   @Output('listHangHoaChange') listHangHoaChange: EventEmitter<any> = new EventEmitter<any>(); 
+  @Output('listLoaiMatHangChange') listLoaiMatHangChange: EventEmitter<any> = new EventEmitter<any>(); 
   @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
   // @Output('listTieuChuanChatLuong') listTieuChuanChatLuongChange: EventEmitter<any> = new EventEmitter();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
@@ -43,7 +46,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
 
   listThanhToanThuTuc: any = []
   listKeHoachNhapBong: any = []
-  listLoaiMatHang: any = [];
+  // listLoaiMatHang: any = [];
 
   @Output() newItemEvent = new EventEmitter<string>();
 
@@ -57,24 +60,24 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   ngOnInit(): void {
     this.GetOptions()
     this.tinhDonGiaThanhToan();
-    if (this.opt === "edit") {
-      if (this.hopDong.isBenBanChiu) {
-        this.hopDong.BenBanChiu = this.hopDong.isBenBanChiu;
-        this.hopDong.BenMuaChiu = !this.hopDong.BenBanChiu;
-      }
-      else {
-        this.hopDong.BenMuaChiu = !this.hopDong.isBenBanChiu;
-        this.hopDong.BenBanChiu = !this.hopDong.BenMuaChiu;
-      }
-    }
-    else {
-      this.item.DonGiaThanhToan = 0;
-      this.hopDong.giaTri = 0;
-    }
-    // this.item.listVatTu.donGia = 0
-    // this.item.thueGTGT = 0
-    // this.item.soLuong = 0
-    // this.item.saiLech = 0
+    // if (this.opt === "edit") {
+    //   if (this.hopDong.isBenBanChiu) {
+    //     this.hopDong.BenBanChiu = this.hopDong.isBenBanChiu;
+    //     this.hopDong.BenMuaChiu = !this.hopDong.BenBanChiu;
+    //   }
+    //   else {
+    //     this.hopDong.BenMuaChiu = !this.hopDong.isBenBanChiu;
+    //     this.hopDong.BenBanChiu = !this.hopDong.BenMuaChiu;
+    //   }
+    // }
+    // else {
+    //   this.item.DonGiaThanhToan = 0;
+    //   this.hopDong.giaTri = 0;
+    // }
+    // this.item.listVatTu[0].donGia = 0
+    // this.item.listVatTu[0].thueGTGT = 0
+    // this.item.listVatTu[0].soLuong = 0
+    // this.item.listVatTu[0].saiLech = 0
     // if(this.item.donGia == null && this.item.thueGTGT == null){
     //  parseInt(this.item.donGia) * parseInt(this.item.thueGTGT) 
     // }
@@ -90,8 +93,9 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     this.listHangHoaChange.emit(this.item);    
     this.hopDongChange.emit(this.hopDong);
     this.chiTieuChange.emit(this.listTieuChuanChatLuong);
-    // this.chiTieuChange.emit(this.listLoaiMatHang);
-    this.listLoaiMatHang = mapArrayForDropDown(this.listLoaiMatHang_copy, "Ten", "Id")
+    this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
+    
+    // this.listLoaiMatHang = mapArrayForDropDown(this.listLoaiMatHang_copy, "Ten", "Id")
   }
   changeDiaDiem(e) {
     console.log(this.res1);
@@ -116,10 +120,10 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
 
   GetOptions() {
     // this._servicesSanXuat
-    //   .GetListdmLoaiBongForHopDong(this.hopDong.loaiNguyenVatLieu)
+    //   .GetListdmLoaiBongForHopDong(this.hopDong.loaiHangHoa)
     //   .subscribe((res: any) => {
     //     this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
-    //     this.listLoaiMatHang_ref = res;
+    //     // this.listLoaiMatHang_ref = res;
     //   });
   }
 
@@ -130,12 +134,12 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
     modalRef.result.then(res => {
       // console.log(res.item);         
-      res.forEach(obj => {
-        if (!this.listTieuChuanChatLuong.every(element => element.iddmTieuChuanChatLuong === obj.iddmTieuChuanChatLuong) || this.listTieuChuanChatLuong.length == 0) {
-          this.listTieuChuanChatLuong.push(obj);
-        }
-      });
-      // this.listTieuChuanChatLuong.push(res);  
+      // res.forEach(obj => {
+      //   if (!this.listTieuChuanChatLuong.every(element => element.iddmTieuChuanChatLuong === obj.iddmTieuChuanChatLuong) || this.listTieuChuanChatLuong.length == 0) {
+      //     this.listTieuChuanChatLuong.push(obj);
+      //   }
+      // });
+      this.listTieuChuanChatLuong= res;  
     }).catch(er => { console.log(er) });
   }
 
@@ -198,8 +202,9 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   }
 
   tinhgiaTriHopDong() {
-    this.hopDong.giaTri = 0;
-    this.hopDong.giaTri = this.item.DonGiaThanhToan * this.item.soLuong;
+    this.item.giaTriHopDongMatHang = this.item.DonGiaThanhToan * this.item.soLuong;
+    if(this.hopDong.isLayTheoGiaTriHangHoa === true)
+      this.hopDong.giaTri = this.item.giaTriHopDongMatHang;
   }
 
   // changeData() {

@@ -32,18 +32,12 @@ import { isEmptyExpression } from "@angular/compiler";
 export class ChitiethopdongbongxomodalComponent implements OnInit {
   opt: any = "add";
   title: string
-  item: any = {
-    hopDong: {},
-    listHangHoa:[],
-    listDieuKhoanThanhToan:[],
-    listBaoLanh:[],
-  };
+  item: any = {};
   @Input() res1: any = [];
   hopDong: any = {};
   listLoaiMatHang: any = []
   listLoaiMatHang_ref: any = []
   listDieuKhoanThanhToan: any = [];
-  listVatTu: any = [];
   userInfo: any;
   newItem: any = {};
   lang: any = vn;
@@ -59,7 +53,7 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
     ChuyenTiep: false,
     Xoa: false,
   };
-
+Id:any = "";
   yearRange: string = `${new Date().getFullYear()}:${new Date().getFullYear() + 5
     }`;
   constructor(
@@ -76,24 +70,21 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.item)
-    this._servicesSanXuat.GetListdmLoaiBongForHopDong(this.item.hopDong.loaiNguyenVatLieu || 0).subscribe((res: any) => {
-      this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
-      this.listLoaiMatHang_ref = res;
-    })
-
+    
     if (this.opt !== "edit") {
       this.GetNextSoQuyTrinh();
       this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
-
+      this.item.listHangHoa[0].DonGiaThanhToan = 0;
+      this.item.listHangHoa[0].donGia = 0;
     } else {
-      this.KiemTraButtonModal();
-      if(this.item.listHangHoa.length > 0)
-        this.listVatTu = this.item.listHangHoa[0];
       this.title = "Hợp đồng nguyên/vật liệu"
+      this.GetQuyTrinh();
     }
+    this._servicesSanXuat.GetListdmLoaiBongForHopDong(this.item.hopDong.loaiHangHoa || 0).subscribe((res: any) => {
+      this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
+      this.listLoaiMatHang_ref = res;
+    })
   }
-
   KiemTraButtonModal() {
     this._servicesSanXuat.KiemTraButton(this.item.hopDong.id || "", this.item.hopDong.idTrangThai || "").subscribe((res: any) => {
         this.checkbutton = res;
@@ -105,7 +96,40 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
         this.item.hopDong.soQuyTrinh = res.data;
       });
   }
-
+  GetQuyTrinh() {
+    this._service.QuyTrinhHopDong().Get(this.Id).subscribe((res1: any) => {
+      this.item = res1.data
+      this.item.hopDong.idTrangThai = res1.data.hopDong.idTrangThai;
+      this.item.hopDong.id = res1.data.hopDong.id;
+      this.item.hopDong.ngayKy = UnixToDate(this.item.hopDong.ngayKyUnix);
+      this.item.hopDong.ngayHieuLuc = UnixToDate(this.item.hopDong.ngayHieuLucUnix );
+      this.item.hopDong.ngayGiaoHang = UnixToDate(this.item.hopDong.ngayGiaoHangUnix);
+      if(this.item.listHangHoa.length > 0){
+        this.item.listHangHoa[0].DonGiaThanhToan =  (this.item.listHangHoa[0].donGia || 0) * 1.1;
+        this.item.listHangHoa[0].giaTriHopDongMatHang =  (this.item.listHangHoa[0].DonGiaThanhToan || 0) * (this.item.listHangHoa[0].soLuong || 0);
+      }
+      if (this.item.hopDong.isBenBanChiu) {
+        this.item.hopDong.BenBanChiu = this.item.hopDong.isBenBanChiu;
+        this.item.hopDong.BenMuaChiu = !this.item.hopDong.BenBanChiu;
+      }
+      else {
+        this.item.hopDong.BenMuaChiu = !this.item.hopDong.isBenBanChiu;
+        this.item.hopDong.BenBanChiu = !this.item.hopDong.BenMuaChiu;
+      }
+      this.KiemTraButtonModal();
+      if(this.item.listDieuKhoanThanhToan.length > 0){
+        this.item.listDieuKhoanThanhToan.forEach(element => {
+          if(element.listThanhToanThuTuc === null)
+            element.listThanhToanThuTuc  = [];
+        });
+      }
+      if(this.item.listBaoLanh.length > 0){
+        this.item.listBaoLanh.forEach(element => {
+          element.hieuLucBaoLanh = UnixToDate(element.hieuLucBaoLanhUnix);
+        });
+      }
+    })
+  }
   ValidData() {
     if (!validVariable(this.item.hopDong.iddmLoaiHopDong)) {
       this._toastr.error("Vui lòng chọn loại hợp đồng");
@@ -127,32 +151,18 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   GhiLai() {
     this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
     this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
+    this.item.hopDong.ngayGiaoHangUnix = DateToUnix(this.item.hopDong.ngayGiaoHang);
+    if (this.item.hopDong.BenBanChiu) {
+      this.item.hopDong.isBenBanChiu = true;
+    }
     if (this.ValidData()) {
-      this._service
-        .QuyTrinhHopDong()
-        .Set(this.item)
-        .subscribe((res: any) => {
+      this._service.QuyTrinhHopDong().Set(this.item).subscribe((res: any) => {
           console.log(res);
           if (res) {
             if (res?.statusCode === 200) {
-               
-               
               this._toastr.success(res.message);
-              this._service.QuyTrinhHopDong().Get(res.data).subscribe((res1: any) => {
-               
-                this.item = res1.data
-                this.item.hopDong.idTrangThai = res1.data.hopDong.idTrangThai
-                this.item.hopDong.id = res1.data.hopDong.id
-                this.KiemTraButtonModal();
-              })
-
-
-
-              // this.activeModal.close({opt: opt});
-              // setTimeout(() => {
-              //   checkbutton.GhiLai = false
-              // }, 1000);
-
+              this.Id = res.data;
+              this.GetQuyTrinh()
             } else {
               this._toastr.error(res.message);
             }
@@ -186,7 +196,12 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   }
   ChuyenTiep() {
 
-  
+    this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
+    this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
+    this.item.hopDong.ngayGiaoHangUnix = DateToUnix(this.item.hopDong.ngayGiaoHang);
+    if (this.item.hopDong.BenBanChiu) {
+      this.item.hopDong.isBenBanChiu = true;
+    }
     this._service.QuyTrinhHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
       console.log(res);
       
@@ -205,7 +220,10 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   KhongDuyet() {
     this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
     this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
-
+    this.item.hopDong.ngayGiaoHangUnix = DateToUnix(this.item.hopDong.ngayGiaoHang);
+    if (this.item.hopDong.BenBanChiu) {
+      this.item.hopDong.isBenBanChiu = true;
+    }
     this._service.QuyTrinhHopDong().KhongDuyet(this.item).subscribe((res: any) => {
       if (res) {
         if (res?.statusCode === 200) {

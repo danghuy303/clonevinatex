@@ -71,10 +71,7 @@
                 <td class="text-center">{{item.matHang }}</td>
                 <td class="text-center">{{item.benA }}</td>
                 <td class="text-center">{{item.benB }}</td>
-
-                <!-- <td class="text-center" *ngFor="let col of cols"> {{item[col.field]}} </td> -->
                 <td class="text-center">
-                    <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành" (click)="hoanthanh(item.d)"></button>
                     <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.id)"></button>
                 </td>
             </tr>
