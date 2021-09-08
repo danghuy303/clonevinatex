@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { HacapmodalComponent } from '../hacapmodal/hacapmodal.component';
 
 @Component({
@@ -12,7 +14,7 @@ import { HacapmodalComponent } from '../hacapmodal/hacapmodal.component';
   templateUrl: './hacap.component.html',
   styleUrls: ['./hacap.component.css']
 })
-export class HacapComponent implements OnInit {
+export class HacapComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [{id:5,SoQuyTrinh:'PKK_0000_0000'}];
   filter:any={};
@@ -66,7 +68,7 @@ export class HacapComponent implements OnInit {
   ];
  listdmKho: any = [];
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
-    private activatedRoute: ActivatedRoute,private router:Router) { }
+    private activatedRoute: ActivatedRoute,private router:Router,public store:StoreService) { super(store)}
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
@@ -157,5 +159,8 @@ export class HacapComponent implements OnInit {
      this._service.GetListdmKho(data).subscribe((res:any)=>{
       this.listdmKho =  mapArrayForDropDown(res, 'Ten', 'Id');;
     })
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

@@ -1,17 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { NhapkhovattuphumodalComponent } from '../nhapkhovattuphumodal/nhapkhovattuphumodal.component';
+import { StoreBase } from 'src/app/services/storebase.class';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-nhapkhovattuphu',
   templateUrl: './nhapkhovattuphu.component.html',
   styleUrls: ['./nhapkhovattuphu.component.css']
 })
-export class NhapkhovattuphuComponent implements OnInit {
+export class NhapkhovattuphuComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
@@ -26,7 +28,8 @@ export class NhapkhovattuphuComponent implements OnInit {
   type: any = "";
   nametype: any = "";
   constructor(public _modal: NgbModal, public _toastr: ToastrService,
-    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
+    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) {
+      super(store)
   }
 
   ngOnInit(): void {
@@ -56,6 +59,7 @@ export class NhapkhovattuphuComponent implements OnInit {
 
   getListKho() {
     this._service.GetListdmKho({Loai:6}).subscribe((res: any) => {
+      this.filter.IddmKho=undefined;
       this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
       this.GetListQuyTrinh();
     })
@@ -148,5 +152,8 @@ export class NhapkhovattuphuComponent implements OnInit {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

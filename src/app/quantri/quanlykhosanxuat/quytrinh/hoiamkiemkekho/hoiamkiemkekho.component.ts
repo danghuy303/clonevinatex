@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { HoiamkiemkekhomodalComponent } from '../hoiamkiemkekhomodal/hoiamkiemkekhomodal.component';
 
 @Component({
@@ -11,7 +13,7 @@ import { HoiamkiemkekhomodalComponent } from '../hoiamkiemkekhomodal/hoiamkiemke
   templateUrl: './hoiamkiemkekho.component.html',
   styleUrls: ['./hoiamkiemkekho.component.css']
 })
-export class HoiamkiemkekhoComponent implements OnInit {
+export class HoiamkiemkekhoComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild("paginator") paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: "PKK_0000_0000" }];
   filter: any = {};
@@ -55,8 +57,8 @@ export class HoiamkiemkekhoComponent implements OnInit {
       public _toastr: ToastrService,
       private _service: SanXuatService,
       private activatedRoute: ActivatedRoute,
-      private router: Router
-  ) { }
+      private router: Router,public store:StoreService
+  ) {super(store) }
 
   ngOnInit(): void {
       this.getListdmKho();
@@ -181,5 +183,8 @@ export class HoiamkiemkekhoComponent implements OnInit {
         this.checkQuyen = res;
         this.GetListQuyTrinh();
       })
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

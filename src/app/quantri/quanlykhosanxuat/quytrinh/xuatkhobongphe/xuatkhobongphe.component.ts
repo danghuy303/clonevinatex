@@ -1,17 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhobongphemodalComponent } from '../xuatkhobongphemodal/xuatkhobongphemodal.component';
+import { StoreBase } from 'src/app/services/storebase.class';
+import { StoreService } from 'src/app/services/store.service';
+
 
 @Component({
   selector: 'app-xuatkhobongphe',
   templateUrl: './xuatkhobongphe.component.html',
   styleUrls: ['./xuatkhobongphe.component.css']
 })
-export class XuatkhobongpheComponent implements OnInit {
+export class XuatkhobongpheComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [{id:5,SoQuyTrinh:'PKK_0000_0000'}];
   filter:any={};
@@ -49,7 +52,7 @@ export class XuatkhobongpheComponent implements OnInit {
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   listdmKho: any = [];
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
-    private activatedRoute: ActivatedRoute,private router:Router) { }
+    private activatedRoute: ActivatedRoute,private router:Router,public store:StoreService) { super(store) }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res:any)=>{
@@ -166,5 +169,8 @@ export class XuatkhobongpheComponent implements OnInit {
         this._service.download(res.TenFile);
       })
     }
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

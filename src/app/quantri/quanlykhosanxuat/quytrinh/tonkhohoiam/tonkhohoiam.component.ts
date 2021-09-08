@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { TonkhohoiammodalComponent } from '../tonkhohoiammodal/tonkhohoiammodal.component';
 
 @Component({
@@ -11,12 +13,12 @@ import { TonkhohoiammodalComponent } from '../tonkhohoiammodal/tonkhohoiammodal.
   templateUrl: './tonkhohoiam.component.html',
   styleUrls: ['./tonkhohoiam.component.css']
 })
-export class TonkhohoiamComponent implements OnInit {
+export class TonkhohoiamComponent extends StoreBase implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
-  items: any = [{id:5,SoQuyTrinh:'PNK_0000_0000'}];
-  filter:any={};
-  listdmKho:any=[];
-  trangThai:any=1;
+  items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
+  filter: any = {};
+  listdmKho: any = [];
+  trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
@@ -38,21 +40,22 @@ export class TonkhohoiamComponent implements OnInit {
       header: 'Số lượng',
       field: 'SoLuong',
       width: 'unset',
-      align:'center'
+      align: 'center'
 
     },
     {
       header: 'Trọng lượng',
       field: 'TongTrongLuong',
       width: 'unset',
-      align:'center'
+      align: 'center'
 
     },
   ];
-  checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
+  checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listPhanXuong: any = [];
   listCaSanXuat: any = [];
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) {
+  constructor(public _modal: NgbModal, public store: StoreService, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
+    super(store)
 
   }
 
@@ -62,27 +65,27 @@ export class TonkhohoiamComponent implements OnInit {
   }
   getListdmKho() {
     let data = {
-      CurrentPage : 0,
-      Loai:10
+      CurrentPage: 0,
+      Loai: 10
     }
     this._service.GetListdmKho(data).subscribe((res: any) => {
-      this.listdmKho = mapArrayForDropDown(res,'Ten','Id');
-      if(this.listdmKho.length > 0 && this.listdmKho !== undefined){
+      this.listdmKho = mapArrayForDropDown(res, 'Ten', 'Id');
+      if (this.listdmKho.length > 0 && this.listdmKho !== undefined) {
         this.filter.IddmKho = this.listdmKho[0].value;
         this.GetListQuyTrinh();
       }
     })
   }
-  
-  changeTab(e){
-    this.trangThai = e.index+1;
+
+  changeTab(e) {
+    this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
   }
-  changePage(event){
+  changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetListQuyTrinh();
   }
-  GetListQuyTrinh(reset?){
+  GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
@@ -97,11 +100,11 @@ export class TonkhohoiamComponent implements OnInit {
       this.paging = res.paging;
     })
   }
-  resetFilter(){
-    this.filter={
+  resetFilter() {
+    this.filter = {
       IddmKho: this.listdmKho[0].value,
       Loai: 10,
-      KeyWord:''
+      KeyWord: ''
     };
     this.GetListQuyTrinh(true);
   }
@@ -115,9 +118,10 @@ export class TonkhohoiamComponent implements OnInit {
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
     })
-      .catch(er => { console.log(er) 
+      .catch(er => {
+        console.log(er)
         this.GetListQuyTrinh();
-    })
+      })
   }
   exportExcel(IddmItem) {
     let data: any = {
@@ -127,5 +131,8 @@ export class TonkhohoiamComponent implements OnInit {
     this._service.ExportNhuCauXuatHangTheoMatHang(data).subscribe((res: any) => {
       this._service.download(res.TenFile);
     })
+  }
+  ngOnDestroy() {
+    super.ngOnDestroy();
   }
 }

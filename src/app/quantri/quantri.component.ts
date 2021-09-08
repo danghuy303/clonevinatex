@@ -7,7 +7,7 @@ import { ModaldoimatkhauComponent } from "./modal/modaldoimatkhau/modaldoimatkha
 import { filter, timestamp } from "rxjs/operators";
 import { SanXuatService } from "../services/callApiSanXuat";
 import { StoreService } from "../services/store.service";
-import { mapArrayForDropDown } from "../services/globalfunction";
+import { mapArrayForDropDown, validVariable } from "../services/globalfunction";
 import { SignalRService } from "../services/signalR.service";
 import { mapQuyTrinhRoute } from "../services/mapquytrinhroute";
 import { ToastrService } from "ngx-toastr";
@@ -70,8 +70,11 @@ export class QuantriComponent implements OnInit {
       .GetDanhSachDuAnByIdUser(this.userInfo.Id)
       .subscribe((res: any) => {
         this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id");
-        this.IdNhaMay = res[0].Id;
-        this.setGlobalNhaMay({ value: res[0].Id });
+        if(!validVariable(this.store.getCurrent())){
+          this.IdNhaMay = res[0].Id;
+        }else{
+          this.IdNhaMay = this.store.getCurrent()
+        }
       });
   }
   setGlobalNhaMay(event) {
@@ -1214,22 +1217,22 @@ export class QuantriComponent implements OnInit {
   }
 
   checkmenu(maaction) {
-    if (this.dataphanquyen == null) {
-      return true;
-    } else if (this.dataphanquyen[maaction] == undefined) {
-      return true;
-    } else if (this.dataphanquyen[maaction].length == 0) {
-      return true;
-    } else {
-      for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
-        if (this.dataphanquyen[maaction][i].MaRight == "XEM") {
-          if (this.dataphanquyen[maaction][i].GioiHan > 0) {
-            return false;
-          } else return true;
-        }
-      }
-    }
-    // return false;
+    // if (this.dataphanquyen == null) {
+    //   return true;
+    // } else if (this.dataphanquyen[maaction] == undefined) {
+    //   return true;
+    // } else if (this.dataphanquyen[maaction].length == 0) {
+    //   return true;
+    // } else {
+    //   for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
+    //     if (this.dataphanquyen[maaction][i].MaRight == "XEM") {
+    //       if (this.dataphanquyen[maaction][i].GioiHan > 0) {
+    //         return false;
+    //       } else return true;
+    //     }
+    //   }
+    // }
+    return false;
   }
 
   private subscribeToEvents(): void {

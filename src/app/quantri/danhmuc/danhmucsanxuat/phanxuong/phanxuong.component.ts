@@ -87,7 +87,7 @@ export class PhanxuongComponent implements OnInit {
       Ma:"", 
       Ten:""
     };
-    this._services.GetListdmPhanXuong(data).subscribe((res:any)=>{
+    this._services.GetListdmPhanXuong(data,true).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })
