@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { deepCopy, DateToUnix } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { SanxuatmodalComponent } from '../sanxuatmodal/sanxuatmodal.component';
 
 @Component({
@@ -11,7 +13,7 @@ import { SanxuatmodalComponent } from '../sanxuatmodal/sanxuatmodal.component';
   templateUrl: './sanxuat.component.html',
   styleUrls: ['./sanxuat.component.css']
 })
-export class SanxuatComponent implements OnInit {
+export class SanxuatComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   filter: any = {};
@@ -37,7 +39,7 @@ export class SanxuatComponent implements OnInit {
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
 
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) {super(store) }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
@@ -145,5 +147,8 @@ export class SanxuatComponent implements OnInit {
     //   this.checkQuyen = res;
     //   this.GetListQuyTrinh();
     // })
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

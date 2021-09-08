@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { TimbongmodalComponent } from '../timbongmodal/timbongmodal.component';
 
 @Component({
@@ -11,7 +13,7 @@ import { TimbongmodalComponent } from '../timbongmodal/timbongmodal.component';
   templateUrl: './timbong.component.html',
   styleUrls: ['./timbong.component.css']
 })
-export class TimbongComponent implements OnInit {
+export class TimbongComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   filter: any = {};
@@ -28,7 +30,7 @@ export class TimbongComponent implements OnInit {
   eAction:string = "PHUONGANTIMBONG"
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
 
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(public _modal: NgbModal,public store:StoreService, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {super(store) }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
@@ -136,5 +138,8 @@ export class TimbongComponent implements OnInit {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

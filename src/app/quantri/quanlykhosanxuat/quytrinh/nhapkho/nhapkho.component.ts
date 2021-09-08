@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd } from '@angular/router';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs/internal/operators/filter';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, formatdate, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { NhapkhomodalComponent } from '../nhapkhomodal/nhapkhomodal.component';
 
 @Component({
@@ -13,7 +15,7 @@ import { NhapkhomodalComponent } from '../nhapkhomodal/nhapkhomodal.component';
   templateUrl: './nhapkho.component.html',
   styleUrls: ['./nhapkho.component.css']
 })
-export class NhapkhoComponent implements OnInit {
+export class NhapkhoComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
@@ -59,7 +61,8 @@ export class NhapkhoComponent implements OnInit {
   type: any = "";
   nametype: any = "";
   constructor(public _modal: NgbModal, public _toastr: ToastrService, 
-    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
+    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) {
+      super(store)
      }
 
   ngOnInit(): void {
@@ -212,5 +215,8 @@ export class NhapkhoComponent implements OnInit {
         this._service.download(res.TenFile);
       })
     }
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

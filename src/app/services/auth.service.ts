@@ -10,12 +10,11 @@ import { Router } from '@angular/router';
 })
 export class AuthenticationService {
     loginurl = API.auth + 'QuanTri/Login_Winform';
-    // loginurl = API.danhmuc + 'DangNhap';
 
     private currentUserSubject: BehaviorSubject<any>;
     public currentUser: Observable<any>;
 
-    constructor(private http: HttpClient,private router: Router,) {
+    constructor(private http: HttpClient,private router: Router) {
         this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }

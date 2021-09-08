@@ -3,6 +3,9 @@ import { AuthenticationService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Dat09Service } from '../services/callApi';
+import { ThanhtoanhopdongComponent } from '../quantri/hopdong/screen/thuchienhopdong/thanhtoanhopdong/thanhtoanhopdong.component';
+import { SanXuatService } from '../services/callApiSanXuat';
+import { StoreService } from '../services/store.service';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +40,7 @@ export class LoginComponent implements OnInit {
     }
   ];
 
-  constructor(private _auth: AuthenticationService, private toastr: ToastrService, private _router: Router , private _services:Dat09Service) { }
+  constructor(private _auth: AuthenticationService, private toastr: ToastrService, private _router: Router , private _services:Dat09Service,private _SXservices:SanXuatService, private store:StoreService) { }
 
   ngOnInit() {
     for (let i = 1; i <= 3; i++) {
@@ -99,11 +102,17 @@ export class LoginComponent implements OnInit {
             this.loginState = true;
             this.error = 0;
             this.toastr.success('Đăng nhập thành công!');
-            if ((window as any).routeSnapShot !== undefined) {
-              this._router.navigate([(window as any).routeSnapShot])
-            } else {
-              this._router.navigate(['/quantri'])
-            }
+            this._SXservices
+            .GetOptions()
+            .GetDanhSachDuAnByIdUser(res.Value.Id)
+            .subscribe((res: any) => {
+              this.store.setNhaMay(res[0].Id)
+              if ((window as any).routeSnapShot !== undefined) {
+                this._router.navigate([(window as any).routeSnapShot])
+              } else {
+                this._router.navigate(['/quantri'])
+              }
+            });
           } else {
             this.loginState = false;
             this.error = 0;

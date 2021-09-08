@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { ChatluongsoimodalComponent } from '../chatluongsoimodal/chatluongsoimodal.component';
 
 @Component({
@@ -11,7 +13,7 @@ import { ChatluongsoimodalComponent } from '../chatluongsoimodal/chatluongsoimod
   templateUrl: './chatluongsoi.component.html',
   styleUrls: ['./chatluongsoi.component.css']
 })
-export class ChatluongsoiComponent implements OnInit {
+export class ChatluongsoiComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PKK_0000_0000' }];
   filter: any = {};
@@ -37,7 +39,7 @@ export class ChatluongsoiComponent implements OnInit {
   isCheckModal: any = false;
   eAction = 'KIEMTRACHATLUONGSOI'
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(public _modal: NgbModal,public store:StoreService, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {super(store) }
 
   ngOnInit(): void {
     this.KiemTraTabTrangThai();
@@ -126,5 +128,8 @@ export class ChatluongsoiComponent implements OnInit {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

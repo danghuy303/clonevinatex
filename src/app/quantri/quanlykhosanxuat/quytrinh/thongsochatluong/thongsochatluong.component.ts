@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { ThongsochatluongmodalComponent } from '../thongsochatluongmodal/thongsochatluongmodal.component';
 
 @Component({
@@ -11,7 +13,7 @@ import { ThongsochatluongmodalComponent } from '../thongsochatluongmodal/thongso
   templateUrl: './thongsochatluong.component.html',
   styleUrls: ['./thongsochatluong.component.css']
 })
-export class ThongsochatluongComponent implements OnInit {
+export class ThongsochatluongComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   eAction: any = "PHIEUNHAPLOBONG_CHATLUONG";
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
@@ -61,7 +63,7 @@ export class ThongsochatluongComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listLoBong: any = [];
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, 
-    private router: Router) {
+    private router: Router,public store:StoreService) {super(store)
      }
 
   ngOnInit(): void {
@@ -166,5 +168,7 @@ export class ThongsochatluongComponent implements OnInit {
         this.GetListQuyTrinh();
       })
   }
-
+  ngOnDestroy(){
+    super.ngOnDestroy();
+  }
 }

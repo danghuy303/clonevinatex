@@ -1,4 +1,4 @@
-import { ViewChild } from '@angular/core';
+import { OnDestroy, ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -6,13 +6,15 @@ import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix } from 'src/app/services/globalfunction';
 import { KiemkekhovattuphumodalComponent } from '../kiemkekhovattuphumodal/kiemkekhovattuphumodal.component';
+import { StoreBase } from 'src/app/services/storebase.class';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-kiemkekhovattuphu',
   templateUrl: './kiemkekhovattuphu.component.html',
   styleUrls: ['./kiemkekhovattuphu.component.css']
 })
-export class KiemkekhovattuphuComponent implements OnInit {
+export class KiemkekhovattuphuComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild("paginator") paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: "PKK_0000_0000" }];
   filter: any = {};
@@ -49,8 +51,9 @@ export class KiemkekhovattuphuComponent implements OnInit {
       public _toastr: ToastrService,
       private _service: SanXuatService,
       private activatedRoute: ActivatedRoute,
-      private router: Router
-  ) {}
+      private router: Router,
+      public store:StoreService
+  ) {super(store)}
 
   ngOnInit(): void {
       console.log(this.activatedRoute);
@@ -153,5 +156,8 @@ export class KiemkekhovattuphuComponent implements OnInit {
         this.checkQuyen = res;
         this.GetListQuyTrinh();
       })
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }
