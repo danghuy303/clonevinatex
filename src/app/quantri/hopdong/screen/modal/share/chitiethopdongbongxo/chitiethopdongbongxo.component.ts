@@ -1,4 +1,4 @@
-import { UnixToDate } from 'src/app/services/globalfunction';
+import { FormatNumber, UnixToDate } from 'src/app/services/globalfunction';
 // import { StoreService } from './../../../../../../services/store.service';
 import { HopDongService } from "./../../../../../../services/Hopdong/hopdong.service";
 import { DanhMucHopDongService } from "./../../../../../../services/Hopdong/danhmuchopdong.service";
@@ -58,6 +58,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   data: any = {};
   selected1: any = {};
   selected: any = {};
+  FormatNumber = FormatNumber;
 
   listKhachHangA: any = []
   listKhachHangB: any = []

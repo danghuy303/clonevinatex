@@ -40,11 +40,11 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
   listDieuKhoanThanhToan: any = [];
   userInfo: any;
   newItem: any = {};
-  lang: any = vn;
   isBong: boolean = true
   filter: any = {
     keyWord: "",
   };
+  lang: any = vn;
 
   checkedAll: boolean = false;
   checkbutton: any = {
@@ -119,6 +119,7 @@ Id:any = "";
       this.KiemTraButtonModal();
       if(this.item.listDieuKhoanThanhToan.length > 0){
         this.item.listDieuKhoanThanhToan.forEach(element => {
+          element.ngayThanhToan = UnixToDate(element.ngayThanhToanUnix);
           if(element.listThanhToanThuTuc === null)
             element.listThanhToanThuTuc  = [];
         });

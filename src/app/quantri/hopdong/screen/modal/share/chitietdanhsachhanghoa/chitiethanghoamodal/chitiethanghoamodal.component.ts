@@ -59,20 +59,14 @@ export class ChitiethanghoamodalComponent implements OnInit {
   }
 
   checkAll(e) {
-    if (e.checked) {
       this.items.forEach(item => {
-        item.checked = true;
+        item.checked = e.checked;
+        this.checkItem(item)
       });
-    } else {
-      this.items.forEach(item => {
-        item.checked = false;
-      });
-    }
-  }
-  checked() {
-    this.checkedAll = this.items.every(ele => ele.checked)
   }
 checkItem(item){
+  // this.checkedAll = this.items.every(ele => ele.checked)
+
 if(item.checked == true)
 {
   let itemFind: any = this.selectedItems.filter((e: any) =>e.iddmTieuChuanChatLuong === item.id)[0]

@@ -44,7 +44,7 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">
-                            <p-checkbox [(ngModel)]="item.checked" (onChange)="checked()" binary="true"
+                            <p-checkbox [(ngModel)]="item.checked" binary="true"
                                 inputId="binary" (onChange)="checkItem(item)"></p-checkbox>
                         </td>
                         <td class="text-center">{{i + 1 }}</td>
