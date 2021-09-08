@@ -26,9 +26,6 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
     listdmKho: any = [];
     listdmKhoFull: any = [];
     listLoBong: any = [];
-    listQuyCachDongGoi: any = [];
-    listNewMatHang: any = [];
-    listNewMatHang_ref: any = [];
     isKhoThanhPham: any = false;
     paging: any = {};
     listItem: any = [];
@@ -60,20 +57,6 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
         this.services.GetListLoBong(data).subscribe((res: any) => {
             this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
         });
-
-        this.services
-            .dmQuyCachDongGoi()
-            .GetList()
-            .subscribe((res: any) => {
-                this.listQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
-            });
-        this.services
-            .PhieuKiemKeKho()
-            .GetlistdmMatHangThanhPhamKiemKe()
-            .subscribe((res: any) => {
-                this.listNewMatHang = mapArrayForDropDown(res, "Ten", "Id");
-                this.listNewMatHang_ref = res;
-            });
     }
     GetQuyTrinh() {
         this.services
