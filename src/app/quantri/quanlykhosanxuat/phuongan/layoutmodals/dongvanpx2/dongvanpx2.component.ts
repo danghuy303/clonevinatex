@@ -361,6 +361,12 @@ export class Dongvanpx2Component implements OnInit {
       }
       this.item.listItem.push(item)
     }
+    this.item.TongDaXep = 0;
+    this.item.TongSoKien = 0;
+    this.item.listLoBong.forEach(ele => {
+      this.item.TongDaXep += ele.DaXep;
+      this.item.TongSoKien += ele.SoLuong;
+    });
     return this.item
   }
   GhiLai() {

@@ -1,5 +1,5 @@
-import { formatNumber } from '@angular/common';
-import { Component, Input, OnInit,OnDestroy } from '@angular/core';
+import { formatDate, formatNumber } from '@angular/common';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
@@ -9,17 +9,17 @@ import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangta
 @Component({
   selector: 'app-sanluong',
   templateUrl: './sanluong.component.html',
-  styleUrls: ['./sanluong.component.css']
+  styleUrls: ['./sanluong.component.css'],
 })
-export class SanluongComponent implements OnInit,OnDestroy {
-  @Input('TuNgay') TuNgay:any=null;
-  @Input('DenNgay') DenNgay:any=null;
-  @Input('CongDoan') CongDoan:any=null;
+export class SanluongComponent implements OnInit, OnDestroy {
+  @Input('TuNgay') TuNgay: any = null;
+  @Input('DenNgay') DenNgay: any = null;
+  @Input('CongDoan') CongDoan: any = null;
   filter: any = {
     IddmItem: '',
-    IddmMay:'',
-    IddmPhanXuong:'',
-    CongDoan:'ONG'
+    IddmMay: '',
+    IddmPhanXuong: '',
+    CongDoan: 'ONG'
   };
   monthlyConfig_luykesanluong: any = {};
   monthlyConfig_sanluongtheomay: any = {};
@@ -31,7 +31,8 @@ export class SanluongComponent implements OnInit,OnDestroy {
   listMay: any = [];
   listLoaiBong: any = [];
   listCaLamViec: any = [];
-  listPhanXuong:any=[];
+  listPhanXuong: any = [];
+  currentDateString: string = '';
   option1: any = {
     plugins: {
       labels: {
@@ -91,10 +92,10 @@ export class SanluongComponent implements OnInit,OnDestroy {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          console.log(tooltipItem,data);
-          if(tooltipItem.datasetIndex ===1){
-            return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg - ${formatNumber(Math.ceil(tooltipItem.yLabel/data.datasets[0].data[tooltipItem.index]*10000)/100,'vi-VN')}%`
-          }else{
+          console.log(tooltipItem, data);
+          if (tooltipItem.datasetIndex === 1) {
+            return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg - ${formatNumber(Math.ceil(tooltipItem.yLabel / data.datasets[0].data[tooltipItem.index] * 10000) / 100, 'vi-VN')}%`
+          } else {
             return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg`
           }
         }
@@ -118,22 +119,24 @@ export class SanluongComponent implements OnInit,OnDestroy {
     aspectRatio: (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
   }
   suber: any;
-  constructor(private _services: SanXuatService, private _toastr: ToastrService,private store: StoreService) { 
+  constructor(private _services: SanXuatService, private _toastr: ToastrService, private store: StoreService) {
     this.suber = this.store.getNhaMay().subscribe(res => {
       this.ngOnInit();
     })
   }
 
   ngOnInit(): void {
-    if(validVariable(this.TuNgay) && validVariable(this.DenNgay)){
+    if (validVariable(this.TuNgay) && validVariable(this.DenNgay)) {
       this.filter._tuNgay = this.TuNgay;
       this.filter._denNgay = this.DenNgay;
-    }else{
+    } else {
       let date = new Date();
+      this.currentDateString = formatDate(date, 'dd_MM_yyyy', 'vi-VN');
+      console.log(this.currentDateString)
       this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
       this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     }
-    if(validVariable(this.CongDoan)){
+    if (validVariable(this.CongDoan)) {
       this.filter.CongDoan = this.CongDoan;
     }
     this.GetBieuDo('ONG');
@@ -153,48 +156,60 @@ export class SanluongComponent implements OnInit,OnDestroy {
     }
     if (validVariable(this.filter.TuNgayUnix) && validVariable(this.filter.DenNgayUnix) && this.filter.TuNgayUnix <= this.filter.DenNgayUnix) {
       // if (!!!CongDoan) {
-        this._services.DashBoard().BaoCaoSanLuongLuyKe_BieuDoDuong(this.filter).subscribe((res: any) => {
-          this.monthlyConfig_sanluongtheomay = {
-            labels: res.map(ele => ele.Label),
-            datasets: [
-              {
-                type: 'line',
-                label: 'Kế hoạch',
-                borderColor: '#009900',
-                // borderWidth: 2,
-                fill: false,
-                data: res.map(ele => Math.round(ele.KeHoach))
-              },
-              {
-                type: 'line',
-                label: 'Thực tế',
-                borderColor: '#FF671F',
-                // borderWidth: 2,
-                fill: false,
-                data: res.map(ele => Math.round(ele.ThucTe))
-              },
-              {
-                type: 'bar',
-                label: 'Sản lượng',
-                backgroundColor: '#3c5cbb',
-                data: res.map(ele => Math.round(ele.SanLuong)),
-                borderColor: 'white',
-                // borderWidth: 2
-              },
-            ]
-          }
-        })
+      this._services.DashBoard().BaoCaoSanLuongLuyKe_BieuDoDuong(this.filter).subscribe((res: any) => {
+        let mapDate_Qbject = {};
+        let DateString = '';
+        res.forEach(obj => {
+          mapDate_Qbject[`${obj.Label.replaceAll('/', '_')}`] = obj;
+        });
+        if (mapDate_Qbject[this.currentDateString]) {
+          DateString = this.currentDateString;
+        } else {
+          DateString = formatDate(this.filter._denNgay, 'dd_MM_yyyy', 'vi-VN');
+        }
+        console.log(mapDate_Qbject);
+        console.log(res);
+        this.monthlyConfig_sanluongtheomay = {
+          labels: res.map(ele => ele.Label),
+          datasets: [
+            {
+              type: 'line',
+              label: `Kế hoạch (Lũy kế: ${formatNumber(mapDate_Qbject[DateString].KeHoach, 'vi-VN')} kg )`,
+              borderColor: '#009900',
+              // borderWidth: 2,
+              fill: false,
+              data: res.map(ele => Math.round(ele.KeHoach))
+            },
+            {
+              type: 'line',
+              label: `Thực tế (Lũy kế: ${formatNumber(mapDate_Qbject[DateString].ThucTe, 'vi-VN')} kg )`,
+              borderColor: '#FF671F',
+              // borderWidth: 2,
+              fill: false,
+              data: res.map(ele => Math.round(ele.ThucTe))
+            },
+            {
+              type: 'bar',
+              label: 'Sản lượng',
+              backgroundColor: '#3c5cbb',
+              data: res.map(ele => Math.round(ele.SanLuong)),
+              borderColor: 'white',
+              // borderWidth: 2
+            },
+          ]
+        }
+      })
       // }
       if (!!CongDoan) {
-        this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan,this.filter.IddmPhanXuong).subscribe((res: any) => {
+        this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan, this.filter.IddmPhanXuong).subscribe((res: any) => {
           // console.log(res);
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
           this.listMay.unshift({ label: 'Tất cả máy', value: '' })
           this.filter.IddmMay = this.listMay[0].value;
         })
       }
-      if(validVariable(this.CongDoan)){
-        this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan,this.filter.IddmPhanXuong).subscribe((res: any) => {
+      if (validVariable(this.CongDoan)) {
+        this._services.BaoCao().GetListdmMayTheoCongDoan(this.filter.CongDoan, this.filter.IddmPhanXuong).subscribe((res: any) => {
           this.listMay = mapArrayForDropDown(res, "Ten", 'Id')
           this.listMay.unshift({ label: 'Tất cả máy', value: '' })
         })
@@ -262,9 +277,9 @@ export class SanluongComponent implements OnInit,OnDestroy {
       this.listCongDoan = mapArrayForDropDown(res, "Ten", 'Ma')
       // this.listCongDoan.unshift({ label: 'Tất cả công đoạn', value: '' })
       // console.log(this.CongDoan);
-      if(this.CongDoan!==null){
+      if (this.CongDoan !== null) {
         this.filter.CongDoan = this.CongDoan
-      }else{
+      } else {
         this.filter.CongDoan = 'ONG';
       }
     });
@@ -279,19 +294,19 @@ export class SanluongComponent implements OnInit,OnDestroy {
     //   this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
     // })
   }
-  GetMatHang(reset?:any){
-    this._services.DashBoard().GetListdmItemTheoPhanXuong_DashboardSanLuong(this.filter).subscribe((res1:any)=>{
+  GetMatHang(reset?: any) {
+    this._services.DashBoard().GetListdmItemTheoPhanXuong_DashboardSanLuong(this.filter).subscribe((res1: any) => {
       console.log(res1);
       res1.unshift({ Id: '', Ten: 'Tất cả mặt hàng' });
       this.listMatHang = mapArrayForDropDown(res1, 'Ten', 'Id')
-      if(reset){
-        this.filter.IddmItem='';
+      if (reset) {
+        this.filter.IddmItem = '';
         this.GetBieuDo(true);
       }
     })
   }
-  ExportExcel(){
-    this._services.DashBoard().ExportThongKeSanLuong(this.filter).subscribe((res:any) => {
+  ExportExcel() {
+    this._services.DashBoard().ExportThongKeSanLuong(this.filter).subscribe((res: any) => {
       this._services.download(res.TenFile);
     })
   }

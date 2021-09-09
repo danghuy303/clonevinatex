@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, formatdate, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, formatdate, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreBase } from 'src/app/services/storebase.class';
 import { NhapkhothanhphammodalComponent } from '../nhapkhothanhphammodal/nhapkhothanhphammodal.component';
@@ -158,6 +158,25 @@ export class NhapkhothanhphamComponent extends StoreBase implements OnInit,OnDes
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
+  }
+  validateFilter() {
+    if (!validVariable(this.filter.TuNgay) || !validVariable(this.filter.DenNgay) || DateToUnix(this.filter.DenNgay) < DateToUnix(this.filter.TuNgay)) {
+      this._toastr.error('Vui lòng nhập khoảng thời gian hợp lệ!')
+      return false
+    }
+    return true
+  }
+  exportExcel() {
+    if (this.validateFilter()) {
+      let data = {
+        TuNgayUnix:DateToUnix(this.filter.TuNgay),
+        DenNgayUnix:DateToUnix(this.filter.DenNgay),
+        IddmKho:this.filter.IddmKho,
+      }
+      this._service.PhieuNhapThanhPham().ExportBangKeNhapKhoThanhPham(data).subscribe((res: any) => {
+        this._service.download(res.TenFile);
+      })
+    }
   }
   ngOnDestroy(){
     super.ngOnDestroy();

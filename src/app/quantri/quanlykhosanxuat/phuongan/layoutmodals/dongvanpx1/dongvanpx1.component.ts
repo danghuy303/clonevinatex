@@ -30,9 +30,9 @@ export class Dongvanpx1Component implements OnInit {
   focusedSlot: any = null;
   length: number = 0;
   canCopy: boolean = false;
-  listBanBong:any=[];
-  BanBongForCopy:any={};
-  banBongCopy:any={};
+  listBanBong: any = [];
+  BanBongForCopy: any = {};
+  banBongCopy: any = {};
   constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService, public _toastr: ToastrService, public _modal: NgbModal) {
   }
 
@@ -105,10 +105,10 @@ export class Dongvanpx1Component implements OnInit {
         lobong.DaXep = this.item.listItem.filter(banbong => banbong.IdLoBong === lobong.IdLoBong && banbong.TenLoBong !== "Ngoại quan bông")?.length || 0;
       });
       this._services.XepBanBong().GetListForCopyXepBanBong({ IdPhuongAnXepBanBong: this.item.Id }).subscribe((res: any) => {
-        this.listBanBong = mapArrayForDropDown(res.map(ele=>{
+        this.listBanBong = mapArrayForDropDown(res.map(ele => {
           return {
             ...ele,
-            HienThi:`${ele.SoQuyTrinh} / ${ele.ThuTu_BanBong}`
+            HienThi: `${ele.SoQuyTrinh} / ${ele.ThuTu_BanBong}`
           }
         }), 'HienThi', 'Id');
       })
@@ -347,7 +347,12 @@ export class Dongvanpx1Component implements OnInit {
       }
       this.item.listItem.push(item)
     }
-    this.item.ViTriNgoaiQuan = this.item.ViTriNgoaiQuan;
+    this.item.TongDaXep = 0;
+    this.item.TongSoKien = 0;
+    this.item.listLoBong.forEach(ele => {
+      this.item.TongDaXep += ele.DaXep;
+      this.item.TongSoKien += ele.SoLuong;
+    });
     return this.item
   }
   GhiLai() {
