@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { LohangmodalComponent } from '../lohangmodal/lohangmodal.component';
 
 @Component({
@@ -12,7 +14,7 @@ import { LohangmodalComponent } from '../lohangmodal/lohangmodal.component';
   templateUrl: './lohang.component.html',
   styleUrls: ['./lohang.component.css']
 })
-export class LohangComponent implements OnInit {
+export class LohangComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [
   ];
@@ -56,13 +58,14 @@ export class LohangComponent implements OnInit {
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   listdmPhanXuong: any = [];
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
-    private activatedRoute: ActivatedRoute,private router:Router) { }
+    private activatedRoute: ActivatedRoute,private router:Router,public store:StoreService) {super(store) }
 
   ngOnInit(): void {
-    this._service.GetListdmPhanXuongOpt().subscribe((res: any) => {
+    this._service.GetListdmPhanXuong({}).subscribe((res: any) => {
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmPhanXuong = this.listdmPhanXuong[0].value;
+      this.GetListQuyTrinh()
     })
-    this.GetListQuyTrinh()
   }
   add(){
     let modalRef = this._modal.open(LohangmodalComponent, {
@@ -138,5 +141,8 @@ export class LohangComponent implements OnInit {
   resetFilter(){
     this.filter={};
     this.GetListQuyTrinh(true);
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

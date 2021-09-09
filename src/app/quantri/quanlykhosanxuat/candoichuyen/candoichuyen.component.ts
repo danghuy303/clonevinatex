@@ -1,5 +1,5 @@
 import { DatePipe } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ɵangular_packages_platform_browser_animations_animations_f } from "@angular/platform-browser/animations";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
@@ -10,6 +10,7 @@ import {
     validVariable,
 } from "src/app/services/globalfunction";
 import { StoreService } from "src/app/services/store.service";
+import { StoreBase } from "src/app/services/storebase.class";
 import { BotrimayChungComponent } from "./modals/botrimay-chung/botrimay-chung.component";
 import { BotrimayOngComponent } from "./modals/botrimay-ong/botrimay-ong.component";
 @Component({
@@ -18,7 +19,7 @@ import { BotrimayOngComponent } from "./modals/botrimay-ong/botrimay-ong.compone
     styleUrls: ["./candoichuyen.component.css"],
     providers: [DatePipe],
 })
-export class CandoichuyenComponent implements OnInit {
+export class CandoichuyenComponent extends StoreBase implements OnInit,OnDestroy {
     listDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     listDates = [];
     filter: any = {
@@ -29,18 +30,15 @@ export class CandoichuyenComponent implements OnInit {
     listCongDoan: any = [];
     listPhanXuong: any = [];
     mapMa_TenCongDoan: any = {};
-    IdDuAn: any;
     today:any;
 
     constructor(
         private _store: StoreService,
         private _services: SanXuatService,
         private datepipe: DatePipe,
-        private _modal: NgbModal
+        private _modal: NgbModal,public store:StoreService
     ) {
-        this._store.getNhaMay().subscribe((res) => {
-            this.IdDuAn = res;
-        });
+        super(store)
     }
 
     ngOnInit(): void {
@@ -249,4 +247,7 @@ export class CandoichuyenComponent implements OnInit {
     showSanLuong() {
         this.showDialog = true;
     }
+    ngOnDestroy(){
+        super.ngOnDestroy();
+      }
 }

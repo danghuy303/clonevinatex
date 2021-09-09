@@ -59,6 +59,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     this.userInfo = this._auth.currentUserValue;
     this.GetDanhSachDuAnByIdUser();
     // this.GetListdmLoaiBong();
+    console.log(this.item)
     this.GetListOptdmCapBong();
     if (this.opt !== 'edit') {
       this.item = {
@@ -188,12 +189,12 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   GetItem(Id) {
     this._services.KeHoachNhapBong().Get(Id).subscribe((res: any) => {
       this.item = res.data;
-      this.item.thoiGianDuKien = this.item.thoiGianDuKienUnix > 0 ? UnixToDate(this.item.thoiGianDuKienUnix) : "";
-      this.item.thoiGianCapCang = this.item.thoiGianCapCangUnix > 0 ? UnixToDate(this.item.thoiGianCapCangUnix) : "";
+      this.item.thoiGianDuKien = UnixToDate(this.item.thoiGianDuKienUnix);
+      this.item.thoiGianCapCang = UnixToDate(this.item.thoiGianCapCangUnix);
       if (this.item.listInvoice.length > 0) {
         this.item.listInvoice.forEach(obj => {
-          obj.thoiGianDuKien = obj.thoiGianDuKienUnix > 0 ? UnixToDate(obj.thoiGianDuKienUnix) : "";
-          obj.thoiGianCapCang = obj.thoiGianCapCangUnix > 0 ? UnixToDate(obj.thoiGianCapCangUnix) : "";
+          obj.thoiGianDuKien = UnixToDate(obj.thoiGianDuKienUnix);
+          obj.thoiGianCapCang = UnixToDate(obj.thoiGianCapCangUnix);
         });
       }
       this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn).subscribe((res: any) => {

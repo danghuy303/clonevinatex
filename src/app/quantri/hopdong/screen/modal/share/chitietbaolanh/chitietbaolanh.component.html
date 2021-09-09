@@ -3,7 +3,6 @@
 
 </div>
 <div class="p-mt-3">
-
     <p-table [value]="listBaoLanh | isXoa" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines " [scrollable]="true">
         <ng-template pTemplate="colgroup">
             <colgroup>
@@ -36,12 +35,11 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
 
-                <td class="text-center">{{item.TendmLoaiBaoLanh}}</td>
+                <td class="text-center">{{item.tendmLoaiBaoLanh}}</td>
                 <td class="text-center">{{item.soQuyTrinh}}</td>
                 <td class="text-center">{{item.giaTri}}</td>
-
                 <td class="text-center">{{item.hieuLucBaoLanh|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.TendmLoaiBaoLanh}}</td>
+                <td class="text-center">{{item.tendmTinhTrangBaoLanh}}</td>
                 <td class="text-center">{{item.ghiChu}}</td>
                 <td class="text-center">
                     <div *ngFor="let items of item.listFileDinhKem">

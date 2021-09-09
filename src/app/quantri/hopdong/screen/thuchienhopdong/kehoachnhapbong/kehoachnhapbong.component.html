@@ -44,6 +44,7 @@
             <colgroup>
                 <col style="width:50px">
                 <col style="width:200px">
+                <col>
                 <col style="width:200px">
                 <col>
                 <col>
@@ -59,12 +60,14 @@
                 <th class="text-center">#</th>
                 <th class="text-center">Số phiếu</th>
                 <th class="text-center">Ngày tạo</th>                
-                <th class="text-center">Số hợp đồng</th>
+                <th class="text-center">Số - tên hợp đồng</th>
+                <th class="text-center">Mã invoice</th>
                 <th class="text-center">Nội dung</th>
                 <th class="text-center">Số lượng</th> 
                 <th class="text-center">Khối lượng nhập (tấn)</th>
+                <th class="text-center">Ghi chú</th>   
                 <th class="text-center">Trạng thái</th>
-                <th class="text-center">Ghi chú</th>               
+
                 <th></th>
             </tr>
         </ng-template>
@@ -76,15 +79,15 @@
                 <td class="text-center">{{item.soQuyTrinh}}</td>
                 <td class="text-center">{{item.created|date:'dd/MM/yyyy'}}</td>                  
                 <td class="text-center">{{item.soHopDong}}</td>
+                <td class="text-center">{{item.maInvoice}}</td>
                 <td class="text-center">{{item.noiDung}}</td>
                 <td class="text-center">{{item.soLuong}}</td>                               
                 <td class="text-center">{{item.khoiLuong|number:'0.0'}}</td>
-                <td class="text-center">{{item.tenTrangThai}}</td>                               
                 <td class="text-center">{{item.ghiChu}}</td>                               
-               
+                <td class="text-center">{{item.tenTrangThai}}</td>                               
                 <td class="text-center">                 
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.id)"></button>
                 </td>
             </tr>
         </ng-template>

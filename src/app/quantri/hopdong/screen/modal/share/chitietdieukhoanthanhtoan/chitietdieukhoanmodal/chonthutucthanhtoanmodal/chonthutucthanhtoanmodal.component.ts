@@ -19,12 +19,12 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
   IdQuyTrinh:any="";
   cols: any = [
     {
-      header: 'Mã thủ tục',
+      header: 'Mã',
       field: 'ma',
       width: 'unset'
     },
     {
-      header: 'Tên  thủ tục',
+      header: 'Tên',
       field: 'ten',
       width: 'unset'
     },
@@ -71,16 +71,12 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
     this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref_copy.slice(start,end);
   }
   accept() {
-    // var itemFind: any = this.listDieuKhoanThanhToan.filter(function (obj) {
-    //   return obj.checked == true;
-    // });
-    // console.log(itemFind);
     this.activeModal.close(this.listDieuKhoanThanhToan.filter(item => item.checked).map(ele => {
       return {
         ...ele,
         idHopDong: this.IdQuyTrinh,
         iddmThanhToanThuTuc: ele.id,
-        TendmThanhToanThuTuc: ele.ten,
+        tendmThanhToanThuTuc: ele.ten,
         isXoa: false,
         id: '',      
       }
@@ -91,15 +87,6 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
       this.item.listThuTucThanhToan_ref_copy = this.listDieuKhoanThanhToan;
       let filter: any = this.item.listThuTucThanhToan_ref_copy.filter(
         ele=>ele.ten.toLowerCase().includes(this.KeyWord.toLowerCase())
-        // obj => {
-        // if(obj.Ten === "CD 23"){
-        //   debugger
-
-        // }
-        // let Ten = obj.Ten.toLowerCase();
-        // let indexOf = Ten.includes(this.KeyWord.toLowerCase());
-        // return indexOf != false
-      // }
       );
       console.log(filter)
       this.item.listThuTucThanhToan_ref = filter;
@@ -120,17 +107,34 @@ export class ChonthutucthanhtoanmodalComponent implements OnInit {
   }
 
   checkAll(e) {
-    if (e.checked) {
       this.listDieuKhoanThanhToan.forEach(item => {
-        item.checked = true;
+        item.checked = e.checked;
+        this.checkItem(item);
       });
-    } else {
-      this.listDieuKhoanThanhToan.forEach(item => {
-        item.checked = false;
-      });
-    }
   }
-  checked() {
-    this.checkedAll = this.listDieuKhoanThanhToan.every(ele => ele.checked)
+  checkItem(item){
+    // this.checkedAll = this.items.every(ele => ele.checked)
+  
+  if(item.checked == true)
+  {
+    let itemFind: any = this.listThanhToanThuTuc.filter((e: any) =>e.iddmThanhToanThuTuc === item.id)[0]
+    if(itemFind === undefined){
+      let itemFinds = this.listDieuKhoanThanhToan.find(e => e.checked === true && e.id === item.id);
+      itemFinds = {
+        idHopDong: this.IdQuyTrinh,
+        iddmThanhToanThuTuc: itemFinds.id,
+        tendmThanhToanThuTuc: itemFinds.ten,
+        isXoa: false,
+        id: '',      
+      }
+      this.listThanhToanThuTuc.push(itemFinds)
+    }
+    else
+      itemFind.isXoa = false;
+  }
+    else{
+      let itemFind = this.listThanhToanThuTuc.filter((e: any) =>e.iddmThanhToanThuTuc === item.id)[0]
+      itemFind.isXoa = true;
+    }
   }
 }

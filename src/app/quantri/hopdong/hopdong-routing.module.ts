@@ -67,7 +67,7 @@ const routes: Routes = [
   { path: 'quyettoanhopdong/:id', component: QuyettoanhopdongComponent },
   { path: 'laphopdongbongxo/:id', component: LaphopdongbongxoComponent },
   { path: 'laphopdongsoi/:id', component: LaphopdongsoiComponent },
-  { path: 'thanhtoanhopdong/:id', component: QuytrinhthanhtoanbongComponent },
+  { path: 'quytrinhthanhtoanbong/:id', component: QuytrinhthanhtoanbongComponent },
 
   //
  

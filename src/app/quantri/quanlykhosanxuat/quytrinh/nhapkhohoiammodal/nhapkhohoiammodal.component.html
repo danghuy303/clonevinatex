@@ -138,11 +138,16 @@
                         <td class="text-center">{{item.Ten}}</td>
                         <td class="text-center">{{item.TenLoHang}}</td>
                         <td class="text-center">
-                            <p-dropdown [filter]="true" [options]="listKgCone" placeholder="Chọn Kg/cone" 
+                            <div class="p-inputgroup">
+                                <div style="flex:1">
+                                    <p-dropdown [filter]="true" [options]="listKgCone" placeholder="Chọn Kg/cone" 
                                 [(ngModel)]="item.KgCone" (onChange)="tinhKLTT(item)"
                                 styleClass="p-inputtext-sm"></p-dropdown>
-                            <!-- <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KgCone" disabled>
-                            </p-inputNumber> -->
+                                </div>
+                                <button pButton pRipple icon="pi pi-copy"
+                                class="p-button-sm p-button-rounded p-button-text p-mr-2"
+                                (click)="ApDung(item)"></button>
+                            </div>
                         </td>
                         <!-- <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.KhoiLuong">

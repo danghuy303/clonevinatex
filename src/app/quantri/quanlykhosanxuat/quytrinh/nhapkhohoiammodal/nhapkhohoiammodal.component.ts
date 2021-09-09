@@ -80,7 +80,12 @@ export class NhapkhohoiammodalComponent implements OnInit {
       this.checkbutton = res;
     })
   }
-
+  ApDung(item) {
+    let cloneId = item.KgCone;
+    this.item.listItem.forEach(abc => {
+      abc.KgCone = cloneId;
+    });
+  }
   ChuyenTiep() {
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn ngày!");

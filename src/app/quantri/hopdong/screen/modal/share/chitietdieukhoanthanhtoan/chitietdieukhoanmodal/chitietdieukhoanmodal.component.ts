@@ -5,7 +5,7 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 import { vn } from 'src/app/services/const';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, Input, OnInit } from '@angular/core';
-import { mapArrayForDropDown, DateToUnix, deepCopy, validVariable } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, DateToUnix, deepCopy, validVariable, UnixToDate } from 'src/app/services/globalfunction';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ToastrService } from 'ngx-toastr';
 
@@ -24,6 +24,8 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
     TheoGiaTri: false,
     listThanhToanThuTuc: [],
     id: "",
+    giaTri: 0,
+    tyLe: 0,
   };
   listLoaiThanhToan: any = []
   listTheoLoaiThanhToan: any = []
@@ -32,23 +34,11 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   listThuTucThanhToan_ref: any = []
   listThuTucThanhToan: any = [];
   IdQuyTrinh: any;
-  hopDong: any;
-
+  hopDong: any = {};
   optionsLoaiThanhToan = [
     { label: 'Tạm ứng', value: 0 },
     { label: 'Thanh toán', value: 1 },
-    { label: 'Thanh toán vật tư', value: 2 }
   ]
-
-
-  // optionsTheoNgay = [
-  //   { label: 'Thời gian giao hàng', value: 2 },
-  //   { label: 'Ngày nhận hàng', value: 3 },
-  //   { label: 'Ngày nhận được tài liệu giao hàng', value: 4 },
-  //   { label: 'Ngày ký hợp đồng', value: 0 },
-  //   { label: 'Ngày ký hợp đồng có hiệu lực', value: 1 },
-  // ]
-
   listDieuKhoanThanhToan: any = {}
   yearRange: string = `${new Date().getFullYear() - 50
     }:${new Date().getFullYear()}`;
@@ -67,6 +57,7 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
       if (this.item.isTheoGiaTriHopDong) {
         this.item.TheoHopDong = this.item.isTheoGiaTriHopDong;
         this.item.TheoGiaTri = !this.item.TheoHopDong;
+        this.item.ngayThanhToan = UnixToDate(this.item.ngayThanhToanUnix);
       }
       else {
         this.item.TheoGiaTri = !this.item.isTheoGiaTriHopDong;
@@ -114,9 +105,6 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   }
 
   chonDanhMuc() {
-
-    // modalRef.componentInstance.listDieuKhoanThanhToan = res1;
-    // modalRef.componentInstance.listThuTucThanhToan = listThuTucThanhToan;
     let modalRef = this._modal.open(ChonthutucthanhtoanmodalComponent, {
       size: 'lg',
       backdrop: 'static'
@@ -125,11 +113,7 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.IdQuyTrinh = this.IdQuyTrinh;
     modalRef.result.then((res) => {
-      res.forEach(obj => {
-        if (!this.item.listThanhToanThuTuc.every(element => element.iddmThanhToanThuTuc === obj.iddmThanhToanThuTuc) || this.item.listThanhToanThuTuc.length == 0) {
-          this.item.listThanhToanThuTuc.push(obj);
-        }
-      });
+      this.listThanhToanThuTuc = res;
       // this.item.listThanhToanThuTuc.forEach(element => {
       //   console.log('listThanhToanThuTuc', element);
 
@@ -155,11 +139,16 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   accept(opt) {
     if (this.item.ngayThanhToan !== undefined && this.item.ngayThanhToan !== null) {
       this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
-
     }
+    if(this.item.soNgay == null || this.item.soNgay === undefined)
+      this.item.soNgay = 0;
+    if(this.item.giaTri === null)
+      this.item.giaTri = 0;
+    if(this.item.tyLe === null)
+      this.item.tyLe = 0;
     this.item.isTheoGiaTriHopDong = this.item.TheoHopDong;
-    if (!validVariable(this.item.loaiThanhToan)) {
-      this.item.TenloaiThanhToan = this.optionsLoaiThanhToan.find(obj => obj.value == this.item.loaiThanhToan).label;
+    if (this.item.loaiThanhToan!=undefined) {
+      this.item.tenLoaiThanhToan = this.optionsLoaiThanhToan.find(obj => obj.value == this.item.loaiThanhToan).label;
     }
     this.activeModal.close({ opt: opt, item: this.item });
   }
@@ -188,14 +177,22 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
 
   selectTheoGiaTriHopDong() {
     this.item.TheoGiaTri = !this.item.TheoHopDong;
-    if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0) {
+    if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0 && this.item.TheoHopDong === true) {
+      this.item.giaTri = (this.hopDong.giaTri || 0) * (this.item.tyLe || 0);
+    }
+    else {
+      this._toastr.error("Yêu cầu nhập giá trị Hợp đồng", "Thông báo");
+    }
+  }
+  selectTheoTyLeHopDong() {
+    this.item.TheoGiaTri = !this.item.TheoHopDong;
+    if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0 && this.item.TheoHopDong === true) {
       this.item.tyLe = (this.item.giaTri / this.hopDong.giaTri) * 100;
     }
     else {
       this._toastr.error("Yêu cầu nhập giá trị Hợp đồng", "Thông báo");
     }
   }
-
   selectTheoGiaTriDotGiaoHang() {
     this.item.TheoHopDong = !this.item.TheoGiaTri;
   }

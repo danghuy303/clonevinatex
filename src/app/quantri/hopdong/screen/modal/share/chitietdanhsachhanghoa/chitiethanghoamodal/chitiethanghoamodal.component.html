@@ -11,7 +11,7 @@
         <div class="modal-bt p-mb-4">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="activeModal.dismiss('close')"></button>
-            <button pButton pRipple type="button" label="Chập nhận" (click)="accept()"
+            <button pButton pRipple type="button" label="Chấp nhận" (click)="accept()"
                 class="p-mr-2 p-button-sm"></button>
         </div>
     </div>
@@ -44,8 +44,8 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">
-                            <p-checkbox [(ngModel)]="item.checked" (onChange)="checked()" binary="true"
-                                inputId="binary"></p-checkbox>
+                            <p-checkbox [(ngModel)]="item.checked" binary="true"
+                                inputId="binary" (onChange)="checkItem(item)"></p-checkbox>
                         </td>
                         <td class="text-center">{{i + 1 }}</td>
                         <td>{{item.dacTinh}}</td>

@@ -7,7 +7,7 @@ import { ModaldoimatkhauComponent } from "./modal/modaldoimatkhau/modaldoimatkha
 import { filter, timestamp } from "rxjs/operators";
 import { SanXuatService } from "../services/callApiSanXuat";
 import { StoreService } from "../services/store.service";
-import { mapArrayForDropDown } from "../services/globalfunction";
+import { mapArrayForDropDown, validVariable } from "../services/globalfunction";
 import { SignalRService } from "../services/signalR.service";
 import { mapQuyTrinhRoute } from "../services/mapquytrinhroute";
 import { ToastrService } from "ngx-toastr";
@@ -70,8 +70,11 @@ export class QuantriComponent implements OnInit {
       .GetDanhSachDuAnByIdUser(this.userInfo.Id)
       .subscribe((res: any) => {
         this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id");
-        this.IdNhaMay = res[0].Id;
-        this.setGlobalNhaMay({ value: res[0].Id });
+        if(!validVariable(this.store.getCurrent())){
+          this.IdNhaMay = res[0].Id;
+        }else{
+          this.IdNhaMay = this.store.getCurrent()
+        }
       });
   }
   setGlobalNhaMay(event) {
@@ -893,7 +896,7 @@ export class QuantriComponent implements OnInit {
       {
         label: "Thực hiện hợp đồng",
         icon: "fas fa-circle",
-        routerLink: "/quantri/hopdongsanxuat",
+        routerLink: "/quantri/thuchienhopdong",
         visible: this.showHopDongModule,
         items: [
           {
@@ -922,12 +925,6 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
-            label: "Thanh toán hợp đồng",
-            routerLink: "/quantri/hopdongsanxuat/thanhtoanhopdong/0",
-
-            command: () => this.close(),
-          },
-          {
             label: "Phạt hợp đồng",
             routerLink: "/quantri/hopdongsanxuat/phathopdong/0",
 
@@ -947,7 +944,7 @@ export class QuantriComponent implements OnInit {
           },
           {
             label: "Thanh toán bông",
-            routerLink: "/quantri/hopdongsanxuat/thanhtoanhopdong/0",
+            routerLink: "/quantri/hopdongsanxuat/quytrinhthanhtoanbong/0",
 
             command: () => this.close(),
           },
@@ -957,7 +954,7 @@ export class QuantriComponent implements OnInit {
       {
         label: "Danh mục hợp đồng",
         icon: "fas fa-circle",
-        routerLink: "/quantri/hopdongsanxuat",
+        routerLink: "/quantri/danhmuchopdong",
         visible: this.showHopDongModule,
         items: [
           {

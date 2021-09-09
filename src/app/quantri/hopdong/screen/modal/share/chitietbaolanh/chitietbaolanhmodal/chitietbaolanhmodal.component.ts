@@ -58,7 +58,8 @@ export class ChitietbaolanhmodalComponent implements OnInit {
     if (this.item.hieuLucBaoLanh !== undefined && this.item.hieuLucBaoLanh !== null) {
       this.item.hieuLucBaoLanhUnix = DateToUnix(this.item.hieuLucBaoLanh);
     }
-    this.item.TendmLoaiBaoLanh = this.listLoaiBaoLanh.find(obj => obj.value == this.item.iddmLoaiBaoLanh).label;
+    this.item.tendmLoaiBaoLanh = this.listLoaiBaoLanh.find(obj => obj.value == this.item.iddmLoaiBaoLanh).label;
+    this.item.tendmTinhTrangBaoLanh = this.listTinhTrangBaoLanh.find(obj => obj.value == this.item.iddmTinhTrangBaoLanh).label;
     this.activeModal.close({ opt: opt, item: this.item });
   }
 

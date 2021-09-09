@@ -132,10 +132,10 @@ export class DanhMucHopDongService {
             },
             DeleteList: (data) => {
                 debugger;
-                return this.http.post(`${url}DanhMuc/DeleteListdmTrangThaiBaoLanh`, data, httpOptions)
+                return this.http.post(`${url}DanhMuc/DeleteListdmTinhTrangBaoLanh`,data,httpOptions)
             },
-            Delete: (id) => {
-                return this.http.get(`${url}DanhMuc/DeletedmTrangThaiBaoLanh?id=${id}`, httpOptions)
+            Delete:(id)=>{
+                return this.http.get(`${url}DanhMuc/DeletedmTinhTrangBaoLanh?id=${id}`,httpOptions)
             }
         }
     }

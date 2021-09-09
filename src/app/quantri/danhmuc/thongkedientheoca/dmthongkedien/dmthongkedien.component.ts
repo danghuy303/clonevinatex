@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -6,6 +6,8 @@ import { ModalquanComponent } from 'src/app/quantri/danhmuc/modal/modalquan/moda
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, formatdate, UnixToDate } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { DmthongkedienmodalComponent } from '../dmthongkedienmodal/dmthongkedienmodal.component';
 
 @Component({
@@ -13,7 +15,7 @@ import { DmthongkedienmodalComponent } from '../dmthongkedienmodal/dmthongkedien
   templateUrl: './dmthongkedien.component.html',
   styleUrls: ['./dmthongkedien.component.css']
 })
-export class DmthongkedienComponent implements OnInit {
+export class DmthongkedienComponent  extends StoreBase implements OnInit,OnDestroy {
 
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
@@ -26,7 +28,8 @@ export class DmthongkedienComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   userInfo: any;
 
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private _auth: AuthenticationService) {
+  constructor(public _modal: NgbModal,public store:StoreService, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private _auth: AuthenticationService) {
+    super(store);
     this.items.lstNgay = [];
     this.userInfo = this._auth.currentUserValue;
   }
@@ -118,5 +121,7 @@ export class DmthongkedienComponent implements OnInit {
     //   this.GetList();
     // })
   }
-
+  ngOnDestroy(){
+    super.ngOnDestroy();
+  }
 }

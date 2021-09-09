@@ -2,7 +2,7 @@
     <h4 style="color:#1f2779">Danh sách hợp đồng bông xơ</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-    <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
+    <!-- <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button> -->
     <div></div>
     <div class="p-d-flex p-flex-row">
         <!-- <div class="p-mr-2">
@@ -25,11 +25,15 @@
     </div>
 </div>
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <p-tabPanel header="Chưa xử lý" *ngIf="checkQuyen.ChuaXuLy">
+    <!-- <p-tabPanel header="Chưa xử lý" *ngIf="checkQuyen.ChuaXuLy">
     </p-tabPanel>
     <p-tabPanel header="Đã xử lý" *ngIf="checkQuyen.DaXyLy">
-    </p-tabPanel>
-
+    </p-tabPanel> -->
+    <p-tabPanel header="Tổng hợp"></p-tabPanel>
+    <p-tabPanel header="Hợp đồng sắp hết hạn BG"></p-tabPanel>
+    <p-tabPanel header="Hợp đồng sắp hết hạn TT"></p-tabPanel>
+    <p-tabPanel header="Hợp đồng quá hạn BG"></p-tabPanel>
+    <p-tabPanel header="Hợp đồng quá hạn TT"></p-tabPanel>
 </p-tabView>
 <div class="p-mt-3">
     <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
@@ -43,7 +47,6 @@
                 <col style="width: 200px;">
                 <col style="width: 200px;">
                 <!-- <col *ngFor="let col of cols" [ngStyle]="{width:col.width}"> -->
-                <col style="width: 200px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -57,7 +60,6 @@
                 <th>Giá trị còn lại</th>
                 <th>Nhà cung cấp/Khách hàng</th>
                 <!-- <th *ngFor="let header of cols"> {{header.header}} </th> -->
-                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -71,10 +73,9 @@
                 <td class="text-center">{{item.giaTriGiam |number:'0.0-3'}}</td>
                 <td class="text-center">{{item.tenKhachHang}}</td>
                 <!-- <td class="text-center" *ngFor="let col of cols"> {{item[col.field]}} </td> -->
-                <td class="text-center">
-                    <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành" (click)="hoanthanh(item.d)"></button>
+                <!-- <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.id)"></button>
-                </td>
+                </td> -->
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">

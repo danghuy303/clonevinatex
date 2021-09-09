@@ -41,12 +41,13 @@ export class ModallaphopdongbongxoComponent implements OnInit {
       BenBanChiu: true,
       BenMuaChiu: false,
     },
+    listHangHoa: [],
     listTieuChuanChatLuong: []
   };
   hopDong: any = {};
   listDieuKhoanThanhToan: any = [];
-  listVatTu: any = [];
-  listHangHoa: any = [];
+  // listVatTu: any = [];
+  listHangHoa: any = {};
   listLoaiMatHang: any = [];
   userInfo: any;
   newItem: any = {};
@@ -133,7 +134,12 @@ export class ModallaphopdongbongxoComponent implements OnInit {
     //     element
     //   });
     // }
+
     this.item.hopDong.isBenBanChiu = this.item.hopDong.BenBanChiu;
+    this.item.listHangHoa = [];
+    this.item.listHangHoa.push(this.listHangHoa);
+    delete this.item.listTen;
+    delete this.item.listVatTu;
     return true;
   }
 
