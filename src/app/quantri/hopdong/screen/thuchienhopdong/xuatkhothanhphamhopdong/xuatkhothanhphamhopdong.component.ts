@@ -33,7 +33,7 @@ export class XuatkhothanhphamhopdongComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Số - tên hợp đồng',
+      header: 'Số- Tên HD',
       field: 'TenHopDong',
       width: 'unset'
     },

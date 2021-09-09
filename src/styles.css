@@ -118,14 +118,16 @@ p-dropdown .p-dropdown {
     border-right: none !important;
     border-bottom: 1px solid #ced4da !important;
 }
-.p-multiSelect {
-    width: 100% !important;
-    border-radius: 0px !important;
-    border: 1px solid transparent !important;
-    border-right: none !important;
-    border-bottom: 1px solid #ced4da !important;
-    min-width: 15rem;
-    width: 18rem;
+.p-multiselect {
+    -moz-user-select: none!important;
+    -ms-user-select: none!important;
+    -webkit-user-select: none!important;
+    cursor: pointer!important;
+    display: -ms-inline-flexbox!important;
+    display: inline-flex!important;
+    position: relative!important;
+    user-select: none!important;
+    width: 100%!important;
 }
 .p-inputtext, .p-inputtext-sm.p-inputtext {
     width: 100% !important

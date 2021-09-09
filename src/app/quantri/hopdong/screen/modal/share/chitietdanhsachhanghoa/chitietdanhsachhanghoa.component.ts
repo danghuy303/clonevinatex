@@ -2,7 +2,7 @@ import { vn } from './../../../../../../services/const';
 import { Subscription } from 'rxjs';
 import { ChitiethanghoacuahopdongsoimodalComponent } from './chitiethanghoacuahopdongsoimodal/chitiethanghoacuahopdongsoimodal.component';
 import { SanXuatService } from './../../../../../../services/callApiSanXuat';
-import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable , FormatNumber} from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable , dinhDangSo} from 'src/app/services/globalfunction';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -43,7 +43,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   currentMyText: number = 5
-  FormatNumber = FormatNumber;
+  dinhDangSo = dinhDangSo;
   listThanhToanThuTuc: any = []
   listKeHoachNhapBong: any = []
   // listLoaiMatHang: any = [];
@@ -202,7 +202,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   }
 
   tinhgiaTriHopDong() {
-    this.item.soLuong = this.FormatNumber(this.item.soLuong);
+    this.item.soLuong = this.dinhDangSo(this.item.soLuong);
     this.item.giaTriHopDongMatHang = this.item.DonGiaThanhToan * this.item.soLuong;
     if(this.hopDong.isLayTheoGiaTriHangHoa === true)
       this.hopDong.giaTri = this.item.giaTriHopDongMatHang;

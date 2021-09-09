@@ -31,7 +31,7 @@
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Sai lệch (%):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [(ngModel)]="item.saiLech" [minFractionDigits]="2" locale="vi-VN" (ngModelChange)="item.saiLech = FormatNumber($event)">
+        <p-inputNumber [(ngModel)]="item.saiLech" [minFractionDigits]="2" locale="vi-VN" (ngModelChange)="item.saiLech = dinhDangSo($event)">
         </p-inputNumber>
       </div>
     </div>
@@ -48,7 +48,7 @@
       <label class="p-col-12 p-xl-4 p-lg-5 p-p-0 my-auto">Thuế GTGT (%):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
         <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.thueGTGT" locale="vi-VN"
-        (ngModelChange)="item.thueGTGT = FormatNumber($event)">
+        (ngModelChange)="item.thueGTGT = dinhDangSo($event)">
         </p-inputNumber>
       </div>
     </div>
@@ -71,7 +71,7 @@
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Sai lệch(%):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="hopDong.saiLech" (ngModelChange)="hopDong.saiLech = FormatNumber($event)"> </p-inputNumber>
+        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="hopDong.saiLech" (ngModelChange)="hopDong.saiLech = dinhDangSo($event)"> </p-inputNumber>
       </div>
     </div>
   </div>
