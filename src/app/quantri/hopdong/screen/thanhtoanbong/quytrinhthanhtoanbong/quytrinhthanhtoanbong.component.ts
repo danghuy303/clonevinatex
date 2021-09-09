@@ -25,12 +25,12 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
   cols: any = [
     {
       header: 'Số phiếu',
-      field: 'SoQuyTrinh',
+      field: 'soQuyTrinh',
       width: 'unset'
     },
     {
       header: 'Số hợp đồng',
-      field: 'SoHopDong',
+      field: 'soHopDong',
       width: 'unset'
     },
     {
@@ -40,17 +40,17 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
     },
     {
       header: 'Mã Invoice',
-      field: 'MaInvoice',
+      field: 'maInvoice',
       width: 'unset'
     },
     {
       header: 'Lô bông',
-      field: 'TenLoBong',
+      field: 'tenLoBong',
       width: 'unset'
     },
     {
       header: 'Loại bông',
-      field: 'TendmLoaiBong',
+      field: 'tendmLoaiBong',
       width: 'unset'
     },
   ];

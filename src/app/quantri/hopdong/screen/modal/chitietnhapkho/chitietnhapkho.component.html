@@ -1,6 +1,6 @@
 <div class="modal-header">
     <!-- <h5 class="modal-title">{{opt==='add'?'Thêm mới':'Cập nhật'}} phiếu nhập {{nametype}}</h5> -->
-    <h5 class="modal-title">Phiếu nhập {{nametype}}</h5>
+    <h5 class="modal-title">Phiếu nhập bông / xơ</h5>
     <!-- <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nhà máy:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
@@ -62,15 +62,13 @@
             </div>
         </div> -->
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label *ngIf="this.type!=='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông <span class="text-danger">*</span>:</label>
-            <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Loại xơ <span class="text-danger">*</span>:</label>
+            <label  class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" styleClass="p-inputtext-sm" [(ngModel)]="item.IddmLoaiBong"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label *ngIf="this.type!=='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp bông <span class="text-danger">*</span>:</label>
-            <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp xơ <span class="text-danger">*</span>:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp bông <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCapBong" placeholder="Chọn cấp" styleClass="p-inputtext-sm" [(ngModel)]="item.IddmCapBong"></p-dropdown>
             </div>
@@ -102,39 +100,18 @@
         </div>
 
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto" *ngIf="this.type==='bong'">Đơn giá bông/Kg (USD):</label>
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto" *ngIf="this.type==='xo'">Đơn giá xơ/Kg (VND):</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đơn giá bông/Kg (USD):</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.GiaBong">
                 </p-inputNumber>
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="this.type==='xo'">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đơn giá Xơ/Kg (VND):</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.GiaXo">
-                </p-inputNumber>
-            </div>
-        </div> -->
-        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="this.type==='xo'">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khách hàng <span class="text-danger">*</span>:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listKhachHang" placeholder="Chọn khách hàng" [(ngModel)]="item.IddmKhachHang"
-                styleClass="p-inputtext-sm"></p-dropdown>
-            </div>
-        </div> -->
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
-        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="this.type==='bong'">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Gộp phiếu:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isGopPhieu" />
-            </div>
-        </div> -->
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
@@ -143,10 +120,6 @@
                         <col>
                         <col>
                         <col>
-                        <!-- <col *ngIf="this.type==='bong'">
-                        <col *ngIf="this.type==='bong'">
-                        <col *ngIf="this.type==='bong'"> -->
-                        <!-- <col style="width:100px"> -->
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">

@@ -108,9 +108,9 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   }
 
   GetNextSoQuyTrinh() {
-    // this._hopdong.QuyTrinhThanhToan().Get().subscribe((res: any) => {
-    //   this.item.SoQuyTrinh = res.SoQuyTrinh;
-    // })
+    this._hopdong.QuyTrinhThanhToan().GetNextSoQuyTrinh().subscribe((res: any) => {
+      this.item.SoQuyTrinh = res.data;
+    })
   }
 
   GhiLai() {

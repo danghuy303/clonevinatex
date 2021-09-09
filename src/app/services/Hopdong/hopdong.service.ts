@@ -266,11 +266,16 @@ export class HopDongService {
   QuyTrinhThanhToan() {
     let url = API.HopDong;
     return {
-      GetList: (data) => {
-        data.idDuAn = 53
+      GetList: (data) => {data.idDuAn = 53
         return this.http.post(
           url + "ThanhToan/GetListQuyTrinh",
           data,
+          httpOptions
+        );
+      },
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(
+          url + "ThanhToan/GetNextSoQuyTrinh",
           httpOptions
         );
       },

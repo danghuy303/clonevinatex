@@ -2,13 +2,13 @@
     <h5 class="modal-title">Quy trình thanh toán bông</h5>
     <div class="d-flex flex-column flex-lg-row">
         <div>
-            <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
+            <span style="font-weight: bold;">Số phiếu:</span> {{item.soQuyTrinh}}
         </div>
         <div class="ml-lg-3 mr-lg-3">
-            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.created|date:"dd/MM/yyyy HH:mm"}}
         </div>
         <div>
-            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.modified|date:"dd/MM/yyyy HH:mm"}}
         </div>
     </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -36,47 +36,54 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung :</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung :</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.noiDung" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số hợp đồng <span class="text-danger">*{{item.listHopDong|json}}</span>:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng <span class="text-danger">*{{item.listHopDong|json}}</span>:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listHopDong" placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm" [(ngModel)]="item.idHopDong" (onChange)="getListDieuKhoanThanhToan()"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại thanh toán :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiThanhToan" placeholder="Chọn loại thanh toán" (onChange)="getListDieuKhoanThanhToan()"
                 styleClass="p-inputtext-sm" [(ngModel)]="item.loaiThanhToan"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày chứng từ <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ngayThanhToan" inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Chọn invoice :</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.loaiThanhToan === 2">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn invoice :</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
                 <p-multiSelect [options]="listThanhToanInvoice" [(ngModel)]="listIdThanhToanInvoice " display="chip" [filter]="false"
-                class="p-inputtext-sm" [showToggleAll]="true" (onChange)="getListItem()"></p-multiSelect>
+                [showToggleAll]="true" (onChange)="getListItem()"></p-multiSelect>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.loaiThanhToan === 1">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Điều khoản thanh toán :</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listDieuKhoanThanhToan" placeholder="Chọn điều khoản thanh toán"
+                styleClass="p-inputtext-sm" [(ngModel)]="item.idThanhToanDieuKhoan"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú :</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú :</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ghiChu" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Giá trị thanh toán :</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị thanh toán :</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.giaTriThanhToan">
                 </p-inputNumber>
             </div>
