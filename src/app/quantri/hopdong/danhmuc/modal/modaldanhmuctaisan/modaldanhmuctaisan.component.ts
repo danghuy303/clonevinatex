@@ -1,6 +1,6 @@
 import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -46,6 +46,7 @@ export class ModaldanhmuctaisanComponent implements OnInit {
     public toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
+    private _modal: NgbModal,
     private _auth: AuthenticationService,) {this.userInfo = this._auth.currentUserValue;}
 
   ngOnInit(): void {
@@ -80,16 +81,16 @@ yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFul
 
   SetData() {
     let data: any = {
-      "id": this.item.id,
-      "ma": this.item.ma,
-      "ten": this.item.ten,
-      "ghiChu": this.item.ghiChu,
-      "idDuAn": this.item.idDuAn,
-      "thoiGianHetKhauHao": this.item.thoiGianHetKhauHao,
-      "giaTriKhauHaoMoiThang": this.item.giaTriKhauHaoMoiThang,
+      "Id": this.item.Id,
+      "Ma": this.item.Ma,
+      "Ten": this.item.Ten,
+      "GhiChu": this.item.GhiChu,
+      "IdDuAn": this.item.IdDuAn,
+      "ThoiGianHetKhauHao": this.item.ThoiGianHetKhauHao,
+      "GiaTriKhauHaoMoiThang": this.item.GiaTriKhauHaoMoiThang,
 
-      "created": this.type == "taisan" ? new Date() : this.item.created,
-      "modified": this.type == "taisan" ? new Date() : this.item.modified,
+      "Created": this.type == "taisan" ? new Date() : this.item.Created,
+      "Modified": this.type == "taisan" ? new Date() : this.item.Modified,
   
       "isDelete":this.type == "taisan" ? false : this.item.isDelete,
     };
@@ -98,11 +99,11 @@ yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFul
   }
 
   ValidateData() {
-    if (!validVariable(this.item.ma)) {
+    if (!validVariable(this.item.Ma)) {
       this.toastr.error("Yêu cầu nhập đầy đủ mã !");
       return false;
     }
-    if (!validVariable(this.item.ten)) {
+    if (!validVariable(this.item.Ten)) {
       this.toastr.error("Yêu cầu nhập đầy đủ tên !");
       return false;
     }
@@ -112,10 +113,10 @@ yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFul
   GhiLai() {
     if (this.ValidateData()) {
       this._danhMucHopDong.DanhMucTaiSan().Set(this.SetData()).subscribe((res: any) => {
-        if (res.statusCode !== 200) {
-          this.toastr.error(res.message);
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
         } else {
-          this.toastr.success(res.message);
+          this.toastr.success(res.Message);
           this.activeModal.close();
         } 
       

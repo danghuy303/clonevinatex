@@ -14,6 +14,7 @@ export class ModaldinhmucmathangtheonamComponent implements OnInit {
   public newitem: any=[];
   listdmLoaiSoi:any = [];
 listNhaMay: Array<any> = [];
+listPhanXuong: any = [];
 
 idDuAn: string = "";
 showDropDown: boolean = false;
@@ -21,15 +22,16 @@ userBtn: any;
 userInfo: any;
 userSub: any;
 oldEditItem:any=[];
-  public item: any = [];
+  public item: any = {};
   public title: any = '';
   public type = '';
 
   constructor(public activeModal: NgbActiveModal,private _services: SanXuatService, private _danhMucHopDong: DanhMucHopDongService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this. getListNhaMay();
+    this.getListNhaMay();
     this.GetListdmLoaiSoi();
+    this.getListPhanXuong();
   }
   getListNhaMay() {
     this._services
@@ -40,6 +42,12 @@ oldEditItem:any=[];
         // this.idDuAn = res[0].Id;ss
      
       });
+  }
+
+  getListPhanXuong() {
+    this._services.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
  
   GetListdmLoaiSoi(){
