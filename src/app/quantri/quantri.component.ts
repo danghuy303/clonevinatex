@@ -1009,11 +1009,11 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhdanhsach",
             command: () => this.close(),
           },
-          {
-            label: "Định mức mặt hàng theo năm",
-            routerLink: "/quantri/danhmuc/dinhmucmathangtheonam",
-            command: () => this.close(),
-          },
+          // {
+          //   label: "Định mức mặt hàng theo năm",
+          //   routerLink: "/quantri/danhmuc/dinhmucmathangtheonam",
+          //   command: () => this.close(),
+          // },
           {
             label: "Vật tư phụ",
             routerLink:
@@ -1022,7 +1022,7 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
-            label: "cơ cấu nhân sự",
+            label: "Cơ cấu nhân sự",
             routerLink:
               "/quantri/hopdongsanxuat/danhmuc/danhmuccocaunhansu",
 
@@ -1050,13 +1050,13 @@ export class QuantriComponent implements OnInit {
 
             command: () => this.close(),
           },
-          {
-            label: "Định mức mặt hàng",
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmuc/danhmucdinhmucmathang",
+          // {
+          //   label: "Định mức mặt hàng",
+          //   routerLink:
+          //     "/quantri/hopdongsanxuat/danhmuc/danhmucdinhmucmathang",
 
-            command: () => this.close(),
-          },
+          //   command: () => this.close(),
+          // },
         ],
       },
 

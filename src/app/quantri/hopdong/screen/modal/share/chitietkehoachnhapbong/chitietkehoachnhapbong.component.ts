@@ -235,6 +235,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
         return indexOf != -1
       });
       this.item.listItem = filter;
+      
     }
     else {
       this.item.listItem = deepCopy(this.item.listItem_copy);

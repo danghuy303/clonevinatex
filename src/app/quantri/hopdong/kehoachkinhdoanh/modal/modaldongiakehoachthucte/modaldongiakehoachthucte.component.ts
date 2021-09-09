@@ -6,15 +6,14 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
-
 @Component({
-  selector: 'app-modalkehoachkinhdoanhtheodoi',
-  templateUrl: './modalkehoachkinhdoanhtheodoi.component.html',
-  styleUrls: ['./modalkehoachkinhdoanhtheodoi.component.css']
+  selector: 'app-modaldongiakehoachthucte',
+  templateUrl: './modaldongiakehoachthucte.component.html',
+  styleUrls: ['./modaldongiakehoachthucte.component.css']
 })
-export class ModalkehoachkinhdoanhtheodoiComponent implements OnInit {
+export class ModaldongiakehoachthucteComponent implements OnInit {
 
-  item:any = {};
+  item: any = {};
   filter: any = {};
   listPhanXuong: any = [];
   idSanPham: string = "";
@@ -28,11 +27,9 @@ export class ModalkehoachkinhdoanhtheodoiComponent implements OnInit {
     private store: StoreService,
     private _modal: NgbModal,
     private _auth: AuthenticationService,) { }
-    
 
   ngOnInit(): void {
-    this. getListPhanXuong();
-    console.log(this.item);
+    this.getListPhanXuong();
   }
 
   getListPhanXuong() {
@@ -40,5 +37,17 @@ export class ModalkehoachkinhdoanhtheodoiComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
+  
+  // Ghilai() {
+  //   this._danhMucHopDong.KeHoachKinhDoanh_DonGia.Set(this.item).subscribe((res: any) => {
+  //     if (res.statusCode !== 200) {
+  //       this.toastr.error(res.message);
+  //     } else {
+  //       this.toastr.success(res.message);
+  //       this.activeModal.close();
+  //     } 
+  //     this.activeModal.close();
+  //   })
+  // }
 
 }

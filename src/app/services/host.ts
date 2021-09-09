@@ -33,7 +33,7 @@ export class API {
     public static SCM = host1 + '/SCM/';
     public static HopDong = host1 + '/HopDong/';
     public static KeHoachNhapBong = host1 + '/HopDong/KeHoachNhapBong/';    
-    public static KeHoach = host1 + '/KeHoach/';
+    public static KeHoach = host1 + '/KeHoachAPI/';
     public static ThongKeDien = host1 + '/SCM/ThongKeDien/';
     public static KeHoachNguyenLieu = host1 + '/SCM/KeHoachNguyenLieu/';
     public static SCMQuanLyKho = host1 + '/SCM/QuanLyKho/';

@@ -135,6 +135,7 @@ import { QuytrinhthanhtoanbongComponent } from './screen/thanhtoanbong/quytrinht
 // import { DmtieuchichatluonghopdongmodalComponent } from './danhmuc/dmtieuchichatluonghopdongmodal/dmtieuchichatluonghopdongmodal.component';
 // import { QuytrinhthanhtoanbongComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbong/quytrinhthanhtoanbong.component';
 import { QuytrinhthanhtoanbongmodalComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbongmodal/quytrinhthanhtoanbongmodal.component';
+import { ModaldongiakehoachthucteComponent } from './kehoachkinhdoanh/modal/modaldongiakehoachthucte/modaldongiakehoachthucte.component';
 
 
 
@@ -338,6 +339,13 @@ TheodoihopdongnhapkhauComponent,
 
     QuytrinhthanhtoanbongmodalComponent,
 
+   
+   
+   
+  
+
+    ModaldongiakehoachthucteComponent,
+
 
 
   ],
@@ -441,6 +449,7 @@ TheodoihopdongnhapkhauComponent,
     ModalkehoachkinhdoanhtheodoiComponent,
     DmtieuchichatluonghopdongmodalComponent,
     QuytrinhthanhtoanbongmodalComponent,
+    ModaldongiakehoachthucteComponent,
 
  
   ],

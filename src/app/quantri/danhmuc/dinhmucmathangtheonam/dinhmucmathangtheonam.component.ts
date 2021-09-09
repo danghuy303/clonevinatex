@@ -51,9 +51,9 @@ export class DinhmucmathangtheonamComponent implements OnInit {
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'dinhmucmathanghangnam';
     modalRef.componentInstance.title = 'Định mức mặt hàng theo năm';
-    modalRef.result.then(res=>{
-      this.GetListdmDinhMucMatHang()
-    }).catch(er=>console.log(er))
+    // modalRef.result.then(res=>{
+    //   this.GetListdmDinhMucMatHang()
+    // }).catch(er=>console.log(er))
   }
   edit(item){
     let modalRef = this._modal.open(ModaldinhmucmathangtheonamComponent,{
