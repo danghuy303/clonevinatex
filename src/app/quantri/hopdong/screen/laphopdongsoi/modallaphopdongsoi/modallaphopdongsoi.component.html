@@ -44,14 +44,12 @@
                 </app-chitiethopdongbongxo>
             </p-tabPanel>
             <p-tabPanel header="Thông tin hàng hóa">
-                <app-chitietdanhsachhanghoa [opt]="opt" [(isXo)]='isXo' [(listVatTu)]="item.listVatTu" [(listTieuChuanChatLuong)]="item.listTieuChuanChatLuong">
+                <app-chitietdanhsachhanghoa [opt]="opt" [(isXo)]='isXo' [(listHangHoaSoi)]="item.listHangHoa" [(hopDong)]="item.hopDong">
                 </app-chitietdanhsachhanghoa>
             </p-tabPanel>
             <p-tabPanel header="Điều khoản thanh toán">
-                <app-chitietdieukhoanthanhtoan [(listDieuKhoanThanhToan)]="item.listDieuKhoanThanhToan"></app-chitietdieukhoanthanhtoan>
+                <app-chitietdieukhoanthanhtoan [(hopDong)]="item.hopDong" [(listDieuKhoanThanhToan)]="item.listDieuKhoanThanhToan"></app-chitietdieukhoanthanhtoan>
             </p-tabPanel>
-
-
             <p-tabPanel header="Bảo lãnh">
                 <app-chitietbaolanh [(listBaoLanh)]="item.listBaoLanh"></app-chitietbaolanh>
             </p-tabPanel>

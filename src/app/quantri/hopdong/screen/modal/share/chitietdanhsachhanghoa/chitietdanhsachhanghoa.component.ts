@@ -21,13 +21,12 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Input('listHangHoa') item: any = {
     iddmLoaiVatTu: '',
   };
+  @Input('listHangHoaSoi') listHangHoaSoi: any = [];
   @Input('hopDong') hopDong: any = {};
   @Input('listTieuChuanChatLuong') listTieuChuanChatLuong: any = [];
   @Input('listLoaiMatHang') listLoaiMatHang: any = [];
-  // @Input() listLoaiMatHang: any
   @Input() isXo: boolean
   @Input() isBong: boolean
-  // @Input() listVatTu: any = []
   @Input() res1: any = []
   @Input("opt") opt: string;
   @Input() iddmLoaiHopDong: any
@@ -46,6 +45,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   dinhDangSo = dinhDangSo;
   listThanhToanThuTuc: any = []
   listKeHoachNhapBong: any = []
+  listdmQuyCachDongGoi: any = [];
   // listLoaiMatHang: any = [];
 
   @Output() newItemEvent = new EventEmitter<string>();
@@ -119,12 +119,9 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   //   }
 
   GetOptions() {
-    // this._servicesSanXuat
-    //   .GetListdmLoaiBongForHopDong(this.hopDong.loaiHangHoa)
-    //   .subscribe((res: any) => {
-    //     this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
-    //     // this.listLoaiMatHang_ref = res;
-    //   });
+    this._servicesSanXuat.dmQuyCachDongGoi().GetList().subscribe((res: any) => {
+        this.listdmQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
+      });
   }
 
   add() {
@@ -176,25 +173,23 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
 
 
   chonKeHoach() {
-
+    
     this._servicesSanXuat.GetListdmItemByHangHoa().subscribe((res1: any) => {
-      console.log(res1);
-
       let modalRef = this._modal.open(ChitiethanghoacuahopdongsoimodalComponent, {
         size: 'lg',
         backdrop: 'static'
       })
-
-      this.listKeHoachNhapBong = res1
+      // this.listKeHoachNhapBong = res1
       modalRef.componentInstance.opt = 'edit';
-
-
       modalRef.componentInstance.listThanhToanThuTuc = res1;
-      // modalRef.componentInstance.item = this.item.listDieuKhoanThanhToan;
-
+      modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;
+      modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
+      modalRef.result.then(res => {
+        debugger
+        this.listHangHoaSoi= res;  
+      }).catch(er => { console.log(er) });
     })
   }
-
   tinhDonGiaThanhToan() {
     this.item.DonGiaThanhToan = 0;
     this.item.DonGiaThanhToan = this.item.donGia * 1.1;

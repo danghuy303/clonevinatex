@@ -8,7 +8,7 @@
             </div>
         </div>
 
-        <div class="p-col-12 p-lg-6   d-flex flex-column flex-xl-row">
+        <div [ngStyle]="{'display':!isSoi ? 'flex' : 'none' }" class="p-col-12 p-lg-6   flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-lg-6 p-p-0 my-auto">Chọn loại hàng hóa:
             </label>
             <div class="p-col-12 p-xl-9 p-p-0">

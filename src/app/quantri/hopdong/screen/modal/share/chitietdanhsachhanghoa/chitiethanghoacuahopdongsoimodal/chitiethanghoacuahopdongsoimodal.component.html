@@ -38,7 +38,8 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>
-                            <input type="checkbox" [(ngModel)]="item.checked">
+                            <p-checkbox [(ngModel)]="item.checked" binary="true"
+                                inputId="binary" (onChange)="checkItem(item)"></p-checkbox>
                         </td>
                         <td>
                             {{ 15 * (paging.CurrentPage - 1) + i + 1 }}
