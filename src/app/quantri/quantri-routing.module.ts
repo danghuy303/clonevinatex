@@ -121,7 +121,6 @@ const routes: Routes = [
   {
     path: '', component: QuantriComponent,
     children: [
-      //quantrisanxuat/tonghop dashboard
       { path: '', redirectTo: 'quantrisanxuat/tonghop', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'quanlytaisannhadat', component: QuanlytaisannhadatComponent },
@@ -163,7 +162,6 @@ const routes: Routes = [
       { path: 'quantrisanxuat/tonghop', component: DieuhanhsanxuattonghopComponent },
       { path: 'quantrisanxuat/chatluong', component: DieuhanhsanxuatComponent },
       { path: 'quantrisanxuat/thongluong', component: DashboardthongluongComponent },
-      // { path: 'quantrisanxuat/sanluong', component: DieuhanhsanxuatComponent },
 
 
       { path: 'baocaosanxuat/sanluongtonghop', component: SanluongtonghopComponent },
