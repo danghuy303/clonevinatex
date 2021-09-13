@@ -8,7 +8,10 @@ import { Router } from '@angular/router';
 @Injectable({
     providedIn: 'root'
 })
-export class AuthenticationService {
+export class 
+
+
+AuthenticationService {
     loginurl = API.auth + 'QuanTri/Login_Winform';
 
     private currentUserSubject: BehaviorSubject<any>;

@@ -30,8 +30,9 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
 
   
   // newItem:any
-
+ 
   item:any = {};
+  copyItem:any = {};
   filter: any = {};
   listPhanXuong: any = [];
   idSanPham: string = "";
@@ -42,7 +43,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   userBtn: any;
   userInfo: any;
   userSub: any;
-  oldEditItem: any = [];
+  oldEditItem: any = {};
   listNam: any = [];
   lang: any = vn;
   listMatHang: any = [];
@@ -107,7 +108,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       modalRef.componentInstance.opt='add';
       modalRef.componentInstance.type = this.listMatHang.find(ele=>ele.value===item.IdSanPham)?.label;
       modalRef.componentInstance.title = 'Theo dõi kế hoạch - Thực tế';      
-      // modalRef.componentInstance.item=item;
+      modalRef.componentInstance.item=item;
     }
      
     
@@ -129,9 +130,12 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     }
   }
 
-  edit(item) {
-   
+  edit(item) 
+  {
   item.edit=true;
+  // this.copyItem = Object.assign({}, item);
+  // console.log(this.copyItem);
+
   }
   
   save(item)
@@ -141,7 +145,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
 
   xoa(item)
   {
-
+    
   }
 
   add2() {
@@ -176,6 +180,38 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     modalRef.componentInstance.title = '';
   }
 
+  TinhTong() {
+    this.tong={thang1:0,
+       thang2:0,
+       thang3:0,
+       thang4:0,
+       thang5:0,
+       thang6:0,
+       thang7:0,
+       thang8:0,
+       thang9:0,
+       thang10:0,
+       thang11:0,
+       thang12:0,
+      }
+       this.item.listItemLap.forEach(itemlap => {
+         this.tong.thang1+= itemlap.thang1;
+         this.tong.thang2+= itemlap.thang2;
+         this.tong.thang3+= itemlap.thang3;
+         this.tong.thang4+= itemlap.thang4;
+         this.tong.thang4+= itemlap.thang5;
+         this.tong.thang4+= itemlap.thang6;
+         this.tong.thang4+= itemlap.thang7;
+         this.tong.thang4+= itemlap.thang8;
+         this.tong.thang4+= itemlap.thang9;
+         this.tong.thang4+= itemlap.thang10;
+         this.tong.thang4+= itemlap.thang11;
+         this.tong.thang4+= itemlap.thang12;
+       });
+   }
+
 }
+
+
 
 

@@ -136,9 +136,9 @@
                   <button pButton pRipple icon="pi pi-check" *ngIf="item.edit"
                   class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                   (click)="save(item)"></button>
-                  <!-- <button pButton pRipple icon="pi pi-times"
+                  <button pButton pRipple icon="pi pi-times" *ngIf="item.edit"
                   class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                  (click)="xoa(item)"></button> -->
+                  (click)="xoa(item)"></button>
              
               </td>
             </tr>
@@ -225,7 +225,7 @@
 
               <td class="text-center">
                 <p-dropdown disabled="disabled" [filter]="true" [options]="listPhanXuong" placeholder="Chọn loại"
-                  styleClass="p-inputtext-sm" [(ngModel)]="item.idPhanXuong"></p-dropdown>
+                  styleClass="p-inputtext-sm" [(ngModel)]="item.IdPhanXuong"></p-dropdown>
               </td>
               <td class="text-center">
                 <p-inputNumber disabled="disabled" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.tong">

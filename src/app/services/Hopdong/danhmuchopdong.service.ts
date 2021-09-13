@@ -327,5 +327,22 @@ export class DanhMucHopDongService {
             },
         }
     }
+//Danh Sách kế hoạch
+    DanhSachTinhLuong() {
+        let url = API.KeHoach
+        return {
+            GetList: (data) => {
+                return this.http.get(`${url}DanhSachTinhLuongHangNam/GetAllPaging?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+            },
+            Set: (data) => {
+                return this.http.post(`${url}DanhSachTinhLuongHangNam/AddDanhSachTinhLuongHangNam`, data, httpOptions)
+            },
+            Delete: (id) => {
+                return this.http.get(`${url}DanhSachTinhLuongHangNam/DeleteDanhSachTinhLuongHangNam?Id=${id}`, httpOptions)
+            }
+           
+
+        }
+    }
 
 }
