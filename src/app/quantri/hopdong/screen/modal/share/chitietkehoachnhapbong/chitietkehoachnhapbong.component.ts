@@ -171,6 +171,10 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   }
 
   GhiLai() {
+    if(validVariable(this.newTableItem.soContainer) && validVariable(this.newTableItem.soLuong) && validVariable(this.newTableItem.soKien)
+    && validVariable(this.newTableItem.thoiGianCapCang) && validVariable(this.newTableItem.thoiGianDuKien)){
+      this.add()
+    }
     if (this.setdata()) {
       this._services.KeHoachNhapBong().Set(this.item).subscribe((res: any) => {
         if (res) {

@@ -64,7 +64,8 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.loaiThanhToan === 2">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn invoice :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-multiSelect [options]="listThanhToanInvoice" [(ngModel)]="listIdThanhToanInvoice " display="chip" [filter]="false"
+                <p-multiSelect [options]="listThanhToanInvoice" [(ngModel)]="listIdThanhToanInvoice " [filter]="true"
+                [ngStyle]="{'width': '450px !important'}"
                 [showToggleAll]="true" (onChange)="getListItem()"></p-multiSelect>
             </div>
         </div>

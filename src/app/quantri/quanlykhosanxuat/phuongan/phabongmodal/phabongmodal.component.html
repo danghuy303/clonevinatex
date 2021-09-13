@@ -109,6 +109,18 @@
                 </div>
             </div>
         </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row" *ngIf="checkbuttonDieuChinh&&isEditing">
+            <label class="p-col-12 p-lg-6 p-p-0 my-auto">Thêm bàn bông:</label>
+            <div class="p-col-12 p-lg-6 p-p-0">
+                <div class="p-inputgroup">
+                    <p-inputNumber [(ngModel)]="SoBanCongThem" mode="decimal" [minFractionDigits]="0"
+                        locale="vi-VN" ></p-inputNumber>
+                    <button type="button" pButton pRipple icon="pi pi-check"
+                        class="p-button-success p-button-sm p-button-text" (click)="ThemBanBong()"></button>
+                </div>
+            </div>
+        </div>
+        
         <div class="p-col-12 d-flex flex-row p-p-0">
             <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm"
                 (click)="chonHangHoa()" *ngIf="checkbutton.Ghi"></button>
@@ -271,7 +283,10 @@
                                 [ngStyle]="{'background-color': lobong.Mau,'color':lobong.isLoBongTuongLai?'red':''}">
                                 <!-- <a href="javascript:void(0)" (click)="timTheoBan(lobong)" *ngIf="isEditing">{{lobong.Ma}}</a> -->
                                 <!-- <span *ngIf="!isEditing">{{lobong.Ma}}</span> -->
-                                {{lobong.Ma}} <span *ngIf="lobong.canDelete&&isEditing&&lobong.SoLuongDung===0" (click)="xoaLoTuongLai(lobong)" style="border-radius: 50%;background-color: red;padding: 2px 5px;font-size: 12px;color: white;cursor: pointer;"><i class="fas fa-times"></i></span>
+                                {{lobong.Ma}} <span *ngIf="lobong.canDelete&&isEditing&&lobong.SoLuongDung===0"
+                                    (click)="xoaLoTuongLai(lobong)"
+                                    style="border-radius: 50%;background-color: red;padding: 2px 5px;font-size: 12px;color: white;cursor: pointer;"><i
+                                        class="fas fa-times"></i></span>
                                 <ng-container *ngIf="lobong.isLoBongTuongLai">
                                     <br>
                                     ({{lobong.NgayVeDuKien|date:'dd/MM/yyyy'}})
@@ -279,11 +294,11 @@
                             </td>
                             <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
                                 <ng-container *ngIf="isEditing">
-                                    <input style="width: 100%; text-align: right; border: transparent; color:#495057" [tabindex]="-1" type="number"
-                                        [(ngModel)]="lobong.SoLuongKien_KiemKe">
+                                    <input style="width: 100%; text-align: right; border: transparent; color:#495057"
+                                        [tabindex]="-1" type="number" [(ngModel)]="lobong.SoLuongKien_KiemKe">
                                 </ng-container>
                                 <ng-container *ngIf="!isEditing">{{lobong.SoLuongKien_KiemKe}}</ng-container>
-                                
+
                             </td>
                             <td class="text-center tc-w-60 z1" [ngStyle]="{'background-color': lobong.Mau}">
                                 {{lobong.SoLuongKien}}</td>

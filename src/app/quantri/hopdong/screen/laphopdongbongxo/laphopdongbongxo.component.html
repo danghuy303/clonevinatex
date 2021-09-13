@@ -1,5 +1,5 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Danh sách hợp đồng bông xơ</h4>
+    <h4 style="color:#1f2779">Lập hợp đồng bông xơ</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
@@ -52,8 +52,8 @@
                 <th class="text-center">STT</th>
                 <th class="text-center">Sô quy trình</th>
                 <th>Số-Tên HĐ</th>
-                <th>Ngày ký</th>
                 <th>Ngày tạo</th>
+                <th>Ngày ký</th>
                 <th>Giá trị hợp đồng</th>
                 <th>Mặt hàng</th>
                 <th>Bên A</th>
@@ -66,8 +66,8 @@
                 <td class="text-center"> {{ 20 * (paging.currentPage - 1) + i + 1 }} </td>
                 <td class="text-center"> {{item.soQuyTrinh}} </td>
                 <td class="text-center">{{item.soHopDong}} - {{item.tenHopDong}} </td>
-                <td class="text-center">{{item.ngayKy | date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.created | date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.ngayKy | date:'dd/MM/yyyy'}}</td>
                 <td class="text-right">{{item.giaTri |number:'0.0-3'}}</td>
                 <td class="text-center">{{item.matHang }}</td>
                 <td class="text-center">{{item.benA }}</td>

@@ -2,7 +2,7 @@ import { vn } from './../../../../../../services/const';
 import { Subscription } from 'rxjs';
 import { ChitiethanghoacuahopdongsoimodalComponent } from './chitiethanghoacuahopdongsoimodal/chitiethanghoacuahopdongsoimodal.component';
 import { SanXuatService } from './../../../../../../services/callApiSanXuat';
-import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable , FormatNumber} from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable , dinhDangSo} from 'src/app/services/globalfunction';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -21,13 +21,12 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Input('listHangHoa') item: any = {
     iddmLoaiVatTu: '',
   };
+  @Input('listHangHoaSoi') listHangHoaSoi: any = [];
   @Input('hopDong') hopDong: any = {};
   @Input('listTieuChuanChatLuong') listTieuChuanChatLuong: any = [];
   @Input('listLoaiMatHang') listLoaiMatHang: any = [];
-  // @Input() listLoaiMatHang: any
   @Input() isXo: boolean
   @Input() isBong: boolean
-  // @Input() listVatTu: any = []
   @Input() res1: any = []
   @Input("opt") opt: string;
   @Input() iddmLoaiHopDong: any
@@ -43,9 +42,10 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   currentMyText: number = 5
-  FormatNumber = FormatNumber;
+  dinhDangSo = dinhDangSo;
   listThanhToanThuTuc: any = []
   listKeHoachNhapBong: any = []
+  listdmQuyCachDongGoi: any = [];
   // listLoaiMatHang: any = [];
 
   @Output() newItemEvent = new EventEmitter<string>();
@@ -119,12 +119,9 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   //   }
 
   GetOptions() {
-    // this._servicesSanXuat
-    //   .GetListdmLoaiBongForHopDong(this.hopDong.loaiHangHoa)
-    //   .subscribe((res: any) => {
-    //     this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
-    //     // this.listLoaiMatHang_ref = res;
-    //   });
+    this._servicesSanXuat.dmQuyCachDongGoi().GetList().subscribe((res: any) => {
+        this.listdmQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
+      });
   }
 
   add() {
@@ -176,25 +173,23 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
 
 
   chonKeHoach() {
-
+    
     this._servicesSanXuat.GetListdmItemByHangHoa().subscribe((res1: any) => {
-      console.log(res1);
-
       let modalRef = this._modal.open(ChitiethanghoacuahopdongsoimodalComponent, {
         size: 'lg',
         backdrop: 'static'
       })
-
-      this.listKeHoachNhapBong = res1
+      // this.listKeHoachNhapBong = res1
       modalRef.componentInstance.opt = 'edit';
-
-
       modalRef.componentInstance.listThanhToanThuTuc = res1;
-      // modalRef.componentInstance.item = this.item.listDieuKhoanThanhToan;
-
+      modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;
+      modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
+      modalRef.result.then(res => {
+        debugger
+        this.listHangHoaSoi= res;  
+      }).catch(er => { console.log(er) });
     })
   }
-
   tinhDonGiaThanhToan() {
     this.item.DonGiaThanhToan = 0;
     this.item.DonGiaThanhToan = this.item.donGia * 1.1;
@@ -202,7 +197,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   }
 
   tinhgiaTriHopDong() {
-    this.item.soLuong = this.FormatNumber(this.item.soLuong);
+    this.item.soLuong = this.dinhDangSo(this.item.soLuong);
     this.item.giaTriHopDongMatHang = this.item.DonGiaThanhToan * this.item.soLuong;
     if(this.hopDong.isLayTheoGiaTriHangHoa === true)
       this.hopDong.giaTri = this.item.giaTriHopDongMatHang;

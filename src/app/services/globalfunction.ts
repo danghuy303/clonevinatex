@@ -205,7 +205,7 @@ export function formatdate(ngay: any, istime: boolean) {
     let succformat = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}${istime ? time : ""}`;
     return succformat;
 }
-export function FormatNumber(number: any): any {
+export function dinhDangSo(number: any): any {
     if (number == null) {
         return 0;
     } else {

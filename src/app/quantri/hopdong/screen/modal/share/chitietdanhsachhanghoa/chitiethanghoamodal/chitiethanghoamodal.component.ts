@@ -87,8 +87,10 @@ if(item.checked == true)
     itemFind.isXoa = false;
 }
   else{
-    let itemFind = this.selectedItems.filter((e: any) =>e.iddmTieuChuanChatLuong === item.id)[0]
-    itemFind.isXoa = true;
+    let itemFind = this.selectedItems.filter((e: any) =>e.iddmTieuChuanChatLuong === item.id)[0];
+    if(itemFind !== undefined){
+      itemFind.isXoa = true;
+    }
   }
 }
 }

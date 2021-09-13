@@ -27,9 +27,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./chitiethanghoacuahopdongsoimodal.component.css']
 })
 export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
-  listThuTucThanhToan_ref: any = [];
   item: any = {};
   listThanhToanThuTuc: any = [];
+  listHangHoa: any = [];
+  IdQuyTrinh : any = '';
   cols: any = [
     {
       header: 'Mã',
@@ -41,15 +42,11 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
       field: 'Ten',
       width: 'unset'
     },
- 
     {
       header: 'Ne',
       field: 'Ne',
       width: 'unset'
     },
- 
-   
- 
   ];
   loai='';
   checkedAll: boolean = false;
@@ -62,20 +59,16 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.listThanhToanThuTuc.length);
-    
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listThanhToanThuTuc.length;
-    if(this.listThuTucThanhToan_ref != undefined && this.listThuTucThanhToan_ref!= null)
+    if(this.listHangHoa != undefined && this.listHangHoa!= null)
     {
-      for(let i = 0; i < this.listThuTucThanhToan_ref.length; i++){
-        console.log(this.listThuTucThanhToan_ref[i])
+      for(let i = 0; i < this.listHangHoa.length; i++){
+        console.log(this.listHangHoa[i])
         let itemFind = this.listThanhToanThuTuc.find(
-          ele => (ele.IddmItem === this.listThuTucThanhToan_ref[i].IddmItem )
-          
+          ele => (ele.IddmItem === this.listHangHoa[i].iddmItem )
          )
-          
-      
         if(validVariable(itemFind)){
           itemFind.checked = true;
         }
@@ -85,15 +78,10 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
     this.item.listThuTucThanhToan_ref_copy = this.listThanhToanThuTuc;
   }
   checkAll(e) {
-    if (e.checked) {
-      this.listThanhToanThuTuc.forEach(item => {
-        item.checked = true;
-      });
-    } else {
-      this.listThanhToanThuTuc.forEach(item => {
-        item.checked = false;
-      });
-    }
+    this.listThanhToanThuTuc.forEach(item => {
+      item.checked = e.checked;
+      this.checkItem(item)
+    });
   }
 
   changePage(event) {
@@ -106,13 +94,7 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
     this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref_copy.slice(start,end);
   }
   accept() {
-    let itemFind: any = this.listThanhToanThuTuc.filter(function (obj) {
-      return obj.checked == true;
-    });
-    console.log(itemFind);
-    this.activeModal.close(
-     { data: itemFind}
-    );
+    this.activeModal.close(this.listHangHoa)
   }
   filtertable_add() {
     if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
@@ -146,4 +128,32 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
     this.KeyWord = '';
     this.filtertable_add();
   }
+  
+checkItem(item){
+if(item.checked == true)
+{
+  let itemFind: any = this.listHangHoa.filter((e: any) =>e.iddmItem === item.Id)[0]
+  if(itemFind === undefined){
+    let itemFinds = this.listThanhToanThuTuc.find(e => e.checked === true && e.Id === item.Id);
+    itemFinds = {
+      idHopDong: this.IdQuyTrinh || '',
+      iddmItem: itemFinds.Id,
+      tendmMatHang: itemFinds.Ten,
+      iddmLoaiSoi: itemFinds.IddmLoaiSoi,
+      tendmLoaiSoi: itemFinds.TendmLoaiSoi,
+      isXoa: false,
+      id: '',
+    }
+    this.listHangHoa.push(itemFinds)
+  }
+  else
+    itemFind.isXoa = false;
+}
+  else{
+    let itemFind = this.listHangHoa.filter((e: any) =>e.IddmItem === item.id)[0];
+    if(itemFind !== undefined){
+      itemFind.isXoa = true;
+    }
+  }
+}
 }

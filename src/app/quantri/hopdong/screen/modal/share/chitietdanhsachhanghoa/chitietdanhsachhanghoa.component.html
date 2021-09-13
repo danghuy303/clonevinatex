@@ -31,7 +31,7 @@
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Sai lệch (%):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [(ngModel)]="item.saiLech" [minFractionDigits]="2" locale="vi-VN" (ngModelChange)="item.saiLech = FormatNumber($event)">
+        <p-inputNumber [(ngModel)]="item.saiLech" [minFractionDigits]="2" locale="vi-VN" (ngModelChange)="item.saiLech = dinhDangSo($event)">
         </p-inputNumber>
       </div>
     </div>
@@ -48,7 +48,7 @@
       <label class="p-col-12 p-xl-4 p-lg-5 p-p-0 my-auto">Thuế GTGT (%):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
         <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.thueGTGT" locale="vi-VN"
-        (ngModelChange)="item.thueGTGT = FormatNumber($event)">
+        (ngModelChange)="item.thueGTGT = dinhDangSo($event)">
         </p-inputNumber>
       </div>
     </div>
@@ -71,7 +71,7 @@
     <div class="p-col-12 p-xl-4 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Sai lệch(%):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="hopDong.saiLech" (ngModelChange)="hopDong.saiLech = FormatNumber($event)"> </p-inputNumber>
+        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="hopDong.saiLech" (ngModelChange)="hopDong.saiLech = dinhDangSo($event)"> </p-inputNumber>
       </div>
     </div>
   </div>
@@ -104,17 +104,18 @@
           class="p-button-sm p-mr-2"></button>
         <div></div>
       </div>
-      <p-table [value]="listTieuChuanChatLuong | isXoa"
-        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines" [scrollable]="true">
+      <p-table [value]="listHangHoaSoi|isXoa"
+        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
         <ng-template pTemplate="colgroup">
           <colgroup>
             <col style="width: 100px" />
-            <col style="width: 100px" />
-            <col style="width: 100px" />
-            <col style="width: 100px" />
-            <col style="width: 100px" />
-            <col style="width: 100px" />
-            <col style="width: 100px" />
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
           </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -126,21 +127,34 @@
             <th class="text-center">Thành tiền</th>
             <th class="text-center">Quy cách đóng gói</th>
             <th class="text-center">Ghi chú</th>
+            <th class="text-center"></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
           <tr>
             <td class="text-center">{{ i + 1 }}</td>
-            <td class="text-center">{{ item.dacTinh }}</td>
-            <td class="text-center">{{ item.donVi }}</td>
-            <td class="text-center">{{ item.tieuChuan }}</td>
-            <td class="text-center">{{ item.ketQua }}</td>
-            <td class="text-center">{{ item.GhiChu }}</td>
+            <td class="text-center">{{ item.tendmLoaiSoi }}</td>
+            <td class="text-center">
+              <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.soLuong" locale="vi-VN"
+        (ngModelChange)="item.soLuong = dinhDangSo($event)">
+        </p-inputNumber>
+              </td>
+            <td class="text-center">
+              <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.donGia" locale="vi-VN"
+        (ngModelChange)="item.donGia = dinhDangSo($event)">
+        </p-inputNumber>
+            </td>
+            <td class="text-right">{{(item.soLuong||0)*(item.donGia||0)|number:'0.0'}}</td>
+            <td class="text-center">
+              <p-dropdown [filter]="true" [(ngModel)]="item.iddmQuyCachDongGoi" [options]="listdmQuyCachDongGoi"
+              placeholder="Chọn quy cách" styleClass="p-inputtext-sm"></p-dropdown></td>
+            <td class="text-center">        
+              <input type="text" [(ngModel)]="item.ghiChu" class="p-inputtext-sm" pInputText />
+            </td>
 
-            <!-- <td class="text-center date">
-                            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="edit(item, i)"></button>
+            <td class="text-center">
                             <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-text p-button-sm p-button-secondary" (click)="delete(i)"></button>
-                        </td> -->
+                        </td>
           </tr>
         </ng-template>
       </p-table>
