@@ -474,6 +474,7 @@ export class SanXuatService {
     }
     SetLoBong(data) {
         let url = API.SCMDanhMuc + 'SetLoBong';
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(url, data, httpOptions);
     }
     DeleteLoBong(data) {
@@ -482,6 +483,7 @@ export class SanXuatService {
     }
     CopyLoBong(data) {
         let url = API.SCMDanhMuc + 'CopyLoBong';
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(url, data, httpOptions);
     }
     getLoBong(Id) {

@@ -6,17 +6,16 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
-import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
-import {MultiSelectModule} from 'primeng/multiselect';
 
 @Component({
-  selector: 'app-quytrinhthanhtoanbongmodal',
-  templateUrl: './quytrinhthanhtoanbongmodal.component.html',
-  styleUrls: ['./quytrinhthanhtoanbongmodal.component.css']
+  selector: 'app-thanhtoanhopdongsoimodal',
+  templateUrl: './thanhtoanhopdongsoimodal.component.html',
+  styleUrls: ['./thanhtoanhopdongsoimodal.component.css']
 })
-export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
+export class ThanhtoanhopdongsoimodalComponent implements OnInit {
 
+ 
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -36,13 +35,13 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   listIdThanhToanInvoice: any = [];
   IdDuAn: any = 0;
   listLoaiThanhToan: any = [{label: 'Thanh toán theo kế hoạch thanh toán',value: 1},
-  {label: 'Thanh toán theo invoice', value: 2}];
+  {label: 'Thanh toán theo đợt xuất hàng', value: 2}];
   userInfo: any;
 
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService, private _auth: AuthenticationService,
-    private _dmhopdong: DanhMucHopDongService,private _hopdong: HopDongService,) {
+    private _hopdong: HopDongService,) {
       this.userInfo = this._auth.currentUserValue;
   }
 

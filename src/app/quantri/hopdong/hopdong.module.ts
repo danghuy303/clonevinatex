@@ -138,6 +138,8 @@ import { QuytrinhthanhtoanbongmodalComponent } from './screen/thanhtoanbong/quyt
 import { ModaldongiakehoachthucteComponent } from './kehoachkinhdoanh/modal/modaldongiakehoachthucte/modaldongiakehoachthucte.component';
 import { DanhsachtinhluongComponent } from './danhsach/danhsachtinhluong/danhsachtinhluong.component';
 import { ModaldanhsachtinhluongComponent } from './danhsach/modal/modaldanhsachtinhluong/modaldanhsachtinhluong.component';
+import { ThanhtoanhopdongsoiComponent } from './screen/thuchienhopdong/thanhtoanhopdongsoi/thanhtoanhopdongsoi.component';
+import { ThanhtoanhopdongsoimodalComponent } from './screen/thuchienhopdong/thanhtoanhopdongsoi/thanhtoanhopdongsoimodal/thanhtoanhopdongsoimodal.component';
 
 
 
@@ -362,6 +364,20 @@ TheodoihopdongnhapkhauComponent,
 
     ModaldanhsachtinhluongComponent,
 
+   
+   
+   
+  
+
+    ThanhtoanhopdongsoiComponent,
+
+   
+   
+   
+  
+
+    ThanhtoanhopdongsoimodalComponent,
+
 
 
   ],
@@ -459,16 +475,13 @@ TheodoihopdongnhapkhauComponent,
     ChitietnhapkhoComponent,
     ChitietxuatkhothanhphamhopdongComponent,
     XuatthanhphammathangmodalComponent,
-
-
     ModalkehoachkinhdoanhchitiettaomoiComponent,
     ModalkehoachkinhdoanhtheodoiComponent,
     DmtieuchichatluonghopdongmodalComponent,
     QuytrinhthanhtoanbongmodalComponent,
     ModaldongiakehoachthucteComponent,
-
-    
     ModaldanhsachtinhluongComponent,
+    ThanhtoanhopdongsoimodalComponent,
  
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

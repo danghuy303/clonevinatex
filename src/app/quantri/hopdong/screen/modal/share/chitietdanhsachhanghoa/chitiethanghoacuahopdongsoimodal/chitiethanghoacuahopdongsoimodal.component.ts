@@ -14,7 +14,7 @@
 
 // }
 
-import { validVariable } from 'src/app/services/globalfunction';
+import { deepCopy, validVariable } from 'src/app/services/globalfunction';
 
 
 import { Component, OnInit } from '@angular/core';
@@ -30,6 +30,7 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
   item: any = {};
   listThanhToanThuTuc: any = [];
   listHangHoa: any = [];
+  listHangHoaGoc: any = [];
   IdQuyTrinh : any = '';
   cols: any = [
     {
@@ -59,6 +60,8 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.listThanhToanThuTuc.length);
+    this.listHangHoaGoc = deepCopy(this.listHangHoa);
+
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listThanhToanThuTuc.length;
@@ -140,7 +143,8 @@ if(item.checked == true)
       iddmItem: itemFinds.Id,
       tendmMatHang: itemFinds.Ten,
       iddmLoaiSoi: itemFinds.IddmLoaiSoi,
-      tendmLoaiSoi: itemFinds.TendmLoaiSoi,
+      // tendmMatHang: itemFinds.Ten,
+      madmMatHang: itemFinds.Ma,
       isXoa: false,
       id: '',
     }
@@ -155,5 +159,9 @@ if(item.checked == true)
       itemFind.isXoa = true;
     }
   }
+}
+Onclose() {
+  this.activeModal.close(this.listHangHoaGoc)
+
 }
 }
