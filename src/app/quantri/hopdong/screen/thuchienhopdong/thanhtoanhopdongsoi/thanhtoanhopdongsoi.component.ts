@@ -6,15 +6,14 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, formatdate, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 import { StoreService } from 'src/app/services/store.service';
-import { QuytrinhthanhtoanbongmodalComponent } from '../quytrinhthanhtoanbongmodal/quytrinhthanhtoanbongmodal.component';
+import { ThanhtoanhopdongsoimodalComponent } from './thanhtoanhopdongsoimodal/thanhtoanhopdongsoimodal.component';
 
 @Component({
-  selector: 'app-quytrinhthanhtoanbong',
-  templateUrl: './quytrinhthanhtoanbong.component.html',
-  styleUrls: ['./quytrinhthanhtoanbong.component.css']
+  selector: 'app-thanhtoanhopdongsoi',
+  templateUrl: './thanhtoanhopdongsoi.component.html',
+  styleUrls: ['./thanhtoanhopdongsoi.component.css']
 })
-export class QuytrinhthanhtoanbongComponent implements OnInit {
-
+export class ThanhtoanhopdongsoiComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
@@ -82,7 +81,6 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
     this.KiemTraTabTrangThai();
   }
   ngOnDestroy() {
-    // this.suber.unsubscribe();
     this.IdDuAn = this.store.getCurrent();
     this._service.GetOptions().GetDanhSachHopDongByNhaThau(this.IdDuAn).subscribe((res: any) => {
       this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
@@ -92,12 +90,12 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
     if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/hopdongsanxuat/quytrinhthanhtoanbong/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/hopdongsanxuat/quytrinhthanhtoansoi/${id}`], { replaceUrl: true })
   }
   
   addPhieu() {
     this.changeParam(0);
-    let modalRef = this._modal.open(QuytrinhthanhtoanbongmodalComponent, {
+    let modalRef = this._modal.open(ThanhtoanhopdongsoimodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
@@ -117,7 +115,7 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
   }
  
   update(Id) {
-      let modalRef = this._modal.open(QuytrinhthanhtoanbongmodalComponent, {
+      let modalRef = this._modal.open(ThanhtoanhopdongsoimodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
@@ -186,6 +184,7 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
         DaXyLy:true,
 
       }
+      // this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
   }

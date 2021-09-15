@@ -3,7 +3,7 @@
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mặt hàng:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-dropdown [filter]="true" [(ngModel)]="item.iddmItem" [options]="listLoaiMatHang"
+        <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiBong" [options]="listLoaiMatHang"
           placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"></p-dropdown>
       </div>
     </div>
@@ -48,7 +48,7 @@
       <label class="p-col-12 p-xl-4 p-lg-5 p-p-0 my-auto">Thuế GTGT (%):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
         <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.thueGTGT" locale="vi-VN"
-        (ngModelChange)="item.thueGTGT = dinhDangSo($event)">
+        (ngModelChange)="tinhDonGiaThanhToan()">
         </p-inputNumber>
       </div>
     </div>
@@ -76,27 +76,29 @@
     </div>
   </div>
   <div *ngIf="isXo" class="p-grid">
-    <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row">
-      <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giảm giá:</label>
-      <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.giaTriGiam" locale="vi-VN">
+    <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+      <label class="p-col-12 p-xl-2 p-p-0 my-auto">Giảm giá:</label>
+      <div class="p-col-12 p-xl-10 p-p-0">
+        <p-inputNumber [minFractionDigits]="0" [(ngModel)]="hopDong.giaTriGiam" locale="vi-VN">
         </p-inputNumber>
       </div>
     </div>
-    <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row">
-      <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thành tiền:</label>
-      <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.giaTri" locale="vi-VN">
+    <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+      <label class="p-col-12 p-xl-2 p-p-0 my-auto">Thành tiền:</label>
+      <div class="p-col-12 p-xl-10 p-p-0">
+        <p-inputNumber [minFractionDigits]="0" [(ngModel)]="hopDong.thanhTien" locale="vi-VN" disabled>
         </p-inputNumber>
+        <!-- {{hopDong.thanhTien|number:'0.0'}} -->
       </div>
     </div>
-    <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row">
-      <label class="p-col-12 p-xl-4 p-p-0 my-auto">Làm tròn:</label>
-      <div class="p-col-12 p-xl-8 p-p-0">
+<!--     
+    <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+      <label class="p-col-12 p-xl-2 p-p-0 my-auto">Làm tròn:</label>
+      <div class="p-col-12 p-xl-10 p-p-0">
         <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.giaTriSauLamTron" locale="vi-VN">
         </p-inputNumber>
       </div>
-    </div>
+    </div> -->
 
     <div class="p-my-auto">
       <div class="p-d-flex p-ai-center p-jc-start p-p-3">
@@ -109,7 +111,8 @@
         <ng-template pTemplate="colgroup">
           <colgroup>
             <col style="width: 100px" />
-            <col>
+            <col style="width: 15rem">
+            <col style="width: 15rem">
             <col>
             <col>
             <col>
@@ -121,7 +124,8 @@
         <ng-template pTemplate="header">
           <tr>
             <th class="text-center">STT</th>
-            <th class="text-center">Loại sợi</th>
+            <th class="text-center">Mã mặt hàng</th>
+            <th class="text-center">Tên mặt hàng</th>
             <th class="text-center">Số lượng</th>
             <th class="text-center">Đơn giá(có VAT)</th>
             <th class="text-center">Thành tiền</th>
@@ -133,15 +137,16 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
           <tr>
             <td class="text-center">{{ i + 1 }}</td>
-            <td class="text-center">{{ item.tendmLoaiSoi }}</td>
+            <td class="text-center">{{ item.madmMatHang }}</td>
+            <td class="text-center">{{ item.tendmMatHang }}</td>
             <td class="text-center">
               <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.soLuong" locale="vi-VN"
-        (ngModelChange)="item.soLuong = dinhDangSo($event)">
+        (ngModelChange)="tinhgiaTriHopDongSoi(item)">
         </p-inputNumber>
               </td>
             <td class="text-center">
               <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.donGia" locale="vi-VN"
-        (ngModelChange)="item.donGia = dinhDangSo($event)">
+        (ngModelChange)="tinhgiaTriHopDongSoi(item)">
         </p-inputNumber>
             </td>
             <td class="text-right">{{(item.soLuong||0)*(item.donGia||0)|number:'0.0'}}</td>
@@ -157,8 +162,10 @@
                         </td>
           </tr>
         </ng-template>
+
       </p-table>
     </div>
+    
   </div>
 </p-panel>
 

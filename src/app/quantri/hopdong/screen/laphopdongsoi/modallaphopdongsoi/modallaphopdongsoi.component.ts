@@ -43,13 +43,18 @@ export class ModallaphopdongsoiComponent implements OnInit {
   isSoi :boolean = true
   lang: any = vn;
   isBongXo: boolean = true
-  listdmLoaiSoi : any = [];
+  listdmMatHang : any = [];
   filter: any = {
     keyWord: "",
   };
 
   checkedAll: boolean = false;
-  checkbutton: any = {};
+  checkbutton: any = {
+    Ghi: true,
+    KhongDuyet: false,
+    ChuyenTiep: false,
+    Xoa: false,
+  }
 
   yearRange: string = `${new Date().getFullYear()}:${new Date().getFullYear() + 5
     }`;
@@ -71,10 +76,10 @@ export class ModallaphopdongsoiComponent implements OnInit {
       this.GetNextSoQuyTrinh();
       this.title = 'Thêm mới hợp đồng sợi';
     } else {
-      this._servicesSanXuat.GetListOptdmLoaiSoi().subscribe((res: any) => {
-        this.listdmLoaiSoi = res;  
+      this._servicesSanXuat.GetListdmItemByHangHoa().subscribe((res: any) => {
+        this.listdmMatHang = res;  
       });
-      this.title = "Hợp đồng sợi";
+      this.title = "Chỉnh sửa hợp đồng sợi";
       this.KiemTraButtonModal();
       this.GetQuyTrinh(this.item.hopDong.id);
     }
@@ -97,9 +102,12 @@ export class ModallaphopdongsoiComponent implements OnInit {
       this.item.hopDong.ngayGiaoHang = UnixToDate(this.item.hopDong.ngayGiaoHangUnix);
       if(this.item.listHangHoa.length > 0){
           this.item.listHangHoa.forEach(element => {
-            let itemFind = this.listdmLoaiSoi.filter((e: any) =>e.Id === element.iddmLoaiSoi)[0]
-            if(itemFind !== undefined)
-              element.tendmLoaiSoi = itemFind.Ten;
+            let itemFind = this.listdmMatHang.filter((e: any) =>e.Id === element.iddmItem)[0]
+            if(itemFind !== undefined){
+              element.tendmMatHang = itemFind.Ten;
+              element.madmMatHang = itemFind.Ma;
+            }
+              this.item.hopDong.thanhTien = (this.item.hopDong.thanhTien || 0) + ((element.soLuong || 0)*(element.donGia || 0))
           });
       }
       if (this.item.hopDong.isBenBanChiu) {

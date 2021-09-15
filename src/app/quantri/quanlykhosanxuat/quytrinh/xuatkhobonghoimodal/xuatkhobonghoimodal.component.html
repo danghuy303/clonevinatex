@@ -127,7 +127,7 @@
                         <td style="text-align: center;" >{{itemC.ThuTu}} </td>
                         <td style="text-align: center;" *ngIf="item.isKetThuc!==true">
                             <p-dropdown [filter]="true" [options]="listKien" placeholder="Chọn kiện"
-                            styleClass="p-inputtext-sm" [(ngModel)]="itemC.IddmItem" (onChange)="getTon(item)"></p-dropdown>
+                            styleClass="p-inputtext-sm" [(ngModel)]="itemC.IddmItem" (onChange)="getTon(itemC)"></p-dropdown>
                         </td>
                         <td style="text-align: center;" *ngIf="item.isKetThuc===true">
                             {{itemC.TendmItem}}

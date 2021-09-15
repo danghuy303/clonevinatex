@@ -33,6 +33,7 @@ import { KehoachkinhdoanhdanhsachComponent } from './kehoachkinhdoanh/kehoachkin
 import { DmtieuchichatluonghopdongComponent } from './danhmuc/dmtieuchichatluonghopdong/dmtieuchichatluonghopdong.component';
 import { QuytrinhthanhtoanbongComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbong/quytrinhthanhtoanbong.component';
 import { DanhsachtinhluongComponent } from './danhsach/danhsachtinhluong/danhsachtinhluong.component';
+import { ThanhtoanhopdongsoiComponent } from './screen/thuchienhopdong/thanhtoanhopdongsoi/thanhtoanhopdongsoi.component';
 const routes: Routes = [
   {path:'',component:HopdongComponent},
   {path:'danhmuc/danhmuchinhthucthanhtoan',component:DanhmuchinhthucthanhtoanComponent},
@@ -70,6 +71,7 @@ const routes: Routes = [
   { path: 'laphopdongbongxo/:id', component: LaphopdongbongxoComponent },
   { path: 'laphopdongsoi/:id', component: LaphopdongsoiComponent },
   { path: 'quytrinhthanhtoanbong/:id', component: QuytrinhthanhtoanbongComponent },
+  { path: 'quytrinhthanhtoansoi/:id', component: ThanhtoanhopdongsoiComponent },
 
   //
  
