@@ -33,7 +33,6 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
   listHopDong: any = [];
   listDieuKhoanThanhToan: any = [];
   listThanhToanInvoice: any = [];
-  listIdThanhToanInvoice: any = [];
   IdDuAn: any = 0;
   listLoaiThanhToan: any = [{label: 'Thanh toán theo kế hoạch thanh toán',value: 1},
   {label: 'Thanh toán theo đợt xuất hàng', value: 2}];
@@ -51,10 +50,10 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       this.item = {
         id: '',
-        listFileDinhKem : [],
-        listThanhToanMatHang  : [],
-        listThanhToanThuHoi  : [],
-        listThanhToanInvoice  : [],
+        // listFileDinhKem : [],
+        // listThanhToanMatHang  : [],
+        // listThanhToanThuHoi  : [],
+        // listThanhToanInvoice  : [],
         idDuAn: this.IdDuAn,
       }
       this.GetNextSoQuyTrinh();
@@ -112,15 +111,6 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
   GhiLai() {
     if(this.CheckTruocKhiLuu())
     {
-      this.listIdThanhToanInvoice.forEach(element => {
-        let data = {
-          id : "",
-          idInvoice : element,
-          idHopDong: this.item.idHopDong,
-          idThanhToanQuyTrinh:"",
-        }
-        this.item.listThanhToanInvoice.push(data)
-      });
       this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
       this._hopdong.QuyTrinhThanhToan().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -157,12 +147,12 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
   getQuyTrinh(Id) {
     this._hopdong.QuyTrinhThanhToan().Get(Id).subscribe((res1: any) => {
       this.item=res1.data;
-      this.listIdThanhToanInvoice = []
+      this.item.listThanhToanDotGiaoNhan = []
       if (this.item.ngayThanhToanUnix !== null && this.item.ngayThanhToanUnix !== undefined) {
         this.item.ngayThanhToan = UnixToDate(this.item.ngayThanhToanUnix);
       }
-      this.item.listThanhToanInvoice.forEach(element => {
-        this.listIdThanhToanInvoice.push(element["idInvoice"])
+      this.item.listThanhToanMatHang.forEach(element => {
+        this.item.listThanhToanDotGiaoNhan.push(element["idInvoice"])
       });
       this.KiemTraButtonModal();
       this.getListDieuKhoanThanhToan();
@@ -203,15 +193,15 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
     return true;
   }
   getListItem() {
-    this.item.listThanhToanVatTu=[];
-    this.listIdThanhToanInvoice.forEach(element => {
+    this.item.listThanhToanMatHang=[];
+    this.item.listThanhToanDotGiaoNhan.forEach(element => {
       let data = {
         id : "",
-        idInvoice : element,
+        iddmitem : element,
         idHopDong: "",
         idThanhToanQuyTrinh:"",
       }
-      this.item.listThanhToanVatTu.push(data)
+      this.item.listThanhToanMatHang.push(data)
     });
   }
   

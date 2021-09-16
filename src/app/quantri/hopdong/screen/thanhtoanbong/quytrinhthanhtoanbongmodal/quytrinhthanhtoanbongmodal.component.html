@@ -89,8 +89,8 @@
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-p-0 d-flex flex-column">
-            <p-table [value]="item.listThanhToanVatTu|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+        <div class="p-col-12 p-p-0 d-flex flex-column" *ngIf="item.loaiThanhToan===2">
+            <p-table [value]="item.listThanhToanMatHang|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">

@@ -112,15 +112,6 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   GhiLai() {
     if(this.CheckTruocKhiLuu())
     {
-      this.listIdThanhToanInvoice.forEach(element => {
-        let data = {
-          id : "",
-          idInvoice : element,
-          idHopDong: this.item.idHopDong,
-          idThanhToanQuyTrinh:"",
-        }
-        this.item.listThanhToanInvoice.push(data)
-      });
       this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
       this._hopdong.QuyTrinhThanhToan().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -161,7 +152,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
       if (this.item.ngayThanhToanUnix !== null && this.item.ngayThanhToanUnix !== undefined) {
         this.item.ngayThanhToan = UnixToDate(this.item.ngayThanhToanUnix);
       }
-      this.item.listThanhToanInvoice.forEach(element => {
+      this.item.listThanhToanMatHang.forEach(element => {
         this.listIdThanhToanInvoice.push(element["idInvoice"])
       });
       this.KiemTraButtonModal();
@@ -203,15 +194,15 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
     return true;
   }
   getListItem() {
-    this.item.listThanhToanVatTu=[];
+    this.item.listThanhToanMatHang=[];
     this.listIdThanhToanInvoice.forEach(element => {
       let data = {
         id : "",
-        idInvoice : element,
+        idGiaoKeHoach : element,
         idHopDong: "",
         idThanhToanQuyTrinh:"",
       }
-      this.item.listThanhToanVatTu.push(data)
+      this.item.listThanhToanMatHang.push(data)
     });
   }
 }

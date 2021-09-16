@@ -62,9 +62,9 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.loaiThanhToan === 2">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn invoice :</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn đợt :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-multiSelect [options]="listThanhToanInvoice" [(ngModel)]="listIdThanhToanInvoice " [filter]="true"
+                <p-multiSelect [options]="listThanhToanInvoice" [(ngModel)]="item.listThanhToanDotGiaoNhan" [filter]="true"
                 [ngStyle]="{'width': '450px !important'}"
                 [showToggleAll]="true" (onChange)="getListItem()"></p-multiSelect>
             </div>
@@ -89,11 +89,7 @@
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-p-0 d-flex flex-column">
-            <div class="p-d-flex p-ai-center p-jc-start p-p-3" *ngIf="item.loaiThanhToan===1">
-                <button pButton pRipple label="Thêm mới" (click)="chonMatHang()" icon="pi pi-plus"
-                  class="p-button-sm p-mr-2"></button>
-              </div>
+        <div class="p-col-12 p-p-0 d-flex flex-column" *ngIf="item.loaiThanhToan===2">
             <p-table [value]="item.listThanhToanMatHang|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
