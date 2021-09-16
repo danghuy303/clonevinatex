@@ -90,7 +90,11 @@
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
-            <p-table [value]="item.listThanhToanVatTu|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+            <div class="p-d-flex p-ai-center p-jc-start p-p-3" *ngIf="item.loaiThanhToan===1">
+                <button pButton pRipple label="Thêm mới" (click)="chonMatHang()" icon="pi pi-plus"
+                  class="p-button-sm p-mr-2"></button>
+              </div>
+            <p-table [value]="item.listThanhToanMatHang|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
@@ -120,8 +124,8 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">{{i+1}}</td>
-                        <td class="text-center">{{i+1}}</td>
-                        <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">{{item.madmMatHang}}</td>
+                        <td class="text-center">{{item.tendmMatHang}}</td>
                         <td class="text-center">
                             <input pInputText type="text" [(ngModel)]="item.Ten">
                         </td>

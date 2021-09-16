@@ -103,14 +103,6 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     this.item.giaCif = item.giaCif;
     this.item.tenLoaiBongXo = item.tenLoaiBongXo;
     this.item.iddmLoaiBong = item.iddmLoaiBong;
-    // this._services.GetListdmLoaiBongForHopDong(item.loaiHangHoa).subscribe((res: any) => {
-    //   // res.unshift({ Id: '', Ten: 'Tổng hợp' });
-    //   // this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
-    //   this.listLoaiBong = res;
-    //   let itemLoaiBong = this.listLoaiBong.find(obj => obj.Id === item.iddmLoaiBong);
-    //   this.item.TenLoaiBong = itemLoaiBong.TenLoaiBong;
-    //   this.item.iddmLoaiBong = itemLoaiBong.Id;
-    // })
   }
 
   GetListOptdmCapBong() {

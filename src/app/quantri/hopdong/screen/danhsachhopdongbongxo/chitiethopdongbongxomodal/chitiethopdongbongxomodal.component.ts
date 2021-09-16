@@ -80,7 +80,7 @@ Id:any = "";
       this.title = "Hợp đồng nguyên/vật liệu"
       this.GetQuyTrinh();
     }
-    this._servicesSanXuat.GetListdmLoaiBongForHopDong(this.item.hopDong.loaiHangHoa || 0).subscribe((res: any) => {
+    this._servicesSanXuat.GetListdmLoaiBongForHopDong(this.item.hopDong.loai || 0).subscribe((res: any) => {
       this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
       this.listLoaiMatHang_ref = res;
     })

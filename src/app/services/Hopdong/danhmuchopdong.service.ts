@@ -122,16 +122,15 @@ export class DanhMucHopDongService {
                 return this.http.get(url + `DanhMuc/GetListAlldmLoaiBaoLanh`, httpOptions);
             },
             GetdmTrangThaiBaoLanh: () => {
-                return this.http.get(url + `DanhMuc/GetListAlldmTrangThaiBaoLanh`, httpOptions);
+                return this.http.get(url + `DanhMuc/GetListAlldmTinhTrangBaoLanh`, httpOptions);
             },
             GetList: (data) => {
-                return this.http.get(`${url}DanhMuc/GetListdmTrangThaiBaoLanh?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+                return this.http.get(`${url}DanhMuc/GetListdmTinhTrangBaoLanh?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
-                return this.http.post(`${url}DanhMuc/SetdmTrangThaiBaoLanh`, data, httpOptions)
+                return this.http.post(`${url}DanhMuc/SetdmTinhTrangBaoLanh`, data, httpOptions)
             },
             DeleteList: (data) => {
-                debugger;
                 return this.http.post(`${url}DanhMuc/DeleteListdmTinhTrangBaoLanh`,data,httpOptions)
             },
             Delete:(id)=>{

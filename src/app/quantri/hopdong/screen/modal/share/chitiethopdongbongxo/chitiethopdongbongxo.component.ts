@@ -156,7 +156,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
 
   GetListdmLoaiBongForHopDong() {
     this._servicesSanXuat
-      .GetListdmLoaiBongForHopDong(this.item.loaiHangHoa)
+      .GetListdmLoaiBongForHopDong(this.item.loai)
       .subscribe((res: any) => {
         this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
 

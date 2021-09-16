@@ -7,6 +7,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
+import { ChonmathangthanhtoanhopdongComponent } from '../chonmathangthanhtoanhopdong/chonmathangthanhtoanhopdong.component';
 
 @Component({
   selector: 'app-thanhtoanhopdongsoimodal',
@@ -71,7 +72,7 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
   getListDieuKhoanThanhToan(){
     if(this.item.loaiThanhToan === 1){
       this._hopdong.QuyTrinhHopDong().getListDieuKhoan(this.item.idHopDong).subscribe((res: any) => {
-        this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'soQuyTrinh', 'id');
+        this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'noiDung', 'id');
       })
     }
     else if(this.item.loaiThanhToan === 2){
@@ -212,5 +213,20 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
       }
       this.item.listThanhToanVatTu.push(data)
     });
+  }
+  
+  chonMatHang() {
+    this._services.GetListdmItemByHangHoa().subscribe((res1: any) => {
+      let modalRef = this._modal.open(ChonmathangthanhtoanhopdongComponent, {
+        size: 'lg',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.listMatHang = res1;
+      modalRef.componentInstance.listItem = this.item.listThanhToanMatHang;
+      modalRef.result.then(res => {
+        this.item.listThanhToanMatHang = res;  
+      }).catch(er => { console.log(er) });
+    })
   }
 }

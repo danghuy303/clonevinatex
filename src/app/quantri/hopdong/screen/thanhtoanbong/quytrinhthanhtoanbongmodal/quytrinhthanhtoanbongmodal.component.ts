@@ -72,7 +72,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   getListDieuKhoanThanhToan(){
     if(this.item.loaiThanhToan === 1){
       this._hopdong.QuyTrinhHopDong().getListDieuKhoan(this.item.idHopDong).subscribe((res: any) => {
-        this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'soQuyTrinh', 'id');
+        this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'noiDung', 'id');
       })
     }
     else if(this.item.loaiThanhToan === 2){

@@ -24,12 +24,12 @@ export class HopDongService {
  
    
       GetList: (data) => {
-        data.idDuAn = 53
-        return this.http.post(
-          url + "HopDong/GetListQuyTrinhHopDong",
-          data,
-          httpOptions
-        );
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(url + "HopDong/GetListQuyTrinhHopDong", data,httpOptions);
+      },
+      GetListSoi: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(url + "HopDong/GetListQuyTrinhHopDongSoi", data,httpOptions);
       },
       Get: (Id) => {
         return this.http.get(
