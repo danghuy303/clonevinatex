@@ -954,6 +954,13 @@ export class QuantriComponent implements OnInit {
 
             command: () => this.close(),
           },
+          {
+            label: "Giao kế hoạch sản xuất",
+            routerLink: "/quantri/hopdongsanxuat/giaokehoachsanxuat/0",            
+            command: () => {
+              this.close();
+            },
+          },
         ],
       },
       /////////////      Danh Mục Hợp Đồng
