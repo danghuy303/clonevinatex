@@ -104,6 +104,7 @@ Id:any = "";
       this.item.hopDong.ngayKy = UnixToDate(this.item.hopDong.ngayKyUnix);
       this.item.hopDong.ngayHieuLuc = UnixToDate(this.item.hopDong.ngayHieuLucUnix );
       this.item.hopDong.ngayGiaoHang = UnixToDate(this.item.hopDong.ngayGiaoHangUnix);
+      this.item.hopDong.ngayDuKienVeKho = UnixToDate(this.item.hopDong.ngayDuKienVeKhoUnix);
       if(this.item.listHangHoa.length > 0){
         this.item.listHangHoa[0].DonGiaThanhToan =  (this.item.listHangHoa[0].donGia || 0) * 1.1;
         this.item.listHangHoa[0].giaTriHopDongMatHang =  (this.item.listHangHoa[0].DonGiaThanhToan || 0) * (this.item.listHangHoa[0].soLuong || 0);
@@ -153,6 +154,7 @@ Id:any = "";
     this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
     this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
     this.item.hopDong.ngayGiaoHangUnix = DateToUnix(this.item.hopDong.ngayGiaoHang);
+    this.item.hopDong.ngayDuKienVeKhoUnix = DateToUnix(this.item.hopDong.ngayDuKienVeKho);
     if (this.item.hopDong.BenBanChiu) {
       this.item.hopDong.isBenBanChiu = true;
     }
@@ -200,6 +202,8 @@ Id:any = "";
     this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
     this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
     this.item.hopDong.ngayGiaoHangUnix = DateToUnix(this.item.hopDong.ngayGiaoHang);
+    this.item.hopDong.ngayDuKienVeKhoUnix = DateToUnix(this.item.hopDong.ngayDuKienVeKho);
+
     if (this.item.hopDong.BenBanChiu) {
       this.item.hopDong.isBenBanChiu = true;
     }
@@ -222,6 +226,8 @@ Id:any = "";
     this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
     this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
     this.item.hopDong.ngayGiaoHangUnix = DateToUnix(this.item.hopDong.ngayGiaoHang);
+    this.item.hopDong.ngayDuKienVeKhoUnix = DateToUnix(this.item.hopDong.ngayDuKienVeKho);
+
     if (this.item.hopDong.BenBanChiu) {
       this.item.hopDong.isBenBanChiu = true;
     }
