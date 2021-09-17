@@ -9,7 +9,6 @@ import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { SidebarModule } from 'primeng/sidebar';
 import { PanelMenuModule } from 'primeng/panelmenu';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
@@ -41,81 +40,17 @@ import {ColorPickerModule} from 'primeng/colorpicker';
 // import { FileUploadModule } from 'primeng/fileupload';
 import localeVi from '@angular/common/locales/vi';
 registerLocaleData(localeVi);
-import { QuanlytaisannhadatComponent } from './quanlytaisannhadat/quanlytaisannhadat.component';
-import { ThongTinChungComponent } from './components/thong-tin-chung/thong-tin-chung.component';
-import { HienTrangSuDungComponent } from './components/hien-trang-su-dung/hien-trang-su-dung.component';
-import { ModalThuaDatComponent } from './modal/modal-thua-dat/modal-thua-dat.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TaiSanTrenDatComponent } from './components/tai-san-tren-dat/tai-san-tren-dat.component';
-import { SoDoComponent } from './components/so-do/so-do.component';
-import { TinhTrangPhapLyComponent } from './components/tinh-trang-phap-ly/tinh-trang-phap-ly.component';
-import { HoSoVanBanPhapQuyComponent } from './components/ho-so-van-ban-phap-quy/ho-so-van-ban-phap-quy.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CrudThongTinChungComponent } from './modal/crudcomponents/crud-thong-tin-chung/crud-thong-tin-chung.component';
-import { CrudHsvbPhapQuyComponent } from './modal/crudcomponents/crud-hsvb-phap-quy/crud-hsvb-phap-quy.component';
-import { CrudHienTrangSuDungComponent } from './modal/crudcomponents/crud-hien-trang-su-dung/crud-hien-trang-su-dung.component';
-import { CrudSoDoComponent } from './modal/crudcomponents/crud-so-do/crud-so-do.component';
-import { CrudTaiSanTrenDatComponent } from './modal/crudcomponents/crud-tai-san-tren-dat/crud-tai-san-tren-dat.component';
-import { CrudTinhTrangPhapLyComponent } from './modal/crudcomponents/crud-tinh-trang-phap-ly/crud-tinh-trang-phap-ly.component';
-import { ModalTaiSanTrenDatComponent } from './modal/modal-tai-san-tren-dat/modal-tai-san-tren-dat.component';
-import { ModalHsvbPhapQuyComponent } from './modal/modal-hsvb-phap-quy/modal-hsvb-phap-quy.component';
-import { ModalTinhTrangPhapLyComponent } from './modal/modal-tinh-trang-phap-ly/modal-tinh-trang-phap-ly.component';
-import { ModalGiaDatComponent } from './modal/modal-gia-dat/modal-gia-dat.component';
-import { YeucausapxepComponent } from './sapxepxuly/yeucausapxep/yeucausapxep.component';
-import { QuytrinhsapxepComponent } from './sapxepxuly/quytrinhsapxep/quytrinhsapxep.component';
-import { DmdonviComponent } from './danhmuc/dmdonvi/dmdonvi.component';
-import { DmhinhthucxulyComponent } from './danhmuc/dmhinhthucxuly/dmhinhthucxuly.component';
-import { ModaldmdonviComponent } from './danhmuc/modal/modaldmdonvi/modaldmdonvi.component';
-import { ModaldmhinhthucxulyComponent } from './danhmuc/modal/modaldmhinhthucxuly/modaldmhinhthucxuly.component'
-import { ModaldanhmucchungComponent } from './danhmuc/modal/modaldanhmucchung/modaldanhmucchung.component';
-import { DmtaisanComponent } from './danhmuc/dmtaisan/dmtaisan.component';
-import { TinhtrangtaisanComponent } from './danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
-import { BiendongComponent } from './danhmuc/biendong/biendong.component';
-import { DmmucdichsudungComponent } from './danhmuc/dmmucdichsudung/dmmucdichsudung.component';
-import { DmnguongocdatComponent } from './danhmuc/dmnguongocdat/dmnguongocdat.component';
-import { ModalthongbaoComponent } from './modal/modalthongbao/modalthongbao.component';
-import { ModaldmtaisanComponent } from './danhmuc/modal/modaldmtaisan/modaldmtaisan.component';
 
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModaldanhmucchungComponent } from './danhmuc/modal/modaldanhmucchung/modaldanhmucchung.component';
+import { ModalthongbaoComponent } from './modal/modalthongbao/modalthongbao.component';
 import { Dat09Service } from '../services/callApi';
 import { SignalRService } from '../services/signalR.service';
 import { SanXuatService } from '../services/callApiSanXuat';
-
 import { UploadmodalComponent } from './modal/uploadmodal/uploadmodal.component';
-import { ThongKeThongTinThuaDatComponent } from './components/thong-ke-thong-tin-thua-dat/thong-ke-thong-tin-thua-dat.component';
-import { TinhComponent } from './danhmuc/tinh/tinh.component';
-import { QuanComponent } from './danhmuc/quan/quan.component';
-import { PhuongComponent } from './danhmuc/phuong/phuong.component';
-import { ModaltinhComponent } from './danhmuc/modal/modaltinh/modaltinh.component';
-import { DmcaphangcongtrinhComponent } from './danhmuc/dmcaphangcongtrinh/dmcaphangcongtrinh.component';
-import { ModalquanComponent } from './danhmuc/modal/modalquan/modalquan.component';
-import { ModalphuongComponent } from './danhmuc/modal/modalphuong/modalphuong.component';
-import { ModalcaphangcongtrinhComponent } from './danhmuc/modal/modalcaphangcongtrinh/modalcaphangcongtrinh.component';
-import { ModalphuongansapxepComponent } from './sapxepxuly/modal/modalphuongansapxep/modalphuongansapxep.component';
-import { TheodoithongkebaocaoComponent } from './theodoithongkebaocao/theodoithongkebaocao.component';
-import { Bieu1aComponent } from './baocao/bieu1a/bieu1a.component';
-import { Bieu1bComponent } from './baocao/bieu1b/bieu1b.component';
-import { Bieu1cComponent } from './baocao/bieu1c/bieu1c.component';
-import { Bieu2aComponent } from './baocao/bieu2a/bieu2a.component';
-import { Bieu2bComponent } from './baocao/bieu2b/bieu2b.component';
-import { Bieu3Component } from './baocao/bieu3/bieu3.component';
-import { Bieu4Component } from './baocao/bieu4/bieu4.component';
-import { Bieu5Component } from './baocao/bieu5/bieu5.component';
-import { BaocaochitietcaccosoComponent } from './baocao/baocaochitietcaccoso/baocaochitietcaccoso.component';
-import { ModalchitietthuadatComponent } from './modal/modalchitietthuadat/modalchitietthuadat.component';
-import { ModalquytrinhsapxepComponent } from './sapxepxuly/modal/modalquytrinhsapxep/modalquytrinhsapxep.component';
-import { ModalchonthuadatComponent } from './sapxepxuly/modal/modalchonthuadat/modalchonthuadat.component';
 import { ModaldoimatkhauComponent } from './modal/modaldoimatkhau/modaldoimatkhau.component';
-import { DmhientrangsudungComponent } from './danhmuc/dmhientrangsudung/dmhientrangsudung.component';
-import { DonvisohuudatnhaComponent } from './danhmuc/donvisohuudatnha/donvisohuudatnha.component';
-import { ModaldonvisohuunhadatComponent } from './danhmuc/modal/modaldonvisohuunhadat/modaldonvisohuunhadat.component';
-import { ModalthongtinchothueComponent } from './modal/modalthongtinchothue/modalthongtinchothue.component';
 import { ModalimportexcelComponent } from './modal/modalimportexcel/modalimportexcel.component';
-import { ModaladvancedsearchComponent } from './modal/modaladvancedsearch/modaladvancedsearch.component';
-import { DmloaivanbanComponent } from './danhmuc/dmloaivanban/dmloaivanban.component';
-import { BaocaotaichinhComponent } from './baocao/baocaotaichinh/baocaotaichinh.component';
-import { UploadhdsdComponent } from './uploadhdsd/uploadhdsd.component';
-import { ModalbaocaotonghopComponent } from './modal/modalbaocaotonghop/modalbaocaotonghop.component';
-import { ModalShowgiadatComponent } from './modal/modal-showgiadat/modal-showgiadat.component';
 import { DmkhoComponent } from './danhmuc/dmkho/dmkho.component';
 import { ModaldmkhoComponent } from './danhmuc/modal/modaldmkho/modaldmkho.component';
 import { KiemkekhoComponent } from './quanlykhosanxuat/quytrinh/kiemkekho/kiemkekho.component';
@@ -312,82 +247,17 @@ import { ModaldinhmucmathangtheonamComponent } from './danhmuc/modal/modaldinhmu
 @NgModule({
   declarations: [
     QuantriComponent,
-    DashboardComponent,
-    QuanlytaisannhadatComponent,
-    ThongTinChungComponent,
-    HienTrangSuDungComponent,
-    ModalThuaDatComponent,
-    TaiSanTrenDatComponent,
-    SoDoComponent,
-    TinhTrangPhapLyComponent,
-    HoSoVanBanPhapQuyComponent,
-    CrudThongTinChungComponent,
-    CrudHsvbPhapQuyComponent,
-    CrudHienTrangSuDungComponent,
-    CrudSoDoComponent,
-    CrudTaiSanTrenDatComponent,
-    CrudTinhTrangPhapLyComponent,
-    ModalTaiSanTrenDatComponent,
-    ModalHsvbPhapQuyComponent,
-    ModalTinhTrangPhapLyComponent,
-    ModalGiaDatComponent,
-    YeucausapxepComponent,
-    QuytrinhsapxepComponent,
-    DmdonviComponent,
-    DmhinhthucxulyComponent,
-    ModaldmdonviComponent,
-    ModaldmhinhthucxulyComponent,
     ModaldanhmucchungComponent,
-    DmtaisanComponent,
-    TinhtrangtaisanComponent,
-    BiendongComponent,
-    DmmucdichsudungComponent,
-    DmnguongocdatComponent,
     ModalthongbaoComponent,
-    ModaldmtaisanComponent,
     UploadmodalComponent,
-    ThongKeThongTinThuaDatComponent,
-    TinhComponent,
-    QuanComponent,
-    PhuongComponent,
-    ModaltinhComponent,
-    DmcaphangcongtrinhComponent,
-    ModalquanComponent,
-    ModalphuongComponent,
-    ModalcaphangcongtrinhComponent,
-    ModalphuongansapxepComponent,
-    TheodoithongkebaocaoComponent,
-    Bieu1aComponent,
-    Bieu1bComponent,
-    Bieu1cComponent,
-    Bieu2aComponent,
-    Bieu2bComponent,
-    Bieu3Component,
-    Bieu4Component,
-    Bieu5Component,
-    BaocaochitietcaccosoComponent,
-    ModalchitietthuadatComponent,
-    ModalquytrinhsapxepComponent,
-    ModalchonthuadatComponent,
     ModaldoimatkhauComponent,
-    DmhientrangsudungComponent,
-    DonvisohuudatnhaComponent,
-    ModaldonvisohuunhadatComponent,
-    ModalthongtinchothueComponent,
     ModalimportexcelComponent,
-    ModaladvancedsearchComponent,
-    DmloaivanbanComponent,
-    BaocaotaichinhComponent,
-    UploadhdsdComponent,
-    ModalbaocaotonghopComponent,
-    ModalShowgiadatComponent,
     DmkhoComponent,
     ModaldmkhoComponent,
     KiemkekhoComponent,
     KiemkekhomodalComponent,
     NhapkhoComponent,
     NhapkhomodalComponent,
-  
     PhabongComponent,
     ThongsochatluongComponent,
     ThongsochatluongmodalComponent,
@@ -618,32 +488,11 @@ import { ModaldinhmucmathangtheonamComponent } from './danhmuc/modal/modaldinhmu
     NgxMaskModule.forRoot(),
   ],
   entryComponents: [
-    ModalThuaDatComponent,
-    ModalTaiSanTrenDatComponent,
-    ModalHsvbPhapQuyComponent,
-    ModalTinhTrangPhapLyComponent,
-    ModalGiaDatComponent,
-    ModaldmdonviComponent,
-    ModaldmhinhthucxulyComponent,
     ModaldanhmucchungComponent,
     ModalthongbaoComponent,
-    ModaldmtaisanComponent,
     UploadmodalComponent,
-    ModaltinhComponent,
-    ModalquanComponent,
-    ModalphuongComponent,
-    ModalcaphangcongtrinhComponent,
-    ModalphuongansapxepComponent,
-    ModalchitietthuadatComponent,
-    ModalquytrinhsapxepComponent,
-    ModalchonthuadatComponent,
     ModaldoimatkhauComponent,
-    ModaldonvisohuunhadatComponent,
-    ModalthongtinchothueComponent,
     ModalimportexcelComponent,
-    ModaladvancedsearchComponent,
-    ModalbaocaotonghopComponent,
-    ModalShowgiadatComponent,
     ModaldmkhoComponent,
     KiemkekhomodalComponent,
     NhapkhomodalComponent,
