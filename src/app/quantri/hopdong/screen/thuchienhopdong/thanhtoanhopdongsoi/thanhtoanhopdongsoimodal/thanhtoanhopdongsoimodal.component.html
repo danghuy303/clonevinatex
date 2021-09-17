@@ -123,51 +123,23 @@
                         <td class="text-center">{{item.madmMatHang}}</td>
                         <td class="text-center">{{item.tendmMatHang}}</td>
                         <td class="text-center">
-                            <input pInputText type="text" [(ngModel)]="item.Ten">
+                            {{item.soKien}}
                         </td>
                         <td class="text-center">
-                            <input pInputText type="text" [(ngModel)]="item.Ten">
+                            {{item.soLuongDaThanhToan}}
                         </td>
                         <td class="text-center">
-                            <input pInputText type="text" [(ngModel)]="item.Ten">
+                            {{item.soLuong}}
                         </td>
                         <td class="text-center">
-                            <input pInputText type="text" [(ngModel)]="item.Ten">
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoCan">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.soLuongThanhToan">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
-                            </p-inputNumber>
+                            {{item.donGia}}
                         </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="footer">
-                    <tr *ngIf="false">
-                        <td>
-                        </td>
-                        <td>
-                        </td><td>
-                        </td><td>
-                        </td><td>
-                        </td><td>
-                        </td>
-                        <td>
-                            <input pInputText type="text" [(ngModel)]="newTableItem.Ten">
-                        </td>
-                        <td>
-                            <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoCan">
-                                </p-inputNumber>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKien" [min]="0">
-                                </p-inputNumber>
-                            </div>
+                        <td class="text-center">
+                            {{item.thanhTien}}
                         </td>
                     </tr>
                 </ng-template>

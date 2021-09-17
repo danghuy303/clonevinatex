@@ -101,18 +101,9 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
   }
   filtertable_add() {
     if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
-      this.item.listThuTucThanhToan_ref_copy = this.listThanhToanThuTuc;
+      this.item.listThuTucThanhToan_ref_copy = deepCopy(this.listThanhToanThuTuc);
       let filter: any = this.item.listThuTucThanhToan_ref_copy.filter(
-        ele=>ele.ten.toLowerCase().includes(this.KeyWord.toLowerCase())
-        // obj => {
-        // if(obj.Ten === "CD 23"){
-        //   debugger
-
-        // }
-        // let Ten = obj.Ten.toLowerCase();
-        // let indexOf = Ten.includes(this.KeyWord.toLowerCase());
-        // return indexOf != false
-      // }
+        ele=>ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase()) || ele.Ma.toLowerCase().includes(this.KeyWord.toLowerCase())
       );
       console.log(filter)
       this.item.listThuTucThanhToan_ref = filter;

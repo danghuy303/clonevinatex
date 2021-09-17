@@ -50,10 +50,10 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       this.item = {
         id: '',
-        // listFileDinhKem : [],
-        // listThanhToanMatHang  : [],
-        // listThanhToanThuHoi  : [],
-        // listThanhToanInvoice  : [],
+        listFileDinhKem : [],
+        listThanhToanMatHang  : [],
+        listThanhToanThuHoi  : [],
+        listThanhToanDotGiaoNhan  : [],
         idDuAn: this.IdDuAn,
       }
       this.GetNextSoQuyTrinh();
