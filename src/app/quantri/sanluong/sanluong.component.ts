@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
-import { TinhtrangtaisanComponent } from '../danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
 
 @Component({
   selector: 'app-sanluong',
