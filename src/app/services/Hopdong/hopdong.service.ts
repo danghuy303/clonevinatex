@@ -37,12 +37,6 @@ export class HopDongService {
           httpOptions
         );
       },
-      GetListVatTu: (IdHopDong) => {
-        return this.http.get(
-          url + `HopDong/GetListHopDongVatTu?IdHopDong=${IdHopDong}`,
-          httpOptions
-        );
-      },
       Set: (data) => {
         return this.http.post(
           url + "HopDong/SetQuyTrinhHopDong",
@@ -317,6 +311,11 @@ export class HopDongService {
       getListInvoice: (IdHopDong) => {
         return this.http.get(
           url + `ThanhToan/GetListInvoiceHopDong?IdHopDong=${IdHopDong}`,httpOptions
+        );
+      },
+      GetListInvoiceHopDongChiTiet: (data) => {
+        return this.http.post(
+          url + 'ThanhToan/GetListInvoiceHopDongChiTiet', data,httpOptions
         );
       },
     };

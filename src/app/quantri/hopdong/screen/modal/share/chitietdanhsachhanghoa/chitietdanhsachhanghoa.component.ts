@@ -46,6 +46,8 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   listThanhToanThuTuc: any = []
   listKeHoachNhapBong: any = []
   listdmQuyCachDongGoi: any = [];
+  listdmCapBong: any = [];
+  listdmDacTinh: any = [];
   // listLoaiMatHang: any = [];
 
   @Output() newItemEvent = new EventEmitter<string>();
@@ -60,6 +62,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   ngOnInit(): void {
     this.GetOptions()
     this.tinhDonGiaThanhToan();
+    this.getlistCapBong();
     // if (this.opt === "edit") {
     //   if (this.hopDong.isBenBanChiu) {
     //     this.hopDong.BenBanChiu = this.hopDong.isBenBanChiu;
@@ -122,6 +125,15 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     this._servicesSanXuat.dmQuyCachDongGoi().GetList().subscribe((res: any) => {
         this.listdmQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
       });
+      
+      this._servicesSanXuat.GetListOptdmCapBong().subscribe((res: any) => {
+        this.listdmCapBong = mapArrayForDropDown(res, "Ten", "Id");
+      });
+  }
+  getlistCapBong(){
+    this._servicesSanXuat.dmDacTinhBong().GetDacTinh(this.item.iddmLoaiBong || '', this.item.iddmCapBong || '').subscribe((res: any) => {
+      this.listdmDacTinh = mapArrayForDropDown(res, "Ten", "Id");
+    });
   }
 
   add() {
