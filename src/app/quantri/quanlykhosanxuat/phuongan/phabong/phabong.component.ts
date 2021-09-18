@@ -21,21 +21,11 @@ export class PhabongComponent extends StoreBase implements OnInit,OnDestroy {
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
-    // {
-    //   header: 'Khối lượng bông (Tấn)',
-    //   field: 'KhoiLuongBong',
-    //   width: 'unset'
-    // },
     {
       header: "Trạng thái",
       field: "TenTrangThai",
       width: "unset",
     },
-    // {
-    //   header: 'Ghi chú',
-    //   field: 'GhiChu',
-    //   width: 'unset'
-    // },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   eAction = "PHUONGANPHABONG";
@@ -49,15 +39,11 @@ export class PhabongComponent extends StoreBase implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
-      // console.log(res);
       if (res.id !== "0") {
         this._service
           .PhuongAnPhaBong()
           .Get(res.id)
           .subscribe((res: any) => {
-            // res.listItem.forEach(ele => {
-            //   ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
-            // });
             this.update(res);
           });
       }
@@ -89,14 +75,11 @@ export class PhabongComponent extends StoreBase implements OnInit,OnDestroy {
     };
     modalRef.result
       .then((res: any) => {
-        console.log(res);
         this._toastr.success("Cập nhật thành công");
-        this.GetListQuyTrinh();
-        this.changeParam(0);
       })
-      .catch((er) => {
-        this.changeParam(0);
+      .finally(()=>{
         this.GetListQuyTrinh();
+        this.changeParam(0);
       });
   }
   update(item) {
@@ -108,14 +91,9 @@ export class PhabongComponent extends StoreBase implements OnInit,OnDestroy {
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result
-      .then((res: any) => {
-        // this._toastr.success('Cập nhật thành công');
+      .finally(()=>{
         this.GetListQuyTrinh();
         this.changeParam(0);
-      })
-      .catch((er) => {
-        this.changeParam(0);
-        this.GetListQuyTrinh();
       });
   }
   changeTab(e) {
