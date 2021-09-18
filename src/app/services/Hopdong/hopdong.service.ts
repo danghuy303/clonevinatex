@@ -21,25 +21,19 @@ export class HopDongService {
       GetOptionsVatLieu: () => {
         return this.http.get(url + `DanhMuc/GetListAlldmLoaiNguyenVatLieu`, httpOptions);
       },
- 
-   
+
+
       GetList: (data) => {
         data.idDuAn = this.store.getCurrent();
-        return this.http.post(url + "HopDong/GetListQuyTrinhHopDong", data,httpOptions);
+        return this.http.post(url + "HopDong/GetListQuyTrinhHopDong", data, httpOptions);
       },
       GetListSoi: (data) => {
         data.idDuAn = this.store.getCurrent();
-        return this.http.post(url + "HopDong/GetListQuyTrinhHopDongSoi", data,httpOptions);
+        return this.http.post(url + "HopDong/GetListQuyTrinhHopDongSoi", data, httpOptions);
       },
       Get: (Id) => {
         return this.http.get(
           url + `HopDong/GetQuyTrinhHopDong?Id=${Id}`,
-          httpOptions
-        );
-      },
-      GetListVatTu: (IdHopDong) => {
-        return this.http.get(
-          url + `HopDong/GetListHopDongVatTu?IdHopDong=${IdHopDong}`,
           httpOptions
         );
       },
@@ -266,7 +260,8 @@ export class HopDongService {
   QuyTrinhThanhToan() {
     let url = API.HopDong;
     return {
-      GetList: (data) => {data.idDuAn = 53
+      GetList: (data) => {
+        data.idDuAn = 53
         return this.http.post(
           url + "ThanhToan/GetListQuyTrinh",
           data,
@@ -316,11 +311,26 @@ export class HopDongService {
       },
       getListInvoice: (IdHopDong) => {
         return this.http.get(
-          url + `ThanhToan/GetListInvoiceHopDong?IdHopDong=${IdHopDong}`,httpOptions
+          url + `ThanhToan/GetListInvoiceHopDong?IdHopDong=${IdHopDong}`, httpOptions
+        );
+      },
+      GetListInvoiceHopDongChiTiet: (data) => {
+        return this.http.post(
+          url + 'ThanhToan/GetListInvoiceHopDongChiTiet', data,httpOptions
         );
       },
     };
   }
 
-
+  GiaoKeHoachSanXuat() {
+    let url = API.HopDong;
+    return {
+      GetListMatHangGiaoKeHoachSanXuat: (IdDuAn) => {
+        return this.http.get(
+          url + `HopDong/GetListMatHangGiaoKeHoachSanXuat?IdDuAn=${IdDuAn}`,
+          httpOptions
+        );
+      },
+    };
+  }
 }
