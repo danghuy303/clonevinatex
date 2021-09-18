@@ -141,6 +141,7 @@ import { ModaldanhsachtinhluongComponent } from './danhsach/modal/modaldanhsacht
 import { ThanhtoanhopdongsoiComponent } from './screen/thuchienhopdong/thanhtoanhopdongsoi/thanhtoanhopdongsoi.component';
 import { ThanhtoanhopdongsoimodalComponent } from './screen/thuchienhopdong/thanhtoanhopdongsoi/thanhtoanhopdongsoimodal/thanhtoanhopdongsoimodal.component';
 import { ChonmathangthanhtoanhopdongComponent } from './screen/thuchienhopdong/thanhtoanhopdongsoi/chonmathangthanhtoanhopdong/chonmathangthanhtoanhopdong.component';
+import { KehoachsanxuatmodalComponent } from './screen/modal/kehoachsanxuatmodal/kehoachsanxuatmodal.component';
 
 
 
@@ -386,6 +387,13 @@ TheodoihopdongnhapkhauComponent,
 
     ChonmathangthanhtoanhopdongComponent,
 
+   
+   
+   
+  
+
+    KehoachsanxuatmodalComponent,
+
 
 
   ],
@@ -491,6 +499,7 @@ TheodoihopdongnhapkhauComponent,
     ModaldanhsachtinhluongComponent,
     ThanhtoanhopdongsoimodalComponent,
     ChonmathangthanhtoanhopdongComponent,
+    KehoachsanxuatmodalComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
