@@ -7,8 +7,9 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreBase } from 'src/app/services/storebase.class';
-import { KehoachsanxuatmodalComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/kehoachsanxuatmodal/kehoachsanxuatmodal.component';
+// import { KehoachsanxuatmodalComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/kehoachsanxuatmodal/kehoachsanxuatmodal.component';
 import { GiaokehoachsanxuathoanthanhmodalComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/giaokehoachsanxuathoanthanhmodal/giaokehoachsanxuathoanthanhmodal.component';
+import { KehoachsanxuatmodalComponent } from '../../modal/kehoachsanxuatmodal/kehoachsanxuatmodal.component';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
   filter: any = {};
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
-  eAction = 'GIAOKEHOACHSANXUAT';
+  eAction = 'HOPDONGGIAOKEHOACHSANXUAT';
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
@@ -60,7 +61,7 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
     this.GetListQuyTrinh()
   }
   changeParam(id) {
-    this.router.navigate([`quantri/kehoachsanxuat/giaokehoachsanxuat/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/hopdongsanxuat/giaokehoachsanxuat/${id}`], { replaceUrl: true })
   }
   add() {
     this.changeParam(0);
