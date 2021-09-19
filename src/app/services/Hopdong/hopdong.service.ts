@@ -91,7 +91,8 @@ export class HopDongService {
         );
       },
       GetList: (data) => {
-        data.idDuAn = 53
+        data.idDuAn = this.store.getCurrent();
+
         return this.http.post(
           url + "GiaHanHopDong/GetListQuyTrinh",
           data,
@@ -148,7 +149,8 @@ export class HopDongService {
         );
       },
       GetList: (data) => {
-        data.idDuAn = 53
+        data.idDuAn = this.store.getCurrent();
+
         return this.http.post(
           url + "QuyetToan/GetListQuyTrinh",
           data,
@@ -214,7 +216,8 @@ export class HopDongService {
         );
       },
       GetList: (data) => {
-        data.IdDuAn = 53
+        data.idDuAn = this.store.getCurrent();
+
         return this.http.post(
           url + "PhatHopDong/GetListQuyTrinh",
           data,
@@ -225,7 +228,8 @@ export class HopDongService {
         return this.http.get(url + `PhatHopDong/GetById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.idDuAn = 53
+        data.idDuAn = this.store.getCurrent();
+
         return this.http.post(
           url + "PhatHopDong/SetQuyTrinh",
           data,
@@ -261,9 +265,19 @@ export class HopDongService {
     let url = API.HopDong;
     return {
       GetList: (data) => {
-        data.idDuAn = 53
+        data.idDuAn = this.store.getCurrent();
+
         return this.http.post(
           url + "ThanhToan/GetListQuyTrinh",
+          data,
+          httpOptions
+        );
+      },
+      GetListThanhToanSoi: (data) => {
+        data.idDuAn = this.store.getCurrent();
+
+        return this.http.post(
+          url + "ThanhToan/GetListQuyTrinhThanhToanSoi",
           data,
           httpOptions
         );
@@ -281,7 +295,8 @@ export class HopDongService {
         );
       },
       Set: (data) => {
-        // data.idDuAn = 53
+        data.idDuAn = this.store.getCurrent();
+
         return this.http.post(
           url + "ThanhToan/SetQuyTrinh",
           data,

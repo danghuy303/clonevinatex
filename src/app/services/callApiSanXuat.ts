@@ -583,6 +583,9 @@ export class SanXuatService {
             GetDanhSachHopDongByNhaThau: (IdDuAn) => {
                 return this.http.get(`${API.HopDong}HopDong/GetDanhSachHopDongByNhaThau?IdDuAn=${IdDuAn}`, httpOptions)
             },
+            GetDanhSachHopDongByNhaThauSoi: (IdDuAn) => {
+                return this.http.get(`${API.HopDong}HopDong/GetDanhSachHopDongByNhaThauSoi?IdDuAn=${IdDuAn}`, httpOptions)
+            },
             GetMatHangVatTuPhu: () => {
                 return this.http.get(`${API.SCMDanhMuc}GetListdmItemLoaiVatTuPhu`, httpOptions)
             },

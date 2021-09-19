@@ -64,7 +64,7 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.loaiThanhToan === 2">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn đợt :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-multiSelect [options]="listThanhToanInvoice" [(ngModel)]="item.listThanhToanDotGiaoNhan" [filter]="true"
+                <p-multiSelect [options]="listThanhToanInvoice" [(ngModel)]="listIdThanhToanInvoice" [filter]="true"
                 [ngStyle]="{'width': '450px !important'}"
                 [showToggleAll]="true" (onChange)="getListItem()"></p-multiSelect>
             </div>
@@ -120,26 +120,26 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">{{i+1}}</td>
-                        <td class="text-center">{{item.madmMatHang}}</td>
-                        <td class="text-center">{{item.tendmMatHang}}</td>
-                        <td class="text-center">
-                            {{item.soKien}}
+                        <td class="text-center">{{item.madmItem}}</td>
+                        <td class="text-center">{{item.tendmItem}}</td>
+                        <td class="text-right">
+                            {{item.tongSoKien|number:'0.0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.soLuongDaThanhToan|number:'0.0'}}
+                        </td>
+                        <td class="text-right">
+                            {{item.tongKhoiLuong|number:'0.0'}}
                         </td>
                         <td class="text-center">
-                            {{item.soLuongDaThanhToan}}
-                        </td>
-                        <td class="text-center">
-                            {{item.soLuong}}
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.soLuongThanhToan">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.soLuong">
                             </p-inputNumber>
                         </td>
-                        <td class="text-center">
-                            {{item.donGia}}
+                        <td class="text-right">
+                            {{item.donGia|number:'0.0'}}
                         </td>
-                        <td class="text-center">
-                            {{item.thanhTien}}
+                        <td class="text-right">
+                            {{item.donGia*item.soLuong|number:'0.0'}}
                         </td>
                     </tr>
                 </ng-template>
