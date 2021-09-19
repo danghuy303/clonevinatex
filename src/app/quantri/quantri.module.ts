@@ -179,7 +179,7 @@ import { NhapkhobongpheComponent } from './quanlykhosanxuat/nhapkhobongphe/nhapk
 import { NhapkhobongphemodalComponent } from './quanlykhosanxuat/nhapkhobongphemodal/nhapkhobongphemodal.component';
 import { DmkhachhangComponent } from './danhmuc/dmkhachhang/dmkhachhang.component';
 import { DmkhachhangmodalComponent } from './danhmuc/dmkhachhangmodal/dmkhachhangmodal.component';
-import { from } from 'rxjs';
+
 import { NgxMaskModule } from 'ngx-mask';
 import { HoaxaComponent } from './quanlykhosanxuat/phuongan/layoutmodals/hoaxa/hoaxa.component';
 import { LobongComponent } from './danhmuc/lobong/lobong.component';
@@ -434,16 +434,7 @@ import { ModaldinhmucmathangtheonamComponent } from './danhmuc/modal/modaldinhmu
     XuatkhovattuphumodalComponent,
     DinhmucmathangtheonamComponent,
     ModaldinhmucmathangtheonamComponent,
-    
-  
-   
 
-    //....
-    
-
-    //.......
-
-  
   ],
   imports: [
     HttpClientModule,
@@ -588,9 +579,6 @@ import { ModaldinhmucmathangtheonamComponent } from './danhmuc/modal/modaldinhmu
     NhapkhovattuphumodalComponent,
     XuatkhovattuphumodalComponent,
     ModaldinhmucmathangtheonamComponent,
-    
-   
-  
   ],
   providers: [
     SanXuatService,

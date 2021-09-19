@@ -99,11 +99,7 @@ export class DmthongkedienComponent  extends StoreBase implements OnInit,OnDestr
       this.items = res;
       this.items.lstNgay.forEach(element => {
         element.NgayNhap = element.NgayNhapUnix > 0 ? element.NgayNhap : null;
-        // element.NgayNhap = element.NgayNhapUnix > 0 ? UnixToDate(element.NgayNhapUnix) : null;
-        // element.NgayNhap = element.NgayNhapUnix > 0 ? UnixToDate(element.NgayNhapUnix) : null;
-        // element.NgayNhap = element.NgayNhapUnix > 0 ? UnixToDate(element.NgayNhapUnix) : null;
       });
-      // this.paging = res.paging;
     })
   }
   resetFilter() {

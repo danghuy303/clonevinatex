@@ -259,13 +259,6 @@ export class SanluongComponent implements OnInit, OnDestroy {
       Ma: "",
       Ten: ""
     };
-    // this._services.GetOptions().GetMatHang().subscribe((res: any) => {
-    //   res.unshift({ Id: '', Ten: 'Tất cả mặt hàng' });
-    //   this.listMatHang = mapArrayForDropDown(res, 'Ten', 'Id')
-    // });
-    // this._services.GetListdmKho(data).subscribe((res: any) => {
-    //   this.listKho = mapArrayForDropDown(res, 'Ten', 'Id')
-    // });
     this._services.GetOptions().GetPhanXuong().subscribe((res: any) => {
       res.unshift({ Id: '', Ten: 'Tất cả phân xưởng' });
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -274,24 +267,12 @@ export class SanluongComponent implements OnInit, OnDestroy {
     })
     this._services.GetListCongDoan().subscribe((res: any) => {
       this.listCongDoan = mapArrayForDropDown(res, "Ten", 'Ma')
-      // this.listCongDoan.unshift({ label: 'Tất cả công đoạn', value: '' })
-      // console.log(this.CongDoan);
       if (this.CongDoan !== null) {
         this.filter.CongDoan = this.CongDoan
       } else {
         this.filter.CongDoan = 'ONG';
       }
     });
-    // this._services.GetListdmMay(data).subscribe((res: any) => {
-    //   this.listMay = mapArrayForDropDown(res, "Ma", 'Id')
-    // });
-    // this._services.GetListOptdmCaSanXuat().subscribe((res: any) => {
-    //   this.listCaLamViec = mapArrayForDropDown(res, "Ten", 'Id')
-    // });
-    // this._services.GetListdmLoaiBong(data).subscribe((res: any) => {
-    //   res.unshift({ Id: '', Ten: 'Tổng hợp' });
-    //   this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
-    // })
   }
   GetMatHang(reset?: any) {
     this._services.DashBoard().GetListdmItemTheoPhanXuong_DashboardSanLuong(this.filter).subscribe((res1: any) => {
