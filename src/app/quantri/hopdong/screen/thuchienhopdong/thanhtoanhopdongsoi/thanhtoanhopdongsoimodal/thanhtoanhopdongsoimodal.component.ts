@@ -210,7 +210,7 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
       let item: any = this.listThanhToanInvoiceFull.filter(e=> e.idPhieuXuatThanhPham == element)
       if(item!== undefined){
         let itempush: any = {
-          ma: element,
+          idPhieuXuatThanhPham: element,
         }
         this.item.listThanhToanDotGiaoNhan.push(itempush);
       }
@@ -221,6 +221,7 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
       res.data.forEach(element => {
         let itempush: any = {
           id:'',
+          iddmItem: element.iddmItem,
           madmItem: element.madmItem,
           tendmItem: element.tendmItem,
           soContainer: element.soContainer,
