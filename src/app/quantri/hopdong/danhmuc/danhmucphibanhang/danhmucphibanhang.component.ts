@@ -4,6 +4,9 @@ import { ToastrService } from 'ngx-toastr';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { ModaldanhmucphibanhangComponent } from '../modal/modaldanhmucphibanhang/modaldanhmucphibanhang.component';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { ConstantPool } from '@angular/compiler';
 
 
 @Component({
@@ -34,7 +37,7 @@ export class DanhmucphibanhangComponent implements OnInit {
     },
     {
       header: 'Loại nội địa - xuất khẩu',
-      field: 'LoaiXuatKhauNoiDia',
+      field: 'TenNoi',
       width: '300px',
       align:'center'
     },
@@ -52,10 +55,13 @@ export class DanhmucphibanhangComponent implements OnInit {
     }
   ];
   selectedItems:any=[];
-  constructor(private _modal:NgbModal,private _danhMucHopDong:DanhMucHopDongService,private _toastr:ToastrService) { }
+  listLoai: any=[];
+  constructor(private _modal:NgbModal,private _danhMucHopDong:DanhMucHopDongService,private _toastr:ToastrService,
+    private _services: SanXuatService,) { }
 
   ngOnInit(): void {
-    this.GetListdmChiPhiBanHang();
+    
+    this.GetListNoiDiaXuatKhau();
   }
   resetFilter(){
     this.keyWord = '';
@@ -74,10 +80,25 @@ export class DanhmucphibanhangComponent implements OnInit {
       ten:""    
     };
     this. _danhMucHopDong. DanhMucChiPhiBanHang().GetList(data).subscribe((res:any)=>{
+      res.Data.Items.forEach(obj=>{  
+        console.log(obj)          
+        obj.TenNoi = this.listLoai.find(ele=>ele.value===obj.LoaiXuatKhauNoiDia)?.label||null;            
+      });
       this.items = res.Data.Items;
       this.paging.TotalItem = res.Data.TotalCount;
+      console.log(this.listLoai);
+      
+     
     })
   }
+  GetListNoiDiaXuatKhau() {
+    this._services.GetOptions().GetDanhMucNoiDiaXuatKhau().subscribe((res: any) => {
+
+      this.listLoai = mapArrayForDropDown(res.Data.Items, 'Ten', 'Id');
+      this.GetListdmChiPhiBanHang();
+    })
+  }
+  
   add(){
     let modalRef = this._modal.open(ModaldanhmucphibanhangComponent,{
       backdrop:'static'
@@ -106,8 +127,7 @@ export class DanhmucphibanhangComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res=>{
-      // const item=this.selectedItems[0];    
+    modalRef.result.then(res=>{ 
       this._danhMucHopDong.DanhMucChiPhiBanHang().Delete(item.Id).subscribe((res: any) => {
         if (res) {
           if (res.StatusCode === 200) {
@@ -120,26 +140,7 @@ export class DanhmucphibanhangComponent implements OnInit {
       })
     }).catch(er=>console.log(er))
   }
-  // deleteAll(){
-  //   let modalRef = this._modal.open(ModalthongbaoComponent,{
-  //     backdrop:'static'
-  //   });
-  //   modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-  //   const listId=this.selectedItems.map(({id}) => id);
-  //   modalRef.result.then(res=>{  
-  //     this._danhMucHopDong.DanhMucLoaiHopDong().DeleteList(listId).subscribe((res: any) => {
-  //       if (res) {
-  //         if (res.statusCode === 200) {
-  //           this._toastr.success(res.message);
-  //           this.GetListdmPhiBanHang();
-  //           this.selectedItems = [];
-  //         } else {
-  //          this._toastr.error(res.message);
-  //         }
-  //       }
-  //     })
-  //   }).catch(er=>console.log(er))
-  // }
+ 
   changePage(event){
     this.paging.CurrentPage = event.page+1;
     this.GetListdmChiPhiBanHang()

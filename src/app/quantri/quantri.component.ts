@@ -1043,7 +1043,7 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
-            label: "Phí bán hàng",
+            label: "Chi phí bán hàng",
             routerLink:
             
               "/quantri/hopdongsanxuat/danhmuc/danhmucphibanhang",
@@ -1057,6 +1057,30 @@ export class QuantriComponent implements OnInit {
 
           //   command: () => this.close(),
           // },
+          {
+            label: "Danh sách tính lương",
+            routerLink:
+            
+              "/quantri/hopdongsanxuat/danhmuc/danhsachtinhluong",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Mức lương cơ cấu nhân sự",
+            routerLink:
+            
+              "/quantri/hopdongsanxuat/danhmuc/mucluongcocaunhansu",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí bán hàng theo năm",
+            routerLink:
+            
+              "/quantri/hopdongsanxuat/danhmuc/chiphibanhangtheonam",
+
+            command: () => this.close(),
+          },
         ],
       },
 
