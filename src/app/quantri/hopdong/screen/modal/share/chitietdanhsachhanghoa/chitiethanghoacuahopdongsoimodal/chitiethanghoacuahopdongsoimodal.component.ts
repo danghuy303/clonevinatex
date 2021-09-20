@@ -14,7 +14,7 @@
 
 // }
 
-import { validVariable } from 'src/app/services/globalfunction';
+import { deepCopy, validVariable } from 'src/app/services/globalfunction';
 
 
 import { Component, OnInit } from '@angular/core';
@@ -30,6 +30,7 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
   item: any = {};
   listThanhToanThuTuc: any = [];
   listHangHoa: any = [];
+  listHangHoaGoc: any = [];
   IdQuyTrinh : any = '';
   cols: any = [
     {
@@ -59,6 +60,8 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.listThanhToanThuTuc.length);
+    this.listHangHoaGoc = deepCopy(this.listHangHoa);
+
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listThanhToanThuTuc.length;
@@ -98,18 +101,9 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
   }
   filtertable_add() {
     if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
-      this.item.listThuTucThanhToan_ref_copy = this.listThanhToanThuTuc;
+      this.item.listThuTucThanhToan_ref_copy = deepCopy(this.listThanhToanThuTuc);
       let filter: any = this.item.listThuTucThanhToan_ref_copy.filter(
-        ele=>ele.ten.toLowerCase().includes(this.KeyWord.toLowerCase())
-        // obj => {
-        // if(obj.Ten === "CD 23"){
-        //   debugger
-
-        // }
-        // let Ten = obj.Ten.toLowerCase();
-        // let indexOf = Ten.includes(this.KeyWord.toLowerCase());
-        // return indexOf != false
-      // }
+        ele=>ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase()) || ele.Ma.toLowerCase().includes(this.KeyWord.toLowerCase())
       );
       console.log(filter)
       this.item.listThuTucThanhToan_ref = filter;
@@ -138,9 +132,10 @@ if(item.checked == true)
     itemFinds = {
       idHopDong: this.IdQuyTrinh || '',
       iddmItem: itemFinds.Id,
-      tendmMatHang: itemFinds.Ten,
+      tendmItem: itemFinds.Ten,
       iddmLoaiSoi: itemFinds.IddmLoaiSoi,
-      tendmLoaiSoi: itemFinds.TendmLoaiSoi,
+      // tendmMatHang: itemFinds.Ten,
+      madmItem: itemFinds.Ma,
       isXoa: false,
       id: '',
     }
@@ -155,5 +150,9 @@ if(item.checked == true)
       itemFind.isXoa = true;
     }
   }
+}
+Onclose() {
+  this.activeModal.close(this.listHangHoaGoc)
+
 }
 }

@@ -30,8 +30,6 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     "idKeHoachNhapBong": this.item.Id,
   };
   editTableItem: any = [];
-  listPhuongAnSapXep: any = [];
-  listLoaiBong: any = [];
   listLoBong: any = [];
   listCapBong: any = [];
   listKho: any = [];
@@ -103,14 +101,8 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     let item = this.listhopdong_copy.find(obj => obj.id == this.item.idHopDong);
     this.item.soLuong = item.soLuong;
     this.item.giaCif = item.giaCif;
-    this._services.GetListdmLoaiBongForHopDong(item.loaiHangHoa).subscribe((res: any) => {
-      // res.unshift({ Id: '', Ten: 'Tổng hợp' });
-      // this.listLoaiBong = mapArrayForDropDown(res, "Ten", 'Id');
-      this.listLoaiBong = res;
-      let itemLoaiBong = this.listLoaiBong.find(obj => obj.Id === item.iddmLoaiBong);
-      this.item.TenLoaiBong = itemLoaiBong.TenLoaiBong;
-      this.item.iddmLoaiBong = itemLoaiBong.Id;
-    })
+    this.item.tenLoaiBongXo = item.tenLoaiBongXo;
+    this.item.iddmLoaiBong = item.iddmLoaiBong;
   }
 
   GetListOptdmCapBong() {

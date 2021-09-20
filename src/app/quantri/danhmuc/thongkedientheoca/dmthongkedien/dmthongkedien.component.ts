@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { ModalquanComponent } from 'src/app/quantri/danhmuc/modal/modalquan/modalquan.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, formatdate, UnixToDate } from 'src/app/services/globalfunction';
@@ -100,11 +99,7 @@ export class DmthongkedienComponent  extends StoreBase implements OnInit,OnDestr
       this.items = res;
       this.items.lstNgay.forEach(element => {
         element.NgayNhap = element.NgayNhapUnix > 0 ? element.NgayNhap : null;
-        // element.NgayNhap = element.NgayNhapUnix > 0 ? UnixToDate(element.NgayNhapUnix) : null;
-        // element.NgayNhap = element.NgayNhapUnix > 0 ? UnixToDate(element.NgayNhapUnix) : null;
-        // element.NgayNhap = element.NgayNhapUnix > 0 ? UnixToDate(element.NgayNhapUnix) : null;
       });
-      // this.paging = res.paging;
     })
   }
   resetFilter() {

@@ -6,19 +6,17 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
-import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
-import {MultiSelectModule} from 'primeng/multiselect';
-import { XuatkhohoiamComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/xuatkhohoiam/xuatkhohoiam.component';
-import { XuatkhohoiammodalComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/xuatkhohoiammodal/xuatkhohoiammodal.component';
+import { ChonmathangthanhtoanhopdongComponent } from '../chonmathangthanhtoanhopdong/chonmathangthanhtoanhopdong.component';
 
 @Component({
-  selector: 'app-quytrinhthanhtoanbongmodal',
-  templateUrl: './quytrinhthanhtoanbongmodal.component.html',
-  styleUrls: ['./quytrinhthanhtoanbongmodal.component.css']
+  selector: 'app-thanhtoanhopdongsoimodal',
+  templateUrl: './thanhtoanhopdongsoimodal.component.html',
+  styleUrls: ['./thanhtoanhopdongsoimodal.component.css']
 })
-export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
+export class ThanhtoanhopdongsoimodalComponent implements OnInit {
 
+ 
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -35,29 +33,31 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   listHopDong: any = [];
   listDieuKhoanThanhToan: any = [];
   listThanhToanInvoice: any = [];
-  listThanhToanInvoiceFull: any = [];
-  listIdThanhToanInvoice: any = [];
   IdDuAn: any = 0;
+  listIdThanhToanInvoice: any = [];
+  listThanhToanInvoiceFull: any = [];
   listLoaiThanhToan: any = [{label: 'Thanh toán theo kế hoạch thanh toán',value: 1},
-  {label: 'Thanh toán theo invoice', value: 2}];
+  {label: 'Thanh toán theo đợt xuất hàng', value: 2}];
   userInfo: any;
 
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService, private _auth: AuthenticationService,
-    private _dmhopdong: DanhMucHopDongService,private _hopdong: HopDongService,) {
+    private _hopdong: HopDongService,) {
       this.userInfo = this._auth.currentUserValue;
   }
 
   ngOnInit(): void {
+    console.log(this.item)
     if (this.opt !== 'edit') {
       this.item = {
         id: '',
         listFileDinhKem : [],
         listThanhToanMatHang  : [],
         listThanhToanThuHoi  : [],
-        listThanhToanInvoice  : [],
+        listThanhToanDotGiaoNhan  : [],
         idDuAn: this.IdDuAn,
+        loai:1,
       }
       this.GetNextSoQuyTrinh();
     }
@@ -68,7 +68,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
 
   }
   getListHopDong(){
-    this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn).subscribe((res: any) => {
+    this._services.GetOptions().GetDanhSachHopDongByNhaThauSoi(this.item.idDuAn).subscribe((res: any) => {
       this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
     })
   }
@@ -77,14 +77,14 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
     if(this.item.loaiThanhToan === 1){
       this._hopdong.QuyTrinhHopDong().getListDieuKhoan(this.item.idHopDong).subscribe((res: any) => {
         this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'noiDung', 'id');
+        this.item.listThanhToanMatHang = []
+        this.item.listThanhToanDotGiaoNhan = []
+        this.listIdThanhToanInvoice=[]
       })
-      this.item.listThanhToanMatHang = []
-      this.item.listThanhToanDotGiaoNhan = []
-      this.listIdThanhToanInvoice=[]
     }
     else if(this.item.loaiThanhToan === 2){
       this._hopdong.QuyTrinhThanhToan().getListInvoice(this.item.idHopDong).subscribe((res: any) => {
-        this.listThanhToanInvoice = mapArrayForDropDown(res.data, 'soQuyTrinh', 'ma');
+        this.listThanhToanInvoice = mapArrayForDropDown(res.data, 'soQuyTrinh', 'idPhieuXuatThanhPham');
         this.listThanhToanInvoiceFull = res.data;
       })
     }
@@ -162,7 +162,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
       }
       if(this.item.listThanhToanDotGiaoNhan.length> 0){
         this.item.listThanhToanDotGiaoNhan.forEach(element => {
-          this.listIdThanhToanInvoice.push(element.ma)
+          this.listIdThanhToanInvoice.push(element.idPhieuXuatThanhPham)
         });
       }
       this.KiemTraButtonModal();
@@ -207,10 +207,10 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
     this.item.listThanhToanMatHang=[];
     this.item.listThanhToanDotGiaoNhan=[];
     this.listIdThanhToanInvoice.forEach(element => {
-      let item: any = this.listThanhToanInvoiceFull.filter(e=> e.ma == element)
+      let item: any = this.listThanhToanInvoiceFull.filter(e=> e.idPhieuXuatThanhPham == element)
       if(item!== undefined){
         let itempush: any = {
-          ma: element,
+          idPhieuXuatThanhPham: element,
         }
         this.item.listThanhToanDotGiaoNhan.push(itempush);
       }
@@ -221,7 +221,9 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
       res.data.forEach(element => {
         let itempush: any = {
           id:'',
-          ma: element.soInvoice,
+          iddmItem: element.iddmItem,
+          madmItem: element.madmItem,
+          tendmItem: element.tendmItem,
           soContainer: element.soContainer,
           tongSoKien: element.tongSoKien,
           soLuongDaThanhToan: element.soLuongDaThanhToan,
@@ -231,4 +233,5 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
       });
     })
   }
+  
 }

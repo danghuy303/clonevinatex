@@ -3,18 +3,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, deepCopy, formatdate, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, formatdate, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 import { StoreService } from 'src/app/services/store.service';
-import { QuytrinhthanhtoanbongmodalComponent } from '../quytrinhthanhtoanbongmodal/quytrinhthanhtoanbongmodal.component';
+import { ThanhtoanhopdongsoimodalComponent } from './thanhtoanhopdongsoimodal/thanhtoanhopdongsoimodal.component';
 
 @Component({
-  selector: 'app-quytrinhthanhtoanbong',
-  templateUrl: './quytrinhthanhtoanbong.component.html',
-  styleUrls: ['./quytrinhthanhtoanbong.component.css']
+  selector: 'app-thanhtoanhopdongsoi',
+  templateUrl: './thanhtoanhopdongsoi.component.html',
+  styleUrls: ['./thanhtoanhopdongsoi.component.css']
 })
-export class QuytrinhthanhtoanbongComponent implements OnInit {
-
+export class ThanhtoanhopdongsoiComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
@@ -62,42 +61,41 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
   nametype: any = "";
   suber: any;
 
-  constructor(public _modal: NgbModal, public _toastr: ToastrService,
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, 
     private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private store: StoreService,
-    private _hopdong: HopDongService,) {
-  }
+    private _hopdong: HopDongService, ) {
+     }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
-    this.activatedRoute.params.subscribe((res: any) => {
+    this.activatedRoute.params.subscribe((res:any)=>{
       this.title = res.kho;
-      if (res.id !== '0') {
+      if(res.id!=='0'){
         this.update(res.id);
       }
     })
     this.IdDuAn = this.store.getCurrent();
-    this._service.GetOptions().GetDanhSachHopDongByNhaThau(this.IdDuAn).subscribe((res: any) => {
+    this._service.GetOptions().GetDanhSachHopDongByNhaThauSoi(this.IdDuAn).subscribe((res: any) => {
       this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
     })
     this.KiemTraTabTrangThai();
   }
   ngOnDestroy() {
-    // this.suber.unsubscribe();
     this.IdDuAn = this.store.getCurrent();
-    this._service.GetOptions().GetDanhSachHopDongByNhaThau(this.IdDuAn).subscribe((res: any) => {
+    this._service.GetOptions().GetDanhSachHopDongByNhaThauSoi(this.IdDuAn).subscribe((res: any) => {
       this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
     })
   }
   changeParam(id) {
-    if (this._modal.hasOpenModals()) {
+    if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/hopdongsanxuat/quytrinhthanhtoanbong/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/hopdongsanxuat/quytrinhthanhtoansoi/${id}`], { replaceUrl: true })
   }
-
+  
   addPhieu() {
     this.changeParam(0);
-    let modalRef = this._modal.open(QuytrinhthanhtoanbongmodalComponent, {
+    let modalRef = this._modal.open(ThanhtoanhopdongsoimodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
@@ -108,19 +106,18 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
-      this.changeParam(0);
+    this.changeParam(0);
 
     })
-      .catch(er => {
-        console.log(er)
+      .catch(er => { console.log(er)
         this.GetListQuyTrinh();
-        this.changeParam(0);
-      })
+        this.changeParam(0); })
   }
-
+ 
   update(Id) {
     this._hopdong.QuyTrinhThanhToan().Get(Id).subscribe((res1: any) => {
-      let modalRef = this._modal.open(QuytrinhthanhtoanbongmodalComponent, {
+
+      let modalRef = this._modal.open(ThanhtoanhopdongsoimodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
@@ -133,19 +130,18 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
         this.GetListQuyTrinh();
         this.changeParam(0);
       })
-        .catch(er => {
-          console.log(er)
+        .catch(er => { console.log(er) 
+          this.GetListQuyTrinh();
+          this.changeParam(0);})
+        .finally(()=>{
           this.GetListQuyTrinh();
           this.changeParam(0);
         })
-        .finally(() => {
-          this.GetListQuyTrinh();
-          this.changeParam(0);
-        })
-    })
+      })
+
   }
   changeTab(e) {
-    this.trangThai = e.index + 1;
+    this.trangThai = e.index+1;
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
@@ -162,13 +158,13 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter: this.filter.KeyWord,
-      TuNgay: DateToUnix(this.filter.TuNgay),
+      TuNgay: DateToUnix(this.filter.TuNgay) ,
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
       IdHopDong: this.filter.IdHopDong,
     }
-    this._hopdong.QuyTrinhThanhToan().GetList(data).subscribe((res: any) => {
+    this._hopdong.QuyTrinhThanhToan().GetListThanhToanSoi(data).subscribe((res: any) => {
       this.items = res.data.items;
       if (this.items.length > 0) {
         this.items.forEach(element => {
@@ -185,13 +181,14 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
-      this.checkQuyen = {
-        ThemMoi: true,
-        ChuaXuLy: true,
-        DaXyLy: true,
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+      this.checkQuyen ={
+        ThemMoi:true,
+        ChuaXuLy:true,
+        DaXyLy:true,
 
       }
+      // this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
   }

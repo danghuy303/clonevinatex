@@ -37,8 +37,8 @@
             <colgroup>
                 <col style="width:50px">
                 <col>
-                <col style="width: 200px;">
                 <col>
+                <col style="width: 200px;">
                 <col>
                 <col>
                 <col>
@@ -50,9 +50,9 @@
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">STT</th>
-                <th class="text-center">Sô quy trình</th>
-                <th>Số-Tên HĐ</th>
+                <th class="text-center">Số quy trình</th>
                 <th>Ngày tạo</th>
+                <th>Số-Tên HĐ</th>
                 <th>Ngày ký</th>
                 <th>Giá trị hợp đồng</th>
                 <th>Mặt hàng</th>
@@ -65,8 +65,8 @@
             <tr>
                 <td class="text-center"> {{ 20 * (paging.currentPage - 1) + i + 1 }} </td>
                 <td class="text-center"> {{item.soQuyTrinh}} </td>
-                <td class="text-center">{{item.soHopDong}} - {{item.tenHopDong}} </td>
                 <td class="text-center">{{item.created | date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.soHopDong}} - {{item.tenHopDong}} </td>
                 <td class="text-center">{{item.ngayKy | date:'dd/MM/yyyy'}}</td>
                 <td class="text-right">{{item.giaTri |number:'0.0-3'}}</td>
                 <td class="text-center">{{item.matHang }}</td>

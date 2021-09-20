@@ -132,20 +132,20 @@ export class TheodoihopdongnhapkhauComponent implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.GetListQuyTrinh(data).subscribe((res:any)=>{
-      this.items = res.items;
-      this.paging = res.paging;
-    })
+    // this._service.GetListQuyTrinh(data).subscribe((res:any)=>{
+    //   this.items = res.items;
+    //   this.paging = res.paging;
+    // })
   }
   resetFilter(){
     this.filter={};
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai(){
-    this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
-      this.checkQuyen = res;
-      this.GetListQuyTrinh();
-    })
+    // this._service.KiemTraButtonThemMoi().subscribe((res:any)=>{
+    //   this.checkQuyen = res;
+    //   this.GetListQuyTrinh();
+    // })
   }
 }
 

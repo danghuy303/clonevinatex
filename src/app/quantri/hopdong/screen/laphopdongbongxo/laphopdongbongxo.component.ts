@@ -93,7 +93,6 @@ export class LaphopdongbongxoComponent implements OnInit {
     };
     modalRef.componentInstance.item.hopDong = {
       id: "",
-      Loai: 0
     };
     modalRef.componentInstance.item.listHangHoa = [
       {

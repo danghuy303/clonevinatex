@@ -59,7 +59,6 @@ export class LaphopdongsoiComponent implements OnInit {
       }
     });
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh();
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
@@ -88,7 +87,7 @@ export class LaphopdongsoiComponent implements OnInit {
     };
     modalRef.componentInstance.item.hopDong = {
       id: "",
-      Loai: 2
+      loai: 11
     };
     modalRef.componentInstance.item.listHangHoa = []
     modalRef.result
@@ -167,11 +166,10 @@ export class LaphopdongsoiComponent implements OnInit {
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
-      Loai:2
     };
     this._service
       .QuyTrinhHopDong()
-      .GetList(data)
+      .GetListSoi(data)
       .subscribe((res: any) => {
         this.items = res.data?.items;
         this.paging.TotalItem = res.data?.totalCount;

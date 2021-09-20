@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Quy trình thanh toán bông</h5>
+    <h5 class="modal-title">Quy trình thanh toán sợi</h5>
     <div class="d-flex flex-column flex-lg-row">
         <div>
             <span style="font-weight: bold;">Số phiếu:</span> {{item.soQuyTrinh}}
@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.loaiThanhToan === 2">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn invoice :</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn đợt :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-multiSelect [options]="listThanhToanInvoice" [(ngModel)]="listIdThanhToanInvoice" [filter]="true"
                 [ngStyle]="{'width': '450px !important'}"
@@ -107,8 +107,8 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
-                        <th>Số invoice</th>
-                        <th>Container</th>
+                        <th>Mã mặt hàng</th>
+                        <th>Tên mặt hàng</th>
                         <th>Số kiện (kiện)</th>
                         <th>Số lượng đã thanh toán</th>
                         <th>Số lượng</th>
@@ -120,8 +120,8 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">{{i+1}}</td>
-                        <td class="text-center">{{item.ma}}</td>
-                        <td class="text-right">{{item.soContainer|number:'0.0'}}</td>
+                        <td class="text-center">{{item.madmItem}}</td>
+                        <td class="text-center">{{item.tendmItem}}</td>
                         <td class="text-right">
                             {{item.tongSoKien|number:'0.0'}}
                         </td>

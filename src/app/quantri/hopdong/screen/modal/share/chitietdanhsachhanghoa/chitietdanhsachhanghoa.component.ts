@@ -46,6 +46,8 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   listThanhToanThuTuc: any = []
   listKeHoachNhapBong: any = []
   listdmQuyCachDongGoi: any = [];
+  listdmCapBong: any = [];
+  listdmDacTinh: any = [];
   // listLoaiMatHang: any = [];
 
   @Output() newItemEvent = new EventEmitter<string>();
@@ -60,6 +62,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   ngOnInit(): void {
     this.GetOptions()
     this.tinhDonGiaThanhToan();
+    this.getlistCapBong();
     // if (this.opt === "edit") {
     //   if (this.hopDong.isBenBanChiu) {
     //     this.hopDong.BenBanChiu = this.hopDong.isBenBanChiu;
@@ -122,6 +125,15 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     this._servicesSanXuat.dmQuyCachDongGoi().GetList().subscribe((res: any) => {
         this.listdmQuyCachDongGoi = mapArrayForDropDown(res, "Ten", "Id");
       });
+      
+      this._servicesSanXuat.GetListOptdmCapBong().subscribe((res: any) => {
+        this.listdmCapBong = mapArrayForDropDown(res, "Ten", "Id");
+      });
+  }
+  getlistCapBong(){
+    this._servicesSanXuat.dmDacTinhBong().GetDacTinh(this.item.iddmLoaiBong || '', this.item.iddmCapBong || '').subscribe((res: any) => {
+      this.listdmDacTinh = mapArrayForDropDown(res, "Ten", "Id");
+    });
   }
 
   add() {
@@ -185,14 +197,15 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
       modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;
       modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
       modalRef.result.then(res => {
-        debugger
         this.listHangHoaSoi= res;  
       }).catch(er => { console.log(er) });
     })
   }
   tinhDonGiaThanhToan() {
+    this.item.donGia = this.dinhDangSo(this.item.donGia);
+    this.item.thueGTGT = this.dinhDangSo(this.item.thueGTGT);
     this.item.DonGiaThanhToan = 0;
-    this.item.DonGiaThanhToan = this.item.donGia * 1.1;
+    this.item.DonGiaThanhToan = this.item.donGia *(100 +(this.item.thueGTGT || 0))/100 ;
     this.tinhgiaTriHopDong();
   }
 
@@ -201,5 +214,12 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     this.item.giaTriHopDongMatHang = this.item.DonGiaThanhToan * this.item.soLuong;
     if(this.hopDong.isLayTheoGiaTriHangHoa === true)
       this.hopDong.giaTri = this.item.giaTriHopDongMatHang;
+  }
+  tinhgiaTriHopDongSoi(item) {
+    item.soLuong = this.dinhDangSo(item.soLuong);
+    item.donGia = this.dinhDangSo(item.donGia);
+    this.hopDong.thanhTien = (this.hopDong.thanhTien || 0)+ (item.donGia || 0) * (item.soLuong|| 0);
+    if(this.hopDong.isLayTheoGiaTriHangHoa === true)
+      this.hopDong.giaTri = this.hopDong.thanhTien;
   }
 }

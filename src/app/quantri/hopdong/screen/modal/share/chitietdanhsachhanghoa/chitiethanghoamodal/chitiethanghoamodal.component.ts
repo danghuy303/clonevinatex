@@ -1,4 +1,4 @@
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { vn } from 'src/app/services/const';
 import { DanhMucHopDongService } from './../../../../../../../services/Hopdong/danhmuchopdong.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -23,6 +23,7 @@ export class ChitiethanghoamodalComponent implements OnInit {
   listDieuKhoanThanhToan: any = {};
   IdQuyTrinh: any;
   selectedItems: any = [];
+  selectedItemsGoc: any = [];
   items: any = [];
   checkedAll: boolean = false;
   yearRange: string = `${new Date().getFullYear() - 50
@@ -37,6 +38,7 @@ export class ChitiethanghoamodalComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.selectedItemsGoc = deepCopy(this.selectedItems);
     this._serviceHopDong.QuyTrinhHopDong().GetListAlldmTieuChuanChatLuong().subscribe((res: any) => {
       this.items = res;
       this.items.forEach(obj => {
@@ -92,5 +94,8 @@ if(item.checked == true)
       itemFind.isXoa = true;
     }
   }
+}
+onClose() {
+  this.activeModal.close(this.selectedItemsGoc)
 }
 }

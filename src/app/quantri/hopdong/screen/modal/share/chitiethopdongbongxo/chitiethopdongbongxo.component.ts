@@ -156,7 +156,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
 
   GetListdmLoaiBongForHopDong() {
     this._servicesSanXuat
-      .GetListdmLoaiBongForHopDong(this.item.loaiHangHoa)
+      .GetListdmLoaiBongForHopDong(this.item.loai)
       .subscribe((res: any) => {
         this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
 
@@ -167,8 +167,9 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   }
   LayGiaTriHopDong() {
     if(this.item.isLayTheoGiaTriHangHoa == true)
-      this.item.giaTri = this.hangHoa.giaTriHopDongMatHang || 0
-
+      this.item.giaTri = this.hangHoa.giaTriHopDongMatHang || 0;
+    if(this.isSoi === true)
+      this.item.giaTri = this.item.thanhTien || 0;
   }
   ngOnChanges(changes: SimpleChanges) {
     this.onChangBenA("",true);
@@ -289,10 +290,13 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
     this.item.IsBong = loai;
   }
   chonHopDongGoc(){
-    let itemFind = this.listLoaiHopDongFull.filter(el=> el.id == this.item.iddmLoaiHopDong)
-    if(itemFind!== undefined){
-        if(itemFind[0].ma == "MUA" || itemFind[0].ma == "BAN")
-          this.isHienHopDongGoc = true;
+    if(this.isSoi !== true){
+      let itemFind = this.listLoaiHopDongFull.filter(el=> el.id == this.item.iddmLoaiHopDong)
+      if(itemFind!== undefined){
+          if(itemFind[0].ma == "MUA" || itemFind[0].ma == "BAN")
+            this.isHienHopDongGoc = true;
+      }
     }
+    
   }
 }

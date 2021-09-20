@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Chọn mặt hàng</h5>
+    <h5 class="modal-title">Kế hoạch nhập bông - kế hoạch nhập invoce</h5>
 </div>
 <div class="modal-body">
     <div class="p-grid">
@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            <p-table [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="item.listThuTucThanhToan_ref |filter:KeyWord" styleClass="p-datatable-gridlines p-datatable-sm wrap-text p-datatable-striped">
+            <p-table [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="item.listMatHang_ref |filter:KeyWord" styleClass="p-datatable-gridlines p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
