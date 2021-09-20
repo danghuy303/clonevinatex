@@ -3,17 +3,18 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { ModaldanhsachtinhluongComponent } from '../modal/modaldanhsachtinhluong/modaldanhsachtinhluong.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { ModalchiphibanhangtheonamComponent } from '../../modal/modalchiphibanhangtheonam/modalchiphibanhangtheonam.component';
 
 @Component({
-  selector: 'app-danhsachtinhluong',
-  templateUrl: './danhsachtinhluong.component.html',
-  styleUrls: ['./danhsachtinhluong.component.css']
+  selector: 'app-chiphibanhangtheonam',
+  templateUrl: './chiphibanhangtheonam.component.html',
+  styleUrls: ['./chiphibanhangtheonam.component.css']
 })
-export class DanhsachtinhluongComponent implements OnInit {
+export class ChiphibanhangtheonamComponent implements OnInit {
+
   @ViewChild('paginator') paginator: any;
   items: any = [];
   keyWord:any='';
@@ -27,13 +28,13 @@ export class DanhsachtinhluongComponent implements OnInit {
     private _auth: AuthenticationService,private _services: SanXuatService,) {this.userInfo = this._auth.currentUserValue; }
 
   ngOnInit(): void {
-    this.GetListdsTinhLuong();
+    this.GetListChiPhiBanHang();
   }
   resetFilter(){
     this.keyWord = '';
-    this.GetListdsTinhLuong(true);
+    this.GetListChiPhiBanHang(true);
   }
-  GetListdsTinhLuong(reset?){
+  GetListChiPhiBanHang(reset?){
     if(reset){
       this.paging.CurrentPage=1;
       this.paginator.changePage(0);
@@ -43,15 +44,16 @@ export class DanhsachtinhluongComponent implements OnInit {
       .GetDanhSachDuAnByIdUser(this.userInfo.Id)
       .subscribe((res: any) => {
         this.listNhaMay = res;
+        // this.idDuAn = res[0].Id;ss
         let data = {
           PageSize:20, 
           CurrentPage:this.paging.CurrentPage,
-          // sFilter:this.keyWord,  
+          sFilter:this.keyWord,  
           
         };
-        this._danhMucHopDong.DanhSachTinhLuong().GetList(data).subscribe((res:any)=>{
+        this._danhMucHopDong.ChiPhiBanHangTheoNam().GetList(data).subscribe((res:any)=>{
           this.items = res.Data.Items;
-          this.items.forEach(obj=>{            
+          this.items.filter(obj=>{            
             obj.TenDuAn = this.listNhaMay.find(ele=>ele.Id==obj.IdDuAn).TenDuAn;            
           });
           
@@ -61,7 +63,7 @@ export class DanhsachtinhluongComponent implements OnInit {
   }
   
   add(){
-    let modalRef = this._modal.open(ModaldanhsachtinhluongComponent,{
+    let modalRef = this._modal.open(ModalchiphibanhangtheonamComponent,{
       backdrop:'static',
       size:'fullscreen'
     });
@@ -69,27 +71,22 @@ export class DanhsachtinhluongComponent implements OnInit {
     modalRef.componentInstance.type = '';
     modalRef.componentInstance.title = 'Danh sách tính lương hàng năm';
     modalRef.result.then(res=>{
-      this.GetListdsTinhLuong();
+      this.GetListChiPhiBanHang();
     }).catch(er=>console.log(er))
   }
 
 edit(item){
-  this._danhMucHopDong.DanhSachTinhLuong().Get(item.Id).subscribe((res:any)=>{
-    console.log(res);
-    
-   
-  })
-  // let modalRef = this._modal.open(ModaldanhsachtinhluongComponent,{
-  //   backdrop:'static',
-  //   size:'fullscreen'
-  // });
-  // modalRef.componentInstance.opt='edit';
-  // modalRef.componentInstance.type = '';
-  // modalRef.componentInstance.title = 'Cập nhật danh sách tính lương';
-  // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
-  // modalRef.result.then(res=>{
-  //   this.GetListdsTinhLuong();
-  // }).catch(er=>console.log(er))
+  let modalRef = this._modal.open(ModalchiphibanhangtheonamComponent,{
+    backdrop:'static',
+    size:'fullscreen'
+  });
+  modalRef.componentInstance.opt='edit';
+  modalRef.componentInstance.type = '';
+  modalRef.componentInstance.title = 'Cập nhật chi phí bán hàng';
+  modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
+  modalRef.result.then(res=>{
+    this.GetListChiPhiBanHang();
+  }).catch(er=>console.log(er))
 
 }
   delete(item){
@@ -98,13 +95,11 @@ edit(item){
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{    
-     
-      this._danhMucHopDong.DanhSachTinhLuong().Delete(item).subscribe((res: any) => {
-       console.log(res);
+      this._danhMucHopDong.ChiPhiBanHangTheoNam().Delete(item).subscribe((res: any) => {
         if (res) {
-          if (res.StatusCode === 200) {
+          if (res.StatusCode === 500) {
             this._toastr.success(res.Message);
-            this.GetListdsTinhLuong();
+            this.GetListChiPhiBanHang();
           } else {
             this._toastr.error(res.Message);
           }
@@ -134,7 +129,7 @@ edit(item){
   // }
   changePage(event){
     this.paging.CurrentPage = event.page+1;
-    this.GetListdsTinhLuong()
+    this.GetListChiPhiBanHang()
   }
   
   }

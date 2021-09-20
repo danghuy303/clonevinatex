@@ -301,7 +301,7 @@ export class DanhMucHopDongService {
         let url = API.KeHoach
         return {
             GetList: (data) => {
-                return this.http.get(`${url}KeHoachKinhDoanh/GetListQuyTrinh?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+                return this.http.get(`${url}KeHoachKinhDoanh/GetById?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Set: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/SetQuyTrinh`, data, httpOptions)
@@ -330,14 +330,60 @@ export class DanhMucHopDongService {
     DanhSachTinhLuong() {
         let url = API.KeHoach
         return {
+            Get: (id) => {
+                return this.http.get(`${url}DanhSachTinhLuongHangNam/GetById?Id=${id}`, httpOptions)
+            },
             GetList: (data) => {
                 return this.http.get(`${url}DanhSachTinhLuongHangNam/GetAllPaging?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+            },
+            Update: (data) => {
+                return this.http.post(`${url}DanhSachTinhLuongHangNam/UpdateDanhSachTinhLuongHangNam`,data, httpOptions)
             },
             Set: (data) => {
                 return this.http.post(`${url}DanhSachTinhLuongHangNam/AddDanhSachTinhLuongHangNam`, data, httpOptions)
             },
-            Delete: (id) => {
-                return this.http.get(`${url}DanhSachTinhLuongHangNam/DeleteDanhSachTinhLuongHangNam?Id=${id}`, httpOptions)
+            Delete: (data) => {
+                return this.http.post(`${url}DanhSachTinhLuongHangNam/DeleteDanhSachTinhLuongHangNam`,data, httpOptions)
+            }
+           
+
+        }
+    }
+
+    MucLuongCoCauNhanSu() {
+        let url = API.KeHoach
+        return {
+            GetList: (data) => {
+                return this.http.get(`${url}MucLuongHangNam/GetAllPaging?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+            },
+            Update: (data) => {
+                return this.http.post(`${url}MucLuongHangNam/UpdateMucLuongHangNam`,data, httpOptions)
+            },
+            Set: (data) => {
+                return this.http.post(`${url}MucLuongHangNam/AddMucLuongHangNam`, data, httpOptions)
+            },
+            Delete: (data) => {
+                return this.http.post(`${url}MucLuongHangNam/DeleteMucLuongHangNam`,data, httpOptions)
+            }
+           
+
+        }
+    }
+
+    ChiPhiBanHangTheoNam() {
+        let url = API.KeHoach
+        return {
+            GetList: (data) => {
+                return this.http.get(`${url}ChiPhiBanHangHangNam/GetAllPaging?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+            },
+            Update: (data) => {
+                return this.http.post(`${url}ChiPhiBanHangHangNam/UpdateChiPhiBanHangHangNam`,data, httpOptions)
+            },
+            Set: (data) => {
+                return this.http.post(`${url}ChiPhiBanHangHangNam/AddChiPhiBanHangHangNam`, data, httpOptions)
+            },
+            Delete: (data) => {
+                return this.http.post(`${url}ChiPhiBanHangHangNam/DeleteChiPhiBanHangHangNam`,data, httpOptions)
             }
            
 

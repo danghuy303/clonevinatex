@@ -589,6 +589,10 @@ export class SanXuatService {
             GetMatHangVatTuPhu: () => {
                 return this.http.get(`${API.SCMDanhMuc}GetListdmItemLoaiVatTuPhu`, httpOptions)
             },
+            //
+            GetDanhMucNoiDiaXuatKhau: () => {
+                return this.http.get(`${API.KeHoach}DanhMuc/GetDanhMucNoiDiaXuatKhau`, httpOptions)
+            },
         }
     }
 
