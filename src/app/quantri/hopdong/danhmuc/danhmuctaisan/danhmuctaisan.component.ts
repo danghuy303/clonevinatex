@@ -36,28 +36,59 @@ export class DanhmuctaisanComponent implements OnInit {
       },
       {
         header: 'Nhà máy',
-        field: 'IdDuAn',
+        field: 'TenNhaMay',
         width: '150px',
         align:'center'
       },
       {
-        header: 'Thời gian hết khấu hao ',
-        field: 'ThoiGianHetKhauHao',
-        width: '250px',
+        header: 'Đơn vị ',
+        field: 'DonViTinh',
+        width: '150px',
         align:'center'
       },
       {
-        header: 'Gía trị khấu hao mỗi tháng',
+        header: 'Năm sản xuất',
+        field: 'NamSanXuat',
+        width: '150px',
+        align:'center'
+      },
+      {
+        header: 'Năm mua',
+        field: 'NamMua',
+        width: '150px',
+        align:'center'
+      },
+      // {
+      //   header: 'Năm sử dụng',
+      //   field: 'ThoiGianBatDauKhauHao',
+      //   width: '150px',
+      //   align:'center'
+      // },
+      
+      // {
+      //   header: 'Thời gian hết khấu hao ',
+      //   field: 'ThoiGianHetKhauHao',
+      //   width: '250px',
+      //   align:'center'
+      // },
+      {
+        header: 'Giá trị khấu hao mỗi tháng',
         field: 'GiaTriKhauHaoMoiThang',
         width: '250px',
         align:'center'
       },
       {
-        header: 'Ghi chú',
-        field: 'GhiChu',
-        width: '200px',
+        header: 'Số năm khấu hao',
+        field: 'SoNamKhauHao',
+        width: '150px',
         align:'center'
-      }
+      },
+      // {
+      //   header: 'Ghi chú',
+      //   field: 'GhiChu',
+      //   width: '200px',
+      //   align:'center'
+      // }
     ];
     selectedItems:any=[];
 

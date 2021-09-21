@@ -132,10 +132,10 @@ if(item.checked == true)
     itemFinds = {
       idHopDong: this.IdQuyTrinh || '',
       iddmItem: itemFinds.Id,
-      tendmMatHang: itemFinds.Ten,
+      tendmItem: itemFinds.Ten,
       iddmLoaiSoi: itemFinds.IddmLoaiSoi,
       // tendmMatHang: itemFinds.Ten,
-      madmMatHang: itemFinds.Ma,
+      madmItem: itemFinds.Ma,
       isXoa: false,
       id: '',
     }

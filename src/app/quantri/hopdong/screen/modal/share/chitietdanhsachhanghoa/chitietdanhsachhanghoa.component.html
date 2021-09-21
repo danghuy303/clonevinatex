@@ -163,8 +163,8 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
           <tr>
             <td class="text-center">{{ i + 1 }}</td>
-            <td class="text-center">{{ item.madmMatHang }}</td>
-            <td class="text-center">{{ item.tendmMatHang }}</td>
+            <td class="text-center">{{ item.madmItem}}</td>
+            <td class="text-center">{{ item.tendmItem}}</td>
             <td class="text-center">
               <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.soLuong" locale="vi-VN"
         (ngModelChange)="tinhgiaTriHopDongSoi(item)">

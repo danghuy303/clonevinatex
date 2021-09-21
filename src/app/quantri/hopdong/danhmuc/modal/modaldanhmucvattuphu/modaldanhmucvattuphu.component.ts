@@ -27,6 +27,7 @@ export class ModaldanhmucvattuphuComponent implements OnInit {
       "Ma": this.item.Ma,
       "Ten": this.item.Ten,
       "GhiChu": this.item.GhiChu,
+      "DonViTinh": this.item.DonViTinh,
       "created": this.type == "vattuphu" ? new Date() : this.item.created,
       "modified":new Date() ,
       "isDelete":this.type == "vattuphu" ? false : this.item.isDelete,

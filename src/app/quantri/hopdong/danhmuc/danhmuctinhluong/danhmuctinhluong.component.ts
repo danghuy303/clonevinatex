@@ -61,6 +61,7 @@ export class DanhmuctinhluongComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
+     
       sFilter:this.keyWord,  
       ma:"", 
       ten:""    

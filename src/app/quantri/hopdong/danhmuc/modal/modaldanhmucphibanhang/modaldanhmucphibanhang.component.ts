@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 @Component({
@@ -13,11 +14,20 @@ export class ModaldanhmucphibanhangComponent implements OnInit {
   public item: any = {};
   public title: any = '';
   public type = '';
+  listLoai: any=[];
 
-  constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService, public toastr: ToastrService) { }
+  constructor(public activeModal: NgbActiveModal,
+    private _services: SanXuatService,
+     private _danhMucHopDong: DanhMucHopDongService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.GetListNoiDiaXuatKhau();
+  }
 
+  GetListNoiDiaXuatKhau() {
+    this._services.GetOptions().GetDanhMucNoiDiaXuatKhau().subscribe((res: any) => {
+      this.listLoai = mapArrayForDropDown(res.Data.Items, 'Ten', 'Id');
+    })
   }
 
   SetData() {
@@ -31,6 +41,7 @@ export class ModaldanhmucphibanhangComponent implements OnInit {
       "Created": this.type == "phibanhang" ? new Date() : this.item.Created,
       "Modified":new Date() ,
       "isDelete":this.type == "phibanhang" ? false : this.item.isDelete,
+
     };
     return data;
   }

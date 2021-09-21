@@ -221,7 +221,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
       res.data.forEach(element => {
         let itempush: any = {
           id:'',
-          soInvoice: element.soInvoice,
+          ma: element.soInvoice,
           soContainer: element.soContainer,
           tongSoKien: element.tongSoKien,
           soLuongDaThanhToan: element.soLuongDaThanhToan,
