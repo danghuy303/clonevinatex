@@ -89,17 +89,18 @@
       </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
-      <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số kiện:</label>
-      <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soKien" (ngModelChange)="item.soKien = dinhDangSo($event)"> </p-inputNumber>
-      </div>
-    </div>
-    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số container:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
         <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soContainer" (ngModelChange)="item.soContainer = dinhDangSo($event)"> </p-inputNumber>
       </div>
     </div>
+    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+      <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số kiện:</label>
+      <div class="p-col-12 p-xl-8 p-p-0">
+        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soKien" (ngModelChange)="item.soKien = dinhDangSo($event)"> </p-inputNumber>
+      </div>
+    </div>
+    
   </div>
   <div *ngIf="isXo" class="p-grid">
     <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">

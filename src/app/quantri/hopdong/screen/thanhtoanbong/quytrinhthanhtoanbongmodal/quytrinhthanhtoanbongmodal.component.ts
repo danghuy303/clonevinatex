@@ -226,6 +226,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
           tongSoKien: element.tongSoKien,
           soLuongDaThanhToan: element.soLuongDaThanhToan,
           tongKhoiLuong: element.tongKhoiLuong,
+          donGia: element.donGia,
         }
         this.item.listThanhToanMatHang.push(itempush);
       });

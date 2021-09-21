@@ -228,7 +228,9 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
           tongSoKien: element.tongSoKien,
           soLuongDaThanhToan: element.soLuongDaThanhToan,
           tongKhoiLuong: element.tongKhoiLuong,
+          donGia: element.donGia,
         }
+        debugger
         this.item.listThanhToanMatHang.push(itempush);
       });
     })

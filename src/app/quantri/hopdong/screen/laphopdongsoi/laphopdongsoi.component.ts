@@ -173,6 +173,9 @@ export class LaphopdongsoiComponent implements OnInit {
       .subscribe((res: any) => {
         this.items = res.data?.items;
         this.paging.TotalItem = res.data?.totalCount;
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
       });
   }
 
