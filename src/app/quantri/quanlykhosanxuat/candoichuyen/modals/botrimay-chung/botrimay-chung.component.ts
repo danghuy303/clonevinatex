@@ -6,7 +6,6 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { BaseModalNavigation } from 'src/app/quantri/quanlykhosanxuat/candoichuyen/modals/navigation.class';
-import { TrangthaimaysanxuatComponent } from '../../../quytrinh/trangthaimaysanxuat/trangthaimaysanxuat.component';
 
 @Component({
   selector: 'app-botrimay-chung',
@@ -18,16 +17,16 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   addonData: any = {};
   TenCongDoan: any = '';
   listHangHoa: any = [];
-  dangDieuChinh:boolean = false;
-  canDieuChinh:boolean = false;
+  dangDieuChinh: boolean = false;
+  canDieuChinh: boolean = false;
   item: any = {
   }
   TongMatHang: any = {};
   filter: any = {};
   newMay: any = {};
   lang: any = vn;
-  listItemDieuChinh:any = [];
-  optionMatHang:string = '';
+  listItemDieuChinh: any = [];
+  optionMatHang: string = '';
   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) {
     super(activeModal)
   }
@@ -37,8 +36,8 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
     console.log(this.item);
     this.sort()
     this.initSpeedOption();
-    this.listHangHoa = mapArrayForDropDown(this.item.listCanBoTri.sort((a,b)=>{
-      return parseInt(a.Ten.split(' ')[0])-parseInt(b.Ten.split(' ')[0]);
+    this.listHangHoa = mapArrayForDropDown(this.item.listCanBoTri.sort((a, b) => {
+      return parseInt(a.Ten.split(' ')[0]) - parseInt(b.Ten.split(' ')[0]);
     }), 'Ten', 'Id')
     this.item.listCanBoTri.forEach(mathang => {
       mathang.SoMayDaBoTri = 0;
@@ -46,10 +45,10 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
     this.newMay = {}
     this.inputChange();
   }
-  initLoaiSoiHoacLoaiMatHang(){
-    if(this.addonData.CongDoan!=='CON'&&this.addonData.CongDoan!=="ONG"){
+  initLoaiSoiHoacLoaiMatHang() {
+    if (this.addonData.CongDoan !== 'CON' && this.addonData.CongDoan !== "ONG") {
       this.optionMatHang = 'IddmLoaiSoi';
-    }else{
+    } else {
       this.optionMatHang = 'IddmItem';
     }
     console.log(this.optionMatHang)
@@ -64,6 +63,7 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
       if (res) {
         if (res.State === 1) {
           this.toastr.success(res.message);
+          this.activeModal.close({ respawn: true });
         } else {
           this.toastr.error(res.message);
         }
@@ -73,7 +73,7 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
     })
   }
   initSpeedOption() {
-    this.item.listDaBoTri.filter(may=>may.isDieuChinh!==true).forEach(may => {
+    this.item.listDaBoTri.filter(may => may.isDieuChinh !== true).forEach(may => {
       if (validVariable(may.IdCanDoiChuyen_CanBoTri)) {
         let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === may.IdCanDoiChuyen_CanBoTri)?.[0]?.[this.optionMatHang];
         may.listTocDo = mapArrayForDropDown(may.listDinhMucMay.filter(dinhmuc => dinhmuc[this.optionMatHang] === IddmItem), 'TocDo', 'Id');
@@ -88,8 +88,8 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   }
   TinhSoLuongMatHang() {
     this.item.listCanBoTri.forEach(mathang => {
-      mathang.SoMayDaBoTri = this.item.listDaBoTri.filter(may=>may.isDieuChinh!==true).filter(may => may.IdCanDoiChuyen_CanBoTri === mathang.Id)?.length || 0;
-      mathang.SanLuongBoTri = this.item.listDaBoTri.filter(may=>may.isDieuChinh!==true).filter(may => may.IdCanDoiChuyen_CanBoTri === mathang.Id)?.reduce((Tong, may) => Tong + may.SanLuongCa, 0) || 0;
+      mathang.SoMayDaBoTri = this.item.listDaBoTri.filter(may => may.isDieuChinh !== true).filter(may => may.IdCanDoiChuyen_CanBoTri === mathang.Id)?.length || 0;
+      mathang.SanLuongBoTri = this.item.listDaBoTri.filter(may => may.isDieuChinh !== true).filter(may => may.IdCanDoiChuyen_CanBoTri === mathang.Id)?.reduce((Tong, may) => Tong + may.SanLuongCa, 0) || 0;
     });
   }
   TinhTongMatHang() {
@@ -129,17 +129,17 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
       item.SoCocTu = null;
       item.SoCocDen = null;
     }
-    if(item.isDieuChinh){
+    if (item.isDieuChinh) {
       item.isDieuChinh = false;
     }
     this.inputChange();
-    if(this.dangDieuChinh){
+    if (this.dangDieuChinh) {
       this.listItemDieuChinh.push(item.Id);
       item.isDieuChinh = true;
     }
   }
 
-  chonTocDo(item,event){
+  chonTocDo(item, event) {
     item.SanLuongCa = item.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === event.value)?.[0]?.DinhMucNangSuat || 0;
   }
 
@@ -154,7 +154,7 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
               TuNgayUnix: DateToUnix(this.filter.TuNgay),
               DenNgayUnix: DateToUnix(this.filter.DenNgay),
             }
-            this._services.CanDoiChuyen().SetCanDoiChuyen_ApDungNgay(data).subscribe((res:any) => {
+            this._services.CanDoiChuyen().SetCanDoiChuyen_ApDungNgay(data).subscribe((res: any) => {
               console.log(res);
               if (res?.State === 1) {
                 this.toastr.success('Cập nhật thành công!')
@@ -174,18 +174,18 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
       this.toastr.error('Vui lòng nhập kiểm tra lại khoảng thời gian áp dụng!');
     }
   }
-  beginDieuChinh(){
+  beginDieuChinh() {
     this.dangDieuChinh = true;
   }
-  endDieuChinh(){
+  endDieuChinh() {
     let unique = [...new Set(this.listItemDieuChinh)]
-    this._services.CanDoiChuyen().SetDieuChinhCanDoiChuyen({listItem:unique}).subscribe((res:any)=>{
+    this._services.CanDoiChuyen().SetDieuChinhCanDoiChuyen({ listItem: unique }).subscribe((res: any) => {
       if (res?.State === 1) {
         this.toastr.success('Cập nhật thành công!');
-        this.activeModal.close({respawn:true});
+        this.activeModal.close({ respawn: true });
       } else {
         this.toastr.error('Cập nhật không thành công!');
-        this.activeModal.close({respawn:true});
+        this.activeModal.close({ respawn: true });
       }
     })
   }
