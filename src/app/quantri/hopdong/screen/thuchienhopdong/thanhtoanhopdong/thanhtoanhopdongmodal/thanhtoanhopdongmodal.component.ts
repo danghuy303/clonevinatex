@@ -19,7 +19,6 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
   lang: any = vn;
   checkbutton: any = {};
   opt: any = "";
-  listHopDong: any = [];
   listHinhThucThanhToan: any = []
   listSoHopDong: any = []
   listInvoice: any = []
@@ -175,12 +174,6 @@ export class ThanhtoanhopdongmodalComponent implements OnInit {
   }
 
   GetFormOptions() {
-    this._services
-      .QuyTrinhHopDong()
-      .GetListAll()
-      .subscribe((res: any) => {
-        this.listHopDong = mapArrayForDropDown(res, "soHopDong", "id");
-      });
       this._servicesdmHopDong
       .DanhMucThuTucThanhToan()
       .GetListAll()

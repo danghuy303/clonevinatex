@@ -65,8 +65,8 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn đợt :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-multiSelect [options]="listThanhToanInvoice" [(ngModel)]="listIdThanhToanInvoice" [filter]="true"
-                [ngStyle]="{'width': '450px !important'}"
-                [showToggleAll]="true" (onChange)="getListItem()"></p-multiSelect>
+                [ngStyle]="{'width': '450px !important'}" defaultLabel="Chọn đợt thanh toán" 
+                [showToggleAll]="true" (onChange)="getListItem()" [maxSelectedLabels] = "10" selectedItemsLabel = "{0} đợt được chọn"></p-multiSelect>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.loaiThanhToan === 1">

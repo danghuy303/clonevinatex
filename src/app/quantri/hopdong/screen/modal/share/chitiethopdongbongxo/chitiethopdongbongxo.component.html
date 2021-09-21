@@ -99,17 +99,14 @@
         <div class=" p-col-12 p-xl-6 p-lg-6 d-flex flex-column flex-xl-row" *ngIf="isHienHopDongGoc === true">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">HĐ gốc: </label>
             <div class="p-col-12 p-xl-9 p-ml-xl-2 p-ml-lg-0 p-p-0">
-                <div class="p-inputgroup p-ml-lg-0">
-                    <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="itemcha.listTen" disabled />
-                    <button type="button" pButton pRipple icon="pi pi-upload" (click)="taiLenFileDinhKem()"
-                        class="p-button-sm p-button-text p-button-secondary"></button>
-                </div>
+                    <p-dropdown [filter]="true" [(ngModel)]="item.idHopDong" [options]="listHopDongGoc"
+                    placeholder="Chọn hợp đồng gốc" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
 
-        <div class="p-col-12   d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-1 p-p-0 my-auto">Ghi chú:</label> &emsp;
-            <div class="p-col-12 p-xl-11 p-p-0 p-pl-theokieunaodo">
+        <div class="p-col-12 p-xl-6 p-lg-6 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-xl-9 p-ml-xl-2 p-ml-lg-0 p-p-0">
                 <input type="text" [(ngModel)]="item.ghiChu" class="p-inputtext-sm" pInputText />
             </div>
         </div>

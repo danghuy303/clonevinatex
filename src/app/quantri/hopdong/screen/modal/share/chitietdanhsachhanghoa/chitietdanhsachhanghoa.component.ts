@@ -132,7 +132,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   }
   getlistCapBong(){
     this._servicesSanXuat.dmDacTinhBong().GetDacTinh(this.item.iddmLoaiBong || '', this.item.iddmCapBong || '').subscribe((res: any) => {
-      this.listdmDacTinh = mapArrayForDropDown(res, "Ten", "Id");
+      this.listdmDacTinh = mapArrayForDropDown(res, "DacTinh", "Id");
     });
   }
 

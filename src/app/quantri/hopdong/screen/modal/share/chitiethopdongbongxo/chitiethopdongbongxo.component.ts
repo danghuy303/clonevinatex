@@ -71,7 +71,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   listLoaiTienTe: any = [];
   listdmKhachHang: any = [];
   getdmKhachHangForCopy: any = {};
-
+  listHopDongGoc: any = [];
   canCopy: boolean = false;
   selectedCity = null;
   cities = [{ name: 'pushkar', code: 21 }, { name: 'nagpur', code: 22 }];
@@ -163,7 +163,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
         // this.listLoaiMatHang = res;
         this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
       });
-
+this.getListHopDongGoc();
   }
   LayGiaTriHopDong() {
     if(this.item.isLayTheoGiaTriHangHoa == true)
@@ -195,6 +195,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
       }
     }
     else {
+      this.getListHopDongGoc();
       this.itemcha.listTen = "";
       if(this.itemcha.lstFileUploadCu === undefined || this.itemcha.lstFileUploadCu === null)
         this.itemcha.lstFileUploadCu = [];
@@ -297,6 +298,14 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
             this.isHienHopDongGoc = true;
       }
     }
-    
+    this.getListHopDongGoc();
+  }
+  getListHopDongGoc(){
+    this._service.QuyTrinhHopDong().GetListAll(this.item.loai || '', this.item.iddmLoaiHopDong || 0)
+      .subscribe((res: Array<any>) => {
+        this.listHopDongGoc = mapArrayForDropDown(res, "soHopDong", "id");
+      });
+
+
   }
 }
