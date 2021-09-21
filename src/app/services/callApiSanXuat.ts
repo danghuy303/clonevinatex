@@ -1269,7 +1269,7 @@ export class SanXuatService {
             //     return this.http.post(url + 'KhongDuyetGiaoKeHoachSanXuat', data, httpOptions)
             // },
             GetListKienBong: (data) => {
-                return this.http.post(url + `GetListKienLoBong`, {IdDuAn:this.store.getCurrent(),listItems:data}, httpOptions)
+                return this.http.post(url + `GetListKienLoBong`, {IdDuAn:this.store.getCurrent(),listItem:data}, httpOptions)
             },
             TimBongTuDong: (IdTimBong) => {
                 return this.http.get(`${url}TaoPhuongAnTimBong?Id=${IdTimBong}`, httpOptions)
