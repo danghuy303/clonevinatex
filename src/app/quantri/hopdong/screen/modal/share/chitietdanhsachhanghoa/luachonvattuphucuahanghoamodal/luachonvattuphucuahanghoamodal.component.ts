@@ -1,32 +1,13 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-chitiethanghoacuahopdongsoimodal',
-//   templateUrl: './chitiethanghoacuahopdongsoimodal.component.html',
-//   styleUrls: ['./chitiethanghoacuahopdongsoimodal.component.css']
-// })
-// export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
-
-import { deepCopy, validVariable } from 'src/app/services/globalfunction';
-
-
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { deepCopy, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
-  selector: 'app-chitiethanghoacuahopdongsoimodal',
-  templateUrl: './chitiethanghoacuahopdongsoimodal.component.html',
-  styleUrls: ['./chitiethanghoacuahopdongsoimodal.component.css']
+  selector: 'app-luachonvattuphucuahanghoamodal',
+  templateUrl: './luachonvattuphucuahanghoamodal.component.html',
+  styleUrls: ['./luachonvattuphucuahanghoamodal.component.css']
 })
-export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
+export class LuachonvattuphucuahanghoamodalComponent implements OnInit {
   item: any = {};
   listThanhToanThuTuc: any = [];
   listHangHoa: any = [];
@@ -42,11 +23,6 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
     {
       header: 'Tên ',
       field: 'Ten',
-      width: 'unset'
-    },
-    {
-      header: 'Ne',
-      field: 'Ne',
       width: 'unset'
     },
   ];

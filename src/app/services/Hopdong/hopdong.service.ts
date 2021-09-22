@@ -31,6 +31,10 @@ export class HopDongService {
         data.idDuAn = this.store.getCurrent();
         return this.http.post(url + "HopDong/GetListQuyTrinhHopDongSoi", data, httpOptions);
       },
+      GetListVatTuPhu: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(url + "HopDong/GetListQuyTrinhHopDongVatTuPhu", data, httpOptions);
+      },
       Get: (Id) => {
         return this.http.get(
           url + `HopDong/GetQuyTrinhHopDong?Id=${Id}`,

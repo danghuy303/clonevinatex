@@ -9,6 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 
 import { ChitiethanghoamodalComponent } from './chitiethanghoamodal/chitiethanghoamodal.component';
 import { Component, OnInit, Input, Output, EventEmitter, DoCheck, SimpleChanges, ChangeDetectionStrategy, OnChanges } from '@angular/core';
+import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
+import { LuachonvattuphucuahanghoamodalComponent } from './luachonvattuphucuahanghoamodal/luachonvattuphucuahanghoamodal.component';
 // import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
@@ -27,6 +29,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Input('listLoaiMatHang') listLoaiMatHang: any = [];
   @Input() isXo: boolean
   @Input() isBong: boolean
+  @Input() isVatTuPhu: boolean
   @Input() res1: any = []
   @Input("opt") opt: string;
   @Input() iddmLoaiHopDong: any
@@ -55,9 +58,9 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   constructor(
     public _modal: NgbModal,
     public _toastr: ToastrService,
-    private router: Router,
     public activeModal: NgbActiveModal,
-    private _servicesSanXuat: SanXuatService) { }
+    private _servicesSanXuat: SanXuatService,
+    private _danhmucHopDong: DanhMucHopDongService) { }
 
   ngOnInit(): void {
     this.GetOptions()
@@ -221,5 +224,22 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     this.hopDong.thanhTien = (this.hopDong.thanhTien || 0)+ (item.donGia || 0) * (item.soLuong|| 0);
     if(this.hopDong.isLayTheoGiaTriHangHoa === true)
       this.hopDong.giaTri = this.hopDong.thanhTien;
+  }
+  
+  chonVatTuPhu() {
+    let modalRef = this._modal.open(LuachonvattuphucuahanghoamodalComponent, {
+      size: 'lg',
+      backdrop: 'static'
+    })
+    this._danhmucHopDong.DanhMucVatTuPhu().GetListAll((res1: any) => {
+      modalRef.componentInstance.opt = 'edit';
+      debugger
+      modalRef.componentInstance.listThanhToanThuTuc = res1;
+      modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;
+      modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
+      modalRef.result.then(res => {
+        this.listHangHoaSoi= res;  
+      }).catch(er => { console.log(er) });
+    })
   }
 }

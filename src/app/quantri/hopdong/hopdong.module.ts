@@ -147,6 +147,9 @@ import { MucluongcocaunhansuComponent } from './danhsach/mucluongcocaunhansu/muc
 import { ChiphibanhangtheonamComponent } from './danhsach/chiphibanhang/chiphibanhangtheonam/chiphibanhangtheonam.component';
 import { ModalchiphibanhangtheonamComponent } from './danhsach/modal/modalchiphibanhangtheonam/modalchiphibanhangtheonam.component';
 import { ModalmucluongcocaunhansuComponent } from './danhsach/modal/modalmucluongcocaunhansu/modalmucluongcocaunhansu.component';
+import { HopdongvattuphuComponent } from './screen/hopdongvattuphu/hopdongvattuphu.component';
+import { HopdongvattuphumodalComponent } from './screen/hopdongvattuphu/hopdongvattuphumodal/hopdongvattuphumodal.component';
+import { LuachonvattuphucuahanghoamodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/luachonvattuphucuahanghoamodal/luachonvattuphucuahanghoamodal.component';
 
 
 
@@ -170,16 +173,16 @@ import { ModalmucluongcocaunhansuComponent } from './danhsach/modal/modalmucluon
     DanhmucvattuphuComponent,
     ModaldanhmucvattuphuComponent,
     DanhmuccocaunhansuComponent,
-    ModaldanhmuccocaunhansuComponent,    
+    ModaldanhmuccocaunhansuComponent,
     DanhmuctinhluongComponent,
     ModaldanhmuctinhluongComponent,
-    DanhmuctaisanComponent, 
+    DanhmuctaisanComponent,
     ModaldanhmuctaisanComponent,
-    
-//báo cáo
-     
 
-TheodoihopdongnhapkhauComponent,
+    //báo cáo
+
+
+    TheodoihopdongnhapkhauComponent,
 
 
     DmLoaiHopDongComponent,
@@ -211,7 +214,7 @@ TheodoihopdongnhapkhauComponent,
 
     ChitietbaolanhmodalComponent,
 
-   
+
 
     ThanhtoanhopdongComponent,
 
@@ -238,89 +241,89 @@ TheodoihopdongnhapkhauComponent,
     PhathopdongmodalComponent,
 
     QuyettoanhopdongmodalComponent,
-   
+
     ThanhtoanhopdongmodalComponent,
-   
+
     GiaokehoachsanxuatComponent,
-   
+
     GiaokehoachsanxuatmodalComponent,
-   
-   
+
+
     TheodoihopdongnhapkhauComponent,
-   
-   
+
+
     ChonthutucthanhtoanmodalComponent,
-   
-   
+
+
     ChitiethanghoamodalComponent,
-   
-   
-  
-   
-   
+
+
+
+
+
     DanhmucphibanhangComponent,
-   
-   
+
+
     ModaldanhmucphibanhangComponent,
-   
-   
+
+
     DanhmucdinhmucmathangComponent,
-   
-   
+
+
     ModaldanhmucdinhmucmathangComponent,
-   
-   
+
+
     KehoachnhapbongComponent,
-   
-   
+
+
     ChitietkehoachnhapbongComponent,
 
-   
-   
-   
-  
+
+
+
+
 
     ChitiethanghoacuahopdongsoimodalComponent,
 
-   
-   
-   
-  
+
+
+
+
 
     NhapkhoComponent,
 
-   
-   
-   
-  
+
+
+
+
 
     ChitietnhapkhoComponent,
 
-   
-   
-   
-  
+
+
+
+
 
     XuatkhothanhphamhopdongComponent,
 
-   
-   
-   
-  
+
+
+
+
 
     ChitietxuatkhothanhphamhopdongComponent,
 
-   
-   
-   
-  
+
+
+
+
 
     XuatthanhphammathangmodalComponent,
 
-   
-   
-   
-  
+
+
+
+
 
 
     KehoachkinhdoanhdanhsachComponent,
@@ -329,38 +332,38 @@ TheodoihopdongnhapkhauComponent,
 
     DmtieuchichatluonghopdongComponent,
 
-   
-   
-   
-  
+
+
+
+
 
     DmtieuchichatluonghopdongmodalComponent,
 
-   
-   
-   
-  
+
+
+
+
 
     QuytrinhthanhtoanbongComponent,
 
-   
-   
-   
-  
+
+
+
+
 
     QuytrinhthanhtoanbongmodalComponent,
 
-   
-   
-   
-  
+
+
+
+
 
     ModaldongiakehoachthucteComponent,
 
-   
-   
-   
- 
+
+
+
+
 
     DanhsachtinhluongComponent,
     ModaldanhsachtinhluongComponent,
@@ -369,33 +372,54 @@ TheodoihopdongnhapkhauComponent,
     ModalchiphibanhangtheonamComponent,
     ModalmucluongcocaunhansuComponent,
 
-   
-   
-   
-  
+
+
+
+
 
     ThanhtoanhopdongsoiComponent,
 
-   
-   
-   
-  
+
+
+
+
 
     ThanhtoanhopdongsoimodalComponent,
 
-   
-   
-   
-  
+
+
+
+
 
     ChonmathangthanhtoanhopdongComponent,
 
-   
-   
-   
-  
+
+
+
+
 
     KehoachsanxuatmodalComponent,
+
+
+
+
+
+
+    HopdongvattuphuComponent,
+
+
+
+
+
+
+    HopdongvattuphumodalComponent,
+
+
+
+
+
+
+    LuachonvattuphucuahanghoamodalComponent,
 
 
 
@@ -453,7 +477,7 @@ TheodoihopdongnhapkhauComponent,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true, },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
-  entryComponents:[
+  entryComponents: [
     ChitiethanghoacuahopdongsoimodalComponent,
     ChitietbaolanhmodalComponent,
     NhansuthuchienmodalComponent,
@@ -474,7 +498,7 @@ TheodoihopdongnhapkhauComponent,
     ModaldanhmuctaisanComponent,
     ModaldanhmucphibanhangComponent,
     ModaldanhmucdinhmucmathangComponent,
-    
+
     QuyettoanhopdongmodalComponent,
     GiaokehoachsanxuatmodalComponent,
     ModallaphopdongbongxoComponent,
@@ -503,12 +527,14 @@ TheodoihopdongnhapkhauComponent,
 
     ModalmucluongcocaunhansuComponent,
     ModalchiphibanhangtheonamComponent,
-   
- 
+
+
 
     ThanhtoanhopdongsoimodalComponent,
     ChonmathangthanhtoanhopdongComponent,
     KehoachsanxuatmodalComponent,
+    HopdongvattuphumodalComponent,
+    LuachonvattuphucuahanghoamodalComponent,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

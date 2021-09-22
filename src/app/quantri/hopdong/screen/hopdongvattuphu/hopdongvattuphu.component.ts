@@ -1,26 +1,20 @@
-
-
-import { number } from "@amcharts/amcharts4/core";
-import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
-
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { ToastrService } from "ngx-toastr";
-import { SanXuatService } from "src/app/services/callApiSanXuat";
-import {
-  DateToUnix,
-  mapArrayForDropDown,
-  UnixToDate,
-} from "src/app/services/globalfunction";
-import { ModallaphopdongsoiComponent } from "./modallaphopdongsoi/modallaphopdongsoi.component";
+import { number } from '@amcharts/amcharts4/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
+import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
+import { HopdongvattuphumodalComponent } from './hopdongvattuphumodal/hopdongvattuphumodal.component';
 
 @Component({
-  selector: 'app-laphopdongsoi',
-  templateUrl: './laphopdongsoi.component.html',
-  styleUrls: ['./laphopdongsoi.component.css']
+  selector: 'app-hopdongvattuphu',
+  templateUrl: './hopdongvattuphu.component.html',
+  styleUrls: ['./hopdongvattuphu.component.css']
 })
-export class LaphopdongsoiComponent implements OnInit {
+export class HopdongvattuphuComponent implements OnInit {
+
   @ViewChild("paginator") paginator: any;
   items: any = [];
   listVatTu: any = {};
@@ -62,13 +56,13 @@ export class LaphopdongsoiComponent implements OnInit {
       this._modal.dismissAll();
     }
     this.router.navigate(
-      [`quantri/hopdongsanxuat/laphopdongsoi/${id}`],
+      [`quantri/hopdongsanxuat/laphopdongvattuphu/${id}`],
       { replaceUrl: true }
     );
   }
   add() {
    
-    let modalRef = this._modal.open(ModallaphopdongsoiComponent, {
+    let modalRef = this._modal.open(HopdongvattuphumodalComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
@@ -84,7 +78,7 @@ export class LaphopdongsoiComponent implements OnInit {
     };
     modalRef.componentInstance.item.hopDong = {
       id: "",
-      loai: 11
+      loai: 23
     };
     modalRef.componentInstance.item.listHangHoa = []
     modalRef.result
@@ -102,7 +96,7 @@ export class LaphopdongsoiComponent implements OnInit {
 
   update(id) {
     this._service.QuyTrinhHopDong().Get(id).subscribe((res1: any) => {
-        let modalRef = this._modal.open(ModallaphopdongsoiComponent, {
+        let modalRef = this._modal.open(HopdongvattuphumodalComponent, {
           size: "fullscreen",
           backdrop: "static",
         });
@@ -145,11 +139,11 @@ export class LaphopdongsoiComponent implements OnInit {
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
-      loai: 11,
+      loai: 23,
     };
     this._service
       .QuyTrinhHopDong()
-      .GetListSoi(data)
+      .GetListVatTuPhu(data)
       .subscribe((res: any) => {
         this.items = res.data?.items;
         this.paging.TotalItem = res.data?.totalCount;
