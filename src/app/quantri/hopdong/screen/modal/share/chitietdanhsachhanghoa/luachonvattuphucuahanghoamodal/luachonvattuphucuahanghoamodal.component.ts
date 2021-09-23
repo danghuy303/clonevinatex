@@ -34,15 +34,9 @@ export class LuachonvattuphucuahanghoamodalComponent implements OnInit {
   KeyWord: any = '';
   constructor(
     public activeModal: NgbActiveModal,
-    private _danhmucHopDong: DanhMucHopDongService
   ) { }
 
   ngOnInit(): void {
-    debugger
-    this._danhmucHopDong.DanhMucVatTuPhu().GetListAll((res1: any) => {
-      this.listThanhToanThuTuc = res1
-    })
-
     console.log(this.listThanhToanThuTuc.length);
     this.listHangHoaGoc = deepCopy(this.listHangHoa);
 

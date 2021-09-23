@@ -139,6 +139,9 @@ export class XuatkhobonghoimodalComponent implements OnInit {
             this.KiemTraButtonModal();
             this.GetQuyTrinh();
           } 
+          else {
+            this.toastr.error(res.message)
+          } 
         }
       })
     }
@@ -235,12 +238,16 @@ export class XuatkhobonghoimodalComponent implements OnInit {
       this.toastr.error('Bạn chưa chọn ngày chứng từ!')
       return false;
     }
-    this.item.listItem.forEach(element => {
-      if(!validVariable(element.IddmItem)){
-        this.toastr.error('Bạn chưa chọn kiện!')
-        return false;
+    if(this.item.listItem !== undefined){
+      if(this.item.listItem.length > 0){
+        this.item.listItem.forEach(element => {
+          if(!validVariable(element.IddmItem) && element.isXoa !== true){
+            this.toastr.error('Bạn chưa chọn kiện!')
+            return false;
+          }
+        });
       }
-    });
+    }
     return true;
   }
 }
