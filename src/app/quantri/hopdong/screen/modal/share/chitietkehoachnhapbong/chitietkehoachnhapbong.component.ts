@@ -147,6 +147,10 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   }
 
   setdata() {
+    if(validVariable(this.newTableItem.soContainer) && validVariable(this.newTableItem.soLuong) && validVariable(this.newTableItem.soKien)
+    && validVariable(this.newTableItem.thoiGianCapCang) && validVariable(this.newTableItem.thoiGianDuKien)){
+      this.add()
+    }
     if (!validVariable(this.item.idHopDong)) {
       this.toastr.error('Vui lòng chọn hợp đồng')
       return false;
@@ -163,10 +167,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   }
 
   GhiLai() {
-    if(validVariable(this.newTableItem.soContainer) && validVariable(this.newTableItem.soLuong) && validVariable(this.newTableItem.soKien)
-    && validVariable(this.newTableItem.thoiGianCapCang) && validVariable(this.newTableItem.thoiGianDuKien)){
-      this.add()
-    }
+    
     if (this.setdata()) {
       this._services.KeHoachNhapBong().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -249,6 +250,9 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   }
 
   add() {
+    if(validVariable(this.newTableItem.thoiGianCapCang) && validVariable(this.newTableItem.thoiGianDuKien)){
+      this.toastr.error('Vui lòng chọn thời gian')
+    }
     if (this.item.listInvoice == undefined || this.item.listInvoice == null)
       this.item.listInvoice = [];
     this.newTableItem.id = "";

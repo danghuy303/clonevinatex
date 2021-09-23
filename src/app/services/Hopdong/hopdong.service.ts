@@ -81,6 +81,9 @@ export class HopDongService {
       getListDieuKhoan: (IdHopDong) => {
         return this.http.get(url + `HopDong/GetListDieuKhoanThanhToan?IdHopDong=${IdHopDong}`, httpOptions);
       },
+      getListMatHang: (IdHopDong) => {
+        return this.http.get(url + `HopDong/GetListMatHang?IdHopDong=${IdHopDong}`, httpOptions);
+      },
     };
   }
 

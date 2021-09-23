@@ -45,6 +45,7 @@ import { FormGroup, Validators } from '@angular/forms';
 export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck {
   @Input('listLoaiMatHang') listLoaiMatHang: any = [];
   @Output('listLoaiMatHangChange') listLoaiMatHangChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output('listHangHoaChange') listHangHoaChange: EventEmitter<any> = new EventEmitter<any>();
   
   getKhachHang: any = []
   getKhachHang1: any = []
@@ -211,6 +212,7 @@ this.getListHopDongGoc();
     this.itemChange.emit(this.item);
     this.itemchaChange.emit(this.itemcha);
     this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
+    this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
     
   }
 
@@ -291,21 +293,31 @@ this.getListHopDongGoc();
     this.item.IsBong = loai;
   }
   chonHopDongGoc(){
+    this.isHienHopDongGoc = false;
     if(this.isSoi !== true){
       let itemFind = this.listLoaiHopDongFull.filter(el=> el.id == this.item.iddmLoaiHopDong)
       if(itemFind!== undefined){
-          if(itemFind[0].ma == "MUA" || itemFind[0].ma == "BAN")
+          if(itemFind[0].ma == "BAN" || itemFind[0].ma == "CV"){
+            this.getListHopDongGoc();
             this.isHienHopDongGoc = true;
+          }
       }
     }
-    this.getListHopDongGoc();
   }
   getListHopDongGoc(){
-    this._service.QuyTrinhHopDong().GetListAll(this.item.loai || '', this.item.iddmLoaiHopDong || 0)
+    this._service.QuyTrinhHopDong().GetListAll(this.item.loai || 0, this.item.iddmLoaiHopDong || '')
       .subscribe((res: Array<any>) => {
         this.listHopDongGoc = mapArrayForDropDown(res, "soHopDong", "id");
       });
-
-
+  }
+  listHangHoaTheoHopDong(){
+    this._service.QuyTrinhHopDong().getListMatHang(this.item.idHopDong || '')
+      .subscribe((res: any) => {
+        if(res.data.length > 0){
+          let data : any = res.data[0];
+          data.id = '';
+          this.listHangHoaChange.emit(data);
+        }
+      });
   }
 }

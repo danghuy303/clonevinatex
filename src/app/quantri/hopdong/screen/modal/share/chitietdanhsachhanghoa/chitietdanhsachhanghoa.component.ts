@@ -169,27 +169,21 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   //   }).catch(er => { console.log(er) });
   // }
   delete(index) {
-    // let item = this.listTieuChuanChatLuong.splice(i, 1)[0];
-    // if (item.ID === 0) {
-    // } else {
-    //   item.isXoa = true;
-    //   this.listTieuChuanChatLuong.push(JSON.parse(JSON.stringify(item)));
-    // }
-
-    if (!validVariable(this.listTieuChuanChatLuong[index].id)) {
-      this.listTieuChuanChatLuong.splice(index, 1);
+    if (!validVariable(this.listHangHoaSoi[index].id)) {
+      this.listHangHoaSoi.splice(index, 1);
     } else {
-      this.listTieuChuanChatLuong[index].isXoa = true;
+      let item = this.listHangHoaSoi.splice(index, 1)[0];
+      item.isXoa = true;
+      this.listHangHoaSoi.push(JSON.parse(JSON.stringify(item)));
     }
-
-    // this.listTieuChuanChatLuong[i].isXoa = true;
-    // this.listTieuChuanChatLuong.push(this.listTieuChuanChatLuong.splice(i,1));  
   }
 
 
   chonKeHoach() {
-    
-    this._servicesSanXuat.GetListdmItemByHangHoa().subscribe((res1: any) => {
+    let Loai = 1;
+    if(this.isVatTuPhu)
+      Loai = 23;
+    this._servicesSanXuat.GetListdmItemByHangHoa(Loai).subscribe((res1: any) => {
       let modalRef = this._modal.open(ChitiethanghoacuahopdongsoimodalComponent, {
         size: 'lg',
         backdrop: 'static'

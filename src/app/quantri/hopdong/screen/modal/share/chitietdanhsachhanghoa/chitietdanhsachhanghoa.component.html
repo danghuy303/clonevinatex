@@ -104,9 +104,9 @@
   </div>
   <div *ngIf="isXo || isVatTuPhu" class="p-grid">
     <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
-      <label class="p-col-12 p-xl-2 p-p-0 my-auto">Giảm giá:</label>
+      <label class="p-col-12 p-xl-2 p-p-0 my-auto">Giảm giá (%):</label>
       <div class="p-col-12 p-xl-10 p-p-0">
-        <p-inputNumber [minFractionDigits]="0" [(ngModel)]="hopDong.giaTriGiam" locale="vi-VN">
+        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.giaTriGiam" locale="vi-VN">
         </p-inputNumber>
       </div>
     </div>
@@ -129,9 +129,7 @@
 
     <div class="p-my-auto">
       <div class="p-d-flex p-ai-center p-jc-start p-p-3">
-        <button *ngIf="isXo" pButton pRipple label="Thêm mới" (click)="chonKeHoach()" icon="pi pi-plus"
-          class="p-button-sm p-mr-2"></button>
-        <button *ngIf="isVatTuPhu" pButton pRipple label="Thêm mới" (click)="chonVatTuPhu()" icon="pi pi-plus"
+        <button pButton pRipple label="Thêm mới" (click)="chonKeHoach()" icon="pi pi-plus"
           class="p-button-sm p-mr-2"></button>
         <div></div>
       </div>
