@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
 
 import { ChitiethanghoamodalComponent } from './chitiethanghoamodal/chitiethanghoamodal.component';
 import { Component, OnInit, Input, Output, EventEmitter, DoCheck, SimpleChanges, ChangeDetectionStrategy, OnChanges } from '@angular/core';
-import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { LuachonvattuphucuahanghoamodalComponent } from './luachonvattuphucuahanghoamodal/luachonvattuphucuahanghoamodal.component';
 // import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
@@ -59,8 +58,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     public _modal: NgbModal,
     public _toastr: ToastrService,
     public activeModal: NgbActiveModal,
-    private _servicesSanXuat: SanXuatService,
-    private _danhmucHopDong: DanhMucHopDongService) { }
+    private _servicesSanXuat: SanXuatService) { }
 
   ngOnInit(): void {
     this.GetOptions()
@@ -231,15 +229,11 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
       size: 'lg',
       backdrop: 'static'
     })
-    this._danhmucHopDong.DanhMucVatTuPhu().GetListAll((res1: any) => {
       modalRef.componentInstance.opt = 'edit';
-      debugger
-      modalRef.componentInstance.listThanhToanThuTuc = res1;
       modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;
       modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
       modalRef.result.then(res => {
         this.listHangHoaSoi= res;  
       }).catch(er => { console.log(er) });
-    })
   }
 }

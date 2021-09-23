@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { deepCopy, validVariable } from 'src/app/services/globalfunction';
+import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 
 @Component({
   selector: 'app-luachonvattuphucuahanghoamodal',
@@ -33,9 +34,15 @@ export class LuachonvattuphucuahanghoamodalComponent implements OnInit {
   KeyWord: any = '';
   constructor(
     public activeModal: NgbActiveModal,
+    private _danhmucHopDong: DanhMucHopDongService
   ) { }
 
   ngOnInit(): void {
+    debugger
+    this._danhmucHopDong.DanhMucVatTuPhu().GetListAll((res1: any) => {
+      this.listThanhToanThuTuc = res1
+    })
+
     console.log(this.listThanhToanThuTuc.length);
     this.listHangHoaGoc = deepCopy(this.listHangHoa);
 
@@ -47,7 +54,7 @@ export class LuachonvattuphucuahanghoamodalComponent implements OnInit {
       for(let i = 0; i < this.listHangHoa.length; i++){
         console.log(this.listHangHoa[i])
         let itemFind = this.listThanhToanThuTuc.find(
-          ele => (ele.IddmItem === this.listHangHoa[i].iddmItem )
+          ele => (ele.Id === this.listHangHoa[i].iddmVatTuPhu )
          )
         if(validVariable(itemFind)){
           itemFind.checked = true;
@@ -103,12 +110,12 @@ export class LuachonvattuphucuahanghoamodalComponent implements OnInit {
 checkItem(item){
 if(item.checked == true)
 {
-  let itemFind: any = this.listHangHoa.filter((e: any) =>e.iddmItem === item.Id)[0]
+  let itemFind: any = this.listHangHoa.filter((e: any) =>e.iddmVatTuPhu === item.Id)[0]
   if(itemFind === undefined){
     let itemFinds = this.listThanhToanThuTuc.find(e => e.checked === true && e.Id === item.Id);
     itemFinds = {
       idHopDong: this.IdQuyTrinh || '',
-      iddmItem: itemFinds.Id,
+      iddmVatTuPhu: itemFinds.Id,
       tendmItem: itemFinds.Ten,
       iddmLoaiSoi: itemFinds.IddmLoaiSoi,
       // tendmMatHang: itemFinds.Ten,
@@ -122,7 +129,7 @@ if(item.checked == true)
     itemFind.isXoa = false;
 }
   else{
-    let itemFind = this.listHangHoa.filter((e: any) =>e.IddmItem === item.id)[0];
+    let itemFind = this.listHangHoa.filter((e: any) =>e.iddmVatTuPhu === item.id)[0];
     if(itemFind !== undefined){
       itemFind.isXoa = true;
     }
