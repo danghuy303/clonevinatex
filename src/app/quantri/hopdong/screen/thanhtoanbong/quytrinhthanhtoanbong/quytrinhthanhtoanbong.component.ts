@@ -76,9 +76,9 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
       }
     })
     this.IdDuAn = this.store.getCurrent();
-    this._service.GetOptions().GetDanhSachHopDongByNhaThau(this.IdDuAn).subscribe((res: any) => {
-      this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
-    })
+    // this._service.GetOptions().GetDanhSachHopDongByNhaThau(this.IdDuAn).subscribe((res: any) => {
+    //   this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
+    // })
     this.KiemTraTabTrangThai();
   }
   ngOnDestroy() {

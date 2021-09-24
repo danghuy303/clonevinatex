@@ -756,6 +756,13 @@ export class QuantriComponent implements OnInit {
               this.close();
             },
           },
+          {
+            label: "Phiếu xuất lô bông/xơ",
+            routerLink: "/quantri/hopdongsanxuat/phieuxuatlobongxo/0",            
+            command: () => {
+              this.close();
+            },
+          }
         ],
       },
       /////////////      Danh Mục Hợp Đồng
