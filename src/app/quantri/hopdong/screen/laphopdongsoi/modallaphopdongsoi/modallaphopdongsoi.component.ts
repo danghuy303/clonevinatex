@@ -109,31 +109,32 @@ export class ModallaphopdongsoiComponent implements OnInit {
           }
           this.item.hopDong.thanhTien = (this.item.hopDong.thanhTien || 0) + ((element.soLuong || 0) * (element.donGia || 0))
         });
-      if(this.item.listHangHoa.length > 0){
+        if (this.item.listHangHoa.length > 0) {
           this.item.listHangHoa.forEach(element => {
-              this.item.hopDong.thanhTien = (this.item.hopDong.thanhTien || 0) + ((element.soLuong || 0)*(element.donGia || 0))
+            this.item.hopDong.thanhTien = (this.item.hopDong.thanhTien || 0) + ((element.soLuong || 0) * (element.donGia || 0))
           });
-      }
-      if (this.item.hopDong.isBenBanChiu) {
-        this.item.hopDong.BenBanChiu = this.item.hopDong.isBenBanChiu;
-        this.item.hopDong.BenMuaChiu = !this.item.hopDong.BenBanChiu;
-      }
-      else {
-        this.item.hopDong.BenMuaChiu = !this.item.hopDong.isBenBanChiu;
-        this.item.hopDong.BenBanChiu = !this.item.hopDong.BenMuaChiu;
-      }
-      this.KiemTraButtonModal();
-      if (this.item.listDieuKhoanThanhToan.length > 0) {
-        this.item.listDieuKhoanThanhToan.forEach(element => {
-          element.ngayThanhToan = UnixToDate(element.ngayThanhToanUnix);
-          if (element.listThanhToanThuTuc === null)
-            element.listThanhToanThuTuc = [];
-        });
-      }
-      if (this.item.listBaoLanh.length > 0) {
-        this.item.listBaoLanh.forEach(element => {
-          element.hieuLucBaoLanh = UnixToDate(element.hieuLucBaoLanhUnix);
-        });
+        }
+        if (this.item.hopDong.isBenBanChiu) {
+          this.item.hopDong.BenBanChiu = this.item.hopDong.isBenBanChiu;
+          this.item.hopDong.BenMuaChiu = !this.item.hopDong.BenBanChiu;
+        }
+        else {
+          this.item.hopDong.BenMuaChiu = !this.item.hopDong.isBenBanChiu;
+          this.item.hopDong.BenBanChiu = !this.item.hopDong.BenMuaChiu;
+        }
+        this.KiemTraButtonModal();
+        if (this.item.listDieuKhoanThanhToan.length > 0) {
+          this.item.listDieuKhoanThanhToan.forEach(element => {
+            element.ngayThanhToan = UnixToDate(element.ngayThanhToanUnix);
+            if (element.listThanhToanThuTuc === null)
+              element.listThanhToanThuTuc = [];
+          });
+        }
+        if (this.item.listBaoLanh.length > 0) {
+          this.item.listBaoLanh.forEach(element => {
+            element.hieuLucBaoLanh = UnixToDate(element.hieuLucBaoLanhUnix);
+          });
+        }
       }
     })
   }
