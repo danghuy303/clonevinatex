@@ -15,7 +15,6 @@ import { ChitietnhapkhoComponent } from '../../modal/chitietnhapkho/chitietnhapk
   styleUrls: ['./nhapkho.component.css']
 })
 export class NhapkhoComponent implements OnInit {
-
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
@@ -79,9 +78,6 @@ export class NhapkhoComponent implements OnInit {
       this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
     })
     this.KiemTraTabTrangThai();
-  }
-  ngOnDestroy() {
-    this.suber.unsubscribe();
   }
   changeParam(id) {
     if(this._modal.hasOpenModals()){
