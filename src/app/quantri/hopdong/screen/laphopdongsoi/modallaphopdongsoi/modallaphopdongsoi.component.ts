@@ -39,11 +39,11 @@ export class ModallaphopdongsoiComponent implements OnInit {
   listDieuKhoanThanhToan: any = [];
   userInfo: any;
   newItem: any = {};
-  isXo :boolean = true
-  isSoi :boolean = true
+  isXo: boolean = true
+  isSoi: boolean = true
   lang: any = vn;
   isBongXo: boolean = true
-  listdmMatHang : any = [];
+  listdmMatHang: any = [];
   filter: any = {
     keyWord: "",
   };
@@ -77,7 +77,7 @@ export class ModallaphopdongsoiComponent implements OnInit {
       this.title = 'Thêm mới hợp đồng sợi';
     } else {
       this._servicesSanXuat.GetListdmItemByHangHoa().subscribe((res: any) => {
-        this.listdmMatHang = res;  
+        this.listdmMatHang = res;
       });
       this.title = "Chỉnh sửa hợp đồng sợi";
       this.KiemTraButtonModal();
@@ -98,17 +98,17 @@ export class ModallaphopdongsoiComponent implements OnInit {
       this.item.hopDong.idTrangThai = res1.data.hopDong.idTrangThai;
       this.item.hopDong.id = res1.data.hopDong.id;
       this.item.hopDong.ngayKy = UnixToDate(this.item.hopDong.ngayKyUnix);
-      this.item.hopDong.ngayHieuLuc = UnixToDate(this.item.hopDong.ngayHieuLucUnix );
+      this.item.hopDong.ngayHieuLuc = UnixToDate(this.item.hopDong.ngayHieuLucUnix);
       this.item.hopDong.ngayGiaoHang = UnixToDate(this.item.hopDong.ngayGiaoHangUnix);
-      if(this.item.listHangHoa.length > 0){
-          this.item.listHangHoa.forEach(element => {
-            let itemFind = this.listdmMatHang.filter((e: any) =>e.Id === element.iddmItem)[0]
-            if(itemFind !== undefined){
-              element.tendmMatHang = itemFind.Ten;
-              element.madmMatHang = itemFind.Ma;
-            }
-              this.item.hopDong.thanhTien = (this.item.hopDong.thanhTien || 0) + ((element.soLuong || 0)*(element.donGia || 0))
-          });
+      if (this.item.listHangHoa.length > 0) {
+        this.item.listHangHoa.forEach(element => {
+          let itemFind = this.listdmMatHang.filter((e: any) => e.Id === element.iddmItem)[0]
+          if (itemFind !== undefined) {
+            element.tendmMatHang = itemFind.Ten;
+            element.madmMatHang = itemFind.Ma;
+          }
+          this.item.hopDong.thanhTien = (this.item.hopDong.thanhTien || 0) + ((element.soLuong || 0) * (element.donGia || 0))
+        });
       }
       if (this.item.hopDong.isBenBanChiu) {
         this.item.hopDong.BenBanChiu = this.item.hopDong.isBenBanChiu;
@@ -119,14 +119,14 @@ export class ModallaphopdongsoiComponent implements OnInit {
         this.item.hopDong.BenBanChiu = !this.item.hopDong.BenMuaChiu;
       }
       this.KiemTraButtonModal();
-      if(this.item.listDieuKhoanThanhToan.length > 0){
+      if (this.item.listDieuKhoanThanhToan.length > 0) {
         this.item.listDieuKhoanThanhToan.forEach(element => {
           element.ngayThanhToan = UnixToDate(element.ngayThanhToanUnix);
-          if(element.listThanhToanThuTuc === null)
-            element.listThanhToanThuTuc  = [];
+          if (element.listThanhToanThuTuc === null)
+            element.listThanhToanThuTuc = [];
         });
       }
-      if(this.item.listBaoLanh.length > 0){
+      if (this.item.listBaoLanh.length > 0) {
         this.item.listBaoLanh.forEach(element => {
           element.hieuLucBaoLanh = UnixToDate(element.hieuLucBaoLanhUnix);
         });
@@ -135,8 +135,8 @@ export class ModallaphopdongsoiComponent implements OnInit {
   }
   GetNextSoQuyTrinh() {
     this._service.QuyTrinhHopDong().GetNextSoQuyTrinh().subscribe((res: any) => {
-        this.item.hopDong.soQuyTrinh = res.data;
-      });
+      this.item.hopDong.soQuyTrinh = res.data;
+    });
   }
 
   ValidData() {
@@ -157,19 +157,22 @@ export class ModallaphopdongsoiComponent implements OnInit {
     if (this.item.hopDong.BenBanChiu) {
       this.item.hopDong.isBenBanChiu = true;
     }
+    this.item.listHangHoa.forEach((element, index) => {
+      element.thutu = index + 1;
+    });
     if (this.ValidData()) {
       this._service.QuyTrinhHopDong().Set(this.item).subscribe((res: any) => {
-          console.log(this.item);
-          if (res) {
-            if (res?.statusCode === 200) {
-               this.item.Loai = 2
-              this._toastr.success(res.message);
-              this.GetQuyTrinh(res.data)
-            } else {
-              this._toastr.error(res.message);
-            }
+        console.log(this.item);
+        if (res) {
+          if (res?.statusCode === 200) {
+            this.item.Loai = 2
+            this._toastr.success(res.message);
+            this.GetQuyTrinh(res.data)
+          } else {
+            this._toastr.error(res.message);
           }
-        });
+        }
+      });
     }
   }
 
@@ -205,7 +208,7 @@ export class ModallaphopdongsoiComponent implements OnInit {
     }
     this._service.QuyTrinhHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
       console.log(res);
-      
+
       if (res) {
         console.log(res);
         if (res?.statusCode === 200) {

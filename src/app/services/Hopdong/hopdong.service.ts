@@ -331,6 +331,56 @@ export class HopDongService {
           url + `HopDong/GetListMatHangGiaoKeHoachSanXuat?IdDuAn=${IdDuAn}`,
           httpOptions
         );
+      },    
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(
+          url + "GiaoKeHoachSanXuat/GetNextSoQuyTrinh",
+          httpOptions
+        );
+      },  
+      GetList: (data) => {
+        data.idDuAn = this.store.getCurrent()
+        return this.http.post(
+          url + "GiaoKeHoachSanXuat/GetListQuyTrinh",
+          data,
+          httpOptions
+        );
+      },  
+      Get: (Id) => {
+        return this.http.get(
+          url + `GiaoKeHoachSanXuat/GetById?Id=${Id}`,
+          httpOptions
+        );
+      },
+      Set: (data) => {
+        // data.idDuAn = 53
+        return this.http.post(
+          url + "GiaoKeHoachSanXuat/SetQuyTrinh",
+          data,
+          httpOptions
+        );
+      },
+      Delete: (data) => {
+        return this.http.post(
+          url + `GiaoKeHoachSanXuat/DeleteQuyTrinh`,
+          data,
+          httpOptions
+        );
+
+      },
+      KhongDuyet: (data) => {
+        return this.http.post(
+          url + "GiaoKeHoachSanXuat/KhongDuyetQuyTrinh",
+          data,
+          httpOptions
+        );
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(
+          url + "GiaoKeHoachSanXuat/ChuyenTiepQuyTrinh",
+          data,
+          httpOptions
+        );
       },
     };
   }
