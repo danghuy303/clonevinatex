@@ -75,14 +75,14 @@ export class ThanhtoanhopdongsoiComponent implements OnInit {
       }
     })
     this.IdDuAn = this.store.getCurrent();
-    this._service.GetOptions().GetDanhSachHopDongByNhaThau(this.IdDuAn).subscribe((res: any) => {
+    this._service.GetOptions().GetDanhSachHopDongByNhaThauSoi(this.IdDuAn).subscribe((res: any) => {
       this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
     })
     this.KiemTraTabTrangThai();
   }
   ngOnDestroy() {
     this.IdDuAn = this.store.getCurrent();
-    this._service.GetOptions().GetDanhSachHopDongByNhaThau(this.IdDuAn).subscribe((res: any) => {
+    this._service.GetOptions().GetDanhSachHopDongByNhaThauSoi(this.IdDuAn).subscribe((res: any) => {
       this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
     })
   }
@@ -115,12 +115,14 @@ export class ThanhtoanhopdongsoiComponent implements OnInit {
   }
  
   update(Id) {
+    this._hopdong.QuyTrinhThanhToan().Get(Id).subscribe((res1: any) => {
+
       let modalRef = this._modal.open(ThanhtoanhopdongsoimodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.item.id = JSON.parse(JSON.stringify(Id));
+      modalRef.componentInstance.item = res1.data;
       modalRef.componentInstance.type = this.type;
       modalRef.componentInstance.nametype = this.nametype;
       modalRef.componentInstance.IdDuAn = this.IdDuAn;
@@ -135,6 +137,8 @@ export class ThanhtoanhopdongsoiComponent implements OnInit {
           this.GetListQuyTrinh();
           this.changeParam(0);
         })
+      })
+
   }
   changeTab(e) {
     this.trangThai = e.index+1;
@@ -160,7 +164,7 @@ export class ThanhtoanhopdongsoiComponent implements OnInit {
       Ten: "",
       IdHopDong: this.filter.IdHopDong,
     }
-    this._hopdong.QuyTrinhThanhToan().GetList(data).subscribe((res: any) => {
+    this._hopdong.QuyTrinhThanhToan().GetListThanhToanSoi(data).subscribe((res: any) => {
       this.items = res.data.items;
       if (this.items.length > 0) {
         this.items.forEach(element => {

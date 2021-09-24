@@ -374,8 +374,8 @@ export class SanXuatService {
 
     //#region  mặt hàng
 
-    GetListdmItemByHangHoa() {
-        let url = API.SCMDanhMuc + 'GetListdmItem';
+    GetListdmItemByHangHoa(Loai) {
+        let url = API.SCMDanhMuc + `GetListdmItem?Loai=${Loai}`;
         return this.http.get(url, httpOptions);
     }
 
@@ -583,8 +583,15 @@ export class SanXuatService {
             GetDanhSachHopDongByNhaThau: (IdDuAn) => {
                 return this.http.get(`${API.HopDong}HopDong/GetDanhSachHopDongByNhaThau?IdDuAn=${IdDuAn}`, httpOptions)
             },
+            GetDanhSachHopDongByNhaThauSoi: (IdDuAn) => {
+                return this.http.get(`${API.HopDong}HopDong/GetDanhSachHopDongByNhaThauSoi?IdDuAn=${IdDuAn}`, httpOptions)
+            },
             GetMatHangVatTuPhu: () => {
                 return this.http.get(`${API.SCMDanhMuc}GetListdmItemLoaiVatTuPhu`, httpOptions)
+            },
+            //
+            GetDanhMucNoiDiaXuatKhau: () => {
+                return this.http.get(`${API.KeHoach}DanhMuc/GetDanhMucNoiDiaXuatKhau`, httpOptions)
             },
         }
     }
@@ -1262,7 +1269,7 @@ export class SanXuatService {
             //     return this.http.post(url + 'KhongDuyetGiaoKeHoachSanXuat', data, httpOptions)
             // },
             GetListKienBong: (data) => {
-                return this.http.post(url + `GetListKienLoBong`, {IdDuAn:this.store.getCurrent(),listItems:data}, httpOptions)
+                return this.http.post(url + `GetListKienLoBong`, {IdDuAn:this.store.getCurrent(),listItem:data}, httpOptions)
             },
             TimBongTuDong: (IdTimBong) => {
                 return this.http.get(`${url}TaoPhuongAnTimBong?Id=${IdTimBong}`, httpOptions)

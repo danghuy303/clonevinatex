@@ -17,20 +17,16 @@ import { ModalkehoachkinhdoanhtheodoiComponent } from '../modalkehoachkinhdoanht
 })
 export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
 
-  // newItem: any = { id: '', itemPhuCap:{Ten: ""},soLuongTonKho:{ },itemLoaiThoiGian: { LoaiLuong: "", isDeleted: false } };
-  tong: any = {
-    thang1: 0,
-    thang2: 0,
-    thang3: 0,
-    thang4: 0,
-  }
+  // tong: any = {
+  //   thang1: 0,
+  //   thang2: 0,
+  //   thang3: 0,
+  //   thang4: 0,
+  // }
 
   public newitemlap: any = {};
   public newitem: any = {};
 
-  
-  // newItem:any
- 
   item:any = {};
   copyItem:any = {};
   filter: any = {};
@@ -64,7 +60,6 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     }
 
     this.getListNhaMay();
-    this.GetListdmLoaiSoi();
     this.getListPhanXuong();
     this.GetListMatHang();
   }
@@ -81,7 +76,6 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       .GetDanhSachDuAnByIdUser(this.userInfo.Id)
       .subscribe((res: any) => {
         this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id");
-        // this.idDuAn = res[0].Id;ss
       });
   }
 
@@ -91,11 +85,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     })
   }
 
-  GetListdmLoaiSoi() {
-    this._services.GetListOptdmLoaiSoi().subscribe((res: any) => {
-      this.listdmLoaiSoi = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
+  
 
   TheoDoi(item) {
 
@@ -159,11 +149,12 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   }
 
   GhiLai() {   
+  
       this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(this.item).subscribe((res: any) => {
-        if (res.statusCode !== 200) {
-          this.toastr.error(res.message);
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
         } else {
-          this.toastr.success(res.message);
+          this.toastr.success(res.Message);
           this.activeModal.close();
         }   
       })
@@ -180,35 +171,35 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     modalRef.componentInstance.title = '';
   }
 
-  TinhTong() {
-    this.tong={thang1:0,
-       thang2:0,
-       thang3:0,
-       thang4:0,
-       thang5:0,
-       thang6:0,
-       thang7:0,
-       thang8:0,
-       thang9:0,
-       thang10:0,
-       thang11:0,
-       thang12:0,
-      }
-       this.item.listItemLap.forEach(itemlap => {
-         this.tong.thang1+= itemlap.thang1;
-         this.tong.thang2+= itemlap.thang2;
-         this.tong.thang3+= itemlap.thang3;
-         this.tong.thang4+= itemlap.thang4;
-         this.tong.thang4+= itemlap.thang5;
-         this.tong.thang4+= itemlap.thang6;
-         this.tong.thang4+= itemlap.thang7;
-         this.tong.thang4+= itemlap.thang8;
-         this.tong.thang4+= itemlap.thang9;
-         this.tong.thang4+= itemlap.thang10;
-         this.tong.thang4+= itemlap.thang11;
-         this.tong.thang4+= itemlap.thang12;
-       });
-   }
+  // TinhTong() {
+  //   this.tong={thang1:0,
+  //      thang2:0,
+  //      thang3:0,
+  //      thang4:0,
+  //      thang5:0,
+  //      thang6:0,
+  //      thang7:0,
+  //      thang8:0,
+  //      thang9:0,
+  //      thang10:0,
+  //      thang11:0,
+  //      thang12:0,
+  //     }
+  //      this.item.listItemLap.forEach(itemlap => {
+  //        this.tong.thang1+= itemlap.thang1;
+  //        this.tong.thang2+= itemlap.thang2;
+  //        this.tong.thang3+= itemlap.thang3;
+  //        this.tong.thang4+= itemlap.thang4;
+  //        this.tong.thang5+= itemlap.thang5;
+  //        this.tong.thang6+= itemlap.thang6;
+  //        this.tong.thang7+= itemlap.thang7;
+  //        this.tong.thang8+= itemlap.thang8;
+  //        this.tong.thang9+= itemlap.thang9;
+  //        this.tong.thang10+= itemlap.thang10;
+  //        this.tong.thang11+= itemlap.thang11;
+  //        this.tong.thang12+= itemlap.thang12;
+  //      });
+  //  }
 
 }
 

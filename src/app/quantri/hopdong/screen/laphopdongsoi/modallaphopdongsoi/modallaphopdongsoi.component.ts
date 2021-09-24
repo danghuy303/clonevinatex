@@ -109,6 +109,10 @@ export class ModallaphopdongsoiComponent implements OnInit {
           }
           this.item.hopDong.thanhTien = (this.item.hopDong.thanhTien || 0) + ((element.soLuong || 0) * (element.donGia || 0))
         });
+      if(this.item.listHangHoa.length > 0){
+          this.item.listHangHoa.forEach(element => {
+              this.item.hopDong.thanhTien = (this.item.hopDong.thanhTien || 0) + ((element.soLuong || 0)*(element.donGia || 0))
+          });
       }
       if (this.item.hopDong.isBenBanChiu) {
         this.item.hopDong.BenBanChiu = this.item.hopDong.isBenBanChiu;

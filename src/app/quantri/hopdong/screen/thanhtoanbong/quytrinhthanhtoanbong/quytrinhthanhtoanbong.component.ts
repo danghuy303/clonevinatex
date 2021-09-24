@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, formatdate, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, formatdate, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { QuytrinhthanhtoanbongmodalComponent } from '../quytrinhthanhtoanbongmodal/quytrinhthanhtoanbongmodal.component';
@@ -62,16 +62,16 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
   nametype: any = "";
   suber: any;
 
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, 
+  constructor(public _modal: NgbModal, public _toastr: ToastrService,
     private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private store: StoreService,
-    private _hopdong: HopDongService, ) {
-     }
+    private _hopdong: HopDongService,) {
+  }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
-    this.activatedRoute.params.subscribe((res:any)=>{
+    this.activatedRoute.params.subscribe((res: any) => {
       this.title = res.kho;
-      if(res.id!=='0'){
+      if (res.id !== '0') {
         this.update(res.id);
       }
     })
@@ -89,12 +89,12 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
     })
   }
   changeParam(id) {
-    if(this._modal.hasOpenModals()){
+    if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
     this.router.navigate([`quantri/hopdongsanxuat/quytrinhthanhtoanbong/${id}`], { replaceUrl: true })
   }
-  
+
   addPhieu() {
     this.changeParam(0);
     let modalRef = this._modal.open(QuytrinhthanhtoanbongmodalComponent, {
@@ -108,21 +108,24 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
-    this.changeParam(0);
+      this.changeParam(0);
 
     })
-      .catch(er => { console.log(er)
+      .catch(er => {
+        console.log(er)
         this.GetListQuyTrinh();
-        this.changeParam(0); })
+        this.changeParam(0);
+      })
   }
- 
+
   update(Id) {
+    this._hopdong.QuyTrinhThanhToan().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(QuytrinhthanhtoanbongmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.item.id = JSON.parse(JSON.stringify(Id));
+      modalRef.componentInstance.item = res1.data;
       modalRef.componentInstance.type = this.type;
       modalRef.componentInstance.nametype = this.nametype;
       modalRef.componentInstance.IdDuAn = this.IdDuAn;
@@ -130,16 +133,19 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
         this.GetListQuyTrinh();
         this.changeParam(0);
       })
-        .catch(er => { console.log(er) 
-          this.GetListQuyTrinh();
-          this.changeParam(0);})
-        .finally(()=>{
+        .catch(er => {
+          console.log(er)
           this.GetListQuyTrinh();
           this.changeParam(0);
         })
+        .finally(() => {
+          this.GetListQuyTrinh();
+          this.changeParam(0);
+        })
+    })
   }
   changeTab(e) {
-    this.trangThai = e.index+1;
+    this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
@@ -156,7 +162,7 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
       sFilter: this.filter.KeyWord,
-      TuNgay: DateToUnix(this.filter.TuNgay) ,
+      TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
@@ -179,11 +185,11 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
-      this.checkQuyen ={
-        ThemMoi:true,
-        ChuaXuLy:true,
-        DaXyLy:true,
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
+      this.checkQuyen = {
+        ThemMoi: true,
+        ChuaXuLy: true,
+        DaXyLy: true,
 
       }
       this.GetListQuyTrinh();

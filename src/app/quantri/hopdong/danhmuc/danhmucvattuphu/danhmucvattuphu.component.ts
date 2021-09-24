@@ -26,7 +26,13 @@ export class DanhmucvattuphuComponent implements OnInit {
     {
       header: 'Tên',
       field: 'Ten',
-      width: '350px',
+      width: '300px',
+      align:'center'
+    },
+    {
+      header: 'Đơn vị',
+      field: 'DonViTinh',
+      width: '300px',
       align:'center'
     },
     {

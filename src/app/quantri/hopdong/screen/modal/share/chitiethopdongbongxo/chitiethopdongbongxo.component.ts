@@ -45,6 +45,7 @@ import { FormGroup, Validators } from '@angular/forms';
 export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck {
   @Input('listLoaiMatHang') listLoaiMatHang: any = [];
   @Output('listLoaiMatHangChange') listLoaiMatHangChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output('listHangHoaChange') listHangHoaChange: EventEmitter<any> = new EventEmitter<any>();
   
   getKhachHang: any = []
   getKhachHang1: any = []
@@ -71,7 +72,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   listLoaiTienTe: any = [];
   listdmKhachHang: any = [];
   getdmKhachHangForCopy: any = {};
-
+  listHopDongGoc: any = [];
   canCopy: boolean = false;
   selectedCity = null;
   cities = [{ name: 'pushkar', code: 21 }, { name: 'nagpur', code: 22 }];
@@ -163,7 +164,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
         // this.listLoaiMatHang = res;
         this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
       });
-
+this.getListHopDongGoc();
   }
   LayGiaTriHopDong() {
     if(this.item.isLayTheoGiaTriHangHoa == true)
@@ -195,6 +196,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
       }
     }
     else {
+      this.getListHopDongGoc();
       this.itemcha.listTen = "";
       if(this.itemcha.lstFileUploadCu === undefined || this.itemcha.lstFileUploadCu === null)
         this.itemcha.lstFileUploadCu = [];
@@ -209,6 +211,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
   ngDoCheck() {
     this.itemChange.emit(this.item);
     this.itemchaChange.emit(this.itemcha);
+    this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
     this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
     
   }
@@ -290,13 +293,31 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
     this.item.IsBong = loai;
   }
   chonHopDongGoc(){
+    this.isHienHopDongGoc = false;
     if(this.isSoi !== true){
       let itemFind = this.listLoaiHopDongFull.filter(el=> el.id == this.item.iddmLoaiHopDong)
       if(itemFind!== undefined){
-          if(itemFind[0].ma == "MUA" || itemFind[0].ma == "BAN")
+          if(itemFind[0].ma == "BAN" || itemFind[0].ma == "CV"){
+            this.getListHopDongGoc();
             this.isHienHopDongGoc = true;
+          }
       }
     }
-    
+  }
+  getListHopDongGoc(){
+    this._service.QuyTrinhHopDong().GetListAll(this.item.loai || 0, this.item.iddmLoaiHopDong || '')
+      .subscribe((res: Array<any>) => {
+        this.listHopDongGoc = mapArrayForDropDown(res, "soHopDong", "id");
+      });
+  }
+  listHangHoaTheoHopDong(){
+    this._service.QuyTrinhHopDong().getListMatHang(this.item.idHopDong || '')
+      .subscribe((res: any) => {
+        if(res.data.length > 0){
+          let data : any = res.data[0];
+          data.id = '';
+          this.listHangHoaChange.emit(data);
+        }
+      });
   }
 }

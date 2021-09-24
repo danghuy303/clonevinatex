@@ -2,9 +2,10 @@ import { AfterViewInit, Component, NgZone, OnInit, PLATFORM_ID, Inject,OnDestroy
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
-import * as am4core from '@amcharts/amcharts4/core';
-import am4themes_animated from '@amcharts/amcharts4/themes/animated';
-import * as am4charts from '@amcharts/amcharts4/charts';
+// import * as am4core from '@amcharts/amcharts4/core';
+import { create } from '@amcharts/amcharts4/core';
+// import * as am4charts from '@amcharts/amcharts4/charts';
+import {SlicedChart,FunnelSeries,Legend} from '@amcharts/amcharts4/charts'
 import { formatNumber, isPlatformBrowser } from '@angular/common';
 import { StoreService } from 'src/app/services/store.service';
 
@@ -39,7 +40,7 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit,OnDes
     'TyLe': 'TyLe',
     'KhoiLuong': 'KhoiLuongCongDoan'
   }
-  chart: am4charts.SlicedChart;
+  chart: SlicedChart;
   suber:any;
   constructor(private _services: SanXuatService, private _toastr: ToastrService, @Inject(PLATFORM_ID) private platformId, private zone: NgZone, private store: StoreService) {
     this.filter.IdDuAn = this.store.getCurrent();
@@ -63,48 +64,6 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit,OnDes
     }
   }
   ngAfterViewInit(): void {
-    // this.browserOnly(() => {
-    //   // am4core.useTheme(am4themes_animated);
-
-    //   let chart = am4core.create("ThongLuongChart", am4charts.SlicedChart);
-
-    //   // chart.paddingRight = 20;
-
-    //   // let data = [];
-    //   // let visits = 10;
-    //   // for (let i = 1; i < 366; i++) {
-    //   //   visits += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
-    //   //   data.push({ date: new Date(2018, 0, i), name: "name" + i, value: visits });
-    //   // }
-
-    //   chart.data = [{
-    //     name: "Bông chải",
-    //     value: 600
-    //   }, {
-    //     name: "Ghép",
-    //     value: 300
-    //   }, {
-    //     name: "Thô",
-    //     value: 100
-    //   }, {
-    //     name: "Con",
-    //     value: 180
-    //   }
-    //   , {
-    //     name: "Ống",
-    //     value: 120
-    //   }
-    //   ];
-    //   let Series = chart.series.push(new am4charts.FunnelSeries());
-    //   Series.dataFields.value = "value";
-    //   Series.dataFields.category = "name";
-    //   Series.alignLabels = true;
-    //   chart.legend = new am4charts.Legend();
-    //   chart.legend.position = "left";
-    //   chart.legend.valign = "bottom";
-    //   chart.legend.margin(5, 5, 20, 5);
-    //   this.chart = chart;
-    // });
   }
   getAllOptions() {
     let data = {
@@ -154,7 +113,7 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit,OnDes
     }
     if (validVariable(this.filter.TuNgayUnix) && validVariable(this.filter.DenNgayUnix) && this.filter.TuNgayUnix <= this.filter.DenNgayUnix) {
       this._services.BaoCao().BaoCaoThongLuongSanXuat(this.filter).subscribe((res: any) => {
-        let chart = am4core.create("ThongLuongChart", am4charts.SlicedChart);
+        let chart = create("ThongLuongChart", SlicedChart);
         chart.data = res.map(ele => {
           return {
             name: ele.TenCongDoan,
@@ -164,7 +123,7 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit,OnDes
             TyLe: formatNumber(ele.TyLe, 'vi-VN', '0.0-2')
           }
         })
-        let Series = chart.series.push(new am4charts.FunnelSeries());
+        let Series = chart.series.push(new FunnelSeries());
         Series.orientation = "horizontal";
         Series.dataFields.value = "value";
         Series.dataFields.category = "name";
@@ -178,6 +137,7 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit,OnDes
         Series.slices.template.tooltipText = "[bold white]{category}: [bold white]{formated} kg[/] [bold white]{TyLe}%";
         // Series.alignLabels = true;
         // chart.legend = new am4charts.Legend();
+        // chart.legend = new Legend();
         // chart.legend.position = "top";
         // chart.legend.valueLabels.template.text="[bold]{formated} kg[/] [bold red]{TyLe}%";
         this.chart = chart;

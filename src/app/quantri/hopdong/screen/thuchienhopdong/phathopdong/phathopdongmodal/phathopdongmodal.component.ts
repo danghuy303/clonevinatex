@@ -68,12 +68,12 @@ export class PhathopdongmodalComponent implements OnInit {
 
 
   GetFormOptions() {
-    this._services
-      .QuyTrinhHopDong()
-      .GetListAll()
-      .subscribe((res: any) => {
-        this.listHopDong = mapArrayForDropDown(res, "soHopDong", "id");
-      });
+    // this._services
+    //   .QuyTrinhHopDong()
+    //   .GetListAll()
+    //   .subscribe((res: any) => {
+    //     this.listHopDong = mapArrayForDropDown(res, "soHopDong", "id");
+    //   });
 
   }
 

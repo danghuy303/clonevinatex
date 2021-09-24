@@ -22,6 +22,9 @@
              <col style="width:50px">
              <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
              <col style="width: 100px;">
+             <col style="width:250px">
+             <col style="width:250px">
+             <col style="width:200px">
          </colgroup>
      </ng-template>
      <ng-template pTemplate="header">
@@ -33,7 +36,10 @@
              <th *ngFor="let header of cols">
                  {{header.header}}
              </th>
-             <th>Edit</th>
+             <th class="text-center">Thời gian Bắt Đầu khấu hao</th>
+             <th class="text-center">Thời gian hết khấu hao</th>
+             <th class="text-center">Ghi chú</th>
+             <th>Thao tác</th>
          </tr>
      </ng-template>
      <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -47,6 +53,15 @@
              <td *ngFor="let col of cols" class="text-center" [ngClass]="{'text-center': col.align==='center'}">
                  {{item[col.field]}}
              </td>
+             <td class="text-center">
+                {{ item.ThoiGianBatDauKhauHao|date:'dd/MM/yyyy' }}
+            </td>
+             <td class="text-center">
+                {{ item.ThoiGianHetKhauHao|date:'dd/MM/yyyy' }}
+            </td>
+            <td class="text-center">
+                {{ item.GhiChu }}
+            </td>
              <td class="text-center date">
                  <button pButton pRipple type="button" icon="pi pi-pencil"
                      class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="edit(item)" pTooltip="Sửa" showDelay="1000" tooltipPosition="bottom"></button>

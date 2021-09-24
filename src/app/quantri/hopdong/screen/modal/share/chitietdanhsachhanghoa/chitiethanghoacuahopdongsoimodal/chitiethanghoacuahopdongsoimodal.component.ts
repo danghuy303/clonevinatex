@@ -32,6 +32,7 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
   listHangHoa: any = [];
   listHangHoaGoc: any = [];
   IdQuyTrinh : any = '';
+  Loai : any = 0;
   cols: any = [
     {
       header: 'Mã',
@@ -132,10 +133,10 @@ if(item.checked == true)
     itemFinds = {
       idHopDong: this.IdQuyTrinh || '',
       iddmItem: itemFinds.Id,
-      tendmMatHang: itemFinds.Ten,
+      tendmItem: itemFinds.Ten,
       iddmLoaiSoi: itemFinds.IddmLoaiSoi,
       // tendmMatHang: itemFinds.Ten,
-      madmMatHang: itemFinds.Ma,
+      madmItem: itemFinds.Ma,
       isXoa: false,
       id: '',
     }

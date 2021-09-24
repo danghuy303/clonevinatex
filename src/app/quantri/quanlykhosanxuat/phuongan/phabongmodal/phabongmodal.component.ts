@@ -125,70 +125,7 @@ export class PhabongmodalComponent implements OnInit {
         })
         if (validVariable(this.item.SoBanBong) && this.item.SoBanBong !== 0) {
           this.rebindDataToTable()
-          // this.listProps = [];
-          // for (let i = 1; i <= this.item.SoBanBong; i++) {
-          //   this.listProps.push(`${i}`);
-          // }
-          // // console.log(this.item.listLoBong)
-          // this.item.listLoBong.forEach((lobong, index) => {
-          //   if (!validVariable(lobong.temBanBong)) {
-          //     lobong.tempBanBong = {};
-          //   }
-          //   lobong.listItem.forEach((item) => {
-          //     let data = {
-          //       ...item,
-          //       SoKien: (lobong.isLoBongTuongLai && item.ThuTu < lobong.lim) ? null : item.SoLuongKien,
-          //       tabIndex: index + 1 + (item.ThuTu * this.item.listLoBong.length)
-          //     }
-          //     lobong.tempBanBong[`${item.ThuTu}`] = data;
-          //   });
-          // });
-          // let TongChatLuong = {
-          //   Mic: 0,
-          //   Rd: 0,
-          //   b: 0,
-          //   Mat: 0,
-          //   Str: 0,
-          //   Tap: 0,
-          //   Am: 0,
-          //   UHML: 0,
-          //   SFI: 0
-          // }
-          // this.item.listLoBong.forEach(lobong => {
-          //   for (let chatluong in TongChatLuong) {
-          //     if (validVariable(lobong[chatluong])) {
-          //       TongChatLuong[chatluong] += lobong[chatluong];
-          //     }
-          //   }
-          // });
-          // this.ChatLuongBinhQuan = {}
-          // for (let chatluong in TongChatLuong) {
-          //   this.ChatLuongBinhQuan[chatluong] = TongChatLuong[chatluong] / (this.item.listLoBong.length - this.item.listLoBong.filter(ele => !validVariable(ele[chatluong])).length);
-          // }
-          // this.labelBong = {}
-          // this.trongLuongLoBong = {}
-          // this.item.listLoBong.forEach(lobong => {
-          //   if (!validVariable(this.labelBong[lobong.IddmLoaiBong.split('-').join('_')])) {
-          //     this.labelBong[lobong.IddmLoaiBong.split('-').join('_')] = 0;
-          //   }
-          //   if (validVariable(lobong.TyLe)) {
-          //     this.labelBong[lobong.IddmLoaiBong.split('-').join('_')] += lobong.TyLe;
-          //   }
-          // });
-          // this.item.TyLePhaBong = `${formatNumber(this.labelBong.BR, 'vi-VN', '0.0-1')}% Brazil + ${formatNumber(this.labelBong.MY, 'vi-VN', '0.0-1')}% Mỹ + ${formatNumber(this.labelBong.TP, 'vi-VN', '0.0-1')}% Tây Phi + ${formatNumber(this.labelBong.zH, 'vi-VN', '0.0-1')}% Hồi`
-          // for (let i = 0; i < this.item.listLoBong.length; i++) {
-          //   for (let j = 1; j <= this.item.SoBanBong; j++) {
-          //     this.CalAllTable(i, `${j}`);
-          //   }
-          // }
-          // this.TinhThongTinKienTheoLoaiBong();
-          // if (validVariable(this.item.listThongSo)) {
-          //   this.item.listThongSo.forEach(thongso => {
-          //     this.itemMicTT[`${thongso.ThuTu}`] = thongso.MicTT;
-          //     this.itemCVMicTT[`${thongso.ThuTu}`] = thongso.CVMicTT;
-          //     this.itemTyLeHoiPha[`${thongso.ThuTu}`] = thongso.TyLeHoiPha;
-          //   });
-          // }
+
         }
       }
       this.GetLoBongTrongKho();

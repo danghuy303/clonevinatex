@@ -60,12 +60,12 @@ listHopDong: any = {}
       });
   }
   GetFormOptions() {
-    this._service
-      .QuyTrinhHopDong()
-      .GetListAll()
-      .subscribe((res: any) => {
-        this.listHopDong = mapArrayForDropDown(res, "soHopDong", "id");
-      });
+    // this._service
+    //   .QuyTrinhHopDong()
+    //   .GetListAll()
+    //   .subscribe((res: any) => {
+    //     this.listHopDong = mapArrayForDropDown(res, "soHopDong", "id");
+    //   });
 
   }
   GetNextSoQuyTrinh() {

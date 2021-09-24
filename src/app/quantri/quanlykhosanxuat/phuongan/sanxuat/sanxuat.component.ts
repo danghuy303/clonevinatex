@@ -13,7 +13,7 @@ import { SanxuatmodalComponent } from '../sanxuatmodal/sanxuatmodal.component';
   templateUrl: './sanxuat.component.html',
   styleUrls: ['./sanxuat.component.css']
 })
-export class SanxuatComponent extends StoreBase implements OnInit,OnDestroy {
+export class SanxuatComponent extends StoreBase implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   filter: any = {};
@@ -21,16 +21,6 @@ export class SanxuatComponent extends StoreBase implements OnInit,OnDestroy {
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
-    // {
-    //   header: 'Kế hoạch giao(Tấn)',
-    //   field: '',
-    //   width: 'unset'
-    // },
-    // {
-    //   header: 'Kế hoạch thực hiện',
-    //   field: 'NoiDung',
-    //   width: 'unset'
-    // },
     {
       header: 'Ghi chú',
       field: 'TenTrangThai',
@@ -39,17 +29,12 @@ export class SanxuatComponent extends StoreBase implements OnInit,OnDestroy {
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
 
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) {super(store) }
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, public store: StoreService) { super(store) }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== '0') {
         this._service.SanXuat().Get(res.id).subscribe((res: any) => {
-          console.log(res);
-          // res.listItem.forEach(ele => {
-          //   ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
-          // });
           this.update(res);
         })
       }
@@ -65,28 +50,20 @@ export class SanxuatComponent extends StoreBase implements OnInit,OnDestroy {
     let modalRef = this._modal.open(SanxuatmodalComponent, {
       size: 'fullscreen-100',
       backdrop: 'static',
-      keyboard:false
+      keyboard: false
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {
       SoQuyTrinh: 'PKK_0000_0001',
       listKienHang: []
-      // ID:null,
-      // TepDinhKems:[],
-      // templistTaiSanQuyTrinh:[],
-      // listTaiSanQuyTrinh:[]
     }
     modalRef.componentInstance.checkbutton = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true }
     modalRef.result.then((res: any) => {
-      console.log(res);
       this._toastr.success('Cập nhật thành công');
+    }).finally(() => {
       this.GetListQuyTrinh();
       this.changeParam(0);
     })
-      .catch(er => {
-        this.GetListQuyTrinh();
-        this.changeParam(0);
-      })
   }
   update(item) {
     let tempPhuongAnPhaBong = deepCopy(item.PhuongAnPhaBong);
@@ -94,21 +71,17 @@ export class SanxuatComponent extends StoreBase implements OnInit,OnDestroy {
     let modalRef = this._modal.open(SanxuatmodalComponent, {
       size: 'fullscreen-100',
       backdrop: 'static',
-      keyboard:false
+      keyboard: false
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.item = tempPhuongAnPhaBong;
     modalRef.componentInstance.ghostItem = deepCopy(item);
     modalRef.result.then((res: any) => {
-      console.log(res);
       this._toastr.success('Cập nhật thành công');
+    }).finally(() => {
       this.GetListQuyTrinh();
       this.changeParam(0);
     })
-      .catch(er => {
-        this.GetListQuyTrinh();
-        this.changeParam(0);
-      })
   }
   changeTab(e) {
     this.trangThai = e.index + 1;
@@ -148,7 +121,7 @@ export class SanxuatComponent extends StoreBase implements OnInit,OnDestroy {
     //   this.GetListQuyTrinh();
     // })
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     super.ngOnDestroy();
   }
 }

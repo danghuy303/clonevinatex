@@ -1,5 +1,5 @@
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
-import { mapArrayForDropDown, DateToUnix } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 import { vn } from './../../../../../../../services/const';
 
@@ -34,6 +34,8 @@ export class ChitietbaolanhmodalComponent implements OnInit {
     this.GetOptions();
     if (this.opt == 'edit') {
       this.item.listTen = "";
+      this.item.hieuLucBaoLanh = UnixToDate(this.item.hieuLucBaoLanhUnix);
+
       this.item.listFileDinhKem.forEach(element => {
         this.item.listTen += `${element.TenGoc}`;
       });

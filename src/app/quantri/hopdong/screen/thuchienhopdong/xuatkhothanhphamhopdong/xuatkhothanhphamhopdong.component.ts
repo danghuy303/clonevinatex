@@ -60,6 +60,7 @@ export class XuatkhothanhphamhopdongComponent implements OnInit {
   ];
   eAction = 'XUATTHANHPHAM';
   suber: any;
+  IdDuAn: any = 0;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService,
     private activatedRoute: ActivatedRoute, private router: Router,  private store: StoreService) { }
@@ -71,10 +72,9 @@ export class XuatkhothanhphamhopdongComponent implements OnInit {
         this.update(res.id);
       }
     })
-    this.suber = this.store.getNhaMay().subscribe(res => {
-      this._service.GetOptions().GetDanhSachHopDongByNhaThau(res).subscribe((res: any) => {
-        this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
-      })
+    this.IdDuAn = this.store.getCurrent();
+    this._service.GetOptions().GetDanhSachHopDongByNhaThauSoi(this.IdDuAn).subscribe((res: any) => {
+      this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
     })
     this.getListKho();
     this.KiemTraTabTrangThai();

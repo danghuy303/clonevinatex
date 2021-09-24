@@ -88,7 +88,7 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số ngày: </label>
             <div class="p-col-12 p-lg-10   p-p-0">
 
-                <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.soNgay" locale="vi-VN">
+                <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.soNgay" (ngModelChange)="item.soNgay = dinhDangSo($event)" locale="vi-VN">
                 </p-inputNumber>
 
             </div>
@@ -147,11 +147,11 @@
                                 <p-dropdown [options]="item.banGoc" placeholder="Chọn Nm" styleClass="p-inputtext-sm" [(ngModel)]="item.ChiSoMoi" (onChange)="SetChiSo($event, item)"></p-dropdown>
                             </td> -->
                             <td class="text-center">
-                                <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.banGoc" locale="vi-VN">
+                                <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.banGoc" (ngModelChange)="item.banGoc = dinhDangSo($event)" locale="vi-VN">
                                 </p-inputNumber>
                             </td>
                             <td class="text-center">
-                                <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.banPhoTo" locale="vi-VN">
+                                <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.banPhoTo" (ngModelChange)="item.banPhoTo = dinhDangSo($event)" locale="vi-VN">
                                 </p-inputNumber>
                             </td>
                         </tr>

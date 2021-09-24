@@ -1,13 +1,13 @@
-<div class="modal-header">
+<div>
     <h4 class="title" style="color:#1f2779">
         Danh sách tính lương
     </h4>
 </div>
 
-<div class="modal-body">
+
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4 ">
-            <button pButton pRipple type="button" label="Thêm" class="p-mr-2 p-button-sm "
+            <button pButton pRipple type="button" label="Thêm mới" class="p-mr-2 p-button-sm "
                 (click)="add()"></button>
         </div>
     </div>
@@ -40,7 +40,7 @@
                 <td class="text-center">
                     {{ i + 1 }}
                 </td>
-                <td class="text-center">{{item.NhaMay}}</td>
+                <td class="text-center">{{item.TenDuAn}}</td>
                 <td class="text-center">{{item.Nam}}</td>
                 <td class="text-center date">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
@@ -51,11 +51,11 @@
                 </td>
             </tr>
         </ng-template>
-        <!-- <ng-template pTemplate="summary">
+        <ng-template pTemplate="summary">
          <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between">
              Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20"
                  (onPageChange)="changePage($event)"></p-paginator>
          </div>
-     </ng-template> -->
+     </ng-template>
     </p-table>
-</div>
+
