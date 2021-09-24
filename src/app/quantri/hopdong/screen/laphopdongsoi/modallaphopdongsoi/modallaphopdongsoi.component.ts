@@ -76,7 +76,7 @@ export class ModallaphopdongsoiComponent implements OnInit {
       this.GetNextSoQuyTrinh();
       this.title = 'Thêm mới hợp đồng sợi';
     } else {
-      this._servicesSanXuat.GetListdmItemByHangHoa().subscribe((res: any) => {
+      this._servicesSanXuat.GetListdmItemByHangHoa(1).subscribe((res: any) => {
         this.listdmMatHang = res;
       });
       this.title = "Chỉnh sửa hợp đồng sợi";
