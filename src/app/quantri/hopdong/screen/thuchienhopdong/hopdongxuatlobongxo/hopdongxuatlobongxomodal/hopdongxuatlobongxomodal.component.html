@@ -44,19 +44,19 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng<span class="text-danger">*</span> :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listHopDong" placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm" [(ngModel)]="item.idHopDong" (onChange)="getListDieuKhoanThanhToan()"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listHopDong" placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm" [(ngModel)]="item.idHopDong"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Mặt hàng :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.tendmItem" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.tendmItem" pInputText  disabled/>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Xuất xứ :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.xuatXu" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.xuatXu" pInputText disabled/>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">

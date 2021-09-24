@@ -5,6 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix } from 'src/app/services/globalfunction';
+import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
+import { StoreService } from 'src/app/services/store.service';
+import { HopdongxuatlobongxomodalComponent } from './hopdongxuatlobongxomodal/hopdongxuatlobongxomodal.component';
 
 @Component({
   selector: 'app-hopdongxuatlobongxo',
@@ -19,17 +22,19 @@ export class HopdongxuatlobongxoComponent implements OnInit {
   listKho: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
-  eAction: any = "HOPDONGKEHOACHNHAPBONG";
+  eAction: any = "HOPDONGPHIEUXUATLOBONG";
   userInfo: any;
-
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   constructor(
     public _modal: NgbModal,
     public _toastr: ToastrService,
-    private _service: SanXuatService,
+    private _hopdong: HopDongService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private _auth: AuthenticationService,
+    private _service: SanXuatService,
+    private store: StoreService,
+
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +44,7 @@ export class HopdongxuatlobongxoComponent implements OnInit {
         this.update(res.id);
       }
     })
+    this.filter.IdDuAn = this.store.getCurrent();
 
     this.KiemTraTabTrangThai();   
   }
@@ -50,12 +56,14 @@ export class HopdongxuatlobongxoComponent implements OnInit {
   }
   add() {
     this.changeParam(0);
-    let modalRef = this._modal.open(HopdongxuatlobongxoComponent, {
+    let modalRef = this._modal.open(HopdongxuatlobongxomodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = {}
+    modalRef.componentInstance.item = {},
+    modalRef.componentInstance.IdDuAn = this.filter.IdDuAn;
+
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
         this.changeParam(0);
@@ -65,8 +73,8 @@ export class HopdongxuatlobongxoComponent implements OnInit {
         this.changeParam(0); })
   }
   update(id) {
-    this._service.KeHoachNhapBong().Get(id).subscribe((res1: any) => {
-    let modalRef = this._modal.open(HopdongxuatlobongxoComponent, {
+    this._hopdong.QuyTrinhXuatBongXo().Get(id).subscribe((res1: any) => {
+    let modalRef = this._modal.open(HopdongxuatlobongxomodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
@@ -109,7 +117,7 @@ export class HopdongxuatlobongxoComponent implements OnInit {
       idUser: this.userInfo.Id,
       Loai: 0
     }
-    this._service.KeHoachNhapBong().GetList(data).subscribe((res: any) => {    
+    this._hopdong.QuyTrinhXuatBongXo().GetList(data).subscribe((res: any) => {    
       this.items = res.data?.items;
       this.paging.TotalItem = res.data?.totalCount;
     })

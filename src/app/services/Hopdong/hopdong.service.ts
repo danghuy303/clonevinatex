@@ -405,4 +405,32 @@ export class HopDongService {
       },
     };
   }
+  QuyTrinhXuatBongXo() {
+    let url = API.HopDong;
+    return {
+      GetList: (data) => {
+      data.idDuAn = this.store.getCurrent();
+        return this.http.post(url + "PhieuXuatLoBong/GetListPhieuXuatLoBong",data,httpOptions);
+      },
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(url + "PhieuXuatLoBong/GetNextSoQuyTrinh",httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(url + `PhieuXuatLoBong/GetById?Id=${Id}`,httpOptions);
+      },
+      Set: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(url + "PhieuXuatLoBong/SetPhieuXuatLoBong",data,httpOptions);
+      },
+      Delete: (data) => {
+        return this.http.post(url + "PhieuXuatLoBong/DeletePhieuXuatLoBong",data,httpOptions);
+      },
+      KhongDuyet: (data) => {
+        return this.http.post(url + "PhieuXuatLoBong/KhongDuyetQuyTrinh",data,httpOptions);
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(url + "PhieuXuatLoBong/ChuyenTiepQuyTrinh",data,httpOptions);
+      },
+    };
+  }
 }
