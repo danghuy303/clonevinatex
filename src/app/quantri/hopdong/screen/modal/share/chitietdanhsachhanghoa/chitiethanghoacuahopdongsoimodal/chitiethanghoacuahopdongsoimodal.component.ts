@@ -44,11 +44,11 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
       field: 'Ten',
       width: 'unset'
     },
-    {
-      header: 'Ne',
-      field: 'Ne',
-      width: 'unset'
-    },
+    // {
+    //   header: 'Ne',
+    //   field: 'Ne',
+    //   width: 'unset'
+    // },
   ];
   loai='';
   checkedAll: boolean = false;
