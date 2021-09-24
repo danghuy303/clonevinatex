@@ -80,9 +80,6 @@ export class XuatkhothanhphamhopdongComponent implements OnInit {
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh()
   }
-  ngOnDestroy() {
-    this.suber.unsubscribe();
-  }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
