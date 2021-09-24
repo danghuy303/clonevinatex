@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Quy trình thanh toán bông</h5>
+    <h5 class="modal-title">Quy trình xuất lô bông/xơ</h5>
     <div class="d-flex flex-column flex-lg-row">
         <div>
             <span style="font-weight: bold;">Số phiếu:</span> {{item.soQuyTrinh}}
@@ -36,44 +36,36 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung :</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung<span class="text-danger">*</span> :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.noiDung" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng <span class="text-danger">*</span>:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng<span class="text-danger">*</span> :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listHopDong" placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm" [(ngModel)]="item.idHopDong" (onChange)="getListDieuKhoanThanhToan()"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại thanh toán :</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Mặt hàng :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoaiThanhToan" placeholder="Chọn loại thanh toán" (onChange)="getListDieuKhoanThanhToan()"
-                styleClass="p-inputtext-sm" [(ngModel)]="item.loaiThanhToan"></p-dropdown>
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.tendmItem" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày chứng từ <span class="text-danger">*</span>:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Xuất xứ :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ngayThanhToan" inputId="icon" placeholder="dd/mm/yyyy">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.xuatXu" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày<span class="text-danger">*</span> :</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true"
+                 [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ngay" inputId="icon" 
+                 placeholder="dd/mm/yyyy">
                 </p-calendar>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.loaiThanhToan === 2">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn invoice :</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-multiSelect [options]="listThanhToanInvoice" [(ngModel)]="listIdThanhToanInvoice" [filter]="true"
-                [ngStyle]="{'width': '450px !important'}"
-                [showToggleAll]="true" (onChange)="getListItem()"  [maxSelectedLabels] = "10" selectedItemsLabel = "{0} đợt được chọn"></p-multiSelect>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.loaiThanhToan === 1">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Điều khoản thanh toán :</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listDieuKhoanThanhToan" placeholder="Chọn điều khoản thanh toán"
-                styleClass="p-inputtext-sm" [(ngModel)]="item.idThanhToanDieuKhoan"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -82,23 +74,11 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ghiChu" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị thanh toán :</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.giaTriThanhToan">
-                </p-inputNumber>
-            </div>
-        </div>
-        <div class="p-col-12 p-p-0 d-flex flex-column" *ngIf="item.loaiThanhToan===2">
-            <p-table [value]="item.listThanhToanMatHang|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+        <div class="p-col-12 p-p-0 d-flex flex-column">
+            <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
                         <col>
                         <col>
                         <col>
@@ -107,39 +87,24 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
-                        <th>Số invoice</th>
                         <th>Container</th>
-                        <th>Số kiện (kiện)</th>
-                        <th>Số lượng đã thanh toán</th>
-                        <th>Số lượng</th>
-                        <th>Số lượng thanh toán</th>
-                        <th>Đơn giá</th>
-                        <th>Thành tiền</th>
+                        <th>Tổng số kiện</th>
+                        <th>Tổng khối lượng</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">{{i+1}}</td>
-                        <td class="text-center">{{item.ma}}</td>
-                        <td class="text-right">{{item.soContainer|number:'0.0'}}</td>
-                        <td class="text-right">
-                            {{item.tongSoKien|number:'0.0'}}
+                        <td class="text-center">
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.container" pInputText />
                         </td>
-                        <td class="text-right">
-                            {{item.soLuongDaThanhToan|number:'0.0'}}
-                        </td>
-                        <td class="text-right">
-                            {{item.tongKhoiLuong|number:'0.0'}}
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.soKien">
+                            </p-inputNumber>
                         </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.soLuong">
                             </p-inputNumber>
-                        </td>
-                        <td class="text-right">
-                            {{item.donGia|number:'0.0'}}
-                        </td>
-                        <td class="text-right">
-                            {{item.donGia*item.soLuong|number:'0.0'}}
                         </td>
                     </tr>
                 </ng-template>

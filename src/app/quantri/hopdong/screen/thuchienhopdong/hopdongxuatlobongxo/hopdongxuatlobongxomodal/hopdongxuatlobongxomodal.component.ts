@@ -10,12 +10,12 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 
 @Component({
-  selector: 'app-quytrinhthanhtoanbongmodal',
-  templateUrl: './quytrinhthanhtoanbongmodal.component.html',
-  styleUrls: ['./quytrinhthanhtoanbongmodal.component.css']
+  selector: 'app-hopdongxuatlobongxomodal',
+  templateUrl: './hopdongxuatlobongxomodal.component.html',
+  styleUrls: ['./hopdongxuatlobongxomodal.component.css']
 })
-export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
-
+export class HopdongxuatlobongxomodalComponent implements OnInit {
+  
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -229,4 +229,5 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
       });
     })
   }
+
 }

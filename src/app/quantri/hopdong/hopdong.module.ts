@@ -150,6 +150,8 @@ import { ModalmucluongcocaunhansuComponent } from './danhsach/modal/modalmucluon
 import { HopdongvattuphuComponent } from './screen/hopdongvattuphu/hopdongvattuphu.component';
 import { HopdongvattuphumodalComponent } from './screen/hopdongvattuphu/hopdongvattuphumodal/hopdongvattuphumodal.component';
 import { LuachonvattuphucuahanghoamodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/luachonvattuphucuahanghoamodal/luachonvattuphucuahanghoamodal.component';
+import { HopdongxuatlobongxoComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxo.component';
+import { HopdongxuatlobongxomodalComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxomodal/hopdongxuatlobongxomodal.component';
 
 
 
@@ -423,6 +425,20 @@ import { LuachonvattuphucuahanghoamodalComponent } from './screen/modal/share/ch
 
 
 
+
+
+
+    HopdongxuatlobongxoComponent,
+
+
+
+
+
+
+    HopdongxuatlobongxomodalComponent,
+
+
+
   ],
   imports: [
     CommonModule,
@@ -535,7 +551,7 @@ import { LuachonvattuphucuahanghoamodalComponent } from './screen/modal/share/ch
     KehoachsanxuatmodalComponent,
     HopdongvattuphumodalComponent,
     LuachonvattuphucuahanghoamodalComponent,
-
+    HopdongxuatlobongxomodalComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
