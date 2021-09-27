@@ -63,7 +63,8 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
   suber: any;
 
   constructor(public _modal: NgbModal, public _toastr: ToastrService,
-    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private store: StoreService,
+    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, 
+    private store: StoreService,
     private _hopdong: HopDongService,) {
   }
 

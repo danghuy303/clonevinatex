@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { XuatkhohoiamComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/xuatkhohoiam/xuatkhohoiam.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
@@ -30,6 +31,7 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
   type: any = '';
   nametype: any = '';
   listHopDong: any = [];
+  listHopDongFull: any = [];
   IdDuAn: any = 0;
   listLoaiThanhToan: any = [{label: 'Thanh toán theo kế hoạch thanh toán',value: 1},
   {label: 'Thanh toán theo invoice', value: 2}];
@@ -59,6 +61,7 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
   getListHopDong(){
     this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn).subscribe((res: any) => {
       this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
+      this.listHopDongFull = res;
     })
   }
   
@@ -154,7 +157,7 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
     this.activeModal.close();
   }
   CheckTruocKhiLuu(){
-    if (this.newTableItem.Ten != undefined || this.newTableItem.SoCan != undefined || this.newTableItem.SoKien != undefined || this.newTableItem.IddmViTri != undefined) {
+    if(validVariable(this.newTableItem.container) && validVariable(this.newTableItem.soKien)){
       this.add();
     }
     if (!validVariable(this.item.idHopDong)) {
@@ -170,5 +173,12 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
       return false;
     }
     return true;
+  }
+  chonHopDong(){
+    let data: any = this.listHopDongFull.filter(e=> e.id == this.item.idHopDong);
+    if(data !== undefined){
+      this.item.tenLoaiBongXo = data[0].tenLoaiBongXo;
+      this.item.xuatXu = data[0].xuatXu;
+    }
   }
 }

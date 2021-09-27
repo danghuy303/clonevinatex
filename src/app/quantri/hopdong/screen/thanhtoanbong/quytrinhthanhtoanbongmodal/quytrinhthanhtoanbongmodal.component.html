@@ -73,7 +73,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Điều khoản thanh toán :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listDieuKhoanThanhToan" placeholder="Chọn điều khoản thanh toán"
-                styleClass="p-inputtext-sm" [(ngModel)]="item.idThanhToanDieuKhoan"></p-dropdown>
+                styleClass="p-inputtext-sm" [(ngModel)]="item.idThanhToanDieuKhoan" (onChange)="layGiaTri()"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">

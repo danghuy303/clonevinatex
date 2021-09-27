@@ -44,13 +44,14 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng<span class="text-danger">*</span> :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listHopDong" placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm" [(ngModel)]="item.idHopDong"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listHopDong" placeholder="Chọn hợp đồng" 
+                styleClass="p-inputtext-sm" [(ngModel)]="item.idHopDong" (onChange)="chonHopDong()"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Mặt hàng :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.tendmItem" pInputText  disabled/>
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.tenLoaiBongXo" pInputText  disabled/>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -82,6 +83,7 @@
                         <col>
                         <col>
                         <col>
+                        <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -90,22 +92,49 @@
                         <th>Container</th>
                         <th>Tổng số kiện</th>
                         <th>Tổng khối lượng</th>
+                        <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">
-                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.container" pInputText />
-                        </td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.soKien">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.container">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.soLuong">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soKien">
                             </p-inputNumber>
                         </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.khoiLuong">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <button pButton pRipple icon="pi pi-trash"
+                                class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
+                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td></td>
+                        <td class="text-right">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.container">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-right">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.soKien">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.khoiLuong">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center"> <button pButton pRipple icon="pi pi-plus"
+                            class="p-button-sm p-button-rounded p-button-success p-mr-2" (click)="add()"
+                            pTooltip="Thêm" showDelay="1000" tooltipPosition="bottom"></button> </td>
                     </tr>
                 </ng-template>
             </p-table>

@@ -38,8 +38,6 @@
                 <col>
                 <col>
                 <col>
-                <col>
-                <col>
                 <col style="width: 50px;">
             </colgroup>
         </ng-template>
@@ -47,11 +45,9 @@
             <tr>
                 <th class="text-center">#</th>
                 <th>Số quy trình</th>
-                <th>Ngày tạo</th>
+                <th>Ngày</th>
                 <th>Số- Tên HĐ</th>
                 <th>Nội dung</th>
-                <th>Ngày thanh toán</th>
-                <th>Giá trị thanh toán</th>
                 <th></th>
             </tr>
         </ng-template>
@@ -59,11 +55,9 @@
             <tr>
                 <td class="text-center"> {{ 20 * (paging.CurrentPage - 1) + i + 1 }} </td>
                 <td class="text-center">{{item.soQuyTrinh}}</td>
-                <td class="text-center">{{item.created | date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.ngay | date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.soHopDong}} - {{item.tenHopDong}}</td>
                 <td class="text-center">{{item.noiDung}}</td>
-                <td class="text-center">{{item.ngayThanhToan | date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.giaTriThanhToan}}</td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.id)"></button>
                 </td>

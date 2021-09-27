@@ -155,15 +155,17 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
       this.toastr.error('Vui lòng chọn hợp đồng')
       return false;
     }
-    this.item.thoiGianDuKienUnix = DateToUnix(this.item.thoiGianDuKien);
-    this.item.thoiGianCapCangUnix = DateToUnix(this.item.thoiGianCapCang);
-    if (this.item.listInvoice.length > 0) {
-      this.item.listInvoice.forEach(obj => {
-        obj.thoiGianDuKienUnix = DateToUnix(obj.thoiGianDuKien);
-        obj.thoiGianCapCangUnix = DateToUnix(obj.thoiGianCapCang);
-      });
+    else{
+      this.item.thoiGianDuKienUnix = DateToUnix(this.item.thoiGianDuKien);
+      this.item.thoiGianCapCangUnix = DateToUnix(this.item.thoiGianCapCang);
+      if (this.item.listInvoice.length > 0) {
+        this.item.listInvoice.forEach(obj => {
+          obj.thoiGianDuKienUnix = DateToUnix(obj.thoiGianDuKien);
+          obj.thoiGianCapCangUnix = DateToUnix(obj.thoiGianCapCang);
+        });
+      }
+      return true;
     }
-    return true;
   }
 
   GhiLai() {
