@@ -38,6 +38,7 @@ import { ChiphibanhangtheonamComponent } from './danhsach/chiphibanhang/chiphiba
 import { ThanhtoanhopdongsoiComponent } from './screen/thuchienhopdong/thanhtoanhopdongsoi/thanhtoanhopdongsoi.component';
 import { HopdongvattuphuComponent } from './screen/hopdongvattuphu/hopdongvattuphu.component';
 import { HopdongxuatlobongxoComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxo.component';
+import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmucsanxuat.component';
 const routes: Routes = [
   {path:'',component:HopdongComponent},
   {path:'danhmuc/danhmuchinhthucthanhtoan',component:DanhmuchinhthucthanhtoanComponent},
@@ -56,6 +57,7 @@ const routes: Routes = [
   {path:'danhmuc/danhsachtinhluong',component: DanhsachtinhluongComponent},
   {path:'danhmuc/mucluongcocaunhansu',component: MucluongcocaunhansuComponent},
   {path:'danhmuc/chiphibanhangtheonam',component: ChiphibanhangtheonamComponent},
+  {path:'danhmuc/dinhmucsanxuat',component: DinhmucsanxuatComponent},
   
 
   {path:'danhmuc/dmtieuchichatluong',component: DmtieuchichatluonghopdongComponent},
