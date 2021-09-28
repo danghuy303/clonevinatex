@@ -73,13 +73,16 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
     })
   }
   
-  getListDieuKhoanThanhToan(){
+  getListDieuKhoanThanhToan(isCheck = false){
+    if(isCheck === true){
+      this.item.listThanhToanMatHang = []
+      this.item.listThanhToanDotGiaoNhan = []
+      this.listIdThanhToanInvoice=[]
+    }
     if(this.item.loaiThanhToan === 1){
       this._hopdong.QuyTrinhHopDong().getListDieuKhoan(this.item.idHopDong).subscribe((res: any) => {
         this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'noiDung', 'id');
-        this.item.listThanhToanMatHang = []
-        this.item.listThanhToanDotGiaoNhan = []
-        this.listIdThanhToanInvoice=[]
+        
       })
     }
     else if(this.item.loaiThanhToan === 2){
@@ -228,6 +231,7 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
           tongSoKien: element.tongSoKien,
           soLuongDaThanhToan: element.soLuongDaThanhToan,
           tongKhoiLuong: element.tongKhoiLuong,
+          donGia: element.donGia,
         }
         this.item.listThanhToanMatHang.push(itempush);
       });

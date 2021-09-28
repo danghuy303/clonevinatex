@@ -32,6 +32,7 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
   listHangHoa: any = [];
   listHangHoaGoc: any = [];
   IdQuyTrinh : any = '';
+  Loai : any = 0;
   cols: any = [
     {
       header: 'Mã',
@@ -43,11 +44,11 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
       field: 'Ten',
       width: 'unset'
     },
-    {
-      header: 'Ne',
-      field: 'Ne',
-      width: 'unset'
-    },
+    // {
+    //   header: 'Ne',
+    //   field: 'Ne',
+    //   width: 'unset'
+    // },
   ];
   loai='';
   checkedAll: boolean = false;

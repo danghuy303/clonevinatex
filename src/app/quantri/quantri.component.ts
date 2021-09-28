@@ -676,6 +676,14 @@ export class QuantriComponent implements OnInit {
 
             command: () => this.close(),
           },
+          {
+            label: "Lập hợp vật tư phụ",
+            routerLink:
+
+              "/quantri/hopdongsanxuat/laphopdongvattuphu/0",
+
+            command: () => this.close(),
+          },
         ],
       },
       
@@ -748,6 +756,13 @@ export class QuantriComponent implements OnInit {
               this.close();
             },
           },
+          {
+            label: "Phiếu xuất lô bông/xơ",
+            routerLink: "/quantri/hopdongsanxuat/phieuxuatlobongxo/0",            
+            command: () => {
+              this.close();
+            },
+          }
         ],
       },
       /////////////      Danh Mục Hợp Đồng

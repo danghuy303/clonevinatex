@@ -1,6 +1,5 @@
 
 
-import { ChitiethopdongbongxoComponent } from "./../modal/share/chitiethopdongbongxo/chitiethopdongbongxo.component";
 import { number } from "@amcharts/amcharts4/core";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 
@@ -15,8 +14,6 @@ import {
   UnixToDate,
 } from "src/app/services/globalfunction";
 import { ModallaphopdongsoiComponent } from "./modallaphopdongsoi/modallaphopdongsoi.component";
-// import { ModallaphopdongsoiComponent } from "./modallaphopdongbongxo/modallaphopdongbongxo.component";
-// import { ChitiethopdongbongxomodalComponent } from "./chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
 
 @Component({
   selector: 'app-laphopdongsoi',
@@ -128,24 +125,6 @@ export class LaphopdongsoiComponent implements OnInit {
       });
   }
 
-  updates(Id) {
-    let modalRef = this._modal.open(ModallaphopdongsoiComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-      this.changeParam(0);
-
-    })
-      .catch(er => {
-        console.log(er)
-        this.GetListQuyTrinh();
-        this.changeParam(0);
-      })
-  }
   changeTab(e) {
     this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
@@ -166,6 +145,7 @@ export class LaphopdongsoiComponent implements OnInit {
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
+      loai: 11,
     };
     this._service
       .QuyTrinhHopDong()
@@ -173,6 +153,9 @@ export class LaphopdongsoiComponent implements OnInit {
       .subscribe((res: any) => {
         this.items = res.data?.items;
         this.paging.TotalItem = res.data?.totalCount;
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
       });
   }
 

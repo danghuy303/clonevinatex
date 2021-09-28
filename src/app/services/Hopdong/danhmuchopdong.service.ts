@@ -164,6 +164,9 @@ export class DanhMucHopDongService {
     DanhMucVatTuPhu() {
         let url = API.KeHoach
         return {
+            GetListAll: () => {
+                return this.http.get(`${url}DanhMuc/GetListAlldmVatTuPhu`, httpOptions)
+            },
             GetList: (data) => {
                 return this.http.get(`${url}DanhMuc/GetListdmVatTuPhu?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },

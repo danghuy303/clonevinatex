@@ -42,15 +42,15 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng <span class="text-danger">*{{item.listHopDong|json}}</span>:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listHopDong" placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm" [(ngModel)]="item.idHopDong" (onChange)="getListDieuKhoanThanhToan()"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listHopDong" placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm" [(ngModel)]="item.idHopDong" (onChange)="getListDieuKhoanThanhToan(true)"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại thanh toán :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoaiThanhToan" placeholder="Chọn loại thanh toán" (onChange)="getListDieuKhoanThanhToan()"
+                <p-dropdown [filter]="true" [options]="listLoaiThanhToan" placeholder="Chọn loại thanh toán" (onChange)="getListDieuKhoanThanhToan(true)"
                 styleClass="p-inputtext-sm" [(ngModel)]="item.loaiThanhToan"></p-dropdown>
             </div>
         </div>
@@ -65,8 +65,8 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn đợt :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-multiSelect [options]="listThanhToanInvoice" [(ngModel)]="listIdThanhToanInvoice" [filter]="true"
-                [ngStyle]="{'width': '450px !important'}"
-                [showToggleAll]="true" (onChange)="getListItem()"></p-multiSelect>
+                [ngStyle]="{'width': '450px !important'}" defaultLabel="Chọn đợt thanh toán" 
+                [showToggleAll]="true" (onChange)="getListItem()" [maxSelectedLabels] = "10" selectedItemsLabel = "{0} đợt được chọn"></p-multiSelect>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.loaiThanhToan === 1">

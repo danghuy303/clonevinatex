@@ -10,6 +10,7 @@ import { StoreBase } from 'src/app/services/storebase.class';
 // import { KehoachsanxuatmodalComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/kehoachsanxuatmodal/kehoachsanxuatmodal.component';
 import { GiaokehoachsanxuathoanthanhmodalComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/giaokehoachsanxuathoanthanhmodal/giaokehoachsanxuathoanthanhmodal.component';
 import { KehoachsanxuatmodalComponent } from '../../modal/kehoachsanxuatmodal/kehoachsanxuatmodal.component';
+import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 
 
 @Component({
@@ -47,7 +48,7 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listQuyCachDongGoi: any = [];
 
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) {super(store)
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService,private _HopDongService: HopDongService,) {super(store)
   }
 
   ngOnInit(): void {
@@ -83,7 +84,7 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
       .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
   }
   update(Id) {
-    this._service.GiaoKeHoachSanXuat().Get(Id).subscribe((item: any) => {
+    this._HopDongService.GiaoKeHoachSanXuat().Get(Id).subscribe((item: any) => {
       this._service.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
         this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
         if (item.listItem != undefined && item.listItem != null) {
@@ -139,9 +140,9 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
       Ma: "",
       Ten: "",
     }
-    this._service.GiaoKeHoachSanXuat().GetList(data).subscribe((res: any) => {
-      this.items = res.items;
-      this.paging = res.paging;
+    this._HopDongService.GiaoKeHoachSanXuat().GetList(data).subscribe((res: any) => {
+      this.items = res.data.items;
+      this.paging = res.data;
     })
   }
   resetFilter() {
@@ -156,7 +157,7 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
   }
   hoanthanh(Id) {
     // this.router.navigate([`quantri/kehoachsanxuat/giaokehoachsanxuat/${Id}`], { replaceUrl: true })
-    this._service.GiaoKeHoachSanXuat().Get(Id).subscribe((item: any) => {
+    this._HopDongService.GiaoKeHoachSanXuat().Get(Id).subscribe((item: any) => {
       this._service.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
         this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
         console.log(item)

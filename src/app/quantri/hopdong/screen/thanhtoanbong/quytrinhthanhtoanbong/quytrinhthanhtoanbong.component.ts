@@ -63,7 +63,8 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
   suber: any;
 
   constructor(public _modal: NgbModal, public _toastr: ToastrService,
-    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, private store: StoreService,
+    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, 
+    private store: StoreService,
     private _hopdong: HopDongService,) {
   }
 
@@ -76,17 +77,10 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
       }
     })
     this.IdDuAn = this.store.getCurrent();
-    this._service.GetOptions().GetDanhSachHopDongByNhaThau(this.IdDuAn).subscribe((res: any) => {
-      this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
-    })
+    // this._service.GetOptions().GetDanhSachHopDongByNhaThau(this.IdDuAn).subscribe((res: any) => {
+    //   this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
+    // })
     this.KiemTraTabTrangThai();
-  }
-  ngOnDestroy() {
-    // this.suber.unsubscribe();
-    this.IdDuAn = this.store.getCurrent();
-    this._service.GetOptions().GetDanhSachHopDongByNhaThau(this.IdDuAn).subscribe((res: any) => {
-      this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
-    })
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {

@@ -38,6 +38,11 @@ export class XuatkhoComponent extends StoreBase implements OnInit,OnDestroy {
       width: 'unset'
     },
     {
+      header: 'Số bàn bông',
+      field: 'SoBanBong',
+      width: 'unset'
+    },
+    {
       header: 'Trạng thái',
       field: 'TenTrangThai',
       width: 'unset'

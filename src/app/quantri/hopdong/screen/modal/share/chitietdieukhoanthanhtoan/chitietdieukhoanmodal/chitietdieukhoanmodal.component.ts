@@ -5,7 +5,7 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 import { vn } from 'src/app/services/const';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, Input, OnInit } from '@angular/core';
-import { mapArrayForDropDown, DateToUnix, deepCopy, validVariable, UnixToDate } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, DateToUnix, deepCopy, validVariable, UnixToDate, dinhDangSo } from 'src/app/services/globalfunction';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ToastrService } from 'ngx-toastr';
 
@@ -40,6 +40,8 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
     { label: 'Thanh toán', value: 1 },
   ]
   listDieuKhoanThanhToan: any = {}
+  dinhDangSo = dinhDangSo;
+
   yearRange: string = `${new Date().getFullYear() - 50
     }:${new Date().getFullYear()}`;
   constructor(

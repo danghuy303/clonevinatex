@@ -8,9 +8,6 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
-import {MultiSelectModule} from 'primeng/multiselect';
-import { XuatkhohoiamComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/xuatkhohoiam/xuatkhohoiam.component';
-import { XuatkhohoiammodalComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/xuatkhohoiammodal/xuatkhohoiammodal.component';
 
 @Component({
   selector: 'app-quytrinhthanhtoanbongmodal',
@@ -34,6 +31,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   nametype: any = '';
   listHopDong: any = [];
   listDieuKhoanThanhToan: any = [];
+  listDieuKhoanThanhToanFull: any = [];
   listThanhToanInvoice: any = [];
   listThanhToanInvoiceFull: any = [];
   listIdThanhToanInvoice: any = [];
@@ -76,6 +74,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   getListDieuKhoanThanhToan(){
     if(this.item.loaiThanhToan === 1){
       this._hopdong.QuyTrinhHopDong().getListDieuKhoan(this.item.idHopDong).subscribe((res: any) => {
+        this.listDieuKhoanThanhToanFull = res.data;
         this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'noiDung', 'id');
       })
       this.item.listThanhToanMatHang = []
@@ -226,9 +225,16 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
           tongSoKien: element.tongSoKien,
           soLuongDaThanhToan: element.soLuongDaThanhToan,
           tongKhoiLuong: element.tongKhoiLuong,
+          donGia: element.donGia,
         }
         this.item.listThanhToanMatHang.push(itempush);
       });
     })
+  }
+  layGiaTri(){
+    var data = this.listDieuKhoanThanhToanFull.filter(e=> e.id == this.item.idThanhToanDieuKhoan);
+    if(data !== undefined){
+      this.item.giaTriThanhToan = data[0].giaTri || 0;
+    }
   }
 }

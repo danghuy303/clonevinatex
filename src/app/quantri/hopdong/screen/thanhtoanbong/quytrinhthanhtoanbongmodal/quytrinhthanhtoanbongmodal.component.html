@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng <span class="text-danger">*{{item.listHopDong|json}}</span>:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số hợp đồng <span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listHopDong" placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm" [(ngModel)]="item.idHopDong" (onChange)="getListDieuKhoanThanhToan()"></p-dropdown>
             </div>
@@ -66,14 +66,14 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-multiSelect [options]="listThanhToanInvoice" [(ngModel)]="listIdThanhToanInvoice" [filter]="true"
                 [ngStyle]="{'width': '450px !important'}"
-                [showToggleAll]="true" (onChange)="getListItem()"></p-multiSelect>
+                [showToggleAll]="true" (onChange)="getListItem()"  [maxSelectedLabels] = "10" selectedItemsLabel = "{0} đợt được chọn"></p-multiSelect>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.loaiThanhToan === 1">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Điều khoản thanh toán :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listDieuKhoanThanhToan" placeholder="Chọn điều khoản thanh toán"
-                styleClass="p-inputtext-sm" [(ngModel)]="item.idThanhToanDieuKhoan"></p-dropdown>
+                styleClass="p-inputtext-sm" [(ngModel)]="item.idThanhToanDieuKhoan" (onChange)="layGiaTri()"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">

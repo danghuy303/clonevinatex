@@ -9,6 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 
 import { ChitiethanghoamodalComponent } from './chitiethanghoamodal/chitiethanghoamodal.component';
 import { Component, OnInit, Input, Output, EventEmitter, DoCheck, SimpleChanges, ChangeDetectionStrategy, OnChanges } from '@angular/core';
+import { LuachonvattuphucuahanghoamodalComponent } from './luachonvattuphucuahanghoamodal/luachonvattuphucuahanghoamodal.component';
+import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 // import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
@@ -27,6 +29,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Input('listLoaiMatHang') listLoaiMatHang: any = [];
   @Input() isXo: boolean
   @Input() isBong: boolean
+  @Input() isVatTuPhu: boolean
   @Input() res1: any = []
   @Input("opt") opt: string;
   @Input() iddmLoaiHopDong: any
@@ -55,8 +58,8 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   constructor(
     public _modal: NgbModal,
     public _toastr: ToastrService,
-    private router: Router,
     public activeModal: NgbActiveModal,
+    private _danhmucHopDong: DanhMucHopDongService,
     private _servicesSanXuat: SanXuatService) { }
 
   ngOnInit(): void {
@@ -132,7 +135,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   }
   getlistCapBong(){
     this._servicesSanXuat.dmDacTinhBong().GetDacTinh(this.item.iddmLoaiBong || '', this.item.iddmCapBong || '').subscribe((res: any) => {
-      this.listdmDacTinh = mapArrayForDropDown(res, "Ten", "Id");
+      this.listdmDacTinh = mapArrayForDropDown(res, "DacTinh", "Id");
     });
   }
 
@@ -166,27 +169,21 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   //   }).catch(er => { console.log(er) });
   // }
   delete(index) {
-    // let item = this.listTieuChuanChatLuong.splice(i, 1)[0];
-    // if (item.ID === 0) {
-    // } else {
-    //   item.isXoa = true;
-    //   this.listTieuChuanChatLuong.push(JSON.parse(JSON.stringify(item)));
-    // }
-
-    if (!validVariable(this.listTieuChuanChatLuong[index].id)) {
-      this.listTieuChuanChatLuong.splice(index, 1);
+    if (!validVariable(this.listHangHoaSoi[index].id)) {
+      this.listHangHoaSoi.splice(index, 1);
     } else {
-      this.listTieuChuanChatLuong[index].isXoa = true;
+      let item = this.listHangHoaSoi.splice(index, 1)[0];
+      item.isXoa = true;
+      this.listHangHoaSoi.push(JSON.parse(JSON.stringify(item)));
     }
-
-    // this.listTieuChuanChatLuong[i].isXoa = true;
-    // this.listTieuChuanChatLuong.push(this.listTieuChuanChatLuong.splice(i,1));  
   }
 
 
   chonKeHoach() {
-    
-    this._servicesSanXuat.GetListdmItemByHangHoa().subscribe((res1: any) => {
+    let Loai = 1;
+    if(this.isVatTuPhu)
+      Loai = 23;
+    this._servicesSanXuat.GetListdmItemByHangHoa(Loai).subscribe((res1: any) => {
       let modalRef = this._modal.open(ChitiethanghoacuahopdongsoimodalComponent, {
         size: 'lg',
         backdrop: 'static'
@@ -221,5 +218,23 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     this.hopDong.thanhTien = (this.hopDong.thanhTien || 0)+ (item.donGia || 0) * (item.soLuong|| 0);
     if(this.hopDong.isLayTheoGiaTriHangHoa === true)
       this.hopDong.giaTri = this.hopDong.thanhTien;
+  }
+  
+  chonVatTuPhu() {
+    this._danhmucHopDong.DanhMucVatTuPhu().GetListAll().subscribe((res1: any) => {
+
+    let modalRef = this._modal.open(LuachonvattuphucuahanghoamodalComponent, {
+      size: 'lg',
+      backdrop: 'static'
+    })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;
+      modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
+      modalRef.componentInstance.listThanhToanThuTuc = res1;
+      modalRef.result.then(res => {
+        this.listHangHoaSoi= res;  
+      }).catch(er => { console.log(er) });
+    })
+
   }
 }
