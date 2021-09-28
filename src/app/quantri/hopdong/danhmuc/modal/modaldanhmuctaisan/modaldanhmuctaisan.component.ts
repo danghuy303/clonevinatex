@@ -87,7 +87,10 @@ export class ModaldanhmuctaisanComponent implements OnInit {
   
   GhiLai() {
     if (this.ValidateData()) {
-      this.Tong();
+      // this.Tong();
+      let ngaybatdau=new Date(this.item.ThoiGianBatDauKhauHao);
+  let year = ngaybatdau.getFullYear()+this.item.SoNamKhauHao;
+this.item.ThoiGianHetKhauHao=new Date(ngaybatdau.setFullYear(year));
       this._danhMucHopDong.DanhMucTaiSan().Set(this.item).subscribe((res: any) => {      
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
@@ -96,13 +99,11 @@ export class ModaldanhmuctaisanComponent implements OnInit {
           this.activeModal.close();
         }
       })
-    }
-
-    
+    }    
   }
 Tong()
 {
-  console.log(new Date(this.item.ThoiGianBatDauKhauHao));
+ 
   let ngaybatdau=new Date(this.item.ThoiGianBatDauKhauHao);
   let year = ngaybatdau.getFullYear()+this.item.SoNamKhauHao;
 this.item.ThoiGianHetKhauHao=new Date(ngaybatdau.setFullYear(year))

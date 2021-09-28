@@ -131,10 +131,10 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}DanhMuc/SetdmTinhTrangBaoLanh`, data, httpOptions)
             },
             DeleteList: (data) => {
-                return this.http.post(`${url}DanhMuc/DeleteListdmTinhTrangBaoLanh`,data,httpOptions)
+                return this.http.post(`${url}DanhMuc/DeleteListdmTinhTrangBaoLanh`, data, httpOptions)
             },
-            Delete:(id)=>{
-                return this.http.get(`${url}DanhMuc/DeletedmTinhTrangBaoLanh?id=${id}`,httpOptions)
+            Delete: (id) => {
+                return this.http.get(`${url}DanhMuc/DeletedmTinhTrangBaoLanh?id=${id}`, httpOptions)
             }
         }
     }
@@ -288,7 +288,7 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}DinhMucMatHangHangNam/AddDinhMucMatHangHangNam`, data, httpOptions)
             },
             // DeleteList:(data)=>{
-            //     debugger;
+            //    
             //     return this.http.post(`${url}DanhMuc/DeleteListdmTinhLuong`,data,httpOptions)
             // },
             // Delete:(id)=>{
@@ -300,8 +300,11 @@ export class DanhMucHopDongService {
     DanhSachKeHoachKinhDoanh() {
         let url = API.KeHoach
         return {
+            Get: (Id) => {
+                return this.http.get(`${url}KeHoachKinhDoanh/GetById?Id=${Id}`, httpOptions)
+            },
             GetList: (data) => {
-                return this.http.get(`${url}KeHoachKinhDoanh/GetById?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+                return this.http.post(`${url}KeHoachKinhDoanh/GetListQuyTrinh`,data, httpOptions)
             },
             Set: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/SetQuyTrinh`, data, httpOptions)
@@ -310,12 +313,16 @@ export class DanhMucHopDongService {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetKeHoachKinhDoanh_SanPham_ChiTiet
                 ?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
-
+            NextQuyTrinh: () => {
+                return this.http.get(`${url}KeHoachKinhDoanh/GetNextSoQuyTrinh`, httpOptions)
+            },
+            Delete: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/DeleteQuyTrinh`, data, httpOptions)
+            }
         }
     }
-    
-    KeHoachKinhDoanh_DonGia()
-    {
+
+    KeHoachKinhDoanh_DonGia() {
         let url = API.KeHoach
         return {
             GetList: (data) => {
@@ -326,26 +333,26 @@ export class DanhMucHopDongService {
             },
         }
     }
-//Danh Sách kế hoạch
+    //Danh Sách kế hoạch
     DanhSachTinhLuong() {
         let url = API.KeHoach
         return {
-            Get: (id) => {
-                return this.http.get(`${url}DanhSachTinhLuongHangNam/GetById?Id=${id}`, httpOptions)
+            Get: (Id) => {
+                return this.http.get(`${url}DanhSachTinhLuongHangNam/GetById?Id=${Id}`, httpOptions)
             },
             GetList: (data) => {
                 return this.http.get(`${url}DanhSachTinhLuongHangNam/GetAllPaging?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Update: (data) => {
-                return this.http.post(`${url}DanhSachTinhLuongHangNam/UpdateDanhSachTinhLuongHangNam`,data, httpOptions)
+                return this.http.post(`${url}DanhSachTinhLuongHangNam/UpdateDanhSachTinhLuongHangNam`, data, httpOptions)
             },
             Set: (data) => {
                 return this.http.post(`${url}DanhSachTinhLuongHangNam/AddDanhSachTinhLuongHangNam`, data, httpOptions)
             },
             Delete: (data) => {
-                return this.http.post(`${url}DanhSachTinhLuongHangNam/DeleteDanhSachTinhLuongHangNam`,data, httpOptions)
+                return this.http.post(`${url}DanhSachTinhLuongHangNam/DeleteDanhSachTinhLuongHangNam`, data, httpOptions)
             }
-           
+
 
         }
     }
@@ -353,19 +360,22 @@ export class DanhMucHopDongService {
     MucLuongCoCauNhanSu() {
         let url = API.KeHoach
         return {
+            Get: (Id) => {
+                return this.http.get(`${url}MucLuongHangNam/GetById?Id=${Id}`, httpOptions)
+            },
             GetList: (data) => {
                 return this.http.get(`${url}MucLuongHangNam/GetAllPaging?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Update: (data) => {
-                return this.http.post(`${url}MucLuongHangNam/UpdateMucLuongHangNam`,data, httpOptions)
+                return this.http.post(`${url}MucLuongHangNam/UpdateMucLuongHangNam`, data, httpOptions)
             },
             Set: (data) => {
                 return this.http.post(`${url}MucLuongHangNam/AddMucLuongHangNam`, data, httpOptions)
             },
             Delete: (data) => {
-                return this.http.post(`${url}MucLuongHangNam/DeleteMucLuongHangNam`,data, httpOptions)
+                return this.http.post(`${url}MucLuongHangNam/DeleteMucLuongHangNam`, data, httpOptions)
             }
-           
+
 
         }
     }
@@ -373,19 +383,22 @@ export class DanhMucHopDongService {
     ChiPhiBanHangTheoNam() {
         let url = API.KeHoach
         return {
+            Get: (Id) => {
+                return this.http.get(`${url}ChiPhiBanHangHangNam/GetById?Id=${Id}`, httpOptions)
+            },
             GetList: (data) => {
                 return this.http.get(`${url}ChiPhiBanHangHangNam/GetAllPaging?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
             },
             Update: (data) => {
-                return this.http.post(`${url}ChiPhiBanHangHangNam/UpdateChiPhiBanHangHangNam`,data, httpOptions)
+                return this.http.post(`${url}ChiPhiBanHangHangNam/UpdateChiPhiBanHangHangNam`, data, httpOptions)
             },
             Set: (data) => {
                 return this.http.post(`${url}ChiPhiBanHangHangNam/AddChiPhiBanHangHangNam`, data, httpOptions)
             },
             Delete: (data) => {
-                return this.http.post(`${url}ChiPhiBanHangHangNam/DeleteChiPhiBanHangHangNam`,data, httpOptions)
+                return this.http.post(`${url}ChiPhiBanHangHangNam/DeleteChiPhiBanHangHangNam`, data, httpOptions)
             }
-           
+
 
         }
     }

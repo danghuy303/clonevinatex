@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown,deepCopy } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { ModaldongiakehoachthucteComponent } from '../modaldongiakehoachthucte/modaldongiakehoachthucte.component';
@@ -16,17 +16,14 @@ import { ModalkehoachkinhdoanhtheodoiComponent } from '../modalkehoachkinhdoanht
   styleUrls: ['./modalkehoachkinhdoanhchitiettaomoi.component.css']
 })
 export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
-
   // tong: any = {
   //   thang1: 0,
   //   thang2: 0,
   //   thang3: 0,
   //   thang4: 0,
   // }
-
   public newitemlap: any = {};
   public newitem: any = {};
-
   item:any = {};
   copyItem:any = {};
   filter: any = {};
@@ -44,7 +41,8 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   lang: any = vn;
   listMatHang: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  
+  type: any= '';
+  lstKH_KeHoachKinhDoanh_SanPham: any = [];
 
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
     public toastr: ToastrService,
@@ -54,14 +52,18 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     private _auth: AuthenticationService,) { this.userInfo = this._auth.currentUserValue; }
 
   ngOnInit(): void {
+    console.log(this.item,this.type);
     for (let i = new Date().getFullYear();i<=(new Date().getFullYear()+20);i++)
     {
       this.listNam.push({ value: i, label: i });
     }
-
     this.getListNhaMay();
     this.getListPhanXuong();
     this.GetListMatHang();
+    if(this.type === 'themmoi') {
+      this.GetNextSoQuyTrinh();
+
+    }
   }
 
   GetListMatHang() {
@@ -86,9 +88,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   }
 
   
-
   TheoDoi(item) {
-
     if(!item.edit)
     {
       let modalRef = this._modal.open( ModalkehoachkinhdoanhtheodoiComponent, {
@@ -99,9 +99,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       modalRef.componentInstance.type = this.listMatHang.find(ele=>ele.value===item.IdSanPham)?.label;
       modalRef.componentInstance.title = 'Theo dõi kế hoạch - Thực tế';      
       modalRef.componentInstance.item=item;
-    }
-     
-    
+    }  
   }
 
   add1() {
@@ -125,17 +123,11 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   item.edit=true;
   // this.copyItem = Object.assign({}, item);
   // console.log(this.copyItem);
-
   }
   
   save(item)
   {
     item.edit=false;
-  }
-
-  xoa(item)
-  {
-    
   }
 
   add2() {
@@ -149,8 +141,15 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   }
 
   GhiLai() {   
-  
-      this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(this.item).subscribe((res: any) => {
+    let itemC=this.item;
+    if(itemC.Id==null)
+    {
+      itemC.Id="";
+    }
+    this.item.lstKH_KeHoachKinhDoanh_SanPham = deepCopy(this.item.listItem);
+    delete this.item.listItem;
+      this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(itemC).subscribe((res: any) => {
+        console.log(res)
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
         } else {
@@ -160,7 +159,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       })
   }
 
-  capnhat()
+  CapNhatDonGia()
   {
     let modalRef = this._modal.open( ModaldongiakehoachthucteComponent, {
       backdrop: 'static',
@@ -170,37 +169,12 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     modalRef.componentInstance.type = '';
     modalRef.componentInstance.title = '';
   }
-
-  // TinhTong() {
-  //   this.tong={thang1:0,
-  //      thang2:0,
-  //      thang3:0,
-  //      thang4:0,
-  //      thang5:0,
-  //      thang6:0,
-  //      thang7:0,
-  //      thang8:0,
-  //      thang9:0,
-  //      thang10:0,
-  //      thang11:0,
-  //      thang12:0,
-  //     }
-  //      this.item.listItemLap.forEach(itemlap => {
-  //        this.tong.thang1+= itemlap.thang1;
-  //        this.tong.thang2+= itemlap.thang2;
-  //        this.tong.thang3+= itemlap.thang3;
-  //        this.tong.thang4+= itemlap.thang4;
-  //        this.tong.thang5+= itemlap.thang5;
-  //        this.tong.thang6+= itemlap.thang6;
-  //        this.tong.thang7+= itemlap.thang7;
-  //        this.tong.thang8+= itemlap.thang8;
-  //        this.tong.thang9+= itemlap.thang9;
-  //        this.tong.thang10+= itemlap.thang10;
-  //        this.tong.thang11+= itemlap.thang11;
-  //        this.tong.thang12+= itemlap.thang12;
-  //      });
-  //  }
-
+ GetNextSoQuyTrinh() {
+  this._danhMucHopDong.DanhSachKeHoachKinhDoanh().NextQuyTrinh().subscribe((res: any) => {
+    console.log(res);
+    this.item.SoQuyTrinh=res.Data;  
+  })
+ }
 }
 
 

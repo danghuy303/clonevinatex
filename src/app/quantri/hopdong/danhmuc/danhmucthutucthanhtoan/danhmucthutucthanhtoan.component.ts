@@ -86,38 +86,18 @@ export class DanhmucthutucthanhtoanComponent implements OnInit {
       this.GetListdmThuTucThanhToan()
     }).catch(er=>console.log(er))
   }
-  // delete(item){
-  //   let modalRef = this._modal.open(ModalthongbaoComponent,{
-  //     backdrop:'static'
-  //   });
-  //   modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-  //   modalRef.result.then(res=>{
-  //     const item= this.selectedItems[0];
-  //     this._danhMucHopDong.DanhMucThuTucThanhToan().Delete([item.id]).subscribe((res: any) => {
-  //       if (res) {
-  //         if (res.statusCode === 200) {
-  //           this._toastr.success(res.message);
-  //           this.GetListdmThuTucThanhToan();
-  //         } else {
-  //           this._toastr.error(res.message);
-  //         }
-  //       }
-  //     })
-  //   }).catch(er=>console.log(er))
-  // }
-  deleteAll(){
+  delete(item){
     let modalRef = this._modal.open(ModalthongbaoComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      const listId=this.selectedItems.map(({id}) => id);
-      this._danhMucHopDong.DanhMucThuTucThanhToan().DeleteList(listId).subscribe((res: any) => {
+      // const item= this.selectedItems[0];
+      this._danhMucHopDong.DanhMucThuTucThanhToan().Delete([item.id]).subscribe((res: any) => {
         if (res) {
           if (res.statusCode === 200) {
             this._toastr.success(res.message);
             this.GetListdmThuTucThanhToan();
-            this.selectedItems = [];
           } else {
             this._toastr.error(res.message);
           }
@@ -125,6 +105,26 @@ export class DanhmucthutucthanhtoanComponent implements OnInit {
       })
     }).catch(er=>console.log(er))
   }
+  // deleteAll(){
+  //   let modalRef = this._modal.open(ModalthongbaoComponent,{
+  //     backdrop:'static'
+  //   });
+  //   modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+  //   modalRef.result.then(res=>{
+  //     const listId=this.selectedItems.map(({id}) => id);
+  //     this._danhMucHopDong.DanhMucThuTucThanhToan().DeleteList(listId).subscribe((res: any) => {
+  //       if (res) {
+  //         if (res.statusCode === 200) {
+  //           this._toastr.success(res.message);
+  //           this.GetListdmThuTucThanhToan();
+  //           this.selectedItems = [];
+  //         } else {
+  //           this._toastr.error(res.message);
+  //         }
+  //       }
+  //     })
+  //   }).catch(er=>console.log(er))
+  // }
   changePage(event){
     this.paging.CurrentPage = event.page+1;
     this.GetListdmThuTucThanhToan()

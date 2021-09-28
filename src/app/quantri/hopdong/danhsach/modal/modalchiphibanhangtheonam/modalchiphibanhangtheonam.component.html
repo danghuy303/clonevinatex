@@ -48,7 +48,7 @@
         <tr>
           <th>Loại chi phí</th>
           <th>Loại nội địa - xuất khẩu</th>
-          <th>Loại</th>
+          <th>Đơn vị</th>
           <th>Giá trị </th>
           <th style="width: 100px;">Edit</th>
         </tr>
@@ -56,16 +56,18 @@
       <ng-template pTemplate="body" let-item let-i="rowIndex">
         <tr>
           <td class="text-center">
-            <p-dropdown [disabled]="!item.edit" [filter]="true" [options]="listChiPhi" placeholder="Chọn loại"
-              styleClass="p-inputtext-sm" [(ngModel)]="item.IddmChiPhiBanHang"></p-dropdown>
+            <p-dropdown [disabled]="!item.edit" [filter]="true" [options]=" listChiPhi" placeholder="Chọn loại"
+              styleClass="p-inputtext-sm" [(ngModel)]="item.IddmChiPhiBanHang" (onChange)="ChonHienThi(item)"></p-dropdown>
           </td>
           <td class="text-center">
-            <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.ten">
-            </p-inputNumber>
+            <!-- <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.LoaiXuatKhauNoiDia">
+            </p-inputNumber> -->
+            {{item.LoaiXuatKhauNoiDia}}
           </td>
           <td class="text-center">
-            <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="" locale="vi-VN" [(ngModel)]="item.ten">
-            </p-inputNumber>
+            <!-- <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="" locale="vi-VN" [(ngModel)]="item.ten">
+            </p-inputNumber> -->
+            {{item.DonViTinh}}
           </td>
           <td class="text-center">
             <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="" locale="vi-VN" [(ngModel)]="item.GiaTri">
@@ -78,7 +80,6 @@
                 <button pButton pRipple icon="pi pi-pencil" *ngIf="!item.edit"
                   class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                   (click)="edit(item)"></button>
-
                   <button pButton pRipple icon="pi pi-check" *ngIf="item.edit"
                   class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                   (click)="save(item)"></button>
@@ -92,20 +93,18 @@
         <tr>
           <td class="text-center">
             <p-dropdown [filter]="true" [options]="listChiPhi" placeholder="Chọn loại" styleClass="p-inputtext-sm"
-              [(ngModel)]="newitem.IddmChiPhiBanHang"></p-dropdown>
+              [(ngModel)]="newitem.IddmChiPhiBanHang" (onChange)="Chon(newitem)"></p-dropdown>
           </td>
           <td class="text-center">
-            
+          {{newitem.LoaiXuatKhauNoiDia}}
           </td>
           <td class="text-center">
-            
+            {{newitem.DonViTinh}}
           </td>
           <td class="text-center">
             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newitem.GiaTri">
             </p-inputNumber>
           </td>
-  
-  
           <td class="text-center">
             <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
               (click)="add2()">

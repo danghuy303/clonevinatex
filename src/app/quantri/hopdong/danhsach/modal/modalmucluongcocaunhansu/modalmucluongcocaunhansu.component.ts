@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 @Component({
   selector: 'app-modalmucluongcocaunhansu',
@@ -12,11 +12,11 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 })
 export class ModalmucluongcocaunhansuComponent implements OnInit {
 
-  newitem: any = [];
+  newitem: any = {};
   listdmLoaiSoi: any = [];
   listNhaMay: Array<any> = [];
   listPhanXuong: any = [];
-
+  listNhanSu: any =[];
   IdDuAn: string = "";
   showDropDown: boolean = false;
   userBtn: any;
@@ -26,7 +26,7 @@ export class ModalmucluongcocaunhansuComponent implements OnInit {
   item: any = {};
   type = '';
   opt = '';
-
+  // lstChiTiet: any=[];
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -42,7 +42,24 @@ export class ModalmucluongcocaunhansuComponent implements OnInit {
 
     }
     this.getListNhaMay();
+    this.GetListdmCoCauNhanSu();
   }
+
+  GetListdmCoCauNhanSu(){
+    
+    let data = {
+      PageSize:100, 
+      CurrentPage:1,
+      sFilter:'',  
+      ma:"", 
+      ten:""    
+    };
+    this._danhMucHopDong.DanhMucCoCauNhanSu().GetList(data).subscribe((res:any)=>{
+      this.listNhanSu = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
+      
+    })
+  }
+
   getListNhaMay() {
     this._services
       .GetOptions()
@@ -55,6 +72,7 @@ export class ModalmucluongcocaunhansuComponent implements OnInit {
   }
 
   add2() {
+
     if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
     this.item.listItem.push(this.newitem);
@@ -87,6 +105,7 @@ export class ModalmucluongcocaunhansuComponent implements OnInit {
   
   GhiLai() {
     if (this.opt == 'add') {
+      this.item.lstChiTiet = deepCopy(this.item.listItem);
       this._danhMucHopDong.MucLuongCoCauNhanSu().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
@@ -94,11 +113,10 @@ export class ModalmucluongcocaunhansuComponent implements OnInit {
           this.toastr.success(res.Message);
           this.activeModal.close();
         }
-
       })
     }
     else {
-    
+      this.item.lstChiTiet = deepCopy(this.item.listItem);
       this._danhMucHopDong.MucLuongCoCauNhanSu().Update(this.item).subscribe((res: any) => {
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
@@ -106,11 +124,7 @@ export class ModalmucluongcocaunhansuComponent implements OnInit {
           this.toastr.success(res.Message);
           this.activeModal.close();
         }
-
       })
-    }
-
-    
+    }   
   }
-
 }
