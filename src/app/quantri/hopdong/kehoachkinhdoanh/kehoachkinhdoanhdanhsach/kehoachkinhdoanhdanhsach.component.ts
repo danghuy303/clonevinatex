@@ -7,6 +7,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { StoreService } from 'src/app/services/store.service';
 import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { ModalkehoachkinhdoanhchitiettaomoiComponent } from '../modal/modalkehoachkinhdoanhchitiettaomoi/modalkehoachkinhdoanhchitiettaomoi.component';
+import { AuthenticationService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-kehoachkinhdoanhdanhsach',
   templateUrl: './kehoachkinhdoanhdanhsach.component.html',
@@ -16,10 +17,9 @@ export class KehoachkinhdoanhdanhsachComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
     items: any = [];
-    // item: any={};
+    IdTrangThai: string = "";
     keyWord:any='';
-    paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 1 };
-    trangThai: any = 1;
+    paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
     selectedItems:any=[];
     filter: any = {};
     listNhaMay: Array<any> = [];
@@ -29,14 +29,20 @@ export class KehoachkinhdoanhdanhsachComponent implements OnInit {
     userBtn: any;
     userInfo: any;
     userSub: any;
+    trangThai: any = 0;
+    checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
+    eAction = "PHUONGANPHABONG";
 
+    
     constructor(private _modal:NgbModal,private _danhMucHopDong:DanhMucHopDongService,
       private _toastr:ToastrService,
       private _services: SanXuatService,
-      private store: StoreService,) { }
+      private store: StoreService,
+      private _auth: AuthenticationService) {this.userInfo = this._auth.currentUserValue; }
   
     ngOnInit(): void {
       this.GetListKeHoachKinhDoanh();
+      this.KiemTraTabTrangThai();
     }
     resetFilter(){
       this.keyWord = '';
@@ -44,37 +50,70 @@ export class KehoachkinhdoanhdanhsachComponent implements OnInit {
     }
     GetListKeHoachKinhDoanh(reset?){
       if(reset){
-        this.paging.CurrentPage=1;
+        this.paging.Page=1;
         this.paginator.changePage(0);
       }
       let data = {
         PageSize:20, 
-        CurrentPage:this.paging.CurrentPage,
-        sFilter:this.keyWord,  
+        CurrentPage:this.paging.Page,
+        sFilter:this.keyWord, 
+        TabTrangThai: 1 
           
       };
       this._danhMucHopDong.DanhSachKeHoachKinhDoanh().GetList(data).subscribe((res:any)=>{
         this.items = res.Data.Items;
-        this.paging.TotalItem = res.Data.TotalCount;
+        this.paging.TotalCount = res.Data.TotalCount;
       })
     }
     add(){
-      let modalRef = this._modal.open(ModalkehoachkinhdoanhchitiettaomoiComponent,{
-        backdrop:'static',
-        size: 'fullscreen'
-      });
-      modalRef.componentInstance.opt='add';
-      modalRef.componentInstance.type = 'themmoi';
-      modalRef.componentInstance.title = 'Thêm mới kế hoạch kinh doanh';
-      modalRef.result.then(res=>{
-        this.GetListKeHoachKinhDoanh()
-      }).catch(er=>console.log(er))
-
      
+        let modalRef = this._modal.open(ModalkehoachkinhdoanhchitiettaomoiComponent,{
+          backdrop:'static',
+          size: 'fullscreen'
+        });
+        modalRef.componentInstance.opt='add';
+        modalRef.componentInstance.type = 'themmoi';
+        modalRef.componentInstance.title = 'Thêm mới kế hoạch kinh doanh';
+        modalRef.componentInstance.item = {
+          Id:'',IdTrangThai:'',SoQuyTrinh: "QTKHKD092021_0001"
+        };
+        modalRef.result.then(res=>{
+          this.GetListKeHoachKinhDoanh()
+        }).catch(er=>console.log(er))  
     }
+
+    edit(item){
+      this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Get(item.id).subscribe((res1:any)=>{
+        let modalRef = this._modal.open(ModalkehoachkinhdoanhchitiettaomoiComponent,{
+          backdrop:'static',
+          size: 'fullscreen'
+        });
+        modalRef.componentInstance.opt='edit';
+        modalRef.componentInstance.type = 'capnhat';
+        modalRef.componentInstance.title = 'Cập nhật kế hoạch kinh doanh';
+        modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1)); 
+        modalRef.result.then(res=>{
+          this.GetListKeHoachKinhDoanh()
+        }).catch(er=>console.log(er))
+      })    
+  }
+
+//xử lí tab 
+  changeTab(e) {
+    this.trangThai = e.index + 1;
+    this.GetListKeHoachKinhDoanh(true);
+  }
+
+  KiemTraTabTrangThai() {
+    this._services.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
+      this.checkQuyen = res;
+      this.GetListKeHoachKinhDoanh();
+    });
+  }
+  
   
     changePage(event){
-      this.paging.CurrentPage = event.page+1;
+      this.paging.Page = event.page+1;
       this.GetListKeHoachKinhDoanh()
     }
     

@@ -6,7 +6,7 @@
         <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
         <!-- <button pButton pRipple label="xóa" icon="pi pi-trash" class="p-button-sm p-button-outlined p-mr-2" (click)="delete(item)"></button> -->
         <!-- <button pButton pRipple label="Xuất excel" class="p-button-sm p-button-outlined p-mr-2" (click)="exportExcel()"></button> -->
-        <button pButton pRipple label="Xóa tất cả" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button>
+        <!-- <button pButton pRipple label="Xóa tất cả" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button> -->
 
     </div>
     <div class="p-d-flex p-flex-row" style="width:200px">
@@ -20,7 +20,7 @@
 <p-table [value]="items|filter:keyWord" [(selection)]="selectedItems" styleClass="p-datatable-sm wrap-text p-datatable-striped" [scrollable]="true">
     <ng-template pTemplate="colgroup">
         <colgroup>
-            <col style="width:50px">
+            <!-- <col style="width:50px"> -->
             <!-- <col style="width:50px"> -->
             <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
             <col style="width: 100px;">
@@ -28,9 +28,9 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th>
+            <!-- <th>
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
+            </th> -->
             <!-- <th class="text-center">STT</th> -->
             <th *ngFor="let header of cols">
                 {{header.header}}
@@ -40,9 +40,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
         <tr>
-            <td class="text-center">
+            <!-- <td class="text-center">
                 <p-tableCheckbox [value]="item"></p-tableCheckbox>
-            </td>
+            </td> -->
             <!-- <td class="text-center">
                 {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
             </td> -->

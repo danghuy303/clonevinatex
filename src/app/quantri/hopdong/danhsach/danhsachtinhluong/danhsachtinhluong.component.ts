@@ -46,15 +46,14 @@ export class DanhsachtinhluongComponent implements OnInit {
         let data = {
           PageSize:20, 
           CurrentPage:this.paging.CurrentPage,
-          // sFilter:this.keyWord,  
+          sFilter:this.keyWord,  
           
         };
         this._danhMucHopDong.DanhSachTinhLuong().GetList(data).subscribe((res:any)=>{
           this.items = res.Data.Items;
-          this.items.forEach(obj=>{            
+          this.items.filter(obj=>{            
             obj.TenDuAn = this.listNhaMay.find(ele=>ele.Id==obj.IdDuAn).TenDuAn;            
-          });
-          
+          });       
           this.paging.TotalItem = res.Data.TotalCount;
         })
       });   
@@ -74,24 +73,22 @@ export class DanhsachtinhluongComponent implements OnInit {
   }
 
 edit(item){
-  this._danhMucHopDong.DanhSachTinhLuong().Get(item.Id).subscribe((res:any)=>{
-    console.log(res);
-    
-   
+  this._danhMucHopDong.DanhSachTinhLuong().Get(item.Id).subscribe((res1:any)=>{
+    res1.listItem = res1.lstChiTiet;
+    let modalRef = this._modal.open(ModaldanhsachtinhluongComponent,{
+      backdrop:'static',
+      size:'fullscreen'
+    });
+    modalRef.componentInstance.opt='edit';
+    modalRef.componentInstance.type = '';
+    modalRef.componentInstance.title = 'Cập nhật danh sách tính lương';
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
+    modalRef.result.then(res=>{
+      this.GetListdsTinhLuong();
+    }).catch(er=>console.log(er))
   })
-  // let modalRef = this._modal.open(ModaldanhsachtinhluongComponent,{
-  //   backdrop:'static',
-  //   size:'fullscreen'
-  // });
-  // modalRef.componentInstance.opt='edit';
-  // modalRef.componentInstance.type = '';
-  // modalRef.componentInstance.title = 'Cập nhật danh sách tính lương';
-  // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
-  // modalRef.result.then(res=>{
-  //   this.GetListdsTinhLuong();
-  // }).catch(er=>console.log(er))
-
 }
+
   delete(item){
     let modalRef = this._modal.open(ModalthongbaoComponent,{
       backdrop:'static'
@@ -112,26 +109,7 @@ edit(item){
       })
     }).catch(er=>console.log(er))
   }
-  // deleteAll(){
-  //   let modalRef = this._modal.open(ModalthongbaoComponent,{
-  //     backdrop:'static'
-  //   });
-  //   modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-  //   const listId=this.selectedItems.map(({id}) => id);
-  //   modalRef.result.then(res=>{  
-  //     this._danhMucHopDong.DanhMucLoaiHopDong().DeleteList(listId).subscribe((res: any) => {
-  //       if (res) {
-  //         if (res.statusCode === 200) {
-  //           this._toastr.success(res.message);
-  //           this.GetListdmTinhLuong();
-  //           this.selectedItems = [];
-  //         } else {
-  //          this._toastr.error(res.message);
-  //         }
-  //       }
-  //     })
-  //   }).catch(er=>console.log(er))
-  // }
+
   changePage(event){
     this.paging.CurrentPage = event.page+1;
     this.GetListdsTinhLuong()

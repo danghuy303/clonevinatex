@@ -58,7 +58,7 @@
       <ng-template pTemplate="body" let-item let-i="rowIndex">
         <tr>
           <td class="text-center">
-            <p-dropdown [disabled]="!item.edit" [filter]="true" [options]="listdmLoaiSoi" placeholder="Chọn loại"
+            <p-dropdown [disabled]="!item.edit" [filter]="true" [options]="listNhanSu" placeholder="Chọn loại"
               styleClass="p-inputtext-sm" [(ngModel)]="item.IdCoCauNhanSu"></p-dropdown>
           </td>
           <td class="text-center">
@@ -88,26 +88,26 @@
                   <button pButton pRipple icon="pi pi-check" *ngIf="item.edit"
                   class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
                   (click)="save(item)"></button>
-                  <button pButton pRipple icon="pi pi-times" *ngIf="item.edit"
+                  <!-- <button pButton pRipple icon="pi pi-times" *ngIf="item.edit"
                   class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                  (click)="xoa(item)"></button>
+                  (click)="xoa(item)"></button> -->
           </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="footer">
         <tr>
           <td class="text-center">
-            <p-dropdown [filter]="true" [options]="listdmLoaiSoi" placeholder="Chọn loại" styleClass="p-inputtext-sm"
+            <p-dropdown [filter]="true" [options]="listNhanSu" placeholder="Chọn loại" styleClass="p-inputtext-sm"
               [(ngModel)]="newitem.IdCoCauNhanSu"></p-dropdown>
           </td>
           <td class="text-center">
             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newitem.SoLuong"></p-inputNumber>  
           </td>
           <td class="text-center">
-            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newitem.HeSoLuongCB"></p-inputNumber>  
+            <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="newitem.HeSoLuongCB"></p-inputNumber>  
           </td>
           <td class="text-center">
-            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newitem.HeSoPhuCap"></p-inputNumber>  
+            <p-inputNumber [minFractionDigits]="1" locale="vi-VN" [(ngModel)]="newitem.HeSoPhuCap"></p-inputNumber>  
           </td>
           <td class="text-center">
             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newitem.LuongThang"></p-inputNumber>  

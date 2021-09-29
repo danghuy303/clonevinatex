@@ -52,27 +52,6 @@ export class ModaldanhmuctaisanComponent implements OnInit {
 
       });
   }
-
-  // SetData() {
-  //   let data: any = {
-  //     "Id": this.item.Id,
-  //     "Ma": this.item.Ma,
-  //     "Ten": this.item.Ten,
-  //     "GhiChu": this.item.GhiChu,
-  //     "IdDuAn": this.item.IdDuAn,
-  //     "ThoiGianHetKhauHao": this.item.ThoiGianHetKhauHao,
-  //     "ThoiGianBatDauKhauHao": this.item.ThoiGianBatDauKhauHao,
-  //     "GiaTriKhauHaoMoiThang": this.item.GiaTriKhauHaoMoiThang,
-  //     "DonViTinh": this.item.DonViTinh,
-  //     "NamSanXuat": this.item.NamSanXuat,
-  //     "NamMua": this.item.NamMua,
-  //     "NamSuDung": this.item.NamSuDung,
-  //     "SoNamKhauHao": this.item.SoNamKhauHao,
-  //     "isDelete": this.type == "taisan" ? false : this.item.isDelete,
-  //   };
-  //   return data;
-  // }
-
   ValidateData() {
     if (!validVariable(this.item.Ma)) {
       this.toastr.error("Yêu cầu nhập đầy đủ mã !");
@@ -87,7 +66,10 @@ export class ModaldanhmuctaisanComponent implements OnInit {
   
   GhiLai() {
     if (this.ValidateData()) {
-      this.Tong();
+      // this.Tong();
+      let ngaybatdau=new Date(this.item.ThoiGianBatDauKhauHao);
+  let year = ngaybatdau.getFullYear()+this.item.SoNamKhauHao;
+this.item.ThoiGianHetKhauHao=new Date(ngaybatdau.setFullYear(year));
       this._danhMucHopDong.DanhMucTaiSan().Set(this.item).subscribe((res: any) => {      
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
@@ -96,17 +78,13 @@ export class ModaldanhmuctaisanComponent implements OnInit {
           this.activeModal.close();
         }
       })
-    }
-
-    
+    }    
   }
 Tong()
 {
-  console.log(new Date(this.item.ThoiGianBatDauKhauHao));
   let ngaybatdau=new Date(this.item.ThoiGianBatDauKhauHao);
   let year = ngaybatdau.getFullYear()+this.item.SoNamKhauHao;
 this.item.ThoiGianHetKhauHao=new Date(ngaybatdau.setFullYear(year))
   console.log(this.item.ThoiGianHetKhauHao);
 }
-
 }

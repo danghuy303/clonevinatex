@@ -12,11 +12,11 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 })
 export class ModaldanhsachtinhluongComponent implements OnInit {
 
-  newitem: any ={};
+  newitem: any = {};
   listdmLoaiSoi: any = [];
   listNhaMay: Array<any> = [];
   listPhanXuong: any = [];
-  listTinhLuong: any=[];
+  listTinhLuong: any = [];
   IdDuAn: string = "";
   showDropDown: boolean = false;
   userBtn: any;
@@ -26,7 +26,7 @@ export class ModaldanhsachtinhluongComponent implements OnInit {
   item: any = {};
   type = '';
   opt = '';
-  lstChiTiet:any=[];
+  lstChiTiet: any = [];
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -45,18 +45,18 @@ export class ModaldanhsachtinhluongComponent implements OnInit {
 
     this.GetListdmTinhLuong();
   }
-  GetListdmTinhLuong(){
-    
+  GetListdmTinhLuong() {
+
     let data = {
-      PageSize:100, 
-      CurrentPage:1,
-      sFilter:'',  
-      ma:"", 
-      ten:""    
+      PageSize: 100,
+      CurrentPage: 1,
+      sFilter: '',
+      ma: "",
+      ten: ""
     };
-    this. _danhMucHopDong.DanhMucTinhLuong().GetList(data).subscribe((res:any)=>{
+    this._danhMucHopDong.DanhMucTinhLuong().GetList(data).subscribe((res: any) => {
       this.listTinhLuong = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
-      
+
     })
   }
 
@@ -66,8 +66,6 @@ export class ModaldanhsachtinhluongComponent implements OnInit {
       .GetDanhSachDuAnByIdUser(this.userInfo.Id)
       .subscribe((res: any) => {
         this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id");
-        // this.idDuAn = res[0].Id;ss
-
       });
   }
 
@@ -87,36 +85,30 @@ export class ModaldanhsachtinhluongComponent implements OnInit {
     }
   }
 
-  edit(item) 
-  {
-  item.edit=true;
-  }
-  
-  save(item)
-  {
-    item.edit=false;
+  edit(item) {
+    item.edit = true;
   }
 
-  xoa(item)
-  {
-    
+  save(item) {
+    item.edit = false;
+  }
+
+  xoa(item) {
+
   }
 
   GhiLai() {
     if (this.opt == 'add') {
       this.item.lstChiTiet = deepCopy(this.item.listItem);
-      
+      delete this.item.listItem;
       console.log(this.item);
       this._danhMucHopDong.DanhSachTinhLuong().Set(this.item).subscribe((res: any) => {
-        
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
-          
         } else {
           this.toastr.success(res.Message);
           this.activeModal.close();
         }
-
       })
     }
     else {
@@ -128,11 +120,9 @@ export class ModaldanhsachtinhluongComponent implements OnInit {
           this.toastr.success(res.Message);
           this.activeModal.close();
         }
-
       })
     }
-
-    
   }
 
+  
 }

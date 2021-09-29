@@ -152,6 +152,8 @@ import { HopdongvattuphumodalComponent } from './screen/hopdongvattuphu/hopdongv
 import { LuachonvattuphucuahanghoamodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/luachonvattuphucuahanghoamodal/luachonvattuphucuahanghoamodal.component';
 import { HopdongxuatlobongxoComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxo.component';
 import { HopdongxuatlobongxomodalComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxomodal/hopdongxuatlobongxomodal.component';
+import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmucsanxuat.component';
+import { MoldaldinhmucsanxuatComponent } from './DinhMucSanXuat/moldaldinhmucsanxuat/moldaldinhmucsanxuat.component';
 
 
 
@@ -436,6 +438,20 @@ import { HopdongxuatlobongxomodalComponent } from './screen/thuchienhopdong/hopd
 
 
     HopdongxuatlobongxomodalComponent,
+
+
+
+
+
+
+    DinhmucsanxuatComponent,
+
+
+
+
+
+
+    MoldaldinhmucsanxuatComponent,
 
 
 

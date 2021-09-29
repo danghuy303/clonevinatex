@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 @Component({
   selector: 'app-modalchiphibanhangtheonam',
@@ -12,11 +12,10 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 })
 export class ModalchiphibanhangtheonamComponent implements OnInit {
 
-  newitem: any = [];
+  newitem: any = {};
   listdmLoaiSoi: any = [];
   listNhaMay: Array<any> = [];
   listPhanXuong: any = [];
-
   IdDuAn: string = "";
   showDropDown: boolean = false;
   userBtn: any;
@@ -26,7 +25,9 @@ export class ModalchiphibanhangtheonamComponent implements OnInit {
   item: any = {};
   type = '';
   opt = '';
-  listChiPhi: any=[];
+  listChiPhi: any = [];
+  lstChiTiet: any = [];
+  listChiPhi_copy: any[];
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -35,29 +36,47 @@ export class ModalchiphibanhangtheonamComponent implements OnInit {
     private _auth: AuthenticationService,) { this.userInfo = this._auth.currentUserValue; }
 
   ngOnInit(): void {
+    this.getListNhaMay();
+    this.GetListChiPhiBanHang();
     if (this.opt == 'add') {
 
     }
     else {
-
+    
     }
-    this.getListNhaMay();
-    this.GetListChiPhiBanHang();
+    
   }
 
-  GetListChiPhiBanHang(){
-    
+  GetListChiPhiBanHang() {
     let data = {
-      PageSize:100, 
-      CurrentPage:1,
-      sFilter:'',  
-      ma:"", 
-      ten:""    
+      PageSize: 100,
+      CurrentPage: 1,
+      sFilter: '',
+      ma: "",
+      ten: ""
     };
-    this. _danhMucHopDong.DanhMucChiPhiBanHang().GetList(data).subscribe((res:any)=>{
+    this._danhMucHopDong.DanhMucChiPhiBanHang().GetList(data).subscribe((res: any) => {
       this.listChiPhi = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
-      
+      this.listChiPhi_copy = res.Data.Items;
+      console.log(this.listChiPhi_copy);
+      this.item.listItem.forEach(element => {
+        element.LoaiXuatKhauNoiDia = this.listChiPhi_copy.find(obj => obj.Id == element.IddmChiPhiBanHang).LoaiXuatKhauNoiDia;
+        element.DonViTinh = this.listChiPhi_copy.find(obj => obj.Id == element.IddmChiPhiBanHang).DonViTinh;
+      });
     })
+  }
+
+  ChonHienThi(item) {
+    item.LoaiXuatKhauNoiDia = this.listChiPhi_copy.find(obj => obj.Id == item.IddmChiPhiBanHang).LoaiXuatKhauNoiDia;
+    item.DonViTinh = this.listChiPhi_copy.find(obj => obj.Id == item.IddmChiPhiBanHang).DonViTinh;
+    console.log(item.LoaiXuatKhauNoiDia)
+  }
+
+  Chon(newitem) {
+    console.log(newitem.IddmChiPhiBanHang)
+    newitem.LoaiXuatKhauNoiDia = this.listChiPhi_copy.find(obj => obj.Id == newitem.IddmChiPhiBanHang).LoaiXuatKhauNoiDia;
+    newitem.DonViTinh = this.listChiPhi_copy.find(obj => obj.Id == newitem.IddmChiPhiBanHang).DonViTinh;
+    console.log(newitem.LoaiXuatKhauNoiDia)
   }
 
   getListNhaMay() {
@@ -66,8 +85,6 @@ export class ModalchiphibanhangtheonamComponent implements OnInit {
       .GetDanhSachDuAnByIdUser(this.userInfo.Id)
       .subscribe((res: any) => {
         this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id");
-        // this.idDuAn = res[0].Id;ss
-
       });
   }
 
@@ -86,24 +103,23 @@ export class ModalchiphibanhangtheonamComponent implements OnInit {
     }
   }
 
-  edit(item) 
-  {
-  item.edit=true;
-  }
-  
-  save(item)
-  {
-    item.edit=false;
+  edit(item) {
+    item.edit = true;
   }
 
-  xoa(item)
-  {
-    
+  save(item) {
+    item.edit = false;
   }
 
-  
+  xoa(item) {
+
+  }
+
+
   GhiLai() {
     if (this.opt == 'add') {
+      this.item.lstChiTiet = deepCopy(this.item.listItem);
+      delete this.item.listItem;
       this._danhMucHopDong.ChiPhiBanHangTheoNam().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode !== 500) {
           this.toastr.error(res.Message);
@@ -111,11 +127,10 @@ export class ModalchiphibanhangtheonamComponent implements OnInit {
           this.toastr.success(res.Message);
           this.activeModal.close();
         }
-
       })
     }
     else {
-    
+      this.item.lstChiTiet = deepCopy(this.item.listItem);
       this._danhMucHopDong.ChiPhiBanHangTheoNam().Update(this.item).subscribe((res: any) => {
         if (res.StatusCode !== 500) {
           this.toastr.error(res.Message);
@@ -123,11 +138,8 @@ export class ModalchiphibanhangtheonamComponent implements OnInit {
           this.toastr.success(res.Message);
           this.activeModal.close();
         }
-
       })
     }
-
-    
   }
 
 }

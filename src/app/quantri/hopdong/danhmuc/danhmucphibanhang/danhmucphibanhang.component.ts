@@ -86,14 +86,11 @@ export class DanhmucphibanhangComponent implements OnInit {
       });
       this.items = res.Data.Items;
       this.paging.TotalItem = res.Data.TotalCount;
-      console.log(this.listLoai);
-      
-     
+      console.log(this.listLoai);          
     })
   }
   GetListNoiDiaXuatKhau() {
     this._services.GetOptions().GetDanhMucNoiDiaXuatKhau().subscribe((res: any) => {
-
       this.listLoai = mapArrayForDropDown(res.Data.Items, 'Ten', 'Id');
       this.GetListdmChiPhiBanHang();
     })

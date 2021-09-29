@@ -44,7 +44,6 @@ export class ChiphibanhangtheonamComponent implements OnInit {
       .GetDanhSachDuAnByIdUser(this.userInfo.Id)
       .subscribe((res: any) => {
         this.listNhaMay = res;
-        // this.idDuAn = res[0].Id;ss
         let data = {
           PageSize:20, 
           CurrentPage:this.paging.CurrentPage,
@@ -53,7 +52,7 @@ export class ChiphibanhangtheonamComponent implements OnInit {
         };
         this._danhMucHopDong.ChiPhiBanHangTheoNam().GetList(data).subscribe((res:any)=>{
           this.items = res.Data.Items;
-          this.items.filter(obj=>{            
+          this.items.forEach(obj=>{            
             obj.TenDuAn = this.listNhaMay.find(ele=>ele.Id==obj.IdDuAn).TenDuAn;            
           });
           
@@ -69,25 +68,27 @@ export class ChiphibanhangtheonamComponent implements OnInit {
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = '';
-    modalRef.componentInstance.title = 'Danh sách tính lương hàng năm';
+    modalRef.componentInstance.title = 'Thêm mới chi phí bán hàng theo năm';
     modalRef.result.then(res=>{
       this.GetListChiPhiBanHang();
     }).catch(er=>console.log(er))
   }
 
 edit(item){
-  let modalRef = this._modal.open(ModalchiphibanhangtheonamComponent,{
-    backdrop:'static',
-    size:'fullscreen'
-  });
-  modalRef.componentInstance.opt='edit';
-  modalRef.componentInstance.type = '';
-  modalRef.componentInstance.title = 'Cập nhật chi phí bán hàng';
-  modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
-  modalRef.result.then(res=>{
-    this.GetListChiPhiBanHang();
-  }).catch(er=>console.log(er))
-
+  this._danhMucHopDong.ChiPhiBanHangTheoNam().Get(item.Id).subscribe((res1:any)=>{
+    res1.listItem = res1.lstChiTiet;
+    let modalRef = this._modal.open(ModalchiphibanhangtheonamComponent,{
+      backdrop:'static',
+      size:'fullscreen'
+    });
+    modalRef.componentInstance.opt='edit';
+    modalRef.componentInstance.type = '';
+    modalRef.componentInstance.title = 'Cập nhật chi phí bán hàng';
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1)); 
+    modalRef.result.then(res=>{
+      this.GetListChiPhiBanHang();
+    }).catch(er=>console.log(er))
+  })
 }
   delete(item){
     let modalRef = this._modal.open(ModalthongbaoComponent,{
