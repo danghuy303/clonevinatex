@@ -1,6 +1,6 @@
 <div class="p-mb-3 p-mt-3">
     <div class="p-mb-3 p-mt-3">
-        <h4 style="color:#1f2779">Lập hợp đồng bông sợi</h4>
+        <h4 style="color:#1f2779">Lập hợp đồng sợi</h4>
     </div>
     <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
         <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
@@ -13,20 +13,20 @@
             </div> -->
             <div class="p-mr-2">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                    [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày">
+                    [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetListQuyTrinh(true)">
                 </p-calendar>
             </div>
             <div class="p-mr-2">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                    [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày">
+                    [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetListQuyTrinh(true)">
                 </p-calendar>
             </div>
             <div class="p-inputgroup" style="width: 200px;">
                 <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
-                    (keyup.enter)="GetListQuyTrinh()" [(ngModel)]="filter.keyWord" />
+                    (keyup.enter)="GetListQuyTrinh(true)" [(ngModel)]="filter.keyWord" />
                 
                 <button type="button" pButton pRipple icon="pi pi-search"
-                    class="p-button-secondary p-button-sm p-button-text" (click)="GetListQuyTrinh()"></button>
+                    class="p-button-secondary p-button-sm p-button-text" (click)="GetListQuyTrinh(true)"></button>
                     <button type="button" pButton pRipple icon="pi pi-refresh"
                     class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
             </div>

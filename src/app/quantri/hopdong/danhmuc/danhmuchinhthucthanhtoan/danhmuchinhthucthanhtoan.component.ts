@@ -87,25 +87,25 @@ export class DanhmuchinhthucthanhtoanComponent implements OnInit {
       this.GetListdmHinhThucThanhToan()
     }).catch(er=>console.log(er))
   }
-  // delete(item){
-  //   let modalRef = this._modal.open(ModalthongbaoComponent,{
-  //     backdrop:'static'
-  //   });
-  //   modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-  //   modalRef.result.then(res=>{
-  //     const item= this.selectedItems[0];
-  //     this._danhMucHopDong.DanhMucHinhThucThanhToan().Delete([item.id]).subscribe((res: any) => {
-  //       if (res) {
-  //         if (res.statusCode === 200) {
-  //           this._toastr.success(res.message);
-  //           this.GetListdmHinhThucThanhToan();
-  //         } else {
-  //           this._toastr.error(res.message);
-  //         }
-  //       }
-  //     })
-  //   }).catch(er=>console.log(er))
-  // }
+  delete(item){
+    let modalRef = this._modal.open(ModalthongbaoComponent,{
+      backdrop:'static'
+    });
+    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res=>{
+      this._danhMucHopDong.DanhMucHinhThucThanhToan().DeleteList([item.id]).subscribe((res: any) => {
+        if (res) {
+          if (res.statusCode === 200) {
+            this._toastr.success(res.message);
+            this.GetListdmHinhThucThanhToan();
+            this.selectedItems = [];
+          } else {
+            this._toastr.error(res.message);
+          }
+        }
+      })
+    }).catch(er=>console.log(er))
+  }
   deleteAll(){
     let modalRef = this._modal.open(ModalthongbaoComponent,{
       backdrop:'static'
