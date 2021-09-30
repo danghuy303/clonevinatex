@@ -252,7 +252,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   }
 
   add() {
-    if(validVariable(this.newTableItem.thoiGianCapCang) && validVariable(this.newTableItem.thoiGianDuKien)){
+    if(!validVariable(this.newTableItem.thoiGianCapCang) || !validVariable(this.newTableItem.thoiGianDuKien)){
       this.toastr.error('Vui lòng chọn thời gian')
     }
     if (this.item.listInvoice == undefined || this.item.listInvoice == null)
