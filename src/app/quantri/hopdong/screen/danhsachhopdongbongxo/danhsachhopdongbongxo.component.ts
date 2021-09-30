@@ -38,7 +38,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listQuyCachDongGoi: any = [];
-
+  loaiTab : any = 0;
   constructor(
     public _modal: NgbModal,
     public _toastr: ToastrService,
@@ -139,6 +139,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
 
   changeTab(e) {
     this.trangThai = e.index + 1;
+    this.loaiTab = e.index;
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
@@ -148,27 +149,61 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.currentPage = 1;
-      // this.paginator.changePage(0);
     }
     let data = {
       pageSize: 20,
       currentPage: this.paging.currentPage,
-      tabTrangThai: this.trangThai,
+      tabTrangThai: 3,
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
       Loai:0
     };
-    this._service
-      .QuyTrinhHopDong()
-      .GetList(data)
-      .subscribe((res: any) => {
+    if(this.loaiTab == 0){
+      this._service.QuyTrinhHopDong().GetList(data).subscribe((res: any) => {
         this.items = res.data?.items;
         this.paging.TotalItem = res.data?.totalCount;
         this.items.forEach(element => {
           element.ngayKy = UnixToDate(element.ngayKyUnix);
         });
       });
+    }
+    else if(this.loaiTab === 1){
+      this._service.QuyTrinhHopDong().GetListHopDongSapHetHanBanGiao(data).subscribe((res: any) => {
+        this.items = res.data?.items;
+        this.paging.TotalItem = res.data?.totalCount;
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
+      });
+    }
+    else if(this.loaiTab === 2){
+      this._service.QuyTrinhHopDong().GetListHopDongSapDenHanTT(data).subscribe((res: any) => {
+        this.items = res.data?.items;
+        this.paging.TotalItem = res.data?.totalCount;
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
+      });
+    }
+    else if(this.loaiTab === 3){
+      this._service.QuyTrinhHopDong().GetListHopDongQuaHanBanGiao(data).subscribe((res: any) => {
+        this.items = res.data?.items;
+        this.paging.TotalItem = res.data?.totalCount;
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
+      });
+    }
+    else if(this.loaiTab === 4){
+      this._service.QuyTrinhHopDong().GetListHopDongQuaHanTT(data).subscribe((res: any) => {
+        this.items = res.data?.items;
+        this.paging.TotalItem = res.data?.totalCount;
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
+      });
+    }
   }
 
   resetFilter() {

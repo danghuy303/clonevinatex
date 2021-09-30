@@ -73,11 +73,11 @@ Id:any = "";
     
     if (this.opt !== "edit") {
       this.GetNextSoQuyTrinh();
-      this.title = 'Thêm mới hợp đồng nguyên/vật liệu'
+      this.title = 'Thêm mới hợp đồng bông xơ'
       this.item.listHangHoa[0].DonGiaThanhToan = 0;
       this.item.listHangHoa[0].donGia = 0;
     } else {
-      this.title = "Hợp đồng nguyên/vật liệu"
+      this.title = "Chỉnh sửa hợp đồng bông xơ"
       this.GetQuyTrinh();
     }
     this._servicesSanXuat.GetListdmLoaiBongForHopDong(this.item.hopDong.loai || 0).subscribe((res: any) => {

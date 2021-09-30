@@ -18,6 +18,7 @@ export class AppComponent {
       this._modal.dismissAll();
     }
   }
+  
   constructor(private router: Router,private _modal:NgbModal, private store:StoreService) { }
   
   ngOnInit() {

@@ -69,16 +69,16 @@ export class ChitietbaolanhmodalComponent implements OnInit {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.result.then((data) => {
       let item: any = {}
-      item.id = 0;
-      item.TenGui = data[data.length - 1].Name;
-      item.TenGoc = data[data.length - 1].NameLocal;
-      item.DuongDan = data[data.length - 1].Url;
+      item.id = '';
+      item.fileNameGui = data[data.length - 1].Name;
+      item.fileName = data[data.length - 1].NameLocal;
+      item.Link = data[data.length - 1].Url;
       // "idDuAn": 0,
       // "maDuAn": "string",
       this.item.listFileDinhKem.push(item);
       this.item.listTen = "";
       this.item.listFileDinhKem.forEach(element => {
-        this.item.listTen += `${element.TenGoc}`;
+        this.item.listTen += `${element.fileName}`;
       });
     }, (reason) => {
 

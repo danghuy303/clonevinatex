@@ -155,7 +155,7 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TabTrangThai: this.trangThai,
-      sFilter: this.filter.KeyWord,
+      KeyWord: this.filter.KeyWord,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",

@@ -240,6 +240,8 @@ import { KiemkekhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu
 import { KiemkekhovattuphumodalComponent } from './quanlykhosanxuat/quytrinh/vattuphu/kiemkekhovattuphumodal/kiemkekhovattuphumodal.component';
 import { DinhmucmathangtheonamComponent } from './danhmuc/dinhmucmathangtheonam/dinhmucmathangtheonam.component';
 import { ModaldinhmucmathangtheonamComponent } from './danhmuc/modal/modaldinhmucmathangtheonam/modaldinhmucmathangtheonam.component';
+import { XuatbongchovayComponent } from './quanlykhosanxuat/quytrinh/xuatbongchovay/xuatbongchovay.component';
+import { XuatbongchovaymodalComponent } from './quanlykhosanxuat/quytrinh/xuatbongchovay/xuatbongchovaymodal/xuatbongchovaymodal.component';
 
 
 
@@ -434,6 +436,8 @@ import { ModaldinhmucmathangtheonamComponent } from './danhmuc/modal/modaldinhmu
     XuatkhovattuphumodalComponent,
     DinhmucmathangtheonamComponent,
     ModaldinhmucmathangtheonamComponent,
+    XuatbongchovayComponent,
+    XuatbongchovaymodalComponent,
 
   ],
   imports: [
@@ -579,6 +583,7 @@ import { ModaldinhmucmathangtheonamComponent } from './danhmuc/modal/modaldinhmu
     NhapkhovattuphumodalComponent,
     XuatkhovattuphumodalComponent,
     ModaldinhmucmathangtheonamComponent,
+    XuatbongchovaymodalComponent,
   ],
   providers: [
     SanXuatService,

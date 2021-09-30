@@ -32,6 +32,7 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
   nametype: any = '';
   listHopDong: any = [];
   listDieuKhoanThanhToan: any = [];
+  listDieuKhoanThanhToanFull: any = [];
   listThanhToanInvoice: any = [];
   IdDuAn: any = 0;
   listIdThanhToanInvoice: any = [];
@@ -82,7 +83,7 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
     if(this.item.loaiThanhToan === 1){
       this._hopdong.QuyTrinhHopDong().getListDieuKhoan(this.item.idHopDong).subscribe((res: any) => {
         this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'noiDung', 'id');
-        
+        this.listDieuKhoanThanhToanFull = res.data;
       })
     }
     else if(this.item.loaiThanhToan === 2){
@@ -237,5 +238,18 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
       });
     })
   }
-  
+  layGiaTri(){
+    var data = this.listDieuKhoanThanhToanFull.filter(e=> e.id == this.item.idThanhToanDieuKhoan);
+    if(data !== undefined){
+      this.item.giaTriThanhToan = data[0].giaTri || 0;
+    }
+  }
+  TinhThanhTien(){
+    this.item.giaTriThanhToan = 0;
+    if(this.item.listThanhToanMatHang === null || this.item.listThanhToanMatHang === undefined)
+      this.item.listThanhToanMatHang = []
+    this.item.listThanhToanMatHang.forEach(element => {
+      this.item.giaTriThanhToan += (element.soLuong || 0) * (element.donGia || 0);
+    });
+  }
 }

@@ -130,7 +130,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
     this.selected.SoDienThoai = selected?.SoDienThoai
     this.selected.SoFax = selected?.SoFax
     this.selected.Ten = selected?.Ten
-    this.selected.listTaiKhoanNganHang = selected?.listTaiKhoanNganHang
+    this.selected.TaiKhoanNganHang = selected?.TaiKhoanNganHang
   }
 
   onChangBenB(event, isChange = false) {
@@ -151,7 +151,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
     this.selected1.SoDienThoai = selected1?.SoDienThoai
     this.selected1.SoFax = selected1?.SoFax
     this.selected1.Ten = selected1?.Ten
-    this.selected1.listTaiKhoanNganHang = selected1?.listTaiKhoanNganHang
+    this.selected1.TaiKhoanNganHang = selected1?.TaiKhoanNganHang
   }
 
 
