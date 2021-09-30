@@ -135,7 +135,9 @@ export function validVariable(value: any) {
         return false;
     }
 }
-export function DateToUnix(date: any): any {
+export function 
+
+DateToUnix(date: any): any {
     if (date == null) {
         return 0
     } else {
