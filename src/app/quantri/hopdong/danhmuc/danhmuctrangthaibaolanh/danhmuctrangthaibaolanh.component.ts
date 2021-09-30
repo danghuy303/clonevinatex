@@ -93,7 +93,25 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      // const item=this.selectedItems[0];
+      this._danhMucHopDong.DanhMucTrangThaiBaoLanh().Delete([item.id]).subscribe((res: any) => {
+        if (res) {
+          if (res.statusCode === 200) {
+            this._toastr.success(res.message);
+            this.GetListdmTrangThaiBaoLanh();
+          } else {
+            this._toastr.error(res.message);
+          }
+        }
+      })
+    }).catch(er=>console.log(er))
+  }
+  deleteAll(){
+    let modalRef = this._modal.open(ModalthongbaoComponent,{
+      backdrop:'static'
+    });
+    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res=>{
+      const item=this.selectedItems[0];
       this._danhMucHopDong.DanhMucTrangThaiBaoLanh().Delete([item.id]).subscribe((res: any) => {
         if (res) {
           if (res.statusCode === 200) {

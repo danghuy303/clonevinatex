@@ -46,6 +46,8 @@ export class ChitietbaolanhComponent implements OnInit, DoCheck {
     }).catch(er => { console.log(er) });
   }
   edit(item, i) {
+    if(item.listFileDinhKem === null)
+      item.listFileDinhKem = [];
     let modalRef = this._modal.open(ChitietbaolanhmodalComponent, { size: 'xl', backdrop: 'static' });
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     // modalRef.componentInstance.item.hieuLucBaoLanh = new Date(item.hieuLucBaoLanh);

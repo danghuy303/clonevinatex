@@ -83,18 +83,19 @@ export class KehoachkinhdoanhdanhsachComponent implements OnInit {
     }
 
     edit(item){
-     
-      let modalRef = this._modal.open(ModalkehoachkinhdoanhchitiettaomoiComponent,{
-        backdrop:'static',
-        size: 'fullscreen'
-      });
-      modalRef.componentInstance.opt='edit';
-      modalRef.componentInstance.type = 'capnhat';
-      modalRef.componentInstance.title = 'Cập nhật kế hoạch kinh doanh';
-      modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
-      modalRef.result.then(res=>{
-        this.GetListKeHoachKinhDoanh()
-      }).catch(er=>console.log(er))  
+      this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Get(item.id).subscribe((res1:any)=>{
+        let modalRef = this._modal.open(ModalkehoachkinhdoanhchitiettaomoiComponent,{
+          backdrop:'static',
+          size: 'fullscreen'
+        });
+        modalRef.componentInstance.opt='edit';
+        modalRef.componentInstance.type = 'capnhat';
+        modalRef.componentInstance.title = 'Cập nhật kế hoạch kinh doanh';
+        modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1)); 
+        modalRef.result.then(res=>{
+          this.GetListKeHoachKinhDoanh()
+        }).catch(er=>console.log(er))
+      })    
   }
 
 //xử lí tab 
