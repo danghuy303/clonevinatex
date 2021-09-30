@@ -176,7 +176,7 @@ p-calendar>span>button {
     padding: 0px !important;
 }
 
-.p-toggleable-content.ng-trigger {
+.p-toggleable-content.ng-trigger.ng-trigger-rootItem {
     padding-left: 44px !important
 }
 
