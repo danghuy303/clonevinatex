@@ -14,7 +14,6 @@ import { AuthenticationService } from 'src/app/services/auth.service';
   styleUrls: ['./kehoachkinhdoanhdanhsach.component.css']
 })
 export class KehoachkinhdoanhdanhsachComponent implements OnInit {
-
   @ViewChild('paginator') paginator: any;
     items: any = [];
     IdTrangThai: string = "";
@@ -32,7 +31,7 @@ export class KehoachkinhdoanhdanhsachComponent implements OnInit {
     trangThai: any = 0;
     checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
     eAction = "PHUONGANPHABONG";
-
+  
     
     constructor(private _modal:NgbModal,private _danhMucHopDong:DanhMucHopDongService,
       private _toastr:ToastrService,

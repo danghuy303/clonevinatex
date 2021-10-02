@@ -16,14 +16,8 @@ import { ModalkehoachkinhdoanhtheodoiComponent } from '../modalkehoachkinhdoanht
   styleUrls: ['./modalkehoachkinhdoanhchitiettaomoi.component.css']
 })
 export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
-  // tong: any = {
-  //   thang1: 0,
-  //   thang2: 0,
-  //   thang3: 0,
-  //   thang4: 0,
-  // }
   public newitemlap: any = {};
-  public newitem: any = {};
+  public newItem: any = {};
   item:any = {};
   copyItem:any = {};
   filter: any = {};
@@ -43,7 +37,8 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   type: any= '';
   lstKH_KeHoachKinhDoanh_SanPham: any = [];
-
+  labelThang:Array<string>=['T1','T2','T3','T4','T5','T6','T7','T8','T9','T10','T11','T12',];
+  propThang:Array<string>=['Thang1','Thang2','Thang3','Thang4','Thang5','Thang6','Thang7','Thang8','Thang9','Thang10','Thang11','Thang12 ',]
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
     public toastr: ToastrService,
     private _services: SanXuatService,
@@ -62,10 +57,15 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     this.GetListMatHang();
     if(this.type === 'themmoi') {
       this.GetNextSoQuyTrinh();
-
     }
   }
-
+  TinhSoLuongDaLapKeHoach(rootItem,parentItem){
+    rootItem.SoLuongDaLapKeHoach = this.propThang.reduce((total,prop)=>(rootItem[prop]|0)+total,0);
+    parentItem.SoLuongDaLapKeHoach = parentItem.listNhaMay.reduce((total,ele)=>(ele.SoLuongDaLapKeHoach|0)+total,0);
+    this.propThang.forEach(prop=>{
+      parentItem[prop]=parentItem.listNhaMay.reduce((total,ele)=>(ele[prop]|0)+total,0);
+    })
+  }
   GetListMatHang() {
     this._services.GetOptions().GetMatHang().subscribe((res: any) => {
       this.listMatHang = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -80,6 +80,25 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
         this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id");
       });
   }
+  changeNhaMay(rootItem){
+    // console.log(rootItem.selectedNhaMay)
+    rootItem.listNhaMay = rootItem.selectedNhaMay.map(key=>{
+      return {
+        TenNhaMay:this.listNhaMay.find(ele=>ele.value===key)?.label,
+        IdNhaMay:key
+      }
+    })
+    console.log(rootItem)
+  }
+  changeItem(rootItem){
+    rootItem.selectedItems
+    rootItem.listItem = rootItem.selectedItems.map(key=>{
+      return{
+        TenMatHang:this.listMatHang.find(ele=>ele.value===key)?.label,
+        IddmItem:key
+      }
+    })
+  }
 
   getListPhanXuong() {
     this._services.GetListdmPhanXuongOpt().subscribe((res: any) => {
@@ -87,9 +106,8 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     })
   }
 
-  
   TheoDoi(item) {
-    if(!item.edit)
+    if(item.Id!==undefined)
     {
       let modalRef = this._modal.open( ModalkehoachkinhdoanhtheodoiComponent, {
         backdrop: 'static',
@@ -101,12 +119,16 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       modalRef.componentInstance.item=item;
     }  
   }
-
-  add1() {
+  addNhaMay(rootItem){
+    !rootItem.listNhaMay && (rootItem.listNhaMay=[]);
+    console.log(rootItem);
+    rootItem.listNhaMay.push({});
+  }
+  addSanPham() {
     if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
-    this.item.listItem.push(this.newitem);
-    this.newitem = {}
+    this.item.listItem.push(deepCopy(this.newItem));
+    this.newItem = {}
   }
 
   delete(index) {
@@ -116,28 +138,6 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       item.isXoa = true;
       // this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
-  }
-
-  edit(item) 
-  {
-  item.edit=true;
-  // this.copyItem = Object.assign({}, item);
-  // console.log(this.copyItem);
-  }
-  
-  save(item)
-  {
-    item.edit=false;
-  }
-
-  add2() {
-    if (this.item.listItemLap == undefined || this.item.listItemLap == null)
-      this.item.listItemLap = [];
-    this.item.listItemLap.push(this.newitemlap);
-    this.newitemlap.tong = (this.newitemlap.thang1||0) + (this.newitemlap.thang2||0) + (this.newitemlap.thang3||0) + (this.newitemlap.thang4||0) + (this.newitemlap.thang5||0)
-    + (this.newitemlap.thang6||0) +(this.newitemlap.thang7||0)+ (this.newitemlap.thang8||0)+(this.newitemlap.thang9||0)+(this.newitemlap.thang10||0)
-    +(this.newitemlap.thang11||0)+(this.newitemlap.thang12||0);
-    this.newitemlap = {}
   }
 
   GhiLai() {   
@@ -174,6 +174,9 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     console.log(res);
     this.item.SoQuyTrinh=res.Data;  
   })
+ }
+ ChapNhan(){
+   
  }
 }
 
