@@ -1,5 +1,5 @@
 // import { DmLoaiHopDongComponent } from './hopdong/danhmuc/dm-loai-hop-dong/dm-loai-hop-dong.component';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule, LocationStrategy, HashLocationStrategy, registerLocaleData } from '@angular/common';
 import { QuantriRoutingModule } from './quantri-routing.module';
 import { QuantriComponent } from './quantri.component';
@@ -589,5 +589,6 @@ import { ModaldinhmucmathangtheonamComponent } from './danhmuc/modal/modaldinhmu
     { provide: LOCALE_ID, useValue: 'vi-VN' },
     LoaderService,
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class QuantriModule { }
