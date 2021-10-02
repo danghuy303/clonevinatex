@@ -5,7 +5,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { vn } from "./../../../../../services/const";
@@ -29,6 +29,7 @@ export class ModaldanhmuctaisanComponent implements OnInit {
   userSub: any;
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
+  filter: any;
   constructor(
     public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
     public toastr: ToastrService,
@@ -38,8 +39,14 @@ export class ModaldanhmuctaisanComponent implements OnInit {
     private _auth: AuthenticationService,) { this.userInfo = this._auth.currentUserValue; }
 
   ngOnInit(): void {
-
     this.getListNhaMay();
+
+    if ( this.item.ThoiGianBatDauKhauHaoUnix !== 0) {
+      this.item.ThoiGianBatDauKhauHao = UnixToDate(this.item.ThoiGianBatDauKhauHaoUnix);
+    }
+    if ( this.item.ThoiGianHetKhauHaoUnix !== 0) {
+      this.item.ThoiGianHetKhauHao = UnixToDate(this.item.ThoiGianHetKhauHaoUnix	);
+    }
   }
 
   getListNhaMay() {
@@ -47,9 +54,7 @@ export class ModaldanhmuctaisanComponent implements OnInit {
       .GetOptions()
       .GetDanhSachDuAnByIdUser(this.userInfo.Id)
       .subscribe((res: any) => {
-        this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id");
-        // this.idDuAn = res[0].Id;ss
-
+        this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id")
       });
   }
   ValidateData() {
@@ -61,16 +66,21 @@ export class ModaldanhmuctaisanComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập đầy đủ tên !");
       return false;
     }
+    if (!validVariable(this.item.ThoiGianBatDauKhauHao)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ ngày !");
+      return false;
+    }
     return true;
   }
-  
+
   GhiLai() {
     if (this.ValidateData()) {
-      // this.Tong();
-      let ngaybatdau=new Date(this.item.ThoiGianBatDauKhauHao);
-  let year = ngaybatdau.getFullYear()+this.item.SoNamKhauHao;
-this.item.ThoiGianHetKhauHao=new Date(ngaybatdau.setFullYear(year));
-      this._danhMucHopDong.DanhMucTaiSan().Set(this.item).subscribe((res: any) => {      
+      this.Tong();
+
+      this.item.ThoiGianBatDauKhauHaoUnix = DateToUnix(this.item.ThoiGianBatDauKhauHao);
+      this.item.ThoiGianHetKhauHaoUnix	 = DateToUnix(this.item.ThoiGianHetKhauHao);
+
+      this._danhMucHopDong.DanhMucTaiSan().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
         } else {
@@ -78,13 +88,12 @@ this.item.ThoiGianHetKhauHao=new Date(ngaybatdau.setFullYear(year));
           this.activeModal.close();
         }
       })
-    }    
+    }
   }
-Tong()
-{
-  let ngaybatdau=new Date(this.item.ThoiGianBatDauKhauHao);
-  let year = ngaybatdau.getFullYear()+this.item.SoNamKhauHao;
-this.item.ThoiGianHetKhauHao=new Date(ngaybatdau.setFullYear(year))
-  console.log(this.item.ThoiGianHetKhauHao);
-}
+  Tong() {
+    let ngaybatdau = new Date(this.item.ThoiGianBatDauKhauHao);
+    let year = ngaybatdau.getFullYear() + this.item.SoNamKhauHao;
+    this.item.ThoiGianHetKhauHao = new Date(ngaybatdau.setFullYear(year))
+    console.log(this.item.ThoiGianHetKhauHao);
+  }
 }

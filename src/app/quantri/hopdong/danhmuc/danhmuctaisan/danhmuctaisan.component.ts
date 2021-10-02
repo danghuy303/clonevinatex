@@ -140,9 +140,7 @@ export class DanhmuctaisanComponent implements OnInit {
       modalRef.result.then(res=>{
         this.GetListdmTaiSan()
         // this.getListNhaMay()
-      }).catch(er=>console.log(er))
-
-     
+      }).catch(er=>console.log(er)) 
     }
     edit(item){
       let modalRef = this._modal.open(ModaldanhmuctaisanComponent,{
@@ -162,8 +160,7 @@ export class DanhmuctaisanComponent implements OnInit {
         .GetDanhSachDuAnByIdUser(this.userInfo.Id)
         .subscribe((res: any) => {
           this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id");
-          this.idDuAn = res[0].Id;
-       
+          this.idDuAn = res[0].Id;      
         });
     }
     delete(item){

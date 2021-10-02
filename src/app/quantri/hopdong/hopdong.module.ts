@@ -381,11 +381,7 @@ import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattup
     ChiphibanhangtheonamComponent,
     ModalchiphibanhangtheonamComponent,
     ModalmucluongcocaunhansuComponent,
-
-
-
-
-
+ 
 
     ThanhtoanhopdongsoiComponent,
 
@@ -431,25 +427,8 @@ import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattup
 
     LuachonvattuphucuahanghoamodalComponent,
 
-
-
-
-
-
     HopdongxuatlobongxoComponent,
-
-
-
-
-
-
     HopdongxuatlobongxomodalComponent,
-
-
-
-
-
-
     DinhmucsanxuatComponent,
 
 
@@ -607,6 +586,7 @@ import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattup
 
     ModalmucluongcocaunhansuComponent,
     ModalchiphibanhangtheonamComponent,
+  
 
 
 
