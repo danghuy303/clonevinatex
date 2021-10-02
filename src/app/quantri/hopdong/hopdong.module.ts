@@ -153,7 +153,6 @@ import { LuachonvattuphucuahanghoamodalComponent } from './screen/modal/share/ch
 import { HopdongxuatlobongxoComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxo.component';
 import { HopdongxuatlobongxomodalComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxomodal/hopdongxuatlobongxomodal.component';
 import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmucsanxuat.component';
-import { MoldaldinhmucsanxuatComponent } from './DinhMucSanXuat/moldaldinhmucsanxuat/moldaldinhmucsanxuat.component';
 import { NhapvattuphuComponent } from './screen/thuchienhopdong/nhapvattuphu/nhapvattuphu.component';
 import { ThanhtoanvattuphuComponent } from './screen/thuchienhopdong/thanhtoanvattuphu/thanhtoanvattuphu.component';
 import { NhapvattuphumodalComponent } from './screen/thuchienhopdong/nhapvattuphu/nhapvattuphumodal/nhapvattuphumodal.component';
@@ -282,8 +281,6 @@ import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattup
 
 
 
-
-    MoldaldinhmucsanxuatComponent,
 
 
 
