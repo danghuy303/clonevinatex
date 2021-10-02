@@ -254,11 +254,8 @@ import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmuc
     ChiphibanhangtheonamComponent,
     ModalchiphibanhangtheonamComponent,
     ModalmucluongcocaunhansuComponent,
-<<<<<<< HEAD
-=======
  
 
->>>>>>> 00154c710c617b9e01a9845f711426766197bb05
     ThanhtoanhopdongsoiComponent,
     ThanhtoanhopdongsoimodalComponent,
     ChonmathangthanhtoanhopdongComponent,
@@ -266,18 +263,11 @@ import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmuc
     HopdongvattuphuComponent,
     HopdongvattuphumodalComponent,
     LuachonvattuphucuahanghoamodalComponent,
-<<<<<<< HEAD
-    HopdongxuatlobongxoComponent,
-    HopdongxuatlobongxomodalComponent,
-    DinhmucsanxuatComponent,
-    MoldaldinhmucsanxuatComponent,
-=======
 
     HopdongxuatlobongxoComponent,
     HopdongxuatlobongxomodalComponent,
     DinhmucsanxuatComponent,
 
->>>>>>> 00154c710c617b9e01a9845f711426766197bb05
   ],
   imports: [
     CommonModule,
