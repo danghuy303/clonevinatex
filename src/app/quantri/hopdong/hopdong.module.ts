@@ -154,6 +154,12 @@ import { HopdongxuatlobongxoComponent } from './screen/thuchienhopdong/hopdongxu
 import { HopdongxuatlobongxomodalComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxomodal/hopdongxuatlobongxomodal.component';
 import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmucsanxuat.component';
 import { MoldaldinhmucsanxuatComponent } from './DinhMucSanXuat/moldaldinhmucsanxuat/moldaldinhmucsanxuat.component';
+import { NhapvattuphuComponent } from './screen/thuchienhopdong/nhapvattuphu/nhapvattuphu.component';
+import { ThanhtoanvattuphuComponent } from './screen/thuchienhopdong/thanhtoanvattuphu/thanhtoanvattuphu.component';
+import { NhapvattuphumodalComponent } from './screen/thuchienhopdong/nhapvattuphu/nhapvattuphumodal/nhapvattuphumodal.component';
+import { ThanhtoanvattuphumodalComponent } from './screen/thuchienhopdong/thanhtoanvattuphu/thanhtoanvattuphumodal/thanhtoanvattuphumodal.component';
+import { DanhsachhopdongsoiComponent } from './screen/danhsachhopdongsoi/danhsachhopdongsoi.component';
+import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattuphu/danhsachhopdongvattuphu.component';
 
 
 
@@ -455,6 +461,48 @@ import { MoldaldinhmucsanxuatComponent } from './DinhMucSanXuat/moldaldinhmucsan
 
 
 
+
+
+
+    NhapvattuphuComponent,
+
+
+
+
+
+
+    ThanhtoanvattuphuComponent,
+
+
+
+
+
+
+    NhapvattuphumodalComponent,
+
+
+
+
+
+
+    ThanhtoanvattuphumodalComponent,
+
+
+
+
+
+
+    DanhsachhopdongsoiComponent,
+
+
+
+
+
+
+    DanhsachhopdongvattuphuComponent,
+
+
+
   ],
   imports: [
     CommonModule,
@@ -568,6 +616,9 @@ import { MoldaldinhmucsanxuatComponent } from './DinhMucSanXuat/moldaldinhmucsan
     HopdongvattuphumodalComponent,
     LuachonvattuphucuahanghoamodalComponent,
     HopdongxuatlobongxomodalComponent,
+    ThanhtoanvattuphumodalComponent,
+    NhapvattuphumodalComponent,
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -13,16 +13,11 @@ export class HopDongService {
     let url = API.HopDong;
     return {
       GetNextSoQuyTrinh: () => {
-        return this.http.get(
-          url + "HopDong/GetNextSoQuyTrinhHopDong",
-          httpOptions
-        );
+        return this.http.get(url + "HopDong/GetNextSoQuyTrinhHopDong",httpOptions);
       },
       GetOptionsVatLieu: () => {
         return this.http.get(url + `DanhMuc/GetListAlldmLoaiNguyenVatLieu`, httpOptions);
       },
-
-
       GetList: (data) => {
         data.idDuAn = this.store.getCurrent();
         return this.http.post(url + "HopDong/GetListQuyTrinhHopDong", data, httpOptions);
@@ -99,6 +94,9 @@ export class HopDongService {
       },
       getListMatHang: (IdHopDong) => {
         return this.http.get(url + `HopDong/GetListMatHang?IdHopDong=${IdHopDong}`, httpOptions);
+      },
+      GetListHopDongBanChoVay: (IdDuAn) => {
+        return this.http.get(url + `HopDong/GetDanhSachHopDongBanChoVay?IdDuAn=${IdDuAn}`, httpOptions);
       },
     };
   }
@@ -289,21 +287,7 @@ export class HopDongService {
     return {
       GetList: (data) => {
         data.idDuAn = this.store.getCurrent();
-
-        return this.http.post(
-          url + "ThanhToan/GetListQuyTrinh",
-          data,
-          httpOptions
-        );
-      },
-      GetListThanhToanSoi: (data) => {
-        data.idDuAn = this.store.getCurrent();
-
-        return this.http.post(
-          url + "ThanhToan/GetListQuyTrinhThanhToanSoi",
-          data,
-          httpOptions
-        );
+        return this.http.post(url + "ThanhToan/GetListQuyTrinh",data,httpOptions);
       },
       GetNextSoQuyTrinh: () => {
         return this.http.get(
@@ -438,8 +422,8 @@ export class HopDongService {
         data.idDuAn = this.store.getCurrent();
         return this.http.post(url + "PhieuXuatLoBong/SetPhieuXuatLoBong",data,httpOptions);
       },
-      Delete: (data) => {
-        return this.http.post(url + "PhieuXuatLoBong/DeletePhieuXuatLoBong",data,httpOptions);
+      Delete: (Id) => {
+        return this.http.get(url + `PhieuXuatLoBong/DeletePhieuXuatLoBong?Id=${Id}`,httpOptions);
       },
       KhongDuyet: (data) => {
         return this.http.post(url + "PhieuXuatLoBong/KhongDuyetQuyTrinh",data,httpOptions);

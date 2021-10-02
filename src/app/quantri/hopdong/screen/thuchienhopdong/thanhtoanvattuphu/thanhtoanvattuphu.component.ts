@@ -3,17 +3,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, deepCopy, formatdate, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, formatdate, validVariable } from 'src/app/services/globalfunction';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 import { StoreService } from 'src/app/services/store.service';
-import { QuytrinhthanhtoanbongmodalComponent } from '../quytrinhthanhtoanbongmodal/quytrinhthanhtoanbongmodal.component';
+import { ThanhtoanvattuphumodalComponent } from './thanhtoanvattuphumodal/thanhtoanvattuphumodal.component';
 
 @Component({
-  selector: 'app-quytrinhthanhtoanbong',
-  templateUrl: './quytrinhthanhtoanbong.component.html',
-  styleUrls: ['./quytrinhthanhtoanbong.component.css']
+  selector: 'app-thanhtoanvattuphu',
+  templateUrl: './thanhtoanvattuphu.component.html',
+  styleUrls: ['./thanhtoanvattuphu.component.css']
 })
-export class QuytrinhthanhtoanbongComponent implements OnInit {
+export class ThanhtoanvattuphuComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
@@ -44,21 +44,18 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
       }
     })
     this.IdDuAn = this.store.getCurrent();
-    // this._service.GetOptions().GetDanhSachHopDongByNhaThau(this.IdDuAn).subscribe((res: any) => {
-    //   this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
-    // })
     this.KiemTraTabTrangThai();
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/hopdongsanxuat/quytrinhthanhtoanbong/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/hopdongsanxuat/quytrinhthanhtoanvattuphu/${id}`], { replaceUrl: true })
   }
 
   addPhieu() {
     this.changeParam(0);
-    let modalRef = this._modal.open(QuytrinhthanhtoanbongmodalComponent, {
+    let modalRef = this._modal.open(ThanhtoanvattuphumodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
@@ -81,7 +78,7 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
 
   update(Id) {
     this._hopdong.QuyTrinhThanhToan().Get(Id).subscribe((res1: any) => {
-      let modalRef = this._modal.open(QuytrinhthanhtoanbongmodalComponent, {
+      let modalRef = this._modal.open(ThanhtoanvattuphumodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
       })
@@ -128,7 +125,7 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
       Ma: "",
       Ten: "",
       IdHopDong: this.filter.IdHopDong,
-      Loai:2,
+      Loai:23,
     }
     this._hopdong.QuyTrinhThanhToan().GetList(data).subscribe((res: any) => {
       this.items = res.data.items;

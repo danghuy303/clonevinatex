@@ -58,7 +58,7 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
         listThanhToanThuHoi  : [],
         listThanhToanDotGiaoNhan  : [],
         idDuAn: this.IdDuAn,
-        loai:1,
+        loai:11,
       }
       this.GetNextSoQuyTrinh();
     }

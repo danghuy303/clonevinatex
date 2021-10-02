@@ -109,14 +109,9 @@ Id:any = "";
         this.item.listHangHoa[0].DonGiaThanhToan =  (this.item.listHangHoa[0].donGia || 0) * 1.1;
         this.item.listHangHoa[0].giaTriHopDongMatHang =  (this.item.listHangHoa[0].DonGiaThanhToan || 0) * (this.item.listHangHoa[0].soLuong || 0);
       }
-      if (this.item.hopDong.isBenBanChiu) {
         this.item.hopDong.BenBanChiu = this.item.hopDong.isBenBanChiu;
         this.item.hopDong.BenMuaChiu = !this.item.hopDong.BenBanChiu;
-      }
-      else {
-        this.item.hopDong.BenMuaChiu = !this.item.hopDong.isBenBanChiu;
-        this.item.hopDong.BenBanChiu = !this.item.hopDong.BenMuaChiu;
-      }
+      
       this.KiemTraButtonModal();
       if(this.item.listDieuKhoanThanhToan.length > 0){
         this.item.listDieuKhoanThanhToan.forEach(element => {
