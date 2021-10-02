@@ -593,6 +593,10 @@ export class SanXuatService {
             GetDanhMucNoiDiaXuatKhau: () => {
                 return this.http.get(`${API.KeHoach}DanhMuc/GetDanhMucNoiDiaXuatKhau`, httpOptions)
             },
+            GetListDinhMucSanXuatPhanXuong: () => {
+
+            } 
+            // /SCM/DanhMuc/GetListDinhMucSanXuatPhanXuong?IdDuAn=0
         }
     }
 
@@ -2217,6 +2221,35 @@ export class SanXuatService {
             },
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetKeHoachNhapBong', data, httpOptions)
+            },
+        }
+    }
+    PhieuXuatBongChoVay() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuXuatBongChoVay', httpOptions);
+            },
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetListPhieuXuatBongChoVay', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetPhieuXuatBongChoVay?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetPhieuXuatBongChoVay', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletePhieuXuatBongChoVay', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'ChuyenTiepPhieuXuatBongChoVay', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetPhieuXuatBongChoVay', data, httpOptions)
             },
         }
     }

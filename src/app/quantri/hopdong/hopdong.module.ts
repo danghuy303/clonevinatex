@@ -153,10 +153,6 @@ import { LuachonvattuphucuahanghoamodalComponent } from './screen/modal/share/ch
 import { HopdongxuatlobongxoComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxo.component';
 import { HopdongxuatlobongxomodalComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxomodal/hopdongxuatlobongxomodal.component';
 import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmucsanxuat.component';
-import { MoldaldinhmucsanxuatComponent } from './DinhMucSanXuat/moldaldinhmucsanxuat/moldaldinhmucsanxuat.component';
-
-
-
 
 
 
@@ -258,6 +254,11 @@ import { MoldaldinhmucsanxuatComponent } from './DinhMucSanXuat/moldaldinhmucsan
     ChiphibanhangtheonamComponent,
     ModalchiphibanhangtheonamComponent,
     ModalmucluongcocaunhansuComponent,
+<<<<<<< HEAD
+=======
+ 
+
+>>>>>>> 00154c710c617b9e01a9845f711426766197bb05
     ThanhtoanhopdongsoiComponent,
     ThanhtoanhopdongsoimodalComponent,
     ChonmathangthanhtoanhopdongComponent,
@@ -265,10 +266,18 @@ import { MoldaldinhmucsanxuatComponent } from './DinhMucSanXuat/moldaldinhmucsan
     HopdongvattuphuComponent,
     HopdongvattuphumodalComponent,
     LuachonvattuphucuahanghoamodalComponent,
+<<<<<<< HEAD
     HopdongxuatlobongxoComponent,
     HopdongxuatlobongxomodalComponent,
     DinhmucsanxuatComponent,
     MoldaldinhmucsanxuatComponent,
+=======
+
+    HopdongxuatlobongxoComponent,
+    HopdongxuatlobongxomodalComponent,
+    DinhmucsanxuatComponent,
+
+>>>>>>> 00154c710c617b9e01a9845f711426766197bb05
   ],
   imports: [
     CommonModule,
@@ -373,6 +382,7 @@ import { MoldaldinhmucsanxuatComponent } from './DinhMucSanXuat/moldaldinhmucsan
 
     ModalmucluongcocaunhansuComponent,
     ModalchiphibanhangtheonamComponent,
+  
 
 
 

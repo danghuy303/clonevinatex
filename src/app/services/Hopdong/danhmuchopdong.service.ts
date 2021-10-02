@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { httpOptions, API } from './../host';
+import { StoreService } from '../store.service';
 @Injectable({
     providedIn: 'root'
 })
 export class DanhMucHopDongService {
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,public store: StoreService) { }
     //Example (Ví dụ)
     //POST
     POST(data) {
@@ -290,13 +291,6 @@ export class DanhMucHopDongService {
             Set: (data) => {
                 return this.http.post(`${url}DinhMucMatHangHangNam/AddDinhMucMatHangHangNam`, data, httpOptions)
             },
-            // DeleteList:(data)=>{
-            //    
-            //     return this.http.post(`${url}DanhMuc/DeleteListdmTinhLuong`,data,httpOptions)
-            // },
-            // Delete:(id)=>{
-            //     return this.http.get(`${url}DanhMuc/DeletedmTinhLuong?id=${id}`,httpOptions)
-            // }
         }
     }
     /////
@@ -355,8 +349,6 @@ export class DanhMucHopDongService {
             Delete: (data) => {
                 return this.http.post(`${url}DanhSachTinhLuongHangNam/DeleteDanhSachTinhLuongHangNam`, data, httpOptions)
             }
-
-
         }
     }
 
@@ -378,8 +370,6 @@ export class DanhMucHopDongService {
             Delete: (data) => {
                 return this.http.post(`${url}MucLuongHangNam/DeleteMucLuongHangNam`, data, httpOptions)
             }
-
-
         }
     }
 
@@ -401,9 +391,21 @@ export class DanhMucHopDongService {
             Delete: (data) => {
                 return this.http.post(`${url}ChiPhiBanHangHangNam/DeleteChiPhiBanHangHangNam`, data, httpOptions)
             }
-
-
         }
     }
 
+    DinhMucSanXuat() {
+        let url = API.SCM
+        return {
+            GetList: () => {
+                return this.http.get(`${url}DanhMuc/GetListDinhMucSanXuatPhanXuong?IdDuAn=${this.store.getCurrent()}`, httpOptions)
+            },
+            Update: (data) => {
+                return this.http.post(`${url}DanhMuc/UpdateDinhMucSanXuatPhanXuong`, data, httpOptions)
+            },
+        }
+    }
 }
+// data.idDuAn = this.store.getCurrent();
+// POST /SCM/DanhMuc/UpdateDinhMucSanXuatPhanXuong
+// SCM/DanhMuc/GetListDinhMucSanXuatPhanXuong?IdDuAn=0

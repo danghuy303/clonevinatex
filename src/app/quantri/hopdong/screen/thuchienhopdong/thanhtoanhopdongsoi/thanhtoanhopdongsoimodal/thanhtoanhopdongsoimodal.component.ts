@@ -244,4 +244,12 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
       this.item.giaTriThanhToan = data[0].giaTri || 0;
     }
   }
+  TinhThanhTien(){
+    this.item.giaTriThanhToan = 0;
+    if(this.item.listThanhToanMatHang === null || this.item.listThanhToanMatHang === undefined)
+      this.item.listThanhToanMatHang = []
+    this.item.listThanhToanMatHang.forEach(element => {
+      this.item.giaTriThanhToan += (element.soLuong || 0) * (element.donGia || 0);
+    });
+  }
 }
