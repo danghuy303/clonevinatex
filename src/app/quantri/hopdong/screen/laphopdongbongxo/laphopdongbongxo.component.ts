@@ -17,6 +17,7 @@ import {
 } from "src/app/services/globalfunction";
 import { ModallaphopdongbongxoComponent } from "./modallaphopdongbongxo/modallaphopdongbongxo.component";
 import { ChitiethopdongbongxomodalComponent } from "../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
+import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.service";
 // import { ChitiethopdongbongxomodalComponent } from "./chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
 
 @Component({
@@ -39,7 +40,8 @@ export class LaphopdongbongxoComponent implements OnInit {
   //    this.paging.TotalItem = res.data.totalCount;
   paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
   hopDong: any = {};
-
+  listLoaiBongXo: any = [{ label: 'Bông', value: 2 },{ label: 'Xơ', value: 5 }];
+  listdmLoaiHopDong: any = [];
 
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listQuyCachDongGoi: any = [];
@@ -50,7 +52,8 @@ export class LaphopdongbongxoComponent implements OnInit {
     private _service: HopDongService,
     private _serviceDungChung: SanXuatService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _servicesdmHopDong: DanhMucHopDongService,
   ) { }
 
   ngOnInit(): void {
@@ -60,7 +63,10 @@ export class LaphopdongbongxoComponent implements OnInit {
       }
     });
     this.KiemTraTabTrangThai();
-  }
+    this._servicesdmHopDong.DanhMucLoaiHopDong().GetListAll().subscribe((res: any) => {
+      this.listdmLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
+      })
+    }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll();
@@ -80,24 +86,14 @@ export class LaphopdongbongxoComponent implements OnInit {
     
     modalRef.componentInstance.item = {
       listNhanSu: [],
-    
-     
       listDieuKhoanThanhToan: [],
       listTieuChuanChatLuong: [],
-    
       listBaoLanh: [],
-
       listTaiLieu: [],
-
       lstFileUploadCu: [],
     };
-    modalRef.componentInstance.item.hopDong = {
-      id: "",
-    };
-    modalRef.componentInstance.item.listHangHoa = [
-      {
-        
-      }
+    modalRef.componentInstance.item.hopDong = {id: "",};
+    modalRef.componentInstance.item.listHangHoa = [{}
     ]
     modalRef.result
       .then((res: any) => {
@@ -157,7 +153,8 @@ export class LaphopdongbongxoComponent implements OnInit {
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
-      Loai: 0
+      iddmLoaiHopDong: this.filter.iddmLoaiHopDong,
+      loai: this.filter.loai || 0,
     };
     this._service
       .QuyTrinhHopDong()

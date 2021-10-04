@@ -37,7 +37,7 @@ export class ChitietbaolanhmodalComponent implements OnInit {
       this.item.hieuLucBaoLanh = UnixToDate(this.item.hieuLucBaoLanhUnix);
 
       this.item.listFileDinhKem.forEach(element => {
-        this.item.listTen += `${element.TenGoc}`;
+        this.item.listTen += `${element.fileName}`+ '; ';
       });
     }
   }
@@ -78,7 +78,7 @@ export class ChitietbaolanhmodalComponent implements OnInit {
       this.item.listFileDinhKem.push(item);
       this.item.listTen = "";
       this.item.listFileDinhKem.forEach(element => {
-        this.item.listTen += `${element.fileName}`;
+        this.item.listTen += `${element.fileName}` + '; ';
       });
     }, (reason) => {
 

@@ -1,5 +1,5 @@
 
-import { DateToUnix, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { ModalthongbaoComponent } from './../../../../../modal/modalthongbao/modalthongbao.component';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -11,6 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
+import { ChondanhmucthutucthanhtoanmodalComponent } from '../chondanhmucthutucthanhtoanmodal/chondanhmucthutucthanhtoanmodal.component';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 
 @Component({
   selector: 'app-quyettoanhopdongmodal',
@@ -20,8 +22,11 @@ import { Component, OnInit } from '@angular/core';
 export class QuyettoanhopdongmodalComponent implements OnInit {
   item : any = {}
   opt : any = {}
-  checkbutton : any = {}
-listHopDong: any = {}
+  checkbutton : any = {Ghi: true,
+    Xoa: false,
+    ChuyenTiep: false,
+    KhongDuyet: false,};
+  listHopDong: any = {}
   lang: any = vn;
   yearRange: string = `${
     new Date().getFullYear() - 50
@@ -35,20 +40,23 @@ listHopDong: any = {}
     private _toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.checkbutton = {
-      Ghi: false,
-      Xoa: false,
-      ChuyenTiep: false,
-      KhongDuyet: false,
-    };
-    this.GetFormOptions();
-
+    this.getListHopDong();
     if (this.opt !== "edit") {
       this.GetNextSoQuyTrinh();
-      this.KiemTraButtonModal();
       if (this._store.getCurrent()) {
         this.item.IdDuAn = this._store.getCurrent();
       }
+    }
+    else{
+        this.item.listHoSoDinhKem.forEach(element => {
+          element.listTen = "";
+          element.listFileDinhKem.forEach(e => {
+            element.listTen += `${e.fileName}` + ', ';
+        });
+      });
+      this.item.ngayLapBienBanQT = UnixToDate(this.item.ngayLapBienBanQTUnix)
+      this.item.ngayQuyetToan = UnixToDate(this.item.ngayQuyetToanUnix)
+      this.KiemTraButtonModal();
     }
   }
 
@@ -60,14 +68,11 @@ listHopDong: any = {}
         this.checkbutton = res;
       });
   }
-  GetFormOptions() {
-    // this._service
-    //   .QuyTrinhHopDong()
-    //   .GetListAll()
-    //   .subscribe((res: any) => {
-    //     this.listHopDong = mapArrayForDropDown(res, "soHopDong", "id");
-    //   });
-
+  getListHopDong() {
+    let IdDuAn = this._store.getCurrent();
+    this._servicesSanXuat.GetOptions().GetDanhSachHopDongByNhaThau(IdDuAn, 0).subscribe((res: any) => {
+      this.listHopDong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
+    })
   }
   GetNextSoQuyTrinh() {
     this._service
@@ -87,7 +92,6 @@ listHopDong: any = {}
       this._toastr.error('Vui lòng chọn hợp đồng')
       return false
     }
-
     return true;
   }
 
@@ -95,14 +99,11 @@ listHopDong: any = {}
     this.item.ngayQuyetToanUnix = DateToUnix(this.item.ngayQuyetToan);
     this.item.ngayLapBienBanQTUnix = DateToUnix( this.item.ngayLapBienBanQT );
     if(this.ValidData()){
-    this._service
-      .QuyetToanHopDong()
-      .Set(this.item)
-      .subscribe((res: any) => {
-
+    this._service.QuyetToanHopDong().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res?.statusCode === 200) {
-            this.activeModal.close();
+            this.item.id = res.data.id;
+            this.getQuyTrinh();
             this._toastr.success(res.message);
           } else {
             this._toastr.error(res.message);
@@ -161,5 +162,53 @@ listHopDong: any = {}
       }
     })
 
+  }
+  chonDanhMuc() {
+    this._servicesdmHopDong.DanhMucThuTucThanhToan().GetListAll().subscribe((res1: any) => {
+      let modalRef = this._modal.open(ChondanhmucthutucthanhtoanmodalComponent, {
+        size: 'lg',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.listThanhToanThuTuc = res1;
+      modalRef.componentInstance.listHangHoa = this.item.listHoSoDinhKem;
+      modalRef.componentInstance.IdQuyTrinh = this.item.id;
+      modalRef.result.then(res => {
+        this.item.listHoSoDinhKem= res;  
+      }).catch(er => { console.log(er) });
+    })
+  }
+  taiLenFileDinhKem(itemTable) {
+    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.result.then((data) => {
+      if(!validVariable( itemTable.listFileDinhKem))
+        itemTable.listFileDinhKem = [];
+      let item: any = {}
+      item.id = '';
+      item.fileNameGui = data[data.length - 1].Name;
+      item.fileName = data[data.length - 1].NameLocal;
+      item.Link = data[data.length - 1].Url;
+      itemTable.listFileDinhKem.push(item);
+      itemTable.listTen = "";
+      itemTable.listFileDinhKem.forEach(element => {
+        itemTable.listTen += `${element.fileName}` + ', ';
+      });
+    }, (reason) => {
+
+    });
+  }
+  getQuyTrinh() {
+    this._service.QuyetToanHopDong().Get(this.item.id).subscribe((res1: any) => {
+        this.item = res1;
+        this.item.ngayLapBienBanQT = UnixToDate(this.item.ngayLapBienBanQTUnix)
+        this.item.ngayQuyetToan = UnixToDate(this.item.ngayQuyetToanUnix);
+        this.item.listTen = "";
+        this.item.listHoSoDinhKem.forEach(element => {
+          element.listFileDinhKem.forEach(e => {
+            element.listTen += `${e.fileName}` + ', ';
+        });
+      });
+        this.KiemTraButtonModal();
+    })
   }
 }

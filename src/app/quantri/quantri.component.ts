@@ -662,17 +662,17 @@ export class QuantriComponent implements OnInit {
         visible: this.showHopDongModule,
         items: [
           {
-            label: "Danh sách hợp đồng bông/xơ",
+            label: "Danh sách HĐ bông/xơ",
             routerLink: "/quantri/hopdongsanxuat/danhsachhopdongbongxo/0",
             command: () => this.close(),
           },
           {
-            label: "Danh sách hợp đồng sợi",
+            label: "Danh sách HĐ sợi",
             routerLink: "/quantri/hopdongsanxuat/danhsachhopdongsoi/0",
             command: () => this.close(),
           },
           {
-            label: "Danh sách hợp đồng vật tư phụ",
+            label: "Danh sách HĐ vật tư phụ",
             routerLink: "/quantri/hopdongsanxuat/danhsachhopdongvattuphu/0",
             command: () => this.close(),
           },
@@ -692,7 +692,7 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
-            label: "Lập hợp vật tư phụ",
+            label: "Lập hợp đồng vật tư phụ",
             routerLink:
 
               "/quantri/hopdongsanxuat/laphopdongvattuphu/0",

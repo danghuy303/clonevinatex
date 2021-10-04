@@ -159,6 +159,7 @@ import { NhapvattuphumodalComponent } from './screen/thuchienhopdong/nhapvattuph
 import { ThanhtoanvattuphumodalComponent } from './screen/thuchienhopdong/thanhtoanvattuphu/thanhtoanvattuphumodal/thanhtoanvattuphumodal.component';
 import { DanhsachhopdongsoiComponent } from './screen/danhsachhopdongsoi/danhsachhopdongsoi.component';
 import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattuphu/danhsachhopdongvattuphu.component';
+import { ChondanhmucthutucthanhtoanmodalComponent } from './screen/thuchienhopdong/quyettoanhopdong/chondanhmucthutucthanhtoanmodal/chondanhmucthutucthanhtoanmodal.component';
 
 
 
@@ -326,6 +327,13 @@ import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattup
 
 
 
+
+
+
+    ChondanhmucthutucthanhtoanmodalComponent,
+
+
+
   ],
   imports: [
     CommonModule,
@@ -442,6 +450,7 @@ import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattup
     HopdongxuatlobongxomodalComponent,
     ThanhtoanvattuphumodalComponent,
     NhapvattuphumodalComponent,
+    ChondanhmucthutucthanhtoanmodalComponent,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]

@@ -408,10 +408,9 @@ export class ThongkesanluongmodalComponent implements OnInit {
   //con
   TinhTyLeBongThoMang() {
     this.TongKhoiLuong = 0;
-
     this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
     if (this.item.isTruVaoSanLuong === true)
-      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ThoMang || 0);
+      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ThoMang || 0) - (this.item.BongHutMoi || 0);
     // this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ThoMang || 0) - (this.item.BongHutMoi || 0);
     if (this.TongKhoiLuong > 0) {
       this.item.TyLeThoMang = (this.item.ThoMang ?? 0) / (this.TongKhoiLuong + (this.item.ThoMang || 0)) * 100;
