@@ -297,7 +297,7 @@ this.getListHopDongGoc();
     if(this.isSoi !== true){
       let itemFind = this.listLoaiHopDongFull.filter(el=> el.id == this.item.iddmLoaiHopDong)
       if(itemFind!== undefined){
-          if(itemFind[0].ma == "BAN" || itemFind[0].ma == "CV"){
+          if(itemFind[0].ma == "BAN" || itemFind[0].ma == "CHOVAY"){
             this.getListHopDongGoc();
             this.isHienHopDongGoc = true;
           }

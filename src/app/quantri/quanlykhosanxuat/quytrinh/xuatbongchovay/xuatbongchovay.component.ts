@@ -79,7 +79,7 @@ export class XuatbongchovayComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = {};
+    modalRef.componentInstance.item = { IdDuAn : this.store.getCurrent()};
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
       this.changeParam(0);
@@ -98,6 +98,7 @@ export class XuatbongchovayComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
+    modalRef.componentInstance.item = { IdDuAn : this.store.getCurrent()};
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
       this.changeParam(0);
@@ -159,7 +160,6 @@ export class XuatbongchovayComponent implements OnInit {
     };
     this._service.GetListdmPhanXuong(data2).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-      this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
     })
   }
   validateFilter() {

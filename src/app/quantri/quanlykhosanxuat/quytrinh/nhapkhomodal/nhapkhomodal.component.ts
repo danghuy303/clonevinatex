@@ -1,3 +1,4 @@
+import { Validatable } from '@amcharts/amcharts4/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -36,6 +37,7 @@ export class NhapkhomodalComponent implements OnInit {
   type: any = '';
   editField: any = false;
   nametype: any = '';
+  listLoBongFull: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
@@ -217,12 +219,17 @@ export class NhapkhomodalComponent implements OnInit {
     else if (this.type === 'bonghoi')
       this.item.Loai = 6;
     this._services.GetListLoBong(this.data).subscribe((res: any) => {
-      let data: any = {};
-      data.Id = "";
-      data.Ten = "";
+      let data: any = {
+        Id: "",
+        Ten: "",
+        SoHopDong: "",
+      };
       res.unshift(data);
+      res.forEach(element => {
+        element.Ten = element.Ten + ' - ' + element.SoHopDong
+      });
       this.listLoBong = mapArrayForDropDown(res, 'Ten', 'Id');
-      console.log(this.listLoBong)
+      this.listLoBongFull = res;
     })
   }
   getListCapBong() {
@@ -338,6 +345,14 @@ export class NhapkhomodalComponent implements OnInit {
   CheckTruocKhiLuu(){
     if (this.newTableItem.Ten != undefined || this.newTableItem.SoCan != undefined || this.newTableItem.SoKien != undefined || this.newTableItem.IddmViTri != undefined) {
       this.add();
+    }
+    let loBongFind: any = this.listLoBongFull.filter(e=> e.Id == this.item.IdLoBong);
+    if(loBongFind.length > 0){
+      if(this.item.SoHopDong.trim() !== loBongFind[0].SoHopDong.trim())
+      {
+        this.toastr.error("Bạn chưa điền đúng số hợp đồng!");
+        return false;
+      }
     }
     if (this.item.IddmKho === null || this.item.IddmKho === undefined) {
       this.toastr.error("Bạn chưa chọn danh mục kho!");

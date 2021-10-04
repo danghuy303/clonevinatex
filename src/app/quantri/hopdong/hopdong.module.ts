@@ -153,6 +153,15 @@ import { LuachonvattuphucuahanghoamodalComponent } from './screen/modal/share/ch
 import { HopdongxuatlobongxoComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxo.component';
 import { HopdongxuatlobongxomodalComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxomodal/hopdongxuatlobongxomodal.component';
 import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmucsanxuat.component';
+import { NhapvattuphuComponent } from './screen/thuchienhopdong/nhapvattuphu/nhapvattuphu.component';
+import { ThanhtoanvattuphuComponent } from './screen/thuchienhopdong/thanhtoanvattuphu/thanhtoanvattuphu.component';
+import { NhapvattuphumodalComponent } from './screen/thuchienhopdong/nhapvattuphu/nhapvattuphumodal/nhapvattuphumodal.component';
+import { ThanhtoanvattuphumodalComponent } from './screen/thuchienhopdong/thanhtoanvattuphu/thanhtoanvattuphumodal/thanhtoanvattuphumodal.component';
+import { DanhsachhopdongsoiComponent } from './screen/danhsachhopdongsoi/danhsachhopdongsoi.component';
+import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattuphu/danhsachhopdongvattuphu.component';
+
+
+
 
 
 
@@ -268,6 +277,55 @@ import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmuc
     HopdongxuatlobongxomodalComponent,
     DinhmucsanxuatComponent,
 
+
+
+
+
+
+
+
+
+
+
+    NhapvattuphuComponent,
+
+
+
+
+
+
+    ThanhtoanvattuphuComponent,
+
+
+
+
+
+
+    NhapvattuphumodalComponent,
+
+
+
+
+
+
+    ThanhtoanvattuphumodalComponent,
+
+
+
+
+
+
+    DanhsachhopdongsoiComponent,
+
+
+
+
+
+
+    DanhsachhopdongvattuphuComponent,
+
+
+
   ],
   imports: [
     CommonModule,
@@ -382,6 +440,9 @@ import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmuc
     HopdongvattuphumodalComponent,
     LuachonvattuphucuahanghoamodalComponent,
     HopdongxuatlobongxomodalComponent,
+    ThanhtoanvattuphumodalComponent,
+    NhapvattuphumodalComponent,
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })

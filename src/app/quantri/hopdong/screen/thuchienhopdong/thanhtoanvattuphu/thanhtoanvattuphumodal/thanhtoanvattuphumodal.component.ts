@@ -6,15 +6,14 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
-import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 
 @Component({
-  selector: 'app-quytrinhthanhtoanbongmodal',
-  templateUrl: './quytrinhthanhtoanbongmodal.component.html',
-  styleUrls: ['./quytrinhthanhtoanbongmodal.component.css']
+  selector: 'app-thanhtoanvattuphumodal',
+  templateUrl: './thanhtoanvattuphumodal.component.html',
+  styleUrls: ['./thanhtoanvattuphumodal.component.css']
 })
-export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
+export class ThanhtoanvattuphumodalComponent implements OnInit {
 
   opt: any = ''
   item: any = {};
@@ -43,7 +42,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService, private _auth: AuthenticationService,
-    private _dmhopdong: DanhMucHopDongService,private _hopdong: HopDongService,) {
+    private _hopdong: HopDongService,) {
       this.userInfo = this._auth.currentUserValue;
   }
 
@@ -56,7 +55,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
         listThanhToanThuHoi  : [],
         listThanhToanInvoice  : [],
         idDuAn: this.IdDuAn,
-        loai: 2,
+        loai:23,
       }
       this.GetNextSoQuyTrinh();
     }

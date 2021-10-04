@@ -58,7 +58,7 @@
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">STT</th>
-                <th class="text-center">Sô quy trình</th>
+                <th class="text-center">Số quy trình</th>
                 <th>Số-Tên HĐ</th>
                 <th>Ngày tạo</th>
                 <th>Ngày ký</th>
@@ -72,12 +72,12 @@
             <tr>
                 <td class="text-center"> {{ 20 * (paging.currentPage - 1) + i + 1 }} </td>
                 <td class="text-center"> {{item.soQuyTrinh}} </td>
-                <td class="text-center">{{item.soHopDong}} - {{item.tenHopDong}} </td>
+                <td class="text-left">{{item.soHopDong}} - {{item.tenHopDong}} </td>
                 <td class="text-center">{{item.created | date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.ngayKy | date:'dd/MM/yyyy'}}</td>
-                <td class="text-right">{{item.giaTri |number:'0.0-3'}}</td>
-                <td class="text-center">{{item.benA }}</td>
-                <td class="text-center">{{item.benB }}</td>
+                <td class="text-right">{{item.giaTri |number:'0.0-0'}}</td>
+                <td class="text-left">{{item.benA }}</td>
+                <td class="text-left">{{item.benB }}</td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
                         class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"

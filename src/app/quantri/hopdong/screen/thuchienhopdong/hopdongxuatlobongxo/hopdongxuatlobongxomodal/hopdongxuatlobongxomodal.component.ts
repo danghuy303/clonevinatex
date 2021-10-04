@@ -33,14 +33,13 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
   listHopDong: any = [];
   listHopDongFull: any = [];
   IdDuAn: any = 0;
-  listLoaiThanhToan: any = [{label: 'Thanh toán theo kế hoạch thanh toán',value: 1},
-  {label: 'Thanh toán theo invoice', value: 2}];
   userInfo: any;
-
+  listLoBong: any = [];
+  listKho: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService, private _auth: AuthenticationService,
-    private _dmhopdong: DanhMucHopDongService,private _hopdong: HopDongService,) {
+    private _hopdong: HopDongService,) {
       this.userInfo = this._auth.currentUserValue;
   }
 
@@ -49,6 +48,7 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
       this.item = {
         id: '',
         idDuAn: this.IdDuAn,
+        DaVeKho: true,
       }
       this.GetNextSoQuyTrinh();
     }
@@ -56,15 +56,24 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
       this.getQuyTrinh(this.item.id);
     }
     this.getListHopDong();
-
+    this.getListdmKho();
   }
   getListHopDong(){
-    this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn).subscribe((res: any) => {
-      this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
+    this._hopdong.QuyTrinhHopDong().GetListHopDongBanChoVay(this.item.idDuAn).subscribe((res: any) => {
+      this.listHopDong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
       this.listHopDongFull = res;
     })
   }
   
+  getListdmKho(){
+    let data: any = {
+      CurrentPage: 0,
+      Loai: 2,
+    }
+    this._services.GetListdmKho(data).subscribe((res: any) => {
+      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.id || '', this.item.idTrangThai || '').subscribe(res => {
       this.checkbutton = res;
@@ -72,6 +81,7 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
   }
   ChuyenTiep() {
     if(this.CheckTruocKhiLuu()){
+      this.item.isChuaVeKho = this.item.ChuaVeKho;
       if (this.item.ngay !== null && this.item.ngay !== undefined)
         this.item.ngayUnix = DateToUnix(this.item.ngay);
       this._hopdong.QuyTrinhXuatBongXo().ChuyenTiep(this.item).subscribe((res: any) => {
@@ -86,7 +96,23 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
       })
     }
   }
-
+  KhongDuyet() {
+    if(this.CheckTruocKhiLuu()){
+      this.item.isChuaVeKho = this.item.ChuaVeKho;
+      if (this.item.ngay !== null && this.item.ngay !== undefined)
+        this.item.ngayUnix = DateToUnix(this.item.ngay);
+      this._hopdong.QuyTrinhXuatBongXo().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.statusCode === 200) {
+            this.activeModal.close();
+            this.toastr.success(res.message)
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
   GetNextSoQuyTrinh() {
     this._hopdong.QuyTrinhXuatBongXo().GetNextSoQuyTrinh().subscribe((res: any) => {
       this.item.soQuyTrinh = res.data;
@@ -97,6 +123,7 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
     if(this.CheckTruocKhiLuu())
     {
       this.item.ngayUnix = DateToUnix(this.item.ngay);
+      this.item.isChuaVeKho = this.item.ChuaVeKho;
       this._hopdong.QuyTrinhXuatBongXo().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.statusCode === 200) {
@@ -134,6 +161,14 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
       this.item=res1.data;
       this.item.ngay = UnixToDate(this.item.ngayUnix);
       this.KiemTraButtonModal();
+      this.item.ChuaVeKho = this.item.isChuaVeKho;
+      this.item.DaVeKho = !this.item.ChuaVeKho;
+      let dnm: any = {}
+      dnm.IddmLoaiBong = this.item.iddmLoaiBong;
+      dnm.CurrentPage = 0;
+      this._services.GetListLoBong(dnm).subscribe((res: any) => {
+        this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
+      });
     })
   }
   add() {
@@ -157,7 +192,7 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
     this.activeModal.close();
   }
   CheckTruocKhiLuu(){
-    if(validVariable(this.newTableItem.container) && validVariable(this.newTableItem.soKien)){
+    if(validVariable(this.newTableItem.soKien)){
       this.add();
     }
     if (!validVariable(this.item.idHopDong)) {
@@ -179,6 +214,14 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
     if(data !== undefined){
       this.item.tenLoaiBongXo = data[0].tenLoaiBongXo;
       this.item.xuatXu = data[0].xuatXu;
+      this.item.iddmLoaiBong = data[0].iddmLoaiBong;
+
+      let dnm: any = {}
+      dnm.IddmLoaiBong = data[0].iddmLoaiBong;
+      dnm.CurrentPage = 0;
+      this._services.GetListLoBong(dnm).subscribe((res: any) => {
+        this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
+      });
     }
   }
 }

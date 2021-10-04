@@ -8,11 +8,11 @@ import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/s
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
-  selector: 'app-nhapkhovattuphumodal',
-  templateUrl: './nhapkhovattuphumodal.component.html',
-  styleUrls: ['./nhapkhovattuphumodal.component.css']
+  selector: 'app-nhapvattuphumodal',
+  templateUrl: './nhapvattuphumodal.component.html',
+  styleUrls: ['./nhapvattuphumodal.component.css']
 })
-export class  NhapkhovattuphumodalComponent implements OnInit {
+export class NhapvattuphumodalComponent implements OnInit {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
