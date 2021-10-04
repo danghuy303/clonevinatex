@@ -34,6 +34,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   listNam: any = [];
   lang: any = vn;
   listMatHang: any = [];
+  listMatHangRef: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   type: any= '';
   lstKH_KeHoachKinhDoanh_SanPham: any = [];
@@ -69,6 +70,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   GetListMatHang() {
     this._services.GetOptions().GetMatHang().subscribe((res: any) => {
       this.listMatHang = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listMatHangRef = res;
     })
   }
 
