@@ -82,6 +82,7 @@
           <th class="tc-w-121">SLHĐ</th>
           <th class="tc-w-121">SL đã sản xuất</th>
           <th class="tc-w-121">SL còn lại</th>
+          <th class="tc-w-121">SL dang dở</th>
           <th class="tc-w-121">Thời gian</th>
           <th class="tc-w-121">SL Dự kiến</th>
           <th class="tc-w-121">SL cần lập kế hoạch</th>
@@ -97,23 +98,29 @@
               <td class="text-center tc-w-200" (click)="TheoDoi(item)">
                 {{item.TenMatHang}}
               </td>
-              <td class="text-center tc-w-121"><input disabled="disabled" pInputText type="text" [(ngModel)]="item.SoLuongHopDong"></td>
-              <td class="text-center tc-w-121"><input disabled="disabled" pInputText type="text" [(ngModel)]="item.SoLuongTonKho"></td>
-              <td class="text-center tc-w-121"><input disabled="disabled" pInputText type="text" [(ngModel)]="item.SoLuongDaThucHien"></td>
+              <td class="text-center tc-w-121"><p-inputNumber disabled="disabled" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TongSanLuong">
+              </p-inputNumber></td>
+              <td class="text-center tc-w-121"><p-inputNumber disabled="disabled" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TongSanLuongHopDong">
+              </p-inputNumber></td>
+              <td class="text-center tc-w-121"><p-inputNumber disabled="disabled" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TongSanLuongDaThucHien">
+              </p-inputNumber></td>
               <td class="text-center tc-w-121">
-                <p-inputNumber disabled="disabled" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soLuongTonKho">
+                <p-inputNumber disabled="disabled" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TongSanLuongConLaiPhaiThucHien">
                 </p-inputNumber>
               </td>
               <td class="text-center tc-w-121">
-                <p-inputNumber disabled="disabled" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuongDaLapKeHoach">
+                <p-inputNumber  [minFractionDigits]="0" locale="vi-VN" (onBlur)="TinhTongSanLuongTungMatHang()" [(ngModel)]="item.SanLuongDangDo">
                 </p-inputNumber>
               </td>
               <td class="text-center tc-w-121">
-                <p-inputNumber  [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SanLuongDuKien">
+                
+              </td>
+              <td class="text-center tc-w-121">
+                <p-inputNumber  [minFractionDigits]="0" locale="vi-VN" (onBlur)="TinhTongSanLuongTungMatHang()" [(ngModel)]="item.SanLuongDuKien">
                 </p-inputNumber>
               </td>
               <td class="text-center tc-w-121">
-                <p-inputNumber disabled="disabled" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuongDaLapKeHoach">
+                <p-inputNumber disabled="disabled" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SanLuongCanLapKeHoach">
                 </p-inputNumber>
               </td>
               <td class="text-center tc-w-121">
@@ -133,6 +140,7 @@
             <tr *ngFor="let nhaMay of item.listNhaMay">
               <td class="text-center tc-w-200">
               </td>
+              <td class="text-center tc-w-121"></td>
               <td class="text-center tc-w-121"></td>
               <td class="text-center tc-w-121"></td>
               <td class="text-center tc-w-121"></td>
@@ -215,5 +223,5 @@
   </p-panel>
 </div>
 <div class="modal-footer">
-  <button pButton pRipple label="Đóng" class="p-button-sm p-button-outlined p-button-secondary p-mr-2" (click)="activeModal.dismiss()"></button>
+ 
 </div>
