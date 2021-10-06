@@ -38,6 +38,8 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   type: any = '';
   lstKH_KeHoachKinhDoanh_SanPham: any = [];
+  dummyList: any = [1, 2, 3, 4];
+  checkbutton: any = {};
   labelThang: Array<string> = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12',];
   propThang: Array<string> = ['Thang1', 'Thang2', 'Thang3', 'Thang4', 'Thang5', 'Thang6', 'Thang7', 'Thang8', 'Thang9', 'Thang10', 'Thang11', 'Thang12 ',]
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
@@ -58,12 +60,13 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     if (this.type === 'themmoi') {
       this.GetNextSoQuyTrinh();
     }
+    this.KiemTraButton();
   }
   TinhSoLuongDaLapKeHoach(rootItem, parentItem) {
     rootItem.SoLuongDaLapKeHoach = this.propThang.reduce((total, prop) => (rootItem[prop] | 0) + total, 0);
-    parentItem.SoLuongDaLapKeHoach = parentItem.listNhaMay.reduce((total, ele) => (ele.SoLuongDaLapKeHoach | 0) + total, 0);
+    parentItem.SoLuongDaLapKeHoach = parentItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.reduce((total, ele) => (ele.SoLuongDaLapKeHoach | 0) + total, 0);
     this.propThang.forEach(prop => {
-      parentItem[prop] = parentItem.listNhaMay.reduce((total, ele) => (ele[prop] | 0) + total, 0);
+      parentItem[prop] = parentItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.reduce((total, ele) => (ele[prop] | 0) + total, 0);
     })
   }
   GetListMatHang() {
@@ -83,57 +86,66 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   }
   changeNhaMay(rootItem) {
     // console.log(rootItem.selectedNhaMay)
-    rootItem.listNhaMay = rootItem.selectedNhaMay.map(key => {
+    rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay = rootItem.selectedNhaMay.map(key => {
       return {
         TenNhaMay: this.listNhaMay.find(ele => ele.value === key)?.label,
-        IdNhaMay: key,
+        IdDuAn: key,
       }
     })
     console.log(rootItem)
   }
   changeItem(rootItem) {
-    rootItem.selectedItems;
-    if (!validVariable(rootItem.listItem)) {
-      rootItem.listItem = [];
+    // rootItem.selectedItems;
+    if (!validVariable(rootItem.lstKH_KeHoachKinhDoanh_SanPham)) {
+      rootItem.lstKH_KeHoachKinhDoanh_SanPham = [];
     }
-    let exist = rootItem.listItem.map(ele => ele.IddmItem);
+    let exist = rootItem.lstKH_KeHoachKinhDoanh_SanPham.map(ele => ele.IdSanPham);
     rootItem.selectedItems.forEach(key => {
       if (!exist.includes(key)) {
-        rootItem.listItem.push(
+        // let alo
+        rootItem.lstKH_KeHoachKinhDoanh_SanPham.push(
           {
             TenMatHang: this.listMatHang.find(ele => ele.value === key)?.label,
-            IddmItem: key,
+            IdSanPham: key,
             TongSanLuongHopDong: this.listMatHangRef.find(ele => ele.Id === key)?.TongSanLuongHopDong | 0,
             TongSanLuongDaThucHien: this.listMatHangRef.find(ele => ele.Id === key)?.TongSanLuongDaThucHien | 0,
             TongSanLuongConLaiPhaiThucHien: this.listMatHangRef.find(ele => ele.Id === key)?.TongSanLuongConLaiPhaiThucHien | 0,
             SanLuongDuKien: 0,
             SanLuongDangDo: 0,
+            selectedNhaMay:this.listNhaMay.length>1?[]:[this.listNhaMay[0].value],
+            lstKH_KeHoachKinhDoanh_SanPham_NhaMay:this.listNhaMay.length>1?[]:[{IdDuAn:this.listNhaMay[0].value,TenNhaMay:this.listNhaMay[0].label}]
           }
         );
         exist.push(key);
       }
     });
-    for(let i = exist.length-1;i>=0;i--){
-      if(!rootItem.selectedItems.includes(exist[i])){
-        rootItem.listItem.splice(i,1)
+    for (let i = exist.length - 1; i >= 0; i--) {
+      if (!rootItem.selectedItems.includes(exist[i])) {
+        rootItem.lstKH_KeHoachKinhDoanh_SanPham.splice(i, 1)
       }
     }
-    console.log(rootItem.listItem);
-    // rootItem.listItem = rootItem.selectedItems.map(key => {
-    //   return {
-    //     TenMatHang: this.listMatHang.find(ele => ele.value === key)?.label,
-    //     IddmItem: key,
-    //     TongSanLuongHopDong: this.listMatHangRef.find(ele=>ele.Id ===key)?.TongSanLuongHopDong|0,
-    //     TongSanLuongDaThucHien: this.listMatHangRef.find(ele=>ele.Id ===key)?.TongSanLuongDaThucHien|0,
-    //     TongSanLuongConLaiPhaiThucHien: this.listMatHangRef.find(ele=>ele.Id ===key)?.TongSanLuongConLaiPhaiThucHien|0,
-    //     SanLuongDuKien:0,
-    //     SanLuongDangDo:0,
-    //   }
-    // })
     this.TinhTongSanLuongTungMatHang();
   }
+  addNhaMay(rootItem) {
+    !rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay && (rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay = []);
+    let exist = rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.map(ele => ele.IdDuAn);
+    rootItem.selectedNhaMay.forEach(key => {
+      if(!exist.includes(key)){
+        rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.push({
+          IdDuAn:key,
+          TenNhaMay:this.listNhaMay.find(ele=>ele.value===key)?.label
+        })
+      }
+    });
+    for(let i=rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length;i>=0;i--){
+      if (!rootItem.selectedNhaMay.includes(exist[i])) {
+        rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.splice(i, 1);
+      }
+    }
+    // rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.push({});
+  }
   TinhTongSanLuongTungMatHang() {
-    this.item.listItem.forEach(matHang => {
+    this.item.lstKH_KeHoachKinhDoanh_SanPham.forEach(matHang => {
       matHang.TongSanLuong = (matHang.TongSanLuongHopDong | 0) + (matHang.SanLuongDuKien | 0);
       matHang.SanLuongCanLapKeHoach = ((matHang.TongSanLuongConLaiPhaiThucHien | 0) - (matHang.SanLuongDangDo | 0)) + (matHang.SanLuongDuKien | 0);
     });
@@ -157,43 +169,77 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       modalRef.componentInstance.item = item;
     }
   }
-  addNhaMay(rootItem) {
-    !rootItem.listNhaMay && (rootItem.listNhaMay = []);
-    console.log(rootItem);
-    rootItem.listNhaMay.push({});
-  }
+
   addSanPham() {
-    if (this.item.listItem == undefined || this.item.listItem == null)
-      this.item.listItem = [];
-    this.item.listItem.push(deepCopy(this.newItem));
+    if (this.item.lstKH_KeHoachKinhDoanh_SanPham == undefined || this.item.lstKH_KeHoachKinhDoanh_SanPham == null)
+      this.item.lstKH_KeHoachKinhDoanh_SanPham = [];
+    this.item.lstKH_KeHoachKinhDoanh_SanPham.push(deepCopy(this.newItem));
     this.newItem = {}
   }
 
   delete(index) {
-    let item = this.item.listItem.splice(index, 1)[0];
+    let item = this.item.lstKH_KeHoachKinhDoanh_SanPham.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
     } else {
       item.isXoa = true;
-      // this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+      // this.item.lstKH_KeHoachKinhDoanh_SanPham.push(JSON.parse(JSON.stringify(item)));
     }
+  }
+  validData(){
+    if(this.item.lstKH_KeHoachKinhDoanh_SanPham?.length===0){
+      this.toastr.error('Bạn chưa chọn mặt hàng để lập kế hoạch');
+      return false;
+    }
+    let invalid =[];
+    this.item.lstKH_KeHoachKinhDoanh_SanPham.forEach(mathang => {
+      if (!mathang.lstKH_KeHoachKinhDoanh_SanPham_NhaMay||mathang.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length===0){
+        invalid.push(mathang.TenMatHang)
+      }
+    })
+    console.log(invalid)
+    if(invalid.length>0){
+      this.toastr.error(`Các mặt hàng chưa chọn nhà máy:${invalid.join(', ')}`);
+      return false
+    }
+    return true
   }
 
   GhiLai() {
-    let itemC = this.item;
-    if (itemC.Id == null) {
-      itemC.Id = "";
+    // console.log(this.item);
+    if(this.validData()){
+      console.log(this.item)
     }
-    this.item.lstKH_KeHoachKinhDoanh_SanPham = deepCopy(this.item.listItem);
-    delete this.item.listItem;
-    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(itemC).subscribe((res: any) => {
-      console.log(res)
-      if (res.StatusCode !== 200) {
-        this.toastr.error(res.Message);
-      } else {
-        this.toastr.success(res.Message);
-        this.activeModal.close();
-      }
-    })
+    // this.item.lstKH_KeHoachKinhDoanh_SanPham.forEach(mathang => {
+    //   if (mathang.lstKH_KeHoachKinhDoanh_SanPham_NhaMay?.length!==0) {
+    //     mathang.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.forEach(nhamay => {
+    //       nhamay.lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH = [];
+    //       nhamay.TongSanLuongThang = 0;
+    //       for (let i = 1; i <= 12; i++) {
+    //         nhamay.TongSanLuongThang += (nhamay[`thang${i}`] | 0);
+    //         nhamay.lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH.push({
+    //           IdSanPham: mathang.IdSanPham,
+    //           IdDuAn: nhamay.IdDuAn,
+    //           Nam: this.item.Nam,
+    //           Thang: i,
+    //           SanLuongThang: nhamay[`thang${i}`] | 0,
+    //           ChiPhiDinhMuc1Kg: 0,
+    //           ChiPhi: 0,
+    //           DonGia: 0,
+    //           DoanhThu: 0
+    //         })
+    //       }
+    //     });
+    //   }
+    // });
+    // this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(this.item).subscribe((res: any) => {
+    //   console.log(res)
+    //   if (res.StatusCode !== 200) {
+    //     this.toastr.error(res.Message);
+    //   } else {
+    //     this.toastr.success(res.Message);
+    //     this.activeModal.close();
+    //   }
+    // })
   }
 
   CapNhatDonGia() {
@@ -209,6 +255,11 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     this._danhMucHopDong.DanhSachKeHoachKinhDoanh().NextQuyTrinh().subscribe((res: any) => {
       console.log(res);
       this.item.SoQuyTrinh = res.Data;
+    })
+  }
+  KiemTraButton() {
+    this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
+      this.checkbutton = res;
     })
   }
   ChapNhan() {
