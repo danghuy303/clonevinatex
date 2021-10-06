@@ -93,11 +93,32 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   }
   changeItem(rootItem) {
     rootItem.selectedItems;
-    if(!validVariable(rootItem.listItem)){
+    if (!validVariable(rootItem.listItem)) {
       rootItem.listItem = [];
     }
-    let exist = rootItem.listItem.map(ele=>ele.IddmItem);
-    
+    let exist = rootItem.listItem.map(ele => ele.IddmItem);
+    rootItem.selectedItems.forEach(key => {
+      if (!exist.includes(key)) {
+        rootItem.listItem.push(
+          {
+            TenMatHang: this.listMatHang.find(ele => ele.value === key)?.label,
+            IddmItem: key,
+            TongSanLuongHopDong: this.listMatHangRef.find(ele => ele.Id === key)?.TongSanLuongHopDong | 0,
+            TongSanLuongDaThucHien: this.listMatHangRef.find(ele => ele.Id === key)?.TongSanLuongDaThucHien | 0,
+            TongSanLuongConLaiPhaiThucHien: this.listMatHangRef.find(ele => ele.Id === key)?.TongSanLuongConLaiPhaiThucHien | 0,
+            SanLuongDuKien: 0,
+            SanLuongDangDo: 0,
+          }
+        );
+        exist.push(key);
+      }
+    });
+    for(let i = exist.length-1;i>=0;i--){
+      if(!rootItem.selectedItems.includes(exist[i])){
+        rootItem.listItem.splice(i,1)
+      }
+    }
+    console.log(rootItem.listItem);
     // rootItem.listItem = rootItem.selectedItems.map(key => {
     //   return {
     //     TenMatHang: this.listMatHang.find(ele => ele.value === key)?.label,
@@ -111,10 +132,10 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     // })
     this.TinhTongSanLuongTungMatHang();
   }
-  TinhTongSanLuongTungMatHang(){
+  TinhTongSanLuongTungMatHang() {
     this.item.listItem.forEach(matHang => {
-      matHang.TongSanLuong = (matHang.TongSanLuongHopDong|0)+(matHang.SanLuongDuKien|0);
-      matHang.SanLuongCanLapKeHoach = ((matHang.TongSanLuongConLaiPhaiThucHien|0)-(matHang.SanLuongDangDo|0))+(matHang.SanLuongDuKien|0);
+      matHang.TongSanLuong = (matHang.TongSanLuongHopDong | 0) + (matHang.SanLuongDuKien | 0);
+      matHang.SanLuongCanLapKeHoach = ((matHang.TongSanLuongConLaiPhaiThucHien | 0) - (matHang.SanLuongDangDo | 0)) + (matHang.SanLuongDuKien | 0);
     });
   }
 
