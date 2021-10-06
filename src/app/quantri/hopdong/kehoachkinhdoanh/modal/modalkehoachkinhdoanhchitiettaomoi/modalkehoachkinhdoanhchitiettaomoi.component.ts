@@ -40,6 +40,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   lstKH_KeHoachKinhDoanh_SanPham: any = [];
   dummyList: any = [1, 2, 3, 4];
   checkbutton: any = {};
+  showThoiGianHopDong:boolean = false;
   labelThang: Array<string> = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12',];
   propThang: Array<string> = ['Thang1', 'Thang2', 'Thang3', 'Thang4', 'Thang5', 'Thang6', 'Thang7', 'Thang8', 'Thang9', 'Thang10', 'Thang11', 'Thang12 ',]
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
@@ -112,8 +113,8 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
             TongSanLuongConLaiPhaiThucHien: this.listMatHangRef.find(ele => ele.Id === key)?.TongSanLuongConLaiPhaiThucHien | 0,
             SanLuongDuKien: 0,
             SanLuongDangDo: 0,
-            selectedNhaMay:this.listNhaMay.length>1?[]:[this.listNhaMay[0].value],
-            lstKH_KeHoachKinhDoanh_SanPham_NhaMay:this.listNhaMay.length>1?[]:[{IdDuAn:this.listNhaMay[0].value,TenNhaMay:this.listNhaMay[0].label}]
+            selectedNhaMay: this.listNhaMay.length > 1 ? [] : [this.listNhaMay[0].value],
+            lstKH_KeHoachKinhDoanh_SanPham_NhaMay: this.listNhaMay.length > 1 ? [] : [{ IdDuAn: this.listNhaMay[0].value, TenNhaMay: this.listNhaMay[0].label }]
           }
         );
         exist.push(key);
@@ -130,14 +131,14 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     !rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay && (rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay = []);
     let exist = rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.map(ele => ele.IdDuAn);
     rootItem.selectedNhaMay.forEach(key => {
-      if(!exist.includes(key)){
+      if (!exist.includes(key)) {
         rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.push({
-          IdDuAn:key,
-          TenNhaMay:this.listNhaMay.find(ele=>ele.value===key)?.label
+          IdDuAn: key,
+          TenNhaMay: this.listNhaMay.find(ele => ele.value === key)?.label
         })
       }
     });
-    for(let i=rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length;i>=0;i--){
+    for (let i = rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length; i >= 0; i--) {
       if (!rootItem.selectedNhaMay.includes(exist[i])) {
         rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.splice(i, 1);
       }
@@ -156,7 +157,9 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-
+  showModalThoiGianHopDong(){
+    this.showThoiGianHopDong = true;
+  }
   TheoDoi(item) {
     if (item.Id !== undefined) {
       let modalRef = this._modal.open(ModalkehoachkinhdoanhtheodoiComponent, {
@@ -185,61 +188,62 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       // this.item.lstKH_KeHoachKinhDoanh_SanPham.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  validData(){
-    if(this.item.lstKH_KeHoachKinhDoanh_SanPham?.length===0){
+  validData() {
+    if (this.item.lstKH_KeHoachKinhDoanh_SanPham?.length === 0) {
       this.toastr.error('Bạn chưa chọn mặt hàng để lập kế hoạch');
       return false;
     }
-    let invalid =[];
+    let invalid = [];
     this.item.lstKH_KeHoachKinhDoanh_SanPham.forEach(mathang => {
-      if (!mathang.lstKH_KeHoachKinhDoanh_SanPham_NhaMay||mathang.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length===0){
+      if (!mathang.lstKH_KeHoachKinhDoanh_SanPham_NhaMay || mathang.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length === 0) {
         invalid.push(mathang.TenMatHang)
       }
     })
     console.log(invalid)
-    if(invalid.length>0){
+    if (invalid.length > 0) {
       this.toastr.error(`Các mặt hàng chưa chọn nhà máy:${invalid.join(', ')}`);
       return false
     }
     return true
   }
+  SetData() {
+    this.item.lstKH_KeHoachKinhDoanh_SanPham.forEach(mathang => {
+      mathang.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.forEach(nhamay => {
+        nhamay.lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH = [];
+        nhamay.TongSanLuongThang = 0;
+        for (let i = 1; i <= 12; i++) {
+          nhamay.TongSanLuongThang += (nhamay[`thang${i}`] | 0);
+          nhamay.lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH.push({
+            IdSanPham: mathang.IdSanPham,
+            IdDuAn: nhamay.IdDuAn,
+            Nam: this.item.Nam,
+            Thang: i,
+            SanLuongThang: nhamay[`thang${i}`] | 0,
+            ChiPhiDinhMuc1Kg: 0,
+            ChiPhi: 0,
+            DonGia: 0,
+            DoanhThu: 0
+          })
+        }
+      });
+    });
+    return this.item
+  }
 
   GhiLai() {
     // console.log(this.item);
-    if(this.validData()){
-      console.log(this.item)
+    if (this.validData()) {
+      console.log(this.SetData())
+      this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(this.SetData()).subscribe((res: any) => {
+      console.log(res)
+      if (res.StatusCode !== 200) {
+        this.toastr.error(res.Message);
+      } else {
+        this.toastr.success(res.Message);
+        this.activeModal.close();
+      }
+    })
     }
-    // this.item.lstKH_KeHoachKinhDoanh_SanPham.forEach(mathang => {
-    //   if (mathang.lstKH_KeHoachKinhDoanh_SanPham_NhaMay?.length!==0) {
-    //     mathang.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.forEach(nhamay => {
-    //       nhamay.lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH = [];
-    //       nhamay.TongSanLuongThang = 0;
-    //       for (let i = 1; i <= 12; i++) {
-    //         nhamay.TongSanLuongThang += (nhamay[`thang${i}`] | 0);
-    //         nhamay.lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH.push({
-    //           IdSanPham: mathang.IdSanPham,
-    //           IdDuAn: nhamay.IdDuAn,
-    //           Nam: this.item.Nam,
-    //           Thang: i,
-    //           SanLuongThang: nhamay[`thang${i}`] | 0,
-    //           ChiPhiDinhMuc1Kg: 0,
-    //           ChiPhi: 0,
-    //           DonGia: 0,
-    //           DoanhThu: 0
-    //         })
-    //       }
-    //     });
-    //   }
-    // });
-    // this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(this.item).subscribe((res: any) => {
-    //   console.log(res)
-    //   if (res.StatusCode !== 200) {
-    //     this.toastr.error(res.Message);
-    //   } else {
-    //     this.toastr.success(res.Message);
-    //     this.activeModal.close();
-    //   }
-    // })
   }
 
   CapNhatDonGia() {

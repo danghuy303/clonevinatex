@@ -125,7 +125,9 @@
                   [(ngModel)]="item.SanLuongDangDo">
                 </p-inputNumber>
               </td>
-              <td class="text-center tc-w-121"></td>
+              <td class="text-center tc-w-121">
+                <a href="javascript:void(0)" (click)="showModalThoiGianHopDong()">Chi tiết</a>
+              </td>
               <td class="text-center tc-w-121">
                 <p-inputNumber [minFractionDigits]="0" locale="vi-VN" (onBlur)="TinhTongSanLuongTungMatHang()"
                   [(ngModel)]="item.SanLuongDuKien">
@@ -194,6 +196,9 @@
         </tbody>
       </table>
     </div>
+    <p-dialog [header]="'Thời gian'" [(visible)]="showThoiGianHopDong" [modal]="true"
+    [style]="{width: '50vw', height:'auto'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  </p-dialog>
   </p-panel>
 </div>
 <div class="modal-footer">
