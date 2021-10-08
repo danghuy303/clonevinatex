@@ -789,6 +789,12 @@ export class QuantriComponent implements OnInit {
 
             command: () => this.close(),
           },
+          {
+            label: "Đánh giá khách hàng",
+            routerLink: "/quantri/hopdongsanxuat/danhgiakhachhang/0",
+
+            command: () => this.close(),
+          },
         ],
       },
       /////////////      Danh Mục Hợp Đồng

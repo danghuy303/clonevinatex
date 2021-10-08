@@ -160,6 +160,12 @@ import { ThanhtoanvattuphumodalComponent } from './screen/thuchienhopdong/thanht
 import { DanhsachhopdongsoiComponent } from './screen/danhsachhopdongsoi/danhsachhopdongsoi.component';
 import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattuphu/danhsachhopdongvattuphu.component';
 import { ChondanhmucthutucthanhtoanmodalComponent } from './screen/thuchienhopdong/quyettoanhopdong/chondanhmucthutucthanhtoanmodal/chondanhmucthutucthanhtoanmodal.component';
+import { HopdongchonhanghoagiaokehoachmodalComponent } from './screen/thuchienhopdong/giaokehoachsanxuat/hopdongchonhanghoagiaokehoachmodal/hopdongchonhanghoagiaokehoachmodal.component';
+import { HopdongchonquycachdonggoimodalComponent } from './screen/thuchienhopdong/giaokehoachsanxuat/hopdongchonquycachdonggoimodal/hopdongchonquycachdonggoimodal.component';
+import { QuytrinhdanhgiakhachhangComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/quytrinhdanhgiakhachhang.component';
+import { QuytrinhdanhgiakhachhangmodalComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/quytrinhdanhgiakhachhangmodal/quytrinhdanhgiakhachhangmodal.component';
+import { ChonkhachhangmodalComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/chonkhachhangmodal/chonkhachhangmodal.component';
+import { ChinhsuadanhgiakhachhangmodalComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/chinhsuadanhgiakhachhangmodal/chinhsuadanhgiakhachhangmodal.component';
 
 
 
@@ -334,6 +340,48 @@ import { ChondanhmucthutucthanhtoanmodalComponent } from './screen/thuchienhopdo
 
 
 
+
+
+
+    HopdongchonhanghoagiaokehoachmodalComponent,
+
+
+
+
+
+
+    HopdongchonquycachdonggoimodalComponent,
+
+
+
+
+
+
+    QuytrinhdanhgiakhachhangComponent,
+
+
+
+
+
+
+    QuytrinhdanhgiakhachhangmodalComponent,
+
+
+
+
+
+
+    ChonkhachhangmodalComponent,
+
+
+
+
+
+
+    ChinhsuadanhgiakhachhangmodalComponent,
+
+
+
   ],
   imports: [
     CommonModule,
@@ -451,6 +499,11 @@ import { ChondanhmucthutucthanhtoanmodalComponent } from './screen/thuchienhopdo
     ThanhtoanvattuphumodalComponent,
     NhapvattuphumodalComponent,
     ChondanhmucthutucthanhtoanmodalComponent,
+    HopdongchonhanghoagiaokehoachmodalComponent,
+    HopdongchonquycachdonggoimodalComponent,
+    QuytrinhdanhgiakhachhangmodalComponent,
+    ChonkhachhangmodalComponent,
+    ChinhsuadanhgiakhachhangmodalComponent,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]

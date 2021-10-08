@@ -179,10 +179,7 @@ export class HopDongService {
         );
       },
       Get: (Id) => {
-        return this.http.get(
-          url + `QuyetToan/GetById?Id=${Id}`,
-          httpOptions
-        );
+        return this.http.get(url + `QuyetToan/GetById?Id=${Id}`,httpOptions);
       },
       Set: (data) => {
         return this.http.post(
@@ -212,15 +209,13 @@ export class HopDongService {
           httpOptions
         );
       },
-
-
       GGetThongTinQuyetToanByHopDonget: (IdHopDong) => {
         return this.http.get(
           url + `QuyetToan/GetThongTinQuyetToanByHopDong?IdHopDong=${IdHopDong}`,
           httpOptions
         );
       },
-
+      
     };
   }
 
@@ -340,6 +335,9 @@ export class HopDongService {
         return this.http.post(
           url + 'ThanhToan/GetListInvoiceHopDongChiTiet', data,httpOptions
         );
+      },
+      GetListThanhToanHopDong: (IdHopDong) => {
+        return this.http.get(url + `ThanhToan/GetListThanhToanHopDong?IdHopDong=${IdHopDong}`,httpOptions);
       },
     };
   }
