@@ -26,8 +26,10 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
     Xoa: false,
     ChuyenTiep: false,
     KhongDuyet: false,};
-  listHopDong: any = {}
+  listHopDong: any = [];
+  listHopDongFull: any = [];
   lang: any = vn;
+  listDotQuyetToan: any = [];
   yearRange: string = `${
     new Date().getFullYear() - 50
   }:${new Date().getFullYear()}`;
@@ -57,14 +59,12 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
       this.item.ngayLapBienBanQT = UnixToDate(this.item.ngayLapBienBanQTUnix)
       this.item.ngayQuyetToan = UnixToDate(this.item.ngayQuyetToanUnix)
       this.KiemTraButtonModal();
+      this.getListThanhToan();
     }
   }
 
   KiemTraButtonModal() {
-    this._servicesSanXuat
-      .KiemTraButton(this.item.id || "", this.item.idTrangThai || "")
-      .subscribe((res: any) => {
-        console.log((this.checkbutton = res));
+    this._servicesSanXuat.KiemTraButton(this.item.id || "", this.item.idTrangThai || "").subscribe((res: any) => {
         this.checkbutton = res;
       });
   }
@@ -72,14 +72,11 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
     let IdDuAn = this._store.getCurrent();
     this._servicesSanXuat.GetOptions().GetDanhSachHopDongByNhaThau(IdDuAn, 0).subscribe((res: any) => {
       this.listHopDong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
+      this.listHopDongFull = res;
     })
   }
   GetNextSoQuyTrinh() {
-    this._service
-      .QuyetToanHopDong()
-      .GetNextSoQuyTrinh()
-      .subscribe((res: any) => {
-        console.log(res);
+    this._service.QuyetToanHopDong().GetNextSoQuyTrinh().subscribe((res: any) => {
         this.item.soQuyTrinh = res.data;
       });
   }
@@ -121,11 +118,7 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
       "Bạn có chắc chắn muốn xóa quy trình này chứ?";
     modalRef.result
       .then((res) => {
-        this._service
-          .QuyetToanHopDong()
-          .Delete(this.item)
-          .subscribe((res: any) => {
-            console.log(res);
+        this._service.QuyetToanHopDong().Delete(this.item).subscribe((res: any) => {
             if (res?.statusCode === 200) {
               this.activeModal.close();
               this._toastr.success(res.message);
@@ -209,6 +202,14 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
         });
       });
         this.KiemTraButtonModal();
+    })
+  }
+  getListThanhToan(){
+    let itemFind = this.listHopDongFull.filter(e => e.id === this.item.idHopDong);
+    if(itemFind !== undefined)
+      this.item.giaTriHoanThanh = itemFind[0].giaTriHoanThanh;
+    this._service.QuyTrinhThanhToan().GetListThanhToanHopDong(this.item.idHopDong).subscribe((res1: any) => {
+      this.listDotQuyetToan = res1.data;
     })
   }
 }

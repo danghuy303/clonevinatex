@@ -6,8 +6,6 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreBase } from 'src/app/services/storebase.class';
-import { GiaokehoachsanxuathoanthanhmodalComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/giaokehoachsanxuathoanthanhmodal/giaokehoachsanxuathoanthanhmodal.component';
-import { KehoachsanxuatmodalComponent } from '../../modal/kehoachsanxuatmodal/kehoachsanxuatmodal.component';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 import { GiaokehoachsanxuatmodalComponent } from './giaokehoachsanxuatmodal/giaokehoachsanxuatmodal.component';
 
@@ -28,18 +26,18 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Tổng sản lượng(tấn)',
-      field: 'TongSanLuong',
+      header: 'Tổng sản lượng(Tấn)',
+      field: 'tongKhoiLuong',
       width: '80px'
     },
     {
       header: 'Tổng số ca',
-      field: 'TongSoCa',
+      field: 'tongSoCa',
       width: '80px'
     },
     {
       header: 'Trạng thái',
-      field: 'TenTrangThai',
+      field: 'tenTrangThai',
       width: '80px'
     },
   ];
@@ -89,8 +87,8 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
           item.listItem = [];
         }
           item.listItem.filter(objlistItem => {
-            objlistItem.listItem.filter(async objlistItem2 => {
-              objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
+            objlistItem.listQuyCachDongGoi.filter(async objlistItem2 => {
+              objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.iddmQuyCachDongGoi == obj.value)[0];
             });          
           });
           let modalRef = this._modal.open(GiaokehoachsanxuatmodalComponent, {
@@ -128,18 +126,21 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
       this.paginator.changePage(0);
     }
     let data = {
-      PageSize: 20,
-      CurrentPage: this.paging.CurrentPage,
-      TabTrangThai: this.trangThai,
-      sFilter: this.filter.KeyWord,
-      TuNgay: DateToUnix(this.filter.TuNgay),
-      DenNgay: DateToUnix(this.filter.DenNgay),
-      Ma: "",
-      Ten: "",
+      pageSize: 20,
+      currentPage: this.paging.CurrentPage,
+      tabTrangThai: this.trangThai,
+      keyWord: this.filter.KeyWord,
+      tuNgay: DateToUnix(this.filter.TuNgay),
+      denNgay: DateToUnix(this.filter.DenNgay),
     }
     this._HopDongService.GiaoKeHoachSanXuat().GetList(data).subscribe((res: any) => {
       this.items = res.data.items;
       this.paging.TotalItem = res.data?.totalCount;
+      this.paging.TotalPage = res.data?.totalPages;
+      this.items.forEach(element => {
+        element.ngayBatDau = UnixToDate(element.ngayBatDauUnix);
+        element.ngayKetThuc = UnixToDate(element.ngayKetThucUnix);
+      });
     })
   }
   resetFilter() {

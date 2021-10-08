@@ -162,6 +162,7 @@ export class LaphopdongbongxoComponent implements OnInit {
       .subscribe((res: any) => {
         this.items = res.data?.items;
         this.paging.TotalItem = res.data?.totalCount;
+        this.paging.TotalPage = res.data?.totalPages;
 
         this.items.forEach(element => {
           element.ngayKy = UnixToDate(element.ngayKyUnix);

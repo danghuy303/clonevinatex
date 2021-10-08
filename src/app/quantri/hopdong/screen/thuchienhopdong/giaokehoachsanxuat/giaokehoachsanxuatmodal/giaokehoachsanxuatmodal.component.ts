@@ -1,5 +1,3 @@
-
-
 import { SanXuatService } from "./../../../../../../services/callApiSanXuat";
 import { vn } from "./../../../../../../services/const";
 import { ModalthongbaoComponent } from "./../../../../../modal/modalthongbao/modalthongbao.component";
@@ -8,8 +6,9 @@ import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 import { ToastrService } from "ngx-toastr";
 import { Component, OnInit } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { ChonhanghoamodalComponent } from "src/app/quantri/quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component";
-import { ChonquycachdonggoimodalComponent } from "src/app/quantri/quanlykhosanxuat/modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component";
+import { HopdongchonhanghoagiaokehoachmodalComponent } from "../hopdongchonhanghoagiaokehoachmodal/hopdongchonhanghoagiaokehoachmodal.component";
+import { HopdongchonquycachdonggoimodalComponent } from "../hopdongchonquycachdonggoimodal/hopdongchonquycachdonggoimodal.component";
+import { CalcmodalComponent } from "src/app/quantri/modal/calcmodal/calcmodal.component";
 @Component({
   selector: 'app-giaokehoachsanxuatmodal',
   templateUrl: './giaokehoachsanxuatmodal.component.html',
@@ -27,6 +26,10 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
   item: any = {};
   filter: any = {};
   listDonVi: any = [];
+  listMucDich: any = [
+    { value: 0, label: 'Xuất khẩu' },
+    { value: 1, label: 'Nội địa' },
+  ]
   listQuyCachDongGoi: any = [];
   yearRange: string = `${
     new Date().getFullYear() - 50
@@ -42,19 +45,18 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
   ngOnInit(): void {
     if (this.opt !== "edit") {
       this.GetNextSoQuyTrinh();
-    } else {
+    } 
+    else {
       this.KiemTraButtonModal();
     }
     this.item.ngayBatDau = UnixToDate(this.item.ngayBatDauUnix);
     this.item.ngayKetThuc = UnixToDate(this.item.ngayKetThucUnix);
-    this.getListHopDong();
     this._servicesDungChung.GetOptions().GetNhaMay().subscribe((res: Array<any>) => {
       this.listDonVi = mapArrayForDropDown(res, 'TenDuAn', 'Id');
       if (validVariable(this.item.idDuAn)) {
         this.getPhanXuong(this.item.idDuAn, true);
       }
     });
-    this.getListMatHang();
     this._servicesDungChung.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
       this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');;
     })
@@ -66,20 +68,18 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
     }
     this._servicesDungChung.GetOptions().GetPhanXuong(IdDuAn).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
-    })
+    });
+    this.getListMatHang();
   }
   KiemTraButtonModal() {
-    this._servicesDungChung
-      .KiemTraButton(this.item.id || "", this.item.idTrangThai || "")
-      .subscribe((res: any) => {
-        console.log(this.checkbutton = res);
+    this._servicesDungChung.KiemTraButton(this.item.id || "", this.item.idTrangThai || "").subscribe((res: any) => {
         this.checkbutton = res;
       });
   }
-  ChuyenTiep() {
+  ChuyenDuyet() {
     this._services.GiaoKeHoachSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
-          if (res.State === 1) {
+          if (res?.statusCode === 200) {
             this._toastr.success(res.message);
             this.activeModal.close();
           } else {
@@ -92,7 +92,7 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
   KhongDuyet() {
     this._services.GiaoKeHoachSanXuat().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
-          if (res.State === 1) {
+          if (res?.statusCode === 200) {
             this._toastr.success(res.message);
             this.activeModal.close();
           } else {
@@ -117,8 +117,8 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
           if (res?.statusCode === 200) {
             this._toastr.success(res.message);
             this.opt = "edit";
-            this.item = res.data;
-            this.KiemTraButtonModal();
+            this.item.id = res.data.id;
+            this.getQuyTrinh();
           } else {
             this._toastr.error(res.message);
           }
@@ -140,7 +140,7 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
           .Delete(this.item)
           .subscribe((res: any) => {
             console.log(res);
-            if (res?.State === 1) {
+            if (res?.statusCode === 200) {
               this._toastr.success(res.message);
               this.activeModal.close();
             } else {
@@ -149,13 +149,6 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
           });
       })
       .catch((er) => console.log(er));
-  }
-  getListHopDong() {
-    this.KiemTraButtonModal();
-    if (this.opt !== 'edit') {
-      this.GetNextSoQuyTrinh();
-    }
-   
   }
 
   add() {
@@ -167,14 +160,14 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
 
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
-    if (item.Id === "" || item.Id === null || item.Id === undefined) {
+    if (item.id === "" || item.id === null || item.id === undefined) {
     } else {
       item.isXoa = true;
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
   chonHangHoa() {
-    let modalRef = this._modal.open(ChonhanghoamodalComponent, {
+    let modalRef = this._modal.open(HopdongchonhanghoagiaokehoachmodalComponent, {
       size: 'xl'
     })
     modalRef.componentInstance.items = this.listMatHang;
@@ -217,34 +210,82 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
     }
   }
   getListMatHang(){
-    this._services.GiaoKeHoachSanXuat().GetListMatHangGiaoKeHoachSanXuat(this.item.idDuAn).subscribe((res:any) => {
+    this._services.GiaoKeHoachSanXuat().GetListMatHangGiaoKeHoachSanXuat(this.item.idDuAn || '').subscribe((res:any) => {
       this.listMatHang = res.data;
       this.listMatHang.forEach(obj=>{
-        obj.Ne = obj.ne;
-        obj.DoSan = obj.doSan;
-        obj.Ma = obj.ma;
-        obj.TendmLoaiSoi = obj.tendmLoaiSoi;
-        obj.Ten = obj.ten;
-        obj.DaGiao = obj.daGiao;
-        obj.GhiChu = obj.ghiChu;
-        obj.TenHopDong = obj.tenHopDong;
-        obj.SoHopDong = obj.soHopDong;
+        obj.ne = obj.ne;
+        obj.doSan = obj.doSan;
+        obj.ma = obj.ma;
+        obj.tendmLoaiSoi = obj.tendmLoaiSoi;
+        obj.ten = obj.ten;
+        obj.daGiao = obj.daGiao;
+        obj.ghiChu = obj.ghiChu;
+        obj.tenHopDong = obj.tenHopDong;
+        obj.soHopDong = obj.soHopDong;
       });
     })
   }
   chonQuyCachDongGoi(item) {
-    let modalRef = this._modal.open(ChonquycachdonggoimodalComponent, {
+    let modalRef = this._modal.open(HopdongchonquycachdonggoimodalComponent, {
       size: 'lg'
     })
     modalRef.componentInstance.items = this.listQuyCachDongGoi;
     modalRef.componentInstance.layitem = item;
-    modalRef.componentInstance.selectedItems = deepCopy(item.listItem || []);
-    modalRef.componentInstance.IdQuyTrinh = this.item.Id;
+    modalRef.componentInstance.selectedItems = deepCopy(item.listQuyCachDongGoi || []);
+    modalRef.componentInstance.IdQuyTrinh = this.item.id;
     modalRef.result.then(res => {
       item.isEdited = true;
-      item.listItem = res.listItem;
+      item.listQuyCachDongGoi = res.listItem;
     }).catch(er => {
       console.log(er);
+    })
+  }
+  changeKeHoachSanXuat(item) {
+    if (this.item.listItem != undefined && this.item.listItem.length > 0) {
+      this.item.tongKhoiLuong = 0;
+      let KLxChiSo: any = 0;
+      this.item.listItem.forEach(obj => {
+        if (!obj.isXoa) {
+          this.item.tongKhoiLuong += obj.khoiLuong;
+          KLxChiSo += validVariable(obj.khoiLuong) ? (obj.khoiLuong * obj.ne) : 0;
+        }
+      });
+      if (item.value < this.item.tongKhoiLuong) {
+        this._toastr.error("Không được lớn hơn Kế hoạch sản xuất");
+      }
+      this.item.chiSoBQ = Math.ceil((KLxChiSo / this.item.tongKhoiLuong) * 100) / 100;
+      this.item.bQNE30 = this.item.tongKhoiLuong * this.item.chiSoBQ / 30 / this.item.tongSoCa;
+
+    }
+    if(validVariable(item.id)){
+      item.isEdited = true;
+    }
+  }
+  change(index) {
+    if(validVariable(this.item.id)){
+      this.item.listItem[index].isEdited = true;
+    }
+  }
+  getQuyTrinh() {
+    this._services.GiaoKeHoachSanXuat().Get(this.item.id).subscribe((res: any) => {
+      this.item = res;
+      this.item.ngayBatDau = UnixToDate(this.item.ngayBatDauUnix);
+      this.item.ngayKetThuc = UnixToDate(this.item.ngayKetThucUnix);
+        if (!validVariable(this.item.listItem)) {
+          this.item.listItem = [];
+        }
+        this.item.listItem.filter(objlistItem => {
+            objlistItem.listQuyCachDongGoi.filter(async objlistItem2 => {
+              objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.iddmQuyCachDongGoi == obj.value)[0];
+            });          
+          });
+      this.KiemTraButtonModal();
+    } 
+  )}
+  tinhToan(item, opt) {
+    let modalRef = this._modal.open(CalcmodalComponent)
+    modalRef.result.then((res) => {
+      item[opt]=res;
     })
   }
 }
