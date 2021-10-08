@@ -205,6 +205,15 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr class="normal">
+                <th style="width: 200px !important;"></th>
+                <th></th>
+                <th></th>
+                <th>Tổng phế: {{TongPheSanLuong|number:'0.0-3'}}</th>
+                <th>SL đã trừ phế: {{(TongKhoiLuongSanLuong-TongPheSanLuong)|number:'0.0-3'}}</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr class="normal">
                 <th style="width: 200px !important;">Mặt hàng</th>
                 <th>Chi số</th>
                 <th>Máy chạy</th>
@@ -333,6 +342,15 @@
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
+            <tr class="normal">
+                <th style="width: 200px !important;"></th>
+                <th></th>
+                <th></th>
+                <!-- <th>Máy chạy</th> -->
+                <th>Tổng phế: {{TongPheLuyKeChiTiet|number:'0.0-3'}}</th>
+                <th>SL đã trừ phế: {{(TongKhoiLuongLuyKeChiTiet-TongPheLuyKeChiTiet)|number:'0.0-3'}}</th>
+                <th></th>
+            </tr>
             <tr class="normal">
                 <th style="width: 200px !important;">Mặt hàng</th>
                 <th>Chi số</th>

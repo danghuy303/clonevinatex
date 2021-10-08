@@ -74,7 +74,7 @@ export class KehoachkinhdoanhdanhsachComponent implements OnInit {
         modalRef.componentInstance.type = 'themmoi';
         modalRef.componentInstance.title = 'Thêm mới kế hoạch kinh doanh';
         modalRef.componentInstance.item = {
-          Id:'',IdTrangThai:'',SoQuyTrinh: "QTKHKD092021_0001"
+          Id:'',IdTrangThai:'',SoQuyTrinh: ""
         };
         modalRef.result.then(res=>{
           this.GetListKeHoachKinhDoanh()
