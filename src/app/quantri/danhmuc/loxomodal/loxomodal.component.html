@@ -41,13 +41,13 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại xơ:</label>
             <div class="p-col-12 p-lg-4 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmLoaiBong" placeholder="Chọn loại bông" 
-                [(ngModel)]="item.IddmLoaiBong" styleClass="p-inputtext-sm" disabled></p-dropdown>
+                [(ngModel)]="item.IddmLoaiBong" styleClass="p-inputtext-sm" [disabled]="true"></p-dropdown>
             </div>
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cấp xơ:</label>
             <div class="p-col-12 p-lg-4 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmCapBong" 
                 placeholder="Chọn cấp bông" [(ngModel)]="item.IddmCapBong"
-                styleClass="p-inputtext-sm" disabled></p-dropdown>
+                styleClass="p-inputtext-sm" [disabled]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 flex-column flex-lg-row d-flex">
