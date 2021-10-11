@@ -142,7 +142,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   add() {
     let modalRef = this._modal.open(ChitiethanghoamodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.selectedItems = this.listTieuChuanChatLuong;
+    modalRef.componentInstance.selectedItems = deepCopy(this.listTieuChuanChatLuong);
     modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
     modalRef.result.then(res => {
       // console.log(res.item);         
@@ -151,7 +151,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
       //     this.listTieuChuanChatLuong.push(obj);
       //   }
       // });
-      this.listTieuChuanChatLuong= res;  
+      this.listTieuChuanChatLuong= deepCopy(res);  
     }).catch(er => { console.log(er) });
   }
 
@@ -191,10 +191,10 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
       // this.listKeHoachNhapBong = res1
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listThanhToanThuTuc = res1;
-      modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;
+      modalRef.componentInstance.listHangHoa = deepCopy(this.listHangHoaSoi);
       modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
       modalRef.result.then(res => {
-        this.listHangHoaSoi= res;  
+        this.listHangHoaSoi= deepCopy(res);  
       }).catch(er => { console.log(er) });
     })
   }
@@ -228,11 +228,11 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
       backdrop: 'static'
     })
       modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;
+      modalRef.componentInstance.listHangHoa = deepCopy(this.listHangHoaSoi);
       modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
       modalRef.componentInstance.listThanhToanThuTuc = res1;
       modalRef.result.then(res => {
-        this.listHangHoaSoi= res;  
+        this.listHangHoaSoi= deepCopy(res);  
       }).catch(er => { console.log(er) });
     })
 

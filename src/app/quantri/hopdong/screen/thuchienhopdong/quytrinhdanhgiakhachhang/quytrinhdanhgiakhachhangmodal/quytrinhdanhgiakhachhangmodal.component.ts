@@ -5,7 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 import { ChinhsuadanhgiakhachhangmodalComponent } from '../chinhsuadanhgiakhachhangmodal/chinhsuadanhgiakhachhangmodal.component';
 import { ChonkhachhangmodalComponent } from '../chonkhachhangmodal/chonkhachhangmodal.component';
@@ -162,11 +162,11 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
       size: 'xl'
     })
     modalRef.componentInstance.items = this.listKhachHang;
-    modalRef.componentInstance.selectedItems = this.item.listItem;
+    modalRef.componentInstance.selectedItems = deepCopy(this.item.listItem || []);
     modalRef.componentInstance.IdQuyTrinh = this.item.id;
     modalRef.componentInstance.opt = "";    
     modalRef.result.then(res => {
-      this.item.listItem = res;
+      this.item.listItem = deepCopy(res);
     }).catch(er => {
       console.log(er);
     })
@@ -176,11 +176,11 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
       size: 'xl'
     })
     modalRef.componentInstance.items = this.listKhachHang;
-    modalRef.componentInstance.selectedItems = this.item.listItem;
+    modalRef.componentInstance.selectedItems = deepCopy(this.item.listItem || []);
     modalRef.componentInstance.IdQuyTrinh = this.item.id;
     modalRef.componentInstance.opt = "";    
     modalRef.result.then(res => {
-      this.item.listItem = res;
+      this.item.listItem = deepCopy(res);
     }).catch(er => {
       console.log(er);
     })

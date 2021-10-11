@@ -10,8 +10,7 @@ import { deepCopy, validVariable } from 'src/app/services/globalfunction';
 export class ChonkhachhangmodalComponent implements OnInit {
   item: any = {};
   items: any = [];
-  listHangHoa: any = [];
-  listHangHoaGoc: any = [];
+  selectedItems: any = [];
   IdQuyTrinh : any = '';
   Loai : any = 0;
   cols: any = [
@@ -51,16 +50,15 @@ export class ChonkhachhangmodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.listHangHoaGoc = deepCopy(this.listHangHoa);
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.items.length;
-    if(this.listHangHoa != undefined && this.listHangHoa!= null)
+    if(this.selectedItems != undefined && this.selectedItems!= null)
     {
-      for(let i = 0; i < this.listHangHoa.length; i++){
-        console.log(this.listHangHoa[i])
+      for(let i = 0; i < this.selectedItems.length; i++){
+        console.log(this.selectedItems[i])
         let itemFind = this.items.find(
-          ele => (ele.IddmItem === this.listHangHoa[i].iddmItem )
+          ele => (ele.IddmItem === this.selectedItems[i].iddmItem )
          )
         if(validVariable(itemFind)){
           itemFind.checked = true;
@@ -87,7 +85,7 @@ export class ChonkhachhangmodalComponent implements OnInit {
     this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref_copy.slice(start,end);
   }
   accept() {
-    this.activeModal.close(this.listHangHoa)
+    this.activeModal.close(this.selectedItems)
   }
   filtertable_add() {
     if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
@@ -116,30 +114,29 @@ export class ChonkhachhangmodalComponent implements OnInit {
 checkItem(item){
 if(item.checked == true)
 {
-  let itemFind: any = this.listHangHoa.filter((e: any) =>e.iddmItem === item.Id)[0]
+  let itemFind: any = this.selectedItems.filter((e: any) =>e.iddmItem === item.Id)[0]
   if(itemFind === undefined){
     let itemFinds = this.items.find(e => e.checked === true && e.Id === item.Id);
-    itemFinds = {
+    let data: any = {
       iddmKhachHang: itemFinds.Id,
       ten: itemFinds.Ten,
       ma: itemFinds.Ma,
       isXoa: false,
       id: '',
     }
-    this.listHangHoa.push(itemFinds)
+    this.selectedItems.push(data)
   }
   else
     itemFind.isXoa = false;
 }
   else{
-    let itemFind = this.listHangHoa.filter((e: any) =>e.IddmItem === item.id)[0];
+    let itemFind = this.selectedItems.filter((e: any) =>e.IddmItem === item.id)[0];
     if(itemFind !== undefined){
       itemFind.isXoa = true;
     }
   }
 }
 Onclose() {
-  this.activeModal.close(this.listHangHoaGoc)
-
+  this.activeModal.close()
 }
 }

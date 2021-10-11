@@ -109,10 +109,7 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
   }
 
   GhiLai() {
-    this._services
-      .GiaoKeHoachSanXuat()
-      .Set(this.item)
-      .subscribe((res: any) => {
+    this._services.GiaoKeHoachSanXuat().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res?.statusCode === 200) {
             this._toastr.success(res.message);
@@ -246,16 +243,15 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
       let KLxChiSo: any = 0;
       this.item.listItem.forEach(obj => {
         if (!obj.isXoa) {
-          this.item.tongKhoiLuong += obj.khoiLuong;
-          KLxChiSo += validVariable(obj.khoiLuong) ? (obj.khoiLuong * obj.ne) : 0;
+          this.item.tongKhoiLuong += (obj.khoiLuong || 0);
+          KLxChiSo += (obj.khoiLuong || 0) * (obj.ne || 0);
         }
       });
       if (item.value < this.item.tongKhoiLuong) {
         this._toastr.error("Không được lớn hơn Kế hoạch sản xuất");
       }
       this.item.chiSoBQ = Math.ceil((KLxChiSo / this.item.tongKhoiLuong) * 100) / 100;
-      this.item.bQNE30 = this.item.tongKhoiLuong * this.item.chiSoBQ / 30 / this.item.tongSoCa;
-
+      this.item.ne30 = this.item.tongKhoiLuong * this.item.chiSoBQ / 30 / this.item.tongSoCa;
     }
     if(validVariable(item.id)){
       item.isEdited = true;
