@@ -525,6 +525,9 @@ export class SanXuatService {
             GetMatHang: () => {
                 return this.http.post(`${API.SCMDanhMuc}GetListdmItem`, { Loai: 1 }, httpOptions)
             },
+            GetChiTietMatHangChoKHKD: () => {
+                return this.http.post(`${API.SCM}APIChoModuleKeHoach/GetDanhMucSanPhamHopDong`, {}, httpOptions)
+            },
             GetNhaMay: () => {
                 return this.http.post(`${API.auth}DanhMuc/GetDanhSachDuAn_Advance`, {}, httpOptions)
             },
@@ -580,8 +583,8 @@ export class SanXuatService {
             GetDashBoard_CanDoiTonXuatHang_TenMatHang: (data) => {
                 return this.http.post(`${API.SCMBaoCao}GetDashBoard_CanDoiTonXuatHang_TenMatHang`, data, httpOptions);
             },
-            GetDanhSachHopDongByNhaThau: (IdDuAn) => {
-                return this.http.get(`${API.HopDong}HopDong/GetDanhSachHopDongByNhaThau?IdDuAn=${IdDuAn}`, httpOptions)
+            GetDanhSachHopDongByNhaThau: (IdDuAn, Loai) => {
+                return this.http.get(`${API.HopDong}HopDong/GetDanhSachHopDongByNhaThau?IdDuAn=${IdDuAn}&Loai=${Loai}`, httpOptions)
             },
             GetDanhSachHopDongByNhaThauSoi: (IdDuAn) => {
                 return this.http.get(`${API.HopDong}HopDong/GetDanhSachHopDongByNhaThauSoi?IdDuAn=${IdDuAn}`, httpOptions)

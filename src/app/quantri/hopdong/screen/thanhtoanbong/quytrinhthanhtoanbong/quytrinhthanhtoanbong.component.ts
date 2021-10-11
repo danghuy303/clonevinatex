@@ -18,42 +18,9 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
-  listLoaiPhuongAn: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   eAction: any = "PHIEUNHAPLOBONG";
-  cols: any = [
-    {
-      header: 'Số phiếu',
-      field: 'soQuyTrinh',
-      width: 'unset'
-    },
-    {
-      header: 'Số hợp đồng',
-      field: 'soHopDong',
-      width: 'unset'
-    },
-    {
-      header: 'Ngày nhập kho',
-      field: '_Ngay',
-      width: 'unset'
-    },
-    {
-      header: 'Mã Invoice',
-      field: 'maInvoice',
-      width: 'unset'
-    },
-    {
-      header: 'Lô bông',
-      field: 'tenLoBong',
-      width: 'unset'
-    },
-    {
-      header: 'Loại bông',
-      field: 'tendmLoaiBong',
-      width: 'unset'
-    },
-  ];
   listHopDong: any = [];
   IdDuAn: any = 0;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
@@ -161,6 +128,7 @@ export class QuytrinhthanhtoanbongComponent implements OnInit {
       Ma: "",
       Ten: "",
       IdHopDong: this.filter.IdHopDong,
+      Loai:2,
     }
     this._hopdong.QuyTrinhThanhToan().GetList(data).subscribe((res: any) => {
       this.items = res.data.items;

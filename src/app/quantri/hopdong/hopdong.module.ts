@@ -1,5 +1,5 @@
 import { ModalloaihopdongComponent } from './danhmuc/modal/modalloaihopdong/modalloaihopdong.component';
-import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HopdongRoutingModule } from './hopdong-routing.module';
 import { HopdongComponent } from './hopdong.component';
@@ -153,6 +153,22 @@ import { LuachonvattuphucuahanghoamodalComponent } from './screen/modal/share/ch
 import { HopdongxuatlobongxoComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxo.component';
 import { HopdongxuatlobongxomodalComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxomodal/hopdongxuatlobongxomodal.component';
 import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmucsanxuat.component';
+import { NhapvattuphuComponent } from './screen/thuchienhopdong/nhapvattuphu/nhapvattuphu.component';
+import { ThanhtoanvattuphuComponent } from './screen/thuchienhopdong/thanhtoanvattuphu/thanhtoanvattuphu.component';
+import { NhapvattuphumodalComponent } from './screen/thuchienhopdong/nhapvattuphu/nhapvattuphumodal/nhapvattuphumodal.component';
+import { ThanhtoanvattuphumodalComponent } from './screen/thuchienhopdong/thanhtoanvattuphu/thanhtoanvattuphumodal/thanhtoanvattuphumodal.component';
+import { DanhsachhopdongsoiComponent } from './screen/danhsachhopdongsoi/danhsachhopdongsoi.component';
+import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattuphu/danhsachhopdongvattuphu.component';
+import { ChondanhmucthutucthanhtoanmodalComponent } from './screen/thuchienhopdong/quyettoanhopdong/chondanhmucthutucthanhtoanmodal/chondanhmucthutucthanhtoanmodal.component';
+import { HopdongchonhanghoagiaokehoachmodalComponent } from './screen/thuchienhopdong/giaokehoachsanxuat/hopdongchonhanghoagiaokehoachmodal/hopdongchonhanghoagiaokehoachmodal.component';
+import { HopdongchonquycachdonggoimodalComponent } from './screen/thuchienhopdong/giaokehoachsanxuat/hopdongchonquycachdonggoimodal/hopdongchonquycachdonggoimodal.component';
+import { QuytrinhdanhgiakhachhangComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/quytrinhdanhgiakhachhang.component';
+import { QuytrinhdanhgiakhachhangmodalComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/quytrinhdanhgiakhachhangmodal/quytrinhdanhgiakhachhangmodal.component';
+import { ChonkhachhangmodalComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/chonkhachhangmodal/chonkhachhangmodal.component';
+import { ChinhsuadanhgiakhachhangmodalComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/chinhsuadanhgiakhachhangmodal/chinhsuadanhgiakhachhangmodal.component';
+
+
+
 
 
 
@@ -169,7 +185,6 @@ import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmuc
     ModaldanhmucthutucthanhtoanComponent,
     DanhmuctrangthaibaolanhComponent,
     ModaldanhmuctrangthaibaolanhComponent,
-
     DanhmucvattuphuComponent,
     ModaldanhmucvattuphuComponent,
     DanhmuccocaunhansuComponent,
@@ -178,44 +193,23 @@ import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmuc
     ModaldanhmuctinhluongComponent,
     DanhmuctaisanComponent,
     ModaldanhmuctaisanComponent,
-
     //báo cáo
-
-
     TheodoihopdongnhapkhauComponent,
-
-
     DmLoaiHopDongComponent,
     ModalloaihopdongComponent,
     DanhsachhopdongbongxoComponent,
-
     DanhsachhopdongbongxoComponent,
-
-
     ChitiethopdongbongxoComponent,
-
     ChitietdanhsachhanghoaComponent,
-
     ChitietdieukhoanthanhtoanComponent,
-
     ChitietnhansuthuchienComponent,
-
     ChitietbaolanhComponent,
-
     ChitietthanhtoanComponent,
-
     ChitietphathopdongComponent,
-
     ChitiethopdongbongxomodalComponent,
-
     ChitietdieukhoanmodalComponent,
-
     NhansuthuchienmodalComponent,
-
     ChitietbaolanhmodalComponent,
-
-
-
     ThanhtoanhopdongComponent,
 
     PhathopdongComponent,
@@ -247,124 +241,29 @@ import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmuc
     GiaokehoachsanxuatComponent,
 
     GiaokehoachsanxuatmodalComponent,
-
-
     TheodoihopdongnhapkhauComponent,
-
-
     ChonthutucthanhtoanmodalComponent,
-
-
     ChitiethanghoamodalComponent,
-
-
-
-
-
     DanhmucphibanhangComponent,
-
-
     ModaldanhmucphibanhangComponent,
-
-
     DanhmucdinhmucmathangComponent,
-
-
     ModaldanhmucdinhmucmathangComponent,
-
-
     KehoachnhapbongComponent,
-
-
     ChitietkehoachnhapbongComponent,
-
-
-
-
-
-
     ChitiethanghoacuahopdongsoimodalComponent,
-
-
-
-
-
-
     NhapkhoComponent,
-
-
-
-
-
-
     ChitietnhapkhoComponent,
-
-
-
-
-
-
     XuatkhothanhphamhopdongComponent,
-
-
-
-
-
-
     ChitietxuatkhothanhphamhopdongComponent,
-
-
-
-
-
-
     XuatthanhphammathangmodalComponent,
-
-
-
-
-
-
-
     KehoachkinhdoanhdanhsachComponent,
     ModalkehoachkinhdoanhchitiettaomoiComponent,
     ModalkehoachkinhdoanhtheodoiComponent,
-
     DmtieuchichatluonghopdongComponent,
-
-
-
-
-
-
     DmtieuchichatluonghopdongmodalComponent,
-
-
-
-
-
-
     QuytrinhthanhtoanbongComponent,
-
-
-
-
-
-
     QuytrinhthanhtoanbongmodalComponent,
-
-
-
-
-
-
     ModaldongiakehoachthucteComponent,
-
-
-
-
-
-
     DanhsachtinhluongComponent,
     ModaldanhsachtinhluongComponent,
     MucluongcocaunhansuComponent,
@@ -374,52 +273,114 @@ import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmuc
  
 
     ThanhtoanhopdongsoiComponent,
-
-
-
-
-
-
     ThanhtoanhopdongsoimodalComponent,
-
-
-
-
-
-
     ChonmathangthanhtoanhopdongComponent,
-
-
-
-
-
-
     KehoachsanxuatmodalComponent,
-
-
-
-
-
-
     HopdongvattuphuComponent,
-
-
-
-
-
-
     HopdongvattuphumodalComponent,
-
-
-
-
-
-
     LuachonvattuphucuahanghoamodalComponent,
 
     HopdongxuatlobongxoComponent,
     HopdongxuatlobongxomodalComponent,
     DinhmucsanxuatComponent,
+
+
+
+
+
+
+
+
+
+
+
+    NhapvattuphuComponent,
+
+
+
+
+
+
+    ThanhtoanvattuphuComponent,
+
+
+
+
+
+
+    NhapvattuphumodalComponent,
+
+
+
+
+
+
+    ThanhtoanvattuphumodalComponent,
+
+
+
+
+
+
+    DanhsachhopdongsoiComponent,
+
+
+
+
+
+
+    DanhsachhopdongvattuphuComponent,
+
+
+
+
+
+
+    ChondanhmucthutucthanhtoanmodalComponent,
+
+
+
+
+
+
+    HopdongchonhanghoagiaokehoachmodalComponent,
+
+
+
+
+
+
+    HopdongchonquycachdonggoimodalComponent,
+
+
+
+
+
+
+    QuytrinhdanhgiakhachhangComponent,
+
+
+
+
+
+
+    QuytrinhdanhgiakhachhangmodalComponent,
+
+
+
+
+
+
+    ChonkhachhangmodalComponent,
+
+
+
+
+
+
+    ChinhsuadanhgiakhachhangmodalComponent,
+
+
 
   ],
   imports: [
@@ -535,7 +496,16 @@ import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmuc
     HopdongvattuphumodalComponent,
     LuachonvattuphucuahanghoamodalComponent,
     HopdongxuatlobongxomodalComponent,
+    ThanhtoanvattuphumodalComponent,
+    NhapvattuphumodalComponent,
+    ChondanhmucthutucthanhtoanmodalComponent,
+    HopdongchonhanghoagiaokehoachmodalComponent,
+    HopdongchonquycachdonggoimodalComponent,
+    QuytrinhdanhgiakhachhangmodalComponent,
+    ChonkhachhangmodalComponent,
+    ChinhsuadanhgiakhachhangmodalComponent,
+
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })
 export class HopdongModule { }

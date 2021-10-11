@@ -408,10 +408,9 @@ export class ThongkesanluongmodalComponent implements OnInit {
   //con
   TinhTyLeBongThoMang() {
     this.TongKhoiLuong = 0;
-
     this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
     if (this.item.isTruVaoSanLuong === true)
-      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ThoMang || 0);
+      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ThoMang || 0) - (this.item.BongHutMoi || 0);
     // this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ThoMang || 0) - (this.item.BongHutMoi || 0);
     if (this.TongKhoiLuong > 0) {
       this.item.TyLeThoMang = (this.item.ThoMang ?? 0) / (this.TongKhoiLuong + (this.item.ThoMang || 0)) * 100;
@@ -495,7 +494,7 @@ export class ThongkesanluongmodalComponent implements OnInit {
     console.log(i)
     console.log(this.inputNumbers.toArray().map(ele => ele.tabindex))
     if (this.item.CongDoan === 'CON') {
-      if (i + 4 < (this.listItem.length * 5 - 1)) {
+      if (i + 4 <= (this.listItem.length * 5 - 1)) {
         this.inputNumbers.toArray()[i + 4].el.nativeElement.children[0].children[0].focus();
       } else {
         this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();

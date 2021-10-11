@@ -88,11 +88,11 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   }
 
   GetDanhSachHopDongByNhaThau() {
-    this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn).subscribe((res: any) => {
-      res.forEach(obj => {
-        obj.TenFull = `${obj.soHopDong} - ${obj.tenHopDong}`;
-      });
-      this.listhopdong = mapArrayForDropDown(res, 'TenFull', 'id');
+    this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 2).subscribe((res: any) => {
+      // res.forEach(obj => {
+      //   obj.TenFull = `${obj.soHopDong} - ${obj.tenHopDong}`;
+      // });
+      this.listhopdong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
       this.listhopdong_copy = deepCopy(res);
     })
   }
@@ -196,11 +196,11 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
           obj.thoiGianCapCang = UnixToDate(obj.thoiGianCapCangUnix);
         });
       }
-      this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn).subscribe((res: any) => {
-        res.forEach(obj => {
-          obj.TenFull = `${obj.soHopDong} - ${obj.tenHopDong}`;
-        });
-        this.listhopdong = mapArrayForDropDown(res, 'TenFull', 'id');
+      this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 2).subscribe((res: any) => {
+        // res.forEach(obj => {
+        //   obj.TenFull = `${obj.soHopDong} - ${obj.tenHopDong}`;
+        // });
+        this.listhopdong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
         this.listhopdong_copy = deepCopy(res);
         this.GetListdmLoaiBongForHopDong();
       })

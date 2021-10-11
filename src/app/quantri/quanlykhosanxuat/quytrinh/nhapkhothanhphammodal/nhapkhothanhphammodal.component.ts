@@ -7,6 +7,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
 import {DecimalPipe} from '@angular/common';
+import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
 
 @Component({
   selector: 'app-nhapkhothanhphammodal',
@@ -258,6 +259,13 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   }
   TongKhoiLuong(item){
     item.TongKhoiLuong = (item.SoQuaSoiThanhPham||0) * (item.KgCone||0);
+  }
+  tinhToan(item, opt) {
+    let modalRef = this._modal.open(CalcmodalComponent)
+    modalRef.result.then((res) => {
+      item[opt]=res;
+      this.TongKhoiLuong(item);
+    })
   }
   ExportExcel(){
     if(validVariable(this.item.Id)){

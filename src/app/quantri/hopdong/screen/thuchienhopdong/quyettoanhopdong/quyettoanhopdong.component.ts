@@ -1,10 +1,7 @@
 
 import { vn } from 'src/app/services/const';
-
-import { ChitiethopdongbongxomodalComponent } from './../../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component';
 import { number } from "@amcharts/amcharts4/core";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
-
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -54,12 +51,7 @@ export class QuyettoanhopdongComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
-        this._service
-          .QuyetToanHopDong()
-          .Get(res.id)
-          .subscribe((res: any) => {
-            this.update(res);
-          });
+        this.update(res.id);
       }
     });
     this.KiemTraTabTrangThai();
@@ -100,53 +92,16 @@ export class QuyettoanhopdongComponent implements OnInit {
         this.changeParam(0);
       });
   }
-  
-  // update(id) {
-  //   this._service
-  //     .QuyetToanHopDong()
-  //     .Get(id)
-  //     .subscribe((res1: any) => {
-  //       let modalRef = this._modal.open(QuyettoanhopdongmodalComponent, {
-  //         size: "fullscreen",
-  //         backdrop: "static",
-  //       });
-  //       modalRef.componentInstance.opt = "edit";
-  //       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
-  //       //       modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
-  //       // modalRef.componentInstance.item.DenNgay = UnixToDate(
-  //       //   item.DenNgayUnix
-  //       // );
 
-  //       modalRef.result
-  //         .then((res: any) => {
-  //           this.GetListQuyTrinh();
-  //           this.changeParam(0);
-  //         })
-  //         .catch((er) => {
-  //           console.log(er);
-  //           this.GetListQuyTrinh();
-  //           this.changeParam(0);
-  //         });
-  //     });
-  // }
-
-  update(item) {
-    this._service
-      .QuyetToanHopDong()
-      .Get(item.id)
-      .subscribe((res1: any) => {
-       
+  update(id) {
+    this._service.QuyetToanHopDong().Get(id).subscribe((res1: any) => {
         let modalRef = this._modal.open(QuyettoanhopdongmodalComponent, {
           size: "fullscreen",
           backdrop: "static",
         });
+        
         modalRef.componentInstance.opt = "edit";
         modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
-        //       modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
-        // modalRef.componentInstance.item.DenNgay = UnixToDate(
-        //   item.DenNgayUnix
-        // );
-
         modalRef.result
           .then((res: any) => {
             this.GetListQuyTrinh();

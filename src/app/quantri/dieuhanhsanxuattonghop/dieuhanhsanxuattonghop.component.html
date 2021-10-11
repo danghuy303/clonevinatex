@@ -132,7 +132,7 @@
                     </div>
                     <div class="p-inputgroup" style="width:150px">
                         <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
-                            (keyup.enter)="GetList()" [(ngModel)]="filter.KeyWord" />
+                            (keyup.enter)="GetBieuDoDuongKiemTraChatLuong()" [(ngModel)]="filter.KeyWord" />
                         <button type="button" pButton pRipple icon="pi pi-refresh"
                             class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
                     </div>
@@ -204,6 +204,15 @@
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
+            <tr class="normal">
+                <th style="width: 200px !important;"></th>
+                <th></th>
+                <th></th>
+                <th>Tổng phế: {{TongPheSanLuong|number:'0.0-3'}}</th>
+                <th>SL đã trừ phế: {{(TongKhoiLuongSanLuong-TongPheSanLuong)|number:'0.0-3'}}</th>
+                <th></th>
+                <th></th>
+            </tr>
             <tr class="normal">
                 <th style="width: 200px !important;">Mặt hàng</th>
                 <th>Chi số</th>
@@ -302,7 +311,7 @@
 </p-dialog>
 
 <p-dialog [header]="labelLuyKeChiTiet" [(visible)]="showLuyKeChiTiet" [modal]="true"
-    [style]="{width: '95vw', height:auto}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    [style]="{width: '95vw', height:'auto'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
     <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
         <div class="p-d-flex p-flex-row">
             <div class="p-mr-2">
@@ -333,6 +342,15 @@
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
+            <tr class="normal">
+                <th style="width: 200px !important;"></th>
+                <th></th>
+                <th></th>
+                <!-- <th>Máy chạy</th> -->
+                <th>Tổng phế: {{TongPheLuyKeChiTiet|number:'0.0-3'}}</th>
+                <th>SL đã trừ phế: {{(TongKhoiLuongLuyKeChiTiet-TongPheLuyKeChiTiet)|number:'0.0-3'}}</th>
+                <th></th>
+            </tr>
             <tr class="normal">
                 <th style="width: 200px !important;">Mặt hàng</th>
                 <th>Chi số</th>

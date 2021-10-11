@@ -2,15 +2,12 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreBase } from 'src/app/services/storebase.class';
-// import { KehoachsanxuatmodalComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/kehoachsanxuatmodal/kehoachsanxuatmodal.component';
-import { GiaokehoachsanxuathoanthanhmodalComponent } from 'src/app/quantri/quanlykhosanxuat/quytrinh/giaokehoachsanxuathoanthanhmodal/giaokehoachsanxuathoanthanhmodal.component';
-import { KehoachsanxuatmodalComponent } from '../../modal/kehoachsanxuatmodal/kehoachsanxuatmodal.component';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
+import { GiaokehoachsanxuatmodalComponent } from './giaokehoachsanxuatmodal/giaokehoachsanxuatmodal.component';
 
 
 @Component({
@@ -19,7 +16,6 @@ import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
   styleUrls: ['./giaokehoachsanxuat.component.css']
 })
 
-// chua co api nen tam thoi lay tam api phat hop dong 
 export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [];
@@ -30,18 +26,18 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
-      header: 'Tổng sản lượng(tấn)',
-      field: 'TongSanLuong',
+      header: 'Tổng sản lượng(Tấn)',
+      field: 'tongKhoiLuong',
       width: '80px'
     },
     {
       header: 'Tổng số ca',
-      field: 'TongSoCa',
+      field: 'tongSoCa',
       width: '80px'
     },
     {
       header: 'Trạng thái',
-      field: 'TenTrangThai',
+      field: 'tenTrangThai',
       width: '80px'
     },
   ];
@@ -66,7 +62,7 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
   }
   add() {
     this.changeParam(0);
-    let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
+    let modalRef = this._modal.open(GiaokehoachsanxuatmodalComponent, {
       size: 'fullscreen-100',
       backdrop: 'static'
     })
@@ -87,20 +83,20 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
     this._HopDongService.GiaoKeHoachSanXuat().Get(Id).subscribe((item: any) => {
       this._service.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
         this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
-        if (item.listItem != undefined && item.listItem != null) {
+        if (!validVariable(item.listItem)) {
+          item.listItem = [];
+        }
           item.listItem.filter(objlistItem => {
-            objlistItem.listItem.filter(async objlistItem2 => {
-              objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
+            objlistItem.listQuyCachDongGoi.filter(async objlistItem2 => {
+              objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.iddmQuyCachDongGoi == obj.value)[0];
             });          
           });
-          let modalRef = this._modal.open(KehoachsanxuatmodalComponent, {
+          let modalRef = this._modal.open(GiaokehoachsanxuatmodalComponent, {
             size: 'fullscreen-100',
             backdrop: 'static'
           })
           modalRef.componentInstance.opt = 'edit';
           modalRef.componentInstance.item = item;
-          modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
-          modalRef.componentInstance.item.DenNgay = UnixToDate(item.DenNgayUnix);
           modalRef.result.then((res: any) => {
             console.log(res);
             this._toastr.success('Cập nhật thành công');
@@ -108,7 +104,6 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
             this.changeParam(0)
           })
             .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
-        }
       })  
     },(err)=>{
       if(err.status ===500){
@@ -131,18 +126,21 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
       this.paginator.changePage(0);
     }
     let data = {
-      PageSize: 20,
-      CurrentPage: this.paging.CurrentPage,
-      TabTrangThai: this.trangThai,
-      sFilter: this.filter.KeyWord,
-      TuNgay: DateToUnix(this.filter.TuNgay),
-      DenNgay: DateToUnix(this.filter.DenNgay),
-      Ma: "",
-      Ten: "",
+      pageSize: 20,
+      currentPage: this.paging.CurrentPage,
+      tabTrangThai: this.trangThai,
+      keyWord: this.filter.KeyWord,
+      tuNgay: DateToUnix(this.filter.TuNgay),
+      denNgay: DateToUnix(this.filter.DenNgay),
     }
     this._HopDongService.GiaoKeHoachSanXuat().GetList(data).subscribe((res: any) => {
       this.items = res.data.items;
-      this.paging = res.data;
+      this.paging.TotalItem = res.data?.totalCount;
+      this.paging.TotalPage = res.data?.totalPages;
+      this.items.forEach(element => {
+        element.ngayBatDau = UnixToDate(element.ngayBatDauUnix);
+        element.ngayKetThuc = UnixToDate(element.ngayKetThucUnix);
+      });
     })
   }
   resetFilter() {
@@ -154,39 +152,5 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
-  }
-  hoanthanh(Id) {
-    // this.router.navigate([`quantri/kehoachsanxuat/giaokehoachsanxuat/${Id}`], { replaceUrl: true })
-    this._HopDongService.GiaoKeHoachSanXuat().Get(Id).subscribe((item: any) => {
-      this._service.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
-        this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');
-        console.log(item)
-        if (item.listItem != undefined && item.listItem != null) {
-          item.listItem.filter(objlistItem => {
-            objlistItem.listItem.filter(async objlistItem2 => {
-              objlistItem2.objQuyCachDongGoi = await this.listQuyCachDongGoi.filter(obj => objlistItem2.IddmQuyCachDongGoi == obj.value)[0];
-            });          
-          });
-          let modalRef = this._modal.open(GiaokehoachsanxuathoanthanhmodalComponent, {
-            size: 'fullscreen-100',
-            backdrop: 'static'
-          })
-          modalRef.componentInstance.opt = 'edit';
-          modalRef.componentInstance.item = item;
-          modalRef.componentInstance.item.TuNgay = UnixToDate(item.TuNgayUnix);
-          modalRef.componentInstance.item.DenNgay = UnixToDate(item.DenNgayUnix);
-          modalRef.result.then((res: any) => {
-            console.log(res);
-            this._toastr.success('Cập nhật thành công');
-            this.GetListQuyTrinh();
-            this.changeParam(0)
-          })
-            .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
-        }
-      }) 
-    });
-  }
-  ngOnDestroy(){
-    super.ngOnDestroy();
   }
 }

@@ -354,3 +354,6 @@ span.required {
 .paragraph{
     white-space: pre-line;
 }
+.font-12 *{
+    font-size: 12px !important;
+}

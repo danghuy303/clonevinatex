@@ -39,6 +39,11 @@ import { ThanhtoanhopdongsoiComponent } from './screen/thuchienhopdong/thanhtoan
 import { HopdongvattuphuComponent } from './screen/hopdongvattuphu/hopdongvattuphu.component';
 import { HopdongxuatlobongxoComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxo.component';
 import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmucsanxuat.component';
+import { ThanhtoanvattuphuComponent } from './screen/thuchienhopdong/thanhtoanvattuphu/thanhtoanvattuphu.component';
+import { NhapvattuphuComponent } from './screen/thuchienhopdong/nhapvattuphu/nhapvattuphu.component';
+import { DanhsachhopdongsoiComponent } from './screen/danhsachhopdongsoi/danhsachhopdongsoi.component';
+import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattuphu/danhsachhopdongvattuphu.component';
+import { QuytrinhdanhgiakhachhangComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/quytrinhdanhgiakhachhang.component';
 const routes: Routes = [
   {path:'',component:HopdongComponent},
   {path:'danhmuc/danhmuchinhthucthanhtoan',component:DanhmuchinhthucthanhtoanComponent},
@@ -83,6 +88,11 @@ const routes: Routes = [
   { path: 'quytrinhthanhtoansoi/:id', component: ThanhtoanhopdongsoiComponent },
   { path: 'laphopdongvattuphu/:id', component: HopdongvattuphuComponent },
   { path: 'phieuxuatlobongxo/:id', component: HopdongxuatlobongxoComponent },
+  { path: 'nhapvattuphu/:id', component: NhapvattuphuComponent },
+  { path: 'quytrinhthanhtoanvattuphu/:id', component: ThanhtoanvattuphuComponent },
+  { path: 'danhsachhopdongsoi/:id', component: DanhsachhopdongsoiComponent },
+  { path: 'danhsachhopdongvattuphu/:id', component: DanhsachhopdongvattuphuComponent },
+  { path: 'danhgiakhachhang/:id', component: QuytrinhdanhgiakhachhangComponent },
 
   //
  

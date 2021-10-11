@@ -12,11 +12,7 @@ import { StoreService } from 'src/app/services/store.service';
   templateUrl: './nhapkhovattuphumodal.component.html',
   styleUrls: ['./nhapkhovattuphumodal.component.css']
 })
-export class 
-
-
-
-NhapkhovattuphumodalComponent implements OnInit {
+export class  NhapkhovattuphumodalComponent implements OnInit {
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -172,7 +168,7 @@ NhapkhovattuphumodalComponent implements OnInit {
   }
   getListHopDong() {
     let IdDuAn = this.store.getCurrent();
-    this._services.GetOptions().GetDanhSachHopDongByNhaThau(IdDuAn).subscribe((res: any) => {
+    this._services.GetOptions().GetDanhSachHopDongByNhaThau(IdDuAn, 23).subscribe((res: any) => {
       this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
     })
   }

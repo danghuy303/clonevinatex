@@ -1,0 +1,142 @@
+import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { deepCopy, validVariable } from 'src/app/services/globalfunction';
+
+@Component({
+  selector: 'app-chonkhachhangmodal',
+  templateUrl: './chonkhachhangmodal.component.html',
+  styleUrls: ['./chonkhachhangmodal.component.css']
+})
+export class ChonkhachhangmodalComponent implements OnInit {
+  item: any = {};
+  items: any = [];
+  selectedItems: any = [];
+  IdQuyTrinh : any = '';
+  Loai : any = 0;
+  cols: any = [
+    {
+      header: 'Mã khách hàng',
+      field: 'Ma',
+      width: 'unset'
+    },
+    {
+      header: 'Tên khách hàng',
+      field: 'Ten',
+      width: 'unset'
+    },
+    {
+      header: 'Số điện thoại',
+      field: 'SoDienThoai',
+      width: 'unset'
+    },
+    {
+      header: 'Địa chỉ',
+      field: 'DiaChi',
+      width: 'unset'
+    },
+    {
+      header: 'Ghi chú',
+      field: 'GhiChu',
+      width: 'unset'
+    },
+  ];
+  loai='';
+  checkedAll: boolean = false;
+  paging: any = {};
+
+  KeyWord: any = '';
+  constructor(
+    public activeModal: NgbActiveModal,
+  ) { }
+
+  ngOnInit(): void {
+    this.paging.CurrentPage = 1;
+    this.paging.TotalPage = 5;
+    this.paging.TotalItem = this.items.length;
+    if(this.selectedItems != undefined && this.selectedItems!= null)
+    {
+      for(let i = 0; i < this.selectedItems.length; i++){
+        console.log(this.selectedItems[i])
+        let itemFind = this.items.find(
+          ele => (ele.IddmItem === this.selectedItems[i].iddmItem )
+         )
+        if(validVariable(itemFind)){
+          itemFind.checked = true;
+        }
+      }
+    }
+    this.item.listThuTucThanhToan_ref = this.items.slice(0,15);
+    this.item.listThuTucThanhToan_ref_copy = this.items;
+  }
+  checkAll(e) {
+    this.items.forEach(item => {
+      item.checked = e.checked;
+      this.checkItem(item)
+    });
+  }
+
+  changePage(event) {
+    console.log(event)
+    this.paging.CurrentPage = event.page + 1;
+    var start = 15 * (event.page);
+    var end =  start + 15;
+    if((start + 15) > this.paging.TotalItem)
+      end= this.paging.TotalItem;
+    this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref_copy.slice(start,end);
+  }
+  accept() {
+    this.activeModal.close(this.selectedItems)
+  }
+  filtertable_add() {
+    if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
+      this.item.listThuTucThanhToan_ref_copy = deepCopy(this.items);
+      let filter: any = this.item.listThuTucThanhToan_ref_copy.filter(
+        ele=>ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase()) || ele.Ma.toLowerCase().includes(this.KeyWord.toLowerCase())
+      );
+      console.log(filter)
+      this.item.listThuTucThanhToan_ref = filter;
+      this.item.listThuTucThanhToan_ref_copy = filter;
+    }
+    else {
+      this.item.listThuTucThanhToan_ref = this.items;
+      this.item.listThuTucThanhToan_ref_copy = this.items;
+    }
+    this.paging.CurrentPage = 1;
+    this.paging.TotalPage = 5;
+    this.paging.TotalItem = this.item.listThuTucThanhToan_ref.length;
+    this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref.slice(0,15);
+  }
+  resetFilter() {
+    this.KeyWord = '';
+    this.filtertable_add();
+  }
+  
+checkItem(item){
+if(item.checked == true)
+{
+  let itemFind: any = this.selectedItems.filter((e: any) =>e.iddmItem === item.Id)[0]
+  if(itemFind === undefined){
+    let itemFinds = this.items.find(e => e.checked === true && e.Id === item.Id);
+    let data: any = {
+      iddmKhachHang: itemFinds.Id,
+      ten: itemFinds.Ten,
+      ma: itemFinds.Ma,
+      isXoa: false,
+      id: '',
+    }
+    this.selectedItems.push(data)
+  }
+  else
+    itemFind.isXoa = false;
+}
+  else{
+    let itemFind = this.selectedItems.filter((e: any) =>e.IddmItem === item.id)[0];
+    if(itemFind !== undefined){
+      itemFind.isXoa = true;
+    }
+  }
+}
+Onclose() {
+  this.activeModal.close()
+}
+}

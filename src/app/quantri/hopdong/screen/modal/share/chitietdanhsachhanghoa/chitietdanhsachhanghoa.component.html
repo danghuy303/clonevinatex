@@ -153,7 +153,7 @@
             <th class="text-center">STT</th>
             <th class="text-center">Mã mặt hàng</th>
             <th class="text-center">Tên mặt hàng</th>
-            <th class="text-center">Số lượng</th>
+            <th class="text-center">Số lượng (kg)</th>
             <th class="text-center">Đơn giá(có VAT)</th>
             <th class="text-center">Thành tiền</th>
             <th class="text-center" *ngIf="isXo">Quy cách đóng gói</th>
@@ -309,21 +309,14 @@
       </div>
     </div>
     <div class="p-col-12 p-xl-6 p-lg-6 p-p-3  d-flex flex-column flex-xl-row">
-
-
       <div style="padding:0; margin:0" class="p-col-12  p-xl-6 p-p-3 d-flex flex-column flex-xl-row  p-py-0 ">
-
         <div class="p-col-12 p-lg-2 p-d-flex p-ml-lg-0 p-p-0">
           <p-checkbox [(ngModel)]="hopDong.BenBanChiu" binary="true" inputId="BenBanChiu"
             (onChange)="hopDong.BenMuaChiu=!hopDong.BenBanChiu"></p-checkbox>
         </div>
         <label class="p-col-12 p-lg-10 p-p-0 my-auto" for="BenBanChiu">Bên bán chịu</label>
       </div>
-
-
-
       <div class="p-col-12  p-xl-6  p-p-3 d-flex flex-column flex-xl-row p-px-0 p-py-0 p-m-0">
-
         <div class="p-col-12 p-lg-2 p-d-flex p-jc-end p-mr-4 p-ml-xl-2 p-ml-lg-0 p-p-0">
           <p-checkbox [(ngModel)]="hopDong.BenMuaChiu" binary="true" inputId="BenMuaChiu"
             (onChange)="hopDong.BenBanChiu=!hopDong.BenMuaChiu"></p-checkbox>

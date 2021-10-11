@@ -111,7 +111,7 @@ export class HopdongxuatlobongxoComponent implements OnInit {
       pageSize: 20,
       currentPage: this.paging.currentPage,
       tabTrangThai: this.trangThai,
-      keyWord: this.filter.keyWord,
+      keyWord: this.filter.KeyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
       idUser: this.userInfo.Id,

@@ -498,11 +498,11 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/quanlykhosanxuat/tonkhobongxo/khobong/0",
             command: () => this.close(),
           },
-          // {
-          //   label: "Cho vay",
-          //   routerLink: "/quantri/quanlykhosanxuat/xuatbongchovay/khobong/0",
-          //   command: () => this.close(),
-          // },
+          {
+            label: "Cho vay",
+            routerLink: "/quantri/quanlykhosanxuat/xuatbongchovay/khobong/0",
+            command: () => this.close(),
+          },
           // {
           //     label: 'Điều chuyển',
           //     routerLink: '/quantri/quanlykhosanxuat/khobong/dieuchuyen/0',
@@ -662,8 +662,18 @@ export class QuantriComponent implements OnInit {
         visible: this.showHopDongModule,
         items: [
           {
-            label: "Danh sách hợp đồng bông/xơ",
+            label: "Danh sách HĐ bông/xơ",
             routerLink: "/quantri/hopdongsanxuat/danhsachhopdongbongxo/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Danh sách HĐ sợi",
+            routerLink: "/quantri/hopdongsanxuat/danhsachhopdongsoi/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Danh sách HĐ vật tư phụ",
+            routerLink: "/quantri/hopdongsanxuat/danhsachhopdongvattuphu/0",
             command: () => this.close(),
           },
           {
@@ -682,7 +692,7 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
-            label: "Lập hợp vật tư phụ",
+            label: "Lập hợp đồng vật tư phụ",
             routerLink:
 
               "/quantri/hopdongsanxuat/laphopdongvattuphu/0",
@@ -700,6 +710,13 @@ export class QuantriComponent implements OnInit {
         visible: this.showHopDongModule,
         items: [
           {
+            label: "Giao kế hoạch sản xuất",
+            routerLink: "/quantri/hopdongsanxuat/giaokehoachsanxuat/0",            
+            command: () => {
+              this.close();
+            },
+          },
+          {
             label: "Kế hoạch nhập bông",
             routerLink: "/quantri/hopdongsanxuat/kehoachnhapbong/0",
 
@@ -712,6 +729,11 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
+            label: "Phiếu nhập vật tư phụ",
+            routerLink: "/quantri/hopdongsanxuat/nhapvattuphu/0",
+            command: () => this.close(),
+          },
+          {
             label: "Phiếu xuất sợi",
             routerLink:
               "/quantri/hopdongsanxuat/xuatkhothanhpham/0",
@@ -719,22 +741,11 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
-            label: "Giao nhận hàng hoá",
-            routerLink: "/quantri/hopdongsanxuat/giaonhanhanghoa/0",
-
-            command: () => this.close(),
-          },
-          {
-            label: "Phạt hợp đồng",
-            routerLink: "/quantri/hopdongsanxuat/phathopdong/0",
-
-            command: () => this.close(),
-          },
-          {
-            label: "Gia hạn hợp đồng",
-            routerLink: "/quantri/hopdongsanxuat/giahanhopdong/0",
-
-            command: () => this.close(),
+            label: "Phiếu xuất lô bông/xơ",
+            routerLink: "/quantri/hopdongsanxuat/phieuxuatlobongxo/0",            
+            command: () => {
+              this.close();
+            },
           },
           {
             label: "Quyết toán hợp đồng",
@@ -755,19 +766,35 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
-            label: "Giao kế hoạch sản xuất",
-            routerLink: "/quantri/hopdongsanxuat/giaokehoachsanxuat/0",            
-            command: () => {
-              this.close();
-            },
+            label: "Thanh toán vật tư phụ",
+            routerLink: "/quantri/hopdongsanxuat/quytrinhthanhtoanvattuphu/0",
+
+            command: () => this.close(),
           },
           {
-            label: "Phiếu xuất lô bông/xơ",
-            routerLink: "/quantri/hopdongsanxuat/phieuxuatlobongxo/0",            
-            command: () => {
-              this.close();
-            },
-          }
+            label: "Phạt hợp đồng",
+            routerLink: "/quantri/hopdongsanxuat/phathopdong/0",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Gia hạn hợp đồng",
+            routerLink: "/quantri/hopdongsanxuat/giahanhopdong/0",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Giao nhận hàng hoá",
+            routerLink: "/quantri/hopdongsanxuat/giaonhanhanghoa/0",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Đánh giá khách hàng",
+            routerLink: "/quantri/hopdongsanxuat/danhgiakhachhang/0",
+
+            command: () => this.close(),
+          },
         ],
       },
       /////////////      Danh Mục Hợp Đồng
@@ -780,13 +807,6 @@ export class QuantriComponent implements OnInit {
           {
             label: "Hình thức thanh toán",
             routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmuchinhthucthanhtoan",
-            command: () => this.close(),
-          },
-          {
-            label: "Loại hợp đồng",
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmuc/danhmucloaihopdong",
-
             command: () => this.close(),
           },
           {

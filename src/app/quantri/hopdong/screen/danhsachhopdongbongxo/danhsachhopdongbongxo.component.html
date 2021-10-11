@@ -44,6 +44,7 @@
                 <col style="width: 200px;">
                 <col style="width: 200px;">
                 <col>
+                <col>
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -55,19 +56,21 @@
                 <th>Giá trị quyết toán</th>
                 <th>Giá trị đã chi/nhận</th>
                 <th>Giá trị còn lại</th>
-                <th>Nhà cung cấp/Khách hàng</th>
+                <th>Bên A</th>
+                <th>Bên B</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center"> {{ 20 * (paging.currentPage - 1) + i + 1 }} </td>
-                <td class="text-center">{{item.soHopDong}} - {{item.tenHopDong}} </td>
+                <td class="text-left">{{item.soHopDong}} - {{item.tenHopDong}} </td>
                 <td class="text-center">{{item.ngayKy | date:'dd/MM/yyyy'}}</td>
-                <td class="text-right">{{item.giaTri |number:'0.0-3'}}</td>
-                <td class="text-right">{{item.giaTriQuyetToan |number:'0.0-3'}}</td>
-                <td class="text-right">{{item.giaTriThanhToan |number:'0.0-3'}}</td>
-                <td class="text-right">{{item.giaTriConLai |number:'0.0-3'}}</td>
-                <td class="text-center">{{item.tenKhachHang}}</td>
+                <td class="text-right">{{item.giaTri |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.giaTriQuyetToan |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.giaTriThanhToan |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.giaTriConLai |number:'0.0-0'}}</td>
+                <td class="text-left">{{item.benA}}</td>
+                <td class="text-left">{{item.benB}}</td>
                 <!-- <td class="text-center" *ngFor="let col of cols"> {{item[col.field]}} </td> -->
                 <!-- <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.id)"></button>
