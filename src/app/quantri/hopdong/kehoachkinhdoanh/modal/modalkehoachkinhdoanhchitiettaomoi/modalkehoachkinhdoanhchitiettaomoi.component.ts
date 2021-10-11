@@ -114,7 +114,8 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
             SanLuongDuKien: 0,
             SanLuongDangDo: 0,
             selectedNhaMay: this.listNhaMay.length > 1 ? [] : [this.listNhaMay[0].value],
-            lstKH_KeHoachKinhDoanh_SanPham_NhaMay: this.listNhaMay.length > 1 ? [] : [{ IdDuAn: this.listNhaMay[0].value, TenNhaMay: this.listNhaMay[0].label }]
+            lstKH_KeHoachKinhDoanh_SanPham_NhaMay: this.listNhaMay.length > 1 ? [] : [{ IdDuAn: this.listNhaMay[0].value, TenNhaMay: this.listNhaMay[0].label }],
+            lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong:[],
           }
         );
         exist.push(key);
