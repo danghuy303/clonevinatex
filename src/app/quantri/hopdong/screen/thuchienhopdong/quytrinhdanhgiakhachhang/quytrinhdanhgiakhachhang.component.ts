@@ -77,7 +77,7 @@ export class QuytrinhdanhgiakhachhangComponent implements OnInit {
   }
 
   update(Id) {
-    this._hopdong.QuyTrinhThanhToan().Get(Id).subscribe((res1: any) => {
+    this._hopdong.QuyTrinhDanhGia().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(QuytrinhdanhgiakhachhangmodalComponent, {
         size: 'fullscreen',
         backdrop: 'static'
@@ -125,9 +125,8 @@ export class QuytrinhdanhgiakhachhangComponent implements OnInit {
       Ma: "",
       Ten: "",
       IdHopDong: this.filter.IdHopDong,
-      Loai:23,
     }
-    this._hopdong.QuyTrinhThanhToan().GetList(data).subscribe((res: any) => {
+    this._hopdong.QuyTrinhDanhGia().GetList(data).subscribe((res: any) => {
       this.items = res.data.items;
       if (this.items.length > 0) {
         this.items.forEach(element => {
@@ -149,7 +148,6 @@ export class QuytrinhdanhgiakhachhangComponent implements OnInit {
         ThemMoi: true,
         ChuaXuLy: true,
         DaXyLy: true,
-
       }
       this.GetListQuyTrinh();
     })
