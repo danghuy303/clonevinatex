@@ -5,7 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 import { ChinhsuadanhgiakhachhangmodalComponent } from '../chinhsuadanhgiakhachhangmodal/chinhsuadanhgiakhachhangmodal.component';
 import { ChonkhachhangmodalComponent } from '../chonkhachhangmodal/chonkhachhangmodal.component';
@@ -45,12 +45,8 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       this.item = {
         id: '',
-        listFileDinhKem : [],
-        listThanhToanMatHang  : [],
-        listThanhToanThuHoi  : [],
-        listThanhToanInvoice  : [],
+        listPhieuDanhGia  : [],
         idDuAn: this.IdDuAn,
-        loai:23,
       }
       this.GetNextSoQuyTrinh();
     }
@@ -71,9 +67,8 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
     })
   }
   ChuyenTiep() {
-    if(this.CheckTruocKhiLuu()){
       this.item.ngayUnix = DateToUnix(this.item.ngay);
-      this._hopdong.QuyTrinhThanhToan().ChuyenTiep(this.item).subscribe((res: any) => {
+      this._hopdong.QuyTrinhDanhGia().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.statusCode === 200) {
             this.activeModal.close();
@@ -83,20 +78,28 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
           }
         }
       })
-    }
   }
-
+  KhongDuyet() {
+      this.item.ngayUnix = DateToUnix(this.item.ngay);
+      this._hopdong.QuyTrinhDanhGia().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res) {
+          if (res.statusCode === 200) {
+            this.activeModal.close();
+            this.toastr.success(res.message)
+          } else {
+            this.toastr.error(res.message);
+          }
+        }
+      })
+  }
   GetNextSoQuyTrinh() {
-    this._hopdong.QuyTrinhThanhToan().GetNextSoQuyTrinh().subscribe((res: any) => {
+    this._hopdong.QuyTrinhDanhGia().GetNextSoQuyTrinh().subscribe((res: any) => {
       this.item.soQuyTrinh = res.data;
     })
   }
 
   GhiLai() {
-    if(this.CheckTruocKhiLuu())
-    {
-      this.item.ngayUnix = DateToUnix(this.item.ngay);
-      this._hopdong.QuyTrinhThanhToan().Set(this.item).subscribe((res: any) => {
+      this._hopdong.QuyTrinhDanhGia().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.statusCode === 200) {
             this.toastr.success(res.message)
@@ -107,7 +110,6 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
           }
         }
       })
-    }
   }
 
   XoaQuyTrinh() {
@@ -116,7 +118,7 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
-      this._hopdong.QuyTrinhThanhToan().Delete(this.item.id).subscribe((res: any) => {
+      this._hopdong.QuyTrinhDanhGia().Delete(this.item.id).subscribe((res: any) => {
         console.log(res);
         if (res?.statusCode === 200) {
           this.activeModal.close();
@@ -129,58 +131,49 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
   }
 
   getQuyTrinh(Id) {
-    this._hopdong.QuyTrinhThanhToan().Get(Id).subscribe((res1: any) => {
+    this._hopdong.QuyTrinhDanhGia().Get(Id).subscribe((res1: any) => {
       this.item=res1.data;
       this.KiemTraButtonModal();
     })
   }
   delete(index) {
-    let item = this.item.listItem.splice(index, 1)[0];
+    let item = this.item.listPhieuDanhGia.splice(index, 1)[0];
     if (item.id === '' || item.id === null || item.id === undefined) {
     } else {
       item.isXoa = true;
-      this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+      this.item.listPhieuDanhGia.push(JSON.parse(JSON.stringify(item)));
     }
   }
 
   Onclose() {
     this.activeModal.close();
   }
-  CheckTruocKhiLuu(){
-    if (this.item.idHopDong === null || this.item.idHopDong === undefined) {
-      this.toastr.error("Bạn chưa chọn hợp đồng!");
-      return false;
-    }
-    else if (this.item.ngayThanhToan === null || this.item.ngayThanhToan === undefined) {
-      this.toastr.error("Bạn chưa chọn  ngày!");
-      return false;
-    }
-    return true;
-  }
   chonKhachHang(){
     let modalRef = this._modal.open(ChonkhachhangmodalComponent, {
       size: 'xl'
     })
     modalRef.componentInstance.items = this.listKhachHang;
-    modalRef.componentInstance.selectedItems = this.item.listItem;
+    modalRef.componentInstance.selectedItems = deepCopy(this.item.listPhieuDanhGia || []);
     modalRef.componentInstance.IdQuyTrinh = this.item.id;
     modalRef.componentInstance.opt = "";    
     modalRef.result.then(res => {
-      this.item.listItem = res;
+      this.item.listPhieuDanhGia = deepCopy(res);
     }).catch(er => {
       console.log(er);
     })
   }
-  chinhsua(){
+  chinhsua(item){
     let modalRef = this._modal.open(ChinhsuadanhgiakhachhangmodalComponent, {
       size: 'xl'
     })
+    modalRef.componentInstance.item = item;
     modalRef.componentInstance.items = this.listKhachHang;
-    modalRef.componentInstance.selectedItems = this.item.listItem;
+    modalRef.componentInstance.selectedItems = deepCopy(this.item.listPhieuDanhGia || []);
+
     modalRef.componentInstance.IdQuyTrinh = this.item.id;
     modalRef.componentInstance.opt = "";    
     modalRef.result.then(res => {
-      this.item.listItem = res;
+      this.item.listPhieuDanhGia = deepCopy(res);
     }).catch(er => {
       console.log(er);
     })
