@@ -593,10 +593,7 @@ export class SanXuatService {
             GetDanhMucNoiDiaXuatKhau: () => {
                 return this.http.get(`${API.KeHoach}DanhMuc/GetDanhMucNoiDiaXuatKhau`, httpOptions)
             },
-            GetListDinhMucSanXuatPhanXuong: () => {
 
-            } 
-            // /SCM/DanhMuc/GetListDinhMucSanXuatPhanXuong?IdDuAn=0
         }
     }
 
