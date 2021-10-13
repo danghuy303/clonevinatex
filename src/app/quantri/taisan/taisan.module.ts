@@ -41,6 +41,8 @@ import { LoaderInterceptor } from 'src/app/services/loader.interceptor';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { Dat09Service } from 'src/app/services/callApi';
 import { LoaderService } from 'src/app/services/loader.service';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 
 
 @NgModule({
@@ -86,7 +88,9 @@ import { LoaderService } from 'src/app/services/loader.service';
   providers: [    
     LoaderService,
     SanXuatService,
-    Dat09Service,  
+    Dat09Service,
+    TaisanService,  
+    DanhmuctaisanService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true, },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
