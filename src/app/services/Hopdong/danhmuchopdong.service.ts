@@ -313,6 +313,12 @@ export class DanhMucHopDongService {
             NextQuyTrinh: () => {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetNextSoQuyTrinh`, httpOptions)
             },
+            ChuyenTiep: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/ChuyenTiepQuyTrinh`, data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/KhongDuyetQuyTrinh`, data, httpOptions)
+            },
             Delete: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/DeleteQuyTrinh`, data, httpOptions)
             }

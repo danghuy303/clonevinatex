@@ -5,7 +5,7 @@ import { interval } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { ModaldongiakehoachthucteComponent } from '../modaldongiakehoachthucte/modaldongiakehoachthucte.component';
@@ -44,7 +44,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   checkbutton: any = {};
   showThoiGianHopDong: boolean = false;
   labelThang: Array<string> = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12',];
-  propThang: Array<string> = ['Thang1', 'Thang2', 'Thang3', 'Thang4', 'Thang5', 'Thang6', 'Thang7', 'Thang8', 'Thang9', 'Thang10', 'Thang11', 'Thang12 ',]
+  propThang: Array<string> = ['Thang1', 'Thang2', 'Thang3', 'Thang4', 'Thang5', 'Thang6', 'Thang7', 'Thang8', 'Thang9', 'Thang10', 'Thang11', 'Thang12',]
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
     public toastr: ToastrService,
     private _services: SanXuatService,
@@ -265,6 +265,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
         }
       });
     });
+    this.item.NgayLapUnix = DateToUnix(this.item.NgayLap)
     return this.item
   }
 
@@ -305,7 +306,32 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     })
   }
   ChapNhan() {
-
+    if (this.validData()) {
+      console.log(this.SetData())
+      this._danhMucHopDong.DanhSachKeHoachKinhDoanh().ChuyenTiep(this.SetData()).subscribe((res: any) => {
+        console.log(res)
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
+        } else {
+          this.toastr.success(res.Message);
+          this.activeModal.close();
+        }
+      })
+    }
+  }
+  KhongDuyet(){
+    if (this.validData()) {
+      console.log(this.SetData())
+      this._danhMucHopDong.DanhSachKeHoachKinhDoanh().KhongDuyet(this.SetData()).subscribe((res: any) => {
+        console.log(res)
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
+        } else {
+          this.toastr.success(res.Message);
+          this.activeModal.close();
+        }
+      })
+    }
   }
 }
 
