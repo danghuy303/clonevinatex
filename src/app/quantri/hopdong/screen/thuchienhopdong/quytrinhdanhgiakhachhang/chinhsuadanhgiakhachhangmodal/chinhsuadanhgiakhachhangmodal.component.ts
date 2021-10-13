@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TreeNode } from 'primeng/api';
 import { deepCopy, validVariable } from 'src/app/services/globalfunction';
 
 @Component({
@@ -44,31 +45,18 @@ export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
   loai='';
   checkedAll: boolean = false;
   paging: any = {};
-
+  vungs: TreeNode[] = [];
   KeyWord: any = '';
   constructor(
     public activeModal: NgbActiveModal,
   ) { }
 
   ngOnInit(): void {
-    this.listHangHoaGoc = deepCopy(this.listHangHoa);
+    if(!validVariable(this.item.listTieuChiDanhGia))
+      this.item.listTieuChiDanhGia = [];
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.items.length;
-    if(this.listHangHoa != undefined && this.listHangHoa!= null)
-    {
-      for(let i = 0; i < this.listHangHoa.length; i++){
-        console.log(this.listHangHoa[i])
-        let itemFind = this.items.find(
-          ele => (ele.IddmItem === this.listHangHoa[i].iddmItem )
-         )
-        if(validVariable(itemFind)){
-          itemFind.checked = true;
-        }
-      }
-    }
-    this.item.listThuTucThanhToan_ref = this.items.slice(0,15);
-    this.item.listThuTucThanhToan_ref_copy = this.items;
   }
   checkAll(e) {
     this.items.forEach(item => {

@@ -65,8 +65,8 @@ export class ChonkhachhangmodalComponent implements OnInit {
         }
       }
     }
-    this.item.listThuTucThanhToan_ref = this.items.slice(0,15);
-    this.item.listThuTucThanhToan_ref_copy = this.items;
+    this.item.listItem_ref = this.items.slice(0,15);
+    this.item.listItem_ref_copy = this.items;
   }
   checkAll(e) {
     this.items.forEach(item => {
@@ -82,29 +82,29 @@ export class ChonkhachhangmodalComponent implements OnInit {
     var end =  start + 15;
     if((start + 15) > this.paging.TotalItem)
       end= this.paging.TotalItem;
-    this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref_copy.slice(start,end);
+    this.item.listItem_ref = this.item.listItem_ref_copy.slice(start,end);
   }
   accept() {
     this.activeModal.close(this.selectedItems)
   }
   filtertable_add() {
     if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
-      this.item.listThuTucThanhToan_ref_copy = deepCopy(this.items);
-      let filter: any = this.item.listThuTucThanhToan_ref_copy.filter(
+      this.item.listItem_ref_copy = deepCopy(this.items);
+      let filter: any = this.item.listItem_ref_copy.filter(
         ele=>ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase()) || ele.Ma.toLowerCase().includes(this.KeyWord.toLowerCase())
       );
       console.log(filter)
-      this.item.listThuTucThanhToan_ref = filter;
-      this.item.listThuTucThanhToan_ref_copy = filter;
+      this.item.listItem_ref = filter;
+      this.item.listItem_ref_copy = filter;
     }
     else {
-      this.item.listThuTucThanhToan_ref = this.items;
-      this.item.listThuTucThanhToan_ref_copy = this.items;
+      this.item.listItem_ref = this.items;
+      this.item.listItem_ref_copy = this.items;
     }
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
-    this.paging.TotalItem = this.item.listThuTucThanhToan_ref.length;
-    this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref.slice(0,15);
+    this.paging.TotalItem = this.item.listItem_ref.length;
+    this.item.listItem_ref = this.item.listItem_ref.slice(0,15);
   }
   resetFilter() {
     this.KeyWord = '';
@@ -118,11 +118,19 @@ if(item.checked == true)
   if(itemFind === undefined){
     let itemFinds = this.items.find(e => e.checked === true && e.Id === item.Id);
     let data: any = {
-      iddmKhachHang: itemFinds.Id,
+      idKhachHang: itemFinds.Id,
       ten: itemFinds.Ten,
       ma: itemFinds.Ma,
+      diaChi: itemFinds.DiaChi,
       isXoa: false,
       id: '',
+      soDienThoai: itemFinds.SoDienThoai,
+      soFax: itemFinds.SoFax,
+      ghiChu: itemFinds.GhiChu,
+      maSoThue: itemFinds.MaSoThue,
+      nguoiDaiDien: itemFinds.NguoiDaiDien,
+      chucVu: itemFinds.ChucVu,
+      taiKhoanNganHang: itemFinds.TaiKhoanNganHang,
     }
     this.selectedItems.push(data)
   }

@@ -836,8 +836,45 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
         ],
+      },    
+
+      /////////////      Quản lý tài sản
+      {
+        label: "Quản lý tài sản",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/taisan",
+        visible: this.showHopDongModule,
+        items: [
+          {
+            label: "Danh sách tài sản",
+            routerLink: "/quantri/taisan/danhsachtaisan",            
+            command: () => {
+              this.close();
+            },
+          },
+          
+        ],
       },
-      /////  menu kế hoạch sau tách..................................
+
+      /////////////      Danh Mục quản lý tài sản
+      {
+        label: "Danh mục quản lý tài sản",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/taisan",
+        visible: this.showHopDongModule,
+        items: [
+          // {
+          //   label: "Danh sách tài sản",
+          //   routerLink: "",            
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          
+        ],
+      },
+
+      /////  menu kế hoạch sau tách..................................      
       {
         label: "Menu kế hoạch kinh doanh",
         icon: "fas fa-circle",

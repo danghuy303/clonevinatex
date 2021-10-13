@@ -430,5 +430,33 @@ export class HopDongService {
         return this.http.post(url + "PhieuXuatLoBong/ChuyenTiepQuyTrinh",data,httpOptions);
       },
     };
+  };
+  QuyTrinhDanhGia() {
+    let url = API.HopDong;
+    return {
+      GetList: (data) => {
+      data.idDuAn = this.store.getCurrent();
+        return this.http.post(url + "DanhGia/GetListQuyTrinh",data,httpOptions);
+      },
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(url + "DanhGia/GetNextSoQuyTrinh",httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(url + `DanhGia/GetById?Id=${Id}`,httpOptions);
+      },
+      Set: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(url + "DanhGia/SetQuyTrinh",data,httpOptions);
+      },
+      Delete: (Id) => {
+        return this.http.get(url + `DanhGia/DeleteQuyTrinh?Id=${Id}`,httpOptions);
+      },
+      KhongDuyet: (data) => {
+        return this.http.post(url + "DanhGia/KhongDuyetQuyTrinh",data,httpOptions);
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(url + "DanhGia/ChuyenTiepQuyTrinh",data,httpOptions);
+      },
+    };
   }
 }

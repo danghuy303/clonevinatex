@@ -51,12 +51,12 @@
     <ng-template pTemplate="body" let-item let-i="rowIndex">
       <tr>
         <td class="text-center">
-          <p-dropdown disabled="disabled" [filter]="true" [options]="listdmLoaiSoi" placeholder="Chọn loại"
+          <p-dropdown [disabled]="disabled" [filter]="true" [options]="listdmLoaiSoi" placeholder="Chọn loại"
             styleClass="p-inputtext-sm" [(ngModel)]="item.IddmLoaiBong"></p-dropdown>
         </td>
-        <td class="text-center"><input disabled="disabled" pInputText type="text" [(ngModel)]="item.PhanXuong"></td>
+        <td class="text-center"><input [disabled]="disabled" pInputText type="text" [(ngModel)]="item.PhanXuong"></td>
         <td class="text-center">
-          <p-inputNumber disabled="disabled" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newitem.tongSanLuong">
+          <p-inputNumber [disabled]="disabled" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newitem.tongSanLuong">
           </p-inputNumber>
         </td>
         <td>

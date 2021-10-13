@@ -36,11 +36,9 @@
         </div>
        
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ngày <span class="text-danger">*</span>:</label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú :</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true" 
-                [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ngayThanhToan" inputId="icon" placeholder="dd/mm/yyyy">
-                </p-calendar>
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ghiChu" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
@@ -59,7 +57,7 @@
                     </div>
                 </div> -->
             </div>
-            <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+            <p-table [value]="item.listPhieuDanhGia|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
@@ -85,7 +83,10 @@
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">{{item.ma}}</td>
                         <td class="text-center">{{item.ten}}</td>
-                        <td class="text-center">{{item.ketQuaDanhGia}}</td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.ketQuaDanhGia">
+                                </p-inputNumber>
+                        </td>
                         <td class="text-center">
                             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ghiChu" pInputText />
                         </td>
