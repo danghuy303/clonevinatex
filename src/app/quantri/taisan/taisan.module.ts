@@ -43,10 +43,31 @@ import { Dat09Service } from 'src/app/services/callApi';
 import { LoaderService } from 'src/app/services/loader.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+import { DanhmucloaibaoduongComponent } from './danhmuc/danhmucloaibaoduong/danhmucloaibaoduong.component';
+import { DanhmucdonvitinhComponent } from './danhmuc/danhmucdonvitinh/danhmucdonvitinh.component';
+import { DanhmucloaitaisanComponent } from './danhmuc/danhmucloaitaisan/danhmucloaitaisan.component';
+import { BophansudungComponent } from './danhmuc/bophansudung/bophansudung.component';
+import { DonvinangsuatComponent } from './danhmuc/donvinangsuat/donvinangsuat.component';
+import { ModalbophansudungComponent } from './modal/modalbophansudung/modalbophansudung.component';
+import { ModaldonvitinhComponent } from './modal/modaldonvitinh/modaldonvitinh.component';
+import { ModalloaitaisanComponent } from './modal/modalloaitaisan/modalloaitaisan.component';
+import { ModalbaoduongComponent } from './modal/modalbaoduong/modalbaoduong.component';
+import { ModaldonvinangsuatComponent } from './modal/modaldonvinangsuat/modaldonvinangsuat.component';
 
 
 @NgModule({
-  declarations: [TaisanComponent, DanhsachtaisanComponent],
+  declarations: [TaisanComponent,
+     DanhsachtaisanComponent, 
+     DanhmucloaibaoduongComponent, 
+     DanhmucdonvitinhComponent, 
+     DanhmucloaitaisanComponent,
+      BophansudungComponent, 
+      DonvinangsuatComponent,
+       ModalbophansudungComponent, 
+       ModaldonvitinhComponent, 
+       ModalloaitaisanComponent,
+        ModalbaoduongComponent,
+         ModaldonvinangsuatComponent],
   imports: [
     CommonModule,
     TaisanRoutingModule,
@@ -94,7 +115,13 @@ import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.serv
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true, },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
-  entryComponents: [],
+
+  entryComponents: [ModalbaoduongComponent,
+    ModalbophansudungComponent,
+    ModaldonvinangsuatComponent,
+    ModaldonvitinhComponent,
+    ModalloaitaisanComponent,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })
 export class TaisanModule { }
