@@ -58,7 +58,9 @@ const routes: Routes = [
   {path:'danhmuc/danhmucphibanhang',component: DanhmucphibanhangComponent},
   {path:'danhmuc/danhmucdinhmucmathang',component: DanhmucdinhmucmathangComponent},
 
-  {path:'danhmuc/kehoachkinhdoanhdanhsach/:id',component: KehoachkinhdoanhdanhsachComponent},
+  {path:'danhmuc/kehoachkinhdoanhnam/:id',component: KehoachkinhdoanhdanhsachComponent},
+  {path:'danhmuc/kehoachkinhdoanhthang/:id',component: KehoachkinhdoanhdanhsachComponent},
+  
   {path:'danhmuc/danhsachtinhluong',component: DanhsachtinhluongComponent},
   {path:'danhmuc/mucluongcocaunhansu',component: MucluongcocaunhansuComponent},
   {path:'danhmuc/chiphibanhangtheonam',component: ChiphibanhangtheonamComponent},

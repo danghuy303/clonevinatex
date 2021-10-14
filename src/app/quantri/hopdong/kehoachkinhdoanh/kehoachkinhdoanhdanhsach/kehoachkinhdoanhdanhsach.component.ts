@@ -56,7 +56,7 @@ export class KehoachkinhdoanhdanhsachComponent implements OnInit {
     this.KiemTraTabTrangThai();
   }
   changeParam(id) {
-    this.router.navigate([`quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhdanhsach/${id}`], {
+    this.router.navigate([`quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhnam/${id}`], {
       replaceUrl: true,
     });
   }
@@ -85,7 +85,8 @@ export class KehoachkinhdoanhdanhsachComponent implements OnInit {
 
     let modalRef = this._modal.open(ModalkehoachkinhdoanhchitiettaomoiComponent, {
       backdrop: 'static',
-      size: 'fullscreen'
+      size: 'fullscreen-100',
+      keyboard:false
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';

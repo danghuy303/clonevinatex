@@ -61,6 +61,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     this.getListPhanXuong();
     this.GetListMatHang();
     if (this.type === 'themmoi') {
+      this.item.TenNguoiLap = this.userInfo.TenNhanVien;
       this.GetNextSoQuyTrinh();
     }
     this.KiemTraButton();
@@ -71,6 +72,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   rebindData() {
     console.log(this.item);
     this.item.NgayLap = UnixToDate(this.item.NgayLapUnix);
+    this.item.NgayDieuChinh = UnixToDate(this.item.NgayDieuChinhUnix);
     this.item.selectedItems = this.item.lstKH_KeHoachKinhDoanh_SanPham.map(ele => ele.IdSanPham);
     this.item.selectedItems = this.item.lstKH_KeHoachKinhDoanh_SanPham.map(ele => ele.IdSanPham);
     this.retry('SanPham', 'rebindSanPham_NhaMay');
@@ -266,6 +268,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       });
     });
     this.item.NgayLapUnix = DateToUnix(this.item.NgayLap)
+    this.item.NgayDieuChinhUnix = DateToUnix(this.item.NgayDieuChinh)
     return this.item
   }
 
@@ -279,7 +282,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
           this.toastr.error(res.Message);
         } else {
           this.toastr.success(res.Message);
-          this.activeModal.close();
+          // this.activeModal.close();
         }
       })
     }
@@ -332,6 +335,17 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
         }
       })
     }
+  }
+  DieuChinhKeHoach(){
+    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().DieuChinh(this.item.Id).subscribe((res:any)=>{
+      this.item ={};
+      res.NgayLap = UnixToDate(res.NgayLapUnix)
+      this.item = res;
+      this.GetNextSoQuyTrinh();
+      this.rebindData();
+      this.KiemTraButton();
+      console.log(res);
+    })
   }
 }
 

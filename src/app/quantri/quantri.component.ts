@@ -882,8 +882,13 @@ export class QuantriComponent implements OnInit {
         visible: this.showHopDongModule,
         items: [
           {
-            label: "Danh sách kế hoạch kinh doanh",
-            routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhdanhsach/0",
+            label: "Kế hoạch kinh doanh năm",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhnam/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Kế hoạch kinh doanh tháng",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhthang/0",
             command: () => this.close(),
           },
           // {
