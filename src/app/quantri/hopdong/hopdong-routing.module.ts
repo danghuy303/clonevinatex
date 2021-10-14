@@ -44,6 +44,7 @@ import { NhapvattuphuComponent } from './screen/thuchienhopdong/nhapvattuphu/nha
 import { DanhsachhopdongsoiComponent } from './screen/danhsachhopdongsoi/danhsachhopdongsoi.component';
 import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattuphu/danhsachhopdongvattuphu.component';
 import { QuytrinhdanhgiakhachhangComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/quytrinhdanhgiakhachhang.component';
+import { KehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/kehoachkinhdoanhthang.component';
 const routes: Routes = [
   {path:'',component:HopdongComponent},
   {path:'danhmuc/danhmuchinhthucthanhtoan',component:DanhmuchinhthucthanhtoanComponent},
@@ -59,8 +60,8 @@ const routes: Routes = [
   {path:'danhmuc/danhmucdinhmucmathang',component: DanhmucdinhmucmathangComponent},
 
   {path:'danhmuc/kehoachkinhdoanhnam/:id',component: KehoachkinhdoanhdanhsachComponent},
-  {path:'danhmuc/kehoachkinhdoanhthang/:id',component: KehoachkinhdoanhdanhsachComponent},
-  
+  {path:'danhmuc/kehoachkinhdoanhthang/:id',component: KehoachkinhdoanhthangComponent},
+
   {path:'danhmuc/danhsachtinhluong',component: DanhsachtinhluongComponent},
   {path:'danhmuc/mucluongcocaunhansu',component: MucluongcocaunhansuComponent},
   {path:'danhmuc/chiphibanhangtheonam',component: ChiphibanhangtheonamComponent},

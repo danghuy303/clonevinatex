@@ -227,7 +227,40 @@
       </table>
     </div>
     <p-dialog [header]="'Thời gian'" [(visible)]="showThoiGianHopDong" [modal]="true"
-    [style]="{width: '50vw', height:'auto'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    [style]="{width: '50vw', height:'auto',border:'1px solid #ccc'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-table [value]="lstThoiGianCurrent" styleClass="p-datatable-gridlines">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>STT</th>
+              <th>Ngày</th>
+              <th>Hợp đồng</th>
+              <th>Ghi chú</th>
+              <th></th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-i="rowIndex">
+          <tr>
+              <td>{{i+1}}</td>
+              <td>{{item.ThoiGianKetThucHopDong|date:'dd/MM/yyyy'}}</td>
+              <td>{{item.TenHopDong}}</td>
+              <td>{{item.GhiChu}}</td>
+              <td><button *ngIf="item.IdHopDong" pButton pRipple icon="pi pi-trash"
+                class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                (click)="XoaThoiGianHopDong(i)"></button></td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr>
+          <td>#</td>
+          <td>{{newHopDong.ThoiGianKetThucHopDong}}</td>
+          <td>{{newHopDong.TenHopDong}}</td>
+          <td>{{newHopDong.GhiChu}}</td>
+          <td><button pButton pRipple icon="pi pi-plus"
+            class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+            (click)="ThemThoiGianHopDong()"></button></td>
+      </tr>
+      </ng-template>
+  </p-table>
   </p-dialog>
   </p-panel>
 </div>

@@ -230,12 +230,13 @@ export class NhapkhothanhphammodalComponent implements OnInit {
               if (listItem[i].IddmItem === element.IddmItem && listItem[i].IdLoHang === element.IdLoHang) {
                 isCheck = true;
                 element.SoQuaSoiHoiAm = listItem[i].SoQuaSoiHoiAm;
-                element.SoQuaSoiThanhPham = listItem[i].SoQuaSoiHoiAm;
+                element.SoQuaSoiThanhPham = listItem[i].SoQuaSoiThanhPham;
                 element.KgCone = listItem[i].KgCone;
                 element.IddmKho = this.item.IddmKhoThanhPham;
                 element.SoKhoang = listItem[i].SoKhoang;
                 element.GhiChu = listItem[i].GhiChu;
                 element.SoKien = listItem[i].SoKien;
+                element.IddmQuyCachDongGoi = listItem[i].IddmQuyCachDongGoi;
                 element.Id = "";
                 element.TongKhoiLuong = element.KgCone * element.SoQuaSoiThanhPham;
                 break;

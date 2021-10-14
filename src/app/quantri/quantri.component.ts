@@ -893,7 +893,7 @@ export class QuantriComponent implements OnInit {
           },
           {
             label: "Loại bảo dưỡng ",
-            routerLink: "/quantri/taisan/danhmuc/danhmucloaibaoduong",            
+            routerLink: "/quantri/taisan/danhmuc/danhmucloaibaoduong",
             command: () => {
               this.close();
             },

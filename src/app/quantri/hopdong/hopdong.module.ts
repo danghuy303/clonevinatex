@@ -166,6 +166,8 @@ import { QuytrinhdanhgiakhachhangComponent } from './screen/thuchienhopdong/quyt
 import { QuytrinhdanhgiakhachhangmodalComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/quytrinhdanhgiakhachhangmodal/quytrinhdanhgiakhachhangmodal.component';
 import { ChonkhachhangmodalComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/chonkhachhangmodal/chonkhachhangmodal.component';
 import { ChinhsuadanhgiakhachhangmodalComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/chinhsuadanhgiakhachhangmodal/chinhsuadanhgiakhachhangmodal.component';
+import { KehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/kehoachkinhdoanhthang.component';
+import { ModalkehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/modal/modalkehoachkinhdoanhthang/modalkehoachkinhdoanhthang.component';
 
 
 
@@ -382,6 +384,20 @@ import { ChinhsuadanhgiakhachhangmodalComponent } from './screen/thuchienhopdong
 
 
 
+
+
+
+    KehoachkinhdoanhthangComponent,
+
+
+
+
+
+
+    ModalkehoachkinhdoanhthangComponent,
+
+
+
   ],
   imports: [
     CommonModule,
@@ -504,7 +520,7 @@ import { ChinhsuadanhgiakhachhangmodalComponent } from './screen/thuchienhopdong
     QuytrinhdanhgiakhachhangmodalComponent,
     ChonkhachhangmodalComponent,
     ChinhsuadanhgiakhachhangmodalComponent,
-
+    ModalkehoachkinhdoanhthangComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })

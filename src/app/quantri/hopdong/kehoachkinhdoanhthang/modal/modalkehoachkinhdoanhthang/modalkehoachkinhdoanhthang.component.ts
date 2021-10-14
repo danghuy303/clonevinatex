@@ -1,22 +1,19 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { interval } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { UnixToDate, mapArrayForDropDown, validVariable, deepCopy, DateToUnix } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
-import { ModaldongiakehoachthucteComponent } from '../modaldongiakehoachthucte/modaldongiakehoachthucte.component';
-import { ModalkehoachkinhdoanhtheodoiComponent } from '../modalkehoachkinhdoanhtheodoi/modalkehoachkinhdoanhtheodoi.component';
 
 @Component({
-  selector: 'app-modalkehoachkinhdoanhchitiettaomoi',
-  templateUrl: './modalkehoachkinhdoanhchitiettaomoi.component.html',
-  styleUrls: ['./modalkehoachkinhdoanhchitiettaomoi.component.css']
+  selector: 'app-modalkehoachkinhdoanhthang',
+  templateUrl: './modalkehoachkinhdoanhthang.component.html',
+  styleUrls: ['./modalkehoachkinhdoanhthang.component.css']
 })
-export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
+export class ModalkehoachkinhdoanhthangComponent implements OnInit {
   public newitemlap: any = {};
   public newItem: any = {};
   item: any = {};
@@ -42,9 +39,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   lstKH_KeHoachKinhDoanh_SanPham: any = [];
   dummyList: any = [1, 2, 3, 4];
   checkbutton: any = {};
-  lstThoiGianCurrent:any=[];
   showThoiGianHopDong: boolean = false;
-  newHopDong:any={};
   labelThang: Array<string> = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12',];
   propThang: Array<string> = ['Thang1', 'Thang2', 'Thang3', 'Thang4', 'Thang5', 'Thang6', 'Thang7', 'Thang8', 'Thang9', 'Thang10', 'Thang11', 'Thang12',]
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
@@ -145,7 +140,6 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     rootItem.selectedItems.forEach(key => {
       if (!exist.includes(key)) {
         // let alo
-        console.log(this.listMatHangRef.find(ele => ele.Id === key));
         rootItem.lstKH_KeHoachKinhDoanh_SanPham.push(
           {
             TenMatHang: this.listMatHang.find(ele => ele.value === key)?.label,
@@ -157,7 +151,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
             SoLuongDuKien: 0,
             selectedNhaMay: this.listNhaMay.length > 1 ? [] : [this.listNhaMay[0].value],
             lstKH_KeHoachKinhDoanh_SanPham_NhaMay: this.listNhaMay.length > 1 ? [] : [{ IdDuAn: this.listNhaMay[0].value, TenNhaMay: this.listNhaMay[0].label }],
-            lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong: this.listMatHangRef.find(ele => ele.Id === key)?.lstThoiGianHopDong,
+            lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong: [],
           }
         );
         exist.push(key);
@@ -170,7 +164,6 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     }
     this.TinhTongSanLuongTungMatHang();
   }
-
   addNhaMay(rootItem) {
     !rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay && (rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay = []);
     let exist = rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.map(ele => ele.IdDuAn);
@@ -201,29 +194,21 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  showModalThoiGianHopDong(item) {
+  showModalThoiGianHopDong() {
     this.showThoiGianHopDong = true;
-    this.lstThoiGianCurrent = item;
   }
-  ThemThoiGianHopDong(){
-    this.lstThoiGianCurrent.push(deepCopy(this.newHopDong))
-    this.newHopDong = {}
-  }
-  XoaThoiGianHopDong(i){
-    this.lstThoiGianCurrent.splice(i,1)
-  }
-  TheoDoi(item) {
-    if (item.Id !== undefined) {
-      let modalRef = this._modal.open(ModalkehoachkinhdoanhtheodoiComponent, {
-        backdrop: 'static',
-        size: 'fullscreen'
-      });
-      modalRef.componentInstance.opt = 'add';
-      modalRef.componentInstance.type = this.listMatHang.find(ele => ele.value === item.IdSanPham)?.label;
-      modalRef.componentInstance.title = 'Theo dõi kế hoạch - Thực tế';
-      modalRef.componentInstance.item = item;
-    }
-  }
+  // TheoDoi(item) {
+  //   if (item.Id !== undefined) {
+  //     let modalRef = this._modal.open(ModalkehoachkinhdoanhtheodoiComponent, {
+  //       backdrop: 'static',
+  //       size: 'fullscreen'
+  //     });
+  //     modalRef.componentInstance.opt = 'add';
+  //     modalRef.componentInstance.type = this.listMatHang.find(ele => ele.value === item.IdSanPham)?.label;
+  //     modalRef.componentInstance.title = 'Theo dõi kế hoạch - Thực tế';
+  //     modalRef.componentInstance.item = item;
+  //   }
+  // }
 
   addSanPham() {
     if (this.item.lstKH_KeHoachKinhDoanh_SanPham == undefined || this.item.lstKH_KeHoachKinhDoanh_SanPham == null)
@@ -300,15 +285,15 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     }
   }
 
-  CapNhatDonGia() {
-    let modalRef = this._modal.open(ModaldongiakehoachthucteComponent, {
-      backdrop: 'static',
-      size: 'fullscreen'
-    });
-    modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.type = '';
-    modalRef.componentInstance.title = '';
-  }
+  // CapNhatDonGia() {
+  //   let modalRef = this._modal.open(ModaldongiakehoachthucteComponent, {
+  //     backdrop: 'static',
+  //     size: 'fullscreen'
+  //   });
+  //   modalRef.componentInstance.opt = 'add';
+  //   modalRef.componentInstance.type = '';
+  //   modalRef.componentInstance.title = '';
+  // }
   GetNextSoQuyTrinh() {
     this._danhMucHopDong.DanhSachKeHoachKinhDoanh().NextQuyTrinh().subscribe((res: any) => {
       console.log(res);
@@ -360,7 +345,3 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     })
   }
 }
-
-
-
-
