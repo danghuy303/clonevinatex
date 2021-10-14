@@ -414,6 +414,4 @@ export class DanhMucHopDongService {
         }
     }
 }
-// data.idDuAn = this.store.getCurrent();
-// POST /SCM/DanhMuc/UpdateDinhMucSanXuatPhanXuong
-// SCM/DanhMuc/GetListDinhMucSanXuatPhanXuong?IdDuAn=0
+
