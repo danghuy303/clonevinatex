@@ -224,4 +224,16 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
       });
     }
   }
+  tinhTongSoKien(){
+    this.item.soKien = 0;
+    this.item.soKien = this.item.listItem.reduce((total, ele) => {
+      return total + ele.soKien }, 0);
+    this.item.soKien += (this.newTableItem.soKien || 0);
+  }
+  tinhTongKhoiLuong(){
+    this.item.soLuong = 0;
+    this.item.soLuong = this.item.listItem.reduce((total, ele) => {
+      return total + ele.khoiLuong }, 0);
+    this.item.soLuong += (this.newTableItem.khoiLuong || 0);
+  }
 }
