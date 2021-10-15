@@ -54,25 +54,28 @@ import { ModaldonvitinhComponent } from './modal/modaldonvitinh/modaldonvitinh.c
 import { ModalloaitaisanComponent } from './modal/modalloaitaisan/modalloaitaisan.component';
 import { ModalbaoduongComponent } from './modal/modalbaoduong/modalbaoduong.component';
 import { ModaldonvinangsuatComponent } from './modal/modaldonvinangsuat/modaldonvinangsuat.component';
+import { ModalcapnhattaisanComponent } from './modal/modalcapnhattaisan/modalcapnhattaisan.component';
 import { HangsanxuatComponent } from './danhmuc/hangsanxuat/hangsanxuat.component';
 import { ModalhangsanxuatComponent } from './modal/modalhangsanxuat/modalhangsanxuat.component';
 
 
 @NgModule({
   declarations: [TaisanComponent,
-     DanhsachtaisanComponent, 
-     DanhmucloaibaoduongComponent, 
-     DanhmucdonvitinhComponent, 
-     DanhmucloaitaisanComponent,
-      BophansudungComponent, 
-      DonvinangsuatComponent,
-       ModalbophansudungComponent, 
-       ModaldonvitinhComponent, 
-       ModalloaitaisanComponent,
-        ModalbaoduongComponent,
-         ModaldonvinangsuatComponent,
-         HangsanxuatComponent,
-         ModalhangsanxuatComponent],
+    DanhsachtaisanComponent,
+    DanhmucloaibaoduongComponent,
+    DanhmucdonvitinhComponent,
+    DanhmucloaitaisanComponent,
+    BophansudungComponent,
+    DonvinangsuatComponent,
+    ModalbophansudungComponent,
+    ModaldonvitinhComponent,
+    ModalloaitaisanComponent,
+    ModalbaoduongComponent,
+    ModaldonvinangsuatComponent,
+    HangsanxuatComponent,
+    ModalhangsanxuatComponent,
+    ModalcapnhattaisanComponent,
+  ],
   imports: [
     CommonModule,
     TaisanRoutingModule,
@@ -127,8 +130,9 @@ import { ModalhangsanxuatComponent } from './modal/modalhangsanxuat/modalhangsan
     ModaldonvinangsuatComponent,
     ModaldonvitinhComponent,
     ModalloaitaisanComponent,
+    ModalcapnhattaisanComponent,
     ModalhangsanxuatComponent
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class TaisanModule { }

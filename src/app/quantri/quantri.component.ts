@@ -860,7 +860,7 @@ export class QuantriComponent implements OnInit {
       {
         label: "Danh mục quản lý tài sản",
         icon: "fas fa-circle",
-        routerLink: "/quantri/taisan/danhmuc",
+        routerLink: "/quantri/taisan",
         visible: this.showHopDongModule,
         items: [
           {
