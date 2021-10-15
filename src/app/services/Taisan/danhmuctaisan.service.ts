@@ -10,20 +10,31 @@ export class DanhmuctaisanService {
 
   constructor(private http: HttpClient, public store: StoreService) { }
 
-  DanhMucBoPhanSuDung() {
+  DanhMucTinhTrangTaiSan() {
     let url = API.TaiSan
     return {
-      GetListAll: () => {
-        return this.http.get(url + `DanhMuc/GetListAlldmBoPhanSuDung`, httpOptions);
-      },
       GetList: (data) => {
-        return this.http.get(`${url}DanhMuc/GetListdmBoPhanSuDung?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+        return this.http.get(`${url}DanhMuc/GetListTinhTrangTaiSan?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
       },
       Set: (data) => {
-        return this.http.post(`${url}DanhMuc/SetdmBoPhanSuDung`, data, httpOptions)
+        return this.http.post(`${url}DanhMuc/SetdmTinhTrangTaiSan`, data, httpOptions)
       },
       Delete: (id) => {
-        return this.http.get(`${url}DanhMuc/DeletedmBoPhanSuDung?id=${id}`, httpOptions)
+        return this.http.get(`${url}DanhMuc/DeletedmTinhTrangTaiSan?id=${id}`, httpOptions)
+      }
+    }
+  }
+  DanhMucLoaiKhauHao() {
+    let url = API.TaiSan
+    return {
+      GetList: (data) => {
+        return this.http.get(`${url}DanhMuc/GetListLoaiKhauHao?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+      },
+      Set: (data) => {
+        return this.http.post(`${url}DanhMuc/SetdmLoaiKhauHao`, data, httpOptions)
+      },
+      Delete: (id) => {
+        return this.http.get(`${url}DanhMuc/DeletedmLoaiKhauHao?id=${id}`, httpOptions)
       }
     }
   }
@@ -32,7 +43,7 @@ export class DanhmuctaisanService {
     let url = API.TaiSan
     return {
       GetList: (data) => {
-        return this.http.get(`${url}DanhMuc/GetListDonViTinh?keyword=${data.keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+        return this.http.get(`${url}DanhMuc/GetListDonViTinh?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
       },
       Set: (data) => {
         return this.http.post(`${url}DanhMuc/SetdmDonViTinh`, data, httpOptions)
@@ -46,17 +57,14 @@ export class DanhmuctaisanService {
   DanhMucLoaiBaoDuong() {
     let url = API.TaiSan
     return {
-      GetListAll: () => {
-        return this.http.get(url + `DanhMuc/GetListAlldmDonViTinh`, httpOptions);
-      },
       GetList: (data) => {
-        return this.http.get(`${url}DanhMuc/GetListdmDonViTinh?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+        return this.http.get(`${url}DanhMuc/GetListLoaiBaoDuong?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
       },
       Set: (data) => {
-        return this.http.post(`${url}DanhMuc/SetdmDonViTinh`, data, httpOptions)
+        return this.http.post(`${url}DanhMuc/SetdmLoaiBaoDuong`, data, httpOptions)
       },
       Delete: (id) => {
-        return this.http.get(`${url}DanhMuc/DeletedmDonViTinh?id=${id}`, httpOptions)
+        return this.http.get(`${url}DanhMuc/DeletedmLoaiBaoDuong?id=${id}`, httpOptions)
       }
     }
   }
@@ -65,7 +73,7 @@ export class DanhmuctaisanService {
     let url = API.TaiSan
     return {
       GetList: (data) => {
-        return this.http.get(`${url}DanhMuc/GetListLoaiTaiSan?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+        return this.http.get(`${url}DanhMuc/GetListLoaiTaiSan?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
       },
       Set: (data) => {
         return this.http.post(`${url}DanhMuc/SetdmLoaiTaiSan`, data, httpOptions)
@@ -80,10 +88,10 @@ export class DanhmuctaisanService {
     let url = API.TaiSan
     return {
       GetList: (data) => {
-        return this.http.get(`${url}DanhMuc/GetListDonViNangSuat?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+        return this.http.get(`${url}DanhMuc/GetListDonViNangSuat?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
       },
       Set: (data) => {
-        return this.http.post(`${url}DanhMuc/SetDonViNangSuat`, data, httpOptions)
+        return this.http.post(`${url}DanhMuc/SetdmDonViNangSuat`, data, httpOptions)
       },
       Delete: (Id) => {
         return this.http.get(`${url}DanhMuc/DeletedmDonViNangSuat?Id=${Id}`, httpOptions)
@@ -95,10 +103,10 @@ export class DanhmuctaisanService {
     let url = API.TaiSan
     return {
       GetList: (data) => {
-        return this.http.get(`${url}DanhMuc/GetListNhaSanXuat?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+        return this.http.get(`${url}DanhMuc/GetListNhaSanXuat?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
       },
       Set: (data) => {
-        return this.http.post(`${url}DanhMuc/SetNhaSanXuat`, data, httpOptions)
+        return this.http.post(`${url}DanhMuc/SetdmNhaSanXuat`, data, httpOptions)
       },
       Delete: (Id) => {
         return this.http.get(`${url}DanhMuc/DeletedmNhaSanXuat?Id=${Id}`, httpOptions)

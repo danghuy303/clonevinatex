@@ -12,7 +12,7 @@ import { ModalhangsanxuatComponent } from '../../modal/modalhangsanxuat/modalhan
 export class HangsanxuatComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [];
-  keyWord:any='';
+  Keyword:any='';
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   cols: any = [
     {
@@ -59,7 +59,7 @@ export class HangsanxuatComponent implements OnInit {
     this.GetListHangSanXuat();
   }
   resetFilter(){
-    this.keyWord = '';
+    this.Keyword = '';
     this.GetListHangSanXuat(true);
   }
   GetListHangSanXuat(reset?){
@@ -70,9 +70,9 @@ export class HangsanxuatComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.Page,
-      sFilter:this.keyWord,  
-      ma:"", 
-      ten:""    
+      Keyword:this.Keyword,  
+      Ma:"", 
+      Ten:""    
     };
     this._danhMucTaiSan.DanhMucHangSanXuat().GetList(data).subscribe((res:any)=>{
       this.items = res.Data.Items;
@@ -85,7 +85,7 @@ export class HangsanxuatComponent implements OnInit {
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới đơn vị năng suất';
+    modalRef.componentInstance.title = 'Thêm mới Nhà sản xuất';
     modalRef.result.then(res=>{
       this.GetListHangSanXuat()
     }).catch(er=>console.log(er))
@@ -96,7 +96,7 @@ export class HangsanxuatComponent implements OnInit {
     });
     modalRef.componentInstance.opt='edit';
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = '';
+    modalRef.componentInstance.title = 'Cập nhật nhà sản xuất';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
     modalRef.result.then(res=>{
       this.GetListHangSanXuat()

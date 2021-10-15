@@ -47,9 +47,7 @@ import { TreeTableModule } from 'primeng/treetable';
 import { DanhmucloaibaoduongComponent } from './danhmuc/danhmucloaibaoduong/danhmucloaibaoduong.component';
 import { DanhmucdonvitinhComponent } from './danhmuc/danhmucdonvitinh/danhmucdonvitinh.component';
 import { DanhmucloaitaisanComponent } from './danhmuc/danhmucloaitaisan/danhmucloaitaisan.component';
-import { BophansudungComponent } from './danhmuc/bophansudung/bophansudung.component';
 import { DonvinangsuatComponent } from './danhmuc/donvinangsuat/donvinangsuat.component';
-import { ModalbophansudungComponent } from './modal/modalbophansudung/modalbophansudung.component';
 import { ModaldonvitinhComponent } from './modal/modaldonvitinh/modaldonvitinh.component';
 import { ModalloaitaisanComponent } from './modal/modalloaitaisan/modalloaitaisan.component';
 import { ModalbaoduongComponent } from './modal/modalbaoduong/modalbaoduong.component';
@@ -57,6 +55,10 @@ import { ModaldonvinangsuatComponent } from './modal/modaldonvinangsuat/modaldon
 import { ModalcapnhattaisanComponent } from './modal/modalcapnhattaisan/modalcapnhattaisan.component';
 import { HangsanxuatComponent } from './danhmuc/hangsanxuat/hangsanxuat.component';
 import { ModalhangsanxuatComponent } from './modal/modalhangsanxuat/modalhangsanxuat.component';
+import { LoaikhauhaoComponent } from './danhmuc/loaikhauhao/loaikhauhao.component';
+import { TinhtrangtaisanComponent } from './danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
+import { ModalloaikhauhaoComponent } from './modal/modalloaikhauhao/modalloaikhauhao.component';
+import { ModaltinhtrangtaisanComponent } from './modal/modaltinhtrangtaisan/modaltinhtrangtaisan.component';
 
 
 @NgModule({
@@ -65,9 +67,7 @@ import { ModalhangsanxuatComponent } from './modal/modalhangsanxuat/modalhangsan
     DanhmucloaibaoduongComponent,
     DanhmucdonvitinhComponent,
     DanhmucloaitaisanComponent,
-    BophansudungComponent,
     DonvinangsuatComponent,
-    ModalbophansudungComponent,
     ModaldonvitinhComponent,
     ModalloaitaisanComponent,
     ModalbaoduongComponent,
@@ -75,6 +75,10 @@ import { ModalhangsanxuatComponent } from './modal/modalhangsanxuat/modalhangsan
     HangsanxuatComponent,
     ModalhangsanxuatComponent,
     ModalcapnhattaisanComponent,
+    LoaikhauhaoComponent,
+    TinhtrangtaisanComponent,
+    ModalloaikhauhaoComponent,
+    ModaltinhtrangtaisanComponent,
   ],
   imports: [
     CommonModule,
@@ -126,12 +130,13 @@ import { ModalhangsanxuatComponent } from './modal/modalhangsanxuat/modalhangsan
   ],
 
   entryComponents: [ModalbaoduongComponent,
-    ModalbophansudungComponent,
     ModaldonvinangsuatComponent,
     ModaldonvitinhComponent,
     ModalloaitaisanComponent,
     ModalcapnhattaisanComponent,
-    ModalhangsanxuatComponent
+    ModalhangsanxuatComponent,
+    ModaltinhtrangtaisanComponent,
+    ModalloaikhauhaoComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
