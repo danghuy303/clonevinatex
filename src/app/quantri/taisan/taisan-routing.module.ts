@@ -6,9 +6,11 @@ import { DanhmucloaibaoduongComponent } from './danhmuc/danhmucloaibaoduong/danh
 import { DanhmucloaitaisanComponent } from './danhmuc/danhmucloaitaisan/danhmucloaitaisan.component';
 import { DonvinangsuatComponent } from './danhmuc/donvinangsuat/donvinangsuat.component';
 import { DanhsachtaisanComponent } from './danhsachtaisan/danhsachtaisan.component';
+import { TaisanComponent } from './taisan.component';
 
 const routes: Routes = [
-  {path:'',component:DanhsachtaisanComponent},
+  {path:'',component:TaisanComponent},
+  {path:'danhsachtaisan',component:DanhsachtaisanComponent},
   {path:'danhmuc/danhmucloaibaoduong',component:DanhmucloaibaoduongComponent},
   {path:'danhmuc/bophansudung',component:BophansudungComponent},
   {path:'danhmuc/danhmucdonvitinh',component:DanhmucdonvitinhComponent},

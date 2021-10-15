@@ -14,6 +14,7 @@ import {
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { TreeNode } from 'primeng/api';
+import { ModalcapnhattaisanComponent } from "../modal/modalcapnhattaisan/modalcapnhattaisan.component";
 
 @Component({
   selector: 'app-danhsachtaisan',
@@ -155,19 +156,19 @@ export class DanhsachtaisanComponent implements OnInit {
   }
 
   add() {
-    // let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
-    //   size: "fullscreen",
-    //   backdrop: "static",
-    // });
-    // modalRef.componentInstance.opt = "add";    
-    // modalRef.componentInstance.item = {};
-    // modalRef.result
-    //   .then((res: any) => {
-    //     this.Loaddata();
-    //   })
-    //   .catch((er) => {
+    let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
+      size: "xl",
+      backdrop: "static",
+    });
+    modalRef.componentInstance.opt = "add";    
+    modalRef.componentInstance.item = {};
+    modalRef.result
+      .then((res: any) => {
+        this.Loaddata();
+      })
+      .catch((er) => {
 
-    //   });
+      });
   }
 
   edit(item) {

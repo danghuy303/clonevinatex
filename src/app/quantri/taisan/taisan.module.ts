@@ -54,21 +54,23 @@ import { ModaldonvitinhComponent } from './modal/modaldonvitinh/modaldonvitinh.c
 import { ModalloaitaisanComponent } from './modal/modalloaitaisan/modalloaitaisan.component';
 import { ModalbaoduongComponent } from './modal/modalbaoduong/modalbaoduong.component';
 import { ModaldonvinangsuatComponent } from './modal/modaldonvinangsuat/modaldonvinangsuat.component';
+import { ModalcapnhattaisanComponent } from './modal/modalcapnhattaisan/modalcapnhattaisan.component';
 
 
 @NgModule({
   declarations: [TaisanComponent,
-     DanhsachtaisanComponent, 
-     DanhmucloaibaoduongComponent, 
-     DanhmucdonvitinhComponent, 
-     DanhmucloaitaisanComponent,
-      BophansudungComponent, 
-      DonvinangsuatComponent,
-       ModalbophansudungComponent, 
-       ModaldonvitinhComponent, 
-       ModalloaitaisanComponent,
-        ModalbaoduongComponent,
-         ModaldonvinangsuatComponent],
+    DanhsachtaisanComponent,
+    DanhmucloaibaoduongComponent,
+    DanhmucdonvitinhComponent,
+    DanhmucloaitaisanComponent,
+    BophansudungComponent,
+    DonvinangsuatComponent,
+    ModalbophansudungComponent,
+    ModaldonvitinhComponent,
+    ModalloaitaisanComponent,
+    ModalbaoduongComponent,
+    ModaldonvinangsuatComponent,
+    ModalcapnhattaisanComponent],
   imports: [
     CommonModule,
     TaisanRoutingModule,
@@ -123,7 +125,8 @@ import { ModaldonvinangsuatComponent } from './modal/modaldonvinangsuat/modaldon
     ModaldonvinangsuatComponent,
     ModaldonvitinhComponent,
     ModalloaitaisanComponent,
+    ModalcapnhattaisanComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class TaisanModule { }
