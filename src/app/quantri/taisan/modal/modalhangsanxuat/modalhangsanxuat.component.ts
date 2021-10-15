@@ -19,18 +19,6 @@ export class ModalhangsanxuatComponent implements OnInit {
   ngOnInit(): void {
   
   }
-  // SetData() {
-  //   let data: any = {
-   
-  //     "Id":this.item.Id,
-  //     "Ma": this.item.Ma,
-  //     "Ten": this.item.Ten,
-  //     "MoTa": this.item.MoTa,
-  //     "Created": new Date() ,
-  //     "Modified":new Date() ,
-  //   };
-  //   return data;
-  // }
   ValidateData() {
     if (!validVariable(this.item.Ma)) {
       this.toastr.error("Yêu cầu nhập đầy đủ mã!");
@@ -45,7 +33,7 @@ export class ModalhangsanxuatComponent implements OnInit {
 
   GhiLai() {
     if (this.ValidateData()) {
-      this._danhMucTaiSan.DanhMucHangSanXuat().Set(this.item.subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucHangSanXuat().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
         } else {
@@ -54,7 +42,6 @@ export class ModalhangsanxuatComponent implements OnInit {
         } 
         this.activeModal.close();
       })
-      )
     }
   }
   

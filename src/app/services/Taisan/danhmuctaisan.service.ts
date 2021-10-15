@@ -32,7 +32,7 @@ export class DanhmuctaisanService {
     let url = API.TaiSan
     return {
       GetList: (data) => {
-        return this.http.get(`${url}DanhMuc/GetListDonViTinh?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+        return this.http.get(`${url}DanhMuc/GetListDonViTinh?keyword=${data.keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
       },
       Set: (data) => {
         return this.http.post(`${url}DanhMuc/SetdmDonViTinh`, data, httpOptions)
@@ -68,7 +68,7 @@ export class DanhmuctaisanService {
         return this.http.get(`${url}DanhMuc/GetListLoaiTaiSan?CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
       },
       Set: (data) => {
-        return this.http.post(`${url}DanhMuc/SetLoaiTaiSan`, data, httpOptions)
+        return this.http.post(`${url}DanhMuc/SetdmLoaiTaiSan`, data, httpOptions)
       },
       Delete: (Id) => {
         return this.http.get(`${url}DanhMuc/DeletedmLoaiTaiSan?Id=${Id}`, httpOptions)
