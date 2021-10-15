@@ -32,6 +32,7 @@ export class API {
     // public static baseUrl = host + '/';
     public static SCM = host1 + '/SCM/';
     public static HopDong = host1 + '/HopDong/';
+    public static TaiSan = host1 + '/TaiSanAPI/';
     public static KeHoachNhapBong = host1 + '/HopDong/KeHoachNhapBong/';    
     public static KeHoach = host1 + '/KeHoachAPI/';
     public static ThongKeDien = host1 + '/SCM/ThongKeDien/';

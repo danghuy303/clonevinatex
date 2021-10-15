@@ -5,6 +5,7 @@ import { DanhmucdonvitinhComponent } from './danhmuc/danhmucdonvitinh/danhmucdon
 import { DanhmucloaibaoduongComponent } from './danhmuc/danhmucloaibaoduong/danhmucloaibaoduong.component';
 import { DanhmucloaitaisanComponent } from './danhmuc/danhmucloaitaisan/danhmucloaitaisan.component';
 import { DonvinangsuatComponent } from './danhmuc/donvinangsuat/donvinangsuat.component';
+import { HangsanxuatComponent } from './danhmuc/hangsanxuat/hangsanxuat.component';
 import { DanhsachtaisanComponent } from './danhsachtaisan/danhsachtaisan.component';
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path:'danhmuc/danhmucdonvitinh',component:DanhmucdonvitinhComponent},
   {path:'danhmuc/danhmucloaitaisan',component:DanhmucloaitaisanComponent},
   {path:'danhmuc/donvinangsuat',component:DonvinangsuatComponent},
+  {path:'danhmuc/hangsannxuat',component:HangsanxuatComponent},
 ];
 
 @NgModule({

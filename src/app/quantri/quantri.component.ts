@@ -898,6 +898,13 @@ export class QuantriComponent implements OnInit {
               this.close();
             },
           },
+          {
+            label: "Hàng Sản Xuất",
+            routerLink: "/quantri/taisan/danhmuc/hangsannxuat",            
+            command: () => {
+              this.close();
+            },
+          },
           
         ],
       },
