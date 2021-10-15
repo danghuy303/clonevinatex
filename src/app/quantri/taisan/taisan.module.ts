@@ -43,6 +43,7 @@ import { Dat09Service } from 'src/app/services/callApi';
 import { LoaderService } from 'src/app/services/loader.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+import { TreeTableModule } from 'primeng/treetable';
 import { DanhmucloaibaoduongComponent } from './danhmuc/danhmucloaibaoduong/danhmucloaibaoduong.component';
 import { DanhmucdonvitinhComponent } from './danhmuc/danhmucdonvitinh/danhmucdonvitinh.component';
 import { DanhmucloaitaisanComponent } from './danhmuc/danhmucloaitaisan/danhmucloaitaisan.component';
@@ -109,12 +110,13 @@ import { ModalhangsanxuatComponent } from './modal/modalhangsanxuat/modalhangsan
     TooltipModule,
     TreeModule,
     VoiLibModule,
+    TreeTableModule,
   ],
-  providers: [    
+  providers: [
     LoaderService,
     SanXuatService,
     Dat09Service,
-    TaisanService,  
+    TaisanService,
     DanhmuctaisanService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true, },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
