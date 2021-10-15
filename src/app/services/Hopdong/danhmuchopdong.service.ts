@@ -313,8 +313,16 @@ export class DanhMucHopDongService {
             NextQuyTrinh: () => {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetNextSoQuyTrinh`, httpOptions)
             },
+            ChuyenTiep: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/ChuyenTiepQuyTrinh`, data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/KhongDuyetQuyTrinh`, data, httpOptions)
+            },
             Delete: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/DeleteQuyTrinh`, data, httpOptions)
+            },DieuChinh:(IdKeHoachKinhDoanh)=>{
+                return this.http.get(`${url}KeHoachKinhDoanh/GetKeHoachKinhDoanhChoDieuChinh?IdKeHoachKinhDoanh=${IdKeHoachKinhDoanh}`, httpOptions)
             }
         }
     }
@@ -406,6 +414,4 @@ export class DanhMucHopDongService {
         }
     }
 }
-// data.idDuAn = this.store.getCurrent();
-// POST /SCM/DanhMuc/UpdateDinhMucSanXuatPhanXuong
-// SCM/DanhMuc/GetListDinhMucSanXuatPhanXuong?IdDuAn=0
+

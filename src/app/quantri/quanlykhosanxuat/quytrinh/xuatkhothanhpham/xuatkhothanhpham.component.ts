@@ -109,7 +109,7 @@ export class XuatkhothanhphamComponent extends StoreBase implements OnInit,OnDes
   update(Id) {
     this._service.PhieuXuatThanhPham().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhothanhphammodalComponent, {
-        size: 'fullscreen',
+        size: 'fullscreen-100',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
