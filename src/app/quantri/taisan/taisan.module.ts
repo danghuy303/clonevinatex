@@ -43,7 +43,7 @@ import { Dat09Service } from 'src/app/services/callApi';
 import { LoaderService } from 'src/app/services/loader.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
-
+import { TreeTableModule } from 'primeng/treetable';
 
 @NgModule({
   declarations: [TaisanComponent, DanhsachtaisanComponent],
@@ -84,17 +84,18 @@ import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.serv
     TooltipModule,
     TreeModule,
     VoiLibModule,
+    TreeTableModule,
   ],
-  providers: [    
+  providers: [
     LoaderService,
     SanXuatService,
     Dat09Service,
-    TaisanService,  
+    TaisanService,
     DanhmuctaisanService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true, },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
   entryComponents: [],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class TaisanModule { }
