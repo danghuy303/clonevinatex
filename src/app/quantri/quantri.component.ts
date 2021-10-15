@@ -501,6 +501,7 @@ export class QuantriComponent implements OnInit {
           {
             label: "Cho vay",
             routerLink: "/quantri/quanlykhosanxuat/xuatbongchovay/khobong/0",
+            separator: this.checkmenu("PHIEUXUATBONGCHOVAY"),
             command: () => this.close(),
           },
           // {
