@@ -55,6 +55,8 @@ import { ModalloaitaisanComponent } from './modal/modalloaitaisan/modalloaitaisa
 import { ModalbaoduongComponent } from './modal/modalbaoduong/modalbaoduong.component';
 import { ModaldonvinangsuatComponent } from './modal/modaldonvinangsuat/modaldonvinangsuat.component';
 import { ModalcapnhattaisanComponent } from './modal/modalcapnhattaisan/modalcapnhattaisan.component';
+import { HangsanxuatComponent } from './danhmuc/hangsanxuat/hangsanxuat.component';
+import { ModalhangsanxuatComponent } from './modal/modalhangsanxuat/modalhangsanxuat.component';
 
 
 @NgModule({
@@ -70,7 +72,10 @@ import { ModalcapnhattaisanComponent } from './modal/modalcapnhattaisan/modalcap
     ModalloaitaisanComponent,
     ModalbaoduongComponent,
     ModaldonvinangsuatComponent,
-    ModalcapnhattaisanComponent],
+    HangsanxuatComponent,
+    ModalhangsanxuatComponent,
+    ModalcapnhattaisanComponent,
+  ],
   imports: [
     CommonModule,
     TaisanRoutingModule,
@@ -126,6 +131,7 @@ import { ModalcapnhattaisanComponent } from './modal/modalcapnhattaisan/modalcap
     ModaldonvitinhComponent,
     ModalloaitaisanComponent,
     ModalcapnhattaisanComponent,
+    ModalhangsanxuatComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
