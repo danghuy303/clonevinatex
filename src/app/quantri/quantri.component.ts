@@ -860,16 +860,44 @@ export class QuantriComponent implements OnInit {
       {
         label: "Danh mục quản lý tài sản",
         icon: "fas fa-circle",
-        routerLink: "/quantri/taisan",
+        routerLink: "/quantri/taisan/danhmuc",
         visible: this.showHopDongModule,
         items: [
-          // {
-          //   label: "Danh sách tài sản",
-          //   routerLink: "",            
-          //   command: () => {
-          //     this.close();
-          //   },
-          // },
+          {
+            label: "Đơn vị năng suất",
+            routerLink: "/quantri/taisan/danhmuc/donvinangsuat",            
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Loại tài sản",
+            routerLink: "/quantri/taisan/danhmuc/danhmucloaitaisan",            
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Đơn vị tính",
+            routerLink: "/quantri/taisan/danhmuc/danhmucdonvitinh",            
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Bộ phận sử dụng",
+            routerLink: "/quantri/taisan/danhmuc/bophansudung",            
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Loại bảo dưỡng ",
+            routerLink: "/quantri/taisan/danhmuc/danhmucloaibaoduong",
+            command: () => {
+              this.close();
+            },
+          },
           
         ],
       },
@@ -882,8 +910,13 @@ export class QuantriComponent implements OnInit {
         visible: this.showHopDongModule,
         items: [
           {
-            label: "Danh sách kế hoạch kinh doanh",
-            routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhdanhsach",
+            label: "Kế hoạch kinh doanh năm",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhnam/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Kế hoạch kinh doanh tháng",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhthang/0",
             command: () => this.close(),
           },
           // {

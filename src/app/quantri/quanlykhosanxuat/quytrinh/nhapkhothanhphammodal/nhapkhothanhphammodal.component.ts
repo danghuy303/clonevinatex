@@ -6,7 +6,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { XuatkhomathangmodalComponent } from '../xuatkhomathangmodal/xuatkhomathangmodal.component';
-import {DecimalPipe} from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
 
 @Component({
@@ -39,7 +39,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   //   { value: 1, label: 'Nội địa' },
   // ]
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal,private decimalPipe: DecimalPipe,
+  constructor(public activeModal: NgbActiveModal, private decimalPipe: DecimalPipe,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService) {
 
   }
@@ -55,11 +55,11 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       }
       this.GetNextSoQuyTrinh();
     }
-    else{
+    else {
       this.KiemTraButtonModal();
     }
     if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-      this.item.Ngay =UnixToDate(this.item.NgayUnix);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.data.CurrentPage = 0;
 
@@ -73,7 +73,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   }
 
   ChuyenTiep() {
-    if(!this.checkValidate())
+    if (!this.checkValidate())
       this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
@@ -98,11 +98,11 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
-  checkValidate(){
-    if(this.item.listItem.length > 0 && this.item.listItem.length !== undefined){
-      for(let i = 0; i < this.item.listItem.length ; i ++){
-        if(this.item.listItem[i].IdLoHang !== null && this.item.listItem[i].IdLoHang !== undefined){
-          if(this.item.listItem[i].IddmQuyCachDongGoi === null || this.item.listItem[i].IddmQuyCachDongGoi === undefined){
+  checkValidate() {
+    if (this.item.listItem.length > 0 && this.item.listItem.length !== undefined) {
+      for (let i = 0; i < this.item.listItem.length; i++) {
+        if (this.item.listItem[i].IdLoHang !== null && this.item.listItem[i].IdLoHang !== undefined) {
+          if (this.item.listItem[i].IddmQuyCachDongGoi === null || this.item.listItem[i].IddmQuyCachDongGoi === undefined) {
             return false;
           }
         }
@@ -111,7 +111,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
     return true;
   }
   GhiLai() {
-    if(!this.checkValidate())
+    if (!this.checkValidate())
       this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
@@ -174,7 +174,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  
+
   Onclose() {
     this.activeModal.close();
   }
@@ -225,24 +225,25 @@ export class NhapkhothanhphammodalComponent implements OnInit {
         this.item.listItem = data.data;
         this.item.listItem.forEach(element => {
           let isCheck: any = false;
-          if(listItem !== undefined && listItem.length > 0){
-            for(let i = 0; i< listItem.length;i++){
-              if(listItem[i].IddmItem === element.IddmItem && listItem[i].IdLoHang === element.IdLoHang)
+          if (listItem !== undefined && listItem.length > 0) {
+            for (let i = 0; i < listItem.length; i++) {
+              if (listItem[i].IddmItem === element.IddmItem && listItem[i].IdLoHang === element.IdLoHang) {
                 isCheck = true;
                 element.SoQuaSoiHoiAm = listItem[i].SoQuaSoiHoiAm;
-                element.SoQuaSoiThanhPham = listItem[i].SoQuaSoiHoiAm;
+                element.SoQuaSoiThanhPham = listItem[i].SoQuaSoiThanhPham;
                 element.KgCone = listItem[i].KgCone;
                 element.IddmKho = this.item.IddmKhoThanhPham;
                 element.SoKhoang = listItem[i].SoKhoang;
                 element.GhiChu = listItem[i].GhiChu;
                 element.SoKien = listItem[i].SoKien;
+                element.IddmQuyCachDongGoi = listItem[i].IddmQuyCachDongGoi;
                 element.Id = "";
                 element.TongKhoiLuong = element.KgCone * element.SoQuaSoiThanhPham;
                 break;
+              }
             }
           }
-          if(isCheck === false)
-          {
+          if (isCheck === false) {
             element.SoQuaSoiHoiAm = element.SoLuong;
             element.SoQuaSoiThanhPham = element.SoLuong;
             element.KgCone = element.TrongLuong;
@@ -251,25 +252,24 @@ export class NhapkhothanhphammodalComponent implements OnInit {
             element.TongKhoiLuong = element.KgCone * element.SoQuaSoiThanhPham;
           }
         });
-        
       }, (reason) => {
         // không
       });
     })
   }
-  TongKhoiLuong(item){
-    item.TongKhoiLuong = (item.SoQuaSoiThanhPham||0) * (item.KgCone||0);
+  TongKhoiLuong(item) {
+    item.TongKhoiLuong = (item.SoQuaSoiThanhPham || 0) * (item.KgCone || 0);
   }
   tinhToan(item, opt) {
     let modalRef = this._modal.open(CalcmodalComponent)
     modalRef.result.then((res) => {
-      item[opt]=res;
+      item[opt] = res;
       this.TongKhoiLuong(item);
     })
   }
-  ExportExcel(){
-    if(validVariable(this.item.Id)){
-      this._services.BaoCao().ExportPhieuNhapKhoThanhPham_Bieu1({IdPhieuNhapKho:this.item.Id}).subscribe((res:any)=>{
+  ExportExcel() {
+    if (validVariable(this.item.Id)) {
+      this._services.BaoCao().ExportPhieuNhapKhoThanhPham_Bieu1({ IdPhieuNhapKho: this.item.Id }).subscribe((res: any) => {
         if (res) {
           if (validVariable(res.State)) {
             this.toastr.error(res.message);
@@ -278,12 +278,12 @@ export class NhapkhothanhphammodalComponent implements OnInit {
           }
         }
       })
-    }else{
+    } else {
       this.toastr.error('Vui lòng ghi lại phiếu sau đó xuất!')
     }
   }
   KhongDuyet() {
-    if(!this.checkValidate())
+    if (!this.checkValidate())
       this.toastr.error("Bạn chưa chọn quy cách đóng gói!");
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn  ngày");
