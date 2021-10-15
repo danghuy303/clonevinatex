@@ -131,17 +131,32 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
   }
 
   ChuyenTiep() {
-    this._service.QuyetToanHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res?.statusCode === 200) {
-          this._toastr.success(res.message)
-          this.activeModal.close();
-        } else {
-          this._toastr.error(res.message);
-        }
+    let isChuaNopDu: any = false;
+    for(let i = 0; i < this.item.listHoSoDinhKem.length; i++ ){
+      if(this.item.listHoSoDinhKem[i].isNopDu !== true)
+      {
+        isChuaNopDu = true;
+        break;
       }
-    })
-
+    }
+    if (isChuaNopDu === true) {
+      let modalRef = this._modal.open(ModalthongbaoComponent, {
+        backdrop: 'static'
+      });
+      modalRef.componentInstance.message = "Bạn chưa nộp đủ tài liệu bạn chắc chắn muốn lưu quy trình này chứ?"
+      modalRef.result.then(res => {
+        this._service.QuyetToanHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
+          if (res) {
+            if (res?.statusCode === 200) {
+              this._toastr.success(res.message)
+              this.activeModal.close();
+            } else {
+              this._toastr.error(res.message);
+            }
+          }
+        })
+      }).catch()
+    }
   }
   KhongDuyet() {
     this._service.QuyetToanHopDong().KhongDuyet(this.item).subscribe((res: any) => {
@@ -208,6 +223,8 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
     let itemFind = this.listHopDongFull.filter(e => e.id === this.item.idHopDong);
     if(itemFind !== undefined)
       this.item.giaTriHoanThanh = itemFind[0].giaTriHoanThanh;
+      this.item.loai = itemFind[0].loai
+
     this._service.QuyTrinhThanhToan().GetListThanhToanHopDong(this.item.idHopDong).subscribe((res1: any) => {
       this.listDotQuyetToan = res1.data;
     })

@@ -8,6 +8,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
+import { ChondanhmucthutucthanhtoanmodalComponent } from '../../thuchienhopdong/quyettoanhopdong/chondanhmucthutucthanhtoanmodal/chondanhmucthutucthanhtoanmodal.component';
 
 @Component({
   selector: 'app-quytrinhthanhtoanbongmodal',
@@ -43,7 +44,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService, private _auth: AuthenticationService,
-    private _dmhopdong: DanhMucHopDongService,private _hopdong: HopDongService,) {
+    private _servicesdmHopDong: DanhMucHopDongService,private _hopdong: HopDongService,) {
       this.userInfo = this._auth.currentUserValue;
   }
 
@@ -94,23 +95,6 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
       this.checkbutton = res;
     })
   }
-  ChuyenTiep() {
-    if(this.CheckTruocKhiLuu()){
-      if (this.item.ngayThanhToan !== null && this.item.ngayThanhToan !== undefined)
-        this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
-      this._hopdong.QuyTrinhThanhToan().ChuyenTiep(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.statusCode === 200) {
-            this.activeModal.close();
-            this.toastr.success(res.message)
-          } else {
-            this.toastr.error(res.message);
-          }
-        }
-      })
-    }
-  }
-
   GetNextSoQuyTrinh() {
     this._hopdong.QuyTrinhThanhToan().GetNextSoQuyTrinh().subscribe((res: any) => {
       this.item.soQuyTrinh = res.data;
@@ -247,5 +231,51 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
       this.item.giaTriThanhToan += (element.soLuong || 0) * (element.donGia || 0);
       this.item.giaTriDaThanhToan += (element.soLuongDaThanhToan || 0) * (element.donGia || 0);
     });
+  }
+  ChuyenTiep(){
+    let isChuaNopDu: any = false;
+    for(let i = 0; i < this.item.listHoSoDinhKem.length; i++ ){
+      if(this.item.listHoSoDinhKem[i].isNopDu !== true)
+      {
+        isChuaNopDu = true;
+        break;
+      }
+    }
+    if (isChuaNopDu === true) {
+      let modalRef = this._modal.open(ModalthongbaoComponent, {
+        backdrop: 'static'
+      });
+      modalRef.componentInstance.message = "Bạn chưa nộp đủ tài liệu bạn chắc chắn muốn lưu quy trình này chứ?"
+      modalRef.result.then(res => {
+        if(this.CheckTruocKhiLuu()){
+          if (this.item.ngayThanhToan !== null && this.item.ngayThanhToan !== undefined)
+            this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+          this._hopdong.QuyTrinhThanhToan().ChuyenTiep(this.item).subscribe((res: any) => {
+            if (res) {
+              if (res.statusCode === 200) {
+                this.activeModal.close();
+                this.toastr.success(res.message)
+              } else {
+                this.toastr.error(res.message);
+              }
+            }
+          })
+        }
+      }).catch()
+    }
+  }
+  chonDanhMuc() {
+    this._servicesdmHopDong.DanhMucThuTucThanhToan().GetListAll().subscribe((res1: any) => {
+      let modalRef = this._modal.open(ChondanhmucthutucthanhtoanmodalComponent, {
+        size: 'lg',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.listThanhToanThuTuc = res1;
+      modalRef.componentInstance.listHangHoa = this.item.listHoSoDinhKem || [];
+      modalRef.result.then(res => {
+        this.item.listHoSoDinhKem= res;  
+      }).catch(er => { console.log(er) });
+    })
   }
 }

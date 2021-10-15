@@ -501,6 +501,7 @@ export class QuantriComponent implements OnInit {
           {
             label: "Cho vay",
             routerLink: "/quantri/quanlykhosanxuat/xuatbongchovay/khobong/0",
+            separator: this.checkmenu("PHIEUXUATBONGCHOVAY"),
             command: () => this.close(),
           },
           // {
@@ -833,6 +834,12 @@ export class QuantriComponent implements OnInit {
             label: "Tiêu chí chất lượng",
             routerLink:
               "/quantri/hopdongsanxuat/danhmuc/dmtieuchichatluong",
+            command: () => this.close(),
+          },
+          {
+            label: "Tiêu chí đánh giá",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/dmtieuchidanhgia",
             command: () => this.close(),
           },
         ],

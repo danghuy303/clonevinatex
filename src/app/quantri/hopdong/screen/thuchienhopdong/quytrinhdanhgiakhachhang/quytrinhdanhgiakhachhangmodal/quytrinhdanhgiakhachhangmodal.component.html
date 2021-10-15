@@ -81,11 +81,10 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">{{i+1}}</td>
-                        <td class="text-center">{{item.ma}}</td>
-                        <td class="text-center">{{item.ten}}</td>
-                        <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.ketQuaDanhGia">
-                                </p-inputNumber>
+                        <td class="text-center">{{item.maKhachHang}}</td>
+                        <td class="text-center">{{item.tenKhachHang}}</td>
+                        <td class="text-right">
+                            {{item.ketQuaDanhGia|number:'0.2'}}
                         </td>
                         <td class="text-center">
                             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ghiChu" pInputText />

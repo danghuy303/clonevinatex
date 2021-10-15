@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TreeNode } from 'primeng/api';
 import { deepCopy, validVariable } from 'src/app/services/globalfunction';
-
+import {TreeTableModule} from 'primeng/treetable';
 @Component({
   selector: 'app-chinhsuadanhgiakhachhangmodal',
   templateUrl: './chinhsuadanhgiakhachhangmodal.component.html',
@@ -10,11 +10,7 @@ import { deepCopy, validVariable } from 'src/app/services/globalfunction';
 })
 export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
   item: any = {};
-  items: any = [];
-  listHangHoa: any = [];
-  listHangHoaGoc: any = [];
   IdQuyTrinh : any = '';
-  Loai : any = 0;
   cols: any = [
     {
       header: 'Mã khách hàng',
@@ -42,10 +38,9 @@ export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
       width: 'unset'
     },
   ];
-  loai='';
   checkedAll: boolean = false;
   paging: any = {};
-  vungs: TreeNode[] = [];
+  listTieuChiDanhGia: TreeNode[] = [];
   KeyWord: any = '';
   constructor(
     public activeModal: NgbActiveModal,
@@ -54,15 +49,10 @@ export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
   ngOnInit(): void {
     if(!validVariable(this.item.listTieuChiDanhGia))
       this.item.listTieuChiDanhGia = [];
+    this.listTieuChiDanhGia = this.item.listTieuChiDanhGia;
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
-    this.paging.TotalItem = this.items.length;
-  }
-  checkAll(e) {
-    this.items.forEach(item => {
-      item.checked = e.checked;
-      this.checkItem(item)
-    });
+    this.paging.TotalItem = this.item.listHopDong.length;
   }
 
   changePage(event) {
@@ -75,21 +65,19 @@ export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
     this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref_copy.slice(start,end);
   }
   accept() {
-    this.activeModal.close(this.listHangHoa)
+    this.item.ketQuaDanhGia = this.item.listTieuChiDanhGia.reduce((total, ele) => {
+      return total + (ele.diemDanhGia || 0)
+    }, 0);
+    this.activeModal.close(this.item)
   }
   filtertable_add() {
     if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
-      this.item.listThuTucThanhToan_ref_copy = deepCopy(this.items);
+      this.item.listThuTucThanhToan_ref_copy = deepCopy(this.item.listHopDong);
       let filter: any = this.item.listThuTucThanhToan_ref_copy.filter(
         ele=>ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase()) || ele.Ma.toLowerCase().includes(this.KeyWord.toLowerCase())
       );
-      console.log(filter)
-      this.item.listThuTucThanhToan_ref = filter;
-      this.item.listThuTucThanhToan_ref_copy = filter;
     }
     else {
-      this.item.listThuTucThanhToan_ref = this.items;
-      this.item.listThuTucThanhToan_ref_copy = this.items;
     }
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
@@ -100,34 +88,7 @@ export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
     this.KeyWord = '';
     this.filtertable_add();
   }
-  
-checkItem(item){
-if(item.checked == true)
-{
-  let itemFind: any = this.listHangHoa.filter((e: any) =>e.iddmItem === item.Id)[0]
-  if(itemFind === undefined){
-    let itemFinds = this.items.find(e => e.checked === true && e.Id === item.Id);
-    itemFinds = {
-      iddmKhachHang: itemFinds.Id,
-      ten: itemFinds.Ten,
-      ma: itemFinds.Ma,
-      isXoa: false,
-      id: '',
-    }
-    this.listHangHoa.push(itemFinds)
+  Onclose() {
+    this.activeModal.close()
   }
-  else
-    itemFind.isXoa = false;
-}
-  else{
-    let itemFind = this.listHangHoa.filter((e: any) =>e.IddmItem === item.id)[0];
-    if(itemFind !== undefined){
-      itemFind.isXoa = true;
-    }
-  }
-}
-Onclose() {
-  this.activeModal.close(this.listHangHoaGoc)
-
-}
 }
