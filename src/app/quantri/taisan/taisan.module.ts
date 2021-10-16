@@ -57,6 +57,14 @@ import { ModaldonvinangsuatComponent } from './modal/modaldonvinangsuat/modaldon
 import { ModalcapnhattaisanComponent } from './modal/modalcapnhattaisan/modalcapnhattaisan.component';
 import { HangsanxuatComponent } from './danhmuc/hangsanxuat/hangsanxuat.component';
 import { ModalhangsanxuatComponent } from './modal/modalhangsanxuat/modalhangsanxuat.component';
+import { NhaptaisanComponent } from './nhaptaisan/nhaptaisan.component';
+import { ModalthongtinchitiettaisanComponent } from './modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
+import { BiendongComponent } from './biendong/biendong.component';
+import { LichbaoduongComponent } from './lichbaoduong/lichbaoduong.component';
+import { SucosuachuaComponent } from './sucosuachua/sucosuachua.component';
+import { ThongtinchungComponent } from './thongtinchung/thongtinchung.component';
+import { ModalcapnhatbaoduongComponent } from './modal/modalcapnhatbaoduong/modalcapnhatbaoduong.component';
+import { ModalcapnhatsuachuabaoduongComponent } from './modal/modalcapnhatsuachuabaoduong/modalcapnhatsuachuabaoduong.component';
 
 
 @NgModule({
@@ -75,6 +83,14 @@ import { ModalhangsanxuatComponent } from './modal/modalhangsanxuat/modalhangsan
     HangsanxuatComponent,
     ModalhangsanxuatComponent,
     ModalcapnhattaisanComponent,
+    NhaptaisanComponent,
+    ModalthongtinchitiettaisanComponent,
+    BiendongComponent,
+    LichbaoduongComponent,
+    SucosuachuaComponent,
+    ThongtinchungComponent,
+    ModalcapnhatbaoduongComponent,
+    ModalcapnhatsuachuabaoduongComponent,
   ],
   imports: [
     CommonModule,
@@ -131,7 +147,10 @@ import { ModalhangsanxuatComponent } from './modal/modalhangsanxuat/modalhangsan
     ModaldonvitinhComponent,
     ModalloaitaisanComponent,
     ModalcapnhattaisanComponent,
-    ModalhangsanxuatComponent
+    ModalhangsanxuatComponent, 
+    ModalthongtinchitiettaisanComponent,
+    ModalcapnhatbaoduongComponent,
+    ModalcapnhatsuachuabaoduongComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
