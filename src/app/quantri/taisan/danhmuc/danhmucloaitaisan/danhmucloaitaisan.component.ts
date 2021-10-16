@@ -13,7 +13,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   items: any = [];
-  keyWord:any='';
+  Keyword:any='';
   paging: any = {  Page: 1, TotalPages: 1, TotalCount: 1 };
   cols: any = [
     {
@@ -42,7 +42,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
     this.GetListdmLoaiTaiSan();
   }
   resetFilter(){
-    this.keyWord = '';
+    this.Keyword = '';
     this.GetListdmLoaiTaiSan(true);
   }
   GetListdmLoaiTaiSan(reset?){
@@ -53,9 +53,9 @@ export class DanhmucloaitaisanComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.Page,
-      sFilter:this.keyWord,  
-      ma:"", 
-      ten:""    
+      Keyword:this.Keyword, 
+      Ma:"", 
+      Ten:""   
     };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res:any)=>{
       this.items = res.Data.Items;
@@ -68,7 +68,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới tài sản';
+    modalRef.componentInstance.title = 'Thêm mới loại tài sản';
     modalRef.result.then(res=>{
       this.GetListdmLoaiTaiSan()
     }).catch(er=>console.log(er))

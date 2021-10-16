@@ -2,20 +2,18 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { ModaldonvitinhComponent } from '../../modal/modaldonvitinh/modaldonvitinh.component';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+import { ModalloaikhauhaoComponent } from '../../modal/modalloaikhauhao/modalloaikhauhao.component';
 @Component({
-  selector: 'app-danhmucdonvitinh',
-  templateUrl: './danhmucdonvitinh.component.html',
-  styleUrls: ['./danhmucdonvitinh.component.css']
+  selector: 'app-loaikhauhao',
+  templateUrl: './loaikhauhao.component.html',
+  styleUrls: ['./loaikhauhao.component.css']
 })
-export class DanhmucdonvitinhComponent implements OnInit {
-
-  
+export class LoaikhauhaoComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   Keyword:any='';
-  paging: any = {Page: 1, TotalPages: 1, TotalCount: 1 };
+  paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   cols: any = [
     {
       header: 'Mã',
@@ -40,13 +38,13 @@ export class DanhmucdonvitinhComponent implements OnInit {
   constructor(private _modal:NgbModal,private _danhMucTaiSan:DanhmuctaisanService,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.GetListdmDonViTinh();
+    this.GetListLoaiKhauHao();
   }
   resetFilter(){
     this.Keyword = '';
-    this.GetListdmDonViTinh(true);
+    this.GetListLoaiKhauHao(true);
   }
-  GetListdmDonViTinh(reset?){
+  GetListLoaiKhauHao(reset?){
     if(reset){
       this.paging.Page=1;
       this.paginator.changePage(0);
@@ -58,32 +56,32 @@ export class DanhmucdonvitinhComponent implements OnInit {
       Ma:"", 
       Ten:""    
     };
-    this._danhMucTaiSan.DanhMucDonViTinh().GetList(data).subscribe((res:any)=>{
+    this._danhMucTaiSan.DanhMucLoaiKhauHao().GetList(data).subscribe((res:any)=>{
       this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
   add(){
-    let modalRef = this._modal.open(ModaldonvitinhComponent,{
+    let modalRef = this._modal.open(ModalloaikhauhaoComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới đơn vị tính';
+    modalRef.componentInstance.title = 'Thêm mới loại khấu hao';
     modalRef.result.then(res=>{
-      this.GetListdmDonViTinh()
+      this.GetListLoaiKhauHao()
     }).catch(er=>console.log(er))
   }
   edit(item){
-    let modalRef = this._modal.open(ModaldonvitinhComponent,{
+    let modalRef = this._modal.open(ModalloaikhauhaoComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='edit';
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật đơn vị tính';
+    modalRef.componentInstance.title = 'Cập nhật khấu hao';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
     modalRef.result.then(res=>{
-      this.GetListdmDonViTinh()
+      this.GetListLoaiKhauHao()
     }).catch(er=>console.log(er))
   }
   delete(item){
@@ -92,11 +90,11 @@ export class DanhmucdonvitinhComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{   
-      this._danhMucTaiSan.DanhMucDonViTinh().Delete([item.Id]).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucLoaiKhauHao().Delete(item.Id).subscribe((res: any) => {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
-            this.GetListdmDonViTinh();
+            this.GetListLoaiKhauHao();
           } else {
             this._toastr.error(res.Message);
           }
@@ -106,6 +104,8 @@ export class DanhmucdonvitinhComponent implements OnInit {
   }
   changePage(event){
     this.paging.Page = event.page+1;
-    this.GetListdmDonViTinh()
+    this.GetListLoaiKhauHao()
   }
+  
+
 }

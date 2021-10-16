@@ -43,7 +43,8 @@ export class ChonkhachhangmodalComponent implements OnInit {
   loai='';
   checkedAll: boolean = false;
   paging: any = {};
-
+  listTieuChiDanhGia: any = [];
+  listHopDong: any = [];
   KeyWord: any = '';
   constructor(
     public activeModal: NgbActiveModal,
@@ -67,6 +68,14 @@ export class ChonkhachhangmodalComponent implements OnInit {
     }
     this.item.listItem_ref = this.items.slice(0,15);
     this.item.listItem_ref_copy = this.items;
+    this.listTieuChiDanhGia.forEach(element => {
+      element.iddmTieuChi = element.id;
+      element.id = '';
+      element.listItem.forEach(e1 => {
+        e1.iddmTieuChi = e1.id;
+        e1.id = '';
+      });
+    });
   }
   checkAll(e) {
     this.items.forEach(item => {
@@ -119,8 +128,8 @@ if(item.checked == true)
     let itemFinds = this.items.find(e => e.checked === true && e.Id === item.Id);
     let data: any = {
       idKhachHang: itemFinds.Id,
-      ten: itemFinds.Ten,
-      ma: itemFinds.Ma,
+      tenKhachHang: itemFinds.Ten,
+      maKhachHang: itemFinds.Ma,
       diaChi: itemFinds.DiaChi,
       isXoa: false,
       id: '',
@@ -131,6 +140,8 @@ if(item.checked == true)
       nguoiDaiDien: itemFinds.NguoiDaiDien,
       chucVu: itemFinds.ChucVu,
       taiKhoanNganHang: itemFinds.TaiKhoanNganHang,
+      listTieuChiDanhGia: this.listTieuChiDanhGia,
+      listHopDong:this.listHopDong,
     }
     this.selectedItems.push(data)
   }

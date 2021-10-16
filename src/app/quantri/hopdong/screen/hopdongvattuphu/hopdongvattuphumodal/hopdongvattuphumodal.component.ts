@@ -19,6 +19,7 @@ export class HopdongvattuphumodalComponent implements OnInit {
   item: any = {};
   hopDong: any = {};
   listDieuKhoanThanhToan: any = [];
+  listHangHoaSoi: any = []
   userInfo: any;
   newItem: any = {};
   lang: any = vn;

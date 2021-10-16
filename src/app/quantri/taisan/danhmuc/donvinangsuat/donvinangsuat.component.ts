@@ -14,7 +14,7 @@ export class DonvinangsuatComponent implements OnInit {
   
   @ViewChild('paginator') paginator: any;
   items: any = [];
-  keyWord:any='';
+  Keyword:any='';
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   cols: any = [
     {
@@ -40,13 +40,13 @@ export class DonvinangsuatComponent implements OnInit {
   constructor(private _modal:NgbModal,private _danhMucTaiSan:DanhmuctaisanService,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.GetListdmLoaiBaoDuong();
+    this.GetListDonViNangSuat();
   }
   resetFilter(){
-    this.keyWord = '';
-    this.GetListdmLoaiBaoDuong(true);
+    this.Keyword = '';
+    this.GetListDonViNangSuat(true);
   }
-  GetListdmLoaiBaoDuong(reset?){
+  GetListDonViNangSuat(reset?){
     if(reset){
       this.paging.Page=1;
       this.paginator.changePage(0);
@@ -54,9 +54,9 @@ export class DonvinangsuatComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.Page,
-      sFilter:this.keyWord,  
-      ma:"", 
-      ten:""    
+      Keyword:this.Keyword,  
+      Ma:"", 
+      Ten:""    
     };
     this._danhMucTaiSan.DanhMucDonViNangSuat().GetList(data).subscribe((res:any)=>{
       this.items = res.Data.Items;
@@ -71,7 +71,7 @@ export class DonvinangsuatComponent implements OnInit {
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = 'Thêm mới đơn vị năng suất';
     modalRef.result.then(res=>{
-      this.GetListdmLoaiBaoDuong()
+      this.GetListDonViNangSuat()
     }).catch(er=>console.log(er))
   }
   edit(item){
@@ -83,7 +83,7 @@ export class DonvinangsuatComponent implements OnInit {
     modalRef.componentInstance.title = 'Cập nhật đơn vị năng suất';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
     modalRef.result.then(res=>{
-      this.GetListdmLoaiBaoDuong()
+      this.GetListDonViNangSuat()
     }).catch(er=>console.log(er))
   }
   delete(item){
@@ -96,7 +96,7 @@ export class DonvinangsuatComponent implements OnInit {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
-            this.GetListdmLoaiBaoDuong();
+            this.GetListDonViNangSuat();
           } else {
             this._toastr.error(res.Message);
           }
@@ -106,7 +106,7 @@ export class DonvinangsuatComponent implements OnInit {
   }
   changePage(event){
     this.paging.Page = event.page+1;
-    this.GetListdmLoaiBaoDuong()
+    this.GetListDonViNangSuat()
   }
   
 

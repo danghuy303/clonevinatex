@@ -31,7 +31,6 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   };
   editTableItem: any = [];
   listLoBong: any = [];
-  listCapBong: any = [];
   listKho: any = [];
   lang: any = vn;
   data: any = {};
@@ -58,7 +57,6 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     this.GetDanhSachDuAnByIdUser();
     // this.GetListdmLoaiBong();
     console.log(this.item)
-    this.GetListOptdmCapBong();
     if (this.opt !== 'edit') {
       this.item = {
         id: "",
@@ -103,12 +101,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     this.item.giaCif = item.giaCif;
     this.item.tenLoaiBongXo = item.tenLoaiBongXo;
     this.item.iddmLoaiBong = item.iddmLoaiBong;
-  }
-
-  GetListOptdmCapBong() {
-    this._services.GetListOptdmCapBong().subscribe((res: any) => {
-      this.listCapBong = mapArrayForDropDown(res, "Ten", 'Id');
-    })
+    this.item.iddmCapBong = item.iddmCapBong;
   }
 
   ChuyenDuyet() {

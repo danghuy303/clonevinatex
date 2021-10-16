@@ -3,13 +3,12 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
-
 @Component({
-  selector: 'app-modalbophansudung',
-  templateUrl: './modalbophansudung.component.html',
-  styleUrls: ['./modalbophansudung.component.css']
+  selector: 'app-modaltinhtrangtaisan',
+  templateUrl: './modaltinhtrangtaisan.component.html',
+  styleUrls: ['./modaltinhtrangtaisan.component.css']
 })
-export class ModalbophansudungComponent implements OnInit {
+export class ModaltinhtrangtaisanComponent implements OnInit {
   public item: any = {};
   public title: any = '';
   public type = '';
@@ -22,7 +21,7 @@ export class ModalbophansudungComponent implements OnInit {
 
   ValidateData() {
     if (!validVariable(this.item.Ma)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ mã !");
+      this.toastr.error("Yêu cầu nhập đầy đủ mã!");
       return false;
     }
     if (!validVariable(this.item.Ten)) {
@@ -34,7 +33,7 @@ export class ModalbophansudungComponent implements OnInit {
 
   GhiLai() {
     if (this.ValidateData()) {
-      this._danhMucTaiSan.DanhMucBoPhanSuDung().Set(this.item).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucTinhTrangTaiSan().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
         } else {
@@ -46,4 +45,3 @@ export class ModalbophansudungComponent implements OnInit {
     }
   }
 }
-

@@ -503,6 +503,7 @@ export class QuantriComponent implements OnInit {
           {
             label: "Cho vay",
             routerLink: "/quantri/quanlykhosanxuat/xuatbongchovay/khobong/0",
+            separator: this.checkmenu("PHIEUXUATBONGCHOVAY"),
             command: () => this.close(),
           },
           // {
@@ -837,6 +838,12 @@ export class QuantriComponent implements OnInit {
               "/quantri/hopdongsanxuat/danhmuc/dmtieuchichatluong",
             command: () => this.close(),
           },
+          {
+            label: "Tiêu chí đánh giá",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/dmtieuchidanhgia",
+            command: () => this.close(),
+          },
         ],
       },    
 
@@ -894,12 +901,19 @@ export class QuantriComponent implements OnInit {
             },
           },
           {
-            label: "Bộ phận sử dụng",
-            routerLink: "/quantri/taisan/danhmuc/bophansudung",            
+            label: "Loại khấu hao",
+            routerLink: "/quantri/taisan/danhmuc/loaikhauhao",            
             command: () => {
               this.close();
             },
           },
+          // {
+          //   label: "Tình trạng tài sản",
+          //   routerLink: "/quantri/taisan/danhmuc/tinhtrangtaisan",            
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
           {
             label: "Loại bảo dưỡng ",
             routerLink: "/quantri/taisan/danhmuc/danhmucloaibaoduong",

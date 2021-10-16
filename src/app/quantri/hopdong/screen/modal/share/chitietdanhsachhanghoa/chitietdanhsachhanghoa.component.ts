@@ -191,10 +191,10 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
       // this.listKeHoachNhapBong = res1
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listThanhToanThuTuc = res1;
-      modalRef.componentInstance.listHangHoa = deepCopy(this.listHangHoaSoi);
+      modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;
       modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
       modalRef.result.then(res => {
-        this.listHangHoaSoi= deepCopy(res);  
+        this.listHangHoaSoi= res;  
       }).catch(er => { console.log(er) });
     })
   }
@@ -222,17 +222,16 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   
   chonVatTuPhu() {
     this._danhmucHopDong.DanhMucVatTuPhu().GetListAll().subscribe((res1: any) => {
-
-    let modalRef = this._modal.open(LuachonvattuphucuahanghoamodalComponent, {
-      size: 'lg',
-      backdrop: 'static'
-    })
+      let modalRef = this._modal.open(LuachonvattuphucuahanghoamodalComponent, {
+        size: 'lg',
+        backdrop: 'static'
+      })
       modalRef.componentInstance.opt = 'edit';
-      modalRef.componentInstance.listHangHoa = deepCopy(this.listHangHoaSoi);
+      modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;
       modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
       modalRef.componentInstance.listThanhToanThuTuc = res1;
       modalRef.result.then(res => {
-        this.listHangHoaSoi= deepCopy(res);  
+        this.listHangHoaSoi= res;  
       }).catch(er => { console.log(er) });
     })
 

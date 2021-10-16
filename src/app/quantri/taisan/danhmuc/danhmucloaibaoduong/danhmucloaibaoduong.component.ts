@@ -13,7 +13,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   items: any = [];
-  keyWord:any='';
+  Keyword:any='';
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1};
   cols: any = [
     {
@@ -42,7 +42,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     this.GetListdmLoaiBaoDuong();
   }
   resetFilter(){
-    this.keyWord = '';
+    this.Keyword = '';
     this.GetListdmLoaiBaoDuong(true);
   }
   GetListdmLoaiBaoDuong(reset?){
@@ -53,9 +53,9 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.Page,
-      sFilter:this.keyWord,  
-      ma:"", 
-      ten:""    
+      Keyword:this.Keyword,  
+      Ma:"", 
+      Ten:""    
     };
     this._danhMucTaiSan.DanhMucLoaiBaoDuong().GetList(data).subscribe((res:any)=>{
       this.items = res.Data.Items;

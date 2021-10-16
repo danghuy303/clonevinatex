@@ -33,7 +33,8 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
   listKhachHang: any = [];
   IdDuAn: any = 0;
   userInfo: any;
-
+  listHopDong: any = [];
+  listTieuChiDanhGia: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService, private _auth: AuthenticationService,
@@ -49,6 +50,7 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
         idDuAn: this.IdDuAn,
       }
       this.GetNextSoQuyTrinh();
+      this.getListdmTieuChiDanhGia();
     }
     else{
       this.getQuyTrinh(this.item.id);
@@ -155,6 +157,8 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
     modalRef.componentInstance.items = this.listKhachHang;
     modalRef.componentInstance.selectedItems = deepCopy(this.item.listPhieuDanhGia || []);
     modalRef.componentInstance.IdQuyTrinh = this.item.id;
+    modalRef.componentInstance.listTieuChiDanhGia = deepCopy(this.listTieuChiDanhGia);
+    modalRef.componentInstance.listHopDong = deepCopy(this.listHopDong);
     modalRef.componentInstance.opt = "";    
     modalRef.result.then(res => {
       this.item.listPhieuDanhGia = deepCopy(res);
@@ -167,15 +171,18 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
       size: 'xl'
     })
     modalRef.componentInstance.item = item;
-    modalRef.componentInstance.items = this.listKhachHang;
-    modalRef.componentInstance.selectedItems = deepCopy(this.item.listPhieuDanhGia || []);
-
     modalRef.componentInstance.IdQuyTrinh = this.item.id;
     modalRef.componentInstance.opt = "";    
     modalRef.result.then(res => {
-      this.item.listPhieuDanhGia = deepCopy(res);
+      item = deepCopy(res);
     }).catch(er => {
       console.log(er);
+    })
+  }
+  getListdmTieuChiDanhGia(){
+    let data: any = {currentPage: 0}
+    this._hopdong.dmTieuChiDanhGia().GetList(data).subscribe((res1: any) => {
+      this.listTieuChiDanhGia = res1.data;
     })
   }
 }

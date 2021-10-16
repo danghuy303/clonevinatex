@@ -77,6 +77,8 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
       });
   }
   ChuyenDuyet() {
+    if(this.checkTruocKhiLuu()){
+
     this._services.GiaoKeHoachSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res?.statusCode === 200) {
@@ -87,9 +89,11 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
           }
         }
       });
-    
+    }
   }
   KhongDuyet() {
+    if(this.checkTruocKhiLuu()){
+
     this._services.GiaoKeHoachSanXuat().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
           if (res?.statusCode === 200) {
@@ -100,6 +104,7 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
           }
         }
       });
+    }
   }
 
   GetNextSoQuyTrinh() {
@@ -109,7 +114,8 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
   }
 
   GhiLai() {
-    this._services.GiaoKeHoachSanXuat().Set(this.item).subscribe((res: any) => {
+    if(this.checkTruocKhiLuu()){
+      this._services.GiaoKeHoachSanXuat().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res?.statusCode === 200) {
             this._toastr.success(res.message);
@@ -121,6 +127,8 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
           }
         }
       });
+    }
+    
   }
 
   XoaQuyTrinh() {
@@ -283,5 +291,32 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
     modalRef.result.then((res) => {
       item[opt]=res;
     })
+  }
+  checkTruocKhiLuu(){
+    if(!validVariable(this.item.noiDung)){
+      this._toastr.error("Bạn chưa nhập nội dung");
+      return false;
+    }
+    else if(!validVariable(this.item.idDuAn)){
+      this._toastr.error("Bạn chưa chọn dự án");
+      return false;
+    }
+    else if(!validVariable(this.item.iddmPhanXuong)){
+      this._toastr.error("Bạn chưa chọn phân xưởng");
+      return false;
+    }
+    else if(!validVariable(this.item.ngayBatDau)){
+      this._toastr.error("Bạn chưa ngày bắt đầu");
+      return false;
+    }
+    else if(!validVariable(this.item.ngayKetThuc)){
+      this._toastr.error("Bạn chưa ngày kết thúc");
+      return false;
+    }
+    else if(!validVariable(this.item.tongSoCa)){
+      this._toastr.error("Bạn chưa nhập tổng số ca");
+      return false;
+    }
+    return true;
   }
 }
