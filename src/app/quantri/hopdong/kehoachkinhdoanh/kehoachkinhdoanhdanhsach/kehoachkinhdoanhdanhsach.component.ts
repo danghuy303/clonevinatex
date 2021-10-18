@@ -31,7 +31,7 @@ export class KehoachkinhdoanhdanhsachComponent implements OnInit {
   userSub: any;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
-  eAction = "QUYTRINHKEHOACHKINHDOANH";
+  eAction = "PHUONGANPHABONG";
 
 
   constructor(private _modal: NgbModal, private _danhMucHopDong: DanhMucHopDongService,
