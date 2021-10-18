@@ -2253,4 +2253,8 @@ export class SanXuatService {
             },
         }
     }
+    CheckEditPhieuInvoice(IdKeHoachNhapNguyenLieuDongBo) {
+        let url = API.SCMChoModuleHopDong + `CheckEditPhieuInvoice?IdKeHoachNhapNguyenLieuDongBo=${IdKeHoachNhapNguyenLieuDongBo}`;
+        return this.http.get(url, httpOptions);
+    }
 }
