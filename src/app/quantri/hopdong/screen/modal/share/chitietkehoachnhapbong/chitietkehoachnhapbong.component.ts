@@ -164,7 +164,32 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     && validVariable(this.newTableItem.thoiGianCapCang) && validVariable(this.newTableItem.thoiGianDuKien)){
       this.add()
     }
-    if (!validVariable(this.item.idHopDong)) {
+    let isCheckThoiGian : any = false;
+    let isCheckKho : any = false;
+    if(validVariable(this.item.listInvoice)){
+      for(let i = 0; this.item.listInvoice.length; i ++){
+        if(!validVariable(this.item.listInvoice[i].thoiGianDuKien) || !validVariable(this.item.listInvoice[i].thoiGianCapCang)){
+          isCheckThoiGian = true;
+          break;
+        }
+        if(!validVariable(this.item.listInvoice[i].iddmKho)){
+          isCheckKho = true;
+          break;
+        }
+      }
+    }
+    
+    if(isCheckThoiGian === true)
+    {
+      this.toastr.error('Vui lòng chọn thời gian')
+      return false;
+    }
+    else if(isCheckKho === true)
+    {
+      this.toastr.error('Vui lòng chọn kho')
+      return false;
+    }
+    else if (!validVariable(this.item.idHopDong)) {
       this.toastr.error('Vui lòng chọn hợp đồng')
       return false;
     }
@@ -272,6 +297,12 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
       this.item.listInvoice = [];
     this.newTableItem.id = "";
     this.newTableItem.idKeHoachNhapBong = this.item.id;
+    if(!validVariable(this.newTableItem.soContainer))
+      this.newTableItem.soContainer = 0;
+    if(!validVariable(this.newTableItem.soLuong))
+      this.newTableItem.soLuong = 0;
+    if(!validVariable(this.newTableItem.soKien))
+      this.newTableItem.soKien = 0;
     this.item.listInvoice.push(this.newTableItem);
     this.tinhTongContainer_SoKien();
     this.newTableItem = {
