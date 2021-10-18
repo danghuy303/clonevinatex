@@ -40,7 +40,7 @@
                 <th class="text-center">STT</th>
                 <th>Ngày tạo</th>
                 <th>Số phiếu</th>
-                <th>Số hợp đồng</th>
+                <th>Số - Tên HĐ</th>
                 <th>Giá trị quyết toán</th>
                 <th>Còn phải trả</th>
                 <th>Giữ lại bảo hành</th>
@@ -55,7 +55,7 @@
                 <td class="text-center">{{item.created | date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.soQuyTrinh}}</td>
 
-                <td class="text-center">{{item.idHopDong}}</td>
+                <td class="text-center">{{item.soHopDong}} - {{item.tenHopDong}}</td>
                 <td class="text-center">{{item.giaTriQuyetToan}}</td>
                 <td class="text-center">{{item.conPhaiThanhToan}}</td>
                 <td class="text-center">{{item.giaTriBaoHanhGiuLai}}</td>

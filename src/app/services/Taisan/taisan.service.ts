@@ -8,5 +8,34 @@ import { StoreService } from '../store.service';
 })
 export class TaisanService {
 
-  constructor(private http: HttpClient,public store: StoreService) { }
+  constructor(private http: HttpClient, public store: StoreService) { }
+
+  NhapTaiSan() {
+    let url = API.TaiSan;
+    return {
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(`${url}NhapTaiSan/GetNextQuyTrinhNhapTaiSan`, httpOptions);
+      },
+      GetList: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}NhapTaiSan/GetAllNhapTaiSan`, data, httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(`${url}NhapTaiSan/GetNhapTaiSanById?Id=${Id}`, httpOptions);
+      },
+      Set: (data) => {
+        return this.http.post(`${url}NhapTaiSan/SetQuyTrinhNhapTaiSan`, data, httpOptions);
+      },
+      KhongDuyet: (data) => {
+        return this.http.post(`${url}NhapTaiSan/KhongDuyetQuyTrinhNhapTaiSan`, data, httpOptions);
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(`${url}NhapTaiSan/ChuyenTiepQuyTrinhNhapTaiSan`, data, httpOptions);
+      },
+      Delete: (Id) => {
+        return this.http.get(`${url}NhapTaiSan/DeleteNhapTaiSanById?Id=${Id}`, httpOptions);
+      },
+    };
+  }
+
 }

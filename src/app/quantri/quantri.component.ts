@@ -35,6 +35,7 @@ export class QuantriComponent implements OnInit {
   canSendMessage: any;
   mapQuyTrinhRoute: any = mapQuyTrinhRoute;
   showHopDongModule:any=false;
+  showTaiSanModule:any=false;
   @ViewChild("listNoti") listNoti;
   constructor(
     private _auth: AuthenticationService,
@@ -149,7 +150,8 @@ export class QuantriComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showHopDongModule = (window.location.origin.includes('localhost')||window.location.origin.includes('2269'))
+    this.showHopDongModule = (window.location.origin.includes('localhost')||window.location.origin.includes('2269'));
+    this.showTaiSanModule = (window.location.origin.includes('localhost')||window.location.origin.includes('2269'));
     this.refreshNotis();
     this._router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
@@ -501,6 +503,7 @@ export class QuantriComponent implements OnInit {
           {
             label: "Cho vay",
             routerLink: "/quantri/quanlykhosanxuat/xuatbongchovay/khobong/0",
+            separator: this.checkmenu("PHIEUXUATBONGCHOVAY"),
             command: () => this.close(),
           },
           // {
@@ -835,6 +838,12 @@ export class QuantriComponent implements OnInit {
               "/quantri/hopdongsanxuat/danhmuc/dmtieuchichatluong",
             command: () => this.close(),
           },
+          {
+            label: "Tiêu chí đánh giá",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/dmtieuchidanhgia",
+            command: () => this.close(),
+          },
         ],
       },    
 
@@ -843,8 +852,15 @@ export class QuantriComponent implements OnInit {
         label: "Quản lý tài sản",
         icon: "fas fa-circle",
         routerLink: "/quantri/taisan",
-        visible: this.showHopDongModule,
+        visible: this.showTaiSanModule,
         items: [
+          {
+            label: "Nhập tài sản",
+            routerLink: "/quantri/taisan/nhaptaisan",            
+            command: () => {
+              this.close();
+            },
+          },
           {
             label: "Danh sách tài sản",
             routerLink: "/quantri/taisan/danhsachtaisan",            
@@ -860,8 +876,8 @@ export class QuantriComponent implements OnInit {
       {
         label: "Danh mục quản lý tài sản",
         icon: "fas fa-circle",
-        routerLink: "/quantri/taisan/danhmuc",
-        visible: this.showHopDongModule,
+        routerLink: "/quantri/danhmuctaisan",
+        visible: this.showTaiSanModule,
         items: [
           {
             label: "Đơn vị năng suất",
@@ -885,15 +901,29 @@ export class QuantriComponent implements OnInit {
             },
           },
           {
-            label: "Bộ phận sử dụng",
-            routerLink: "/quantri/taisan/danhmuc/bophansudung",            
+            label: "Loại khấu hao",
+            routerLink: "/quantri/taisan/danhmuc/loaikhauhao",            
+            command: () => {
+              this.close();
+            },
+          },
+          // {
+          //   label: "Tình trạng tài sản",
+          //   routerLink: "/quantri/taisan/danhmuc/tinhtrangtaisan",            
+          //   command: () => {
+          //     this.close();
+          //   },
+          // },
+          {
+            label: "Loại bảo dưỡng ",
+            routerLink: "/quantri/taisan/danhmuc/danhmucloaibaoduong",
             command: () => {
               this.close();
             },
           },
           {
-            label: "Loại bảo dưỡng ",
-            routerLink: "/quantri/taisan/danhmuc/danhmucloaibaoduong",
+            label: "Hàng Sản Xuất",
+            routerLink: "/quantri/taisan/danhmuc/hangsannxuat",            
             command: () => {
               this.close();
             },

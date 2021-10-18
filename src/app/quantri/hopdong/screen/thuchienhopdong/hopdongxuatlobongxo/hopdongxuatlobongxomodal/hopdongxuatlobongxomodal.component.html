@@ -73,41 +73,23 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto"></label>
-
-            <div class="p-col-12  p-xl-4 p-p-3 d-flex flex-column flex-xl-row  p-py-0 ">
-                <div class="p-col-12 p-lg-2 p-d-flex p-ml-lg-0 p-p-0">
-                    <p-checkbox [(ngModel)]="item.DaVeKho" binary="true" inputId="DaVeKho"
-                        (onChange)="item.ChuaVeKho=!item.DaVeKho"></p-checkbox>
-                </div>
-                <label class="p-col-12 p-lg-10 p-p-0 my-auto" for="DaVeKho">Đã về kho</label>
-            </div>
-            <div class="p-col-12  p-xl-4  p-p-3 d-flex flex-column flex-xl-row p-px-0 p-py-0 p-m-0">
-                <div class="p-col-12 p-lg-2 p-d-flex p-jc-end p-mr-4 p-ml-xl-2 p-ml-lg-0 p-p-0">
-                    <p-checkbox [(ngModel)]="item.ChuaVeKho" binary="true" inputId="ChuaVeKho"
-                        (onChange)="item.DaVeKho=!item.ChuaVeKho"></p-checkbox>
-                </div>
-                <label class="p-col-12 p-lg-10 p-p-0 my-auto" for="ChuaVeKho">Chưa về kho</label>
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.ChuaVeKho === true">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô bông :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoBong" placeholder="Chọn lô bông"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.idLoBong"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.ChuaVeKho === true">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số kiện :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soKien">
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soKien" disabled>
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.ChuaVeKho === true">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số lượng :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soLuong">
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soLuong" disabled>
                 </p-inputNumber>
             </div>
         </div>
@@ -126,14 +108,15 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col style="width:50px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
-                        <th *ngIf="item.DaVeKho === true">Container</th>
-                        <th *ngIf="item.ChuaVeKho === true">Kho</th>
+                        <th>Kho</th>
+                        <th>Tồn kho</th>
                         <th>Tổng số kiện</th>
                         <th>Tổng khối lượng</th>
                         <th></th>
@@ -142,20 +125,20 @@
                 <ng-template pTemplate="body" let-itemTable let-i="rowIndex">
                     <tr>
                         <td class="text-center">{{i+1}}</td>
-                        <td class="text-center" *ngIf="item.DaVeKho === true">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemTable.container">
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-center" *ngIf="item.ChuaVeKho === true">
+                        <td class="text-center">
                             <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
                             styleClass="p-inputtext-sm" [(ngModel)]="itemTable.iddmKho"></p-dropdown>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemTable.soKien">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemTable.tonKho" disabled>
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemTable.khoiLuong">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemTable.soKien" (ngModelChange)="tinhTongSoKien()">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemTable.khoiLuong" (ngModelChange)="tinhTongKhoiLuong()">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
@@ -168,20 +151,24 @@
                 <ng-template pTemplate="footer">
                     <tr>
                         <td></td>
-                        <td class="text-right" *ngIf="item.DaVeKho === true">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.container">
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-center" *ngIf="item.ChuaVeKho === true">
+                        <td class="text-center" *ngIf="item.DaVeKho === true">
                             <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
                             styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.iddmKho"></p-dropdown>
                         </td>
+                        <td class="text-center" *ngIf="item.DaVeKho === true">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.tonKho" disabled>
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center" *ngIf="item.ChuaVeKho === true">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.container">
+                            </p-inputNumber>
+                        </td>
                         <td class="text-right">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.soKien">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.soKien" (ngModelChange)="tinhTongSoKien()">
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.khoiLuong">
+                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.khoiLuong" (ngModelChange)="tinhTongKhoiLuong()">
                             </p-inputNumber>
                         </td>
                         <td class="text-center"> <button pButton pRipple icon="pi pi-plus"

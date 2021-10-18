@@ -6,8 +6,9 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
-import { ChonmathangthanhtoanhopdongComponent } from '../chonmathangthanhtoanhopdong/chonmathangthanhtoanhopdong.component';
+import { ChondanhmucthutucthanhtoanmodalComponent } from '../../quyettoanhopdong/chondanhmucthutucthanhtoanmodal/chondanhmucthutucthanhtoanmodal.component';
 
 @Component({
   selector: 'app-thanhtoanhopdongsoimodal',
@@ -16,7 +17,7 @@ import { ChonmathangthanhtoanhopdongComponent } from '../chonmathangthanhtoanhop
 })
 export class ThanhtoanhopdongsoimodalComponent implements OnInit {
 
- 
+
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -37,15 +38,15 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
   IdDuAn: any = 0;
   listIdThanhToanInvoice: any = [];
   listThanhToanInvoiceFull: any = [];
-  listLoaiThanhToan: any = [{label: 'Thanh toán theo kế hoạch thanh toán',value: 1},
-  {label: 'Thanh toán theo đợt xuất hàng', value: 2}];
+  listLoaiThanhToan: any = [{ label: 'Thanh toán theo kế hoạch thanh toán', value: 1 },
+  { label: 'Thanh toán theo đợt xuất hàng', value: 2 }];
   userInfo: any;
 
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService, private _auth: AuthenticationService,
-    private _hopdong: HopDongService,) {
-      this.userInfo = this._auth.currentUserValue;
+    private _hopdong: HopDongService, private _servicesdmHopDong: DanhMucHopDongService) {
+    this.userInfo = this._auth.currentUserValue;
   }
 
   ngOnInit(): void {
@@ -53,40 +54,40 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       this.item = {
         id: '',
-        listFileDinhKem : [],
-        listThanhToanMatHang  : [],
-        listThanhToanThuHoi  : [],
-        listThanhToanDotGiaoNhan  : [],
+        listFileDinhKem: [],
+        listThanhToanMatHang: [],
+        listThanhToanThuHoi: [],
+        listThanhToanDotGiaoNhan: [],
         idDuAn: this.IdDuAn,
-        loai:11,
+        loai: 11,
       }
       this.GetNextSoQuyTrinh();
     }
-    else{
+    else {
       this.getQuyTrinh(this.item.id);
     }
     this.getListHopDong();
 
   }
-  getListHopDong(){
+  getListHopDong() {
     this._services.GetOptions().GetDanhSachHopDongByNhaThauSoi(this.item.idDuAn).subscribe((res: any) => {
       this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
     })
   }
-  
-  getListDieuKhoanThanhToan(isCheck = false){
-    if(isCheck === true){
+
+  getListDieuKhoanThanhToan(isCheck = false) {
+    if (isCheck === true) {
       this.item.listThanhToanMatHang = []
       this.item.listThanhToanDotGiaoNhan = []
-      this.listIdThanhToanInvoice=[]
+      this.listIdThanhToanInvoice = []
     }
-    if(this.item.loaiThanhToan === 1){
+    if (this.item.loaiThanhToan === 1) {
       this._hopdong.QuyTrinhHopDong().getListDieuKhoan(this.item.idHopDong).subscribe((res: any) => {
         this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'noiDung', 'id');
         this.listDieuKhoanThanhToanFull = res.data;
       })
     }
-    else if(this.item.loaiThanhToan === 2){
+    else if (this.item.loaiThanhToan === 2) {
       this._hopdong.QuyTrinhThanhToan().getListInvoice(this.item.idHopDong).subscribe((res: any) => {
         this.listThanhToanInvoice = mapArrayForDropDown(res.data, 'soQuyTrinh', 'idPhieuXuatThanhPham');
         this.listThanhToanInvoiceFull = res.data;
@@ -99,19 +100,34 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
     })
   }
   ChuyenTiep() {
-    if(this.CheckTruocKhiLuu()){
-      if (this.item.ngayThanhToan !== null && this.item.ngayThanhToan !== undefined)
-        this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
-      this._hopdong.QuyTrinhThanhToan().ChuyenTiep(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.statusCode === 200) {
-            this.activeModal.close();
-            this.toastr.success(res.message)
-          } else {
-            this.toastr.error(res.message);
-          }
+    let isChuaNopDu: any = false;
+    for (let i = 0; i < this.item.listHoSoDinhKem.length; i++) {
+      if (this.item.listHoSoDinhKem[i].isNopDu !== true) {
+        isChuaNopDu = true;
+        break;
+      }
+    }
+    if (isChuaNopDu === true) {
+      let modalRef = this._modal.open(ModalthongbaoComponent, {
+        backdrop: 'static'
+      });
+      modalRef.componentInstance.message = "Bạn chưa nộp đủ tài liệu bạn chắc chắn muốn lưu quy trình này chứ?"
+      modalRef.result.then(res => {
+        if (this.CheckTruocKhiLuu()) {
+          if (this.item.ngayThanhToan !== null && this.item.ngayThanhToan !== undefined)
+            this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+          this._hopdong.QuyTrinhThanhToan().ChuyenTiep(this.item).subscribe((res: any) => {
+            if (res) {
+              if (res.statusCode === 200) {
+                this.activeModal.close();
+                this.toastr.success(res.message)
+              } else {
+                this.toastr.error(res.message);
+              }
+            }
+          })
         }
-      })
+      }).catch()
     }
   }
 
@@ -122,8 +138,7 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if(this.CheckTruocKhiLuu())
-    {
+    if (this.CheckTruocKhiLuu()) {
       this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
       this._hopdong.QuyTrinhThanhToan().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -159,12 +174,12 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
 
   getQuyTrinh(Id) {
     this._hopdong.QuyTrinhThanhToan().Get(Id).subscribe((res1: any) => {
-      this.item=res1.data;
+      this.item = res1.data;
       this.listIdThanhToanInvoice = []
       if (this.item.ngayThanhToanUnix !== null && this.item.ngayThanhToanUnix !== undefined) {
         this.item.ngayThanhToan = UnixToDate(this.item.ngayThanhToanUnix);
       }
-      if(this.item.listThanhToanDotGiaoNhan.length> 0){
+      if (this.item.listThanhToanDotGiaoNhan.length > 0) {
         this.item.listThanhToanDotGiaoNhan.forEach(element => {
           this.listIdThanhToanInvoice.push(element.idPhieuXuatThanhPham)
         });
@@ -178,7 +193,7 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
       this.item.listItem = [];
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {}
-    
+
   }
 
   delete(index) {
@@ -193,7 +208,7 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
   Onclose() {
     this.activeModal.close();
   }
-  CheckTruocKhiLuu(){
+  CheckTruocKhiLuu() {
     if (this.newTableItem.Ten != undefined || this.newTableItem.SoCan != undefined || this.newTableItem.SoKien != undefined || this.newTableItem.IddmViTri != undefined) {
       this.add();
     }
@@ -208,11 +223,11 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
     return true;
   }
   getListItem() {
-    this.item.listThanhToanMatHang=[];
-    this.item.listThanhToanDotGiaoNhan=[];
+    this.item.listThanhToanMatHang = [];
+    this.item.listThanhToanDotGiaoNhan = [];
     this.listIdThanhToanInvoice.forEach(element => {
-      let item: any = this.listThanhToanInvoiceFull.filter(e=> e.idPhieuXuatThanhPham == element)
-      if(item!== undefined){
+      let item: any = this.listThanhToanInvoiceFull.filter(e => e.idPhieuXuatThanhPham == element)
+      if (item !== undefined) {
         let itempush: any = {
           idPhieuXuatThanhPham: element,
         }
@@ -224,7 +239,7 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
     this._hopdong.QuyTrinhThanhToan().GetListInvoiceHopDongChiTiet(data).subscribe((res: any) => {
       res.data.forEach(element => {
         let itempush: any = {
-          id:'',
+          id: '',
           iddmItem: element.iddmItem,
           madmItem: element.madmItem,
           tendmItem: element.tendmItem,
@@ -238,18 +253,32 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
       });
     })
   }
-  layGiaTri(){
-    var data = this.listDieuKhoanThanhToanFull.filter(e=> e.id == this.item.idThanhToanDieuKhoan);
-    if(data !== undefined){
+  layGiaTri() {
+    var data = this.listDieuKhoanThanhToanFull.filter(e => e.id == this.item.idThanhToanDieuKhoan);
+    if (data !== undefined) {
       this.item.giaTriThanhToan = data[0].giaTri || 0;
     }
   }
-  TinhThanhTien(){
+  TinhThanhTien() {
     this.item.giaTriThanhToan = 0;
-    if(this.item.listThanhToanMatHang === null || this.item.listThanhToanMatHang === undefined)
+    if (this.item.listThanhToanMatHang === null || this.item.listThanhToanMatHang === undefined)
       this.item.listThanhToanMatHang = []
     this.item.listThanhToanMatHang.forEach(element => {
       this.item.giaTriThanhToan += (element.soLuong || 0) * (element.donGia || 0);
     });
+  }
+  chonDanhMuc() {
+    this._servicesdmHopDong.DanhMucThuTucThanhToan().GetListAll().subscribe((res1: any) => {
+      let modalRef = this._modal.open(ChondanhmucthutucthanhtoanmodalComponent, {
+        size: 'lg',
+        backdrop: 'static'
+      })
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.listThanhToanThuTuc = res1;
+      modalRef.componentInstance.listHangHoa = this.item.listHoSoDinhKem || [];
+      modalRef.result.then(res => {
+        this.item.listHoSoDinhKem = res;
+      }).catch(er => { console.log(er) });
+    })
   }
 }

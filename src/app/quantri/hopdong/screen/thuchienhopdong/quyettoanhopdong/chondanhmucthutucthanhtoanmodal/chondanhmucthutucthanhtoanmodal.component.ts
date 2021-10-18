@@ -45,9 +45,8 @@ export class ChondanhmucthutucthanhtoanmodalComponent implements OnInit {
     if(this.listHangHoa != undefined && this.listHangHoa!= null)
     {
       for(let i = 0; i < this.listHangHoa.length; i++){
-        console.log(this.listHangHoa[i])
         let itemFind = this.listThanhToanThuTuc.find(
-          ele => (ele.IddmItem === this.listHangHoa[i].iddmItem )
+          ele => (ele.id === this.listHangHoa[i].iddmThanhToanThuTuc && this.listHangHoa[i].isXoa !== true)
          )
         if(validVariable(itemFind)){
           itemFind.checked = true;
@@ -119,7 +118,7 @@ if(item.checked == true)
     itemFind.isXoa = false;
 }
   else{
-    let itemFind = this.listHangHoa.filter((e: any) =>e.IddmItem === item.id)[0];
+    let itemFind = this.listHangHoa.filter((e: any) =>e.iddmThanhToanThuTuc === item.id)[0];
     if(itemFind !== undefined){
       itemFind.isXoa = true;
     }

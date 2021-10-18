@@ -44,13 +44,13 @@
                             <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true"
                                 inputId="binary"></p-checkbox>
                         </th>
-                        <th>Hợp đồng</th>
+                        <th>Số- Tên hợp đồng</th>
                         <th>Mặt hàng</th>
                         <th>Mã</th>
-                        <th>Loại sợi</th>
                         <th>Chi số Ne</th>
                         <th>Độ săn</th>
-                        <th>Đã giao</th>
+                        <th>Khối lượng đã giao</th>
+                        <th>Khối lượng theo hợp đồng</th>
                         <th>Ghi chú</th>
                     </tr>
                 </ng-template>
@@ -62,10 +62,10 @@
                         <td>{{item.tenSoHopDong}}</td>
                         <td>{{item.ten}}</td>
                         <td>{{item.ma}}</td>
-                        <td>{{item.tendmLoaiSoi}}</td>
                         <td class="text-right">{{item.ne|number:'0.0' }}</td>
                         <td class="text-right">{{item.doSan|number:'0.0'}}</td>
-                        <td>{{item.daGiao}}</td>
+                        <td class="text-right">{{item.daGiao}}</td>
+                        <td class="text-right">{{item.daGiao}}</td>
                         <td>{{item.ghiChu}}</td>
                     </tr>
                 </ng-template>

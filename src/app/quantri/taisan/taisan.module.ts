@@ -43,31 +43,63 @@ import { Dat09Service } from 'src/app/services/callApi';
 import { LoaderService } from 'src/app/services/loader.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+import { TreeTableModule } from 'primeng/treetable';
 import { DanhmucloaibaoduongComponent } from './danhmuc/danhmucloaibaoduong/danhmucloaibaoduong.component';
 import { DanhmucdonvitinhComponent } from './danhmuc/danhmucdonvitinh/danhmucdonvitinh.component';
 import { DanhmucloaitaisanComponent } from './danhmuc/danhmucloaitaisan/danhmucloaitaisan.component';
-import { BophansudungComponent } from './danhmuc/bophansudung/bophansudung.component';
 import { DonvinangsuatComponent } from './danhmuc/donvinangsuat/donvinangsuat.component';
-import { ModalbophansudungComponent } from './modal/modalbophansudung/modalbophansudung.component';
 import { ModaldonvitinhComponent } from './modal/modaldonvitinh/modaldonvitinh.component';
 import { ModalloaitaisanComponent } from './modal/modalloaitaisan/modalloaitaisan.component';
 import { ModalbaoduongComponent } from './modal/modalbaoduong/modalbaoduong.component';
 import { ModaldonvinangsuatComponent } from './modal/modaldonvinangsuat/modaldonvinangsuat.component';
+import { ModalcapnhattaisanComponent } from './modal/modalcapnhattaisan/modalcapnhattaisan.component';
+import { HangsanxuatComponent } from './danhmuc/hangsanxuat/hangsanxuat.component';
+import { ModalhangsanxuatComponent } from './modal/modalhangsanxuat/modalhangsanxuat.component';
+import { NhaptaisanComponent } from './nhaptaisan/nhaptaisan.component';
+import { ModalthongtinchitiettaisanComponent } from './modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
+import { BiendongComponent } from './biendong/biendong.component';
+import { LichbaoduongComponent } from './lichbaoduong/lichbaoduong.component';
+import { SucosuachuaComponent } from './sucosuachua/sucosuachua.component';
+import { ThongtinchungComponent } from './thongtinchung/thongtinchung.component';
+import { ModalcapnhatbaoduongComponent } from './modal/modalcapnhatbaoduong/modalcapnhatbaoduong.component';
+import { ModalcapnhatsuachuabaoduongComponent } from './modal/modalcapnhatsuachuabaoduong/modalcapnhatsuachuabaoduong.component';
+import { LoaikhauhaoComponent } from './danhmuc/loaikhauhao/loaikhauhao.component';
+import { TinhtrangtaisanComponent } from './danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
+import { ModalloaikhauhaoComponent } from './modal/modalloaikhauhao/modalloaikhauhao.component';
+import { ModaltinhtrangtaisanComponent } from './modal/modaltinhtrangtaisan/modaltinhtrangtaisan.component';
+import { ThongtitaisanchaComponent } from './screen/thongtitaisancha/thongtitaisancha.component';
+import { ModalcapnhattaisanconComponent } from './modal/modalcapnhattaisancon/modalcapnhattaisancon.component';
 
 
 @NgModule({
   declarations: [TaisanComponent,
-     DanhsachtaisanComponent, 
-     DanhmucloaibaoduongComponent, 
-     DanhmucdonvitinhComponent, 
-     DanhmucloaitaisanComponent,
-      BophansudungComponent, 
-      DonvinangsuatComponent,
-       ModalbophansudungComponent, 
-       ModaldonvitinhComponent, 
-       ModalloaitaisanComponent,
-        ModalbaoduongComponent,
-         ModaldonvinangsuatComponent],
+    DanhsachtaisanComponent,
+    DanhmucloaibaoduongComponent,
+    DanhmucdonvitinhComponent,
+    DanhmucloaitaisanComponent,
+    DonvinangsuatComponent,
+    ModaldonvitinhComponent,
+    ModalloaitaisanComponent,
+    ModalbaoduongComponent,
+    ModaldonvinangsuatComponent,
+    HangsanxuatComponent,
+    ModalhangsanxuatComponent,
+    ModalcapnhattaisanComponent,
+    NhaptaisanComponent,
+    ModalthongtinchitiettaisanComponent,
+    BiendongComponent,
+    LichbaoduongComponent,
+    SucosuachuaComponent,
+    ThongtinchungComponent,
+    ModalcapnhatbaoduongComponent,
+    ModalcapnhatsuachuabaoduongComponent,
+    LoaikhauhaoComponent,
+    TinhtrangtaisanComponent,
+    ModalloaikhauhaoComponent,
+    ModaltinhtrangtaisanComponent,
+    ThongtitaisanchaComponent,
+    ModalcapnhattaisanconComponent,
+  ],
   imports: [
     CommonModule,
     TaisanRoutingModule,
@@ -105,23 +137,31 @@ import { ModaldonvinangsuatComponent } from './modal/modaldonvinangsuat/modaldon
     TooltipModule,
     TreeModule,
     VoiLibModule,
+    TreeTableModule,
   ],
-  providers: [    
+  providers: [
     LoaderService,
     SanXuatService,
     Dat09Service,
-    TaisanService,  
+    TaisanService,
     DanhmuctaisanService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true, },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
 
   entryComponents: [ModalbaoduongComponent,
-    ModalbophansudungComponent,
     ModaldonvinangsuatComponent,
     ModaldonvitinhComponent,
     ModalloaitaisanComponent,
+    ModalcapnhattaisanComponent,    
+    ModalthongtinchitiettaisanComponent,
+    ModalcapnhatbaoduongComponent,
+    ModalcapnhatsuachuabaoduongComponent,
+    ModalhangsanxuatComponent,
+    ModaltinhtrangtaisanComponent,
+    ModalloaikhauhaoComponent,
+    ModalcapnhattaisanconComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class TaisanModule { }

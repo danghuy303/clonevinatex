@@ -37,6 +37,7 @@ export class ModallaphopdongsoiComponent implements OnInit {
   item: any = {};
   hopDong: any = {};
   listDieuKhoanThanhToan: any = [];
+  listHangHoaSoi: any = [];
   userInfo: any;
   newItem: any = {};
   isXo: boolean = true
