@@ -55,7 +55,7 @@ export class DanhsachhopdongsoiComponent implements OnInit {
     let data = {
       pageSize: 20,
       currentPage: this.paging.currentPage,
-      tabTrangThai: 3,
+      tabTrangThai: 2,
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),

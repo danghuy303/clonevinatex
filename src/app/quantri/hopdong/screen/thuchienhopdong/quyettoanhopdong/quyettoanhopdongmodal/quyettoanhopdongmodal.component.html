@@ -91,13 +91,6 @@
       </div>
     </div>
     <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
-      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị hoàn thành: </label>
-      <div class="p-col-12 p-lg-8 p-p-0">
-        <p-inputNumber #inputNumber [(ngModel)]="item.giaTriHoanThanh" [minFractionDigits]="0" locale="vi-VN" disabled>
-        </p-inputNumber>
-      </div>
-    </div>
-    <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị thanh toán: </label>
       <div class="p-col-12 p-lg-8 p-p-0">
         <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.tongGiaTriThanhToan" locale="vi-VN" disabled>
@@ -107,23 +100,14 @@
     <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị quyết toán: </label>
       <div class="p-col-12 p-lg-8 p-p-0">
-        <p-inputNumber #inputNumber [(ngModel)]="item.giaTriQuyetToan" [minFractionDigits]="0" locale="vi-VN" disabled>
+        <p-inputNumber #inputNumber [(ngModel)]="item.giaTriQuyetToan" [minFractionDigits]="0" locale="vi-VN" (ngModelChange)="tinhGiaTri()">
         </p-inputNumber>
       </div>
     </div>
-
-    <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
-      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị giữ bảo lãnh: </label>
-      <div class="p-col-12 p-lg-8 p-p-0">
-        <p-inputNumber #inputNumber [(ngModel)]="item.giaTriBaoHanhGiuLai" [minFractionDigits]="0" locale="vi-VN" disabled>
-        </p-inputNumber>
-      </div>
-    </div>
-
     <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Còn phải TT: </label>
       <div class="p-col-12 p-lg-8 p-p-0">
-        <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.conPhaiThanhToan" locale="vi-VN" (ngModelChange)="item.conPhaiThanhToan = dinhDangSo($event)">
+        <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.conPhaiThanhToan" locale="vi-VN" disabled>
         </p-inputNumber>
       </div>
     </div>

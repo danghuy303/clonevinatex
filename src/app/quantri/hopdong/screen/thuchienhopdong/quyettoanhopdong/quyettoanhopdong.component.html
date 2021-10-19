@@ -43,7 +43,6 @@
                 <col>
                 <col>
                 <col>
-                <col>
                 <col style="width: 50px;">
             </colgroup>
         </ng-template>
@@ -55,7 +54,6 @@
                 <th>Số phiếu</th>
                 <th>Giá trị quyết toán</th>
                 <th>Còn phải trả</th>
-                <th>Giữ lại bảo hành</th>
                 <th>Ghi chú</th>
                 <th></th>
             </tr>
@@ -68,7 +66,6 @@
                 <td class="text-left">{{item.soQuyTrinh}}</td>
                 <td class="text-right">{{item.giaTriQuyetToan|number:'0.0'}}</td>
                 <td class="text-right">{{item.conPhaiThanhToan|number:'0.0'}}</td>
-                <td class="text-right">{{item.giaTriBaoHanhGiuLai|number:'0.0'}}</td>
                 <td class="text-center">{{item.ghiChu}}</td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.id)"></button>

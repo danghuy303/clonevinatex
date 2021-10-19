@@ -59,50 +59,6 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       { replaceUrl: true }
     );
   }
-  add() {
-   
-    let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
-      size: "fullscreen",
-      backdrop: "static",
-    });
-    modalRef.componentInstance.opt = "add";
-    
-    modalRef.componentInstance.item = {
-      listNhanSu: [],
-    
-     
-      listDieuKhoanThanhToan: [],
-      listTieuChuanChatLuong: [],
-    
-      listBaoLanh: [],
-
-      listTaiLieu: [],
-
-      lstFileUploadCu: [],
-    };
-    modalRef.componentInstance.item.hopDong = {
-      id: "",
-      Loai: 0
-    };
-    modalRef.componentInstance.item.listHangHoa = [
-      {
-        
-      }
-    ]
-    modalRef.result
-      .then((res: any) => {
-        console.log(res);
-        this._toastr.success("Cập nhật thành công");
-        this.GetListQuyTrinh();
-        this.changeParam(0);
-      })
-      .catch((er) => {
-        this.GetListQuyTrinh();
-        this.changeParam(0);
-      });
-  }
-
- 
   update(id) {
     this._service.QuyTrinhHopDong().Get(id).subscribe((res1: any) => {
         let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
@@ -145,7 +101,7 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     let data = {
       pageSize: 20,
       currentPage: this.paging.currentPage,
-      tabTrangThai: 3,
+      tabTrangThai: 2,
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),

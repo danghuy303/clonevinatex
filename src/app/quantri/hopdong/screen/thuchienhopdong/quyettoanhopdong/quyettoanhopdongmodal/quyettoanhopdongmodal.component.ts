@@ -235,8 +235,6 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
         this.listDotQuyetToan = res1.data;
       })
       this._service.QuyetToanHopDong().GetThongTinQuyetToanByHopDong(this.item.idHopDong).subscribe((res1: any) => {
-        this.item.giaTriHoanThanh = res1.data.giaTriHoanThanh;
-        this.item.giaTriBaoHanhGiuLai = res1.data.giaTriBaoHanhGiuLai;
         this.item.tongGiaTriPhat = res1.data.tongGiaTriPhat;
         this.item.tongGiaTriThanhToan = res1.data.tongGiaTriThanhToan;
         this.item.giaTriHopDong = res1.data.giaTriHopDong;
@@ -244,6 +242,11 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
         this.item.khoiLuongDaNhan = res1.data.khoiLuongDaNhan;
         this.item.conPhaiThanhToan = res1.data.conPhaiThanhToan;
         this.item.giaTriQuyetToan = res1.data.giaTriQuyetToan;
+        this.item.conPhaiThanhToan =  this.item.giaTriQuyetToan - this.item.tongGiaTriThanhToan;
       })
+  }
+  tinhGiaTri(){
+    this.item.giaTriQuyetToan = dinhDangSo(this.item.giaTriQuyetToan);
+    this.item.conPhaiThanhToan =  this.item.giaTriQuyetToan - this.item.tongGiaTriThanhToan;
   }
 }

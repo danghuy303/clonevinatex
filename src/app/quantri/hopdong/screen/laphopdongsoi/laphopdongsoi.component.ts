@@ -73,14 +73,13 @@ export class LaphopdongsoiComponent implements OnInit {
     modalRef.componentInstance.opt = "add";
     
     modalRef.componentInstance.item = {
-      listNhanSu: [],
       listDieuKhoanThanhToan: [],
-      listTieuChuanChatLuong: [],
       listBaoLanh: [],
       listTaiLieu: [],
       lstFileUploadCu: [],
     };
     modalRef.componentInstance.item.hopDong = {
+      isLayTheoGiaTriHangHoa: true,
       id: "",
       loai: 11
     };
@@ -97,7 +96,39 @@ export class LaphopdongsoiComponent implements OnInit {
         this.changeParam(0);
       });
   }
-
+  addPhuLuc() {
+   
+    let modalRef = this._modal.open(ModallaphopdongsoiComponent, {
+      size: "fullscreen",
+      backdrop: "static",
+    });
+    modalRef.componentInstance.opt = "add";
+    
+    modalRef.componentInstance.item = {
+      listDieuKhoanThanhToan: [],
+      listBaoLanh: [],
+      listTaiLieu: [],
+      lstFileUploadCu: [],
+    };
+    modalRef.componentInstance.item.hopDong = {id: "",
+    isLayTheoGiaTriHangHoa: true,
+    isPhuLuc: true,
+    loai: 11
+  };
+    modalRef.componentInstance.item.listHangHoa = [{}
+    ]
+    modalRef.result
+      .then((res: any) => {
+        console.log(res);
+        this._toastr.success("Cập nhật thành công");
+        this.GetListQuyTrinh();
+        this.changeParam(0);
+      })
+      .catch((er) => {
+        this.GetListQuyTrinh();
+        this.changeParam(0);
+      });
+  }
   update(id) {
     this._service.QuyTrinhHopDong().Get(id).subscribe((res1: any) => {
         let modalRef = this._modal.open(ModallaphopdongsoiComponent, {

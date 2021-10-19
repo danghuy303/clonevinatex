@@ -101,6 +101,10 @@ isSoi : any = true;
           element.hieuLucBaoLanh = UnixToDate(element.hieuLucBaoLanhUnix);
         });
       }
+      if(validVariable(this.item.hopDong.idHopDong))
+      {
+        this.item.hopDong.isPhuLuc = true;
+      }
     })
   }
   GetNextSoQuyTrinh() {

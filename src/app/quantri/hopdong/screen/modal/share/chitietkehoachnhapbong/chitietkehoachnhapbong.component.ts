@@ -27,7 +27,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   }
   newTableItem: any = {
     "id": "",
-    "idKeHoachNhapBong": this.item.Id,
+    "idKeHoachNhapBong": this.item.id,
   };
   editTableItem: any = [];
   listLoBong: any = [];
@@ -166,8 +166,9 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     }
     let isCheckThoiGian : any = false;
     let isCheckKho : any = false;
+    
     if(validVariable(this.item.listInvoice)){
-      for(let i = 0; this.item.listInvoice.length; i ++){
+      for(let i = 0; i < this.item.listInvoice.length; i ++){
         if(!validVariable(this.item.listInvoice[i].thoiGianDuKien) || !validVariable(this.item.listInvoice[i].thoiGianCapCang)){
           isCheckThoiGian = true;
           break;
