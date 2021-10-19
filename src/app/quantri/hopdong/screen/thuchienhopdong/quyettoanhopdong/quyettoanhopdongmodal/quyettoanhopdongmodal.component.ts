@@ -1,5 +1,5 @@
 
-import { DateToUnix, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, dinhDangSo, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { ModalthongbaoComponent } from './../../../../../modal/modalthongbao/modalthongbao.component';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -30,6 +30,7 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
   listHopDongFull: any = [];
   lang: any = vn;
   listDotQuyetToan: any = [];
+  dinhDangSo = dinhDangSo;
   yearRange: string = `${
     new Date().getFullYear() - 50
   }:${new Date().getFullYear()}`;
@@ -59,7 +60,10 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
       this.item.ngayLapBienBanQT = UnixToDate(this.item.ngayLapBienBanQTUnix)
       this.item.ngayQuyetToan = UnixToDate(this.item.ngayQuyetToanUnix)
       this.KiemTraButtonModal();
-      this.getListThanhToan();
+      // this.getListThanhToan();
+      this._service.QuyTrinhThanhToan().GetListThanhToanHopDong(this.item.idHopDong).subscribe((res1: any) => {
+        this.listDotQuyetToan = res1.data;
+      })
     }
   }
 
@@ -222,11 +226,24 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
   getListThanhToan(){
     let itemFind = this.listHopDongFull.filter(e => e.id === this.item.idHopDong);
     if(itemFind !== undefined)
-      this.item.giaTriHoanThanh = itemFind[0].giaTriHoanThanh;
-      this.item.loai = itemFind[0].loai
+      // this.item.giaTriHoanThanh = itemFind[0].giaTriHoanThanh;
+      // this.item.khoiLuongHopDong = itemFind[0].khoiLuongHopDong;
+      // this.item.giaTriHopDong = itemFind[0].giaTri;
 
-    this._service.QuyTrinhThanhToan().GetListThanhToanHopDong(this.item.idHopDong).subscribe((res1: any) => {
-      this.listDotQuyetToan = res1.data;
-    })
+      this.item.loai = itemFind[0].loai
+      this._service.QuyTrinhThanhToan().GetListThanhToanHopDong(this.item.idHopDong).subscribe((res1: any) => {
+        this.listDotQuyetToan = res1.data;
+      })
+      this._service.QuyetToanHopDong().GetThongTinQuyetToanByHopDong(this.item.idHopDong).subscribe((res1: any) => {
+        this.item.giaTriHoanThanh = res1.data.giaTriHoanThanh;
+        this.item.giaTriBaoHanhGiuLai = res1.data.giaTriBaoHanhGiuLai;
+        this.item.tongGiaTriPhat = res1.data.tongGiaTriPhat;
+        this.item.tongGiaTriThanhToan = res1.data.tongGiaTriThanhToan;
+        this.item.giaTriHopDong = res1.data.giaTriHopDong;
+        this.item.khoiLuongHopDong = res1.data.khoiLuongHopDong;
+        this.item.khoiLuongDaNhan = res1.data.khoiLuongDaNhan;
+        this.item.conPhaiThanhToan = res1.data.conPhaiThanhToan;
+        this.item.giaTriQuyetToan = res1.data.giaTriQuyetToan;
+      })
   }
 }

@@ -62,9 +62,7 @@ export class LaphopdongsoiComponent implements OnInit {
       this._modal.dismissAll();
     }
     this.router.navigate(
-      [`quantri/hopdongsanxuat/laphopdongsoi/${id}`],
-      { replaceUrl: true }
-    );
+      [`quantri/hopdongsanxuat/laphopdongsoi/${id}`], { replaceUrl: true });
   }
   add() {
    
