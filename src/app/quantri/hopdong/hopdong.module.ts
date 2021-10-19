@@ -170,6 +170,10 @@ import { DanhmuctieuchidanhgiaComponent } from './danhmuc/danhmuctieuchidanhgia/
 import { DanhmuctieuchidanhgiamodalComponent } from './danhmuc/danhmuctieuchidanhgia/danhmuctieuchidanhgiamodal/danhmuctieuchidanhgiamodal.component';
 import { KehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/kehoachkinhdoanhthang.component';
 import { ModalkehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/modal/modalkehoachkinhdoanhthang/modalkehoachkinhdoanhthang.component';
+import { KehoachsanxuatnamComponent } from './kehoachsanxuatnam/kehoachsanxuatnam.component';
+import { KehoachsanxuatthangComponent } from './kehoachsanxuatthang/kehoachsanxuatthang.component';
+import { KehoachsanxuatnammodalComponent } from './kehoachsanxuatnam/modal/kehoachsanxuatnammodal/kehoachsanxuatnammodal.component';
+import { KehoachsanxuatthangmodalComponent } from './kehoachsanxuatthang/modal/kehoachsanxuatthangmodal/kehoachsanxuatthangmodal.component';
 
 
 
@@ -399,6 +403,10 @@ import { ModalkehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/mod
 
     DanhmuctieuchidanhgiamodalComponent,
     ModalkehoachkinhdoanhthangComponent,
+    KehoachsanxuatnamComponent,
+    KehoachsanxuatthangComponent,
+    KehoachsanxuatnammodalComponent,
+    KehoachsanxuatthangmodalComponent,
 
 
 
