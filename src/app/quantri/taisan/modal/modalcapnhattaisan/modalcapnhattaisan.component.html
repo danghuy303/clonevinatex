@@ -33,15 +33,18 @@
         </div>
     </div>
     <!-- phần cha -->
-    <app-thongtitaisancha [(item)]="item" [listDonVi]="listDonVi" [listLoaiTaiSan]="listLoaiTaiSan" [listTinhTrangTaiSan]="listTinhTrangTaiSan" [listNhaSanXuat]="listNhaSanXuat" [opt]="opt"></app-thongtitaisancha>
+    <app-thongtitaisancha [(item)]="item.TaiSan" [listDonVi]="listDonVi" [listLoaiTaiSan]="listLoaiTaiSan"
+        [listTinhTrangTaiSan]="listTinhTrangTaiSan" [listNhaSanXuat]="listNhaSanXuat" [opt]="opt">
+    </app-thongtitaisancha>
     <!-- phần con -->
     <p-panel header="Tài sản" [toggleable]="true">
         <div class="p-d-flex p-flex-row p-jc-between">
-            <div class="modal-bt p-mb-4 ">               
-                <button pButton pRipple type="button" label="Thêm mới" class="p-mr-2 p-button-sm " (click)="ThemMoiTaiSanCon()"></button>             
+            <div class="modal-bt p-mb-4 ">
+                <button pButton pRipple type="button" label="Thêm mới" class="p-mr-2 p-button-sm "
+                    (click)="ThemMoiTaiSanCon()"></button>
             </div>
         </div>
-        <p-table [value]="item.listTaiSan" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
+        <p-table [value]="item.listTaiSan|isXoa" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
             [scrollable]="true">
             <ng-template pTemplate="colgroup">
                 <colgroup>
@@ -52,7 +55,7 @@
                     <col>
                     <col>
                     <col>
-                    <col>                                   
+                    <col>
                     <col style="width: 100px;">
                 </colgroup>
             </ng-template>
@@ -63,56 +66,36 @@
                     </th>
                     <th class="text-center">Mã</th>
                     <th class="text-center">Tên</th>
-                    <th class="text-center">Đơn vị tính</th>
-                    <th class="text-center">Bộ phận sử dụng</th>
+                    <th class="text-center">Nội dung</th>
+                    <th class="text-center">Đơn vị tính</th>         
                     <th class="text-center">Nguyên giá</th>
                     <th class="text-center">Giá trị còn lại</th>
-                    <th class="text-center">Thời gian sử dụng</th>   
+                    <th class="text-center">Thời gian sử dụng</th>
                     <th></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item let-i="rowIndex">
-                <!-- <tr>
-                    <td class="text-center">
-                        {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
-                    </td>
-                    <td class="text-center">{{item.soQuyTrinh}}</td>
-                    <td class="text-center">{{item.created|date:'dd/MM/yyyy'}}</td>
-                    <td class="text-center">{{item.noiDung}}</td>
-                    <td class="text-center">{{item.tenPhanXuong}}</td>
-                    <td class="text-center">{{item.ngayBatDau|date:'dd/MM/yyyy'}}</td>
-                    <td class="text-center">{{item.ngayKetThuc|date:'dd/MM/yyyy'}}</td>
-                    <td class="text-center" *ngFor="let col of cols">
-                        {{item[col.field]}}
-                    </td>
-                    <td class="text-center"> 
-                        <button pButton pRipple type="button" icon="pi pi-pencil"
-                            class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="CapNhatTaiSanCon(item)"></button>
-<button pButton pRipple type="button" icon="pi pi-trash" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa" (click)="XoaTaiSanCon(item)"></button>
-                            
-                    </td>
-                </tr> -->
-            </ng-template>
-            <!-- <ng-template pTemplate="footer">
                 <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.noiDung" pInputText />
-                    </td>
-                    <td>
-                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.soLuong">
-                        </p-inputNumber>
-                    </td>
-                    <td>
-                        <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.noiDung" pInputText />
-                    </td>
                     <td class="text-center">
-                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
-                            (click)="add()"></button>
+                        {{i + 1}}
+                    </td>
+                    <td class="text-center">{{item.Ma}}</td>
+                    <td class="text-center">{{item.Ten}}</td>
+                    <td class="text-center">{{item.NoiDung}}</td>
+                    <td class="text-center">{{item.TenDonViTinh}}</td>                               
+                    <td class="text-center">{{item.NguyenGia|number:'0.0'}}</td>
+                    <td class="text-center">{{item.GiaTriConLai|number:'0.0'}}</td>                   
+                    <td class="text-center">{{item.ThoiGianSuDung}}</td>                   
+                    <td class="text-center">
+                        <button pButton pRipple type="button" icon="pi pi-pencil"
+                            class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
+                            (click)="CapNhatTaiSanCon(item)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-trash"
+                            class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
+                            (click)="XoaTaiSanCon(item,i)"></button>
                     </td>
                 </tr>
-            </ng-template> -->
+            </ng-template>          
         </p-table>
     </p-panel>
 </div>

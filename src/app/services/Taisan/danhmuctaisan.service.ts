@@ -63,8 +63,8 @@ export class DanhmuctaisanService {
       Set: (data) => {
         return this.http.post(`${url}DanhMuc/SetdmLoaiBaoDuong`, data, httpOptions)
       },
-      Delete: (id) => {
-        return this.http.get(`${url}DanhMuc/DeletedmLoaiBaoDuong?id=${id}`, httpOptions)
+      Delete: (Id) => {
+        return this.http.get(`${url}DanhMuc/DeletedmLoaiBaoDuong?Id=${Id}`, httpOptions)
       }
     }
   }

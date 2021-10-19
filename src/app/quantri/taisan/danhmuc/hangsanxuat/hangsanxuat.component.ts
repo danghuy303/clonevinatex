@@ -81,7 +81,8 @@ export class HangsanxuatComponent implements OnInit {
   }
   add(){
     let modalRef = this._modal.open(ModalhangsanxuatComponent,{
-      backdrop:'static'
+      backdrop:'static',
+      size:'lg'
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'themmoi';
@@ -92,7 +93,8 @@ export class HangsanxuatComponent implements OnInit {
   }
   edit(item){
     let modalRef = this._modal.open(ModalhangsanxuatComponent,{
-      backdrop:'static'
+      backdrop:'static',
+      size:'lg'
     });
     modalRef.componentInstance.opt='edit';
     modalRef.componentInstance.type = 'capnhat';

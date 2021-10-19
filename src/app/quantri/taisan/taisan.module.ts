@@ -69,6 +69,7 @@ import { ModalloaikhauhaoComponent } from './modal/modalloaikhauhao/modalloaikha
 import { ModaltinhtrangtaisanComponent } from './modal/modaltinhtrangtaisan/modaltinhtrangtaisan.component';
 import { ThongtitaisanchaComponent } from './screen/thongtitaisancha/thongtitaisancha.component';
 import { ModalcapnhattaisanconComponent } from './modal/modalcapnhattaisancon/modalcapnhattaisancon.component';
+import { SharedModule } from './../../shared/shared.module';
 
 
 @NgModule({
@@ -138,6 +139,7 @@ import { ModalcapnhattaisanconComponent } from './modal/modalcapnhattaisancon/mo
     TreeModule,
     VoiLibModule,
     TreeTableModule,
+    SharedModule,
   ],
   providers: [
     LoaderService,
