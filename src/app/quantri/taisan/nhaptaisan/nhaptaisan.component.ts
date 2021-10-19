@@ -161,8 +161,7 @@ export class NhaptaisanComponent implements OnInit {
       size: "fullscreen-100",
       backdrop: "static",
     });
-    modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.item = {};
+    modalRef.componentInstance.opt = "add";    
     modalRef.result
       .then((res: any) => {
         this.Loaddata();

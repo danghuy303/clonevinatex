@@ -1,29 +1,22 @@
-import { AuthenticationService } from "./../../../../../services/auth.service";
-import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.service";
-import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
-import { Component, DoCheck, Input, OnInit } from "@angular/core";
-import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { ToastrService } from "ngx-toastr";
-import { ModalthongbaoComponent } from "src/app/quantri/modal/modalthongbao/modalthongbao.component";
-import { SanXuatService } from "src/app/services/callApiSanXuat";
-import { vn } from "src/app/services/const";
-import {
-  DateToUnix,
-  mapArrayForDropDown,
-  UnixToDate,
-  validVariable,
-} from "src/app/services/globalfunction";
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { AuthenticationService } from 'src/app/services/auth.service';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { vn } from 'src/app/services/const';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 
 @Component({
-  selector: "app-chitiethopdongbongxomodal",
-  templateUrl: "./chitiethopdongbongxomodal.component.html",
-  styleUrls: ["./chitiethopdongbongxomodal.component.css"],
+  selector: 'app-phuluchopdongbongxomodal',
+  templateUrl: './phuluchopdongbongxomodal.component.html',
+  styleUrls: ['./phuluchopdongbongxomodal.component.css']
 })
-export class ChitiethopdongbongxomodalComponent implements OnInit {
+export class PhuluchopdongbongxomodalComponent implements OnInit {
   opt: any = "add";
   title: string
   item: any = {};
-  @Input() res1: any = [];
   hopDong: any = {};
   listLoaiMatHang: any = []
   listLoaiMatHang_ref: any = []
@@ -44,6 +37,7 @@ export class ChitiethopdongbongxomodalComponent implements OnInit {
     Xoa: false,
   };
 Id:any = "";
+isPhuLuc: any = true;
   yearRange: string = `${new Date().getFullYear()}:${new Date().getFullYear() + 5
     }`;
   constructor(
@@ -58,14 +52,13 @@ Id:any = "";
   }
 
   ngOnInit(): void {
-    
     if (this.opt !== "edit") {
       this.GetNextSoQuyTrinh();
-      this.title = 'Thêm mới hợp đồng bông xơ'
+      this.title = 'Thêm mới phụ lục hợp đồng bông xơ'
       this.item.listHangHoa[0].DonGiaThanhToan = 0;
       this.item.listHangHoa[0].donGia = 0;
     } else {
-      this.title = "Chỉnh sửa hợp đồng bông xơ"
+      this.title = "Chỉnh sửa phụ lục hợp đồng bông xơ"
       this.GetQuyTrinh();
     }
     this._servicesSanXuat.GetListdmLoaiBongForHopDong(this.item.hopDong.loai || 0).subscribe((res: any) => {
@@ -226,6 +219,4 @@ Id:any = "";
     })
 
   }
-
-
 }

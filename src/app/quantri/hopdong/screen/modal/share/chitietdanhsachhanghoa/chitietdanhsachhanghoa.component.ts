@@ -4,14 +4,11 @@ import { ChitiethanghoacuahopdongsoimodalComponent } from './chitiethanghoacuaho
 import { SanXuatService } from './../../../../../../services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable , dinhDangSo} from 'src/app/services/globalfunction';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
 import { ChitiethanghoamodalComponent } from './chitiethanghoamodal/chitiethanghoamodal.component';
-import { Component, OnInit, Input, Output, EventEmitter, DoCheck, SimpleChanges, ChangeDetectionStrategy, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 import { LuachonvattuphucuahanghoamodalComponent } from './luachonvattuphucuahanghoamodal/luachonvattuphucuahanghoamodal.component';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
-// import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
   selector: 'app-chitietdanhsachhanghoa',
@@ -19,7 +16,7 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
   templateUrl: './chitietdanhsachhanghoa.component.html',
   styleUrls: ['./chitietdanhsachhanghoa.component.css']
 })
-export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
+export class ChitietdanhsachhanghoaComponent implements OnInit, OnChanges {
   @Input('listHangHoa') item: any = {
     iddmLoaiVatTu: '',
   };
@@ -30,15 +27,14 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Input() isXo: boolean
   @Input() isBong: boolean
   @Input() isVatTuPhu: boolean
-  @Input() res1: any = []
+  @Input() isPhuLuc: boolean
   @Input("opt") opt: string;
   @Input() iddmLoaiHopDong: any
-  @Output('loaiNguyenVatLieu') onChange = new EventEmitter();
   // @Output('listHangHoaChange') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @Output('hopDongChange') hopDongChange: EventEmitter<any> = new EventEmitter<any>();
   @Output('listHangHoaChange') listHangHoaChange: EventEmitter<any> = new EventEmitter<any>(); 
   @Output('listLoaiMatHangChange') listLoaiMatHangChange: EventEmitter<any> = new EventEmitter<any>(); 
-  @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
+  // @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
   // @Output('listTieuChuanChatLuong') listTieuChuanChatLuongChange: EventEmitter<any> = new EventEmitter();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   unsup: Subscription
@@ -51,7 +47,6 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   listdmQuyCachDongGoi: any = [];
   listdmCapBong: any = [];
   listdmDacTinh: any = [];
-  // listLoaiMatHang: any = [];
 
   @Output() newItemEvent = new EventEmitter<string>();
 
@@ -66,63 +61,14 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     this.GetOptions()
     this.tinhDonGiaThanhToan();
     this.getlistCapBong();
-    // if (this.opt === "edit") {
-    //   if (this.hopDong.isBenBanChiu) {
-    //     this.hopDong.BenBanChiu = this.hopDong.isBenBanChiu;
-    //     this.hopDong.BenMuaChiu = !this.hopDong.BenBanChiu;
-    //   }
-    //   else {
-    //     this.hopDong.BenMuaChiu = !this.hopDong.isBenBanChiu;
-    //     this.hopDong.BenBanChiu = !this.hopDong.BenMuaChiu;
-    //   }
-    // }
-    // else {
-    //   this.item.DonGiaThanhToan = 0;
-    //   this.hopDong.giaTri = 0;
-    // }
-    // this.item.listVatTu[0].donGia = 0
-    // this.item.listVatTu[0].thueGTGT = 0
-    // this.item.listVatTu[0].soLuong = 0
-    // this.item.listVatTu[0].saiLech = 0
-    // if(this.item.donGia == null && this.item.thueGTGT == null){
-    //  parseInt(this.item.donGia) * parseInt(this.item.thueGTGT) 
-    // }
-    // console.log(this.item.donGia);
-
-
-
-    // console.log(this.item.hopDong.loaiNguyenVatLieu);
   }
 
 
-  ngDoCheck() {
+  ngOnChanges() {
     this.listHangHoaChange.emit(this.item);    
     this.hopDongChange.emit(this.hopDong);
-    this.chiTieuChange.emit(this.listTieuChuanChatLuong);
     this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
-    
-    // this.listLoaiMatHang = mapArrayForDropDown(this.listLoaiMatHang_copy, "Ten", "Id")
   }
-  changeDiaDiem(e) {
-    console.log(this.res1);
-
-  }
-  changInput() {
-    console.log(this.item);
-
-  }
-  // ngOnChanges(changes: SimpleChanges) {
-  //   if ('loaiNguyenVatLieu' in changes) {
-  //   if (typeof changes['loaiNguyenVatLieu'].currentValue !== 'number') {
-  //   const loaiNguyenVatLieu = Number(changes['loaiNguyenVatLieu'].currentValue);
-  //   if (Number.isNaN(loaiNguyenVatLieu)) {
-  //   this.hopDong.loaiNguyenVatLieu = null;
-  //   } else {
-  //   this.hopDong.loaiNguyenVatLieu = this.item.iddmLoaiVatTu;
-  //   }
-  //   }
-  //   }
-  //   }
 
   GetOptions() {
     this._servicesSanXuat.dmQuyCachDongGoi().GetList().subscribe((res: any) => {
@@ -145,12 +91,6 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     modalRef.componentInstance.selectedItems = deepCopy(this.listTieuChuanChatLuong);
     modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
     modalRef.result.then(res => {
-      // console.log(res.item);         
-      // res.forEach(obj => {
-      //   if (!this.listTieuChuanChatLuong.every(element => element.iddmTieuChuanChatLuong === obj.iddmTieuChuanChatLuong) || this.listTieuChuanChatLuong.length == 0) {
-      //     this.listTieuChuanChatLuong.push(obj);
-      //   }
-      // });
       this.listTieuChuanChatLuong= deepCopy(res);  
     }).catch(er => { console.log(er) });
   }
@@ -188,7 +128,6 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
         size: 'lg',
         backdrop: 'static'
       })
-      // this.listKeHoachNhapBong = res1
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listThanhToanThuTuc = res1;
       modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;

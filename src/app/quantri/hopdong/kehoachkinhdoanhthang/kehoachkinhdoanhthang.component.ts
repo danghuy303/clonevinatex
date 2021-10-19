@@ -23,15 +23,12 @@ export class KehoachkinhdoanhthangComponent implements OnInit {
   filter: any = {};
   listNhaMay: Array<any> = [];
   idDuAn: string = "";
-  showDropDown: boolean = false;
-  OSName: string = "HỆ THỐNG Quản lý Nhà – Đất";
   userBtn: any;
   userInfo: any;
   userSub: any;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
   eAction = "QUYTRINHKEHOACHKINHDOANHTHANG";
-
 
   constructor(private _modal: NgbModal, private _danhMucHopDong: DanhMucHopDongService,
     private _toastr: ToastrService,
@@ -44,7 +41,7 @@ export class KehoachkinhdoanhthangComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._danhMucHopDong
-          .DanhSachKeHoachKinhDoanh()
+          .KeHoachKinhDoanhThang()
           .Get(res.id)
           .subscribe((res: any) => {
             this.update(res);
@@ -75,7 +72,7 @@ export class KehoachkinhdoanhthangComponent implements OnInit {
       TabTrangThai: this.trangThai
 
     };
-    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().GetList(data).subscribe((res: any) => {
+    this._danhMucHopDong.KeHoachKinhDoanhThang().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })

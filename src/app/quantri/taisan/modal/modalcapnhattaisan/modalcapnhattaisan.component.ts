@@ -9,6 +9,7 @@ import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunct
 import { API } from 'src/app/services/host';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { ModalcapnhattaisanconComponent } from '../modalcapnhattaisancon/modalcapnhattaisancon.component';
 
 @Component({
   selector: 'app-modalcapnhattaisan',
@@ -17,13 +18,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 })
 export class ModalcapnhattaisanComponent implements OnInit {
 
-  item: any = {
-    TaiSan: {
-      Id: "",
-      isXoa: false,
-    },
-    listTaiSan: [],
-  };
+  item: any = {};
   opt: any = "";
   title: any = "";
   lang: any = vn;
@@ -48,7 +43,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucDonViTinh().GetList(data).toPromise();
@@ -63,9 +58,15 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
       this.KiemTraButtonModal();
       if (this.opt === 'add') {
-        this.title = "Thêm mới";
-        this.item.TaiSan = {};
-        this.item.listTaiSan = [];
+        this.title = "Thêm mới";    
+        this.item = {
+          TaiSan: {
+            Id: "",
+            isXoa: false,
+            listFileDinhKem: [],
+          },
+          listTaiSan: [],
+        }    
         this.GetNextSoQuyTrinh();
       }
       else {
@@ -73,37 +74,10 @@ export class ModalcapnhattaisanComponent implements OnInit {
         this.GetIem();
       }
     });
-    let option: FileUploaderOptions = {
-      url: `${API.uploadURL}`,
-      headers: [{ name: 'Accept', value: 'application/json' }],
-      autoUpload: true,
-    }
-
-    this.uploader = new FileUploader(option);
-    this.uploader.onBeforeUploadItem = (item) => {
-      item.withCredentials = true;
-    };
-
-    this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
-    this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
-    this.uploader.onCompleteItem = (item, response, status, headers) => this.onCompleteItem(item, response, status, headers);
-  }
-
-  onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-  }
-
-  onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-    let res = JSON.parse(response);
-    // console.log(res)
-    // this.TepImport.TenGui = res[0].Name;
-    // this.TepImport.TenGoc = res[0].NameLocal;
-    // this.TepImport.DuongDan = res[0].Url;
-  };
-  onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
   }
 
   KiemTraButtonModal() {
-    this._servicesSanXuat.KiemTraButton(this.item.id || "", this.item.idTrangThai || "").subscribe((res: any) => {
+    this._servicesSanXuat.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
       this.checkbutton = res;
     });
   }
@@ -123,8 +97,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   GetNextSoQuyTrinh() {
-    this._serviceTaiSan.NhapTaiSan().GetNextSoQuyTrinh().subscribe((res: any) => {
-      console.log(res);
+    this._serviceTaiSan.NhapTaiSan().GetNextSoQuyTrinh().subscribe((res: any) => {     
       this.item.SoQuyTrinh = res.Data;
     })
   }
@@ -136,18 +109,18 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   GhiLai() {
-
+    console.log(this.item);
   }
 
   ThemMoiTaiSanCon() {
-    let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
+    let modalRef = this._modal.open(ModalcapnhattaisanconComponent, {
       size: "fullscreen-100",
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.item = {};
     modalRef.result
-      .then((res: any) => {       
+      .then((res: any) => {
       })
       .catch((er) => {
 
@@ -155,7 +128,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   CapNhatTaiSanCon(item) {
-    let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
+    let modalRef = this._modal.open(ModalcapnhattaisanconComponent, {
       size: "fullscreen-100",
       backdrop: "static",
     });
@@ -163,11 +136,27 @@ export class ModalcapnhattaisanComponent implements OnInit {
     modalRef.componentInstance.item = item;
     modalRef.result
       .then((res: any) => {
-       
+
       })
       .catch((er) => {
 
       });
+  }
+
+  XoaTaiSanCon(item) {
+    // let modalRef = this._modal.open(ModalcapnhattaisanconComponent, {
+    //   size: "fullscreen-100",
+    //   backdrop: "static",
+    // });
+    // modalRef.componentInstance.opt = "edit";
+    // modalRef.componentInstance.item = item;
+    // modalRef.result
+    //   .then((res: any) => {
+
+    //   })
+    //   .catch((er) => {
+
+    //   });
   }
 
 }

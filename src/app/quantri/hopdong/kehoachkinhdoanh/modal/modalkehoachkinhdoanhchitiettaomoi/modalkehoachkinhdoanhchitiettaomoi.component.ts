@@ -1,13 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { interval } from 'rxjs';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
+import { PintableDirective } from 'voi-lib';
 import { ModaldongiakehoachthucteComponent } from '../modaldongiakehoachthucte/modaldongiakehoachthucte.component';
 import { ModalkehoachkinhdoanhtheodoiComponent } from '../modalkehoachkinhdoanhtheodoi/modalkehoachkinhdoanhtheodoi.component';
 
@@ -17,6 +19,7 @@ import { ModalkehoachkinhdoanhtheodoiComponent } from '../modalkehoachkinhdoanht
   styleUrls: ['./modalkehoachkinhdoanhchitiettaomoi.component.css']
 })
 export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
+  @ViewChild(PintableDirective) voiPintable: PintableDirective;
   public newitemlap: any = {};
   public newItem: any = {};
   item: any = {};
@@ -42,9 +45,10 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   lstKH_KeHoachKinhDoanh_SanPham: any = [];
   dummyList: any = [1, 2, 3, 4];
   checkbutton: any = {};
-  lstThoiGianCurrent:any=[];
+  lstThoiGianCurrent: any = [];
   showThoiGianHopDong: boolean = false;
-  newHopDong:any={};
+  newHopDong: any = {};
+  isKetThuc: any;
   labelThang: Array<string> = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12',];
   propThang: Array<string> = ['Thang1', 'Thang2', 'Thang3', 'Thang4', 'Thang5', 'Thang6', 'Thang7', 'Thang8', 'Thang9', 'Thang10', 'Thang11', 'Thang12',]
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
@@ -70,6 +74,9 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     if (this.type === 'capnhat') {
       this.rebindData()
     }
+    if (this.item.isKetThuc) {
+      this.isKetThuc = true;
+    }
   }
   rebindData() {
     console.log(this.item);
@@ -90,7 +97,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
         sanpham.TongSanLuongConLaiPhaiThucHien = sanpham.SoLuongHopDong - sanpham.SoLuongDaThucHien;
         sanpham.selectedNhaMay = sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.map(ele => ele.IdDuAn);
         for (let i = 1; i <= 12; i++) {
-          sanpham[`Thang${i}`]=0;
+          sanpham[`Thang${i}`] = 0;
         }
         sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.forEach(nhaMay => {
           nhaMay.TenNhaMay = this.listNhaMay.find(ele => ele.value === nhaMay.IdDuAn)?.label;
@@ -103,6 +110,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
         });
       });
       this.TinhTongSanLuongTungMatHang()
+      this.voiPintable.active()
     }
   }
   TinhSoLuongDaLapKeHoach(rootItem, parentItem) {
@@ -134,6 +142,14 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
         TenNhaMay: this.listNhaMay.find(ele => ele.value === key)?.label,
         IdDuAn: key,
       }
+    })
+  }
+  XoaMatHang(index) {
+    let modalRef = this._modal.open(ModalthongbaoComponent)
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xoá mặt hàng này không?"
+    modalRef.result.then(_ => {
+      this.item.lstKH_KeHoachKinhDoanh_SanPham.splice(index, 1);
+      this.item.selectedItems= this.item.lstKH_KeHoachKinhDoanh_SanPham.map(ele=>ele.IdSanPham);
     })
   }
   changeItem(rootItem) {
@@ -203,14 +219,15 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   }
   showModalThoiGianHopDong(item) {
     this.showThoiGianHopDong = true;
-    this.lstThoiGianCurrent = item;
+    console.log(item.lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong)
+    this.lstThoiGianCurrent = item.lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong;
   }
-  ThemThoiGianHopDong(){
+  ThemThoiGianHopDong() {
     this.lstThoiGianCurrent.push(deepCopy(this.newHopDong))
     this.newHopDong = {}
   }
-  XoaThoiGianHopDong(i){
-    this.lstThoiGianCurrent.splice(i,1)
+  XoaThoiGianHopDong(i) {
+    this.lstThoiGianCurrent.splice(i, 1)
   }
   TheoDoi(item) {
     if (item.Id !== undefined) {
@@ -334,7 +351,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       })
     }
   }
-  KhongDuyet(){
+  KhongDuyet() {
     if (this.validData()) {
       console.log(this.SetData())
       this._danhMucHopDong.DanhSachKeHoachKinhDoanh().KhongDuyet(this.SetData()).subscribe((res: any) => {
@@ -348,9 +365,9 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       })
     }
   }
-  DieuChinhKeHoach(){
-    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().DieuChinh(this.item.Id).subscribe((res:any)=>{
-      this.item ={};
+  DieuChinhKeHoach() {
+    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().DieuChinh(this.item.Id).subscribe((res: any) => {
+      this.item = {};
       res.NgayLap = UnixToDate(res.NgayLapUnix)
       this.item = res;
       this.GetNextSoQuyTrinh();
