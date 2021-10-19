@@ -182,40 +182,20 @@ export class HopDongService {
         return this.http.get(url + `QuyetToan/GetById?Id=${Id}`,httpOptions);
       },
       Set: (data) => {
-        return this.http.post(
-          url + "QuyetToan/SetQuyTrinh",
-          data,
-          httpOptions
-        );
+        return this.http.post(url + "QuyetToan/SetQuyTrinh",data,httpOptions);
       },
       KhongDuyet: (data) => {
-        return this.http.post(
-          url + "QuyetToan/KhongDuyetQuyTrinh",
-          data,
-          httpOptions
-        );
+        return this.http.post(url + "QuyetToan/KhongDuyetQuyTrinh",data, httpOptions);
       },
       ChuyenTiep: (data) => {
-        return this.http.post(
-          url + "QuyetToan/ChuyenTiepQuyTrinh",
-          data,
-          httpOptions
-        );
+        return this.http.post(url + "QuyetToan/ChuyenTiepQuyTrinh",data,httpOptions);
       },
       Delete: (data) => {
-        return this.http.post(
-          url + "QuyetToan/DeleteQuyTrinh",
-          data,
-          httpOptions
-        );
+        return this.http.post(url + "QuyetToan/DeleteQuyTrinh", data, httpOptions);
       },
-      GGetThongTinQuyetToanByHopDonget: (IdHopDong) => {
-        return this.http.get(
-          url + `QuyetToan/GetThongTinQuyetToanByHopDong?IdHopDong=${IdHopDong}`,
-          httpOptions
-        );
+      GetThongTinQuyetToanByHopDong: (IdHopDong) => {
+        return this.http.get(url + `QuyetToan/GetThongTinQuyetToanByHopDong?IdHopDong=${IdHopDong}`,httpOptions);
       },
-      
     };
   }
 

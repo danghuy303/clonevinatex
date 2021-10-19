@@ -702,6 +702,29 @@ export class QuantriComponent implements OnInit {
 
             command: () => this.close(),
           },
+          {
+            label: "Phụ lục hợp đồng bông xơ",
+            routerLink:
+              "/quantri/hopdongsanxuat/phuluchopdongbongxo/0",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Phụ lục hợp đồng sợi",
+            routerLink:
+
+              "/quantri/hopdongsanxuat/phuluchopdongsoi/0",
+
+            command: () => this.close(),
+          },
+          {
+            label: "Phụ lục hợp đồng vật tư phụ",
+            routerLink:
+
+              "/quantri/hopdongsanxuat/phuluchopdongvattuphu/0",
+
+            command: () => this.close(),
+          },
         ],
       },
       

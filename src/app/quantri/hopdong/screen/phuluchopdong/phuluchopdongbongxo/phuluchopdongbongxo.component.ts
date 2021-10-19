@@ -1,30 +1,20 @@
-
-
-
-import { ChitiethopdongbongxoComponent } from "./../modal/share/chitiethopdongbongxo/chitiethopdongbongxo.component";
-import { number } from "@amcharts/amcharts4/core";
-import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
-
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { ToastrService } from "ngx-toastr";
-import { SanXuatService } from "src/app/services/callApiSanXuat";
-import {
-  DateToUnix,
-  mapArrayForDropDown,
-  UnixToDate,
-} from "src/app/services/globalfunction";
-import { ChitiethopdongbongxomodalComponent } from "../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
-import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.service";
-// import { ChitiethopdongbongxomodalComponent } from "./chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
+import { number } from '@amcharts/amcharts4/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
+import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
+import { PhuluchopdongbongxomodalComponent } from './phuluchopdongbongxomodal/phuluchopdongbongxomodal.component';
 
 @Component({
-  selector: 'app-laphopdongbongxo',
-  templateUrl: './laphopdongbongxo.component.html',
-  styleUrls: ['./laphopdongbongxo.component.css']
+  selector: 'app-phuluchopdongbongxo',
+  templateUrl: './phuluchopdongbongxo.component.html',
+  styleUrls: ['./phuluchopdongbongxo.component.css']
 })
-export class LaphopdongbongxoComponent implements OnInit {
+export class PhuluchopdongbongxoComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   items: any = [];
   listVatTu: any = {};
@@ -71,13 +61,13 @@ export class LaphopdongbongxoComponent implements OnInit {
       this._modal.dismissAll();
     }
     this.router.navigate(
-      [`quantri/hopdongsanxuat/laphopdongbongxo/${id}`],
+      [`quantri/hopdongsanxuat/phuluchopdongbongxo/${id}`],
       { replaceUrl: true }
     );
   }
   add() {
    
-    let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
+    let modalRef = this._modal.open(PhuluchopdongbongxomodalComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
@@ -109,7 +99,7 @@ export class LaphopdongbongxoComponent implements OnInit {
 
   update(id) {
     this._service.QuyTrinhHopDong().Get(id).subscribe((res1: any) => {
-        let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
+        let modalRef = this._modal.open(PhuluchopdongbongxomodalComponent, {
           size: "fullscreen",
           backdrop: "static",
         });
