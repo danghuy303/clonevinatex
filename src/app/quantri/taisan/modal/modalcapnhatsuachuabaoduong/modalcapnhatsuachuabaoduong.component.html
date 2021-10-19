@@ -65,73 +65,88 @@
                     styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
+        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tài liệu đính kèm:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <div class="p-inputgroup">
+                    <input type="file" ng2FileSelect [uploader]="uploader" />
+                </div>
+                <!-- <div class="p-inputgroup">
+                    <input type="text" pInputText class="p-inputtext-sm" [ngModel]="item.LogoCongTy?.TenGoc" disabled>
+                    <button type="button" pButton pRipple icon="pi pi-upload"
+                        class="p-button-sm p-button-text p-button-secondary" (click)="taiLenFileDinhKem()"></button>                
+                </div> -->
+            </div>
+        </div>
     </div>
-    <p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
-        [scrollable]="true">
-        <ng-template pTemplate="colgroup">
-            <colgroup>
-                <col style="width: 50px;">
-                <col>
-                <col>
-                <col>
-                <col style="width: 100px;">
-            </colgroup>
-        </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-                <th class="text-center">
-                    STT
-                </th>
-                <th class="text-center">
-                    Người hỗ trợ
-                </th>
-                <th class="text-center">
-                    Thời gian sửa chữa
-                </th>
-                <th class="text-center">Hướng xử lý dự kiến
-                </th>
-                <th></th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <!-- <tr>
-                <td class="text-center">
-                    {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
-                </td>
-                <td class="text-center">{{item.soQuyTrinh}}</td>
-                <td class="text-center">{{item.created|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.noiDung}}</td>
-                <td class="text-center">{{item.tenPhanXuong}}</td>
-                <td class="text-center">{{item.ngayBatDau|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.ngayKetThuc|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center" *ngFor="let col of cols">
-                    {{item[col.field]}}
-                </td>
-                <td class="text-center"> 
-                    <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.id)"></button>
-                </td>
-            </tr> -->
-        </ng-template>
-        <ng-template pTemplate="footer">
-            <tr>
-                <td>
-                </td>
-                <td>
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.noiDung" pInputText/>
-                </td>
-                <td>
-                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.soLuong">
-                    </p-inputNumber>
-                </td>
-                <td>
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.noiDung" pInputText/>
-                </td>               
-                <td class="text-center">
-                    <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
-                        (click)="add()"></button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <p-panel header="Nhân sự tham giam / Phương án sửa chữa" [toggleable]="true">
+        <p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
+            [scrollable]="true">
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col style="width: 50px;">
+                    <col>
+                    <col>
+                    <col>
+                    <col style="width: 100px;">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">
+                        STT
+                    </th>
+                    <th class="text-center">
+                        Người hỗ trợ
+                    </th>
+                    <th class="text-center">
+                        Thời gian sửa chữa
+                    </th>
+                    <th class="text-center">Hướng xử lý dự kiến
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <!-- <tr>
+                    <td class="text-center">
+                        {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
+                    </td>
+                    <td class="text-center">{{item.soQuyTrinh}}</td>
+                    <td class="text-center">{{item.created|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{item.noiDung}}</td>
+                    <td class="text-center">{{item.tenPhanXuong}}</td>
+                    <td class="text-center">{{item.ngayBatDau|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{item.ngayKetThuc|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center" *ngFor="let col of cols">
+                        {{item[col.field]}}
+                    </td>
+                    <td class="text-center"> 
+                        <button pButton pRipple type="button" icon="pi pi-pencil"
+                            class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.id)"></button>
+                    </td>
+                </tr> -->
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.noiDung" pInputText />
+                    </td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.soLuong">
+                        </p-inputNumber>
+                    </td>
+                    <td>
+                        <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.noiDung" pInputText />
+                    </td>
+                    <td class="text-center">
+                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
+                            (click)="add()"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-panel>
 </div>

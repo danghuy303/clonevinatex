@@ -40,6 +40,9 @@ export class ModalkehoachkinhdoanhthangComponent implements OnInit {
   dummyList: any = [1, 2, 3, 4];
   checkbutton: any = {};
   showThoiGianHopDong: boolean = false;
+  listThang:any;
+  listKeHoachNam:any=[];
+  listKeHoachNamRef:any=[];
   labelThang: Array<string> = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12',];
   propThang: Array<string> = ['Thang1', 'Thang2', 'Thang3', 'Thang4', 'Thang5', 'Thang6', 'Thang7', 'Thang8', 'Thang9', 'Thang10', 'Thang11', 'Thang12',]
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
@@ -50,63 +53,31 @@ export class ModalkehoachkinhdoanhthangComponent implements OnInit {
     private _auth: AuthenticationService,) { this.userInfo = this._auth.currentUserValue; }
 
   ngOnInit(): void {
+    this.listThang=[];
     console.log(this.item, this.type);
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
-    this.getListNhaMay();
-    this.getListPhanXuong();
-    this.GetListMatHang();
+    for (let i = 1; i <= 12; i++) {
+      this.listThang.push({ value: i, label: `Tháng ${i}` });
+    }
+    this.getKeHoachKinhDoanhNam();
     if (this.type === 'themmoi') {
       this.item.TenNguoiLap = this.userInfo.TenNhanVien;
       this.GetNextSoQuyTrinh();
     }
     this.KiemTraButton();
     if (this.type === 'capnhat') {
-      this.rebindData()
+      this.item.lstKH_KeHoachKinhDoanhThang_SanPham.forEach(sp => {
+            sp.lstKH_KeHoachKinhDoanhThang_SanPham_NhaMay.forEach(nhaMay => {
+              nhaMay.TongSanLuongThangTheoKeHoachThang = nhaMay.lstKH_KeHoachKinhDoanhThang_SanPham_PhanXuong.reduce((total,ele)=>(ele.SanLuongThang|0)+total,0);
+            });
+            sp.firstNhaMay = sp.lstKH_KeHoachKinhDoanhThang_SanPham_NhaMay.splice(0,1)[0];
+          });
+      this.item.NgayLap = UnixToDate(this.item.NgayLapUnix)
     }
   }
-  rebindData() {
-    console.log(this.item);
-    this.item.NgayLap = UnixToDate(this.item.NgayLapUnix);
-    this.item.NgayDieuChinh = UnixToDate(this.item.NgayDieuChinhUnix);
-    this.item.selectedItems = this.item.lstKH_KeHoachKinhDoanh_SanPham.map(ele => ele.IdSanPham);
-    this.item.selectedItems = this.item.lstKH_KeHoachKinhDoanh_SanPham.map(ele => ele.IdSanPham);
-    this.retry('SanPham', 'rebindSanPham_NhaMay');
-  }
-  retry(opt, callback) {
-    this.intervalArray[opt] = setInterval(this[callback].bind(this), 500)
-  }
-  rebindSanPham_NhaMay() {
-    if (this.listMatHang.length !== 0 && this.listNhaMay.length !== 0) {
-      clearInterval(this.intervalArray['SanPham'])
-      this.item.lstKH_KeHoachKinhDoanh_SanPham.forEach(sanpham => {
-        sanpham.TenMatHang = this.listMatHang.find(ele => ele.value === sanpham.IdSanPham)?.label;
-        sanpham.TongSanLuongConLaiPhaiThucHien = sanpham.SoLuongHopDong - sanpham.SoLuongDaThucHien;
-        sanpham.selectedNhaMay = sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.map(ele => ele.IdDuAn);
-        for (let i = 1; i <= 12; i++) {
-          sanpham[`Thang${i}`]=0;
-        }
-        sanpham.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.forEach(nhaMay => {
-          nhaMay.TenNhaMay = this.listNhaMay.find(ele => ele.value === nhaMay.IdDuAn)?.label;
-          nhaMay.SoLuongDaLapKeHoach = 0
-          for (let i = 1; i <= 12; i++) {
-            nhaMay[`Thang${i}`] = nhaMay.lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH.find(ele => ele.Thang === i).SanLuongThang | 0;
-            nhaMay.SoLuongDaLapKeHoach += nhaMay[`Thang${i}`];
-            sanpham[`Thang${i}`] += nhaMay[`Thang${i}`];
-          }
-        });
-      });
-      this.TinhTongSanLuongTungMatHang()
-    }
-  }
-  TinhSoLuongDaLapKeHoach(rootItem, parentItem) {
-    rootItem.SoLuongDaLapKeHoach = this.propThang.reduce((total, prop) => (rootItem[prop] | 0) + total, 0);
-    parentItem.SoLuongDaLapKeHoach = parentItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.reduce((total, ele) => (ele.SoLuongDaLapKeHoach | 0) + total, 0);
-    this.propThang.forEach(prop => {
-      parentItem[prop] = parentItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.reduce((total, ele) => (ele[prop] | 0) + total, 0);
-    })
-  }
+
   GetListMatHang() {
     this._services.GetOptions().GetChiTietMatHangChoKHKD().subscribe((res: any) => {
       this.listMatHang = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -114,81 +85,41 @@ export class ModalkehoachkinhdoanhthangComponent implements OnInit {
     })
   }
 
-  getListNhaMay() {
-    this._services
-      .GetOptions()
-      .GetDanhSachDuAnByIdUser(this.userInfo.Id)
+  getKeHoachKinhDoanhNam() {
+    this._danhMucHopDong
+      .DanhSachKeHoachKinhDoanh()
+      .GetKeHoachKinhDoanhDangThucHien()
       .subscribe((res: any) => {
-        this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id");
+        res.Data.forEach(kh => {
+          kh.HienThi = `${kh.TenKeHoach} - ${kh.SoQuyTrinh}`
+        });
+        this.listKeHoachNam = mapArrayForDropDown(res.Data, "HienThi", "Id");
+        this.listKeHoachNamRef = res.Data;
       });
   }
-  changeNhaMay(rootItem) {
-    // console.log(rootItem.selectedNhaMay)
-    rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay = rootItem.selectedNhaMay.map(key => {
-      return {
-        TenNhaMay: this.listNhaMay.find(ele => ele.value === key)?.label,
-        IdDuAn: key,
-      }
-    })
-  }
-  changeItem(rootItem) {
-    // rootItem.selectedItems;
-    if (!validVariable(rootItem.lstKH_KeHoachKinhDoanh_SanPham)) {
-      rootItem.lstKH_KeHoachKinhDoanh_SanPham = [];
-    }
-    let exist = rootItem.lstKH_KeHoachKinhDoanh_SanPham.map(ele => ele.IdSanPham);
-    rootItem.selectedItems.forEach(key => {
-      if (!exist.includes(key)) {
-        // let alo
-        rootItem.lstKH_KeHoachKinhDoanh_SanPham.push(
-          {
-            TenMatHang: this.listMatHang.find(ele => ele.value === key)?.label,
-            IdSanPham: key,
-            SoLuongHopDong: this.listMatHangRef.find(ele => ele.Id === key)?.TongSanLuongHopDong | 0,
-            SoLuongDaThucHien: this.listMatHangRef.find(ele => ele.Id === key)?.TongSanLuongDaThucHien | 0,
-            TongSanLuongConLaiPhaiThucHien: this.listMatHangRef.find(ele => ele.Id === key)?.TongSanLuongConLaiPhaiThucHien | 0,
-            SoLuongDangDo: 0,
-            SoLuongDuKien: 0,
-            selectedNhaMay: this.listNhaMay.length > 1 ? [] : [this.listNhaMay[0].value],
-            lstKH_KeHoachKinhDoanh_SanPham_NhaMay: this.listNhaMay.length > 1 ? [] : [{ IdDuAn: this.listNhaMay[0].value, TenNhaMay: this.listNhaMay[0].label }],
-            lstKH_KeHoachKinhDoanh_SanPham_ThoiGianHopDong: [],
-          }
-        );
-        exist.push(key);
-      }
-    });
-    for (let i = exist.length - 1; i >= 0; i--) {
-      if (!rootItem.selectedItems.includes(exist[i])) {
-        rootItem.lstKH_KeHoachKinhDoanh_SanPham.splice(i, 1)
-      }
-    }
-    this.TinhTongSanLuongTungMatHang();
-  }
-  addNhaMay(rootItem) {
-    !rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay && (rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay = []);
-    let exist = rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.map(ele => ele.IdDuAn);
-    rootItem.selectedNhaMay.forEach(key => {
-      if (!exist.includes(key)) {
-        rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.push({
-          IdDuAn: key,
-          TenNhaMay: this.listNhaMay.find(ele => ele.value === key)?.label
+  GetThongTinChoKeHoachThang(){
+    console.log(this.item.IdKeHoachKinhDoanhNamGoc);
+    console.log(this.item.Thang)
+    if(validVariable(this.item.IdKeHoachKinhDoanhNamGoc)){
+      this.item.Nam = this.listKeHoachNamRef.find(ele=>ele.Id===this.item.IdKeHoachKinhDoanhNamGoc)?.Nam;
+      if(validVariable(this.item.Thang)){
+        this._danhMucHopDong.KeHoachKinhDoanhThang().GetListSanPhamTheoKeHoachKinhDoanhNam(this.item.IdKeHoachKinhDoanhNamGoc,this.item.Thang).subscribe((res:any)=>{
+          console.log(res);
+          res.forEach(sp => {
+            sp.firstNhaMay = sp.lstKH_KeHoachKinhDoanhThang_SanPham_NhaMay.splice(0,1)[0];
+          });
+          this.item.lstKH_KeHoachKinhDoanhThang_SanPham = res;
         })
       }
-    });
-    for (let i = rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length; i >= 0; i--) {
-      if (!rootItem.selectedNhaMay.includes(exist[i])) {
-        rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.splice(i, 1);
-      }
     }
-    // rootItem.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.push({});
   }
-  TinhTongSanLuongTungMatHang() {
-    this.item.lstKH_KeHoachKinhDoanh_SanPham.forEach(matHang => {
-      matHang.TongSanLuong = (matHang.SoLuongHopDong | 0) + (matHang.SoLuongDuKien | 0);
-      matHang.SoLuongCanLapKeHoach = ((matHang.TongSanLuongConLaiPhaiThucHien | 0) - (matHang.SoLuongDangDo | 0)) + (matHang.SoLuongDuKien | 0);
-    });
+  TinhTongSanLuongKeHoachNhaMay(rootItem){
+    rootItem.TongSanLuongThangTheoKeHoachThang = rootItem.lstKH_KeHoachKinhDoanhThang_SanPham_PhanXuong.reduce((total,ele)=>{
+      console.log(ele,total);
+      return (ele.SanLuongThang|0)+total
+    },0);
   }
-
+  
   getListPhanXuong() {
     this._services.GetListdmPhanXuongOpt().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -197,105 +128,60 @@ export class ModalkehoachkinhdoanhthangComponent implements OnInit {
   showModalThoiGianHopDong() {
     this.showThoiGianHopDong = true;
   }
-  // TheoDoi(item) {
-  //   if (item.Id !== undefined) {
-  //     let modalRef = this._modal.open(ModalkehoachkinhdoanhtheodoiComponent, {
-  //       backdrop: 'static',
-  //       size: 'fullscreen'
-  //     });
-  //     modalRef.componentInstance.opt = 'add';
-  //     modalRef.componentInstance.type = this.listMatHang.find(ele => ele.value === item.IdSanPham)?.label;
-  //     modalRef.componentInstance.title = 'Theo dõi kế hoạch - Thực tế';
-  //     modalRef.componentInstance.item = item;
-  //   }
-  // }
 
-  addSanPham() {
-    if (this.item.lstKH_KeHoachKinhDoanh_SanPham == undefined || this.item.lstKH_KeHoachKinhDoanh_SanPham == null)
-      this.item.lstKH_KeHoachKinhDoanh_SanPham = [];
-    this.item.lstKH_KeHoachKinhDoanh_SanPham.push(deepCopy(this.newItem));
-    this.newItem = {}
-  }
-
-  delete(index) {
-    let item = this.item.lstKH_KeHoachKinhDoanh_SanPham.splice(index, 1)[0];
-    if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      // this.item.lstKH_KeHoachKinhDoanh_SanPham.push(JSON.parse(JSON.stringify(item)));
-    }
-  }
   validData() {
-    if (this.item.lstKH_KeHoachKinhDoanh_SanPham?.length === 0) {
-      this.toastr.error('Bạn chưa chọn mặt hàng để lập kế hoạch');
+    if (!validVariable(this.item.IdKeHoachKinhDoanhNamGoc)) {
+      this.toastr.error('Bạn chưa chọn kế hoạch năm!');
       return false;
     }
-    let invalid = [];
-    this.item.lstKH_KeHoachKinhDoanh_SanPham.forEach(mathang => {
-      if (!mathang.lstKH_KeHoachKinhDoanh_SanPham_NhaMay || mathang.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.length === 0) {
-        invalid.push(mathang.TenMatHang)
-      }
-    })
-    console.log(invalid)
-    if (invalid.length > 0) {
-      this.toastr.error(`Các mặt hàng chưa chọn nhà máy:${invalid.join(', ')}`);
-      return false
+    if (!validVariable(this.item.Thang)) {
+      this.toastr.error('Bạn chưa chọn tháng lập kế hoạch!');
+      return false;
     }
+    if (!validVariable(this.item.IdKeHoachKinhDoanhNamGoc)) {
+      this.toastr.error('Bạn chưa chọn kế hoạch năm');
+      return false;
+    }
+    // let invalid = [];
+    // this.item.lstKH_KeHoachKinhDoanhThang_SanPham.forEach(mathang => {
+    //   if (!mathang.lstKH_KeHoachKinhDoanhThang_SanPham_NhaMay || mathang.lstKH_KeHoachKinhDoanhThang_SanPham_NhaMay.length === 0) {
+    //     invalid.push(mathang.TenMatHang)
+    //   }
+    // })
+    // console.log(invalid)
+    // if (invalid.length > 0) {
+    //   this.toastr.error(`Các mặt hàng chưa chọn nhà máy:${invalid.join(', ')}`);
+    //   return false
+    // }
     return true
   }
   SetData() {
-    this.item.lstKH_KeHoachKinhDoanh_SanPham.forEach(mathang => {
-      mathang.lstKH_KeHoachKinhDoanh_SanPham_NhaMay.forEach(nhamay => {
-        nhamay.lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH = [];
-        nhamay.TongSanLuongThang = 0;
-        for (let i = 1; i <= 12; i++) {
-          nhamay.TongSanLuongThang += (nhamay[`Thang${i}`] | 0);
-          nhamay.lstKH_KeHoachKinhDoanh_SanPham_ChiTietKH.push({
-            IdSanPham: mathang.IdSanPham,
-            IdDuAn: nhamay.IdDuAn,
-            Nam: this.item.Nam,
-            Thang: i,
-            SanLuongThang: nhamay[`Thang${i}`] | 0,
-            ChiPhiDinhMuc1Kg: 0,
-            ChiPhi: 0,
-            DonGia: 0,
-            DoanhThu: 0
-          })
-        }
-      });
+    let clone;
+    this.item.NgayLapUnix = DateToUnix(this.item.NgayLap);
+    clone = deepCopy(this.item);
+    clone.lstKH_KeHoachKinhDoanhThang_SanPham.forEach(mathang => {
+      mathang.lstKH_KeHoachKinhDoanhThang_SanPham_NhaMay.push(mathang.firstNhaMay);
     });
-    this.item.NgayLapUnix = DateToUnix(this.item.NgayLap)
-    this.item.NgayDieuChinhUnix = DateToUnix(this.item.NgayDieuChinh)
-    return this.item
+    return clone
   }
 
   GhiLai() {
-    // console.log(this.item);
+    console.log(this.item)
     if (this.validData()) {
       console.log(this.SetData())
-      this._danhMucHopDong.DanhSachKeHoachKinhDoanh().Set(this.SetData()).subscribe((res: any) => {
+      this._danhMucHopDong.KeHoachKinhDoanhThang().Set(this.SetData()).subscribe((res: any) => {
         console.log(res)
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
         } else {
           this.toastr.success(res.Message);
-          // this.activeModal.close();
         }
       })
     }
   }
 
-  // CapNhatDonGia() {
-  //   let modalRef = this._modal.open(ModaldongiakehoachthucteComponent, {
-  //     backdrop: 'static',
-  //     size: 'fullscreen'
-  //   });
-  //   modalRef.componentInstance.opt = 'add';
-  //   modalRef.componentInstance.type = '';
-  //   modalRef.componentInstance.title = '';
-  // }
   GetNextSoQuyTrinh() {
-    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().NextQuyTrinh().subscribe((res: any) => {
+    this._danhMucHopDong.KeHoachKinhDoanhThang().NextQuyTrinh().subscribe((res: any) => {
       console.log(res);
       this.item.SoQuyTrinh = res.Data;
     })
@@ -308,7 +194,7 @@ export class ModalkehoachkinhdoanhthangComponent implements OnInit {
   ChapNhan() {
     if (this.validData()) {
       console.log(this.SetData())
-      this._danhMucHopDong.DanhSachKeHoachKinhDoanh().ChuyenTiep(this.SetData()).subscribe((res: any) => {
+      this._danhMucHopDong.KeHoachKinhDoanhThang().ChuyenTiep(this.SetData()).subscribe((res: any) => {
         console.log(res)
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
@@ -322,7 +208,7 @@ export class ModalkehoachkinhdoanhthangComponent implements OnInit {
   KhongDuyet(){
     if (this.validData()) {
       console.log(this.SetData())
-      this._danhMucHopDong.DanhSachKeHoachKinhDoanh().KhongDuyet(this.SetData()).subscribe((res: any) => {
+      this._danhMucHopDong.KeHoachKinhDoanhThang().KhongDuyet(this.SetData()).subscribe((res: any) => {
         console.log(res)
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
@@ -332,16 +218,5 @@ export class ModalkehoachkinhdoanhthangComponent implements OnInit {
         }
       })
     }
-  }
-  DieuChinhKeHoach(){
-    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().DieuChinh(this.item.Id).subscribe((res:any)=>{
-      this.item ={};
-      res.NgayLap = UnixToDate(res.NgayLapUnix)
-      this.item = res;
-      this.GetNextSoQuyTrinh();
-      this.rebindData();
-      this.KiemTraButton();
-      console.log(res);
-    })
   }
 }

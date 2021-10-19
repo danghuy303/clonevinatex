@@ -8,10 +8,12 @@ import { HangsanxuatComponent } from './danhmuc/hangsanxuat/hangsanxuat.componen
 import { LoaikhauhaoComponent } from './danhmuc/loaikhauhao/loaikhauhao.component';
 import { TinhtrangtaisanComponent } from './danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
 import { DanhsachtaisanComponent } from './danhsachtaisan/danhsachtaisan.component';
+import { NhaptaisanComponent } from './nhaptaisan/nhaptaisan.component';
 import { TaisanComponent } from './taisan.component';
 
 const routes: Routes = [
   {path:'',component:TaisanComponent},
+  {path:'nhaptaisan',component:NhaptaisanComponent},
   {path:'danhsachtaisan',component:DanhsachtaisanComponent},
   {path:'danhmuc/danhmucloaibaoduong',component:DanhmucloaibaoduongComponent},
   {path:'danhmuc/danhmucdonvitinh',component:DanhmucdonvitinhComponent},

@@ -67,6 +67,8 @@ import { LoaikhauhaoComponent } from './danhmuc/loaikhauhao/loaikhauhao.componen
 import { TinhtrangtaisanComponent } from './danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
 import { ModalloaikhauhaoComponent } from './modal/modalloaikhauhao/modalloaikhauhao.component';
 import { ModaltinhtrangtaisanComponent } from './modal/modaltinhtrangtaisan/modaltinhtrangtaisan.component';
+import { ThongtitaisanchaComponent } from './screen/thongtitaisancha/thongtitaisancha.component';
+import { ModalcapnhattaisanconComponent } from './modal/modalcapnhattaisancon/modalcapnhattaisancon.component';
 
 
 @NgModule({
@@ -95,6 +97,8 @@ import { ModaltinhtrangtaisanComponent } from './modal/modaltinhtrangtaisan/moda
     TinhtrangtaisanComponent,
     ModalloaikhauhaoComponent,
     ModaltinhtrangtaisanComponent,
+    ThongtitaisanchaComponent,
+    ModalcapnhattaisanconComponent,
   ],
   imports: [
     CommonModule,
@@ -156,6 +160,7 @@ import { ModaltinhtrangtaisanComponent } from './modal/modaltinhtrangtaisan/moda
     ModalhangsanxuatComponent,
     ModaltinhtrangtaisanComponent,
     ModalloaikhauhaoComponent,
+    ModalcapnhattaisanconComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
