@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-      <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số lượng:</label>
+      <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số lượng (Kg):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
         <p-inputNumber [(ngModel)]="item.soLuong" [minFractionDigits]="2" locale="vi-VN" (onBlur)="tinhgiaTriHopDong()">
         </p-inputNumber>
@@ -295,8 +295,7 @@
     <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-2 p-lg-2 p-p-0 my-auto">Phương thức và địa điểm giao hàng:</label>
       <div class="p-col-12 p-xl-10 p-p-0">
-        <input type="text" [(ngModel)]="hopDong.diaDiemGiaoHang" (ngModelChange)="changeDiaDiem($event)"
-          class="p-inputtext-sm p-pl-0" pInputText />
+        <input type="text" [(ngModel)]="hopDong.diaDiemGiaoHang" class="p-inputtext-sm p-pl-0" pInputText />
       </div>
     </div>
 

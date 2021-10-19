@@ -49,7 +49,7 @@
                         <th>Mã</th>
                         <th>Chi số Ne</th>
                         <th>Độ săn</th>
-                        <th>Khối lượng đã giao</th>
+                        <th>Khối lượng đã hoàn thành</th>
                         <th>Khối lượng theo hợp đồng</th>
                         <th>Ghi chú</th>
                     </tr>
@@ -64,8 +64,8 @@
                         <td>{{item.ma}}</td>
                         <td class="text-right">{{item.ne|number:'0.0' }}</td>
                         <td class="text-right">{{item.doSan|number:'0.0'}}</td>
-                        <td class="text-right">{{item.daGiao}}</td>
-                        <td class="text-right">{{item.daGiao}}</td>
+                        <td class="text-right">{{item.khoiLuongDaHoanThanh |number:'0.0-2' }}</td>
+                        <td class="text-right">{{item.khoiLuongHopDong |number:'0.0-2' }}</td>
                         <td>{{item.ghiChu}}</td>
                     </tr>
                 </ng-template>

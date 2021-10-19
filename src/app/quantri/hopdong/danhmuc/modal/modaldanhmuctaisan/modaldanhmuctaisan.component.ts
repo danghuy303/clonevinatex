@@ -1,4 +1,5 @@
 import { DATE } from '@amcharts/amcharts4/core';
+import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -90,6 +91,7 @@ export class ModaldanhmuctaisanComponent implements OnInit {
       })
     }
   }
+
   Tong() {
     let ngaybatdau = new Date(this.item.ThoiGianBatDauKhauHao);
     let year = ngaybatdau.getFullYear() + this.item.SoNamKhauHao;

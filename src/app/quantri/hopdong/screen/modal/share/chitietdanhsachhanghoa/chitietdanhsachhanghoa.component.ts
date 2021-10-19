@@ -4,14 +4,12 @@ import { ChitiethanghoacuahopdongsoimodalComponent } from './chitiethanghoacuaho
 import { SanXuatService } from './../../../../../../services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable , dinhDangSo} from 'src/app/services/globalfunction';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { ChitiethanghoamodalComponent } from './chitiethanghoamodal/chitiethanghoamodal.component';
-import { Component, OnInit, Input, Output, EventEmitter, DoCheck, SimpleChanges, ChangeDetectionStrategy, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, DoCheck, ChangeDetectionStrategy } from '@angular/core';
 import { LuachonvattuphucuahanghoamodalComponent } from './luachonvattuphucuahanghoamodal/luachonvattuphucuahanghoamodal.component';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
-// import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
   selector: 'app-chitietdanhsachhanghoa',
@@ -51,7 +49,6 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   listdmQuyCachDongGoi: any = [];
   listdmCapBong: any = [];
   listdmDacTinh: any = [];
-  // listLoaiMatHang: any = [];
 
   @Output() newItemEvent = new EventEmitter<string>();
 
@@ -66,50 +63,14 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     this.GetOptions()
     this.tinhDonGiaThanhToan();
     this.getlistCapBong();
-    // if (this.opt === "edit") {
-    //   if (this.hopDong.isBenBanChiu) {
-    //     this.hopDong.BenBanChiu = this.hopDong.isBenBanChiu;
-    //     this.hopDong.BenMuaChiu = !this.hopDong.BenBanChiu;
-    //   }
-    //   else {
-    //     this.hopDong.BenMuaChiu = !this.hopDong.isBenBanChiu;
-    //     this.hopDong.BenBanChiu = !this.hopDong.BenMuaChiu;
-    //   }
-    // }
-    // else {
-    //   this.item.DonGiaThanhToan = 0;
-    //   this.hopDong.giaTri = 0;
-    // }
-    // this.item.listVatTu[0].donGia = 0
-    // this.item.listVatTu[0].thueGTGT = 0
-    // this.item.listVatTu[0].soLuong = 0
-    // this.item.listVatTu[0].saiLech = 0
-    // if(this.item.donGia == null && this.item.thueGTGT == null){
-    //  parseInt(this.item.donGia) * parseInt(this.item.thueGTGT) 
-    // }
-    // console.log(this.item.donGia);
-
-
-
-    // console.log(this.item.hopDong.loaiNguyenVatLieu);
   }
 
 
   ngDoCheck() {
     this.listHangHoaChange.emit(this.item);    
-    this.hopDongChange.emit(this.hopDong);
-    this.chiTieuChange.emit(this.listTieuChuanChatLuong);
+    // this.hopDongChange.emit(this.hopDong);
+    // this.chiTieuChange.emit(this.listTieuChuanChatLuong);
     this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
-    
-    // this.listLoaiMatHang = mapArrayForDropDown(this.listLoaiMatHang_copy, "Ten", "Id")
-  }
-  changeDiaDiem(e) {
-    console.log(this.res1);
-
-  }
-  changInput() {
-    console.log(this.item);
-
   }
   // ngOnChanges(changes: SimpleChanges) {
   //   if ('loaiNguyenVatLieu' in changes) {
@@ -142,32 +103,12 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   add() {
     let modalRef = this._modal.open(ChitiethanghoamodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.selectedItems = deepCopy(this.listTieuChuanChatLuong);
+    modalRef.componentInstance.selectedItems = this.listTieuChuanChatLuong;
     modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
     modalRef.result.then(res => {
-      // console.log(res.item);         
-      // res.forEach(obj => {
-      //   if (!this.listTieuChuanChatLuong.every(element => element.iddmTieuChuanChatLuong === obj.iddmTieuChuanChatLuong) || this.listTieuChuanChatLuong.length == 0) {
-      //     this.listTieuChuanChatLuong.push(obj);
-      //   }
-      // });
       this.listTieuChuanChatLuong= deepCopy(res);  
     }).catch(er => { console.log(er) });
   }
-
-
-  // edit(item, i) {
-  //   let modalRef = this._modal.open(ChitiethanghoamodalComponent, { size: 'xl', backdrop: 'static' });
-  //   modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-  //   modalRef.componentInstance.opt = 'edit';
-  //   modalRef.result.then(res => {
-  //     this.listTieuChuanChatLuong.splice(i, 1);
-  //     this.listTieuChuanChatLuong.push(res.item);
-  //     if (res.opt !== 'add') {
-  //       this.add()
-  //     }
-  //   }).catch(er => { console.log(er) });
-  // }
   delete(index) {
     if (!validVariable(this.listHangHoaSoi[index].id)) {
       this.listHangHoaSoi.splice(index, 1);
@@ -188,13 +129,12 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
         size: 'lg',
         backdrop: 'static'
       })
-      // this.listKeHoachNhapBong = res1
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listThanhToanThuTuc = res1;
       modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;
       modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
       modalRef.result.then(res => {
-        this.listHangHoaSoi= res;  
+        this.listHangHoaSoi= deepCopy(res);  
       }).catch(er => { console.log(er) });
     })
   }
@@ -234,6 +174,5 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
         this.listHangHoaSoi= res;  
       }).catch(er => { console.log(er) });
     })
-
   }
 }

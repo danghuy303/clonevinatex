@@ -15,6 +15,7 @@ import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { TreeNode } from 'primeng/api';
 import { ModalcapnhattaisanComponent } from "../modal/modalcapnhattaisan/modalcapnhattaisan.component";
+import { ModalthongbaoComponent } from "../../modal/modalthongbao/modalthongbao.component";
 
 @Component({
   selector: 'app-nhaptaisan',
@@ -29,10 +30,11 @@ export class NhaptaisanComponent implements OnInit {
   paging: any = {};
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   items: TreeNode[];
+  trangThai: any = 1;
 
   constructor(
     public _modal: NgbModal,
-    public _toastr: ToastrService,
+    public toastr: ToastrService,
     private _serviceHopDong: HopDongService,
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
@@ -41,90 +43,11 @@ export class NhaptaisanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.items = [
-      {
-        "data": {
-          "name": "Documents",
-          "size": "75kb",
-          "type": "Folder"
-        },
-        "children": [
-          {
-            "data": {
-              "name": "Work",
-              "size": "55kb",
-              "type": "Folder"
-            },
-            "children": [
-              {
-                "data": {
-                  "name": "Expenses.doc",
-                  "size": "30kb",
-                  "type": "Document"
-                }
-              },
-              {
-                "data": {
-                  "name": "Resume.doc",
-                  "size": "25kb",
-                  "type": "Resume"
-                }
-              }
-            ]
-          },
-          {
-            "data": {
-              "name": "Home",
-              "size": "20kb",
-              "type": "Folder"
-            },
-            "children": [
-              {
-                "data": {
-                  "name": "Invoices",
-                  "size": "20kb",
-                  "type": "Text"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "data": {
-          "name": "Pictures",
-          "size": "150kb",
-          "type": "Folder"
-        },
-        "children": [
-          {
-            "data": {
-              "name": "barcelona.jpg",
-              "size": "90kb",
-              "type": "Picture"
-            }
-          },
-          {
-            "data": {
-              "name": "primeui.png",
-              "size": "30kb",
-              "type": "Picture"
-            }
-          },
-          {
-            "data": {
-              "name": "optimus.jpg",
-              "size": "30kb",
-              "type": "Picture"
-            }
-          }
-        ]
-      }
-    ]
+    this.resetFilter();
   }
 
   changeTab(e) {
-    // this.trangThai = e.index + 1;
+    this.trangThai = e.index + 1;
     this.loaiTab = e.index;
     this.Loaddata(true);
   }
@@ -141,12 +64,28 @@ export class NhaptaisanComponent implements OnInit {
     let data = {
       pageSize: 20,
       currentPage: this.paging.currentPage,
-      tabTrangThai: 3,
+      tabTrangThai: 1,
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
       Loai: 0
     };
+    this._serviceTaiSan.NhapTaiSan().GetList(data).subscribe((res: any) => {
+      let items = [];
+      this.items = [];
+      items = res.Data.Items;
+      this.paging = res.Data;
+      items.forEach(obj => {
+        let obj_copy: any = {};
+        if (obj?.listTaiSanCon) {
+          obj_copy.children = obj.listTaiSanCon;
+          delete obj.listTaiSanCon;
+        }
+        obj_copy.data = obj;
+        this.items.push({ data: obj_copy.data, children: obj_copy.children });
+      });
+      console.log(this.items);
+    })
   }
 
   KiemTraTabTrangThai() {
@@ -161,7 +100,24 @@ export class NhaptaisanComponent implements OnInit {
       size: "fullscreen-100",
       backdrop: "static",
     });
-    modalRef.componentInstance.opt = "add";    
+    modalRef.componentInstance.opt = "add";
+    modalRef.componentInstance.item = {
+      Id: "",
+      IdTaiSan: "",
+      IdTrangThai: "",
+      TenTrangThai: "",
+      isKetThuc: false,
+      TaiSan: {
+        Id: "",
+        isXoa: false,
+        listFileDinhKem: [],
+        CreatedBy: new Date(),
+        ModifiedBy: new Date(),
+      },
+      CreatedBy: new Date(),
+      ModifiedBy: new Date(),
+      listTaiSan: [],
+    }
     modalRef.result
       .then((res: any) => {
         this.Loaddata();
@@ -188,7 +144,22 @@ export class NhaptaisanComponent implements OnInit {
   }
 
   delte(item) {
-
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
+    modalRef.result
+      .then((res) => {
+        this._serviceTaiSan.NhapTaiSan().Delete(item.Id).subscribe((res: any) => {
+          if (res.StatusCode === 200) {
+            this.Loaddata(false);
+            this.toastr.success(res.message);
+          } else {
+            this.toastr.error(res.message);
+          }
+        })
+      })
+      .catch((er) => console.log(er));
   }
 
 }

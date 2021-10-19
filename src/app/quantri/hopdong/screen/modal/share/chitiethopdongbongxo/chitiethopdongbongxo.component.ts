@@ -1,48 +1,29 @@
 import { dinhDangSo, UnixToDate } from 'src/app/services/globalfunction';
-// import { StoreService } from './../../../../../../services/store.service';
 import { HopDongService } from "./../../../../../../services/Hopdong/hopdong.service";
 import { DanhMucHopDongService } from "./../../../../../../services/Hopdong/danhmuchopdong.service";
-import { ChonquycachdonggoimodalComponent } from "./../../../../../quanlykhosanxuat/modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component";
-import { ChonhanghoamodalComponent } from "./../../../../../quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component";
-import { FileUploader } from "ng2-file-upload";
 import {
   Component,
-  DoCheck,
-  ElementRef,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
-  ViewChild,
 } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
-import { CalcmodalComponent } from "src/app/quantri/modal/calcmodal/calcmodal.component";
-import { ModalthongbaoComponent } from "src/app/quantri/modal/modalthongbao/modalthongbao.component";
 import { UploadmodalComponent } from "src/app/quantri/modal/uploadmodal/uploadmodal.component";
-import { Dat09Service } from "src/app/services/callApi";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { vn } from "src/app/services/const";
 import {
-  DateToDatePicker,
-  DateToUnix,
-  deepCopy,
   mapArrayForDropDown,
-  merge,
-  validVariable,
 } from "src/app/services/globalfunction";
 import { StoreService } from "src/app/services/store.service";
-import { elementAt } from "rxjs/operators";
-import { FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: "app-chitiethopdongbongxo",
   templateUrl: "./chitiethopdongbongxo.component.html",
   styleUrls: ["./chitiethopdongbongxo.component.css"],
 })
-export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck {
+export class ChitiethopdongbongxoComponent implements OnInit {
   @Input('listLoaiMatHang') listLoaiMatHang: any = [];
   @Output('listLoaiMatHangChange') listLoaiMatHangChange: EventEmitter<any> = new EventEmitter<any>();
   @Output('listHangHoaChange') listHangHoaChange: EventEmitter<any> = new EventEmitter<any>();
@@ -98,6 +79,7 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
 
   checkbutton: any = {};
   lang: any = vn;
+  listHopDong: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(
     public activeModal: NgbActiveModal,
@@ -105,7 +87,6 @@ export class ChitiethopdongbongxoComponent implements OnInit, OnChanges, DoCheck
     private _service: HopDongService,
     private _store: StoreService,
     private _servicesSanXuat: SanXuatService,
-    private _toastr: ToastrService,
     private _modal: NgbModal,
 
 
@@ -172,23 +153,23 @@ this.getListHopDongGoc();
     if(this.isSoi === true)
       this.item.giaTri = this.item.thanhTien || 0;
   }
-  ngOnChanges(changes: SimpleChanges) {
-    this.onChangBenA("",true);
-    this.onChangBenB("",true);
-    for (const propName in changes) {
-      const chng = changes[propName];
-      const cur = JSON.stringify(chng.currentValue.soQuyTrinh);
-      const prev = JSON.stringify(chng.previousValue);
-      console.log('ngOnChanges', chng);
-      console.log('cur', cur);
-      console.log('prev', prev);
-
-      // this.changeLog.push(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
-    }
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   this.onChangBenA("",true);
+  //   this.onChangBenB("",true);
+  //   for (const propName in changes) {
+  //     const chng = changes[propName];
+  //     const cur = JSON.stringify(chng.currentValue.soQuyTrinh);
+  //     const prev = JSON.stringify(chng.previousValue);
+  //   }
+  // }
 
   ngOnInit() {
     this.GetFormOptions();
+    if(this.item.isPhuLuc){
+      this._service.QuyTrinhHopDong().GetListHopDongForPhuLuc(this.item.loai || 2).subscribe((res: any) => {
+        this.listHopDong = mapArrayForDropDown(res, "soTenHopDong", "id");
+      });
+    }
     if (this.opt !== "edit") {
       this.itemcha.listTaiLieu=[];
       if (this._store.getCurrent()) {
@@ -208,13 +189,13 @@ this.getListHopDongGoc();
   }
 
 
-  ngDoCheck() {
-    this.itemChange.emit(this.item);
-    this.itemchaChange.emit(this.itemcha);
-    this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
-    this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
+  // ngDoCheck() {
+  //   this.itemChange.emit(this.item);
+  //   this.itemchaChange.emit(this.itemcha);
+  //   this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
+  //   this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
     
-  }
+  // }
 
   GetFormOptions() {
     this._servicesdmHopDong
@@ -255,14 +236,6 @@ this.getListHopDongGoc();
 
         this.listLoaiTienTe = mapArrayForDropDown(res, "ten", "id");
       });
-    // this._servicesdmHopDong
-    //   .DanhMucLoaiHopDong()
-    //   .GetListdm()
-    //   .subscribe((res: Array<any>) => {
-    //     this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
-    //   });
-
-
   }
 
 
@@ -274,8 +247,6 @@ this.getListHopDongGoc();
       item.TenGui = data[data.length - 1].Name;
       item.TenGoc = data[data.length - 1].NameLocal;
       item.DuongDan = data[data.length - 1].Url;
-      // "idDuAn": 0,
-      // "maDuAn": "string",
       this.itemcha.listTaiLieu.push(item);
       this.itemcha.listTen = "";
       this.itemcha.listTaiLieu.forEach(element => {

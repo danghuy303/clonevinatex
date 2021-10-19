@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FileItem, FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { vn } from 'src/app/services/const';
-import { API } from 'src/app/services/host';
 
 @Component({
   selector: 'app-thongtitaisancha',
@@ -11,8 +11,9 @@ import { API } from 'src/app/services/host';
 export class ThongtitaisanchaComponent implements OnInit {
   lang: any = vn;
   checkbutton: any = {};
+  NameFile: any = "";
 
-  @Input('item') item: any;
+  @Input('item') item: any = {};
   @Output('itemChange') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @Input('listDonVi') listDonVi: any = [];
   @Input('listLoaiTaiSan') listLoaiTaiSan: any = [];
@@ -21,58 +22,30 @@ export class ThongtitaisanchaComponent implements OnInit {
   @Input('opt') opt: any = [];
 
 
-  constructor() {
+  constructor(
+    private _modal: NgbModal,
+  ) {
 
   }
 
   ngOnInit() {
-    // if (this.opt === 'add') {
-    //   this.item = {
-    //     TaiSan: {
-    //       Id: "",
-    //       isXoa: false,
-    //       listFileDinhKem: [],
-    //     },
-    //     listTaiSan: [],
-    //   }
-    // }
-    // else {
-
-    // }
-    this.ChangeData();
-    console.log(this.item);
-    let option: FileUploaderOptions = {
-      url: `${API.uploadURL}`,
-      headers: [{ name: 'Accept', value: 'application/json' }],
-      autoUpload: true,
-    }
-
-    this.item.TaiSan.listFileDinhKem = new FileUploader(option);
-    this.item.TaiSan.listFileDinhKem.onBeforeUploadItem = (item) => {
-      item.withCredentials = true;
-    };
-
-    this.item.TaiSan.listFileDinhKem.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
-    this.item.TaiSan.listFileDinhKem.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
-    this.item.TaiSan.listFileDinhKem.onCompleteItem = (item, response, status, headers) => this.onCompleteItem(item, response, status, headers);
   }
 
-  onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-  }
+  taiLenFileDinhKem() {
+    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.multiple = true;
+    modalRef.componentInstance.type = '';
+    modalRef.result.then((data) => {
+      this.item.listFileDinhKem = data;
+      this.item.listFileDinhKem.forEach(obj => {
+        this.NameFile += `${obj.NameLocal}, `;
+      });
+    }, (reason) => {
 
-  onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-    let res = JSON.parse(response);
-    // console.log(res)
-    // this.TepImport.TenGui = res[0].Name;
-    // this.TepImport.TenGoc = res[0].NameLocal;
-    // this.TepImport.DuongDan = res[0].Url;
-  };
-  onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+    });
   }
 
   ChangeData() {
-    console.log('asdkfahsdkfjh');
-    console.log(this.item);
-    this.itemChange.emit(this.item);    
+    this.itemChange.emit(this.item);
   }
 }

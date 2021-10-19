@@ -175,11 +175,6 @@ import { KehoachsanxuatthangComponent } from './kehoachsanxuatthang/kehoachsanxu
 import { KehoachsanxuatnammodalComponent } from './kehoachsanxuatnam/modal/kehoachsanxuatnammodal/kehoachsanxuatnammodal.component';
 import { KehoachsanxuatthangmodalComponent } from './kehoachsanxuatthang/modal/kehoachsanxuatthangmodal/kehoachsanxuatthangmodal.component';
 
-
-
-
-
-
 @NgModule({
   declarations: [
     HopdongComponent,
@@ -407,8 +402,6 @@ import { KehoachsanxuatthangmodalComponent } from './kehoachsanxuatthang/modal/k
     KehoachsanxuatthangComponent,
     KehoachsanxuatnammodalComponent,
     KehoachsanxuatthangmodalComponent,
-
-
 
   ],
   imports: [

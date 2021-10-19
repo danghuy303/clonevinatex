@@ -5,7 +5,7 @@ import { FileItem, FileUploader, FileUploaderOptions, ParsedResponseHeaders } fr
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, validVariable, DateToUnix, DateToDatePicker, UnixToDate, deepCopy } from 'src/app/services/globalfunction';
 import { API } from 'src/app/services/host';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
@@ -29,7 +29,8 @@ export class ModalcapnhattaisanComponent implements OnInit {
   listLoaiTaiSan: any = [];
   listTinhTrangTaiSan: any = [];
   listNhaSanXuat: any = [];
-
+  listTinhTrangTaiSan_copy: any = [];
+  listDonVi_copy: any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -55,18 +56,12 @@ export class ModalcapnhattaisanComponent implements OnInit {
       this.listDonVi = mapArrayForDropDown(values[1].Data.Items, "Ten", "Id");
       this.listTinhTrangTaiSan = mapArrayForDropDown(values[2].Data.Items, "Ten", "Id");
       this.listNhaSanXuat = mapArrayForDropDown(values[3].Data.Items, "Ten", "Id");
+      this.listTinhTrangTaiSan_copy = values[2].Data.Items;
+      this.listDonVi_copy = values[1].Data.Items;
 
       this.KiemTraButtonModal();
       if (this.opt === 'add') {
-        this.title = "Thêm mới";    
-        this.item = {
-          TaiSan: {
-            Id: "",
-            isXoa: false,
-            listFileDinhKem: [],
-          },
-          listTaiSan: [],
-        }    
+        this.title = "Thêm mới";
         this.GetNextSoQuyTrinh();
       }
       else {
@@ -97,19 +92,52 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   GetNextSoQuyTrinh() {
-    this._serviceTaiSan.NhapTaiSan().GetNextSoQuyTrinh().subscribe((res: any) => {     
+    this._serviceTaiSan.NhapTaiSan().GetNextSoQuyTrinh().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.Data;
     })
   }
 
   GetIem() {
-    this._serviceTaiSan.NhapTaiSan().Get(this.item.id || "").subscribe((res: any) => {
+    this._serviceTaiSan.NhapTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
       this.item = res;
+      if (this.item.listTaiSan.length > 0) {
+        this.item.listTaiSan.forEach(element => {
+          if (validVariable(this.item.IddmDonViTinh)) {
+            element.TenDonViTinh = this.listDonVi_copy.find(obj => obj.Id === element.IddmDonViTinh).Ten;
+          }
+        });
+      }
     });
   }
 
+  Validate() {
+    if (!validVariable(this.item.TaiSan.Ma) ||
+      !validVariable(this.item.TaiSan.Ten) ||
+      !validVariable(this.item.TaiSan.NgayNhap) ||
+      !validVariable(this.item.TaiSan.ThoiGianSuDung) ||
+      !validVariable(this.item.TaiSan.SoSeri) ||
+      !validVariable(this.item.TaiSan.IddmTinhTrang)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
+      return false;
+    }
+    return true;
+  }
+
   GhiLai() {
-    console.log(this.item);
+    if (this.Validate()) {
+      this.item.TaiSan.NgaySanXuatUnix = DateToUnix(this.item.TaiSan.NgaySanXuat);
+      this.item.TaiSan.NgayNhapUnix = DateToUnix(this.item.TaiSan.NgayNhap);
+      this.item.TaiSan.MaTinhTrang = this.listTinhTrangTaiSan_copy.find(obj => obj.Id === this.item.TaiSan.IddmTinhTrang).Ma;
+      this._serviceTaiSan.NhapTaiSan().Set(this.item).subscribe((res: any) => {
+        if (res.StatusCode === 200) {          
+          // this.GetIem();
+          this.toastr.success(res.message);
+          this.activeModal.close();
+        } else {
+          this.toastr.error(res.message);
+        }
+      })
+    }
   }
 
   ThemMoiTaiSanCon() {
@@ -119,6 +147,13 @@ export class ModalcapnhattaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.item = {};
+    modalRef.componentInstance.listTaiSan = this.item.listTaiSan;
+    modalRef.componentInstance.listDonVi = this.listDonVi;
+    modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
+    modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
+    modalRef.componentInstance.listNhaSanXuat = this.listNhaSanXuat;
+    modalRef.componentInstance.listTinhTrangTaiSan_copy = this.listTinhTrangTaiSan_copy;
+    modalRef.componentInstance.listDonVi_copy = this.listDonVi_copy;
     modalRef.result
       .then((res: any) => {
       })
@@ -134,6 +169,12 @@ export class ModalcapnhattaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.item = item;
+    modalRef.componentInstance.listDonVi = this.listDonVi;
+    modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
+    modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
+    modalRef.componentInstance.listNhaSanXuat = this.listNhaSanXuat;
+    modalRef.componentInstance.listTinhTrangTaiSan_copy = this.listTinhTrangTaiSan_copy;
+    modalRef.componentInstance.listDonVi_copy = this.listDonVi_copy;
     modalRef.result
       .then((res: any) => {
 
@@ -143,20 +184,13 @@ export class ModalcapnhattaisanComponent implements OnInit {
       });
   }
 
-  XoaTaiSanCon(item) {
-    // let modalRef = this._modal.open(ModalcapnhattaisanconComponent, {
-    //   size: "fullscreen-100",
-    //   backdrop: "static",
-    // });
-    // modalRef.componentInstance.opt = "edit";
-    // modalRef.componentInstance.item = item;
-    // modalRef.result
-    //   .then((res: any) => {
-
-    //   })
-    //   .catch((er) => {
-
-    //   });
+  XoaTaiSanCon(item, index) {
+    if (validVariable(item.Id)) {
+      this.item.listTaiSan.splice(index, 1);
+    }
+    else {
+      this.item.listTaiSan[index].isXoa = true;
+    }
   }
 
 }

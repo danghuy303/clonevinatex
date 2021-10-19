@@ -91,7 +91,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{   
-      this._danhMucTaiSan.DanhMucLoaiBaoDuong().Delete([item.id]).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucLoaiBaoDuong().Delete([item.Id]).subscribe((res: any) => {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);

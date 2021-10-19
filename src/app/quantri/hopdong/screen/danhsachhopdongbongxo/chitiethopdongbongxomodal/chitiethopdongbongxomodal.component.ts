@@ -1,28 +1,18 @@
 import { AuthenticationService } from "./../../../../../services/auth.service";
 import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.service";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
-import { FileUploader } from "ng2-file-upload";
-import { ChonhanghoamodalComponent } from "../../../../quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component";
-
 import { Component, DoCheck, Input, OnInit } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
-import { CalcmodalComponent } from "src/app/quantri/modal/calcmodal/calcmodal.component";
 import { ModalthongbaoComponent } from "src/app/quantri/modal/modalthongbao/modalthongbao.component";
-import { UploadmodalComponent } from "src/app/quantri/modal/uploadmodal/uploadmodal.component";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { vn } from "src/app/services/const";
 import {
-  DateToDatePicker,
   DateToUnix,
-  deepCopy,
   mapArrayForDropDown,
-  merge,
   UnixToDate,
   validVariable,
 } from "src/app/services/globalfunction";
-import { StoreService } from "src/app/services/store.service";
-import { isEmptyExpression } from "@angular/compiler";
 
 @Component({
   selector: "app-chitiethopdongbongxomodal",
@@ -60,9 +50,7 @@ Id:any = "";
     public activeModal: NgbActiveModal,
     private _auth: AuthenticationService,
     public _modal: NgbModal,
-    private _servicesdmHopDong: DanhMucHopDongService,
     private _service: HopDongService,
-    private _store: StoreService,
     private _servicesSanXuat: SanXuatService,
     private _toastr: ToastrService
   ) {
@@ -124,6 +112,10 @@ Id:any = "";
         this.item.listBaoLanh.forEach(element => {
           element.hieuLucBaoLanh = UnixToDate(element.hieuLucBaoLanhUnix);
         });
+      }
+      if(validVariable(this.item.hopDong.idHopDong))
+      {
+        this.item.hopDong.isPhuLuc = true;
       }
     })
   }
