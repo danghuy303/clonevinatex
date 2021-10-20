@@ -50,13 +50,12 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
         idDuAn: this.IdDuAn,
       }
       this.GetNextSoQuyTrinh();
-      this.getListdmTieuChiDanhGia();
     }
     else{
       this.getQuyTrinh(this.item.id);
     }
     this.getListKhachHang();
-
+    this.getListdmTieuChiDanhGia();
   }
   getListKhachHang(){
     this._services.dmKhachHang().GetListOpt().subscribe((res: any) => {

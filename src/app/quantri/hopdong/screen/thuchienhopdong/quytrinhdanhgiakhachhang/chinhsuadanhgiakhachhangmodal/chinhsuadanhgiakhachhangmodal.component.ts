@@ -11,45 +11,28 @@ import {TreeTableModule} from 'primeng/treetable';
 export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
   item: any = {};
   IdQuyTrinh : any = '';
-  cols: any = [
-    {
-      header: 'Mã khách hàng',
-      field: 'Ma',
-      width: 'unset'
-    },
-    {
-      header: 'Tên khách hàng',
-      field: 'Ten',
-      width: 'unset'
-    },
-    {
-      header: 'Số điện thoại',
-      field: 'SoDienThoai',
-      width: 'unset'
-    },
-    {
-      header: 'Địa chỉ',
-      field: 'DiaChi',
-      width: 'unset'
-    },
-    {
-      header: 'Ghi chú',
-      field: 'GhiChu',
-      width: 'unset'
-    },
-  ];
   checkedAll: boolean = false;
   paging: any = {};
   listTieuChiDanhGia: TreeNode[] = [];
   KeyWord: any = '';
   constructor(
-    public activeModal: NgbActiveModal,
+    public activeModal: NgbActiveModal
   ) { }
 
   ngOnInit(): void {
     if(!validVariable(this.item.listTieuChiDanhGia))
       this.item.listTieuChiDanhGia = [];
-    this.listTieuChiDanhGia = this.item.listTieuChiDanhGia;
+    this.item.listTieuChiDanhGia.forEach(element => {
+        let data: any = {"data":element,
+                         "children":[]};
+        element.listItem.forEach(chil => {
+          let datachil: any = {"data":chil,
+          "children":[]};
+          data.children.push(datachil);
+        });
+        this.listTieuChiDanhGia.push(data);
+    });
+
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.item.listHopDong.length;
