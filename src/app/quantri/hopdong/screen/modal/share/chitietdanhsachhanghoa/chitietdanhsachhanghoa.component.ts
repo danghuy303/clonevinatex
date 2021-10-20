@@ -68,7 +68,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     this.listHangHoaChange.emit(this.item);    
-    // this.hopDongChange.emit(this.hopDong);
+    this.hopDongChange.emit(this.hopDong);
     // this.chiTieuChange.emit(this.listTieuChuanChatLuong);
     this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
   }
