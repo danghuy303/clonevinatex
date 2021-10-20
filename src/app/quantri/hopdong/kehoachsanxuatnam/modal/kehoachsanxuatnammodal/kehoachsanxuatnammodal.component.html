@@ -44,11 +44,26 @@
             </div>
           </div>
           <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-3 p-p-0 my-auto">Năm kế hoạch :</label>
+            <label class="p-col-12 p-lg-3 p-p-0 my-auto">Kế hoạch kinh doanh:</label>
             <div class="p-col-12 p-lg-9 p-p-0">
-              <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" [(ngModel)]="item.Nam"
+              <p-dropdown [filter]="true" [options]="listKeHoachKinhDoanh" placeholder="Chọn kế hoạch kinh doanh" [(ngModel)]="item.Nam"
                 styleClass="p-inputtext-sm">
               </p-dropdown>
+            </div>
+          </div>
+          <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-3 p-p-0 my-auto">Nhà máy:</label>
+            <div class="p-col-12 p-lg-9 p-p-0">
+              <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy" [(ngModel)]="item.IdDuAn"
+                styleClass="p-inputtext-sm">
+              </p-dropdown>
+            </div>
+          </div>
+          <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-3 p-p-0 my-auto">Năm kế hoạch :</label>
+            <div class="p-col-12 p-lg-9 p-p-0">
+              <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.Nam">
+              </p-inputNumber>
             </div>
           </div>
           <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -108,10 +123,7 @@
         </div>
       </div>
     </p-panel>
-    <p-panel header="Chọn sản phẩm">
-      <p-multiSelect [options]="listMatHang" [(ngModel)]="item.selectedItems" [maxSelectedLabels]="8"
-        [selectedItemsLabel]="'Đã chọn {0} mặt hàng'" (onChange)="changeItem(item)" defaultLabel="Chọn mặt hàng">
-      </p-multiSelect>
+    <p-panel header="Danh sách sản phẩm">
       <div class="p-col-12 p-p-0 pintable-container" style="height: 77vh;" voiPintable [pinnedCols]="1">
         <table>
           <thead>

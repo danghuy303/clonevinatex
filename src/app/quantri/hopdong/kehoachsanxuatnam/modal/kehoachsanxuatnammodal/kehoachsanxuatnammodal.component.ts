@@ -55,7 +55,9 @@ export class KehoachsanxuatnammodalComponent implements OnInit {
     private _services: SanXuatService,
     private store: StoreService,
     private _modal: NgbModal,
-    private _auth: AuthenticationService,) { this.userInfo = this._auth.currentUserValue; }
+    private _auth: AuthenticationService,) { 
+      this.userInfo = this._auth.currentUserValue;
+    }
 
   ngOnInit(): void {
     // console.log(this.item, this.type);
@@ -66,7 +68,7 @@ export class KehoachsanxuatnammodalComponent implements OnInit {
     // this.getListPhanXuong();
     // this.GetListMatHang();
     if (this.type === 'themmoi') {
-      // this.item.TenNguoiLap = this.userInfo.TenNhanVien;
+      this.item.TenNguoiLap = this.userInfo.TenNhanVien;
       // this.GetNextSoQuyTrinh();
     }
     this.KiemTraButton();
