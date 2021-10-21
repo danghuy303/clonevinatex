@@ -70,6 +70,7 @@ import { ModaltinhtrangtaisanComponent } from './modal/modaltinhtrangtaisan/moda
 import { ThongtitaisanchaComponent } from './screen/thongtitaisancha/thongtitaisancha.component';
 import { ModalcapnhattaisanconComponent } from './modal/modalcapnhattaisancon/modalcapnhattaisancon.component';
 import { SharedModule } from './../../shared/shared.module';
+import { BangiaotaisanComponent } from './bangiaotaisan/bangiaotaisan.component';
 
 
 @NgModule({
@@ -100,6 +101,7 @@ import { SharedModule } from './../../shared/shared.module';
     ModaltinhtrangtaisanComponent,
     ThongtitaisanchaComponent,
     ModalcapnhattaisanconComponent,
+    BangiaotaisanComponent,
   ],
   imports: [
     CommonModule,
