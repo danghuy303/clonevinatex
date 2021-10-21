@@ -75,18 +75,6 @@ export class BangiaotaisanComponent implements OnInit {
       this.items = [];
       items = res.Data.Items;
       this.paging = res.Data;
-      items.forEach(obj => {
-        let obj_copy: any = {};
-        if (obj?.listTaiSan) {
-          obj_copy.children = [];
-          obj.listTaiSan.forEach(element => {
-            obj_copy.children.push({ data: element });
-          });
-          delete obj.listTaiSan;
-        }
-        obj_copy.data = obj;
-        this.items.push({ data: obj_copy.data, children: obj_copy.children });
-      });
     })
   }
 
@@ -127,7 +115,7 @@ export class BangiaotaisanComponent implements OnInit {
       });
   }
 
-  edit(item) {    
+  edit(item) {
     let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
       size: "fullscreen-100",
       backdrop: "static",

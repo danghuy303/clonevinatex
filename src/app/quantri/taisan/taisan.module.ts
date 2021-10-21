@@ -71,6 +71,8 @@ import { ThongtitaisanchaComponent } from './screen/thongtitaisancha/thongtitais
 import { ModalcapnhattaisanconComponent } from './modal/modalcapnhattaisancon/modalcapnhattaisancon.component';
 import { SharedModule } from './../../shared/shared.module';
 import { BangiaotaisanComponent } from './bangiaotaisan/bangiaotaisan.component';
+import { ModalcapnhatbaogiaComponent } from './modal/modalcapnhatbaogia/modalcapnhatbaogia.component';
+import { ModalchontaisanComponent } from './modal/modalchontaisan/modalchontaisan.component';
 
 
 @NgModule({
@@ -102,6 +104,8 @@ import { BangiaotaisanComponent } from './bangiaotaisan/bangiaotaisan.component'
     ThongtitaisanchaComponent,
     ModalcapnhattaisanconComponent,
     BangiaotaisanComponent,
+    ModalcapnhatbaogiaComponent,
+    ModalchontaisanComponent,
   ],
   imports: [
     CommonModule,
@@ -165,6 +169,8 @@ import { BangiaotaisanComponent } from './bangiaotaisan/bangiaotaisan.component'
     ModaltinhtrangtaisanComponent,
     ModalloaikhauhaoComponent,
     ModalcapnhattaisanconComponent,
+    ModalcapnhatbaogiaComponent,
+    ModalchontaisanComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
