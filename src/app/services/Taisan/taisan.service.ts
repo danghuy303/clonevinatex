@@ -38,4 +38,32 @@ export class TaisanService {
     };
   }
 
+  BanGiaoTaiSan() {
+    let url = API.TaiSan;
+    return {
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(`${url}BanGiaoTaiSan/GetNextQuyTrinhBanGiao`, httpOptions);
+      },
+      GetList: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}BanGiaoTaiSan/GetAllBanGiaoTaiSan`, data, httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(`${url}BanGiaoTaiSan/GetBanGiaoTaiSanById?Id=${Id}`, httpOptions);
+      },
+      Set: (data) => {
+        return this.http.post(`${url}BanGiaoTaiSan/SetQuyTrinhBanGiaoTaiSan`, data, httpOptions);
+      },
+      KhongDuyet: (data) => {
+        return this.http.post(`${url}BanGiaoTaiSan/KhongDuyetQuyTrinhBanGiaoTaiSan`, data, httpOptions);
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(`${url}BanGiaoTaiSan/ChuyenTiepQuyTrinhBanGiaoTaiSan`, data, httpOptions);
+      },
+      Delete: (Id) => {
+        return this.http.get(`${url}BanGiaoTaiSan/DeleteBanGiaoTaiSanById?Id=${Id}`, httpOptions);
+      },
+    };
+  }
+
 }
