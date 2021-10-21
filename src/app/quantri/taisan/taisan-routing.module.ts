@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BangiaotaisanComponent } from './bangiaotaisan/bangiaotaisan.component';
 import { DanhmucdonvitinhComponent } from './danhmuc/danhmucdonvitinh/danhmucdonvitinh.component';
 import { DanhmucloaibaoduongComponent } from './danhmuc/danhmucloaibaoduong/danhmucloaibaoduong.component';
 import { DanhmucloaitaisanComponent } from './danhmuc/danhmucloaitaisan/danhmucloaitaisan.component';
@@ -14,6 +15,7 @@ import { TaisanComponent } from './taisan.component';
 const routes: Routes = [
   {path:'',component:TaisanComponent},
   {path:'nhaptaisan',component:NhaptaisanComponent},
+  {path:'bangiaotaisan',component:BangiaotaisanComponent},  
   {path:'danhsachtaisan',component:DanhsachtaisanComponent},
   {path:'danhmuc/danhmucloaibaoduong',component:DanhmucloaibaoduongComponent},
   {path:'danhmuc/danhmucdonvitinh',component:DanhmucdonvitinhComponent},

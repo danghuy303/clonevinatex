@@ -70,7 +70,7 @@ export class BangiaotaisanComponent implements OnInit {
       denNgay: DateToUnix(this.filter.DenNgay),
       Loai: 0
     };
-    this._serviceTaiSan.NhapTaiSan().GetList(data).subscribe((res: any) => {
+    this._serviceTaiSan.BanGiaoTaiSan().GetList(data).subscribe((res: any) => {
       let items = [];
       this.items = [];
       items = res.Data.Items;
@@ -150,7 +150,7 @@ export class BangiaotaisanComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
     modalRef.result
       .then((res) => {
-        this._serviceTaiSan.NhapTaiSan().Delete(item.Id).subscribe((res: any) => {
+        this._serviceTaiSan.BanGiaoTaiSan().Delete(item.Id).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this.Loaddata(false);
             this.toastr.success(res.message);
