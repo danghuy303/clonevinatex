@@ -376,6 +376,14 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       console.log(res);
     })
   }
+  KiemTraTonTaiQuyTrinh(){
+    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().KiemTraTonTaiQuyTrinh(this.item.Nam).subscribe(res=>{
+      if(res){
+        this.toastr.warning(`Kế hoạch kinh doanh năm ${this.item.Nam} đã tồn tại!\nVui lòng chọn năm lập kế hoạch khác hoặc điều chỉnh kế hoạch đã tồn tại!`)
+        this.item.Nam = null;
+      }
+    })
+  }
 }
 
 
