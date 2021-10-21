@@ -66,4 +66,32 @@ export class TaisanService {
     };
   }
 
+  PhieuThuHoiTaiSan() {
+    let url = API.TaiSan;
+    return {
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(`${url}PhieuThuHoiTaiSan/GetNextQuyTrinhThuHoi`, httpOptions);
+      },
+      GetList: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}PhieuThuHoiTaiSan/GetAllPhieuThuHoiTaiSan`, data, httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(`${url}PhieuThuHoiTaiSan/GetPhieuThuHoiTaiSanById?Id=${Id}`, httpOptions);
+      },
+      Set: (data) => {
+        return this.http.post(`${url}PhieuThuHoiTaiSan/SetQuyTrinhPhieuThuHoiTaiSan`, data, httpOptions);
+      },
+      KhongDuyet: (data) => {
+        return this.http.post(`${url}PhieuThuHoiTaiSan/KhongDuyetQuyTrinhBanGiaoTaiSan`, data, httpOptions);
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(`${url}PhieuThuHoiTaiSan/ChuyenTiepQuyTrinhBanGiaoTaiSan`, data, httpOptions);
+      },
+      Delete: (Id) => {
+        return this.http.get(`${url}PhieuThuHoiTaiSan/DeleteBanGiaoTaiSanById?Id=${Id}`, httpOptions);
+      },
+    };
+  }
+
 }
