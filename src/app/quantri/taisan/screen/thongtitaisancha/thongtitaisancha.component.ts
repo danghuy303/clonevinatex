@@ -19,7 +19,7 @@ export class ThongtitaisanchaComponent implements OnInit {
   @Input('listLoaiTaiSan') listLoaiTaiSan: any = [];
   @Input('listTinhTrangTaiSan') listTinhTrangTaiSan: any = [];
   @Input('listNhaSanXuat') listNhaSanXuat: any = [];
-  @Input('opt') opt: any = [];
+  @Input('opt') opt: any = "";
 
 
   constructor(
@@ -29,6 +29,11 @@ export class ThongtitaisanchaComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.opt === 'edit') {
+      this.item.listFileDinhKem.forEach(obj => {
+        this.NameFile += `${obj.FileName}, `;
+      });
+    }
   }
 
   taiLenFileDinhKem() {

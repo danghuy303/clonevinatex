@@ -1,5 +1,5 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Nhập tài sản</h4>
+    <h4 style="color:#1f2779">Bàn giao tài sản</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <button pButton lab el="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
@@ -30,22 +30,22 @@
     <p-tabPanel header="Chưa xử lý"></p-tabPanel>
     <p-tabPanel header="Đã xử lý"></p-tabPanel>
 </p-tabView>
-<p-treeTable [value]="items" styleClass="p-treetable p-treetable-caption">
+
+<p-table [value]="item" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="true">
     <ng-template pTemplate="colgroup">
         <colgroup>
-            <!-- <col style="width:50px"> -->
+            <col style="width: 50px;">
             <col>
             <col>
             <col>
-            <!-- <col> -->
+            <col>
             <col>
             <col style="width: 100px;">
-            <col style="width: 150px;">
         </colgroup>
     </ng-template>
-    <ng-template pTemplate="header" let-columns>
+    <ng-template pTemplate="header">
         <tr>
-            <!-- <th class="text-center" rowspan="2">STT</th> -->
+            <th class="text-center">STT</th>
             <th class="text-center">Số quy trình</th>
             <th class="text-center">Mã</th>
             <th class="text-center">Tên</th>
@@ -55,23 +55,25 @@
             <th class="text-center">Thao tác</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+    <ng-template pTemplate="body" let-item let-i="rowIndex">
         <tr>
-            <td>             
-                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                {{rowData.SoQuyTrinh}}
+            <td>
+                {{i+1}}
             </td>
-            <td>{{rowData.Ma}}</td>
-            <td>{{rowData.Ten}}</td>
-            <!-- <td>{{rowData.NoiDung}}</td> -->
-            <td class="text-center">{{rowData.NgayNhap|date:'dd/MM/yyyy'}}</td>
-            <td>{{rowData.TenTrangThai}}</td>
+            <td>
+                {{item.SoQuyTrinh}}
+            </td>
+            <td>{{item.Ma}}</td>
+            <td>{{item.Ten}}</td>
+            <!-- <td>{{item.NoiDung}}</td> -->
+            <td class="text-center">{{item.NgayNhap|date:'dd/MM/yyyy'}}</td>
+            <td>{{item.TenTrangThai}}</td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
-                    (click)="edit(rowData)" *ngIf="rowNode.level===0"></button>
+                    (click)="edit(item)" *ngIf="rowNode.level===0"></button>
                 <button pButton pRipple type="button" icon="pi pi-trash"
-                    class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa" (click)="delte(rowData)"
+                    class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa" (click)="delte(item)"
                     *ngIf="rowNode.level===0"></button>
             </td>
         </tr>
@@ -82,4 +84,4 @@
             </p-paginator>
         </div>
     </ng-template>
-</p-treeTable>
+</p-table>
