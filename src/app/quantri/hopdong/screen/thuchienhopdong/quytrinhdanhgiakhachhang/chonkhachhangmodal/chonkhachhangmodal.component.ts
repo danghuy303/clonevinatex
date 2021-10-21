@@ -149,7 +149,7 @@ if(item.checked == true)
     itemFind.isXoa = false;
 }
   else{
-    let itemFind = this.selectedItems.filter((e: any) =>e.IddmItem === item.id)[0];
+    let itemFind = this.selectedItems.filter((e: any) =>e.iddmItem === item.Id)[0];
     if(itemFind !== undefined){
       itemFind.isXoa = true;
     }

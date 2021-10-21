@@ -69,9 +69,8 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
     if(this.listHangHoa != undefined && this.listHangHoa!= null)
     {
       for(let i = 0; i < this.listHangHoa.length; i++){
-        console.log(this.listHangHoa[i])
         let itemFind = this.listThanhToanThuTuc.find(
-          ele => (ele.IddmItem === this.listHangHoa[i].iddmItem )
+          ele => (ele.IddmItem === this.listHangHoa[i].iddmItem  && this.listHangHoa[i].isXoa !== true)
          )
         if(validVariable(itemFind)){
           itemFind.checked = true;
@@ -146,9 +145,16 @@ if(item.checked == true)
     itemFind.isXoa = false;
 }
   else{
-    let itemFind = this.listHangHoa.filter((e: any) =>e.IddmItem === item.id)[0];
-    if(itemFind !== undefined){
+    let i : any = 0;
+    for(; i < this.listHangHoa.length ; i ++){
+      if(item.Id === this.listHangHoa[i].iddmItem){
+        break;
+      }
+    }
+    let itemFind  = this.listHangHoa.splice(i, 1)[0];
+    if(validVariable(itemFind.id)){
       itemFind.isXoa = true;
+      this.listHangHoa.push(JSON.parse(JSON.stringify(itemFind)));
     }
   }
 }

@@ -5,8 +5,9 @@ import { SanXuatService } from './../../../../../../services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable , dinhDangSo} from 'src/app/services/globalfunction';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+
 import { ChitiethanghoamodalComponent } from './chitiethanghoamodal/chitiethanghoamodal.component';
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, DoCheck, ChangeDetectionStrategy } from '@angular/core';
 import { LuachonvattuphucuahanghoamodalComponent } from './luachonvattuphucuahanghoamodal/luachonvattuphucuahanghoamodal.component';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 
@@ -16,7 +17,7 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
   templateUrl: './chitietdanhsachhanghoa.component.html',
   styleUrls: ['./chitietdanhsachhanghoa.component.css']
 })
-export class ChitietdanhsachhanghoaComponent implements OnInit, OnChanges {
+export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Input('listHangHoa') item: any = {
     iddmLoaiVatTu: '',
   };
@@ -27,14 +28,15 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, OnChanges {
   @Input() isXo: boolean
   @Input() isBong: boolean
   @Input() isVatTuPhu: boolean
-  @Input() isPhuLuc: boolean
+  @Input() res1: any = []
   @Input("opt") opt: string;
   @Input() iddmLoaiHopDong: any
+  @Output('loaiNguyenVatLieu') onChange = new EventEmitter();
   // @Output('listHangHoaChange') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @Output('hopDongChange') hopDongChange: EventEmitter<any> = new EventEmitter<any>();
   @Output('listHangHoaChange') listHangHoaChange: EventEmitter<any> = new EventEmitter<any>(); 
   @Output('listLoaiMatHangChange') listLoaiMatHangChange: EventEmitter<any> = new EventEmitter<any>(); 
-  // @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
   // @Output('listTieuChuanChatLuong') listTieuChuanChatLuongChange: EventEmitter<any> = new EventEmitter();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   unsup: Subscription
@@ -64,11 +66,24 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, OnChanges {
   }
 
 
-  ngOnChanges() {
+  ngDoCheck() {
     this.listHangHoaChange.emit(this.item);    
     this.hopDongChange.emit(this.hopDong);
+    // this.chiTieuChange.emit(this.listTieuChuanChatLuong);
     this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
   }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if ('loaiNguyenVatLieu' in changes) {
+  //   if (typeof changes['loaiNguyenVatLieu'].currentValue !== 'number') {
+  //   const loaiNguyenVatLieu = Number(changes['loaiNguyenVatLieu'].currentValue);
+  //   if (Number.isNaN(loaiNguyenVatLieu)) {
+  //   this.hopDong.loaiNguyenVatLieu = null;
+  //   } else {
+  //   this.hopDong.loaiNguyenVatLieu = this.item.iddmLoaiVatTu;
+  //   }
+  //   }
+  //   }
+  //   }
 
   GetOptions() {
     this._servicesSanXuat.dmQuyCachDongGoi().GetList().subscribe((res: any) => {
@@ -88,26 +103,12 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, OnChanges {
   add() {
     let modalRef = this._modal.open(ChitiethanghoamodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.selectedItems = deepCopy(this.listTieuChuanChatLuong);
+    modalRef.componentInstance.selectedItems = this.listTieuChuanChatLuong;
     modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
     modalRef.result.then(res => {
       this.listTieuChuanChatLuong= deepCopy(res);  
     }).catch(er => { console.log(er) });
   }
-
-
-  // edit(item, i) {
-  //   let modalRef = this._modal.open(ChitiethanghoamodalComponent, { size: 'xl', backdrop: 'static' });
-  //   modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-  //   modalRef.componentInstance.opt = 'edit';
-  //   modalRef.result.then(res => {
-  //     this.listTieuChuanChatLuong.splice(i, 1);
-  //     this.listTieuChuanChatLuong.push(res.item);
-  //     if (res.opt !== 'add') {
-  //       this.add()
-  //     }
-  //   }).catch(er => { console.log(er) });
-  // }
   delete(index) {
     if (!validVariable(this.listHangHoaSoi[index].id)) {
       this.listHangHoaSoi.splice(index, 1);
@@ -133,7 +134,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, OnChanges {
       modalRef.componentInstance.listHangHoa = this.listHangHoaSoi;
       modalRef.componentInstance.IdQuyTrinh = this.hopDong.id;
       modalRef.result.then(res => {
-        this.listHangHoaSoi= res;  
+        this.listHangHoaSoi= deepCopy(res);  
       }).catch(er => { console.log(er) });
     })
   }
@@ -173,6 +174,5 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, OnChanges {
         this.listHangHoaSoi= res;  
       }).catch(er => { console.log(er) });
     })
-
   }
 }

@@ -1,6 +1,5 @@
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
-import { mapArrayForDropDown, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
-import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
+import { mapArrayForDropDown, DateToUnix, UnixToDate, validVariable, dinhDangSo } from 'src/app/services/globalfunction';
 import { vn } from './../../../../../../../services/const';
 
 import { Router } from '@angular/router';
@@ -21,7 +20,7 @@ export class ChitietbaolanhmodalComponent implements OnInit {
   listTinhTrang: any = []
   listLoaiBaoLanh: any = []
   listTinhTrangBaoLanh: any = []
-
+  dinhDangSo = dinhDangSo;
 
   opt: any = '';
   item: any = { id: "", listFileDinhKem: [] };
@@ -35,7 +34,6 @@ export class ChitietbaolanhmodalComponent implements OnInit {
     if (this.opt == 'edit') {
       this.item.listTen = "";
       this.item.hieuLucBaoLanh = UnixToDate(this.item.hieuLucBaoLanhUnix);
-
       this.item.listFileDinhKem.forEach(element => {
         this.item.listTen += `${element.fileName}`+ '; ';
       });
@@ -60,8 +58,10 @@ export class ChitietbaolanhmodalComponent implements OnInit {
     if (this.item.hieuLucBaoLanh !== undefined && this.item.hieuLucBaoLanh !== null) {
       this.item.hieuLucBaoLanhUnix = DateToUnix(this.item.hieuLucBaoLanh);
     }
-    this.item.tendmLoaiBaoLanh = this.listLoaiBaoLanh.find(obj => obj.value == this.item.iddmLoaiBaoLanh).label;
-    this.item.tendmTinhTrangBaoLanh = this.listTinhTrangBaoLanh.find(obj => obj.value == this.item.iddmTinhTrangBaoLanh).label;
+    if(validVariable(this.item.iddmLoaiBaoLanh))
+      this.item.tendmLoaiBaoLanh = this.listLoaiBaoLanh.find(obj => obj.value == this.item.iddmLoaiBaoLanh).label;
+    if(validVariable(this.item.iddmTinhTrangBaoLanh))
+      this.item.tendmTinhTrangBaoLanh = this.listTinhTrangBaoLanh.find(obj => obj.value == this.item.iddmTinhTrangBaoLanh).label;
     this.activeModal.close({ opt: opt, item: this.item });
   }
 

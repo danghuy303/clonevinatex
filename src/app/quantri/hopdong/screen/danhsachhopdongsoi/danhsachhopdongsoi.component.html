@@ -38,6 +38,8 @@
                 <col style="width: 200px;">
                 <col style="width: 200px;">
                 <col style="width: 200px;">
+                <col style="width: 200px;">
+                <col style="width: 200px;">
                 <col>
                 <col>
             </colgroup>
@@ -51,6 +53,8 @@
                 <th>Giá trị quyết toán</th>
                 <th>Giá trị đã chi/nhận</th>
                 <th>Giá trị còn lại</th>
+                <th>SL đã thanh toán</th>
+                <th>SL còn lại</th>
                 <th>Bên A</th>
                 <th>Bên B</th>
             </tr>
@@ -64,6 +68,8 @@
                 <td class="text-right">{{item.giaTriQuyetToan |number:'0.0-0'}}</td>
                 <td class="text-right">{{item.giaTriThanhToan |number:'0.0-0'}}</td>
                 <td class="text-right">{{item.giaTriConLai |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.soLuongDaThanhToan |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.soLuongConLai |number:'0.0-0'}}</td>
                 <td class="text-left">{{item.benA}}</td>
                 <td class="text-left">{{item.benB}}</td>
             </tr>

@@ -702,29 +702,6 @@ export class QuantriComponent implements OnInit {
 
             command: () => this.close(),
           },
-          {
-            label: "Phụ lục hợp đồng bông xơ",
-            routerLink:
-              "/quantri/hopdongsanxuat/phuluchopdongbongxo/0",
-
-            command: () => this.close(),
-          },
-          {
-            label: "Phụ lục hợp đồng sợi",
-            routerLink:
-
-              "/quantri/hopdongsanxuat/phuluchopdongsoi/0",
-
-            command: () => this.close(),
-          },
-          {
-            label: "Phụ lục hợp đồng vật tư phụ",
-            routerLink:
-
-              "/quantri/hopdongsanxuat/phuluchopdongvattuphu/0",
-
-            command: () => this.close(),
-          },
         ],
       },
       
@@ -970,6 +947,16 @@ export class QuantriComponent implements OnInit {
           {
             label: "Kế hoạch kinh doanh tháng",
             routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhthang/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Kế hoạch sản xuất năm",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachsanxuatnam/0",
+            command: () => this.close(),
+          },
+          {
+            label: "Kế hoạch sản xuất tháng",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachsanxuatthang/0",
             command: () => this.close(),
           },
           // {

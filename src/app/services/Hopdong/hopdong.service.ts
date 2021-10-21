@@ -98,6 +98,9 @@ export class HopDongService {
       GetListHopDongBanChoVay: (IdDuAn) => {
         return this.http.get(url + `HopDong/GetDanhSachHopDongBanChoVay?IdDuAn=${IdDuAn}`, httpOptions);
       },
+      GetListHopDongForPhuLuc: (Loai) => {
+        return this.http.get(url + `HopDong/GetListHopDongForPhuLuc?Loai=${Loai}`, httpOptions);
+      },
     };
   }
 

@@ -170,17 +170,10 @@ import { DanhmuctieuchidanhgiaComponent } from './danhmuc/danhmuctieuchidanhgia/
 import { DanhmuctieuchidanhgiamodalComponent } from './danhmuc/danhmuctieuchidanhgia/danhmuctieuchidanhgiamodal/danhmuctieuchidanhgiamodal.component';
 import { KehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/kehoachkinhdoanhthang.component';
 import { ModalkehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/modal/modalkehoachkinhdoanhthang/modalkehoachkinhdoanhthang.component';
-import { PhuluchopdongbongxoComponent } from './screen/phuluchopdong/phuluchopdongbongxo/phuluchopdongbongxo.component';
-import { PhuluchopdongbongxomodalComponent } from './screen/phuluchopdong/phuluchopdongbongxo/phuluchopdongbongxomodal/phuluchopdongbongxomodal.component';
-import { PhuluchopdongsoiComponent } from './screen/phuluchopdong/phuluchopdongsoi/phuluchopdongsoi.component';
-import { PhuluchopdongvattuphuComponent } from './screen/phuluchopdong/phuluchopdongvattuphu/phuluchopdongvattuphu.component';
-import { PhuluchopdongsoimodalComponent } from './screen/phuluchopdong/phuluchopdongsoi/phuluchopdongsoimodal/phuluchopdongsoimodal.component';
-import { PhuluchopdongvattuphumodalComponent } from './screen/phuluchopdong/phuluchopdongvattuphu/phuluchopdongvattuphumodal/phuluchopdongvattuphumodal.component';
-
-
-
-
-
+import { KehoachsanxuatnamComponent } from './kehoachsanxuatnam/kehoachsanxuatnam.component';
+import { KehoachsanxuatthangComponent } from './kehoachsanxuatthang/kehoachsanxuatthang.component';
+import { KehoachsanxuatnammodalComponent } from './kehoachsanxuatnam/modal/kehoachsanxuatnammodal/kehoachsanxuatnammodal.component';
+import { KehoachsanxuatthangmodalComponent } from './kehoachsanxuatthang/modal/kehoachsanxuatthangmodal/kehoachsanxuatthangmodal.component';
 
 @NgModule({
   declarations: [
@@ -405,14 +398,10 @@ import { PhuluchopdongvattuphumodalComponent } from './screen/phuluchopdong/phul
 
     DanhmuctieuchidanhgiamodalComponent,
     ModalkehoachkinhdoanhthangComponent,
-    PhuluchopdongbongxoComponent,
-    PhuluchopdongsoiComponent,
-    PhuluchopdongvattuphuComponent,
-    PhuluchopdongbongxomodalComponent,
-    PhuluchopdongsoimodalComponent,
-    PhuluchopdongvattuphumodalComponent,
-
-
+    KehoachsanxuatnamComponent,
+    KehoachsanxuatthangComponent,
+    KehoachsanxuatnammodalComponent,
+    KehoachsanxuatthangmodalComponent,
 
   ],
   imports: [
@@ -539,9 +528,6 @@ import { PhuluchopdongvattuphumodalComponent } from './screen/phuluchopdong/phul
     DanhmuctieuchidanhgiamodalComponent,
 
     ModalkehoachkinhdoanhthangComponent,
-    PhuluchopdongbongxomodalComponent,
-    PhuluchopdongsoimodalComponent,
-    PhuluchopdongvattuphumodalComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })
