@@ -64,7 +64,7 @@ export class NhaptaisanComponent implements OnInit {
     let data = {
       pageSize: 20,
       currentPage: this.paging.currentPage,
-      tabTrangThai: 1,
+      tabTrangThai: this.trangThai,
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
@@ -77,14 +77,16 @@ export class NhaptaisanComponent implements OnInit {
       this.paging = res.Data;
       items.forEach(obj => {
         let obj_copy: any = {};
-        if (obj?.listTaiSanCon) {
-          obj_copy.children = obj.listTaiSanCon;
-          delete obj.listTaiSanCon;
+        if (obj?.listTaiSan) {
+          obj_copy.children = [];
+          obj.listTaiSan.forEach(element => {
+            obj_copy.children.push({ data: element });
+          });
+          delete obj.listTaiSan;
         }
         obj_copy.data = obj;
         this.items.push({ data: obj_copy.data, children: obj_copy.children });
       });
-      console.log(this.items);
     })
   }
 
@@ -111,11 +113,9 @@ export class NhaptaisanComponent implements OnInit {
         Id: "",
         isXoa: false,
         listFileDinhKem: [],
-        CreatedBy: new Date(),
-        ModifiedBy: new Date(),
+        Created: new Date(),
+        Modified: new Date(),
       },
-      CreatedBy: new Date(),
-      ModifiedBy: new Date(),
       listTaiSan: [],
     }
     modalRef.result
@@ -127,7 +127,7 @@ export class NhaptaisanComponent implements OnInit {
       });
   }
 
-  edit(item) {
+  edit(item) {    
     let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
       size: "fullscreen-100",
       backdrop: "static",
