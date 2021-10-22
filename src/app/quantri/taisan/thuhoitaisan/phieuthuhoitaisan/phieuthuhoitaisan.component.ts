@@ -22,7 +22,7 @@ export class PhieuthuhoitaisanComponent implements OnInit {
   showDropDown: boolean = false;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
-  eAction = "";
+  eAction = "ThuHoiTaiSan";
 
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
@@ -52,42 +52,38 @@ export class PhieuthuhoitaisanComponent implements OnInit {
 
     };
     this. _serviceTaiSan.PhieuThuHoiTaiSan().GetList(data).subscribe((res: any) => {
+      console.log(res)
       this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
-  }
+  } 
   add() {
 
     let modalRef = this._modal.open(ModalthuhoitaisanComponent,{
       backdrop: 'static',
       size: 'fullscreen',
-      keyboard: false
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = '';
+    modalRef.componentInstance.title = 'Thêm mới phiếu thu hồi tài sản';
     modalRef.componentInstance.item = {
-      Id: '', IdTrangThai: '', SoQuyTrinh: ""
+      Id: '', IdTrangThai: '', SoQuyTrinh: "",TenTrangThai: "",
+      isKetThuc: false,
+      ListTaiSan: {
+        Id: "",
+        IdTaiSan:"",
+        isXoa: false,
+        listFileDinhKem: [],
+        Created: new Date(),
+        Modified: new Date(),
+        TinhTrang:"",
+        GiaTriThanhLy: "",
+        SoLuong:"",
+      },
     };
     modalRef.result.then(res => {
       this.GetListThuHoiTaiSan()
     }).catch(er => console.log(er))
-  }
-
-  update(item) {
-    let modalRef = this._modal.open(ModalthuhoitaisanComponent,{
-      size: "fullscreen",
-      backdrop: "static",
-      keyboard: false,
-    });
-    modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = '';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.result
-      .finally(() => {
-        this.GetListThuHoiTaiSan();
-      });
   }
 
   //xử lí tab 
@@ -102,7 +98,6 @@ export class PhieuthuhoitaisanComponent implements OnInit {
       this.GetListThuHoiTaiSan();
     });
   }
-
   changePage(event) {
     this.paging.Page = event.page + 1;
     this.GetListThuHoiTaiSan()

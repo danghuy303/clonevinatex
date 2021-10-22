@@ -1,11 +1,20 @@
 <div class="modal-header">
     <h5 class="modal-title">
         {{title}}</h5>
+        <div class="d-flex flex-column flex-lg-row">
+            <div>
+                <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+            </div>
+            <div class="ml-lg-3 mr-lg-3">
+                <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+            </div>
+            <div>
+                <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+            </div>
+        </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
-    <!-- <span class="p-button-sm p-button-sm p-button-text close" aria-hidden="true"
-      (click)="activeModal.dismiss('Cross click')">×</span> -->
 </div>
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
@@ -19,11 +28,12 @@
     </div>
     <div class="col-12 col-lg-12">
         <div class="p-grid">
+            
             <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-                <label class="p-col-12 p-lg-5 p-p-0 my-auto">Thu hồi của bộ phận:</label>
+                <label class="p-col-12 p-lg-5 p-p-0 my-auto">Phân xưởng:</label>
                 <div class="p-col-12 p-lg-7 p-p-0">
-                    <p-dropdown [filter]="true" [options]="listBoPhan" placeholder="Chọn bộ phận"
-                        styleClass="p-inputtext-sm" [(ngModel)]="item.IdBoPhan"></p-dropdown>
+                    <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận"
+                        styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
                 </div>
             </div>
             <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
@@ -36,8 +46,20 @@
             <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-4 p-p-0 my-auto">Người bàn giao:</label>
                 <div class="p-col-12 p-lg-8 p-p-0">
-                    <p-inputNumber [minFractionDigits]="" locale="vi-VN" [(ngModel)]="item.NguoiBanGiao">
-                    </p-inputNumber>
+                    <input locale="vi-VN" [(ngModel)]="item.NguoiBanGiao" pInputText />
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Nội dung:</label>
+                <div class="p-col-12 p-lg-8 p-p-0">
+                    <input locale="vi-VN" [(ngModel)]="item.NoiDung" pInputText />
+                   
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lý do thu hồi:</label>
+                    <input locale="vi-VN" [(ngModel)]="item.ThuHoi" pInputText />
+                    
                 </div>
             </div>
         </div>
@@ -50,7 +72,6 @@
                 <col style="width:300px">
                 <col style="width:250px">
                 <col style="width:250px">
-                <col style="width:250px">
                 <col style="width:100px">
             </colgroup>
         </ng-template>
@@ -60,7 +81,6 @@
                 <th>Tài sản thu hồi</th>
                 <th>Số lượng đã cấp</th>
                 <th>Số lượng thu hồi</th>
-                <th>Lý do thu hồi</th>
                 <th style="width: 100px;">Edit</th>
             </tr>
         </ng-template>
@@ -79,11 +99,6 @@
                 <td class="text-center">
                     <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="0" locale="vi-VN"
                         [(ngModel)]="item.ThuHoi">
-                    </p-inputNumber>
-                </td>
-                <td class="text-center">
-                    <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="0" locale="vi-VN"
-                        [(ngModel)]="item.LyDo">
                     </p-inputNumber>
                 </td>
                 <td class="text-center">
@@ -119,11 +134,6 @@
                     </p-inputNumber>
                 </td>
                 <td class="text-center">
-                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newitem.LyDo">
-                    </p-inputNumber>
-                </td>
-
-                <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
                         (click)="add()">
                     </button>
@@ -132,7 +142,6 @@
 
         </ng-template>
     </p-table>
-</div>
 <!-- <div class="modal-footer">
   
     <button pButton pRipple label="Đóng" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"

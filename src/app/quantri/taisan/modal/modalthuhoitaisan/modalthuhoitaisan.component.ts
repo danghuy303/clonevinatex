@@ -3,7 +3,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
-import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
+import { StoreService } from 'src/app/services/store.service';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 @Component({
   selector: 'app-modalthuhoitaisan',
   templateUrl: './modalthuhoitaisan.component.html',
@@ -16,23 +17,30 @@ export class ModalthuhoitaisanComponent implements OnInit {
   item: any = {};
   type = '';
   opt = '';
+  listPhanXuong = [];
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
-    private _danhMucHopDong: DanhMucHopDongService,
+    private _serviceTaiSan: TaisanService,
     public toastr: ToastrService,
-    ) {}
+    public store: StoreService,
+  ) { }
 
   ngOnInit(): void {
-    if (this.opt == 'add') {
-
+    if (this.type === 'themmoi') {
+      this.GetNextSoQuyTrinh();
     }
-    else {
-
-    }
-  
+    this.GetListdmPhanXuong();
   }
-  
+
+  GetListdmPhanXuong() {
+    this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+      console.log(res)
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
+
   add() {
     if (this.item.listItem == undefined || this.item.listItem == null)
       this.item.listItem = [];
@@ -60,33 +68,39 @@ export class ModalthuhoitaisanComponent implements OnInit {
   xoa(item) {
 
   }
-
+  validate(): boolean {
+    if (!validVariable(this.item.IddmPhanXuong)) {
+      this.toastr.error('Vui lòng nhập phân xưởng!!');
+      return false;
+    }
+    return true;
+  }
+  setData() {
+    this.item.IdDuAn = this.store.getCurrent();
+    return this.item;
+  }
   GhiLai() {
-    if (this.opt == 'add') {
-      this.item.lstChiTiet = deepCopy(this.item.listItem);
-      delete this.item.listItem;
-      console.log(this.item);
-      this._danhMucHopDong.DanhSachTinhLuong().Set(this.item).subscribe((res: any) => {
-        if (res.StatusCode !== 200) {
-          this.toastr.error(res.Message);
-        } else {
-          this.toastr.success(res.Message);
-          this.activeModal.close();
-        }
+    if (this.validate()) {
+      this._serviceTaiSan.PhieuThuHoiTaiSan().Set(this.setData()).subscribe((res: any) => {
+        console.log(res.StatusCode)
+          if (res.StatusCode !== 200 || !res.StatusCode) {
+            this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+          } else {
+            this.toastr.success(res.Message);
+            this.activeModal.close();
+          }
+      },(er)=>{
+        this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       })
     }
-    else {
-      this.item.lstChiTiet = deepCopy(this.item.listItem);
-      this._danhMucHopDong.DanhSachTinhLuong().Update(this.item).subscribe((res: any) => {
-        if (res.StatusCode !== 200) {
-          this.toastr.error(res.Message);
-        } else {
-          this.toastr.success(res.Message);
-          this.activeModal.close();
-        }
-      })
-    }
+
   }
 
-  
+  GetNextSoQuyTrinh() {
+    this._serviceTaiSan.PhieuThuHoiTaiSan().GetNextSoQuyTrinh().subscribe((res: any) => {
+      console.log(res)
+      this.item.SoQuyTrinh = res.Data;
+
+    })
+  }
 }
