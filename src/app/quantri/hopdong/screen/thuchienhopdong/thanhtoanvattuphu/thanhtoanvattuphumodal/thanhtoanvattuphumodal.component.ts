@@ -125,6 +125,22 @@ export class ThanhtoanvattuphumodalComponent implements OnInit {
         }
       }).catch()
     }
+    else{
+      if(this.CheckTruocKhiLuu()){
+        if (this.item.ngayThanhToan !== null && this.item.ngayThanhToan !== undefined)
+          this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+        this._hopdong.QuyTrinhThanhToan().ChuyenTiep(this.item).subscribe((res: any) => {
+          if (res) {
+            if (res.statusCode === 200) {
+              this.activeModal.close();
+              this.toastr.success(res.message)
+            } else {
+              this.toastr.error(res.message);
+            }
+          }
+        })
+      }
+    }
   }
 
   GetNextSoQuyTrinh() {

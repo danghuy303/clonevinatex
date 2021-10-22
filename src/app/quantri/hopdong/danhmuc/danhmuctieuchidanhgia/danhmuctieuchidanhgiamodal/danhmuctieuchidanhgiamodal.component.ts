@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 
 @Component({
   selector: 'app-danhmuctieuchidanhgiamodal',
@@ -6,10 +10,49 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./danhmuctieuchidanhgiamodal.component.css']
 })
 export class DanhmuctieuchidanhgiamodalComponent implements OnInit {
+  item: any = {};
+  title: any = '';
+  type = '';
+  listTieuChiCha: any = [];
 
-  constructor() { }
+  constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: HopDongService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
+  this.getlistTieuChiCha();
   }
-
+  SetData() {
+    let data: any = {
+      "id":this.item.id,
+      "ten": this.item.ten,
+      "tieuChuan": this.item.tieuChuan,
+      "ghiChu": this.item.ghiChu,
+      "hoatDong": this.item.hoatDong,
+      "thuTu": this.item.thuTu,
+      "diemToiDa": this.item.diemToiDa,
+      "iddmTieuChiCha": this.item.iddmTieuChiCha,
+    };
+    return data;
+  }
+  GhiLai() {
+      this._danhMucHopDong.dmTieuChiDanhGia().Set(this.SetData()).subscribe((res: any) => {
+        if (res.statusCode === 200) {
+          this.toastr.success(res.message);
+          this.activeModal.close();
+        } else {
+          this.toastr.error(res.message);
+        } 
+      })
+  }
+  getlistTieuChiCha(){
+    let data = {
+      PageSize: 20,
+      ma: "",
+      ten: ""
+    };
+    this._danhMucHopDong.dmTieuChiDanhGia().GetList(data).subscribe((res: any) => {
+      let listTieuChiCha = res.data.filter(e => e.iddmTieuChiCha === null || e.iddmTieuChiCha === '');
+      this.listTieuChiCha = mapArrayForDropDown(listTieuChiCha, 'ten', 'id');
+    })
+  }
+  
 }

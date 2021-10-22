@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ChitietdieukhoanmodalComponent implements OnInit {
   lang: any = vn;
-  listThanhToanThuTuc = []
+  // listThanhToanThuTuc = []
   isThoiDiem: boolean = false;
   opt: any = '';
   item: any = {
@@ -81,12 +81,6 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
       .subscribe((res: any) => {
         this.listLoaiThanhToan = mapArrayForDropDown(res, "ten", "id");
       });
-
-    // this._servicesdmHopDong
-    //   .GetListAlldmTheoLoaiThanhToan()
-    //   .subscribe((res: any) => {
-    //     this.listTheoLoaiThanhToan = mapArrayForDropDown(res, "ten", "id");
-    //   });
   }
 
   toggleVisibility() {
@@ -111,28 +105,11 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
       size: 'lg',
       backdrop: 'static'
     })
-    modalRef.componentInstance.listThanhToanThuTuc = this.item.listThanhToanThuTuc;
+    modalRef.componentInstance.listThanhToanThuTuc = deepCopy(this.item.listThanhToanThuTuc);
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.IdQuyTrinh = this.IdQuyTrinh;
     modalRef.result.then((res) => {
-      this.listThanhToanThuTuc = res;
-      // this.item.listThanhToanThuTuc.forEach(element => {
-      //   console.log('listThanhToanThuTuc', element);
-
-      //   element.isXoa = true;
-      // });
-
-
-      // for (let i = 0; i < data.length; i++) {
-      //   for (let j = 0; j < this.listThanhToanThuTuc.length; j++) {
-
-      //     this.listThanhToanThuTuc[j].isXoa = false;
-      //     data[i].isXoa = true;
-
-      //   }
-      // }
-
-
+      this.item.listThanhToanThuTuc = res;
     }, (reason) => {
       // không
     })

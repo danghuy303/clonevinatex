@@ -751,12 +751,6 @@ export class QuantriComponent implements OnInit {
             },
           },
           {
-            label: "Quyết toán hợp đồng",
-            routerLink: "/quantri/hopdongsanxuat/quyettoanhopdong/0",
-
-            command: () => this.close(),
-          },
-          {
             label: "Thanh toán bông",
             routerLink: "/quantri/hopdongsanxuat/quytrinhthanhtoanbong/0",
 
@@ -780,15 +774,21 @@ export class QuantriComponent implements OnInit {
 
             command: () => this.close(),
           },
-          {
-            label: "Gia hạn hợp đồng",
-            routerLink: "/quantri/hopdongsanxuat/giahanhopdong/0",
+          // {
+          //   label: "Gia hạn hợp đồng",
+          //   routerLink: "/quantri/hopdongsanxuat/giahanhopdong/0",
 
-            command: () => this.close(),
-          },
+          //   command: () => this.close(),
+          // },
+          // {
+          //   label: "Giao nhận hàng hoá",
+          //   routerLink: "/quantri/hopdongsanxuat/giaonhanhanghoa/0",
+
+          //   command: () => this.close(),
+          // },
           {
-            label: "Giao nhận hàng hoá",
-            routerLink: "/quantri/hopdongsanxuat/giaonhanhanghoa/0",
+            label: "Quyết toán hợp đồng",
+            routerLink: "/quantri/hopdongsanxuat/quyettoanhopdong/0",
 
             command: () => this.close(),
           },

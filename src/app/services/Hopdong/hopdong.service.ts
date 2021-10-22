@@ -412,6 +412,10 @@ export class HopDongService {
       ChuyenTiep: (data) => {
         return this.http.post(url + "PhieuXuatLoBong/ChuyenTiepQuyTrinh",data,httpOptions);
       },
+      getLuuKhoKhoBongHopDong: (IddmKho, IdLoBong, Loai) => {
+        let idDuAn =this.store.getCurrent()
+        return this.http.get(API.SCMChoModuleHopDong + `getLuuKhoKhoBongHopDong?IdDuAn=${idDuAn}&IddmKho=${IddmKho}&IdLoBong=${IdLoBong}&Loai=${Loai}`, httpOptions);
+      },
     };
   };
   QuyTrinhDanhGia() {
@@ -439,6 +443,9 @@ export class HopDongService {
       },
       ChuyenTiep: (data) => {
         return this.http.post(url + "DanhGia/ChuyenTiepQuyTrinh",data,httpOptions);
+      },
+      listHopDong: (IdKhachHang) => {
+        return this.http.get(url + `DanhGia/GetListHopDongKhachHang?IdKhachHang=${IdKhachHang}`,httpOptions);
       },
     };
   };
