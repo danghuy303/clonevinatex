@@ -41,12 +41,13 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   ngOnInit(): void {
     this._servicesSanXuat.GetOptions().GetNhaMay().subscribe((res: Array<any>) => {
       this.listDonVi = mapArrayForDropDown(res, 'TenDuAn', 'Id');
+      this.KiemTraButtonModal();
       if (this.opt === 'add') {
         this.title = "Thêm mới";
         this.GetNextSoQuyTrinh();
       }
       else {
-        this.title = "Cập nhật";        
+        this.title = "Cập nhật";
         this.GetIem();
       }
       if (validVariable(this.item.IdDuAn)) {
@@ -99,7 +100,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   }
 
   Setdata() {
-    this.item.NgayBaoGiaoUnix = DateToUnix(this.item.NgayBanGiao);      
+    this.item.NgayBaoGiaoUnix = DateToUnix(this.item.NgayBanGiao);
   }
 
   GhiLai() {
@@ -112,10 +113,10 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       this._serviceTaiSan.BanGiaoTaiSan().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           // this.GetIem();
-          this.toastr.success(res.message);
+          this.toastr.success(res.Message);
           this.activeModal.close();
         } else {
-          this.toastr.error(res.message);
+          this.toastr.error(res.Message);
         }
       })
     }
@@ -160,7 +161,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       .then((res: any) => {
         res.forEach(element => {
           this.item.listTaiSan.push(element);
-        });        
+        });
       })
       .catch((er) => {
 

@@ -14,10 +14,13 @@ export class ModalthuhoitaisanComponent implements OnInit {
 
   newitem: any = {};
   showDropDown: boolean = false;
-  item: any = {};
+  item: any = {listTaiSan:[]};
   type = '';
   opt = '';
   listPhanXuong = [];
+  public listdsTaiSan:any = [];
+  public listTaiSanRef:any = [];
+  listTaiSan:any = [];
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -31,6 +34,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     }
     this.GetListdmPhanXuong();
+    this.GetListTaiSanChuaBanGiao();
   }
 
   GetListdmPhanXuong() {
@@ -39,21 +43,27 @@ export class ModalthuhoitaisanComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-
+  GetListTaiSanChuaBanGiao() {
+    this._serviceTaiSan.GetOptions().GetListTaiSanChuaBanGiao().subscribe((res: any) => {
+      console.log(res)
+      this.listdsTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+      this.listTaiSanRef = res.Data;
+    })
+  }
 
   add() {
-    if (this.item.listItem == undefined || this.item.listItem == null)
-      this.item.listItem = [];
-    this.item.listItem.push(this.newitem);
+    if (this.item.listTaiSan == undefined || this.item.listTaiSan == null)
+      this.item.listTaiSan = [];
+    this.item.listTaiSan.push(this.newitem);
     this.newitem = {}
   }
 
   delete(index) {
-    let item = this.item.listItem.splice(index, 1)[0];
+    let item = this.item.listTaiSan.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
     } else {
       item.isXoa = true;
-      this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+      this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
     }
   }
 
@@ -82,12 +92,11 @@ export class ModalthuhoitaisanComponent implements OnInit {
   GhiLai() {
     if (this.validate()) {
       this._serviceTaiSan.PhieuThuHoiTaiSan().Set(this.setData()).subscribe((res: any) => {
-        console.log(res.StatusCode)
           if (res.StatusCode !== 200 || !res.StatusCode) {
             this.toastr.error("Có lỗi trong quá trình xử lý!!!");
           } else {
             this.toastr.success(res.Message);
-            this.activeModal.close();
+            // this.activeModal.close();
           }
       },(er)=>{
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -100,7 +109,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
     this._serviceTaiSan.PhieuThuHoiTaiSan().GetNextSoQuyTrinh().subscribe((res: any) => {
       console.log(res)
       this.item.SoQuyTrinh = res.Data;
-
     })
   }
+
 }

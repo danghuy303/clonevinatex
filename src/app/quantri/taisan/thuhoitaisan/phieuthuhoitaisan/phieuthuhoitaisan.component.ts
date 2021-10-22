@@ -6,6 +6,7 @@ import { StoreService } from 'src/app/services/store.service';
 import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalthuhoitaisanComponent } from '../../modal/modalthuhoitaisan/modalthuhoitaisan.component';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-phieuthuhoitaisan',
   templateUrl: './phieuthuhoitaisan.component.html',
@@ -22,16 +23,28 @@ export class PhieuthuhoitaisanComponent implements OnInit {
   showDropDown: boolean = false;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
-  eAction = "ThuHoiTaiSan";
+  eAction = "THUHOITAISAN";
 
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
+    private activatedRoute: ActivatedRoute, private router: Router,
   ) { }
-
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((res: any) => {
+      console.log(res);
+      if (res.id !== "0") {
+        this._serviceTaiSan
+          .PhieuThuHoiTaiSan()
+          .Get(res.id)
+          .subscribe((dulieu: any) => {
+            this.update(dulieu);
+          });
+      }
+    });
+    this.GetListThuHoiTaiSan(true);
     this.KiemTraTabTrangThai();
   }
 
@@ -51,39 +64,58 @@ export class PhieuthuhoitaisanComponent implements OnInit {
       TabTrangThai: this.trangThai
 
     };
-    this. _serviceTaiSan.PhieuThuHoiTaiSan().GetList(data).subscribe((res: any) => {
+    this._serviceTaiSan.PhieuThuHoiTaiSan().GetList(data).subscribe((res: any) => {
       console.log(res)
       this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
-  } 
+  }
+  changeParam(id) {
+    this.router.navigate([`quantri/taisan/thuhoitaisan/${id}`], {
+      replaceUrl: true,
+    });
+  }
   add() {
 
-    let modalRef = this._modal.open(ModalthuhoitaisanComponent,{
+    let modalRef = this._modal.open(ModalthuhoitaisanComponent, {
       backdrop: 'static',
-      size: 'fullscreen',
+      size: 'fullscreen-100',
+      keyboard:false
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = 'Thêm mới phiếu thu hồi tài sản';
     modalRef.componentInstance.item = {
-      Id: '', IdTrangThai: '', SoQuyTrinh: "",TenTrangThai: "",
-      isKetThuc: false,
-      ListTaiSan: {
-        Id: "",
-        IdTaiSan:"",
-        isXoa: false,
-        listFileDinhKem: [],
-        Created: new Date(),
-        Modified: new Date(),
-        TinhTrang:"",
-        GiaTriThanhLy: "",
-        SoLuong:"",
-      },
+      Id: '', IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "",
+      isKetThuc: false,listFileDinhKem:[]
     };
     modalRef.result.then(res => {
-      this.GetListThuHoiTaiSan()
+
     }).catch(er => console.log(er))
+      .finally(() => {
+        this.GetListThuHoiTaiSan()
+        this.changeParam(0);
+      })
+  }
+  update(item) {
+    let modalRef = this._modal.open(ModalthuhoitaisanComponent, {
+      size: "fullscreen-100",
+      backdrop: "static",
+      keyboard: false,
+    });
+    modalRef.componentInstance.opt = "edit";
+    modalRef.componentInstance.type = 'capnhat';
+    modalRef.componentInstance.title = 'Cập nhật phiếu thu hồi tài sản';
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.result
+      .then(data => {
+      })
+      .catch(er => {
+      })
+      .finally(() => {
+        this.GetListThuHoiTaiSan();
+        this.changeParam(0);
+      });
   }
 
   //xử lí tab 

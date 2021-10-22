@@ -25,7 +25,7 @@ const routes: Routes = [
   {path:'danhmuc/hangsannxuat',component:HangsanxuatComponent},
   {path:'danhmuc/tinhtrangtaisan',component:TinhtrangtaisanComponent},
   {path:'danhmuc/loaikhauhao',component:LoaikhauhaoComponent},
-  {path:'thuhoitaisan',component:PhieuthuhoitaisanComponent},
+  {path:'thuhoitaisan/:id',component:PhieuthuhoitaisanComponent},
 ];
 
 @NgModule({
