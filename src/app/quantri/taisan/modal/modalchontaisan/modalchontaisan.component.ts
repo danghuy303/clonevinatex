@@ -125,7 +125,7 @@ export class ModalchontaisanComponent implements OnInit {
           if (objchildren.data.checked) {
             data.push({
               TaiSan: obj.data,
-              IdQuyTrinhBanGiao: 2,
+              IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
               IdTaiSan: objchildren.data.Id,
               Id: '',
             });
