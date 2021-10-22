@@ -194,6 +194,14 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
       this.toastr.error('Vui lòng chọn hợp đồng')
       return false;
     }
+    else if (!validVariable(this.item.thoiGianDuKien)) {
+      this.toastr.error('Vui lòng chọn thời gian dự kiến')
+      return false;
+    }
+    else if (!validVariable(this.item.thoiGianCapCang)) {
+      this.toastr.error('Vui lòng chọn thời gian cập cảng')
+      return false;
+    }
     else{
       this.item.thoiGianDuKienUnix = DateToUnix(this.item.thoiGianDuKien);
       this.item.thoiGianCapCangUnix = DateToUnix(this.item.thoiGianCapCang);

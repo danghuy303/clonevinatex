@@ -156,7 +156,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   tinhgiaTriHopDongSoi(item) {
     item.soLuong = this.dinhDangSo(item.soLuong);
     item.donGia = this.dinhDangSo(item.donGia);
-    this.hopDong.thanhTien = (this.hopDong.thanhTien || 0)+ (item.donGia || 0) * (item.soLuong|| 0);
+    this.hopDong.thanhTien = (this.hopDong.thanhTien || 0)+ (item.donGia || 0) * (item.soLuong|| 0) * (item.thueGTGT || 0);
     if(this.hopDong.isLayTheoGiaTriHangHoa === true)
       this.hopDong.giaTri = this.hopDong.thanhTien;
   }

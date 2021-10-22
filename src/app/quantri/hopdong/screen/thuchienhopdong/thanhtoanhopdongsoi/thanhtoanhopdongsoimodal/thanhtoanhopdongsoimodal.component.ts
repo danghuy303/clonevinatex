@@ -70,8 +70,8 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
 
   }
   getListHopDong() {
-    this._services.GetOptions().GetDanhSachHopDongByNhaThauSoi(this.item.idDuAn).subscribe((res: any) => {
-      this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
+    this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 11).subscribe((res: any) => {
+      this.listHopDong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
     })
   }
 
@@ -85,7 +85,15 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
       this._hopdong.QuyTrinhHopDong().getListDieuKhoan(this.item.idHopDong).subscribe((res: any) => {
         this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'noiDung', 'id');
         this.listDieuKhoanThanhToanFull = res.data;
+
+        var data = this.listDieuKhoanThanhToanFull.filter(e=> e.id == this.item.idThanhToanDieuKhoan);
+        if(data !== undefined){
+          this.item.giaTriThanhToanHopDong = data[0].giaTri || 0;
+        }
       })
+      this.item.listThanhToanMatHang = []
+      this.item.listThanhToanDotGiaoNhan = []
+      this.listIdThanhToanInvoice=[]
     }
     else if (this.item.loaiThanhToan === 2) {
       this._hopdong.QuyTrinhThanhToan().getListInvoice(this.item.idHopDong).subscribe((res: any) => {
@@ -273,6 +281,7 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
     var data = this.listDieuKhoanThanhToanFull.filter(e => e.id == this.item.idThanhToanDieuKhoan);
     if (data !== undefined) {
       this.item.giaTriThanhToan = data[0].giaTri || 0;
+      this.item.giaTriThanhToanHopDong = data[0].giaTri || 0;
     }
   }
   TinhThanhTien() {

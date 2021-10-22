@@ -49,7 +49,7 @@
                 <th>Số quy trình</th>
                 <th>Ngày tạo</th>
                 <th>Nội dung</th>
-                <th>Ngày đánh giá</th>
+                <th>Ghi chú</th>
                 <th>Trạng thái</th>
                 <th></th>
             </tr>
@@ -60,7 +60,7 @@
                 <td class="text-center">{{item.soQuyTrinh}}</td>
                 <td class="text-center">{{item.created | date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.noiDung}}</td>
-                <td class="text-center">{{item.ngayDanhGia | date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.ghiChu}}</td>
                 <td class="text-center">{{item.tenTrangThai}}</td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.id)"></button>
