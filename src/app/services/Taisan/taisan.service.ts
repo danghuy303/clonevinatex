@@ -73,6 +73,6 @@ export class TaisanService {
         return this.http.get(`${url}TaiSan/GetListTaiSanChuaBanGiao`, httpOptions);
       },
     }
-}
+  }
 
 }
