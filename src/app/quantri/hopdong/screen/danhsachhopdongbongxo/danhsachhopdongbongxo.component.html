@@ -40,7 +40,8 @@
                 <col style="width:50px">
                 <col>
                 <col style="width: 100px;">
-                <col>
+                <col style="width:50px">
+                <col style="width:100px">
                 <col>
                 <col>
                 <col>
@@ -56,7 +57,7 @@
                 <th class="text-center">STT</th>
                 <th>Số-Tên HĐ</th>
                 <th>Ngày ký</th>
-                <th>Giá trị hợp đồng</th>
+                <th colspan="2">Giá trị hợp đồng</th>
                 <th>Giá trị quyết toán</th>
                 <th>Giá trị đã chi/nhận</th>
                 <th>Giá trị còn lại</th>
@@ -72,6 +73,7 @@
                 <td class="text-center"> {{ 20 * (paging.currentPage - 1) + i + 1 }} </td>
                 <td class="text-left">{{item.soHopDong}} - {{item.tenHopDong}} </td>
                 <td class="text-center">{{item.ngayKy | date:'dd/MM/yyyy'}}</td>
+                <td class="text-left">{{item.tendmLoaiTienTe}}</td>
                 <td class="text-right">{{item.giaTri |number:'0.0-0'}}</td>
                 <td class="text-right">{{item.giaTriQuyetToan |number:'0.0-0'}}</td>
                 <td class="text-right">{{item.giaTriThanhToan |number:'0.0-0'}}</td>

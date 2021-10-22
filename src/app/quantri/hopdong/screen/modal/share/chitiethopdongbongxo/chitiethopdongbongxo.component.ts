@@ -167,7 +167,7 @@ this.getListHopDongGoc();
     this.GetFormOptions();
     if(this.item.isPhuLuc){
       this._service.QuyTrinhHopDong().GetListHopDongForPhuLuc(this.item.loai || 2).subscribe((res: any) => {
-        this.listHopDong = mapArrayForDropDown(res, "soTenHopDong", "id");
+        this.listHopDong = mapArrayForDropDown(res, "tenSoHopDong", "id");
       });
     }
     if (this.opt !== "edit") {
@@ -278,7 +278,7 @@ this.getListHopDongGoc();
   getListHopDongGoc(){
     this._service.QuyTrinhHopDong().GetListAll(this.item.loai || 0, this.item.iddmLoaiHopDong || '')
       .subscribe((res: Array<any>) => {
-        this.listHopDongGoc = mapArrayForDropDown(res, "soHopDong", "id");
+        this.listHopDongGoc = mapArrayForDropDown(res, "tenSoHopDong", "id");
       });
   }
   listHangHoaTheoHopDong(){

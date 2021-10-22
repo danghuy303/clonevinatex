@@ -78,6 +78,10 @@ export class ThanhtoanvattuphumodalComponent implements OnInit {
       this._hopdong.QuyTrinhHopDong().getListDieuKhoan(this.item.idHopDong).subscribe((res: any) => {
         this.listDieuKhoanThanhToanFull = res.data;
         this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'noiDung', 'id');
+        var data = this.listDieuKhoanThanhToanFull.filter(e=> e.id == this.item.idThanhToanDieuKhoan);
+        if(data !== undefined){
+          this.item.giaTriThanhToanHopDong = data[0].giaTri || 0;
+        }
       })
       this.item.listThanhToanMatHang = []
       this.item.listThanhToanDotGiaoNhan = []
@@ -267,6 +271,7 @@ export class ThanhtoanvattuphumodalComponent implements OnInit {
     var data = this.listDieuKhoanThanhToanFull.filter(e => e.id == this.item.idThanhToanDieuKhoan);
     if (data !== undefined) {
       this.item.giaTriThanhToan = data[0].giaTri || 0;
+      this.item.giaTriThanhToanHopDong = data[0].giaTri || 0;
     }
   }
   TinhThanhTien() {
