@@ -33,7 +33,6 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
   listKhachHang: any = [];
   IdDuAn: any = 0;
   userInfo: any;
-  listHopDong: any = [];
   listTieuChiDanhGia: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal,
@@ -157,7 +156,6 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
     modalRef.componentInstance.selectedItems = deepCopy(this.item.listPhieuDanhGia || []);
     modalRef.componentInstance.IdQuyTrinh = this.item.id;
     modalRef.componentInstance.listTieuChiDanhGia = deepCopy(this.listTieuChiDanhGia);
-    modalRef.componentInstance.listHopDong = deepCopy(this.listHopDong);
     modalRef.componentInstance.opt = "";    
     modalRef.result.then(res => {
       this.item.listPhieuDanhGia = deepCopy(res);
@@ -181,7 +179,19 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
   getListdmTieuChiDanhGia(){
     let data: any = {currentPage: 0}
     this._hopdong.dmTieuChiDanhGia().GetList(data).subscribe((res1: any) => {
-      this.listTieuChiDanhGia = res1.data;
+      this.listTieuChiDanhGia = [] ;
+      res1.data.forEach(element => {
+        let data: any = {
+          id: '',
+          iddmTieuChiDanhGia: element.id,
+          diemToiDa: element.diemToiDa,
+          ten: element.ten,
+          diem: 0,
+          iddmTieuChiCha: element.iddmTieuChiCha,
+        }
+        this.listTieuChiDanhGia.push(data);
+      });
     })
   }
+  
 }

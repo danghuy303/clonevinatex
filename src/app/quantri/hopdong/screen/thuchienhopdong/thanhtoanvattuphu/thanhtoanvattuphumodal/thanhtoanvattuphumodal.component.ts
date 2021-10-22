@@ -69,7 +69,7 @@ export class ThanhtoanvattuphumodalComponent implements OnInit {
   }
   getListHopDong() {
     this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 23).subscribe((res: any) => {
-      this.listHopDong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
+      this.listHopDong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
     })
   }
 
@@ -78,6 +78,10 @@ export class ThanhtoanvattuphumodalComponent implements OnInit {
       this._hopdong.QuyTrinhHopDong().getListDieuKhoan(this.item.idHopDong).subscribe((res: any) => {
         this.listDieuKhoanThanhToanFull = res.data;
         this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'noiDung', 'id');
+        var data = this.listDieuKhoanThanhToanFull.filter(e=> e.id == this.item.idThanhToanDieuKhoan);
+        if(data !== undefined){
+          this.item.giaTriThanhToanHopDong = data[0].giaTri || 0;
+        }
       })
       this.item.listThanhToanMatHang = []
       this.item.listThanhToanDotGiaoNhan = []
@@ -124,6 +128,22 @@ export class ThanhtoanvattuphumodalComponent implements OnInit {
           })
         }
       }).catch()
+    }
+    else{
+      if(this.CheckTruocKhiLuu()){
+        if (this.item.ngayThanhToan !== null && this.item.ngayThanhToan !== undefined)
+          this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+        this._hopdong.QuyTrinhThanhToan().ChuyenTiep(this.item).subscribe((res: any) => {
+          if (res) {
+            if (res.statusCode === 200) {
+              this.activeModal.close();
+              this.toastr.success(res.message)
+            } else {
+              this.toastr.error(res.message);
+            }
+          }
+        })
+      }
     }
   }
 
@@ -251,6 +271,7 @@ export class ThanhtoanvattuphumodalComponent implements OnInit {
     var data = this.listDieuKhoanThanhToanFull.filter(e => e.id == this.item.idThanhToanDieuKhoan);
     if (data !== undefined) {
       this.item.giaTriThanhToan = data[0].giaTri || 0;
+      this.item.giaTriThanhToanHopDong = data[0].giaTri || 0;
     }
   }
   TinhThanhTien() {

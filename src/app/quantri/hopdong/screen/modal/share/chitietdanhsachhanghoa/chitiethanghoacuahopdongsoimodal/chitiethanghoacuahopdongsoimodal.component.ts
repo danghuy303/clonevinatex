@@ -60,7 +60,7 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.listThanhToanThuTuc.length);
+    console.log(this.listThanhToanThuTuc);
     this.listHangHoaGoc = deepCopy(this.listHangHoa);
 
     this.paging.CurrentPage = 1;
@@ -128,7 +128,7 @@ if(item.checked == true)
 {
   let itemFind: any = this.listHangHoa.filter((e: any) =>e.iddmItem === item.Id)[0]
   if(itemFind === undefined){
-    let itemFinds = this.listThanhToanThuTuc.find(e => e.checked === true && e.Id === item.Id);
+    let itemFinds = this.listThanhToanThuTuc.find(e =>e.Id === item.Id);
     itemFinds = {
       idHopDong: this.IdQuyTrinh || '',
       iddmItem: itemFinds.Id,
@@ -138,6 +138,9 @@ if(item.checked == true)
       madmItem: itemFinds.Ma,
       isXoa: false,
       id: '',
+      thueGTGT: 10,
+      soLuong: 0,
+      donGia: 0,
     }
     this.listHangHoa.push(itemFinds)
   }

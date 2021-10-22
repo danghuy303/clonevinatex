@@ -1,1 +1,129 @@
-<p>modalcapnhatbaogia works!</p>
+<div class="modal-header">
+    <h5 class="modal-title">{{title}}</h5>
+    <div class="d-flex flex-column flex-lg-row">
+        <div>
+            <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
+        </div>
+        <div class="ml-lg-3 mr-lg-3">
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+        <div>
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+    </div>
+    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="p-d-flex p-flex-row p-jc-between">
+        <div class="modal-bt p-mb-4 ">
+            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
+                (click)="activeModal.dismiss('close')"></button>
+            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="GhiLai()"
+                *ngIf="checkbutton.Ghi"></button>
+            <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
+                (click)="XoaQuyTrinh()"></button>
+            <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
+                *ngIf="checkbutton.KhongDuyet"></button>
+            <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
+                (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
+            <button pButton pRipple type="button" label="Kết xuất" *ngIf="canExport" (click)="exportExcel()"
+                class="p-mr-2 p-button-sm"></button>
+        </div>
+    </div>
+    <div class="p-grid">
+        <div class="p-col-12 p-lg-4 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Phân xưởng<span class="required">*</span>:</label>
+            <div class="p-col-12 p-xl-9 p-p-0">
+                <p-dropdown [filter]="true" [options]="listDonVi" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
+                    [(ngModel)]="item.IdDuAn" (onChange)="GetNhaMay()"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Phân xưởng<span class="required">*</span>:</label>
+            <div class="p-col-12 p-xl-9 p-p-0">
+                <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Chọn phân xưởng"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-3 p-p-0 my-auto">Tài liệu đính kèm:</label>
+            <div class="p-col-12 p-lg-9 p-p-0">
+                <div class="p-inputgroup">
+                    <input type="text" pInputText class="p-inputtext-sm" [ngModel]="NameFile" disabled>
+                    <button type="button" pButton pRipple icon="pi pi-upload"
+                        class="p-button-sm p-button-text p-button-secondary" (click)="taiLenFileDinhKem()"></button>
+                    <!-- <button type="button" pButton pRipple icon="pi pi-download" class="p-button-sm p-button-text p-button-secondary"
+                        (click)="taiXuongFileDinhKem()"></button> -->
+                </div>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-12 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-1 p-p-0 my-auto">Nội dung:</label>
+            <div class="p-col-12 p-xl-11 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
+            </div>
+        </div>
+    </div>
+    <p-panel header="Tài sản" [toggleable]="true">
+        <div class="p-d-flex p-flex-row p-jc-between">
+            <div class="modal-bt p-mb-4 ">
+                <button pButton pRipple type="button" label="Danh sách tài sản" class="p-mr-2 p-button-sm "
+                    (click)="ThemMoiDanhSachTaiSan()"></button>
+            </div>
+        </div>
+        <p-table [value]="item.listTaiSan|isXoa" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
+            [scrollable]="true">
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col style="width: 50px;">
+                    <col>
+                    <col>                    
+                    <col>
+                    <col>
+                    <col>
+                    <col style="width: 100px;">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">
+                        STT
+                    </th>
+                    <th class="text-center">Mã</th>
+                    <th class="text-center">Tên</th>
+                    <th class="text-center">Nguyên giá</th>
+                    <th class="text-center">Giá còn lại</th>
+                    <th class="text-center">Ngày nhập</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <tr>
+                    <td class="text-center">
+                        {{i + 1}}
+                    </td>
+                    <td class="text-center">{{item.TaiSan.Ma}}</td>
+                    <td class="text-center">{{item.TaiSan.Ten}}</td>                 
+                    <td class="text-center">{{item.TaiSan.NguyenGia|number:'0.0'}}</td>
+                    <td class="text-center">{{item.TaiSan.GiaConLai|number:'0.0'}}</td>
+                    <td class="text-center">{{item.TaiSan.NgayNhap|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">
+                        <!-- <button pButton pRipple type="button" icon="pi pi-pencil"
+                            class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
+                            (click)="CapNhatDanhSachTaiSan(item)"></button> -->
+                        <button pButton pRipple type="button" icon="pi pi-trash"
+                            class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
+                            (click)="XoaTaiSan(item,i)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-panel>
+</div>
+<!-- <div class="modal-footer">
+    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
+    <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
+        (click)="activeModal.dismiss()"></button>
+</div> -->

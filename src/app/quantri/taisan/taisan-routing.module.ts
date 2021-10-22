@@ -11,6 +11,7 @@ import { TinhtrangtaisanComponent } from './danhmuc/tinhtrangtaisan/tinhtrangtai
 import { DanhsachtaisanComponent } from './danhsachtaisan/danhsachtaisan.component';
 import { NhaptaisanComponent } from './nhaptaisan/nhaptaisan.component';
 import { TaisanComponent } from './taisan.component';
+import { PhieuthuhoitaisanComponent } from './thuhoitaisan/phieuthuhoitaisan/phieuthuhoitaisan.component';
 
 const routes: Routes = [
   {path:'',component:TaisanComponent},
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path:'danhmuc/hangsannxuat',component:HangsanxuatComponent},
   {path:'danhmuc/tinhtrangtaisan',component:TinhtrangtaisanComponent},
   {path:'danhmuc/loaikhauhao',component:LoaikhauhaoComponent},
+  {path:'thuhoitaisan/:id',component:PhieuthuhoitaisanComponent},
 ];
 
 @NgModule({

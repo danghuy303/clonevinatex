@@ -40,11 +40,16 @@
                 <col style="width:50px">
                 <col>
                 <col style="width: 100px;">
-                <col style="width: 200px;">
-                <col style="width: 200px;">
-                <col style="width: 200px;">
+                <col style="width:50px">
+                <col style="width:100px">
                 <col>
                 <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col style="width:50px">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -52,12 +57,15 @@
                 <th class="text-center">STT</th>
                 <th>Số-Tên HĐ</th>
                 <th>Ngày ký</th>
-                <th>Giá trị hợp đồng</th>
+                <th colspan="2">Giá trị hợp đồng</th>
                 <th>Giá trị quyết toán</th>
                 <th>Giá trị đã chi/nhận</th>
                 <th>Giá trị còn lại</th>
+                <th>SL hợp đồng</th>
+                <th>SL đã nhận</th>
                 <th>Bên A</th>
                 <th>Bên B</th>
+                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -65,24 +73,24 @@
                 <td class="text-center"> {{ 20 * (paging.currentPage - 1) + i + 1 }} </td>
                 <td class="text-left">{{item.soHopDong}} - {{item.tenHopDong}} </td>
                 <td class="text-center">{{item.ngayKy | date:'dd/MM/yyyy'}}</td>
+                <td class="text-left">{{item.tendmLoaiTienTe}}</td>
                 <td class="text-right">{{item.giaTri |number:'0.0-0'}}</td>
                 <td class="text-right">{{item.giaTriQuyetToan |number:'0.0-0'}}</td>
                 <td class="text-right">{{item.giaTriThanhToan |number:'0.0-0'}}</td>
                 <td class="text-right">{{item.giaTriConLai |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.soLuongDaMua |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.soLuongDaVe |number:'0.0-0'}}</td>
                 <td class="text-left">{{item.benA}}</td>
                 <td class="text-left">{{item.benB}}</td>
-                <!-- <td class="text-center" *ngFor="let col of cols"> {{item[col.field]}} </td> -->
-                <!-- <td class="text-center">
-                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.id)"></button>
-                </td> -->
+                <td class="text-center">
+                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xem chi tiết" (click)="changeParam(item.id)"></button>
+                </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi {{paging.TotalItem}}.
                 <p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
-
-
         </ng-template>
     </p-table>
 </div>

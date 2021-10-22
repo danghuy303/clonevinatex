@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { deepCopy, validVariable } from 'src/app/services/globalfunction';
+import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 
 @Component({
   selector: 'app-chonkhachhangmodal',
@@ -44,10 +45,9 @@ export class ChonkhachhangmodalComponent implements OnInit {
   checkedAll: boolean = false;
   paging: any = {};
   listTieuChiDanhGia: any = [];
-  listHopDong: any = [];
   KeyWord: any = '';
   constructor(
-    public activeModal: NgbActiveModal,
+    public activeModal: NgbActiveModal,private _hopdong: HopDongService,
   ) { }
 
   ngOnInit(): void {
@@ -59,7 +59,7 @@ export class ChonkhachhangmodalComponent implements OnInit {
       for(let i = 0; i < this.selectedItems.length; i++){
         console.log(this.selectedItems[i])
         let itemFind = this.items.find(
-          ele => (ele.IddmItem === this.selectedItems[i].iddmItem )
+          ele => (ele.Id === this.selectedItems[i].idKhachHang )
          )
         if(validVariable(itemFind)){
           itemFind.checked = true;
@@ -68,15 +68,9 @@ export class ChonkhachhangmodalComponent implements OnInit {
     }
     this.item.listItem_ref = this.items.slice(0,15);
     this.item.listItem_ref_copy = this.items;
-    this.listTieuChiDanhGia.forEach(element => {
-      element.iddmTieuChi = element.id;
-      element.id = '';
-      element.listItem.forEach(e1 => {
-        e1.iddmTieuChi = e1.id;
-        e1.id = '';
-      });
-    });
+    
   }
+  
   checkAll(e) {
     this.items.forEach(item => {
       item.checked = e.checked;
@@ -123,33 +117,32 @@ export class ChonkhachhangmodalComponent implements OnInit {
 checkItem(item){
 if(item.checked == true)
 {
-  let itemFind: any = this.selectedItems.filter((e: any) =>e.iddmItem === item.Id)[0]
+  let itemFind: any = this.selectedItems.filter((e: any) =>e.idKhachHang === item.Id)[0]
   if(itemFind === undefined){
-    let itemFinds = this.items.find(e => e.checked === true && e.Id === item.Id);
-    let data: any = {
-      idKhachHang: itemFinds.Id,
-      tenKhachHang: itemFinds.Ten,
-      maKhachHang: itemFinds.Ma,
-      diaChi: itemFinds.DiaChi,
-      isXoa: false,
-      id: '',
-      soDienThoai: itemFinds.SoDienThoai,
-      soFax: itemFinds.SoFax,
-      ghiChu: itemFinds.GhiChu,
-      maSoThue: itemFinds.MaSoThue,
-      nguoiDaiDien: itemFinds.NguoiDaiDien,
-      chucVu: itemFinds.ChucVu,
-      taiKhoanNganHang: itemFinds.TaiKhoanNganHang,
-      listTieuChiDanhGia: this.listTieuChiDanhGia,
-      listHopDong:this.listHopDong,
-    }
-    this.selectedItems.push(data)
+    let itemFinds = this.items.find(e => e.Id === item.Id);
+      let data: any = {
+        idKhachHang: itemFinds.Id,
+        tenKhachHang: itemFinds.Ten,
+        maKhachHang: itemFinds.Ma,
+        diaChi: itemFinds.DiaChi,
+        isXoa: false,
+        id: '',
+        soDienThoai: itemFinds.SoDienThoai,
+        soFax: itemFinds.SoFax,
+        ghiChu: itemFinds.GhiChu,
+        maSoThue: itemFinds.MaSoThue,
+        nguoiDaiDien: itemFinds.NguoiDaiDien,
+        chucVu: itemFinds.ChucVu,
+        taiKhoanNganHang: itemFinds.TaiKhoanNganHang,
+        listTieuChiDanhGia: this.listTieuChiDanhGia,
+      }
+      this.selectedItems.push(data)
   }
   else
     itemFind.isXoa = false;
 }
   else{
-    let itemFind = this.selectedItems.filter((e: any) =>e.iddmItem === item.Id)[0];
+    let itemFind = this.selectedItems.filter((e: any) =>e.idKhachHang === item.Id)[0];
     if(itemFind !== undefined){
       itemFind.isXoa = true;
     }

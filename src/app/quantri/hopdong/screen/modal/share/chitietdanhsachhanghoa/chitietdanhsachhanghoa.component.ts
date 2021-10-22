@@ -36,6 +36,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Output('hopDongChange') hopDongChange: EventEmitter<any> = new EventEmitter<any>();
   @Output('listHangHoaChange') listHangHoaChange: EventEmitter<any> = new EventEmitter<any>(); 
   @Output('listLoaiMatHangChange') listLoaiMatHangChange: EventEmitter<any> = new EventEmitter<any>(); 
+  @Output('listHangHoaSoiChange') listHangHoaSoiChange: EventEmitter<any> = new EventEmitter<any>(); 
   @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
   // @Output('listTieuChuanChatLuong') listTieuChuanChatLuongChange: EventEmitter<any> = new EventEmitter();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
@@ -69,8 +70,8 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   ngDoCheck() {
     this.listHangHoaChange.emit(this.item);    
     this.hopDongChange.emit(this.hopDong);
-    // this.chiTieuChange.emit(this.listTieuChuanChatLuong);
     this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
+    this.listHangHoaSoiChange.emit(this.listHangHoaSoi);
   }
   // ngOnChanges(changes: SimpleChanges) {
   //   if ('loaiNguyenVatLieu' in changes) {
@@ -155,7 +156,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   tinhgiaTriHopDongSoi(item) {
     item.soLuong = this.dinhDangSo(item.soLuong);
     item.donGia = this.dinhDangSo(item.donGia);
-    this.hopDong.thanhTien = (this.hopDong.thanhTien || 0)+ (item.donGia || 0) * (item.soLuong|| 0);
+    this.hopDong.thanhTien = (this.hopDong.thanhTien || 0)+ (item.donGia || 0) * (item.soLuong|| 0) * (item.thueGTGT || 0);
     if(this.hopDong.isLayTheoGiaTriHangHoa === true)
       this.hopDong.giaTri = this.hopDong.thanhTien;
   }

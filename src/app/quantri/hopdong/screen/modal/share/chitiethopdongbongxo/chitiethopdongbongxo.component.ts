@@ -276,9 +276,9 @@ this.getListHopDongGoc();
     }
   }
   getListHopDongGoc(){
-    this._service.QuyTrinhHopDong().GetListAll(this.item.loai || 0, this.item.iddmLoaiHopDong || '')
+    this._service.QuyTrinhHopDong().GetListAll(this.item.loai || 0)
       .subscribe((res: Array<any>) => {
-        this.listHopDongGoc = mapArrayForDropDown(res, "soHopDong", "id");
+        this.listHopDongGoc = mapArrayForDropDown(res, "soTenHopDong", "id");
       });
   }
   listHangHoaTheoHopDong(){

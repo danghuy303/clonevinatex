@@ -102,7 +102,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
 
   GetDanhSachHopDongByNhaThau() {
     this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 2).subscribe((res: any) => {
-      this.listhopdong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
+      this.listhopdong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
       this.listhopdong_copy = deepCopy(res);
     })
   }
@@ -194,6 +194,14 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
       this.toastr.error('Vui lòng chọn hợp đồng')
       return false;
     }
+    else if (!validVariable(this.item.thoiGianDuKien)) {
+      this.toastr.error('Vui lòng chọn thời gian dự kiến')
+      return false;
+    }
+    else if (!validVariable(this.item.thoiGianCapCang)) {
+      this.toastr.error('Vui lòng chọn thời gian cập cảng')
+      return false;
+    }
     else{
       this.item.thoiGianDuKienUnix = DateToUnix(this.item.thoiGianDuKien);
       this.item.thoiGianCapCangUnix = DateToUnix(this.item.thoiGianCapCang);
@@ -239,7 +247,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
         // res.forEach(obj => {
         //   obj.TenFull = `${obj.soHopDong} - ${obj.tenHopDong}`;
         // });
-        this.listhopdong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
+        this.listhopdong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
         this.listhopdong_copy = deepCopy(res);
         this.GetListdmLoaiBongForHopDong();
       })

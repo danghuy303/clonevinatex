@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TreeNode } from 'primeng/api';
 import { deepCopy, validVariable } from 'src/app/services/globalfunction';
-import {TreeTableModule} from 'primeng/treetable';
+import { TreeNode } from 'primeng/api';
+import { ToastrService } from 'ngx-toastr';
+import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 @Component({
   selector: 'app-chinhsuadanhgiakhachhangmodal',
   templateUrl: './chinhsuadanhgiakhachhangmodal.component.html',
@@ -10,46 +11,56 @@ import {TreeTableModule} from 'primeng/treetable';
 })
 export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
   item: any = {};
-  IdQuyTrinh : any = '';
+  IdQuyTrinh: any = '';
   checkedAll: boolean = false;
   paging: any = {};
-  listTieuChiDanhGia: TreeNode[] = [];
+  listTieuChiDanhGia: TreeNode[];
+  listTieuChiCha: any = [];
+  listHopDong: any = []
   KeyWord: any = '';
   constructor(
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal, public toastr: ToastrService, private _hopdong: HopDongService,
   ) { }
 
   ngOnInit(): void {
-    if(!validVariable(this.item.listTieuChiDanhGia))
+
+    if (!validVariable(this.item.listTieuChiDanhGia))
       this.item.listTieuChiDanhGia = [];
-    this.item.listTieuChiDanhGia.forEach(element => {
-        let data: any = {"data":element,
-                         "children":[]};
-        element.listItem.forEach(chil => {
-          let datachil: any = {"data":chil,
-          "children":[]};
-          data.children.push(datachil);
-        });
-        this.listTieuChiDanhGia.push(data);
+    this.listTieuChiDanhGia = [];
+    this.listTieuChiCha = this.item.listTieuChiDanhGia.filter(e => e.iddmTieuChiCha === null || e.iddmTieuChiCha === '')
+    this.listTieuChiCha.forEach(element => {
+      let data: any = { "data": element, "children": [], "expanded": true };
+      let children = this.item.listTieuChiDanhGia.filter(e => e.iddmTieuChiCha === element.iddmTieuChiDanhGia);
+      element.isCon = false;
+      children.forEach(elChi => {
+        elChi.isCon = true;
+        let dataChil: any = { "data": elChi, "children": [], "expanded": true };
+        data.children.push(dataChil);
+      });
+      this.listTieuChiDanhGia.push(data);
     });
-
-    this.paging.CurrentPage = 1;
-    this.paging.TotalPage = 5;
-    this.paging.TotalItem = this.item.listHopDong.length;
+    this.getListHopDong();
   }
-
+  getListHopDong() {
+    this._hopdong.QuyTrinhDanhGia().listHopDong(this.item.idKhachHang).subscribe((res1: any) => {
+      this.listHopDong = res1.data;
+      this.paging.CurrentPage = 1;
+      this.paging.TotalPage = 5;
+      this.paging.TotalItem = this.listHopDong.length;
+    })
+  }
   changePage(event) {
     console.log(event)
     this.paging.CurrentPage = event.page + 1;
     var start = 15 * (event.page);
-    var end =  start + 15;
-    if((start + 15) > this.paging.TotalItem)
-      end= this.paging.TotalItem;
-    this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref_copy.slice(start,end);
+    var end = start + 15;
+    if ((start + 15) > this.paging.TotalItem)
+      end = this.paging.TotalItem;
+    this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref_copy.slice(start, end);
   }
   accept() {
-    this.item.ketQuaDanhGia = this.item.listTieuChiDanhGia.reduce((total, ele) => {
-      return total + (ele.diemDanhGia || 0)
+    this.item.ketQuaDanhGia = this.listTieuChiCha.reduce((total, ele) => {
+      return total + (ele.diem || 0)
     }, 0);
     this.activeModal.close(this.item)
   }
@@ -57,7 +68,7 @@ export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
     if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
       this.item.listThuTucThanhToan_ref_copy = deepCopy(this.item.listHopDong);
       let filter: any = this.item.listThuTucThanhToan_ref_copy.filter(
-        ele=>ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase()) || ele.Ma.toLowerCase().includes(this.KeyWord.toLowerCase())
+        ele => ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase()) || ele.Ma.toLowerCase().includes(this.KeyWord.toLowerCase())
       );
     }
     else {
@@ -65,7 +76,7 @@ export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.item.listThuTucThanhToan_ref.length;
-    this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref.slice(0,15);
+    this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref.slice(0, 15);
   }
   resetFilter() {
     this.KeyWord = '';
@@ -73,5 +84,22 @@ export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
   }
   Onclose() {
     this.activeModal.close()
+  }
+  tinhDiemDanhGia(item) {
+    if (item.diem > item.diemToiDa) {
+      this.toastr.error("Bạn không được nhập điểm đánh giá vượt quá điểm tối đa!!!");
+    }
+    else {
+      let itemFindCha = this.listTieuChiCha.filter(e => e.iddmTieuChiDanhGia == item.iddmTieuChiCha);
+      let itemFinds = this.item.listTieuChiDanhGia.filter(e => e.iddmTieuChiCha == item.iddmTieuChiCha);
+      if (itemFinds !== undefined) {
+        if (itemFinds.length > 0) {
+          itemFindCha[0].diem = itemFinds.reduce((total, ele) => {
+            return total + ele.diem
+          }, 0);
+        }
+      }
+
+    }
   }
 }

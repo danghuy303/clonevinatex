@@ -100,7 +100,6 @@ export class DanhmucvattuphuComponent implements OnInit {
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
       // const item=this.selectedItems[0];    
-      debugger;
       this._danhMucHopDong.DanhMucVatTuPhu().Delete(item.Id).subscribe((res: any) => {
         if (res) {
           if (res.StatusCode === 200) { 

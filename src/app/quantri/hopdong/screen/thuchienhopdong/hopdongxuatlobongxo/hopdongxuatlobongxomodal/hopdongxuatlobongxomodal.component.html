@@ -127,7 +127,7 @@
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">
                             <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
-                            styleClass="p-inputtext-sm" [(ngModel)]="itemTable.iddmKho"></p-dropdown>
+                            styleClass="p-inputtext-sm" [(ngModel)]="itemTable.iddmKho" (onChange)="chonLoBong(itemTable)"></p-dropdown>
                         </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemTable.tonKho" disabled>
@@ -151,16 +151,12 @@
                 <ng-template pTemplate="footer">
                     <tr>
                         <td></td>
-                        <td class="text-center" *ngIf="item.DaVeKho === true">
+                        <td class="text-center">
                             <p-dropdown [filter]="true" [options]="listKho" placeholder="Chọn kho"
-                            styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.iddmKho"></p-dropdown>
+                            styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.iddmKho" (onChange)="chonLoBong(newTableItem)"></p-dropdown>
                         </td>
-                        <td class="text-center" *ngIf="item.DaVeKho === true">
+                        <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.tonKho" disabled>
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-center" *ngIf="item.ChuaVeKho === true">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.container">
                             </p-inputNumber>
                         </td>
                         <td class="text-right">

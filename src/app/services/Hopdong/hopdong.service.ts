@@ -81,8 +81,8 @@ export class HopDongService {
         );
       },
       // get all danh sach hop dong theo ten
-      GetListAll: (Loai, IddmLoaiHopDong) => {
-        return this.http.get(url + `HopDong/GetAllQuyTrinhHopDong_Opt?IddmLoaiHopDong=${IddmLoaiHopDong}&Loai=${Loai}`, httpOptions);
+      GetListAll: (Loai) => {
+        return this.http.get(url + `HopDong/GetAllQuyTrinhHopDong_Opt?Loai=${Loai}`, httpOptions);
       },
 
       GetListAlldmTieuChuanChatLuong: () => {
@@ -411,6 +411,10 @@ export class HopDongService {
       ChuyenTiep: (data) => {
         return this.http.post(url + "PhieuXuatLoBong/ChuyenTiepQuyTrinh",data,httpOptions);
       },
+      getLuuKhoKhoBongHopDong: (IddmKho, IdLoBong, Loai) => {
+        let idDuAn =this.store.getCurrent()
+        return this.http.get(API.SCMChoModuleHopDong + `getLuuKhoKhoBongHopDong?IdDuAn=${idDuAn}&IddmKho=${IddmKho}&IdLoBong=${IdLoBong}&Loai=${Loai}`, httpOptions);
+      },
     };
   };
   QuyTrinhDanhGia() {
@@ -438,6 +442,9 @@ export class HopDongService {
       },
       ChuyenTiep: (data) => {
         return this.http.post(url + "DanhGia/ChuyenTiepQuyTrinh",data,httpOptions);
+      },
+      listHopDong: (IdKhachHang) => {
+        return this.http.get(url + `DanhGia/GetListHopDongKhachHang?IdKhachHang=${IdKhachHang}`,httpOptions);
       },
     };
   };

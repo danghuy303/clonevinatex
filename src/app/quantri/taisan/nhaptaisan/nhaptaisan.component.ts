@@ -1,7 +1,6 @@
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
@@ -39,7 +38,6 @@ export class NhaptaisanComponent implements OnInit {
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
     private _serviceDanhMucTaiSan: DanhmuctaisanService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
