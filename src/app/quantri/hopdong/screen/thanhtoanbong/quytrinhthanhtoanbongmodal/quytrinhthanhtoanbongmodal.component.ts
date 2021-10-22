@@ -52,7 +52,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       this.item = {
         id: '',
-        listFileDinhKem : [],
+        listHoSoDinhKem : [],
         listThanhToanMatHang  : [],
         listThanhToanThuHoi  : [],
         listThanhToanInvoice  : [],
@@ -234,6 +234,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   }
   ChuyenTiep(){
     let isChuaNopDu: any = false;
+    debugger
     for(let i = 0; i < this.item.listHoSoDinhKem.length; i++ ){
       if(this.item.listHoSoDinhKem[i].isNopDu !== true)
       {
@@ -262,6 +263,22 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
           })
         }
       }).catch()
+    }
+    else{
+      if(this.CheckTruocKhiLuu()){
+        if (this.item.ngayThanhToan !== null && this.item.ngayThanhToan !== undefined)
+          this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
+        this._hopdong.QuyTrinhThanhToan().ChuyenTiep(this.item).subscribe((res: any) => {
+          if (res) {
+            if (res.statusCode === 200) {
+              this.activeModal.close();
+              this.toastr.success(res.message)
+            } else {
+              this.toastr.error(res.message);
+            }
+          }
+        })
+      }
     }
   }
   chonDanhMuc() {

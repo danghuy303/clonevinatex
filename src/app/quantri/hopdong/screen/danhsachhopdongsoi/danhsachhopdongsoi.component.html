@@ -35,13 +35,15 @@
                 <col style="width:50px">
                 <col>
                 <col style="width: 100px;">
-                <col style="width: 200px;">
-                <col style="width: 200px;">
-                <col style="width: 200px;">
-                <col style="width: 200px;">
-                <col style="width: 200px;">
                 <col>
                 <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col style="width:50px">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
@@ -53,10 +55,11 @@
                 <th>Giá trị quyết toán</th>
                 <th>Giá trị đã chi/nhận</th>
                 <th>Giá trị còn lại</th>
-                <th>SL đã thanh toán</th>
-                <th>SL còn lại</th>
+                <th>SL hợp đồng</th>
+                <th>SL đã giao</th>
                 <th>Bên A</th>
                 <th>Bên B</th>
+                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -68,10 +71,13 @@
                 <td class="text-right">{{item.giaTriQuyetToan |number:'0.0-0'}}</td>
                 <td class="text-right">{{item.giaTriThanhToan |number:'0.0-0'}}</td>
                 <td class="text-right">{{item.giaTriConLai |number:'0.0-0'}}</td>
-                <td class="text-right">{{item.soLuongDaThanhToan |number:'0.0-0'}}</td>
-                <td class="text-right">{{item.soLuongConLai |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.soLuongDaMua |number:'0.0-0'}}</td>
+                <td class="text-right">{{item.soLuongDaVe |number:'0.0-0'}}</td>
                 <td class="text-left">{{item.benA}}</td>
                 <td class="text-left">{{item.benB}}</td>
+                <td class="text-center">
+                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xem chi tiết" (click)="changeParam(item.id)"></button>
+                </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">

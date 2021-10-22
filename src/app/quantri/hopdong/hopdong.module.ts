@@ -174,6 +174,7 @@ import { KehoachsanxuatnamComponent } from './kehoachsanxuatnam/kehoachsanxuatna
 import { KehoachsanxuatthangComponent } from './kehoachsanxuatthang/kehoachsanxuatthang.component';
 import { KehoachsanxuatnammodalComponent } from './kehoachsanxuatnam/modal/kehoachsanxuatnammodal/kehoachsanxuatnammodal.component';
 import { KehoachsanxuatthangmodalComponent } from './kehoachsanxuatthang/modal/kehoachsanxuatthangmodal/kehoachsanxuatthangmodal.component';
+import { TreeTableModule } from 'primeng/treetable';
 
 @NgModule({
   declarations: [
@@ -446,6 +447,7 @@ import { KehoachsanxuatthangmodalComponent } from './kehoachsanxuatthang/modal/k
     ProgressBarModule,
     NgbProgressbarModule,
     ColorPickerModule,
+    TreeTableModule,
   ],
   providers: [
     SignalRService,

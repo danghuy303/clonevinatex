@@ -44,10 +44,16 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
     public _toastr: ToastrService,
     private _service: HopDongService,
     private _serviceDungChung: SanXuatService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((res: any) => {
+      if (res.id !== "0") {
+        this.update(res.id);
+      }
+    });
     this.GetListQuyTrinh();
   }
   changeParam(id) {

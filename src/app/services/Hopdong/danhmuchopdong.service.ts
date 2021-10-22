@@ -326,7 +326,10 @@ export class DanhMucHopDongService {
             },
             GetKeHoachKinhDoanhDangThucHien:()=>{
                 return this.http.get(`${url}KeHoachKinhDoanh/GetKeHoachKinhDoanhDangThucHien`, httpOptions)
-            }
+            },
+            KiemTraTonTaiQuyTrinh:(Nam)=>{
+                return this.http.get(`${url}KeHoachKinhDoanh/KiemTraTonTaiQuyTrinh?Nam=${Nam}`, httpOptions)
+            },
         }
     }
     KeHoachKinhDoanhThang(){
@@ -355,8 +358,10 @@ export class DanhMucHopDongService {
             },
             GetListSanPhamTheoKeHoachKinhDoanhNam:(IdKeHoachKinhDoanhNam,Thang)=>{
                 return this.http.get(`${url}GetListSanPhamTheoKeHoachKinhDoanhNam?IdKeHoachKinhDoanhNam=${IdKeHoachKinhDoanhNam}&Thang=${Thang}`,httpOptions)
-            }
-            
+            },
+            KiemTraTonTaiQuyTrinh:(Thang,Nam)=>{
+                return this.http.get(`${url}KiemTraTonTaiQuyTrinh?Nam=${Nam}&Thang=${Thang}`, httpOptions)
+            },
            
         }
     }
@@ -386,7 +391,10 @@ export class DanhMucHopDongService {
             },
             GetListSanPhamTheoKeHoachKinhDoanhNam:(IdKeHoachKinhDoanhNam,IdDuAn)=>{
                 return this.http.get(`${url}GetListSanPhamTheoKeHoachKinhDoanhNam?IdKeHoachKinhDoanhNam=${IdKeHoachKinhDoanhNam}&IdDuAn=${IdDuAn}`,httpOptions)
-            }
+            },
+            KiemTraTonTaiQuyTrinh:(IdDuAn,Nam)=>{
+                return this.http.get(`${url}KiemTraTonTaiQuyTrinh?Nam=${Nam}&IdDuAn=${IdDuAn}`, httpOptions)
+            },
         }
     }
 

@@ -598,8 +598,8 @@ export class SanXuatService {
             },
             GetListdmPhanXuong: () => {
                 return this.http.get(`${API.SCM}DanhMuc/GetListdmPhanXuong`, httpOptions)
-            }
-           
+            },
+
         }
     }
 

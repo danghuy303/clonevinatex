@@ -2,7 +2,6 @@ import { StoreService } from "./../store.service";
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { httpOptions, API } from "./../host";
-import { number } from "@amcharts/amcharts4/core";
 @Injectable({
   providedIn: "root",
 })
@@ -412,6 +411,10 @@ export class HopDongService {
       ChuyenTiep: (data) => {
         return this.http.post(url + "PhieuXuatLoBong/ChuyenTiepQuyTrinh",data,httpOptions);
       },
+      getLuuKhoKhoBongHopDong: (IddmKho, IdLoBong, Loai) => {
+        let idDuAn =this.store.getCurrent()
+        return this.http.get(API.SCMChoModuleHopDong + `getLuuKhoKhoBongHopDong?IdDuAn=${idDuAn}&IddmKho=${IddmKho}&IdLoBong=${IdLoBong}&Loai=${Loai}`, httpOptions);
+      },
     };
   };
   QuyTrinhDanhGia() {
@@ -439,6 +442,9 @@ export class HopDongService {
       },
       ChuyenTiep: (data) => {
         return this.http.post(url + "DanhGia/ChuyenTiepQuyTrinh",data,httpOptions);
+      },
+      listHopDong: (IdKhachHang) => {
+        return this.http.get(url + `DanhGia/GetListHopDongKhachHang?IdKhachHang=${IdKhachHang}`,httpOptions);
       },
     };
   };
