@@ -66,4 +66,13 @@ export class TaisanService {
     };
   }
 
+  GetOptions() {
+    let url = API.TaiSan;
+    return {
+      GetListTaiSanChuaBanGiao: () => {
+        return this.http.get(`${url}TaiSan/GetListTaiSanChuaBanGiao`, httpOptions);
+      },
+    }
+}
+
 }

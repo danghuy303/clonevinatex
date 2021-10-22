@@ -16,6 +16,7 @@ import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.serv
 import { TreeNode } from 'primeng/api';
 import { ModalcapnhattaisanComponent } from "../modal/modalcapnhattaisan/modalcapnhattaisan.component";
 import { ModalthongbaoComponent } from "../../modal/modalthongbao/modalthongbao.component";
+import { ModalcapnhatbaogiaComponent } from "../modal/modalcapnhatbaogia/modalcapnhatbaogia.component";
 
 @Component({
   selector: 'app-bangiaotaisan',
@@ -86,25 +87,18 @@ export class BangiaotaisanComponent implements OnInit {
   }
 
   add() {
-    let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
+    let modalRef = this._modal.open(ModalcapnhatbaogiaComponent, {
       size: "fullscreen-100",
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.item = {
       Id: "",
-      IdTaiSan: "",
       IdTrangThai: "",
       TenTrangThai: "",
       isKetThuc: false,
-      TaiSan: {
-        Id: "",
-        isXoa: false,
-        listFileDinhKem: [],
-        Created: new Date(),
-        Modified: new Date(),
-      },
       listTaiSan: [],
+      listFileDinhKem: [],
     }
     modalRef.result
       .then((res: any) => {
@@ -116,7 +110,7 @@ export class BangiaotaisanComponent implements OnInit {
   }
 
   edit(item) {
-    let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
+    let modalRef = this._modal.open(ModalcapnhatbaogiaComponent, {
       size: "fullscreen-100",
       backdrop: "static",
     });
