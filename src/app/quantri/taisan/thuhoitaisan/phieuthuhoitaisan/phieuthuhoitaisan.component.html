@@ -43,7 +43,7 @@
                 <th class="text-center">STT</th>
                 <th class="text-center">Số phiếu</th>
                 <th class="text-center">Ngày</th>
-                <th class="text-center"> Bộ phận</th>
+                <th class="text-center"> Phân xưởng</th>
                 <th class="text-center">Trạng thái</th>
                 <th class="text-center"></th>
             </tr>
@@ -56,25 +56,17 @@
                 <td class="text-center">
                     {{item.SoQuyTrinh}}
                 </td>
-                <td class="text-center">{{item.Ngay}}</td>
-                <td class="text-center">{{item.TenBoPhan}}</td>
+                <td class="text-center">{{item.NgayThuHoi}}</td>
+                <td class="text-center">{{item.TenPhanXuong}}</td>
                 <td class="text-center">
                     {{item.TenTrangThai}}
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
                         class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.Id)"></button>
-                    <!-- <button pButton pRipple type="button" icon="pi pi-trash"
-                        class="p-button-text p-button-sm p-button-secondary" (click)="delete(item)" pTooltip="Xóa"
-                        showDelay="1000" tooltipPosition="bottom"></button> -->
                 </td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
-                    [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
-            </div>
-        </ng-template>
+        
     </p-table>
 </div>
