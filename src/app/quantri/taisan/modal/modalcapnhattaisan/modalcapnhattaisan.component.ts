@@ -77,20 +77,6 @@ export class ModalcapnhattaisanComponent implements OnInit {
     });
   }
 
-  add() {
-    // if (!validVariable(this.newTableItem.thoiGianCapCang) || !validVariable(this.newTableItem.thoiGianDuKien)) {
-    //   this.toastr.error('Vui lòng chọn thời gian')
-    // }
-    // if (this.item.listInvoice == undefined || this.item.listInvoice == null)
-    //   this.item.listInvoice = [];
-    // this.newTableItem.id = "";
-    // this.newTableItem.idKeHoachNhapBong = this.item.id;
-    // this.newTableItem = {
-    //   "id": "",
-    //   "idKeHoachNhapBong": this.item.id,
-    // }
-  }
-
   GetNextSoQuyTrinh() {
     this._serviceTaiSan.NhapTaiSan().GetNextSoQuyTrinh().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.Data;
@@ -99,9 +85,13 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
   GetIem() {
     this._serviceTaiSan.NhapTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
-      this.item = res;
+      this.item = res.Data;
+      this.item.TaiSan.NgaySanXuat = UnixToDate(this.item.TaiSan.NgaySanXuatUnix);
+      this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
       if (this.item.listTaiSan.length > 0) {
         this.item.listTaiSan.forEach(element => {
+          element.NgaySanXuat = UnixToDate(element.NgaySanXuatUnix);
+          element.NgayNhap = UnixToDate(element.NgayNhapUnix);
           if (validVariable(this.item.IddmDonViTinh)) {
             element.TenDonViTinh = this.listDonVi_copy.find(obj => obj.Id === element.IddmDonViTinh).Ten;
           }
@@ -123,18 +113,57 @@ export class ModalcapnhattaisanComponent implements OnInit {
     return true;
   }
 
+  Setdata() {
+    this.item.TaiSan.NgaySanXuatUnix = DateToUnix(this.item.TaiSan.NgaySanXuat);
+    this.item.TaiSan.NgayNhapUnix = DateToUnix(this.item.TaiSan.NgayNhap);
+    this.item.TaiSan.MaTinhTrang = this.listTinhTrangTaiSan_copy.find(obj => obj.Id === this.item.TaiSan.IddmTinhTrang).Ma;
+    this.item.NgayNhap = this.item.TaiSan.NgayNhap;
+    this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
+  }
+
   GhiLai() {
     if (this.Validate()) {
-      this.item.TaiSan.NgaySanXuatUnix = DateToUnix(this.item.TaiSan.NgaySanXuat);
-      this.item.TaiSan.NgayNhapUnix = DateToUnix(this.item.TaiSan.NgayNhap);
-      this.item.TaiSan.MaTinhTrang = this.listTinhTrangTaiSan_copy.find(obj => obj.Id === this.item.TaiSan.IddmTinhTrang).Ma;
+      this.Setdata();
+      if (this.opt === 'add') {
+        this.item.Created = new Date();
+        this.item.Modified = new Date();
+      }
       this._serviceTaiSan.NhapTaiSan().Set(this.item).subscribe((res: any) => {
-        if (res.StatusCode === 200) {          
+        if (res.StatusCode === 200) {
           // this.GetIem();
           this.toastr.success(res.message);
           this.activeModal.close();
         } else {
           this.toastr.error(res.message);
+        }
+      })
+    }
+  }
+
+  ChapNhan() {
+    if (this.Validate()) {
+      this.Setdata();
+      this._serviceTaiSan.NhapTaiSan().ChuyenTiep(this.item).subscribe((res: any) => {
+        console.log(res)
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
+        } else {
+          this.toastr.success(res.Message);
+          this.activeModal.close();
+        }
+      })
+    }
+  }
+  KhongDuyet() {
+    if (this.Validate()) {
+      this.Setdata();
+      this._serviceTaiSan.NhapTaiSan().KhongDuyet(this.item).subscribe((res: any) => {
+        console.log(res)
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
+        } else {
+          this.toastr.success(res.Message);
+          this.activeModal.close();
         }
       })
     }

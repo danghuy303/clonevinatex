@@ -46,7 +46,7 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
           <label class="p-col-12 p-lg-3 p-p-0 my-auto">Năm kế hoạch :</label>
           <div class="p-col-12 p-lg-9 p-p-0">
-            <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" [(ngModel)]="item.Nam"
+            <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" [(ngModel)]="item.Nam" (onChange)="KiemTraTonTaiQuyTrinh()"
               styleClass="p-inputtext-sm">
             </p-dropdown>
           </div>

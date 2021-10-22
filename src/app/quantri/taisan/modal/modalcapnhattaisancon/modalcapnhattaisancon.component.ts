@@ -46,8 +46,8 @@ export class ModalcapnhattaisanconComponent implements OnInit {
         Id: "",
         isXoa: false,
         listFileDinhKem: [],
-        CreatedBy: new Date(),
-        ModifiedBy: new Date(),
+        Created: new Date(),
+        Modified: new Date(),
       }
     }
     else {

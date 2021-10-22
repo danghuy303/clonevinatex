@@ -18,14 +18,14 @@ import { ModalcapnhattaisanComponent } from "../modal/modalcapnhattaisan/modalca
 import { ModalthongbaoComponent } from "../../modal/modalthongbao/modalthongbao.component";
 
 @Component({
-  selector: 'app-nhaptaisan',
-  templateUrl: './nhaptaisan.component.html',
-  styleUrls: ['./nhaptaisan.component.css']
+  selector: 'app-bangiaotaisan',
+  templateUrl: './bangiaotaisan.component.html',
+  styleUrls: ['./bangiaotaisan.component.css']
 })
-export class NhaptaisanComponent implements OnInit {
+export class BangiaotaisanComponent implements OnInit {
 
   filter: any = {};
-  eAction: any = "NHAPTAISAN";
+  eAction: any = "BANGIAOTAISAN";
   loaiTab: any = 0;
   paging: any = {};
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
@@ -70,23 +70,11 @@ export class NhaptaisanComponent implements OnInit {
       denNgay: DateToUnix(this.filter.DenNgay),
       Loai: 0
     };
-    this._serviceTaiSan.NhapTaiSan().GetList(data).subscribe((res: any) => {
+    this._serviceTaiSan.BanGiaoTaiSan().GetList(data).subscribe((res: any) => {
       let items = [];
       this.items = [];
       items = res.Data.Items;
       this.paging = res.Data;
-      items.forEach(obj => {
-        let obj_copy: any = {};
-        if (obj?.listTaiSan) {
-          obj_copy.children = [];
-          obj.listTaiSan.forEach(element => {
-            obj_copy.children.push({ data: element });
-          });
-          delete obj.listTaiSan;
-        }
-        obj_copy.data = obj;
-        this.items.push({ data: obj_copy.data, children: obj_copy.children });
-      });
     })
   }
 
@@ -127,7 +115,7 @@ export class NhaptaisanComponent implements OnInit {
       });
   }
 
-  edit(item) {    
+  edit(item) {
     let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
       size: "fullscreen-100",
       backdrop: "static",
@@ -150,7 +138,7 @@ export class NhaptaisanComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
     modalRef.result
       .then((res) => {
-        this._serviceTaiSan.NhapTaiSan().Delete(item.Id).subscribe((res: any) => {
+        this._serviceTaiSan.BanGiaoTaiSan().Delete(item.Id).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this.Loaddata(false);
             this.toastr.success(res.message);

@@ -2,7 +2,6 @@ import { StoreService } from "./../store.service";
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { httpOptions, API } from "./../host";
-import { number } from "@amcharts/amcharts4/core";
 @Injectable({
   providedIn: "root",
 })
