@@ -41,7 +41,6 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.hopDong = deepCopy(this.hopDong);
     modalRef.result.then(res => {
-
       this.listDieuKhoanThanhToan.push(res.item);
       this.itemChange.emit(this.listDieuKhoanThanhToan);
     }).catch(er => { console.log(er) });

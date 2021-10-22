@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
+import { ModallaphopdongsoiComponent } from '../laphopdongsoi/modallaphopdongsoi/modallaphopdongsoi.component';
 
 @Component({
   selector: 'app-danhsachhopdongsoi',
@@ -34,10 +35,51 @@ export class DanhsachhopdongsoiComponent implements OnInit {
     public _modal: NgbModal,
     public _toastr: ToastrService,
     private _service: HopDongService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((res: any) => {
+      if (res.id !== "0") {
+        this.update(res.id);
+      }
+    });
     this.GetListQuyTrinh();
+  }
+  changeParam(id) {
+    if (this._modal.hasOpenModals()) {
+      this._modal.dismissAll();
+    }
+    this.router.navigate(
+      [`quantri/hopdongsanxuat/danhsachhopdongsoi/${id}`],
+      { replaceUrl: true }
+    );
+  }
+  update(id) {
+    this._service.QuyTrinhHopDong().Get(id).subscribe((res1: any) => {
+        let modalRef = this._modal.open(ModallaphopdongsoiComponent, {
+          size: "fullscreen",
+          backdrop: "static",
+        });
+        modalRef.componentInstance.opt = "edit";
+        modalRef.componentInstance.Id = id;
+        modalRef.componentInstance.item = JSON.parse(
+          JSON.stringify(res1.data)
+        );
+        modalRef.result
+          .then((res: any) => {
+            this.GetListQuyTrinh();
+            this.changeParam(0);
+            this.listVatTu[0]
+          })
+          .catch((er) => {
+            console.log(er);
+            this.GetListQuyTrinh();
+            
+            this.changeParam(0);
+          });
+      });
   }
   changeTab(e) {
     this.trangThai = e.index + 1;

@@ -40,9 +40,9 @@ export class ModalkehoachkinhdoanhthangComponent implements OnInit {
   dummyList: any = [1, 2, 3, 4];
   checkbutton: any = {};
   showThoiGianHopDong: boolean = false;
-  listThang:any;
-  listKeHoachNam:any=[];
-  listKeHoachNamRef:any=[];
+  listThang: any;
+  listKeHoachNam: any = [];
+  listKeHoachNamRef: any = [];
   labelThang: Array<string> = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12',];
   propThang: Array<string> = ['Thang1', 'Thang2', 'Thang3', 'Thang4', 'Thang5', 'Thang6', 'Thang7', 'Thang8', 'Thang9', 'Thang10', 'Thang11', 'Thang12',]
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
@@ -53,7 +53,7 @@ export class ModalkehoachkinhdoanhthangComponent implements OnInit {
     private _auth: AuthenticationService,) { this.userInfo = this._auth.currentUserValue; }
 
   ngOnInit(): void {
-    this.listThang=[];
+    this.listThang = [];
     console.log(this.item, this.type);
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
@@ -69,11 +69,11 @@ export class ModalkehoachkinhdoanhthangComponent implements OnInit {
     this.KiemTraButton();
     if (this.type === 'capnhat') {
       this.item.lstKH_KeHoachKinhDoanhThang_SanPham.forEach(sp => {
-            sp.lstKH_KeHoachKinhDoanhThang_SanPham_NhaMay.forEach(nhaMay => {
-              nhaMay.TongSanLuongThangTheoKeHoachThang = nhaMay.lstKH_KeHoachKinhDoanhThang_SanPham_PhanXuong.reduce((total,ele)=>(ele.SanLuongThang|0)+total,0);
-            });
-            sp.firstNhaMay = sp.lstKH_KeHoachKinhDoanhThang_SanPham_NhaMay.splice(0,1)[0];
-          });
+        sp.lstKH_KeHoachKinhDoanhThang_SanPham_NhaMay.forEach(nhaMay => {
+          nhaMay.TongSanLuongThangTheoKeHoachThang = nhaMay.lstKH_KeHoachKinhDoanhThang_SanPham_PhanXuong.reduce((total, ele) => (ele.SanLuongThang | 0) + total, 0);
+        });
+        sp.firstNhaMay = sp.lstKH_KeHoachKinhDoanhThang_SanPham_NhaMay.splice(0, 1)[0];
+      });
       this.item.NgayLap = UnixToDate(this.item.NgayLapUnix)
     }
   }
@@ -97,29 +97,36 @@ export class ModalkehoachkinhdoanhthangComponent implements OnInit {
         this.listKeHoachNamRef = res.Data;
       });
   }
-  GetThongTinChoKeHoachThang(){
+  GetThongTinChoKeHoachThang() {
     console.log(this.item.IdKeHoachKinhDoanhNamGoc);
     console.log(this.item.Thang)
-    if(validVariable(this.item.IdKeHoachKinhDoanhNamGoc)){
-      this.item.Nam = this.listKeHoachNamRef.find(ele=>ele.Id===this.item.IdKeHoachKinhDoanhNamGoc)?.Nam;
-      if(validVariable(this.item.Thang)){
-        this._danhMucHopDong.KeHoachKinhDoanhThang().GetListSanPhamTheoKeHoachKinhDoanhNam(this.item.IdKeHoachKinhDoanhNamGoc,this.item.Thang).subscribe((res:any)=>{
-          console.log(res);
-          res.forEach(sp => {
-            sp.firstNhaMay = sp.lstKH_KeHoachKinhDoanhThang_SanPham_NhaMay.splice(0,1)[0];
-          });
-          this.item.lstKH_KeHoachKinhDoanhThang_SanPham = res;
+    if (validVariable(this.item.IdKeHoachKinhDoanhNamGoc)) {
+      this.item.Nam = this.listKeHoachNamRef.find(ele => ele.Id === this.item.IdKeHoachKinhDoanhNamGoc)?.Nam;
+      if (validVariable(this.item.Thang)) {
+        this._danhMucHopDong.KeHoachKinhDoanhThang().KiemTraTonTaiQuyTrinh(this.item.Thang, this.item.IdKeHoachKinhDoanhNamGoc).subscribe(res => {
+          if (res) {
+            this.toastr.warning(`Đã tồn tại kế hoạch kinh doanh tháng ${this.item.Thang} năm ${this.item.IdKeHoachKinhDoanhNamGoc}`)
+          } else {
+            this._danhMucHopDong.KeHoachKinhDoanhThang().GetListSanPhamTheoKeHoachKinhDoanhNam(this.item.IdKeHoachKinhDoanhNamGoc, this.item.Thang).subscribe((res: any) => {
+              console.log(res);
+              res.forEach(sp => {
+                sp.firstNhaMay = sp.lstKH_KeHoachKinhDoanhThang_SanPham_NhaMay.splice(0, 1)[0];
+              });
+              this.item.lstKH_KeHoachKinhDoanhThang_SanPham = res;
+            })
+          }
         })
+
       }
     }
   }
-  TinhTongSanLuongKeHoachNhaMay(rootItem){
-    rootItem.TongSanLuongThangTheoKeHoachThang = rootItem.lstKH_KeHoachKinhDoanhThang_SanPham_PhanXuong.reduce((total,ele)=>{
-      console.log(ele,total);
-      return (ele.SanLuongThang|0)+total
-    },0);
+  TinhTongSanLuongKeHoachNhaMay(rootItem) {
+    rootItem.TongSanLuongThangTheoKeHoachThang = rootItem.lstKH_KeHoachKinhDoanhThang_SanPham_PhanXuong.reduce((total, ele) => {
+      console.log(ele, total);
+      return (ele.SanLuongThang | 0) + total
+    }, 0);
   }
-  
+
   getListPhanXuong() {
     this._services.GetListdmPhanXuongOpt().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -205,7 +212,7 @@ export class ModalkehoachkinhdoanhthangComponent implements OnInit {
       })
     }
   }
-  KhongDuyet(){
+  KhongDuyet() {
     if (this.validData()) {
       console.log(this.SetData())
       this._danhMucHopDong.KeHoachKinhDoanhThang().KhongDuyet(this.SetData()).subscribe((res: any) => {
