@@ -75,7 +75,7 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
   getListHopDong() {
     let IdDuAn = this._store.getCurrent();
     this._servicesSanXuat.GetOptions().GetDanhSachHopDongByNhaThau(IdDuAn, 0).subscribe((res: any) => {
-      this.listHopDong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
+      this.listHopDong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
       this.listHopDongFull = res;
     })
   }

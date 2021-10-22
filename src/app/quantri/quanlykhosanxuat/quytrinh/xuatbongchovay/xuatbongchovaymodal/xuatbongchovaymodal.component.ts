@@ -49,14 +49,13 @@ export class XuatbongchovaymodalComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     });
     this.hopDong.QuyTrinhHopDong().GetListHopDongBanChoVay(this.item.IdDuAn).subscribe((res: any) => {
-      this.listHopDong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
+      this.listHopDong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
       this.listHopDongFull = res;
     });
     if (this.opt !== "edit") {
       this.GetNextSoQuyTrinh();
     } else {
         this.GetQuyTrinh();
-        this.getListLoBongHopDong();
     }
   }
   GetQuyTrinh(page?) {
@@ -67,6 +66,10 @@ export class XuatbongchovaymodalComponent implements OnInit {
       this.paging.TotalPage = 5;
       this.paging.TotalItem = this.item.listItem.length;
       this.KiemTraButtonModal();
+      this.getListLoBongHopDong();
+      if(!validVariable(this.item.listItem)){
+        this.GetMatHangTheoKho()
+      }
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
         this.item.Ngay = UnixToDate(this.item.NgayUnix);
       }
