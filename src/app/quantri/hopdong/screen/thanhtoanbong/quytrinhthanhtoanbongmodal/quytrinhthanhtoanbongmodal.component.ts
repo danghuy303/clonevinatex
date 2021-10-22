@@ -74,10 +74,15 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   }
   
   getListDieuKhoanThanhToan(){
+    this.item.giaTriThanhToan = 0;
     if(this.item.loaiThanhToan === 1){
       this._hopdong.QuyTrinhHopDong().getListDieuKhoan(this.item.idHopDong).subscribe((res: any) => {
         this.listDieuKhoanThanhToanFull = res.data;
         this.listDieuKhoanThanhToan = mapArrayForDropDown(res.data, 'noiDung', 'id');
+        var data = this.listDieuKhoanThanhToanFull.filter(e=> e.id == this.item.idThanhToanDieuKhoan);
+        if(data !== undefined){
+          this.item.giaTriThanhToanHopDong = data[0].giaTri || 0;
+        }
       })
       this.item.listThanhToanMatHang = []
       this.item.listThanhToanDotGiaoNhan = []
@@ -220,6 +225,7 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
     var data = this.listDieuKhoanThanhToanFull.filter(e=> e.id == this.item.idThanhToanDieuKhoan);
     if(data !== undefined){
       this.item.giaTriThanhToan = data[0].giaTri || 0;
+      this.item.giaTriThanhToanHopDong = data[0].giaTri || 0;
     }
   }
   TinhThanhTien(){
@@ -234,7 +240,6 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
   }
   ChuyenTiep(){
     let isChuaNopDu: any = false;
-    debugger
     for(let i = 0; i < this.item.listHoSoDinhKem.length; i++ ){
       if(this.item.listHoSoDinhKem[i].isNopDu !== true)
       {

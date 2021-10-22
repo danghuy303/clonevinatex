@@ -94,10 +94,9 @@ export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
       let itemFinds = this.item.listTieuChiDanhGia.filter(e => e.iddmTieuChiCha == item.iddmTieuChiCha);
       if (itemFinds !== undefined) {
         if (itemFinds.length > 0) {
-          let diem = itemFinds.reduce((total, ele) => {
+          itemFindCha[0].diem = itemFinds.reduce((total, ele) => {
             return total + ele.diem
           }, 0);
-          itemFindCha[0].diem = diem / (itemFinds.length);
         }
       }
 
