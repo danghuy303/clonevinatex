@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { ModalchontaisanComponent } from '../modalchontaisan/modalchontaisan.component';
 @Component({
   selector: 'app-modalthuhoitaisan',
   templateUrl: './modalthuhoitaisan.component.html',
@@ -27,6 +28,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
     private _serviceTaiSan: TaisanService,
     public toastr: ToastrService,
     public store: StoreService,
+    public _modal: NgbModal,
   ) { }
 
   ngOnInit(): void {
@@ -112,4 +114,21 @@ export class ModalthuhoitaisanComponent implements OnInit {
     })
   }
 
+  ThemMoiDanhSachTaiSan() {
+    let modalRef = this._modal.open(ModalchontaisanComponent, {
+      size: "xl",
+      backdrop: "static",
+    });
+    modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.item = {};
+    modalRef.result
+      .then((res: any) => {
+        res.forEach(element => {
+          this.item.listTaiSan.push(element);
+        });
+      })
+      .catch((er) => {
+
+      });
+  }
 }
