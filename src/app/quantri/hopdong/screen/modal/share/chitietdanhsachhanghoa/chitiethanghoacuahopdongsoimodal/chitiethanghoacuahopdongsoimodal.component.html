@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Kế hoạch nhập bông - kế hoạch nhập invoce</h5>
+    <h5 class="modal-title">Chọn mặt hàng</h5>
 </div>
 <div class="modal-body">
     <div class="p-grid">
@@ -7,7 +7,9 @@
             <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
                 <div>
                     <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
-                    <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2" (click)="activeModal.dismiss('Cross click')"></button>
+                    <button pButton pRipple label="Thoát"
+                        class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
+                        (click)="Onclose()"></button>
                 </div>
                 <div>
                     <div class="p-inputgroup">
@@ -16,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <p-table [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="item.listThuTucThanhToan_ref |filter:KeyWord" styleClass="p-datatable-gridlines p-datatable-sm wrap-text p-datatable-striped">
+            <p-table [lazy]="true" [scrollable]="true" scrollHeight="45vh" [value]="item.listThuTucThanhToan_ref" styleClass="p-datatable-gridlines p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
@@ -38,7 +40,8 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td>
-                            <input type="checkbox" [(ngModel)]="item.checked">
+                            <p-checkbox [(ngModel)]="item.checked" binary="true"
+                                inputId="binary" (onChange)="checkItem(item)"></p-checkbox>
                         </td>
                         <td>
                             {{ 15 * (paging.CurrentPage - 1) + i + 1 }}

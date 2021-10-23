@@ -1,19 +1,26 @@
 <p-panel header="Thông tin chung" [toggleable]="true">
     <div class="p-grid">
+        <div [ngStyle]="{'display':item.isPhuLuc ? 'flex' : 'none' }" class="p-col-12 p-lg-6   flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Chọn hợp đồng:<span class="required">*</span></label>
+            <div class="p-col-12 p-xl-9 p-p-0">
+                <p-dropdown [filter]="true" [(ngModel)]="item.idHopDong" [options]="listHopDong"
+                    placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm"></p-dropdown>
+            </div>
+        </div>
         <div [ngStyle]="{'display':!isSoi ? 'flex' : 'none' }" class="p-col-12 p-lg-6   flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Loại hợp đồng:<span class="required">*</span></label>
             <div class="p-col-12 p-xl-9 p-p-0">
                 <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiHopDong" [options]="listLoaiHopDong"
-                    placeholder="Chọn loại hợp đồng" styleClass="p-inputtext-sm"></p-dropdown>
+                    placeholder="Chọn loại hợp đồng" styleClass="p-inputtext-sm" (onChange)="chonHopDongGoc()"></p-dropdown>
             </div>
         </div>
 
-        <div class="p-col-12 p-lg-6   d-flex flex-column flex-xl-row">
+        <div [ngStyle]="{'display':!isSoi ? 'flex' : 'none' }" class="p-col-12 p-lg-6   flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-lg-6 p-p-0 my-auto">Chọn loại hàng hóa:
             </label>
             <div class="p-col-12 p-xl-9 p-p-0">
-                <p-dropdown [options]="optionsVatLieu" [(ngModel)]="item.loaiNguyenVatLieu"
-                    (onChange)="onChangeVatLieu($event)" placeholder="Chọn nguyên/vật liệu"></p-dropdown>
+                <p-dropdown [options]="optionsVatLieu" [(ngModel)]="item.loai" placeholder="Chọn nguyên/vật liệu"
+                    (onChange)="GetListdmLoaiBongForHopDong()"></p-dropdown>
             </div>
         </div>
 
@@ -37,32 +44,23 @@
             </div>
         </div>
 
-        <div class="
-        p-col-12 p-xl-6 p-lg-6 
-        
-        d-flex
-        flex-column flex-xl-row
-      ">
+        <div class="p-col-12 p-lg-6  d-flex flex-column flex-xl-row ">
             <label class="p-col-12 p-lg-4 p-xl-3 p-p-0 my-auto">Giá trị hợp đồng:</label>
             <div class="p-col-12 p-xl-9 p-ml-xl-2 p-ml-lg-0 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.giaTri" locale="vi-VN">
+                <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.giaTri" locale="vi-VN" (ngModelChange)="item.giaTri = dinhDangSo($event)">
                 </p-inputNumber>
             </div>
         </div>
 
-        <div class="p-col-12 p-xl-6 p-lg-6  d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-6  d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-6 p-xl-3 p-p-0 my-auto">Lấy theo giá trị hàng hóa:</label>
             <div class="p-col-12 p-xl-9 p-d-flex p-ml-xl-2 p-ml-lg-0 p-p-0">
-                <p-checkbox [(ngModel)]="item.isLayTheoGiaTriHangHoa" binary="true" inputId="binary"></p-checkbox>
+                <p-checkbox [(ngModel)]="item.isLayTheoGiaTriHangHoa" binary="true" inputId="binary"
+                    (onChange)="LayGiaTriHopDong()"></p-checkbox>
             </div>
         </div>
 
-        <div class="
-        p-col-12 p-xl-6 p-lg-6 
-        
-        d-flex
-        flex-column flex-xl-row
-      ">
+        <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Đơn vị tính:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
                 <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiTienTe" [options]="listLoaiTienTe"
@@ -90,12 +88,7 @@
             </div>
         </div>
 
-        <div class="
-        p-col-12 p-xl-6 p-lg-6 
-        
-        d-flex
-        flex-column flex-xl-row
-      ">
+        <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Ngày hiệu lực:</label>
             <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
@@ -105,21 +98,17 @@
             </div>
         </div>
 
-        <div class=" p-col-12 p-xl-6 p-lg-6  flex-column flex-xl-row"
-            [ngStyle]="{'display':!isSoi ? 'flex' : 'none' }">
+        <div class=" p-col-12 p-lg-6 d-flex flex-column flex-xl-row" *ngIf="isHienHopDongGoc === true">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">HĐ gốc: </label>
-            <div class="p-col-12 p-xl-9 p-ml-xl-2 p-ml-lg-0 p-p-0">
-                <div class="p-inputgroup p-ml-lg-0">
-                    <input type="text" pInputText class="p-inputtext-sm" disabled />
-                    <button type="button" pButton pRipple icon="pi pi-upload" (click)="taiLenFileDinhKem()"
-                        class="p-button-sm p-button-text p-button-secondary"></button>
-                </div>
+            <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
+                    <p-dropdown [filter]="true" [(ngModel)]="item.idHopDong" [options]="listHopDongGoc"
+                    placeholder="Chọn hợp đồng gốc" styleClass="p-inputtext-sm" (onChange)="listHangHoaTheoHopDong()"></p-dropdown>
             </div>
         </div>
 
-        <div class="p-col-12   d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-1 p-p-0 my-auto">Ghi chú:</label> &emsp;
-            <div class="p-col-12 p-xl-11 p-p-0 p-pl-theokieunaodo">
+        <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
                 <input type="text" [(ngModel)]="item.ghiChu" class="p-inputtext-sm" pInputText />
             </div>
         </div>
@@ -146,12 +135,7 @@
                 <input type="text" [(ngModel)]="selected.DiaChi" disabled class="p-inputtext-sm" pInputText />
             </div>
         </div>
-        <div class="
-        p-col-12 p-xl-6 p-lg-6 
-        
-        d-flex
-        flex-column flex-xl-row
-      ">
+        <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row ">
             <label class="p-col-12 p-xl-3 p-lg-3 p-p-0 my-auto">Điện thoại:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
                 <input type="text" disabled [(ngModel)]="selected.SoDienThoai" class="p-inputtext-sm" pInputText />
@@ -168,7 +152,7 @@
         <div class="p-col-12 p-lg-12   d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-1 p-p-0 my-auto">Tài khoản:</label>
             <div class="p-col-12 p-xl-11 p-p-0 p-pl-theokieunaodo">
-                <input type="text" disabled [(ngModel)]="selected.listTaiKhoanNganHang" class="p-inputtext-sm"
+                <input type="text" disabled [(ngModel)]="selected.TaiKhoanNganHang" class="p-inputtext-sm"
                     pInputText />
             </div>
         </div>
@@ -212,7 +196,7 @@
                 <input type="text" [(ngModel)]="selected1.DiaChi" disabled class="p-inputtext-sm" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-xl-6 p-lg-6  d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-6  d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-lg-3 p-p-0 my-auto">Điện thoại:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
                 <input type="text" disabled [(ngModel)]="selected1.SoDienThoai" class="p-inputtext-sm" pInputText />
@@ -229,7 +213,7 @@
         <div class="p-col-12 p-lg-12   d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-1 p-p-0 my-auto">Tài khoản:</label>
             <div class="p-col-12 p-xl-11 p-p-0 p-pl-theokieunaodo">
-                <input type="text" disabled [(ngModel)]="selected1.listTaiKhoanNganHang" class="p-inputtext-sm"
+                <input type="text" disabled [(ngModel)]="selected1.TaiKhoanNganHang" class="p-inputtext-sm"
                     pInputText />
             </div>
         </div>

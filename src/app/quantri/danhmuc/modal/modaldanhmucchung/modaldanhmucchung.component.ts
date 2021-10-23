@@ -37,20 +37,7 @@ export class ModaldanhmucchungComponent implements OnInit {
     this.khongclicknhieu = !this.khongclicknhieu;
     if (this.item.Ma !== undefined && this.item.Ma !== null && this.item.Ten !== undefined && this.item.Ten !== null) {
       switch (this.type) {
-        case 'tinhtrangtaisan': this.tinhtrangtaisan();
-          break;
-        case 'biendong': this.biendong();
-          break;
-        case 'duan': this.duan();
-          break;
-        case 'mucdich': this.mucdich();
-          break;
-        case 'nguongocdat': this.nguongocdat();
-          break;
-        case 'dmHienTrangSuDung': this.dmHienTrangSuDung();
-          break;
-        case 'loaivanban': this.loaivanban();
-          break;
+
         case 'capbong': this.capbong();
           break;
         case 'loaibong': this.loaibong();
@@ -99,55 +86,7 @@ export class ModaldanhmucchungComponent implements OnInit {
       }
     })
   }
-  tinhtrangtaisan() {
-    this.services.SetdmTinhTrangTaiSan(this.item).subscribe((res: any) => {
-      if (res) {
-        this.resAction(res)
-      }
-    })
-  }
-  biendong() {
-    this.services.SetdmBienDong(this.item).subscribe((res: any) => {
-      if (res) {
-        this.resAction(res)
-      }
-    })
-  }
-  duan() {
-    this.services.SetdmDuAn(this.item).subscribe((res: any) => {
-      if (res) {
-        this.resAction(res)
-      }
-    })
-  }
-  nguongocdat() {
-    this.services.SetdmNguonGocDat(this.item).subscribe((res: any) => {
-      if (res) {
-        this.resAction(res)
-      }
-    })
-  }
-  mucdich() {
-    this.services.SetdmMucDichSuDung(this.item).subscribe((res: any) => {
-      if (res) {
-        this.resAction(res)
-      }
-    })
-  }
-  dmHienTrangSuDung() {
-    this.services.SetdmHienTrangSuDung(this.item).subscribe((res: any) => {
-      if (res) {
-        this.resAction(res)
-      }
-    })
-  }
-  loaivanban() {
-    this.services.SetLoaiVanBan(this.item).subscribe((res: any) => {
-      if (res) {
-        this.resAction(res)
-      }
-    })
-  }
+
   capbong() {
     this.sanXuatService.SetdmCapBong(this.item).subscribe((res: any) => {
       if (res) {

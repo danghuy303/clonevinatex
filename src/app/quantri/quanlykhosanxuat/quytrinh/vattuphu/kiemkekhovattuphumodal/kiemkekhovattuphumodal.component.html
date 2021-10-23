@@ -121,7 +121,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <tr>
+                    <!-- <tr>
                         <td></td>
                         <td class="text-center">{{newItem.Ma}}</td>
                         <td>
@@ -145,7 +145,7 @@
                         <td class="text-center"> <button pButton pRipple icon="pi pi-plus"
                                 class="p-button-sm p-button-rounded p-button-success p-mr-2" (click)="add()"
                                 pTooltip="Thêm" showDelay="1000" tooltipPosition="bottom"></button> </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <td colspan="3">Tổng</td>
                         <td class="text-right">
@@ -160,7 +160,6 @@
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'TrongLuong'|number:'0.0-2'}}
                         </td>
-                        <!-- <td></td> -->
                         <td class="text-center"></td>
                     </tr>
                 </ng-template>

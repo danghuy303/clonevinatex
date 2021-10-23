@@ -115,7 +115,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td class="text-center">{{i+1}}</td>
                         <td>{{item.Ma}}</td>
                         <td>{{item.Ten}}</td>
                         <td>{{item.TenLoHang}}</td>
@@ -135,8 +135,17 @@
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThanhPham" (ngModelChange)="TongKhoiLuong(item)">
-                            </p-inputNumber>
+                            <div style="display: flex;">
+                                <div style="flex:1">
+                                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThanhPham" (ngModelChange)="TongKhoiLuong(item)">
+                                    </p-inputNumber>
+                                </div>
+                                <button pButton pRipple icon="pi pi-ellipsis-v"
+                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                    (click)="tinhToan(item,'SoQuaSoiThanhPham')" pTooltip="Tính toán" showDelay="1000"
+                                    tooltipPosition="bottom"></button>
+                            </div>
+                           
                         </td>
                         <td>
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">

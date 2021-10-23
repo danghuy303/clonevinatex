@@ -1,4 +1,4 @@
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy } from 'src/app/services/globalfunction';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,8 +15,10 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
 
   item: any = {};
 
-  @Input() listDieuKhoanThanhToan: any = [];
-  @Output() itemChange: EventEmitter<any> = new EventEmitter<any>();
+  @Input('listDieuKhoanThanhToan') listDieuKhoanThanhToan: any = [];
+  @Input('hopDong') hopDong: any = {};
+
+  @Output('listDieuKhoanThanhToan') itemChange: EventEmitter<any> = new EventEmitter<any>();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
 
 
@@ -24,50 +26,42 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
 
 
   ngOnInit(): void {
+  
   }
-  ngDoCheck(): void {
+  ngDoCheck(): void {  
     this.itemChange.emit(this.listDieuKhoanThanhToan);
 
   }
   add() {
-
     if (this.item.ngayThanhToan !== undefined && this.item.ngayThanhToan !== null) {
       this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
-    
     }
     this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
-    let modalRef = this._modal.open(ChitietdieukhoanmodalComponent, { size: 'xl', backdrop: 'static' });
-    modalRef.componentInstance.item = {
-      Id: "",
-      listThanhToanThuTuc: [],
-
-    };
+    let modalRef = this._modal.open(ChitietdieukhoanmodalComponent, { size: 'xl', backdrop: 'static' });    
     modalRef.componentInstance.opt = 'add';
+    modalRef.componentInstance.hopDong = deepCopy(this.hopDong);
     modalRef.result.then(res => {
-      console.log(res.item);
       this.listDieuKhoanThanhToan.push(res.item);
-      if (res.opt !== 'add') {
-        this.add()
-      }
+      this.itemChange.emit(this.listDieuKhoanThanhToan);
     }).catch(er => { console.log(er) });
   }
   edit(item, i) {
     if (this.item.ngayThanhToan !== undefined && this.item.ngayThanhToan !== null) {
       this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
-    
+
     }
     let modalRef = this._modal.open(ChitietdieukhoanmodalComponent, { size: 'xl', backdrop: 'static' });
-    console.log('modalRef',item);
-    
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.componentInstance.item.ngayThanhToan = new Date(item.ngayThanhToan);
+    modalRef.componentInstance.item = deepCopy(item);
+    // modalRef.componentInstance.item.ngayThanhToan = new Date(item.ngayThanhToan);
+    modalRef.componentInstance.hopDong = deepCopy(this.hopDong);    
     modalRef.componentInstance.opt = 'edit';
     modalRef.result.then(res => {
-      this.listDieuKhoanThanhToan.splice(i, 1);
-      this.listDieuKhoanThanhToan.push(res.item);
-      if (res.opt !== 'add') {
-        this.add()
-      }
+      // this.listDieuKhoanThanhToan.splice(i, 1);
+      this.listDieuKhoanThanhToan[i] = res.item;
+      this.itemChange.emit(this.listDieuKhoanThanhToan);
+      // if (res.opt !== 'add') {
+      //   this.add()
+      // }
     }).catch(er => { console.log(er) });
   }
   delete(i) {

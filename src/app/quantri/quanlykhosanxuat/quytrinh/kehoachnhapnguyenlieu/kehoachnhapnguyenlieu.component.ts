@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { ModalquanComponent } from 'src/app/quantri/danhmuc/modal/modalquan/modalquan.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, formatdate } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { KehoachnhapnguyenlieuhoanthanhmodalComponent } from '../kehoachnhapnguyenlieuhoanthanhmodal/kehoachnhapnguyenlieuhoanthanhmodal.component';
 import { KehoachnhapnguyenlieumodalComponent } from '../kehoachnhapnguyenlieumodal/kehoachnhapnguyenlieumodal.component';
 
@@ -13,7 +14,7 @@ import { KehoachnhapnguyenlieumodalComponent } from '../kehoachnhapnguyenlieumod
   templateUrl: './kehoachnhapnguyenlieu.component.html',
   styleUrls: ['./kehoachnhapnguyenlieu.component.css']
 })
-export class KehoachnhapnguyenlieuComponent implements OnInit {
+export class KehoachnhapnguyenlieuComponent extends StoreBase implements OnInit,OnDestroy {
 
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
@@ -48,7 +49,7 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
   eAction: any = "KEHOACHNHAPNGUYENLIEU";
 
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) {super(store) }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res:any)=>{
@@ -173,5 +174,8 @@ export class KehoachnhapnguyenlieuComponent implements OnInit {
             .catch(er => { this.GetListQuyTrinh(); this.changeParam(0) })
         }
       }) 
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

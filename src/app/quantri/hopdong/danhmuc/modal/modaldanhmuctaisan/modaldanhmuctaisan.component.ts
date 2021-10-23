@@ -1,10 +1,12 @@
+import { DATE } from '@amcharts/amcharts4/core';
+import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { vn } from "./../../../../../services/const";
@@ -19,10 +21,6 @@ export class ModaldanhmuctaisanComponent implements OnInit {
   public item: any = {};
   public title: any = '';
   public type = '';
-
-  //...................................
-
-
   listNhaMay: Array<any> = [];
   idDuAn: string = "";
   showDropDown: boolean = false;
@@ -30,27 +28,26 @@ export class ModaldanhmuctaisanComponent implements OnInit {
   userBtn: any;
   userInfo: any;
   userSub: any;
-
-  // getOSName(url) {
-  //   if (url.includes("sanxuat")) {
-  //     this.showDropDown = true;
-  //     this.OSName = "Hệ thống quản trị ngành sợi";
-  //     this.getListNhaMay();
-  //   } else {
-  //     this.showDropDown = false;
-  //     this.OSName = "HỆ THỐNG Quản lý Nhà – Đất";
-  //   }
-  // }
+  lang: any = vn;
+  yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
+  filter: any;
   constructor(
-    public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService, 
+    public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
     public toastr: ToastrService,
     private _services: SanXuatService,
     private store: StoreService,
-    private _auth: AuthenticationService,) {this.userInfo = this._auth.currentUserValue;}
+    private _modal: NgbModal,
+    private _auth: AuthenticationService,) { this.userInfo = this._auth.currentUserValue; }
 
   ngOnInit(): void {
-    
     this.getListNhaMay();
+
+    if ( this.item.ThoiGianBatDauKhauHaoUnix !== 0) {
+      this.item.ThoiGianBatDauKhauHao = UnixToDate(this.item.ThoiGianBatDauKhauHaoUnix);
+    }
+    if ( this.item.ThoiGianHetKhauHaoUnix !== 0) {
+      this.item.ThoiGianHetKhauHao = UnixToDate(this.item.ThoiGianHetKhauHaoUnix	);
+    }
   }
 
   getListNhaMay() {
@@ -58,52 +55,20 @@ export class ModaldanhmuctaisanComponent implements OnInit {
       .GetOptions()
       .GetDanhSachDuAnByIdUser(this.userInfo.Id)
       .subscribe((res: any) => {
-        this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id");
-        // this.idDuAn = res[0].Id;ss
-     
+        this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id")
       });
   }
-  // setGlobalNhaMay(event) {
-  //   this.store.setNhaMay(event.value);
-  // }
-  // open(event) {
-  //   this.listNoti.toggle(event);
-  // }
-  // @ViewChild("listNoti") listNoti;
- 
-  //...............................................................
-
-lang: any =vn;
-yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
-
-  
-
-  SetData() {
-    let data: any = {
-      "id": this.item.id,
-      "ma": this.item.ma,
-      "ten": this.item.ten,
-      "ghiChu": this.item.ghiChu,
-      "idDuAn": this.item.idDuAn,
-      "thoiGianHetKhauHao": this.item.thoiGianHetKhauHao,
-      "giaTriKhauHaoMoiThang": this.item.giaTriKhauHaoMoiThang,
-
-      "created": this.type == "taisan" ? new Date() : this.item.created,
-      "modified": this.type == "taisan" ? new Date() : this.item.modified,
-  
-      "isDelete":this.type == "taisan" ? false : this.item.isDelete,
-    };
-    // return this.item;
-    return data;
-  }
-
   ValidateData() {
-    if (!validVariable(this.item.ma)) {
+    if (!validVariable(this.item.Ma)) {
       this.toastr.error("Yêu cầu nhập đầy đủ mã !");
       return false;
     }
-    if (!validVariable(this.item.ten)) {
+    if (!validVariable(this.item.Ten)) {
       this.toastr.error("Yêu cầu nhập đầy đủ tên !");
+      return false;
+    }
+    if (!validVariable(this.item.ThoiGianBatDauKhauHao)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ ngày !");
       return false;
     }
     return true;
@@ -111,16 +76,26 @@ yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFul
 
   GhiLai() {
     if (this.ValidateData()) {
-      this._danhMucHopDong.DanhMucTaiSan().Set(this.SetData()).subscribe((res: any) => {
-        if (res.statusCode !== 200) {
-          this.toastr.error(res.message);
-        } else {
-          this.toastr.success(res.message);
-          this.activeModal.close();
-        } 
-      
-      })
+      this.Tong();
 
+      this.item.ThoiGianBatDauKhauHaoUnix = DateToUnix(this.item.ThoiGianBatDauKhauHao);
+      this.item.ThoiGianHetKhauHaoUnix	 = DateToUnix(this.item.ThoiGianHetKhauHao);
+
+      this._danhMucHopDong.DanhMucTaiSan().Set(this.item).subscribe((res: any) => {
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
+        } else {
+          this.toastr.success(res.Message);
+          this.activeModal.close();
+        }
+      })
     }
+  }
+
+  Tong() {
+    let ngaybatdau = new Date(this.item.ThoiGianBatDauKhauHao);
+    let year = ngaybatdau.getFullYear() + this.item.SoNamKhauHao;
+    this.item.ThoiGianHetKhauHao = new Date(ngaybatdau.setFullYear(year))
+    console.log(this.item.ThoiGianHetKhauHao);
   }
 }

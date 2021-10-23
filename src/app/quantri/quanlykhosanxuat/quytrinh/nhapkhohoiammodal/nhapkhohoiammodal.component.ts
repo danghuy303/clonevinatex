@@ -80,7 +80,12 @@ export class NhapkhohoiammodalComponent implements OnInit {
       this.checkbutton = res;
     })
   }
-
+  ApDung(item) {
+    let cloneId = item.KgCone;
+    this.item.listItem.forEach(abc => {
+      abc.KgCone = cloneId;
+    });
+  }
   ChuyenTiep() {
     if (this.item.Ngay === null || this.item.Ngay === undefined) {
       this.toastr.error("Bạn chưa chọn ngày!");
@@ -126,7 +131,6 @@ export class NhapkhohoiammodalComponent implements OnInit {
     }
     else if(!this.item.listItem.every(ele=>validVariable(ele.KgCone) && ele.isXoa !== true)){
       console.log(this.item.listItem)
-      debugger
       this.toastr.error("Vui lòng chọn Kg/cone ở tất cả các mặt hàng!")
     }
     else {
@@ -215,7 +219,6 @@ export class NhapkhohoiammodalComponent implements OnInit {
           element.isXoa = true;
         });
         console.log(data.data)
-        debugger
         for (let i = 0; i < data.data.length; i++) {
           for (let j = 0; j < listItem.length; j++) {
             if (data.data[i].IddmItem === listItem[j].IddmItem && data.data[i].IdLoBong === listItem[j].IdLoBong) {

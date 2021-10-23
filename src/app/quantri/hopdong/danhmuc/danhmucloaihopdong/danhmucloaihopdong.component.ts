@@ -86,33 +86,13 @@ export class DanhmucloaihopdongComponent implements OnInit {
       this.GetListdmLoaiHopDong()
     }).catch(er=>console.log(er))
   }
-  // delete(item){
-  //   let modalRef = this._modal.open(ModalthongbaoComponent,{
-  //     backdrop:'static'
-  //   });
-  //   modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-  //   modalRef.result.then(res=>{
-  //     const item=this.selectedItems[0];    
-  //     this._danhMucHopDong.DanhMucLoaiHopDong().Delete([item.id]).subscribe((res: any) => {
-  //       if (res) {
-  //         if (res.statusCode === 200) {
-  //           this._toastr.success(res.message);
-  //           this.GetListdmLoaiHopDong();
-  //         } else {
-  //           this._toastr.error(res.message);
-  //         }
-  //       }
-  //     })
-  //   }).catch(er=>console.log(er))
-  // }
-  deleteAll(){
+  delete(item){
     let modalRef = this._modal.open(ModalthongbaoComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    const listId=this.selectedItems.map(({id}) => id);
     modalRef.result.then(res=>{  
-      this._danhMucHopDong.DanhMucLoaiHopDong().DeleteList(listId).subscribe((res: any) => {
+      this._danhMucHopDong.DanhMucLoaiHopDong().DeleteList([item.id]).subscribe((res: any) => {
         if (res) {
           if (res.statusCode === 200) {
             this._toastr.success(res.message);
@@ -125,6 +105,45 @@ export class DanhmucloaihopdongComponent implements OnInit {
       })
     }).catch(er=>console.log(er))
   }
+  deleteAll(){
+    let modalRef = this._modal.open(ModalthongbaoComponent,{
+      backdrop:'static'
+    });
+    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res=>{
+      const item=this.selectedItems[0];    
+      this._danhMucHopDong.DanhMucLoaiHopDong().Delete([item.id]).subscribe((res: any) => {
+        if (res) {
+          if (res.statusCode === 200) {
+            this._toastr.success(res.message);
+            this.GetListdmLoaiHopDong();
+          } else {
+            this._toastr.error(res.message);
+          }
+        }
+      })
+    }).catch(er=>console.log(er))
+  }
+  // deleteAll(){
+  //   let modalRef = this._modal.open(ModalthongbaoComponent,{
+  //     backdrop:'static'
+  //   });
+  //   modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+  //   const listId=this.selectedItems.map(({id}) => id);
+  //   modalRef.result.then(res=>{  
+  //     this._danhMucHopDong.DanhMucLoaiHopDong().DeleteList(listId).subscribe((res: any) => {
+  //       if (res) {
+  //         if (res.statusCode === 200) {
+  //           this._toastr.success(res.message);
+  //           this.GetListdmLoaiHopDong();
+  //           this.selectedItems = [];
+  //         } else {
+  //          this._toastr.error(res.message);
+  //         }
+  //       }
+  //     })
+  //   }).catch(er=>console.log(er))
+  // }
   changePage(event){
     this.paging.CurrentPage = event.page+1;
     this.GetListdmLoaiHopDong()

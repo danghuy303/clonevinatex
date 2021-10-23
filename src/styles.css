@@ -118,7 +118,17 @@ p-dropdown .p-dropdown {
     border-right: none !important;
     border-bottom: 1px solid #ced4da !important;
 }
-
+.p-multiselect {
+    -moz-user-select: none!important;
+    -ms-user-select: none!important;
+    -webkit-user-select: none!important;
+    cursor: pointer!important;
+    display: -ms-inline-flexbox!important;
+    display: inline-flex!important;
+    position: relative!important;
+    user-select: none!important;
+    width: 100%!important;
+}
 .p-inputtext, .p-inputtext-sm.p-inputtext {
     width: 100% !important
 }
@@ -166,7 +176,7 @@ p-calendar>span>button {
     padding: 0px !important;
 }
 
-.p-toggleable-content.ng-trigger {
+.p-toggleable-content.ng-trigger.ng-trigger-rootItem {
     padding-left: 44px !important
 }
 
@@ -343,4 +353,7 @@ span.required {
 }
 .paragraph{
     white-space: pre-line;
+}
+.font-12 *{
+    font-size: 12px !important;
 }

@@ -1,36 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { QuantriComponent } from './quantri.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { QuanlytaisannhadatComponent } from './quanlytaisannhadat/quanlytaisannhadat.component';
-import { YeucausapxepComponent } from './sapxepxuly/yeucausapxep/yeucausapxep.component';
-import { QuytrinhsapxepComponent } from './sapxepxuly/quytrinhsapxep/quytrinhsapxep.component';
-import { DmdonviComponent } from './danhmuc/dmdonvi/dmdonvi.component';
-import { DmhinhthucxulyComponent } from './danhmuc/dmhinhthucxuly/dmhinhthucxuly.component';
-import { DmtaisanComponent } from './danhmuc/dmtaisan/dmtaisan.component';
-import { BiendongComponent } from './danhmuc/biendong/biendong.component';
-import { TinhtrangtaisanComponent } from './danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
-import { DmmucdichsudungComponent } from './danhmuc/dmmucdichsudung/dmmucdichsudung.component';
-import { DmnguongocdatComponent } from './danhmuc/dmnguongocdat/dmnguongocdat.component';
-import { TinhComponent } from './danhmuc/tinh/tinh.component';
-import { QuanComponent } from './danhmuc/quan/quan.component';
-import { PhuongComponent } from './danhmuc/phuong/phuong.component';
-import { DmcaphangcongtrinhComponent } from './danhmuc/dmcaphangcongtrinh/dmcaphangcongtrinh.component';
-import { TheodoithongkebaocaoComponent } from './theodoithongkebaocao/theodoithongkebaocao.component';
-import { Bieu1aComponent } from './baocao/bieu1a/bieu1a.component';
-import { Bieu1bComponent } from './baocao/bieu1b/bieu1b.component';
-import { Bieu1cComponent } from './baocao/bieu1c/bieu1c.component';
-import { Bieu2aComponent } from './baocao/bieu2a/bieu2a.component';
-import { Bieu2bComponent } from './baocao/bieu2b/bieu2b.component';
-import { Bieu3Component } from './baocao/bieu3/bieu3.component';
-import { Bieu4Component } from './baocao/bieu4/bieu4.component';
-import { Bieu5Component } from './baocao/bieu5/bieu5.component';
-import { BaocaochitietcaccosoComponent } from './baocao/baocaochitietcaccoso/baocaochitietcaccoso.component';
-import { DmhientrangsudungComponent } from './danhmuc/dmhientrangsudung/dmhientrangsudung.component';
-import { DonvisohuudatnhaComponent } from './danhmuc/donvisohuudatnha/donvisohuudatnha.component';
-import { DmloaivanbanComponent } from './danhmuc/dmloaivanban/dmloaivanban.component';
-import { BaocaotaichinhComponent } from './baocao/baocaotaichinh/baocaotaichinh.component';
-import { UploadhdsdComponent } from './uploadhdsd/uploadhdsd.component';
+
 import { DmkhoComponent } from './danhmuc/dmkho/dmkho.component';
 import { KiemkekhoComponent } from './quanlykhosanxuat/quytrinh/kiemkekho/kiemkekho.component';
 import { NhapkhoComponent } from './quanlykhosanxuat/quytrinh/nhapkho/nhapkho.component';
@@ -54,7 +25,7 @@ import { MathangComponent } from './danhmuc/danhmucsanxuat/mathang/mathang.compo
 import { PhanxuongComponent } from './danhmuc/danhmucsanxuat/phanxuong/phanxuong.component';
 import { LoaisoiComponent } from './danhmuc/danhmucsanxuat/loaisoi/loaisoi.component';
 import { NhomkhoComponent } from './danhmuc/danhmucsanxuat/nhomkho/nhomkho.component';
-import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
+// import { KhoComponent } from './danhmuc/danhmucsanxuat/kho/kho.component';
 import { KehoachnhapnguyenlieuComponent } from './quanlykhosanxuat/quytrinh/kehoachnhapnguyenlieu/kehoachnhapnguyenlieu.component';
 import { KehoachxuathangComponent } from './quanlykhosanxuat/quytrinh/kehoachxuathang/kehoachxuathang.component';
 import { NhapkhothanhphamComponent } from './quanlykhosanxuat/quytrinh/nhapkhothanhpham/nhapkhothanhpham.component';
@@ -110,63 +81,25 @@ import { DmchisotrienkhaiComponent } from './danhmuc/danhmucsanxuat/dmchisotrien
 import { HoiamkiemkekhoComponent } from './quanlykhosanxuat/quytrinh/hoiamkiemkekho/hoiamkiemkekho.component';
 import { TonkhohoiamComponent } from './quanlykhosanxuat/quytrinh/tonkhohoiam/tonkhohoiam.component';
 import { XuatkhohoiamComponent } from './quanlykhosanxuat/quytrinh/xuatkhohoiam/xuatkhohoiam.component';
-import { HopdongModule } from './hopdong/hopdong.module';
+// import { HopdongModule } from './hopdong/hopdong.module';
 import { NhapkhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/nhapkhovattuphu/nhapkhovattuphu.component';
 import { XuatkhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/xuatkhovattuphu/xuatkhovattuphu.component';
 import { KiemkekhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/kiemkekhovattuphu/kiemkekhovattuphu.component';
 import { DinhmucmathangtheonamComponent } from './danhmuc/dinhmucmathangtheonam/dinhmucmathangtheonam.component';
-import { KehoachkinhdoanhTaomoiComponent } from './danhmuc/kehoachkinhdoanh-taomoi/kehoachkinhdoanh-taomoi.component';
-import { Modalchitietkehoachkinhdoanhtheodoi1Component } from './danhmuc/modal/modalchitietkehoachkinhdoanhtheodoi1/modalchitietkehoachkinhdoanhtheodoi1.component';
-import { DanhsachkehoachkinhdoanhComponent } from './danhmuc/danhsachkehoachkinhdoanh/danhsachkehoachkinhdoanh.component';
+import { XuatbongchovayComponent } from './quanlykhosanxuat/quytrinh/xuatbongchovay/xuatbongchovay.component';
 
 
 const routes: Routes = [
   {
     path: '', component: QuantriComponent,
     children: [
-      //quantrisanxuat/tonghop dashboard
       { path: '', redirectTo: 'quantrisanxuat/tonghop', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'quanlytaisannhadat', component: QuanlytaisannhadatComponent },
-      { path: 'sapxepxuly/yeucau', component: YeucausapxepComponent },
-      { path: 'sapxepxuly/quytrinh', component: QuytrinhsapxepComponent },
-      { path: 'huongdansudung', component: UploadhdsdComponent },
-
-      { path: 'danhmuc/dmdonvi', component: DmdonviComponent },
-      { path: 'danhmuc/dmhinhthucxuly', component: DmhinhthucxulyComponent },
-      { path: 'danhmuc/dmtaisan', component: DmtaisanComponent },
-      { path: 'danhmuc/dmbiendong', component: BiendongComponent },
-      { path: 'danhmuc/dmtinhtrangtaisan', component: TinhtrangtaisanComponent },
-      { path: 'danhmuc/dmmucdichsudung', component: DmmucdichsudungComponent },
-      { path: 'danhmuc/dmnguongocdat', component: DmnguongocdatComponent },
-      { path: 'danhmuc/dmtinh', component: TinhComponent },
-      { path: 'danhmuc/dmquan', component: QuanComponent },
-      { path: 'danhmuc/dmphuong', component: PhuongComponent },
-      { path: 'danhmuc/dmcaphangcongtrinh', component: DmcaphangcongtrinhComponent },
-      { path: 'danhmuc/dmhientrangsudung', component: DmhientrangsudungComponent },
-      { path: 'danhmuc/dmdonvisohuudatnha', component: DonvisohuudatnhaComponent },
-      { path: 'danhmuc/dmloaivanban', component: DmloaivanbanComponent },
-
-
-      { path: 'theodoithongkebaocao', component: TheodoithongkebaocaoComponent },
-      { path: 'theodoithongkebaocao/bieu1a', component: Bieu1aComponent },
-      { path: 'theodoithongkebaocao/bieu1b', component: Bieu1bComponent },
-      { path: 'theodoithongkebaocao/bieu1c', component: Bieu1cComponent },
-      { path: 'theodoithongkebaocao/bieu2a', component: Bieu2aComponent },
-      { path: 'theodoithongkebaocao/bieu2b', component: Bieu2bComponent },
-      { path: 'theodoithongkebaocao/bieu3', component: Bieu3Component },
-      { path: 'theodoithongkebaocao/bieu4', component: Bieu4Component },
-      { path: 'theodoithongkebaocao/bieu5', component: Bieu5Component },
-      { path: 'theodoithongkebaocao/baocaochitietcaccoso', component: BaocaochitietcaccosoComponent },
-      { path: 'theodoithongkebaocao/baocaodonvi', component: BaocaotaichinhComponent },
-
       { path: 'quantrisanxuat/nguyenlieu', component: DieuhanhsanxuatComponent },
       { path: 'quantrisanxuat/nhucauxuathang', component: NhucauxuathangComponent },
       { path: 'quantrisanxuat/sanluong', component: SanluongComponent },
       { path: 'quantrisanxuat/tonghop', component: DieuhanhsanxuattonghopComponent },
       { path: 'quantrisanxuat/chatluong', component: DieuhanhsanxuatComponent },
       { path: 'quantrisanxuat/thongluong', component: DashboardthongluongComponent },
-      // { path: 'quantrisanxuat/sanluong', component: DieuhanhsanxuatComponent },
 
 
       { path: 'baocaosanxuat/sanluongtonghop', component: SanluongtonghopComponent },
@@ -263,18 +196,16 @@ const routes: Routes = [
       { path: 'quanlykhosanxuat/tonkhobongphe/khobongphe/:id', component: TonkhobongpheComponent },
       { path: 'quanlykhosanxuat/hdsd', component: UploadhdsdsanxuatComponent },
       { path: 'phanquyensanxuat/dmchisotrienkhai', component: DmchisotrienkhaiComponent },
-      { path: 'hopdongsanxuat', loadChildren: () => HopdongModule },
+      { path: 'hopdongsanxuat', loadChildren:  ()=> import('./hopdong/hopdong.module').then(m=>m.HopdongModule) },
+      { path: 'taisan', loadChildren:  ()=> import('./taisan/taisan.module').then(m=>m.TaisanModule) },
 
       { path: 'quanlykhosanxuatbongkhac/khovattuphu/nhapkho/:id', component: NhapkhovattuphuComponent },
       { path: 'quanlykhosanxuatbongkhac/khovattuphu/xuatkho/:id', component: XuatkhovattuphuComponent },
       { path: 'quanlykhosanxuatbongkhac/khovattuphu/kiemkekho/:id', component: KiemkekhovattuphuComponent },
+      { path: 'quanlykhosanxuat/xuatbongchovay/khobong/:id', component: XuatbongchovayComponent },
 
       //..................................
       { path: 'danhmuc/dinhmucmathangtheonam', component: DinhmucmathangtheonamComponent },
-      { path: 'danhmuc/kehoachkinhdoanhtaomoi', component: KehoachkinhdoanhTaomoiComponent },
-      { path: 'danhmuc/kehoachkinhdoanhtheodoi', component: Modalchitietkehoachkinhdoanhtheodoi1Component },
-      { path: 'danhmuc/danhsachkehoachkinhdoanh', component: DanhsachkehoachkinhdoanhComponent },
-
     ]
   }
 ];

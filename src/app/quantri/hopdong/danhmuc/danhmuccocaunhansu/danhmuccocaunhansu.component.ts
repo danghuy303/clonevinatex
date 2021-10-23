@@ -17,17 +17,17 @@ export class DanhmuccocaunhansuComponent implements OnInit {
   // item: any={};
   keyWord:any='';
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 1 };
-  cols: any = [
+  cols: any = [ 
     {
-      header: 'Tên',
-      field: 'ten',
-      width: '350px',
+      header: 'Mã',
+      field: 'Ma',
+      width: '300px',
       align:'center'
     },
     {
-      header: 'Mã',
-      field: 'ma',
-      width: '300px',
+      header: 'Tên',
+      field: 'Ten',
+      width: '350px',
       align:'center'
     },
     {
@@ -38,7 +38,7 @@ export class DanhmuccocaunhansuComponent implements OnInit {
     },
     {
       header: 'Ghi chú',
-      field: 'ghiChu',
+      field: 'GhiChu',
       width: '200px',
       align:'center'
     }
@@ -66,8 +66,8 @@ export class DanhmuccocaunhansuComponent implements OnInit {
       ten:""    
     };
     this. _danhMucHopDong.DanhMucCoCauNhanSu().GetList(data).subscribe((res:any)=>{
-      this.items = res.data.items;
-      this.paging.TotalItem = res.data.totalCount;
+      this.items = res.Data.Items;
+      this.paging.TotalItem = res.Data.TotalCount;
     })
   }
   add(){
@@ -76,7 +76,7 @@ export class DanhmuccocaunhansuComponent implements OnInit {
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm cơ cấu nhân sự';
+    modalRef.componentInstance.title = 'Thêm mới cơ cấu nhân sự';
     modalRef.result.then(res=>{
       this.GetListdmCoCauNhanSu()
     }).catch(er=>console.log(er))
@@ -93,25 +93,25 @@ export class DanhmuccocaunhansuComponent implements OnInit {
       this.GetListdmCoCauNhanSu()
     }).catch(er=>console.log(er))
   }
-  // delete(item){
-  //   let modalRef = this._modal.open(ModalthongbaoComponent,{
-  //     backdrop:'static'
-  //   });
-  //   modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-  //   modalRef.result.then(res=>{
-  //     const item=this.selectedItems[0];    
-  //     this._danhMucHopDong.DanhMucLoaiHopDong().Delete([item.id]).subscribe((res: any) => {
-  //       if (res) {
-  //         if (res.statusCode === 200) {
-  //           this._toastr.success(res.message);
-  //           this.GetListdmLoaiHopDong();
-  //         } else {
-  //           this._toastr.error(res.message);
-  //         }
-  //       }
-  //     })
-  //   }).catch(er=>console.log(er))
-  // }
+  delete(item){
+    let modalRef = this._modal.open(ModalthongbaoComponent,{
+      backdrop:'static'
+    });
+    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res=>{
+      // const item=this.selectedItems[0];    
+      this._danhMucHopDong.DanhMucCoCauNhanSu().Delete(item.Id).subscribe((res: any) => {
+        if (res) {
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
+            this.GetListdmCoCauNhanSu();
+          } else {
+            this._toastr.error(res.Message);
+          }
+        }
+      })
+    }).catch(er=>console.log(er))
+  }
   // deleteAll(){
   //   let modalRef = this._modal.open(ModalthongbaoComponent,{
   //     backdrop:'static'

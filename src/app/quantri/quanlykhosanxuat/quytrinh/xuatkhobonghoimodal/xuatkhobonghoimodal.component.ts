@@ -65,12 +65,12 @@ export class XuatkhobonghoimodalComponent implements OnInit {
     this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1: any) => {
       this.item = res1;
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-        this.item.Ngay = UnixToDate(Math.round(this.item.NgayUnix));
+        this.item.Ngay = UnixToDate(this.item.NgayUnix);
       }
       if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
         this.item.NgayChungTu = UnixToDate(Math.round(this.item.NgayChungTuUnix));
       }
-      this.listItem = res1.listItem;
+      this.listItem = deepCopy(res1.listItem);
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
@@ -94,9 +94,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   }
 
   ChuyenDuyet() {
-    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
-      this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
+    if (this.checkTruocKhiLuu()) {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
       if (validVariable(this.newTableItem.IddmItem)) {
         if(this.item.listItem === undefined || this.item.listItem === null)
@@ -114,11 +112,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
           }
         }
       })
-    } else {
-      this.toastr.error('Bạn chưa nhập ngày chứng từ!');
-    }
-
-
+    } 
   }
   GetNextSoQuyTrinh() {
     this.services.PhieuXuatSanXuat().GetNextSo().subscribe((res: any) => {
@@ -127,9 +121,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   }
 
   GhiLai() {
-    if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
-      this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
-    if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
+    if (this.checkTruocKhiLuu()) {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
       if (validVariable(this.newTableItem.IddmItem)) {
         if(this.item.listItem === undefined || this.item.listItem === null)
@@ -144,23 +136,14 @@ export class XuatkhobonghoimodalComponent implements OnInit {
             this.opt = 'edit';
             this.item = res.objectReturn;
             this.Id = this.item.Id;
-            if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-              this.item.Ngay = UnixToDate(Math.round(this.item.NgayUnix));
-            }
-            if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
-              this.item.NgayChungTu = UnixToDate(Math.round(this.item.NgayChungTuUnix));
-            }
             this.KiemTraButtonModal();
             this.GetQuyTrinh();
-
-            // this.activeModal.close(res.message);
-          } else {
-            this.toastr.error(res.message);
-          }
+          } 
+          else {
+            this.toastr.error(res.message)
+          } 
         }
       })
-    }else{
-      this.toastr.error('Bạn chưa chọn ngày chứng từ!')
     }
   }
   XoaQuyTrinh() {
@@ -231,7 +214,6 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   }
   add() {
     if (validVariable(this.newTableItem.IddmItem)) {
-      debugger
       if(this.item.listItem === undefined || this.item.listItem === null)
         this.item.listItem = [];
       this.item.listItem.push(deepCopy(this.newTableItem));
@@ -249,5 +231,23 @@ export class XuatkhobonghoimodalComponent implements OnInit {
     } else {
         this.toastr.error("Vui lòng chọn mặt hàng cần thêm!");
     }
+  }
+  checkTruocKhiLuu(){
+    if (this.item.Ngay === null || this.item.Ngay === undefined)
+    {
+      this.toastr.error('Bạn chưa chọn ngày chứng từ!')
+      return false;
+    }
+    if(this.item.listItem !== undefined){
+      if(this.item.listItem.length > 0){
+        this.item.listItem.forEach(element => {
+          if(!validVariable(element.IddmItem) && element.isXoa !== true){
+            this.toastr.error('Bạn chưa chọn kiện!')
+            return false;
+          }
+        });
+      }
+    }
+    return true;
   }
 }

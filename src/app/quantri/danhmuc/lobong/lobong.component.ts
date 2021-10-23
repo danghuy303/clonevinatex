@@ -1,11 +1,11 @@
-import { ifStmt } from '@angular/compiler/src/output/output_ast';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { LobongmodalComponent } from '../lobongmodal/lobongmodal.component';
 import { LoxomodalComponent } from '../loxomodal/loxomodal.component';
 
@@ -14,10 +14,9 @@ import { LoxomodalComponent } from '../loxomodal/loxomodal.component';
   templateUrl: './lobong.component.html',
   styleUrls: ['./lobong.component.css']
 })
-export class LobongComponent implements OnInit {
+export class LobongComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
-  items: any = [
-  ];
+  items: any = [];
   filter: any = {};
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
@@ -83,7 +82,7 @@ export class LobongComponent implements OnInit {
   ];
 
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService,
-    private activatedRoute: ActivatedRoute, private router: Router) { }
+    private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) {super(store) }
 
   ngOnInit(): void {
     this.filter.isDaDuyet = this.listisDaDuyet[0].value;
@@ -101,7 +100,7 @@ export class LobongComponent implements OnInit {
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
-      })
+      }).catch(er=>{})
     }
     else if(this.filter.Loai === 5){
       let modalRef = this._modal.open(LoxomodalComponent, {
@@ -112,7 +111,7 @@ export class LobongComponent implements OnInit {
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
       modalRef.result.then((res: any) => {
         this.GetListQuyTrinh();
-      })
+      }).catch(er=>{})
     }
   }
 
@@ -153,5 +152,8 @@ export class LobongComponent implements OnInit {
     this._service.GetListdmLoaiBongOnly(data).subscribe((res: any) => {
       this.listdmLoaiBong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

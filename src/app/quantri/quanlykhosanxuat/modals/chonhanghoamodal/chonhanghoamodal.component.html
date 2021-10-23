@@ -28,6 +28,7 @@
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
+                        <col style="width: 15rem;" *ngIf="opt==='GiaoKeHoachSanXuatHopDong'">
                         <col style="width: 15rem;">
                         <col *ngIf="opt===''" style="width: 21rem;">
                         <col *ngIf="opt==='LoBong'" style="width: 70px;">
@@ -37,6 +38,7 @@
                         <col *ngIf="opt==='KhoiLuongKeHoach'">
                         <col *ngIf="opt==='KhoiLuongKeHoach'">
                         <col *ngIf="opt==='KhoiLuongSanXuat'">
+                        <col *ngIf="opt==='GiaoKeHoachSanXuatHopDong'">
                         <col>
                     </colgroup>
                 </ng-template>
@@ -47,6 +49,7 @@
                                 inputId="binary"></p-checkbox>
                         </th>
                         <!-- <th>Mã hàng</th> -->
+                        <th *ngIf="opt==='GiaoKeHoachSanXuatHopDong'">Hợp đồng</th>
                         <th *ngIf="opt===''|| opt==='KhoiLuongKeHoach'||opt==='KhoiLuongSanXuat'">Mặt hàng</th>
                         <th *ngIf="opt===''">Mã</th>
                         <th *ngIf="opt===''">Loại sợi</th>
@@ -66,6 +69,7 @@
                         <th *ngIf="opt==='KhoiLuongKeHoach'">Khối lượng đã triển khai(Tấn)</th>
                         <th *ngIf="opt==='KhoiLuongKeHoach'">Khối lượng triển khai(Tấn)</th>
                         <th *ngIf="opt==='KhoiLuongSanXuat'">Khối lượng triển khai(Tấn)</th>
+                        <th *ngIf="opt==='GiaoKeHoachSanXuatHopDong'">Đã giao</th>
                         <th>Ghi chú</th>
                     </tr>
                 </ng-template>
@@ -74,6 +78,7 @@
                         <td class="text-center">
                             <p-checkbox [(ngModel)]="item.checked" (onChange)="checked()" binary="true" inputId="binary"></p-checkbox>
                         </td>
+                        <td *ngIf="opt==='GiaoKeHoachSanXuatHopDong'">{{item.SoHopDong}}-{{item.TenHopDong}}</td>
                         <td *ngIf="opt===''||opt==='KhoiLuongKeHoach'||opt==='KhoiLuongSanXuat'">{{item.Ten}}</td>
                         <td *ngIf="opt===''">{{item.Ma}}</td>
                         <td *ngIf="opt===''">{{item.TendmLoaiSoi}}</td>
@@ -95,6 +100,7 @@
                             </p-inputNumber>
                         </td>
                         <td *ngIf="opt==='KhoiLuongSanXuat'" class="text-right">{{item.KhoiLuongSanXuat|number:'0.0-2'}}</td>
+                        <td *ngIf="opt==='GiaoKeHoachSanXuatHopDong'">{{item.DaGiao}}</td>
                         <td>{{item.GhiChu}}</td>
                     </tr>
                 </ng-template>

@@ -66,14 +66,14 @@ export class KehoachnhapbongComponent implements OnInit {
         this.GetListQuyTrinh();
         this.changeParam(0); })
   }
-  update(item) {
-    // this.changeParam(item.id);
+  update(id) {
+    this._service.KeHoachNhapBong().Get(id).subscribe((res1: any) => {
     let modalRef = this._modal.open(ChitietkehoachnhapbongComponent, {
       size: 'fullscreen',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = item;
+    modalRef.componentInstance.item = res1.data;
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
       this.changeParam(0);
@@ -85,6 +85,7 @@ export class KehoachnhapbongComponent implements OnInit {
         this.GetListQuyTrinh();
         this.changeParam(0);
       })
+    })
   }
   changeTab(e) {
     this.trangThai = e.index + 1;

@@ -38,31 +38,22 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listQuyCachDongGoi: any = [];
-
+  loaiTab : any = 0;
   constructor(
     public _modal: NgbModal,
     public _toastr: ToastrService,
     private _service: HopDongService,
     private _serviceDungChung: SanXuatService,
+    private router: Router,
     private activatedRoute: ActivatedRoute,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
-      
-    console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
-
-        this._service
-          .QuyTrinhHopDong()
-          .Get(res.id)
-          .subscribe((res: any) => {
-            this.update(res.data.hopDong);
-          });
+        this.update(res.id);
       }
     });
-    this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
   }
   changeParam(id) {
@@ -74,69 +65,17 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       { replaceUrl: true }
     );
   }
-  add() {
-   
-    let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
-      size: "fullscreen",
-      backdrop: "static",
-    });
-    modalRef.componentInstance.opt = "add";
-    
-    modalRef.componentInstance.item = {
-      listNhanSu: [],
-    
-     
-      listDieuKhoanThanhToan: [],
-      listTieuChuanChatLuong: [],
-    
-      listBaoLanh: [],
-
-      listTaiLieu: [],
-
-      lstFileUploadCu: [],
-    };
-    modalRef.componentInstance.item.hopDong = {
-      id: "",
-      Loai: 0
-    };
-    modalRef.componentInstance.item.listVatTu = [
-      {
-        
-      }
-    ]
-    modalRef.result
-      .then((res: any) => {
-        console.log(res);
-        this._toastr.success("Cập nhật thành công");
-        this.GetListQuyTrinh();
-        this.changeParam(0);
-      })
-      .catch((er) => {
-        this.GetListQuyTrinh();
-        this.changeParam(0);
-      });
-  }
-
- 
-  update(item) {
-  
-    
-    this._service
-      .QuyTrinhHopDong()
-      .Get(item.id)
-      .subscribe((res1: any) => {
-        
+  update(id) {
+    this._service.QuyTrinhHopDong().Get(id).subscribe((res1: any) => {
         let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
           size: "fullscreen",
           backdrop: "static",
         });
         modalRef.componentInstance.opt = "edit";
+        modalRef.componentInstance.Id = id;
         modalRef.componentInstance.item = JSON.parse(
           JSON.stringify(res1.data)
         );
-    
-   
-
         modalRef.result
           .then((res: any) => {
             this.GetListQuyTrinh();
@@ -152,26 +91,9 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
       });
   }
 
-  updates(Id) {
-    let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-      this.changeParam(0);
-
-    })
-      .catch(er => {
-        console.log(er)
-        this.GetListQuyTrinh();
-        this.changeParam(0);
-      })
-  }
   changeTab(e) {
     this.trangThai = e.index + 1;
+    this.loaiTab = e.index;
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
@@ -181,24 +103,61 @@ export class DanhsachhopdongbongxoComponent implements OnInit {
   GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.currentPage = 1;
-      // this.paginator.changePage(0);
     }
     let data = {
       pageSize: 20,
       currentPage: this.paging.currentPage,
-      tabTrangThai: this.trangThai,
+      tabTrangThai: 2,
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
       Loai:0
     };
-    this._service
-      .QuyTrinhHopDong()
-      .GetList(data)
-      .subscribe((res: any) => {
+    if(this.loaiTab == 0){
+      this._service.QuyTrinhHopDong().GetList(data).subscribe((res: any) => {
         this.items = res.data?.items;
         this.paging.TotalItem = res.data?.totalCount;
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
       });
+    }
+    else if(this.loaiTab === 1){
+      this._service.QuyTrinhHopDong().GetListHopDongSapHetHanBanGiao(data).subscribe((res: any) => {
+        this.items = res.data?.items;
+        this.paging.TotalItem = res.data?.totalCount;
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
+      });
+    }
+    else if(this.loaiTab === 2){
+      this._service.QuyTrinhHopDong().GetListHopDongSapDenHanTT(data).subscribe((res: any) => {
+        this.items = res.data?.items;
+        this.paging.TotalItem = res.data?.totalCount;
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
+      });
+    }
+    else if(this.loaiTab === 3){
+      this._service.QuyTrinhHopDong().GetListHopDongQuaHanBanGiao(data).subscribe((res: any) => {
+        this.items = res.data?.items;
+        this.paging.TotalItem = res.data?.totalCount;
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
+      });
+    }
+    else if(this.loaiTab === 4){
+      this._service.QuyTrinhHopDong().GetListHopDongQuaHanTT(data).subscribe((res: any) => {
+        this.items = res.data?.items;
+        this.paging.TotalItem = res.data?.totalCount;
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
+      });
+    }
   }
 
   resetFilter() {

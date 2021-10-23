@@ -3,17 +3,10 @@
 import { AuthenticationService } from "./../../../../../services/auth.service";
 import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.service";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
-import { FileUploader } from "ng2-file-upload";
-import { ChonquycachdonggoimodalComponent } from "../../../../quanlykhosanxuat/modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component";
-import { ChonhanghoamodalComponent } from "../../../../quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component";
-
 import { Component, DoCheck, Input, OnInit } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
-import { CalcmodalComponent } from "src/app/quantri/modal/calcmodal/calcmodal.component";
 import { ModalthongbaoComponent } from "src/app/quantri/modal/modalthongbao/modalthongbao.component";
-import { UploadmodalComponent } from "src/app/quantri/modal/uploadmodal/uploadmodal.component";
-import { Dat09Service } from "src/app/services/callApi";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { vn } from "src/app/services/const";
 import {
@@ -36,10 +29,19 @@ import { StoreService } from "src/app/services/store.service";
 export class ModallaphopdongbongxoComponent implements OnInit {
   opt: any = "add";
   title: string
-  item: any = { listTieuChuanChatLuong: [] };
+  item: any = {
+    hopDong: {
+      BenBanChiu: true,
+      BenMuaChiu: false,
+    },
+    listHangHoa: [],
+    listTieuChuanChatLuong: []
+  };
   hopDong: any = {};
   listDieuKhoanThanhToan: any = [];
-  listVatTu: any = [];
+  // listVatTu: any = [];
+  listHangHoa: any = {};
+  listLoaiMatHang: any = [];
   userInfo: any;
   newItem: any = {};
   lang: any = vn;
@@ -111,18 +113,29 @@ export class ModallaphopdongbongxoComponent implements OnInit {
     }
 
     if (!validVariable(this.item.hopDong.tenHopDong)) {
-      this._toastr.error("Vui lòng chọn tên hợp đồng");
+      this._toastr.error("Vui lòng nhập tên hợp đồng");
       return false;
     }
 
     if (!validVariable(this.item.hopDong.soHopDong)) {
-      this._toastr.error("Vui lòng chọn số hợp đồng");
+      this._toastr.error("Vui lòng nhập số hợp đồng");
       return false;
     }
 
+    // if (this.item.listDieuKhoanThanhToa.length > 0) {
+    //   this.item.listDieuKhoanThanhToan.forEach(element => {
+    //     element
+    //   });
+    // }
 
+    this.item.hopDong.isBenBanChiu = this.item.hopDong.BenBanChiu;
+    this.item.listHangHoa = [];
+    this.item.listHangHoa.push(this.listHangHoa);
+    delete this.item.listTen;
+    delete this.item.listVatTu;
     return true;
   }
+
   GhiLai() {
     // console.log(this.newItem);
 
@@ -220,6 +233,7 @@ export class ModallaphopdongbongxoComponent implements OnInit {
     })
 
   }
+
 
 
 }

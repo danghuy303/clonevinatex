@@ -40,13 +40,13 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Triển khai kế hoạch:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listTrienKhaiKeHoach" placeholder="Chọn triển khai kế hoạch"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdTrienKhaiKeHoachSanXuat" disabled></p-dropdown>
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdTrienKhaiKeHoachSanXuat" [disabled]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số kiện 1 bàn:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber locale="vi-VN" [ngModel]="item.TongSoKien" disabled>
+                <p-inputNumber locale="vi-VN" [ngModel]="item.TongSoKien" [disabled]="true">
                 </p-inputNumber>
             </div>
         </div>
@@ -55,7 +55,7 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <div class="p-inputgroup">
                     <p-inputNumber [ngModel]="item.KhoiLuongBong/1000||null" mode="decimal" [minFractionDigits]="2"
-                        locale="vi-VN" disabled></p-inputNumber>
+                        locale="vi-VN" [disabled]="true"></p-inputNumber>
                     <span class="p-inputgroup-addon">tấn</span>
                 </div>
             </div>

@@ -103,6 +103,10 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   suber: any;
   listLuyKeChiTiet: any = [];
   mapIndex_Ma:any=[];
+  TongPheLuyKeChiTiet: any;
+  TongKhoiLuongLuyKeChiTiet: any;
+  TongPheSanLuong: any;
+  TongKhoiLuongSanLuong: any;
 
   constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService, public toastr: ToastrService) {
     this.currentUser = this._auth.currentUserValue;
@@ -252,9 +256,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     });
     this._services.BaoCao().GetDashBoard_SanLuongOng(this.filter).subscribe((res: any) => {
       this.labelSanLuongOng = `Sản lượng ống ${this.filter.nNgay}/${this.filter.nThang}/${this.filter.nNam}`
-      let distinct = [...new Set(res.map(ele => ele.IddmItem))]
+      let distinct = [...new Set(res.lstItem.map(ele => ele.IddmItem))]
       let listSanLuongOngtemp = distinct.map(IdMatHang => {
-        let listMay = res.filter(ele => ele.IddmItem === IdMatHang).sort((a, b) => {
+        let listMay = res.lstItem.filter(ele => ele.IddmItem === IdMatHang).sort((a, b) => {
           return a.TendmMay.localeCompare(b.TendmMay);
         });
         return {
@@ -272,13 +276,16 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         }
       })
       console.log(listSanLuongOngtemp)
-      this.listSanLuongOng = res;
+      this.listSanLuongOng = res.lstItem;
+      this.TongKhoiLuongSanLuong = res.lstItem.reduce((total,ele)=>ele.KhoiLuong+total,0)
+      this.TongPheSanLuong = res.TruVaoSanLuongGianMay;
       this.listHienThiSanLuongOng = listSanLuongOngtemp;
     })
     this._services.BaoCao().GetDashBoard_TongHop_LuyKe_ChiTiet(this.filter).subscribe((res: any) => {
-      this.listLuyKeChiTiet = res;
+      this.listLuyKeChiTiet = res.lstItem;
+      this.TongKhoiLuongLuyKeChiTiet = res.lstItem.reduce((total,ele)=>ele.KhoiLuong+total,0)
+      this.TongPheLuyKeChiTiet = res.TruVaoSanLuongGianMay;
       if(this.listLuyKeChiTiet.length < 9){
-
         for(let i = 0; i <12; i++){
           let item = {};
           this.listLuyKeChiTiet.push(item);
@@ -473,9 +480,10 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     this.filter.TuNgay = DateToUnix(this.timKiem.TuNgayDate),
     this.filter.DenNgay = DateToUnix(this.timKiem.DenNgayDate),
     this._services.BaoCao().GetDashBoard_TongHop_LuyKe_ChiTiet(this.filter).subscribe((res: any) => {
-      this.listLuyKeChiTiet = res;
+      this.listLuyKeChiTiet = res.lstItem;
+      this.TongKhoiLuongLuyKeChiTiet = res.lstItem.reduce((total,ele)=>ele.KhoiLuong+total,0)
+      this.TongPheLuyKeChiTiet = res.TruVaoSanLuongGianMay;
       if(this.listLuyKeChiTiet.length < 9){
-
         for(let i = 0; i <12; i++){
           let item = {};
           this.listLuyKeChiTiet.push(item);

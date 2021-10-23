@@ -21,42 +21,74 @@ export class DanhmuctaisanComponent implements OnInit {
     keyWord:any='';
     paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 1 };
     cols: any = [
-      {
-        header: 'Tên',
-        field: 'ten',
-        width: '200px',
-        align:'center'
-      },
+      
       {
         header: 'Mã',
-        field: 'ma',
+        field: 'Ma',
         width: '100px',
         align:'center'
       },
       {
+        header: 'Tên',
+        field: 'Ten',
+        width: '200px',
+        align:'center'
+      },
+      {
         header: 'Nhà máy',
-        field: 'DonVi',
+        field: 'TenNhaMay',
         width: '150px',
         align:'center'
       },
       {
-        header: 'Thời gian hết khấu hao ',
-        field: 'thoiGianHetKhauHao',
+        header: 'Đơn vị ',
+        field: 'DonViTinh',
+        width: '150px',
+        align:'center'
+      },
+      {
+        header: 'Năm sản xuất',
+        field: 'NamSanXuat',
+        width: '150px',
+        align:'center'
+      },
+      {
+        header: 'Năm mua',
+        field: 'NamMua',
+        width: '150px',
+        align:'center'
+      },
+      // {
+      //   header: 'Năm sử dụng',
+      //   field: 'ThoiGianBatDauKhauHao',
+      //   width: '150px',
+      //   align:'center'
+      // },
+      
+      // {
+      //   header: 'Thời gian hết khấu hao ',
+      //   field: 'ThoiGianHetKhauHao',
+      //   width: '250px',
+      //   align:'center'
+      // },
+      {
+        header: 'Giá trị khấu hao mỗi tháng',
+        field: 'GiaTriKhauHaoMoiThang',
         width: '250px',
         align:'center'
       },
       {
-        header: 'Gía trị khấu hao mỗi tháng',
-        field: 'giaTriKhauHaoMoiThang',
-        width: '250px',
+        header: 'Số năm khấu hao',
+        field: 'SoNamKhauHao',
+        width: '150px',
         align:'center'
       },
-      {
-        header: 'Ghi chú',
-        field: 'ghiChu',
-        width: '200px',
-        align:'center'
-      }
+      // {
+      //   header: 'Ghi chú',
+      //   field: 'GhiChu',
+      //   width: '200px',
+      //   align:'center'
+      // }
     ];
     selectedItems:any=[];
 
@@ -93,8 +125,8 @@ export class DanhmuctaisanComponent implements OnInit {
         ten:""    
       };
       this. _danhMucHopDong.DanhMucTaiSan().GetList(data).subscribe((res:any)=>{
-        this.items = res.data.items;
-        this.paging.TotalItem = res.data.totalCount;
+        this.items = res.Data.Items;
+        this.paging.TotalItem = res.Data.TotalCount;
       })
     }
     add(){
@@ -104,13 +136,11 @@ export class DanhmuctaisanComponent implements OnInit {
       });
       modalRef.componentInstance.opt='add';
       modalRef.componentInstance.type = 'themmoi';
-      modalRef.componentInstance.title = 'Chi tiết tài sản';
+      modalRef.componentInstance.title = 'Thêm mới tài sản';
       modalRef.result.then(res=>{
         this.GetListdmTaiSan()
         // this.getListNhaMay()
-      }).catch(er=>console.log(er))
-
-     
+      }).catch(er=>console.log(er)) 
     }
     edit(item){
       let modalRef = this._modal.open(ModaldanhmuctaisanComponent,{
@@ -118,7 +148,7 @@ export class DanhmuctaisanComponent implements OnInit {
       });
       modalRef.componentInstance.opt='edit';
       modalRef.componentInstance.type = 'capnhat';
-      modalRef.componentInstance.title = 'Cập nhật chi tiết tài sản';
+      modalRef.componentInstance.title = 'Cập nhật tài sản';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
       modalRef.result.then(res=>{
         this.GetListdmTaiSan()
@@ -130,29 +160,28 @@ export class DanhmuctaisanComponent implements OnInit {
         .GetDanhSachDuAnByIdUser(this.userInfo.Id)
         .subscribe((res: any) => {
           this.listNhaMay = mapArrayForDropDown(res, "TenDuAn", "Id");
-          this.idDuAn = res[0].Id;
-       
+          this.idDuAn = res[0].Id;      
         });
     }
-    // delete(item){
-    //   let modalRef = this._modal.open(ModalthongbaoComponent,{
-    //     backdrop:'static'
-    //   });
-    //   modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    //   modalRef.result.then(res=>{
-    //     const item=this.selectedItems[0];    
-    //     this._danhMucHopDong.DanhMucLoaiHopDong().Delete([item.id]).subscribe((res: any) => {
-    //       if (res) {
-    //         if (res.statusCode === 200) {
-    //           this._toastr.success(res.message);
-    //           this.GetListdmTaiSan();
-    //         } else {
-    //           this._toastr.error(res.message);
-    //         }
-    //       }
-    //     })
-    //   }).catch(er=>console.log(er))
-    // }
+    delete(item){
+      let modalRef = this._modal.open(ModalthongbaoComponent,{
+        backdrop:'static'
+      });
+      modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+      modalRef.result.then(res=>{
+        // const item=this.selectedItems[0];    
+        this._danhMucHopDong.DanhMucTaiSan().Delete(item.Id).subscribe((res: any) => {
+          if (res) {
+            if (res.StatusCode === 200) {
+              this._toastr.success(res.Message);
+              this.GetListdmTaiSan();
+            } else {
+              this._toastr.error(res.Message);
+            }
+          }
+        })
+      }).catch(er=>console.log(er))
+    }
     // deleteAll(){
     //   let modalRef = this._modal.open(ModalthongbaoComponent,{
     //     backdrop:'static'

@@ -101,7 +101,7 @@
                         <col>
                         <col>
                         <col>
-                        <!-- <col> -->
+                        <col>
                         <col style="width:90px">
                     </colgroup>
                 </ng-template>
@@ -110,6 +110,7 @@
                         <th rowspan="2">#</th>
                         <th rowspan="2">Mã</th>
                         <th rowspan="2">Tên</th>
+                        <th rowspan="2">Mic</th>
                         <th colspan="2">Tồn sổ sách</th>
                         <th colspan="2">Tồn thực tế</th>
                         <th rowspan="2"></th>
@@ -119,7 +120,6 @@
                         <th>Tổng khối lượng</th>
                         <th>Số kiện</th>
                         <th>Tổng khối lượng</th>
-                        <!-- <th>Quy cách đóng gói</th> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -128,6 +128,8 @@
                         <td style="text-align: center;">{{item.Ma}}</td>
                         <td style="text-align: center;"><a href="javascrip:void(0)"
                                 (click)="showItemInfo(item)">{{item.Ten}}</a></td>
+                        <td style="text-align: center;">{{item.Mic}}</td>
+
                         <td style="text-align: right;">
                             {{item.TonSoLuong|number:'0.0'}}
 
@@ -151,11 +153,6 @@
                                     tooltipPosition="bottom"></button>
                             </div>
                         </td>
-                        <!-- <td>
-                            <p-dropdown [filter]="true" [options]="listQuyCachDongGoi"
-                                placeholder="Chọn quy cách đóng gói" styleClass="p-inputtext-sm"
-                                [(ngModel)]="item.IddmQuyCachDongGoi"></p-dropdown>
-                        </td> -->
                         <td class="text-center">
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
@@ -164,41 +161,8 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <!-- <tr>
-                        <td></td>
-                        <td class="text-center">{{newItem.Ma}}</td>
-                        <td>
-                            <p-dropdown [filter]="true" [options]="listNewMatHang"
-                                placeholder="Chọn mặt hàng" styleClass="p-inputtext-sm"
-                                [(ngModel)]="newItem.IddmItem" (onChange)="setNewItemName($event)"></p-dropdown>
-                        </td>
-                        <td class="text-right">
-                        </td>
-                        <td class="text-right">
-                        </td>
-                        <td class="text-right" *ngIf="isKhoThanhPham">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newItem.SoQuaSoi">
-                            </p-inputNumber>
-                        </td>
-                        <td class="text-right">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newItem.TongTrongLuong">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newItem.SoLuong">
-                            </p-inputNumber>
-                        </td>
-                        <td>
-                            <p-dropdown [filter]="true" [options]="listQuyCachDongGoi"
-                                placeholder="Chọn quy cách đóng gói" styleClass="p-inputtext-sm"
-                                [(ngModel)]="newItem.IddmQuyCachDongGoi"></p-dropdown>
-                        </td>
-                        <td class="text-center"> <button pButton pRipple icon="pi pi-plus"
-                                class="p-button-sm p-button-rounded p-button-success p-mr-2" (click)="add()"
-                                pTooltip="Thêm" showDelay="1000" tooltipPosition="bottom"></button> </td>
-                    </tr> -->
                     <tr>
-                        <td colspan="3">Tổng</td>
+                        <td colspan="4">Tổng</td>
                         <td class="text-right">
                             {{item.listItem|isXoa|SumByKey:'TonSoLuong'|number:'0.0-2'}}
 

@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { XuatkhobonghoimodalComponent } from '../xuatkhobonghoimodal/xuatkhobonghoimodal.component';
 
 @Component({
@@ -11,11 +13,11 @@ import { XuatkhobonghoimodalComponent } from '../xuatkhobonghoimodal/xuatkhobong
   templateUrl: './xuatkhobonghoi.component.html',
   styleUrls: ['./xuatkhobonghoi.component.css']
 })
-export class XuatkhobonghoiComponent implements OnInit {
+export class XuatkhobonghoiComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [{id:5,SoQuyTrinh:'PKK_0000_0000'}];
   filter:any={};
-  listLoaiPhuongAn:any=[];
+  listdmPhanXuong: any = [];
   trangThai:any=1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
@@ -34,7 +36,11 @@ export class XuatkhobonghoiComponent implements OnInit {
       field: 'TenPhuongAnPhaBong',
       width: 'unset'
     },
-    
+    {
+      header: 'Số bàn bông',
+      field: 'SoBanBong',
+      width: 'unset'
+    },
     {
       header: 'Ghi chú',
       field: 'GhiChu',
@@ -49,7 +55,7 @@ export class XuatkhobonghoiComponent implements OnInit {
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   eAction : any = 'PHIEUXUATBONGHOI'
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
-    private activatedRoute: ActivatedRoute,private router:Router) { }
+    private activatedRoute: ActivatedRoute,private router:Router,public store:StoreService) {super(store) }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res:any)=>{
@@ -58,7 +64,9 @@ export class XuatkhobonghoiComponent implements OnInit {
       }
     })
     this.KiemTraTabTrangThai();
-
+    this._service.GetListdmPhanXuongOpt().subscribe((res:any)=>{
+      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
   changeParam(id){
     if(this._modal.hasOpenModals()){
@@ -120,6 +128,7 @@ export class XuatkhobonghoiComponent implements OnInit {
       DenNgay:DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
+      IddmPhanXuong: this.filter.IddmPhanXuong,
       Loai:6
     }
     this._service.PhieuXuatSanXuat().GetList(data).subscribe((res:any)=>{
@@ -137,5 +146,7 @@ export class XuatkhobonghoiComponent implements OnInit {
       this.GetListQuyTrinh();
     })
   }
-  
+  ngOnDestroy(){
+    super.ngOnDestroy();
+  }
 }

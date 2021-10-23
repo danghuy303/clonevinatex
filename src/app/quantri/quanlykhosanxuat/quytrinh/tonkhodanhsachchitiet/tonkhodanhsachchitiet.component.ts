@@ -1,16 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 
 @Component({
   selector: 'app-tonkhodanhsachchitiet',
   templateUrl: './tonkhodanhsachchitiet.component.html',
   styleUrls: ['./tonkhodanhsachchitiet.component.css']
 })
-export class TonkhodanhsachchitietComponent implements OnInit {
+export class TonkhodanhsachchitietComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [{id:5,SoQuyTrinh:'PNK_0000_0000'}];
   filter:any={};
@@ -24,7 +26,7 @@ export class TonkhodanhsachchitietComponent implements OnInit {
     KiemKe: '/quantri/quanlykhosanxuat/khothanhpham/kiemkekho/'
   }
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
-    private activatedRoute: ActivatedRoute,private router:Router, public activeModal: NgbActiveModal) { }
+    private activatedRoute: ActivatedRoute,private router:Router, public activeModal: NgbActiveModal,public store:StoreService) { super(store)}
 
   ngOnInit(): void {
     let date = new Date();
@@ -77,5 +79,8 @@ export class TonkhodanhsachchitietComponent implements OnInit {
     else if(item.Id === 'X'){
       window.open(`#${this.mapXuatNhapRoute.Xuat}${item.IdPhieuXuatThanhPham || 0}`, "_blank");
     }
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

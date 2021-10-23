@@ -1,9 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { XuatkhovattuphumodalComponent } from '../xuatkhovattuphumodal/xuatkhovattuphumodal.component';
 
 @Component({
@@ -11,7 +14,7 @@ import { XuatkhovattuphumodalComponent } from '../xuatkhovattuphumodal/xuatkhova
   templateUrl: './xuatkhovattuphu.component.html',
   styleUrls: ['./xuatkhovattuphu.component.css']
 })
-export class XuatkhovattuphuComponent implements OnInit {
+export class XuatkhovattuphuComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [{id:5,SoQuyTrinh:'PKK_0000_0000'}];
   filter:any={};
@@ -44,7 +47,9 @@ export class XuatkhovattuphuComponent implements OnInit {
   checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
   listdmKho: any = [];
   constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,
-    private activatedRoute: ActivatedRoute,private router:Router) { }
+    private activatedRoute: ActivatedRoute,private router:Router,public store:StoreService) { 
+      super(store)
+    }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res:any)=>{
@@ -58,7 +63,7 @@ export class XuatkhovattuphuComponent implements OnInit {
   GetListdmKho() {
     let data2 = {
       CurrentPage: 0,
-      Loai: 7,
+      Loai: 23,
     };
     this._service.GetListdmKho(data2).subscribe((res: any) => {
       this.listdmKho = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -149,5 +154,8 @@ export class XuatkhovattuphuComponent implements OnInit {
       return false
     }
     return true
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

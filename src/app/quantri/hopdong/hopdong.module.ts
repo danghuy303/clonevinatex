@@ -1,5 +1,5 @@
 import { ModalloaihopdongComponent } from './danhmuc/modal/modalloaihopdong/modalloaihopdong.component';
-import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HopdongRoutingModule } from './hopdong-routing.module';
 import { HopdongComponent } from './hopdong.component';
@@ -124,10 +124,57 @@ import { ChitietnhapkhoComponent } from './screen/modal/chitietnhapkho/chitietnh
 import { XuatkhothanhphamhopdongComponent } from './screen/thuchienhopdong/xuatkhothanhphamhopdong/xuatkhothanhphamhopdong.component';
 import { ChitietxuatkhothanhphamhopdongComponent } from './screen/modal/chitietxuatkhothanhphamhopdong/chitietxuatkhothanhphamhopdong.component';
 import { XuatthanhphammathangmodalComponent } from './screen/modal/xuatthanhphammathangmodal/xuatthanhphammathangmodal.component';
+import { KehoachkinhdoanhdanhsachComponent } from './kehoachkinhdoanh/kehoachkinhdoanhdanhsach/kehoachkinhdoanhdanhsach.component';
+import { ModalkehoachkinhdoanhchitiettaomoiComponent } from './kehoachkinhdoanh/modal/modalkehoachkinhdoanhchitiettaomoi/modalkehoachkinhdoanhchitiettaomoi.component';
+import { ModalkehoachkinhdoanhtheodoiComponent } from './kehoachkinhdoanh/modal/modalkehoachkinhdoanhtheodoi/modalkehoachkinhdoanhtheodoi.component';
+import { DmtieuchichatluonghopdongmodalComponent } from './danhmuc/dmtieuchichatluonghopdongmodal/dmtieuchichatluonghopdongmodal.component';
+import { DmtieuchichatluonghopdongComponent } from './danhmuc/dmtieuchichatluonghopdong/dmtieuchichatluonghopdong.component';
+import { QuytrinhthanhtoanbongComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbong/quytrinhthanhtoanbong.component';
 
+// import { DmtieuchichatluonghopdongComponent } from './danhmuc/dmtieuchichatluonghopdong/dmtieuchichatluonghopdong.component';
+// import { DmtieuchichatluonghopdongmodalComponent } from './danhmuc/dmtieuchichatluonghopdongmodal/dmtieuchichatluonghopdongmodal.component';
+// import { QuytrinhthanhtoanbongComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbong/quytrinhthanhtoanbong.component';
+import { QuytrinhthanhtoanbongmodalComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbongmodal/quytrinhthanhtoanbongmodal.component';
+import { ModaldongiakehoachthucteComponent } from './kehoachkinhdoanh/modal/modaldongiakehoachthucte/modaldongiakehoachthucte.component';
+import { DanhsachtinhluongComponent } from './danhsach/danhsachtinhluong/danhsachtinhluong.component';
+import { ModaldanhsachtinhluongComponent } from './danhsach/modal/modaldanhsachtinhluong/modaldanhsachtinhluong.component';
+import { ThanhtoanhopdongsoiComponent } from './screen/thuchienhopdong/thanhtoanhopdongsoi/thanhtoanhopdongsoi.component';
+import { ThanhtoanhopdongsoimodalComponent } from './screen/thuchienhopdong/thanhtoanhopdongsoi/thanhtoanhopdongsoimodal/thanhtoanhopdongsoimodal.component';
+import { ChonmathangthanhtoanhopdongComponent } from './screen/thuchienhopdong/thanhtoanhopdongsoi/chonmathangthanhtoanhopdong/chonmathangthanhtoanhopdong.component';
+import { KehoachsanxuatmodalComponent } from './screen/modal/kehoachsanxuatmodal/kehoachsanxuatmodal.component';
 
-
-
+import { MucluongcocaunhansuComponent } from './danhsach/mucluongcocaunhansu/mucluongcocaunhansu/mucluongcocaunhansu.component';
+import { ChiphibanhangtheonamComponent } from './danhsach/chiphibanhang/chiphibanhangtheonam/chiphibanhangtheonam.component';
+import { ModalchiphibanhangtheonamComponent } from './danhsach/modal/modalchiphibanhangtheonam/modalchiphibanhangtheonam.component';
+import { ModalmucluongcocaunhansuComponent } from './danhsach/modal/modalmucluongcocaunhansu/modalmucluongcocaunhansu.component';
+import { HopdongvattuphuComponent } from './screen/hopdongvattuphu/hopdongvattuphu.component';
+import { HopdongvattuphumodalComponent } from './screen/hopdongvattuphu/hopdongvattuphumodal/hopdongvattuphumodal.component';
+import { LuachonvattuphucuahanghoamodalComponent } from './screen/modal/share/chitietdanhsachhanghoa/luachonvattuphucuahanghoamodal/luachonvattuphucuahanghoamodal.component';
+import { HopdongxuatlobongxoComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxo.component';
+import { HopdongxuatlobongxomodalComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxomodal/hopdongxuatlobongxomodal.component';
+import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmucsanxuat.component';
+import { NhapvattuphuComponent } from './screen/thuchienhopdong/nhapvattuphu/nhapvattuphu.component';
+import { ThanhtoanvattuphuComponent } from './screen/thuchienhopdong/thanhtoanvattuphu/thanhtoanvattuphu.component';
+import { NhapvattuphumodalComponent } from './screen/thuchienhopdong/nhapvattuphu/nhapvattuphumodal/nhapvattuphumodal.component';
+import { ThanhtoanvattuphumodalComponent } from './screen/thuchienhopdong/thanhtoanvattuphu/thanhtoanvattuphumodal/thanhtoanvattuphumodal.component';
+import { DanhsachhopdongsoiComponent } from './screen/danhsachhopdongsoi/danhsachhopdongsoi.component';
+import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattuphu/danhsachhopdongvattuphu.component';
+import { ChondanhmucthutucthanhtoanmodalComponent } from './screen/thuchienhopdong/quyettoanhopdong/chondanhmucthutucthanhtoanmodal/chondanhmucthutucthanhtoanmodal.component';
+import { HopdongchonhanghoagiaokehoachmodalComponent } from './screen/thuchienhopdong/giaokehoachsanxuat/hopdongchonhanghoagiaokehoachmodal/hopdongchonhanghoagiaokehoachmodal.component';
+import { HopdongchonquycachdonggoimodalComponent } from './screen/thuchienhopdong/giaokehoachsanxuat/hopdongchonquycachdonggoimodal/hopdongchonquycachdonggoimodal.component';
+import { QuytrinhdanhgiakhachhangComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/quytrinhdanhgiakhachhang.component';
+import { QuytrinhdanhgiakhachhangmodalComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/quytrinhdanhgiakhachhangmodal/quytrinhdanhgiakhachhangmodal.component';
+import { ChonkhachhangmodalComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/chonkhachhangmodal/chonkhachhangmodal.component';
+import { ChinhsuadanhgiakhachhangmodalComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/chinhsuadanhgiakhachhangmodal/chinhsuadanhgiakhachhangmodal.component';
+import { DanhmuctieuchidanhgiaComponent } from './danhmuc/danhmuctieuchidanhgia/danhmuctieuchidanhgia.component';
+import { DanhmuctieuchidanhgiamodalComponent } from './danhmuc/danhmuctieuchidanhgia/danhmuctieuchidanhgiamodal/danhmuctieuchidanhgiamodal.component';
+import { KehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/kehoachkinhdoanhthang.component';
+import { ModalkehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/modal/modalkehoachkinhdoanhthang/modalkehoachkinhdoanhthang.component';
+import { KehoachsanxuatnamComponent } from './kehoachsanxuatnam/kehoachsanxuatnam.component';
+import { KehoachsanxuatthangComponent } from './kehoachsanxuatthang/kehoachsanxuatthang.component';
+import { KehoachsanxuatnammodalComponent } from './kehoachsanxuatnam/modal/kehoachsanxuatnammodal/kehoachsanxuatnammodal.component';
+import { KehoachsanxuatthangmodalComponent } from './kehoachsanxuatthang/modal/kehoachsanxuatthangmodal/kehoachsanxuatthangmodal.component';
+import { TreeTableModule } from 'primeng/treetable';
 
 @NgModule({
   declarations: [
@@ -142,53 +189,31 @@ import { XuatthanhphammathangmodalComponent } from './screen/modal/xuatthanhpham
     ModaldanhmucthutucthanhtoanComponent,
     DanhmuctrangthaibaolanhComponent,
     ModaldanhmuctrangthaibaolanhComponent,
-
     DanhmucvattuphuComponent,
     ModaldanhmucvattuphuComponent,
     DanhmuccocaunhansuComponent,
-    ModaldanhmuccocaunhansuComponent,    
+    ModaldanhmuccocaunhansuComponent,
     DanhmuctinhluongComponent,
     ModaldanhmuctinhluongComponent,
-    DanhmuctaisanComponent, 
+    DanhmuctaisanComponent,
     ModaldanhmuctaisanComponent,
-    
-//báo cáo
-     
-
-TheodoihopdongnhapkhauComponent,
-
-
+    //báo cáo
+    TheodoihopdongnhapkhauComponent,
     DmLoaiHopDongComponent,
     ModalloaihopdongComponent,
     DanhsachhopdongbongxoComponent,
-
     DanhsachhopdongbongxoComponent,
-
-
     ChitiethopdongbongxoComponent,
-
     ChitietdanhsachhanghoaComponent,
-
     ChitietdieukhoanthanhtoanComponent,
-
     ChitietnhansuthuchienComponent,
-
     ChitietbaolanhComponent,
-
     ChitietthanhtoanComponent,
-
     ChitietphathopdongComponent,
-
     ChitiethopdongbongxomodalComponent,
-
     ChitietdieukhoanmodalComponent,
-
     NhansuthuchienmodalComponent,
-
     ChitietbaolanhmodalComponent,
-
-   
-
     ThanhtoanhopdongComponent,
 
     PhathopdongComponent,
@@ -214,85 +239,170 @@ TheodoihopdongnhapkhauComponent,
     PhathopdongmodalComponent,
 
     QuyettoanhopdongmodalComponent,
-   
+
     ThanhtoanhopdongmodalComponent,
-   
+
     GiaokehoachsanxuatComponent,
-   
+
     GiaokehoachsanxuatmodalComponent,
-   
-   
     TheodoihopdongnhapkhauComponent,
-   
-   
     ChonthutucthanhtoanmodalComponent,
-   
-   
     ChitiethanghoamodalComponent,
-   
-   
-  
-   
-   
     DanhmucphibanhangComponent,
-   
-   
     ModaldanhmucphibanhangComponent,
-   
-   
     DanhmucdinhmucmathangComponent,
-   
-   
     ModaldanhmucdinhmucmathangComponent,
-   
-   
     KehoachnhapbongComponent,
-   
-   
     ChitietkehoachnhapbongComponent,
-
-   
-   
-   
-  
-
     ChitiethanghoacuahopdongsoimodalComponent,
-
-   
-   
-   
-  
-
     NhapkhoComponent,
-
-   
-   
-   
-  
-
     ChitietnhapkhoComponent,
-
-   
-   
-   
-  
-
     XuatkhothanhphamhopdongComponent,
-
-   
-   
-   
-  
-
     ChitietxuatkhothanhphamhopdongComponent,
-
-   
-   
-   
-  
-
     XuatthanhphammathangmodalComponent,
+    KehoachkinhdoanhdanhsachComponent,
+    ModalkehoachkinhdoanhchitiettaomoiComponent,
+    ModalkehoachkinhdoanhtheodoiComponent,
+    DmtieuchichatluonghopdongComponent,
+    DmtieuchichatluonghopdongmodalComponent,
+    QuytrinhthanhtoanbongComponent,
+    QuytrinhthanhtoanbongmodalComponent,
+    ModaldongiakehoachthucteComponent,
+    DanhsachtinhluongComponent,
+    ModaldanhsachtinhluongComponent,
+    MucluongcocaunhansuComponent,
+    ChiphibanhangtheonamComponent,
+    ModalchiphibanhangtheonamComponent,
+    ModalmucluongcocaunhansuComponent,
+ 
 
+    ThanhtoanhopdongsoiComponent,
+    ThanhtoanhopdongsoimodalComponent,
+    ChonmathangthanhtoanhopdongComponent,
+    KehoachsanxuatmodalComponent,
+    HopdongvattuphuComponent,
+    HopdongvattuphumodalComponent,
+    LuachonvattuphucuahanghoamodalComponent,
+
+    HopdongxuatlobongxoComponent,
+    HopdongxuatlobongxomodalComponent,
+    DinhmucsanxuatComponent,
+
+
+
+
+
+
+
+
+
+
+
+    NhapvattuphuComponent,
+
+
+
+
+
+
+    ThanhtoanvattuphuComponent,
+
+
+
+
+
+
+    NhapvattuphumodalComponent,
+
+
+
+
+
+
+    ThanhtoanvattuphumodalComponent,
+
+
+
+
+
+
+    DanhsachhopdongsoiComponent,
+
+
+
+
+
+
+    DanhsachhopdongvattuphuComponent,
+
+
+
+
+
+
+    ChondanhmucthutucthanhtoanmodalComponent,
+
+
+
+
+
+
+    HopdongchonhanghoagiaokehoachmodalComponent,
+
+
+
+
+
+
+    HopdongchonquycachdonggoimodalComponent,
+
+
+
+
+
+
+    QuytrinhdanhgiakhachhangComponent,
+
+
+
+
+
+
+    QuytrinhdanhgiakhachhangmodalComponent,
+
+
+
+
+
+
+    ChonkhachhangmodalComponent,
+
+
+
+
+
+
+    ChinhsuadanhgiakhachhangmodalComponent,
+
+
+
+
+
+
+    DanhmuctieuchidanhgiaComponent,
+    KehoachkinhdoanhthangComponent,
+
+
+
+
+
+
+    DanhmuctieuchidanhgiamodalComponent,
+    ModalkehoachkinhdoanhthangComponent,
+    KehoachsanxuatnamComponent,
+    KehoachsanxuatthangComponent,
+    KehoachsanxuatnammodalComponent,
+    KehoachsanxuatthangmodalComponent,
 
   ],
   imports: [
@@ -337,6 +447,7 @@ TheodoihopdongnhapkhauComponent,
     ProgressBarModule,
     NgbProgressbarModule,
     ColorPickerModule,
+    TreeTableModule,
   ],
   providers: [
     SignalRService,
@@ -348,7 +459,7 @@ TheodoihopdongnhapkhauComponent,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true, },
     { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
-  entryComponents:[
+  entryComponents: [
     ChitiethanghoacuahopdongsoimodalComponent,
     ChitietbaolanhmodalComponent,
     NhansuthuchienmodalComponent,
@@ -369,7 +480,7 @@ TheodoihopdongnhapkhauComponent,
     ModaldanhmuctaisanComponent,
     ModaldanhmucphibanhangComponent,
     ModaldanhmucdinhmucmathangComponent,
-    
+
     QuyettoanhopdongmodalComponent,
     GiaokehoachsanxuatmodalComponent,
     ModallaphopdongbongxoComponent,
@@ -389,7 +500,37 @@ TheodoihopdongnhapkhauComponent,
     ChitietnhapkhoComponent,
     ChitietxuatkhothanhphamhopdongComponent,
     XuatthanhphammathangmodalComponent,
+    ModalkehoachkinhdoanhchitiettaomoiComponent,
+    ModalkehoachkinhdoanhtheodoiComponent,
+    DmtieuchichatluonghopdongmodalComponent,
+    QuytrinhthanhtoanbongmodalComponent,
+    ModaldongiakehoachthucteComponent,
+    ModaldanhsachtinhluongComponent,
+
+    ModalmucluongcocaunhansuComponent,
+    ModalchiphibanhangtheonamComponent,
+  
+
+
+
+    ThanhtoanhopdongsoimodalComponent,
+    ChonmathangthanhtoanhopdongComponent,
+    KehoachsanxuatmodalComponent,
+    HopdongvattuphumodalComponent,
+    LuachonvattuphucuahanghoamodalComponent,
+    HopdongxuatlobongxomodalComponent,
+    ThanhtoanvattuphumodalComponent,
+    NhapvattuphumodalComponent,
+    ChondanhmucthutucthanhtoanmodalComponent,
+    HopdongchonhanghoagiaokehoachmodalComponent,
+    HopdongchonquycachdonggoimodalComponent,
+    QuytrinhdanhgiakhachhangmodalComponent,
+    ChonkhachhangmodalComponent,
+    ChinhsuadanhgiakhachhangmodalComponent,
+    DanhmuctieuchidanhgiamodalComponent,
+
+    ModalkehoachkinhdoanhthangComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })
 export class HopdongModule { }

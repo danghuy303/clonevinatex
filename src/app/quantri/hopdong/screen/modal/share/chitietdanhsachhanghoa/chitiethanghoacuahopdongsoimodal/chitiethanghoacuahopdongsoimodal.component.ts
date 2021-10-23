@@ -14,7 +14,7 @@
 
 // }
 
-import { validVariable } from 'src/app/services/globalfunction';
+import { deepCopy, validVariable } from 'src/app/services/globalfunction';
 
 
 import { Component, OnInit } from '@angular/core';
@@ -27,9 +27,12 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./chitiethanghoacuahopdongsoimodal.component.css']
 })
 export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
-  listThuTucThanhToan_ref: any = [];
   item: any = {};
   listThanhToanThuTuc: any = [];
+  listHangHoa: any = [];
+  listHangHoaGoc: any = [];
+  IdQuyTrinh : any = '';
+  Loai : any = 0;
   cols: any = [
     {
       header: 'Mã',
@@ -41,15 +44,11 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
       field: 'Ten',
       width: 'unset'
     },
- 
-    {
-      header: 'Ne',
-      field: 'Ne',
-      width: 'unset'
-    },
- 
-   
- 
+    // {
+    //   header: 'Ne',
+    //   field: 'Ne',
+    //   width: 'unset'
+    // },
   ];
   loai='';
   checkedAll: boolean = false;
@@ -61,21 +60,18 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.listThanhToanThuTuc.length);
-    
+    console.log(this.listThanhToanThuTuc);
+    this.listHangHoaGoc = deepCopy(this.listHangHoa);
+
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listThanhToanThuTuc.length;
-    if(this.listThuTucThanhToan_ref != undefined && this.listThuTucThanhToan_ref!= null)
+    if(this.listHangHoa != undefined && this.listHangHoa!= null)
     {
-      for(let i = 0; i < this.listThuTucThanhToan_ref.length; i++){
-        console.log(this.listThuTucThanhToan_ref[i])
+      for(let i = 0; i < this.listHangHoa.length; i++){
         let itemFind = this.listThanhToanThuTuc.find(
-          ele => (ele.IddmItem === this.listThuTucThanhToan_ref[i].IddmItem )
-          
+          ele => (ele.IddmItem === this.listHangHoa[i].iddmItem  && this.listHangHoa[i].isXoa !== true)
          )
-          
-      
         if(validVariable(itemFind)){
           itemFind.checked = true;
         }
@@ -85,15 +81,10 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
     this.item.listThuTucThanhToan_ref_copy = this.listThanhToanThuTuc;
   }
   checkAll(e) {
-    if (e.checked) {
-      this.listThanhToanThuTuc.forEach(item => {
-        item.checked = true;
-      });
-    } else {
-      this.listThanhToanThuTuc.forEach(item => {
-        item.checked = false;
-      });
-    }
+    this.listThanhToanThuTuc.forEach(item => {
+      item.checked = e.checked;
+      this.checkItem(item)
+    });
   }
 
   changePage(event) {
@@ -106,28 +97,13 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
     this.item.listThuTucThanhToan_ref = this.item.listThuTucThanhToan_ref_copy.slice(start,end);
   }
   accept() {
-    let itemFind: any = this.listThanhToanThuTuc.filter(function (obj) {
-      return obj.checked == true;
-    });
-    console.log(itemFind);
-    this.activeModal.close(
-     { data: itemFind}
-    );
+    this.activeModal.close(this.listHangHoa)
   }
   filtertable_add() {
     if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
-      this.item.listThuTucThanhToan_ref_copy = this.listThanhToanThuTuc;
+      this.item.listThuTucThanhToan_ref_copy = deepCopy(this.listThanhToanThuTuc);
       let filter: any = this.item.listThuTucThanhToan_ref_copy.filter(
-        ele=>ele.ten.toLowerCase().includes(this.KeyWord.toLowerCase())
-        // obj => {
-        // if(obj.Ten === "CD 23"){
-        //   debugger
-
-        // }
-        // let Ten = obj.Ten.toLowerCase();
-        // let indexOf = Ten.includes(this.KeyWord.toLowerCase());
-        // return indexOf != false
-      // }
+        ele=>ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase()) || ele.Ma.toLowerCase().includes(this.KeyWord.toLowerCase())
       );
       console.log(filter)
       this.item.listThuTucThanhToan_ref = filter;
@@ -146,4 +122,47 @@ export class ChitiethanghoacuahopdongsoimodalComponent implements OnInit {
     this.KeyWord = '';
     this.filtertable_add();
   }
+  
+checkItem(item){
+if(item.checked == true)
+{
+  let itemFind: any = this.listHangHoa.filter((e: any) =>e.iddmItem === item.Id)[0]
+  if(itemFind === undefined){
+    let itemFinds = this.listThanhToanThuTuc.find(e =>e.Id === item.Id);
+    itemFinds = {
+      idHopDong: this.IdQuyTrinh || '',
+      iddmItem: itemFinds.Id,
+      tendmItem: itemFinds.Ten,
+      iddmLoaiSoi: itemFinds.IddmLoaiSoi,
+      // tendmMatHang: itemFinds.Ten,
+      madmItem: itemFinds.Ma,
+      isXoa: false,
+      id: '',
+      thueGTGT: 10,
+      soLuong: 0,
+      donGia: 0,
+    }
+    this.listHangHoa.push(itemFinds)
+  }
+  else
+    itemFind.isXoa = false;
+}
+  else{
+    let i : any = 0;
+    for(; i < this.listHangHoa.length ; i ++){
+      if(item.Id === this.listHangHoa[i].iddmItem){
+        break;
+      }
+    }
+    let itemFind  = this.listHangHoa.splice(i, 1)[0];
+    if(validVariable(itemFind.id)){
+      itemFind.isXoa = true;
+      this.listHangHoa.push(JSON.parse(JSON.stringify(itemFind)));
+    }
+  }
+}
+Onclose() {
+  this.activeModal.close(this.listHangHoaGoc)
+
+}
 }

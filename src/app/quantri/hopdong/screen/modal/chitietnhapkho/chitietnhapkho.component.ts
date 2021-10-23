@@ -345,15 +345,15 @@ export class ChitietnhapkhoComponent implements OnInit {
       return false;
     }
     else if (this.item.Ngay === null || this.item.Ngay === undefined) {
-      this.toastr.error("Bạn chưa chọn  ngày!");
+      this.toastr.error("Bạn chưa chọn ngày!");
       return false;
     }
     else if ((this.item.IddmCapBong === null || this.item.IddmCapBong === undefined || this.item.IddmCapBong === "") && (this.type === 'bong' || this.type === 'xo')) {
-      this.toastr.error("Bạn chưa chọn  danh mục cấp bông!");
+      this.toastr.error("Bạn chưa chọn danh mục cấp bông!");
       return false;
     }
     else if (this.item.IddmLoaiBong === null || this.item.IddmLoaiBong === undefined || this.item.IddmLoaiBong === "") {
-      this.toastr.error("Bạn chưa chọn  danh mục loại bông!");
+      this.toastr.error("Bạn chưa chọn danh mục loại bông!");
       return false;
     }
     // else{

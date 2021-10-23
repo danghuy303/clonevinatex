@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, formatdate, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { ChitietxuatkhothanhphamhopdongComponent } from '../../modal/chitietxuatkhothanhphamhopdong/chitietxuatkhothanhphamhopdong.component';
 
 @Component({
@@ -16,7 +17,7 @@ export class XuatkhothanhphamhopdongComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
-  listLoaiPhuongAn: any = [];
+  listHopDong: any = [];
   listKho: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
@@ -32,8 +33,8 @@ export class XuatkhothanhphamhopdongComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Tên kho',
-      field: 'TendmKho',
+      header: 'Số- Tên HD',
+      field: 'TenHopDong',
       width: 'unset'
     },
     {
@@ -56,16 +57,13 @@ export class XuatkhothanhphamhopdongComponent implements OnInit {
       field: 'GhiChu',
       width: 'unset'
     },
-    {
-      header: 'Trạng thái',
-      field: 'TenTrangThai',
-      width: 'unset'
-    },
   ];
   eAction = 'XUATTHANHPHAM';
+  suber: any;
+  IdDuAn: any = 0;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService,
-    private activatedRoute: ActivatedRoute, private router: Router) { }
+    private activatedRoute: ActivatedRoute, private router: Router,  private store: StoreService) { }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
@@ -73,6 +71,10 @@ export class XuatkhothanhphamhopdongComponent implements OnInit {
       if (res.id !== '0') {
         this.update(res.id);
       }
+    })
+    this.IdDuAn = this.store.getCurrent();
+    this._service.GetOptions().GetDanhSachHopDongByNhaThauSoi(this.IdDuAn).subscribe((res: any) => {
+      this.listHopDong = mapArrayForDropDown(res, 'tenHopDong', 'id');
     })
     this.getListKho();
     this.KiemTraTabTrangThai();
@@ -82,7 +84,7 @@ export class XuatkhothanhphamhopdongComponent implements OnInit {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/quanlysanxuatkhothanhpham/khothanhpham/xuatkhothanhpham/${id}`], { replaceUrl: true })
+    this.router.navigate([`quantri/hopdongsanxuat/xuatkhothanhpham/${id}`], { replaceUrl: true })
   }
 
   add() {
@@ -157,9 +159,9 @@ export class XuatkhothanhphamhopdongComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
-      IddmKhoThanhPham: this.filter.IddmKho,
+      IdHopDong: this.filter.IdHopDong,
     }
-    this._service.PhieuXuatThanhPham().GetList(data).subscribe((res: any) => {
+    this._service.PhieuXuatThanhPham().GetListChoHopDong(data).subscribe((res: any) => {
       this.items = res.items;
       if (this.items.length > 0) {
         this.items.forEach(element => {

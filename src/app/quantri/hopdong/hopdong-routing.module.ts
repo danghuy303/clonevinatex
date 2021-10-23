@@ -28,7 +28,26 @@ import { DanhmucdinhmucmathangComponent } from './danhmuc/danhmucdinhmucmathang/
 import { KehoachnhapbongComponent } from './screen/thuchienhopdong/kehoachnhapbong/kehoachnhapbong.component';
 import { NhapkhoComponent } from './screen/thuchienhopdong/nhapkho/nhapkho.component';
 import { XuatkhothanhphamhopdongComponent } from './screen/thuchienhopdong/xuatkhothanhphamhopdong/xuatkhothanhphamhopdong.component';
+import { KehoachkinhdoanhdanhsachComponent } from './kehoachkinhdoanh/kehoachkinhdoanhdanhsach/kehoachkinhdoanhdanhsach.component';
 
+import { DmtieuchichatluonghopdongComponent } from './danhmuc/dmtieuchichatluonghopdong/dmtieuchichatluonghopdong.component';
+import { QuytrinhthanhtoanbongComponent } from './screen/thanhtoanbong/quytrinhthanhtoanbong/quytrinhthanhtoanbong.component';
+import { DanhsachtinhluongComponent } from './danhsach/danhsachtinhluong/danhsachtinhluong.component';
+import { MucluongcocaunhansuComponent } from './danhsach/mucluongcocaunhansu/mucluongcocaunhansu/mucluongcocaunhansu.component';
+import { ChiphibanhangtheonamComponent } from './danhsach/chiphibanhang/chiphibanhangtheonam/chiphibanhangtheonam.component';
+import { ThanhtoanhopdongsoiComponent } from './screen/thuchienhopdong/thanhtoanhopdongsoi/thanhtoanhopdongsoi.component';
+import { HopdongvattuphuComponent } from './screen/hopdongvattuphu/hopdongvattuphu.component';
+import { HopdongxuatlobongxoComponent } from './screen/thuchienhopdong/hopdongxuatlobongxo/hopdongxuatlobongxo.component';
+import { DinhmucsanxuatComponent } from './DinhMucSanXuat/dinhmucsanxuat/dinhmucsanxuat.component';
+import { ThanhtoanvattuphuComponent } from './screen/thuchienhopdong/thanhtoanvattuphu/thanhtoanvattuphu.component';
+import { NhapvattuphuComponent } from './screen/thuchienhopdong/nhapvattuphu/nhapvattuphu.component';
+import { DanhsachhopdongsoiComponent } from './screen/danhsachhopdongsoi/danhsachhopdongsoi.component';
+import { DanhsachhopdongvattuphuComponent } from './screen/danhsachhopdongvattuphu/danhsachhopdongvattuphu.component';
+import { QuytrinhdanhgiakhachhangComponent } from './screen/thuchienhopdong/quytrinhdanhgiakhachhang/quytrinhdanhgiakhachhang.component';
+import { DanhmuctieuchidanhgiaComponent } from './danhmuc/danhmuctieuchidanhgia/danhmuctieuchidanhgia.component';
+import { KehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/kehoachkinhdoanhthang.component';
+import { KehoachsanxuatnamComponent } from './kehoachsanxuatnam/kehoachsanxuatnam.component';
+import { KehoachsanxuatthangComponent } from './kehoachsanxuatthang/kehoachsanxuatthang.component';
 const routes: Routes = [
   {path:'',component:HopdongComponent},
   {path:'danhmuc/danhmuchinhthucthanhtoan',component:DanhmuchinhthucthanhtoanComponent},
@@ -42,6 +61,21 @@ const routes: Routes = [
   {path:'danhmuc/danhmuctaisan',component: DanhmuctaisanComponent},
   {path:'danhmuc/danhmucphibanhang',component: DanhmucphibanhangComponent},
   {path:'danhmuc/danhmucdinhmucmathang',component: DanhmucdinhmucmathangComponent},
+
+  {path:'danhmuc/kehoachkinhdoanhnam/:id',component: KehoachkinhdoanhdanhsachComponent},
+  {path:'danhmuc/kehoachkinhdoanhthang/:id',component: KehoachkinhdoanhthangComponent},
+  {path:'danhmuc/kehoachsanxuatnam/:id',component: KehoachsanxuatnamComponent},
+  {path:'danhmuc/kehoachsanxuatthang/:id',component: KehoachsanxuatthangComponent},
+
+  {path:'danhmuc/danhsachtinhluong',component: DanhsachtinhluongComponent},
+  {path:'danhmuc/mucluongcocaunhansu',component: MucluongcocaunhansuComponent},
+  {path:'danhmuc/chiphibanhangtheonam',component: ChiphibanhangtheonamComponent},
+  {path:'danhmuc/dinhmucsanxuat',component: DinhmucsanxuatComponent},
+  {path:'danhmuc/dmtieuchidanhgia',component:DanhmuctieuchidanhgiaComponent},
+  
+
+  {path:'danhmuc/dmtieuchichatluong',component: DmtieuchichatluonghopdongComponent},
+
 
 
   {path:'theodoihopdongnhapkhau',component:TheodoihopdongnhapkhauComponent},
@@ -59,6 +93,15 @@ const routes: Routes = [
   { path: 'quyettoanhopdong/:id', component: QuyettoanhopdongComponent },
   { path: 'laphopdongbongxo/:id', component: LaphopdongbongxoComponent },
   { path: 'laphopdongsoi/:id', component: LaphopdongsoiComponent },
+  { path: 'quytrinhthanhtoanbong/:id', component: QuytrinhthanhtoanbongComponent },
+  { path: 'quytrinhthanhtoansoi/:id', component: ThanhtoanhopdongsoiComponent },
+  { path: 'laphopdongvattuphu/:id', component: HopdongvattuphuComponent },
+  { path: 'phieuxuatlobongxo/:id', component: HopdongxuatlobongxoComponent },
+  { path: 'nhapvattuphu/:id', component: NhapvattuphuComponent },
+  { path: 'quytrinhthanhtoanvattuphu/:id', component: ThanhtoanvattuphuComponent },
+  { path: 'danhsachhopdongsoi/:id', component: DanhsachhopdongsoiComponent },
+  { path: 'danhsachhopdongvattuphu/:id', component: DanhsachhopdongvattuphuComponent },
+  { path: 'danhgiakhachhang/:id', component: QuytrinhdanhgiakhachhangComponent },
 
   //
  

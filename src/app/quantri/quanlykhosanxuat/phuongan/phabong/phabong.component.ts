@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { DateToUnix } from "src/app/services/globalfunction";
+import { StoreService } from "src/app/services/store.service";
+import { StoreBase } from "src/app/services/storebase.class";
 import { PhabongmodalComponent } from "../phabongmodal/phabongmodal.component";
 
 @Component({
@@ -11,7 +13,7 @@ import { PhabongmodalComponent } from "../phabongmodal/phabongmodal.component";
   templateUrl: "./phabong.component.html",
   styleUrls: ["./phabong.component.css"],
 })
-export class PhabongComponent implements OnInit {
+export class PhabongComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild("paginator") paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: "PKK_0000_0000" }];
   filter: any = {};
@@ -19,21 +21,11 @@ export class PhabongComponent implements OnInit {
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
-    // {
-    //   header: 'Khối lượng bông (Tấn)',
-    //   field: 'KhoiLuongBong',
-    //   width: 'unset'
-    // },
     {
       header: "Trạng thái",
       field: "TenTrangThai",
       width: "unset",
     },
-    // {
-    //   header: 'Ghi chú',
-    //   field: 'GhiChu',
-    //   width: 'unset'
-    // },
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   eAction = "PHUONGANPHABONG";
@@ -42,20 +34,16 @@ export class PhabongComponent implements OnInit {
     public _toastr: ToastrService,
     private _service: SanXuatService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,public store:StoreService
+  ) {super(store)}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
-      // console.log(res);
       if (res.id !== "0") {
         this._service
           .PhuongAnPhaBong()
           .Get(res.id)
           .subscribe((res: any) => {
-            // res.listItem.forEach(ele => {
-            //   ele.KhoiLuongKeHoach = ele.KhoiLuongKeHoach / 1000;
-            // });
             this.update(res);
           });
       }
@@ -87,14 +75,11 @@ export class PhabongComponent implements OnInit {
     };
     modalRef.result
       .then((res: any) => {
-        console.log(res);
         this._toastr.success("Cập nhật thành công");
-        this.GetListQuyTrinh();
-        this.changeParam(0);
       })
-      .catch((er) => {
-        this.changeParam(0);
+      .finally(()=>{
         this.GetListQuyTrinh();
+        this.changeParam(0);
       });
   }
   update(item) {
@@ -106,14 +91,9 @@ export class PhabongComponent implements OnInit {
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result
-      .then((res: any) => {
-        // this._toastr.success('Cập nhật thành công');
+      .finally(()=>{
         this.GetListQuyTrinh();
         this.changeParam(0);
-      })
-      .catch((er) => {
-        this.changeParam(0);
-        this.GetListQuyTrinh();
       });
   }
   changeTab(e) {
@@ -159,5 +139,8 @@ export class PhabongComponent implements OnInit {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     });
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

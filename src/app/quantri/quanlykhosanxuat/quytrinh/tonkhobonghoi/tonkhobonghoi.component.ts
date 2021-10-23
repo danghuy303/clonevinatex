@@ -1,17 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { TonkhobonghoimodalComponent } from '../tonkhobonghoimodal/tonkhobonghoimodal.component';
-
+import { StoreBase } from 'src/app/services/storebase.class';
+import { StoreService } from 'src/app/services/store.service';
 @Component({
   selector: 'app-tonkhobonghoi',
   templateUrl: './tonkhobonghoi.component.html',
   styleUrls: ['./tonkhobonghoi.component.css']
 })
-export class TonkhobonghoiComponent implements OnInit {
+export class TonkhobonghoiComponent extends StoreBase implements OnInit,OnDestroy {
 
   @ViewChild('paginator') paginator: any;
   items: any = [{id:5,SoQuyTrinh:'PNK_0000_0000'}];
@@ -53,8 +54,8 @@ export class TonkhobonghoiComponent implements OnInit {
   listPhanXuong: any = [];
   listCaSanXuat: any = [];
   Loai:any = 6;
-  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) {
-
+  constructor(public _modal:NgbModal,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router,public store:StoreService) {
+    super(store)
   }
 
   ngOnInit(): void {
@@ -137,5 +138,8 @@ export class TonkhobonghoiComponent implements OnInit {
     this._service.ExportNhuCauXuatHangTheoMatHang(data).subscribe((res: any) => {
       this._service.download(res.TenFile);
     })
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

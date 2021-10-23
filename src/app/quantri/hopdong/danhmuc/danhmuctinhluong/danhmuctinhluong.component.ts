@@ -19,26 +19,26 @@ export class DanhmuctinhluongComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 1 };
   cols: any = [
     {
-      header: 'Tên',
-      field: 'ten',
-      width: '350px',
-      align:'center'
-    },
-    {
       header: 'Mã',
-      field: 'ma',
+      field: 'Ma',
       width: '300px',
       align:'center'
     },
     {
+      header: 'Tên',
+      field: 'Ten',
+      width: '350px',
+      align:'center'
+    },
+    {
       header: 'Đơn vị',
-      field: 'donViTinh',
+      field: 'DonViTinh',
       width: '300px',
       align:'center'
     },
     {
       header: 'Ghi chú',
-      field: 'ghiChu',
+      field: 'GhiChu',
       width: '200px',
       align:'center'
     }
@@ -61,13 +61,14 @@ export class DanhmuctinhluongComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.CurrentPage,
+     
       sFilter:this.keyWord,  
       ma:"", 
       ten:""    
     };
     this. _danhMucHopDong.DanhMucTinhLuong().GetList(data).subscribe((res:any)=>{
-      this.items = res.data.items;
-      this.paging.TotalItem = res.data.totalCount;
+      this.items = res.Data.Items;
+      this.paging.TotalItem = res.Data.TotalCount;
     })
   }
   add(){
@@ -76,7 +77,7 @@ export class DanhmuctinhluongComponent implements OnInit {
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm tính lương';
+    modalRef.componentInstance.title = 'Thêm mới tính lương';
     modalRef.result.then(res=>{
       this.GetListdmTinhLuong()
     }).catch(er=>console.log(er))
@@ -93,25 +94,25 @@ export class DanhmuctinhluongComponent implements OnInit {
       this.GetListdmTinhLuong()
     }).catch(er=>console.log(er))
   }
-  // delete(item){
-  //   let modalRef = this._modal.open(ModalthongbaoComponent,{
-  //     backdrop:'static'
-  //   });
-  //   modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-  //   modalRef.result.then(res=>{
-  //     const item=this.selectedItems[0];    
-  //     this._danhMucHopDong.DanhMucLoaiHopDong().Delete([item.id]).subscribe((res: any) => {
-  //       if (res) {
-  //         if (res.statusCode === 200) {
-  //           this._toastr.success(res.message);
-  //           this.GetListdmTinhLuong();
-  //         } else {
-  //           this._toastr.error(res.message);
-  //         }
-  //       }
-  //     })
-  //   }).catch(er=>console.log(er))
-  // }
+  delete(item){
+    let modalRef = this._modal.open(ModalthongbaoComponent,{
+      backdrop:'static'
+    });
+    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res=>{
+      // const item=this.selectedItems[0];    
+      this._danhMucHopDong.DanhMucTinhLuong().Delete([item.Id]).subscribe((res: any) => {
+        if (res) {
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
+            this.GetListdmTinhLuong();
+          } else {
+            this._toastr.error(res.Message);
+          }
+        }
+      })
+    }).catch(er=>console.log(er))
+  }
   // deleteAll(){
   //   let modalRef = this._modal.open(ModalthongbaoComponent,{
   //     backdrop:'static'

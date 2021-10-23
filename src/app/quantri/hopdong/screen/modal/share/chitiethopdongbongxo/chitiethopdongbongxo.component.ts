@@ -1,95 +1,85 @@
-import { UnixToDate } from 'src/app/services/globalfunction';
-// import { StoreService } from './../../../../../../services/store.service';
+import { dinhDangSo, UnixToDate } from 'src/app/services/globalfunction';
 import { HopDongService } from "./../../../../../../services/Hopdong/hopdong.service";
 import { DanhMucHopDongService } from "./../../../../../../services/Hopdong/danhmuchopdong.service";
-import { ChonquycachdonggoimodalComponent } from "./../../../../../quanlykhosanxuat/modals/chonquycachdonggoimodal/chonquycachdonggoimodal.component";
-import { ChonhanghoamodalComponent } from "./../../../../../quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component";
-import { FileUploader } from "ng2-file-upload";
 import {
   Component,
-  DoCheck,
-  ElementRef,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
-  ViewChild,
 } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
-import { CalcmodalComponent } from "src/app/quantri/modal/calcmodal/calcmodal.component";
-import { ModalthongbaoComponent } from "src/app/quantri/modal/modalthongbao/modalthongbao.component";
 import { UploadmodalComponent } from "src/app/quantri/modal/uploadmodal/uploadmodal.component";
-import { Dat09Service } from "src/app/services/callApi";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { vn } from "src/app/services/const";
 import {
-  DateToDatePicker,
-  DateToUnix,
-  deepCopy,
   mapArrayForDropDown,
-  merge,
-  validVariable,
 } from "src/app/services/globalfunction";
 import { StoreService } from "src/app/services/store.service";
-import { elementAt } from "rxjs/operators";
-import { FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: "app-chitiethopdongbongxo",
   templateUrl: "./chitiethopdongbongxo.component.html",
   styleUrls: ["./chitiethopdongbongxo.component.css"],
 })
-export class ChitiethopdongbongxoComponent implements OnInit,OnChanges {
-
+export class ChitiethopdongbongxoComponent implements OnInit {
+  @Input('listLoaiMatHang') listLoaiMatHang: any = [];
+  @Output('listLoaiMatHangChange') listLoaiMatHangChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output('listHangHoaChange') listHangHoaChange: EventEmitter<any> = new EventEmitter<any>();
+  
   getKhachHang: any = []
   getKhachHang1: any = []
 
   optionsVatLieu = [
     { label: 'Bông', value: 2 },
     { label: 'Xơ', value: 5 },
-   
+
   ]
 
   data: any = {};
   selected1: any = {};
   selected: any = {};
+  dinhDangSo = dinhDangSo;
 
   listKhachHangA: any = []
-  listLoaiMatHang: any = []
-  listLoaiMatHang_ref: any = []
   listKhachHangB: any = []
   selectedCityCode: string;
   listHinhThucThanhToan: any = [];
   listNguyenVatLieu: any = [];
   listLoaiHopDong: any = [];
   listLoaiHopDongFull: any = [];
+  isHienHopDongGoc: any = false;
   listLoaiTienTe: any = [];
   listdmKhachHang: any = [];
   getdmKhachHangForCopy: any = {};
- 
+  listHopDongGoc: any = [];
   canCopy: boolean = false;
   selectedCity = null;
   cities = [{ name: 'pushkar', code: 21 }, { name: 'nagpur', code: 22 }];
-  @Input() item: any;
-  @Input() isSoi
+  @Input('item') item: any = {};
+  @Input('listHangHoa') hangHoa: any = {};
+  @Input('itemcha') itemcha: any = {};
+  
+  @Input() isSoi;
   @Input() loaiNguyenVatLieu: number;
-  @Input() hopDong: any;
+  @Input() hopDong: any = {};
   @Output() onChange = new EventEmitter<any>();
-  @Output() itemChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output('itemChange') itemChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output('itemchaChange') itemchaChange: EventEmitter<any> = new EventEmitter<any>();
+  
   @Output() onVatLieu: EventEmitter<number> = new EventEmitter<number>();
   @Input("opt") opt: string;
   selectedReport: any;
   @Input() getSearchStatus: boolean;
-@Output() getSearchStatusChange = new EventEmitter<boolean>();
+  @Output() getSearchStatusChange = new EventEmitter<boolean>();
 
   previousVal: any;
   currentVal: any;
 
   checkbutton: any = {};
   lang: any = vn;
+  listHopDong: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(
     public activeModal: NgbActiveModal,
@@ -97,24 +87,21 @@ export class ChitiethopdongbongxoComponent implements OnInit,OnChanges {
     private _service: HopDongService,
     private _store: StoreService,
     private _servicesSanXuat: SanXuatService,
-    private _toastr: ToastrService,
     private _modal: NgbModal,
 
 
   ) {
   }
 
-
-  // this.item.DiaChi = this.getKhachHang.DiaChi;
-  //  this.listdmKhachHang.iddmKhachHangA = this.item.iddmKhachHangA
-  //  this.listdmKhachHang.DiaChi = this.item.DiaChi
-
-  onChangBenA(event) {
-
+  onChangBenA(event, isChange = false) {
+    let IddmKhachHang = "";
+    if(isChange === false)
+      IddmKhachHang = event.value;
+    else
+      IddmKhachHang = this.item.iddmKhachHangA;
     let selected = this.getKhachHang.find(
-      (ele) => ele.Id === event.value
+      (ele) => ele.Id === IddmKhachHang
     );
-
     // this.item.iddmKhachHangB = selected?.Id;
     this.selected.DiaChi = selected?.DiaChi
     this.selected.ChucVu = selected?.ChucVu
@@ -124,12 +111,17 @@ export class ChitiethopdongbongxoComponent implements OnInit,OnChanges {
     this.selected.SoDienThoai = selected?.SoDienThoai
     this.selected.SoFax = selected?.SoFax
     this.selected.Ten = selected?.Ten
-    this.selected.listTaiKhoanNganHang = selected?.listTaiKhoanNganHang
+    this.selected.TaiKhoanNganHang = selected?.TaiKhoanNganHang
   }
 
-  onChangBenB(event) {
-    let selected1 = this.getKhachHang1.find(
-      (ele) => ele.Id === event.value
+  onChangBenB(event, isChange = false) {
+    let IddmKhachHang = "";
+    if(isChange === false)
+      IddmKhachHang = event.value;
+    else
+      IddmKhachHang = this.item.iddmKhachHangA;
+    let selected1 = this.getKhachHang.find(
+      (ele) => ele.Id === IddmKhachHang
     );
     // this.item.iddmKhachHangB = selected1?.Id;
     this.selected1.DiaChi = selected1?.DiaChi
@@ -140,83 +132,94 @@ export class ChitiethopdongbongxoComponent implements OnInit,OnChanges {
     this.selected1.SoDienThoai = selected1?.SoDienThoai
     this.selected1.SoFax = selected1?.SoFax
     this.selected1.Ten = selected1?.Ten
-  this.selected1.listTaiKhoanNganHang = selected1?.listTaiKhoanNganHang
+    this.selected1.TaiKhoanNganHang = selected1?.TaiKhoanNganHang
   }
 
 
-  onChangeVatLieu(even) {
-// console.log('onChangeVatLieu',loaiNguyenVatLieu);
+  GetListdmLoaiBongForHopDong() {
+    this._servicesSanXuat
+      .GetListdmLoaiBongForHopDong(this.item.loai)
+      .subscribe((res: any) => {
+        this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
 
-
-   this.item.loaiNguyenVatLieu = even.value
-
-   this._servicesSanXuat
-   .GetListdmLoaiBongForHopDong(this.data.Loai =even.value)
-   .subscribe((res1: any) => {
-     console.log('GetListdmLoaiBongForHopDong',res1);
-     
-     this.listLoaiMatHang = mapArrayForDropDown(res1, "Ten", "Id");
-     this.listLoaiMatHang_ref = res1;
-   });
-
-
+        // this.listLoaiMatHang = res;
+        this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
+      });
+this.getListHopDongGoc();
   }
-
-  ngOnChanges(changes: SimpleChanges) {
-    for (const propName in changes) {
-      const chng = changes[propName];
-      const cur  = JSON.stringify(chng.currentValue.soQuyTrinh);
-      const prev = JSON.stringify(chng.previousValue);
-      console.log('ngOnChanges',chng);
-      console.log('cur',cur);
-      console.log('prev',prev);
-      
-      // this.changeLog.push(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
-    }
+  LayGiaTriHopDong() {
+    if(this.item.isLayTheoGiaTriHangHoa == true)
+      this.item.giaTri = this.hangHoa.giaTriHopDongMatHang || 0;
+    if(this.isSoi === true)
+      this.item.giaTri = this.item.thanhTien || 0;
   }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   this.onChangBenA("",true);
+  //   this.onChangBenB("",true);
+  //   for (const propName in changes) {
+  //     const chng = changes[propName];
+  //     const cur = JSON.stringify(chng.currentValue.soQuyTrinh);
+  //     const prev = JSON.stringify(chng.previousValue);
+  //   }
+  // }
 
   ngOnInit() {
-    
- 
-
     this.GetFormOptions();
-    this.item.ngayKy = UnixToDate(this.item.ngayKyUnix);
-    this.item.ngayHieuLuc = UnixToDate(this.item.ngayHieuLucUnix);
-
+    if(this.item.isPhuLuc){
+      this._service.QuyTrinhHopDong().GetListHopDongForPhuLuc(this.item.loai || 2).subscribe((res: any) => {
+        this.listHopDong = mapArrayForDropDown(res, "soTenHopDong", "id");
+      });
+    }
     if (this.opt !== "edit") {
-      // this.GetNextSoQuyTrinh();
+      this.itemcha.listTaiLieu=[];
       if (this._store.getCurrent()) {
         this.item.IdDuAn = this._store.getCurrent();
       }
     }
+    else {
+      this.getListHopDongGoc();
+      this.itemcha.listTen = "";
+      if(this.itemcha.lstFileUploadCu === undefined || this.itemcha.lstFileUploadCu === null)
+        this.itemcha.lstFileUploadCu = [];
+      this.itemcha.lstFileUploadCu.forEach(element => {
+        this.itemcha.listTen += `${element.TenGoc}`;
+      });
+    }
 
   }
- 
 
 
+  // ngDoCheck() {
+  //   this.itemChange.emit(this.item);
+  //   this.itemchaChange.emit(this.itemcha);
+  //   this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
+  //   this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
+    
+  // }
 
   GetFormOptions() {
-    console.log(this.item.loaiNguyenVatLieu);
-
- 
-  
     this._servicesdmHopDong
       .DanhMucLoaiHopDong()
       .GetListAll()
       .subscribe((res: any) => {
         this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
+        this.listLoaiHopDongFull = res;
+        if (this.opt === "edit") 
+          this.chonHopDongGoc();
       });
 
     this._servicesSanXuat
       .dmKhachHang()
       .GetListOpt()
       .subscribe((res: any) => {
-
-        // console.log('GetListOpt',  this.listdmKhachHang.DiaChi);
         this.getKhachHang = res
         this.getKhachHang1 = res
         this.listdmKhachHang = mapArrayForDropDown(res, "Ten", "Id");
-
+        if (this.opt === "edit") {
+          this.onChangBenA('', true)
+          this.onChangBenB('', true)
+    
+        }
       });
 
 
@@ -233,31 +236,59 @@ export class ChitiethopdongbongxoComponent implements OnInit,OnChanges {
 
         this.listLoaiTienTe = mapArrayForDropDown(res, "ten", "id");
       });
-    // this._servicesdmHopDong
-    //   .DanhMucLoaiHopDong()
-    //   .GetListdm()
-    //   .subscribe((res: Array<any>) => {
-    //     this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
-    //   });
-
-
   }
+
 
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.result.then((data) => {
-      this.item.ID = this.item.ID !== undefined ? this.item.ID : 0;
-      this.item.TenGui = data[data.length - 1].Name;
-      this.item.TenGoc = data[data.length - 1].NameLocal;
-      this.item.DuongDan = data[data.length - 1].Url;
+      let item: any = {}
+      item.id = 0;
+      item.TenGui = data[data.length - 1].Name;
+      item.TenGoc = data[data.length - 1].NameLocal;
+      item.DuongDan = data[data.length - 1].Url;
+      this.itemcha.listTaiLieu.push(item);
+      this.itemcha.listTen = "";
+      this.itemcha.listTaiLieu.forEach(element => {
+        this.itemcha.listTen += `${element.TenGoc}`;
+      });
+
     }, (reason) => {
 
     });
   }
 
- 
+
 
   Loai(loai: boolean) {
     this.item.IsBong = loai;
+  }
+  chonHopDongGoc(){
+    this.isHienHopDongGoc = false;
+    if(this.isSoi !== true){
+      let itemFind = this.listLoaiHopDongFull.filter(el=> el.id == this.item.iddmLoaiHopDong)
+      if(itemFind!== undefined){
+          if(itemFind[0].ma == "BAN" || itemFind[0].ma == "CHOVAY"){
+            this.getListHopDongGoc();
+            this.isHienHopDongGoc = true;
+          }
+      }
+    }
+  }
+  getListHopDongGoc(){
+    this._service.QuyTrinhHopDong().GetListAll(this.item.loai || 0)
+      .subscribe((res: Array<any>) => {
+        this.listHopDongGoc = mapArrayForDropDown(res, "soTenHopDong", "id");
+      });
+  }
+  listHangHoaTheoHopDong(){
+    this._service.QuyTrinhHopDong().getListMatHang(this.item.idHopDong || '')
+      .subscribe((res: any) => {
+        if(res.data.length > 0){
+          let data : any = res.data[0];
+          data.id = '';
+          this.listHangHoaChange.emit(data);
+        }
+      });
   }
 }

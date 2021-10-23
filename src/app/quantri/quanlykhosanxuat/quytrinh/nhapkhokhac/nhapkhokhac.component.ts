@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { NhapkhokhacmodalComponent } from '../nhapkhokhacmodal/nhapkhokhacmodal.component';
 
 @Component({
@@ -11,7 +13,7 @@ import { NhapkhokhacmodalComponent } from '../nhapkhokhacmodal/nhapkhokhacmodal.
   templateUrl: './nhapkhokhac.component.html',
   styleUrls: ['./nhapkhokhac.component.css']
 })
-export class NhapkhokhacComponent implements OnInit {
+export class NhapkhokhacComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
@@ -33,7 +35,8 @@ export class NhapkhokhacComponent implements OnInit {
   type: any = "";
   nametype: any = "";
   constructor(public _modal: NgbModal, public _toastr: ToastrService,
-    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
+    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) {
+      super(store)
   }
 
   ngOnInit(): void {
@@ -163,5 +166,8 @@ export class NhapkhokhacComponent implements OnInit {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

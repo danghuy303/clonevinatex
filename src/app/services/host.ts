@@ -32,11 +32,13 @@ export class API {
     // public static baseUrl = host + '/';
     public static SCM = host1 + '/SCM/';
     public static HopDong = host1 + '/HopDong/';
+    public static TaiSan = host1 + '/TaiSanAPI/';
     public static KeHoachNhapBong = host1 + '/HopDong/KeHoachNhapBong/';    
-    public static KeHoach = host1 + '/KeHoach/';
+    public static KeHoach = host1 + '/KeHoachAPI/';
     public static ThongKeDien = host1 + '/SCM/ThongKeDien/';
     public static KeHoachNguyenLieu = host1 + '/SCM/KeHoachNguyenLieu/';
     public static SCMQuanLyKho = host1 + '/SCM/QuanLyKho/';
+    public static SCMChoModuleHopDong = host1 + '/SCM/APIChoModuleHopDong/';
     public static SCMDanhMuc = host1 + '/SCM/DanhMuc/';
     public static SCMKiemTraChatLuong = host1 + '/SCM/KiemTraChatLuong/';  
     public static SCMDashBoard = host1 +  '/SCM/BaoCao/';

@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { XuatkhomodalComponent } from '../xuatkhomodal/xuatkhomodal.component';
 
 @Component({
@@ -11,7 +13,7 @@ import { XuatkhomodalComponent } from '../xuatkhomodal/xuatkhomodal.component';
   templateUrl: './xuatkho.component.html',
   styleUrls: ['./xuatkho.component.css']
 })
-export class XuatkhoComponent implements OnInit {
+export class XuatkhoComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PKK_0000_0000' }];
   filter: any = {};
@@ -36,6 +38,11 @@ export class XuatkhoComponent implements OnInit {
       width: 'unset'
     },
     {
+      header: 'Số bàn bông',
+      field: 'SoBanBong',
+      width: 'unset'
+    },
+    {
       header: 'Trạng thái',
       field: 'TenTrangThai',
       width: 'unset'
@@ -48,7 +55,8 @@ export class XuatkhoComponent implements OnInit {
   ];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   eAction = 'PHIEUXUATBONG'
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) { super(store)
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
@@ -177,5 +185,8 @@ export class XuatkhoComponent implements OnInit {
         this._service.download(res.TenFile);
       })
     }
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

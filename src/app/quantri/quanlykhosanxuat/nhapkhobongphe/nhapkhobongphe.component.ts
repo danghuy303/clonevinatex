@@ -1,17 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { NhapkhobongphemodalComponent } from '../nhapkhobongphemodal/nhapkhobongphemodal.component';
+import { StoreBase } from 'src/app/services/storebase.class';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-nhapkhobongphe',
   templateUrl: './nhapkhobongphe.component.html',
   styleUrls: ['./nhapkhobongphe.component.css']
 })
-export class NhapkhobongpheComponent implements OnInit {
+export class NhapkhobongpheComponent extends StoreBase implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
@@ -19,22 +21,23 @@ export class NhapkhobongpheComponent implements OnInit {
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   eAction: any = "PHIEUNHAPBONGPHE";
-  
+
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";
   type: any = "";
   nametype: any = "";
-  listPhanXuong:any=[];
-  constructor(public _modal: NgbModal, public _toastr: ToastrService, 
-    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) {
-     }
+  listPhanXuong: any = [];
+  constructor(public _modal: NgbModal, public _toastr: ToastrService,
+    private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router, public store: StoreService) {
+    super(store)
+  }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
-    this.activatedRoute.params.subscribe((res:any)=>{
+    this.activatedRoute.params.subscribe((res: any) => {
       this.title = res.kho;
       console.log(res.id)
-      if(res.id!=='0'){
+      if (res.id !== '0') {
         this.update(res.id);
       }
     })
@@ -42,14 +45,14 @@ export class NhapkhobongpheComponent implements OnInit {
     this.GetListQuyTrinh();
     this.KiemTraTabTrangThai();
   }
-  
+
   changeParam(id) {
-    if(this._modal.hasOpenModals()){
+    if (this._modal.hasOpenModals()) {
       this._modal.dismissAll()
     }
     this.router.navigate([`quantri/quanlykhosanxuatbongkhac/khobongphe/nhapkho/${id}`], { replaceUrl: true })
   }
-  
+
   addPhieu() {
     this.changeParam(0);
     let modalRef = this._modal.open(NhapkhobongphemodalComponent, {
@@ -60,18 +63,20 @@ export class NhapkhobongpheComponent implements OnInit {
 
     modalRef.componentInstance.type = this.type;
     modalRef.componentInstance.nametype = this.nametype;
-    
+
     modalRef.componentInstance.item = {}
     modalRef.result.then((res: any) => {
       this.GetListQuyTrinh();
-    this.changeParam(0);
+      this.changeParam(0);
 
     })
-      .catch(er => { console.log(er) 
+      .catch(er => {
+        console.log(er)
         this.GetListQuyTrinh();
-        this.changeParam(0);})
+        this.changeParam(0);
+      })
   }
- 
+
   update(Id) {
     this._service.QuyTrinhPhieuBongPhe().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(NhapkhobongphemodalComponent, {
@@ -86,14 +91,16 @@ export class NhapkhobongpheComponent implements OnInit {
         this.GetListQuyTrinh();
         this.changeParam(0);
       })
-        .catch(er => { console.log(er) 
+        .catch(er => {
+          console.log(er)
           this.GetListQuyTrinh();
-          this.changeParam(0);})
-       
+          this.changeParam(0);
+        })
+
     })
   }
   changeTab(e) {
-    this.trangThai = e.index+1;
+    this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
   }
   changePage(event) {
@@ -125,7 +132,7 @@ export class NhapkhobongpheComponent implements OnInit {
     this.GetListQuyTrinh(true);
   }
   KiemTraTabTrangThai() {
-    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res:any)=>{
+    this._service.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetListQuyTrinh();
     })
@@ -149,7 +156,7 @@ export class NhapkhobongpheComponent implements OnInit {
       this._toastr.error('Vui lòng nhập khoảng thời gian hợp lệ!')
       return false
     }
-    if(!validVariable(this.filter.IddmPhanXuong)){
+    if (!validVariable(this.filter.IddmPhanXuong)) {
       this._toastr.error('Vui lòng chọn phân xưởng!')
       return false
     }
@@ -159,13 +166,16 @@ export class NhapkhobongpheComponent implements OnInit {
   exportExcel() {
     if (this.validateFilter()) {
       let data = {
-        IddmPhanXuong:this.filter.IddmPhanXuong,
-        TuNgayUnix:DateToUnix(this.filter.TuNgay),
-        DenNgayUnix:DateToUnix(this.filter.DenNgay),
+        IddmPhanXuong: this.filter.IddmPhanXuong,
+        TuNgayUnix: DateToUnix(this.filter.TuNgay),
+        DenNgayUnix: DateToUnix(this.filter.DenNgay),
       }
       this._service.QuyTrinhPhieuBongPhe().ExportBangKeNhapKhoBongPhe(data).subscribe((res: any) => {
         this._service.download(res.TenFile);
       })
     }
+  }
+  ngOnDestroy() {
+    super.ngOnDestroy();
   }
 }

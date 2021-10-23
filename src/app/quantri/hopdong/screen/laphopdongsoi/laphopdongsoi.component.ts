@@ -1,6 +1,5 @@
 
 
-import { ChitiethopdongbongxoComponent } from "./../modal/share/chitiethopdongbongxo/chitiethopdongbongxo.component";
 import { number } from "@amcharts/amcharts4/core";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 
@@ -15,8 +14,6 @@ import {
   UnixToDate,
 } from "src/app/services/globalfunction";
 import { ModallaphopdongsoiComponent } from "./modallaphopdongsoi/modallaphopdongsoi.component";
-// import { ModallaphopdongsoiComponent } from "./modallaphopdongbongxo/modallaphopdongbongxo.component";
-// import { ChitiethopdongbongxomodalComponent } from "./chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
 
 @Component({
   selector: 'app-laphopdongsoi',
@@ -33,9 +30,7 @@ export class LaphopdongsoiComponent implements OnInit {
   tuNgay: number = 0;
   title:string
   denNgay: number = 0;
-  listLoaiPhuongAn: any = [];
   trangThai: any = 1;
-  //    this.paging.TotalItem = res.data.totalCount;
   paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
   hopDong: any = {};
 
@@ -57,26 +52,17 @@ export class LaphopdongsoiComponent implements OnInit {
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
-
-        this._service
-          .QuyTrinhHopDong()
-          .Get(res.id)
-          .subscribe((res: any) => {
-            this.update(res.data.hopDong);
-          });
+        this.update(res.id);
       }
     });
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh();
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll();
     }
     this.router.navigate(
-      [`quantri/hopdongsanxuat/laphopdongsoi/${id}`],
-      { replaceUrl: true }
-    );
+      [`quantri/hopdongsanxuat/laphopdongsoi/${id}`], { replaceUrl: true });
   }
   add() {
    
@@ -87,31 +73,17 @@ export class LaphopdongsoiComponent implements OnInit {
     modalRef.componentInstance.opt = "add";
     
     modalRef.componentInstance.item = {
-      listNhanSu: [],
-    
-     
       listDieuKhoanThanhToan: [],
-      listTieuChuanChatLuong: [],
-    
       listBaoLanh: [],
-
       listTaiLieu: [],
-
       lstFileUploadCu: [],
     };
     modalRef.componentInstance.item.hopDong = {
+      isLayTheoGiaTriHangHoa: true,
       id: "",
-      Loai: 2
+      loai: 11
     };
-    modalRef.componentInstance.item.listVatTu = [
-      {
-
-      }
-    ]
-   
- 
-    
-
+    modalRef.componentInstance.item.listHangHoa = []
     modalRef.result
       .then((res: any) => {
         console.log(res);
@@ -124,48 +96,49 @@ export class LaphopdongsoiComponent implements OnInit {
         this.changeParam(0);
       });
   }
-
-  edit(item) {
-    this._service
-      .QuyTrinhHopDong()
-      .Get(item.id)
-      .subscribe((res: any) => {
-        let modalRef = this._modal.open(ModallaphopdongsoiComponent, {
-          size: "fullscreen",
-          backdrop: "static",
-        });
-        modalRef.componentInstance.opt = "edit";
-        modalRef.componentInstance.item = JSON.parse(JSON.stringify(res));
-
-        modalRef.result
-          .then((res: any) => {
-            this._toastr.success("Cập nhật thành công");
-            this.GetListQuyTrinh(item.id);
-          })
-          .catch((er) => {
-            console.log(er);
-          });
+  addPhuLuc() {
+   
+    let modalRef = this._modal.open(ModallaphopdongsoiComponent, {
+      size: "fullscreen",
+      backdrop: "static",
+    });
+    modalRef.componentInstance.opt = "add";
+    
+    modalRef.componentInstance.item = {
+      listDieuKhoanThanhToan: [],
+      listBaoLanh: [],
+      listTaiLieu: [],
+      lstFileUploadCu: [],
+    };
+    modalRef.componentInstance.item.hopDong = {id: "",
+    isLayTheoGiaTriHangHoa: true,
+    isPhuLuc: true,
+    loai: 11
+  };
+    modalRef.componentInstance.item.listHangHoa = [{}
+    ]
+    modalRef.result
+      .then((res: any) => {
+        console.log(res);
+        this._toastr.success("Cập nhật thành công");
+        this.GetListQuyTrinh();
+        this.changeParam(0);
+      })
+      .catch((er) => {
+        this.GetListQuyTrinh();
+        this.changeParam(0);
       });
   }
-
-  update(item) {
-  
-    
-    this._service
-      .QuyTrinhHopDong()
-      .Get(item.id)
-      .subscribe((res1: any) => {
-        
+  update(id) {
+    this._service.QuyTrinhHopDong().Get(id).subscribe((res1: any) => {
         let modalRef = this._modal.open(ModallaphopdongsoiComponent, {
           size: "fullscreen",
           backdrop: "static",
         });
         modalRef.componentInstance.opt = "edit";
-        modalRef.componentInstance.item.hopDong = JSON.parse(
-          JSON.stringify(res1.data.hopDong)
+        modalRef.componentInstance.item = JSON.parse(
+          JSON.stringify(res1.data)
         );
-   
-
         modalRef.result
           .then((res: any) => {
             this.GetListQuyTrinh();
@@ -181,24 +154,6 @@ export class LaphopdongsoiComponent implements OnInit {
       });
   }
 
-  updates(Id) {
-    let modalRef = this._modal.open(ModallaphopdongsoiComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.Id = JSON.parse(JSON.stringify(Id));
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-      this.changeParam(0);
-
-    })
-      .catch(er => {
-        console.log(er)
-        this.GetListQuyTrinh();
-        this.changeParam(0);
-      })
-  }
   changeTab(e) {
     this.trangThai = e.index + 1;
     this.GetListQuyTrinh(true);
@@ -219,14 +174,18 @@ export class LaphopdongsoiComponent implements OnInit {
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
-      Loai:2
+      loai: 11,
     };
     this._service
       .QuyTrinhHopDong()
-      .GetList(data)
+      .GetListSoi(data)
       .subscribe((res: any) => {
         this.items = res.data?.items;
         this.paging.TotalItem = res.data?.totalCount;
+        this.paging.TotalPage = res.data?.totalPages;
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
       });
   }
 

@@ -34,14 +34,8 @@ export class ChitietbaolanhComponent implements OnInit, DoCheck {
 
   }
   add() {
-
     this.item.hieuLucBaoLanhUnix = DateToUnix(this.item.hieuLucBaoLanh);
-    let modalRef = this._modal.open(ChitietbaolanhmodalComponent, { size: 'xl', backdrop: 'static' });
-    modalRef.componentInstance.item = {
-      Id: "",
-    
-
-    };
+    let modalRef = this._modal.open(ChitietbaolanhmodalComponent, { size: 'xl', backdrop: 'static' });   
     modalRef.componentInstance.opt = 'add';
     modalRef.result.then(res => {
       console.log(res.item);
@@ -52,9 +46,11 @@ export class ChitietbaolanhComponent implements OnInit, DoCheck {
     }).catch(er => { console.log(er) });
   }
   edit(item, i) {
+    if(item.listFileDinhKem === null)
+      item.listFileDinhKem = [];
     let modalRef = this._modal.open(ChitietbaolanhmodalComponent, { size: 'xl', backdrop: 'static' });
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-    modalRef.componentInstance.item.hieuLucBaoLanh = new Date(item.hieuLucBaoLanh);
+    // modalRef.componentInstance.item.hieuLucBaoLanh = new Date(item.hieuLucBaoLanh);
     modalRef.componentInstance.opt = 'edit';
     modalRef.result.then(res => {
       this.listBaoLanh.splice(i, 1);

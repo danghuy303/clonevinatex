@@ -5,8 +5,9 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 import { vn } from 'src/app/services/const';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, Input, OnInit } from '@angular/core';
-import { mapArrayForDropDown, DateToUnix } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, DateToUnix, deepCopy, validVariable, UnixToDate, dinhDangSo } from 'src/app/services/globalfunction';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-chitietdieukhoanmodal',
@@ -15,41 +16,57 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 })
 export class ChitietdieukhoanmodalComponent implements OnInit {
   lang: any = vn;
-  listThanhToanThuTuc = []
+  // listThanhToanThuTuc = []
   isThoiDiem: boolean = false;
   opt: any = '';
-  item: any = [];
+  item: any = {
+    TheoHopDong: true,
+    TheoGiaTri: false,
+    listThanhToanThuTuc: [],
+    id: "",
+    giaTri: 0,
+    tyLe: 0,
+  };
   listLoaiThanhToan: any = []
   listTheoLoaiThanhToan: any = []
   listLoaiTheoNgay: any = []
   listTinhTrangBaoLanh: any = []
   listThuTucThanhToan_ref: any = []
-  listThuTucThanhToan: any = []
-
+  listThuTucThanhToan: any = [];
+  IdQuyTrinh: any;
+  hopDong: any = {};
   optionsLoaiThanhToan = [
     { label: 'Tạm ứng', value: 0 },
     { label: 'Thanh toán', value: 1 },
-    { label: 'Thanh toán vật tư', value: 2 }
   ]
-
-
-  optionsTheoNgay = [
-    { label: 'Thời gian giao hàng', value: 2 },
-    { label: 'Ngày nhận hàng', value: 3 },
-    { label: 'Ngày nhận được tài liệu giao hàng', value: 4 },
-    { label: 'Ngày ký hợp đồng', value: 0 },
-    { label: 'Ngày ký hợp đồng có hiệu lực', value: 1 },
-  ]
-
   listDieuKhoanThanhToan: any = {}
+  dinhDangSo = dinhDangSo;
+
   yearRange: string = `${new Date().getFullYear() - 50
     }:${new Date().getFullYear()}`;
-  constructor(public activeModal: NgbActiveModal, private _servicesdmHopDong: DanhMucHopDongService, private _modal: NgbModal, private _service: HopDongService, private _serviceDungChung: SanXuatService,) { }
+  constructor(
+    public activeModal: NgbActiveModal,
+    private _servicesdmHopDong: DanhMucHopDongService,
+    private _modal: NgbModal,
+    private _service: HopDongService,
+    private _serviceDungChung: SanXuatService,
+    private _toastr: ToastrService,
+  ) { }
 
   ngOnInit(): void {
-    this.GetOptions()
+    this.GetOptions();
+    if (this.opt === "edit") {
+      if (this.item.isTheoGiaTriHopDong) {
+        this.item.TheoHopDong = this.item.isTheoGiaTriHopDong;
+        this.item.TheoGiaTri = !this.item.TheoHopDong;
+        this.item.ngayThanhToan = UnixToDate(this.item.ngayThanhToanUnix);
+      }
+      else {
+        this.item.TheoGiaTri = !this.item.isTheoGiaTriHopDong;
+        this.item.TheoHopDong = !this.item.TheoGiaTri;
+      }
+    }
   }
-
 
   GetOptions() {
     this._servicesdmHopDong
@@ -59,16 +76,18 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
         this.listTinhTrangBaoLanh = mapArrayForDropDown(res, "ten", "id");
       });
 
-
-    this._servicesdmHopDong
-      .GetListAlldmTheoLoaiThanhToan()
+    this._serviceDungChung
+      .GetListThanhToanTheo()
       .subscribe((res: any) => {
-        this.listTheoLoaiThanhToan = mapArrayForDropDown(res, "ten", "id");
+        this.listLoaiThanhToan = mapArrayForDropDown(res, "ten", "id");
       });
   }
-  toggleVisibility(){
-    this.isThoiDiem = this.item.isChonThoiDiemKhac;
-    
+
+  toggleVisibility() {
+    if (this.item.isChonThoiDiemKhac) {
+      this.item.soNgayCong = undefined;
+      this.item.loaiNgay = undefined;
+    }
   }
 
   onChangeLoaiThanhToan(even) {
@@ -82,63 +101,78 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   }
 
   chonDanhMuc() {
-
-    // modalRef.componentInstance.listDieuKhoanThanhToan = res1;
-    // modalRef.componentInstance.listThuTucThanhToan = listThuTucThanhToan;
-    if (this.item.listThanhToanThuTuc !== undefined && this.item.listThanhToanThuTuc !== null) {
-      this.listThanhToanThuTuc = this.item.listThanhToanThuTuc.filter((e: any) => e.isXoa !== true);
-    }
-    this._servicesdmHopDong.DanhMucThuTucThanhToan().GetListAll().subscribe((res1: any) => {
-
-
-      let modalRef = this._modal.open(ChonthutucthanhtoanmodalComponent, {
-        size: 'lg',
-        backdrop: 'static'
-      })
-      console.log(this.listThanhToanThuTuc);
-
-
-      modalRef.componentInstance.listDieuKhoanThanhToan = res1;
-      modalRef.componentInstance.listThanhToanThuTuc = this.listThanhToanThuTuc;
-      modalRef.componentInstance.opt = 'edit';
-      modalRef.result.then((data) => {
-        this.item.listThanhToanThuTuc.forEach(element => {
-          console.log('listThanhToanThuTuc', element);
-
-          element.isXoa = true;
-        });
-
-
-        for (let i = 0; i < data.data.length; i++) {
-          for (let j = 0; j < this.listThanhToanThuTuc.length; j++) {
-
-            this.listThanhToanThuTuc[j].isXoa = false;
-            data.data[i].isXoa = true;
-
-          }
-        }
-
-
-      }, (reason) => {
-        // không
-      })
-
-      modalRef.componentInstance.listThanhToanThuTuc = res1;
-      // modalRef.componentInstance.item = this.item.listDieuKhoanThanhToan;
-
+    let modalRef = this._modal.open(ChonthutucthanhtoanmodalComponent, {
+      size: 'lg',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.listThanhToanThuTuc = deepCopy(this.item.listThanhToanThuTuc);
+    modalRef.componentInstance.opt = 'edit';
+    modalRef.componentInstance.IdQuyTrinh = this.IdQuyTrinh;
+    modalRef.result.then((res) => {
+      this.item.listThanhToanThuTuc = res;
+    }, (reason) => {
+      // không
     })
   }
 
   accept(opt) {
     if (this.item.ngayThanhToan !== undefined && this.item.ngayThanhToan !== null) {
       this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
-
     }
-
-
+    if(this.item.soNgay == null || this.item.soNgay === undefined)
+      this.item.soNgay = 0;
+    if(this.item.giaTri === null)
+      this.item.giaTri = 0;
+    if(this.item.tyLe === null)
+      this.item.tyLe = 0;
+    this.item.isTheoGiaTriHopDong = this.item.TheoHopDong;
+    if (this.item.loaiThanhToan!=undefined) {
+      this.item.tenLoaiThanhToan = this.optionsLoaiThanhToan.find(obj => obj.value == this.item.loaiThanhToan).label;
+    }
     this.activeModal.close({ opt: opt, item: this.item });
-    console.log(this.item);
-
   }
 
+  changeGiaTri() {
+    if (this.item.TheoHopDong) {
+      if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0) {
+        this.item.tyLe = (this.item.giaTri / this.hopDong.giaTri) * 100;
+      }
+      else {
+        this._toastr.error("Yêu cầu nhập giá trị trong tab Hợp đồng", "Thông báo");
+      }
+    }
+  }
+
+  changeTyLe() {
+    if (this.item.TheoHopDong) {
+      if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0) {
+        this.item.giaTri = (this.item.tyLe / 100) * this.hopDong.giaTri;
+      }
+      else {
+        this._toastr.error("Yêu cầu nhập giá trị Hợp đồng", "Thông báo");
+      }
+    }
+  }
+
+  selectTheoGiaTriHopDong() {
+    this.item.TheoGiaTri = !this.item.TheoHopDong;
+    if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0 && this.item.TheoHopDong === true) {
+      this.item.giaTri = (this.hopDong.giaTri || 0) * (this.item.tyLe || 0);
+    }
+    else {
+      this._toastr.error("Yêu cầu nhập giá trị Hợp đồng", "Thông báo");
+    }
+  }
+  selectTheoTyLeHopDong() {
+    this.item.TheoGiaTri = !this.item.TheoHopDong;
+    if (this.hopDong.giaTri != undefined && this.hopDong.giaTri > 0 && this.item.TheoHopDong === true) {
+      this.item.tyLe = (this.item.giaTri / this.hopDong.giaTri) * 100;
+    }
+    else {
+      this._toastr.error("Yêu cầu nhập giá trị Hợp đồng", "Thông báo");
+    }
+  }
+  selectTheoGiaTriDotGiaoHang() {
+    this.item.TheoHopDong = !this.item.TheoGiaTri;
+  }
 }

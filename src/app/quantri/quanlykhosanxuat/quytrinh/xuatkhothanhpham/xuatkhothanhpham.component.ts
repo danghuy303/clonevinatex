@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, formatdate, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
 import { XuatkhothanhphammodalComponent } from '../xuatkhothanhphammodal/xuatkhothanhphammodal.component';
 
 @Component({
@@ -11,7 +13,7 @@ import { XuatkhothanhphammodalComponent } from '../xuatkhothanhphammodal/xuatkho
   templateUrl: './xuatkhothanhpham.component.html',
   styleUrls: ['./xuatkhothanhpham.component.css']
 })
-export class XuatkhothanhphamComponent implements OnInit {
+export class XuatkhothanhphamComponent extends StoreBase implements OnInit,OnDestroy {
 
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
@@ -65,7 +67,7 @@ export class XuatkhothanhphamComponent implements OnInit {
   eAction = 'XUATTHANHPHAM';
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   constructor(public _modal: NgbModal, public _toastr: ToastrService, private _service: SanXuatService,
-    private activatedRoute: ActivatedRoute, private router: Router) { }
+    private activatedRoute: ActivatedRoute, private router: Router,public store:StoreService) {super(store) }
 
   ngOnInit(): void {
     console.log(this.activatedRoute);
@@ -107,7 +109,7 @@ export class XuatkhothanhphamComponent implements OnInit {
   update(Id) {
     this._service.PhieuXuatThanhPham().Get(Id).subscribe((res1: any) => {
       let modalRef = this._modal.open(XuatkhothanhphammodalComponent, {
-        size: 'fullscreen',
+        size: 'fullscreen-100',
         backdrop: 'static'
       })
       modalRef.componentInstance.opt = 'edit';
@@ -204,5 +206,8 @@ export class XuatkhothanhphamComponent implements OnInit {
         this._service.download(res.TenFile);
       })
     }
+  }
+  ngOnDestroy(){
+    super.ngOnDestroy();
   }
 }

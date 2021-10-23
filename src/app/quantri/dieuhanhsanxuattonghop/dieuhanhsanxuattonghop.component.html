@@ -97,7 +97,7 @@
                 <div class="p-col-12 p-xl-4 p-lg-4 p-p-3 text-left" style="margin-top:40px">
                     <div class="d-flex flex-row p-jc-between" *ngFor="let thongke of thongKes1">
                         <div>{{thongke.Ten}}</div>
-                        <div>{{thongke.GiaTri|number:'0.0-3'}}</div>
+                        <div>{{thongke.GiaTri|number:'0.3-3'}}</div>
                     </div>
                     <!-- <p *ngFor="let thongke of thongKes1">
                          {{thongke.GiaTri|number:'0.0-3'}}
@@ -132,7 +132,7 @@
                     </div>
                     <div class="p-inputgroup" style="width:150px">
                         <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
-                            (keyup.enter)="GetList()" [(ngModel)]="filter.KeyWord" />
+                            (keyup.enter)="GetBieuDoDuongKiemTraChatLuong()" [(ngModel)]="filter.KeyWord" />
                         <button type="button" pButton pRipple icon="pi pi-refresh"
                             class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
                     </div>
@@ -204,6 +204,15 @@
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
+            <tr class="normal">
+                <th style="width: 200px !important;"></th>
+                <th></th>
+                <th></th>
+                <th>Tổng phế: {{TongPheSanLuong|number:'0.0-3'}}</th>
+                <th>SL đã trừ phế: {{(TongKhoiLuongSanLuong-TongPheSanLuong)|number:'0.0-3'}}</th>
+                <th></th>
+                <th></th>
+            </tr>
             <tr class="normal">
                 <th style="width: 200px !important;">Mặt hàng</th>
                 <th>Chi số</th>
@@ -302,7 +311,7 @@
 </p-dialog>
 
 <p-dialog [header]="labelLuyKeChiTiet" [(visible)]="showLuyKeChiTiet" [modal]="true"
-    [style]="{width: '95vw', height:auto}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    [style]="{width: '95vw', height:'auto'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
     <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
         <div class="p-d-flex p-flex-row">
             <div class="p-mr-2">
@@ -325,37 +334,47 @@
             <colgroup>
                 <col style="width: 150px;">
                 <col style="width: 50px;">
+                <col style="width: 150px;">
                 <!-- <col style="width: 90px;"> -->
                 <col style="width: 90px;">
                 <col style="width: 100px;">
                 <col style="width: 100px;">
-                <col style="width: 150px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr class="normal">
+                <th style="width: 200px !important;"></th>
+                <th></th>
+                <th></th>
+                <!-- <th>Máy chạy</th> -->
+                <th>Tổng phế: {{TongPheLuyKeChiTiet|number:'0.0-3'}}</th>
+                <th>SL đã trừ phế: {{(TongKhoiLuongLuyKeChiTiet-TongPheLuyKeChiTiet)|number:'0.0-3'}}</th>
+                <th></th>
+            </tr>
+            <tr class="normal">
                 <th style="width: 200px !important;">Mặt hàng</th>
                 <th>Chi số</th>
+                <th>Lô</th>
                 <!-- <th>Máy chạy</th> -->
                 <th>Sản lượng màn hình</th>
                 <th>Số quả thực tế</th>
                 <th>Sản lượng thực tế</th>
-                <th>Lô</th>
             </tr>
             <tr class="normal">
                 <th style="width: 200px !important;">Tổng</th>
+                <th></th>
                 <th></th>
                 <!-- <th></th> -->
                 <th class="text-right">{{listLuyKeChiTiet|SumByKey:'KhoiLuong'|number:'0.0-3'}}</th>
                 <th class="text-right">{{listLuyKeChiTiet|SumByKey:'SoQuaSoiThucTe'|number:'0.0-3'}}</th>
                 <th class="text-right">{{listLuyKeChiTiet|SumByKey:'KhoiLuongThucTe'|number:'0.0-3'}}</th>
-                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
-                <td style="width: 200px !important;">{{item.Ten}}</td>
+                <td style="width: 200px !important;">{{item.Ten}} &nbsp;</td>
                 <td class="text-right">{{item.Ne|number:'0.0-3'}}</td>
+                <td class="text-center">{{item.TenLoHang}}</td>
                 <!-- <td></td> -->
                 <td class="text-right">{{item.KhoiLuong|number:'0.0-3'}}</td>
                 <td class="text-right">
@@ -364,7 +383,6 @@
                 <td class="text-right">
                     {{item.KhoiLuongThucTe|number:'0.0-3'}}
                 </td>
-                <td class="text-center">{{item.TenLoHang}}</td>
             </tr>
             <!-- <ng-container *ngFor="let may of item.listMay">
                 <tr>
