@@ -17,7 +17,7 @@ export class PhieuthuhoitaisanComponent implements OnInit {
   items: any = [];
   IdTrangThai: string = "";
   keyWord: any = '';
-  paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
+  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   selectedItems: any = [];
   filter: any = {};
   showDropDown: boolean = false;
@@ -33,6 +33,7 @@ export class PhieuthuhoitaisanComponent implements OnInit {
     private activatedRoute: ActivatedRoute, private router: Router,
   ) { }
   ngOnInit(): void {
+    console.log(this.paginator);
     this.activatedRoute.params.subscribe((res: any) => {
       console.log(res);
       if (res.id !== "0") {
@@ -44,7 +45,7 @@ export class PhieuthuhoitaisanComponent implements OnInit {
           });
       }
     });
-    this.GetListThuHoiTaiSan(true);
+    this.GetListThuHoiTaiSan();
     this.KiemTraTabTrangThai();
   }
 
@@ -54,12 +55,12 @@ export class PhieuthuhoitaisanComponent implements OnInit {
   }
   GetListThuHoiTaiSan(reset?) {
     if (reset) {
-      this.paging.Page = 1;
+      this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
     let data = {
       PageSize: 20,
-      CurrentPage: this.paging.Page,
+      CurrentPage: this.paging.CurrentPage,
       sFilter: this.keyWord,
       TabTrangThai: this.trangThai
 
@@ -76,7 +77,6 @@ export class PhieuthuhoitaisanComponent implements OnInit {
     });
   }
   add() {
-
     let modalRef = this._modal.open(ModalthuhoitaisanComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',
@@ -87,7 +87,7 @@ export class PhieuthuhoitaisanComponent implements OnInit {
     modalRef.componentInstance.title = 'Thêm mới phiếu thu hồi tài sản';
     modalRef.componentInstance.item = {
       Id: '', IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "",
-      isKetThuc: false,listFileDinhKem:[]
+      isKetThuc: false,listFileDinhKem:[],listTaiSan:[],
     };
     modalRef.result.then(res => {
 
@@ -130,8 +130,9 @@ export class PhieuthuhoitaisanComponent implements OnInit {
       this.GetListThuHoiTaiSan();
     });
   }
+
   changePage(event) {
-    this.paging.Page = event.page + 1;
+    this.paging.CurrentPage = event.page + 1;
     this.GetListThuHoiTaiSan()
   }
 

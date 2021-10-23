@@ -121,11 +121,13 @@ export class ModalthuhoitaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = {};
-    modalRef.result
-      .then((res: any) => {
+    modalRef.result.then((res: any) => {
+        // console.log(res);
         res.forEach(element => {
+          element.SoLuong=0; 
           this.item.listTaiSan.push(element);
         });
+        console.log(this.item.listTaiSan)
       })
       .catch((er) => {
 
