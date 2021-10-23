@@ -1022,7 +1022,7 @@ export class QuantriComponent implements OnInit {
           //   command: () => this.close(),
           // },
           {
-            label: "Định mức sản xuất",
+            label: "Năng lực sản xuất",
             routerLink:
             
               "/quantri/hopdongsanxuat/danhmuc/dinhmucsanxuat",

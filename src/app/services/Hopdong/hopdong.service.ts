@@ -81,8 +81,8 @@ export class HopDongService {
         );
       },
       // get all danh sach hop dong theo ten
-      GetListAll: (Loai, IddmLoaiHopDong) => {
-        return this.http.get(url + `HopDong/GetAllQuyTrinhHopDong_Opt?IddmLoaiHopDong=${IddmLoaiHopDong}&Loai=${Loai}`, httpOptions);
+      GetListAll: (Loai) => {
+        return this.http.get(url + `HopDong/GetAllQuyTrinhHopDong_Opt?Loai=${Loai}`, httpOptions);
       },
 
       GetListAlldmTieuChuanChatLuong: () => {

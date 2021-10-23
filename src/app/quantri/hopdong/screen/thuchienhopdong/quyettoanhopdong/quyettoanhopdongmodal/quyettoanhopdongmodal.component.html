@@ -77,14 +77,14 @@
       </div>
     </div>
     <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
-      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng đã nhận: </label>
+      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng đã mua/ nhận: </label>
       <div class="p-col-12 p-lg-8 p-p-0">
         <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.khoiLuongDaNhan" locale="vi-VN" disabled>
         </p-inputNumber>
       </div>
     </div>
     <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
-      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị đã nhận: </label>
+      <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị đã mua/ nhận: </label>
       <div class="p-col-12 p-lg-8 p-p-0">
         <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.giaTriDaNhan" locale="vi-VN" disabled>
         </p-inputNumber>
@@ -194,12 +194,14 @@
           <col style="width: 50px">
           <col>
           <col>
+          <col>
         </colgroup>
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
           <th>STT</th>
           <th>Tên đợt thanh toán</th>
+          <th>Ngày thanh toán</th>
           <th>Giá trị thanh toán</th>
         </tr>
       </ng-template>
@@ -207,6 +209,7 @@
         <tr>
           <td class="text-center">{{i+1}}</td>
           <td class="text-center">{{item.noiDung}}</td>
+          <td class="text-center">{{item.ngayThanhToan | date:'dd/MM/yyyy'}}</td>
           <td class="text-right">{{item.giaTriThanhToan |number:'0.0-0'}}</td>
         </tr>
       </ng-template>
