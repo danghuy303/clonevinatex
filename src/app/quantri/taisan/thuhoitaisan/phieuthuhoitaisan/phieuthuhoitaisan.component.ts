@@ -24,7 +24,7 @@ export class PhieuthuhoitaisanComponent implements OnInit {
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
   eAction = "THUHOITAISAN";
-
+  listPhanXuong:any=[];
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
@@ -40,19 +40,21 @@ export class PhieuthuhoitaisanComponent implements OnInit {
         this._serviceTaiSan
           .PhieuThuHoiTaiSan()
           .Get(res.id)
-          .subscribe((dulieu: any) => {
-            this.update(dulieu);
+          .subscribe((res: any) => {
+            this.update(res);
           });
       }
     });
     this.GetListThuHoiTaiSan();
     this.KiemTraTabTrangThai();
+    this.GetListdmPhanXuong();
   }
 
   resetFilter() {
     this.keyWord = '';
     this.GetListThuHoiTaiSan(true);
   }
+  
   GetListThuHoiTaiSan(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
@@ -66,9 +68,19 @@ export class PhieuthuhoitaisanComponent implements OnInit {
 
     };
     this._serviceTaiSan.PhieuThuHoiTaiSan().GetList(data).subscribe((res: any) => {
-      console.log(res)
-      this.items = res.Data.Items;
+      res.Data.Items.forEach(obj=>{  
+        obj.TenPhanXuong = this.listPhanXuong.find(ele=>ele.value===obj.IddmPhanXuong)?.label||null;          
+      });
+      this.items = res.Data.Items;  
       this.paging.TotalCount = res.Data.TotalCount;
+      console.log(this.listPhanXuong)
+    })
+  }
+  GetListdmPhanXuong() {
+    this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+      console.log(res)
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.GetListThuHoiTaiSan();
     })
   }
   changeParam(id) {
@@ -86,7 +98,7 @@ export class PhieuthuhoitaisanComponent implements OnInit {
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = 'Thêm mới phiếu thu hồi tài sản';
     modalRef.componentInstance.item = {
-      Id: '', IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "",
+      Id: '',IdTaiSan: "", IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "",TendmPhanXuong:"",
       isKetThuc: false,listFileDinhKem:[],listTaiSan:[],
     };
     modalRef.result.then(res => {
@@ -106,7 +118,7 @@ export class PhieuthuhoitaisanComponent implements OnInit {
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
     modalRef.componentInstance.title = 'Cập nhật phiếu thu hồi tài sản';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {
       })

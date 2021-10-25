@@ -137,7 +137,6 @@ export class NhaptaisanComponent implements OnInit {
         this.Loaddata();
       })
       .catch((er) => {
-
       });
   }
 
@@ -151,7 +150,7 @@ export class NhaptaisanComponent implements OnInit {
         this._serviceTaiSan.NhapTaiSan().Delete(item.Id).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this.Loaddata(false);
-            this.toastr.success(res.message);
+            this.toastr.success(res.Message);
           } else {
             this.toastr.error(res.message);
           }
