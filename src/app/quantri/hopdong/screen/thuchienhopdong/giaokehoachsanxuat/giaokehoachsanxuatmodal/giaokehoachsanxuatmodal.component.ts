@@ -176,12 +176,13 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
       size: 'xl'
     })
     modalRef.componentInstance.items = this.listMatHang;
-    modalRef.componentInstance.selectedItems = [];
+    modalRef.componentInstance.selectedItems = this.item.listItem;
     modalRef.componentInstance.IdQuyTrinh = this.item.id;
     modalRef.componentInstance.opt = "";    
     modalRef.result.then(res => {
       if (res.length > 0) {
-        res.forEach(obj => this.item.listItem.push(obj))
+        this.item.listItem = res
+        // res.forEach(obj => this.item.listItem.push(obj))
       }
     }).catch(er => {
       console.log(er);
@@ -219,6 +220,7 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
       this.listMatHang = [];
       res.data.forEach(obj=>{
         let data: any = {}
+        data.idHopDong = obj.idHopDong;
         data.ne = obj.ne;
         data.doSan = obj.doSan;
         data.ma = obj.ma;

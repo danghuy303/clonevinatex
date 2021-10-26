@@ -11,6 +11,7 @@ export const host1 = `${window.location.origin.includes('localhost')?'http://103
 // export const host1 = `${window.location.origin.includes('localhost')?'http://eos.harmonyes.com.vn:1169':(window.location.origin)}`;
 // export const host1 = `${window.location.origin.includes('localhost')?'http://103.130.212.45:2368':(window.location.origin)}`;
 // const host1 = 'http://vinatex.harmonyes.com.vn'; //Nha. May Soi Dong Van Hanosimex
+// const host1 = 'http://phuhung.vinatex.harmonyes.com.vn'; //Nha. May phu hung
 // const host = 'http://vinatex.harmonyes.com.vn';
 // host public 'http://vinatex.harmonyes.com.vn';
 // host phat trien 'http://eos.harmonyes.com.vn:1169';

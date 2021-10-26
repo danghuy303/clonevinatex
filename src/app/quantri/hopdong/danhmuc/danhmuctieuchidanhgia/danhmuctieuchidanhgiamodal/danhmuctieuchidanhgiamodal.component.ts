@@ -22,15 +22,17 @@ export class DanhmuctieuchidanhgiamodalComponent implements OnInit {
   }
   SetData() {
     let data: any = {
-      "id":this.item.id,
+      "id":this.item.id || '',
       "ma": this.item.ma,
       "ten": this.item.ten,
       "tieuChuan": this.item.tieuChuan,
       "ghiChu": this.item.ghiChu,
       "hoatDong": this.item.hoatDong,
-      "thuTu": this.item.thuTu,
-      "diemToiDa": this.item.diemToiDa,
+      "noiDung": this.item.noiDung,
+      "thuTu": this.item.thuTu  || 0,
+      "diemToiDa": this.item.diemToiDa || 0,
       "iddmTieuChiCha": this.item.iddmTieuChiCha,
+      "loai": this.item.loai  || 0,
     };
     return data;
   }

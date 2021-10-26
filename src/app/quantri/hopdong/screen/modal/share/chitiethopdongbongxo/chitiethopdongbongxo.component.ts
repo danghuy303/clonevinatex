@@ -26,7 +26,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   @Input('listLoaiMatHang') listLoaiMatHang: any = [];
   @Output('listLoaiMatHangChange') listLoaiMatHangChange: EventEmitter<any> = new EventEmitter<any>();
   @Output('listHangHoaChange') listHangHoaChange: EventEmitter<any> = new EventEmitter<any>();
-  
+
   getKhachHang: any = []
   getKhachHang1: any = []
 
@@ -67,6 +67,8 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   checkbutton: any = {};
   lang: any = vn;
   listHopDong: any = [];
+  listHopDongFull: any = [];
+  isHienThiLoaiHD: boolean = false
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(
     public activeModal: NgbActiveModal,
@@ -80,7 +82,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
   onChangBenA(event, isChange = false) {
     let IddmKhachHang = "";
-    if(isChange === false)
+    if (isChange === false)
       IddmKhachHang = event.value;
     else
       IddmKhachHang = this.item.iddmKhachHangA;
@@ -100,7 +102,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
   onChangBenB(event, isChange = false) {
     let IddmKhachHang = "";
-    if(isChange === false)
+    if (isChange === false)
       IddmKhachHang = event.value;
     else
       IddmKhachHang = this.item.iddmKhachHangA;
@@ -128,12 +130,12 @@ export class ChitiethopdongbongxoComponent implements OnInit {
         // this.listLoaiMatHang = res;
         this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
       });
-this.getListHopDongGoc();
+    this.getListHopDongGoc();
   }
   LayGiaTriHopDong() {
-    if(this.item.isLayTheoGiaTriHangHoa == true)
+    if (this.item.isLayTheoGiaTriHangHoa == true)
       this.item.giaTri = this.hangHoa.giaTriHopDongMatHang || 0;
-    if(this.isSoi === true)
+    if (this.isSoi === true)
       this.item.giaTri = this.item.thanhTien || 0;
   }
   // ngOnChanges(changes: SimpleChanges) {
@@ -148,13 +150,14 @@ this.getListHopDongGoc();
 
   ngOnInit() {
     this.GetFormOptions();
-    if(this.item.isPhuLuc){
+    if (this.item.isPhuLuc) {
       this._service.QuyTrinhHopDong().GetListHopDongForPhuLuc(this.item.loai || 2).subscribe((res: any) => {
         this.listHopDong = mapArrayForDropDown(res, "soTenHopDong", "id");
+        this.listHopDongFull = res;
       });
     }
     if (this.opt !== "edit") {
-      this.itemcha.listTaiLieu=[];
+      this.itemcha.listTaiLieu = [];
       if (this._store.getCurrent()) {
         this.item.IdDuAn = this._store.getCurrent();
       }
@@ -162,13 +165,14 @@ this.getListHopDongGoc();
     else {
       this.getListHopDongGoc();
       this.itemcha.listTen = "";
-      if(this.itemcha.lstFileUploadCu === undefined || this.itemcha.lstFileUploadCu === null)
+      if (this.itemcha.lstFileUploadCu === undefined || this.itemcha.lstFileUploadCu === null)
         this.itemcha.lstFileUploadCu = [];
       this.itemcha.lstFileUploadCu.forEach(element => {
         this.itemcha.listTen += `${element.TenGoc}`;
       });
     }
-
+    if (this.isSoi === true || this.item.isPhuLuc === true)
+      this.isHienThiLoaiHD = true
   }
 
 
@@ -177,7 +181,7 @@ this.getListHopDongGoc();
   //   this.itemchaChange.emit(this.itemcha);
   //   this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
   //   this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
-    
+
   // }
 
   GetFormOptions() {
@@ -187,7 +191,7 @@ this.getListHopDongGoc();
       .subscribe((res: any) => {
         this.listLoaiHopDong = mapArrayForDropDown(res, "ten", "id");
         this.listLoaiHopDongFull = res;
-        if (this.opt === "edit") 
+        if (this.opt === "edit")
           this.chonHopDongGoc();
       });
 
@@ -201,7 +205,7 @@ this.getListHopDongGoc();
         if (this.opt === "edit") {
           this.onChangBenA('', true)
           this.onChangBenB('', true)
-    
+
         }
       });
 
@@ -223,29 +227,29 @@ this.getListHopDongGoc();
   Loai(loai: boolean) {
     this.item.IsBong = loai;
   }
-  chonHopDongGoc(){
+  chonHopDongGoc() {
     this.isHienHopDongGoc = false;
-    if(this.isSoi !== true){
-      let itemFind = this.listLoaiHopDongFull.filter(el=> el.id == this.item.iddmLoaiHopDong)
-      if(itemFind!== undefined){
-          if(itemFind[0].ma == "BAN" || itemFind[0].ma == "CHOVAY"){
-            this.getListHopDongGoc();
-            this.isHienHopDongGoc = true;
-          }
+    if (this.isSoi !== true) {
+      let itemFind = this.listLoaiHopDongFull.filter(el => el.id == this.item.iddmLoaiHopDong)
+      if (itemFind !== undefined) {
+        if (itemFind[0].ma == "BAN") {
+          this.getListHopDongGoc();
+          this.isHienHopDongGoc = true;
+        }
       }
     }
   }
-  getListHopDongGoc(){
+  getListHopDongGoc() {
     this._service.QuyTrinhHopDong().GetListAll(this.item.loai || 0)
       .subscribe((res: Array<any>) => {
         this.listHopDongGoc = mapArrayForDropDown(res, "soTenHopDong", "id");
       });
   }
-  listHangHoaTheoHopDong(){
-    this._service.QuyTrinhHopDong().getListMatHang(this.item.idHopDong || '')
+  listHangHoaTheoHopDong() {
+    this._service.QuyTrinhHopDong().getListMatHang(this.item.idHopDongGoc || '')
       .subscribe((res: any) => {
-        if(res.data.length > 0){
-          let data : any = res.data[0];
+        if (res.data.length > 0) {
+          let data: any = res.data[0];
           data.id = '';
           this.listHangHoaChange.emit(data);
         }
@@ -267,7 +271,12 @@ this.getListHopDongGoc();
       debugger
       this.listTen = mapArrayForDropDown(this.listTaiLieu, 'fileName', 'id');
     }, (reason) => {
-
     });
+  }
+  chonHopDong(e) {
+    let itemFind = this.listHopDongFull.filter(el => el.id == e.value)
+    if (itemFind !== undefined) {
+      this.item.iddmLoaiHopDong = itemFind[0].iddmLoaiHopDong;
+    }
   }
 }

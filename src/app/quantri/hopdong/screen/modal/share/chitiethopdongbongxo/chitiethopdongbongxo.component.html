@@ -4,10 +4,10 @@
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Chọn hợp đồng:<span class="required">*</span></label>
             <div class="p-col-12 p-xl-9 p-p-0">
                 <p-dropdown [filter]="true" [(ngModel)]="item.idHopDong" [options]="listHopDong"
-                    placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm"></p-dropdown>
+                    placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm" (onChange)="chonHopDong($event)"></p-dropdown>
             </div>
         </div>
-        <div [ngStyle]="{'display':!isSoi ? 'flex' : 'none' }" class="p-col-12 p-lg-6   flex-column flex-xl-row">
+        <div [ngStyle]="{'display':!isHienThiLoaiHD ? 'flex' : 'none' }" class="p-col-12 p-lg-6   flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Loại hợp đồng:<span class="required">*</span></label>
             <div class="p-col-12 p-xl-9 p-p-0">
                 <p-dropdown [filter]="true" [(ngModel)]="item.iddmLoaiHopDong" [options]="listLoaiHopDong"

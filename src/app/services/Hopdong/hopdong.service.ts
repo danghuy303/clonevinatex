@@ -459,7 +459,6 @@ export class HopDongService {
         return this.http.get(url + `DanhMuc/GetdmTieuChiDanhGiaById?Id=${Id}`,httpOptions);
       },
       Set: (data) => {
-        data.idDuAn = this.store.getCurrent();
         return this.http.post(url + "DanhMuc/SetdmTieuChiDanhGia",data,httpOptions);
       },
       Delete: (Id) => {

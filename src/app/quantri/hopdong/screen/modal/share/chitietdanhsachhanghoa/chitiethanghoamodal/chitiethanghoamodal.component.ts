@@ -1,9 +1,7 @@
-import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { deepCopy } from 'src/app/services/globalfunction';
 import { vn } from 'src/app/services/const';
-import { DanhMucHopDongService } from './../../../../../../../services/Hopdong/danhmuchopdong.service';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
-import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 
 @Component({
@@ -30,9 +28,6 @@ export class ChitiethanghoamodalComponent implements OnInit {
     }:${new Date().getFullYear()}`;
   constructor(
     public activeModal: NgbActiveModal,
-    private _servicesdmHopDong: DanhMucHopDongService,
-    private _modal: NgbModal,
-    private _servicesSanXuat: SanXuatService,
     private _serviceHopDong: HopDongService,
   ) { }
 

@@ -57,7 +57,7 @@
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
                         <td class="text-center">
-                            <p-checkbox [(ngModel)]="item.checked" (onChange)="checked()" binary="true" inputId="binary"></p-checkbox>
+                            <p-checkbox [(ngModel)]="item.checked" (onChange)="checked(item)" binary="true" inputId="binary"></p-checkbox>
                         </td>
                         <td>{{item.soTenHopDong}}</td>
                         <td>{{item.ten}}</td>

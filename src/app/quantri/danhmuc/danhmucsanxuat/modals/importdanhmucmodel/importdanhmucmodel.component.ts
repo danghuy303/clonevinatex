@@ -99,6 +99,7 @@ export class ImportdanhmucmodelComponent implements OnInit {
   } 
 
   taiTepMau() {
+    debugger
     window.open(API.baseUrl + this.mapTepMauURL[this.importFunc]);
   }
 }
