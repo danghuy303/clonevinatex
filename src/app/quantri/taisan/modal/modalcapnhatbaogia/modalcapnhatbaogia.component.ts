@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FileItem, FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
@@ -151,6 +152,24 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
         }
       })
     }
+  }
+
+  XoaQuyTrinh() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
+    modalRef.result
+      .then((res) => {
+        this._serviceTaiSan.BanGiaoTaiSan().Delete(this.item.Id).subscribe((res: any) => {
+          if (res.StatusCode === 200) {           
+            this.toastr.success(res.Message);
+          } else {
+            this.toastr.error(res.Message);
+          }
+        })
+      })
+      .catch((er) => console.log(er));
   }
 
   ThemMoiDanhSachTaiSan() {

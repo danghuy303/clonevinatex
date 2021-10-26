@@ -14,7 +14,6 @@ import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { TreeNode } from 'primeng/api';
 import { ModalcapnhattaisanComponent } from "../modal/modalcapnhattaisan/modalcapnhattaisan.component";
-import { ModalthongbaoComponent } from "../../modal/modalthongbao/modalthongbao.component";
 
 @Component({
   selector: 'app-nhaptaisan',
@@ -138,26 +137,7 @@ export class NhaptaisanComponent implements OnInit {
       })
       .catch((er) => {
       });
-  }
-
-  delte(item) {
-    let modalRef = this._modal.open(ModalthongbaoComponent, {
-      backdrop: "static",
-    });
-    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
-    modalRef.result
-      .then((res) => {
-        this._serviceTaiSan.NhapTaiSan().Delete(item.Id).subscribe((res: any) => {
-          if (res.StatusCode === 200) {
-            this.Loaddata(false);
-            this.toastr.success(res.Message);
-          } else {
-            this.toastr.error(res.message);
-          }
-        })
-      })
-      .catch((er) => console.log(er));
-  }
+  } 
 
   changePage(event) {
     this.paging.currentPage = event.page + 1;
