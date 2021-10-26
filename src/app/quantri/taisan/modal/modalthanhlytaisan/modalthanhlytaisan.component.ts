@@ -97,32 +97,29 @@ export class ModalthanhlytaisanComponent implements OnInit {
   xoa(item) {
 
   }
-  validate(): boolean {
-    if (!validVariable(this.item.IddmPhanXuong)) {
-      this.toastr.error('Vui lòng nhập phân xưởng!!');
-      return false;
-    }
-    return true;
-  }
+  // validate(): boolean {
+  //   if (!validVariable(this.item.IddmPhanXuong)) {
+  //     this.toastr.error('Vui lòng nhập phân xưởng!!');
+  //     return false;
+  //   }
+  //   return true;
+  // }
   setData() {
     this.item.NgayThanhLyUnix = DateToUnix(this.item.NgayThanhLy);
     this.item.IdDuAn = this.store.getCurrent();
     return this.item;
   }
   GhiLai() {
-    if (this.validate()) {
       this._serviceTaiSan.ThanhLyTaiSan().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
           this.toastr.success(res.Message);
-          this.activeModal.close();
+          // this.activeModal.close();
         }
       }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       })
-    }
-
   }
 
   GetNextSoQuyTrinh() {
@@ -142,6 +139,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
     modalRef.result.then((res: any) => {
       // console.log(res);
       res.forEach(element => {
+        element.GiaTriThanhLy = 0;
         element.SoLuong = 0;
         this.item.listTaiSan.push(element);
       });

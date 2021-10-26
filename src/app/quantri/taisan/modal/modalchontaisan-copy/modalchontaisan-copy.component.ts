@@ -76,49 +76,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
   checked() {
     this.checkedAll = this.TimCheck();
   }
-  // [{
-  //   "data": {
-  //     "Id": "6f4ff3ab-8420-45ba-8ed3-bb61d432a17a",
-  //     "Ten": "test tên con 1",
-  //     "Ma": "test mã con 1",
-  //     "NguyenGia": 1,
-  //     "SoSeri": "qưeqwe",
-  //     "GiaConLai": 1,
-  //     "NgayNhap": "2021-10-18T17:00:00",
-  //     "NgayNhapUnix": 1634551200,
-  //   },
-  //   "children": [
-  //     {
-  //       "data": {
-  //         "Id": "6f4ff3ab-8420-45ba-8ed3-bb61d432a17a",
-  //         "Ten": "test tên con 1",
-  //         "Ma": "test mã con 1",
-  //         "NguyenGia": 1,
-  //         "SoSeri": "qưeqwe",
-  //         "GiaConLai": 1,
-  //         "NgayNhap": "2021-10-18T17:00:00",
-  //         "NgayNhapUnix": 1634551200,
-  //         "listTaiSan": null
-  //       },
-  //       "children": [
-  //         {
-  //           "data": {
-  //             "name": "Expenses.doc",
-  //             "size": "30kb",
-  //             "type": "Document"
-  //           }
-  //         },
-  //         {
-  //           "data": {
-  //             "name": "Resume.doc",
-  //             "size": "25kb",
-  //             "type": "Resume"
-  //           }
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // }]
+  
   Loaddata() {
     this._serviceTaiSan.GetOptions().GetListTaiSanChuaBanGiao().subscribe((res: any) => {
       console.log(res.Data)
@@ -156,7 +114,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
           if (objchildren.data.checked) {
             data.push({
               TaiSan: obj.data,
-              IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
+              IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,       
               IdTaiSan: objchildren.data.Id,
               Id: '',
             });
