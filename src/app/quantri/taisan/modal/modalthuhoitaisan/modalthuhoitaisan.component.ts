@@ -134,7 +134,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
   }
 
   ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open(ModalchontaisanComponent, {
+    let modalRef = this._modal.open(ModalchontaisanCopyComponent, {
       size: "xl",
       backdrop: "static",
     });

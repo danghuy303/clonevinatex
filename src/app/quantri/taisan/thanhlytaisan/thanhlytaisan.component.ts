@@ -126,6 +126,7 @@ export class ThanhlytaisanComponent implements OnInit {
       })
       .finally(() => {
         this.GetList();
+        
         this.changeParam(0);
       });
   }
