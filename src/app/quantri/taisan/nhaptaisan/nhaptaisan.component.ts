@@ -125,7 +125,7 @@ export class NhaptaisanComponent implements OnInit {
       });
   }
 
-  edit(item) {    
+  edit(item) {
     let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
       size: "fullscreen-100",
       backdrop: "static",
@@ -137,7 +137,6 @@ export class NhaptaisanComponent implements OnInit {
         this.Loaddata();
       })
       .catch((er) => {
-
       });
   }
 
@@ -151,13 +150,18 @@ export class NhaptaisanComponent implements OnInit {
         this._serviceTaiSan.NhapTaiSan().Delete(item.Id).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this.Loaddata(false);
-            this.toastr.success(res.message);
+            this.toastr.success(res.Message);
           } else {
             this.toastr.error(res.message);
           }
         })
       })
       .catch((er) => console.log(er));
+  }
+
+  changePage(event) {
+    this.paging.currentPage = event.page + 1;
+    this.Loaddata(false);
   }
 
 }

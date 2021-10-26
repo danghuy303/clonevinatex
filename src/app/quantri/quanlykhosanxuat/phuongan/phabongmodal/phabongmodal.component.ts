@@ -115,7 +115,7 @@ export class PhabongmodalComponent implements OnInit {
         console.log('Tỷ lệ bông cần', TyLeBongCan);
         this.item.listLoBong.forEach((lobong) => {
           if (lobong.isLoBongTuongLai) {
-            let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1)
+            let SoNgayDuKien = Math.floor((lobong.NgayVeDuKienUnix - this.itemTrienKhaiKeHoach.TuNgayUnix) / (24 * 60 * 60) + 1);
             lobong.lim = Math.floor(SoNgayDuKien * TyLeBongCan);
             console.log(`Lô bông ${lobong.Ma} - Số ngày dự kiến ${SoNgayDuKien} - Số bàn có thể điền ${lobong.lim} - Số bàn có thể điền không làm tròn ${SoNgayDuKien * TyLeBongCan}`);
             if (lobong.NgayVeDuKien === null) {

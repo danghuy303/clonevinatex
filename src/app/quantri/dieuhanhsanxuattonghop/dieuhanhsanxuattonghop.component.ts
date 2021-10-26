@@ -480,9 +480,10 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     this.filter.TuNgay = DateToUnix(this.timKiem.TuNgayDate),
     this.filter.DenNgay = DateToUnix(this.timKiem.DenNgayDate),
     this._services.BaoCao().GetDashBoard_TongHop_LuyKe_ChiTiet(this.filter).subscribe((res: any) => {
-      this.listLuyKeChiTiet = res;
+      this.listLuyKeChiTiet = res.lstItem;
+      this.TongKhoiLuongLuyKeChiTiet = res.lstItem.reduce((total,ele)=>ele.KhoiLuong+total,0)
+      this.TongPheLuyKeChiTiet = res.TruVaoSanLuongGianMay;
       if(this.listLuyKeChiTiet.length < 9){
-
         for(let i = 0; i <12; i++){
           let item = {};
           this.listLuyKeChiTiet.push(item);
