@@ -37,9 +37,9 @@ export class ModalchontaisanCopyComponent implements OnInit {
       if (validVariable(obj.children) && obj.children.length > 0) {
         con = obj.children.every(ele => ele.data.checked);
         if (!con) {
-        return false;
+          return false;
         }
-      }   
+      }
     });
     if ((cha) && (con)) {
       return true;
@@ -47,7 +47,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
     else {
       return false;
     }
-   
+
   }
 
   checkAll(e) {
@@ -70,29 +70,73 @@ export class ModalchontaisanCopyComponent implements OnInit {
         }
       });
     }
-    
+
   }
 
   checked() {
     this.checkedAll = this.TimCheck();
   }
-
+  // [{
+  //   "data": {
+  //     "Id": "6f4ff3ab-8420-45ba-8ed3-bb61d432a17a",
+  //     "Ten": "test tên con 1",
+  //     "Ma": "test mã con 1",
+  //     "NguyenGia": 1,
+  //     "SoSeri": "qưeqwe",
+  //     "GiaConLai": 1,
+  //     "NgayNhap": "2021-10-18T17:00:00",
+  //     "NgayNhapUnix": 1634551200,
+  //   },
+  //   "children": [
+  //     {
+  //       "data": {
+  //         "Id": "6f4ff3ab-8420-45ba-8ed3-bb61d432a17a",
+  //         "Ten": "test tên con 1",
+  //         "Ma": "test mã con 1",
+  //         "NguyenGia": 1,
+  //         "SoSeri": "qưeqwe",
+  //         "GiaConLai": 1,
+  //         "NgayNhap": "2021-10-18T17:00:00",
+  //         "NgayNhapUnix": 1634551200,
+  //         "listTaiSan": null
+  //       },
+  //       "children": [
+  //         {
+  //           "data": {
+  //             "name": "Expenses.doc",
+  //             "size": "30kb",
+  //             "type": "Document"
+  //           }
+  //         },
+  //         {
+  //           "data": {
+  //             "name": "Resume.doc",
+  //             "size": "25kb",
+  //             "type": "Resume"
+  //           }
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // }]
   Loaddata() {
     this._serviceTaiSan.GetOptions().GetListTaiSanChuaBanGiao().subscribe((res: any) => {
-      let items = [];
+      console.log(res.Data)
+      let items: any = [] ;
       this.items = [];
-      items = res.Data;
+     items = res.Data;
       items.forEach(obj => {
-        let obj_copy: any = [];
+        let obj_Copy: any = {}
         if (obj?.listTaiSan) {
-          obj_copy.children = [];
-          obj.listTaiSan.forEach(taisan => {
-            obj_copy.children.push({ data: taisan });
+          obj_Copy.children = [];
+          obj.listTaiSan.forEach(ele => {
+            obj_Copy.children.push({ data: ele })
           });
         }
-        obj_copy.data = obj;
-        this.items.push({ data: obj_copy.data, children: obj_copy.children });
+        obj_Copy.data = obj;
+        this.items.push({ data: obj_Copy.data, children: obj_Copy.children });    
       });
+      console.log(this.items)
     })
   }
 

@@ -18,12 +18,16 @@ export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
   listTieuChiCha: any = [];
   listHopDong: any = []
   KeyWord: any = '';
+  mapXuatNhapRoute = {
+    BongXo: '/quantri/hopdongsanxuat/danhsachhopdongbongxo/',
+    Soi: '/quantri/hopdongsanxuat/danhsachhopdongsoi/',
+    VatTuPhu: '/quantri/hopdongsanxuat/danhsachhopdongvattuphu/'
+  }
   constructor(
     public activeModal: NgbActiveModal, public toastr: ToastrService, private _hopdong: HopDongService,
   ) { }
 
   ngOnInit(): void {
-
     if (!validVariable(this.item.listTieuChiDanhGia))
       this.item.listTieuChiDanhGia = [];
     this.listTieuChiDanhGia = [];
@@ -99,7 +103,17 @@ export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
           }, 0);
         }
       }
-
+    }
+  }
+  viewHopDong(item){
+    if(item.loai === 11){
+      window.open(`#${this.mapXuatNhapRoute.Soi}${item.id || ''}`, "_blank");
+    }
+    else if(item.loai === 23){
+      window.open(`#${this.mapXuatNhapRoute.VatTuPhu}${item.id ||''}`, "_blank");
+    }
+    else{
+      window.open(`#${this.mapXuatNhapRoute.BongXo}${item.id || ''}`, "_blank");
     }
   }
 }

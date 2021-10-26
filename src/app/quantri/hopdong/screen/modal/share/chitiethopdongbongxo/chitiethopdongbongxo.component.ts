@@ -9,7 +9,6 @@ import {
   Output,
 } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { ToastrService } from "ngx-toastr";
 import { UploadmodalComponent } from "src/app/quantri/modal/uploadmodal/uploadmodal.component";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
 import { vn } from "src/app/services/const";
@@ -37,16 +36,12 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
   ]
 
-  data: any = {};
   selected1: any = {};
   selected: any = {};
   dinhDangSo = dinhDangSo;
-
   listKhachHangA: any = []
   listKhachHangB: any = []
-  selectedCityCode: string;
   listHinhThucThanhToan: any = [];
-  listNguyenVatLieu: any = [];
   listLoaiHopDong: any = [];
   listLoaiHopDongFull: any = [];
   isHienHopDongGoc: any = false;
@@ -54,29 +49,21 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   listdmKhachHang: any = [];
   getdmKhachHangForCopy: any = {};
   listHopDongGoc: any = [];
-  canCopy: boolean = false;
-  selectedCity = null;
-  cities = [{ name: 'pushkar', code: 21 }, { name: 'nagpur', code: 22 }];
+  listTen: any = [];
   @Input('item') item: any = {};
   @Input('listHangHoa') hangHoa: any = {};
   @Input('itemcha') itemcha: any = {};
-  
   @Input() isSoi;
   @Input() loaiNguyenVatLieu: number;
   @Input() hopDong: any = {};
+  @Input() listTaiLieu: any = [];
   @Output() onChange = new EventEmitter<any>();
   @Output('itemChange') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @Output('itemchaChange') itemchaChange: EventEmitter<any> = new EventEmitter<any>();
-  
   @Output() onVatLieu: EventEmitter<number> = new EventEmitter<number>();
   @Input("opt") opt: string;
-  selectedReport: any;
   @Input() getSearchStatus: boolean;
   @Output() getSearchStatusChange = new EventEmitter<boolean>();
-
-  previousVal: any;
-  currentVal: any;
-
   checkbutton: any = {};
   lang: any = vn;
   listHopDong: any = [];
@@ -88,8 +75,6 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     private _store: StoreService,
     private _servicesSanXuat: SanXuatService,
     private _modal: NgbModal,
-
-
   ) {
   }
 
@@ -102,7 +87,6 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     let selected = this.getKhachHang.find(
       (ele) => ele.Id === IddmKhachHang
     );
-    // this.item.iddmKhachHangB = selected?.Id;
     this.selected.DiaChi = selected?.DiaChi
     this.selected.ChucVu = selected?.ChucVu
     this.selected.Ma = selected?.Ma
@@ -123,7 +107,6 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     let selected1 = this.getKhachHang.find(
       (ele) => ele.Id === IddmKhachHang
     );
-    // this.item.iddmKhachHangB = selected1?.Id;
     this.selected1.DiaChi = selected1?.DiaChi
     this.selected1.ChucVu = selected1?.ChucVu
     this.selected1.Ma = selected1?.Ma
@@ -237,29 +220,6 @@ this.getListHopDongGoc();
         this.listLoaiTienTe = mapArrayForDropDown(res, "ten", "id");
       });
   }
-
-
-  taiLenFileDinhKem() {
-    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.result.then((data) => {
-      let item: any = {}
-      item.id = 0;
-      item.TenGui = data[data.length - 1].Name;
-      item.TenGoc = data[data.length - 1].NameLocal;
-      item.DuongDan = data[data.length - 1].Url;
-      this.itemcha.listTaiLieu.push(item);
-      this.itemcha.listTen = "";
-      this.itemcha.listTaiLieu.forEach(element => {
-        this.itemcha.listTen += `${element.TenGoc}`;
-      });
-
-    }, (reason) => {
-
-    });
-  }
-
-
-
   Loai(loai: boolean) {
     this.item.IsBong = loai;
   }
@@ -290,5 +250,24 @@ this.getListHopDongGoc();
           this.listHangHoaChange.emit(data);
         }
       });
+  }
+  taiLenFileDinhKem() {
+    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.result.then((data) => {
+      this.listTen = [];
+      data.forEach(element => {
+        let item: any = {}
+        item.id = '';
+        item.fileNameGui = element.Name;
+        item.fileName = element.NameLocal;
+        item.Link = element.Url;
+        this.listTaiLieu.push(item);
+      });
+      console.log(this.listTaiLieu)
+      debugger
+      this.listTen = mapArrayForDropDown(this.listTaiLieu, 'fileName', 'id');
+    }, (reason) => {
+
+    });
   }
 }

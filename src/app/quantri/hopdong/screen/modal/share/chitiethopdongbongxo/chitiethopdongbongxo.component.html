@@ -16,8 +16,7 @@
         </div>
 
         <div [ngStyle]="{'display':!isSoi ? 'flex' : 'none' }" class="p-col-12 p-lg-6   flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-3 p-lg-6 p-p-0 my-auto">Chọn loại hàng hóa:
-            </label>
+            <label class="p-col-12 p-xl-3 p-lg-6 p-p-0 my-auto">Chọn loại hàng hóa<span class="required">*</span>:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
                 <p-dropdown [options]="optionsVatLieu" [(ngModel)]="item.loai" placeholder="Chọn nguyên/vật liệu"
                     (onChange)="GetListdmLoaiBongForHopDong()"></p-dropdown>
@@ -51,7 +50,6 @@
                 </p-inputNumber>
             </div>
         </div>
-
         <div class="p-col-12 p-lg-6  d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-6 p-xl-3 p-p-0 my-auto">Lấy theo giá trị hàng hóa:</label>
             <div class="p-col-12 p-xl-9 p-d-flex p-ml-xl-2 p-ml-lg-0 p-p-0">
@@ -67,9 +65,6 @@
                     placeholder="Chọn đơn vị tính" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
-
-
-
         <div class="p-col-12 p-lg-6   d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Hình thức thanh toán:</label>
             <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
@@ -98,14 +93,24 @@
             </div>
         </div>
 
-        <div class=" p-col-12 p-lg-6 d-flex flex-column flex-xl-row" *ngIf="isHienHopDongGoc === true">
+        <div class=" p-col-12 p-lg-6 flex-column flex-xl-row" [ngStyle]="{'display':isHienHopDongGoc ? 'flex' : 'none' }" >
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">HĐ gốc: </label>
             <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">
-                    <p-dropdown [filter]="true" [(ngModel)]="item.idHopDong" [options]="listHopDongGoc"
+                    <p-dropdown [filter]="true" [(ngModel)]="item.idHopDongGoc" [options]="listHopDongGoc"
                     placeholder="Chọn hợp đồng gốc" styleClass="p-inputtext-sm" (onChange)="listHangHoaTheoHopDong()"></p-dropdown>
             </div>
         </div>
-
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Hồ sơ:</label>
+            <div class="p-col-12 p-xl-9 p-p-0">
+                <div class="p-inputgroup p-ml-lg-0">
+                    <p-multiSelect [options]="listTen" [(ngModel)]="listTaiLieu" display="chip"></p-multiSelect>
+<!-- <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="listTaiLieu" disabled /> -->
+                    <button type="button" pButton pRipple icon="pi pi-upload" (click)="taiLenFileDinhKem()"
+                        class="p-button-sm p-button-text p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-xl-9 p-lg-12 p-p-0">

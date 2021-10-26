@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Dat09Service } from 'src/app/services/callApi';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from '../../../modal/modalthongbao/modalthongbao.component';
-import { ModalimportexcelComponent } from '../../../modal/modalimportexcel/modalimportexcel.component';
 import { ModaldanhmuctrangthaibaolanhComponent } from '../modal/modaldanhmuctrangthaibaolanh/modaldanhmuctrangthaibaolanh.component';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 
@@ -19,13 +17,13 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 1 };
   cols: any = [
     {
-      header: 'Mã trạng thái bảo lãnh',
+      header: 'Mã tình trạng bảo lãnh',
       field: 'ma',
       width: '350px',
       align:'center'
     },
     {
-      header: 'Tên trạng thái bảo lãnh',
+      header: 'Tên tình trạng bảo lãnh',
       field: 'ten',
       width: '300px',
       align:'center'
@@ -45,7 +43,7 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
   }
   resetFilter(){
     this.keyWord = '';
-    this.GetListdmTrangThaiBaoLanh()
+    this.GetListdmTrangThaiBaoLanh(true)
   }
   GetListdmTrangThaiBaoLanh(reset?){
     if(reset){
@@ -70,7 +68,7 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'trangthaibaolanh';
-    modalRef.componentInstance.title = 'Thêm mới trạng thái bảo lãnh';
+    modalRef.componentInstance.title = 'Thêm mới tình trạng bảo lãnh';
     modalRef.result.then(res=>{
       this.GetListdmTrangThaiBaoLanh()
     }).catch(er=>console.log(er))
@@ -80,7 +78,7 @@ export class DanhmuctrangthaibaolanhComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.opt='edit';
-    modalRef.componentInstance.title = 'Cập nhật trạng thái bảo hành';
+    modalRef.componentInstance.title = 'Cập nhật tình trạng bảo hành';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.type = 'trangthaibaohanh';
     modalRef.result.then(res=>{

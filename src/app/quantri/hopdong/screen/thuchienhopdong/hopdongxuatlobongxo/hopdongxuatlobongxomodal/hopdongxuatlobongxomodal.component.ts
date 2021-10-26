@@ -190,7 +190,17 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
     if(validVariable(this.newTableItem.soKien)){
       this.add();
     }
-    if (!validVariable(this.item.idHopDong)) {
+    let isCheck: any = false;
+    this.item.listItem.forEach(element => {
+      if (element.soKien > element.tonKho) {
+        isCheck = true;
+      }
+    });
+    if (isCheck === true) {
+      this.toastr.error("Bạn không được nhập số lượng quá tồn kho!");
+      return false;
+    }
+    else if (!validVariable(this.item.idHopDong)) {
       this.toastr.error("Bạn chưa chọn hợp đồng!");
       return false;
     }

@@ -73,7 +73,7 @@ export class DmtieuchichatluonghopdongComponent implements OnInit {
       Ten:""
     };
     this._services.DanhMucTieuChuanChatLuong().GetList(this.dataSearch).subscribe((res:any)=>{
-      this.items = res.data.items;
+      this.items = res.data.data;
       this.paging.TotalPage = res.data.totalPages;
       this.paging.TotalItem = res.data.totalCount;
       this.paging.CurrentPage = res.data.page;
