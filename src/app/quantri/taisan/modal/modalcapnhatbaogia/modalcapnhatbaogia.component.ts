@@ -85,6 +85,9 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   GetIem() {
     this._serviceTaiSan.BanGiaoTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
       this.item = res.Data;
+      this.item.listTaiSan.forEach(obj => {
+        obj.TaiSan.GiaConLai = obj.TaiSan.GiaTriConLai;
+      });
       // this.item.TaiSan.NgaySanXuat = UnixToDate(this.item.TaiSan.NgaySanXuatUnix);
       // this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);     
     });
@@ -199,7 +202,11 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     modalRef.result.then((data) => {
       this.item.listFileDinhKem = data;
       this.item.listFileDinhKem.forEach(obj => {
-        this.NameFile += `${obj.NameLocal}, `;
+        obj.Id = '';
+        obj.fileNameGui = obj.Name;
+        obj.fileName = obj.NameLocal;
+        obj.Link = obj.Url;
+        this.NameFile += `${obj.fileName}` + '; ';
       });
     }, (reason) => {
 

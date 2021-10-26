@@ -30,11 +30,11 @@
     <p-tabPanel header="Chưa xử lý"></p-tabPanel>
     <p-tabPanel header="Đã xử lý"></p-tabPanel>
 </p-tabView>
-
-<p-table [value]="item" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="true">
+<p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="true">
     <ng-template pTemplate="colgroup">
         <colgroup>
             <col style="width: 50px;">
+            <col>
             <col>
             <col>
             <col>
@@ -47,10 +47,11 @@
         <tr>
             <th class="text-center">STT</th>
             <th class="text-center">Số quy trình</th>
-            <th class="text-center">Mã</th>
-            <th class="text-center">Tên</th>
+            <th class="text-center">Nhà máy</th>
+            <th class="text-center">Phân xưởng</th>
             <!-- <th class="text-center">Nội dung</th> -->
-            <th class="text-center">Ngày nhập</th>
+            <th class="text-center">Ngày bàn giao</th>
+            <th class="text-center">Nội dung</th>
             <th class="text-center">Trạng thái</th>
             <th class="text-center">Thao tác</th>
         </tr>
@@ -63,18 +64,19 @@
             <td>
                 {{item.SoQuyTrinh}}
             </td>
-            <td>{{item.Ma}}</td>
-            <td>{{item.Ten}}</td>
+            <td>{{item.TenNhaMay}}</td>
+            <td>{{item.TenPhanXuong}}</td>
             <!-- <td>{{item.NoiDung}}</td> -->
-            <td class="text-center">{{item.NgayNhap|date:'dd/MM/yyyy'}}</td>
+            <td class="text-center">{{item.NgayBanGiao|date:'dd/MM/yyyy'}}</td>
+            <td>{{item.NoiDung}}</td>
             <td>{{item.TenTrangThai}}</td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
-                    (click)="edit(item)" *ngIf="rowNode.level===0"></button>
+                    (click)="edit(item)"></button>
                 <button pButton pRipple type="button" icon="pi pi-trash"
-                    class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa" (click)="delte(item)"
-                    *ngIf="rowNode.level===0"></button>
+                    class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
+                    (click)="delte(item)"></button>
             </td>
         </tr>
     </ng-template>

@@ -125,7 +125,7 @@ export class NhaptaisanComponent implements OnInit {
       });
   }
 
-  edit(item) {    
+  edit(item) {
     let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
       size: "fullscreen-100",
       backdrop: "static",
@@ -158,6 +158,11 @@ export class NhaptaisanComponent implements OnInit {
         })
       })
       .catch((er) => console.log(er));
+  }
+
+  changePage(event) {
+    this.paging.currentPage = event.page + 1;
+    this.Loaddata(false);
   }
 
 }
