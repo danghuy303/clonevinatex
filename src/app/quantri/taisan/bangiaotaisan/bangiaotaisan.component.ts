@@ -30,7 +30,7 @@ export class BangiaotaisanComponent implements OnInit {
   loaiTab: any = 0;
   paging: any = {};
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-  items: TreeNode[];
+  items: any = [];
   trangThai: any = 1;
 
   constructor(
@@ -69,12 +69,9 @@ export class BangiaotaisanComponent implements OnInit {
       keyWord: this.filter.keyWord,
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
-      Loai: 0
     };
     this._serviceTaiSan.BanGiaoTaiSan().GetList(data).subscribe((res: any) => {
-      let items = [];
-      this.items = [];
-      items = res.Data.Items;
+      this.items = res.Data.Items;
       this.paging = res.Data;
     })
   }
@@ -99,6 +96,7 @@ export class BangiaotaisanComponent implements OnInit {
       isKetThuc: false,
       listTaiSan: [],
       listFileDinhKem: [],
+      NgayBanGiao: new Date(),
     }
     modalRef.result
       .then((res: any) => {
@@ -135,13 +133,18 @@ export class BangiaotaisanComponent implements OnInit {
         this._serviceTaiSan.BanGiaoTaiSan().Delete(item.Id).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this.Loaddata(false);
-            this.toastr.success(res.message);
+            this.toastr.success(res.Message);
           } else {
-            this.toastr.error(res.message);
+            this.toastr.error(res.Message);
           }
         })
       })
       .catch((er) => console.log(er));
+  }
+
+  changePage(event) {
+    this.paging.currentPage = event.page + 1;
+    this.Loaddata(false);
   }
 
 }

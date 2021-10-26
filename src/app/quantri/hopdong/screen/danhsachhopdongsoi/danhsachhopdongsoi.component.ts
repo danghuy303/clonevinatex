@@ -3,10 +3,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
-import { ModallaphopdongsoiComponent } from '../laphopdongsoi/modallaphopdongsoi/modallaphopdongsoi.component';
+import { DanhsachhopdongsoimodalComponent } from './danhsachhopdongsoimodal/danhsachhopdongsoimodal.component';
 
 @Component({
   selector: 'app-danhsachhopdongsoi',
@@ -58,7 +57,7 @@ export class DanhsachhopdongsoiComponent implements OnInit {
   }
   update(id) {
     this._service.QuyTrinhHopDong().Get(id).subscribe((res1: any) => {
-        let modalRef = this._modal.open(ModallaphopdongsoiComponent, {
+        let modalRef = this._modal.open(DanhsachhopdongsoimodalComponent, {
           size: "fullscreen",
           backdrop: "static",
         });
@@ -122,7 +121,7 @@ export class DanhsachhopdongsoiComponent implements OnInit {
       });
     }
     else if(this.loaiTab === 2){
-      this._service.QuyTrinhHopDong().GetListHopDongSapDenHanTT(data).subscribe((res: any) => {
+      this._service.QuyTrinhHopDong().GetListHopDongSapHetHanBanGiao(data).subscribe((res: any) => {
         this.items = res.data?.items;
         this.paging.TotalItem = res.data?.totalCount;
         this.items.forEach(element => {
@@ -131,7 +130,7 @@ export class DanhsachhopdongsoiComponent implements OnInit {
       });
     }
     else if(this.loaiTab === 3){
-      this._service.QuyTrinhHopDong().GetListHopDongQuaHanBanGiao(data).subscribe((res: any) => {
+      this._service.QuyTrinhHopDong().GetListHopDongSapDenHanTT(data).subscribe((res: any) => {
         this.items = res.data?.items;
         this.paging.TotalItem = res.data?.totalCount;
         this.items.forEach(element => {
@@ -140,6 +139,24 @@ export class DanhsachhopdongsoiComponent implements OnInit {
       });
     }
     else if(this.loaiTab === 4){
+      this._service.QuyTrinhHopDong().GetListHopDongQuaHanBanGiao(data).subscribe((res: any) => {
+        this.items = res.data?.items;
+        this.paging.TotalItem = res.data?.totalCount;
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
+      });
+    }
+    else if(this.loaiTab === 5){
+      this._service.QuyTrinhHopDong().GetListHopDongQuaHanBanGiao(data).subscribe((res: any) => {
+        this.items = res.data?.items;
+        this.paging.TotalItem = res.data?.totalCount;
+        this.items.forEach(element => {
+          element.ngayKy = UnixToDate(element.ngayKyUnix);
+        });
+      });
+    }
+    else if(this.loaiTab === 6){
       this._service.QuyTrinhHopDong().GetListHopDongQuaHanTT(data).subscribe((res: any) => {
         this.items = res.data?.items;
         this.paging.TotalItem = res.data?.totalCount;

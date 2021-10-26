@@ -1,10 +1,5 @@
-
-
-
-import { ChitiethopdongbongxoComponent } from "./../modal/share/chitiethopdongbongxo/chitiethopdongbongxo.component";
 import { number } from "@amcharts/amcharts4/core";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
-
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -15,9 +10,8 @@ import {
   mapArrayForDropDown,
   UnixToDate,
 } from "src/app/services/globalfunction";
-import { ChitiethopdongbongxomodalComponent } from "../danhsachhopdongbongxo/chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
 import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.service";
-// import { ChitiethopdongbongxomodalComponent } from "./chitiethopdongbongxomodal/chitiethopdongbongxomodal.component";
+import { ModallaphopdongbongxoComponent } from "./modallaphopdongbongxo/modallaphopdongbongxo.component";
 
 @Component({
   selector: 'app-laphopdongbongxo',
@@ -27,7 +21,6 @@ import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.s
 export class LaphopdongbongxoComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
   items: any = [];
-  listVatTu: any = {};
   newTableItem: any = {};
   filter: any = {};
   eAction: any = "QUYTRINHHOPDONG";
@@ -36,7 +29,6 @@ export class LaphopdongbongxoComponent implements OnInit {
   denNgay: number = 0;
   listLoaiPhuongAn: any = [];
   trangThai: any = 1;
-  //    this.paging.TotalItem = res.data.totalCount;
   paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
   hopDong: any = {};
   listLoaiBongXo: any = [{ label: 'Bông', value: 2 },{ label: 'Xơ', value: 5 }];
@@ -57,7 +49,7 @@ export class LaphopdongbongxoComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((res: any) => {
-      if (res.id !== "0") {
+      if (res.id !== '0') {
         this.update(res.id);
       }
     });
@@ -70,14 +62,11 @@ export class LaphopdongbongxoComponent implements OnInit {
     if (this._modal.hasOpenModals()) {
       this._modal.dismissAll();
     }
-    this.router.navigate(
-      [`quantri/hopdongsanxuat/laphopdongbongxo/${id}`],
-      { replaceUrl: true }
-    );
+    this.router.navigate([`quantri/hopdongsanxuat/laphopdongbongxo/${id}`],{ replaceUrl: true });
   }
   add() {
    
-    let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
+    let modalRef = this._modal.open(ModallaphopdongbongxoComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
@@ -110,7 +99,7 @@ export class LaphopdongbongxoComponent implements OnInit {
   }
   addPhuLuc() {
    
-    let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
+    let modalRef = this._modal.open(ModallaphopdongbongxoComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
@@ -144,7 +133,7 @@ export class LaphopdongbongxoComponent implements OnInit {
   }
   update(id) {
     this._service.QuyTrinhHopDong().Get(id).subscribe((res1: any) => {
-        let modalRef = this._modal.open(ChitiethopdongbongxomodalComponent, {
+        let modalRef = this._modal.open(ModallaphopdongbongxoComponent, {
           size: "fullscreen",
           backdrop: "static",
         });
@@ -157,12 +146,10 @@ export class LaphopdongbongxoComponent implements OnInit {
           .then((res: any) => {
             this.GetListQuyTrinh();
             this.changeParam(0);
-            this.listVatTu[0]
           })
           .catch((er) => {
             console.log(er);
             this.GetListQuyTrinh();
-            
             this.changeParam(0);
           });
       });

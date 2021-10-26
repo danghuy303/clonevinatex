@@ -23,6 +23,7 @@ export class DanhmuctieuchidanhgiamodalComponent implements OnInit {
   SetData() {
     let data: any = {
       "id":this.item.id,
+      "ma": this.item.ma,
       "ten": this.item.ten,
       "tieuChuan": this.item.tieuChuan,
       "ghiChu": this.item.ghiChu,
@@ -46,8 +47,6 @@ export class DanhmuctieuchidanhgiamodalComponent implements OnInit {
   getlistTieuChiCha(){
     let data = {
       PageSize: 20,
-      ma: "",
-      ten: ""
     };
     this._danhMucHopDong.dmTieuChiDanhGia().GetList(data).subscribe((res: any) => {
       let listTieuChiCha = res.data.filter(e => e.iddmTieuChiCha === null || e.iddmTieuChiCha === '');

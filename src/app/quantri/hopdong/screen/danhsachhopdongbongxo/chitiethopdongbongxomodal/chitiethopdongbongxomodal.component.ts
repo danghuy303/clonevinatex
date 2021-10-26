@@ -1,7 +1,6 @@
 import { AuthenticationService } from "./../../../../../services/auth.service";
-import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.service";
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
-import { Component, DoCheck, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { ModalthongbaoComponent } from "src/app/quantri/modal/modalthongbao/modalthongbao.component";
@@ -20,8 +19,7 @@ import {
   styleUrls: ["./chitiethopdongbongxomodal.component.css"],
 })
 export class ChitiethopdongbongxomodalComponent implements OnInit {
-  opt: any = "add";
-  title: string
+  title: string = "Hợp đồng bông/xơ"
   item: any = {};
   @Input() res1: any = [];
   hopDong: any = {};
@@ -58,31 +56,11 @@ Id:any = "";
   }
 
   ngOnInit(): void {
-    
-    if (this.opt !== "edit") {
-      this.GetNextSoQuyTrinh();
-      this.title = 'Thêm mới hợp đồng bông xơ'
-      this.item.listHangHoa[0].DonGiaThanhToan = 0;
-      this.item.listHangHoa[0].donGia = 0;
-    } else {
-      this.title = "Chỉnh sửa hợp đồng bông xơ"
-      this.GetQuyTrinh();
-    }
+    this.GetQuyTrinh();
     this._servicesSanXuat.GetListdmLoaiBongForHopDong(this.item.hopDong.loai || 0).subscribe((res: any) => {
       this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
       this.listLoaiMatHang_ref = res;
     })
-  }
-  KiemTraButtonModal() {
-    this._servicesSanXuat.KiemTraButton(this.item.hopDong.id || "", this.item.hopDong.idTrangThai || "").subscribe((res: any) => {
-        this.checkbutton = res;
-      });
-  }
-
-  GetNextSoQuyTrinh() {
-    this._service.QuyTrinhHopDong().GetNextSoQuyTrinh().subscribe((res: any) => {
-        this.item.hopDong.soQuyTrinh = res.data;
-      });
   }
   GetQuyTrinh() {
     this._service.QuyTrinhHopDong().Get(this.Id).subscribe((res1: any) => {
@@ -100,7 +78,6 @@ Id:any = "";
         this.item.hopDong.BenBanChiu = this.item.hopDong.isBenBanChiu;
         this.item.hopDong.BenMuaChiu = !this.item.hopDong.BenBanChiu;
       
-      this.KiemTraButtonModal();
       if(this.item.listDieuKhoanThanhToan.length > 0){
         this.item.listDieuKhoanThanhToan.forEach(element => {
           element.ngayThanhToan = UnixToDate(element.ngayThanhToanUnix);
@@ -119,117 +96,5 @@ Id:any = "";
       }
     })
   }
-  ValidData() {
-    if (!validVariable(this.item.hopDong.iddmLoaiHopDong)) {
-      this._toastr.error("Vui lòng chọn loại hợp đồng");
-      return false;
-    }
-
-    if (!validVariable(this.item.hopDong.tenHopDong)) {
-      this._toastr.error("Vui lòng chọn tên hợp đồng");
-      return false;
-    }
-
-    if (!validVariable(this.item.hopDong.soHopDong)) {
-      this._toastr.error("Vui lòng chọn số hợp đồng");
-      return false;
-    }
-    return true;
-  }
-
-  GhiLai() {
-    this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
-    this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
-    this.item.hopDong.ngayGiaoHangUnix = DateToUnix(this.item.hopDong.ngayGiaoHang);
-    this.item.hopDong.ngayDuKienVeKhoUnix = DateToUnix(this.item.hopDong.ngayDuKienVeKho);
-    if (this.item.hopDong.BenBanChiu) {
-      this.item.hopDong.isBenBanChiu = true;
-    }
-    if (this.ValidData()) {
-      this._service.QuyTrinhHopDong().Set(this.item).subscribe((res: any) => {
-          console.log(res);
-          if (res) {
-            if (res?.statusCode === 200) {
-              this._toastr.success(res.message);
-              this.Id = res.data;
-              this.GetQuyTrinh()
-            } else {
-              this._toastr.error(res.message);
-            }
-          }
-        });
-    }
-  }
-
-  XoaQuyTrinh() {
-    let modalRef = this._modal.open(ModalthongbaoComponent, {
-      backdrop: "static",
-    });
-    modalRef.componentInstance.message =
-      "Bạn có chắc chắn muốn xóa quy trình này chứ?";
-    modalRef.result
-      .then((res) => {
-        this._service
-          .QuyTrinhHopDong()
-          .Deletes(this.item.hopDong.id)
-          .subscribe((res: any) => {
-            console.log(res);
-            if (res?.statusCode === 200) {
-              this.activeModal.close();
-              this._toastr.success(res.message);
-            } else {
-              this._toastr.error(res.message);
-            }
-          });
-      })
-      .catch((er) => console.log(er));
-  }
-  ChuyenTiep() {
-
-    this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
-    this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
-    this.item.hopDong.ngayGiaoHangUnix = DateToUnix(this.item.hopDong.ngayGiaoHang);
-    this.item.hopDong.ngayDuKienVeKhoUnix = DateToUnix(this.item.hopDong.ngayDuKienVeKho);
-
-    if (this.item.hopDong.BenBanChiu) {
-      this.item.hopDong.isBenBanChiu = true;
-    }
-    this._service.QuyTrinhHopDong().ChuyenTiep(this.item).subscribe((res: any) => {
-      console.log(res);
-      
-      if (res) {
-        console.log(res);
-        if (res?.statusCode === 200) {
-          this._toastr.success(res.message)
-          this.activeModal.close();
-        } else {
-          this._toastr.error(res.message);
-        }
-      }
-    })
-
-  }
-  KhongDuyet() {
-    this.item.hopDong.ngayKyUnix = DateToUnix(this.item.hopDong.ngayKy);
-    this.item.hopDong.ngayHieuLucUnix = DateToUnix(this.item.hopDong.ngayHieuLuc);
-    this.item.hopDong.ngayGiaoHangUnix = DateToUnix(this.item.hopDong.ngayGiaoHang);
-    this.item.hopDong.ngayDuKienVeKhoUnix = DateToUnix(this.item.hopDong.ngayDuKienVeKho);
-
-    if (this.item.hopDong.BenBanChiu) {
-      this.item.hopDong.isBenBanChiu = true;
-    }
-    this._service.QuyTrinhHopDong().KhongDuyet(this.item).subscribe((res: any) => {
-      if (res) {
-        if (res?.statusCode === 200) {
-          this._toastr.success(res.message)
-          this.activeModal.close();
-        } else {
-          this._toastr.error(res.message);
-        }
-      }
-    })
-
-  }
-
-
+ 
 }

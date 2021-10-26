@@ -41,10 +41,18 @@ export class ThongtitaisanchaComponent implements OnInit {
     modalRef.componentInstance.multiple = true;
     modalRef.componentInstance.type = '';
     modalRef.result.then((data) => {
+      // this.item.listFileDinhKem = data;
+      // this.item.listFileDinhKem.forEach(obj => {
+      //   this.NameFile += `${obj.NameLocal}, `;
+      // });
       this.item.listFileDinhKem = data;
-      this.item.listFileDinhKem.forEach(obj => {
-        this.NameFile += `${obj.NameLocal}, `;
-      });
+      this.item.listFileDinhKem.forEach(obj => {       
+        obj.Id = '';
+        obj.fileNameGui = obj.Name;
+        obj.fileName = obj.NameLocal;
+        obj.Link = obj.Url;
+        this.NameFile += `${obj.fileName}` + '; ';
+      });  
     }, (reason) => {
 
     });

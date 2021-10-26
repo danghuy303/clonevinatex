@@ -175,6 +175,8 @@ import { KehoachsanxuatthangComponent } from './kehoachsanxuatthang/kehoachsanxu
 import { KehoachsanxuatnammodalComponent } from './kehoachsanxuatnam/modal/kehoachsanxuatnammodal/kehoachsanxuatnammodal.component';
 import { KehoachsanxuatthangmodalComponent } from './kehoachsanxuatthang/modal/kehoachsanxuatthangmodal/kehoachsanxuatthangmodal.component';
 import { TreeTableModule } from 'primeng/treetable';
+import { DanhsachhopdongsoimodalComponent } from './screen/danhsachhopdongsoi/danhsachhopdongsoimodal/danhsachhopdongsoimodal.component';
+import { DanhsachhopdongvattuphumodalComponent } from './screen/danhsachhopdongvattuphu/danhsachhopdongvattuphumodal/danhsachhopdongvattuphumodal.component';
 
 @NgModule({
   declarations: [
@@ -403,6 +405,8 @@ import { TreeTableModule } from 'primeng/treetable';
     KehoachsanxuatthangComponent,
     KehoachsanxuatnammodalComponent,
     KehoachsanxuatthangmodalComponent,
+    DanhsachhopdongsoimodalComponent,
+    DanhsachhopdongvattuphumodalComponent,
 
   ],
   imports: [
@@ -530,6 +534,9 @@ import { TreeTableModule } from 'primeng/treetable';
     DanhmuctieuchidanhgiamodalComponent,
 
     ModalkehoachkinhdoanhthangComponent,
+    DanhsachhopdongsoimodalComponent,
+    DanhsachhopdongvattuphumodalComponent,
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })

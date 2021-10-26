@@ -35,11 +35,11 @@ export class ModaldanhmuctrangthaibaolanhComponent implements OnInit {
 
   ValidateData() {
     if (!validVariable(this.item.ma)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ mã trạng thái bảo lãnh!");
+      this.toastr.error("Yêu cầu nhập đầy đủ mã tình trạng bảo lãnh!");
       return false;
     }
     if (!validVariable(this.item.ten)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ tên trạng thái bảo lãnh!");
+      this.toastr.error("Yêu cầu nhập đầy đủ tên tình trạng bảo lãnh!");
       return false;
     }
     return true;

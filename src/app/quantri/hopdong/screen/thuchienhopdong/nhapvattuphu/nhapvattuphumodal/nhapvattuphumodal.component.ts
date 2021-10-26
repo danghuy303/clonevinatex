@@ -123,7 +123,6 @@ export class NhapvattuphumodalComponent implements OnInit {
             this.toastr.success(res.message)
             this.opt = 'edit';
             this.GetQuyTrinh(res.objectReturn.Id);
-            this.KiemTraButtonModal();
           } else {
             this.toastr.error(res.message);
           }
@@ -135,6 +134,7 @@ export class NhapvattuphumodalComponent implements OnInit {
     this._services.QuyTrinhPhieuNhapVatTuPhu().Get(Id).subscribe((res: any) => {
       this.item = res;
       this.item.Ngay = UnixToDate(this.item.NgayUnix);
+      this.KiemTraButtonModal();
     })
   }
   XoaQuyTrinh() {

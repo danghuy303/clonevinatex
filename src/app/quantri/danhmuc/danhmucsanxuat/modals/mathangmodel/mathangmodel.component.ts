@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { MultiSelectModule } from 'primeng/multiselect';
 import { deepCopy, mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { CdkFixedSizeVirtualScroll } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-mathangmodel',
