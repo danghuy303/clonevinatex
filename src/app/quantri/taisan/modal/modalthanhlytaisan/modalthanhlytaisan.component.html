@@ -44,7 +44,7 @@
                 <label class="p-col-12 p-lg-5 p-p-0 my-auto">Ngày chứng từ:</label>
                 <div class="p-col-12 p-lg-7 p-p-0">
                     <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
-                        [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgayThuHoi"
+                        [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgayThanhLy"
                         inputId="icon" placeholder="dd/mm/yyyy">
                     </p-calendar>
                 </div>
@@ -75,18 +75,18 @@
                 <col style="width:50px">
                 <col style="width:300px">
                 <col style="width:300px">
-                <col style="width:250px">
                 <col style="width:300px">
+                <col style="width:250px">
                 <col style="width:100px">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th>STT</th>
-                <th> Mã tài sản thu hồi</th>
-                <th>Tài sản thu hồi</th>
+                <th>Mã</th>
+                <th>Tên</th>
                 <th>Số seri</th>
-                <th>Số lượng thu hồi</th>
+                <th>Số lượng </th>
                 <th style="width: 100px;">Edit</th>
             </tr>
         </ng-template>

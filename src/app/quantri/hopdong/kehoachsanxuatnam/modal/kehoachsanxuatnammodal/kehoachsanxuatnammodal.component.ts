@@ -207,6 +207,7 @@ export class KehoachsanxuatnammodalComponent implements OnInit {
         console.log(res)
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
+          
         } else {
           this.toastr.success(res.Message);
           // this.activeModal.close();

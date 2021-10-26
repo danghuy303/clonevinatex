@@ -69,7 +69,7 @@ export class ThanhtoanvattuphumodalComponent implements OnInit {
   }
   getListHopDong() {
     this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 23).subscribe((res: any) => {
-      this.listHopDong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
+      this.listHopDong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
     })
   }
 

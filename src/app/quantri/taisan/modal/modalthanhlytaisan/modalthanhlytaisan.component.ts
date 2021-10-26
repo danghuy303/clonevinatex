@@ -7,15 +7,13 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
-import { ModalchontaisanCopyComponent } from '../modalchontaisan-copy/modalchontaisan-copy.component';
 import { ModalchontaisanComponent } from '../modalchontaisan/modalchontaisan.component';
 @Component({
-  selector: 'app-modalthuhoitaisan',
-  templateUrl: './modalthuhoitaisan.component.html',
-  styleUrls: ['./modalthuhoitaisan.component.css']
+  selector: 'app-modalthanhlytaisan',
+  templateUrl: './modalthanhlytaisan.component.html',
+  styleUrls: ['./modalthanhlytaisan.component.css']
 })
-export class ModalthuhoitaisanComponent implements OnInit {
-
+export class ModalthanhlytaisanComponent implements OnInit {
   newitem: any = {};
   showDropDown: boolean = false;
   item: any = { listTaiSan: []};
@@ -38,8 +36,8 @@ export class ModalthuhoitaisanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if ( this.item.NgayThuHoiUnix !== 0) {
-      this.item.NgayThuHoi = UnixToDate(this.item.NgayThuHoiUnix);
+    if ( this.item.NgayThanhLyUnix !== 0) {
+      this.item.NgayThanhLy = UnixToDate(this.item.NgayThanhLyUnix);
     }
     if (this.type === 'themmoi') {
       this.GetNextSoQuyTrinh();
@@ -107,27 +105,28 @@ export class ModalthuhoitaisanComponent implements OnInit {
     return true;
   }
   setData() {
-    this.item.NgayThuHoiUnix = DateToUnix(this.item.NgayThuHoi);
+    this.item.NgayThanhLyUnix = DateToUnix(this.item.NgayThanhLy);
     this.item.IdDuAn = this.store.getCurrent();
     return this.item;
   }
   GhiLai() {
     if (this.validate()) {
-      this._serviceTaiSan.PhieuThuHoiTaiSan().Set(this.setData()).subscribe((res: any) => {
+      this._serviceTaiSan.ThanhLyTaiSan().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
           this.toastr.success(res.Message);
-          // this.activeModal.close();
+          this.activeModal.close();
         }
       }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       })
     }
+
   }
 
   GetNextSoQuyTrinh() {
-    this._serviceTaiSan.PhieuThuHoiTaiSan().GetNextSoQuyTrinh().subscribe((res: any) => {
+    this._serviceTaiSan.ThanhLyTaiSan().GetNextSoQuyTrinh().subscribe((res: any) => {
       console.log(res)
       this.item.SoQuyTrinh = res.Data;
     })
@@ -158,7 +157,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
     });
   }
   ChapNhan() {
-      this._serviceTaiSan.PhieuThuHoiTaiSan().ChuyenTiep(this.setData()).subscribe((res: any) => {
+      this._serviceTaiSan.ThanhLyTaiSan().ChuyenTiep(this.setData()).subscribe((res: any) => {
         console.log(res)
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
@@ -175,7 +174,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
       modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
       modalRef.result
         .then((res) => {
-          this._serviceTaiSan.PhieuThuHoiTaiSan().Delete(this.item.Id).subscribe((res: any) => {
+          this._serviceTaiSan.ThanhLyTaiSan().Delete(this.item.Id).subscribe((res: any) => {
             if (res.StatusCode === 200) {
               this.toastr.success(res.Message);
             } else {
@@ -186,4 +185,3 @@ export class ModalthuhoitaisanComponent implements OnInit {
         .catch((er) => console.log(er));
     }
 }
-

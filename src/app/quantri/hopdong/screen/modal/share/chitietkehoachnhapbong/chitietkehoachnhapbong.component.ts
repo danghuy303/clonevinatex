@@ -102,7 +102,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
 
   GetDanhSachHopDongByNhaThau() {
     this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 2).subscribe((res: any) => {
-      this.listhopdong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
+      this.listhopdong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
       this.listhopdong_copy = deepCopy(res);
     })
   }
@@ -247,7 +247,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
         // res.forEach(obj => {
         //   obj.TenFull = `${obj.soHopDong} - ${obj.tenHopDong}`;
         // });
-        this.listhopdong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
+        this.listhopdong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
         this.listhopdong_copy = deepCopy(res);
         this.GetListdmLoaiBongForHopDong();
       })

@@ -57,7 +57,7 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
   }
   getListHopDong(){
     this._hopdong.QuyTrinhHopDong().GetListHopDongBanChoVay(this.item.idDuAn).subscribe((res: any) => {
-      this.listHopDong = mapArrayForDropDown(res, 'tenSoHopDong', 'id');
+      this.listHopDong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
       this.listHopDongFull = res;
     })
   }

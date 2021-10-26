@@ -216,17 +216,21 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
   }
   getListMatHang(){
     this._services.GiaoKeHoachSanXuat().GetListMatHangGiaoKeHoachSanXuat(this.item.idDuAn || '').subscribe((res:any) => {
-      this.listMatHang = res.data;
-      this.listMatHang.forEach(obj=>{
-        obj.ne = obj.ne;
-        obj.doSan = obj.doSan;
-        obj.ma = obj.ma;
-        obj.tendmLoaiSoi = obj.tendmLoaiSoi;
-        obj.ten = obj.ten;
-        obj.daGiao = obj.daGiao;
-        obj.ghiChu = obj.ghiChu;
-        obj.tenHopDong = obj.tenHopDong;
-        obj.soHopDong = obj.soHopDong;
+      this.listMatHang = [];
+      res.data.forEach(obj=>{
+        let data: any = {}
+        data.ne = obj.ne;
+        data.doSan = obj.doSan;
+        data.ma = obj.ma;
+        data.tendmLoaiSoi = obj.tendmLoaiSoi;
+        data.ten = obj.ten;
+        data.daGiao = obj.daGiao;
+        data.ghiChu = obj.ghiChu;
+        data.soTenHopDong = obj.soTenHopDong;
+        data.iddmItem = obj.iddmItem;
+        data.khoiLuongHopDong = obj.khoiLuongHopDong;
+        data.khoiLuongDaHoanThanh = obj.khoiLuongDaHoanThanh;
+        this.listMatHang.push(data);
       });
     })
   }

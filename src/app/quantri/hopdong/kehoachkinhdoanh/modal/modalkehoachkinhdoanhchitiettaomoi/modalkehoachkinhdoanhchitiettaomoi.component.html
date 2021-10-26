@@ -14,6 +14,7 @@
     </div>
     <div>
       <span style="font-weight: bold;">TG Duyệt:</span>
+
     </div>
   </div>
 </div>
@@ -134,7 +135,7 @@
           <ng-container *ngFor="let item of item.lstKH_KeHoachKinhDoanh_SanPham;let i = index">
             <tr>
               <!-- (click)="TheoDoi(item)" -->
-              <td class="text-center tc-w-200" style="background-color: white;">
+              <td class="text-center tc-w-200" style="background-color: white;z-index: 999;">
                 <div style="display: inline-flex;">
                   <span style="display: inline-flex; align-items: center;">
                     {{item.TenMatHang}}
@@ -197,7 +198,7 @@
               </td>
             </tr>
             <tr *ngFor="let nhaMay of item.lstKH_KeHoachKinhDoanh_SanPham_NhaMay">
-              <td class="text-center tc-w-200" style="background-color: white;">
+              <td class="text-center tc-w-200" style="background-color: white;z-index: 999;">
               </td>
               <td class="text-center tc-w-121"></td>
               <td class="text-center tc-w-121"></td>
@@ -215,7 +216,7 @@
               <td class="text-center tc-w-200">
                 {{nhaMay.TenNhaMay}}
               </td>
-              <td class="text-center tc-w-100" *ngFor="let prop of propThang">
+              <td class="text-center tc-w-100" *ngFor="let prop of propThang" [ngClass]="{'VuotQuaNangLuc': (listThangVuotQuaNangLuc.includes(prop)&&listNhaMayVuotQuaNangLuc.includes(nhaMay.IdDuAn))}">
                 <p-inputNumber [minFractionDigits]="0" locale="vi-VN" (onBlur)="TinhSoLuongDaLapKeHoach(nhaMay,item)"
                   [(ngModel)]="nhaMay[prop]">
                 </p-inputNumber>
@@ -223,7 +224,7 @@
             </tr>
           </ng-container>
           <tr *ngFor="let dummy of dummyList" style="height: 40px;">
-            <td class="tc-w-200" style="background-color: white;"></td>
+            <td class="tc-w-200" style="background-color: white;z-index: 999;"></td>
             <td class="tc-w-121"></td>
             <td class="tc-w-121"></td>
             <td class="tc-w-121"></td>

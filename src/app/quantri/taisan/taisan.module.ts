@@ -75,6 +75,9 @@ import { PhieuthuhoitaisanComponent } from './thuhoitaisan/phieuthuhoitaisan/phi
 import { ModalthuhoitaisanComponent } from './modal/modalthuhoitaisan/modalthuhoitaisan.component';
 import { ModalcapnhatbaogiaComponent } from './modal/modalcapnhatbaogia/modalcapnhatbaogia.component';
 import { ModalchontaisanComponent } from './modal/modalchontaisan/modalchontaisan.component';
+import { ThanhlytaisanComponent } from './thanhlytaisan/thanhlytaisan.component';
+import { ModalthanhlytaisanComponent } from './modal/modalthanhlytaisan/modalthanhlytaisan.component';
+import { ModalchontaisanCopyComponent } from './modal/modalchontaisan-copy/modalchontaisan-copy.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -109,6 +112,9 @@ import { ModalchontaisanComponent } from './modal/modalchontaisan/modalchontaisa
     ModalthuhoitaisanComponent,
     ModalcapnhatbaogiaComponent,
     ModalchontaisanComponent,
+    ThanhlytaisanComponent,
+    ModalthanhlytaisanComponent,
+    ModalchontaisanCopyComponent,
 
   ],
   imports: [
@@ -176,6 +182,8 @@ import { ModalchontaisanComponent } from './modal/modalchontaisan/modalchontaisa
     ModalthuhoitaisanComponent,
     ModalcapnhatbaogiaComponent,
     ModalchontaisanComponent,
+    ModalchontaisanCopyComponent,
+    ModalthanhlytaisanComponent,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
