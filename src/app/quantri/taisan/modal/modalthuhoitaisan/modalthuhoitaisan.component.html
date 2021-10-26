@@ -73,10 +73,11 @@
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
-                <col style="width:300px">
-                <col style="width:300px">
-                <col style="width:250px">
-                <col style="width:300px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
                 <col style="width:100px">
             </colgroup>
         </ng-template>
@@ -86,7 +87,8 @@
                 <th> Mã tài sản thu hồi</th>
                 <th>Tài sản thu hồi</th>
                 <th>Số seri</th>
-                <th>Số lượng thu hồi</th>
+                <th>Số lượng </th>
+                <th>Giá trị còn lại</th>
                 <th style="width: 100px;">Edit</th>
             </tr>
         </ng-template>
@@ -106,6 +108,10 @@
                 </td>
                 <td class="text-center">
                     <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                    </p-inputNumber>
+                </td>
+                <td class="text-center">
+                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.GiaTriConLai">
                     </p-inputNumber>
                 </td>
                 <td class="text-center">

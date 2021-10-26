@@ -34,14 +34,7 @@
     <div class="col-12 col-lg-12">
         <div class="p-grid">
             <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-                <label class="p-col-12 p-lg-5 p-p-0 my-auto">Phân xưởng:</label>
-                <div class="p-col-12 p-lg-7 p-p-0">
-                    <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
-                        styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
-                </div>
-            </div>
-            <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-                <label class="p-col-12 p-lg-5 p-p-0 my-auto">Ngày chứng từ:</label>
+                <label class="p-col-12 p-lg-5 p-p-0 my-auto">Ngày thanh lý:</label>
                 <div class="p-col-12 p-lg-7 p-p-0">
                     <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
                         [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgayThanhLy"
@@ -50,9 +43,9 @@
                 </div>
             </div>
             <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-                <label class="p-col-12 p-lg-5 p-p-0 my-auto">Người bàn giao:</label>
+                <label class="p-col-12 p-lg-5 p-p-0 my-auto">Người thanh lý:</label>
                 <div class="p-col-12 p-lg-7 p-p-0">
-                    <input locale="vi-VN" [(ngModel)]="item.NguoiBanGiao" pInputText />
+                    <input locale="vi-VN" [(ngModel)]="item.NguoiThanhLy" pInputText />
                 </div>
             </div>
             <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
@@ -61,6 +54,13 @@
                     <input locale="vi-VN" [(ngModel)]="item.NoiDung" pInputText />
                 </div>
             </div>
+            <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+                <label class="p-col-12 p-lg-5 p-p-0 my-auto">Giá trị:</label>
+                <div class="p-col-12 p-lg-7 p-p-0">
+                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.GiaTriThanhLy">
+                    </p-inputNumber>
+                </div>
+            </div> -->
         </div>
     </div>
     <div class="p-d-flex p-flex-row p-jc-between">
@@ -73,9 +73,10 @@
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
-                <col style="width:300px">
-                <col style="width:300px">
-                <col style="width:300px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:250px">
                 <col style="width:250px">
                 <col style="width:100px">
             </colgroup>
@@ -86,7 +87,8 @@
                 <th>Mã</th>
                 <th>Tên</th>
                 <th>Số seri</th>
-                <th>Số lượng </th>
+                <th>Số lượng</th>
+                <th>Giá trị thanh lý </th>
                 <th style="width: 100px;">Edit</th>
             </tr>
         </ng-template>
@@ -106,6 +108,10 @@
                 </td>
                 <td class="text-center">
                     <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                    </p-inputNumber>
+                </td>
+                <td class="text-center">
+                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.GiaTriThanhLy">
                     </p-inputNumber>
                 </td>
                 <td class="text-center">
