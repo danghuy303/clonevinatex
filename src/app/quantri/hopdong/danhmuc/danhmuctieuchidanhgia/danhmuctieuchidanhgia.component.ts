@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
@@ -46,7 +47,7 @@ export class DanhmuctieuchidanhgiaComponent implements OnInit {
     }
   ];
   listTieuChiCha: any = [];
-  constructor(private _modal: NgbModal, private _danhMucHopDong: HopDongService) { }
+  constructor(private _modal: NgbModal, private _danhMucHopDong: HopDongService, private _toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.GetListdm();
@@ -89,6 +90,7 @@ export class DanhmuctieuchidanhgiaComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.title = 'Thêm mới danh mục tiêu chí đánh giá';
+    modalRef.componentInstance.item = {"hoatDong": true};
     modalRef.result.then(res => {
       this.GetListdm()
     }).catch(er => console.log(er))
@@ -110,5 +112,23 @@ export class DanhmuctieuchidanhgiaComponent implements OnInit {
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetListdm()
+  }
+  delete(item){
+    let modalRef = this._modal.open(ModalthongbaoComponent,{
+      backdrop:'static'
+    });
+    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res=>{
+      this._danhMucHopDong.dmTieuChiDanhGia().Delete(item.id).subscribe((res: any) => {
+        if (res) {
+          if (res.statusCode === 200) {
+            this._toastr.success(res.message);
+            this.GetListdm();
+          } else {
+            this._toastr.error(res.message);
+          }
+        }
+      })
+    }).catch(er=>console.log(er))
   }
 }

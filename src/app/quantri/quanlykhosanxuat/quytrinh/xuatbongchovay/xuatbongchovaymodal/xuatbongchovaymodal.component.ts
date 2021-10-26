@@ -61,15 +61,12 @@ export class XuatbongchovaymodalComponent implements OnInit {
   GetQuyTrinh(page?) {
     this.services.PhieuXuatBongChoVay().Get(this.Id).subscribe((res1: any) => {
       this.item = res1;
-      this.listItem = deepCopy(this.item.listItem);
+      this.listItem = (this.item.listItem);
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = this.item.listItem.length;
       this.KiemTraButtonModal();
-      this.getListLoBongHopDong();
-      if(!validVariable(this.item.listItem)){
-        this.GetMatHangTheoKho()
-      }
+      this.getListLoBong();
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
         this.item.Ngay = UnixToDate(this.item.NgayUnix);
       }
@@ -190,7 +187,6 @@ export class XuatbongchovaymodalComponent implements OnInit {
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = items.length;
-    this.item.listItem = items.slice(0, 15);
   }
   GetQuyTrinhRefresh() {
     let listItem = this.item.listItem.filter(e=> e.isXoa !== true);
@@ -200,22 +196,13 @@ export class XuatbongchovaymodalComponent implements OnInit {
     this.paging.TotalPage = 5;
     this.paging.TotalItem = listItem.length;
   }
-  getListLoBongHopDong(){
-    let itemFind = this.listHopDongFull.filter(e=> e.id === this.item.IdHopDong || '');
-    this.item.listItem = [];
-    this.listItem = [];
-    this.paging.CurrentPage = 1;
-    this.paging.TotalPage = 5;
-    this.paging.TotalItem = 0;
-
-    if(itemFind !== undefined){
+  getListLoBong(){
       let data: any = {}
-      data.IddmLoaiBong = itemFind[0].iddmLoaiBong;
+      data.IddmLoaiBong = this.item.listItem[0].IddmLoaiBong;
       data.CurrentPage = 0;
       this.services.GetListLoBong(data).subscribe((res: any) => {
         this.listLoBong = mapArrayForDropDown(res, "Ten", "Id");
       });
-    }
   }
   GetMatHangTheoKho() {
     this.services.PhieuKiemKeKhoBong()
