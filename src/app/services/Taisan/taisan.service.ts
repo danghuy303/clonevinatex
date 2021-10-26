@@ -93,6 +93,34 @@ export class TaisanService {
       },
     };
   }
+
+  ThanhLyTaiSan() {
+    let url = API.TaiSan;
+    return {
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(`${url}ThanhLyTaiSan/GetNextThanhLyTaiSan`, httpOptions);
+      },
+      GetList: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}ThanhLyTaiSan/GetAllThanhLyTaiSan`, data, httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(`${url}ThanhLyTaiSan/GetThanhLyTaiSanById?Id=${Id}`, httpOptions);
+      },
+      Set: (data) => {
+        return this.http.post(`${url}ThanhLyTaiSan/SetQuyTrinhThanhLyTaiSan`, data, httpOptions);
+      },
+      KhongDuyet: (data) => {
+        return this.http.post(`${url}ThanhLyTaiSan/KhongDuyetQuyTrinhThanhLyTaiSan`, data, httpOptions);
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(`${url}ThanhLyTaiSan/ChuyenTiepQuyTrinhThanhLyTaiSan`, data, httpOptions);
+      },
+      Delete: (Id) => {
+        return this.http.get(`${url}ThanhLyTaiSan/DeleteThanhLyTaiSanById?Id=${Id}`, httpOptions);
+      },
+    };
+  }
   GetOptions() {
     let url = API.TaiSan;
     return {
