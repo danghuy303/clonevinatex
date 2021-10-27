@@ -100,15 +100,23 @@
                     placeholder="Chọn hợp đồng gốc" styleClass="p-inputtext-sm" (onChange)="listHangHoaTheoHopDong()"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Hồ sơ:</label>
-            <div class="p-col-12 p-xl-9 p-p-0">
+            <!-- <div class="p-col-12 p-xl-9 p-p-0">
                 <div class="p-inputgroup p-ml-lg-0">
-                    <p-multiSelect [options]="listTen" [(ngModel)]="listTaiLieu" display="chip"></p-multiSelect>
-<!-- <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="listTaiLieu" disabled /> -->
+                    <p-multiSelect [options]="listTen" [(ngModel)]="lstFileUploadCu" display="chip"></p-multiSelect>
                     <button type="button" pButton pRipple icon="pi pi-upload" (click)="taiLenFileDinhKem()"
                         class="p-button-sm p-button-text p-button-secondary"></button>
                 </div>
+            </div> -->
+            <div class="p-col-12 p-xl-9 p-p-0">
+                <span *ngFor="let item1 of lstFileUploadCu">
+                    {{item1.fileName}}
+                    <a title="Xóa" style="color: red;cursor: pointer;font-size: 15px;"
+                        (click)="removeItemDinhKem(item1)">
+                        <i class="fa fa-times"></i></a>, </span>
+                        <button type="button" pButton pRipple icon="pi pi-upload" (click)="taiLenFileDinhKem()"
+                        class="p-button-sm p-button-text p-button-secondary"></button>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">

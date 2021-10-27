@@ -37,6 +37,14 @@ export class HopDongService {
         data.idDuAn = this.store.getCurrent();
         return this.http.post(url + "HopDong/GetListHopDongSapHetHanBanGiao", data, httpOptions);
       },
+      GetListHopDongQuaHanBaoLanh : (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(url + "HopDong/GetListHopDongQuaHanBaoLanh", data, httpOptions);
+      },
+      GetListHopDongSapHetHanBaoLanh : (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(url + "HopDong/GetListHopDongSapHetHanBaoLanh", data, httpOptions);
+      },
       GetListSoi: (data) => {
         data.idDuAn = this.store.getCurrent();
         return this.http.post(url + "HopDong/GetListQuyTrinhHopDongSoi", data, httpOptions);

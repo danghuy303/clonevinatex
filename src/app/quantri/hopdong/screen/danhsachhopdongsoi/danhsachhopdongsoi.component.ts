@@ -121,7 +121,7 @@ export class DanhsachhopdongsoiComponent implements OnInit {
       });
     }
     else if(this.loaiTab === 2){
-      this._service.QuyTrinhHopDong().GetListHopDongSapHetHanBanGiao(data).subscribe((res: any) => {
+      this._service.QuyTrinhHopDong().GetListHopDongSapHetHanBaoLanh(data).subscribe((res: any) => {
         this.items = res.data?.items;
         this.paging.TotalItem = res.data?.totalCount;
         this.items.forEach(element => {
@@ -148,7 +148,7 @@ export class DanhsachhopdongsoiComponent implements OnInit {
       });
     }
     else if(this.loaiTab === 5){
-      this._service.QuyTrinhHopDong().GetListHopDongQuaHanBanGiao(data).subscribe((res: any) => {
+      this._service.QuyTrinhHopDong().GetListHopDongQuaHanBaoLanh(data).subscribe((res: any) => {
         this.items = res.data?.items;
         this.paging.TotalItem = res.data?.totalCount;
         this.items.forEach(element => {

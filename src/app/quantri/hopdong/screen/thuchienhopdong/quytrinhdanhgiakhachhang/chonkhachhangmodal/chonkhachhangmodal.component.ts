@@ -122,19 +122,24 @@ if(item.checked == true)
     let itemFinds = this.items.find(e => e.Id === item.Id);
       let data: any = {
         idKhachHang: itemFinds.Id,
+        khachHang: {
+          diaChi: itemFinds.DiaChi,
+          isXoa: false,
+          id: '',
+          soDienThoai: itemFinds.SoDienThoai,
+          soFax: itemFinds.SoFax,
+          ghiChu: itemFinds.GhiChu,
+          maSoThue: itemFinds.MaSoThue,
+          nguoiDaiDien: itemFinds.NguoiDaiDien,
+          chucVu: itemFinds.ChucVu,
+          taiKhoanNganHang: itemFinds.TaiKhoanNganHang,
+          ten: itemFinds.Ten,
+          ma: itemFinds.Ma,
+        },
         tenKhachHang: itemFinds.Ten,
         maKhachHang: itemFinds.Ma,
-        diaChi: itemFinds.DiaChi,
-        isXoa: false,
-        id: '',
-        soDienThoai: itemFinds.SoDienThoai,
-        soFax: itemFinds.SoFax,
-        ghiChu: itemFinds.GhiChu,
-        maSoThue: itemFinds.MaSoThue,
-        nguoiDaiDien: itemFinds.NguoiDaiDien,
-        chucVu: itemFinds.ChucVu,
-        taiKhoanNganHang: itemFinds.TaiKhoanNganHang,
         listTieuChiDanhGia: this.listTieuChiDanhGia,
+        ketQuaDanhGia: 0,
       }
       this.selectedItems.push(data)
   }

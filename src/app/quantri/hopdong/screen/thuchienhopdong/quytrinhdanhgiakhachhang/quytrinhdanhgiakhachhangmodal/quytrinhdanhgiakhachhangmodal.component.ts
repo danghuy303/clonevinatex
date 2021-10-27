@@ -67,6 +67,10 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
     })
   }
   ChuyenTiep() {
+    this.item.listPhieuDanhGia.forEach(element => {
+      delete element.khachHang;
+      delete element.listHopDong;
+    });
       this.item.ngayUnix = DateToUnix(this.item.ngay);
       this._hopdong.QuyTrinhDanhGia().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
@@ -80,6 +84,10 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
       })
   }
   KhongDuyet() {
+    this.item.listPhieuDanhGia.forEach(element => {
+      delete element.khachHang;
+      delete element.listHopDong;
+    });
       this.item.ngayUnix = DateToUnix(this.item.ngay);
       this._hopdong.QuyTrinhDanhGia().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
@@ -99,6 +107,10 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
   }
 
   GhiLai() {
+    this.item.listPhieuDanhGia.forEach(element => {
+      delete element.khachHang;
+      delete element.listHopDong;
+    });
       this._hopdong.QuyTrinhDanhGia().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.statusCode === 200) {

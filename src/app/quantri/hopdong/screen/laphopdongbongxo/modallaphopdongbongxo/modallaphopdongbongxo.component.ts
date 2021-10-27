@@ -25,9 +25,7 @@ export class ModallaphopdongbongxoComponent implements OnInit {
   opt: any = "add";
   title: string
   item: any = {};
-  @Input() res1: any = [];
   hopDong: any = {};
-  listTaiLieu: any = [];
   listLoaiMatHang: any = []
   listLoaiMatHang_ref: any = []
   listDieuKhoanThanhToan: any = [];

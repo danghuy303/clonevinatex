@@ -33,11 +33,11 @@
     <div class="p-d-flex p-flex-row p-jc-between">
         <p-tabView>
             <p-tabPanel header="Thông tin hợp đồng">
-                <app-chitiethopdongbongxo [(item)]="item.hopDong" [opt]="opt" [(listLoaiMatHang)]="listLoaiMatHang" [(listHangHoa)]="item.listHangHoa[0]" [(listTaiLieu)]="item.listTaiLieu">
+                <app-chitiethopdongbongxo [(item)]="item.hopDong" [opt]="opt" [(listLoaiMatHang)]="listLoaiMatHang" [(lstFileUploadCu)]="item.lstFileUploadCu" [(listHangHoa)]="item.listHangHoa[0]">
                 </app-chitiethopdongbongxo>
             </p-tabPanel>
             <p-tabPanel header="Thông tin hàng hóa">                
-                <app-chitietdanhsachhanghoa [isBong]="isBong" [res1]="res1" [(hopDong)]="item.hopDong" [(listHangHoa)]="item.listHangHoa[0]" [(listTieuChuanChatLuong)]="item.listTieuChuanChatLuong" [listLoaiMatHang]="listLoaiMatHang">
+                <app-chitietdanhsachhanghoa [isBong]="isBong" [(hopDong)]="item.hopDong" [(listHangHoa)]="item.listHangHoa[0]" [(listTieuChuanChatLuong)]="item.listTieuChuanChatLuong" [listLoaiMatHang]="listLoaiMatHang">
                 </app-chitietdanhsachhanghoa>
             </p-tabPanel>
             <p-tabPanel header="Điều khoản thanh toán">

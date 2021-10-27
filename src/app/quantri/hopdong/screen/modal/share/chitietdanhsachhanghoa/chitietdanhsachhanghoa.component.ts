@@ -63,7 +63,6 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   ngOnInit(): void {
     this.GetOptions()
     this.tinhDonGiaThanhToan();
-    this.getlistCapBong();
   }
 
 
@@ -94,6 +93,15 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
       this._servicesSanXuat.GetListOptdmCapBong().subscribe((res: any) => {
         this.listdmCapBong = mapArrayForDropDown(res, "Ten", "Id");
       });
+      if(!validVariable(this.hopDong.loai)){
+        let data: any = {CurrentPage : 0}
+        this._servicesSanXuat.dmDacTinhBong().GetList(data).subscribe((res: any) => {
+          this.listdmDacTinh = mapArrayForDropDown(res, "DacTinh", "Id");
+        });
+      }
+      else
+        this.getlistCapBong();
+
   }
   getlistCapBong(){
     this._servicesSanXuat.dmDacTinhBong().GetDacTinh(this.item.iddmLoaiBong || '', this.item.iddmCapBong || '').subscribe((res: any) => {

@@ -1,4 +1,4 @@
-import { dinhDangSo, UnixToDate } from 'src/app/services/globalfunction';
+import { dinhDangSo, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { HopDongService } from "./../../../../../../services/Hopdong/hopdong.service";
 import { DanhMucHopDongService } from "./../../../../../../services/Hopdong/danhmuchopdong.service";
 import {
@@ -29,13 +29,10 @@ export class ChitiethopdongbongxoComponent implements OnInit {
 
   getKhachHang: any = []
   getKhachHang1: any = []
-
   optionsVatLieu = [
     { label: 'Bông', value: 2 },
     { label: 'Xơ', value: 5 },
-
   ]
-
   selected1: any = {};
   selected: any = {};
   dinhDangSo = dinhDangSo;
@@ -49,17 +46,14 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   listdmKhachHang: any = [];
   getdmKhachHangForCopy: any = {};
   listHopDongGoc: any = [];
-  listTen: any = [];
   @Input('item') item: any = {};
   @Input('listHangHoa') hangHoa: any = {};
-  @Input('itemcha') itemcha: any = {};
+  @Input('lstFileUploadCu') lstFileUploadCu: any = [];
   @Input() isSoi;
   @Input() loaiNguyenVatLieu: number;
-  @Input() hopDong: any = {};
-  @Input() listTaiLieu: any = [];
   @Output() onChange = new EventEmitter<any>();
   @Output('itemChange') itemChange: EventEmitter<any> = new EventEmitter<any>();
-  @Output('itemchaChange') itemchaChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output('lstFileUploadCuChange') lstFileUploadCuChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() onVatLieu: EventEmitter<number> = new EventEmitter<number>();
   @Input("opt") opt: string;
   @Input() getSearchStatus: boolean;
@@ -69,7 +63,6 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   listHopDong: any = [];
   listHopDongFull: any = [];
   isHienThiLoaiHD: boolean = false
-  yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(
     public activeModal: NgbActiveModal,
     private _servicesdmHopDong: DanhMucHopDongService,
@@ -126,8 +119,6 @@ export class ChitiethopdongbongxoComponent implements OnInit {
       .GetListdmLoaiBongForHopDong(this.item.loai)
       .subscribe((res: any) => {
         this.listLoaiMatHang = mapArrayForDropDown(res, "Ten", "Id");
-
-        // this.listLoaiMatHang = res;
         this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
       });
     this.getListHopDongGoc();
@@ -157,19 +148,17 @@ export class ChitiethopdongbongxoComponent implements OnInit {
       });
     }
     if (this.opt !== "edit") {
-      this.itemcha.listTaiLieu = [];
       if (this._store.getCurrent()) {
         this.item.IdDuAn = this._store.getCurrent();
       }
     }
     else {
       this.getListHopDongGoc();
-      this.itemcha.listTen = "";
-      if (this.itemcha.lstFileUploadCu === undefined || this.itemcha.lstFileUploadCu === null)
-        this.itemcha.lstFileUploadCu = [];
-      this.itemcha.lstFileUploadCu.forEach(element => {
-        this.itemcha.listTen += `${element.TenGoc}`;
-      });
+      // if (this.itemcha.lstFileUploadCu === undefined || this.itemcha.lstFileUploadCu === null)
+      //   this.itemcha.lstFileUploadCu = [];
+      // this.itemcha.lstFileUploadCu.forEach(element => {
+      //   this.itemcha.listTen += `${element.TenGoc}`;
+      // });
     }
     if (this.isSoi === true || this.item.isPhuLuc === true)
       this.isHienThiLoaiHD = true
@@ -258,18 +247,19 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.result.then((data) => {
-      this.listTen = [];
+      this.item.file="sdfkhsldkfjhsldkjf";
+      if(!validVariable(this.lstFileUploadCu))
+        this.lstFileUploadCu = []
       data.forEach(element => {
         let item: any = {}
         item.id = '';
         item.fileNameGui = element.Name;
         item.fileName = element.NameLocal;
-        item.Link = element.Url;
-        this.listTaiLieu.push(item);
+        item.link = element.Url;
+        this.lstFileUploadCu.push(item);
+        
       });
-      console.log(this.listTaiLieu)
-      debugger
-      this.listTen = mapArrayForDropDown(this.listTaiLieu, 'fileName', 'id');
+      this.lstFileUploadCuChange.emit(this.lstFileUploadCu);
     }, (reason) => {
     });
   }
@@ -279,4 +269,8 @@ export class ChitiethopdongbongxoComponent implements OnInit {
       this.item.iddmLoaiHopDong = itemFind[0].iddmLoaiHopDong;
     }
   }
+  removeItemDinhKem(item){
+    let i = this.lstFileUploadCu.indexOf(item)
+    this.lstFileUploadCu.splice(i, 1);
+  } 
 }
