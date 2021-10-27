@@ -22,7 +22,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
   type = '';
   opt = '';
   listPhanXuong = [];
-  checkbutton: any = {};
+  checkbutton: any = {Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true};
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   public listdsTaiSan: any = [];
@@ -117,7 +117,9 @@ export class ModalthuhoitaisanComponent implements OnInit {
         if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
+         this.item = res.Data;
           this.toastr.success(res.Message);
+        this.KiemTraButtonModal();
           // this.activeModal.close();
         }
       }, (er) => {
@@ -134,7 +136,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
   }
 
   ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open(ModalchontaisanComponent, {
+    let modalRef = this._modal.open(ModalchontaisanCopyComponent, {
       size: "xl",
       backdrop: "static",
     });
@@ -156,6 +158,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
       this.checkbutton = res;
+      console.log(this.checkbutton)
     });
   }
   ChapNhan() {
@@ -179,6 +182,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
           this._serviceTaiSan.PhieuThuHoiTaiSan().Delete(this.item.Id).subscribe((res: any) => {
             if (res.StatusCode === 200) {
               this.toastr.success(res.Message);
+              this.activeModal.close();
             } else {
               this.toastr.error(res.Message);
             }

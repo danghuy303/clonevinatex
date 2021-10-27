@@ -114,7 +114,9 @@ export class ModalthanhlytaisanComponent implements OnInit {
         if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
+          this.item = res.Data;
           this.toastr.success(res.Message);
+          this.KiemTraButtonModal();
           // this.activeModal.close();
         }
       }, (er) => {
@@ -175,6 +177,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
           this._serviceTaiSan.ThanhLyTaiSan().Delete(this.item.Id).subscribe((res: any) => {
             if (res.StatusCode === 200) {
               this.toastr.success(res.Message);
+              this.activeModal.close();
             } else {
               this.toastr.error(res.Message);
             }
