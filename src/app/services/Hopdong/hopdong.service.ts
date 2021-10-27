@@ -462,7 +462,9 @@ export class HopDongService {
         return this.http.post(url + "DanhMuc/SetdmTieuChiDanhGia",data,httpOptions);
       },
       Delete: (Id) => {
-        return this.http.get(url + `DanhMuc​/DeletedmTieuChiDanhGia?Id=${Id}`,httpOptions);
+        return this.http.get(url + `DanhMuc/DeletedmTieuChiDanhGia?Id=${Id}`,httpOptions);
+
+        // return this.http.get(url + `DanhMuc​/DeletedmTieuChiDanhGia?Id=${Id}`,httpOptions);
       },
     };
   };
