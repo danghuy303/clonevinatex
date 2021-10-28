@@ -78,6 +78,7 @@ import { ModalchontaisanComponent } from './modal/modalchontaisan/modalchontaisa
 import { ThanhlytaisanComponent } from './thanhlytaisan/thanhlytaisan.component';
 import { ModalthanhlytaisanComponent } from './modal/modalthanhlytaisan/modalthanhlytaisan.component';
 import { ModalchontaisanCopyComponent } from './modal/modalchontaisan-copy/modalchontaisan-copy.component';
+import { ModaltaolichbaoduongComponent } from './modal/modaltaolichbaoduong/modaltaolichbaoduong.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -115,6 +116,7 @@ import { ModalchontaisanCopyComponent } from './modal/modalchontaisan-copy/modal
     ThanhlytaisanComponent,
     ModalthanhlytaisanComponent,
     ModalchontaisanCopyComponent,
+    ModaltaolichbaoduongComponent,
 
   ],
   imports: [
@@ -184,6 +186,7 @@ import { ModalchontaisanCopyComponent } from './modal/modalchontaisan-copy/modal
     ModalchontaisanComponent,
     ModalchontaisanCopyComponent,
     ModalthanhlytaisanComponent,
+    ModaltaolichbaoduongComponent,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]

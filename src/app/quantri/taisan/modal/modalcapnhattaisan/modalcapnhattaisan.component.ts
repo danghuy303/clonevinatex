@@ -231,6 +231,29 @@ export class ModalcapnhattaisanComponent implements OnInit {
       });
   }
 
+  TaoLichBaoDuong(item) {
+    let modalRef = this._modal.open(ModalcapnhattaisanconComponent, {
+      size: "fullscreen-100",
+      backdrop: "static",
+    });
+    modalRef.componentInstance.opt = "add";
+    modalRef.componentInstance.item = item;
+    modalRef.componentInstance.listDonVi = this.listDonVi;
+    modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
+    modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
+    modalRef.componentInstance.listNhaSanXuat = this.listNhaSanXuat;
+    modalRef.componentInstance.listTinhTrangTaiSan_copy = this.listTinhTrangTaiSan_copy;
+    modalRef.componentInstance.listDonVi_copy = this.listDonVi_copy;
+    modalRef.result
+      .then((res: any) => {
+
+      })
+      .catch((er) => {
+
+      });
+  }
+
+
   XoaTaiSanCon(item, index) {
     if (validVariable(item.Id)) {
       this.item.listTaiSan.splice(index, 1);
