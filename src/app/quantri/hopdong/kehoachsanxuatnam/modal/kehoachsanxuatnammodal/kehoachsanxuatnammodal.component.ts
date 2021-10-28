@@ -9,8 +9,6 @@ import { UnixToDate, mapArrayForDropDown, validVariable, deepCopy, DateToUnix } 
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
-import { ModaldongiakehoachthucteComponent } from '../../../kehoachkinhdoanh/modal/modaldongiakehoachthucte/modaldongiakehoachthucte.component';
-import { ModalkehoachkinhdoanhtheodoiComponent } from '../../../kehoachkinhdoanh/modal/modalkehoachkinhdoanhtheodoi/modalkehoachkinhdoanhtheodoi.component';
 
 @Component({
   selector: 'app-kehoachsanxuatnammodal',
@@ -62,14 +60,8 @@ export class KehoachsanxuatnammodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log(this.item, this.type);
-    // for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
-    //   this.listNam.push({ value: i, label: i });
-    // }
     this.getListNhaMay();
     this.getKeHoachKinhDoanhNam();
-    // this.getListPhanXuong();
-    // this.GetListMatHang();
     if (this.type === 'themmoi') {
       this.item.TenNguoiLap = this.userInfo.TenNhanVien;
       this.GetNextSoQuyTrinh();
@@ -84,7 +76,6 @@ export class KehoachsanxuatnammodalComponent implements OnInit {
   }
   TinhSoLuongDaLapKeHoach(rootItem, parentItem) {
     rootItem.SoLuongDaLapKeHoach = this.propThang.reduce((total, prop) => (rootItem[prop] | 0) + total, 0);
-    console.log(rootItem);
     parentItem.SoLuongDaLapKeHoach = parentItem.lstKH_KeHoachSanXuat_SanPham_PhanXuong.reduce((total, ele) => (ele.SoLuongDaLapKeHoach | 0) + total, 0);
     this.propThang.forEach(prop => {
       parentItem.SanXuat[prop] = parentItem.lstKH_KeHoachSanXuat_SanPham_PhanXuong.reduce((total, ele) => (ele[prop] | 0) + total, 0);
