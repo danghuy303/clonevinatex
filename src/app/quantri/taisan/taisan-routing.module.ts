@@ -9,6 +9,7 @@ import { HangsanxuatComponent } from './danhmuc/hangsanxuat/hangsanxuat.componen
 import { LoaikhauhaoComponent } from './danhmuc/loaikhauhao/loaikhauhao.component';
 import { TinhtrangtaisanComponent } from './danhmuc/tinhtrangtaisan/tinhtrangtaisan.component';
 import { DanhsachtaisanComponent } from './danhsachtaisan/danhsachtaisan.component';
+import { NhaplieuxuattaisanComponent } from './nhaplieuxuattaisan/nhaplieuxuattaisan.component';
 import { NhaptaisanComponent } from './nhaptaisan/nhaptaisan.component';
 import { TaisanComponent } from './taisan.component';
 import { ThanhlytaisanComponent } from './thanhlytaisan/thanhlytaisan.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path:'danhmuc/loaikhauhao',component:LoaikhauhaoComponent},
   {path:'thuhoitaisan/:id',component:PhieuthuhoitaisanComponent},
   {path:'thanhlytaisan/:id',component:ThanhlytaisanComponent},
+  {path:'nhaplieuxuattaisan',component:NhaplieuxuattaisanComponent},
 ];
 
 @NgModule({
