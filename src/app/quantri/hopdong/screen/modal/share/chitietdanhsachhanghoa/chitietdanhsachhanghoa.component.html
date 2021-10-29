@@ -185,7 +185,7 @@
                 (ngModelChange)="tinhgiaTriHopDongSoi(item)">
               </p-inputNumber>
             </td>
-            <td class="text-right">{{(item.soLuong||0)*(item.donGia||0)*((item.thueGTGT|| 0) + 100)|number:'0.0'}}</td>
+            <td class="text-right">{{(item.soLuong||0)*(item.donGia||0)*((item.thueGTGT|| 0)/100 + 1)|number:'0.0'}}</td>
             <td class="text-center" *ngIf="isXo">
               <p-dropdown [filter]="true" [(ngModel)]="item.iddmQuyCachDongGoi" [options]="listdmQuyCachDongGoi"
                 placeholder="Chọn quy cách" styleClass="p-inputtext-sm"></p-dropdown>

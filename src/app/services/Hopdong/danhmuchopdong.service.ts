@@ -31,9 +31,6 @@ export class DanhMucHopDongService {
             Set: (data) => {
                 return this.http.post(`${url}DanhMuc/SetdmThuTucThanhToan`, data, httpOptions)
             },
-            DeleteList: (data) => {
-                return this.http.post(`${url}DanhMuc/DeleteListdmThuTucThanhToan`, data, httpOptions)
-            },
             Delete: (id) => {
                 return this.http.get(`${url}DanhMuc/DeletedmThuTucThanhToan?id=${id}`, httpOptions)
             }
@@ -58,9 +55,6 @@ export class DanhMucHopDongService {
             },
             Set: (data) => {
                 return this.http.post(`${url}DanhMuc/SetdmLoaiTienTe`, data, httpOptions)
-            },
-            DeleteList: (data) => {
-                return this.http.post(`${url}DanhMuc/DeleteListdmLoaiTienTe`, data, httpOptions)
             },
             Delete: (id) => {
                 return this.http.get(`${url}DanhMuc/DeletedmLoaiTienTe?id=${id}`, httpOptions)
@@ -106,11 +100,8 @@ export class DanhMucHopDongService {
 
                 return this.http.post(`${url}DanhMuc/SetdmHinhThucThanhToan`, data, httpOptions)
             },
-            DeleteList: (data) => {
-                return this.http.post(`${url}DanhMuc/DeleteListdmHinhThucThanhToan`, data, httpOptions)
-            },
             Delete: (id) => {
-                return this.http.get(`${url}DanhMuc/DeletedmHinhThucThanhToan?id=${id}`, httpOptions)
+                return this.http.get(`${url}DanhMuc/DeletedmHinhThucThanhToan?Id=${id}`, httpOptions)
             }
         }
     }
@@ -131,9 +122,6 @@ export class DanhMucHopDongService {
             Set: (data) => {
                 return this.http.post(`${url}DanhMuc/SetdmTinhTrangBaoLanh`, data, httpOptions)
             },
-            DeleteList: (data) => {
-                return this.http.post(`${url}DanhMuc/DeleteListdmTinhTrangBaoLanh`, data, httpOptions)
-            },
             Delete: (id) => {
                 return this.http.get(`${url}DanhMuc/DeletedmTinhTrangBaoLanh?id=${id}`, httpOptions)
             }
@@ -151,11 +139,8 @@ export class DanhMucHopDongService {
             Set: (data) => {
                 return this.http.post(`${url}DanhMuc/SetdmTieuChuanChatLuong`, data, httpOptions)
             },
-            DeleteList: (data) => {
-                return this.http.post(`${url}DanhMuc/DeleteListdmTieuChuanChatLuong`, data, httpOptions)
-            },
-            Delete: (id) => {
-                return this.http.get(`${url}DanhMuc/DeletedmTieuChuanChatLuong?id=${id}`, httpOptions)
+            Delete: (data) => {
+                return this.http.post(`${url}DanhMuc/DeletedmTieuChuanChatLuong`,data, httpOptions)
             }
         }
     }
