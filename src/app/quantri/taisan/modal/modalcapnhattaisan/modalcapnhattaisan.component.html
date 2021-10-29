@@ -67,7 +67,7 @@
                     <th class="text-center">Mã</th>
                     <th class="text-center">Tên</th>
                     <th class="text-center">Nội dung</th>
-                    <th class="text-center">Đơn vị tính</th>         
+                    <th class="text-center">Đơn vị tính</th>
                     <th class="text-center">Nguyên giá</th>
                     <th class="text-center">Giá trị còn lại</th>
                     <th class="text-center">Thời gian sử dụng</th>
@@ -82,20 +82,23 @@
                     <td class="text-center">{{item.Ma}}</td>
                     <td class="text-center">{{item.Ten}}</td>
                     <td class="text-center">{{item.NoiDung}}</td>
-                    <td class="text-center">{{item.TenDonViTinh}}</td>                               
+                    <td class="text-center">{{item.TenDonViTinh}}</td>
                     <td class="text-center">{{item.NguyenGia|number:'0.0'}}</td>
-                    <td class="text-center">{{item.GiaTriConLai|number:'0.0'}}</td>                   
-                    <td class="text-center">{{item.ThoiGianSuDung}}</td>                   
+                    <td class="text-center">{{item.GiaTriConLai|number:'0.0'}}</td>
+                    <td class="text-center">{{item.ThoiGianSuDung}}</td>
                     <td class="text-center">
                         <button pButton pRipple type="button" icon="pi pi-pencil"
                             class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
                             (click)="CapNhatTaiSanCon(item)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-align-justify"
+                            class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Tạo lịch bảo dưỡng"
+                            (click)="TaoLichBaoDuong(item)"></button>                   
                         <button pButton pRipple type="button" icon="pi pi-trash"
                             class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
                             (click)="XoaTaiSanCon(item,i)"></button>
                     </td>
                 </tr>
-            </ng-template>          
+            </ng-template>
         </p-table>
     </p-panel>
 </div>
