@@ -10,6 +10,7 @@ import { API } from 'src/app/services/host';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalcapnhattaisanconComponent } from '../modalcapnhattaisancon/modalcapnhattaisancon.component';
+import { ModaltaolichbaoduongComponent } from '../modaltaolichbaoduong/modaltaolichbaoduong.component';
 
 @Component({
   selector: 'app-modalcapnhattaisan',
@@ -232,25 +233,30 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   TaoLichBaoDuong(item) {
-    let modalRef = this._modal.open(ModalcapnhattaisanconComponent, {
-      size: "fullscreen-100",
-      backdrop: "static",
-    });
-    modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.item = item;
-    modalRef.componentInstance.listDonVi = this.listDonVi;
-    modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
-    modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
-    modalRef.componentInstance.listNhaSanXuat = this.listNhaSanXuat;
-    modalRef.componentInstance.listTinhTrangTaiSan_copy = this.listTinhTrangTaiSan_copy;
-    modalRef.componentInstance.listDonVi_copy = this.listDonVi_copy;
-    modalRef.result
-      .then((res: any) => {
-
-      })
-      .catch((er) => {
-
+    if (validVariable(this.item.TaiSan.IddmDonViTinh)) {
+      let modalRef = this._modal.open(ModaltaolichbaoduongComponent, {
+        size: "xl",
+        backdrop: "static",
       });
+      modalRef.componentInstance.opt = "add";
+      modalRef.componentInstance.item = item;
+      modalRef.componentInstance.listDonVi = this.listDonVi;
+      modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
+      modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
+      modalRef.componentInstance.listNhaSanXuat = this.listNhaSanXuat;
+      modalRef.componentInstance.listTinhTrangTaiSan_copy = this.listTinhTrangTaiSan_copy;
+      modalRef.componentInstance.itemDonVi = this.listDonVi_copy.find(obj => obj.Id === this.item.TaiSan.IddmDonViTinh);
+      modalRef.result
+        .then((res: any) => {
+          this.item.listLichBaoDuong = res;
+        })
+        .catch((er) => {
+
+        });
+    }
+    else {
+      this.toastr.error("Yêu cầu chọn đơn vị");
+    }
   }
 
 

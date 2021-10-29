@@ -240,6 +240,11 @@ export class ChitiethopdongbongxoComponent implements OnInit {
         if (res.data.length > 0) {
           let data: any = res.data[0];
           data.id = '';
+          data.DonGiaThanhToan = data.donGia *(100 +(data.thueGTGT || 0))/100 ;
+          data.giaTriHopDongMatHang = data.DonGiaThanhToan * data.soLuong;
+          if(this.item.isLayTheoGiaTriHangHoa === true){
+            this.item.giaTri =  data.giaTriHopDongMatHang;
+          }
           this.listHangHoaChange.emit(data);
         }
       });

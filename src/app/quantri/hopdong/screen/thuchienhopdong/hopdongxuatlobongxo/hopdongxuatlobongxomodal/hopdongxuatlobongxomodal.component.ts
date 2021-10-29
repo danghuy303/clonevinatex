@@ -46,6 +46,7 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
       this.item = {
         id: '',
         idDuAn: this.IdDuAn,
+        listItem: [],
       }
       this.GetNextSoQuyTrinh();
     }
@@ -171,7 +172,6 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
       this.item.listItem = [];
     this.item.listItem.push(this.newTableItem);
     this.newTableItem = {}
-    
   }
 
   delete(index) {
@@ -181,6 +181,7 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
       item.isXoa = true;
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
+    this.tinhTongSoKien();
   }
 
   Onclose() {
@@ -235,8 +236,10 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
   tinhTongSoKien(){
     this.item.soKien = 0;
     if(validVariable(this.item.listItem)){
-      this.item.soKien = this.item.listItem.reduce((total, ele) => {
-        return total + ele.soKien }, 0);
+      this.item.listItem.forEach(element => {
+        if(element.isXoa !== true)
+        this.item.soKien = this.item.soKien +  element.soKien
+      });
     }
     this.item.soKien += (this.newTableItem.soKien || 0);
   }
@@ -256,12 +259,26 @@ export class HopdongxuatlobongxomodalComponent implements OnInit {
   }
   chonLoBongAll(){
     this._hopdong.QuyTrinhXuatBongXo().getLuuKhoKhoBongHopDong('', this.item.idLoBong || '', this.item.loai || 2).subscribe((res1: any) => {
-      this.item.listItem.forEach(element => {
-        let itemFind = res1.filter(e => e.IddmKho === element.iddmKho);
-        if(itemFind !== undefined && itemFind.length > 0){
-          element.tonKho = itemFind[0].TonSoLuong;
+      if(res1.length > 0){
+        this.item.listItem.forEach(element => {
+          let itemFind = res1.filter(e => e.IddmKho === element.iddmKho);
+          if(itemFind !== undefined && itemFind.length > 0){
+            element.tonKho = itemFind[0].TonSoLuong;
+          }
+        });
+        if(validVariable(this.newTableItem.iddmKho)){
+          let itemFindNew = res1.filter(e => e.IddmKho === this.newTableItem.iddmKho);
+          this.newTableItem.tonKho = itemFindNew[0].TonSoLuong;
         }
-      });
+      }
+      else{
+        this.item.listItem.forEach(element => {
+            element.tonKho = 0;
+        });
+        if(validVariable(this.newTableItem.iddmKho)){
+          this.newTableItem.tonKho = 0;
+        }
+      }
     })
   }
 }

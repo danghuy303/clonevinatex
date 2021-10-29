@@ -7,9 +7,7 @@
             <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
                 <div>
                     <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
-                    <button pButton pRipple label="Thoát"
-                        class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
-                        (click)="Onclose()"></button>
+                    <button pButton pRipple label="Đóng" class="p-button-sm p-mr-2" (click)="Onclose()"></button>
                 </div>
                 <!-- <div>
                     <div class="p-inputgroup">
@@ -113,7 +111,7 @@
                                 <td class="text-left"><a href="javascript:void(0)" (click)="viewHopDong(item)">{{item.soTenHopDong}}</a></td>
                                 <td class="text-center">{{item.ngayKy | date:'dd/MM/yyyy'}}</td>
                                 <td class="text-right">{{item.giaTri |number:'0.0-2'}}</td>
-                                <td class="text-left">{{item.tenLoaiBongXo}}</td>
+                                <td class="text-left">{{item.matHang}}</td>
                                 <td class="text-left">{{item.tinhTrang}}</td>
                             </tr>
                         </ng-template>
