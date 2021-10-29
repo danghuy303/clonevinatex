@@ -102,14 +102,8 @@ export class ModallaphopdongsoiComponent implements OnInit {
       this.item.hopDong.ngayHieuLuc = UnixToDate(this.item.hopDong.ngayHieuLucUnix);
       this.item.hopDong.ngayGiaoHang = UnixToDate(this.item.hopDong.ngayGiaoHangUnix);
       if (this.item.listHangHoa.length > 0) {
-        this.item.listHangHoa.forEach(element => {
-          // let itemFind = this.listdmMatHang.filter((e: any) => e.Id === element.iddmItem)[0]
-          // if (itemFind !== undefined) {
-          //   element.tendmMatHang = itemFind.Ten;
-          //   element.madmMatHang = itemFind.Ma;
-          // }
-          this.item.hopDong.thanhTien = (this.item.hopDong.thanhTien || 0) + ((element.soLuong || 0) * (element.donGia || 0))
-        });
+          this.item.hopDong.thanhTien = this.item.listHangHoa.reduce((total, ele) => {
+              return total + ((ele.soLuong || 0) * (ele.donGia || 0)* (1 + (ele.thueGTGT || 0)/100))}, 0)
       }
       if (this.item.hopDong.isBenBanChiu) {
         this.item.hopDong.BenBanChiu = this.item.hopDong.isBenBanChiu;

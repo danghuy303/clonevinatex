@@ -106,7 +106,7 @@ export class DmtieuchichatluonghopdongComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this._services.DanhMucTieuChuanChatLuong().DeleteList([item]).subscribe((res: any) => {
+      this._services.DanhMucTieuChuanChatLuong().Delete(item).subscribe((res: any) => {
         if (res) {
           if (res.statusCode === 200) {
             this._toastr.success(res.message);
@@ -119,25 +119,7 @@ export class DmtieuchichatluonghopdongComponent implements OnInit {
       })
     }).catch(er=>console.log(er))
   }
-  deleteAll(){
-    let modalRef = this._modal.open(ModalthongbaoComponent,{
-      backdrop:'static'
-    });
-    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res=>{
-      this._services.DanhMucTieuChuanChatLuong().DeleteList(this.selectedItems).subscribe((res: any) => {
-        if (res) {
-          if (res.statusCode === 200) {
-            this._toastr.success(res.message);
-            this.GetListdm(true);
-            this.selectedItems = [];
-          } else {
-            this._toastr.error(res.message);
-          }
-        }
-      })
-    }).catch(er=>console.log(er))
-  }
+  
   changePage(event){
     this.paging.CurrentPage = event.page+1;
     this.GetListdm();
