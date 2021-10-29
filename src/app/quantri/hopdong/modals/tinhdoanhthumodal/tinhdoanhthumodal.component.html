@@ -1,0 +1,54 @@
+
+<div class="modal-header">
+    <h5 class="modal-title">Tính doanh thu</h5>
+    <div class="d-flex flex-column flex-lg-row">
+      <!-- <div>
+        <span style="font-weight: bold;">Số phiếu:</span> <span>{{item.SoQuyTrinh}}</span>
+      </div>
+      <div class="ml-lg-3 mr-lg-3">
+        <span style="font-weight: bold;">TG Tạo:</span>
+      </div>
+      <div>
+        <span style="font-weight: bold;">TG Duyệt:</span>
+      </div> -->
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="p-d-flex p-flex-row p-jc-between">
+      <div class="modal-bt p-mb-4">
+        <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
+          (click)="activeModal.dismiss('close')"></button>
+        <button pButton *ngIf="checkbutton.Ghi" pRipple type="button" label="Lưu nháp" class="p-mr-2 p-button-sm "
+          (click)="GhiLai()"></button>
+        <!-- <button pButton *ngIf="checkbutton.ChuyenTiep" pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm "
+          (click)="ChapNhan()"></button>
+        <button pButton *ngIf="checkbutton.KhongDuyet" pRipple type="button" label="Không duyệt"
+          class="p-mr-2 p-button-sm " (click)="KhongDuyet()"></button>
+        <button pButton *ngIf="item.isKetThuc" pRipple type="button" label="Điều chỉnh kế hoạch"
+          class="p-mr-2 p-button-sm" (click)="DieuChinhKeHoach()"></button>
+          <button pButton pRipple type="button" label="Danh mục đơn giá" class="p-mr-2 p-button-sm"
+              (click)="DanhMucDonGia()"></button>
+            <button pButton pRipple type="button" label="Tính doanh thu" class="p-mr-2 p-button-sm"
+              (click)="TinhDoanhThu()"></button> -->
+      </div>
+    </div>
+    <div class="p-d-flex p-flex-row">
+        <div class="p-col-12 p-p-0 pintable-container" style="height: 77vh;" voiPintable [pinnedCols]="1">
+            <table>
+                <thead>
+                    <tr>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+  
+  </div>
