@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { StoreService } from 'src/app/services/store.service';
-import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalthuhoitaisanComponent } from '../../modal/modalthuhoitaisan/modalthuhoitaisan.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -52,6 +52,7 @@ export class PhieuthuhoitaisanComponent implements OnInit {
 
   resetFilter() {
     this.keyWord = '';
+    this.filter = {};
     this.GetListThuHoiTaiSan(true);
   }
   
@@ -63,7 +64,9 @@ export class PhieuthuhoitaisanComponent implements OnInit {
     let data = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      sFilter: this.keyWord,
+      keyWord: this.keyWord,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
       TabTrangThai: this.trangThai
 
     };

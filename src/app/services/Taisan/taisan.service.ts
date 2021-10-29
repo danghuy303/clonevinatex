@@ -127,6 +127,10 @@ export class TaisanService {
       GetListTaiSanChuaBanGiao: () => {
         return this.http.get(`${url}TaiSan/GetListTaiSanChuaBanGiao`, httpOptions);
       },
+      ListBaoDuongTaiSan: (IdTaiSan, IddmDonViTinh) => {
+        return this.http.get(`${url}TaiSan/ListBaoDuongTaiSan?IdTaiSan=${IdTaiSan}&IddmDonViTinh=${IddmDonViTinh}`, httpOptions);
+      },
+
     }
   }
 

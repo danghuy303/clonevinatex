@@ -38,7 +38,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Output('listLoaiMatHangChange') listLoaiMatHangChange: EventEmitter<any> = new EventEmitter<any>(); 
   @Output('listHangHoaSoiChange') listHangHoaSoiChange: EventEmitter<any> = new EventEmitter<any>(); 
   @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
-  // @Output('listTieuChuanChatLuong') listTieuChuanChatLuongChange: EventEmitter<any> = new EventEmitter();
+  @Output('listTieuChuanChatLuongChange') listTieuChuanChatLuongChange: EventEmitter<any> = new EventEmitter();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   unsup: Subscription
   lang: any = vn;
@@ -71,6 +71,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     this.hopDongChange.emit(this.hopDong);
     this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
     this.listHangHoaSoiChange.emit(this.listHangHoaSoi);
+    this.listTieuChuanChatLuongChange.emit(this.listTieuChuanChatLuong);
   }
   // ngOnChanges(changes: SimpleChanges) {
   //   if ('loaiNguyenVatLieu' in changes) {
@@ -126,6 +127,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
       item.isXoa = true;
       this.listHangHoaSoi.push(JSON.parse(JSON.stringify(item)));
     }
+    this.tinhgiaTriHopDongSoi("");
   }
 
 
@@ -161,10 +163,19 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     if(this.hopDong.isLayTheoGiaTriHangHoa === true)
       this.hopDong.giaTri = this.item.giaTriHopDongMatHang;
   }
-  tinhgiaTriHopDongSoi(item) {
-    item.soLuong = this.dinhDangSo(item.soLuong);
-    item.donGia = this.dinhDangSo(item.donGia);
-    this.hopDong.thanhTien = (this.hopDong.thanhTien || 0)+ (item.donGia || 0) * (item.soLuong|| 0) * (item.thueGTGT || 0);
+  tinhgiaTriHopDongSoi(e) {
+    if(e!= ""){
+      e.soLuong = dinhDangSo(e.soLuong);
+      e.donGia = dinhDangSo(e.donGia);
+      e.thueGTGT = dinhDangSo(e.thueGTGT);
+    }
+    this.hopDong.thanhTien = 0;
+
+    this.listHangHoaSoi.forEach(ele => {
+      if(ele.isXoa !== true)
+        this.hopDong.thanhTien = this.hopDong.thanhTien + (ele.soLuong || 0) * (ele.donGia || 0)* (1 + (ele.thueGTGT || 0)/100)
+    });
+    
     if(this.hopDong.isLayTheoGiaTriHangHoa === true)
       this.hopDong.giaTri = this.hopDong.thanhTien;
   }

@@ -76,7 +76,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lô bông :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoBong" placeholder="Chọn lô bông"
-                    styleClass="p-inputtext-sm" [(ngModel)]="item.idLoBong"></p-dropdown>
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.idLoBong" (onChange)="chonLoBongAll()"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -86,13 +86,13 @@
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số lượng :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soLuong" disabled>
                 </p-inputNumber>
             </div>
-        </div>
+        </div> -->
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -118,7 +118,7 @@
                         <th>Kho</th>
                         <th>Tồn kho</th>
                         <th>Tổng số kiện</th>
-                        <th>Tổng khối lượng</th>
+                        <th>Ghi chú</th>
                         <th></th>
                     </tr>
                 </ng-template>
@@ -138,8 +138,9 @@
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemTable.khoiLuong" (ngModelChange)="tinhTongKhoiLuong()">
-                            </p-inputNumber>
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="itemTable.ghiChu" pInputText />
+                            <!-- <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemTable.khoiLuong" (ngModelChange)="tinhTongKhoiLuong()">
+                            </p-inputNumber> -->
                         </td>
                         <td class="text-center">
                             <button pButton pRipple icon="pi pi-trash"
@@ -164,8 +165,9 @@
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.khoiLuong" (ngModelChange)="tinhTongKhoiLuong()">
-                            </p-inputNumber>
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="newTableItem.ghiChu" pInputText />
+                            <!-- <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.khoiLuong" (ngModelChange)="tinhTongKhoiLuong()">
+                            </p-inputNumber> -->
                         </td>
                         <td class="text-center"> <button pButton pRipple icon="pi pi-plus"
                                 class="p-button-sm p-button-rounded p-button-success p-mr-2" (click)="add()"

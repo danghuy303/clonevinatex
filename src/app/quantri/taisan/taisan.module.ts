@@ -79,6 +79,8 @@ import { ThanhlytaisanComponent } from './thanhlytaisan/thanhlytaisan.component'
 import { ModalthanhlytaisanComponent } from './modal/modalthanhlytaisan/modalthanhlytaisan.component';
 import { ModalchontaisanCopyComponent } from './modal/modalchontaisan-copy/modalchontaisan-copy.component';
 import { ModaltaolichbaoduongComponent } from './modal/modaltaolichbaoduong/modaltaolichbaoduong.component';
+import { NhaplieuxuattaisanComponent } from './nhaplieuxuattaisan/nhaplieuxuattaisan.component';
+import { ModalnhaplieuxuattaisanComponent } from './modal/modalnhaplieuxuattaisan/modalnhaplieuxuattaisan.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -117,6 +119,8 @@ import { ModaltaolichbaoduongComponent } from './modal/modaltaolichbaoduong/moda
     ModalthanhlytaisanComponent,
     ModalchontaisanCopyComponent,
     ModaltaolichbaoduongComponent,
+    NhaplieuxuattaisanComponent,
+    ModalnhaplieuxuattaisanComponent,
 
   ],
   imports: [
