@@ -18,11 +18,11 @@ export class ModalthuhoitaisanComponent implements OnInit {
 
   newitem: any = {};
   showDropDown: boolean = false;
-  item: any = { listTaiSan: []};
+  item: any = { listTaiSan: [] };
   type = '';
   opt = '';
   listPhanXuong = [];
-  checkbutton: any = {Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true};
+  checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   public listdsTaiSan: any = [];
@@ -38,7 +38,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if ( this.item.NgayThuHoiUnix !== 0) {
+    if (this.item.NgayThuHoiUnix !== 0) {
       this.item.NgayThuHoi = UnixToDate(this.item.NgayThuHoiUnix);
     }
     if (this.type === 'themmoi') {
@@ -46,7 +46,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
     }
     else {
       this.item.listTaiSan.forEach(obj => {
-        if(!validVariable(obj.TaiSan)){
+        if (!validVariable(obj.TaiSan)) {
           obj.TaiSan = {};
         }
       });
@@ -117,9 +117,9 @@ export class ModalthuhoitaisanComponent implements OnInit {
         if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
-         this.item = res.Data;
+          this.item = res.Data;
           this.toastr.success(res.Message);
-        this.KiemTraButtonModal();
+          this.KiemTraButtonModal();
           // this.activeModal.close();
         }
       }, (er) => {
@@ -140,19 +140,27 @@ export class ModalthuhoitaisanComponent implements OnInit {
       size: "xl",
       backdrop: "static",
     });
+    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
-      // console.log(res);
-      res.forEach(element => {
-        element.SoLuong = 0;
-        element.GiaTriConLai = 0;
-        this.item.listTaiSan.push(element);
+      let listKetQua = [];
+      this.item.listTaiSan.forEach(Tai_San => {
+        let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+        if (bien !== undefined) {
+          listKetQua.push(Tai_San);
+        }
       });
-      console.log(this.item.listTaiSan)
+      // vong lap 2
+    res.forEach(Tai_San => {
+      let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+      if (bien === undefined) {
+        listKetQua.push(Tai_San);
+      }
+    });
+    this.item.listTaiSan = listKetQua;
     })
       .catch((er) => {
-
       });
   }
   KiemTraButtonModal() {
@@ -162,33 +170,33 @@ export class ModalthuhoitaisanComponent implements OnInit {
     });
   }
   ChapNhan() {
-      this._serviceTaiSan.PhieuThuHoiTaiSan().ChuyenTiep(this.setData()).subscribe((res: any) => {
-        console.log(res)
-        if (res.StatusCode !== 200) {
-          this.toastr.error(res.Message);
-        } else {
-          this.toastr.success(res.Message);
-          this.activeModal.close();
-        }
-      })
-    }
-    XoaQuyTrinh() {
-      let modalRef = this._modal.open(ModalthongbaoComponent, {
-        backdrop: "static",
-      });
-      modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
-      modalRef.result
-        .then((res) => {
-          this._serviceTaiSan.PhieuThuHoiTaiSan().Delete(this.item.Id).subscribe((res: any) => {
-            if (res.StatusCode === 200) {
-              this.toastr.success(res.Message);
-              this.activeModal.close();
-            } else {
-              this.toastr.error(res.Message);
-            }
-          })
+    this._serviceTaiSan.PhieuThuHoiTaiSan().ChuyenTiep(this.setData()).subscribe((res: any) => {
+      console.log(res)
+      if (res.StatusCode !== 200) {
+        this.toastr.error(res.Message);
+      } else {
+        this.toastr.success(res.Message);
+        this.activeModal.close();
+      }
+    })
+  }
+  XoaQuyTrinh() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
+    modalRef.result
+      .then((res) => {
+        this._serviceTaiSan.PhieuThuHoiTaiSan().Delete(this.item.Id).subscribe((res: any) => {
+          if (res.StatusCode === 200) {
+            this.toastr.success(res.Message);
+            this.activeModal.close();
+          } else {
+            this.toastr.error(res.Message);
+          }
         })
-        .catch((er) => console.log(er));
-    }
+      })
+      .catch((er) => console.log(er));
+  }
 }
 

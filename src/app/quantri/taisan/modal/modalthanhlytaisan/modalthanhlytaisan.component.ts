@@ -7,6 +7,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { ModalchontaisanCopyComponent } from '../modalchontaisan-copy/modalchontaisan-copy.component';
 import { ModalchontaisanComponent } from '../modalchontaisan/modalchontaisan.component';
 @Component({
   selector: 'app-modalthanhlytaisan',
@@ -97,31 +98,34 @@ export class ModalthanhlytaisanComponent implements OnInit {
   xoa(item) {
 
   }
-  // validate(): boolean {
-  //   if (!validVariable(this.item.IddmPhanXuong)) {
-  //     this.toastr.error('Vui lòng nhập phân xưởng!!');
-  //     return false;
-  //   }
-  //   return true;
-  // }
+  Validate() {
+    if (!validVariable(this.item.NguoiThanhLy) ||
+      !validVariable(this.item.NgayThanhLy)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
+      return false;
+    }
+    return true;
+  }
   setData() {
     this.item.NgayThanhLyUnix = DateToUnix(this.item.NgayThanhLy);
     this.item.IdDuAn = this.store.getCurrent();
     return this.item;
   }
   GhiLai() {
-      this._serviceTaiSan.ThanhLyTaiSan().Set(this.setData()).subscribe((res: any) => {
-        if (res.StatusCode !== 200 || !res.StatusCode) {
+      if(this.Validate()) {
+        this._serviceTaiSan.ThanhLyTaiSan().Set(this.setData()).subscribe((res: any) => {
+          if (res.StatusCode !== 200 || !res.StatusCode) {
+            this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+          } else {
+            this.item = res.Data; // khi Ghi hiện duyệt >> KiemTraButtonModal()
+            this.toastr.success(res.Message);
+            this.KiemTraButtonModal();
+            // this.activeModal.close();
+          }
+        }, (er) => {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-        } else {
-          this.item = res.Data;
-          this.toastr.success(res.Message);
-          this.KiemTraButtonModal();
-          // this.activeModal.close();
-        }
-      }, (er) => {
-        this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-      })
+        })
+      }
   }
 
   GetNextSoQuyTrinh() {
@@ -131,24 +135,36 @@ export class ModalthanhlytaisanComponent implements OnInit {
     })
   }
 
-  ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open(ModalchontaisanComponent, {
+  ThemMoiDanhSachTaiSan( ) {
+    let modalRef = this._modal.open(ModalchontaisanCopyComponent, {
       size: "xl",
       backdrop: "static",
     });
+    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan? this.item.listTaiSan.map(ele=>ele.IdTaiSan):[]
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = {};
-    modalRef.result.then((res: any) => {
-      // console.log(res);
-      res.forEach(element => {
-        element.GiaTriThanhLy = 0;
-        element.SoLuong = 0;
-        this.item.listTaiSan.push(element);
+    modalRef.result.then((tai_san_da_chon_tu_modal: any) => {
+         let listKetQua = [];
+         // for vòng nhất
+         
+         
+      this.item.listTaiSan.forEach(tai_san => {
+        let bien = tai_san_da_chon_tu_modal.find(ele => ele.IdTaiSan === tai_san.IdTaiSan);
+        if(bien !== undefined) {
+          listKetQua.push(tai_san);
+        }
       });
+      // for vòng thứ 2
+      tai_san_da_chon_tu_modal.forEach(tai_san => {
+        let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === tai_san.IdTaiSan);
+        if(bien === undefined) {
+          listKetQua.push(tai_san);
+        }
+      });
+      this.item.listTaiSan= listKetQua;
       console.log(this.item.listTaiSan)
     })
       .catch((er) => {
-
       });
   }
   KiemTraButtonModal() {
