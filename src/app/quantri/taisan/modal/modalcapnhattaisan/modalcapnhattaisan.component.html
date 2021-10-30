@@ -34,7 +34,7 @@
     </div>
     <!-- phần cha -->
     <app-thongtitaisancha [(item)]="item.TaiSan" [listDonVi]="listDonVi" [listLoaiTaiSan]="listLoaiTaiSan"
-        [listTinhTrangTaiSan]="listTinhTrangTaiSan" [listNhaSanXuat]="listNhaSanXuat" [opt]="opt">
+        [listTinhTrangTaiSan]="listTinhTrangTaiSan" [listNhaSanXuat]="listNhaSanXuat" [listTinhTrangTaiSan_copy]="listTinhTrangTaiSan_copy" [itemDonVi]="itemDonVi" [opt]="opt" [TaiSanChaCon]="'cha'">
     </app-thongtitaisancha>
     <!-- phần con -->
     <p-panel header="Tài sản" [toggleable]="true">
@@ -51,11 +51,9 @@
                     <col style="width: 50px;">
                     <col>
                     <col>
+                    <col>                
                     <col>
-                    <col>
-                    <col>
-                    <col>
-                    <col>
+                    <col>                   
                     <col style="width: 150px;">
                 </colgroup>
             </ng-template>
@@ -66,10 +64,8 @@
                     </th>
                     <th class="text-center">Mã</th>
                     <th class="text-center">Tên</th>
-                    <th class="text-center">Nội dung</th>
-                    <th class="text-center">Đơn vị tính</th>
-                    <th class="text-center">Nguyên giá</th>
-                    <th class="text-center">Giá trị còn lại</th>
+                    <th class="text-center">Ghi chú</th>                   
+                    <th class="text-center">Nguyên giá</th>                    
                     <th class="text-center">Thời gian sử dụng</th>
                     <th></th>
                 </tr>
@@ -81,10 +77,8 @@
                     </td>
                     <td class="text-center">{{item.Ma}}</td>
                     <td class="text-center">{{item.Ten}}</td>
-                    <td class="text-center">{{item.NoiDung}}</td>
-                    <td class="text-center">{{item.TenDonViTinh}}</td>
-                    <td class="text-center">{{item.NguyenGia|number:'0.0'}}</td>
-                    <td class="text-center">{{item.GiaTriConLai|number:'0.0'}}</td>
+                    <td class="text-center">{{item.GhiChu}}</td>                    
+                    <td class="text-center">{{item.NguyenGia|number:'0.0'}}</td>                   
                     <td class="text-center">{{item.ThoiGianSuDung}}</td>
                     <td class="text-center">
                         <button pButton pRipple type="button" icon="pi pi-pencil"

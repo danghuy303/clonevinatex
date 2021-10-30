@@ -117,7 +117,7 @@ export class NhaptaisanComponent implements OnInit {
     }
     modalRef.result
       .then((res: any) => {
-        this.Loaddata();
+        this.Loaddata(false);
       })
       .catch((er) => {
 
@@ -133,7 +133,7 @@ export class NhaptaisanComponent implements OnInit {
     modalRef.componentInstance.item = item;
     modalRef.result
       .then((res: any) => {
-        this.Loaddata();
+        this.Loaddata(false);
       })
       .catch((er) => {
       });
