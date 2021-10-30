@@ -38,7 +38,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
   @Output('listLoaiMatHangChange') listLoaiMatHangChange: EventEmitter<any> = new EventEmitter<any>(); 
   @Output('listHangHoaSoiChange') listHangHoaSoiChange: EventEmitter<any> = new EventEmitter<any>(); 
   @Output() chiTieuChange: EventEmitter<any> = new EventEmitter<any>();
-  // @Output('listTieuChuanChatLuong') listTieuChuanChatLuongChange: EventEmitter<any> = new EventEmitter();
+  @Output('listTieuChuanChatLuongChange') listTieuChuanChatLuongChange: EventEmitter<any> = new EventEmitter();
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   unsup: Subscription
   lang: any = vn;
@@ -71,6 +71,7 @@ export class ChitietdanhsachhanghoaComponent implements OnInit, DoCheck {
     this.hopDongChange.emit(this.hopDong);
     this.listLoaiMatHangChange.emit(this.listLoaiMatHang);
     this.listHangHoaSoiChange.emit(this.listHangHoaSoi);
+    this.listTieuChuanChatLuongChange.emit(this.listTieuChuanChatLuong);
   }
   // ngOnChanges(changes: SimpleChanges) {
   //   if ('loaiNguyenVatLieu' in changes) {
