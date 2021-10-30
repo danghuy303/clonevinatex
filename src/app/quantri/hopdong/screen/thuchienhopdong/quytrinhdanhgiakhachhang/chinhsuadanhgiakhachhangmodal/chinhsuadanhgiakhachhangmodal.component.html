@@ -135,14 +135,14 @@
                         </ng-template>
                         <ng-template pTemplate="header">
                             <tr>
-                                <th class="text-center">STT</th>
+                                <th class="text-center"></th>
                                 <th class="text-center">Nội dung đánh giá</th>
                                 <th class="text-center">Điểm tối đa</th>
                                 <th class="text-center">Điểm đánh giá</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-                            <tr>
+                            <tr [ngStyle]="{'font-weight': rowData.isCon === false?'bold':'normal'}">
                                 <td class="text-center">
                                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                                     {{rowData.thuTu}}</td>

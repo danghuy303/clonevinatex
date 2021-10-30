@@ -32,13 +32,8 @@ export class XuatbongchovayComponent implements OnInit {
       width: 'unset'
     },
     {
-      header: 'Phương án pha bông',
-      field: 'TenPhuongAnPhaBong',
-      width: 'unset'
-    },
-    {
-      header: 'Số bàn bông',
-      field: 'SoBanBong',
+      header: 'Tên lô bông',
+      field: 'TenLoBong',
       width: 'unset'
     },
     {

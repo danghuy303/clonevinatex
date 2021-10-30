@@ -240,8 +240,11 @@ export class ChitiethopdongbongxoComponent implements OnInit {
         if (res.data.length > 0) {
           let data: any = res.data[0];
           data.id = '';
+          data.soLuong = 0;
+          data.soKien = 0;
+          data.soContainer = 0;
           data.DonGiaThanhToan = data.donGia *(100 +(data.thueGTGT || 0))/100 ;
-          data.giaTriHopDongMatHang = data.DonGiaThanhToan * data.soLuong;
+          data.giaTriHopDongMatHang = 0;
           if(this.item.isLayTheoGiaTriHangHoa === true){
             this.item.giaTri =  data.giaTriHopDongMatHang;
           }
@@ -276,6 +279,10 @@ export class ChitiethopdongbongxoComponent implements OnInit {
   }
   removeItemDinhKem(item){
     let i = this.lstFileUploadCu.indexOf(item)
-    this.lstFileUploadCu.splice(i, 1);
+    let itemFind = this.lstFileUploadCu.splice(i, 1)[0];
+    if(itemFind.id !== ''){
+      itemFind.isXoa = true;
+      this.lstFileUploadCu.push(JSON.parse(JSON.stringify(itemFind)));
+    }
   } 
 }

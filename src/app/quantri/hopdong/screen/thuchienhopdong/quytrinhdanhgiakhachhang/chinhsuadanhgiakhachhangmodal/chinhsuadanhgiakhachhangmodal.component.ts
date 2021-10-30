@@ -90,10 +90,10 @@ export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
     this.activeModal.close()
   }
   tinhDiemDanhGia(item) {
-    if (item.diem > item.diemToiDa) {
-      this.toastr.error("Bạn không được nhập điểm đánh giá vượt quá điểm tối đa!!!");
-    }
-    else {
+    // if (item.diem > item.diemToiDa) {
+    //   this.toastr.error("Bạn không được nhập điểm đánh giá vượt quá điểm tối đa!!!");
+    // }
+    // else {
       let itemFindCha = this.listTieuChiCha.filter(e => e.iddmTieuChiDanhGia == item.iddmTieuChiCha);
       let itemFinds = this.item.listTieuChiDanhGia.filter(e => e.iddmTieuChiCha == item.iddmTieuChiCha);
       if (itemFinds !== undefined) {
@@ -102,7 +102,7 @@ export class ChinhsuadanhgiakhachhangmodalComponent implements OnInit {
             return total + ele.diem
           }, 0);
         }
-      }
+      // }
     }
   }
   viewHopDong(item){
