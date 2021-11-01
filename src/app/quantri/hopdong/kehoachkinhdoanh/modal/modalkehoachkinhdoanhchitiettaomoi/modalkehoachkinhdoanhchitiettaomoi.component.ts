@@ -10,6 +10,7 @@ import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } 
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
+import { TinhdoanhthumodalComponent } from '../../../modals/tinhdoanhthumodal/tinhdoanhthumodal.component';
 import { ModaldongiakehoachthucteComponent } from '../modaldongiakehoachthucte/modaldongiakehoachthucte.component';
 import { ModalkehoachkinhdoanhtheodoiComponent } from '../modalkehoachkinhdoanhtheodoi/modalkehoachkinhdoanhtheodoi.component';
 
@@ -29,6 +30,7 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
   idSanPham: string = "";
   listdmLoaiSoi: any = [];
   listNhaMay: Array<any> = [];
+  listDonViTienTe: Array<any> = [{value:'VND',label:'Việt Nam Đồng'},{value:'USD',label:'USD'}];
   idDuAn: string = ""
   showDropDown: boolean = false;
   userBtn: any;
@@ -440,6 +442,16 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
         this.item.Nam = null;
       }
     })
+  }
+  UocTinhDoanhThu(){
+    let modalRef = this._modal.open(TinhdoanhthumodalComponent,{
+      backdrop:"static",
+      keyboard:false,
+      size:'fullscreen'
+    })
+  }
+  DanhMucDonGia(){
+    
   }
 }
 
