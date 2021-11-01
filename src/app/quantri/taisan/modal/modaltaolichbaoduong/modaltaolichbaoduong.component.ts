@@ -37,7 +37,7 @@ export class ModaltaolichbaoduongComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.IdTaiSan = this.TaiSanChaCon === 'cha' ? this.item.Id : this.item.IdTaiSan;
+    // this.IdTaiSan = this.TaiSanChaCon === 'cha' ? this.item.Id : this.item.IdTaiSan;
     if (this.opt === "add") {
       this.title = "Tạo mới lịch bảo dưỡng";
     }
@@ -50,7 +50,7 @@ export class ModaltaolichbaoduongComponent implements OnInit {
     };
     this._danhMucTaiSan.DanhMucLoaiBaoDuong().GetList(data).subscribe((res: any) => {
       this.dmloaibaoduong = res.Data.Items;
-      this._serviceTaiSan.GetOptions().ListBaoDuongTaiSan(this.IdTaiSan, this.itemDonVi.Id).subscribe((res: any) => {
+      this._serviceTaiSan.GetOptions().ListBaoDuongTaiSan(this.item.Id, this.itemDonVi.Id).subscribe((res: any) => {
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
         } else {
@@ -64,7 +64,7 @@ export class ModaltaolichbaoduongComponent implements OnInit {
   resetNewitem() {
     for (let i = 0; i < this.dmloaibaoduong.length; i++) {
       this.newTableItem.Id = "";
-      this.newTableItem.IdTaiSan = this.IdTaiSan;
+      this.newTableItem.IdTaiSan = this.item.Id;
       this.newTableItem.IddmDonViTinh = this.itemDonVi.Id;
       this.newTableItem.TenDonViTinh = this.itemDonVi.Ten;
       this.newTableItem.MaDonViTinh = this.itemDonVi.Ma;
@@ -74,7 +74,7 @@ export class ModaltaolichbaoduongComponent implements OnInit {
       this.dmloaibaoduong.forEach(element => {
         this.newTableItem.listChiTiet.push({
           Id: "",
-          IdTaiSan: this.IdTaiSan,
+          IdTaiSan: this.item.Id,
           IddmDonViTinh: this.itemDonVi.Id,
           TenDonViTinh: this.itemDonVi.Ten,
           MaDonViTinh: this.itemDonVi.Ma,
