@@ -24,6 +24,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   title: any = "";
   lang: any = vn;
   checkbutton: any = {};
+  itemDonVi: any = {};
   uploader: FileUploader;
   // newTableItem: any = {};
   listDonVi: any = [];
@@ -87,8 +88,10 @@ export class ModalcapnhattaisanComponent implements OnInit {
   GetIem() {
     this._serviceTaiSan.NhapTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
       this.item = res.Data;
+      this.item.TaiSan.NoiDung = this.item.NoiDung;
       this.item.TaiSan.NgaySanXuat = UnixToDate(this.item.TaiSan.NgaySanXuatUnix);
       this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
+      this.itemDonVi = this.listDonVi_copy.find(obj => obj.Id === this.item.TaiSan.IddmDonViTinh);
       if (this.item.listTaiSan.length > 0) {
         this.item.listTaiSan.forEach(element => {
           element.NgaySanXuat = UnixToDate(element.NgaySanXuatUnix);
@@ -118,6 +121,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     this.item.TaiSan.NgaySanXuatUnix = DateToUnix(this.item.TaiSan.NgaySanXuat);
     this.item.TaiSan.NgayNhapUnix = DateToUnix(this.item.TaiSan.NgayNhap);
     this.item.TaiSan.MaTinhTrang = this.listTinhTrangTaiSan_copy.find(obj => obj.Id === this.item.TaiSan.IddmTinhTrang).Ma;
+    this.item.NoiDung = this.item.TaiSan.NoiDung;
     this.item.NgayNhap = this.item.TaiSan.NgayNhap;
     this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
   }
@@ -132,10 +136,10 @@ export class ModalcapnhattaisanComponent implements OnInit {
       this._serviceTaiSan.NhapTaiSan().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           // this.GetIem();
-          this.toastr.success(res.message);
+          this.toastr.success(res.Message);
           this.activeModal.close();
         } else {
-          this.toastr.error(res.message);
+          this.toastr.error(res.Message);
         }
       })
     }
@@ -145,7 +149,6 @@ export class ModalcapnhattaisanComponent implements OnInit {
     if (this.Validate()) {
       this.Setdata();
       this._serviceTaiSan.NhapTaiSan().ChuyenTiep(this.item).subscribe((res: any) => {
-        console.log(res)
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
         } else {
@@ -159,7 +162,6 @@ export class ModalcapnhattaisanComponent implements OnInit {
     if (this.Validate()) {
       this.Setdata();
       this._serviceTaiSan.NhapTaiSan().KhongDuyet(this.item).subscribe((res: any) => {
-        console.log(res)
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
         } else {
@@ -179,6 +181,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
       .then((res) => {
         this._serviceTaiSan.NhapTaiSan().Delete(this.item.Id).subscribe((res: any) => {
           if (res.StatusCode === 200) {
+            this.activeModal.close();
             this.toastr.success(res.Message);
           } else {
             this.toastr.error(res.message);
@@ -239,6 +242,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
         backdrop: "static",
       });
       modalRef.componentInstance.opt = "add";
+      modalRef.componentInstance.TaiSanChaCon = "con";
       modalRef.componentInstance.item = item;
       modalRef.componentInstance.listDonVi = this.listDonVi;
       modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;

@@ -23,6 +23,8 @@ export class ModaltaolichbaoduongComponent implements OnInit {
   opt: string = '';
   title: string = '';
   newTableItem: any = {};
+  IdTaiSan: string = "";
+  TaiSanChaCon: string = "";
 
   constructor(
     public _modal: NgbModal,
@@ -35,6 +37,7 @@ export class ModaltaolichbaoduongComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.IdTaiSan = this.TaiSanChaCon === 'cha' ? this.item.Id : this.item.IdTaiSan;
     if (this.opt === "add") {
       this.title = "Tạo mới lịch bảo dưỡng";
     }
@@ -47,7 +50,7 @@ export class ModaltaolichbaoduongComponent implements OnInit {
     };
     this._danhMucTaiSan.DanhMucLoaiBaoDuong().GetList(data).subscribe((res: any) => {
       this.dmloaibaoduong = res.Data.Items;
-      this._serviceTaiSan.GetOptions().ListBaoDuongTaiSan(this.item.IdTaiSan, this.itemDonVi.Id).subscribe((res: any) => {
+      this._serviceTaiSan.GetOptions().ListBaoDuongTaiSan(this.IdTaiSan, this.itemDonVi.Id).subscribe((res: any) => {
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
         } else {
@@ -61,28 +64,29 @@ export class ModaltaolichbaoduongComponent implements OnInit {
   resetNewitem() {
     for (let i = 0; i < this.dmloaibaoduong.length; i++) {
       this.newTableItem.Id = "";
-      this.newTableItem.IdTaiSan = this.item.IdTaiSan;
+      this.newTableItem.IdTaiSan = this.IdTaiSan;
       this.newTableItem.IddmDonViTinh = this.itemDonVi.Id;
       this.newTableItem.TenDonViTinh = this.itemDonVi.Ten;
       this.newTableItem.MaDonViTinh = this.itemDonVi.Ma;
       this.newTableItem.SoLuong = 0;
+      this.newTableItem.SoLuongCanhBao = 0;
       this.newTableItem.listChiTiet = [];
       this.dmloaibaoduong.forEach(element => {
         this.newTableItem.listChiTiet.push({
-          Id : "",
-          IdTaiSan : this.item.IdTaiSan,
-          IddmDonViTinh : this.itemDonVi.Id,
-          TenDonViTinh : this.itemDonVi.Ten,
-          MaDonViTinh : this.itemDonVi.Ma,
-          SoLuong : 0,
-          IdLichBaoDuongTaiSan : "",
-          TenLoaiBaoDuong : element.Ten,
-          MaLoaiBaoDuong : element.Ma,
-          isBaoDuong : false,
+          Id: "",
+          IdTaiSan: this.IdTaiSan,
+          IddmDonViTinh: this.itemDonVi.Id,
+          TenDonViTinh: this.itemDonVi.Ten,
+          MaDonViTinh: this.itemDonVi.Ma,
+          SoLuong: 0,
+          IdLichBaoDuongTaiSan: "",
+          IddmLoaiBaoDuong: element.Id,
+          TenLoaiBaoDuong: element.Ten,
+          MaLoaiBaoDuong: element.Ma,
+          isBaoDuong: false,
         });
       });
     }
-    console.log(this.newTableItem);
   }
 
   GhiLai() {
@@ -94,7 +98,7 @@ export class ModaltaolichbaoduongComponent implements OnInit {
     this.resetNewitem();
   }
 
-  checked(e, item) {    
+  checked(e, item) {
     item.isBaoDuong = e.checked;
   }
 
