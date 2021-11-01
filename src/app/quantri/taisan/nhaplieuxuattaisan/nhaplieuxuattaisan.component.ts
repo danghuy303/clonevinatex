@@ -60,8 +60,9 @@ export class NhaplieuxuattaisanComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage, 
         KeyWord: '',
         IdTaiSan: this.filter.IddmTaiSan,
-        TuNgay: DateToUnix(this.filter.TuNgay),
-        DenNgay: DateToUnix(this.filter.DenNgay),    
+        TuNgay:DateToUnix(this.filter.TuNgay),
+        DenNgay:DateToUnix(this.filter.DenNgay),  
+    
     }
     this._serviceTaiSan.HieuXuatTaiSan().GetList(data).subscribe((res: any) => {
       console.log(res.Data)
