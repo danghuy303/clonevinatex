@@ -177,6 +177,12 @@ import { KehoachsanxuatthangmodalComponent } from './kehoachsanxuatthang/modal/k
 import { TreeTableModule } from 'primeng/treetable';
 import { DanhsachhopdongsoimodalComponent } from './screen/danhsachhopdongsoi/danhsachhopdongsoimodal/danhsachhopdongsoimodal.component';
 import { DanhsachhopdongvattuphumodalComponent } from './screen/danhsachhopdongvattuphu/danhsachhopdongvattuphumodal/danhsachhopdongvattuphumodal.component';
+import { TinhdoanhthumodalComponent } from './modals/tinhdoanhthumodal/tinhdoanhthumodal.component';
+import { DanhmuctygiangoaiteComponent } from './danhmuc/danhmuctygiangoaite/danhmuctygiangoaite.component';
+import { DanhmucdongiasanphamComponent } from './danhmuc/danhmucdongiasanpham/danhmucdongiasanpham.component';
+import { DoanhthuComponent } from './screen/doanhthu/doanhthu.component';
+import { ModaldanhmuctygiangoaiteComponent } from './danhmuc/modal/modaldanhmuctygiangoaite/modaldanhmuctygiangoaite.component';
+import { ModaldanhmucdongiasanphamComponent } from './danhmuc/modal/modaldanhmucdongiasanpham/modaldanhmucdongiasanpham.component';
 
 @NgModule({
   declarations: [
@@ -337,6 +343,18 @@ import { DanhsachhopdongvattuphumodalComponent } from './screen/danhsachhopdongv
     DanhsachhopdongsoimodalComponent,
     
     DanhsachhopdongvattuphumodalComponent,
+    
+    TinhdoanhthumodalComponent,
+    
+    DanhmuctygiangoaiteComponent,
+    
+    DanhmucdongiasanphamComponent,
+    
+    DoanhthuComponent,
+    
+    ModaldanhmuctygiangoaiteComponent,
+    
+    ModaldanhmucdongiasanphamComponent,
 
     
   ],
@@ -469,7 +487,9 @@ import { DanhsachhopdongvattuphumodalComponent } from './screen/danhsachhopdongv
     DanhsachhopdongvattuphumodalComponent,
     KehoachsanxuatnammodalComponent,
     KehoachsanxuatthangmodalComponent,
-
+    TinhdoanhthumodalComponent,
+    ModaldanhmuctygiangoaiteComponent,
+    ModaldanhmucdongiasanphamComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })
