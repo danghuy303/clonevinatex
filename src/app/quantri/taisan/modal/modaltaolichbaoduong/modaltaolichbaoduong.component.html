@@ -18,20 +18,29 @@
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col>
+                <col>
                 <col *ngFor="let item of dmloaibaoduong">
                 <col style="width: 50px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th class="text-center"></th>
-                <th class="text-center" *ngFor="let item of dmloaibaoduong">{{item.Ten}}</th>                          
+                <th class="text-center" rowspan="2">Số lượng</th>
+                <th class="text-center" rowspan="2">Số lượng cảnh báo</th>
+                <th class="text-center" colspan="dmloaibaoduong.length">Số lượng cảnh báo</th>                
+            </tr>
+            <tr>
+                <th class="text-center" *ngFor="let item of dmloaibaoduong">{{item.Ten}}</th>                                          
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center">
                     <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
+                    </p-inputNumber>
+                </td>
+                <td class="text-center">
+                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuongCanhBao">
                     </p-inputNumber>
                 </td>
                 <td class="text-center" *ngFor="let data of item.listChiTiet">           
@@ -49,6 +58,10 @@
             <tr>
                 <td>
                     <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoLuong">
+                    </p-inputNumber>
+                </td>
+                <td class="text-center">
+                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoLuongCanhBao">
                     </p-inputNumber>
                 </td>
                 <td class="text-center" *ngFor="let data of newTableItem.listChiTiet">

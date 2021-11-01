@@ -84,6 +84,21 @@ export class DanhmuctaisanService {
     }
   }
 
+  DanhMucLoaiSuCo() {
+    let url = API.TaiSan
+    return {
+      GetList: (data) => {
+        return this.http.get(`${url}DanhMuc/GetListLoaiSuCo?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+      },
+      Set: (data) => {
+        return this.http.post(`${url}DanhMuc/SetdmLoaiSuCo`, data, httpOptions)
+      },
+      Delete: (Id) => {
+        return this.http.get(`${url}DanhMuc/DeletedmLoaiSuCo?Id=${Id}`, httpOptions)
+      }
+    }
+  }
+
   DanhMucDonViNangSuat() {
     let url = API.TaiSan
     return {
