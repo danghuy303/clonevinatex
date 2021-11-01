@@ -191,6 +191,7 @@ import { ModalnhaplieuxuattaisanComponent } from './modal/modalnhaplieuxuattaisa
     ModalchontaisanCopyComponent,
     ModalthanhlytaisanComponent,
     ModaltaolichbaoduongComponent,
+    ModalnhaplieuxuattaisanComponent
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
