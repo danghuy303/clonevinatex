@@ -101,7 +101,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   }
 
   GetDanhSachHopDongByNhaThau() {
-    this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 2).subscribe((res: any) => {
+    this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 0).subscribe((res: any) => {//lay bong va xo
       this.listhopdong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
       this.listhopdong_copy = deepCopy(res);
     })

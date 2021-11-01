@@ -108,6 +108,9 @@ export class HopDongService {
       GetListHopDongForPhuLuc: (Loai) => {
         return this.http.get(url + `HopDong/GetListHopDongForPhuLuc?Loai=${Loai}`, httpOptions);
       },
+      GetListHopDongMua: (IdDuAn) => {
+        return this.http.get(url + `HopDong/GetListHopDongMua?IdDuAn=${IdDuAn}`, httpOptions);
+      },
     };
   }
 
@@ -235,7 +238,6 @@ export class HopDongService {
       },
       Set: (data) => {
         data.idDuAn = this.store.getCurrent();
-
         return this.http.post(
           url + "PhatHopDong/SetQuyTrinh",
           data,
