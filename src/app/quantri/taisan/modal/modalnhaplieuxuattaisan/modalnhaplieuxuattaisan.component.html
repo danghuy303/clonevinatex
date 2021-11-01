@@ -1,1 +1,60 @@
-<p>modalnhaplieuxuattaisan works!</p>
+<div class="modal-header">   <h5 class="modal-title">
+    {{title}}</h5>
+<button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+</button>
+<!-- <span class="p-button-sm p-button-sm p-button-text close" aria-hidden="true"
+    (click)="activeModal.dismiss('Cross click')">×</span> -->
+</div>
+<div class="modal-body">
+<div class="col-12 col-lg-12">
+<div class="p-grid">
+    <div class="p-col-12 p-md-6 p-lg-4 p-d-flex p-flex-column">
+        <label class="p-col-12 p-lg-12 p-p-0 my-auto">Tên tài sản: </label>
+        <div class="p-col-12 p-lg-12 p-p-0">
+            <input type="text" disabled="disabled" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.TenDonViTinh" pInputText />
+        </div>
+    </div>
+    <div class="p-col-12 p-md-6 p-lg-4 p-d-flex p-flex-column ">
+        <label class="p-col-12 p-lg-12 p-p-0 my-auto">Mã</label>
+        <div class="p-col-12 p-lg-12 p-p-0">
+            <input type="text" disabled="disabled" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.MaDonViTinh" pInputText />
+        </div>
+    </div>
+    <div class="p-col-12 p-md-6 p-lg-4 p-d-flex p-flex-column">
+        <label class="p-col-12 p-lg-12 p-p-0 my-auto">Đơn vị tính</label>
+        <div class="p-col-12 p-lg-12 p-p-0">
+            <input type="text" disabled="disabled"  class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.IddmDonViTinh" pInputText />
+        </div>
+    </div>
+    <div class="p-col-12 p-md-6 p-lg-4 p-d-flex p-flex-column">
+        <label class="p-col-12 p-lg-12 p-p-0 my-auto">Số lượng</label>
+        <div class="p-col-12 p-lg-12 p-p-0">
+            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
+            </p-inputNumber>
+        </div>
+    </div>
+    <div class="p-col-12 p-md-6 p-lg-4 p-d-flex p-flex-column">
+        <label class="p-col-12 p-lg-12 p-p-0 my-auto">Ngày</label>
+        <div class="p-col-12 p-lg-12 p-p-0">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+            [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ThoiGian"
+            inputId="icon" placeholder="dd/mm/yyyy">
+        </p-calendar>
+        </div>
+    </div>
+    <div class="p-col-12 p-md-6 p-lg-4 p-d-flex p-flex-column">
+        <label class="p-col-12 p-lg-12 p-p-0 my-auto">Nội dung</label>
+        <div class="p-col-12 p-lg-12 p-p-0">
+            <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.NoiDung" pInputText />
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<button pButton pRipple label="Lưu" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()" [disabled]="khongclicknhieu"></button>
+<button pButton pRipple label="Đóng" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
+    (click)="activeModal.dismiss()"></button>
+</div>
+
