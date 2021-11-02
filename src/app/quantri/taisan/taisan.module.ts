@@ -83,6 +83,7 @@ import { NhaplieuxuattaisanComponent } from './nhaplieuxuattaisan/nhaplieuxuatta
 import { ModalnhaplieuxuattaisanComponent } from './modal/modalnhaplieuxuattaisan/modalnhaplieuxuattaisan.component';
 import { LoaisucoComponent } from './danhmuc/loaisuco/loaisuco.component';
 import { ModalloaisucoComponent } from './modal/modalloaisuco/modalloaisuco.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -166,6 +167,7 @@ import { ModalloaisucoComponent } from './modal/modalloaisuco/modalloaisuco.comp
     VoiLibModule,
     TreeTableModule,
     SharedModule,
+    QRCodeModule,
   ],
   providers: [
     LoaderService,
