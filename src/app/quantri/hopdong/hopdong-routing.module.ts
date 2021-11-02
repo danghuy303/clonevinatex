@@ -48,6 +48,9 @@ import { DanhmuctieuchidanhgiaComponent } from './danhmuc/danhmuctieuchidanhgia/
 import { KehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/kehoachkinhdoanhthang.component';
 import { KehoachsanxuatnamComponent } from './kehoachsanxuatnam/kehoachsanxuatnam.component';
 import { KehoachsanxuatthangComponent } from './kehoachsanxuatthang/kehoachsanxuatthang.component';
+import { DoanhthuComponent } from './screen/doanhthu/doanhthu.component';
+import { DanhmucdongiasanphamComponent } from './danhmuc/danhmucdongiasanpham/danhmucdongiasanpham.component';
+import { DanhmuctygiangoaiteComponent } from './danhmuc/danhmuctygiangoaite/danhmuctygiangoaite.component';
 const routes: Routes = [
   {path:'',component:HopdongComponent},
   {path:'danhmuc/danhmuchinhthucthanhtoan',component:DanhmuchinhthucthanhtoanComponent},
@@ -75,6 +78,8 @@ const routes: Routes = [
   
 
   {path:'danhmuc/dmtieuchichatluong',component: DmtieuchichatluonghopdongComponent},
+  {path:'danhmuc/dongiasanpham/:id',component: DanhmucdongiasanphamComponent},
+  {path:'danhmuc/tygiangoaite/:id',component: DanhmuctygiangoaiteComponent},
 
 
 
@@ -102,6 +107,7 @@ const routes: Routes = [
   { path: 'danhsachhopdongsoi/:id', component: DanhsachhopdongsoiComponent },
   { path: 'danhsachhopdongvattuphu/:id', component: DanhsachhopdongvattuphuComponent },
   { path: 'danhgiakhachhang/:id', component: QuytrinhdanhgiakhachhangComponent },
+  { path: 'doanhthu/:id', component: DoanhthuComponent },
 
   //
  
