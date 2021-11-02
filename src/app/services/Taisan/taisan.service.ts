@@ -142,6 +142,16 @@ export class TaisanService {
       },
     };
   }
+
+ListDanhSachTaiSan() {
+    let url = API.TaiSan;
+    return {
+      GetList: (data) => {
+        return this.http.post(`${url}TaiSan/ListDanhSachTaiSan`,data, httpOptions);
+      },
+    };
+  }
+
   GetOptions() {
     let url = API.TaiSan;
     return {

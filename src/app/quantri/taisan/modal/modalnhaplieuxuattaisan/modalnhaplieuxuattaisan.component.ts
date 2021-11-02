@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 @Component({
   selector: 'app-modalnhaplieuxuattaisan',
@@ -12,9 +12,6 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 export class ModalnhaplieuxuattaisanComponent implements OnInit {
   public item: any = {};
   public title: any = '';
-  public Ten: any = '';
-  public Ma: any = '';
-  public TendmDoViTinh: any = '';
   public type = '';
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
@@ -23,8 +20,10 @@ export class ModalnhaplieuxuattaisanComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private _serviceTaiSan: TaisanService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-   
-  }
+    if (this.item.ThoiGianUnix !== 0) {
+      this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
+    }
+    }
   // GetListTaiSanDeChon(){
   //   this._serviceTaiSan.HieuXuatTaiSan().GetListTaiSan().subscribe((res: any)=>{
   //     console.log(res);
