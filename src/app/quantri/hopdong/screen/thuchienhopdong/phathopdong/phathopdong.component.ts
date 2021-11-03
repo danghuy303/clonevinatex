@@ -33,12 +33,8 @@ export class PhathopdongComponent implements OnInit {
   type: any = "";
   eAction: any = "PHATHOPDONG";
   nametype: any = "";
-  //    this.paging.TotalItem = res.data.totalCount;
   paging: any = { currentPage: 1, totalPages: 1, TotalItem: number };
-
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-  listQuyCachDongGoi: any = [];
-
   constructor(
     public _modal: NgbModal,
     public _toastr: ToastrService,
@@ -56,7 +52,6 @@ export class PhathopdongComponent implements OnInit {
       }
     });
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh();
   }
   changeParam(id) {
     if (this._modal.hasOpenModals()) {
@@ -71,20 +66,13 @@ export class PhathopdongComponent implements OnInit {
       size: "fullscreen",
       backdrop: "static",
     });
-    
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.item = {
-      Id: "",
-    };
-    modalRef.componentInstance.checkbutton = {
-      Ghi: true,
-      Xoa: true,
-      KhongDuyet: true,
-      ChuyenTiep: true,
+      id: "",
+      idDuAn: "",
     };
     modalRef.result
       .then((res: any) => {
-        console.log(res);
         this._toastr.success("Cập nhật thành công");
         this.GetListQuyTrinh();
         this.changeParam(0);

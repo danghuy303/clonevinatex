@@ -162,7 +162,7 @@ export class LaphopdongbongxoComponent implements OnInit {
     this.paging.currentPage = event.page + 1;
     this.GetListQuyTrinh();
   }
-  GetListQuyTrinh(reset?) {
+  GetListQuyTrinh(reset?, isXuatExcel?) {
     if (reset) {
       this.paging.currentPage = 1;
       // this.paginator.changePage(0);
@@ -177,7 +177,17 @@ export class LaphopdongbongxoComponent implements OnInit {
       iddmLoaiHopDong: this.filter.iddmLoaiHopDong,
       loai: this.filter.loai || 0,
     };
-    this._service
+    if(isXuatExcel === true){
+      this._service.QuyTrinhHopDong().XuatExcel(data).subscribe((res: any) => {
+        if (res?.statusCode === 200) {
+          this._toastr.success(res.message);
+        } else {
+          this._toastr.error(res.message);
+        }
+      });
+    }
+    else{
+      this._service
       .QuyTrinhHopDong()
       .GetList(data)
       .subscribe((res: any) => {
@@ -189,6 +199,7 @@ export class LaphopdongbongxoComponent implements OnInit {
           element.ngayKy = UnixToDate(element.ngayKyUnix);
         });
       });
+    }
   }
 
   resetFilter() {

@@ -45,6 +45,7 @@ export class PhathopdongmodalComponent implements OnInit {
     }
     else{
       this.KiemTraButtonModal();
+      this.item.ngayPhatHanh = UnixToDate(this.item.ngayPhatHanhUnix)
     }
     this.getListHopDong();
   }
