@@ -20,6 +20,7 @@ export class ThongtitaisanchaComponent implements OnInit,OnDestroy {
   @Input('item') item: any = {};
   @Input('TaiSanChaCon') TaiSanChaCon: string = "";
   @Input('itemDonVi') itemDonVi: any = {};
+  @Input('listDonVi_copy') listDonVi_copy: any = {};
   @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
   @Input('listDonVi') listDonVi: any = [];
   @Input('listLoaiTaiSan') listLoaiTaiSan: any = [];
@@ -63,6 +64,10 @@ export class ThongtitaisanchaComponent implements OnInit,OnDestroy {
     }, (reason) => {
 
     });
+  }
+
+  selcetDonVi(){
+    this.itemDonVi = this.listDonVi_copy.find(obj => obj.Id === this.item.IddmDonViTinh);
   }
 
   TaoLichBaoDuong(item) {

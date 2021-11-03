@@ -148,7 +148,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     }
   }
 
-  ChapNhan() {
+  ChuyenDuyet() {
     if (this.Validate()) {
       this.Setdata();
       this._serviceTaiSan.NhapTaiSan().ChuyenTiep(this.item).subscribe((res: any) => {

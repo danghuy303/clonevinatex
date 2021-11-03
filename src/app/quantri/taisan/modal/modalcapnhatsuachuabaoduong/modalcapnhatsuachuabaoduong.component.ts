@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FileItem, FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { validVariable } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, validVariable, DateToUnix, DateToDatePicker, UnixToDate, deepCopy } from 'src/app/services/globalfunction';
 import { API } from 'src/app/services/host';
+import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
   selector: 'app-modalcapnhatsuachuabaoduong',
@@ -17,77 +21,190 @@ export class ModalcapnhatsuachuabaoduongComponent implements OnInit {
   opt: any = "";
   title: any = "";
   lang: any = vn;
-  listLoaiSuCo: any = [];
-  listPhongBan: any = [];
-  listMucDoUuTien: any = [];
-  newTableItem: any = {};
+  checkbutton: any = {};
   uploader: FileUploader;
+
+  listdmPhanXuong: any = [];
+  listDonVi: any = [];
+  NameFile: string = "";
 
   constructor(
     public _modal: NgbModal,
     public activeModal: NgbActiveModal,
-    public toastr: ToastrService,) { }
+    private _danhMucTaiSan: DanhmuctaisanService,
+    public toastr: ToastrService,
+    private _servicesSanXuat: SanXuatService,
+    private _serviceTaiSan: TaisanService,
+    private _serviceDanhMucTaiSan: DanhmuctaisanService,
+  ) { }
 
   ngOnInit(): void {
-    if (this.opt === 'add') {
-      this.title = "Thêm mới";
+    this._servicesSanXuat.GetOptions().GetNhaMay().subscribe((res: Array<any>) => {
+      this.listDonVi = mapArrayForDropDown(res, 'TenDuAn', 'Id');
+      this.KiemTraButtonModal();
+      if (this.opt === 'add') {
+        this.title = "Thêm mới";
+        this.GetNextSoQuyTrinh();
+      }
+      else {
+        this.title = "Cập nhật";
+        this.GetIem();
+      }
+      if (validVariable(this.item.IdDuAn)) {
+        this._servicesSanXuat.GetOptions().GetPhanXuong(this.item.IdDuAn).subscribe((res: any) => {
+          this.listdmPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
+        });
+      }
+    });
+  }
+
+  GetNhaMay() {
+    this._servicesSanXuat.GetOptions().GetNhaMay().subscribe((res: Array<any>) => {
+      this.listDonVi = mapArrayForDropDown(res, 'TenDuAn', 'Id');
+      this.item.IddmPhanXuong = undefined;
+      if (validVariable(this.item.IdDuAn)) {
+        this._servicesSanXuat.GetOptions().GetPhanXuong(this.item.IdDuAn).subscribe((res: any) => {
+          this.listdmPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
+        });
+      }
+    });
+  }
+
+  KiemTraButtonModal() {
+    this._servicesSanXuat.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
+      this.checkbutton = res;
+    });
+  }
+
+  GetNextSoQuyTrinh() {
+    this._serviceTaiSan.SuCoSuaChua().GetNextSoQuyTrinh().subscribe((res: any) => {
+      this.item.SoQuyTrinh = res.Data;
+    })
+  }
+
+  GetIem() {
+    this._serviceTaiSan.SuCoSuaChua().Get(this.item.Id || "").subscribe((res: any) => {
+      this.item = res.Data;
+    });
+  }
+
+  Validate() {
+    if (!validVariable(this.item.IddmPhanXuong) ||
+      !validVariable(this.item.IdDuAn)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
+      return false;
+    }
+    return true;
+  }
+
+  Setdata() {
+    this.item.NgayBaoGiaoUnix = DateToUnix(this.item.NgayBanGiao);
+  }
+
+  GhiLai() {
+    if (this.Validate()) {
+      this.Setdata();
+      // if (this.opt === 'add') {
+      //   this.item.Created = new Date();
+      //   this.item.Modified = new Date();
+      // }
+      this._serviceTaiSan.SuCoSuaChua().Set(this.item).subscribe((res: any) => {
+        if (res.StatusCode === 200) {
+          // this.GetIem();
+          this.toastr.success(res.Message);
+          this.activeModal.close();
+        } else {
+          this.toastr.error(res.Message);
+        }
+      })
+    }
+  }
+
+  ChapNhan() {
+    if (this.Validate()) {
+      this.Setdata();
+      this._serviceTaiSan.SuCoSuaChua().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
+        } else {
+          this.toastr.success(res.Message);
+          this.activeModal.close();
+        }
+      })
+    }
+  }
+
+  KhongDuyet() {
+    if (this.Validate()) {
+      this.Setdata();
+      this._serviceTaiSan.SuCoSuaChua().KhongDuyet(this.item).subscribe((res: any) => {
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
+        } else {
+          this.toastr.success(res.Message);
+          this.activeModal.close();
+        }
+      })
+    }
+  }
+
+  XoaQuyTrinh() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
+    modalRef.result
+      .then((res) => {
+        this._serviceTaiSan.BanGiaoTaiSan().Delete(this.item.Id).subscribe((res: any) => {
+          if (res.StatusCode === 200) {
+            this.toastr.success(res.Message);
+          } else {
+            this.toastr.error(res.Message);
+          }
+        })
+      })
+      .catch((er) => console.log(er));
+  }
+
+  // CapNhatDanhSachTaiSan(item) {
+  //   let modalRef = this._modal.open(ModalchontaisanComponent, {
+  //     size: "xl",
+  //     backdrop: "static",
+  //   });
+  //   modalRef.componentInstance.opt = "edit";
+  //   modalRef.componentInstance.item = item;
+  //   modalRef.result
+  //     .then((res: any) => {
+  //     })
+  //     .catch((er) => {
+
+  //     });
+  // }
+
+  XoaTaiSan(item, index) {
+    if (validVariable(item.Id)) {
+      this.item.listTaiSan.splice(index, 1);
     }
     else {
-      this.title = "Cập nhật";
+      this.item.listTaiSan[index].isXoa = true;
     }
-    let option: FileUploaderOptions = {
-      url: `${API.uploadURL}`,
-      headers: [{ name: 'Accept', value: 'application/json' }],
-      autoUpload: true,
-    }
-
-    this.uploader = new FileUploader(option);
-    this.uploader.onBeforeUploadItem = (item) => {
-      item.withCredentials = true;
-    };
-
-    this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
-    this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
-    this.uploader.onCompleteItem = (item, response, status, headers) => this.onCompleteItem(item, response, status, headers);
-  }
-
-  onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-  }
-
-  onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-    let res = JSON.parse(response);
-    // console.log(res)
-    // this.TepImport.TenGui = res[0].Name;
-    // this.TepImport.TenGoc = res[0].NameLocal;
-    // this.TepImport.DuongDan = res[0].Url;
-  };
-  onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-  }
-
-  add() {
-    // if (!validVariable(this.newTableItem.thoiGianCapCang) || !validVariable(this.newTableItem.thoiGianDuKien)) {
-    //   this.toastr.error('Vui lòng chọn thời gian')
-    // }
-    // if (this.item.listInvoice == undefined || this.item.listInvoice == null)
-    //   this.item.listInvoice = [];
-    // this.newTableItem.id = "";
-    // this.newTableItem.idKeHoachNhapBong = this.item.id;
-    // this.newTableItem = {
-    //   "id": "",
-    //   "idKeHoachNhapBong": this.item.id,
-    // }
   }
 
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.multiple = true;
+    modalRef.componentInstance.type = '';
     modalRef.result.then((data) => {
-
+      this.item.listFileDinhKem = data;
+      this.item.listFileDinhKem.forEach(obj => {
+        obj.Id = '';
+        obj.fileNameGui = obj.Name;
+        obj.fileName = obj.NameLocal;
+        obj.Link = obj.Url;
+        this.NameFile += `${obj.fileName}` + '; ';
+      });
     }, (reason) => {
 
     });
-  }
-
-  GhiLai() {
-
   }
 }
