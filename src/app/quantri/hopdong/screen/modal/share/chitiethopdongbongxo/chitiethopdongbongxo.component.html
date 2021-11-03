@@ -111,10 +111,12 @@
             </div> -->
             <div class="p-col-12 p-xl-9 p-p-0">
                 <span *ngFor="let item1 of lstFileUploadCu">
-                    {{item1.fileName}}
-                    <a title="Xóa" style="color: red;cursor: pointer;font-size: 15px;"
-                        (click)="removeItemDinhKem(item1)">
-                        <i class="fa fa-times"></i></a>, </span>
+                    <span *ngIf="item1.isXoa !== true">
+                        {{item1.fileName}}
+                        <a title="Xóa" style="color: red;cursor: pointer;font-size: 15px;"
+                            (click)="removeItemDinhKem(item1)">
+                            <i class="fa fa-times"></i></a>,
+                    </span></span>
                         <button type="button" pButton pRipple icon="pi pi-upload" (click)="taiLenFileDinhKem()"
                         class="p-button-sm p-button-text p-button-secondary"></button>
             </div>

@@ -7,7 +7,6 @@ import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 import { ToastrService } from "ngx-toastr";
 import { Component, OnInit } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { HopdongRoutingModule } from "src/app/quantri/hopdong/hopdong-routing.module";
 
 @Component({
   selector: "app-phathopdongmodal",
@@ -16,7 +15,12 @@ import { HopdongRoutingModule } from "src/app/quantri/hopdong/hopdong-routing.mo
 })
 export class PhathopdongmodalComponent implements OnInit {
   lang: any = vn;
-  checkbutton: any = {};
+  checkbutton = {
+    Ghi: false,
+    Xoa: false,
+    ChuyenTiep: false,
+    KhongDuyet: false,
+  };
   opt: any = "";
   listHopDong: any = [];
   item: any = {};
@@ -35,46 +39,30 @@ export class PhathopdongmodalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.checkbutton = {
-      Ghi: false,
-      Xoa: false,
-      ChuyenTiep: false,
-      KhongDuyet: false,
-    };
     this.GetFormOptions();
     if (this.opt !== "edit") {
       this.GetNextSoQuyTrinh();
+    }
+    else{
       this.KiemTraButtonModal();
-      if (this._store.getCurrent()) {
-        this.item.IdDuAn = this._store.getCurrent();
-      }
-    }0;
-    
+      this.item.ngayPhatHanh = UnixToDate(this.item.ngayPhatHanhUnix)
+    }
     this.getListHopDong();
-   
-    // this.getListCapBong();
   }
 
-  // validate form
   ValidData() {
     if (!validVariable(this.item.lyDoKhongDuyet)) {
       this._toastr.error("Vui lòng chọn lý do");
       return false;
     }
-
-
     return true;
   }
 
 
   GetFormOptions() {
-    // this._services
-    //   .QuyTrinhHopDong()
-    //   .GetListAll()
-    //   .subscribe((res: any) => {
-    //     this.listHopDong = mapArrayForDropDown(res, "soHopDong", "id");
-    //   });
-
+    this._servicesDungChung.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 0).subscribe((res: any) => {
+        this.listHopDong = mapArrayForDropDown(res, "soTenHopDong", "id");
+      });
   }
 
   KiemTraButtonModal() {
@@ -100,27 +88,6 @@ export class PhathopdongmodalComponent implements OnInit {
           }
         }
       });
-    // if (this.item.Ngay === null || this.item.Ngay === undefined) {
-    //   this._toastr.error("Bạn chưa chọn  ngày");
-    // }
-    // else {
-    //   if (this.newTableItem.SoKien!= undefined && this.newTableItem.SoCan!= undefined) {
-    //     this.add();
-    //   }
-    //   if (this.item.Ngay !== null && this.item.Ngay !== undefined)
-    //     this.item.NgayUnix = DateToUnix(this.item.Ngay);
-
-    //   this._services.QuyTrinhPhieuBongPhe().ChuyenTiep(this.item).subscribe((res: any) => {
-    //     if (res) {
-    //       if (res.State === 1) {
-    //         this._toastr.success(res.message)
-    //         this.activeModal.close();
-    //       } else {
-    //         this._toastr.error(res.message);
-    //       }
-    //     }
-    //   })
-    // }
   }
   KhongDuyet() {
     this._services
@@ -186,10 +153,7 @@ export class PhathopdongmodalComponent implements OnInit {
           }
         });
     }
-
-    // this.add();
   }
-
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: "static",
@@ -223,11 +187,6 @@ export class PhathopdongmodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
     }
-   
-
-    // this._services.().subscribe((res: any) => {
-    //   this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
-    // })
   }
 
   add() {

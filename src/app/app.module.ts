@@ -74,7 +74,7 @@ import { DecimalPipe } from '@angular/common';
     CheckboxModule,
     PasswordModule,
     InputSwitchModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   providers: [
     DecimalPipe,

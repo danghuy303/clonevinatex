@@ -16,12 +16,12 @@
 <p-treeTable [value]="items" [lazy]="true" [scrollable]="true" scrollHeight="65vh">
     <ng-template pTemplate="colgroup">
         <colgroup>
-            <col>
-            <col>
-            <col>
-            <col>
+            <col style="width: 200px;">
             <col>
             <col style="width: 200px;">
+            <col style="width: 200px;">
+            <col style="width: 300px;">
+            <col style="width: 100px;">
         </colgroup>
     </ng-template>
     <ng-template pTemplate="header">
@@ -35,7 +35,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-        <tr>
+        <tr [ngStyle]="{'font-weight': rowData.isCon === false?'bold':'normal'}">
             <td class="text-left">
                 <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                 {{rowData.ma}}</td>

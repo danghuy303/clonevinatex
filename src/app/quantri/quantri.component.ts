@@ -732,6 +732,13 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
+            label: "Phiếu xuất lô bông/xơ",
+            routerLink: "/quantri/hopdongsanxuat/phieuxuatlobongxo/0",            
+            command: () => {
+              this.close();
+            },
+          },
+          {
             label: "Phiếu nhập vật tư phụ",
             routerLink: "/quantri/hopdongsanxuat/nhapvattuphu/0",
             command: () => this.close(),
@@ -743,13 +750,7 @@ export class QuantriComponent implements OnInit {
             
             command: () => this.close(),
           },
-          {
-            label: "Phiếu xuất lô bông/xơ",
-            routerLink: "/quantri/hopdongsanxuat/phieuxuatlobongxo/0",            
-            command: () => {
-              this.close();
-            },
-          },
+          
           {
             label: "Thanh toán bông",
             routerLink: "/quantri/hopdongsanxuat/quytrinhthanhtoanbong/0",
@@ -867,6 +868,13 @@ export class QuantriComponent implements OnInit {
             command: () => {
               this.close();
             },
+          },   
+          {
+            label: "Sự cố/Sửa chữa",
+            routerLink: "/quantri/taisan/sucosuachua",            
+            command: () => {
+              this.close();
+            },
           },          
           {
             label: "Danh sách tài sản",
@@ -876,7 +884,7 @@ export class QuantriComponent implements OnInit {
             },
           },
           {
-            label: "Phiếu thu hồi tài sản",
+            label: "Thu hồi tài sản",
             routerLink: "/quantri/taisan/thuhoitaisan/0",            
             command: () => {
               this.close();
@@ -934,7 +942,7 @@ export class QuantriComponent implements OnInit {
             command: () => {
               this.close();
             },
-          },
+          },       
           // {
           //   label: "Tình trạng tài sản",
           //   routerLink: "/quantri/taisan/danhmuc/tinhtrangtaisan",            
@@ -950,8 +958,8 @@ export class QuantriComponent implements OnInit {
             },
           },
           {
-            label: "Loại sự cố ",
-            routerLink: "/quantri/taisan/danhmuc/loaisuco",
+            label: "Loại sự cố",
+            routerLink: "/quantri/taisan/danhmuc/loaisuco",            
             command: () => {
               this.close();
             },

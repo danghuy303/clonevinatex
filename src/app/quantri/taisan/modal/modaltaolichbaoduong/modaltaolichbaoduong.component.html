@@ -17,9 +17,9 @@
         [scrollable]="true">
         <ng-template pTemplate="colgroup">
             <colgroup>
-                <col>
-                <col>
-                <col *ngFor="let item of dmloaibaoduong">
+                <col style="width: 90px;">
+                <col style="width: 90px;">
+                <col *ngFor="let item of dmloaibaoduong" style="width: 90px;">
                 <col style="width: 50px;">
             </colgroup>
         </ng-template>
@@ -27,7 +27,8 @@
             <tr>
                 <th class="text-center" rowspan="2">Số lượng</th>
                 <th class="text-center" rowspan="2">Số lượng cảnh báo</th>
-                <th class="text-center" colspan="dmloaibaoduong.length">Số lượng cảnh báo</th>                
+                <th class="text-center" [attr.colspan]="dmloaibaoduong.length">Loại cảnh báo</th>    
+                <th class="text-center" rowspan="2"></th>            
             </tr>
             <tr>
                 <th class="text-center" *ngFor="let item of dmloaibaoduong">{{item.Ten}}</th>                                          
@@ -35,11 +36,11 @@
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
-                <td class="text-center">
+                <td>
                     <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong">
                     </p-inputNumber>
                 </td>
-                <td class="text-center">
+                <td>
                     <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuongCanhBao">
                     </p-inputNumber>
                 </td>
@@ -53,14 +54,12 @@
                         (click)="Xoa(item,i)"></button>
                 </td>
             </tr>
-        </ng-template>
-        <ng-template pTemplate="footer">
             <tr>
                 <td>
                     <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoLuong">
                     </p-inputNumber>
                 </td>
-                <td class="text-center">
+                <td>
                     <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoLuongCanhBao">
                     </p-inputNumber>
                 </td>
@@ -73,7 +72,7 @@
                     (click)="add()"></button>
                 </td>              
             </tr>
-        </ng-template>
+        </ng-template>       
     </p-table>
 </div>
 <!-- <div class="modal-footer">

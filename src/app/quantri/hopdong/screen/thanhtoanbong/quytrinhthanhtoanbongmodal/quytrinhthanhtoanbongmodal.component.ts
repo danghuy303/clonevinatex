@@ -68,13 +68,13 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
 
   }
   getListHopDong(){
-    this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 2).subscribe((res: any) => {
+    this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 0).subscribe((res: any) => {
       this.listHopDong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
     })
   }
   
   getListDieuKhoanThanhToan(){
-    this.item.giaTriThanhToan = 0;
+    // this.item.giaTriThanhToan = 0;
     if(this.item.loaiThanhToan === 1){
       this._hopdong.QuyTrinhHopDong().getListDieuKhoan(this.item.idHopDong).subscribe((res: any) => {
         this.listDieuKhoanThanhToanFull = res.data;
@@ -237,6 +237,8 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
       this.item.giaTriThanhToan += (element.soLuong || 0) * (element.donGia || 0);
       this.item.giaTriDaThanhToan += (element.soLuongDaThanhToan || 0) * (element.donGia || 0);
     });
+    this.item.giaTriThanhToan = Math.round(this.item.giaTriThanhToan);
+    this.item.giaTriDaThanhToan = Math.round(this.item.giaTriDaThanhToan);
   }
   ChuyenTiep(){
     let isChuaNopDu: any = false;

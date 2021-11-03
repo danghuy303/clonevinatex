@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
+import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 
 
@@ -51,6 +52,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     private _services: SanXuatService,
     private _auth: AuthenticationService,
     private store: StoreService,
+    private _servicesHopDong: HopDongService,
   ) {
   }
 
@@ -101,7 +103,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   }
 
   GetDanhSachHopDongByNhaThau() {
-    this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 2).subscribe((res: any) => {
+    this._servicesHopDong.QuyTrinhHopDong().GetDanhSachHopDongMua(this.item.idDuAn).subscribe((res: any) => {//lay bong va xo
       this.listhopdong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
       this.listhopdong_copy = deepCopy(res);
     })

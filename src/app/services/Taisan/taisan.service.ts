@@ -126,7 +126,7 @@ export class TaisanService {
     let url = API.TaiSan;
     return {
       GetList: (data) => {
-        return this.http.post(`${url}TaiSan/GetListHieuSuatTaiSanTheoThoiGian`,data, httpOptions);
+        return this.http.post(`${url}TaiSan/GetListHieuSuatTaiSanTheoThoiGian`, data, httpOptions);
       },
       GetListTaiSan: (IddmPhanXuong) => {
         return this.http.get(`${url}TaiSan/GetListTaiSanNhapHieuSuat?IdDuAn=${this.store.getCurrent()}&IddmPhanXuong=${IddmPhanXuong}`, httpOptions);
@@ -143,13 +143,35 @@ export class TaisanService {
     };
   }
 
+  GetListTaiSanThuHoi() {
+    let url = API.TaiSan;
+    return {
+      GetListTaiSan : (IddmPhanXuong) => {
+        return this.http.get(`${url}TaiSan/GetListTaiSanThuHoi?IddmPhanXuong=${IddmPhanXuong}`, httpOptions);
+      },
+    };
+  }
+
+  ListDanhSachTaiSan() {
+    let url = API.TaiSan;
+    return {
+      GetList: (data) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}TaiSan/ListDanhSachTaiSan`, data, httpOptions);
+      },
+      Get: (Id) => {
+        
+        return this.http.get(`${url}TaiSan/GetChiTietTaiSanById?IdTaiSan=${Id}`, httpOptions);
+      },
+    }
+  }
   SuCoSuaChua() {
     let url = API.TaiSan;
     return {
       GetNextSoQuyTrinh: () => {
         return this.http.get(`${url}SuCoSuaChua/GetNextQuyTrinhSuCoSuaChuaTaiSan`, httpOptions);
       },
-      GetList: (data) => {        
+      GetList: (data) => {
         return this.http.post(`${url}SuCoSuaChua/GetAllSuCoSuaChua`, data, httpOptions);
       },
       Get: (Id) => {
@@ -175,6 +197,9 @@ export class TaisanService {
     return {
       GetListTaiSanChuaBanGiao: () => {
         return this.http.get(`${url}TaiSan/GetListTaiSanChuaBanGiao`, httpOptions);
+      },
+      GetListTaiSanDaBanGiao: (IddmPhanXuong) => {
+        return this.http.get(`${url}TaiSan/GetListTaiSanDaBanGiao?IddmPhanXuong=${IddmPhanXuong}`, httpOptions);
       },
       ListBaoDuongTaiSan: (IdTaiSan, IddmDonViTinh) => {
         return this.http.get(`${url}TaiSan/ListBaoDuongTaiSan?IdTaiSan=${IdTaiSan}&IddmDonViTinh=${IddmDonViTinh}`, httpOptions);

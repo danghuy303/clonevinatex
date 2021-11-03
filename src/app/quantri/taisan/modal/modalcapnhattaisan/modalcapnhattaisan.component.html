@@ -31,10 +31,13 @@
             <button pButton pRipple type="button" label="Kết xuất" *ngIf="canExport" (click)="exportExcel()"
                 class="p-mr-2 p-button-sm"></button>
         </div>
+        <div class="modal-bt p-mb-4 text-center">
+            <qrcode [qrdata]="item.Id" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
+        </div>
     </div>
     <!-- phần cha -->
     <app-thongtitaisancha [(item)]="item.TaiSan" [listDonVi]="listDonVi" [listLoaiTaiSan]="listLoaiTaiSan"
-        [listTinhTrangTaiSan]="listTinhTrangTaiSan" [listNhaSanXuat]="listNhaSanXuat" [listTinhTrangTaiSan_copy]="listTinhTrangTaiSan_copy" [itemDonVi]="itemDonVi" [opt]="opt" [TaiSanChaCon]="'cha'">
+        [listTinhTrangTaiSan]="listTinhTrangTaiSan" [listNhaSanXuat]="listNhaSanXuat" [listTinhTrangTaiSan_copy]="listTinhTrangTaiSan_copy" [listDonVi_copy]="listDonVi_copy" [itemDonVi]="itemDonVi" [opt]="opt" [TaiSanChaCon]="'cha'">
     </app-thongtitaisancha>
     <!-- phần con -->
     <p-panel header="Tài sản" [toggleable]="true">

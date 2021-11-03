@@ -34,14 +34,14 @@
     <div class="col-12 col-lg-12">
         <div class="p-grid">
             <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-                <label class="p-col-12 p-lg-5 p-p-0 my-auto">Phân xưởng:</label>
+                <label class="p-col-12 p-lg-5 p-p-0 my-auto">Bộ phận sử dụng <span class="required">*</span>:</label>
                 <div class="p-col-12 p-lg-7 p-p-0">
-                    <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
-                        styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
+                    <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận"
+                        styleClass="p-inputtext-sm" (onChange)="GetPhanXuong()" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
                 </div>
             </div>
             <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-                <label class="p-col-12 p-lg-5 p-p-0 my-auto">Ngày chứng từ:</label>
+                <label class="p-col-12 p-lg-5 p-p-0 my-auto">Ngày thu hồi:</label>
                 <div class="p-col-12 p-lg-7 p-p-0">
                     <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
                         [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgayThuHoi"
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-                <label class="p-col-12 p-lg-5 p-p-0 my-auto">Người bàn giao:</label>
+                <label class="p-col-12 p-lg-5 p-p-0 my-auto">Người đại diện bàn giao:</label>
                 <div class="p-col-12 p-lg-7 p-p-0">
                     <input locale="vi-VN" [(ngModel)]="item.NguoiBanGiao" pInputText />
                 </div>

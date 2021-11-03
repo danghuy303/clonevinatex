@@ -1352,6 +1352,7 @@ export class SanXuatService {
     //#region  định lượng
 
     GetListDinhMuc(data) {
+        data.IdDuAn = this.store.getCurrent();
         let url = API.SCMDanhMuc + 'GetListDinhMuc';
         return this.http.post(url, data, httpOptions);
     }
