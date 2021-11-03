@@ -123,12 +123,6 @@ export class DanhsachtaisanComponent implements OnInit {
   ]
   }
 
-  changeTab(e) {
-    // this.trangThai = e.index + 1;
-    this.loaiTab = e.index;
-    this.Loaddata(true);
-  }
-
   resetFilter() {
     this.filter = {};
     this.Loaddata(true);
@@ -147,6 +141,9 @@ export class DanhsachtaisanComponent implements OnInit {
       denNgay: DateToUnix(this.filter.DenNgay),
       Loai: 0
     };
+    this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
+     console.log(res)
+    })
   }
 
   KiemTraTabTrangThai() {
@@ -207,5 +204,9 @@ export class DanhsachtaisanComponent implements OnInit {
   delte(item) {
 
   }
-
+  changeTab(e) {
+    // this.trangThai = e.index + 1;
+    this.loaiTab = e.index;
+    this.Loaddata(true);
+  }
 }

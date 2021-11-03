@@ -33,6 +33,9 @@ export class ModalcapnhattaisanComponent implements OnInit {
   listNhaSanXuat: any = [];
   listTinhTrangTaiSan_copy: any = [];
   listDonVi_copy: any = [];
+  qrcode: any = {
+    size:250
+  };
 
   constructor(
     public _modal: NgbModal,
@@ -46,7 +49,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngOnInit() {    
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucDonViTinh().GetList(data).toPromise();

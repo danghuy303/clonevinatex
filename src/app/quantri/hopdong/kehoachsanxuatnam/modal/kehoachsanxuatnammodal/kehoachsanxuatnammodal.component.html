@@ -28,10 +28,9 @@
           (click)="ChapNhan()"></button>
         <button pButton *ngIf="checkbutton.KhongDuyet" pRipple type="button" label="Không duyệt"
           class="p-mr-2 p-button-sm " (click)="KhongDuyet()"></button>
-        <!-- <button pButton pRipple type="button" label="Cập nhật đơn giá" class="p-mr-2 p-button-sm"
-          (click)="CapNhatDonGia()"></button> -->
-        <button pButton *ngIf="item.isKetThuc" pRipple type="button" label="Điều chỉnh kế hoạch"
+          <button pButton *ngIf="item.isKetThuc" pRipple type="button" label="Điều chỉnh kế hoạch"
           class="p-mr-2 p-button-sm" (click)="DieuChinhKeHoach()"></button>
+          
       </div>
     </div>
     <p-panel header="Thông tin chung">

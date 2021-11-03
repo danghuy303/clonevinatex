@@ -81,6 +81,9 @@ import { ModalchontaisanCopyComponent } from './modal/modalchontaisan-copy/modal
 import { ModaltaolichbaoduongComponent } from './modal/modaltaolichbaoduong/modaltaolichbaoduong.component';
 import { NhaplieuxuattaisanComponent } from './nhaplieuxuattaisan/nhaplieuxuattaisan.component';
 import { ModalnhaplieuxuattaisanComponent } from './modal/modalnhaplieuxuattaisan/modalnhaplieuxuattaisan.component';
+import { LoaisucoComponent } from './danhmuc/loaisuco/loaisuco.component';
+import { ModalloaisucoComponent } from './modal/modalloaisuco/modalloaisuco.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -121,6 +124,8 @@ import { ModalnhaplieuxuattaisanComponent } from './modal/modalnhaplieuxuattaisa
     ModaltaolichbaoduongComponent,
     NhaplieuxuattaisanComponent,
     ModalnhaplieuxuattaisanComponent,
+    LoaisucoComponent,
+    ModalloaisucoComponent,
 
   ],
   imports: [
@@ -162,6 +167,7 @@ import { ModalnhaplieuxuattaisanComponent } from './modal/modalnhaplieuxuattaisa
     VoiLibModule,
     TreeTableModule,
     SharedModule,
+    QRCodeModule,
   ],
   providers: [
     LoaderService,
@@ -191,7 +197,10 @@ import { ModalnhaplieuxuattaisanComponent } from './modal/modalnhaplieuxuattaisa
     ModalchontaisanCopyComponent,
     ModalthanhlytaisanComponent,
     ModaltaolichbaoduongComponent,
-    ModalnhaplieuxuattaisanComponent
+    ModalnhaplieuxuattaisanComponent,
+    ModalloaisucoComponent,
+   
+
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]

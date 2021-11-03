@@ -1,37 +1,30 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
-import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { StoreService } from 'src/app/services/store.service';
-import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
-import { ModalkehoachkinhdoanhchitiettaomoiComponent } from '../modal/modalkehoachkinhdoanhchitiettaomoi/modalkehoachkinhdoanhchitiettaomoi.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
+import { StoreService } from 'src/app/services/store.service';
+import { TinhdoanhthumodalComponent } from '../../modals/tinhdoanhthumodal/tinhdoanhthumodal.component';
+
 @Component({
-  selector: 'app-kehoachkinhdoanhdanhsach',
-  templateUrl: './kehoachkinhdoanhdanhsach.component.html',
-  styleUrls: ['./kehoachkinhdoanhdanhsach.component.css']
+  selector: 'app-doanhthu',
+  templateUrl: './doanhthu.component.html',
+  styleUrls: ['./doanhthu.component.css']
 })
-export class KehoachkinhdoanhdanhsachComponent implements OnInit {
+export class DoanhthuComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   IdTrangThai: string = "";
   keyWord: any = '';
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
-  selectedItems: any = [];
   filter: any = {};
   listNhaMay: Array<any> = [];
-  idDuAn: string = "";
-  showDropDown: boolean = false;
-  OSName: string = "HỆ THỐNG Quản lý Nhà – Đất";
-  userBtn: any;
   userInfo: any;
-  userSub: any;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
-  eAction = "PHUONGANPHABONG";
+  eAction = "DOANHTHU";
 
 
   constructor(private _modal: NgbModal, private _danhMucHopDong: DanhMucHopDongService,
@@ -56,7 +49,7 @@ export class KehoachkinhdoanhdanhsachComponent implements OnInit {
     this.KiemTraTabTrangThai();
   }
   changeParam(id) {
-    this.router.navigate([`quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhnam/${id}`], {
+    this.router.navigate([`quantri/hopdongsanxuat/doanhthu/${id}`], {
       replaceUrl: true,
     });
   }
@@ -82,14 +75,15 @@ export class KehoachkinhdoanhdanhsachComponent implements OnInit {
     })
   }
   add() {
-    let modalRef = this._modal.open(ModalkehoachkinhdoanhchitiettaomoiComponent, {
+
+    let modalRef = this._modal.open(TinhdoanhthumodalComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',
       keyboard:false
     });
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới kế hoạch kinh doanh';
+    // modalRef.componentInstance.type = 'themmoi';
+    // modalRef.componentInstance.title = 'Thêm mới kế hoạch kinh doanh';
     modalRef.componentInstance.item = {
       Id: '', IdTrangThai: '', SoQuyTrinh: ""
     };
@@ -99,14 +93,14 @@ export class KehoachkinhdoanhdanhsachComponent implements OnInit {
   }
 
   update(item) {
-    let modalRef = this._modal.open(ModalkehoachkinhdoanhchitiettaomoiComponent, {
+    let modalRef = this._modal.open(TinhdoanhthumodalComponent, {
       size: "fullscreen-100",
       backdrop: "static",
       keyboard: false,
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật kế hoạch kinh doanh';
+    // modalRef.componentInstance.type = 'capnhat';
+    // modalRef.componentInstance.title = 'Cập nhật kế hoạch kinh doanh';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result
       .finally(() => {

@@ -27,7 +27,7 @@
     </div>
 </div>
 <div class="p-mt-3">
-    <p-table [value]="items.listTaiSan" [(selection)]="selectedItems" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
+    <p-table [value]="items" [(selection)]="selectedItems" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
@@ -73,7 +73,9 @@
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="update(item.Id)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="edit(item)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-trash"
+                        class="p-button-text p-button-sm p-button-secondary" (click)="delete(item)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button> 
                 </td>
             </tr>
         </ng-template>
