@@ -99,7 +99,7 @@ export class PhieuthuhoitaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới phiếu thu hồi tài sản';
+    modalRef.componentInstance.title = 'Thêm mới thu hồi tài sản';
     modalRef.componentInstance.item = {
       Id: '',IdTaiSan: "", IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "",TendmPhanXuong:"",
       isKetThuc: false,listFileDinhKem:[],listTaiSan:[],
@@ -120,7 +120,7 @@ export class PhieuthuhoitaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật phiếu thu hồi tài sản';
+    modalRef.componentInstance.title = 'Cập nhật thu hồi tài sản';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {

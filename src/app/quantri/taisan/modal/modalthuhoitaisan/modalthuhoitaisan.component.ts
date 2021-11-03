@@ -136,32 +136,32 @@ export class ModalthuhoitaisanComponent implements OnInit {
   }
 
   ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open(ModalchontaisanCopyComponent, {
-      size: "xl",
-      backdrop: "static",
-    });
-    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
-    modalRef.componentInstance.opt = this.opt;
-    modalRef.componentInstance.item = {};
-    modalRef.result.then((res: any) => {
-      let listKetQua = [];
-      this.item.listTaiSan.forEach(Tai_San => {
-        let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-        if (bien !== undefined) {
+      let modalRef = this._modal.open(ModalchontaisanCopyComponent, {
+        size: "xl",
+        backdrop: "static",
+      });
+      modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
+      modalRef.componentInstance.opt = this.opt;
+      modalRef.componentInstance.item = {};
+      modalRef.result.then((res: any) => {
+        let listKetQua = [];
+        this.item.listTaiSan.forEach(Tai_San => {
+          let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+          if (bien !== undefined) {
+            listKetQua.push(Tai_San);
+          }
+        });
+        // vong lap 2
+      res.forEach(Tai_San => {
+        let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+        if (bien === undefined) {
           listKetQua.push(Tai_San);
         }
       });
-      // vong lap 2
-    res.forEach(Tai_San => {
-      let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-      if (bien === undefined) {
-        listKetQua.push(Tai_San);
-      }
-    });
-    this.item.listTaiSan = listKetQua;
-    })
-      .catch((er) => {
-      });
+      this.item.listTaiSan = listKetQua;
+      })
+        .catch((er) => {
+        });
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
