@@ -146,8 +146,8 @@ export class TaisanService {
   GetListTaiSanThuHoi() {
     let url = API.TaiSan;
     return {
-      GetListTaiSan: (IddmPhanXuong) => {
-        return this.http.get(`${url}TaiSan/GetListTaiSanThuHoit?IddmPhanXuong=${IddmPhanXuong}`, httpOptions);
+      GetListTaiSan : (IddmPhanXuong) => {
+        return this.http.get(`${url}TaiSan/GetListTaiSanThuHoi?IddmPhanXuong=${IddmPhanXuong}`, httpOptions);
       },
     };
   }

@@ -55,6 +55,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
     this.GetListdmPhanXuong();
     this.GetListTaiSanChuaBanGiao();
     this.KiemTraButtonModal();
+    this.GetPhanXuong();
   }
 
   GetListdmPhanXuong() {
@@ -198,5 +199,11 @@ export class ModalthuhoitaisanComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
+  GetPhanXuong() {
+    this._serviceTaiSan.GetListTaiSanThuHoi().GetListTaiSan(this.item.IddmPhanXuong).subscribe((res: Array<any>) => {
+      console.log(res)
+    });
+  }
+
 }
 
