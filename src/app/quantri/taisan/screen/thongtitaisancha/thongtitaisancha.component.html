@@ -37,7 +37,7 @@
         <label class="p-col-12 p-xl-3 p-p-0 my-auto">Đơn vị tính:</label>
         <div class="p-col-12 p-xl-9 p-p-0">
             <p-dropdown [filter]="true" [options]="listDonVi" placeholder="Chọn đơn vị tính" styleClass="p-inputtext-sm"
-                [(ngModel)]="item.IddmDonViTinh"></p-dropdown>
+                [(ngModel)]="item.IddmDonViTinh" (onChange)="selcetDonVi()"></p-dropdown>
         </div>
     </div>
     <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">

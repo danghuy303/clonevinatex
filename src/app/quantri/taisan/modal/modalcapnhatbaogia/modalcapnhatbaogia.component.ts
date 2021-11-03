@@ -88,7 +88,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       this.item = res.Data;
       this.item.listTaiSan.forEach(obj => {
         obj.TaiSan.GiaConLai = obj.TaiSan.GiaTriConLai;
-      });
+      });       
       // this.item.TaiSan.NgaySanXuat = UnixToDate(this.item.TaiSan.NgaySanXuatUnix);
       // this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);     
     });
@@ -126,7 +126,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     }
   }
 
-  ChapNhan() {
+  ChuyenDuyet() {
     if (this.Validate()) {
       this.Setdata();
       this._serviceTaiSan.BanGiaoTaiSan().ChuyenTiep(this.item).subscribe((res: any) => {
@@ -164,6 +164,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
         this._serviceTaiSan.BanGiaoTaiSan().Delete(this.item.Id).subscribe((res: any) => {
           if (res.StatusCode === 200) {           
             this.toastr.success(res.Message);
+            this.activeModal.close();
           } else {
             this.toastr.error(res.Message);
           }
