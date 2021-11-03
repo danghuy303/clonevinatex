@@ -162,7 +162,7 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
   }
   chonKhachHang(){
     let modalRef = this._modal.open(ChonkhachhangmodalComponent, {
-      size: 'xl'
+      size: 'xl', backdrop: 'static'
     })
     modalRef.componentInstance.items = this.listKhachHang;
     modalRef.componentInstance.selectedItems = deepCopy(this.item.listPhieuDanhGia || []);
@@ -177,7 +177,7 @@ export class QuytrinhdanhgiakhachhangmodalComponent implements OnInit {
   }
   chinhsua(item){
     let modalRef = this._modal.open(ChinhsuadanhgiakhachhangmodalComponent, {
-      size: 'xl'
+      size: 'xl', backdrop: 'static'
     })
     modalRef.componentInstance.item = item;
     modalRef.componentInstance.IdQuyTrinh = this.item.id;

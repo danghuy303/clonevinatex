@@ -120,7 +120,7 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
     this.paging.CurrentPage = event.page + 1;
     this.GetListQuyTrinh();
   }
-  GetListQuyTrinh(reset?) {
+  GetListQuyTrinh(reset?, isXuatExcel?) {
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
@@ -133,6 +133,16 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
       tuNgay: DateToUnix(this.filter.TuNgay),
       denNgay: DateToUnix(this.filter.DenNgay),
     }
+    if(isXuatExcel === true){
+      this._HopDongService.GiaoKeHoachSanXuat().XuatExcel(data).subscribe((res: any) => {
+        if (res?.statusCode === 200) {
+          this._toastr.success(res.message);
+        } else {
+          this._toastr.error(res.message);
+        }
+      });
+    }
+    else{
     this._HopDongService.GiaoKeHoachSanXuat().GetList(data).subscribe((res: any) => {
       this.items = res.data.items;
       this.paging.TotalItem = res.data?.totalCount;
@@ -142,6 +152,7 @@ export class GiaokehoachsanxuatComponent extends StoreBase implements OnInit {
         element.ngayKetThuc = UnixToDate(element.ngayKetThucUnix);
       });
     })
+  }
   }
   resetFilter() {
     this.filter = {};

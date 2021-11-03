@@ -6,6 +6,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
+import { ChonkienchovaymodalComponent } from '../chonkienchovaymodal/chonkienchovaymodal.component';
 
 @Component({
   selector: 'app-xuatbongchovaymodal',
@@ -221,5 +222,24 @@ export class XuatbongchovaymodalComponent implements OnInit {
             this.paging.TotalPage = 5;
             this.paging.TotalItem = this.item.listItem.length;
         });
+}
+GetChonKien() {
+  this.services.PhieuKiemKeKhoBong().GetlistdmMatHangKiemKe(this.item.IddmKho || "", this.item.IdLoBong || "").subscribe((res1: any) => {
+    let modalRef = this._modal.open( ChonkienchovaymodalComponent,{
+      size: 'xl',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.listMatHang = res1;
+    modalRef.componentInstance.listItem = deepCopy(this.item.listItem) ;
+    modalRef.result.then((data) => {
+      this.item.listItem = data.data;
+      this.listItem =deepCopy(this.item.listItem.slice(0, 15));
+      this.paging.CurrentPage = 1;
+      this.paging.TotalPage = 5;
+      this.paging.TotalItem = this.item.listItem.filter(e => e.isXoa !== true).length;
+    }, (reason) => {
+      // không
+    });
+  })
 }
 }

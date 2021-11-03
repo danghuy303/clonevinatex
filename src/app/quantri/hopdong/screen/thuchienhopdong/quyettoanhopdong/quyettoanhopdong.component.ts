@@ -55,7 +55,6 @@ export class QuyettoanhopdongComponent implements OnInit {
       }
     });
     this.KiemTraTabTrangThai();
-    this.GetListQuyTrinh();
   }
 
 
