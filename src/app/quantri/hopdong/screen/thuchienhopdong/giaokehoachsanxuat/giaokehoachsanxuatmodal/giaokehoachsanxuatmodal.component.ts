@@ -165,19 +165,17 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
 
   delete(index) {
     let item = this.item.listItem.splice(index, 1)[0];
-    if (item.id === "" || item.id === null || item.id === undefined) {
-    } else {
-      item.isXoa = true;
-      this.item.listItem.push(JSON.parse(JSON.stringify(item)));
-    }
+    // if (item.id === "" || item.id === null || item.id === undefined) {
+    // } else {
+    //   item.isXoa = true;
+    //   this.item.listItem.push(JSON.parse(JSON.stringify(item)));
+    // }
     if (this.item.listItem != undefined && this.item.listItem.length > 0) {
       this.item.tongKhoiLuong = 0;
       let KLxChiSo: any = 0;
       this.item.listItem.forEach(obj => {
-        if (!obj.isXoa) {
           this.item.tongKhoiLuong += (obj.khoiLuong || 0);
           KLxChiSo += (obj.khoiLuong || 0) * (obj.ne || 0);
-        }
       });
       this.item.chiSoBQ = Math.ceil((KLxChiSo / this.item.tongKhoiLuong) * 100) / 100;
       this.item.ne30 = this.item.tongKhoiLuong * this.item.chiSoBQ / 30 / this.item.tongSoCa;
