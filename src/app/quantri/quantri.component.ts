@@ -732,6 +732,13 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
+            label: "Phiếu xuất lô bông/xơ",
+            routerLink: "/quantri/hopdongsanxuat/phieuxuatlobongxo/0",            
+            command: () => {
+              this.close();
+            },
+          },
+          {
             label: "Phiếu nhập vật tư phụ",
             routerLink: "/quantri/hopdongsanxuat/nhapvattuphu/0",
             command: () => this.close(),
@@ -743,13 +750,7 @@ export class QuantriComponent implements OnInit {
             
             command: () => this.close(),
           },
-          {
-            label: "Phiếu xuất lô bông/xơ",
-            routerLink: "/quantri/hopdongsanxuat/phieuxuatlobongxo/0",            
-            command: () => {
-              this.close();
-            },
-          },
+          
           {
             label: "Thanh toán bông",
             routerLink: "/quantri/hopdongsanxuat/quytrinhthanhtoanbong/0",
@@ -883,7 +884,7 @@ export class QuantriComponent implements OnInit {
             },
           },
           {
-            label: "Phiếu thu hồi tài sản",
+            label: "Thu hồi tài sản",
             routerLink: "/quantri/taisan/thuhoitaisan/0",            
             command: () => {
               this.close();

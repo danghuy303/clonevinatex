@@ -108,6 +108,13 @@ export class HopDongService {
       GetListHopDongForPhuLuc: (Loai) => {
         return this.http.get(url + `HopDong/GetListHopDongForPhuLuc?Loai=${Loai}`, httpOptions);
       },
+      GetDanhSachHopDongMua: (IdDuAn) => {
+        return this.http.get(url + `HopDong/GetDanhSachHopDongMua?IdDuAn=${IdDuAn}`, httpOptions);
+      },
+      XuatExcel: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(url + "HopDong/GetListQuyTrinhHopDongSoi", data, httpOptions);
+      },
     };
   }
 
@@ -235,7 +242,6 @@ export class HopDongService {
       },
       Set: (data) => {
         data.idDuAn = this.store.getCurrent();
-
         return this.http.post(
           url + "PhatHopDong/SetQuyTrinh",
           data,
@@ -391,6 +397,14 @@ export class HopDongService {
           httpOptions
         );
       },
+      XuatExcel: (data) => {
+        data.idDuAn = this.store.getCurrent()
+        return this.http.post(
+          url + "GiaoKeHoachSanXuat/GetListQuyTrinh",
+          data,
+          httpOptions
+        );
+      },  
     };
   };
   QuyTrinhXuatBongXo() {

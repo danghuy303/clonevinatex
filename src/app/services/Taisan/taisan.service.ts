@@ -143,11 +143,25 @@ export class TaisanService {
     };
   }
 
+  GetListTaiSanThuHoi() {
+    let url = API.TaiSan;
+    return {
+      GetListTaiSan : (IddmPhanXuong) => {
+        return this.http.get(`${url}TaiSan/GetListTaiSanThuHoi?IddmPhanXuong=${IddmPhanXuong}`, httpOptions);
+      },
+    };
+  }
+
   ListDanhSachTaiSan() {
     let url = API.TaiSan;
     return {
       GetList: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}TaiSan/ListDanhSachTaiSan`, data, httpOptions);
+      },
+      Get: (Id) => {
+        
+        return this.http.get(`${url}TaiSan/GetChiTietTaiSanById?IdTaiSan=${Id}`, httpOptions);
       },
     }
   }

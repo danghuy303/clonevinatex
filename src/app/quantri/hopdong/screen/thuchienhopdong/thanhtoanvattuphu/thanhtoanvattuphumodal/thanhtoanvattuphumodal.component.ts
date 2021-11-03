@@ -38,7 +38,7 @@ export class ThanhtoanvattuphumodalComponent implements OnInit {
   listIdThanhToanInvoice: any = [];
   IdDuAn: any = 0;
   listLoaiThanhToan: any = [{ label: 'Thanh toán theo kế hoạch thanh toán', value: 1 },
-  { label: 'Thanh toán theo invoice', value: 2 }];
+  { label: 'Thanh toán theo mặt hàng', value: 2 }];
   userInfo: any;
 
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;

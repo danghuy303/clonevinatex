@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { deepCopy } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-chitietthanhtoan',
@@ -6,10 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chitietthanhtoan.component.css']
 })
 export class ChitietthanhtoanComponent implements OnInit {
-
-  constructor() { }
-
+  @Input('listThanhToan') listThanhToan: any = [];
+  paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
+  constructor(public _modal: NgbModal,) { }
   ngOnInit(): void {
   }
-
 }
