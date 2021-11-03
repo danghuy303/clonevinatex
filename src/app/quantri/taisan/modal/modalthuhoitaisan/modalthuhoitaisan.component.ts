@@ -102,7 +102,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
   }
   validate(): boolean {
     if (!validVariable(this.item.IddmPhanXuong)) {
-      this.toastr.error('Vui lòng nhập phân xưởng!!');
+      this.toastr.error('Vui lòng nhập bộ phận sử dụng!!');
       return false;
     }
     return true;
@@ -143,6 +143,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
       });
       modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
       modalRef.componentInstance.opt = this.opt;
+      modalRef.componentInstance.Lay_Chon =this.item.IddmPhanXuong; ////
       modalRef.componentInstance.item = {};
       modalRef.result.then((res: any) => {
         let listKetQua = [];
@@ -200,8 +201,9 @@ export class ModalthuhoitaisanComponent implements OnInit {
       .catch((er) => console.log(er));
   }
   GetPhanXuong() {
-    this._serviceTaiSan.GetListTaiSanThuHoi().GetListTaiSan(this.item.IddmPhanXuong).subscribe((res: Array<any>) => {
-      console.log(res)
+    this._serviceTaiSan.GetListTaiSanThuHoi().GetListTaiSan(this.item.IddmPhanXuong).subscribe((res: any) => {
+      this.listTaiSan = res.Data;
+      console.log(res.Data);
     });
   }
 

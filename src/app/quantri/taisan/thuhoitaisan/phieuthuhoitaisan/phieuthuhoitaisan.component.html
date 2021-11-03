@@ -3,7 +3,7 @@
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-        <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
+        <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
         <!-- <button pButton pRipple label="xóa" icon="pi pi-trash" class="p-button-sm p-button-outlined p-mr-2" (click)="delete(item)"></button> 
          <button pButton pRipple label="Xóa tất cả" *ngIf="selectedItems.length!==0" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button>
          <button pButton pRipple label="Xóa tất cả" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button>  -->
@@ -53,9 +53,9 @@
                 <th class="text-center">STT</th>
                 <th class="text-center">Số phiếu</th>
                 <th class="text-center">Ngày</th>
-                <th class="text-center">Phân xưởng</th>
+                <th class="text-center">Bộ phận sử dụng</th>
                 <th class="text-center">Trạng thái</th>
-                <th class="text-center"></th>
+                <th class="text-center">Thao tác</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">

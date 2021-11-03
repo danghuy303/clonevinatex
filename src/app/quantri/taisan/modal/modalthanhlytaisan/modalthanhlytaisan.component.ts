@@ -54,6 +54,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
     this.GetListdmPhanXuong();
     this.GetListTaiSanChuaBanGiao();
     this.KiemTraButtonModal();
+    this.GetPhanXuong();
   }
 
   GetListdmPhanXuong() {
@@ -99,8 +100,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
 
   }
   Validate() {
-    if (!validVariable(this.item.NguoiThanhLy) ||
-      !validVariable(this.item.NgayThanhLy)) {
+    if (!validVariable(this.item.IddmPhanXuong) ) {
       this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
       return false;
     }
@@ -142,6 +142,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
     });
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan? this.item.listTaiSan.map(ele=>ele.IdTaiSan):[]
     modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.Lay_Chon =this.item.IddmPhanXuong;
     modalRef.componentInstance.item = {};
     modalRef.result.then((tai_san_da_chon_tu_modal: any) => {
          let listKetQua = [];
@@ -200,5 +201,12 @@ export class ModalthanhlytaisanComponent implements OnInit {
           })
         })
         .catch((er) => console.log(er));
+    }
+
+    GetPhanXuong() {
+      this._serviceTaiSan.GetListTaiSanThuHoi().GetListTaiSan(this.item.IddmPhanXuong).subscribe((res: any) => {
+        this.listTaiSan = res.Data;
+        console.log(res.Data);
+      });
     }
 }
