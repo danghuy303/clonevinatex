@@ -39,9 +39,9 @@ export class DanhmucdongiasanphamComponent implements OnInit {
       this.paging.CurrentPage=1;
       this.paginator.changePage(0);
     }
-    this. _danhMucHopDong.DanhMucTyGia().GetList().subscribe((res:any)=>{
+    this. _danhMucHopDong.DanhMucDonGia().GetList().subscribe((res:any)=>{
       console.log(res);
-      this.items = res;
+      this.items = res.Data;
       // this.items = res.Data.Items;
       // this.paging.TotalItem = res.Data.TotalCount;
     })
@@ -49,11 +49,11 @@ export class DanhmucdongiasanphamComponent implements OnInit {
   add(){
     let modalRef = this._modal.open(ModaldanhmucdongiasanphamComponent,{
       backdrop:'static',
-      size:'fullscreen'
+      size:'lg'
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới tỷ giá ngoại tệ';
+    modalRef.componentInstance.title = 'Thêm mới đơn giá sản phẩm';
     modalRef.result.then(res=>{
       this.GetList()
     }).catch(er=>console.log(er))
@@ -61,34 +61,34 @@ export class DanhmucdongiasanphamComponent implements OnInit {
   edit(item){
     let modalRef = this._modal.open(ModaldanhmucdongiasanphamComponent,{
       backdrop:'static',
-      size:'fullscreen'
+      size:'xl'
     });
     modalRef.componentInstance.opt='edit';
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật tỷ giá ngoại tệ';
+    modalRef.componentInstance.title = 'Cập nhật đơn giá sản phẩm năm ' +item.Nam;
     modalRef.componentInstance.Nam = item.Nam; 
     modalRef.result.then(res=>{
       this.GetList()
     }).catch(er=>console.log(er))
   }
   delete(item){
-    let modalRef = this._modal.open(ModalthongbaoComponent,{
-      backdrop:'static'
-    });
-    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res=>{
-      // const item=this.selectedItems[0];
-      this._danhMucHopDong.DanhMucTinhLuong().Delete([item.Id]).subscribe((res: any) => {
-        if (res) {
-          if (res.StatusCode === 200) {
-            this._toastr.success(res.Message);
-            this.GetList();
-          } else {
-            this._toastr.error(res.Message);
-          }
-        }
-      })
-    }).catch(er=>console.log(er))
+    // let modalRef = this._modal.open(ModalthongbaoComponent,{
+    //   backdrop:'static'
+    // });
+    // modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    // modalRef.result.then(res=>{
+    //   // const item=this.selectedItems[0];
+    //   this._danhMucHopDong.DanhMucTyGia().Delete([item.Id]).subscribe((res: any) => {
+    //     if (res) {
+    //       if (res.StatusCode === 200) {
+    //         this._toastr.success(res.Message);
+    //         this.GetList();
+    //       } else {
+    //         this._toastr.error(res.Message);
+    //       }
+    //     }
+    //   })
+    // }).catch(er=>console.log(er))
   }
   changePage(event){
     this.paging.CurrentPage = event.page+1;
