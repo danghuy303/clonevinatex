@@ -487,5 +487,33 @@ export class DanhMucHopDongService {
             }
         }
     }
+    DanhMucDonGia() {
+        let url = API.KeHoach
+        return {
+            GetList: () => {
+                return this.http.get(`${url}KeHoachKinhDoanh/GetListBangGiaSanPham`, httpOptions)
+            },
+            Get: (Nam) => {
+                return this.http.get(`${url}KeHoachKinhDoanh/GetBangGiaSanPham?Nam=${Nam}`, httpOptions)
+            },
+            Set: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/CapNhatBangGiaSanPham`, data, httpOptions)
+            }
+        }
+    }
+    TinhToanDoanhThu() {
+        let url = API.KeHoach
+        return {
+            Get: IdKeHoachKinhDoanh => {
+                return this.http.get(`${url}KeHoachKinhDoanh/GetDoanhThuKeHoachKinhDoanh?IdKeHoachKinhDoanh=${IdKeHoachKinhDoanh}`, httpOptions)
+            },
+            GetThang: () => {
+                return this.http.post(`${url}KeHoachKinhDoanh/GetDoanhThuKeHoachKinhDoanhSanPhamTheoThang`, httpOptions)
+            },
+            Set: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/CapNhatDoanhThuKeHoachKinhDoanhSanPhamTheoThang`, data, httpOptions)
+            }
+        }
+    }
 }
 

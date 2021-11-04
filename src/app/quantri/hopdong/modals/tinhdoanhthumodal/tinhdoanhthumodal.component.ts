@@ -14,6 +14,7 @@ import { PintableDirective } from 'voi-lib';
 })
 export class TinhdoanhthumodalComponent implements OnInit {
   item: any = {};
+  itemKeHoach:any={};
   checkbutton:any={};
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
@@ -24,6 +25,7 @@ export class TinhdoanhthumodalComponent implements OnInit {
     private _auth: AuthenticationService,) { }
 
   ngOnInit(): void {
+    
   }
 
 }

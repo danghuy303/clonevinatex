@@ -24,7 +24,7 @@ export class DoanhthuComponent implements OnInit {
   userInfo: any;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
-  eAction = "DOANHTHU";
+  eAction = "PHUONGANPHABONG";
 
 
   constructor(private _modal: NgbModal, private _danhMucHopDong: DanhMucHopDongService,
@@ -38,7 +38,7 @@ export class DoanhthuComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._danhMucHopDong
-          .DanhSachKeHoachKinhDoanh()
+          .TinhToanDoanhThu()
           .Get(res.id)
           .subscribe((res: any) => {
             this.update(res);
@@ -93,6 +93,7 @@ export class DoanhthuComponent implements OnInit {
   }
 
   update(item) {
+    console.log(item);
     let modalRef = this._modal.open(TinhdoanhthumodalComponent, {
       size: "fullscreen-100",
       backdrop: "static",

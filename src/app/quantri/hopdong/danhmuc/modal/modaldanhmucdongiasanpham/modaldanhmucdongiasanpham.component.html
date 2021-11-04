@@ -1,1 +1,76 @@
-<p>modaldanhmucdongiasanpham works!</p>
+<div class="modal-header">
+    <h5 class="modal-title">{{title}}</h5>
+    <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <!-- <span class="p-button-sm p-button-sm p-button-text close" aria-hidden="true"
+    (click)="activeModal.dismiss('Cross click')">×</span> -->
+</div>
+<div class="modal-body">
+    <div class="p-col-12 p-0">
+        <!-- <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="Nam" placeholder="Chọn năm"
+            (onChange)="GetData($event)" styleClass="p-inputtext-sm">
+        </p-dropdown> -->
+
+        <p-table [value]="data" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Đơn vị</th>
+                    <th>Giá</th>
+                    <th>Hợp đồng</th>
+                    <th>Khách hàng</th>
+                    <th>Tỷ giá</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-sanpham let-i="rowIndex">
+                <ng-container>
+                    <tr>
+                        <td class="text-center">{{sanpham.TenSanPham}}</td>
+                        <td class="text-center date">
+                                <button pButton pRipple type="button" icon="pi pi-plus"
+                                class="p-button-text p-button-sm p-button-success"
+                                (click)="addThemGia(sanpham)"></button>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr *ngFor="let gia of sanpham.lstChiTietGia">
+                        <td class="text-center"></td>
+                        <td>
+                            <p-dropdown [filter]="true" [options]="listDonViTien" [(ngModel)]="gia.IddmTienTe"
+                                placeholder="Chọn đơn vị tiền tệ" (onChange)="getMadmTienTe(gia)" styleClass="p-inputtext-sm">
+                            </p-dropdown>
+                        </td>
+                        <td>
+                            <p-inputNumber [disabled]="false" [minFractionDigits]="0" locale="vi-VN"
+                                [(ngModel)]="gia.Gia">
+                            </p-inputNumber>
+                        </td>
+                        <td>
+                            <p-dropdown [filter]="true" [options]="listHopDong" [(ngModel)]="gia.IdHopDong"
+                                placeholder="Chọn hợp đồng" styleClass="p-inputtext-sm">
+                            </p-dropdown>
+                        </td>
+                        <td>
+                            <input type="text" class="p-inputtext-sm" [(ngModel)]="gia.KhachHang" pInputText />
+                        </td>
+                        <td>
+                            <p-inputNumber [disabled]="false" [minFractionDigits]="0" locale="vi-VN"
+                                [(ngModel)]="gia.TyGia">
+                            </p-inputNumber>
+                        </td>
+                    </tr>
+                </ng-container>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button pButton pRipple label="Lưu" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"
+        [disabled]="khongclicknhieu"></button>
+    <button pButton pRipple label="Đóng" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
+        (click)="activeModal.dismiss()"></button>
+</div>
