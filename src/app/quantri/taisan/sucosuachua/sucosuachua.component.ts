@@ -86,7 +86,7 @@ export class SucosuachuaComponent implements OnInit {
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.item = {TaiSan:{}};
+    modalRef.componentInstance.item = {ID:"",TaiSan:{}};
     modalRef.result
       .then((res: any) => {
         this.Loaddata();

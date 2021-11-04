@@ -127,6 +127,8 @@ export class ModalcapnhattaisanComponent implements OnInit {
     this.item.NoiDung = this.item.TaiSan.NoiDung;
     this.item.NgayNhap = this.item.TaiSan.NgayNhap;
     this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
+    this.item.TaiSan.GiaTriConLai = 0;
+    this.item.TaiSan.GiaTriThanhLy = 0;
   }
 
   GhiLai() {
