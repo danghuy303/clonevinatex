@@ -13,10 +13,12 @@ import { PintableDirective } from 'voi-lib';
   styleUrls: ['./tinhdoanhthumodal.component.css']
 })
 export class TinhdoanhthumodalComponent implements OnInit {
+  @ViewChild(PintableDirective) voiPintable: PintableDirective;
   item: any = {};
   itemKeHoach:any={};
   checkbutton:any={};
-  @ViewChild(PintableDirective) voiPintable: PintableDirective;
+  Nam:number;
+  propThang: Array<string> = ['Thang1', 'Thang2', 'Thang3', 'Thang4', 'Thang5', 'Thang6', 'Thang7', 'Thang8', 'Thang9', 'Thang10', 'Thang11', 'Thang12',]
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
     public toastr: ToastrService,
     private _services: SanXuatService,
@@ -25,7 +27,18 @@ export class TinhdoanhthumodalComponent implements OnInit {
     private _auth: AuthenticationService,) { }
 
   ngOnInit(): void {
-    
+    console.log(this.item)
   }
-
+  ChiTietSanPhamThang(thang,sanpham){
+    console.log(thang,sanpham)
+    let data = {
+      Thang:thang,
+      Nam:this.Nam,
+      IdSanPham:sanpham.IdSanPham,
+      IdKeHoachKinhDoanh:sanpham.IdKeHoachKinhDoanh,
+    }
+    this._danhMucHopDong.TinhToanDoanhThu().GetThang(data).subscribe(res=>{
+      console.log(res);
+    })
+  }
 }
