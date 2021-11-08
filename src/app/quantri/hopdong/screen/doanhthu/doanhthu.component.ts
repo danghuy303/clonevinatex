@@ -21,6 +21,7 @@ export class DoanhthuComponent implements OnInit {
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   filter: any = {};
   Nam:number;
+  KeHoach:any;
   listNhaMay: Array<any> = [];
   userInfo: any;
   trangThai: any = 1;
@@ -49,8 +50,9 @@ export class DoanhthuComponent implements OnInit {
     this.GetListKeHoachKinhDoanh();
     this.KiemTraTabTrangThai();
   }
-  changeParam(id,Nam?) {
-    this.Nam = Nam|0;
+  changeParam(id,Nam?,KeHoach?) {
+    this.Nam = Nam||0;
+    this.KeHoach = KeHoach||{};
     this.router.navigate([`quantri/hopdongsanxuat/doanhthu/${id}`], {
       replaceUrl: true,
     });
@@ -102,8 +104,6 @@ export class DoanhthuComponent implements OnInit {
       keyboard: false,
     });
     modalRef.componentInstance.opt = "edit";
-    // modalRef.componentInstance.type = 'capnhat';
-    // modalRef.componentInstance.title = 'Cập nhật kế hoạch kinh doanh';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.Nam = this.Nam;
     modalRef.result
