@@ -12,8 +12,7 @@ import { StoreService } from 'src/app/services/store.service';
   styleUrls: ['./dieuhanhsanxuattonghop.component.css']
 })
 export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, OnDestroy {
-  filter: any =
-    {
+  filter: any = {
       IdDuAn: 0,
       IddmPhanXuong: "1cf3f340-0f55-4f34-938p-e329318e25et",
       IddmCaSanXuatThucTe: "",

@@ -17,7 +17,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
   items: TreeNode[];
   item: any = {};
   listItemDaChon:any=[];
-  //  listIdTaiSan: this.listIdTaiSanaiSan;
+  Lay_Chon: any = "";
   checkedAll: boolean = false;
 
   constructor(
@@ -28,36 +28,62 @@ export class ModalchontaisanCopyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.Lay_Chon); // Kiểm tra lấy được Id chưa...
     this.Loaddata();
   
   }
 
   Loaddata() {
-    this._serviceTaiSan.GetOptions().GetListTaiSanChuaBanGiao().subscribe((res: any) => {
+    this._serviceTaiSan.GetListTaiSanThuHoi().GetListTaiSan(this.Lay_Chon).subscribe((res: any) => {
       let items = [];
-      this.items = [];
-      items = res.Data;
-      console.log(this.listItemDaChon)
-      items.forEach(obj => {
-        // check list id vua truyen vao, neu cai nao da ton tai thì đánh check cho nó 
-          obj.checked = this.listItemDaChon.includes(obj.Id);
-          let obj_copy: any = {};
-          if (obj?.listTaiSan) {
-            obj_copy.children = [];
-            obj.listTaiSan.forEach(element => {
-              console.log(element)
-              element.checked = this.listItemDaChon.includes(element.Id);
-              obj_copy.children.push({ data: element });
-            });
-            obj.listTaiSan=undefined;
-          }
-          obj_copy.data = obj;
-          this.items.push({ data: obj_copy.data, children: obj_copy.children });
-      });
-      this.checkedAll=items.every(ele=>ele.checked);
-      console.log(items)
-      console.log(this.items);
-    })
+        this.items = [];
+        items = res.Data;
+        console.log(this.listItemDaChon)
+        items.forEach(obj => {
+          // check list id vua truyen vao, neu cai nao da ton tai thì đánh check cho nó 
+            obj.checked = this.listItemDaChon.includes(obj.Id);
+            let obj_copy: any = {};
+            if (obj?.listTaiSan) {
+              obj_copy.children = [];
+              obj.listTaiSan.forEach(element => {
+                console.log(element)
+                element.checked = this.listItemDaChon.includes(element.Id);
+                obj_copy.children.push({ data: element });
+              });
+              obj.listTaiSan=undefined;
+            }
+            obj_copy.data = obj;
+            this.items.push({ data: obj_copy.data, children: obj_copy.children });
+        });
+        this.checkedAll=items.every(ele=>ele.checked);
+        console.log(items)
+        console.log(this.items);
+    });
+    // this._serviceTaiSan.GetOptions().GetListTaiSanChuaBanGiao().subscribe((res: any) => {
+    //   let items = [];
+    //   this.items = [];
+    //   items = res.Data;
+    //   console.log(this.listItemDaChon)
+    //   items.forEach(obj => {
+    //     // check list id vua truyen vao, neu cai nao da ton tai thì đánh check cho nó 
+    //       obj.checked = this.listItemDaChon.includes(obj.Id);
+    //       let obj_copy: any = {};
+    //       if (obj?.listTaiSan) {
+    //         obj_copy.children = [];
+    //         obj.listTaiSan.forEach(element => {
+    //           console.log(element)
+    //           element.checked = this.listItemDaChon.includes(element.Id);
+    //           obj_copy.children.push({ data: element });
+    //         });
+    //         obj.listTaiSan=undefined;
+    //       }
+    //       obj_copy.data = obj;
+    //       this.items.push({ data: obj_copy.data, children: obj_copy.children });
+    //   });
+    //   this.checkedAll=items.every(ele=>ele.checked);
+    //   console.log(items)
+    //   console.log(this.items);
+    // })
   }
 
   TimCheck() {

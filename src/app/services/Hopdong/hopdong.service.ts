@@ -491,9 +491,16 @@ export class HopDongService {
       },
       Delete: (Id) => {
         return this.http.get(url + `DanhMuc/DeletedmTieuChiDanhGia?Id=${Id}`,httpOptions);
-
         // return this.http.get(url + `DanhMuc​/DeletedmTieuChiDanhGia?Id=${Id}`,httpOptions);
       },
     };
   };
+  GetOptions(){
+    let url = API.HopDong;
+    return {
+      GetAllHopDong:()=>{
+        return this.http.get(url + "HopDong/GetAllHopDongSoi",httpOptions);
+      }
+    }
+  }
 }

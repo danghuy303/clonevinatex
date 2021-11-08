@@ -37,12 +37,29 @@
             <table>
                 <thead>
                     <tr>
-
+                      <th class="tc-w-260" rowspan="2">Sản phẩm</th>
+                      <th *ngFor="let thang of propThang;let i = index" colspan="4" class="tc-w-400">Tháng {{i+1}}</th>
+                    </tr>
+                    <tr>
+                      <ng-container *ngFor="let thang of propThang">
+                        <th class="tc-w-100" >Tổng SL theo KHKD</th>
+                        <th class="tc-w-100">Sản lượng đã tính doanh thu</th>
+                        <th class="tc-w-140">DoanhThu</th>
+                        <th class="tc-w-60"></th>
+                      </ng-container>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        
+                    <tr *ngFor="let sanpham of item">
+                        <td class="tc-w-260 text-center">
+                          {{sanpham.TenSanPham}}
+                        </td>
+                        <ng-container *ngFor="let thang of sanpham.lstDoanhThuSanPhamThang;let i=index">
+                          <td class="tc-w-100 text-right" style="background-color: white;">{{thang.TongSanLuongTheoKeHoach|number:'0.0-2'}}</td>
+                          <td class="tc-w-100 text-right">{{thang.TongSanLuong|number:'0.0-2'}}</td>
+                          <td class="tc-w-140 text-right">{{thang.TongDoanhThu|number:'0.0-2'}}</td>
+                          <td class="tc-w-60 text-center"><a href="javascript:void(0)" (click)="ChiTietSanPhamThang(thang.Thang,sanpham)">Chi tiết</a></td>
+                        </ng-container>
                     </tr>
                 </tbody>
             </table>
