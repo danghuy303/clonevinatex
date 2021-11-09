@@ -59,7 +59,7 @@
               <td class="tc-w-100 text-right">{{thang.TongSanLuong|number:'0.0-2'}}</td>
               <td class="tc-w-140 text-right">{{thang.TongDoanhThu|number:'0.0-2'}}</td>
               <td class="tc-w-60 text-center"><a href="javascript:void(0)"
-                  (click)="ChiTietSanPhamThang(thang.Thang,sanpham)">Chi tiết</a></td>
+                  (click)="ChiTietSanPhamThang(thang,sanpham)">Chi tiết</a></td>
             </ng-container>
           </tr>
         </tbody>
@@ -74,6 +74,17 @@
         (click)="QuayLai()"></button>
       <button pButton pRipple type="button" label="Lưu" class="p-mr-2 p-button-sm "
         (click)="GhiLai()"></button>
+    </div>
+    <div>
+      <div class="p-mr-3">
+        Tổng sản lượng theo kế hoạch:<b>{{itemChiTietThang.TongSanLuongTheoKeHoach|number:'0.0-2'}}</b>
+      </div>
+      <div class="p-mr-3">
+        Tổng sản lượng:<b>{{itemChiTietThang.TongSanLuong|number:'0.0-2'}}</b>
+      </div>
+      <div>
+        Tổng sản lượng doanh thu:<b>{{itemChiTietThang.TongDoanhThu|number:'0.0-2'}}</b>
+      </div>
     </div>
     <p-table [value]="itemChiTietThang.lstDoanhThuSanPhamThang" styleClass="p-datatable-gridlines p-datatable-sm">
       <ng-template pTemplate="header">

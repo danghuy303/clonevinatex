@@ -26,8 +26,9 @@ export class TinhdoanhthumodalComponent implements OnInit {
   listGia: any = [];
   listGiaRef: any = [];
   Nam: number;
-  addonThongTinDoanhThu:any={};
+  addonThongTinDoanhThu: any = {};
   mapSanPham_Gia: any = {};
+  cloneIdThang_SanPham: any;
   propThang: Array<string> = ['Thang1', 'Thang2', 'Thang3', 'Thang4', 'Thang5', 'Thang6', 'Thang7', 'Thang8', 'Thang9', 'Thang10', 'Thang11', 'Thang12',]
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
     public toastr: ToastrService,
@@ -43,80 +44,99 @@ export class TinhdoanhthumodalComponent implements OnInit {
   GetDonGiaSanPham() {
     this.mapSanPham_Gia = {};
     this._danhMucHopDong.DanhMucDonGia().Get(this.item.Nam).subscribe((res: any) => {
-      console.log(res);
       this.item.lstSanPham.forEach(sanpham => {
         this.mapSanPham_Gia[sanpham.IdSanPham.replaceAll('-', '_')] = res.Data.find(ele => ele.IdSanPham === sanpham.IdSanPham);
       });
       for (let key in this.mapSanPham_Gia) {
         this.mapSanPham_Gia[key].lstChiTietGia.forEach(gia => {
-          gia.HienThi = `${formatNumber(gia.Gia,'vi-VN','0.0-3')} ${gia.MadmTienTe}`;
+          gia.HienThi = `${formatNumber(gia.Gia, 'vi-VN', '0.0-3')} ${gia.MadmTienTe}`;
         });
-        this.mapSanPham_Gia[key].listGia = mapArrayForDropDown(this.mapSanPham_Gia[key].lstChiTietGia,'HienThi','Id');
+        this.mapSanPham_Gia[key].listGia = mapArrayForDropDown(this.mapSanPham_Gia[key].lstChiTietGia, 'HienThi', 'Id');
       }
     })
   }
   ChiTietSanPhamThang(thang, sanpham) {
-    console.log(thang, sanpham)
+    this.cloneIdThang_SanPham = { Thang: thang.Thang, IdSanPham: sanpham.IdSanPham };
     let data = {
-      Thang: thang,
+      Thang: thang.Thang,
       Nam: this.Nam,
       IdSanPham: sanpham.IdSanPham,
       IdKeHoachKinhDoanh: sanpham.IdKeHoachKinhDoanh,
     }
-    this.addonThongTinDoanhThu={
-      Thang: thang,
+    this.addonThongTinDoanhThu = {
+      Thang: thang.Thang,
       Nam: this.Nam,
       IdSanPham: sanpham.IdSanPham,
       IdKeHoachKinhDoanh: sanpham.IdKeHoachKinhDoanh,
       IdKeHoachKinhDoanhGoc: sanpham.IdKeHoachKinhDoanhGoc
     }
-    let key = sanpham.IdSanPham.replaceAll('-','_')
+    let key = sanpham.IdSanPham.replaceAll('-', '_');
     this.listGia = this.mapSanPham_Gia[key].listGia;
     this.listGiaRef = this.mapSanPham_Gia[key].lstChiTietGia;
-    this._danhMucHopDong.TinhToanDoanhThu().GetThang(data).subscribe(res => {
+    this._danhMucHopDong.TinhToanDoanhThu().GetThang(data).subscribe((res: any) => {
+      res.TongSanLuongTheoKeHoach = thang.TongSanLuongTheoKeHoach;
+      res.Thang = thang.Thang;
+      res.TenSanPham = sanpham.TenSanPham;
       this.showChiTietThang = true;
       this.itemChiTietThang = res;
-      this.headerChiTietModal = `Chi tiết tháng ${thang}`;
-      console.log(res);
+      this.headerChiTietModal = `Chi tiết tháng ${thang.Thang} - ${sanpham.TenSanPham}`;
     })
   }
-  changeGia(event,rootItem){
-    console.log(event);
-    let ref = this.listGiaRef.find(gia=>gia.Id === event.value);
-    console.log(ref);
+  changeGia(event, rootItem) {
+    let ref = this.listGiaRef.find(gia => gia.Id === event.value);
     rootItem.Gia = ref.Gia;
     rootItem.MadmTienTe = ref.MadmTienTe;
     rootItem.IddmTienTe = ref.IddmTienTe;
     rootItem.TyGia = ref.TyGia;
     this.tinhDoanhThu(rootItem);
   }
-  tinhDoanhThu(rootItem){
-    console.log(rootItem);
-    let arrTest = ['SanLuong','Gia','TyGia'];
-    let valid = arrTest.every(prop=>validVariable(rootItem[prop]));
-    if(valid){
-      rootItem.DoanhThu = arrTest.reduce((multiply,ele)=>multiply*=rootItem[ele],1)
+  tinhDoanhThu(rootItem) {
+    let arrTest = ['SanLuong', 'Gia', 'TyGia'];
+    let valid = arrTest.every(prop => validVariable(rootItem[prop]));
+    if (valid) {
+      rootItem.DoanhThu = arrTest.reduce((multiply, ele) => multiply *= rootItem[ele], 1)
     }
     this.TinhTong()
   }
-  TinhTong(){
-    this.itemChiTietThang.lstDoanhThuSanPhamThang
+  TinhTong() {
+    this.itemChiTietThang.TongSanLuong = 0;
+    this.itemChiTietThang.TongDoanhThu = 0;
+    this.itemChiTietThang.lstDoanhThuSanPhamThang.forEach(doanhthu => {
+      this.itemChiTietThang.TongSanLuong += doanhthu.SanLuong;
+      this.itemChiTietThang.TongDoanhThu += doanhthu.DoanhThu;
+    });
+    console.log(this.itemChiTietThang);
   }
   ThemDoanhThuChiTiet() {
-    let data= {...this.newDoanhThuChiTiet,Id:''}
-    this.itemChiTietThang.lstDoanhThuSanPhamThang.push(deepCopy(this.newDoanhThuChiTiet));
-    this.newDoanhThuChiTiet ={}
+    let arrTest = ['SanLuong', 'Gia', 'TyGia'];
+    let valid = arrTest.every(prop => validVariable(this.newDoanhThuChiTiet[prop]));
+    if (!valid) {
+      this.toastr.warning('Vui lòng nhập đầy đủ các trường dữ liệu');
+    } else {
+      let data = { ...this.newDoanhThuChiTiet, Id: '', ...this.addonThongTinDoanhThu }
+      this.itemChiTietThang.lstDoanhThuSanPhamThang.push(deepCopy(data));
+      this.newDoanhThuChiTiet = {}
+    }
+    this.TinhTong()
   }
   XoaDoanhThuChiTiet(index) {
-    let remove = this.itemChiTietThang.lstDoanhThuSanPhamThang.splice(index,1)
+    let remove = this.itemChiTietThang.lstDoanhThuSanPhamThang.splice(index, 1)
   }
-  cleanForm(){
-    this.newDoanhThuChiTiet={};
+  cleanForm() {
+    this.newDoanhThuChiTiet = {};
   }
-  GhiLai(){
-    // this._danhMucHopDong.TinhToanDoanhThu().Set()
+  GhiLai() {
+    this._danhMucHopDong.TinhToanDoanhThu().Set(this.itemChiTietThang).subscribe((res:any)=>{
+      if(res.StatusCode!==200){
+        this.toastr.error(res.Message);
+      }else{
+        this.toastr.success(res.Message);
+      }
+    },(er=>{
+      this.toastr.error('Có lỗi trong quá trình xử lý!\n Vui lòng liên hệ nhà phát triển!')
+    }));
   }
-  QuayLai(){
-    this.showChiTietThang=false;
+  QuayLai() {
+    this.showChiTietThang = false;
   }
 }
