@@ -59,7 +59,6 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
   ngOnInit(): void {
     this.userInfo = this._auth.currentUserValue;
     this.GetDanhSachDuAnByIdUser();
-    console.log(this.item)
     if (this.opt !== 'edit') {
       this.item = {
         id: "",
@@ -77,10 +76,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     this._services.GetListOptdmCapBong().subscribe((res: any) => {
       this.listdmCapBong = mapArrayForDropDown(res, "Ten", "Id");
     });
-    this.data.Loai = 2;
-    this._services.GetListdmKho(this.data).subscribe((res: any) => {
-      this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
-    });
+   
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.id || '', this.item.idTrangThai || '').subscribe(res => {
@@ -123,7 +119,10 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
     this._services.dmDacTinhBong().GetDacTinh(this.item.iddmLoaiBong || '', this.item.iddmCapBong || '').subscribe((res: any) => {
       this.item.dacTinhBong = validVariable(this.item.iddmDacTinh) ? res.find(e=> e.Id == this.item.iddmDacTinh).DacTinh : '';
     });
-
+    this.data.Loai = item.loai;
+    this._services.GetListdmKho(this.data).subscribe((res: any) => {
+      this.listdmKho = mapArrayForDropDown(res, "Ten", "Id");
+    });
   }
 
   ChuyenDuyet() {
@@ -245,10 +244,7 @@ export class ChitietkehoachnhapbongComponent implements OnInit {
           obj.thoiGianCapCang = UnixToDate(obj.thoiGianCapCangUnix);
         });
       }
-      this._services.GetOptions().GetDanhSachHopDongByNhaThau(this.item.idDuAn, 2).subscribe((res: any) => {
-        // res.forEach(obj => {
-        //   obj.TenFull = `${obj.soHopDong} - ${obj.tenHopDong}`;
-        // });
+      this._servicesHopDong.QuyTrinhHopDong().GetDanhSachHopDongMua(this.item.idDuAn).subscribe((res: any) => {
         this.listhopdong = mapArrayForDropDown(res, 'soTenHopDong', 'id');
         this.listhopdong_copy = deepCopy(res);
         this.GetListdmLoaiBongForHopDong();

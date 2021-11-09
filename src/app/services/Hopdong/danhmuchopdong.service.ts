@@ -507,8 +507,8 @@ export class DanhMucHopDongService {
             Get: IdKeHoachKinhDoanh => {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetDoanhThuKeHoachKinhDoanh?IdKeHoachKinhDoanh=${IdKeHoachKinhDoanh}`, httpOptions)
             },
-            GetThang: () => {
-                return this.http.post(`${url}KeHoachKinhDoanh/GetDoanhThuKeHoachKinhDoanhSanPhamTheoThang`, httpOptions)
+            GetThang: (data) => {
+                return this.http.post(`${url}KeHoachKinhDoanh/GetDoanhThuKeHoachKinhDoanhSanPhamTheoThang`,data, httpOptions)
             },
             Set: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/CapNhatDoanhThuKeHoachKinhDoanhSanPhamTheoThang`, data, httpOptions)

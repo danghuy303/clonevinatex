@@ -549,18 +549,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
         break;
     }
   }
+
   resetKhoiLuongCuiHoi() {
     this.TongKhoiLuong = 0;
-    if (this.listItem.length > 0) {
-      for (let i = 0; i < this.listItem.length; i++) {
-        this.listItem[i].KhoiLuongCuiHoi = 0;
-        if (this.listItem[i].Ne !== undefined && this.listItem[i].Ne !== null && this.listItem[i].Ne !== 0 && this.listItem[i].DonViNangSuat === 0)
-          this.listItem[i].KhoiLuong = this.listItem[i].ChieuDai / (this.listItem[i].Ne * 1.693 * 1000) * (this.listItem[i].SoDauRa || 0) - (this.listItem[i].KhoiLuongCuiHoi || 0);
-        this.TongKhoiLuong += (this.listItem[i].KhoiLuong || 0);
-      }
-      if (this.item.isTruVaoSanLuong === true)
-        this.TongKhoiLuong -= (this.item.TongKhoiLuongCuiHoi || 0);
-    }
+    this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+    if (this.item.isTruVaoSanLuong === true)
+    this.TongKhoiLuong -= (this.item.TongKhoiLuongCuiHoi || 0);
 
     let TongKhoiLuong = this.TongKhoiLuong + (this.item.TongKhoiLuongCuiHoi || 0);
 

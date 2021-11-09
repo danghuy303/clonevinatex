@@ -29,12 +29,12 @@ export class DmthongkedienmodalComponent implements OnInit {
     idCaSanXuat: any = '';
     @ViewChildren('input') listInput;
     cols: any = [
-        {
-            header: "Số tiêu thụ (KW)",
-            field: "SoTieuThu",
-            width: "unset",
-            align: "right",
-        },
+        // {
+        //     header: "Số tiêu thụ (KW)",
+        //     field: "SoTieuThu",
+        //     width: "unset",
+        //     align: "right",
+        // },
         {
             header: "Hệ số nhân",
             field: "HeSoNhan",
@@ -80,6 +80,7 @@ export class DmthongkedienmodalComponent implements OnInit {
           .subscribe((res: any) => {
               this.listdmCaSanXuat = mapArrayForDropDown(res, "Ten", "Id");
           });
+          console.log(this.item)
     }
 
     // changeTab(e) {
@@ -94,18 +95,23 @@ export class DmthongkedienmodalComponent implements OnInit {
     GhiLai() {
         this.khongclicknhieu = !this.khongclicknhieu;
         let checkSoMoi = true;
-        this.item.lstMayBienAp.filter((objlstMayBienAp) => {
-            objlstMayBienAp.lstKhungGio.filter((objlstKhungGio) => {
-                objlstKhungGio.lstCongTo.filter((objlstCongTo) => {
+        this.item.lstMayBienAp.forEach((objlstMayBienAp,indexMBA) => {
+            objlstMayBienAp.lstKhungGio.forEach((objlstKhungGio,indexKhungGio) => {
+                objlstKhungGio.lstCongTo.forEach((objlstCongTo,indexCongTo) => {
                     if (
                         objlstCongTo.SoMoi > 0 &&
                         objlstCongTo.SoCu > objlstCongTo.SoMoi
                     ) {
-                        return (checkSoMoi = false);
+                        console.log('MBA: '+indexMBA)
+                        console.log('KhungGio: '+indexKhungGio)
+                        console.log('CongTo: '+indexCongTo)
+                        console.log(objlstCongTo)
+                        checkSoMoi = false
                     }
                 });
             });
         });
+        console.log(this.item.lstMayBienAp);
         if (checkSoMoi) {
             this._services
                 .ThongKeDien()
@@ -153,6 +159,23 @@ export class DmthongkedienmodalComponent implements OnInit {
             }
         }
     }
+    tinhgiatri_Bang_So_Tieu_Thu(item) {
+        // console.log(this.listInput.toArray());
+        if(validVariable(item.SoTieuThu)){
+            if (item.SoTieuThu > 0) {
+                item.SoMoi = 0;
+                item.TieuThuTrongCa = 0;
+                item.SoMoi = item.SoTieuThu + item.SoCu;
+                item.TieuThuTrongCa = item.SoTieuThu * item.HeSoNhan * item.HeSoTI;
+            } else {
+                item.SoMoi = item.SoCu;
+                item.TieuThuTrongCa = 0;
+                this.toastr.error(
+                    "Yêu cầu nhập lớn hơn 0!"
+                );
+            }
+        }
+    }
 
     Onclose() {
         this.activeModal.close();
@@ -169,7 +192,6 @@ export class DmthongkedienmodalComponent implements OnInit {
         let index = 0;
         if(e !== undefined)
             index = e.index;
-
         if (this.item.lstMayBienAp.length > 0) {
             this.lstKhungGio = [];
             this.item.lstMayBienAp[index].lstKhungGio.forEach((element) => {
