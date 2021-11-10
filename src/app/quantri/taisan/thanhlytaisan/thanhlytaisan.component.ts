@@ -17,7 +17,7 @@ export class ThanhlytaisanComponent implements OnInit {
   items: any = [];
   IdTrangThai: string = "";
   keyWord: any = '';
-  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
+  paging: any = {  CurrentPage: 1, TotalPages: 1, TotalCount: 1};
   selectedItems: any = [];
   filter: any = {};
   showDropDown: boolean = false;

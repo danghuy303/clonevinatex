@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { DateToUnix } from 'src/app/services/globalfunction';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalcapnhatbaoduongComponent } from '../modal/modalcapnhatbaoduong/modalcapnhatbaoduong.component';
 
 @Component({
@@ -8,41 +11,41 @@ import { ModalcapnhatbaoduongComponent } from '../modal/modalcapnhatbaoduong/mod
   styleUrls: ['./biendong.component.css']
 })
 export class BiendongComponent implements OnInit {
-  items: any = [];
+ 
+  @Input("Du_Lieu_Bien_Dong") Chon_Vao_Bien_Dong:any={};
+  
+  paging:any = {Page: 1, TotalPages: 1, TotalCount: 1 };
+  filter: any;
+  item: any;
 
-  constructor(public _modal: NgbModal,) { }
-
+  constructor(public activeModal: NgbActiveModal, public toastr: ToastrService, private _serviceTaiSan: TaisanService,) { }
+  
   ngOnInit(): void {
+    // this.GetList();
+    
   }
 
-  add() {
-    let modalRef = this._modal.open(ModalcapnhatbaoduongComponent, {
-      size: "xl",
-      backdrop: "static",
-    });
-    modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.item = {};
-    modalRef.result
-      .then((res: any) => {
-      })
-      .catch((er) => {
+  
+  // GetList(reset?) {
+  //   if (reset) {
+  //   }
+  //   let data = {
+  //     PageSize: 25,
+  //     CurrentPage: this.paging.Page,
+  //     KeyWord: this.filter.KeyWord,
+  //     IdTaiSan:this.item.Id,
+  //     TuNgay: DateToUnix(this.filter.TuNgay),
+  //     DenNgay: DateToUnix(this.filter.DenNgay),
+  //   }
+  //   this._serviceTaiSan.ListDanhSachBienDong().Get(data).subscribe((res: any) => {
+  //      console.log(res)
+     
 
-      });
-  }
-
-  edit(item) {
-    let modalRef = this._modal.open(ModalcapnhatbaoduongComponent, {
-      size: "lg",
-      backdrop: "static",
-    });
-    modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.item = item;
-    modalRef.result
-      .then((res: any) => {
-      })
-      .catch((er) => {
-
-      });
-  }
-
+  //   })
+  // }
+  // changePage(event) {
+  //   this.paging.CurrentPage = event.Page + 1;
+  //   this.GetList();
+  // }
+ 
 }
