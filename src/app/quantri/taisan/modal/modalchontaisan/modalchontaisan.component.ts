@@ -49,7 +49,7 @@ export class ModalchontaisanComponent implements OnInit {
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];
-          obj.listTaiSan.forEach(element => {
+          obj.listTaiSan.forEach(element => {            
             element.checked = false;
             obj_copy.children.push({ data: element });
           });
@@ -58,7 +58,7 @@ export class ModalchontaisanComponent implements OnInit {
         obj_copy.data = obj;
         this.items.push({ data: obj_copy.data, children: obj_copy.children });
       });
-      console.log(this.items);
+      console.log(res);
     })
   }
 
@@ -124,7 +124,7 @@ export class ModalchontaisanComponent implements OnInit {
         obj.children.forEach(objchildren => {
           if (objchildren.data.checked) {
             data.push({
-              TaiSan: obj.data,
+              TaiSan: objchildren.data,
               IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
               IdTaiSan: objchildren.data.Id,
               Id: '',
