@@ -15,35 +15,37 @@ export class BiendongComponent implements OnInit {
   @Input("Du_Lieu_Bien_Dong") Chon_Vao_Bien_Dong:any={};
   
   paging:any = {Page: 1, TotalPages: 1, TotalCount: 1 };
+  filter: any;
+  item: any;
 
   constructor(public activeModal: NgbActiveModal, public toastr: ToastrService, private _serviceTaiSan: TaisanService,) { }
   
   ngOnInit(): void {
-    this.GetList();
+    // this.GetList();
     
   }
 
   
-  GetList() {
-    
-    let data = {
-      PageSize: 20,
-      CurrentPage: this.paging.CurrentPage,
-      KeyWord: '',
-      IdTaiSan:'',
-      TuNgay: 0,
-      DenNgay:0,
-    }
-    this._serviceTaiSan.ListDanhSachBienDong().Get(data).subscribe((res: any) => {
-     console.log(res)
-      //  this.paging.CurrentPage = this.Phan_Trang.Page;
-      // this.paging.TotalPages = this.Phan_Trang.TotalPages;
-      // this.paging.TotalCount = this.Phan_Trang.TotalCount;
-    })
-  }
-  changePage(event) {
-    this.paging.CurrentPage = event.Page + 1;
-    this.GetList();
-  }
+  // GetList(reset?) {
+  //   if (reset) {
+  //   }
+  //   let data = {
+  //     PageSize: 25,
+  //     CurrentPage: this.paging.Page,
+  //     KeyWord: this.filter.KeyWord,
+  //     IdTaiSan:this.item.Id,
+  //     TuNgay: DateToUnix(this.filter.TuNgay),
+  //     DenNgay: DateToUnix(this.filter.DenNgay),
+  //   }
+  //   this._serviceTaiSan.ListDanhSachBienDong().Get(data).subscribe((res: any) => {
+  //      console.log(res)
+     
+
+  //   })
+  // }
+  // changePage(event) {
+  //   this.paging.CurrentPage = event.Page + 1;
+  //   this.GetList();
+  // }
  
 }
