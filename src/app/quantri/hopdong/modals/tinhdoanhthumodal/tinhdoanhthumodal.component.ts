@@ -120,16 +120,24 @@ export class TinhdoanhthumodalComponent implements OnInit {
     this.TinhTong()
   }
   XoaDoanhThuChiTiet(index) {
-    let remove = this.itemChiTietThang.lstDoanhThuSanPhamThang.splice(index, 1)
+    let remove = this.itemChiTietThang.lstDoanhThuSanPhamThang.splice(index, 1);
+    this.TinhTong()
   }
   cleanForm() {
     this.newDoanhThuChiTiet = {};
+  }
+  rebindTongSanLuong_TongDoanhThu(){
+   let sanpham =  this.item.lstSanPham.find(ele=>ele.IdSanPham ===this.cloneIdThang_SanPham.IdSanPham);
+   let thang = sanpham.lstDoanhThuSanPhamThang.find(ele=>ele.Thang===this.cloneIdThang_SanPham.Thang);
+   thang.TongDoanhThu = this.itemChiTietThang.TongDoanhThu;
+   thang.TongSanLuong = this.itemChiTietThang.TongSanLuong;
   }
   GhiLai() {
     this._danhMucHopDong.TinhToanDoanhThu().Set(this.itemChiTietThang).subscribe((res:any)=>{
       if(res.StatusCode!==200){
         this.toastr.error(res.Message);
       }else{
+        this.rebindTongSanLuong_TongDoanhThu()
         this.toastr.success(res.Message);
       }
     },(er=>{
