@@ -18,6 +18,8 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   Du_Lieu_Bien_Dong: any = {};
   paging:any = {Page: 1, TotalPages: 1, TotalCount: 1 };
   filter:any ={};
+  Phan_Trang_Cha_Bien_Dong: any={};
+  Phan_Trang_Bien_Dong: any = {};
   constructor(public activeModal: NgbActiveModal, public toastr: ToastrService, private _serviceTaiSan: TaisanService,) { }
 
   ngOnInit(): void {
@@ -62,6 +64,8 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
     this._serviceTaiSan.ListDanhSachBienDong().Get(data).subscribe((res: any) => {
        console.log(res)
        this.Du_Lieu_Cha_Bien_Dong = res.Data.Items;
+       this.Phan_Trang_Cha_Bien_Dong = res.Data;
+
     })
   }
 

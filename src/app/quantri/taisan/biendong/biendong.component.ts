@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { DateToUnix } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalcapnhatbaoduongComponent } from '../modal/modalcapnhatbaoduong/modalcapnhatbaoduong.component';
 
@@ -11,45 +13,37 @@ import { ModalcapnhatbaoduongComponent } from '../modal/modalcapnhatbaoduong/mod
 export class BiendongComponent implements OnInit {
  
   @Input("Du_Lieu_Bien_Dong") Chon_Vao_Bien_Dong:any={};
-  constructor(public _modal: NgbModal,) { }
+  
+  paging:any = {Page: 1, TotalPages: 1, TotalCount: 1 };
 
+  constructor(public activeModal: NgbActiveModal, public toastr: ToastrService, private _serviceTaiSan: TaisanService,) { }
+  
   ngOnInit(): void {
-    console.log(this.Chon_Vao_Bien_Dong)
+    this.GetList();
+    
   }
 
   
-  add() {
-    let modalRef = this._modal.open(ModalcapnhatbaoduongComponent, {
-      size: "xl",
-      backdrop: "static",
-    });
-    modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.item = {};
-    modalRef.result
-      .then((res: any) => {
-      })
-      .catch((er) => {
-
-      });
+  GetList() {
+    
+    let data = {
+      PageSize: 20,
+      CurrentPage: this.paging.CurrentPage,
+      KeyWord: '',
+      IdTaiSan:'',
+      TuNgay: 0,
+      DenNgay:0,
+    }
+    this._serviceTaiSan.ListDanhSachBienDong().Get(data).subscribe((res: any) => {
+     console.log(res)
+      //  this.paging.CurrentPage = this.Phan_Trang.Page;
+      // this.paging.TotalPages = this.Phan_Trang.TotalPages;
+      // this.paging.TotalCount = this.Phan_Trang.TotalCount;
+    })
   }
-
-  edit(item) {
-    let modalRef = this._modal.open(ModalcapnhatbaoduongComponent, {
-      size: "lg",
-      backdrop: "static",
-    });
-    modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.item = item;
-    modalRef.result
-      .then((res: any) => {
-      })
-      .catch((er) => {
-
-      });
+  changePage(event) {
+    this.paging.CurrentPage = event.Page + 1;
+    this.GetList();
   }
-  // changePage(event) {
-  //   this.paging.CurrentPage = event.Page + 1;
-  //   this.GetList();
-  // }
  
 }

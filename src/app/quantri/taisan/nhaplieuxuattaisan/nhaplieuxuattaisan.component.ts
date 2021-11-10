@@ -76,7 +76,9 @@ export class NhaplieuxuattaisanComponent implements OnInit {
       this.check_ThemMoi()
       this.bien_Luu_ThongTin_Tai_San = this.listTaiSanRef.find(ele => ele.Id === this.filter.IddmTaiSan);
       console.log(this.bien_Luu_ThongTin_Tai_San)
-
+      this.paging.CurrentPage = res.Data.Page;
+      this.paging.TotalPages = res.Data.TotalPages;
+      this.paging.TotalCount = res.Data.TotalCount;
       this.items.forEach(obj => {
         obj.SoSeri = this.listTaiSanRef.find(ele => ele.Id == this.filter.IddmTaiSan).SoSeri;
       });
@@ -96,7 +98,7 @@ export class NhaplieuxuattaisanComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = { IdTaiSan: this.filter.IddmTaiSan, TenDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ten, MaDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ma, IddmDonViTinh: this.bien_Luu_ThongTin_Tai_San.TendmDoViTinh };
+    modalRef.componentInstance.item = { IdTaiSan: this.filter.IddmTaiSan, TenDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ten, MaDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ma, IddmDonViTinh: this.bien_Luu_ThongTin_Tai_San.TendmDonViTinh };
     modalRef.componentInstance.title = 'Thêm mới hiệu xuất tài sản';
     modalRef.result.then((res: any) => {
       this._toastr.success('Cập nhật thành công');
