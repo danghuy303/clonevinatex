@@ -183,6 +183,7 @@ import { DanhmucdongiasanphamComponent } from './danhmuc/danhmucdongiasanpham/da
 import { DoanhthuComponent } from './screen/doanhthu/doanhthu.component';
 import { ModaldanhmuctygiangoaiteComponent } from './danhmuc/modal/modaldanhmuctygiangoaite/modaldanhmuctygiangoaite.component';
 import { ModaldanhmucdongiasanphamComponent } from './danhmuc/modal/modaldanhmucdongiasanpham/modaldanhmucdongiasanpham.component';
+import { NhapgiatinhdoanhthumodalComponent } from './modals/nhapgiatinhdoanhthumodal/nhapgiatinhdoanhthumodal.component';
 
 @NgModule({
   declarations: [
@@ -355,6 +356,8 @@ import { ModaldanhmucdongiasanphamComponent } from './danhmuc/modal/modaldanhmuc
     ModaldanhmuctygiangoaiteComponent,
     
     ModaldanhmucdongiasanphamComponent,
+    
+    NhapgiatinhdoanhthumodalComponent,
 
     
   ],
@@ -490,6 +493,8 @@ import { ModaldanhmucdongiasanphamComponent } from './danhmuc/modal/modaldanhmuc
     TinhdoanhthumodalComponent,
     ModaldanhmuctygiangoaiteComponent,
     ModaldanhmucdongiasanphamComponent,
+    NhapgiatinhdoanhthumodalComponent,
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })

@@ -8,6 +8,9 @@ import { httpOptions, API } from "./../host";
 export class HopDongService {
   constructor(private http: HttpClient, public store: StoreService) { }
 
+  download(url) {
+    window.open(url);
+  }
   QuyTrinhHopDong() {
     let url = API.HopDong;
     return {
@@ -335,6 +338,9 @@ export class HopDongService {
       GetListThanhToanHopDong: (IdHopDong) => {
         return this.http.get(url + `ThanhToan/GetListThanhToanHopDong?IdHopDong=${IdHopDong}`,httpOptions);
       },
+      XuatExcel: (Id) => {
+        return this.http.get( url + `ThanhToan/ExportPhieuThanhToanSoi?Id=${Id}`, httpOptions);
+      },
     };
   }
 
@@ -485,9 +491,16 @@ export class HopDongService {
       },
       Delete: (Id) => {
         return this.http.get(url + `DanhMuc/DeletedmTieuChiDanhGia?Id=${Id}`,httpOptions);
-
         // return this.http.get(url + `DanhMuc​/DeletedmTieuChiDanhGia?Id=${Id}`,httpOptions);
       },
     };
   };
+  GetOptions(){
+    let url = API.HopDong;
+    return {
+      GetAllHopDong:()=>{
+        return this.http.get(url + "HopDong/GetAllHopDongSoi",httpOptions);
+      }
+    }
+  }
 }

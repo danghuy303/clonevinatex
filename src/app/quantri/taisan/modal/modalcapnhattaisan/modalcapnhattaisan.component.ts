@@ -34,7 +34,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   listTinhTrangTaiSan_copy: any = [];
   listDonVi_copy: any = [];
   qrcode: any = {
-    size:250
+    size: 250
   };
 
   constructor(
@@ -49,7 +49,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
   }
 
-  ngOnInit() {    
+  ngOnInit() {
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucDonViTinh().GetList(data).toPromise();
@@ -111,8 +111,8 @@ export class ModalcapnhattaisanComponent implements OnInit {
     if (!validVariable(this.item.TaiSan.Ma) ||
       !validVariable(this.item.TaiSan.Ten) ||
       !validVariable(this.item.TaiSan.NgayNhap) ||
-      !validVariable(this.item.TaiSan.ThoiGianSuDung) ||
       !validVariable(this.item.TaiSan.SoSeri) ||
+      !validVariable(this.item.TaiSan.IddmLoaiTaiSan) ||      
       !validVariable(this.item.TaiSan.IddmTinhTrang)) {
       this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
       return false;
@@ -127,6 +127,14 @@ export class ModalcapnhattaisanComponent implements OnInit {
     this.item.NoiDung = this.item.TaiSan.NoiDung;
     this.item.NgayNhap = this.item.TaiSan.NgayNhap;
     this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
+    this.item.TaiSan.GiaTriConLai = 0;
+    this.item.TaiSan.GiaTriThanhLy = 0;
+    this.item.TaiSan.SoLuongCon = 0;
+    this.item.listTaiSan.forEach(obj => {
+      obj.GiaTriConLai = 0;
+      obj.GiaTriThanhLy = 0;
+      obj.SoLuongCon = 0;
+    });
   }
 
   GhiLai() {

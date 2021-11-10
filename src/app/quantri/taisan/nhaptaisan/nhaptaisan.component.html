@@ -2,7 +2,7 @@
     <h4 style="color:#1f2779">Nhập tài sản</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-    <button pButton lab el="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
+    <button pButton label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
         *ngIf="checkQuyen.ThemMoi"></button>
     <div></div>
     <div class="p-d-flex p-flex-row">
@@ -37,7 +37,10 @@
             <col>
             <col>
             <col>
-            <!-- <col> -->
+            <col>
+            <col>
+            <col>
+            <col>
             <col>
             <col style="width: 100px;">
             <col style="width: 150px;">
@@ -50,6 +53,12 @@
             <th class="text-center">Mã</th>
             <th class="text-center">Tên</th>
             <!-- <th class="text-center">Nội dung</th> -->
+            <th class="text-center">Bộ phấn sử dụng</th>
+            <th class="text-center">Nguyên giá</th>
+            <th class="text-center">Đơn vị tính</th>
+            <th class="text-center">Nước sản xuất</th>
+
+
             <th class="text-center">Ngày nhập</th>
             <th class="text-center">Trạng thái</th>
             <th class="text-center">Thao tác</th>
@@ -64,6 +73,11 @@
             <td>{{rowData.Ma}}</td>
             <td>{{rowData.Ten}}</td>
             <!-- <td>{{rowData.NoiDung}}</td> -->
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
             <td class="text-center">{{rowData.NgayNhap|date:'dd/MM/yyyy'}}</td>
             <td class="text-center">{{rowData.TenTrangThai}}</td>
             <td class="text-center">

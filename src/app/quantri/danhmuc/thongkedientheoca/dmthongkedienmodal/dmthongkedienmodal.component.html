@@ -36,10 +36,10 @@
     </p-tabView>
     <div *ngFor="let item of lstKhungGio;let page = index;" class="p-mb-3">
         <p-panel toggler="header" [toggleable]="true" [collapsed]="true" styleClass="p-pl-0">
-            <p-header (click)="collapsed.toggle($event)">
+            <p-header >
                 {{item.HeaderPanel}}
             </p-header>
-
+<!-- (click)="collapsed.toggle($event)" -->
             <div class="p-grid">
                 <div class="p-col-12 p-p-0 d-flex flex-column">
                     <p-table [value]="item.lstCongTo" styleClass="p-datatable-sm wrap-text p-datatable-striped" [scrollable]="true">
@@ -47,6 +47,7 @@
                             <colgroup>
                                 <col style="width: 10rem;">
                                 <col style="width: 10rem;">
+                                <col style="width: 10rem;">                                
                                 <col style="width: 10rem;">                                
                                 <col *ngFor="let header of cols" style="width: 7rem;">
                                 <!-- <col style="width: 5rem;"> -->
@@ -62,6 +63,9 @@
                                 </th>
                                 <th class="text-center">
                                     Số mới (KW)
+                                </th>
+                                <th class="text-center">
+                                    Số tiêu thụ (KW)
                                 </th>
                                 <th *ngFor="let header of cols">
                                     {{header.header}}
@@ -81,7 +85,11 @@
                                     </p-inputNumber>
                                 </td>
                                 <td class="text-right">
-                                    <p-inputNumber #input [minFractionDigits]="2"  locale="vi-VN" (keyup.enter)="Enter(page,i)" [(ngModel)]="items.SoMoi" (onBlur)="tinhgiatri(items)">
+                                    <p-inputNumber #input [minFractionDigits]="2" [disabled]="items.isNhapSoTieuThuTrucTiep"  locale="vi-VN" (keyup.enter)="Enter(page,i)" [(ngModel)]="items.SoMoi" (onBlur)="tinhgiatri(items)">
+                                    </p-inputNumber>
+                                </td>
+                                <td class="text-right">
+                                    <p-inputNumber #input [minFractionDigits]="2" [disabled]="!items.isNhapSoTieuThuTrucTiep" locale="vi-VN" (keyup.enter)="Enter(page,i)" [(ngModel)]="items.SoTieuThu" (onBlur)="tinhgiatri_Bang_So_Tieu_Thu(items)">
                                     </p-inputNumber>
                                 </td>
                                 <td *ngFor="let col of cols" class="text-right">

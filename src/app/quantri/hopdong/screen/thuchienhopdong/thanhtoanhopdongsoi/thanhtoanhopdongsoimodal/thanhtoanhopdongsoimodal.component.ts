@@ -306,4 +306,14 @@ export class ThanhtoanhopdongsoimodalComponent implements OnInit {
       }).catch(er => { console.log(er) });
     })
   }
+  XuatExcel() {
+      this._hopdong.QuyTrinhThanhToan().XuatExcel(this.item.id).subscribe((res: any) => {
+        if (res) {
+          if (res.statusCode === 200) {
+              this._services.download(res.data);
+          }
+        }
+      })
+  }
+
 }

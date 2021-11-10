@@ -20,11 +20,13 @@ export class DoanhthuComponent implements OnInit {
   keyWord: any = '';
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   filter: any = {};
+  Nam:number;
+  KeHoach:any;
   listNhaMay: Array<any> = [];
   userInfo: any;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
-  eAction = "DOANHTHU";
+  eAction = "PHUONGANPHABONG";
 
 
   constructor(private _modal: NgbModal, private _danhMucHopDong: DanhMucHopDongService,
@@ -38,7 +40,7 @@ export class DoanhthuComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._danhMucHopDong
-          .DanhSachKeHoachKinhDoanh()
+          .TinhToanDoanhThu()
           .Get(res.id)
           .subscribe((res: any) => {
             this.update(res);
@@ -48,7 +50,9 @@ export class DoanhthuComponent implements OnInit {
     this.GetListKeHoachKinhDoanh();
     this.KiemTraTabTrangThai();
   }
-  changeParam(id) {
+  changeParam(id,Nam?,KeHoach?) {
+    this.Nam = Nam||0;
+    this.KeHoach = KeHoach||{};
     this.router.navigate([`quantri/hopdongsanxuat/doanhthu/${id}`], {
       replaceUrl: true,
     });
@@ -74,34 +78,34 @@ export class DoanhthuComponent implements OnInit {
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
-  add() {
+  // add() {
 
-    let modalRef = this._modal.open(TinhdoanhthumodalComponent, {
-      backdrop: 'static',
-      size: 'fullscreen-100',
-      keyboard:false
-    });
-    modalRef.componentInstance.opt = 'add';
-    // modalRef.componentInstance.type = 'themmoi';
-    // modalRef.componentInstance.title = 'Thêm mới kế hoạch kinh doanh';
-    modalRef.componentInstance.item = {
-      Id: '', IdTrangThai: '', SoQuyTrinh: ""
-    };
-    modalRef.result.then(res => {
-      this.GetListKeHoachKinhDoanh()
-    }).catch(er => console.log(er))
-  }
+  //   let modalRef = this._modal.open(TinhdoanhthumodalComponent, {
+  //     backdrop: 'static',
+  //     size: 'fullscreen-100',
+  //     keyboard:false
+  //   });
+  //   modalRef.componentInstance.opt = 'add';
+  //   // modalRef.componentInstance.type = 'themmoi';
+  //   // modalRef.componentInstance.title = 'Thêm mới kế hoạch kinh doanh';
+  //   modalRef.componentInstance.item = {
+  //     Id: '', IdTrangThai: '', SoQuyTrinh: ""
+  //   };
+  //   modalRef.result.then(res => {
+  //     this.GetListKeHoachKinhDoanh()
+  //   }).catch(er => console.log(er))
+  // }
 
   update(item) {
+    console.log(item);
     let modalRef = this._modal.open(TinhdoanhthumodalComponent, {
       size: "fullscreen-100",
       backdrop: "static",
       keyboard: false,
     });
     modalRef.componentInstance.opt = "edit";
-    // modalRef.componentInstance.type = 'capnhat';
-    // modalRef.componentInstance.title = 'Cập nhật kế hoạch kinh doanh';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.Nam = this.Nam;
     modalRef.result
       .finally(() => {
         this.GetListKeHoachKinhDoanh();

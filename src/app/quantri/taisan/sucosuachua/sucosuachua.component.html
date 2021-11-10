@@ -2,7 +2,7 @@
     <h4 style="color:#1f2779">Sửa cố/Sửa chữa</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-    <button pButton lab el="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
+    <button pButton label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
         *ngIf="checkQuyen.ThemMoi"></button>
     <div></div>
     <div class="p-d-flex p-flex-row">
@@ -40,6 +40,8 @@
             <col>
             <col>
             <col>
+            <col>
+            <col>
             <col style="width: 100px;">
         </colgroup>
     </ng-template>
@@ -49,8 +51,9 @@
             <th class="text-center">Số quy trình</th>
             <th class="text-center">Nhà máy</th>
             <th class="text-center">Phân xưởng</th>
-            <!-- <th class="text-center">Nội dung</th> -->
-            <th class="text-center">Ngày bàn giao</th>
+            <th class="text-center">Loại sự cố</th>
+            <th class="text-center">Người đề nghị</th>
+            <th class="text-center">Ngày tạo</th>
             <th class="text-center">Nội dung</th>
             <th class="text-center">Trạng thái</th>
             <th class="text-center">Thao tác</th>
@@ -66,8 +69,9 @@
             </td>
             <td>{{item.TenNhaMay}}</td>
             <td>{{item.TenPhanXuong}}</td>
-            <!-- <td>{{item.NoiDung}}</td> -->
-            <td class="text-center">{{item.NgayBanGiao|date:'dd/MM/yyyy'}}</td>
+            <td>{{item.LoaiSuCo}}</td>
+            <td>{{item.NguoiDeNghi}}</td>            
+            <td class="text-center">{{item.NgaySuCo|date:'dd/MM/yyyy'}}</td>
             <td>{{item.NoiDung}}</td>
             <td>{{item.TenTrangThai}}</td>
             <td class="text-center">
