@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalcapnhatbaoduongComponent } from '../modal/modalcapnhatbaoduong/modalcapnhatbaoduong.component';
 
 @Component({
@@ -8,13 +9,15 @@ import { ModalcapnhatbaoduongComponent } from '../modal/modalcapnhatbaoduong/mod
   styleUrls: ['./biendong.component.css']
 })
 export class BiendongComponent implements OnInit {
-  items: any = [];
-
+ 
+  @Input("Du_Lieu_Bien_Dong") Chon_Vao_Bien_Dong:any={};
   constructor(public _modal: NgbModal,) { }
 
   ngOnInit(): void {
+    console.log(this.Chon_Vao_Bien_Dong)
   }
 
+  
   add() {
     let modalRef = this._modal.open(ModalcapnhatbaoduongComponent, {
       size: "xl",
@@ -44,5 +47,9 @@ export class BiendongComponent implements OnInit {
 
       });
   }
-
+  // changePage(event) {
+  //   this.paging.CurrentPage = event.Page + 1;
+  //   this.GetList();
+  // }
+ 
 }

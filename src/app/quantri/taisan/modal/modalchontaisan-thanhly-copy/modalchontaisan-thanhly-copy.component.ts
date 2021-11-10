@@ -7,11 +7,11 @@ import { validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
-  selector: 'app-modalchontaisan-copy',
-  templateUrl: './modalchontaisan-copy.component.html',
-  styleUrls: ['./modalchontaisan-copy.component.css']
+  selector: 'app-modalchontaisan-thanhly-copy',
+  templateUrl: './modalchontaisan-thanhly-copy.component.html',
+  styleUrls: ['./modalchontaisan-thanhly-copy.component.css']
 })
-export class ModalchontaisanCopyComponent implements OnInit {
+export class ModalchontaisanThanhlyCopyComponent implements OnInit {
   opt: any = "";
   paging: any = {};
   items: TreeNode[];
@@ -34,7 +34,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
   }
 
   Loaddata() {
-    this._serviceTaiSan.GetListTaiSanThuHoi().GetListTaiSan(this.Lay_Chon).subscribe((res: any) => {
+    this._serviceTaiSan.GetOptions().GetListTaiSanChuaBanGiao().subscribe((res: any) => {
       let items = [];
         this.items = [];
         items = res.Data;

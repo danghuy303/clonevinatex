@@ -117,4 +117,8 @@ export class DanhsachtaisanComponent implements OnInit {
     this.loaiTab = e.index;
     this.Loaddata(true);
   }
+  changePage(event) {
+    this.paging.currentPage = event.page + 1;
+    this.Loaddata();
+  }
 }

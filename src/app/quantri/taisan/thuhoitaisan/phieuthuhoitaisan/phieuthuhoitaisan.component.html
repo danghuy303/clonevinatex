@@ -45,6 +45,8 @@
                 <col>
                 <col>
                 <col>
+                <col>
+                <col>
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
@@ -54,6 +56,8 @@
                 <th class="text-center">Số phiếu</th>
                 <th class="text-center">Ngày</th>
                 <th class="text-center">Bộ phận sử dụng</th>
+                <th class="text-center">Người đại diện bàn giao</th>
+                <th class="text-center">Nội dung</th>
                 <th class="text-center">Trạng thái</th>
                 <th class="text-center">Thao tác</th>
             </tr>
@@ -68,6 +72,10 @@
                 </td>
                 <td class="text-center">{{item.NgayThuHoi|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.TendmPhanXuong}}</td>
+                <td class="text-center">{{item.NguoiBanGiao}}</td>
+                <td class="text-center">
+                    {{item.NoiDung}}
+                </td>
                 <td class="text-center">
                     {{item.TenTrangThai}}
                 </td>
@@ -76,12 +84,6 @@
                         class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.Id)"></button>
                 </td>
             </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20"
-                    (onPageChange)="changePage($event)"></p-paginator>
-            </div>
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
