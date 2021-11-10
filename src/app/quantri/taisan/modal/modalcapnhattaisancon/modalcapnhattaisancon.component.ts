@@ -59,8 +59,8 @@ export class ModalcapnhattaisanconComponent implements OnInit {
     if (!validVariable(this.item.Ma) ||
       !validVariable(this.item.Ten) ||
       !validVariable(this.item.NgayNhap) ||
-      !validVariable(this.item.ThoiGianSuDung) ||
       !validVariable(this.item.SoSeri) ||
+      !validVariable(this.item.IddmLoaiTaiSan) ||
       !validVariable(this.item.IddmTinhTrang)) {
       this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
       return false;
