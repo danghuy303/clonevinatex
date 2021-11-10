@@ -18,8 +18,7 @@ export class KehoachxuathangComponent extends StoreBase implements OnInit,OnDest
   @ViewChild('paginator') paginator: any;
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   filter: any = {};
-  listLoaiPhuongAn: any = [];
-  listKho: any = [];
+  listdmPhanXuong: any = [];
   trangThai: any = 1;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
@@ -82,7 +81,7 @@ export class KehoachxuathangComponent extends StoreBase implements OnInit,OnDest
         this.update(res.id);
       }
     })
-    this.getListKho();
+    this.getListdmPhanXuong();
     this.KiemTraTabTrangThai();
   }
   changeParam(id) {
@@ -133,15 +132,11 @@ export class KehoachxuathangComponent extends StoreBase implements OnInit,OnDest
     this.GetListQuyTrinh();
   }
 
-  getListKho() {
-    let data = {
-      CurrentPage: 0
-    }
-    this._service.GetListdmKho(data).subscribe((res: any) => {
-      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+  getListdmPhanXuong() {
+    this._service.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-
   GetListQuyTrinh(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
@@ -156,17 +151,13 @@ export class KehoachxuathangComponent extends StoreBase implements OnInit,OnDest
       DenNgay: DateToUnix(this.filter.DenNgay),
       Ma: "",
       Ten: "",
+      IddmPhanXuong: this.filter.IddmPhanXuong,
     }
     this._service.KeHoachXuatHang().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       if (this.items.length > 0) {
         this.items.forEach(element => {
           element._Ngay = element.NgayUnix > 0 ? formatdate(element.Ngay, false) : null;
-          this.listKho.filter(obj => {
-            if (element.idKhoXuat == obj.value) {
-              element.TenKho = obj.label;
-            }
-          });
         });
       }
       this.paging = res.paging;

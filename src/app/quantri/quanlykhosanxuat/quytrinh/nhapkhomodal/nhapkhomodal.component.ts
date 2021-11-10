@@ -317,6 +317,22 @@ export class NhapkhomodalComponent implements OnInit {
         item.SoKienDai = 0;
     }
   }
+  TinhSoCanDai(item) {
+    if (item.SoCan !== null && item.SoCan !== undefined && item.SoCanDai !== null
+      && item.SoCanDai !== undefined) {
+      item.SoCanNgan = item.SoCan - item.SoCanDai;
+      if (item.SoCanNgan < 0)
+        item.SoCanNgan = 0;
+    }
+  }
+  TinhSoCanNgan(item) {
+    if (item.SoCan !== null && item.SoCan !== undefined && item.SoCanNgan !== null
+      && item.SoCanNgan !== undefined) {
+      item.SoCanDai = item.SoCan - item.SoCanNgan;
+      if (item.SoCanDai < 0)
+        item.SoCanDai = 0;
+    }
+  }
   exportExcel() {
     if (this.type === 'bong') {
       this._services.QuyTrinhPhieuNhapLoBong().ExportExcel(this.item.Id).subscribe((res: any) => {
@@ -363,7 +379,7 @@ export class NhapkhomodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  ngày!");
       return false;
     }
-    else if ((this.item.IddmCapBong === null || this.item.IddmCapBong === undefined || this.item.IddmCapBong === "") && (this.type === 'bong' || this.type === 'xo')) {
+    else if ((this.item.IddmCapBong === null || this.item.IddmCapBong === undefined || this.item.IddmCapBong === "") && this.type === 'bong' ) {
       this.toastr.error("Bạn chưa chọn  danh mục cấp bông!");
       return false;
     }

@@ -70,7 +70,7 @@
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label *ngIf="this.type!=='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp bông <span class="text-danger">*</span>:</label>
-            <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp xơ <span class="text-danger">*</span>:</label>
+            <label *ngIf="this.type==='xo'" class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp xơ:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCapBong" placeholder="Chọn cấp" styleClass="p-inputtext-sm" [(ngModel)]="item.IddmCapBong"></p-dropdown>
             </div>
@@ -147,20 +147,27 @@
                         <col *ngIf="this.type==='bong'">
                         <col *ngIf="this.type==='bong'">
                         <col *ngIf="this.type==='bong'">
+                        <col *ngIf="this.type==='bong'">
+                        <col *ngIf="this.type==='bong'">
                         <col style="width:100px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>#</th>
-                        <th>Container</th>
-                        <th>Tổng khối lượng (kg)</th>
-                        <th>Số kiện (kiện)</th>
-                        <th *ngIf="this.type==='bong'">Số kiện ngắn (kiện)</th>
-                        <th *ngIf="this.type==='bong'">Số kiện dài (kiện)</th>
-                        <th *ngIf="this.type==='bong'">Vị trí</th>
-                        <!-- <th>Chọn kho</th> -->
-                        <th></th>
+                        <th rowspan="2">#</th>
+                        <th rowspan="2">Container</th>
+                        <th rowspan="2">Tổng khối lượng (kg)</th>
+                        <th rowspan="2">Số kiện (kiện)</th>
+                        <th *ngIf="this.type==='bong'" colspan="2">Số kiện ngắn (kiện)</th>
+                        <th *ngIf="this.type==='bong'" colspan="2">Số kiện dài (kiện)</th>
+                        <th *ngIf="this.type==='bong'" rowspan="2">Vị trí</th>
+                        <th rowspan="2"></th>
+                    </tr>
+                    <tr *ngIf="this.type==='bong'">
+                        <th class="text-center">Số kiện</th>
+                        <th class="text-center">Tổng khối lượng (kg)</th>
+                        <th class="text-center">Số kiện</th>
+                        <th class="text-center">Tổng khối lượng (kg)</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -182,7 +189,15 @@
                             </p-inputNumber>
                         </td>
                         <td class="text-center" *ngIf="this.type==='bong'">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoCanNgan" [max]="item.SoCan" (ngModelChange)="TinhSoCanNgan(item)">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center" *ngIf="this.type==='bong'">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienDai" [max]="item.SoKien" (ngModelChange)="TinhSoKienDai(item)">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-center" *ngIf="this.type==='bong'">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoCanDai" [max]="item.SoCan" (ngModelChange)="TinhSoCanDai(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center" *ngIf="this.type==='bong'">
@@ -225,7 +240,19 @@
                         </td>
                         <td *ngIf="this.type==='bong'">
                             <div class="p-inputgroup">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKienNgan" (ngModelChange)="TinhSoKienNgan(newTableItem)" [min]="0">
+                                </p-inputNumber>
+                            </div>
+                        </td>
+                        <td *ngIf="this.type==='bong'">
+                            <div class="p-inputgroup">
                                 <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKienDai" (ngModelChange)="TinhSoKienDai(newTableItem)" [min]="0">
+                                </p-inputNumber>
+                            </div>
+                        </td>
+                        <td *ngIf="this.type==='bong'">
+                            <div class="p-inputgroup">
+                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKienNgan" (ngModelChange)="TinhSoKienNgan(newTableItem)" [min]="0">
                                 </p-inputNumber>
                             </div>
                         </td>
@@ -253,7 +280,13 @@
                             {{item.listItem|isXoa|SumByKey:'SoKienNgan'|number:'0.0'}}
                         </td>
                         <td class="text-right" *ngIf="this.type==='bong'">
+                            {{item.listItem|isXoa|SumByKey:'SoCanNgan'|number:'0.0'}}
+                        </td>
+                        <td class="text-right" *ngIf="this.type==='bong'">
                             {{item.listItem|isXoa|SumByKey:'SoKienDai'|number:'0.0'}}
+                        </td>
+                        <td class="text-right" *ngIf="this.type==='bong'">
+                            {{item.listItem|isXoa|SumByKey:'SoCanDai'|number:'0.0'}}
                         </td>
                         <td *ngIf="this.type==='bong'"></td>
                         <td></td>
