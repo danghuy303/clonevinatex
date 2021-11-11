@@ -30,14 +30,21 @@
         </div>
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung :</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input pInputText type="text" [(ngModel)]="item.NoiDung">
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ngày <span class="text-danger">*</span>:</label>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Phân xưởng :</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <p-dropdown [filter]="false" [options]="listdmPhanXuong" styleClass="p-inputtext-sm"
+                    placeholder="Chọn phân xưởng" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ngày <span class="text-danger">*</span> :</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
                     [yearRange]="yearRange" [showIcon]="false" [(ngModel)]="item.Ngay" inputId="icon"
@@ -45,8 +52,8 @@
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú :</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input pInputText type="text" [(ngModel)]="item.GhiChu">
             </div>
@@ -59,18 +66,18 @@
             <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
-                        <col style="width:50px">
-                        <col>
-                        <col>
+                        <col style="width:20px">
+                        <col style="width: 200px;">
+                        <col style="width: 120px;">
                         <col style="width: 80px;">
                         <col style="width: 80px;">
                         <col style="width: 100px;">
+                        <col style="width: 120px;">
+                        <col style="width: 120px;">
+                        <col style="width: 200px;">
                         <col>
                         <col style="width: 120px;">
-                        <col>
-                        <col>
-                        <col>
-                        <col style="width:50px">
+                        <col style="width:30px">
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
@@ -148,7 +155,8 @@
                             <input pInputText type="text" [(ngModel)]="item.NguoiNhan">
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="item.KhachHang">
+                                <p-dropdown [filter]="false" [options]="listKhachHang" styleClass="p-inputtext-sm"
+                                    placeholder="Chọn khách hàng" [(ngModel)]="item.IddmKhachHang"></p-dropdown>
                         </td>
                         <td>
                             <input pInputText type="text" [(ngModel)]="item.GhiChu">
