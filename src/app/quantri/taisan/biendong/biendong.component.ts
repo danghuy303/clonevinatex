@@ -21,31 +21,30 @@ export class BiendongComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, public toastr: ToastrService, private _serviceTaiSan: TaisanService,) { }
   
   ngOnInit(): void {
-    // this.GetList();
+    this.GetList();
     
   }
 
   
-  // GetList(reset?) {
-  //   if (reset) {
-  //   }
-  //   let data = {
-  //     PageSize: 25,
-  //     CurrentPage: this.paging.Page,
-  //     KeyWord: this.filter.KeyWord,
-  //     IdTaiSan:this.item.Id,
-  //     TuNgay: DateToUnix(this.filter.TuNgay),
-  //     DenNgay: DateToUnix(this.filter.DenNgay),
-  //   }
-  //   this._serviceTaiSan.ListDanhSachBienDong().Get(data).subscribe((res: any) => {
-  //      console.log(res)
+  GetList(reset?) {
+    if (reset) {
+    }
+    let data = {
+      PageSize: 25,
+      CurrentPage: this.paging.Page,
+      KeyWord: this.filter.KeyWord,
+      IdTaiSan:this.item.Id,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
+    }
+    this._serviceTaiSan.ListDanhSachBienDong().Get(data).subscribe((res: any) => {
+       console.log(res.Data)
      
-
-  //   })
-  // }
-  // changePage(event) {
-  //   this.paging.CurrentPage = event.Page + 1;
-  //   this.GetList();
-  // }
+    })
+  }
+  changePage(event) {
+    this.paging.CurrentPage = event.Page + 1;
+    this.GetList();
+  }
  
 }

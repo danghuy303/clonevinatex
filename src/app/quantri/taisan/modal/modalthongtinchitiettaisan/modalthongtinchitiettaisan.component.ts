@@ -19,7 +19,8 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   paging:any = {Page: 1, TotalPages: 1, TotalCount: 1 };
   filter:any ={};
   constructor(public activeModal: NgbActiveModal, public toastr: ToastrService, private _serviceTaiSan: TaisanService,) { }
-
+  Du_Lieu_Cha_Su_Co: any={};
+  Du_Lieu_Su_Co: any = {};
   ngOnInit(): void {
     // console.log(this.item.Id)
     let date = new Date();
@@ -30,6 +31,7 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
     // if (this.Du_Lieu_Cha.NgayNhapUnix !== 0) {
     //   this.Du_Lieu_Cha.NgayNhap = UnixToDate(this.Du_Lieu_Cha.NgayNhapUnix);
     // }
+    this.GetListSuCoById();
   }
 
   GetById() {
@@ -46,6 +48,7 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   resetFilter() {
     this.filter = {};
     this.GetListBienDongById(true);
+    this.GetListSuCoById(true);
   }
 
   GetListBienDongById(reset?) {
@@ -62,6 +65,24 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
     this._serviceTaiSan.ListDanhSachBienDong().Get(data).subscribe((res: any) => {
        console.log(res)
        this.Du_Lieu_Cha_Bien_Dong = res.Data.Items;
+     
+    })
+  }
+
+  GetListSuCoById(reset?) {
+    if (reset) {
+    }
+    let data = {
+      PageSize: 25,
+      CurrentPage: this.paging.Page,
+      KeyWord: this.filter.KeyWord,
+      IdTaiSan:this.item.Id,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
+    }
+    this._serviceTaiSan.ListDanhSachSuCo().Get(data).subscribe((res: any) => {
+       console.log(res)
+       this.Du_Lieu_Cha_Su_Co = res.Data.Items;
      
     })
   }

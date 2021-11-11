@@ -175,6 +175,16 @@ export class TaisanService {
     }
   }
 
+  ListDanhSachSuCo() {
+    let url = API.TaiSan;
+    return {
+      Get: (data) => {
+        return this.http.post(`${url}TaiSan/GetListSuCoByIdTaiSan`,data, httpOptions);
+      },
+    }
+  }
+
+
   SuCoSuaChua() {
     let url = API.TaiSan;
     return {

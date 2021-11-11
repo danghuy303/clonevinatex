@@ -85,6 +85,7 @@ import { LoaisucoComponent } from './danhmuc/loaisuco/loaisuco.component';
 import { ModalloaisucoComponent } from './modal/modalloaisuco/modalloaisuco.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { ModalchontaisanThanhlyCopyComponent } from './modal/modalchontaisan-thanhly-copy/modalchontaisan-thanhly-copy.component';
+import { Sucosuachua2Component } from './sucosuachua2/sucosuachua2.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -128,6 +129,7 @@ import { ModalchontaisanThanhlyCopyComponent } from './modal/modalchontaisan-tha
     LoaisucoComponent,
     ModalloaisucoComponent,
     ModalchontaisanThanhlyCopyComponent,
+    Sucosuachua2Component,
 
   ],
   imports: [
