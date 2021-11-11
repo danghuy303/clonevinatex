@@ -98,7 +98,7 @@ export class NhaplieuxuattaisanComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = { IdTaiSan: this.filter.IddmTaiSan, TenDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ten, MaDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ma, IddmDonViTinh: this.bien_Luu_ThongTin_Tai_San.TendmDonViTinh };
+    modalRef.componentInstance.item = { IddmPhanXuong: this.filter.IddmPhanXuong, IdTaiSan: this.filter.IddmTaiSan, TenDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ten, MaDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ma, IddmDonViTinh: this.bien_Luu_ThongTin_Tai_San.TendmDonViTinh };
     modalRef.componentInstance.title = 'Thêm mới hiệu xuất tài sản';
     modalRef.result.then((res: any) => {
       this._toastr.success('Cập nhật thành công');
