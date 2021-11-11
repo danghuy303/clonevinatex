@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalchontaisanCopyComponent } from '../modalchontaisan-copy/modalchontaisan-copy.component';
+import { ModalchontaisanThanhlyCopyComponent } from '../modalchontaisan-thanhly-copy/modalchontaisan-thanhly-copy.component';
 import { ModalchontaisanComponent } from '../modalchontaisan/modalchontaisan.component';
 @Component({
   selector: 'app-modalthanhlytaisan',
@@ -27,6 +29,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
   public listdsTaiSan: any = [];
   public listTaiSanRef: any = [];
   listTaiSan: any = [];
+  NameFile: string;
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -100,11 +103,11 @@ export class ModalthanhlytaisanComponent implements OnInit {
 
   }
   Validate() {
-    if (!validVariable(this.item.IddmPhanXuong) ) {
-      this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
-      return false;
-    }
-    return true;
+    // if (!validVariable(this.item.IddmPhanXuong) ) {
+    //   this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
+    //   return false;
+    // }
+    // return true;
   }
   setData() {
     this.item.NgayThanhLyUnix = DateToUnix(this.item.NgayThanhLy);
@@ -112,7 +115,6 @@ export class ModalthanhlytaisanComponent implements OnInit {
     return this.item;
   }
   GhiLai() {
-      if(this.Validate()) {
         this._serviceTaiSan.ThanhLyTaiSan().Set(this.setData()).subscribe((res: any) => {
           if (res.StatusCode !== 200 || !res.StatusCode) {
             this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -125,7 +127,6 @@ export class ModalthanhlytaisanComponent implements OnInit {
         }, (er) => {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         })
-      }
   }
 
   GetNextSoQuyTrinh() {
@@ -136,7 +137,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
   }
 
   ThemMoiDanhSachTaiSan( ) {
-    let modalRef = this._modal.open(ModalchontaisanCopyComponent, {
+    let modalRef = this._modal.open(ModalchontaisanThanhlyCopyComponent, {
       size: "xl",
       backdrop: "static",
     });
@@ -207,6 +208,23 @@ export class ModalthanhlytaisanComponent implements OnInit {
       this._serviceTaiSan.GetListTaiSanThuHoi().GetListTaiSan(this.item.IddmPhanXuong).subscribe((res: any) => {
         this.listTaiSan = res.Data;
         console.log(res.Data);
+      });
+    }
+    taiLenFileDinhKem() {
+      const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
+      modalRef.componentInstance.multiple = true;
+      modalRef.componentInstance.type = '';
+      modalRef.result.then((data) => {
+        this.item.listFileDinhKem = data;
+        this.item.listFileDinhKem.forEach(obj => {
+          obj.Id = '';
+          obj.fileNameGui = obj.Name;
+          obj.fileName = obj.NameLocal;
+          obj.Link = obj.Url;
+          this.NameFile += `${obj.fileName}` + '; ';
+        });
+      }, (reason) => {
+  
       });
     }
 }

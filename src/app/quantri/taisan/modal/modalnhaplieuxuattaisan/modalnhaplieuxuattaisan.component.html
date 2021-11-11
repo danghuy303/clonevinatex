@@ -18,18 +18,19 @@
     </div>
 <div class="col-12 col-lg-12">
 <div class="p-grid">
-    <div class="p-col-12 p-md-6 p-lg-4 p-d-flex p-flex-column">
-        <label class="p-col-12 p-lg-12 p-p-0 my-auto">Tên tài sản: </label>
-        <div class="p-col-12 p-lg-12 p-p-0">
-            <input type="text" disabled="disabled" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.TenDonViTinh" pInputText />
-        </div>
-    </div>
     <div class="p-col-12 p-md-6 p-lg-4 p-d-flex p-flex-column ">
         <label class="p-col-12 p-lg-12 p-p-0 my-auto">Mã</label>
         <div class="p-col-12 p-lg-12 p-p-0">
             <input type="text" disabled="disabled" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.MaDonViTinh" pInputText />
         </div>
     </div>
+    <div class="p-col-12 p-md-6 p-lg-4 p-d-flex p-flex-column">
+        <label class="p-col-12 p-lg-12 p-p-0 my-auto">Tên tài sản: </label>
+        <div class="p-col-12 p-lg-12 p-p-0">
+            <input type="text" disabled="disabled" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.TenDonViTinh" pInputText />
+        </div>
+    </div>
+    
     <div class="p-col-12 p-md-6 p-lg-4 p-d-flex p-flex-column">
         <label class="p-col-12 p-lg-12 p-p-0 my-auto">Đơn vị tính</label>
         <div class="p-col-12 p-lg-12 p-p-0">

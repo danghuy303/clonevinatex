@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { httpOptions, API } from './../host';
 import { StoreService } from '../store.service';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -160,11 +161,30 @@ export class TaisanService {
         return this.http.post(`${url}TaiSan/ListDanhSachTaiSan`, data, httpOptions);
       },
       Get: (Id) => {
-        
         return this.http.get(`${url}TaiSan/GetChiTietTaiSanById?IdTaiSan=${Id}`, httpOptions);
       },
     }
   }
+
+  ListDanhSachBienDong() {
+    let url = API.TaiSan;
+    return {
+      Get: (data) => {
+        return this.http.post(`${url}TaiSan/GetListBienDongTaiSanById`,data, httpOptions);
+      },
+    }
+  }
+
+  ListDanhSachSuCo() {
+    let url = API.TaiSan;
+    return {
+      Get: (data) => {
+        return this.http.post(`${url}TaiSan/GetListSuCoByIdTaiSan`,data, httpOptions);
+      },
+    }
+  }
+
+
   SuCoSuaChua() {
     let url = API.TaiSan;
     return {

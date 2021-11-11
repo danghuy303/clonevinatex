@@ -34,7 +34,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
   listPhuongAnSapXep: any = [];
   listLoBong: any = [];
   listCapBong: any = [];
-  listKho: any = [];
+  listKhachHang: any = [];
   listloaisoi: any = [];
   lang: any = vn;
   data: any = {};
@@ -44,6 +44,7 @@ export class KehoachxuathangmodalComponent implements OnInit {
   nametype: any = '';
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   listQuyCachDongGoi: any = [];
+  listdmPhanXuong: any = []
   constructor(public activeModal: NgbActiveModal,
     public toastr: ToastrService, public _modal: NgbModal, private _services: SanXuatService,private _auth:AuthenticationService) {
   }
@@ -74,7 +75,13 @@ export class KehoachxuathangmodalComponent implements OnInit {
       this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.data.CurrentPage = 0;
-    this.getListKho();
+    this.getListKhachHang();
+    this.getListdmPhanXuong();
+  }
+  getListdmPhanXuong() {
+    this._services.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe((res:any) => {
@@ -232,12 +239,9 @@ export class KehoachxuathangmodalComponent implements OnInit {
     }).catch(er => console.log(er))
   }
 
-  getListKho() {
-    let data = {
-      CurrentPage: 0
-    }
-    this._services.GetListdmKho(this.data).subscribe((res: any) => {
-      this.listKho = mapArrayForDropDown(res, 'Ten', 'Id');
+  getListKhachHang() {
+    this._services.dmKhachHang().GetListOpt().subscribe((res: any) => {
+      this.listKhachHang = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 

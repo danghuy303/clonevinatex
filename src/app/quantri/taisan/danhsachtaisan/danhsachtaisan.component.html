@@ -51,10 +51,11 @@
             <!-- <th class="text-center" rowspan="2">STT</th> -->
             <th class="text-center" rowspan="2">Mã</th>
             <th class="text-center" rowspan="2">Tên</th>
+            <th class="text-center" rowspan="2">Ngày nhập</th>
             <th class="text-center" rowspan="2">Đơn vị tính</th>
             <th class="text-center" rowspan="2">Nguyên giá</th>
             <th class="text-center" rowspan="2">Giá trị còn lại</th>
-            <th class="text-center" rowspan="2">Ngày nhập</th>
+          
             <th class="text-center" rowspan="2">Tình trạng</th>              
             <th class="text-center" rowspan="2">Thao tác</th>                
         </tr>
@@ -70,10 +71,11 @@
                 {{rowData.Ma}}
             </td>
             <td class="text-center">{{rowData.Ten}}</td>
+            <td class="text-center">{{rowData.NgayNhap}}</td>
             <td class="text-center">{{rowData.TenDonViTinh}}</td>
             <td class="text-center">{{rowData.NguyenGia}}</td>
             <td class="text-center">{{rowData.GiaTriConLai}}</td>
-            <td class="text-center">{{rowData.NgayNhap}}</td>
+          
             <td class="text-center">{{rowData.TrangThai}}</td>     
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-bars" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xem Thông tin tài sản" (click)="ChiTietThongTin(rowData)"></button>
@@ -86,7 +88,5 @@
         <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi {{paging.TotalItem}}.
             <p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
         </div>
-
-
     </ng-template> -->
 </p-treeTable>
