@@ -8,7 +8,15 @@ import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/g
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
-
+class Alo {
+  label:string ='hoc mai khong hieu';
+  getLabel(){
+    return this.label
+  };
+  setLabel(){
+    this.label='cuoi cung cung hieu!';
+  }
+}
 @Component({
   selector: 'app-tinhdoanhthumodal',
   templateUrl: './tinhdoanhthumodal.component.html',
@@ -38,8 +46,11 @@ export class TinhdoanhthumodalComponent implements OnInit {
     private _auth: AuthenticationService,) { }
 
   ngOnInit(): void {
+    let alo = new Alo();
     this.GetDonGiaSanPham()
-    console.log(this.item)
+    console.log(alo.getLabel());
+    alo.setLabel();
+    console.log(alo.getLabel());
   }
   GetDonGiaSanPham() {
     this.mapSanPham_Gia = {};
