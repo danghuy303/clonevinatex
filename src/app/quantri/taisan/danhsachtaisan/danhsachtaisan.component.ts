@@ -49,7 +49,7 @@ export class DanhsachtaisanComponent implements OnInit {
 
   Loaddata(reset?) {
     if (reset) {
-      // this.paging.currentPage = 1;
+      this.paging.currentPage = 1;
     }
     let data = {
       PageSize: 20,
@@ -116,5 +116,9 @@ export class DanhsachtaisanComponent implements OnInit {
     // this.trangThai = e.index + 1;
     this.loaiTab = e.index;
     this.Loaddata(true);
+  }
+  changePage(event) {
+    this.paging.currentPage = event.page + 1;
+    this.Loaddata();
   }
 }

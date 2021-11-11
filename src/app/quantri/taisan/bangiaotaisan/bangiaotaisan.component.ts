@@ -88,6 +88,7 @@ export class BangiaotaisanComponent implements OnInit {
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "add";
+    modalRef.componentInstance.tabTrangThai = 0;    
     modalRef.componentInstance.item = {
       Id: "",
       IdTrangThai: "",
@@ -112,6 +113,7 @@ export class BangiaotaisanComponent implements OnInit {
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "edit";
+    modalRef.componentInstance.tabTrangThai = this.trangThai;  
     modalRef.componentInstance.item = item;
     modalRef.result
       .then((res: any) => {

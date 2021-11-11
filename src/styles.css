@@ -133,6 +133,9 @@ p-dropdown .p-dropdown {
     width: 100% !important
 }
 
+.p-inputtext-sm.bold {
+    font-weight: bold !important;
+}
 p-table th {
     text-align: center !important;
 }

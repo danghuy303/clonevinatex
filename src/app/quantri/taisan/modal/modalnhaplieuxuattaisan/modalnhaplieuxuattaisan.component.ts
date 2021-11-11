@@ -24,13 +24,7 @@ export class ModalnhaplieuxuattaisanComponent implements OnInit {
       this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
     }
     }
-  // GetListTaiSanDeChon(){
-  //   this._serviceTaiSan.HieuXuatTaiSan().GetListTaiSan().subscribe((res: any)=>{
-  //     console.log(res);
-  //     this.listTaiSan = mapArrayForDropDown(res.Data, "Ten", 'Id');
-  //     console.log(this.listTaiSan)
-  //   })
-  // }
+
   ValidateData() {
     // if (!validVariable(this.item.Ma)) {
     //   this.toastr.error("Yêu cầu nhập đầy đủ mã!");

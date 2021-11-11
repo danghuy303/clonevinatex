@@ -24,7 +24,7 @@ export class NhaplieuxuattaisanComponent implements OnInit {
   listTaiSan: any = [];
   IddmPhanXuong: string;
   IdDuAn: number;
-  paging: any = { Page: 1, TotalPages: 1, TotalItem: 0 };
+  paging: any = {CurrentPage: 1, TotalPages: 1, TotalCount: 1};
   themmoi: boolean;
   bien_Luu_ThongTin_Tai_San: any = {};
   SoSeri: any = '';
@@ -40,13 +40,13 @@ export class NhaplieuxuattaisanComponent implements OnInit {
     this.getListPhanXuong();
     let date = new Date();
     this.filter.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
-    this.filter.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.filter.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0); 
     this.GetList();
   }
 
   resetFilter() {
     this.filter = {};
-    this.GetList();
+    this.GetList(true);
   }
   GetListTaiSanDeChon() {
     this._serviceTaiSan.HieuXuatTaiSan().GetListTaiSan(this.filter.IddmPhanXuong).subscribe((res: any) => {
@@ -55,10 +55,14 @@ export class NhaplieuxuattaisanComponent implements OnInit {
       console.log(this.listTaiSanRef)
     })
   }
-  GetList() {
+  GetList(reset?) {
+    if (reset) {
+      this.paging.CurrentPage = 1;
+      this.paginator.changePage(0);
+    }
     let data = {
-      PageSize: 25,
-      CurrentPage: this.paging.Page,
+      PageSize: 20,
+      CurrentPage: this.paging.CurrentPage,
       KeyWord: '',
       IdTaiSan: this.filter.IddmTaiSan,
       TuNgay: DateToUnix(this.filter.TuNgay),
@@ -72,7 +76,9 @@ export class NhaplieuxuattaisanComponent implements OnInit {
       this.check_ThemMoi()
       this.bien_Luu_ThongTin_Tai_San = this.listTaiSanRef.find(ele => ele.Id === this.filter.IddmTaiSan);
       console.log(this.bien_Luu_ThongTin_Tai_San)
-
+      this.paging.CurrentPage = res.Data.Page;
+      this.paging.TotalPages = res.Data.TotalPages;
+      this.paging.TotalCount = res.Data.TotalCount;
       this.items.forEach(obj => {
         obj.SoSeri = this.listTaiSanRef.find(ele => ele.Id == this.filter.IddmTaiSan).SoSeri;
       });
@@ -92,7 +98,7 @@ export class NhaplieuxuattaisanComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = { IdTaiSan: this.filter.IddmTaiSan, TenDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ten, MaDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ma, IddmDonViTinh: this.bien_Luu_ThongTin_Tai_San.TendmDoViTinh };
+    modalRef.componentInstance.item = { IdTaiSan: this.filter.IddmTaiSan, TenDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ten, MaDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ma, IddmDonViTinh: this.bien_Luu_ThongTin_Tai_San.TendmDonViTinh };
     modalRef.componentInstance.title = 'Thêm mới hiệu xuất tài sản';
     modalRef.result.then((res: any) => {
       this._toastr.success('Cập nhật thành công');
@@ -135,7 +141,7 @@ export class NhaplieuxuattaisanComponent implements OnInit {
   }
 
   changePage(event) {
-    this.paging.CurrentPage = event.Page + 1;
+    this.paging.CurrentPage = event.page + 1;
     this.GetList();
   }
   check_ThemMoi() {

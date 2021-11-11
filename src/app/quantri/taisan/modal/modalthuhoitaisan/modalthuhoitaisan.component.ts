@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
@@ -28,6 +29,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
   public listdsTaiSan: any = [];
   public listTaiSanRef: any = [];
   listTaiSan: any = [];
+  NameFile: string;
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -204,6 +206,23 @@ export class ModalthuhoitaisanComponent implements OnInit {
     this._serviceTaiSan.GetListTaiSanThuHoi().GetListTaiSan(this.item.IddmPhanXuong).subscribe((res: any) => {
       this.listTaiSan = res.Data;
       console.log(res.Data);
+    });
+  }
+  taiLenFileDinhKem() {
+    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.multiple = true;
+    modalRef.componentInstance.type = '';
+    modalRef.result.then((data) => {
+      this.item.listFileDinhKem = data;
+      this.item.listFileDinhKem.forEach(obj => {
+        obj.Id = '';
+        obj.fileNameGui = obj.Name;
+        obj.fileName = obj.NameLocal;
+        obj.Link = obj.Url;
+        this.NameFile += `${obj.fileName}` + '; ';
+      });
+    }, (reason) => {
+
     });
   }
 
