@@ -243,6 +243,8 @@ import { ModaldinhmucmathangtheonamComponent } from './danhmuc/modal/modaldinhmu
 import { XuatbongchovayComponent } from './quanlykhosanxuat/quytrinh/xuatbongchovay/xuatbongchovay.component';
 import { XuatbongchovaymodalComponent } from './quanlykhosanxuat/quytrinh/xuatbongchovay/xuatbongchovaymodal/xuatbongchovaymodal.component';
 import { ChonkienchovaymodalComponent } from './quanlykhosanxuat/quytrinh/xuatbongchovay/chonkienchovaymodal/chonkienchovaymodal.component';
+import { Phuhung1Component } from './quanlykhosanxuat/phuongan/layoutmodals/phuhung1/phuhung1.component';
+import { Phuhung2Component } from './quanlykhosanxuat/phuongan/layoutmodals/phuhung2/phuhung2.component';
 
 
 
@@ -440,6 +442,8 @@ import { ChonkienchovaymodalComponent } from './quanlykhosanxuat/quytrinh/xuatbo
     XuatbongchovayComponent,
     XuatbongchovaymodalComponent,
     ChonkienchovaymodalComponent,
+    Phuhung1Component,
+    Phuhung2Component,
 
   ],
   imports: [
@@ -587,7 +591,8 @@ import { ChonkienchovaymodalComponent } from './quanlykhosanxuat/quytrinh/xuatbo
     ModaldinhmucmathangtheonamComponent,
     XuatbongchovaymodalComponent,
     ChonkienchovaymodalComponent,
-
+    Phuhung1Component,
+    Phuhung2Component
   ],
   providers: [
     SanXuatService,

@@ -9,6 +9,8 @@ import { StoreBase } from 'src/app/services/storebase.class';
 import { Dongvanpx1Component } from '../layoutmodals/dongvanpx1/dongvanpx1.component';
 import { Dongvanpx2Component } from '../layoutmodals/dongvanpx2/dongvanpx2.component';
 import { HoaxaComponent } from '../layoutmodals/hoaxa/hoaxa.component';
+import { Phuhung1Component } from '../layoutmodals/phuhung1/phuhung1.component';
+import { Phuhung2Component } from '../layoutmodals/phuhung2/phuhung2.component';
 
 
 @Component({
@@ -51,6 +53,10 @@ export class XepbanbongComponent extends StoreBase implements OnInit,OnDestroy {
     '56':{
       '1cf3f340_0f55_4f34_938p_e629318e25et': HoaxaComponent
     },
+    '57':{
+      '1cf3f340_0f55_4f34_938p_e329318e25et': Phuhung1Component,
+      '1cf3f340_0f55_4f34_938p_e629318e25et': Phuhung2Component
+    }
   }
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listdmPhanXuong: any = [];
