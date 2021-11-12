@@ -1861,6 +1861,18 @@ export class SanXuatService {
         let url = API.SCMDanhMuc + `GetListKgCone`;
         return this.http.get(url, httpOptions);
     }
+    GetListdmKgCone(data) {
+        let url = API.SCMDanhMuc + 'GetListKgCone';
+        return this.http.post(url, data, httpOptions);
+    }
+    SetdmKgCone(data) {
+        let url = API.SCMDanhMuc + 'SetdmKgCone';
+        return this.http.post(url, data, httpOptions);
+    }
+    DeletedmKgCone(data) {
+        let url = API.SCMDanhMuc + 'DeletedmKgCone';
+        return this.http.post(url, data, httpOptions);
+    }
     QuyTrinhPhieuBongPhe() {
         let url = API.SCMQuanLyKho;
         return {

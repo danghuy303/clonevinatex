@@ -1228,6 +1228,11 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/phanquyensanxuat/dmchisotrienkhai",
             command: () => this.close(),
           },
+          {
+            label: "KgCone",
+            routerLink: "/quantri/phanquyensanxuat/dmkgcone",
+            command: () => this.close(),
+          },
         ],
       },
       {

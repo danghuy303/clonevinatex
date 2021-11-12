@@ -87,6 +87,7 @@ import { XuatkhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/x
 import { KiemkekhovattuphuComponent } from './quanlykhosanxuat/quytrinh/vattuphu/kiemkekhovattuphu/kiemkekhovattuphu.component';
 import { DinhmucmathangtheonamComponent } from './danhmuc/dinhmucmathangtheonam/dinhmucmathangtheonam.component';
 import { XuatbongchovayComponent } from './quanlykhosanxuat/quytrinh/xuatbongchovay/xuatbongchovay.component';
+import { DmkgconeComponent } from './danhmuc/danhmucsanxuat/dmkgcone/dmkgcone.component';
 
 
 const routes: Routes = [
@@ -196,6 +197,7 @@ const routes: Routes = [
       { path: 'quanlykhosanxuat/tonkhobongphe/khobongphe/:id', component: TonkhobongpheComponent },
       { path: 'quanlykhosanxuat/hdsd', component: UploadhdsdsanxuatComponent },
       { path: 'phanquyensanxuat/dmchisotrienkhai', component: DmchisotrienkhaiComponent },
+      { path: 'phanquyensanxuat/dmkgcone', component: DmkgconeComponent },
       { path: 'hopdongsanxuat', loadChildren:  ()=> import('./hopdong/hopdong.module').then(m=>m.HopdongModule) },
       { path: 'taisan', loadChildren:  ()=> import('./taisan/taisan.module').then(m=>m.TaisanModule) },
 
