@@ -7,6 +7,10 @@
     <div></div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn tài sản " [(ngModel)]="filter.IddmLoaiTaiSan"
+                styleClass="p-inputtext-sm" (onChange)="Loaddata()" [showClear]="true" [filter]="true"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="Loaddata()">
             </p-calendar>
@@ -43,6 +47,8 @@
             <col>
             <col>
             <col>
+            <col>
+            <col>
            
         </colgroup>
     </ng-template>
@@ -52,10 +58,11 @@
             <th class="text-center" rowspan="2">Mã</th>
             <th class="text-center" rowspan="2">Tên</th>
             <th class="text-center" rowspan="2">Ngày nhập</th>
-            <th class="text-center" rowspan="2">Đơn vị tính</th>
+            <th class="text-center" rowspan="2">Loại tài sản</th>
+            <th class="text-center" rowspan="2">Nhà máy</th>
+            <th class="text-center" rowspan="2">bộ phận</th>
             <th class="text-center" rowspan="2">Nguyên giá</th>
-            <th class="text-center" rowspan="2">Giá trị còn lại</th>
-          
+            <th class="text-center" rowspan="2">Giá trị còn lại</th>     
             <th class="text-center" rowspan="2">Tình trạng</th>              
             <th class="text-center" rowspan="2">Thao tác</th>                
         </tr>
@@ -72,10 +79,11 @@
             </td>
             <td class="text-center">{{rowData.Ten}}</td>
             <td class="text-center">{{rowData.NgayNhap}}</td>
-            <td class="text-center">{{rowData.TenDonViTinh}}</td>
+            <td class="text-center">{{rowData.TenLoaiTaiSan}}</td>
+            <td class="text-center">{{rowData.TenNhaMay}}</td>
+            <td class="text-center">{{rowData.TendmPhanXuong}}</td>
             <td class="text-center">{{rowData.NguyenGia}}</td>
-            <td class="text-center">{{rowData.GiaTriConLai}}</td>
-          
+            <td class="text-center">{{rowData.GiaTriConLai}}</td>       
             <td class="text-center">{{rowData.TrangThai}}</td>     
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-bars" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xem Thông tin tài sản" (click)="ChiTietThongTin(rowData)"></button>

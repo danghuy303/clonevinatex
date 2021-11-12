@@ -74,7 +74,7 @@
             </div>
         </div>
 
-        <p-treeTable [value]="listTaiSan_copy" styleClass="p-treetable p-treetable-caption">
+        <p-treeTable [value]="listTaiSan_copy|isXoa" styleClass="p-treetable p-treetable-caption">
             <ng-template pTemplate="colgroup">
                 <colgroup>
                     <col>
@@ -112,55 +112,7 @@
                     </td>
                 </tr>
             </ng-template>
-        </p-treeTable>
-
-        <p-table [value]="item.listTaiSan|isXoa" *ngIf="false"
-            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="true">
-            <ng-template pTemplate="colgroup">
-                <colgroup>
-                    <col style="width: 50px;">
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                    <col style="width: 100px;" *ngIf="tabTrangThai===1">
-                </colgroup>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th class="text-center">
-                        STT
-                    </th>
-                    <th class="text-center">Mã</th>
-                    <th class="text-center">Tên</th>
-                    <th class="text-center">Nguyên giá</th>
-                    <th class="text-center">Giá còn lại</th>
-                    <th class="text-center">Ngày nhập</th>
-                    <th *ngIf="tabTrangThai===1"></th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-item let-i="rowIndex">
-                <tr>
-                    <td class="text-center">
-                        {{i + 1}}
-                    </td>
-                    <td>{{item.TaiSan.Ma}}</td>
-                    <td>{{item.TaiSan.Ten}}</td>
-                    <td class="text-center">{{item.TaiSan.NguyenGia|number:'0.0'}}</td>
-                    <td class="text-center">{{item.TaiSan.GiaConLai|number:'0.0'}}</td>
-                    <td class="text-center">{{item.TaiSan.NgayNhap|date:'dd/MM/yyyy'}}</td>
-                    <td class="text-center" *ngIf="tabTrangThai===1">
-                        <!-- <button pButton pRipple type="button" icon="pi pi-pencil"
-                            class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
-                            (click)="CapNhatDanhSachTaiSan(item)"></button> -->
-                        <button pButton pRipple type="button" icon="pi pi-trash"
-                            class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                            (click)="XoaTaiSan(item,i)"></button>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
+        </p-treeTable>      
     </p-panel>
 </div>
 <!-- <div class="modal-footer">

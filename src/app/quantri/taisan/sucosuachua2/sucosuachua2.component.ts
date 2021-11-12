@@ -1,27 +1,23 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { DateToUnix } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
-import { ModalcapnhatbaoduongComponent } from '../modal/modalcapnhatbaoduong/modalcapnhatbaoduong.component';
 
 @Component({
-  selector: 'app-biendong',
-  templateUrl: './biendong.component.html',
-  styleUrls: ['./biendong.component.css']
+  selector: 'app-sucosuachua2',
+  templateUrl: './sucosuachua2.component.html',
+  styleUrls: ['./sucosuachua2.component.css']
 })
-export class BiendongComponent implements OnInit,OnChanges {
- 
-  @Input("ThongTinQueryBienDongTaiSan") ThongTinQueryBienDongTaiSan:any=null;
+export class Sucosuachua2Component implements OnInit {
+  @Input("ThongTinQuerySuCoTaiSan") ThongTinQuerySuCoTaiSan:any=null;
   
   paging: any = {CurrentPage:1};
-  filter: any;
   item: any;
   listItems:any =[];
   constructor(public activeModal: NgbActiveModal, public toastr: ToastrService, private _serviceTaiSan: TaisanService,) { }
   
   ngOnInit(): void {
-    console.log(this.ThongTinQueryBienDongTaiSan)
+    console.log(this.ThongTinQuerySuCoTaiSan)
   }
   ngOnChanges(changes: SimpleChanges){
     this.GetList()
@@ -32,11 +28,11 @@ export class BiendongComponent implements OnInit,OnChanges {
       this.paging.CurrentPage = 1;
     }
     let data = {
-      ...this.ThongTinQueryBienDongTaiSan,
+      ...this.ThongTinQuerySuCoTaiSan,
       
       CurrentPage: this.paging.CurrentPage,
     }
-    this._serviceTaiSan.ListDanhSachBienDong().Get(data).subscribe((res: any) => {
+    this._serviceTaiSan.ListDanhSachSuCo().Get(data).subscribe((res: any) => {
        console.log(res.Data)
        this.listItems=res.Data.Items;
        this.paging = res.Data;

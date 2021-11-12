@@ -101,6 +101,9 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
             }
           });
         }
+        else {
+          listTaiSan.push({ data: element, children: [] });
+        }
       });
       this.listTaiSan_copy = listTaiSan;
       // this.item.TaiSan.NgaySanXuat = UnixToDate(this.item.TaiSan.NgaySanXuatUnix);
@@ -208,6 +211,9 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
                 listTaiSan[listTaiSan.length - 1].children.push({ data: e });
               }
             });
+          }
+          else {
+            listTaiSan.push({ data: element, children: [] });
           }
         });
         this.listTaiSan_copy = listTaiSan;
