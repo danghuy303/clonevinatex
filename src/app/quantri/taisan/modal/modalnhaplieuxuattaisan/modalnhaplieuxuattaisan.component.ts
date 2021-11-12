@@ -16,6 +16,8 @@ export class ModalnhaplieuxuattaisanComponent implements OnInit {
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   public listTaiSan:any = [];
+  listDonViTinh: any =[];
+  filter: any;
 
   constructor(public activeModal: NgbActiveModal, private _serviceTaiSan: TaisanService, public toastr: ToastrService) { }
 
@@ -23,8 +25,15 @@ export class ModalnhaplieuxuattaisanComponent implements OnInit {
     if (this.item.ThoiGianUnix !== 0) {
       this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
     }
+    this.getListDonViTinh();
     }
 
+    getListDonViTinh() {
+      this._serviceTaiSan.HieuXuatTaiSan().GetListTaiSan(this.item.IddmPhanXuong).subscribe((res: any) => {
+        this.listDonViTinh = mapArrayForDropDown(res.Data, "TendmDonViTinh", 'IddmDonViTinh');
+  console.log(this.listDonViTinh)
+      })
+    }
   ValidateData() {
     // if (!validVariable(this.item.Ma)) {
     //   this.toastr.error("Yêu cầu nhập đầy đủ mã!");
