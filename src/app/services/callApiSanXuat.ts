@@ -1006,6 +1006,9 @@ export class SanXuatService {
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetThongKeDien', data, httpOptions);
             },
+            GetDanhSachKhungGio:()=>{
+                return this.http.post(url+ 'GetDanhSachKhungGio',{},httpOptions);
+            }
         }
     }
     //#endregion
