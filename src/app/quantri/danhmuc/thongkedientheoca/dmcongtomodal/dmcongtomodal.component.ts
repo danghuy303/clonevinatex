@@ -62,7 +62,6 @@ export class DmcongtomodalComponent implements OnInit {
         this.item.lstIdKhungGioApDung.push(khungGio.Id)
       }
     });
-    console.log(this.item);
     this.sanXuatService.dmCongToDien().Set(this.item).subscribe((res: any) => {
       if (res) {
         this.resAction(res)
