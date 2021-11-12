@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
-import {  DateToUnix,formatdate,} from "src/app/services/globalfunction";
+import {  DateToUnix,formatdate, mapArrayForDropDown,} from "src/app/services/globalfunction";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { TreeNode } from 'primeng/api';
@@ -24,6 +24,7 @@ export class DanhsachtaisanComponent implements OnInit {
   paging:any = {Page: 1, TotalPages: 1, TotalCount: 1 };
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   items: TreeNode[];
+  listLoaiTaiSan: any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -62,7 +63,8 @@ export class DanhsachtaisanComponent implements OnInit {
       
     };
     this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
-     console.log(res)
+    //  console.log(res)
+    this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "TenLoaiTaiSan", 'IddmLoaiTaiSan');
      let items = [];
      this.items = [];
      items = res.Data.Items;

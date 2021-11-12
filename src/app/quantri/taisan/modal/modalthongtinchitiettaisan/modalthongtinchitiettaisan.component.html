@@ -58,13 +58,13 @@
             <app-thongtinchung [Du_Lieu_Thong_Tin_Chung]="Du_Lieu_Cha"></app-thongtinchung>
         </p-tabPanel>
         <p-tabPanel header="Biến động">
-            <app-biendong [Du_Lieu_Bien_Dong]="Du_Lieu_Cha_Bien_Dong" ></app-biendong>
+            <app-biendong [ThongTinQueryBienDongTaiSan]="ThongTinQueryBienDongTaiSan" ></app-biendong>
         </p-tabPanel>
         <p-tabPanel header="Lịch bảo dưỡng">
             <app-lichbaoduong></app-lichbaoduong>
         </p-tabPanel>
         <p-tabPanel header="Sự cố/Sửa chữa">
-            <app-sucosuachua2 [Du_Lieu_Su_Co]="Du_Lieu_Cha_Su_Co"></app-sucosuachua2>
+            <app-sucosuachua2 [ThongTinQuerySuCoTaiSan]="ThongTinQuerySuCoTaiSan"></app-sucosuachua2>
         </p-tabPanel>
     </p-tabView>
 </div>

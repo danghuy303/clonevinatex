@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FileItem, FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
+import { TreeNode } from 'primeng/api';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -29,6 +30,7 @@ export class ModalcapnhatsuachuabaoduongComponent implements OnInit {
   listTaiSanDaBanGiao_copy: any = [];
   listDonVi: any = [];
   NameFile: string = "";
+  listTaiSan_copy: TreeNode[];
 
   constructor(
     public _modal: NgbModal,
@@ -77,7 +79,20 @@ export class ModalcapnhatsuachuabaoduongComponent implements OnInit {
 
   SelectTaiSan() {
     this.item.TaiSan = this.listTaiSanDaBanGiao_copy.find(e => e.Id === this.item.IdTaiSan);
-    this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);  
+    this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);    
+    this.listTaiSan_copy = [];
+    this.item.TaiSan.listTaiSan.forEach(obj => {
+      let obj_copy: any = {};
+      if (validVariable(obj.listTaiSan)) {
+        obj_copy.children = [];
+        obj.listTaiSan.forEach(element => {
+          obj_copy.children.push({ data: element });
+        });
+        delete obj.listTaiSan;
+      }
+      obj_copy.data = obj;
+      this.listTaiSan_copy.push({ data: obj_copy.data, children: obj_copy.children });
+    });
   }
 
   KiemTraButtonModal() {
@@ -95,7 +110,7 @@ export class ModalcapnhatsuachuabaoduongComponent implements OnInit {
   GetIem() {
     this._serviceTaiSan.SuCoSuaChua().Get(this.item.Id || "").subscribe((res: any) => {
       this.item = res.Data;
-      this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);    
+      this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
       if (validVariable(this.item.IdDuAn)) {
         this._servicesSanXuat.GetOptions().GetPhanXuong(this.item.IdDuAn).subscribe((res: any) => {
           this.listdmPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
@@ -143,7 +158,7 @@ export class ModalcapnhatsuachuabaoduongComponent implements OnInit {
     }
   }
 
-  ChapNhan() {
+  ChuyenDuyet() {
     if (this.Validate()) {
       this.Setdata();
       this._serviceTaiSan.SuCoSuaChua().ChuyenTiep(this.item).subscribe((res: any) => {
