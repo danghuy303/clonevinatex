@@ -1183,6 +1183,7 @@ export class SanXuatService {
                 return this.http.post(url + 'KhongDuyetPhieuNhapThanhPham', data, httpOptions)
             },
             ExportBangKeNhapKhoThanhPham: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 url = API.SCMBaoCao
                 return this.http.post(url + 'ExportBangKeNhapKhoThanhPham', data, httpOptions)
             },
@@ -1663,6 +1664,7 @@ export class SanXuatService {
                 return this.http.post(url + 'KhongDuyetPhieuXuatThanhPham', data, httpOptions)
             },
             ExportBangKeXuatKhoThanhPham: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 url = API.SCMBaoCao
                 return this.http.post(url + 'ExportBangKeXuatKhoThanhPham', data, httpOptions)
             },
