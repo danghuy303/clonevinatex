@@ -22,14 +22,27 @@ export class DmcongtomodalComponent implements OnInit {
   listnhomcongto: any = [];
   listmaybienap: any = [];
   khongclicknhieu: any = false;
+  listKhungGio: any = [];
+  listKhungGioRef: any = [];
+  nhomKhungGioSelected: any = [];
 
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.sanXuatService.ThongKeDien().GetDanhSachKhungGio().subscribe((res: any) => {
+      res.forEach(khungGio => {
+        this.listKhungGio.push({ value: khungGio.MaNhomKhungGio, label: khungGio.Ten })
+      });
+      if (validVariable(this.item.lstIdKhungGioApDung)&& this.item.lstIdKhungGioApDung.length!==0) {
+        this.nhomKhungGioSelected = [res.find(khungGio=>khungGio.Id === this.item.lstIdKhungGioApDung[0])?.MaNhomKhungGio]
+      }
+      this.listKhungGioRef = res;
+    })
     // this.item.SoDauKy = this.item.SoDauKy != undefined ? this.item.SoDauKy : 0;
     if (this.opt == 'edit') {
 
     }
+
   }
 
   accept() {
@@ -43,6 +56,12 @@ export class DmcongtomodalComponent implements OnInit {
   }
 
   Save() {
+    this.item.lstIdKhungGioApDung=[];
+    this.listKhungGioRef.forEach(khungGio => {
+      if(this.nhomKhungGioSelected.includes(khungGio.MaNhomKhungGio)){
+        this.item.lstIdKhungGioApDung.push(khungGio.Id)
+      }
+    });
     this.sanXuatService.dmCongToDien().Set(this.item).subscribe((res: any) => {
       if (res) {
         this.resAction(res)
@@ -59,5 +78,4 @@ export class DmcongtomodalComponent implements OnInit {
       this.toastr.error(res.message)
     }
   }
-
 }

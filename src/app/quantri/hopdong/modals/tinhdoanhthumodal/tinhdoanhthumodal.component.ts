@@ -8,15 +8,7 @@ import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/g
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
-class Alo {
-  label:string ='hoc mai khong hieu';
-  getLabel(){
-    return this.label
-  };
-  setLabel(){
-    this.label='cuoi cung cung hieu!';
-  }
-}
+
 @Component({
   selector: 'app-tinhdoanhthumodal',
   templateUrl: './tinhdoanhthumodal.component.html',
@@ -37,6 +29,8 @@ export class TinhdoanhthumodalComponent implements OnInit {
   addonThongTinDoanhThu: any = {};
   mapSanPham_Gia: any = {};
   cloneIdThang_SanPham: any;
+  listThang:any=[];
+  thangApDung:Array<number>=[];
   propThang: Array<string> = ['Thang1', 'Thang2', 'Thang3', 'Thang4', 'Thang5', 'Thang6', 'Thang7', 'Thang8', 'Thang9', 'Thang10', 'Thang11', 'Thang12',]
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
     public toastr: ToastrService,
@@ -46,11 +40,7 @@ export class TinhdoanhthumodalComponent implements OnInit {
     private _auth: AuthenticationService,) { }
 
   ngOnInit(): void {
-    let alo = new Alo();
     this.GetDonGiaSanPham()
-    console.log(alo.getLabel());
-    alo.setLabel();
-    console.log(alo.getLabel());
   }
   GetDonGiaSanPham() {
     this.mapSanPham_Gia = {};
@@ -68,6 +58,12 @@ export class TinhdoanhthumodalComponent implements OnInit {
   }
   ChiTietSanPhamThang(thang, sanpham) {
     this.cloneIdThang_SanPham = { Thang: thang.Thang, IdSanPham: sanpham.IdSanPham };
+    this.listThang = [];
+    for(let i = 1;i<=12;i++){
+      if(i!==thang.Thang){
+        this.listThang.push({value:i,label:`Tháng ${i}`})
+      }
+    }
     let data = {
       Thang: thang.Thang,
       Nam: this.Nam,
@@ -90,6 +86,7 @@ export class TinhdoanhthumodalComponent implements OnInit {
       res.TenSanPham = sanpham.TenSanPham;
       this.showChiTietThang = true;
       this.itemChiTietThang = res;
+      this.itemChiTietThang.lstThangApDung=[];
       this.headerChiTietModal = `Chi tiết tháng ${thang.Thang} - ${sanpham.TenSanPham}`;
     })
   }
@@ -136,12 +133,18 @@ export class TinhdoanhthumodalComponent implements OnInit {
   }
   cleanForm() {
     this.newDoanhThuChiTiet = {};
+    this.thangApDung = [];
   }
   rebindTongSanLuong_TongDoanhThu(){
    let sanpham =  this.item.lstSanPham.find(ele=>ele.IdSanPham ===this.cloneIdThang_SanPham.IdSanPham);
    let thang = sanpham.lstDoanhThuSanPhamThang.find(ele=>ele.Thang===this.cloneIdThang_SanPham.Thang);
    thang.TongDoanhThu = this.itemChiTietThang.TongDoanhThu;
    thang.TongSanLuong = this.itemChiTietThang.TongSanLuong;
+   this.thangApDung.forEach(thangAD=>{
+     let thangapdung = sanpham.lstDoanhThuSanPhamThang.find(ele=>ele.Thang===thangAD);
+     thangapdung.TongDoanhThu = this.itemChiTietThang.TongDoanhThu;
+     thangapdung.TongSanLuong = this.itemChiTietThang.TongSanLuong;
+   })
   }
   GhiLai() {
     this._danhMucHopDong.TinhToanDoanhThu().Set(this.itemChiTietThang).subscribe((res:any)=>{
@@ -157,5 +160,19 @@ export class TinhdoanhthumodalComponent implements OnInit {
   }
   QuayLai() {
     this.showChiTietThang = false;
+  }
+  ApDung(){
+    console.log(this.thangApDung)
+    this.itemChiTietThang.lstThangApDung = this.thangApDung;
+    this._danhMucHopDong.TinhToanDoanhThu().Set(this.itemChiTietThang).subscribe((res:any)=>{
+      if(res.StatusCode!==200){
+        this.toastr.error(res.Message);
+      }else{
+        this.rebindTongSanLuong_TongDoanhThu()
+        this.toastr.success(res.Message);
+      }
+    },(er=>{
+      this.toastr.error('Có lỗi trong quá trình xử lý!\n Vui lòng liên hệ nhà phát triển!')
+    }));
   }
 }
