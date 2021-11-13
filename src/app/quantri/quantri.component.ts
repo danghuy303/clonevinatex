@@ -1043,13 +1043,13 @@ export class QuantriComponent implements OnInit {
 
             command: () => this.close(),
           },
-          {
-            label: "Tính lương",
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmuc/danhmuctinhluong",
+          // {
+          //   label: "Tính lương",
+          //   routerLink:
+          //     "/quantri/hopdongsanxuat/danhmuc/danhmuctinhluong",
 
-            command: () => this.close(),
-          },
+          //   command: () => this.close(),
+          // },
           {
             label: "Chi phí bán hàng",
             routerLink:

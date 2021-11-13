@@ -14,7 +14,6 @@ import { ModalmucluongcocaunhansuComponent } from '../../modal/modalmucluongcoca
   styleUrls: ['./mucluongcocaunhansu.component.css']
 })
 export class MucluongcocaunhansuComponent implements OnInit {
-
   @ViewChild('paginator') paginator: any;
   items: any = [];
   keyWord:any='';
