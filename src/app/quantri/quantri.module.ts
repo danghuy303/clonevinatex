@@ -243,6 +243,8 @@ import { ModaldinhmucmathangtheonamComponent } from './danhmuc/modal/modaldinhmu
 import { XuatbongchovayComponent } from './quanlykhosanxuat/quytrinh/xuatbongchovay/xuatbongchovay.component';
 import { XuatbongchovaymodalComponent } from './quanlykhosanxuat/quytrinh/xuatbongchovay/xuatbongchovaymodal/xuatbongchovaymodal.component';
 import { ChonkienchovaymodalComponent } from './quanlykhosanxuat/quytrinh/xuatbongchovay/chonkienchovaymodal/chonkienchovaymodal.component';
+import { DmkgconeComponent } from './danhmuc/danhmucsanxuat/dmkgcone/dmkgcone.component';
+import { DmkgconemodalComponent } from './danhmuc/danhmucsanxuat/dmkgcone/dmkgconemodal/dmkgconemodal.component';
 import { Phuhung1Component } from './quanlykhosanxuat/phuongan/layoutmodals/phuhung1/phuhung1.component';
 import { Phuhung2Component } from './quanlykhosanxuat/phuongan/layoutmodals/phuhung2/phuhung2.component';
 
@@ -442,6 +444,8 @@ import { Phuhung2Component } from './quanlykhosanxuat/phuongan/layoutmodals/phuh
     XuatbongchovayComponent,
     XuatbongchovaymodalComponent,
     ChonkienchovaymodalComponent,
+    DmkgconeComponent,
+    DmkgconemodalComponent,
     Phuhung1Component,
     Phuhung2Component,
 
@@ -591,6 +595,8 @@ import { Phuhung2Component } from './quanlykhosanxuat/phuongan/layoutmodals/phuh
     ModaldinhmucmathangtheonamComponent,
     XuatbongchovaymodalComponent,
     ChonkienchovaymodalComponent,
+    DmkgconemodalComponent,
+
     Phuhung1Component,
     Phuhung2Component
   ],
