@@ -27,6 +27,8 @@ export class ModaldanhsachtinhluongComponent implements OnInit {
   type = '';
   opt = '';
   lstChiTiet: any = [];
+  lstProps:any=[];
+  lstHeader:any=[]
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
