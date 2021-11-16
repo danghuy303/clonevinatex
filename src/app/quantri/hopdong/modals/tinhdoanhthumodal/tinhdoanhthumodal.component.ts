@@ -106,6 +106,13 @@ export class TinhdoanhthumodalComponent implements OnInit {
     }
     this.TinhTong()
   }
+  tinhDoanhThuNam(){
+    this.item.lstSanPham.forEach(sanpham => {
+      sanpham.TongDoanhThuNam = sanpham.lstDoanhThuSanPhamThang.reduce((total,ele)=>{
+        
+      })
+    });
+  }
   TinhTong() {
     this.itemChiTietThang.TongSanLuong = 0;
     this.itemChiTietThang.TongDoanhThu = 0;

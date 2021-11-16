@@ -27,8 +27,9 @@ export class ModaldanhsachtinhluongComponent implements OnInit {
   type = '';
   opt = '';
   lstChiTiet: any = [];
-  lstProps:any=[];
-  lstHeader:any=[]
+  lstProps:any=['LuongViTri','BaoHiem','TienAnCa','LuongNgayLe','LuongThang13','NgayCongCoSo','SoLuong'];
+  lstHeader:any=['Lương vị trí','Bảo hiểm','Tiền ăn ca','Lương ngày lễ','Lương tháng 13','Ngày công cơ sở','Số lượng']
+  listCoCauNhanSu: any[]=[];
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -44,8 +45,22 @@ export class ModaldanhsachtinhluongComponent implements OnInit {
 
     }
     this.getListNhaMay();
-
-    this.GetListdmTinhLuong();
+    this.GetListdmCoCauNhanSu();
+    // this.GetListdmTinhLuong();
+  }
+  GetListdmCoCauNhanSu(){
+    
+    let data = {
+      PageSize:100, 
+      CurrentPage:1,
+      sFilter:'',  
+      ma:"", 
+      ten:""    
+    };
+    this._danhMucHopDong.DanhMucCoCauNhanSu().GetList(data).subscribe((res:any)=>{
+      this.listCoCauNhanSu = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
+      
+    })
   }
   GetListdmTinhLuong() {
 
@@ -86,7 +101,13 @@ export class ModaldanhsachtinhluongComponent implements OnInit {
       this.item.listItem.push(JSON.parse(JSON.stringify(item)));
     }
   }
-
+  TinhTongChiPhi(item){
+    let congthuc = "((LuongViTri + BaoHiem + TienAnCa) * 12 + LuongNgayLe + LuongThang13)*SoLuong";
+    this.lstProps.forEach(ele => {
+      congthuc = congthuc.replace(ele,(item[ele]|0).toString())
+    });
+    item.TongChiPhiCaNam = new Function(`return ${congthuc}`)();
+  }
   edit(item) {
     item.edit = true;
   }

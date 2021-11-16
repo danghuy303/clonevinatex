@@ -979,7 +979,7 @@ export class QuantriComponent implements OnInit {
       {
         label: "Menu kế hoạch kinh doanh",
         icon: "fas fa-circle",
-        routerLink: "/quantri",
+        routerLink: "/quantri/hopdongsanxuat",
         visible: this.showHopDongModule,
         items: [
           {
