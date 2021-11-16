@@ -291,7 +291,7 @@ export class DmphannhommaymodalComponent implements OnInit {
       if (this.item.CongDoan == "BONGCHAI" || this.item.CongDoan == "CHAITHO" || this.item.CongDoan == "XOCHAI" || this.item.CongDoan == "CUONCUI" || this.item.CongDoan == "DAYBONG" || this.item.CongDoan == "DAYPE" || this.item.CongDoan == "CHAICOTTON" || this.item.CongDoan == "CHAIPE") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(obj.Nm))) {
-            obj.NangSuat = obj.TocDo * 450 / obj.Nm / 1000;
+            obj.NangSuat = obj.TocDo * (this.item.TocDoQuay || 0) / obj.Nm / 1000 * (this.item.HeSo || 0);
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
@@ -299,7 +299,7 @@ export class DmphannhommaymodalComponent implements OnInit {
       else if (this.item.CongDoan == "GHEPSOBO"|| this.item.CongDoan == "GHEPSOBOPE" || this.item.CongDoan == "GHEPSOBOCOTTON" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(this.item.SoDauRa)) && (validVariable(obj.Nm))) {
-            obj.NangSuat = obj.TocDo * this.item.SoDauRa * 450 / obj.Nm / 1000;
+            obj.NangSuat = obj.TocDo * this.item.SoDauRa * (this.item.TocDoQuay || 0) / obj.Nm / 1000 * (this.item.HeSo || 0);
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
@@ -307,7 +307,7 @@ export class DmphannhommaymodalComponent implements OnInit {
       else if (this.item.CongDoan == "CHAIKY") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(this.item.SoDauRa)) && (validVariable(obj.Nm))) {
-            obj.NangSuat = obj.TocDo * this.item.SoDauRa * 450 / obj.Nm / 1000 / 2;
+            obj.NangSuat = obj.TocDo * this.item.SoDauRa * (this.item.TocDoQuay || 0) / obj.Nm / 1000 / 2 * (this.item.HeSo || 0);
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
@@ -315,7 +315,7 @@ export class DmphannhommaymodalComponent implements OnInit {
       else if (this.item.CongDoan == "THO") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(this.item.SoCoc)) && (validVariable(obj.DoSan)) && (validVariable(obj.Nm))) {
-            obj.NangSuat = obj.TocDo * this.item.SoCoc * 450 / obj.DoSan / obj.Nm / 1000;
+            obj.NangSuat = obj.TocDo * this.item.SoCoc * (this.item.TocDoQuay || 0) / obj.DoSan / obj.Nm / 1000 * (this.item.HeSo || 0);
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
@@ -324,7 +324,7 @@ export class DmphannhommaymodalComponent implements OnInit {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(this.item.SoCoc)) && (validVariable(obj.Nm)) && (validVariable(obj.DoSan))) {
             // obj.NangSuat = obj.TocDo * 1200 * 480 / obj.Nm / 1000 / obj.DoSan * 0.94;
-            obj.NangSuat = obj.TocDo * this.item.SoCoc * 480 / obj.Nm / 1000 / obj.DoSan * 0.94;
+            obj.NangSuat = obj.TocDo * this.item.SoCoc * (this.item.TocDoQuay || 0) / obj.Nm / 1000 / obj.DoSan * (this.item.HeSo || 0);
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
@@ -332,7 +332,7 @@ export class DmphannhommaymodalComponent implements OnInit {
       else if (this.item.CongDoan == "ONG") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(this.item.SoCoc)) && (validVariable(obj.Nm))) {
-            obj.NangSuat = obj.TocDo * 450 * this.item.SoCoc / 1000 / obj.Nm * 0.9875;
+            obj.NangSuat = obj.TocDo * (this.item.TocDoQuay || 0) * this.item.SoCoc / 1000 / obj.Nm * (this.item.HeSo || 0);
             obj.DinhMucNangSuat = (obj.NangSuat * obj.HieuSuat || 0) / 100;
           }
         });
@@ -344,38 +344,38 @@ export class DmphannhommaymodalComponent implements OnInit {
     if (this.newTableItem.Id != undefined) {
       if (this.item.CongDoan == "BONGCHAI" || this.item.CongDoan == "CHAITHO" || this.item.CongDoan == "XOCHAI" || this.item.CongDoan == "CUONCUI" || this.item.CongDoan == "DAYBONG" || this.item.CongDoan == "DAYPE" || this.item.CongDoan == "CHAICOTTON" || this.item.CongDoan == "CHAIPE") {
         if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.Nm))) {
-          this.newTableItem.NangSuat = this.newTableItem.TocDo * 450 / this.newTableItem.Nm / 1000;
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * (this.item.TocDoQuay || 0) / this.newTableItem.Nm / 1000 * (this.item.HeSo || 0);
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
       else if (this.item.CongDoan == "GHEPSOBO"|| this.item.CongDoan == "GHEPSOBOPE" || this.item.CongDoan == "GHEPSOBOCOTTON" || this.item.CongDoan == "GHEPTRONA" || this.item.CongDoan == "GHEPTRONB" || this.item.CongDoan == "GHEPDAURA") {
         if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.SoDauRa)) && (validVariable(this.newTableItem.Nm))) {
-          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoDauRa * 450 / this.newTableItem.Nm / 1000;
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoDauRa * (this.item.TocDoQuay || 0) / this.newTableItem.Nm / 1000 * (this.item.HeSo || 0);
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
       else if (this.item.CongDoan == "CHAIKY") {
         if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.SoDauRa)) && (validVariable(this.newTableItem.Nm))) {
-          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoDauRa * 450 / this.newTableItem.Nm / 1000 / 2;
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoDauRa * (this.item.TocDoQuay || 0) / this.newTableItem.Nm / 1000 / 2 * (this.item.HeSo || 0);
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
       else if (this.item.CongDoan == "THO") {
         if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.SoCoc)) && (validVariable(this.newTableItem.DoSan)) && (validVariable(this.newTableItem.Nm))) {
-          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoCoc * 450 / 1000 / this.newTableItem.DoSan / this.newTableItem.Nm;
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoCoc * (this.item.TocDoQuay || 0) / 1000 / this.newTableItem.DoSan / this.newTableItem.Nm * (this.item.HeSo || 0);
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
       else if (this.item.CongDoan == "CON") {
         if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.SoCoc)) && (validVariable(this.newTableItem.Nm)) && (validVariable(this.newTableItem.DoSan))) {
           // this.newTableItem.NangSuat = this.newTableItem.TocDo * 1200 * 480 / this.newTableItem.Nm / 1000 / this.newTableItem.DoSan * 0.94;
-          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoCoc * 480 / this.newTableItem.Nm / 1000 / this.newTableItem.DoSan * 0.94;
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * this.item.SoCoc * 480 / this.newTableItem.Nm / 1000 / this.newTableItem.DoSan * (this.item.HeSo || 0);
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }
       else if (this.item.CongDoan == "ONG") {
         if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.item.SoCoc)) && (validVariable(this.newTableItem.Nm))) {
-          this.newTableItem.NangSuat = this.newTableItem.TocDo * 450 * this.item.SoCoc / 1000 / this.newTableItem.Nm * 0.9875;
+          this.newTableItem.NangSuat = this.newTableItem.TocDo * (this.item.TocDoQuay || 0) * this.item.SoCoc / 1000 / this.newTableItem.Nm * (this.item.HeSo || 0);
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;
         }
       }

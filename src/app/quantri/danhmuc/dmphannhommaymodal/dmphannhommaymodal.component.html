@@ -67,6 +67,20 @@
                 </p-inputNumber>
             </div>
         </div>
+        <div class="p-col-4 p-d-flex p-flex-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tốc độ quay:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TocDoQuay" (onBlur)="tinhNangSuatLyThuyet()">
+                </p-inputNumber>
+            </div>
+        </div>
+        <div class="p-col-4 p-d-flex p-flex-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Hệ số:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.HeSo" (onBlur)="tinhNangSuatLyThuyet()">
+                </p-inputNumber>
+            </div>
+        </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="p-d-flex p-flex-sm-row p-jc-between p-mt-3 p-mb-3"
                 *ngIf="item.CongDoan == 'CON' || item.CongDoan == 'ONG'">

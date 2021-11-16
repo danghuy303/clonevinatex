@@ -1681,6 +1681,7 @@ export class SanXuatService {
         let url = API.SCMDanhMuc;
         return {
             GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'GetListUserTheoGiaoDien', data, httpOptions);
             },
             Set: (data) => {

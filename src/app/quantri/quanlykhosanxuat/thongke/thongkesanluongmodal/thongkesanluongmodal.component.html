@@ -278,7 +278,7 @@
                             </td>
                         </tr>
                     </ng-container>
-                    <ng-container *ngIf="itemtbl==='clone'">
+                    <ng-container *ngIf="itemtbl==='clone' && item.CongDoan==='ONG'">
                         <tr style="height: 40px;">
                             <td></td>
                             <td></td>
@@ -286,13 +286,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td *ngIf="item.CongDoan==='ONG'"></td>
-                            <td *ngIf="item.CongDoan==='ONG'"></td>
-                            <td *ngIf="item.CongDoan!=='ONG'"></td>
-                            <td *ngIf="item.CongDoan==='CON'"></td>
-                            <td *ngIf="item.CongDoan==='CON'"></td>
-                            <td *ngIf="item.CongDoan==='CON'"></td>
-                            <td *ngIf="item.CongDoan==='THO'"></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                         </tr>
                     </ng-container>
