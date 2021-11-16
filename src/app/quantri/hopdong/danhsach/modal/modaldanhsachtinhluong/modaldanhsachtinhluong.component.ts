@@ -30,6 +30,7 @@ export class ModaldanhsachtinhluongComponent implements OnInit {
   lstProps:any=['LuongViTri','BaoHiem','TienAnCa','LuongNgayLe','LuongThang13','NgayCongCoSo','SoLuong'];
   lstHeader:any=['Lương vị trí','Bảo hiểm','Tiền ăn ca','Lương ngày lễ','Lương tháng 13','Ngày công cơ sở','Số lượng']
   listCoCauNhanSu: any[]=[];
+  TongChiPhiToanBo:any=0;
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -46,10 +47,13 @@ export class ModaldanhsachtinhluongComponent implements OnInit {
     }
     this.getListNhaMay();
     this.GetListdmCoCauNhanSu();
+    this.item.listItem.forEach(item => {
+      this.TinhTongChiPhi(item);
+    });
+    this.TinhTongChiPhiToanBo();
     // this.GetListdmTinhLuong();
   }
   GetListdmCoCauNhanSu(){
-    
     let data = {
       PageSize:100, 
       CurrentPage:1,
@@ -102,11 +106,13 @@ export class ModaldanhsachtinhluongComponent implements OnInit {
     }
   }
   TinhTongChiPhi(item){
-    let congthuc = "((LuongViTri + BaoHiem + TienAnCa) * 12 + LuongNgayLe + LuongThang13)*SoLuong";
-    this.lstProps.forEach(ele => {
-      congthuc = congthuc.replace(ele,(item[ele]|0).toString())
+    item.TongChiPhiCaNam = (((item.LuongViTri|0) + (item.BaoHiem|0) + (item.TienAnCa|0)) * 12 + (item.LuongNgayLe|0) + (item.LuongThang13|0))*(item.SoLuong|0);
+  }
+  TinhTongChiPhiToanBo(){
+    this.TongChiPhiToanBo = 0;
+    this.item.listItem.forEach(item => {
+      this.TongChiPhiToanBo+= item.TongChiPhiCaNam;
     });
-    item.TongChiPhiCaNam = new Function(`return ${congthuc}`)();
   }
   edit(item) {
     item.edit = true;

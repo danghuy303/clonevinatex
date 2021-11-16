@@ -30,7 +30,7 @@
             <button pButton pRipple type="button" label="Tính doanh thu" class="p-mr-2 p-button-sm"
               (click)="TinhDoanhThu()"></button> -->
     </div>
-    
+
   </div>
   <div class="p-d-flex p-flex-row">
     <div class="p-col-12 p-p-0 pintable-container" style="height: 77vh;" voiPintable [pinnedCols]="1">
@@ -51,12 +51,26 @@
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td class="tc-w-260 text-center" style="background-color: white;">
+              Tổng
+            </td>
+            <td class="tc-w-260 text-center" style="background-color: white;">
+              {{TongDoanhThuNam|number:'0.0-2'}}
+            </td>
+            <ng-container *ngFor="let thang of propThang">
+              <td class="tc-w-100 text-right">
+              <td class="tc-w-100 text-right"></td>
+              <td class="tc-w-140 text-right"></td>
+              <td class="tc-w-60 text-center"></td>
+            </ng-container>
+          </tr>
           <tr *ngFor="let sanpham of item.lstSanPham">
             <td class="tc-w-260 text-center" style="background-color: white;">
               {{sanpham.TenSanPham}}
             </td>
             <td class="tc-w-260 text-center" style="background-color: white;">
-              {{sanpham.TongDoanhThuNam|number:'0.0-2'}}
+              {{sanpham.TongDoanhThuNamSanPham|number:'0.0-2'}}
             </td>
             <ng-container *ngFor="let thang of sanpham.lstDoanhThuSanPhamThang;let i=index">
               <td class="tc-w-100 text-right">
@@ -75,18 +89,16 @@
     [style]="{width: '70vw', height:'auto',border:'1px solid #ccc'}" [contentStyle]="{height:'60vh'}"
     [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="cleanForm()" [closeOnEscape]="false">
     <div class="p-d-flex p-flex-row" style="padding-bottom: 1rem;">
-      <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm "
-        (click)="QuayLai()"></button>
-      <button pButton pRipple type="button" label="Lưu" class="p-mr-5 p-button-sm "
-        (click)="GhiLai()"></button>
-        <div class="p-d-flex p-flex-row">
-          <div style="width: 150px;">
-            <p-multiSelect [options]="listThang" [(ngModel)]="thangApDung" [maxSelectedLabels]="8"
+      <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm " (click)="QuayLai()"></button>
+      <button pButton pRipple type="button" label="Lưu" class="p-mr-5 p-button-sm " (click)="GhiLai()"></button>
+      <div class="p-d-flex p-flex-row">
+        <div style="width: 150px;">
+          <p-multiSelect [options]="listThang" [(ngModel)]="thangApDung" [maxSelectedLabels]="8"
             [selectedItemsLabel]="'Đã chọn {0} tháng'" defaultLabel="Chọn tháng">
-          </p-multiSelect></div>
-          <button pButton pRipple type="button" label="Áp dụng" class="p-mr-2 p-button-sm "
-            (click)="ApDung()"></button>
+          </p-multiSelect>
         </div>
+        <button pButton pRipple type="button" label="Áp dụng" class="p-mr-2 p-button-sm " (click)="ApDung()"></button>
+      </div>
     </div>
     <div>
       <div class="p-mr-3">
