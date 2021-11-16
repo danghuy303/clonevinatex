@@ -28,14 +28,19 @@
       <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Năm:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
-          <p-inputNumber [minFractionDigits]="" locale="vi-VN" [(ngModel)]="item.Nam">
+          <p-inputNumber [minFractionDigits]="" locale="vi-VN" [(ngModel)]="item.Nam" [useGrouping]="false">
+          </p-inputNumber>
+        </div>
+      </div>
+      <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng chi phí nhân công năm:</label>
+        <div class="p-col-12 p-lg-8 p-p-0">
+          <p-inputNumber [disabled]="true" [minFractionDigits]="" locale="vi-VN" [(ngModel)]="TongChiPhiToanBo">
           </p-inputNumber>
         </div>
       </div>
     </div>
-
   </div>
-  <div ></div>
   <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped">
     <ng-template pTemplate="colgroup">
       <colgroup>

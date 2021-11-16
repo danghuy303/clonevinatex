@@ -31,6 +31,7 @@ export class TinhdoanhthumodalComponent implements OnInit {
   cloneIdThang_SanPham: any;
   listThang:any=[];
   thangApDung:Array<number>=[];
+  TongDoanhThuNam:number=0;
   propThang: Array<string> = ['Thang1', 'Thang2', 'Thang3', 'Thang4', 'Thang5', 'Thang6', 'Thang7', 'Thang8', 'Thang9', 'Thang10', 'Thang11', 'Thang12',]
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
     public toastr: ToastrService,
@@ -40,7 +41,9 @@ export class TinhdoanhthumodalComponent implements OnInit {
     private _auth: AuthenticationService,) { }
 
   ngOnInit(): void {
-    this.GetDonGiaSanPham()
+    this.GetDonGiaSanPham();
+    this.tinhDoanhThuNamSanPham();
+    this.tinhTongDoanhThuNam()
   }
   GetDonGiaSanPham() {
     this.mapSanPham_Gia = {};
@@ -106,12 +109,17 @@ export class TinhdoanhthumodalComponent implements OnInit {
     }
     this.TinhTong()
   }
-  tinhDoanhThuNam(){
+  tinhDoanhThuNamSanPham(){
     this.item.lstSanPham.forEach(sanpham => {
-      sanpham.TongDoanhThuNam = sanpham.lstDoanhThuSanPhamThang.reduce((total,ele)=>{
-        
-      })
+      sanpham.TongDoanhThuNamSanPham =0;
+      sanpham.TongDoanhThuNamSanPham = sanpham.lstDoanhThuSanPhamThang.reduce((total,ele)=>{
+        return total +=ele.TongDoanhThu;
+      },0)
+      console.log(sanpham.TongDoanhThuNamSanPham)
     });
+  }
+  tinhTongDoanhThuNam(){
+    this.TongDoanhThuNam = this.item.lstSanPham.reduce((total,ele)=>total+=ele.TongDoanhThuNamSanPham,0);
   }
   TinhTong() {
     this.itemChiTietThang.TongSanLuong = 0;

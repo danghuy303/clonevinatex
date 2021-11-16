@@ -60,7 +60,12 @@ export class ModaldanhmucdongiasanphamComponent implements OnInit {
   SetData() {
     return this.data;
   }
-
+  GoiYGia(item){
+    console.log(item);
+    this._danhMucHopDong.DanhMucDonGia().GoiYGia({Nam:item.Nam,IdSanPham:item.IdSanPham}).subscribe(res=>{
+      console.log(res);
+    })
+  }
   GhiLai() {
     this._danhMucHopDong.DanhMucDonGia().Set(this.SetData()).subscribe((res: any) => {
       if (res.StatusCode!== 200) {

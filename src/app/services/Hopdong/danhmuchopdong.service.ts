@@ -498,6 +498,9 @@ export class DanhMucHopDongService {
             },
             Set: (data) => {
                 return this.http.post(`${url}KeHoachKinhDoanh/CapNhatBangGiaSanPham`, data, httpOptions)
+            },
+            GoiYGia:(data)=>{
+                return this.http.post(`${url}KeHoachKinhDoanh/GetGoiYGiaSanPham`, data, httpOptions)
             }
         }
     }
