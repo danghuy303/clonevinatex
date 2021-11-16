@@ -62,7 +62,7 @@ export class DanhsachtinhluongComponent implements OnInit {
   add(){
     let modalRef = this._modal.open(ModaldanhsachtinhluongComponent,{
       backdrop:'static',
-      size:'fullscreen'
+      size:'fullscreen-100'
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = '';
@@ -77,7 +77,7 @@ edit(item){
     res1.listItem = res1.lstChiTiet;
     let modalRef = this._modal.open(ModaldanhsachtinhluongComponent,{
       backdrop:'static',
-      size:'fullscreen'
+      size:'fullscreen-100'
     });
     modalRef.componentInstance.opt='edit';
     modalRef.componentInstance.type = '';

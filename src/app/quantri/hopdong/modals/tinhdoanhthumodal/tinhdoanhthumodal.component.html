@@ -38,6 +38,7 @@
         <thead>
           <tr>
             <th class="tc-w-260" rowspan="2">Sản phẩm</th>
+            <th class="tc-w-260" rowspan="2">Tổng doanh thu</th>
             <th *ngFor="let thang of propThang;let i = index" colspan="4" class="tc-w-400">Tháng {{i+1}}</th>
           </tr>
           <tr>
@@ -53,6 +54,9 @@
           <tr *ngFor="let sanpham of item.lstSanPham">
             <td class="tc-w-260 text-center" style="background-color: white;">
               {{sanpham.TenSanPham}}
+            </td>
+            <td class="tc-w-260 text-center" style="background-color: white;">
+              {{sanpham.TongDoanhThuNam|number:'0.0-2'}}
             </td>
             <ng-container *ngFor="let thang of sanpham.lstDoanhThuSanPhamThang;let i=index">
               <td class="tc-w-100 text-right">
