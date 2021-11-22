@@ -15,7 +15,6 @@ export class BiendongComponent implements OnInit,OnChanges {
   @Input("ThongTinQueryBienDongTaiSan") ThongTinQueryBienDongTaiSan:any=null;
   
   paging: any = {CurrentPage:1};
-  filter: any;
   item: any;
   listItems:any =[];
   constructor(public activeModal: NgbActiveModal, public toastr: ToastrService, private _serviceTaiSan: TaisanService,) { }
@@ -24,7 +23,7 @@ export class BiendongComponent implements OnInit,OnChanges {
     console.log(this.ThongTinQueryBienDongTaiSan)
   }
   ngOnChanges(changes: SimpleChanges){
-    this.GetList()
+    this.GetList();
   }
   
   GetList(reset?) {
