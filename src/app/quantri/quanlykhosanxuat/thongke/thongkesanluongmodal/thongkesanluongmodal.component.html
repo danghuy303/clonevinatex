@@ -235,8 +235,12 @@
                                     (keyup.enter)="enter(i)" [tabindex]="i+1" (ngModelChange)="TinhKhoiLuongChaiPE(itemtbl)">
                                 </p-inputNumber>
                                 <p-inputNumber
-                                    *ngIf="item.CongDoan==='CHAIKY' || item.CongDoan==='CUONCUI'" [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
-                                    (keyup.enter)="enter(i)" [tabindex]="i+1" (ngModelChange)="TinhKhoiLuongChaikY(itemtbl)">
+                                    *ngIf="item.CongDoan==='CHAIKY'" [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                    (keyup.enter)="enter(i)" [tabindex]="i+1" (ngModelChange)="TinhKhoiLuongChaiKy(itemtbl)">
+                                </p-inputNumber>
+                                <p-inputNumber
+                                    *ngIf="item.CongDoan==='CUONCUI'" [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                    (keyup.enter)="enter(i)" [tabindex]="i+1" (ngModelChange)="TinhKhoiLuongCuonCui(itemtbl)">
                                 </p-inputNumber>
                             </td>
 
