@@ -500,6 +500,7 @@ export class DanhMucHopDongService {
                 return this.http.post(`${url}KeHoachKinhDoanh/CapNhatBangGiaSanPham`, data, httpOptions)
             },
             GoiYGia:(data)=>{
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}KeHoachKinhDoanh/GetGoiYGiaSanPham`, data, httpOptions)
             }
         }
