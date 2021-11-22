@@ -1006,6 +1006,9 @@ export class SanXuatService {
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'SetThongKeDien', data, httpOptions);
             },
+            GetDanhSachKhungGio:()=>{
+                return this.http.post(url+ 'GetDanhSachKhungGio',{},httpOptions);
+            }
         }
     }
     //#endregion
@@ -1183,6 +1186,7 @@ export class SanXuatService {
                 return this.http.post(url + 'KhongDuyetPhieuNhapThanhPham', data, httpOptions)
             },
             ExportBangKeNhapKhoThanhPham: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 url = API.SCMBaoCao
                 return this.http.post(url + 'ExportBangKeNhapKhoThanhPham', data, httpOptions)
             },
@@ -1663,6 +1667,7 @@ export class SanXuatService {
                 return this.http.post(url + 'KhongDuyetPhieuXuatThanhPham', data, httpOptions)
             },
             ExportBangKeXuatKhoThanhPham: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 url = API.SCMBaoCao
                 return this.http.post(url + 'ExportBangKeXuatKhoThanhPham', data, httpOptions)
             },
@@ -1676,6 +1681,7 @@ export class SanXuatService {
         let url = API.SCMDanhMuc;
         return {
             GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
                 return this.http.post(url + 'GetListUserTheoGiaoDien', data, httpOptions);
             },
             Set: (data) => {
@@ -1860,6 +1866,18 @@ export class SanXuatService {
     GetListKgCone() {
         let url = API.SCMDanhMuc + `GetListKgCone`;
         return this.http.get(url, httpOptions);
+    }
+    GetListdmKgCone(data) {
+        let url = API.SCMDanhMuc + 'GetListKgCone';
+        return this.http.post(url, data, httpOptions);
+    }
+    SetdmKgCone(data) {
+        let url = API.SCMDanhMuc + 'SetdmKgCone';
+        return this.http.post(url, data, httpOptions);
+    }
+    DeletedmKgCone(data) {
+        let url = API.SCMDanhMuc + 'DeletedmKgCone';
+        return this.http.post(url, data, httpOptions);
     }
     QuyTrinhPhieuBongPhe() {
         let url = API.SCMQuanLyKho;

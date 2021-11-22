@@ -208,8 +208,7 @@
                                 [minFractionDigits]="3" locale="vi-VN"
                                     [(ngModel)]="itemtbl.ChieuDai" -->
                                 <p-inputNumber
-                                    *ngIf="item.CongDoan!=='CON' && item.CongDoan!=='CHAICOTTON' && item.CongDoan!=='GHEPSOBOCOTTON' && item.CongDoan!=='THO'
-                                && item.CongDoan!=='GHEPTRONB' && item.CongDoan!=='GHEPTRONA' && item.CongDoan!=='GHEPDAURA' && item.CongDoan!=='GHEPSOBOPE'"
+                                    *ngIf="item.CongDoan==='CHAIPC' || item.CongDoan==='GHEPSOBOPC' || item.CongDoan==='ONG' "
                                     [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
                                     (keyup.enter)="enter(i)" [tabindex]="i+1" (ngModelChange)="TinhGiaTri(itemtbl)">
                                 </p-inputNumber>
@@ -230,6 +229,18 @@
                                     locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
                                     (ngModelChange)="TinhKhoiLuongTho(itemtbl)" (keyup.enter)="enter(i*2+1)"
                                     [tabindex]="i*2+1">
+                                </p-inputNumber>
+                                <p-inputNumber
+                                    *ngIf="item.CongDoan==='CHAIPE'" [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                    (keyup.enter)="enter(i)" [tabindex]="i+1" (ngModelChange)="TinhKhoiLuongChaiPE(itemtbl)">
+                                </p-inputNumber>
+                                <p-inputNumber
+                                    *ngIf="item.CongDoan==='CHAIKY'" [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                    (keyup.enter)="enter(i)" [tabindex]="i+1" (ngModelChange)="TinhKhoiLuongChaiKy(itemtbl)">
+                                </p-inputNumber>
+                                <p-inputNumber
+                                    *ngIf="item.CongDoan==='CUONCUI'" [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                    (keyup.enter)="enter(i)" [tabindex]="i+1" (ngModelChange)="TinhKhoiLuongCuonCui(itemtbl)">
                                 </p-inputNumber>
                             </td>
 
@@ -274,7 +285,7 @@
                             </td>
                         </tr>
                     </ng-container>
-                    <ng-container *ngIf="itemtbl==='clone'">
+                    <ng-container *ngIf="itemtbl==='clone' && item.CongDoan==='ONG'">
                         <tr style="height: 40px;">
                             <td></td>
                             <td></td>
@@ -282,13 +293,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td *ngIf="item.CongDoan==='ONG'"></td>
-                            <td *ngIf="item.CongDoan==='ONG'"></td>
-                            <td *ngIf="item.CongDoan!=='ONG'"></td>
-                            <td *ngIf="item.CongDoan==='CON'"></td>
-                            <td *ngIf="item.CongDoan==='CON'"></td>
-                            <td *ngIf="item.CongDoan==='CON'"></td>
-                            <td *ngIf="item.CongDoan==='THO'"></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                         </tr>
                     </ng-container>
@@ -394,6 +400,28 @@
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ cúi hồi (%):</label>
                             <div class="p-col-12 p-lg-8 p-p-0">
                                 {{item.TyLeCuiHoiChaiCotton|number:'0.3-3'}}
+                            </div>
+                        </div>
+
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng xơ ngoại lai:</label>
+                            <div class="p-col-12 p-lg-7 p-p-0">
+                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN"
+                                    [(ngModel)]="item.KhoiLuongXoNgoaiLai"
+                                    (ngModelChange)="TinhTyLeCottonBongPhe()">
+                                </p-inputNumber>
+                            </div>
+                            <div class="p-col-12 p-lg-1 p-p-0">
+                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
+                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                    (click)="tinhToan(item,'KhoiLuongXoNgoaiLai')" pTooltip="Tính toán"
+                                    showDelay="1000" tooltipPosition="bottom"></button>
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ xơ ngoại lai (%):</label>
+                            <div class="p-col-12 p-lg-8 p-p-0">
+                                {{item.TyLeXoNgoaiLai|number:'0.3-3'}}
                             </div>
                         </div>
                     </div>

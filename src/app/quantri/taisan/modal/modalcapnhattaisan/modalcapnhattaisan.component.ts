@@ -284,4 +284,10 @@ export class ModalcapnhattaisanComponent implements OnInit {
     }
   }
 
+  changeTab(e) {
+    // this.trangThai = e.index + 1;
+    // this.loaiTab = e.index;
+    // this.Loaddata(true);
+  }
+
 }

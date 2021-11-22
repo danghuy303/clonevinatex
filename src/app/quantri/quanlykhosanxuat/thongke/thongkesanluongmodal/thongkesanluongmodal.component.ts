@@ -63,20 +63,20 @@ export class ThongkesanluongmodalComponent implements OnInit {
     })
   }
   ChuyenDuyet() {
-    switch (this.item.CongDoan) {
-      case 'CHAICOTTON':
-        this.TinhTyLeCottonBongPhe();
-      case 'CHAIPE':
-        this.TinhTyLePEBongPhe();
-      case 'CHAIKY':
-        this.TinhTyLeBongChaiKy();
-      case 'THO':
-        this.TinhTyLeBongCuiHoi();
-      case 'CON':
-        this.TinhTyLeBongThoMang();
-      case 'ONG':
-        this.TinhTyLeSoiCat();
-    }
+    // switch (this.item.CongDoan) {
+    //   case 'CHAICOTTON':
+    //     this.TinhTyLeCottonBongPhe();
+    //   case 'CHAIPE':
+    //     this.TinhTyLePEBongPhe();
+    //   case 'CHAIKY':
+    //     this.TinhTyLeBongChaiKy();
+    //   case 'THO':
+    //     this.TinhTyLeBongCuiHoi();
+    //   case 'CON':
+    //     this.TinhTyLeBongThoMang();
+    //   case 'ONG':
+    //     this.TinhTyLeSoiCat();
+    // }
     let isCheck: any = false;
     this.item.listItem.forEach(element => {
       if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan === "ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {
@@ -106,20 +106,20 @@ export class ThongkesanluongmodalComponent implements OnInit {
     })
   }
   GhiLai() {
-    switch (this.item.CongDoan) {
-      case 'CHAICOTTON':
-        this.TinhTyLeCottonBongPhe();
-      case 'CHAIPE':
-        this.TinhTyLePEBongPhe();
-      case 'CHAIKY':
-        this.TinhTyLeBongChaiKy();
-      case 'THO':
-        this.TinhTyLeBongCuiHoi();
-      case 'CON':
-        this.TinhTyLeBongThoMang();
-      case 'ONG':
-        this.TinhTyLeSoiCat();
-    }
+    // switch (this.item.CongDoan) {
+    //   case 'CHAICOTTON':
+    //     this.TinhTyLeCottonBongPhe();
+    //   case 'CHAIPE':
+    //     this.TinhTyLePEBongPhe();
+    //   case 'CHAIKY':
+    //     this.TinhTyLeBongChaiKy();
+    //   case 'THO':
+    //     this.TinhTyLeBongCuiHoi();
+    //   case 'CON':
+    //     this.TinhTyLeBongThoMang();
+    //   case 'ONG':
+    //     this.TinhTyLeSoiCat();
+    // }
     let isCheck: any = false;
     if (this.item.listItem !== null && this.item.listItem !== undefined) {
       this.item.listItem.forEach(element => {
@@ -289,6 +289,27 @@ export class ThongkesanluongmodalComponent implements OnInit {
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong();
   }
+  TinhKhoiLuongChaiKy(item){
+    var KhoiLuong = 0;
+    if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
+      KhoiLuong = item.ChieuDai / (item.Nm);
+    item.KhoiLuong = KhoiLuong;
+    this.TinhTongKhoiLuongBong();
+  }
+  TinhKhoiLuongCuonCui(item){
+    var KhoiLuong = 0;
+    if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
+      KhoiLuong = item.ChieuDai / (item.Nm * 1000);
+    item.KhoiLuong = KhoiLuong;
+    this.TinhTongKhoiLuongBong();
+  }
+  TinhKhoiLuongChaiPE(item) {
+    var KhoiLuong = 0;
+    if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
+      KhoiLuong = item.ChieuDai / (item.Nm * 1000) * (item.SoDauRa || 0);
+    item.KhoiLuong = KhoiLuong;
+    this.TinhTongKhoiLuongBong();
+  }
   onClose() {
     this.activeModal.close();
   }
@@ -356,15 +377,15 @@ export class ThongkesanluongmodalComponent implements OnInit {
   //cotton
   TinhTyLeCottonBongPhe() {
     this.TongKhoiLuong = 0;
-
     this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
     if (this.item.isTruVaoSanLuong === true)
-      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.CottonBongPhe || 0) - (this.item.CottonBongMun || 0) - (this.item.KhoiLuongCuiHoiChaiCotton || 0);
+      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.CottonBongPhe || 0) - (this.item.CottonBongMun || 0) - (this.item.KhoiLuongCuiHoiChaiCotton || 0) - (this.item.KhoiLuongXoNgoaiLai || 0);
 
     if (this.TongKhoiLuong > 0) {
       this.item.TyLeCottonBongPhe = (this.item.CottonBongPhe || 0) / (this.TongKhoiLuong + (this.item.CottonBongPhe || 0)) * 100;
       this.item.TyLeCottonBongMun = (this.item.CottonBongMun || 0) / (this.TongKhoiLuong + (this.item.CottonBongMun || 0)) * 100;
       this.item.TyLeCuiHoiChaiCotton = (this.item.KhoiLuongCuiHoiChaiCotton || 0) / (this.TongKhoiLuong + (this.item.KhoiLuongCuiHoiChaiCotton || 0)) * 100;
+      this.item.TyLeXoNgoaiLai = (this.item.KhoiLuongXoNgoaiLai || 0) / (this.TongKhoiLuong + (this.item.KhoiLuongXoNgoaiLai || 0)) * 100;
     }
   }
   //PE

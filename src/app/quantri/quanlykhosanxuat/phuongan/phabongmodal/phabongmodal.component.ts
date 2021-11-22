@@ -680,6 +680,20 @@ export class PhabongmodalComponent implements OnInit {
       })
     }
   }
+  KhongDuyet() {
+    if (this.ValidData()) {
+      this._services.PhuongAnPhaBong().KhongDuyet(this.SetData()).subscribe((res: any) => {
+        if (res) {
+          if (res.State === 1) {
+            this._toastr.success(res.message);
+            this._activeModal.close();
+          } else {
+            this._toastr.error(res.message);
+          }
+        }
+      })
+    }
+  }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'

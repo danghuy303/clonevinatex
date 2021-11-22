@@ -979,7 +979,7 @@ export class QuantriComponent implements OnInit {
       {
         label: "Menu kế hoạch kinh doanh",
         icon: "fas fa-circle",
-        routerLink: "/quantri",
+        routerLink: "/quantri/hopdongsanxuat",
         visible: this.showHopDongModule,
         items: [
           {
@@ -1017,6 +1017,16 @@ export class QuantriComponent implements OnInit {
               routerLink: "/quantri/hopdongsanxuat/doanhthu/0",
               command: () => this.close(),
             },
+            // {
+            //   label: "Doanh thu theo kế hoạch",
+            //   routerLink: "/quantri/hopdongsanxuat/doanhthu/0",
+            //   command: () => this.close(),
+            // },
+            // {
+            //   label: "Doanh thu theo kế hoạch",
+            //   routerLink: "/quantri/hopdongsanxuat/doanhthu/0",
+            //   command: () => this.close(),
+            // },
           // {
           //   label: "Định mức mặt hàng theo năm",
           //   routerLink: "/quantri/danhmuc/dinhmucmathangtheonam",
@@ -1043,13 +1053,13 @@ export class QuantriComponent implements OnInit {
 
             command: () => this.close(),
           },
-          {
-            label: "Tính lương",
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmuc/danhmuctinhluong",
+          // {
+          //   label: "Tính lương",
+          //   routerLink:
+          //     "/quantri/hopdongsanxuat/danhmuc/danhmuctinhluong",
 
-            command: () => this.close(),
-          },
+          //   command: () => this.close(),
+          // },
           {
             label: "Chi phí bán hàng",
             routerLink:
@@ -1226,6 +1236,11 @@ export class QuantriComponent implements OnInit {
           {
             label: "Chi số triển khai",
             routerLink: "/quantri/phanquyensanxuat/dmchisotrienkhai",
+            command: () => this.close(),
+          },
+          {
+            label: "KgCone",
+            routerLink: "/quantri/phanquyensanxuat/dmkgcone",
             command: () => this.close(),
           },
         ],

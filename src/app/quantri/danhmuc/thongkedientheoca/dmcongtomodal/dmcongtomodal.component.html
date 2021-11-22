@@ -17,19 +17,27 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
             </div>
-        </div>    
+        </div>
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phân nhóm công tơ:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listnhomcongto" placeholder="Chọn" [(ngModel)]="item.idNhomCongToDien"
-                styleClass="p-inputtext-sm"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listnhomcongto" placeholder="Chọn"
+                    [(ngModel)]="item.idNhomCongToDien" styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Máy biến áp:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listmaybienap" placeholder="Chọn" [(ngModel)]="item.idMayBienAp"
-                styleClass="p-inputtext-sm"></p-dropdown>
+                    styleClass="p-inputtext-sm"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-d-flex p-flex-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khung giờ áp dụng:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-multiSelect [options]="listKhungGio|isXoa" [(ngModel)]="nhomKhungGioSelected" [maxSelectedLabels]="8"
+                    [selectedItemsLabel]="'Đã chọn {0} khung giờ'" [selectionLimit]='1' defaultLabel="Chọn khung giờ">
+                </p-multiSelect>
             </div>
         </div>
         <div class="p-col-12 p-d-flex p-flex-row">
@@ -52,30 +60,36 @@
                 <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoDauKy">
                 </p-inputNumber>
             </div>
-        </div>        
+        </div>
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số thứ tự trong nhóm:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-inputNumber locale="vi-VN" [(ngModel)]="item.STT">
                 </p-inputNumber>
             </div>
-        </div> 
+        </div>
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Không cộng vào tổng:</label>
-            <div class="p-col-12 p-lg-8 p-p-0">
+            <div class="p-col-12 p-lg-1 p-p-0">
                 <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isKhongCongVaoTong" />
+            </div>
+            <label class="p-col-12 p-lg-3 p-p-0 my-auto">Nhập số tiêu thụ:</label>
+            <div class="p-col-12 p-lg-1 p-p-0">
+                <input type="checkbox" class="p-inputtext-sm" [(ngModel)]="item.isNhapSoTieuThuTrucTiep" />
             </div>
         </div>
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.GhiChu" pInputText />
+                <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.GhiChu"
+                    pInputText />
             </div>
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()" [disabled]="khongclicknhieu"></button>
+    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"
+        [disabled]="khongclicknhieu"></button>
     <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
         (click)="activeModal.dismiss()"></button>
 </div>
