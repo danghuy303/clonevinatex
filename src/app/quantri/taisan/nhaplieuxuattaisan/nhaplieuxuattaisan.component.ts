@@ -99,7 +99,7 @@ export class NhaplieuxuattaisanComponent implements OnInit {
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = { IddmPhanXuong: this.filter.IddmPhanXuong, IdTaiSan: this.filter.IddmTaiSan, TenDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ten, MaDonViTinh: this.bien_Luu_ThongTin_Tai_San.Ma, IddmDonViTinh: this.bien_Luu_ThongTin_Tai_San.TendmDonViTinh };
-    modalRef.componentInstance.title = 'Thêm mới hiệu xuất tài sản';
+    modalRef.componentInstance.title = 'Thêm mới hiệu suất tài sản';
     modalRef.result.then((res: any) => {
       this._toastr.success('Cập nhật thành công');
       this.GetList();
@@ -112,7 +112,7 @@ export class NhaplieuxuattaisanComponent implements OnInit {
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.title = 'Cập nhật hiệu xuất tài sản';
+    modalRef.componentInstance.title = 'Cập nhật hiệu suất tài sản';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then((res: any) => {
       this._toastr.success('Cập nhật thành công');

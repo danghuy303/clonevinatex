@@ -289,6 +289,20 @@ export class ThongkesanluongmodalComponent implements OnInit {
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong();
   }
+  TinhKhoiLuongChaiKy(item){
+    var KhoiLuong = 0;
+    if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
+      KhoiLuong = item.ChieuDai / (item.Nm);
+    item.KhoiLuong = KhoiLuong;
+    this.TinhTongKhoiLuongBong();
+  }
+  TinhKhoiLuongCuonCui(item){
+    var KhoiLuong = 0;
+    if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
+      KhoiLuong = item.ChieuDai / (item.Nm * 1000);
+    item.KhoiLuong = KhoiLuong;
+    this.TinhTongKhoiLuongBong();
+  }
   TinhKhoiLuongChaiPE(item) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
