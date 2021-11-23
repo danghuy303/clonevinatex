@@ -21,7 +21,7 @@ export class DanhsachtaisanComponent implements OnInit {
   filter: any = {};
   eAction: any = "";
   loaiTab: any = 0;
-  paging:any = {Page: 1, TotalPages: 1, TotalCount: 1 };
+  paging:any = {CurrentPage: 1, TotalPages: 1, TotalCount: 1};
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   items: TreeNode[];
   listLoaiTaiSan: any = [];
@@ -50,11 +50,11 @@ export class DanhsachtaisanComponent implements OnInit {
 
   Loaddata(reset?) {
     if (reset) {
-      this.paging.currentPage = 1;
+      this.paging.CurrentPage = 1;
     }
     let data = {
       PageSize: 20,
-      CurrentPage: this.paging.currentPage,
+      CurrentPage: this.paging.CurrentPage,
       tabTrangThai: 3,
       KeyWord: this.filter.KeyWord,
       TuNgay: DateToUnix(this.filter.TuNgay),
@@ -64,6 +64,9 @@ export class DanhsachtaisanComponent implements OnInit {
     };
     this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
     //  console.log(res)
+    this.paging.CurrentPage = res.Data.Page;
+      this.paging.TotalPages = res.Data.TotalPages;
+      this.paging.TotalCount = res.Data.TotalCount;
     this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "TenLoaiTaiSan", 'IddmLoaiTaiSan');
      let items = [];
      this.items = [];
@@ -120,7 +123,7 @@ export class DanhsachtaisanComponent implements OnInit {
     this.Loaddata(true);
   }
   changePage(event) {
-    this.paging.currentPage = event.page + 1;
+    this.paging.CurrentPage = event.page + 1;
     this.Loaddata();
   }
 }

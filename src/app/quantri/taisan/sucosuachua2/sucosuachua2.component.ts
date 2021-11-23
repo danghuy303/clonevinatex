@@ -17,10 +17,11 @@ export class Sucosuachua2Component implements OnInit {
   constructor(public activeModal: NgbActiveModal, public toastr: ToastrService, private _serviceTaiSan: TaisanService,) { }
   
   ngOnInit(): void {
-    console.log(this.ThongTinQuerySuCoTaiSan)
+    // console.log(112)
+    // this.GetList();
   }
   ngOnChanges(changes: SimpleChanges){
-    this.GetList()
+    this.GetList();
   }
   
   GetList(reset?) {
@@ -33,14 +34,22 @@ export class Sucosuachua2Component implements OnInit {
       CurrentPage: this.paging.CurrentPage,
     }
     this._serviceTaiSan.ListDanhSachSuCo().Get(data).subscribe((res: any) => {
-       console.log(res.Data)
-       this.listItems=res.Data.Items;
-       this.paging = res.Data;
+       console.log(res)
+         if (res.StatusCode !== 200) {
+    this.toastr.error(res.Message);
+  } else {
+    this.listItems=res.Data.Items;
+    this.paging = res.Data;
+    // this.toastr.success(res.Message);
+    // this.activeModal.close();
+  }
+      //  this.listItems=res.Data.Items;
+      //  this.paging = res.Data;
     })
   }
   changePage(event) {
     this.paging.CurrentPage = event.Page + 1;
     this.GetList();
   }
- 
+
 }
