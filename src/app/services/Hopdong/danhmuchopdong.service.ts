@@ -519,5 +519,29 @@ export class DanhMucHopDongService {
             }
         }
     }
+
+    KeHoachKinhDoanh_DonGiaDinhMuc(){
+        let url = API.KeHoach;
+        return{
+            ChiPhi:(opt)=>{
+                return this.CPAll(opt);
+            },
+            Set:(data)=>{
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${url}DonGiaDinhMuc/Set_DonGiaDinhMucNam`,data,httpOptions);
+            }
+        }
+    }
+    CPAll(opt){
+        let url = API.KeHoach;
+        return{
+            GetList:()=>{
+                return this.http.get(`${url}DonGiaDinhMuc/GetAll_${opt}?IdDuAn=${this.store.getCurrent()}`,httpOptions);
+            },
+            Get:(Nam)=>{
+                return this.http.get(`${url}DonGiaDinhMuc/GetByNam_${opt}?IdDuAn=${this.store.getCurrent()}&Nam=${Nam}`,httpOptions);
+            }
+        }
+    }
 }
 

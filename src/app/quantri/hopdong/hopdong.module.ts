@@ -184,6 +184,12 @@ import { DoanhthuComponent } from './screen/doanhthu/doanhthu.component';
 import { ModaldanhmuctygiangoaiteComponent } from './danhmuc/modal/modaldanhmuctygiangoaite/modaldanhmuctygiangoaite.component';
 import { ModaldanhmucdongiasanphamComponent } from './danhmuc/modal/modaldanhmucdongiasanpham/modaldanhmucdongiasanpham.component';
 import { NhapgiatinhdoanhthumodalComponent } from './modals/nhapgiatinhdoanhthumodal/nhapgiatinhdoanhthumodal.component';
+import { ChiphibongComponent } from './danhsach/chiphibong/chiphibong.component';
+import { ChiphixoComponent } from './danhsach/chiphixo/chiphixo.component';
+import { ChiphidienComponent } from './danhsach/chiphidien/chiphidien.component';
+import { ModalchiphibongComponent } from './danhsach/modal/modalchiphibong/modalchiphibong.component';
+import { ModalchiphixoComponent } from './danhsach/modal/modalchiphixo/modalchiphixo.component';
+import { ModalchiphidienComponent } from './danhsach/modal/modalchiphidien/modalchiphidien.component';
 
 @NgModule({
   declarations: [
@@ -358,6 +364,18 @@ import { NhapgiatinhdoanhthumodalComponent } from './modals/nhapgiatinhdoanhthum
     ModaldanhmucdongiasanphamComponent,
     
     NhapgiatinhdoanhthumodalComponent,
+    
+    ChiphibongComponent,
+    
+    ChiphixoComponent,
+    
+    ChiphidienComponent,
+    
+    ModalchiphibongComponent,
+    
+    ModalchiphixoComponent,
+    
+    ModalchiphidienComponent,
 
     
   ],
@@ -494,7 +512,11 @@ import { NhapgiatinhdoanhthumodalComponent } from './modals/nhapgiatinhdoanhthum
     ModaldanhmuctygiangoaiteComponent,
     ModaldanhmucdongiasanphamComponent,
     NhapgiatinhdoanhthumodalComponent,
-
+    ModalchiphibongComponent,
+    
+    ModalchiphixoComponent,
+    
+    ModalchiphidienComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })

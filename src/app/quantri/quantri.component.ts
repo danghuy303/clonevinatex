@@ -1019,12 +1019,17 @@ export class QuantriComponent implements OnInit {
           },
           {
             label: "Chi phí bông năm",
-            routerLink: "/quantri/hopdongsanxuat/doanhthu/0",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/chiphibongnam",
             command: () => this.close(),
           },
           {
             label: "Chi phí xơ năm",
-            routerLink: "/quantri/hopdongsanxuat/doanhthu/0",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/chiphixonam",
+            command: () => this.close(),
+          },
+          {
+            label: "Chi phí điện năm",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/chiphidiennam",
             command: () => this.close(),
           },
           // {
