@@ -8,7 +8,6 @@ import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 import { ToastrService } from "ngx-toastr";
 import { Component, OnInit } from "@angular/core";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { HopdongRoutingModule } from "src/app/quantri/hopdong/hopdong-routing.module";
 
 @Component({
   selector: 'app-thanhtoanhopdongmodal',
