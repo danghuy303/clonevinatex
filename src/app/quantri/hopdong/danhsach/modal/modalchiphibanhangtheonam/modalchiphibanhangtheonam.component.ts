@@ -24,8 +24,8 @@ export class ModalchiphibanhangtheonamComponent implements OnInit {
   oldEditItem: any = [];
   item: any = {};
   type = '';
-  opt = '';
-  listChiPhi: any = [];
+  opt = '';  listChiPhi: any = [];
+
   lstChiTiet: any = [];
   listChiPhi_copy: any[];
   title:any='';
