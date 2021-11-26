@@ -11,5 +11,6 @@ export class ModalchiphibongComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  //callAPI this._danhMucHopDong.KeHoachKinhDoanh_DonGiaDinhMuc().ChiPhi('Bong').Get(Nam) sau khi chọn năm
+  // this._danhMucHopDong.KeHoachKinhDoanh_DonGiaDinhMuc().Set(item) để ghi lại
 }

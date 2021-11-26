@@ -21,7 +21,7 @@ export class ModaldanhmuctygiangoaiteComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    for(let i = new Date().getFullYear()-5;i<=new Date().getFullYear()+5;i++){
+    for(let i = new Date().getFullYear()-5;i<=new Date().getFullYear()+10;i++){
       this.listNam.push({value:i,label:i});
     }
     for(let i = 1;i<=12;i++){

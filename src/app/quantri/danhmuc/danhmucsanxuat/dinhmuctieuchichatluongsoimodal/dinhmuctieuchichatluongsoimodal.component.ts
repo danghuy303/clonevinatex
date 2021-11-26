@@ -22,12 +22,13 @@ export class DinhmuctieuchichatluongsoimodalComponent implements OnInit {
     public toastr: ToastrService, private _modal: NgbModal) { }
 
   ngOnInit(): void {
-    if (this.item.length > 0) {
-      this.item.forEach(element => {
-        let indexOf = element.itemChiTieuChatLuong.Ten.indexOf('Chi số thực tế (Ne)');
+    console.log(this.item);
+
+    if (this.item?.lstdmChiTieuChatLuong.length > 0) {
+      this.item?.lstdmChiTieuChatLuong.forEach(element => {
+        let indexOf = element.Ten.indexOf('Chi số thực tế (Ne)');
         if(indexOf > -1){
           element.disable = true;
-          element.TieuChuan = this.SelectItem.Ne;
         }
         else{
           element.disable = false;
@@ -38,8 +39,7 @@ export class DinhmuctieuchichatluongsoimodalComponent implements OnInit {
 
   accept() {
     this.khongclicknhieu = !this.khongclicknhieu;
-    let data: any = { idSanPham: this.SelectItem.Id, lstChiTieu: this.item };
-    this.services.dmDinhMucTieuChiChatLuongSoi().Set(data).subscribe((res: any) => {
+    this.services.dmDinhMucTieuChiChatLuongSoi().Set(this.item.lstdmChiTieuChatLuong).subscribe((res: any) => {
       if (res) {
         if (res.State === 1) {
           this.khongclicknhieu = !this.khongclicknhieu;
