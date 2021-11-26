@@ -51,6 +51,9 @@ import { KehoachsanxuatthangComponent } from './kehoachsanxuatthang/kehoachsanxu
 import { DoanhthuComponent } from './screen/doanhthu/doanhthu.component';
 import { DanhmucdongiasanphamComponent } from './danhmuc/danhmucdongiasanpham/danhmucdongiasanpham.component';
 import { DanhmuctygiangoaiteComponent } from './danhmuc/danhmuctygiangoaite/danhmuctygiangoaite.component';
+import { ChiphibongComponent } from './danhsach/chiphibong/chiphibong.component';
+import { ChiphixoComponent } from './danhsach/chiphixo/chiphixo.component';
+import { ChiphidienComponent } from './danhsach/chiphidien/chiphidien.component';
 const routes: Routes = [
   {path:'',component:HopdongComponent},
   {path:'danhmuc/danhmuchinhthucthanhtoan',component:DanhmuchinhthucthanhtoanComponent},
@@ -75,11 +78,13 @@ const routes: Routes = [
   {path:'danhmuc/chiphibanhangtheonam',component: ChiphibanhangtheonamComponent},
   {path:'danhmuc/dinhmucsanxuat',component: DinhmucsanxuatComponent},
   {path:'danhmuc/dmtieuchidanhgia',component:DanhmuctieuchidanhgiaComponent},
-  
-
   {path:'danhmuc/dmtieuchichatluong',component: DmtieuchichatluonghopdongComponent},
   {path:'danhmuc/dongiasanpham/:id',component: DanhmucdongiasanphamComponent},
   {path:'danhmuc/tygiangoaite/:id',component: DanhmuctygiangoaiteComponent},
+  {path:'danhmuc/chiphibongnam',component: ChiphibongComponent},
+  {path:'danhmuc/chiphixonam',component: ChiphixoComponent},
+  {path:'danhmuc/chiphidiennam',component: ChiphidienComponent},
+
 
 
 

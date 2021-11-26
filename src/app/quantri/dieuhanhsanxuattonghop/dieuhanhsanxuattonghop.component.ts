@@ -230,18 +230,21 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     this.TongHop();
     this.BieuDoCoCau();
   }
-
+  _formatN(num){
+    return formatNumber(num, 'vi-VN', '0.0-2')
+  }
   TongHop() {
     this.filter.IdDuAn = this.IdDuAn;
     this._services.BaoCao().TongHop(this.filter).subscribe((res: any) => {
       this.thongKes = res;
       this.thongKes = [
-        { Ten: 'Sản lượng ống', TieuHao: res.SanLuongOng, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: res.SanLuongOng_ManHinh, button: 'chitietsanluongong' },
-        { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: res.LuyKe_ManHinh, button: 'chitietluyke' },
+        { Ten: 'Sản lượng ống', TieuHao: res.SanLuongOng, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: this._formatN(res.SanLuongOng_ManHinh), button: 'chitietsanluongong' },
+        { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: this._formatN(res.LuyKe_ManHinh), button: 'chitietluyke' },
         // Điện k có màn hình
-        { Ten: 'Điện AC theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.DienAC_KW },
-        { Ten: 'Tổng điện theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: res.TongDien_KW, button: 'xuatexcel' },
-        { Ten: 'Tỷ lệ điện AC theo ngày (3)/(4)', TieuHao: '%', DonVi: '%', ManHinh: res.DienAC_PhanTram },
+        { Ten: 'Điện AC | khí nén theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: `${this._formatN(res.DienAC_KW)} | ${this._formatN(res.DienKhiNen_KW)}` },
+        { Ten: 'Tổng điện theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: this._formatN(res.TongDien_KW), button: 'xuatexcel' },
+        { Ten: 'Tỷ lệ điện AC | Khí nén theo ngày (3)/(4)', TieuHao: '%', DonVi: '%', ManHinh: `${this._formatN(res.DienAC_PhanTram)} | ${this._formatN(res.DienKhiNen_PhanTram)}` },
+        { Ten: 'Tiêu hao bình quân (4)/(1)', TieuHao: 'KwH', DonVi: 'KwH/kg', ManHinh: this._formatN(res.TieuHaoDienBinhQuan) },
       ]
       this.thongKes1 = [
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },

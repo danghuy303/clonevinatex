@@ -20,7 +20,13 @@ export class ModaldanhmucdongiasanphamComponent implements OnInit {
   public Nam;
   public listDonViTien = [];
   public listDonViTienRef = [];
-
+  public itemGoiYGia={};
+  public showGoiYGia:boolean = false;
+  public HeaderGoiYGia:string = '';
+  public GiaGoiY:number=0;
+  public cloneItemGia:any={};
+  public listHeader: any=['Chi phí bông','Chi phí xơ','Chi phí VLP','Chi phí điện','Chi phí nhân công','Chi phí bằng tiền','Chi phí khác'];
+  public listProp: any=['ChiPhiBong','ChiPhiXo','ChiPhiVLP','ChiPhiDien','ChiPhiNhanCong','ChiPhiTien','ChiPhiKhac'];
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService, public toastr: ToastrService,public _hopdongServices:HopDongService) { }
 
   ngOnInit(): void {
@@ -60,12 +66,32 @@ export class ModaldanhmucdongiasanphamComponent implements OnInit {
   SetData() {
     return this.data;
   }
-  GoiYGia(item){
-    console.log(item);
-    this._danhMucHopDong.DanhMucDonGia().GoiYGia({Nam:item.Nam,IdSanPham:item.IdSanPham}).subscribe(res=>{
-      console.log(res);
+  GoiYGia(item,index){
+    this.cloneItemGia = {
+      IdSanPham:item.IdSanPham,
+      indexGia:index
+    }
+    this._danhMucHopDong.DanhMucDonGia().GoiYGia({Nam:item.Nam,IdSanPham:item.IdSanPham}).subscribe((res:any)=>{
+      console.log(res.Data);
+      this.itemGoiYGia = res.Data;
+      this.GiaGoiY = this.listProp.reduce((total,ele)=>total+this.itemGoiYGia[ele],0)
+      this.showGoiYGia = true;
+      this.HeaderGoiYGia = 'Gợi ý giá '+item.TenSanPham;
     })
   }
+  ApDungGiaGoiY(){
+    let sanpham = this.data.find(ele=>ele.IdSanPham === this.cloneItemGia.IdSanPham);
+    let gia = sanpham?.lstChiTietGia[this.cloneItemGia.indexGia];
+    gia && (gia.Gia = this.GiaGoiY);
+    console.log(this.cloneItemGia,sanpham,gia)
+    this.showGoiYGia = false;
+  }
+  QuayLai(){
+    this.cloneItemGia = {};
+    this.showGoiYGia = false;
+    this.itemGoiYGia = {};
+    this.GiaGoiY = 0;
+    this.HeaderGoiYGia = ''  }
   GhiLai() {
     this._danhMucHopDong.DanhMucDonGia().Set(this.SetData()).subscribe((res: any) => {
       if (res.StatusCode!== 200) {

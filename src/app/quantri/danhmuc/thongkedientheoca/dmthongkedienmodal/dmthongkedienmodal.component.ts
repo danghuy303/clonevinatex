@@ -98,14 +98,18 @@ export class DmthongkedienmodalComponent implements OnInit {
         this.item.lstMayBienAp.forEach((objlstMayBienAp,indexMBA) => {
             objlstMayBienAp.lstKhungGio.forEach((objlstKhungGio,indexKhungGio) => {
                 objlstKhungGio.lstCongTo.forEach((objlstCongTo,indexCongTo) => {
+                    if(objlstCongTo.SoTieuThu ===null || objlstCongTo.SoTieuThu === undefined){
+                        objlstCongTo.SoTieuThu = 0;
+                    }
+                    console.log(objlstCongTo.SoTieuThu);
                     if (
                         objlstCongTo.SoMoi > 0 &&
                         objlstCongTo.SoCu > objlstCongTo.SoMoi
                     ) {
-                        console.log('MBA: '+indexMBA)
-                        console.log('KhungGio: '+indexKhungGio)
-                        console.log('CongTo: '+indexCongTo)
-                        console.log(objlstCongTo)
+                        // console.log('MBA: '+indexMBA)
+                        // console.log('KhungGio: '+indexKhungGio)
+                        // console.log('CongTo: '+indexCongTo)
+                        // console.log(objlstCongTo)
                         checkSoMoi = false
                     }
                 });

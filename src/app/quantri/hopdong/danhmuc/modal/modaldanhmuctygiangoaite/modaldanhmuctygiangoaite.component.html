@@ -7,10 +7,20 @@
     (click)="activeModal.dismiss('Cross click')">×</span> -->
 </div>
 <div class="modal-body">
+    <div class="p-col-4">
+        <div class="p-d-flex p-flex-row">
+            <div class="p-col-3">Chọn năm:</div>
+            <div class="p-col-9">
+                <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="Nam" placeholder="Chọn năm"
+                    (onChange)="GetData($event)" styleClass="p-inputtext-sm">
+                </p-dropdown>
+            </div>
+
+        </div>
+
+    </div>
     <div class="p-col-12 p-0">
-        <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="Nam" placeholder="Chọn năm"
-            (onChange)="GetData($event)" styleClass="p-inputtext-sm">
-        </p-dropdown>
+
 
         <p-table [value]="data.lstTienTe" styleClass="p-datatable-sm wrap-text p-datatable-striped">
             <ng-template pTemplate="header">
@@ -23,7 +33,7 @@
                 <tr>
                     <td class="text-center">{{tiente.Ten}}</td>
                     <td *ngFor="let prop of listProp">
-                        <p-inputNumber  [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="tiente[prop]">
+                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="tiente[prop]">
                         </p-inputNumber>
                     </td>
                 </tr>

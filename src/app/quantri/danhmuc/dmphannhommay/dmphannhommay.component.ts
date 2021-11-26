@@ -143,7 +143,8 @@ export class DmphannhommayComponent implements OnInit {
     modalRef.componentInstance.listDonViNangSuat = this.listDonViNangSuat;
     modalRef.componentInstance.item = {
       Id: '',
-      lstdmItem: []
+      lstdmItem: [],
+      HeSoChung:1
     }
     modalRef.result.then(res => {
       // this._toastr.success(res);

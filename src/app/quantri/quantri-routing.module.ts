@@ -199,6 +199,7 @@ const routes: Routes = [
       { path: 'phanquyensanxuat/dmchisotrienkhai', component: DmchisotrienkhaiComponent },
       { path: 'phanquyensanxuat/dmkgcone', component: DmkgconeComponent },
       { path: 'hopdongsanxuat', loadChildren:  ()=> import('./hopdong/hopdong.module').then(m=>m.HopdongModule) },
+      { path: 'mkehoachsanxuat', loadChildren:  ()=> import('./mkehoachsanxuat/mkehoachsanxuat.module').then(m=>m.MkehoachsanxuatModule) },
       { path: 'taisan', loadChildren:  ()=> import('./taisan/taisan.module').then(m=>m.TaisanModule) },
 
       { path: 'quanlykhosanxuatbongkhac/khovattuphu/nhapkho/:id', component: NhapkhovattuphuComponent },
