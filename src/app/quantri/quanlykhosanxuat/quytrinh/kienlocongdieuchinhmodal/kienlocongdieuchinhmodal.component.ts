@@ -55,7 +55,7 @@ export class KienlocongdieuchinhmodalComponent implements OnInit {
   // itemFulls = [];
   listItem:any = [];
   constructor(
-    private activeModal: NgbActiveModal,
+    public activeModal: NgbActiveModal,
   ) { }
 
   ngOnInit(): void {

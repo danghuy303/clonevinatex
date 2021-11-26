@@ -192,7 +192,7 @@ export class DmthongkedienmodalComponent implements OnInit {
             this.listInput.toArray()[0].el.nativeElement.children[0].children[0].focus();
           }
     }
-    changeTab(e) {
+    changeTab(e?) {
         let index = 0;
         if(e !== undefined)
             index = e.index;

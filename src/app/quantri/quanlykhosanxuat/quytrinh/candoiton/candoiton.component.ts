@@ -18,6 +18,7 @@ export class CandoitonComponent implements OnInit {
   paging: any = {};
   filter:any={};
   trangThai:any=1;
+  listLoaiPhuongAn:any=[];
   cols: any = [
     {
       header: 'Tên lô bông',

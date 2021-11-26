@@ -12,7 +12,7 @@
             <div class="p-col-3">Chọn năm:</div>
             <div class="p-col-9">
                 <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="Nam" placeholder="Chọn năm"
-                    (onChange)="GetData($event)" styleClass="p-inputtext-sm">
+                    (onChange)="GetData()" styleClass="p-inputtext-sm">
                 </p-dropdown>
             </div>
 
@@ -43,7 +43,7 @@
 </div>
 <div class="modal-footer">
     <button pButton pRipple label="Lưu" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"
-        [disabled]="khongclicknhieu"></button>
+        ></button>
     <button pButton pRipple label="Đóng" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
         (click)="activeModal.dismiss()"></button>
 </div>

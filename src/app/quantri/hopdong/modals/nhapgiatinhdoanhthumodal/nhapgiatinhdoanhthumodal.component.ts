@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-nhapgiatinhdoanhthumodal',
@@ -6,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nhapgiatinhdoanhthumodal.component.css']
 })
 export class NhapgiatinhdoanhthumodalComponent implements OnInit {
-
-  constructor() { }
+  data:any
+  constructor(public activeModal:NgbActiveModal) { }
 
   ngOnInit(): void {
   }

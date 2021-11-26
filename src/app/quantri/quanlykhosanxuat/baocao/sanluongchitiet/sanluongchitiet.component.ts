@@ -13,6 +13,7 @@ export class SanluongchitietComponent implements OnInit {
 
   ]
   tabIndex: any = 0;
+  items:any=[];
   constructor() { }
 
   ngOnInit(): void {

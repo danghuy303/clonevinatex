@@ -15,7 +15,7 @@ export class HopdongchonhanghoagiaokehoachmodalComponent implements OnInit {
   KeyWord: any = '';
   opt: any = '';
   checkedAll: boolean = false;
-    constructor(private _activeModal: NgbActiveModal, public _toastr: ToastrService, ) { }
+    constructor(public _activeModal: NgbActiveModal, public _toastr: ToastrService, ) { }
 
   ngOnInit(): void {
     this.items.forEach(item => {

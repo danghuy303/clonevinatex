@@ -8,7 +8,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ModalthongbaoComponent implements OnInit {
   message:string = '';
-  constructor(private _modal: NgbActiveModal) { }
+  constructor(public _modal: NgbActiveModal) { }
 
   ngOnInit(): void {
     

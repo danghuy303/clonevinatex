@@ -14,7 +14,7 @@ export class MathangdaomodalComponent implements OnInit {
   KeyWord: any = '';
   opt: any = '';
   checkedAll: boolean = false;
-  constructor(private _activeModal: NgbActiveModal, private _services: SanXuatService) { }
+  constructor(public _activeModal: NgbActiveModal, private _services: SanXuatService) { }
 
   ngOnInit(): void {
     if(this.items.length > 0){

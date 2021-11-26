@@ -12,7 +12,7 @@ export class ThemlotuonglaimodalComponent implements OnInit {
   selectedItems: any = [];
   IdQuyTrinh: any = '';
   checkedAll:boolean;
-  constructor(private _activeModal: NgbActiveModal) { }
+  constructor(public _activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
     this.selectedItems.filter(item => !item.isXoa).forEach(sItem => {
