@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lichbaoduong.component.css']
 })
 export class LichbaoduongComponent implements OnInit {
-
+  items:any=[];
   constructor() { }
 
   ngOnInit(): void {

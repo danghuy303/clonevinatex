@@ -30,7 +30,7 @@ export class ModalimportexcelComponent implements OnInit {
     Quan:'upload/excel/Mẫu import excel danh mục quận.xlsx',
     Phuong:'upload/excel/Mẫu import excel danh mục phường.xlsx'
   };
-  constructor(private _modalActive: NgbActiveModal, private _modal: NgbModal, private _danhmuc: Dat09Service,private _toastr:ToastrService) { }
+  constructor(public _modalActive: NgbActiveModal, private _modal: NgbModal, private _danhmuc: Dat09Service,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
   }

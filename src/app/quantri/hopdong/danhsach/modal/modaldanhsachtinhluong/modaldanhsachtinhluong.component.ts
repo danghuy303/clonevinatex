@@ -31,6 +31,7 @@ export class ModaldanhsachtinhluongComponent implements OnInit {
   lstHeader:any=['Lương vị trí','Bảo hiểm','Tiền ăn ca','Lương ngày lễ','Lương tháng 13','Ngày công cơ sở','Số lượng']
   listCoCauNhanSu: any[]=[];
   TongChiPhiToanBo:any=0;
+  title
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,

@@ -89,7 +89,6 @@ import { ChitietdieukhoanmodalComponent } from './screen/modal/share/chitietdieu
 import { NhansuthuchienmodalComponent } from './screen/modal/share/chitietnhansuthuchien/nhansuthuchienmodal/nhansuthuchienmodal.component';
 import { ChitietbaolanhmodalComponent } from './screen/modal/share/chitietbaolanh/chitietbaolanhmodal/chitietbaolanhmodal.component';
 // import { GiaonhanhopdongComponent } from './screen/thuchienhopdong/giaonhanhopdong/giaonhanhopdong.component';
-import { ThanhtoanhopdongComponent } from './screen/thuchienhopdong/thanhtoanhopdong/thanhtoanhopdong.component';
 import { PhathopdongComponent } from './screen/thuchienhopdong/phathopdong/phathopdong.component';
 import { QuyettoanhopdongComponent } from './screen/thuchienhopdong/quyettoanhopdong/quyettoanhopdong.component';
 import { GiaonhanhanghoaComponent } from './screen/thuchienhopdong/giaonhanhanghoa/giaonhanhanghoa.component';
@@ -102,7 +101,6 @@ import { GiahanhopdongmodalComponent } from './screen/thuchienhopdong/giahanhopd
 import { GiaonhanhanghoamodalComponent } from './screen/thuchienhopdong/giaonhanhanghoa/giaonhanhanghoamodal/giaonhanhanghoamodal.component';
 import { PhathopdongmodalComponent } from './screen/thuchienhopdong/phathopdong/phathopdongmodal/phathopdongmodal.component';
 import { QuyettoanhopdongmodalComponent } from './screen/thuchienhopdong/quyettoanhopdong/quyettoanhopdongmodal/quyettoanhopdongmodal.component';
-import { ThanhtoanhopdongmodalComponent } from './screen/thuchienhopdong/thanhtoanhopdong/thanhtoanhopdongmodal/thanhtoanhopdongmodal.component';
 import { GiaokehoachsanxuatComponent } from './screen/thuchienhopdong/giaokehoachsanxuat/giaokehoachsanxuat.component';
 import { GiaokehoachsanxuatmodalComponent } from './screen/thuchienhopdong/giaokehoachsanxuat/giaokehoachsanxuatmodal/giaokehoachsanxuatmodal.component';
 
@@ -229,7 +227,6 @@ import { ModalchiphidienComponent } from './danhsach/modal/modalchiphidien/modal
     ChitietdieukhoanmodalComponent,
     NhansuthuchienmodalComponent,
     ChitietbaolanhmodalComponent,
-    ThanhtoanhopdongComponent,
 
     PhathopdongComponent,
 
@@ -255,7 +252,6 @@ import { ModalchiphidienComponent } from './danhsach/modal/modalchiphidien/modal
 
     QuyettoanhopdongmodalComponent,
 
-    ThanhtoanhopdongmodalComponent,
 
     GiaokehoachsanxuatComponent,
 
@@ -462,7 +458,6 @@ import { ModalchiphidienComponent } from './danhsach/modal/modalchiphidien/modal
     GiahanhopdongmodalComponent,
     GiaonhanhanghoamodalComponent,
     PhathopdongmodalComponent,
-    ThanhtoanhopdongmodalComponent,
     ChitietbaolanhComponent,
     ChitietdanhsachhanghoaComponent,
     ChitietdieukhoanthanhtoanComponent,

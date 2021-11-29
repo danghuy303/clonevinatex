@@ -14,7 +14,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 export class ChonsodongphannhommayComponent implements OnInit {
 
   item: any = {};
-
+  title:any='';
   constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) {
 
   }

@@ -82,7 +82,7 @@
                 <div>
                     <button pButton pRipple type="button" label="Import cơ lý" class="p-mr-2 p-button-sm"
                         (click)="importExcel()"></button>
-                    <button pButton pRipple type="button" *ngIf="item.listItem !== undefine && item.listItem !== []"
+                    <button pButton pRipple type="button" *ngIf="item.listItem !== undefined && item.listItem !== []"
                         label="Import MIC 100" class="p-mr-2 p-button-sm" (click)="importExcelMic()"></button>
                     <button pButton pRipple type="button" label="Excel cơ lý mẫu" class="p-mr-2 p-button-sm"
                         (click)="exportExcelMau(0)"></button>

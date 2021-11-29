@@ -34,7 +34,7 @@
     <div class="p-col-12 p-md-6 p-lg-12  flex-column flex-lg-row d-flex">
         <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú</label>
         <div class="p-col-12 p-lg-10 p-p-0">
-            <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.ghiChu" pInputText />
+            <input type="text" class="p-inputtext-sm" (keyup.enter)="GhiLai()" [(ngModel)]="item.ghiChu" pInputText />
         </div>
     </div>
     <!-- <div class="p-field-checkbox">
@@ -45,7 +45,7 @@
 </div>
 </div>
 <div class="modal-footer">
-<button pButton pRipple label="Lưu" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()" [disabled]="khongclicknhieu"></button>
+<button pButton pRipple label="Lưu" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"></button>
 <button pButton pRipple label="Đóng" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
     (click)="activeModal.dismiss()"></button>
 </div>

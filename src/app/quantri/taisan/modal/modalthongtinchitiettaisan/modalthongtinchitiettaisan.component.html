@@ -34,25 +34,25 @@
         <div class="p-d-flex p-flex-row">
             <div class="p-mr-2">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                    [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetListBienDongById(true)">
+                    [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày">
                 </p-calendar>
             </div>
             <div class="p-mr-2">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                    [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetListBienDongById(true)">
+                    [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày">
                 </p-calendar>
             </div>
             <div class="p-inputgroup" style="width: 200px;">
-                <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListBienDongById(true)"
+                <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
                     [(ngModel)]="filter.KeyWord" />
                 <button type="button" pButton pRipple icon="pi pi-search"
-                    class="p-button-secondary p-button-sm p-button-text" (click)="GetListBienDongById(true)"></button>
+                    class="p-button-secondary p-button-sm p-button-text" ></button>
                 <button type="button" pButton pRipple icon="pi pi-refresh"
                     class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
             </div>
         </div>
     </div>
-    <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
+    <p-tabView styleClass="no-content">
         <p-tabPanel header="Thông tin chung">
             <!-- <app-thongtinchung [Du_Lieu_Thong_Tin_Chung]="Du_Lieu_Thong_Tin_Chung" ></app-thongtinchung> -->
             <app-thongtinchung [Du_Lieu_Thong_Tin_Chung]="Du_Lieu_Cha"></app-thongtinchung>

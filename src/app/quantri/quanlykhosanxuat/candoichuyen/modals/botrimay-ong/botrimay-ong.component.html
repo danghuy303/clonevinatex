@@ -28,11 +28,11 @@
         <div class="d-flex flex-row">
             <label class="mr-3">Áp dụng trong khoảng:</label>
             <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                [defaultDate]="minDateChonMay" [yearNavigator]="false" [(ngModel)]="filter.TuNgay"
+                [yearNavigator]="false" [(ngModel)]="filter.TuNgay"
                 placeholder="Từ ngày">
             </p-calendar>
             <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy"
-                [defaultDate]="maxDateChonMay" [yearNavigator]="false" [(ngModel)]="filter.DenNgay"
+                [yearNavigator]="false" [(ngModel)]="filter.DenNgay"
                 placeholder="Đến ngày">
             </p-calendar>
             <button pButton pRipple type="button" label="Áp dụng" class="p-mr-2 p-button-sm "

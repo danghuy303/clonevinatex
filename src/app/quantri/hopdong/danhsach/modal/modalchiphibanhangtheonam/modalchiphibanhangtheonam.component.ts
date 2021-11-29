@@ -28,6 +28,7 @@ export class ModalchiphibanhangtheonamComponent implements OnInit {
 
   lstChiTiet: any = [];
   listChiPhi_copy: any[];
+  title:any='';
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,

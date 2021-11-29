@@ -27,7 +27,7 @@ export class DanhsachhopdongsoimodalComponent implements OnInit {
   filter: any = {
     keyWord: "",
   };
-
+  opt:string='';
   checkedAll: boolean = false;
   checkbutton: any = {
     Ghi: true,

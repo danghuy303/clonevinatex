@@ -30,6 +30,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
   public listTaiSanRef: any = [];
   listTaiSan: any = [];
   NameFile: string;
+  title:any='';
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,

@@ -3,7 +3,6 @@ import { AuthenticationService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Dat09Service } from '../services/callApi';
-import { ThanhtoanhopdongComponent } from '../quantri/hopdong/screen/thuchienhopdong/thanhtoanhopdong/thanhtoanhopdong.component';
 import { SanXuatService } from '../services/callApiSanXuat';
 import { StoreService } from '../services/store.service';
 

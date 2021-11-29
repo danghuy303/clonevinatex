@@ -14,7 +14,7 @@ export class ModaldoimatkhauComponent implements OnInit {
   oldPass: string;
   newPass: string;
   confirmPass: string;
-  constructor(private _services: Dat09Service, private _toastr: ToastrService , private _activeModal:NgbActiveModal,private auth:AuthenticationService,private _router:Router) { }
+  constructor(private _services: Dat09Service, private _toastr: ToastrService , public _activeModal:NgbActiveModal,private auth:AuthenticationService,private _router:Router) { }
 
   ngOnInit(): void {
   }

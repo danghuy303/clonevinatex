@@ -24,7 +24,7 @@ export class ImportdanhmucmodelComponent implements OnInit {
   uploader: FileUploader;
   data: any = {};
   IdDuAn: any;
-  constructor(private _modalActive: NgbActiveModal, private _modal: NgbModal,
+  constructor(public _modalActive: NgbActiveModal, private _modal: NgbModal,
     private service: SanXuatService, private _toastr: ToastrService, private store: StoreService) { }
   ngOnInit(): void {
     this.IdDuAn = this.store.getCurrent();

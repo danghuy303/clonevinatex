@@ -21,7 +21,7 @@ export class ModalkehoachkinhdoanhtheodoiComponent implements OnInit {
   listdmLoaiSoi: any = [];
   listNhaMay: Array<any> = [];
   showDropDown: boolean = false;
-
+  type:any='';
   constructor(public activeModal: NgbActiveModal, private _danhMucHopDong: DanhMucHopDongService,
     public toastr: ToastrService,
     private _services: SanXuatService,
