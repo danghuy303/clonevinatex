@@ -15,6 +15,7 @@ import { ModalchiphibongComponent } from '../modal/modalchiphibong/modalchiphibo
 export class ChiphibongComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [];
+  Nam:number ;
   keyWord:any='';
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 1 };
   userBtn: any;
@@ -51,10 +52,10 @@ export class ChiphibongComponent implements OnInit {
         };
         this._danhMucHopDong.KeHoachKinhDoanh_DonGiaDinhMuc().ChiPhi('Bong').GetList().subscribe((res:any)=>{
           console.log(res);
-          // this.items = res.Data.Items;
-          // this.items.filter(obj=>{            
-          //   obj.TenDuAn = this.listNhaMay.find(ele=>ele.Id==obj.IdDuAn).TenDuAn;            
-          // });
+          this.items = res.Data;
+          this.items.filter(obj=>{            
+            obj.TenDuAn = this.listNhaMay.find(ele=>ele.Id==obj.IdDuAn).TenDuAn;            
+          });
           
           // this.paging.TotalItem = res.Data.TotalCount;
         })
@@ -75,8 +76,8 @@ export class ChiphibongComponent implements OnInit {
   }
 
 edit(item){
-  this._danhMucHopDong.MucLuongCoCauNhanSu().Get(item.Id).subscribe((res1:any)=>{
-    res1.listItem = res1.lstChiTiet;
+  this._danhMucHopDong.KeHoachKinhDoanh_DonGiaDinhMuc().ChiPhi('Bong').Get(this.Nam).subscribe((res: any) => {
+    // res1.listItem = res1.lstChiTiet;
     let modalRef = this._modal.open(ModalchiphibongComponent,{
       backdrop:'static',
       size:'fullscreen'
@@ -84,7 +85,7 @@ edit(item){
     modalRef.componentInstance.opt='edit';
     modalRef.componentInstance.type = '';
     modalRef.componentInstance.title = 'Cập nhật chi phí bông';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1)); 
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
     modalRef.result.then(res=>{
       this.GetListMucLuong();
     }).catch(er=>console.log(er))
