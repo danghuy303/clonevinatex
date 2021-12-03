@@ -17,7 +17,7 @@ export class ImportnhapkhothanhphamComponent implements OnInit {
   TepImport: any = {
     TenGoc: ''
   }
-  constructor(private _modalActive: NgbActiveModal, private _modal: NgbModal,
+  constructor(public _modalActive: NgbActiveModal, private _modal: NgbModal,
     private service: SanXuatService, private _toastr: ToastrService, private store: StoreService) { }
 
   ngOnInit(): void {

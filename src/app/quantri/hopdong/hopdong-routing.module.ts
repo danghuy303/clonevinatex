@@ -4,7 +4,6 @@ import { LaphopdongbongxoComponent } from './screen/laphopdongbongxo/laphopdongb
 import { PhathopdongComponent } from './screen/thuchienhopdong/phathopdong/phathopdong.component';
 import { QuyettoanhopdongComponent } from './screen/thuchienhopdong/quyettoanhopdong/quyettoanhopdong.component';
 import { GiahanhopdongComponent } from './screen/thuchienhopdong/giahanhopdong/giahanhopdong.component';
-import { ThanhtoanhopdongComponent } from './screen/thuchienhopdong/thanhtoanhopdong/thanhtoanhopdong.component';
 import { GiaonhanhanghoaComponent } from './screen/thuchienhopdong/giaonhanhanghoa/giaonhanhanghoa.component';
 import { DanhsachhopdongbongxoComponent } from './screen/danhsachhopdongbongxo/danhsachhopdongbongxo.component';
 import { DmLoaiHopDongComponent } from './danhmuc/dm-loai-hop-dong/dm-loai-hop-dong.component';
@@ -96,7 +95,6 @@ const routes: Routes = [
   { path: 'nhapkho/:id', component: NhapkhoComponent },  
   { path: 'xuatkhothanhpham/:id', component: XuatkhothanhphamhopdongComponent },
   { path: 'giaonhanhanghoa/:id', component: GiaonhanhanghoaComponent },
-  { path: 'thanhtoanhopdong/:id', component: ThanhtoanhopdongComponent },
   { path: 'phathopdong/:id', component: PhathopdongComponent },
   { path: 'giaokehoachsanxuat/:id', component: GiaokehoachsanxuatComponent },
   { path: 'giahanhopdong/:id', component: GiahanhopdongComponent },

@@ -244,7 +244,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         { Ten: 'Điện AC | khí nén theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: `${this._formatN(res.DienAC_KW)} | ${this._formatN(res.DienKhiNen_KW)}` },
         { Ten: 'Tổng điện theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: this._formatN(res.TongDien_KW), button: 'xuatexcel' },
         { Ten: 'Tỷ lệ điện AC | Khí nén theo ngày (3)/(4)', TieuHao: '%', DonVi: '%', ManHinh: `${this._formatN(res.DienAC_PhanTram)} | ${this._formatN(res.DienKhiNen_PhanTram)}` },
-        { Ten: 'Tiêu hao bình quân (4)/(1)', TieuHao: 'KwH', DonVi: 'KwH/kg', ManHinh: this._formatN(res.DienAC_PhanTram) },
+        { Ten: 'Tiêu hao bình quân (4)/(1)', TieuHao: 'KwH', DonVi: 'KwH/kg', ManHinh: this._formatN(res.TieuHaoDienBinhQuan) },
       ]
       this.thongKes1 = [
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },

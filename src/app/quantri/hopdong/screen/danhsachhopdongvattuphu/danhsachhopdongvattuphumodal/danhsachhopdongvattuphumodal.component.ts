@@ -31,7 +31,7 @@ isSoi : any = true;
     ChuyenTiep: false,
     Xoa: false,
   }
-
+opt:any='';
   yearRange: string = `${new Date().getFullYear()}:${new Date().getFullYear() + 5
     }`;
   constructor(

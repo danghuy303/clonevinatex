@@ -15,7 +15,7 @@
         <label class="p-col-12 p-xl-3 p-p-0 my-auto">Ngày nhập<span class="required">*</span>:</label>
         <div class="p-col-12 p-xl-9 p-p-0">
             <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy" [yearNavigator]="true"
-                [yearRange]="yearRange" [(ngModel)]="item.NgayNhap" placeholder="dd/mm/yyyy">
+                 [(ngModel)]="item.NgayNhap" placeholder="dd/mm/yyyy">
             </p-calendar>
         </div>
     </div>
@@ -68,7 +68,7 @@
         <label class="p-col-12 p-xl-3 p-p-0 my-auto">Ngày sản xuất:</label>
         <div class="p-col-12 p-xl-9 p-p-0">
             <p-calendar inputStyleClass="p-inputtext-sm" [locale]="lang" dateFormat="dd/mm/yy" [yearNavigator]="true"
-                [yearRange]="yearRange" [(ngModel)]="item.NgaySanXuat" placeholder="dd/mm/yyyy">
+                 [(ngModel)]="item.NgaySanXuat" placeholder="dd/mm/yyyy">
             </p-calendar>
         </div>
     </div>  
@@ -130,7 +130,7 @@
     <div
         [ngClass]="{'p-col-12 p-mb-3 p-p-3 d-flex flex-column flex-xl-row' : true,'p-lg-11':TaiSanChaCon==='cha','p-lg-12':TaiSanChaCon==='con'}">
         <label class="p-col-12 p-xl-1 p-p-0 my-auto widthghichu">Ghi chú:</label>
-        <div class="p-col-12 p-xl-11 p-p-0" [ngStyle]="{'width.%': TaiSanChaCon==='cha'?auto:94}">
+        <div class="p-col-12 p-xl-11 p-p-0" [ngStyle]="{'width.%': TaiSanChaCon==='cha'?'con':94}">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
         </div>
     </div>

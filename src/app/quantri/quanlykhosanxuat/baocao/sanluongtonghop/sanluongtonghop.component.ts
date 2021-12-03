@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SanluongtonghopComponent implements OnInit {
   filter:any={}
+  items:any;
   constructor() { }
 
   ngOnInit(): void {
   }
+  GetListQuyTrinh(){
 
+  }
+  resetFilter(){
+    
+  }
 }

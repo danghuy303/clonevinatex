@@ -47,7 +47,7 @@ export class DoanhthuComponent implements OnInit {
           });
       }
     });
-    this.GetListKeHoachKinhDoanh();
+    this.GetList();
     this.KiemTraTabTrangThai();
   }
   changeParam(id,Nam?,KeHoach?) {
@@ -59,9 +59,9 @@ export class DoanhthuComponent implements OnInit {
   }
   resetFilter() {
     this.keyWord = '';
-    this.GetListKeHoachKinhDoanh(true);
+    this.GetList(true);
   }
-  GetListKeHoachKinhDoanh(reset?) {
+  GetList(reset?) {
     if (reset) {
       this.paging.Page = 1;
       this.paginator.changePage(0);
@@ -92,7 +92,7 @@ export class DoanhthuComponent implements OnInit {
   //     Id: '', IdTrangThai: '', SoQuyTrinh: ""
   //   };
   //   modalRef.result.then(res => {
-  //     this.GetListKeHoachKinhDoanh()
+  //     this.GetList()
   //   }).catch(er => console.log(er))
   // }
 
@@ -108,7 +108,7 @@ export class DoanhthuComponent implements OnInit {
     modalRef.componentInstance.Nam = this.Nam;
     modalRef.result
       .finally(() => {
-        this.GetListKeHoachKinhDoanh();
+        this.GetList();
         this.changeParam(0);
       });
   }
@@ -116,19 +116,19 @@ export class DoanhthuComponent implements OnInit {
   //xử lí tab 
   changeTab(e) {
     this.trangThai = e.index + 1;
-    this.GetListKeHoachKinhDoanh(true);
+    this.GetList(true);
   }
 
   KiemTraTabTrangThai() {
     this._services.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
-      this.GetListKeHoachKinhDoanh();
+      this.GetList();
     });
   }
 
   changePage(event) {
     this.paging.Page = event.page + 1;
-    this.GetListKeHoachKinhDoanh()
+    this.GetList()
   }
 
 }

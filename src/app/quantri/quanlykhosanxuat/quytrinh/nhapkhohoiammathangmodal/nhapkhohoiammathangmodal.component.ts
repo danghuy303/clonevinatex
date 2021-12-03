@@ -33,7 +33,7 @@ export class NhapkhohoiammathangmodalComponent implements OnInit {
   item: any = {};
   KeyWord: any = '';
   constructor(
-    private activeModal: NgbActiveModal,
+    public activeModal: NgbActiveModal,
   ) { }
 
   ngOnInit(): void {

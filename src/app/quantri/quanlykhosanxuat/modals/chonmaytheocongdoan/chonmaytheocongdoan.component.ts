@@ -9,10 +9,14 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class ChonmaytheocongdoanComponent implements OnInit {
   items:{[key:string]:any}={};
   selectedItems:any=[];
+  KeyWord:any='';
   constructor(private _activeModal:NgbActiveModal) { }
 
   ngOnInit(): void {
     this.selectedItems = [];
+  }
+  resetFilter(){
+    
   }
   accept(){
     console.log(this.items);

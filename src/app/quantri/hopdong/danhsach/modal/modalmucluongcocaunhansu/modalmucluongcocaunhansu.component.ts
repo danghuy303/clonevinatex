@@ -26,6 +26,7 @@ export class ModalmucluongcocaunhansuComponent implements OnInit {
   item: any = {};
   type = '';
   opt = '';
+  title:any='';
   // lstChiTiet: any=[];
   constructor(
     public activeModal: NgbActiveModal,

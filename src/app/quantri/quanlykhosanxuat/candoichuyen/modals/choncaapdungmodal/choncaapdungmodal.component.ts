@@ -9,7 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class ChoncaapdungmodalComponent implements OnInit {
   ca:any;
   listCa:any = [];
-  constructor(private activeModal:NgbActiveModal) { }
+  constructor(public activeModal:NgbActiveModal) { }
 
   ngOnInit(): void {
     console.log(this.listCa);

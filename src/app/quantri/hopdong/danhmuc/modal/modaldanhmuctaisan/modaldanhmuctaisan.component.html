@@ -33,7 +33,7 @@
         <div class="p-col-12 p-lg-6 p-p-0">
           <!-- <p-inputNumber #inputNumber [(ngModel)]="item.DonViTinh" [minFractionDigits]="0" locale="vi-VN">
           </p-inputNumber> -->
-          <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.DonViTinh" pInputText />
+          <input type="text" class="p-inputtext-sm" (keyup.enter)="GhiLai()" [(ngModel)]="item.DonViTinh" pInputText />
         </div>
       </div>
       <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
@@ -89,7 +89,7 @@
       <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-6 p-p-0 my-auto">Ghi chú: </label>
         <div class="p-col-12 p-lg-6 p-p-0">
-            <input type="text" class="p-inputtext-sm" (keyup.enter)="accept()" [(ngModel)]="item.GhiChu" pInputText />
+            <input type="text" class="p-inputtext-sm" (keyup.enter)="GhiLai()" [(ngModel)]="item.GhiChu" pInputText />
             
         </div>
       </div>
@@ -97,7 +97,7 @@
 </div>
 </div>
 <div class="modal-footer">
-<button pButton pRipple label="Lưu" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()" [disabled]="khongclicknhieu"></button>
+<button pButton pRipple label="Lưu" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"></button>
 <button pButton pRipple label="Đóng" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
     (click)="activeModal.dismiss()"></button>
 </div>

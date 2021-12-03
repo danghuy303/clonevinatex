@@ -79,6 +79,7 @@ export class DinhmuctieuchichatluongsoiComponent implements OnInit {
     this._services.dmDinhMucTieuChiChatLuongSoi().Get({ idSanPham: item.Id }).subscribe((res: any) => {
       let modalRef = this._modal.open(DinhmuctieuchichatluongsoimodalComponent, {
         backdrop: 'static',
+        size:'lg'
       });
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = res;

@@ -12,7 +12,7 @@ export class UploadmodalComponent implements OnInit {
   uploader: FileUploader;
   type:string;
   single:boolean;
-  private newfileinfo: any = [];
+  public newfileinfo: any = [];
 
   constructor(
     private activeModal: NgbActiveModal
