@@ -1,10 +1,8 @@
-import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
 import { ChonthutucthanhtoanmodalComponent } from './chonthutucthanhtoanmodal/chonthutucthanhtoanmodal.component';
-import { ChonhanghoamodalComponent } from './../../../../../../quanlykhosanxuat/modals/chonhanghoamodal/chonhanghoamodal.component';
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { vn } from 'src/app/services/const';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { mapArrayForDropDown, DateToUnix, deepCopy, validVariable, UnixToDate, dinhDangSo } from 'src/app/services/globalfunction';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { ToastrService } from 'ngx-toastr';
@@ -16,7 +14,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ChitietdieukhoanmodalComponent implements OnInit {
   lang: any = vn;
-  // listThanhToanThuTuc = []
   isThoiDiem: boolean = false;
   opt: any = '';
   item: any = {
@@ -48,7 +45,6 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private _servicesdmHopDong: DanhMucHopDongService,
     private _modal: NgbModal,
-    private _service: HopDongService,
     private _serviceDungChung: SanXuatService,
     private _toastr: ToastrService,
   ) { }
@@ -174,5 +170,7 @@ export class ChitietdieukhoanmodalComponent implements OnInit {
   }
   selectTheoGiaTriDotGiaoHang() {
     this.item.TheoHopDong = !this.item.TheoGiaTri;
+    this.item.tyLe = 0;
+    this.item.giaTri = 0;
   }
 }

@@ -98,7 +98,7 @@ export class ChitiethopdongbongxoComponent implements OnInit {
     if (isChange === false)
       IddmKhachHang = event.value;
     else
-      IddmKhachHang = this.item.iddmKhachHangA;
+      IddmKhachHang = this.item.iddmKhachHangB;
     let selected1 = this.getKhachHang.find(
       (ele) => ele.Id === IddmKhachHang
     );

@@ -379,13 +379,15 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.TongKhoiLuong = 0;
     this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
     if (this.item.isTruVaoSanLuong === true)
-      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.CottonBongPhe || 0) - (this.item.CottonBongMun || 0) - (this.item.KhoiLuongCuiHoiChaiCotton || 0) - (this.item.KhoiLuongXoNgoaiLai || 0);
+      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.CottonBongPhe || 0) - (this.item.CottonBongMun || 0) - 
+                  (this.item.KhoiLuongCuiHoiChaiCotton || 0) - (this.item.KhoiLuongXoNgoaiLai || 0) - (this.item.CottonBongQuetNha || 0);
 
     if (this.TongKhoiLuong > 0) {
       this.item.TyLeCottonBongPhe = (this.item.CottonBongPhe || 0) / (this.TongKhoiLuong + (this.item.CottonBongPhe || 0)) * 100;
       this.item.TyLeCottonBongMun = (this.item.CottonBongMun || 0) / (this.TongKhoiLuong + (this.item.CottonBongMun || 0)) * 100;
       this.item.TyLeCuiHoiChaiCotton = (this.item.KhoiLuongCuiHoiChaiCotton || 0) / (this.TongKhoiLuong + (this.item.KhoiLuongCuiHoiChaiCotton || 0)) * 100;
       this.item.TyLeXoNgoaiLai = (this.item.KhoiLuongXoNgoaiLai || 0) / (this.TongKhoiLuong + (this.item.KhoiLuongXoNgoaiLai || 0)) * 100;
+      this.item.TyLeCottonBongQuetNha = (this.item.CottonBongQuetNha || 0) / (this.TongKhoiLuong + (this.item.CottonBongQuetNha || 0)) * 100;
     }
   }
   //PE
@@ -419,11 +421,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
 
     this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
     if (this.item.isTruVaoSanLuong === true)
-      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.CuiHoi || 0) - (this.item.ThoMangTho || 0);
+      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.CuiHoi || 0) - (this.item.ThoMangTho || 0) - (this.item.ThoBongQuetNha || 0);
 
     if (this.TongKhoiLuong > 0) {
       this.item.TyLeBongCuiHoi = this.item.CuiHoi / (this.TongKhoiLuong + (this.item.CuiHoi || 0)) * 100;
       this.item.TyLeThoMangTho = this.item.ThoMangTho / (this.TongKhoiLuong + (this.item.ThoMangTho || 0)) * 100;
+      this.item.TyLeThoBongQuetNha = this.item.ThoBongQuetNha / (this.TongKhoiLuong + (this.item.ThoBongQuetNha || 0)) * 100;
     }
   }
   //con
@@ -431,11 +434,12 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.TongKhoiLuong = 0;
     this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
     if (this.item.isTruVaoSanLuong === true)
-      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ThoMang || 0) - (this.item.BongHutMoi || 0);
+      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ThoMang || 0) - (this.item.BongHutMoi || 0) - (this.item.ConBongQuetNha || 0);
     // this.TongKhoiLuong = this.TongKhoiLuong - (this.item.ThoMang || 0) - (this.item.BongHutMoi || 0);
     if (this.TongKhoiLuong > 0) {
       this.item.TyLeThoMang = (this.item.ThoMang ?? 0) / (this.TongKhoiLuong + (this.item.ThoMang || 0)) * 100;
       this.item.TyLeBongHutMoi = (this.item.BongHutMoi ?? 0) / (this.TongKhoiLuong) * 100;
+      this.item.TyLeConBongQuetNha = (this.item.ConBongQuetNha ?? 0) / (this.TongKhoiLuong + (this.item.ConBongQuetNha || 0)) * 100;
     }
   }
   //ong
@@ -444,10 +448,13 @@ export class ThongkesanluongmodalComponent implements OnInit {
 
     this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
     if (this.item.isTruVaoSanLuong === true)
-      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.SoiCat || 0);
+      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.SoiCat || 0) - (this.item.OngBongQuetNha || 0);
 
-    if (this.TongKhoiLuong > 0)
+    if (this.TongKhoiLuong > 0){
       this.item.TyLeSoiCat = this.item.SoiCat / (this.TongKhoiLuong + (this.item.SoiCat || 0)) * 100;
+      this.item.TyLeOngBongQuetNha = this.item.OngBongQuetNha / (this.TongKhoiLuong + (this.item.OngBongQuetNha || 0)) * 100;
+    }
+      
   }
   // ghep dau ra
   TinhTyLeCuiHoiGhepDauRa() {
