@@ -188,6 +188,8 @@ import { ChiphidienComponent } from './danhsach/chiphidien/chiphidien.component'
 import { ModalchiphibongComponent } from './danhsach/modal/modalchiphibong/modalchiphibong.component';
 import { ModalchiphixoComponent } from './danhsach/modal/modalchiphixo/modalchiphixo.component';
 import { ModalchiphidienComponent } from './danhsach/modal/modalchiphidien/modalchiphidien.component';
+import { ChiphimodalComponent } from './modals/chiphimodal/chiphimodal.component';
+
 
 @NgModule({
   declarations: [
@@ -372,7 +374,11 @@ import { ModalchiphidienComponent } from './danhsach/modal/modalchiphidien/modal
     ModalchiphixoComponent,
     
     ModalchiphidienComponent,
-
+    
+    ChiphimodalComponent,
+    
+   
+    
     
   ],
   imports: [
@@ -512,6 +518,8 @@ import { ModalchiphidienComponent } from './danhsach/modal/modalchiphidien/modal
     ModalchiphixoComponent,
     
     ModalchiphidienComponent,
+    ChiphimodalComponent,
+  
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })
