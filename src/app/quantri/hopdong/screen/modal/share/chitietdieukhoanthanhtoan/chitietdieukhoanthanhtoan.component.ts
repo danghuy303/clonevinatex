@@ -30,7 +30,6 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
   }
   ngDoCheck(): void {  
     this.itemChange.emit(this.listDieuKhoanThanhToan);
-
   }
   add() {
     if (this.item.ngayThanhToan !== undefined && this.item.ngayThanhToan !== null) {
@@ -48,20 +47,14 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
   edit(item, i) {
     if (this.item.ngayThanhToan !== undefined && this.item.ngayThanhToan !== null) {
       this.item.ngayThanhToanUnix = DateToUnix(this.item.ngayThanhToan);
-
     }
     let modalRef = this._modal.open(ChitietdieukhoanmodalComponent, { size: 'xl', backdrop: 'static' });
     modalRef.componentInstance.item = deepCopy(item);
-    // modalRef.componentInstance.item.ngayThanhToan = new Date(item.ngayThanhToan);
     modalRef.componentInstance.hopDong = deepCopy(this.hopDong);    
     modalRef.componentInstance.opt = 'edit';
     modalRef.result.then(res => {
-      // this.listDieuKhoanThanhToan.splice(i, 1);
       this.listDieuKhoanThanhToan[i] = res.item;
       this.itemChange.emit(this.listDieuKhoanThanhToan);
-      // if (res.opt !== 'add') {
-      //   this.add()
-      // }
     }).catch(er => { console.log(er) });
   }
   delete(i) {
@@ -71,10 +64,5 @@ export class ChitietdieukhoanthanhtoanComponent implements OnInit, DoCheck {
       item.isXoa = true;
       this.listDieuKhoanThanhToan.push(JSON.parse(JSON.stringify(item)));
     }
-
-    // this.listDieuKhoanThanhToan[i].isXoa = true;
-    // this.listDieuKhoanThanhToan.push(this.listDieuKhoanThanhToan.splice(i,1));
-    console.log(item);
-    console.log(this.listDieuKhoanThanhToan);
   }
 }

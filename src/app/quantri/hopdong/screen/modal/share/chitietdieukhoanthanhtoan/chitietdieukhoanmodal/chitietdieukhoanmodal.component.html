@@ -34,13 +34,13 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Giá trị: </label>
             <div class="p-col-12 p-lg-6 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.giaTri" locale="vi-VN" (onBlur)="changeGiaTri()">
+                <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.giaTri" locale="vi-VN" (onBlur)="changeGiaTri()" [disabled]="item.TheoGiaTri">
                 </p-inputNumber>
             </div>
             <label class="p-col-12 p-lg-2 my-auto">Phần trăm: </label>
             <div class="p-col-12 p-lg-2 p-p-0">
                 <div class="p-inputgroup p-d-flex">
-                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.tyLe" (onBlur)="changeTyLe()">
+                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.tyLe" (onBlur)="changeTyLe()" [disabled]="item.TheoGiaTri">
                     </p-inputNumber>
                     <span class="p-inputgroup-addon">%</span>
                 </div>

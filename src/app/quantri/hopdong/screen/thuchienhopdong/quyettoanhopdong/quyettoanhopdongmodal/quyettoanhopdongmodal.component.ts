@@ -240,7 +240,7 @@ export class QuyettoanhopdongmodalComponent implements OnInit {
         this.item.giaTriHopDong = res1.data.giaTriHopDong;
         this.item.khoiLuongHopDong = res1.data.khoiLuongHopDong;
         this.item.khoiLuongDaNhan = res1.data.khoiLuongDaNhan;
-        this.item.conPhaiThanhToan = res1.data.conPhaiThanhToan;
+        // this.item.conPhaiThanhToan = res1.data.conPhaiThanhToan;
         this.item.giaTriQuyetToan = res1.data.giaTriQuyetToan;
         this.item.conPhaiThanhToan =  this.item.giaTriQuyetToan - this.item.tongGiaTriThanhToan;
       })

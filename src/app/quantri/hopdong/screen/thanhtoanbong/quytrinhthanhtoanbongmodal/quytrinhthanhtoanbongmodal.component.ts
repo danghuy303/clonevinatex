@@ -237,8 +237,8 @@ export class QuytrinhthanhtoanbongmodalComponent implements OnInit {
       this.item.giaTriThanhToan += (element.soLuong || 0) * (element.donGia || 0);
       this.item.giaTriDaThanhToan += (element.soLuongDaThanhToan || 0) * (element.donGia || 0);
     });
-    this.item.giaTriThanhToan = Math.round(this.item.giaTriThanhToan);
-    this.item.giaTriDaThanhToan = Math.round(this.item.giaTriDaThanhToan);
+    this.item.giaTriThanhToan = Math.round(this.item.giaTriThanhToan *100)/100;
+    this.item.giaTriDaThanhToan = Math.round(this.item.giaTriDaThanhToan*100)/100;
   }
   ChuyenTiep(){
     let isChuaNopDu: any = false;

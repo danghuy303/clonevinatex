@@ -322,6 +322,12 @@ export class QuantriComponent implements OnInit {
             separator: this.checkmenu("LOHANG"),
             command: () => this.close(),
           },
+          {
+            label: "KgCone",
+            routerLink: "/quantri/phanquyensanxuat/dmkgcone",
+            separator: this.checkmenu("LOHANG"),
+            command: () => this.close(),
+          },
         ],
       },
       {
@@ -1243,11 +1249,7 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/phanquyensanxuat/dmchisotrienkhai",
             command: () => this.close(),
           },
-          {
-            label: "KgCone",
-            routerLink: "/quantri/phanquyensanxuat/dmkgcone",
-            command: () => this.close(),
-          },
+          
         ],
       },
       {

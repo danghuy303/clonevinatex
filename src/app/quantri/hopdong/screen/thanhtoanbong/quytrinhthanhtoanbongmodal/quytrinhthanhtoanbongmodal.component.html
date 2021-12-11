@@ -85,21 +85,21 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.loaiThanhToan===1">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị thanh toán hợp đồng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.giaTriThanhToanHopDong" disabled>
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.giaTriThanhToanHopDong" disabled>
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.loaiThanhToan===2">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị thanh toán :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.giaTriThanhToan" disabled>
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.giaTriThanhToan" disabled>
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="item.loaiThanhToan===1">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị thanh toán :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.giaTriThanhToan">
+                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.giaTriThanhToan">
                 </p-inputNumber>
             </div>
         </div>
