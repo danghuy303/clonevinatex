@@ -10,6 +10,7 @@ import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } 
 import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.service';
 import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
+import { ChiphimodalComponent } from '../../../modals/chiphimodal/chiphimodal.component';
 import { TinhdoanhthumodalComponent } from '../../../modals/tinhdoanhthumodal/tinhdoanhthumodal.component';
 import { ModaldongiakehoachthucteComponent } from '../modaldongiakehoachthucte/modaldongiakehoachthucte.component';
 import { ModalkehoachkinhdoanhtheodoiComponent } from '../modalkehoachkinhdoanhtheodoi/modalkehoachkinhdoanhtheodoi.component';
@@ -449,6 +450,17 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
       keyboard:false,
       size:'fullscreen'
     })
+  }
+  ChiPhi(){
+    if (this.item.lstKH_KeHoachKinhDoanh_SanPham?.length !== 0) {
+      let modalRef = this._modal.open(ChiphimodalComponent,{
+        backdrop:"static",
+        size:"fullscreen",
+        keyboard:false,
+      })
+      modalRef.componentInstance.item = {Id:this.item.Id};
+    }
+   
   }
   DanhMucDonGia(){
     

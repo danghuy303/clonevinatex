@@ -53,6 +53,8 @@ import { DanhmuctygiangoaiteComponent } from './danhmuc/danhmuctygiangoaite/danh
 import { ChiphibongComponent } from './danhsach/chiphibong/chiphibong.component';
 import { ChiphixoComponent } from './danhsach/chiphixo/chiphixo.component';
 import { ChiphidienComponent } from './danhsach/chiphidien/chiphidien.component';
+
+
 const routes: Routes = [
   {path:'',component:HopdongComponent},
   {path:'danhmuc/danhmuchinhthucthanhtoan',component:DanhmuchinhthucthanhtoanComponent},
@@ -113,6 +115,7 @@ const routes: Routes = [
   { path: 'doanhthu/:id', component: DoanhthuComponent },
 
   //
+  
  
 ];
 

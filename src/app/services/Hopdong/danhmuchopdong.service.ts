@@ -281,7 +281,11 @@ export class DanhMucHopDongService {
     /////
     DanhSachKeHoachKinhDoanh() {
         let url = API.KeHoach
+        //http://103.130.212.45:2269/KeHoachAPI/
         return {
+            GetChiPhi: (Id)=>{
+                return this.http.get(`${url}KeHoachKinhDoanh/GetChiPhiSanPhamKeHoachKinhDoanh?IdKeHoachKinhDoanh=${Id}`, httpOptions)
+            },
             Get: (Id) => {
                 return this.http.get(`${url}KeHoachKinhDoanh/GetById?Id=${Id}`, httpOptions)
             },
