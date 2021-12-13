@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
 import { HopDongService } from 'src/app/services/Hopdong/hopdong.service';
-import { HopdongvattuphumodalComponent } from '../hopdongvattuphu/hopdongvattuphumodal/hopdongvattuphumodal.component';
+import { DanhsachhopdongvattuphumodalComponent } from './danhsachhopdongvattuphumodal/danhsachhopdongvattuphumodal.component';
 
 @Component({
   selector: 'app-danhsachhopdongvattuphu',
@@ -48,7 +48,7 @@ export class DanhsachhopdongvattuphuComponent implements OnInit {
   }
   update(id) {
     this._service.QuyTrinhHopDong().Get(id).subscribe((res1: any) => {
-        let modalRef = this._modal.open(HopdongvattuphumodalComponent, {
+        let modalRef = this._modal.open(DanhsachhopdongvattuphumodalComponent, {
           size: "fullscreen",
           backdrop: "static",
         });

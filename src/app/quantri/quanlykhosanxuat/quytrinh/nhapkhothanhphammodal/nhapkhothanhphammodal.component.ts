@@ -302,4 +302,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       })
     }
   }
+  TinhKgCone(item) {
+    item.KgCone = (item.TongKhoiLuong || 0) / (item.SoQuaSoiThanhPham || 1);
+  }
 }

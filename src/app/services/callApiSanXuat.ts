@@ -1975,6 +1975,10 @@ export class SanXuatService {
             },
             GetlistdmMatHangKiemKeBongHoi: (Loai, IddmLoaiBong) => {
                 return this.http.get(url + `GetlistdmMatHangKiemKeBongHoi?Loai=${Loai}&IddmLoaiBong=${IddmLoaiBong}`, httpOptions);
+            },
+            ExportBangKe: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + `ExportBangKeNhapKhoBongPhe`, data,  httpOptions);
             }
         }
     }

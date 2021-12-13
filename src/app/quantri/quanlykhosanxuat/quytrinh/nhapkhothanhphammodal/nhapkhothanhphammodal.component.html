@@ -151,8 +151,12 @@
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
                             </p-inputNumber>
                         </td>
-                        <td>
+                        <td *ngIf="item.Ma!== 'STK'">
                             <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongKhoiLuong" disabled>
+                            </p-inputNumber>
+                        </td>
+                        <td *ngIf="item.Ma === 'STK'">
+                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongKhoiLuong" (ngModelChange)="TinhKgCone(item)">
                             </p-inputNumber>
                         </td>
                         <td>
