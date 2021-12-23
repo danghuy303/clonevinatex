@@ -36,17 +36,13 @@
 
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+        <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại bông <span class="text-danger">*</span>:</label>
-            <!-- <div class="p-col-12 p-lg-8 p-p-0" *ngIf="this.type!=='bonghoi'">
-                <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" styleClass="p-inputtext-sm"
-                [(ngModel)]="item.IddmLoaiBong"></p-dropdown>
-            </div> -->
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" styleClass="p-inputtext-sm"
                 [(ngModel)]="item.IddmLoaiBong" (onChange)="getnewitem($event)"></p-dropdown>
             </div>
-        </div>
+        </div> -->
         <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row"
         *ngIf="this.type!=='bonghoi'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Cấp bông <span class="text-danger">*</span>:</label>
@@ -104,7 +100,9 @@
                     <tr>
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">
-                            <input pInputText type="text" [(ngModel)]="item.Ten" disabled>
+                            <!-- <input pInputText type="text" [(ngModel)]="item.Ten" disabled> -->
+                            <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" styleClass="p-inputtext-sm"
+                                [(ngModel)]="item.IddmLoaiBong" (onChange)="getnewitem(item)"></p-dropdown>
                         </td>
                         <td class="text-center">
                             <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
@@ -131,7 +129,9 @@
                         <td>
                         </td>
                         <td>
-                            <input pInputText type="text" [(ngModel)]="newTableItem.Ten" disabled>
+                            <!-- <input pInputText type="text" [(ngModel)]="newTableItem.Ten" disabled> -->
+                            <p-dropdown [filter]="true" [options]="listLoaiBong" placeholder="Chọn loại" styleClass="p-inputtext-sm"
+                                [(ngModel)]="newTableItem.IddmLoaiBong" (onChange)="getnewitem(newTableItem)"></p-dropdown>
                         </td>
                         <td>
                             <div class="p-inputgroup">

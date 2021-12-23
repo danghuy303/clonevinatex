@@ -1042,6 +1042,9 @@ export class SanXuatService {
             GetMatHang: (IddmPhanXuong, IddmCaSanXuat, Ngay) => {
                 return this.http.get(url + `GetMatHangThongKeSanLuong?IddmPhanXuong=${IddmPhanXuong}&IddmCaSanXuat=${IddmCaSanXuat}&Ngay=${Ngay}`, httpOptions)
             },
+            GetMatHangTheoNgay: (IddmPhanXuong, Ngay) => {
+                return this.http.get(url + `GetMatHangThongKeSanLuongTheoNgay?IddmPhanXuong=${IddmPhanXuong}&Ngay=${Ngay}`, httpOptions)
+            },
         }
     }
     //Pha bông
@@ -2282,5 +2285,33 @@ export class SanXuatService {
     CheckEditPhieuInvoice(IdKeHoachNhapNguyenLieuDongBo) {
         let url = API.SCMChoModuleHopDong + `CheckEditPhieuInvoice?IdKeHoachNhapNguyenLieuDongBo=${IdKeHoachNhapNguyenLieuDongBo}`;
         return this.http.get(url, httpOptions);
+    }
+    ThongKeSanLuongNhieuCa() {
+        let url = API.SCMQuanLyKho;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhPhieuThongKeSanLuongNhieuCa', httpOptions);
+            },
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetListThongKeSanLuongNhieuCa', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetThongKeSanLuongNhieuCa?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetThongKeSanLuongNhieuCa', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteThongKeSanLuongNhieuCa', data, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                return this.http.post(url + 'ChuyenTiepThongKeSanLuongNhieuCa', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetThongKeSanLuongNhieuCa', data, httpOptions)
+            },
+        }
     }
 }

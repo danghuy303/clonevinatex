@@ -1,21 +1,18 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
-import { StoreBase } from 'src/app/services/storebase.class';
-import { ThongkesanluongmodalComponent } from '../thongkesanluongmodal/thongkesanluongmodal.component';
-import { ThongkesanluongcamodalComponent } from './thongkesanluongcamodal/thongkesanluongcamodal.component';
+import { ThongkesanluongcamodalComponent } from '../thongkesanluong/thongkesanluongcamodal/thongkesanluongcamodal.component';
 
 @Component({
-  selector: 'app-thongkesanluong',
-  templateUrl: './thongkesanluong.component.html',
-  styleUrls: ['./thongkesanluong.component.css']
+  selector: 'app-thongkesanluongca',
+  templateUrl: './thongkesanluongca.component.html',
+  styleUrls: ['./thongkesanluongca.component.css']
 })
-export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDestroy {
+export class ThongkesanluongcaComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [{id:5,SoQuyTrinh:'PNK_0000_0000'}];
   filter:any={};
@@ -32,16 +29,6 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDest
       header: 'Ngày',
       field: 'Ngay',
       width: '100px'
-    },
-    {
-      header: 'Thời điểm',
-      field: 'TendmCaSanXuat',
-      width: '150px'
-    },
-    {
-      header: 'Ca',
-      field: 'TendmCaSanXuatThucTe',
-      width: '150px'
     },
     {
       header: 'Khối lượng(kg)',
@@ -66,9 +53,9 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDest
   ];
   checkQuyen:any={ChuaXuLy:false,DaXyLy:false,ThemMoi:false};
   listPhanXuong: any = [];
-  listCaSanXuat: any = [];
   eAction = 'THONGKESANLUONG'
-  constructor(public _modal:NgbModal,public store:StoreService,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,private router:Router) { super(store)
+  constructor(public _modal:NgbModal,public store:StoreService,public _toastr:ToastrService,private _service:SanXuatService,private activatedRoute: ActivatedRoute,
+    private router:Router) {
   }
 
   ngOnInit(): void {
@@ -80,14 +67,9 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDest
     })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();
-    this.getListCaSanXuat();
     this.getListPhanXuong();
   }
-  getListCaSanXuat() {
-    this._service.GetListOptdmCaSanXuatThucTe().subscribe((res: any) => {
-      this.listCaSanXuat = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
+ 
   getListPhanXuong() {
     this._service.GetListdmPhanXuong({}).subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -97,40 +79,7 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDest
     if(this._modal.hasOpenModals()){
       this._modal.dismissAll()
     }
-    this.router.navigate([`quantri/theodoithongkebaocaosanxuat/thongkesanluong/${id}`],{replaceUrl: true})
-  }
-  add(){
-    this.changeParam(0);
-    let modalRef = this._modal.open(ThongkesanluongmodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.item = {}
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-    this.changeParam(0);
-    })
-    .catch(er => { console.log(er)
-      this.GetListQuyTrinh();
-      this.changeParam(0); })
-  }
-  update(Id){
-    this._service.ThongKeSanLuong().Get(Id).subscribe((res1: any) => {
-    let modalRef = this._modal.open(ThongkesanluongmodalComponent, {
-      size: 'fullscreen',
-      backdrop: 'static'
-    })
-    modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
-    modalRef.result.then((res: any) => {
-      this.GetListQuyTrinh();
-    this.changeParam(0);
-    })
-      .catch(er => { console.log(er)
-        this.GetListQuyTrinh();
-        this.changeParam(0); })
-    })
+    this.router.navigate([`quantri/theodoithongkebaocaosanxuat/thongkesanluongca/${id}`],{replaceUrl: true})
   }
   changeTab(e){
     this.trangThai = e.index+1;
@@ -155,9 +104,8 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDest
       Ma: "",
       Ten: "",
       IddmPhanXuong: this.filter.IddmPhanXuong,
-      IddmCaSanXuatThucTe: this.filter.IddmCaSanXuatThucTe,
     }
-    this._service.ThongKeSanLuong().GetList(data).subscribe((res:any)=>{
+    this._service.ThongKeSanLuongNhieuCa().GetList(data).subscribe((res:any)=>{
       this.items = res.items;
       this.paging = res.paging;
     })
@@ -172,7 +120,37 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDest
       this.GetListQuyTrinh();
     })
   }
-  ngOnDestroy(){
-    super.ngOnDestroy();
+  add(){
+    this.changeParam(0);
+    let modalRef = this._modal.open(ThongkesanluongcamodalComponent , {
+      size: 'fullscreen',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.opt = 'add';
+    modalRef.componentInstance.item = {}
+    modalRef.result.then((res: any) => {
+      this.GetListQuyTrinh();
+    this.changeParam(0);
+    })
+    .catch(er => { console.log(er)
+      this.GetListQuyTrinh();
+      this.changeParam(0); })
+  }
+  update(Id){
+    this._service.ThongKeSanLuongNhieuCa().Get(Id).subscribe((res1: any) => {
+    let modalRef = this._modal.open(ThongkesanluongcamodalComponent, {
+      size: 'fullscreen',
+      backdrop: 'static'
+    })
+    modalRef.componentInstance.opt = 'edit';
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1));
+    modalRef.result.then((res: any) => {
+      this.GetListQuyTrinh();
+    this.changeParam(0);
+    })
+      .catch(er => { console.log(er)
+        this.GetListQuyTrinh();
+        this.changeParam(0); })
+    })
   }
 }

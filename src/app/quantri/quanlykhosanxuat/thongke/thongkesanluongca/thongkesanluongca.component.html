@@ -1,32 +1,29 @@
-
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Giao kế hoạch sản xuất</h4>
+    <h4 style="color:#1f2779">Thống kê sản lượng nhiều ca</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <button pButton pRipple label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
     <div></div>
-    <div class="p-d-flex p-flex-row">
-        <!-- <div class="p-mr-2">
-            <p-dropdown [options]="listLoaiPhuongAn" placeholder="Chọn phương án" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.LoaiPhuongAn" optionLabel="name" [showClear]="true"></p-dropdown>
-        </div> -->
+    <div class="d-flex flex-column flex-lg-row">
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.IddmPhanXuong" [showClear]="true" (onChange)="GetListQuyTrinh(true)"></p-dropdown>
+        </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetListQuyTrinh(true)">
             </p-calendar>
         </div>
         <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" (onSelect)="GetListQuyTrinh(true)"
-                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetListQuyTrinh(true)">
             </p-calendar>
         </div>
-        <div class="p-inputgroup" style="width: 200px;">
+        <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetListQuyTrinh(true)" [(ngModel)]="filter.KeyWord"/>
-            <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
-            <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text" (click)="GetListQuyTrinh(true)"></button>
+            <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text" (click)="GetListQuyTrinh(true)" pTooltip="Tìm kiếm" showDelay="1000" tooltipPosition="bottom"></button>
+            <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"(click)="resetFilter()"></button>
         </div>
-        <button pButton pRipple label="Xuất excel" class="p-button-sm p-mr-2" (click)="GetListQuyTrinh(false, true)"></button>
-        
     </div>
 </div>
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
@@ -42,25 +39,13 @@
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
-                <col style="width: 200px;">
-                <col style="width: 100px;">
-                <col style="width: 200px;">
-                <col style="width: 100px;">
-                <col style="width: 100px;">
-                <col style="width: 100px;">
                 <col *ngFor="let col of cols" [ngStyle]="{width:col.width}">
-                <col style="width: 100px;">
+                <col style="width: 50px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th class="text-center">#</th>
-                <th>Số phiếu</th>
-                <th>Ngày tạo</th>
-                <th>Nội dung</th>
-                <th>Phân xưởng</th>
-                <th>Từ ngày</th>
-                <th>Đến ngày</th>
+                <th class="text-center">STT</th>
                 <th *ngFor="let header of cols">
                     {{header.header}}
                 </th>
@@ -72,18 +57,27 @@
                 <td class="text-center">
                     {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
                 </td>
-                <td class="text-center">{{item.soQuyTrinh}}</td>
-                <td class="text-center">{{item.created|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.noiDung}}</td>
-                <td class="text-center">{{item.tenPhanXuong}}</td>
-                <td class="text-center">{{item.ngayBatDau|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.ngayKetThuc|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center" *ngFor="let col of cols">
-                    {{item[col.field]}}
+                <td class="text-center">
+                    {{item.SoQuyTrinh}}
                 </td>
-                <td class="text-center"> 
+                <td class="text-center">
+                    {{item.NgayUnix > 0 ? (item.Ngay|date:'dd/MM/yyyy'):''}}
+                </td>
+                <td class="text-center">
+                    {{item.TongKhoiLuong|number:'0.0'}}
+                </td>
+                <td class="text-center">
+                    {{item.TendmPhanXuong}}
+                </td>
+                <td class="text-center">
+                    {{item.GhiChu}}
+                </td>
+                <td class="text-center">
+                    {{item.TenTrangThai}}
+                </td>
+                <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.id)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.Id)"></button>
                 </td>
             </tr>
         </ng-template>
