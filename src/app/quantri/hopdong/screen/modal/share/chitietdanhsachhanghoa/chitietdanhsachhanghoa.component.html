@@ -37,7 +37,7 @@
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số lượng (Kg):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [(ngModel)]="item.soLuong" [minFractionDigits]="2" locale="vi-VN" (onBlur)="tinhgiaTriHopDong()">
+        <p-inputNumber [(ngModel)]="item.soLuong" [minFractionDigits]="2" locale="en-EN" (onBlur)="tinhgiaTriHopDong()">
         </p-inputNumber>
       </div>
     </div>
@@ -45,7 +45,7 @@
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Sai lệch (%):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [(ngModel)]="item.saiLech" [minFractionDigits]="2" locale="vi-VN"
+        <p-inputNumber [(ngModel)]="item.saiLech" [minFractionDigits]="2" locale="en-EN"
           (ngModelChange)="item.saiLech = dinhDangSo($event)">
         </p-inputNumber>
       </div>
@@ -54,7 +54,7 @@
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Đơn giá chưa thuế:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.donGia" locale="vi-VN"
+        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.donGia" locale="en-EN"
           (onBlur)="tinhDonGiaThanhToan()">
         </p-inputNumber>
       </div>
@@ -62,7 +62,7 @@
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Thuế GTGT (%):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.thueGTGT" locale="vi-VN"
+        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.thueGTGT" locale="en-EN"
           (ngModelChange)="tinhDonGiaThanhToan()">
         </p-inputNumber>
       </div>
@@ -71,14 +71,14 @@
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-lg-12 p-p-0 my-auto">Đơn giá thanh toán:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber disabled [(ngModel)]="item.DonGiaThanhToan" [minFractionDigits]="2" locale="vi-VN">
+        <p-inputNumber disabled [(ngModel)]="item.DonGiaThanhToan" [minFractionDigits]="2" locale="en-EN">
         </p-inputNumber>
       </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giá trị hợp đồng:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber disabled [ngModel]="item.giaTriHopDongMatHang" [minFractionDigits]="2" locale="vi-VN">
+        <p-inputNumber disabled [ngModel]="item.giaTriHopDongMatHang" [minFractionDigits]="2" locale="en-EN">
         </p-inputNumber>
       </div>
     </div>
@@ -86,21 +86,21 @@
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Sai lệch(%):</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="hopDong.saiLech"
+        <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="hopDong.saiLech"
           (ngModelChange)="hopDong.saiLech = dinhDangSo($event)"> </p-inputNumber>
       </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số container:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soContainer"
+        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.soContainer"
           (ngModelChange)="item.soContainer = dinhDangSo($event)"> </p-inputNumber>
       </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số kiện:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
-        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.soKien"
+        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.soKien"
           (ngModelChange)="item.soKien = dinhDangSo($event)"> </p-inputNumber>
       </div>
     </div>
@@ -110,14 +110,14 @@
     <!-- <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-2 p-p-0 my-auto">Giảm giá (%):</label>
       <div class="p-col-12 p-xl-10 p-p-0">
-        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.giaTriGiam" locale="vi-VN">
+        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.giaTriGiam" locale="en-EN">
         </p-inputNumber>
       </div>
     </div> -->
     <div class="p-col-12 p-lg-6 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-xl-2 p-p-0 my-auto">Thành tiền:</label>
       <div class="p-col-12 p-xl-10 p-p-0">
-        <p-inputNumber [minFractionDigits]="0" [(ngModel)]="hopDong.thanhTien" locale="vi-VN" disabled>
+        <p-inputNumber [minFractionDigits]="0" [(ngModel)]="hopDong.thanhTien" locale="en-EN" disabled>
         </p-inputNumber>
         <!-- {{hopDong.thanhTien|number:'0.0'}} -->
       </div>
@@ -126,7 +126,7 @@
     <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-xl-2 p-p-0 my-auto">Làm tròn:</label>
       <div class="p-col-12 p-xl-10 p-p-0">
-        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.giaTriSauLamTron" locale="vi-VN">
+        <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.giaTriSauLamTron" locale="en-EN">
         </p-inputNumber>
       </div>
     </div> -->
@@ -172,16 +172,16 @@
             <td class="text-center">{{ item.madmItem}}</td>
             <td class="text-center">{{ item.tendmItem}}</td>
             <td class="text-center">
-              <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.soLuong" locale="vi-VN"
+              <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.soLuong" locale="en-EN"
                 (ngModelChange)="tinhgiaTriHopDongSoi(item)">
               </p-inputNumber>
             </td>
             <td>
-              <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.donGia" locale="vi-VN"
+              <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.donGia" locale="en-EN"
                 (ngModelChange)="tinhgiaTriHopDongSoi(item)">
               </p-inputNumber>
             <td>
-              <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.thueGTGT" locale="vi-VN"
+              <p-inputNumber [minFractionDigits]="2" [(ngModel)]="item.thueGTGT" locale="en-EN"
                 (ngModelChange)="tinhgiaTriHopDongSoi(item)">
               </p-inputNumber>
             </td>
@@ -217,7 +217,7 @@
       <label class="p-col-12 p-xl-2 p-p-0 my-auto">Loại:</label>
       <div class="p-col-12 p-xl-10 p-p-0">
         <input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="hopDong.loaiTieuChuan" />
-        <!-- <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.loai" locale="vi-VN">
+        <!-- <p-inputNumber [minFractionDigits]="2" [(ngModel)]="hopDong.loai" locale="en-EN">
         </p-inputNumber> -->
       </div>
     </div>
@@ -314,7 +314,7 @@
       <label class="p-col-12 p-xl-4 p-lg-4 p-p-0 my-auto">Chi phí vận chuyển:</label>
       <div class="p-col-12 p-xl-8 p-p-0">
         <input type="text" [(ngModel)]="hopDong.chiPhiVanChuyen" class="p-inputtext-sm p-pl-0" pInputText />
-        <!-- <p-inputNumber [(ngModel)]="hopDong.chiPhiVanChuyen" [minFractionDigits]="2" locale="vi-VN">
+        <!-- <p-inputNumber [(ngModel)]="hopDong.chiPhiVanChuyen" [minFractionDigits]="2" locale="en-EN">
         </p-inputNumber> -->
       </div>
     </div>

@@ -28,14 +28,14 @@
       <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Năm:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
-          <p-inputNumber [minFractionDigits]="" locale="vi-VN" [(ngModel)]="item.Nam" [useGrouping]="false">
+          <p-inputNumber [minFractionDigits]="" locale="en-EN" [(ngModel)]="item.Nam" [useGrouping]="false">
           </p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng chi phí nhân công năm:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
-          <p-inputNumber [disabled]="true" [minFractionDigits]="" locale="vi-VN" [(ngModel)]="TongChiPhiToanBo">
+          <p-inputNumber [disabled]="true" [minFractionDigits]="" locale="en-EN" [(ngModel)]="TongChiPhiToanBo">
           </p-inputNumber>
         </div>
       </div>
@@ -63,11 +63,11 @@
             [(ngModel)]="newitem.IddmCoCauNhanSu"></p-dropdown>
         </td>
         <td class="text-center" *ngFor="let prop of lstProps">
-          <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newitem[prop]" (onBlur)="TinhTongChiPhi(newitem)">
+          <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newitem[prop]" (onBlur)="TinhTongChiPhi(newitem)">
           </p-inputNumber>
         </td>
         <td class="text-center">
-          <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newitem.TongChiPhiCaNam">
+          <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newitem.TongChiPhiCaNam">
           </p-inputNumber>
         </td>
         <td class="text-center">
@@ -84,11 +84,11 @@
             styleClass="p-inputtext-sm" [(ngModel)]="item.IddmCoCauNhanSu" ></p-dropdown>
         </td>
         <td class="text-center" *ngFor="let prop of lstProps">
-          <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item[prop]" (onBlur)="TinhTongChiPhi(item)">
+          <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item[prop]" (onBlur)="TinhTongChiPhi(item)">
           </p-inputNumber>
         </td>
         <td class="text-center">
-          <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TongChiPhiCaNam">
+          <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TongChiPhiCaNam">
           </p-inputNumber>
         </td>
         <td class="text-center">

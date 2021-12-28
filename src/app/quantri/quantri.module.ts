@@ -38,8 +38,8 @@ import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import {ColorPickerModule} from 'primeng/colorpicker';
 
 // import { FileUploadModule } from 'primeng/fileupload';
-import localeVi from '@angular/common/locales/vi';
-registerLocaleData(localeVi);
+// import localeVi from '@angular/common/locales/vi';
+// registerLocaleData(localeVi);
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -612,7 +612,7 @@ import { ThongkesanluongcaComponent } from './quanlykhosanxuat/thongke/thongkesa
     SignalRService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    { provide: LOCALE_ID, useValue: 'vi-VN' },
+    // { provide: LOCALE_ID, useValue: 'vi-VN' },
     LoaderService,
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]

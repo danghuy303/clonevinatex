@@ -150,7 +150,7 @@
                                 <td class="text-right">{{rowData.diemToiDa}}</td>
                                 <td class="text-right" *ngIf="rowData.isCon === false">{{rowData.diem|number:'0.2'}}</td>
                                 <td *ngIf="rowData.isCon === true">
-                                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="rowData.diem" (ngModelChange)="tinhDiemDanhGia(rowData)">
+                                    <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="rowData.diem" (ngModelChange)="tinhDiemDanhGia(rowData)">
                                 </p-inputNumber></td>
                             </tr>
                         </ng-template>

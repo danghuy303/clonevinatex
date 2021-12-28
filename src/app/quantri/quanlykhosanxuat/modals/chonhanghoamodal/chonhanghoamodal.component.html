@@ -95,7 +95,7 @@
                         <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongHoanThanh|number:'0.0-2'}}</td>
                         <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">{{item.KhoiLuongDaSanXuat|number:'0.0-2'}}</td>
                         <td *ngIf="opt==='KhoiLuongKeHoach'" class="text-right">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [max]="item.KhoiLuongKeHoach"
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [max]="item.KhoiLuongKeHoach"
                                 [(ngModel)]="item.KhoiLuongSanXuat">
                             </p-inputNumber>
                         </td>

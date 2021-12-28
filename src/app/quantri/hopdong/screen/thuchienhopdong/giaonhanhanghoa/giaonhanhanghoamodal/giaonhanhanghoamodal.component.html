@@ -60,7 +60,7 @@
 
             <label class="p-col-12 p-lg-2 p-xl-1  p-p-0 my-auto p-ml-3">Giá trị thanh toán</label>
             <div class="p-col-12 p-lg-4 p-xl-5  p-p-0">
-                <p-inputNumber #inputNumber [minFractionDigits]="0" locale="vi-VN">
+                <p-inputNumber #inputNumber [minFractionDigits]="0" locale="en-EN">
                 </p-inputNumber>
             </div>
         </div>
@@ -137,7 +137,7 @@
                      
                           <td class="text-center">
                               <div style="display: inline-flex;">
-                                  <p-inputNumber #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoQuaSoiThucTe"
+                                  <p-inputNumber #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoQuaSoiThucTe"
                                   (onBlur)="tinhKLTT(item)">
                                   </p-inputNumber>
                                   <button pButton pRipple icon="pi pi-ellipsis-v"

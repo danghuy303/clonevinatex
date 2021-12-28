@@ -161,26 +161,26 @@
 
               </td>
               <td class="text-center tc-w-121">
-                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TongSanLuong">
+                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TongSanLuong">
                 </p-inputNumber>
               </td>
               <td class="text-center tc-w-121">
-                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="vi-VN"
+                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="en-EN"
                   [(ngModel)]="item.SoLuongHopDong">
                 </p-inputNumber>
               </td>
               <td class="text-center tc-w-121">
-                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="vi-VN"
+                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="en-EN"
                   [(ngModel)]="item.SoLuongDaThucHien">
                 </p-inputNumber>
               </td>
               <td class="text-center tc-w-121">
-                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="vi-VN"
+                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="en-EN"
                   [(ngModel)]="item.TongSanLuongConLaiPhaiThucHien">
                 </p-inputNumber>
               </td>
               <td class="text-center tc-w-121">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" (onBlur)="TinhTongSanLuongTungMatHang()"
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" (onBlur)="TinhTongSanLuongTungMatHang()"
                   [(ngModel)]="item.SoLuongDangDo">
                 </p-inputNumber>
               </td>
@@ -188,17 +188,17 @@
                 <a href="javascript:void(0)" (click)="showModalThoiGianHopDong(item)">Chi tiết</a>
               </td>
               <td class="text-center tc-w-121">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" (onBlur)="TinhTongSanLuongTungMatHang()"
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" (onBlur)="TinhTongSanLuongTungMatHang()"
                   [(ngModel)]="item.SoLuongDuKien">
                 </p-inputNumber>
               </td>
               <td class="text-center tc-w-121">
-                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="vi-VN"
+                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="en-EN"
                   [(ngModel)]="item.SoLuongCanLapKeHoach">
                 </p-inputNumber>
               </td>
               <td class="text-center tc-w-121">
-                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="vi-VN"
+                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="en-EN"
                   [(ngModel)]="item.SoLuongDaLapKeHoach">
                 </p-inputNumber>
               </td>
@@ -207,7 +207,7 @@
                   defaultLabel="Chọn nhà máy"></p-multiSelect>
               </td>
               <td class="text-center tc-w-100" *ngFor="let prop of propThang">
-                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="vi-VN" [ngModel]="item[prop]">
+                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="en-EN" [ngModel]="item[prop]">
                 </p-inputNumber>
               </td>
             </tr>
@@ -223,7 +223,7 @@
               <td class="text-center tc-w-121"></td>
               <td class="text-center tc-w-121"></td>
               <td class="text-center tc-w-121">
-                <p-inputNumber [minFractionDigits]="0" [disabled]="true" locale="vi-VN"
+                <p-inputNumber [minFractionDigits]="0" [disabled]="true" locale="en-EN"
                   [ngModel]="nhaMay.SoLuongDaLapKeHoach">
                 </p-inputNumber>
               </td>
@@ -231,7 +231,7 @@
                 {{nhaMay.TenNhaMay}}
               </td>
               <td class="text-center tc-w-100" *ngFor="let prop of propThang" [ngClass]="{'VuotQuaNangLuc': (listThangVuotQuaNangLuc.includes(prop)&&listNhaMayVuotQuaNangLuc.includes(nhaMay.IdDuAn))}">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" (onBlur)="TinhSoLuongDaLapKeHoach(nhaMay,item)"
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" (onBlur)="TinhSoLuongDaLapKeHoach(nhaMay,item)"
                   [(ngModel)]="nhaMay[prop]">
                 </p-inputNumber>
               </td>

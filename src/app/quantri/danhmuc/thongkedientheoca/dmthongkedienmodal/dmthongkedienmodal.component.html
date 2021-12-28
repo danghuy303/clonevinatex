@@ -80,16 +80,16 @@
                                     {{items.Ten}}
                                 </td>
                                 <td class="text-right">
-                                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.SoCu"
+                                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="items.SoCu"
                                         [disabled]="true">
                                     </p-inputNumber>
                                 </td>
                                 <td class="text-right">
-                                    <p-inputNumber #input [minFractionDigits]="2" [disabled]="items.isNhapSoTieuThuTrucTiep"  locale="vi-VN" (keyup.enter)="Enter(page,i)" [(ngModel)]="items.SoMoi" (onBlur)="tinhgiatri(items)">
+                                    <p-inputNumber #input [minFractionDigits]="2" [disabled]="items.isNhapSoTieuThuTrucTiep"  locale="en-EN" (keyup.enter)="Enter(page,i)" [(ngModel)]="items.SoMoi" (onBlur)="tinhgiatri(items)">
                                     </p-inputNumber>
                                 </td>
                                 <td class="text-right">
-                                    <p-inputNumber #input [minFractionDigits]="2" [disabled]="!items.isNhapSoTieuThuTrucTiep" locale="vi-VN" (keyup.enter)="Enter(page,i)" [(ngModel)]="items.SoTieuThu" (onBlur)="tinhgiatri_Bang_So_Tieu_Thu(items)">
+                                    <p-inputNumber #input [minFractionDigits]="2" [disabled]="!items.isNhapSoTieuThuTrucTiep" locale="en-EN" (keyup.enter)="Enter(page,i)" [(ngModel)]="items.SoTieuThu" (onBlur)="tinhgiatri_Bang_So_Tieu_Thu(items)">
                                     </p-inputNumber>
                                 </td>
                                 <td *ngFor="let col of cols" class="text-right">

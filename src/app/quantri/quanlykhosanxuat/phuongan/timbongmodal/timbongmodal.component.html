@@ -46,7 +46,7 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số kiện 1 bàn:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber locale="vi-VN" [ngModel]="item.TongSoKien" [disabled]="true">
+                <p-inputNumber locale="en-EN" [ngModel]="item.TongSoKien" [disabled]="true">
                 </p-inputNumber>
             </div>
         </div>
@@ -55,7 +55,7 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <div class="p-inputgroup">
                     <p-inputNumber [ngModel]="item.KhoiLuongBong/1000||null" mode="decimal" [minFractionDigits]="2"
-                        locale="vi-VN" [disabled]="true"></p-inputNumber>
+                        locale="en-EN" [disabled]="true"></p-inputNumber>
                     <span class="p-inputgroup-addon">tấn</span>
                 </div>
             </div>
@@ -188,7 +188,7 @@
                                 <div *ngIf="lobong.tempBanBong[prop].SoKien===0">
                                     <!-- {{lobong.tempBanBong[prop].SoKien}} -->
                                 </div>
-                                <!-- <p-inputNumber locale="vi-VN" [(ngModel)]="lobong.tempBanBong[prop].SoKien"
+                                <!-- <p-inputNumber locale="en-EN" [(ngModel)]="lobong.tempBanBong[prop].SoKien"
                                     [tabindex]="lobong.tempBanBong[prop].tabIndex" [placeholder]="'_'"
                                     (onBlur)="CalAllTable(i,prop)" (keyup.enter)="nextFocus($event)">
                                 </p-inputNumber> -->

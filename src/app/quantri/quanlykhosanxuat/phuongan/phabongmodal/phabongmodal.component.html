@@ -50,7 +50,7 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số kiện:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber locale="vi-VN" [(ngModel)]="item.TongSoKien" (onBlur)="TinhSoBanBong($event)">
+                <p-inputNumber locale="en-EN" [(ngModel)]="item.TongSoKien" (onBlur)="TinhSoBanBong($event)">
                 </p-inputNumber>
             </div>
         </div>
@@ -59,7 +59,7 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <div class="p-inputgroup">
                     <p-inputNumber [ngModel]="item.KhoiLuongBong/1000||null" mode="decimal" [minFractionDigits]="2"
-                        locale="vi-VN" disabled></p-inputNumber>
+                        locale="en-EN" disabled></p-inputNumber>
                     <span class="p-inputgroup-addon">tấn</span>
                 </div>
             </div>
@@ -75,7 +75,7 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-6 p-p-0 my-auto">Tổng số kiện 1 bàn <span class="required">*</span>:</label>
             <div class="p-col-12 p-lg-6 p-p-0">
-                <p-inputNumber locale="vi-VN" [(ngModel)]="item.TongSoKien" (onBlur)="TinhSoBanBong($event)">
+                <p-inputNumber locale="en-EN" [(ngModel)]="item.TongSoKien" (onBlur)="TinhSoBanBong($event)">
                 </p-inputNumber>
             </div>
         </div>
@@ -84,7 +84,7 @@
             <div class="p-col-12 p-lg-6 p-p-0">
                 <div class="p-inputgroup">
                     <p-inputNumber [ngModel]="item.KhoiLuongBong/1000||null" mode="decimal" [minFractionDigits]="2"
-                        locale="vi-VN" disabled></p-inputNumber>
+                        locale="en-EN" disabled></p-inputNumber>
                     <span class="p-inputgroup-addon">tấn</span>
                 </div>
             </div>
@@ -94,7 +94,7 @@
             <div class="p-col-12 p-lg-6 p-p-0">
                 <div class="p-inputgroup">
                     <p-inputNumber [(ngModel)]="item.TrongLuongBongHoi" mode="decimal" [minFractionDigits]="2"
-                        locale="vi-VN" [disabled]="!checkbutton.Ghi" (onBlur)="TinhSoBanBong($event)"></p-inputNumber>
+                        locale="en-EN" [disabled]="!checkbutton.Ghi" (onBlur)="TinhSoBanBong($event)"></p-inputNumber>
                     <span class="p-inputgroup-addon">kg</span>
                 </div>
             </div>
@@ -104,7 +104,7 @@
             <div class="p-col-12 p-lg-6 p-p-0">
                 <div class="p-inputgroup">
                     <p-inputNumber [(ngModel)]="item.SoKienBongHoi" mode="decimal" [minFractionDigits]="0"
-                        locale="vi-VN" [disabled]="!checkbutton.Ghi" (onBlur)="TinhSoBanBong($event)"></p-inputNumber>
+                        locale="en-EN" [disabled]="!checkbutton.Ghi" (onBlur)="TinhSoBanBong($event)"></p-inputNumber>
                     <span class="p-inputgroup-addon">kiện</span>
                 </div>
             </div>
@@ -114,7 +114,7 @@
             <div class="p-col-12 p-lg-6 p-p-0">
                 <div class="p-inputgroup">
                     <p-inputNumber [(ngModel)]="SoBanCongThem" mode="decimal" [minFractionDigits]="0"
-                        locale="vi-VN" ></p-inputNumber>
+                        locale="en-EN" ></p-inputNumber>
                     <button type="button" pButton pRipple icon="pi pi-check"
                         class="p-button-success p-button-sm p-button-text" (click)="ThemBanBong()"></button>
                 </div>
