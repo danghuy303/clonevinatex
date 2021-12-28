@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { maskOption, vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
@@ -30,8 +31,11 @@ export class ChatluongsoimodalComponent implements OnInit {
   listdmPhanXuong: any = [];
   lang: any = vn;
   lstSanPham: any = [];
+  userInfo: any ;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, 
+    private _auth: AuthenticationService,
+    public _modal: NgbModal, ) {
 
   }
 
@@ -40,8 +44,10 @@ export class ChatluongsoimodalComponent implements OnInit {
       this.GetNextSoQuyTrinh();
       this.getDanhSachChiTieuChatLuong();
     }
-    else
-      this.KiemTraButtonModal();
+    else{
+    this.userInfo = this._auth.currentUserValue;
+    this.KiemTraButtonModal();
+    }
     if (this.item.NgayKiemTraUnix !== null && this.item.NgayKiemTraUnix !== undefined) {
       this.item.NgayKiemTra = UnixToDate(this.item.NgayKiemTraUnix);
     }
@@ -57,6 +63,8 @@ export class ChatluongsoimodalComponent implements OnInit {
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
+      if(this.item.CreatedBy == this.userInfo.Id)
+        this.checkbutton.Ghi = true;
     })
   }
 

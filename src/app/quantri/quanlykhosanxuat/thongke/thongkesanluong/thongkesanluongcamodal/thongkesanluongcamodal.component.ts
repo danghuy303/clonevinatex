@@ -35,13 +35,13 @@ export class ThongkesanluongcamodalComponent implements OnInit {
   listLoHang: any = [];
   listCaThucTe: any = [];
   TongKhoiLuong: any = 0;
-  userInfo: any ;
-  listItemTable: any = (['clone','clone','clone','clone','clone','clone','clone','clone','clone', 'clone'])
-  thongKeFull: any = [{listIem:[]}];
+  userInfo: any;
+  listItemTable: any = (['clone', 'clone', 'clone', 'clone', 'clone', 'clone', 'clone', 'clone', 'clone', 'clone'])
+  thongKeFull: any = [{ listIem: [] }];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, 
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService,
     private _auth: AuthenticationService,
-    public _modal: NgbModal, ) {
+    public _modal: NgbModal,) {
 
   }
 
@@ -68,32 +68,21 @@ export class ThongkesanluongcamodalComponent implements OnInit {
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
-      if(this.item.CreatedBy == this.userInfo.Id)
+      if (this.item.CreatedBy == this.userInfo.Id)
         this.checkbutton.Ghi = true;
     })
   }
   ChuyenDuyet() {
-    let isCheck: any = false;
-    this.item.listItem.forEach(element => {
-      if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan === "ONG" && element.SoQuaSoi !== null && element.SoQuaSoi !== undefined) {
-        isCheck = true;
-      }
-    });
-    if (isCheck === true) {
-      this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
-    }
-    else {
-      this.services.ThongKeSanLuongNhieuCa().ChuyenTiep(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.toastr.success(res.message);
-            this.activeModal.close();
-          } else {
-            this.toastr.error(res.message);
-          }
+    this.services.ThongKeSanLuongNhieuCa().ChuyenTiep(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message);
+          this.activeModal.close();
+        } else {
+          this.toastr.error(res.message);
         }
-      })
-    }
+      }
+    })
   }
 
   GetNextSoQuyTrinh() {
@@ -102,32 +91,19 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     })
   }
   GhiLai() {
-    let isCheck: any = false;
-    if (this.item.listItem !== null && this.item.listItem !== undefined) {
-      this.item.listItem.forEach(element => {
-        if ((element.IdLoHang === null || element.IdLoHang === undefined) && element.CongDoan === "ONG" && element.KhoiLuong !== null && element.KhoiLuong !== undefined) {
-          isCheck = true;
+    this.services.ThongKeSanLuongNhieuCa().Set(this.item).subscribe((res: any) => {
+      if (res) {
+        if (res.State === 1) {
+          this.toastr.success(res.message)
+          this.opt = 'edit';
+          this.item = res.objectReturn;
+          this.getItemTheoCongDoan()
+          this.KiemTraButtonModal();
+        } else {
+          this.toastr.error(res.message);
         }
-      });
-    }
-    if (isCheck === true) {
-      this.toastr.error("Bạn chưa chọn hết lô hàng cho công đoạn Ống");
-    }
-    else {
-      this.services.ThongKeSanLuongNhieuCa().Set(this.item).subscribe((res: any) => {
-        if (res) {
-          if (res.State === 1) {
-            this.toastr.success(res.message)
-            this.opt = 'edit';
-            this.item = res.objectReturn;
-            this.getItemTheoCongDoan()
-            this.KiemTraButtonModal();
-          } else {
-            this.toastr.error(res.message);
-          }
-        }
-      })
-    }
+      }
+    })
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
@@ -159,7 +135,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
   getListCaSanXuat() {
     this.services.GetListOptdmCaSanXuat().subscribe((res: any) => {
       this.listCaSanXuat = res;
-      if(this.item.listThongKeSanLuong == undefined || this.item.listThongKeSanLuong == null){
+      if (this.item.listThongKeSanLuong == undefined || this.item.listThongKeSanLuong == null) {
         this.item.listThongKeSanLuong = [];
         this.listCaSanXuat.forEach(element => {
           let itemFind = {
@@ -169,14 +145,14 @@ export class ThongkesanluongcamodalComponent implements OnInit {
             STT: element.STT
           }
           this.item.listThongKeSanLuong.push(itemFind)
-      });
+        });
       }
       this.listCaSanXuat.forEach(element => {
-        if(this.item.CongDoan=== "ONG")
+        if (this.item.CongDoan === "ONG")
           element.SoCot = 3;
-        else if(this.item.CongDoan=== "CON")
+        else if (this.item.CongDoan === "CON")
           element.SoCot = 5;
-        else if(this.item.CongDoan=== "THO")
+        else if (this.item.CongDoan === "THO")
           element.SoCot = 3;
         else
           element.SoCot = 2;
@@ -216,29 +192,29 @@ export class ThongkesanluongcamodalComponent implements OnInit {
         });
         this.listCaSanXuat.forEach(element => {
           let res_new = deepCopy(res);
-          if(this.item.listThongKeSanLuong == undefined || this.item.listThongKeSanLuong == null){
+          if (this.item.listThongKeSanLuong == undefined || this.item.listThongKeSanLuong == null) {
             let itemFind = {
               IddmCaSanXuat: element.Id,
               listItem: res_new,
-              STT:element.STT
+              STT: element.STT
             }
             this.item.listThongKeSanLuong = [];
             this.item.listThongKeSanLuong.push(itemFind)
           }
-          else{
+          else {
             let itemFind = this.item.listThongKeSanLuong.find(ele => ele.IddmCaSanXuat == element.Id)
-            if(itemFind== undefined || itemFind== null){
+            if (itemFind == undefined || itemFind == null) {
               itemFind = {
                 IddmCaSanXuat: element.Id,
                 listItem: res_new,
-                STT:element.STT
+                STT: element.STT
               }
               this.item.listThongKeSanLuong.push(itemFind)
             }
-            else{
+            else {
 
               if (itemFind.listItem !== undefined && itemFind.listItem !== null) {
-                itemFind.listItem =itemFind.listItem.concat(res_new);
+                itemFind.listItem = itemFind.listItem.concat(res_new);
               }
               else
                 itemFind.listItem = res_new;
@@ -294,21 +270,21 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong(index);
   }
-  TinhKhoiLuongChaiKy(item, index){
+  TinhKhoiLuongChaiKy(item, index) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
       KhoiLuong = item.ChieuDai / (item.Nm);
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong(index);
   }
-  TinhKhoiLuongCuonCui(item, index){
+  TinhKhoiLuongCuonCui(item, index) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
       KhoiLuong = item.ChieuDai / (item.Nm * 1000);
     item.KhoiLuong = KhoiLuong;
     this.TinhTongKhoiLuongBong(index);
   }
-  TinhKhoiLuongChaiPE(item,index) {
+  TinhKhoiLuongChaiPE(item, index) {
     var KhoiLuong = 0;
     if (item.Nm !== undefined && item.Nm !== null && item.Nm !== 0)
       KhoiLuong = item.ChieuDai / (item.Nm * 1000) * (item.SoDauRa || 0) * (item.HeSoChung || 1);
@@ -349,58 +325,58 @@ export class ThongkesanluongcamodalComponent implements OnInit {
   getItemTheoCongDoan() {
     if (this.item.CongDoan != undefined && this.item.listThongKeSanLuong != undefined && this.item.listThongKeSanLuong != null) {
       this.thongKeFull = [];
-      let listItemCheck: any =  [];
+      let listItemCheck: any = [];
 
-      if(this.item.CongDoan === "ONG")
-        listItemCheck =  this.item.listThongKeSanLuong[0].listItem.filter(ele => ele.CongDoan == this.item.CongDoan);
+      if (this.item.CongDoan === "ONG")
+        listItemCheck = this.item.listThongKeSanLuong[0].listItem.filter(ele => ele.CongDoan == this.item.CongDoan);
       this.item.listThongKeSanLuong.forEach(element => {
-        if(this.item.CongDoan !== "ONG"){
-          let thongKe = {listItem : element.listItem.filter(ele => ele.CongDoan == this.item.CongDoan), IddmCaSanXuat: element.IddmCaSanXuat}
+        if (this.item.CongDoan !== "ONG") {
+          let thongKe = { listItem: element.listItem.filter(ele => ele.CongDoan == this.item.CongDoan), IddmCaSanXuat: element.IddmCaSanXuat }
           this.thongKeFull.push(thongKe);
         }
-          else{
-            let listItem =  element.listItem.filter(ele => ele.CongDoan == this.item.CongDoan && ele.IddmCaSanXuat == element.IddmCaSanXuat);
-            if(listItem[0].Id === null){
-              let listItem_new = [];
-              listItem.forEach(eleCheck => {
-                let itemCheck = listItemCheck.find(x => x.IddmItem == eleCheck.IddmItem && x.IddmLoaiSoi == eleCheck.IddmLoaiSoi && x.IddmCaSanXuat == eleCheck.IddmCaSanXuat);
-                if(itemCheck !== undefined){
-                  eleCheck.isCheckdmCaSanXuat = true;
-                  listItem_new.push(eleCheck);
-                }
-                else{
-                  let itemAdd = deepCopy(listItemCheck.find(x => x.IddmItem == eleCheck.IddmItem && x.IddmLoaiSoi == eleCheck.IddmLoaiSoi)) ;
-                  itemAdd.isCheckdmCaSanXuat = false;
-                  listItem_new.push(itemAdd);
-                }
-              });
-              let thongKe = {listItem : listItem_new, IddmCaSanXuat: element.IddmCaSanXuat}
-              this.thongKeFull.push(thongKe);
-            }
-            else{
-              let thongKe = {listItem : listItem, IddmCaSanXuat: element.IddmCaSanXuat}
-              this.thongKeFull.push(thongKe);
-            }
+        else {
+          let listItem = element.listItem.filter(ele => ele.CongDoan == this.item.CongDoan && ele.IddmCaSanXuat == element.IddmCaSanXuat);
+          if (listItem[0].Id === null) {
+            let listItem_new = [];
+            listItem.forEach(eleCheck => {
+              let itemCheck = listItemCheck.find(x => x.IddmItem == eleCheck.IddmItem && x.IddmLoaiSoi == eleCheck.IddmLoaiSoi && x.IddmCaSanXuat == eleCheck.IddmCaSanXuat);
+              if (itemCheck !== undefined) {
+                eleCheck.isCheckdmCaSanXuat = true;
+                listItem_new.push(eleCheck);
+              }
+              else {
+                let itemAdd = deepCopy(listItemCheck.find(x => x.IddmItem == eleCheck.IddmItem && x.IddmLoaiSoi == eleCheck.IddmLoaiSoi));
+                itemAdd.isCheckdmCaSanXuat = false;
+                listItem_new.push(itemAdd);
+              }
+            });
+            let thongKe = { listItem: listItem_new, IddmCaSanXuat: element.IddmCaSanXuat }
+            this.thongKeFull.push(thongKe);
           }
+          else {
+            let thongKe = { listItem: listItem, IddmCaSanXuat: element.IddmCaSanXuat }
+            this.thongKeFull.push(thongKe);
+          }
+        }
       })
     }
     let i = 0;
     this.listCaSanXuat.forEach(element => {
       this.TinhTongKhoiLuongBong(i);
-i++;
-      if(this.item.CongDoan=== "ONG")
+      i++;
+      if (this.item.CongDoan === "ONG")
         element.SoCot = 3;
-      else if(this.item.CongDoan=== "CON")
+      else if (this.item.CongDoan === "CON")
         element.SoCot = 5;
-      else if(this.item.CongDoan=== "THO")
+      else if (this.item.CongDoan === "THO")
         element.SoCot = 3;
       else
         element.SoCot = 2;
     });
-    if(this.item.CongDoan=== "ONG"){
+    if (this.item.CongDoan === "ONG") {
       this.item.width = '100px';
     }
-    else if(this.item.CongDoan=== "CON")
+    else if (this.item.CongDoan === "CON")
       this.item.width = '100px';
     else
       this.item.width = '200px';
@@ -431,8 +407,8 @@ i++;
     this.TongKhoiLuong = 0;
     this.TongKhoiLuong = this.thongKeFull[index].listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
     if (this.item.listThongKeSanLuong[index].isTruVaoSanLuong === true)
-      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.listThongKeSanLuong[index].CottonBongPhe || 0) - (this.item.listThongKeSanLuong[index].CottonBongMun || 0) - 
-                  (this.item.listThongKeSanLuong[index].KhoiLuongCuiHoiChaiCotton || 0) - (this.item.listThongKeSanLuong[index].KhoiLuongXoNgoaiLai || 0) - (this.item.listThongKeSanLuong[index].CottonBongQuetNha || 0);
+      this.TongKhoiLuong = this.TongKhoiLuong - (this.item.listThongKeSanLuong[index].CottonBongPhe || 0) - (this.item.listThongKeSanLuong[index].CottonBongMun || 0) -
+        (this.item.listThongKeSanLuong[index].KhoiLuongCuiHoiChaiCotton || 0) - (this.item.listThongKeSanLuong[index].KhoiLuongXoNgoaiLai || 0) - (this.item.listThongKeSanLuong[index].CottonBongQuetNha || 0);
 
     if (this.TongKhoiLuong > 0) {
       this.item.listThongKeSanLuong[index].TyLeCottonBongPhe = (this.item.listThongKeSanLuong[index].CottonBongPhe || 0) / (this.TongKhoiLuong + (this.item.listThongKeSanLuong[index].CottonBongPhe || 0)) * 100;
@@ -502,11 +478,11 @@ i++;
     if (this.item.listThongKeSanLuong[index].isTruVaoSanLuong === true)
       this.TongKhoiLuong = this.TongKhoiLuong - (this.item.listThongKeSanLuong[index].SoiCat || 0) - (this.item.listThongKeSanLuong[index].OngBongQuetNha || 0);
 
-    if (this.TongKhoiLuong > 0){
+    if (this.TongKhoiLuong > 0) {
       this.item.listThongKeSanLuong[index].TyLeSoiCat = this.item.listThongKeSanLuong[index].SoiCat / (this.TongKhoiLuong + (this.item.listThongKeSanLuong[index].SoiCat || 0)) * 100;
       this.item.listThongKeSanLuong[index].TyLeOngBongQuetNha = this.item.listThongKeSanLuong[index].OngBongQuetNha / (this.TongKhoiLuong + (this.item.listThongKeSanLuong[index].OngBongQuetNha || 0)) * 100;
     }
-      
+
   }
   // ghep dau ra
   TinhTyLeCuiHoiGhepDauRa(index = 0) {
@@ -577,11 +553,11 @@ i++;
       } else {
         this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
       }
-    }else{
-      let nextFocus = this.inputNumbers.toArray().find(ele=>ele.tabindex ===i+5);
-      if(validVariable(nextFocus)){
+    } else {
+      let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === i + 5);
+      if (validVariable(nextFocus)) {
         nextFocus.el.nativeElement.children[0].children[0].focus()
-      }else{
+      } else {
         this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
       }
     }
@@ -632,7 +608,7 @@ i++;
     this.TongKhoiLuong = 0;
     this.TongKhoiLuong = this.thongKeFull[index].reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
     if (this.item.listThongKeSanLuong[index].isTruVaoSanLuong === true)
-    this.TongKhoiLuong -= (this.item.TongKhoiLuongCuiHoi || 0);
+      this.TongKhoiLuong -= (this.item.TongKhoiLuongCuiHoi || 0);
 
     let TongKhoiLuong = this.TongKhoiLuong + (this.item.TongKhoiLuongCuiHoi || 0);
 

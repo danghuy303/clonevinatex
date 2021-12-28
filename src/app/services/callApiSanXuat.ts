@@ -1464,7 +1464,10 @@ export class SanXuatService {
             },
             ExportBangKeXuatKhoBong: (data) => {
                 return this.http.post(urlDM + 'ExportBangKeXuatKhoBong', data, httpOptions);
-            }
+            },
+            GetListKienDoi: (IdPhieuXuatBong) => {
+                return this.http.get(url + `GetListKienDoi?IdPhieuXuatBong=${IdPhieuXuatBong}`, httpOptions);
+            },
         }
     }
     PhuongAnDieuChinhTimBong() {

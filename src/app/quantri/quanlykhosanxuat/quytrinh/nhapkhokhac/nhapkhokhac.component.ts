@@ -22,14 +22,6 @@ export class NhapkhokhacComponent extends StoreBase implements OnInit,OnDestroy 
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   eAction: any = "PHIEUNHAPBONGHOI";
   listKho:any=[];
-  colHois: any = [
-    {
-      header: 'Loại bông',
-      field: 'TendmLoaiBong',
-      width: 'unset'
-    },
-  ];
-
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   title: any = "";
   type: any = "";
