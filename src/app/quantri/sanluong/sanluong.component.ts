@@ -50,7 +50,7 @@ export class SanluongComponent implements OnInit, OnDestroy {
         ticks: {
           beginAtZero: true,
           callback: function (label, index, labels) {
-            return formatNumber(label, 'vi-VN', '0.0-0');
+            return formatNumber(label, 'en-EN', '0.0-0');
           }
         }
       }]
@@ -58,7 +58,7 @@ export class SanluongComponent implements OnInit, OnDestroy {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg`
+          return `${formatNumber(tooltipItem.yLabel, 'en-EN')} kg`
         }
       }
     },
@@ -83,7 +83,7 @@ export class SanluongComponent implements OnInit, OnDestroy {
         ticks: {
           beginAtZero: true,
           callback: function (label, index, labels) {
-            return formatNumber(label, 'vi-VN', '0.0-0');
+            return formatNumber(label, 'en-EN', '0.0-0');
           }
         }
       }]
@@ -93,9 +93,9 @@ export class SanluongComponent implements OnInit, OnDestroy {
         label: function (tooltipItem, data) {
           console.log(tooltipItem, data);
           if (tooltipItem.datasetIndex === 1) {
-            return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg - ${formatNumber(Math.ceil(tooltipItem.yLabel / data.datasets[0].data[tooltipItem.index] * 10000) / 100, 'vi-VN')}%`
+            return `${formatNumber(tooltipItem.yLabel, 'en-EN')} kg - ${formatNumber(Math.ceil(tooltipItem.yLabel / data.datasets[0].data[tooltipItem.index] * 10000) / 100, 'en-EN')}%`
           } else {
-            return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} kg`
+            return `${formatNumber(tooltipItem.yLabel, 'en-EN')} kg`
           }
         }
       }
@@ -130,7 +130,7 @@ export class SanluongComponent implements OnInit, OnDestroy {
       this.filter._denNgay = this.DenNgay;
     } else {
       let date = new Date();
-      this.currentDateString = formatDate(date, 'dd_MM_yyyy', 'vi-VN');
+      this.currentDateString = formatDate(date, 'dd_MM_yyyy', 'en-EN');
       console.log(this.currentDateString)
       this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
       this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
@@ -164,7 +164,7 @@ export class SanluongComponent implements OnInit, OnDestroy {
         if (mapDate_Qbject[this.currentDateString]) {
           DateString = this.currentDateString;
         } else {
-          DateString = formatDate(this.filter._denNgay, 'dd_MM_yyyy', 'vi-VN');
+          DateString = formatDate(this.filter._denNgay, 'dd_MM_yyyy', 'en-EN');
         }
         console.log(mapDate_Qbject);
         console.log(res);
@@ -173,7 +173,7 @@ export class SanluongComponent implements OnInit, OnDestroy {
           datasets: [
             {
               type: 'line',
-              label: `Kế hoạch (Lũy kế: ${formatNumber(mapDate_Qbject[DateString].KeHoach, 'vi-VN')} kg )`,
+              label: `Kế hoạch (Lũy kế: ${formatNumber(mapDate_Qbject[DateString].KeHoach, 'en-EN')} kg )`,
               borderColor: '#009900',
               // borderWidth: 2,
               fill: false,
@@ -181,7 +181,7 @@ export class SanluongComponent implements OnInit, OnDestroy {
             },
             {
               type: 'line',
-              label: `Thực tế (Lũy kế: ${formatNumber(mapDate_Qbject[DateString].ThucTe, 'vi-VN')} kg )`,
+              label: `Thực tế (Lũy kế: ${formatNumber(mapDate_Qbject[DateString].ThucTe, 'en-EN')} kg )`,
               borderColor: '#FF671F',
               // borderWidth: 2,
               fill: false,

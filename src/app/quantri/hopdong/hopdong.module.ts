@@ -433,7 +433,7 @@ import { ChiphimodalComponent } from './modals/chiphimodal/chiphimodal.component
     HopDongService,
     DanhMucHopDongService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true, },
-    { provide: LOCALE_ID, useValue: 'vi-VN' },
+    // { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
   entryComponents: [
     ChitiethanghoacuahopdongsoimodalComponent,

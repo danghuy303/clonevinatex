@@ -119,8 +119,8 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit,OnDes
             name: ele.TenCongDoan,
             // value: ele.TyLe ,
             value: ele[this.mapValue_Prop[this.filter.opt]],
-            formated: formatNumber(ele.KhoiLuongCongDoan, 'vi-VN', '0.0-2'),
-            TyLe: formatNumber(ele.TyLe, 'vi-VN', '0.0-2')
+            formated: formatNumber(ele.KhoiLuongCongDoan, 'en-EN', '0.0-2'),
+            TyLe: formatNumber(ele.TyLe, 'en-EN', '0.0-2')
           }
         })
         let Series = chart.series.push(new FunnelSeries());

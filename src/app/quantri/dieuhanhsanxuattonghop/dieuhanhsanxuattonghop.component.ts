@@ -60,14 +60,14 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     // tooltips: {
     //   callbacks: {
     //     label: function (tooltipItem, data) {
-    //       return `${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN')} kg`
+    //       return `${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'en-EN')} kg`
     //     }
     //   }
     // },
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${this._data.labels2[tooltipItem.index]}: ${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN', '0.0-2')} kg`
+          return `${this._data.labels2[tooltipItem.index]}: ${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'en-EN', '0.0-2')} kg`
         }
       }
     },
@@ -231,7 +231,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     this.BieuDoCoCau();
   }
   _formatN(num){
-    return formatNumber(num, 'vi-VN', '0.0-2')
+    return formatNumber(num, 'en-EN', '0.0-2')
   }
   TongHop() {
     this.filter.IdDuAn = this.IdDuAn;

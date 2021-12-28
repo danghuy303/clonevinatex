@@ -212,8 +212,8 @@ export class NhapkhothanhphammodalComponent implements OnInit {
       })
       // if(res1 !== null && res1 !== undefined){
       //   res1.forEach(element => {
-      //     element.SoLuong = this.decimalPipe.transform(element.SoLuong, this.format, 'vi-VN');
-      //     element.TrongLuong = this.decimalPipe.transform(element.TrongLuong, this.format, 'vi-VN');
+      //     element.SoLuong = this.decimalPipe.transform(element.SoLuong, this.format, 'en-EN');
+      //     element.TrongLuong = this.decimalPipe.transform(element.TrongLuong, this.format, 'en-EN');
       //   });
       // }
       modalRef.componentInstance.opt = 'edit';
