@@ -92,14 +92,14 @@
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tổng số ca<span class="required">*</span>:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.tongSoCa">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.tongSoCa">
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Chi số bình quân:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.chiSoBQ" disabled>
+                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.chiSoBQ" disabled>
                 </p-inputNumber>
             </div>
         </div>
@@ -112,14 +112,14 @@
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ne bình quân 30(Tấn/ca):</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.BQNE30" disabled>
+                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.BQNE30" disabled>
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tổng khối lượng:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.tongKhoiLuong" disabled>
+                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.tongKhoiLuong" disabled>
                 </p-inputNumber>
             </div>
         </div>
@@ -198,7 +198,7 @@
                         <td>
                             <div style="display: flex;">
                                 <div style="flex:1">
-                                    <p-inputNumber [minFractionDigits]="2" locale="vi-VN"
+                                    <p-inputNumber [minFractionDigits]="2" locale="en-EN"
                                         [(ngModel)]="item.KhoiLuongKeHoach"
                                         (onInput)="changeKeHoachSanXuat($event,item,i)">
                                     </p-inputNumber>

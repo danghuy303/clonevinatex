@@ -65,7 +65,7 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số kiện HĐ:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien" disabled>
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien" disabled>
                             </p-inputNumber>
             </div>
         </div>
@@ -127,7 +127,7 @@
                         <td style="text-align: center;">{{item.Mic}}</td>
                         <td style="text-align: right;">{{item.TonSoLuong|number:'0.0-0'}}</td>
                         <td>
-                            <p-inputNumber tabindex="-1" [minFractionDigits]="0" locale="vi-VN"
+                            <p-inputNumber tabindex="-1" [minFractionDigits]="0" locale="en-EN"
                                 [(ngModel)]="item.SoLuong">
                             </p-inputNumber>
                         </td>

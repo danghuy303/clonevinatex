@@ -31,7 +31,7 @@
       <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-6 p-p-0 my-auto">Đơn vị tính : </label>
         <div class="p-col-12 p-lg-6 p-p-0">
-          <!-- <p-inputNumber #inputNumber [(ngModel)]="item.DonViTinh" [minFractionDigits]="0" locale="vi-VN">
+          <!-- <p-inputNumber #inputNumber [(ngModel)]="item.DonViTinh" [minFractionDigits]="0" locale="en-EN">
           </p-inputNumber> -->
           <input type="text" class="p-inputtext-sm" (keyup.enter)="GhiLai()" [(ngModel)]="item.DonViTinh" pInputText />
         </div>
@@ -39,21 +39,21 @@
       <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-6 p-p-0 my-auto">Năm sản xuất: </label>
         <div class="p-col-12 p-lg-6 p-p-0">
-          <p-inputNumber #inputNumber [(ngModel)]="item.NamSanXuat"  locale="vi-VN">
+          <p-inputNumber #inputNumber [(ngModel)]="item.NamSanXuat"  locale="en-EN">
           </p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-6 p-p-0 my-auto">Năm mua: </label>
         <div class="p-col-12 p-lg-6 p-p-0">
-          <p-inputNumber #inputNumber [(ngModel)]="item.NamMua" [minFractionDigits]="" locale="vi-VN">
+          <p-inputNumber #inputNumber [(ngModel)]="item.NamMua" [minFractionDigits]="" locale="en-EN">
           </p-inputNumber>
         </div>
       </div>
       <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-6 p-p-0 my-auto">Thời gian bắt đầu khấu hao:<span class="required">*</span> </label>
         <div class="p-col-12 p-lg-6 p-p-0">
-          <!-- <p-inputNumber #inputNumber [(ngModel)]="item.ThoiGianBatDauKhauHao" [minFractionDigits]="" locale="vi-VN">
+          <!-- <p-inputNumber #inputNumber [(ngModel)]="item.ThoiGianBatDauKhauHao" [minFractionDigits]="" locale="en-EN">
           </p-inputNumber> -->
           <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm"  [monthNavigator]="true"
             [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ThoiGianBatDauKhauHao"  
@@ -64,7 +64,7 @@
       <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-6 p-p-0 my-auto">Số năm khấu hao: </label>
         <div class="p-col-12 p-lg-6 p-p-0">
-          <p-inputNumber #inputNumber [(ngModel)]="item.SoNamKhauHao" [minFractionDigits]="" locale="vi-VN">
+          <p-inputNumber #inputNumber [(ngModel)]="item.SoNamKhauHao" [minFractionDigits]="" locale="en-EN">
           </p-inputNumber>
         </div>
       </div>
@@ -75,14 +75,14 @@
             [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ThoiGianHetKhauHao"  
             inputId="icon" placeholder="dd/mm/yyyy">
           </p-calendar>
-          <!-- <p-inputNumber #inputNumber [(ngModel)]="item.ThoiGianHetKhauHao" [minFractionDigits]="" locale="vi-VN">
+          <!-- <p-inputNumber #inputNumber [(ngModel)]="item.ThoiGianHetKhauHao" [minFractionDigits]="" locale="en-EN">
           </p-inputNumber> -->
         </div>
       </div>
       <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-6 p-p-0 my-auto">Giá trị khấu hao tháng: </label>
         <div class="p-col-12 p-lg-6 p-p-0">
-          <p-inputNumber #inputNumber [(ngModel)]="item.GiaTriKhauHaoMoiThang" [minFractionDigits]="" locale="vi-VN">
+          <p-inputNumber #inputNumber [(ngModel)]="item.GiaTriKhauHaoMoiThang" [minFractionDigits]="" locale="en-EN">
           </p-inputNumber>
         </div>
       </div>

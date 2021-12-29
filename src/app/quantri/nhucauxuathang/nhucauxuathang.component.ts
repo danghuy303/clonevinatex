@@ -69,7 +69,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
         ticks: {
           beginAtZero: true,
           callback: function (label) {
-            return formatNumber(label, 'vi-VN', '0.0-0');
+            return formatNumber(label, 'en-EN', '0.0-0');
           }
         }
       }],
@@ -80,7 +80,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${formatNumber(tooltipItem.yLabel, 'vi-VN', '0.0-2')} tấn`
+          return `${formatNumber(tooltipItem.yLabel, 'en-EN', '0.0-2')} tấn`
         }
       }
     },
@@ -120,7 +120,7 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${this._data.labels2[tooltipItem.index]}: ${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN', '0.0-2')} kg`
+          return `${this._data.labels2[tooltipItem.index]}: ${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'en-EN', '0.0-2')} kg`
         }
       }
     },

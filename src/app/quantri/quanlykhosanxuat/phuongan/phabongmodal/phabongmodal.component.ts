@@ -198,7 +198,7 @@ export class PhabongmodalComponent implements OnInit {
         this.labelBong[lobong.IddmLoaiBong.split('-').join('_')] += lobong.TyLe;
       }
     });
-    this.item.TyLePhaBong = `${formatNumber(this.labelBong.BR, 'vi-VN', '0.0-1')}% Brazil + ${formatNumber(this.labelBong.MY, 'vi-VN', '0.0-1')}% Mỹ + ${formatNumber(this.labelBong.TP, 'vi-VN', '0.0-1')}% Tây Phi + ${formatNumber(this.labelBong.zH, 'vi-VN', '0.0-1')}% Hồi`
+    this.item.TyLePhaBong = `${formatNumber(this.labelBong.BR, 'en-EN', '0.0-1')}% Brazil + ${formatNumber(this.labelBong.MY, 'en-EN', '0.0-1')}% Mỹ + ${formatNumber(this.labelBong.TP, 'en-EN', '0.0-1')}% Tây Phi + ${formatNumber(this.labelBong.zH, 'en-EN', '0.0-1')}% Hồi`
     for (let i = 0; i < this.item.listLoBong.length; i++) {
       for (let j = 1; j <= this.item.SoBanBong; j++) {
         this.CalAllTable(i, `${j}`);
@@ -376,7 +376,7 @@ export class PhabongmodalComponent implements OnInit {
         this.labelBong[lobong.IddmLoaiBong.split('-').join('_')] += lobong.TyLe;
       }
     });
-    this.item.TyLePhaBong = this.listLoaiBong.reduce((Tong, ele, index) => { return Tong + `${index === 0 ? '' : ' + '}${formatNumber(this.labelBong[ele.prop], 'vi-VN', '0.0-2')}% ${ele.name}` }, '')
+    this.item.TyLePhaBong = this.listLoaiBong.reduce((Tong, ele, index) => { return Tong + `${index === 0 ? '' : ' + '}${formatNumber(this.labelBong[ele.prop], 'en-EN', '0.0-2')}% ${ele.name}` }, '')
   }
   TinhTongTrongLuong() {
     this.trongLuongLoBong = {};
@@ -388,7 +388,7 @@ export class PhabongmodalComponent implements OnInit {
         this.trongLuongLoBong[lobong.IddmLoaiBong.split('-').join('_')] += lobong.TongTrongLuong;
       }
     });
-    this.item.TyLeTrongLuong = this.listLoaiBong.reduce((Tong, ele, index) => { return Tong + `${index === 0 ? '' : ' + '}${formatNumber(this.trongLuongLoBong[ele.prop], 'vi-VN', '0.0-2')}kg ${ele.name}` }, '')
+    this.item.TyLeTrongLuong = this.listLoaiBong.reduce((Tong, ele, index) => { return Tong + `${index === 0 ? '' : ' + '}${formatNumber(this.trongLuongLoBong[ele.prop], 'en-EN', '0.0-2')}kg ${ele.name}` }, '')
   }
   TinhDeltaB() {
     for (let i = 1; i <= this.item.SoBanBong; i++) {

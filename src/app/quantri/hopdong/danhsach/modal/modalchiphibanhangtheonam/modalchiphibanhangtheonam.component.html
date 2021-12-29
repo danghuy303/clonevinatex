@@ -27,7 +27,7 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
           <label class="p-col-12 p-lg-4 p-p-0 my-auto">Năm:</label>
           <div class="p-col-12 p-lg-8 p-p-0">
-            <p-inputNumber [minFractionDigits]="" locale="vi-VN" [(ngModel)]="item.Nam">
+            <p-inputNumber [minFractionDigits]="" locale="en-EN" [(ngModel)]="item.Nam">
             </p-inputNumber>
           </div>
         </div>
@@ -60,17 +60,17 @@
               styleClass="p-inputtext-sm" [(ngModel)]="item.IddmChiPhiBanHang" (onChange)="ChonHienThi(item)"></p-dropdown>
           </td>
           <td class="text-center">
-            <!-- <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.LoaiXuatKhauNoiDia">
+            <!-- <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.LoaiXuatKhauNoiDia">
             </p-inputNumber> -->
             {{item.LoaiXuatKhauNoiDia}}
           </td>
           <td class="text-center">
-            <!-- <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="" locale="vi-VN" [(ngModel)]="item.ten">
+            <!-- <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="" locale="en-EN" [(ngModel)]="item.ten">
             </p-inputNumber> -->
             {{item.DonViTinh}}
           </td>
           <td class="text-center">
-            <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="" locale="vi-VN" [(ngModel)]="item.GiaTri">
+            <p-inputNumber [disabled]="!item.edit" [minFractionDigits]="" locale="en-EN" [(ngModel)]="item.GiaTri">
             </p-inputNumber>
           </td>
           <td class="text-center">
@@ -102,7 +102,7 @@
             {{newitem.DonViTinh}}
           </td>
           <td class="text-center">
-            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newitem.GiaTri">
+            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newitem.GiaTri">
             </p-inputNumber>
           </td>
           <td class="text-center">

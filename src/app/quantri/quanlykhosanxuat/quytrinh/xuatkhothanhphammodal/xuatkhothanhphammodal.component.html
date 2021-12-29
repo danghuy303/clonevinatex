@@ -150,14 +150,14 @@
                             <input pInputText type="text" [(ngModel)]="item.HopDong">
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TonSoLuong"
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TonSoLuong"
                                 disabled>
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
                             <div style="display: flex;">
                                 <div style="flex:1">
-                                    <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoLuong"
+                                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong"
                                         (onBlur)="TinhTongKhoiLuong()">
                                     </p-inputNumber>
                                 </div>
@@ -168,13 +168,13 @@
                             </div>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien"
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien"
                                 (onBlur)="TinhTongKhoiLuong()">
                             </p-inputNumber>
                         </td>
 
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN"
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN"
                                 [(ngModel)]="item.TongTrongLuongChenhLech" (onBlur)="TinhTongKhoiLuong()">
                             </p-inputNumber>
                         </td>
@@ -200,7 +200,7 @@
                             </span>
                         </td> -->
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.DonGia"
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.DonGia"
                                 (onBlur)="TinhTongThanhTien()">
                             </p-inputNumber>
                         </td>

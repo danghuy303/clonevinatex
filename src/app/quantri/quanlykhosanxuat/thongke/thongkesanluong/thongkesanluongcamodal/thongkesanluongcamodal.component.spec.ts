@@ -84,14 +84,14 @@ describe('ThongkesanluongcamodalComponent', () => {
 //                                 </span>
 //                                 <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" #inputNumber
 //                                     (keyup.enter)="enterCon(i*5+1)" [tabindex]="i*5+1" [minFractionDigits]="3"
-//                                     locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong"
+//                                     locale="en-EN" [(ngModel)]="itemtbl.KhoiLuong"
 //                                     (ngModelChange)="TinhTongKhoiLuongBong()">
 //                                 </p-inputNumber>
 //                             </td>
 //                             <td *ngIf="itemtbl.DonViNangSuat===1" class="text-right tc-w-100">
 //                                 {{itemtbl.ChieuDai |number:'0.3-3'}}
 //                                 <div style="display:none">
-//                                     <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="vi-VN"
+//                                     <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="en-EN"
 //                                         [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)"
 //                                         [tabindex]="i*5+2" (ngModelChange)="TinhCongThucMoi(itemtbl)">
 //                                     </p-inputNumber>
@@ -100,43 +100,43 @@ describe('ThongkesanluongcamodalComponent', () => {
 //                             <td *ngIf="itemtbl.DonViNangSuat===0" class="tc-w-100">
 //                                 <p-inputNumber
 //                                     *ngIf="item.CongDoan==='CHAIPC' || item.CongDoan==='GHEPSOBOPC' || item.CongDoan==='ONG' "
-//                                     [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+//                                     [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
 //                                     (keyup.enter)="enter(i)" [tabindex]="i+1" (ngModelChange)="TinhGiaTri(itemtbl)">
 //                                 </p-inputNumber>
-//                                 <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="vi-VN"
+//                                 <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="en-EN"
 //                                     [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)"
 //                                     [tabindex]="i*5+2" (ngModelChange)="TinhCongThucMoi(itemtbl)">
 //                                 </p-inputNumber>
 //                                 <p-inputNumber *ngIf="item.CongDoan==='CHAICOTTON'" [minFractionDigits]="3"
-//                                     locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
+//                                     locale="en-EN" [(ngModel)]="itemtbl.ChieuDai"
 //                                     (ngModelChange)="TinhKhoiLuongChaiCotton(itemtbl)">
 //                                 </p-inputNumber>
 //                                 <p-inputNumber *ngIf="item.CongDoan==='GHEPSOBOCOTTON' || item.CongDoan==='GHEPTRONB' || item.CongDoan==='GHEPTRONA' 
 //                                     || item.CongDoan==='GHEPDAURA' || item.CongDoan==='GHEPSOBOPE'"
-//                                     [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
+//                                     [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai"
 //                                     (ngModelChange)="TinhKhoiLuongGhepSoBoChaiCotton(itemtbl)">
 //                                 </p-inputNumber>
 //                                 <p-inputNumber #inputNumber *ngIf="item.CongDoan==='THO'" [minFractionDigits]="3"
-//                                     locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
+//                                     locale="en-EN" [(ngModel)]="itemtbl.ChieuDai"
 //                                     (ngModelChange)="TinhKhoiLuongTho(itemtbl)" (keyup.enter)="enter(i*2+1)"
 //                                     [tabindex]="i*2+1">
 //                                 </p-inputNumber>
-//                                 <p-inputNumber *ngIf="item.CongDoan==='CHAIPE'" [minFractionDigits]="3" locale="vi-VN"
+//                                 <p-inputNumber *ngIf="item.CongDoan==='CHAIPE'" [minFractionDigits]="3" locale="en-EN"
 //                                     [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enter(i)"
 //                                     [tabindex]="i+1" (ngModelChange)="TinhKhoiLuongChaiPE(itemtbl)">
 //                                 </p-inputNumber>
-//                                 <p-inputNumber *ngIf="item.CongDoan==='CHAIKY'" [minFractionDigits]="3" locale="vi-VN"
+//                                 <p-inputNumber *ngIf="item.CongDoan==='CHAIKY'" [minFractionDigits]="3" locale="en-EN"
 //                                     [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enter(i)"
 //                                     [tabindex]="i+1" (ngModelChange)="TinhKhoiLuongChaiKy(itemtbl)">
 //                                 </p-inputNumber>
-//                                 <p-inputNumber *ngIf="item.CongDoan==='CUONCUI'" [minFractionDigits]="3" locale="vi-VN"
+//                                 <p-inputNumber *ngIf="item.CongDoan==='CUONCUI'" [minFractionDigits]="3" locale="en-EN"
 //                                     [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enter(i)"
 //                                     [tabindex]="i+1" (ngModelChange)="TinhKhoiLuongCuonCui(itemtbl)">
 //                                 </p-inputNumber>
 //                             </td>
 //                             <td *ngIf="item.CongDoan==='CON'" class="p-d-flex p-flex-row tc-w-100">
 //                                 <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+3)" [tabindex]="i*5+3"
-//                                     [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChuDongHo"
+//                                     [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChuDongHo"
 //                                     (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
 //                                     [disabled]="itemtbl.DonViNangSuat===1 || itemtbl.isM === true">
 //                                 </p-inputNumber>
@@ -292,7 +292,7 @@ describe('ThongkesanluongcamodalComponent', () => {
                     //             </span>
                     //             <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" #inputNumber
                     //                 (keyup.enter)="enterCon(i*5+1)" [tabindex]="i*5+1" [minFractionDigits]="3"
-                    //                 locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong"
+                    //                 locale="en-EN" [(ngModel)]="itemtbl.KhoiLuong"
                     //                 (ngModelChange)="TinhTongKhoiLuongBong()">
                     //             </p-inputNumber>
                     //         </td>
@@ -300,7 +300,7 @@ describe('ThongkesanluongcamodalComponent', () => {
                     //             {{itemtbl.ChieuDai |number:'0.3-3'}}
                     //             <div style="display:none">
                     //                 <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3"
-                    //                     locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                    //                     locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
                     //                     (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2"
                     //                     (ngModelChange)="TinhCongThucMoi(itemtbl)">
                     //                 </p-inputNumber>
@@ -309,47 +309,47 @@ describe('ThongkesanluongcamodalComponent', () => {
                     //         <td *ngIf="itemtbl.DonViNangSuat===0">
                     //             <p-inputNumber
                     //                 *ngIf="item.CongDoan==='CHAIPC' || item.CongDoan==='GHEPSOBOPC' || item.CongDoan==='ONG' "
-                    //                 [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
+                    //                 [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai"
                     //                 #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1"
                     //                 (ngModelChange)="TinhGiaTri(itemtbl)">
                     //             </p-inputNumber>
-                    //             <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="vi-VN"
+                    //             <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="en-EN"
                     //                 [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)"
                     //                 [tabindex]="i*5+2" (ngModelChange)="TinhCongThucMoi(itemtbl)">
                     //             </p-inputNumber>
                     //             <p-inputNumber *ngIf="item.CongDoan==='CHAICOTTON'" [minFractionDigits]="3"
-                    //                 locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
+                    //                 locale="en-EN" [(ngModel)]="itemtbl.ChieuDai"
                     //                 (ngModelChange)="TinhKhoiLuongChaiCotton(itemtbl)">
                     //             </p-inputNumber>
                     //             <p-inputNumber *ngIf="item.CongDoan==='GHEPSOBOCOTTON' || item.CongDoan==='GHEPTRONB' || item.CongDoan==='GHEPTRONA' 
                     //             || item.CongDoan==='GHEPDAURA' || item.CongDoan==='GHEPSOBOPE'"
-                    //                 [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
+                    //                 [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai"
                     //                 (ngModelChange)="TinhKhoiLuongGhepSoBoChaiCotton(itemtbl)">
                     //             </p-inputNumber>
                     //             <p-inputNumber #inputNumber *ngIf="item.CongDoan==='THO'" [minFractionDigits]="3"
-                    //                 locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
+                    //                 locale="en-EN" [(ngModel)]="itemtbl.ChieuDai"
                     //                 (ngModelChange)="TinhKhoiLuongTho(itemtbl)" (keyup.enter)="enter(i*2+1)"
                     //                 [tabindex]="i*2+1">
                     //             </p-inputNumber>
                     //             <p-inputNumber *ngIf="item.CongDoan==='CHAIPE'" [minFractionDigits]="3"
-                    //                 locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                    //                 locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
                     //                 (keyup.enter)="enter(i)" [tabindex]="i+1"
                     //                 (ngModelChange)="TinhKhoiLuongChaiPE(itemtbl)">
                     //             </p-inputNumber>
                     //             <p-inputNumber *ngIf="item.CongDoan==='CHAIKY'" [minFractionDigits]="3"
-                    //                 locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                    //                 locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
                     //                 (keyup.enter)="enter(i)" [tabindex]="i+1"
                     //                 (ngModelChange)="TinhKhoiLuongChaiKy(itemtbl)">
                     //             </p-inputNumber>
                     //             <p-inputNumber *ngIf="item.CongDoan==='CUONCUI'" [minFractionDigits]="3"
-                    //                 locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                    //                 locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
                     //                 (keyup.enter)="enter(i)" [tabindex]="i+1"
                     //                 (ngModelChange)="TinhKhoiLuongCuonCui(itemtbl)">
                     //             </p-inputNumber>
                     //         </td>
                     //         <td *ngIf="item.CongDoan==='CON'" class="p-d-flex p-flex-row">
                     //             <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+3)" [tabindex]="i*5+3"
-                    //                 [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChuDongHo"
+                    //                 [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChuDongHo"
                     //                 (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
                     //                 [disabled]="itemtbl.DonViNangSuat===1 || itemtbl.isM === true">
                     //             </p-inputNumber>

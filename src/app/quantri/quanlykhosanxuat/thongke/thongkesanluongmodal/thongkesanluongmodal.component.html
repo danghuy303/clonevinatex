@@ -183,11 +183,11 @@
                             </td>
                             <td>
                                 <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 0" #inputNumber [minFractionDigits]="3"
-                                    locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong" [tabindex]="i*5+1" disabled>
+                                    locale="en-EN" [(ngModel)]="itemtbl.KhoiLuong" [tabindex]="i*5+1" disabled>
                                 </p-inputNumber>
                                 <p-inputNumber *ngIf="itemtbl.DonViNangSuat=== 1" #inputNumber
                                     (keyup.enter)="enterCon(i*5+1)" [tabindex]="i*5+1" [minFractionDigits]="3"
-                                    locale="vi-VN" [(ngModel)]="itemtbl.KhoiLuong"
+                                    locale="en-EN" [(ngModel)]="itemtbl.KhoiLuong"
                                     (ngModelChange)="TinhTongKhoiLuongBong()">
                                 </p-inputNumber>
                             </td>
@@ -197,7 +197,7 @@
                             <td *ngIf="itemtbl.DonViNangSuat===1" class="text-right">
                                 {{itemtbl.ChieuDai |number:'0.3-3'}}
                                 <div style="display:none">
-                                    <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="vi-VN"
+                                    <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="en-EN"
                                         [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)"
                                         [tabindex]="i*5+2" (ngModelChange)="TinhCongThucMoi(itemtbl)">
                                     </p-inputNumber>
@@ -205,54 +205,54 @@
                             </td>
                             <td *ngIf="itemtbl.DonViNangSuat===0">
                                 <!-- <p-inputNumber *ngIf="item.CongDoan!=='CON' && item.CongDoan!=='CHAICOTTON' && item.CongDoan!=='GHEPSOBOCOTTON' && item.CongDoan!=='THO'" 
-                                [minFractionDigits]="3" locale="vi-VN"
+                                [minFractionDigits]="3" locale="en-EN"
                                     [(ngModel)]="itemtbl.ChieuDai" -->
                                 <p-inputNumber
                                     *ngIf="item.CongDoan==='CHAIPC' || item.CongDoan==='GHEPSOBOPC' || item.CongDoan==='ONG' "
-                                    [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
-                                    (keyup.enter)="enter(i)" [tabindex]="i+1" (ngModelChange)="TinhGiaTri(itemtbl)">
+                                    [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                    (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2" (ngModelChange)="TinhGiaTri(itemtbl)">
                                 </p-inputNumber>
-                                <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="vi-VN"
+                                <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="en-EN"
                                     [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)"
                                     [tabindex]="i*5+2" (ngModelChange)="TinhCongThucMoi(itemtbl)">
                                 </p-inputNumber>
                                 <p-inputNumber *ngIf="item.CongDoan==='CHAICOTTON'" [minFractionDigits]="3"
-                                    locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
+                                    locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2"
                                     (ngModelChange)="TinhKhoiLuongChaiCotton(itemtbl)">
                                 </p-inputNumber>
                                 <p-inputNumber *ngIf="item.CongDoan==='GHEPSOBOCOTTON' || item.CongDoan==='GHEPTRONB' || item.CongDoan==='GHEPTRONA' 
                                     || item.CongDoan==='GHEPDAURA' || item.CongDoan==='GHEPSOBOPE'"
-                                    [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
+                                    [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai"
                                     (ngModelChange)="TinhKhoiLuongGhepSoBoChaiCotton(itemtbl)">
                                 </p-inputNumber>
                                 <p-inputNumber #inputNumber *ngIf="item.CongDoan==='THO'" [minFractionDigits]="3"
-                                    locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai"
-                                    (ngModelChange)="TinhKhoiLuongTho(itemtbl)" (keyup.enter)="enter(i*2+1)"
-                                    [tabindex]="i*2+1">
+                                    locale="en-EN" [(ngModel)]="itemtbl.ChieuDai"
+                                    (ngModelChange)="TinhKhoiLuongTho(itemtbl)" (keyup.enter)="enterCon(i*5+2)"
+                                    [tabindex]="i*5+2">
                                 </p-inputNumber>
                                 <p-inputNumber
-                                    *ngIf="item.CongDoan==='CHAIPE'" [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
-                                    (keyup.enter)="enter(i)" [tabindex]="i+1" (ngModelChange)="TinhKhoiLuongChaiPE(itemtbl)">
+                                    *ngIf="item.CongDoan==='CHAIPE'" [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                    (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2" (ngModelChange)="TinhKhoiLuongChaiPE(itemtbl)">
                                 </p-inputNumber>
                                 <p-inputNumber
-                                    *ngIf="item.CongDoan==='CHAIKY'" [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
-                                    (keyup.enter)="enter(i)" [tabindex]="i+1" (ngModelChange)="TinhKhoiLuongChaiKy(itemtbl)">
+                                    *ngIf="item.CongDoan==='CHAIKY'" [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                    (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2" (ngModelChange)="TinhKhoiLuongChaiKy(itemtbl)">
                                 </p-inputNumber>
                                 <p-inputNumber
-                                    *ngIf="item.CongDoan==='CUONCUI'" [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
-                                    (keyup.enter)="enter(i)" [tabindex]="i+1" (ngModelChange)="TinhKhoiLuongCuonCui(itemtbl)">
+                                    *ngIf="item.CongDoan==='CUONCUI'" [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                    (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2" (ngModelChange)="TinhKhoiLuongCuonCui(itemtbl)">
                                 </p-inputNumber>
                             </td>
 
                             <!-- <td *ngIf="item.CongDoan==='GHEPSOBOCOTTON'">
-                                <p-inputNumber #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1" [minFractionDigits]="3" locale="vi-VN"
+                                <p-inputNumber #inputNumber (keyup.enter)="enter(i)" [tabindex]="i+1" [minFractionDigits]="3" locale="en-EN"
                                     [(ngModel)]="itemtbl.KhoiLuongCuiHoi" (ngModelChange)="KhoiLuongBongTheoCuiHoi(itemtbl)">
                                 </p-inputNumber>
                             </td> -->
 
                             <td *ngIf="item.CongDoan==='CON'" class="p-d-flex p-flex-row ">
                                 <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+3)" [tabindex]="i*5+3"
-                                    [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.ChuDongHo"
+                                    [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChuDongHo"
                                     (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
                                     [disabled]="itemtbl.DonViNangSuat===1 || itemtbl.isM === true">
                                 </p-inputNumber>
@@ -262,21 +262,21 @@
                             </td>
                             <td *ngIf="item.CongDoan==='CON'">
                                 <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+4)" [tabindex]="i*5+4"
-                                    [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="itemtbl.CocChet"
+                                    [minFractionDigits]="0" locale="en-EN" [(ngModel)]="itemtbl.CocChet"
                                     (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
                                     [disabled]="itemtbl.DonViNangSuat===1">
                                 </p-inputNumber>
                             </td>
                             <td *ngIf="item.CongDoan==='CON'">
                                 <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+5)" [tabindex]="i*5+5"
-                                    [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.HutMoi"
+                                    [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.HutMoi"
                                     (ngModelChange)="KhoiLuongBongCongDoanCon(itemtbl)"
                                     [disabled]="itemtbl.DonViNangSuat===1">
                                 </p-inputNumber>
                             </td>
                             <td *ngIf="item.CongDoan==='THO'">
-                                <p-inputNumber #inputNumber (keyup.enter)="enter(i*2+2)" [tabindex]="i*2+2"
-                                    [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="itemtbl.CocChet"
+                                <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*5+5)" [tabindex]="i*5+5"
+                                    [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.CocChet"
                                     (ngModelChange)="TinhKhoiLuongTho(itemtbl)" [disabled]="itemtbl.DonViNangSuat===1">
                                 </p-inputNumber>
                             </td>
@@ -344,7 +344,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông F:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.CottonBongPhe"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.CottonBongPhe"
                                     (ngModelChange)="TinhTyLeCottonBongPhe()">
                                 </p-inputNumber>
                             </div>
@@ -364,7 +364,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông mùn:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.CottonBongMun"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.CottonBongMun"
                                     (ngModelChange)="TinhTyLeCottonBongPhe()">
                                 </p-inputNumber>
                             </div>
@@ -384,7 +384,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN"
                                     [(ngModel)]="item.KhoiLuongCuiHoiChaiCotton"
                                     (ngModelChange)="TinhTyLeCottonBongPhe()">
                                 </p-inputNumber>
@@ -406,7 +406,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng xơ ngoại lai:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN"
                                     [(ngModel)]="item.KhoiLuongXoNgoaiLai"
                                     (ngModelChange)="TinhTyLeCottonBongPhe()">
                                 </p-inputNumber>
@@ -427,7 +427,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông quét nhà:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.CottonBongQuetNha"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.CottonBongQuetNha"
                                     (ngModelChange)="TinhTyLeCottonBongPhe()">
                                 </p-inputNumber>
                             </div>
@@ -449,7 +449,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.PECuiHoi"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.PECuiHoi"
                                     (ngModelChange)="TinhTyLePEBongPhe()">
                                 </p-inputNumber>
                             </div>
@@ -469,7 +469,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông F:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.PEBongPhe"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.PEBongPhe"
                                     (ngModelChange)="TinhTyLePEBongPhe()">
                                 </p-inputNumber>
                             </div>
@@ -489,7 +489,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông mùn:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.PEBongMun"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.PEBongMun"
                                     (ngModelChange)="TinhTyLePEBongPhe()">
                                 </p-inputNumber>
                             </div>
@@ -511,7 +511,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông chải kỹ:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.ChaiKy"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.ChaiKy"
                                     (ngModelChange)="TinhTyLeBongChaiKy()">
                                 </p-inputNumber>
                             </div>
@@ -533,7 +533,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.CuiHoi"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.CuiHoi"
                                     (ngModelChange)="TinhTyLeBongCuiHoi()">
                                 </p-inputNumber>
                             </div>
@@ -554,7 +554,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng thô màng:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.ThoMangTho"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.ThoMangTho"
                                     (ngModelChange)="TinhTyLeBongCuiHoi()">
                                 </p-inputNumber>
                             </div>
@@ -574,7 +574,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông quét nhà:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.ThoBongQuetNha"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.ThoBongQuetNha"
                                     (ngModelChange)="TinhTyLeBongCuiHoi()">
                                 </p-inputNumber>
                             </div>
@@ -596,7 +596,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng thô màng:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.ThoMang"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.ThoMang"
                                     (ngModelChange)="TinhTyLeBongThoMang()">
                                 </p-inputNumber>
                             </div>
@@ -616,7 +616,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông hút mối:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.BongHutMoi"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.BongHutMoi"
                                     (ngModelChange)="TinhTyLeBongThoMang()">
                                 </p-inputNumber>
                             </div>
@@ -636,7 +636,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông quét nhà:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.ConBongQuetNha"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.ConBongQuetNha"
                                     (ngModelChange)="TinhTyLeBongThoMang()">
                                 </p-inputNumber>
                             </div>
@@ -658,7 +658,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng sợi cắt:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.SoiCat"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.SoiCat"
                                     (ngModelChange)="TinhTyLeSoiCat()">
                                 </p-inputNumber>
                             </div>
@@ -678,7 +678,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông quét nhà:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN" [(ngModel)]="item.OngBongQuetNha"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.OngBongQuetNha"
                                     (ngModelChange)="TinhTyLeSoiCat()">
                                 </p-inputNumber>
                             </div>
@@ -700,7 +700,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Cúi hồi:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN"
                                     [(ngModel)]="item.TongKhoiLuongCuiHoi" (ngModelChange)="resetKhoiLuongCuiHoi()">
                                 </p-inputNumber>
                             </div>
@@ -722,7 +722,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN"
                                     [(ngModel)]="item.KhoiLuongCuiHoiGhepDauRa"
                                     (ngModelChange)="TinhTyLeCuiHoiGhepDauRa()">
                                 </p-inputNumber>
@@ -745,7 +745,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN"
                                     [(ngModel)]="item.KhoiLuongCuiHoiGhepTronA"
                                     (ngModelChange)="TinhTyLeCuiHoiGhepTronA()">
                                 </p-inputNumber>
@@ -768,7 +768,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN"
                                     [(ngModel)]="item.KhoiLuongCuiHoiGhepTronB"
                                     (ngModelChange)="TinhTyLeCuiHoiGhepTronB()">
                                 </p-inputNumber>
@@ -791,7 +791,7 @@
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
                             <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="vi-VN"
+                                <p-inputNumber [minFractionDigits]="3" locale="en-EN"
                                     [(ngModel)]="item.KhoiLuongCuiHoiGhepSoBoPE"
                                     (ngModelChange)="TinhTyLeCuiHoiGhepSoBoPE()">
                                 </p-inputNumber>

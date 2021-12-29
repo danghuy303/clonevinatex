@@ -186,7 +186,7 @@ import { ThongsokythuatComponent } from './screen/thongsokythuat/thongsokythuat.
     TaisanService,
     DanhmuctaisanService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true, },
-    { provide: LOCALE_ID, useValue: 'vi-VN' },
+    // { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
 
   entryComponents: [ModalbaoduongComponent,

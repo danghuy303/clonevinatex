@@ -65,49 +65,49 @@
     <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị hợp đồng: </label>
       <div class="p-col-12 p-lg-8 p-p-0">
-        <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.giaTriHopDong" locale="vi-VN" disabled>
+        <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.giaTriHopDong" locale="en-EN" disabled>
         </p-inputNumber>
       </div>
     </div>
     <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng hợp đồng: </label>
       <div class="p-col-12 p-lg-8 p-p-0">
-        <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.khoiLuongHopDong" locale="vi-VN" disabled>
+        <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.khoiLuongHopDong" locale="en-EN" disabled>
         </p-inputNumber>
       </div>
     </div>
     <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng đã mua/ nhận: </label>
       <div class="p-col-12 p-lg-8 p-p-0">
-        <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.khoiLuongDaNhan" locale="vi-VN" disabled>
+        <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.khoiLuongDaNhan" locale="en-EN" disabled>
         </p-inputNumber>
       </div>
     </div>
     <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị đã mua/ nhận: </label>
       <div class="p-col-12 p-lg-8 p-p-0">
-        <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.giaTriDaNhan" locale="vi-VN" disabled>
+        <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.giaTriDaNhan" locale="en-EN" disabled>
         </p-inputNumber>
       </div>
     </div>
     <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị thanh toán: </label>
       <div class="p-col-12 p-lg-8 p-p-0">
-        <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.tongGiaTriThanhToan" locale="vi-VN" disabled>
+        <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.tongGiaTriThanhToan" locale="en-EN" disabled>
         </p-inputNumber>
       </div>
     </div>
     <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá trị quyết toán: </label>
       <div class="p-col-12 p-lg-8 p-p-0">
-        <p-inputNumber #inputNumber [(ngModel)]="item.giaTriQuyetToan" [minFractionDigits]="0" locale="vi-VN" (ngModelChange)="tinhGiaTri()">
+        <p-inputNumber #inputNumber [(ngModel)]="item.giaTriQuyetToan" [minFractionDigits]="0" locale="en-EN" (ngModelChange)="tinhGiaTri()">
         </p-inputNumber>
       </div>
     </div>
     <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
       <label class="p-col-12 p-lg-4 p-p-0 my-auto">Còn phải TT: </label>
       <div class="p-col-12 p-lg-8 p-p-0">
-        <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.conPhaiThanhToan" locale="vi-VN" disabled>
+        <p-inputNumber #inputNumber [minFractionDigits]="0" [(ngModel)]="item.conPhaiThanhToan" locale="en-EN" disabled>
         </p-inputNumber>
       </div>
     </div>
@@ -159,11 +159,11 @@
           <td class="text-center">{{i+1}}</td>
           <td class="text-center">{{item.ten}}</td>
           <td class="text-center">
-            <p-inputNumber #inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.banGoc" (ngModelChange)="item.banGoc = dinhDangSo($event)">
+            <p-inputNumber #inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.banGoc" (ngModelChange)="item.banGoc = dinhDangSo($event)">
             </p-inputNumber>
           </td>
           <td class="text-center">
-            <p-inputNumber #inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.banPhoto" (ngModelChange)="item.banPhoto = dinhDangSo($event)">
+            <p-inputNumber #inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.banPhoto" (ngModelChange)="item.banPhoto = dinhDangSo($event)">
             </p-inputNumber>
           </td>
           <td class="text-center">
