@@ -270,11 +270,8 @@ export class XuatkhomodalComponent implements OnInit {
   changeKienDoi(item){
     if(item.MaKienDoi !== null){
       let listItemChange = this.item.listItem.filter(x => x.IdLoBong == item.IdLoBong && x.IddmItem!== item.IddmItem);
-      let itemFind = this.item.listItem.find(x => x.IdLoBong == item.IdLoBong && x.IddmItem=== item.IddmItem);
-      if(itemFind !== undefined){
-        itemFind.MaKienDoi_root = deepCopy(item.MaKienDoi)
-        item.MicKienDoi = deepCopy(itemFind.Mic)
-      }
+      item.MaKienDoi_root = deepCopy(item.MaKienDoi)
+      item.MicKienDoi = item.listKienDoi.find(ele => ele.value == item.MaKienDoi).label.split("-")[1];
       let itemMoi = {
         value: item.MaKien,
         label: item.Ten + "-" + item.Mic,
