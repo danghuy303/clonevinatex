@@ -127,7 +127,7 @@
                     <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listtieuchi" placeholder="Chọn tiêu chí"
                             styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmChiTieu"
-                            (onChange)="GetBieuDoDuongKiemTraChatLuong()">
+                            (onChange)="GetBaoCaoQuyTrinhKiemTraChatLuong()">
                         </p-dropdown>
                     </div>
                     <div class="p-inputgroup" style="width:150px">
@@ -188,7 +188,7 @@
                 </div>
                 <div style="display: inline;">
                     <p-dropdown [filter]="false" [options]="listLoaiThoiGian" styleClass="p-inputtext-sm"
-                        [(ngModel)]="filter.LoaiThoiGian" (onChange)="GetBieuDoDuongKiemTraChatLuong()">
+                        [(ngModel)]="filter.LoaiThoiGian" (onChange)="GetBieuDoDuongKiemTraChatLuong_js()">
                     </p-dropdown>
                 </div>
             </div>

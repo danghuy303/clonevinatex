@@ -13,23 +13,23 @@ import { StoreService } from 'src/app/services/store.service';
 })
 export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, OnDestroy {
   filter: any = {
-      IdDuAn: 0,
-      IddmPhanXuong: "1cf3f340-0f55-4f34-938p-e329318e25et",
-      IddmCaSanXuatThucTe: "",
-      nNam: 0,
-      nThang: 0,
-      nNgay: 0,
-      LoaiThoiGian:0
-    };
+    IdDuAn: 0,
+    IddmPhanXuong: "1cf3f340-0f55-4f34-938p-e329318e25et",
+    IddmCaSanXuatThucTe: "",
+    nNam: 0,
+    nThang: 0,
+    nNgay: 0,
+    LoaiThoiGian: 0
+  };
   @ViewChild('bangScroll') bangScroll: ElementRef;
   listNhaMay: any = [];
   listMatHang: any = [];
   listSanLuongOng: any = [];
   listPhanXuong: any = [];
-  listLoaiThoiGian:any=[
-    {value:0,label:'Ngày'},
-    {value:1,label:'Tuần'},
-    {value:2,label:'Tháng'},
+  listLoaiThoiGian: any = [
+    { value: 0, label: 'Ngày' },
+    { value: 1, label: 'Tuần' },
+    { value: 2, label: 'Tháng' },
   ]
   listCa: any = [];
   listThang: any = [];
@@ -50,7 +50,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   labelLuyKeChiTiet: any = '';
   TongSanLuongOng: any = [];
   tempSanLuongOng: any = [];
-  timKiem : any ={};
+  timKiem: any = {};
   optionPie: any = {
     plugins: {
       labels: {
@@ -96,7 +96,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     legend: {
       position: 'bottom'
     },
-    
+
     maintainAspectRatio: window.innerWidth <= 768 ? false : true,
     aspectRatio: window.innerWidth <= 768 ? 1 : (((window.innerWidth - 80) / 2) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
@@ -107,7 +107,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   chatLuongSanPhamScrollHeight: any = 0;
   suber: any;
   listLuyKeChiTiet: any = [];
-  mapIndex_Ma:any=[];
+  mapIndex_Ma: any = [];
   TongPheLuyKeChiTiet: any;
   TongKhoiLuongLuyKeChiTiet: any;
   TongPheSanLuong: any;
@@ -236,7 +236,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     this.TongHop();
     this.BieuDoCoCau();
   }
-  _formatN(num){
+  _formatN(num) {
     return formatNumber(num, 'en-EN', '0.0-2')
   }
   TongHop() {
@@ -285,16 +285,16 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       })
       console.log(listSanLuongOngtemp)
       this.listSanLuongOng = res.lstItem;
-      this.TongKhoiLuongSanLuong = res.lstItem.reduce((total,ele)=>ele.KhoiLuong+total,0)
+      this.TongKhoiLuongSanLuong = res.lstItem.reduce((total, ele) => ele.KhoiLuong + total, 0)
       this.TongPheSanLuong = res.TruVaoSanLuongGianMay;
       this.listHienThiSanLuongOng = listSanLuongOngtemp;
     })
     this._services.BaoCao().GetDashBoard_TongHop_LuyKe_ChiTiet(this.filter).subscribe((res: any) => {
       this.listLuyKeChiTiet = res.lstItem;
-      this.TongKhoiLuongLuyKeChiTiet = res.lstItem.reduce((total,ele)=>ele.KhoiLuong+total,0)
+      this.TongKhoiLuongLuyKeChiTiet = res.lstItem.reduce((total, ele) => ele.KhoiLuong + total, 0)
       this.TongPheLuyKeChiTiet = res.TruVaoSanLuongGianMay;
-      if(this.listLuyKeChiTiet.length < 9){
-        for(let i = 0; i <12; i++){
+      if (this.listLuyKeChiTiet.length < 9) {
+        for (let i = 0; i < 12; i++) {
           let item = {};
           this.listLuyKeChiTiet.push(item);
         }
@@ -306,15 +306,15 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
 
   BieuDoCoCau() {
     this.filter.IdDuAn = this.IdDuAn;
-    let data: any = { IdDuAn: this.filter.IdDuAn, IddmPhanXuong: this.filter.IddmPhanXuong, nNam: this.filter.nNam,nThang:this.filter.nThang };
+    let data: any = { IdDuAn: this.filter.IdDuAn, IddmPhanXuong: this.filter.IddmPhanXuong, nNam: this.filter.nNam, nThang: this.filter.nThang };
     this._services.BaoCao().BieuDoCoCau(data).subscribe((res: any) => {
       this.mapIndex_Ma = deepCopy(res.labels);
       res.labels = this.mapIndex_Ma.map(lb => {
         let arr = lb.split(' - ')
-        if(arr.length===1){
+        if (arr.length === 1) {
           return arr[0]
         }
-        if(arr.length>1){
+        if (arr.length > 1) {
           arr.shift()
           return arr.join(' - ')
         }
@@ -334,8 +334,16 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       this.listMatHang.forEach(mathang => {
         mathang.checked = false;
       });
-      this.listMatHang[0].checked = true;
-      this.SelectItem = this.listMatHang[0];
+      if (this.SelectItem?.IddmItem!==undefined) {
+        console.log('exist',this.SelectItem);
+        let exist = this.listMatHang.find(ele=>ele.IddmItem===this.SelectItem.IddmItem);
+        exist.checked=true;
+        this.SelectItem = exist;
+      } else {
+        console.log('not exist',this.SelectItem);
+        this.listMatHang[0].checked = true;
+        this.SelectItem = this.listMatHang[0];
+      }
       this.GetBieuDoDuongKiemTraChatLuong_js();
       this.dataSet1 = [];
     });
@@ -349,7 +357,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   GetBieuDoDuongKiemTraChatLuong() {
     this.GetBaoCaoQuyTrinhKiemTraChatLuong();
 
-    this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem,this.filter.LoaiThoiGian).subscribe((res: any) => {
+    this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem, this.filter.LoaiThoiGian).subscribe((res: any) => {
       // this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(2021, "1cf3f340-0f55-4f34-938p-e629318e25et", "34701076-c84a-4459-8ce9-fbde22d44e39", "02bd1952-5092-496f-a566-2f0ac6ab4940").subscribe((res: any) => {
       // this.dataSet1 = res;
       console.log(res);
@@ -411,7 +419,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   }
   GetBieuDoDuongKiemTraChatLuong_js() {
 
-    this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem,this.filter.LoaiThoiGian).subscribe((res: any) => {
+    this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(this.filter.nNam, this.filter.IddmPhanXuong, this.filter.IddmChiTieu, this.SelectItem.IddmItem, this.filter.LoaiThoiGian).subscribe((res: any) => {
       // this._services.BaoCao().GetBieuDoDuongKiemTraChatLuong(2021, "1cf3f340-0f55-4f34-938p-e629318e25et", "34701076-c84a-4459-8ce9-fbde22d44e39", "02bd1952-5092-496f-a566-2f0ac6ab4940").subscribe((res: any) => {
       // this.dataSet1 = res;
       let label = this.listtieuchi.filter(obj => obj.value == this.filter.IddmChiTieu)[0].label;
@@ -485,21 +493,21 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   ngOnDestroy() {
     this.suber.unsubscribe();
   }
-  getBaoCaoLuyKe(){
+  getBaoCaoLuyKe() {
     this.filter.TuNgay = DateToUnix(this.timKiem.TuNgayDate),
-    this.filter.DenNgay = DateToUnix(this.timKiem.DenNgayDate),
-    this._services.BaoCao().GetDashBoard_TongHop_LuyKe_ChiTiet(this.filter).subscribe((res: any) => {
-      this.listLuyKeChiTiet = res.lstItem;
-      this.TongKhoiLuongLuyKeChiTiet = res.lstItem.reduce((total,ele)=>ele.KhoiLuong+total,0)
-      this.TongPheLuyKeChiTiet = res.TruVaoSanLuongGianMay;
-      if(this.listLuyKeChiTiet.length < 9){
-        for(let i = 0; i <12; i++){
-          let item = {};
-          this.listLuyKeChiTiet.push(item);
+      this.filter.DenNgay = DateToUnix(this.timKiem.DenNgayDate),
+      this._services.BaoCao().GetDashBoard_TongHop_LuyKe_ChiTiet(this.filter).subscribe((res: any) => {
+        this.listLuyKeChiTiet = res.lstItem;
+        this.TongKhoiLuongLuyKeChiTiet = res.lstItem.reduce((total, ele) => ele.KhoiLuong + total, 0)
+        this.TongPheLuyKeChiTiet = res.TruVaoSanLuongGianMay;
+        if (this.listLuyKeChiTiet.length < 9) {
+          for (let i = 0; i < 12; i++) {
+            let item = {};
+            this.listLuyKeChiTiet.push(item);
+          }
         }
-      }
-      this.labelLuyKeChiTiet = `Lũy kế chi tiết đến ngày ${this.filter.nNgay}/${this.filter.nThang}/${this.filter.nNam}`
-      console.log("LuyKeChiTiet", res);
-    })
+        this.labelLuyKeChiTiet = `Lũy kế chi tiết đến ngày ${this.filter.nNgay}/${this.filter.nThang}/${this.filter.nNam}`
+        console.log("LuyKeChiTiet", res);
+      })
   }
 }
