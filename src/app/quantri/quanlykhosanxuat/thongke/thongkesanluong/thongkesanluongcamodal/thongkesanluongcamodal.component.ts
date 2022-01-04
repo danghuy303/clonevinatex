@@ -97,6 +97,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
           this.toastr.success(res.message)
           this.opt = 'edit';
           this.item = res.objectReturn;
+          this.item.Ngay = UnixToDate(this.item.NgayUnix);
           this.getItemTheoCongDoan()
           this.KiemTraButtonModal();
         } else {

@@ -107,6 +107,10 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
     }
     if (validVariable(this.item.Ngay)) {
+      
+      this.item.listItem.forEach(element => {
+        delete element.listKienDoi;
+      });
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
@@ -126,6 +130,9 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
     }
     if (validVariable(this.item.Ngay)) {
+      this.item.listItem.forEach(element => {
+        delete element.listKienDoi;
+      });
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this.services.PhieuXuatSanXuat().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
@@ -150,6 +157,10 @@ export class XuatkhomodalComponent implements OnInit {
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
     if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
+      
+      this.item.listItem.forEach(element => {
+        delete element.listKienDoi;
+      });
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
       this.services.PhieuXuatSanXuat().Set(this.item).subscribe((res: any) => {
         if (res) {
@@ -174,6 +185,10 @@ export class XuatkhomodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
+      
+      this.item.listItem.forEach(element => {
+        delete element.listKienDoi;
+      });
       this.services.PhieuXuatSanXuat().Delete(this.item).subscribe((res: any) => {
         if (res?.State === 1) {
           this.activeModal.close();
