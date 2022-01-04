@@ -33,5 +33,5 @@ export const congDoan = [
   ]
   export const maskOption = {
     mask: "separator.3",
-    thousand: ".",
+    thousand: ",",
   }
