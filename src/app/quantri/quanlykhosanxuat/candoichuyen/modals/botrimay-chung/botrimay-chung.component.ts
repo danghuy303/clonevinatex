@@ -77,7 +77,8 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
       if (validVariable(may.IdCanDoiChuyen_CanBoTri)) {
         let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === may.IdCanDoiChuyen_CanBoTri)?.[0]?.[this.optionMatHang];
         may.listTocDo = mapArrayForDropDown(may.listDinhMucMay.filter(dinhmuc => dinhmuc[this.optionMatHang] === IddmItem), 'TocDo', 'Id');
-        may.SanLuongCa = may.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === may.listTocDo?.[0]?.value)?.[0]?.DinhMucNangSuat || 0;
+        // may.SanLuongCa = may.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === may.listTocDo?.[0]?.value)?.[0]?.DinhMucNangSuat || 0;
+        may.SanLuongCa = may.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === may.IdPhanNhomMay_Item)?.[0]?.DinhMucNangSuat || 0;//060122 huong
         if (!validVariable(may.IdPhanNhomMay_Item)) {
           may.IdPhanNhomMay_Item = may.listTocDo?.[0]?.value
         }

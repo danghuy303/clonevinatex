@@ -1045,6 +1045,9 @@ export class SanXuatService {
             GetMatHangTheoNgay: (IddmPhanXuong, Ngay) => {
                 return this.http.get(url + `GetMatHangThongKeSanLuongTheoNgay?IddmPhanXuong=${IddmPhanXuong}&Ngay=${Ngay}`, httpOptions)
             },
+            DinhMuc: (Id) => {
+                return this.http.get(url + `updateSanLuongDinhMuc?Id=${Id}`, httpOptions);
+            },
         }
     }
     //Pha bông

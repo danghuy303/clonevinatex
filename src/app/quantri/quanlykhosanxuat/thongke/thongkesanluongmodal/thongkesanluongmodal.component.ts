@@ -163,6 +163,15 @@ export class ThongkesanluongmodalComponent implements OnInit {
       })
     }
   }
+  DinhMuc() {
+      this.services.ThongKeSanLuong().DinhMuc(this.item.Id).subscribe((res: any) => {
+        if (res) {
+          this.item = res;
+          this.listItem = [];
+          this.getItemTheoCongDoan()
+        }
+      })
+  }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: 'static'
