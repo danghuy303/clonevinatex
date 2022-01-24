@@ -17,6 +17,8 @@ import { Sucosuachua2Component } from './sucosuachua2/sucosuachua2.component';
 import { TaisanComponent } from './taisan.component';
 import { ThanhlytaisanComponent } from './thanhlytaisan/thanhlytaisan.component';
 import { PhieuthuhoitaisanComponent } from './thuhoitaisan/phieuthuhoitaisan/phieuthuhoitaisan.component';
+import { VattudutruComponent } from './vattudutru/vattudutru.component';
+import { VattugiatricaoComponent } from './vattugiatricao/vattugiatricao.component';
 
 const routes: Routes = [
   {path:'',component:TaisanComponent},
@@ -24,6 +26,8 @@ const routes: Routes = [
   {path:'bangiaotaisan',component:BangiaotaisanComponent},  
   {path:'sucosuachua',component:SucosuachuaComponent},  
   {path:'danhsachtaisan',component:DanhsachtaisanComponent},
+  {path:'danhsachvattudutru',component:VattudutruComponent},
+  {path:'danhsachvattugiatricao',component:VattugiatricaoComponent},
   {path:'danhmuc/danhmucloaibaoduong',component:DanhmucloaibaoduongComponent},
   {path:'danhmuc/danhmucdonvitinh',component:DanhmucdonvitinhComponent},
   {path:'danhmuc/danhmucloaitaisan',component:DanhmucloaitaisanComponent},
