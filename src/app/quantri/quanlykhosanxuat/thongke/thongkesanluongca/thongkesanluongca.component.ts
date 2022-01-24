@@ -123,7 +123,7 @@ export class ThongkesanluongcaComponent implements OnInit {
   add(){
     this.changeParam(0);
     let modalRef = this._modal.open(ThongkesanluongcamodalComponent , {
-      size: 'fullscreen',
+      size: 'fullscreen-100',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'add';
@@ -139,7 +139,7 @@ export class ThongkesanluongcaComponent implements OnInit {
   update(Id){
     this._service.ThongKeSanLuongNhieuCa().Get(Id).subscribe((res1: any) => {
     let modalRef = this._modal.open(ThongkesanluongcamodalComponent, {
-      size: 'fullscreen',
+      size: 'fullscreen-100',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = 'edit';

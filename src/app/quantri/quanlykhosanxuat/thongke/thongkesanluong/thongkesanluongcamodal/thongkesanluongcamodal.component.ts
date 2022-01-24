@@ -50,7 +50,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
       this.GetPhanXuongTheoUser();
-      this.item.width = '200px';
+      this.item.width = '100px';
     }
     else {
       this.KiemTraButtonModal();
@@ -400,9 +400,9 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       this.item.width = '100px';
     }
     else if (this.item.CongDoan === "CON")
-      this.item.width = '100px';
+      this.item.width = '75px';
     else
-      this.item.width = '200px';
+      this.item.width = '100px';
   }
   TinhSoQuaSoi(item, event) {
     if (item.KhoiLuong !== undefined && item.KhoiLuong !== null) {
@@ -679,11 +679,11 @@ export class ThongkesanluongcamodalComponent implements OnInit {
   }
   checkAll(e, index) {
     if (e.checked) {
-      this.thongKeFull[index].forEach(item => {
+      this.thongKeFull[index].listItem.forEach(item => {
         item.isM = true;
       });
     } else {
-      this.thongKeFull[index].forEach(item => {
+      this.thongKeFull[index].listItem.forEach(item => {
         item.isM = false;
       });
     }

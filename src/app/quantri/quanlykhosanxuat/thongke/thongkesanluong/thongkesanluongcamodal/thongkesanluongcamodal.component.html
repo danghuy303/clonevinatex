@@ -65,14 +65,14 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-p-0 pintable-containertk" voiPintable [pinnedCols]="4">
+        <div class="p-col-12 p-p-0 d-flex flex-column table-bongphe">
             <table>
                 <thead>
                     <tr>
                         <th rowspan="2" class="tc-w-30">#</th>
-                        <th rowspan="2" class="tc-w-100">Số máy</th>
-                        <th rowspan="2" class="tc-w-50">Ne</th>
-                        <th rowspan="2" class="tc-w-150">Mặt hàng</th>
+                        <th rowspan="2">Số máy</th>
+                        <th rowspan="2" class="tc-w-30">Ne</th>
+                        <th rowspan="2">Mặt hàng</th>
                         <th *ngFor="let col of listCaSanXuat; let i = index" [attr.colspan]="col.SoCot">
                             <div class="d-flex flex-column flex-lg-row">
                                 <label class="p-col-12 p-lg-9 p-p-0 my-auto">{{col.Ten}}</label>
@@ -83,25 +83,25 @@
                                 </div>
                             </div>
                         </th>
-                        <th rowspan="2" class="tc-w-200">Ghi chú</th>
+                        <th rowspan="2" class="tc-w-100">Ghi chú</th>
                     </tr>
                     <tr>
                         <th style="display: none;"></th>
                         <th style="display: none;"></th>
                         <th style="display: none;"></th>
                         <th style="display: none;"></th>
-                        <ng-container *ngFor="let col of listCaSanXuat">
+                        <ng-container *ngFor="let col of listCaSanXuat; let i = index">
                             <th *ngIf="item.CongDoan==='ONG'" class="tc-w-100">Sản lượng màn hình (kg)</th>
                             <th *ngIf="item.CongDoan!=='ONG'"
                                 [ngStyle]="{'min-width':item.width,'max-width':item.width}">Khối lượng (kg)</th>
                             <th [ngStyle]="{'min-width':item.width,'max-width':item.width}">Chiều dài (m)</th>
                             <th *ngIf="item.CongDoan==='CON'" class="tc-w-100">Chữ đồng hồ (g/cọc)
-                                <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true"
+                                <p-checkbox (onChange)="checkAll($event, i)" binary="true"
                                     inputId="binary"></p-checkbox>
                             </th>
-                            <th *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'" class="tc-w-100">Cọc chết (cọc)
+                            <th *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'" [ngStyle]="{'min-width':item.width,'max-width':item.width}">Cọc chết (cọc)
                             </th>
-                            <th *ngIf="item.CongDoan==='CON'" class="tc-w-100">Hút mối (kg)</th>
+                            <th *ngIf="item.CongDoan==='CON'" [ngStyle]="{'min-width':item.width,'max-width':item.width}">Hút mối (kg)</th>
                             <th *ngIf="item.CongDoan==='ONG'" class="tc-w-200">Lô hàng</th>
                         </ng-container>
                     </tr>
@@ -183,19 +183,14 @@
                                     (ngModelChange)="KhoiLuongBongCongDoanCon(col.listItem[i], indexCa)" style="margin: 5px!important" />
                                 <label>M</label>
                             </td>
-                            <td *ngIf="item.CongDoan==='CON'" class="tc-w-100">
+                            <td *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 <span *ngIf="col.listItem[i].DonViNangSuat===1">
-                                    {{col.listItem[i].CocChet |number:'0.0'}}
+                                    {{col.listItem[i].CocChet |number:'0.0-3'}}
                                 </span>
                             </td>
-                            <td *ngIf="item.CongDoan==='CON'" class="tc-w-100">
+                            <td *ngIf="item.CongDoan==='CON'" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 <span *ngIf="col.listItem[i].DonViNangSuat===1">
-                                    {{col.listItem[i].HutMoi |number:'0.3-3'}}
-                                </span>
-                            </td>
-                            <td *ngIf="item.CongDoan==='THO'" class="tc-w-100">
-                                <span *ngIf="col.listItem[i].DonViNangSuat===1 ">
-                                    {{col.listItem[i].CocChet |number:'0.3-3'}}
+                                    {{col.listItem[i].HutMoi |number:'0.0-3'}}
                                 </span>
                             </td>
                             <td *ngIf="item.CongDoan==='ONG'" class="tc-w-200" style="z-index: -1;">
@@ -211,7 +206,7 @@
                                 </div>
                             </td>
                         </ng-container>
-                        <td class="tc-w-200">
+                        <td class="tc-w-100">
                             <input type="text" class="p-inputtext-sm" [(ngModel)]="itemtbl.GhiChu" pInputText />
                         </td>
                     </tr>
@@ -230,16 +225,16 @@
                             <td *ngIf="item.CongDoan==='CON'" class="text-right tc-w-100">
                                 {{col.listItem|isXoa|SumByKey:'ChuDongHo'|number:'0.3-3'}}
                             </td>
-                            <td *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'" class="text-right tc-w-100">
+                            <td *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'" class="text-right" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 {{col.listItem|isXoa|SumByKey:'CocChet'|number:'0.0'}}
                             </td>
-                            <td *ngIf="item.CongDoan==='CON'" class="text-right tc-w-100">
+                            <td *ngIf="item.CongDoan==='CON'" class="text-right" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 {{col.listItem|isXoa|SumByKey:'HutMoi'|number:'0.3-3'}}
                             </td>
                             <td *ngIf="item.CongDoan==='ONG'" class="text-right tc-w-100">
                             </td>
                         </ng-container>
-                        <td class="tc-w-200"></td>
+                        <td class="tc-w-100"></td>
                     </tr>
                     <tr *ngFor="let col of listItemTable">
                         <td class="tc-w-30" style="background-color: #fff;">&nbsp;</td>
@@ -249,13 +244,13 @@
                         <ng-container *ngFor="let col of listCaSanXuat">
                             <td [ngStyle]="{'min-width':item.width,'max-width':item.width}"></td>
                             <td [ngStyle]="{'min-width':item.width,'max-width':item.width}"></td>
-                            <td *ngIf="item.CongDoan==='CON'" class="tc-w-100"></td>
-                            <td *ngIf="item.CongDoan==='CON'" class="tc-w-100"></td>
-                            <td *ngIf="item.CongDoan==='CON'" class="tc-w-100"></td>
-                            <td *ngIf="item.CongDoan==='THO'" class="tc-w-100"></td>
+                            <td *ngIf="item.CongDoan==='CON'" [ngStyle]="{'min-width':item.width,'max-width':item.width}"></td>
+                            <td *ngIf="item.CongDoan==='CON'" [ngStyle]="{'min-width':item.width,'max-width':item.width}"></td>
+                            <td *ngIf="item.CongDoan==='CON'" [ngStyle]="{'min-width':item.width,'max-width':item.width}"></td>
+                            <td *ngIf="item.CongDoan==='THO'" [ngStyle]="{'min-width':item.width,'max-width':item.width}"></td>
                             <td *ngIf="item.CongDoan==='ONG'" class="tc-w-200"></td>
                         </ng-container>
-                        <td class="tc-w-200"></td>
+                        <td class="tc-w-100"></td>
                     </tr>
                 </tbody>
             </table>

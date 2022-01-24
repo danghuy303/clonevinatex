@@ -263,7 +263,7 @@ export class NhapkhothanhphammodalComponent implements OnInit {
   tinhToan(item, opt) {
     let modalRef = this._modal.open(CalcmodalComponent)
     modalRef.result.then((res) => {
-      item[opt] = res;
+      item[opt] =  Math.round(res);
       this.TongKhoiLuong(item);
     })
   }

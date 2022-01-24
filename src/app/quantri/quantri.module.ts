@@ -249,6 +249,13 @@ import { Phuhung1Component } from './quanlykhosanxuat/phuongan/layoutmodals/phuh
 import { Phuhung2Component } from './quanlykhosanxuat/phuongan/layoutmodals/phuhung2/phuhung2.component';
 import { ThongkesanluongcamodalComponent } from './quanlykhosanxuat/thongke/thongkesanluong/thongkesanluongcamodal/thongkesanluongcamodal.component';
 import { ThongkesanluongcaComponent } from './quanlykhosanxuat/thongke/thongkesanluongca/thongkesanluongca.component';
+import { DmphannhommaybanchephammodalComponent } from './danhmuc/dmphannhommay/dmphannhommaybanchephammodal/dmphannhommaybanchephammodal.component';
+import { KiemtrabanchephamComponent } from './quanlykhosanxuat/thongke/kiemtrabanchepham/kiemtrabanchepham.component';
+import { KiemtrabanchephammodalComponent } from './quanlykhosanxuat/thongke/kiemtrabanchepham/kiemtrabanchephammodal/kiemtrabanchephammodal.component';
+import { ChonmathangkiemtrabanchephammodalComponent } from './quanlykhosanxuat/thongke/kiemtrabanchepham/chonmathangkiemtrabanchephammodal/chonmathangkiemtrabanchephammodal.component';
+import { DmkhunggioComponent } from './danhmuc/thongkedientheoca/dmkhunggio/dmkhunggio.component';
+import { DmkhunggiomodalComponent } from './danhmuc/thongkedientheoca/dmkhunggio/dmkhunggiomodal/dmkhunggiomodal.component';
+import { BaocaothongketiendienComponent } from './danhmuc/thongkedientheoca/baocaothongketiendien/baocaothongketiendien.component';
 
 
 
@@ -452,6 +459,13 @@ import { ThongkesanluongcaComponent } from './quanlykhosanxuat/thongke/thongkesa
     Phuhung2Component,
     ThongkesanluongcamodalComponent,
     ThongkesanluongcaComponent,
+    DmphannhommaybanchephammodalComponent,
+    KiemtrabanchephamComponent,
+    KiemtrabanchephammodalComponent,
+    ChonmathangkiemtrabanchephammodalComponent,
+    DmkhunggioComponent,
+    DmkhunggiomodalComponent,
+    BaocaothongketiendienComponent,
 
   ],
   imports: [
@@ -602,6 +616,10 @@ import { ThongkesanluongcaComponent } from './quanlykhosanxuat/thongke/thongkesa
     ChonkienchovaymodalComponent,
     DmkgconemodalComponent,
     ThongkesanluongcamodalComponent,
+    DmphannhommaybanchephammodalComponent,
+    KiemtrabanchephammodalComponent,
+    ChonmathangkiemtrabanchephammodalComponent,
+    DmkhunggiomodalComponent,
 
     Phuhung1Component,
     Phuhung2Component
