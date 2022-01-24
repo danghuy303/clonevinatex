@@ -364,3 +364,7 @@ span.required {
 .p-datatable.p-datatable-sm .p-datatable-thead > tr > td {
     padding: 0.5rem 0.5rem;
 }
+
+.your-tree-table-class .ui-treetable-toggler.fa-caret-right:before{
+    content: "\f067";
+  }

@@ -89,6 +89,8 @@ import { Sucosuachua2Component } from './sucosuachua2/sucosuachua2.component';
 import { TaomoilichbaoduongComponent } from './screen/taomoilichbaoduong/taomoilichbaoduong.component';
 import { AntoanComponent } from './screen/antoan/antoan.component';
 import { ThongsokythuatComponent } from './screen/thongsokythuat/thongsokythuat.component';
+import { VattudutruComponent } from './vattudutru/vattudutru.component';
+import { VattugiatricaoComponent } from './vattugiatricao/vattugiatricao.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -136,6 +138,8 @@ import { ThongsokythuatComponent } from './screen/thongsokythuat/thongsokythuat.
     TaomoilichbaoduongComponent,
     AntoanComponent,
     ThongsokythuatComponent,
+    VattudutruComponent,
+    VattugiatricaoComponent,
 
   ],
   imports: [

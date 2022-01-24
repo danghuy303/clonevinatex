@@ -1,5 +1,5 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Danh sách tài sản</h4>
+    <h4 style="color:#1f2779">Danh sách vật tư giá trị cao</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <!-- <button pButton lab el="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
@@ -30,11 +30,6 @@
         </div>
     </div>
 </div>
-<p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <p-tabPanel header="Tổng hợp"></p-tabPanel>
-    <p-tabPanel header="Đến hạn"></p-tabPanel>
-    <p-tabPanel header="Quá hạn"></p-tabPanel>
-</p-tabView>
 <p-treeTable [value]="items" styleClass="p-treetable p-treetable-caption MY-tree-table-class">
     <ng-template pTemplate="colgroup">
         <colgroup>
@@ -55,16 +50,16 @@
     <ng-template pTemplate="header" let-columns>
         <tr>
             <!-- <th class="text-center" rowspan="2">STT</th> -->
-            <th class="text-center" rowspan="2">Mã</th>
-            <th class="text-center" rowspan="2">Tên</th>
-            <th class="text-center" rowspan="2">Ngày nhập</th>
-            <th class="text-center" rowspan="2">Loại tài sản</th>
-            <th class="text-center" rowspan="2">Nhà máy</th>
-            <th class="text-center" rowspan="2">bộ phận</th>
-            <th class="text-center" rowspan="2">Nguyên giá</th>
-            <th class="text-center" rowspan="2">Giá trị còn lại</th>     
-            <th class="text-center" rowspan="2">Tình trạng</th>              
-            <th class="text-center" rowspan="2">Thao tác</th>                
+            <th class="text-center">Mã</th>
+            <th class="text-center">Tên</th>
+            <th class="text-center">Ngày nhập</th>
+            <th class="text-center">Loại tài sản</th>
+            <th class="text-center">Nhà máy</th>
+            <th class="text-center">bộ phận</th>
+            <th class="text-center">Nguyên giá</th>
+            <th class="text-center">Giá trị còn lại</th>     
+            <th class="text-center">Tình trạng</th>              
+            <th class="text-center">Thao tác</th>                
         </tr>
         <!-- <tr>              
             <th class="text-center">Năm</th>
