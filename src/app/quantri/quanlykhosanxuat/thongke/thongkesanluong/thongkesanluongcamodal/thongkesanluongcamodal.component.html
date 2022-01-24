@@ -75,10 +75,8 @@
                         <th rowspan="2" class="tc-w-150">Mặt hàng</th>
                         <th *ngFor="let col of listCaSanXuat; let i = index" [attr.colspan]="col.SoCot">
                             <div class="d-flex flex-column flex-lg-row">
-
                                 <label class="p-col-12 p-lg-9 p-p-0 my-auto">{{col.Ten}}</label>
                                 <div class="p-col-12 p-lg-3 p-p-0">
-
                                     <p-dropdown [options]="listCaThucTe" placeholder="Ca" styleClass="p-inputtext-sm"
                                         [(ngModel)]="item.listThongKeSanLuong[i].IddmCaSanXuatThucTe">
                                     </p-dropdown>
@@ -377,7 +375,7 @@
                                 <td class="text-right p-d-flex p-flex-row ">
                                     <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="col.PECuiHoi"
                                         (ngModelChange)="TinhTyLePEBongPhe(i)">
-                                    </p-inputNumber>>
+                                    </p-inputNumber>
                                     <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
                                         class="p-button-sm p-button-rounded p-button-secondary p-button-text"
                                         (click)="tinhToan(col,'PECuiHoi')" pTooltip="Tính toán" showDelay="1000"

@@ -35,14 +35,11 @@ export class DmtieuchichatluongsoimodalComponent implements OnInit {
   ];
   listdungsai: any = [];
   khongclicknhieu: any = false;
-
-  constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
+  listCongDoan: any = [];
+  constructor(public activeModal: NgbActiveModal, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if (this.opt == 'edit') {
-      // this.GetPhanXuong();
-    }
-    // this.GetDanhSachLoaiDienKV();
+    this.getListCongDoan();
   }
 
   accept() {
@@ -80,5 +77,9 @@ export class DmtieuchichatluongsoimodalComponent implements OnInit {
     else
       this.item.isLoaiChiTieuIPI = !e.checked;
   }
-
+  getListCongDoan(){
+    this.sanXuatService.GetListCongDoan().subscribe((res: any) => {
+      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+    })
+  }
 }

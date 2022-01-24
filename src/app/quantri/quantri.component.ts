@@ -394,6 +394,7 @@ export class QuantriComponent implements OnInit {
             routerLink:
               "/quantri/theodoithongkebaocaosanxuat/thongkesanluongca/0",
             separator: this.checkmenu("THONGKESANLUONG"),
+            visible: this.showHopDongModule,
             command: () => this.close(),
           },
           {
