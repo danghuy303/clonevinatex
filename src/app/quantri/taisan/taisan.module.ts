@@ -89,6 +89,11 @@ import { Sucosuachua2Component } from './sucosuachua2/sucosuachua2.component';
 import { TaomoilichbaoduongComponent } from './screen/taomoilichbaoduong/taomoilichbaoduong.component';
 import { AntoanComponent } from './screen/antoan/antoan.component';
 import { ThongsokythuatComponent } from './screen/thongsokythuat/thongsokythuat.component';
+import { LichbaoduongcopyComponent } from './lichbaoduongcopy/lichbaoduongcopy.component';
+import { TaomoilichbaoduongcopyComponent } from './taomoilichbaoduongcopy/taomoilichbaoduongcopy.component';
+import { ModalcapnhatbaoduongcopyyComponent } from './modalcapnhatbaoduongcopyy/modalcapnhatbaoduongcopyy.component';
+import { DanhmucmucdouatienComponent } from './danhmuc/danhmucmucdouatien/danhmucmucdouatien.component';
+import { ModaluatienComponent } from './modal/modaluatien/modaluatien.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -136,6 +141,11 @@ import { ThongsokythuatComponent } from './screen/thongsokythuat/thongsokythuat.
     TaomoilichbaoduongComponent,
     AntoanComponent,
     ThongsokythuatComponent,
+    LichbaoduongcopyComponent,
+    TaomoilichbaoduongcopyComponent,
+    ModalcapnhatbaoduongcopyyComponent,
+    DanhmucmucdouatienComponent,
+    ModaluatienComponent,
 
   ],
   imports: [
@@ -210,6 +220,8 @@ import { ThongsokythuatComponent } from './screen/thongsokythuat/thongsokythuat.
     ModalnhaplieuxuattaisanComponent,
     ModalloaisucoComponent,
     ModalchontaisanThanhlyCopyComponent,
+    ModalcapnhatbaoduongComponent,
+    ModalcapnhatbaoduongcopyyComponent,
    
 
 

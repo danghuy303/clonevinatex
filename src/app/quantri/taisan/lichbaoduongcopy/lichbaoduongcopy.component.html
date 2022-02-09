@@ -1,0 +1,63 @@
+<div class="p-d-flex p-flex-row p-jc-between">
+  <div class="p-field-checkbox ">
+    <p-checkbox name="group1" value="" inputId="ny"></p-checkbox>
+    <label for="ny">Tình trạng bảo dưỡng</label>
+  </div>
+  <div class="p-field-radiobutton">
+    <p-radioButton name="city" value="" inputId="city3"></p-radioButton>
+    <label for="city3">Theo năm</label>
+  </div>
+  <div class="p-field-radiobutton ">
+    <p-radioButton name="city" value="" inputId="city3"></p-radioButton>
+    <label for="city3">Theo tháng</label>
+  </div>
+  <div>
+    <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" styleClass="p-inputtext-sm"
+      ></p-dropdown>
+  </div>
+
+</div>
+<p-table styleClass="p-datatable-sm wrap-text p-datatable-striped">
+  <ng-template pTemplate="colgroup">
+    <colgroup>
+      <col style="width:100px">
+      <col style="width:50px">
+      <col style="width:50px">
+      <col style="width:50px">
+      <col style="width:50px">
+      <col style="width:50px">
+      <col style="width:50px">
+      <col style="width:50px">
+      <col style="width:50px">
+      <col style="width:50px">
+      <col style="width:50px">
+      <col style="width:50px">
+      <col style="width:50px">
+    </colgroup>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="text-center">Loại bảo dưỡng</th>
+      <th class="text-center">Tháng 1</th>
+      <th class="text-center">Tháng 2</th>
+      <th class="text-center">Tháng 3</th>
+      <th class="text-center">Tháng 4</th>
+      <th class="text-center">Tháng 5</th>
+      <th class="text-center">Tháng 6</th>
+      <th class="text-center">Tháng 7</th>
+      <th class="text-center">Tháng 8</th>
+      <th class="text-center">Tháng 9</th>
+      <th class="text-center">Tháng 10</th>
+      <th class="text-center">Tháng 11</th>
+      <th class="text-center">Tháng 12</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item let-i="rowIndex">
+    <tr>
+      <td class="text-center">
+
+      </td>
+
+    </tr>
+  </ng-template>
+</p-table>

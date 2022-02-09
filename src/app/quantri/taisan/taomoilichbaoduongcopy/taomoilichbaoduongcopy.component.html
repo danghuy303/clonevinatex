@@ -6,6 +6,7 @@
             <col>
             <col>
             <col>
+            <col>
             <col style="width: 150px;">
         </colgroup>
     </ng-template>
@@ -14,10 +15,11 @@
             <th class="text-center">
                 STT
             </th>
-            <th class="text-center">Loại thông số</th>
-            <th class="text-center">Thông tin thông số</th>
+            <th class="text-center">Loại bảo dưỡng</th>
+            <th class="text-center">Theo thời gian</th>
+            <th class="text-center">Theo công suất</th>
             <th class="text-center">Ghi chú</th>
-            <th class="text-center"> <button pButton pRipple icon="pi pi-plus" (click)="addThongSo()" class="p-button-sm p-mr-2"></button></th>
+            <th class="text-center"> <button pButton pRipple icon="pi pi-plus" (click)="addBaoDuong()" class="p-button-sm p-mr-2"></button></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -28,6 +30,8 @@
             <td class="text-center">{{item.Ma}}</td>
             <td class="text-center">{{item.Ten}}</td>
             <td class="text-center">{{item.GhiChu}}</td>
+            <!-- <td class="text-center">{{item.NguyenGia|number:'0.0'}}</td> -->
+            <td class="text-center">{{item.ThoiGianSuDung}}</td>
             <td class="text-center">
                 <!-- <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
@@ -42,4 +46,3 @@
         </tr>
     </ng-template>
 </p-table>
-

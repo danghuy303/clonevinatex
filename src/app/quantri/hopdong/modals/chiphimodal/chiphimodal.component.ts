@@ -37,7 +37,6 @@ export class ChiphimodalComponent implements OnInit {
         ele.lstNhaMay.forEach(nhamay => {
           ele.Tong = ele.Tong + nhamay.TongChiPhi;
         });
-
         for (let i = 0; i < 12; i++) {
           let datapush = {
             ChiPhi: 0
