@@ -49,7 +49,7 @@
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khung giờ áp dụng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [options]="listKhungGio" [(ngModel)]="item.idLoaiKhungGio" [filter]="true" styleClass="p-inputtext-sm" placeholder="Chọn khung giờ">
+                <p-dropdown [options]="listLoaiKhungGio" [(ngModel)]="item.idLoaiKhungGio" [filter]="true" styleClass="p-inputtext-sm" placeholder="Chọn khung giờ">
                 </p-dropdown>
             </div>
         </div>
@@ -62,7 +62,7 @@
         <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Giá tiền:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.GiaTien">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.DonGia">
                 </p-inputNumber>
             </div>
         </div>

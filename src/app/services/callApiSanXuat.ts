@@ -1023,6 +1023,17 @@ export class SanXuatService {
             },
             DeleteKhungGio:(data)=>{
                 return this.http.post(url+ 'DeleteKhungGio',data,httpOptions);
+            },
+            GetDanhSachLoaiKhungGio:(data)=>{
+                return this.http.post(url+ 'GetDanhSachLoaiKhungGio',data,httpOptions);
+            },
+            GetBaoCaoThongKeTienDien:(data)=>{
+                let urlBC = API.SCMBaoCao;
+                return this.http.post(urlBC+ 'GetBaoCaoThongKeTienDien',data,httpOptions);
+            },
+            GetItemBaoCaoThongKeTienDien:(data)=>{
+                let urlBC = API.SCMBaoCao;
+                return this.http.post(urlBC+ 'GetItemBaoCaoThongKeTienDien',data,httpOptions);
             }
         }
     }

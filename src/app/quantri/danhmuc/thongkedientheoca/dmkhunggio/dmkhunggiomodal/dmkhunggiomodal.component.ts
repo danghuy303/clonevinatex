@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { validVariable } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-dmkhunggiomodal',
@@ -17,14 +17,19 @@ export class DmkhunggiomodalComponent implements OnInit {
   listnhomcongto: any = [];
   listmaybienap: any = [];
   khongclicknhieu: any = false;
-  listKhungGio: any = [];
+  listLoaiKhungGio: any = [];
   listKhungGioRef: any = [];
   nhomKhungGioSelected: any = [];
 
   constructor(public activeModal: NgbActiveModal, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
+    let data: any = {};
+    this.sanXuatService.ThongKeDien().GetDanhSachLoaiKhungGio(data).subscribe((res: any) => {
+      this.listLoaiKhungGio =  mapArrayForDropDown(res,'Ten', 'Id');
+    })
   }
+
 
   accept() {
     this.khongclicknhieu = !this.khongclicknhieu;

@@ -8,6 +8,7 @@ import { HttpHeaders } from '@angular/common/http';
 export const host1 = `${window.location.origin.includes('localhost')?'http://103.130.212.45:2269':(window.location.origin)}`;
 
 // export const host1 = 'http://soindt.vinatex.com.vn';
+// export const host1 = 'http://soisph.vinatex.com.vn';
 // export const host1 = `${window.location.origin.includes('localhost')?'http://soisph.vinatex.com.vn':(window.location.origin)}`;
 // export const host1 = 'http://eos.harmonyes.com.vn:1169';
 // export const host1 = `${window.location.origin.includes('localhost')?'http://eos.harmonyes.com.vn:1169':(window.location.origin)}`;
