@@ -3,14 +3,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
-import { ModaluatienComponent } from '../../modal/modaluatien/modaluatien.component';
+import { ModalmucdouutienComponent } from '../modalmucdouutien/modalmucdouutien.component';
 
 @Component({
-  selector: 'app-danhmucmucdouatien',
-  templateUrl: './danhmucmucdouatien.component.html',
-  styleUrls: ['./danhmucmucdouatien.component.css']
+  selector: 'app-danhmucmucdouutien',
+  templateUrl: './danhmucmucdouutien.component.html',
+  styleUrls: ['./danhmucmucdouutien.component.css']
 })
-export class DanhmucmucdouatienComponent implements OnInit {
+export class DanhmucmucdouutienComponent implements OnInit {
+
   @ViewChild('paginator') paginator: any;
   items: any = [];
   Keyword:any='';
@@ -69,7 +70,7 @@ export class DanhmucmucdouatienComponent implements OnInit {
     })
   }
   add(){
-    let modalRef = this._modal.open(ModaluatienComponent,{
+    let modalRef = this._modal.open(ModalmucdouutienComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='add';
@@ -80,7 +81,7 @@ export class DanhmucmucdouatienComponent implements OnInit {
     }).catch(er=>console.log(er))
   }
   edit(item){
-    let modalRef = this._modal.open(ModaluatienComponent,{
+    let modalRef = this._modal.open(ModalmucdouutienComponent,{
       backdrop:'static'
     });
     modalRef.componentInstance.opt='edit';
@@ -116,4 +117,3 @@ export class DanhmucmucdouatienComponent implements OnInit {
   
 
 }
-

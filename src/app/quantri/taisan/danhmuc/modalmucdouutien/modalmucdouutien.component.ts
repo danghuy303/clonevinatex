@@ -3,12 +3,14 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+
 @Component({
-  selector: 'app-modaluatien',
-  templateUrl: './modaluatien.component.html',
-  styleUrls: ['./modaluatien.component.css']
+  selector: 'app-modalmucdouutien',
+  templateUrl: './modalmucdouutien.component.html',
+  styleUrls: ['./modalmucdouutien.component.css']
 })
-export class ModaluatienComponent implements OnInit {
+export class ModalmucdouutienComponent implements OnInit {
+
   public item: any = {};
   public title: any = '';
   public type = '';

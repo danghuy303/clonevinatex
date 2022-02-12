@@ -93,8 +93,6 @@ import { ThongsokythuatComponent } from './screen/thongsokythuat/thongsokythuat.
 import { LichbaoduongcopyComponent } from './lichbaoduongcopy/lichbaoduongcopy.component';
 import { TaomoilichbaoduongcopyComponent } from './taomoilichbaoduongcopy/taomoilichbaoduongcopy.component';
 import { ModalcapnhatbaoduongcopyyComponent } from './modalcapnhatbaoduongcopyy/modalcapnhatbaoduongcopyy.component';
-import { DanhmucmucdouatienComponent } from './danhmuc/danhmucmucdouatien/danhmucmucdouatien.component';
-import { ModaluatienComponent } from './modal/modaluatien/modaluatien.component';
 
 import { VattudutruComponent } from './vattudutru/vattudutru.component';
 import { VattugiatricaoComponent } from './vattugiatricao/vattugiatricao.component';
@@ -109,6 +107,8 @@ import { LapkehoachlichxichnamComponent } from './lapkehoachlichxichnam/lapkehoa
 import { DenghixulisucoComponent } from './denghixulisuco/denghixulisuco.component';
 import { LapkehoachthangComponent } from './lapkehoachthang/lapkehoachthang.component';
 import { ModaldenghixulisucoComponent } from './modaldenghixulisuco/modaldenghixulisuco.component';
+import { DanhmucmucdouutienComponent } from './danhmuc/danhmucmucdouutien/danhmucmucdouutien.component';
+import { ModalmucdouutienComponent } from './danhmuc/modalmucdouutien/modalmucdouutien.component';
 
 
 @NgModule({
@@ -160,8 +160,7 @@ import { ModaldenghixulisucoComponent } from './modaldenghixulisuco/modaldenghix
     LichbaoduongcopyComponent,
     TaomoilichbaoduongcopyComponent,
     ModalcapnhatbaoduongcopyyComponent,
-    DanhmucmucdouatienComponent,
-    ModaluatienComponent,
+
     VattudutruComponent,
     VattugiatricaoComponent,
     DanhsachvattuComponent,
@@ -175,6 +174,8 @@ import { ModaldenghixulisucoComponent } from './modaldenghixulisuco/modaldenghix
     DenghixulisucoComponent,
     LapkehoachthangComponent,
     ModaldenghixulisucoComponent,
+    DanhmucmucdouutienComponent,
+    ModalmucdouutienComponent,
 
   ],
   imports: [
@@ -251,10 +252,10 @@ import { ModaldenghixulisucoComponent } from './modaldenghixulisuco/modaldenghix
     ModalchontaisanThanhlyCopyComponent,
     ModalcapnhatbaoduongComponent,
     ModalcapnhatbaoduongcopyyComponent,
-    ModaluatienComponent,
     NhapvattuComponent,
     VattucanthayComponent,
     ModaldenghixulisucoComponent,
+    ModalmucdouutienComponent,
    
 
 

@@ -4,7 +4,8 @@ import { BangiaotaisanComponent } from './bangiaotaisan/bangiaotaisan.component'
 import { DanhmucdonvitinhComponent } from './danhmuc/danhmucdonvitinh/danhmucdonvitinh.component';
 import { DanhmucloaibaoduongComponent } from './danhmuc/danhmucloaibaoduong/danhmucloaibaoduong.component';
 import { DanhmucloaitaisanComponent } from './danhmuc/danhmucloaitaisan/danhmucloaitaisan.component';
-import { DanhmucmucdouatienComponent } from './danhmuc/danhmucmucdouatien/danhmucmucdouatien.component';
+import { DanhmucmucdouutienComponent } from './danhmuc/danhmucmucdouutien/danhmucmucdouutien.component';
+
 import { DonvinangsuatComponent } from './danhmuc/donvinangsuat/donvinangsuat.component';
 import { HangsanxuatComponent } from './danhmuc/hangsanxuat/hangsanxuat.component';
 import { LoaikhauhaoComponent } from './danhmuc/loaikhauhao/loaikhauhao.component';
@@ -50,7 +51,7 @@ const routes: Routes = [
   {path:'danhmuc/loaisuco',component:LoaisucoComponent},
   {path:'sucosuachua2',component:Sucosuachua2Component},
  
-  {path:'danhmuc/mucdouutien',component:DanhmucmucdouatienComponent},
+  {path:'danhmuc/mucdouutien',component:DanhmucmucdouutienComponent},
   {path:'quytrinhnhapvattu',component:QuytrinhnhapvattuComponent},
   {path:'danhsachvattu',component:DanhsachvattuComponent},
   {path:'quytrinhdenghithayvattu/:id',component:QuytrinhdenghithayvattuComponent},
