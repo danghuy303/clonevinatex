@@ -452,16 +452,19 @@ export class ModalkehoachkinhdoanhchitiettaomoiComponent implements OnInit {
     })
   }
   ChiPhi(){
-    if (this.item.lstKH_KeHoachKinhDoanh_SanPham?.length !== 0) {
-      let modalRef = this._modal.open(ChiphimodalComponent,{
-        backdrop:"static",
-        size:"fullscreen",
-        keyboard:false,
-      })
-      modalRef.componentInstance.item = {Id:this.item.Id};
+    this._danhMucHopDong.DanhSachKeHoachKinhDoanh().GetChiPhi(this.item.Id).subscribe((res: any) => {
+          let modalRef = this._modal.open(ChiphimodalComponent,{
+            backdrop:"static",
+            size:"fullscreen",
+            keyboard:false,
+          })
+          modalRef.componentInstance.item = {Id:this.item.Id};
+          if (!res) {
+            this.toastr.warning(`Không có data !!!`)
+          }
+        })
     }
    
-  }
   DanhMucDonGia(){
     
   }

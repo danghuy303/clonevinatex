@@ -96,7 +96,7 @@ export class ThanhlytaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới thanh lý tài sản';
+    modalRef.componentInstance.title = ' thanh lý tài sản';
     modalRef.componentInstance.item = {
       Id: '',IdTaiSan: "", IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "",TendmPhanXuong:"",
       isKetThuc: false,listFileDinhKem:[],listTaiSan:[],

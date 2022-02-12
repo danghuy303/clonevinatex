@@ -89,8 +89,27 @@ import { Sucosuachua2Component } from './sucosuachua2/sucosuachua2.component';
 import { TaomoilichbaoduongComponent } from './screen/taomoilichbaoduong/taomoilichbaoduong.component';
 import { AntoanComponent } from './screen/antoan/antoan.component';
 import { ThongsokythuatComponent } from './screen/thongsokythuat/thongsokythuat.component';
+
+import { LichbaoduongcopyComponent } from './lichbaoduongcopy/lichbaoduongcopy.component';
+import { TaomoilichbaoduongcopyComponent } from './taomoilichbaoduongcopy/taomoilichbaoduongcopy.component';
+import { ModalcapnhatbaoduongcopyyComponent } from './modalcapnhatbaoduongcopyy/modalcapnhatbaoduongcopyy.component';
+
 import { VattudutruComponent } from './vattudutru/vattudutru.component';
 import { VattugiatricaoComponent } from './vattugiatricao/vattugiatricao.component';
+import { DanhsachvattuComponent } from './danhsachvattu/danhsachvattu.component';
+import { QuytrinhnhapvattuComponent } from './quytrinhnhapvattu/quytrinhnhapvattu.component';
+import { NhapvattuComponent } from './nhapvattu/nhapvattu.component';
+import { QuytrinhdenghithayvattuComponent } from './quytrinhdenghithayvattu/quytrinhdenghithayvattu.component';
+import { VattucanthayComponent } from './vattucanthay/vattucanthay.component';
+import { LichxichnamComponent } from './lichxichnam/lichxichnam.component';
+import { LichxichthangComponent } from './lichxichthang/lichxichthang.component';
+import { LapkehoachlichxichnamComponent } from './lapkehoachlichxichnam/lapkehoachlichxichnam.component';
+import { DenghixulisucoComponent } from './denghixulisuco/denghixulisuco.component';
+import { LapkehoachthangComponent } from './lapkehoachthang/lapkehoachthang.component';
+import { ModaldenghixulisucoComponent } from './modaldenghixulisuco/modaldenghixulisuco.component';
+import { DanhmucmucdouutienComponent } from './danhmuc/danhmucmucdouutien/danhmucmucdouutien.component';
+import { ModalmucdouutienComponent } from './danhmuc/modalmucdouutien/modalmucdouutien.component';
+
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -138,8 +157,25 @@ import { VattugiatricaoComponent } from './vattugiatricao/vattugiatricao.compone
     TaomoilichbaoduongComponent,
     AntoanComponent,
     ThongsokythuatComponent,
+    LichbaoduongcopyComponent,
+    TaomoilichbaoduongcopyComponent,
+    ModalcapnhatbaoduongcopyyComponent,
+
     VattudutruComponent,
     VattugiatricaoComponent,
+    DanhsachvattuComponent,
+    QuytrinhnhapvattuComponent,
+    NhapvattuComponent,
+    QuytrinhdenghithayvattuComponent,
+    VattucanthayComponent,
+    LichxichnamComponent,
+    LichxichthangComponent,
+    LapkehoachlichxichnamComponent,
+    DenghixulisucoComponent,
+    LapkehoachthangComponent,
+    ModaldenghixulisucoComponent,
+    DanhmucmucdouutienComponent,
+    ModalmucdouutienComponent,
 
   ],
   imports: [
@@ -214,6 +250,12 @@ import { VattugiatricaoComponent } from './vattugiatricao/vattugiatricao.compone
     ModalnhaplieuxuattaisanComponent,
     ModalloaisucoComponent,
     ModalchontaisanThanhlyCopyComponent,
+    ModalcapnhatbaoduongComponent,
+    ModalcapnhatbaoduongcopyyComponent,
+    NhapvattuComponent,
+    VattucanthayComponent,
+    ModaldenghixulisucoComponent,
+    ModalmucdouutienComponent,
    
 
 

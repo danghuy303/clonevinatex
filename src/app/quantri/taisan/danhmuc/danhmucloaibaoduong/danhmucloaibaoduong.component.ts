@@ -17,6 +17,12 @@ export class DanhmucloaibaoduongComponent implements OnInit {
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1};
   cols: any = [
     {
+      header: 'Loại tài sản',
+      field: 'Ma',
+      width: '350px',
+      align:'center'
+    },
+    {
       header: 'Mã',
       field: 'Ma',
       width: '350px',
@@ -29,7 +35,19 @@ export class DanhmucloaibaoduongComponent implements OnInit {
       align:'center'
     },
     {
-      header: 'Ghi chú',
+      header: 'Nội dung',
+      field: 'Ma',
+      width: '350px',
+      align:'center'
+    },
+    {
+      header: 'Thời gian và số người thực hiện',
+      field: 'Ma',
+      width: '350px',
+      align:'center'
+    },
+    {
+      header: 'Lịch bảo dưỡng',
       field: 'MoTa',
       width: '200px',
       align:'center'
@@ -64,7 +82,8 @@ export class DanhmucloaibaoduongComponent implements OnInit {
   }
   add(){
     let modalRef = this._modal.open(ModalbaoduongComponent,{
-      backdrop:'static'
+      backdrop:'static',
+      size: "fullscreen-100",
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'themmoi';
@@ -75,7 +94,8 @@ export class DanhmucloaibaoduongComponent implements OnInit {
   }
   edit(item){
     let modalRef = this._modal.open(ModalbaoduongComponent,{
-      backdrop:'static'
+      backdrop:'static',
+      size: "fullscreen-100",
     });
     modalRef.componentInstance.opt='edit';
     modalRef.componentInstance.type = 'capnhat';

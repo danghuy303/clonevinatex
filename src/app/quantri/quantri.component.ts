@@ -947,6 +947,62 @@ export class QuantriComponent implements OnInit {
               this.close();
             },
           },
+          {
+            label: "Danh sách nhập vật tư",
+            routerLink: "/quantri/taisan/danhsachvattu",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Nhập vật tư trự trù",
+            routerLink: "/quantri/taisan/quytrinhnhapvattu",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Đề nghị thay vật tư",
+            routerLink: "/quantri/taisan/quytrinhdenghithayvattu/0",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Lịch xích năm",
+            routerLink: "/quantri/taisan/lichxichnam",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Lịch xích tháng",
+            routerLink: "/quantri/taisan/lichxichthang",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Lập kế hoạch lịch xích năm",
+            routerLink: "/quantri/taisan/lapkehoachlichxichnam",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Lập kế hoạch lịch xích tháng",
+            routerLink: "/quantri/taisan/lapkehoachlichxichthang",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Đề nghị xử lý sự cố",
+            routerLink: "/quantri/taisan/denghixulisuco/0",
+            command: () => {
+              this.close();
+            },
+          },
 
         ],
       },
@@ -975,6 +1031,13 @@ export class QuantriComponent implements OnInit {
           {
             label: "Đơn vị tính",
             routerLink: "/quantri/taisan/danhmuc/danhmucdonvitinh",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Mức độ ưu tiên",
+            routerLink: "/quantri/taisan/danhmuc/mucdouutien",
             command: () => {
               this.close();
             },

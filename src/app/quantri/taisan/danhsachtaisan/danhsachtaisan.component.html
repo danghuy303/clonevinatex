@@ -4,10 +4,22 @@
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <!-- <button pButton lab el="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
         *ngIf="checkQuyen.ThemMoi"></button> -->
+        <div class="p-field-checkbox">
+            <p-checkbox name="group1" value=""  inputId="ny"></p-checkbox>
+            <label for="ny">Giá trị cao</label>
+        </div>
+        <div class="p-field-checkbox">
+            <p-checkbox name="group1" value=""  inputId="ny"></p-checkbox>
+            <label for="ny">Cần dự trữ</label>
+        </div>
     <div></div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn tài sản " [(ngModel)]="filter.IddmLoaiTaiSan"
+                styleClass="p-inputtext-sm" (onChange)="Loaddata(true)" [showClear]="true" [filter]="true"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="" placeholder="Chọn bổ phận sử dụng " [(ngModel)]="filter.IddmLoaiTaiSan"
                 styleClass="p-inputtext-sm" (onChange)="Loaddata(true)" [showClear]="true" [filter]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
@@ -47,9 +59,7 @@
             <col>
             <col>
             <col>
-            <col>
-            <col>
-           
+            <col>  
         </colgroup>
     </ng-template>
     <ng-template pTemplate="header" let-columns>
@@ -57,12 +67,11 @@
             <!-- <th class="text-center" rowspan="2">STT</th> -->
             <th class="text-center" rowspan="2">Mã</th>
             <th class="text-center" rowspan="2">Tên</th>
-            <th class="text-center" rowspan="2">Ngày nhập</th>
             <th class="text-center" rowspan="2">Loại tài sản</th>
-            <th class="text-center" rowspan="2">Nhà máy</th>
-            <th class="text-center" rowspan="2">bộ phận</th>
+            <th class="text-center" rowspan="2">Hãng sản xuất</th>
             <th class="text-center" rowspan="2">Nguyên giá</th>
-            <th class="text-center" rowspan="2">Giá trị còn lại</th>     
+            <th class="text-center" rowspan="2">Giá trị còn lại</th>
+            <th class="text-center" rowspan="2">Ngày đưa vào sử dụng</th>
             <th class="text-center" rowspan="2">Tình trạng</th>              
             <th class="text-center" rowspan="2">Thao tác</th>                
         </tr>
@@ -78,12 +87,12 @@
                 <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
             </td>
             <td class="text-center">{{rowData.Ten}}</td>
-            <td class="text-center">{{rowData.NgayNhap}}</td>
             <td class="text-center">{{rowData.TenLoaiTaiSan}}</td>
             <td class="text-center">{{rowData.TenNhaMay}}</td>
-            <td class="text-center">{{rowData.TendmPhanXuong}}</td>
+            <!-- <td class="text-center">{{rowData.TendmPhanXuong}}</td> -->
             <td class="text-center">{{rowData.NguyenGia}}</td>
-            <td class="text-center">{{rowData.GiaTriConLai}}</td>       
+            <td class="text-center">{{rowData.GiaTriConLai}}</td>   
+            <td class="text-center">{{rowData.NgayNhap}}</td>    
             <td class="text-center">{{rowData.TrangThai}}</td>     
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-bars" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xem Thông tin tài sản" (click)="ChiTietThongTin(rowData)"></button>
