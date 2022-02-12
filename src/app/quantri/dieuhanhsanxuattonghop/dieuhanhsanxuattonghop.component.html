@@ -127,7 +127,7 @@
                     <div class="p-mr-2">
                         <p-dropdown [filter]="true" [options]="listtieuchi" placeholder="Chọn tiêu chí"
                             styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmChiTieu"
-                            (onChange)="GetBieuDoDuongKiemTraChatLuong()">
+                            (onChange)="GetBaoCaoQuyTrinhKiemTraChatLuong()">
                         </p-dropdown>
                     </div>
                     <div class="p-inputgroup" style="width:150px">
@@ -182,7 +182,16 @@
     </div>
     <div class="p-col-12 p-xl-6 p-lg-6 p-p-3">
         <div class="chart text-left">
-            <h5>Chất lượng sản phẩm</h5>
+            <div style="display: flex; flex-direction: row;">
+                <div style="display: table;">
+                    <h5 style="margin: 0px; display: table-cell;vertical-align: middle">Chất lượng sản phẩm</h5>
+                </div>
+                <div style="display: inline;">
+                    <p-dropdown [filter]="false" [options]="listLoaiThoiGian" styleClass="p-inputtext-sm"
+                        [(ngModel)]="filter.LoaiThoiGian" (onChange)="GetBieuDoDuongKiemTraChatLuong_js()">
+                    </p-dropdown>
+                </div>
+            </div>
             <p-chart type="line" [data]=dataSet1 [options]="option1"></p-chart>
         </div>
     </div>
@@ -325,7 +334,8 @@
                     (onSelect)="getBaoCaoLuyKe()">
                 </p-calendar>
             </div>
-            <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-2" (click)="getBaoCaoLuyKe()"></button>
+            <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-2"
+                (click)="getBaoCaoLuyKe()"></button>
         </div>
     </div>
     <p-table [value]="listLuyKeChiTiet" styleClass="p-datatable-sm p-datatable-gridlines wrap-text" [scrollable]="true"

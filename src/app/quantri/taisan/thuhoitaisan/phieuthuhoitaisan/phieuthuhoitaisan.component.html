@@ -1,5 +1,5 @@
 <h4 class="title" style="color:#1f2779">
-    Thu hồi tài sản
+    Quy trình thu hồi tài sản
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
@@ -9,6 +9,9 @@
          <button pButton pRipple label="Xóa tất cả" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button>  -->
     </div>
     <div class="p-d-flex p-flex-row">
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="" placeholder="bộ phận sử dụng" styleClass="p-inputtext-sm"></p-dropdown>
+        </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetListThuHoiTaiSan(true)">
@@ -56,8 +59,10 @@
                 <th class="text-center">Số phiếu</th>
                 <th class="text-center">Ngày</th>
                 <th class="text-center">Bộ phận sử dụng</th>
-                <th class="text-center">Người đại diện bàn giao</th>
-                <th class="text-center">Nội dung</th>
+                <!-- <th class="text-center">Người đại diện bàn giao</th>
+                <th class="text-center">Nội dung</th> -->
+                <th class="text-center">Ngày thu hồi</th>
+                <th class="text-center">Lý do</th>
                 <th class="text-center">Trạng thái</th>
                 <th class="text-center">Thao tác</th>
             </tr>
@@ -72,7 +77,7 @@
                 </td>
                 <td class="text-center">{{item.NgayThuHoi|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.TendmPhanXuong}}</td>
-                <td class="text-center">{{item.NguoiBanGiao}}</td>
+                <td class="text-center">{{item.NgayThuHoi|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">
                     {{item.NoiDung}}
                 </td>

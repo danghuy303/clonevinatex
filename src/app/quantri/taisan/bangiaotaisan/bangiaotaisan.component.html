@@ -1,11 +1,14 @@
 <div class="p-mb-3 p-mt-3">
-    <h4 style="color:#1f2779">Bàn giao tài sản</h4>
+    <h4 style="color:#1f2779">Quy trình bàn giao tài sản</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <button pButton label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
         *ngIf="checkQuyen.ThemMoi"></button>
     <div></div>
     <div class="p-d-flex p-flex-row">
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="" placeholder="bộ phận sử dụng" styleClass="p-inputtext-sm"></p-dropdown>
+        </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="Loaddata(true)">
@@ -47,8 +50,10 @@
         <tr>
             <th class="text-center">STT</th>
             <th class="text-center">Số quy trình</th>
-            <th class="text-center">Nhà máy</th>
-            <th class="text-center">Phân xưởng</th>
+            <th class="text-center">Ngày</th>
+            <th class="text-center">Bộ phận sử dụng</th>
+            <!-- <th class="text-center">Nhà máy</th>
+            <th class="text-center">Phân xưởng</th> -->
             <!-- <th class="text-center">Nội dung</th> -->
             <th class="text-center">Ngày bàn giao</th>
             <th class="text-center">Nội dung</th>

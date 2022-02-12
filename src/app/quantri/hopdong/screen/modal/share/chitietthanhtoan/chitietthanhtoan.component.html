@@ -18,9 +18,9 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr>
+            <tr [ngStyle]="{'background-color': item.isQuaHan ?'#f5d3ce':''}">
                 <td class="text-center"> {{ 20 * (paging.CurrentPage - 1) + i + 1 }} </td>
-                <td class="text-left">{{item.noiDung}}</td>
+                <td class="text-left"><a href="javascript:void(0)" (click)="viewThanhToan(item)">{{item.noiDung}}</a></td>
                 <td class="text-center">{{item.ngayThanhToan|date:'dd/MM/yyyy'}}</td>
                 <td class="text-right">{{item.giaTriThanhToan|number:'0.0-2'}}</td>
             </tr>

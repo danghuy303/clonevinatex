@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
-import { ImportnhapkhothanhphamComponent } from '../nhapkhothanhphammodal/modals/importnhapkhothanhpham/importnhapkhothanhpham.component';
 
 @Component({
     selector: 'app-khobongkiemkekhomodal',
@@ -190,17 +189,22 @@ export class KhobongkiemkekhomodalComponent implements OnInit {
                 this.paging.CurrentPage = 1;
                 this.paging.TotalPage = 5;
                 this.paging.TotalItem = res1.length;
+
+                this.item.SoLuong = res1.length || 0;
+                this.item.MicBQ = 0;
+                let Mic = 0;
+                let iCount = 0;
+                res1.forEach(element => {
+                    if(element.Mic > 0){
+                        Mic += element.Mic || 0;
+                        iCount += 1;
+                    }
+                });
+                if(iCount > 0)
+                    this.item.MicBQ = Mic / iCount;
             });
     }
-    //   changePage(event) {
-    //       this.paging.CurrentPage = event.page + 1;
-    //       let start = 10 * event.page;
-    //       let end = start + 10;
-    //       if (start + 10 > this.item.listItem.length) {
-    //           end = this.item.listItem.length;
-    //       }
-    //       this.listItem = this.item.listItem.slice(start, end);
-    //   }
+   
     changePage(event) {
         this.paging.CurrentPage = event.page + 1;
         let start = 10 * (event.page);

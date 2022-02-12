@@ -8,6 +8,7 @@ import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction
 import { StoreService } from 'src/app/services/store.service';
 import { StoreBase } from 'src/app/services/storebase.class';
 import { ThongkesanluongmodalComponent } from '../thongkesanluongmodal/thongkesanluongmodal.component';
+import { ThongkesanluongcamodalComponent } from './thongkesanluongcamodal/thongkesanluongcamodal.component';
 
 @Component({
   selector: 'app-thongkesanluong',
@@ -63,7 +64,7 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDest
       width: '150px'
     },
   ];
-  checkQuyen:any={ChuaXuLy:true,DaXyLy:true,ThemMoi:true};
+  checkQuyen:any={ChuaXuLy:false,DaXyLy:false,ThemMoi:false};
   listPhanXuong: any = [];
   listCaSanXuat: any = [];
   eAction = 'THONGKESANLUONG'

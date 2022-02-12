@@ -33,10 +33,8 @@
     </p-tabPanel>
     <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
     </p-tabPanel>
-    <p-tabPanel header="Tổng hợp" *ngIf="checkQuyen.TongHop">
+    <p-tabPanel header="Tổng hợp" [disabled]="!checkQuyen.TongHop">
     </p-tabPanel>
-    <!-- <p-tabPanel header="Tổng hợp" [disabled]="!checkQuyen.TongHop">
-    </p-tabPanel> -->
 </p-tabView>
 <div class="p-mt-3">
     <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped" [scrollable]="true">
@@ -77,9 +75,9 @@
                     {{item[col.field]}}
                 </td>
                 <td class="text-center">
-                    <!-- <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false"
+                    <button pButton pRipple type="button" icon="fas fa-edit" *ngIf="trangThai===2&&item.isDaHoanThanh===false"
                         class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chưa hoàn thành"
-                        (click)="hoanthanh(item.Id)"></button> -->
+                        (click)="hoanthanh(item.Id)"></button>
                     <button pButton pRipple type="button" icon="pi pi-pencil"
                         class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.Id)"></button>
                 </td>

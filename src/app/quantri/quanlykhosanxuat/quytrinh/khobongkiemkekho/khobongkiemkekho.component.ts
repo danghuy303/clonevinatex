@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { KhobongkiemkekhomodalComponent } from '../khobongkiemkekhomodal/khobongkiemkekhomodal.component';
 import { StoreBase } from 'src/app/services/storebase.class';
 import { StoreService } from 'src/app/services/store.service';
@@ -12,7 +12,7 @@ import { StoreService } from 'src/app/services/store.service';
     templateUrl: './khobongkiemkekho.component.html',
     styleUrls: ['./khobongkiemkekho.component.css']
 })
-export class KhobongkiemkekhoComponent extends StoreBase implements OnInit,OnDestroy {
+export class KhobongkiemkekhoComponent extends StoreBase implements OnInit, OnDestroy {
     @ViewChild("paginator") paginator: any;
     items: any = [{ id: 5, SoQuyTrinh: "PKK_0000_0000" }];
     filter: any = {};
@@ -54,7 +54,7 @@ export class KhobongkiemkekhoComponent extends StoreBase implements OnInit,OnDes
         public _toastr: ToastrService,
         private _service: SanXuatService,
         private activatedRoute: ActivatedRoute,
-        private router: Router,public store:StoreService
+        private router: Router, public store: StoreService
     ) { super(store) }
 
     ngOnInit(): void {
@@ -167,7 +167,17 @@ export class KhobongkiemkekhoComponent extends StoreBase implements OnInit,OnDes
             this.GetListQuyTrinh();
         })
     }
-    ngOnDestroy(){
+    ngOnDestroy() {
         super.ngOnDestroy();
-      }
+    }
+    exportExcel() {
+        let data = {
+            IdLoBong: this.filter.IdLoBong,
+            TuNgayUnix: DateToUnix(this.filter.TuNgay),
+            DenNgayUnix: DateToUnix(this.filter.DenNgay),
+        }
+        this._service.PhieuKiemKeKhoBong().ExportBangKe(data).subscribe((res: any) => {
+            this._service.download(res.TenFile);
+        })
+    }
 }

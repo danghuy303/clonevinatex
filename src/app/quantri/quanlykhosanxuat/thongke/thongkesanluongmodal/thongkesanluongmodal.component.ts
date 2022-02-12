@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
@@ -32,12 +33,16 @@ export class ThongkesanluongmodalComponent implements OnInit {
   listLoHang: any = [];
   listCaThucTe: any = [];
   TongKhoiLuong: any = 0;
+  userInfo: any ;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal) {
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, 
+    private _auth: AuthenticationService,
+    public _modal: NgbModal, ) {
 
   }
 
   ngOnInit(): void {
+
     this.getListCongDoan();
     if (this.item.isTruVaoSanLuong === undefined)
       this.item.isTruVaoSanLuong = false;
@@ -46,6 +51,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
       this.GetPhanXuongTheoUser()
     }
     else {
+    this.userInfo = this._auth.currentUserValue;
+
       this.KiemTraButtonModal();
       this.getItemTheoCongDoan();
     }
@@ -60,6 +67,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
+      if(this.item.CreatedBy == this.userInfo.Id)
+        this.checkbutton.Ghi = true;
     })
   }
   ChuyenDuyet() {
@@ -153,6 +162,15 @@ export class ThongkesanluongmodalComponent implements OnInit {
         }
       })
     }
+  }
+  DinhMuc() {
+      this.services.ThongKeSanLuong().DinhMuc(this.item.Id).subscribe((res: any) => {
+        if (res) {
+          this.item = res;
+          this.listItem = [];
+          this.getItemTheoCongDoan()
+        }
+      })
   }
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {

@@ -58,21 +58,21 @@
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Giá bông: </label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.GiaBong" disabled>
+                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.GiaBong" disabled>
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số lượng nhập (Kg): </label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoLuongNhap" disabled>
+                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoLuongNhap" disabled>
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số Container: </label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Container" disabled>
+                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.Container" disabled>
                 </p-inputNumber>
             </div>
         </div>
@@ -181,7 +181,7 @@
                         </td>
                         <td>
                             <div style="display: inline-flex;">
-                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="items.SoLuongNhap"
+                                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="items.SoLuongNhap"
                                     [disabled]="!canEdit">
                                 </p-inputNumber>
                                 <button pButton pRipple icon="pi pi-ellipsis-v" *ngIf="canEdit"
@@ -192,7 +192,7 @@
                         </td>
                         <td>
                             <div style="display: inline-flex;">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.Container"
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="items.Container"
                                     [disabled]="!canEdit">
                                 </p-inputNumber>
                                 <button pButton pRipple icon="pi pi-ellipsis-v" *ngIf="canEdit"
@@ -204,7 +204,7 @@
                         </td>
                         <td>
                             <div style="display: inline-flex;">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="items.TongSoKien"
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="items.TongSoKien"
                                     [disabled]="!canEdit">
                                 </p-inputNumber>
                                 <button pButton pRipple icon="pi pi-ellipsis-v" *ngIf="canEdit"
@@ -249,7 +249,7 @@
                         </td>
                         <td>
                             <div style="display: inline-flex;">
-                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoLuongNhap"
+                                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newTableItem.SoLuongNhap"
                                     [disabled]="!canEdit">
                                 </p-inputNumber>
                                 <button pButton pRipple icon="pi pi-ellipsis-v"
@@ -260,7 +260,7 @@
                         </td>
                         <td>
                             <div style="display: inline-flex;">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.Container">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.Container">
                                 </p-inputNumber>
                                 <button pButton pRipple icon="pi pi-ellipsis-v"
                                     class="p-button-sm p-button-rounded p-button-secondary p-button-text"
@@ -270,7 +270,7 @@
                         </td>
                         <td>
                             <div style="display: inline-flex;">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.TongSoKien">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.TongSoKien">
                                 </p-inputNumber>
                                 <button pButton pRipple icon="pi pi-ellipsis-v"
                                     class="p-button-sm p-button-rounded p-button-secondary p-button-text"

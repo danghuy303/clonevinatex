@@ -11,8 +11,6 @@
                 <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
             </div>
         </div>
-    <div>Ngày tạo: {{item.Created|date:'dd/MM/yyyy'}}</div>
-    <div>Ngày duyệt: {{item.Created|date:'dd/MM/yyyy'}}</div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="Onclose()">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -104,15 +102,15 @@
                             <input type="text" [(ngModel)]="itemindex.DonViTinh" pInputText disabled/>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemindex.SoLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemindex.SoLuong">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemindex.KhoiLuongDV">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemindex.KhoiLuongDV">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemindex.TongKhoiLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemindex.TongKhoiLuong">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
@@ -142,11 +140,11 @@
                         <td class="align-content-center" style="width: 160px;">{{itemindex.TendmMay}}</td>
                         <td class="align-content-center" style="width: 140px;">{{itemindex.TenMatHang}}</td>
                         <td *ngFor="let itemsanpham of itemindex.listKiemKeBCP" class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemsanpham.GiaTri">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemsanpham.GiaTri">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemindex.TongKhoiLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemindex.TongKhoiLuong">
                             </p-inputNumber>
                         </td> 
                         <td class="text-center">
@@ -185,15 +183,15 @@
                             <input type="text" [(ngModel)]="itemindex.DonViTinh" pInputText disabled/>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemindex.SoLuong" disabled>
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemindex.SoLuong" disabled>
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemindex.KhoiLuongDV" disabled>
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemindex.KhoiLuongDV" disabled>
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemindex.TongKhoiLuong" disabled>
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemindex.TongKhoiLuong" disabled>
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
@@ -206,15 +204,15 @@
                             <input type="text" [(ngModel)]="itemcon.DonViTinh" pInputText disabled/>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemcon.SoLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemcon.SoLuong">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemcon.KhoiLuongDV">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemcon.KhoiLuongDV">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="itemcon.TongKhoiLuong">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="itemcon.TongKhoiLuong">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">

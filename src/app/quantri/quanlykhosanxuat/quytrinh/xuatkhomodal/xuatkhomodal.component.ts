@@ -32,17 +32,17 @@ export class XuatkhomodalComponent implements OnInit {
   listPhanXuong: any = [];
   listPhuongAnPhaBong: any = [];
   listItem: any = [];
-  listItemRoot: any = [];
   paging: any = {};
-  filter: any = {}
+  filter: any = {};
+  listKienDoi: any = [];
+
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
     public toastr: ToastrService, public _modal: NgbModal) { }
 
   ngOnInit(): void {
     this.GetQuyTrinh();
-
-    //
+    
     let data: any = {
       CurrentPage: 0
     }
@@ -60,16 +60,29 @@ export class XuatkhomodalComponent implements OnInit {
   GetQuyTrinh(page?) {
     this.services.PhieuXuatSanXuat().Get(this.Id).subscribe((res1: any) => {
       this.item = res1;
+      this.services.PhieuXuatSanXuat().GetListKienDoi(this.item.Id).subscribe((res: any) => {
+        this.listKienDoi = res;
+        res1.listItem.forEach(element => {
+          element.listKienDoi = mapArrayForDropDown(this.listKienDoi.filter(x => x.IdLoBong === element.IdLoBong), 'Ten', 'Ma');
+          if(element.MaKienDoi != null)
+          {
+            let itemMoi = {
+              value: element.MaKienDoi,
+              label: element.MaKienDoi + "-" + element.MicKienDoi,
+            }
+            element.listKienDoi.push(itemMoi);
+            element.MaKienDoi_root = deepCopy(element.MaKienDoi); ;
+          }
+        });
+        this.item.listItem = res1.listItem;
+        this.listItem = res1.listItem.slice(0, 15);
+      })
       // res1.listItem.sort((a,b)=>{
       //   return a.TenLoBong.localeCompare(b.TenLoBong);
       // })
-      this.listItem = res1.listItem;
-      this.listItemRoot = deepCopy(res1.listItem);
-
       this.paging.CurrentPage = 1;
       this.paging.TotalPage = 5;
       this.paging.TotalItem = res1.listItem.length;
-      this.item.listItem = res1.listItem.slice(0, 15);
       this.KiemTraButtonModal();
       if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
         this.item.Ngay = UnixToDate(this.item.NgayUnix);
@@ -80,6 +93,7 @@ export class XuatkhomodalComponent implements OnInit {
       if(validVariable(page)){
         this.changePage(page);
       }
+      
     })
   }
   KiemTraButtonModal() {
@@ -93,8 +107,11 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
     }
     if (validVariable(this.item.Ngay)) {
+      
+      this.item.listItem.forEach(element => {
+        delete element.listKienDoi;
+      });
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
-      this.item.listItem = deepCopy(this.listItemRoot);
       this.services.PhieuXuatSanXuat().ChuyenTiep(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -113,8 +130,10 @@ export class XuatkhomodalComponent implements OnInit {
       this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
     }
     if (validVariable(this.item.Ngay)) {
+      this.item.listItem.forEach(element => {
+        delete element.listKienDoi;
+      });
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
-      this.item.listItem = deepCopy(this.listItemRoot);
       this.services.PhieuXuatSanXuat().KhongDuyet(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
@@ -138,22 +157,18 @@ export class XuatkhomodalComponent implements OnInit {
     if (this.item.NgayChungTu !== null && this.item.NgayChungTu !== undefined)
       this.item.NgayChungTuUnix = DateToUnix(this.item.NgayChungTu);
     if (this.item.Ngay !== null && this.item.Ngay !== undefined) {
+      
+      this.item.listItem.forEach(element => {
+        delete element.listKienDoi;
+      });
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
-      this.item.listItem = deepCopy(this.listItemRoot);
       this.services.PhieuXuatSanXuat().Set(this.item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
-            this.item = res.objectReturn;
-            if (this.item.NgayUnix !== null && this.item.NgayUnix !== undefined) {
-              this.item.Ngay = UnixToDate(this.item.NgayUnix);
-            }
-            if (this.item.NgayChungTuUnix !== null && this.item.NgayChungTuUnix !== undefined) {
-              this.item.NgayChungTu = UnixToDate(this.item.NgayChungTuUnix);
-            }
-            this.KiemTraButtonModal();
-            this.GetQuyTrinhRefresh();
+            this.filter.KeyWord = '';
+            this.GetQuyTrinh();
           } else {
             this.toastr.error(res.message);
           }
@@ -170,6 +185,10 @@ export class XuatkhomodalComponent implements OnInit {
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
+      
+      this.item.listItem.forEach(element => {
+        delete element.listKienDoi;
+      });
       this.services.PhieuXuatSanXuat().Delete(this.item).subscribe((res: any) => {
         if (res?.State === 1) {
           this.activeModal.close();
@@ -211,58 +230,26 @@ export class XuatkhomodalComponent implements OnInit {
     var end = start + 15;
     if ((start + 15) > this.paging.TotalItem)
       end = this.paging.TotalItem;
-    this.item.listItem = this.listItem.slice(start, end);
-    // if(this.filter.KeyWord !== '' || this.filter.KeyWord !== undefined)
-    //   this.GetQuyTrinhFilter();
+    this.listItem = this.item.listItem.slice(start, end);
   }
 
   GetQuyTrinhFilter() {
     let items = [];
-    //ele=>ele.ID===ID
-    // items = this.listItemRoot.filter(obj => {
-    //   let Ten = obj.Ten.toLowerCase();
-    //   let indexOf = Ten.indexOf(this.filter.KeyWord)
-    //   return indexOf != -1
-    // });
-    items = this.listItemRoot.filter(ele=>ele.Ten.toLowerCase().indexOf(this.filter.KeyWord)!== -1
+    items = this.item.listItem.filter(ele=>ele.Ten.toLowerCase().indexOf(this.filter.KeyWord)!== -1
                                       || ele.MaKienDoi.toLowerCase().indexOf(this.filter.KeyWord)!== -1);
-    // for(let i =0; i < this.listItemRoot.length; i++){
-    //   if(this.listItemRoot[i].TenLoBong !== null){
-    //     if(this.listItemRoot[i].TenLoBong.toLowerCase().includes(this.filter.KeyWord)){
-    //        items.push(this.listItemRoot[i]);
-    //       continue;
-    //     }
-    //   }
-    //   if(this.listItemRoot[i].Ten !== null){
-    //     if(this.listItemRoot[i].Ten.toLowerCase().includes(this.filter.KeyWord)){
-    //       items.push(this.listItemRoot[i]);
-    //       continue;
-    //     }
-    //   }
-    //   if(this.listItemRoot[i].TendmViTri !== null){
-    //     if(this.listItemRoot[i].TendmViTri.toLowerCase().includes(this.filter.KeyWord))
-    //     {
-    //       items.push(this.listItemRoot[i]);
-    //       continue;
-    //     }
-    //   }
-    // }
     this.listItem = deepCopy(items);
     this.paginator.changePage(0)
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = items.length;
-    this.item.listItem = items.slice(0, 15);
-    // this.item.listItem = items;
-    console.log(this.item.listItem)
+    this.listItem = items.slice(0, 15);
   }
   GetQuyTrinhRefresh() {
     this.filter.KeyWord = '';
-    this.listItem = deepCopy(this.listItemRoot);
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
-    this.paging.TotalItem = this.listItem.length;
-    this.item.listItem = this.listItem.slice(0, 15);
+    this.paging.TotalItem = this.item.listItem.length;
+    this.listItem = this.item.listItem.slice(0, 15);
   }
   exportExcel() {
     this.services.PhieuXuatSanXuat().ExportExcel(this.item.Id).subscribe((res: any) => {
@@ -284,12 +271,6 @@ export class XuatkhomodalComponent implements OnInit {
         .then(res => {
           let page = {page:this.paging.CurrentPage-1};
           this.GetQuyTrinh(page);
-          // let findIndex = this.item.listItem.findIndex(ele =>ele.IddmItem===item.IddmItem);
-          // let tenlo = item.TenLoBong
-          // if(findIndex>=0){
-          //   res[0].TenLoBong = tenlo;
-          //   this.item.listItem[findIndex] = deepCopy(res[0]);
-          // }
         })
         .catch(er => { console.log('err:', er) })
     })
@@ -301,12 +282,34 @@ export class XuatkhomodalComponent implements OnInit {
       items[nextIndex].focus();
     }
   }
-  // test(){
-  //   console.log(this.listItemRoot);
-  // }
-  changeKienDoi(event,IddmItem){
-    let itemInRoot = this.listItemRoot.filter(ele=>ele.IddmItem === IddmItem)?.[0];
-    itemInRoot.MaKienDoi = event;
+  changeKienDoi(item){
+    if(item.MaKienDoi !== null){
+      let listItemChange = this.item.listItem.filter(x => x.IdLoBong == item.IdLoBong && x.IddmItem!== item.IddmItem);
+      item.MaKienDoi_root = deepCopy(item.MaKienDoi)
+      item.MicKienDoi = item.listKienDoi.find(ele => ele.value == item.MaKienDoi).label.split("-")[1];
+      let itemMoi = {
+        value: item.MaKien,
+        label: item.Ten + "-" + item.Mic,
+      }
+      listItemChange.forEach(element => {
+          let itemChecklist = element.listKienDoi.find(ele => ele.value == item.MaKien);
+          element.listKienDoi = element.listKienDoi.filter(x => x.value !== item.MaKienDoi);
+          if(itemChecklist === undefined || itemChecklist === null)
+            element.listKienDoi.push(itemMoi);
+      });
+    }
+    else{
+      let itemMoi = {
+        value: item.MaKienDoi_root,
+        label: item.MaKienDoi_root  + "-"  + item.MicKienDoi,
+      }
+      item.MicKienDoi = 0;
+      let listItemChange = this.item.listItem.filter(x => x.IdLoBong == item.IdLoBong && x.IddmItem!== item.IddmItem);
+      listItemChange.forEach(element => {
+        element.listKienDoi = element.listKienDoi.filter(x => x.value !== item.MaKien);
+        element.listKienDoi.push(itemMoi);
+    });
+    }
   }
   ViTriKien(item){
     let modalRef = this._modal.open(VitrikienmodalComponent, {

@@ -62,7 +62,7 @@ export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
         ticks: {
           beginAtZero: true,
           callback: function (label, index, labels) {
-            return formatNumber(label, 'vi-VN', '0.0-0');
+            return formatNumber(label, 'en-EN', '0.0-0');
           }
         }
       }],
@@ -73,7 +73,7 @@ export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')} tấn`
+          return `${formatNumber(tooltipItem.yLabel, 'en-EN')} tấn`
         }
       }
     },
@@ -98,7 +98,7 @@ export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
         ticks: {
           beginAtZero: true,
           callback: function (label, index, labels) {
-            return formatNumber(label, 'vi-VN', '0.0-0');
+            return formatNumber(label, 'en-EN', '0.0-0');
           }
         }
       }],
@@ -106,7 +106,7 @@ export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${formatNumber(tooltipItem.yLabel, 'vi-VN')}`
+          return `${formatNumber(tooltipItem.yLabel, 'en-EN')}`
         }
       }
     },
@@ -129,7 +129,7 @@ export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
       callbacks: {
         label: function (tooltipItem, data) {
           console.log(data);
-          return `${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'vi-VN')}kg - ${formatNumber(data.datasets[tooltipItem.datasetIndex].GiaTrungBinh[tooltipItem.index], 'vi-VN', '0.0-2')} USD`
+          return `${formatNumber(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 'en-EN')}kg - ${formatNumber(data.datasets[tooltipItem.datasetIndex].GiaTrungBinh[tooltipItem.index], 'en-EN', '0.0-2')} USD`
         }
       }
     },

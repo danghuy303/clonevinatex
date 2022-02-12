@@ -106,14 +106,14 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto" *ngIf="this.type==='bong'">Đơn giá bông/Kg (USD):</label>
             <label class="p-col-12 p-lg-4 p-p-0 my-auto" *ngIf="this.type==='xo'">Đơn giá xơ/Kg (VND):</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.GiaBong">
+                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.GiaBong">
                 </p-inputNumber>
             </div>
         </div>
         <!-- <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row" *ngIf="this.type==='xo'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Đơn giá Xơ/Kg (VND):</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.GiaXo">
+                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.GiaXo">
                 </p-inputNumber>
             </div>
         </div> -->
@@ -177,27 +177,27 @@
                             <input pInputText type="text" [(ngModel)]="item.Ten">
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoCan">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCan">
                             </p-inputNumber>
                         </td>
                         <td class="text-center">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKien">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKien">
                             </p-inputNumber>
                         </td>
                         <td class="text-center" *ngIf="this.type==='bong'">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienNgan" [max]="item.SoKien" (ngModelChange)="TinhSoKienNgan(item)">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKienNgan" [max]="item.SoKien" (ngModelChange)="TinhSoKienNgan(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center" *ngIf="this.type==='bong'">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoCanNgan" [max]="item.SoCan" (ngModelChange)="TinhSoCanNgan(item)">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCanNgan" [max]="item.SoCan" (ngModelChange)="TinhSoCanNgan(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center" *ngIf="this.type==='bong'">
-                            <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoKienDai" [max]="item.SoKien" (ngModelChange)="TinhSoKienDai(item)">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoKienDai" [max]="item.SoKien" (ngModelChange)="TinhSoKienDai(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center" *ngIf="this.type==='bong'">
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.SoCanDai" [max]="item.SoCan" (ngModelChange)="TinhSoCanDai(item)">
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.SoCanDai" [max]="item.SoCan" (ngModelChange)="TinhSoCanDai(item)">
                             </p-inputNumber>
                         </td>
                         <td class="text-center" *ngIf="this.type==='bong'">
@@ -222,37 +222,37 @@
                         </td>
                         <td>
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.SoCan">
+                                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newTableItem.SoCan">
                                 </p-inputNumber>
                             </div>
                         </td>
                         <td>
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKien" [min]="0">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.SoKien" [min]="0">
                                 </p-inputNumber>
                             </div>
                         </td>
                         <td *ngIf="this.type==='bong'">
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKienNgan" (ngModelChange)="TinhSoKienNgan(newTableItem)" [min]="0">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.SoKienNgan" (ngModelChange)="TinhSoKienNgan(newTableItem)" [min]="0">
                                 </p-inputNumber>
                             </div>
                         </td>
                         <td *ngIf="this.type==='bong'">
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoCanNgan" (ngModelChange)="TinhSoCanNgan(newTableItem)" [min]="0">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.SoCanNgan" (ngModelChange)="TinhSoCanNgan(newTableItem)" [min]="0">
                                 </p-inputNumber>
                             </div>
                         </td>
                         <td *ngIf="this.type==='bong'">
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoKienDai" (ngModelChange)="TinhSoKienDai(newTableItem)" [min]="0">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.SoKienDai" (ngModelChange)="TinhSoKienDai(newTableItem)" [min]="0">
                                 </p-inputNumber>
                             </div>
                         </td>
                         <td *ngIf="this.type==='bong'">
                             <div class="p-inputgroup">
-                                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.SoCanDai" (ngModelChange)="TinhSoCanDai(newTableItem)" [min]="0">
+                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.SoCanDai" (ngModelChange)="TinhSoCanDai(newTableItem)" [min]="0">
                                 </p-inputNumber>
                             </div>
                         </td>

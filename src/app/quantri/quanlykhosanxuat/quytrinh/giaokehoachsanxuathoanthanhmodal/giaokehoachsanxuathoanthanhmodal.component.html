@@ -69,14 +69,14 @@
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số ca<span class="required">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TongSoCa">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TongSoCa">
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chi số bình quân:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.ChiSoBinhQuan" disabled>
+                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.ChiSoBinhQuan" disabled>
                 </p-inputNumber>
             </div>
         </div>
@@ -89,14 +89,14 @@
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ne bình quân 30(Tấn/ca):</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.BQNE30" disabled>
+                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.BQNE30" disabled>
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng khối lượng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.TongKhoiLuongMatHang" disabled>
+                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TongKhoiLuongMatHang" disabled>
                 </p-inputNumber>
             </div>
         </div>
@@ -145,15 +145,15 @@
                         <td>{{i+1}}</td>
                         <td>{{item.Ten}}</td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KhoiLuongKeHoach" disabled>
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.KhoiLuongKeHoach" disabled>
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.KhoiLuongHoanThanh" disabled>
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.KhoiLuongHoanThanh" disabled>
                             </p-inputNumber>
                         </td>
                         <td>
-                            <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [ngModel]="item.KhoiLuongKeHoach-item.KhoiLuongHoanThanh" disabled>
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [ngModel]="item.KhoiLuongKeHoach-item.KhoiLuongHoanThanh" disabled>
                             </p-inputNumber>
                         </td>
                         <td style="text-align: center;">

@@ -89,11 +89,27 @@ import { Sucosuachua2Component } from './sucosuachua2/sucosuachua2.component';
 import { TaomoilichbaoduongComponent } from './screen/taomoilichbaoduong/taomoilichbaoduong.component';
 import { AntoanComponent } from './screen/antoan/antoan.component';
 import { ThongsokythuatComponent } from './screen/thongsokythuat/thongsokythuat.component';
+
 import { LichbaoduongcopyComponent } from './lichbaoduongcopy/lichbaoduongcopy.component';
 import { TaomoilichbaoduongcopyComponent } from './taomoilichbaoduongcopy/taomoilichbaoduongcopy.component';
 import { ModalcapnhatbaoduongcopyyComponent } from './modalcapnhatbaoduongcopyy/modalcapnhatbaoduongcopyy.component';
 import { DanhmucmucdouatienComponent } from './danhmuc/danhmucmucdouatien/danhmucmucdouatien.component';
 import { ModaluatienComponent } from './modal/modaluatien/modaluatien.component';
+
+import { VattudutruComponent } from './vattudutru/vattudutru.component';
+import { VattugiatricaoComponent } from './vattugiatricao/vattugiatricao.component';
+import { DanhsachvattuComponent } from './danhsachvattu/danhsachvattu.component';
+import { QuytrinhnhapvattuComponent } from './quytrinhnhapvattu/quytrinhnhapvattu.component';
+import { NhapvattuComponent } from './nhapvattu/nhapvattu.component';
+import { QuytrinhdenghithayvattuComponent } from './quytrinhdenghithayvattu/quytrinhdenghithayvattu.component';
+import { VattucanthayComponent } from './vattucanthay/vattucanthay.component';
+import { LichxichnamComponent } from './lichxichnam/lichxichnam.component';
+import { LichxichthangComponent } from './lichxichthang/lichxichthang.component';
+import { LapkehoachlichxichnamComponent } from './lapkehoachlichxichnam/lapkehoachlichxichnam.component';
+import { DenghixulisucoComponent } from './denghixulisuco/denghixulisuco.component';
+import { LapkehoachthangComponent } from './lapkehoachthang/lapkehoachthang.component';
+import { ModaldenghixulisucoComponent } from './modaldenghixulisuco/modaldenghixulisuco.component';
+
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -146,6 +162,19 @@ import { ModaluatienComponent } from './modal/modaluatien/modaluatien.component'
     ModalcapnhatbaoduongcopyyComponent,
     DanhmucmucdouatienComponent,
     ModaluatienComponent,
+    VattudutruComponent,
+    VattugiatricaoComponent,
+    DanhsachvattuComponent,
+    QuytrinhnhapvattuComponent,
+    NhapvattuComponent,
+    QuytrinhdenghithayvattuComponent,
+    VattucanthayComponent,
+    LichxichnamComponent,
+    LichxichthangComponent,
+    LapkehoachlichxichnamComponent,
+    DenghixulisucoComponent,
+    LapkehoachthangComponent,
+    ModaldenghixulisucoComponent,
 
   ],
   imports: [
@@ -196,7 +225,7 @@ import { ModaluatienComponent } from './modal/modaluatien/modaluatien.component'
     TaisanService,
     DanhmuctaisanService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true, },
-    { provide: LOCALE_ID, useValue: 'vi-VN' },
+    // { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
 
   entryComponents: [ModalbaoduongComponent,
@@ -222,6 +251,10 @@ import { ModaluatienComponent } from './modal/modaluatien/modaluatien.component'
     ModalchontaisanThanhlyCopyComponent,
     ModalcapnhatbaoduongComponent,
     ModalcapnhatbaoduongcopyyComponent,
+    ModaluatienComponent,
+    NhapvattuComponent,
+    VattucanthayComponent,
+    ModaldenghixulisucoComponent,
    
 
 

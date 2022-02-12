@@ -134,7 +134,7 @@ export class NhapkhokhacmodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn  danh mục loại bông");
     }
     else {
-      if ( this.newTableItem.Ten!= undefined && this.newTableItem.SoCan!= undefined)
+      if ( this.newTableItem.IddmLoaiBong!= undefined && this.newTableItem.SoCan!= undefined)
           this.addBongHoi();
 
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
@@ -218,7 +218,7 @@ export class NhapkhokhacmodalComponent implements OnInit {
   addBongHoi() {
     if (this.item.listKien == undefined || this.item.listKien == null)
       this.item.listKien = [];
-      this.newTableItem.IddmLoaiBong = this.item.IddmLoaiBong
+      // this.newTableItem.IddmLoaiBong = this.item.IddmLoaiBong
     this.item.listKien.push(deepCopy(this.newTableItem));
     this.newTableItem = {Ten:this.TenLoaiBong};
   }
@@ -236,16 +236,15 @@ export class NhapkhokhacmodalComponent implements OnInit {
     this.activeModal.close();
   }
   
-  getnewitem(event){
-    var loaiBong: any = this.listLoaiBong.filter((e: any) => e.value === event.value);
+  getnewitem(item){
+    var loaiBong: any = this.listLoaiBong.filter((e: any) => e.value === item.IddmLoaiBong);
     console.log(loaiBong)
-    this.newTableItem.Ten = loaiBong[0].label;
-    this.TenLoaiBong = loaiBong[0].label;
-    if(this.item.listKien !== undefined && this.item.listKien.length > 0 && this.item.listKien !== null){
-      this.item.listKien.forEach(element => {
-        element.Ten = loaiBong[0].label;
-        element.IddmLoaiBong = loaiBong[0].value;
-    });
-    }
+    item.Ten = loaiBong[0].label;
+    // if(this.item.listKien !== undefined && this.item.listKien.length > 0 && this.item.listKien !== null){
+    //   this.item.listKien.forEach(element => {
+    //     element.Ten = loaiBong[0].label;
+    //     element.IddmLoaiBong = loaiBong[0].value;
+    // });
+    // }
   }
 }

@@ -38,8 +38,8 @@ import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import {ColorPickerModule} from 'primeng/colorpicker';
 
 // import { FileUploadModule } from 'primeng/fileupload';
-import localeVi from '@angular/common/locales/vi';
-registerLocaleData(localeVi);
+// import localeVi from '@angular/common/locales/vi';
+// registerLocaleData(localeVi);
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -247,6 +247,8 @@ import { DmkgconeComponent } from './danhmuc/danhmucsanxuat/dmkgcone/dmkgcone.co
 import { DmkgconemodalComponent } from './danhmuc/danhmucsanxuat/dmkgcone/dmkgconemodal/dmkgconemodal.component';
 import { Phuhung1Component } from './quanlykhosanxuat/phuongan/layoutmodals/phuhung1/phuhung1.component';
 import { Phuhung2Component } from './quanlykhosanxuat/phuongan/layoutmodals/phuhung2/phuhung2.component';
+import { ThongkesanluongcamodalComponent } from './quanlykhosanxuat/thongke/thongkesanluong/thongkesanluongcamodal/thongkesanluongcamodal.component';
+import { ThongkesanluongcaComponent } from './quanlykhosanxuat/thongke/thongkesanluongca/thongkesanluongca.component';
 
 
 
@@ -448,6 +450,8 @@ import { Phuhung2Component } from './quanlykhosanxuat/phuongan/layoutmodals/phuh
     DmkgconemodalComponent,
     Phuhung1Component,
     Phuhung2Component,
+    ThongkesanluongcamodalComponent,
+    ThongkesanluongcaComponent,
 
   ],
   imports: [
@@ -597,6 +601,7 @@ import { Phuhung2Component } from './quanlykhosanxuat/phuongan/layoutmodals/phuh
     XuatbongchovaymodalComponent,
     ChonkienchovaymodalComponent,
     DmkgconemodalComponent,
+    ThongkesanluongcamodalComponent,
 
     Phuhung1Component,
     Phuhung2Component
@@ -607,7 +612,7 @@ import { Phuhung2Component } from './quanlykhosanxuat/phuongan/layoutmodals/phuh
     SignalRService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    { provide: LOCALE_ID, useValue: 'vi-VN' },
+    // { provide: LOCALE_ID, useValue: 'vi-VN' },
     LoaderService,
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]

@@ -53,7 +53,7 @@ export class TinhdoanhthumodalComponent implements OnInit {
       });
       for (let key in this.mapSanPham_Gia) {
         this.mapSanPham_Gia[key].lstChiTietGia.forEach(gia => {
-          gia.HienThi = `${formatNumber(gia.Gia, 'vi-VN', '0.0-3')} ${gia.MadmTienTe}`;
+          gia.HienThi = `${formatNumber(gia.Gia, 'en-EN', '0.0-3')} ${gia.MadmTienTe}`;
         });
         this.mapSanPham_Gia[key].listGia = mapArrayForDropDown(this.mapSanPham_Gia[key].lstChiTietGia, 'HienThi', 'Id');
       }

@@ -74,7 +74,7 @@ export class DanhmucmucdouatienComponent implements OnInit {
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Thêm mới loại tài sản';
+    modalRef.componentInstance.title = 'Thêm mới mức độ ưu tiên';
     modalRef.result.then(res=>{
       this.GetListdmLoaiTaiSan()
     }).catch(er=>console.log(er))
@@ -85,7 +85,7 @@ export class DanhmucmucdouatienComponent implements OnInit {
     });
     modalRef.componentInstance.opt='edit';
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật loại tài sản';
+    modalRef.componentInstance.title = 'Cập nhật mức độ ưu tiên';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
     modalRef.result.then(res=>{
       this.GetListdmLoaiTaiSan()

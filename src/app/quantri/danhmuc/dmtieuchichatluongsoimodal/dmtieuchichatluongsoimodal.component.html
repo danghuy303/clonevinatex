@@ -31,21 +31,39 @@
                     styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
+        <!-- <div class="p-col-12 p-d-flex p-flex-rowx">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-multiSelect [options]="listCongDoan"
+                [(ngModel)]="item.listCongDoan" 
+                defaultLabel="Lựa chọn công đoạn"
+                [filter]="false" [showToggleAll]="true" [maxSelectedLabels] = "4"
+                selectedItemsLabel = "{0} công đoạn được chọn"
+                display="chip">
+            </p-multiSelect>
+            </div>
+        </div> -->
         <div class="p-col-12 p-d-flex p-flex-row">
-            <div class="p-col-12 p-lg-6 p-p-0">
+            <div class="p-col-12 p-lg-4 p-p-0">
                 <div class="p-field-checkbox">
                     <p-checkbox [(ngModel)]="item.isLoaiChiTieuIPI" binary="true" inputId="isLoaiChiTieuIPI"
                         (onChange)="IPIorUsterstatic($event,'isLoaiChiTieuIPI')"></p-checkbox>
                     <label for="isLoaiChiTieuIPI">Chỉ tiêu IPI</label>
                 </div>
             </div>
-            <div class="p-col-12 p-lg-6 p-p-0">
+            <div class="p-col-12 p-lg-4 p-p-0">
                 <div class="p-field-checkbox">
                     <p-checkbox [(ngModel)]="item.isLoaiChiTieuUsterstatic" binary="true" inputId="isLoaiChiTieuUsterstatic"
                         (onChange)="IPIorUsterstatic($event,'isLoaiChiTieuUsterstatic')"></p-checkbox>
                     <label for="isLoaiChiTieuUsterstatic">Chỉ tiêu Usterstatic</label>
                 </div>
             </div>
+            <!-- <div class="p-col-12 p-lg-4 p-p-0">
+                <div class="p-field-checkbox">
+                    <p-checkbox [(ngModel)]="item.isBanChePham" binary="true" inputId="isBanChePham"></p-checkbox>
+                    <label for="isBanChePham">Chỉ tiêu BCP</label>
+                </div>
+            </div> -->
         </div>
     </div>
 </div>

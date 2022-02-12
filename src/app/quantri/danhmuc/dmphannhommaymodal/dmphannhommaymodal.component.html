@@ -55,7 +55,7 @@
         <div class="p-col-4 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Đầu ra:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoDauRa"
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoDauRa"
                     (onBlur)="tinhNangSuatLyThuyet()">
                 </p-inputNumber>
             </div>
@@ -63,28 +63,28 @@
         <div class="p-col-4 p-d-flex p-flex-row" *ngIf="item.CongDoan==='THO'||item.CongDoan ==='CON'||item.CongDoan ==='ONG'">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Số cọc:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.SoCoc" (onBlur)="item_tinhNangSuatLyThuyet()">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoCoc" (onBlur)="item_tinhNangSuatLyThuyet()">
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-4 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tốc độ quay:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TocDoQuay" (onBlur)="tinhNangSuatLyThuyet()">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TocDoQuay" (onBlur)="tinhNangSuatLyThuyet()">
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-4 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Hệ số:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-inputNumber [minFractionDigits]="2" [maxFractionDigits]="5" locale="vi-VN" [(ngModel)]="item.HeSo" (onBlur)="tinhNangSuatLyThuyet()">
+                <p-inputNumber [minFractionDigits]="2" [maxFractionDigits]="5" locale="en-EN" [(ngModel)]="item.HeSo" (onBlur)="tinhNangSuatLyThuyet()">
                 </p-inputNumber>
             </div>
         </div>
         <div class="p-col-4 p-d-flex p-flex-row" *ngIf="item.CongDoan==='CHAIPE'||item.CongDoan ==='CHAICOTTON'">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Hệ số chung:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.HeSoChung">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.HeSoChung">
                 </p-inputNumber>
             </div>
         </div>
@@ -164,37 +164,37 @@
                     </td>
                     <td>
                         <!-- [disabled]="childModalOpt==='MATHANG'" -->
-                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.Ne"
+                        <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.Ne"
                             (onBlur)="tinhNangSuatLyThuyet()">
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="5" locale="vi-VN" [(ngModel)]="item.Nm"
+                        <p-inputNumber [minFractionDigits]="5" locale="en-EN" [(ngModel)]="item.Nm"
                             (onBlur)="tinhNangSuatLyThuyet()">
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.DoSan"
+                        <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.DoSan"
                             [disabled]="childModalOpt==='MATHANG'">
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.TocDo"
+                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TocDo"
                             (onBlur)="tinhNangSuatLyThuyet()">
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.NangSuat"
+                        <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.NangSuat"
                             (onBlur)="tinhNangSuatLyThuyet()" [disabled]="true">
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="item.HieuSuat"
+                        <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.HieuSuat"
                             (onBlur)="tinhNangSuatLyThuyet()">
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="item.DinhMucNangSuat"
+                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.DinhMucNangSuat"
                             [disabled]="true">
                         </p-inputNumber>
                     </td>
@@ -228,37 +228,37 @@
                     </td>
                     <td>
                         <!-- [disabled]="childModalOpt==='MATHANG'" -->
-                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.Ne"
+                        <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newTableItem.Ne"
                             (onBlur)="item_tinhNangSuatLyThuyet()">
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="5" locale="vi-VN" [(ngModel)]="newTableItem.Nm"
+                        <p-inputNumber [minFractionDigits]="5" locale="en-EN" [(ngModel)]="newTableItem.Nm"
                             (onBlur)="item_tinhNangSuatLyThuyet()">
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.DoSan"
+                        <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newTableItem.DoSan"
                             [disabled]="childModalOpt==='MATHANG'">
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.TocDo"
+                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.TocDo"
                             (onBlur)="item_tinhNangSuatLyThuyet()">
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.NangSuat"
+                        <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newTableItem.NangSuat"
                             (onBlur)="item_tinhNangSuatLyThuyet()" [disabled]="true">
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="2" locale="vi-VN" [(ngModel)]="newTableItem.HieuSuat"
+                        <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newTableItem.HieuSuat"
                             (onBlur)="item_tinhNangSuatLyThuyet()">
                         </p-inputNumber>
                     </td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="0" locale="vi-VN" [(ngModel)]="newTableItem.DinhMucNangSuat"
+                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.DinhMucNangSuat"
                             [disabled]="true">
                         </p-inputNumber>
                     </td>

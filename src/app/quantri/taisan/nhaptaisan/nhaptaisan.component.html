@@ -34,7 +34,7 @@
     <p-tabPanel header="Chưa xử lý"></p-tabPanel>
     <p-tabPanel header="Đã xử lý"></p-tabPanel>
 </p-tabView>
-<p-treeTable [value]="items" styleClass="p-treetable p-treetable-caption">
+<p-treeTable [value]="items" styleClass="p-treetable p-treetable-caption MY-tree-table-class">
     <ng-template pTemplate="colgroup">
         <colgroup>
             <!-- <col style="width:50px"> -->
@@ -70,9 +70,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr>
-            <td>             
-                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+            <td class="p-d-flex p-flex-row">                             
                 {{rowData.SoQuyTrinh}}
+                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
             </td>
             <td class="text-center">{{rowData.NgayNhap|date:'dd/MM/yyyy'}}</td>
             <td></td>
