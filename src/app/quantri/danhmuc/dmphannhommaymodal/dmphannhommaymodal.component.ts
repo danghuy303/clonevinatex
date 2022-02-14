@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { async } from 'rxjs/internal/scheduler/async';
-import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
-import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { vn } from 'src/app/services/const';
-import { deepCopy, mapArrayForDropDown, merge, validVariable } from 'src/app/services/globalfunction';
+import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { DmphannhommayChonmathangmodalComponent } from '../dmphannhommay-chonmathangmodal/dmphannhommay-chonmathangmodal.component';
 
 @Component({
@@ -51,7 +46,7 @@ export class DmphannhommaymodalComponent implements OnInit {
     CHAIKY: ''
   }
 
-  constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) {
+  constructor(private _modal: NgbModal, public activeModal: NgbActiveModal, private sanXuatService: SanXuatService, public toastr: ToastrService) {
 
   }
 

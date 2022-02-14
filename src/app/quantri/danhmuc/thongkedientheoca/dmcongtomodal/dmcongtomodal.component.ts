@@ -29,7 +29,8 @@ export class DmcongtomodalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.sanXuatService.ThongKeDien().GetDanhSachKhungGio().subscribe((res: any) => {
+    let data: any = {};
+    this.sanXuatService.ThongKeDien().GetDanhSachKhungGio(data).subscribe((res: any) => {
       res.forEach(khungGio => {
         this.listKhungGio.push({ value: khungGio.MaNhomKhungGio, label: khungGio.Ten })
       });

@@ -8,6 +8,7 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { ImportdanhmucmodelComponent } from '../danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { deepCopy, mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
 import { DmphannhommaymodalComponent } from '../dmphannhommaymodal/dmphannhommaymodal.component';
+import { DmphannhommaybanchephammodalComponent } from './dmphannhommaybanchephammodal/dmphannhommaybanchephammodal.component';
 
 @Component({
   selector: 'app-dmphannhommay',
@@ -247,5 +248,34 @@ export class DmphannhommayComponent implements OnInit {
     //   this._services.download(res.TenFile);
     // })
   }
-
+  editBanChePham(item) {
+      let modalRef = this._modal.open(DmphannhommaybanchephammodalComponent, {
+        size: "fullscreen-100",
+        backdrop: 'static'
+      });
+      modalRef.componentInstance.opt = 'edit';
+      modalRef.componentInstance.title = 'Cập nhật phân nhóm máy bán chế phẩm';
+      modalRef.componentInstance.listDonViNangSuat = this.listDonViNangSuat;
+      modalRef.componentInstance.item = item;
+      modalRef.result.then(res => {
+        this.GetListdm()
+      }).catch(er => console.log(er))
+  }
+  addBanChePham() {
+    let modalRef = this._modal.open(DmphannhommaybanchephammodalComponent, {
+      size: "fullscreen-100",
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.opt = 'add';
+    modalRef.componentInstance.title = 'Thêm mới phân nhóm máy bán chế phẩm';
+    modalRef.componentInstance.listDonViNangSuat = this.listDonViNangSuat;
+    modalRef.componentInstance.item = {
+      Id: '',
+      lstdmItem: [],
+      HeSoChung:1
+    }
+    modalRef.result.then(res => {
+      this.GetListdm()
+    }).catch(er => console.log(er))
+  }
 }

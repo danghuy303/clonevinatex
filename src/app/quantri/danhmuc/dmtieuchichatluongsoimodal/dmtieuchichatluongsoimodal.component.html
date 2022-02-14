@@ -31,7 +31,7 @@
                     styleClass="p-inputtext-sm"></p-dropdown>
             </div>
         </div>
-        <!-- <div class="p-col-12 p-d-flex p-flex-rowx">
+        <div class="p-col-12 p-d-flex p-flex-rowx" *ngIf="item.isBanChePham == true">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Công đoạn</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-multiSelect [options]="listCongDoan"
@@ -42,7 +42,7 @@
                 display="chip">
             </p-multiSelect>
             </div>
-        </div> -->
+        </div>
         <div class="p-col-12 p-d-flex p-flex-row">
             <div class="p-col-12 p-lg-4 p-p-0">
                 <div class="p-field-checkbox">
@@ -58,12 +58,12 @@
                     <label for="isLoaiChiTieuUsterstatic">Chỉ tiêu Usterstatic</label>
                 </div>
             </div>
-            <!-- <div class="p-col-12 p-lg-4 p-p-0">
+            <div class="p-col-12 p-lg-4 p-p-0">
                 <div class="p-field-checkbox">
                     <p-checkbox [(ngModel)]="item.isBanChePham" binary="true" inputId="isBanChePham"></p-checkbox>
                     <label for="isBanChePham">Chỉ tiêu BCP</label>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </div>

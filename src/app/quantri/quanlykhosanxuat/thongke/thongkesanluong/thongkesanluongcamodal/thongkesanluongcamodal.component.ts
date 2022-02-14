@@ -50,7 +50,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
       this.GetPhanXuongTheoUser();
-      this.item.width = '200px';
+      this.item.width = '100px';
     }
     else {
       this.KiemTraButtonModal();
@@ -400,9 +400,9 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       this.item.width = '100px';
     }
     else if (this.item.CongDoan === "CON")
-      this.item.width = '100px';
+      this.item.width = '75px';
     else
-      this.item.width = '200px';
+      this.item.width = '100px';
   }
   TinhSoQuaSoi(item, event) {
     if (item.KhoiLuong !== undefined && item.KhoiLuong !== null) {
@@ -561,22 +561,24 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     if (this.TongKhoiLuong > 0)
       this.item.listThongKeSanLuong[index].TyLeCuiHoiGhepSoBoCotton = this.item.listThongKeSanLuong[index].TongKhoiLuongCuiHoi / (this.TongKhoiLuong + (this.item.listThongKeSanLuong[index].TongKhoiLuongCuiHoi || 0)) * 100;
   }
-  enter(i) {
-    if (i + 1 < this.inputNumbers.toArray().length) {
-      this.inputNumbers.toArray()[i + 1].el.nativeElement.children[0].children[0].focus();
-    } else {
-      this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
-    }
-  }
-  enterCon(i) {
+  enterCon(i, index?) {
+    debugger
+    console.log(this.inputNumbers.toArray())
+
     if (this.item.CongDoan === 'CON') {
-      if (i + 4 <= (this.thongKeFull[i].length * 5 - 1)) {
-        this.inputNumbers.toArray()[i + 4].el.nativeElement.children[0].children[0].focus();
+      let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === i+15);
+      if (validVariable(nextFocus)) {
+        nextFocus.el.nativeElement.children[0].children[0].focus()
       } else {
         this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
       }
+      // if (i + 4 <= (this.thongKeFull[index].listItem.length * 5 - 1)) {
+      //   this.inputNumbers.toArray()[i + 4].el.nativeElement.children[0].children[0].focus();
+      // } else {
+      //   this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
+      // }
     } else {
-      let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === i + 5);
+      let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === i+6);
       if (validVariable(nextFocus)) {
         nextFocus.el.nativeElement.children[0].children[0].focus()
       } else {
@@ -679,11 +681,11 @@ export class ThongkesanluongcamodalComponent implements OnInit {
   }
   checkAll(e, index) {
     if (e.checked) {
-      this.thongKeFull[index].forEach(item => {
+      this.thongKeFull[index].listItem.forEach(item => {
         item.isM = true;
       });
     } else {
-      this.thongKeFull[index].forEach(item => {
+      this.thongKeFull[index].listItem.forEach(item => {
         item.isM = false;
       });
     }

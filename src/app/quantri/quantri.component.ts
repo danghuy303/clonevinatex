@@ -241,6 +241,15 @@ export class QuantriComponent implements OnInit {
               this.close();
             },
           },
+          {
+            label: "Tiền điện",
+            routerLink: "/quantri/quantrisanxuat/tiendien",
+            separator: this.checkmenu("DASHBOARD_TONGHOP"),
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
         ],
       },
       {
@@ -373,6 +382,13 @@ export class QuantriComponent implements OnInit {
             separator: this.checkmenu("LOBONG"),
             command: () => this.close(),
           },
+          {
+            label: "Kiểm tra bán chế phẩm",
+            routerLink: "/quantri/quanlykhosanxuat/khobong/kiemtrabanchepham/0",
+            separator: this.checkmenu("KIEMTRABANCHEPHAM"),
+            visible: this.showHopDongModule,
+            command: () => this.close(),
+          },
         ],
       },
       {
@@ -394,7 +410,6 @@ export class QuantriComponent implements OnInit {
             routerLink:
               "/quantri/theodoithongkebaocaosanxuat/thongkesanluongca/0",
             separator: this.checkmenu("THONGKESANLUONG"),
-            visible: this.showHopDongModule,
             command: () => this.close(),
           },
           {
@@ -1424,6 +1439,11 @@ export class QuantriComponent implements OnInit {
           {
             label: "Công tơ",
             routerLink: "/quantri/danhmucsanxuat/dmcongto",
+            command: () => this.close(),
+          },
+          {
+            label: "Khung giờ",
+            routerLink: "/quantri/danhmucsanxuat/dmkhunggio",
             command: () => this.close(),
           },
           {
