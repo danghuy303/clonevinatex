@@ -52,7 +52,7 @@ const routes: Routes = [
   {path:'sucosuachua2',component:Sucosuachua2Component},
  
   {path:'danhmuc/mucdouutien',component:DanhmucmucdouutienComponent},
-  {path:'quytrinhnhapvattu',component:QuytrinhnhapvattuComponent},
+  {path:'quytrinhnhapvattu/:id',component:QuytrinhnhapvattuComponent},
   {path:'danhsachvattu',component:DanhsachvattuComponent},
   {path:'quytrinhdenghithayvattu/:id',component:QuytrinhdenghithayvattuComponent},
 

@@ -20,7 +20,7 @@ export class LichbaoduongcopyComponent implements OnInit {
   isChon() {
   
     this.item.isChon=true;
-    this.item.is=false;
+    this.item.isChon=false;
   }
   isChonNam() {
   
