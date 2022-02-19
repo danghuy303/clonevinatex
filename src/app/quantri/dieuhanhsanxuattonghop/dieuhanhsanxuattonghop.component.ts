@@ -1,4 +1,4 @@
-import { formatNumber } from '@angular/common';
+import { formatDate, formatNumber } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
@@ -51,6 +51,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   TongSanLuongOng: any = [];
   tempSanLuongOng: any = [];
   timKiem: any = {};
+  timKiemBieuDoDien: any = {};
+  showBieuDoDien: boolean = false;
+
   optionPie: any = {
     plugins: {
       labels: {
@@ -79,6 +82,39 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     },
     maintainAspectRatio: window.innerWidth <= 768 ? false : true,
     aspectRatio: window.innerWidth <= 768 ? null : (((window.innerWidth - 80) / 3) / ((window.innerHeight - (225 + 32.5)) / 2))
+  }
+  optionBar: any = {
+    plugins: {
+      labels: {
+        fontSize: 0
+      }
+    },
+    legend: {
+      position: 'bottom'
+    },
+    scales: {
+      xAxes: [{
+        categoryPercentage: 0.5,
+        barPercentage: 1.0
+      }],
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          callback: function (label, index, labels) {
+            return formatNumber(label, 'en-EN', '0.0-0');
+          }
+        }
+      }],
+    },
+    maintainAspectRatio: true,
+    aspectRatio: 3,
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+            return `${formatNumber(tooltipItem.yLabel, 'en-EN')} %`
+        }
+      }
+    }
   }
   option1: any = {
     scales: {
@@ -152,6 +188,11 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     for (let i = 1; i <= 31; i++) {
       this.listNgay.push({ value: i, label: `${i}` });
     }
+    let date = new Date();
+    this.filterBieuDo_TienDien.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.filterBieuDo_TienDien.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.filterBieuDo_TyLe.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.filterBieuDo_TyLe.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     this.filter.nNgay = (new Date()).getDate();
     this.filter.nThang = (new Date()).getMonth() + 1;
     this.filter.nNam = (new Date()).getFullYear();
@@ -247,10 +288,10 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         { Ten: 'Sản lượng ống', TieuHao: res.SanLuongOng, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: this._formatN(res.SanLuongOng_ManHinh), button: 'chitietsanluongong' },
         { Ten: 'Lũy kế', TieuHao: res.LuyKe, DonVi: 'quả', DonViManHinh: '(kg)', ManHinh: this._formatN(res.LuyKe_ManHinh), button: 'chitietluyke' },
         // Điện k có màn hình
-        { Ten: 'Điện AC | khí nén theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: `${this._formatN(res.DienAC_KW)} | ${this._formatN(res.DienKhiNen_KW)}` },
-        { Ten: 'Tổng điện theo ngày', TieuHao: "KwH", DonVi: 'KW', ManHinh: this._formatN(res.TongDien_KW), button: 'xuatexcel' },
-        { Ten: 'Tỷ lệ điện AC | Khí nén theo ngày (3)/(4)', TieuHao: '%', DonVi: '%', ManHinh: `${this._formatN(res.DienAC_PhanTram)} | ${this._formatN(res.DienKhiNen_PhanTram)}` },
-        { Ten: 'Tiêu hao bình quân (4)/(1)', TieuHao: 'KwH', DonVi: 'KwH/kg', ManHinh: this._formatN(res.TieuHaoDienBinhQuan) },
+        { Ten: 'Điện AC | khí nén', TieuHao: "KwH", DonVi: 'KW', ManHinh: `${this._formatN(res.DienAC_KW)} | ${this._formatN(res.DienKhiNen_KW)}` },
+        { Ten: 'Tổng điện', TieuHao: "KwH", DonVi: 'KW', ManHinh: this._formatN(res.TongDien_KW), button: 'xuatexceltongdien', button2: 'bieudotongdien' },
+        { Ten: 'Tỷ lệ điện AC | Khí nén (3)/(4)', TieuHao: '%', DonVi: '%', ManHinh: `${this._formatN(res.DienAC_PhanTram)} | ${this._formatN(res.DienKhiNen_PhanTram)}` },
+        { Ten: 'Tiêu hao bình quân (4)/(1)', TieuHao: 'KwH', DonVi: 'KwH/kg', ManHinh: this._formatN(res.TieuHaoDienBinhQuan), button: 'xuatexceltiendien' },
       ]
       this.thongKes1 = [
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },
@@ -260,6 +301,14 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         // { Ten: 'Sản lượng Ne 30 KH/ca:', GiaTri: res.SanLuongQuyNe30KH_Ca },
         { Ten: 'Tỷ lệ sợi cắt (%):', GiaTri: res.TyLeSoiCat },
         { Ten: 'Tỷ lệ sợi con / Ống:', GiaTri: res.TyLeSoiCon },
+        { Ten: 'Tỷ lệ bông rơi chải thô F1:', GiaTri: res.TyleBongRoiChaiTho },
+        { Ten: 'Bông rơi chải kỹ F3:', GiaTri: res.TyleBongRoiChaiKy },
+        { Ten: 'Tỷ lệ bông mùn (Bụi tinh):', GiaTri: res.TyleBongMun },
+        { Ten: 'Tỷ lệ bông hút mối/tiêu chuẩn:', GiaTri: res.TyLeBongHutMoi },
+        { Ten: 'Tỷ lệ cúi hồi:', GiaTri: res.TyLeCuiHoi },
+        { Ten: 'Tỷ lệ thô màng:', GiaTri: res.TyLeThoMang },
+        { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXo },
+        { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoi },
       ]
     });
     this._services.BaoCao().GetDashBoard_SanLuongOng(this.filter).subscribe((res: any) => {
@@ -334,13 +383,13 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       this.listMatHang.forEach(mathang => {
         mathang.checked = false;
       });
-      if (this.SelectItem?.IddmItem!==undefined) {
-        console.log('exist',this.SelectItem);
-        let exist = this.listMatHang.find(ele=>ele.IddmItem===this.SelectItem.IddmItem);
-        exist.checked=true;
+      if (this.SelectItem?.IddmItem !== undefined) {
+        console.log('exist', this.SelectItem);
+        let exist = this.listMatHang.find(ele => ele.IddmItem === this.SelectItem.IddmItem);
+        exist.checked = true;
         this.SelectItem = exist;
       } else {
-        console.log('not exist',this.SelectItem);
+        console.log('not exist', this.SelectItem);
         this.listMatHang[0].checked = true;
         this.SelectItem = this.listMatHang[0];
       }
@@ -509,5 +558,99 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         this.labelLuyKeChiTiet = `Lũy kế chi tiết đến ngày ${this.filter.nNgay}/${this.filter.nThang}/${this.filter.nNam}`
         console.log("LuyKeChiTiet", res);
       })
+  }
+  xuatBaoCaoTienDien() {
+    let data = {
+      nThang: this.filter.nThang,
+      nNam: this.filter.nNam,
+      IddmPhanXuong: this.filter.IddmPhanXuong
+    }
+    this._services.BaoCao().ExportBaoCaoThongKeTienDien(data).subscribe((res: any) => {
+      console.log(res);
+      if (res) {
+        if (validVariable(res.State)) {
+          this.toastr.error(res.message);
+        } else {
+          this._services.download(res.TenFile);
+        }
+      }
+    })
+  }
+  filterBieuDo_TienDien: any = {
+  }
+
+  getBieuDoDien() {
+    let filter = {
+      TuNgay: DateToUnix(this.filterBieuDo_TienDien.TuNgay),
+      DenNgay: DateToUnix(this.filterBieuDo_TienDien.DenNgay),
+      IddmPhanXuong: this.filter.IddmPhanXuong
+    }
+    this._services.BaoCao().GetBieuDo_TienDien(filter).subscribe((res: Array<any>) => {
+      console.log(res.map(ele => Math.round(ele.TongTienDienGY || 0)));
+      console.log(res.map(ele => Math.round(ele.TongTienDien || 0)));
+      this.dataBieuDoDien = {
+        labels: res.map(ele => formatDate(ele.NgayNhap, 'dd/MM/yyyy', 'en-EN')),
+        datasets: [
+          {
+            type: 'bar',
+            label: 'Tổng tiền điện',
+            backgroundColor: '#009900',
+            data: res.map(ele => Math.round(ele.TongTienDien || 0)),
+            borderColor: 'white',
+          },
+          {
+            type: 'bar',
+            label: 'Tổng tiền điện GY',
+            backgroundColor: '#3c5cbb',
+            data: res.map(ele => Math.round(ele.TongTienDienGY || 0)),
+            borderColor: 'white',
+          },
+        ]
+      }
+      console.log(this.dataBieuDoDien)
+    })
+  }
+  dataBieuDoDien = {}
+  bieuDoDien() {
+    this.getBieuDoDien();
+    this.showBieuDoDien = true;
+  }
+  filterBieuDo_TyLe: any = {
+  }
+  showBieuDoTyLe: boolean;
+  dataBieuDoTyLe: any;
+  arrayMau = ['#3366ff', '#009900', '#cc0000', '#990066', '#ffcc00', '#006666']
+  getBieuDoTyLe() {
+    let filter = {
+      TuNgay: DateToUnix(this.filterBieuDo_TyLe.TuNgay),
+      DenNgay: DateToUnix(this.filterBieuDo_TyLe.DenNgay),
+      IddmPhanXuong: this.filter.IddmPhanXuong
+    }
+    this._services.BaoCao().GetBieuDo_TyLeThongKeSanLuong(filter).subscribe((res: Array<any>) => {
+      console.log(res);
+      // console.log(res.map(ele => Math.round(ele.TongTienDienGY || 0)));
+      // console.log(res.map(ele => Math.round(ele.TongTienDien || 0)));
+      let datasets = res[0].listItem.map((ele, index) => {
+        return {
+          type: 'bar',
+          label: ele.Ten,
+          borderColor: 'white',
+          backgroundColor: this.arrayMau[index],
+          data: res.map(ngay => {
+            console.log(ngay.listItem[index].TyLe)
+            return ngay.listItem[index].TyLe || 0
+          })
+        }
+      })
+      console.log(datasets);
+      this.dataBieuDoTyLe = {
+        labels: res.map(ele => formatDate(ele.Ngay, 'dd/MM/yyyy', 'en-EN')),
+        datasets: datasets
+      }
+    })
+  }
+  bieuDoTyLeThongKeSanLuong() {
+    this.getBieuDoTyLe();
+    this.showBieuDoTyLe = true;
   }
 }

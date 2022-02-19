@@ -247,7 +247,17 @@ export class SanXuatService {
             GetDashBoard_TongHop_LuyKe_ChiTiet: (data) => {
                 data.IdDuAn = this.store.getCurrent()
                 return this.http.post(`${url}GetDashBoard_TongHop_LuyKe_ChiTiet`, data, httpOptions)
-            }
+            },
+            ExportBaoCaoThongKeTienDien:(data)=>{
+                return this.http.post(`${url}ExportBaoCaoThongKeTienDien`,data,httpOptions);
+            },
+            GetBieuDo_TienDien:(data)=>{
+                return this.http.post(`${url}GetBieuDo_TienDien`,data,httpOptions)
+            },
+            GetBieuDo_TyLeThongKeSanLuong:(data)=>{
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${url}GetBieuDo_TyLeThongKeSanLuong`,data,httpOptions)
+            },
         }
     }
     //#endregion
