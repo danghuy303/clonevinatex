@@ -9,6 +9,7 @@ import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { TreeNode } from 'primeng/api';
 import { ModalthongtinchitiettaisanComponent } from "../modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component";
+import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.service";
 // import { ModalcapnhattaisanComponent } from "../modal/modalcapnhattaisan/modalcapnhattaisan.component";
 
 @Component({
@@ -33,6 +34,7 @@ export class DanhsachtaisanComponent implements OnInit {
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
     private _serviceDanhMucTaiSan: DanhmuctaisanService,
+    private _danhMucHopDong:DanhMucHopDongService,
     private router: Router
   ) { }
 
@@ -62,31 +64,32 @@ export class DanhsachtaisanComponent implements OnInit {
       Loai: 0,
       
     };
-    this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
+    this._danhMucHopDong.DinhMucSanXuat().GetList().subscribe((res: any) => {
     //  console.log(res)
+    this.items = res
     this.paging.CurrentPage = res.Data.Page;
       this.paging.TotalPages = res.Data.TotalPages;
       this.paging.TotalCount = res.Data.TotalCount;
-    this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "TenLoaiTaiSan", 'IddmLoaiTaiSan');
-     let items = [];
-     this.items = [];
-     items = res.Data.Items;
-     items.forEach(obj => {
-      obj.NgayNhap = obj.NgayNhapUnix > 0 ? formatdate(obj.NgayNhap, false) : null;
-         let obj_copy: any = {};
-         if (obj?.listTaiSan) {
-           obj_copy.children = [];
-           obj.listTaiSan.forEach(element => {
-             console.log(element)
-             obj_copy.children.push({ data: element });
-           });
-           obj.listTaiSan=undefined;
-         }
-         obj_copy.data = obj;
-         this.items.push({ data: obj_copy.data, children: obj_copy.children });
-     });
-     console.log(items)
-     console.log(this.items);
+    // this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "TenLoaiTaiSan", 'IddmLoaiTaiSan');
+    //  let items = [];
+    //  this.items = [];
+    //  items = res.Data.Items;
+    //  items.forEach(obj => {
+    //   obj.NgayNhap = obj.NgayNhapUnix > 0 ? formatdate(obj.NgayNhap, false) : null;
+    //      let obj_copy: any = {};
+    //      if (obj?.listTaiSan) {
+    //        obj_copy.children = [];
+    //        obj.listTaiSan.forEach(element => {
+    //          console.log(element)
+    //          obj_copy.children.push({ data: element });
+    //        });
+    //        obj.listTaiSan=undefined;
+    //      }
+    //      obj_copy.data = obj;
+    //      this.items.push({ data: obj_copy.data, children: obj_copy.children });
+    //  });
+    //  console.log(items)
+    //  console.log(this.items);
     })
   }
 
@@ -97,13 +100,13 @@ export class DanhsachtaisanComponent implements OnInit {
     })
   }
 
-  ChiTietThongTin(item) {
+  ChiTietThongTin() {
     let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "edit";    
-    modalRef.componentInstance.item = item;
+    modalRef.componentInstance.item = '';
     
     modalRef.result
       .then((res: any) => {

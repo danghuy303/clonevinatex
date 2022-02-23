@@ -1,25 +1,30 @@
-<div class="p-d-flex p-flex-row p-jc-between">
-  <div class="p-field-checkbox ">
-    <p-checkbox name="group1" value="" [(ngModel)]="item.isChon" (onClick)="isChon()"></p-checkbox>
-    <label for="ny">Tình trạng bảo dưỡng</label>
+<div class="p-d-flex p-flex-row">
+  <div class="p-mr-2">
+    <div class="p-field-checkbox ischon">
+      <p-checkbox binary="true" value="" [(ngModel)]="item.isChon" (onClick)="isChon()"></p-checkbox>
+      <label>Tình trạng bảo dưỡng</label>
+    </div>
   </div>
-  <div class="p-field-radiobutton" *ngIf="item.isChon">
-    <p-radioButton name="city" value="" [(ngModel)]="item.isChonNam" (onClick)="isChonNam()"></p-radioButton>
-    <label for="city3">Theo năm</label>
+  <div class="p-mr-2">
+    <div class="p-field-radiobutton ischon" *ngIf="item.isChon">
+      <p-radioButton  value="" [(ngModel)]="item.isChonNam" (onClick)="isChonNam()"></p-radioButton>
+      <label >Theo năm</label>
+    </div>
   </div>
-  <div class="p-field-radiobutton " *ngIf="item.isChon">
-    <p-radioButton name="city" value="" [(ngModel)]="item.isChonThang" (onClick)="isChonThang()"></p-radioButton>
-    <label for="city3">Theo tháng</label>
+  <div class="p-mr-2">
+    <div class="p-field-radiobutton ischon" *ngIf="item.isChon">
+      <p-radioButton  value="" [(ngModel)]="item.isChonThang" (onClick)="isChonThang()"></p-radioButton>
+      <label>Theo tháng</label>
+    </div>
   </div>
-  <div *ngIf="item.isChonNam">
-    <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" styleClass="p-inputtext-sm"></p-dropdown>
+  <div class="p-mr-2"  *ngIf="item.isChonNam && item.isChon">
+      <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" styleClass="p-inputtext-sm"></p-dropdown>
   </div>
-  <div *ngIf="item.isChonThang">
-    <p-calendar dateFormat="mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
-      placeholder="Chọn tháng, năm">
-    </p-calendar>
+  <div class="p-mr-2"  *ngIf="item.isChonThang && item.isChon">
+      <p-calendar dateFormat="mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
+        placeholder="Chọn tháng, năm">
+      </p-calendar>
   </div>
-
 </div>
 <p-table *ngIf="item.isChonNam" styleClass="p-datatable-sm wrap-text p-datatable-striped">
   <ng-template pTemplate="colgroup">

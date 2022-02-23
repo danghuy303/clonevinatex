@@ -22,3 +22,6 @@
         position: relative;
     }
 }
+.responsiveChart *{
+    height: 500px !important;
+}
