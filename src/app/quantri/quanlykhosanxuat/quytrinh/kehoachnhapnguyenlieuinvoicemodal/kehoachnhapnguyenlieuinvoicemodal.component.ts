@@ -99,12 +99,13 @@ export class KehoachnhapnguyenlieuinvoicemodalComponent implements OnInit {
         this.canEdit = false;
       }
       console.log(this.canEdit);
-      if (this.item.IdUserHienTai === this.item.CreatedBy)
+      if (this.item.IdUserHienTai === this.item.CreatedBy){
         this.checkbutton.Ghi = true;
         if(this.item.isEdit === true){
           this.checkbutton.Ghi = true;
           this.canEdit = true;
         }
+      }
     })
   }
 
