@@ -1530,22 +1530,22 @@ export class QuantriComponent implements OnInit {
   }
 
   checkmenu(maaction) {
-    if (this.dataphanquyen == null) {
-      return true;
-    } else if (this.dataphanquyen[maaction] == undefined) {
-      return true;
-    } else if (this.dataphanquyen[maaction].length == 0) {
-      return true;
-    } else {
-      for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
-        if (this.dataphanquyen[maaction][i].MaRight == "XEM") {
-          if (this.dataphanquyen[maaction][i].GioiHan > 0) {
-            return false;
-          } else return true;
-        }
-      }
-    }
-    // return false;
+    // if (this.dataphanquyen == null) {
+    //   return true;
+    // } else if (this.dataphanquyen[maaction] == undefined) {
+    //   return true;
+    // } else if (this.dataphanquyen[maaction].length == 0) {
+    //   return true;
+    // } else {
+    //   for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
+    //     if (this.dataphanquyen[maaction][i].MaRight == "XEM") {
+    //       if (this.dataphanquyen[maaction][i].GioiHan > 0) {
+    //         return false;
+    //       } else return true;
+    //     }
+    //   }
+    // }
+    return false;
   }
 
   private subscribeToEvents(): void {

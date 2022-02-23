@@ -71,9 +71,17 @@
                                         <span *ngIf="thongke?.button==='chitietluyke'">
                                             <a href="javascript:void(0)" (click)="xemLuyKeChiTiet()">Chi tiết</a>
                                         </span>
-                                        <span *ngIf="thongke?.button==='xuatexcel'">
+                                        <span *ngIf="thongke?.button==='xuatexceltongdien'">
                                             <p-button styleClass="p-button-xs" icon="fas fa-file-excel"
                                                 (click)="xuatBaoCaoDien()"></p-button>
+                                        </span>
+                                        <span *ngIf="thongke?.button==='xuatexceltiendien'">
+                                            <p-button styleClass="p-button-xs" icon="fas fa-file-excel"
+                                                (click)="xuatBaoCaoTienDien()"></p-button>
+                                        </span>
+                                        <span *ngIf="thongke?.button2==='bieudotongdien'">
+                                            <p-button styleClass="p-button-xs ml-1" icon="fas fa-chart-bar"
+                                                (click)="bieuDoDien()"></p-button>
                                         </span>
                                     </td>
                                     <td class="text-center">
@@ -94,11 +102,14 @@
                         </p-table>
                     </div>
                 </div>
-                <div class="p-col-12 p-xl-4 p-lg-4 p-p-3 text-left" style="margin-top:40px">
-                    <div class="d-flex flex-row p-jc-between" *ngFor="let thongke of thongKes1">
-                        <div>{{thongke.Ten}}</div>
-                        <div>{{thongke.GiaTri|number:'0.3-3'}}</div>
+                <div class="p-col-12 p-xl-4 p-lg-4 p-p-3 text-center">
+                    <div style="display: flex;flex-direction: column;flex:1; overflow: scroll;">
+                        <div class="d-flex flex-row p-jc-between" *ngFor="let thongke of thongKes1">
+                            <div>{{thongke.Ten}}</div>
+                            <div>{{thongke.GiaTri|number:'0.3-3'}}</div>
+                        </div>
                     </div>
+                    <p-button styleClass="p-button-sm ml-1" (click)="bieuDoTyLeThongKeSanLuong()">Biểu đồ tỷ lệ</p-button>
                     <!-- <p *ngFor="let thongke of thongKes1">
                          {{thongke.GiaTri|number:'0.0-3'}}
                     </p> -->
@@ -412,4 +423,53 @@
             </ng-container> -->
         </ng-template>
     </p-table>
+</p-dialog>
+
+<p-dialog header="Biểu đồ điện" [(visible)]="showBieuDoDien" [modal]="true" [style]="{width: '95vw', height:'auto'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+        <div class="p-d-flex p-flex-row">
+            <div class="p-mr-2">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    [(ngModel)]="filterBieuDo_TienDien.TuNgay" inputId="icon" placeholder="Từ ngày"
+                    (onSelect)="getBieuDoDien()">
+                </p-calendar>
+            </div>
+            <div class="p-mr-2">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    [(ngModel)]="filterBieuDo_TienDien.DenNgay" inputId="icon" placeholder="Đến ngày"
+                    (onSelect)="getBieuDoDien()">
+                </p-calendar>
+            </div>
+            <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-2"
+                (click)="getBieuDoDien()"></button>
+        </div>
+    </div>
+    <div class="responsiveChart">
+        <p-chart type="bar" [data]="dataBieuDoDien" [options]="optionBarDien"></p-chart>
+    </div>
+</p-dialog>
+<p-dialog header="Biểu đồ tỷ lệ bông rơi" [(visible)]="showBieuDoTyLe" [modal]="true" [style]="{width: '95vw', height:'auto'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+        <div class="p-d-flex p-flex-row">
+            <div class="p-mr-2">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    [(ngModel)]="filterBieuDo_TyLe.TuNgay" inputId="icon" placeholder="Từ ngày"
+                    (onSelect)="bieuDoTyLeThongKeSanLuong()">
+                </p-calendar>
+            </div>
+            <div class="p-mr-2">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    [(ngModel)]="filterBieuDo_TyLe.DenNgay" inputId="icon" placeholder="Đến ngày"
+                    (onSelect)="bieuDoTyLeThongKeSanLuong()">
+                </p-calendar>
+            </div>
+            <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-2"
+                (click)="bieuDoTyLeThongKeSanLuong()"></button>
+        </div>
+    </div>
+    <div class="responsiveChart">
+        <p-chart type="bar" [data]="dataBieuDoTyLe" [options]="optionBar"></p-chart>
+    </div>
 </p-dialog>

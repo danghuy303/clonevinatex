@@ -15,7 +15,7 @@ import { BaocaothongketiendienmodalComponent } from './baocaothongketiendienmoda
 export class BaocaothongketiendienComponent extends StoreBase implements OnInit, OnDestroy {
   items: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
   itemThangs: any = [{ id: 5, SoQuyTrinh: 'PNK_0000_0000' }];
-  filter: any = { LoaiThoiGian: 0};
+  filter: any = { LoaiThoiGian: 0 };
   cols: any = [
     {
       header: 'Mã',
@@ -62,25 +62,30 @@ export class BaocaothongketiendienComponent extends StoreBase implements OnInit,
     this._service.ThongKeDien().GetDanhSachLoaiKhungGio(data).subscribe((res: any) => {
       this.listKhungGio = res;
     })
-    this._service.GetListdmPhanXuongOpt().subscribe((res: any) => {
-      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-      this.filter.IddmPhanXuong = this.listdmPhanXuong[0].value
-    })
-    for(let i=1; i < 13; i++){
-      let thang ={value: i, label: "Tháng " + i};
+
+    for (let i = 1; i < 13; i++) {
+      let thang = { value: i, label: "Tháng " + i };
       this.listThang.push(thang);
     }
     let date = new Date();
     let namHienTai = date.getFullYear();
     this.filter.nNam = namHienTai;
-    this.filter.nThang = date.getMonth()+ 1;
+    this.filter.nThang = date.getMonth() + 1;
     for (let i = 0; i < 20; i++) {
-        this.listNam.push({ value: namHienTai - i, label: namHienTai - i });
-      }
-    this.GetListQuyTrinhThang();
-    this.filter.TuNgay = (new Date(namHienTai,date.getMonth(), 1 ));
-    this.filter.DenNgay = (new Date(namHienTai,date.getMonth(), date.getDate()));
-    this.GetListQuyTrinh();
+      this.listNam.push({ value: namHienTai - i, label: namHienTai - i });
+    }
+    this.filter.TuNgay = (new Date(namHienTai, date.getMonth(), 1));
+    this.filter.DenNgay = (new Date(namHienTai, date.getMonth(), date.getDate()));
+    this._service.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmPhanXuong = this.listdmPhanXuong[0].value;
+
+      this.GetListQuyTrinhThang();
+
+      this.GetListQuyTrinh();
+    })
+
+
   }
 
   GetListQuyTrinh() {
@@ -92,7 +97,7 @@ export class BaocaothongketiendienComponent extends StoreBase implements OnInit,
         let data: any = {
           TuNgay: DateToUnix(this.filter.TuNgay),
           DenNgay: DateToUnix(this.filter.DenNgay),
-          LoaiThoiGian :0,
+          LoaiThoiGian: 0,
           IddmPhanXuong: this.filter.IddmPhanXuong
         }
         this._service.ThongKeDien().GetBaoCaoThongKeTienDien(data).subscribe((res: any) => {
@@ -106,21 +111,21 @@ export class BaocaothongketiendienComponent extends StoreBase implements OnInit,
   }
   GetListQuyTrinhThang() {
     if (validVariable(this.filter.nThang) && validVariable(this.filter.nNam)) {
-        let data: any = {
-          LoaiThoiGian : 2,
-          nThang: this.filter.nThang,
-          nNam: this.filter.nNam,
-          IddmPhanXuong: this.filter.IddmPhanXuong
-        }
-        this._service.ThongKeDien().GetBaoCaoThongKeTienDien(data).subscribe((res: any) => {
-            this.itemThangs = res;
-        })
+      let data: any = {
+        LoaiThoiGian: 2,
+        nThang: this.filter.nThang,
+        nNam: this.filter.nNam,
+        IddmPhanXuong: this.filter.IddmPhanXuong
+      }
+      this._service.ThongKeDien().GetBaoCaoThongKeTienDien(data).subscribe((res: any) => {
+        this.itemThangs = res;
+      })
     }
     else {
       this._toastr.error("Bạn chưa chọn đủ dữ liệu!!!");
     }
-  }    
-  GetListQuyTrinhFull(){
+  }
+  GetListQuyTrinhFull() {
     this.GetListQuyTrinhThang()
     this.GetListQuyTrinh()
   }
@@ -134,7 +139,7 @@ export class BaocaothongketiendienComponent extends StoreBase implements OnInit,
   ngOnDestroy() {
     super.ngOnDestroy();
   }
-  GetBaoCao(item){
+  GetBaoCao(item) {
     this._service.ThongKeDien().GetItemBaoCaoThongKeTienDien(item).subscribe((res: any) => {
       let modalRef = this._modal.open(BaocaothongketiendienmodalComponent, {
         backdrop: 'static', size: 'fullscreen',

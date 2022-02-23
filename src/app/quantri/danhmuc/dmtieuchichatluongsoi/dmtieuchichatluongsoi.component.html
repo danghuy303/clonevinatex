@@ -41,7 +41,7 @@
             <th *ngFor="let header of cols">
                 {{header.header}}
             </th>
-            <th class="text-center">IPI/Uster</th>
+            <th class="text-center">IPI/Uster/BCP</th>
             <th></th>
         </tr>
     </ng-template>
@@ -59,6 +59,8 @@
             <td class="text-center">
                 <span *ngIf="item.isLoaiChiTieuIPI">IPI</span>
                 <span *ngIf="item.isLoaiChiTieuUsterstatic">Uster</span>
+                <span *ngIf="item.isBanChePham"> /BCP</span>
+
             </td>
             <td class="text-center date">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
