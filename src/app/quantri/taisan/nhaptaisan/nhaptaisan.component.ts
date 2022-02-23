@@ -4,12 +4,7 @@ import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
-
-import {
-  DateToUnix,
-  mapArrayForDropDown,
-  UnixToDate,
-} from "src/app/services/globalfunction";
+import { DateToUnix, mapArrayForDropDown,UnixToDate,} from "src/app/services/globalfunction";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { TreeNode } from 'primeng/api';
@@ -29,6 +24,7 @@ export class NhaptaisanComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   items: TreeNode[];
   trangThai: any = 1;
+  listPhanXuong = [];
 
   constructor(
     public _modal: NgbModal,
@@ -36,13 +32,19 @@ export class NhaptaisanComponent implements OnInit {
     private _serviceHopDong: HopDongService,
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
-    private _serviceDanhMucTaiSan: DanhmuctaisanService,
+    private _servicesSanXuat: SanXuatService,
   ) { }
 
   ngOnInit(): void {
     this.resetFilter();
+    this.GetListdmPhanXuong();
   }
-
+  GetListdmPhanXuong() {
+    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+      console.log(res)
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
   changeTab(e) {
     this.trangThai = e.index + 1;
     this.loaiTab = e.index;
@@ -112,8 +114,38 @@ export class NhaptaisanComponent implements OnInit {
         listFileDinhKem: [],
         Created: new Date(),
         Modified: new Date(),
+        listTaiSan: [],
       },
-      listTaiSan: [],
+      listLichBaoDuong:[
+        {
+          Id: "",
+          isXoa: false,
+          IdTaiSan: "",
+          Created: new Date(),
+          Modified: new Date(),
+          listChiTiet: [],
+        }
+      ],
+      listThongSoKyThuat:[
+        {
+          Id: "",
+          isXoa: false,
+          IdTaiSan: "",
+          Created: new Date(),
+          Modified: new Date(),
+          listFileDinhKem: [],
+        }
+      ],
+      listThongSoAnToan:[
+        {
+          Id: "",
+          isXoa: false,
+          IdTaiSan: "",
+          Created: new Date(),
+          Modified: new Date(),
+          listFileDinhKem: [],
+        }
+      ],
     }
     modalRef.result
       .then((res: any) => {

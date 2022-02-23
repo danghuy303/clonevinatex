@@ -31,13 +31,13 @@ export class DanhmucmucdouutienComponent implements OnInit {
     },
     {
       header: 'Thứ tự',
-      field: 'Thutu',
+      field: 'ThuTu',
       width: '300px',
       align:'center'
     },
     {
       header: 'Ghi chú',
-      field: 'MoTa',
+      field: 'GhiChu',
       width: '200px',
       align:'center'
     }
@@ -46,13 +46,13 @@ export class DanhmucmucdouutienComponent implements OnInit {
   constructor(private _modal:NgbModal,private _danhMucTaiSan:DanhmuctaisanService,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.GetListdmLoaiTaiSan();
+    this.GetList();
   }
   resetFilter(){
     this.Keyword = '';
-    this.GetListdmLoaiTaiSan(true);
+    this.GetList(true);
   }
-  GetListdmLoaiTaiSan(reset?){
+  GetList(reset?){
     if(reset){
       this.paging.Page=1;
       this.paginator.changePage(0);
@@ -64,32 +64,34 @@ export class DanhmucmucdouutienComponent implements OnInit {
       Ma:"", 
       Ten:""   
     };
-    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res:any)=>{
+    this._danhMucTaiSan.DanhMucMucDoUuTien().GetList(data).subscribe((res:any)=>{
       this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
   add(){
     let modalRef = this._modal.open(ModalmucdouutienComponent,{
-      backdrop:'static'
+      backdrop:'static',
+      size: "fullscreen-100",
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = 'Thêm mới mức độ ưu tiên';
     modalRef.result.then(res=>{
-      this.GetListdmLoaiTaiSan()
+      this.GetList()
     }).catch(er=>console.log(er))
   }
   edit(item){
     let modalRef = this._modal.open(ModalmucdouutienComponent,{
-      backdrop:'static'
+      backdrop:'static',
+      size: "fullscreen-100",
     });
     modalRef.componentInstance.opt='edit';
     modalRef.componentInstance.type = 'capnhat';
     modalRef.componentInstance.title = 'Cập nhật mức độ ưu tiên';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
     modalRef.result.then(res=>{
-      this.GetListdmLoaiTaiSan()
+      this.GetList()
     }).catch(er=>console.log(er))
   }
   delete(item){
@@ -98,11 +100,11 @@ export class DanhmucmucdouutienComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{   
-      this._danhMucTaiSan.DanhMucLoaiTaiSan().Delete(item.Id).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucMucDoUuTien().Delete(item.Id).subscribe((res: any) => {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
-            this.GetListdmLoaiTaiSan();
+            this.GetList();
           } else {
             this._toastr.error(res.Message);
           }
@@ -110,9 +112,29 @@ export class DanhmucmucdouutienComponent implements OnInit {
       })
     }).catch(er=>console.log(er))
   }
+  deleteAll(){
+    let modalRef = this._modal.open(ModalthongbaoComponent,{
+      backdrop:'static'
+    });
+    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    const listId=this.selectedItems.map(({Id}) => Id);
+    modalRef.result.then(res=>{  
+      this._danhMucTaiSan.DanhMucMucDoUuTien().DeleteList(listId).subscribe((res: any) => {
+        if (res) {
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
+            this.GetList();
+            this.selectedItems = [];
+          } else {
+           this._toastr.error(res.Message);
+          }
+        }
+      })
+    }).catch(er=>console.log(er))
+  }
   changePage(event){
     this.paging.Page = event.page+1;
-    this.GetListdmLoaiTaiSan()
+    this.GetList()
   }
   
 

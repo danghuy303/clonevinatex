@@ -996,6 +996,46 @@ export class QuantriComponent implements OnInit {
               },
             ]
           },
+          {
+            label: "Danh mục ",
+            items: [
+              {
+                label: "Loại tài sản",
+                routerLink: "/quantri/taisan/danhmuc/danhmucloaitaisan",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Mức độ ưu tiên",
+                routerLink: "/quantri/taisan/danhmuc/mucdouutien",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Loại sự cố",
+                routerLink: "/quantri/taisan/danhmuc/loaisuco",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Nhà cung cấp",
+                routerLink: "/quantri/taisan/danhmuc/nhacungcap",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Loại bảo dưỡng ",
+                routerLink: "/quantri/taisan/danhmuc/danhmucloaibaoduong",
+                command: () => {
+                  this.close();
+                },
+              },
+            ]
+          },
           // {
           //   label: "Nhập tài sản",
           //   routerLink: "/quantri/taisan/nhaptaisan",

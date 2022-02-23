@@ -8,36 +8,44 @@
 </div>
 <div class="modal-body">
 <div class="col-12 col-lg-12">
+    <div class="p-d-flex p-flex-row p-jc-between">
+        <div class="modal-bt p-mb-4 ">
+            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm "
+                (click)="activeModal.dismiss()"></button>
+            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm "
+                (click)="GhiLai()"></button>
+        </div>
+    </div>
 <div class="p-grid">
     <div class="p-col-12 p-md-6 p-lg-12 p-d-flex p-flex-column">
-        <label class="p-col-12 p-lg-12 p-p-0 my-auto">Mã  <span class="text-danger">(*)</span></label>
+        <label class="p-col-12 p-lg-12 p-p-0 my-auto">Mã  </label>
         <div class="p-col-12 p-lg-12 p-p-0">
-            <input type="text" class="p-inputtext-sm" (keyup.enter)="GhiLai()"  pInputText />
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
         </div>
     </div>
     <div class="p-col-12 p-md-6 p-lg-12 p-d-flex p-flex-column ">
-        <label class="p-col-12 p-lg-12 p-p-0 my-auto">Tên <span class="text-danger">(*)</span></label>
+        <label class="p-col-12 p-lg-12 p-p-0 my-auto">Tên </label>
         <div class="p-col-12 p-lg-12 p-p-0">
-            <input type="text" class="p-inputtext-sm" (keyup.enter)="GhiLai()"  pInputText />
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
         </div>
     </div>
     <div class="p-col-12 p-md-6 p-lg-12 p-d-flex p-flex-column ">
         <label class="p-col-12 p-lg-12 p-p-0 my-auto">Thứ tự </label>
         <div class="p-col-12 p-lg-12 p-p-0">
-            <input type="text" class="p-inputtext-sm" (keyup.enter)="GhiLai()"  pInputText />
+            <p-inputNumber [minFractionDigits]="0" locale="en-EN"  [(ngModel)]="item.ThuTu">
+            </p-inputNumber> </div>
         </div>
     </div>
     <div class="p-col-12 p-md-6 p-lg-12 p-d-flex p-flex-column">
         <label class="p-col-12 p-lg-12 p-p-0 my-auto">Ghi chú</label>
         <div class="p-col-12 p-lg-12 p-p-0">
-            <input type="text" class="p-inputtext-sm" (keyup.enter)="GhiLai()"  pInputText />
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
         </div>
     </div>
 </div>
 </div>
-</div>
 <div class="modal-footer">
-<button pButton pRipple label="Lưu" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()" ></button>
+<!-- <button pButton pRipple label="Lưu" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()" ></button>
 <button pButton pRipple label="Đóng" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
-    (click)="activeModal.dismiss()"></button>
+    (click)="activeModal.dismiss()"></button> -->
 </div>

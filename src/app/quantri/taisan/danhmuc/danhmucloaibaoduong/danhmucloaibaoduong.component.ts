@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { ModalbaoduongComponent } from '../../modal/modalbaoduong/modalbaoduong.component';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 @Component({
   selector: 'app-danhmucloaibaoduong',
   templateUrl: './danhmucloaibaoduong.component.html',
@@ -18,47 +19,64 @@ export class DanhmucloaibaoduongComponent implements OnInit {
   cols: any = [
     {
       header: 'Loại tài sản',
-      field: 'Ma',
-      width: '350px',
+      field: 'TenLoaiTaiSan',
+      width: '150px',
       align:'center'
     },
     {
       header: 'Mã',
       field: 'Ma',
-      width: '350px',
+      width: '100px',
       align:'center'
     },
     {
       header: 'Tên',
       field: 'Ten',
-      width: '300px',
+      width: '100px',
       align:'center'
     },
     {
       header: 'Nội dung',
-      field: 'Ma',
-      width: '350px',
+      field: 'NoiDung',
+      width: '100px',
       align:'center'
     },
     {
       header: 'Thời gian và số người thực hiện',
-      field: 'Ma',
-      width: '350px',
+      field: 'ThoiGianVaSoNguoiThucTe',
+      width: '200px',
       align:'center'
     },
     {
       header: 'Lịch bảo dưỡng',
-      field: 'MoTa',
-      width: '200px',
+      field: 'ThoiGianBaoDuong',
+      width: '150px',
       align:'center'
     }
   ];
   selectedItems:any=[];
+  listTaiSan:any = [];
+  TenLoaiTaiSan:'';
+
   constructor(private _modal:NgbModal,private _danhMucTaiSan:DanhmuctaisanService,private _toastr:ToastrService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.GetListdmLoaiBaoDuong();
+    this.GetListdmLoaiTaiSan();
   }
+
+  GetListdmLoaiTaiSan(){
+    let data = {
+      PageSize:20, 
+      CurrentPage:this.paging.page,
+      Keyword:this.Keyword,  
+    };
+    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res:any)=>{
+      this.listTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
+      console.log(this.listTaiSan)
+    })
+  }
+
   resetFilter(){
     this.Keyword = '';
     this.GetListdmLoaiBaoDuong(true);
@@ -77,7 +95,12 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     };
     this._danhMucTaiSan.DanhMucLoaiBaoDuong().GetList(data).subscribe((res:any)=>{
       this.items = res.Data.Items;
-      this.paging.TotalCount = res.Data.TotalCount;
+      console.log(this.items)
+      this.items.forEach(obj => {
+        obj.TenLoaiTaiSan = this.listTaiSan.find( ele=>ele.value == obj.IddmLoaiTaiSan).label;
+        console.log(obj.TenLoaiTaiSan);
+    });
+    this.paging.TotalCount = res.Data.TotalCount;
     })
   }
   add(){
@@ -93,17 +116,20 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     }).catch(er=>console.log(er))
   }
   edit(item){
-    let modalRef = this._modal.open(ModalbaoduongComponent,{
-      backdrop:'static',
-      size: "fullscreen-100",
-    });
-    modalRef.componentInstance.opt='edit';
-    modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật loại bão dưỡng';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
-    modalRef.result.then(res=>{
-      this.GetListdmLoaiBaoDuong()
-    }).catch(er=>console.log(er))
+    // this._danhMucTaiSan.DanhMucLoaiBaoDuong().Get(item.Id).subscribe((res1:any)=>{
+      let modalRef = this._modal.open(ModalbaoduongComponent,{
+        backdrop:'static',
+        size: "fullscreen-100",
+      });
+      modalRef.componentInstance.opt='edit';
+      modalRef.componentInstance.type = 'capnhat';
+      modalRef.componentInstance.title = 'Cập nhật loại bão dưỡng';
+      modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
+      modalRef.result.then(res=>{
+        this.GetListdmLoaiBaoDuong()
+      }).catch(er=>console.log(er))
+  //   }
+  // )
   }
   delete(item){
     let modalRef = this._modal.open(ModalthongbaoComponent,{
@@ -111,13 +137,33 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{   
-      this._danhMucTaiSan.DanhMucLoaiBaoDuong().Delete([item.Id]).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucLoaiBaoDuong().Delete(item.Id).subscribe((res: any) => {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
             this.GetListdmLoaiBaoDuong();
           } else {
             this._toastr.error(res.Message);
+          }
+        }
+      })
+    }).catch(er=>console.log(er))
+  }
+  deleteAll(){
+    let modalRef = this._modal.open(ModalthongbaoComponent,{
+      backdrop:'static'
+    });
+    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    const listId=this.selectedItems.map(({Id}) => Id);
+    modalRef.result.then(res=>{  
+      this._danhMucTaiSan.DanhMucLoaiBaoDuong().DeleteList(listId).subscribe((res: any) => {
+        if (res) {
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
+            this.GetListdmLoaiBaoDuong();
+            this.selectedItems = [];
+          } else {
+           this._toastr.error(res.Message);
           }
         }
       })

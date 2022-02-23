@@ -144,6 +144,34 @@ export class TaisanService {
     };
   }
 
+  SuCoSuaChua() {
+    let url = API.TaiSan;
+    return {
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(`${url}GetNextQuyTrinhSuCoSuaChuaTaiSan`, httpOptions);
+      },
+      GetList: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}GetAllSuCoSuaChua`, data, httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(`${url}GetSuCoSuaChuaTaiSanById?Id=${Id}`, httpOptions);
+      },
+      Set: (data) => {
+        return this.http.post(`${url}SetQuyTrinhSuCoSuaChuaTaiSan`, data, httpOptions);
+      },
+      KhongDuyet: (data) => {
+        return this.http.post(`${url}KhongDuyetQuyTrinhSuCoSuaChuaTaiSan`, data, httpOptions);
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(`${url}ChuyenTiepQuyTrinhSuCoSuaChuaTaiSan`, data, httpOptions);
+      },
+      Delete: (Id) => {
+        return this.http.get(`${url}DeleteSuCoSuaChuaTaiSanById?Id=${Id}`, httpOptions);
+      },
+    };
+  }
+
   GetListTaiSanThuHoi() {
     let url = API.TaiSan;
     return {
@@ -185,32 +213,32 @@ export class TaisanService {
   }
 
 
-  SuCoSuaChua() {
-    let url = API.TaiSan;
-    return {
-      GetNextSoQuyTrinh: () => {
-        return this.http.get(`${url}SuCoSuaChua/GetNextQuyTrinhSuCoSuaChuaTaiSan`, httpOptions);
-      },
-      GetList: (data) => {
-        return this.http.post(`${url}SuCoSuaChua/GetAllSuCoSuaChua`, data, httpOptions);
-      },
-      Get: (Id) => {
-        return this.http.get(`${url}SuCoSuaChua/GetSuCoSuaChuaTaiSanById?Id=${Id}`, httpOptions);
-      },
-      Set: (data) => {
-        return this.http.post(`${url}SuCoSuaChua/SetQuyTrinhSuCoSuaChuaTaiSan`, data, httpOptions);
-      },
-      KhongDuyet: (data) => {
-        return this.http.post(`${url}SuCoSuaChua/KhongDuyetQuyTrinhSuCoSuaChuaTaiSan`, data, httpOptions);
-      },
-      ChuyenTiep: (data) => {
-        return this.http.post(`${url}SuCoSuaChua/ChuyenTiepQuyTrinhSuCoSuaChuaTaiSan`, data, httpOptions);
-      },
-      Delete: (Id) => {
-        return this.http.get(`${url}SuCoSuaChua/DeleteSuCoSuaChuaTaiSanById?Id=${Id}`, httpOptions);
-      },
-    };
-  }
+  // SuCoSuaChua() {
+  //   let url = API.TaiSan;
+  //   return {
+  //     GetNextSoQuyTrinh: () => {
+  //       return this.http.get(`${url}SuCoSuaChua/GetNextQuyTrinhSuCoSuaChuaTaiSan`, httpOptions);
+  //     },
+  //     GetList: (data) => {
+  //       return this.http.post(`${url}SuCoSuaChua/GetAllSuCoSuaChua`, data, httpOptions);
+  //     },
+  //     Get: (Id) => {
+  //       return this.http.get(`${url}SuCoSuaChua/GetSuCoSuaChuaTaiSanById?Id=${Id}`, httpOptions);
+  //     },
+  //     Set: (data) => {
+  //       return this.http.post(`${url}SuCoSuaChua/SetQuyTrinhSuCoSuaChuaTaiSan`, data, httpOptions);
+  //     },
+  //     KhongDuyet: (data) => {
+  //       return this.http.post(`${url}SuCoSuaChua/KhongDuyetQuyTrinhSuCoSuaChuaTaiSan`, data, httpOptions);
+  //     },
+  //     ChuyenTiep: (data) => {
+  //       return this.http.post(`${url}SuCoSuaChua/ChuyenTiepQuyTrinhSuCoSuaChuaTaiSan`, data, httpOptions);
+  //     },
+  //     Delete: (Id) => {
+  //       return this.http.get(`${url}SuCoSuaChua/DeleteSuCoSuaChuaTaiSanById?Id=${Id}`, httpOptions);
+  //     },
+  //   };
+  // }
 
   GetOptions() {
     let url = API.TaiSan;
