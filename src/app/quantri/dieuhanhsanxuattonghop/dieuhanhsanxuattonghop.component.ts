@@ -116,6 +116,39 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       }
     }
   }
+  optionBarDien: any = {
+    plugins: {
+      labels: {
+        fontSize: 0
+      }
+    },
+    legend: {
+      position: 'bottom'
+    },
+    scales: {
+      xAxes: [{
+        categoryPercentage: 0.5,
+        barPercentage: 1.0
+      }],
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          callback: function (label, index, labels) {
+            return formatNumber(label, 'en-EN', '0.0-0');
+          }
+        }
+      }],
+    },
+    maintainAspectRatio: true,
+    aspectRatio: 3,
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+            return `${formatNumber(tooltipItem.yLabel, 'en-EN')} KWh`
+        }
+      }
+    }
+  }
   option1: any = {
     scales: {
       xAxes: [{
@@ -593,16 +626,16 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         datasets: [
           {
             type: 'bar',
-            label: 'Tổng tiền điện',
+            label: 'Tổng điện',
             backgroundColor: '#009900',
-            data: res.map(ele => Math.round(ele.TongTienDien || 0)),
+            data: res.map(ele => Math.round(ele.TongSoDien || 0)),
             borderColor: 'white',
           },
           {
             type: 'bar',
-            label: 'Tổng tiền điện GY',
+            label: 'Tổng điện GY',
             backgroundColor: '#3c5cbb',
-            data: res.map(ele => Math.round(ele.TongTienDienGY || 0)),
+            data: res.map(ele => Math.round(ele.TongSoDienGY || 0)),
             borderColor: 'white',
           },
         ]
