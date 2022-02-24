@@ -37,7 +37,7 @@ export class AntoanComponent implements OnInit {
         this.item.listThongSoAnToan.splice(index, 1);
       }
       else {
-        this.item.TaiSan.listThongSoAnToan[index].isXoa = true;
+        this.item.listThongSoAnToan[index].isXoa = true;
       }
     }
   

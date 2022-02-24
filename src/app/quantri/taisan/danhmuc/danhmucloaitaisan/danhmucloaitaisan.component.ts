@@ -66,6 +66,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
   add(){
     let modalRef = this._modal.open(ModalloaitaisanComponent,{
       backdrop:'static',
+      size:'lg',
      
     });
     modalRef.componentInstance.opt='add';
@@ -78,6 +79,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
   edit(item){
     let modalRef = this._modal.open(ModalloaitaisanComponent,{
       backdrop:'static',
+      size:'lg',
     
     });
     modalRef.componentInstance.opt='edit';

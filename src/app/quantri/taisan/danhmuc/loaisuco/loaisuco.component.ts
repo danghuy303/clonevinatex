@@ -65,7 +65,7 @@ export class LoaisucoComponent implements OnInit {
   add(){
     let modalRef = this._modal.open(ModalloaisucoComponent,{
       backdrop:'static',
-      size: "fullscreen-100",
+      size:'lg',
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'themmoi';
@@ -77,7 +77,7 @@ export class LoaisucoComponent implements OnInit {
   edit(item){
     let modalRef = this._modal.open(ModalloaisucoComponent,{
       backdrop:'static',
-      size: "fullscreen-100",
+      size:'lg',
     });
     modalRef.componentInstance.opt='edit';
     modalRef.componentInstance.type = 'capnhat';

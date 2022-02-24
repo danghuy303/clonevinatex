@@ -1,6 +1,6 @@
 import { HopDongService } from "src/app/services/Hopdong/hopdong.service";
 
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
@@ -9,6 +9,7 @@ import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { TreeNode } from 'primeng/api';
 import { ModalcapnhattaisanComponent } from "../modal/modalcapnhattaisan/modalcapnhattaisan.component";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-nhaptaisan',
@@ -16,7 +17,7 @@ import { ModalcapnhattaisanComponent } from "../modal/modalcapnhattaisan/modalca
   styleUrls: ['./nhaptaisan.component.css']
 })
 export class NhaptaisanComponent implements OnInit {
-
+  @ViewChild("paginator") paginator: any;
   filter: any = {};
   eAction: any = "NHAPTAISAN";
   loaiTab: any = 0;
@@ -24,24 +25,41 @@ export class NhaptaisanComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   items: TreeNode[];
   trangThai: any = 1;
+  listLoaiTaiSan: any = [];
   listPhanXuong = [];
 
   constructor(
     public _modal: NgbModal,
     public toastr: ToastrService,
-    private _serviceHopDong: HopDongService,
     private _serviceDungChung: SanXuatService,
-    private _serviceTaiSan: TaisanService,
     private _servicesSanXuat: SanXuatService,
+    private _serviceTaiSan: TaisanService,
+    private _danhMucTaiSan: DanhmuctaisanService,
+    private activatedRoute: ActivatedRoute, private router: Router,
   ) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((res: any) => {
+      if (res.id !== "0") {
+        this._serviceTaiSan
+          .NhapTaiSan()
+          .Get(res.id)
+          .subscribe((res: any) => {
+            this.update(res);
+          });
+      }
+    });
     this.resetFilter();
+    this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
+  }
+  changeParam(id) {
+    this.router.navigate([`/quantri/taisan/nhaptaisan/${id}`], {
+      replaceUrl: true,
+    });
   }
   GetListdmPhanXuong() {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-      console.log(res)
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -79,6 +97,7 @@ export class NhaptaisanComponent implements OnInit {
         if (obj?.listTaiSan) {
           obj_copy.children = [];
           obj.listTaiSan.forEach(element => {
+            obj.TenBoPhanSuDung = this.listPhanXuong.find(ele=>ele.value == element.IddmPhanXuong)?.label||null;
             obj_copy.children.push({ data: element });
           });
           delete obj.listTaiSan;
@@ -88,15 +107,14 @@ export class NhaptaisanComponent implements OnInit {
       });
     })
   }
-
   KiemTraTabTrangThai() {
     this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.Loaddata();
     })
   }
-
   add() {
+    this.changeParam(0);
     let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
       size: "fullscreen-100",
       backdrop: "static",
@@ -155,22 +173,34 @@ export class NhaptaisanComponent implements OnInit {
 
       });
   }
-
-  edit(item) {
+  // edit(item) {
+  //   let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
+  //     size: "fullscreen-100",
+  //     backdrop: "static",
+  //   });
+  //   modalRef.componentInstance.opt = "edit";
+  //   modalRef.componentInstance.item = item;
+  //   modalRef.result
+  //     .then((res: any) => {
+  //       this.Loaddata(false);
+  //     })
+  //     .catch((er) => {
+  //     });
+  // } 
+  update(item) {
     let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
       size: "fullscreen-100",
       backdrop: "static",
+      keyboard: false,
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.item = item;
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
-      .then((res: any) => {
-        this.Loaddata(false);
-      })
-      .catch((er) => {
+      .finally(()=>{
+        this.Loaddata();
+        this.changeParam(0);
       });
-  } 
-
+  }
   changePage(event) {
     this.paging.currentPage = event.page + 1;
     this.Loaddata(false);

@@ -33,7 +33,7 @@ import { VattugiatricaoComponent } from './vattugiatricao/vattugiatricao.compone
 
 const routes: Routes = [
   {path:'',component:TaisanComponent},
-  {path:'nhaptaisan',component:NhaptaisanComponent},
+  {path:'nhaptaisan/:id',component:NhaptaisanComponent},
   {path:'bangiaotaisan',component:BangiaotaisanComponent},  
   {path:'sucosuachua',component:SucosuachuaComponent},  
   {path:'danhsachtaisan',component:DanhsachtaisanComponent},

@@ -1,4 +1,4 @@
-<p-table [value]="item.listLichBaoDuong" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
+<p-table [value]="item.listLichBaoDuong|isXoa" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
     [scrollable]="true">
     <ng-template pTemplate="colgroup">
         <colgroup>
@@ -27,7 +27,7 @@
             <td class="text-center">
                 {{i + 1}}
             </td>
-            <td class="text-center">{{item.TenLoaiBaoDuong}}</td>
+            <td class="text-center">{{item.TendmLoaiBaoDuong}}</td>
             <td class="text-center">{{item.ThoiGianBaoDuong}}</td>
             <td class="text-center">{{item.NangSuat}}</td>
             <!-- <td class="text-center">{{item.NguyenGia|number:'0.0'}}</td> -->

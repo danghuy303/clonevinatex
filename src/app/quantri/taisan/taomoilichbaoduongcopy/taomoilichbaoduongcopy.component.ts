@@ -29,10 +29,9 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
       size: 'lg',
       backdrop: 'static'
     })
-    // modalRef.componentInstance.opt = "add";
+    modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.item = {};
     modalRef.componentInstance.listLichBaoDuong = this.item.listLichBaoDuong;
-
     modalRef.result
       .then((res: any) => {
         console.log(res)
@@ -48,7 +47,7 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
         backdrop: "static",
       });
       modalRef.componentInstance.opt = "edit";
-      modalRef.componentInstance.item = item;
+      modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
       modalRef.componentInstance.listLichBaoDuong = this.item.listLichBaoDuong;
       modalRef.result
         .then((res: any) => {
@@ -58,13 +57,12 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
   
         });
     }
-  
     XoaTaiSanCon(item, index) {
       if (validVariable(item.Id)) {
         this.item.listLichBaoDuong.splice(index, 1);
       }
       else {
-        this.item.TaiSan.listTaiSan[index].isXoa = true;
+        this.item.listLichBaoDuong[index].isXoa = true;
       }
     }
   

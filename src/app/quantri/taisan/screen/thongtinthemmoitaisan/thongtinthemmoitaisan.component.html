@@ -126,15 +126,16 @@
     </div>
     <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
         <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
-            <p-checkbox [(ngModel)]="item.isGiaTriCao"></p-checkbox>
+            <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
             <label >Giá trị cao</label>
         </div>
         <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
-            <p-checkbox   [(ngModel)]="item.isCanDuTru"></p-checkbox>
+            <p-checkbox  binary="true" [(ngModel)]="item.isCanDuTru"></p-checkbox>
             <label >Cần dự trữ</label>
         </div>
         <div class="p-col-12 p-xl-4 p-p-0 my-auto">
-            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DuTruToiThieu" pInputText />
+            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu">
+            </p-inputNumber>
         </div>
     </div>
    

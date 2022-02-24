@@ -65,21 +65,21 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr>
-            <td class="p-d-flex p-flex-row">                             
+            <td class="p-d-flex p-flex-row text-center">                             
                 {{rowData.SoQuyTrinh}}
                 <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
             </td>
             <td class="text-center">{{rowData.Created|date:'dd/MM/yyyy'}}</td>
-            <td>{{rowData.Ma}}</td>
-            <td>{{rowData.Ma}}</td>
-            <td>{{rowData.Ma}}</td>
-            <td>{{rowData.Ten}}</td>
-            <td>{{rowData.Ma}}</td>
+            <td class="text-center">{{rowData.TenBoPhanSuDung}}</td>
+            <td class="text-center">{{rowData.TendmLoaiTaiSan}}</td>
+            <td class="text-center">{{rowData.Ma}}</td>
+            <td class="text-center">{{rowData.Ten}}</td>
+            <td class="text-center">{{rowData.HangSanXuat}}</td>
             <td class="text-center">{{rowData.TenTrangThai}}</td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
-                    (click)="edit(rowData)"></button>                
+                     (click)="changeParam(rowData.Id)"></button>                
             </td>
         </tr>
     </ng-template>

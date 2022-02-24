@@ -106,7 +106,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
   add(){
     let modalRef = this._modal.open(ModalbaoduongComponent,{
       backdrop:'static',
-      size: "fullscreen-100",
+      size: "lg",
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'themmoi';
@@ -119,7 +119,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     // this._danhMucTaiSan.DanhMucLoaiBaoDuong().Get(item.Id).subscribe((res1:any)=>{
       let modalRef = this._modal.open(ModalbaoduongComponent,{
         backdrop:'static',
-        size: "fullscreen-100",
+        size: "lg",
       });
       modalRef.componentInstance.opt='edit';
       modalRef.componentInstance.type = 'capnhat';

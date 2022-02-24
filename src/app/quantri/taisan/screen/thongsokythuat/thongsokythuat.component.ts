@@ -46,7 +46,7 @@ export class ThongsokythuatComponent implements OnInit {
         this.item.listThongSoKyThuat.splice(index, 1);
       }
       else {
-        this.item.TaiSan.listThongSoKyThuat[index].isXoa = true;
+        this.item.listThongSoKyThuat[index].isXoa = true;
       }
     }
   

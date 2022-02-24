@@ -33,8 +33,7 @@ ModalcapnhatbaoduongcopyyComponent implements OnInit {
 
   GhiLai() {
     if(validVariable(this.item.IddmLoaiBaoDuong))
-    this.item.TenLoaiBaoDuong = this.listLoaiBaoDuong.find(obj => obj.value == this.item.IddmLoaiBaoDuong).label;
-
+    this.item.TendmLoaiBaoDuong = this.listLoaiBaoDuong.find(obj => obj.value == this.item.IddmLoaiBaoDuong).label;
     this.listLichBaoDuong.push(this.item);
     this.activeModal.close(this.listLichBaoDuong);
 }

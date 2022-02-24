@@ -53,8 +53,8 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.item.NgayUnix !== 0) {
-      this.item.Ngay = UnixToDate(this.item.NgayUnix);
+    if (this.item.TaiSan.NgayNhapUnix !== 0 || this.item.TaiSan.NgayNhapUnix === 0) {
+      this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
     }
 
     if (this.opt === 'add') {
@@ -106,12 +106,12 @@ export class ModalcapnhattaisanComponent implements OnInit {
     this._serviceTaiSan.NhapTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
       this.item = res.Data;
       this.item.TaiSan.NoiDung = this.item.NoiDung;
-      this.item.TaiSan.NgaySanXuat = UnixToDate(this.item.TaiSan.NgaySanXuatUnix);
+      this.item.TaiSan.ThoiGianDuaVaoSuDung = UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix);
       this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
       this.itemDonVi = this.listDonVi_copy.find(obj => obj.Id === this.item.TaiSan.IddmDonViTinh);
       if (this.item.listTaiSan.length > 0) {
         this.item.listTaiSan.forEach(element => {
-          element.NgaySanXuat = UnixToDate(element.NgaySanXuatUnix);
+          element.ThoiGianDuaVaoSuDung = UnixToDate(element.ThoiGianDuaVaoSuDungUnix);
           element.NgayNhap = UnixToDate(element.NgayNhapUnix);
           if (validVariable(this.item.IddmDonViTinh)) {
             element.TenDonViTinh = this.listDonVi_copy.find(obj => obj.Id === element.IddmDonViTinh).Ten;
@@ -136,7 +136,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
 
   setData() {
-    this.item.NgayUnix = DateToUnix(this.item.Ngay);
+    this.item.TaiSan.NgayNhapUnix = DateToUnix(this.item.TaiSan.NgayNhap);
     return this.item;
   }
   GhiLai() {
