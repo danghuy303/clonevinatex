@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { ModalmucdouutienComponent } from '../modalmucdouutien/modalmucdouutien.component';
@@ -14,25 +15,26 @@ export class DanhmucmucdouutienComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   items: any = [];
+  filter:any={};
   Keyword:any='';
   paging: any = {  Page: 1, TotalPages: 1, TotalCount: 1 };
   cols: any = [
     {
       header: 'Mã',
       field: 'Ma',
-      width: '350px',
+      width: '150px',
       align:'center'
     },
     {
       header: 'Tên',
       field: 'Ten',
-      width: '300px',
+      width: '200px',
       align:'center'
     },
     {
       header: 'Thứ tự',
       field: 'ThuTu',
-      width: '300px',
+      width: '100px',
       align:'center'
     },
     {
@@ -40,7 +42,8 @@ export class DanhmucmucdouutienComponent implements OnInit {
       field: 'GhiChu',
       width: '200px',
       align:'center'
-    }
+    } ,
+   
   ];
   selectedItems:any=[];
   constructor(private _modal:NgbModal,private _danhMucTaiSan:DanhmuctaisanService,private _toastr:ToastrService) { }
@@ -49,7 +52,7 @@ export class DanhmucmucdouutienComponent implements OnInit {
     this.GetList();
   }
   resetFilter(){
-    this.Keyword = '';
+    this.filter = {};
     this.GetList(true);
   }
   GetList(reset?){
@@ -60,7 +63,7 @@ export class DanhmucmucdouutienComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.Page,
-      Keyword:this.Keyword, 
+      Keyword:this.filter.Keyword, 
       Ma:"", 
       Ten:""   
     };
@@ -100,7 +103,7 @@ export class DanhmucmucdouutienComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{   
-      this._danhMucTaiSan.DanhMucMucDoUuTien().Delete(item.Id).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucMucDoUuTien().DeleteList([item.Id]).subscribe((res: any) => {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
@@ -131,6 +134,30 @@ export class DanhmucmucdouutienComponent implements OnInit {
         }
       })
     }).catch(er=>console.log(er))
+  }
+  importExcel(){
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
+      backdrop:'static',
+    })
+    modalRef.componentInstance.importFunc = '';
+    modalRef.result.then(res=>{
+      this.GetList();
+      this._toastr.success(res.mess);
+    })
+    .catch(er=>console.log(er))
+  }
+  exportExcel(){
+    let data = {
+      PageSize:20, 
+      CurrentPage:0,
+      Keyword:this.Keyword, 
+      Ma:"", 
+      Ten:"",
+      TableName:'',
+    };
+    this._danhMucTaiSan.DanhMucMucDoUuTien().Exportdm(data).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucMucDoUuTien().download(res.TenFile);
+    })
   }
   changePage(event){
     this.paging.Page = event.page+1;

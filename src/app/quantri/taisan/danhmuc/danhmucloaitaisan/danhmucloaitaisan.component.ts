@@ -4,6 +4,9 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { ModalloaitaisanComponent } from '../../modal/modalloaitaisan/modalloaitaisan.component';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 @Component({
   selector: 'app-danhmucloaitaisan',
   templateUrl: './danhmucloaitaisan.component.html',
@@ -14,6 +17,8 @@ export class DanhmucloaitaisanComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   Keyword:any='';
+  filter:any={};
+  MaCongDoan:any='';
   paging: any = {  page: 1, totalPages: 1, totalCount: 1 };
   cols: any = [
     {
@@ -29,17 +34,38 @@ export class DanhmucloaitaisanComponent implements OnInit {
       align:'center'
     },
     {
+      header: 'Công đoạn',
+      field: 'TenCongDoan',
+      width: '300px',
+      align:'center'
+    },
+    {
       header: 'Ghi chú',
       field: 'GhiChu',
+      width: '200px',
+      align:'center'
+    },
+    {
+      header: 'Tình trạng',
+      // field: 'isHoatDong',
       width: '200px',
       align:'center'
     }
   ];
   selectedItems:any=[];
-  constructor(private _modal:NgbModal,private _danhMucTaiSan:DanhmuctaisanService,private _toastr:ToastrService) { }
+  listCongDoan:any=[];
+  constructor(private _modal:NgbModal,private _danhMucTaiSan:DanhmuctaisanService, private _services:SanXuatService,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.GetListdmLoaiTaiSan();
+    this.getListCongDoan();
+  }
+  getListCongDoan(){
+    this._danhMucTaiSan.GetlistCongDoan().GetList().subscribe((res:any)=>{
+      console.log(res)
+      this.listCongDoan = mapArrayForDropDown(res.Data, "Ten", "Ma");
+      console.log(this.listCongDoan)
+    })
   }
   resetFilter(){
     this.Keyword = '';
@@ -53,7 +79,8 @@ export class DanhmucloaitaisanComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.page,
-      Keyword:this.Keyword, 
+      Keyword:this.Keyword,  
+      MaCongDoan:this.filter.MaCongDoan?this.filter.MaCongDoan:'',
   
     };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res:any)=>{
@@ -95,8 +122,8 @@ export class DanhmucloaitaisanComponent implements OnInit {
       backdrop:'static'
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res=>{   
-      this._danhMucTaiSan.DanhMucLoaiTaiSan().Delete(item.Id).subscribe((res: any) => {
+    modalRef.result.then(res=>{
+      this._danhMucTaiSan.DanhMucLoaiTaiSan().DeleteList([item.Id]).subscribe((res: any) => {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
@@ -127,6 +154,31 @@ export class DanhmucloaitaisanComponent implements OnInit {
         }
       })
     }).catch(er=>console.log(er))
+  }
+  importExcel(){
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
+      backdrop:'static',
+    })
+    modalRef.componentInstance.importFunc = '';
+    modalRef.result.then(res=>{
+      this.GetListdmLoaiTaiSan();
+      this._toastr.success(res.mess);
+    })
+    .catch(er=>console.log(er))
+  }
+  exportExcel(){
+    let data = {
+      PageSize:20, 
+      CurrentPage:0,
+      Keyword:this.Keyword,  
+      MaCongDoan:this.filter.MaCongDoan?this.filter.MaCongDoan:'',
+      Ma:"", 
+      Ten:"",
+      TableName:'',
+    };
+    this._danhMucTaiSan.DanhMucLoaiTaiSan().Exportdm(data).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucLoaiTaiSan().download(res.TenFile);
+    })
   }
   changePage(event){
     

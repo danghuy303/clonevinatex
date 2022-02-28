@@ -33,6 +33,12 @@ export class LoaisucoComponent implements OnInit {
       field: 'GhiChu',
       width: '200px',
       align:'center'
+    },
+    {
+      header: 'Tình trạng',
+      // field: 'isHoatDong',
+      width: '200px',
+      align:'center'
     }
   ];
   selectedItems:any=[];
@@ -93,7 +99,7 @@ export class LoaisucoComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{   
-      this._danhMucTaiSan.DanhMucLoaiSuCo().Delete([item.Id]).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucLoaiSuCo().DeleteList([item.Id]).subscribe((res: any) => {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);

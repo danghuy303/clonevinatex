@@ -90,10 +90,11 @@
                         </div>
                     </div>
                     <div class="p-col-12 p-xl-4 p-p-0 d-flex flex-column flex-xl-row">
-                        <div class="p-col-12 p-xl-10 p-p-0">
+                        <!-- <div class="p-col-12 p-xl-10 p-p-0"> -->
                             <p-inputNumber [minFractionDigits]="0" locale="en-EN"  [(ngModel)]="item.ThoiGianBaoDuong">
-                            </p-inputNumber> </div>
-                        <div class="p-col-12 p-xl-2 p-p-0"> ({{item.MaLoaiThoiGian}})</div>
+                            </p-inputNumber> 
+                            <p class="tan">({{item.MaLoaiThoiGian}})</p>
+                        <!-- <div class="p-col-12 p-xl-2 p-p-0 tan"> ({{item.MaLoaiThoiGian}})</div> -->
 
                     </div>
                 </div>
@@ -104,7 +105,14 @@
             <div class="p-col-12 p-xl-7 p-p-0 d-flex flex-column flex-xl-row">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.NangSuat">
                 </p-inputNumber>
-                (tấn)
+                <p class="tan">(tấn)</p>    
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-7 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+            <div class="p-col-12 p-xl-6 p-p-0 my-auto"></div>
+            <div class="p-field-checkbox p-col-12 p-xl-6 p-p-0 my-auto">
+                <p-checkbox [(ngModel)]="item.isHoatDong" binary="true" inputId="binary"></p-checkbox>
+                <label for="binary">Hoạt động </label>
             </div>
         </div>
     </div>

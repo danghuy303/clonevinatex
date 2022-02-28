@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { ModaldmnhacungcapComponent } from '../modaldmnhacungcap/modaldmnhacungcap.component';
@@ -15,6 +16,7 @@ export class DanhmucnhacungcapComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   Keyword:any='';
+  filter:any={};
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   cols: any = [
     {
@@ -52,7 +54,7 @@ export class DanhmucnhacungcapComponent implements OnInit {
       field: 'MoTa',
       width: '200px',
       align:'center'
-    }
+    },
   ];
   selectedItems:any=[];
   constructor(private _modal:NgbModal,private _danhMucTaiSan:DanhmuctaisanService,private _toastr:ToastrService) { }
@@ -61,7 +63,7 @@ export class DanhmucnhacungcapComponent implements OnInit {
     this.GetListHangSanXuat();
   }
   resetFilter(){
-    this.Keyword = '';
+    this.filter = {};
     this.GetListHangSanXuat(true);
   }
   GetListHangSanXuat(reset?){
@@ -72,7 +74,7 @@ export class DanhmucnhacungcapComponent implements OnInit {
     let data = {
       PageSize:20, 
       CurrentPage:this.paging.Page,
-      Keyword:this.Keyword,  
+      Keyword:this.filter.Keyword,  
       Ma:"", 
       Ten:""    
     };
@@ -112,7 +114,7 @@ export class DanhmucnhacungcapComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{   
-      this._danhMucTaiSan.DanhMucNhaCungCap().Delete(item.Id).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucNhaCungCap().DeleteList([item.Id]).subscribe((res: any) => {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
@@ -143,6 +145,30 @@ export class DanhmucnhacungcapComponent implements OnInit {
         }
       })
     }).catch(er=>console.log(er))
+  }
+  importExcel(){
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
+      backdrop:'static',
+    })
+    modalRef.componentInstance.importFunc = '';
+    modalRef.result.then(res=>{
+      this.GetListHangSanXuat();
+      this._toastr.success(res.mess);
+    })
+    .catch(er=>console.log(er))
+  }
+  exportExcel(){
+    let data = {
+      PageSize:20, 
+      CurrentPage:0,
+      Keyword:this.filter.Keyword, 
+      Ma:"", 
+      Ten:"",
+      TableName:'',
+    };
+    this._danhMucTaiSan.DanhMucNhaCungCap().Exportdm(data).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucNhaCungCap().download(res.TenFile);
+    })
   }
   changePage(event){
     this.paging.Page = event.page+1;

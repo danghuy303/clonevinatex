@@ -14,6 +14,8 @@ export class ModalloaitaisanComponent implements OnInit {
   public title: any = '';
   public type = '';
   listCongDoan:any =[];
+  paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
+  Keyword="";
 
   constructor(public activeModal: NgbActiveModal,
      private _danhMucTaiSan:DanhmuctaisanService,
@@ -35,12 +37,14 @@ export class ModalloaitaisanComponent implements OnInit {
   //   }
   //   return true;
   // }
-  getListCongDoan() {
-    this.services.GetListCongDoan().subscribe((res: any) => {
-      this.listCongDoan = mapArrayForDropDown(res, 'Ten', 'Ma');
+  
+  getListCongDoan(){
+    this._danhMucTaiSan.GetlistCongDoan().GetList().subscribe((res:any)=>{
+      console.log(res)
+      this.listCongDoan = mapArrayForDropDown(res.Data, "Ten", "Ma");
+      console.log(this.listCongDoan)
     })
   }
-
   GhiLai() {
       this._danhMucTaiSan.DanhMucLoaiTaiSan().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode !== 200) {

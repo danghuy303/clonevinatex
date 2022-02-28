@@ -25,7 +25,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   title: any = "";
   lang: any = vn;
   NameFile: string;
-  checkbutton: any = {};
+  checkbutton: any = { Ghi: true, Xoa: false, KhongDuyet: false, ChuyenTiep: false };
   itemDonVi: any = {};
   uploader: FileUploader;
   // newTableItem: any = {};
@@ -39,6 +39,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     size: 250
   };
   listPhanXuong = [];
+  filter:{MaCongDoan,};
 
   constructor(
     public _modal: NgbModal,
@@ -62,12 +63,12 @@ export class ModalcapnhattaisanComponent implements OnInit {
     }
 
     this.GetListdmPhanXuong();
-    let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
+    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan:'', };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
 
     Promise.all([ls1,ls2]).then((values: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data.Items, "Ten", "Id");
+      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
       this.listCungSanXuat = mapArrayForDropDown(values[1].Data.Items, "Ten", "Id");
     
       this.KiemTraButtonModal();

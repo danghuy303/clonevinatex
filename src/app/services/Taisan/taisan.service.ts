@@ -15,26 +15,26 @@ export class TaisanService {
     let url = API.TaiSan;
     return {
       GetNextSoQuyTrinh: () => {
-        return this.http.get(`${url}NhapTaiSan/GetNextQuyTrinhNhapTaiSan`, httpOptions);
+        return this.http.get(`${url}TaiSan/GetNextQuyTrinhNhapTaiSan`, httpOptions);
       },
       GetList: (data) => {
         data.idDuAn = this.store.getCurrent();
-        return this.http.post(`${url}NhapTaiSan/GetAllNhapTaiSan`, data, httpOptions);
+        return this.http.post(`${url}TaiSan/GetAllNhapTaiSan`, data, httpOptions);
       },
       Get: (Id) => {
-        return this.http.get(`${url}NhapTaiSan/GetNhapTaiSanById?Id=${Id}`, httpOptions);
+        return this.http.get(`${url}TaiSan/GetQuyTrinhNhapTaiSanById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        return this.http.post(`${url}NhapTaiSan/SetQuyTrinhNhapTaiSan`, data, httpOptions);
+        return this.http.post(`${url}TaiSan/SetQuyTrinhNhapTaiSan`, data, httpOptions);
       },
       KhongDuyet: (data) => {
-        return this.http.post(`${url}NhapTaiSan/KhongDuyetQuyTrinhNhapTaiSan`, data, httpOptions);
+        return this.http.post(`${url}TaiSan/ChuyenTiepQuyTrinhNhapTaiSan`, data, httpOptions);
       },
       ChuyenTiep: (data) => {
-        return this.http.post(`${url}NhapTaiSan/ChuyenTiepQuyTrinhNhapTaiSan`, data, httpOptions);
+        return this.http.post(`${url}TaiSan/ChuyenTiepQuyTrinhNhapTaiSan`, data, httpOptions);
       },
       Delete: (Id) => {
-        return this.http.get(`${url}NhapTaiSan/DeleteNhapTaiSanById?Id=${Id}`, httpOptions);
+        return this.http.get(`${url}TaiSan/DeleteNhapTaiSanById?Id=${Id}`, httpOptions);
       },
     };
   }

@@ -28,11 +28,11 @@
             <!-- <button pButton pRipple type="button" label="Kết xuất" *ngIf="canExport" (click)="exportExcel()" class="p-mr-2 p-button-sm"></button> -->
         </div>
         <div class="modal-bt p-mb-4 text-center">
-            <qrcode [qrdata]="item.Id" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
+            <qrcode [qrdata]="item.TaiSan.Id" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
         </div>
     </div>
     <!-- phần cha -->
-    <app-thongtinthemmoitaisan [(item)]="item.TaiSan" [listLoaiTaiSan]="listLoaiTaiSan" [listCungSanXuat]="listCungSanXuat" [listPhanXuong]="listPhanXuong" [opt]="opt" [TaiSanChaCon]="'cha'">
+    <app-thongtinthemmoitaisan [(item)]="item" [listLoaiTaiSan]="listLoaiTaiSan" [listCungSanXuat]="listCungSanXuat" [listPhanXuong]="listPhanXuong" [opt]="opt" [TaiSanChaCon]="'cha'">
     </app-thongtinthemmoitaisan>
  
     <!-- phần con -->

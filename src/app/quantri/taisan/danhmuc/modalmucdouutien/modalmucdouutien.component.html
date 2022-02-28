@@ -24,22 +24,28 @@
                     <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
                 </div>
             </div>
-            <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row ">
-                <label class="p-col-12 p-xl-2 p-p-0 my-auto">Tên </label>
-                <div class="p-col-12 p-xl-10 p-p-0">
-                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
-                </div>
-            </div>
-            <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row ">
-                <label class="p-col-12 p-xl-2 p-p-0 my-auto">Thứ tự </label>
-                <div class="p-col-12 p-xl-10 p-p-0">
+            <div class="p-col-12 p-lg-3 p-mb-4 p-p-3 d-flex flex-column flex-xl-row ">
+                <label class="p-col-12 p-xl-5 p-p-0 my-auto">Thứ tự </label>
+                <div class="p-col-12 p-xl-7 p-p-0">
                     <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.ThuTu">
                     </p-inputNumber>
                 </div>
             </div>
-            <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
-                <label class="p-col-12 p-xl-2 p-p-0 my-auto">Ghi chú</label>
-                <div class="p-col-12 p-xl-10 p-p-0">
+            <div class="p-col-12 p-lg-2 p-mb-3 p-p-3 d-flex flex-column flex-xl-row ">
+                <div class="p-field-checkbox ">
+                    <p-checkbox [(ngModel)]="item.isHoatDong" binary="true" inputId="binary"></p-checkbox>
+                    <label for="binary">Hoạt động </label>
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-12 p-mb-3 p-p-3 d-flex flex-column flex-xl-row ">
+                <label class="p-col-12 p-xl-1 p-p-0 my-auto">Tên </label>
+                <div class="p-col-12 p-xl-11 p-p-0">
+                    <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
+                </div>
+            </div>
+            <div class="p-col-12 p-lg-12 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+                <label class="p-col-12 p-xl-1 p-p-0 my-auto">Ghi chú</label>
+                <div class="p-col-12 p-xl-11 p-p-0">
                     <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
                 </div>
             </div>

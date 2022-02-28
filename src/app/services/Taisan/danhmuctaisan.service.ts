@@ -58,7 +58,7 @@ export class DanhmuctaisanService {
     let url = API.TaiSan
     return {
       GetList: (data) => {
-        return this.http.get(`${url}DanhMuc/GetListLoaiBaoDuong?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+        return this.http.post(`${url}DanhMuc/GetListdmLoaiBaoDuong`, data, httpOptions)
       },
       Set: (data) => {
         return this.http.post(`${url}DanhMuc/SetdmLoaiBaoDuong`, data, httpOptions)
@@ -71,7 +71,18 @@ export class DanhmuctaisanService {
       },
       DeleteList: (data) => {
         return this.http.post(`${url}DanhMuc/DeleteListdmLoaiBaoDuong`, data, httpOptions)
-    },
+      },
+      Importdm: (TableName, FileName) => {
+        let IdDuAn = this.store.getCurrent().toString();
+        return this.http.get(`${url}DanhMuc/ImportdmLoaiBaoDuong?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`, httpOptions)
+      },
+      Exportdm: (data) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/ExportdmLoaiBaoDuong`, data, httpOptions)
+      },
+      download: (url) => {
+        window.open(API.imgURL + url);
+      },
     }
   }
 
@@ -79,7 +90,7 @@ export class DanhmuctaisanService {
     let url = API.TaiSan
     return {
       GetList: (data) => {
-        return this.http.get(`${url}DanhMuc/GetListLoaiTaiSan?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+        return this.http.post(`${url}DanhMuc/GetListdmLoaiTaiSan`, data, httpOptions)
       },
       Set: (data) => {
         return this.http.post(`${url}DanhMuc/SetdmLoaiTaiSan`, data, httpOptions)
@@ -89,7 +100,18 @@ export class DanhmuctaisanService {
       },
       DeleteList: (data) => {
         return this.http.post(`${url}DanhMuc/DeleteListdmLoaiTaiSan`, data, httpOptions)
-    },
+      },
+      Importdm: (TableName, FileName) => {
+        let IdDuAn = this.store.getCurrent().toString();
+        return this.http.get(`${url}DanhMuc/ImportdmLoaiTaiSan?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`, httpOptions)
+      },
+      Exportdm: (data) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/ExportdmLoaiTaiSan`, data, httpOptions)
+      },
+      download: (url) => {
+        window.open(API.imgURL + url);
+      },
     }
   }
 
@@ -97,7 +119,7 @@ export class DanhmuctaisanService {
     let url = API.TaiSan
     return {
       GetList: (data) => {
-        return this.http.get(`${url}DanhMuc/GetListLoaiSuCo?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+        return this.http.post(`${url}DanhMuc/GetListdmLoaiSuCo`, data, httpOptions)
       },
       Set: (data) => {
         return this.http.post(`${url}DanhMuc/SetdmLoaiSuCo`, data, httpOptions)
@@ -107,7 +129,18 @@ export class DanhmuctaisanService {
       },
       DeleteList: (data) => {
         return this.http.post(`${url}DanhMuc/DeleteListdmLoaiSuCo`, data, httpOptions)
-    },
+      },
+      Importdm: (TableName, FileName) => {
+        let IdDuAn = this.store.getCurrent().toString();
+        return this.http.get(`${url}DanhMuc/ImportdmLoaiSuCo?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`, httpOptions)
+      },
+      Exportdm: (data) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/ExportdmLoaiSuCo`, data, httpOptions)
+      },
+      download: (url) => {
+        window.open(API.imgURL + url);
+      },
     }
   }
 
@@ -115,7 +148,7 @@ export class DanhmuctaisanService {
     let url = API.TaiSan
     return {
       GetList: (data) => {
-        return this.http.get(`${url}DanhMuc/GetListMucDoUuTien?Keyword=${data.Keyword}&CurrentPage=${data.CurrentPage}&PageSize=${data.PageSize}`, httpOptions)
+        return this.http.post(`${url}DanhMuc/GetListdmMucDoUuTien`, data, httpOptions)
       },
       Set: (data) => {
         return this.http.post(`${url}DanhMuc/SetdmMucDoUuTien`, data, httpOptions)
@@ -124,8 +157,19 @@ export class DanhmuctaisanService {
         return this.http.get(`${url}DanhMuc/DeletedmMucDoUuTien?Id=${Id}`, httpOptions)
       },
       DeleteList: (data) => {
-        return this.http.post(`${url}DanhMuc/DeleteListdmNhaCungCap`, data, httpOptions)
-    },
+        return this.http.post(`${url}DanhMuc/DeleteListdmMucDoUuTien`, data, httpOptions)
+      },
+      Importdm: (TableName, FileName) => {
+        let IdDuAn = this.store.getCurrent().toString();
+        return this.http.get(`${url}DanhMuc/ImportdmMucDoUuTien?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`, httpOptions)
+      },
+      Exportdm: (data) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/ExportdmMucDoUuTien`, data, httpOptions)
+      },
+      download: (url) => {
+        window.open(API.imgURL + url);
+      },
     }
   }
 
@@ -157,7 +201,18 @@ export class DanhmuctaisanService {
       },
       DeleteList: (data) => {
         return this.http.post(`${url}DanhMuc/DeleteListdmNhaCungCap`, data, httpOptions)
-    },
+      },
+      Importdm: (TableName, FileName) => {
+        let IdDuAn = this.store.getCurrent().toString();
+        return this.http.get(`${url}DanhMuc/ImportdmNhaCungCap?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`, httpOptions)
+      },
+      Exportdm: (data) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}DanhMuc/ExportdmNhaCungCap`, data, httpOptions)
+      },
+      download: (url) => {
+        window.open(API.imgURL + url);
+      },
     }
   }
 
@@ -173,6 +228,14 @@ export class DanhmuctaisanService {
       Delete: (Id) => {
         return this.http.get(`${url}DanhMuc/DeletedmNhaSanXuat?Id=${Id}`, httpOptions)
       }
+    }
+  }
+  GetlistCongDoan() {
+    let url = API.TaiSan
+    return {
+      GetList: () => {
+        return this.http.get(`${url}DanhMuc/GetListCongDoan`, httpOptions)
+      },
     }
   }
 }
