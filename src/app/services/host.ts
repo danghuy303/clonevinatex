@@ -6,7 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 // const host1 = 'http://hoaxa.vinatex.harmonyes.com.vn';//Tong Cong Ty Det May Nam Dinh moi
 // const host1 = 'http://phuhung.vinatex.harmonyes.com.vn/';//Nha May Phu Hung
 export const host1 = `${window.location.origin.includes('localhost')?'http://103.130.212.45:2269':(window.location.origin)}`;
-
+export const host2 = 'http://10.0.5.25:7169';
 // export const host1 = 'http://soindt.vinatex.com.vn';
 // export const host1 = 'http://soisph.vinatex.com.vn';
 // export const host1 = `${window.location.origin.includes('localhost')?'http://soisph.vinatex.com.vn':(window.location.origin)}`;
@@ -36,7 +36,7 @@ export class API {
     // public static baseUrl = host + '/';
     public static SCM = host1 + '/SCM/';
     public static HopDong = host1 + '/HopDong/';
-    public static TaiSan = host1 + '/TaiSanAPI/';
+    public static TaiSan = host1 + '/QLTS_Vinatex/';
     public static KeHoachNhapBong = host1 + '/HopDong/KeHoachNhapBong/';    
     public static KeHoach = host1 + '/KeHoachAPI/';
     public static ThongKeDien = host1 + '/SCM/ThongKeDien/';

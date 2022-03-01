@@ -109,6 +109,10 @@ import { LapkehoachthangComponent } from './lapkehoachthang/lapkehoachthang.comp
 import { ModaldenghixulisucoComponent } from './modaldenghixulisuco/modaldenghixulisuco.component';
 import { DanhmucmucdouutienComponent } from './danhmuc/danhmucmucdouutien/danhmucmucdouutien.component';
 import { ModalmucdouutienComponent } from './danhmuc/modalmucdouutien/modalmucdouutien.component';
+import { DanhmucnhacungcapComponent } from './danhmuc/danhmucnhacungcap/danhmucnhacungcap.component';
+import { ModaldmnhacungcapComponent } from './danhmuc/modaldmnhacungcap/modaldmnhacungcap.component';
+import { ModalthemmoiluachontaisanComponent } from './modal/modalthemmoiluachontaisan/modalthemmoiluachontaisan.component';
+import { ThongtinthemmoitaisanComponent } from './screen/thongtinthemmoitaisan/thongtinthemmoitaisan.component';
 
 
 @NgModule({
@@ -176,6 +180,10 @@ import { ModalmucdouutienComponent } from './danhmuc/modalmucdouutien/modalmucdo
     ModaldenghixulisucoComponent,
     DanhmucmucdouutienComponent,
     ModalmucdouutienComponent,
+    DanhmucnhacungcapComponent,
+    ModaldmnhacungcapComponent,
+    ModalthemmoiluachontaisanComponent,
+    ThongtinthemmoitaisanComponent,
 
   ],
   imports: [
@@ -256,7 +264,9 @@ import { ModalmucdouutienComponent } from './danhmuc/modalmucdouutien/modalmucdo
     VattucanthayComponent,
     ModaldenghixulisucoComponent,
     ModalmucdouutienComponent,
-   
+    ModaldmnhacungcapComponent,
+    ModalthemmoiluachontaisanComponent,
+    ThongtinthemmoitaisanComponent,
 
 
   ],

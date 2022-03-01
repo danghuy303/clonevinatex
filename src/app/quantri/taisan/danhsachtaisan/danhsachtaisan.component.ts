@@ -64,32 +64,32 @@ export class DanhsachtaisanComponent implements OnInit {
       Loai: 0,
       
     };
-    this._danhMucHopDong.DinhMucSanXuat().GetList().subscribe((res: any) => {
-    //  console.log(res)
+    this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
+     console.log(res)
     this.items = res
     this.paging.CurrentPage = res.Data.Page;
       this.paging.TotalPages = res.Data.TotalPages;
       this.paging.TotalCount = res.Data.TotalCount;
-    // this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "TenLoaiTaiSan", 'IddmLoaiTaiSan');
-    //  let items = [];
-    //  this.items = [];
-    //  items = res.Data.Items;
-    //  items.forEach(obj => {
-    //   obj.NgayNhap = obj.NgayNhapUnix > 0 ? formatdate(obj.NgayNhap, false) : null;
-    //      let obj_copy: any = {};
-    //      if (obj?.listTaiSan) {
-    //        obj_copy.children = [];
-    //        obj.listTaiSan.forEach(element => {
-    //          console.log(element)
-    //          obj_copy.children.push({ data: element });
-    //        });
-    //        obj.listTaiSan=undefined;
-    //      }
-    //      obj_copy.data = obj;
-    //      this.items.push({ data: obj_copy.data, children: obj_copy.children });
-    //  });
-    //  console.log(items)
-    //  console.log(this.items);
+    this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "TenLoaiTaiSan", 'IddmLoaiTaiSan');
+     let items = [];
+     this.items = [];
+     items = res.Data.Items;
+     items.forEach(obj => {
+      obj.NgayNhap = obj.NgayNhapUnix > 0 ? formatdate(obj.NgayNhap, false) : null;
+         let obj_copy: any = {};
+         if (obj?.listTaiSan) {
+           obj_copy.children = [];
+           obj.listTaiSan.forEach(element => {
+             console.log(element)
+             obj_copy.children.push({ data: element });
+           });
+           obj.listTaiSan=undefined;
+         }
+         obj_copy.data = obj;
+         this.items.push({ data: obj_copy.data, children: obj_copy.children });
+     });
+     console.log(items)
+     console.log(this.items);
     })
   }
 

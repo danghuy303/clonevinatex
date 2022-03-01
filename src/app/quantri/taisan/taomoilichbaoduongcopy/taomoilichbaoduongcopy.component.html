@@ -1,4 +1,4 @@
-<p-table  styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
+<p-table [value]="item.listLichBaoDuong|isXoa" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
     [scrollable]="true">
     <ng-template pTemplate="colgroup">
         <colgroup>
@@ -27,21 +27,21 @@
             <td class="text-center">
                 {{i + 1}}
             </td>
-            <td class="text-center">{{item.Ma}}</td>
-            <td class="text-center">{{item.Ten}}</td>
-            <td class="text-center">{{item.GhiChu}}</td>
+            <td class="text-center">{{item.TendmLoaiBaoDuong}}</td>
+            <td class="text-center">{{item.ThoiGianBaoDuong}}</td>
+            <td class="text-center">{{item.NangSuat}}</td>
             <!-- <td class="text-center">{{item.NguyenGia|number:'0.0'}}</td> -->
-            <td class="text-center">{{item.ThoiGianSuDung}}</td>
+            <td class="text-center">{{item.GhiChu}}</td>
             <td class="text-center">
-                <!-- <button pButton pRipple type="button" icon="pi pi-pencil"
+                <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
                     (click)="CapNhatTaiSanCon(item)"></button>
-                <button pButton pRipple type="button" icon="pi pi-align-justify"
+                <!-- <button pButton pRipple type="button" icon="pi pi-align-justify"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Tạo lịch bảo dưỡng"
-                    (click)="TaoLichBaoDuong(item)"></button>
+                    (click)="TaoLichBaoDuong(item)"></button> -->
                 <button pButton pRipple type="button" icon="pi pi-trash"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                    ></button> -->
+                    (click)="XoaTaiSanCon(item,i)"></button>
             </td>
         </tr>
     </ng-template>

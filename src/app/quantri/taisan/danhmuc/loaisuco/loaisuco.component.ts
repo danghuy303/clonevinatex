@@ -30,7 +30,13 @@ export class LoaisucoComponent implements OnInit {
     },
     {
       header: 'Ghi chú',
-      field: 'MoTa',
+      field: 'GhiChu',
+      width: '200px',
+      align:'center'
+    },
+    {
+      header: 'Tình trạng',
+      // field: 'isHoatDong',
       width: '200px',
       align:'center'
     }
@@ -64,7 +70,8 @@ export class LoaisucoComponent implements OnInit {
   }
   add(){
     let modalRef = this._modal.open(ModalloaisucoComponent,{
-      backdrop:'static'
+      backdrop:'static',
+      size:'lg',
     });
     modalRef.componentInstance.opt='add';
     modalRef.componentInstance.type = 'themmoi';
@@ -75,7 +82,8 @@ export class LoaisucoComponent implements OnInit {
   }
   edit(item){
     let modalRef = this._modal.open(ModalloaisucoComponent,{
-      backdrop:'static'
+      backdrop:'static',
+      size:'lg',
     });
     modalRef.componentInstance.opt='edit';
     modalRef.componentInstance.type = 'capnhat';
@@ -91,13 +99,33 @@ export class LoaisucoComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{   
-      this._danhMucTaiSan.DanhMucLoaiSuCo().Delete([item.Id]).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucLoaiSuCo().DeleteList([item.Id]).subscribe((res: any) => {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
             this.GetList();
           } else {
             this._toastr.error(res.Message);
+          }
+        }
+      })
+    }).catch(er=>console.log(er))
+  }
+  deleteAll(){
+    let modalRef = this._modal.open(ModalthongbaoComponent,{
+      backdrop:'static'
+    });
+    modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    const listId=this.selectedItems.map(({Id}) => Id);
+    modalRef.result.then(res=>{  
+      this._danhMucTaiSan.DanhMucLoaiSuCo().DeleteList(listId).subscribe((res: any) => {
+        if (res) {
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
+            this.GetList();
+            this.selectedItems = [];
+          } else {
+           this._toastr.error(res.Message);
           }
         }
       })
