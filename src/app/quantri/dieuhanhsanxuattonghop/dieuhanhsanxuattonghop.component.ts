@@ -653,4 +653,16 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     this.getBieuDoTyLe();
     this.showBieuDoTyLe = true;
   }
+  xuatBaoCaoBanChePham() {
+    let data = this.filter;
+    this._services.DashBoard().ExportBaoCaoThongKeChatLuongBanChePham(this.filter).subscribe((res: any) => {
+      if (res) {
+        if (validVariable(res.State)) {
+          this.toastr.error(res.message);
+        } else {
+          this._services.download(res.TenFile);
+        }
+      }
+    })
+  }
 }
