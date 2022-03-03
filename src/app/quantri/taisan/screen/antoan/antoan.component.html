@@ -1,4 +1,4 @@
-<p-table [value]="item.listThongSoAnToan" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
+<p-table [value]="item" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
     [scrollable]="true">
     <ng-template pTemplate="colgroup">
         <colgroup>
@@ -13,7 +13,7 @@
           <th>Loại thông số</th>
           <th>Thông tin thông số</th>
           <th>Ghi chú</th>
-          <th style="width: 100px;">Edit</th>
+          <th style="width: 100px;">thao tác</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -23,7 +23,7 @@
             <td class="text-center"><input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText /> </td>
           <td class="text-center">
             <button pButton pRipple icon="pi pi-trash"
-                  class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2" (click)="XoaTaiSanCon(item,i)"
+                  class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2" (click)="delete(i)"
                   pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
           </td>
         </tr>

@@ -7,8 +7,6 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
-import { TaisanService } from 'src/app/services/Taisan/taisan.service';
-import { ModaltaolichbaoduongComponent } from '../../modal/modaltaolichbaoduong/modaltaolichbaoduong.component';
 @Component({
   selector: 'app-modalthemmoiluachontaisan',
   templateUrl: './modalthemmoiluachontaisan.component.html',
@@ -23,7 +21,6 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   checkbutton: any = {};
   itemDonVi: any = {};
   uploader: FileUploader;
-  // newTableItem: any = {};
   listDonVi: any = [];
   listLoaiTaiSan: any = [];
   listTinhTrangTaiSan: any = [];
@@ -35,18 +32,13 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   };
   listPhanXuong = [];
   listTaiSan: any = [];
-
   constructor(
     public _modal: NgbModal,
     public activeModal: NgbActiveModal,
     private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService,
     private _servicesSanXuat: SanXuatService,
-    private _serviceTaiSan: TaisanService,
-    private _serviceDanhMucTaiSan: DanhmuctaisanService,
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
     this.GetListdmPhanXuong();
@@ -82,17 +74,11 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
 
   GhiLai() {
   
-      // this.item.NgaySanXuatUnix = DateToUnix(this.item.NgaySanXuat);
-      // this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
-      // this.item.MaTinhTrang = this.listTinhTrangTaiSan_copy.find(obj => obj.Id === this.item.IddmTinhTrang).Ma;
-      // if (validVariable(this.item.IddmDonViTinh)) {
-      //   this.item.TenDonViTinh = this.listDonVi_copy.find(obj => obj.Id === this.item.IddmDonViTinh).Ten;
-      // }
+      this.item.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.ThoiGianDuaVaoSuDung);
+      this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
       this.listTaiSan.push(this.item);
       this.activeModal.close(this.listTaiSan);
-    
   }
-
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.multiple = true;
@@ -107,8 +93,6 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
         this.NameFile += `${obj.fileName}` + '; ';
       });
     }, (reason) => {
-
     });
   }
-
 }

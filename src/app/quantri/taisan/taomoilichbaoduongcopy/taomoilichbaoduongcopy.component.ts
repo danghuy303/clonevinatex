@@ -14,6 +14,7 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
  
   @Input('item') item: any = {};
   @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
+ 
 
   constructor( public _modal: NgbModal,
     public activeModal: NgbActiveModal,
@@ -22,47 +23,52 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-
+  // console.log(this.item)
   }
   addBaoDuong() {
     let modalRef = this._modal.open(ModalcapnhatbaoduongcopyyComponent, {
       size: 'lg',
       backdrop: 'static'
     })
+    
     modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.item = {};
-    modalRef.componentInstance.listLichBaoDuong = this.item.listLichBaoDuong;
+    modalRef.componentInstance.title = "Thêm mới lịch bảo dưỡng";
+    modalRef.componentInstance.item = { Id: "",
+    IdTaiSan: "",};
+    modalRef.componentInstance.listLichBaoDuong = this.item|| [];
     modalRef.result
       .then((res: any) => {
         console.log(res)
-        this.item.listLichBaoDuong=res
+        this.item=res
       })
       .catch((er) => {
 
       });
     }
-    CapNhatTaiSanCon(item) {
+    CapNhat(item) {
+      console.log(item)
       let modalRef = this._modal.open(ModalcapnhatbaoduongcopyyComponent, {
         size: "fullscreen-100",
         backdrop: "static",
       });
       modalRef.componentInstance.opt = "edit";
-      modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
-      modalRef.componentInstance.listLichBaoDuong = this.item.listLichBaoDuong;
+      modalRef.componentInstance.title = "Cập nhật lịch bảo dưỡng";
+      modalRef.componentInstance.item = item;
+      
       modalRef.result
         .then((res: any) => {
-  
+        
         })
         .catch((er) => {
   
         });
     }
-    XoaTaiSanCon(item, index) {
+    Xoa(item, index) {
       if (validVariable(item.Id)) {
-        this.item.listLichBaoDuong.splice(index, 1);
+        this.item.splice(index, 1);
       }
       else {
-        this.item.listLichBaoDuong[index].isXoa = true;
+        this.item[index].isXoa = true;
       }
     }
   

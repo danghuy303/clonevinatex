@@ -54,14 +54,19 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.item)
     if (this.item.TaiSan.NgayNhapUnix !== 0 || this.item.TaiSan.NgayNhapUnix === 0) {
-      this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
+      this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
     }
-
+    this.KiemTraButtonModal();
     if (this.opt === 'add') {
+      this.title = "Thêm mới";
       this.GetNextSoQuyTrinh();
     }
-
+    else {
+      this.title = "Cập nhật";
+      this.GetIem();
+    }
     this.GetListdmPhanXuong();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan:'', };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
@@ -69,17 +74,8 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
     Promise.all([ls1,ls2]).then((values: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
-      this.listCungSanXuat = mapArrayForDropDown(values[1].Data.Items, "Ten", "Id");
-    
-      this.KiemTraButtonModal();
-      if (this.opt === 'add') {
-        this.title = "Thêm mới";
-        this.GetNextSoQuyTrinh();
-      }
-      else {
-        this.title = "Cập nhật";
-        this.GetIem();
-      }
+      this.listCungSanXuat = mapArrayForDropDown(values[1].Data.Items, "Ten", "Id");  
+      console.log(this.listCungSanXuat)
     });
   }
 
@@ -98,7 +94,6 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
   GetNextSoQuyTrinh() {
     this._serviceTaiSan.NhapTaiSan().GetNextSoQuyTrinh().subscribe((res: any) => {
-
       this.item.SoQuyTrinh = res.Data;
     })
   }
@@ -106,12 +101,11 @@ export class ModalcapnhattaisanComponent implements OnInit {
   GetIem() {
     this._serviceTaiSan.NhapTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
       this.item = res.Data;
-      this.item.TaiSan.NoiDung = this.item.NoiDung;
       this.item.TaiSan.ThoiGianDuaVaoSuDung = UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix);
       this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
       this.itemDonVi = this.listDonVi_copy.find(obj => obj.Id === this.item.TaiSan.IddmDonViTinh);
-      if (this.item.listTaiSan.length > 0) {
-        this.item.listTaiSan.forEach(element => {
+      if (this.item.TaiSan.listTaiSan.length > 0) {
+        this.item.TaiSan.listTaiSan.forEach(element => {
           element.ThoiGianDuaVaoSuDung = UnixToDate(element.ThoiGianDuaVaoSuDungUnix);
           element.NgayNhap = UnixToDate(element.NgayNhapUnix);
           if (validVariable(this.item.IddmDonViTinh)) {
@@ -138,13 +132,15 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
   setData() {
     this.item.TaiSan.NgayNhapUnix = DateToUnix(this.item.TaiSan.NgayNhap);
+    this.item.TaiSan.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.TaiSan.ThoiGianDuaVaoSuDung);
     return this.item;
   }
   GhiLai() {
-    console.log(this.item)
+    console.log(this.item.Id)
       this._serviceTaiSan.NhapTaiSan().Set(this.setData()).subscribe((res: any) => {
+        console.log(res)
+        
         if (res.StatusCode === 200) {
-          this.GetIem();
           this.toastr.success(res.Message);
           this.activeModal.close();
         } else {
@@ -199,9 +195,18 @@ export class ModalcapnhattaisanComponent implements OnInit {
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.item = {};
+    modalRef.componentInstance.item =  {
+        Id: "",
+        isXoa: false,
+        listFileDinhKem: [],
+        Created: new Date(),
+        Modified: new Date(),
+        listTaiSan: [],
+        listLichBaoDuong: [],
+        listThongSoKyThuat: [],
+        listThongSoAnToan: [],
+    };
     modalRef.componentInstance.listTaiSan = this.item.TaiSan.listTaiSan;
-    console.log(this.item.TaiSan.listTaiSan)
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
     modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
@@ -222,8 +227,8 @@ export class ModalcapnhattaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.item = item;
-    modalRef.componentInstance.listTaiSan = this.item.TaiSan.listTaiSan;
-    console.log(this.item.TaiSan.listTaiSan)
+    // modalRef.componentInstance.listTaiSan = this.item.TaiSan.listTaiSan;
+    // console.log(this.item.TaiSan.listTaiSan)
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
     modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
@@ -236,12 +241,12 @@ export class ModalcapnhattaisanComponent implements OnInit {
       });
   }
 
-  XoaTaiSanCon(item, index) {
-    if (validVariable(item.Id)) {
-      this.item.TaiSan.listTaiSan.splice(index, 1);
-    }
-    else {
-      this.item.TaiSan.listTaiSan[index].isXoa = true;
+  delete(index) {
+    let item = this.item.TaiSan.listTaiSan.splice(index, 1)[0];
+    if (item.Id === '' || item.Id === null || item.Id === undefined) {
+    } else {
+      item.isXoa = true;
+      this.item.push(JSON.parse(JSON.stringify(item)));
     }
   }
 
