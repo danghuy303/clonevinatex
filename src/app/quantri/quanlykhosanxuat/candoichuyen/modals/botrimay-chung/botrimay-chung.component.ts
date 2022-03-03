@@ -6,6 +6,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { BaseModalNavigation } from 'src/app/quantri/quanlykhosanxuat/candoichuyen/modals/navigation.class';
+import { AuthenticationService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-botrimay-chung',
@@ -13,7 +14,9 @@ import { BaseModalNavigation } from 'src/app/quantri/quanlykhosanxuat/candoichuy
   styleUrls: ['./botrimay-chung.component.css']
 })
 export class BotrimayChungComponent extends BaseModalNavigation implements OnInit {
-  checkbutton: any = {};
+  checkbutton: any = {
+    Ghi: true,
+  };
   addonData: any = {};
   TenCongDoan: any = '';
   listHangHoa: any = [];
@@ -27,11 +30,20 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   lang: any = vn;
   listItemDieuChinh: any = [];
   optionMatHang: string = '';
-  constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) {
+  userInfo: any ;
+
+  constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
+    private _auth: AuthenticationService,) {
     super(activeModal)
   }
 
   ngOnInit(): void {
+    if(this.item.listCanBoTri.length > 0){
+      this.userInfo = this._auth.currentUserValue;
+      if(this.item.listCanBoTri[0].CreatedBy !== this.userInfo.Id)
+        this.checkbutton.Ghi = false;
+    }
+
     this.initLoaiSoiHoacLoaiMatHang();
     console.log(this.item);
     this.sort()

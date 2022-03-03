@@ -225,6 +225,7 @@ export class CandoichuyenComponent extends StoreBase implements OnInit,OnDestroy
         return {
             Previous: this.canPrevious(index, this.listDates),
             Next: this.canNext(index, this.listDates),
+            Ghi: true
         }
     }
     canPrevious(index, list) {
