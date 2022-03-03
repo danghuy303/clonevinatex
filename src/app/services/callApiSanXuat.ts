@@ -1673,8 +1673,11 @@ export class SanXuatService {
             },
             GetListdmItemTheoPhanXuong_DashboardSanLuong: (data) => {
                 return this.http.post(`${API.SCMDanhMuc}GetListdmItemTheoPhanXuong_DashboardSanLuong`, data, httpOptions)
-            }
-
+            },
+            ExportBaoCaoThongKeChatLuongBanChePham: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(`${url}ExportBaoCaoThongKeChatLuongBanChePham`, data, httpOptions)
+            },
         }
     }
 
