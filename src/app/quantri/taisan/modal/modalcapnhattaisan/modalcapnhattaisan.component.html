@@ -28,11 +28,11 @@
             <!-- <button pButton pRipple type="button" label="Kết xuất" *ngIf="canExport" (click)="exportExcel()" class="p-mr-2 p-button-sm"></button> -->
         </div>
         <div class="modal-bt p-mb-4 text-center">
-            <qrcode [qrdata]="item.TaiSan.Id" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
+            <qrcode [qrdata]="item.Id" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
         </div>
     </div>
     <!-- phần cha -->
-    <app-thongtinthemmoitaisan [(item)]="item" [listLoaiTaiSan]="listLoaiTaiSan" [listCungSanXuat]="listCungSanXuat" [listPhanXuong]="listPhanXuong" [opt]="opt" [TaiSanChaCon]="'cha'">
+    <app-thongtinthemmoitaisan [(item)]="item.TaiSan" [listLoaiTaiSan]="listLoaiTaiSan" [listCungSanXuat]="listCungSanXuat" [listPhanXuong]="listPhanXuong" [opt]="opt" [TaiSanChaCon]="'cha'">
     </app-thongtinthemmoitaisan>
  
     <!-- phần con -->
@@ -80,7 +80,7 @@
                                     <td class="text-center">{{item.Ten}}</td>
                                     <td class="text-center">{{item.HangSanXuat}}</td>
                                     <!-- <td class="text-center">{{item.NguyenGia|number:'0.0'}}</td> -->
-                                    <td class="text-center">{{item.ThoiGianDuaVaoSuDung}}</td>
+                                    <td class="text-center">{{item.ThoiGianDuaVaoSuDung|date:'dd/MM/yyyy'}}</td>
                                     <td class="text-center">
                                         <button pButton pRipple type="button" icon="pi pi-pencil"
                                             class="p-button-text p-button-sm p-button-secondary p-mr-2"
@@ -90,7 +90,7 @@
                                             pTooltip="Tạo lịch bảo dưỡng" (click)="TaoLichBaoDuong(item)"></button> -->
                                         <button pButton pRipple type="button" icon="pi pi-trash"
                                             class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                                            (click)="XoaTaiSanCon(item,i)"></button>
+                                            (click)=" delete(i)"></button>
                                     </td>
                                 </tr>
                             </ng-template>
@@ -99,17 +99,20 @@
                 </p-tabPanel>
                 <p-tabPanel header="Lịch bảo dưỡng">
                     <ng-template pTemplate="content">
-                        <app-taomoilichbaoduongcopy [item]="item"></app-taomoilichbaoduongcopy>
+                        <app-taomoilichbaoduongcopy *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan.listLichBaoDuong"></app-taomoilichbaoduongcopy>
+                        <app-taomoilichbaoduongcopy *ngIf="item.TaiSan === undefined" [item]="item.listLichBaoDuong"></app-taomoilichbaoduongcopy>
                     </ng-template>
                 </p-tabPanel>
                 <p-tabPanel header="Thông số kỹ thuật">
                     <ng-template pTemplate="content">
-                        <app-thongsokythuat [item]="item"></app-thongsokythuat>
+                        <app-thongsokythuat *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan.listThongSoKyThuat" ></app-thongsokythuat>
+                        <app-thongsokythuat *ngIf="item.TaiSan === undefined" [item]="item.TaiSan.listThongSoKyThuat" ></app-thongsokythuat>
                     </ng-template>
                 </p-tabPanel>
                 <p-tabPanel header="Thông số an toàn">
                     <ng-template pTemplate="content">
-                        <app-antoan [item]="item"></app-antoan>
+                        <app-antoan *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan.listThongSoAnToan"></app-antoan>
+                        <app-antoan *ngIf="item.TaiSan === undefined" [item]="item.TaiSan.listThongSoAnToan"></app-antoan>
                     </ng-template>
                 </p-tabPanel>
             </p-tabView>

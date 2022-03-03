@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title"> Cập nhật lịch bảo dưỡng
+    <h5 class="modal-title"> {{title}}
        </h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
@@ -16,13 +16,13 @@
         </div>
     </div>
     <div class="p-grid">
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-6  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại bảo dưỡng : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiBaoDuong" placeholder="Chọn loại bảo dưỡng" [(ngModel)]="item.IddmLoaiBaoDuong"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-6  p-p-3 d-flex flex-column flex-xl-row">
             <div class="p-field-checkbox p-col-12 p-xl-6 p-p-0">
                 <p-checkbox binary="true" value=""  inputId="" [(ngModel)]="item.isBaoDuongTheoHang"></p-checkbox>
                 <label for="">Bảo dưỡng theo hãng</label>
@@ -33,20 +33,20 @@
                 <label for="">Áp dụng</label>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-6  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Theo thời gian: </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ThoiGianBaoDuong" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-6  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Theo công suất: </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.NangSuat">
                 </p-inputNumber>
             </div>
         </div>
-        <div class="p-col-12 p-lg-12 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Ghi chú : </label>
             <div class="p-col-12 p-xl-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />

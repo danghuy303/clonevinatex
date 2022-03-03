@@ -1,5 +1,5 @@
-<p-table [value]="item.listLichBaoDuong|isXoa" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
-    [scrollable]="true">
+<p-table [value]="item|isXoa" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
+   >
     <ng-template pTemplate="colgroup">
         <colgroup>
             <col style="width: 50px;">
@@ -35,13 +35,13 @@
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
-                    (click)="CapNhatTaiSanCon(item)"></button>
+                    (click)="CapNhat(item)"></button>
                 <!-- <button pButton pRipple type="button" icon="pi pi-align-justify"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Tạo lịch bảo dưỡng"
                     (click)="TaoLichBaoDuong(item)"></button> -->
                 <button pButton pRipple type="button" icon="pi pi-trash"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                    (click)="XoaTaiSanCon(item,i)"></button>
+                    (click)="Xoa(item,i)"></button>
             </td>
         </tr>
     </ng-template>

@@ -15,39 +15,28 @@ export class ThongsokythuatComponent implements OnInit {
   @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
   newitem: any = {};
 
-  constructor( public _modal: NgbModal,
+  constructor(public _modal: NgbModal,
     public activeModal: NgbActiveModal,
     private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
 
   }
- 
   addThongSo() {
-    // if (this.item.listThongSoKyThuat == undefined || this.item.listThongSoKyThuat == null)
-      this.item.listThongSoKyThuat = [];
-    this.item.listThongSoKyThuat.push(this.newitem);
+    if (this.item === undefined || this.item === null)
+      this.item = [];
+    this.item.push(this.newitem);
     this.newitem = {}
   }
   delete(index) {
-    let item = this.item.listThongSoKyThuat.splice(index, 1)[0];
+    let item = this.item.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
     } else {
       item.isXoa = true;
-      this.item.listThongSoKyThuat.push(JSON.parse(JSON.stringify(item)));
+      this.item.push(JSON.parse(JSON.stringify(item)));
     }
   }
 
-  
-    XoaTaiSanCon(item, index) {
-      if (validVariable(item.Id)) {
-        this.item.listThongSoKyThuat.splice(index, 1);
-      }
-      else {
-        this.item.listThongSoKyThuat[index].isXoa = true;
-      }
-    }
-  
 }

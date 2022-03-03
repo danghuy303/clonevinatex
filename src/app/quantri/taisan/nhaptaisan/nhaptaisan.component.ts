@@ -18,15 +18,19 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class NhaptaisanComponent implements OnInit {
   @ViewChild("paginator") paginator: any;
-  filter: any = {};
-  eAction: any = "NHAPTAISAN";
+
+  eAction: any = "QUYTRINHNHAPTAISAN";
   loaiTab: any = 0;
-  paging: any = {};
+  Keyword: any = '';
+  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
+  selectedItems: any = [];
+  filter: any = {};
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   items: TreeNode[];
   trangThai: any = 1;
   listLoaiTaiSan: any = [];
   listPhanXuong = [];
+  TenBoPhanSuDung='';
 
   constructor(
     public _modal: NgbModal,
@@ -44,8 +48,8 @@ export class NhaptaisanComponent implements OnInit {
         this._serviceTaiSan
           .NhapTaiSan()
           .Get(res.id)
-          .subscribe((res: any) => {
-            this.update(res);
+          .subscribe((res1: any) => {
+            this.update(res1);
           });
       }
     });
@@ -68,36 +72,37 @@ export class NhaptaisanComponent implements OnInit {
     this.loaiTab = e.index;
     this.Loaddata(true);
   }
-
   resetFilter() {
+    this.Keyword = '';
     this.filter = {};
     this.Loaddata(true);
   }
-
   Loaddata(reset?) {
     if (reset) {
       this.paging.currentPage = 1;
     }
     let data = {
-      pageSize: 20,
-      currentPage: this.paging.currentPage,
+      PageSize: 20,
+      CurrentPage: this.paging.currentPage,
       tabTrangThai: this.trangThai,
-      keyWord: this.filter.keyWord,
-      tuNgay: DateToUnix(this.filter.TuNgay),
-      denNgay: DateToUnix(this.filter.DenNgay),
+      Keyword: this.Keyword,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
       Loai: 0
     };
     this._serviceTaiSan.NhapTaiSan().GetList(data).subscribe((res: any) => {
       let items = [];
       this.items = [];
-      items = res.Data.Items;
-      this.paging = res.Data;
+      items = res.Items;
+      this.paging = res;
       items.forEach(obj => {
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];
+          obj.TenBoPhanSuDung = this.listPhanXuong.find(ele=>ele.value == obj.IdBoPhanSuDung)?.label||null;
           obj.listTaiSan.forEach(element => {
-            obj.TenBoPhanSuDung = this.listPhanXuong.find(ele=>ele.value == element.IddmPhanXuong)?.label||null;
+            element.TenBoPhanSuDung = this.listPhanXuong.find(ele=>ele.value == element.IdBoPhanSuDung)?.label||null;
             obj_copy.children.push({ data: element });
           });
           delete obj.listTaiSan;
@@ -133,60 +138,18 @@ export class NhaptaisanComponent implements OnInit {
         Created: new Date(),
         Modified: new Date(),
         listTaiSan: [],
+        listLichBaoDuong: [],
+        listThongSoKyThuat: [],
+        listThongSoAnToan: [],
       },
-      listLichBaoDuong:[
-        {
-          Id: "",
-          isXoa: false,
-          IdTaiSan: "",
-          Created: new Date(),
-          Modified: new Date(),
-          listChiTiet: [],
-        }
-      ],
-      listThongSoKyThuat:[
-        {
-          Id: "",
-          isXoa: false,
-          IdTaiSan: "",
-          Created: new Date(),
-          Modified: new Date(),
-          listFileDinhKem: [],
-        }
-      ],
-      listThongSoAnToan:[
-        {
-          Id: "",
-          isXoa: false,
-          IdTaiSan: "",
-          Created: new Date(),
-          Modified: new Date(),
-          listFileDinhKem: [],
-        }
-      ],
     }
     modalRef.result
       .then((res: any) => {
         this.Loaddata(false);
       })
       .catch((er) => {
-
       });
   }
-  // edit(item) {
-  //   let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
-  //     size: "fullscreen-100",
-  //     backdrop: "static",
-  //   });
-  //   modalRef.componentInstance.opt = "edit";
-  //   modalRef.componentInstance.item = item;
-  //   modalRef.result
-  //     .then((res: any) => {
-  //       this.Loaddata(false);
-  //     })
-  //     .catch((er) => {
-  //     });
-  // } 
   update(item) {
     let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
       size: "fullscreen-100",
@@ -195,6 +158,7 @@ export class NhaptaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
+    console.log(item)
     modalRef.result
       .finally(()=>{
         this.Loaddata();
