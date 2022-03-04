@@ -151,7 +151,7 @@ export class QuantriComponent implements OnInit {
 
   ngOnInit(): void {
     this.showHopDongModule = (window.location.origin.includes('localhost') || window.location.origin.includes('2269'));
-    this.showTaiSanModule = (window.location.origin.includes('localhost') || window.location.origin.includes('2269'));
+    this.showTaiSanModule = (window.location.origin.includes('4200') || window.location.origin.includes('2269'));
     this.refreshNotis();
     this._router.events
       .pipe(filter((e) => e instanceof NavigationEnd))

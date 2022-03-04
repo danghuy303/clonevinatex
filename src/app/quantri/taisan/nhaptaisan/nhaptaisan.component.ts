@@ -158,7 +158,6 @@ export class NhaptaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
-    console.log(item)
     modalRef.result
       .finally(()=>{
         this.Loaddata();

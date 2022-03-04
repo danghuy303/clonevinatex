@@ -20,6 +20,7 @@ import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.s
 export class DanhsachtaisanComponent implements OnInit {
 
   filter: any = {};
+  Keyword: any = '';
   eAction: any = "";
   loaiTab: any = 0;
   paging:any = {CurrentPage: 1, TotalPages: 1, TotalCount: 1};
@@ -30,11 +31,9 @@ export class DanhsachtaisanComponent implements OnInit {
   constructor(
     public _modal: NgbModal,
     public _toastr: ToastrService,
-    private _serviceHopDong: HopDongService,
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
-    private _serviceDanhMucTaiSan: DanhmuctaisanService,
-    private _danhMucHopDong:DanhMucHopDongService,
+    private _danhMucTaiSan: DanhmuctaisanService,
     private router: Router
   ) { }
 
@@ -42,11 +41,16 @@ export class DanhsachtaisanComponent implements OnInit {
     // if (this.item.NgayThuHoiUnix !== 0) {
     //   this.item.NgayThuHoi = UnixToDate(this.item.NgayThuHoiUnix);
     // }
+    let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.Keyword, };
+    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
+      this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
+    })
  this.Loaddata();
   }
 
   resetFilter() {
     this.filter = {};
+    this.Keyword = '';
     this.Loaddata(true);
   }
 
@@ -58,7 +62,8 @@ export class DanhsachtaisanComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       tabTrangThai: 3,
-      KeyWord: this.filter.KeyWord,
+      IddmLoaiTaisan: this.filter.IddmLoaiTaisan?this.filter.IddmLoaiTaisan : '',
+      Keyword: this.Keyword,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       Loai: 0,
@@ -75,7 +80,7 @@ export class DanhsachtaisanComponent implements OnInit {
      this.items = [];
      items = res.Data.Items;
      items.forEach(obj => {
-      obj.NgayNhap = obj.NgayNhapUnix > 0 ? formatdate(obj.NgayNhap, false) : null;
+      // obj.NgayNhap = obj.NgayNhapUnix > 0 ? formatdate(obj.NgayNhap, false) : null;
          let obj_copy: any = {};
          if (obj?.listTaiSan) {
            obj_copy.children = [];
@@ -88,8 +93,6 @@ export class DanhsachtaisanComponent implements OnInit {
          obj_copy.data = obj;
          this.items.push({ data: obj_copy.data, children: obj_copy.children });
      });
-     console.log(items)
-     console.log(this.items);
     })
   }
 
@@ -100,14 +103,14 @@ export class DanhsachtaisanComponent implements OnInit {
     })
   }
 
-  ChiTietThongTin() {
+  ChiTietThongTin(item) {
+    console.log(item)
     let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "edit";    
-    modalRef.componentInstance.item = '';
-    
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result
       .then((res: any) => {
         this.Loaddata();

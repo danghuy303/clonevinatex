@@ -1,7 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
@@ -12,102 +16,75 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 export class ModalthongtinchitiettaisanComponent implements OnInit {
 
   item: any;
-  Du_Lieu_Cha: any={};
-  Du_Lieu_Thong_Tin_Chung: any = {}; 
-  // Du_Lieu_Cha_Bien_Dong: any={};
-  // Du_Lieu_Bien_Dong: any = {};
-  // Du_Lieu_Cha_Su_Co: any={};
-  // Du_Lieu_Su_Co: any = {};
-  paging:any = {Page: 1, TotalPages: 1, TotalCount: 1 };
-  filter:any ={};
-  ThongTinQueryBienDongTaiSan: any;
-  ThongTinQuerySuCoTaiSan: any;
-  constructor(public activeModal: NgbActiveModal, public toastr: ToastrService, private _serviceTaiSan: TaisanService,) { }
- 
+  lang: any = vn;
+  yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
+  checkbutton: any = {};
+  NameFile: any = "";
+  Du_Lieu_Cha: any = {};
+  Du_Lieu_Thong_Tin_Chung: any = {};
+  paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
+  filter: any = {};
+  listCungSanXuat: any = [];
+  listLoaiTaiSan: any = [];
+  listPhanXuong: any = [];
+
+  constructor(
+    private _modal: NgbModal,
+    public activeModal: NgbActiveModal,
+    public toastr: ToastrService,
+    private _servicesSanXuat: SanXuatService,
+    private _danhMucTaiSan: DanhmuctaisanService,
+    private _serviceTaiSan: TaisanService,) { }
+
   ngOnInit(): void {
-    // console.log(this.item.Id)
     let date = new Date();
-    this.filter.TuNgay = new Date(date.getFullYear(),0,1);
-    this.filter.DenNgay = new Date(date.getFullYear(),11,31); 
+    this.filter.TuNgay = new Date(date.getFullYear(), 0, 1);
+    this.filter.DenNgay = new Date(date.getFullYear(), 11, 31);
     this.GetById();
-    // this.GetListBienDongById();
-    // this.GetListSuCoById();
-    this.QueryBienDongTaiSan();
-    this.QuerySuCoTaiSan();
+
+    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
+    let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
+    let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
+
+    Promise.all([ls1, ls2]).then((values: any) => {
+      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
+      this.listCungSanXuat = mapArrayForDropDown(values[1].Data.Items, "Ten", "Id");
+    });
+
+    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
 
   GetById() {
     this._serviceTaiSan.ListDanhSachTaiSan().Get(this.item.Id).subscribe((res: any) => {
-        this.Du_Lieu_Cha = res.Data;
-        console.log( this.Du_Lieu_Cha.NgayNhap)
-        // this.Du_Lieu_Thong_Tin_Chung.Ma = this.Du_Lieu_Cha.Ma;
-        this.Du_Lieu_Cha.NgayNhap = UnixToDate(this.Du_Lieu_Cha.NgayNhapUnix);
-       console.log( this.Du_Lieu_Cha.NgayNhap)
-
+      this.Du_Lieu_Cha = res.Data;
+      this.Du_Lieu_Cha.NgayNhap = UnixToDate(this.Du_Lieu_Cha.NgayNhapUnix);
     })
   }
 
   resetFilter() {
     this.filter = {};
-    // this.GetListBienDongById(true);
-    // this.GetListSuCoById(true);
   }
+  taiLenFileDinhKem() {
+    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.multiple = true;
+    modalRef.componentInstance.type = '';
+    modalRef.result.then((data) => {
+      this.item.listFileDinhKem = data;
+      this.item.listFileDinhKem.forEach(obj => {
+        this.NameFile += `${obj.NameLocal}, `;
+      });
+      this.item.listFileDinhKem = data;
+      this.item.listFileDinhKem.forEach(obj => {
+        obj.Id = '';
+        obj.fileNameGui = obj.Name;
+        obj.fileName = obj.NameLocal;
+        obj.Link = obj.Url;
+        this.NameFile += `${obj.fileName}` + '; ';
+      });
+    }, (reason) => {
 
-  // GetListBienDongById(reset?) {
-  //   if (reset) {
-  //   }
-  //   let data = {
-  //     PageSize: 25,
-  //     CurrentPage: this.paging.Page,
-  //     KeyWord: this.filter.KeyWord,
-  //     IdTaiSan:this.item.Id,
-  //     TuNgay: DateToUnix(this.filter.TuNgay),
-  //     DenNgay: DateToUnix(this.filter.DenNgay),
-  //   }
-  //   this._serviceTaiSan.ListDanhSachBienDong().Get(data).subscribe((res: any) => {
-  //      console.log(res)
-  //      this.Du_Lieu_Cha_Bien_Dong = res.Data.Items;
-     
-  //   })
-  // }
-  QueryBienDongTaiSan(){
-    let data = {
-          PageSize: 25,
-          KeyWord: this.filter.KeyWord,
-          IdTaiSan:this.item.Id,
-          TuNgay: DateToUnix(this.filter.TuNgay),
-          DenNgay: DateToUnix(this.filter.DenNgay),
-        }
-    this.ThongTinQueryBienDongTaiSan = deepCopy(data)
+    });
   }
-
-  QuerySuCoTaiSan(){
-    let data = {
-          PageSize: 25,
-          KeyWord: this.filter.KeyWord,
-          IdTaiSan:this.item.Id,
-          TuNgay: DateToUnix(this.filter.TuNgay),
-          DenNgay: DateToUnix(this.filter.DenNgay),
-        }
-    this.ThongTinQuerySuCoTaiSan = deepCopy(data)
-  }
-
-  // GetListSuCoById(reset?) {
-  //   if (reset) {
-  //   }
-  //   let data = {
-  //     PageSize: 25,
-  //     CurrentPage: this.paging.Page,
-  //     KeyWord: this.filter.KeyWord,
-  //     IdTaiSan:this.item.Id,
-  //     TuNgay: DateToUnix(this.filter.TuNgay),
-  //     DenNgay: DateToUnix(this.filter.DenNgay),
-  //   }
-  //   this._serviceTaiSan.ListDanhSachSuCo().Get(data).subscribe((res: any) => {
-  //      console.log(res)
-  //     //  this.Du_Lieu_Cha_Su_Co = res.Data.Items;
-     
-  //   })
-  // }
-
 }
