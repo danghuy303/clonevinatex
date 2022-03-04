@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { DinhmuctieuchichatluongsoimodalComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/dinhmuctieuchichatluongsoimodal/dinhmuctieuchichatluongsoimodal.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
@@ -19,7 +20,7 @@ import { BaseModalNavigation } from '../navigation.class';
 })
 export class BotrimayOngComponent extends BaseModalNavigation implements OnInit {
   checkbutton: any = {
-    Ghi: true
+    Ghi: true,
   };
   filter: any = {};
   addonData: any = {};
@@ -32,11 +33,21 @@ export class BotrimayOngComponent extends BaseModalNavigation implements OnInit 
   arrCa: any = [];
   tocDoMay: any = [];
   lang: any = vn;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) {
+  userInfo: any ;
+
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
+    private _auth: AuthenticationService,
+    ) {
     super(activeModal);
   }
 
   ngOnInit(): void {
+    if(this.item.listCanBoTri.length > 0){
+      this.userInfo = this._auth.currentUserValue;
+      if(this.item.listCanBoTri[0].CreatedBy !== this.userInfo.Id)
+        this.checkbutton.Ghi = false;
+    }
+
     let listHangHoaJoinNameTemp = this.item.listCanBoTri.sort((a, b) => {
       return parseInt(a.Ten.split(' ')[0]) - parseInt(b.Ten.split(' ')[0]);
     }).map(mathang => {
