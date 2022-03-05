@@ -15,13 +15,12 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 })
 export class ModalthongtinchitiettaisanComponent implements OnInit {
 
-  item: any;
+  item: any={};
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   checkbutton: any = {};
   NameFile: any = "";
   Du_Lieu_Cha: any = {};
-  Du_Lieu_Thong_Tin_Chung: any = {};
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   filter: any = {};
   listCungSanXuat: any = [];
@@ -57,9 +56,12 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   }
 
   GetById() {
-    this._serviceTaiSan.ListDanhSachTaiSan().Get(this.item.Id).subscribe((res: any) => {
-      this.Du_Lieu_Cha = res.Data;
-      this.Du_Lieu_Cha.NgayNhap = UnixToDate(this.Du_Lieu_Cha.NgayNhapUnix);
+    this._serviceTaiSan.ListDanhSachTaiSan().Get(this.item.IdTaiSanQuyTrinhNhap).subscribe((res: any) => {
+      // this.Du_Lieu_Cha = res.Data;
+      // this.Du_Lieu_Cha.NgayNhap = UnixToDate(this.Du_Lieu_Cha.NgayNhapUnix);
+      this.item = res.Data;
+      this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
+      this.item.TaiSan.ThoiGianDuaVaoSuDung = UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix);
     })
   }
 

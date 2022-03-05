@@ -106,13 +106,13 @@
                 <p-tabPanel header="Thông số kỹ thuật">
                     <ng-template pTemplate="content">
                         <app-thongsokythuat *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan.listThongSoKyThuat" ></app-thongsokythuat>
-                        <app-thongsokythuat *ngIf="item.TaiSan === undefined" [item]="item.TaiSan.listThongSoKyThuat" ></app-thongsokythuat>
+                        <app-thongsokythuat *ngIf="item.TaiSan === undefined" [item]="item.listThongSoKyThuat" ></app-thongsokythuat>
                     </ng-template>
                 </p-tabPanel>
                 <p-tabPanel header="Thông số an toàn">
                     <ng-template pTemplate="content">
                         <app-antoan *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan.listThongSoAnToan"></app-antoan>
-                        <app-antoan *ngIf="item.TaiSan === undefined" [item]="item.TaiSan.listThongSoAnToan"></app-antoan>
+                        <app-antoan *ngIf="item.TaiSan === undefined" [item]="item.listThongSoAnToan"></app-antoan>
                     </ng-template>
                 </p-tabPanel>
             </p-tabView>

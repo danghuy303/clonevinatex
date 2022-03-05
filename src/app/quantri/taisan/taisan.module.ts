@@ -113,6 +113,8 @@ import { DanhmucnhacungcapComponent } from './danhmuc/danhmucnhacungcap/danhmucn
 import { ModaldmnhacungcapComponent } from './danhmuc/modaldmnhacungcap/modaldmnhacungcap.component';
 import { ModalthemmoiluachontaisanComponent } from './modal/modalthemmoiluachontaisan/modalthemmoiluachontaisan.component';
 import { ThongtinthemmoitaisanComponent } from './screen/thongtinthemmoitaisan/thongtinthemmoitaisan.component';
+import { ModalluachontaisantheolichxichComponent } from './modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
+import { QuytrinhlapkehoachlichxichnamComponent } from './quytrinhlapkehoachlichxichnam/quytrinhlapkehoachlichxichnam.component';
 
 
 @NgModule({
@@ -184,6 +186,8 @@ import { ThongtinthemmoitaisanComponent } from './screen/thongtinthemmoitaisan/t
     ModaldmnhacungcapComponent,
     ModalthemmoiluachontaisanComponent,
     ThongtinthemmoitaisanComponent,
+    ModalluachontaisantheolichxichComponent,
+    QuytrinhlapkehoachlichxichnamComponent,
 
   ],
   imports: [
@@ -267,6 +271,8 @@ import { ThongtinthemmoitaisanComponent } from './screen/thongtinthemmoitaisan/t
     ModaldmnhacungcapComponent,
     ModalthemmoiluachontaisanComponent,
     ThongtinthemmoitaisanComponent,
+    ModalluachontaisantheolichxichComponent,
+    LapkehoachlichxichnamComponent,
 
 
   ],

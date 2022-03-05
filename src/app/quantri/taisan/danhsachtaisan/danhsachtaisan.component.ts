@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
-import {  DateToUnix,formatdate, mapArrayForDropDown,} from "src/app/services/globalfunction";
+import { DateToUnix, formatdate, mapArrayForDropDown, } from "src/app/services/globalfunction";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { TreeNode } from 'primeng/api';
@@ -23,16 +23,18 @@ export class DanhsachtaisanComponent implements OnInit {
   Keyword: any = '';
   eAction: any = "";
   loaiTab: any = 0;
-  paging:any = {CurrentPage: 1, TotalPages: 1, TotalCount: 1};
+  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   items: TreeNode[];
   listLoaiTaiSan: any = [];
+  listPhanXuong: any = [];
 
   constructor(
     public _modal: NgbModal,
     public _toastr: ToastrService,
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
+    private _servicesSanXuat: SanXuatService,
     private _danhMucTaiSan: DanhmuctaisanService,
     private router: Router
   ) { }
@@ -45,7 +47,10 @@ export class DanhsachtaisanComponent implements OnInit {
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
- this.Loaddata();
+    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+    this.Loaddata();
   }
 
   resetFilter() {
@@ -62,37 +67,37 @@ export class DanhsachtaisanComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       tabTrangThai: 3,
-      IddmLoaiTaisan: this.filter.IddmLoaiTaisan?this.filter.IddmLoaiTaisan : '',
+      IddmLoaiTaisan: this.filter.IddmLoaiTaisan ? this.filter.IddmLoaiTaisan : '',
       Keyword: this.Keyword,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       Loai: 0,
-      
+
     };
     this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
-     console.log(res)
-    this.items = res
-    this.paging.CurrentPage = res.Data.Page;
+      console.log(res)
+      this.items = res
+      this.paging.CurrentPage = res.Data.Page;
       this.paging.TotalPages = res.Data.TotalPages;
       this.paging.TotalCount = res.Data.TotalCount;
-    this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "TenLoaiTaiSan", 'IddmLoaiTaiSan');
-     let items = [];
-     this.items = [];
-     items = res.Data.Items;
-     items.forEach(obj => {
-      // obj.NgayNhap = obj.NgayNhapUnix > 0 ? formatdate(obj.NgayNhap, false) : null;
-         let obj_copy: any = {};
-         if (obj?.listTaiSan) {
-           obj_copy.children = [];
-           obj.listTaiSan.forEach(element => {
-             console.log(element)
-             obj_copy.children.push({ data: element });
-           });
-           obj.listTaiSan=undefined;
-         }
-         obj_copy.data = obj;
-         this.items.push({ data: obj_copy.data, children: obj_copy.children });
-     });
+      this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "TenLoaiTaiSan", 'IddmLoaiTaiSan');
+      let items = [];
+      this.items = [];
+      items = res.Data.Items;
+      items.forEach(obj => {
+        // obj.NgayNhap = obj.NgayNhapUnix > 0 ? formatdate(obj.NgayNhap, false) : null;
+        let obj_copy: any = {};
+        if (obj?.listTaiSan) {
+          obj_copy.children = [];
+          obj.listTaiSan.forEach(element => {
+            console.log(element)
+            obj_copy.children.push({ data: element });
+          });
+          obj.listTaiSan = undefined;
+        }
+        obj_copy.data = obj;
+        this.items.push({ data: obj_copy.data, children: obj_copy.children });
+      });
     })
   }
 
@@ -109,7 +114,7 @@ export class DanhsachtaisanComponent implements OnInit {
       size: "fullscreen",
       backdrop: "static",
     });
-    modalRef.componentInstance.opt = "edit";    
+    modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result
       .then((res: any) => {
