@@ -8,11 +8,11 @@ import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.serv
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
-  selector: 'app-modalluachontaisantheolichxich',
-  templateUrl: './modalluachontaisantheolichxich.component.html',
-  styleUrls: ['./modalluachontaisantheolichxich.component.css']
+  selector: 'app-modalluachonloaibaoduong',
+  templateUrl: './modalluachonloaibaoduong.component.html',
+  styleUrls: ['./modalluachonloaibaoduong.component.css']
 })
-export class ModalluachontaisantheolichxichComponent implements OnInit {
+export class ModalluachonloaibaoduongComponent implements OnInit {
   opt: any = "";
   paging: any = {};
   items: TreeNode[];
@@ -21,8 +21,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   Lay_Chon: any = "";
   checkedAll: boolean = false;
   listdmLoaiBaoDuong: any = [];
-  Keyword: any = '';
-  filter: any = {};
 
   constructor(
     public _modal: NgbModal,
@@ -34,13 +32,8 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetList();
+  }
 
-  }
-  resetFilter() {
-    this.filter = {};
-    this.Keyword = '';
-    this.GetList();
-  }
   GetList() {
     let data = {
       IdBoPhanSuDung: '',
@@ -49,8 +42,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     }
     this._serviceTaiSan.NhapTaiSan().GetListTaiSan(data).subscribe((res: any) => {
       this.listdmLoaiBaoDuong = res.Data.listdmLoaiBaoDuong;
-
-
       let items = [];
       this.items = [];
       items = res.Data.listTaiSan;
@@ -59,7 +50,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];
-          //
           obj_copy.children.listItem = [];
           for (let i = 0; i < this.listdmLoaiBaoDuong.length; i++) {
             let dataitem = {
@@ -68,15 +58,12 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
             obj_copy.children.listItem.push(dataitem);
           }
           ///
-
           obj.listTaiSan.forEach(element => {
             element.checked = this.listItemDaChon.includes(element.Id);
             obj_copy.children.push({ data: element });
           });
           // obj.listTaiSan = undefined;
-
         }
-
         obj.listItem = [];
         for (let i = 0; i < this.listdmLoaiBaoDuong.length; i++) {
           let dataitem = {
@@ -84,17 +71,10 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
           }
           obj.listItem.push(dataitem);
         }
-
         obj_copy.data = obj;
         this.items.push({ data: obj_copy.data, children: obj_copy.children, });
-        ///////////
-
-
-
-        /////////
       });
       this.checkedAll = items.every(ele => ele.checked);
-
     });
   }
   TimCheck() {

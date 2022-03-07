@@ -86,7 +86,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
         listKetQua.push(Tai_San);
       }
     });
-    debugger
     this.item.listTaiSan = listKetQua;
     console.log(this.item.listTaiSan)
     })
