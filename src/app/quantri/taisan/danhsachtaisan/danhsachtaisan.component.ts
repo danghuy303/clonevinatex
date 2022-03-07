@@ -75,8 +75,7 @@ export class DanhsachtaisanComponent implements OnInit {
 
     };
     this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
-      console.log(res)
-      this.items = res
+      // this.items = res
       this.paging.CurrentPage = res.Data.Page;
       this.paging.TotalPages = res.Data.TotalPages;
       this.paging.TotalCount = res.Data.TotalCount;
@@ -109,7 +108,6 @@ export class DanhsachtaisanComponent implements OnInit {
   }
 
   ChiTietThongTin(item) {
-    console.log(item)
     let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
       size: "fullscreen",
       backdrop: "static",

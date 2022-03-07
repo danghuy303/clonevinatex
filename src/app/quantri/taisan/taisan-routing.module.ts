@@ -21,6 +21,7 @@ import { LichxichnamComponent } from './lichxichnam/lichxichnam.component';
 import { LichxichthangComponent } from './lichxichthang/lichxichthang.component';
 import { NhaplieuxuattaisanComponent } from './nhaplieuxuattaisan/nhaplieuxuattaisan.component';
 import { NhaptaisanComponent } from './nhaptaisan/nhaptaisan.component';
+import { QuytrinhbaoduongComponent } from './quytrinhbaoduong/quytrinhbaoduong.component';
 import { QuytrinhdenghithayvattuComponent } from './quytrinhdenghithayvattu/quytrinhdenghithayvattu.component';
 import { QuytrinhlapkehoachlichxichnamComponent } from './quytrinhlapkehoachlichxichnam/quytrinhlapkehoachlichxichnam.component';
 import { QuytrinhnhapvattuComponent } from './quytrinhnhapvattu/quytrinhnhapvattu.component';
@@ -65,6 +66,7 @@ const routes: Routes = [
   {path:'lichxichnam',component:LichxichnamComponent},
   {path:'lichxichthang',component:LichxichthangComponent},
   {path:'denghixulisuco/:id',component:DenghixulisucoComponent},
+  {path:'quytrinhbaoduong/:id',component:QuytrinhbaoduongComponent},
 ];
 
 @NgModule({

@@ -56,7 +56,8 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   }
 
   GetById() {
-    this._serviceTaiSan.ListDanhSachTaiSan().Get(this.item.IdTaiSanQuyTrinhNhap).subscribe((res: any) => {
+    // this._serviceTaiSan.ListDanhSachTaiSan().Get(this.item.IdTaiSanQuyTrinhNhap).subscribe((res: any) => {
+    this._serviceTaiSan.ListDanhSachTaiSan().Get(this.item.Id).subscribe((res: any) => {
       // this.Du_Lieu_Cha = res.Data;
       // this.Du_Lieu_Cha.NgayNhap = UnixToDate(this.Du_Lieu_Cha.NgayNhapUnix);
       this.item = res.Data;

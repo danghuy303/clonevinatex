@@ -49,8 +49,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     }
     this._serviceTaiSan.NhapTaiSan().GetListTaiSan(data).subscribe((res: any) => {
       this.listdmLoaiBaoDuong = res.Data.listdmLoaiBaoDuong;
-
-
       let items = [];
       this.items = [];
       items = res.Data.listTaiSan;
@@ -68,7 +66,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
             obj_copy.children.listItem.push(dataitem);
           }
           ///
-
           obj.listTaiSan.forEach(element => {
             element.checked = this.listItemDaChon.includes(element.Id);
             obj_copy.children.push({ data: element });
@@ -94,7 +91,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
         /////////
       });
       this.checkedAll = items.every(ele => ele.checked);
-
+      console.log(this.items);
     });
   }
   TimCheck() {

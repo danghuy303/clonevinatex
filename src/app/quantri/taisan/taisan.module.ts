@@ -116,6 +116,10 @@ import { ThongtinthemmoitaisanComponent } from './screen/thongtinthemmoitaisan/t
 import { ModalluachontaisantheolichxichComponent } from './modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
 import { QuytrinhlapkehoachlichxichnamComponent } from './quytrinhlapkehoachlichxichnam/quytrinhlapkehoachlichxichnam.component';
 import { ModalluachonloaibaoduongComponent } from './modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
+import { QuytrinhbaoduongComponent } from './quytrinhbaoduong/quytrinhbaoduong.component';
+import { ModalquytrinhbaoduongComponent } from './modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
+import { NhancongComponent } from './screen/nhancong/nhancong.component';
+import { VattuComponent } from './screen/vattu/vattu.component';
 
 
 @NgModule({
@@ -190,6 +194,10 @@ import { ModalluachonloaibaoduongComponent } from './modal/modalluachonloaibaodu
     ModalluachontaisantheolichxichComponent,
     QuytrinhlapkehoachlichxichnamComponent,
     ModalluachonloaibaoduongComponent,
+    QuytrinhbaoduongComponent,
+    ModalquytrinhbaoduongComponent,
+    NhancongComponent,
+    VattuComponent,
 
   ],
   imports: [
@@ -276,6 +284,7 @@ import { ModalluachonloaibaoduongComponent } from './modal/modalluachonloaibaodu
     ModalluachontaisantheolichxichComponent,
     LapkehoachlichxichnamComponent,
     ModalluachonloaibaoduongComponent,
+    ModalquytrinhbaoduongComponent,
 
 
   ],

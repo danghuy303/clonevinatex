@@ -12,7 +12,7 @@
             <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
         </div>
     </div>
-   
+
 </div>
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
@@ -40,13 +40,15 @@
         <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bộ phận sử dụng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listPhanXuong" [(ngModel)]="item.IdBoPhanSuDung" placeholder="Chọn bộ phận"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listPhanXuong" [(ngModel)]="item.IdBoPhanSuDung"
+                    placeholder="Chọn bộ phận"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại tài sản:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [(ngModel)]="item.IddmLoaiTaiSan" placeholder="Chọn tài sản"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [(ngModel)]="item.IddmLoaiTaiSan"
+                    placeholder="Chọn tài sản"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-lg-row">
@@ -54,9 +56,10 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <!-- <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="item.ThoiGian" placeholder="Chọn năm" styleClass="p-inputtext-sm"
                 ></p-dropdown> -->
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm bold" [locale]="lang" 
-                [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" 
-                inputId="icon" placeholder="dd/mm/yyyy"  [(ngModel)]="item.ThoiGian" > </p-calendar>
+                <p-calendar dateFormat="dd/mm/yy" [locale]="lang"
+                    [monthNavigator]="true" [yearNavigator]="true" [yearRange]="" [showIcon]="true" inputId="icon"
+                    placeholder="dd/mm/yyyy" [(ngModel)]="item.ThoiGian">
+                </p-calendar>
             </div>
         </div>
         <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-lg-row">
@@ -83,59 +86,59 @@
         </div>
         <p-table [value]="item.listTaiSan|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped">
             <ng-template pTemplate="colgroup">
-              <colgroup>
-                <col style="width:100px">
-                <col style="width:50px">
-                <col style="width:50px">
-                <col style="width:50px">
-                <col style="width:50px">
-                <col style="width:50px">
-                <col style="width:50px">
-                <col style="width:50px">
-                <col style="width:50px">
-                <col style="width:50px">
-                <col style="width:50px">
-                <col style="width:50px">
-                <col style="width:50px">
-              </colgroup>
+                <colgroup>
+                    <col style="width:100px">
+                    <col style="width:50px">
+                    <col style="width:50px">
+                    <col style="width:50px">
+                    <col style="width:50px">
+                    <col style="width:50px">
+                    <col style="width:50px">
+                    <col style="width:50px">
+                    <col style="width:50px">
+                    <col style="width:50px">
+                    <col style="width:50px">
+                    <col style="width:50px">
+                    <col style="width:50px">
+                </colgroup>
             </ng-template>
             <ng-template pTemplate="header">
-              <tr>
-                <th class="text-center">Tài sản</th>
-                <th class="text-center">Tháng 1</th>
-                <th class="text-center">Tháng 2</th>
-                <th class="text-center">Tháng 3</th>
-                <th class="text-center">Tháng 4</th>
-                <th class="text-center">Tháng 5</th>
-                <th class="text-center">Tháng 6</th>
-                <th class="text-center">Tháng 7</th>
-                <th class="text-center">Tháng 8</th>
-                <th class="text-center">Tháng 9</th>
-                <th class="text-center">Tháng 10</th>
-                <th class="text-center">Tháng 11</th>
-                <th class="text-center">Tháng 12</th>
-              </tr>
+                <tr>
+                    <th class="text-center">Tài sản</th>
+                    <th class="text-center">Tháng 1</th>
+                    <th class="text-center">Tháng 2</th>
+                    <th class="text-center">Tháng 3</th>
+                    <th class="text-center">Tháng 4</th>
+                    <th class="text-center">Tháng 5</th>
+                    <th class="text-center">Tháng 6</th>
+                    <th class="text-center">Tháng 7</th>
+                    <th class="text-center">Tháng 8</th>
+                    <th class="text-center">Tháng 9</th>
+                    <th class="text-center">Tháng 10</th>
+                    <th class="text-center">Tháng 11</th>
+                    <th class="text-center">Tháng 12</th>
+                </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item let-i="rowIndex">
-              <tr>
-                <td class="text-center"> {{item.TenTaiSan}}</td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-              </tr>
+                <tr>
+                    <td class="text-center"> {{item.TenTaiSan}}</td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                </tr>
             </ng-template>
-          </p-table>
+        </p-table>
     </p-panel>
 </div>
 <div class="modal-footer">
-    
+
 </div>

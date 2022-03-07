@@ -219,12 +219,12 @@ export class TaisanService {
         data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}TaiSan/ListDanhSachTaiSan`, data, httpOptions);
       },
-      // Get: (Id) => {
-      //   return this.http.get(`${url}TaiSan/GetChiTietTaiSanById?IdTaiSan=${Id}`, httpOptions);
-      // },
       Get: (Id) => {
-        return this.http.get(`${url}QuanLyTaiSan/GetQuyTrinhNhapTaiSanById?Id=${Id}`, httpOptions);
+        return this.http.get(`${url}TaiSan/GetChiTietTaiSanById?IdTaiSan=${Id}`, httpOptions);
       },
+      // Get: (Id) => {
+      //   return this.http.get(`${url}QuanLyTaiSan/GetQuyTrinhNhapTaiSanById?Id=${Id}`, httpOptions);
+      // },
     }
   }
 

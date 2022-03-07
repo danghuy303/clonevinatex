@@ -57,7 +57,6 @@
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr>
                 <td class="text-center">
-                    <!-- *ngIf="rowNode.level===0" -->
                     <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="checked()">
                     </p-checkbox>
                 </td>
@@ -66,8 +65,9 @@
                     {{rowData.Ma}}
                 </td>
                 <td class="text-center">{{rowData.Ten}}</td>
-                <td *ngFor="let datatiem of rowData.listItem" class="text-center"> <input [(ngModel)]="datatiem.Ngay"
-                        pInputText /></td>
+                <td *ngFor="let item of rowData?.listLichBaoDuong" class="text-center">
+                   {{item.isChon?'X':''}}
+                </td>
             </tr>
         </ng-template>
     </p-treeTable>

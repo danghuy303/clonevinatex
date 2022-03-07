@@ -2,22 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
-import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
-import { ModalluachontaisantheolichxichComponent } from '../modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
 
 
 @Component({
-  selector: 'app-lapkehoachlichxichnam',
-  templateUrl: './lapkehoachlichxichnam.component.html',
-  styleUrls: ['./lapkehoachlichxichnam.component.css']
+  selector: 'app-modalquytrinhbaoduong',
+  templateUrl: './modalquytrinhbaoduong.component.html',
+  styleUrls: ['./modalquytrinhbaoduong.component.css']
 })
-export class LapkehoachlichxichnamComponent implements OnInit {
+export class ModalquytrinhbaoduongComponent implements OnInit {
   opt: any = "";
   listNam: any = [];
   item: any = {};
@@ -65,7 +64,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     })
   }
   ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open(ModalluachontaisantheolichxichComponent, {
+    let modalRef = this._modal.open( {
       size: "lg",
       backdrop: "static",
     });

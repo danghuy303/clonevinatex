@@ -6,14 +6,14 @@ import { StoreService } from 'src/app/services/store.service';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LapkehoachlichxichnamComponent } from '../lapkehoachlichxichnam/lapkehoachlichxichnam.component';
+import { ModalquytrinhbaoduongComponent } from '../modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
 
 @Component({
-  selector: 'app-quytrinhlapkehoachlichxichnam',
-  templateUrl: './quytrinhlapkehoachlichxichnam.component.html',
-  styleUrls: ['./quytrinhlapkehoachlichxichnam.component.css']
+  selector: 'app-quytrinhbaoduong',
+  templateUrl: './quytrinhbaoduong.component.html',
+  styleUrls: ['./quytrinhbaoduong.component.css']
 })
-export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
+export class QuytrinhbaoduongComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   IdTrangThai: string = "";
@@ -85,12 +85,12 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
     })
   }
   changeParam(id) {
-    this.router.navigate([`quantri/taisan/quytrinhlapkehoachnam/${id}`], {
+    this.router.navigate([`quantri/taisan/quytrinhbaoduong/${id}`], {
       replaceUrl: true,
     });
   }
   add() {
-    let modalRef = this._modal.open(LapkehoachlichxichnamComponent, {
+    let modalRef = this._modal.open(ModalquytrinhbaoduongComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',
       keyboard:false
@@ -112,7 +112,7 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
   }
   update(item) {
     console.log(item)
-    let modalRef = this._modal.open(LapkehoachlichxichnamComponent, {
+    let modalRef = this._modal.open(ModalquytrinhbaoduongComponent, {
       size: "fullscreen-100",
       backdrop: "static",
       keyboard: false,
