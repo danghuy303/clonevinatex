@@ -72,10 +72,8 @@ export class DanhsachtaisanComponent implements OnInit {
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       Loai: 0,
-
     };
     this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
-      // this.items = res
       this.paging.CurrentPage = res.Data.Page;
       this.paging.TotalPages = res.Data.TotalPages;
       this.paging.TotalCount = res.Data.TotalCount;
@@ -89,7 +87,6 @@ export class DanhsachtaisanComponent implements OnInit {
         if (obj?.listTaiSan) {
           obj_copy.children = [];
           obj.listTaiSan.forEach(element => {
-            console.log(element)
             obj_copy.children.push({ data: element });
           });
           obj.listTaiSan = undefined;
