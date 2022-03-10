@@ -34,11 +34,9 @@ export class TaisanService {
         return this.http.post(`${url}QuanLyTaiSan/ChuyenTiepQuyTrinhNhapTaiSan`, data, httpOptions);
       },
       Delete: (Id) => {
-        return this.http.get(`${url}QuanLyTaiSan/DeleteNhapTaiSanById?Id=${Id}`, httpOptions);
+        return this.http.get(`${url}QuanLyTaiSan/DeleteQuyTrinhNhapTaiSanById?Id=${Id}`, httpOptions);
       },
-      GetListTaiSan: (data) => {
-        return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanForLapKeHoachLichXich`, data, httpOptions);
-      },
+     
     };
   }
 
@@ -57,6 +55,37 @@ export class TaisanService {
       },
       Set: (data) => {
         return this.http.post(`${url}BaoDuongTaiSan/SetLapKeHoachLichXichNam`, data, httpOptions);
+      }, 
+      KhongDuyet: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/KhongDuyetLapKeHoachLichXich`, data, httpOptions);
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/ChuyenTiepLapKeHoachLichXich`, data, httpOptions);
+      },
+      Delete: (Id) => {
+        return this.http.get(`${url}BaoDuongTaiSan/DeleteLapKeHoachLichXichById?Id=${Id}`, httpOptions);
+      },
+      GetListTaiSan: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanForLapKeHoachLichXich`, data, httpOptions);
+      },
+    };
+  }
+
+  LichXichThang() {
+    let url = API.TaiSan;
+    return {
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(`${url}BaoDuongTaiSan/GetNextLapKeHoachLichXichThang`, httpOptions);
+      },
+      GetList: (data) => { 
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}BaoDuongTaiSan/GetListLapKeHoachLichXichThang`, data, httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(`${url}BaoDuongTaiSan/GetLapKeHoachLichXichById?Id=${Id}`, httpOptions);
+      },
+      Set: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/SetLapKeHoachLichXichThang`, data, httpOptions);
       }, 
       KhongDuyet: (data) => {
         return this.http.post(`${url}BaoDuongTaiSan/KhongDuyetLapKeHoachLichXich`, data, httpOptions);

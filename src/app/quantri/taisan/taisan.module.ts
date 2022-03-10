@@ -120,6 +120,7 @@ import { QuytrinhbaoduongComponent } from './quytrinhbaoduong/quytrinhbaoduong.c
 import { ModalquytrinhbaoduongComponent } from './modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
 import { NhancongComponent } from './screen/nhancong/nhancong.component';
 import { VattuComponent } from './screen/vattu/vattu.component';
+import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachlichxichthang/quytrinhlapkehoachlichxichthang.component';
 
 
 @NgModule({
@@ -198,6 +199,7 @@ import { VattuComponent } from './screen/vattu/vattu.component';
     ModalquytrinhbaoduongComponent,
     NhancongComponent,
     VattuComponent,
+    QuytrinhlapkehoachlichxichthangComponent,
 
   ],
   imports: [
