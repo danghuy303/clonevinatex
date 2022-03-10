@@ -368,3 +368,8 @@ span.required {
 .your-tree-table-class .ui-treetable-toggler.fa-caret-right:before{
     content: "\f067";
   }
+
+.p-button-sm .p-button{
+    padding: 0.4375rem 0.65625rem !important;
+    font-size: 0.875rem !important;
+}

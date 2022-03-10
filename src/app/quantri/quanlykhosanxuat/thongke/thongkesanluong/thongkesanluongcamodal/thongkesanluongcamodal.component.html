@@ -20,8 +20,7 @@
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="onClose()"></button>
-            <button pButton pRipple type="button" label="Lưu nháp" class="p-mr-2 p-button-sm " (click)="GhiLai()"
-                *ngIf="checkbutton.Ghi"></button>
+            <button pButton pRipple type="button" label="Lưu nháp" class="p-mr-2 p-button-sm " (click)="GhiLai()"></button>
             <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
                 (click)="XoaQuyTrinh()"></button>
             <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
@@ -92,20 +91,20 @@
                         <ng-container *ngFor="let col of listCaSanXuat; let i = index">
                             <th *ngIf="item.CongDoan==='ONG'" [ngStyle]="{'min-width':item.width,'max-width':item.width}">Sản lượng màn hình (kg)</th>
                             <th *ngIf="item.CongDoan!=='ONG'" [ngStyle]="{'min-width':item.width,'max-width':item.width}">Khối lượng (kg)</th>
-                            <th [ngStyle]="{'min-width':item.width,'max-width':item.width}">Chiều dài (m)</th>
+                            <th *ngIf="item.CongDoan!=='CON'" [ngStyle]="{'min-width':item.width,'max-width':item.width}">Chiều dài (m)</th>
                             <th *ngIf="item.CongDoan==='CON'" class="tc-w-100">Chữ đồng hồ (g/cọc)
-                                <p-checkbox (onChange)="checkAll($event, i)" binary="true"
+                                <p-checkbox (onChange)="checkAll($event,i)" binary="true"
                                     inputId="binary"></p-checkbox>
                             </th>
                             <th *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'" [ngStyle]="{'min-width':item.width,'max-width':item.width}">Cọc chết (cọc)
                             </th>
-                            <th *ngIf="item.CongDoan==='CON'" [ngStyle]="{'min-width':item.width,'max-width':item.width}">Hút mối (kg)</th>
+                            <!-- <th *ngIf="item.CongDoan==='CON'" [ngStyle]="{'min-width':item.width,'max-width':item.width}">Hút mối (kg)</th> -->
                             <th *ngIf="item.CongDoan==='ONG'" class="tc-w-150">Lô hàng</th>
                         </ng-container>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let itemtbl of thongKeFull[0].listItem; let i = index">
+                    <tr *ngFor="let itemtbl of thongKeFull[0]?.listItem; let i = index">
                         <td class="tc-w-30" style="background-color: #fff;">{{i+1}}</td>
                         <td class="text-left" style="background-color: #fff;">{{itemtbl.TendmMay}}</td>
                         <td class="text-left tc-w-30" style="background-color: #fff;">{{itemtbl.Ne}}</td>
@@ -128,20 +127,20 @@
                                     (ngModelChange)="TinhTongKhoiLuongBong(indexCa)">
                                 </p-inputNumber>
                             </td>
-                            <td *ngIf="col.listItem[i].DonViNangSuat===1" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
+                            <td *ngIf="col.listItem[i].DonViNangSuat===1&& item.CongDoan!=='CON'" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 {{col.listItem[i].ChieuDai |number:'0.3-3'}}
                             </td>
-                            <td *ngIf="col.listItem[i].DonViNangSuat===0"
+                            <td *ngIf="col.listItem[i].DonViNangSuat===0 && item.CongDoan!=='CON'"
                                 [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 <p-inputNumber
                                     *ngIf="item.CongDoan==='CHAIPC' || item.CongDoan==='GHEPSOBOPC' || item.CongDoan==='ONG' "
                                     [minFractionDigits]="3" locale="en-EN" [(ngModel)]="col.listItem[i].ChieuDai" #inputNumber
                                     (keyup.enter)="enterCon(i*6+(indexCa*2)+2, indexCa)" [tabindex]="i*6+(indexCa*2)+2" (ngModelChange)="TinhGiaTri(col.listItem[i], indexCa)">
                                 </p-inputNumber>
-                                <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="en-EN"
+                                <!-- <p-inputNumber *ngIf="item.CongDoan==='CON'" [minFractionDigits]="3" locale="en-EN"
                                     [(ngModel)]="col.listItem[i].ChieuDai" #inputNumber (ngModelChange)="TinhCongThucMoi(col.listItem[i], indexCa)"
                                     (keyup.enter)="enterCon(i*15+(indexCa*5)+2, indexCa)" [tabindex]="i*15+(indexCa*5)+2">
-                                </p-inputNumber>
+                                </p-inputNumber> -->
                                 <p-inputNumber *ngIf="item.CongDoan==='CHAICOTTON'" [minFractionDigits]="3"
                                     locale="en-EN" [(ngModel)]="col.listItem[i].ChieuDai"(keyup.enter)="enterCon(i*6+(indexCa*2)+2, indexCa)" [tabindex]="i*6+(indexCa*2)+2"
                                     (ngModelChange)="TinhKhoiLuongChaiCotton(col.listItem[i], indexCa)">
@@ -192,13 +191,13 @@
                                     [disabled]="col.listItem[i].DonViNangSuat===1">
                                 </p-inputNumber>
                             </td>
-                            <td *ngIf="item.CongDoan==='CON'" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
+                            <!-- <td *ngIf="item.CongDoan==='CON'" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 <p-inputNumber #inputNumber (keyup.enter)="enterCon(i*15+(indexCa*5)+5, indexCa)" [tabindex]="i*15+(indexCa*5)+5"
                                     [minFractionDigits]="3" locale="en-EN" [(ngModel)]="col.listItem[i].HutMoi"
                                     (ngModelChange)="KhoiLuongBongCongDoanCon(col.listItem[i], indexCa)"
                                     [disabled]="col.listItem[i].DonViNangSuat===1">
                                 </p-inputNumber>
-                            </td>
+                            </td> -->
                             <td *ngIf="item.CongDoan==='ONG'" class="tc-w-150">
                                 <div class="p-inputgroup">
                                     <div style="flex:1">
@@ -222,7 +221,7 @@
                             <td class="text-right" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 {{col.listItem|isXoa|SumByKey:'KhoiLuong'|number:'0.3-3'}}
                             </td>
-                            <td class="text-right" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
+                            <td *ngIf="item.CongDoan!=='CON'" class="text-right" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 {{col.listItem|isXoa|SumByKey:'ChieuDai'|number:'0.3-3'}}
                             </td>
                             <td *ngIf="item.CongDoan==='CON'" class="text-right tc-w-100">
@@ -231,9 +230,9 @@
                             <td *ngIf="item.CongDoan==='CON' || item.CongDoan==='THO'" class="text-right" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 {{col.listItem|isXoa|SumByKey:'CocChet'|number:'0.0'}}
                             </td>
-                            <td *ngIf="item.CongDoan==='CON'" class="text-right" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
+                            <!-- <td *ngIf="item.CongDoan==='CON'" class="text-right" [ngStyle]="{'min-width':item.width,'max-width':item.width}">
                                 {{col.listItem|isXoa|SumByKey:'HutMoi'|number:'0.3-3'}}
-                            </td>
+                            </td> -->
                             <td *ngIf="item.CongDoan==='ONG'">
                             </td>
                         </ng-container>
@@ -245,10 +244,10 @@
                         <td style="background-color: #fff;"></td>
                         <ng-container *ngFor="let col of listCaSanXuat">
                             <td></td>
-                            <td></td>
+                            <td *ngIf="item.CongDoan!=='CON'"></td>
                             <td *ngIf="item.CongDoan==='CON'"></td>
                             <td *ngIf="item.CongDoan==='CON'"></td>
-                            <td *ngIf="item.CongDoan==='CON'"></td>
+                            <!-- <td *ngIf="item.CongDoan==='CON'"></td> -->
                             <td *ngIf="item.CongDoan==='THO'"></td>
                             <td *ngIf="item.CongDoan==='ONG'"></td>
                         </ng-container>
