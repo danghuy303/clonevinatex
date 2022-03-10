@@ -18,11 +18,11 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   items: TreeNode[];
   item: any = {};
   listItemDaChon: any = [];
-  Lay_Chon: any = "";
   checkedAll: boolean = false;
   listdmLoaiBaoDuong: any = [];
   Keyword: any = '';
   filter: any = {};
+  Chon:any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -42,16 +42,10 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     this.GetList();
   }
   GetList() {
-    let data = {
-      IdBoPhanSuDung: '',
-      IddmLoaiTaiSan: '',
-      IdDuAn: 0,
-    }
-    this._serviceTaiSan.NhapTaiSan().GetListTaiSan(data).subscribe((res: any) => {
-      this.listdmLoaiBaoDuong = res.Data.listdmLoaiBaoDuong;
+      this.listdmLoaiBaoDuong = this.Chon.listdmLoaiBaoDuong;
       let items = [];
       this.items = [];
-      items = res.Data.listTaiSan;
+      items = this.Chon.listTaiSan;
       items.forEach(obj => {
         obj.checked = this.listItemDaChon.includes(obj.Id);
         let obj_copy: any = {};
@@ -70,8 +64,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
             element.checked = this.listItemDaChon.includes(element.Id);
             obj_copy.children.push({ data: element });
           });
-          // obj.listTaiSan = undefined;
-
         }
 
         obj.listItem = [];
@@ -81,19 +73,12 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
           }
           obj.listItem.push(dataitem);
         }
-
         obj_copy.data = obj;
         this.items.push({ data: obj_copy.data, children: obj_copy.children, });
-        ///////////
-
-
-
-        /////////
       });
       this.checkedAll = items.every(ele => ele.checked);
-      console.log(this.items);
-    });
   }
+ 
   TimCheck() {
     let cha: boolean = false;
     let con: boolean = false;
@@ -134,9 +119,12 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
       });
     }
   }
+ 
+ 
   checked() {
     this.checkedAll = this.TimCheck();
   }
+
   FilterTree() {
     let data: any = [];
     this.items.forEach(obj => {
@@ -145,6 +133,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
           IdTaiSan: obj.data.Id,
           Id: '',
           TenTaiSan: obj.data.Ten,
+          listLichBaoDuong:obj.data.listLichBaoDuong
         });
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
@@ -154,6 +143,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
               IdTaiSan: objchildren.data.Id,
               Id: '',
               TenTaiSan: objchildren.data.Ten,
+              listLichBaoDuong: objchildren.data.listLichBaoDuong
             });
           }
         });
