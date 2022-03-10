@@ -51,21 +51,18 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];
-          //
-          obj_copy.children.listItem = [];
+          obj_copy.children.listItem = [];      // Tạo 1 list để trải tên bảo dưỡng
           for (let i = 0; i < this.listdmLoaiBaoDuong.length; i++) {
             let dataitem = {
               Ngay: '',
             }
             obj_copy.children.listItem.push(dataitem);
           }
-          ///
           obj.listTaiSan.forEach(element => {
             element.checked = this.listItemDaChon.includes(element.Id);
             obj_copy.children.push({ data: element });
           });
         }
-
         obj.listItem = [];
         for (let i = 0; i < this.listdmLoaiBaoDuong.length; i++) {
           let dataitem = {
@@ -119,12 +116,9 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
       });
     }
   }
- 
- 
   checked() {
     this.checkedAll = this.TimCheck();
   }
-
   FilterTree() {
     let data: any = [];
     this.items.forEach(obj => {
@@ -153,7 +147,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   }
   GhiLai() {
     this.activeModal.close(this.FilterTree());
-    console.log(this.FilterTree())
   }
 
 }
