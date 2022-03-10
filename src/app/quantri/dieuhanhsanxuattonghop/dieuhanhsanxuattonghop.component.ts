@@ -53,7 +53,11 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   timKiem: any = {};
   timKiemBieuDoDien: any = {};
   showBieuDoDien: boolean = false;
-
+  listXuatBaoCao:any= [
+    {label: 'Xuất báo cáo bán chế phẩm', command: () => {
+        this.xuatBaoCaoBanChePham();
+    }},
+];
   optionPie: any = {
     plugins: {
       labels: {
