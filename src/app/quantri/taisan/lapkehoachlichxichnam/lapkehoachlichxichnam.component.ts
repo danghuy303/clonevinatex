@@ -201,7 +201,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
         }
       })
       ///
-      
+
     })
       .catch((er) => {
       });

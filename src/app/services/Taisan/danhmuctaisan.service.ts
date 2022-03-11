@@ -188,10 +188,10 @@ export class DanhmuctaisanService {
     }
   }
   DanhMucNhaCungCap() {
-    let url = API.TaiSan
+    let url = API.TaiSan2
     return {
       GetList: (data) => {
-        return this.http.get(`${url}DanhMuc/GetAllPagingDmNhaCungCap`, httpOptions)
+        return this.http.post(`${url}DanhMuc/GetlistdmNhaCungUng`,data, httpOptions)
       },
       Set: (data) => {
         return this.http.post(`${url}DanhMuc/SetdmNhaCungCap`, data, httpOptions)

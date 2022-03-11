@@ -22,7 +22,8 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   listdmLoaiBaoDuong: any = [];
   Keyword: any = '';
   filter: any = {};
-  Chon:any = [];
+  Chon: any = [];
+  listCha: any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -42,40 +43,21 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     this.GetList();
   }
   GetList() {
-      this.listdmLoaiBaoDuong = this.Chon.listdmLoaiBaoDuong;
-      let items = [];
-      this.items = [];
-      items = this.Chon.listTaiSan;
-      items.forEach(obj => {
-        obj.checked = this.listItemDaChon.includes(obj.Id);
-        let obj_copy: any = {};
-        if (obj?.listTaiSan) {
-          obj_copy.children = [];
-          obj_copy.children.listItem = [];      // Tạo 1 list để trải tên bảo dưỡng
-          for (let i = 0; i < this.listdmLoaiBaoDuong.length; i++) {
-            let dataitem = {
-              Ngay: '',
-            }
-            obj_copy.children.listItem.push(dataitem);
-          }
-          obj.listTaiSan.forEach(element => {
-            element.checked = this.listItemDaChon.includes(element.Id);
-            obj_copy.children.push({ data: element });
-          });
-        }
-        obj.listItem = [];
-        for (let i = 0; i < this.listdmLoaiBaoDuong.length; i++) {
-          let dataitem = {
-            Ngay: '',
-          }
-          obj.listItem.push(dataitem);
-        }
-        obj_copy.data = obj;
-        this.items.push({ data: obj_copy.data, children: obj_copy.children, });
+    this.listdmLoaiBaoDuong = this.Chon.listdmLoaiBaoDuong;
+    this.items = [];
+    this.listCha = this.Chon.listTaiSan
+    this.listCha.forEach(obj => {
+      obj.checked = this.listItemDaChon.includes(obj.Id);
+      let data: any = { "data": obj, "children": [] };
+      obj.listTaiSan.forEach(con => {
+        let datacon: any = { "data": con, "children": [] };
+        con.checked = this.listItemDaChon.includes(con.Id);
+        data.children.push(datacon);
       });
-      this.checkedAll = items.every(ele => ele.checked);
+      this.items.push(data);
+    });
+    this.checkedAll = this.listCha.every(ele => ele.checked);
   }
- 
   TimCheck() {
     let cha: boolean = false;
     let con: boolean = false;

@@ -8,6 +8,7 @@ import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/gl
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
+import { ModalluachontaisantheolichxichComponent } from '../modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
 
 @Component({
   selector: 'app-lapkehoachthang',
@@ -23,10 +24,11 @@ export class LapkehoachthangComponent implements OnInit {
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   listPhanXuong = [];
   listLoaiTaiSan = [];
+  TaiSanItem: any = [];
   store: any;
 
   labelThang: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
-  '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];
+    '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];
   constructor(
     private _modal: NgbModal,
     public activeModal: NgbActiveModal,
@@ -36,9 +38,9 @@ export class LapkehoachthangComponent implements OnInit {
     public toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
   ) { }
-  
+
   ngOnInit(): void {
-    if ( this.item.ThoiGianUnix !== 0) {
+    if (this.item.ThoiGianUnix !== 0) {
       this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
     }
     this.GetNextSoQuyTrinh();
@@ -46,7 +48,14 @@ export class LapkehoachthangComponent implements OnInit {
       this.listNam.push({ value: i, label: i });
     }
 
-    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
+    let data = {
+      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
+      IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
+      IdDuAn: 0,
+    };
+    this._serviceTaiSan.LichXich().GetListTaiSan(data).subscribe((res: any) => {
+      this.TaiSanItem = res.Data;
+    })
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
 
     Promise.all([ls1]).then((values: any) => {
@@ -57,7 +66,7 @@ export class LapkehoachthangComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  
+
   GetNextSoQuyTrinh() {
     this._serviceTaiSan.LichXichThang().GetNextSoQuyTrinh().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.Data;
@@ -65,37 +74,53 @@ export class LapkehoachthangComponent implements OnInit {
   }
 
   ThemMoiDanhSachTaiSan() {
-    // let modalRef = this._modal.open(ModalluachontaisantheolichxichComponent, {
-    //   size: "lg",
-    //   backdrop: "static",
-    // });
-    // modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
-    // modalRef.componentInstance.opt = this.opt;
-    // modalRef.componentInstance.Lay_Chon =this.item; 
-    // modalRef.componentInstance.item = {};
-    // modalRef.result.then((res: any) => {
-      
-    //   let listKetQua = [];
-    //   this.item.listTaiSan.forEach(Tai_San => {
-    //     let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-    //     if (bien !== undefined) {
-    //       listKetQua.push(Tai_San);
-    //     }
-    //   });
-    //   // vong lap 2
-    // res.forEach(Tai_San => {
-    //   let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-    //   if (bien === undefined) {
-    //     listKetQua.push(Tai_San);
-    //   }
-    // });
-    // this.item.listTaiSan = listKetQua;
-    // console.log(this.item.listTaiSan)
-    // })
-    //   .catch((er) => {
-    //   });
+    let modalRef = this._modal.open(ModalluachontaisantheolichxichComponent, {
+      size: "lg",
+      backdrop: "static",
+    });
+    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
+    modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.Lay_Chon = this.item;
+    modalRef.componentInstance.Chon = this.TaiSanItem;
+    modalRef.componentInstance.item = {};
+    modalRef.result.then((res: any) => {
+      let listKetQua = [];
+      this.item.listTaiSan.forEach(Tai_San => {
+        let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+        if (bien !== undefined) {
+          Tai_San.listBaoDuong = []
+          for (let i = 1; i <= 30; i++) {
+            Tai_San.listBaoDuong.push(
+              {
+                ThoiGian: i,
+                listChiTiet: [],
+              }
+            )
+          }
+          listKetQua.push(Tai_San);
+        }
+      });
+      res.forEach(Tai_San => {
+        let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+        if (bien === undefined) {
+          Tai_San.listBaoDuong = []
+          for (let i = 1; i <= 30; i++) {
+            Tai_San.listBaoDuong.push(
+              {
+                ThoiGian: i,
+                listChiTiet: [],
+              }
+            )
+          }
+          listKetQua.push(Tai_San);
+        }
+      });
+      this.item.listTaiSan = listKetQua;
+    })
+      .catch((er) => {
+      });
   }
-  
+
   setData() {
     this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian);
     return this.item;

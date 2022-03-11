@@ -130,33 +130,34 @@
                     placeholder="Chọn bộ phận"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Tài liệu đính kèm : </label>
-            <div class="p-col-12 p-xl-10 p-p-0">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tài liệu đính kèm : </label>
+            <div class="p-col-12 p-xl-8 p-p-0">
                 <div class="p-inputgroup">
-                    <input type="text" pInputText class="p-inputtext-sm" [ngModel]="NameFile">
+                    <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="item.FileName" >
                     <button type="button" pButton pRipple icon="pi pi-upload"
-                        class="p-button-sm p-button-text p-button-secondary" (click)="taiLenFileDinhKem()"></button>
+                            class="p-button-sm p-button-text p-button-secondary"
+                            (click)="taiLenFileDinhKem()"></button>
                 </div>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6  p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
                 <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
-                <label>Giá trị cao</label>
+                <label >Giá trị cao</label>
             </div>
             <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
-                <p-checkbox binary="true" [(ngModel)]="item.isCanDuTru"></p-checkbox>
-                <label>Cần dự trữ</label>
+                <p-checkbox  binary="true" [(ngModel)]="item.isCanDuTru"></p-checkbox>
+                <label >Cần dự trữ</label>
             </div>
             <div class="p-col-12 p-xl-4 p-p-0 my-auto">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DuTruToiThieu" pInputText />
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu">
+                </p-inputNumber>
             </div>
         </div>
-
-        <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-1 p-p-0 my-auto">Ghi chú : </label>
-            <div class="p-col-12 p-xl-11 p-p-0">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ghi chú : </label>
+            <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
