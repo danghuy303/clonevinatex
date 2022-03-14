@@ -68,7 +68,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       }
     },
     legend: {
-      position: 'left'
+      position: 'bottom'
     },
     // tooltips: {
     //   callbacks: {

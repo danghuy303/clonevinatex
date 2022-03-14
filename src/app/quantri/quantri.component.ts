@@ -386,7 +386,6 @@ export class QuantriComponent implements OnInit {
             label: "Kiểm tra bán chế phẩm",
             routerLink: "/quantri/quanlykhosanxuat/khobong/kiemtrabanchepham/0",
             separator: this.checkmenu("KIEMTRABANCHEPHAM"),
-            visible: this.showHopDongModule,
             command: () => this.close(),
           },
         ],
@@ -1545,7 +1544,7 @@ export class QuantriComponent implements OnInit {
       return true;
     } else {
       for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
-        if (this.dataphanquyen[maaction][i].MaRight == "XEM") {
+        if (this.dataphanquyen[maaction][i].MaRight === "XEM") {
           if (this.dataphanquyen[maaction][i].GioiHan > 0) {
             return false;
           } else return true;
