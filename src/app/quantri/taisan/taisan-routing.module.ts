@@ -24,6 +24,7 @@ import { NhaplieuxuattaisanComponent } from './nhaplieuxuattaisan/nhaplieuxuatta
 import { NhaptaisanComponent } from './nhaptaisan/nhaptaisan.component';
 import { QuytrinhdenghithayvattuComponent } from './quytrinhdenghithayvattu/quytrinhdenghithayvattu.component';
 import { QuytrinhlapkehoachlichxichnamComponent } from './quytrinhlapkehoachlichxichnam/quytrinhlapkehoachlichxichnam.component';
+import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachlichxichthang/quytrinhlapkehoachlichxichthang.component';
 import { QuytrinhnhapvattuComponent } from './quytrinhnhapvattu/quytrinhnhapvattu.component';
 import { SucosuachuaComponent } from './sucosuachua/sucosuachua.component';
 import { Sucosuachua2Component } from './sucosuachua2/sucosuachua2.component';
@@ -62,6 +63,7 @@ const routes: Routes = [
 
   {path:'quytrinhlapkehoachnam/:id',component:QuytrinhlapkehoachlichxichnamComponent},
   {path:'lapkehoachlichxichnam',component:LapkehoachlichxichnamComponent},
+  {path:'quytrinhlapkehoachthang/:id',component:QuytrinhlapkehoachlichxichthangComponent},
   {path:'lapkehoachlichxichthang',component:LapkehoachthangComponent},
   {path:'lichxichnam',component:LichxichnamComponent},
   {path:'lichxichthang',component:LichxichthangComponent},

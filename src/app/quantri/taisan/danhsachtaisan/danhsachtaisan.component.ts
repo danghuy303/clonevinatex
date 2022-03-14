@@ -109,7 +109,6 @@ export class DanhsachtaisanComponent implements OnInit {
   }
 
   ChiTietThongTin(item) {
-    console.log(item)
     let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
       size: "fullscreen",
       backdrop: "static",

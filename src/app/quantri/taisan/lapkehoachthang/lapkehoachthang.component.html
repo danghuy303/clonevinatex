@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h4 style="color:#1f2779">
         Lập kế hoạch lịch xích tháng</h4>
-    <!-- <div class="d-flex flex-column flex-lg-row">
+    <div class="d-flex flex-column flex-lg-row">
         <div>
             <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
         </div>
@@ -12,16 +12,12 @@
             <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
         </div>
     </div>
-<<<<<<< HEAD
 
-=======
-    -->
->>>>>>> b5eca6792a038cda96d8d3abf94f1836599d53df
 </div>
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4 ">
-            <!-- <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm "
+            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm "
                 (click)="activeModal.dismiss()"></button>
             <button pButton pRipple *ngIf="checkbutton.Ghi" type="button" label="Ghi lại" class="p-mr-2 p-button-sm "
                 (click)="GhiLai()"></button>
@@ -30,61 +26,43 @@
             <button pButton *ngIf="checkbutton.ChuyenTiep" pRipple type="button" label="Chuyển duyệt"
                 class="p-mr-2 p-button-sm " (click)="ChapNhan()"></button>
             <button pButton *ngIf="checkbutton.KhongDuyet" pRipple type="button" label="Không duyệt"
-                class="p-mr-2 p-button-sm " (click)="KhongDuyet()"></button> -->
+                class="p-mr-2 p-button-sm " (click)="KhongDuyet()"></button>
         </div>
     </div>
     <div class="p-grid">
 
-        <div class="p-col-12 p-lg-8 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-8  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Nội dung:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
-                <input locale="en-EN" pInputText />
+                <input locale="en-EN" pInputText [(ngModel)]="item.NoiDung" />
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-<<<<<<< HEAD
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận"
                     [(ngModel)]="item.IdBoPhanSuDung"></p-dropdown>
-=======
-                <p-dropdown [filter]="true" [options]="" placeholder="Chọn bộ phận"></p-dropdown>
->>>>>>> b5eca6792a038cda96d8d3abf94f1836599d53df
             </div>
         </div>
-        <div class="p-col-12 p-lg-8 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Tài liệu đính kèm:</label>
+        <div class="p-col-12 p-lg-8 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Tài Sản:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
-                <div class="p-inputgroup">
-                    <input type="text" pInputText class="p-inputtext-sm" disabled>
-                    <button type="button" pButton pRipple icon="pi pi-upload"
-                        class="p-button-sm p-button-text p-button-secondary" (click)="taiLenFileDinhKem()"></button>
-
-                </div>
+                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [(ngModel)]="item.IddmLoaiTaiSan"
+                    placeholder="Chọn tài sản"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Chọn tháng, năm:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-<<<<<<< HEAD
                 <p-calendar dateFormat="mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
                     placeholder="Chọn tháng, năm" [(ngModel)]="item.ThoiGian">
                 </p-calendar>
-=======
-                <p-calendar dateFormat="mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                 inputId="icon" placeholder="Chọn tháng, năm" >
-            </p-calendar>
->>>>>>> b5eca6792a038cda96d8d3abf94f1836599d53df
             </div>
         </div>
-        <div class="p-col-12 p-lg-12 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
-<<<<<<< HEAD
                 <input locale="en-EN" pInputText [(ngModel)]="item.GhiChu" />
-=======
-                <input type="text" class="p-inputtext-sm" pInputText />
->>>>>>> b5eca6792a038cda96d8d3abf94f1836599d53df
             </div>
         </div>
 
@@ -146,14 +124,6 @@
         </div>
     </p-panel>
 </div>
-<<<<<<< HEAD
 <div class="modal-footer">
 
 </div>
-=======
-<!-- <div class="modal-footer">
-    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
-    <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
-        (click)="activeModal.dismiss()"></button>
-</div> -->
->>>>>>> b5eca6792a038cda96d8d3abf94f1836599d53df
