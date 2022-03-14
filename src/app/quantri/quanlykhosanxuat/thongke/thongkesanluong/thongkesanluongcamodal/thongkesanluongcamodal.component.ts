@@ -174,7 +174,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
           if (this.item.CongDoan === "ONG")
             element.SoCot = 3;
           else if (this.item.CongDoan === "CON")
-            element.SoCot = 3;
+            element.SoCot = 5;
           else if (this.item.CongDoan === "THO")
             element.SoCot = 3;
           else
@@ -351,24 +351,24 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       this.thongKeFull = [];
       let listItemCheck: any = [];
       if (this.item.CongDoan === "ONG")
-        listItemCheck = this.item.listThongKeSanLuong[0].listItem.filter(ele => ele.CongDoan === this.item.CongDoan);
+        listItemCheck = this.item.listThongKeSanLuong[0].listItem.filter(ele => ele.CongDoan == this.item.CongDoan);
       this.item.listThongKeSanLuong.forEach(element => {
         if (this.item.CongDoan !== "ONG") {
-          let thongKe = { listItem: element.listItem.filter(ele => ele.CongDoan === this.item.CongDoan), IddmCaSanXuat: element.IddmCaSanXuat }
+          let thongKe = { listItem: element.listItem.filter(ele => ele.CongDoan == this.item.CongDoan), IddmCaSanXuat: element.IddmCaSanXuat }
           this.thongKeFull.push(thongKe);
         }
         else {
-          let listItem = element.listItem.filter(ele => ele.CongDoan === this.item.CongDoan && ele.IddmCaSanXuat === element.IddmCaSanXuat);
-          if (listItem[0]?.Id === undefined) {
+          let listItem = element.listItem.filter(ele => ele.CongDoan == this.item.CongDoan && ele.IddmCaSanXuat == element.IddmCaSanXuat);
+          if (listItem[0].Id === null) {
             let listItem_new = [];
             listItem.forEach(eleCheck => {
-              let itemCheck = listItemCheck.find(x => x.IddmItem === eleCheck.IddmItem && x.IddmLoaiSoi === eleCheck.IddmLoaiSoi && x.IddmCaSanXuat === eleCheck.IddmCaSanXuat);
+              let itemCheck = listItemCheck.find(x => x.IddmItem == eleCheck.IddmItem && x.IddmLoaiSoi == eleCheck.IddmLoaiSoi && x.IddmCaSanXuat == eleCheck.IddmCaSanXuat);
               if (itemCheck !== undefined) {
                 eleCheck.isCheckdmCaSanXuat = true;
                 listItem_new.push(eleCheck);
               }
               else {
-                let itemAdd = deepCopy(listItemCheck.find(x => x.IddmItem === eleCheck.IddmItem && x.IddmLoaiSoi === eleCheck.IddmLoaiSoi));
+                let itemAdd = deepCopy(listItemCheck.find(x => x.IddmItem == eleCheck.IddmItem && x.IddmLoaiSoi == eleCheck.IddmLoaiSoi));
                 itemAdd.isCheckdmCaSanXuat = false;
                 listItem_new.push(itemAdd);
               }
@@ -390,7 +390,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       if (this.item.CongDoan === "ONG")
         element.SoCot = 3;
       else if (this.item.CongDoan === "CON")
-        element.SoCot = 3;
+        element.SoCot = 5;
       else if (this.item.CongDoan === "THO")
         element.SoCot = 3;
       else

@@ -18,12 +18,9 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   items: TreeNode[];
   item: any = {};
   listItemDaChon: any = [];
+  Lay_Chon: any = "";
   checkedAll: boolean = false;
   listdmLoaiBaoDuong: any = [];
-  Keyword: any = '';
-  filter: any = {};
-  Chon: any = [];
-  listCha: any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -37,26 +34,63 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     this.GetList();
 
   }
-  resetFilter() {
-    this.filter = {};
-    this.Keyword = '';
-    this.GetList();
-  }
+
+
   GetList() {
-    this.listdmLoaiBaoDuong = this.Chon.listdmLoaiBaoDuong;
-    this.items = [];
-    this.listCha = this.Chon.listTaiSan
-    this.listCha.forEach(obj => {
-      obj.checked = this.listItemDaChon.includes(obj.Id);
-      let data: any = { "data": obj, "children": [] };
-      obj.listTaiSan.forEach(con => {
-        let datacon: any = { "data": con, "children": [] };
-        con.checked = this.listItemDaChon.includes(con.Id);
-        data.children.push(datacon);
+    let data = {
+      IdBoPhanSuDung: '',
+      IddmLoaiTaiSan: '',
+      IdDuAn: 0,
+    }
+    this._serviceTaiSan.NhapTaiSan().GetListTaiSan(data).subscribe((res: any) => {
+      this.listdmLoaiBaoDuong = res.Data.listdmLoaiBaoDuong;
+
+
+      let items = [];
+      this.items = [];
+      items = res.Data.listTaiSan;
+      items.forEach(obj => {
+        obj.checked = this.listItemDaChon.includes(obj.Id);
+        let obj_copy: any = {};
+        if (obj?.listTaiSan) {
+          obj_copy.children = [];
+          //
+          obj_copy.children.listItem = [];
+          for (let i = 0; i < this.listdmLoaiBaoDuong.length; i++) {
+            let dataitem = {
+              Ngay: '',
+            }
+            obj_copy.children.listItem.push(dataitem);
+          }
+          ///
+
+          obj.listTaiSan.forEach(element => {
+            element.checked = this.listItemDaChon.includes(element.Id);
+            obj_copy.children.push({ data: element });
+          });
+          // obj.listTaiSan = undefined;
+
+        }
+
+        obj.listItem = [];
+        for (let i = 0; i < this.listdmLoaiBaoDuong.length; i++) {
+          let dataitem = {
+            Ngay: '',
+          }
+          obj.listItem.push(dataitem);
+        }
+
+        obj_copy.data = obj;
+        this.items.push({ data: obj_copy.data, children: obj_copy.children, });
+        ///////////
+
+
+
+        /////////
       });
-      this.items.push(data);
+      this.checkedAll = items.every(ele => ele.checked);
+
     });
-    this.checkedAll = this.listCha.every(ele => ele.checked);
   }
   TimCheck() {
     let cha: boolean = false;
@@ -109,7 +143,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
           IdTaiSan: obj.data.Id,
           Id: '',
           TenTaiSan: obj.data.Ten,
-          listLichBaoDuong:obj.data.listLichBaoDuong
         });
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
@@ -119,7 +152,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
               IdTaiSan: objchildren.data.Id,
               Id: '',
               TenTaiSan: objchildren.data.Ten,
-              listLichBaoDuong: objchildren.data.listLichBaoDuong
             });
           }
         });
@@ -129,6 +161,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   }
   GhiLai() {
     this.activeModal.close(this.FilterTree());
+    console.log(this.FilterTree())
   }
 
 }
