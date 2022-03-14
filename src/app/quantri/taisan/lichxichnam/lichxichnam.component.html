@@ -36,11 +36,11 @@
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <div></div>
-    <div class="p-mr-2"> <p>Tổng số: thiết bị</p></div>
+    <div class="p-mr-2"> <p>Tổng số:{{items.TongSoTaiSan}} thiết bị</p></div>
    
 </div>
 
-<p-table *ngIf="item.isChon" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+<p-table [value]="items.listBaoDuong" *ngIf="item.isChon" styleClass="p-datatable-sm wrap-text p-datatable-striped">
     <ng-template pTemplate="colgroup">
       <colgroup>
         <col style="width:100px">
@@ -77,25 +77,17 @@
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
       <tr>
-        <td class="text-center"></td>
-        <td class="text-center"></td>
-        <td class="text-center"></td>
-        <td class="text-center"></td>
-        <td class="text-center"></td>
-        <td class="text-center"></td>
-        <td class="text-center"></td>
-        <td class="text-center"></td>
-        <td class="text-center"></td>
-        <td class="text-center"></td>
-        <td class="text-center"></td>
-        <td class="text-center"></td>
-        <td class="text-center"></td>
-
-  
+        <td class="text-center" (click)="ChiTietBaoDuong(item)">{{item.TendmLoaiBaoDuong}}</td>
+        <td class="text-center"  *ngFor="let newItem of item.listItemTheoThoiGian">
+          <a href="javascript:void(0)"  *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietThongTin(taisan)">
+         {{taisan.TenTaiSan}},
+          </a>
+           
+          </td>
       </tr>
     </ng-template>
   </p-table>
-  <p-table *ngIf="item.isChonMay" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+  <p-table [value]="itemMay.listTaiSan" *ngIf="item.isChonMay" styleClass="p-datatable-sm wrap-text p-datatable-striped">
     <ng-template pTemplate="colgroup">
       <colgroup>
         <col style="width:100px">
@@ -132,10 +124,12 @@
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
       <tr>
-        <td class="text-center">
-  
-        </td>
-  
+        <td class="text-center" (click)="ChiTietThongTin(item)">{{item.TenTaiSan}}</td>
+        <td class="text-center"  *ngFor="let newItem of item.listItemTheoThoiGian">
+          <a href="javascript:void(0)"  *ngFor="let taisan of newItem.listChiTiet" (click)="ChiTietBaoDuong(taisan)">
+         {{taisan.TendmLoaiBaoDuong}}
+          </a>
+          </td>
       </tr>
     </ng-template>
   </p-table>

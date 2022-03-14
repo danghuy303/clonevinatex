@@ -30,7 +30,6 @@ export class ModalbaoduongComponent implements OnInit {
       Keyword:this.Keyword,  
     };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res:any)=>{
-      console.log(res)
       this.listTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
   }

@@ -68,9 +68,6 @@ export class TaisanService {
       GetListTaiSan: (data) => {
         return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanForLapKeHoachLichXich`, data, httpOptions);
       },
-      // ListTaiSanLichXich: (data) => {
-      //   return this.http.post(`${url}BaoDuongTaiSan/GetLichXichNamLoaiTaiSan`, data, httpOptions);
-      // },
     };
   }
 
@@ -101,7 +98,31 @@ export class TaisanService {
       },
     };
   }
-
+  ListLichXichNam() {
+    let url = API.TaiSan;
+    return {
+      GetListBaoDuong: (data) => { 
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}BaoDuongTaiSan/GetLichXichNamLoaiBaoDuong`, data, httpOptions);
+      },
+      GetListMay: (data) => { 
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}BaoDuongTaiSan/GetLichXichNamLoaiTaiSan`, data, httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(`${url}DanhMuc/GetdmLoaiBaoDuongById?Id=${Id}`, httpOptions);
+      },
+    };
+  }
+  ListLichXichThang() {
+    let url = API.TaiSan;
+    return {
+      GetList: (data) => { 
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}BaoDuongTaiSan/GetLichXichThangLoaiBaoDuong`, data, httpOptions);
+      },
+    };
+  }
   BanGiaoTaiSan() {
     let url = API.TaiSan;
     return {
@@ -249,14 +270,11 @@ export class TaisanService {
     return {
       GetList: (data) => {
         data.IdDuAn = this.store.getCurrent();
-        return this.http.post(`${url}TaiSan/ListDanhSachTaiSan`, data, httpOptions);
+        return this.http.post(`${url}QuanLyTaiSan/GetListTaiSan`, data, httpOptions);
       },
       Get: (Id) => {
-        return this.http.get(`${url}TaiSan/GetChiTietTaiSanById?IdTaiSan=${Id}`, httpOptions);
+        return this.http.get(`${url}QuanLyTaiSan/GetChiTietTaiSanById?Id=${Id}`, httpOptions);
       },
-      // Get: (Id) => {
-      //   return this.http.get(`${url}QuanLyTaiSan/GetQuyTrinhNhapTaiSanById?Id=${Id}`, httpOptions);
-      // },
     }
   }
 
