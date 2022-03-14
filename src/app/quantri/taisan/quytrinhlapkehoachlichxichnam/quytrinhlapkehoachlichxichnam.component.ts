@@ -72,10 +72,15 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       TabTrangThai: this.trangThai,
       Loai:0,
+
     };
     this._serviceTaiSan.LichXich().GetList(data).subscribe((res: any) => {
+      res.Data.Items.forEach(obj=>{  
+        obj.TenPhanXuong = this.listPhanXuong.find(ele=>ele.value===obj.IddmPhanXuong)?.label||null;          
+      });
       this.items = res.Data.Items;  
       this.paging.TotalCount = res.Data.TotalCount;
+      console.log(this.listPhanXuong)
     })
   }
   GetListdmPhanXuong() {

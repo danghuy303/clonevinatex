@@ -58,13 +58,14 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
           this.listdmPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
         });
       }
+      
     });
   }
 
   GetNhaMay() {
     this._servicesSanXuat.GetOptions().GetNhaMay().subscribe((res: Array<any>) => {
       this.listDonVi = mapArrayForDropDown(res, 'TenDuAn', 'Id');
-      this.item.IddmPhanXuong = undefined;
+      this.item.IdBoPhanSuDung = undefined;
       if (validVariable(this.item.IdDuAn)) {
         this._servicesSanXuat.GetOptions().GetPhanXuong(this.item.IdDuAn).subscribe((res: any) => {
           this.listdmPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
@@ -112,7 +113,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   }
 
   Validate() {
-    if (!validVariable(this.item.IddmPhanXuong) ||
+    if (!validVariable(this.item.IdBoPhanSuDung) ||
       !validVariable(this.item.IdDuAn)) {
       this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
       return false;
@@ -136,6 +137,8 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
           // this.GetIem();
           this.toastr.success(res.Message);
           this.activeModal.close();
+          console.log(this.item);
+          
         } else {
           this.toastr.error(res.Message);
         }
@@ -196,6 +199,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     let modalRef = this._modal.open(ModalchontaisanComponent, {
       size: "xl",
       backdrop: "static",
+      centered: true,
     });
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = {};
@@ -204,6 +208,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
         this.item.listTaiSan = res;
         let listTaiSan = [];
         res.forEach(element => {
+          element.GhiChu ='';
           if (!validVariable(element.TaiSan.IdTaiSan)) {
             listTaiSan.push({ data: element, children: [] });
             res.filter(e => {
@@ -216,7 +221,10 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
             listTaiSan.push({ data: element, children: [] });
           }
         });
-        this.listTaiSan_copy = listTaiSan;
+        console.log(listTaiSan);
+        console.log(this.listTaiSan_copy)
+        
+        // this.listTaiSan_copy = listTaiSan;
       })
       .catch((er) => {
 

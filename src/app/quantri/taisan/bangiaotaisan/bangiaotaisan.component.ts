@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
+import { AuthenticationService } from "src/app/services/auth.service";
+import { StoreService } from "src/app/services/store.service";
 
 import {
   DateToUnix,
@@ -32,6 +34,9 @@ export class BangiaotaisanComponent implements OnInit {
   items: any = [];
   trangThai: any = 1;
 
+  idUser: string = '';
+  listdmPhanXuong: any = [];
+
   constructor(
     public _modal: NgbModal,
     public toastr: ToastrService,
@@ -39,12 +44,19 @@ export class BangiaotaisanComponent implements OnInit {
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
     private _serviceDanhMucTaiSan: DanhmuctaisanService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private _serviceAuth: AuthenticationService,
+    private store: StoreService,
+  ) { 
+    this.idUser = this._serviceAuth.currentUserValue.Id;
+  }
 
   ngOnInit(): void {
     this.resetFilter();
+    this.getListdmPhanXuong();
+    
   }
+
 
   changeTab(e) {
     this.trangThai = e.index + 1;
@@ -57,21 +69,32 @@ export class BangiaotaisanComponent implements OnInit {
     this.Loaddata(true);
   }
 
+  getListdmPhanXuong() {
+    this._serviceDungChung.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      console.log(this.listdmPhanXuong);
+    })
+    
+  }
+
   Loaddata(reset?) {
     if (reset) {
       this.paging.currentPage = 1;
     }
     let data = {
-      pageSize: 20,
-      currentPage: this.paging.currentPage,
-      tabTrangThai: this.trangThai,
-      keyWord: this.filter.keyWord,
-      tuNgay: DateToUnix(this.filter.TuNgay),
-      denNgay: DateToUnix(this.filter.DenNgay),
+      PageSize: 20,
+      CurrentPage: this.paging.currentPage,
+      TabTrangThai: this.trangThai,
+      KeyWord: this.filter.keyWord,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
+      IdUser: this.idUser,
+      IdBoPhanSuDung: this.filter.idBoPhan,
     };
     this._serviceTaiSan.BanGiaoTaiSan().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;
       this.paging = res.Data;
+      console.log(this.items); 
     })
   }
 
@@ -84,11 +107,14 @@ export class BangiaotaisanComponent implements OnInit {
 
   add() {
     let modalRef = this._modal.open(ModalcapnhatbaogiaComponent, {
-      size: "fullscreen-100",
+      // size: "fullscreen-100",
+      size: "xl",
       backdrop: "static",
+      centered: true
     });
     modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.tabTrangThai = 0;    
+    modalRef.componentInstance.tabTrangThai = 0; 
+    // modalRef.componentInstance.listdmPhanXuong = this.listdmPhanXuong;   
     modalRef.componentInstance.item = {
       Id: "",
       IdTrangThai: "",
@@ -97,20 +123,26 @@ export class BangiaotaisanComponent implements OnInit {
       listTaiSan: [],
       listFileDinhKem: [],
       NgayBanGiao: new Date(),
+      IdDuAn: this.store.getCurrent(),
     }
     modalRef.result
       .then((res: any) => {
-        this.Loaddata();
+        // console.log(res);
+        return res
       })
       .catch((er) => {
-
+        console.log('bị lỗi');   
+      })
+      .finally(()=>{
+        this.Loaddata();
       });
   }
 
   edit(item) {
     let modalRef = this._modal.open(ModalcapnhatbaogiaComponent, {
-      size: "fullscreen-100",
+      size: "xl",
       backdrop: "static",
+      centered: true,
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.tabTrangThai = this.trangThai;  

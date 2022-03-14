@@ -259,7 +259,6 @@ import { BaocaothongketiendienmodalComponent } from './danhmuc/thongkedientheoca
 import { ThongkesanluongcamodalComponent } from './quanlykhosanxuat/thongke/thongkesanluong/thongkesanluongcamodal/thongkesanluongcamodal.component';
 
 
-
 @NgModule({
   declarations: [
     QuantriComponent,

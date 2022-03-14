@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -18,6 +19,7 @@ import { ModalluachontaisantheolichxichComponent } from '../modal/modalluachonta
   styleUrls: ['./lapkehoachthang.component.css']
 })
 export class LapkehoachthangComponent implements OnInit {
+
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   opt: any = "";
   listNam: any = [];
@@ -31,51 +33,22 @@ export class LapkehoachthangComponent implements OnInit {
   store: any;
 
   labelThang: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
-    '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];
+  '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];
   constructor(
     private _modal: NgbModal,
     public activeModal: NgbActiveModal,
-    private _servicesSanXuat: SanXuatService,
-    private _serviceTaiSan: TaisanService,
-    private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService,
-    private activatedRoute: ActivatedRoute,
+    private _servicesSanXuat: SanXuatService,
+    private _danhMucTaiSan: DanhmuctaisanService,
+    private _serviceTaiSan: TaisanService,
   ) { }
-
+  
   ngOnInit(): void {
-    if (this.item.ThoiGianUnix !== 0) {
-      this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
-    }
-    this.GetNextSoQuyTrinh();
-    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
-      this.listNam.push({ value: i, label: i });
-    }
-
-    let data = {
-      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
-      IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
-      IdDuAn: 0,
-    };
-    this._serviceTaiSan.LichXich().GetListTaiSan(data).subscribe((res: any) => {
-      this.TaiSanItem = res.Data;
-    })
-    let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
-
-    Promise.all([ls1]).then((values: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
-    });
-
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
+    
   }
-
-  GetNextSoQuyTrinh() {
-    this._serviceTaiSan.LichXichThang().GetNextSoQuyTrinh().subscribe((res: any) => {
-      this.item.SoQuyTrinh = res.Data;
-    })
-  }
-
+  
+  
+  
   ThemMoiDanhSachTaiSan() {
     let modalRef = this._modal.open(ModalluachontaisantheolichxichComponent, {
       size: "lg",
@@ -178,43 +151,15 @@ export class LapkehoachthangComponent implements OnInit {
     });
   }
   ChapNhan() {
-    this._serviceTaiSan.LichXichThang().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res.StatusCode !== 200) {
-        this.toastr.error(res.Message);
-      } else {
-        this.toastr.success(res.Message);
-        this.activeModal.close();
-      }
-    })
-  }
-  KhongDuyet() {
-    this._serviceTaiSan.LichXichThang().KhongDuyet(this.item).subscribe((res: any) => {
-      if (res.StatusCode !== 200) {
-        this.toastr.error(res.Message);
-      } else {
-        this.toastr.success(res.Message);
-        this.activeModal.close();
-      }
-    })
+    
   }
   XoaQuyTrinh() {
-    let modalRef = this._modal.open(ModalthongbaoComponent, {
-      backdrop: "static",
-    });
-    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
-    modalRef.result
-      .then((res) => {
-        this._serviceTaiSan.LichXichThang().Delete(this.item.Id).subscribe((res: any) => {
-          if (res.StatusCode === 200) {
-            this.toastr.success(res.Message);
-            this.activeModal.close();
-          } else {
-            this.toastr.error(res.Message);
-          }
-        })
-      })
-      .catch((er) => console.log(er));
+  
   }
-
-}
+ 
+  taiLenFileDinhKem() {
+   
+  }
+  
+  }
 

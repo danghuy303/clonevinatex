@@ -25,7 +25,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   title: any = "";
   lang: any = vn;
   NameFile: string;
-  checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true};
+  checkbutton: any = { Ghi: true, Xoa: false, KhongDuyet: false, ChuyenTiep: false };
   itemDonVi: any = {};
   uploader: FileUploader;
   // newTableItem: any = {};
@@ -54,6 +54,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.item)
     if (this.item.TaiSan.NgayNhapUnix !== 0 || this.item.TaiSan.NgayNhapUnix === 0) {
       this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
     }
@@ -68,33 +69,25 @@ export class ModalcapnhattaisanComponent implements OnInit {
     }
     this.GetListdmPhanXuong();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan:'', };
-
-    // this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
-    //   console.log(res.Data);
-    //   this.listLoaiTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
-    //   console.log(this.listLoaiTaiSan)
-    // })
-   
-
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
 
     Promise.all([ls1,ls2]).then((values: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");  
-      this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");  
-     
+      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
+      this.listCungSanXuat = mapArrayForDropDown(values[1].Data.Items, "Ten", "Id");  
+      console.log(this.listCungSanXuat)
     });
   }
 
   GetListdmPhanXuong() {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+      console.log(res)
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 
   KiemTraButtonModal() {
     this._servicesSanXuat.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
-      console.log(res)
       this.checkbutton = res;
     });
   }
@@ -149,7 +142,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
         
         if (res.StatusCode === 200) {
           this.toastr.success(res.Message);
-          // this.activeModal.close();
+          this.activeModal.close();
         } else {
           this.toastr.error(res.Message);
         }
@@ -219,9 +212,11 @@ export class ModalcapnhattaisanComponent implements OnInit {
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
     modalRef.result
       .then((res: any) => {
+        console.log(res)
         this.item.TaiSan.listTaiSan=res
       })
       .catch((er) => {
+
       });
   }
 
@@ -239,8 +234,10 @@ export class ModalcapnhattaisanComponent implements OnInit {
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
     modalRef.result
       .then((res: any) => {
+
       })
       .catch((er) => {
+
       });
   }
 

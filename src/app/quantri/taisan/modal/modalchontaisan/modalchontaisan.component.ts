@@ -43,7 +43,9 @@ export class ModalchontaisanComponent implements OnInit {
     this._serviceTaiSan.GetOptions().GetListTaiSanChuaBanGiao().subscribe((res: any) => {
       let items = [];
       this.items = [];
-      items = res.Data;
+      
+      items = res.Data.Items;
+      console.log(items);
       items.forEach(obj => {
         obj.checked = false;
         let obj_copy: any = {};
@@ -58,7 +60,7 @@ export class ModalchontaisanComponent implements OnInit {
         obj_copy.data = obj;
         this.items.push({ data: obj_copy.data, children: obj_copy.children });
       });
-      console.log(res);
+      // console.log(res);
     })
   }
 

@@ -94,8 +94,8 @@ export class NhaptaisanComponent implements OnInit {
     this._serviceTaiSan.NhapTaiSan().GetList(data).subscribe((res: any) => {
       let items = [];
       this.items = [];
-      items = res.Data.Items;
-      this.paging = res.Data;
+      items = res.Items;
+      this.paging = res;
       items.forEach(obj => {
         let obj_copy: any = {};
         if (obj?.listTaiSan) {

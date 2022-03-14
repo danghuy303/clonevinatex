@@ -6,7 +6,7 @@
         <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
         <!-- <button pButton pRipple label="xóa" icon="pi pi-trash" class="p-button-sm p-button-outlined p-mr-2" (click)="delete(item)"></button> 
          <button pButton pRipple label="Xóa tất cả" *ngIf="selectedItems.length!==0" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button>
-         <button pButton pRipple label="Xóa tất cả" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button>  -->
+        <button pButton pRipple label="Xóa tất cả" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button>  -->
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
@@ -37,6 +37,8 @@
     <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
     </p-tabPanel>
     <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
+    </p-tabPanel>
+    <p-tabPanel header="Tổng hợp" [disabled]="!checkQuyen.TongHop">
     </p-tabPanel>
 </p-tabView>
 <div class="p-mt-3">

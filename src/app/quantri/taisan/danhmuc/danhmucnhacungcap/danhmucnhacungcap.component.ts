@@ -79,7 +79,7 @@ export class DanhmucnhacungcapComponent implements OnInit {
       Ten:""    
     };
     this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).subscribe((res:any)=>{
-      this.items = res.Data;
+      this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }

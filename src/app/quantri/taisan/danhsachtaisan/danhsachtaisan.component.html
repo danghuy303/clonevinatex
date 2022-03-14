@@ -21,11 +21,11 @@
             </div>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Loại tài sản " [(ngModel)]="filter.IddmLoaiTaiSan"
+            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản " [(ngModel)]="filter.IddmLoaiTaiSan"
                 styleClass="p-inputtext-sm" (onChange)="Loaddata(true)" [showClear]="true" [filter]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Bộ phận sử dụng " [(ngModel)]="filter.IdBoPhanSuDung"
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bổ phận sử dụng " [(ngModel)]="filter.IdBoPhanSuDung"
                 styleClass="p-inputtext-sm" (onChange)="Loaddata(true)" [showClear]="true" [filter]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
