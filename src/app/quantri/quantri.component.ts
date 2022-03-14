@@ -151,7 +151,8 @@ export class QuantriComponent implements OnInit {
 
   ngOnInit(): void {
     this.showHopDongModule = (window.location.origin.includes('localhost') || window.location.origin.includes('2269'));
-    this.showTaiSanModule = (window.location.origin.includes('4200') || window.location.origin.includes('2269'));
+    this.showTaiSanModule = (window.location.origin.includes('localhost') || window.location.origin.includes('2269'));
+    // this.showTaiSanModule = true;
     this.refreshNotis();
     this._router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
@@ -954,14 +955,7 @@ export class QuantriComponent implements OnInit {
               },
               {
                 label: "Lập kế hoạch lịch xích tháng",
-                routerLink: "/quantri/taisan/quytrinhlapkehoachthang/0",
-                command: () => {
-                  this.close();
-                },
-              },
-              {
-                label: "Quy trình bảo dưỡng",
-                routerLink: "/quantri/taisan/quytrinhbaoduong/0",
+                routerLink: "/quantri/taisan/lapkehoachlichxichthang",
                 command: () => {
                   this.close();
                 },
@@ -996,6 +990,13 @@ export class QuantriComponent implements OnInit {
               {
                 label: "Thanh lý tài sản",
                 routerLink: "/quantri/taisan/thanhlytaisan/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Tính Khấu hao tài sản",
+                routerLink: "/quantri/taisan/khauhaotaisan/0",
                 command: () => {
                   this.close();
                 },

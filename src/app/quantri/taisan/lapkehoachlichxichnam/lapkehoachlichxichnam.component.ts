@@ -4,12 +4,11 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
-import { ModalluachonloaibaoduongComponent } from '../modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
 import { ModalluachontaisantheolichxichComponent } from '../modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
 
 
@@ -28,9 +27,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   listPhanXuong = [];
   listLoaiTaiSan = [];
   store: any;
-  TaiSanItem: any = [];
-  count: number;
-
 
   constructor(
     private _modal: NgbModal,
@@ -43,23 +39,12 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let data = {
-      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
-      IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
-      IdDuAn: 0,
-    };
-    this._serviceTaiSan.LichXich().GetListTaiSan(data).subscribe((res: any) => {
-      this.TaiSanItem = res.Data;
-    })
-    if (this.item.ThoiGianUnix !== 0) {
-      this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
-    }
     this.GetNextSoQuyTrinh();
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
 
-
+    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
 
     Promise.all([ls1]).then((values: any) => {
@@ -76,10 +61,41 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.item.SoQuyTrinh = res.Data;
     })
   }
-
+  ThemMoiDanhSachTaiSan() {
+    let modalRef = this._modal.open(ModalluachontaisantheolichxichComponent, {
+      size: "lg",
+      backdrop: "static",
+    });
+    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
+    modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.Lay_Chon =this.item; 
+    modalRef.componentInstance.item = {};
+    modalRef.result.then((res: any) => {
+      
+      let listKetQua = [];
+      this.item.listTaiSan.forEach(Tai_San => {
+        let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+        if (bien !== undefined) {
+          listKetQua.push(Tai_San);
+        }
+      });
+      // vong lap 2
+    res.forEach(Tai_San => {
+      let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+      if (bien === undefined) {
+        listKetQua.push(Tai_San);
+      }
+    });
+    debugger
+    this.item.listTaiSan = listKetQua;
+    console.log(this.item.listTaiSan)
+    })
+      .catch((er) => {
+      });
+  }
   setData() {
-    this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian);
-    // this.item.IdDuAn = this.store.getCurrent();
+    this.item.ThoiGian = UnixToDate(this.item.ThoiGian);
+    this.item.IdDuAn = this.store.getCurrent();
     return this.item;
   }
   GhiLai() {
@@ -139,88 +155,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
         })
       })
       .catch((er) => console.log(er));
-  }
-  ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open(ModalluachontaisantheolichxichComponent, {
-      size: "lg",
-      backdrop: "static",
-    });
-    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
-    modalRef.componentInstance.opt = this.opt;
-    modalRef.componentInstance.Lay_Chon = this.item;
-    modalRef.componentInstance.Chon = this.TaiSanItem;
-    modalRef.componentInstance.item = {};
-    modalRef.result.then((res: any) => {
-      // let listKetQua = [];
-      // this.item.listTaiSan.forEach(Tai_San => {
-      //   let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-      //   if (bien !== undefined) {
-      //     Tai_San.listBaoDuong = []
-      //     for(let i = 1;i<=12;i++){
-      //       Tai_San.listBaoDuong.push(
-      //         {
-      //           ThoiGian:i,
-      //           listChiTiet:[],
-      //         }
-      //       )
-      //     }
-      //     listKetQua.push(Tai_San);
-      //   }
-      // });
-      // // vong lap 2
-      // res.forEach(Tai_San => {
-      //   let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-      //   if (bien === undefined) {
-      //     Tai_San.listBaoDuong = []
-      //     for(let i = 1;i<=12;i++){
-      //       Tai_San.listBaoDuong.push(
-      //         {
-      //           ThoiGian:i,
-      //           listChiTiet:[],
-      //         }
-      //       )
-      //     }
-      //     listKetQua.push(Tai_San);
-      //   }
-      // }); 
-      // this.item.listTaiSan = listKetQua;
-
-      /// hàm anh đạt viết
-      this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
-      this.item.listTaiSan.forEach(ele => {
-        if (!validVariable(ele.listBaoDuong)) {
-          ele.listBaoDuong = []
-          for (let i = 1; i <= 12; i++) {
-            ele.listBaoDuong.push(
-              {
-                ThoiGian: i,
-                listChiTiet: [],
-              }
-            )
-          }
-        }
-      })
-      ///
-      
-    })
-      .catch((er) => {
-      });
-
-  }
-
-  Chon(item, itemLoaiBaoDuongDeChon) {
-    let modalRef = this._modal.open(ModalluachonloaibaoduongComponent, {
-      backdrop: 'static',
-      size: 'fullscreen-100',
-      keyboard: false
-    });
-    modalRef.componentInstance.Lay_Chon = itemLoaiBaoDuongDeChon;
-    modalRef.componentInstance.listItemDaChon = item.listChiTiet ? item.listChiTiet.map(ele => ele.IddmLoaiBaoDuong) : []
-    modalRef.result.then((res: any) => {
-      item.listChiTiet = res;
-    })
-      .catch((er) => {
-      });
   }
 
 }

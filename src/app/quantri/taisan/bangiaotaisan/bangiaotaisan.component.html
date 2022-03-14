@@ -7,7 +7,7 @@
     <div></div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="" placeholder="bộ phận sử dụng" styleClass="p-inputtext-sm"></p-dropdown>
+            <p-dropdown [filter]="true" [options]="listdmPhanXuong" [(ngModel)]="filter.idBoPhan" (onChange)="Loaddata(true)" placeholder="bộ phận sử dụng" styleClass="p-inputtext-sm"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
@@ -32,6 +32,7 @@
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
     <p-tabPanel header="Chưa xử lý"></p-tabPanel>
     <p-tabPanel header="Đã xử lý"></p-tabPanel>
+    <p-tabPanel header="Tổng hợp"></p-tabPanel>
 </p-tabView>
 <p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="true">
     <ng-template pTemplate="colgroup">
@@ -66,15 +67,15 @@
             <td class="text-center">
                 {{i+1}}
             </td>
-            <td>
+            <td class="text-center">
                 {{item.SoQuyTrinh}}
             </td>
-            <td>{{item.TenNhaMay}}</td>
-            <td>{{item.TenPhanXuong}}</td>
+            <td class="text-center">{{item.Created | date: 'dd/MM/yyyy'}}</td>
+            <td class="text-center">{{item.TenBoPhanSuDung}}</td>
             <!-- <td>{{item.NoiDung}}</td> -->
             <td class="text-center">{{item.NgayBanGiao|date:'dd/MM/yyyy'}}</td>
             <td>{{item.NoiDung}}</td>
-            <td>{{item.TenTrangThai}}</td>
+            <td class="text-center">{{item.TenTrangThai}}</td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
@@ -89,3 +90,4 @@
         </div>
     </ng-template>
 </p-table>
+

@@ -1,3 +1,4 @@
+
 <div class="modal-header">
     <h5 class="modal-title">{{title}}</h5>
     <div class="d-flex flex-column flex-lg-row">
@@ -15,6 +16,7 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
+
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4 ">
@@ -26,7 +28,7 @@
                 (click)="XoaQuyTrinh()"></button>
             <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
                 *ngIf="checkbutton.KhongDuyet"></button>
-            <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm"
+            <button pButton pRipple type="button" label="Chuyển tiếp" class="p-mr-2 p-button-sm"
                 (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
             <!-- <button pButton pRipple type="button" label="Kết xuất" *ngIf="canExport" (click)="exportExcel()"
                 class="p-mr-2 p-button-sm"></button> -->
@@ -47,29 +49,42 @@
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
             </div>
         </div> -->
-        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        <!-- <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng <span class="required">*</span>:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Bộ phận sử dụng"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
             </div>
-        </div>
+        </div> -->
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng <span class="required">*</span>:</label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Bộ phận sử dụng"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdBoPhanSuDung"></p-dropdown>
+            </div>
+        </div>
+        <!-- <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-3 p-p-0 my-auto">Tài liệu đính kèm:</label>
             <div class="p-col-12 p-lg-9 p-p-0">
                 <div class="p-inputgroup">
                     <input type="text" pInputText class="p-inputtext-sm" [ngModel]="NameFile" disabled>
                     <button type="button" pButton pRipple icon="pi pi-upload"
                         class="p-button-sm p-button-text p-button-secondary" (click)="taiLenFileDinhKem()"></button>
-                    <!-- <button type="button" pButton pRipple icon="pi pi-download" class="p-button-sm p-button-text p-button-secondary"
-                        (click)="taiXuongFileDinhKem()"></button> -->
+                    <button type="button" pButton pRipple icon="pi pi-download" class="p-button-sm p-button-text p-button-secondary"
+                        (click)="taiXuongFileDinhKem()"></button>
                 </div>
             </div>
-        </div>
-        <div class="p-col-12 p-lg-12 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+        </div> -->
+        <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-12 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
     </div>
@@ -83,17 +98,18 @@
 
         <p-treeTable [value]="listTaiSan_copy|isXoa" styleClass="p-treetable p-treetable-caption">
             <ng-template pTemplate="colgroup">
-                <colgroup>
+                <colgroup>  
                     <col>
                     <col>
                     <col>
-                    <!-- <col>
-                    <col>   -->
+                    <col>
+                    <!-- <col>   -->
                     <col style="width: 100px;" *ngIf="tabTrangThai===1">
                 </colgroup>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
                 <tr>
+                    <th class="text-center">STT</th>
                     <th class="text-center">Mã</th>
                     <th class="text-center">Tên</th>
                     <th class="text-center">Ghi chú</th>
@@ -102,14 +118,16 @@
                     <th *ngIf="tabTrangThai===1"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-i="rowDataIndex">
                 <tr>
-                    <td>
+                    <td>{{i}}</td>
+                    <td class="text-center">
                         <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                         {{rowData.TaiSan.Ma}}
+                        <!-- {{rowData.TaiSan.Ma}} -->
                     </td>
                     <td>{{rowData.TaiSan.Ten}}</td>
-                    <td><input type="text" class="p-inputtext-sm" pInputText /></td>
+                    <td><input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="rowData.TaiSan.GhiChu"/></td>
                     <!-- <td class="text-center">{{rowData.TaiSan.NguyenGia|number:'0.0'}}</td>
                     <td class="text-center">{{rowData.TaiSan.NgayNhap|date:'dd/MM/yyyy'}}</td> -->
                     <td class="text-center" *ngIf="tabTrangThai===1">

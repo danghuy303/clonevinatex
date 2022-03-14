@@ -15,16 +15,15 @@ import { TinhtrangtaisanComponent } from './danhmuc/tinhtrangtaisan/tinhtrangtai
 import { DanhsachtaisanComponent } from './danhsachtaisan/danhsachtaisan.component';
 import { DanhsachvattuComponent } from './danhsachvattu/danhsachvattu.component';
 import { DenghixulisucoComponent } from './denghixulisuco/denghixulisuco.component';
+import { KhauHaoTaiSanQuyTrinhComponent } from './khau-hao-tai-san-quy-trinh/khau-hao-tai-san-quy-trinh.component';
 import { LapkehoachlichxichnamComponent } from './lapkehoachlichxichnam/lapkehoachlichxichnam.component';
 import { LapkehoachthangComponent } from './lapkehoachthang/lapkehoachthang.component';
 import { LichxichnamComponent } from './lichxichnam/lichxichnam.component';
 import { LichxichthangComponent } from './lichxichthang/lichxichthang.component';
 import { NhaplieuxuattaisanComponent } from './nhaplieuxuattaisan/nhaplieuxuattaisan.component';
 import { NhaptaisanComponent } from './nhaptaisan/nhaptaisan.component';
-import { QuytrinhbaoduongComponent } from './quytrinhbaoduong/quytrinhbaoduong.component';
 import { QuytrinhdenghithayvattuComponent } from './quytrinhdenghithayvattu/quytrinhdenghithayvattu.component';
 import { QuytrinhlapkehoachlichxichnamComponent } from './quytrinhlapkehoachlichxichnam/quytrinhlapkehoachlichxichnam.component';
-import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachlichxichthang/quytrinhlapkehoachlichxichthang.component';
 import { QuytrinhnhapvattuComponent } from './quytrinhnhapvattu/quytrinhnhapvattu.component';
 import { SucosuachuaComponent } from './sucosuachua/sucosuachua.component';
 import { Sucosuachua2Component } from './sucosuachua2/sucosuachua2.component';
@@ -63,12 +62,11 @@ const routes: Routes = [
 
   {path:'quytrinhlapkehoachnam/:id',component:QuytrinhlapkehoachlichxichnamComponent},
   {path:'lapkehoachlichxichnam',component:LapkehoachlichxichnamComponent},
-  {path:'quytrinhlapkehoachthang/:id',component:QuytrinhlapkehoachlichxichthangComponent},
   {path:'lapkehoachlichxichthang',component:LapkehoachthangComponent},
   {path:'lichxichnam',component:LichxichnamComponent},
   {path:'lichxichthang',component:LichxichthangComponent},
   {path:'denghixulisuco/:id',component:DenghixulisucoComponent},
-  {path:'quytrinhbaoduong/:id',component:QuytrinhbaoduongComponent},
+  {path:'khauhaotaisan/:id',component:KhauHaoTaiSanQuyTrinhComponent},
 ];
 
 @NgModule({

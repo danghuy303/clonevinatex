@@ -115,12 +115,8 @@ import { ModalthemmoiluachontaisanComponent } from './modal/modalthemmoiluachont
 import { ThongtinthemmoitaisanComponent } from './screen/thongtinthemmoitaisan/thongtinthemmoitaisan.component';
 import { ModalluachontaisantheolichxichComponent } from './modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
 import { QuytrinhlapkehoachlichxichnamComponent } from './quytrinhlapkehoachlichxichnam/quytrinhlapkehoachlichxichnam.component';
-import { ModalluachonloaibaoduongComponent } from './modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
-import { QuytrinhbaoduongComponent } from './quytrinhbaoduong/quytrinhbaoduong.component';
-import { ModalquytrinhbaoduongComponent } from './modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
-import { NhancongComponent } from './screen/nhancong/nhancong.component';
-import { VattuComponent } from './screen/vattu/vattu.component';
-import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachlichxichthang/quytrinhlapkehoachlichxichthang.component';
+import { KhauHaoTaiSanQuyTrinhComponent } from './khau-hao-tai-san-quy-trinh/khau-hao-tai-san-quy-trinh.component';
+import { KhauHaoTaiSanModalComponent } from './khau-hao-tai-san-quy-trinh/modal/khau-hao-tai-san-modal/khau-hao-tai-san-modal.component';
 
 
 @NgModule({
@@ -194,12 +190,8 @@ import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachli
     ThongtinthemmoitaisanComponent,
     ModalluachontaisantheolichxichComponent,
     QuytrinhlapkehoachlichxichnamComponent,
-    ModalluachonloaibaoduongComponent,
-    QuytrinhbaoduongComponent,
-    ModalquytrinhbaoduongComponent,
-    NhancongComponent,
-    VattuComponent,
-    QuytrinhlapkehoachlichxichthangComponent,
+    KhauHaoTaiSanQuyTrinhComponent,
+    KhauHaoTaiSanModalComponent,
 
   ],
   imports: [
@@ -285,8 +277,6 @@ import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachli
     ThongtinthemmoitaisanComponent,
     ModalluachontaisantheolichxichComponent,
     LapkehoachlichxichnamComponent,
-    ModalluachonloaibaoduongComponent,
-    ModalquytrinhbaoduongComponent,
 
 
   ],
