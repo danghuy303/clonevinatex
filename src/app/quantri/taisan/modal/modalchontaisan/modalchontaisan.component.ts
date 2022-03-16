@@ -24,6 +24,7 @@ export class ModalchontaisanComponent implements OnInit {
   items: TreeNode[];
   item: any = {};
   checkedAll: boolean = false;
+  listIdDaChon:string[];
 
   constructor(
     public _modal: NgbModal,
@@ -43,27 +44,25 @@ export class ModalchontaisanComponent implements OnInit {
     this._serviceTaiSan.GetOptions().GetListTaiSanChuaBanGiao().subscribe((res: any) => {
       let items = [];
       this.items = [];
-      
       items = res.Data.Items;
-      console.log(items);
       items.forEach(obj => {
-        obj.checked = false;
+        obj.checked = this.listIdDaChon?.includes(obj.Id);
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];
           obj.listTaiSan.forEach(element => {            
-            element.checked = false;
-            obj_copy.children.push({ data: element });
+            element.checked = this.listIdDaChon.includes(element.Id);
+            obj_copy.children.push({ data: element,expanded:true });
           });
-          delete obj.listTaiSan;
+          obj.listTaiSan =null;
         }
         obj_copy.data = obj;
-        this.items.push({ data: obj_copy.data, children: obj_copy.children });
+        this.items.push({ data: obj_copy.data, children: obj_copy.children,expanded:true });
+        console.log(this.items);
       });
-      // console.log(res);
+      this.checked();
     })
   }
-
   TimCheck() {
     let cha: boolean = false;
     let con: boolean = false;
@@ -119,6 +118,7 @@ export class ModalchontaisanComponent implements OnInit {
           TaiSan: obj.data,
           IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
           IdTaiSan: obj.data.Id,
+          IdCha:null,
           Id: '',
         });
       }
@@ -129,6 +129,7 @@ export class ModalchontaisanComponent implements OnInit {
               TaiSan: objchildren.data,
               IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
               IdTaiSan: objchildren.data.Id,
+              IdCha:obj.data.checked?obj.data.Id:null,
               Id: '',
             });
           }

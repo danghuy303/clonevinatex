@@ -133,10 +133,10 @@
                         <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
                             (click)="xemTruySuatNguonGoc()">Truy xuất nguồn gốc</a>
                     </div>
-                    <div style="display:table;height:100%;margin-left: 15px;">
+                    <!-- <div style="display:table;height:100%;margin-left: 15px;">
                         <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
                             (click)="xuatBaoCaoBanChePham()">Xuất bc bán chế phẩm</a>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="p-d-flex p-flex-row">
                     <div class="p-mr-2">
@@ -152,8 +152,11 @@
                             class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
                     </div>
                     <div style="display:table;height:100%">
-                        <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
-                            (click)="xuatBaoCaoTieuChi()">Xuất báo cáo</a>
+                        <!-- <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
+                        (click)="xuatBaoCaoTieuChi()">Xuất báo cáo</a> -->
+                        <p-button #menuToggle styleClass="p-button-xs" icon="fas fa-file-excel"
+                                                (click)="menu.toggle($event)"></p-button>
+                        <p-menu #menu [appendTo]="menuToggle" [popup]="true" [model]="listXuatBaoCao"></p-menu>
                     </div>
                     <!-- <div style="display:table;height:100%">
                         <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"

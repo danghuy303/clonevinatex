@@ -174,7 +174,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
           if (this.item.CongDoan === "ONG")
             element.SoCot = 3;
           else if (this.item.CongDoan === "CON")
-            element.SoCot = 5;
+            element.SoCot = 3;
           else if (this.item.CongDoan === "THO")
             element.SoCot = 3;
           else
@@ -359,7 +359,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
         }
         else {
           let listItem = element.listItem.filter(ele => ele.CongDoan == this.item.CongDoan && ele.IddmCaSanXuat == element.IddmCaSanXuat);
-          if (listItem[0].Id === null) {
+          if (listItem[0]?.Id === undefined) {
             let listItem_new = [];
             listItem.forEach(eleCheck => {
               let itemCheck = listItemCheck.find(x => x.IddmItem == eleCheck.IddmItem && x.IddmLoaiSoi == eleCheck.IddmLoaiSoi && x.IddmCaSanXuat == eleCheck.IddmCaSanXuat);
@@ -390,7 +390,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       if (this.item.CongDoan === "ONG")
         element.SoCot = 3;
       else if (this.item.CongDoan === "CON")
-        element.SoCot = 5;
+        element.SoCot = 3;
       else if (this.item.CongDoan === "THO")
         element.SoCot = 3;
       else

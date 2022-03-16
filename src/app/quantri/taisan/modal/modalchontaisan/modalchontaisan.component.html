@@ -24,7 +24,7 @@
                 <col>                
             </colgroup>
         </ng-template>
-        <ng-template pTemplate="header" let-columns>
+        <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">
                     <p-checkbox [(ngModel)]="checkedAll" binary="false" inputId="binaryall" (onChange)="checkAll($event)"></p-checkbox>  
@@ -40,14 +40,13 @@
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr>
                 <td class="text-center">
-                    <!-- *ngIf="rowNode.level===0" -->
                     <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="checked()">
                     </p-checkbox>
                 </td>               
                 <td class="text-center">
-                    <!-- <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                    {{rowData.Ma}} -->
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                     {{rowData.Ma}}
+                    <!-- {{rowData.Ma}} -->
                 </td>
                 <td>{{rowData.Ten}}</td>
                 <td class="text-center">

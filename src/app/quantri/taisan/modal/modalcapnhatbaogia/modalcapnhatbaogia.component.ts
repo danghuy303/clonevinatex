@@ -58,7 +58,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
           this.listdmPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
         });
       }
-      
+
     });
   }
 
@@ -89,27 +89,30 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   GetIem() {
     this._serviceTaiSan.BanGiaoTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
       this.item = res.Data;
-      // this.item.listTaiSan.forEach(obj => {
-      //   obj.TaiSan.GiaConLai = obj.TaiSan.GiaTriConLai;
-      // });
-      let listTaiSan = [];
-      this.item.listTaiSan.forEach(element => {
-        if (!validVariable(element.TaiSan.IdTaiSan)) {
-          listTaiSan.push({ data: element, children: [] });
-          this.item.listTaiSan.filter(e => {
-            if (element.TaiSan.Id === e.TaiSan.IdTaiSan) {
-              listTaiSan[listTaiSan.length - 1].children.push({ data: e });
-            }
-          });
-        }
-        else {
-          listTaiSan.push({ data: element, children: [] });
-        }
+      let listTaiSan: TreeNode[] = [];
+      listTaiSan = this.item.listTaiSan.map((ele, index) => {
+       return this.mapDataModelToView(ele,index);
       });
       this.listTaiSan_copy = listTaiSan;
-      // this.item.TaiSan.NgaySanXuat = UnixToDate(this.item.TaiSan.NgaySanXuatUnix);
-      // this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);     
     });
+  }
+  mapDataModelToView(ele, index,indexCha?) {
+    return {
+      data: {
+        Id: ele.Id,
+        IdCha: null,
+        IdQuyTrinhBanGiao: this.item.Id,
+        IdTaiSan: ele.IdTaiSan,
+        STT: indexCha ? `${indexCha}.${index+1}` :index+1,
+        SoLuong:ele.SoLuong,
+        GhiChu:ele.GhiChu,
+        TaiSan:ele
+      },
+      children: this.isEmpty(ele.listTaiSan)?ele.listTaiSan.map((eleCon,indexCon)=>{
+        return this.mapDataModelToView(eleCon,indexCon,index+1)
+      }):null,
+      expanded:true
+    }
   }
 
   Validate() {
@@ -123,22 +126,41 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
 
   Setdata() {
     this.item.NgayBaoGiaoUnix = DateToUnix(this.item.NgayBanGiao);
+    this.item.listTaiSan = [];
+    this.item.listTaiSan = this.listTaiSan_copy.map(ele => {
+      return this.mapDataViewToModel(ele);
+    });
+  }
+  mapDataViewToModel(item: any) {
+    return {
+      Id: '',
+      IdBanGiao: this.item.Id || '',
+      IdTaiSan: item.data?.IdTaiSan,
+      SoLuong: item.data?.SoLuong,
+      GhiChu: item.data?.GhiChu || '',
+      MaTaiSan: item.data?.TaiSan?.Ma,
+      TenTaiSan: item.data?.TaiSan?.Ten,
+      listTaiSan: this.isEmpty(item.children) ? item.children.map(ele => this.mapDataViewToModel(ele)) : null
+    }
+  }
+  isEmpty(arr) {
+    return Array.isArray(arr) && arr.length > 0
   }
 
   GhiLai() {
     if (this.Validate()) {
       this.Setdata();
-      // if (this.opt === 'add') {
-      //   this.item.Created = new Date();
-      //   this.item.Modified = new Date();
-      // }
+      if (this.opt === 'add') {
+        this.item.Created = new Date();
+        this.item.Modified = new Date();
+      }
       this._serviceTaiSan.BanGiaoTaiSan().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           // this.GetIem();
           this.toastr.success(res.Message);
           this.activeModal.close();
           console.log(this.item);
-          
+
         } else {
           this.toastr.error(res.Message);
         }
@@ -196,63 +218,51 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
 
 
   ThemMoiDanhSachTaiSan() {
+    let listId = [];
+    this.listTaiSan_copy && this.listTaiSan_copy.forEach(ele => {
+      console.log(ele);
+      listId.push(ele.data.IdTaiSan)
+      ele.children && ele.children.forEach(child => {
+        listId.push(child.data.IdTaiSan)
+      })
+    })
     let modalRef = this._modal.open(ModalchontaisanComponent, {
       size: "xl",
-      backdrop: "static",
-      centered: true,
+      backdrop: "static"
     });
     modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.listIdDaChon = listId;
     modalRef.componentInstance.item = {};
     modalRef.result
       .then((res: any) => {
         this.item.listTaiSan = res;
         let listTaiSan = [];
-        res.forEach(element => {
-          element.GhiChu ='';
-          if (!validVariable(element.TaiSan.IdTaiSan)) {
-            listTaiSan.push({ data: element, children: [] });
-            res.filter(e => {
-              if (element.TaiSan.Id === e.TaiSan.IdTaiSan) {
-                listTaiSan[listTaiSan.length - 1].children.push({ data: e });
-              }
+        res.forEach((element) => {
+          let Stt = 0;
+          if (!validVariable(element.IdCha)) {
+            Stt++;
+            element.STT = Stt
+            listTaiSan.push({
+              data: element,
+              expanded: true,
+              children: res.filter(ele => ele.IdCha === element.TaiSan.Id)
+                .map((e, index) => {
+                  e.STT = `${Stt}.${index + 1}`
+                  return {
+                    data: e
+                  }
+                })
             });
           }
-          else {
-            listTaiSan.push({ data: element, children: [] });
-          }
         });
-        console.log(listTaiSan);
-        console.log(this.listTaiSan_copy)
-        
-        // this.listTaiSan_copy = listTaiSan;
+        this.listTaiSan_copy = listTaiSan;
       })
       .catch((er) => {
-
       });
   }
 
-  // CapNhatDanhSachTaiSan(item) {
-  //   let modalRef = this._modal.open(ModalchontaisanComponent, {
-  //     size: "xl",
-  //     backdrop: "static",
-  //   });
-  //   modalRef.componentInstance.opt = "edit";
-  //   modalRef.componentInstance.item = item;
-  //   modalRef.result
-  //     .then((res: any) => {
-  //     })
-  //     .catch((er) => {
-
-  //     });
-  // }
-
-  XoaTaiSan(item, index) {
-    if (validVariable(item.Id)) {
-      this.item.listTaiSan.splice(index, 1);
-    }
-    else {
-      this.item.listTaiSan[index].isXoa = true;
-    }
+  XoaTaiSan(item) {
+    item = undefined
   }
 
   taiLenFileDinhKem() {
