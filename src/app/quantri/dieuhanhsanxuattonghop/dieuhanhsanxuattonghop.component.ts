@@ -183,8 +183,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   TongPheSanLuong: any;
   TongKhoiLuongSanLuong: any;
   listXuatBaoCao = [
-      { label: 'Xuất báo cáo tiêu chí' },
-      { label: 'Xuất báo cáo bán chế phẩm' }
+      { label: 'Xuất báo cáo tiêu chí',command:()=>{this.xuatBaoCaoTieuChi()} },
+      { label: 'Xuất báo cáo bán chế phẩm',command:()=>{this.xuatBaoCaoBanChePham()} }
   ];
 
   constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService, public toastr: ToastrService) {
