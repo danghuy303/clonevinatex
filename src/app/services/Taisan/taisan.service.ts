@@ -126,6 +126,18 @@ export class TaisanService {
       },
     };
   }
+  ChiTietTaiSanLichBaoDuong() {
+    let url = API.TaiSan;
+    return {
+      GetNam: (Id,Ngay) => {
+        return this.http.get(`${url}QuanLyTaiSan/GetChiTietTaiSanById_LichBaoDuongNam?Id=${Id}&Ngay=${Ngay}`, httpOptions);
+      },
+      GetThang: (Id) => {
+        return this.http.get(`${url}QuanLyTaiSan/GetChiTietTaiSanById_LichBaoDuongThang?Id=${Id}`, httpOptions);
+      },
+
+    };
+  }
   BanGiaoTaiSan() {
     let url = API.TaiSan;
     return {

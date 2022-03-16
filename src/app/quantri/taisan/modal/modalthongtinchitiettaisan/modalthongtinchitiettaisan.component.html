@@ -197,7 +197,7 @@
                 <p-checkbox  binary="true" [(ngModel)]="item.isCanDuTru"></p-checkbox>
                 <label >Cần dự trữ</label>
             </div>
-            <div class="p-col-12 p-xl-4 p-p-0 my-auto">
+            <div *ngIf="item.isCanDuTru" class="p-col-12 p-xl-4 p-p-0 my-auto">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu">
                 </p-inputNumber>
             </div>
@@ -256,7 +256,7 @@
         </p-tabPanel>
         <p-tabPanel header="Lịch bảo dưỡng">
             <ng-template pTemplate="content">
-                <app-lichbaoduongcopy></app-lichbaoduongcopy>
+                <app-lichbaoduongcopy [item]="item"></app-lichbaoduongcopy>
             </ng-template>
         </p-tabPanel>
         <p-tabPanel header="Thông số kỹ thuật">
