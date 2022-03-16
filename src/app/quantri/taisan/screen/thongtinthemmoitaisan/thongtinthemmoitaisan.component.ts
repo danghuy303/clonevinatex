@@ -40,7 +40,10 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
       // });
     }
   }
-
+  isCanDuTru() {
+    this.item.isCanDuTru=true;
+    this.item.isCanDuTru=false;
+  }
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.multiple = true;

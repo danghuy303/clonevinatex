@@ -43,7 +43,7 @@
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Đơn vị năng xuất : </label>
+        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Đơn vị năng suất : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DonViNangSuat" pInputText />
         </div>
@@ -51,7 +51,7 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tuổi thọ : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.TuoiTho"> </p-inputNumber>
+            <p-inputNumber [minFractionDigits]="1" locale="en-EN" [(ngModel)]="item.TuoiTho"> </p-inputNumber>
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -114,7 +114,7 @@
             <p-dropdown [filter]="true" [options]="listPhanXuong" [(ngModel)]="item.IdBoPhanSuDung" placeholder="Chọn bộ phận"></p-dropdown>
         </div>
     </div>
-    <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
+    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tài liệu đính kèm : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <div class="p-inputgroup">
@@ -125,24 +125,23 @@
             </div>
         </div>
     </div>
-    <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
+    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
         <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
             <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
             <label >Giá trị cao</label>
         </div>
         <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
-            <p-checkbox  binary="true" [(ngModel)]="item.isCanDuTru"></p-checkbox>
+            <p-checkbox (onClick)="isCanDuTru()"  binary="true" [(ngModel)]="item.isCanDuTru"></p-checkbox>
             <label >Cần dự trữ</label>
         </div>
-        <div class="p-col-12 p-xl-4 p-p-0 my-auto">
+        <div *ngIf="item.isCanDuTru" class="p-col-12 p-xl-4 p-p-0 my-auto">
             <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu">
             </p-inputNumber>
         </div>
     </div>
-   
-    <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-1 p-p-0 my-auto">Ghi chú : </label>
-        <div class="p-col-12 p-xl-11 p-p-0">
+    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Ghi chú : </label>
+        <div class="p-col-12 p-xl-8 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
         </div>
     </div>

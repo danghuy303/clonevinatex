@@ -26,6 +26,7 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   listCungSanXuat: any = [];
   listLoaiTaiSan: any = [];
   listPhanXuong: any = [];
+  chon: any = "";
 
   constructor(
     private _modal: NgbModal,
@@ -41,13 +42,14 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
     this.filter.DenNgay = new Date(date.getFullYear(), 11, 31);
     this.GetById();
 
-    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
+    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan:'', };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
 
-    Promise.all([ls1, ls2]).then((values: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
-      this.listCungSanXuat = mapArrayForDropDown(values[1].Data.Items, "Ten", "Id");
+    Promise.all([ls1,ls2]).then((values: any) => {
+      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");  
+      this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");  
+     
     });
 
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
@@ -56,12 +58,10 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   }
 
   GetById() {
-    this._serviceTaiSan.ListDanhSachTaiSan().Get(this.item.IdTaiSanQuyTrinhNhap).subscribe((res: any) => {
-      // this.Du_Lieu_Cha = res.Data;
-      // this.Du_Lieu_Cha.NgayNhap = UnixToDate(this.Du_Lieu_Cha.NgayNhapUnix);
+    this._serviceTaiSan.ListDanhSachTaiSan().Get(this.item).subscribe((res: any) => {
       this.item = res.Data;
-      this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
-      this.item.TaiSan.ThoiGianDuaVaoSuDung = UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix);
+      this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
+      this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
     })
   }
 

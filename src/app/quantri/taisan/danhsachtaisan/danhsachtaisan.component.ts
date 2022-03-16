@@ -109,13 +109,12 @@ export class DanhsachtaisanComponent implements OnInit {
   }
 
   ChiTietThongTin(item) {
-    console.log(item)
     let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.item = item.Id;
     modalRef.result
       .then((res: any) => {
         this.Loaddata();

@@ -117,7 +117,7 @@ import { ModalluachontaisantheolichxichComponent } from './modal/modalluachontai
 import { QuytrinhlapkehoachlichxichnamComponent } from './quytrinhlapkehoachlichxichnam/quytrinhlapkehoachlichxichnam.component';
 import { KhauHaoTaiSanQuyTrinhComponent } from './khau-hao-tai-san-quy-trinh/khau-hao-tai-san-quy-trinh.component';
 import { KhauHaoTaiSanModalComponent } from './khau-hao-tai-san-quy-trinh/modal/khau-hao-tai-san-modal/khau-hao-tai-san-modal.component';
-
+import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachlichxichthang/quytrinhlapkehoachlichxichthang.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -192,6 +192,7 @@ import { KhauHaoTaiSanModalComponent } from './khau-hao-tai-san-quy-trinh/modal/
     QuytrinhlapkehoachlichxichnamComponent,
     KhauHaoTaiSanQuyTrinhComponent,
     KhauHaoTaiSanModalComponent,
+    QuytrinhlapkehoachlichxichthangComponent,
 
   ],
   imports: [
