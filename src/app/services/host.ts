@@ -53,6 +53,7 @@ export class API {
     public static danhmuc = API.baseUrl + 'DanhMuc/';
     public static QLTSD = API.baseUrl+'QuanLyTaiSanDat/';
     public static uploadURL = host1 + '/QLTS/FileUploader/Post';
+    public static uploadURLalt = host1 + '/uploader/api/hdfiles';
     public static downloadURL = host1 +'/uploader/api/hdfiles'
     public static imgURL = host1;
 }

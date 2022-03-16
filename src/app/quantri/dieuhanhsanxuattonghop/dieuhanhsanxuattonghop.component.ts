@@ -64,7 +64,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       }
     },
     legend: {
-      position: 'bottom'
+      position:'bottom',
+      display:false
     },
     // tooltips: {
     //   callbacks: {
@@ -111,7 +112,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-            return `${formatNumber(tooltipItem.yLabel, 'en-EN')} %`
+          return `${formatNumber(tooltipItem.yLabel, 'en-EN')} %`
         }
       }
     }
@@ -144,7 +145,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-            return `${formatNumber(tooltipItem.yLabel, 'en-EN')} KWh`
+          return `${formatNumber(tooltipItem.yLabel, 'en-EN')} KWh`
         }
       }
     }
@@ -181,6 +182,10 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   TongKhoiLuongLuyKeChiTiet: any;
   TongPheSanLuong: any;
   TongKhoiLuongSanLuong: any;
+  listXuatBaoCao = [
+      { label: 'Xuất báo cáo tiêu chí',command:()=>{this.xuatBaoCaoTieuChi()} },
+      { label: 'Xuất báo cáo bán chế phẩm',command:()=>{this.xuatBaoCaoBanChePham()} }
+  ];
 
   constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService, public toastr: ToastrService) {
     this.currentUser = this._auth.currentUserValue;
