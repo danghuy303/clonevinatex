@@ -115,7 +115,8 @@ export class NhucauxuathangComponent implements OnInit, OnDestroy {
       }
     },
     legend: {
-      position: 'left'
+      position: 'left',
+      display:false
     },
     tooltips: {
       callbacks: {
