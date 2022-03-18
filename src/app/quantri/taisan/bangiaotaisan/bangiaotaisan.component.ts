@@ -107,8 +107,7 @@ export class BangiaotaisanComponent implements OnInit {
     let modalRef = this._modal.open(ModalcapnhatbaogiaComponent, {
       // size: "fullscreen-100",
       size: "xl",
-      backdrop: "static",
-      centered: true
+      backdrop: "static"
     });
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.tabTrangThai = 0; 
@@ -139,8 +138,7 @@ export class BangiaotaisanComponent implements OnInit {
   edit(item) {
     let modalRef = this._modal.open(ModalcapnhatbaogiaComponent, {
       size: "xl",
-      backdrop: "static",
-      centered: true,
+      backdrop: "static"
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.tabTrangThai = this.trangThai;  

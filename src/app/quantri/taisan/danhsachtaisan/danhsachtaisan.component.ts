@@ -40,9 +40,6 @@ export class DanhsachtaisanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // if (this.item.NgayThuHoiUnix !== 0) {
-    //   this.item.NgayThuHoi = UnixToDate(this.item.NgayThuHoiUnix);
-    // }
     let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.Keyword, };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
@@ -72,10 +69,9 @@ export class DanhsachtaisanComponent implements OnInit {
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       Loai: 0,
-
+     
     };
     this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
-      console.log(res)
       this.items = res
       this.paging.CurrentPage = res.Data.Page;
       this.paging.TotalPages = res.Data.TotalPages;
@@ -109,13 +105,12 @@ export class DanhsachtaisanComponent implements OnInit {
   }
 
   ChiTietThongTin(item) {
-    console.log(item)
     let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
       size: "fullscreen",
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.item = item.Id;
     modalRef.result
       .then((res: any) => {
         this.Loaddata();

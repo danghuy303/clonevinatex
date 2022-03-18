@@ -1,6 +1,10 @@
-.tc-w-100{
+.tc-w-150{
     min-width: 150px !important; 
     max-width: 150px !important;
+}
+.tc-w-100{
+    min-width: 80px !important; 
+    max-width: 80px !important;
 }
 .ischon {
     padding-top:0.5rem;

@@ -387,7 +387,6 @@ export class QuantriComponent implements OnInit {
             label: "Kiểm tra bán chế phẩm",
             routerLink: "/quantri/quanlykhosanxuat/khobong/kiemtrabanchepham/0",
             separator: this.checkmenu("KIEMTRABANCHEPHAM"),
-            visible: this.showHopDongModule,
             command: () => this.close(),
           },
         ],
@@ -989,7 +988,7 @@ export class QuantriComponent implements OnInit {
               },
               {
                 label: "Lập kế hoạch lịch xích tháng",
-                routerLink: "/quantri/taisan/lapkehoachlichxichthang",
+                routerLink: "/quantri/taisan/quytrinhlapkehoachthang/0",
                 command: () => {
                   this.close();
                 },
@@ -1571,22 +1570,22 @@ export class QuantriComponent implements OnInit {
   }
 
   checkmenu(maaction) {
-    // if (this.dataphanquyen == null) {
-    //   return true;
-    // } else if (this.dataphanquyen[maaction] == undefined) {
-    //   return true;
-    // } else if (this.dataphanquyen[maaction].length == 0) {
-    //   return true;
-    // } else {
-    //   for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
-    //     if (this.dataphanquyen[maaction][i].MaRight == "XEM") {
-    //       if (this.dataphanquyen[maaction][i].GioiHan > 0) {
-    //         return false;
-    //       } else return true;
-    //     }
-    //   }
-    // }
-    return false;
+    if (this.dataphanquyen == null) {
+      return true;
+    } else if (this.dataphanquyen[maaction] == undefined) {
+      return true;
+    } else if (this.dataphanquyen[maaction].length == 0) {
+      return true;
+    } else {
+      for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
+        if (this.dataphanquyen[maaction][i].MaRight === "XEM") {
+          if (this.dataphanquyen[maaction][i].GioiHan > 0) {
+            return false;
+          } else return true;
+        }
+      }
+    }
+    // return false;
   }
 
   private subscribeToEvents(): void {

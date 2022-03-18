@@ -1,5 +1,5 @@
 <h4 class="title" style="color:#1f2779">
-    Quy trình lập kế hoạch
+    Quy trình lập kế hoạch năm
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
@@ -10,7 +10,7 @@
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="" placeholder="bộ phận sử dụng" styleClass="p-inputtext-sm">
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="bộ phận sử dụng" styleClass="p-inputtext-sm">
             </p-dropdown>
         </div>
         <div class="p-mr-2">
@@ -80,7 +80,7 @@
                 </td>
                 <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.ThoiGian|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.TendmPhanXuong}}</td>
+                <td class="text-center">{{item.TenBoPhanSuDung}}</td>
                 <td class="text-center">{{item.NoiDung}}</td>
                 <td class="text-center">{{item.TenTrangThai}}</td>
                 <td class="text-center">

@@ -96,9 +96,10 @@
             </div>
         </div>
 
-        <p-treeTable [value]="listTaiSan_copy|isXoa" styleClass="p-treetable p-treetable-caption">
+        <p-treeTable [value]="listTaiSan_copy" styleClass="p-treetable p-treetable-caption">
             <ng-template pTemplate="colgroup">
                 <colgroup>  
+                    <col style="width:60px">
                     <col>
                     <col>
                     <col>
@@ -107,27 +108,34 @@
                     <col style="width: 100px;" *ngIf="tabTrangThai===1">
                 </colgroup>
             </ng-template>
-            <ng-template pTemplate="header" let-columns>
+            <ng-template pTemplate="header">
                 <tr>
                     <th class="text-center">STT</th>
                     <th class="text-center">Mã</th>
                     <th class="text-center">Tên</th>
+                    <th class="text-center">Số lượng</th>
                     <th class="text-center">Ghi chú</th>
                     <!-- <th class="text-center">Nguyên giá</th>                    
                     <th class="text-center">Ngày nhập</th> -->
                     <th *ngIf="tabTrangThai===1"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-i="rowDataIndex">
+            <!-- let-i="rowDataIndex" -->
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                 <tr>
-                    <td>{{i}}</td>
+                    <td class="text-center">{{rowData.STT}}</td>
                     <td class="text-center">
                         <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                         {{rowData.TaiSan.Ma}}
                         <!-- {{rowData.TaiSan.Ma}} -->
                     </td>
                     <td>{{rowData.TaiSan.Ten}}</td>
-                    <td><input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="rowData.TaiSan.GhiChu"/></td>
+                    <td>
+                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="rowData.SoLuong"></p-inputNumber>
+                    </td>
+                    <td>
+                        <input type="text" class="p-inputtext-sm" [(ngModel)]="rowData.GhiChu" pInputText />
+                    </td>
                     <!-- <td class="text-center">{{rowData.TaiSan.NguyenGia|number:'0.0'}}</td>
                     <td class="text-center">{{rowData.TaiSan.NgayNhap|date:'dd/MM/yyyy'}}</td> -->
                     <td class="text-center" *ngIf="tabTrangThai===1">
@@ -136,7 +144,7 @@
                             (click)="CapNhatDanhSachTaiSan(item)"></button> -->
                         <button pButton pRipple type="button" icon="pi pi-trash"
                             class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                            (click)="XoaTaiSan(item,i)"></button>
+                            (click)="XoaTaiSan(item,rowData.STT)"></button>
                     </td>
                 </tr>
             </ng-template>
