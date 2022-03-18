@@ -37,6 +37,7 @@ export class API {
     public static SCM = host1 + '/SCM/';
     public static HopDong = host1 + '/HopDong/';
     public static TaiSan = host1 + '/QLTS_Vinatex/';
+    public static CungUng = host1 + '/QuanLyCungUng/';
     public static KeHoachNhapBong = host1 + '/HopDong/KeHoachNhapBong/';    
     public static KeHoach = host1 + '/KeHoachAPI/';
     public static ThongKeDien = host1 + '/SCM/ThongKeDien/';
