@@ -3,14 +3,14 @@
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-        <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
+        <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
         <!-- <button pButton pRipple label="xóa" icon="pi pi-trash" class="p-button-sm p-button-outlined p-mr-2" (click)="delete(item)"></button> 
          <button pButton pRipple label="Xóa tất cả" *ngIf="selectedItems.length!==0" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button>
         <button pButton pRipple label="Xóa tất cả" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button>  -->
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="" placeholder="bộ phận sử dụng" styleClass="p-inputtext-sm"></p-dropdown>
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="bộ phận sử dụng" styleClass="p-inputtext-sm"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
@@ -23,7 +23,7 @@
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width:200px">
-            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
+            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText [(ngModel)]="keyWord"
                 (keyup.enter)="GetListThuHoiTaiSan(true)" />
             <button type="button" pButton pRipple icon="pi pi-search"
                 class="p-button-secondary p-button-sm p-button-text" (click)="GetListThuHoiTaiSan(true)"></button>

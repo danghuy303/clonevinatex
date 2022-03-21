@@ -24,6 +24,7 @@ export class DmcongtomodalComponent implements OnInit {
   khongclicknhieu: any = false;
   listKhungGio: any = [];
   listKhungGioRef: any = [];
+  listLoaiDien: any=[];
   nhomKhungGioSelected: any = [];
 
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }

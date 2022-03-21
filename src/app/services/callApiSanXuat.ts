@@ -126,6 +126,24 @@ export class SanXuatService {
     }
     //#endregion
 
+    dmLoaiDien() {
+        let url = API.ThongKeDien;
+        return {
+            GetList: (data) => {
+                return this.http.post(url + 'GetDanhSachLoaiDien', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetItemLoaiDien?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetItemLoaiDien', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteLoaiDien', data, httpOptions);
+            }
+        }
+    }
+
     //#region  Danh mục nhóm công tơ
     dmNhomCongToDien() {
         let url = API.ThongKeDien;
@@ -1678,6 +1696,9 @@ export class SanXuatService {
                 data.IdDuAn = this.store.getCurrent();
                 return this.http.post(`${url}ExportBaoCaoThongKeChatLuongBanChePham`, data, httpOptions)
             },
+            GetDashBoard_TongHop_TyLeBongPheBongHoi:(data)=>{
+                return this.http.post(`${url}GetDashBoard_TongHop_TyLeBongPheBongHoi`, data, httpOptions)
+            }
         }
     }
 

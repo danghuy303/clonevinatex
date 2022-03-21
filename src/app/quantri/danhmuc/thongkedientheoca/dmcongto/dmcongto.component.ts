@@ -57,11 +57,13 @@ export class DmcongtoComponent implements OnInit {
   listmaybienap: any = [];
   listnhomcongto: any = [];
   dataSearch: any = {};
+  listLoaiDien: any[]=[];
   constructor(private _modal: NgbModal, private _services: SanXuatService, private _toastr: ToastrService, private _auth: AuthenticationService) { }
 
   ngOnInit(): void {
     this.GetDanhSachMayBienAp();
     this.GetDanhSachCongToDien();
+    this.GetListLoaiDien();
     this.GetListdm();
   }
   resetFilter() {
@@ -76,6 +78,15 @@ export class DmcongtoComponent implements OnInit {
     };
     this._services.DMMayBienAp().GetList(data).subscribe((res: any) => {
       this.listmaybienap = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  GetListLoaiDien() {
+    let data = {
+      CurrentPage: 0,
+      KeyWord: "",
+    };
+    this._services.dmLoaiDien().GetList(data).subscribe((res: any) => {
+      this.listLoaiDien = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 
@@ -124,6 +135,7 @@ export class DmcongtoComponent implements OnInit {
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.listmaybienap = this.listmaybienap;
     modalRef.componentInstance.listnhomcongto = this.listnhomcongto;
+    modalRef.componentInstance.listLoaiDien = this.listLoaiDien;
     modalRef.componentInstance.title = 'Thêm mới công tơ';
     modalRef.result.then(res => {
       this._toastr.success(res);
@@ -138,7 +150,7 @@ export class DmcongtoComponent implements OnInit {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.listmaybienap = this.listmaybienap;
       modalRef.componentInstance.listnhomcongto = this.listnhomcongto;
-      modalRef.componentInstance.title = 'Cập nhật công tơ';
+      modalRef.componentInstance.listLoaiDien = this.listLoaiDien;
       modalRef.componentInstance.item = res;
       modalRef.result.then(res => {
         this._toastr.success(res);
