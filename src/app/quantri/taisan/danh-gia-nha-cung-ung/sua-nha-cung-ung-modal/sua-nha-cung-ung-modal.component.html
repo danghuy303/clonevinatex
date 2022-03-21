@@ -1,0 +1,181 @@
+<div class="modal-header">
+  <h5 class="modal-title">Thông tin nhà cung ứng</h5>
+</div>
+
+<div class="modal-body">
+  <p-tabView>
+    <p-tabPanel header="Thông tin chung">
+      <div class="p-grid p-mb-3">  
+        <label for="" class="p-m-0 p-lg-2">Mã<span class="required"> *</span>:</label>
+        <div class="p-lg-4 p-p-0">
+          <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
+        </div>
+        <label for="" class="p-m-0 p-pl-5 p-lg-2">Tên:</label>
+        <div class="p-lg-4 p-p-0">
+          <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
+        </div>
+      </div>
+
+      <div class="p-grid p-mb-3">  
+        <label for="" class="p-m-0 p-lg-2">Nhóm cung ứng:</label>
+        <div class="p-lg-4 p-p-0">
+          <p-dropdown [filter]="true" [options]="listNhomCungUng" [(ngModel)]="item.IddmNhomNhaCungUng" placeholder="Chọn nhóm cung ứng" [showClear]="true"></p-dropdown>
+        </div>
+        <label for="" class="p-m-0 p-pl-5 p-lg-2">địa chỉ:</label>
+        <div class="p-lg-4 p-p-0">
+          <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DiaChi" pInputText />
+        </div>
+      </div>
+
+      <div class="p-grid p-mb-3">  
+        <label for="" class="p-m-0 p-lg-2">Số điện thoại:</label>
+        <div class="p-lg-4 p-p-0">
+          <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoDienThoai" pInputText />
+        </div>
+        <label for="" class="p-m-0 p-pl-5 p-lg-2">Fax:</label>
+        <div class="p-lg-4 p-p-0">
+          <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Fax" pInputText />
+        </div>
+      </div>
+
+      <div class="p-grid p-mb-3">  
+        <label for="" class="p-m-0 p-lg-2">Tài khoản:</label>
+        <div class="p-lg-4 p-p-0">
+          <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TaiKhoan" pInputText />
+        </div>
+        <label for="" class="p-m-0 p-pl-5 p-lg-2">Mã số thuế:</label>
+        <div class="p-lg-4 p-p-0">
+          <input type="text" class="p-inputtext-sm" [(ngModel)]="item.MaSoThue" pInputText />
+        </div>
+      </div>
+      
+      <div class="p-grid p-mb-3">  
+        <label for="" class="p-m-0 p-lg-2">Người đại diện:</label>
+        <div class="p-lg-4 p-p-0">
+          <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NguoiDaiDien" pInputText />
+        </div>
+        <label for="" class="p-m-0 p-pl-5 p-lg-2">Chức vụ:</label>
+        <div class="p-lg-4 p-p-0">
+          <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ChucVu" pInputText />
+        </div>
+      </div>
+
+      <div class="p-grid p-mb-3">  
+        <label for="" class="p-m-0 p-lg-2">Ghi chú:</label>
+        <div class="p-lg-10 p-p-0">
+          <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+        </div>
+      </div>
+    </p-tabPanel>
+
+    <p-tabPanel header="Thông tin hàng hóa">
+      <div>
+        <p-button label="Thêm mới" class="p-mr-2" (click)="AddHangHoa()"></p-button>
+        <p-button label="Xóa" class="p-mr-2" (click)="DeleteListHangHoa()"></p-button>
+        <p-button label="Xuất Excel" class="p-mr-2" (click)="ExportListHangHoa()"></p-button>
+        <p-button label="Nhập Excel" (click)="ImportListHangHoa()"></p-button>
+      </div>
+
+      <div class="p-grid p-jc-between p-mt-3">
+        <div class="p-grid p-ai-center p-lg-5 p-p-0">
+          <h5 class="p-mr-3">Tổng tiền</h5>
+          <p-inputNumber inputId="integeronly" class="p-inputtext-sm" [disabled]="true"></p-inputNumber>
+        </div>
+        <div class="p-grid p-ai-center p-flex-row-reverse p-lg-5 p-p-0">
+          <div class="p-inputgroup" style="width:200px"> 
+            <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="filterHangHoa.keyword" (keyup.enter)="SearchHangHoa()"> 
+            <button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-secondary p-button-text" (click)="SearchHangHoa()"></button>
+            <button pButton pRipple type="button" icon="pi pi-refresh" class="p-button-rounded p-button-secondary p-button-text" (click)="ResetListHangHoa()"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-mt-3">
+        <p-table [value]="listHangHoa" styleClass="p-datatable-sm p-datatable-gridlines">
+          <ng-template pTemplate="colgroup"> 
+            <colgroup>
+              <col style="width: 50px">
+              <col style="width: 50px">
+              <col>
+              <col>
+              <col>
+              <col>
+            </colgroup>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th>
+                <p-checkbox [(ngModel)]="checkedAll" binary="true" inputId="binary"
+                (onChange)="CheckAllHangHoa()"></p-checkbox>
+              </th>
+              <th>STT</th>
+              <th>Mã </th>
+              <th>Tên thiết bị</th>
+              <th>Đơn giá TB</th>
+              <th>Ghi chú</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item let-i="rowIndex">
+            <tr>
+              <td class="text-center">
+                <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary"></p-checkbox>
+              </td>
+              <td class="text-center">
+                {{20* (pageHangHoa.currentPage - 1) + i + 1 }}
+              </td>
+              <td class="text-center">{{item.Ma}}</td>
+              <td>{{item.Ten}}</td>
+              <td>{{item.DonGia}}</td>
+              <td>
+                <input type="text" pInputText placeholder="Ghi chú"> 
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between p-px-2">
+              Tổng số bản ghi {{pageHangHoa.totalCount}}.
+              <p-paginator #paginator [totalRecords]="pageHangHoa.totalCount" [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
+            </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </p-tabPanel>
+
+    <p-tabPanel header="Thông tin đánh giá">
+      <div class="p-grid p-mb-3">
+        <div class="p-lg-8 text-center p-p-0">Nội dung đánh giá</div>
+        <div class="p-lg-2 text-center p-p-0">Điểm tối đa</div>
+        <div class="p-lg-2 text-center p-p-0">Điểm đánh giá</div>
+      </div>
+
+      <p-panel *ngFor="let item of listDanhGia" [toggleable]="item.toggle" toggler="header" collapseIcon="pi pi-angle-right" expandIcon="pi pi-angle-down">
+        <p-header styleClass="p-panel-titlebar" class="p-col-12 p-grid p-ai-center p-jc-between p-p-0">
+          <div class="p-d-flex p-ai-center p-lg-8 p-p-0">
+            <h5 class="p-mb-0">{{item.name}}</h5>
+          </div>
+          <div class="p-lg-2 text-center p-p-0">
+            <h5 class="p-mb-0">{{item.max}}</h5>
+          </div>
+          <div class="p-lg-2 text-right p-p-0">
+            <h5 class="p-mb-0">{{item.sum}}</h5>
+          </div>
+        </p-header>
+        <div *ngFor="let child of item.children" class="p-grid p-p-0">
+          <div class="p-lg-8 p-p-0">{{child.name}}</div>
+          <div class="p-lg-2 p-p-0 text-center">
+            {{child.max}}
+          </div>
+          <div class="p-lg-2 p-p-0 text-center">
+            <p-inputNumber [(ngModel)]="child.now" (keyup.enter)="SumDiemDanhGia()"></p-inputNumber>
+          </div>
+        </div>
+      </p-panel>
+      
+    </p-tabPanel>
+  </p-tabView>
+
+  <div class="p-d-flex p-ai-center p-jc-between">
+    <button pButton pRipple type="button" label="Đóng" class="p-button-outlined" (click)="activeModal.dismiss()"></button>
+    <p-button label="Chấp nhận" class="p-button-sm" (click)="AddNhaCungUng()"></p-button>
+  </div>
+</div>  

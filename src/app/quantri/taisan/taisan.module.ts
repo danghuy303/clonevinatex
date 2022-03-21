@@ -117,6 +117,22 @@ import { ModalluachontaisantheolichxichComponent } from './modal/modalluachontai
 import { QuytrinhlapkehoachlichxichnamComponent } from './quytrinhlapkehoachlichxichnam/quytrinhlapkehoachlichxichnam.component';
 import { KhauHaoTaiSanQuyTrinhComponent } from './khau-hao-tai-san-quy-trinh/khau-hao-tai-san-quy-trinh.component';
 import { KhauHaoTaiSanModalComponent } from './khau-hao-tai-san-quy-trinh/modal/khau-hao-tai-san-modal/khau-hao-tai-san-modal.component';
+import { NhomNhaCungUngDanhMucComponent } from './nhom-nha-cung-ung-danh-muc/nhom-nha-cung-ung-danh-muc.component';
+import { NhomNhaCungUngModalComponent } from './nhom-nha-cung-ung-danh-muc/nhom-nha-cung-ung-modal/nhom-nha-cung-ung-modal.component';
+import { NhaCungUngDanhMucComponent } from './nha-cung-ung-danh-muc/nha-cung-ung-danh-muc.component';
+import { NhaCungUngModalComponent } from './nha-cung-ung-danh-muc/nha-cung-ung-modal/nha-cung-ung-modal.component';
+import { DanhGiaNhaCungUngComponent } from './danh-gia-nha-cung-ung/danh-gia-nha-cung-ung.component';
+import { DanhGiaNhaCungUngModalComponent } from './danh-gia-nha-cung-ung/danh-gia-nha-cung-ung-modal/danh-gia-nha-cung-ung-modal.component';
+import { ThongTinHangHoaModalComponent } from './nha-cung-ung-danh-muc/thong-tin-hang-hoa-modal/thong-tin-hang-hoa-modal.component';
+import { ThemNhaCungUngModalComponent } from './danh-gia-nha-cung-ung/them-nha-cung-ung-modal/them-nha-cung-ung-modal.component';
+import { SuaNhaCungUngModalComponent } from './danh-gia-nha-cung-ung/sua-nha-cung-ung-modal/sua-nha-cung-ung-modal.component';
+import { TieuChiDanhGiaNhaComponent } from './tieu-chi-danh-gia-nha/tieu-chi-danh-gia-nha.component';
+import { TieuChiDanhGiaModalComponent } from './tieu-chi-danh-gia-nha/tieu-chi-danh-gia-modal/tieu-chi-danh-gia-modal.component';
+import { ThongTinHangHoaComponent } from './nha-cung-ung-danh-muc/thong-tin-hang-hoa/thong-tin-hang-hoa.component';
+import { ThongTinChungComponent } from './nha-cung-ung-danh-muc/thong-tin-chung/thong-tin-chung.component';
+import { ThongTinDanhGiaComponent } from './nha-cung-ung-danh-muc/thong-tin-danh-gia/thong-tin-danh-gia.component';
+import { ThongTinHopDongComponent } from './nha-cung-ung-danh-muc/thong-tin-hop-dong/thong-tin-hop-dong.component';
+
 import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachlichxichthang/quytrinhlapkehoachlichxichthang.component';
 import { QuytrinhbaoduongComponent } from './quytrinhbaoduong/quytrinhbaoduong.component';
 import { ModalquytrinhbaoduongComponent } from './modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
@@ -199,6 +215,21 @@ import { ModalluachonloaibaoduongComponent } from './modal/modalluachonloaibaodu
     QuytrinhlapkehoachlichxichnamComponent,
     KhauHaoTaiSanQuyTrinhComponent,
     KhauHaoTaiSanModalComponent,
+    NhomNhaCungUngDanhMucComponent,
+    NhomNhaCungUngModalComponent,
+    NhaCungUngDanhMucComponent,
+    NhaCungUngModalComponent,
+    DanhGiaNhaCungUngComponent,
+    DanhGiaNhaCungUngModalComponent,
+    ThongTinHangHoaModalComponent,
+    ThemNhaCungUngModalComponent,
+    SuaNhaCungUngModalComponent,
+    TieuChiDanhGiaNhaComponent,
+    TieuChiDanhGiaModalComponent,
+    ThongTinHangHoaComponent,
+    ThongTinChungComponent,
+    ThongTinDanhGiaComponent,
+    ThongTinHopDongComponent,
     QuytrinhlapkehoachlichxichthangComponent,
     QuytrinhbaoduongComponent,
     ModalquytrinhbaoduongComponent,
