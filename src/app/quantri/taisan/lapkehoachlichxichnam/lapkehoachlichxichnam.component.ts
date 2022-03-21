@@ -200,14 +200,11 @@ export class LapkehoachlichxichnamComponent implements OnInit {
           }
         }
       })
-      ///
-
     })
       .catch((er) => {
       });
 
   }
-
   Chon(item, itemLoaiBaoDuongDeChon) {
     let modalRef = this._modal.open(ModalluachonloaibaoduongComponent, {
       backdrop: 'static',
@@ -222,5 +219,4 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       .catch((er) => {
       });
   }
-
 }

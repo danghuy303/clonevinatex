@@ -25,7 +25,7 @@ export class QuytrinhnhapvattuComponent implements OnInit {
   showDropDown: boolean = false;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
-  eAction = "THUHOITAISAN";
+  eAction = "NHAPVATTUDUTRU";
   listPhanXuong:any=[];
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
@@ -35,19 +35,17 @@ export class QuytrinhnhapvattuComponent implements OnInit {
     private activatedRoute: ActivatedRoute, private router: Router,
   ) { }
   ngOnInit(): void {
-    console.log(this.paginator);
     this.activatedRoute.params.subscribe((res: any) => {
-      console.log(res);
       if (res.id !== "0") {
         this._serviceTaiSan
-          .PhieuThuHoiTaiSan()
+          .QuyTrinhNhapTu()
           .Get(res.id)
           .subscribe((res: any) => {
             this.update(res);
           });
       }
     });
-    this.GetListThuHoiTaiSan();
+    this.GetList();
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
   }
@@ -55,10 +53,10 @@ export class QuytrinhnhapvattuComponent implements OnInit {
   resetFilter() {
     this.keyWord = '';
     this.filter = {};
-    this.GetListThuHoiTaiSan(true);
+    this.GetList(true);
   }
   
-  GetListThuHoiTaiSan(reset?) {
+  GetList(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
@@ -69,27 +67,21 @@ export class QuytrinhnhapvattuComponent implements OnInit {
       keyWord: this.keyWord,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
-      TabTrangThai: this.trangThai
+      TabTrangThai: this.trangThai, loai:0, IdBoPhanSuDung:'',
 
     };
-    this._serviceTaiSan.PhieuThuHoiTaiSan().GetList(data).subscribe((res: any) => {
-      res.Data.Items.forEach(obj=>{  
-        obj.TenPhanXuong = this.listPhanXuong.find(ele=>ele.value===obj.IddmPhanXuong)?.label||null;          
-      });
+    this._serviceTaiSan.QuyTrinhNhapTu().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;  
       this.paging.TotalCount = res.Data.TotalCount;
-      console.log(this.listPhanXuong)
     })
   }
   GetListdmPhanXuong() {
     this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-      console.log(res)
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-      this.GetListThuHoiTaiSan();
     })
   }
   changeParam(id) {
-    this.router.navigate([`quantri/taisan/quytrinhdenghithayvattu/${id}`], {
+    this.router.navigate([`quantri/taisan/quytrinhnhapvattu/${id}`], {
       replaceUrl: true,
     });
   }
@@ -103,14 +95,14 @@ export class QuytrinhnhapvattuComponent implements OnInit {
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = 'Vật tư cần thay';
     modalRef.componentInstance.item = {
-      Id: '',IdTaiSan: "", IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "",TendmPhanXuong:"",
-      isKetThuc: false,listFileDinhKem:[],listTaiSan:[],
+      Id: '', IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "",
+      isKetThuc: false,listTaiSan:[],
     };
     modalRef.result.then(res => {
 
     }).catch(er => console.log(er))
       .finally(() => {
-        this.GetListThuHoiTaiSan()
+        this.GetList()
         this.changeParam(0);
       })
   }
@@ -130,7 +122,7 @@ export class QuytrinhnhapvattuComponent implements OnInit {
       .catch(er => {
       })
       .finally(() => {
-        this.GetListThuHoiTaiSan();
+        this.GetList();
         this.changeParam(0);
       });
   }
@@ -138,19 +130,19 @@ export class QuytrinhnhapvattuComponent implements OnInit {
   //xử lí tab 
   changeTab(e) {
     this.trangThai = e.index + 1;
-    this.GetListThuHoiTaiSan(true);
+    this.GetList(true);
   }
 
   KiemTraTabTrangThai() {
     this._services.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
-      this.GetListThuHoiTaiSan();
+      this.GetList();
     });
   }
 
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
-    this.GetListThuHoiTaiSan()
+    this.GetList()
   }
 
 }

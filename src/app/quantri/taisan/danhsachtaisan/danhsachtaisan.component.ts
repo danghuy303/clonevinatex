@@ -63,30 +63,30 @@ export class DanhsachtaisanComponent implements OnInit {
     let data = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      tabTrangThai: 3,
+      tabTrangThai: this.loaiTab,
       IddmLoaiTaisan: this.filter.IddmLoaiTaisan ? this.filter.IddmLoaiTaisan : '',
       Keyword: this.Keyword,
+      isGiaTriCao:this.filter.isGiaTriCao,
+      isCanDuTru:this.filter.isCanDuTru,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       Loai: 0,
      
     };
     this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
-      this.items = res
+      console.log(res)
       this.paging.CurrentPage = res.Data.Page;
       this.paging.TotalPages = res.Data.TotalPages;
       this.paging.TotalCount = res.Data.TotalCount;
-      this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "TenLoaiTaiSan", 'IddmLoaiTaiSan');
+      // this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "TenLoaiTaiSan", 'IddmLoaiTaiSan');
       let items = [];
       this.items = [];
       items = res.Data.Items;
       items.forEach(obj => {
-        // obj.NgayNhap = obj.NgayNhapUnix > 0 ? formatdate(obj.NgayNhap, false) : null;
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];
           obj.listTaiSan.forEach(element => {
-            console.log(element)
             obj_copy.children.push({ data: element });
           });
           obj.listTaiSan = undefined;

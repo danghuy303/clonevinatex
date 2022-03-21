@@ -25,7 +25,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   Chon: any = [];
   listCha: any = [];
   listLoaiTaiSan: any = [];
-  KeyWord: any = '';
+  keyWord: any = '';
 
   constructor(
     public _modal: NgbModal,
@@ -46,8 +46,8 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   }
   
   resetFilter() {
-    this.filter = {};
-    this.KeyWord = '';
+    // this.filter = {};
+    this.keyWord = '';
     this.GetList();
   }
   GetList() {

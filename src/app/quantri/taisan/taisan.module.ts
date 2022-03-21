@@ -118,6 +118,14 @@ import { QuytrinhlapkehoachlichxichnamComponent } from './quytrinhlapkehoachlich
 import { KhauHaoTaiSanQuyTrinhComponent } from './khau-hao-tai-san-quy-trinh/khau-hao-tai-san-quy-trinh.component';
 import { KhauHaoTaiSanModalComponent } from './khau-hao-tai-san-quy-trinh/modal/khau-hao-tai-san-modal/khau-hao-tai-san-modal.component';
 import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachlichxichthang/quytrinhlapkehoachlichxichthang.component';
+import { QuytrinhbaoduongComponent } from './quytrinhbaoduong/quytrinhbaoduong.component';
+import { ModalquytrinhbaoduongComponent } from './modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
+import { ModalbaoduongluachontaisanComponent } from './modal/modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
+import { NhancongComponent } from './screen/nhancong/nhancong.component';
+import { VattuComponent } from './screen/vattu/vattu.component';
+import { ChiphikhacComponent } from './screen/chiphikhac/chiphikhac.component';
+import { ModalnhapvattuluachontaisanComponent } from './modal/modalnhapvattuluachontaisan/modalnhapvattuluachontaisan.component';
+import { ModalluachonloaibaoduongComponent } from './modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -168,7 +176,6 @@ import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachli
     LichbaoduongcopyComponent,
     TaomoilichbaoduongcopyComponent,
     ModalcapnhatbaoduongcopyyComponent,
-
     VattudutruComponent,
     VattugiatricaoComponent,
     DanhsachvattuComponent,
@@ -193,6 +200,14 @@ import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachli
     KhauHaoTaiSanQuyTrinhComponent,
     KhauHaoTaiSanModalComponent,
     QuytrinhlapkehoachlichxichthangComponent,
+    QuytrinhbaoduongComponent,
+    ModalquytrinhbaoduongComponent,
+    ModalbaoduongluachontaisanComponent,
+    NhancongComponent,
+    VattuComponent,
+    ChiphikhacComponent,
+    ModalnhapvattuluachontaisanComponent,
+    ModalluachonloaibaoduongComponent,
 
   ],
   imports: [
@@ -278,7 +293,9 @@ import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachli
     ThongtinthemmoitaisanComponent,
     ModalluachontaisantheolichxichComponent,
     LapkehoachlichxichnamComponent,
-
+    ModalquytrinhbaoduongComponent,
+    ModalbaoduongluachontaisanComponent,
+    
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
