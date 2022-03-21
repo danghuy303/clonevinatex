@@ -17,15 +17,15 @@ export class DenghixulisucoComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   IdTrangThai: string = "";
-  keyWord: any = '';
+  Keyword: any = '';
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   selectedItems: any = [];
   filter: any = {};
   showDropDown: boolean = false;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
-  eAction = "";
-  listPhanXuong:any=[];
+  eAction = "BAOCAOSUCOSUACHUA";
+  listPhanXuong: any = [];
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
@@ -34,20 +34,30 @@ export class DenghixulisucoComponent implements OnInit {
     private activatedRoute: ActivatedRoute, private router: Router,) { }
 
   ngOnInit(): void {
+    this.GetListdmPhanXuong();
+    this.GetList();
+    this.activatedRoute.params.subscribe((res: any) => {
+      if (res.id !== "0") {
+        this._serviceTaiSan
+          .QuyTrinhXuLySuCo()
+          .Get(res.id)
+          .subscribe((res: any) => {
+            this.update(res);
+          });
+      }
+    });
   }
   changeParam(id) {
     this.router.navigate([`quantri/taisan/denghixulisuco/${id}`], {
       replaceUrl: true,
     });
   }
-
   resetFilter() {
-    this.keyWord = '';
+    this.Keyword = '';
     this.filter = {};
-    this.GetListThuHoiTaiSan(true);
+    this.GetList(true);
   }
-  
-  GetListThuHoiTaiSan(reset?) {
+  GetList(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
@@ -55,48 +65,81 @@ export class DenghixulisucoComponent implements OnInit {
     let data = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      keyWord: this.keyWord,
+      Keyword: this.Keyword,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
-      TabTrangThai: this.trangThai
+      TabTrangThai: this.trangThai, Loai: 0, IdDuAn: 0, IdUser: '', IdBoPhanSuDung: '',
 
     };
-    this._serviceTaiSan.SuCoSuaChua().GetList(data).subscribe((res: any) => {
-      res.Data.Items.forEach(obj=>{  
-        obj.TenPhanXuong = this.listPhanXuong.find(ele=>ele.value===obj.IddmPhanXuong)?.label||null;          
-      });
-      this.items = res.Data.Items;  
+    this._serviceTaiSan.QuyTrinhXuLySuCo().GetList(data).subscribe((res: any) => {
+      this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
-      console.log(this.listPhanXuong)
     })
   }
   GetListdmPhanXuong() {
     this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-      console.log(res)
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-      this.GetListThuHoiTaiSan();
     })
   }
+  add() {
+    let modalRef = this._modal.open(ModaldenghixulisucoComponent, {
+      backdrop: 'static',
+      size: 'fullscreen-100',
+      keyboard: false
+    });
+    modalRef.componentInstance.opt = 'add';
+    modalRef.componentInstance.type = 'themmoi';
+    modalRef.componentInstance.title = 'Vật tư cần thay';
+    modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
+    modalRef.componentInstance.item = {
+      Id: '', IdTrangThai: '', TenTrangThai: "", SoQuyTrinh: '',
+      isKetThuc: false, listTaiSan: [], IdDuAn: 0,
+      listVatTu: [], listChiPhiKhac: [], listNhanCong: [],
+    };
+    modalRef.result.then(res => {
 
-add() {
-  let modalRef = this._modal.open(ModaldenghixulisucoComponent, {
-    backdrop: 'static',
-    size: 'fullscreen-100',
-    keyboard:false
-  });
-  modalRef.componentInstance.opt = 'add';
-  modalRef.componentInstance.type = 'themmoi';
-  modalRef.componentInstance.title = 'Vật tư cần thay';
-  modalRef.componentInstance.item = {
-    Id: '', IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "",TendmPhanXuong:"",
-    isKetThuc: false,listFileDinhKem:[],listTaiSan:[],
-  };
-  modalRef.result.then(res => {
+    }).catch(er => console.log(er))
+      .finally(() => {
+        this.GetList();
+        this.changeParam(0);
+      })
+  }
+  update(item) {
+    let modalRef = this._modal.open(ModaldenghixulisucoComponent, {
+      size: "fullscreen-100",
+      backdrop: "static",
+      keyboard: false,
+    });
+    modalRef.componentInstance.opt = "edit";
+    modalRef.componentInstance.type = 'capnhat';
+    modalRef.componentInstance.title = 'Cập nhật';
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
+    modalRef.result
+      .then(data => {
+      })
+      .catch(er => {
+      })
+      .finally(() => {
+        this.GetList();
+        this.changeParam(0);
+      });
+  }
 
-  }).catch(er => console.log(er))
-    .finally(() => {
+  //xử lí tab 
+  changeTab(e) {
+    this.trangThai = e.index + 1;
+    this.GetList(true);
+  }
 
-    })
+  KiemTraTabTrangThai() {
+    this._services.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
+      this.checkQuyen = res;
+      this.GetList();
+    });
+  }
 
-}
+  changePage(event) {
+    this.paging.CurrentPage = event.page + 1;
+    this.GetList()
+  }
 }

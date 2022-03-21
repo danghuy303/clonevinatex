@@ -54,7 +54,6 @@ export class BangiaotaisanComponent implements OnInit {
   ngOnInit(): void {
     this.resetFilter();
     this.getListdmPhanXuong();
-    
   }
 
 
@@ -74,7 +73,6 @@ export class BangiaotaisanComponent implements OnInit {
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       console.log(this.listdmPhanXuong);
     })
-    
   }
 
   Loaddata(reset?) {

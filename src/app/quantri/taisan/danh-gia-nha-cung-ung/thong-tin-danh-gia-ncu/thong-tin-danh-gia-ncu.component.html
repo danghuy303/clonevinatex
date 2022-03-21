@@ -1,0 +1,28 @@
+<div class="p-grid p-mb-3">
+  <div class="p-lg-8 text-center p-p-0">Nội dung đánh giá</div>
+  <div class="p-lg-2 text-center p-p-0">Điểm tối đa</div>
+  <div class="p-lg-2 text-center p-p-0">Điểm đánh giá</div>
+</div>
+
+<p-panel *ngFor="let item of items" [toggleable]="item.toggle" toggler="header" collapseIcon="pi pi-angle-right" expandIcon="pi pi-angle-down">
+  <p-header styleClass="p-panel-titlebar" class="p-col-12 p-grid p-ai-center p-jc-between p-p-0">
+    <div class="p-d-flex p-ai-center p-lg-8 p-p-0">
+      <h5 class="p-mb-0">{{item.name}}</h5>
+    </div>
+    <div class="p-lg-2 text-center p-p-0">
+      <h5 class="p-mb-0">{{item.max}}</h5>
+    </div>
+    <div class="p-lg-2 text-right p-p-0">
+      <h5 class="p-mb-0">{{item.sum}}</h5>
+    </div>
+  </p-header>
+  <div *ngFor="let child of item.children" class="p-grid p-p-0">
+    <div class="p-lg-8 p-p-0">{{child.name}}</div>
+    <div class="p-lg-2 p-p-0 text-center">
+      {{child.max}}
+    </div>
+    <div class="p-lg-2 p-p-0 text-center">
+      <p-inputNumber [(ngModel)]="child.now" (keyup.enter)="SumDiemDanhGia(item, child)"></p-inputNumber>
+    </div>
+  </div>
+</p-panel>

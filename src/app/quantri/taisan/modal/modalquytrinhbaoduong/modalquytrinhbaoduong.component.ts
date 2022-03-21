@@ -9,6 +9,7 @@ import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/gl
 import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { ModalbaoduongluachontaisanComponent } from '../modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   item: any = {};
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
-  checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
+  checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true};
   listPhanXuong = [];
   listLoaiTaiSan = [];
   store: any;
@@ -38,8 +39,8 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if ( this.item.ThoiGianUnix !== 0) {
-      this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
+    if ( this.item.NgayBaoDuongUnix !== 0) {
+      this.item.NgayBaoDuong = UnixToDate(this.item.NgayBaoDuongUnix);
     }
     this.GetNextSoQuyTrinh();
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
@@ -59,12 +60,12 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   }
 
   GetNextSoQuyTrinh() {
-    this._serviceTaiSan.LichXich().GetNextSoQuyTrinh().subscribe((res: any) => {
+    this._serviceTaiSan.QuyTrinhBaoDuong().GetNextSoQuyTrinh().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.Data;
     })
   }
   ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open( {
+    let modalRef = this._modal.open(ModalbaoduongluachontaisanComponent, {
       size: "lg",
       backdrop: "static",
     });
@@ -96,12 +97,12 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   }
   
   setData() {
-    this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian);
+    this.item.NgayBaoDuongUnix = DateToUnix(this.item.NgayBaoDuong);
     // this.item.IdDuAn = this.store.getCurrent();
     return this.item;
   }
   GhiLai() {
-    this._serviceTaiSan.LichXich().Set(this.setData()).subscribe((res: any) => {
+    this._serviceTaiSan.QuyTrinhBaoDuong().Set(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200 || !res.StatusCode) {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       } else {
@@ -121,7 +122,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     });
   }
   ChapNhan() {
-    this._serviceTaiSan.LichXich().ChuyenTiep(this.item).subscribe((res: any) => {
+    this._serviceTaiSan.QuyTrinhBaoDuong().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -131,7 +132,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     })
   }
   KhongDuyet() {
-    this._serviceTaiSan.LichXich().KhongDuyet(this.item).subscribe((res: any) => {
+    this._serviceTaiSan.QuyTrinhBaoDuong().KhongDuyet(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -147,7 +148,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
     modalRef.result
       .then((res) => {
-        this._serviceTaiSan.LichXich().Delete(this.item.Id).subscribe((res: any) => {
+        this._serviceTaiSan.QuyTrinhBaoDuong().Delete(this.item.Id).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this.toastr.success(res.Message);
             this.activeModal.close();
@@ -158,5 +159,17 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
-
+  changeTab(e) {
+    // this.trangThai = e.index + 1;
+    // this.loaiTab = e.index;
+    // this.Loaddata(true);
+  }
+  delete(index) {
+    let item = this.item.listTaiSan.splice(index, 1)[0];
+    if (item.Id === '' || item.Id === null || item.Id === undefined) {
+    } else {
+      item.isXoa = true;
+      this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
+    }
+  }
 }

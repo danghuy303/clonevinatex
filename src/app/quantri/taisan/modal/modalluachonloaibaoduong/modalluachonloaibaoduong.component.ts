@@ -31,7 +31,6 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.Lay_Chon)
     this.GetList();
   }
 

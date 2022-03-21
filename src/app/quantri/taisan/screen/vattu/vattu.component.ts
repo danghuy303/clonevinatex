@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
 
 @Component({
   selector: 'app-vattu',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VattuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _services: SanXuatService) { }
 
   ngOnInit(): void {
   }

@@ -930,6 +930,39 @@ export class QuantriComponent implements OnInit {
             ]
           },
           {
+            label: "Quản lý nhà cung ứng",
+            items: [
+              {
+                label: "Nhóm nhà cung ứng",
+                routerLink: "/quantri/taisan/nhomnhacungung",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Danh mục nhà cung ứng",
+                routerLink: "/quantri/taisan/danhmucnhacungung",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Đánh giá nhà cung ứng",
+                routerLink: "/quantri/taisan/danhgianhacungung/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Tiêu chí đánh giá",
+                routerLink: "/quantri/taisan/tieuchidanhgia/0",
+                command: () => {
+                  this.close();
+                },
+              },
+            ]
+          },
+          {
             label: "Quản lý bảo trì, bảo dưỡng",
             items: [
               {
@@ -956,6 +989,13 @@ export class QuantriComponent implements OnInit {
               {
                 label: "Lập kế hoạch lịch xích tháng",
                 routerLink: "/quantri/taisan/quytrinhlapkehoachthang/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Quy trình bảo dưỡng",
+                routerLink: "/quantri/taisan/quytrinhbaoduong/0",
                 command: () => {
                   this.close();
                 },

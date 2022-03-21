@@ -9,6 +9,7 @@ import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } 
 import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { ModalbaoduongluachontaisanComponent } from '../modal/modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
 
   newitem: any = {};
   showDropDown: boolean = false;
-  item: any = { listTaiSan: [] };
+  item: any = {  };
   type = '';
   opt = '';
   listPhanXuong = [];
@@ -45,24 +46,16 @@ export class ModaldenghixulisucoComponent implements OnInit {
   ) { }
   
   ngOnInit(): void {
-    this.GetListdmPhanXuong();
+    this.GetNextSoQuyTrinh();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
     let ls1 = this._danhMucTaiSan.DanhMucMucDoUuTien().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucLoaiSuCo().GetList(data).toPromise();
 
     Promise.all([ls1,ls2]).then((values: any) => {
       this.listDoUuTien = mapArrayForDropDown(values[0].Data.Items, "Ten", "Id");
-      console.log( this.listDoUuTien)
-      this.listLoaiSuCo = mapArrayForDropDown(values[1].Data.Items, "Ten", "Id");
+      this.listLoaiSuCo = mapArrayForDropDown(values[1].Data, "Ten", "Id");
   })
 }
-  GetListdmPhanXuong() {
-    this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-      console.log(res)
-      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
-  }
-
   add() {
     if (this.item.listTaiSan == undefined || this.item.listTaiSan == null)
       this.item.listTaiSan = [];
@@ -78,44 +71,34 @@ export class ModaldenghixulisucoComponent implements OnInit {
       this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  validate(): boolean {
-    if (!validVariable(this.item.IddmPhanXuong)) {
-      this.toastr.error('Vui lòng nhập bộ phận sử dụng!!');
-      return false;
-    }
-    return true;
-  }
+  
   setData() {
-    this.item.NgaySuCoUnix = DateToUnix(this.item.NgaySuCo);
-    this.item.IdDuAn = this.store.getCurrent();
+    this.item.NgayDeNghiUnix = DateToUnix(this.item.NgayDeNghi);
     return this.item;
   }
   GhiLai() {
-    if (this.validate()) {
-      this._serviceTaiSan.SuCoSuaChua().Set(this.setData()).subscribe((res: any) => {
+      this._serviceTaiSan.QuyTrinhXuLySuCo().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
           this.item = res.Data;
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();
-          // this.activeModal.close();
+          this.activeModal.close();
         }
       }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       })
-    }
   }
   
   GetNextSoQuyTrinh() {
-    this._serviceTaiSan.SuCoSuaChua().GetNextSoQuyTrinh().subscribe((res: any) => {
-      console.log(res)
+    this._serviceTaiSan.QuyTrinhXuLySuCo().GetNextSoQuyTrinh().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.Data;
     })
   }
   
   ThemMoiDanhSachTaiSan() {
-      let modalRef = this._modal.open( {
+      let modalRef = this._modal.open(ModalbaoduongluachontaisanComponent, {
         size: "xl",
         backdrop: "static",
       });
@@ -146,12 +129,10 @@ export class ModaldenghixulisucoComponent implements OnInit {
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
       this.checkbutton = res;
-      console.log(this.checkbutton)
     });
   }
   ChapNhan() {
-    this._serviceTaiSan.SuCoSuaChua().ChuyenTiep(this.setData()).subscribe((res: any) => {
-      console.log(res)
+    this._serviceTaiSan.QuyTrinhXuLySuCo().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -167,7 +148,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
     modalRef.result
       .then((res) => {
-        this._serviceTaiSan.SuCoSuaChua().Delete(this.item.Id).subscribe((res: any) => {
+        this._serviceTaiSan.QuyTrinhXuLySuCo().Delete(this.item.Id).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this.toastr.success(res.Message);
             this.activeModal.close();
@@ -181,7 +162,6 @@ export class ModaldenghixulisucoComponent implements OnInit {
   GetPhanXuong() {
     this._serviceTaiSan.GetListTaiSanThuHoi().GetListTaiSan(this.item.IddmPhanXuong).subscribe((res: any) => {
       this.listTaiSan = res.Data;
-      console.log(res.Data);
     });
   }
   taiLenFileDinhKem() {
