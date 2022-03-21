@@ -994,6 +994,13 @@ export class QuantriComponent implements OnInit {
                 },
               },
               {
+                label: "Quy trình bảo dưỡng",
+                routerLink: "/quantri/taisan/quytrinhbaoduong/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
                 label: "Đề nghị xử lý sự cố",
                 routerLink: "/quantri/taisan/denghixulisuco/0",
                 command: () => {

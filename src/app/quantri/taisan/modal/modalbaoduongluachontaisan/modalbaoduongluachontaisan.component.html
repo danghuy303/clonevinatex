@@ -12,14 +12,21 @@
             <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm "
                 (click)="GhiLai()"></button>
         </div>
-        <div  class="p-d-flex p-flex-row">
+        <div class="p-d-flex p-flex-row">
             <div class="p-mr-2">
-                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Loại tài sản "
-                styleClass="p-inputtext-sm"  [showClear]="true" [filter]="true"></p-dropdown>
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    inputId="icon" placeholder="Từ ngày" (onSelect)="GetList()">
+                </p-calendar>
+            </div>
+            <div class="p-mr-2">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                   inputId="icon" placeholder="Đến ngày" (onSelect)="GetList()">
+                </p-calendar>
             </div>
             <div class="p-mr-2 p-inputgroup">
                 <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText />
-                <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
+                <button type="button" pButton pRipple icon="pi pi-refresh"
+                    class="p-button-secondary p-button-sm p-button-text"></button>
             </div>
         </div>
     </div>
@@ -32,7 +39,8 @@
                 </th>
                 <th class="text-center" style="width: 150px;">Mã</th>
                 <th class="text-center">Tên</th>
-                <th *ngFor="let dmbd of listdmLoaiBaoDuong" class="text-center">{{dmbd.TendmLoaiBaoDuong}}</th>
+                <th class="text-center">Loại bảo dưỡng</th>
+                <th class="text-center">Ghi chú</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
@@ -42,12 +50,11 @@
                     </p-checkbox>
                 </td>
                 <td class="text-center" style="width: 150px;">
-                    {{rowData.Ma}}  <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                    {{rowData.MadmLoaiBaoDuong}} <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                 </td>
-                <td class="text-center">{{rowData.Ten}}</td>
-                <td *ngFor="let item of rowData?.listLichBaoDuong" class="text-center">
-                   {{item.isChon?'X':''}}
-                </td>
+                <td class="text-center">{{rowData.TenTaiSan}}</td>
+                <td class="text-center"> {{rowData.TendmLoaiBaoDuong}}</td>
+                <td class="text-center">{{rowData.GhiChu}}</td>
             </tr>
         </ng-template>
     </p-treeTable>

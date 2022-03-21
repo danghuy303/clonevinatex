@@ -22,6 +22,7 @@ import { LichxichnamComponent } from './lichxichnam/lichxichnam.component';
 import { LichxichthangComponent } from './lichxichthang/lichxichthang.component';
 import { NhaplieuxuattaisanComponent } from './nhaplieuxuattaisan/nhaplieuxuattaisan.component';
 import { NhaptaisanComponent } from './nhaptaisan/nhaptaisan.component';
+import { QuytrinhbaoduongComponent } from './quytrinhbaoduong/quytrinhbaoduong.component';
 import { NhomNhaCungUngDanhMucComponent } from './nhom-nha-cung-ung-danh-muc/nhom-nha-cung-ung-danh-muc.component';
 import { NhaCungUngDanhMucComponent } from './nha-cung-ung-danh-muc/nha-cung-ung-danh-muc.component';
 import { DanhGiaNhaCungUngComponent } from './danh-gia-nha-cung-ung/danh-gia-nha-cung-ung.component';
@@ -72,6 +73,7 @@ const routes: Routes = [
   {path:'lichxichnam',component:LichxichnamComponent},
   {path:'lichxichthang',component:LichxichthangComponent},
   {path:'denghixulisuco/:id',component:DenghixulisucoComponent},
+  {path:'quytrinhbaoduong/:id',component:QuytrinhbaoduongComponent},
   {path:'khauhaotaisan/:id',component:KhauHaoTaiSanQuyTrinhComponent},
   {path:'nhomnhacungung',component:NhomNhaCungUngDanhMucComponent},
   {path:'danhmucnhacungung',component:NhaCungUngDanhMucComponent},

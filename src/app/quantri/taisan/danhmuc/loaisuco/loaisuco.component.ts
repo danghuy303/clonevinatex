@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { ModalloaisucoComponent } from '../../modal/modalloaisuco/modalloaisuco.component';
@@ -130,6 +131,30 @@ export class LoaisucoComponent implements OnInit {
         }
       })
     }).catch(er=>console.log(er))
+  }
+  importExcel(){
+    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
+      backdrop:'static',
+    })
+    modalRef.componentInstance.importFunc = '';
+    modalRef.result.then(res=>{
+      this.GetList();
+      this._toastr.success(res.mess);
+    })
+    .catch(er=>console.log(er))
+  }
+  exportExcel(){
+    let data = {
+      PageSize:20, 
+      CurrentPage:0,
+      Keyword:this.Keyword, 
+      Ma:"", 
+      Ten:"",
+      TableName:'',
+    };
+    this._danhMucTaiSan.DanhMucLoaiSuCo().Exportdm(data).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucLoaiSuCo().download(res.TenFile);
+    })
   }
   changePage(event){
     this.paging.Page = event.page+1;

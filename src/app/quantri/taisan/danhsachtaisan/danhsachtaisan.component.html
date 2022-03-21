@@ -10,13 +10,13 @@
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
             <div class="p-field-checkbox">
-                <p-checkbox  value=""  ></p-checkbox>
+                <p-checkbox [binary]="true"  value="" (onChange)="Loaddata(true)" [(ngModel)]="filter.isGiaTriCao" ></p-checkbox>
                 <label for="">Giá trị cao</label>
             </div>
         </div>
         <div class="p-mr-2">
             <div class="p-field-checkbox">
-                <p-checkbox  value=""  ></p-checkbox>
+                <p-checkbox [binary]="true"  value="" (onChange)="Loaddata(true)" [(ngModel)]="filter.isCanDuTru" ></p-checkbox>
                 <label for="">Cần dự trữ</label>
             </div>
         </div>

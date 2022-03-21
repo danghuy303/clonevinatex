@@ -19,14 +19,10 @@
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm "
                 (click)="activeModal.dismiss()"></button>
-            <button pButton pRipple *ngIf="checkbutton.Ghi" type="button" label="Ghi lại" class="p-mr-2 p-button-sm "
-                (click)="GhiLai()"></button>
-            <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"
-                (click)="XoaQuyTrinh()"></button>
-            <button pButton *ngIf="checkbutton.ChuyenTiep" pRipple type="button" label="Chuyển duyệt"
-                class="p-mr-2 p-button-sm " (click)="ChapNhan()"></button>
-            <button pButton *ngIf="checkbutton.KhongDuyet" pRipple type="button" label="Không duyệt"
-                class="p-mr-2 p-button-sm " (click)="KhongDuyet()"></button>
+                <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="GhiLai()" *ngIf="checkbutton.Ghi"></button>
+                <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa" (click)="XoaQuyTrinh()"></button>
+                <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()" *ngIf="checkbutton.KhongDuyet"></button>
+                <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm" (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
         </div>
     </div>
     <div class="p-grid">
@@ -40,7 +36,7 @@
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại tài sản:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [(ngModel)]="item.IddmLoaiTaiSan"
+                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [(ngModel)]="item.IdDmLoaiTaiSan"
                     placeholder="Chọn tài sản"></p-dropdown>
             </div>
         </div>
@@ -49,7 +45,7 @@
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
                     [yearRange]="" [showIcon]="true" inputId="icon" placeholder="dd/mm/yyyy"
-                    [(ngModel)]="item.ThoiGian">
+                    [(ngModel)]="item.NgayBaoDuong">
                 </p-calendar>
             </div>
         </div>
@@ -73,11 +69,11 @@
                     <ng-template pTemplate="content">
                         <div class="p-d-flex p-flex-row p-jc-between">
                             <div class="modal-bt p-mb-4 ">
-                                <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm"  ></button>
+                                <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm" (click)=" ThemMoiDanhSachTaiSan()" ></button>
                             </div>
                         </div>
-                        <p-table 
-                            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="true">
+                        <p-table [value]="item.listTaiSan"
+                            styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" >
                             <ng-template pTemplate="colgroup">
                                 <colgroup>
                                     <col style="width: 50px;">
@@ -107,19 +103,19 @@
                                     <td class="text-center">
                                         {{i + 1}}
                                     </td>
-                                    <td class="text-center">{{item.Ma}}</td>
-                                    <td class="text-center">{{item.Ten}}</td>
-                                    <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText /></td>
-                                    <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText /></td>
-                                    <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText /></td>
-                                    <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText /></td>
+                                    <td class="text-center">{{item.Ma }}</td>
+                                    <td class="text-center">{{item.TenTaiSan}}</td>
+                                    <td class="text-center"> {{item.TenLoaidmBaoDuong}}</td>
+                                    <td class="text-center"> <input locale="en-EN"  pInputText /></td>
+                                    <td class="text-center"> <input locale="en-EN"  pInputText /></td>
+                                    <td class="text-center"> <input locale="en-EN"  pInputText /></td>
                                     <td class="text-center">
                                         <!-- <button pButton pRipple type="button" icon="pi pi-pencil"
                                             class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                                            pTooltip="Chỉnh sửa" (click)="CapNhatTaiSanCon(item)"></button>
+                                            pTooltip="Chỉnh sửa" (click)="CapNhatTaiSanCon(item)"></button> -->
                                         <button pButton pRipple type="button" icon="pi pi-trash"
                                             class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                                            (click)=" delete(i)"></button> -->
+                                            (click)=" delete(i)"></button>
                                     </td>
                                 </tr>
                             </ng-template>
@@ -127,22 +123,17 @@
                     </ng-template>
                 </p-tabPanel>
                 <p-tabPanel header="Nhân công">
-                    <ng-template pTemplate="content">
-                        <app-nhancong></app-nhancong>
-                        <!-- <app-taomoilichbaoduongcopy *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan.listLichBaoDuong"></app-taomoilichbaoduongcopy>
-                        <app-taomoilichbaoduongcopy *ngIf="item.TaiSan === undefined" [item]="item.listLichBaoDuong"></app-taomoilichbaoduongcopy> -->
-                    </ng-template>
+                        <app-nhancong [item]="item"></app-nhancong>
+                        
                 </p-tabPanel>
                 <p-tabPanel header="Vật tư">
                     <ng-template pTemplate="content">
-                        <!-- <app-thongsokythuat *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan.listThongSoKyThuat" ></app-thongsokythuat>
-                        <app-thongsokythuat *ngIf="item.TaiSan === undefined" [item]="item.listThongSoKyThuat" ></app-thongsokythuat> -->
+                        <app-vattu></app-vattu>
                     </ng-template>
                 </p-tabPanel>
                 <p-tabPanel header="Chi phí khác">
                     <ng-template pTemplate="content">
-                        <!-- <app-antoan *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan.listThongSoAnToan"></app-antoan>
-                        <app-antoan *ngIf="item.TaiSan === undefined" [item]="item.listThongSoAnToan"></app-antoan> -->
+                        <app-chiphikhac [item]="item"></app-chiphikhac>
                     </ng-template>
                 </p-tabPanel>
             </p-tabView>

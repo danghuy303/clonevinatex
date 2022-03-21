@@ -135,6 +135,14 @@ import { ThongTinHopDongComponent } from './nha-cung-ung-danh-muc/thong-tin-hop-
 
 import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachlichxichthang/quytrinhlapkehoachlichxichthang.component';
 import { ThongTinDanhGiaNcuComponent } from './danh-gia-nha-cung-ung/thong-tin-danh-gia-ncu/thong-tin-danh-gia-ncu.component';
+import { QuytrinhbaoduongComponent } from './quytrinhbaoduong/quytrinhbaoduong.component';
+import { ModalquytrinhbaoduongComponent } from './modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
+import { ModalbaoduongluachontaisanComponent } from './modal/modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
+import { NhancongComponent } from './screen/nhancong/nhancong.component';
+import { VattuComponent } from './screen/vattu/vattu.component';
+import { ChiphikhacComponent } from './screen/chiphikhac/chiphikhac.component';
+import { ModalnhapvattuluachontaisanComponent } from './modal/modalnhapvattuluachontaisan/modalnhapvattuluachontaisan.component';
+import { ModalluachonloaibaoduongComponent } from './modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -185,7 +193,6 @@ import { ThongTinDanhGiaNcuComponent } from './danh-gia-nha-cung-ung/thong-tin-d
     LichbaoduongcopyComponent,
     TaomoilichbaoduongcopyComponent,
     ModalcapnhatbaoduongcopyyComponent,
-
     VattudutruComponent,
     VattugiatricaoComponent,
     DanhsachvattuComponent,
@@ -226,6 +233,14 @@ import { ThongTinDanhGiaNcuComponent } from './danh-gia-nha-cung-ung/thong-tin-d
     ThongTinHopDongComponent,
     QuytrinhlapkehoachlichxichthangComponent,
     ThongTinDanhGiaNcuComponent,
+    QuytrinhbaoduongComponent,
+    ModalquytrinhbaoduongComponent,
+    ModalbaoduongluachontaisanComponent,
+    NhancongComponent,
+    VattuComponent,
+    ChiphikhacComponent,
+    ModalnhapvattuluachontaisanComponent,
+    ModalluachonloaibaoduongComponent,
 
   ],
   imports: [
@@ -311,7 +326,9 @@ import { ThongTinDanhGiaNcuComponent } from './danh-gia-nha-cung-ung/thong-tin-d
     ThongtinthemmoitaisanComponent,
     ModalluachontaisantheolichxichComponent,
     LapkehoachlichxichnamComponent,
-
+    ModalquytrinhbaoduongComponent,
+    ModalbaoduongluachontaisanComponent,
+    
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]

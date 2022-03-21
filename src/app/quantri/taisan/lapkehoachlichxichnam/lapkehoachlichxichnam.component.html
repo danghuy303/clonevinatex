@@ -124,7 +124,7 @@
                     <td class="text-center" > {{item.TenTaiSan}}</td>
                     <td class="text-center" *ngFor="let baoduong of item.listBaoDuong" (click)="Chon(baoduong,item.listLichBaoDuong)" >
                        <p>{{baoduong.listChiTiet[0]?.TendmLoaiBaoDuong}}</p> 
-                        {{baoduong.ThoiGian}} 
+                        <!-- {{baoduong.ThoiGian}}  --> Chọn
                     </td>
                 </tr>
             </ng-template>

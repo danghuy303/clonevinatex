@@ -24,7 +24,7 @@ export class QuytrinhbaoduongComponent implements OnInit {
   showDropDown: boolean = false;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
-  eAction = "LAPKEHOACHLICHXICHNAM";
+  eAction = "QUYTRINHBAODUONGTAISAN";
   listPhanXuong:any=[];
   listNam: any = [];
 
@@ -41,7 +41,7 @@ export class QuytrinhbaoduongComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
-          .LichXich()
+          .QuyTrinhBaoDuong()
           .Get(res.id)
           .subscribe((res: any) => {
             this.update(res);
@@ -71,9 +71,8 @@ export class QuytrinhbaoduongComponent implements OnInit {
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       TabTrangThai: this.trangThai,
-      Loai:0,
     };
-    this._serviceTaiSan.LichXich().GetList(data).subscribe((res: any) => {
+    this._serviceTaiSan.QuyTrinhBaoDuong().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;  
       this.paging.TotalCount = res.Data.TotalCount;
     })
@@ -100,7 +99,8 @@ export class QuytrinhbaoduongComponent implements OnInit {
     modalRef.componentInstance.title = '';
     modalRef.componentInstance.item = {
       Id: '',IdTrangThai: '', TenTrangThai: "",SoQuyTrinh:'',
-      isKetThuc: false,listTaiSan:[],LoaiKeHoach:"", IdDuAn:0,
+      isKetThuc: false,listTaiSan:[], IdDuAn:0,
+      listVatTu: [], listChiPhiKhac: [], listNhanCong: [],
     };
     modalRef.result.then(res => {
 
