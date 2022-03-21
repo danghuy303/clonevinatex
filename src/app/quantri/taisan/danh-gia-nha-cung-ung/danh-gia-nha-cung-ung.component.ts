@@ -93,7 +93,8 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
       backdrop: 'static',
     })
     modalRef.componentInstance.opt = 'update';
-    modalRef.componentInstance.item.id = id;
+    modalRef.componentInstance.quyTrinh.id = id;
+    modalRef.result
   }
 
 }

@@ -134,6 +134,7 @@ import { ThongTinDanhGiaComponent } from './nha-cung-ung-danh-muc/thong-tin-danh
 import { ThongTinHopDongComponent } from './nha-cung-ung-danh-muc/thong-tin-hop-dong/thong-tin-hop-dong.component';
 
 import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachlichxichthang/quytrinhlapkehoachlichxichthang.component';
+import { ThongTinDanhGiaNcuComponent } from './danh-gia-nha-cung-ung/thong-tin-danh-gia-ncu/thong-tin-danh-gia-ncu.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -224,6 +225,7 @@ import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachli
     ThongTinDanhGiaComponent,
     ThongTinHopDongComponent,
     QuytrinhlapkehoachlichxichthangComponent,
+    ThongTinDanhGiaNcuComponent,
 
   ],
   imports: [

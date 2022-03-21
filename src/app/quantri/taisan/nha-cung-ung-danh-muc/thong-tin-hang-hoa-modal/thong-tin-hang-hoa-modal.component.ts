@@ -9,9 +9,10 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ThongTinHangHoaModalComponent implements OnInit {
 
-  items: any = {};
+  items: any = [];
+  checkListItem: any = [];
   checkedAll: boolean = false;
-  selectedList: any[];
+  selectedList: any[] = [];
 
   constructor(
     private taiSanService: TaisanService,
@@ -30,35 +31,40 @@ export class ThongTinHangHoaModalComponent implements OnInit {
       Keyword: "",
     }
     this.taiSanService.NhaCungUng().GetListItem(data).subscribe((res: any)=>{
-      console.log(res);
       this.items = res.Data.Items;
+      this.CheckExistedHangHoa();
     })
   }
 
   SelectHangHoa() {
-    this.selectedList = this.items.filter(item => {
-      return item.checked === true;
-    }).map(item=> {
+    let newArr = this.checkListItem.map(item=>item.MadmItem);
+    this.selectedList = this.items.filter(item=>{
+      return newArr.indexOf(item.Ma) == -1 && item.checked === true;
+    })
+    .map(item=> {
       return ({
         IddmItem: item.Id,
         TendmItem: item.Ten,
         MadmItem: item.Ma
       })
     })
-    // console.log(this.selectedList);
     this.activeModal.close(this.selectedList);
   }
 
   CheckAllHangHoa() {
-    if (this.checkedAll) {
-      this.items.forEach(item => {
-        item.checked = true;
+    this.items.forEach(item => {
+      item.checked = this.checkedAll;
+    })
+  }
+
+  CheckExistedHangHoa() {
+    this.items.forEach(item => {
+      this.checkListItem.forEach(checkedItem => {
+        if (item.Ma === checkedItem.MadmItem) {
+          item.checked = true;
+        }
       })
-    } else {
-      this.items.forEach(item => {
-        item.checked = false;
-      })
-    }
+    })
   }
 
 }

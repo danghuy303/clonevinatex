@@ -2,7 +2,17 @@
   <h5>Chọn nhà cung ứng</h5>
 </div>
 
+
 <div class="modal-body">
+  <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+    <div></div>
+    <div class="p-inputgroup" style="width: 200px"> 
+      <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="filter.keyword" (keyup.enter)="LoadData()"> 
+      <button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-secondary p-button-text" (click)="LoadData()"></button>
+      <button pButton pRipple type="button" icon="pi pi-refresh" class="p-button-rounded p-button-secondary p-button-text" (click)="ResetFilter()"></button>
+    </div>
+  </div>
+
   <p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
     <ng-template pTemplate="colgroup">
       <colgroup>
@@ -19,7 +29,7 @@
       <tr>
         <th>
           <p-checkbox [(ngModel)]="checkedAll" binary="true" inputId="binary"
-          (onChange)="CheckAllNhaCungUng($event)"></p-checkbox>
+          (onChange)="CheckAllNhaCungUng()"></p-checkbox>
         </th>
         <th>STT</th>
         <th>Mã</th>

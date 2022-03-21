@@ -60,7 +60,7 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
         return ({
             data: item,
             children: item.listItem.map((child,childIndex)=>{
-              child.STT = childIndex + 1;
+              child.STT = `${item.STT}.${childIndex + 1}`;
               child.checked = false;
               return ({
                 data: child,

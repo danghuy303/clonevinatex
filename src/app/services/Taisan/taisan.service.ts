@@ -400,6 +400,9 @@ export class TaisanService {
       ImportItem: (data) => {
         return this.http.get(`${url}DanhMuc/ImportdmItem?FileName=${data.Name}`, httpOptions)
       },
+      GetListTinhTrang: () => {
+        return this.http.get(`${url}DanhMuc/GetlistdmTinhTrangNhaCungUng`, httpOptions)
+      }
     }
   }
 

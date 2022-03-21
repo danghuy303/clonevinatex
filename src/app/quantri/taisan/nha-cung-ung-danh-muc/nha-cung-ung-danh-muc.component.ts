@@ -19,7 +19,8 @@ export class NhaCungUngDanhMucComponent implements OnInit {
   keyword: string = '';
   paging: any = {};
   fileUpload: any;
-  trangThai: any = 'HIENHANH';
+  trangThai: any = 0;
+  listTrangThai: any = [];
 
   constructor(
     private taiSanService: TaisanService,
@@ -28,17 +29,19 @@ export class NhaCungUngDanhMucComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.GetListTinhTrang();
     this.ResetListNhaCungUng();
   }
 
+  GetListTinhTrang() {
+    this.taiSanService.NhaCungUng().GetListTinhTrang().subscribe((res: any)=>{
+      this.listTrangThai = res.Data;
+      this.listTrangThai.unshift({Id:'',Ten:'Tất cả'})
+    })
+  }
+
   ChangeTab(e) {
-    if (e.index === 0) {
-      this.trangThai = 'HIENHANH';
-    } else if (e.index === 1) {
-      this.trangThai = 'TIEMNANG';
-    } else {
-      this.trangThai = 'CHAMDUT';
-    }
+    this.trangThai = e.index;
     this.LoadListNhaCungUng(true);
   }
 
@@ -53,6 +56,7 @@ export class NhaCungUngDanhMucComponent implements OnInit {
     }
     this.checkedAll = false;
     let data = {
+      IddmTinhTrangNhaCungung: this.listTrangThai?.[this.trangThai]?.Id || '',
       CurrentPage: this.paging.currentPage,
       PageSize: 20,
       Keyword: this.filter.keyword,
@@ -145,16 +149,10 @@ export class NhaCungUngDanhMucComponent implements OnInit {
       })
   } 
 
-  CheckAllNhaCungUng(e) {
-    if (this.checkedAll) {
-      this.items.forEach(item => {
-        item.checked = true;
-      })
-    } else {
-      this.items.forEach(item => {
-        item.checked = false;
-      })
-    }
+  CheckAllNhaCungUng() {
+    this.items.forEach(item=>{
+      item.checked = this.checkedAll;
+    })
   }  
 
   changePage(event) {
