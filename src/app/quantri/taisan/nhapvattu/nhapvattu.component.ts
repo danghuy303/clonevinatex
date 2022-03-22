@@ -35,7 +35,7 @@ export class NhapvattuComponent implements OnInit {
   listNhaCungCap: any = [];
   NameFile: string;
   title: any = '';
-  thanhTien:any = 0;
+  tongThanhTien: any = 0;
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -44,7 +44,7 @@ export class NhapvattuComponent implements OnInit {
     public store: StoreService,
     public _modal: NgbModal,
     private _danhMucTaiSan: DanhmuctaisanService,
-  ){ this.thanhTien=0 }
+  ) { }
 
   ngOnInit(): void {
     if (this.item.NgayUnix !== 0) {
@@ -53,7 +53,7 @@ export class NhapvattuComponent implements OnInit {
     if (this.type === 'themmoi') {
       this.GetNextSoQuyTrinh();
     }
- 
+
     this.GetListdmPhanXuong();
     this.KiemTraButtonModal();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, };
@@ -61,20 +61,17 @@ export class NhapvattuComponent implements OnInit {
       this.listNhaCungCap = mapArrayForDropDown(res.Data, 'Ten', 'Id');
     });
     this.getList();
-  
   }
-  Tong(item) {
-    item.ThanhTien = 0;
-    item.ThanhTien = item.SoLuong * item.DonGia;
-    this.thanhTien += item.ThanhTien;
+  Tong() {
+    this.tongThanhTien = 0;
+    this.item.listTaiSan.forEach(item => {
+      item.ThanhTien = (item.SoLuong | 0) * (item.DonGia | 0);
+      this.tongThanhTien += (item.ThanhTien | 0);
+    });
   }
   getList() {
-    this.item.listTaiSan.forEach(item => {
-      this.thanhTien = 0;
-      this.thanhTien +=  item.ThanhTien; 
-           });
+    this.Tong();
   }
- 
   GetListdmPhanXuong() {
     this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
@@ -88,14 +85,8 @@ export class NhapvattuComponent implements OnInit {
   }
   delete(index) {
     let item = this.item.listTaiSan.splice(index, 1)[0];
-    if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
-    }
-   
+    this.Tong();
   }
-
   setData() {
     this.item.NgayUnix = DateToUnix(this.item.Ngay);
     this.item.IdDuAn = this.store.getCurrent();
@@ -109,19 +100,17 @@ export class NhapvattuComponent implements OnInit {
         this.item = res.Data;
         this.toastr.success(res.Message);
         this.KiemTraButtonModal();
-        this.activeModal.close();
+        // this.activeModal.close();
       }
     }, (er) => {
       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
     })
   }
-
   GetNextSoQuyTrinh() {
     this._serviceTaiSan.QuyTrinhNhapTu().GetNextSoQuyTrinh().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.Data;
     })
   }
-
   ThemMoiDanhSachTaiSan() {
     let modalRef = this._modal.open(ModalnhapvattuluachontaisanComponent, {
       size: "xl",
@@ -153,6 +142,7 @@ export class NhapvattuComponent implements OnInit {
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
       this.checkbutton = res;
+      console.log(res)
     });
   }
   ChapNhan() {

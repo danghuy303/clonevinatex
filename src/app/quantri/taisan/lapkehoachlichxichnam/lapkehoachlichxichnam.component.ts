@@ -80,6 +80,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   setData() {
     this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian);
     // this.item.IdDuAn = this.store.getCurrent();
+    this.item.listTaiSan = this.item.listTaiSan.filter(ele=>!ele.isXoa);
     return this.item;
   }
   GhiLai() {
@@ -90,7 +91,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
         this.item = res.Data;
         this.toastr.success(res.Message);
         this.KiemTraButtonModal();
-        this.activeModal.close();
+        // this.activeModal.close();
       }
     }, (er) => {
       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -219,4 +220,8 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       .catch((er) => {
       });
   }
+  ChonLoaiTaiSan() {
+   
+  }
+
 }

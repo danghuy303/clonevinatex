@@ -2,7 +2,7 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản" [(ngModel)]="item.IddmLoaiTaiSan"></p-dropdown>
+            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản" [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true"></p-dropdown>
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -49,7 +49,7 @@
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tuổi thọ : </label>
+        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tuổi thọ (tháng) : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <p-inputNumber [minFractionDigits]="1" locale="en-EN" [(ngModel)]="item.TuoiTho"> </p-inputNumber>
         </div>
@@ -69,7 +69,7 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhà cung cấp : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <p-dropdown [filter]="true" [options]="listCungSanXuat" placeholder="Nhập nhà cung cấp" [(ngModel)]="item.IddmNhaCungUng"></p-dropdown>
+            <p-dropdown [filter]="true" [options]="listCungSanXuat" placeholder="Nhập nhà cung cấp" [(ngModel)]="item.IddmNhaCungUng" [showClear]="true"></p-dropdown>
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -84,10 +84,10 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian đưa vào sử dụng: </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm bold" [locale]="lang"
-                [monthNavigator]="true" [yearNavigator]="true" [yearRange]="" [showIcon]="true"
-                inputId="icon" placeholder="dd/mm/yyyy" [(ngModel)]="item.ThoiGianDuaVaoSuDung">
-            </p-calendar>
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
+            [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.ThoiGianDuaVaoSuDung"
+            inputId="icon" placeholder="dd/mm/yyyy">
+        </p-calendar>
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -99,7 +99,7 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nguyên giá: </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.NguyenGia"> </p-inputNumber>
+            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.NguyenGia" (onBlur)="edit(item)"> </p-inputNumber>
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -111,7 +111,7 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <p-dropdown [filter]="true" [options]="listPhanXuong" [(ngModel)]="item.IdBoPhanSuDung" placeholder="Chọn bộ phận"></p-dropdown>
+            <p-dropdown [filter]="true" [options]="listPhanXuong" [(ngModel)]="item.IdBoPhanSuDung" placeholder="Chọn bộ phận" [showClear]="true"></p-dropdown>
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">

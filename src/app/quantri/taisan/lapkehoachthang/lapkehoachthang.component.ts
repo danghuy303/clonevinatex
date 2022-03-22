@@ -165,7 +165,7 @@ export class LapkehoachthangComponent implements OnInit {
         this.item = res.Data;
         this.toastr.success(res.Message);
         this.KiemTraButtonModal();
-        this.activeModal.close();
+        // this.activeModal.close();
       }
     }, (er) => {
       this.toastr.error("Có lỗi trong quá trình xử lý!!!");

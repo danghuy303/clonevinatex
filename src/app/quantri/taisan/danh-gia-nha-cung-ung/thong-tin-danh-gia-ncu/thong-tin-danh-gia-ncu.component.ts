@@ -1,81 +1,84 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { time } from '@amcharts/amcharts4/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { validVariable } from 'src/app/services/globalfunction';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
   selector: 'app-thong-tin-danh-gia-ncu',
   templateUrl: './thong-tin-danh-gia-ncu.component.html',
   styleUrls: ['./thong-tin-danh-gia-ncu.component.css']
 })
-export class ThongTinDanhGiaNcuComponent implements OnInit {
+export class ThongTinDanhGiaNcuComponent implements OnInit,AfterViewInit,OnChanges {
 
-  @Input() items: any;
+  listTieuChi: any = [];
+  @Input() phieuDanhGia: any;
 
-  constructor() { 
-    this.items = [
-      {
-        name: 'Chứng từ thanh toán - Hóa đơn tài chính',
-        max: 10,
-        now: 0,
-        toggle: true,
-        children: [
-          {
-            name: 'Hóa đơn VAT',
-            max: 5,
-            now: 0,
-          },
-          {
-            name: 'Hóa đơn trực tiếp',
-            max: 4,
-            now: 0,
-          },
-          {
-            name: 'Không có hóa đơn',
-            max: 1,
-            now: 0,
-          },
-        ]
-      },
-      {
-        name: 'Khả năng cung cấp: Nguồn hàng - Cơ sở vật chất',
-        max: 15,
-        now: 0,
-        toggle: false,
-        children: [],
-      },
-      {
-        name: 'Giấy tờ pháp lý',
-        max: 10,
-        now: 0,
-        toggle: true,
-        children: [
-          {
-            name: 'Hóa đơn VAT',
-            max: 5,
-            now: 5,
-          },
-          {
-            name: 'Hóa đơn trực tiếp',
-            max: 5,
-            now: 5,
-          }
-        ]
-      },
-    ]
+  sum: any = 0;
+
+  constructor(
+    public toast: ToastrService,
+    private taiSanService: TaisanService,
+  ) {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+
+  }
+
+  ngAfterViewInit() {
+    this.LoadListTieuChi();
   }
 
   ngOnInit(): void {
-    console.log(this.items);
-    // this.LoadData();
   }
 
-  // LoadData() {
-  //   this.items.forEach((item) =>{
-  //     item.sum = item.children.map()
-      
-  //   })
-  // }
+  LoadListTieuChi() {
+    let data = {
+      CurrentPage: 1,
+      TieuChiCha: false,
+      Keyword: "",
+      GhiChu: "",
+    }
+    this.taiSanService.TieuChiDanhGia().GetList(data).subscribe((res: any) => {
+      this.listTieuChi = res.Data.Items;
+      this.listTieuChi= this.recursive(this.listTieuChi)
+      this.SumDiemDanhGia();
+      console.log('list tieu chi' ,this.listTieuChi);
+    })
+  }
 
-  SumDiemDanhGia(item, child) {
-    item.sum += child.now
+  recursive(list: Array<any>) {
+    return list.map(ele => {
+      let realPoint = this.phieuDanhGia?.find(tieuchi => ele.Id === tieuchi.IddmTieuChiDanhGia)?.Diem
+      return {
+        ...ele,
+        DiemDanhGia: realPoint || null,
+        listItem: validVariable(ele.listItem) ? this.recursive(ele.listItem) : []
+      }
+    })
+  }
+
+  RecursiveSave() {
+    this.listTieuChi.map(tieuchi => {
+
+    })
+  }
+
+  SumDiemDanhGia() {
+    this.listTieuChi.forEach((item) => {
+      if (item.listItem.length) {
+        item.toggle = true;
+      } else {
+        item.toggle = false;
+      }
+      item.sum = item.listItem.reduce((number, nextChild) => {
+        return number + (nextChild.DiemDanhGia || 0);
+      }, 0)
+    })
+    this.sum = this.listTieuChi.reduce((number, item) => {
+      return number + item.sum;
+    }, 0)
   }
 
 }

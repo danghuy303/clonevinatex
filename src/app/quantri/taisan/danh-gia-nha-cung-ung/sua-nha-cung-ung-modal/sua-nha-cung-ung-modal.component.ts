@@ -13,6 +13,7 @@ export class SuaNhaCungUngModalComponent implements OnInit {
 
   item: any = {};
   title: string = "";
+  phieuDanhGia: any = {};
 
   constructor(
     private taiSanService: TaisanService,
@@ -26,8 +27,8 @@ export class SuaNhaCungUngModalComponent implements OnInit {
   }
 
   GetNhaCungUng() {
-    if (this.item.Id) {
-      this.taiSanService.NhaCungUng().Get(this.item.Id)
+    if (this.item.IddmNhaCungUng) {
+      this.taiSanService.NhaCungUng().Get(this.item.IddmNhaCungUng)
       .subscribe((res: any)=>{
         this.item = res.Data;
       })
@@ -36,8 +37,10 @@ export class SuaNhaCungUngModalComponent implements OnInit {
 
   SetNhaCungUng() {
     if (this.Validate()) {
-      this.taiSanService.NhaCungUng().Set(this.item)
-      .subscribe((res: any) => {
+      let data = {
+
+      }
+      this.taiSanService.DanhGiaNhaCungUng().Set(data).subscribe((res: any)=>{
         if (res.StatusCode === 200) {
           this.toast.success(res.Message);
           this.activeModal.close();
@@ -55,57 +58,6 @@ export class SuaNhaCungUngModalComponent implements OnInit {
     }
     return true;
   }
-
-  
-  listDanhGia: any[] = [
-    {
-      name: 'Chứng từ thanh toán - Hóa đơn tài chính',
-      max: 10,
-      now: 0,
-      toggle: true,
-      children: [
-        {
-          name: 'Hóa đơn VAT',
-          max: 5,
-          now: 0,
-        },
-        {
-          name: 'Hóa đơn trực tiếp',
-          max: 4,
-          now: 0,
-        },
-        {
-          name: 'Không có hóa đơn',
-          max: 1,
-          now: 0,
-        },
-      ]
-    },
-    {
-      name: 'Khả năng cung cấp: Nguồn hàng - Cơ sở vật chất',
-      max: 15,
-      now: 0,
-      toggle: false,
-    },
-    {
-      name: 'Giấy tờ pháp lý',
-      max: 10,
-      now: 0,
-      toggle: true,
-      children: [
-        {
-          name: 'Hóa đơn VAT',
-          max: 5,
-          now: 5,
-        },
-        {
-          name: 'Hóa đơn trực tiếp',
-          max: 5,
-          now: 5,
-        }
-      ]
-    },
-  ]
 
 }
 

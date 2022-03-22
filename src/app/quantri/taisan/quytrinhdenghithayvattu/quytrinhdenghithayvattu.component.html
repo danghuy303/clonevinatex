@@ -11,31 +11,30 @@
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetListThuHoiTaiSan(true)">
+                [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetList(true)">
             </p-calendar>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetListThuHoiTaiSan(true)">
+                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetList(true)">
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width:200px">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
-                (keyup.enter)="GetListThuHoiTaiSan(true)" />
+                (keyup.enter)="GetList(true)" />
             <button type="button" pButton pRipple icon="pi pi-search"
-                class="p-button-secondary p-button-sm p-button-text" (click)="GetListThuHoiTaiSan(true)"></button>
+                class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
             <button type="button" pButton pRipple icon="pi pi-refresh"
                 class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
         </div>
     </div>
 </div>
-
-<!-- <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
+<p-tabView (onChange)="changeTab($event)" styleClass="no-content">
     <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
     </p-tabPanel>
     <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
     </p-tabPanel>
-</p-tabView> -->
+</p-tabView>
 <div class="p-mt-3">
     <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped">
         <ng-template pTemplate="colgroup">

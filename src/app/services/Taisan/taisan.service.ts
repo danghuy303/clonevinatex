@@ -392,7 +392,7 @@ export class TaisanService {
       },
     }
   }
-  DanhSachVatTu() {
+  ListDanhSachVatTu() {
     let url = API.TaiSan;
     return {
       GetList: (data) => {
