@@ -28,7 +28,7 @@ export class
     let ls1 = this._danhMucTaiSan.DanhMucLoaiBaoDuong().GetList(data).toPromise();
 
     Promise.all([ls1,]).then((values: any) => {
-      this.listLoaiBaoDuong = mapArrayForDropDown(values[0].Data, "Ten", "Id");
+      this.listLoaiBaoDuong = mapArrayForDropDown(values[0].Data.Items, "Ten", "Id");
     });
   }
 

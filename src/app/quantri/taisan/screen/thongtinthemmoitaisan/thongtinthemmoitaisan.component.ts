@@ -33,12 +33,15 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.item)
     if (this.opt === 'edit') {
       // this.item.listFileDinhKem.forEach(obj => {
       //   this.NameFile += `${obj.FileName}, `;
       // });
     }
+  }
+  edit(item) {
+    console.log(item)
+    this.item.GiaTriConLai = item.NguyenGia;
   }
   isCanDuTru() {
     this.item.isCanDuTru=true;

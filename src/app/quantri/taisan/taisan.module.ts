@@ -142,6 +142,7 @@ import { VattuComponent } from './screen/vattu/vattu.component';
 import { ChiphikhacComponent } from './screen/chiphikhac/chiphikhac.component';
 import { ModalnhapvattuluachontaisanComponent } from './modal/modalnhapvattuluachontaisan/modalnhapvattuluachontaisan.component';
 import { ModalluachonloaibaoduongComponent } from './modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -281,6 +282,7 @@ import { ModalluachonloaibaoduongComponent } from './modal/modalluachonloaibaodu
     TreeTableModule,
     SharedModule,
     QRCodeModule,
+    SelectButtonModule,
   ],
   providers: [
     LoaderService,
