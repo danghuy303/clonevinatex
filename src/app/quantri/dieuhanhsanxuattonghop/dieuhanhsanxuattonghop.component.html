@@ -103,13 +103,14 @@
                     </div>
                 </div>
                 <div class="p-col-12 p-xl-4 p-lg-4 p-p-3 text-center">
-                    <div style="display: flex;flex-direction: column;flex:1; overflow: scroll;">
+                    <div style="display: flex;flex-direction: column;flex:1;overflow: hidden;">
                         <div class="d-flex flex-row p-jc-between" *ngFor="let thongke of thongKes1">
                             <div>{{thongke.Ten}}</div>
                             <div>{{thongke.GiaTri|number:'0.3-3'}}</div>
                         </div>
                     </div>
-                    <p-button styleClass="p-button-sm ml-1" (click)="bieuDoTyLeThongKeSanLuong()">Biểu đồ tỷ lệ</p-button>
+                    <p-button styleClass="p-button-sm ml-1" (click)="bieuDoTyLeThongKeSanLuong()">Tỷ lệ bông phế\hồi
+                    </p-button>
                     <!-- <p *ngFor="let thongke of thongKes1">
                          {{thongke.GiaTri|number:'0.0-3'}}
                     </p> -->
@@ -155,7 +156,7 @@
                         <!-- <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
                         (click)="xuatBaoCaoTieuChi()">Xuất báo cáo</a> -->
                         <p-button #menuToggle styleClass="p-button-sm" icon="fas fa-file-excel"
-                                                (click)="menu.toggle($event)"></p-button>
+                            (click)="menu.toggle($event)"></p-button>
                         <p-menu #menu [appendTo]="menuToggle" [popup]="true" [model]="listXuatBaoCao"></p-menu>
                     </div>
                     <!-- <div style="display:table;height:100%">
@@ -201,7 +202,7 @@
     <div class="p-col-12 p-xl-6 p-lg-6 p-p-3">
         <div class="chart text-left">
             <div style="display: flex; flex-direction: row;">
-                <div style="display: table;">
+                <div style="display: table;margin-right:10px;">
                     <h5 style="margin: 0px; display: table-cell;vertical-align: middle">Chất lượng sản phẩm</h5>
                 </div>
                 <div style="display: inline;">
@@ -448,35 +449,79 @@
                     (onSelect)="getBieuDoDien()">
                 </p-calendar>
             </div>
-            <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-2"
+            <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-5"
                 (click)="getBieuDoDien()"></button>
+            <div class="p-mr-5" style="display:flex; align-items: center;">
+                <strong>Lũy kế lợi nhuận điện GY:</strong> &nbsp; {{ThongTinLuyKeDien.TongTienDienGY_LuyKe|number:'0.0'}} Đồng
+            </div>
+            <div style="display:flex; align-items: center;">
+                <strong>Lũy kế điện GY:</strong> &nbsp; {{ThongTinLuyKeDien.TongSoDienGY_LuyKe|number:'0.0'}} Kwh
+            </div>
         </div>
     </div>
     <div class="responsiveChart">
         <p-chart type="bar" [data]="dataBieuDoDien" [options]="optionBarDien"></p-chart>
     </div>
 </p-dialog>
-<p-dialog header="Biểu đồ tỷ lệ bông rơi" [(visible)]="showBieuDoTyLe" [modal]="true" [style]="{width: '95vw', height:'auto'}"
-    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-    <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-        <div class="p-d-flex p-flex-row">
-            <div class="p-mr-2">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                    [(ngModel)]="filterBieuDo_TyLe.TuNgay" inputId="icon" placeholder="Từ ngày"
-                    (onSelect)="bieuDoTyLeThongKeSanLuong()">
-                </p-calendar>
+<p-dialog header="Thống kê tỷ lệ bông phế\hồi" [(visible)]="showBieuDoTyLe" [modal]="true"
+    [style]="{width: '95vw', height:'auto'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <div class="p-d-flex p-flex-row p-jc-end">
+        <div class="p-col-3">
+            <p-table [value]="TyLeBongPhe_Hoi"
+                styleClass="p-datatable-sm p-datatable-gridlines wrap-text minimize-font">
+                <ng-template pTemplate="header">
+                    <tr class="normal">
+                        <th>Nội dung</th>
+                        <th>Giá trị</th>
+                        <th>Lũy kế</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-thongke let-i="rowIndex">
+                    <tr>
+                        <td>{{thongke.Ten}}
+                        </td>
+                        <td class="text-right">
+                            {{thongke.GiaTri |number:'0.3-3'}}
+                            <!-- <div *ngIf="thongke.TieuHao!='KwH'&&thongke.TieuHao!='%'; else elseTieuHao">
+                            {{thongke.TieuHao|number:'0.0-3'}}
+                        </div>
+                        <ng-template #elseTieuHao>
+                            {{thongke.DonVi}}
+                        </ng-template> -->
+                            <!-- a dũng chưa có  -->
+                            <!-- {{thongke.DonVi}} -->
+
+                        </td>
+                        <td class="text-right">
+                            {{thongke.LuyKe |number:'0.3-3'}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="p-col-9">
+            <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+                <div class="p-d-flex p-flex-row">
+                    <div class="p-mr-2">
+                        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                            [(ngModel)]="filterBieuDo_TyLe.TuNgay" inputId="icon" placeholder="Từ ngày"
+                            (onSelect)="bieuDoTyLeThongKeSanLuong()">
+                        </p-calendar>
+                    </div>
+                    <div class="p-mr-2">
+                        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                            [(ngModel)]="filterBieuDo_TyLe.DenNgay" inputId="icon" placeholder="Đến ngày"
+                            (onSelect)="bieuDoTyLeThongKeSanLuong()">
+                        </p-calendar>
+                    </div>
+                    <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-2"
+                        (click)="bieuDoTyLeThongKeSanLuong()"></button>
+                </div>
             </div>
-            <div class="p-mr-2">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                    [(ngModel)]="filterBieuDo_TyLe.DenNgay" inputId="icon" placeholder="Đến ngày"
-                    (onSelect)="bieuDoTyLeThongKeSanLuong()">
-                </p-calendar>
+            <div class="responsiveChart">
+                <p-chart type="bar" [data]="dataBieuDoTyLe" [options]="optionBar"></p-chart>
             </div>
-            <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-2"
-                (click)="bieuDoTyLeThongKeSanLuong()"></button>
         </div>
     </div>
-    <div class="responsiveChart">
-        <p-chart type="bar" [data]="dataBieuDoTyLe" [options]="optionBar"></p-chart>
-    </div>
+
 </p-dialog>

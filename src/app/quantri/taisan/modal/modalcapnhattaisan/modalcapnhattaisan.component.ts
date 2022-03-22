@@ -59,11 +59,9 @@ export class ModalcapnhattaisanComponent implements OnInit {
     }
     this.KiemTraButtonModal();
     if (this.opt === 'add') {
-      this.title = "Thêm mới";
       this.GetNextSoQuyTrinh();
     }
     else {
-      this.title = "Cập nhật";
       this.GetIem();
     }
     this.GetListdmPhanXuong();

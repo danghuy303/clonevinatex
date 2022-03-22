@@ -23,5 +23,6 @@
     }
 }
 .responsiveChart *{
-    height: 500px !important;
+    min-height: 500px !important;
+    height: auto;
 }

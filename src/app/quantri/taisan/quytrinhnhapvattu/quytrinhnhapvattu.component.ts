@@ -93,10 +93,10 @@ export class QuytrinhnhapvattuComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Vật tư cần thay';
+    modalRef.componentInstance.title = 'Nhập vật tư';
     modalRef.componentInstance.item = {
       Id: '', IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "",
-      isKetThuc: false,listTaiSan:[],
+      isKetThuc: false,listTaiSan:[{IdTaiSan:'',}],
     };
     modalRef.result.then(res => {
 
@@ -114,7 +114,7 @@ export class QuytrinhnhapvattuComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật vật tư cần thay';
+    modalRef.componentInstance.title = 'Cập nhật vật tư ';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {

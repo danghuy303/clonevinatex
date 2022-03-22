@@ -47,8 +47,8 @@
         <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại tài sản:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [(ngModel)]="item.IddmLoaiTaiSan"
-                    placeholder="Chọn tài sản"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" (onChange)="ChonLoaiTaiSan()" [(ngModel)]="item.IddmLoaiTaiSan"
+                    placeholder="Chọn tài sản" [showClear]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-lg-row">

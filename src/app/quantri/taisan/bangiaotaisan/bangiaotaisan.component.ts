@@ -27,7 +27,7 @@ import { ModalcapnhatbaogiaComponent } from "../modal/modalcapnhatbaogia/modalca
 export class BangiaotaisanComponent implements OnInit {
 
   filter: any = {};
-  eAction: any = "BANGIAOTAISAN";
+  eAction: any = "QUYTRINHBANGIAOTAISAN";
   loaiTab: any = 0;
   paging: any = {};
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };

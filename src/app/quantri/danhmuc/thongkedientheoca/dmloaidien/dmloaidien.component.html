@@ -1,5 +1,5 @@
 <h4 class="title">
-    Danh mục loại điện áp
+    Danh mục loại điện
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
@@ -11,9 +11,9 @@
     </div>
     <div class="p-d-flex p-flex-row" style="width:200px">
         <div class="p-inputgroup" style="width:200px">
-            <input type="text" placeholder="Tìm kiếm" [(ngModel)]="keyWord" (keyup.enter)="GetDanhSachLoaiDienKV(true)" class="p-inputtext-sm" pInputText />
+            <input type="text" placeholder="Tìm kiếm" [(ngModel)]="keyWord" (keyup.enter)="GetList(true)" class="p-inputtext-sm" pInputText />
             <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-text"(click)="resetFilter()" pTooltip="Làm mới" showDelay="1000" tooltipPosition="bottom"></button>
-            <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-text" (click)="GetDanhSachLoaiDienKV(true)" pTooltip="Tìm kiếm" showDelay="1000" tooltipPosition="bottom"></button>
+            <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-text" (click)="GetList(true)" pTooltip="Tìm kiếm" showDelay="1000" tooltipPosition="bottom"></button>
         </div>
     </div>
 </div>

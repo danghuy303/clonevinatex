@@ -150,4 +150,21 @@ export class BaocaothongketiendienComponent extends StoreBase implements OnInit,
       }).catch(er => console.log(er))
     })
   }
+  xuatBaoCaoTienDien() {
+    let data = {
+      nThang: this.filter.nThang,
+      nNam: this.filter.nNam,
+      IddmPhanXuong: this.filter.IddmPhanXuong
+    }
+    this._service.BaoCao().ExportBaoCaoThongKeTienDien(data).subscribe((res: any) => {
+      console.log(res);
+      if (res) {
+        if (validVariable(res.State)) {
+          this._toastr.error(res.message);
+        } else {
+          this._service.download(res.TenFile);
+        }
+      }
+    })
+  }
 }

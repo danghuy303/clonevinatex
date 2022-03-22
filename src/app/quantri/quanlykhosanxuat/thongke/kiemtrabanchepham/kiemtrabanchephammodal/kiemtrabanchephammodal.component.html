@@ -88,7 +88,7 @@
                         <th style="display: none;"></th>
                         <th style="display: none;"></th>
                         <ng-container *ngFor="let col of listdmTieuChiBanChePham">
-                            <th>Trước CM</th>
+                            <!-- <th>Trước CM</th> -->
                             <th>Sau CM</th>
                         </ng-container>
                     </tr>
@@ -101,7 +101,7 @@
                             <td class="text-left" style="width:80px">{{itemtbl.Ne}}</td>
                             <td class="text-left" style="width:200px">{{itemtbl.Ten}}</td>
                             <ng-container *ngFor="let col of itemtbl.listdmTieuChiBanChePham">
-                                <td class="text-right" *ngIf="item.CongDoan !== 'ONG' && item.CongDoan !== 'CON'">{{col.LyThuyet}}</td>
+                                <!-- <td class="text-right" *ngIf="item.CongDoan !== 'ONG' && item.CongDoan !== 'CON'">{{col.LyThuyet}}</td> -->
                                 <td [ngStyle]="{'background-color': col.GiaTri > col.LyThuyet?'#B63232':'#99c199'}" title="{{col.LyThuyet}}">
                                     <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="col.GiaTri">
                                     </p-inputNumber>

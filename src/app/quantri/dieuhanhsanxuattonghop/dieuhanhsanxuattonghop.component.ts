@@ -64,8 +64,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       }
     },
     legend: {
-      position:'bottom',
-      display:false
+      position: 'bottom',
+      display: false
     },
     // tooltips: {
     //   callbacks: {
@@ -108,7 +108,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       }],
     },
     maintainAspectRatio: true,
-    aspectRatio: 3,
+    aspectRatio: 2.2,
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
@@ -132,6 +132,25 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         barPercentage: 1.0
       }],
       yAxes: [{
+        id: 'K',
+        scaleLabel: {
+          display: true,
+          labelString: 'Kwh'
+        },
+        ticks: {
+          beginAtZero: true,
+          callback: function (label, index, labels) {
+            return formatNumber(label, 'en-EN', '0.0-0');
+          }
+        }
+      },
+      {
+        id: 'KK',
+        position: 'right',
+        scaleLabel: {
+          display: true,
+          labelString: 'Kwh/kg'
+        },
         ticks: {
           beginAtZero: true,
           callback: function (label, index, labels) {
@@ -145,7 +164,11 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          return `${formatNumber(tooltipItem.yLabel, 'en-EN')} KWh`
+          if (tooltipItem.datasetIndex !== 2) {
+            return `${formatNumber(tooltipItem.yLabel, 'en-EN')} KWh`
+          } else {
+            return `${formatNumber(tooltipItem.yLabel, 'en-EN')} KWh/kg`
+          }
         }
       }
     }
@@ -183,9 +206,11 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   TongPheSanLuong: any;
   TongKhoiLuongSanLuong: any;
   listXuatBaoCao = [
-      { label: 'Xuất báo cáo tiêu chí',command:()=>{this.xuatBaoCaoTieuChi()} },
-      { label: 'Xuất báo cáo bán chế phẩm',command:()=>{this.xuatBaoCaoBanChePham()} }
+    { label: 'Báo cáo chất lượng SP', command: () => { this.xuatBaoCaoTieuChi() } },
+    { label: 'Báo cáo chất lượng BCP', command: () => { this.xuatBaoCaoBanChePham() } }
   ];
+  TyLeBongPhe_Hoi: any = [];
+  ThongTinLuyKeDien = {};
 
   constructor(private _services: SanXuatService, private _auth: AuthenticationService, private store: StoreService, public toastr: ToastrService) {
     this.currentUser = this._auth.currentUserValue;
@@ -329,7 +354,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         { Ten: 'Điện AC | khí nén', TieuHao: "KwH", DonVi: 'KW', ManHinh: `${this._formatN(res.DienAC_KW)} | ${this._formatN(res.DienKhiNen_KW)}` },
         { Ten: 'Tổng điện', TieuHao: "KwH", DonVi: 'KW', ManHinh: this._formatN(res.TongDien_KW), button: 'xuatexceltongdien', button2: 'bieudotongdien' },
         { Ten: 'Tỷ lệ điện AC | Khí nén (3)/(4)', TieuHao: '%', DonVi: '%', ManHinh: `${this._formatN(res.DienAC_PhanTram)} | ${this._formatN(res.DienKhiNen_PhanTram)}` },
-        { Ten: 'Tiêu hao bình quân (4)/(1)', TieuHao: 'KwH', DonVi: 'KwH/kg', ManHinh: this._formatN(res.TieuHaoDienBinhQuan), button: 'xuatexceltiendien' },
+        { Ten: 'Tiêu hao bình quân', TieuHao: 'KwH', DonVi: 'KwH/kg', ManHinh: this._formatN(res.TieuHaoDienBinhQuan) },
       ]
       this.thongKes1 = [
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },
@@ -339,15 +364,25 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         // { Ten: 'Sản lượng Ne 30 KH/ca:', GiaTri: res.SanLuongQuyNe30KH_Ca },
         { Ten: 'Tỷ lệ sợi cắt (%):', GiaTri: res.TyLeSoiCat },
         { Ten: 'Tỷ lệ sợi con / Ống:', GiaTri: res.TyLeSoiCon },
-        { Ten: 'Tỷ lệ bông rơi chải thô F1:', GiaTri: res.TyleBongRoiChaiTho },
-        { Ten: 'Bông rơi chải kỹ F3:', GiaTri: res.TyleBongRoiChaiKy },
-        { Ten: 'Tỷ lệ bông mùn (Bụi tinh):', GiaTri: res.TyleBongMun },
-        { Ten: 'Tỷ lệ bông hút mối/tiêu chuẩn:', GiaTri: res.TyLeBongHutMoi },
-        { Ten: 'Tỷ lệ cúi hồi:', GiaTri: res.TyLeCuiHoi },
-        { Ten: 'Tỷ lệ thô màng:', GiaTri: res.TyLeThoMang },
-        { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXo },
-        { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoi },
+        // { Ten: 'Tỷ lệ bông rơi chải thô F1:', GiaTri: res.TyleBongRoiChaiTho },
+        // { Ten: 'Tỷ lệ bông rơi chải kỹ F3:', GiaTri: res.TyleBongRoiChaiKy },
+        // { Ten: 'Tỷ lệ bông mùn (Bụi tinh):', GiaTri: res.TyleBongMun },
+        // { Ten: 'Tỷ lệ bông hút mối/tiêu chuẩn:', GiaTri: res.TyLeBongHutMoi },
+        // { Ten: 'Tỷ lệ cúi hồi:', GiaTri: res.TyLeCuiHoi },
+        // { Ten: 'Tỷ lệ thô màng:', GiaTri: res.TyLeThoMang },
+        // { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXo },
+        // { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoi }
       ]
+      // this.TyLeBongPhe_Hoi = [
+      //   { Ten: 'Tỷ lệ bông rơi chải thô F1:', GiaTri: res.TyleBongRoiChaiTho, LuyKe: 0 },
+      //   { Ten: 'Tỷ lệ bông rơi chải kỹ F3:', GiaTri: res.TyleBongRoiChaiKy, LuyKe: 0 },
+      //   { Ten: 'Tỷ lệ bông mùn (Bụi tinh):', GiaTri: res.TyleBongMun, LuyKe: 0 },
+      //   { Ten: 'Tỷ lệ bông hút mối/tiêu chuẩn:', GiaTri: res.TyLeBongHutMoi, LuyKe: 0 },
+      //   { Ten: 'Tỷ lệ cúi hồi:', GiaTri: res.TyLeCuiHoi, LuyKe: 0 },
+      //   { Ten: 'Tỷ lệ thô màng:', GiaTri: res.TyLeThoMang, LuyKe: 0 },
+      //   { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXo, LuyKe: 0 },
+      //   { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoi, LuyKe: 0 }
+      // ]
     });
     this._services.BaoCao().GetDashBoard_SanLuongOng(this.filter).subscribe((res: any) => {
       this.labelSanLuongOng = `Sản lượng ống ${this.filter.nNgay}/${this.filter.nThang}/${this.filter.nNam}`
@@ -623,29 +658,31 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       DenNgay: DateToUnix(this.filterBieuDo_TienDien.DenNgay),
       IddmPhanXuong: this.filter.IddmPhanXuong
     }
-    this._services.BaoCao().GetBieuDo_TienDien(filter).subscribe((res: Array<any>) => {
-      console.log(res.map(ele => Math.round(ele.TongTienDienGY || 0)));
-      console.log(res.map(ele => Math.round(ele.TongTienDien || 0)));
+    this._services.BaoCao().GetBieuDo_TienDien(filter).subscribe((response: any) => {
+      let res = response.listItem;
+      this.ThongTinLuyKeDien = response;
+      let datasets = res[0].listItem.map((loaidien, indexloaidien) => {
+        return {
+          type: 'bar',
+          label: loaidien.TenLoaiDien,
+          backgroundColor: this.arrayMau[indexloaidien],
+          yAxisID: 'K',
+          data: res.map(ngay => Math.round(ngay.listItem[indexloaidien].TongSoDien || 0)),
+          borderColor: 'white'
+        }
+      })
+      datasets.push({
+        type: 'line',
+        label: 'Tiêu hao điện bình quân',
+        borderColor: '#ff6530',
+        yAxisID: 'KK',
+        fill: false,
+        data: res.map(ele => ele.TongSoDien_QuyNE)
+      })
       this.dataBieuDoDien = {
         labels: res.map(ele => formatDate(ele.NgayNhap, 'dd/MM/yyyy', 'en-EN')),
-        datasets: [
-          {
-            type: 'bar',
-            label: 'Tổng điện',
-            backgroundColor: '#009900',
-            data: res.map(ele => Math.round(ele.TongSoDien || 0)),
-            borderColor: 'white',
-          },
-          {
-            type: 'bar',
-            label: 'Tổng điện GY',
-            backgroundColor: '#3c5cbb',
-            data: res.map(ele => Math.round(ele.TongSoDienGY || 0)),
-            borderColor: 'white',
-          },
-        ]
+        datasets: datasets
       }
-      console.log(this.dataBieuDoDien)
     })
   }
   dataBieuDoDien = {}
@@ -680,6 +717,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
           })
         }
       })
+
       console.log(datasets);
       this.dataBieuDoTyLe = {
         labels: res.map(ele => formatDate(ele.Ngay, 'dd/MM/yyyy', 'en-EN')),
@@ -689,7 +727,23 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   }
   bieuDoTyLeThongKeSanLuong() {
     this.getBieuDoTyLe();
+    this.GetThongTyLeBongPhe_Hoi();
     this.showBieuDoTyLe = true;
+  }
+  GetThongTyLeBongPhe_Hoi(){
+    let data = this.filter;
+    this._services.DashBoard().GetDashBoard_TongHop_TyLeBongPheBongHoi(data).subscribe((res:any)=>{
+       this.TyLeBongPhe_Hoi = [
+        { Ten: 'Tỷ lệ bông rơi chải thô F1:', GiaTri: res.TyleBongRoiChaiTho, LuyKe: res.TyleBongRoiChaiThoLuyKe },
+        { Ten: 'Tỷ lệ bông rơi chải kỹ F3:', GiaTri: res.TyleBongRoiChaiKy, LuyKe: res.TyleBongRoiChaiKyLuyKe },
+        { Ten: 'Tỷ lệ bông mùn (Bụi tinh):', GiaTri: res.TyleBongMun, LuyKe: res.TyleBongMunLuyKe },
+        { Ten: 'Tỷ lệ bông hút mối/tiêu chuẩn:', GiaTri: res.TyLeBongHutMoi, LuyKe: res.TyLeBongHutMoiLuyKe },
+        { Ten: 'Tỷ lệ cúi hồi:', GiaTri: res.TyLeCuiHoi, LuyKe: res.TyLeCuiHoiLuyKe },
+        { Ten: 'Tỷ lệ thô màng:', GiaTri: res.TyLeThoMang, LuyKe: res.TyLeThoMangLuyKe },
+        { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXo, LuyKe: res.TyLeHoiTrenBanXoLuyKe },
+        { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoi, LuyKe: res.TyLeCottonTrenHoiLuyKe }
+      ]
+    })
   }
   xuatBaoCaoBanChePham() {
     let data = this.filter;

@@ -56,20 +56,18 @@ export class ModalthuhoitaisanComponent implements OnInit {
     }
 
     this.GetListdmPhanXuong();
-    this.GetListTaiSanChuaBanGiao();
-    this.KiemTraButtonModal();
-    this.GetPhanXuong();
+    this.GetListTaiSanDaBanGiao();
+    // this.KiemTraButtonModal();
+    // this.GetPhanXuong();
   }
 
   GetListdmPhanXuong() {
     this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-      console.log(res)
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  GetListTaiSanChuaBanGiao() {
-    this._serviceTaiSan.GetOptions().GetListTaiSanChuaBanGiao().subscribe((res: any) => {
-      console.log(res)
+  GetListTaiSanDaBanGiao() {
+    this._serviceTaiSan.GetTaiSanTheoLoai().GetListTaiSanDaBanGiao(this.item.IdBoPhanSuDung).subscribe((res: any) => {
       this.listdsTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
       this.listTaiSanRef = res.Data;
     })

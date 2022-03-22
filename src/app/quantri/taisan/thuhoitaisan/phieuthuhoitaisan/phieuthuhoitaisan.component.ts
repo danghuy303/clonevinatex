@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
@@ -7,12 +7,13 @@ import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalthuhoitaisanComponent } from '../../modal/modalthuhoitaisan/modalthuhoitaisan.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { StoreBase } from 'src/app/services/storebase.class';
 @Component({
   selector: 'app-phieuthuhoitaisan',
   templateUrl: './phieuthuhoitaisan.component.html',
   styleUrls: ['./phieuthuhoitaisan.component.css']
 })
-export class PhieuthuhoitaisanComponent implements OnInit {
+export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   IdTrangThai: string = "";
@@ -23,15 +24,17 @@ export class PhieuthuhoitaisanComponent implements OnInit {
   showDropDown: boolean = false;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
-  eAction = "THUHOITAISAN";
+  eAction = "QUYTRINHTHUHOITAISAN";
   listPhanXuong:any=[];
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
     private _services: SanXuatService,
-    private store: StoreService,
+    store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
-  ) { }
+  ) {
+    super(store)
+   }
   ngOnInit(): void {
     console.log(this.paginator);
     this.activatedRoute.params.subscribe((res: any) => {
@@ -68,12 +71,11 @@ export class PhieuthuhoitaisanComponent implements OnInit {
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       TabTrangThai: this.trangThai
-
     };
     this._serviceTaiSan.PhieuThuHoiTaiSan().GetList(data).subscribe((res: any) => {
-      res.Data.Items.forEach(obj=>{  
-        obj.TenPhanXuong = this.listPhanXuong.find(ele=>ele.value===obj.IddmPhanXuong)?.label||null;          
-      });
+      // res.Data.Items.forEach(obj=>{  
+      //   obj.TenPhanXuong = this.listPhanXuong.find(ele=>ele.value===obj.IddmPhanXuong)?.label||null;          
+      // });
       this.items = res.Data.Items;  
       this.paging.TotalCount = res.Data.TotalCount;
       console.log(this.listPhanXuong)
@@ -105,7 +107,6 @@ export class PhieuthuhoitaisanComponent implements OnInit {
       isKetThuc: false,listFileDinhKem:[],listTaiSan:[],
     };
     modalRef.result.then(res => {
-
     }).catch(er => console.log(er))
       .finally(() => {
         this.GetListThuHoiTaiSan()

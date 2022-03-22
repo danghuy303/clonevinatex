@@ -26,6 +26,13 @@
             </div>
         </div>
         <div class="p-col-12 p-d-flex p-flex-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại điện:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listLoaiDien" placeholder="Chọn"
+                    [(ngModel)]="item.IddmLoaiDien" styleClass="p-inputtext-sm"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-d-flex p-flex-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Máy biến áp:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listmaybienap" placeholder="Chọn" [(ngModel)]="item.idMayBienAp"

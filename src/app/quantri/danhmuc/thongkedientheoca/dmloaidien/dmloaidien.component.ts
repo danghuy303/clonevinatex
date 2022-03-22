@@ -1,18 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Dat09Service } from 'src/app/services/callApi';
 import { ToastrService } from 'ngx-toastr';
-import { ModaldanhmucchungComponent } from '../../modal/modaldanhmucchung/modaldanhmucchung.component';
-import { ModalthongbaoComponent } from '../../../modal/modalthongbao/modalthongbao.component';
-import { ModalimportexcelComponent } from '../../../modal/modalimportexcel/modalimportexcel.component';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { Dat09Service } from 'src/app/services/callApi';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { ModaldmloaidienComponent } from '../../modal/modaldmloaidien/modaldmloaidien.component';
 
 @Component({
-  selector: 'app-loaidienkv',
-  templateUrl: './loaidienkv.component.html',
-  styleUrls: ['./loaidienkv.component.css']
+  selector: 'app-dmloaidien',
+  templateUrl: './dmloaidien.component.html',
+  styleUrls: ['./dmloaidien.component.css']
 })
-export class LoaidienkvComponent implements OnInit {
+export class DmloaidienComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
   items: any = [
@@ -43,13 +42,13 @@ export class LoaidienkvComponent implements OnInit {
   constructor(private _modal: NgbModal, private _services: Dat09Service, private _toastr: ToastrService, private ServicesSanXuat: SanXuatService) { }
 
   ngOnInit(): void {
-    this.GetDanhSachLoaiDienKV();
+    this.GetList();
   }
   resetFilter() {
     this.keyWord = '';
-    this.GetDanhSachLoaiDienKV()
+    this.GetList()
   }
-  GetDanhSachLoaiDienKV(reset?) {
+  GetList(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
@@ -58,34 +57,34 @@ export class LoaidienkvComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage,
       KeyWord: this.keyWord,
     };
-    this.ServicesSanXuat.dmLoaiDienKV().GetList(data).subscribe((res: any) => {
+    this.ServicesSanXuat.dmLoaiDien().GetList(data).subscribe((res: any) => {
       this.items = res.items;
       this.paging = res.paging;
     })
   }
   add() {
-    let modalRef = this._modal.open(ModaldanhmucchungComponent, {
+    let modalRef = this._modal.open(ModaldmloaidienComponent, {
       backdrop: 'static'
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'loaidien';
-    modalRef.componentInstance.title = 'Thêm mới danh mục loại điện áp';
+    modalRef.componentInstance.title = 'Thêm mới danh mục loại điện';
     modalRef.result.then(res => {
       this._toastr.success(res);
-      this.GetDanhSachLoaiDienKV()
+      this.GetList()
     }).catch(er => console.log(er))
   }
   edit(item) {
-    let modalRef = this._modal.open(ModaldanhmucchungComponent, {
+    let modalRef = this._modal.open(ModaldmloaidienComponent, {
       backdrop: 'static'
     });
     modalRef.componentInstance.opt = 'edit';
-    modalRef.componentInstance.title = 'Cập nhật danh mục loại điện áp';
+    modalRef.componentInstance.title = 'Cập nhật danh mục loại điện';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.type = 'loaidien';
     modalRef.result.then(res => {
       this._toastr.success(res);
-      this.GetDanhSachLoaiDienKV()
+      this.GetList()
     }).catch(er => console.log(er))
   }
   delete(item) {
@@ -94,11 +93,11 @@ export class LoaidienkvComponent implements OnInit {
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res => {
-      this.ServicesSanXuat.dmLoaiDienKV().Delete(item).subscribe((res: any) => {
+      this.ServicesSanXuat.dmLoaiDien().Delete(item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);
-            this.GetDanhSachLoaiDienKV();
+            this.GetList();
           } else {
             this._toastr.error(res.message);
           }
@@ -112,11 +111,11 @@ export class LoaidienkvComponent implements OnInit {
     });
     modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res => {
-      this.ServicesSanXuat.dmLoaiDienKV().Delete(this.selectedItems).subscribe((res: any) => {
+      this.ServicesSanXuat.dmLoaiDien().Delete(this.selectedItems).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);
-            this.GetDanhSachLoaiDienKV();
+            this.GetList();
             this.selectedItems = [];
           } else {
             this._toastr.error(res.message);
@@ -131,7 +130,7 @@ export class LoaidienkvComponent implements OnInit {
     // })
     // modalRef.componentInstance.importFunc = 'BienDong';
     // modalRef.result.then(res=>{
-    //   this.GetDanhSachLoaiDienKV();
+    //   this.GetList();
     //   this._toastr.success(res.mess);
     // })
     // .catch(er=>console.log(er))
@@ -143,5 +142,4 @@ export class LoaidienkvComponent implements OnInit {
     //   this._services.download(res.TenFile);
     // })
   }
-
 }
