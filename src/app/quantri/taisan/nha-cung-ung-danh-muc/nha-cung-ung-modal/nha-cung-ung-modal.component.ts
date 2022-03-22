@@ -36,11 +36,6 @@ export class NhaCungUngModalComponent implements OnInit {
 
   SetNhaCungUng() {
     if (this.Validate()) {
-      // if (!validVariable(this.item.listItem) && !validVariable(this.item.listPhieuDanhGia) && !validVariable(this.item.listHopDong)) {
-      //   this.item.listItem = [];
-      //   this.item.listPhieuDanhGia = [];
-      //   this.item.listHopDong = [];
-      // }
       if (!validVariable(this.item.listItem)) {
         this.item.listItem = [];
       } else if (!validVariable(this.item.listPhieuDanhGia)) {

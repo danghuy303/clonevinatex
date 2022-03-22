@@ -42,6 +42,7 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     if (this.opt === 'add') {
       this.title = "Thêm mới";
       this.GetNextSoQuyTrinh();
@@ -54,7 +55,7 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
     this.KiemTraButtonModal();
     this.ResetFilter();
   }
-
+  
   GetListTinhTrang() {
     this._serviceTaiSan.NhaCungUng().GetListTinhTrang().subscribe((res:any)=>{
       this.listTinhTrang = mapArrayForDropDown(res.Data, 'Ten', 'Id');
@@ -118,10 +119,10 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
       size: "xl",
       backdrop: "static"
     })
-    modalRef.componentInstance.checkListItem = this.listNhaCungUng;
+    modalRef.componentInstance.checkListItem = this.quyTrinh?.listPhieuDanhGia||[];
     modalRef.result
       .then((res: any) => {
-        this.quyTrinh.listPhieuDanhGia = res;
+        this.quyTrinh.listPhieuDanhGia = (this.quyTrinh?.listPhieuDanhGia||[]).concat(res);
       })
       .catch(er => {})
       .finally()
@@ -133,7 +134,12 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
       size: 'xl',
       backdrop: 'static',
     })
+    modalRef.componentInstance.phieuDanhGia = item;
     modalRef.componentInstance.item = item;
+    modalRef.result
+      .then((res: any) => {
+        item.KetQuaDanhGia = res;
+      })
   }
 
   DeleteNhaCungUng(id: string) {
