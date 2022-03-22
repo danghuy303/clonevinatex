@@ -164,7 +164,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          if (tooltipItem.datasetIndex !== 2) {
+          if (data.datasets[tooltipItem.datasetIndex].yAxisID === 'K') {
             return `${formatNumber(tooltipItem.yLabel, 'en-EN')} KWh`
           } else {
             return `${formatNumber(tooltipItem.yLabel, 'en-EN')} KWh/kg`
@@ -253,7 +253,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     }
     let date = new Date();
     this.filterBieuDo_TienDien.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
-    this.filterBieuDo_TienDien.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.filterBieuDo_TienDien.DenNgay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     this.filterBieuDo_TyLe.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filterBieuDo_TyLe.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     this.filter.nNgay = (new Date()).getDate();

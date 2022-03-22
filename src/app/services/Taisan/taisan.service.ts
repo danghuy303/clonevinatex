@@ -660,6 +660,16 @@ export class TaisanService {
           IdBoPhanSuDung: IdBoPhanSuDung
         }
         return this.http.post(`${url}NhatKySuDung/GetListTaiSanChuaBanGiao`,data,httpOptions)
+      },
+      GetListTaiSanThuHoi:(IdBoPhanSuDung)=>{
+        let data ={
+          CurrentPage: 0,
+          PageSize: 0,
+          Keyword: '',
+          IddmLoaiTaiSan: '',
+          IdBoPhanSuDung: IdBoPhanSuDung
+        }
+        return this.http.post(`${url}NhatKySuDung/GetListTaiSanThuHoi`,data,httpOptions)
       }
     }
   }

@@ -49,7 +49,7 @@ export class KiemtrabanchephamComponent extends StoreBase implements OnInit, OnD
   ];
   checkQuyen:any={ChuaXuLy:false,DaXyLy:false,ThemMoi:false};
   listPhanXuong: any = [];
-  eAction = 'THONGKESANLUONG'
+  eAction = 'KIEMTRABANCHEPHAM'
   constructor(public _modal:NgbModal,public store:StoreService,public _toastr:ToastrService,private _service:SanXuatService,
     private activatedRoute: ActivatedRoute,private router:Router) { super(store)
   }

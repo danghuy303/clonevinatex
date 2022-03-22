@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { PintableDirective } from 'voi-lib';
 import { ChonmathangkiemtrabanchephammodalComponent } from '../chonmathangkiemtrabanchephammodal/chonmathangkiemtrabanchephammodal.component';
 
 @Component({
@@ -15,6 +16,7 @@ import { ChonmathangkiemtrabanchephammodalComponent } from '../chonmathangkiemtr
 })
 export class KiemtrabanchephammodalComponent implements OnInit {
   @ViewChildren('inputNumber') inputNumbers: any;
+  @ViewChild('voiPintable') voiPintable:PintableDirective;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -147,6 +149,7 @@ export class KiemtrabanchephammodalComponent implements OnInit {
         modalRef.componentInstance.listItem = deepCopy( this.item.listItem);
         modalRef.result.then((data) => {
           this.item.listItem = data.data;
+          this.voiPintable.active();
         });
       })
     }
@@ -161,5 +164,17 @@ export class KiemtrabanchephammodalComponent implements OnInit {
     this.services.dmTieuChiChatLuongsoi().GetListdmTieuChiBanChePham(this.item.CongDoan).subscribe((res: any) => {
       this.listdmTieuChiBanChePham = mapArrayForDropDown(res, 'Ten', 'Id');
     })
+  }
+  xuongDong(i,length,indexcon){
+    let nextIndex = i * length + indexcon+1
+    let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === nextIndex+length);
+      if (validVariable(nextFocus)) {
+        nextFocus.el.nativeElement.children[0].children[0].focus();
+        nextFocus.el.nativeElement.children[0].children[0].select();
+        // this.item.listItem[i+1].listdmTieuChiBanChePham[indexcon]
+      } else {
+        this.inputNumbers.toArray()[(indexcon+1>=length?0:indexcon+1)].el.nativeElement.children[0].children[0].focus();
+        this.inputNumbers.toArray()[(indexcon+1>=length?0:indexcon+1)].el.nativeElement.children[0].children[0].select();
+      }
   }
 }
