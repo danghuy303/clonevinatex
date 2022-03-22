@@ -2,28 +2,28 @@
   <h5 class="modal-title">{{title}}</h5>
   <div class="d-flex flex-column flex-lg-row">
       <div>
-          <span style="font-weight: bold;">
-            Số quy trình:
-          </span> 
-          {{item.SoQuyTrinh}}
+        <span style="font-weight: bold;">
+          Số quy trình:
+        </span> 
+        {{quyTrinh.SoQuyTrinh}}
       </div>
       <div class="ml-lg-3 mr-lg-3">
-          <span style="font-weight: bold;">
-            TG Tạo:
-          </span>
-          {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+        <span style="font-weight: bold;">
+          TG Tạo:
+        </span>
+        {{quyTrinh.Created|date:"dd/MM/yyyy HH:mm"}}
       </div>
       <div class="ml-lg-3 mr-lg-3">
         <span style="font-weight: bold;">
           Người Tạo:
         </span>
-        {{item.user.TenNhanVien}}
+        {{user.TenNhanVien}}
       </div>
       <div>
-          <span style="font-weight: bold;">
-            TG Duyệt:
-          </span>
-          {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+        <span style="font-weight: bold;">
+          TG Duyệt:
+        </span> 
+        {{quyTrinh.Modified|date:"dd/MM/yyyy HH:mm"}}
       </div>
   </div>
   <!-- <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -35,7 +35,7 @@
   <div class="p-d-flex p-flex-row p-jc-between">
     <div class="modal-bt p-mb-4 ">
         <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="activeModal.dismiss('close')"></button>
-        <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm" checkbutton.Ghi></button>
+        <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm" checkbutton.Ghi (click)="UpdateQuyTrinh()"></button>
         <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa"></button>
         <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" *ngIf="checkbutton.KhongDuyet"></button>
         <button pButton pRipple type="button" label="Chuyển tiếp" class="p-mr-2 p-button-sm" *ngIf="checkbutton.ChuyenTiep"></button>
@@ -46,20 +46,19 @@
     <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
       <div class="p-col-12 p-lg-10 p-p-0">
-          <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
+          <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.NoiDung" pInputText />
       </div>
     </div>
     <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ngày:</label>
       <div class="p-col-12 p-lg-10 p-p-0">
-          <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText /> -->
-          <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+          <p-calendar inputId="basic" showIcon="true" [(ngModel)]="quyTrinh.Created" dateFormat="dd/mm/yy"></p-calendar>
       </div>
     </div>
     <div class="p-col-12 p-lg-12 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú:</label>
       <div class="p-col-12 p-lg-11 p-p-0">
-          <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+          <input type="text" class="p-inputtext-sm" [(ngModel)]="quyTrinh.GhiChu" pInputText />
       </div>
     </div>
   </div>
@@ -76,7 +75,7 @@
     </div>
   </div>
 
-  <p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+  <p-table [value]="quyTrinh.listPhieuDanhGia" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
     <ng-template pTemplate="colgroup">
       <colgroup>
         <col style="width: 50px">
@@ -109,14 +108,16 @@
         <td>{{item.Ten}}</td>
         <td class="text-center">{{item.KetQuaDanhGia}}</td>
         <td class="text-center">
-          <p-dropdown [options]="listTinhTrang" [(ngModel)]="item.IddmTinhTrangNhaCungung" optionLabel="label" optionValue="id"></p-dropdown>
+          <p-dropdown [options]="listTinhTrang" [(ngModel)]="item.IddmTinhTrangNhaCungung"></p-dropdown>
         </td>
-        <td>{{item.GhiChu}}</td>
-        <td class="text-center">
-          <p-dropdown [options]="listPheDuyet" [(ngModel)]="item.TinhTrangPheDuyet" optionLabel="label" optionValue="id"></p-dropdown>
+        <td>
+          <input type="text" pInputText [(ngModel)]="item.GhiChu">
         </td>
         <td class="text-center">
-          <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="SetNhaCungUng(item)"></button>
+          <p-dropdown [options]="listPheDuyet" [(ngModel)]="item.TinhTrangPheDuyet" optionLabel="label" optionValue="Ma"></p-dropdown>
+        </td>
+        <td class="text-center">
+          <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="UpdateNhaCungUng(item)"></button>
         </td>
         <td class="text-center">
           <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-text p-button-sm p-button-danger p-mr-2" pTooltip="Xóa"></button>

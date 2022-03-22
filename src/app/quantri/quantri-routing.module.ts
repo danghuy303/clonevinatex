@@ -92,6 +92,7 @@ import { ThongkesanluongcaComponent } from './quanlykhosanxuat/thongke/thongkesa
 import { KiemtrabanchephamComponent } from './quanlykhosanxuat/thongke/kiemtrabanchepham/kiemtrabanchepham.component';
 import { DmkhunggioComponent } from './danhmuc/thongkedientheoca/dmkhunggio/dmkhunggio.component';
 import { BaocaothongketiendienComponent } from './danhmuc/thongkedientheoca/baocaothongketiendien/baocaothongketiendien.component';
+import { DmloaidienComponent } from './danhmuc/thongkedientheoca/dmloaidien/dmloaidien.component';
 
 
 const routes: Routes = [
@@ -134,6 +135,7 @@ const routes: Routes = [
       { path: 'danhmucsanxuat/dmdactinhbong', component: DactinhbongComponent },
       { path: 'danhmucsanxuat/dmbanchepham', component: BanchephamComponent },
       { path: 'danhmucsanxuat/dmkhunggio', component: DmkhunggioComponent },
+      { path: 'danhmucsanxuat/loaidien', component: DmloaidienComponent },
 
       { path: 'theodoithongkebaocaosanxuat/thongkesanluong/:id', component: ThongkesanluongComponent },
       { path: 'theodoithongkebaocaosanxuat/thongkesanluongca/:id', component: ThongkesanluongcaComponent },

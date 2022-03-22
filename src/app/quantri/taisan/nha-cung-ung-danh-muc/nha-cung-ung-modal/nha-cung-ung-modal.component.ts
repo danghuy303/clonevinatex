@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { ToastrService } from 'ngx-toastr';
-import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
-import { mapArrayForDropDown, validVariable, DateToUnix, DateToDatePicker, UnixToDate, deepCopy } from 'src/app/services/globalfunction';
-import { ThongTinHangHoaModalComponent } from '../thong-tin-hang-hoa-modal/thong-tin-hang-hoa-modal.component';
+import { validVariable } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-nha-cung-ung-modal',
@@ -15,12 +13,6 @@ export class NhaCungUngModalComponent implements OnInit {
 
   item: any = {};
   title: string = "";
-  listNhomCungUng: any = [];
-  listHangHoa: any[];
-  filterHangHoa: any = {};
-  pageHangHoa: any = {};
-  checkedAll: boolean = false;
-  fileUploadHangHoa: any;
 
   constructor(
     private taiSanService: TaisanService,
@@ -31,22 +23,33 @@ export class NhaCungUngModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetNhaCungUng();
-    // this.LoadListHangHoa(true);
   }
 
   GetNhaCungUng() {
     if (this.item.Id) {
-      this.taiSanService.NhaCungUng().Get(this.item.Id).subscribe((res: any)=>{
+      this.taiSanService.NhaCungUng().Get(this.item.Id)
+      .subscribe((res: any)=>{
         this.item = res.Data;
-        this.listHangHoa = res.Data.listItem;
-        this.pageHangHoa.totalCount = this.listHangHoa.length;
       })
     }
   }
 
   SetNhaCungUng() {
     if (this.Validate()) {
-      this.taiSanService.NhaCungUng().Set(this.item).subscribe((res: any) => {
+      // if (!validVariable(this.item.listItem) && !validVariable(this.item.listPhieuDanhGia) && !validVariable(this.item.listHopDong)) {
+      //   this.item.listItem = [];
+      //   this.item.listPhieuDanhGia = [];
+      //   this.item.listHopDong = [];
+      // }
+      if (!validVariable(this.item.listItem)) {
+        this.item.listItem = [];
+      } else if (!validVariable(this.item.listPhieuDanhGia)) {
+        this.item.listPhieuDanhGia = [];
+      } else if (!validVariable(this.item.listHopDong)) {
+        this.item.listHopDong = [];
+      }
+      this.taiSanService.NhaCungUng().Set(this.item)
+      .subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.toast.success(res.Message);
           this.activeModal.close();

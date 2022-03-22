@@ -243,7 +243,7 @@ export class QuantriComponent implements OnInit {
             },
           },
           {
-            label: "Tiền điện",
+            label: "Thống kê tiền điện",
             routerLink: "/quantri/quantrisanxuat/tiendien",
             separator: this.checkmenu("DASHBOARD_TONGHOP"),
             icon: "fas fa-circle",
@@ -1514,6 +1514,11 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
+            label: "Loại điện",
+            routerLink: "/quantri/danhmucsanxuat/loaidien",
+            command: () => this.close(),
+          },
+          {
             label: "Máy biến áp",
             routerLink: "/quantri/danhmucsanxuat/dmmaybienap",
             command: () => this.close(),
@@ -1577,22 +1582,22 @@ export class QuantriComponent implements OnInit {
   }
 
   checkmenu(maaction) {
-    if (this.dataphanquyen == null) {
-      return true;
-    } else if (this.dataphanquyen[maaction] == undefined) {
-      return true;
-    } else if (this.dataphanquyen[maaction].length == 0) {
-      return true;
-    } else {
-      for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
-        if (this.dataphanquyen[maaction][i].MaRight === "XEM") {
-          if (this.dataphanquyen[maaction][i].GioiHan > 0) {
-            return false;
-          } else return true;
-        }
-      }
-    }
-    // return false;
+    // if (this.dataphanquyen == null) {
+    //   return true;
+    // } else if (this.dataphanquyen[maaction] == undefined) {
+    //   return true;
+    // } else if (this.dataphanquyen[maaction].length == 0) {
+    //   return true;
+    // } else {
+    //   for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
+    //     if (this.dataphanquyen[maaction][i].MaRight === "XEM") {
+    //       if (this.dataphanquyen[maaction][i].GioiHan > 0) {
+    //         return false;
+    //       } else return true;
+    //     }
+    //   }
+    // }
+    return false;
   }
 
   private subscribeToEvents(): void {

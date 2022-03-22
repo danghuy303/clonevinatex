@@ -59,7 +59,6 @@ export class KiemtrabanchephamComponent extends StoreBase implements OnInit, OnD
       if(res.id!=='0'){
         this.update(res.id);
       }
-    
     })
     this.KiemTraTabTrangThai();
     this.GetListQuyTrinh();

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-thong-tin-danh-gia',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./thong-tin-danh-gia.component.css']
 })
 export class ThongTinDanhGiaComponent implements OnInit {
+
+  @Input() item: any = {};
+  paging: any = {}
 
   constructor() { }
 

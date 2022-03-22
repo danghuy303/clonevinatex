@@ -134,6 +134,7 @@ import { ThongTinDanhGiaComponent } from './nha-cung-ung-danh-muc/thong-tin-danh
 import { ThongTinHopDongComponent } from './nha-cung-ung-danh-muc/thong-tin-hop-dong/thong-tin-hop-dong.component';
 
 import { QuytrinhlapkehoachlichxichthangComponent } from './quytrinhlapkehoachlichxichthang/quytrinhlapkehoachlichxichthang.component';
+import { ThongTinDanhGiaNcuComponent } from './danh-gia-nha-cung-ung/thong-tin-danh-gia-ncu/thong-tin-danh-gia-ncu.component';
 import { QuytrinhbaoduongComponent } from './quytrinhbaoduong/quytrinhbaoduong.component';
 import { ModalquytrinhbaoduongComponent } from './modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
 import { ModalbaoduongluachontaisanComponent } from './modal/modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
@@ -232,6 +233,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     ThongTinDanhGiaComponent,
     ThongTinHopDongComponent,
     QuytrinhlapkehoachlichxichthangComponent,
+    ThongTinDanhGiaNcuComponent,
     QuytrinhbaoduongComponent,
     ModalquytrinhbaoduongComponent,
     ModalbaoduongluachontaisanComponent,

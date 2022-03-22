@@ -528,6 +528,9 @@ export class TaisanService {
       ImportItem: (data) => {
         return this.http.get(`${url}DanhMuc/ImportdmItem?FileName=${data.Name}`, httpOptions)
       },
+      GetListTinhTrang: () => {
+        return this.http.get(`${url}DanhMuc/GetlistdmTinhTrangNhaCungUng`, httpOptions)
+      }
     }
   }
 
@@ -633,7 +636,31 @@ export class TaisanService {
       GetListTaiSan: (IddmPhanXuong) => {
         return this.http.get(`${url}TaiSan/GetListTaiSanNhapHieuSuat?IdDuAn=${this.store.getCurrent()}&IddmPhanXuong=${IddmPhanXuong}`, httpOptions);
       },
-
+    }
+  }
+  GetTaiSanTheoLoai(){
+    let url = API.TaiSan;
+    return{
+      GetListTaiSanDaBanGiao:(IdBoPhanSuDung)=>{
+        let data ={
+          CurrentPage: 0,
+          PageSize: 0,
+          Keyword: '',
+          IddmLoaiTaiSan: '',
+          IdBoPhanSuDung: IdBoPhanSuDung
+        }
+        return this.http.post(`${url}NhatKySuDung/GetListTaiSanDaBanGiao`,data,httpOptions)
+      },
+      GetListTaiSanChuaBanGiao:(IdBoPhanSuDung)=>{
+        let data ={
+          CurrentPage: 0,
+          PageSize: 0,
+          Keyword: '',
+          IddmLoaiTaiSan: '',
+          IdBoPhanSuDung: IdBoPhanSuDung
+        }
+        return this.http.post(`${url}NhatKySuDung/GetListTaiSanChuaBanGiao`,data,httpOptions)
+      }
     }
   }
 

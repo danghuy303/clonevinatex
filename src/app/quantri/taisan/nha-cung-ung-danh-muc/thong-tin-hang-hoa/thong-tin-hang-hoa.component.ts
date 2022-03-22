@@ -1,5 +1,6 @@
 import { AfterContentInit, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { validVariable } from 'src/app/services/globalfunction';
 import { ThongTinHangHoaModalComponent } from '../thong-tin-hang-hoa-modal/thong-tin-hang-hoa-modal.component';
 
 @Component({
@@ -9,7 +10,7 @@ import { ThongTinHangHoaModalComponent } from '../thong-tin-hang-hoa-modal/thong
 })
 export class ThongTinHangHoaComponent implements OnInit, OnChanges {
 
-  @Input() items: any;
+  @Input() item: any = {};
   filter: any = {};
   paging: any = {};
   checkedAll: boolean = false;
@@ -20,37 +21,52 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
     public activeModal: NgbActiveModal,
   ) { }
   
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.item.listItem) {
+      this.LoadPage();
+    } else {
+      this.item.listItem = [];
+    }
+  } 
+
   ngOnInit(): void {
   }
   
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.items);
-    
-    this.ResetListHangHoa();
-  }
 
-  ResetListHangHoa() {
-    this.paging.currentPage = 1;
-    this.paging.totalCount = this.items.length;
+  LoadPage() {
+    this.paging = {
+      currentPage: 1,
+      totalCount: this.item.listItem.length,
+    };
   }
 
   AddHangHoa() {
     let modalRef = this.modal.open(ThongTinHangHoaModalComponent, {
       size: "xl",
       backdrop: "static",
-      })
-      modalRef.componentInstance.selectedList = [];
-      modalRef.result
+    })
+    if (!validVariable(this.item.listItem)) {
+      this.item.listItem = [];
+    }
+    modalRef.componentInstance.checkListItem = this.item.listItem;
+    modalRef.result
       .then((res: any) => {
-        this.items = this.items.concat(res)
-        console.log(this.items);
+        this.item.listItem = this.item.listItem.concat(res);
+        this.LoadPage();
       })
       .catch(er => {});
     }
 
     DeleteListHangHoa() {
-      this.items = this.items.filter(item => {
-        return !item.checked === true
+      this.item.listItem = this.item.listItem.filter(item => {
+        return !item.checked === true;
+        this.LoadPage();
+      })
+    }
+
+    CheckAllHangHoa() {
+      this.item.listItem.forEach((obj)=>{
+        obj.checked = this.checkedAll;
       })
     }
   
@@ -84,18 +100,6 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
   //     .finally()
 
   // }
-
-    CheckAllHangHoa() {
-      if (this.checkedAll) {
-        this.items.forEach(item => {
-          item.checked = true;
-        })
-      } else {
-        this.items.forEach(item => {
-          item.checked = false;
-        })
-      }
-    }
 
   // SearchHangHoa() {
   //   this.listHangHoa = this.listHangHoa.filter(item => {

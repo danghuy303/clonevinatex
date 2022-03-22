@@ -13,6 +13,7 @@ export class ThemNhaCungUngModalComponent implements OnInit {
   paging: any = {};
   items: any = [];
   selectedList: any[] = [];
+  checkListItem: any = [];
   checkedAll: boolean = false;
 
   constructor(
@@ -34,39 +35,48 @@ export class ThemNhaCungUngModalComponent implements OnInit {
     if (reset) {
       this.paging.currentPage = 1;
     }
-    this.checkedAll = false;
     let data = {
       CurrentPage: this.paging.currentPage,
       PageSize: 20,
       Keyword: this.filter.keyword,
-      HoatDong: 0,
-      Ma: "",
-      Ten:"",
-      GhiChu: ""
     }
     this.taiSanService.NhaCungUng().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
+      this.CheckExistedHangHoa();
     })
   }
 
   AddNhaCungUng() {
-    this.selectedList = this.items.filter(item => {
-      return item.checked === true;
+    let newArr = this.checkListItem.map(item=>item.MadmItem);
+    this.selectedList = this.items.filter(item=>{
+      return newArr.indexOf(item.Ma) == -1 && item.checked === true;
     })
-    this.activeModal.close(this.selectedList)
+    .map(item=> {
+      return ({
+        Id: item.Id,
+        Ten: item.Ten,
+        Ma: item.Ma,
+        IddmTinhTrangNhaCungung: item.IddmTinhTrangNhaCungung,
+      })
+    })
+    this.activeModal.close(this.selectedList);
   }
 
-  CheckAllNhaCungUng(e) {
-    if (this.checkedAll) {
-      this.items.forEach(item => {
-        item.checked = true;
-      })
-    } else {
-      this.items.forEach(item => {
-        item.checked = false;
-      })
-    }
+  CheckAllNhaCungUng() {
+    this.items.forEach(item => {
+      item.checked = this.checkedAll;
+    })
   } 
+
+  CheckExistedHangHoa() {
+    this.items.forEach(item => {
+      this.checkListItem.forEach(checkedItem => {
+        if (item.Ma === checkedItem.Ma) {
+          item.checked = true;
+        }
+      })
+    })
+  }
 
 }

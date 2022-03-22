@@ -1,4 +1,4 @@
-<div class="p-mb-3 p-mt-3">
+  <div class="p-mb-3 p-mt-3">
   <h4 style="color:#1f2779">Danh mục nhà cung ứng</h4>
 </div>
 
@@ -22,9 +22,7 @@
 
 <!-- tabview -->
 <p-tabView styleClass="no-content" (onChange)="ChangeTab($event)">
-    <p-tabPanel header="Hiện hành"></p-tabPanel>
-    <p-tabPanel header="Tiềm năng"></p-tabPanel>
-    <p-tabPanel header="Chấm dứt"></p-tabPanel>
+    <p-tabPanel *ngFor="let trangthai of listTrangThai" [header]="trangthai.Ten"></p-tabPanel>
 </p-tabView>
 
 <!-- table -->
@@ -46,7 +44,7 @@
       <tr>
         <th>
           <p-checkbox [(ngModel)]="checkedAll" binary="true" inputId="binary"
-          (onChange)="CheckAllNhaCungUng($event)"></p-checkbox>
+          (onChange)="CheckAllNhaCungUng()"></p-checkbox>
         </th>
         <th>STT</th>
         <th>Mã </th>

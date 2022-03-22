@@ -33,9 +33,9 @@ import { TooltipModule } from 'primeng/tooltip';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import {ProgressBarModule} from 'primeng/progressbar';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
-import {ColorPickerModule} from 'primeng/colorpicker';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 // import { FileUploadModule } from 'primeng/fileupload';
 // import localeVi from '@angular/common/locales/vi';
@@ -44,6 +44,7 @@ import {ColorPickerModule} from 'primeng/colorpicker';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModaldanhmucchungComponent } from './danhmuc/modal/modaldanhmucchung/modaldanhmucchung.component';
+import { ModaldmloaidienComponent } from './danhmuc/modal/modaldmloaidien/modaldmloaidien.component';
 import { ModalthongbaoComponent } from './modal/modalthongbao/modalthongbao.component';
 import { Dat09Service } from '../services/callApi';
 import { SignalRService } from '../services/signalR.service';
@@ -257,6 +258,7 @@ import { DmkhunggiomodalComponent } from './danhmuc/thongkedientheoca/dmkhunggio
 import { BaocaothongketiendienComponent } from './danhmuc/thongkedientheoca/baocaothongketiendien/baocaothongketiendien.component';
 import { BaocaothongketiendienmodalComponent } from './danhmuc/thongkedientheoca/baocaothongketiendien/baocaothongketiendienmodal/baocaothongketiendienmodal.component';
 import { ThongkesanluongcamodalComponent } from './quanlykhosanxuat/thongke/thongkesanluong/thongkesanluongcamodal/thongkesanluongcamodal.component';
+import { DmloaidienComponent } from './danhmuc/thongkedientheoca/dmloaidien/dmloaidien.component';
 
 
 @NgModule({
@@ -304,7 +306,7 @@ import { ThongkesanluongcamodalComponent } from './quanlykhosanxuat/thongke/thon
     MathangComponent,
     MathangmodelComponent,
     PhanxuongComponent,
-    PhanxuongmodalComponent, 
+    PhanxuongmodalComponent,
     LoaisoiComponent,
     ChonmaytheocongdoanComponent,
     ImportdanhmucmodelComponent,
@@ -466,11 +468,11 @@ import { ThongkesanluongcamodalComponent } from './quanlykhosanxuat/thongke/thon
     DmkhunggiomodalComponent,
     BaocaothongketiendienComponent,
     BaocaothongketiendienmodalComponent,
-
+    DmloaidienComponent,
+    ModaldmloaidienComponent
   ],
   imports: [
     HttpClientModule,
-    
     CommonModule,
     QuantriRoutingModule,
     SharedModule,
@@ -621,7 +623,7 @@ import { ThongkesanluongcamodalComponent } from './quanlykhosanxuat/thongke/thon
     ChonmathangkiemtrabanchephammodalComponent,
     DmkhunggiomodalComponent,
     BaocaothongketiendienmodalComponent,
-    
+
     Phuhung1Component,
     Phuhung2Component
   ],
@@ -634,6 +636,6 @@ import { ThongkesanluongcamodalComponent } from './quanlykhosanxuat/thongke/thon
     // { provide: LOCALE_ID, useValue: 'vi-VN' },
     LoaderService,
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class QuantriModule { }
