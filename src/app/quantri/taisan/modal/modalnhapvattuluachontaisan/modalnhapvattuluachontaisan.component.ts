@@ -65,7 +65,6 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit,AfterViewIni
       }
     }
     checkAll(e) {
-     
         this.items.forEach(obj => {
           obj.checked = e.checked;
         });
@@ -79,16 +78,18 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit,AfterViewIni
       this.items.forEach(obj => {
         if (obj.checked) {
           data.push({
-            IdTaiSan: obj.IdTaiSan,
+            IdTaiSan: obj.Id,
             Id: '',
             TenTaiSan: obj.Ten,
             MaTaiSan: obj.Ma,
             Ton: obj.TonKho,
             TuoiTho: obj.TuoiTho,
+            NuocSanXuat: obj.NuocSanXuat,
           });
         }
       });
       return data;
+
     }
     GhiLai() {
       this.activeModal.close(this.FilterTree());

@@ -29,8 +29,6 @@ export class NhapvattuComponent implements OnInit {
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
-  public listdsTaiSan: any = [];
-  public listTaiSanRef: any = [];
   listTaiSan: any = [];
   listNhaCungCap: any = [];
   NameFile: string;
@@ -90,17 +88,22 @@ export class NhapvattuComponent implements OnInit {
   setData() {
     this.item.NgayUnix = DateToUnix(this.item.Ngay);
     this.item.IdDuAn = this.store.getCurrent();
+    this.item.IdTaiSan='';
     return this.item;
   }
   GhiLai() {
     this._serviceTaiSan.QuyTrinhNhapTu().Set(this.setData()).subscribe((res: any) => {
+      console.log(this.item)
       if (res.StatusCode !== 200 || !res.StatusCode) {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       } else {
+        res.Data.Ngay = UnixToDate(res.Data.NgayUnix)
         this.item = res.Data;
+        console.log(this.item)
         this.toastr.success(res.Message);
         this.KiemTraButtonModal();
-        // this.activeModal.close();
+        this.activeModal.close();
+
       }
     }, (er) => {
       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -142,7 +145,6 @@ export class NhapvattuComponent implements OnInit {
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
       this.checkbutton = res;
-      console.log(res)
     });
   }
   ChapNhan() {

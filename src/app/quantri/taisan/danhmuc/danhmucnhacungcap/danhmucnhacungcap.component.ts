@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { ModaldmnhacungcapComponent } from '../modaldmnhacungcap/modaldmnhacungcap.component';
 
@@ -16,6 +17,7 @@ export class DanhmucnhacungcapComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   Keyword:any='';
+  fileUpload: any;
   filter:any={};
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   cols: any = [
@@ -60,13 +62,13 @@ export class DanhmucnhacungcapComponent implements OnInit {
   constructor(private _modal:NgbModal,private _danhMucTaiSan:DanhmuctaisanService,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.GetListHangSanXuat();
+    this.GetList();
   }
   resetFilter(){
     this.filter = {};
-    this.GetListHangSanXuat(true);
+    this.GetList(true);
   }
-  GetListHangSanXuat(reset?){
+  GetList(reset?){
     if(reset){
       this.paging.Page=1;
       this.paginator.changePage(0);
@@ -92,7 +94,7 @@ export class DanhmucnhacungcapComponent implements OnInit {
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = 'Thêm mới nhà cung cấp';
     modalRef.result.then(res=>{
-      this.GetListHangSanXuat()
+      this.GetList()
     }).catch(er=>console.log(er))
   }
   edit(item){
@@ -105,7 +107,7 @@ export class DanhmucnhacungcapComponent implements OnInit {
     modalRef.componentInstance.title = 'Cập nhật nhà cung cấp';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
     modalRef.result.then(res=>{
-      this.GetListHangSanXuat()
+      this.GetList()
     }).catch(er=>console.log(er))
   }
   delete(item){
@@ -118,7 +120,7 @@ export class DanhmucnhacungcapComponent implements OnInit {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
-            this.GetListHangSanXuat();
+            this.GetList();
           } else {
             this._toastr.error(res.Message);
           }
@@ -137,7 +139,7 @@ export class DanhmucnhacungcapComponent implements OnInit {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
-            this.GetListHangSanXuat();
+            this.GetList();
             this.selectedItems = [];
           } else {
            this._toastr.error(res.Message);
@@ -147,24 +149,27 @@ export class DanhmucnhacungcapComponent implements OnInit {
     }).catch(er=>console.log(er))
   }
   importExcel(){
-    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
-      backdrop:'static',
+    let modalRef = this._modal.open(UploadmodalComponent, {
+      size: 'md',
+      backdrop: 'static',
     })
-    modalRef.componentInstance.importFunc = '';
-    modalRef.result.then(res=>{
-      this.GetListHangSanXuat();
-      this._toastr.success(res.mess);
-    })
-    .catch(er=>console.log(er))
+    modalRef.result
+      .then((res: any) => {
+        this.fileUpload = res;
+        this._danhMucTaiSan.DanhMucNhaCungCap().Importdm(this.fileUpload[0]).subscribe(()=>{
+          this.resetFilter();
+        })
+      })
+      .catch(er => {})
+      .finally(()=> {
+      })
   }
   exportExcel(){
     let data = {
       PageSize:20, 
       CurrentPage:0,
-      Keyword:this.filter.Keyword, 
-      Ma:"", 
-      Ten:"",
-      TableName:'',
+      Keyword:this.Keyword, 
+     
     };
     this._danhMucTaiSan.DanhMucNhaCungCap().Exportdm(data).subscribe((res: any) => {
       this._danhMucTaiSan.DanhMucNhaCungCap().download(res.TenFile);
@@ -172,8 +177,6 @@ export class DanhmucnhacungcapComponent implements OnInit {
   }
   changePage(event){
     this.paging.Page = event.page+1;
-    this.GetListHangSanXuat()
+    this.GetList()
   }
-  
-
 }

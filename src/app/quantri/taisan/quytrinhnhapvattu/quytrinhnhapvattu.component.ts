@@ -96,7 +96,7 @@ export class QuytrinhnhapvattuComponent implements OnInit {
     modalRef.componentInstance.title = 'Nhập vật tư';
     modalRef.componentInstance.item = {
       Id: '', IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "",
-      isKetThuc: false,listTaiSan:[{IdTaiSan:'',}],
+      isKetThuc: false,listTaiSan:[],
     };
     modalRef.result.then(res => {
 

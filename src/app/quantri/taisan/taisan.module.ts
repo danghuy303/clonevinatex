@@ -144,6 +144,7 @@ import { ChiphikhacComponent } from './screen/chiphikhac/chiphikhac.component';
 import { ModalnhapvattuluachontaisanComponent } from './modal/modalnhapvattuluachontaisan/modalnhapvattuluachontaisan.component';
 import { ModalluachonloaibaoduongComponent } from './modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
 import {SelectButtonModule} from 'primeng/selectbutton';
+import { ThongtinkhauhaoComponent } from './screen/thongtinkhauhao/thongtinkhauhao.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -242,6 +243,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     ChiphikhacComponent,
     ModalnhapvattuluachontaisanComponent,
     ModalluachonloaibaoduongComponent,
+    ThongtinkhauhaoComponent,
 
   ],
   imports: [

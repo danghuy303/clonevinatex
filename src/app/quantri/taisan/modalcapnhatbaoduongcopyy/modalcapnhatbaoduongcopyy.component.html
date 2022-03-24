@@ -19,7 +19,7 @@
         <div class="p-col-12 p-lg-6  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại bảo dưỡng : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoaiBaoDuong" placeholder="Chọn loại bảo dưỡng" [(ngModel)]="item.IddmLoaiBaoDuong"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listLoaiBaoDuong" placeholder="Chọn loại bảo dưỡng" [(ngModel)]="item.IddmLoaiBaoDuong" (onChange)="chonLoaiBaoDuong($event)" [showClear]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6  p-p-3 d-flex flex-column flex-xl-row">
@@ -36,13 +36,13 @@
         <div class="p-col-12 p-lg-6  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Theo thời gian: </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ThoiGianBaoDuong" pInputText />
+                <input  [disabled]="true" type="text" class="p-inputtext-sm" [(ngModel)]="item.ThoiGianBaoDuong" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-6  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Theo công suất: </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.NangSuat">
+                <p-inputNumber [disabled]="true" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.NangSuat">
                 </p-inputNumber>
             </div>
         </div>

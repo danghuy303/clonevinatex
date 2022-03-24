@@ -15,7 +15,7 @@ export class ModalmucdouutienComponent implements OnInit {
   public title: any = '';
   public type = '';
 
-  constructor(public activeModal: NgbActiveModal, private _danhMucTaiSan:DanhmuctaisanService, public toastr: ToastrService) { }
+  constructor(public activeModal: NgbActiveModal, private _danhMucTaiSan:DanhmuctaisanService, public toastr: ToastrService) { this.item.isHoatDong = true}
 
   ngOnInit(): void {
   

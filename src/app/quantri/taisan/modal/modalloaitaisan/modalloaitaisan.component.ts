@@ -20,7 +20,7 @@ export class ModalloaitaisanComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal,
      private _danhMucTaiSan:DanhmuctaisanService,
      private services: SanXuatService,
-      public toastr: ToastrService) { }
+      public toastr: ToastrService) { this.item.isHoatDong = true }
 
   ngOnInit(): void {
     this.getListCongDoan();

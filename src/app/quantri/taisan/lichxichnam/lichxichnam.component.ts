@@ -35,7 +35,7 @@ export class LichxichnamComponent implements OnInit {
 
   ngOnInit(): void {
 
-    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
+    for (let i = new Date().getFullYear() ; i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
 

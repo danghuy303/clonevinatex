@@ -33,7 +33,7 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-6   d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Bộ phận sử dụng <span class="required">*</span>:</label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Bộ phận sử dụng:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận"
                 styleClass="p-inputtext-sm" (onChange)="GetListTaiSanDaBanGiao()" [(ngModel)]="item.IdBoPhanSuDung"></p-dropdown>
@@ -80,7 +80,7 @@
         <div class="p-col-12 p-lg-12   d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-11 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
     </div>

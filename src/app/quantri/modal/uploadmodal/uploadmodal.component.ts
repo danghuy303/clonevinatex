@@ -22,8 +22,8 @@ export class UploadmodalComponent implements OnInit {
     let option:FileUploaderOptions = {
       // http://serverduan:2626/SmartEOSAPI/FileUploader/Post
       // ${this.DsdanhmucService.upload}HRMAPI/UploadFile/Post
-      // url: `${API.uploadURL}`,
-      url:`http://103.130.212.45:2269/uploader/Post`,
+      url: `${API.uploadURL}`,
+      // url:`http://103.130.212.45:2269/uploader/Post`,
       headers: [{ name: 'Accept', value: 'application/json' }],
       autoUpload: false,
     }

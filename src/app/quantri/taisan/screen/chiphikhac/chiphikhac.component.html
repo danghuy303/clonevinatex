@@ -13,7 +13,9 @@
             <th>Tên chi phí</th>
             <th>Giá trị</th>
             <th>Ghi chú</th>
-            <th style="width: 100px;">Thao tác </th>
+            <th style="width: 100px;"> <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
+                (click)="add2()">
+              </button></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -35,7 +37,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="footer">
-        <tr>
+        <!-- <tr>
             <td class="text-center">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="newitem.Ten" pInputText />
             </td>
@@ -46,11 +48,9 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="newitem.GhiChu" pInputText />
             </td>
             <td class="text-center">
-                <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
-            (click)="add2()">
-          </button>
+               
             </td>
-        </tr>
+        </tr> -->
 
     </ng-template>
 </p-table>
