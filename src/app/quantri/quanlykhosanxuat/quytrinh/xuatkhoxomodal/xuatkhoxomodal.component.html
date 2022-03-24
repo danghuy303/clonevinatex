@@ -8,16 +8,16 @@
         </div>
     </div> -->
     <div class="d-flex flex-column flex-lg-row">
-            <div>
-               <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
-            </div>
-            <div class="ml-lg-3 mr-lg-3">
-                <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
-            </div>
-            <div>
-                <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
-            </div>
+        <div>
+            <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
         </div>
+        <div class="ml-lg-3 mr-lg-3">
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+        <div>
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+    </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -33,9 +33,10 @@
                 (click)="XoaQuyTrinh()"></button>
             <!-- <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
                 *ngIf="checkbutton.KhongDuyet"></button> -->
-            <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm"
-                (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
-            <button pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm" (click)="exportExcel()"></button>
+            <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm" (click)="ChuyenDuyet()"
+                *ngIf="checkbutton.ChuyenTiep"></button>
+            <button pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm"
+                (click)="exportExcel()"></button>
             <button pButton pRipple type="button" label="Xuất hóa đơn" class="p-mr-2 p-button-sm"
                 (click)="exportHoaDon()"></button>
         </div>
@@ -52,8 +53,8 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch triển khai: </label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listTrienKhaiKeHoachSanXuat" placeholder="Chọn kế hoạch" styleClass="p-inputtext-sm"
-                    [(ngModel)]="item.IdGiaoKeHoachSanXuat_TrienKhai"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listTrienKhaiKeHoachSanXuat" placeholder="Chọn kế hoạch"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdGiaoKeHoachSanXuat_TrienKhai"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
@@ -73,16 +74,15 @@
         </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
-                <button
-                    pButton pRipple type="button" label="Danh mục xơ" class="p-mr-2 p-button-sm"
+                <button pButton pRipple type="button" label="Danh mục xơ" class="p-mr-2 p-button-sm"
                     (click)="GetLuuKho('')"></button>
             </div>
-            <p-table [lazy]="true" [scrollable]="true" scrollHeight="40vh"
-            [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines"
-                selectionMode="single">
+            <p-table [lazy]="true" [scrollable]="true" scrollHeight="40vh" [value]="item.listItem|isXoa"
+                styleClass="p-datatable-sm wrap-text p-datatable-gridlines" selectionMode="single">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
+                        <col>
                         <col>
                         <col>
                         <col>
@@ -96,6 +96,7 @@
                     <tr>
                         <th rowspan="2">#</th>
                         <th rowspan="2">Tên</th>
+                        <th rowspan="2">Số bàn xơ</th>
                         <th rowspan="2">Tên lô bông</th>
                         <th colspan="2">Tồn sổ sách</th>
                         <th rowspan="2">Số kiện xuất</th>
@@ -111,6 +112,10 @@
                     <tr>
                         <td style="text-align: center;">{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
                         <td style="text-align: center;">{{item.Ten}}</td>
+                        <td style="text-align: center;">
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.ThuTu">
+                            </p-inputNumber>
+                        </td>
                         <td style="text-align: center;">{{item.TenLoBong}}</td>
                         <td style="text-align: right;">
                             {{item.TonSoLuong|number:'0.0'}}
@@ -133,8 +138,7 @@
                         <td class="text-center">
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
+                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -156,8 +160,8 @@
                 </ng-template>
                 <ng-template pTemplate="summary">
                     <div class="p-d-flex p-ai-center p-jc-between">
-                        Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="15"
-                            (onPageChange)="changePage($event)"></p-paginator>
+                        Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
+                            [rows]="15" (onPageChange)="changePage($event)"></p-paginator>
                     </div>
                 </ng-template>
             </p-table>

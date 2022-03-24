@@ -48,16 +48,17 @@ export class ThemNhaCungUngModalComponent implements OnInit {
   }
 
   AddNhaCungUng() {
-    let newArr = this.checkListItem.map(item=>item.MadmItem);
+    // console.log(this.checkListItem);
+    let newArr = this.checkListItem.map(item=>item.MadmNhaCungUng);
     this.selectedList = this.items.filter(item=>{
-      return newArr.indexOf(item.Ma) == -1 && item.checked === true;
+      return newArr.indexOf(item.Ma) === -1 && item.checked === true;
     })
     .map(item=> {
       return ({
-        Id: item.Id,
-        Ten: item.Ten,
-        Ma: item.Ma,
-        IddmTinhTrangNhaCungung: item.IddmTinhTrangNhaCungung,
+        IddmNhaCungUng: item.Id,
+        TendmNhaCungUng: item.Ten,
+        MadmNhaCungUng: item.Ma,
+        IdTrangThai: item.IddmTinhTrangNhaCungung,
       })
     })
     this.activeModal.close(this.selectedList);
@@ -72,7 +73,7 @@ export class ThemNhaCungUngModalComponent implements OnInit {
   CheckExistedHangHoa() {
     this.items.forEach(item => {
       this.checkListItem.forEach(checkedItem => {
-        if (item.Ma === checkedItem.Ma) {
+        if (item.Ma === checkedItem.MadmNhaCungUng) {
           item.checked = true;
         }
       })

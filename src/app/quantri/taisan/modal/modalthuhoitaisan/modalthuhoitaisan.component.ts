@@ -215,6 +215,8 @@ export class ModalthuhoitaisanComponent implements OnInit {
 
     });
   }
-
+  test(){
+    console.log(this.item.listTaiSan)
+  }
 }
 

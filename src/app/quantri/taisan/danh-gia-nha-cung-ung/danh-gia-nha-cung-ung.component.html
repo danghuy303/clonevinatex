@@ -44,7 +44,7 @@
       <th>STT</th>
       <th>Số quy trình</th>
       <th>Ngày</th>
-      <th>Nội hung</th>
+      <th>Nội dung</th>
       <th>Trạng thái</th>
       <th>Thao tác</th>
     </tr>
@@ -61,7 +61,7 @@
       <td>{{item.NoiDung}}</td>
       <td class="text-center">{{item.TenTrangThai}}</td>
       <td class="text-center">
-        <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="Update(item.Id)"></button>
+        <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="changeParam(item.Id)"></button>
       </td>
     </tr>
   </ng-template>

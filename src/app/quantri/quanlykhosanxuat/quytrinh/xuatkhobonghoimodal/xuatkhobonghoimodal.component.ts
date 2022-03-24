@@ -31,6 +31,7 @@ export class XuatkhobonghoimodalComponent implements OnInit {
   listdmKhachHang: any = [];
   listKien: any = [];
   listKienFull: any = [];
+  listTrienKhaiKeHoachSanXuat:any=[];
   newTableItem: any = {};
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService,
@@ -40,6 +41,9 @@ export class XuatkhobonghoimodalComponent implements OnInit {
     let data: any = {
       CurrentPage: 0
     }
+    this.services.TrienKhaiKeHoachSanXuat().GetList({...data,isHoanThanh:false}).subscribe((res:any)=>{
+      this.listTrienKhaiKeHoachSanXuat = mapArrayForDropDown(res, 'SoQuyTrinh', 'Id');
+    })
     this.services.PhuongAnPhaBong().GetList(data).subscribe((res: any) => {
       this.listPhuongAnPhaBong = mapArrayForDropDown((typeof res) === 'object'?res.items:res, 'Ten', 'Id');
     })

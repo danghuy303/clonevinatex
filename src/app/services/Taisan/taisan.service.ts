@@ -7,6 +7,7 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+
 export class TaisanService {
 
   constructor(private http: HttpClient, public store: StoreService) { }
@@ -549,7 +550,7 @@ export class TaisanService {
         return this.http.post(`${url}QuanLyNhaCungUng/ChuyenTiepQuyTrinhDanhGia`, data, httpOptions);
       },
       Delete: (data) => {
-        return this.http.post(`${url}/QuanLyNhaCungUng/DeleteQuyTrinhDanhGia`, data, httpOptions);
+        return this.http.post(`${url}QuanLyNhaCungUng/DeleteQuyTrinhDanhGia`, data, httpOptions);
       },
     };
   }
@@ -651,6 +652,16 @@ export class TaisanService {
           IdBoPhanSuDung: IdBoPhanSuDung
         }
         return this.http.post(`${url}NhatKySuDung/GetListTaiSanChuaBanGiao`,data,httpOptions)
+      },
+      GetListTaiSanThuHoi:(IdBoPhanSuDung)=>{
+        let data ={
+          CurrentPage: 0,
+          PageSize: 0,
+          Keyword: '',
+          IddmLoaiTaiSan: '',
+          IdBoPhanSuDung: IdBoPhanSuDung
+        }
+        return this.http.post(`${url}NhatKySuDung/GetListTaiSanThuHoi`,data,httpOptions)
       }
     }
   }

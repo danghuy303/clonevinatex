@@ -62,12 +62,62 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
-        
+
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="p-d-flex p-flex-row p-jc-between">
-                <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm" (click)="GetMatHang()" ></button>
+                <button pButton pRipple type="button" label="Chọn mặt hàng" class="p-mr-2 p-button-sm"
+                    (click)="GetMatHang()"></button>
             </div>
-            <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines">
+            <div class="p-col-12 p-p-0 pintable-container" style="height: 90vh;" voiPintable [pinnedCols]="4">
+                <table>
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class="bcp-w-50">#</th>
+                            <th rowspan="2" class="bcp-w-200">Số máy</th>
+                            <th rowspan="2" class="bcp-w-80">Ne</th>
+                            <th rowspan="2" class="bcp-w-200">Mặt hàng</th>
+                            <ng-container *ngIf="item.CongDoan !== 'ONG' && item.CongDoan !== 'CON'">
+                                <th *ngFor="let col of listdmTieuChiBanChePham" colspan="1" class="bcp-w-100">
+                                    {{col.label}}</th>
+                            </ng-container>
+                            <ng-container *ngIf="item.CongDoan === 'ONG' || item.CongDoan === 'CON'">
+                                <th *ngFor="let col of listdmTieuChiBanChePham" class="bcp-w-100">{{col.label}}</th>
+                            </ng-container>
+                            <th rowspan="2" class="bcp-w-100">Ghi chú</th>
+                        </tr>
+                        <tr *ngIf="item.CongDoan !== 'ONG' && item.CongDoan !== 'CON'">
+                            <th style="display: none;"></th>
+                            <th style="display: none;"></th>
+                            <th style="display: none;"></th>
+                            <th style="display: none;"></th>
+                            <ng-container *ngFor="let col of listdmTieuChiBanChePham">
+                                <th class="bcp-w-100">Sau CM</th>
+                            </ng-container>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let itemtbl of item.listItem;let i =index">
+                            <tr>
+                                <td class="bcp-w-50 bg-white text-center" >{{i+1}}</td>
+                                <td class="bcp-w-200 bg-white text-left" style="width:200px">{{itemtbl.TendmMay}}</td>
+                                <td class="bcp-w-80 bg-white text-left" style="width:80px">{{itemtbl.Ne}}</td>
+                                <td class="bcp-w-200 bg-white text-left" style="width:200px">{{itemtbl.Ten}}</td>
+                                <ng-container *ngFor="let col of itemtbl.listdmTieuChiBanChePham;let indexcon=index">
+                                    <td class="bcp-w-100"[ngStyle]="{'background-color': col.GiaTri > col.LyThuyet?'#B63232':'#99c199'}">
+                                        <!-- {{i * itemtbl.listdmTieuChiBanChePham.length + indexcon+1}} -->
+                                        <p-inputNumber #inputNumber [tabindex]="i * itemtbl.listdmTieuChiBanChePham.length+indexcon+1" (keyup.enter)="xuongDong(i, itemtbl.listdmTieuChiBanChePham.length,indexcon)" [minFractionDigits]="2" locale="en-EN" [(ngModel)]="col.GiaTri">
+                                        </p-inputNumber>
+                                    </td>
+                                </ng-container>
+                                <td class="bcp-w-100">
+                                    <input type="text" class="p-inputtext-sm" [(ngModel)]="itemtbl.GhiChu" pInputText />
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+            <!-- <p-table [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines" [scrollable]="true">
                 <ng-template pTemplate="header">
                     <tr>
                         <th rowspan="2" style="width:50px">#</th>
@@ -75,7 +125,7 @@
                         <th rowspan="2" style="width:80px">Ne</th>
                         <th rowspan="2" style="width:200px">Mặt hàng</th>
                         <ng-container *ngIf="item.CongDoan !== 'ONG' && item.CongDoan !== 'CON'">
-                            <th *ngFor="let col of listdmTieuChiBanChePham" colspan="2">{{col.label}}</th>
+                            <th *ngFor="let col of listdmTieuChiBanChePham" colspan="1">{{col.label}}</th>
                         </ng-container>
                         <ng-container *ngIf="item.CongDoan === 'ONG' || item.CongDoan === 'CON'">
                             <th *ngFor="let col of listdmTieuChiBanChePham">{{col.label}}</th>
@@ -88,7 +138,6 @@
                         <th style="display: none;"></th>
                         <th style="display: none;"></th>
                         <ng-container *ngFor="let col of listdmTieuChiBanChePham">
-                            <!-- <th>Trước CM</th> -->
                             <th>Sau CM</th>
                         </ng-container>
                     </tr>
@@ -101,7 +150,6 @@
                             <td class="text-left" style="width:80px">{{itemtbl.Ne}}</td>
                             <td class="text-left" style="width:200px">{{itemtbl.Ten}}</td>
                             <ng-container *ngFor="let col of itemtbl.listdmTieuChiBanChePham">
-                                <!-- <td class="text-right" *ngIf="item.CongDoan !== 'ONG' && item.CongDoan !== 'CON'">{{col.LyThuyet}}</td> -->
                                 <td [ngStyle]="{'background-color': col.GiaTri > col.LyThuyet?'#B63232':'#99c199'}" title="{{col.LyThuyet}}">
                                     <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="col.GiaTri">
                                     </p-inputNumber>
@@ -113,7 +161,7 @@
                         </tr>
                     </ng-container>
                 </ng-template>
-            </p-table>
+            </p-table> -->
         </div>
     </div>
 </div>

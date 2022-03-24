@@ -60,9 +60,8 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
 
   AddNhomCungUng() {
     let modalRef = this.modal.open(NhomNhaCungUngModalComponent, {
-      size: 'xl',
+      size: 'fullscreen',
       backdrop: 'static',
-      centered: true,
     })
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.item = {
@@ -86,9 +85,8 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
 
   UpdateNhomCungUng(id) {
     let modalRef = this.modal.open(NhomNhaCungUngModalComponent, {
-      size: 'xl',
+      size: 'fullscreen',
       backdrop: 'static',
-      centered: true,
     })
     modalRef.componentInstance.opt = 'update';
     modalRef.componentInstance.item.Id = id;
@@ -111,7 +109,12 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
       return a.concat(b.Id);
     }, [])
     this.taiSanService.NhomNhaCungUng().DeleteListNhomCungUng(listId).subscribe((res: any) => {
+      if (res.StatusCode === 200) {
+        this.toast.success(res.Message)
         this.LoadListNhomCungUng();
+      } else {
+        this.toast.error(res.Message)
+      }
     })
   }
 
@@ -132,7 +135,7 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
 
   ImportNhomCungUng() {
     let modalRef = this.modal.open(UploadmodalComponent, {
-      size: 'md',
+      size: 'lg',
       backdrop: 'static',
     })
     modalRef.result

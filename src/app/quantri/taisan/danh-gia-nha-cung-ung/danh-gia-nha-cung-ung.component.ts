@@ -5,6 +5,7 @@ import { ToastrService } from "ngx-toastr";
 import { DateToUnix, UnixToDate } from "src/app/services/globalfunction"; 
 import { DanhGiaNhaCungUngModalComponent } from './danh-gia-nha-cung-ung-modal/danh-gia-nha-cung-ung-modal.component';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-danh-gia-nha-cung-ung',
@@ -14,7 +15,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 export class DanhGiaNhaCungUngComponent implements OnInit {
 
   filter: any = {};
-  eAction: any = "DANHGIANHACUNGUNG";
+  eAction: any = "QUYTRINHDANHGIANHACUNGUNG";
   trangThai: any = 1;
   loaiTab: any = 0;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
@@ -26,11 +27,30 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
     public toastr: ToastrService,
     private sanXuatService: SanXuatService,
     private taiSanService: TaisanService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.ResetFilter();
     this.KiemTraTabTrangThai();
+    this.activatedRoute.params.subscribe((res: any) => {
+
+      if (res.id !== "0") {
+        this.taiSanService
+        .DanhGiaNhaCungUng()
+        .Get(res.id)
+        .subscribe((res: any) => {
+            this.Update(res);
+          });
+      }
+    });
+  }
+
+  changeParam(id) {
+    this.router.navigate([`quantri/taisan/danhgianhacungung/${id}`], {
+      replaceUrl: true,
+    });
   }
 
   changeTab(e) {
@@ -74,7 +94,7 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
 
   Add() {
     let modalRef = this.modal.open(DanhGiaNhaCungUngModalComponent, {
-      size: 'xl',
+      size: 'fullscreen',
       backdrop: 'static',
     })
     modalRef.componentInstance.opt = 'add';
@@ -84,17 +104,26 @@ export class DanhGiaNhaCungUngComponent implements OnInit {
       .catch((err) =>{})
       .finally(()=>{
         this.LoadData(true);
+        this.changeParam(0);
       })
   }
 
-  Update(id) {
+  Update(item) {
     let modalRef = this.modal.open(DanhGiaNhaCungUngModalComponent, {
-      size: 'xl',
+      size: 'fullscreen',
       backdrop: 'static',
     })
     modalRef.componentInstance.opt = 'update';
-    modalRef.componentInstance.quyTrinh.id = id;
+    // modalRef.componentInstance.quyTrinh.Id = id;
+    modalRef.componentInstance.quyTrinh = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
+      .then((res: any) =>{
+      })
+      .catch(er=>{})
+      .finally(()=>{
+        this.LoadData(true);
+        this.changeParam(0);
+      })
   }
 
 }

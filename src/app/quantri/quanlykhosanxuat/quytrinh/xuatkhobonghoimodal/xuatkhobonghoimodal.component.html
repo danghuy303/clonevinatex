@@ -8,16 +8,16 @@
         </div>
     </div> -->
     <div class="d-flex flex-column flex-lg-row">
-            <div>
-               <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
-            </div>
-            <div class="ml-lg-3 mr-lg-3">
-                <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
-            </div>
-            <div>
-                <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
-            </div>
+        <div>
+            <span style="font-weight: bold;">Số phiếu:</span> {{item.SoQuyTrinh}}
         </div>
+        <div class="ml-lg-3 mr-lg-3">
+            <span style="font-weight: bold;">TG Tạo:</span> {{item.Created|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+        <div>
+            <span style="font-weight: bold;">TG Duyệt:</span> {{item.Modified|date:"dd/MM/yyyy HH:mm"}}
+        </div>
+    </div>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="Onclose()">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -33,8 +33,8 @@
                 (click)="XoaQuyTrinh()"></button>
             <!-- <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()"
                 *ngIf="checkbutton.KhongDuyet"></button> -->
-            <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm"
-                (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
+            <button pButton pRipple type="button" label="Xác nhận" class="p-mr-2 p-button-sm" (click)="ChuyenDuyet()"
+                *ngIf="checkbutton.ChuyenTiep"></button>
             <!-- <button pButton pRipple type="button" label="Kết xuất" class="p-mr-2 p-button-sm"></button> -->
         </div>
 
@@ -52,6 +52,13 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Kế hoạch triển khai:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listTrienKhaiKeHoachSanXuat" placeholder="Chọn kế hoạch triển khai"
+                    styleClass="p-inputtext-sm" [(ngModel)]="item.IdGiaoKeHoachSanXuat_TrienKhai"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-p-3 d-flex flex-column flex-lg-row">
@@ -76,7 +83,7 @@
                     [(ngModel)]="item.IddmKhachHang"></p-dropdown>
             </div>
         </div> -->
-        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
+        <div class="p-col-12 p-lg-9 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-11 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
@@ -88,9 +95,8 @@
                     pButton pRipple type="button" label="Danh mục mặt hàng" class="p-mr-2 p-button-sm"
                     (click)="GetLuuKho('')"></button>
             </div>  [scrollable]="true"  scrollHeight="40vh"-->
-            <p-table [lazy]="true" 
-            [value]="item.listItem|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines"
-                selectionMode="single">
+            <p-table [lazy]="true" [value]="item.listItem|isXoa"
+                styleClass="p-datatable-sm wrap-text p-datatable-gridlines" selectionMode="single">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:50px">
@@ -124,10 +130,11 @@
                 <ng-template pTemplate="body" let-itemC let-i="rowIndex">
                     <tr>
                         <td>{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
-                        <td style="text-align: center;" >{{itemC.ThuTu}} </td>
+                        <td style="text-align: center;">{{itemC.ThuTu}} </td>
                         <td style="text-align: center;" *ngIf="item.isKetThuc!==true">
                             <p-dropdown [filter]="true" [options]="listKien" placeholder="Chọn kiện"
-                            styleClass="p-inputtext-sm" [(ngModel)]="itemC.IddmItem" (onChange)="getTon(itemC)"></p-dropdown>
+                                styleClass="p-inputtext-sm" [(ngModel)]="itemC.IddmItem" (onChange)="getTon(itemC)">
+                            </p-dropdown>
                         </td>
                         <td style="text-align: center;" *ngIf="item.isKetThuc===true">
                             {{itemC.TendmItem}}
@@ -159,8 +166,7 @@
                         <td>
                             <button pButton pRipple icon="pi pi-trash"
                                 class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2"
-                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000"
-                                tooltipPosition="bottom"></button>
+                                (click)="delete(i)" pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -171,22 +177,25 @@
                         <td></td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listKien" placeholder="Chọn kiện"
-                            styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.IddmItem" (onChange)="getTon(newTableItem)"></p-dropdown>
+                                styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.IddmItem"
+                                (onChange)="getTon(newTableItem)"></p-dropdown>
                         </td>
                         <td class="text-right">
-                                {{newTableItem.TonSoLuong| number:'0.0'}}
+                            {{newTableItem.TonSoLuong| number:'0.0'}}
                         </td>
                         <td class="text-right">
                             {{newTableItem.TonTrongLuong| number:'0.0-2'}}
                         </td>
-                        <td >
-                                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.SoLuong" [min] = "0">
-                                </p-inputNumber>
-                        </td>
-                        <td >
-                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newTableItem.TrongLuong" [min] = "0">
+                        <td>
+                            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.SoLuong"
+                                [min]="0">
                             </p-inputNumber>
-                    </td>
+                        </td>
+                        <td>
+                            <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="newTableItem.TrongLuong"
+                                [min]="0">
+                            </p-inputNumber>
+                        </td>
                         <td class="text-center">
                             <button pButton pRipple type="button" icon="pi pi-plus"
                                 class="p-button-rounded p-button-sm " (click)="add()"></button>
@@ -207,8 +216,8 @@
                 </ng-template>
                 <ng-template pTemplate="summary">
                     <div class="p-d-flex p-ai-center p-jc-between">
-                        Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem" [rows]="15"
-                            (onPageChange)="changePage($event)"></p-paginator>
+                        Tổng số bản ghi {{paging.TotalItem}}.<p-paginator #paginator [totalRecords]="paging.TotalItem"
+                            [rows]="15" (onPageChange)="changePage($event)"></p-paginator>
                     </div>
                 </ng-template>
             </p-table>

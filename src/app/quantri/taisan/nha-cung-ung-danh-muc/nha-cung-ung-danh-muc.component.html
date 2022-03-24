@@ -21,7 +21,7 @@
 </div>
 
 <!-- tabview -->
-<p-tabView styleClass="no-content" (onChange)="ChangeTab($event)">
+<p-tabView styleClass="no-content" activeIndex="2" (onChange)="ChangeTab($event)">
     <p-tabPanel *ngFor="let trangthai of listTrangThai" [header]="trangthai.Ten"></p-tabPanel>
 </p-tabView>
 
