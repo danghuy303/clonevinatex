@@ -451,6 +451,9 @@
             </div>
             <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-5"
                 (click)="getBieuDoDien()"></button>
+                <div class="p-mr-5" style="display:flex; align-items: center;">
+                    <strong>Lợi nhuận điện GY:</strong> &nbsp; {{ThongTinLuyKeDien.TongTienDienGY|number:'0.0'}} Đồng
+                </div>
             <div class="p-mr-5" style="display:flex; align-items: center;">
                 <strong>Lũy kế lợi nhuận điện GY:</strong> &nbsp; {{ThongTinLuyKeDien.TongTienDienGY_LuyKe|number:'0.0'}} Đồng
             </div>

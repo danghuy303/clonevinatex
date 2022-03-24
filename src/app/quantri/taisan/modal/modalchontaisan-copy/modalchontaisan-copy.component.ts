@@ -30,11 +30,10 @@ export class ModalchontaisanCopyComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.Lay_Chon); // Kiểm tra lấy được Id chưa...
     this.Loaddata();
-  
   }
 
   Loaddata() {
-    this._serviceTaiSan.GetListTaiSanThuHoi().GetListTaiSan(this.Lay_Chon).subscribe((res: any) => {
+    this._serviceTaiSan.GetTaiSanTheoLoai().GetListTaiSanThuHoi(this.Lay_Chon).subscribe((res: any) => {
       let items = [];
         this.items = [];
         items = res.Data;

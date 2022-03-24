@@ -102,7 +102,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
 
   }
   validate(): boolean {
-    if (!validVariable(this.item.IddmPhanXuong)) {
+    if (!validVariable(this.item.IdBoPhanSuDung)) {
       this.toastr.error('Vui lòng nhập bộ phận sử dụng!!');
       return false;
     }
@@ -224,6 +224,8 @@ export class ModalthuhoitaisanComponent implements OnInit {
 
     });
   }
-
+  test(){
+    console.log(this.item.listTaiSan)
+  }
 }
 
