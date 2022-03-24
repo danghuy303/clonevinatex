@@ -13,7 +13,7 @@
       <h5 class="p-mb-0">{{tieuChi.DiemToiDa}}</h5>
     </div>
     <div class="p-lg-2 text-right p-p-0">
-      <p-inputNumber [disabled]="tieuChi.toggle" [(ngModel)]="tieuChi.sum" (onBlur)="LoadData()"></p-inputNumber>
+      <p-inputNumber [disabled]="tieuChi.toggle" [max]="tieuChi.DiemToiDa" [(ngModel)]="tieuChi.DiemDanhGia" (onBlur)="SumDiemDanhGia()"></p-inputNumber>
       <!-- <h5 class="p-mb-0">{{item.sum}}</h5> -->
     </div>
   </p-header>
@@ -23,7 +23,7 @@
       {{item.DiemToiDa}}
     </div>
     <div class="p-lg-2 p-p-0 text-center">
-      <p-inputNumber [(ngModel)]="item.DiemDanhGia" (onBlur)="SumDiemDanhGia()"></p-inputNumber>
+      <p-inputNumber [min]="0" [max]="item.DiemToiDa" [(ngModel)]="item.DiemDanhGia" (onBlur)="SumDiemDanhGia()"></p-inputNumber>
     </div>
   </div>
 </p-panel>

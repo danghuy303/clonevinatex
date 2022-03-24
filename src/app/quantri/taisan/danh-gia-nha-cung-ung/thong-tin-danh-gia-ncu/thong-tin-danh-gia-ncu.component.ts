@@ -31,8 +31,9 @@ export class ThongTinDanhGiaNcuComponent implements OnInit,AfterViewInit,OnChang
   }
 
   ngOnInit(): void {
+    this.LoadListTieuChi();
   }
-
+  
   LoadListTieuChi() {
     let data = {
       CurrentPage: 1,
@@ -44,13 +45,12 @@ export class ThongTinDanhGiaNcuComponent implements OnInit,AfterViewInit,OnChang
       this.listTieuChi = res.Data.Items;
       this.listTieuChi= this.recursive(this.listTieuChi)
       this.SumDiemDanhGia();
-      console.log('list tieu chi' ,this.listTieuChi);
     })
   }
 
   recursive(list: Array<any>) {
     return list.map(ele => {
-      let realPoint = this.phieuDanhGia?.find(tieuchi => ele.Id === tieuchi.IddmTieuChiDanhGia)?.Diem
+      let realPoint = this.phieuDanhGia?.listTieuChi?.find(tieuchi => ele.Id === tieuchi.IddmTieuChiDanhGia)?.Diem
       return {
         ...ele,
         DiemDanhGia: realPoint || null,
@@ -60,25 +60,55 @@ export class ThongTinDanhGiaNcuComponent implements OnInit,AfterViewInit,OnChang
   }
 
   RecursiveSave() {
-    this.listTieuChi.map(tieuchi => {
-
+    let listCon = [];
+    let listCha = [];
+    listCon = this.listTieuChi.reduce((array, item)=>{
+      return array.concat(item.listItem);
+    },[]).map((ele)=>{
+      return {
+        IddmTieuChiDanhGia: ele.Id,
+        Diem: ele.DiemDanhGia,
+      }
     })
+    listCha = this.listTieuChi.map(ele => {
+      return {
+        IddmTieuChiDanhGia: ele.Id,
+        Diem: ele.DiemDanhGia,
+      }
+    })
+    this.phieuDanhGia.listTieuChi = [...listCon,...listCha].filter((ele)=>{
+      return validVariable(ele.Diem) && ele.Diem !== 0;
+    });
   }
 
   SumDiemDanhGia() {
     this.listTieuChi.forEach((item) => {
       if (item.listItem.length) {
         item.toggle = true;
+        item.DiemDanhGia = item.listItem.reduce((number, nextChild) => {
+          return number + (nextChild.DiemDanhGia || 0);
+        }, 0)
       } else {
         item.toggle = false;
       }
-      item.sum = item.listItem.reduce((number, nextChild) => {
-        return number + (nextChild.DiemDanhGia || 0);
-      }, 0)
     })
     this.sum = this.listTieuChi.reduce((number, item) => {
-      return number + item.sum;
+      return number + item.DiemDanhGia;
     }, 0)
+    this.RecursiveSave();
   }
 
+
+  // recursiveArr(list){
+  //   let newArray=[];
+  //   list.forEach(ele=>{
+  //     newArray.push(ele);
+  //     console.log('newArray:',newArray);
+      
+  //     if(validVariable(ele.listCon) && ele.listCon.length!==0){
+  //       newArray = [...newArray,...this.recursive(ele.listCon)] 
+  //     }
+  //   })
+  //   return newArray
+  // }
 }

@@ -56,12 +56,11 @@ export class ThemNhaCungUngModalComponent implements OnInit {
     .map(item=> {
       return ({
         IddmNhaCungUng: item.Id,
-        Ten: item.Ten,
-        Ma: item.Ma,
+        TendmNhaCungUng: item.Ten,
+        MadmNhaCungUng: item.Ma,
         IdTrangThai: item.IddmTinhTrangNhaCungung,
       })
     })
-    console.log(this.selectedList)
     this.activeModal.close(this.selectedList);
   }
 

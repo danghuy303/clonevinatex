@@ -7,6 +7,7 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+
 export class TaisanService {
 
   constructor(private http: HttpClient, public store: StoreService) { }
@@ -558,7 +559,7 @@ export class TaisanService {
         return this.http.post(`${url}QuanLyNhaCungUng/ChuyenTiepQuyTrinhDanhGia`, data, httpOptions);
       },
       Delete: (data) => {
-        return this.http.post(`${url}/QuanLyNhaCungUng/DeleteQuyTrinhDanhGia`, data, httpOptions);
+        return this.http.post(`${url}QuanLyNhaCungUng/DeleteQuyTrinhDanhGia`, data, httpOptions);
       },
     };
   }

@@ -36,13 +36,12 @@ export class NhaCungUngDanhMucComponent implements OnInit {
   GetListTinhTrang() {
     this.taiSanService.NhaCungUng().GetListTinhTrang().subscribe((res: any)=>{
       this.listTrangThai = res.Data;
-      this.listTrangThai.unshift({Id:'',Ten:'Tất cả'})
     })
   }
 
   ChangeTab(e) {
-    this.trangThai = e.index;
-    this.LoadListNhaCungUng(true);
+    this.trangThai = e.index + 1;
+    this.ResetListNhaCungUng();
   }
 
   ResetListNhaCungUng() {
@@ -69,7 +68,7 @@ export class NhaCungUngDanhMucComponent implements OnInit {
 
   AddNhaCungUng() {
     let modalRef = this.modal.open(NhaCungUngModalComponent, {
-      size: 'xl',
+      size: 'fullscreen',
       backdrop: 'static',
     })
     modalRef.componentInstance.opt = 'add';
@@ -90,7 +89,7 @@ export class NhaCungUngDanhMucComponent implements OnInit {
 
   UpdateNhaCungUng(id) {
     let modalRef = this.modal.open(NhaCungUngModalComponent, {
-      size: 'xl',
+      size: 'fullscreen',
       backdrop: 'static',
     })
     modalRef.componentInstance.opt = 'update';
