@@ -7,6 +7,7 @@ import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.serv
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 @Component({
   selector: 'app-danhmucloaitaisan',
   templateUrl: './danhmucloaitaisan.component.html',
@@ -19,6 +20,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
   Keyword:any='';
   filter:any={};
   MaCongDoan:any='';
+  fileUpload: any;
   paging: any = {  page: 1, totalPages: 1, totalCount: 1 };
   cols: any = [
     {
@@ -57,7 +59,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
   constructor(private _modal:NgbModal,private _danhMucTaiSan:DanhmuctaisanService, private _services:SanXuatService,private _toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.GetListdmLoaiTaiSan();
+    this.GetList();
     this.getListCongDoan();
   }
   getListCongDoan(){
@@ -69,9 +71,9 @@ export class DanhmucloaitaisanComponent implements OnInit {
   }
   resetFilter(){
     this.Keyword = '';
-    this.GetListdmLoaiTaiSan(true);
+    this.GetList(true);
   }
-  GetListdmLoaiTaiSan(reset?){
+  GetList(reset?){
     if(reset){
       this.paging.Page=1;
       this.paginator.changePage(0);
@@ -100,7 +102,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = 'Thêm mới loại tài sản';
     modalRef.result.then(res=>{
-      this.GetListdmLoaiTaiSan()
+      this.GetList()
     }).catch(er=>console.log(er))
   }
   edit(item){
@@ -114,7 +116,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
     modalRef.componentInstance.title = 'Cập nhật loại tài sản';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item)); 
     modalRef.result.then(res=>{
-      this.GetListdmLoaiTaiSan()
+      this.GetList()
     }).catch(er=>console.log(er))
   }
   delete(item){
@@ -127,7 +129,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
-            this.GetListdmLoaiTaiSan();
+            this.GetList();
           } else {
             this._toastr.error(res.Message);
           }
@@ -146,7 +148,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
-            this.GetListdmLoaiTaiSan();
+            this.GetList();
             this.selectedItems = [];
           } else {
            this._toastr.error(res.Message);
@@ -156,35 +158,35 @@ export class DanhmucloaitaisanComponent implements OnInit {
     }).catch(er=>console.log(er))
   }
   importExcel(){
-    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
-      backdrop:'static',
+    let modalRef = this._modal.open(UploadmodalComponent, {
+      size: 'md',
+      backdrop: 'static',
     })
-    modalRef.componentInstance.importFunc = '';
-    modalRef.result.then(res=>{
-      this.GetListdmLoaiTaiSan();
-      this._toastr.success(res.mess);
-    })
-    .catch(er=>console.log(er))
+    modalRef.result
+      .then((res: any) => {
+        this.fileUpload = res;
+        this._danhMucTaiSan.DanhMucLoaiTaiSan().Importdm(this.fileUpload[0]).subscribe(()=>{
+          this.resetFilter();
+        })
+      })
+      .catch(er => {})
+      .finally(()=> {
+      })
   }
   exportExcel(){
     let data = {
       PageSize:20, 
       CurrentPage:0,
-      Keyword:this.Keyword,  
-      MaCongDoan:this.filter.MaCongDoan?this.filter.MaCongDoan:'',
-      Ma:"", 
-      Ten:"",
-      TableName:'',
+      Keyword:this.Keyword, 
+     
     };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().Exportdm(data).subscribe((res: any) => {
       this._danhMucTaiSan.DanhMucLoaiTaiSan().download(res.TenFile);
     })
   }
   changePage(event){
-    
-    this.paging.page = event.page+1;
-    this.GetListdmLoaiTaiSan();
+    this.paging.Page = event.page+1;
+    this.GetList()
   }
-  
 
 }

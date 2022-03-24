@@ -59,7 +59,7 @@
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản"
-                    [(ngModel)]="item.IddmLoaiTaiSan"></p-dropdown>
+                    [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -128,7 +128,7 @@
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhà cung cấp : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listCungSanXuat" placeholder="Nhập nhà cung cấp"
-                    [(ngModel)]="item.IddmNhaCungUng"></p-dropdown>
+                    [(ngModel)]="item.IddmNhaCungUng" [showClear]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -144,7 +144,7 @@
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Thời gian đưa vào sử dụng: </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm bold" [locale]="lang"
-                    [monthNavigator]="true" [yearNavigator]="true" [yearRange]="" [showIcon]="true" inputId="icon"
+                    [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon"
                     placeholder="dd/mm/yyyy" [(ngModel)]="item.ThoiGianDuaVaoSuDung">
                 </p-calendar>
             </div>
@@ -174,7 +174,7 @@
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" [(ngModel)]="item.IdBoPhanSuDung"
-                    placeholder="Chọn bộ phận"></p-dropdown>
+                    placeholder="Chọn bộ phận" [showClear]="true" ></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
@@ -267,6 +267,16 @@
         <p-tabPanel header="Thông số an toàn">
             <ng-template pTemplate="content">
                 <app-antoan [item]="item.listThongSoAnToan"></app-antoan>
+            </ng-template>
+        </p-tabPanel>
+        <p-tabPanel header="Thông tin khấu hao">
+            <ng-template pTemplate="content">
+                <app-thongtinkhauhao [item]="item.listThongTinKhauHao"></app-thongtinkhauhao>
+            </ng-template>
+        </p-tabPanel>
+        <p-tabPanel header="Biến động">
+            <ng-template pTemplate="content">
+            <app-biendong [item]="item"></app-biendong>
             </ng-template>
         </p-tabPanel>
     </p-tabView>

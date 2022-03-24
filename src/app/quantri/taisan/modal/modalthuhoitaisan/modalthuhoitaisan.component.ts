@@ -57,7 +57,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
 
     this.GetListdmPhanXuong();
     this.GetListTaiSanDaBanGiao();
-    // this.KiemTraButtonModal();
+    this.KiemTraButtonModal();
     // this.GetPhanXuong();
   }
 
@@ -101,20 +101,12 @@ export class ModalthuhoitaisanComponent implements OnInit {
   xoa(item) {
 
   }
-  validate(): boolean {
-    if (!validVariable(this.item.IdBoPhanSuDung)) {
-      this.toastr.error('Vui lòng nhập bộ phận sử dụng!!');
-      return false;
-    }
-    return true;
-  }
   setData() {
     this.item.NgayThuHoiUnix = DateToUnix(this.item.NgayThuHoi);
     this.item.IdDuAn = this.store.getCurrent();
     return this.item;
   }
   GhiLai() {
-    if (this.validate()) {
       this._serviceTaiSan.PhieuThuHoiTaiSan().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -122,12 +114,11 @@ export class ModalthuhoitaisanComponent implements OnInit {
           this.item = res.Data;
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();
-          // this.activeModal.close();
+          this.activeModal.close();
         }
       }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       })
-    }
   }
 
   GetNextSoQuyTrinh() {

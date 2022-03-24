@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { DateToUnix } from 'src/app/services/globalfunction';
+import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalcapnhatbaoduongComponent } from '../modal/modalcapnhatbaoduong/modalcapnhatbaoduong.component';
 
@@ -10,40 +11,40 @@ import { ModalcapnhatbaoduongComponent } from '../modal/modalcapnhatbaoduong/mod
   templateUrl: './biendong.component.html',
   styleUrls: ['./biendong.component.css']
 })
-export class BiendongComponent implements OnInit,OnChanges {
- 
-  @Input("ThongTinQueryBienDongTaiSan") ThongTinQueryBienDongTaiSan:any=null;
-  
-  paging: any = {CurrentPage:1};
-  item: any;
-  listItems:any =[];
-  constructor(public activeModal: NgbActiveModal, public toastr: ToastrService, private _serviceTaiSan: TaisanService,) { }
-  
+export class BiendongComponent implements OnInit {
+  @Input('item') item: any = {};
+  @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
+  items:any = [];
+  newitem: any = {};
+
+  constructor(public _modal: NgbModal,
+    public activeModal: NgbActiveModal,
+    private _danhMucTaiSan: DanhmuctaisanService,
+    public toastr: ToastrService,
+    private _serviceTaiSan: TaisanService,
+  ) { }
+
   ngOnInit(): void {
-    console.log(this.ThongTinQueryBienDongTaiSan)
-  }
-  ngOnChanges(changes: SimpleChanges){
     this.GetList();
   }
-  
-  GetList(reset?) {
-    if (reset) {
-      this.paging.CurrentPage = 1;
-    }
+  GetList() {
     let data = {
-      ...this.ThongTinQueryBienDongTaiSan,
-      
-      CurrentPage: this.paging.CurrentPage,
+      CurrentPage: 0,
+      PageSize: 0,
+      IdTaiSan:'',
+
     }
     this._serviceTaiSan.ListDanhSachBienDong().Get(data).subscribe((res: any) => {
-       console.log(res.Data)
-       this.listItems=res.Data.Items;
-       this.paging = res.Data;
+   this.items = res.Data.Items;
     })
   }
-  changePage(event) {
-    this.paging.CurrentPage = event.Page + 1;
-    this.GetList();
+  add() {
+    if (this.item === undefined || this.item === null)
+      this.item = [];
+    this.item.push(this.newitem);
+    this.newitem = {}
   }
- 
+  delete(index) {
+    let item = this.item.splice(index, 1)[0];
+  }
 }

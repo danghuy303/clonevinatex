@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { ModalloaisucoComponent } from '../../modal/modalloaisuco/modalloaisuco.component';
 @Component({
@@ -15,6 +16,7 @@ export class LoaisucoComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [];
   Keyword:any='';
+  fileUpload: any;
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
   cols: any = [
     {
@@ -133,24 +135,28 @@ export class LoaisucoComponent implements OnInit {
     }).catch(er=>console.log(er))
   }
   importExcel(){
-    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
-      backdrop:'static',
+    let modalRef = this._modal.open(UploadmodalComponent, {
+      size: 'md',
+      backdrop: 'static',
     })
-    modalRef.componentInstance.importFunc = '';
-    modalRef.result.then(res=>{
-      this.GetList();
-      this._toastr.success(res.mess);
-    })
-    .catch(er=>console.log(er))
+    modalRef.result
+      .then((res: any) => {
+        this.fileUpload = res;
+        console.log(this.fileUpload[0].Name);
+        this._danhMucTaiSan.DanhMucLoaiSuCo().Importdm(this.fileUpload[0]).subscribe(()=>{
+          this.resetFilter();
+        })
+      })
+      .catch(er => {})
+      .finally(()=> {
+      })
   }
   exportExcel(){
     let data = {
       PageSize:20, 
       CurrentPage:0,
       Keyword:this.Keyword, 
-      Ma:"", 
-      Ten:"",
-      TableName:'',
+     
     };
     this._danhMucTaiSan.DanhMucLoaiSuCo().Exportdm(data).subscribe((res: any) => {
       this._danhMucTaiSan.DanhMucLoaiSuCo().download(res.TenFile);

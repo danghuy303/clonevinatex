@@ -26,6 +26,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   listCha: any = [];
   listLoaiTaiSan: any = [];
   keyWord: any = '';
+  TaiSanItem: any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -36,37 +37,55 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-   
-    this.GetList();
-    let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.Keyword, };
+    let data = {
+      Keyword: this.filter.Keyword,
+      CurrentPage: 0,
+      PageSize: 20,
+      MaCongDoan: '',
+    };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
+      this.listLoaiTaiSan = mapArrayForDropDown(res.Data, "Ten", "Id");
     })
-
+    this.GetList();
   }
-  
   resetFilter() {
-    // this.filter = {};
-    this.keyWord = '';
+    this.filter = {};
+    // this.keyWord = '';
     this.GetList();
   }
   GetList() {
-    this.listdmLoaiBaoDuong = this.Chon.listdmLoaiBaoDuong;
-    this.items = [];
-    this.listCha = this.Chon.listTaiSan
-    this.listCha.forEach(obj => {
-      obj.checked = this.listItemDaChon.includes(obj.Id);
-      let data: any = { "data": obj, "children": [] };
-      obj.listTaiSan.forEach(con => {
-        let datacon: any = { "data": con, "children": [] };
-        con.checked = this.listItemDaChon.includes(con.Id);
-        data.children.push(datacon);
+    let data = {
+      Keyword: this.filter.Keyword,
+      CurrentPage: 0,
+      PageSize: 20,
+      MaCongDoan: '',
+      IdBoPhanSuDung: '',
+      IddmLoaiTaiSan: '',
+      IdUser: '',
+      Ngay: 0,
+      LoaiKeHoach: '',
+      IdDuAn: 0,
+    };
+    this._serviceTaiSan.LichXich().GetListTaiSan(data).subscribe((res: any) => {
+      this.TaiSanItem = res.Data;
+
+      this.listdmLoaiBaoDuong =  this.TaiSanItem.listdmLoaiBaoDuong;
+      this.items = [];
+      this.listCha =  this.TaiSanItem.listTaiSan;
+      this.listCha.forEach(obj => {
+        obj.checked = this.listItemDaChon.includes(obj.Id);
+        let data: any = { data: obj, children: [] };
+        obj.listTaiSan.forEach(con => {
+          let datacon: any = { data: con, children: [] };
+          con.checked = this.listItemDaChon.includes(con.Id);
+          data.children.push(datacon);
+        });
+        this.items.push(data);
       });
-      this.items.push(data);
-    });
-    this.checkedAll = this.listCha.every(ele => ele.checked);
+      this.checkedAll = this.listCha.every(ele => ele.checked);
+    })
   }
-  
+
   TimCheck() {
     let cha: boolean = false;
     let con: boolean = false;
@@ -118,7 +137,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
           IdTaiSan: obj.data.Id,
           Id: '',
           TenTaiSan: obj.data.Ten,
-          listLichBaoDuong:obj.data.listLichBaoDuong
+          listLichBaoDuong: obj.data.listLichBaoDuong
         });
       }
       if (validVariable(obj.children) && obj.children.length > 0) {

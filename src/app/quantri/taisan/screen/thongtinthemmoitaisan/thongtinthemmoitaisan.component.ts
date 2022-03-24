@@ -18,6 +18,9 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
   checkbutton: any = {};
   NameFile: any = "";
   listTinhTrangTaiSan_copy: any = [];
+  qrcode: any = {
+    size: 250
+  };
 
   @Input('item') item: any = {};
   @Input('TaiSanChaCon') TaiSanChaCon: string = "";
@@ -40,7 +43,6 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
     }
   }
   edit(item) {
-    console.log(item)
     this.item.GiaTriConLai = item.NguyenGia;
   }
   isCanDuTru() {

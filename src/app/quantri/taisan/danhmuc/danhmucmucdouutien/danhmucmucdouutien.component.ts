@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { ModalmucdouutienComponent } from '../modalmucdouutien/modalmucdouutien.component';
 
@@ -45,6 +46,7 @@ export class DanhmucmucdouutienComponent implements OnInit {
     } ,
    
   ];
+  fileUpload: any;
   selectedItems:any=[];
   constructor(private _modal:NgbModal,private _danhMucTaiSan:DanhmuctaisanService,private _toastr:ToastrService) { }
 
@@ -136,24 +138,27 @@ export class DanhmucmucdouutienComponent implements OnInit {
     }).catch(er=>console.log(er))
   }
   importExcel(){
-    let modalRef = this._modal.open(ImportdanhmucmodelComponent,{
-      backdrop:'static',
+    let modalRef = this._modal.open(UploadmodalComponent, {
+      size: 'md',
+      backdrop: 'static',
     })
-    modalRef.componentInstance.importFunc = '';
-    modalRef.result.then(res=>{
-      this.GetList();
-      this._toastr.success(res.mess);
-    })
-    .catch(er=>console.log(er))
+    modalRef.result
+      .then((res: any) => {
+        this.fileUpload = res;
+        this._danhMucTaiSan.DanhMucMucDoUuTien().Importdm(this.fileUpload[0]).subscribe(()=>{
+          this.resetFilter();
+        })
+      })
+      .catch(er => {})
+      .finally(()=> {
+      })
   }
   exportExcel(){
     let data = {
       PageSize:20, 
       CurrentPage:0,
       Keyword:this.Keyword, 
-      Ma:"", 
-      Ten:"",
-      TableName:'',
+     
     };
     this._danhMucTaiSan.DanhMucMucDoUuTien().Exportdm(data).subscribe((res: any) => {
       this._danhMucTaiSan.DanhMucMucDoUuTien().download(res.TenFile);

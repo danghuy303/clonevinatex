@@ -47,6 +47,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
   
   ngOnInit(): void {
     this.GetNextSoQuyTrinh();
+    this.KiemTraButtonModal();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
     let ls1 = this._danhMucTaiSan.DanhMucMucDoUuTien().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucLoaiSuCo().GetList(data).toPromise();
@@ -84,7 +85,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
           this.item = res.Data;
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();
-          this.activeModal.close();
+          // this.activeModal.close();
         }
       }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");

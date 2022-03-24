@@ -48,9 +48,9 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
       IdDuAn: 0,
     };
-    this._serviceTaiSan.LichXich().GetListTaiSan(data).subscribe((res: any) => {
-      this.TaiSanItem = res.Data;
-    })
+    // this._serviceTaiSan.LichXich().GetListTaiSan(data).subscribe((res: any) => {
+    //   this.TaiSanItem = res.Data;
+    // })
     if (this.item.ThoiGianUnix !== 0) {
       this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
     }
@@ -149,7 +149,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.Lay_Chon = this.item;
-    modalRef.componentInstance.Chon = this.TaiSanItem;
+    // modalRef.componentInstance.Chon = this.TaiSanItem;
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
       // let listKetQua = [];
@@ -220,8 +220,8 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       .catch((er) => {
       });
   }
-  ChonLoaiTaiSan() {
-   
+  ChonLoaiTaiSan(i) {
+    let item = this.item.listTaiSan.splice(i, 1)[0];
   }
 
 }
