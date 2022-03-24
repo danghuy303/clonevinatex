@@ -203,9 +203,17 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
     modalRef.componentInstance.item = item;
     modalRef.result
       .then((res: any) => {
-        item = res;
+        item = {
+          ...item,
+          ...res
+        };
+        // item.list = res;
+        // item.KetQuaDanhGia = res.KetQuaDanhGia;
         console.log('item sau khi save sua danh gia', item);
+        // console.log('item sau khi save sua danh gia', res);
       })
+      .catch(er => {})
+      .finally(()=>{})
   }
 
   DeleteNhaCungUng(id: string) {
