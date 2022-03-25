@@ -255,7 +255,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     this.filterBieuDo_TienDien.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filterBieuDo_TienDien.DenNgay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     this.filterBieuDo_TyLe.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
-    this.filterBieuDo_TyLe.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.filterBieuDo_TyLe.DenNgay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     this.filter.nNgay = (new Date()).getDate();
     this.filter.nThang = (new Date()).getMonth() + 1;
     this.filter.nNam = (new Date()).getFullYear();

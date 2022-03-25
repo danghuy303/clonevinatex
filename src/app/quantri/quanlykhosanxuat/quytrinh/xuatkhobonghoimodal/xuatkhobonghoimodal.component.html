@@ -130,7 +130,8 @@
                 <ng-template pTemplate="body" let-itemC let-i="rowIndex">
                     <tr>
                         <td>{{ 15 * (paging.CurrentPage - 1) + i + 1 }}</td>
-                        <td style="text-align: center;">{{itemC.ThuTu}} </td>
+                        <td style="text-align: center;"><p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="itemC.ThuTu">
+                        </p-inputNumber></td>
                         <td style="text-align: center;" *ngIf="item.isKetThuc!==true">
                             <p-dropdown [filter]="true" [options]="listKien" placeholder="Chọn kiện"
                                 styleClass="p-inputtext-sm" [(ngModel)]="itemC.IddmItem" (onChange)="getTon(itemC)">
@@ -174,7 +175,8 @@
                     <!-- <tr *ngIf="opt !== 'edit'"> -->
                     <tr>
                         <td></td>
-                        <td></td>
+                        <td><p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="newTableItem.ThuTu">
+                        </p-inputNumber></td>
                         <td>
                             <p-dropdown [filter]="true" [options]="listKien" placeholder="Chọn kiện"
                                 styleClass="p-inputtext-sm" [(ngModel)]="newTableItem.IddmItem"

@@ -32,6 +32,14 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Mau" pInputText />
             </div>
         </div>
+        <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type=='loaibong'">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ Cotton:</label>
+            <div class="p-col-12 p-lg-8 p-p-0">
+                <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TyLeCotton" pInputText /> -->
+                <p-inputNumber [minFractionDigits]="2" locale="en-EN" [(ngModel)]="item.TyLeCotton">
+                </p-inputNumber>
+            </div>
+        </div>
         <div class="p-col-12 p-d-flex p-flex-row" *ngIf="type==='dmnhomkho'">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại :</label>
             <div class="p-col-12 p-lg-8 p-p-0">
