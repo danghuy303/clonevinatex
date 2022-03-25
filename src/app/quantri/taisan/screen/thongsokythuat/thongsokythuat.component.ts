@@ -22,7 +22,6 @@ export class ThongsokythuatComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-console.log(this.item)
   }
   addThongSo() {
     if (this.item === undefined || this.item === null)

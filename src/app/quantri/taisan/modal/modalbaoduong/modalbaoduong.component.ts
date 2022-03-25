@@ -17,7 +17,7 @@ export class ModalbaoduongComponent implements OnInit {
   paging: any = {  page: 1, totalPages: 1, totalCount: 1 };
   listTaiSan:any = [];
 
-  constructor(public activeModal: NgbActiveModal, private _danhMucTaiSan:DanhmuctaisanService, public toastr: ToastrService) { }
+  constructor(public activeModal: NgbActiveModal, private _danhMucTaiSan:DanhmuctaisanService, public toastr: ToastrService) { this.item.isHoatDong = true}
 
   ngOnInit(): void {
     this.GetListdmLoaiTaiSan();

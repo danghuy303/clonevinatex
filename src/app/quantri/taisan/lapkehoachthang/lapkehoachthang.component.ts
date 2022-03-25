@@ -56,9 +56,9 @@ export class LapkehoachthangComponent implements OnInit {
       IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
       IdDuAn: 0,
     };
-    this._serviceTaiSan.LichXich().GetListTaiSan(data).subscribe((res: any) => {
-      this.TaiSanItem = res.Data;
-    })
+    // this._serviceTaiSan.LichXich().GetListTaiSanTheoThang(data).subscribe((res: any) => {
+    //   this.TaiSanItem = res.Data;
+    // })
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
 
     Promise.all([ls1]).then((values: any) => {
@@ -81,44 +81,12 @@ export class LapkehoachthangComponent implements OnInit {
       size: "lg",
       backdrop: "static",
     });
-    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
+    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : [];
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.Lay_Chon = this.item;
-    modalRef.componentInstance.Chon = this.TaiSanItem;
+    // modalRef.componentInstance.Chon = this.TaiSanItem;
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
-      // let listKetQua = [];
-      // this.item.listTaiSan.forEach(Tai_San => {
-      //   let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-      //   if (bien !== undefined) {
-      //     Tai_San.listBaoDuong = []
-      //     for (let i = 1; i <= 30; i++) {
-      //       Tai_San.listBaoDuong.push(
-      //         {
-      //           ThoiGian: i,
-      //           listChiTiet: [],
-      //         }
-      //       )
-      //     }
-      //     listKetQua.push(Tai_San);
-      //   }
-      // });
-      // res.forEach(Tai_San => {
-      //   let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-      //   if (bien === undefined) {
-      //     Tai_San.listBaoDuong = []
-      //     for (let i = 1; i <= 30; i++) {
-      //       Tai_San.listBaoDuong.push(
-      //         {
-      //           ThoiGian: i,
-      //           listChiTiet: [],
-      //         }
-      //       )
-      //     }
-      //     listKetQua.push(Tai_San);
-      //   }
-      // });
-      // this.item.listTaiSan = listKetQua;
       this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
       this.item.listTaiSan.forEach(ele => {
         if (!validVariable(ele.listBaoDuong)) {

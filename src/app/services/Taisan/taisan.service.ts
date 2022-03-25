@@ -7,6 +7,7 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+
 export class TaisanService {
 
   constructor(private http: HttpClient, public store: StoreService) { }
@@ -68,7 +69,13 @@ export class TaisanService {
         return this.http.get(`${url}BaoDuongTaiSan/DeleteLapKeHoachLichXichById?Id=${Id}`, httpOptions);
       },
       GetListTaiSan: (data) => {
-        return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanForLapKeHoachLichXich`, data, httpOptions);
+        return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanForLapKeHoachLichXichNam`, data, httpOptions);
+      },
+      GetListTaiSanTheoNam: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanForLapKeHoachLichXichNam`, data, httpOptions);
+      },
+      GetListTaiSanTheoThang: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanForLapKeHoachLichXichThang`, data, httpOptions);
       },
     };
   }
@@ -231,40 +238,61 @@ export class TaisanService {
     };
   }
 
+  DieuChuyenTaiSan() {
+    let url = API.TaiSan;
+    return {
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(`${url}NhatKySuDung/GetNextQuyTrinhDieuChuyenTaiSan`, httpOptions);
+      },
+      GetList: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}NhatKySuDung/GetListQuyTrinhDieuChuyenTaiSan`, data, httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(`${url}NhatKySuDung/GetQuyTrinhDieuChuyenTaiSanById?Id=${Id}`, httpOptions);
+      }, 
+      Set: (data) => {
+        return this.http.post(`${url}NhatKySuDung/SetQuyTrinhDieuChuyenTaiSan`, data, httpOptions);
+      },
+      KhongDuyet: (data) => {
+        return this.http.post(`${url}NhatKySuDung/KhongDuyetQuyTrinhDieuChuyenTaiSan`, data, httpOptions);
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(`${url}/NhatKySuDung/ChuyenTiepQuyTrinhDieuChuyenTaiSan`, data, httpOptions);
+      },
+      Delete: (Id) => {
+        return this.http.get(`${url}NhatKySuDung/DeleteQuyTrinhDieuChuyenTaiSanById?Id=${Id}`, httpOptions);
+      },
+      GetListTaiSan: (data) => {
+        return this.http.post(`${url}​NhatKySuDung​/GetListTaiSanDieuChuyen`, data, httpOptions);
+      },
+    };
+  }
+
   PhieuThuHoiTaiSan() {
     let url = API.TaiSan;
     return {
-      // GetNextSoQuyTrinh: () => {
-      //   return this.http.get(`${url}ThuHoiTaiSan/GetNextQuyTrinhThuHoi`, httpOptions);
-      // },
       GetNextSoQuyTrinh: () => {
         return this.http.get(`${url}NhatKySuDung/GetNextQuyTrinhThuHoiTaiSan`, httpOptions);
       },
-      // GetList: (data) => {
-      //   data.idDuAn = this.store.getCurrent();
-      //   return this.http.post(`${url}QuanLyTaiSan/GetListTaiSanThuHoi`, data, httpOptions);
-      // },
       GetList: (data) => {
         data.idDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/GetListQuyTrinhThuHoiTaiSan`, data, httpOptions);
       },
-      // Get: (Id) => {
-      //   return this.http.get(`${url}ThuHoiTaiSan/GetThuHoiTaiSanById?Id=${Id}`, httpOptions);
-      // },
       Get: (Id) => {
         return this.http.get(`${url}NhatKySuDung/GetQuyTrinhThuHoiTaiSanById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        return this.http.post(`${url}ThuHoiTaiSan/SetQuyTrinhThuHoiTaiSan`, data, httpOptions);
+        return this.http.post(`${url}NhatKySuDung/SetQuyTrinhThuHoiTaiSan`, data, httpOptions);
       },
       KhongDuyet: (data) => {
-        return this.http.post(`${url}ThuHoiTaiSan/KhongDuyetQuyTrinhThuHoiTaiSan`, data, httpOptions);
+        return this.http.post(`${url}NhatKySuDung/KhongDuyetQuyTrinhThuHoiTaiSan`, data, httpOptions);
       },
       ChuyenTiep: (data) => {
-        return this.http.post(`${url}ThuHoiTaiSan/ChuyenTiepQuyTrinhThuHoiTaiSan`, data, httpOptions);
+        return this.http.post(`${url}NhatKySuDung/ChuyenTiepQuyTrinhThuHoiTaiSan`, data, httpOptions);
       },
       Delete: (Id) => {
-        return this.http.get(`${url}ThuHoiTaiSan/DeleteThuHoiTaiSanById?Id=${Id}`, httpOptions);
+        return this.http.get(`${url}NhatKySuDung/DeleteQuyTrinhThuHoiTaiSanById?Id=${Id}`, httpOptions);
       },
     };
   }
@@ -379,7 +407,7 @@ export class TaisanService {
     let url = API.TaiSan;
     return {
       Get: (data) => {
-        return this.http.post(`${url}TaiSan/GetListBienDongTaiSanById`,data, httpOptions);
+        return this.http.post(`${url}NhatKySuDung/GetListBienDong`,data, httpOptions);
       },
     }
   }
@@ -426,7 +454,8 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyVatTuDuTru/DeleteNhapVatTuDuTruById?Id=${Id}`, httpOptions);
       },
       GetListVatTu: (data) => { 
-        return this.http.post(`${url}NhatKySuDung/GetListVatTuChuaBanGiao`, data, httpOptions);
+        // return this.http.post(`${url}NhatKySuDung/GetListVatTuChuaBanGiao`, data, httpOptions);
+        return this.http.post(`${url}QuanLyVatTuDuTru/GetListVatTuQuyTrinhNhapVatTu`, data, httpOptions);
       },
     };
   }
@@ -558,7 +587,7 @@ export class TaisanService {
         return this.http.post(`${url}QuanLyNhaCungUng/ChuyenTiepQuyTrinhDanhGia`, data, httpOptions);
       },
       Delete: (data) => {
-        return this.http.post(`${url}/QuanLyNhaCungUng/DeleteQuyTrinhDanhGia`, data, httpOptions);
+        return this.http.post(`${url}QuanLyNhaCungUng/DeleteQuyTrinhDanhGia`, data, httpOptions);
       },
     };
   }
@@ -625,7 +654,7 @@ export class TaisanService {
       //   return this.http.get(`${url}TaiSan/GetListTaiSanChuaBanGiao`, httpOptions);
       // },
       GetListTaiSanChuaBanGiao: () => {
-        return this.http.post(`${url}NhatKySuDung/GetListTaiSanChuaBanGiao`, httpOptions);
+        return this.http.get(`${url}NhatKySuDung/GetListTaiSanChuaBanGiao`, httpOptions);
       },
       GetListTaiSanDaBanGiao: (IddmPhanXuong) => {
         return this.http.get(`${url}TaiSan/GetListTaiSanDaBanGiao?IddmPhanXuong=${IddmPhanXuong}`, httpOptions);
@@ -651,12 +680,12 @@ export class TaisanService {
         }
         return this.http.post(`${url}NhatKySuDung/GetListTaiSanDaBanGiao`,data,httpOptions)
       },
-      GetListTaiSanChuaBanGiao:(IdBoPhanSuDung)=>{
+      GetListTaiSanChuaBanGiao:(CurrentPage: number, PageSize: number, KeyWord, IddmLoaiTaiSan, IdBoPhanSuDung)=>{
         let data ={
-          CurrentPage: 0,
-          PageSize: 0,
-          Keyword: '',
-          IddmLoaiTaiSan: '',
+          CurrentPage: CurrentPage,
+          PageSize: PageSize,
+          Keyword: KeyWord,
+          IddmLoaiTaiSan: IddmLoaiTaiSan,
           IdBoPhanSuDung: IdBoPhanSuDung
         }
         return this.http.post(`${url}NhatKySuDung/GetListTaiSanChuaBanGiao`,data,httpOptions)

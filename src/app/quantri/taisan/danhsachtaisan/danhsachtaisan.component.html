@@ -89,15 +89,15 @@
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr>
             <td>
-                {{rowData.Ma}}
-                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler> {{rowData.Ma}}
+              
             </td>
             <td class="text-center">{{rowData.Ten}}</td>
             <td class="text-center">{{rowData.TenLoaiTaiSan}}</td>
             <td class="text-center">{{rowData.HangSanXuat}}</td>
             <!-- <td class="text-center">{{rowData.TendmPhanXuong}}</td> -->
-            <td class="text-center">{{rowData.NguyenGia}}</td>
-            <td class="text-center">{{rowData.GiaTriConLai}}</td>   
+            <td class="text-center">{{rowData.NguyenGia|number:'0.0'}}</td>
+            <td class="text-center">{{rowData.GiaTriConLai|number:'0.0'}}</td>   
             <td class="text-center">{{rowData.ThoiGianSuDung| date:'dd/MM/yyyy'}}</td>    
             <td class="text-center">{{rowData.TrangThai}}</td>     
             <td class="text-center">

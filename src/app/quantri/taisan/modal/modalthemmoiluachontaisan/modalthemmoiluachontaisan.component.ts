@@ -17,6 +17,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   opt: any = "";
   title: any = "";
   lang: any = vn;
+  yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   NameFile: string;
   checkbutton: any = {};
   itemDonVi: any = {};
@@ -51,7 +52,13 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
       this.listCungSanXuat = mapArrayForDropDown(values[1].Data.Items, "Ten", "Id");
     });
   }
-
+  edit(item) {
+    this.item.GiaTriConLai = item.NguyenGia;
+  }
+  isCanDuTru() {
+    this.item.isCanDuTru=true;
+    this.item.isCanDuTru=false;
+  }
   GetListdmPhanXuong() {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       console.log(res)

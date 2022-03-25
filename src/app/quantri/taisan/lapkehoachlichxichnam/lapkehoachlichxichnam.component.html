@@ -47,7 +47,7 @@
         <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại tài sản:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" (onChange)="ChonLoaiTaiSan()" [(ngModel)]="item.IddmLoaiTaiSan"
+                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" (onChange)="ChonLoaiTaiSan(item)" [(ngModel)]="item.IddmLoaiTaiSan"
                     placeholder="Chọn tài sản" [showClear]="true"></p-dropdown>
             </div>
         </div>
@@ -84,7 +84,7 @@
                 </div>
             </div>
         </div>
-        <p-table [value]="item.listTaiSan|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+        <p-table [value]="item.listTaiSan" styleClass="p-datatable-sm wrap-text p-datatable-striped">
             <ng-template pTemplate="colgroup">
                 <colgroup>
                     <col style="width:100px">
@@ -124,7 +124,7 @@
                     <td class="text-center" > {{item.TenTaiSan}}</td>
                     <td class="text-center" *ngFor="let baoduong of item.listBaoDuong" (click)="Chon(baoduong,item.listLichBaoDuong)" >
                        <p>{{baoduong.listChiTiet[0]?.TendmLoaiBaoDuong}}</p> 
-                        <!-- {{baoduong.ThoiGian}}  --> Chọn
+                        <!-- {{baoduong.ThoiGian}}  -->  <a href="javascript:void(0)">Chọn</a>
                     </td>
                 </tr>
             </ng-template>

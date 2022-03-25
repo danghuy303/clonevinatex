@@ -72,9 +72,9 @@ export class DanhmuctaisanService {
       DeleteList: (data) => {
         return this.http.post(`${url}DanhMuc/DeleteListdmLoaiBaoDuong`, data, httpOptions)
       },
-      Importdm: (TableName, FileName) => {
-        let IdDuAn = this.store.getCurrent().toString();
-        return this.http.get(`${url}DanhMuc/ImportdmLoaiBaoDuong?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`, httpOptions)
+      Importdm: ( FileName) => {
+    
+        return this.http.get(`${url}DanhMuc/ImportdmLoaiBaoDuong?FileName=${FileName}`, httpOptions)
       },
       Exportdm: (data) => {
         data.IdDuAn = this.store.getCurrent();
@@ -101,9 +101,9 @@ export class DanhmuctaisanService {
       DeleteList: (data) => {
         return this.http.post(`${url}DanhMuc/DeleteListdmLoaiTaiSan`, data, httpOptions)
       },
-      Importdm: (TableName, FileName) => {
-        let IdDuAn = this.store.getCurrent().toString();
-        return this.http.get(`${url}DanhMuc/ImportdmLoaiTaiSan?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`, httpOptions)
+      Importdm: ( FileName) => {
+      
+        return this.http.get(`${url}DanhMuc/ImportdmLoaiTaiSan?FileName=${FileName}`, httpOptions)
       },
       Exportdm: (data) => {
         data.IdDuAn = this.store.getCurrent();
@@ -130,12 +130,10 @@ export class DanhmuctaisanService {
       DeleteList: (data) => {
         return this.http.post(`${url}DanhMuc/DeleteListdmLoaiSuCo`, data, httpOptions)
       },
-      Importdm: (TableName, FileName) => {
-        let IdDuAn = this.store.getCurrent().toString();
-        return this.http.get(`${url}DanhMuc/ImportdmLoaiSuCo?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`, httpOptions)
+      Importdm: (FileName) => {
+        return this.http.get(`${url}DanhMuc/ImportdmLoaiSuCo?FileName=${FileName}`, httpOptions)
       },
       Exportdm: (data) => {
-        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/ExportdmLoaiSuCo`, data, httpOptions)
       },
       download: (url) => {
@@ -159,12 +157,10 @@ export class DanhmuctaisanService {
       DeleteList: (data) => {
         return this.http.post(`${url}DanhMuc/DeleteListdmMucDoUuTien`, data, httpOptions)
       },
-      Importdm: (TableName, FileName) => {
-        let IdDuAn = this.store.getCurrent().toString();
-        return this.http.get(`${url}DanhMuc/ImportdmMucDoUuTien?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`, httpOptions)
+      Importdm: ( FileName) => {
+        return this.http.get(`${url}DanhMuc/ImportdmMucDoUuTien?FileName=${FileName}`, httpOptions)
       },
       Exportdm: (data) => {
-        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/ExportdmMucDoUuTien`, data, httpOptions)
       },
       download: (url) => {
@@ -202,12 +198,10 @@ export class DanhmuctaisanService {
       DeleteList: (data) => {
         return this.http.post(`${url}DanhMuc/DeleteListdmNhaCungCap`, data, httpOptions)
       },
-      Importdm: (TableName, FileName) => {
-        let IdDuAn = this.store.getCurrent().toString();
-        return this.http.get(`${url}DanhMuc/ImportdmNhaCungCap?IdDuAn=${IdDuAn}&TableName=${TableName}&FileName=${FileName}`, httpOptions)
+      Importdm: ( FileName) => {
+        return this.http.get(`${url}DanhMuc/ImportdmNhaCungCap?FileName=${FileName}`, httpOptions)
       },
       Exportdm: (data) => {
-        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}DanhMuc/ExportdmNhaCungCap`, data, httpOptions)
       },
       download: (url) => {

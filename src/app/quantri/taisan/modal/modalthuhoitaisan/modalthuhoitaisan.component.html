@@ -29,15 +29,15 @@
                 class="p-mr-2 p-button-sm " (click)="ChapNhan()"></button>
             <button pButton *ngIf="checkbutton.KhongDuyet" pRipple type="button" label="Không duyệt"
                 class="p-mr-2 p-button-sm " (click)="KhongDuyet()"></button>
-            <button (click)="test()">test</button>
         </div>
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-6   d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Bộ phận sử dụng <span class="required">*</span>:</label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Bộ phận sử dụng:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận"
-                styleClass="p-inputtext-sm" (onChange)="GetListTaiSanDaBanGiao()" [(ngModel)]="item.IdBoPhanSuDung"></p-dropdown>
+                    styleClass="p-inputtext-sm" (onChange)="GetListTaiSanDaBanGiao()" [(ngModel)]="item.IdBoPhanSuDung">
+                </p-dropdown>
             </div>
         </div>
         <!-- <div class="p-col-12 p-lg-4   d-flex flex-column flex-xl-row">
@@ -110,8 +110,6 @@
                     <th>STT</th>
                     <th> Mã </th>
                     <th>Tên</th>
-                    <!-- <th>Số seri</th>
-                    <th>Số lượng </th> -->
                     <th>Nguyên giá</th>
                     <th>Giá trị còn lại</th>
                     <th>Ghi chú</th>
@@ -122,25 +120,19 @@
                 <tr>
                     <td class="text-center"> {{ i + 1 }}</td>
                     <td class="text-center">
-                        {{item.TaiSan.Ma}}
+                        {{item.Ma}}
                     </td>
                     <td class="text-center">
-                        {{item.TaiSan.Ten}}
-                        <!-- <p-dropdown [disabled]="!item.edit" [filter]="true" [options]="listdsTaiSan" placeholder="Chọn "
-                            styleClass="p-inputtext-sm" [(ngModel)]="item.IdTaiSan"></p-dropdown> -->
+                        {{item.Ten}}
                     </td>
                     <td class="text-center">
                         {{item.NguyenGia|number:'0.0-3'}}
-                        <!-- <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.NguyenGia">
-                        </p-inputNumber> -->
+
                     </td>
                     <td class="text-center">
-                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.GiaTriConLai">
-                        </p-inputNumber>
+                        {{item.GiaTriConLai|number:'0.0-3'}}
                     </td>
                     <td class="text-center">
-                        <!-- <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.GiaTriConLai">
-                        </p-inputNumber> -->
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
                     </td>
                     <!-- <td class="text-center">
@@ -153,8 +145,6 @@
         </p-table>
     </p-panel>
 </div>
-<!-- <div class="modal-footer">
-    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
-    <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
-        (click)="activeModal.dismiss()"></button>
-</div> -->
+<div class="modal-footer">
+
+</div>

@@ -14,7 +14,6 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 })
 export class ModalluachontaisantheolichxichComponent implements OnInit {
   opt: any = "";
-  paging: any = {};
   items: TreeNode[];
   item: any = {};
   listItemDaChon: any = [];
@@ -25,7 +24,8 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   Chon: any = [];
   listCha: any = [];
   listLoaiTaiSan: any = [];
-  keyWord: any = '';
+  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
+  TaiSanItem: any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -36,37 +36,59 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-   
-    this.GetList();
-    let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.Keyword, };
+    let data = {
+      Keyword: this.filter.Keyword,
+      CurrentPage: 0,
+      PageSize: 20,
+      MaCongDoan: '',
+    };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
+      this.listLoaiTaiSan = mapArrayForDropDown(res.Data, "Ten", "Id");
     })
-
+    this.GetList();
   }
-  
   resetFilter() {
-    // this.filter = {};
-    this.keyWord = '';
+    this.filter = {};
+    // this.keyWord = '';
     this.GetList();
   }
   GetList() {
-    this.listdmLoaiBaoDuong = this.Chon.listdmLoaiBaoDuong;
-    this.items = [];
-    this.listCha = this.Chon.listTaiSan
-    this.listCha.forEach(obj => {
-      obj.checked = this.listItemDaChon.includes(obj.Id);
-      let data: any = { "data": obj, "children": [] };
-      obj.listTaiSan.forEach(con => {
-        let datacon: any = { "data": con, "children": [] };
-        con.checked = this.listItemDaChon.includes(con.Id);
-        data.children.push(datacon);
+    let data = {
+      Keyword: this.filter.Keyword,
+      PageSize: 20,
+      CurrentPage: this.paging.CurrentPage,
+      MaCongDoan: '',
+      IdBoPhanSuDung: '',
+      IddmLoaiTaiSan: '',
+      IdUser: '',
+      Ngay: 0,
+      LoaiKeHoach: '',
+      IdDuAn: 0,
+    };
+    this._serviceTaiSan.LichXich().GetListTaiSanTheoNam(data).subscribe((res: any) => {
+      this.paging.TotalCount = res.Data.TotalCount;
+      this.TaiSanItem = res.Data;
+
+      this.listdmLoaiBaoDuong =  this.TaiSanItem.listdmLoaiBaoDuong;
+      this.items = [];
+      this.listCha =  this.TaiSanItem.listTaiSan;
+      this.listCha.forEach(obj => {
+        obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
+        // this.listItemDaChon.forEach(daChon=>{
+        //   obj.checked = obj.Id===daChon.Id?true:false;
+        // })
+        let data: any = { data: obj, children: [] };
+        obj.listTaiSan.forEach(con => {
+          let datacon: any = { data: con, children: [] };
+          con.checked = this.listItemDaChon.includes(con.IdTaiSan);
+          data.children.push(datacon);
+        });
+        this.items.push(data);
       });
-      this.items.push(data);
-    });
-    this.checkedAll = this.listCha.every(ele => ele.checked);
+      this.checkedAll = this.listCha.every(ele => ele.checked);
+    })
   }
-  
+
   TimCheck() {
     let cha: boolean = false;
     let con: boolean = false;
@@ -115,19 +137,19 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     this.items.forEach(obj => {
       if (obj.data.checked) {
         data.push({
-          IdTaiSan: obj.data.Id,
+          IdTaiSan: obj.data.IdTaiSan,
           Id: '',
-          TenTaiSan: obj.data.Ten,
-          listLichBaoDuong:obj.data.listLichBaoDuong
+          TenTaiSan: obj.data.TenTaiSan,
+          listLichBaoDuong: obj.data.listLichBaoDuong
         });
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
         obj.children.forEach(objchildren => {
           if (objchildren.data.checked) {
             data.push({
-              IdTaiSan: objchildren.data.Id,
+              IdTaiSan: objchildren.data.IdTaiSan,
               Id: '',
-              TenTaiSan: objchildren.data.Ten,
+              TenTaiSan: objchildren.data.TenTaiSan,
               listLichBaoDuong: objchildren.data.listLichBaoDuong
             });
           }
@@ -138,6 +160,10 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   }
   GhiLai() {
     this.activeModal.close(this.FilterTree());
+  }
+  changePage(event) {
+    this.paging.CurrentPage = event.page + 1;
+    this.GetList()
   }
 
 }

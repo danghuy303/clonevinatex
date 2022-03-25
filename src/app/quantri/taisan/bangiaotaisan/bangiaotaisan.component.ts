@@ -44,9 +44,10 @@ export class BangiaotaisanComponent implements OnInit {
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
     private _serviceDanhMucTaiSan: DanhmuctaisanService,
-    private router: Router,
+    private activatedRoute: ActivatedRoute, private router: Router,
     private _serviceAuth: AuthenticationService,
     private store: StoreService,
+    
   ) { 
     this.idUser = this._serviceAuth.currentUserValue.Id;
   }
@@ -54,8 +55,23 @@ export class BangiaotaisanComponent implements OnInit {
   ngOnInit(): void {
     this.resetFilter();
     this.getListdmPhanXuong();
+    this.activatedRoute.params.subscribe((res: any) => {
+      if (res.id !== "0") {
+        this._serviceTaiSan
+          .BanGiaoTaiSan()
+          .Get(res.id)
+          .subscribe((res: any) => {
+            this.edit(res);
+          });
+      }
+    });
   }
 
+  changeParam(id) {
+    this.router.navigate([`/quantri/taisan/bangiaotaisan/${id}`], {
+      replaceUrl: true,
+    })
+  }
 
   changeTab(e) {
     this.trangThai = e.index + 1;
@@ -71,7 +87,6 @@ export class BangiaotaisanComponent implements OnInit {
   getListdmPhanXuong() {
     this._serviceDungChung.GetListdmPhanXuongOpt().subscribe((res: any) => {
       this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-      console.log(this.listdmPhanXuong);
     })
   }
 
@@ -91,8 +106,7 @@ export class BangiaotaisanComponent implements OnInit {
     };
     this._serviceTaiSan.BanGiaoTaiSan().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;
-      this.paging = res.Data;
-      console.log(this.items); 
+      this.paging.totalCount = res.Data.TotalCount;
     })
   }
 
@@ -111,7 +125,7 @@ export class BangiaotaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.tabTrangThai = 0; 
-    // modalRef.componentInstance.listdmPhanXuong = this.listdmPhanXuong;   
+    modalRef.componentInstance.listdmPhanXuong = this.listdmPhanXuong;   
     modalRef.componentInstance.item = {
       Id: "",
       IdTrangThai: "",
@@ -124,14 +138,11 @@ export class BangiaotaisanComponent implements OnInit {
     }
     modalRef.result
       .then((res: any) => {
-        // console.log(res);
-        return res
       })
-      .catch((er) => {
-        console.log('bị lỗi');   
-      })
+      .catch((er) => {})
       .finally(()=>{
-        this.Loaddata();
+        this.Loaddata(true);
+        this.changeParam(0);
       });
   }
 
@@ -142,13 +153,16 @@ export class BangiaotaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.tabTrangThai = this.trangThai;  
-    modalRef.componentInstance.item = item;
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
+    modalRef.componentInstance.item.NgayBanGiao = new Date(JSON.parse(JSON.stringify(item.Data.NgayBanGiao)));
     modalRef.result
       .then((res: any) => {
-        this.Loaddata();
       })
       .catch((er) => {
-
+      })
+      .finally(()=>{
+        this.Loaddata(true);
+        this.changeParam(0);
       });
   }  
 

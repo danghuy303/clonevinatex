@@ -8,6 +8,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { ModalnhapvattuluachontaisanComponent } from '../modal/modalnhapvattuluachontaisan/modalnhapvattuluachontaisan.component';
 
 @Component({
   selector: 'app-vattucanthay',
@@ -88,7 +89,7 @@ GhiLai() {
     })
 }
 ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open( {
+    let modalRef = this._modal.open(ModalnhapvattuluachontaisanComponent, {
       size: "xl",
       backdrop: "static",
     });

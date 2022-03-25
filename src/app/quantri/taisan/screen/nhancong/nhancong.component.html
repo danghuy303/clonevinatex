@@ -10,7 +10,9 @@
         <tr>
             <th>Tên</th>
             <th>Ghi chú</th>
-            <th style="width: 100px;">Thao tác </th>
+            <th style="width: 100px;"> <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
+                (click)="add2()">
+              </button> </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -30,7 +32,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="footer">
-        <tr>
+        <!-- <tr>
             <td class="text-center">
                 <p-dropdown [filter]="true" [options]="listTenNhanVien" placeholder="Chọn loại"  [(ngModel)]="newitem.IdUser" styleClass="p-inputtext-sm">
                 </p-dropdown>
@@ -39,11 +41,9 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="newitem.GhiChu" pInputText />
             </td>
             <td class="text-center">
-                <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
-            (click)="add2()">
-          </button>
+               
             </td>
-        </tr>
+        </tr> -->
 
     </ng-template>
 </p-table>

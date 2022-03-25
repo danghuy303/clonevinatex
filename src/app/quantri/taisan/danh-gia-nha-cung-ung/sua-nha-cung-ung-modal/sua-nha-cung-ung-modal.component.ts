@@ -13,6 +13,8 @@ export class SuaNhaCungUngModalComponent implements OnInit {
 
   item: any = {};
   title: string = "";
+  quyTrinh: any;
+  listDiemDaDanhGia=[];
   phieuDanhGia: any = {};
 
   constructor(
@@ -23,6 +25,7 @@ export class SuaNhaCungUngModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.listDiemDaDanhGia)
     this.GetNhaCungUng();
   }
 
@@ -38,16 +41,20 @@ export class SuaNhaCungUngModalComponent implements OnInit {
   SetNhaCungUng() {
     if (this.Validate()) {
       let data = {
-
+        // ...this.quyTrinh,
+        // listPhieuDanhGia: [
+          ...this.phieuDanhGia,
+        // ]
       }
-      this.taiSanService.DanhGiaNhaCungUng().Set(data).subscribe((res: any)=>{
-        if (res.StatusCode === 200) {
-          this.toast.success(res.Message);
-          this.activeModal.close();
-        } else {
-          this.toast.error(res.Message);
-        }
-      })
+      this.activeModal.close(data)
+      // this.taiSanService.DanhGiaNhaCungUng().Set(data).subscribe((res: any)=>{
+      //   if (res.StatusCode === 200) {
+      //     this.toast.success(res.Message);
+      //     this.activeModal.close();
+      //   } else {
+      //     this.toast.error(res.Message);
+      //   }
+      // })
     }
   }
 

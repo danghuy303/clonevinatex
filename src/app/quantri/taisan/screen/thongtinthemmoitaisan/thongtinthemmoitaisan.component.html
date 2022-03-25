@@ -1,26 +1,29 @@
-<div class="p-grid">
-    <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản : </label>
-        <div class="p-col-12 p-xl-8 p-p-0">
-            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản" [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true"></p-dropdown>
+
+
+    <div class="p-grid">
+        <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản : </label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản" [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true"></p-dropdown>
+            </div>
         </div>
-    </div>
-    <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mã tài sản : </label>
-        <div class="p-col-12 p-xl-8 p-p-0">
-            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
+        <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mã tài sản : </label>
+            <div class="p-col-12 p-xl-8 p-p-0">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
+            </div>
         </div>
-    </div>
-    <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
+
+        <!-- <div class="p-col-12 p-lg-4  p-p-3">
+            <qrcode [qrdata]="item.Id" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
+        </div> -->
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+          
+        </div>
+    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tên tài sản : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
-        </div>
-    </div>
-    <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mã QR : </label>
-        <div class="p-col-12 p-xl-8 p-p-0">
-            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.MaQR" pInputText />
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">

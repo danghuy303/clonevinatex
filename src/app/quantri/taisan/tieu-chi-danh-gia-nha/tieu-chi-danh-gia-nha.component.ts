@@ -49,7 +49,7 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.currentPage,
       TieuChiCha: false,
-      Keyword: "",
+      Keyword: this.filter.keyword,
       GhiChu: "",
     }
     this.taiSanService.TieuChiDanhGia().GetList(data).subscribe((res:any) => {

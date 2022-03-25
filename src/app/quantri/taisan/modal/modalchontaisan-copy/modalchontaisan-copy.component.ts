@@ -16,7 +16,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
   paging: any = {};
   items: TreeNode[];
   item: any = {};
-  listItemDaChon:any=[];
+  listItemDaChon: any = [];
   Lay_Chon: any = "";
   checkedAll: boolean = false;
 
@@ -35,30 +35,30 @@ export class ModalchontaisanCopyComponent implements OnInit {
   Loaddata() {
     this._serviceTaiSan.GetTaiSanTheoLoai().GetListTaiSanThuHoi(this.Lay_Chon).subscribe((res: any) => {
       let items = [];
-        this.items = [];
-        items = res.Data;
-        console.log(this.listItemDaChon)
-        items.forEach(obj => {
-          // check list id vua truyen vao, neu cai nao da ton tai thì đánh check cho nó 
-            obj.checked = this.listItemDaChon.includes(obj.Id);
-            let obj_copy: any = {};
-            if (obj?.listTaiSan) {
-              obj_copy.children = [];
-              obj.listTaiSan.forEach(element => {
-                console.log(element)
-                element.checked = this.listItemDaChon.includes(element.Id);
-                obj_copy.children.push({ data: element });
-              });
-              obj.listTaiSan=undefined;
-            }
-            obj_copy.data = obj;
-            this.items.push({ data: obj_copy.data, children: obj_copy.children });
-        });
-        this.checkedAll=items.every(ele=>ele.checked);
-        console.log(items)
-        console.log(this.items);
+      this.items = [];
+      items = res.Data;
+      console.log(this.listItemDaChon)
+      items.forEach(obj => {
+        // check list id vua truyen vao, neu cai nao da ton tai thì đánh check cho nó 
+        obj.checked = this.listItemDaChon.includes(obj.Id);
+        let obj_copy: any = {};
+        if (obj?.listTaiSan) {
+          obj_copy.children = [];
+          obj.listTaiSan.forEach(element => {
+            console.log(element)
+            element.checked = this.listItemDaChon.includes(element.Id);
+            obj_copy.children.push({ data: element });
+          });
+          obj.listTaiSan = undefined;
+        }
+        obj_copy.data = obj;
+        this.items.push({ data: obj_copy.data, children: obj_copy.children });
+      });
+      this.checkedAll = items.every(ele => ele.checked);
+      console.log(items)
+      console.log(this.items);
     });
-    
+
   }
 
   TimCheck() {
@@ -117,6 +117,10 @@ export class ModalchontaisanCopyComponent implements OnInit {
           IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
           IdTaiSan: obj.data.Id,
           Id: '',
+          Ten: obj.data.Ten,
+          Ma: obj.data.Ma,
+          NguyenGia: obj.data.NguyenGia,
+          GiaTriConLai: obj.data.GiaTriConLai,
         });
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
@@ -127,6 +131,10 @@ export class ModalchontaisanCopyComponent implements OnInit {
               IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
               IdTaiSan: objchildren.data.Id,
               Id: '',
+              Ten: objchildren.data.Ten,
+              Ma: objchildren.data.Ma,
+              NguyenGia: objchildren.data.NguyenGia,
+              GiaTriConLai: objchildren.data.GiaTriConLai,
             });
           }
         });

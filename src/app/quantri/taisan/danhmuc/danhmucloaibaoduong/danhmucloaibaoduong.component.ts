@@ -6,6 +6,7 @@ import { ModalbaoduongComponent } from '../../modal/modalbaoduong/modalbaoduong.
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 @Component({
   selector: 'app-danhmucloaibaoduong',
   templateUrl: './danhmucloaibaoduong.component.html',
@@ -14,6 +15,7 @@ import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanx
 export class DanhmucloaibaoduongComponent implements OnInit {
 
   @ViewChild('paginator') paginator: any;
+  fileUpload: any;
   items: any = [];
   Keyword: any = '';
   paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
@@ -63,7 +65,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
   constructor(private _modal: NgbModal, private _danhMucTaiSan: DanhmuctaisanService, private _toastr: ToastrService) { }
 
   ngOnInit() {
-    this.GetListdmLoaiBaoDuong();
+    this.GetList();
     let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.Keyword, };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
@@ -73,9 +75,9 @@ export class DanhmucloaibaoduongComponent implements OnInit {
   resetFilter() {
      this.filter = {};
      this.Keyword = '';
-    this.GetListdmLoaiBaoDuong(true);
+    this.GetList(true);
   }
-  GetListdmLoaiBaoDuong(reset?) {
+  GetList(reset?) {
     if (reset) {
       this.paging.page = 1;
       this.paginator.changePage(0);
@@ -107,7 +109,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = 'Thêm mới loại bảo dưỡng';
     modalRef.result.then(res => {
-      this.GetListdmLoaiBaoDuong()
+      this.GetList()
     }).catch(er => console.log(er))
   }
   edit(item) {
@@ -120,7 +122,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     modalRef.componentInstance.title = 'Cập nhật loại bão dưỡng';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then(res => {
-      this.GetListdmLoaiBaoDuong()
+      this.GetList()
     }).catch(er => console.log(er))
   }
   delete(item) {
@@ -133,7 +135,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
-            this.GetListdmLoaiBaoDuong();
+            this.GetList();
           } else {
             this._toastr.error(res.Message);
           }
@@ -152,7 +154,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
         if (res) {
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
-            this.GetListdmLoaiBaoDuong();
+            this.GetList();
             this.selectedItems = [];
           } else {
             this._toastr.error(res.Message);
@@ -161,34 +163,36 @@ export class DanhmucloaibaoduongComponent implements OnInit {
       })
     }).catch(er => console.log(er))
   }
-  importExcel() {
-    let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
+  importExcel(){
+    let modalRef = this._modal.open(UploadmodalComponent, {
+      size: 'md',
       backdrop: 'static',
     })
-    modalRef.componentInstance.importFunc = '';
-    modalRef.result.then(res => {
-      this.GetListdmLoaiBaoDuong();
-      this._toastr.success(res.mess);
-    })
-      .catch(er => console.log(er))
+    modalRef.result
+      .then((res: any) => {
+        this.fileUpload = res;
+        this._danhMucTaiSan.DanhMucLoaiBaoDuong().Importdm(this.fileUpload[0]).subscribe(()=>{
+          this.resetFilter();
+        })
+      })
+      .catch(er => {})
+      .finally(()=> {
+      })
   }
-  exportExcel() {
+  exportExcel(){
     let data = {
-      PageSize: 20,
-      CurrentPage: 0,
-      Keyword: this.Keyword,
-      IddmLoaiTaisan: this.filter.IddmLoaiTaisan ? this.filter.IddmLoaiTaisan : '',
-      Ma: "",
-      Ten: "",
-      TableName: '',
+      PageSize:20, 
+      CurrentPage:0,
+      Keyword:this.Keyword, 
+     
     };
-    this._danhMucTaiSan.DanhMucLoaiTaiSan().Exportdm(data).subscribe((res: any) => {
-      this._danhMucTaiSan.DanhMucLoaiTaiSan().download(res.TenFile);
+    this._danhMucTaiSan.DanhMucLoaiBaoDuong().Exportdm(data).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucLoaiBaoDuong().download(res.TenFile);
     })
   }
   changePage(event) {
     this.paging.Page = event.page+1;
-    this.GetListdmLoaiBaoDuong()
+    this.GetList()
   }
 
 }
