@@ -35,8 +35,8 @@ chonLoaiBaoDuong(e) {
   let filter;
   if (e.value !== '') {
     filter = this.items.find(ele => ele.Id === e.value);
-    this.item.ThoiGianBaoDuong = filter?.MaLoaiThoiGian;
-    this.item.NangSuat = filter?.NangSuat;
+    this.item.ThoiGianNangSuat = filter?.ThoiGianNangSuat;
+    this.item.NoiDung = filter?.NoiDung;
   } 
   
 }

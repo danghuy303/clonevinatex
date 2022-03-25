@@ -145,6 +145,9 @@ import { ModalnhapvattuluachontaisanComponent } from './modal/modalnhapvattuluac
 import { ModalluachonloaibaoduongComponent } from './modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import { ThongtinkhauhaoComponent } from './screen/thongtinkhauhao/thongtinkhauhao.component';
+import { ThoihancungcapvattuComponent } from './thoihancungcapvattu/thoihancungcapvattu.component';
+import { ThoihancungcapvattumodalComponent } from './thoihancungcapvattumodal/thoihancungcapvattumodal.component';
+import { ModalluachontaisantheolichthangComponent } from './modal/modalluachontaisantheolichthang/modalluachontaisantheolichthang.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -244,6 +247,9 @@ import { ThongtinkhauhaoComponent } from './screen/thongtinkhauhao/thongtinkhauh
     ModalnhapvattuluachontaisanComponent,
     ModalluachonloaibaoduongComponent,
     ThongtinkhauhaoComponent,
+    ThoihancungcapvattuComponent,
+    ThoihancungcapvattumodalComponent,
+    ModalluachontaisantheolichthangComponent,
 
   ],
   imports: [
@@ -332,6 +338,7 @@ import { ThongtinkhauhaoComponent } from './screen/thongtinkhauhao/thongtinkhauh
     LapkehoachlichxichnamComponent,
     ModalquytrinhbaoduongComponent,
     ModalbaoduongluachontaisanComponent,
+    ThoihancungcapvattumodalComponent,
     
 
   ],

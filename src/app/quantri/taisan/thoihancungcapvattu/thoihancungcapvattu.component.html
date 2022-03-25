@@ -1,32 +1,30 @@
 <h4 class="title" style="color:#1f2779">
-    Quy trình thu hồi tài sản
+    Thời hạn cung cấp vật tư
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
-        <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()" *ngIf="checkQuyen.ThemMoi"></button>
-        <!-- <button pButton pRipple label="xóa" icon="pi pi-trash" class="p-button-sm p-button-outlined p-mr-2" (click)="delete(item)"></button> 
-         <button pButton pRipple label="Xóa tất cả" *ngIf="selectedItems.length!==0" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button>
-        <button pButton pRipple label="Xóa tất cả" class="p-button-sm p-button-secondary p-button-outlined p-mr-2" (click)="deleteAll()"></button>  -->
+        <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
     </div>
     <div class="p-d-flex p-flex-row">
-        <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="bộ phận sử dụng" [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="GetListThuHoiTaiSan(true)" styleClass="p-inputtext-sm"></p-dropdown>
-        </div>
+        <!-- <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="bộ phận sử dụng" styleClass="p-inputtext-sm">
+            </p-dropdown>
+        </div> -->
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetListThuHoiTaiSan(true)">
+                [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetList(true)">
             </p-calendar>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetListThuHoiTaiSan(true)">
+                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetList(true)">
             </p-calendar>
         </div>
-        <div class="p-inputgroup" style="width:200px">
-            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText [(ngModel)]="keyWord"
-                (keyup.enter)="GetListThuHoiTaiSan(true)" />
+        <div class="p-inputgroup" style="width: 200px;">
+            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="GetList(true)"
+                [(ngModel)]="Keyword" />
             <button type="button" pButton pRipple icon="pi pi-search"
-                class="p-button-secondary p-button-sm p-button-text" (click)="GetListThuHoiTaiSan(true)"></button>
+                class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
             <button type="button" pButton pRipple icon="pi pi-refresh"
                 class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
         </div>
@@ -49,23 +47,15 @@
                 <col>
                 <col>
                 <col>
-                <col>
-                <col>
-                <col>
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">STT</th>
-                <th class="text-center">Số phiếu</th>
+                <th class="text-center">Số quy trình</th>
                 <th class="text-center">Ngày</th>
-                <th class="text-center">Bộ phận sử dụng</th>
-                <!-- <th class="text-center">Người đại diện bàn giao</th>
-                <th class="text-center">Nội dung</th> -->
-                <th class="text-center">Ngày thu hồi</th>
-                <th class="text-center">Lý do</th>
-                <th class="text-center">Trạng thái</th>
+                <th class="text-center">Nội dung</th>
                 <th class="text-center">Thao tác</th>
             </tr>
         </ng-template>
@@ -77,18 +67,12 @@
                 <td class="text-center">
                     {{item.SoQuyTrinh}}
                 </td>
-                <td class="text-center">{{item.NgayThuHoi|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.TenBoPhanSuDung}}</td>
-                <td class="text-center">{{item.NgayThuHoi|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">
-                    {{item.NoiDung}}
-                </td>
-                <td class="text-center">
-                    {{item.TenTrangThai}}
-                </td>
+                <td class="text-center">{{item.NgayBaoDuong|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.NoiDung}}</td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.Id)"></button>
+                        class="p-button-text p-button-sm p-button-secondary p-mr-2"
+                        (click)="changeParam(item.Id)"></button>
                 </td>
             </tr>
         </ng-template>

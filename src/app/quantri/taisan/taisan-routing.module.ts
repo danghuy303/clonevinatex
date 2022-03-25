@@ -38,6 +38,7 @@ import { PhieuthuhoitaisanComponent } from './thuhoitaisan/phieuthuhoitaisan/phi
 import { VattudutruComponent } from './vattudutru/vattudutru.component';
 import { VattugiatricaoComponent } from './vattugiatricao/vattugiatricao.component';
 import { TieuChiDanhGiaNhaComponent } from './tieu-chi-danh-gia-nha/tieu-chi-danh-gia-nha.component';
+import { ThoihancungcapvattuComponent } from './thoihancungcapvattu/thoihancungcapvattu.component';
 
 const routes: Routes = [
   {path:'',component:TaisanComponent},
@@ -78,7 +79,8 @@ const routes: Routes = [
   {path:'nhomnhacungung',component:NhomNhaCungUngDanhMucComponent},
   {path:'danhmucnhacungung',component:NhaCungUngDanhMucComponent},
   {path:'danhgianhacungung/:id',component:DanhGiaNhaCungUngComponent},
-  {path:'tieuchidanhgia/:id',component:TieuChiDanhGiaNhaComponent}
+  {path:'tieuchidanhgia/:id',component:TieuChiDanhGiaNhaComponent},
+  {path:'thoihancungcapvattu/:id',component:ThoihancungcapvattuComponent}
 ];
 
 @NgModule({
