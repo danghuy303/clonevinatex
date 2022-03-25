@@ -13,6 +13,7 @@ export class ThongTinDanhGiaNcuComponent implements OnInit,AfterViewInit,OnChang
 
   listTieuChi: any = [];
   @Input() phieuDanhGia: any;
+  @Input() daDanhGia: any;
 
   sum: any = 0;
 
@@ -50,7 +51,7 @@ export class ThongTinDanhGiaNcuComponent implements OnInit,AfterViewInit,OnChang
 
   recursive(list: Array<any>) {
     return list.map(ele => {
-      let realPoint = this.phieuDanhGia?.listTieuChi?.find(tieuchi => ele.Id === tieuchi.IddmTieuChiDanhGia)?.Diem
+      let realPoint = this.daDanhGia.find(tieuchi => ele.Id === tieuchi.IddmTieuChiDanhGia)?.Diem
       return {
         ...ele,
         DiemDanhGia: realPoint || null,

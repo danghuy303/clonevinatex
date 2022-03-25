@@ -38,11 +38,13 @@ import { PhieuthuhoitaisanComponent } from './thuhoitaisan/phieuthuhoitaisan/phi
 import { VattudutruComponent } from './vattudutru/vattudutru.component';
 import { VattugiatricaoComponent } from './vattugiatricao/vattugiatricao.component';
 import { TieuChiDanhGiaNhaComponent } from './tieu-chi-danh-gia-nha/tieu-chi-danh-gia-nha.component';
+import { DieuChuyenTaiSanComponent } from './dieu-chuyen-tai-san/dieu-chuyen-tai-san.component';
+
 
 const routes: Routes = [
   {path:'',component:TaisanComponent},
   {path:'nhaptaisan/:id',component:NhaptaisanComponent},
-  {path:'bangiaotaisan',component:BangiaotaisanComponent},  
+  {path:'bangiaotaisan/:id',component:BangiaotaisanComponent},  
   {path:'sucosuachua',component:SucosuachuaComponent},  
   {path:'danhsachtaisan',component:DanhsachtaisanComponent},
   {path:'danhsachvattudutru',component:VattudutruComponent},
@@ -78,7 +80,8 @@ const routes: Routes = [
   {path:'nhomnhacungung',component:NhomNhaCungUngDanhMucComponent},
   {path:'danhmucnhacungung',component:NhaCungUngDanhMucComponent},
   {path:'danhgianhacungung/:id',component:DanhGiaNhaCungUngComponent},
-  {path:'tieuchidanhgia/:id',component:TieuChiDanhGiaNhaComponent}
+  {path:'tieuchidanhgia/:id',component:TieuChiDanhGiaNhaComponent},
+  {path:'dieuchuyentaisan/:id',component:DieuChuyenTaiSanComponent}
 ];
 
 @NgModule({

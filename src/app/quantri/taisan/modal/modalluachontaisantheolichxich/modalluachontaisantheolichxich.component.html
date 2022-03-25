@@ -42,9 +42,9 @@
                     </p-checkbox>
                 </td>
                 <td  style="width: 150px;text-align: left;">
-                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>   {{rowData.Ma}} 
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>   {{rowData.MaTaiSan}} 
                 </td>
-                <td class="text-center">{{rowData.Ten}}</td>
+                <td class="text-center">{{rowData.TenTaiSan}}</td>
                 <td *ngFor="let item of rowData?.listLichBaoDuong" class="text-center">
                    {{item.isChon?'X':''}}
                 </td>

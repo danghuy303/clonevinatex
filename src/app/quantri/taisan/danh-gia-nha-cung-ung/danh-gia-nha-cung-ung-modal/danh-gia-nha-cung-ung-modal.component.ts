@@ -199,18 +199,15 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
       backdrop: 'static',
     })
     modalRef.componentInstance.quyTrinh = this.quyTrinh;
-    // modalRef.componentInstance.phieuDanhGia = item;
+    modalRef.componentInstance.listDiemDaDanhGia = item.listTieuChi;
     modalRef.componentInstance.item = item;
     modalRef.result
       .then((res: any) => {
-        item = {
-          ...item,
-          ...res
-        };
-        // item.list = res;
-        // item.KetQuaDanhGia = res.KetQuaDanhGia;
+        console.log(res.KetQuaDanhGia)
+        item.KetQuaDanhGia = res.KetQuaDanhGia;
+        item.listTieuChi = res.listTieuChi;
         console.log('item sau khi save sua danh gia', item);
-        // console.log('item sau khi save sua danh gia', res);
+        // console.log('quy trinh sau khi save', this.quyTrinh);
       })
       .catch(er => {})
       .finally(()=>{})
@@ -224,5 +221,8 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
   changePage(event) {
     this.paging.currentPage = event.page + 1;
     this.GetListNhaCungUng(false);
+  }
+  test(item){
+    console.log(item)
   }
 }

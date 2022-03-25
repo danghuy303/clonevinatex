@@ -24,7 +24,7 @@ export class ModalchontaisanComponent implements OnInit {
   items: TreeNode[];
   item: any = {};
   checkedAll: boolean = false;
-  listIdDaChon:string[];
+  listIdDaChon: string[];
 
   constructor(
     public _modal: NgbModal,
@@ -41,23 +41,26 @@ export class ModalchontaisanComponent implements OnInit {
   }
 
   Loaddata() {
-    this._serviceTaiSan.GetOptions().GetListTaiSanChuaBanGiao().subscribe((res: any) => {
+    this._serviceTaiSan
+    .GetTaiSanTheoLoai()
+    .GetListTaiSanChuaBanGiao(0, 0, "","","")
+    .subscribe((res: any) => {
       let items = [];
       this.items = [];
-      items = res.Data.Items;
+      items = res.Data;
       items.forEach(obj => {
         obj.checked = this.listIdDaChon?.includes(obj.Id);
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];
-          obj.listTaiSan.forEach(element => {            
+          obj.listTaiSan.forEach(element => {
             element.checked = this.listIdDaChon.includes(element.Id);
-            obj_copy.children.push({ data: element,expanded:true });
+            obj_copy.children.push({ data: element, expanded: true });
           });
-          obj.listTaiSan =null;
+          obj.listTaiSan = null;
         }
         obj_copy.data = obj;
-        this.items.push({ data: obj_copy.data, children: obj_copy.children,expanded:true });
+        this.items.push({ data: obj_copy.data, children: obj_copy.children, expanded: true });
         console.log(this.items);
       });
       this.checked();
@@ -118,7 +121,7 @@ export class ModalchontaisanComponent implements OnInit {
           TaiSan: obj.data,
           IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
           IdTaiSan: obj.data.Id,
-          IdCha:null,
+          IdCha: null,
           Id: '',
         });
       }
@@ -129,7 +132,7 @@ export class ModalchontaisanComponent implements OnInit {
               TaiSan: objchildren.data,
               IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
               IdTaiSan: objchildren.data.Id,
-              IdCha:obj.data.checked?obj.data.Id:null,
+              IdCha: obj.data.checked ? obj.data.Id : null,
               Id: '',
             });
           }

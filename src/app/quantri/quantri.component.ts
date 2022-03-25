@@ -1015,7 +1015,14 @@ export class QuantriComponent implements OnInit {
             items: [
               {
                 label: "Bàn giao tài sản",
-                routerLink: "/quantri/taisan/bangiaotaisan",
+                routerLink: "/quantri/taisan/bangiaotaisan/0",
+                command: () => {
+                  this.close();
+                },
+              },
+              {
+                label: "Điều chuyển tài sản",
+                routerLink: "/quantri/taisan/dieuchuyentaisan/0",
                 command: () => {
                   this.close();
                 },

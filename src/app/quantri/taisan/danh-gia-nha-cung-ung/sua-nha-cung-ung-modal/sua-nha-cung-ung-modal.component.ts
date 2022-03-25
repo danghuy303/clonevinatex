@@ -14,6 +14,7 @@ export class SuaNhaCungUngModalComponent implements OnInit {
   item: any = {};
   title: string = "";
   quyTrinh: any;
+  listDiemDaDanhGia=[];
   phieuDanhGia: any = {};
 
   constructor(
@@ -24,6 +25,7 @@ export class SuaNhaCungUngModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.listDiemDaDanhGia)
     this.GetNhaCungUng();
   }
 

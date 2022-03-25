@@ -73,11 +73,11 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
       this.items = [];
       this.listCha =  this.TaiSanItem.listTaiSan;
       this.listCha.forEach(obj => {
-        obj.checked = this.listItemDaChon.includes(obj.Id);
+        obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
         let data: any = { data: obj, children: [] };
         obj.listTaiSan.forEach(con => {
           let datacon: any = { data: con, children: [] };
-          con.checked = this.listItemDaChon.includes(con.Id);
+          con.checked = this.listItemDaChon.includes(con.IdTaiSan);
           data.children.push(datacon);
         });
         this.items.push(data);
@@ -134,7 +134,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     this.items.forEach(obj => {
       if (obj.data.checked) {
         data.push({
-          IdTaiSan: obj.data.Id,
+          IdTaiSan: obj.data.IdTaiSan,
           Id: '',
           TenTaiSan: obj.data.Ten,
           listLichBaoDuong: obj.data.listLichBaoDuong
@@ -144,7 +144,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
         obj.children.forEach(objchildren => {
           if (objchildren.data.checked) {
             data.push({
-              IdTaiSan: objchildren.data.Id,
+              IdTaiSan: objchildren.data.IdTaiSan,
               Id: '',
               TenTaiSan: objchildren.data.Ten,
               listLichBaoDuong: objchildren.data.listLichBaoDuong
