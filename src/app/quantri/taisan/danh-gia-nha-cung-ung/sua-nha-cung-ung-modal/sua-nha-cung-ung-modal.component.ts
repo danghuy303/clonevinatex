@@ -25,8 +25,6 @@ export class SuaNhaCungUngModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetNhaCungUng();
-    console.log('quy trinh:', this.quyTrinh);
-    
   }
 
   GetNhaCungUng() {
@@ -34,9 +32,6 @@ export class SuaNhaCungUngModalComponent implements OnInit {
       this.taiSanService.NhaCungUng().Get(this.item.IddmNhaCungUng)
       .subscribe((res: any)=>{
         this.item = res.Data;
-        console.log('item',this.item);
-        console.log('quytrinh',this.quyTrinh);
-        
       })
     }
   }
@@ -44,10 +39,10 @@ export class SuaNhaCungUngModalComponent implements OnInit {
   SetNhaCungUng() {
     if (this.Validate()) {
       let data = {
-        ...this.quyTrinh,
-        listPhieuDanhGia: [
-          this.phieuDanhGia,
-        ]
+        // ...this.quyTrinh,
+        // listPhieuDanhGia: [
+          ...this.phieuDanhGia,
+        // ]
       }
       this.activeModal.close(data)
       // this.taiSanService.DanhGiaNhaCungUng().Set(data).subscribe((res: any)=>{

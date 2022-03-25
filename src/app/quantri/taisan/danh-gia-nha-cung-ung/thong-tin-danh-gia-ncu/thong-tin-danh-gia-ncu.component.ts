@@ -79,6 +79,7 @@ export class ThongTinDanhGiaNcuComponent implements OnInit,AfterViewInit,OnChang
     this.phieuDanhGia.listTieuChi = [...listCon,...listCha].filter((ele)=>{
       return validVariable(ele.Diem) && ele.Diem !== 0;
     });
+    this.phieuDanhGia.KetQuaDanhGia = this.sum;
   }
 
   SumDiemDanhGia() {

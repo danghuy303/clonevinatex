@@ -113,13 +113,13 @@
         <td>{{item.TendmNhaCungUng}}</td>
         <td class="text-center">{{item.KetQuaDanhGia}}</td>
         <td class="text-center">
-          <p-dropdown [options]="listTinhTrang" [(ngModel)]="item.IddmTinhTrangNhaCungung"></p-dropdown>
+          <p-dropdown [options]="listTinhTrang" [(ngModel)]="item.IdTrangThai"></p-dropdown>
         </td>
         <td>
           <input type="text" pInputText [(ngModel)]="item.GhiChu">
         </td>
         <td class="text-center">
-          <p-dropdown [options]="listPheDuyet" [(ngModel)]="item.TinhTrangPheDuyet" optionLabel="label" optionValue="Ma"></p-dropdown>
+          <p-dropdown [options]="listPheDuyet" [(ngModel)]="item.TinhTrangPheDuyet" optionLabel="label" optionValue="Id"></p-dropdown>
         </td>
         <td class="text-center">
           <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="UpdateNhaCungUng(item)"></button>
