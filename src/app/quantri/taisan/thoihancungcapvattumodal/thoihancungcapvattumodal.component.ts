@@ -1,37 +1,34 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
-import { PintableDirective } from 'voi-lib';
-import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
-import { ModalluachonloaibaoduongComponent } from '../modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
-import { ModalluachontaisantheolichxichComponent } from '../modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
+import { ModalbaoduongluachontaisanComponent } from '../modal/modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
+
 
 @Component({
-  selector: 'app-lapkehoachthang',
-  templateUrl: './lapkehoachthang.component.html',
-  styleUrls: ['./lapkehoachthang.component.css']
+  selector: 'app-thoihancungcapvattumodal',
+  templateUrl: './thoihancungcapvattumodal.component.html',
+  styleUrls: ['./thoihancungcapvattumodal.component.css']
 })
-export class LapkehoachthangComponent implements OnInit {
-  @ViewChild(PintableDirective) voiPintable: PintableDirective;
+export class ThoihancungcapvattumodalComponent implements OnInit {
+
   opt: any = "";
   listNam: any = [];
   item: any = {};
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
-  checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
+  checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true};
   listPhanXuong = [];
   listLoaiTaiSan = [];
-  TaiSanItem: any = [];
   store: any;
 
-  labelThang: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
-    '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];
   constructor(
     private _modal: NgbModal,
     public activeModal: NgbActiveModal,
@@ -43,22 +40,15 @@ export class LapkehoachthangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.item.ThoiGianUnix !== 0) {
-      this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
+    if ( this.item.NgayBaoDuongUnix !== 0) {
+      this.item.NgayBaoDuong = UnixToDate(this.item.NgayBaoDuongUnix);
     }
     this.GetNextSoQuyTrinh();
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
 
-    let data = {
-      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
-      IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
-      IdDuAn: 0,
-    };
-    // this._serviceTaiSan.LichXich().GetListTaiSanTheoThang(data).subscribe((res: any) => {
-    //   this.TaiSanItem = res.Data;
-    // })
+    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
 
     Promise.all([ls1]).then((values: any) => {
@@ -71,69 +61,56 @@ export class LapkehoachthangComponent implements OnInit {
   }
 
   GetNextSoQuyTrinh() {
-    this._serviceTaiSan.LichXichThang().GetNextSoQuyTrinh().subscribe((res: any) => {
+    this._serviceTaiSan.QuyTrinhBaoDuong().GetNextSoQuyTrinh().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.Data;
     })
   }
-
   ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open(ModalluachontaisantheolichxichComponent, {
+    let modalRef = this._modal.open(ModalbaoduongluachontaisanComponent, {
       size: "lg",
       backdrop: "static",
     });
-    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : [];
+    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
     modalRef.componentInstance.opt = this.opt;
-    modalRef.componentInstance.Lay_Chon = this.item;
-    // modalRef.componentInstance.Chon = this.TaiSanItem;
+    modalRef.componentInstance.Lay_Chon =this.item; 
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
-      this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
-      this.item.listTaiSan.forEach(ele => {
-        if (!validVariable(ele.listBaoDuong)) {
-          ele.listBaoDuong = []
-          for (let i = 1; i <= 30; i++) {
-            ele.listBaoDuong.push(
-              {
-                ThoiGian: i,
-                listChiTiet: [],
-              }
-            )
-          }
+      
+      let listKetQua = [];
+      this.item.listTaiSan.forEach(Tai_San => {
+        let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+        if (bien !== undefined) {
+          listKetQua.push(Tai_San);
         }
-      })
-    })
-      .catch((er) => {
       });
-  }
-
-  Chon(item, itemLoaiBaoDuongDeChon) {
-    let modalRef = this._modal.open(ModalluachonloaibaoduongComponent, {
-      backdrop: 'static',
-      size: 'fullscreen-100',
-      keyboard: false
+      // vong lap 2
+    res.forEach(Tai_San => {
+      let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+      if (bien === undefined) {
+        listKetQua.push(Tai_San);
+      }
     });
-    modalRef.componentInstance.Lay_Chon = itemLoaiBaoDuongDeChon;
-    modalRef.componentInstance.listItemDaChon = item.listChiTiet ? item.listChiTiet.map(ele => ele.IddmLoaiBaoDuong) : []
-    modalRef.result.then((res: any) => {
-      item.listChiTiet = res;
+    this.item.listTaiSan = listKetQua;
+    console.log(this.item.listTaiSan)
     })
       .catch((er) => {
       });
   }
-
+  
   setData() {
-    this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian);
+    this.item.NgayBaoDuongUnix = DateToUnix(this.item.NgayBaoDuong);
+    // this.item.IdDuAn = this.store.getCurrent();
     return this.item;
   }
   GhiLai() {
-    this._serviceTaiSan.LichXichThang().Set(this.setData()).subscribe((res: any) => {
+    this._serviceTaiSan.QuyTrinhBaoDuong().Set(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200 || !res.StatusCode) {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       } else {
         this.item = res.Data;
         this.toastr.success(res.Message);
         this.KiemTraButtonModal();
-        // this.activeModal.close();
+        this.activeModal.close();
       }
     }, (er) => {
       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -146,7 +123,7 @@ export class LapkehoachthangComponent implements OnInit {
     });
   }
   ChapNhan() {
-    this._serviceTaiSan.LichXichThang().ChuyenTiep(this.item).subscribe((res: any) => {
+    this._serviceTaiSan.QuyTrinhBaoDuong().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -156,7 +133,7 @@ export class LapkehoachthangComponent implements OnInit {
     })
   }
   KhongDuyet() {
-    this._serviceTaiSan.LichXichThang().KhongDuyet(this.item).subscribe((res: any) => {
+    this._serviceTaiSan.QuyTrinhBaoDuong().KhongDuyet(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -172,7 +149,7 @@ export class LapkehoachthangComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
     modalRef.result
       .then((res) => {
-        this._serviceTaiSan.LichXichThang().Delete(this.item.Id).subscribe((res: any) => {
+        this._serviceTaiSan.QuyTrinhBaoDuong().Delete(this.item.Id).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this.toastr.success(res.Message);
             this.activeModal.close();
@@ -183,6 +160,17 @@ export class LapkehoachthangComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
-
+  changeTab(e) {
+    // this.trangThai = e.index + 1;
+    // this.loaiTab = e.index;
+    // this.Loaddata(true);
+  }
+  delete(index) {
+    let item = this.item.listTaiSan.splice(index, 1)[0];
+    if (item.Id === '' || item.Id === null || item.Id === undefined) {
+    } else {
+      item.isXoa = true;
+      this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
+    }
+  }
 }
-

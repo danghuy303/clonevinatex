@@ -71,6 +71,12 @@ export class TaisanService {
       GetListTaiSan: (data) => {
         return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanForLapKeHoachLichXichNam`, data, httpOptions);
       },
+      GetListTaiSanTheoNam: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanForLapKeHoachLichXichNam`, data, httpOptions);
+      },
+      GetListTaiSanTheoThang: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanForLapKeHoachLichXichThang`, data, httpOptions);
+      },
     };
   }
 
@@ -286,7 +292,7 @@ export class TaisanService {
         return this.http.post(`${url}NhatKySuDung/ChuyenTiepQuyTrinhThuHoiTaiSan`, data, httpOptions);
       },
       Delete: (Id) => {
-        return this.http.get(`${url}NhatKySuDung/DeleteThuHoiTaiSanById?Id=${Id}`, httpOptions);
+        return this.http.get(`${url}NhatKySuDung/DeleteQuyTrinhThuHoiTaiSanById?Id=${Id}`, httpOptions);
       },
     };
   }

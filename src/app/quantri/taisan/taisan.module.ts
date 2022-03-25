@@ -147,6 +147,9 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import { ThongtinkhauhaoComponent } from './screen/thongtinkhauhao/thongtinkhauhao.component';
 import { DieuChuyenTaiSanComponent } from './dieu-chuyen-tai-san/dieu-chuyen-tai-san.component';
 import { DieuChuyenTaiSanModalComponent } from './dieu-chuyen-tai-san/dieu-chuyen-tai-san-modal/dieu-chuyen-tai-san-modal.component';
+import { ThoihancungcapvattuComponent } from './thoihancungcapvattu/thoihancungcapvattu.component';
+import { ThoihancungcapvattumodalComponent } from './thoihancungcapvattumodal/thoihancungcapvattumodal.component';
+import { ModalluachontaisantheolichthangComponent } from './modal/modalluachontaisantheolichthang/modalluachontaisantheolichthang.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -248,6 +251,9 @@ import { DieuChuyenTaiSanModalComponent } from './dieu-chuyen-tai-san/dieu-chuye
     ThongtinkhauhaoComponent,
     DieuChuyenTaiSanComponent,
     DieuChuyenTaiSanModalComponent,
+    ThoihancungcapvattuComponent,
+    ThoihancungcapvattumodalComponent,
+    ModalluachontaisantheolichthangComponent,
 
   ],
   imports: [
@@ -336,6 +342,7 @@ import { DieuChuyenTaiSanModalComponent } from './dieu-chuyen-tai-san/dieu-chuye
     LapkehoachlichxichnamComponent,
     ModalquytrinhbaoduongComponent,
     ModalbaoduongluachontaisanComponent,
+    ThoihancungcapvattumodalComponent,
     
 
   ],

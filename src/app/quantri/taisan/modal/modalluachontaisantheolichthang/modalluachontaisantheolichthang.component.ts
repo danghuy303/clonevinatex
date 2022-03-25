@@ -8,11 +8,12 @@ import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.serv
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
-  selector: 'app-modalluachontaisantheolichxich',
-  templateUrl: './modalluachontaisantheolichxich.component.html',
-  styleUrls: ['./modalluachontaisantheolichxich.component.css']
+  selector: 'app-modalluachontaisantheolichthang',
+  templateUrl: './modalluachontaisantheolichthang.component.html',
+  styleUrls: ['./modalluachontaisantheolichthang.component.css']
 })
-export class ModalluachontaisantheolichxichComponent implements OnInit {
+export class ModalluachontaisantheolichthangComponent implements OnInit {
+
   opt: any = "";
   items: TreeNode[];
   item: any = {};
@@ -49,7 +50,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   }
   resetFilter() {
     this.filter = {};
-    // this.keyWord = '';
     this.GetList();
   }
   GetList() {
@@ -65,18 +65,15 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
       LoaiKeHoach: '',
       IdDuAn: 0,
     };
-    this._serviceTaiSan.LichXich().GetListTaiSanTheoNam(data).subscribe((res: any) => {
+    this._serviceTaiSan.LichXich().GetListTaiSanTheoThang(data).subscribe((res: any) => {
       this.paging.TotalCount = res.Data.TotalCount;
       this.TaiSanItem = res.Data;
 
-      this.listdmLoaiBaoDuong =  this.TaiSanItem.listdmLoaiBaoDuong;
+      this.listdmLoaiBaoDuong =this.TaiSanItem.listdmLoaiBaoDuong;
       this.items = [];
       this.listCha =  this.TaiSanItem.listTaiSan;
       this.listCha.forEach(obj => {
         obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
-        // this.listItemDaChon.forEach(daChon=>{
-        //   obj.checked = obj.Id===daChon.Id?true:false;
-        // })
         let data: any = { data: obj, children: [] };
         obj.listTaiSan.forEach(con => {
           let datacon: any = { data: con, children: [] };
@@ -86,7 +83,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
         this.items.push(data);
       });
       this.checkedAll = this.listCha.every(ele => ele.checked);
-    })
+    });
   }
 
   TimCheck() {
