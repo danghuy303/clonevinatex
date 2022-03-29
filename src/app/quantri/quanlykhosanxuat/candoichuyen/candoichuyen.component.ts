@@ -48,7 +48,6 @@ export class CandoichuyenComponent extends StoreBase implements OnInit,OnDestroy
         this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
         this.today = this.datepipe.transform(date, "dd/MM/yyyy");
         // this.boTriMay();
-        this.GetCalendar();
     }
     GetOptions(): void {
         let data2 = {
@@ -62,6 +61,7 @@ export class CandoichuyenComponent extends StoreBase implements OnInit,OnDestroy
         this._services.GetListdmPhanXuong(data2).subscribe((res: any) => {
             this.listPhanXuong = mapArrayForDropDown(res, "Ten", "Id");
             this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+            this.GetCalendar();
         });
         this._services.GetListCongDoan().subscribe((res: any) => {
             this.listCongDoan = mapArrayForDropDown(res, "Ten", "Ma");

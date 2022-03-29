@@ -37,6 +37,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
   IddmPhanXuong: string = '';
   PoolMaySanXuat: any = {};
   mapCongDoan_TinhTrangMay: any = {};
+  listCaSanXuat:any[]=[];
   constructor(public activeModal: NgbActiveModal, private _services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private datepipe: DatePipe) {
   }
 
@@ -46,9 +47,15 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     }
     this.getListPhanXuong();
+    this.getListCaSanXuat();
   }
   validVariable(e) {
     return validVariable(e);
+  }
+  getListCaSanXuat(){
+    this._services.GetListOptdmCaSanXuat().subscribe((res:any)=>{
+      this.listCaSanXuat = res;    
+    })
   }
   getListPhanXuong() {
     this._services.GetOptions().GetPhanXuong().subscribe((res: Array<any>) => {
@@ -422,7 +429,7 @@ export class TrienkhaikehoachsanxuatmodalComponent implements OnInit {
       this.item.TuNgayUnix = DateToUnix(this.item.TuNgay);
       this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
       if (!validVariable(this.item.SoCa) || this.item.SoCa === 0) {
-        this.item.SoCa = ((this.item.DenNgayUnix - this.item.TuNgayUnix) / (24 * 3600) + 1) * 3;
+        this.item.SoCa = ((this.item.DenNgayUnix - this.item.TuNgayUnix) / (24 * 3600) + 1) * this.listCaSanXuat.length;
       }
     }
     if (validVariable(this.item.listItem) && this.item.listItem.length !== 0 && validVariable(this.item.TuNgay) && validVariable(this.item.DenNgay)) {
