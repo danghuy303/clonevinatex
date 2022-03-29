@@ -16,6 +16,7 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
   checkedAll: boolean = false;
   fileUpload: any;
 
+
   constructor(
     public modal: NgbModal,
     public activeModal: NgbActiveModal,
@@ -32,12 +33,24 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
   
+  SearchHangHoa(keyword) {
+    if ((validVariable(keyword)) && keyword.trim() !== '') {
+      this.item.listItem = this.item.listItem.filter(ele => {
+        return ele.MadmItem.includes(keyword) || ele.TendmItem.includes(keyword)
+      })
+    } else {
+      this.LoadPage();
+    }
+    // console.log(keyword);
+  }
 
   LoadPage() {
+    this.filter = {};
     this.paging = {
       currentPage: 1,
       totalCount: this.item.listItem.length,
     };
+    this.checkedAll = false;
   }
 
   AddHangHoa() {
@@ -60,8 +73,8 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
     DeleteListHangHoa() {
       this.item.listItem = this.item.listItem.filter(item => {
         return !item.checked === true;
-        this.LoadPage();
       })
+      this.LoadPage();
     }
 
     CheckAllHangHoa() {
@@ -117,6 +130,8 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
   //     this.LoadListHangHoa();
   //   }
   // }
+
+  
 
   // changePage(event) {
   //   this.pageHangHoa.currentPage = event + 1;

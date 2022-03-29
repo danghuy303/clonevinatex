@@ -116,7 +116,7 @@ import { ThongtinthemmoitaisanComponent } from './screen/thongtinthemmoitaisan/t
 import { ModalluachontaisantheolichxichComponent } from './modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
 import { QuytrinhlapkehoachlichxichnamComponent } from './quytrinhlapkehoachlichxichnam/quytrinhlapkehoachlichxichnam.component';
 import { KhauHaoTaiSanQuyTrinhComponent } from './khau-hao-tai-san-quy-trinh/khau-hao-tai-san-quy-trinh.component';
-import { KhauHaoTaiSanModalComponent } from './khau-hao-tai-san-quy-trinh/modal/khau-hao-tai-san-modal/khau-hao-tai-san-modal.component';
+import { KhauHaoTaiSanModalComponent } from './khau-hao-tai-san-quy-trinh/khau-hao-tai-san-modal/khau-hao-tai-san-modal.component';
 import { NhomNhaCungUngDanhMucComponent } from './nhom-nha-cung-ung-danh-muc/nhom-nha-cung-ung-danh-muc.component';
 import { NhomNhaCungUngModalComponent } from './nhom-nha-cung-ung-danh-muc/nhom-nha-cung-ung-modal/nhom-nha-cung-ung-modal.component';
 import { NhaCungUngDanhMucComponent } from './nha-cung-ung-danh-muc/nha-cung-ung-danh-muc.component';
@@ -150,6 +150,8 @@ import { DieuChuyenTaiSanModalComponent } from './dieu-chuyen-tai-san/dieu-chuye
 import { ThoihancungcapvattuComponent } from './thoihancungcapvattu/thoihancungcapvattu.component';
 import { ThoihancungcapvattumodalComponent } from './thoihancungcapvattumodal/thoihancungcapvattumodal.component';
 import { ModalluachontaisantheolichthangComponent } from './modal/modalluachontaisantheolichthang/modalluachontaisantheolichthang.component';
+import { ChonTaiSanDieuChuyenModalComponent } from './dieu-chuyen-tai-san/chon-tai-san-dieu-chuyen-modal/chon-tai-san-dieu-chuyen-modal.component';
+import { ChonTaiSanKhauHaoModalComponent } from './khau-hao-tai-san-quy-trinh/chon-tai-san-khau-hao-modal/chon-tai-san-khau-hao-modal.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -254,6 +256,8 @@ import { ModalluachontaisantheolichthangComponent } from './modal/modalluachonta
     ThoihancungcapvattuComponent,
     ThoihancungcapvattumodalComponent,
     ModalluachontaisantheolichthangComponent,
+    ChonTaiSanDieuChuyenModalComponent,
+    ChonTaiSanKhauHaoModalComponent,
 
   ],
   imports: [

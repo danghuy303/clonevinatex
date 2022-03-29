@@ -1027,13 +1027,13 @@ export class QuantriComponent implements OnInit {
                   this.close();
                 },
               },
-              {
-                label: "Điều chuyển tài sản",
-                routerLink: "/quantri/taisan/dieuchuyentaisan/0",
-                command: () => {
-                  this.close();
-                },
-              },
+              // {
+              //   label: "Điều chuyển tài sản",
+              //   routerLink: "/quantri/taisan/dieuchuyentaisan/0",
+              //   command: () => {
+              //     this.close();
+              //   },
+              // },
               {
                 label: "Thu hồi tài sản",
                 routerLink: "/quantri/taisan/thuhoitaisan/0",

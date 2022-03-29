@@ -93,8 +93,6 @@ export class DieuChuyenTaiSanComponent implements OnInit {
       IdBoPhanSuDung: this.filter.idBoPhan,
     };
     this._serviceTaiSan.DieuChuyenTaiSan().GetList(data).subscribe((res: any) => {
-      console.log(res);
-      
       this.items = res.Data.Items;
       this.paging.totalCount = res.Data.TotalCount;
     })
@@ -147,6 +145,7 @@ export class DieuChuyenTaiSanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.tabTrangThai = this.trangThai;
+    modalRef.componentInstance.item.idDuAn = 
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then((res: any) => {

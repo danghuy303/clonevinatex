@@ -236,6 +236,8 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.result
       .then((res: any) => {
+        console.log('res', res);
+        
         this.item.listTaiSan = res;
         let listTaiSan = [];
         res.forEach((element) => {
