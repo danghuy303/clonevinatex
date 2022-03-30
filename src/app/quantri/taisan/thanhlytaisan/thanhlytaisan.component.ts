@@ -35,7 +35,6 @@ export class ThanhlytaisanComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.paginator);
     this.activatedRoute.params.subscribe((res: any) => {
-      console.log(res);
       if (res.id !== "0") {
         this._serviceTaiSan
           .ThanhLyTaiSan()
@@ -49,12 +48,10 @@ export class ThanhlytaisanComponent implements OnInit {
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
   }
-
   resetFilter() {
     this.keyWord = '';
     this.GetList(true);
   }
-  
   GetList(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
@@ -73,12 +70,10 @@ export class ThanhlytaisanComponent implements OnInit {
       });
       this.items = res.Data.Items;  
       this.paging.TotalCount = res.Data.TotalCount;
-      console.log(this.listPhanXuong)
     })
   }
   GetListdmPhanXuong() {
     this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-      console.log(res)
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.GetList();
     })
@@ -102,7 +97,6 @@ export class ThanhlytaisanComponent implements OnInit {
       isKetThuc: false,listFileDinhKem:[],listTaiSan:[],
     };
     modalRef.result.then(res => {
-
     }).catch(er => console.log(er))
       .finally(() => {
         this.GetList()
@@ -126,27 +120,21 @@ export class ThanhlytaisanComponent implements OnInit {
       })
       .finally(() => {
         this.GetList();
-        
         this.changeParam(0);
       });
   }
-
-  //xử lí tab 
   changeTab(e) {
     this.trangThai = e.index + 1;
     this.GetList(true);
   }
-
   KiemTraTabTrangThai() {
     this._services.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetList();
     });
   }
-
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetList()
   }
-
 }

@@ -47,8 +47,8 @@
         <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại tài sản:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" (onChange)="ChonLoaiTaiSan(item)" [(ngModel)]="item.IddmLoaiTaiSan"
-                    placeholder="Chọn tài sản" [showClear]="true"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" (onChange)="ChonLoaiTaiSan(item)"
+                    [(ngModel)]="item.IddmLoaiTaiSan" placeholder="Chọn tài sản" [showClear]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-lg-row">
@@ -56,9 +56,9 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <!-- <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="item.ThoiGian" placeholder="Chọn năm" styleClass="p-inputtext-sm"
                 ></p-dropdown> -->
-                <p-calendar dateFormat="dd/mm/yy" [locale]="lang"
-                    [monthNavigator]="true" [yearNavigator]="true" [yearRange]="" [showIcon]="true" inputId="icon"
-                    placeholder="dd/mm/yyyy" [(ngModel)]="item.ThoiGian">
+                <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
+                    [yearRange]="" [showIcon]="true" inputId="icon" placeholder="dd/mm/yyyy"
+                    [(ngModel)]="item.ThoiGian">
                 </p-calendar>
             </div>
         </div>
@@ -79,7 +79,7 @@
             </div>
             <div class="modal-bt p-mb-4 p-col-12 p-lg-2  p-p-3 d-flex flex-column flex-lg-row">
                 <label class="p-col-12 p-lg-4 p-p-0 my-auto"> </label>
-                <div class="p-col-12 p-lg-8 p-p-0" >
+                <div class="p-col-12 p-lg-8 p-p-0">
                     Tổng số: {{item.listTaiSan?.length}}thiết bị
                 </div>
             </div>
@@ -120,11 +120,19 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item let-i="rowIndex">
-                <tr>  
-                    <td class="text-center" > {{item.TenTaiSan}}</td>
-                    <td class="text-center" *ngFor="let baoduong of item.listBaoDuong" (click)="Chon(baoduong,item.listLichBaoDuong)" >
-                       <p>{{baoduong.listChiTiet[0]?.TendmLoaiBaoDuong}}</p> 
-                        <!-- {{baoduong.ThoiGian}}  -->  <a href="javascript:void(0)">Chọn</a>
+                <tr>
+                    <!-- <td class="text-center"> {{item.TenTaiSan}}</td>
+                    <td class="text-center" *ngFor="let baoduong of item.listBaoDuong"
+                        (click)="Chon(baoduong,item.listLichBaoDuong)">
+                        <p>{{baoduong.listChiTiet[0]?.TendmLoaiBaoDuong}}</p>
+                        <a href="javascript:void(0)">Chọn</a>
+                    </td> -->
+                   <td class="text-center"> {{item.TenTaiSan}}</td>
+                    <td class="text-center" *ngFor="let baoduong of item.listBaoDuong"
+                        (click)="Chon(baoduong,item.listLichBaoDuong)">
+                        <p *ngFor="let bd of baoduong.listChiTiet"
+                        >{{bd.TendmLoaiBaoDuong}}</p>
+                        <a href="javascript:void(0)">Chọn</a>
                     </td>
                 </tr>
             </ng-template>

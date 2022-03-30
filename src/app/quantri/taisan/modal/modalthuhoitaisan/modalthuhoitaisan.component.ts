@@ -29,6 +29,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
   public listdsTaiSan: any = [];
   public listTaiSanRef: any = [];
   listTaiSan: any = [];
+  listTaiSan_copy: any = [];
   NameFile: string;
   title:any='';
   constructor(
@@ -56,9 +57,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
     }
 
     this.GetListdmPhanXuong();
-    this.GetListTaiSanDaBanGiao();
     this.KiemTraButtonModal();
-    // this.GetPhanXuong();
   }
 
   GetListdmPhanXuong() {
@@ -66,12 +65,12 @@ export class ModalthuhoitaisanComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
-  GetListTaiSanDaBanGiao() {
-    this._serviceTaiSan.GetTaiSanTheoLoai().GetListTaiSanDaBanGiao(this.item.IdBoPhanSuDung).subscribe((res: any) => {
-      this.listdsTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
-      this.listTaiSanRef = res.Data;
-    })
-  }
+  // GetListTaiSanDaBanGiao() {
+  //   this._serviceTaiSan.GetTaiSanTheoLoai().GetListTaiSanDaBanGiao(this.item.IdBoPhanSuDung).subscribe((res: any) => {
+  //     this.listdsTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+  //     this.listTaiSanRef = res.Data;
+  //   })
+  // }
 
   add() {
     if (this.item.listTaiSan == undefined || this.item.listTaiSan == null)
@@ -88,8 +87,6 @@ export class ModalthuhoitaisanComponent implements OnInit {
       this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
     }
   }
-
-
   edit(item) {
     item.edit = true;
   }
@@ -114,7 +111,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
           this.item = res.Data;
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();
-          this.activeModal.close();
+          // this.activeModal.close();
         }
       }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -123,7 +120,6 @@ export class ModalthuhoitaisanComponent implements OnInit {
 
   GetNextSoQuyTrinh() {
     this._serviceTaiSan.PhieuThuHoiTaiSan().GetNextSoQuyTrinh().subscribe((res: any) => {
-      console.log(res)
       this.item.SoQuyTrinh = res.Data;
     })
   }
@@ -135,9 +131,10 @@ export class ModalthuhoitaisanComponent implements OnInit {
       });
       modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
       modalRef.componentInstance.opt = this.opt;
-      modalRef.componentInstance.Lay_Chon =this.item.IddmPhanXuong; ////
+      modalRef.componentInstance.Lay_Chon =this.item.IddmPhanXuong; 
       modalRef.componentInstance.item = {};
       modalRef.result.then((res: any) => {
+        // this.item.listTaiSan = res;
         let listKetQua = [];
         this.item.listTaiSan.forEach(Tai_San => {
           let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
@@ -145,7 +142,6 @@ export class ModalthuhoitaisanComponent implements OnInit {
             listKetQua.push(Tai_San);
           }
         });
-        // vong lap 2
       res.forEach(Tai_San => {
         let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
         if (bien === undefined) {
@@ -153,6 +149,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
         }
       });
       this.item.listTaiSan = listKetQua;
+      console.log(this.item.listTaiSan);
       })
         .catch((er) => {
         });
@@ -160,12 +157,10 @@ export class ModalthuhoitaisanComponent implements OnInit {
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
       this.checkbutton = res;
-      console.log(this.checkbutton)
     });
   }
   ChapNhan() {
     this._serviceTaiSan.PhieuThuHoiTaiSan().ChuyenTiep(this.setData()).subscribe((res: any) => {
-      console.log(res)
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -195,28 +190,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
   GetPhanXuong() {
     this._serviceTaiSan.GetListTaiSanThuHoi().GetListTaiSan(this.item.IddmPhanXuong).subscribe((res: any) => {
       this.listTaiSan = res.Data;
-      console.log(res.Data);
     });
-  }
-  taiLenFileDinhKem() {
-    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.multiple = true;
-    modalRef.componentInstance.type = '';
-    modalRef.result.then((data) => {
-      this.item.listFileDinhKem = data;
-      this.item.listFileDinhKem.forEach(obj => {
-        obj.Id = '';
-        obj.fileNameGui = obj.Name;
-        obj.fileName = obj.NameLocal;
-        obj.Link = obj.Url;
-        this.NameFile += `${obj.fileName}` + '; ';
-      });
-    }, (reason) => {
-
-    });
-  }
-  test(){
-    console.log(this.item.listTaiSan)
   }
 }
 
