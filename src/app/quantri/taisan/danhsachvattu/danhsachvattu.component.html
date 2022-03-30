@@ -6,7 +6,7 @@
     <div></div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Bộ phận sử dụng "
+            <p-dropdown [filter]="true" [options]="listBoPhanSuDung" placeholder="Bộ phận sử dụng "
                 [(ngModel)]="filter.IddmLoaiTaiSan" styleClass="p-inputtext-sm" (onChange)="GetList(true)"
                 [showClear]="true" [filter]="true"></p-dropdown>
         </div>
@@ -32,7 +32,7 @@
     </p-tabPanel>
 </p-tabView>
 <div *ngIf="loaiTab === 0" class="p-mt-3">
-    <p-table [value] = "items" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+    <p-table [value]="items" styleClass="p-datatable-sm wrap-text p-datatable-striped">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col>
@@ -57,25 +57,25 @@
                 <th class="text-center" rowspan="2">Đơn giá</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body"  let-item let-i="rowIndex">
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
-                    <!-- {{rowData.Ma}}
+                <!-- {{rowData.Ma}}
                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler> -->
                 <td class="text-center">{{item.Ma}}</td>
-                <td class="text-center">{{item.Ten}}</td>
+                <td>{{item.Ten}}</td>
                 <td class="text-center">{{item.NuocSanXuat}}</td>
                 <td class="text-center">{{item.TuoiTho}}</td>
                 <td class="text-center">{{item.TonKho}}</td>
                 <td class="text-center">{{item.SoLuong}}</td>
-                <td class="text-center">{{item.ThoiGianDuaVaoSu | date:"dd/MM/yyyy"}}</td>
-                <td class="text-center">{{item.SoLuong}}</td>
+                <td class="text-center">{{item.ThoiGianDuaVaoSuDung | date:"dd/MM/yyyy"}}</td>
+                <td style="text-align: right;">{{item.NguyenGia | number:'0.0-0'}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
-            <!-- <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20"
-                    (onPageChange)="changePage($event)"></p-paginator>
-            </div> -->
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
+                [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
+            </div>
         </ng-template>
     </p-table>
 </div>
@@ -83,17 +83,18 @@
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm "></button>
-            <button pButton pRipple type="button" label="Kiểm tra NCC" class="p-mr-2 p-button-sm" (click)="KiemTraNCC()"></button>
+            <button pButton pRipple type="button" label="Kiểm tra NCC" class="p-mr-2 p-button-sm"
+                (click)="KiemTraNCC()"></button>
         </div>
         <div class="p-d-flex p-ai-center p-jc-end p-mb-3">
-            <p-dropdown [filter]="true" [options]="listNam" placeholder="Năm " [(ngModel)]="filter.IddmLoaiTaiSan"
+            <p-dropdown [filter]="true" [options]="listNam" placeholder="Năm " [(ngModel)]="filter.Nam"
                 styleClass="p-inputtext-sm" (onChange)="GetList(true)" [showClear]="true" [filter]="true"></p-dropdown>
             <!-- <button pButton pRipple type="button" [label]="item" *ngFor="let item of labelThang" class="p-mr-1 p-button-sm "></button> -->
-            <p-selectButton [options]="labelThang" [(ngModel)]="thang" styleClass="p-button-primary" optionLabel="name">
+            <p-selectButton [options]="labelThang" [(ngModel)]="filter.Thang" styleClass="p-button-primary" (onChange)="GetList(true)">
             </p-selectButton>
         </div>
     </div>
-    <p-table [value] = "items" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+    <p-table [value]="items" styleClass="p-datatable-sm wrap-text p-datatable-striped">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <!-- <col >
@@ -110,7 +111,8 @@
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center" style="width: 50px;">
-                    <p-checkbox [(ngModel)]="checkedAll" binary="false" inputId="binaryall" (onChange)="checkAll($event)"></p-checkbox>
+                    <p-checkbox [(ngModel)]="checkedAll" binary="false" inputId="binaryall"
+                        (onChange)="checkAll($event)"></p-checkbox>
                 </th>
                 <th class="text-center">Mã vật tư</th>
                 <th class="text-center">Tên vật tư</th>
@@ -125,17 +127,24 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center">
-                    <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary" (onChange)="checked(item)"> </p-checkbox>
+                    <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary" (onChange)="checked(item)">
+                    </p-checkbox>
                 </td>
                 <td class="text-center">{{item.Ma}} </td>
-                <td class="text-center">{{item.Ten}}</td>
+                <td>{{item.Ten}}</td>
                 <td class="text-center">{{item.Ma}}</td>
                 <td class="text-center">{{item.TuoiTho}}</td>
                 <td class="text-center">{{item.TonKho}}</td>
                 <td class="text-center">{{item.SoLuong}}</td>
-                <td class="text-center"></td>
+                <td class="text-center">{{item.NguyenGia}}</td>
                 <td class="text-center"></td>
             </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
+                [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
+            </div>
         </ng-template>
     </p-table>
 </div>

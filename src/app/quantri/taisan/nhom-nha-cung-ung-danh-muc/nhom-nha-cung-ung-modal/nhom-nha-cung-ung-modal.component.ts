@@ -25,7 +25,7 @@ export class NhomNhaCungUngModalComponent implements OnInit {
     if (this.opt==='add') {
       this.title = "Thêm nhóm nhà cung ứng mới";
     } else {
-      this.title = "Chỉnh sửa nhóm nhà cung ứng";
+      this.title = "Cập nhật nhóm nhà cung ứng";
     }
     this.GetdmNhomNhaCungUng();
   }

@@ -18,7 +18,7 @@ export class DanhmucmucdouutienComponent implements OnInit {
   items: any = [];
   filter:any={};
   Keyword:any='';
-  paging: any = {  Page: 1, TotalPages: 1, TotalCount: 1 };
+  paging: any = {  CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   cols: any = [
     {
       header: 'Mã',
@@ -59,12 +59,12 @@ export class DanhmucmucdouutienComponent implements OnInit {
   }
   GetList(reset?){
     if(reset){
-      this.paging.Page=1;
+      this.paging.CurrentPage=1;
       this.paginator.changePage(0);
     }
     let data = {
       PageSize:20, 
-      CurrentPage:this.paging.Page,
+      CurrentPage:this.paging.CurrentPage,
       Keyword:this.filter.Keyword, 
       Ma:"", 
       Ten:""   
@@ -165,7 +165,7 @@ export class DanhmucmucdouutienComponent implements OnInit {
     })
   }
   changePage(event){
-    this.paging.Page = event.page+1;
+    this.paging.CurrentPage = event.page+1;
     this.GetList()
   }
   
