@@ -100,7 +100,6 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
   }
 
   SetData() {
-    this.quyTrinh.listPhieuDanhGia = this.listPhieuDanhGia_copy;
     this.quyTrinh.NgayUnix = DateToUnix(this.quyTrinh.Ngay);
     return this.quyTrinh
   }

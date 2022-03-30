@@ -642,7 +642,10 @@ export class TaisanService {
       },
       Import: (data) => {
         return this.http.get(`${url}DanhMuc/ImportdmTieuChiDanhGia?FileName=${data.Name}`, httpOptions)
-      }
+      },
+      download: (url) => {
+        window.open(API.imgURL + url);
+      },
     }
   }
 
