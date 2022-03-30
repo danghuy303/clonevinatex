@@ -25,14 +25,15 @@ export class DanhsachvattuComponent implements OnInit {
   loaiTab: any = 0;
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
-  items: TreeNode[];
+  items: any = [];
   listLoaiTaiSan: any = [];
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
-
-
+  listNam: any = [];
   labelThang: any[];
-  thang='1';
+  checkList: any = [];
+  thang = '1';
+  checkedAll: boolean = false;
 
   constructor(
     public _modal: NgbModal,
@@ -47,13 +48,14 @@ export class DanhsachvattuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.labelThang =[];
-    for(let i = 1;i<=12;i++){
-this.labelThang.push({name:i,value:i})    }
-    // if (this.item.NgayThuHoiUnix !== 0) {
-    //   this.item.NgayThuHoi = UnixToDate(this.item.NgayThuHoiUnix);
-    // }
+    this.labelThang = [];
+    for (let i = 1; i <= 12; i++) {
+      this.labelThang.push({ name: i, value: i })
+    }
     this.GetList();
+    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
+      this.listNam.push({ value: i, label: i });
+    }
   }
   resetFilter() {
     this.filter = {};
@@ -67,35 +69,36 @@ this.labelThang.push({name:i,value:i})    }
     let data = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      tabTrangThai: 3,
       KeyWord: this.filter.KeyWord,
-      TuNgay: DateToUnix(this.filter.TuNgay),
-      DenNgay: DateToUnix(this.filter.DenNgay),
-      Loai: 0,
+      IddmLoaiTaiSan: "",
+      Nam: 0,
+      Thang: 0,
+      QuaHan: true,
     };
     this._serviceTaiSan.ListDanhSachVatTu().GetList(data).subscribe((res: any) => {
-      // this.paging.CurrentPage = res.Data.Page;
-      //   this.paging.TotalPages = res.Data.TotalPages;
-      //   this.paging.TotalCount = res.Data.TotalCount;
-      // this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "TenLoaiTaiSan", 'IddmLoaiTaiSan');
-      //  let items = [];
-      //  this.items = [];
-      //  items = res.Data.Items;
-      //  items.forEach(obj => {
-      //   obj.NgayNhap = obj.NgayNhapUnix > 0 ? formatdate(obj.NgayNhap, false) : null;
-      //      let obj_copy: any = {};
-      //      if (obj?.listTaiSan) {
-      //        obj_copy.children = [];
-      //        obj.listTaiSan.forEach(element => {
-      //          console.log(element)
-      //          obj_copy.children.push({ data: element });
-      //        });
-      //        obj.listTaiSan=undefined;
-      //      }
-      //      obj_copy.data = obj;
-      //      this.items.push({ data: obj_copy.data, children: obj_copy.children });
-      //  });
+      this.paging.CurrentPage = res.Data.Page;
+      this.paging.TotalPages = res.Data.TotalPages;
+      this.paging.TotalCount = res.Data.TotalCount;
+      this.items = res.Data.Items;
     });
+  }
+  checked(item) {
+    this.checkList.push(item);
+    console.log(item.checked);
+
+  }
+  KiemTraNCC() {
+    let data = {
+      ...this.checkList,
+    };
+    this._serviceTaiSan.ListDanhSachVatTu().KiemTraNCC(data).subscribe((res: any) => {
+    })
+  }
+  checkAll(e) {
+    this.items.forEach(ele => {
+      ele.checked = e.checked
+    })
+
   }
   KiemTraTabTrangThai() {
     this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
@@ -120,7 +123,6 @@ this.labelThang.push({name:i,value:i})    }
   }
   changeTab(e) {
     // this.trangThai = e.index + 1;
-    console.log(e)
     this.loaiTab = e.index;
     this.GetList(true);
   }

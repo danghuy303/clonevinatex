@@ -49,7 +49,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   }
   resetFilter() {
     this.filter = {};
-    // this.keyWord = '';
     this.GetList();
   }
   GetList() {
@@ -69,14 +68,11 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
       this.paging.TotalCount = res.Data.TotalCount;
       this.TaiSanItem = res.Data;
 
-      this.listdmLoaiBaoDuong =  this.TaiSanItem.listdmLoaiBaoDuong;
+      this.listdmLoaiBaoDuong = this.TaiSanItem.listdmLoaiBaoDuong;
       this.items = [];
-      this.listCha =  this.TaiSanItem.listTaiSan;
+      this.listCha = this.TaiSanItem.listTaiSan;
       this.listCha.forEach(obj => {
         obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
-        // this.listItemDaChon.forEach(daChon=>{
-        //   obj.checked = obj.Id===daChon.Id?true:false;
-        // })
         let data: any = { data: obj, children: [] };
         obj.listTaiSan.forEach(con => {
           let datacon: any = { data: con, children: [] };

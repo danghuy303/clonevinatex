@@ -32,10 +32,14 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetList();
+    // console.log(this.Lay_Chon);
+    // console.log(this.Lay_Chon[0]?.listLichBaoDuong);
+    
   }
 
   GetList() {
     this.items = this.Lay_Chon;
+   console.log(this.items);
     this.items.forEach(obj => {
       obj.checked = this.listItemDaChon.includes(obj.IddmLoaiBaoDuong);
     });

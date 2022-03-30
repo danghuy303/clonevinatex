@@ -25,7 +25,7 @@ export class QuytrinhbaoduongComponent implements OnInit {
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
   eAction = "QUYTRINHBAODUONGTAISAN";
-  listPhanXuong:any=[];
+  listPhanXuong: any = [];
   listNam: any = [];
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
@@ -58,22 +58,26 @@ export class QuytrinhbaoduongComponent implements OnInit {
     this.filter = {};
     this.GetList(true);
   }
-  
+
   GetList(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
     let data = {
-      PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      Keyword: this.Keyword,
+      PageSize: 20,
+      Keyword: this.filter.Keyword,
+      IdDuAn: 0,
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+      TabTrangThai:this.trangThai,
       TuNgay: DateToUnix(this.filter.TuNgay),
-      DenNgay: DateToUnix(this.filter.DenNgay),
-      TabTrangThai: this.trangThai,
+      DenNgay: DateToUnix(this.filter.TuNgay),
+      IdUser: "",
+      Loai: 0
     };
     this._serviceTaiSan.QuyTrinhBaoDuong().GetList(data).subscribe((res: any) => {
-      this.items = res.Data.Items;  
+      this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
@@ -92,14 +96,14 @@ export class QuytrinhbaoduongComponent implements OnInit {
     let modalRef = this._modal.open(ModalquytrinhbaoduongComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',
-      keyboard:false
+      keyboard: false
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = '';
     modalRef.componentInstance.item = {
-      Id: '',IdTrangThai: '', TenTrangThai: "",SoQuyTrinh:'',
-      isKetThuc: false,listTaiSan:[], IdDuAn:0,
+      Id: '', IdTrangThai: '', TenTrangThai: "", SoQuyTrinh: '',
+      isKetThuc: false, listTaiSan: [], IdDuAn: 0,
       listVatTu: [], listChiPhiKhac: [], listNhanCong: [],
     };
     modalRef.result.then(res => {
