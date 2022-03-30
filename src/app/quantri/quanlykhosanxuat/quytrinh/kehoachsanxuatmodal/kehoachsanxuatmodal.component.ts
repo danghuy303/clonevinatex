@@ -39,14 +39,17 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
   listQuyCachDongGoi: any = [];
   listKeHoachForCopy: any = [];
   GiaoKeHoachForCopy: any = {};
+  listCaSanXuat:any =[];
   canCopy: boolean = false;
   canExport:boolean = false;
   yearRange: string = `${((new Date()).getFullYear())}:${((new Date()).getFullYear()) + 5}`;
-  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService) {
+  constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, public _modal: NgbModal, private _store: StoreService,
+    private _servicesDungChung: SanXuatService) {
 
   }
 
   ngOnInit(): void {
+    this.getListCaSanXuat();
     this.GetFormOptions()
     this.KiemTraButtonModal();
     if (this.opt !== 'edit') {
@@ -68,6 +71,11 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       }else{
         this.canExport = false;
       }
+    })
+  }
+  getListCaSanXuat(){
+    this._servicesDungChung.GetListOptdmCaSanXuat().subscribe((res:any)=>{
+      this.listCaSanXuat = res;    
     })
   }
   GetListGiaoKeHoachForCopy() {
@@ -410,7 +418,7 @@ export class KehoachsanxuatmodalComponent implements OnInit, DoCheck {
       this.item.DenNgayUnix = DateToUnix(this.item.DenNgay);
       // console.log(this.item.TongSoCa);
       if (!validVariable(this.item.TongSoCa) || this.item.TongSoCa === 0) {
-        this.item.TongSoCa = ((this.item.DenNgayUnix - this.item.TuNgayUnix) / (24 * 3600) + 1) * 3;
+        this.item.TongSoCa = ((this.item.DenNgayUnix - this.item.TuNgayUnix) / (24 * 3600) + 1) * this.listCaSanXuat.length;
         // console.log(this.item.TongSoCa);
       }
     }
