@@ -1,68 +1,83 @@
-<div class="title p-mb-3 p-mt-3">
+<div class="p-mb-3 p-mt-3">
     <h4 style="color:#1f2779">Quy trình tính khấu hao tài sản</h4>
 </div>
-
-<!-- flexbox justify-content-space-between margin-bottom-8px(0.5rem)  -->
-<div class="toolbar p-d-flex p-jc-between p-mb-3"> 
-    <!-- add button -->
-    <button pButton label="Thêm mới" icon="pi pi-plus" class="p-button-sm" (click)="AddNewQuyTrinh()"></button>
-
-    <!-- filter -->
-    <div class="toolbar-filter p-d-flex">
-        <!-- date filter -->
+<div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+    <button pButton label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"
+        *ngIf="checkQuyen.ThemMoi"></button>
+    <div></div>
+    <div class="p-d-flex p-flex-row">
+        <!-- <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listdmPhanXuong" [(ngModel)]="filter.idBoPhan" (onChange)="Loaddata(true)" placeholder="bộ phận sử dụng" styleClass="p-inputtext-sm"></p-dropdown>
+        </div> -->
         <div class="p-mr-2">
-            <p-calendar inputStyleClass="p-inputtext-sm" inputId="icon" dateFormat="dd/mm/yy" [showIcon]="true" placeholder="Từ ngày" [(ngModel)]="filter.tuNgay" (onSelect)="LoadData(true)"></p-calendar>
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="Loaddata(true)">
+            </p-calendar>
         </div>
         <div class="p-mr-2">
-            <p-calendar inputStyleClass="p-inputtext-sm" inputId="icon" dateFormat="dd/mm/yy" [showIcon]="true" placeholder="Đến ngày" [(ngModel)]="filter.denNgay" (onSelect)="LoadData(true)"></p-calendar>
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="Loaddata(true)">
+            </p-calendar>
         </div>
-        <!-- searching -->
-        <div class="p-inputgroup" style="width: 200px">
-            <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="filter.keyWord" (keyup.enter)="LoadData(true)" />
-            <button pButton pRipple type="button" icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text" (click)="LoadData(true)"></button>
-            <button pButton pRipple type="button" icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text" (click)="ResetFilter()"></button>
+        <div class="p-inputgroup" style="width: 200px;">
+            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="Loaddata(true)"
+                [(ngModel)]="filter.keyWord" />
+            <button type="button" pButton pRipple icon="pi pi-search"
+                class="p-button-secondary p-button-sm p-button-text" (click)="Loaddata(true)"></button>
+            <button type="button" pButton pRipple icon="pi pi-refresh"
+                class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
         </div>
     </div>
 </div>
-
-<!-- table -->
-<p-table [value]="filterQuyTrinh" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="false" [rowHover]="true">
+<p-tabView (onChange)="changeTab($event)" styleClass="no-content  p-datatable-striped">
+    <p-tabPanel header="Chưa xử lý"></p-tabPanel>
+    <p-tabPanel header="Đã xử lý"></p-tabPanel>
+    <p-tabPanel header="Tổng hợp"></p-tabPanel>
+</p-tabView>
+<p-table [value]="items" styleClass="p-datatable-gridlines p-datatable-sm  p-datatable-striped">
     <ng-template pTemplate="colgroup">
         <colgroup>
-            <col style="width: 50px">
-            <col style="width: 100px">
-            <col style="width: 200px">
+            <col style="width: 50px;">
             <col>
-            <col style="width: 100px">
-            <col style="width: 50px">
+            <col>
+            <col>
+            <col>
+            <col style="width: 100px;">
         </colgroup>
     </ng-template>
-    <ng-template pTemplate="header">
+    <ng-template pTemplate="header" [style.backgroundColor]="black">
         <tr>
-            <th>#</th>
-            <th>Số quy trình</th>
-            <th>Ngày</th>
-            <th>Nội dung</th>
-            <th>Trạng thái</th>
-            <th></th>
+            <th class="text-center">#</th>
+            <th class="text-center">Số quy trình</th>
+            <th class="text-center">Ngày</th>
+            <th class="text-center">Nội dung</th>
+            <th class="text-center">Trạng thái</th>
+            <th class="text-center"></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-quyTrinh let-i="rowIndex">
+    <ng-template pTemplate="body" let-item let-i="rowIndex">
         <tr>
-            <td style="text-align: center">{{i}}</td>
-            <td style="text-align: center">{{quyTrinh.id}}</td>
-            <td style="text-align: center">{{quyTrinh.ngay*1000 | date: 'dd/MM/yyyy'}}</td>
-            <td>{{quyTrinh.noidung}}</td>
-            <td style="text-align: center">{{quyTrinh.trangthai?'Đã xử lý':'Chưa xử lý'}}</td>
-            <td style="text-align: center">
-                <button pButton pRipple pTooltip="Chỉnh sửa" type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-secondary" [style]="{borderRadius: '2px'}"></button>
+            <td class="text-center">
+                {{20 * (paging.currentPage - 1) + i + 1 }}
+            </td>
+            <td class="text-center">
+                {{item.SoQuyTrinh}}
+            </td>
+            <td class="text-center">{{item.Ngay | date: 'dd/MM/yyyy'}}</td>
+            <td>{{item.NoiDung}}</td>
+            <td class="text-center">{{item.TenTrangThai}}</td>
+            <td class="text-center">
+                <button pButton pRipple type="button" icon="pi pi-pencil"
+                    class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
+                    (click)="changeParam(item.Id)"></button>               
             </td>
         </tr>
     </ng-template>
     <ng-template pTemplate="summary">
-        <div class="p-d-flex p-ai-center p-jc-between">
-            <h6 style="font-weight: bold">Tổng số bản ghi: {{paging.totalCount}}.</h6>
-            <p-paginator [rows]="10" [totalRecords]="paging.totalCount" (onPageChange)="changePage($event)"></p-paginator>
+        <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi {{paging.totalCount}}.
+            <p-paginator [totalRecords]="paging.totalCount" [rows]="20" (onPageChange)="changePage($event)">
+            </p-paginator>
         </div>
     </ng-template>
 </p-table>
+

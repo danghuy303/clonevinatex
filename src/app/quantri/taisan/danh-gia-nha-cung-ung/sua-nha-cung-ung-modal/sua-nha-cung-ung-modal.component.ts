@@ -25,7 +25,6 @@ export class SuaNhaCungUngModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.listDiemDaDanhGia)
     this.GetNhaCungUng();
   }
 

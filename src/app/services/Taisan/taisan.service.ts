@@ -238,6 +238,34 @@ export class TaisanService {
     };
   }
 
+  KhauHaoTaiSan() {
+    let url = API.TaiSan;
+    return {
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(`${url}NhatKySuDung/GetNextQuyTrinhKhauHaoTaiSan`, httpOptions);
+      },
+      GetList: (data) => {
+        data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}NhatKySuDung/GetListQuyTrinhKhauHaoTaiSan`, data, httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(`${url}NhatKySuDung/GetQuyTrinhKhauHaoTaiSanById?Id=${Id}`, httpOptions);
+      }, 
+      Set: (data) => {
+        return this.http.post(`${url}NhatKySuDung/SetQuyTrinhKhauHaoTaiSan`, data, httpOptions);
+      },
+      KhongDuyet: (data) => {
+        return this.http.post(`${url}NhatKySuDung/KhongDuyetQuyTrinhKhauHaoTaiSan`, data, httpOptions);
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(`${url}NhatKySuDung/ChuyenTiepQuyTrinhKhauHaoTaiSan`, data, httpOptions);
+      },
+      Delete: (Id) => {
+        return this.http.get(`${url}NhatKySuDung/DeleteQuyTrinhKhauHaoTaiSanById?Id=${Id}`, httpOptions);
+      },
+    };
+  }
+
   DieuChuyenTaiSan() {
     let url = API.TaiSan;
     return {
@@ -258,13 +286,13 @@ export class TaisanService {
         return this.http.post(`${url}NhatKySuDung/KhongDuyetQuyTrinhDieuChuyenTaiSan`, data, httpOptions);
       },
       ChuyenTiep: (data) => {
-        return this.http.post(`${url}/NhatKySuDung/ChuyenTiepQuyTrinhDieuChuyenTaiSan`, data, httpOptions);
+        return this.http.post(`${url}NhatKySuDung/ChuyenTiepQuyTrinhDieuChuyenTaiSan`, data, httpOptions);
       },
       Delete: (Id) => {
         return this.http.get(`${url}NhatKySuDung/DeleteQuyTrinhDieuChuyenTaiSanById?Id=${Id}`, httpOptions);
       },
       GetListTaiSan: (data) => {
-        return this.http.post(`${url}​NhatKySuDung​/GetListTaiSanDieuChuyen`, data, httpOptions);
+        return this.http.post(`${url}NhatKySuDung/GetListTaiSanDieuChuyen`, data, httpOptions);
       },
     };
   }
@@ -618,6 +646,8 @@ export class TaisanService {
     }
   }
 
+  
+
   // SuCoSuaChua() {
   //   let url = API.TaiSan;
   //   return {
@@ -690,6 +720,26 @@ export class TaisanService {
         }
         return this.http.post(`${url}NhatKySuDung/GetListTaiSanChuaBanGiao`,data,httpOptions)
       },
+      GetListTaiSanKhauHao:(IdDuAn, IdBoPhanSuDung, CurrentPage: number, PageSize: number, Keyword)=>{
+        let data = {
+          IdDuAn: IdDuAn,
+          IdBoPhanSuDung: IdBoPhanSuDung,
+          CurrentPage: CurrentPage,
+          PageSize: PageSize,
+          Keyword: Keyword,
+        }
+        return this.http.post(`${url}NhatKySuDung/GetListTaiSanKhauHao`, data, httpOptions)
+      },
+      GetListTaiSanDieuChuyen:(CurrentPage: number, PageSize: number, KeyWord, IddmLoaiTaiSan, IdBoPhanSuDung)=>{
+        let data ={
+          CurrentPage: CurrentPage,
+          PageSize: PageSize,
+          Keyword: KeyWord,
+          IddmLoaiTaiSan: IddmLoaiTaiSan,
+          IdBoPhanSuDung: IdBoPhanSuDung
+        }
+        return this.http.post(`${url}NhatKySuDung/GetListTaiSanDieuChuyen`, data, httpOptions)
+      },
       GetListTaiSanThuHoi:(IdBoPhanSuDung)=>{
         let data ={
           CurrentPage: 0,
@@ -699,7 +749,7 @@ export class TaisanService {
           IdBoPhanSuDung: IdBoPhanSuDung
         }
         return this.http.post(`${url}NhatKySuDung/GetListTaiSanThuHoi`,data,httpOptions)
-      }
+      },
     }
   }
 

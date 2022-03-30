@@ -57,7 +57,7 @@
     <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ngày<span class="required">*</span>:</label>
       <div class="p-col-12 p-lg-10 p-p-0">
-          <p-calendar inputId="basic" showIcon="true" [(ngModel)]="quyTrinh.Ngay" dateFormat="dd/mm/yy"></p-calendar>
+          <p-calendar inputId="basic" showIcon="true" [(ngModel)]="quyTrinh.Ngay" (onSelect)="test(quyTrinh.Ngay)" dateFormat="dd/mm/yy"></p-calendar>
       </div>
     </div>
     <div class="p-col-12 p-lg-12 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">

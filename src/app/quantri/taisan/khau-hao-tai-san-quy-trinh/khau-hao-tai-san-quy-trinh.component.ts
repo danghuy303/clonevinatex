@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { DateToUnix } from 'src/app/services/globalfunction';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-
-import { KhauHaoTaiSanModalComponent } from './modal/khau-hao-tai-san-modal/khau-hao-tai-san-modal.component';
-
-interface QuyTrinh {
-  id: number,
-  ngay: number,
-  noidung: string,
-  trangthai: boolean,
-}
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/services/auth.service';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { KhauHaoTaiSanModalComponent } from './khau-hao-tai-san-modal/khau-hao-tai-san-modal.component';
 @Component({
   selector: 'app-khau-hao-tai-san-quy-trinh',
   templateUrl: './khau-hao-tai-san-quy-trinh.component.html',
@@ -18,169 +15,147 @@ interface QuyTrinh {
 })
 export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
 
-  listQuyTrinh: QuyTrinh[] = [];
-  filterQuyTrinh: QuyTrinh[] = [];
-  // filter: {
-  //   keyWord: string,
-  //   tuNgay: number,
-  //   denNgay: number,
-  // };
-  // paging: {
-  //   currentPage: number,
-  //   totalCount: number
-  // };
-  // trangThai: number = 1;
-
   filter: any = {};
+  eAction: any = "QUYTRINHKHAUHAOTAISAN";
+  loaiTab: any = 0;
   paging: any = {};
+  checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
+  items: any = [];
   trangThai: any = 1;
+  idUser: string = '';
+  listdmPhanXuong: any = [];
 
   constructor(
-    private _modal: NgbModal,
-  ) { 
-    // fake data
-    this.listQuyTrinh = [
-      {
-        id: 1,
-        ngay: 1646870400,
-        noidung: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-        trangthai: true
-      },
-      {
-        id: 2,
-        ngay: 1646881473,
-        noidung: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-        trangthai: false
-      },
-      {
-        id: 3,
-        ngay: 1646881486,
-        noidung: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-        trangthai: false
-      },
-      {
-        id: 4,
-        ngay: 1646795069,
-        noidung: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-        trangthai: true
-      },
-      {
-        id: 5,
-        ngay: 1646708669,
-        noidung: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-        trangthai: true
-      },
-      {
-        id: 6,
-        ngay: 1646622269,
-        noidung: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-        trangthai: false
-      },
-      {
-        id: 7,
-        ngay: 1646881296,
-        noidung: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-        trangthai: true
-      },
-      {
-        id: 8,
-        ngay: 1646881473,
-        noidung: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-        trangthai: false
-      },
-      {
-        id: 9,
-        ngay: 1646881486,
-        noidung: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-        trangthai: false
-      },
-      {
-        id: 10,
-        ngay: 1646795069,
-        noidung: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-        trangthai: true
-      },
-      {
-        id: 11,
-        ngay: 1646708669,
-        noidung: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-        trangthai: true
-      },
-      {
-        id: 12,
-        ngay: 1646622269,
-        noidung: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-        trangthai: false
-      },
-    ]
-  }
+    public _modal: NgbModal,
+    public toastr: ToastrService,
+    private _serviceDungChung: SanXuatService,
+    private _serviceTaiSan: TaisanService,
+    private activatedRoute: ActivatedRoute, private router: Router,
+    private _serviceAuth: AuthenticationService,
+    private store: StoreService,
+  ) { }
 
   ngOnInit(): void {
-    this.ResetFilter();
+    this.idUser = this._serviceAuth.currentUserValue.Id;
+    this.resetFilter();
+    this.getListdmPhanXuong();
+    this.activatedRoute.params.subscribe((res: any) => {
+      if (res.id !== "0") {
+        this._serviceTaiSan
+          .KhauHaoTaiSan()
+          .Get(res.id)
+          .subscribe((res: any) => {
+            this.edit(res);
+          });
+      }
+    });
   }
 
-  // loadData(reset: boolean) {
-  //   if (reset) {
-  //     this.paging.currentPage = 1;
-  //   }
-  //   let data = {
-  //     pageSize: 20, /* Giới hạn dòng dữ liệu gửi về back-end */
-  //     currentPage: this.paging.currentPage,
-  //     keyWord: this.filter.keyWord,
-  //     tuNgay: DateToUnix(this.filter.tuNgay),
-  //     denNgay: DateToUnix(this.filter.denNgay),
-  //   }
-  //   // this._serviceTaiSan.BanGiaoTaiSan().GetList(data).subscribe((res: any) => {
-  //   //   this.items = res.Data.Items;
-  //   //   this.paging = res.Data;
-  //   // })
-  // }
-
-  ResetFilter() {
-    this.filter = {};
-    this.LoadData(true);
-  }
-
-  AddNewQuyTrinh() {
-    let modalRef = this._modal.open(KhauHaoTaiSanModalComponent, {
-      size: "xl",
-      backdrop: "static",
+  changeParam(id) {
+    this.router.navigate([`/quantri/taisan/khauhaotaisan/${id}`], {
+      replaceUrl: true,
     })
-    modalRef.componentInstance.opt = 'add';
   }
 
-  LoadData(reset: boolean) {
+  changeTab(e) {
+    this.trangThai = e.index + 1;
+    this.loaiTab = e.index;
+    this.Loaddata(true);
+  }
+
+  resetFilter() {
+    this.filter = {};
+    this.Loaddata(true);
+  }
+
+  getListdmPhanXuong() {
+    this._serviceDungChung.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
+  Loaddata(reset?) {
     if (reset) {
       this.paging.currentPage = 1;
-      this.filterQuyTrinh = this.listQuyTrinh;
-      this.paging.totalCount = this.filterQuyTrinh.length;
     }
-    let keyWord = this.filter.keyWord;
-    let tuNgay = DateToUnix(this.filter.tuNgay);
-    let denNgay = DateToUnix(this.filter.denNgay);
-    this.filterQuyTrinh = this.filterQuyTrinh.filter(a => {
-      if (denNgay === 0) {
-        return a.ngay >= tuNgay;
-      } else {
-        return a.ngay >= tuNgay && a.ngay <= denNgay;
-      }
+    let data = {
+      PageSize: 20,
+      CurrentPage: this.paging.currentPage,
+      TabTrangThai: this.trangThai,
+      KeyWord: this.filter.keyWord,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
+      IdUser: this.idUser,
+      IdBoPhanSuDung: this.filter.idBoPhan,
+    };
+    this._serviceTaiSan.KhauHaoTaiSan().GetList(data).subscribe((res: any) => {
+      this.items = res.Data.Items;
+      this.paging.totalCount = res.Data.TotalCount;
     })
-    this.filterQuyTrinh = this.filterQuyTrinh.filter(a => {
-      if (keyWord !== undefined) {
-        return a.noidung.toLowerCase().includes(keyWord.trim().toLowerCase());
-      } else {
-        return a
-      }
-    })
-    this.paging.totalCount = this.filterQuyTrinh.length;
   }
 
-  ChangePage(event) {
+  KiemTraTabTrangThai() {
+    this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
+      this.checkQuyen = res;
+      this.Loaddata();
+    })
+  }
+
+  add() {
+    let modalRef = this._modal.open(KhauHaoTaiSanModalComponent, {
+      // size: "fullscreen-100",
+      size: "xl",
+      backdrop: "static"
+    });
+    modalRef.componentInstance.opt = "add";
+    modalRef.componentInstance.tabTrangThai = 0; 
+    modalRef.componentInstance.listdmPhanXuong = this.listdmPhanXuong;   
+    modalRef.componentInstance.item = {
+      Id: "",
+      IdTrangThai: "",
+      TenTrangThai: "",
+      isKetThuc: false,
+      listTaiSan: [],
+      listFileDinhKem: [],
+      LoaiKhauHao: "",
+      Ngay: new Date(),
+      IdDuAn: this.store.getCurrent(),
+    }
+    modalRef.result
+      .then((res: any) => {
+      })
+      .catch((er) => {})
+      .finally(()=>{
+        this.Loaddata(true);
+        this.changeParam(0);
+      });
+  }
+
+  edit(item) {
+    let modalRef = this._modal.open(KhauHaoTaiSanModalComponent, {
+      size: "xl",
+      backdrop: "static"
+    });
+    modalRef.componentInstance.opt = "edit";
+    modalRef.componentInstance.tabTrangThai = this.trangThai;  
+    modalRef.componentInstance.listdmPhanXuong = this.listdmPhanXuong;   
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
+    modalRef.componentInstance.item.Ngay = new Date(JSON.parse(JSON.stringify(item.Data.Ngay)));
+    modalRef.result
+      .then((res: any) => {
+      })
+      .catch((er) => {
+      })
+      .finally(()=>{
+        this.Loaddata(true);
+        this.changeParam(0);
+      });
+  }  
+
+  changePage(event) {
     this.paging.currentPage = event.page + 1;
-    this.LoadData(false)
-    console.log(this.paging.currentPage);
+    this.Loaddata(false);
   }
 
-  
 
 }
