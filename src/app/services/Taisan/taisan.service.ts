@@ -720,8 +720,15 @@ export class TaisanService {
         }
         return this.http.post(`${url}NhatKySuDung/GetListTaiSanChuaBanGiao`,data,httpOptions)
       },
-      GetListTaiSanKhauHao:(IdBoPhanSuDung)=>{
-        return this.http.get(`${url}NhatKySuDung/GetListTaiSanKhauHao?IdboPhanSuDung=${IdBoPhanSuDung}`,httpOptions)
+      GetListTaiSanKhauHao:(IdDuAn, IdBoPhanSuDung, CurrentPage: number, PageSize: number, Keyword)=>{
+        let data = {
+          IdDuAn: IdDuAn,
+          IdBoPhanSuDung: IdBoPhanSuDung,
+          CurrentPage: CurrentPage,
+          PageSize: PageSize,
+          Keyword: Keyword,
+        }
+        return this.http.post(`${url}NhatKySuDung/GetListTaiSanKhauHao`, data, httpOptions)
       },
       GetListTaiSanDieuChuyen:(CurrentPage: number, PageSize: number, KeyWord, IddmLoaiTaiSan, IdBoPhanSuDung)=>{
         let data ={

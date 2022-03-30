@@ -50,11 +50,11 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
     }
     else {
       this.title = "Cập nhật";
+      this.quyTrinh.Ngay = new Date(this.quyTrinh.Ngay)
       // this.GetQuyTrinh();
     }
     this.GetListTinhTrang();
     this.ResetFilter();
-    console.log('setData',this.SetData());
   }
 
   GetListTinhTrang() {
@@ -119,14 +119,14 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
   }
 
   UpdateQuyTrinh() {
-    console.log('update with set data', this.SetData());
-    
     if (this.ValidateData()) {
       this._serviceTaiSan.DanhGiaNhaCungUng().Set(this.SetData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.toast.success(res.Message);
           // this.quyTrinh.Id = res.Data.Id;
-          this.quyTrinh = res.Data;
+          this.quyTrinh.Id = res.Data.Id;
+          // this.quyTrinh.Ngay = new Date(res.Data.Ngay)
+          // this.quyTrinh.Ngay = new Date(this.quyTrinh.Ngay);
           // this.GetQuyTrinh();
           // this.activeModal.close();
           
@@ -203,10 +203,8 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
     modalRef.componentInstance.item = item;
     modalRef.result
       .then((res: any) => {
-        console.log(res.KetQuaDanhGia)
         item.KetQuaDanhGia = res.KetQuaDanhGia;
         item.listTieuChi = res.listTieuChi;
-        console.log('item sau khi save sua danh gia', item);
         // console.log('quy trinh sau khi save', this.quyTrinh);
       })
       .catch(er => {})
@@ -222,7 +220,10 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
     this.paging.currentPage = event.page + 1;
     this.GetListNhaCungUng(false);
   }
+
   test(item){
-    console.log(item)
+    console.log(item);
+    console.log(DateToUnix(item));
+    // console.log(new Date(item));
   }
 }

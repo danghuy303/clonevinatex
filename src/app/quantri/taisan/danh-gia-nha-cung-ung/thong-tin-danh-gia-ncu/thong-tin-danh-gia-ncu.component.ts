@@ -51,7 +51,7 @@ export class ThongTinDanhGiaNcuComponent implements OnInit,AfterViewInit,OnChang
 
   recursive(list: Array<any>) {
     return list.map(ele => {
-      let realPoint = this.daDanhGia.find(tieuchi => ele.Id === tieuchi.IddmTieuChiDanhGia)?.Diem
+      let realPoint = this.daDanhGia?.find(tieuchi => ele.Id === tieuchi.IddmTieuChiDanhGia)?.Diem
       return {
         ...ele,
         DiemDanhGia: realPoint || null,
@@ -60,7 +60,7 @@ export class ThongTinDanhGiaNcuComponent implements OnInit,AfterViewInit,OnChang
     })
   }
 
-  RecursiveSave() {
+  SaveData() {
     let listCon = [];
     let listCha = [];
     listCon = this.listTieuChi.reduce((array, item)=>{
@@ -87,9 +87,12 @@ export class ThongTinDanhGiaNcuComponent implements OnInit,AfterViewInit,OnChang
     this.listTieuChi.forEach((item) => {
       if (item.listItem.length) {
         item.toggle = true;
-        item.DiemDanhGia = item.listItem.reduce((number, nextChild) => {
-          return number + (nextChild.DiemDanhGia || 0);
-        }, 0)
+        item.DiemDanhGia = Math.max(...item.listItem.reduce((array, nextChild)=>{
+          return array.concat(nextChild.DiemDanhGia || 0)
+        },[])) || 0;
+        // item.DiemDanhGia = item.listItem.reduce((number, nextChild) => {
+        //   return number + (nextChild.DiemDanhGia || 0);
+        // }, 0)
       } else {
         item.toggle = false;
       }
@@ -97,7 +100,7 @@ export class ThongTinDanhGiaNcuComponent implements OnInit,AfterViewInit,OnChang
     this.sum = this.listTieuChi.reduce((number, item) => {
       return number + item.DiemDanhGia;
     }, 0)
-    this.RecursiveSave();
+    this.SaveData();
   }
 
 

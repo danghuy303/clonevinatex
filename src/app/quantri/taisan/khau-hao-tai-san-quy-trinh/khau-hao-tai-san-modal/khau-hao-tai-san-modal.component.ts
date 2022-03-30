@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploader } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
@@ -42,17 +43,25 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     } else {
       this.title = "Cập nhật";
+      this.item.Ngay = new Date(this.item.Ngay)
       let listTaiSan: TreeNode[] = [];
       listTaiSan = this.item.listTaiSan?.map((ele, index) => {
         return this.mapDataModelToView(ele, index);
       });
       this.listTaiSan_copy = listTaiSan;
+      this.Loaddata()
     }
+  }
+
+  Loaddata() {
+    this.item.listTaiSan.forEach((ele, index) => {
+      ele.STT = index + 1;
+    })
   }
 
   Validate() {
     if (!validVariable(this.item.IdBoPhanSuDung)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
+      this.toastr.error("Yêu cầu nhập bộ phận sử dụng");
       return false;
     }
     return true;
@@ -60,7 +69,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
 
 
   Setdata() {
-    this.item.Ngay = DateToUnix(this.item.Ngay);
+    this.item.NgayUnix = DateToUnix(this.item.Ngay);
     // this.item.listTaiSan = [];
     // this.item.listTaiSan = this.listTaiSan_copy.map(ele => {
     //   return this.mapDataViewToModel(ele);
@@ -94,6 +103,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
       this._serviceTaiSan.KhauHaoTaiSan().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.item.Id = res.Data.Id;
+          this.item.Ngay = new Date(this.item.Ngay)
           this.toastr.success(res.Message);
         } else {
           this.toastr.error(res.Message);
@@ -103,7 +113,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
   }
 
   XoaQuyTrinh() {
-    let modalRef = this._modal.open(ChonTaiSanKhauHaoModalComponent, {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: "static",
     });
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
@@ -193,49 +203,52 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
     this.listTaiSan_copy && this.listTaiSan_copy.forEach(ele => {
       listId.push(ele.IdTaiSan)
     })
-    let modalRef = this._modal.open(ChonTaiSanKhauHaoModalComponent, {
-      size: "xl",
-      backdrop: "static"
-    });
-    modalRef.componentInstance.opt = this.opt;
-    modalRef.componentInstance.idBoPhanSuDung = this.item?.IdBoPhanSuDung;
-    modalRef.componentInstance.listIdDaChon = listId;
-    modalRef.componentInstance.item = {};
-    modalRef.result
-      .then((res: any) => {
-        // this.item.listTaiSan = res;
-        // let listTaiSan = [];
-        // res.forEach((element) => {
-        //   let Stt = 0;
-        //   if (!validVariable(element.IdCha)) {
-        //     Stt++;
-        //     element.STT = Stt
-        //     listTaiSan.push({
-        //       data: element,
-        //       expanded: true,
-        //       children: res.filter(ele => ele.IdCha === element.TaiSan.Id)
-        //         .map((e, index) => {
-        //           e.STT = `${Stt}.${index + 1}`
-        //           return {
-        //             data: e
-        //           }
-        //         })
-        //     });
-        //   }
-        // });
-        // this.listTaiSan_copy = listTaiSan;
-        res.forEach((element,index) => {
-          element.STT = index + 1;
-        })
-        this.listTaiSan_copy = res;
-        this.item.listTaiSan = res;
-      })
-      .catch((er) => {
+    if (this.Validate()) {
+      let modalRef = this._modal.open(ChonTaiSanKhauHaoModalComponent, {
+        size: "xl",
+        backdrop: "static"
       });
+      modalRef.componentInstance.opt = this.opt;
+      modalRef.componentInstance.idBoPhanSuDung = this.item?.IdBoPhanSuDung;
+      modalRef.componentInstance.listIdDaChon = listId;
+      modalRef.componentInstance.item = {};
+      modalRef.result
+        .then((res: any) => {
+          // this.item.listTaiSan = res;
+          // let listTaiSan = [];
+          // res.forEach((element) => {
+          //   let Stt = 0;
+          //   if (!validVariable(element.IdCha)) {
+          //     Stt++;
+          //     element.STT = Stt
+          //     listTaiSan.push({
+          //       data: element,
+          //       expanded: true,
+          //       children: res.filter(ele => ele.IdCha === element.TaiSan.Id)
+          //         .map((e, index) => {
+          //           e.STT = `${Stt}.${index + 1}`
+          //           return {
+          //             data: e
+          //           }
+          //         })
+          //     });
+          //   }
+          // });
+          // this.listTaiSan_copy = listTaiSan;
+          res.forEach((element,index) => {
+            element.STT = index + 1;
+          })
+          this.listTaiSan_copy = res;
+          this.item.listTaiSan = res;
+        })
+        .catch((er) => {
+        });
+    }
   }
 
-  XoaTaiSan(item) {
-    item = undefined
+  XoaTaiSan(index) {
+    this.item.listTaiSan.splice(index - 1, 1);
+    this.Loaddata()
   }
 
   taiLenFileDinhKem() {

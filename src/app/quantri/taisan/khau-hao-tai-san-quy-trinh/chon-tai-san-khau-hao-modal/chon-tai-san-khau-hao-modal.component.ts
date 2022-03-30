@@ -15,15 +15,16 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 export class ChonTaiSanKhauHaoModalComponent implements OnInit {
 
   opt: any = "";
-  filter: any = {};
+  // filter: any = {};
+  keyword: any = '';
   paging: any = {};
-  // items: any[] = [];
   items: TreeNode[];
   item: any = {};
   checkedAll: boolean = false;
   listIdDaChon: string[];
+  listTaiSanDaChon: any[] = [];
   idBoPhanSuDung: any = '';
-  selectedNodes:TreeNode[] = [];
+  selectedNodes: TreeNode[] = [];
 
   constructor(
     public _modal: NgbModal,
@@ -36,8 +37,6 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.Loaddata();
-    console.log('item tu modal truoc:', this.item);
-    
   }
 
   TreeItems(list) {
@@ -47,48 +46,68 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
     return list.filter(ele => ele.data.IdTaiSan === null)
   }
 
-  Loaddata() {
+  changePage(event) {
+    this.paging.currentPage = event.page + 1;
+    this.Loaddata(false);
+  }
+
+  Loaddata(reset?) {
+    if (reset) {
+      this.paging.currentPage = 1
+    }
     this._serviceTaiSan
-    .GetTaiSanTheoLoai()
-    .GetListTaiSanKhauHao(this.idBoPhanSuDung)
-    .subscribe((res: any) => {
-      this.items = res.Data.map(ele => {
-        return {
-          data: {
-            ...ele,
-          },
-          children: []
-        }
-      })     
-      this.items = this.TreeItems(this.items);
-      // console.log('this items:', this.items);
-      // let resItems = [];
-      // this.items = [];
-      // resItems = res.Data;
-      // resItems.forEach(obj => {
-      //   obj.checked = this.listIdDaChon?.includes(obj.Id);
-      //   let obj_copy: any = {};
-      //   if (obj?.listTaiSan) {
-      //     obj_copy.children = [];
-      //     obj.listTaiSan.forEach(element => {
-      //       element.checked = this.listIdDaChon.includes(element.Id);
-      //       obj_copy.children.push({ data: element, expanded: true });
-      //     });
-      //     obj.listTaiSan = null;
-      //   }
-      //   obj_copy.data = obj;
-      //   this.items.push({ data: obj_copy.data, children: obj_copy.children, expanded: true });
-      // });
-      // this.checked();
-      this.listIdDaChon.forEach(ele => {
-        this.items.forEach(obj => {
-          if (obj.data.Id === ele) {
-            this.selectedNodes.push(obj)
+      .GetTaiSanTheoLoai()
+      .GetListTaiSanKhauHao("", this.idBoPhanSuDung, this.paging.currentPage, 20, this.keyword)
+      .subscribe((res: any) => {
+        this.items = res.Items.map(ele => {
+          return {
+            data: {
+              ...ele,
+            },
+            children: []
           }
         })
+        this.items = this.TreeItems(this.items);
+        this.listTaiSanDaChon = this.CheckExistedTaiSan(this.items)
+        this.listIdDaChon.forEach(ele => {
+          this.listTaiSanDaChon.forEach(obj => {
+            if (obj.data.Id === ele) {
+              this.selectedNodes.push(obj)
+            }
+          })
+        })
+        // console.log('this items:', this.items);
+        // let resItems = [];
+        // this.items = [];
+        // resItems = res.Data;
+        // resItems.forEach(obj => {
+        //   obj.checked = this.listIdDaChon?.includes(obj.Id);
+        //   let obj_copy: any = {};
+        //   if (obj?.listTaiSan) {
+        //     obj_copy.children = [];
+        //     obj.listTaiSan.forEach(element => {
+        //       element.checked = this.listIdDaChon.includes(element.Id);
+        //       obj_copy.children.push({ data: element, expanded: true });
+        //     });
+        //     obj.listTaiSan = null;
+        //   }
+        //   obj_copy.data = obj;
+        //   this.items.push({ data: obj_copy.data, children: obj_copy.children, expanded: true });
+        // });
+        // this.checked();
+        this.paging.totalCount = res.TotalCount;
       })
-      console.log(this.selectedNodes);
+  }
+
+  CheckExistedTaiSan(list: Array<any>) {
+    let newArr = [];
+    list.forEach((ele) => {
+      newArr.push(ele);
+      if (validVariable(ele.children) && ele.children.length !== 0) {
+        newArr = [...newArr, ...this.CheckExistedTaiSan(ele.children)];
+      }
     })
+    return newArr;
   }
 
   // TimCheck() {
@@ -182,7 +201,9 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
       return {
         IdTaiSan: ele.data.Id,
         MaTaiSan: ele.data.Ma,
-        TenTaiSan: ele.data.Ten
+        TenTaiSan: ele.data.Ten,
+        NguyenGia: ele.data.NguyenGia,
+        GiaTriConLai: ele.data.GiaTriConLai
       }
     })
     return data;
@@ -195,4 +216,7 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
   nodeSelect() {
     console.log(this.selectedNodes);
   }
+
+  
+
 }
