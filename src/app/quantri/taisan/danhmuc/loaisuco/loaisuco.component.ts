@@ -17,7 +17,7 @@ export class LoaisucoComponent implements OnInit {
   items: any = [];
   Keyword:any='';
   fileUpload: any;
-  paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
+  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   cols: any = [
     {
       header: 'Mã',
@@ -37,12 +37,12 @@ export class LoaisucoComponent implements OnInit {
       width: '200px',
       align:'center'
     },
-    {
-      header: 'Tình trạng',
-      // field: 'isHoatDong',
-      width: '200px',
-      align:'center'
-    }
+    // {
+    //   header: 'Tình trạng',
+    //   field: 'isHoatDong',
+    //   width: '200px',
+    //   align:'center'
+    // }
   ];
   selectedItems:any=[];
   constructor(private _modal:NgbModal,private _danhMucTaiSan:DanhmuctaisanService,private _toastr:ToastrService) { }
@@ -56,12 +56,12 @@ export class LoaisucoComponent implements OnInit {
   }
   GetList(reset?){
     if(reset){
-      this.paging.Page=1;
+      this.paging.CurrentPage=1;
       this.paginator.changePage(0);
     }
     let data = {
       PageSize:20, 
-      CurrentPage:this.paging.Page,
+      CurrentPage:this.paging.CurrentPage,
       Keyword:this.Keyword,  
       Ma:"", 
       Ten:""    
@@ -142,7 +142,6 @@ export class LoaisucoComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         this.fileUpload = res;
-        console.log(this.fileUpload[0].Name);
         this._danhMucTaiSan.DanhMucLoaiSuCo().Importdm(this.fileUpload[0]).subscribe(()=>{
           this.resetFilter();
         })
@@ -159,11 +158,11 @@ export class LoaisucoComponent implements OnInit {
      
     };
     this._danhMucTaiSan.DanhMucLoaiSuCo().Exportdm(data).subscribe((res: any) => {
-      this._danhMucTaiSan.DanhMucLoaiSuCo().download(res.TenFile);
+      this._danhMucTaiSan.DanhMucLoaiSuCo().download(res.Data);
     })
   }
   changePage(event){
-    this.paging.Page = event.page+1;
+    this.paging.CurrentPage = event.page+1;
     this.GetList()
   }
   

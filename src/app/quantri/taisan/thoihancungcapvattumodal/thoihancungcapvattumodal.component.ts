@@ -61,7 +61,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
   }
 
   GetNextSoQuyTrinh() {
-    this._serviceTaiSan.QuyTrinhBaoDuong().GetNextSoQuyTrinh().subscribe((res: any) => {
+    this._serviceTaiSan.ThoiHanCungCap().GetNextSoQuyTrinh().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.Data;
     })
   }
@@ -103,7 +103,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     return this.item;
   }
   GhiLai() {
-    this._serviceTaiSan.QuyTrinhBaoDuong().Set(this.setData()).subscribe((res: any) => {
+    this._serviceTaiSan.ThoiHanCungCap().Set(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200 || !res.StatusCode) {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       } else {
@@ -123,7 +123,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     });
   }
   ChapNhan() {
-    this._serviceTaiSan.QuyTrinhBaoDuong().ChuyenTiep(this.item).subscribe((res: any) => {
+    this._serviceTaiSan.ThoiHanCungCap().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -133,7 +133,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     })
   }
   KhongDuyet() {
-    this._serviceTaiSan.QuyTrinhBaoDuong().KhongDuyet(this.item).subscribe((res: any) => {
+    this._serviceTaiSan.ThoiHanCungCap().KhongDuyet(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -149,7 +149,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
     modalRef.result
       .then((res) => {
-        this._serviceTaiSan.QuyTrinhBaoDuong().Delete(this.item.Id).subscribe((res: any) => {
+        this._serviceTaiSan.ThoiHanCungCap().Delete(this.item.Id).subscribe((res: any) => {
           if (res.StatusCode === 200) {
             this.toastr.success(res.Message);
             this.activeModal.close();

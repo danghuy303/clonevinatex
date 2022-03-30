@@ -178,6 +178,33 @@ export class TaisanService {
     };
   }
 
+  ThoiHanCungCap() {
+    let url = API.TaiSan;
+    return {
+      GetNextSoQuyTrinh: () => {
+        return this.http.get(`${url}NhatKySuDung/GetNextQuyTrinhThoiHanCungCap`, httpOptions);
+      },
+      GetList: (data) => { 
+        return this.http.post(`${url}NhatKySuDung/GetListQuyTrinhThoiHanCungCap`, data, httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(`${url}NhatKySuDung/GetQuyTrinhThoiHanCungCapById?Id=${Id}`, httpOptions);
+      },
+      Set: (data) => {
+        return this.http.post(`${url}NhatKySuDung/SetQuyTrinhThoiHanCungCap`, data, httpOptions);
+      }, 
+      KhongDuyet: (data) => {
+        return this.http.post(`${url}NhatKySuDung/KhongDuyetQuyTrinhThoiHanCungCap`, data, httpOptions);
+      },
+      ChuyenTiep: (data) => {
+        return this.http.post(`${url}NhatKySuDung/ChuyenTiepQuyTrinhThoiHanCungCap`, data, httpOptions);
+      },
+      Delete: (Id) => {
+        return this.http.get(`${url}NhatKySuDung/DeleteQuyTrinhThoiHanCungCapById?Id=${Id}`, httpOptions);
+      },
+    };
+  }
+
   QuyTrinhXuLySuCo() {
     let url = API.TaiSan;
     return {
@@ -455,7 +482,7 @@ export class TaisanService {
         return this.http.post(`${url}QuanLyVatTuDuTru/GetListVatTuCanThayThe`, data, httpOptions);
       },
       KiemTraNCC: (data) => {
-        return this.http.post(`${url}QuanLyVatTuDuTru/SetQuyTrinhThoiHanCungCapVatTu`, data, httpOptions);
+        return this.http.post(`${url}QuanLyVatTuDuTru/SelectTaiSanQuytrinhThoiHanCungCap`, data, httpOptions);
       },
     };
   }

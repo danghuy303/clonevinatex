@@ -41,7 +41,7 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
                 [yearRange]="" [showIcon]="true" inputId="icon" placeholder="dd/mm/yyyy"
-                [(ngModel)]="item.NgayBaoDuong">
+                [(ngModel)]="item.Ngay">
             </p-calendar>
             </div>
         </div>
@@ -85,7 +85,7 @@
                 <col>
                 <col>
                 <col>
-                <col>
+                <!-- <col> -->
                 <col>
                 <col style="width: 100px;">
             </colgroup>
@@ -98,8 +98,8 @@
                 <th class="text-center">Mã</th>
                 <th class="text-center">Tên</th>
                 <th class="text-center">Số lượng</th>
-                <th class="text-center">Nhà cung ứng 01</th>
-                <th class="text-center">Nhà cung ứng 02</th>
+                <th class="text-center">Nhà cung ứng</th>
+                <!-- <th class="text-center">Nhà cung ứng 02</th> -->
                 <th class="text-center">Thành tiền</th>
                 <th class="text-center">Ghi chú</th>
                 <th class="text-center">Thao tác</th>
@@ -110,13 +110,13 @@
                 <td class="text-center">
                     {{i + 1}}
                 </td>
-                <td class="text-center">{{item.Ma }}</td>
+                <td class="text-center">{{item.MaTaisan }}</td>
                 <td class="text-center">{{item.TenTaiSan}}</td>
-                <td class="text-center"> {{item.TenLoaidmBaoDuong}}</td>
-                <td class="text-center"> <input locale="en-EN" pInputText /></td>
-                <td class="text-center"> <input locale="en-EN" pInputText /></td>
-                <td class="text-center"> <input locale="en-EN" pInputText /></td>
-                <td class="text-center"> <input locale="en-EN" pInputText /></td>
+                <!-- <td class="text-center"> {{item.SoLuong}}</td> -->
+                <td class="text-center"> <input locale="en-EN" pInputText  [(ngModel)]="item.SoLuong"/></td>
+                <td class="text-center"> <input locale="en-EN" pInputText [(ngModel)]="item.IdNhaCungUng" /></td>
+                <td class="text-center"> <input locale="en-EN" pInputText [(ngModel)]="item.DonGia" /></td>
+                <td class="text-center"> <input locale="en-EN" pInputText [(ngModel)]="item.GhiChu" /></td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-trash"
                         class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"

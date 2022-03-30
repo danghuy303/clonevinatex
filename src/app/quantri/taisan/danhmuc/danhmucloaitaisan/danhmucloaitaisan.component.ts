@@ -21,7 +21,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
   filter: any = {};
   MaCongDoan: any = '';
   fileUpload: any;
-  paging: any = { page: 1, totalPages: 1, totalCount: 1 };
+  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 0 };
   cols: any = [
     {
       header: 'Mã',
@@ -72,15 +72,15 @@ export class DanhmucloaitaisanComponent implements OnInit {
     }
     let data = {
       PageSize: 20,
-      CurrentPage: this.paging.page,
+      CurrentPage: this.paging.CurrentPage,
       Keyword: this.Keyword,
       MaCongDoan: this.filter.MaCongDoan ? this.filter.MaCongDoan : '',
 
     };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;
-      this.paging.totalCount = res.Data.TotalCount;
-      this.paging.totalPages = res.Data.TotalPages;
+      this.paging.TotalCount = res.Data.TotalCount;
+      this.paging.TotalPages = res.Data.TotalPages;
     })
   }
   add() {
@@ -176,7 +176,8 @@ export class DanhmucloaitaisanComponent implements OnInit {
     })
   }
   changePage(event) {
-    this.paging.Page = event.page + 1;
+    console.log(event);
+    this.paging.CurrentPage = event.page + 1;
     this.GetList()
   }
 

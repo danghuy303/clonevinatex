@@ -4,12 +4,13 @@
  <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
      <div class="p-d-flex p-flex-row">
          <button pButton pRipple label="Thêm mới " icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
+         <button pButton pRipple label="Xóa"  class="p-button-sm p-mr-2" (click)="deleteAll()"></button>
          <button pButton pRipple label="Nhập excel"  class="p-button-sm p-mr-2"
          (click)="importExcel()"></button>
      <button pButton pRipple label="Xuất excel"  class="p-button-sm p-mr-2"
          (click)="exportExcel()"></button>
          <!-- <button pButton pRipple label="Xóa tất cả" *ngIf="selectedItems.length!==0"  class="p-button-sm p-mr-2" (click)="deleteAll()"></button> -->
-         <button pButton pRipple label="Xóa"  class="p-button-sm p-mr-2" (click)="deleteAll()"></button>
+        
      </div>
      <div class="p-d-flex p-flex-row" style="width:200px">
          <div class="p-inputgroup" style="width:200px">
@@ -48,7 +49,7 @@
                 <p-tableCheckbox [value]="item"></p-tableCheckbox>
             </td>
              <td class="text-center">
-                 {{ 20 * (paging.Page - 1) + i + 1 }}
+                 {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
              </td> 
              <td *ngFor="let col of cols" class="text-center" [ngClass]="{'text-center': col.align==='center'}">
                  {{item[col.field]}}
@@ -69,6 +70,7 @@
          </div>
      </ng-template>
  </p-table>
+ 
 
 
 

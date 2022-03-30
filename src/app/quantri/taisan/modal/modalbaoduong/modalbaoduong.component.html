@@ -8,12 +8,12 @@
 </div>
 <div class="modal-body">
     <div class="p-d-flex p-flex-row p-jc-between">
-        <div class="modal-bt p-mb-4 ">
+        <!-- <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm "
                 (click)="activeModal.dismiss()"></button>
             <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm "
                 (click)="GhiLai()"></button>
-        </div>
+        </div> -->
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-xl-row">
@@ -108,14 +108,22 @@
                 <p class="tan">(tấn)</p>    
             </div>
         </div>
-        <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-xl-row">
-            <div class="p-col-12 p-lg-6 p-p-0 my-auto"></div>
-            <div class="p-field-checkbox p-col-12 p-lg-6 p-p-0 my-auto">
+        <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Độ ưu tiên:</label>
+            <div class="p-col-12 p-lg-8 p-p-0 d-flex flex-column flex-xl-row">
+                <input locale="en-EN" [(ngModel)]="item.DoUuTien" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-3  p-p-3 d-flex flex-column flex-xl-row">
+            <div class="p-col-12 p-lg-2 p-p-0 my-auto"></div>
+            <div class="p-field-checkbox p-col-12 p-lg-10 p-p-0 my-auto">
                 <p-checkbox [(ngModel)]="item.isHoatDong" binary="true" inputId="binary"></p-checkbox>
                 <label for="binary">Hoạt động </label>
             </div>
         </div>
     </div>
-    <div class="modal-footer">
-
+    <div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
+        <button pButton pRipple label="Đóng"  class="p-button-sm p-mr-2"
+            (click)="activeModal.dismiss()"></button>
+        <button pButton pRipple label="Chấp nhận" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"></button>
     </div>

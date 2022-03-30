@@ -21,11 +21,11 @@
             </div>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản " [(ngModel)]="filter.IddmLoaiTaiSan"
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng " [(ngModel)]="filter.IdBoPhanSuDung"
                 styleClass="p-inputtext-sm" (onChange)="Loaddata(true)" [showClear]="true" [filter]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bổ phận sử dụng " [(ngModel)]="filter.IdBoPhanSuDung"
+            <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản " [(ngModel)]="filter.IddmLoaiTaiSan"
                 styleClass="p-inputtext-sm" (onChange)="Loaddata(true)" [showClear]="true" [filter]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
@@ -93,7 +93,7 @@
               
             </td>
             <td class="text-center">{{rowData.Ten}}</td>
-            <td class="text-center">{{rowData.TenLoaiTaiSan}}</td>
+            <td class="text-center">{{rowData.TendmLoaiTaiSan}}</td>
             <td class="text-center">{{rowData.HangSanXuat}}</td>
             <!-- <td class="text-center">{{rowData.TendmPhanXuong}}</td> -->
             <td class="text-center">{{rowData.NguyenGia|number:'0.0'}}</td>
