@@ -9,15 +9,15 @@
   <div></div>
   <div class="p-grid p-ai-center p-flex-row-reverse p-lg-5 p-p-0">
     <div class="p-inputgroup" style="width:200px"> 
-      <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="filter.keyword" (keyup.enter)="SearchHangHoa()"> 
+      <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="filter.keyword" (keyup.enter)="SearchHangHoa(filter.keyword)"> 
       <button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-secondary p-button-text" (click)="SearchHangHoa()"></button>
-      <button pButton pRipple type="button" icon="pi pi-refresh" class="p-button-rounded p-button-secondary p-button-text" (click)="LoadListHangHoa()"></button>
+      <button pButton pRipple type="button" icon="pi pi-refresh" class="p-button-rounded p-button-secondary p-button-text" (click)="LoadData()"></button>
     </div>
   </div>
 </div>
 
 <div class="p-mt-3">
-  <p-table [value]="item.listItem" styleClass="p-datatable-sm p-datatable-gridlines">
+  <p-table [value]="listItem_copy" styleClass="p-datatable-sm p-datatable-gridlines">
     <ng-template pTemplate="colgroup"> 
       <colgroup>
         <col style="width: 50px">

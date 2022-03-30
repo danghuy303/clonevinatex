@@ -14,6 +14,7 @@ export class SuaNhaCungUngModalComponent implements OnInit {
   item: any = {};
   title: string = "";
   quyTrinh: any;
+  listDiemDaDanhGia=[];
   phieuDanhGia: any = {};
 
   constructor(

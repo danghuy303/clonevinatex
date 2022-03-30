@@ -11,10 +11,12 @@ import { ThongTinHangHoaModalComponent } from '../thong-tin-hang-hoa-modal/thong
 export class ThongTinHangHoaComponent implements OnInit, OnChanges {
 
   @Input() item: any = {};
+  listItem_copy: any = [];
   filter: any = {};
   paging: any = {};
   checkedAll: boolean = false;
   fileUpload: any;
+
 
   constructor(
     public modal: NgbModal,
@@ -23,7 +25,7 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
   
   ngOnChanges(changes: SimpleChanges): void {
     if (this.item.listItem) {
-      this.LoadPage();
+      this.LoadData();
     } else {
       this.item.listItem = [];
     }
@@ -32,12 +34,26 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
   
+  SearchHangHoa(keyword) {
+    if ((validVariable(keyword)) && keyword.trim() !== '') {
+      this.listItem_copy = this.listItem_copy.filter(ele => {
+        return ele.MadmItem.includes(keyword) || ele.TendmItem.includes(keyword)
+      })
+      this.paging.totalCount = this.listItem_copy.length
+    } else {
+      this.LoadData();
+    }
+    // console.log(keyword);
+  }
 
-  LoadPage() {
+  LoadData() {
+    this.listItem_copy = this.item.listItem;
+    this.filter = {};
     this.paging = {
       currentPage: 1,
       totalCount: this.item.listItem.length,
     };
+    this.checkedAll = false;
   }
 
   AddHangHoa() {
@@ -52,7 +68,8 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
     modalRef.result
       .then((res: any) => {
         this.item.listItem = this.item.listItem.concat(res);
-        this.LoadPage();
+        this.listItem_copy = this.item.listItem
+        this.LoadData();
       })
       .catch(er => {});
     }
@@ -60,8 +77,8 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
     DeleteListHangHoa() {
       this.item.listItem = this.item.listItem.filter(item => {
         return !item.checked === true;
-        this.LoadPage();
       })
+      this.LoadData();
     }
 
     CheckAllHangHoa() {
@@ -117,6 +134,8 @@ export class ThongTinHangHoaComponent implements OnInit, OnChanges {
   //     this.LoadListHangHoa();
   //   }
   // }
+
+  
 
   // changePage(event) {
   //   this.pageHangHoa.currentPage = event + 1;

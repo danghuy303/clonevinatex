@@ -42,24 +42,26 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._servicesSanXuat.GetOptions().GetNhaMay().subscribe((res: Array<any>) => {
-      this.listDonVi = mapArrayForDropDown(res, 'TenDuAn', 'Id');
-      this.KiemTraButtonModal();
-      if (this.opt === 'add') {
-        this.title = "Thêm mới";
-        this.GetNextSoQuyTrinh();
-      }
-      else {
-        this.title = "Cập nhật";
-        this.GetIem();
-      }
-      if (validVariable(this.item.IdDuAn)) {
-        this._servicesSanXuat.GetOptions().GetPhanXuong(this.item.IdDuAn).subscribe((res: any) => {
-          this.listdmPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
-        });
-      }
-
-    });
+    this.KiemTraButtonModal();
+    if (this.opt === 'add') {
+      this.title = "Thêm mới";
+      this.GetNextSoQuyTrinh();
+    }
+    else {
+      this.title = "Cập nhật";
+      let listTaiSan: TreeNode[] = [];
+      listTaiSan = this.item.listTaiSan.map((ele, index) => {
+        return this.mapDataModelToView(ele,index);
+      });
+      this.listTaiSan_copy = listTaiSan;
+    }
+    if (validVariable(this.item.IdDuAn)) {
+      this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+        this.listdmPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
+      });
+    }
+    console.log(this.item.NgayBanGiao);
+    
   }
 
   GetNhaMay() {
@@ -86,22 +88,24 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     })
   }
 
-  GetIem() {
-    this._serviceTaiSan.BanGiaoTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
-      this.item = res.Data;
-      let listTaiSan: TreeNode[] = [];
-      listTaiSan = this.item.listTaiSan.map((ele, index) => {
-       return this.mapDataModelToView(ele,index);
-      });
-      this.listTaiSan_copy = listTaiSan;
-    });
-  }
+  // GetItem() {
+  //   this._serviceTaiSan.BanGiaoTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
+  //     this.item = res.Data;
+  //     let listTaiSan: TreeNode[] = [];
+  //     listTaiSan = this.item.listTaiSan.map((ele, index) => {
+  //      return this.mapDataModelToView(ele,index);
+  //     });
+  //     this.listTaiSan_copy = listTaiSan;
+  //   });
+  // }
+  
   mapDataModelToView(ele, index,indexCha?) {
     return {
       data: {
         Id: ele.Id,
         IdCha: null,
         IdQuyTrinhBanGiao: this.item.Id,
+        // NgayBanGiao: DateToUnix(this.item),
         IdTaiSan: ele.IdTaiSan,
         STT: indexCha ? `${indexCha}.${index+1}` :index+1,
         SoLuong:ele.SoLuong,
@@ -125,12 +129,13 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   }
 
   Setdata() {
-    this.item.NgayBaoGiaoUnix = DateToUnix(this.item.NgayBanGiao);
+    this.item.NgayBanGiaoUnix = DateToUnix(this.item.NgayBanGiao);
     this.item.listTaiSan = [];
     this.item.listTaiSan = this.listTaiSan_copy.map(ele => {
       return this.mapDataViewToModel(ele);
     });
   }
+
   mapDataViewToModel(item: any) {
     return {
       Id: '',
@@ -156,11 +161,9 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       }
       this._serviceTaiSan.BanGiaoTaiSan().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode === 200) {
-          // this.GetIem();
+          this.item.Id = res.Id;
           this.toastr.success(res.Message);
-          this.activeModal.close();
           console.log(this.item);
-
         } else {
           this.toastr.error(res.Message);
         }
@@ -215,8 +218,6 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       .catch((er) => console.log(er));
   }
 
-
-
   ThemMoiDanhSachTaiSan() {
     let listId = [];
     this.listTaiSan_copy && this.listTaiSan_copy.forEach(ele => {
@@ -235,6 +236,8 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.result
       .then((res: any) => {
+        console.log('res', res);
+        
         this.item.listTaiSan = res;
         let listTaiSan = [];
         res.forEach((element) => {
@@ -266,7 +269,10 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   }
 
   taiLenFileDinhKem() {
-    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
+    const modalRef = this._modal.open(UploadmodalComponent, { 
+      size: 'lg', 
+      backdrop: 'static' 
+    });
     modalRef.componentInstance.multiple = true;
     modalRef.componentInstance.type = '';
     modalRef.result.then((data) => {

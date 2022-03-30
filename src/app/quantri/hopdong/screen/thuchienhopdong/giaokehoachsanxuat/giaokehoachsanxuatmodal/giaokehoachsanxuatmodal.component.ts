@@ -30,6 +30,7 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
     { value: 0, label: 'Xuất khẩu' },
     { value: 1, label: 'Nội địa' },
   ]
+  listCaSanXuat:any =[];
   listQuyCachDongGoi: any = [];
   yearRange: string = `${
     new Date().getFullYear() - 50
@@ -43,6 +44,7 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getListCaSanXuat();
     if (this.opt !== "edit") {
       this.GetNextSoQuyTrinh();
     } 
@@ -59,6 +61,11 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
     });
     this._servicesDungChung.dmQuyCachDongGoi().GetList().subscribe((res: Array<any>) => {
       this.listQuyCachDongGoi = mapArrayForDropDown(res, 'Ten', 'Id');;
+    })
+  }
+  getListCaSanXuat(){
+    this._servicesDungChung.GetListOptdmCaSanXuat().subscribe((res:any)=>{
+      this.listCaSanXuat = res;    
     })
   }
   getPhanXuong(IdDuAn, update?) {
@@ -226,7 +233,7 @@ export class GiaokehoachsanxuatmodalComponent implements OnInit {
       this.item.ngayBatDauUnix = DateToUnix(this.item.ngayBatDau);
       this.item.ngayKetThucUnix = DateToUnix(this.item.ngayKetThuc);
       if (!validVariable(this.item.tongSoCa) || this.item.tongSoCa === 0) {
-        this.item.tongSoCa = ((this.item.ngayKetThucUnix - this.item.ngayBatDauUnix) / (24 * 3600) + 1) * 3;
+        this.item.tongSoCa = ((this.item.ngayKetThucUnix - this.item.ngayBatDauUnix) / (24 * 3600) + 1) * this.listCaSanXuat.length;
       }
     }
   }

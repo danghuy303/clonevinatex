@@ -57,7 +57,7 @@
     <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
       <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ngày<span class="required">*</span>:</label>
       <div class="p-col-12 p-lg-10 p-p-0">
-          <p-calendar inputId="basic" showIcon="true" [(ngModel)]="quyTrinh.Ngay" dateFormat="dd/mm/yy"></p-calendar>
+          <p-calendar inputId="basic" showIcon="true" [(ngModel)]="quyTrinh.Ngay" (onSelect)="test(quyTrinh.Ngay)" dateFormat="dd/mm/yy"></p-calendar>
       </div>
     </div>
     <div class="p-col-12 p-lg-12 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
@@ -84,7 +84,7 @@
     <ng-template pTemplate="colgroup">
       <colgroup>
         <col style="width: 50px">
-        <col style="width: 100px">
+        <col>
         <col>
         <col>
         <col>
@@ -111,7 +111,7 @@
         <td class="text-center">{{20 * (paging.currentPage - 1) + i + 1}}</td>
         <td class="text-center">{{item.MadmNhaCungUng}}</td>
         <td>{{item.TendmNhaCungUng}}</td>
-        <td class="text-center">{{item.KetQuaDanhGia}}</td>
+        <td class="text-center" (click)="test(item)">{{item.KetQuaDanhGia}}</td>
         <td class="text-center">
           <p-dropdown [options]="listTinhTrang" [(ngModel)]="item.IdTrangThai"></p-dropdown>
         </td>
@@ -119,7 +119,7 @@
           <input type="text" pInputText [(ngModel)]="item.GhiChu">
         </td>
         <td class="text-center">
-          <p-dropdown [options]="listPheDuyet" [(ngModel)]="item.TinhTrangPheDuyet" optionLabel="label" optionValue="Id"></p-dropdown>
+          <p-dropdown [options]="listPheDuyet" [(ngModel)]="item.TinhTrangPheDuyet" optionLabel="label" optionValue="id"></p-dropdown>
         </td>
         <td class="text-center">
           <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="UpdateNhaCungUng(item)"></button>

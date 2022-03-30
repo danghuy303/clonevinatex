@@ -19,8 +19,8 @@ export class NhaCungUngDanhMucComponent implements OnInit {
   keyword: string = '';
   paging: any = {};
   fileUpload: any;
-  trangThai: any = 0;
-  listTrangThai: any = [];
+  trangThai: any = 2;
+  listTrangThai: any[] = [];
 
   constructor(
     private taiSanService: TaisanService,
@@ -29,8 +29,11 @@ export class NhaCungUngDanhMucComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.GetListTinhTrang();
-    this.ResetListNhaCungUng();
+    // this.GetListTinhTrang();
+    this.taiSanService.NhaCungUng().GetListTinhTrang().subscribe((res: any)=>{
+      this.listTrangThai = res.Data;
+      this.ResetListNhaCungUng();
+    })
   }
 
   GetListTinhTrang() {
@@ -40,7 +43,7 @@ export class NhaCungUngDanhMucComponent implements OnInit {
   }
 
   ChangeTab(e) {
-    this.trangThai = e.index + 1;
+    this.trangThai = e.index;
     this.ResetListNhaCungUng();
   }
 
@@ -55,7 +58,7 @@ export class NhaCungUngDanhMucComponent implements OnInit {
     }
     this.checkedAll = false;
     let data = {
-      IddmTinhTrangNhaCungung: this.listTrangThai?.[this.trangThai]?.Id || '',
+      IddmTinhTrangNhaCungung: this.listTrangThai[this.trangThai]?.Id || '',
       CurrentPage: this.paging.currentPage,
       PageSize: 20,
       Keyword: this.filter.keyword,

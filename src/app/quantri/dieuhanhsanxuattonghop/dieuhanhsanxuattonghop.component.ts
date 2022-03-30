@@ -102,7 +102,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         ticks: {
           beginAtZero: true,
           callback: function (label, index, labels) {
-            return formatNumber(label, 'en-EN', '0.0-0');
+            console.log(label);
+            return formatNumber(label, 'en-EN', '0.0-2');
           }
         }
       }],
@@ -189,7 +190,6 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     legend: {
       position: 'bottom'
     },
-
     maintainAspectRatio: window.innerWidth <= 768 ? false : true,
     aspectRatio: window.innerWidth <= 768 ? 1 : (((window.innerWidth - 80) / 2) / ((window.innerHeight - (225 + 32.5)) / 2))
   };
@@ -255,7 +255,7 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
     this.filterBieuDo_TienDien.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filterBieuDo_TienDien.DenNgay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     this.filterBieuDo_TyLe.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
-    this.filterBieuDo_TyLe.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.filterBieuDo_TyLe.DenNgay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     this.filter.nNgay = (new Date()).getDate();
     this.filter.nThang = (new Date()).getMonth() + 1;
     this.filter.nNam = (new Date()).getFullYear();
@@ -740,8 +740,10 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         { Ten: 'Tỷ lệ bông hút mối/tiêu chuẩn:', GiaTri: res.TyLeBongHutMoi, LuyKe: res.TyLeBongHutMoiLuyKe },
         { Ten: 'Tỷ lệ cúi hồi:', GiaTri: res.TyLeCuiHoi, LuyKe: res.TyLeCuiHoiLuyKe },
         { Ten: 'Tỷ lệ thô màng:', GiaTri: res.TyLeThoMang, LuyKe: res.TyLeThoMangLuyKe },
-        { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXo, LuyKe: res.TyLeHoiTrenBanXoLuyKe },
-        { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoi, LuyKe: res.TyLeCottonTrenHoiLuyKe }
+        { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXoLuyKe, LuyKe: null },
+        { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoiLuyKe, LuyKe: null },
+        // { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXo, LuyKe: res.TyLeHoiTrenBanXoLuyKe },
+        // { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoi, LuyKe: res.TyLeCottonTrenHoiLuyKe },
       ]
     })
   }

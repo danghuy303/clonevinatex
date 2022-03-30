@@ -33,7 +33,7 @@ export class DanhsachmayComponent implements OnInit {
     {
       header: 'Tên',
       field: 'Ten',
-      width: '300px',
+      width: '200px',
       center: 'left'
     },
     {
@@ -75,7 +75,7 @@ export class DanhsachmayComponent implements OnInit {
     {
       header: 'Ghi chú',
       field: 'GhiChu',
-      width: 'unset',
+      width: '150px',
       center: 'center'
     }
   ];

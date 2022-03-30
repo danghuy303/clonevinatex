@@ -10,6 +10,8 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ThongTinHangHoaModalComponent implements OnInit {
 
   items: any = [];
+  filter: any = {};
+  paging: any = {};
   checkListItem: any = [];
   checkedAll: boolean = false;
   selectedList: any[] = [];
@@ -24,14 +26,23 @@ export class ThongTinHangHoaModalComponent implements OnInit {
     this.GetListHangHoa();
   }
 
-  GetListHangHoa() {
+  ResetFilter() {
+    this.filter = {};
+    this.GetListHangHoa(true)
+  }
+
+  GetListHangHoa(reset?) {
+    if (reset) {
+      this.paging.currentPage = 1;
+    }
     let data = {
-      CurrentPage: 1,
+      CurrentPage: this.paging.currentPage,
       PageSize: 20,
-      Keyword: "",
+      Keyword: this.filter.keyWord,
     }
     this.taiSanService.NhaCungUng().GetListItem(data).subscribe((res: any)=>{
       this.items = res.Data.Items;
+      this.paging.totalCount = res.Data.TotalCount;
       this.CheckExistedHangHoa();
     })
   }
