@@ -43,13 +43,13 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.KiemTraButtonModal();
     if (this.opt === 'add') {
       this.title = "Thêm mới";
       this.GetNextSoQuyTrinh();
-      this.KiemTraButtonModal();
     }
     else {
-      this.title = "Cập nhật";
+      this.title = "Cập nhật quy trình đánh giá nhà cung ứng";
       this.quyTrinh.Ngay = new Date(this.quyTrinh.Ngay)
       // this.GetQuyTrinh();
     }
@@ -78,17 +78,7 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
     if (reset) {
       this.paging.currentPage = 1;
     }
-    // let data = {
-    //   CurrentPage: this.paging.currentPage,
-    //   PageSize: 20,
-    //   Keyword: this.filter.keyword,
-    // }
-    // this._serviceTaiSan.NhaCungUng().GetList(data).subscribe((res: any) => {
-    //   // console.log(res);
-    //   this.items = res.Data.Items;
-    //   this.paging.TotalCount = res.Data.TotalCount;
-    // })
-    // this.paging.TotalCount = this.listNhaCungUng.length;
+    this.paging.TotalCount = this.quyTrinh.listPhieuDanhGia.length;
   }
 
   ValidateData() {
@@ -123,12 +113,8 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
       this._serviceTaiSan.DanhGiaNhaCungUng().Set(this.SetData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.toast.success(res.Message);
-          // this.quyTrinh.Id = res.Data.Id;
           this.quyTrinh.Id = res.Data.Id;
-          // this.quyTrinh.Ngay = new Date(res.Data.Ngay)
-          // this.quyTrinh.Ngay = new Date(this.quyTrinh.Ngay);
-          // this.GetQuyTrinh();
-          // this.activeModal.close();
+          this.GetListNhaCungUng(true)
           
         } else {
           this.toast.error(res.Message);

@@ -60,7 +60,7 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
 
   AddNhomCungUng() {
     let modalRef = this.modal.open(NhomNhaCungUngModalComponent, {
-      size: 'fullscreen',
+      size: 'lg',
       backdrop: 'static',
     })
     modalRef.componentInstance.opt = 'add';
@@ -85,7 +85,7 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
 
   UpdateNhomCungUng(id) {
     let modalRef = this.modal.open(NhomNhaCungUngModalComponent, {
-      size: 'fullscreen',
+      size: 'lg',
       backdrop: 'static',
     })
     modalRef.componentInstance.opt = 'update';
