@@ -32,7 +32,6 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
 
   ngOnInit(): void {
     this.ResetListTieuChi();
-    this.CheckAll();
   }
 
   ResetListTieuChi() {
@@ -54,22 +53,41 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
     }
     this.taiSanService.TieuChiDanhGia().GetList(data).subscribe((res:any) => {
       let responseData = res.Data.Items
-      this.items = responseData.map((item,index)=> {
-        item.STT = index + 1;
-        item.checked = false;
-        return ({
-            data: item,
-            children: item.listItem.map((child,childIndex)=>{
-              child.STT = `${item.STT}.${childIndex + 1}`;
-              child.checked = false;
-              return ({
-                data: child,
-              })
-            }),
-        })
-      })
+      this.items = this.DataToTree(responseData)
       this.paging.totalCount = res.Data.TotalCount;
     })
+  }
+
+  DataToTree(list) {
+    return list.map((item,index)=> {
+      item.STT = index + 1;
+      item.checked = false;
+      return ({
+          data: item,
+          children: item.listItem.map((child,childIndex)=>{
+            child.STT = `${item.STT}.${childIndex + 1}`;
+            child.checked = false;
+            return ({
+              data: child,
+            })
+          }),
+          expanded: true,
+      })
+    })
+  }
+
+  TreeToData(list) {
+    let newArr = [];
+    list.forEach((ele)=>{
+      newArr.push(ele);
+      if (validVariable(ele.children) && ele.children.length !== 0) {
+        newArr = [...newArr,...this.TreeToData(ele.children)];
+      }
+    })
+    newArr.forEach(ele => {
+      ele.children = [];
+    })
+    return newArr;
   }
 
   AddTieuChi() {
@@ -118,29 +136,20 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
   }
 
   DeleteListTieuChi() {
-    // let newArray = this.items.map(item=>{
-    //   return ()
-    // })
-    let listFilter = this.items.filter(item => {
-      
-      // return item.data.checked === true;
+    let listId = [];
+    this.TreeToData(this.items).forEach(ele => {
+      if (ele.data.checked===true) {
+        listId.push(ele.data.Id)
+      }
     })
-    let listId = listFilter.reduce((a,b)=>{
-      return a.concat(b.data.Id);
-    }, [])
-    console.log(listId);
     this.taiSanService.TieuChiDanhGia().Delete(listId).subscribe((res: any) => {
         this.LoadListTieuChi();
     })
   }
 
-  CheckAll() {
-    this.items.forEach(item => {
-      if (item.data.checked === true) {
-        item.children.forEach(child => {
-          child.data.checked = true;
-        })
-      }
+  CheckAll(item) {
+    item.listItem && item.listItem.forEach(ele => {
+      ele.checked = item.checked
     })
   }
 
@@ -155,7 +164,8 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
       GhiChu: ""
     }
     this.taiSanService.TieuChiDanhGia().Export(data).subscribe((res: any) => {
-      window.open('http://103.130.212.45:2269' + res.Data)
+      // window.open('http://103.130.212.45:2269' + res.Data)
+      this.taiSanService.TieuChiDanhGia().download(res.Data)
     });
   }
 
@@ -175,23 +185,6 @@ export class TieuChiDanhGiaNhaComponent implements OnInit {
       .catch(er => {})
       .finally(()=> {
       })
-  } 
-
-  SearchTieuChi() {
-    this.items = this.items.filter(item => {
-      if (
-        item.Ma.toLowerCase().includes(this.filter.keyword.toLowerCase()) ||
-        item.Ten.toLowerCase().includes(this.filter.keyword.toLowerCase())
-      ) {
-        // console.log(true);
-        return item;
-      } else {
-        // console.log(false);
-      }
-    })
-    if (this.filter.keyword === '') {
-      this.ResetListTieuChi();
-    }
   } 
 
   changePage(event) {
