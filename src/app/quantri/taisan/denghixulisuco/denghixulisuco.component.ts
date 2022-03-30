@@ -65,7 +65,7 @@ export class DenghixulisucoComponent implements OnInit {
     let data = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      Keyword: this.Keyword,
+      Keyword: this.filter.Keyword,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       TabTrangThai: this.trangThai, Loai: 0, IdDuAn: 0, IdUser: '', IdBoPhanSuDung: '',
@@ -113,6 +113,7 @@ export class DenghixulisucoComponent implements OnInit {
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
     modalRef.componentInstance.title = 'Cập nhật';
+    modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {

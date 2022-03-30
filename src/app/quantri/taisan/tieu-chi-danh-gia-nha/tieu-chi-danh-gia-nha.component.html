@@ -15,7 +15,7 @@
   <!-- searching -->
   <div class="p-inputgroup" style="width: 200px"> 
     <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="filter.keyword" (keyup.enter)="LoadListTieuChi()"> 
-    <button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-secondary p-button-text" (click)="LoadListTieuChi()"></button>
+    <button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-secondary p-button-text" (click)="LoadListTieuChi(true)"></button>
     <button pButton pRipple type="button" icon="pi pi-refresh" class="p-button-rounded p-button-secondary p-button-text" (click)="ResetListTieuChi()"></button>
   </div>
 </div>
@@ -50,7 +50,7 @@
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
       <tr [ttRow]="rowNode">
         <td class="text-center">
-          <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary"></p-checkbox>
+          <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="CheckAll(rowData)"></p-checkbox>
         </td>
         <td class="text-center">{{rowData.STT}}</td>
         <td class="text-center">

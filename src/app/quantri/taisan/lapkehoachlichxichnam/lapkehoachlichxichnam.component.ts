@@ -43,14 +43,35 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // let data = {
+    //   Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
+    //   IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
+    //   IdDuAn: 0,
+    // };
     let data = {
-      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
-      IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
+      Keyword: "", CurrentPage: 0, PageSize: 20,
+      MaCongDoan: '',
+      IdBoPhanSuDung: '',
+      IddmLoaiTaiSan: '',
+      IdUser: '',
+      Ngay: 0,
+      LoaiKeHoach: '',
       IdDuAn: 0,
     };
-    // this._serviceTaiSan.LichXich().GetListTaiSanTheoNam(data).subscribe((res: any) => {
-    //   this.TaiSanItem = res.Data;
-    // })
+    this._serviceTaiSan.LichXich().GetListTaiSanTheoNam(data).subscribe((res: any) => {
+      console.log(res.Data.listTaiSan);
+      let baoDuong = res.Data.listTaiSan;
+      this.item.listTaiSan.forEach(ele => {
+
+        let taiSan = baoDuong.filter(obj => obj.IdTaiSan === ele.IdTaiSan);
+        if (taiSan !== undefined) {
+          ele.listLichBaoDuong = [];
+          ele.listLichBaoDuong = taiSan[0]?.listLichBaoDuong ;
+          console.log( ele.listLichBaoDuong); 
+        }
+      })
+    })
+
     if (this.item.ThoiGianUnix !== 0) {
       this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
     }
@@ -79,8 +100,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
 
   setData() {
     this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian);
-    // this.item.IdDuAn = this.store.getCurrent();
-    this.item.listTaiSan = this.item.listTaiSan.filter(ele=>!ele.isXoa);
+    this.item.listTaiSan = this.item.listTaiSan.filter(ele => !ele.isXoa);
     return this.item;
   }
   GhiLai() {
@@ -146,10 +166,8 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       size: "lg",
       backdrop: "static",
     });
-    console.log(this.item.listTaiSan);
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : [];
     modalRef.componentInstance.opt = this.opt;
-    // modalRef.componentInstance.Chon = this.TaiSanItem;
     modalRef.componentInstance.Lay_Chon = this.item;
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
@@ -187,7 +205,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       // }); 
       // this.item.listTaiSan = listKetQua;
 
-      /// hàm anh đạt viết
       this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
       this.item.listTaiSan.forEach(ele => {
         if (!validVariable(ele.listBaoDuong)) {
@@ -205,9 +222,10 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     })
       .catch((er) => {
       });
-
   }
   Chon(item, itemLoaiBaoDuongDeChon) {
+    console.log(itemLoaiBaoDuongDeChon);
+    
     let modalRef = this._modal.open(ModalluachonloaibaoduongComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',
@@ -224,5 +242,4 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   ChonLoaiTaiSan(i) {
     let item = this.item.listTaiSan.splice(i, 1)[0];
   }
-
 }

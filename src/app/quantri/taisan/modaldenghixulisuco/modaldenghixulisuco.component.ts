@@ -105,7 +105,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
       });
       modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
       modalRef.componentInstance.opt = this.opt;
-      modalRef.componentInstance.Lay_Chon =this.item.IddmPhanXuong; ////
+      modalRef.componentInstance.Lay_Chon =this.item.IddmPhanXuong; 
       modalRef.componentInstance.item = {};
       modalRef.result.then((res: any) => {
         let listKetQua = [];
@@ -115,7 +115,6 @@ export class ModaldenghixulisucoComponent implements OnInit {
             listKetQua.push(Tai_San);
           }
         });
-        // vong lap 2
       res.forEach(Tai_San => {
         let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
         if (bien === undefined) {

@@ -48,7 +48,7 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
           });
       }
     });
-    this.GetListThuHoiTaiSan();
+    this.GetList();
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
   }
@@ -56,10 +56,10 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
   resetFilter() {
     this.keyWord = '';
     this.filter = {};
-    this.GetListThuHoiTaiSan(true);
+    this.GetList(true);
   }
   
-  GetListThuHoiTaiSan(reset?) {
+  GetList(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
@@ -73,19 +73,14 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
       TabTrangThai: this.trangThai
     };
     this._serviceTaiSan.PhieuThuHoiTaiSan().GetList(data).subscribe((res: any) => {
-      // res.Data.Items.forEach(obj=>{  
-      //   obj.TenPhanXuong = this.listPhanXuong.find(ele=>ele.value===obj.IddmPhanXuong)?.label||null;          
-      // });
       this.items = res.Data.Items;  
       this.paging.TotalCount = res.Data.TotalCount;
-      console.log(this.listPhanXuong)
     })
   }
   GetListdmPhanXuong() {
     this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-      console.log(res)
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-      this.GetListThuHoiTaiSan();
+      this.GetList();
     })
   }
   changeParam(id) {
@@ -109,7 +104,7 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
     modalRef.result.then(res => {
     }).catch(er => console.log(er))
       .finally(() => {
-        this.GetListThuHoiTaiSan()
+        this.GetList()
         this.changeParam(0);
       })
   }
@@ -129,7 +124,7 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
       .catch(er => {
       })
       .finally(() => {
-        this.GetListThuHoiTaiSan();
+        this.GetList();
         this.changeParam(0);
       });
   }
@@ -137,19 +132,19 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
   //xử lí tab 
   changeTab(e) {
     this.trangThai = e.index + 1;
-    this.GetListThuHoiTaiSan(true);
+    this.GetList(true);
   }
 
   KiemTraTabTrangThai() {
     this._services.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
-      this.GetListThuHoiTaiSan();
+      this.GetList();
     });
   }
 
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
-    this.GetListThuHoiTaiSan()
+    this.GetList()
   }
 
 }

@@ -28,24 +28,31 @@ export class ModalchontaisanCopyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.Lay_Chon); // Kiểm tra lấy được Id chưa...
     this.Loaddata();
+    console.log(this.listItemDaChon);
+    
   }
 
   Loaddata() {
-    this._serviceTaiSan.GetTaiSanTheoLoai().GetListTaiSanThuHoi(this.Lay_Chon).subscribe((res: any) => {
+    let data ={
+      CurrentPage: 0,
+      PageSize: 0,
+      Keyword: '',
+      IddmLoaiTaiSan: '',
+      IdBoPhanSuDung: '',
+    }
+    this._serviceTaiSan.GetTaiSanTheoLoai().GetListTaiSanThuHoi(data).subscribe((res: any) => {
       let items = [];
       this.items = [];
       items = res.Data;
-      console.log(this.listItemDaChon)
       items.forEach(obj => {
-        // check list id vua truyen vao, neu cai nao da ton tai thì đánh check cho nó 
         obj.checked = this.listItemDaChon.includes(obj.Id);
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];
           obj.listTaiSan.forEach(element => {
-            console.log(element)
+            console.log('check con',this.listItemDaChon.includes(element.Id));
+            
             element.checked = this.listItemDaChon.includes(element.Id);
             obj_copy.children.push({ data: element });
           });
@@ -55,10 +62,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
         this.items.push({ data: obj_copy.data, children: obj_copy.children });
       });
       this.checkedAll = items.every(ele => ele.checked);
-      console.log(items)
-      console.log(this.items);
     });
-
   }
 
   TimCheck() {
@@ -104,8 +108,13 @@ export class ModalchontaisanCopyComponent implements OnInit {
   }
 
   checked() {
-    // this.checkedAll = this.items.every(ele => ele.data.checked)
     this.checkedAll = this.TimCheck();
+    this.items.forEach(obj => { 
+      obj.children.forEach(objchildren => {
+        objchildren.data.checked = obj.data.checked;
+      })
+    })
+   
   }
 
   FilterTree() {
@@ -113,12 +122,10 @@ export class ModalchontaisanCopyComponent implements OnInit {
     this.items.forEach(obj => {
       if (obj.data.checked) {
         data.push({
-          TaiSan: obj.data,
-          IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
           IdTaiSan: obj.data.Id,
           Id: '',
-          Ten: obj.data.Ten,
-          Ma: obj.data.Ma,
+          TenTaiSan: obj.data.Ten,
+          MaSanPham: obj.data.Ma,
           NguyenGia: obj.data.NguyenGia,
           GiaTriConLai: obj.data.GiaTriConLai,
         });
@@ -127,12 +134,10 @@ export class ModalchontaisanCopyComponent implements OnInit {
         obj.children.forEach(objchildren => {
           if (objchildren.data.checked) {
             data.push({
-              TaiSan: obj.data,
-              IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
               IdTaiSan: objchildren.data.Id,
               Id: '',
-              Ten: objchildren.data.Ten,
-              Ma: objchildren.data.Ma,
+              TenTaiSan: objchildren.data.Ten,
+              MaSanPham: objchildren.data.Ma,
               NguyenGia: objchildren.data.NguyenGia,
               GiaTriConLai: objchildren.data.GiaTriConLai,
             });

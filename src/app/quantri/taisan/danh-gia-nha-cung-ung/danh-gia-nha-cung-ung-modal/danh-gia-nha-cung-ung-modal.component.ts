@@ -18,11 +18,11 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
   title: any;
   quyTrinh: any = {};
   data: any;
-  // listNhaCungUng: any = [];
+  listPhieuDanhGia_copy: any = [];
   filter: any = {};
+  paging: any = {};
   opt: any = "";
   checkbutton: any = {};
-  paging: any = {};
   listTinhTrang: any[] = [];
   listPheDuyet: any[] = [];
   user: any;
@@ -187,6 +187,9 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         this.quyTrinh.listPhieuDanhGia = (this.quyTrinh?.listPhieuDanhGia || []).concat(res);
+        // this.listPhieuDanhGia_copy = this.quyTrinh.listPhieuDanhGia;
+        // console.log('list phieu danh gia copy', this.listPhieuDanhGia_copy);
+        
       })
       .catch(er => { })
       .finally()

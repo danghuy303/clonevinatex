@@ -111,7 +111,6 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
       })
   }
   update(item) {
-    console.log(item)
     let modalRef = this._modal.open(LapkehoachlichxichnamComponent, {
       size: "fullscreen-100",
       backdrop: "static",
@@ -119,7 +118,7 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật thu hồi tài sản';
+    modalRef.componentInstance.title = 'Cập nhật ';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {

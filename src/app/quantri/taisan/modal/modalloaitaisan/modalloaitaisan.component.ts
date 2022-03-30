@@ -40,9 +40,7 @@ export class ModalloaitaisanComponent implements OnInit {
   
   getListCongDoan(){
     this._danhMucTaiSan.GetlistCongDoan().GetList().subscribe((res:any)=>{
-      console.log(res)
       this.listCongDoan = mapArrayForDropDown(res.Data, "Ten", "Ma");
-      console.log(this.listCongDoan)
     })
   }
   GhiLai() {
