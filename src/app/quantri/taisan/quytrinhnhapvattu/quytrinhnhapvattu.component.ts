@@ -114,7 +114,7 @@ export class QuytrinhnhapvattuComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật vật tư ';
+    modalRef.componentInstance.title = 'Cập nhật quy trình nhập vật tư';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {

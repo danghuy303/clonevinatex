@@ -56,8 +56,8 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <!-- <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="item.ThoiGian" placeholder="Chọn năm" styleClass="p-inputtext-sm"
                 ></p-dropdown> -->
-                <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
-                    [yearRange]="" [showIcon]="true" inputId="icon" placeholder="dd/mm/yyyy"
+                <p-calendar dateFormat="yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
+                    [yearRange]="yearRange" [showIcon]="true" inputId="icon" placeholder="yyyy"
                     [(ngModel)]="item.ThoiGian">
                 </p-calendar>
             </div>

@@ -46,7 +46,7 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit,AfterViewIni
     let data = {
       PageSize: 20, CurrentPage: 0, Keyword: "",IddmLoaiTaiSan:'', IdBoPhanSuDung:'',
     };
-    this._serviceTaiSan.QuyTrinhNhapTu().GetListVatTu(data).subscribe((res: any) => {
+    this._serviceTaiSan.QuyTrinhDeNghiThayVatTu().GetListVatTu(data).subscribe((res: any) => {
     this.items = res.Data;
     this.items.forEach(obj => {
       obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);

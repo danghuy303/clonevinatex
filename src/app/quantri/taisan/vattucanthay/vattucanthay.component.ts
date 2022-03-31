@@ -40,6 +40,9 @@ ngOnInit(): void {
   if (this.item.NgayThuHoiUnix !== 0) {
     this.item.NgayThuHoi = UnixToDate(this.item.NgayThuHoiUnix);
   }
+  if (this.item.NgayUnix !== 0) {
+    this.item.Ngay = UnixToDate(this.item.NgayUnix);
+  }
   if (this.type === 'themmoi') {
     this.GetNextSoQuyTrinh();
   }
@@ -71,6 +74,7 @@ xoa(item) {
 }
 setData() {
   this.item.NgayThuHoiUnix = DateToUnix(this.item.NgayThuHoi);
+  this.item.NgayUnix = DateToUnix(this.item.Ngay);
   this.item.IdDuAn = this.store.getCurrent();
   return this.item;
 }

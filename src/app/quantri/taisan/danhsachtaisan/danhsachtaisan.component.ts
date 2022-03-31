@@ -71,10 +71,10 @@ export class DanhsachtaisanComponent implements OnInit {
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       Loai: 0,
+      IdBoPhanSuDung:this.filter.IdBoPhanSuDung,
      
     };
     this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
-      console.log(res)
       this.paging.CurrentPage = res.Data.Page;
       this.paging.TotalPages = res.Data.TotalPages;
       this.paging.TotalCount = res.Data.TotalCount;

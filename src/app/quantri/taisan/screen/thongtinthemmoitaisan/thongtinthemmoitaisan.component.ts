@@ -54,6 +54,8 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
     modalRef.componentInstance.multiple = true;
     modalRef.componentInstance.type = '';
     modalRef.result.then((data) => {
+      console.log(data);
+      
       this.item.listFileDinhKem = data;
       this.item.listFileDinhKem.forEach(obj => {
         this.NameFile += `${obj.NameLocal}, `;
@@ -61,10 +63,10 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
       this.item.listFileDinhKem = data;
       this.item.listFileDinhKem.forEach(obj => {
         obj.Id = '';
-        obj.fileNameGui = obj.Name;
-        obj.fileName = obj.NameLocal;
+        obj.FileNameGUI = obj.Name;
+        obj.FileName = obj.NameLocal;
         obj.Link = obj.Url;
-        this.NameFile += `${obj.fileName}` + '; ';
+        this.NameFile += `${obj.FileName}` + '; '; /// gắn tên vào NameFile 
       });
     }, (reason) => {
 
