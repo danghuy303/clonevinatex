@@ -30,6 +30,7 @@ export class DanhsachvattuComponent implements OnInit {
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   listNam: any = [];
+  listBoPhanSuDung: any = [];
   labelThang: any[];
   checkList: any = [];
   thang = '1';
@@ -38,24 +39,33 @@ export class DanhsachvattuComponent implements OnInit {
   constructor(
     public _modal: NgbModal,
     public _toastr: ToastrService,
-    private _serviceHopDong: HopDongService,
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
-    private _serviceDanhMucTaiSan: DanhmuctaisanService,
-    private router: Router
+    private router: Router,
+    private _servicesSanXuat: SanXuatService,
+    private _danhMucTaiSan: DanhmuctaisanService,
   ) {
     this.labelThang = [];
   }
 
   ngOnInit(): void {
+    let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.filter.Keyword, };
+    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
+      this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
+    })
+    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+      this.listBoPhanSuDung = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
     this.labelThang = [];
     for (let i = 1; i <= 12; i++) {
-      this.labelThang.push({ name: i, value: i })
+      this.labelThang.push({ label: i, value: i })
     }
     this.GetList();
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
+    this.filter.Nam = new Date().getFullYear();
+    this.filter.Thang = new Date().getMonth()+1;
   }
   resetFilter() {
     this.filter = {};
@@ -71,8 +81,8 @@ export class DanhsachvattuComponent implements OnInit {
       CurrentPage: this.paging.CurrentPage,
       KeyWord: this.filter.KeyWord,
       IddmLoaiTaiSan: "",
-      Nam: 0,
-      Thang: 0,
+      Nam: this.filter.Nam,
+      Thang: this.filter.Thang,
       QuaHan: true,
     };
     this._serviceTaiSan.ListDanhSachVatTu().GetList(data).subscribe((res: any) => {

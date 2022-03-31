@@ -18,30 +18,30 @@ export class DanhmucloaibaoduongComponent implements OnInit {
   fileUpload: any;
   items: any = [];
   Keyword: any = '';
-  paging: any = { Page: 1, TotalPages: 1, TotalCount: 1 };
+  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   cols: any = [
     {
       header: 'Loại tài sản',
-      field: 'TenLoaiTaiSan',
+      field: 'TendmLoaiTaiSan',
       width: '150px',
       align: 'center'
     },
     {
       header: 'Mã',
       field: 'Ma',
-      width: '100px',
+      width: '200px',
       align: 'center'
     },
     {
       header: 'Tên',
       field: 'Ten',
-      width: '100px',
+      width: '200px',
       align: 'center'
     },
     {
       header: 'Nội dung',
       field: 'NoiDung',
-      width: '100px',
+      width: '200px',
       align: 'center'
     },
     {
@@ -52,7 +52,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     },
     {
       header: 'Lịch bảo dưỡng',
-      field: 'ThoiGianBaoDuong',
+      field: 'ThoiGianNangSuat',
       width: '150px',
       align: 'center'
     },
@@ -66,7 +66,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
 
   ngOnInit() {
     this.GetList();
-    let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.Keyword, };
+    let data = { PageSize: 20, CurrentPage: this.paging.CurrentPage, Keyword: this.Keyword, };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
@@ -79,12 +79,12 @@ export class DanhmucloaibaoduongComponent implements OnInit {
   }
   GetList(reset?) {
     if (reset) {
-      this.paging.page = 1;
+      this.paging.CurrentPage = 1;
       this.paginator.changePage(0);
     }
     let data = {
       PageSize: 20,
-      CurrentPage: this.paging.Page,
+      CurrentPage: this.paging.CurrentPage,
       Keyword: this.Keyword,
       IddmLoaiTaisan: this.filter.IddmLoaiTaisan?this.filter.IddmLoaiTaisan : '',
       Ma: "",
@@ -92,11 +92,10 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     };
     this._danhMucTaiSan.DanhMucLoaiBaoDuong().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;
-      console.log(this.items)
-      this.items.forEach(obj => {
-        obj.TenLoaiTaiSan = this.listTaiSan.find(ele => ele.value == obj.IddmLoaiTaiSan).label;
-        console.log(obj.TenLoaiTaiSan);
-      });
+      // this.items.forEach(obj => {
+      //   obj.TenLoaiTaiSan = this.listTaiSan.find(ele => ele.value == obj.IddmLoaiTaiSan).label;
+      //   console.log(obj.TenLoaiTaiSan);
+      // });
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
@@ -191,7 +190,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     })
   }
   changePage(event) {
-    this.paging.Page = event.page+1;
+    this.paging.CurrentPage = event.page+1;
     this.GetList()
   }
 

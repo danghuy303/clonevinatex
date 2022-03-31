@@ -4,11 +4,12 @@
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
         <button pButton pRipple label="Thêm mới " icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
+        <button pButton pRipple label="Xóa" class="p-button-sm p-mr-2" (click)="deleteAll()"></button>
         <button pButton pRipple label="Nhập excel" class="p-button-sm p-mr-2" (click)="importExcel()"></button>
         <button pButton pRipple label="Xuất excel" class="p-button-sm p-mr-2" (click)="exportExcel()"></button>
         <!-- <button pButton pRipple label="Xóa tất cả" *ngIf="selectedItems.length!==0" class="p-button-sm p-mr-2"
             (click)="deleteAll()"></button> -->
-        <button pButton pRipple label="Xóa" class="p-button-sm p-mr-2" (click)="deleteAll()"></button>
+      
     </div>
     <div class="p-d-flex p-flex-row">
         <div style="width:200px; margin-right:10px ;">
@@ -49,7 +50,7 @@
             <th *ngFor="let header of cols">
                 {{header.header}}
             </th>
-            <th>Tình trạng</th>
+            <th>Trạng thái</th>
             <th>Thao tác</th>
         </tr>
     </ng-template>
@@ -59,7 +60,7 @@
                 <p-tableCheckbox [value]="item"></p-tableCheckbox>
             </td>
             <td class="text-center">
-                {{ 20 * (paging.page - 1) + i + 1 }}
+                {{ 20 * (paging.CurrentPage - 1) + i + 1 }}
             </td>
             <td *ngFor="let col of cols" class="text-center" [ngClass]="{'text-center': col.align==='center'}">
                 {{item[col.field]}}
@@ -83,7 +84,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
         <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between">
-            Tổng số bản ghi {{paging.totalCount}}.<p-paginator #paginator [totalRecords]="paging.totalCount" [rows]="20"
+            Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20"
                 (onPageChange)="changePage($event)"></p-paginator>
         </div>
     </ng-template>

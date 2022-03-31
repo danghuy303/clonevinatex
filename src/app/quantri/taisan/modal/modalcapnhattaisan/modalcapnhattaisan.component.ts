@@ -141,12 +141,10 @@ export class ModalcapnhattaisanComponent implements OnInit {
     return this.item;
   }
   GhiLai() {
-    console.log(this.item.Id)
       this._serviceTaiSan.NhapTaiSan().Set(this.setData()).subscribe((res: any) => {
-        console.log(res)
-        
         if (res.StatusCode === 200) {
           this.toastr.success(res.Message);
+          this.item = res.Data;
           // this.activeModal.close();
         } else {
           this.toastr.error(res.Message);

@@ -7,8 +7,9 @@
     <div></div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bổ phận sử dụng " [(ngModel)]="filter.IddmLoaiTaiSan"
-                styleClass="p-inputtext-sm" (onChange)="Loaddata(true)" [showClear]="true" [filter]="true"></p-dropdown>
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận sử dụng "
+                [(ngModel)]="filter.IdBoPhanSuDung" styleClass="p-inputtext-sm" (onChange)="Loaddata(true)"
+                [showClear]="true" [filter]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
@@ -33,6 +34,7 @@
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
     <p-tabPanel header="Chưa xử lý"></p-tabPanel>
     <p-tabPanel header="Đã xử lý"></p-tabPanel>
+    <p-tabPanel header="Tổng hợp"></p-tabPanel>
 </p-tabView>
 <p-treeTable [value]="items" styleClass="p-treetable p-treetable-caption MY-tree-table-class">
     <ng-template pTemplate="colgroup">
@@ -43,7 +45,7 @@
             <col>
             <col>
             <col>
-            <col>           
+            <col>
             <col>
             <col>
             <col style="width: 100px;">
@@ -65,7 +67,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr>
-            <td class="p-d-flex p-flex-row text-center">                             
+            <td class="p-d-flex p-flex-row text-center">
                 {{rowData.SoQuyTrinh}}
                 <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
             </td>
@@ -79,7 +81,7 @@
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
-                     (click)="changeParam(rowData.Id)"></button>                
+                    (click)="changeParam(rowData.Id)"></button>
             </td>
         </tr>
     </ng-template>
