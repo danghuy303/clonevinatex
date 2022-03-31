@@ -630,7 +630,10 @@ export class TaisanService {
       },
       GetListTinhTrang: () => {
         return this.http.get(`${url}DanhMuc/GetlistdmTinhTrangNhaCungUng`, httpOptions)
-      }
+      },
+      download: (url) => {
+        window.open(API.imgURL + url);
+      },
     }
   }
 

@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class StoreService {
   private NhaMayStore = new Subject<any>();
+  
   private IdNhaMay = '';
   public isMobile = false;
   constructor() { }
