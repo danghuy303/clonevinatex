@@ -23,12 +23,12 @@ export class NhaCungUngModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetNhaCungUng();
+    console.log('item ben modal 1', this.item);
   }
 
   GetNhaCungUng() {
     if (this.item.Id) {
-      this.taiSanService.NhaCungUng().Get(this.item.Id)
-      .subscribe((res: any)=>{
+      this.taiSanService.NhaCungUng().Get(this.item.Id).subscribe((res: any)=>{
         this.item = res.Data;
       })
     }

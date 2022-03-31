@@ -19,7 +19,7 @@ export class NhaCungUngDanhMucComponent implements OnInit {
   keyword: string = '';
   paging: any = {};
   fileUpload: any;
-  trangThai: any = 2;
+  trangThai: any = 0;
   listTrangThai: any[] = [];
 
   constructor(
@@ -113,9 +113,18 @@ export class NhaCungUngDanhMucComponent implements OnInit {
     listId = listFilter.reduce((a,b)=>{
       return a.concat(b.Id);
     }, [])
-    this.taiSanService.NhaCungUng().DeleteList(listId).subscribe((res: any) => {
-        this.ResetListNhaCungUng();
-    })
+    if (listId.length === 0) {
+      this.toast.error('Chưa chọn nhà cung ứng')
+    } else {
+      this.taiSanService.NhaCungUng().DeleteList(listId).subscribe((res: any) => {
+        if (res.StatusCode === 200) {
+          this.toast.success(res.Message)
+          this.ResetListNhaCungUng();
+        } else {
+          this.toast.error(res.Message)
+        }
+      })
+    }
   }
 
   ExportCungUng() {
@@ -128,8 +137,7 @@ export class NhaCungUngDanhMucComponent implements OnInit {
       GhiChu: "",
     }
     this.taiSanService.NhaCungUng().Export(data).subscribe((res: any) => {
-      // console.log(res.Data);
-      window.open('http://103.130.212.45:2269' +  res.Data)
+      this.taiSanService.NhaCungUng().download(res.Data)
     });
   }
 
