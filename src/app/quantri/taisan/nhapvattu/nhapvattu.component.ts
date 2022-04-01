@@ -63,8 +63,10 @@ export class NhapvattuComponent implements OnInit {
   Tong() {
     this.tongThanhTien = 0;
     this.item.listTaiSan.forEach(item => {
-      item.ThanhTien = (item.SoLuong | 0) * (item.DonGia | 0);
-      this.tongThanhTien += (item.ThanhTien | 0);
+      item.ThanhTien = (item.SoLuong || 0) * (item.DonGia || 0);
+      this.tongThanhTien += (item.ThanhTien || 0);
+      console.log( this.tongThanhTien);
+      
     });
   }
   getList() {
