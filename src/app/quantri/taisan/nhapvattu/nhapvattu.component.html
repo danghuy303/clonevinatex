@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto"> Ngày:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto"> Ngày<span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
                     [yearRange]="" [showIcon]="true" inputId="icon" placeholder="dd/mm/yyyy"
@@ -124,15 +124,23 @@
                         {{item.Ton}}
                     </td>
                     <td class="text-center">
+<<<<<<< HEAD
                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm" [(ngModel)]="item.SoLuong">
                         </p-inputNumber>
                     </td>
                     <td class="text-center">
                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm" [(ngModel)]="item.DonGia" (onBlur)=" Tong()">
+=======
+                        <p-inputNumber [min]="0" Class="p-inputtext-sm" [(ngModel)]="item.SoLuong" (onBlur)="Tong()">
                         </p-inputNumber>
                     </td>
                     <td class="text-center">
-                        {{item.ThanhTien}}
+                        <p-inputNumber [min]="0" Class="p-inputtext-sm" [(ngModel)]="item.DonGia" (onBlur)="Tong()">
+>>>>>>> 092504dd07bf8b8b8c7c21a865248659cfd755b3
+                        </p-inputNumber>
+                    </td>
+                    <td class="text-right">
+                        {{item.ThanhTien | number: '0.0'}}
                     </td>
                     <td class="text-center">
                         <button pButton pRipple icon="pi pi-trash"
