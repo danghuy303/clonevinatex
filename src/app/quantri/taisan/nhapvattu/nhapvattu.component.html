@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto"> Ngày:</label>
+            <label class="p-col-12 p-lg-4 p-p-0 my-auto"> Ngày<span class="required">(*)</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
                     [yearRange]="" [showIcon]="true" inputId="icon" placeholder="dd/mm/yyyy"
@@ -70,7 +70,8 @@
             <div class="modal-bt p-mb-4 p-col-12 p-lg-4 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
                 <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tổng giá trị:</label>
                 <div class="p-col-12 p-xl-8 p-p-0">
-                    <input locale="en-EN" [(ngModel)]="tongThanhTien" pInputText />
+                    <!-- <input locale="en-EN" [(ngModel)]="tongThanhTien" pInputText [disabled]="true" /> -->
+                    <p-inputNumber [(ngModel)]="tongThanhTien" [disabled]="true"></p-inputNumber>
                 </div>
             </div>
         </div>
@@ -124,15 +125,15 @@
                         {{item.Ton}}
                     </td>
                     <td class="text-center">
-                        <p-inputNumber [minFractionDigits]="0" Class="p-inputtext-sm" [(ngModel)]="item.SoLuong">
+                        <p-inputNumber [min]="0" Class="p-inputtext-sm" [(ngModel)]="item.SoLuong" (onBlur)="Tong()">
                         </p-inputNumber>
                     </td>
                     <td class="text-center">
-                        <p-inputNumber [minFractionDigits]="0" Class="p-inputtext-sm" [(ngModel)]="item.DonGia" (onBlur)=" Tong()">
+                        <p-inputNumber [min]="0" Class="p-inputtext-sm" [(ngModel)]="item.DonGia" (onBlur)="Tong()">
                         </p-inputNumber>
                     </td>
-                    <td class="text-center">
-                        {{item.ThanhTien}}
+                    <td class="text-right">
+                        {{item.ThanhTien | number: '0.0'}}
                     </td>
                     <td class="text-center">
                         <button pButton pRipple icon="pi pi-trash"
