@@ -152,6 +152,7 @@ import { ThoihancungcapvattumodalComponent } from './thoihancungcapvattumodal/th
 import { ModalluachontaisantheolichthangComponent } from './modal/modalluachontaisantheolichthang/modalluachontaisantheolichthang.component';
 import { ChonTaiSanDieuChuyenModalComponent } from './dieu-chuyen-tai-san/chon-tai-san-dieu-chuyen-modal/chon-tai-san-dieu-chuyen-modal.component';
 import { ChonTaiSanKhauHaoModalComponent } from './khau-hao-tai-san-quy-trinh/chon-tai-san-khau-hao-modal/chon-tai-san-khau-hao-modal.component';
+import { ThoihancungcapmodalluachonComponent } from './modal/thoihancungcapmodalluachon/thoihancungcapmodalluachon.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -258,6 +259,7 @@ import { ChonTaiSanKhauHaoModalComponent } from './khau-hao-tai-san-quy-trinh/ch
     ModalluachontaisantheolichthangComponent,
     ChonTaiSanDieuChuyenModalComponent,
     ChonTaiSanKhauHaoModalComponent,
+    ThoihancungcapmodalluachonComponent,
 
   ],
   imports: [
@@ -347,6 +349,7 @@ import { ChonTaiSanKhauHaoModalComponent } from './khau-hao-tai-san-quy-trinh/ch
     ModalquytrinhbaoduongComponent,
     ModalbaoduongluachontaisanComponent,
     ThoihancungcapvattumodalComponent,
+    ThoihancungcapmodalluachonComponent,
     
 
   ],

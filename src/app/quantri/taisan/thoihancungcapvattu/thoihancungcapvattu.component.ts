@@ -85,7 +85,7 @@ export class ThoihancungcapvattuComponent implements OnInit {
     })
   }
   changeParam(id) {
-    this.router.navigate([`quantri/taisan/quytrinhbaoduong/${id}`], {
+    this.router.navigate([`quantri/taisan/thoihancungcapvattu/${id}`], {
       replaceUrl: true,
     });
   }
