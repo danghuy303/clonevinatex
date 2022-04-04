@@ -67,6 +67,7 @@ export class DanhsachvattuComponent implements OnInit {
     this.filter.Nam = new Date().getFullYear();
     this.filter.Thang = new Date().getMonth()+1;
   }
+
   resetFilter() {
     this.filter = {};
     this.GetList(true);
@@ -92,11 +93,13 @@ export class DanhsachvattuComponent implements OnInit {
       this.items = res.Data.Items;
     });
   }
+
   checked(item) {
     this.checkList.push(item);
     console.log(item.checked);
 
   }
+
   KiemTraNCC() {
     let data = {
       ...this.checkList,
@@ -104,18 +107,20 @@ export class DanhsachvattuComponent implements OnInit {
     this._serviceTaiSan.ListDanhSachVatTu().KiemTraNCC(data).subscribe((res: any) => {
     })
   }
+
   checkAll(e) {
     this.items.forEach(ele => {
       ele.checked = e.checked
     })
-
   }
+
   KiemTraTabTrangThai() {
     this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
       this.GetList();
     })
   }
+
   ChiTietThongTin(item) {
     let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
       size: "fullscreen",
@@ -131,11 +136,13 @@ export class DanhsachvattuComponent implements OnInit {
       .catch((er) => {
       });
   }
+
   changeTab(e) {
     // this.trangThai = e.index + 1;
     this.loaiTab = e.index;
     this.GetList(true);
   }
+
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetList();

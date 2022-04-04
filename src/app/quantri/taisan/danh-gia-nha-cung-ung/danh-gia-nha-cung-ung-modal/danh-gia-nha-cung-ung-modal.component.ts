@@ -93,14 +93,6 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
     this.quyTrinh.NgayUnix = DateToUnix(this.quyTrinh.Ngay);
     return this.quyTrinh
   }
-  
-  // GetQuyTrinh() {
-  //   this._serviceTaiSan.DanhGiaNhaCungUng().Get(this.quyTrinh.Id).subscribe((res: any) => {
-  //     this.quyTrinh = res.Data;
-  //     this.quyTrinh.Ngay = UnixToDate(this.quyTrinh.NgayUnix);
-  //     this.KiemTraButtonModal();
-  //   })
-  // }
 
   GetNextSoQuyTrinh() {
     this._serviceTaiSan.DanhGiaNhaCungUng().GetNextSoQuyTrinh().subscribe((res: any) => {
@@ -113,7 +105,8 @@ export class DanhGiaNhaCungUngModalComponent implements OnInit {
       this._serviceTaiSan.DanhGiaNhaCungUng().Set(this.SetData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.toast.success(res.Message);
-          this.quyTrinh.Id = res.Data.Id;
+          this.quyTrinh = res.Data;
+          // this.quyTrinh.Id = res.Data.Id;
           this.GetListNhaCungUng(true)
           
         } else {
