@@ -155,20 +155,12 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
-  // ValidateData() {
-  //   if (!validVariable(this.item.IddmLoaiTaiSan) && !validVariable(this.item.IdBoPhanSuDung)) {
-  //     this.toastr.error("Yêu cầu nhập đầy đủ loại tài sản và bộ phận sử dụng!");
-  //     return false;
-  //   }
-  //   return true;
-  // }
   ThemMoiDanhSachTaiSan() {
-    console.log(this.item.IddmLoaiTaiSan);
-
-    if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ loại tài sản và bộ phận sử dụng!");
-      return
-    }
+   
+    // if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung)) {
+    //   this.toastr.error("Yêu cầu nhập đầy đủ loại tài sản và bộ phận sử dụng!");
+    //   return
+    // }
     let modalRef = this._modal.open(ModalluachontaisantheolichxichComponent, {
       size: "fullscreen",
       backdrop: "static",
@@ -232,7 +224,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
 
   }
   Chon(item, itemLoaiBaoDuongDeChon) {
-    console.log(itemLoaiBaoDuongDeChon);
     let modalRef = this._modal.open(ModalluachonloaibaoduongComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',

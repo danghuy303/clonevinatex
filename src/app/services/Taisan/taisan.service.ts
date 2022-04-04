@@ -205,6 +205,10 @@ export class TaisanService {
       Delete: (Id) => {
         return this.http.get(`${url}NhatKySuDung/DeleteQuyTrinhThoiHanCungCapById?Id=${Id}`, httpOptions);
       },
+      LuaChon: (data) => {
+
+        return this.http.post(`${url}QuanLyVatTuDuTru/SelectTaiSanQuytrinhThoiHanCungCap`, data, httpOptions);
+      },
     };
   }
 

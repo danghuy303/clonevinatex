@@ -9,7 +9,7 @@ import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/gl
 import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
-import { ModalbaoduongluachontaisanComponent } from '../modal/modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
+import { ThoihancungcapmodalluachonComponent } from '../modal/thoihancungcapmodalluachon/thoihancungcapmodalluachon.component';
 
 
 @Component({
@@ -66,7 +66,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     })
   }
   ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open(ModalbaoduongluachontaisanComponent, {
+    let modalRef = this._modal.open(ThoihancungcapmodalluachonComponent, {
       size: "lg",
       backdrop: "static",
     });

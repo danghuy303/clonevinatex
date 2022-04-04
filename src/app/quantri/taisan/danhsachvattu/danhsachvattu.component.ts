@@ -12,6 +12,7 @@ import { ModalthongtinchitiettaisanComponent } from "../modal/modalthongtinchiti
 import { Label } from "@amcharts/amcharts4/core";
 import { vn } from "src/app/services/const";
 import { ThanhtoanhopdongsoimodalComponent } from "../../hopdong/screen/thuchienhopdong/thanhtoanhopdongsoi/thanhtoanhopdongsoimodal/thanhtoanhopdongsoimodal.component";
+import { fakeData } from "./datafake"
 
 @Component({
   selector: 'app-danhsachvattu',
@@ -36,6 +37,8 @@ export class DanhsachvattuComponent implements OnInit {
   thang = '1';
   checkedAll: boolean = false;
 
+  listVatTuDaChon: any = [];
+
   constructor(
     public _modal: NgbModal,
     public _toastr: ToastrService,
@@ -49,6 +52,8 @@ export class DanhsachvattuComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
     let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.filter.Keyword, };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
@@ -65,7 +70,7 @@ export class DanhsachvattuComponent implements OnInit {
       this.listNam.push({ value: i, label: i });
     }
     this.filter.Nam = new Date().getFullYear();
-    this.filter.Thang = new Date().getMonth()+1;
+    this.filter.Thang = new Date().getMonth() + 1;
   }
 
   resetFilter() {
@@ -91,6 +96,7 @@ export class DanhsachvattuComponent implements OnInit {
       this.paging.TotalPages = res.Data.TotalPages;
       this.paging.TotalCount = res.Data.TotalCount;
       this.items = res.Data.Items;
+      // this.checkThang();
     });
   }
 
@@ -100,11 +106,44 @@ export class DanhsachvattuComponent implements OnInit {
 
   }
 
+  // checkThang() {
+  //   console.log(this.items);
+
+  // }
+  // checked() {
+  //   this.checkList = this.items.filter(ele => {
+  //     return ele.checked === true;
+  //   }).map(ele => {
+  //     return ele.Id
+  //   })
+  //   this.listVatTuDaChon = this.listVatTuDaChon.concat(this.checkList)
+  //   console.log('this.listVatTuDaChon', this.listVatTuDaChon);
+    
+  //   this.TimCheck()
+  // }
+  // TimCheck() {
+  //   let checkBoxAll = this.items.some(ele => {
+  //     return ele.checked === false;
+  //   })
+  //   this.checkedAll = !checkBoxAll;
+  // }
+
+  // checkAll(e) {
+  //   this.items.forEach(ele => {
+  //     ele.checked = e.checked
+  //   })
+  //   this.TimCheck()
+  // }
+
+
+
+
+
   KiemTraNCC() {
-    let data = {
-      ...this.checkList,
-    };
-    this._serviceTaiSan.ListDanhSachVatTu().KiemTraNCC(data).subscribe((res: any) => {
+    // let data = {
+    //   ...this.checkList,
+    // };
+    this._serviceTaiSan.ListDanhSachVatTu().KiemTraNCC(this.checkList).subscribe((res: any) => {
     })
   }
 
@@ -113,6 +152,27 @@ export class DanhsachvattuComponent implements OnInit {
       ele.checked = e.checked
     })
   }
+  // checked() {
+  //   this.checkList = this.items.filter(ele => {
+  //     return ele.checked === true;
+  //   }).map(ele => {
+  //     return ele.Id
+  //   })
+  //   this.TimCheck()
+  // }
+  // TimCheck() {
+  //   let checkBoxAll = this.items.some(ele => {
+  //     return ele.checked === false;
+  //   })
+  //   this.checkedAll = !checkBoxAll
+  // }
+
+  // checkAll(e) {
+  //   this.items.forEach(ele => {
+  //     ele.checked = e.checked
+  //   })
+  //   this.TimCheck()
+  // }
 
   KiemTraTabTrangThai() {
     this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
