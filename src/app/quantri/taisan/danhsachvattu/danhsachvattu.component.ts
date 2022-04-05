@@ -72,6 +72,7 @@ export class DanhsachvattuComponent implements OnInit {
     this.filter.Nam = new Date().getFullYear();
     this.filter.Thang = new Date().getMonth() + 1;
   }
+
   resetFilter() {
     this.filter = {};
     this.GetList(true);
@@ -148,6 +149,7 @@ export class DanhsachvattuComponent implements OnInit {
       this.GetList();
     })
   }
+
   ChiTietThongTin(item) {
     let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
       size: "fullscreen",
@@ -163,11 +165,13 @@ export class DanhsachvattuComponent implements OnInit {
       .catch((er) => {
       });
   }
+
   changeTab(e) {
     // this.trangThai = e.index + 1;
     this.loaiTab = e.index;
     this.GetList(true);
   }
+
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetList();
