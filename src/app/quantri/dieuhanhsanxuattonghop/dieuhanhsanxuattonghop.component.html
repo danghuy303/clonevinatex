@@ -109,7 +109,7 @@
                             <div>{{thongke.GiaTri|number:'0.3-3'}}</div>
                         </div>
                     </div>
-                    <p-button styleClass="p-button-sm ml-1" (click)="bieuDoTyLeThongKeSanLuong()">Tỷ lệ bông phế\hồi
+                    <p-button styleClass="p-button-sm ml-1" (click)="bieuDoTyLeThongKeSanLuong()">Tỷ lệ tiêu hao
                     </p-button>
                     <!-- <p *ngFor="let thongke of thongKes1">
                          {{thongke.GiaTri|number:'0.0-3'}}
@@ -466,7 +466,7 @@
         <p-chart type="bar" [data]="dataBieuDoDien" [options]="optionBarDien"></p-chart>
     </div>
 </p-dialog>
-<p-dialog header="Thống kê tỷ lệ bông phế\hồi" [(visible)]="showBieuDoTyLe" [modal]="true"
+<p-dialog header="Biểu đồ tỷ lệ tiêu hao" [(visible)]="showBieuDoTyLe" [modal]="true"
     [style]="{width: '95vw', height:'auto'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
     <div class="p-d-flex p-flex-row p-jc-end">
         <div class="p-col-3">

@@ -1,6 +1,6 @@
 import { formatNumber } from '@angular/common';
 import { ViewChild } from '@angular/core';
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
@@ -12,7 +12,7 @@ import { PintableDirective } from 'voi-lib';
   templateUrl: './dieuhanhsanxuat.component.html',
   styleUrls: ['./dieuhanhsanxuat.component.css']
 })
-export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
+export class DieuhanhsanxuatComponent implements OnInit, OnDestroy {
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   filterBong: any = {};
   filter: any = {
@@ -49,6 +49,7 @@ export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
     Xuat: 'Xuất',
     Nhap: 'Nhập'
   }
+  pieLegend: any = [];
   option1: any = {
     scales: {
       xAxes: [{
@@ -116,6 +117,7 @@ export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
   optionPie: any = {
     plugins: {
       labels: {
+        fontSize: 0,
         render: 'percentage',
         fontColor: '#fff',
         fontStyle: 'bold',
@@ -123,6 +125,7 @@ export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
       }
     },
     legend: {
+      display: false,
       position: 'left'
     },
     tooltips: {
@@ -145,27 +148,6 @@ export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
       this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
       this.filterNhuCau._tuNgayCanDoiTon = new Date(date.getFullYear(), date.getMonth(), 1);
       this.filterNhuCau._denNgayCanDoiTon = date;
-
-      this.dataPie = {
-        labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
-        datasets: [
-          {
-            data: [300, 50, 100, 200],
-            backgroundColor: [
-              "#009900",
-              "#36A2EB",
-              "#FFCE56",
-              "#FF671F"
-            ],
-            hoverBackgroundColor: [
-              "#009900",
-              "#36A2EB",
-              "#FFCE56",
-              "#FF671F"
-            ]
-          }
-        ]
-      };
       this.listItem = [
 
       ]
@@ -181,27 +163,6 @@ export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
     this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     this.filterNhuCau._tuNgayCanDoiTon = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filterNhuCau._denNgayCanDoiTon = date;
-
-    this.dataPie = {
-      labels: ['Bông Mỹ', 'Bông Brazil', 'Bông Tây Phi', 'Bông Hồi'],
-      datasets: [
-        {
-          data: [300, 50, 100, 200],
-          backgroundColor: [
-            "#009900",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF671F"
-          ],
-          hoverBackgroundColor: [
-            "#009900",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF671F"
-          ]
-        }
-      ]
-    };
     this.listItem = [
 
     ]
@@ -253,24 +214,40 @@ export class DieuhanhsanxuatComponent implements OnInit,OnDestroy {
           }
         })
         this._services.DashBoard().CoCauTonBong(this.filter).subscribe((res: any) => {
+          this.pieLegend = [];
+          let i = 0;
+          const BG_COLOR = [
+            "#009900",
+            "#36A2EB",
+            "#FFCE56",
+            "#FF671F",
+            '#ab8169',
+            '#6a942f',
+            '#46018f',
+            '#d70ca1'
+          ]
           this.GiaTrungBinhCoCauBong = res.map(ele => ele.DonGia);
-          console.log(this.GiaTrungBinhCoCauBong);
+          let TongTrongLuong = res.reduce((Tong, b) => {
+            return Tong+= (b.TrongLuong||0)
+          },0)
+          res.forEach((ele) => {
+            if (ele.TrongLuong !== null) {
+              this.pieLegend.push({
+                Ten: ele.Ten,
+                Color: BG_COLOR[i],
+                TyLe: ele.TrongLuong / TongTrongLuong * 100
+              })
+              i++
+            }
+          })
+          console.log(this.pieLegend);
           this.dataPie = {
             labels: res.map(ele => ele.Ten),
             datasets: [
               {
                 data: res.map(ele => ele.TrongLuong),
                 GiaTrungBinh: res.map(ele => ele.DonGia),
-                backgroundColor: [
-                  "#009900",
-                  "#36A2EB",
-                  "#FFCE56",
-                  "#FF671F",
-                  '#ab8169',
-                  '#6a942f',
-                  '#46018f',
-                  '#d70ca1'
-                ]
+                backgroundColor: BG_COLOR
               }
             ]
           };
