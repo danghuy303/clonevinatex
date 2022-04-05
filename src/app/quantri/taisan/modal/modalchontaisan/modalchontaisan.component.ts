@@ -118,7 +118,12 @@ export class ModalchontaisanComponent implements OnInit {
     this.items.forEach(obj => {
       if (obj.data.checked) {
         data.push({
-          TaiSan: obj.data,
+          // TaiSan: obj.data,
+          TaiSan: {
+            ...obj.data,
+            MaTaiSan: obj.data.Ma,
+            TenTaiSan: obj.data.Ten
+          },
           IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
           IdTaiSan: obj.data.Id,
           IdCha: null,
@@ -129,7 +134,12 @@ export class ModalchontaisanComponent implements OnInit {
         obj.children.forEach(objchildren => {
           if (objchildren.data.checked) {
             data.push({
-              TaiSan: objchildren.data,
+              // TaiSan: objchildren.data,
+              TaiSan: {
+                ...objchildren.data,
+                MaTaiSan: objchildren.data.Ma,
+                TenTaiSan: objchildren.data.Ten
+              },
               IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
               IdTaiSan: objchildren.data.Id,
               IdCha: obj.data.checked ? obj.data.Id : null,
