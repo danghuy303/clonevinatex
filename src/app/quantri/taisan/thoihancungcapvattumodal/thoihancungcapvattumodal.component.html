@@ -1,6 +1,6 @@
 <div class="modal-header">
     <h4 style="color:#1f2779">
-        Thời hạn cung cấp </h4>
+        {{title}} </h4>
     <div class="d-flex flex-column flex-lg-row">
         <div>
             <span style="font-weight: bold;">Số quy trình:</span> {{item.SoQuyTrinh}}
@@ -40,9 +40,8 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
-                [yearRange]="" [showIcon]="true" inputId="icon" placeholder="dd/mm/yyyy"
-                [(ngModel)]="item.Ngay">
-            </p-calendar>
+                    [yearRange]="" [showIcon]="true" inputId="icon" placeholder="dd/mm/yyyy" [(ngModel)]="item.Ngay">
+                </p-calendar>
             </div>
         </div>
         <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
@@ -54,7 +53,7 @@
         <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng tiền:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+                <input type="text" class="p-inputtext-sm" pInputText />
             </div>
         </div>
     </div>
@@ -76,16 +75,16 @@
         </div>
 
     </div>
-    <p-table styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+    <p-table [value]="item.listTaiSan" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width: 50px;">
                 <col>
                 <col>
                 <col>
+                <col >
                 <col>
                 <col>
-                <!-- <col> -->
                 <col>
                 <col style="width: 100px;">
             </colgroup>
@@ -99,23 +98,25 @@
                 <th class="text-center">Tên</th>
                 <th class="text-center">Số lượng</th>
                 <th class="text-center">Nhà cung ứng</th>
-                <!-- <th class="text-center">Nhà cung ứng 02</th> -->
+                <th class="text-center">Đơn giá</th>
                 <th class="text-center">Thành tiền</th>
                 <th class="text-center">Ghi chú</th>
                 <th class="text-center">Thao tác</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr>
+        <ng-template pTemplate="body" let-item let-i="rowIndex"> 
+            <tr> 
                 <td class="text-center">
                     {{i + 1}}
                 </td>
-                <td class="text-center">{{item.MaTaisan }}</td>
+                <td class="text-center">{{item.MaTaiSan}}</td>
                 <td class="text-center">{{item.TenTaiSan}}</td>
-                <!-- <td class="text-center"> {{item.SoLuong}}</td> -->
-                <td class="text-center"> <input locale="en-EN" pInputText  [(ngModel)]="item.SoLuong"/></td>
-                <td class="text-center"> <input locale="en-EN" pInputText [(ngModel)]="item.IdNhaCungUng" /></td>
-                <td class="text-center"> <input locale="en-EN" pInputText [(ngModel)]="item.DonGia" /></td>
+                <td class="text-center"> <input locale="en-EN" pInputText [(ngModel)]="item.SoLuong" /></td>
+                <td class="text-center">
+                    <p-dropdown [filter]="true" [options]="listNhaCungUng" placeholder="Chọn" [(ngModel)]="item.IdNhaCungUng" [showClear]="true" (onChange)="ChonNhaCungUng(item)"></p-dropdown>
+                </td>
+                <td  class="text-center" > {{item.DonGia}}</td> 
+                <td class="text-center"> <input locale="en-EN" pInputText [(ngModel)]="item.ThanhTien" /></td>
                 <td class="text-center"> <input locale="en-EN" pInputText [(ngModel)]="item.GhiChu" /></td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-trash"
