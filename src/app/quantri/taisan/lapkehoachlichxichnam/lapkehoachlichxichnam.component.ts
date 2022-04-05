@@ -21,7 +21,7 @@ import { ModalluachontaisantheolichxichComponent } from '../modal/modalluachonta
 export class LapkehoachlichxichnamComponent implements OnInit {
   opt: any = "";
   listNam: any = [];
-  item: any = {};
+  item: any = {isChon:0,};
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
@@ -51,23 +51,20 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     let data = {
       Keyword: "", CurrentPage: 0, PageSize: 20,
       MaCongDoan: '',
-      IdBoPhanSuDung: '',
-      IddmLoaiTaiSan: '',
+      IdBoPhanSuDung: this.item.IdBoPhanSuDung,
+      IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
       IdUser: '',
       Ngay: 0,
       LoaiKeHoach: '',
       IdDuAn: 0,
     };
     this._serviceTaiSan.LichXich().GetListTaiSanTheoNam(data).subscribe((res: any) => {
-      console.log(res.Data.listTaiSan);
       let baoDuong = res.Data.listTaiSan;
       this.item.listTaiSan.forEach(ele => {
-
         let taiSan = baoDuong.filter(obj => obj.IdTaiSan === ele.IdTaiSan);
         if (taiSan !== undefined) {
           ele.listLichBaoDuong = [];
-          ele.listLichBaoDuong = taiSan[0]?.listLichBaoDuong ;
-          console.log( ele.listLichBaoDuong); 
+          ele.listLichBaoDuong = taiSan[0]?.listLichBaoDuong;
         }
       })
     })
@@ -79,14 +76,11 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
-
-
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
 
     Promise.all([ls1]).then((values: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
     });
-
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
@@ -162,14 +156,19 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       .catch((er) => console.log(er));
   }
   ThemMoiDanhSachTaiSan() {
+   
+    // if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung)) {
+    //   this.toastr.error("Yêu cầu nhập đầy đủ loại tài sản và bộ phận sử dụng!");
+    //   return
+    // }
     let modalRef = this._modal.open(ModalluachontaisantheolichxichComponent, {
-      size: "lg",
+      size: "fullscreen",
       backdrop: "static",
     });
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : [];
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.Lay_Chon = this.item;
-    modalRef.componentInstance.item = {};
+    modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
       // let listKetQua = [];
       // this.item.listTaiSan.forEach(Tai_San => {
@@ -222,10 +221,9 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     })
       .catch((er) => {
       });
+
   }
   Chon(item, itemLoaiBaoDuongDeChon) {
-    console.log(itemLoaiBaoDuongDeChon);
-    
     let modalRef = this._modal.open(ModalluachonloaibaoduongComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',

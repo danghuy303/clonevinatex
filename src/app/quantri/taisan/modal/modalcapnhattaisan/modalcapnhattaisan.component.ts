@@ -92,7 +92,6 @@ export class ModalcapnhattaisanComponent implements OnInit {
 
   KiemTraButtonModal() {
     this._servicesSanXuat.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
-      console.log(res)
       this.checkbutton = res;
     });
   }
@@ -146,6 +145,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
           this.toastr.success(res.Message);
           this.item = res.Data;
           // this.activeModal.close();
+          this.KiemTraButtonModal();
         } else {
           this.toastr.error(res.Message);
         }

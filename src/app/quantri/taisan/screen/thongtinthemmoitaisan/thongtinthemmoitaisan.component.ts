@@ -5,6 +5,7 @@ import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmo
 import { vn } from 'src/app/services/const';
 import { validVariable } from 'src/app/services/globalfunction';
 import { ModaltaolichbaoduongComponent } from '../../modal/modaltaolichbaoduong/modaltaolichbaoduong.component';
+import { ChonComponent } from '../chon/chon.component';
 
 @Component({
   selector: 'app-thongtinthemmoitaisan',
@@ -54,6 +55,8 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
     modalRef.componentInstance.multiple = true;
     modalRef.componentInstance.type = '';
     modalRef.result.then((data) => {
+      console.log(data);
+      
       this.item.listFileDinhKem = data;
       this.item.listFileDinhKem.forEach(obj => {
         this.NameFile += `${obj.NameLocal}, `;
@@ -61,10 +64,10 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
       this.item.listFileDinhKem = data;
       this.item.listFileDinhKem.forEach(obj => {
         obj.Id = '';
-        obj.fileNameGui = obj.Name;
-        obj.fileName = obj.NameLocal;
+        obj.FileNameGUI = obj.Name;
+        obj.FileName = obj.NameLocal;
         obj.Link = obj.Url;
-        this.NameFile += `${obj.fileName}` + '; ';
+        this.NameFile += `${obj.FileName}` + '; '; /// gắn tên vào NameFile 
       });
     }, (reason) => {
 
@@ -77,5 +80,20 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
 
   ngOnDestroy() {
 
+  }
+  ChonTaiSan() {
+    let modalRef = this._modal.open(ChonComponent, {
+      size: "xl",
+      backdrop: "static",
+    });
+    
+    // modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.Id) : [];
+    // modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.item = this.item;
+    // modalRef.result.then((res: any) => {
+    //   this.item.listTaiSan = res;
+    // })
+    //   .catch((er) => {
+    //   });
   }
 }

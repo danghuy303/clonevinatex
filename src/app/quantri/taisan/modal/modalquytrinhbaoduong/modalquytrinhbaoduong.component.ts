@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
@@ -23,7 +23,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   item: any = {};
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
-  checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true};
+  checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   listPhanXuong = [];
   listLoaiTaiSan = [];
   store: any;
@@ -39,7 +39,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if ( this.item.NgayBaoDuongUnix !== 0) {
+    if (this.item.NgayBaoDuongUnix !== 0) {
       this.item.NgayBaoDuong = UnixToDate(this.item.NgayBaoDuongUnix);
     }
     this.GetNextSoQuyTrinh();
@@ -65,16 +65,20 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     })
   }
   ThemMoiDanhSachTaiSan() {
+    // if (!validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.IdDmLoaiTaiSan)) {
+    //   this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc !");
+    //   return;
+    // }
     let modalRef = this._modal.open(ModalbaoduongluachontaisanComponent, {
       size: "lg",
       backdrop: "static",
     });
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
     modalRef.componentInstance.opt = this.opt;
-    modalRef.componentInstance.Lay_Chon =this.item; 
-    modalRef.componentInstance.item = {};
+    modalRef.componentInstance.Lay_Chon = this.item;
+    modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
-      
+
       let listKetQua = [];
       this.item.listTaiSan.forEach(Tai_San => {
         let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
@@ -83,25 +87,38 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
         }
       });
       // vong lap 2
-    res.forEach(Tai_San => {
-      let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-      if (bien === undefined) {
-        listKetQua.push(Tai_San);
-      }
-    });
-    this.item.listTaiSan = listKetQua;
-    console.log(this.item.listTaiSan)
+      res.forEach(Tai_San => {
+        let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+        if (bien === undefined) {
+          listKetQua.push(Tai_San);
+        }
+      });
+      this.item.listTaiSan = listKetQua;
+      console.log(this.item.listTaiSan)
     })
       .catch((er) => {
       });
   }
-  
+
   setData() {
     this.item.NgayBaoDuongUnix = DateToUnix(this.item.NgayBaoDuong);
+
+    // if (!validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.IddmLoaiTaiSan)) {
+    //   this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc !");
+    //   return;
+    // }
     // this.item.IdDuAn = this.store.getCurrent();
     return this.item;
   }
+  ValidateData() {
+    if (!validVariable(this.item.NgayBaoDuong)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
+      return false;
+    }
+    return true;
+  }
   GhiLai() {
+    if (this.ValidateData()) {
     this._serviceTaiSan.QuyTrinhBaoDuong().Set(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200 || !res.StatusCode) {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -114,6 +131,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     }, (er) => {
       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
     })
+  }
   }
 
   KiemTraButtonModal() {

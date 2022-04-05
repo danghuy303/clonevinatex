@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { StoreService } from 'src/app/services/store.service';
-import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NhapvattuComponent } from '../nhapvattu/nhapvattu.component';
@@ -71,7 +71,13 @@ export class QuytrinhnhapvattuComponent implements OnInit {
 
     };
     this._serviceTaiSan.QuyTrinhNhapTu().GetList(data).subscribe((res: any) => {
-      this.items = res.Data.Items;  
+      // this.items = res.Data.Items;  
+      this.items = res.Data.Items.map(ele => {
+        return {
+          ...ele,
+          Ngay: UnixToDate(ele.NgayUnix),
+        }
+      });  
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
@@ -114,7 +120,7 @@ export class QuytrinhnhapvattuComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật vật tư ';
+    modalRef.componentInstance.title = 'Cập nhật quy trình nhập vật tư';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {

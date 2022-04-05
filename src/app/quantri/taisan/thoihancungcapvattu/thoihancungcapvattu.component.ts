@@ -25,8 +25,8 @@ export class ThoihancungcapvattuComponent implements OnInit {
   showDropDown: boolean = false;
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
-  eAction = "";
-  listPhanXuong:any=[];
+  eAction = "QUYTRINHTHOIHANCUNGCAP";
+  listPhanXuong: any = [];
   listNam: any = [];
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
@@ -42,7 +42,7 @@ export class ThoihancungcapvattuComponent implements OnInit {
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
-          .QuyTrinhBaoDuong()
+          .ThoiHanCungCap()
           .Get(res.id)
           .subscribe((res: any) => {
             this.update(res);
@@ -59,7 +59,7 @@ export class ThoihancungcapvattuComponent implements OnInit {
     this.filter = {};
     this.GetList(true);
   }
-  
+
   GetList(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
@@ -73,8 +73,8 @@ export class ThoihancungcapvattuComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       TabTrangThai: this.trangThai,
     };
-    this._serviceTaiSan.QuyTrinhBaoDuong().GetList(data).subscribe((res: any) => {
-      this.items = res.Data.Items;  
+    this._serviceTaiSan.ThoiHanCungCap().GetList(data).subscribe((res: any) => {
+      this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
@@ -85,7 +85,7 @@ export class ThoihancungcapvattuComponent implements OnInit {
     })
   }
   changeParam(id) {
-    this.router.navigate([`quantri/taisan/quytrinhbaoduong/${id}`], {
+    this.router.navigate([`quantri/taisan/thoihancungcapvattu/${id}`], {
       replaceUrl: true,
     });
   }
@@ -93,15 +93,14 @@ export class ThoihancungcapvattuComponent implements OnInit {
     let modalRef = this._modal.open(ThoihancungcapvattumodalComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',
-      keyboard:false
+      keyboard: false
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = '';
+    modalRef.componentInstance.title = 'Thời hạn cung cấp';
     modalRef.componentInstance.item = {
-      Id: '',IdTrangThai: '', TenTrangThai: "",SoQuyTrinh:'',
-      isKetThuc: false,listTaiSan:[], IdDuAn:0,
-      listVatTu: [], listChiPhiKhac: [], listNhanCong: [],
+      Id: '', IdTrangThai: '', TenTrangThai: "", SoQuyTrinh: '',
+      isKetThuc: false, listTaiSan: [], IdDuAn: 0,
     };
     modalRef.result.then(res => {
 
@@ -112,7 +111,6 @@ export class ThoihancungcapvattuComponent implements OnInit {
       })
   }
   update(item) {
-    console.log(item)
     let modalRef = this._modal.open(ThoihancungcapvattumodalComponent, {
       size: "fullscreen-100",
       backdrop: "static",
@@ -120,11 +118,13 @@ export class ThoihancungcapvattuComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật thu hồi tài sản'
+    modalRef.componentInstance.title = 'Cập nhật thời hạn cung cấp'
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {
       })
+
+
       .catch(er => {
       })
       .finally(() => {

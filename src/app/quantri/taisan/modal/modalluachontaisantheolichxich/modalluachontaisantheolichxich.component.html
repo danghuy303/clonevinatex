@@ -22,13 +22,21 @@
         </div>
     </div>
     <p-treeTable [value]="items" styleClass="p-treetable p-treetable-caption">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col>
+                <col style="width: 200px;">
+                <col>
+                <col *ngFor="let dmbd of listdmLoaiBaoDuong">
+            </colgroup>
+        </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width:50px" class="text-center">
                     <p-checkbox [(ngModel)]="checkedAll" binary="false" inputId="binaryall"
                         (onChange)="checkAll($event)"></p-checkbox>
                 </th>
-                <th class="text-center" style="width: 150px;">Mã</th>
+                <th class="text-center">Mã</th>
                 <th class="text-center">Tên</th>
                 <th *ngFor="let dmbd of listdmLoaiBaoDuong" class="text-center">{{dmbd.TendmLoaiBaoDuong}}</th>
             </tr>
@@ -39,12 +47,13 @@
                     <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="checked()">
                     </p-checkbox>
                 </td>
-                <td  style="width: 150px;text-align: left;">
-                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>   {{rowData.MaTaiSan}} 
+                <td>
+                    <p-treeTableToggler [rowNode]="rowNode" ></p-treeTableToggler>
+                    {{rowData.MaTaiSan}}
                 </td>
-                <td class="text-center">{{rowData.TenTaiSan}}</td>
+                <td>{{rowData.TenTaiSan}}</td>
                 <td *ngFor="let item of rowData?.listLichBaoDuong" class="text-center">
-                   {{item.isChon?'X':''}}
+                    {{item.isChon?'X':''}}
                 </td>
             </tr>
         </ng-template>

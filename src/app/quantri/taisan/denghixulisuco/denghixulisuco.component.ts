@@ -68,7 +68,7 @@ export class DenghixulisucoComponent implements OnInit {
       Keyword: this.filter.Keyword,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
-      TabTrangThai: this.trangThai, Loai: 0, IdDuAn: 0, IdUser: '', IdBoPhanSuDung: '',
+      TabTrangThai: this.trangThai, Loai: 0, IdDuAn: 0, IdUser: '', IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
 
     };
     this._serviceTaiSan.QuyTrinhXuLySuCo().GetList(data).subscribe((res: any) => {
@@ -89,7 +89,7 @@ export class DenghixulisucoComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = 'Vật tư cần thay';
+    modalRef.componentInstance.title = 'Đề nghị xử lý sự cố';
     modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
     modalRef.componentInstance.item = {
       Id: '', IdTrangThai: '', TenTrangThai: "", SoQuyTrinh: '',
@@ -112,7 +112,7 @@ export class DenghixulisucoComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật';
+    modalRef.componentInstance.title = 'Cập nhật nghị xử lý sự cố';
     modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result

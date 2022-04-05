@@ -61,13 +61,14 @@ export class ThanhlytaisanComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       sFilter: this.keyWord,
-      TabTrangThai: this.trangThai
+      TabTrangThai: this.trangThai,
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
 
     };
     this._serviceTaiSan.ThanhLyTaiSan().GetList(data).subscribe((res: any) => {
-      res.Data.Items.forEach(obj=>{  
-        obj.TenPhanXuong = this.listPhanXuong.find(ele=>ele.value===obj.IddmPhanXuong)?.label||null;          
-      });
+      // res.Data.Items.forEach(obj=>{  
+      //   obj.TenPhanXuong = this.listPhanXuong.find(ele=>ele.value===obj.IddmPhanXuong)?.label||null;          
+      // });
       this.items = res.Data.Items;  
       this.paging.TotalCount = res.Data.TotalCount;
     })
@@ -91,7 +92,7 @@ export class ThanhlytaisanComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
-    modalRef.componentInstance.title = ' thanh lý tài sản';
+    modalRef.componentInstance.title = ' Thanh lý tài sản';
     modalRef.componentInstance.item = {
       Id: '',IdTaiSan: "", IdTrangThai: '', SoQuyTrinh: "", TenTrangThai: "",TendmPhanXuong:"",
       isKetThuc: false,listFileDinhKem:[],listTaiSan:[],

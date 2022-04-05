@@ -12,12 +12,12 @@ import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.serv
 export class
   ModalcapnhatbaoduongcopyyComponent implements OnInit {
   item: any = {};
-  items :any = [];
+  items: any = [];
   title: "";
   listLoaiBaoDuong: any = [];
   listChiTiet: any = [];
   listLichBaoDuong: any = [];
-  disabled:boolean=true;
+  disabled: boolean = true;
   constructor(public activeModal: NgbActiveModal,
     public _modal: NgbModal,
     private _danhMucTaiSan: DanhmuctaisanService,
@@ -27,26 +27,25 @@ export class
   ngOnInit(): void {
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
     this._danhMucTaiSan.DanhMucLoaiBaoDuong().GetList(data).subscribe((res: any) => {
-this.items = res.Data;
+      this.items = res.Data;
       this.listLoaiBaoDuong = mapArrayForDropDown(res.Data, "Ten", "Id");
     })
   }
-chonLoaiBaoDuong(e) {
-  let filter;
-  if (e.value !== '') {
-    filter = this.items.find(ele => ele.Id === e.value);
-    this.item.ThoiGianNangSuat = filter?.ThoiGianNangSuat;
-    this.item.NoiDung = filter?.NoiDung;
-  } 
-  
-}
+  chonLoaiBaoDuong(e) {
+    let filter;
+    if (e.value !== '') {
+      filter = this.items.find(ele => ele.Id === e.value);
+      this.item.ThoiGianNangSuat = filter?.ThoiGianNangSuat;
+      this.item.NoiDung = filter?.NoiDung;
+    }
+
+  }
   GhiLai() {
     if (validVariable(this.item.IddmLoaiBaoDuong))
       this.item.TendmLoaiBaoDuong = this.listLoaiBaoDuong.find(obj => obj.value == this.item.IddmLoaiBaoDuong).label;
-      if( this.listLichBaoDuong === undefined)
-      {
-        this.listLichBaoDuong=[];
-      }
+    if (this.listLichBaoDuong === undefined) {
+      this.listLichBaoDuong = [];
+    }
     this.listLichBaoDuong.push(this.item);
     this.activeModal.close(this.listLichBaoDuong);
 

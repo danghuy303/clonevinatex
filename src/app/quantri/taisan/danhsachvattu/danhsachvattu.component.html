@@ -127,7 +127,7 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center">
-                    <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary" (onChange)="checked(item)">
+                    <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary" (onChange)="checked()">
                     </p-checkbox>
                 </td>
                 <td class="text-center">{{item.Ma}} </td>

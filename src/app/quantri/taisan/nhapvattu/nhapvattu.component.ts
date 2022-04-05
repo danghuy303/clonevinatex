@@ -1,3 +1,4 @@
+import { Validatable } from '@amcharts/amcharts4/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -63,8 +64,8 @@ export class NhapvattuComponent implements OnInit {
   Tong() {
     this.tongThanhTien = 0;
     this.item.listTaiSan.forEach(item => {
-      item.ThanhTien = (item.SoLuong | 0) * (item.DonGia | 0);
-      this.tongThanhTien += (item.ThanhTien | 0);
+      item.ThanhTien = (item.SoLuong || 0) * (item.DonGia || 0);
+      this.tongThanhTien += (item.ThanhTien || 0);
     });
   }
   getList() {
@@ -92,22 +93,26 @@ export class NhapvattuComponent implements OnInit {
     return this.item;
   }
   GhiLai() {
-    this._serviceTaiSan.QuyTrinhNhapTu().Set(this.setData()).subscribe((res: any) => {
-      console.log(this.item)
-      if (res.StatusCode !== 200 || !res.StatusCode) {
-        this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-      } else {
-        res.Data.Ngay = UnixToDate(res.Data.NgayUnix)
-        this.item = res.Data;
+    if (this.Validate()) {
+      this._serviceTaiSan.QuyTrinhNhapTu().Set(this.setData()).subscribe((res: any) => {
         console.log(this.item)
-        this.toastr.success(res.Message);
-        this.KiemTraButtonModal();
-        this.activeModal.close();
-
-      }
-    }, (er) => {
-      this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-    })
+        if (res.StatusCode !== 200 || !res.StatusCode) {
+          this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+        } else {
+          res.Data.Ngay = UnixToDate(res.Data.NgayUnix)
+          this.item = res.Data;
+          console.log(this.item)
+          this.toastr.success(res.Message);
+          this.KiemTraButtonModal();
+          this.activeModal.close();
+  
+        }
+      }, (er) => {
+        this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+      })
+    } else {
+      this.toastr.error('Vui lòng nhập đày đủ trường bắt buộc')
+    }
   }
   GetNextSoQuyTrinh() {
     this._serviceTaiSan.QuyTrinhNhapTu().GetNextSoQuyTrinh().subscribe((res: any) => {
@@ -121,7 +126,8 @@ export class NhapvattuComponent implements OnInit {
     });
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
     modalRef.componentInstance.opt = this.opt;
-    modalRef.componentInstance.item = {};
+    // modalRef.componentInstance.item = {};
+    modalRef.componentInstance.item.IdBoPhanSuDung = this.item.IdBoPhanSuDung;
     modalRef.componentInstance.checkedAll = false;
     modalRef.result.then((res: any) => {
       let listKetQua = [];
@@ -175,4 +181,12 @@ export class NhapvattuComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
+  
+  Validate() {
+    if (!validVariable(this.item.Ngay)) {
+      return false
+    }
+  }
+  
+  
 }

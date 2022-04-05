@@ -17,7 +17,8 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit,AfterViewIni
   opt: any = "";
   paging: any = {};
   items:any=[];
-  item: any = [];
+  // item: any = [];
+  item: any = {};
   listItemDaChon: any = [];
   checkedAll: boolean=false;
   listdmLoaiBaoDuong: any = [];
@@ -30,8 +31,7 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit,AfterViewIni
     public toastr: ToastrService,
     private _serviceTaiSan: TaisanService,
     private _danhMucTaiSan: DanhmuctaisanService,
-  ) {
-   }
+  ) {}
   ngOnInit(): void {
     this.GetList();
     let data = { PageSize: 20, CurrentPage: this.paging.page, Keyword: this.Keyword, };
@@ -44,18 +44,23 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit,AfterViewIni
   }
   GetList() {
     let data = {
-      PageSize: 20, CurrentPage: 0, Keyword: "",IddmLoaiTaiSan:'', IdBoPhanSuDung:'',
+      PageSize: 20, 
+      CurrentPage: 0, 
+      Keyword: "",
+      IddmLoaiTaiSan:'', 
+      // IdBoPhanSuDung:'',
+      IdBoPhanSuDung:this.item.IdBoPhanSuDung||"",
     };
-    this._serviceTaiSan.QuyTrinhNhapTu().GetListVatTu(data).subscribe((res: any) => {
+    this._serviceTaiSan.QuyTrinhDeNghiThayVatTu().GetListVatTu(data).subscribe((res: any) => {
     this.items = res.Data;
-    this.items.forEach(obj => {
+    this.items?.forEach(obj => {
       obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
       });
     });
       this.checkedAll = this.items.every(ele => ele.checked);
     }
     TimCheck() {
-       let cha: boolean = false;
+      let cha: boolean = false;
     cha = this.items.every(ele => ele.checked);
       if ((cha)) {
         return true;

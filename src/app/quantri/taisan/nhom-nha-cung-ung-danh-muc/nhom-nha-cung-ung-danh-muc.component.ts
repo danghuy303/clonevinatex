@@ -108,14 +108,18 @@ export class NhomNhaCungUngDanhMucComponent implements OnInit {
     listId = listFilter.reduce((a,b)=>{
       return a.concat(b.Id);
     }, [])
-    this.taiSanService.NhomNhaCungUng().DeleteListNhomCungUng(listId).subscribe((res: any) => {
-      if (res.StatusCode === 200) {
-        this.toast.success(res.Message)
-        this.LoadListNhomCungUng();
-      } else {
-        this.toast.error(res.Message)
-      }
-    })
+    if (listId.length !== 0) {
+      this.taiSanService.NhomNhaCungUng().DeleteListNhomCungUng(listId).subscribe((res: any) => {
+        if (res.StatusCode === 200) {
+          this.toast.success(res.Message)
+          this.LoadListNhomCungUng();
+        } else {
+          this.toast.error(res.Message)
+        }
+      })
+    } else {
+      this.toast.error('Chưa chọn nhóm nhà cung ứng')
+    }
   }
 
   ExportNhomCungUng() {
