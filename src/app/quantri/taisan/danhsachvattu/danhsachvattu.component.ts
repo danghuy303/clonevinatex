@@ -96,47 +96,11 @@ export class DanhsachvattuComponent implements OnInit {
       this.paging.TotalPages = res.Data.TotalPages;
       this.paging.TotalCount = res.Data.TotalCount;
       this.items = res.Data.Items;
-      // this.checkThang();
+      this.CheckExist(this.items);
+      this.TimCheck();
     });
-  }
-
-  checked(item) {
-    this.checkList.push(item);
-    console.log(item.checked);
 
   }
-
-  // checkThang() {
-  //   console.log(this.items);
-
-  // }
-  // checked() {
-  //   this.checkList = this.items.filter(ele => {
-  //     return ele.checked === true;
-  //   }).map(ele => {
-  //     return ele.Id
-  //   })
-  //   this.listVatTuDaChon = this.listVatTuDaChon.concat(this.checkList)
-  //   console.log('this.listVatTuDaChon', this.listVatTuDaChon);
-    
-  //   this.TimCheck()
-  // }
-  // TimCheck() {
-  //   let checkBoxAll = this.items.some(ele => {
-  //     return ele.checked === false;
-  //   })
-  //   this.checkedAll = !checkBoxAll;
-  // }
-
-  // checkAll(e) {
-  //   this.items.forEach(ele => {
-  //     ele.checked = e.checked
-  //   })
-  //   this.TimCheck()
-  // }
-
-
-
 
 
   KiemTraNCC() {
@@ -147,32 +111,37 @@ export class DanhsachvattuComponent implements OnInit {
     })
   }
 
-  checkAll(e) {
+  checked() {
     this.items.forEach(ele => {
-      ele.checked = e.checked
+      if (ele.checked) {
+        if (!this.listVatTuDaChon.includes(ele.Id)) { // Kiểm tra mảng tạm nhớ, nếu chưa có thì push vào
+          this.listVatTuDaChon.push(ele.Id)
+        }
+      } else {
+        if (this.listVatTuDaChon.includes(ele.Id)) { // Kiểm tra mảng tạm nhớ, nếu đã có, mà ta bỏ check thì xóa ra khỏi mảng
+          let index = this.listVatTuDaChon.findIndex(a => a === ele.Id);
+          this.listVatTuDaChon.splice(index, 1)
+        }
+      }
+    });
+    this.TimCheck();
+  }
+
+  CheckExist(items) {
+    items.forEach(ele => {
+      ele.checked = this.listVatTuDaChon.includes(ele.Id);
     })
   }
-  // checked() {
-  //   this.checkList = this.items.filter(ele => {
-  //     return ele.checked === true;
-  //   }).map(ele => {
-  //     return ele.Id
-  //   })
-  //   this.TimCheck()
-  // }
-  // TimCheck() {
-  //   let checkBoxAll = this.items.some(ele => {
-  //     return ele.checked === false;
-  //   })
-  //   this.checkedAll = !checkBoxAll
-  // }
+  TimCheck() {
+    this.checkedAll =  this.items.every(ele => ele.checked);
+  }
 
-  // checkAll(e) {
-  //   this.items.forEach(ele => {
-  //     ele.checked = e.checked
-  //   })
-  //   this.TimCheck()
-  // }
+  checkAll(e) {
+    this.items.forEach(ele => {
+      ele.checked = e.checked;
+    })
+    this.checked();
+  }
 
   KiemTraTabTrangThai() {
     this._serviceDungChung.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {

@@ -49,11 +49,7 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
         }
       });
       this.items = this.TreeItems(this.items)
-
       this.listTaiSanDaChon = this.TimCheck(this.items)
-      console.log('listTaiSanDaChon ',this.listTaiSanDaChon);
-      console.log('listItemDaChon ',this.listItemDaChon);
-      
       this.listItemDaChon.forEach(ele => {
         this.listTaiSanDaChon.forEach(obj => {
           if (obj.data.Id === ele) {
@@ -62,7 +58,7 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
         })
       })
 
-      console.log('selectedNodes', this.selectedNodes );
+      // console.log('selectedNodes', this.selectedNodes );
       
 
     })
@@ -157,12 +153,15 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
   FilterTree() {
     let data = [];
     data = this.selectedNodes.map(ele => {
+      console.log(ele);
+      
       return {
-        MaSanPham: ele.data.Ma,
-        // Id:'',
-        Id: ele.data.Id,
+        MaTaiSan: ele.data.Ma,
+        Id:'',
+        // Id: ele.data.Id,
         GiaTriConLai: ele.data.GiaTriConLai,
         TenTaiSan: ele.data.Ten,
+        IdTaiSan: ele.data.Id,
       }
     })
     return data;

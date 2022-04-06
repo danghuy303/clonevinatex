@@ -21,7 +21,7 @@ import { ModalluachontaisantheolichxichComponent } from '../modal/modalluachonta
 export class LapkehoachlichxichnamComponent implements OnInit {
   opt: any = "";
   listNam: any = [];
-  item: any = {};
+  item: any = {isChon:0,};
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };

@@ -5,10 +5,12 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { ModalchontaisanThanhlyCopyComponent } from '../modal/modalchontaisan-thanhly-copy/modalchontaisan-thanhly-copy.component';
+import { ModalluachontaisantheolichxichComponent } from '../modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
 import { ThoihancungcapmodalluachonComponent } from '../modal/thoihancungcapmodalluachon/thoihancungcapmodalluachon.component';
 
 
@@ -20,13 +22,16 @@ import { ThoihancungcapmodalluachonComponent } from '../modal/thoihancungcapmoda
 export class ThoihancungcapvattumodalComponent implements OnInit {
 
   opt: any = "";
+  title: any = "";
   listNam: any = [];
   item: any = {};
+  itemNhaCungUng: any = {};
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
-  checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true};
+  checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   listPhanXuong = [];
   listLoaiTaiSan = [];
+  listNhaCungUng = [];
   store: any;
 
   constructor(
@@ -40,8 +45,8 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if ( this.item.NgayBaoDuongUnix !== 0) {
-      this.item.NgayBaoDuong = UnixToDate(this.item.NgayBaoDuongUnix);
+    if (this.item.NgayUnix !== 0) {
+      this.item.Ngay = UnixToDate(this.item.NgayUnix);
     }
     this.GetNextSoQuyTrinh();
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
@@ -58,6 +63,25 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
+    // this.GetListNhaCungUng();
+  }
+
+  ChonNhaCungUng(e) {
+    let NhaCungUng;
+    if (!validVariable(e.IddmNhaCungUng)) {
+      NhaCungUng = this.itemNhaCungUng.find(ele => ele.IddmNhaCungUng === e.IdNhaCungUng );
+      // this.item.listTaiSan.push({DonGia:NhaCungUng?.DonGia}) ;
+    e.DonGia = NhaCungUng?.DonGia;
+    console.log(e.DonGia);
+    
+    }
+  }
+
+  GetListNhaCungUng() {
+    this._serviceTaiSan.ThoiHanCungCap().GetListNhaCungUng(this.item.listTaiSan[0]?.IdTaiSan).subscribe((res: any) => {
+      this.itemNhaCungUng = res.Data[0]?.listItem;
+      this.listNhaCungUng = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+    })
   }
 
   GetNextSoQuyTrinh() {
@@ -65,17 +89,18 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
       this.item.SoQuyTrinh = res.Data;
     })
   }
+
   ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open(ThoihancungcapmodalluachonComponent, {
+    let modalRef = this._modal.open(ModalluachontaisantheolichxichComponent, {
       size: "lg",
       backdrop: "static",
     });
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
     modalRef.componentInstance.opt = this.opt;
-    modalRef.componentInstance.Lay_Chon =this.item; 
+    modalRef.componentInstance.Lay_Chon = this.item;
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
-      
+
       let listKetQua = [];
       this.item.listTaiSan.forEach(Tai_San => {
         let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
@@ -83,22 +108,21 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
           listKetQua.push(Tai_San);
         }
       });
-      // vong lap 2
-    res.forEach(Tai_San => {
-      let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-      if (bien === undefined) {
-        listKetQua.push(Tai_San);
-      }
-    });
-    this.item.listTaiSan = listKetQua;
-    console.log(this.item.listTaiSan)
+      res.forEach(Tai_San => {
+        let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+        if (bien === undefined) {
+          listKetQua.push(Tai_San);
+        }
+      });
+      this.item.listTaiSan = listKetQua;
+      this.GetListNhaCungUng();
     })
       .catch((er) => {
       });
   }
-  
+
   setData() {
-    this.item.NgayBaoDuongUnix = DateToUnix(this.item.NgayBaoDuong);
+    this.item.NgayUnix = DateToUnix(this.item.Ngay);
     // this.item.IdDuAn = this.store.getCurrent();
     return this.item;
   }
