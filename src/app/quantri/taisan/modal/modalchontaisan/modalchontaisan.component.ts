@@ -61,7 +61,6 @@ export class ModalchontaisanComponent implements OnInit {
         }
         obj_copy.data = obj;
         this.items.push({ data: obj_copy.data, children: obj_copy.children, expanded: true });
-        console.log(this.items);
       });
       this.checked();
     })
