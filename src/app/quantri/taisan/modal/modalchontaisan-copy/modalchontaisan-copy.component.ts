@@ -13,12 +13,14 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 })
 export class ModalchontaisanCopyComponent implements OnInit {
   opt: any = "";
-  paging: any = {};
   items: TreeNode[];
   item: any = {};
   listItemDaChon: any = [];
   Lay_Chon: any = "";
   checkedAll: boolean = false;
+  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
+  Keyword: any = '';
+  filter: any = {};
 
   constructor(
     public _modal: NgbModal,
@@ -28,31 +30,31 @@ export class ModalchontaisanCopyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.Loaddata();
-    console.log(this.listItemDaChon);
-    
+    this.GetList();
   }
-
-  Loaddata() {
-    let data ={
-      CurrentPage: 0,
-      PageSize: 0,
-      Keyword: '',
+  resetFilter() {
+    this.filter = {};
+    this.GetList();
+  }
+  GetList() {
+    let data = {
+      Keyword: this.filter.Keyword,
+      PageSize: 20,
+      CurrentPage: this.paging.CurrentPage,
       IddmLoaiTaiSan: '',
-      IdBoPhanSuDung: '',
+      IdBoPhanSuDung: this.item.IdBoPhanSuDung,
     }
     this._serviceTaiSan.GetTaiSanTheoLoai().GetListTaiSanThuHoi(data).subscribe((res: any) => {
+      this.paging.TotalCount = res.Data.TotalCount;
       let items = [];
       this.items = [];
-      items = res.Data;
+      items = res.Data.Items;
       items.forEach(obj => {
         obj.checked = this.listItemDaChon.includes(obj.Id);
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];
           obj.listTaiSan.forEach(element => {
-            console.log('check con',this.listItemDaChon.includes(element.Id));
-            
             element.checked = this.listItemDaChon.includes(element.Id);
             obj_copy.children.push({ data: element });
           });
@@ -109,12 +111,12 @@ export class ModalchontaisanCopyComponent implements OnInit {
 
   checked() {
     this.checkedAll = this.TimCheck();
-    this.items.forEach(obj => { 
+    this.items.forEach(obj => {
       obj.children.forEach(objchildren => {
         objchildren.data.checked = obj.data.checked;
       })
     })
-   
+
   }
 
   FilterTree() {
@@ -146,6 +148,10 @@ export class ModalchontaisanCopyComponent implements OnInit {
       }
     });
     return data;
+  }
+  changePage(event) {
+    this.paging.CurrentPage = event.page + 1;
+    this.GetList()
   }
 
   GhiLai() {

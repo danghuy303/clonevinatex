@@ -41,8 +41,8 @@ export class TaisanService {
       GetListTaiSan: (data) => {
         return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanForLapKeHoachLichXich`, data, httpOptions);
       },
-      GetListNhomTaiSan: (data) => {
-        return this.http.post(`${url}QuanLyTaiSan/GetListdmTaiSan`, data, httpOptions);
+      GetListNhomTaiSan: (Id) => {
+        return this.http.get(`${url}QuanLyTaiSan/GetListDanhMucTaiSanByIddmLoaiTaiSan?IddmLoaiTaiSan=${Id}`, httpOptions);
       },
     };
   }
@@ -810,14 +810,17 @@ export class TaisanService {
         }
         return this.http.post(`${url}NhatKySuDung/GetListTaiSanDieuChuyen`, data, httpOptions)
       },
-      GetListTaiSanThuHoi: (IdBoPhanSuDung) => {
-        let data = {
-          CurrentPage: 0,
-          PageSize: 0,
-          Keyword: '',
-          IddmLoaiTaiSan: '',
-          IdBoPhanSuDung: IdBoPhanSuDung
-        }
+      // GetListTaiSanThuHoi: (IdBoPhanSuDung) => {
+      //   let data = {
+      //     CurrentPage: 0,
+      //     PageSize: 0,
+      //     Keyword: '',
+      //     IddmLoaiTaiSan: '',
+      //     IdBoPhanSuDung: IdBoPhanSuDung
+      //   }
+      //   return this.http.post(`${url}NhatKySuDung/GetListTaiSanThuHoi`, data, httpOptions)
+      // },
+      GetListTaiSanThuHoi: (data) => {
         return this.http.post(`${url}NhatKySuDung/GetListTaiSanThuHoi`, data, httpOptions)
       },
     }

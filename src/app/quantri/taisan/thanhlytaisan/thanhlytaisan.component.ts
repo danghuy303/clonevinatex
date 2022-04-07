@@ -33,7 +33,6 @@ export class ThanhlytaisanComponent implements OnInit {
     private activatedRoute: ActivatedRoute, private router: Router,
   ) { }
   ngOnInit(): void {
-    console.log(this.paginator);
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
@@ -76,7 +75,6 @@ export class ThanhlytaisanComponent implements OnInit {
   GetListdmPhanXuong() {
     this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-      this.GetList();
     })
   }
   changeParam(id) {

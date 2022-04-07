@@ -78,4 +78,9 @@ export class ThongTinHangHoaModalComponent implements OnInit {
     })
   }
 
+  changePage(e) {
+    this.paging.currentPage = e.page + 1;
+    this.GetListHangHoa(false);
+  }
+
 }

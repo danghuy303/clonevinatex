@@ -33,6 +33,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
   listLoaiTaiSan = [];
   listNhaCungUng = [];
   store: any;
+  tongThanhTien: any = 0;
 
   constructor(
     private _modal: NgbModal,
@@ -64,16 +65,14 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     // this.GetListNhaCungUng();
+    this.getList();
   }
 
   ChonNhaCungUng(e) {
     let NhaCungUng;
     if (!validVariable(e.IddmNhaCungUng)) {
-      NhaCungUng = this.itemNhaCungUng.find(ele => ele.IddmNhaCungUng === e.IdNhaCungUng );
-      // this.item.listTaiSan.push({DonGia:NhaCungUng?.DonGia}) ;
-    e.DonGia = NhaCungUng?.DonGia;
-    console.log(e.DonGia);
-    
+      NhaCungUng = this.itemNhaCungUng.find(ele => ele.IddmNhaCungUng === e.IdNhaCungUng);
+      e.DonGia = NhaCungUng?.DonGia;
     }
   }
 
@@ -196,5 +195,16 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
       item.isXoa = true;
       this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
     }
+  }
+
+  Tong() {
+    this.tongThanhTien = 0;
+    this.item.listTaiSan.forEach(item => {
+      item.ThanhTien = (item.SoLuong || 0) * (item.DonGia || 0);
+      // this.tongThanhTien += (item.ThanhTien || 0);
+    });
+  }
+  getList() {
+    this.Tong();
   }
 }

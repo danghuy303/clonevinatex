@@ -27,6 +27,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
   listDonVi: any = [];
   NameFile: string = "";
   listTaiSan_copy: any[] = [];
+  khauHaoAll: boolean = false;
 
   constructor(
     public _modal: NgbModal,
@@ -54,14 +55,14 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
   }
 
   Loaddata() {
-    this.item.listTaiSan.forEach((ele, index) => {
+    this.item.listTaiSan?.forEach((ele, index) => {
       ele.STT = index + 1;
     })
   }
 
   Validate() {
-    if (!validVariable(this.item.IdBoPhanSuDung)) {
-      this.toastr.error("Yêu cầu nhập bộ phận sử dụng");
+    if (!validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Ngay)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
       return false;
     }
     return true;
@@ -102,8 +103,9 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
       }
       this._serviceTaiSan.KhauHaoTaiSan().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode === 200) {
-          this.item.Id = res.Data.Id;
+          this.item = res.Data;
           this.item.Ngay = new Date(this.item.Ngay)
+          this.KiemTraButtonModal();
           this.toastr.success(res.Message);
         } else {
           this.toastr.error(res.Message);
@@ -192,18 +194,11 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
   }
 
   ThemMoiDanhSachTaiSan() {
-    // let listId = [];
-    // this.listTaiSan_copy && this.listTaiSan_copy.forEach(ele => {
-    //   listId.push(ele.data.IdTaiSan)
-    //   ele.children && ele.children.forEach(child => {
-    //     listId.push(child.data.IdTaiSan)
-    //   })
-    // })
     let listId = [];
     this.listTaiSan_copy && this.listTaiSan_copy.forEach(ele => {
       listId.push(ele.IdTaiSan)
     })
-    if (this.Validate()) {
+    if (validVariable(this.item.IdBoPhanSuDung)) {
       let modalRef = this._modal.open(ChonTaiSanKhauHaoModalComponent, {
         size: "xl",
         backdrop: "static"
@@ -243,6 +238,8 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
         })
         .catch((er) => {
         });
+    } else {
+      this.toastr.error("Yêu cầu nhập bộ phận sử dụng")
     }
   }
 
@@ -271,4 +268,5 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
 
     });
   }
+
 }

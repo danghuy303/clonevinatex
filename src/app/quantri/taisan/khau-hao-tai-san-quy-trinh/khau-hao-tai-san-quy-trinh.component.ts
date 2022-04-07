@@ -24,6 +24,7 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
   trangThai: any = 1;
   idUser: string = '';
   listdmPhanXuong: any = [];
+  checkKhauHaoAll: boolean;
 
   constructor(
     public _modal: NgbModal,
@@ -137,7 +138,8 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
       backdrop: "static"
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.tabTrangThai = this.trangThai;  
+    // modalRef.componentInstance.tabTrangThai = this.trangThai;  
+    modalRef.componentInstance.tabTrangThai = 0;  
     modalRef.componentInstance.listdmPhanXuong = this.listdmPhanXuong;   
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.componentInstance.item.Ngay = new Date(JSON.parse(JSON.stringify(item.Data.Ngay)));
@@ -156,6 +158,7 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
     this.paging.currentPage = event.page + 1;
     this.Loaddata(false);
   }
+
 
 
 }

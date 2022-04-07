@@ -152,7 +152,8 @@ export class BangiaotaisanComponent implements OnInit {
       backdrop: "static"
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.tabTrangThai = this.trangThai;  
+    // modalRef.componentInstance.tabTrangThai = this.trangThai;  
+    modalRef.componentInstance.tabTrangThai = 0;  
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.componentInstance.item.NgayBanGiao = new Date(JSON.parse(JSON.stringify(item.Data.NgayBanGiao)));
     modalRef.result

@@ -23,7 +23,7 @@
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width:200px">
-            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText [(ngModel)]="keyWord"
+            <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText [(ngModel)]="filter.Keyword"
                 (keyup.enter)="GetList(true)" />
             <button type="button" pButton pRipple icon="pi pi-search"
                 class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
@@ -51,7 +51,6 @@
                 <col>
                 <col>
                 <col>
-                <col>
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
@@ -59,11 +58,10 @@
             <tr>
                 <th class="text-center">STT</th>
                 <th class="text-center">Số phiếu</th>
-                <th class="text-center">Ngày</th>
+                <th class="text-center">Ngày thu hồi</th>
                 <th class="text-center">Bộ phận sử dụng</th>
                 <!-- <th class="text-center">Người đại diện bàn giao</th>
                 <th class="text-center">Nội dung</th> -->
-                <th class="text-center">Ngày thu hồi</th>
                 <th class="text-center">Lý do</th>
                 <th class="text-center">Trạng thái</th>
                 <th class="text-center">Thao tác</th>
@@ -79,7 +77,6 @@
                 </td>
                 <td class="text-center">{{item.NgayThuHoi|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.TenBoPhanSuDung}}</td>
-                <td class="text-center">{{item.NgayThuHoi|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">
                     {{item.NoiDung}}
                 </td>

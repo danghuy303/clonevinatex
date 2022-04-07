@@ -52,7 +52,6 @@
                 <col>
                 <col>
                 <col>
-                <col>
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
@@ -60,9 +59,8 @@
             <tr>
                 <th class="text-center">STT</th>
                 <th class="text-center">Số quy trình</th>
-                <th class="text-center">Ngày</th>
-                <th class="text-center">Bộ phận sử dụng</th>
                 <th class="text-center">Ngày thanh lý</th>
+                <th class="text-center">Bộ phận sử dụng</th>
                 <th class="text-center">Lý do thanh lý</th>
                 <th class="text-center">Giá trị thanh lý</th>
                 <th class="text-center">Trạng thái</th>
@@ -78,8 +76,7 @@
                     {{item.SoQuyTrinh}}
                 </td>
                 <td class="text-center">{{item.NgayThanhLy|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center"></td>
-                <td class="text-center">{{item.NgayThanhLy|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.TenBoPhanSuDung}}</td>
                 <td class="text-center">{{item.NoiDung}}</td>
                 <td class="text-center"></td>
                 <td class="text-center">

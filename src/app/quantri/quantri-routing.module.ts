@@ -214,6 +214,7 @@ const routes: Routes = [
       { path: 'hopdongsanxuat', loadChildren:  ()=> import('./hopdong/hopdong.module').then(m=>m.HopdongModule) },
       { path: 'mkehoachsanxuat', loadChildren:  ()=> import('./mkehoachsanxuat/mkehoachsanxuat.module').then(m=>m.MkehoachsanxuatModule) },
       { path: 'taisan', loadChildren:  ()=> import('./taisan/taisan.module').then(m=>m.TaisanModule) },
+      { path: 'baocaotonghop', loadChildren:  ()=> import('./bao-cao-tong-hop/bao-cao-tong-hop.module').then(m=>m.BaoCaoTongHopModule) },
 
       { path: 'quanlykhosanxuatbongkhac/khovattuphu/nhapkho/:id', component: NhapkhovattuphuComponent },
       { path: 'quanlykhosanxuatbongkhac/khovattuphu/xuatkho/:id', component: XuatkhovattuphuComponent },

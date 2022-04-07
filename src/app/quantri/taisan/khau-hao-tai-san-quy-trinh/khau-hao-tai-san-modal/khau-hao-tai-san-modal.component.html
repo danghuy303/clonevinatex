@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-3 p-p-0 my-auto">Ngày</label>
+            <label class="p-col-12 p-lg-3 p-p-0 my-auto">Ngày<span class="required">*</span></label>
             <div class="p-col-12 p-lg-9 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
                     [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.Ngay"
@@ -57,8 +57,12 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
+        <div class="p-field-checkbox p-d-flex p-ai-center p-px-3">
+            <p-checkbox [(ngModel)]="item.IsTatCa" binary="true" inputId="binary"></p-checkbox>
+            <label class="p-mb-0 p-ml-2" for="binary">Khấu hao tất cả tài sản</label>
+        </div>
     </div>
-    <p-panel header="Tài sản" [toggleable]="true">
+    <p-panel header="Tài sản" [toggleable]="true" *ngIf="!item.IsTatCa">
         <div class="p-d-flex p-flex-row p-jc-between">
             <div class="modal-bt p-mb-4 ">
                 <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm "

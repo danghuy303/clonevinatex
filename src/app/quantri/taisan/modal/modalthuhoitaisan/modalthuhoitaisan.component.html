@@ -46,20 +46,28 @@
                 <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText />
             </div>
         </div>
-        <div class="p-col-12 p-lg-12   d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-1 p-p-0 my-auto">Ghi chú:</label>
-            <div class="p-col-12 p-lg-11 p-p-0">
+        <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ngày thu hồi: <span class="text-danger">(*)</span></label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true" [locale]="lang"
+              [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon" [(ngModel)]="item.NgayThuHoi"
+              placeholder="dd/mm/yyyy">
+            </p-calendar>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
     </div>
-    <p-panel header="Tài sản" [toggleable]="true">
-        <div class="p-d-flex p-flex-row p-jc-between">
-            <div class="modal-bt p-mb-4 ">
-                <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm "
-                    (click)="ThemMoiDanhSachTaiSan()"></button>
-            </div>
+    <div class="p-d-flex p-flex-row p-jc-between p-grid">
+        <div class="modal-bt p-mb-4 p-col-12 p-lg-4 p-mb-3 p-p-3 d-flex flex-column flex-xl-row ">
+            <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm "
+                (click)="ThemMoiDanhSachTaiSan()"></button>
         </div>
+    </div>
         <p-table [value]="item.listTaiSan" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
             [scrollable]="true">
             <ng-template pTemplate="colgroup">
@@ -88,7 +96,7 @@
                 <tr>
                     <td class="text-center"> {{ i + 1 }}</td>
                     <td class="text-center">
-                        {{item.MaSanPham}}
+                        {{item.MaTaiSan}}
                     </td>
                     <td class="text-center">
                         {{item.TenTaiSan}}
@@ -111,7 +119,6 @@
                 </tr>
             </ng-template>
         </p-table>
-    </p-panel>
 </div>
 <div class="modal-footer">
 

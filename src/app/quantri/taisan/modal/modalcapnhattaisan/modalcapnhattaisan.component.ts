@@ -78,9 +78,8 @@ export class ModalcapnhattaisanComponent implements OnInit {
     let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
 
     Promise.all([ls1,ls2]).then((values: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");  
+      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id"); 
       this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");  
-     
     });
   }
 

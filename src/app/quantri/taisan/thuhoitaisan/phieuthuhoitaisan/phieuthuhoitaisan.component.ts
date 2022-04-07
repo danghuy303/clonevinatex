@@ -36,9 +36,8 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
     super(store)
    }
   ngOnInit(): void {
-    console.log(this.paginator);
+
     this.activatedRoute.params.subscribe((res: any) => {
-      console.log(res);
       if (res.id !== "0") {
         this._serviceTaiSan
           .PhieuThuHoiTaiSan()
@@ -54,7 +53,6 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
   }
 
   resetFilter() {
-    this.keyWord = '';
     this.filter = {};
     this.GetList(true);
   }
@@ -67,7 +65,7 @@ export class PhieuthuhoitaisanComponent extends StoreBase implements OnInit,OnDe
     let data = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      keyWord: this.keyWord,
+      Keyword: this.filter.Keyword,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       TabTrangThai: this.trangThai

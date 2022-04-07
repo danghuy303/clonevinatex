@@ -50,7 +50,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     else {
       this.title = "Cập nhật";
       let listTaiSan: TreeNode[] = [];
-      listTaiSan = this.item.listTaiSan.map((ele, index) => {
+      listTaiSan = this.item.listTaiSan?.map((ele, index) => {
         return this.mapDataModelToView(ele,index);
       });
       this.listTaiSan_copy = listTaiSan;
@@ -60,8 +60,6 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
         this.listdmPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
       });
     }
-    console.log(this.item.NgayBanGiao);
-    
   }
 
   GetNhaMay() {
@@ -88,17 +86,6 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     })
   }
 
-  // GetItem() {
-  //   this._serviceTaiSan.BanGiaoTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
-  //     this.item = res.Data;
-  //     let listTaiSan: TreeNode[] = [];
-  //     listTaiSan = this.item.listTaiSan.map((ele, index) => {
-  //      return this.mapDataModelToView(ele,index);
-  //     });
-  //     this.listTaiSan_copy = listTaiSan;
-  //   });
-  // }
-  
   mapDataModelToView(ele, index,indexCha?) {
     return {
       data: {
@@ -120,8 +107,12 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   }
 
   Validate() {
-    if (!validVariable(this.item.IdBoPhanSuDung) ||
-      !validVariable(this.item.IdDuAn)) {
+    // if (!validVariable(this.item.IdBoPhanSuDung) ||
+    //   !validVariable(this.item.IdDuAn)) {
+    //   this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
+    //   return false;
+    // }
+    if (!validVariable(this.item.NgayBanGiao)) {
       this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
       return false;
     }
@@ -161,9 +152,9 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       }
       this._serviceTaiSan.BanGiaoTaiSan().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode === 200) {
-          this.item.Id = res.Id;
+          // this.item.Id = res.Id;
+          this.item = res.Data;
           this.toastr.success(res.Message);
-          console.log(this.item);
         } else {
           this.toastr.error(res.Message);
         }
@@ -221,7 +212,6 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   ThemMoiDanhSachTaiSan() {
     let listId = [];
     this.listTaiSan_copy && this.listTaiSan_copy.forEach(ele => {
-      console.log(ele);
       listId.push(ele.data.IdTaiSan)
       ele.children && ele.children.forEach(child => {
         listId.push(child.data.IdTaiSan)
@@ -236,8 +226,6 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.result
       .then((res: any) => {
-        console.log('res', res);
-        
         this.item.listTaiSan = res;
         let listTaiSan = [];
         res.forEach((element) => {
