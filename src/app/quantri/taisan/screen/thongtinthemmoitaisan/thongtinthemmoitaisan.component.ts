@@ -23,6 +23,7 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
     size: 250
   };
 
+
   @Input('item') item: any = {};
   @Input('TaiSanChaCon') TaiSanChaCon: string = "";
   @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
@@ -34,7 +35,7 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
   constructor(
     private _modal: NgbModal,
     public toastr: ToastrService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     if (this.opt === 'edit') {
@@ -47,8 +48,8 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
     this.item.GiaTriConLai = item.NguyenGia;
   }
   isCanDuTru() {
-    this.item.isCanDuTru=true;
-    this.item.isCanDuTru=false;
+    this.item.isCanDuTru = true;
+    this.item.isCanDuTru = false;
   }
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
@@ -56,7 +57,7 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
     modalRef.componentInstance.type = '';
     modalRef.result.then((data) => {
       console.log(data);
-      
+
       this.item.listFileDinhKem = data;
       this.item.listFileDinhKem.forEach(obj => {
         this.NameFile += `${obj.NameLocal}, `;
@@ -86,14 +87,15 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
       size: "xl",
       backdrop: "static",
     });
-    
+
     // modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.Id) : [];
-    // modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.ItemDaChon = this.item.IdNhomTaiSan ? this.item.IdNhomTaiSan  : "";
     modalRef.componentInstance.item = this.item;
-    // modalRef.result.then((res: any) => {
-    //   this.item.listTaiSan = res;
-    // })
-    //   .catch((er) => {
-    //   });
+    modalRef.result.then((res: any) => {
+      this.item.IdNhomTaiSan = res[0]?.Id;
+      this.item.TenNhomTaiSan = res[0]?.MaTaiSan;
+    })
+      .catch((er) => {
+      });
   }
 }

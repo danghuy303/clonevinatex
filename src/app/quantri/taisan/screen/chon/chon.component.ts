@@ -14,7 +14,10 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 })
 export class ChonComponent implements OnInit {
   item: any = {};
+  items: any = [];
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
+  ItemDaChon: any = '';
+  checkedAll: boolean;
 
   constructor(
     public _modal: NgbModal,
@@ -25,22 +28,48 @@ export class ChonComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.item);
-
     this.GetList();
   }
-  GetList() {
-    let data = {
-      Keyword: '',
-      PageSize: 20,
-      CurrentPage: this.paging.CurrentPage,
-      IddmLoaiTaiSan:this.item.IddmLoaiTaiSan ,
-      TuNgay: 0,
-      DenNgay: 0,
-    };
-    this._serviceTaiSan.NhapTaiSan().GetListNhomTaiSan(data).subscribe((res: any) => {
-      this.paging.TotalCount = res.Data.TotalCount;
 
+  GetList() {
+    this._serviceTaiSan.NhapTaiSan().GetListNhomTaiSan(this.item.IddmLoaiTaiSan).subscribe((res: any) => {
+      this.items = res.Data;
+      this.items.forEach(ele => {
+        ele.checked = this.ItemDaChon === ele.Id;
+      })
     })
+  }
+
+  checked() {
+    this.timCheck();
+  }
+
+  timCheck() {
+    this.checkedAll = this.items.every(ele => ele.checked);
+  }
+
+  checkAll(e) {
+    this.items.forEach(ele => {
+      ele.checked = e.checked;
+    })
+    this.timCheck();
+  }
+
+  FilterTree() {
+    let data = [];
+    data = this.items.map(ele => {
+      if (ele.checked) {
+        return {
+          MaTaiSan: ele.Ma,
+          Id: ele.Id,
+          TenTaiSan: ele.Ten,
+        }
+      }
+    })
+    return data;
+  }
+
+  GhiLai() {
+    this.activeModal.close(this.FilterTree());
   }
 }

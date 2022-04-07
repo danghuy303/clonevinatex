@@ -17,6 +17,7 @@ import { ModalchontaisanComponent } from '../modalchontaisan/modalchontaisan.com
   styleUrls: ['./modalthanhlytaisan.component.css']
 })
 export class ModalthanhlytaisanComponent implements OnInit {
+
   newitem: any = {};
   showDropDown: boolean = false;
   item: any = { listTaiSan: [] };
@@ -32,6 +33,8 @@ export class ModalthanhlytaisanComponent implements OnInit {
   listTaiSan_copy: any = [];
   NameFile: string;
   title: any = '';
+  TongGiaTri: any = 0;
+
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -50,13 +53,13 @@ export class ModalthanhlytaisanComponent implements OnInit {
     }
     this.KiemTraButtonModal();
     this.GetListdmPhanXuong();
-    this.GetListTaiSanChuaBanGiao();
+    // this.GetListTaiSanChuaBanGiao();
 
-    this.GetPhanXuong();
+    // this.GetPhanXuong();
+    this.getList();
   }
   GetListdmPhanXuong() {
     this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
@@ -93,19 +96,28 @@ export class ModalthanhlytaisanComponent implements OnInit {
     this.item.IdDuAn = this.store.getCurrent();
     return this.item;
   }
+  ValidateData() {
+    if (!validVariable(this.item.NgayThanhLy)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
+      return false;
+    }
+    return true;
+  }
   GhiLai() {
-    this._serviceTaiSan.ThanhLyTaiSan().Set(this.setData()).subscribe((res: any) => {
-      if (res.StatusCode !== 200 || !res.StatusCode) {
+    if (this.ValidateData()) {
+      this._serviceTaiSan.ThanhLyTaiSan().Set(this.setData()).subscribe((res: any) => {
+        if (res.StatusCode !== 200 || !res.StatusCode) {
+          this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+        } else {
+          this.item = res.Data; // khi Ghi hiện duyệt >> KiemTraButtonModal()
+          this.toastr.success(res.Message);
+          this.KiemTraButtonModal();
+          // this.activeModal.close();
+        }
+      }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-      } else {
-        this.item = res.Data; // khi Ghi hiện duyệt >> KiemTraButtonModal()
-        this.toastr.success(res.Message);
-        this.KiemTraButtonModal();
-        // this.activeModal.close();
-      }
-    }, (er) => {
-      this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-    })
+      })
+    }
   }
   GetNextSoQuyTrinh() {
     this._serviceTaiSan.ThanhLyTaiSan().GetNextSoQuyTrinh().subscribe((res: any) => {
@@ -117,15 +129,14 @@ export class ModalthanhlytaisanComponent implements OnInit {
       size: "xl",
       backdrop: "static",
     });
-    
-    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.Id) : [];
+
+    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : [];
 
     modalRef.componentInstance.opt = this.opt;
-    modalRef.componentInstance.item = {};
+    modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
-      console.log(res);
       this.item.listTaiSan = res;
-      
+
       // let listTaiSan = [];
       // res.forEach(element => {
       //   if (!validVariable(element.TaiSan.IdTaiSan)) {
@@ -152,7 +163,6 @@ export class ModalthanhlytaisanComponent implements OnInit {
   }
   ChapNhan() {
     this._serviceTaiSan.ThanhLyTaiSan().ChuyenTiep(this.setData()).subscribe((res: any) => {
-      console.log(res)
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
       } else {
@@ -182,7 +192,17 @@ export class ModalthanhlytaisanComponent implements OnInit {
   GetPhanXuong() {
     this._serviceTaiSan.GetListTaiSanThuHoi().GetListTaiSan(this.item.IddmPhanXuong).subscribe((res: any) => {
       this.listTaiSan = res.Data;
-      console.log(res.Data);
     });
+  }
+
+  Tong() {
+    this.TongGiaTri = 0;
+    this.item.listTaiSan.forEach(item => {
+      console.log('item.GiaTriThanhL', item.GiaTriThanhLy);
+      this.TongGiaTri += (item.GiaTriThanhLy || 0);
+    })
+  }
+  getList() {
+    this.Tong();
   }
 }

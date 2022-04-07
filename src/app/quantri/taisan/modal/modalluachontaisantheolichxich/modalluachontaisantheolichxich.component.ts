@@ -36,7 +36,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.item)
     let data = {
       Keyword: this.filter.Keyword,
       CurrentPage: 0,

@@ -30,6 +30,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   store: any;
   TaiSanItem: any = [];
   count: number;
+  trangThai:any = 0;
 
 
   constructor(
@@ -239,5 +240,10 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   }
   ChonLoaiTaiSan(i) {
     let item = this.item.listTaiSan.splice(i, 1)[0];
+  }
+  changeTab(e) {
+    console.log('eeee', e);
+    
+    this.trangThai = e.index;
   }
 }
