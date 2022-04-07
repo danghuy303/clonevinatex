@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChildren } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
+import { debounce, debounceTime } from 'rxjs/operators';
 import { CalcmodalComponent } from 'src/app/quantri/modal/calcmodal/calcmodal.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
@@ -35,6 +37,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
   TongKhoiLuong: any = 0;
   userInfo: any ;
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
+  typing:Subject<string>=new Subject<string>();
+  $typing:Subscription
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService, 
     private _auth: AuthenticationService,
     public _modal: NgbModal, ) {
@@ -42,17 +46,16 @@ export class ThongkesanluongmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.getListCongDoan();
     if (this.item.isTruVaoSanLuong === undefined)
       this.item.isTruVaoSanLuong = false;
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
-      this.GetPhanXuongTheoUser()
+      this.GetPhanXuongTheoUser();
+      this.GetTyLeThongKeSanLuongBongPhe();
     }
     else {
     this.userInfo = this._auth.currentUserValue;
-
       this.KiemTraButtonModal();
       this.getItemTheoCongDoan();
     }
@@ -63,6 +66,25 @@ export class ThongkesanluongmodalComponent implements OnInit {
     this.getListCaSanXuat();
     this.getListLoHang();
     this.getListCaThucTe();
+    this.$typing = this.typing.asObservable().pipe(debounceTime(200)).subscribe(_=>{this.TinhTyLeThongKeSanLuongBongPhe()});
+  }
+  Typing(event){
+    // console.log(event.value);
+    this.TinhTongKhoiLuongBong()
+    // this.typing.next(event.value);
+  }
+
+  GetTyLeThongKeSanLuongBongPhe() {
+    this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe().subscribe((res: any) => {
+      // this.item.SoQuyTrinh = res.SoQuyTrinh;
+      this.item.listTyLeBongPhe = res;
+    })
+  }
+  TinhTyLeThongKeSanLuongBongPhe() {
+    console.log(this.item)
+    this.services.ThongKeSanLuong().TinhTyLeThongKeSanLuongBongPhe(this.item.listTyLeBongPhe).subscribe((res: any) => {
+      this.item.listTyLeBongPhe = res;
+    })
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -548,52 +570,65 @@ export class ThongkesanluongmodalComponent implements OnInit {
     }else{
       let nextFocus = this.inputNumbers.toArray().find(ele=>ele.tabindex ===i+5);
       if(validVariable(nextFocus)){
-        nextFocus.el.nativeElement.children[0].children[0].focus()
+        nextFocus.el.nativeElement.children[0].children[0].focus();
       }else{
         this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
       }
     }
   }
   TinhTongKhoiLuongBong() {
-    switch (this.item.CongDoan) {
-      case 'CHAICOTTON':
-        this.TinhTyLeCottonBongPhe();
-        break;
-      case 'CHAIPE':
-        this.TinhTyLePEBongPhe();
-        break;
-      case 'CHAIKY':
-        this.TinhTyLeBongChaiKy();
-        break;
-      case 'THO':
-        this.TinhTyLeBongCuiHoi();
-        break;
-      case 'ONG':
-        this.TinhTyLeSoiCat();
-        break;
-      case 'CON':
-        this.TinhTyLeBongThoMang();
-        break;
-      case 'GHEPDAURA':
-        this.TinhTyLeCuiHoiGhepDauRa();
-        break;
-      case 'GHEPSOBOCOTTON':
-        this.TinhTyLeCuiHoiGhepSoBoCotton();
-        break;
-      case 'GHEPTRONA':
-        this.TinhTyLeCuiHoiGhepTronA();
-        break;
-      case 'GHEPTRONB':
-        this.TinhTyLeCuiHoiGhepTronB();
-        break;
-      case 'GHEPSOBOPE':
-        this.TinhTyLeCuiHoiGhepSoBoPE();
-        break;
-      default:
-        this.TongKhoiLuong = 0;
-        this.TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
-        break;
-    }
+    // switch (this.item.CongDoan) {
+    //   case 'CHAICOTTON':
+    //     this.TinhTyLeCottonBongPhe();
+    //     break;
+    //   case 'CHAIPE':
+    //     this.TinhTyLePEBongPhe();
+    //     break;
+    //   case 'CHAIKY':
+    //     this.TinhTyLeBongChaiKy();
+    //     break;
+    //   case 'THO':
+    //     this.TinhTyLeBongCuiHoi();
+    //     break;
+    //   case 'ONG':
+    //     this.TinhTyLeSoiCat();
+    //     break;
+    //   case 'CON':
+    //     this.TinhTyLeBongThoMang();
+    //     break;
+    //   case 'GHEPDAURA':
+    //     this.TinhTyLeCuiHoiGhepDauRa();
+    //     break;
+    //   case 'GHEPSOBOCOTTON':
+    //     this.TinhTyLeCuiHoiGhepSoBoCotton();
+    //     break;
+    //   case 'GHEPTRONA':
+    //     this.TinhTyLeCuiHoiGhepTronA();
+    //     break;
+    //   case 'GHEPTRONB':
+    //     this.TinhTyLeCuiHoiGhepTronB();
+    //     break;
+    //   case 'GHEPSOBOPE':
+    //     this.TinhTyLeCuiHoiGhepSoBoPE();
+    //     break;
+    //   default:
+        let TongKhoiLuong = 0;
+        TongKhoiLuong = this.listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
+        let TongBongPhe = this.item.listTyLeBongPhe.find(ele=>ele.MaCongDoan === this.item.CongDoan)?.listKhoiLuongBongPhe.reduce((a,b)=>a+(b.KhoiLuong||0),0);
+        console.log(TongBongPhe);
+        console.log(TongKhoiLuong);
+        if(this.item.isTruVaoSanLuong){
+          this.TongKhoiLuong = TongKhoiLuong - TongBongPhe;
+        }else{
+          this.TongKhoiLuong = TongKhoiLuong;
+        }
+        console.log(this.TongKhoiLuong);
+        let found = this.item.listTyLeBongPhe.find(ele=>ele.MaCongDoan===this.item.CongDoan);
+        found.TongKhoiLuongCongDoan = this.TongKhoiLuong;
+        found.isTruVaoSanLuong = this.item.isTruVaoSanLuong;
+        this.typing.next('');
+    //     break;
+    // }
   }
 
   resetKhoiLuongCuiHoi() {
@@ -656,5 +691,8 @@ export class ThongkesanluongmodalComponent implements OnInit {
         item.isM = false;
       });
     }
+  }
+  ngOnDestroy(){
+    this.$typing.unsubscribe()
   }
 }

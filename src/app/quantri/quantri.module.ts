@@ -259,6 +259,9 @@ import { BaocaothongketiendienComponent } from './danhmuc/thongkedientheoca/baoc
 import { BaocaothongketiendienmodalComponent } from './danhmuc/thongkedientheoca/baocaothongketiendien/baocaothongketiendienmodal/baocaothongketiendienmodal.component';
 import { ThongkesanluongcamodalComponent } from './quanlykhosanxuat/thongke/thongkesanluong/thongkesanluongcamodal/thongkesanluongcamodal.component';
 import { DmloaidienComponent } from './danhmuc/thongkedientheoca/dmloaidien/dmloaidien.component';
+import { LoaiBongPheDanhMucComponent } from './danhmuc/danhmucsanxuat/loai-bong-phe-danh-muc/loai-bong-phe-danh-muc.component';
+import { LoaiBongPheDmModalComponent } from './danhmuc/danhmucsanxuat/loai-bong-phe-danh-muc/loai-bong-phe-dm-modal/loai-bong-phe-dm-modal.component';
+import { TyLeTieuChuanBongPheComponent } from './danhmuc/danhmucsanxuat/ty-le-tieu-chuan-bong-phe/ty-le-tieu-chuan-bong-phe.component';
 
 
 @NgModule({
@@ -469,7 +472,10 @@ import { DmloaidienComponent } from './danhmuc/thongkedientheoca/dmloaidien/dmlo
     BaocaothongketiendienComponent,
     BaocaothongketiendienmodalComponent,
     DmloaidienComponent,
-    ModaldmloaidienComponent
+    ModaldmloaidienComponent,
+    LoaiBongPheDanhMucComponent,
+    LoaiBongPheDmModalComponent,
+    TyLeTieuChuanBongPheComponent
   ],
   imports: [
     HttpClientModule,
@@ -625,7 +631,8 @@ import { DmloaidienComponent } from './danhmuc/thongkedientheoca/dmloaidien/dmlo
     BaocaothongketiendienmodalComponent,
 
     Phuhung1Component,
-    Phuhung2Component
+    Phuhung2Component,
+    LoaiBongPheDmModalComponent,
   ],
   providers: [
     SanXuatService,
