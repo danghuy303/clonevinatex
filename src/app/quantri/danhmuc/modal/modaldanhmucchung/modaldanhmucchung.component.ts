@@ -17,11 +17,13 @@ export class ModaldanhmucchungComponent implements OnInit {
   khongclicknhieu: any = false;
   listLoaiBong: any = [];
   listLoaiNhomKho: any = [];
+  listLoaiBongPhe: any = [];
   constructor(public activeModal: NgbActiveModal, private services: Dat09Service, private sanXuatService: SanXuatService, public toastr: ToastrService) { }
 
   ngOnInit(): void {
     if(this.type === 'loaibong'){
       this.GetListLoaiBong();
+      this.GetListLoaiBongPhe();
     }
     if(this.type === 'dmnhomkho'){
       this.GetListLoaiNhomKho();
@@ -32,12 +34,16 @@ export class ModaldanhmucchungComponent implements OnInit {
       this.listLoaiNhomKho = mapArrayForDropDown(res, "Ten", 'Loai');
     })
   }
+  GetListLoaiBongPhe() {
+    this.sanXuatService.DanhMucLoaiBongPhe().GetList({CurrentPage:0}).subscribe((res: any) => {
+      this.listLoaiBongPhe = mapArrayForDropDown(res, "Ten", 'Id');
+    })
+  }
   accept() {
     this.item.HoatDong = true;
     this.khongclicknhieu = !this.khongclicknhieu;
     if (this.item.Ma !== undefined && this.item.Ma !== null && this.item.Ten !== undefined && this.item.Ten !== null) {
       switch (this.type) {
-
         case 'capbong': this.capbong();
           break;
         case 'loaibong': this.loaibong();

@@ -96,6 +96,13 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
+        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-1 p-p-0 my-auto">Nội dung:</label>
+            <div class="p-col-12 p-lg-11 p-p-0">
+                <!-- <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText /> -->
+                <textarea pInputTextarea [(ngModel)]="item.NoiDung"></textarea>
+            </div>
+        </div>
         <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Trừ vào sản lượng gian máy:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -218,12 +225,14 @@
                                     [tabindex]="i*5+2" (ngModelChange)="TinhCongThucMoi(itemtbl)">
                                 </p-inputNumber>
                                 <p-inputNumber *ngIf="item.CongDoan==='CHAICOTTON'" [minFractionDigits]="3"
-                                    locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2"
+                                    locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                    (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2"
                                     (ngModelChange)="TinhKhoiLuongChaiCotton(itemtbl)">
                                 </p-inputNumber>
                                 <p-inputNumber *ngIf="item.CongDoan==='GHEPSOBOCOTTON' || item.CongDoan==='GHEPTRONB' || item.CongDoan==='GHEPTRONA' 
-                                || item.CongDoan==='GHEPDAURA' || item.CongDoan==='GHEPSOBOPE'" 
-                                [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai"  #inputNumber (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2"
+                                || item.CongDoan==='GHEPDAURA' || item.CongDoan==='GHEPSOBOPE'" [minFractionDigits]="3"
+                                    locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
+                                    (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2"
                                     (ngModelChange)="TinhKhoiLuongGhepSoBoChaiCotton(itemtbl)">
                                 </p-inputNumber>
                                 <p-inputNumber #inputNumber *ngIf="item.CongDoan==='THO'" [minFractionDigits]="3"
@@ -231,17 +240,17 @@
                                     (ngModelChange)="TinhKhoiLuongTho(itemtbl)" (keyup.enter)="enterCon(i*5+2)"
                                     [tabindex]="i*5+2">
                                 </p-inputNumber>
-                                <p-inputNumber
-                                    *ngIf="item.CongDoan==='CHAIPE'" [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
-                                    (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2" (ngModelChange)="TinhKhoiLuongChaiPE(itemtbl)">
+                                <p-inputNumber *ngIf="item.CongDoan==='CHAIPE'" [minFractionDigits]="3" locale="en-EN"
+                                    [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)"
+                                    [tabindex]="i*5+2" (ngModelChange)="TinhKhoiLuongChaiPE(itemtbl)">
                                 </p-inputNumber>
-                                <p-inputNumber
-                                    *ngIf="item.CongDoan==='CHAIKY'" [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
-                                    (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2" (ngModelChange)="TinhKhoiLuongChaiKy(itemtbl)">
+                                <p-inputNumber *ngIf="item.CongDoan==='CHAIKY'" [minFractionDigits]="3" locale="en-EN"
+                                    [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)"
+                                    [tabindex]="i*5+2" (ngModelChange)="TinhKhoiLuongChaiKy(itemtbl)">
                                 </p-inputNumber>
-                                <p-inputNumber
-                                    *ngIf="item.CongDoan==='CUONCUI'" [minFractionDigits]="3" locale="en-EN" [(ngModel)]="itemtbl.ChieuDai" #inputNumber
-                                    (keyup.enter)="enterCon(i*5+2)" [tabindex]="i*5+2" (ngModelChange)="TinhKhoiLuongCuonCui(itemtbl)">
+                                <p-inputNumber *ngIf="item.CongDoan==='CUONCUI'" [minFractionDigits]="3" locale="en-EN"
+                                    [(ngModel)]="itemtbl.ChieuDai" #inputNumber (keyup.enter)="enterCon(i*5+2)"
+                                    [tabindex]="i*5+2" (ngModelChange)="TinhKhoiLuongCuonCui(itemtbl)">
                                 </p-inputNumber>
                             </td>
 
@@ -301,7 +310,7 @@
                     </ng-container>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <tr >
+                    <tr>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -340,478 +349,35 @@
             </p-table>
             <br />
             <div class="p-col-12 p-p-0 d-flex flex-column p-jc-end">
-                <div class="p-col-12 p-p-0 d-flex flex-row p-jc-end">
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='CHAICOTTON'">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông F:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.CottonBongPhe"
-                                    (ngModelChange)="TinhTyLeCottonBongPhe()">
-                                </p-inputNumber>
+                <ng-container *ngFor="let CongDoan of item.listTyLeBongPhe|filterByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz')">
+                    <div class="p-col-12 p-p-0 d-flex flex-row p-jc-end"
+                        *ngFor="let bongphe of CongDoan.listKhoiLuongBongPhe">
+                        <div class="p-grid" style="width:100%">
+                            <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng
+                                    {{bongphe.TenLoaiBongPhe}}</label>
+                                <div class="p-col-12 p-lg-7 p-p-0">
+                                    <p-inputNumber [minFractionDigits]="3" locale="en-EN"
+                                        [(ngModel)]="bongphe.KhoiLuong" (onBlur)="Typing($event)">
+                                    </p-inputNumber>
+                                </div>
+                                <div class="p-col-12 p-lg-1 p-p-0">
+                                    <button pButton pRipple icon="pi pi-ellipsis-v"
+                                        class="p-button-sm p-button-rounded p-button-secondary p-button-text"
+                                        title="Nhập theo biểu thức" (click)="tinhToan(bongphe,'KhoiLuong')"
+                                        pTooltip="Tính toán" showDelay="1000" tooltipPosition="bottom"></button>
+                                </div>
                             </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    title="Nhập theo biểu thức" (click)="tinhToan(item,'CottonBongPhe')"
-                                    pTooltip="Tính toán" showDelay="1000" tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeCottonBongPhe|number:'0.3-3'}}
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông mùn:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.CottonBongMun"
-                                    (ngModelChange)="TinhTyLeCottonBongPhe()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'CottonBongMun')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeCottonBongMun|number:'0.3-3'}}
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN"
-                                    [(ngModel)]="item.KhoiLuongCuiHoiChaiCotton"
-                                    (ngModelChange)="TinhTyLeCottonBongPhe()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'KhoiLuongCuiHoiChaiCotton')" pTooltip="Tính toán"
-                                    showDelay="1000" tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ cúi hồi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeCuiHoiChaiCotton|number:'0.3-3'}}
-                            </div>
-                        </div>
-
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng xơ ngoại lai:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN"
-                                    [(ngModel)]="item.KhoiLuongXoNgoaiLai"
-                                    (ngModelChange)="TinhTyLeCottonBongPhe()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'KhoiLuongXoNgoaiLai')" pTooltip="Tính toán"
-                                    showDelay="1000" tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ xơ ngoại lai (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeXoNgoaiLai|number:'0.3-3'}}
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông quét nhà:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.CottonBongQuetNha"
-                                    (ngModelChange)="TinhTyLeCottonBongPhe()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'CottonBongQuetNha')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông quét nhà (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeCottonBongQuetNha|number:'0.3-3'}}
+                            <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
+                                <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ {{bongphe.TenLoaiBongPhe}}
+                                    (%):</label>
+                                <div class="p-col-12 p-lg-8 p-p-0">
+                                    {{bongphe.TyLe|number:'0.3-3'}}
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='CHAIPE'">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.PECuiHoi"
-                                    (ngModelChange)="TinhTyLePEBongPhe()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'PECuiHoi')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLePECuiHoi|number:'0.3-3'}}
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông F:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.PEBongPhe"
-                                    (ngModelChange)="TinhTyLePEBongPhe()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'PEBongPhe')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLePEBongPhe|number:'0.3-3'}}
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông mùn:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.PEBongMun"
-                                    (ngModelChange)="TinhTyLePEBongPhe()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'PEBongMun')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLePEBongMun|number:'0.3-3'}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='CHAIKY'">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông chải kỹ:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.ChaiKy"
-                                    (ngModelChange)="TinhTyLeBongChaiKy()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'ChaiKy')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeBongChaiKy|number:'0.3-3'}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='THO'">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.CuiHoi"
-                                    (ngModelChange)="TinhTyLeBongCuiHoi()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'CuiHoi')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeBongCuiHoi|number:'0.3-3'}}
-                            </div>
-                        </div>
-
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng thô màng:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.ThoMangTho"
-                                    (ngModelChange)="TinhTyLeBongCuiHoi()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'ThoMangTho')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeThoMangTho|number:'0.3-3'}}
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông quét nhà:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.ThoBongQuetNha"
-                                    (ngModelChange)="TinhTyLeBongCuiHoi()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'ThoBongQuetNha')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông quét nhà (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeThoBongQuetNha|number:'0.3-3'}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='CON'">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng thô màng:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.ThoMang"
-                                    (ngModelChange)="TinhTyLeBongThoMang()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'ThoMang')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeThoMang|number:'0.3-3'}}
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông hút mối:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.BongHutMoi"
-                                    (ngModelChange)="TinhTyLeBongThoMang()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'BongHutMoi')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeBongHutMoi|number:'0.3-3'}}
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông quét nhà:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.ConBongQuetNha"
-                                    (ngModelChange)="TinhTyLeBongThoMang()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'ConBongQuetNha')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông quét nhà (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeConBongQuetNha|number:'0.3-3'}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='ONG'">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng sợi cắt:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.SoiCat"
-                                    (ngModelChange)="TinhTyLeSoiCat()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'SoiCat')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông rơi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeSoiCat|number:'0.3-3'}}
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng bông quét nhà:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN" [(ngModel)]="item.OngBongQuetNha"
-                                    (ngModelChange)="TinhTyLeSoiCat()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'OngBongQuetNha')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ bông quét nhà (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeOngBongQuetNha|number:'0.3-3'}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='GHEPSOBOCOTTON'">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Cúi hồi:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN"
-                                    [(ngModel)]="item.TongKhoiLuongCuiHoi" (ngModelChange)="resetKhoiLuongCuiHoi()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'TongKhoiLuongCuiHoi')" pTooltip="Tính toán" showDelay="1000"
-                                    tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ cúi hồi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeCuiHoiGhepSoBoCotton|number:'0.3-3'}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='GHEPDAURA'">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN"
-                                    [(ngModel)]="item.KhoiLuongCuiHoiGhepDauRa"
-                                    (ngModelChange)="TinhTyLeCuiHoiGhepDauRa()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'KhoiLuongCuiHoiGhepDauRa')" pTooltip="Tính toán"
-                                    showDelay="1000" tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ cúi hồi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeCuiHoiGhepDauRa|number:'0.3-3'}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='GHEPTRONA'">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN"
-                                    [(ngModel)]="item.KhoiLuongCuiHoiGhepTronA"
-                                    (ngModelChange)="TinhTyLeCuiHoiGhepTronA()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'KhoiLuongCuiHoiGhepTronA')" pTooltip="Tính toán"
-                                    showDelay="1000" tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ cúi hồi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeCuiHoiGhepTronA|number:'0.3-3'}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='GHEPTRONB'">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN"
-                                    [(ngModel)]="item.KhoiLuongCuiHoiGhepTronB"
-                                    (ngModelChange)="TinhTyLeCuiHoiGhepTronB()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'KhoiLuongCuiHoiGhepTronB')" pTooltip="Tính toán"
-                                    showDelay="1000" tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ cúi hồi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeCuiHoiGhepTronB|number:'0.3-3'}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-grid" style="width:100%" *ngIf="item.CongDoan==='GHEPSOBOPE'">
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng cúi hồi:</label>
-                            <div class="p-col-12 p-lg-7 p-p-0">
-                                <p-inputNumber [minFractionDigits]="3" locale="en-EN"
-                                    [(ngModel)]="item.KhoiLuongCuiHoiGhepSoBoPE"
-                                    (ngModelChange)="TinhTyLeCuiHoiGhepSoBoPE()">
-                                </p-inputNumber>
-                            </div>
-                            <div class="p-col-12 p-lg-1 p-p-0">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" title="Nhập theo biểu thức"
-                                    class="p-button-sm p-button-rounded p-button-secondary p-button-text"
-                                    (click)="tinhToan(item,'KhoiLuongCuiHoiGhepSoBoPE')" pTooltip="Tính toán"
-                                    showDelay="1000" tooltipPosition="bottom"></button>
-                            </div>
-                        </div>
-                        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
-                            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tỷ lệ cúi hồi (%):</label>
-                            <div class="p-col-12 p-lg-8 p-p-0">
-                                {{item.TyLeCuiHoiGhepSoBoPE|number:'0.3-3'}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </ng-container>
                 <div class="p-col-12 p-p-0 d-flex flex-row p-jc-end">
                     <div class="p-grid" style="width:100%">
                         <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">

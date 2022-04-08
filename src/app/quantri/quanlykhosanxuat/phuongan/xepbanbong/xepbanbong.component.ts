@@ -56,7 +56,11 @@ export class XepbanbongComponent extends StoreBase implements OnInit,OnDestroy {
     '57':{
       '1cf3f340_0f55_4f34_938p_e329318e25et': Phuhung1Component,
       '1cf3f340_0f55_4f34_938p_e629318e25et': Phuhung2Component
-    }
+    },
+    '60': {
+      '1cf3f340_0f55_4f34_938p_e329318e25et': Dongvanpx1Component,
+      '320d695b_2f56_42a7_a68d_14077f85fb93': Dongvanpx2Component
+    },
   }
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listdmPhanXuong: any = [];

@@ -354,14 +354,14 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         { Ten: 'Điện AC | khí nén', TieuHao: "KwH", DonVi: 'KW', ManHinh: `${this._formatN(res.DienAC_KW)} | ${this._formatN(res.DienKhiNen_KW)}` },
         { Ten: 'Tổng điện', TieuHao: "KwH", DonVi: 'KW', ManHinh: this._formatN(res.TongDien_KW), button: 'xuatexceltongdien', button2: 'bieudotongdien' },
         { Ten: 'Tỷ lệ điện AC | Khí nén (3)/(4)', TieuHao: '%', DonVi: '%', ManHinh: `${this._formatN(res.DienAC_PhanTram)} | ${this._formatN(res.DienKhiNen_PhanTram)}` },
-        { Ten: 'Tiêu hao bình quân', TieuHao: 'KwH', DonVi: 'KwH/kg', ManHinh: this._formatN(res.TieuHaoDienBinhQuan) },
+        { Ten: 'Tiêu hao BQ | BQ theo ca', TieuHao: 'KwH', DonVi: 'KwH/kg', ManHinh: `${this._formatN(res.TieuHaoDienBinhQuan)} | ${this._formatN(res.TieuHaoDienBinhQuan_TrenCa)}` },
       ]
       this.thongKes1 = [
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },
         { Ten: 'Sản lượng quy Ne 30(kg):', GiaTri: res.SanLuongQuyNe30 },
+        { Ten: 'Sản lượng quy Ne 30/ca:', GiaTri: res.SanLuongQuyNe30_TrenCa },
+        (this.filter.IddmCaSanXuatThucTe !== '')&&{ Ten: 'Sản lượng quy Ne 30 theo ca:', GiaTri: res.SanLuongQuyNe30_TheoKip },
         { Ten: 'Lũy kế quy Ne 30(kg):', GiaTri: res.LuyKeQuyNe30 },
-        // { Ten: 'Sản lượng quy Ne 30/ca:', GiaTri: res.SanLuongQuyNe30_Ca },
-        // { Ten: 'Sản lượng Ne 30 KH/ca:', GiaTri: res.SanLuongQuyNe30KH_Ca },
         { Ten: 'Tỷ lệ sợi cắt (%):', GiaTri: res.TyLeSoiCat },
         { Ten: 'Tỷ lệ sợi con / Ống:', GiaTri: res.TyLeSoiCon },
         // { Ten: 'Tỷ lệ bông rơi chải thô F1:', GiaTri: res.TyleBongRoiChaiTho },
@@ -733,18 +733,19 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   GetThongTyLeBongPhe_Hoi(){
     let data = this.filter;
     this._services.DashBoard().GetDashBoard_TongHop_TyLeBongPheBongHoi(data).subscribe((res:any)=>{
-       this.TyLeBongPhe_Hoi = [
-        { Ten: 'Tỷ lệ bông rơi chải thô F1:', GiaTri: res.TyleBongRoiChaiTho, LuyKe: res.TyleBongRoiChaiThoLuyKe },
-        { Ten: 'Tỷ lệ bông rơi chải kỹ F3:', GiaTri: res.TyleBongRoiChaiKy, LuyKe: res.TyleBongRoiChaiKyLuyKe },
-        { Ten: 'Tỷ lệ bông mùn (Bụi tinh):', GiaTri: res.TyleBongMun, LuyKe: res.TyleBongMunLuyKe },
-        { Ten: 'Tỷ lệ bông hút mối/tiêu chuẩn:', GiaTri: res.TyLeBongHutMoi, LuyKe: res.TyLeBongHutMoiLuyKe },
-        { Ten: 'Tỷ lệ cúi hồi:', GiaTri: res.TyLeCuiHoi, LuyKe: res.TyLeCuiHoiLuyKe },
-        { Ten: 'Tỷ lệ thô màng:', GiaTri: res.TyLeThoMang, LuyKe: res.TyLeThoMangLuyKe },
-        { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXoLuyKe, LuyKe: null },
-        { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoiLuyKe, LuyKe: null },
-        // { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXo, LuyKe: res.TyLeHoiTrenBanXoLuyKe },
-        // { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoi, LuyKe: res.TyLeCottonTrenHoiLuyKe },
-      ]
+      this.TyLeBongPhe_Hoi = res;
+      //  this.TyLeBongPhe_Hoi = [
+      //   { Ten: 'Tỷ lệ bông rơi chải thô F1:', GiaTri: res.TyleBongRoiChaiTho, LuyKe: res.TyleBongRoiChaiThoLuyKe },
+      //   { Ten: 'Tỷ lệ bông rơi chải kỹ F3:', GiaTri: res.TyleBongRoiChaiKy, LuyKe: res.TyleBongRoiChaiKyLuyKe },
+      //   { Ten: 'Tỷ lệ bông mùn (Bụi tinh):', GiaTri: res.TyleBongMun, LuyKe: res.TyleBongMunLuyKe },
+      //   { Ten: 'Tỷ lệ bông hút mối/tiêu chuẩn:', GiaTri: res.TyLeBongHutMoi, LuyKe: res.TyLeBongHutMoiLuyKe },
+      //   { Ten: 'Tỷ lệ cúi hồi:', GiaTri: res.TyLeCuiHoi, LuyKe: res.TyLeCuiHoiLuyKe },
+      //   { Ten: 'Tỷ lệ thô màng:', GiaTri: res.TyLeThoMang, LuyKe: res.TyLeThoMangLuyKe },
+      //   { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXoLuyKe, LuyKe: null },
+      //   { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoiLuyKe, LuyKe: null },
+      //   // { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXo, LuyKe: res.TyLeHoiTrenBanXoLuyKe },
+      //   // { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoi, LuyKe: res.TyLeCottonTrenHoiLuyKe },
+      // ]
     })
   }
   xuatBaoCaoBanChePham() {

@@ -1,0 +1,46 @@
+<div class="p-d-flex">
+    <div class="p-d-flex flex-column flex-lg-row p-pl-3" style="width: 100%;">
+        <div>
+            <p-dropdown [options]="listThang" styleClass="p-inputtext-sm" [(ngModel)]="Thang"
+                (onChange)="GetTyLeTieuChuan()"></p-dropdown>
+        </div>
+        <div>
+            <p-dropdown [options]="listNam" styleClass="p-inputtext-sm" [(ngModel)]="Nam"
+                (onChange)="GetTyLeTieuChuan()"></p-dropdown>
+        </div>
+    </div>
+</div>
+<p-table [value]="items" styleClass="p-datatable-sm p-datatable-gridlines wrap-text minimize-font">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>STT</th>
+            <th rowspan="2">Loại bông phế</th>
+            <th rowspan="2">Công đoạn</th>
+            <th [attr.colspan]="listPhanXuong.length">Tiêu chuẩn</th>
+        </tr>
+        <tr>
+            <th *ngFor="let px of listPhanXuong">{{px.Ten}}</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-thongke let-i="rowIndex">
+        <tr>
+            <td>{{thongke.Ten}}
+            </td>
+            <td class="text-right">
+                {{thongke.GiaTri |number:'0.3-3'}}
+                <!-- <div *ngIf="thongke.TieuHao!='KwH'&&thongke.TieuHao!='%'; else elseTieuHao">
+                            {{thongke.TieuHao|number:'0.0-3'}}
+                        </div>
+                        <ng-template #elseTieuHao>
+                            {{thongke.DonVi}}
+                        </ng-template> -->
+                <!-- a dũng chưa có  -->
+                <!-- {{thongke.DonVi}} -->
+
+            </td>
+            <td class="text-right">
+                {{thongke.LuyKe |number:'0.3-3'}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

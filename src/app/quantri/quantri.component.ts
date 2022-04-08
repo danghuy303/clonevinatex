@@ -1506,6 +1506,16 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/danhmucsanxuat/dmloaibong",
             command: () => this.close(),
           },
+
+          {
+            label: "Loại bông phế",
+            routerLink: "/quantri/danhmucsanxuat/dmloaibongphe",
+            command: () => this.close(),
+          }, {
+            label: "Tỷ lệ tiêu chuẩn bông phế",
+            routerLink: "/quantri/danhmucsanxuat/tyletieuchuanbongphe",
+            command: () => this.close(),
+          },
           {
             label: "Cấp bông",
             routerLink: "/quantri/danhmucsanxuat/dmcapbong",
@@ -1601,6 +1611,7 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/phanquyensanxuat/dmchisotrienkhai",
             command: () => this.close(),
           },
+
 
         ],
       },

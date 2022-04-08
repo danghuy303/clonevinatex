@@ -58,7 +58,7 @@
                                     <th style="width: 20px;">#</th>
                                     <th>Tên</th>
                                     <th>Số lượng quả</th>
-                                    <th>Sản lượng theo màn hình</th>
+                                    <th>SL theo màn hình</th>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-thongke let-i="rowIndex">
@@ -104,10 +104,12 @@
                 </div>
                 <div class="p-col-12 p-xl-4 p-lg-4 p-p-3 text-center">
                     <div style="display: flex;flex-direction: column;flex:1;overflow: hidden;">
-                        <div class="d-flex flex-row p-jc-between" *ngFor="let thongke of thongKes1">
-                            <div>{{thongke.Ten}}</div>
-                            <div>{{thongke.GiaTri|number:'0.3-3'}}</div>
-                        </div>
+                        <ng-container *ngFor="let thongke of thongKes1">
+                            <div class="d-flex flex-row p-jc-between p-pt-2" *ngIf="thongke">
+                                <div>{{thongke.Ten}}</div>
+                                <div>{{thongke.GiaTri|number:'0.3-3'}}</div>
+                            </div>
+                        </ng-container>
                     </div>
                     <p-button styleClass="p-button-sm ml-1" (click)="bieuDoTyLeThongKeSanLuong()">Tỷ lệ tiêu hao
                     </p-button>
@@ -451,11 +453,12 @@
             </div>
             <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-5"
                 (click)="getBieuDoDien()"></button>
-                <div class="p-mr-5" style="display:flex; align-items: center;">
-                    <strong>Lợi nhuận điện GY:</strong> &nbsp; {{ThongTinLuyKeDien.TongTienDienGY|number:'0.0'}} Đồng
-                </div>
             <div class="p-mr-5" style="display:flex; align-items: center;">
-                <strong>Lũy kế lợi nhuận điện GY:</strong> &nbsp; {{ThongTinLuyKeDien.TongTienDienGY_LuyKe|number:'0.0'}} Đồng
+                <strong>Lợi nhuận điện GY:</strong> &nbsp; {{ThongTinLuyKeDien.TongTienDienGY|number:'0.0'}} Đồng
+            </div>
+            <div class="p-mr-5" style="display:flex; align-items: center;">
+                <strong>Lũy kế lợi nhuận điện GY:</strong> &nbsp;
+                {{ThongTinLuyKeDien.TongTienDienGY_LuyKe|number:'0.0'}} Đồng
             </div>
             <div style="display:flex; align-items: center;">
                 <strong>Lũy kế điện GY:</strong> &nbsp; {{ThongTinLuyKeDien.TongSoDienGY_LuyKe|number:'0.0'}} Kwh
@@ -484,7 +487,7 @@
                         <td>{{thongke.Ten}}
                         </td>
                         <td class="text-right">
-                            {{thongke.GiaTri |number:'0.3-3'}}
+                            {{thongke.GiaTriTyLe |number:'0.3-3'}}
                             <!-- <div *ngIf="thongke.TieuHao!='KwH'&&thongke.TieuHao!='%'; else elseTieuHao">
                             {{thongke.TieuHao|number:'0.0-3'}}
                         </div>
@@ -496,7 +499,7 @@
 
                         </td>
                         <td class="text-right">
-                            {{thongke.LuyKe |number:'0.3-3'}}
+                            {{thongke.LuyKeTyLe |number:'0.3-3'}}
                         </td>
                     </tr>
                 </ng-template>

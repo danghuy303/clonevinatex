@@ -37,6 +37,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
   userInfo: any;
   listItemTable: any = (['clone', 'clone', 'clone', 'clone', 'clone', 'clone', 'clone', 'clone', 'clone', 'clone'])
   thongKeFull: any = [{ listIem: [] }];
+  KhoiLuongCa: any = [];
   yearRange: string = `${((new Date()).getFullYear() - 50)}:${((new Date()).getFullYear())}`;
   constructor(public activeModal: NgbActiveModal, private services: SanXuatService, public toastr: ToastrService,
     private _auth: AuthenticationService,
@@ -154,6 +155,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
   getListCaSanXuat() {
     this.services.GetListOptdmCaSanXuat().subscribe((res: any) => {
       this.listCaSanXuat = res;
+      this.KhoiLuongCa = res.map((_, index) => 0)
       if (this.item.listThongKeSanLuong == undefined || this.item.listThongKeSanLuong == null) {
         this.item.listThongKeSanLuong = [];
         this.listCaSanXuat.forEach(element => {
@@ -566,7 +568,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     console.log(this.inputNumbers.toArray())
 
     if (this.item.CongDoan === 'CON') {
-      let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === i+15);
+      let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === i + 15);
       if (validVariable(nextFocus)) {
         nextFocus.el.nativeElement.children[0].children[0].focus()
       } else {
@@ -578,7 +580,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       //   this.inputNumbers.toArray()[0].el.nativeElement.children[0].children[0].focus();
       // }
     } else {
-      let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === i+6);
+      let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === i + 6);
       if (validVariable(nextFocus)) {
         nextFocus.el.nativeElement.children[0].children[0].focus()
       } else {
@@ -587,46 +589,30 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     }
   }
   TinhTongKhoiLuongBong(index) {
-    switch (this.item.CongDoan) {
-      case 'CHAICOTTON':
-        this.TinhTyLeCottonBongPhe(index);
-        break;
-      case 'CHAIPE':
-        this.TinhTyLePEBongPhe(index);
-        break;
-      case 'CHAIKY':
-        this.TinhTyLeBongChaiKy(index);
-        break;
-      case 'THO':
-        this.TinhTyLeBongCuiHoi(index);
-        break;
-      case 'ONG':
-        this.TinhTyLeSoiCat(index);
-        break;
-      case 'CON':
-        this.TinhTyLeBongThoMang(index);
-        break;
-      case 'GHEPDAURA':
-        this.TinhTyLeCuiHoiGhepDauRa(index);
-        break;
-      case 'GHEPSOBOCOTTON':
-        this.TinhTyLeCuiHoiGhepSoBoCotton(index);
-        break;
-      case 'GHEPTRONA':
-        this.TinhTyLeCuiHoiGhepTronA(index);
-        break;
-      case 'GHEPTRONB':
-        this.TinhTyLeCuiHoiGhepTronB(index);
-        break;
-      case 'GHEPSOBOPE':
-        this.TinhTyLeCuiHoiGhepSoBoPE(index);
-        break;
-      default:
-        this.TongKhoiLuong = 0;
-        if (this.thongKeFull[index] !== undefined && this.thongKeFull[index].listItem !== undefined)
-          this.TongKhoiLuong = this.thongKeFull[index].listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
-        break;
+    console.log(index);
+    console.log(this.KhoiLuongCa)
+    let TongKhoiLuong = 0;
+    if (this.thongKeFull[index] !== undefined && this.thongKeFull[index].listItem !== undefined){
+      TongKhoiLuong = this.thongKeFull[index].listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
     }
+    this.KhoiLuongCa[index] = TongKhoiLuong
+    console.log(TongKhoiLuong)
+
+    let TongBongPhe = this.item.listThongKeSanLuong[index].listTyLeBongPhe.find(ele=>ele.MaCongDoan === this.item.CongDoan)?.listKhoiLuongBongPhe.reduce((a,b)=>a+(b.KhoiLuong||0),0);
+    // console.log(TongBongPhe);
+    // console.log(TongKhoiLuong);
+    if(this.item.listThongKeSanLuong[index].isTruVaoSanLuong){
+      this.KhoiLuongCa[index] = TongKhoiLuong - TongBongPhe;
+    }else{
+      this.KhoiLuongCa[index] = TongKhoiLuong;
+    }
+    // console.log(this.TongKhoiLuong);
+    let found = this.item.listThongKeSanLuong[index].listTyLeBongPhe.find(ele=>ele.MaCongDoan===this.item.CongDoan);
+    found.TongKhoiLuongCongDoan = this.KhoiLuongCa[index];
+    found.isTruVaoSanLuong = this.item.listThongKeSanLuong[index].isTruVaoSanLuong;
+    this.services.ThongKeSanLuong().TinhTyLeThongKeSanLuongBongPhe(this.item.listThongKeSanLuong[index].listTyLeBongPhe).subscribe((res: any) => {
+      this.item.listThongKeSanLuong[index].listTyLeBongPhe = res;
+    })
   }
 
   resetKhoiLuongCuiHoi(index) {

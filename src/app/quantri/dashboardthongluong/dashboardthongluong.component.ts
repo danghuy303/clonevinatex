@@ -4,7 +4,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 // import * as am4core from '@amcharts/amcharts4/core';
 import { create } from '@amcharts/amcharts4/core';
-// import * as am4charts from '@amcharts/amcharts4/charts';
+import * as am4charts from '@amcharts/amcharts4/charts';
 import {SlicedChart,FunnelSeries,Legend} from '@amcharts/amcharts4/charts'
 import { formatNumber, isPlatformBrowser } from '@angular/common';
 import { StoreService } from 'src/app/services/store.service';
@@ -127,19 +127,20 @@ export class DashboardthongluongComponent implements OnInit, AfterViewInit,OnDes
         Series.orientation = "horizontal";
         Series.dataFields.value = "value";
         Series.dataFields.category = "name";
-        // Series.labels.template.disabled = true;
-        Series.labels.template.text = "[bold white]{category}: [bold white]{formated} kg[/] [bold white]{TyLe}%";
+        Series.labels.template.disabled = true;
+        // Series.labels.template.text = "[bold white]{category}: [bold white]{formated} kg[/] [bold white]{TyLe}%";
         // Series.labels.template.text = "{category}";
         // Series.labels.template.verticalCenter="middle";
         // Series.labels.template.horizontalCenter="middle";
-        Series.labels.template.fontSize = 14;
-        Series.labels.template.rotation = 45;
+        // Series.labels.template.fontSize = 14;
+        // Series.labels.template.rotation = 45;
         Series.slices.template.tooltipText = "[bold white]{category}: [bold white]{formated} kg[/] [bold white]{TyLe}%";
         // Series.alignLabels = true;
-        // chart.legend = new am4charts.Legend();
-        // chart.legend = new Legend();
-        // chart.legend.position = "top";
-        // chart.legend.valueLabels.template.text="[bold]{formated} kg[/] [bold red]{TyLe}%";
+        chart.legend = new am4charts.Legend();
+        chart.legend = new Legend();
+        chart.legend.position = "bottom";
+        chart.legend.paddingTop=50;
+        chart.legend.valueLabels.template.text="";
         this.chart = chart;
       })
       this._services.BaoCao().BaoCaoThongLuongSanXuatMinMax(this.filter).subscribe((res: any) => {
