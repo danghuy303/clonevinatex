@@ -100,9 +100,9 @@ export class NhaptaisanComponent implements OnInit {
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];
-          obj.TenBoPhanSuDung = this.listPhanXuong.find(ele=>ele.value == obj.IdBoPhanSuDung)?.label||null;
+          // obj.TenBoPhanSuDung = this.listPhanXuong.find(ele=>ele.value == obj.IdBoPhanSuDung)?.label||null;
           obj.listTaiSan.forEach(element => {
-            element.TenBoPhanSuDung = this.listPhanXuong.find(ele=>ele.value == element.IdBoPhanSuDung)?.label||null;
+            // element.TenBoPhanSuDung = this.listPhanXuong.find(ele=>ele.value == element.IdBoPhanSuDung)?.label||null;
             obj_copy.children.push({ data: element });
           });
           delete obj.listTaiSan;

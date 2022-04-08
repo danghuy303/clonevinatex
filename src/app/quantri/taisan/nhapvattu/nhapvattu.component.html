@@ -118,10 +118,10 @@
                     </p-dropdown>
                     </td>
                     <td class="text-center">
-                        {{item.TuoiTho}}
+                        {{item.TuoiTho  | number: '0.0'}}
                     </td>
                     <td class="text-center">
-                        {{item.Ton}}
+                        {{item.Ton  | number: '0.0'}}
                     </td>
                     <td class="text-center">
                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm" [(ngModel)]="item.SoLuong">

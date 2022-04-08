@@ -156,6 +156,7 @@ import { ThoihancungcapmodalluachonComponent } from './modal/thoihancungcapmodal
 import { VattuthaythelichxichnamComponent } from './screenLichXich/vattuthaythelichxichnam/vattuthaythelichxichnam.component';
 import { ChiphilichxichnamComponent } from './screenLichXich/chiphilichxichnam/chiphilichxichnam.component';
 import { ChonComponent } from './screen/chon/chon.component';
+import { LuachontaisannhaptaisanComponent } from './modal/luachontaisannhaptaisan/luachontaisannhaptaisan.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -266,6 +267,7 @@ import { ChonComponent } from './screen/chon/chon.component';
     VattuthaythelichxichnamComponent,
     ChiphilichxichnamComponent,
     ChonComponent,
+    LuachontaisannhaptaisanComponent,
 
   ],
   imports: [
@@ -357,6 +359,7 @@ import { ChonComponent } from './screen/chon/chon.component';
     ThoihancungcapvattumodalComponent,
     ThoihancungcapmodalluachonComponent,
     ChonComponent,
+    LuachontaisannhaptaisanComponent,
     
 
   ],

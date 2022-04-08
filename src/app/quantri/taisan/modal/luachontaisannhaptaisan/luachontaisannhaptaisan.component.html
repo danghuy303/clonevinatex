@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">Lựa chọn tài sản</h5>
+    <h5 class="modal-title">Danh sách tài sản</h5>
     <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -21,33 +21,43 @@
             </div>
         </div>
     </div>
-    <p-table [value]="items" styleClass="p-treetable p-treetable-caption">
+    <p-treeTable [value]="items" styleClass="p-treetable p-treetable-caption">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col style="width:50px">
+                <col>
+                <col>
+                <col>
+                <col>
+            </colgroup>
+        </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th style="width:50px" class="text-center">
-                    <p-checkbox [(ngModel)]="checkedAll" binary="true"
-                        (onChange)="checkAll($event)"></p-checkbox>
+                <th class="text-center">
+                    <!-- <p-checkbox [(ngModel)]="checkedAll"  binary="false" inputId="binaryall"
+                        (onChange)="checkAll($event)"></p-checkbox> -->
                 </th>
-                <th class="text-center" style="width: 150px;">Mã</th>
+                <th class="text-center">
+                    Mã
+                </th>
                 <th class="text-center">Tên</th>
                 <th class="text-center">Nguyên giá</th>
-                <th class="text-center">Giá trị còn lại</th>
-                <th class="text-center">Ghi chú</th>
+                <th class="text-center">Giá còn lại</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-item let-i="rowIndex">
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr>
                 <td class="text-center">
-                    <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary" (onChange)="checked()">
+                    <p-checkbox [(ngModel)]="rowData.checked" [disabled]="rowData.disabled" binary="true" inputId="binary" (onChange)="checked(rowData)">
                     </p-checkbox>
                 </td>
-                <td class="text-center" style="width: 150px;">
-                    {{item.Ma}}
+                <td>
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                    {{rowData.Ma}}
                 </td>
-                <td class="text-center">{{item.Ten}}</td>
-                <td class="text-center"> {{item.NguyenGia | number:'0.0-0'}}</td>
-                <td class="text-center"> {{item.GiaTriConLai | number:'0.0-0'}}</td>
-                <td class="text-center">{{item.GhiChu}}</td>
+                <td class="text-center">{{rowData.Ten}}</td>
+                <td class="text-center">{{rowData.NguyenGia|number:'0.0'}}</td>
+                <td class="text-center">{{rowData.GiaTriConLai|number:'0.0'}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
@@ -56,8 +66,5 @@
                     [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
             </div>
         </ng-template>
-    </p-table>
-</div>
-<div class="modal-footer">
-
+    </p-treeTable>
 </div>

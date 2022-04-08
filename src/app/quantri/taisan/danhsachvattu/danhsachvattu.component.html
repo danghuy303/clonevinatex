@@ -64,10 +64,10 @@
                 <td class="text-center">{{item.Ma}}</td>
                 <td>{{item.Ten}}</td>
                 <td class="text-center">{{item.NuocSanXuat}}</td>
-                <td class="text-center">{{item.TuoiTho}}</td>
-                <td class="text-center">{{item.TonKho}}</td>
-                <td class="text-center">{{item.SoLuong}}</td>
-                <td class="text-center">{{item.ThoiGianDuaVaoSuDung | date:"dd/MM/yyyy"}}</td>
+                <td style="text-align: right;">{{item.TuoiTho | number:'0.0-0'}}</td>
+                <td style="text-align: right;">{{item.TonKho | number:'0.0-0'}}</td>
+                <td style="text-align: right;">{{item.SoLuong | number:'0.0-0'}}</td>
+                <td style="text-align: right;">{{item.ThoiGianDuaVaoSuDung | date:"dd/MM/yyyy"}}</td>
                 <td style="text-align: right;">{{item.NguyenGia | number:'0.0-0'}}</td>
             </tr>
         </ng-template>
@@ -133,11 +133,11 @@
                 <td class="text-center">{{item.Ma}} </td>
                 <td>{{item.Ten}}</td>
                 <td class="text-center">{{item.Ma}}</td>
-                <td class="text-center">{{item.TuoiTho}}</td>
-                <td class="text-center">{{item.TonKho}}</td>
-                <td class="text-center">{{item.SoLuong}}</td>
-                <td class="text-center">{{item.NguyenGia}}</td>
-                <td class="text-center"></td>
+                <td style="text-align: right;">{{item.TuoiTho | number:'0.0-0'}}</td>
+                <td style="text-align: right;">{{item.TonKho | number:'0.0-0'}}</td>
+                <td style="text-align: right;">{{item.SoLuong | number:'0.0-0'}}</td>
+                <td style="text-align: right;">{{item.NguyenGia | number:'0.0-0'}}</td>
+                <td style="text-align: right;">{{item.ThanhTien | number:'0.0-0'}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">

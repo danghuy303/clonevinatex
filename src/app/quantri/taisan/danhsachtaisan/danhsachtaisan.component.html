@@ -96,10 +96,10 @@
             <td class="text-center">{{rowData.TendmLoaiTaiSan}}</td>
             <td class="text-center">{{rowData.HangSanXuat}}</td>
             <!-- <td class="text-center">{{rowData.TendmPhanXuong}}</td> -->
-            <td class="text-center">{{rowData.NguyenGia|number:'0.0'}}</td>
-            <td class="text-center">{{rowData.GiaTriConLai|number:'0.0'}}</td>   
-            <td class="text-center">{{rowData.ThoiGianSuDung| date:'dd/MM/yyyy'}}</td>    
-            <td class="text-center">{{rowData.TrangThai}}</td>     
+            <td style="text-align: right;">{{rowData.NguyenGia|number:'0.0'}}</td>
+            <td style="text-align: right;">{{rowData.GiaTriConLai|number:'0.0'}}</td>   
+            <td class="text-center">{{rowData.ThoiGianDuaVaoSuDung| date:'dd/MM/yyyy'}}</td>    
+            <td class="text-center">{{rowData.TendmTinhTrangTaiSan}}</td>     
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-bars" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xem Thông tin tài sản" (click)="ChiTietThongTin(rowData)"></button>
                 <!-- <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="edit(rowData)"></button>

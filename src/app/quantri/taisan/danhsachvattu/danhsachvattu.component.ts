@@ -41,10 +41,10 @@ export class DanhsachvattuComponent implements OnInit {
 
   constructor(
     public _modal: NgbModal,
-    public _toastr: ToastrService,
     private _serviceDungChung: SanXuatService,
     private _serviceTaiSan: TaisanService,
     private router: Router,
+    public toastr: ToastrService,
     private _servicesSanXuat: SanXuatService,
     private _danhMucTaiSan: DanhmuctaisanService,
   ) {
@@ -96,6 +96,11 @@ export class DanhsachvattuComponent implements OnInit {
       this.paging.TotalPages = res.Data.TotalPages;
       this.paging.TotalCount = res.Data.TotalCount;
       this.items = res.Data.Items;
+      this.items.forEach(item => {
+        item.ThanhTien = 0;
+        item.ThanhTien = (item.NguyenGia || 0) * (item.SoLuong || 0);
+    
+      })
       this.CheckExist(this.items);
       this.TimCheck();
     });
@@ -108,6 +113,14 @@ export class DanhsachvattuComponent implements OnInit {
     //   ...this.checkList,
     // };
     this._serviceTaiSan.ListDanhSachVatTu().KiemTraNCC(this.checkList).subscribe((res: any) => {
+      if (res.StatusCode !== 200 || !res.StatusCode) {
+        this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+      } else {
+        this.toastr.success(res.Message);
+        // this.activeModal.close();
+      }
+    }, (er) => {
+      this.toastr.error("Có lỗi trong quá trình xử lý!!!");
     })
   }
 

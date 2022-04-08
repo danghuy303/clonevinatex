@@ -10,6 +10,7 @@ import { mapArrayForDropDown, validVariable, DateToUnix, DateToDatePicker, UnixT
 import { API } from 'src/app/services/host';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { LuachontaisannhaptaisanComponent } from '../luachontaisannhaptaisan/luachontaisannhaptaisan.component';
 import { ModalcapnhattaisanconComponent } from '../modalcapnhattaisancon/modalcapnhattaisancon.component';
 import { ModalthemmoiluachontaisanComponent } from '../modalthemmoiluachontaisan/modalthemmoiluachontaisan.component';
 
@@ -253,6 +254,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     // this.loaiTab = e.index;
     // this.Loaddata(true);
   }
+
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.multiple = true;
@@ -269,6 +271,35 @@ export class ModalcapnhattaisanComponent implements OnInit {
     }, (reason) => {
 
     });
+  }
+
+  AddThuVien() {
+    this._serviceTaiSan.NhapTaiSan().AddThuVien(this.item).subscribe((res: any) => {
+      if (res.StatusCode === 200) {
+        // this.activeModal.close();
+        this.toastr.success(res.Message);
+      } else {
+        this.toastr.error(res.message);
+      }
+    })
+  }
+
+  ChonThuVien() {
+    let modalRef = this._modal.open(LuachontaisannhaptaisanComponent, {
+      size: "lg",
+      backdrop: "static",
+    });
+    modalRef.componentInstance.item =this.item;
+    modalRef.result
+      .then((res: any) => {
+
+        // this._serviceTaiSan.NhapTaiSan().AddThuVien(this.item).subscribe((res: any) => {
+         
+        // })
+
+      })
+      .catch((er) => {
+      });
   }
 
 }

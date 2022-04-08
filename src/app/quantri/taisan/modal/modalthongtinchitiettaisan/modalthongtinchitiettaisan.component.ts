@@ -27,6 +27,9 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   listLoaiTaiSan: any = [];
   listPhanXuong: any = [];
   chon: any = "";
+  qrcode: any = {
+    size: 250
+  };
 
   constructor(
     private _modal: NgbModal,
@@ -54,6 +57,12 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
 
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+
+  LayMa(e) {
+    this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
+      this.item.Ma = res.Data;
     })
   }
 
