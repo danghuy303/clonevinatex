@@ -733,18 +733,19 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
   GetThongTyLeBongPhe_Hoi(){
     let data = this.filter;
     this._services.DashBoard().GetDashBoard_TongHop_TyLeBongPheBongHoi(data).subscribe((res:any)=>{
-       this.TyLeBongPhe_Hoi = [
-        { Ten: 'Tỷ lệ bông rơi chải thô F1:', GiaTri: res.TyleBongRoiChaiTho, LuyKe: res.TyleBongRoiChaiThoLuyKe },
-        { Ten: 'Tỷ lệ bông rơi chải kỹ F3:', GiaTri: res.TyleBongRoiChaiKy, LuyKe: res.TyleBongRoiChaiKyLuyKe },
-        { Ten: 'Tỷ lệ bông mùn (Bụi tinh):', GiaTri: res.TyleBongMun, LuyKe: res.TyleBongMunLuyKe },
-        { Ten: 'Tỷ lệ bông hút mối/tiêu chuẩn:', GiaTri: res.TyLeBongHutMoi, LuyKe: res.TyLeBongHutMoiLuyKe },
-        { Ten: 'Tỷ lệ cúi hồi:', GiaTri: res.TyLeCuiHoi, LuyKe: res.TyLeCuiHoiLuyKe },
-        { Ten: 'Tỷ lệ thô màng:', GiaTri: res.TyLeThoMang, LuyKe: res.TyLeThoMangLuyKe },
-        { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXoLuyKe, LuyKe: null },
-        { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoiLuyKe, LuyKe: null },
-        // { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXo, LuyKe: res.TyLeHoiTrenBanXoLuyKe },
-        // { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoi, LuyKe: res.TyLeCottonTrenHoiLuyKe },
-      ]
+      this.TyLeBongPhe_Hoi = res;
+      //  this.TyLeBongPhe_Hoi = [
+      //   { Ten: 'Tỷ lệ bông rơi chải thô F1:', GiaTri: res.TyleBongRoiChaiTho, LuyKe: res.TyleBongRoiChaiThoLuyKe },
+      //   { Ten: 'Tỷ lệ bông rơi chải kỹ F3:', GiaTri: res.TyleBongRoiChaiKy, LuyKe: res.TyleBongRoiChaiKyLuyKe },
+      //   { Ten: 'Tỷ lệ bông mùn (Bụi tinh):', GiaTri: res.TyleBongMun, LuyKe: res.TyleBongMunLuyKe },
+      //   { Ten: 'Tỷ lệ bông hút mối/tiêu chuẩn:', GiaTri: res.TyLeBongHutMoi, LuyKe: res.TyLeBongHutMoiLuyKe },
+      //   { Ten: 'Tỷ lệ cúi hồi:', GiaTri: res.TyLeCuiHoi, LuyKe: res.TyLeCuiHoiLuyKe },
+      //   { Ten: 'Tỷ lệ thô màng:', GiaTri: res.TyLeThoMang, LuyKe: res.TyLeThoMangLuyKe },
+      //   { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXoLuyKe, LuyKe: null },
+      //   { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoiLuyKe, LuyKe: null },
+      //   // { Ten: 'Tỷ lệ hồi/bàn xơ:', GiaTri: res.TyLeHoiTrenBanXo, LuyKe: res.TyLeHoiTrenBanXoLuyKe },
+      //   // { Ten: 'Tỷ lệ cotton/hồi:', GiaTri: res.TyLeCottonTrenHoi, LuyKe: res.TyLeCottonTrenHoiLuyKe },
+      // ]
     })
   }
   xuatBaoCaoBanChePham() {
