@@ -23,15 +23,13 @@
             <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa" (click)="XoaQuyTrinh()"></button>
             <button pButton pRipple type="button" label="Không duyệt" class="p-mr-2 p-button-sm" (click)="KhongDuyet()" *ngIf="checkbutton.KhongDuyet"></button>
             <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm" (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
-            <button pButton pRipple type="button" label="Chọn từ thư viện" class="p-mr-2 p-button-sm" ></button>
-            <button pButton pRipple type="button" label="Lưu vào thư viện" class="p-mr-2 p-button-sm" ></button>
+            <button pButton pRipple type="button" label="Chọn từ thư viện" class="p-mr-2 p-button-sm" (click)="ChonThuVien()"></button>
+            <button pButton pRipple type="button" label="Lưu vào thư viện" class="p-mr-2 p-button-sm" (click)="AddThuVien()"></button>
             <!-- <button pButton pRipple type="button" label="Kết xuất" *ngIf="canExport" (click)="exportExcel()" class="p-mr-2 p-button-sm"></button> -->
         </div>
-        <div class="modal-bt p-mb-4 text-center" style="position: absolute; right: 0;transform: translate(-180%,20%);" >
-            <qrcode [qrdata]="item.TaiSan.Ma" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
+        <div class="modal-bt p-mb-4 text-center" style="position: absolute; right: 0;transform: translate(-180%,20%);" [style.visibility]="item.TaiSan.Ma?'visible':'hidden'">
+            <qrcode [qrdata]="item.TaiSan.Ma"  [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
         </div>
-
-        
     </div>
     <!-- phần cha -->
     <app-thongtinthemmoitaisan [(item)]="item.TaiSan" [listLoaiTaiSan]="listLoaiTaiSan" [listCungSanXuat]="listCungSanXuat" [listPhanXuong]="listPhanXuong" [opt]="opt" [TaiSanChaCon]="'cha'">

@@ -7,6 +7,7 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 @Component({
   selector: 'app-modalthemmoiluachontaisan',
   templateUrl: './modalthemmoiluachontaisan.component.html',
@@ -39,6 +40,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService,
     private _servicesSanXuat: SanXuatService,
+    private _serviceTaiSan: TaisanService,
   ) {}
 
   ngOnInit() {
@@ -63,6 +65,11 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       console.log(res)
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
+  LayMa(e) {
+    this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
+      this.item.Ma = res.Data;
     })
   }
   

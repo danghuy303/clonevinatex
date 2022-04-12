@@ -44,6 +44,15 @@ export class TaisanService {
       GetListNhomTaiSan: (Id) => {
         return this.http.get(`${url}QuanLyTaiSan/GetListDanhMucTaiSanByIddmLoaiTaiSan?IddmLoaiTaiSan=${Id}`, httpOptions);
       },
+      GetNextMaTaiSan: (Id) => {
+        return this.http.get(`${url}QuanLyTaiSan/GetNextMaTaiSanByIddmLoaiTaiSan?IddmLoaiTaiSan=${Id}`, httpOptions);
+      },
+      AddThuVien: (data) => {
+        return this.http.post(`${url}QuanLyTaiSan/AddThuVienTaiSan`, data, httpOptions);
+      },
+      ChonTuThuVien: (data) => {
+        return this.http.post(`${url}QuanLyTaiSan/GetListThuVienTaiSan`, data, httpOptions);
+      },
     };
   }
 
@@ -556,7 +565,7 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyVatTuDuTru/DeleteDeNghiThayDoiVatTuById?Id=${Id}`, httpOptions);
       },
       GetListVatTu: (data) => {
-        return this.http.post(`${url}QuanLyVatTuDuTru/GetListVatTuCanThayThe`, data, httpOptions);
+        return this.http.post(`${url}QuanLyVatTuDuTru/GetListVatTuQuyTrinhNhapVatTu`, data, httpOptions);
       },
     };
   }

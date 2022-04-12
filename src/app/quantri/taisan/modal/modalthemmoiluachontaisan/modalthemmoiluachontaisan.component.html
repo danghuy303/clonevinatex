@@ -11,17 +11,30 @@
                 (click)="GhiLai()"></button>
         </div>
     </div>
+    <div class="modal-bt p-mb-4 text-center" style="position: absolute; right: 0;transform: translate(-180%,5%);" >
+        <qrcode [qrdata]="item.Ma" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
+    </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản" [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true"></p-dropdown>
+                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" (onChange)="LayMa($event)" placeholder="Chọn loại tài sản" [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mã tài sản : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+
+        </div>
+        <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhóm tài sản : </label>
+            <div class="p-col-12 p-xl-8 p-p-0 d-flex">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TenNhomTaiSan" pInputText disabled/>
+                    <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="ChonTaiSan()"></button>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -106,7 +119,7 @@
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số năm khấu hao : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoNamKhauHao"> </p-inputNumber>
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoNamKhauHao" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1"> </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">

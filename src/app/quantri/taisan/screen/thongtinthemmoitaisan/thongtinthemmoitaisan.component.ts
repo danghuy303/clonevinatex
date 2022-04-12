@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { vn } from 'src/app/services/const';
 import { validVariable } from 'src/app/services/globalfunction';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModaltaolichbaoduongComponent } from '../../modal/modaltaolichbaoduong/modaltaolichbaoduong.component';
 import { ChonComponent } from '../chon/chon.component';
 
@@ -35,15 +36,28 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
   constructor(
     private _modal: NgbModal,
     public toastr: ToastrService,
+    private _serviceTaiSan: TaisanService,
   ) { }
 
   ngOnInit() {
+
     if (this.opt === 'edit') {
       // this.item.listFileDinhKem.forEach(obj => {
       //   this.NameFile += `${obj.FileName}, `;
       // });
     }
   }
+
+  LayMa(e) {
+    this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
+      this.item.Ma = res.Data;
+      if (!validVariable(e.value)) {
+        this.item.Ma = '';
+      }
+      // this.item.Ma = res.Data;
+    })
+  }
+
   edit(item) {
     this.item.GiaTriConLai = item.NguyenGia;
   }
@@ -56,8 +70,6 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
     modalRef.componentInstance.multiple = true;
     modalRef.componentInstance.type = '';
     modalRef.result.then((data) => {
-      console.log(data);
-
       this.item.listFileDinhKem = data;
       this.item.listFileDinhKem.forEach(obj => {
         this.NameFile += `${obj.NameLocal}, `;
@@ -89,7 +101,7 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
     });
 
     // modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.Id) : [];
-    modalRef.componentInstance.ItemDaChon = this.item.IdNhomTaiSan ? this.item.IdNhomTaiSan  : "";
+    modalRef.componentInstance.ItemDaChon = this.item.IdNhomTaiSan ? this.item.IdNhomTaiSan : "";
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
       this.item.IdNhomTaiSan = res[0]?.Id;

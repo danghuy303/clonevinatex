@@ -2439,4 +2439,15 @@ export class SanXuatService {
             },
         }
     }
+    TyLeTieuChuanBongPhe(){
+        let url = API.SCMDanhMuc;
+        return {
+            Get: (Nam,Thang) => {
+                return this.http.get(url + `GetDanhSachTieuChuanBongPheHangThang?Nam=${Nam}&Thang=${Thang}`, httpOptions)
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetDanhSachTieuChuanBongPheHangThang', data, httpOptions);
+            }
+        }
+    }
 }

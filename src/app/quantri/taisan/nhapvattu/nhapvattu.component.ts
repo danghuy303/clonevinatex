@@ -92,26 +92,54 @@ export class NhapvattuComponent implements OnInit {
     this.item.IdTaiSan='';
     return this.item;
   }
+
+  // Validate() {
+  //   if (!validVariable(this.item.Ngay)) {
+  //     return false ;
+  //   }
+  // }
+  // GhiLai() {
+  //   if (this.Validate()) {
+  //     this._serviceTaiSan.QuyTrinhNhapTu().Set(this.setData()).subscribe((res: any) => {
+  //       console.log(this.item)
+  //       if (res.StatusCode !== 200 || !res.StatusCode) {
+  //         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+  //       } else {
+  //         res.Data.Ngay = UnixToDate(res.Data.NgayUnix)
+  //         this.item = res.Data;
+  //         this.toastr.success(res.Message);
+  //         this.KiemTraButtonModal();
+  //         // this.activeModal.close();
+  
+  //       }
+  //     }, (er) => {
+  //       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+  //     })
+  //   } else {
+  //     // this.toastr.error('Vui lòng nhập đày đủ trường bắt buộc')
+  //   }
+  // }
+  ValidateData() {
+    if (!validVariable(this.item.Ngay)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
+      return false;
+    }
+    return true;
+  }
   GhiLai() {
-    if (this.Validate()) {
+    if (this.ValidateData()) {
       this._serviceTaiSan.QuyTrinhNhapTu().Set(this.setData()).subscribe((res: any) => {
-        console.log(this.item)
         if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
-          res.Data.Ngay = UnixToDate(res.Data.NgayUnix)
           this.item = res.Data;
-          console.log(this.item)
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();
-          this.activeModal.close();
-  
+          // this.activeModal.close();
         }
       }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       })
-    } else {
-      this.toastr.error('Vui lòng nhập đày đủ trường bắt buộc')
     }
   }
   GetNextSoQuyTrinh() {
@@ -181,12 +209,5 @@ export class NhapvattuComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
-  
-  Validate() {
-    if (!validVariable(this.item.Ngay)) {
-      return false
-    }
-  }
-  
   
 }
