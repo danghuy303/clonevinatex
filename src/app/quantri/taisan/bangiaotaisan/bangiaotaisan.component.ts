@@ -120,7 +120,7 @@ export class BangiaotaisanComponent implements OnInit {
   add() {
     let modalRef = this._modal.open(ModalcapnhatbaogiaComponent, {
       // size: "fullscreen-100",
-      size: "xl",
+      size: "fullscreen",
       backdrop: "static"
     });
     modalRef.componentInstance.opt = "add";
@@ -133,7 +133,7 @@ export class BangiaotaisanComponent implements OnInit {
       isKetThuc: false,
       listTaiSan: [],
       listFileDinhKem: [],
-      NgayBanGiao: new Date(),
+      // NgayBanGiao: new Date(),
       IdDuAn: this.store.getCurrent(),
     }
     modalRef.result
@@ -148,14 +148,14 @@ export class BangiaotaisanComponent implements OnInit {
 
   edit(item) {
     let modalRef = this._modal.open(ModalcapnhatbaogiaComponent, {
-      size: "xl",
+      size: "fullscreen",
       backdrop: "static"
     });
     modalRef.componentInstance.opt = "edit";
     // modalRef.componentInstance.tabTrangThai = this.trangThai;  
     modalRef.componentInstance.tabTrangThai = 0;  
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
-    modalRef.componentInstance.item.NgayBanGiao = new Date(JSON.parse(JSON.stringify(item.Data.NgayBanGiao)));
+    modalRef.componentInstance.item.NgayBanGiao = UnixToDate(item.Data.NgayBanGiaoUnix);
     modalRef.result
       .then((res: any) => {
       })
