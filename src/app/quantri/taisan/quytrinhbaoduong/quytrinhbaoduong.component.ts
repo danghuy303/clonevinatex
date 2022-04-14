@@ -115,7 +115,7 @@ export class QuytrinhbaoduongComponent implements OnInit {
       })
   }
   update(item) {
-    console.log(item)
+
     let modalRef = this._modal.open(ModalquytrinhbaoduongComponent, {
       size: "fullscreen-100",
       backdrop: "static",
@@ -145,10 +145,8 @@ export class QuytrinhbaoduongComponent implements OnInit {
   KiemTraTabTrangThai() {
     this._services.KiemTraTabTrangThai(this.eAction).subscribe((res: any) => {
       this.checkQuyen = res;
-      this.GetList();
     });
   }
-
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetList()

@@ -53,6 +53,9 @@ export class TaisanService {
       ChonTuThuVien: (data) => {
         return this.http.post(`${url}QuanLyTaiSan/GetListThuVienTaiSan`, data, httpOptions);
       },
+      AddThuVienById : (Id) => {
+        return this.http.get(`${url}QuanLyTaiSan/GetThuVienTaiSanById?id=${Id}`, httpOptions);
+      },
     };
   }
 
@@ -218,11 +221,14 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyVatTuDuTru/DeleteQuyTrinhThoiHanCungCapById?Id=${Id}`, httpOptions);
       },
       LuaChon: (data) => {
-
-        return this.http.post(`${url}QuanLyVatTuDuTru/SelectTaiSanQuytrinhThoiHanCungCap`, data, httpOptions);
+        // return this.http.post(`${url}QuanLyVatTuDuTru/SelectTaiSanQuytrinhThoiHanCungCap`, data, httpOptions);
+        return this.http.post(`${url}QuanLyVatTuDuTru/GetListVatTuCanThayThe`, data, httpOptions);
       },
       GetListNhaCungUng: (Id) => {
         return this.http.get(`${url}QuanLyVatTuDuTru/GetListNhaCungUngByIdTaiSan?IdTaiSan=${Id}`, httpOptions);
+      },
+      ThemMoi: (data) => {
+        return this.http.post(`${url}QuanLyVatTuDuTru/GetListVatTuCanThayThe`, data, httpOptions);
       },
     };
   }
@@ -505,6 +511,9 @@ export class TaisanService {
       },
       KiemTraNCC: (data) => {
         return this.http.post(`${url}QuanLyVatTuDuTru/SelectTaiSanQuytrinhThoiHanCungCap`, data, httpOptions);
+      },
+      exportExcel: (data) => {
+        return this.http.post(`${url}QuanLyVatTuDuTru/ExportdsVatTuThayThe`, data, httpOptions);
       },
     };
   }

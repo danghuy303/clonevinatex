@@ -52,7 +52,6 @@ export class DanhsachtaisanComponent implements OnInit {
 
   resetFilter() {
     this.filter = {};
-    this.Keyword = '';
     this.Loaddata(true);
   }
 
@@ -64,8 +63,8 @@ export class DanhsachtaisanComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       tabTrangThai: this.loaiTab,
-      IddmLoaiTaisan: this.filter.IddmLoaiTaisan ? this.filter.IddmLoaiTaisan : '',
-      Keyword: this.Keyword,
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
+      Keyword: this.filter.Keyword,
       isGiaTriCao:this.filter.isGiaTriCao,
       isCanDuTru:this.filter.isCanDuTru,
       TuNgay: DateToUnix(this.filter.TuNgay),
@@ -124,6 +123,8 @@ export class DanhsachtaisanComponent implements OnInit {
 
   }
   changeTab(e) {
+    console.log(e);
+    
     // this.trangThai = e.index + 1;
     this.loaiTab = e.index;
     this.Loaddata(true);

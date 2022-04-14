@@ -20,19 +20,20 @@ export class ModalloaisucoComponent implements OnInit {
   
   }
 
-  // ValidateData() {
-  //   if (!validVariable(this.item.Ma)) {
-  //     this.toastr.error("Yêu cầu nhập đầy đủ mã !");
-  //     return false;
-  //   }
-  //   if (!validVariable(this.item.Ten)) {
-  //     this.toastr.error("Yêu cầu nhập đầy đủ tên!");
-  //     return false;
-  //   }
-  //   return true;
-  // }
+  ValidateData() {
+    if (!validVariable(this.item.Ma)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ mã !");
+      return false;
+    }
+    if (!validVariable(this.item.Ten)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ tên!");
+      return false;
+    }
+    return true;
+  }
 
   GhiLai() {
+    if (this.ValidateData()) {
       this._danhMucTaiSan.DanhMucLoaiSuCo().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
@@ -43,4 +44,5 @@ export class ModalloaisucoComponent implements OnInit {
         this.activeModal.close();
       })
     }
+  }
 }

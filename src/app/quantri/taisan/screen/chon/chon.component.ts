@@ -40,8 +40,16 @@ export class ChonComponent implements OnInit {
     })
   }
 
-  checked() {
-    this.timCheck();
+  // checked() {
+  //   this.timCheck();
+  // }
+
+  checked(e) {
+    this.items.forEach(ele => {
+      if (ele.Id !== e.Id) {
+        ele.disabled = e.checked;
+      }
+    })
   }
 
   timCheck() {
@@ -57,7 +65,7 @@ export class ChonComponent implements OnInit {
 
   FilterTree() {
     let data = [];
-    data = this.items.map(ele => {
+    data = this.items.filter(ele => {
       if (ele.checked) {
         return {
           MaTaiSan: ele.Ma,

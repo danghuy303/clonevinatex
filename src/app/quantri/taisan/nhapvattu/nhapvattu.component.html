@@ -106,32 +106,32 @@
             <ng-template pTemplate="body" let-item let-i="rowIndex">
                 <tr>
                     <td class="text-center"> {{ i + 1 }}</td>
-                    <td class="text-center">
+                    <td  style="text-align: left;">
                         {{item.MaTaiSan}}
                     </td>
-                    <td class="text-center">
+                    <td  style="text-align: left;">
                         {{item.TenTaiSan}}
                     </td>
-                    <td class="text-center">
+                    <td  style="text-align: left;">
                         <p-dropdown [filter]="true" [options]="listNhaCungCap" placeholder=""
                         styleClass="p-inputtext-sm" [showClear]="true" [(ngModel)]="item.IddmNhaCungUng">
                     </p-dropdown>
                     </td>
-                    <td class="text-center">
+                    <td  style="text-align: right;">
                         {{item.TuoiTho  | number: '0.0'}}
                     </td>
-                    <td class="text-center">
+                    <td  style="text-align: right;">
                         {{item.Ton  | number: '0.0'}}
                     </td>
-                    <td class="text-center">
+                    <td  style="text-align: right;">
                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm" [(ngModel)]="item.SoLuong">
                         </p-inputNumber>
                     </td>
-                    <td class="text-center">
+                    <td  style="text-align: right;">
                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm" [(ngModel)]="item.DonGia" (onBlur)=" Tong()">
                         </p-inputNumber>
                     </td>
-                    <td class="text-right">
+                    <td  style="text-align: right;">
                         {{item.ThanhTien | number: '0.0'}}
                     </td>
                     <td class="text-center">

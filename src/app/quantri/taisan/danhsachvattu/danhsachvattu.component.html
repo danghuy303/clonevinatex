@@ -2,7 +2,7 @@
     <h4 style="color:#1f2779">Danh sách vật tư</h4>
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-    <button pButton label="Xuất Excel" class="p-button-sm p-mr-2"></button>
+    <!-- <button pButton label="Xuất Excel" class="p-button-sm p-mr-2"></button> -->
     <div></div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
@@ -82,12 +82,18 @@
 <div class="p-mt-3" *ngIf="loaiTab === 1 ">
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4 ">
-            <button pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm "></button>
+            <button pButton pRipple type="button" label="Xuất Excel" class="p-mr-2 p-button-sm" (click)="exportExcel()" ></button>
             <button pButton pRipple type="button" label="Kiểm tra NCC" class="p-mr-2 p-button-sm"
                 (click)="KiemTraNCC()"></button>
+               
         </div>
         <div class="p-d-flex p-ai-center p-jc-end p-mb-3">
-            <p-dropdown [filter]="true" [options]="listNam" placeholder="Năm " [(ngModel)]="filter.Nam"
+            <span class="p-m-2">
+                <p-checkbox class="p-mr-2" [(ngModel)]="filter.QuaHan" binary="false" inputId="QuaHan" (onChange)="GetList(true)">
+                </p-checkbox>
+                <label class="p-m-0" for="binary">Quá hạn </label>
+            </span>
+            <p-dropdown class="p-mr-2" [filter]="true" [options]="listNam" placeholder="Năm " [(ngModel)]="filter.Nam"
                 styleClass="p-inputtext-sm" (onChange)="GetList(true)" [showClear]="true" [filter]="true"></p-dropdown>
             <!-- <button pButton pRipple type="button" [label]="item" *ngFor="let item of labelThang" class="p-mr-1 p-button-sm "></button> -->
             <p-selectButton [options]="labelThang" [(ngModel)]="filter.Thang" styleClass="p-button-primary" (onChange)="GetList(true)">
@@ -132,7 +138,7 @@
                 </td>
                 <td class="text-center">{{item.Ma}} </td>
                 <td>{{item.Ten}}</td>
-                <td class="text-center">{{item.Ma}}</td>
+                <td class="text-center">{{item.TenNhaCungCap}}</td>
                 <td style="text-align: right;">{{item.TuoiTho | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.TonKho | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.SoLuong | number:'0.0-0'}}</td>

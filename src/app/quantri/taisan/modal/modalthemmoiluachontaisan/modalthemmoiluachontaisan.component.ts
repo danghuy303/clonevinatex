@@ -8,6 +8,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { ChonComponent } from '../../screen/chon/chon.component';
 @Component({
   selector: 'app-modalthemmoiluachontaisan',
   templateUrl: './modalthemmoiluachontaisan.component.html',
@@ -63,13 +64,22 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   }
   GetListdmPhanXuong() {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-      console.log(res)
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
   LayMa(e) {
+    if (!validVariable(e.value)) {
+      this.item.Ma = '';
+      return
+    }
     this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
-      this.item.Ma = res.Data;
+      if (res.StatusCode === 500) {
+        this.item.Ma = '';
+        this.toastr.error(res.Message);
+      }
+      else {
+        this.item.Ma = res.Data;
+      }
     })
   }
   
@@ -101,12 +111,30 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
       this.item.listFileDinhKem = data;
       this.item.listFileDinhKem.forEach(obj => {
         obj.Id = '';
-        obj.fileNameGui = obj.Name;
-        obj.fileName = obj.NameLocal;
+        obj.FileNameGUI = obj.Name;
+        obj.FileName = obj.NameLocal;
         obj.Link = obj.Url;
-        this.NameFile += `${obj.fileName}` + '; ';
+        this.NameFile += `${obj.FileName}` + '; '; 
       });
     }, (reason) => {
+
     });
+  }
+
+  ChonTaiSan() {
+    let modalRef = this._modal.open(ChonComponent, {
+      size: "xl",
+      backdrop: "static",
+    });
+
+    // modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.Id) : [];
+    modalRef.componentInstance.ItemDaChon = this.item.IddmTaiSan ? this.item.IddmTaiSan : "";
+    modalRef.componentInstance.item = this.item;
+    modalRef.result.then((res: any) => {
+      this.item.IddmTaiSan = res[0]?.Id;
+      this.item.TendmTaiSan = res[0]?.Ten;
+    })
+      .catch((er) => {
+      });
   }
 }

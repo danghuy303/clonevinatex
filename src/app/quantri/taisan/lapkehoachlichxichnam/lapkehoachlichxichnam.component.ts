@@ -85,6 +85,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
+    this.KiemTraButtonModal();
   }
 
   GetNextSoQuyTrinh() {

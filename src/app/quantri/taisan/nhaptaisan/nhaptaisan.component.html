@@ -67,16 +67,16 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr>
-            <td class="p-d-flex p-flex-row text-center">
-                {{rowData.SoQuyTrinh}}
+            <td class="text-center">
                 <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                {{rowData.SoQuyTrinh}}
             </td>
             <td class="text-center">{{rowData.Created|date:'dd/MM/yyyy'}}</td>
-            <td class="text-center">{{rowData.TenBoPhanSuDung}}</td>
-            <td class="text-center">{{rowData.TendmLoaiTaiSan}}</td>
-            <td class="text-center">{{rowData.Ma}}</td>
-            <td class="text-center">{{rowData.Ten}}</td>
-            <td class="text-center">{{rowData.HangSanXuat}}</td>
+            <td style="text-align: left;">{{rowData.TenBoPhanSuDung}}</td>
+            <td style="text-align: left;">{{rowData.TendmLoaiTaiSan}}</td>
+            <td style="text-align: left;">{{rowData.Ma}}</td>
+            <td style="text-align: left;">{{rowData.Ten}}</td>
+            <td style="text-align: left;">{{rowData.HangSanXuat}}</td>
             <td class="text-center">{{rowData.TenTrangThai}}</td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"

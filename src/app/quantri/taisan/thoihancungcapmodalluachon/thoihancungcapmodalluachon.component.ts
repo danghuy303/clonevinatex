@@ -1,36 +1,51 @@
-import { dataLoader } from '@amcharts/amcharts4/core';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
-import { validVariable } from 'src/app/services/globalfunction';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
-  selector: 'app-luachontaisannhaptaisan',
-  templateUrl: './luachontaisannhaptaisan.component.html',
-  styleUrls: ['./luachontaisannhaptaisan.component.css']
+  selector: 'app-thoihancungcapmodalluachon',
+  templateUrl: './thoihancungcapmodalluachon.component.html',
+  styleUrls: ['./thoihancungcapmodalluachon.component.css']
 })
-export class LuachontaisannhaptaisanComponent implements OnInit {
+export class ThoihancungcapmodalluachonComponent implements OnInit {
+
   opt: any = "";
   items: TreeNode[];
   item: any = {};
   listItemDaChon: any = [];
-  Lay_Chon: any = "";
   checkedAll: boolean = false;
-  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
+  listdmLoaiBaoDuong: any = [];
   Keyword: any = '';
   filter: any = {};
-  LayId: any = '';
+  Chon: any = [];
+  listCha: any = [];
+  listLoaiTaiSan: any = [];
+  paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
+  TaiSanItem: any = [];
 
   constructor(
     public _modal: NgbModal,
     public activeModal: NgbActiveModal,
     public toastr: ToastrService,
     private _serviceTaiSan: TaisanService,
+    private _danhMucTaiSan: DanhmuctaisanService,
   ) { }
 
   ngOnInit(): void {
+    let data = {
+      Keyword: this.filter.Keyword,
+      CurrentPage: 0,
+      PageSize: 20,
+      MaCongDoan: '',
+    };
+    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
+      this.listLoaiTaiSan = mapArrayForDropDown(res.Data, "Ten", "Id");
+    })
     this.GetList();
   }
   resetFilter() {
@@ -42,28 +57,33 @@ export class LuachontaisannhaptaisanComponent implements OnInit {
       Keyword: this.filter.Keyword,
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      IddmLoaiTaiSan: '',
-      IdBoPhanSuDung: this.item.IdBoPhanSuDung,
-    }
-    this._serviceTaiSan.NhapTaiSan().ChonTuThuVien(data).subscribe((res: any) => {
+      MaCongDoan: '',
+      IdBoPhanSuDung:this.item.IdBoPhanSuDung,
+      IddmLoaiTaiSan:this.item.IddmLoaiTaiSan ,
+      IdUser: '',
+      Ngay: 0,
+      LoaiKeHoach: '',
+      IdDuAn: 0,
+    };
+    this._serviceTaiSan.LichXich().GetListTaiSanTheoNam(data).subscribe((res: any) => {
       this.paging.TotalCount = res.Data.TotalCount;
-      this.items = res.Data.Items.map(ele => {
-        return {
-          data: {
-            ...ele
-          },
-          children: []
-        }
-      });
-      this.items = this.TreeItems(this.items)
-    });
-  }
+      this.TaiSanItem = res.Data;
 
-  TreeItems(list) {
-    list.forEach(ele => {
-      ele.children = list.filter(a => a.data.IdTaiSan === ele.data.Id)
+      this.listdmLoaiBaoDuong = this.TaiSanItem.listdmLoaiBaoDuong;
+      this.items = [];
+      this.listCha = this.TaiSanItem.listTaiSan;
+      this.listCha.forEach(obj => {
+        obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
+        let data: any = { data: obj, children: [] };
+        obj.listTaiSan.forEach(con => {
+          let datacon: any = { data: con, children: [] };
+          con.checked = this.listItemDaChon.includes(con.IdTaiSan);
+          data.children.push(datacon);
+        });
+        this.items.push(data);
+      });
+      this.checkedAll = this.listCha.every(ele => ele.checked);
     })
-    return list.filter(ele => ele.data.IdTaiSan === null)
   }
 
   TimCheck() {
@@ -85,7 +105,6 @@ export class LuachontaisannhaptaisanComponent implements OnInit {
       return false;
     }
   }
-
   checkAll(e) {
     if (e.checked) {
       this.items.forEach(obj => {
@@ -107,40 +126,28 @@ export class LuachontaisannhaptaisanComponent implements OnInit {
       });
     }
   }
-
-  // checked(e) {
-  //   this.items.forEach(ele => {
-  //     if (ele.data.Id !== e.Id) {
-  //       ele.data.disabled = e.checked;
-  //       // ele.data.disabled = !ele.data.checked;
-  //     }
-  //   })
-
-  // }
-
+  checked() {
+    this.checkedAll = this.TimCheck();
+  }
   FilterTree() {
     let data: any = [];
     this.items.forEach(obj => {
       if (obj.data.checked) {
         data.push({
-          IdTaiSan: obj.data.Id,
+          IdTaiSan: obj.data.IdTaiSan,
           Id: '',
-          TenTaiSan: obj.data.Ten,
-          MaSanPham: obj.data.Ma,
-          NguyenGia: obj.data.NguyenGia,
-          GiaTriConLai: obj.data.GiaTriConLai,
+          TenTaiSan: obj.data.TenTaiSan,
+          listLichBaoDuong: obj.data.listLichBaoDuong
         });
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
         obj.children.forEach(objchildren => {
           if (objchildren.data.checked) {
             data.push({
-              IdTaiSan: objchildren.data.Id,
+              IdTaiSan: objchildren.data.IdTaiSan,
               Id: '',
-              TenTaiSan: objchildren.data.Ten,
-              MaSanPham: objchildren.data.Ma,
-              NguyenGia: objchildren.data.NguyenGia,
-              GiaTriConLai: objchildren.data.GiaTriConLai,
+              TenTaiSan: objchildren.data.TenTaiSan,
+              listLichBaoDuong: objchildren.data.listLichBaoDuong
             });
           }
         });
@@ -148,25 +155,13 @@ export class LuachontaisannhaptaisanComponent implements OnInit {
     });
     return data;
   }
+  GhiLai() {
+    this.activeModal.close(this.FilterTree());
+  }
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetList()
   }
 
-  GhiLai() {
-    this.LayId = this.items.find( ele => ele.data.checked).data.Id;
-    // this.activeModal.close(this.FilterTree());
-    this._serviceTaiSan.NhapTaiSan().AddThuVienById(this.LayId).subscribe((res: any) => {
-      this.activeModal.close(res.Data);
-    })
-
-  }
-  checked(e) {
-    this.items.forEach(ele => {
-      if (ele.data.Id !== e.Id) {
-        ele.data.disabled = e.checked; // nếu khác id thì disabled các item khác ( disabled = true). ko đc fix cứng => vì khi tích chọn thì e.checked = true
-      }
-    })
-  }
-
 }
+

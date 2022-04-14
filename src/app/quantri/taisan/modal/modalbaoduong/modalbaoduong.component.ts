@@ -13,35 +13,53 @@ export class ModalbaoduongComponent implements OnInit {
   public item: any = {};
   public title: any = '';
   public type = '';
-  Keyword:any='';
-  paging: any = {  page: 1, totalPages: 1, totalCount: 1 };
-  listTaiSan:any = [];
+  Keyword: any = '';
+  paging: any = { page: 1, totalPages: 1, totalCount: 1 };
+  listTaiSan: any = [];
 
-  constructor(public activeModal: NgbActiveModal, private _danhMucTaiSan:DanhmuctaisanService, public toastr: ToastrService) { this.item.isHoatDong = true}
+  constructor(public activeModal: NgbActiveModal, private _danhMucTaiSan: DanhmuctaisanService, public toastr: ToastrService) { this.item.isHoatDong = true }
 
   ngOnInit(): void {
     this.GetListdmLoaiTaiSan();
   }
 
-  GetListdmLoaiTaiSan(){
+  GetListdmLoaiTaiSan() {
     let data = {
-      PageSize:20, 
-      CurrentPage:this.paging.page,
-      Keyword:this.Keyword,  
+      PageSize: 20,
+      CurrentPage: this.paging.page,
+      Keyword: this.Keyword,
     };
-    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res:any)=>{
+    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
   }
+  ValidateData() {
+    if (!validVariable(this.item.Ma)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ mã!");
+      return false;
+    }
+    if (!validVariable(this.item.Ten)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ tên !");
+      return false;
+    }
+    if (!validVariable(this.item.IddmLoaiTaiSan)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ loại tài sản !");
+      return false;
+    }
+    return true;
+  }
+
   GhiLai() {
+    if (this.ValidateData()) {
       this._danhMucTaiSan.DanhMucLoaiBaoDuong().Set(this.item).subscribe((res: any) => {
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
         } else {
           this.toastr.success(res.Message);
           this.activeModal.close();
-        } 
+        }
         this.activeModal.close();
       })
     }
+  }
 }
