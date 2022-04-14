@@ -18,13 +18,14 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
   styleUrls: ['./modalchontaisan.component.css']
 })
 export class ModalchontaisanComponent implements OnInit {
-  opt: any = "";
 
+  opt: any = "";
   paging: any = {};
-  items: TreeNode[];
+  items: TreeNode[] = [];
   item: any = {};
   checkedAll: boolean = false;
   listIdDaChon: string[];
+  selectedNodes: TreeNode[] = [];
 
   constructor(
     public _modal: NgbModal,
@@ -42,117 +43,52 @@ export class ModalchontaisanComponent implements OnInit {
 
   Loaddata() {
     this._serviceTaiSan
-    .GetTaiSanTheoLoai()
-    .GetListTaiSanChuaBanGiao(0, 0, "","","")
-    .subscribe((res: any) => {
-      let items = [];
-      this.items = [];
-      items = res.Data;
-      items.forEach(obj => {
-        obj.checked = this.listIdDaChon?.includes(obj.Id);
-        let obj_copy: any = {};
-        if (obj?.listTaiSan) {
-          obj_copy.children = [];
-          obj.listTaiSan.forEach(element => {
-            element.checked = this.listIdDaChon.includes(element.Id);
-            obj_copy.children.push({ data: element, expanded: true });
-          });
-          obj.listTaiSan = null;
-        }
-        obj_copy.data = obj;
-        this.items.push({ data: obj_copy.data, children: obj_copy.children, expanded: true });
-      });
-      this.checked();
+      .GetTaiSanTheoLoai()
+      .GetListTaiSanChuaBanGiao(0, 0, "", "", "")
+      .subscribe((res:any) => {
+        this.items = res.Data.map(ele => {
+          return {
+            data: {
+              ...ele,
+              TenTaiSan: ele.Ten,
+              MaTaiSan: ele.Ma,
+            },
+            children: [],
+            expanded: true,
+          }
+        })
+        this.items = this.TreeItem(this.items);
+        this.CheckExistedTaiSan(this.items)
+      })
+  }
+
+  TreeItem(list) {
+    list.forEach(ele => {
+      ele.children = list.filter(obj => obj.data.IdTaiSan === ele.data.Id);
+    })
+    return list.filter(ele => ele.data.IdTaiSan === null);
+  }
+
+  CheckExistedTaiSan(list) {
+    list.forEach(ele => {
+      ele.data.checked = this.listIdDaChon.includes(ele.data.Id);
+    })
+    this.Checked()
+  }
+
+  CheckAll(e) {
+    this.items.forEach(ele => {
+      ele.data.checked = e.checked;
     })
   }
-  TimCheck() {
-    let cha: boolean = false;
-    let con: boolean = false;
-    cha = this.items.every(ele => ele.data.checked);
-    this.items.filter(obj => {
-      if (validVariable(obj.children) && obj.children.length > 0) {
-        con = obj.children.every(ele => ele.data.checked);
-        if (!con) {
-          return false;
-        }
-      }
-    });
-    if ((cha) && (con)) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
 
-  checkAll(e) {
-    if (e.checked) {
-      this.items.forEach(obj => {
-        obj.data.checked = true;
-        if (validVariable(obj.children) && obj.children.length > 0) {
-          obj.children.forEach(objchildren => {
-            objchildren.data.checked = true;
-          });
-        }
-      });
-    } else {
-      this.items.forEach(obj => {
-        obj.data.checked = false;
-        if (validVariable(obj.children) && obj.children.length > 0) {
-          obj.children.forEach(objchildren => {
-            objchildren.data.checked = false;
-          });
-        }
-      });
-    }
-  }
-
-  checked() {
-    // this.checkedAll = this.items.every(ele => ele.data.checked)
-    this.checkedAll = this.TimCheck();
-  }
-
-  FilterTree() {
-    let data: any = [];
-    this.items.forEach(obj => {
-      if (obj.data.checked) {
-        data.push({
-          // TaiSan: obj.data,
-          TaiSan: {
-            ...obj.data,
-            MaTaiSan: obj.data.Ma,
-            TenTaiSan: obj.data.Ten
-          },
-          IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
-          IdTaiSan: obj.data.Id,
-          IdCha: null,
-          Id: '',
-        });
-      }
-      if (validVariable(obj.children) && obj.children.length > 0) {
-        obj.children.forEach(objchildren => {
-          if (objchildren.data.checked) {
-            data.push({
-              // TaiSan: objchildren.data,
-              TaiSan: {
-                ...objchildren.data,
-                MaTaiSan: objchildren.data.Ma,
-                TenTaiSan: objchildren.data.Ten
-              },
-              IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
-              IdTaiSan: objchildren.data.Id,
-              IdCha: obj.data.checked ? obj.data.Id : null,
-              Id: '',
-            });
-          }
-        });
-      }
-    });
-    return data;
+  Checked() {
+    this.checkedAll = this.items.every(ele => ele.data.checked);
   }
 
   GhiLai() {
-    this.activeModal.close(this.FilterTree());
+    let selectedItems = this.items.filter(ele => ele.data.checked);
+    this.activeModal.close(selectedItems)
   }
 
 }

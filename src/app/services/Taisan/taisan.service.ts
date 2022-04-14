@@ -582,6 +582,7 @@ export class TaisanService {
     let url = API.TaiSan;
     return {
       GetList: (data) => {
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/GetListTaiSanThanhLy`, data, httpOptions);
       },
     };
