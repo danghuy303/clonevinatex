@@ -57,6 +57,8 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
           children: []
         }
       });
+      console.log("list tai san",this.items);
+      
       this.items = this.TreeItems(this.items)
       this.listTaiSanDaChon = this.TimCheck(this.items)
       this.listItemDaChon.forEach(ele => {
@@ -75,6 +77,7 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
     })
     return list.filter(ele => ele.data.IdTaiSan === null)
   }
+  
   TimCheck(list: Array<any>) {
     let newArr = [];
     list.forEach((ele) => {

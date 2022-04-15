@@ -21,12 +21,12 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nhóm tài sản : </label>
         <div class="p-col-12 p-xl-8 p-p-0 d-flex">
-            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TenNhomTaiSan" pInputText disabled/>
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TendmTaiSan " pInputText disabled/>
                 <button pButton pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="ChonTaiSan()"></button>
         </div>
     </div>
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tên tài sản : </label>
+        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tên tài sản <span class="text-danger">(*)</span> : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
         </div>
@@ -129,9 +129,9 @@
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tài liệu đính kèm : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <div class="p-inputgroup">
-                <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="item.FileName">
+                <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="NameFile" [disabled]="true" />
                 <button type="button" pButton pRipple icon="pi pi-upload"
-                    class="p-button-sm p-button-text p-button-secondary" (click)="taiLenFileDinhKem()"></button>
+                    class="p-button-sm p-button-text p-button-secondary" (click)="taiLenFileDinhKem()" ></button>
             </div>
         </div>
     </div>

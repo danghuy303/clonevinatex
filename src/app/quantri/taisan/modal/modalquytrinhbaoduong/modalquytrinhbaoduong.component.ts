@@ -57,6 +57,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
+    this.KiemTraButtonModal();
   }
 
   GetNextSoQuyTrinh() {
@@ -94,7 +95,6 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
         }
       });
       this.item.listTaiSan = listKetQua;
-      console.log(this.item.listTaiSan)
     })
       .catch((er) => {
       });
@@ -119,19 +119,19 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   }
   GhiLai() {
     if (this.ValidateData()) {
-    this._serviceTaiSan.QuyTrinhBaoDuong().Set(this.setData()).subscribe((res: any) => {
-      if (res.StatusCode !== 200 || !res.StatusCode) {
+      this._serviceTaiSan.QuyTrinhBaoDuong().Set(this.setData()).subscribe((res: any) => {
+        if (res.StatusCode !== 200 || !res.StatusCode) {
+          this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+        } else {
+          this.item = res.Data;
+          this.toastr.success(res.Message);
+          this.KiemTraButtonModal();
+          // this.activeModal.close();
+        }
+      }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-      } else {
-        this.item = res.Data;
-        this.toastr.success(res.Message);
-        this.KiemTraButtonModal();
-        this.activeModal.close();
-      }
-    }, (er) => {
-      this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-    })
-  }
+      })
+    }
   }
 
   KiemTraButtonModal() {

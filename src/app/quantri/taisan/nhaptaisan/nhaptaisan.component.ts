@@ -4,7 +4,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
-import { DateToUnix, mapArrayForDropDown,UnixToDate,} from "src/app/services/globalfunction";
+import { DateToUnix, mapArrayForDropDown, UnixToDate, } from "src/app/services/globalfunction";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { TreeNode } from 'primeng/api';
@@ -30,7 +30,7 @@ export class NhaptaisanComponent implements OnInit {
   trangThai: any = 1;
   listLoaiTaiSan: any = [];
   listPhanXuong = [];
-  TenBoPhanSuDung='';
+  TenBoPhanSuDung = '';
 
   constructor(
     public _modal: NgbModal,
@@ -88,7 +88,7 @@ export class NhaptaisanComponent implements OnInit {
       Keyword: this.Keyword,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
-      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
       Loai: 0
     };
     this._serviceTaiSan.NhapTaiSan().GetList(data).subscribe((res: any) => {
@@ -144,12 +144,13 @@ export class NhaptaisanComponent implements OnInit {
         listThongSoAnToan: [],
       },
     }
-    modalRef.result
-      .then((res: any) => {
-        this.Loaddata(false);
+    modalRef.result.then(res => {
+
+    }).catch(er => console.log(er))
+      .finally(() => {
+        this.Loaddata()
+        this.changeParam(0);
       })
-      .catch((er) => {
-      });
   }
   update(item) {
     let modalRef = this._modal.open(ModalcapnhattaisanComponent, {
@@ -160,11 +161,13 @@ export class NhaptaisanComponent implements OnInit {
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.title = "Cập nhập tài sản";
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
-    modalRef.result
-      .finally(()=>{
-        this.Loaddata();
+    modalRef.result.then(res => {
+
+    }).catch(er => console.log(er))
+      .finally(() => {
+        this.Loaddata()
         this.changeParam(0);
-      });
+      })
   }
   changePage(event) {
     this.paging.currentPage = event.page + 1;

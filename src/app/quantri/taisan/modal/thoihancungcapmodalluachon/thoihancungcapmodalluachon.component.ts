@@ -15,7 +15,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 export class ThoihancungcapmodalluachonComponent implements OnInit {
 
   opt: any = "";
-  items: TreeNode[];
+  items: any = [];
   item: any = [];
   listItemDaChon: any = [];
   Lay_Chon: any = [];
@@ -42,17 +42,17 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
   }
   GetList() {
     let data = {
-      Keyword: this.filter.Keyword,
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      TuNgay: 0, DenNgay: 0,
-      IdBoPhanSuDung: '',
-      Loai:0, IdDuAn:0,
-
+      KeyWord: this.filter.KeyWord,
+      IddmLoaiTaiSan: "",
+      Nam: this.filter.Nam,
+      Thang: this.filter.Thang,
+      QuaHan: true,
     };
     this._serviceTaiSan.ThoiHanCungCap().LuaChon(data).subscribe((res: any) => {
-      // this.paging.TotalCount = res.Data.TotalCount;
-      // this.items = [];
+      this.paging.TotalCount = res.Data.TotalCount;
+      this.items = res.Data.Items;
       // res.Data.forEach(obj => {
       //   obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
       //   let data: any = { "data": obj, "children": [] };
@@ -112,26 +112,13 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
   FilterTree() {
     let data: any = [];
     this.items.forEach(obj => {
-      if (obj.data.checked) {
+      if (obj.checked) {
         data.push({
-          IdTaiSan: obj.data.IdTaiSan,
-          TenTaiSan: obj.data.TenTaiSan,
-          IddmLoaiBaoDuong: obj.data.IddmLoaiBaoDuong,
-          Ma: obj.data.MadmLoaiBaoDuong,
-          TenLoaidmBaoDuong: obj.data.TendmLoaiBaoDuong,
-        });
-      }
-      if (validVariable(obj.children) && obj.children.length > 0) {
-        obj.children.forEach(objchildren => {
-          if (objchildren.data.checked) {
-            data.push({
-              IdTaiSan: objchildren.data.IdTaiSan,
-              IddmLoaiBaoDuong: objchildren.data.IddmLoaiBaoDuong,
-              TenTaiSan: objchildren.data.TenTaiSan,
-              Ma: objchildren.data.MadmLoaiBaoDuong,
-              TenLoaidmBaoDuong: objchildren.data.TendmLoaiBaoDuong,
-            });
-          }
+          IdTaiSan: obj.Id,
+          Ten: obj.Ten,
+          IdNhaCungUng: obj.IddmNhaCungUng,
+          Ma: obj.Ma,
+          // TenLoaidmBaoDuong: obj.data.TendmLoaiBaoDuong,
         });
       }
     });

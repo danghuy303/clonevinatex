@@ -31,7 +31,7 @@ export class ThongTinDanhGiaComponent implements OnInit, OnChanges {
     this.listDanhGia = this.item.listPhieuDanhGia;
     this.filter = {};
     this.paging = {
-      currentPage: 1,
+      currentPage: 0,
       totalCount: this.item.listPhieuDanhGia.length,
     };
   }
@@ -45,6 +45,18 @@ export class ThongTinDanhGiaComponent implements OnInit, OnChanges {
     } else {
       this.LoadData();
     }
+  }
+
+  SplitPages(arr) {
+    const ROWS_PER_PAGES = 20;
+    let first = this.paging.currentPage*ROWS_PER_PAGES;
+    let last = first + ROWS_PER_PAGES;
+    return arr.slice(first, last);
+  }
+
+  changePage(e) {
+    this.paging.currentPage = e.page;
+    this.SplitPages(this.listDanhGia);
   }
 
 }

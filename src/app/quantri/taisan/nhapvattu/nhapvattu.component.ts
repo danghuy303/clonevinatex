@@ -132,7 +132,12 @@ export class NhapvattuComponent implements OnInit {
         if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
-          this.item = res.Data;
+          this.item = res.Data.map(ele => {
+            return {
+              ...ele,
+              Ngay: UnixToDate(ele.NgayUnix)
+            }
+          });
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();
           // this.activeModal.close();
