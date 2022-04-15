@@ -17,7 +17,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
   templateUrl: './modalchontaisan.component.html',
   styleUrls: ['./modalchontaisan.component.css']
 })
-export class ModalchontaisanComponent implements OnInit {
+export class  ModalchontaisanComponent implements OnInit {
 
   opt: any = "";
   paging: any = {};
@@ -50,6 +50,9 @@ export class ModalchontaisanComponent implements OnInit {
           return {
             data: {
               ...ele,
+              IdCha: ele.IdTaiSan,
+              IdTaiSan: ele.Id,
+              Id: "",
               TenTaiSan: ele.Ten,
               MaTaiSan: ele.Ma,
             },
@@ -64,9 +67,9 @@ export class ModalchontaisanComponent implements OnInit {
 
   TreeItem(list) {
     list.forEach(ele => {
-      ele.children = list.filter(obj => obj.data.IdTaiSan === ele.data.Id);
+      ele.children = list.filter(obj => obj.data.IdCha === ele.data.IdTaiSan);
     })
-    return list.filter(ele => ele.data.IdTaiSan === null);
+    return list.filter(ele => ele.data.IdCha === null);
   }
 
   CheckExistedTaiSan(list) {
@@ -88,6 +91,9 @@ export class ModalchontaisanComponent implements OnInit {
 
   GhiLai() {
     let selectedItems = this.items.filter(ele => ele.data.checked);
+    console.log("selectedItems",selectedItems);
+    
+    // selectedItems  =  selectedItems.map()
     this.activeModal.close(selectedItems)
   }
 

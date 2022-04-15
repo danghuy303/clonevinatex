@@ -126,7 +126,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   mapDataViewToModel(item: any) {
     return {
       Id:"",
-      IdTaiSan: item.data?.Id,
+      IdTaiSan: item.data?.IdTaiSan,
       SoLuong: item.data?.SoLuong,
       GhiChu: item.data?.GhiChu || "",
       MaTaiSan: item.data?.MaTaiSan,
