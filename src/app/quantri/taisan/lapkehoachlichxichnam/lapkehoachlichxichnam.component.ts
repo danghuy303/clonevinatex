@@ -21,7 +21,7 @@ import { ModalluachontaisantheolichxichComponent } from '../modal/modalluachonta
 export class LapkehoachlichxichnamComponent implements OnInit {
   opt: any = "";
   listNam: any = [];
-  item: any = {isChon:0,};
+  item: any = { isChon: 0, };
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
@@ -30,7 +30,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   store: any;
   TaiSanItem: any = [];
   count: number;
-  trangThai:any = 0;
+  trangThai: any = 0;
 
 
   constructor(
@@ -95,16 +95,19 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   }
 
   setData() {
+    this.item.ThoiGian = new Date(this.item.Nam, 0, 2);
     this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian);
     this.item.listTaiSan = this.item.listTaiSan.filter(ele => !ele.isXoa);
     return this.item;
   }
+
   GhiLai() {
     this._serviceTaiSan.LichXich().Set(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200 || !res.StatusCode) {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       } else {
         this.item = res.Data;
+        this.item.Nam = UnixToDate(this.item.ThoiGianUnix).getFullYear();
         this.toastr.success(res.Message);
         this.KiemTraButtonModal();
         // this.activeModal.close();
@@ -158,7 +161,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       .catch((er) => console.log(er));
   }
   ThemMoiDanhSachTaiSan() {
-   
+
     // if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung)) {
     //   this.toastr.error("Yêu cầu nhập đầy đủ loại tài sản và bộ phận sử dụng!");
     //   return
@@ -214,7 +217,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
             ele.listBaoDuong.push(
               {
                 ThoiGian: i,
-                listChiTiet: [],
+                listChiTiet: [ ],
               }
             )
           }
@@ -232,6 +235,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       keyboard: false
     });
     modalRef.componentInstance.Lay_Chon = itemLoaiBaoDuongDeChon;
+    modalRef.componentInstance.Nam = this.item.ThoiGian;
     modalRef.componentInstance.listItemDaChon = item.listChiTiet ? item.listChiTiet.map(ele => ele.IddmLoaiBaoDuong) : []
     modalRef.result.then((res: any) => {
       item.listChiTiet = res;
@@ -243,8 +247,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     let item = this.item.listTaiSan.splice(i, 1)[0];
   }
   changeTab(e) {
-    console.log('eeee', e);
-    
     this.trangThai = e.index;
   }
 }

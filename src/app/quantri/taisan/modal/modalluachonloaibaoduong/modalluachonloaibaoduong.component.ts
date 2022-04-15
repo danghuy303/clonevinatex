@@ -21,6 +21,7 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
   Lay_Chon: any = [];
   checkedAll: boolean = false;
   listdmLoaiBaoDuong: any = [];
+  Nam: any = "";
 
   constructor(
     public _modal: NgbModal,
@@ -31,6 +32,10 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    let d = new Date(this.Nam, 3,1);
+    console.log(d);
+
+    
     this.GetList();
     // console.log(this.Lay_Chon);
     // console.log(this.Lay_Chon[0]?.listLichBaoDuong);
@@ -39,7 +44,6 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
 
   GetList() {
     this.items = this.Lay_Chon;
-   console.log(this.items);
     this.items.forEach(obj => {
       obj.checked = this.listItemDaChon.includes(obj.IddmLoaiBaoDuong);
     });
@@ -68,11 +72,14 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
   FilterTree() {
     let data: any = [];
     this.items.forEach(obj => {
+      console.log(obj);
+      
       if (obj.checked) {
         data.push({
           IddmLoaiBaoDuong: obj.IddmLoaiBaoDuong,
           Id: '',
           TendmLoaiBaoDuong: obj.TendmLoaiBaoDuong,
+          NgayUnix: 0,
         });
       }
     });

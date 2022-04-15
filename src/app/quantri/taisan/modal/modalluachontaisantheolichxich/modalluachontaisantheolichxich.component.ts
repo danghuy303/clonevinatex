@@ -131,6 +131,8 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   FilterTree() {
     let data: any = [];
     this.items.forEach(obj => {
+      console.log("khi them moi", obj);
+      
       if (obj.data.checked) {
         data.push({
           IdTaiSan: obj.data.IdTaiSan,
