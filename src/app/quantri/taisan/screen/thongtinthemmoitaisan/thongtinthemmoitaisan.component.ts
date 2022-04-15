@@ -42,19 +42,25 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
   ngOnInit() {
 
     if (this.opt === 'edit') {
-      // this.item.listFileDinhKem.forEach(obj => {
-      //   this.NameFile += `${obj.FileName}, `;
-      // });
+      this.item.listFileDinhKem?.forEach(obj => {
+        this.NameFile += `${obj.FileName}, `;
+      });
     }
   }
 
   LayMa(e) {
+    if (!validVariable(e.value)) {
+      this.item.Ma = '';
+      return
+    }
     this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
-      this.item.Ma = res.Data;
-      if (!validVariable(e.value)) {
+      if (res.StatusCode === 500) {
         this.item.Ma = '';
+        this.toastr.error(res.Message);
       }
-      // this.item.Ma = res.Data;
+      else {
+        this.item.Ma = res.Data;
+      }
     })
   }
 
@@ -70,10 +76,10 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
     modalRef.componentInstance.multiple = true;
     modalRef.componentInstance.type = '';
     modalRef.result.then((data) => {
-      this.item.listFileDinhKem = data;
-      this.item.listFileDinhKem.forEach(obj => {
-        this.NameFile += `${obj.NameLocal}, `;
-      });
+      // this.item.listFileDinhKem = data;
+      // this.item.listFileDinhKem.forEach(obj => {
+      //   this.NameFile += `${obj.NameLocal}, `;
+      // });
       this.item.listFileDinhKem = data;
       this.item.listFileDinhKem.forEach(obj => {
         obj.Id = '';
@@ -101,11 +107,11 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
     });
 
     // modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.Id) : [];
-    modalRef.componentInstance.ItemDaChon = this.item.IdNhomTaiSan ? this.item.IdNhomTaiSan : "";
+    modalRef.componentInstance.ItemDaChon = this.item.IddmTaiSan ? this.item.IddmTaiSan : "";
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
-      this.item.IdNhomTaiSan = res[0]?.Id;
-      this.item.TenNhomTaiSan = res[0]?.MaTaiSan;
+      this.item.IddmTaiSan = res[0]?.Id;
+      this.item.TendmTaiSan = res[0]?.Ten;
     })
       .catch((er) => {
       });

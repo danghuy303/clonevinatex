@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵCodegenComponentFactoryResolver } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -9,8 +9,6 @@ import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/
 import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
-import { ModalchontaisanThanhlyCopyComponent } from '../modal/modalchontaisan-thanhly-copy/modalchontaisan-thanhly-copy.component';
-import { ModalluachontaisantheolichxichComponent } from '../modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
 import { ThoihancungcapmodalluachonComponent } from '../modal/thoihancungcapmodalluachon/thoihancungcapmodalluachon.component';
 
 
@@ -65,7 +63,9 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     // this.GetListNhaCungUng();
+    this.KiemTraButtonModal();
     this.getList();
+
   }
 
   ChonNhaCungUng(e) {
@@ -90,7 +90,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
   }
 
   ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open(ModalluachontaisantheolichxichComponent, {
+    let modalRef = this._modal.open(ThoihancungcapmodalluachonComponent, {
       size: "lg",
       backdrop: "static",
     });
@@ -99,21 +99,21 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     modalRef.componentInstance.Lay_Chon = this.item;
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
-
-      let listKetQua = [];
-      this.item.listTaiSan.forEach(Tai_San => {
-        let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-        if (bien !== undefined) {
-          listKetQua.push(Tai_San);
-        }
-      });
-      res.forEach(Tai_San => {
-        let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-        if (bien === undefined) {
-          listKetQua.push(Tai_San);
-        }
-      });
-      this.item.listTaiSan = listKetQua;
+      this.item.listTaiSan = res;
+  // let listKetQua = [];
+      // this.item.listTaiSan.forEach(Tai_San => {
+      //   let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+      //   if (bien !== undefined) {
+      //     listKetQua.push(Tai_San);
+      //   }
+      // });
+      // res.forEach(Tai_San => {
+      //   let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+      //   if (bien === undefined) {
+      //     listKetQua.push(Tai_San);
+      //   }
+      // });
+      // this.item.listTaiSan = listKetQua;
       this.GetListNhaCungUng();
     })
       .catch((er) => {
@@ -133,7 +133,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
         this.item = res.Data;
         this.toastr.success(res.Message);
         this.KiemTraButtonModal();
-        this.activeModal.close();
+        // this.activeModal.close();
       }
     }, (er) => {
       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -201,7 +201,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     this.tongThanhTien = 0;
     this.item.listTaiSan.forEach(item => {
       item.ThanhTien = (item.SoLuong || 0) * (item.DonGia || 0);
-      // this.tongThanhTien += (item.ThanhTien || 0);
+      this.tongThanhTien += (item.ThanhTien || 0);
     });
   }
   getList() {

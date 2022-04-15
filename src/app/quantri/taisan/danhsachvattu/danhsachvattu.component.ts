@@ -89,7 +89,7 @@ export class DanhsachvattuComponent implements OnInit {
       IddmLoaiTaiSan: "",
       Nam: this.filter.Nam,
       Thang: this.filter.Thang,
-      QuaHan: true,
+      QuaHan: this.filter.QuaHan,
     };
     this._serviceTaiSan.ListDanhSachVatTu().GetList(data).subscribe((res: any) => {
       this.paging.CurrentPage = res.Data.Page;
@@ -99,7 +99,7 @@ export class DanhsachvattuComponent implements OnInit {
       this.items.forEach(item => {
         item.ThanhTien = 0;
         item.ThanhTien = (item.NguyenGia || 0) * (item.SoLuong || 0);
-    
+
       })
       this.CheckExist(this.items);
       this.TimCheck();
@@ -112,7 +112,7 @@ export class DanhsachvattuComponent implements OnInit {
     // let data = {
     //   ...this.checkList,
     // };
-    this._serviceTaiSan.ListDanhSachVatTu().KiemTraNCC(this.checkList).subscribe((res: any) => {
+    this._serviceTaiSan.ListDanhSachVatTu().KiemTraNCC(this.listVatTuDaChon.map(ele => ele.Id)).subscribe((res: any) => {
       if (res.StatusCode !== 200 || !res.StatusCode) {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       } else {
@@ -126,14 +126,20 @@ export class DanhsachvattuComponent implements OnInit {
 
   checked() {
     this.items.forEach(ele => {
+      let exist = this.listVatTuDaChon.find(obj => obj.Id === ele.Id);
       if (ele.checked) {
-        if (!this.listVatTuDaChon.includes(ele.Id)) { // Kiểm tra mảng tạm nhớ, nếu chưa có thì push vào
-          this.listVatTuDaChon.push(ele.Id)
+        if (!!!exist) { // Kiểm tra mảng tạm nhớ, nếu chưa có thì push vào
+          this.listVatTuDaChon.push(ele)
         }
+        // if (!this.listVatTuDaChon.includes(ele.Id)) { // Kiểm tra mảng tạm nhớ, nếu chưa có thì push vào
+        //   this.listVatTuDaChon.push(ele)
+        // }
       } else {
-        if (this.listVatTuDaChon.includes(ele.Id)) { // Kiểm tra mảng tạm nhớ, nếu đã có, mà ta bỏ check thì xóa ra khỏi mảng
-          let index = this.listVatTuDaChon.findIndex(a => a === ele.Id);
-          this.listVatTuDaChon.splice(index, 1)
+        if (!!exist) { // Kiểm tra mảng tạm nhớ, nếu đã có, mà ta bỏ check thì xóa ra khỏi mảng
+          let index = this.listVatTuDaChon.findIndex(a => a.Id === ele.Id);
+          if (index !== -1) {
+            this.listVatTuDaChon.splice(index, 1)
+          }
         }
       }
     });
@@ -142,11 +148,12 @@ export class DanhsachvattuComponent implements OnInit {
 
   CheckExist(items) {
     items.forEach(ele => {
-      ele.checked = this.listVatTuDaChon.includes(ele.Id);
+      let exist = this.listVatTuDaChon.find(obj => obj.Id === ele.Id);
+      ele.checked = !!exist;
     })
   }
   TimCheck() {
-    this.checkedAll =  this.items.every(ele => ele.checked);
+    this.checkedAll = this.items.every(ele => ele.checked);
   }
 
   checkAll(e) {
@@ -180,7 +187,6 @@ export class DanhsachvattuComponent implements OnInit {
   }
 
   changeTab(e) {
-    // this.trangThai = e.index + 1;
     this.loaiTab = e.index;
     this.GetList(true);
   }
@@ -189,4 +195,23 @@ export class DanhsachvattuComponent implements OnInit {
     this.paging.CurrentPage = event.page + 1;
     this.GetList();
   }
+
+  exportExcel() {
+    let data = this.listVatTuDaChon.map(ele => {
+      return {
+        "Ma": ele.Ma,
+        "Ten":ele.Ten,
+        "SoLuongTon": ele.TonKho,
+        "SoLuongCanThayThe":ele.TonKho ,
+        "TuoiTho": ele.TuoiTho,
+        "NhaCungCap": ele.TenNhaCungCap,
+        "DonGiaNhapGanNhat": ele.NguyenGia,
+        "ThanhTien": ele.ThanhTien,
+      }
+    })
+    this._serviceTaiSan.ListDanhSachVatTu().exportExcel(data).subscribe((res: any) => {
+      this._danhMucTaiSan.DanhMucLoaiTaiSan().download(res.Data);
+    })
+  }
+
 }

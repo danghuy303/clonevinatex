@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { httpOptions, API } from './host';
 import { StoreService } from './store.service';
+import { AuthenticationService } from './auth.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SanXuatService {
-    constructor(private http: HttpClient, private store: StoreService) {
+    constructor(private http: HttpClient, private store: StoreService,private auth:AuthenticationService) {
 
     }
     //Cấp bông
@@ -280,6 +281,18 @@ export class SanXuatService {
     }
     //#endregion
 
+    BaoCaoTongHop(){
+        return {
+            GetBaoCao_BongChaiTongHop:(data)=>{
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${API.SCMBaoCao}GetBaoCao_BongChaiTongHop`,data,httpOptions);
+            },
+            GetBaoCao_GhepThoTongHop:(data)=>{
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${API.SCMBaoCao}GetBaoCao_GhepThoTongHop`,data,httpOptions);
+            }
+        }
+    }
 
     //#region Định mức tiêu chí chất lượng sợi
     dmDinhMucTieuChiChatLuongSoi() {
@@ -1811,10 +1824,32 @@ export class SanXuatService {
         let url = API.auth + 'Notification/'
         return {
             GetListNotification: () => {
-                return this.http.get(`${url}GetListNotification`, httpOptions)
+                console.warn(this.auth.currentUserValue)
+                return this.http.get(`${url}GetListNotificationLoaiBoLoai?Loai=TraoDoiCongViec,TraoDoiGroup,ThongBaoGroup,TRAODOIQUYTRINH,CANHBAOTHONGKECONGDOAN&IdUser=${this.auth.currentUserValue.Id}&idIdLast=0`, httpOptions)
             },
             GetMoreNotification: (lastId) => {
-                return this.http.get(`${url}GetListNotification?idIdLast=${lastId}`, httpOptions)
+                return this.http.get(`${url}GetListNotificationLoaiBoLoai?Loai=TraoDoiCongViec,TraoDoiGroup,ThongBaoGroup,TRAODOIQUYTRINH,CANHBAOTHONGKECONGDOAN&IdUser=${this.auth.currentUserValue.Id}&idIdLast=${lastId}`, httpOptions)
+            },
+            GetNotiCounAndNew: () => {
+                return this.http.get(`${url}GetNotification`, httpOptions)
+            },
+            MarkAllRead: () => {
+                return this.http.post(`${url}MarkAllRead`, {}, httpOptions)
+            },
+            XemNotification: (data) => {
+                return this.http.post(`${url}XemNotification`, data, httpOptions)
+            }
+        }
+    }
+    CanhBaoNhapLieuCongDoan(){
+        let url = API.auth + 'Notification/'
+        return {
+            GetListNotification: () => {
+                console.warn(this.auth.currentUserValue)
+                return this.http.get(`${url}GetListNotificationTheoLoai?Loai=CANHBAOTHONGKECONGDOAN&IdUser=${this.auth.currentUserValue.Id}&idIdLast=0`, httpOptions)
+            },
+            GetMoreNotification: (lastId) => {
+                return this.http.get(`${url}GetListNotificationTheoLoai?Loai=CANHBAOTHONGKECONGDOAN&IdUser=${this.auth.currentUserValue.Id}&idIdLast=${lastId}`, httpOptions)
             },
             GetNotiCounAndNew: () => {
                 return this.http.get(`${url}GetNotification`, httpOptions)

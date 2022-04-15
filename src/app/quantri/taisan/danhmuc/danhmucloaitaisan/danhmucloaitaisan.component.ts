@@ -176,7 +176,6 @@ export class DanhmucloaitaisanComponent implements OnInit {
     })
   }
   changePage(event) {
-    console.log(event);
     this.paging.CurrentPage = event.page + 1;
     this.GetList()
   }

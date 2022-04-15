@@ -24,6 +24,9 @@ export class QuantriComponent implements OnInit {
   listNotis: any = [];
   // userName: any = 'Vinatex';
   display: boolean = false;
+  newCanhBao: any = 0;
+  // userName: any = 'Vinatex';
+  displayCanhBao: boolean = false;
   OSName: string = "HỆ THỐNG Quản lý Nhà – Đất";
   menu: MenuItem[];
   menuQLTS: MenuItem[];
@@ -37,6 +40,8 @@ export class QuantriComponent implements OnInit {
   showHopDongModule: any = false;
   showTaiSanModule: any = false;
   @ViewChild("listNoti") listNoti;
+  @ViewChild("listCanhBaoComponent") listCanhBaoComponent;
+  listCanhBao: any;
   constructor(
     private _auth: AuthenticationService,
     private _modal: NgbModal,
@@ -83,6 +88,9 @@ export class QuantriComponent implements OnInit {
   open(event) {
     this.listNoti.toggle(event);
   }
+  openCanhBao(event) {
+    this.listCanhBaoComponent.toggle(event);
+  }
   readedAllNoti() {
     this._services
       .Notifications()
@@ -106,7 +114,6 @@ export class QuantriComponent implements OnInit {
     // }
     // this.newNoti = this.listNotis.filter(ele => ele.isRead !== true).length;
     let routerURL = this.mapQuyTrinhRoute[item.LoaiThongBao];
-
     if (routerURL) {
       // this._router.navigate([`${routerURL}0`]);
       // setTimeout(()=>{
@@ -118,6 +125,7 @@ export class QuantriComponent implements OnInit {
   }
   refreshNotis() {
     this.GetCount();
+    this.GetListCanhBao();
     this.GetListNotis();
   }
 
@@ -148,10 +156,26 @@ export class QuantriComponent implements OnInit {
         this.listNotis = [...this.listNotis, ...res.ListItem];
       });
   }
+  GetListCanhBao() {
+    this._services
+      .CanhBaoNhapLieuCongDoan()
+      .GetListNotification()
+      .subscribe((res: any) => {
+        this.listCanhBao = res.ListItem;
+      });
+  }
+  GetMoreCanhBao() {
+    this._services
+      .CanhBaoNhapLieuCongDoan()
+      .GetMoreNotification(this.listCanhBao[this.listCanhBao.length - 1].Id)
+      .subscribe((res: any) => {
+        this.listCanhBao = [...this.listCanhBao, ...res.ListItem];
+      });
+  }
 
   ngOnInit(): void {
-    this.showHopDongModule = (window.location.origin.includes('localhost') || window.location.origin.includes('2269'));
-    this.showTaiSanModule = (window.location.origin.includes('localhost') || window.location.origin.includes('2269'));
+    this.showHopDongModule = (window.location.origin.includes('4200') || window.location.origin.includes('2269')|| window.location.origin.includes('2369'));
+    this.showTaiSanModule = (window.location.origin.includes('4200') || window.location.origin.includes('2269')|| window.location.origin.includes('2369'));
     // this.showTaiSanModule = true;
     this.refreshNotis();
     this._router.events
@@ -1460,7 +1484,7 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/baocaotonghop/ongtonghop",
             command: () => this.close(),
           },
-          
+
         ]
       },
 
@@ -1636,22 +1660,22 @@ export class QuantriComponent implements OnInit {
   }
 
   checkmenu(maaction) {
-    if (this.dataphanquyen == null) {
-      return true;
-    } else if (this.dataphanquyen[maaction] == undefined) {
-      return true;
-    } else if (this.dataphanquyen[maaction].length == 0) {
-      return true;
-    } else {
-      for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
-        if (this.dataphanquyen[maaction][i].MaRight === "XEM") {
-          if (this.dataphanquyen[maaction][i].GioiHan > 0) {
-            return false;
-          } else return true;
-        }
-      }
-    }
-    // return false;
+    // if (this.dataphanquyen == null) {
+    //   return true;
+    // } else if (this.dataphanquyen[maaction] == undefined) {
+    //   return true;
+    // } else if (this.dataphanquyen[maaction].length == 0) {
+    //   return true;
+    // } else {
+    //   for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
+    //     if (this.dataphanquyen[maaction][i].MaRight === "XEM") {
+    //       if (this.dataphanquyen[maaction][i].GioiHan > 0) {
+    //         return false;
+    //       } else return true;
+    //     }
+    //   }
+    // }
+    return false;
   }
 
   private subscribeToEvents(): void {

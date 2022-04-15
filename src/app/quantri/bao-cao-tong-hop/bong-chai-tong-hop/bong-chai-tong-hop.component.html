@@ -5,13 +5,24 @@
   </div>
 
   <div class="p-d-flex p-jc-end p-mb-3">
-    <div class="p-mr-3">
-      <p-dropdown placeholder="Chọn phân xưởng" [filter]="true"></p-dropdown>
+    <div class="p-mr-2">
+      <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng" styleClass="p-inputtext-sm"
+        [(ngModel)]="filter.IddmPhanXuong" (onChange)="GetBaoCao()"></p-dropdown>
     </div>
-    <div class="p-mr-3">
+    <div class="p-mr-2">
+      <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" [(ngModel)]="filter._tuNgay"
+        inputId="icon" placeholder="Từ ngày" (onSelect)="GetBaoCao()">
+      </p-calendar>
+    </div>
+    <div class="p-mr-2">
+      <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" [(ngModel)]="filter._denNgay"
+        inputId="icon" placeholder="Đến ngày" (onSelect)="GetBaoCao()">
+      </p-calendar>
+    </div>
+    <!-- <div class="p-mr-3">
       <p-dropdown placeholder="Ca sản xuất" [filter]="true"></p-dropdown>
-    </div>
-    <div class="p-mr-3">
+    </div> -->
+    <!-- <div class="p-mr-3">
       <p-dropdown [placeholder]="currentTime.day" [options]="listNgay" [filter]="true"></p-dropdown>
     </div>
     <div class="p-mr-3">
@@ -19,7 +30,7 @@
     </div>
     <div class="">
       <p-dropdown [placeholder]="currentTime.year" [options]="listNam" [filter]="true"></p-dropdown>
-    </div>
+    </div> -->
   </div>
 
   <div>
@@ -31,40 +42,33 @@
       </ng-template>
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th>
-            Ngày
-          </th>
           <th *ngFor="let col of columns" style="word-wrap: break-word" [style.width]="col.width">
-            {{col.header}}
+            {{col}}
           </th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-item let-columns="columns">
         <tr>
-          <td class="text-center">
-            {{item.Ngay}}
-          </td>
-          <td *ngFor="let col of columns" [style.backgroundColor]="col.backgroundColor" [class]="col.textAlign">
-            {{item[col.field]}}
+          <td *ngFor="let giatri of item.listGiaTriCot" [ngClass]="{'text-right': giatri.LoaiGiaTri==='DOUBLE'}">
+            <span *ngIf="giatri.LoaiGiaTri==='STRING'">{{giatri.GiaTri_String}}</span>
+            <span *ngIf="giatri.LoaiGiaTri==='DOUBLE'">{{giatri.GiaTri_Double|number:'0.0-3'}}</span>
           </td>
         </tr>
       </ng-template>
-      <ng-template pTemplate="footer" let-columns="columns">
+      <!-- <ng-template pTemplate="footer" let-columns="columns">
         <tr>
-          <td style="background-color: #f0f0f0">
-            Tổng
-          </td>
-          <td *ngFor="let col of cols" class="text-right" style="background-color: #f0f0f0">
-            {{items | SumByKey: col.field}}
+          <td *ngFor="let col of cols;let i = index" [ngClass]="{'text-right': i!==0}" style="background-color: #f0f0f0">
+            <span *ngIf="i===0">Tổng</span>
+            <span *ngIf="i!==0">{{Tong[i]|number:'0.0-3'}}</span>
           </td>
         </tr>
-      </ng-template>
-      <ng-template pTemplate="summary">
+      </ng-template> -->
+      <!-- <ng-template pTemplate="summary">
         <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi .
           <p-paginator [rows]="20">
           </p-paginator>
-      </div>
-      </ng-template>
+        </div>
+      </ng-template> -->
     </p-table>
   </div>
 

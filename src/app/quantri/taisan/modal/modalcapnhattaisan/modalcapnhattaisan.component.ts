@@ -26,7 +26,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   title: any = "";
   lang: any = vn;
   NameFile: string;
-  checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true};
+  checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   itemDonVi: any = {};
   uploader: FileUploader;
   // newTableItem: any = {};
@@ -40,7 +40,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     size: 250
   };
   listPhanXuong = [];
-  filter:{MaCongDoan,};
+  filter: { MaCongDoan, };
 
   constructor(
     public _modal: NgbModal,
@@ -55,6 +55,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ngOnInit() {
+
     if (this.item.TaiSan.NgayNhapUnix !== 0 || this.item.TaiSan.NgayNhapUnix === 0) {
       this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
     }
@@ -66,21 +67,21 @@ export class ModalcapnhattaisanComponent implements OnInit {
       this.GetIem();
     }
     this.GetListdmPhanXuong();
-    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan:'', };
+    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
 
     // this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
     //   console.log(res.Data);
     //   this.listLoaiTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
     //   console.log(this.listLoaiTaiSan)
     // })
-   
+
 
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
 
-    Promise.all([ls1,ls2]).then((values: any) => {
-      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id"); 
-      this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");  
+    Promise.all([ls1, ls2]).then((values: any) => {
+      this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
+      this.listCungSanXuat = mapArrayForDropDown(values[1].Data, "Ten", "Id");
     });
   }
 
@@ -120,18 +121,13 @@ export class ModalcapnhattaisanComponent implements OnInit {
     });
   }
 
-  // Validate() {
-  //   if (!validVariable(this.item.TaiSan.Ma) ||
-  //     !validVariable(this.item.TaiSan.Ten) ||
-  //     !validVariable(this.item.TaiSan.NgayNhap) ||
-  //     !validVariable(this.item.TaiSan.SoSeri) ||
-  //     !validVariable(this.item.TaiSan.IddmLoaiTaiSan) ||      
-  //     !validVariable(this.item.TaiSan.IddmTinhTrang)) {
-  //     this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
-  //     return false;
-  //   }
-  //   return true;
-  // }
+  ValidateData() {
+    if (!validVariable(this.item.Ten) ) {
+      this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
+      return false;
+    }
+    return true;
+  }
 
 
   setData() {
@@ -140,6 +136,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     return this.item;
   }
   GhiLai() {
+    if (this.ValidateData()) {
       this._serviceTaiSan.NhapTaiSan().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.toastr.success(res.Message);
@@ -150,27 +147,29 @@ export class ModalcapnhattaisanComponent implements OnInit {
           this.toastr.error(res.Message);
         }
       })
+    }
   }
 
+
   ChuyenDuyet() {
-      this._serviceTaiSan.NhapTaiSan().ChuyenTiep(this.item).subscribe((res: any) => {
-        if (res.StatusCode !== 200) {
-          this.toastr.error(res.Message);
-        } else {
-          this.toastr.success(res.Message);
-          this.activeModal.close();
-        }
-      })
+    this._serviceTaiSan.NhapTaiSan().ChuyenTiep(this.item).subscribe((res: any) => {
+      if (res.StatusCode !== 200) {
+        this.toastr.error(res.Message);
+      } else {
+        this.toastr.success(res.Message);
+        this.activeModal.close();
+      }
+    })
   }
   KhongDuyet() {
-      this._serviceTaiSan.NhapTaiSan().KhongDuyet(this.item).subscribe((res: any) => {
-        if (res.StatusCode !== 200) {
-          this.toastr.error(res.Message);
-        } else {
-          this.toastr.success(res.Message);
-          this.activeModal.close();
-        }
-      })
+    this._serviceTaiSan.NhapTaiSan().KhongDuyet(this.item).subscribe((res: any) => {
+      if (res.StatusCode !== 200) {
+        this.toastr.error(res.Message);
+      } else {
+        this.toastr.success(res.Message);
+        this.activeModal.close();
+      }
+    })
   }
 
   XoaQuyTrinh() {
@@ -198,16 +197,16 @@ export class ModalcapnhattaisanComponent implements OnInit {
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "add";
-    modalRef.componentInstance.item =  {
-        Id: "",
-        isXoa: false,
-        listFileDinhKem: [],
-        Created: new Date(),
-        Modified: new Date(),
-        listTaiSan: [],
-        listLichBaoDuong: [],
-        listThongSoKyThuat: [],
-        listThongSoAnToan: [],
+    modalRef.componentInstance.item = {
+      Id: "",
+      isXoa: false,
+      listFileDinhKem: [],
+      Created: new Date(),
+      Modified: new Date(),
+      listTaiSan: [],
+      listLichBaoDuong: [],
+      listThongSoKyThuat: [],
+      listThongSoAnToan: [],
     };
     modalRef.componentInstance.listTaiSan = this.item.TaiSan.listTaiSan;
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
@@ -215,7 +214,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
     modalRef.result
       .then((res: any) => {
-        this.item.TaiSan.listTaiSan=res
+        this.item.TaiSan.listTaiSan = res
       })
       .catch((er) => {
       });
@@ -289,14 +288,10 @@ export class ModalcapnhattaisanComponent implements OnInit {
       size: "lg",
       backdrop: "static",
     });
-    modalRef.componentInstance.item =this.item;
+    modalRef.componentInstance.item = this.item;
     modalRef.result
       .then((res: any) => {
-
-        // this._serviceTaiSan.NhapTaiSan().AddThuVien(this.item).subscribe((res: any) => {
-         
-        // })
-
+        this.item.TaiSan = res;
       })
       .catch((er) => {
       });

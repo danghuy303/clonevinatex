@@ -1,4 +1,4 @@
-<p-table [value]="item|isXoa" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
+<p-table [value]="item.listLichBaoDuong" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
    >
     <ng-template pTemplate="colgroup">
         <colgroup>
@@ -17,7 +17,7 @@
             </th>
             <th class="text-center">Loại bảo dưỡng</th>
             <th class="text-center">Theo thời gian</th>
-            <th class="text-center">Theo công suất</th>
+            <th class="text-center">Theo năng suất</th>
             <th class="text-center">Ghi chú</th>
             <th class="text-center"> <button pButton pRipple icon="pi pi-plus" (click)="addBaoDuong()" class="p-button-sm p-mr-2"></button></th>
         </tr>
@@ -28,7 +28,7 @@
                 {{i + 1}}
             </td>
             <td class="text-center">{{item.TendmLoaiBaoDuong}}</td>
-            <td class="text-center">{{item.ThoiGianBaoDuong}}</td>
+            <td class="text-center">{{item.ThoiGianBaoDuong}} {{item.MaLoaiThoiGian}} </td>
             <td class="text-center">{{item.NangSuat}}</td>
             <!-- <td class="text-center">{{item.NguyenGia|number:'0.0'}}</td> -->
             <td class="text-center">{{item.GhiChu}}</td>
@@ -41,7 +41,7 @@
                     (click)="TaoLichBaoDuong(item)"></button> -->
                 <button pButton pRipple type="button" icon="pi pi-trash"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                    (click)="Xoa(item,i)"></button>
+                    (click)="delete(i)"></button>
             </td>
         </tr>
     </ng-template>

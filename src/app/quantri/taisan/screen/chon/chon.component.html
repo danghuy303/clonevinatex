@@ -29,7 +29,7 @@
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width:50px" class="text-center">
-                    <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true" inputId="binary"></p-checkbox>
+                    <!-- <p-checkbox [(ngModel)]="checkedAll" (onChange)="checkAll($event)" binary="true" inputId="binary"></p-checkbox> -->
                 </th>
                 <th class="text-center">Mã</th>
                 <th class="text-center">Tên</th>
@@ -38,8 +38,8 @@
         <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center">
-                    <p-checkbox [(ngModel)]="item.checked" binary="true"
-                    inputId="binary" (onChange)="checked()"></p-checkbox>
+                    <p-checkbox [(ngModel)]="item.checked" binary="true" [disabled]="item.disabled"
+                    inputId="binary" (onChange)="checked(item)"></p-checkbox>
                 </td>
                 <td>{{item.Ma}} </td>
                 <td>{{item.Ten}}</td>

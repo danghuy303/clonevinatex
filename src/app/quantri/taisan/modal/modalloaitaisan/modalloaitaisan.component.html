@@ -26,7 +26,7 @@
                 </div>
             </div> -->
             <div class="p-col-12 p-lg-8 d-flex flex-column flex-xl-row">
-                <label class="p-col-12 p-lg-3 p-p-0 my-auto">Mã : </label>
+                <label class="p-col-12 p-lg-3 p-p-0 my-auto">Công đoạn <span class="text-danger">(*)</span> : </label>
                 <div class="p-col-12 p-lg-9 p-p-0">
                     <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
                     styleClass="p-inputtext-sm" [(ngModel)]="item.MaCongDoan"></p-dropdown>
@@ -39,13 +39,13 @@
                 </div>
             </div>
             <div class="p-col-12 p-lg-12   d-flex flex-column flex-xl-row">
-                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mã: </label>
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Mã <span class="text-danger">(*)</span>: </label>
                 <div class="p-col-12 p-lg-10 p-p-0">
                     <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
                 </div>
             </div>
             <div class="p-col-12 p-lg-12   d-flex flex-column flex-xl-row ">
-                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tên: </label>
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tên <span class="text-danger">(*)</span>: </label>
                 <div class="p-col-12 p-lg-10 p-p-0">
                     <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
                 </div>
