@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { StoreService } from 'src/app/services/store.service';
-import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LapkehoachlichxichnamComponent } from '../lapkehoachlichxichnam/lapkehoachlichxichnam.component';
@@ -45,6 +45,7 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
           .Get(res.id)
           .subscribe((res: any) => {
             this.update(res);
+            
           });
       }
     });
@@ -112,6 +113,7 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
       })
   }
   update(item) {
+    item.Data.Nam = UnixToDate(item.Data.ThoiGianUnix).getFullYear();
     let modalRef = this._modal.open(LapkehoachlichxichnamComponent, {
       size: "fullscreen-100",
       backdrop: "static",
@@ -123,10 +125,12 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result
       .then(data => {
+
       })
       .catch(er => {
       })
       .finally(() => {
+
         this.GetList();
         this.changeParam(0);
       });

@@ -26,7 +26,7 @@ export class TaisanService {
         return this.http.get(`${url}QuanLyTaiSan/GetQuyTrinhNhapTaiSanById?Id=${Id}`, httpOptions);
       },
       Set: (data) => {
-        data.idDuAn = this.store.getCurrent();
+        data.IdDuAn = this.store.getCurrent();
         return this.http.post(`${url}QuanLyTaiSan/SetQuyTrinhNhapTaiSan`, data, httpOptions);
       },
       KhongDuyet: (data) => {

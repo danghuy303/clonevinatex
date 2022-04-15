@@ -122,7 +122,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ValidateData() {
-    if (!validVariable(this.item.Ten) ) {
+    if (!validVariable(this.item?.TaiSan.Ten) ) {
       this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
       return false;
     }

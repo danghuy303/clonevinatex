@@ -18,10 +18,10 @@
     <ng-template pTemplate="body" let-item let-i="rowIndex">
         <tr>
             <td class="text-center">
-                <p-dropdown [filter]="true" [options]="listTenNhanVien" placeholder="Chọn loại"  [showClear]="true"  [(ngModel)]="item.IdUser" styleClass="p-inputtext-sm">
+                <p-dropdown [filter]="true" [options]="listTenNhanVien" placeholder="Chọn Nhân công"  [showClear]="true"  [(ngModel)]="item.IdUser" styleClass="p-inputtext-sm">
                 </p-dropdown>
             </td>  
-            <td class="text-center">
+            <td class="text-left">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu"  pInputText />
             </td>
             <td class="text-center">

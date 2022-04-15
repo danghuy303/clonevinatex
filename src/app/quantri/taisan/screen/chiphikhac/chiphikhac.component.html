@@ -23,8 +23,10 @@
             <td class="text-center">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
             </td>
-            <td class="text-center">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GiaTri" pInputText />
+            <td class="text-right">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm"
+                [(ngModel)]="item.GiaTri">
+            </p-inputNumber>
             </td>
             <td class="text-center">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
