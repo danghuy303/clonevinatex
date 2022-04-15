@@ -29,7 +29,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   listdmPhanXuong: any = [];
   listDonVi: any = [];
   NameFile: string = "";
-  listTaiSan_copy: TreeNode[];
+  listTaiSan_copy: TreeNode[] = [];
 
   constructor(
     public _modal: NgbModal,
@@ -207,7 +207,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
 
   ThemMoiDanhSachTaiSan() {
     let listId = this.listTaiSan_copy?.map(ele => {
-      return ele.data.Id;
+      return ele.data.IdTaiSan;
     })
     let modalRef = this._modal.open(ModalchontaisanComponent, {
       size: "xl",
@@ -218,7 +218,21 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.result
       .then((res: any) => {
-        this.listTaiSan_copy = res;
+
+        let listId = []
+        if (this.listTaiSan_copy.length > 0) {
+          this.listTaiSan_copy.forEach(ele => {
+            listId.push(ele.data.IdTaiSan);
+          })
+          res.forEach(obj => {
+            if (!listId.includes(obj.data.IdTaiSan)) {
+              this.listTaiSan_copy.push(obj)
+            }
+          })
+        } else {
+          this.listTaiSan_copy = res;
+        }
+        
         this.listTaiSan_copy = this.listTaiSan_copy.map((ele, index) => {
           return this.GetStt(ele, index);
         })
@@ -241,11 +255,11 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     }
   }
 
-  XoaTaiSan(index) {
+  XoaTaiSan(item) {
     let modalref = this._modal.open(ModalthongbaoComponent);
-    modalref.componentInstance.message = "Bạn có muốn xóa tài sản này?"
+    modalref.componentInstance.message = `Bạn có muốn xóa tài sản "${item.MaTaiSan} - ${item.TenTaiSan}" này?`
     modalref.result.then(()=>{
-      this.listTaiSan_copy.splice(index, 1);
+      this.listTaiSan_copy.splice(item.STT - 1, 1);
       this.listTaiSan_copy = [...this.listTaiSan_copy];
       this.listTaiSan_copy.forEach((ele, index) => {
         ele.data.STT = index + 1;

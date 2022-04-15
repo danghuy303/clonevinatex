@@ -74,7 +74,7 @@ export class  ModalchontaisanComponent implements OnInit {
 
   CheckExistedTaiSan(list) {
     list.forEach(ele => {
-      ele.data.checked = this.listIdDaChon.includes(ele.data.Id);
+      ele.data.checked = this.listIdDaChon.includes(ele.data.IdTaiSan);
     })
     this.Checked()
   }
@@ -91,7 +91,6 @@ export class  ModalchontaisanComponent implements OnInit {
 
   GhiLai() {
     let selectedItems = this.items.filter(ele => ele.data.checked);
-    console.log("selectedItems",selectedItems);
     
     // selectedItems  =  selectedItems.map()
     this.activeModal.close(selectedItems)
