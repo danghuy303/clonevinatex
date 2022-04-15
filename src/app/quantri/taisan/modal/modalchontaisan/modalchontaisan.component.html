@@ -39,7 +39,7 @@
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr>
                 <td class="text-center">
-                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="Checked()" *ngIf="!rowData.IdTaiSan">
+                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="Checked()" *ngIf="!rowData.IdCha">
                     </p-checkbox>
                     <!-- <p-treeTableCheckbox *ngIf="!rowData.IdTaiSan" [value]="rowNode"></p-treeTableCheckbox> -->
                 </td>               
