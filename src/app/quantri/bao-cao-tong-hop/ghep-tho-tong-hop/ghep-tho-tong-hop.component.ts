@@ -1,38 +1,76 @@
 import { Component, OnInit } from '@angular/core';
-import { DropDownData } from '../data-model';
+import { ToastrService } from 'ngx-toastr';
+import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { mapArrayForDropDown, validVariable, DateToUnix } from 'src/app/services/globalfunction';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreBase } from 'src/app/services/storebase.class';
+import { BongChai, DropDownData } from '../data-model';
 
 @Component({
   selector: 'app-ghep-tho-tong-hop',
   templateUrl: './ghep-tho-tong-hop.component.html',
   styleUrls: ['./ghep-tho-tong-hop.component.css']
 })
-export class GhepThoTongHopComponent implements OnInit {
+export class GhepThoTongHopComponent extends StoreBase implements OnInit {
 
   cols: any[];
-  items: any[];
+  items: BongChai[];
+  sum: any = {};
   currentTime: any = {};
+  listPhanXuong:any =[];
+  // listCaSanXuat:any=[];
   listNgay: DropDownData[] = [];
   listThang: DropDownData[] = [];
   listNam: DropDownData[] = [];
+  filter:any={};
+  Tong:any[]=[];
+  // frozenCols: any[];
 
-  constructor() { }
+  constructor(private _services:SanXuatService,public store:StoreService,private _toastr:ToastrService) { super(store) }
+  
 
   ngOnInit(): void {
-    this.cols = [
-      // { header: 'Ngày', field: 'Ngay', textAlign: 'p-text-center', width: '' },
-      { header: 'Sản lượng chải kĩ', field: 'KLF', backgroundColor: '#fff', textAlign: 'p-text-right', width: '' },
-      { header: 'Sản lượng F3', field: 'KLBuiTinh', backgroundColor: '#fff', textAlign: 'p-text-right', width: '' },
-      { header: 'Bông rơi chải kĩ', field: 'SLCotton', backgroundColor: '#fff', textAlign: 'p-text-right', width: '' },
-      { header: 'Bông hồi', field: 'BongRoiChaiTho', backgroundColor: '#fff', textAlign: 'p-text-right', width: '' },
-      { header: 'Tỷ lệ bông hồi', field: 'SLPe', backgroundColor: '#fff', textAlign: 'p-text-right', width: '' },
-      { header: 'Thô hỏng', field: 'XoNgoaiLai', backgroundColor: '#fff', textAlign: 'p-text-right', width: '' },
-      { header: 'Tỷ lệ thô hỏng', field: 'QuetNha', backgroundColor: '#ffedbd', textAlign: 'p-text-right', width: '' },
-    ]
-
+    let date = new Date();
+    this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     this.GetCurrentTime();
     this.GetTimeForDropDown();
+    this._services.GetOptions().GetPhanXuong().subscribe((res: any) => {
+      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+      this.GetBaoCao();
+    })
   }
-
+  GetBaoCao(){
+    if (validVariable(this.filter._tuNgay)) {
+      this.filter.TuNgay = DateToUnix(this.filter._tuNgay);
+    } else {
+      this.filter.TuNgay = null;
+    }
+    if (validVariable(this.filter._denNgay)) {
+      this.filter.DenNgay = DateToUnix(this.filter._denNgay);
+    } else {
+      this.filter.DenNgay = null;
+    }
+    if (this.filter.DenNgay < this.filter.TuNgay) {
+      this._toastr.error('Vui lòng chọn ngày kết thúc lớn hơn ngày bắt đầu');
+      setTimeout(() => {
+        this.filter._denNgay = this.filter._tuNgay;
+        this.GetBaoCao()
+      }, 200)
+      return;
+    }
+    this._services.BaoCaoTongHop().GetBaoCao_GhepThoTongHop(this.filter).subscribe((res:any)=>{
+      this.items = res.listItem;
+      this.cols = res.listColumn;
+      this.Tong = new Array(this.cols.length).fill(0);
+      this.items.forEach((ele:any)=>{
+        ele.listGiaTriCot.forEach((cot:any,index:number)=>{
+          this.Tong[index]+= ele.GiaTri_Double||0;
+        })
+      })
+    })
+  }
   GetCurrentTime() {
     let date = new Date();
     let year: string | number = date.getFullYear();
@@ -43,11 +81,6 @@ export class GhepThoTongHopComponent implements OnInit {
     let day: string | number = date.getDate();
     if (day<10) {
       day = '0' + day
-    }
-    this.currentTime = {
-      day: day,
-      month: month,
-      year: year
     }
   }
   
