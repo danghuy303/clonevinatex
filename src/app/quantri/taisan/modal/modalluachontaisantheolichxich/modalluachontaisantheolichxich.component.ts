@@ -66,6 +66,8 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     };
     this._serviceTaiSan.LichXich().GetListTaiSanTheoNam(data).subscribe((res: any) => {
       this.paging.TotalCount = res.Data.TotalCount;
+      console.log(res.Data.listTaiSan.IdTaiSan);
+      
       this.TaiSanItem = res.Data;
 
       this.listdmLoaiBaoDuong = this.TaiSanItem.listdmLoaiBaoDuong;
@@ -131,25 +133,17 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   FilterTree() {
     let data: any = [];
     this.items.forEach(obj => {
-      console.log("khi them moi", obj);
-      
       if (obj.data.checked) {
-        data.push({
-          IdTaiSan: obj.data.IdTaiSan,
-          Id: '',
-          TenTaiSan: obj.data.TenTaiSan,
-          listLichBaoDuong: obj.data.listLichBaoDuong
-        });
+        data.push(
+          obj.data.IdTaiSan,
+        );
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
         obj.children.forEach(objchildren => {
           if (objchildren.data.checked) {
-            data.push({
-              IdTaiSan: objchildren.data.IdTaiSan,
-              Id: '',
-              TenTaiSan: objchildren.data.TenTaiSan,
-              listLichBaoDuong: objchildren.data.listLichBaoDuong
-            });
+            data.push(
+             objchildren.data.IdTaiSan,
+            );
           }
         });
       }
@@ -157,7 +151,12 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     return data;
   }
   GhiLai() {
-    this.activeModal.close(this.FilterTree());
+    this._serviceTaiSan.LichXich().GetListVatTuByIdTaiSanForLapKeHoachLichXichNam(this.FilterTree()).subscribe((res: any) => { 
+      console.log('gg',res.Data.listTaiSan);
+      
+      this.activeModal.close(res.Data.listTaiSan);
+    });
+   
   }
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;

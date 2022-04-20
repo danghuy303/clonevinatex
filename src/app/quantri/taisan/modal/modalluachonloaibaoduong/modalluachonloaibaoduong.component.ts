@@ -19,6 +19,7 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
   item: any = [];
   listItemDaChon: any = [];
   Lay_Chon: any = [];
+  layId: any = {};
   checkedAll: boolean = false;
   listdmLoaiBaoDuong: any = [];
   Nam: any = "";
@@ -32,21 +33,27 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let d = new Date(this.Nam, 3,1);
-    console.log(d);
-
+    console.log(this.layId);
     
     this.GetList();
-    // console.log(this.Lay_Chon);
-    // console.log(this.Lay_Chon[0]?.listLichBaoDuong);
-    
   }
 
   GetList() {
-    this.items = this.Lay_Chon;
-    this.items.forEach(obj => {
-      obj.checked = this.listItemDaChon.includes(obj.IddmLoaiBaoDuong);
-    });
+    // // this.items = this.Lay_Chon;
+    // // this.items.forEach(obj => {
+    // //   obj.checked = this.listItemDaChon.includes(obj.IddmLoaiBaoDuong);
+    // // });
+    // this.checkedAll = this.items.every(ele => ele.checked);
+
+    let data = {
+      CurrentPage: 0,
+      PageSize: 0,
+      IddmLoaiTaiSan: this.layId.IddmLoaiTaiSan,
+      IdBoPhanSuDung: this.layId.IdBoPhanSuDung,
+    }
+    this._serviceTaiSan.LichXich().GetListdmLoaiBaoDuong(data).subscribe((res: any) => {
+    this.items = res.Data ;
+    })
     this.checkedAll = this.items.every(ele => ele.checked);
   }
   TimCheck() {
@@ -72,13 +79,11 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
   FilterTree() {
     let data: any = [];
     this.items.forEach(obj => {
-      console.log(obj);
-      
       if (obj.checked) {
         data.push({
-          IddmLoaiBaoDuong: obj.IddmLoaiBaoDuong,
+          IddmLoaiBaoDuong: obj.Id,
           Id: '',
-          TendmLoaiBaoDuong: obj.TendmLoaiBaoDuong,
+          TendmLoaiBaoDuong: obj.Ten,
           NgayUnix: 0,
         });
       }

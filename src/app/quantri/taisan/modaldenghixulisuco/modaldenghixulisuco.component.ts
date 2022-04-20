@@ -131,7 +131,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
       this.checkbutton = res;
     });
   }
-  ChapNhan() {
+  ChuyenDuyet() {
     this._serviceTaiSan.QuyTrinhXuLySuCo().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);

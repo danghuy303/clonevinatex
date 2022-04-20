@@ -78,6 +78,7 @@
                     <col style="width:200px">
                     <col style="width:200px">
                     <col style="width:200px">
+                    <col style="width:200px">
                     <!-- <col style="width:100px"> -->
                 </colgroup>
             </ng-template>
@@ -88,6 +89,7 @@
                     <th>Tên</th>
                     <th>Nguyên giá</th>
                     <th>Giá trị còn lại</th>
+                    <th>Số lượng</th>
                     <th>Ghi chú</th>
                     <!-- <th style="width: 100px;">Thao tác</th> -->
                 </tr>
@@ -101,12 +103,16 @@
                     <td class="text-center">
                         {{item.TenTaiSan}}
                     </td>
-                    <td class="text-center">
+                    <td  style="text-align: right;">
                         {{item.NguyenGia|number:'0.0-3'}}
 
                     </td>
-                    <td class="text-center">
+                    <td  style="text-align: right;">
                         {{item.GiaTriConLai|number:'0.0-3'}}
+                    </td>
+                    <td  style="text-align: right;">
+                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm" [(ngModel)]="item.SoLuong" >
+                        </p-inputNumber>
                     </td>
                     <td class="text-center">
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />

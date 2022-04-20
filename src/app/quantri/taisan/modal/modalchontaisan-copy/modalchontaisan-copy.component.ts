@@ -127,7 +127,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
           IdTaiSan: obj.data.Id,
           Id: '',
           TenTaiSan: obj.data.Ten,
-          MaSanPham: obj.data.Ma,
+          MaTaiSan: obj.data.Ma,
           NguyenGia: obj.data.NguyenGia,
           GiaTriConLai: obj.data.GiaTriConLai,
         });
@@ -139,7 +139,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
               IdTaiSan: objchildren.data.Id,
               Id: '',
               TenTaiSan: objchildren.data.Ten,
-              MaSanPham: objchildren.data.Ma,
+              MaTaiSan: objchildren.data.Ma,
               NguyenGia: objchildren.data.NguyenGia,
               GiaTriConLai: objchildren.data.GiaTriConLai,
             });

@@ -113,7 +113,7 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
       })
   }
   update(item) {
-    item.Data.Nam = UnixToDate(item.Data.ThoiGianUnix).getFullYear();
+    item.Data.Nam = UnixToDate(item.Data.ThoiGianUnix).getFullYear(); // hiện thị năm
     let modalRef = this._modal.open(LapkehoachlichxichnamComponent, {
       size: "fullscreen-100",
       backdrop: "static",

@@ -6,7 +6,7 @@
         </div>
     </div>
 </div>
-<p-table styleClass="p-datatable-sm wrap-text p-datatable-striped">
+<p-table [value]="item" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
     <ng-template pTemplate="colgroup">
         <colgroup>
             <col style="width:100px">
@@ -41,15 +41,15 @@
             <th class="text-center">Tháng 12</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body">
+    <ng-template pTemplate="body" let-item let-i="rowIndex">
         <tr>
-            <!-- <td class="text-center"> {{item.TenTaiSan}}</td>
-            <td class="text-center" *ngFor="let baoduong of item.listBaoDuong"
-                (click)="Chon(baoduong,item.listLichBaoDuong)">
-                <p *ngFor="let bd of baoduong.listChiTiet"
-                >{{bd.TendmLoaiBaoDuong}}</p>
-                <a href="javascript:void(0)">Chọn</a>
-            </td> -->
+            <td class="text-center"> {{item.TenTaiSan}}</td>
+            <td  style="text-align: right;" *ngFor="let chiPhi of item?.listChiPhi">
+                <p-inputNumber *ngFor="let bd of chiPhi.ChiTietChiPhi" [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm" [(ngModel)]="bd.DonGia" >
+                </p-inputNumber>
+                <p-inputNumber *ngFor="let bd of chiPhi.ChiTietChiPhi" [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm" [(ngModel)]="bd.SoLuong" >
+                </p-inputNumber>
+            </td>
         </tr>
     </ng-template>
 </p-table>
