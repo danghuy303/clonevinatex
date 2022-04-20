@@ -29,7 +29,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   listdmPhanXuong: any = [];
   listDonVi: any = [];
   NameFile: string = "";
-  listTaiSan_copy: TreeNode[];
+  listTaiSan_copy: TreeNode[] = [];
 
   constructor(
     public _modal: NgbModal,
@@ -51,10 +51,10 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     else {
       this.title = "Cập nhật";
       this.listTaiSan_copy = this.item.listTaiSan?.map((ele, index) => {
-        return this.mapDataModelToView(ele,index);
+        return this.mapDataModelToView(ele, index);
       });
       this.CheckParent(this.listTaiSan_copy);
-      
+
     }
     if (validVariable(this.item.IdDuAn)) {
       this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
@@ -87,27 +87,27 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     })
   }
 
-  mapDataModelToView(ele, index,indexCha?) {
+  mapDataModelToView(ele, index, indexCha?) {
     return {
       data: {
         ...ele,
         Id: ele.Id,
         IdCha: null,
         IdQuyTrinhBanGiao: this.item.Id,
-        STT: indexCha ? `${indexCha}.${index+1}`:index+1,
-        SoLuong:ele.SoLuong,
-        GhiChu:ele.GhiChu,
+        STT: indexCha ? `${indexCha}.${index + 1}` : index + 1,
+        SoLuong: ele.SoLuong,
+        GhiChu: ele.GhiChu,
       },
-      children: this.isEmpty(ele.listTaiSan)?ele.listTaiSan.map((eleCon,indexCon)=>{
-        return this.mapDataModelToView(eleCon,indexCon,index+1)
-      }):null,
-      expanded:true
+      children: this.isEmpty(ele.listTaiSan) ? ele.listTaiSan.map((eleCon, indexCon) => {
+        return this.mapDataModelToView(eleCon, indexCon, index + 1)
+      }) : null,
+      expanded: true
     }
   }
-  
+
 
   Validate() {
-    if (!validVariable(this.item.NgayBanGiao)) {
+    if (!validVariable(this.item.NgayBanGiao) || !validVariable(this.item.IdBoPhanSuDung)) {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày");
       return false;
     }
@@ -125,7 +125,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
 
   mapDataViewToModel(item: any) {
     return {
-      Id:"",
+      Id: "",
       IdTaiSan: item.data?.IdTaiSan,
       SoLuong: item.data?.SoLuong,
       GhiChu: item.data?.GhiChu || "",
@@ -207,7 +207,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
 
   ThemMoiDanhSachTaiSan() {
     let listId = this.listTaiSan_copy?.map(ele => {
-      return ele.data.Id;
+      return ele.data.IdTaiSan;
     })
     let modalRef = this._modal.open(ModalchontaisanComponent, {
       size: "xl",
@@ -218,7 +218,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.result
       .then((res: any) => {
-        this.listTaiSan_copy = res;
+        this.listTaiSan_copy = this.MergeArr(res, this.listTaiSan_copy);
         this.listTaiSan_copy = this.listTaiSan_copy.map((ele, index) => {
           return this.GetStt(ele, index);
         })
@@ -228,24 +228,48 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       });
   }
 
+  MergeArr(newArr: Array<any>, existingArr: Array<any>) {
+    let removeIndex = [];
+    newArr.forEach((newEle) => {
+      let index = existingArr.findIndex(
+        (oldEle) => newEle.data.IdTaiSan === oldEle.data.IdTaiSan
+      );
+      if (index === -1) {
+        existingArr.push(newEle);
+      }
+    });
+    existingArr.forEach((oldEle, index) => {
+      let indexCheck = newArr.findIndex(
+        (newEle) => newEle.data.IdTaiSan === oldEle.data.IdTaiSan
+      );
+      if (indexCheck === -1) {
+        removeIndex.push(index);
+      }
+    });
+    for (var i = removeIndex.length - 1; i >= 0; i--) {
+      existingArr.splice(removeIndex[i], 1);
+    }
+    return existingArr;
+  }
+
   GetStt(ele, index, indexCha?) {
     return {
       data: {
         ...ele.data,
-        STT: indexCha ? `${indexCha}.${index+1}`:index+1,
+        STT: indexCha ? `${indexCha}.${index + 1}` : index + 1,
       },
-      children: ele.children.map((eleCon, indexCon)=>{
+      children: ele.children.map((eleCon, indexCon) => {
         return this.GetStt(eleCon, indexCon, index + 1)
       }),
       expanded: true
     }
   }
 
-  XoaTaiSan(index) {
+  XoaTaiSan(item) {
     let modalref = this._modal.open(ModalthongbaoComponent);
-    modalref.componentInstance.message = "Bạn có muốn xóa tài sản này?"
-    modalref.result.then(()=>{
-      this.listTaiSan_copy.splice(index, 1);
+    modalref.componentInstance.message = `Bạn có muốn xóa tài sản "${item.MaTaiSan} - ${item.TenTaiSan}" này?`
+    modalref.result.then(() => {
+      this.listTaiSan_copy.splice(item.STT - 1, 1);
       this.listTaiSan_copy = [...this.listTaiSan_copy];
       this.listTaiSan_copy.forEach((ele, index) => {
         ele.data.STT = index + 1;
@@ -254,9 +278,9 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   }
 
   taiLenFileDinhKem() {
-    const modalRef = this._modal.open(UploadmodalComponent, { 
-      size: 'lg', 
-      backdrop: 'static' 
+    const modalRef = this._modal.open(UploadmodalComponent, {
+      size: 'lg',
+      backdrop: 'static'
     });
     modalRef.componentInstance.multiple = true;
     modalRef.componentInstance.type = '';
