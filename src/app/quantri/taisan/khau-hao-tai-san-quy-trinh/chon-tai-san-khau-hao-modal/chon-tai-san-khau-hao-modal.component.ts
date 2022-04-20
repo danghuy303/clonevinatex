@@ -15,7 +15,6 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 export class ChonTaiSanKhauHaoModalComponent implements OnInit {
 
   opt: any = "";
-  // filter: any = {};
   keyword: any = '';
   paging: any = {};
   items: TreeNode[];
@@ -76,25 +75,6 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
             }
           })
         })
-        // console.log('this items:', this.items);
-        // let resItems = [];
-        // this.items = [];
-        // resItems = res.Data;
-        // resItems.forEach(obj => {
-        //   obj.checked = this.listIdDaChon?.includes(obj.Id);
-        //   let obj_copy: any = {};
-        //   if (obj?.listTaiSan) {
-        //     obj_copy.children = [];
-        //     obj.listTaiSan.forEach(element => {
-        //       element.checked = this.listIdDaChon.includes(element.Id);
-        //       obj_copy.children.push({ data: element, expanded: true });
-        //     });
-        //     obj.listTaiSan = null;
-        //   }
-        //   obj_copy.data = obj;
-        //   this.items.push({ data: obj_copy.data, children: obj_copy.children, expanded: true });
-        // });
-        // this.checked();
         this.paging.totalCount = res.TotalCount;
       })
   }
@@ -110,113 +90,39 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
     return newArr;
   }
 
-  // TimCheck() {
-  //   let cha: boolean = false;
-  //   let con: boolean = false;
-  //   cha = this.items.every(ele => ele.data.checked);
-  //   this.items.filter(obj => {
-  //     if (validVariable(obj.children) && obj.children.length > 0) {
-  //       con = obj.children.every(ele => ele.data.checked);
-  //       if (!con) {
-  //         return false;
-  //       }
-  //     }
-  //   });
-  //   if ((cha) && (con)) {
-  //     return true;
-  //   }
-  //   else {
-  //     return false;
-  //   }
-  // }
-
-  // checkAll(e) {
-  //   if (e.checked) {
-  //     this.items.forEach(obj => {
-  //       obj.data.checked = true;
-  //       if (validVariable(obj.children) && obj.children.length > 0) {
-  //         obj.children.forEach(objchildren => {
-  //           objchildren.data.checked = true;
-  //         });
-  //       }
-  //     });
-  //   } else {
-  //     this.items.forEach(obj => {
-  //       obj.data.checked = false;
-  //       if (validVariable(obj.children) && obj.children.length > 0) {
-  //         obj.children.forEach(objchildren => {
-  //           objchildren.data.checked = false;
-  //         });
-  //       }
-  //     });
-  //   }
-  // }
-
-  // checked(item?) {
-  //   // this.checkedAll = this.items.every(ele => ele.checked)
-  //   this.checkedAll = this.TimCheck();
-  //   console.log(item);
-  // }
-
-  // checked(item) {
-  //   this.items.forEach(ele => {
-  //     ele.children.forEach(a => {
-
-  //     })
-  //   })
-  // }
-
-  // FilterTree() {
-  //   let data: any = [];
-  //   this.items.forEach(obj => {
-  //     if (obj.data.checked) {
-  //       data.push({
-  //         TaiSan: obj.data,
-  //         IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
-  //         IdTaiSan: obj.data.Id,
-  //         IdCha: null,
-  //         Id: '',
-  //       });
-  //     }
-  //     if (validVariable(obj.children) && obj.children.length > 0) {
-  //       obj.children.forEach(objchildren => {
-  //         if (objchildren.data.checked) {
-  //           data.push({
-  //             TaiSan: objchildren.data,
-  //             IdQuyTrinhBanGiao: this.opt === 'add' ? '' : this.item.IdQuyTrinhBanGiao,
-  //             IdTaiSan: objchildren.data.Id,
-  //             IdCha: obj.data.checked ? obj.data.Id : null,
-  //             Id: '',
-  //           });
-  //         }
-  //       });
-  //     }
-  //   });
-  //   return data;
-  // }
-
   SetData() {
     let data = [];
     data = this.selectedNodes.map(ele => {
-      return {
-        IdTaiSan: ele.data.Id,
-        MaTaiSan: ele.data.Ma,
-        TenTaiSan: ele.data.Ten,
-        NguyenGia: ele.data.NguyenGia,
-        GiaTriConLai: ele.data.GiaTriConLai
-      }
+      // return {
+      //   IdTaiSan: ele.data.Id,
+      //   Id: "",
+      //   MaTaiSan: ele.data.Ma,
+      //   TenTaiSan: ele.data.Ten,
+      // }
+      return ele.data.Id;
     })
     return data;
   }
 
   GhiLai() {
-    this.activeModal.close(this.SetData());
+    let listTaiSanKhauHao = [];
+    this._serviceTaiSan.KhauHaoTaiSan().GetKhauHao(this.SetData()).subscribe((res: any) => {
+      listTaiSanKhauHao = res.Data;
+      listTaiSanKhauHao.forEach(ele => {
+        if (!validVariable(ele.GiaTriConLai)) {
+          ele.GiaTriConLai = 0;
+        }
+      })
+      console.log("listTaiSanKhauHao",listTaiSanKhauHao);
+      
+      this.activeModal.close(listTaiSanKhauHao);
+    })
   }
 
   nodeSelect() {
     console.log(this.selectedNodes);
   }
 
-  
+
 
 }

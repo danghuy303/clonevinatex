@@ -75,6 +75,11 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
     // this.item.listTaiSan = this.listTaiSan_copy.map(ele => {
     //   return this.mapDataViewToModel(ele);
     // });
+    if (this.opt === 'add') {
+      this.item.Created = new Date();
+      this.item.Modified = new Date();
+    }
+    return this.item;
   }
 
 
@@ -96,12 +101,8 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
 
   GhiLai() {
     if (this.Validate()) {
-      this.Setdata();
-      if (this.opt === 'add') {
-        this.item.Created = new Date();
-        this.item.Modified = new Date();
-      }
-      this._serviceTaiSan.KhauHaoTaiSan().Set(this.item).subscribe((res: any) => {
+      console.log("this item", this.Setdata());
+      this._serviceTaiSan.KhauHaoTaiSan().Set(this.Setdata()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.item = res.Data;
           this.item.Ngay = new Date(this.item.Ngay)
@@ -198,6 +199,8 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
     this.listTaiSan_copy && this.listTaiSan_copy.forEach(ele => {
       listId.push(ele.IdTaiSan)
     })
+    console.log("listId", listId);
+    
     if (validVariable(this.item.IdBoPhanSuDung)) {
       let modalRef = this._modal.open(ChonTaiSanKhauHaoModalComponent, {
         size: "xl",
@@ -209,27 +212,6 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
       modalRef.componentInstance.item = {};
       modalRef.result
         .then((res: any) => {
-          // this.item.listTaiSan = res;
-          // let listTaiSan = [];
-          // res.forEach((element) => {
-          //   let Stt = 0;
-          //   if (!validVariable(element.IdCha)) {
-          //     Stt++;
-          //     element.STT = Stt
-          //     listTaiSan.push({
-          //       data: element,
-          //       expanded: true,
-          //       children: res.filter(ele => ele.IdCha === element.TaiSan.Id)
-          //         .map((e, index) => {
-          //           e.STT = `${Stt}.${index + 1}`
-          //           return {
-          //             data: e
-          //           }
-          //         })
-          //     });
-          //   }
-          // });
-          // this.listTaiSan_copy = listTaiSan;
           res.forEach((element,index) => {
             element.STT = index + 1;
           })

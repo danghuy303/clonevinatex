@@ -105,7 +105,7 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
   add() {
     let modalRef = this._modal.open(KhauHaoTaiSanModalComponent, {
       // size: "fullscreen-100",
-      size: "xl",
+      size: "fullscreen",
       backdrop: "static"
     });
     modalRef.componentInstance.opt = "add";
@@ -134,7 +134,7 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
 
   edit(item) {
     let modalRef = this._modal.open(KhauHaoTaiSanModalComponent, {
-      size: "xl",
+      size: "fullscreen",
       backdrop: "static"
     });
     modalRef.componentInstance.opt = "edit";
