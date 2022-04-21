@@ -110,7 +110,6 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.tabTrangThai = 0; 
-    modalRef.componentInstance.listdmPhanXuong = this.listdmPhanXuong;   
     modalRef.componentInstance.item = {
       Id: "",
       IdTrangThai: "",
@@ -139,8 +138,7 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     // modalRef.componentInstance.tabTrangThai = this.trangThai;  
-    modalRef.componentInstance.tabTrangThai = 0;  
-    modalRef.componentInstance.listdmPhanXuong = this.listdmPhanXuong;   
+    modalRef.componentInstance.tabTrangThai = 0;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.componentInstance.item.Ngay = new Date(JSON.parse(JSON.stringify(item.Data.Ngay)));
     modalRef.result

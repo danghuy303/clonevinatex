@@ -124,7 +124,7 @@
                     <col>
                     <col>
                     <col>
-                    <col style="width: 50px" *ngIf="tabTrangThai===1">
+                    <col style="width: 50px" *ngIf="tabTrangThai===0">
                 </colgroup>
             </ng-template>
             <ng-template pTemplate="header">
@@ -136,7 +136,7 @@
                     <th class="text-center">Giá trị còn lại theo hệ thống</th>
                     <th class="text-center">Giá trị còn lại thực tế</th>
                     <th class="text-center">Ghi chú</th>
-                    <th *ngIf="tabTrangThai===1"></th>
+                    <th *ngIf="tabTrangThai===0"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item>
@@ -161,7 +161,7 @@
                     <td>
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
                     </td>
-                    <td class="text-center" *ngIf="tabTrangThai===1">
+                    <td class="text-center" *ngIf="tabTrangThai===0">
                         <button pButton pRipple type="button" icon="pi pi-trash"
                             class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
                             (click)="XoaTaiSan(item.STT)"></button>

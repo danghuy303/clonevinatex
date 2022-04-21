@@ -41,6 +41,7 @@ import { TieuChiDanhGiaNhaComponent } from './tieu-chi-danh-gia-nha/tieu-chi-dan
 import { DieuChuyenTaiSanComponent } from './dieu-chuyen-tai-san/dieu-chuyen-tai-san.component';
 
 import { ThoihancungcapvattuComponent } from './thoihancungcapvattu/thoihancungcapvattu.component';
+import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.component';
 
 const routes: Routes = [
   {path:'',component:TaisanComponent},
@@ -83,7 +84,8 @@ const routes: Routes = [
   {path:'danhgianhacungung/:id',component:DanhGiaNhaCungUngComponent},
   {path:'tieuchidanhgia/:id',component:TieuChiDanhGiaNhaComponent},
   {path:'dieuchuyentaisan/:id',component:DieuChuyenTaiSanComponent},
-  {path:'thoihancungcapvattu/:id',component:ThoihancungcapvattuComponent}
+  {path:'thoihancungcapvattu/:id',component:ThoihancungcapvattuComponent},
+  {path:'lichsusudungtaisan/:id', component:LichSuSuDungComponent}
 ];
 
 @NgModule({

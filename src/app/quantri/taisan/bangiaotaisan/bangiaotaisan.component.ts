@@ -33,7 +33,6 @@ export class BangiaotaisanComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   items: any = [];
   trangThai: any = 1;
-
   idUser: string = '';
   listdmPhanXuong: any = [];
 
@@ -119,7 +118,6 @@ export class BangiaotaisanComponent implements OnInit {
 
   add() {
     let modalRef = this._modal.open(ModalcapnhatbaogiaComponent, {
-      // size: "fullscreen-100",
       size: "fullscreen",
       backdrop: "static"
     });
@@ -133,7 +131,6 @@ export class BangiaotaisanComponent implements OnInit {
       isKetThuc: false,
       listTaiSan: [],
       listFileDinhKem: [],
-      // NgayBanGiao: new Date(),
       IdDuAn: this.store.getCurrent(),
     }
     modalRef.result
@@ -152,7 +149,6 @@ export class BangiaotaisanComponent implements OnInit {
       backdrop: "static"
     });
     modalRef.componentInstance.opt = "edit";
-    // modalRef.componentInstance.tabTrangThai = this.trangThai;  
     modalRef.componentInstance.tabTrangThai = 0;  
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.componentInstance.item.NgayBanGiao = UnixToDate(item.Data.NgayBanGiaoUnix);
