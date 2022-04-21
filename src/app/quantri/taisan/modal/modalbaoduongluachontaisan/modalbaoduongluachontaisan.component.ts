@@ -16,7 +16,7 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
   opt: any = "";
   paging: any = {};
   items: TreeNode[];
-  item: any = [];
+  item: any = {};
   listItemDaChon: any = [];
   Lay_Chon: any = [];
   checkedAll: boolean = false;
@@ -45,7 +45,7 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TuNgay: 0, DenNgay: 0,
-      TabTrangThai: 0, IddmLoaiTaiSan: '', IdBoPhanSuDung: '',
+      TabTrangThai: 0, IddmLoaiTaiSan: this.item.IdDmLoaiTaiSan, IdBoPhanSuDung:this.item.IdBoPhanSuDung ,
       isCanDuTru: false, isGiaTriCao: false, IdDuAn: 0,
     };
     this._serviceTaiSan.QuyTrinhBaoDuong().GetListTaiSanBaoDuong(data).subscribe((res: any) => {

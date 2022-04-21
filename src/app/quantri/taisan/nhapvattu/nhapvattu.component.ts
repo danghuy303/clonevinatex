@@ -32,6 +32,7 @@ export class NhapvattuComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   listTaiSan: any = [];
   listNhaCungCap: any = [];
+  itemNhaCungUng = [];
   NameFile: string;
   title: any = '';
   tongThanhTien: any = 0;
@@ -55,12 +56,16 @@ export class NhapvattuComponent implements OnInit {
 
     this.GetListdmPhanXuong();
     this.KiemTraButtonModal();
-    let data = { Keyword: "", CurrentPage: 0, PageSize: 20, };
-    this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).subscribe((res: any) => {
-      this.listNhaCungCap = mapArrayForDropDown(res.Data, 'Ten', 'Id');
-    });
     this.getList();
   }
+
+  GetListNhaCungUng() {
+    this._serviceTaiSan.ThoiHanCungCap().GetListDmNhaCungUng(this.item.listTaiSan[0]?.IdTaiSan).subscribe((res: any) => {
+      this.itemNhaCungUng = res.Data[0]?.listItem;
+      this.listNhaCungCap = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+    })
+  }
+
   Tong() {
     this.tongThanhTien = 0;
     this.item.listTaiSan.forEach(item => {
@@ -93,32 +98,6 @@ export class NhapvattuComponent implements OnInit {
     return this.item;
   }
 
-  // Validate() {
-  //   if (!validVariable(this.item.Ngay)) {
-  //     return false ;
-  //   }
-  // }
-  // GhiLai() {
-  //   if (this.Validate()) {
-  //     this._serviceTaiSan.QuyTrinhNhapTu().Set(this.setData()).subscribe((res: any) => {
-  //       console.log(this.item)
-  //       if (res.StatusCode !== 200 || !res.StatusCode) {
-  //         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-  //       } else {
-  //         res.Data.Ngay = UnixToDate(res.Data.NgayUnix)
-  //         this.item = res.Data;
-  //         this.toastr.success(res.Message);
-  //         this.KiemTraButtonModal();
-  //         // this.activeModal.close();
-  
-  //       }
-  //     }, (er) => {
-  //       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-  //     })
-  //   } else {
-  //     // this.toastr.error('Vui lòng nhập đày đủ trường bắt buộc')
-  //   }
-  // }
   ValidateData() {
     if (!validVariable(this.item.Ngay)) {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
@@ -163,20 +142,22 @@ export class NhapvattuComponent implements OnInit {
     modalRef.componentInstance.item.IdBoPhanSuDung = this.item.IdBoPhanSuDung;
     modalRef.componentInstance.checkedAll = false;
     modalRef.result.then((res: any) => {
-      let listKetQua = [];
-      this.item.listTaiSan.forEach(Tai_San => {
-        let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-        if (bien !== undefined) {
-          listKetQua.push(Tai_San);
-        }
-      });
-      res.forEach(Tai_San => {
-        let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-        if (bien === undefined) {
-          listKetQua.push(Tai_San);
-        }
-      });
-      this.item.listTaiSan = listKetQua;
+      // let listKetQua = [];
+      // this.item.listTaiSan.forEach(Tai_San => {
+      //   let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+      //   if (bien !== undefined) {
+      //     listKetQua.push(Tai_San);
+      //   }
+      // });
+      // res.forEach(Tai_San => {
+      //   let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+      //   if (bien === undefined) {
+      //     listKetQua.push(Tai_San);
+      //   }
+      // });
+      // this.item.listTaiSan = listKetQua;
+      this.item.listTaiSan = res;
+      this.GetListNhaCungUng();
     })
       .catch((er) => {
       });
@@ -186,7 +167,7 @@ export class NhapvattuComponent implements OnInit {
       this.checkbutton = res;
     });
   }
-  ChapNhan() {
+  ChuyenDuyet() {
     this._serviceTaiSan.QuyTrinhNhapTu().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);

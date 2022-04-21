@@ -19,7 +19,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
 
   newitem: any = {};
   showDropDown: boolean = false;
-  item: any = { listTaiSan: [] };
+  item: any = { listTaiSan: [], };
   type = '';
   opt = '';
   listPhanXuong = [];
@@ -55,7 +55,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
       //   }
       // });
     }
-
+  
     this.GetListdmPhanXuong();
     this.KiemTraButtonModal();
   }
@@ -144,6 +144,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
+     
       // this.item.listTaiSan = res;
       let listKetQua = [];
       this.item.listTaiSan.forEach(Tai_San => {
@@ -159,6 +160,9 @@ export class ModalthuhoitaisanComponent implements OnInit {
         }
       });
       this.item.listTaiSan = listKetQua;
+      this.item.listTaiSan.forEach(ele => {
+        ele.SoLuong =1;
+      })
     })
       .catch((er) => {
       });
@@ -168,7 +172,7 @@ export class ModalthuhoitaisanComponent implements OnInit {
       this.checkbutton = res;
     });
   }
-  ChapNhan() {
+  ChuyenDuyet() {
     this._serviceTaiSan.PhieuThuHoiTaiSan().ChuyenTiep(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);

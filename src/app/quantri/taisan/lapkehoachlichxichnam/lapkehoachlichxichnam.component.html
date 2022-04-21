@@ -131,18 +131,18 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
-                        <!-- <td class="text-center"> {{item.TenTaiSan}}</td>
-                    <td class="text-center" *ngFor="let baoduong of item.listBaoDuong"
-                        (click)="Chon(baoduong,item.listLichBaoDuong)">
-                        <p>{{baoduong.listChiTiet[0]?.TendmLoaiBaoDuong}}</p>
-                        <a href="javascript:void(0)">Chọn</a>
-                    </td> -->
                         <td class="text-center"> {{item.TenTaiSan}}</td>
                         <td class="text-center" *ngFor="let baoduong of item.listBaoDuong"
                             (click)="Chon(baoduong,item.listLichBaoDuong)">
                             <p *ngFor="let bd of baoduong.listChiTiet">{{bd.TendmLoaiBaoDuong}}</p>
                             <a href="javascript:void(0)">Chọn</a>
                         </td>
+                        <!-- <td class="text-center"> {{item.TenTaiSan}}</td>
+                        <td class="text-center" *ngFor="let baoduong of item.listBaoDuong"
+                            (click)="Chon(baoduong,item.listLichBaoDuong)">
+                            <p *ngFor="let bd of baoduong.listChiTiet">{{bd.TendmLoaiBaoDuong}}</p>
+                            <a href="javascript:void(0)">Chọn</a>
+                        </td> -->
                     </tr>
                 </ng-template>
             </p-table>
@@ -150,13 +150,13 @@
 
         <p-tabPanel  header="Vật tư thay thế">
             <ng-template pTemplate="content">
-                <app-vattuthaythelichxichnam></app-vattuthaythelichxichnam>
+                <app-vattuthaythelichxichnam [item]="item.listTaiSan"></app-vattuthaythelichxichnam>
             </ng-template>
         </p-tabPanel>
 
         <p-tabPanel header="Chi phí">
             <ng-template pTemplate="content">
-                <app-chiphilichxichnam></app-chiphilichxichnam>
+                <app-chiphilichxichnam [item]="item.listTaiSan" ></app-chiphilichxichnam>
             </ng-template>
         </p-tabPanel>
     </p-tabView>

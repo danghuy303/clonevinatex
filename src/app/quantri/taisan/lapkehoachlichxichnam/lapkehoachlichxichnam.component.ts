@@ -77,6 +77,9 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
+
+    this.item.Nam = new Date().getFullYear();
+
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
 
     Promise.all([ls1]).then((values: any) => {
@@ -122,7 +125,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.checkbutton = res;
     });
   }
-  ChapNhan() {
+  ChuyenDuyet() {
     this._serviceTaiSan.LichXich().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
@@ -161,7 +164,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       .catch((er) => console.log(er));
   }
   ThemMoiDanhSachTaiSan() {
-
     // if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung)) {
     //   this.toastr.error("Yêu cầu nhập đầy đủ loại tài sản và bộ phận sử dụng!");
     //   return
@@ -175,40 +177,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     modalRef.componentInstance.Lay_Chon = this.item;
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
-      // let listKetQua = [];
-      // this.item.listTaiSan.forEach(Tai_San => {
-      //   let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-      //   if (bien !== undefined) {
-      //     Tai_San.listBaoDuong = []
-      //     for(let i = 1;i<=12;i++){
-      //       Tai_San.listBaoDuong.push(
-      //         {
-      //           ThoiGian:i,
-      //           listChiTiet:[],
-      //         }
-      //       )
-      //     }
-      //     listKetQua.push(Tai_San);
-      //   }
-      // });
-      // // vong lap 2
-      // res.forEach(Tai_San => {
-      //   let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-      //   if (bien === undefined) {
-      //     Tai_San.listBaoDuong = []
-      //     for(let i = 1;i<=12;i++){
-      //       Tai_San.listBaoDuong.push(
-      //         {
-      //           ThoiGian:i,
-      //           listChiTiet:[],
-      //         }
-      //       )
-      //     }
-      //     listKetQua.push(Tai_San);
-      //   }
-      // }); 
-      // this.item.listTaiSan = listKetQua;
-
+      this.item.listTaiSan = res;
       this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
       this.item.listTaiSan.forEach(ele => {
         if (!validVariable(ele.listBaoDuong)) {
@@ -217,11 +186,21 @@ export class LapkehoachlichxichnamComponent implements OnInit {
             ele.listBaoDuong.push(
               {
                 ThoiGian: i,
-                listChiTiet: [ ],
+                listChiTiet: [],
               }
             )
           }
         }
+
+        ele.listChiPhi.forEach(obj => {
+          obj.ChiTietChiPhi = {
+                TenChiPhi: '',
+                SoTien: '',
+              }
+          
+        }
+        )
+
       })
     })
       .catch((er) => {
@@ -229,6 +208,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
 
   }
   Chon(item, itemLoaiBaoDuongDeChon) {
+
     let modalRef = this._modal.open(ModalluachonloaibaoduongComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',
@@ -236,7 +216,8 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     });
     modalRef.componentInstance.Lay_Chon = itemLoaiBaoDuongDeChon;
     modalRef.componentInstance.Nam = this.item.ThoiGian;
-    modalRef.componentInstance.listItemDaChon = item.listChiTiet ? item.listChiTiet.map(ele => ele.IddmLoaiBaoDuong) : []
+    modalRef.componentInstance.listItemDaChon = item.listChiTiet ? item.listChiTiet.map(ele => ele.IddmLoaiBaoDuong) : [];
+    modalRef.componentInstance.layId = this.item;
     modalRef.result.then((res: any) => {
       item.listChiTiet = res;
     })
@@ -249,4 +230,5 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   changeTab(e) {
     this.trangThai = e.index;
   }
+
 }

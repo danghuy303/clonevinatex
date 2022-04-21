@@ -157,6 +157,7 @@ import { VattuthaythelichxichnamComponent } from './screenLichXich/vattuthaythel
 import { ChiphilichxichnamComponent } from './screenLichXich/chiphilichxichnam/chiphilichxichnam.component';
 import { ChonComponent } from './screen/chon/chon.component';
 import { LuachontaisannhaptaisanComponent } from './modal/luachontaisannhaptaisan/luachontaisannhaptaisan.component';
+import { ChiphilichxichnamchonthemComponent } from './screenLichXich/chiphilichxichnamchonthem/chiphilichxichnamchonthem.component';
 import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.component';
 
 @NgModule({
@@ -270,6 +271,7 @@ import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.compone
     ChonComponent,
     LuachontaisannhaptaisanComponent,
     LichSuSuDungComponent,
+    ChiphilichxichnamchonthemComponent,
 
   ],
   imports: [
@@ -362,7 +364,7 @@ import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.compone
     ThoihancungcapmodalluachonComponent,
     ChonComponent,
     LuachontaisannhaptaisanComponent,
-    
+    ChiphilichxichnamchonthemComponent,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]

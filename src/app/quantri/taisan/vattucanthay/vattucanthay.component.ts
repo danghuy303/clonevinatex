@@ -134,7 +134,7 @@ export class VattucanthayComponent implements OnInit {
       this.checkbutton = res;
     });
   }
-  ChapNhan() {
+  ChuyenDuyet() {
     this._serviceTaiSan.QuyTrinhDeNghiThayVatTu().ChuyenTiep(this.setData()).subscribe((res: any) => {
       console.log(res)
       if (res.StatusCode !== 200) {
