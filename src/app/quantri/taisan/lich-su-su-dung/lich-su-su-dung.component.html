@@ -5,29 +5,32 @@
 <div class="p-d-flex p-ai-center p-jc-end p-mb-3">
   <div class="p-d-flex p-flex-row">
     <div class="p-mr-2">
-      <p-dropdown placeholder="Loại tài sản" [filter]="true" [showClear]="true" styleClass="p-inputtext-sm">
+      <p-dropdown placeholder="Loại tài sản" [filter]="true" [showClear]="true" styleClass="p-inputtext-sm"
+        [options]="listdmLoaiTaiSan" [(ngModel)]="filter.IddmLoaiTaiSan" (onChange)="LoadData(true)">
       </p-dropdown>
     </div>
     <div class="p-mr-2">
-      <p-dropdown placeholder="Bộ phận sử dụng" [filter]="true" [showClear]="true" styleClass="p-inputtext-sm">
+      <p-dropdown placeholder="Bộ phận sử dụng" [filter]="true" [showClear]="true" styleClass="p-inputtext-sm"
+        [options]="listdmPhanXuong" [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="LoadData(true)">
       </p-dropdown>
     </div>
     <div class="p-mr-2">
       <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
-        placeholder="Từ ngày">
+        placeholder="Từ ngày" [(ngModel)]="filter.TuNgay" (onSelect)="LoadData(true)">
       </p-calendar>
     </div>
     <div class="p-mr-2">
       <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
-        placeholder="Đến ngày">
+        placeholder="Đến ngày" [(ngModel)]="filter.DenNgay" (onSelect)="LoadData(true)">
       </p-calendar>
     </div>
     <div class="p-inputgroup" style="width: 200px;">
-      <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText />
-      <button type=" button" pButton pRipple icon="pi pi-search"
-        class="p-button-secondary p-button-sm p-button-text"></button>
-      <button type="button" pButton pRipple icon="pi pi-refresh"
-        class="p-button-secondary p-button-sm p-button-text"></button>
+      <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText [(ngModel)]="filter.keyword"
+        (keyup.enter)="LoadData(true)" />
+      <button type=" button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-sm p-button-text"
+        (click)="LoadData(true)"></button>
+      <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text"
+        (click)="ResetData()"></button>
     </div>
   </div>
 </div>
@@ -55,20 +58,21 @@
   </ng-template>
   <ng-template pTemplate="body" let-item let-i="rowIndex">
     <tr>
-      <td  class="text-center">{{20 * (paging.CurrentPage - 1) + i + 1 }}</td>
-      <td>{{item.MaTaiSan}}</td>
+      <td class="text-center">{{20 * (paging.currentPage - 1) + i + 1 }}</td>
+      <td class="text-center">{{item.MaTaiSan}}</td>
       <td>{{item.TenTaiSan}}</td>
-      <td  class="text-center">{{item.Ngay | date:'dd/MM/yyyy'}}</td>
+      <td class="text-center">{{item.Ngay | date:'dd/MM/yyyy'}}</td>
       <td>{{item.NoiDungBienDong}}</td>
-      <td  class="text-center">
+      <td class="text-center">
         <button pButton pRipple type="button" icon="pi pi-pencil"
-          class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa" (click)="Edit(item)"></button>
+          class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
+          (click)="Edit(item)"></button>
       </td>
     </tr>
   </ng-template>
   <ng-template pTemplate="summary">
     <div class="p-d-flex p-ai-center p-jc-between"> Tổng số bản ghi {{paging.totalCount}}.
-      <p-paginator #paginator [totalRecords]="paging.totalCount" [rows]="20" (onPageChange)="changePage($event)">
+      <p-paginator #paginator [totalRecords]="paging.totalCount" [rows]="20" (onPageChange)="ChangePage($event)">
       </p-paginator>
     </div>
   </ng-template>

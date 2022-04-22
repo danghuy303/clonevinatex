@@ -60,7 +60,7 @@ export class NhapvattuComponent implements OnInit {
   }
 
   GetListNhaCungUng() {
-    this._serviceTaiSan.ThoiHanCungCap().GetListDmNhaCungUng(this.item.listTaiSan[0]?.IdTaiSan).subscribe((res: any) => {
+    this._serviceTaiSan.ThoiHanCungCap().GetListNhaCungUng(this.item.listTaiSan[0]?.IdTaiSan).subscribe((res: any) => {
       this.itemNhaCungUng = res.Data[0]?.listItem;
       this.listNhaCungCap = mapArrayForDropDown(res.Data, 'Ten', 'Id');
     })

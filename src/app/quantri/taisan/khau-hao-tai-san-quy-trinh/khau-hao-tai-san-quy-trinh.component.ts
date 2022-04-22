@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { KhauHaoTaiSanModalComponent } from './khau-hao-tai-san-modal/khau-hao-tai-san-modal.component';
@@ -118,7 +118,6 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
       listTaiSan: [],
       listFileDinhKem: [],
       LoaiKhauHao: "",
-      Ngay: new Date(),
       IdDuAn: this.store.getCurrent(),
     }
     modalRef.result
@@ -140,7 +139,6 @@ export class KhauHaoTaiSanQuyTrinhComponent implements OnInit {
     // modalRef.componentInstance.tabTrangThai = this.trangThai;  
     modalRef.componentInstance.tabTrangThai = 0;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
-    modalRef.componentInstance.item.Ngay = new Date(JSON.parse(JSON.stringify(item.Data.Ngay)));
     modalRef.result
       .then((res: any) => {
       })

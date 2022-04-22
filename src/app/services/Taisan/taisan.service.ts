@@ -424,7 +424,7 @@ export class TaisanService {
     let url = API.TaiSan;
     return {
       GetList: (data) => {
-        data.idDuAn = this.store.getCurrent();
+        // data.idDuAn = this.store.getCurrent();
         return this.http.post(`${url}NhatKySuDung/GetListBienDong`, data, httpOptions);
       },
       Set: (data) => {

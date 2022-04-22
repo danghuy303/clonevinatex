@@ -1,10 +1,14 @@
+import { DieuChuyenTaiSanModalComponent } from '../dieu-chuyen-tai-san/dieu-chuyen-tai-san-modal/dieu-chuyen-tai-san-modal.component';
 import { KhauHaoTaiSanModalComponent } from '../khau-hao-tai-san-quy-trinh/khau-hao-tai-san-modal/khau-hao-tai-san-modal.component';
 import { LapkehoachlichxichnamComponent } from '../lapkehoachlichxichnam/lapkehoachlichxichnam.component';
 import { LapkehoachthangComponent } from '../lapkehoachthang/lapkehoachthang.component';
 import { ModalcapnhatbaogiaComponent } from '../modal/modalcapnhatbaogia/modalcapnhatbaogia.component';
+import { ModalcapnhattaisanComponent } from '../modal/modalcapnhattaisan/modalcapnhattaisan.component';
+import { ModalquytrinhbaoduongComponent } from '../modal/modalquytrinhbaoduong/modalquytrinhbaoduong.component';
 import { ModalthanhlytaisanComponent } from '../modal/modalthanhlytaisan/modalthanhlytaisan.component';
 import { ModalthuhoitaisanComponent } from '../modal/modalthuhoitaisan/modalthuhoitaisan.component';
 import { NhapvattuComponent } from '../nhapvattu/nhapvattu.component';
+import { ThoihancungcapvattumodalComponent } from '../thoihancungcapvattumodal/thoihancungcapvattumodal.component';
 import { VattucanthayComponent } from '../vattucanthay/vattucanthay.component';
 
 export const QuyTrinh = {
@@ -65,36 +69,36 @@ export const QuyTrinh = {
     ModalType: "CallOut"
   },
   QUYTRINHBAODUONGTAISAN: {
-    Component: LapkehoachlichxichnamComponent,
-    ServiceProp: "QuyTrinhDeNghiThayVatTu",
+    Component: ModalquytrinhbaoduongComponent,
+    ServiceProp: "QuyTrinhBaoDuong",
     ServiceMethod: "Get",
     ModalPrototype: "",
     ModalType: "CallOut"
   },
-  QUYTRINHDIEUCHUYENTAISAN: {
-    Component: LapkehoachlichxichnamComponent,
-    ServiceProp: "QuyTrinhDeNghiThayVatTu",
-    ServiceMethod: "Get",
-    ModalPrototype: "",
-    ModalType: "CallOut"
-  },
+  // QUYTRINHDIEUCHUYENTAISAN: {
+  //   Component: DieuChuyenTaiSanModalComponent,
+  //   ServiceProp: "DieuChuyenTaiSan",
+  //   ServiceMethod: "Get",
+  //   ModalPrototype: "",
+  //   ModalType: "CallOut"
+  // },
   QUYTRINHNHAPTAISAN: {
-    Component: LapkehoachlichxichnamComponent,
-    ServiceProp: "QuyTrinhDeNghiThayVatTu",
+    Component: ModalcapnhattaisanComponent,
+    ServiceProp: "NhapTaiSan",
     ServiceMethod: "Get",
     ModalPrototype: "",
     ModalType: "CallOut"
   },
   QUYTRINHTHANHLYTAISAN: {
-    Component: LapkehoachlichxichnamComponent,
-    ServiceProp: "QuyTrinhDeNghiThayVatTu",
+    Component: ModalthanhlytaisanComponent,
+    ServiceProp: "ThanhLyTaiSan",
     ServiceMethod: "Get",
     ModalPrototype: "",
     ModalType: "CallOut"
   },
   QUYTRINHTHOIHANCUNGCAP: {
-    Component: LapkehoachlichxichnamComponent,
-    ServiceProp: "QuyTrinhDeNghiThayVatTu",
+    Component: ThoihancungcapvattumodalComponent,
+    ServiceProp: "ThoiHanCungCap",
     ServiceMethod: "Get",
     ModalPrototype: "",
     ModalType: "CallOut"
@@ -113,11 +117,11 @@ export const QuyTrinh = {
     ModalPrototype: "",
     ModalType: "CallOut"
   },
-  THANHLYTAISAN: {
-    Component: ModalthanhlytaisanComponent,
-    ServiceProp: "ThanhLyTaiSan",
-    ServiceMethod: "Get",
-    ModalPrototype: "",
-    ModalType: "CallOut"
-  },
+  // THANHLYTAISAN: {
+  //   Component: ModalthanhlytaisanComponent,
+  //   ServiceProp: "ThanhLyTaiSan",
+  //   ServiceMethod: "Get",
+  //   ModalPrototype: "",
+  //   ModalType: "CallOut"
+  // },
 }

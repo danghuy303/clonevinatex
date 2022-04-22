@@ -6,7 +6,7 @@ import { TreeNode } from 'primeng/api';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ChonTaiSanKhauHaoModalComponent } from '../chon-tai-san-khau-hao-modal/chon-tai-san-khau-hao-modal.component';
 
@@ -45,7 +45,7 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     } else {
       this.title = "Cập nhật";
-      this.item.Ngay = new Date(this.item.Ngay);
+      this.item.Ngay = UnixToDate(this.item.NgayUnix)
       let listTaiSan: TreeNode[] = [];
       listTaiSan = this.item.listTaiSan?.map((ele, index) => {
         return this.mapDataModelToView(ele, index);

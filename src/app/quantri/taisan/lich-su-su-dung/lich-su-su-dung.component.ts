@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { QuyTrinh } from './quy-trinh';
 
@@ -15,20 +17,38 @@ export class LichSuSuDungComponent implements OnInit {
   paging: any = {};
   items: any = [];
   listdmPhanXuong: any = [];
+  listdmLoaiTaiSan: any = [];
   quyTrinh: any = QuyTrinh;
 
   constructor(
     private _serviceTaiSan: TaisanService,
     private _serviceDungChung: SanXuatService,
     public _modal: NgbModal,
+    private _serviceDmTaiSan: DanhmuctaisanService
   ) { }
 
   ngOnInit(): void {
     this.ResetData();
+    this.GetListPhanXuong();
+    this.GetListLoaiTaiSan();
   }
 
   GetListPhanXuong() {
+    this._serviceDungChung.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
+  }
 
+  GetListLoaiTaiSan() {
+    let data = {
+      CurrentPage: 0,
+      PageSize: 0,
+      Keyword: "",
+      MaCongDoan: ""
+    }
+    this._serviceDmTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
+      this.listdmLoaiTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+    })
   }
 
   ResetData() {
@@ -38,19 +58,20 @@ export class LichSuSuDungComponent implements OnInit {
 
   LoadData(reset?) {
     if (reset) {
-      this.paging.CurrentPage = 1;
+      this.paging.currentPage = 1;
     }
     let data = {
-      CurrentPage: 1,
+      CurrentPage: this.paging.currentPage,
       PageSize: 20,
-      Keyword: "",
-      IddmLoaiBienDong: "",
-      TuNgay: 0,
-      DenNgay: 0,
-      IdTaiSan: ""
+      Keyword: this.filter.keyword,
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+      TuNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
     }
     this._serviceTaiSan.BienDongTaiSan().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;
+      this.paging.totalCount = res.Data.TotalCount;
     })
   }
 
@@ -78,6 +99,11 @@ export class LichSuSuDungComponent implements OnInit {
       modalRef.componentInstance.opt = 'edit';
       modalRef.componentInstance.item = { Id: item.IdQuyTrinh };
     }
+  }
+
+  ChangePage(e) {
+    this.paging.currentPage = e.page + 1;
+    this.LoadData(false)
   }
 
 }
