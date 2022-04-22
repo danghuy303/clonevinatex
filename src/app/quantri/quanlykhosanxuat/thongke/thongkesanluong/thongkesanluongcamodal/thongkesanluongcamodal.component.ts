@@ -155,7 +155,8 @@ export class ThongkesanluongcamodalComponent implements OnInit {
   getListCaSanXuat() {
     this.services.GetListOptdmCaSanXuat().subscribe((res: any) => {
       this.listCaSanXuat = res;
-      this.KhoiLuongCa = res.map((_, index) => 0)
+      this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe().subscribe((listTyLeBongPhe: any) => {
+        this.KhoiLuongCa = res.map((_, index) => 0)
       if (this.item.listThongKeSanLuong == undefined || this.item.listThongKeSanLuong == null) {
         this.item.listThongKeSanLuong = [];
         this.listCaSanXuat.forEach(element => {
@@ -163,7 +164,8 @@ export class ThongkesanluongcamodalComponent implements OnInit {
             IddmCaSanXuat: element.Id,
             listItem: [],
             isTruVaoSanLuong: false,
-            STT: element.STT
+            STT: element.STT,
+            listTyLeBongPhe:listTyLeBongPhe
           }
           this.item.listThongKeSanLuong.push(itemFind)
         });
@@ -183,6 +185,8 @@ export class ThongkesanluongcamodalComponent implements OnInit {
             element.SoCot = 2;
         });
       }
+      })
+      
     })
   }
   GetPhanXuongTheoUser() {
@@ -351,6 +355,10 @@ export class ThongkesanluongcamodalComponent implements OnInit {
   getItemTheoCongDoan() {
     if (this.item.CongDoan != undefined && this.item.listThongKeSanLuong != undefined && this.item.listThongKeSanLuong != null) {
       this.thongKeFull = [];
+      this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe().subscribe((res: any) => {
+        // this.item.SoQuyTrinh = res.SoQuyTrinh;
+        this.item.listTyLeBongPhe = res;
+      })
       let listItemCheck: any = [];
       if (this.item.CongDoan === "ONG")
         listItemCheck = this.item.listThongKeSanLuong[0].listItem.filter(ele => ele.CongDoan == this.item.CongDoan);
@@ -598,7 +606,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     this.KhoiLuongCa[index] = TongKhoiLuong
     console.log(TongKhoiLuong)
 
-    let TongBongPhe = this.item.listThongKeSanLuong[index].listTyLeBongPhe.find(ele=>ele.MaCongDoan === this.item.CongDoan)?.listKhoiLuongBongPhe.reduce((a,b)=>a+(b.KhoiLuong||0),0);
+    let TongBongPhe = this.item.listThongKeSanLuong[index].listTyLeBongPhe?.find(ele=>ele.MaCongDoan === this.item.CongDoan)?.listKhoiLuongBongPhe.reduce((a,b)=>a+(b.KhoiLuong||0),0);
     // console.log(TongBongPhe);
     // console.log(TongKhoiLuong);
     if(this.item.listThongKeSanLuong[index].isTruVaoSanLuong){
@@ -607,7 +615,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       this.KhoiLuongCa[index] = TongKhoiLuong;
     }
     // console.log(this.TongKhoiLuong);
-    let found = this.item.listThongKeSanLuong[index].listTyLeBongPhe.find(ele=>ele.MaCongDoan===this.item.CongDoan);
+    let found = this.item.listThongKeSanLuong[index].listTyLeBongPhe?.find(ele=>ele.MaCongDoan===this.item.CongDoan);
     found.TongKhoiLuongCongDoan = this.KhoiLuongCa[index];
     found.isTruVaoSanLuong = this.item.listThongKeSanLuong[index].isTruVaoSanLuong;
     this.services.ThongKeSanLuong().TinhTyLeThongKeSanLuongBongPhe(this.item.listThongKeSanLuong[index].listTyLeBongPhe).subscribe((res: any) => {
