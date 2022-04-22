@@ -6,7 +6,7 @@ import { TreeNode } from 'primeng/api';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ChonTaiSanKhauHaoModalComponent } from '../chon-tai-san-khau-hao-modal/chon-tai-san-khau-hao-modal.component';
 
@@ -39,12 +39,13 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.KiemTraButtonModal();
+    this.getListdmPhanXuong();
     if (this.opt === 'add') {
       this.title = "Thêm mới";
       this.GetNextSoQuyTrinh();
     } else {
       this.title = "Cập nhật";
-      this.item.Ngay = new Date(this.item.Ngay)
+      this.item.Ngay = UnixToDate(this.item.NgayUnix)
       let listTaiSan: TreeNode[] = [];
       listTaiSan = this.item.listTaiSan?.map((ele, index) => {
         return this.mapDataModelToView(ele, index);
@@ -57,6 +58,12 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
   Loaddata() {
     this.item.listTaiSan?.forEach((ele, index) => {
       ele.STT = index + 1;
+    })
+  }
+
+  getListdmPhanXuong() {
+    this._servicesSanXuat.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
   }
 
@@ -105,7 +112,9 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
       this._serviceTaiSan.KhauHaoTaiSan().Set(this.Setdata()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.item = res.Data;
-          this.item.Ngay = new Date(this.item.Ngay)
+          this.item.listTaiSan.forEach((ele, index) => {
+            ele.STT = index + 1;
+          })
           this.KiemTraButtonModal();
           this.toastr.success(res.Message);
         } else {
@@ -215,14 +224,38 @@ export class KhauHaoTaiSanModalComponent implements OnInit {
           res.forEach((element,index) => {
             element.STT = index + 1;
           })
-          this.listTaiSan_copy = res;
-          this.item.listTaiSan = res;
+          this.listTaiSan_copy = this.MergeArr(res, this.listTaiSan_copy, "IdTaiSan");
+          this.item.listTaiSan = this.listTaiSan_copy;
         })
         .catch((er) => {
         });
     } else {
       this.toastr.error("Yêu cầu nhập bộ phận sử dụng")
     }
+  }
+
+  MergeArr(newArr: Array<any>, existingArr: Array<any>, diffProp: string): Array<any>{
+    let removeIndex = [];
+    newArr.forEach((newEle) => {
+      let index = existingArr.findIndex(
+        (oldEle) => newEle[diffProp] === oldEle[diffProp]
+      );
+      if (index === -1) {
+        existingArr.push(newEle);
+      }
+    });
+    existingArr.forEach((oldEle, index) => {
+      let indexCheck = newArr.findIndex(
+        (newEle) => newEle[diffProp] === oldEle[diffProp]
+      );
+      if (indexCheck === -1) {
+        removeIndex.push(index);
+      }
+    });
+    for (var i = removeIndex.length - 1; i >= 0; i--) {
+      existingArr.splice(removeIndex[i], 1);
+    }
+    return existingArr;
   }
 
   XoaTaiSan(index) {

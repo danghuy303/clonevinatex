@@ -1013,6 +1013,13 @@ export class QuantriComponent implements OnInit {
                   this.close();
                 },
               },
+              {
+                label: "Lịch sử sử dụng tài sản",
+                routerLink: "/quantri/taisan/lichsusudungtaisan/0",
+                command: () => {
+                  this.close();
+                },
+              },
             ]
           },
           {

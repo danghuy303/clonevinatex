@@ -420,6 +420,19 @@ export class TaisanService {
     };
   }
 
+  BienDongTaiSan() {
+    let url = API.TaiSan;
+    return {
+      GetList: (data) => {
+        // data.idDuAn = this.store.getCurrent();
+        return this.http.post(`${url}NhatKySuDung/GetListBienDong`, data, httpOptions);
+      },
+      Set: (data) => {
+        return this.http.post(`${url}NhatKySuDung/SetBienDongTaiSan`, data, httpOptions);
+      },
+    };
+  }
+
   HieuXuatTaiSan() {
     let url = API.TaiSan;
     return {

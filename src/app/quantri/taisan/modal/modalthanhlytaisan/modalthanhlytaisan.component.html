@@ -96,8 +96,8 @@
                 <th>STT</th>
                 <th>Mã</th>
                 <th>Tên</th>
-                <!-- <th>Số seri</th>
-                    <th>Số lượng</th> -->
+                <!-- <th>Số seri</th> -->
+                <th>Số lượng</th>
                 <th>Giá trị còn lại</th>
                 <th>Giá trị thanh lý </th>
                 <th>Số lượng</th>
@@ -115,6 +115,9 @@
                     {{item.TenTaiSan}}
                     <!-- <p-dropdown [disabled]="!item.edit" [filter]="true" [options]="listdsTaiSan" placeholder="Chọn "
                             styleClass="p-inputtext-sm" [(ngModel)]="item.IdTaiSan"></p-dropdown> -->
+                </td>
+                <td>
+                    <p-inputNumber placeholder="Số lượng" [(ngModel)]="item.SoLuong"></p-inputNumber>
                 </td>
                 <td style="text-align: right;">
                     {{item.GiaTriConLai |  number:'0.0'}}

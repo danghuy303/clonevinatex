@@ -44,23 +44,32 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
 
   ngOnInit(): void {
     this.KiemTraButtonModal();
+    this.getListdmPhanXuong();
     if (this.opt === 'add') {
       this.title = "Thêm mới";
       this.GetNextSoQuyTrinh();
     }
     else {
+      if (validVariable(this.item.Id)) {
+        this.GetQuyTrinh(this.item.Id);
+      }
       this.title = "Cập nhật";
       this.listTaiSan_copy = this.item.listTaiSan?.map((ele, index) => {
         return this.mapDataModelToView(ele, index);
       });
       this.CheckParent(this.listTaiSan_copy);
+    }
+    // if (validVariable(this.item.IdDuAn)) {
+    //   this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
+    //     this.listdmPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
+    //   });
+    // }
+  }
 
-    }
-    if (validVariable(this.item.IdDuAn)) {
-      this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-        this.listdmPhanXuong = mapArrayForDropDown(res, "Ten", 'Id');
-      });
-    }
+  getListdmPhanXuong() {
+    this._servicesSanXuat.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.listdmPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+    })
   }
 
   GetNhaMay() {
@@ -116,7 +125,6 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
 
   Setdata() {
     this.item.NgayBanGiaoUnix = DateToUnix(this.item.NgayBanGiao);
-    this.item.listTaiSan = [];
     this.item.listTaiSan = this.listTaiSan_copy?.map(ele => {
       return this.mapDataViewToModel(ele);
     });
@@ -125,7 +133,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
 
   mapDataViewToModel(item: any) {
     return {
-      Id: "",
+      Id: item.data?.Id || "",
       IdTaiSan: item.data?.IdTaiSan,
       SoLuong: item.data?.SoLuong,
       GhiChu: item.data?.GhiChu || "",
@@ -148,8 +156,8 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       }
       this._serviceTaiSan.BanGiaoTaiSan().Set(this.Setdata()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
-          this.item = res.Data;
-          this.KiemTraButtonModal();
+          this.item.Id = res.Data.Id;
+          this.GetQuyTrinh(this.item.Id);
           this.toastr.success(res.Message);
         } else {
           this.toastr.error(res.Message);
@@ -158,9 +166,22 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     }
   }
 
+  GetQuyTrinh(id) {
+    this._serviceTaiSan.BanGiaoTaiSan().Get(id).subscribe((res:any) => {
+      this.item = res.Data;
+      this.item.NgayBanGiao = UnixToDate(this.item.NgayBanGiaoUnix);
+      this.listTaiSan_copy = this.item.listTaiSan?.map((ele, index) => {
+        return this.mapDataModelToView(ele, index);
+      });
+      this.KiemTraButtonModal();
+      this.CheckParent(this.listTaiSan_copy);
+    })
+  }
+
   ChuyenDuyet() {
+    console.log("item chuyen duyet",this.Setdata());
+    
     if (this.Validate()) {
-      this.Setdata();
       this._serviceTaiSan.BanGiaoTaiSan().ChuyenTiep(this.Setdata()).subscribe((res: any) => {
         if (res.StatusCode !== 200) {
           this.toastr.error(res.Message);
