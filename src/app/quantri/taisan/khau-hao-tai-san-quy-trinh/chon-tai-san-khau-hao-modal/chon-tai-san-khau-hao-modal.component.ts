@@ -106,15 +106,16 @@ export class ChonTaiSanKhauHaoModalComponent implements OnInit {
 
   GhiLai() {
     let listTaiSanKhauHao = [];
-    this._serviceTaiSan.KhauHaoTaiSan().GetKhauHao(this.SetData()).subscribe((res: any) => {
-      listTaiSanKhauHao = res.Data;
+    let data = this.SetData();
+    this._serviceTaiSan.KhauHaoTaiSan().GetKhauHao(data).subscribe((res: any) => {
+      data.forEach(ele=>{
+        listTaiSanKhauHao.push(...res.Data.filter(obj => obj.IdTaiSan === ele));
+      })
       listTaiSanKhauHao.forEach(ele => {
         if (!validVariable(ele.GiaTriConLai)) {
           ele.GiaTriConLai = 0;
         }
       })
-      console.log("listTaiSanKhauHao",listTaiSanKhauHao);
-      
       this.activeModal.close(listTaiSanKhauHao);
     })
   }
