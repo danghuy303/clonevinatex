@@ -75,7 +75,7 @@
                         <th rowspan="2">Mặt hàng</th>
                         <th *ngFor="let col of listCaSanXuat; let i = index" [attr.colspan]="col.SoCot">
                             <div class="d-flex flex-column flex-lg-row">
-                                <label class="p-col-12 p-lg-9 p-p-0 my-auto">{{col.Ten}}</label>
+                                <label class="p-col-12 p-lg-9 p-p-0 my-auto">{{col.Ten}}{{col.SoCot}}</label>
                                 <div class="p-col-12 p-lg-3 p-p-0">
                                     <p-dropdown [options]="listCaThucTe" placeholder="Ca" styleClass="p-inputtext-sm"
                                         [(ngModel)]="item.listThongKeSanLuong[i].IddmCaSanXuatThucTe">
@@ -307,17 +307,16 @@
                 <tbody>
                     <!-- <ng-container *ngIf="item.CongDoan==='CHAICOTTON'"> -->
                     <ng-container
-                        *ngFor="let row of item.listThongKeSanLuong[0].listTyLeBongPhe|filterByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz');let indexLoai = index">
-                        <tr *ngFor="let loaibong of row.listKhoiLuongBongPhe">
+                        *ngFor="let row of item.listThongKeSanLuong[0].listTyLeBongPhe|filterByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz')">
+                        <tr *ngFor="let loaibong of row.listKhoiLuongBongPhe ;let indexLoai = index">
                             <td class="text-left">{{loaibong.TenLoaiBongPhe}}</td>
                             <ng-container *ngFor="let col of item.listThongKeSanLuong; let i = index">
                                 <ng-container
                                     *ngFor="let CongDoan of col.listTyLeBongPhe|filterByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz')">
                                     <!-- <td>
-
                                         {{CongDoan.listKhoiLuongBongPhe[indexLoai].TenLoaiBongPhe}}
                                     </td> -->
-                                    <td class="text-right p-d-flex p-flex-row ">
+                                    <td class="text-right p-d-flex p-flex-row">
                                         <p-inputNumber [minFractionDigits]="3" locale="en-EN"
                                             [(ngModel)]="CongDoan.listKhoiLuongBongPhe[indexLoai].KhoiLuong" (onBlur)="TinhTongKhoiLuongBong(i)">
                                         </p-inputNumber>
