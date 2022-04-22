@@ -518,6 +518,9 @@ export class TaisanService {
   ListDanhSachVatTu() {
     let url = API.TaiSan;
     return {
+      GetListVatTuChuaBanGiao: (data) => {
+        return this.http.post(`${url}NhatKySuDung/GetListVatTuChuaBanGiao`, data, httpOptions);
+      },
       GetList: (data) => {
         return this.http.post(`${url}QuanLyVatTuDuTru/GetListVatTuCanThayThe`, data, httpOptions);
       },

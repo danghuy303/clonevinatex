@@ -37,6 +37,8 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
     this.GetList();
   }
   resetFilter() {
+    console.log(this.listItemDaChon);
+    
     this.filter = {};
     this.GetList();
   }
@@ -53,32 +55,17 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
     this._serviceTaiSan.ThoiHanCungCap().LuaChon(data).subscribe((res: any) => {
       this.paging.TotalCount = res.Data.TotalCount;
       this.items = res.Data.Items;
-      // res.Data.forEach(obj => {
-      //   obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
-      //   let data: any = { "data": obj, "children": [] };
-      //   obj.listTaiSan.forEach(con => {
-      //     let datacon: any = { "data": con, "children": [] };
-      //     con.checked = this.listItemDaChon.includes(con.IdTaiSan);
-      //     data.children.push(datacon);
-      //   });
-      //   this.items.push(data);
-      // });
-      // this.checkedAll = res.Data.every(ele => ele.checked);
+      this.items.forEach(obj => {
+        obj.checked = this.listItemDaChon.includes(obj.Id);
+      });
+     
+      this.checkedAll = this.items.every(ele => ele.checked);
     });
   }
   TimCheck() {
-    let cha: boolean = false;
-    let con: boolean = false;
-    cha = this.items.every(ele => ele.data.checked);
-    this.items.filter(obj => {
-      if (validVariable(obj.children) && obj.children.length > 0) {
-        con = obj.children.every(ele => ele.data.checked);
-        if (!con) {
-          return false;
-        }
-      }
-    });
-    if ((cha) && (con)) {
+    let check: boolean = false;
+    check = this.items.every(ele => ele.checked);
+    if ((check)) {
       return true;
     }
     else {
@@ -86,25 +73,9 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
     }
   }
   checkAll(e) {
-    if (e.checked) {
-      this.items.forEach(obj => {
-        obj.data.checked = true;
-        if (validVariable(obj.children) && obj.children.length > 0) {
-          obj.children.forEach(objchildren => {
-            objchildren.data.checked = true;
-          });
-        }
-      });
-    } else {
-      this.items.forEach(obj => {
-        obj.data.checked = false;
-        if (validVariable(obj.children) && obj.children.length > 0) {
-          obj.children.forEach(objchildren => {
-            objchildren.data.checked = false;
-          });
-        }
-      });
-    }
+    this.items.forEach(obj => {
+      obj.checked = e.checked;
+    })
   }
   checked() {
     this.checkedAll = this.TimCheck();
@@ -115,9 +86,9 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
       if (obj.checked) {
         data.push({
           IdTaiSan: obj.Id,
-          Ten: obj.Ten,
+          TenTaiSan: obj.Ten,
           IdNhaCungUng: obj.IddmNhaCungUng,
-          Ma: obj.Ma,
+          MaTaisan: obj.Ma,
           // TenLoaidmBaoDuong: obj.data.TendmLoaiBaoDuong,
         });
       }

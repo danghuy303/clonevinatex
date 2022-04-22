@@ -14,6 +14,8 @@ export class ChiphilichxichnamComponent implements OnInit {
   @Input('item') item: any = {};
 
   constructor(
+
+
     public activeModal: NgbActiveModal,
     public _modal: NgbModal,
     private _danhMucTaiSan: DanhmuctaisanService,
@@ -21,26 +23,44 @@ export class ChiphilichxichnamComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
   }
 
-  ChiTietThongTin() {
+  ChiTietThongTin(item) {
+
     let modalRef = this._modal.open(ChiphilichxichnamchonthemComponent, {
       backdrop: "static",
     });
     modalRef.componentInstance.title = "Chi phí lịch xích năm";
-    // modalRef.componentInstance.item = item.IdTaiSan;
+    modalRef.componentInstance.layIdTaiSan = this.item[0]?.IdTaiSan;
     // // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then((res: any) => {
-console.log(res);
+      item.ChiTietChiPhi.push(res);
 
-    this.item.listChiPhi.ChiTietChiPhi = res;
-    console.log( this.item);
-    
     })
       .catch((er) => {
 
       });
+  }
+
+  editChiTietChiPhi(item) {
+
+    let modalRef = this._modal.open(ChiphilichxichnamchonthemComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.title = "Chi phí lịch xích năm";
+    modalRef.componentInstance.item = item;
+    // // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.result.then((res: any) => {
+      item.ChiTietChiPhi.push(res);
+    })
+      .catch((er) => {
+
+      });
+  }
+
+  Delete(array, index) {
+    array.splice(index, 1);
+
   }
 
 }

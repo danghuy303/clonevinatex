@@ -47,10 +47,16 @@
         <tr>
             <td class="text-center"> {{item.TenTaiSan}}</td>
             <td class="text-center" *ngFor="let chiPhi of item?.listChiPhi">
-                <a href="javascript:void(0)">
-                    {{chiPhi.TenChiPhi}}
-                </a>
-                <a href="javascript:void(0)" (click)="ChiTietThongTin()">Thêm</a>
+                <div *ngIf="chiPhi.ChiTietChiPhi.length" class="p-d-flex p-flex-column">
+                    <div  *ngFor="let item of chiPhi.ChiTietChiPhi; let i = index" class="p-d-flex p-ai-center">
+                        <a href="javascript:void(0)" (click)="editChiTietChiPhi(item)" >
+                            {{item.TenChiPhi}} - {{item.SoTien}} 
+                        </a>
+                        <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger" (click)="Delete(chiPhi.ChiTietChiPhi,i)"></button>
+                    </div>
+                </div>
+                <!-- <button pButton pRipple type="button" label="Thêm" class="p-button-raised" (click)="ChiTietThongTin(chiPhi)"></button> -->
+                <button pButton icon="pi pi-plus" pRipple type="button" label="Thêm" styleClass="p-button-sm" class="p-button-raised p-button-text p-mt-2" (click)="ChiTietThongTin(chiPhi)"></button>
             </td>
             <td></td>
         </tr>

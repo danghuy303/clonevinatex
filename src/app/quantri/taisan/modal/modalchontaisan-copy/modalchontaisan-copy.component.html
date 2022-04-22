@@ -24,40 +24,43 @@
     <p-treeTable [value]="items" styleClass="p-treetable p-treetable-caption">
         <ng-template pTemplate="colgroup">
             <colgroup>
-                <col style="width:50px">
+                <!-- <col style="width:50px"> -->
                 <col>
                 <col>
                 <col>
                 <col>
+
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th class="text-center">
+                <th style="width:50px" class="text-center">
                     <p-checkbox [(ngModel)]="checkedAll" binary="false" inputId="binaryall"
                         (onChange)="checkAll($event)"></p-checkbox>
                 </th>
-                <th class="text-center">
+                <th>
                     Mã
                 </th>
                 <th class="text-center">Tên</th>
                 <th class="text-center">Nguyên giá</th>
                 <th class="text-center">Giá còn lại</th>
+
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr>
                 <td class="text-center">
-                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="checked()">
+                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="checked(rowData)">
                     </p-checkbox>
                 </td>
                 <td>
                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                     {{rowData.Ma}}
                 </td>
-                <td class="text-center">{{rowData.Ten}}</td>
-                <td class="text-center">{{rowData.NguyenGia|number:'0.0'}}</td>
-                <td class="text-center">{{rowData.GiaTriConLai|number:'0.0'}}</td>
+                <td>{{rowData.Ten}}</td>
+                <td class="text-right">{{rowData.NguyenGia|number:'0.0'}}</td>
+                <td class="text-right">{{rowData.GiaTriConLai|number:'0.0'}}</td>
+
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">

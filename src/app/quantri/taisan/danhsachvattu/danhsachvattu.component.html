@@ -7,7 +7,7 @@
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listBoPhanSuDung" placeholder="Bộ phận sử dụng "
-                [(ngModel)]="filter.IddmLoaiTaiSan" styleClass="p-inputtext-sm" (onChange)="GetList(true)"
+                [(ngModel)]="filter.IdBoPhanSuDung" styleClass="p-inputtext-sm" (onChange)="GetList(true)"
                 [showClear]="true" [filter]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
@@ -32,7 +32,7 @@
     </p-tabPanel>
 </p-tabView>
 <div *ngIf="loaiTab === 0" class="p-mt-3">
-    <p-table [value]="items" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+    <p-table [value]="itemsTonKho" styleClass="p-datatable-sm wrap-text p-datatable-striped">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col>
@@ -91,7 +91,7 @@
             <span class="p-m-2">
                 <p-checkbox class="p-mr-2" [(ngModel)]="filter.QuaHan" binary="false" inputId="QuaHan" (onChange)="GetList(true)">
                 </p-checkbox>
-                <label class="p-m-0" for="binary">Quá hạn </label>
+                <label class="p-m-0" for="">Quá hạn </label>
             </span>
             <p-dropdown class="p-mr-2" [filter]="true" [options]="listNam" placeholder="Năm " [(ngModel)]="filter.Nam"
                 styleClass="p-inputtext-sm" (onChange)="GetList(true)" [showClear]="true" [filter]="true"></p-dropdown>

@@ -16,6 +16,7 @@ export class ModalbaoduongComponent implements OnInit {
   Keyword: any = '';
   paging: any = { page: 1, totalPages: 1, totalCount: 1 };
   listTaiSan: any = [];
+  listMucDoUuTien: any = [];
 
   constructor(public activeModal: NgbActiveModal, private _danhMucTaiSan: DanhmuctaisanService, public toastr: ToastrService) { this.item.isHoatDong = true }
 
@@ -31,6 +32,9 @@ export class ModalbaoduongComponent implements OnInit {
     };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
       this.listTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
+    })
+    this._danhMucTaiSan.DanhMucMucDoUuTien().GetList(data).subscribe((res: any) => {
+      this.listMucDoUuTien = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
   }
   ValidateData() {

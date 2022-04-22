@@ -21,6 +21,8 @@ export class ModalchontaisanCopyComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   Keyword: any = '';
   filter: any = {};
+  selectedNodes: TreeNode[] = [];
+  listTaiSanDaChon: any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -36,6 +38,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
     this.filter = {};
     this.GetList();
   }
+
   GetList() {
     let data = {
       Keyword: this.filter.Keyword,
@@ -49,12 +52,18 @@ export class ModalchontaisanCopyComponent implements OnInit {
       let items = [];
       this.items = [];
       items = res.Data.Items;
+
+
       items.forEach(obj => {
         obj.checked = this.listItemDaChon.includes(obj.Id);
+
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
+          obj.isCha = true;
           obj_copy.children = [];
+
           obj.listTaiSan.forEach(element => {
+            element.isCha = false;
             element.checked = this.listItemDaChon.includes(element.Id);
             obj_copy.children.push({ data: element });
           });
@@ -63,60 +72,33 @@ export class ModalchontaisanCopyComponent implements OnInit {
         obj_copy.data = obj;
         this.items.push({ data: obj_copy.data, children: obj_copy.children });
       });
-      this.checkedAll = items.every(ele => ele.checked);
+      this.checkedAll = this.items.every(obj => obj.data.checked);
     });
   }
-
-  TimCheck() {
-    let cha: boolean = false;
-    let con: boolean = false;
-    cha = this.items.every(ele => ele.data.checked);
-    this.items.filter(obj => {
-      if (validVariable(obj.children) && obj.children.length > 0) {
-        con = obj.children.every(ele => ele.data.checked);
-        if (!con) {
-          return false;
-        }
-      }
+  TimCheck(eleCha) {
+    eleCha.children.forEach(eleCon => {
+      eleCon.data.checked = eleCha.data.checked
     });
-    if ((cha) && (con)) {
-      return true;
-    }
-    else {
-      return false;
-    }
   }
 
   checkAll(e) {
-    if (e.checked) {
-      this.items.forEach(obj => {
-        obj.data.checked = true;
-        if (validVariable(obj.children) && obj.children.length > 0) {
-          obj.children.forEach(objchildren => {
-            objchildren.data.checked = true;
-          });
-        }
-      });
-    } else {
-      this.items.forEach(obj => {
-        obj.data.checked = false;
-        if (validVariable(obj.children) && obj.children.length > 0) {
-          obj.children.forEach(objchildren => {
-            objchildren.data.checked = false;
-          });
-        }
-      });
-    }
+    this.items.forEach(eleCha => {
+      eleCha.data.checked = e.checked;
+      this.TimCheck(eleCha);
+    })
   }
 
-  checked() {
-    this.checkedAll = this.TimCheck();
-    this.items.forEach(obj => {
-      obj.children.forEach(objchildren => {
-        objchildren.data.checked = obj.data.checked;
+  checked(item) {
+    if (!item.isCha) {
+      this.items.forEach(eleCha => {
+        eleCha.data.checked = eleCha.children.every(eleCon => eleCon.data.checked)
       })
-    })
-
+    } else {
+      this.items.forEach(eleCha => {
+        this.TimCheck(eleCha);
+      })
+    }
+    this.checkedAll = this.items.every(eleCha => eleCha.data.checked)
   }
 
   FilterTree() {
@@ -131,6 +113,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
           NguyenGia: obj.data.NguyenGia,
           GiaTriConLai: obj.data.GiaTriConLai,
         });
+
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
         obj.children.forEach(objchildren => {
@@ -149,6 +132,7 @@ export class ModalchontaisanCopyComponent implements OnInit {
     });
     return data;
   }
+
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;
     this.GetList()

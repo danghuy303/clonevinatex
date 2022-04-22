@@ -27,6 +27,7 @@ export class DanhsachvattuComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   items: any = [];
+  itemsTonKho: any = [];
   listLoaiTaiSan: any = [];
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
@@ -65,6 +66,7 @@ export class DanhsachvattuComponent implements OnInit {
     for (let i = 1; i <= 12; i++) {
       this.labelThang.push({ label: i, value: i })
     }
+    this.GetListTonKho();
     this.GetList();
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
@@ -75,7 +77,31 @@ export class DanhsachvattuComponent implements OnInit {
 
   resetFilter() {
     this.filter = {};
-    this.GetList(true);
+    this.GetListTonKho(true);
+  }
+
+  GetListTonKho(reset?) {
+    if (reset) {
+      this.paging.CurrentPage = 1;
+    }
+    let data = {
+      PageSize: 20,
+      CurrentPage: this.paging.CurrentPage,
+      KeyWord: this.filter.KeyWord,
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+    };
+    this._serviceTaiSan.ListDanhSachVatTu().GetListVatTuChuaBanGiao(data).subscribe((res: any) => {
+      this.paging.CurrentPage = res.Data.Page;
+      this.paging.TotalPages = res.Data.TotalPages;
+      this.paging.TotalCount = res.Data.TotalCount;
+      this.itemsTonKho = res.Data.Items;
+      this.itemsTonKho.forEach(item => {
+        item.ThanhTien = 0;
+        item.ThanhTien = (item.NguyenGia || 0) * (item.SoLuong || 0);
+
+      })
+    })
   }
 
   GetList(reset?) {
@@ -86,7 +112,7 @@ export class DanhsachvattuComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       KeyWord: this.filter.KeyWord,
-      IddmLoaiTaiSan: "",
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
       Nam: this.filter.Nam,
       Thang: this.filter.Thang,
       QuaHan: this.filter.QuaHan,
@@ -200,9 +226,9 @@ export class DanhsachvattuComponent implements OnInit {
     let data = this.listVatTuDaChon.map(ele => {
       return {
         "Ma": ele.Ma,
-        "Ten":ele.Ten,
+        "Ten": ele.Ten,
         "SoLuongTon": ele.TonKho,
-        "SoLuongCanThayThe":ele.TonKho ,
+        "SoLuongCanThayThe": ele.TonKho,
         "TuoiTho": ele.TuoiTho,
         "NhaCungCap": ele.TenNhaCungCap,
         "DonGiaNhapGanNhat": ele.NguyenGia,

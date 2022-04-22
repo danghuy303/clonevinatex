@@ -66,8 +66,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     };
     this._serviceTaiSan.LichXich().GetListTaiSanTheoNam(data).subscribe((res: any) => {
       this.paging.TotalCount = res.Data.TotalCount;
-      console.log(res.Data.listTaiSan.IdTaiSan);
-      
       this.TaiSanItem = res.Data;
 
       this.listdmLoaiBaoDuong = this.TaiSanItem.listdmLoaiBaoDuong;
@@ -88,23 +86,10 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   }
 
   TimCheck() {
-    let cha: boolean = false;
-    let con: boolean = false;
-    cha = this.items.every(ele => ele.data.checked);
-    this.items.filter(obj => {
-      if (validVariable(obj.children) && obj.children.length > 0) {
-        con = obj.children.every(ele => ele.data.checked);
-        if (!con) {
-          return false;
-        }
-      }
-    });
-    if ((cha) && (con)) {
-      return true;
-    }
-    else {
-      return false;
-    }
+   this.checkedAll = this.items.every(ele => ele.data.checked);
+   this.items.forEach(eleCha => {
+     eleCha.data.checked = eleCha.children.every(eleCon => eleCon.data.checked);
+   })
   }
   checkAll(e) {
     if (e.checked) {
@@ -128,7 +113,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     }
   }
   checked() {
-    this.checkedAll = this.TimCheck();
+    this.TimCheck();
   }
   FilterTree() {
     let data: any = [];
@@ -152,8 +137,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   }
   GhiLai() {
     this._serviceTaiSan.LichXich().GetListVatTuByIdTaiSanForLapKeHoachLichXichNam(this.FilterTree()).subscribe((res: any) => { 
-      console.log('gg',res.Data.listTaiSan);
-      
       this.activeModal.close(res.Data.listTaiSan);
     });
    
