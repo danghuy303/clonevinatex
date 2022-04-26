@@ -77,19 +77,24 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   }
 
   ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open(ModalbaoduongluachontaisanComponent, {
-      size: "xl",
-      backdrop: "static",
-    });
-    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
-    modalRef.componentInstance.opt = this.opt;
-    modalRef.componentInstance.Lay_Chon = this.item;
-    modalRef.componentInstance.item = this.item;
-    modalRef.result.then((res: any) => {
-      this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
-    })
-      .catch((er) => {
+    if (!validVariable(this.item.IdBoPhanSuDung)) {
+      this.toastr.error("Vui lòng nhập bộ phận sử dụng")
+    } else {
+      let modalRef = this._modal.open(ModalbaoduongluachontaisanComponent, {
+        size: "xl",
+        backdrop: "static",
       });
+      modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
+      modalRef.componentInstance.opt = this.opt;
+      modalRef.componentInstance.Lay_Chon = this.item;
+      modalRef.componentInstance.item = this.item;
+      modalRef.result.then((res: any) => {
+        this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
+        
+      })
+        .catch((er) => {
+        });
+    }
   }
 
   setData() {
@@ -114,27 +119,25 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   }
 
   GhiLai() {
-    // if (this.ValidateData()) {
-    //   this._serviceTaiSan.QuyTrinhBaoDuong().Set(this.setData()).subscribe((res: any) => {
-    //     if (res.StatusCode !== 200 || !res.StatusCode) {
-    //       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-    //     } else {
-    //       this.item = res.Data;
-    //       if (this.item.listTaiSan.length) {
-    //         this.item.listTaiSan.forEach(ele => {
-    //           ele.TuGio = UnixToDate(ele.TuGioUnix);
-    //           ele.DenGio = UnixToDate(ele.DenGioUnix);
-    //         })
-    //       }
-    //       this.toastr.success(res.Message);
-    //       this.KiemTraButtonModal();
-    //     }
-    //   }, (er) => {
-    //     this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-    //   })
-    // }
-    console.log("item", this.item);
-    
+    if (this.ValidateData()) {
+      this._serviceTaiSan.QuyTrinhBaoDuong().Set(this.setData()).subscribe((res: any) => {
+        if (res.StatusCode !== 200 || !res.StatusCode) {
+          this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+        } else {
+          this.item = res.Data;
+          if (this.item.listTaiSan.length) {
+            this.item.listTaiSan.forEach(ele => {
+              ele.TuGio = UnixToDate(ele.TuGioUnix);
+              ele.DenGio = UnixToDate(ele.DenGioUnix);
+            })
+          }
+          this.toastr.success(res.Message);
+          this.KiemTraButtonModal();
+        }
+      }, (er) => {
+        this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+      })
+    }
   }
 
   KiemTraButtonModal() {
@@ -190,12 +193,12 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     // this.Loaddata(true);
   }
 
-  delete(index) {
-    let item = this.item.listTaiSan.splice(index, 1)[0];
-    if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
-    }
-  }
+  // delete(index) {
+  //   let item = this.item.listTaiSan.splice(index, 1)[0];
+  //   if (item.Id === '' || item.Id === null || item.Id === undefined) {
+  //   } else {
+  //     item.isXoa = true;
+  //     this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
+  //   }
+  // }
 }

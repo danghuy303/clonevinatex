@@ -159,6 +159,7 @@ import { ChonComponent } from './screen/chon/chon.component';
 import { LuachontaisannhaptaisanComponent } from './modal/luachontaisannhaptaisan/luachontaisannhaptaisan.component';
 import { ChiphilichxichnamchonthemComponent } from './screenLichXich/chiphilichxichnamchonthem/chiphilichxichnamchonthem.component';
 import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.component';
+import { TaisanbaoduongComponent } from './quytrinhbaoduong/taisanbaoduong/taisanbaoduong.component';
 
 @NgModule({
   declarations: [TaisanComponent,
@@ -272,6 +273,7 @@ import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.compone
     LuachontaisannhaptaisanComponent,
     LichSuSuDungComponent,
     ChiphilichxichnamchonthemComponent,
+    TaisanbaoduongComponent,
 
   ],
   imports: [

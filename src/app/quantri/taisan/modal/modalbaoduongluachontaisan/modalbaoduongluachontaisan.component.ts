@@ -79,12 +79,13 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
         }
       }
     });
-    if ((cha) && (con)) {
-      return true;
-    }
-    else {
-      return false;
-    }
+    // if ((cha) && (con)) {
+    //   return true;
+    // }
+    // else {
+    //   return false;
+    // }
+    return cha;
   }
 
   checkAll(e) {
@@ -156,7 +157,6 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
       }
     })
     this._serviceTaiSan.GetOptions().GetListVatTuForBaoDuong(data).subscribe((res:any) => {
-      // console.log(res);
       this.activeModal.close(res.Data);
     })
   }
