@@ -1,0 +1,27 @@
+.options{
+    margin-bottom: 20px;
+}
+
+.top-charts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    
+}
+
+.first-chart {
+    width: 40%;
+    flex-basis: 1;
+    flex-grow: 1;
+}
+
+.second-chart {
+    width: 60%;
+    flex-basis: 1;
+    flex-grow: 1;
+}
+
+

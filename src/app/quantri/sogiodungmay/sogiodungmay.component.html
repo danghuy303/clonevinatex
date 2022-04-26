@@ -1,1 +1,152 @@
-<p>sogiodungmay works!</p>
+<div class="">
+  <!-- input options -->
+  <div class="options p-d-flex p-ai-center p-jc-between">
+    <div class="p-d-flex flex-column flex-lg-row p-pl-0">
+      <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
+        <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
+          <div class="p-mr-2">
+            <p-dropdown
+              [filter]="true"
+              placeholder="Công đoạn"
+              styleClass="p-inputtext-sm"
+            >
+            </p-dropdown>
+          </div>
+          <div class="p-mr-2">
+            <p-dropdown
+              [filter]="true"
+              placeholder="Chọn bộ phận sử dụng"
+              styleClass="p-inputtext-sm"
+            ></p-dropdown>
+          </div>
+        </div>
+
+        <div class="p-mr-2">
+          <p-calendar
+            dateFormat="dd/mm/yy"
+            inputStyleClass="p-inputtext-sm"
+            [showIcon]="true"
+            inputId="icon"
+            placeholder="Từ ngày"
+          >
+          </p-calendar>
+        </div>
+        <div class="p-mr-2">
+          <p-calendar
+            dateFormat="dd/mm/yy"
+            inputStyleClass="p-inputtext-sm"
+            [showIcon]="true"
+            inputId="icon"
+            placeholder="Đến ngày"
+          >
+          </p-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- first and second chart -->
+  <div class="top-charts row col-12 mx-0 p-0">
+    <div class="first-chart bg-white p-2">
+      <div class="chart-container bg-white">
+        <h6 class="text-center mt-2" style="font-weight: bold">TỔNG HỢP</h6>
+        <div class="pie p-2" width="100%" height="100%">
+          <p-chart
+            class="p-2"
+            type="pie"
+            [data]="data1"
+            width="100%"
+            height="100%"
+          ></p-chart>
+
+          <div class="">
+            <span>
+              <span class="mr-2">
+                <span
+                  style="
+                    background-color: #4472c4;
+                    width: 10px;
+                    height: 10px;
+                    display: inline-block;
+                    margin-right: 3px;
+                  "
+                ></span
+                ><span>Bảo dưỡng</span></span
+              >
+              <span class="mr-2">
+                <span
+                  style="
+                    background-color: #ed7d31;
+                    width: 10px;
+                    height: 10px;
+                    display: inline-block;
+                    margin-right: 3px;
+                  "
+                ></span
+                ><span>Sự cố điện </span>
+              </span>
+              <span class="mr-2">
+                <span
+                  style="
+                    background-color: #a5a5a5;
+                    width: 10px;
+                    height: 10px;
+                    display: inline-block;
+                    margin-right: 3px;
+                  "
+                ></span
+                ><span>Sự cố phát sinh</span>
+              </span>
+              <span class="mr-2">
+                <span
+                  style="
+                    background-color: #ffc000;
+                    width: 10px;
+                    height: 10px;
+                    display: inline-block;
+                    margin-right: 3px;
+                  "
+                ></span
+                ><span>Sửa chữa</span></span
+              >
+              <span class="mr-2">
+                <span
+                  style="
+                    background-color: #5b9bd5;
+                    width: 10px;
+                    height: 10px;
+                    display: inline-block;
+                    margin-right: 3px;
+                  "
+                ></span
+                ><span>Sự cố tụt áp</span></span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="second-chart bg-white">
+      <div class="chart-container p-2">
+        <h6 class="text-center pt-2" style="font-weight: bold">
+          LOẠI SỰ CỐ: <span style="color: #4472c4">Sự cố điện tụt áp</span>
+        </h6>
+        <p-chart type="bar" [data]="data2" [options]="options2"></p-chart>
+      </div>
+    </div>
+  </div>
+
+  <!-- third chart -->
+  <div class="third-chart row col-12 p-0 m-0">
+    <div class="col-12 bg-white m-0 p-2">
+      <h5></h5>
+      <p-chart
+        height="250"
+        type="bar"
+        [data]="data3"
+        [options]="options3"
+      ></p-chart>
+    </div>
+  </div>
+</div>

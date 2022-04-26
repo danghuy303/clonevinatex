@@ -126,7 +126,7 @@ const routes: Routes = [
         component: BaocaothongketiendienComponent,
       },
 
-      { path: "sogiodungmay", component: SogiodungmayComponent },
+      { path: "quantrisanxuat/sogiodungmay", component: SogiodungmayComponent },
 
       {
         path: "baocaosanxuat/sanluongtonghop",
