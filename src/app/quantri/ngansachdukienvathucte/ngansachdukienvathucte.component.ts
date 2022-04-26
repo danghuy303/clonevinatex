@@ -25,6 +25,20 @@ export class NgansachdukienvathucteComponent implements OnInit {
         fill: false,
         borderWidth: 2,
       },
+      {
+        type: "bar",
+        label: "Kế hoạch",
+        backgroundColor: "#66BB6A",
+        data: [21, 84, 24, 75, 37, 65, 34],
+        borderColor: "white",
+        borderWidth: 2,
+      },
+      {
+        type: "bar",
+        label: "Thực tế",
+        backgroundColor: "#FFA726",
+        data: [41, 52, 24, 74, 23, 21, 32],
+      },
     ],
   };
 
