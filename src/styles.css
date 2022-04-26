@@ -368,3 +368,7 @@ span.required {
 .your-tree-table-class .ui-treetable-toggler.fa-caret-right:before{
     content: "\f067";
   }
+
+.b-1 {
+    border: 1px solid #ccc!important;
+}

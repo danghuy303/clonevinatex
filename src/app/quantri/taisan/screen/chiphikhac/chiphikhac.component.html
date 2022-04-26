@@ -1,21 +1,32 @@
-<p-table [value]="item.listChiPhiKhac" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+<div class="p-d-flex p-flex-row p-jc-between p-ai-center">
+    <div class="modal-bt p-mb-4 ">
+        <!-- <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm"></button> -->
+    </div>
+    <div class="modal-bt p-mb-4 ">
+        <span><b>Tổng tiền: </b></span>
+        <span><b>100.000</b></span>
+    </div>
+</div>
+
+<!-- <p-table [value]="item.listChiPhiKhac" styleClass="p-datatable-sm wrap-text p-datatable-striped">
     <ng-template pTemplate="colgroup">
         <colgroup>
             <col style="width:200px">
             <col style="width:200px">
             <col style="width:200px">
-          
+
             <col style="width:100px">
         </colgroup>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
+            <th>STT</th>
             <th>Tên chi phí</th>
             <th>Giá trị</th>
             <th>Ghi chú</th>
-            <th style="width: 100px;"> <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
-                (click)="add2()">
-              </button></th>
+            <th style="width: 100px;"> <button pButton pRipple type="button" icon="pi pi-plus"
+                    class="p-button-rounded p-button-sm " (click)="add2()">
+                </button></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -24,9 +35,8 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ten" pInputText />
             </td>
             <td class="text-right">
-                <p-inputNumber [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm"
-                [(ngModel)]="item.GiaTri">
-            </p-inputNumber>
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm" [(ngModel)]="item.GiaTri">
+                </p-inputNumber>
             </td>
             <td class="text-center">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
@@ -39,7 +49,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="footer">
-        <!-- <tr>
+        <tr>
             <td class="text-center">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="newitem.Ten" pInputText />
             </td>
@@ -50,10 +60,41 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="newitem.GhiChu" pInputText />
             </td>
             <td class="text-center">
-               
+
             </td>
-        </tr> -->
+        </tr>
 
     </ng-template>
-</p-table>
+</p-table> -->
 
+<p-treeTable [value]="item" [columns]="cols">
+    <ng-template pTemplate="colgroup">
+        <colgroup>
+            <col style="width: 50px;">
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col style="width: 100px;">
+        </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th class="text-center b-1">
+                STT
+            </th>
+            <th class="text-center b-1">Mã</th>
+            <th class="text-center b-1">Tên</th>
+            <th class="text-center b-1">Giá trị kế hoạch</th>
+            <th class="text-center b-1">Giá trị thực tế</th>
+            <th class="text-center b-1">Ghi chú</th>
+            <th class="text-center b-1">Thao tác</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr>
+
+        </tr>
+    </ng-template>
+</p-treeTable>

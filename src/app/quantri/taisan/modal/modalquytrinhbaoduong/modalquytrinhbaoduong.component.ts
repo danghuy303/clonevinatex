@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
@@ -39,10 +39,20 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (this.opt=== 'add') {
+      this.GetNextSoQuyTrinh();
+    } else {
+
+    }
+    if (this.item.listTaiSan.length) {
+      this.item.listTaiSan.forEach(ele => {
+        ele.TuGio = UnixToDate(ele.TuGioUnix);
+        ele.DenGio = UnixToDate(ele.DenGioUnix);
+      })
+    }
     if (this.item.NgayBaoDuongUnix !== 0) {
       this.item.NgayBaoDuong = UnixToDate(this.item.NgayBaoDuongUnix);
     }
-    this.GetNextSoQuyTrinh();
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
@@ -65,13 +75,10 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       this.item.SoQuyTrinh = res.Data;
     })
   }
+
   ThemMoiDanhSachTaiSan() {
-    // if (!validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.IdDmLoaiTaiSan)) {
-    //   this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc !");
-    //   return;
-    // }
     let modalRef = this._modal.open(ModalbaoduongluachontaisanComponent, {
-      size: "lg",
+      size: "xl",
       backdrop: "static",
     });
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
@@ -79,22 +86,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     modalRef.componentInstance.Lay_Chon = this.item;
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
-
-      let listKetQua = [];
-      this.item.listTaiSan.forEach(Tai_San => {
-        let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-        if (bien !== undefined) {
-          listKetQua.push(Tai_San);
-        }
-      });
-      // vong lap 2
-      res.forEach(Tai_San => {
-        let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-        if (bien === undefined) {
-          listKetQua.push(Tai_San);
-        }
-      });
-      this.item.listTaiSan = listKetQua;
+      this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
     })
       .catch((er) => {
       });
@@ -102,14 +94,17 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
 
   setData() {
     this.item.NgayBaoDuongUnix = DateToUnix(this.item.NgayBaoDuong);
-
-    // if (!validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.IddmLoaiTaiSan)) {
-    //   this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc !");
-    //   return;
-    // }
-    // this.item.IdDuAn = this.store.getCurrent();
+    this.item.listTaiSan = this.item.listTaiSan.map(ele => {
+      return {
+        ...ele,
+        Id: ele.Id || "",
+        TuGioUnix: DateToUnix(ele.TuGio),
+        DenGioUnix: DateToUnix(ele.DenGio),
+      }
+    })
     return this.item;
   }
+
   ValidateData() {
     if (!validVariable(this.item.NgayBaoDuong)) {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
@@ -117,21 +112,29 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     }
     return true;
   }
+
   GhiLai() {
-    if (this.ValidateData()) {
-      this._serviceTaiSan.QuyTrinhBaoDuong().Set(this.setData()).subscribe((res: any) => {
-        if (res.StatusCode !== 200 || !res.StatusCode) {
-          this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-        } else {
-          this.item = res.Data;
-          this.toastr.success(res.Message);
-          this.KiemTraButtonModal();
-          // this.activeModal.close();
-        }
-      }, (er) => {
-        this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-      })
-    }
+    // if (this.ValidateData()) {
+    //   this._serviceTaiSan.QuyTrinhBaoDuong().Set(this.setData()).subscribe((res: any) => {
+    //     if (res.StatusCode !== 200 || !res.StatusCode) {
+    //       this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+    //     } else {
+    //       this.item = res.Data;
+    //       if (this.item.listTaiSan.length) {
+    //         this.item.listTaiSan.forEach(ele => {
+    //           ele.TuGio = UnixToDate(ele.TuGioUnix);
+    //           ele.DenGio = UnixToDate(ele.DenGioUnix);
+    //         })
+    //       }
+    //       this.toastr.success(res.Message);
+    //       this.KiemTraButtonModal();
+    //     }
+    //   }, (er) => {
+    //     this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+    //   })
+    // }
+    console.log("item", this.item);
+    
   }
 
   KiemTraButtonModal() {
@@ -139,6 +142,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       this.checkbutton = res;
     });
   }
+
   ChuyenDuyet() {
     this._serviceTaiSan.QuyTrinhBaoDuong().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
@@ -149,6 +153,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       }
     })
   }
+
   KhongDuyet() {
     this._serviceTaiSan.QuyTrinhBaoDuong().KhongDuyet(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
@@ -159,6 +164,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       }
     })
   }
+
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: "static",
@@ -177,11 +183,13 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
+
   changeTab(e) {
     // this.trangThai = e.index + 1;
     // this.loaiTab = e.index;
     // this.Loaddata(true);
   }
+
   delete(index) {
     let item = this.item.listTaiSan.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
