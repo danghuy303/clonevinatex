@@ -199,6 +199,9 @@ export class TaisanService {
         // data.idDuAn = this.store.getCurrent();
         return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanBaoDuong`, data, httpOptions);
       },
+      GetListVatTuByIdTaiSanForXuLySuCo: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/GetListVatTuByIdTaiSanForXuLySuCo`, data, httpOptions);
+      },
     };
   }
 
@@ -797,6 +800,9 @@ export class TaisanService {
       },
       ListBaoDuongTaiSan: (IdTaiSan, IddmDonViTinh) => {
         return this.http.get(`${url}TaiSan/ListBaoDuongTaiSan?IdTaiSan=${IdTaiSan}&IddmDonViTinh=${IddmDonViTinh}`, httpOptions);
+      },
+      GetListVatTuForBaoDuong: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/GetListVatTuByIdTaiSanForBaoDuong`, data, httpOptions);
       },
       GetListTaiSan: (IddmPhanXuong) => {
         return this.http.get(`${url}TaiSan/GetListTaiSanNhapHieuSuat?IdDuAn=${this.store.getCurrent()}&IddmPhanXuong=${IddmPhanXuong}`, httpOptions);

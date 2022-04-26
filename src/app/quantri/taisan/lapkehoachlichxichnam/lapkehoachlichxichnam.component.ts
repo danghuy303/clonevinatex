@@ -73,7 +73,9 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     if (this.item.ThoiGianUnix !== 0) {
       this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
     }
-    this.GetNextSoQuyTrinh();
+    if (this.opt === 'add') {
+      this.GetNextSoQuyTrinh();
+    }
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }

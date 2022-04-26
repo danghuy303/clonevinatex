@@ -46,7 +46,9 @@ export class ModaldenghixulisucoComponent implements OnInit {
   ) { }
   
   ngOnInit(): void {
-    this.GetNextSoQuyTrinh();
+    if (this.opt === 'add') {
+      this.GetNextSoQuyTrinh();
+    }
     this.KiemTraButtonModal();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
     let ls1 = this._danhMucTaiSan.DanhMucMucDoUuTien().GetList(data).toPromise();
@@ -108,6 +110,8 @@ export class ModaldenghixulisucoComponent implements OnInit {
       modalRef.componentInstance.Lay_Chon =this.item.IddmPhanXuong; 
       modalRef.componentInstance.item = {};
       modalRef.result.then((res: any) => {
+        // this.item.listTaiSan = res;
+        
         let listKetQua = [];
         this.item.listTaiSan.forEach(Tai_San => {
           let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
@@ -121,6 +125,8 @@ export class ModaldenghixulisucoComponent implements OnInit {
           listKetQua.push(Tai_San);
         }
       });
+      console.log("list ket qua",listKetQua );
+      
       this.item.listTaiSan = listKetQua;
       })
         .catch((er) => {

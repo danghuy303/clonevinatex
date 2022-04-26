@@ -160,6 +160,7 @@ import { LuachontaisannhaptaisanComponent } from './modal/luachontaisannhaptaisa
 import { ChiphilichxichnamchonthemComponent } from './screenLichXich/chiphilichxichnamchonthem/chiphilichxichnamchonthem.component';
 import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.component';
 
+
 @NgModule({
   declarations: [TaisanComponent,
     DanhsachtaisanComponent,

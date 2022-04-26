@@ -33,8 +33,6 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.layId);
-    
     this.GetList();
   }
 
@@ -53,28 +51,28 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
     }
     this._serviceTaiSan.LichXich().GetListdmLoaiBaoDuong(data).subscribe((res: any) => {
     this.items = res.Data ;
+    console.log('items',this.items);
+    
     })
-    this.checkedAll = this.items.every(ele => ele.checked);
+    // this.checkedAll = this.items.every(ele => ele.checked);
   }
   TimCheck() {
-     let cha: boolean = false;
-    cha = this.items.every(ele => ele.checked);
-    if ((cha)) {
-      return true;
-    }
-    else {
-      return false;
-    }
+    //  let cha: boolean = false;
+    // cha = this.items.every(ele => ele.checked);
+    // if ((cha)) {
+    //   return true;
+    // }
+    // else {
+    //   return false;
+    // }
   }
   checkAll(e) {
-    if (e.checked) {
-      this.items.forEach(obj => {
-        obj.checked = true;
-      });
-    }
+    this.items.forEach(ele => {
+     ele.checked = e.checked
+    })
   }
   checked() {
-    this.checkedAll = this.TimCheck();
+    this.checkedAll = this.items.every(ele => ele.checked)
   }
   FilterTree() {
     let data: any = [];
