@@ -145,7 +145,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
       this.checkbutton = res;
     });
   }
-  ChapNhan() {
+  ChuyenDuyet() {
     this._serviceTaiSan.ThoiHanCungCap().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);

@@ -12,6 +12,7 @@ export class ChiphilichxichnamchonthemComponent implements OnInit {
 
   item:any = {};
   title: '';
+  layIdTaiSan: any ={};
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -21,6 +22,7 @@ export class ChiphilichxichnamchonthemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
   }
 
   GhiLai() {
@@ -30,7 +32,13 @@ export class ChiphilichxichnamchonthemComponent implements OnInit {
     //   this.listLichBaoDuong = [];
     // }
     // this.listLichBaoDuong.push(this.item);
-    this.activeModal.close(this.item);
+  
+    let data = {
+      SoTien: this.item.SoTien,
+      TenChiPhi:this.item.TenChiPhi,
+      IdTaiSan:this.layIdTaiSan,
+    }
+    this.activeModal.close(data);
     
   }
 

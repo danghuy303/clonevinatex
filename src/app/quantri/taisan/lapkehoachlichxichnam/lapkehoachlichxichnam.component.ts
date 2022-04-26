@@ -180,6 +180,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.item.listTaiSan = res;
       this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
       this.item.listTaiSan.forEach(ele => {
+
         if (!validVariable(ele.listBaoDuong)) {
           ele.listBaoDuong = []
           for (let i = 1; i <= 12; i++) {
@@ -191,15 +192,11 @@ export class LapkehoachlichxichnamComponent implements OnInit {
             )
           }
         }
-
+        // chi phi
         ele.listChiPhi.forEach(obj => {
-          obj.ChiTietChiPhi = {
-                TenChiPhi: '',
-                SoTien: '',
-              }
-          
-        }
-        )
+          obj.ChiTietChiPhi = []
+        })
+        // vat tru  
 
       })
     })

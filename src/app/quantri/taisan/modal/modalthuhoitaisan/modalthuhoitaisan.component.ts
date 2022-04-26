@@ -144,7 +144,6 @@ export class ModalthuhoitaisanComponent implements OnInit {
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
-     
       // this.item.listTaiSan = res;
       let listKetQua = [];
       this.item.listTaiSan.forEach(Tai_San => {

@@ -2,31 +2,31 @@
     <div class="modal-bt p-mb-4 p-col-12 p-lg-2  p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto"> </label>
         <div class="p-col-12 p-lg-8 p-p-0">
-            Tổng số:thiết bị
+            Tổng giá trị: {{TongGiaTriToanBang}}
         </div>
     </div>
 </div>
-<p-table [value]="item" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
-    <ng-template pTemplate="colgroup">
-        <colgroup>
-            <col style="width:100px">
-            <col style="width:50px">
-            <col style="width:50px">
-            <col style="width:50px">
-            <col style="width:50px">
-            <col style="width:50px">
-            <col style="width:50px">
-            <col style="width:50px">
-            <col style="width:50px">
-            <col style="width:50px">
-            <col style="width:50px">
-            <col style="width:50px">
-            <col style="width:50px">
-        </colgroup>
-    </ng-template>
-    <ng-template pTemplate="header">
-        <tr>
-            <th class="text-center">Tài sản/vật tư</th>
+<table class="table table-bordered" >
+
+    <!-- <colgroup>
+        <col style="width:200px">
+        <col>
+        <col>
+        <col>
+        <col>
+        <col>
+        <col>
+        <col>
+        <col>
+        <col>
+        <col>
+        <col>
+        <col>
+        <col>
+    </colgroup> -->
+    <thead>
+        <tr style="background-color: #828282;color:white ">
+            <th style="width:200px" class="text-center">Tài sản/vật tư</th>
             <th class="text-center">Tháng 1</th>
             <th class="text-center">Tháng 2</th>
             <th class="text-center">Tháng 3</th>
@@ -39,17 +39,34 @@
             <th class="text-center">Tháng 10</th>
             <th class="text-center">Tháng 11</th>
             <th class="text-center">Tháng 12</th>
+            <th class="text-center">Tổng số</th>
         </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-item let-i="rowIndex">
+    </thead>
+    <tbody >
+        <ng-container *ngFor="let item of items; let i = index">
         <tr>
-            <td class="text-center"> {{item.TenTaiSan}}</td>
-            <td  style="text-align: right;" *ngFor="let chiPhi of item?.listChiPhi">
-                <p-inputNumber *ngFor="let bd of chiPhi.ChiTietChiPhi" [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm" [(ngModel)]="bd.DonGia" >
-                </p-inputNumber>
-                <p-inputNumber *ngFor="let bd of chiPhi.ChiTietChiPhi" [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm" [(ngModel)]="bd.SoLuong" >
-                </p-inputNumber>
-            </td>
+            <td style="width:200px" style="width:200px" class="text-right"> {{item.TenTaiSan}}</td>
+            <td class="text-right" *ngFor=" let thanhtien of item.TongThanhTien"> {{thanhtien}} </td>
+            <td>{{ item.TongGiaTri}}</td>
         </tr>
-    </ng-template>
-</p-table>
+        <tr *ngFor="let vattu of item.listVatTu">
+            <td style="width:200px"> {{vattu.Ngay | date:'dd/MM/yyyy'}}</td>
+            <td *ngFor="let ThoiGian of vattu.listThoiGian">
+                <div class="d-flex" style="align-items: center;">
+                    <span >SL:</span>
+                    <p-inputNumber [minFractionDigits]="0" styleClass="p-inputtext-sm" [(ngModel)]="ThoiGian.DonGia"
+                    (onBlur)="tongTien(item)">
+                </p-inputNumber>
+                </div>
+                <div  class="d-flex" style="align-items: center;">
+                    <span>ĐG:</span>
+                    <p-inputNumber [minFractionDigits]="0" styleClass="p-inputtext-sm" (onBlur)="tongTien(item)"
+                    [(ngModel)]="ThoiGian.SoLuong">
+                </p-inputNumber>
+                </div>
+            </td>
+            <td> {{ vattu.ThanhTien12Thang}}</td>
+        </tr>
+        </ng-container>
+    </tbody>
+</table>
