@@ -137,11 +137,11 @@
             </ng-template>
         </p-tabPanel>
         <p-tabPanel header="Nhân công">
-                <app-nhancong [item]="item"></app-nhancong>
+                <app-nhancong [item]="item.listTaiSan"></app-nhancong>
         </p-tabPanel>
         <p-tabPanel header="Vật tư">
             <ng-template pTemplate="content">
-                <!-- <app-vattu></app-vattu> -->
+                <app-vattu [item]="item.listTaiSan"></app-vattu>
             </ng-template>
         </p-tabPanel>
         <p-tabPanel header="Chi phí khác">

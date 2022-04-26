@@ -111,24 +111,16 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
     let data: any = [];
     this.items.forEach(obj => {
       if (obj.data.checked) {
-        data.push({
-          IdTaiSan: obj.data.IdTaiSan,
-          TenTaiSan: obj.data.TenTaiSan,
-          IddmLoaiBaoDuong: obj.data.IddmLoaiBaoDuong,
-          Ma: obj.data.MadmLoaiBaoDuong,
-          TenLoaidmBaoDuong: obj.data.TendmLoaiBaoDuong,
-        });
+        data.push(
+          obj.data.IdTaiSan,
+        );
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
         obj.children.forEach(objchildren => {
           if (objchildren.data.checked) {
-            data.push({
-              IdTaiSan: objchildren.data.IdTaiSan,
-              IddmLoaiBaoDuong: objchildren.data.IddmLoaiBaoDuong,
-              TenTaiSan: objchildren.data.TenTaiSan,
-              Ma: objchildren.data.MadmLoaiBaoDuong,
-              TenLoaidmBaoDuong: objchildren.data.TendmLoaiBaoDuong,
-            });
+            data.push(
+              objchildren.data.IdTaiSan,
+            );
           }
         });
       }
@@ -136,7 +128,11 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
     return data;
   }
   GhiLai() {
-    this.activeModal.close(this.FilterTree());
+    this._serviceTaiSan.QuyTrinhBaoDuong().GetListVatTuByIdTaiSanForXuLySuCo(this.FilterTree()).subscribe((res: any) => { 
+      console.log(res);
+      
+      this.activeModal.close(res.Data);
+    });
   }
 
 }

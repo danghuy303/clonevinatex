@@ -26,8 +26,10 @@ export class LichbaoduongcopyComponent implements OnInit {
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   itemsThang: any = [];
   listThoiGianNangSuat: any = [];
+  listdmLoaiBaoDuong: any = [];
   labelThang: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
     '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+
   constructor(
     public _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
@@ -47,24 +49,28 @@ export class LichbaoduongcopyComponent implements OnInit {
       //  this.listThoiGianNangSuat = res?.Data[0]?.listThoiGianNangSuat;
       //   this.itemLichBaoDuong= res?.Data;
     
-      this.itemLichBaoDuong = datafake.Data.map(ele => {
-        return {
-          ...ele,
-          listThoiGianNangSuat : [
-            {
-              TGNS: 'TG/NS 1',
-              ischon: false,
-            },
-            {
-              TGNS: 'TG/NS 2',
-              isChon: true,
-            },
+      this.listdmLoaiBaoDuong = res?.Data.lstLoaiBaoDuong;
+      this.itemLichBaoDuong = res?.Data.lstChondmBaoDuong;
+      console.log('loggg', this.itemLichBaoDuong);
+      
 
-          ]
-        }
-      });
+      // this.itemLichBaoDuong = datafake.Data.map(ele => {
+      //   return {
+      //     ...ele,
+      //     listThoiGianNangSuat : [
+      //       {
+      //         TGNS: 'TG/NS 1',
+      //         ischon: false,
+      //       },
+      //       {
+      //         TGNS: 'TG/NS 2',
+      //         isChon: true,
+      //       },
 
-      ///
+      //     ]
+      //   }
+      // });
+
     })
     this.filter.Nam = new Date().getFullYear();
     this.filter.Thang = new Date().getMonth()+1;
