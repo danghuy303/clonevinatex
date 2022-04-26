@@ -70,51 +70,56 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
 
       this.listdmLoaiBaoDuong = this.TaiSanItem.listdmLoaiBaoDuong;
       this.items = [];
-      this.listCha = this.TaiSanItem.listTaiSan;
-      this.listCha.forEach(obj => {
-        obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
-        let data: any = { data: obj, children: [] };
-        obj.listTaiSan.forEach(con => {
-          let datacon: any = { data: con, children: [] };
-          con.checked = this.listItemDaChon.includes(con.IdTaiSan);
-          data.children.push(datacon);
-        });
-        this.items.push(data);
+      let items = [];
+      items = this.TaiSanItem.listTaiSan;
+
+      items.forEach(obj => {
+        obj.checked = this.listItemDaChon.includes(obj.Id);
+
+        let obj_copy: any = {};
+        if (obj?.listTaiSan) {
+          obj.isCha = true;
+          obj_copy.children = [];
+
+          obj.listTaiSan.forEach(element => {
+            element.isCha = false;
+            element.checked = this.listItemDaChon.includes(element.Id);
+            obj_copy.children.push({ data: element });
+          });
+          obj.listTaiSan = undefined;
+        }
+        obj_copy.data = obj;
+        this.items.push({ data: obj_copy.data, children: obj_copy.children });
       });
-      this.checkedAll = this.listCha.every(ele => ele.checked);
+      this.checkedAll = this.items.every(obj => obj.data.checked);
+    });
+  }
+  TimCheck(eleCha) {
+    eleCha.children.forEach(eleCon => {
+      eleCon.data.checked = eleCha.data.checked
+    });
+  }
+
+  checkAll(e) {
+    this.items.forEach(eleCha => {
+      eleCha.data.checked = e.checked;
+      this.TimCheck(eleCha);
     })
   }
 
-  TimCheck() {
-   this.checkedAll = this.items.every(ele => ele.data.checked);
-   this.items.forEach(eleCha => {
-     eleCha.data.checked = eleCha.children.every(eleCon => eleCon.data.checked);
-   })
-  }
-  checkAll(e) {
-    if (e.checked) {
-      this.items.forEach(obj => {
-        obj.data.checked = true;
-        if (validVariable(obj.children) && obj.children.length > 0) {
-          obj.children.forEach(objchildren => {
-            objchildren.data.checked = true;
-          });
-        }
-      });
+  checked(item) {
+    if (!item.isCha) {
+      this.items.forEach(eleCha => {
+        eleCha.data.checked = eleCha.children.every(eleCon => eleCon.data.checked)
+      })
     } else {
-      this.items.forEach(obj => {
-        obj.data.checked = false;
-        if (validVariable(obj.children) && obj.children.length > 0) {
-          obj.children.forEach(objchildren => {
-            objchildren.data.checked = false;
-          });
-        }
-      });
+      this.items.forEach(eleCha => {
+        this.TimCheck(eleCha);
+      })
     }
+    this.checkedAll = this.items.every(eleCha => eleCha.data.checked)
   }
-  checked() {
-    this.TimCheck();
-  }
+
   FilterTree() {
     let data: any = [];
     this.items.forEach(obj => {

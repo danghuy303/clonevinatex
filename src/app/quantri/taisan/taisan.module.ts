@@ -161,6 +161,7 @@ import { ChiphilichxichnamchonthemComponent } from './screenLichXich/chiphilichx
 import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.component';
 import { TaisanbaoduongComponent } from './quytrinhbaoduong/taisanbaoduong/taisanbaoduong.component';
 
+
 @NgModule({
   declarations: [TaisanComponent,
     DanhsachtaisanComponent,

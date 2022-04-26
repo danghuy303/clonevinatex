@@ -86,7 +86,7 @@
                 <col>
                 <col>
                 <col>
-                <col>
+      
                 <col>
                 <!-- <col style="width: 100px;"> -->
             </colgroup>
@@ -100,7 +100,6 @@
                 <th>Số lượng</th>
                 <th>Giá trị còn lại</th>
                 <th>Giá trị thanh lý </th>
-                <th>Số lượng</th>
                 <th>Ghi chú</th>
                 <!-- <th style="width: 100px;">Thao tác</th> -->
             </tr>
@@ -117,14 +116,10 @@
                             styleClass="p-inputtext-sm" [(ngModel)]="item.IdTaiSan"></p-dropdown> -->
                 </td>
                 <td>
-                    <p-inputNumber placeholder="Số lượng" [(ngModel)]="item.SoLuong"></p-inputNumber>
+                    <p-inputNumber  [disabled]="!item.isCha"  placeholder="Số lượng" [(ngModel)]="item.SoLuong" (onBlur)="Tong()"></p-inputNumber>
                 </td>
                 <td style="text-align: right;">
                     {{item.GiaTriConLai |  number:'0.0'}}
-                </td>
-                <td style="text-align: right;">
-                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.GiaTriThanhLy" (onBlur)="Tong()">
-                    </p-inputNumber>
                 </td>
                 <td style="text-align: right;">
                     <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.GiaTriThanhLy" (onBlur)="Tong()">

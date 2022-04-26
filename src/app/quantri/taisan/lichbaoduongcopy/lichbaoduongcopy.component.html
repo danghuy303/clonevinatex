@@ -48,16 +48,17 @@
       <tr>
         <th class="text-center">STT</th>
         <th class="text-center">Tài sản</th>
-        <th class="text-center" *ngFor="let tendm of itemLichBaoDuong[0]?.listThoiGianNangSuat"> {{tendm.TGNS}}</th>
+        <!-- <th class="text-center" *ngFor="let tendm of itemLichBaoDuong[0]?.listThoiGianNangSuat"> {{tendm.TGNS}}</th> -->
+        <th *ngFor="let dmbd of listdmLoaiBaoDuong" class="text-center">{{dmbd.TendmLoaiBaoDuong}}</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
       <tr>
         <td class="text-center">{{i + 1}}</td>
         <!-- <td class="text-center">{{item.TendmLoaiBaoDuong}}</td> -->
-        <td class="text-center">{{item.TendmLoaiBaoDuong }}</td>
-        <td class="text-center" *ngFor="let newItem of item.listThoiGianNangSuat">
-          {{newItem.isChon?'X':''}}
+        <td class="text-center">{{item.TenTaiSan }}</td>
+        <td class="text-center" *ngFor="let newItem of item.listBaoDuong">
+          {{newItem.IsChon?'X':''}}
         </td>
       </tr>
     </ng-template>

@@ -132,6 +132,9 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
       if (validVariable(obj.children) && obj.children.length > 0) {
         obj.children.forEach(objchildren => {
           if (objchildren.data.checked) {
+            // data.push(
+            //   objchildren.data.IdTaiSan,
+            // );
             data.push({
               IdTaiSan: objchildren.data.IdTaiSan,
               IddmLoaiBaoDuong: objchildren.data.IddmLoaiBaoDuong,
@@ -150,6 +153,11 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
   }
 
   GhiLai() {
+    // this._serviceTaiSan.QuyTrinhBaoDuong().GetListVatTuByIdTaiSanForXuLySuCo(this.FilterTree()).subscribe((res: any) => { 
+    //   console.log(res);
+      
+    //   this.activeModal.close(res.Data);
+    // });
     let data = this.FilterTree().map(ele => {
       return {
         IdTaiSan: ele.IdTaiSan,

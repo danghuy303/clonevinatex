@@ -19,6 +19,8 @@ export class VattuComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+  
+
   }
 
   Count() {

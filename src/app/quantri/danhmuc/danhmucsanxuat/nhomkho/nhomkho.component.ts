@@ -75,7 +75,7 @@ export class NhomkhoComponent implements OnInit {
         this.listLoaiNhomKho = mapArrayForDropDown(res1, "Ten", 'Loai');
         if (this.items.length > 0 && this.listLoaiNhomKho.length > 0) {
           this.items.forEach(el => {
-            el.Loai = this.listLoaiNhomKho.filter(obj => obj.value == el.Loai)[0].label;
+            el.Loai = this.listLoaiNhomKho.filter(obj => obj.value === el.Loai)[0]?.label;
           });
         }
       })

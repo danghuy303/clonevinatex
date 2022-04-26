@@ -1,0 +1,20 @@
+.kehoach {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-bottom: 2px solid #FF5C00;
+    transform:
+        
+        rotate(-45deg);
+    margin-right: 3px;
+}
+.thucte {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-bottom: 2px solid #0A91E6;
+    transform:
+       
+        rotate(-45deg);
+    margin-right: 3px;
+}
