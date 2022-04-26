@@ -1,3 +1,4 @@
+import { NgansachdukienvathucteComponent } from "./ngansachdukienvathucte/ngansachdukienvathucte.component";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { QuantriComponent } from "./quantri.component";
@@ -127,6 +128,10 @@ const routes: Routes = [
       },
 
       { path: "quantrisanxuat/sogiodungmay", component: SogiodungmayComponent },
+      {
+        path: "quantrisanxuat/ngansachdukienvathucte",
+        component: NgansachdukienvathucteComponent,
+      },
 
       {
         path: "baocaosanxuat/sanluongtonghop",

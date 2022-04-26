@@ -246,6 +246,15 @@ export class QuantriComponent implements OnInit {
             },
           },
           {
+            label: "Ngân sách dự kiến và thực tế",
+            routerLink: "/quantri/quantrisanxuat/ngansachdukienvathucte",
+            separator: this.checkmenu("DASHBOARD_TONGHOP"),
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
+          {
             label: "Nhu cầu SD nguyên liệu",
             routerLink: "/quantri/quantrisanxuat/nguyenlieu",
             separator: this.checkmenu("DASHBOARD_NHUCAUNGUYENLIEU"),

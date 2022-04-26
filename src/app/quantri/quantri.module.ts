@@ -263,6 +263,7 @@ import { LoaiBongPheDanhMucComponent } from './danhmuc/danhmucsanxuat/loai-bong-
 import { LoaiBongPheDmModalComponent } from './danhmuc/danhmucsanxuat/loai-bong-phe-danh-muc/loai-bong-phe-dm-modal/loai-bong-phe-dm-modal.component';
 import { TyLeTieuChuanBongPheComponent } from './danhmuc/danhmucsanxuat/ty-le-tieu-chuan-bong-phe/ty-le-tieu-chuan-bong-phe.component';
 import { SogiodungmayComponent } from './sogiodungmay/sogiodungmay.component';
+import { NgansachdukienvathucteComponent } from './ngansachdukienvathucte/ngansachdukienvathucte.component';
 
 
 @NgModule({
@@ -477,7 +478,8 @@ import { SogiodungmayComponent } from './sogiodungmay/sogiodungmay.component';
     LoaiBongPheDanhMucComponent,
     LoaiBongPheDmModalComponent,
     TyLeTieuChuanBongPheComponent,
-    SogiodungmayComponent
+    SogiodungmayComponent,
+    NgansachdukienvathucteComponent
   ],
   imports: [
     HttpClientModule,
