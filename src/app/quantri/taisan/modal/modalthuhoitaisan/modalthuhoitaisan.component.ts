@@ -144,21 +144,28 @@ export class ModalthuhoitaisanComponent implements OnInit {
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
-      // this.item.listTaiSan = res;
-      let listKetQua = [];
-      this.item.listTaiSan.forEach(Tai_San => {
-        let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-        if (bien !== undefined) {
-          listKetQua.push(Tai_San);
-        }
-      });
-      res.forEach(Tai_San => {
-        let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-        if (bien === undefined) {
-          listKetQua.push(Tai_San);
-        }
-      });
-      this.item.listTaiSan = listKetQua;
+      this.item.listTaiSan = res;
+      // let listKetQua = [];
+      // this.item.listTaiSan.forEach(Tai_San => {
+
+
+
+      //   let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+      //   if (bien !== undefined) {
+      //     listKetQua.push(Tai_San);
+      //   }
+      // });
+      // res.forEach(Tai_San => {
+
+     
+      //   let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+      //   if (bien === undefined) {
+      //     listKetQua.push(Tai_San);
+      //   }
+      // });
+      // this.item.listTaiSan = listKetQua;
+     
+      
       this.item.listTaiSan.forEach(ele => {
         ele.SoLuong =1;
       })

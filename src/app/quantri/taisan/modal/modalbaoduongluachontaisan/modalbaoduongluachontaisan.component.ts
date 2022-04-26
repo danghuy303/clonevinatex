@@ -35,17 +35,19 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
   ngOnInit(): void {
     this.GetList();
   }
+
   resetFilter() {
     this.filter = {};
     this.GetList();
   }
+
   GetList() {
     let data = {
       Keyword: this.filter.Keyword,
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       TuNgay: 0, DenNgay: 0,
-      TabTrangThai: 0, IddmLoaiTaiSan: this.item.IdDmLoaiTaiSan, IdBoPhanSuDung:this.item.IdBoPhanSuDung ,
+      TabTrangThai: 0, IddmLoaiTaiSan: this.item.IdDmLoaiTaiSan, IdBoPhanSuDung: this.item.IdBoPhanSuDung,
       isCanDuTru: false, isGiaTriCao: false, IdDuAn: 0,
     };
     this._serviceTaiSan.QuyTrinhBaoDuong().GetListTaiSanBaoDuong(data).subscribe((res: any) => {
@@ -64,6 +66,7 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
       this.checkedAll = res.Data.every(ele => ele.checked);
     });
   }
+
   TimCheck() {
     let cha: boolean = false;
     let con: boolean = false;
@@ -83,6 +86,7 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
       return false;
     }
   }
+
   checkAll(e) {
     if (e.checked) {
       this.items.forEach(obj => {
@@ -104,9 +108,11 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
       });
     }
   }
+
   checked() {
     this.checkedAll = this.TimCheck();
   }
+
   FilterTree() {
     let data: any = [];
     this.items.forEach(obj => {
@@ -114,20 +120,29 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
         data.push({
           IdTaiSan: obj.data.IdTaiSan,
           TenTaiSan: obj.data.TenTaiSan,
+          MaTaiSan: obj.data.Ma,
           IddmLoaiBaoDuong: obj.data.IddmLoaiBaoDuong,
-          Ma: obj.data.MadmLoaiBaoDuong,
+          // MaTaiSan: obj.data.MadmLoaiBaoDuong,
           TenLoaidmBaoDuong: obj.data.TendmLoaiBaoDuong,
+          ThoiGianKeHoach: obj.data.ThoiGianKeHoach,
+          IdLapKeHoachLichXich: obj.data.IdLapKeHoachLichXich
         });
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
         obj.children.forEach(objchildren => {
           if (objchildren.data.checked) {
+            // data.push(
+            //   objchildren.data.IdTaiSan,
+            // );
             data.push({
               IdTaiSan: objchildren.data.IdTaiSan,
               IddmLoaiBaoDuong: objchildren.data.IddmLoaiBaoDuong,
               TenTaiSan: objchildren.data.TenTaiSan,
-              Ma: objchildren.data.MadmLoaiBaoDuong,
+              MaTaiSan: objchildren.data.Ma,
+              // MaTaiSan: objchildren.data.MadmLoaiBaoDuong,
               TenLoaidmBaoDuong: objchildren.data.TendmLoaiBaoDuong,
+              ThoiGianKeHoach: objchildren.data.ThoiGianKeHoach,
+              IdLapKeHoachLichXich: obj.data.IdLapKeHoachLichXich
             });
           }
         });
@@ -135,8 +150,23 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
     });
     return data;
   }
+
   GhiLai() {
-    this.activeModal.close(this.FilterTree());
+    // this._serviceTaiSan.QuyTrinhBaoDuong().GetListVatTuByIdTaiSanForXuLySuCo(this.FilterTree()).subscribe((res: any) => { 
+    //   console.log(res);
+      
+    //   this.activeModal.close(res.Data);
+    // });
+    let data = this.FilterTree().map(ele => {
+      return {
+        IdTaiSan: ele.IdTaiSan,
+        IdLapKeHoachLichXich: ele.IdLapKeHoachLichXich
+      }
+    })
+    this._serviceTaiSan.GetOptions().GetListVatTuForBaoDuong(data).subscribe((res:any) => {
+      // console.log(res);
+      this.activeModal.close(res.Data);
+    })
   }
 
 }

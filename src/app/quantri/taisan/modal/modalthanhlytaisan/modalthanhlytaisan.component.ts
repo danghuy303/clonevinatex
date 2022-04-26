@@ -135,7 +135,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
-      this.item.listTaiSan = res;
+      // this.item.listTaiSan = res;
 
       // let listTaiSan = [];
       // res.forEach(element => {
@@ -151,7 +151,8 @@ export class ModalthanhlytaisanComponent implements OnInit {
       //     listTaiSan.push({ data: element, children: [] });
       //   }
       // });
-      // this.listTaiSan_copy = listTaiSan;
+      // this.item.listTaiSan = listTaiSan;
+      this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
     })
       .catch((er) => {
       });
@@ -198,8 +199,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
   Tong() {
     this.TongGiaTri = 0;
     this.item.listTaiSan.forEach(item => {
-      console.log('item.GiaTriThanhL', item.GiaTriThanhLy);
-      this.TongGiaTri += (item.GiaTriThanhLy || 0);
+      this.TongGiaTri += (item.GiaTriThanhLy || 0) * (item.SoLuong || 0);
     })
   }
   getList() {

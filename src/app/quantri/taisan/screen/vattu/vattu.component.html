@@ -1,10 +1,14 @@
-<div class="p-d-flex p-flex-row p-jc-between">
+<div class="p-d-flex p-flex-row p-jc-between p-ai-center">
     <div class="modal-bt p-mb-4 ">
-        <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm"  ></button>
+        <!-- <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm"></button> -->
+    </div>
+    <div class="modal-bt p-mb-4 ">
+        <span><b>Tổng tiền: </b></span>
+        <span><b>{{tongThanhTien | number: '0.0'}}</b></span>
     </div>
 </div>
-<p-table 
-    styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" [scrollable]="true">
+<!-- <p-table 
+    styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
     <ng-template pTemplate="colgroup">
         <colgroup>
             <col style="width: 50px;">
@@ -14,42 +18,122 @@
             <col>
             <col>
             <col>
-            <col style="width: 150px;">
+            <col>
+            <col>
+            <col>
+            <col style="width: 50px;">
         </colgroup>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th class="text-center">
+            <th class="text-center" rowspan="2">
                 STT
             </th>
-            <th class="text-center">Mã</th>
-            <th class="text-center">Tên</th>
-            <th class="text-center">Số lượng</th>
-            <th class="text-center">Đơn giá</th>
-            <th class="text-center">Thành tiền</th>
-            <th class="text-center">Ghi chú</th>
-            <th class="text-center">Thao tác</th>
+            <th class="text-center" rowspan="2">Mã</th>
+            <th class="text-center" rowspan="2">Tên</th>
+            <th class="text-center" colspan="3">Kế hoạch</th>
+            <th class="text-center" colspan="3">Thực tế</th>
+            <th class="text-center" rowspan="2">Ghi chú</th>
+            <th class="text-center" rowspan="2">Thao tác</th>
+        </tr>
+        <tr>
+            <th>Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+            <th>Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
-        <tr>
+        <tr >
             <td class="text-center">
                 {{i + 1}}
             </td>
             <td class="text-center">{{item.Ma}}</td>
-            <td class="text-center">{{item.Ten}}</td>
+            <td class="text-center">{{item.TenTaiSan}}</td>
+            <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.SoLuong" pInputText /></td>
+            <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.GiaTri" pInputText /></td>
             <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText /></td>
-            <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText /></td>
-            <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText /></td>
-            <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText /></td>
+            <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.GhiChu" pInputText /></td>
             <td class="text-center">
-                <!-- <button pButton pRipple type="button" icon="pi pi-pencil"
+                <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2"
                     pTooltip="Chỉnh sửa" (click)="CapNhatTaiSanCon(item)"></button>
                 <button pButton pRipple type="button" icon="pi pi-trash"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                    (click)=" delete(i)"></button> -->
+                    (click)=" delete(i)"></button>
             </td>
         </tr>
     </ng-template>
-</p-table>
+</p-table> -->
+
+<p-treeTable [value]="items">
+    <ng-template pTemplate="colgroup">
+        <colgroup>
+            <col style="width: 50px;">
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col style="width: 50px;">
+        </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="text-center b-1" rowspan="2">
+                STT
+            </th>
+            <th class="text-center b-1" rowspan="2">Mã</th>
+            <th class="text-center b-1" rowspan="2">Tên</th>
+            <th class="text-center b-1" colspan="3">Kế hoạch</th>
+            <th class="text-center b-1" colspan="3">Thực tế</th>
+            <th class="text-center b-1" rowspan="2">Ghi chú</th>
+            <th class="text-center b-1" rowspan="2">Thao tác</th>
+        </tr>
+        <tr>
+            <th class="text-center b-1">Số lượng</th>
+            <th class="text-center b-1">Đơn giá</th>
+            <th class="text-center b-1">Thành tiền</th>
+            <th class="text-center b-1">Số lượng</th>
+            <th class="text-center b-1">Đơn giá</th>
+            <th class="text-center b-1">Thành tiền</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr [ttRow]="rowNode">
+            <td class="b-1"></td>
+            <td class="b-1">
+                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                {{rowData.MaTaiSan}}
+            </td>
+            <td class="b-1">
+                {{rowData.TenTaiSan}}
+            </td>
+            <td class="b-1 text-right">{{rowData.SoLuongTheoKeHoach | number: '0.0'}}</td>
+            <td class="b-1 text-right">{{rowData.DonGiaTheoKeHoach | number: '0.0'}}</td>
+            <td class="b-1 text-right">{{rowData.ThanhTienTheoKeHoach | number: '0.0'}}</td>
+            <td class="b-1">
+                <p-inputNumber *ngIf="!rowData.isCha" inputId="integeronly" [(ngModel)]="rowData.SoLuong" placeholder="Số lượng" (onBlur)="Count()">
+                </p-inputNumber>
+            </td>
+            <td class="b-1">
+                <p-inputNumber *ngIf="!rowData.isCha" inputId="integeronly" [(ngModel)]="rowData.DonGia" placeholder="Đơn giá" (onBlur)="Count()">
+                </p-inputNumber>
+            </td>
+            <td class="b-1">
+                <p-inputNumber inputId="integeronly" [disabled]="true" [(ngModel)]="rowData.ThanhTien" placeholder="Thành tiền">
+                </p-inputNumber>
+            </td>
+            <td class="b-1">
+                <input type="text" pInputText placeholder="Ghi chú"/>
+            </td>
+            <td class="b-1"></td>
+        </tr>
+    </ng-template>
+</p-treeTable>

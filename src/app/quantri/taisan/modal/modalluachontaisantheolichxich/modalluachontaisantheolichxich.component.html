@@ -44,7 +44,7 @@
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr>
                 <td class="text-center">
-                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="checked()">
+                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="checked(rowData)">
                     </p-checkbox>
                 </td>
                 <td>
