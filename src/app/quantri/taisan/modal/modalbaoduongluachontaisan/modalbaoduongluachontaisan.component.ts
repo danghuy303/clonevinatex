@@ -79,12 +79,13 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
         }
       }
     });
-    if ((cha) && (con)) {
-      return true;
-    }
-    else {
-      return false;
-    }
+    // if ((cha) && (con)) {
+    //   return true;
+    // }
+    // else {
+    //   return false;
+    // }
+    return cha;
   }
 
   checkAll(e) {

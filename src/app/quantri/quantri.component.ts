@@ -78,7 +78,7 @@ export class QuantriComponent implements OnInit {
         if (!validVariable(this.store.getCurrent())) {
           this.IdNhaMay = res[0].Id;
         } else {
-          this.IdNhaMay = this.store.getCurrent()
+          this.IdNhaMay = this.store.getCurrent();
         }
       });
   }
@@ -174,8 +174,14 @@ export class QuantriComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showHopDongModule = (window.location.origin.includes('4200') || window.location.origin.includes('2269')|| window.location.origin.includes('2369'));
-    this.showTaiSanModule = (window.location.origin.includes('4200') || window.location.origin.includes('2269')|| window.location.origin.includes('2369'));
+    this.showHopDongModule =
+      window.location.origin.includes("4200") ||
+      window.location.origin.includes("2269") ||
+      window.location.origin.includes("2369");
+    this.showTaiSanModule =
+      window.location.origin.includes("4200") ||
+      window.location.origin.includes("2269") ||
+      window.location.origin.includes("2369");
     // this.showTaiSanModule = true;
     this.refreshNotis();
     this._router.events
@@ -206,7 +212,7 @@ export class QuantriComponent implements OnInit {
         label: "Đăng xuất",
         routerLink: ["/login"],
         command: () => {
-          this.store.setNhaMay('');
+          this.store.setNhaMay("");
           this._auth.logout();
         },
       },
@@ -222,8 +228,35 @@ export class QuantriComponent implements OnInit {
         visible: !this.checkmenu("P_QUANTRISANXUAT"),
         items: [
           {
+            label: "Tổng hợp tài sản",
+            routerLink: "/quantri/quantrisanxuat/baocaotonghoptaisan",
+            separator: this.checkmenu("DASHBOARD_TONGHOP"),
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
+          {
             label: "Tổng hợp",
             routerLink: "/quantri/quantrisanxuat/tonghop",
+            separator: this.checkmenu("DASHBOARD_TONGHOP"),
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Số giờ dừng máy",
+            routerLink: "/quantri/quantrisanxuat/sogiodungmay",
+            separator: this.checkmenu("DASHBOARD_TONGHOP"),
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Ngân sách dự kiến và thực tế",
+            routerLink: "/quantri/quantrisanxuat/ngansachdukienvathucte",
             separator: this.checkmenu("DASHBOARD_TONGHOP"),
             icon: "fas fa-circle",
             command: () => {
@@ -477,10 +510,11 @@ export class QuantriComponent implements OnInit {
             command: () => this.close(),
           },
           {
-            label: 'Kiểm kê kho',
-            routerLink: '/quantri/quanlysanxuatkhohoiam/quanlysanxuatkhohoiam/kiemkekho/0',
+            label: "Kiểm kê kho",
+            routerLink:
+              "/quantri/quanlysanxuatkhohoiam/quanlysanxuatkhohoiam/kiemkekho/0",
             separator: this.checkmenu("KIEMKEKHOHOIAM"),
-            command: () => this.close()
+            command: () => this.close(),
           },
           // {
           //     label: 'Thẻ kho',
@@ -734,30 +768,24 @@ export class QuantriComponent implements OnInit {
           },
           {
             label: "Lập hợp đồng bông xơ",
-            routerLink:
-              "/quantri/hopdongsanxuat/laphopdongbongxo/0",
+            routerLink: "/quantri/hopdongsanxuat/laphopdongbongxo/0",
 
             command: () => this.close(),
           },
           {
             label: "Lập hợp đồng sợi",
-            routerLink:
-
-              "/quantri/hopdongsanxuat/laphopdongsoi/0",
+            routerLink: "/quantri/hopdongsanxuat/laphopdongsoi/0",
 
             command: () => this.close(),
           },
           {
             label: "Lập hợp đồng vật tư phụ",
-            routerLink:
-
-              "/quantri/hopdongsanxuat/laphopdongvattuphu/0",
+            routerLink: "/quantri/hopdongsanxuat/laphopdongvattuphu/0",
 
             command: () => this.close(),
           },
         ],
       },
-
 
       {
         label: "Thực hiện hợp đồng",
@@ -798,8 +826,7 @@ export class QuantriComponent implements OnInit {
           },
           {
             label: "Phiếu xuất sợi",
-            routerLink:
-              "/quantri/hopdongsanxuat/xuatkhothanhpham/0",
+            routerLink: "/quantri/hopdongsanxuat/xuatkhothanhpham/0",
 
             command: () => this.close(),
           },
@@ -863,13 +890,13 @@ export class QuantriComponent implements OnInit {
         items: [
           {
             label: "Hình thức thanh toán",
-            routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmuchinhthucthanhtoan",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/danhmuchinhthucthanhtoan",
             command: () => this.close(),
           },
           {
             label: "Loại tiền tệ",
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmuc/danhmucloaitiente",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmucloaitiente",
 
             command: () => this.close(),
           },
@@ -888,14 +915,12 @@ export class QuantriComponent implements OnInit {
           },
           {
             label: "Tiêu chí chất lượng",
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmuc/dmtieuchichatluong",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/dmtieuchichatluong",
             command: () => this.close(),
           },
           {
             label: "Tiêu chí đánh giá",
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmuc/dmtieuchidanhgia",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/dmtieuchidanhgia",
             command: () => this.close(),
           },
         ],
@@ -925,7 +950,7 @@ export class QuantriComponent implements OnInit {
                   this.close();
                 },
               },
-            ]
+            ],
           },
           {
             label: "Quản lý bảo trì, bảo dưỡng",
@@ -972,8 +997,7 @@ export class QuantriComponent implements OnInit {
                   this.close();
                 },
               },
-
-            ]
+            ],
           },
           {
             label: "Nhật ký sử dụng",
@@ -1020,7 +1044,7 @@ export class QuantriComponent implements OnInit {
                   this.close();
                 },
               },
-            ]
+            ],
           },
           {
             label: "Quản lý vật tư dự trù",
@@ -1053,7 +1077,7 @@ export class QuantriComponent implements OnInit {
                   this.close();
                 },
               },
-            ]
+            ],
           },
           {
             label: "Quản lý nhà cung ứng",
@@ -1086,7 +1110,7 @@ export class QuantriComponent implements OnInit {
                   this.close();
                 },
               },
-            ]
+            ],
           },
           {
             label: "Danh mục ",
@@ -1126,7 +1150,7 @@ export class QuantriComponent implements OnInit {
                   this.close();
                 },
               },
-            ]
+            ],
           },
           // {
           //   label: "Nhập tài sản",
@@ -1247,7 +1271,6 @@ export class QuantriComponent implements OnInit {
           //     this.close();
           //   },
           // },
-
         ],
       },
 
@@ -1295,7 +1318,7 @@ export class QuantriComponent implements OnInit {
       //     },
       //     // {
       //     //   label: "Tình trạng tài sản",
-      //     //   routerLink: "/quantri/taisan/danhmuc/tinhtrangtaisan",            
+      //     //   routerLink: "/quantri/taisan/danhmuc/tinhtrangtaisan",
       //     //   command: () => {
       //     //     this.close();
       //     //   },
@@ -1325,7 +1348,7 @@ export class QuantriComponent implements OnInit {
       //   ],
       // },
 
-      /////  menu kế hoạch sau tách..................................      
+      /////  menu kế hoạch sau tách..................................
       {
         label: "Menu kế hoạch kinh doanh",
         icon: "fas fa-circle",
@@ -1339,7 +1362,8 @@ export class QuantriComponent implements OnInit {
           },
           {
             label: "Kế hoạch kinh doanh tháng",
-            routerLink: "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhthang/0",
+            routerLink:
+              "/quantri/hopdongsanxuat/danhmuc/kehoachkinhdoanhthang/0",
             command: () => this.close(),
           },
           {
@@ -1389,22 +1413,19 @@ export class QuantriComponent implements OnInit {
           // },
           {
             label: "Vật tư phụ",
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmuc/danhmucvattuphu",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmucvattuphu",
 
             command: () => this.close(),
           },
           {
             label: "Cơ cấu nhân sự",
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmuc/danhmuccocaunhansu",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmuccocaunhansu",
 
             command: () => this.close(),
           },
           {
             label: "Tài sản",
-            routerLink:
-              "/quantri/hopdongsanxuat/danhmuc/danhmuctaisan",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmuctaisan",
 
             command: () => this.close(),
           },
@@ -1417,9 +1438,7 @@ export class QuantriComponent implements OnInit {
           // },
           {
             label: "Chi phí bán hàng",
-            routerLink:
-
-              "/quantri/hopdongsanxuat/danhmuc/danhmucphibanhang",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/danhmucphibanhang",
 
             command: () => this.close(),
           },
@@ -1432,33 +1451,25 @@ export class QuantriComponent implements OnInit {
           // },
           {
             label: "Năng lực sản xuất",
-            routerLink:
-
-              "/quantri/hopdongsanxuat/danhmuc/dinhmucsanxuat",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/dinhmucsanxuat",
 
             command: () => this.close(),
           },
           {
             label: "Danh sách tính lương",
-            routerLink:
-
-              "/quantri/hopdongsanxuat/danhmuc/danhsachtinhluong",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/danhsachtinhluong",
 
             command: () => this.close(),
           },
           {
             label: "Mức lương cơ cấu nhân sự",
-            routerLink:
-
-              "/quantri/hopdongsanxuat/danhmuc/mucluongcocaunhansu",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/mucluongcocaunhansu",
 
             command: () => this.close(),
           },
           {
             label: "Chi phí bán hàng theo năm",
-            routerLink:
-
-              "/quantri/hopdongsanxuat/danhmuc/chiphibanhangtheonam",
+            routerLink: "/quantri/hopdongsanxuat/danhmuc/chiphibanhangtheonam",
 
             command: () => this.close(),
           },
@@ -1491,8 +1502,7 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/baocaotonghop/ongtonghop",
             command: () => this.close(),
           },
-
-        ]
+        ],
       },
 
       {
@@ -1542,7 +1552,8 @@ export class QuantriComponent implements OnInit {
             label: "Loại bông phế",
             routerLink: "/quantri/danhmucsanxuat/dmloaibongphe",
             command: () => this.close(),
-          }, {
+          },
+          {
             label: "Tỷ lệ tiêu chuẩn bông phế",
             routerLink: "/quantri/danhmucsanxuat/tyletieuchuanbongphe",
             command: () => this.close(),
@@ -1642,8 +1653,6 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/phanquyensanxuat/dmchisotrienkhai",
             command: () => this.close(),
           },
-
-
         ],
       },
       {
@@ -1667,22 +1676,22 @@ export class QuantriComponent implements OnInit {
   }
 
   checkmenu(maaction) {
-    // if (this.dataphanquyen == null) {
-    //   return true;
-    // } else if (this.dataphanquyen[maaction] == undefined) {
-    //   return true;
-    // } else if (this.dataphanquyen[maaction].length == 0) {
-    //   return true;
-    // } else {
-    //   for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
-    //     if (this.dataphanquyen[maaction][i].MaRight === "XEM") {
-    //       if (this.dataphanquyen[maaction][i].GioiHan > 0) {
-    //         return false;
-    //       } else return true;
-    //     }
-    //   }
-    // }
-    return false;
+    if (this.dataphanquyen == null) {
+      return true;
+    } else if (this.dataphanquyen[maaction] == undefined) {
+      return true;
+    } else if (this.dataphanquyen[maaction].length == 0) {
+      return true;
+    } else {
+      for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
+        if (this.dataphanquyen[maaction][i].MaRight === "XEM") {
+          if (this.dataphanquyen[maaction][i].GioiHan > 0) {
+            return false;
+          } else return true;
+        }
+      }
+    }
+    // return false;
   }
 
   private subscribeToEvents(): void {

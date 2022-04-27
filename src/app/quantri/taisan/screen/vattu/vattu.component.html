@@ -7,8 +7,8 @@
         <span><b>{{tongThanhTien | number: '0.0'}}</b></span>
     </div>
 </div>
-<!-- <p-table 
-    styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+
+<p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
     <ng-template pTemplate="colgroup">
         <colgroup>
             <col style="width: 50px;">
@@ -21,7 +21,6 @@
             <col>
             <col>
             <col>
-            <col style="width: 50px;">
         </colgroup>
     </ng-template>
     <ng-template pTemplate="header">
@@ -34,7 +33,6 @@
             <th class="text-center" colspan="3">Kế hoạch</th>
             <th class="text-center" colspan="3">Thực tế</th>
             <th class="text-center" rowspan="2">Ghi chú</th>
-            <th class="text-center" rowspan="2">Thao tác</th>
         </tr>
         <tr>
             <th>Số lượng</th>
@@ -50,25 +48,58 @@
             <td class="text-center">
                 {{i + 1}}
             </td>
-            <td class="text-center">{{item.Ma}}</td>
-            <td class="text-center">{{item.TenTaiSan}}</td>
-            <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.SoLuong" pInputText /></td>
-            <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.GiaTri" pInputText /></td>
-            <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText /></td>
-            <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.GhiChu" pInputText /></td>
-            <td class="text-center">
-                <button pButton pRipple type="button" icon="pi pi-pencil"
-                    class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                    pTooltip="Chỉnh sửa" (click)="CapNhatTaiSanCon(item)"></button>
-                <button pButton pRipple type="button" icon="pi pi-trash"
-                    class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                    (click)=" delete(i)"></button>
+            <td>{{item.MaTaiSan}}</td>
+            <td>{{item.TenTaiSan}}</td>
+            <td class="text-right">{{item.SoLuongTheoKeHoach | number: '0.0'}}</td>
+            <td class="text-right">{{item.DonGiaTheoKeHoach | number: '0.0'}}</td>
+            <td class="text-right">{{item.ThanhTienTheoKeHoach | number: '0.0'}}</td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td class="text-right">
+                {{item.ThanhTien}}
+                <!-- <p-inputNumber inputId="integeronly" [disabled]="true" [(ngModel)]="item.ThanhTien"
+                    placeholder="Thành tiền">
+                </p-inputNumber> -->
+            </td>
+            <td>
+                <input type="text" pInputText placeholder="Ghi chú" />
             </td>
         </tr>
+        <ng-container *ngFor="let vattu of item.listVatTu; let a = index">
+            <tr>
+                <td class="text-center">
+                    {{i + 1 + '.' + (a+1)}}
+                </td>
+                <td class="p-pl-5">{{vattu.MaTaiSan}}</td>
+                <td>{{vattu.TenTaiSan}}</td>
+                <td class="text-right">{{vattu.SoLuongTheoKeHoach | number: '0.0'}}</td>
+                <td class="text-right">{{vattu.DonGiaTheoKeHoach | number: '0.0'}}</td>
+                <td class="text-right">{{vattu.ThanhTienTheoKeHoach | number: '0.0'}}</td>
+                <td>
+                    <p-inputNumber inputId="integeronly" [(ngModel)]="vattu.SoLuong" placeholder="Số lượng"
+                        (onBlur)="Count()"></p-inputNumber>
+                </td>
+                <td>
+                    <p-inputNumber inputId="integeronly" [(ngModel)]="vattu.DonGia" placeholder="Đơn giá"
+                        (onBlur)="Count()">
+                    </p-inputNumber>
+                </td>
+                <td>
+                    <p-inputNumber inputId="integeronly" [disabled]="true" [(ngModel)]="vattu.ThanhTien"
+                        placeholder="Thành tiền">
+                    </p-inputNumber>
+                </td>
+                <td>
+                    <input type="text" pInputText placeholder="Ghi chú" />
+                </td>
+            </tr>
+        </ng-container>
     </ng-template>
-</p-table> -->
+</p-table>
 
-<p-treeTable [value]="items">
+<!-- <p-treeTable [value]="items">
     <ng-template pTemplate="colgroup">
         <colgroup>
             <col style="width: 50px;">
@@ -136,4 +167,4 @@
             <td class="b-1"></td>
         </tr>
     </ng-template>
-</p-treeTable>
+</p-treeTable> -->

@@ -75,7 +75,7 @@
                         <th rowspan="2">Mặt hàng</th>
                         <th *ngFor="let col of listCaSanXuat; let i = index" [attr.colspan]="col.SoCot">
                             <div class="d-flex flex-column flex-lg-row">
-                                <label class="p-col-12 p-lg-9 p-p-0 my-auto">{{col.Ten}}{{col.SoCot}}</label>
+                                <label class="p-col-12 p-lg-9 p-p-0 my-auto">{{col.Ten}}</label>
                                 <div class="p-col-12 p-lg-3 p-p-0">
                                     <p-dropdown [options]="listCaThucTe" placeholder="Ca" styleClass="p-inputtext-sm"
                                         [(ngModel)]="item.listThongKeSanLuong[i].IddmCaSanXuatThucTe">

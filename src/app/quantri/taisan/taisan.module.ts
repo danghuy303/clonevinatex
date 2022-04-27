@@ -164,6 +164,7 @@ import { DenghixulysucochiphikhacComponent } from './screen/denghixulysucochiphi
 import { DenghixulysucovattuComponent } from './screen/denghixulysucovattu/denghixulysucovattu.component';
 import { XulysucoluachontaisanComponent } from './modal/xulysucoluachontaisan/xulysucoluachontaisan.component';
 import { DenghisulyluachonthemvattuComponent } from './modal/denghisulyluachonthemvattu/denghisulyluachonthemvattu.component';
+import { TaisanbaoduongComponent } from './quytrinhbaoduong/taisanbaoduong/taisanbaoduong.component';
 
 
 @NgModule({
@@ -283,6 +284,7 @@ import { DenghisulyluachonthemvattuComponent } from './modal/denghisulyluachonth
     DenghixulysucovattuComponent,
     XulysucoluachontaisanComponent,
     DenghisulyluachonthemvattuComponent,
+    TaisanbaoduongComponent,
 
   ],
   imports: [

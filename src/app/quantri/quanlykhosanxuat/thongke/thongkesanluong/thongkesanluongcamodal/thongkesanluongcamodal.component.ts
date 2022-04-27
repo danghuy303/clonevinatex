@@ -153,6 +153,8 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     })
   }
   getListCaSanXuat() {
+    console.log('this.item.listThongKeSanLuong',this.item.listThongKeSanLuong)
+
     this.services.GetListOptdmCaSanXuat().subscribe((res: any) => {
       this.listCaSanXuat = res;
       this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe().subscribe((listTyLeBongPhe: any) => {
@@ -169,6 +171,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
           }
           this.item.listThongKeSanLuong.push(itemFind)
         });
+        console.log('this.item.listThongKeSanLuong',this.item.listThongKeSanLuong)
       }
       if (this.opt === 'edit') {
         this.getItemTheoCongDoan();
@@ -201,14 +204,14 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     })
   }
   getMatHangThongKeSanLuong() {
-    if (this.item.IddmPhanXuong != undefined
-      && this.item.Ngay != undefined) {
+    if (this.item.IddmPhanXuong !== undefined
+      && this.item.Ngay !== undefined) {
       this.item.NgayUnix = DateToUnix(this.item.Ngay);
       if (this.opt !== 'edit') {
         this.item.listItem = []
       }
       else {
-        if (this.item.listItem != undefined && this.item.listItem != null) {
+        if (this.item.listItem !== undefined && this.item.listItem !== null) {
           this.item.listItem = this.item.listItem.filter((e: any) => e.Id !== null)
           for (let i = 0; i < this.item.listItem.length; i++) {
             this.item.listItem[i].isXoa = true;
@@ -217,26 +220,35 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       }
 
       this.services.ThongKeSanLuong().GetMatHangTheoNgay(this.item.IddmPhanXuong, this.item.NgayUnix).subscribe((res: any) => {
+        console.log('res',res)
         res.forEach(element => {
           element.Id = null;
         });
         this.listCaSanXuat.forEach(element => {
           let res_new = deepCopy(res);
-          if (this.item.listThongKeSanLuong == undefined || this.item.listThongKeSanLuong == null) {
+          if (this.item.listThongKeSanLuong === undefined || this.item.listThongKeSanLuong === null) {
             let itemFind = {
               IddmCaSanXuat: element.Id,
-              listItem: res_new,
+              listItem: res_new.map(ele=>{
+                return {...ele,
+                  IddmCaSanXuat:element.Id
+                }
+              }),
               STT: element.STT
             }
             this.item.listThongKeSanLuong = [];
             this.item.listThongKeSanLuong.push(itemFind)
           }
           else {
-            let itemFind = this.item.listThongKeSanLuong.find(ele => ele.IddmCaSanXuat == element.Id)
-            if (itemFind == undefined || itemFind == null) {
+            let itemFind = this.item.listThongKeSanLuong.find(ele => ele.IddmCaSanXuat === element.Id)
+            if (itemFind === undefined || itemFind === null) {
               itemFind = {
                 IddmCaSanXuat: element.Id,
-                listItem: res_new,
+                listItem: res_new.map(ele=>{
+                  return {...ele,
+                    IddmCaSanXuat:element.Id
+                  }
+                }),
                 STT: element.STT
               }
               this.item.listThongKeSanLuong.push(itemFind)
@@ -244,10 +256,18 @@ export class ThongkesanluongcamodalComponent implements OnInit {
             else {
 
               if (itemFind.listItem !== undefined && itemFind.listItem !== null) {
-                itemFind.listItem = itemFind.listItem.concat(res_new);
+                itemFind.listItem = itemFind.listItem.concat(res_new.map(ele=>{
+                  return {...ele,
+                    IddmCaSanXuat:element.Id
+                  }
+                }),);
               }
               else
-                itemFind.listItem = res_new;
+                itemFind.listItem = res_new.map(ele=>{
+                  return {...ele,
+                    IddmCaSanXuat:element.Id
+                  }
+                });
             }
           }
         });
@@ -353,32 +373,35 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     });
   }
   getItemTheoCongDoan() {
-    if (this.item.CongDoan != undefined && this.item.listThongKeSanLuong != undefined && this.item.listThongKeSanLuong != null) {
+    if (this.item.CongDoan !== undefined && this.item.listThongKeSanLuong !== undefined && this.item.listThongKeSanLuong !== null) {
       this.thongKeFull = [];
       this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe().subscribe((res: any) => {
         // this.item.SoQuyTrinh = res.SoQuyTrinh;
         this.item.listTyLeBongPhe = res;
       })
       let listItemCheck: any = [];
-      if (this.item.CongDoan === "ONG")
-        listItemCheck = this.item.listThongKeSanLuong[0].listItem.filter(ele => ele.CongDoan == this.item.CongDoan);
+      if (this.item.CongDoan === "ONG"){
+        listItemCheck = this.item.listThongKeSanLuong[0].listItem.filter(ele => ele.CongDoan === this.item.CongDoan);
+        console.log('listItemCheck',listItemCheck);
+      }
+      console.log('this.item.listThongKeSanLuong',this.item.listThongKeSanLuong);
       this.item.listThongKeSanLuong.forEach(element => {
         if (this.item.CongDoan !== "ONG") {
-          let thongKe = { listItem: element.listItem.filter(ele => ele.CongDoan == this.item.CongDoan), IddmCaSanXuat: element.IddmCaSanXuat }
+          let thongKe = { listItem: element.listItem.filter(ele => ele.CongDoan === this.item.CongDoan), IddmCaSanXuat: element.IddmCaSanXuat }
           this.thongKeFull.push(thongKe);
         }
         else {
-          let listItem = element.listItem.filter(ele => ele.CongDoan == this.item.CongDoan && ele.IddmCaSanXuat == element.IddmCaSanXuat);
+          let listItem = element.listItem.filter(ele => ele.CongDoan === this.item.CongDoan && ele.IddmCaSanXuat === element.IddmCaSanXuat);
           if (listItem[0]?.Id === undefined) {
             let listItem_new = [];
             listItem.forEach(eleCheck => {
-              let itemCheck = listItemCheck.find(x => x.IddmItem == eleCheck.IddmItem && x.IddmLoaiSoi == eleCheck.IddmLoaiSoi && x.IddmCaSanXuat == eleCheck.IddmCaSanXuat);
+              let itemCheck = listItemCheck.find(x => x.IddmItem === eleCheck.IddmItem && x.IddmLoaiSoi === eleCheck.IddmLoaiSoi && x.IddmCaSanXuat === eleCheck.IddmCaSanXuat);
               if (itemCheck !== undefined) {
                 eleCheck.isCheckdmCaSanXuat = true;
                 listItem_new.push(eleCheck);
               }
               else {
-                let itemAdd = deepCopy(listItemCheck.find(x => x.IddmItem == eleCheck.IddmItem && x.IddmLoaiSoi == eleCheck.IddmLoaiSoi));
+                let itemAdd = deepCopy(listItemCheck.find(x => x.IddmItem === eleCheck.IddmItem && x.IddmLoaiSoi === eleCheck.IddmLoaiSoi));
                 itemAdd.isCheckdmCaSanXuat = false;
                 listItem_new.push(itemAdd);
               }
@@ -387,11 +410,14 @@ export class ThongkesanluongcamodalComponent implements OnInit {
             this.thongKeFull.push(thongKe);
           }
           else {
-            let thongKe = { listItem: listItem, IddmCaSanXuat: element.IddmCaSanXuat }
+            let thongKe = { listItem: listItem.map(ele=>{
+              return {...ele,isCheckdmCaSanXuat:true}
+            }), IddmCaSanXuat: element.IddmCaSanXuat }
             this.thongKeFull.push(thongKe);
           }
         }
       })
+      console.log('this.thongKeFull',this.thongKeFull);
     }
     let i = 0;
     this.listCaSanXuat.forEach(element => {
