@@ -22,12 +22,37 @@ export class SogiodungmayComponent implements OnInit {
 
   congDoan;
 
-  IddmSuCo: string;
+  SuCo: string;
 
   optionsPie = {
     onClick: (event, array) => {
       let index = array[0]._index;
-      console.log(index);
+      console.log(this.SuCo[index]);
+
+      // TheoSuCo
+      let data = {
+        ...this.filter,
+        IddmLoaiSuCo: this.SuCo[index].id,
+        TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
+      };
+
+      this.taisanService.getDataBaoCao().GetDataLoaiSuCo(data).subscribe((res: any) => {
+        console.log(res)
+        let labels = res.Data.map((r) => { return r.Ten });
+        let dataChart = res.Data.map((r) => { return r.SoGio });
+
+        this.data2 = {
+          labels: labels,
+          datasets: [
+            {
+              data: dataChart,
+              fill: false,
+              backgroundColor: "#5B9BD5",
+            },
+          ],
+        };
+
+      });
     }
   };
 
@@ -61,16 +86,17 @@ export class SogiodungmayComponent implements OnInit {
   // };
 
   //chart 2
-  data2 = {
-    labels: ["Tên máy", "Tên máy", "Tên máy"],
-    datasets: [
-      {
-        data: [3, 2, 3],
-        fill: false,
-        backgroundColor: "#5B9BD5",
-      },
-    ],
-  };
+  data2: any;
+  // data2 = {
+  //   labels: ["Tên máy", "Tên máy", "Tên máy"],
+  //   datasets: [
+  //     {
+  //       data: [3, 2, 3],
+  //       fill: false,
+  //       backgroundColor: "#5B9BD5",
+  //     },
+  //   ],
+  // };
 
   options2 = {
     maintainAspectRatio: false,
@@ -84,48 +110,49 @@ export class SogiodungmayComponent implements OnInit {
   };
 
   //chart 3
-  data3 = {
-    labels: [
-      "1/4/2022",
-      "2/4/2022",
-      "3/4/2022",
-      "4/4/2022",
-      "5/4/2022",
-      "6/4/2022",
-    ],
-    datasets: [
-      {
-        label: "Bảo dưỡng",
-        data: [11500, 10100],
-        fill: false,
-        backgroundColor: "#4472C4",
-      },
-      {
-        label: "Sự cố điện",
-        data: [12000, 23000],
-        fill: false,
-        backgroundColor: "#ED7D31",
-      },
-      {
-        label: "Sự cố phát sinh",
-        data: [12000, 13000],
-        fill: false,
-        backgroundColor: "#A5A5A5",
-      },
-      {
-        label: "Sửa chữa",
-        data: [12000, 13000],
-        fill: false,
-        backgroundColor: "#FFC000",
-      },
-      {
-        label: "Sự cố tụt áp",
-        data: [12000, 13000],
-        fill: false,
-        backgroundColor: "#5B9BD5",
-      },
-    ],
-  };
+  data3: any;
+  // data3 = {
+  //   labels: [
+  //     "1/4/2022",
+  //     "2/4/2022",
+  //     "3/4/2022",
+  //     "4/4/2022",
+  //     "5/4/2022",
+  //     "6/4/2022",
+  //   ],
+  //   datasets: [
+  //     {
+  //       label: "Bảo dưỡng",
+  //       data: [11500, 10100],
+  //       fill: false,
+  //       backgroundColor: "#4472C4",
+  //     },
+  //     {
+  //       label: "Sự cố điện",
+  //       data: [12000, 23000],
+  //       fill: false,
+  //       backgroundColor: "#ED7D31",
+  //     },
+  //     {
+  //       label: "Sự cố phát sinh",
+  //       data: [12000, 13000],
+  //       fill: false,
+  //       backgroundColor: "#A5A5A5",
+  //     },
+  //     {
+  //       label: "Sửa chữa",
+  //       data: [12000, 13000],
+  //       fill: false,
+  //       backgroundColor: "#FFC000",
+  //     },
+  //     {
+  //       label: "Sự cố tụt áp",
+  //       data: [12000, 13000],
+  //       fill: false,
+  //       backgroundColor: "#5B9BD5",
+  //     },
+  //   ],
+  // };
 
   options3 = {
     maintainAspectRatio: false,
@@ -167,21 +194,19 @@ export class SogiodungmayComponent implements OnInit {
 
   }
   getDataBaoCao(filter) {
-    // console.log(filter);
     let data = {
       ...filter,
       TuNgay: DateToUnix(filter.TuNgay), DenNgay: DateToUnix(filter.DenNgay),
     };
-    console.log(data);
 
     // TongHop
     this.taisanService.getDataBaoCao().GetDataTongHop(data).subscribe((res: any) => {
-      console.log(res.Data);
+      this.SuCo = res.Data.map(r => ({ id: r.IddmLoaiSuCo, ten: r.Ten }))
+      console.log(this.SuCo);
 
-      this.IddmSuCo = res.Data.map(r => ({ id: r.IddmLoaiSuCo }))
-      console.log(this.IddmSuCo);
 
       let labels = res.Data.map(r => { return r.Ten });
+
       let dataChart = res.Data.map(r => { return r.SoGio });
 
       this.data1 = {
@@ -211,9 +236,52 @@ export class SogiodungmayComponent implements OnInit {
 
     });
 
+
+
+
     // TheoNgay
     this.taisanService.getDataBaoCao().GetDataTheoNgay(data).subscribe((res: any) => {
       console.log(res);
+      let labels = res.Data.map((r) => { return `${new Date(r.Ngay).getDate()}/${new Date(r.Ngay).getMonth()}/${new Date(r.Ngay).getFullYear()}` });
+      console.log(labels);
+
+      this.data3 = {
+        labels: labels,
+        datasets: [
+          {
+            label: "Bảo dưỡng",
+            data: [11500, 10100],
+            fill: false,
+            backgroundColor: "#4472C4",
+          },
+          {
+            label: "Sự cố điện",
+            data: [12000, 23000],
+            fill: false,
+            backgroundColor: "#ED7D31",
+          },
+          {
+            label: "Sự cố phát sinh",
+            data: [12000, 13000],
+            fill: false,
+            backgroundColor: "#A5A5A5",
+          },
+          {
+            label: "Sửa chữa",
+            data: [12000, 13000],
+            fill: false,
+            backgroundColor: "#FFC000",
+          },
+          {
+            label: "Sự cố tụt áp",
+            data: [12000, 13000],
+            fill: false,
+            backgroundColor: "#5B9BD5",
+          },
+        ],
+      };
+
+
     })
 
 
