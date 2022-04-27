@@ -871,40 +871,31 @@ export class TaisanService {
   getDataBaoCao() {
     let url = API.TaiSan;
     return {
-      GetDataTongHop: (
-        IdBoPhanSuDung: string, IdCongDoan: string, tungay: number, denngay: number) => {
-        let data = {
-          IdCongDoan: "", IdBoPhanSuDung: "", tungay: 0, denngay: 0,
-        };
+
+      GetDataTongHop: (data) => {
         return this.http.post(
-          `${url}/BaoCao/BieuDoSoGioDungMay_TongHop`, data, httpOptions
+          `${url}BaoCao/BieuDoSoGioDungMay_TongHop`, data, httpOptions
         );
       },
 
-      GetDataLoaiSuCo: (IdBoPhanSuDung: string, IdCongDoan: string, IddmLoaiSuCo: string, tungay: number, denngay: number) => {
-        let data = {
-          IdCongDoan: "", IdBoPhanSuDung: "", IddmLoaiSuCo: "", tungay: 0, denngay: 0,
-        };
+      GetDataLoaiSuCo: (data) => {
+
         return this.http.post(
-          `${url}/BaoCao/BieuDoSoGioDungMay_LoaiSuCo`, data, httpOptions
+          `${url}BaoCao/BieuDoSoGioDungMay_LoaiSuCo`, data, httpOptions
         );
       },
 
-      GetDataTheoNgay: (IdBoPhanSuDung: string, IdCongDoan: string, tungay: number, denngay: number) => {
-        let data = {
-          IdCongDoan: "", IdBoPhanSuDung: "", tungay: 0, denngay: 0,
-        };
+      GetDataTheoNgay: (data) => {
+
         return this.http.post(
-          `${url}/BaoCao/BieuDoSoGioDungMay_TheoNgay`, data, httpOptions
+          `${url}BaoCao/BieuDoSoGioDungMay_TheoNgay`, data, httpOptions
         );
       },
 
-      GetDataNganSach: (IdBoPhanSuDung: string, tungay: number, denngay: number) => {
-        let data = {
-          IdBoPhanSuDung: "", tungay: 0, denngay: 0,
-        };
+      GetDataNganSach: (data) => {
+
         return this.http.post(
-          `${url}/BaoCao/BieuDoNganSach`, data, httpOptions
+          `${url}BaoCao/BieuDoNganSach`, data, httpOptions
         );
       }
     };

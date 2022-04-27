@@ -1,4 +1,9 @@
+import { map } from 'rxjs/operators';
 import { Component, OnInit } from "@angular/core";
+import { SanXuatService } from "src/app/services/callApiSanXuat";
+import { mapArrayForDropDown } from "src/app/services/globalfunction";
+import { TaisanService } from "src/app/services/Taisan/taisan.service";
+import { DateToUnix } from "src/app/services/globalfunction";
 
 @Component({
   selector: "app-sogiodungmay",
@@ -6,35 +11,54 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./sogiodungmay.component.css"],
 })
 export class SogiodungmayComponent implements OnInit {
-  //chart 1
-  data1 = {
-    // labels: [
-    //   "Bảo dưỡng",
-    //   "Sự cố điện",
-    //   "Sự cố phát sinh",
-    //   "Sửa chữa",
-    //   "Sự cố tụt áp",
-    // ],
-    datasets: [
-      {
-        data: [100, 50, 100, 50, 40],
-        backgroundColor: [
-          "#4472C4",
-          "#ED7D31",
-          "#A5A5A5",
-          "#FFC000",
-          "#5B9BD5",
-        ],
-        hoverBackgroundColor: [
-          "#4472C4",
-          "#ED7D31",
-          "#A5A5A5",
-          "#FFC000",
-          "#5B9BD5",
-        ],
-      },
-    ],
+
+  filter = {
+    IdCongDoan: "",
+    IdBoPhanSuDung: "",
+    TuNgay: new Date(),
+    DenNgay: new Date()
   };
+
+
+  congDoan;
+
+  IddmSuCo: string;
+
+  optionsPie = {
+    onClick: (event, array) => {
+      let index = array[0]._index;
+      console.log(index);
+    }
+  };
+
+  //chart 1
+  data1: any;
+  // data1 = {
+  //   labels: [
+
+  //   ],
+  //   datasets: [
+  //     {
+  //       data: [100, 50, 100, 50, 40],
+  //       backgroundColor: [
+  //         "#4472C4",
+  //         "#ED7D31",
+  //         "#A5A5A5",
+  //         "#FFC000",
+  //         "#5B9BD5",
+  //       ],
+  //       hoverBackgroundColor: [
+  //         "#4472C4",
+  //         "#ED7D31",
+  //         "#A5A5A5",
+  //         "#FFC000",
+  //         "#5B9BD5",
+  //       ],
+
+  //     },
+  //   ],
+
+  // };
 
   //chart 2
   data2 = {
@@ -114,7 +138,86 @@ export class SogiodungmayComponent implements OnInit {
     },
   };
 
-  constructor() {}
+  constructor(private _servicesSanXuat: SanXuatService, private _servicesTaiSan: TaisanService, private taisanService: TaisanService) { }
 
-  ngOnInit(): void {}
+  // getBoPhanSuDung() {
+  //   this._servicesSanXuat.GetListdmPhanXuongOpt()// lay tat ca bo phan su dung
+  //   this._servicesSanXuat.GetListCongDoan() //lay tat ca cong doan
+
+  // }
+
+  CongDoan: any;
+  PhanXuong: any;
+
+  ngOnInit(): void {
+    this._servicesSanXuat.GetListCongDoan().subscribe((res: any) => {
+      this.CongDoan = mapArrayForDropDown(res, 'Ten', 'Ma')
+      console.log(this.CongDoan);
+    })
+
+    this._servicesSanXuat.GetListdmPhanXuongOpt().subscribe((res: any) => {
+      this.PhanXuong = mapArrayForDropDown(res, 'Ten', 'Id')
+      console.log(this.PhanXuong);
+
+    })
+
+    let date = new Date();
+    this.filter.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.filter.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+  }
+  getDataBaoCao(filter) {
+    // console.log(filter);
+    let data = {
+      ...filter,
+      TuNgay: DateToUnix(filter.TuNgay), DenNgay: DateToUnix(filter.DenNgay),
+    };
+    console.log(data);
+
+    // TongHop
+    this.taisanService.getDataBaoCao().GetDataTongHop(data).subscribe((res: any) => {
+      console.log(res.Data);
+
+      this.IddmSuCo = res.Data.map(r => ({ id: r.IddmLoaiSuCo }))
+      console.log(this.IddmSuCo);
+
+      let labels = res.Data.map(r => { return r.Ten });
+      let dataChart = res.Data.map(r => { return r.SoGio });
+
+      this.data1 = {
+        labels: labels,
+        datasets: [
+          {
+            data: dataChart,
+            backgroundColor: [
+              "#4472C4",
+              "#ED7D31",
+              "#A5A5A5",
+              "#FFC000",
+              "#5B9BD5",
+            ],
+            hoverBackgroundColor: [
+              "#4472C4",
+              "#ED7D31",
+              "#A5A5A5",
+              "#FFC000",
+              "#5B9BD5",
+            ],
+
+          },
+        ],
+
+      };
+
+    });
+
+    // TheoNgay
+    this.taisanService.getDataBaoCao().GetDataTheoNgay(data).subscribe((res: any) => {
+      console.log(res);
+    })
+
+
+  }
+
+
 }
