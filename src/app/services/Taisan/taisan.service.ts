@@ -53,7 +53,7 @@ export class TaisanService {
       ChonTuThuVien: (data) => {
         return this.http.post(`${url}QuanLyTaiSan/GetListThuVienTaiSan`, data, httpOptions);
       },
-      AddThuVienById : (Id) => {
+      AddThuVienById: (Id) => {
         return this.http.get(`${url}QuanLyTaiSan/GetThuVienTaiSanById?id=${Id}`, httpOptions);
       },
     };
@@ -866,6 +866,48 @@ export class TaisanService {
         return this.http.post(`${url}NhatKySuDung/GetListTaiSanThuHoi`, data, httpOptions)
       },
     }
+  }
+
+  getDataBaoCao() {
+    let url = API.TaiSan;
+    return {
+      GetDataTongHop: (
+        IdBoPhanSuDung: string, IdCongDoan: string, tungay: number, denngay: number) => {
+        let data = {
+          IdCongDoan: "", IdBoPhanSuDung: "", tungay: 0, denngay: 0,
+        };
+        return this.http.post(
+          `${url}/BaoCao/BieuDoSoGioDungMay_TongHop`, data, httpOptions
+        );
+      },
+
+      GetDataLoaiSuCo: (IdBoPhanSuDung: string, IdCongDoan: string, IddmLoaiSuCo: string, tungay: number, denngay: number) => {
+        let data = {
+          IdCongDoan: "", IdBoPhanSuDung: "", IddmLoaiSuCo: "", tungay: 0, denngay: 0,
+        };
+        return this.http.post(
+          `${url}/BaoCao/BieuDoSoGioDungMay_LoaiSuCo`, data, httpOptions
+        );
+      },
+
+      GetDataTheoNgay: (IdBoPhanSuDung: string, IdCongDoan: string, tungay: number, denngay: number) => {
+        let data = {
+          IdCongDoan: "", IdBoPhanSuDung: "", tungay: 0, denngay: 0,
+        };
+        return this.http.post(
+          `${url}/BaoCao/BieuDoSoGioDungMay_TheoNgay`, data, httpOptions
+        );
+      },
+
+      GetDataNganSach: (IdBoPhanSuDung: string, tungay: number, denngay: number) => {
+        let data = {
+          IdBoPhanSuDung: "", tungay: 0, denngay: 0,
+        };
+        return this.http.post(
+          `${url}/BaoCao/BieuDoNganSach`, data, httpOptions
+        );
+      }
+    };
   }
 
 }
