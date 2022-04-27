@@ -164,7 +164,7 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
       }
     })
     this._serviceTaiSan.GetOptions().GetListVatTuForBaoDuong(data).subscribe((res:any) => {
-      // console.log(res);
+      
       this.activeModal.close(res.Data);
     })
   }

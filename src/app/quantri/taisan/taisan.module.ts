@@ -159,6 +159,11 @@ import { ChonComponent } from './screen/chon/chon.component';
 import { LuachontaisannhaptaisanComponent } from './modal/luachontaisannhaptaisan/luachontaisannhaptaisan.component';
 import { ChiphilichxichnamchonthemComponent } from './screenLichXich/chiphilichxichnamchonthem/chiphilichxichnamchonthem.component';
 import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.component';
+import { DenghixulysuconhancongComponent } from './screen/denghixulysuconhancong/denghixulysuconhancong.component';
+import { DenghixulysucochiphikhacComponent } from './screen/denghixulysucochiphikhac/denghixulysucochiphikhac.component';
+import { DenghixulysucovattuComponent } from './screen/denghixulysucovattu/denghixulysucovattu.component';
+import { XulysucoluachontaisanComponent } from './modal/xulysucoluachontaisan/xulysucoluachontaisan.component';
+import { DenghisulyluachonthemvattuComponent } from './modal/denghisulyluachonthemvattu/denghisulyluachonthemvattu.component';
 
 
 @NgModule({
@@ -273,6 +278,11 @@ import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.compone
     LuachontaisannhaptaisanComponent,
     LichSuSuDungComponent,
     ChiphilichxichnamchonthemComponent,
+    DenghixulysuconhancongComponent,
+    DenghixulysucochiphikhacComponent,
+    DenghixulysucovattuComponent,
+    XulysucoluachontaisanComponent,
+    DenghisulyluachonthemvattuComponent,
 
   ],
   imports: [
@@ -366,6 +376,8 @@ import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.compone
     ChonComponent,
     LuachontaisannhaptaisanComponent,
     ChiphilichxichnamchonthemComponent,
+    XulysucoluachontaisanComponent,
+    DenghisulyluachonthemvattuComponent,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]

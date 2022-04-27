@@ -36,6 +36,8 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.listItemDaChon);
+    
     let data = {
       Keyword: this.filter.Keyword,
       CurrentPage: 0,
@@ -74,7 +76,8 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
       items = this.TaiSanItem.listTaiSan;
 
       items.forEach(obj => {
-        obj.checked = this.listItemDaChon.includes(obj.Id);
+        
+        obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
 
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
@@ -83,7 +86,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
 
           obj.listTaiSan.forEach(element => {
             element.isCha = false;
-            element.checked = this.listItemDaChon.includes(element.Id);
+            element.checked = this.listItemDaChon.includes(element.IdTaiSan);
             obj_copy.children.push({ data: element });
           });
           obj.listTaiSan = undefined;
@@ -121,19 +124,29 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   }
 
   FilterTree() {
-    let data: any = [];
+    let data: any = {};
+    let arr = [];
     this.items.forEach(obj => {
       if (obj.data.checked) {
-        data.push(
-          obj.data.IdTaiSan,
-        );
+        arr.push(obj.data.IdTaiSan);
+        
+        data = {
+          ListIdTaiSan: arr,
+          // IdTaiSan: obj.data.IdTaiSan,
+          IdBoPhanSuDung:this.item.IdBoPhanSuDung,
+          IddmLoaiTaiSan:this.item.IddmLoaiTaiSan ,
+        };
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
         obj.children.forEach(objchildren => {
           if (objchildren.data.checked) {
-            data.push(
-             objchildren.data.IdTaiSan,
-            );
+            data = {
+              ListIdTaiSan:[objchildren.data.IdTaiSan],
+              // IdTaiSan: objchildren.data.IdTaiSan,
+              IdBoPhanSuDung:this.item.IdBoPhanSuDung,
+              IddmLoaiTaiSan:this.item.IddmLoaiTaiSan ,
+            }
+
           }
         });
       }
@@ -141,6 +154,8 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     return data;
   }
   GhiLai() {
+    console.log(this.FilterTree());
+    
     this._serviceTaiSan.LichXich().GetListVatTuByIdTaiSanForLapKeHoachLichXichNam(this.FilterTree()).subscribe((res: any) => { 
       this.activeModal.close(res.Data.listTaiSan);
     });

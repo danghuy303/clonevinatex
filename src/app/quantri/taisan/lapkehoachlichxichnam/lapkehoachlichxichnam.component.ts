@@ -51,13 +51,14 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     // };
     let data = {
       Keyword: "", CurrentPage: 0, PageSize: 20,
-      MaCongDoan: '',
-      IdBoPhanSuDung: this.item.IdBoPhanSuDung,
-      IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
-      IdUser: '',
-      Ngay: 0,
-      LoaiKeHoach: '',
-      IdDuAn: 0,
+      // MaCongDoan: '',
+      // IdBoPhanSuDung: this.item.IdBoPhanSuDung,
+      // IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
+      // IdUser: '',
+      // Ngay: 0,
+      // LoaiKeHoach: '',
+      // IdDuAn: 0,
+      // IdTaiSan: this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : [],
     };
     this._serviceTaiSan.LichXich().GetListTaiSanTheoNam(data).subscribe((res: any) => {
       let baoDuong = res.Data.listTaiSan;
@@ -206,19 +207,20 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       });
 
   }
-  Chon(item, itemLoaiBaoDuongDeChon) {
-
+  Chon(baoduong, taisan) {
     let modalRef = this._modal.open(ModalluachonloaibaoduongComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',
       keyboard: false
     });
-    modalRef.componentInstance.Lay_Chon = itemLoaiBaoDuongDeChon;
     modalRef.componentInstance.Nam = this.item.ThoiGian;
-    modalRef.componentInstance.listItemDaChon = item.listChiTiet ? item.listChiTiet.map(ele => ele.IddmLoaiBaoDuong) : [];
-    modalRef.componentInstance.layId = this.item;
+    modalRef.componentInstance.listItemDaChon = baoduong.listChiTiet ? baoduong.listChiTiet.map(ele => ele.IddmLoaiBaoDuong) : [];
+    modalRef.componentInstance.IdTaiSan =  taisan.IdTaiSan;
+    modalRef.componentInstance.IdBoPhanSuDung = this.item.IdBoPhanSuDung ;
     modalRef.result.then((res: any) => {
-      item.listChiTiet = res;
+      console.log(res);
+      
+      baoduong.listChiTiet = res;
     })
       .catch((er) => {
       });

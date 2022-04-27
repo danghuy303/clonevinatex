@@ -10,6 +10,7 @@ import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalbaoduongluachontaisanComponent } from '../modal/modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
+import { XulysucoluachontaisanComponent } from '../modal/xulysucoluachontaisan/xulysucoluachontaisan.component';
 
 
 @Component({
@@ -101,7 +102,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
   }
   
   ThemMoiDanhSachTaiSan() {
-      let modalRef = this._modal.open(ModalbaoduongluachontaisanComponent, {
+      let modalRef = this._modal.open(XulysucoluachontaisanComponent, {
         size: "xl",
         backdrop: "static",
       });
@@ -125,7 +126,6 @@ export class ModaldenghixulisucoComponent implements OnInit {
           listKetQua.push(Tai_San);
         }
       });
-      console.log("list ket qua",listKetQua );
       
       this.item.listTaiSan = listKetQua;
       })

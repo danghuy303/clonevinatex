@@ -87,53 +87,67 @@
                     </div>
                 </div>
                 <p-table [value]="item.listTaiSan"
-                    styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" >
-                    <ng-template pTemplate="colgroup">
-                        <colgroup>
-                            <col style="width: 50px;">
-                            <col>
-                            <col>
-                            <!-- <col>
-                            <col> -->
-                            <col>
-                        </colgroup>
-                    </ng-template>
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th class="text-center">
-                                STT
-                            </th>
-                            <th class="text-center">Mã</th>
-                            <th class="text-center">Tên</th>
-                            <!-- <th class="text-center">Loại bảo dưỡng</th>
-                            <th class="text-center">Ngày theo KH</th>
-                            <th class="text-center">Đã BD</th> -->
-                            <th class="text-center">Ghi chú</th>
-                            <!-- <th class="text-center">Thao tác</th> -->
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-item let-i="rowIndex">
-                        <tr>
-                            <td class="text-center">
-                                {{i + 1}}
-                            </td>
-                            <td class="text-center">{{item.Ma}}</td>
-                            <td class="text-center">{{item.TenTaiSan}}</td>
-                            <!-- <td class="text-center"> {{item.TendmLoaiBaoDuong}}</td>
-                            <td class="text-center"> <input locale="en-EN"  pInputText /></td>
-                            <td class="text-center"> <input locale="en-EN"  pInputText /></td> -->
-                            <td class="text-center"> <input locale="en-EN" [(ngModel)]="item.GhiChu" pInputText /></td>
-                            <!-- <td class="text-center">
-                                <button pButton pRipple type="button" icon="pi pi-pencil"
-                                    class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                                    pTooltip="Chỉnh sửa" (click)="CapNhatTaiSanCon(item)"></button>
-                                <button pButton pRipple type="button" icon="pi pi-trash"
-                                    class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                                    (click)=" delete(i)"></button>
-                            </td> -->
-                        </tr>
-                    </ng-template>
-                </p-table>
+                styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+                <ng-template pTemplate="colgroup">
+                    <colgroup>
+                        <col style="width: 50px;">
+                        <col>
+                        <col>
+                        <!-- <col>
+                        <col> -->
+                        <col>
+                        <col>
+                        <col style="width: 100px;">
+                        <col>
+                        <col style="width: 50px;">
+                    </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="text-center" rowspan="2">
+                            STT
+                        </th>
+                        <th class="text-center" rowspan="2">Mã</th>
+                        <th class="text-center" rowspan="2">Tên</th>
+                        <th colspan="2">Thời gian sửa chữa</th>
+                        <th class="text-center" rowspan="2">Đã sửa chữa</th>
+                        <th class="text-center" rowspan="2">Ghi chú</th>
+                        <th class="text-center" rowspan="2">Thao tác</th>
+                    </tr>
+                    <tr>
+                        <th>Từ</th>
+                        <th>Đến</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                    <tr>
+                        <td class="text-center">
+                            {{i + 1}}
+                        </td>
+                        <td>{{item.MaTaiSan}}</td>
+                        <td>{{item.TenTaiSan}}</td>
+                        <td class="text-center">
+                            <p-calendar [showTime]="true" dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm"[(ngModel)]="item.TuGio" [showIcon]="true" inputId="icon" placeholder="Từ">
+                            </p-calendar>
+                        </td>
+                        <td class="text-center">
+                            <p-calendar [showTime]="true" dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm"[(ngModel)]="item.DenGio" [showIcon]="true" inputId="icon" placeholder="Đến">
+                            </p-calendar>
+                        </td>
+                        <td class="text-center">
+                            <p-checkbox [(ngModel)]="item.isDaBaoDuong" [binary]="true"></p-checkbox>
+                        </td>
+                        <td class="text-center">
+                            <input type="text" [(ngModel)]="item.GhiChu" pInputText />
+                        </td>
+                        <td class="text-center">
+                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
+                                (click)=" delete(i)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
             </ng-template>
         </p-tabPanel>
         <p-tabPanel header="Nhân công">
@@ -141,12 +155,12 @@
         </p-tabPanel>
         <p-tabPanel header="Vật tư">
             <ng-template pTemplate="content">
-                <app-vattu [item]="item.listTaiSan"></app-vattu>
+                <app-denghixulysucovattu [item]="item.listTaiSan"></app-denghixulysucovattu>
             </ng-template>
         </p-tabPanel>
         <p-tabPanel header="Chi phí khác">
             <ng-template pTemplate="content">
-                <app-chiphikhac [item]="item"></app-chiphikhac>
+                <app-denghixulysucochiphikhac  [item]="item.listTaiSan"></app-denghixulysucochiphikhac>
             </ng-template>
         </p-tabPanel>
     </p-tabView>

@@ -22,6 +22,8 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
   layId: any = {};
   checkedAll: boolean = false;
   listdmLoaiBaoDuong: any = [];
+  IdBoPhanSuDung: any = '';
+  IdTaiSan:any = '';
   Nam: any = "";
 
   constructor(
@@ -46,15 +48,20 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
     let data = {
       CurrentPage: 0,
       PageSize: 0,
-      IddmLoaiTaiSan: this.layId.IddmLoaiTaiSan,
-      IdBoPhanSuDung: this.layId.IdBoPhanSuDung,
+      IdTaiSan: this.IdTaiSan
     }
-    this._serviceTaiSan.LichXich().GetListdmLoaiBaoDuong(data).subscribe((res: any) => {
-    this.items = res.Data ;
-    console.log('items',this.items);
-    
+    this._serviceTaiSan.LichXich().GetListLoaiBaoDuongForLapKeHoachLichXich(data).subscribe((res: any) => {
+      if(typeof res.Data !== 'string') {
+        this.items = res.Data.listLichBaoDuong ;
+        this.items.forEach(obj => {
+          obj.checked = this.listItemDaChon.includes(obj.IddmLoaiBaoDuong);
+        })
+      }
+      else {
+        this.items = []
+      }
     })
-    // this.checkedAll = this.items.every(ele => ele.checked);
+    this.checkedAll = this.items.every(ele => ele.checked);
   }
   TimCheck() {
     //  let cha: boolean = false;
@@ -79,9 +86,9 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
     this.items.forEach(obj => {
       if (obj.checked) {
         data.push({
-          IddmLoaiBaoDuong: obj.Id,
+          IddmLoaiBaoDuong: obj.IddmLoaiBaoDuong,
           Id: '',
-          TendmLoaiBaoDuong: obj.Ten,
+          TendmLoaiBaoDuong: obj.TendmLoaiBaoDuong,
           NgayUnix: 0,
         });
       }
