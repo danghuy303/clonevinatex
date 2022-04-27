@@ -1,9 +1,9 @@
 import { map } from 'rxjs/operators';
 import { Component, OnInit } from "@angular/core";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
-import { mapArrayForDropDown } from "src/app/services/globalfunction";
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DateToUnix } from "src/app/services/globalfunction";
+import { mapArrayForDropDown } from "src/app/services/globalfunction";
 
 @Component({
   selector: "app-sogiodungmay",
