@@ -10,6 +10,7 @@ import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalbaoduongluachontaisanComponent } from '../modal/modalbaoduongluachontaisan/modalbaoduongluachontaisan.component';
+import { XulysucoluachontaisanComponent } from '../modal/xulysucoluachontaisan/xulysucoluachontaisan.component';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
 
   newitem: any = {};
   showDropDown: boolean = false;
-  item: any = {  };
+  item: any = {};
   type = '';
   opt = '';
   listPhanXuong = [];
@@ -34,7 +35,7 @@ export class ModaldenghixulisucoComponent implements OnInit {
   public listTaiSanRef: any = [];
   listTaiSan: any = [];
   NameFile: string;
-  title:any='';
+  title: any = '';
   constructor(
     public activeModal: NgbActiveModal,
     private _services: SanXuatService,
@@ -44,28 +45,37 @@ export class ModaldenghixulisucoComponent implements OnInit {
     public store: StoreService,
     public _modal: NgbModal,
   ) { }
-  
+
   ngOnInit(): void {
+
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
+    }
+    else {
+      console.log(this.item);
+      
+      this.item.listTaiSan.forEach(ele => {
+        ele.DenGio = UnixToDate(ele.DenGioUnix);
+        ele.TuGio = UnixToDate(ele.TuGioUnix);
+      })
     }
     this.KiemTraButtonModal();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
     let ls1 = this._danhMucTaiSan.DanhMucMucDoUuTien().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucLoaiSuCo().GetList(data).toPromise();
 
-    Promise.all([ls1,ls2]).then((values: any) => {
+    Promise.all([ls1, ls2]).then((values: any) => {
       this.listDoUuTien = mapArrayForDropDown(values[0].Data.Items, "Ten", "Id");
       this.listLoaiSuCo = mapArrayForDropDown(values[1].Data, "Ten", "Id");
-  })
-}
+    })
+  }
   add() {
     if (this.item.listTaiSan == undefined || this.item.listTaiSan == null)
       this.item.listTaiSan = [];
     this.item.listTaiSan.push(this.newitem);
     this.newitem = {}
   }
-  
+
   delete(index) {
     let item = this.item.listTaiSan.splice(index, 1)[0];
     if (item.Id === '' || item.Id === null || item.Id === undefined) {
@@ -74,63 +84,72 @@ export class ModaldenghixulisucoComponent implements OnInit {
       this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
     }
   }
-  
+
   setData() {
     this.item.NgayDeNghiUnix = DateToUnix(this.item.NgayDeNghi);
+    this.item.listTaiSan.forEach(item => {
+      item.DenGioUnix = DateToUnix(item.DenGio);
+      item.TuGioUnix = DateToUnix(item.TuGio);
+    })
     return this.item;
   }
   GhiLai() {
-      this._serviceTaiSan.QuyTrinhXuLySuCo().Set(this.setData()).subscribe((res: any) => {
-        if (res.StatusCode !== 200 || !res.StatusCode) {
-          this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-        } else {
-          this.item = res.Data;
-          this.toastr.success(res.Message);
-          this.KiemTraButtonModal();
-          // this.activeModal.close();
-        }
-      }, (er) => {
+
+    this._serviceTaiSan.QuyTrinhXuLySuCo().Set(this.setData()).subscribe((res: any) => {
+      if (res.StatusCode !== 200 || !res.StatusCode) {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-      })
+      } else {
+        this.item = res.Data;
+        this.item.listTaiSan.forEach(ele => {
+          ele.DenGio = UnixToDate(ele.DenGioUnix);
+          ele.TuGio = UnixToDate(ele.TuGioUnix);
+        })
+
+        this.toastr.success(res.Message);
+        this.KiemTraButtonModal();
+        // this.activeModal.close();
+      }
+    }, (er) => {
+      this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+    })
   }
-  
+
   GetNextSoQuyTrinh() {
     this._serviceTaiSan.QuyTrinhXuLySuCo().GetNextSoQuyTrinh().subscribe((res: any) => {
       this.item.SoQuyTrinh = res.Data;
     })
   }
-  
+
   ThemMoiDanhSachTaiSan() {
-      let modalRef = this._modal.open(ModalbaoduongluachontaisanComponent, {
-        size: "xl",
-        backdrop: "static",
+    let modalRef = this._modal.open(XulysucoluachontaisanComponent, {
+      size: "xl",
+      backdrop: "static",
+    });
+    modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
+    modalRef.componentInstance.opt = this.opt;
+    modalRef.componentInstance.Lay_Chon = this.item.IddmPhanXuong;
+    modalRef.componentInstance.item = {};
+    modalRef.result.then((res: any) => {
+      // this.item.listTaiSan = res;
+
+      let listKetQua = [];
+      this.item.listTaiSan.forEach(Tai_San => {
+        let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+        if (bien !== undefined) {
+          listKetQua.push(Tai_San);
+        }
       });
-      modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
-      modalRef.componentInstance.opt = this.opt;
-      modalRef.componentInstance.Lay_Chon =this.item.IddmPhanXuong; 
-      modalRef.componentInstance.item = {};
-      modalRef.result.then((res: any) => {
-        // this.item.listTaiSan = res;
-        
-        let listKetQua = [];
-        this.item.listTaiSan.forEach(Tai_San => {
-          let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-          if (bien !== undefined) {
-            listKetQua.push(Tai_San);
-          }
-        });
       res.forEach(Tai_San => {
         let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
         if (bien === undefined) {
           listKetQua.push(Tai_San);
         }
       });
-      console.log("list ket qua",listKetQua );
-      
+
       this.item.listTaiSan = listKetQua;
-      })
-        .catch((er) => {
-        });
+    })
+      .catch((er) => {
+      });
   }
   KiemTraButtonModal() {
     this._services.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
@@ -184,8 +203,8 @@ export class ModaldenghixulisucoComponent implements OnInit {
         this.NameFile += `${obj.fileName}` + '; ';
       });
     }, (reason) => {
-  
+
     });
   }
-  
-  }
+
+}

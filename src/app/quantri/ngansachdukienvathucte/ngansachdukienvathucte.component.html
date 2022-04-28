@@ -1,0 +1,56 @@
+<div>
+  <!-- input options -->
+  <div class="options p-d-flex p-ai-center p-jc-between">
+    <div class="p-d-flex flex-column flex-lg-row p-pl-0">
+      <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
+        <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
+          <div class="p-mr-2">
+            <p-dropdown
+              [filter]="true"
+              placeholder="Chọn bộ phận sử dụng"
+              styleClass="p-inputtext-sm"
+            ></p-dropdown>
+          </div>
+        </div>
+
+        <div class="p-mr-2">
+          <p-calendar
+            dateFormat="dd/mm/yy"
+            inputStyleClass="p-inputtext-sm"
+            [showIcon]="true"
+            inputId="icon"
+            placeholder="Từ ngày"
+          >
+          </p-calendar>
+        </div>
+        <div class="p-mr-2">
+          <p-calendar
+            dateFormat="dd/mm/yy"
+            inputStyleClass="p-inputtext-sm"
+            [showIcon]="true"
+            inputId="icon"
+            placeholder="Đến ngày"
+          >
+          </p-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- chart -->
+  <div class="bg-white mt-3 p-2">
+    <p-chart type="bar" [data]="data" [options]="chartOptions"></p-chart>
+
+    <!-- <div>
+      <p class="p-0 m-0" style="font-weight: bold">Chú thích:</p>
+      <div>
+        <span class="kehoach"></span>
+        <span>Kế hoạch</span>
+      </div>
+      <div>
+        <span class="thucte"></span>
+        <span>Thực tế</span>
+      </div>
+    </div> -->
+  </div>
+</div>

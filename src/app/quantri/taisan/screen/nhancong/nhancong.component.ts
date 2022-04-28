@@ -9,8 +9,8 @@ import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 })
 export class NhancongComponent implements OnInit {
 
-  @Input('item') item: any = {};
-  @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
+  @Input() items: any;
+  // @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
   newitem: any = {};
   listTenNhanVien: any = [];
 
@@ -21,18 +21,24 @@ export class NhancongComponent implements OnInit {
       this.listTenNhanVien = mapArrayForDropDown(res, 'TenNhanVien', 'IdUser');
     });
   }
-  add2() {
-    if (this.item.listNhanCong == undefined || this.item.listNhanCong == null)
-      this.item.listNhanCong = [];
-    this.item.listNhanCong.push(this.newitem);
+
+  addNhanCong() {
+    if (this.items == undefined || this.items == null)
+      this.items = [];
+    this.items.push(this.newitem);
     this.newitem = {}
+    console.log("this.items", this.items);
+    
   }
+
   delete(index) {
-    let item = this.item.listNhanCong.splice(index, 1)[0];
-    if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      this.item.listNhanCong.push(JSON.parse(JSON.stringify(item)));
-    }
+    // let item = this.items.splice(index, 1)[0];
+    // if (item.Id === '' || item.Id === null || item.Id === undefined) {
+    // } else {
+    //   item.isXoa = true;
+    //   this.items.push(JSON.parse(JSON.stringify(item)));
+    // }
+    this.items.splice(index, 1)
   }
+  
 }

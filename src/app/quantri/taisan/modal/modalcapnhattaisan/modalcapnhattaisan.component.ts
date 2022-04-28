@@ -228,12 +228,14 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   CapNhatTaiSanCon(item) {
+    let item_copy = {...item};
     let modalRef = this._modal.open(ModalthemmoiluachontaisanComponent, {
       size: "fullscreen-100",
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.item = item;
+    // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
+    modalRef.componentInstance.item = item_copy;
     // modalRef.componentInstance.listTaiSan = this.item.TaiSan.listTaiSan;
     // console.log(this.item.TaiSan.listTaiSan)
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
@@ -241,6 +243,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
     modalRef.result
       .then((res: any) => {
+        this.item.TaiSan.listTaiSan = res;
       })
       .catch((er) => {
       });

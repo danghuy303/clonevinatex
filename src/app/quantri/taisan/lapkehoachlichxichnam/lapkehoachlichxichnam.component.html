@@ -40,14 +40,14 @@
         <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bộ phận sử dụng:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listPhanXuong" [(ngModel)]="item.IdBoPhanSuDung"
+                <p-dropdown [filter]="true" [options]="listPhanXuong" [showClear]="true" [(ngModel)]="item.IdBoPhanSuDung" 
                     placeholder="Chọn bộ phận"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại tài sản:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" (onChange)="ChonLoaiTaiSan(item)"
+                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [showClear]="true" (onChange)="ChonLoaiTaiSan(item)"
                     [(ngModel)]="item.IddmLoaiTaiSan" placeholder="Chọn tài sản" [showClear]="true"></p-dropdown>
             </div>
         </div>
@@ -133,7 +133,7 @@
                     <tr>
                         <td class="text-center"> {{item.TenTaiSan}}</td>
                         <td class="text-center" *ngFor="let baoduong of item.listBaoDuong"
-                            (click)="Chon(baoduong,item.listLichBaoDuong)">
+                            (click)="Chon(baoduong,item)">
                             <p *ngFor="let bd of baoduong.listChiTiet">{{bd.TendmLoaiBaoDuong}}</p>
                             <a href="javascript:void(0)">Chọn</a>
                         </td>
