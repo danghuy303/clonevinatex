@@ -22,6 +22,7 @@ export class DenghisulyluachonthemvattuComponent implements OnInit {
   checkedAll: boolean = false;
   Keyword: any = '';
   filter: any = {};
+  listItemDaChon: any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -31,8 +32,8 @@ export class DenghisulyluachonthemvattuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("id",this.layIdTaiSan);
-    
+    console.log(this.listItemDaChon);
+
     this.GetList();
   }
 
@@ -42,19 +43,15 @@ export class DenghisulyluachonthemvattuComponent implements OnInit {
   }
 
   GetList() {
-
     this._serviceTaiSan.QuyTrinhXuLySuCo().GetListVatTuByIdTaiSanForXuLySuCo([this.layIdTaiSan]).subscribe((res: any) => {
       this.paging.TotalCount = res.TotalCount;
       res.Data.forEach(ele => {
-       
         this.items = ele.listVatTu;
-        // ele.listVatTu.forEach(obj => {
-        //   console.log("obj", obj);
-        //   this.items = obj;
-        // })
+        this.items.forEach(obj => {
+          obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
+        })
       })
-
-      this.checkedAll = this.items.every(obj => obj.data.checked);
+      this.checkedAll = this.items.every(obj => obj.checked);
     });
   }
 
@@ -64,22 +61,24 @@ export class DenghisulyluachonthemvattuComponent implements OnInit {
 
   checkAll(e) {
     if (e.checked) {
-
+      this.items.forEach(ele => {
+        ele.checked = e.checked
+      })
     }
   }
 
   checked() {
-    // this.checkedAll = this.TimCheck();
+    this.checkedAll = this.items.every(ele => ele.checked)
   }
 
   FilterTree() {
     let data: any = [];
     this.items.forEach(obj => {
-  
+
       if (obj.checked) {
         data.push({
-          Id:'',
-          IdTaiSan:obj.IdTaiSan,
+          Id: '',
+          IdTaiSan: obj.IdTaiSan,
           TenVatTu: obj.TenTaiSan,
           GiaTri: obj.GiaTri,
           SoLuong: obj.SoLuong,

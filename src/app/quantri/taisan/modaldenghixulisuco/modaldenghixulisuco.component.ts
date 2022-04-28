@@ -52,8 +52,6 @@ export class ModaldenghixulisucoComponent implements OnInit {
       this.GetNextSoQuyTrinh();
     }
     else {
-      console.log(this.item);
-      
       this.item.listTaiSan.forEach(ele => {
         ele.DenGio = UnixToDate(ele.DenGioUnix);
         ele.TuGio = UnixToDate(ele.TuGioUnix);

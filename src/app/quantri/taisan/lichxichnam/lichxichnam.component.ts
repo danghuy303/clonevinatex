@@ -96,10 +96,11 @@ export class LichxichnamComponent implements OnInit {
   ChiTietBaoDuong(item) {
     this._serviceTaiSan.ListLichXichNam().Get(item.IddmLoaiBaoDuong).subscribe((res1: any) => {
       let modalRef = this._modal.open(ModalbaoduongComponent, {
-        size: "fullscreen",
+        size: "lg",
         backdrop: "static",
       });
       modalRef.componentInstance.opt = "edit";
+      modalRef.componentInstance.title = 'Cập nhật loại bão dưỡng';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1.Data));
       modalRef.result
         .then((res: any) => {
