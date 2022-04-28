@@ -18,6 +18,7 @@ export class NgansachdukienvathucteComponent implements OnInit {
     TuNgay: new Date(),
     DenNgay: new Date()
   };
+
   PhanXuong: any;
 
   data: any;

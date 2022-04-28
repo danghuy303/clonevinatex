@@ -34,6 +34,9 @@ export class SogiodungmayComponent implements OnInit {
     "#5B9BD5",
   ]
 
+  TenLoaiSuCo: any;
+  ColorLoaiSuCo: any;
+
   //chart 1
   data1: any;
   optionsPie = {
@@ -61,6 +64,9 @@ export class SogiodungmayComponent implements OnInit {
     onClick: (event, array) => {
       let index = array[0]._index;
 
+      this.TenLoaiSuCo = this.SuCo[index].ten;
+      this.ColorLoaiSuCo = this.backgroundColor[index];
+
       // TheoSuCo
       let data = {
         ...this.filter,
@@ -71,6 +77,7 @@ export class SogiodungmayComponent implements OnInit {
       this.taisanService.getDataBaoCao().GetDataLoaiSuCo(data).subscribe((res: any) => {
 
         let labels = res.Data.map((r) => { return r.Ten });
+
         let dataChart = res.Data.map((r) => { return r.SoGio });
 
         this.data2 = {
@@ -79,7 +86,7 @@ export class SogiodungmayComponent implements OnInit {
             {
               data: dataChart,
               fill: false,
-              backgroundColor: "#5B9BD5",
+              backgroundColor: this.ColorLoaiSuCo,
             },
           ],
         };
@@ -149,12 +156,7 @@ export class SogiodungmayComponent implements OnInit {
     },
   };
 
-  constructor(private _servicesSanXuat: SanXuatService, private _servicesTaiSan: TaisanService, private taisanService: TaisanService) { }
-
-  // getBoPhanSuDung() {
-  //   this._servicesSanXuat.GetListdmPhanXuongOpt()// lay tat ca bo phan su dung
-  //   this._servicesSanXuat.GetListCongDoan() //lay tat ca cong doan
-  // }
+  constructor(private _servicesSanXuat: SanXuatService, private _servicesTaiSan: TaisanService, private taisanService: TaisanService) { };
 
   ngOnInit(): void {
     this._servicesSanXuat.GetListCongDoan().subscribe((res: any) => {
@@ -222,8 +224,8 @@ export class SogiodungmayComponent implements OnInit {
         datasets: datasets
       };
     })
-
   }
+
   getDataBaoCao(filter) {
     let data = {
       ...filter,
@@ -279,6 +281,4 @@ export class SogiodungmayComponent implements OnInit {
       };
     })
   }
-
-
 }

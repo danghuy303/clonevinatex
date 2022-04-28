@@ -70,71 +70,6 @@
             height="100%"
             (click)="getDataBaoCao()"
           ></p-chart>
-
-          <!-- <div class="">
-            <span>
-              <span class="mr-2">
-                <span
-                  style="
-                    background-color: #4472c4;
-                    width: 10px;
-                    height: 10px;
-                    display: inline-block;
-                    margin-right: 3px;
-                  "
-                ></span
-                ><span>Bảo dưỡng</span></span
-              >
-              <span class="mr-2">
-                <span
-                  style="
-                    background-color: #ed7d31;
-                    width: 10px;
-                    height: 10px;
-                    display: inline-block;
-                    margin-right: 3px;
-                  "
-                ></span
-                ><span>Sự cố điện </span>
-              </span>
-              <span class="mr-2">
-                <span
-                  style="
-                    background-color: #a5a5a5;
-                    width: 10px;
-                    height: 10px;
-                    display: inline-block;
-                    margin-right: 3px;
-                  "
-                ></span
-                ><span>Sự cố phát sinh</span>
-              </span>
-              <span class="mr-2">
-                <span
-                  style="
-                    background-color: #ffc000;
-                    width: 10px;
-                    height: 10px;
-                    display: inline-block;
-                    margin-right: 3px;
-                  "
-                ></span
-                ><span>Sửa chữa</span></span
-              >
-              <span class="mr-2">
-                <span
-                  style="
-                    background-color: #5b9bd5;
-                    width: 10px;
-                    height: 10px;
-                    display: inline-block;
-                    margin-right: 3px;
-                  "
-                ></span
-                ><span>Sự cố tụt áp</span></span
-              >
-            </span>
-          </div> -->
         </div>
       </div>
     </div>
@@ -142,7 +77,8 @@
     <div class="second-chart bg-white">
       <div class="chart-container p-2">
         <h6 class="text-center pt-2" style="font-weight: bold">
-          LOẠI SỰ CỐ: <span style="color: #4472c4">Sự cố điện tụt áp</span>
+          LOẠI SỰ CỐ:
+          <span [style.color]="ColorLoaiSuCo">{{ TenLoaiSuCo }}</span>
         </h6>
         <p-chart type="bar" [data]="data2" [options]="options2"></p-chart>
       </div>
