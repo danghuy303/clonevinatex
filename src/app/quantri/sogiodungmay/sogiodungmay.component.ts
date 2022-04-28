@@ -1,3 +1,4 @@
+import { formatNumber } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { Component, OnInit } from "@angular/core";
 import { SanXuatService } from "src/app/services/callApiSanXuat";
@@ -19,15 +20,46 @@ export class SogiodungmayComponent implements OnInit {
     DenNgay: new Date()
   };
 
+  SuCo: any;
 
-  congDoan;
+  CongDoan: any;
 
-  SuCo: string;
+  PhanXuong: any;
 
+  backgroundColor = [
+    "#4472C4",
+    "#ED7D31",
+    "#A5A5A5",
+    "#FFC000",
+    "#5B9BD5",
+  ]
+
+  //chart 1
+  data1: any;
   optionsPie = {
+    tooltips: {
+      enabled: true,
+      mode: 'single',
+      callbacks: {
+        label: function (tooltipItems, data) {
+          return " " + data.labels[tooltipItems.index] + ': ' + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] + ' giờ';
+        }
+      }
+    },
+
+    plugins: {
+      labels: {
+        render: () => { },
+      }
+    },
+
+    legend: {
+      display: true,
+      position: "left",
+    },
+
     onClick: (event, array) => {
       let index = array[0]._index;
-      console.log(this.SuCo[index]);
 
       // TheoSuCo
       let data = {
@@ -37,7 +69,7 @@ export class SogiodungmayComponent implements OnInit {
       };
 
       this.taisanService.getDataBaoCao().GetDataLoaiSuCo(data).subscribe((res: any) => {
-        console.log(res)
+
         let labels = res.Data.map((r) => { return r.Ten });
         let dataChart = res.Data.map((r) => { return r.SoGio });
 
@@ -51,54 +83,23 @@ export class SogiodungmayComponent implements OnInit {
             },
           ],
         };
-
       });
     }
   };
 
-  //chart 1
-  data1: any;
-  // data1 = {
-  //   labels: [
-
-  //   ],
-  //   datasets: [
-  //     {
-  //       data: [100, 50, 100, 50, 40],
-  //       backgroundColor: [
-  //         "#4472C4",
-  //         "#ED7D31",
-  //         "#A5A5A5",
-  //         "#FFC000",
-  //         "#5B9BD5",
-  //       ],
-  //       hoverBackgroundColor: [
-  //         "#4472C4",
-  //         "#ED7D31",
-  //         "#A5A5A5",
-  //         "#FFC000",
-  //         "#5B9BD5",
-  //       ],
-
-  //     },
-  //   ],
-
-  // };
-
   //chart 2
   data2: any;
-  // data2 = {
-  //   labels: ["Tên máy", "Tên máy", "Tên máy"],
-  //   datasets: [
-  //     {
-  //       data: [3, 2, 3],
-  //       fill: false,
-  //       backgroundColor: "#5B9BD5",
-  //     },
-  //   ],
-  // };
-
   options2 = {
+    tooltips: {
+      enabled: true,
+      mode: 'single',
+      callbacks: {
+        label: function (tooltipItems, data) {
+          return tooltipItems.yLabel + ' giờ';
+        }
+      }
+    },
+
     maintainAspectRatio: false,
     scales: {
       yAxes: [
@@ -107,54 +108,37 @@ export class SogiodungmayComponent implements OnInit {
         },
       ],
     },
+
+    legend: {
+      display: false,
+    },
+
+    plugins: {
+      labels: {
+        render: () => { },
+      }
+    },
   };
 
   //chart 3
   data3: any;
-  // data3 = {
-  //   labels: [
-  //     "1/4/2022",
-  //     "2/4/2022",
-  //     "3/4/2022",
-  //     "4/4/2022",
-  //     "5/4/2022",
-  //     "6/4/2022",
-  //   ],
-  //   datasets: [
-  //     {
-  //       label: "Bảo dưỡng",
-  //       data: [11500, 10100],
-  //       fill: false,
-  //       backgroundColor: "#4472C4",
-  //     },
-  //     {
-  //       label: "Sự cố điện",
-  //       data: [12000, 23000],
-  //       fill: false,
-  //       backgroundColor: "#ED7D31",
-  //     },
-  //     {
-  //       label: "Sự cố phát sinh",
-  //       data: [12000, 13000],
-  //       fill: false,
-  //       backgroundColor: "#A5A5A5",
-  //     },
-  //     {
-  //       label: "Sửa chữa",
-  //       data: [12000, 13000],
-  //       fill: false,
-  //       backgroundColor: "#FFC000",
-  //     },
-  //     {
-  //       label: "Sự cố tụt áp",
-  //       data: [12000, 13000],
-  //       fill: false,
-  //       backgroundColor: "#5B9BD5",
-  //     },
-  //   ],
-  // };
-
   options3 = {
+    tooltips: {
+      enabled: true,
+      mode: 'single',
+      callbacks: {
+        label: function (tooltipItems, data) {
+          return tooltipItems.yLabel + ' giờ';
+        }
+      }
+    },
+
+    plugins: {
+      labels: {
+        render: () => { },
+      }
+    },
+
     maintainAspectRatio: false,
     scales: {
       yAxes: [
@@ -170,40 +154,29 @@ export class SogiodungmayComponent implements OnInit {
   // getBoPhanSuDung() {
   //   this._servicesSanXuat.GetListdmPhanXuongOpt()// lay tat ca bo phan su dung
   //   this._servicesSanXuat.GetListCongDoan() //lay tat ca cong doan
-
   // }
-
-  CongDoan: any;
-  PhanXuong: any;
 
   ngOnInit(): void {
     this._servicesSanXuat.GetListCongDoan().subscribe((res: any) => {
       this.CongDoan = mapArrayForDropDown(res, 'Ten', 'Ma')
-      console.log(this.CongDoan);
     })
 
     this._servicesSanXuat.GetListdmPhanXuongOpt().subscribe((res: any) => {
       this.PhanXuong = mapArrayForDropDown(res, 'Ten', 'Id')
-      console.log(this.PhanXuong);
-
     })
 
     let date = new Date();
     this.filter.TuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
     this.filter.DenNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-  }
-  getDataBaoCao(filter) {
     let data = {
-      ...filter,
-      TuNgay: DateToUnix(filter.TuNgay), DenNgay: DateToUnix(filter.DenNgay),
+      ...this.filter,
+      TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
     };
 
-    // TongHop
+    // TongHop Oinit
     this.taisanService.getDataBaoCao().GetDataTongHop(data).subscribe((res: any) => {
-      this.SuCo = res.Data.map(r => ({ id: r.IddmLoaiSuCo, ten: r.Ten }))
-      console.log(this.SuCo);
-
+      this.SuCo = res.Data.map(r => ({ id: r.IddmLoaiSuCo, ten: r.Ten }));
 
       let labels = res.Data.map(r => { return r.Ten });
 
@@ -214,77 +187,97 @@ export class SogiodungmayComponent implements OnInit {
         datasets: [
           {
             data: dataChart,
-            backgroundColor: [
-              "#4472C4",
-              "#ED7D31",
-              "#A5A5A5",
-              "#FFC000",
-              "#5B9BD5",
-            ],
-            hoverBackgroundColor: [
-              "#4472C4",
-              "#ED7D31",
-              "#A5A5A5",
-              "#FFC000",
-              "#5B9BD5",
-            ],
-
+            backgroundColor: this.backgroundColor,
+            hoverBackgroundColor: this.backgroundColor,
           },
         ],
-
       };
-
     });
 
-
-
-
-    // TheoNgay
+    // TheoNgay Oinit
     this.taisanService.getDataBaoCao().GetDataTheoNgay(data).subscribe((res: any) => {
-      console.log(res);
-      let labels = res.Data.map((r) => { return `${new Date(r.Ngay).getDate()}/${new Date(r.Ngay).getMonth()}/${new Date(r.Ngay).getFullYear()}` });
-      console.log(labels);
 
+      let labels = res.Data.map((r) => { return `${new Date(r.Ngay).getDate()}/${new Date(r.Ngay).getMonth() + 1}/${new Date(r.Ngay).getFullYear()}` });
+
+      let datasets = [];
+
+      let ListSuCo = res.Data.map((r) => { return r.listSuCoTheoNgay });
+
+      let TenSuCo = ListSuCo[0].map((r) => { return r.TendmLoaiSuCo });
+
+      for (let i = 0; i < TenSuCo.length; i++) {
+        let dataset = {
+          label: TenSuCo[i],
+          data: [],
+          fill: false,
+          backgroundColor: this.backgroundColor[i],
+        }
+        res.Data.forEach(ngay => {
+          dataset.data.push(ngay.listSuCoTheoNgay[i]?.SoGio)
+        });
+        datasets.push(dataset)
+      }
       this.data3 = {
+        labels: labels,
+        datasets: datasets
+      };
+    })
+
+  }
+  getDataBaoCao(filter) {
+    let data = {
+      ...filter,
+      TuNgay: DateToUnix(filter.TuNgay), DenNgay: DateToUnix(filter.DenNgay),
+    };
+
+    // TongHop
+    this.taisanService.getDataBaoCao().GetDataTongHop(data).subscribe((res: any) => {
+      this.SuCo = res.Data.map(r => ({ id: r.IddmLoaiSuCo, ten: r.Ten }));
+
+      let labels = res.Data.map(r => { return r.Ten });
+
+      let dataChart = res.Data.map(r => { return r.SoGio });
+
+      this.data1 = {
         labels: labels,
         datasets: [
           {
-            label: "Bảo dưỡng",
-            data: [11500, 10100],
-            fill: false,
-            backgroundColor: "#4472C4",
-          },
-          {
-            label: "Sự cố điện",
-            data: [12000, 23000],
-            fill: false,
-            backgroundColor: "#ED7D31",
-          },
-          {
-            label: "Sự cố phát sinh",
-            data: [12000, 13000],
-            fill: false,
-            backgroundColor: "#A5A5A5",
-          },
-          {
-            label: "Sửa chữa",
-            data: [12000, 13000],
-            fill: false,
-            backgroundColor: "#FFC000",
-          },
-          {
-            label: "Sự cố tụt áp",
-            data: [12000, 13000],
-            fill: false,
-            backgroundColor: "#5B9BD5",
+            data: dataChart,
+            backgroundColor: this.backgroundColor,
+            hoverBackgroundColor: this.backgroundColor,
           },
         ],
       };
+    });
 
+    // TheoNgay
+    this.taisanService.getDataBaoCao().GetDataTheoNgay(data).subscribe((res: any) => {
 
+      let labels = res.Data.map((r) => { return `${new Date(r.Ngay).getDate()}/${new Date(r.Ngay).getMonth() + 1}/${new Date(r.Ngay).getFullYear()}` });
+
+      let datasets = []
+
+      let ListSuCo = res.Data.map((r) => { return r.listSuCoTheoNgay })
+
+      let TenSuCo = ListSuCo[0].map((r) => { return r.TendmLoaiSuCo })
+
+      for (let i = 0; i < TenSuCo.length; i++) {
+        let dataset = {
+          label: TenSuCo[i],
+          data: [],
+          fill: false,
+          backgroundColor: this.backgroundColor[i],
+        }
+        res.Data.forEach(ngay => {
+          dataset.data.push(ngay.listSuCoTheoNgay[i]?.SoGio)
+        });
+        datasets.push(dataset)
+      }
+      this.data3 = {
+        labels: labels,
+        datasets: datasets
+      };
     })
-
-
   }
 
 
