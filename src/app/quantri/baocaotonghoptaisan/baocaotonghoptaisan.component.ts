@@ -7,15 +7,19 @@ import { vn } from 'src/app/services/const';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
-import { ModalbaoduongComponent } from '../modal/modalbaoduong/modalbaoduong.component';
-import { ModalthongtinchitiettaisanComponent } from '../modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
+import { ModalbaoduongComponent } from '../taisan/modal/modalbaoduong/modalbaoduong.component';
+import { ModalthongtinchitiettaisanComponent } from '../taisan/modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
+// import { ModalbaoduongComponent } from '../modal/modalbaoduong/modalbaoduong.component';
+// import { ModalthongtinchitiettaisanComponent } from '../modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
+
 
 @Component({
-  selector: 'app-lichxichnam',
-  templateUrl: './lichxichnam.component.html',
-  styleUrls: ['./lichxichnam.component.css']
+  selector: 'app-baocaotonghoptaisan',
+  templateUrl: './baocaotonghoptaisan.component.html',
+  styleUrls: ['./baocaotonghoptaisan.component.css']
 })
-export class LichxichnamComponent implements OnInit {
+export class BaocaotonghoptaisanComponent implements OnInit {
+
   listNam: any = [];
   item: any = { isChon: 0, };
   items: any = [];
@@ -26,6 +30,10 @@ export class LichxichnamComponent implements OnInit {
   listPhanXuong: any = [];
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
+  loaiTab: any = 0;
+
+
+
   constructor(
     public _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
@@ -34,13 +42,11 @@ export class LichxichnamComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     for (let i = new Date().getFullYear() ; i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
-
     let data = {
-      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
+      PageSize: 20, CurrentPage: this.paging.page, Keyword: this.filter.Keyword, MaCongDoan: '', IdBoPhanSuDung: '',
       IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
       IdDuAn: 0,
     };
@@ -53,18 +59,22 @@ export class LichxichnamComponent implements OnInit {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
+    
+  
+    
+    // this.GetListTonKho();
+    // this.GetList();
+    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
+      this.listNam.push({ value: i, label: i });
+    }
+    this.filter.Nam = new Date().getFullYear();
+    this.filter.Thang = new Date().getMonth() + 1;
   }
+
+
+
   isChon(item) {
     item.isChonMay = 0
-    // this.item.isChonMay=false;
-    // let data = {
-    //   Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
-    //   IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
-    //   IdDuAn: 0,
-    // };
-    // this._serviceTaiSan.ListLichXichNam().GetListBaoDuong(data).subscribe((res: any) => {
-    //   this.items = res.Data;  
-    // })
   }
   isChonMay(item) {
     item.isChon = 1
@@ -84,31 +94,34 @@ export class LichxichnamComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.item = item.IdTaiSan;
-    // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result
       .then((res: any) => {
-
       })
       .catch((er) => {
-
       });
   }
   ChiTietBaoDuong(item) {
     this._serviceTaiSan.ListLichXichNam().Get(item.IddmLoaiBaoDuong).subscribe((res1: any) => {
       let modalRef = this._modal.open(ModalbaoduongComponent, {
-        size: "lg",
+        size: "fullscreen",
         backdrop: "static",
       });
       modalRef.componentInstance.opt = "edit";
-      modalRef.componentInstance.title = 'Cập nhật loại bão dưỡng';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1.Data));
       modalRef.result
         .then((res: any) => {
-
         })
         .catch((er) => {
         });
     })
   }
+  
+// danh sach vat tu
+changeTab(e) {
+  this.loaiTab = e.index;
+  // this.GetList(true);
+}
+
+
 
 }

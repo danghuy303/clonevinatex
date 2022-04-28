@@ -159,6 +159,11 @@ import { ChonComponent } from './screen/chon/chon.component';
 import { LuachontaisannhaptaisanComponent } from './modal/luachontaisannhaptaisan/luachontaisannhaptaisan.component';
 import { ChiphilichxichnamchonthemComponent } from './screenLichXich/chiphilichxichnamchonthem/chiphilichxichnamchonthem.component';
 import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.component';
+import { DenghixulysuconhancongComponent } from './screen/denghixulysuconhancong/denghixulysuconhancong.component';
+import { DenghixulysucochiphikhacComponent } from './screen/denghixulysucochiphikhac/denghixulysucochiphikhac.component';
+import { DenghixulysucovattuComponent } from './screen/denghixulysucovattu/denghixulysucovattu.component';
+import { XulysucoluachontaisanComponent } from './modal/xulysucoluachontaisan/xulysucoluachontaisan.component';
+import { DenghisulyluachonthemvattuComponent } from './modal/denghisulyluachonthemvattu/denghisulyluachonthemvattu.component';
 import { TaisanbaoduongComponent } from './quytrinhbaoduong/taisanbaoduong/taisanbaoduong.component';
 
 
@@ -171,13 +176,13 @@ import { TaisanbaoduongComponent } from './quytrinhbaoduong/taisanbaoduong/taisa
     DonvinangsuatComponent,
     ModaldonvitinhComponent,
     ModalloaitaisanComponent,
-    ModalbaoduongComponent,
+    // ModalbaoduongComponent,
     ModaldonvinangsuatComponent,
     HangsanxuatComponent,
     ModalhangsanxuatComponent,
     ModalcapnhattaisanComponent,
     NhaptaisanComponent,
-    ModalthongtinchitiettaisanComponent,
+    // ModalthongtinchitiettaisanComponent,
     BiendongComponent,
     LichbaoduongComponent,
     SucosuachuaComponent,
@@ -274,6 +279,11 @@ import { TaisanbaoduongComponent } from './quytrinhbaoduong/taisanbaoduong/taisa
     LuachontaisannhaptaisanComponent,
     LichSuSuDungComponent,
     ChiphilichxichnamchonthemComponent,
+    DenghixulysuconhancongComponent,
+    DenghixulysucochiphikhacComponent,
+    DenghixulysucovattuComponent,
+    XulysucoluachontaisanComponent,
+    DenghisulyluachonthemvattuComponent,
     TaisanbaoduongComponent,
 
   ],
@@ -368,6 +378,8 @@ import { TaisanbaoduongComponent } from './quytrinhbaoduong/taisanbaoduong/taisa
     ChonComponent,
     LuachontaisannhaptaisanComponent,
     ChiphilichxichnamchonthemComponent,
+    XulysucoluachontaisanComponent,
+    DenghisulyluachonthemvattuComponent,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
