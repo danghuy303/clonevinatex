@@ -9,14 +9,13 @@ import { SanXuatService } from 'src/app/services/callApiSanXuat';
 export class VattuComponent implements OnInit, OnChanges {
 
   @Input() items: any;
-  @Output() itemsChange = new EventEmitter<any>();
   items_copy: any = [];
   tongThanhTien: number = 0;
 
   constructor(private _services: SanXuatService) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.LoadData();
+    this.Count();
   }
 
   ngOnInit(): void {
@@ -24,36 +23,16 @@ export class VattuComponent implements OnInit, OnChanges {
 
   }
 
-  LoadData() {
-    this.items = this.items.map(ele => {
-      return {
-        data: {
-          ...ele,
-          isCha: true,
-        },
-        children: ele.listVatTu.map(children => {
-          return {
-            data: {
-              ...children,
-              isCha: false,
-            }
-          }
-        }),
-        expanded: true
-      }
-    })
-  }
-
   Count() {
     this.items.forEach(ele => {
-      ele.data.ThanhTien = 0;
-      ele.children.forEach(children => {
-        children.data.ThanhTien = (children.data.DonGia || 0) * (children.data.SoLuong || 0);
-        ele.data.ThanhTien += children.data.ThanhTien;
+      ele.ThanhTien = 0;
+      ele.listVatTu.forEach(children => {
+        children.ThanhTien = (children.DonGia || 0) * (children.SoLuong || 0);
+        ele.ThanhTien += children.ThanhTien;
       })
     })
     this.tongThanhTien = this.items.reduce((sum, ele) => {
-      return sum + ele.data.ThanhTien
+      return sum + ele.ThanhTien
     },0)
   }
 

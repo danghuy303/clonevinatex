@@ -96,8 +96,8 @@ export class TaisanService {
       GetListVatTuByIdTaiSanForLapKeHoachLichXichNam: (data) => {
         return this.http.post(`${url}BaoDuongTaiSan/GetListVatTuByIdTaiSanForLapKeHoachLichXichNam`, data, httpOptions);
       },
-      GetListdmLoaiBaoDuong: (data) => {
-        return this.http.post(`${url}DanhMuc/GetListdmLoaiBaoDuong`, data, httpOptions);
+      GetListLoaiBaoDuongForLapKeHoachLichXich: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/GetListLoaiBaoDuongForLapKeHoachLichXich`, data, httpOptions);
       },
     };
   }
@@ -269,6 +269,12 @@ export class TaisanService {
       },
       Delete: (Id) => {
         return this.http.get(`${url}BaoDuongTaiSan/DeleteQuyTrinhXuLySuCoById?Id=${Id}`, httpOptions);
+      },
+      GetListTaiSanQuyTrinhXulySuCo: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanQuyTrinhXulySuCo`, data, httpOptions);
+      },
+      GetListVatTuByIdTaiSanForXuLySuCo: (data) => {
+        return this.http.post(`${url}BaoDuongTaiSan/GetListVatTuByIdTaiSanForXuLySuCo`, data, httpOptions);
       },
 
     };

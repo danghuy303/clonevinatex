@@ -97,6 +97,7 @@ import { DmloaidienComponent } from "./danhmuc/thongkedientheoca/dmloaidien/dmlo
 import { LoaiBongPheDanhMucComponent } from "./danhmuc/danhmucsanxuat/loai-bong-phe-danh-muc/loai-bong-phe-danh-muc.component";
 import { TyLeTieuChuanBongPheComponent } from "./danhmuc/danhmucsanxuat/ty-le-tieu-chuan-bong-phe/ty-le-tieu-chuan-bong-phe.component";
 import { SogiodungmayComponent } from "./sogiodungmay/sogiodungmay.component";
+import { BaocaotonghoptaisanComponent } from "./baocaotonghoptaisan/baocaotonghoptaisan.component";
 
 const routes: Routes = [
   {
@@ -104,6 +105,10 @@ const routes: Routes = [
     component: QuantriComponent,
     children: [
       { path: "", redirectTo: "quantrisanxuat/tonghop", pathMatch: "full" },
+      {
+        path: "quantrisanxuat/baocaotonghoptaisan",
+        component: BaocaotonghoptaisanComponent,
+      },
       {
         path: "quantrisanxuat/nguyenlieu",
         component: DieuhanhsanxuatComponent,

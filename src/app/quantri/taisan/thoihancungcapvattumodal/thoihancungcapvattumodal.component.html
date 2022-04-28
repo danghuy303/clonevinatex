@@ -114,17 +114,17 @@
                 <td class="text-center">{{item.MaTaisan}}</td>
                 <td class="text-center">{{item.TenTaiSan}}</td>
                 <td class="text-center">
-                    <p-dropdown [filter]="true" [options]="listNhaCungUng" placeholder="Chọn"
+                    <p-dropdown [filter]="true" [options]="item.listDeChon" placeholder="Chọn"
                         [(ngModel)]="item.IdNhaCungUng" [showClear]="true" (onChange)="ChonNhaCungUng(item)">
                     </p-dropdown>
                 </td>
-                <td class="text-center"> {{item.DonGia}}</td>
+                <td class="text-right"> {{item.DonGia | number:"0.0-0"}}</td>
                 <td class="text-center">
                     <p-inputNumber [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm"
                         [(ngModel)]="item.SoLuong" (onBlur)=" Tong()">
                     </p-inputNumber>
                 </td>
-                <td class="text-center"> {{item.ThanhTien}}</td>
+                <td class="text-right"> {{item.ThanhTien | number:"0.0-0"}}</td>
                 <td class="text-center"> <input locale="en-EN" pInputText [(ngModel)]="item.GhiChu" /></td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-trash"

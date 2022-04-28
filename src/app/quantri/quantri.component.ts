@@ -228,6 +228,15 @@ export class QuantriComponent implements OnInit {
         visible: !this.checkmenu("P_QUANTRISANXUAT"),
         items: [
           {
+            label: "Tổng hợp tài sản",
+            routerLink: "/quantri/quantrisanxuat/baocaotonghoptaisan",
+            separator: this.checkmenu("DASHBOARD_TONGHOP"),
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
+          {
             label: "Tổng hợp",
             routerLink: "/quantri/quantrisanxuat/tonghop",
             separator: this.checkmenu("DASHBOARD_TONGHOP"),

@@ -50,7 +50,7 @@
             <td>{{ item.TongGiaTri}}</td>
         </tr>
         <tr *ngFor="let vattu of item.listVatTu">
-            <td style="width:200px"> {{vattu.Ngay | date:'dd/MM/yyyy'}}</td>
+            <td style="width:200px"> {{vattu.TenTenSan}}</td>
             <td *ngFor="let ThoiGian of vattu.listThoiGian">
                 <div class="d-flex" style="align-items: center;">
                     <span >SL:</span>

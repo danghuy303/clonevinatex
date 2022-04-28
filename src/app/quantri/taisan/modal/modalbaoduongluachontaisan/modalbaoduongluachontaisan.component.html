@@ -14,18 +14,20 @@
         </div>
         <div class="p-d-flex p-flex-row">
             <div class="p-mr-2">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                    inputId="icon" placeholder="Từ ngày" (onSelect)="GetList()">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
+                    placeholder="Từ ngày" (onSelect)="GetList()">
                 </p-calendar>
             </div>
             <div class="p-mr-2">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                   inputId="icon" placeholder="Đến ngày" (onSelect)="GetList()">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
+                    placeholder="Đến ngày" (onSelect)="GetList()">
                 </p-calendar>
             </div>
             <div class="p-mr-2 p-inputgroup">
-                <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)] ="filter.Keyword" pInputText (keyup.enter)="GetList()" />
-                <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
+                <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
+                    (keyup.enter)="GetList()" />
+                <button type="button" pButton pRipple icon="pi pi-refresh"
+                    class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
             </div>
         </div>
     </div>
@@ -49,7 +51,7 @@
                     </p-checkbox>
                 </td>
                 <td style="width: 150px;">
-                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler> {{rowData.MadmLoaiBaoDuong}} 
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler> {{rowData.MadmLoaiBaoDuong}}
                 </td>
                 <td class="text-center">{{rowData.TenTaiSan}}</td>
                 <td class="text-center"> {{rowData.TendmLoaiBaoDuong}}</td>
@@ -58,8 +60,10 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
-                    [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
+                Tổng số bản ghi {{paging.TotalCount}}.
+                <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20"
+                    (onPageChange)="changePage($event)">
+                </p-paginator>
             </div>
         </ng-template>
     </p-treeTable>

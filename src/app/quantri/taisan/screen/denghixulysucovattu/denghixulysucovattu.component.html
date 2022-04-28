@@ -1,0 +1,69 @@
+<div class="p-d-flex p-flex-row p-jc-between p-ai-center">
+    <div class="modal-bt p-mb-4 ">
+
+    </div>
+    <div class="modal-bt p-mb-4 ">
+        <!-- <span><b>Tổng tiền: </b></span>
+        <span><b>{{tongThanhTien | number: '0.0'}}</b></span> -->
+    </div>
+</div>
+
+<p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+    <ng-template pTemplate="colgroup">
+        <colgroup>
+            <col style="width: 50px;">
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col style="width: 100px;">
+        </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="text-center">
+                STT
+            </th>
+            <th class="text-center ">Mã</th>
+            <th class="text-center">Tên</th>
+            <th class="text-center">Số lượng</th>
+            <th class="text-center ">Đơn giá</th>
+            <th class="text-center ">Thành tiền</th>
+            <th class="text-center ">Ghi chú</th>
+            <th class="text-center">Thao tác</th>
+        </tr>
+
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-i="rowIndex">
+        <tr>
+            <td>{{i+1}}</td>
+            <td>{{item.MaTaiSan}}</td>
+            <td>{{item.TenTaiSan}}</td>
+            <td class=" text-right"></td>
+            <td class=" text-right"></td>
+            <td class=" text-right">{{item.TongThanhTien}}</td>
+            <td class=""></td>
+            <td class="text-center">
+                <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
+                    (click)="LuaChonVatTu(item)"></button>
+            </td>
+        </tr>
+       <ng-container *ngFor="let vattu of item.listVatTu">
+        <tr >
+            <td></td>
+            <td></td>
+            <td style="padding-left: 50px;">{{vattu.TenVatTu}}</td>
+            <td class=" text-right" >
+                <p-inputNumber [(ngModel)]="vattu.SoLuong" (onBlur)="TinhTong()"></p-inputNumber>
+            </td>
+            <td class=" text-right">{{vattu.GiaTri}}</td>
+            <td class=" text-right">{{vattu.ThanhTien}}</td>
+            <td class=" text-left"></td>
+            <td></td>
+        </tr>
+       </ng-container>
+       
+    </ng-template>
+</p-table>

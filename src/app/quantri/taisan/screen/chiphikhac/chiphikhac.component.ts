@@ -1,33 +1,53 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-chiphikhac',
   templateUrl: './chiphikhac.component.html',
   styleUrls: ['./chiphikhac.component.css']
 })
-export class ChiphikhacComponent implements OnInit {
-  
-  @Input('item') item: any = {};
-  @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
-  newitem: any = {};
+export class ChiphikhacComponent implements OnInit, OnChanges {
+
+  @Input() items: any = [];
+  tongChiPhi: number = 0;
 
   constructor() { }
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log("this.items", this.items);
+    
+  }
+
   ngOnInit(): void {
+    this.Count();
   }
- add2() {
-    if (this.item.listChiPhiKhac == undefined || this.item.listChiPhiKhac == null)
-      this.item.listChiPhiKhac = [];
-    this.item.listChiPhiKhac.push(this.newitem);
-    this.newitem = {}
+  
+  Count() {
+    this.items.forEach(ele => {
+      ele.GiaTri = ele.listChiPhiKhac.reduce((sum, obj) => {
+        return sum + obj.GiaTri;
+      },0)
+    })
+    this.tongChiPhi = this.items.reduce((sum, ele) => {
+      return sum + ele.GiaTri
+    },0)
   }
-  delete(index) {
-    let item = this.item.listChiPhiKhac.splice(index, 1)[0];
-    if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    } else {
-      item.isXoa = true;
-      this.item.listChiPhiKhac.push(JSON.parse(JSON.stringify(item)));
-    }
+
+  AddChiPhi(taisan) {
+    let newChiPhi = {
+      Id: "",
+      IdTaiSan: taisan.IdTaiSan,
+      IdTaiSanChiPhi: taisan.IdTaiSanChiPhi || "",
+      TenChiPhi: "Chi phí phát sinh",
+      GiaTri: 0,
+      GhiChu: "",
+      GiatriKeHoach: 0,
+    };
+    taisan.listChiPhiKhac.push(newChiPhi);
+  }
+
+  DeleteChiPhi(item, index) {
+    item.listChiPhiKhac.splice(index, 1);
+    this.Count();
   }
 }
 
