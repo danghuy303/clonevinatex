@@ -176,7 +176,7 @@ export class SogiodungmayComponent implements OnInit {
       TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
     };
 
-    // TongHop Oinit
+    // TongHop Oninit
     this.taisanService.getDataBaoCao().GetDataTongHop(data).subscribe((res: any) => {
       this.SuCo = res.Data.map(r => ({ id: r.IddmLoaiSuCo, ten: r.Ten }));
 
@@ -194,9 +194,37 @@ export class SogiodungmayComponent implements OnInit {
           },
         ],
       };
+
+      // TheoLoaiSuCo Oninit
+      this.TenLoaiSuCo = this.SuCo[0].ten;
+      this.ColorLoaiSuCo = this.backgroundColor[0];
+
+      let dataTheoSuCo = {
+        ...this.filter,
+        IddmLoaiSuCo: this.SuCo[0].id,
+        TuNgay: DateToUnix(this.filter.TuNgay), DenNgay: DateToUnix(this.filter.DenNgay),
+      };
+
+      this.taisanService.getDataBaoCao().GetDataLoaiSuCo(dataTheoSuCo).subscribe((res: any) => {
+
+        let labels = res.Data.map((r) => { return r.Ten });
+
+        let dataChart = res.Data.map((r) => { return r.SoGio });
+
+        this.data2 = {
+          labels: labels,
+          datasets: [
+            {
+              data: dataChart,
+              fill: false,
+              backgroundColor: this.ColorLoaiSuCo,
+            },
+          ],
+        };
+      });
     });
 
-    // TheoNgay Oinit
+    // TheoNgay Oninit
     this.taisanService.getDataBaoCao().GetDataTheoNgay(data).subscribe((res: any) => {
 
       let labels = res.Data.map((r) => { return `${new Date(r.Ngay).getDate()}/${new Date(r.Ngay).getMonth() + 1}/${new Date(r.Ngay).getFullYear()}` });
