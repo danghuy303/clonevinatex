@@ -8,7 +8,10 @@
             <p-dropdown
               [filter]="true"
               placeholder="Chọn bộ phận sử dụng"
+              [options]="PhanXuong"
               styleClass="p-inputtext-sm"
+              [(ngModel)]="filter.IdBoPhanSuDung"
+              (onChange)="getDataBaoCao(filter)"
             ></p-dropdown>
           </div>
         </div>
@@ -20,6 +23,8 @@
             [showIcon]="true"
             inputId="icon"
             placeholder="Từ ngày"
+            [(ngModel)]="filter.TuNgay"
+            (onSelect)="getDataBaoCao(filter)"
           >
           </p-calendar>
         </div>
@@ -30,6 +35,8 @@
             [showIcon]="true"
             inputId="icon"
             placeholder="Đến ngày"
+            [(ngModel)]="filter.DenNgay"
+            (onSelect)="getDataBaoCao(filter)"
           >
           </p-calendar>
         </div>
