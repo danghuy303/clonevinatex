@@ -165,6 +165,11 @@ import { DenghixulysucovattuComponent } from './screen/denghixulysucovattu/dengh
 import { XulysucoluachontaisanComponent } from './modal/xulysucoluachontaisan/xulysucoluachontaisan.component';
 import { DenghisulyluachonthemvattuComponent } from './modal/denghisulyluachonthemvattu/denghisulyluachonthemvattu.component';
 import { TaisanbaoduongComponent } from './quytrinhbaoduong/taisanbaoduong/taisanbaoduong.component';
+import { ModalluachontaisantheolichxichthangComponent } from './modal/modalluachontaisantheolichxichthang/modalluachontaisantheolichxichthang.component';
+import { ModalluachonbaoduonglichxichtheothangComponent } from './modal/modalluachonbaoduonglichxichtheothang/modalluachonbaoduonglichxichtheothang.component';
+import { VattulichxichthangComponent } from './screenLichXich/vattulichxichthang/vattulichxichthang.component';
+import { ChiphilichxichthangComponent } from './screenLichXich/chiphilichxichthang/chiphilichxichthang.component';
+import { TaisanlichxichthangComponent } from './screenLichXich/taisanlichxichthang/taisanlichxichthang.component';
 
 
 @NgModule({
@@ -285,6 +290,11 @@ import { TaisanbaoduongComponent } from './quytrinhbaoduong/taisanbaoduong/taisa
     XulysucoluachontaisanComponent,
     DenghisulyluachonthemvattuComponent,
     TaisanbaoduongComponent,
+    ModalluachontaisantheolichxichthangComponent,
+    ModalluachonbaoduonglichxichtheothangComponent,
+    VattulichxichthangComponent,
+    ChiphilichxichthangComponent,
+    TaisanlichxichthangComponent,
 
   ],
   imports: [
@@ -380,6 +390,7 @@ import { TaisanbaoduongComponent } from './quytrinhbaoduong/taisanbaoduong/taisa
     ChiphilichxichnamchonthemComponent,
     XulysucoluachontaisanComponent,
     DenghisulyluachonthemvattuComponent,
+    ModalluachontaisantheolichxichthangComponent,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
