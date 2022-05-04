@@ -2,8 +2,7 @@
     margin-bottom: 20px;
 }
 .sogiodungmay{
-    height: calc(100% - 59px);
-   
+    height: calc(100vh - 171px);
 }
 .top-charts {
     display: flex;
@@ -19,14 +18,26 @@
     width: 40%;
     flex-basis: 1;
     flex-grow: 1;
+    
 }
 
 .second-chart {
     width: 60%;
     flex-basis: 1;
     flex-grow: 1;
+    height: 100%;
 }
 
 .third-chart {
     height: 50%;
+}
+
+::ng-deep .third-chart canvas {
+    height: calc((100vh - 211px)/2);
+}
+::ng-deep .second-chart canvas {
+    height: calc((100vh - 211px)/2 - 37px);
+}
+::ng-deep .first-chart canvas {
+    height: calc((100vh - 211px)/2 - 37px);
 }
