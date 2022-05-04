@@ -18,7 +18,7 @@
     width: 40%;
     flex-basis: 1;
     flex-grow: 1;
-    
+    height: 100%;
 }
 
 .second-chart {
@@ -33,11 +33,12 @@
 }
 
 ::ng-deep .third-chart canvas {
-    height: calc((100vh - 211px)/2);
+    height: calc((100vh - 211px)/2 - 28px) !important;
 }
 ::ng-deep .second-chart canvas {
-    height: calc((100vh - 211px)/2 - 37px);
+    height: calc((100vh - 211px)/2 - 45px) !important;
 }
 ::ng-deep .first-chart canvas {
-    height: calc((100vh - 211px)/2 - 37px);
+    height: calc((100vh - 211px)/2 - 45px) !important;
+    cursor: pointer;
 }
