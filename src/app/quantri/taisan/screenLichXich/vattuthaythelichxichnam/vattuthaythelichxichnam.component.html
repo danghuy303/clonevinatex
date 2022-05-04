@@ -2,7 +2,7 @@
     <div class="modal-bt p-mb-4 p-col-12 p-lg-2  p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto"> </label>
         <div class="p-col-12 p-lg-8 p-p-0">
-            Tổng giá trị: {{TongGiaTriToanBang}}
+            Tổng giá trị: {{TongGiaTriToanBang | number:'0.0-0'}}
         </div>
     </div>
 </div>
@@ -46,26 +46,26 @@
         <ng-container *ngFor="let item of items; let i = index">
         <tr>
             <td style="width:200px" style="width:200px" class="text-right"> {{item.TenTaiSan}}</td>
-            <td class="text-right" *ngFor=" let thanhtien of item.TongThanhTien"> {{thanhtien}} </td>
-            <td>{{ item.TongGiaTri}}</td>
+            <td class="text-right" *ngFor=" let thanhtien of item.TongThanhTien"> {{thanhtien | number:'0.0-0'}} </td>
+            <td>{{ item.TongGiaTri | number:'0.0-0'}}</td>
         </tr>
         <tr *ngFor="let vattu of item.listVatTu">
             <td style="width:200px"> {{vattu.TenTenSan}}</td>
             <td *ngFor="let ThoiGian of vattu.listThoiGian">
                 <div class="d-flex" style="align-items: center;">
                     <span >SL:</span>
-                    <p-inputNumber [minFractionDigits]="0" styleClass="p-inputtext-sm" [(ngModel)]="ThoiGian.DonGia"
+                    <p-inputNumber [minFractionDigits]="0" styleClass="p-inputtext-sm" [(ngModel)]="ThoiGian.SoLuong"
                     (onBlur)="tongTien(item)">
                 </p-inputNumber>
                 </div>
                 <div  class="d-flex" style="align-items: center;">
                     <span>ĐG:</span>
                     <p-inputNumber [minFractionDigits]="0" styleClass="p-inputtext-sm" (onBlur)="tongTien(item)"
-                    [(ngModel)]="ThoiGian.SoLuong">
+                    [(ngModel)]="ThoiGian.DonGia">
                 </p-inputNumber>
                 </div>
             </td>
-            <td> {{ vattu.ThanhTien12Thang}}</td>
+            <td> {{ vattu.ThanhTien12Thang | number:'0.0-0'}}</td>
         </tr>
         </ng-container>
     </tbody>

@@ -50,7 +50,7 @@
                 <div *ngIf="chiPhi.ChiTietChiPhi.length" class="p-d-flex p-flex-column">
                     <div  *ngFor="let item of chiPhi.ChiTietChiPhi; let i = index" class="p-d-flex p-ai-center">
                         <a href="javascript:void(0)" (click)="editChiTietChiPhi(item)" >
-                            {{item.TenChiPhi}} - {{item.SoTien}} 
+                            {{item.TenChiPhi}} - {{item.SoTien  | number:'0.0-0'}} 
                         </a>
                         <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger" (click)="Delete(chiPhi.ChiTietChiPhi,i)"></button>
                     </div>
