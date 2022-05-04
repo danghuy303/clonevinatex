@@ -230,7 +230,7 @@ export class QuantriComponent implements OnInit {
           {
             label: "Tổng hợp tài sản",
             routerLink: "/quantri/quantrisanxuat/baocaotonghoptaisan",
-            separator: this.checkmenu("DASHBOARD_TONGHOP"),
+            separator: !this.showTaiSanModule,
             icon: "fas fa-circle",
             command: () => {
               this.close();
@@ -248,7 +248,7 @@ export class QuantriComponent implements OnInit {
           {
             label: "Số giờ dừng máy",
             routerLink: "/quantri/quantrisanxuat/sogiodungmay",
-            separator: this.checkmenu("DASHBOARD_TONGHOP"),
+            separator: !this.showTaiSanModule,
             icon: "fas fa-circle",
             command: () => {
               this.close();
@@ -257,7 +257,7 @@ export class QuantriComponent implements OnInit {
           {
             label: "Ngân sách dự kiến và thực tế",
             routerLink: "/quantri/quantrisanxuat/ngansachdukienvathucte",
-            separator: this.checkmenu("DASHBOARD_TONGHOP"),
+            separator: !this.showTaiSanModule,
             icon: "fas fa-circle",
             command: () => {
               this.close();
