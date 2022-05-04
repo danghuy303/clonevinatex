@@ -143,7 +143,7 @@ export class LapkehoachthangComponent implements OnInit {
       this.checkbutton = res;
     });
   }
-  ChuyenDuyet() {
+  ChapNhan() {
     this._serviceTaiSan.LichXichThang().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);

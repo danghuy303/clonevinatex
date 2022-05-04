@@ -49,7 +49,9 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
     modalRef.componentInstance.taiSan = taisan;
     modalRef.componentInstance.listItemDaChon = baoduong.listLoaiBaoDuong ? baoduong.listLoaiBaoDuong.map(ele => ele?.IddmLoaiBaoDuong) : [];
     modalRef.result.then((res: any) => {
-      baoduong.listLoaiBaoDuong = res;
+      // baoduong.listLoaiBaoDuong = res;
+      baoduong.listChiTiet = res;
+     
     })
       .catch(error => {
       })
