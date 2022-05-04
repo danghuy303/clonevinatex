@@ -1,1 +1,37 @@
-<p>denghixulysuconhancong works!</p>
+<p-table [value]="items" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+    <ng-template pTemplate="colgroup">
+        <colgroup>
+            <col>
+            <col>
+            <col style="width:50px">
+        </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Tên</th>
+            <th>Ghi chú</th>
+            <th style="width: 100px;">
+                <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
+                    (click)="addNhanCong()">
+                </button>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-i="rowIndex">
+        <tr>
+            <td class="text-center">
+                <p-dropdown [filter]="true" [options]="listTenNhanVien" placeholder="Chọn nhân công" [showClear]="true"
+                    [(ngModel)]="item.IdUser" styleClass="p-inputtext-sm">
+                </p-dropdown>
+            </td>
+            <td class="text-left">
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+            </td>
+            <td class="text-center">
+                <button pButton pRipple icon="pi pi-trash"
+                    class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2" (click)="delete(i)"
+                    pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

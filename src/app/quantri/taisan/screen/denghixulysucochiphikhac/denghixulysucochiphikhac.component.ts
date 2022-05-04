@@ -29,16 +29,14 @@ export class DenghixulysucochiphikhacComponent implements OnInit, OnChanges {
     item.listChiPhiKhac.push({});
 
   }
-  delete(index) {
-   this.items.forEach(chiphi => {
-     chiphi.listChiPhiKhac.splice(index, 1)[0];
-   })
+  delete(item,index) {
+     item.listChiPhiKhac.splice(index, 1);
+   this.TinhTong();
   }
 
   TinhTong() {
     this.TongChiPhi = 0;
     this.items.forEach(item => {
-      item.ThanhTien = 0;
       item.ThanhTien = item.listChiPhiKhac.reduce((total, chiphi) => {
         return total + chiphi.GiaTri
       }, 0)

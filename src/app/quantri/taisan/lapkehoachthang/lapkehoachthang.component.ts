@@ -4,13 +4,14 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { PintableDirective } from 'voi-lib';
 import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 import { ModalluachonloaibaoduongComponent } from '../modal/modalluachonloaibaoduong/modalluachonloaibaoduong.component';
 import { ModalluachontaisantheolichxichComponent } from '../modal/modalluachontaisantheolichxich/modalluachontaisantheolichxich.component';
+import { ModalluachontaisantheolichxichthangComponent } from '../modal/modalluachontaisantheolichxichthang/modalluachontaisantheolichxichthang.component';
 
 @Component({
   selector: 'app-lapkehoachthang',
@@ -28,10 +29,7 @@ export class LapkehoachthangComponent implements OnInit {
   listPhanXuong = [];
   listLoaiTaiSan = [];
   TaiSanItem: any = [];
-  store: any;
 
-  labelThang: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
-    '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];
   constructor(
     private _modal: NgbModal,
     public activeModal: NgbActiveModal,
@@ -58,9 +56,6 @@ export class LapkehoachthangComponent implements OnInit {
       IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
       IdDuAn: 0,
     };
-    // this._serviceTaiSan.LichXich().GetListTaiSanTheoThang(data).subscribe((res: any) => {
-    //   this.TaiSanItem = res.Data;
-    // })
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
 
     Promise.all([ls1]).then((values: any) => {
@@ -79,18 +74,19 @@ export class LapkehoachthangComponent implements OnInit {
   }
 
   ThemMoiDanhSachTaiSan() {
-    let modalRef = this._modal.open(ModalluachontaisantheolichxichComponent, {
+    let modalRef = this._modal.open(ModalluachontaisantheolichxichthangComponent, {
       size: "lg",
       backdrop: "static",
     });
+    modalRef.componentInstance.item = this.item;
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : [];
-    modalRef.componentInstance.opt = this.opt;
-    modalRef.componentInstance.Lay_Chon = this.item;
-    // modalRef.componentInstance.Chon = this.TaiSanItem;
-    modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
-      this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
+      // this.item.listTaiSan = deepCopy(merge(res, this.item.listTaiSan, 'IdTaiSan'));
+      this.item.listTaiSan = deepCopy(res);
       this.item.listTaiSan.forEach(ele => {
+        ele.IdBoPhanSuDung = this.item.IdBoPhanSuDung;
+        ele.IddmLoaiTaiSan = this.item.IddmLoaiTaiSan;
+        ele.ThoiGian = this.item.ThoiGian;
         if (!validVariable(ele.listBaoDuong)) {
           ele.listBaoDuong = []
           for (let i = 1; i <= 30; i++) {

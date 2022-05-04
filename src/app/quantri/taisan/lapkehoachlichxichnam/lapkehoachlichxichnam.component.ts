@@ -44,11 +44,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // let data = {
-    //   Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
-    //   IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
-    //   IdDuAn: 0,
-    // };
     let data = {
       Keyword: "", CurrentPage: 0, PageSize: 20,
       // MaCongDoan: '',
@@ -128,7 +123,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.checkbutton = res;
     });
   }
-  ChuyenDuyet() {
+  ChapNhan() {
     this._serviceTaiSan.LichXich().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
         this.toastr.error(res.Message);
@@ -167,10 +162,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       .catch((er) => console.log(er));
   }
   ThemMoiDanhSachTaiSan() {
-    // if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung)) {
-    //   this.toastr.error("Yêu cầu nhập đầy đủ loại tài sản và bộ phận sử dụng!");
-    //   return
-    // }
     let modalRef = this._modal.open(ModalluachontaisantheolichxichComponent, {
       size: "fullscreen",
       backdrop: "static",
@@ -183,7 +174,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.item.listTaiSan = res;
       this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
       this.item.listTaiSan.forEach(ele => {
-
         if (!validVariable(ele.listBaoDuong)) {
           ele.listBaoDuong = []
           for (let i = 1; i <= 12; i++) {
@@ -199,13 +189,10 @@ export class LapkehoachlichxichnamComponent implements OnInit {
         ele.listChiPhi.forEach(obj => {
           obj.ChiTietChiPhi = []
         })
-        // vat tru  
-
       })
     })
       .catch((er) => {
       });
-
   }
   Chon(baoduong, taisan) {
     let modalRef = this._modal.open(ModalluachonloaibaoduongComponent, {
@@ -213,14 +200,14 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       size: 'fullscreen-100',
       keyboard: false
     });
+
     modalRef.componentInstance.Nam = this.item.ThoiGian;
-    modalRef.componentInstance.listItemDaChon = baoduong.listChiTiet ? baoduong.listChiTiet.map(ele => ele.IddmLoaiBaoDuong) : [];
     modalRef.componentInstance.IdTaiSan =  taisan.IdTaiSan;
+     modalRef.componentInstance.listItemDaChon = baoduong.listChiTiet ? baoduong.listChiTiet.map(ele => ele?.IddmLoaiBaoDuong) : [];
     modalRef.componentInstance.IdBoPhanSuDung = this.item.IdBoPhanSuDung ;
     modalRef.result.then((res: any) => {
-      console.log(res);
-      
       baoduong.listChiTiet = res;
+
     })
       .catch((er) => {
       });
@@ -231,5 +218,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   changeTab(e) {
     this.trangThai = e.index;
   }
+  
 
 }

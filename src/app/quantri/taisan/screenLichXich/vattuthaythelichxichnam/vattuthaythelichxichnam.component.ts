@@ -21,11 +21,6 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
 
 
   ngOnInit(): void {
-    
-    // for (let i = 1; i <= 12; i++) {
-    //   this.lableThang.push(i);
-    // }
-
   }
 
 

@@ -32,6 +32,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
   listNhaCungUng = [];
   store: any;
   tongThanhTien: any = 0;
+  IdTaiSan: '';
 
   constructor(
     private _modal: NgbModal,
@@ -71,18 +72,28 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
   }
 
   ChonNhaCungUng(e) {
-    let NhaCungUng;
-    if (!validVariable(e.IddmNhaCungUng)) {
-      NhaCungUng = this.itemNhaCungUng.find(ele => ele.IddmNhaCungUng === e.IdNhaCungUng);
-      e.DonGia = NhaCungUng?.DonGia;
-    }
+    e.DonGia = e.listNhaCungUngDoiChieu.find(ele => ele.Id === e.IdNhaCungUng)?.DonGia;
   }
 
   GetListNhaCungUng() {
-    this._serviceTaiSan.ThoiHanCungCap().GetListNhaCungUng(this.item.listTaiSan[0]?.IdTaiSan).subscribe((res: any) => {
-      this.itemNhaCungUng = res.Data[0]?.listItem;
-      this.listNhaCungUng = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+    this.item.listTaiSan.forEach(taisan => {
+      this._serviceTaiSan.ThoiHanCungCap().GetListNhaCungUng(taisan.IdTaiSan).subscribe((res: any) => {
+        taisan.listNhaCungUngDoiChieu = res.Data.map(nhaCungUng => {
+          return {
+            Id: nhaCungUng.Id,
+            DonGia: nhaCungUng.listItem[0]?.DonGia,
+            ThongTinNCC: nhaCungUng.listItem[0].ThongTinNCC
+          }
+        });
+        taisan.listDeChon = res.Data.map(nhaCungUng => {
+          return {
+            value: nhaCungUng.Id,
+            label: nhaCungUng.listItem[0].ThongTinNCC
+          }
+        });
+      })
     })
+
   }
 
   GetNextSoQuyTrinh() {
@@ -98,11 +109,16 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     });
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
     modalRef.componentInstance.opt = this.opt;
-    modalRef.componentInstance.Lay_Chon = this.item;
+    modalRef.componentInstance.Lay_Chon = this.item; 
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
-      this.item.listTaiSan = res;
-  // let listKetQua = [];
+      this.item.listTaiSan = res.map(ele => {
+        return {
+          ...ele,
+          IdNhaCungUng: null,
+        }
+      });
+      // let listKetQua = [];
       // this.item.listTaiSan.forEach(Tai_San => {
       //   let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
       //   if (bien !== undefined) {

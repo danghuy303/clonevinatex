@@ -1,0 +1,47 @@
+<div class="p-d-flex p-flex-row p-jc-end p-grid flex-d">
+    <div class="modal-bt p-mb-4 p-col-12 p-lg-2  p-p-3 d-flex flex-column flex-lg-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto"> </label>
+        <div class="p-col-12 p-lg-8 p-p-0">
+            Tổng giá trị: {{TongGiaTriToanBang}}
+        </div>
+    </div>
+</div>
+<div class="p-col-12 p-p-0 pintable-container" style="height: 77vh;" voiPintable [pinnedCols]="1">
+    <table>
+        <thead>
+            <th class="tc-w-200 p-py-2">Tài sản/ vật tư </th>
+            <th *ngFor="let label of labelThang" class="tc-w-100"> {{label}}</th>
+            <th class="text-center">Tổng số</th>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let item of listTaiSan, let i=index">
+                <tr>
+                    <td class="tc-w-200 p-py-3">{{item.TenTaiSan}}</td>
+                    <td *ngFor="let bd of item.listBaoDuong" class="tc-w-100 ">
+                        <div>
+                            {{bd.ThoiGian}}
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr *ngFor="let vattu of item.listVatTu">
+                    <td>{{vattu.TenTenSan}}</td>
+                    <!-- <td *ngFor="let ThoiGian of vattu.listThoiGian">
+                        <div class="d-flex" style="align-items: center;">
+                            <span >SL:</span>
+                            <p-inputNumber [minFractionDigits]="0" styleClass="p-inputtext-sm" [(ngModel)]="ThoiGian.DonGia" >
+                        </p-inputNumber>
+                        </div>
+                        <div  class="d-flex" style="align-items: center;">
+                            <span>ĐG:</span>
+                            <p-inputNumber [minFractionDigits]="0" styleClass="p-inputtext-sm" 
+                            [(ngModel)]="ThoiGian.SoLuong">
+                        </p-inputNumber>
+                        </div>
+                    </td> -->
+                    <td></td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>

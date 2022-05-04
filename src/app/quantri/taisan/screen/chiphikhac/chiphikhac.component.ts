@@ -46,7 +46,8 @@ export class ChiphikhacComponent implements OnInit, OnChanges {
   }
 
   DeleteChiPhi(item, index) {
-    item.listChiPhiKhac.splice(index, 1)
+    item.listChiPhiKhac.splice(index, 1);
+    this.Count();
   }
 }
 
