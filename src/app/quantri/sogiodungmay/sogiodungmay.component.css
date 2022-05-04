@@ -1,7 +1,10 @@
 .options{
     margin-bottom: 20px;
 }
-
+.sogiodungmay{
+    height: calc(100% - 59px);
+   
+}
 .top-charts {
     display: flex;
     flex-direction: row;
@@ -9,7 +12,7 @@
     gap: 20px;
     box-sizing: border-box;
     margin-bottom: 20px;
-    
+    height: 50%;
 }
 
 .first-chart {
@@ -24,4 +27,6 @@
     flex-grow: 1;
 }
 
-
+.third-chart {
+    height: 50%;
+}
