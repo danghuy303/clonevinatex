@@ -245,24 +245,7 @@ export class QuantriComponent implements OnInit {
               this.close();
             },
           },
-          {
-            label: "Số giờ dừng máy",
-            routerLink: "/quantri/quantrisanxuat/sogiodungmay",
-            separator: !this.showTaiSanModule,
-            icon: "fas fa-circle",
-            command: () => {
-              this.close();
-            },
-          },
-          {
-            label: "Ngân sách dự kiến và thực tế",
-            routerLink: "/quantri/quantrisanxuat/ngansachdukienvathucte",
-            separator: !this.showTaiSanModule,
-            icon: "fas fa-circle",
-            command: () => {
-              this.close();
-            },
-          },
+
           {
             label: "Nhu cầu SD nguyên liệu",
             routerLink: "/quantri/quantrisanxuat/nguyenlieu",
@@ -310,6 +293,35 @@ export class QuantriComponent implements OnInit {
           },
         ],
       },
+
+      {
+        label: "Quản trị tài sản",
+        routerLink: "/quantri/quantritaisan",
+        icon: "fas fa-circle",
+        visible: !this.checkmenu("P_QUANTRISANXUAT"),
+        items: [
+          {
+            label: "Số giờ dừng máy",
+            routerLink: "/quantri/quantritaisan/sogiodungmay",
+            separator: !this.showTaiSanModule,
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
+          {
+            label: "Ngân sách dự kiến và thực tế",
+            routerLink: "/quantri/quantritaisan/ngansachdukienvathucte",
+            separator: !this.showTaiSanModule,
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
+        ]
+
+      },
+
       {
         label: "Giao kế hoạch",
         routerLink: "/quantri/giaokehoachsanxuat",

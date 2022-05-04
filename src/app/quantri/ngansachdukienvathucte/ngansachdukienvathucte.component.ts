@@ -99,9 +99,21 @@ export class NgansachdukienvathucteComponent implements OnInit {
         labels: labels,
         datasets: [
           {
+            type: "bar",
+            label: "Kế hoạch",
+            backgroundColor: "#FF5C00",
+            data: dataKeHoach,
+          },
+          {
+            type: "bar",
+            label: "Thực tế",
+            backgroundColor: "#0A91E6",
+            data: dataThucTe,
+          },
+          {
             data: dataKeHoach,
             type: "line",
-            label: "Kế hoạch",
+            label: "Lũy kế Kế hoạch",
             borderColor: "#FF5C00",
             borderWidth: 2,
             fill: false,
@@ -109,23 +121,12 @@ export class NgansachdukienvathucteComponent implements OnInit {
           {
             data: dataThucTe,
             type: "line",
-            label: "Thực tế",
+            label: "Lũy kế Thực tế",
             borderColor: "#0A91E6",
             borderWidth: 2,
             fill: false,
           },
-          {
-            type: "bar",
-            label: "Kế hoạch",
-            backgroundColor: "#66BB6A",
-            data: dataKeHoach,
-          },
-          {
-            type: "bar",
-            label: "Thực tế",
-            backgroundColor: "#FFA726",
-            data: dataThucTe,
-          },
+
         ],
       };
     }
@@ -151,25 +152,9 @@ export class NgansachdukienvathucteComponent implements OnInit {
         labels: labels,
         datasets: [
           {
-            type: "line",
-            label: "Kế hoạch",
-            borderColor: "#FF5C00",
-            borderWidth: 2,
-            fill: false,
-            data: dataKeHoach,
-          },
-          {
-            type: "line",
-            label: "Thực tế",
-            borderColor: "#0A91E6",
-            data: dataThucTe,
-            fill: false,
-            borderWidth: 2,
-          },
-          {
             type: "bar",
             label: "Kế hoạch",
-            backgroundColor: "#66BB6A",
+            backgroundColor: "#FF5C00",
             data: dataKeHoach,
             borderColor: "white",
             borderWidth: 2,
@@ -177,9 +162,26 @@ export class NgansachdukienvathucteComponent implements OnInit {
           {
             type: "bar",
             label: "Thực tế",
-            backgroundColor: "#FFA726",
+            backgroundColor: "#0A91E6",
             data: dataThucTe,
           },
+          {
+            type: "line",
+            label: "Lũy kế Kế hoạch",
+            borderColor: "#FF5C00",
+            borderWidth: 2,
+            fill: false,
+            data: dataKeHoach,
+          },
+          {
+            type: "line",
+            label: "Lũy kế Thực tế",
+            borderColor: "#0A91E6",
+            data: dataThucTe,
+            fill: false,
+            borderWidth: 2,
+          }
+
         ],
       };
     }

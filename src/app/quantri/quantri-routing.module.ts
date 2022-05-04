@@ -132,9 +132,9 @@ const routes: Routes = [
         component: BaocaothongketiendienComponent,
       },
 
-      { path: "quantrisanxuat/sogiodungmay", component: SogiodungmayComponent },
+      { path: "quantritaisan/sogiodungmay", component: SogiodungmayComponent },
       {
-        path: "quantrisanxuat/ngansachdukienvathucte",
+        path: "quantritaisan/ngansachdukienvathucte",
         component: NgansachdukienvathucteComponent,
       },
 
@@ -463,10 +463,11 @@ const routes: Routes = [
       },
     ],
   },
+
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class QuantriRoutingModule {}
+export class QuantriRoutingModule { }
