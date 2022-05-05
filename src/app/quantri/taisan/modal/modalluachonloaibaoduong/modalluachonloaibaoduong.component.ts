@@ -54,6 +54,7 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
       else {
         this.items = []
       }
+      this.checked();
     })
     this.checkedAll = this.items.every(ele => ele.checked);
   }

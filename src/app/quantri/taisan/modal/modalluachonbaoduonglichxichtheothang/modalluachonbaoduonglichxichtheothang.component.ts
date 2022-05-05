@@ -24,6 +24,7 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+    
   }
 
   loadData() {
