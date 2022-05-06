@@ -23,9 +23,9 @@
   <ng-template pTemplate="body" let-itemTable let-i="rowIndex">
     <tr>
       <td class="text-center">{{i+1}} </td>
-      <td class="text-center"><input type="text" class="p-inputtext-sm" [(ngModel)]="itemTable.Loai" pInputText /> </td>
-      <td class="text-center"><input type="text" class="p-inputtext-sm" [(ngModel)]="itemTable.ThongTin" pInputText /> </td>
-      <td class="text-center"><input type="text" class="p-inputtext-sm" [(ngModel)]="itemTable.GhiChu" pInputText /> </td>
+      <td ><input type="text" class="p-inputtext-sm" [(ngModel)]="itemTable.Loai" pInputText /> </td>
+      <td ><input type="text" class="p-inputtext-sm" [(ngModel)]="itemTable.ThongTin" pInputText /> </td>
+      <td ><input type="text" class="p-inputtext-sm" [(ngModel)]="itemTable.GhiChu" pInputText /> </td>
       <td class="text-center">
         <button pButton pRipple icon="pi pi-trash"
           class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2" (click)="delete(i)"

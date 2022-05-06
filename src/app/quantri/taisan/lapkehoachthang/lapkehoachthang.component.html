@@ -65,64 +65,44 @@
                 <input locale="en-EN" pInputText [(ngModel)]="item.GhiChu" />
             </div>
         </div>
-
     </div>
-    <p-panel header="Tài sản" [toggleable]="true">
-        <div class="p-d-flex p-flex-row p-jc-between p-grid">
-            <div class="modal-bt p-mb-4 p-col-12 p-lg-4 p-mb-3 p-p-3 d-flex flex-column flex-xl-row ">
-                <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm "
-                    (click)="ThemMoiDanhSachTaiSan()"></button>
-            </div>
-            <div class="modal-bt p-mb-4 p-col-12 p-lg-4 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
-            </div>
-            <div class="modal-bt p-mb-4 p-col-12 p-lg-4 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
-                <label class="p-col-12 p-xl-4 p-p-0 my-auto"> </label>
-                <div class="p-col-12 p-xl-8 p-p-0">
-                    Tổng số: {{item.listTaiSan?.length}}thiết bị
+
+    <p-tabView >
+        <p-tabPanel header="Danh sách tài sản">
+            <ng-template pTemplate="content">
+                <div class="p-d-flex p-flex-row p-jc-between p-grid">
+                    <div class="modal-bt p-mb-4 p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-lg-row ">
+                        <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm "
+                            (click)="ThemMoiDanhSachTaiSan()"></button>
+                    </div>
+                    <div class="modal-bt p-mb-4 p-col-12 p-lg-6  p-p-3 d-flex flex-column flex-lg-row">
+                    </div>
+                    <div class="modal-bt p-mb-4 p-col-12 p-lg-2  p-p-3 d-flex flex-column flex-lg-row">
+                        <label class="p-col-12 p-lg-4 p-p-0 my-auto"> </label>
+                        <div class="p-col-12 p-lg-8 p-p-0">
+                            <!-- Tổng số: {{item.listTaiSan?.length}}thiết bị -->
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <!-- <p-table [value]="item.listTaiSan|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-striped">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="width:150px" class="text-center">Tài sản</th>
-                    <th *ngFor="let label of labelThang" class="tc-w-100">{{label}}</th>
-                </tr>
+                <app-taisanlichxichthang [listTaiSan]="item.listTaiSan"></app-taisanlichxichthang>
             </ng-template>
-            <ng-template pTemplate="body" let-item let-i="rowIndex">
-                <tr>
-                    <td class="text-center">{{item.TenTaiSan}}</td>
-                    <td class="text-center"  *ngFor="let baoduong of item.listBaoDuong"
-                        (click)="Chon(baoduong,item.listLichBaoDuong)">
-                        <p>{{baoduong.listChiTiet[0]?.TendmLoaiBaoDuong}}</p>
-                        {{baoduong.ThoiGian}}
-                    </td>
-                </tr>
+        </p-tabPanel>
+
+     <!--
+         
+        <p-tabPanel header="Vật tư thay thế">
+            <ng-template pTemplate="content">
+                <app-vattulichxichthang [listTaiSan]="item.listTaiSan"></app-vattulichxichthang>
             </ng-template>
-        </p-table> -->
-        <div class="p-col-12 p-p-0 pintable-container" style="height: 77vh;" voiPintable [pinnedCols]="1">
-            <table>
-                <thead>
-                    <tr>
-                        <th class="tc-w-150" >Tài sản</th>
-                        <th *ngFor="let label of labelThang" class="tc-w-100">{{label}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ng-container *ngFor="let item of item.listTaiSan;let i = index">
-                        <tr>
-                            <td class="text-center tc-w-150" style="background-color: white;z-index: 999;">{{item.TenTaiSan}}</td>
-                            <td class="text-center tc-w-100" *ngFor="let baoduong of item.listBaoDuong"
-                                (click)="Chon(baoduong,item.listLichBaoDuong)">
-                                <p>{{baoduong.listChiTiet[0]?.TendmLoaiBaoDuong}}</p>
-                                <a href="javascript:void(0)">Chọn</a>
-                            </td>
-                        </tr>
-                    </ng-container>
-                </tbody>
-            </table>
-        </div>
-    </p-panel>
+        </p-tabPanel>
+
+        <p-tabPanel header="Chi phí">
+            <ng-template pTemplate="content">
+                <app-chiphilichxichthang [listTaiSan]="item.listTaiSan"></app-chiphilichxichthang>
+            </ng-template>
+        </p-tabPanel> -->
+    </p-tabView>
+
 </div>
 <div class="modal-footer">
 

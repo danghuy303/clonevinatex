@@ -68,7 +68,7 @@
                 (click)="ThemMoiDanhSachTaiSan()"></button>
         </div>
     </div>
-        <p-table [value]="item.listTaiSan" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm"
+        <p-table [value]="item.listTaiSan" styleClass="p-datatable-customers p-datatable-striped p-datatable-gridlines p-datatable-sm"
             [scrollable]="true">
             <ng-template pTemplate="colgroup">
                 <colgroup>
@@ -97,10 +97,10 @@
             <ng-template pTemplate="body" let-item let-i="rowIndex">
                 <tr>
                     <td class="text-center"> {{ i + 1 }}</td>
-                    <td class="text-center">
+                    <td >
                         {{item.MaTaiSan}}
                     </td>
-                    <td class="text-center">
+                    <td >
                         {{item.TenTaiSan}}
                     </td>
                     <td  style="text-align: right;">
@@ -114,7 +114,7 @@
                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" Class="p-inputtext-sm" [(ngModel)]="item.SoLuong" >
                         </p-inputNumber>
                     </td>
-                    <td class="text-center">
+                    <td >
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
                     </td>
                     <!-- <td class="text-center">

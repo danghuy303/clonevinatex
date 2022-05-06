@@ -71,7 +71,6 @@ export class DanhsachtaisanComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       Loai: 0,
       IdBoPhanSuDung:this.filter.IdBoPhanSuDung,
-     
     };
     this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
       this.paging.CurrentPage = res.Data.Page;
@@ -124,7 +123,6 @@ export class DanhsachtaisanComponent implements OnInit {
   }
   changeTab(e) {
     console.log(e);
-    
     // this.trangThai = e.index + 1;
     this.loaiTab = e.index;
     this.Loaddata(true);

@@ -34,7 +34,12 @@ export class ModalbaoduongComponent implements OnInit {
       this.listTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
     this._danhMucTaiSan.DanhMucMucDoUuTien().GetList(data).subscribe((res: any) => {
-      this.listMucDoUuTien = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
+     res.Data.Items.forEach(ele => {
+        ele.tenValue = `${ele.Ten} - ${ele.ThuTu}`;
+     })
+      this.listMucDoUuTien = mapArrayForDropDown(res.Data.Items, "tenValue", "Id",);
+      console.log(this.listMucDoUuTien);
+      
     })
   }
   ValidateData() {

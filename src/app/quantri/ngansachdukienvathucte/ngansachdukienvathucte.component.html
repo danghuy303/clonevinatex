@@ -8,7 +8,23 @@
             <p-dropdown
               [filter]="true"
               placeholder="Chọn bộ phận sử dụng"
+              [options]="PhanXuong"
               styleClass="p-inputtext-sm"
+              [(ngModel)]="filter.IdBoPhanSuDung"
+              (onChange)="getDataBaoCao(filter)"
+            ></p-dropdown>
+          </div>
+        </div>
+
+        <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
+          <div class="p-mr-2">
+            <p-dropdown
+              [filter]="true"
+              placeholder="Chọn loại thời gian"
+              [options]="LoaiThoiGian"
+              styleClass="p-inputtext-sm"
+              [(ngModel)]="filter.LoaiThoiGian"
+              (onChange)="getDataBaoCao(filter)"
             ></p-dropdown>
           </div>
         </div>
@@ -20,6 +36,8 @@
             [showIcon]="true"
             inputId="icon"
             placeholder="Từ ngày"
+            [(ngModel)]="filter.TuNgay"
+            (onSelect)="getDataBaoCao(filter)"
           >
           </p-calendar>
         </div>
@@ -30,6 +48,8 @@
             [showIcon]="true"
             inputId="icon"
             placeholder="Đến ngày"
+            [(ngModel)]="filter.DenNgay"
+            (onSelect)="getDataBaoCao(filter)"
           >
           </p-calendar>
         </div>

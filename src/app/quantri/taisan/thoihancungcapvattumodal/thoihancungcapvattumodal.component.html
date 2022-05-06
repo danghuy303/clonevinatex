@@ -111,8 +111,8 @@
                 <td class="text-center">
                     {{i + 1}}
                 </td>
-                <td class="text-center">{{item.MaTaisan}}</td>
-                <td class="text-center">{{item.TenTaiSan}}</td>
+                <td >{{item.MaTaisan}}</td>
+                <td >{{item.TenTaiSan}}</td>
                 <td class="text-center">
                     <p-dropdown [filter]="true" [options]="item.listDeChon" placeholder="Chọn"
                         [(ngModel)]="item.IdNhaCungUng" [showClear]="true" (onChange)="ChonNhaCungUng(item)">

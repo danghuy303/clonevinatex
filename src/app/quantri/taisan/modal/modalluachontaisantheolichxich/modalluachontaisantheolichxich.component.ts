@@ -154,12 +154,9 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     return data;
   }
   GhiLai() {
-    console.log(this.FilterTree());
-    
     this._serviceTaiSan.LichXich().GetListVatTuByIdTaiSanForLapKeHoachLichXichNam(this.FilterTree()).subscribe((res: any) => { 
       this.activeModal.close(res.Data.listTaiSan);
     });
-   
   }
   changePage(event) {
     this.paging.CurrentPage = event.page + 1;

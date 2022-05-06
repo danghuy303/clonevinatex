@@ -32,7 +32,7 @@
     </p-tabPanel>
 </p-tabView>
 <div *ngIf="loaiTab === 0" class="p-mt-3">
-    <p-table [value]="itemsTonKho" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+    <p-table [value]="itemsTonKho" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col>
@@ -61,13 +61,13 @@
             <tr>
                 <!-- {{rowData.Ma}}
                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler> -->
-                <td class="text-center">{{item.Ma}}</td>
+                <td >{{item.Ma}}</td>
                 <td>{{item.Ten}}</td>
-                <td class="text-center">{{item.NuocSanXuat}}</td>
+                <td >{{item.NuocSanXuat}}</td>
                 <td style="text-align: right;">{{item.TuoiTho | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.TonKho | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.SoLuong | number:'0.0-0'}}</td>
-                <td style="text-align: right;">{{item.ThoiGianDuaVaoSuDung | date:"dd/MM/yyyy"}}</td>
+                <td class="text-center">{{item.ThoiGianDuaVaoSuDung | date:"dd/MM/yyyy"}}</td>
                 <td style="text-align: right;">{{item.NguyenGia | number:'0.0-0'}}</td>
             </tr>
         </ng-template>
@@ -100,7 +100,7 @@
             </p-selectButton>
         </div>
     </div>
-    <p-table [value]="items" styleClass="p-datatable-sm wrap-text p-datatable-striped">
+    <p-table [value]="items" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <!-- <col >
@@ -136,9 +136,9 @@
                     <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary" (onChange)="checked()">
                     </p-checkbox>
                 </td>
-                <td class="text-center">{{item.Ma}} </td>
+                <td >{{item.Ma}} </td>
                 <td>{{item.Ten}}</td>
-                <td class="text-center">{{item.TenNhaCungCap}}</td>
+                <td >{{item.TenNhaCungCap}}</td>
                 <td style="text-align: right;">{{item.TuoiTho | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.TonKho | number:'0.0-0'}}</td>
                 <td style="text-align: right;">{{item.SoLuong | number:'0.0-0'}}</td>

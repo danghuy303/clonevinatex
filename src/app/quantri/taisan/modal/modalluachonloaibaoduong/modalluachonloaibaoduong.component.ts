@@ -39,12 +39,6 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
   }
 
   GetList() {
-    // // this.items = this.Lay_Chon;
-    // // this.items.forEach(obj => {
-    // //   obj.checked = this.listItemDaChon.includes(obj.IddmLoaiBaoDuong);
-    // // });
-    // this.checkedAll = this.items.every(ele => ele.checked);
-
     let data = {
       CurrentPage: 0,
       PageSize: 0,
@@ -60,6 +54,7 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
       else {
         this.items = []
       }
+      this.checked();
     })
     this.checkedAll = this.items.every(ele => ele.checked);
   }

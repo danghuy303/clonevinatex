@@ -93,28 +93,28 @@
             <ng-template pTemplate="body" let-item let-i="rowIndex">
                 <tr>
                     <td class="text-center"> {{ i + 1 }}</td>
-                    <td class="text-center">
+                    <td >
                         {{item.MaTaiSan}}
                     </td>
-                    <td class="text-center">
+                    <td >
                         {{item.TenTaiSan}}
                         <!-- <p-dropdown [disabled]="!item.edit" [filter]="true" [options]="listdsTaiSan" placeholder="Chọn "
                             styleClass="p-inputtext-sm" [(ngModel)]="item.IdTaiSan"></p-dropdown> -->
                     </td>
-                    <td class="text-center">
+                    <td >
                         {{item.NuocSanXuat}}
                     </td>
-                    <td class="text-center">
+                    <td class="text-right">
                         {{item.TuoiTho}}
                     </td>
-                    <td class="text-center">
+                    <td class="text-right">
                         {{item.Ton}}
                     </td>
-                    <td class="text-center">
+                    <td class="text-right">
                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
                         </p-inputNumber>
                     </td>
-                    <td class="text-center">
+                    <td >
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
                     </td>
                     <td class="text-center">
