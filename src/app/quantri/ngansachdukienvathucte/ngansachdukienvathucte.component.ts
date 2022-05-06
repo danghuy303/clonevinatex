@@ -15,11 +15,14 @@ import { mapArrayForDropDown } from "src/app/services/globalfunction";
 export class NgansachdukienvathucteComponent implements OnInit {
   filter = {
     IdBoPhanSuDung: "",
+    LoaiThoiGian: "",
     TuNgay: new Date(),
     DenNgay: new Date()
   };
 
   PhanXuong: any;
+
+  LoaiThoiGian = [{ label: "Ngày", value: "0" }, { label: "Tháng", value: "2" }, { label: "Năm", value: "3" }]
 
   data: any;
 
@@ -134,7 +137,6 @@ export class NgansachdukienvathucteComponent implements OnInit {
   }
 
   getDataBaoCao(filter) {
-
     let data = {
       ...filter,
       TuNgay: DateToUnix(filter.TuNgay), DenNgay: DateToUnix(filter.DenNgay),

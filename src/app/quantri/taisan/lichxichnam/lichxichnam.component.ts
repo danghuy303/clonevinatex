@@ -100,7 +100,7 @@ export class LichxichnamComponent implements OnInit {
         backdrop: "static",
       });
       modalRef.componentInstance.opt = "edit";
-      modalRef.componentInstance.title = 'Cập nhật loại bão dưỡng';
+      modalRef.componentInstance.title = 'Cập nhật loại bảo dưỡng';
       modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1.Data));
       modalRef.result
         .then((res: any) => {

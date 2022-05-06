@@ -45,7 +45,7 @@
     <tbody >
         <ng-container *ngFor="let item of items; let i = index">
         <tr>
-            <td style="width:200px" style="width:200px" class="text-right"> {{item.TenTaiSan}}</td>
+            <td style="width:200px" style="width:200px" > {{item.TenTaiSan}}</td>
             <td class="text-right" *ngFor=" let thanhtien of item.TongThanhTien"> {{thanhtien | number:'0.0-0'}} </td>
             <td>{{ item.TongGiaTri | number:'0.0-0'}}</td>
         </tr>

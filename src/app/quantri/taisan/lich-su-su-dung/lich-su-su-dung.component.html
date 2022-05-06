@@ -52,14 +52,14 @@
       <th>Mã tài sản</th>
       <th>Tên tài sản</th>
       <th>Ngày</th>
-      <th>Nội dung biến động</th>
+      <th>Nội dung</th>
       <th></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-item let-i="rowIndex">
     <tr>
       <td class="text-center">{{20 * (paging.currentPage - 1) + i + 1 }}</td>
-      <td class="text-center">{{item.MaTaiSan}}</td>
+      <td>{{item.MaTaiSan}}</td>
       <td>{{item.TenTaiSan}}</td>
       <td class="text-center">{{item.Ngay | date:'dd/MM/yyyy'}}</td>
       <td>{{item.NoiDungBienDong}}</td>

@@ -35,7 +35,7 @@
             <td>{{item.MaTaiSan}}</td>
             <td>{{item.TenTaiSan}}</td>
             <td class=" text-right">{{item.ThanhTien}}</td>
-            <td class=" text-right"></td>
+            <td>{{item.GhiChu}}</td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
                     (click)="add2(item)"></button>
@@ -50,7 +50,7 @@
                 <td class=" text-right">
                     <p-inputNumber [(ngModel)]="chiphi.GiaTri" (onBlur)="TinhTong(chiphi)"></p-inputNumber>
                 </td>
-                <td class=" text-right"></td>
+                <td></td>
                 <td class="text-center"> <button pButton pRipple type="button" icon="pi pi-trash"
                         class="p-button-text p-button-sm p-button-secondary" (click)="delete(item,index)" pTooltip="Xóa"
                         showDelay="1000" tooltipPosition="bottom"></button></td>

@@ -14,15 +14,15 @@
             <th>Ngày tính khấu hao</th>
             <th>Giá trị trước tính</th>
             <th>Tỉ lệ khấu hao</th>
-            <th> Gía trị còn lại</th>
+            <th> Giá trị còn lại</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
         <tr>
             <td class="text-center"> {{i + 1}}</td>
             <td class="text-center"></td>
-            <td class="text-center"><input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText /></td>
-            <td class="text-center"><input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText /></td>
+            <td class="text-right"></td>
+            <td class="text-right"></td>
         </tr>
     </ng-template>
     <ng-template pTemplate="footer">

@@ -14,6 +14,7 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
   listBaoDuong: any = [];
   checkedAll: boolean = false;
   listItemDaChon: any = [];
+  copyItemsBaoDuong:any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -23,8 +24,9 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadData();
+    console.log(this.copyItemsBaoDuong);
     
+    this.loadData();
   }
 
   loadData() {
@@ -36,9 +38,13 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
     }
     this._serviceTaiSan.LichXich().GetListTaiSanTheoThang(data).subscribe((res: any) => {
       this.listBaoDuong = res.Data[0]?.listLoaiBaoDuong;
+      
+      this.listBaoDuong.push(this.copyItemsBaoDuong)
+      console.log('log list bao duong', this.listBaoDuong);
       this.listBaoDuong.forEach(obj => {
         obj.checked = this.listItemDaChon.includes(obj.IddmLoaiBaoDuong);
       })
+      this.timXoa();
       this.checked();
     })
     this.checkedAll = this.listBaoDuong.every(obj => obj.checked);
@@ -52,6 +58,13 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
 
   checked() {
     this.checkedAll = this.listBaoDuong.every(ele => ele.checked)
+  }
+
+  timXoa() {
+    this.listItemDaChon.forEach(ele => {
+     let index = this.listBaoDuong.findIndex(obj => obj.IddmLoaiBaoDuong == ele)
+     this.listBaoDuong.splice(index,1)
+    })
   }
 
   Accept() {

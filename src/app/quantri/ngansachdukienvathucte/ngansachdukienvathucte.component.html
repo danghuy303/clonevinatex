@@ -16,6 +16,19 @@
           </div>
         </div>
 
+        <div class="p-d-flex flex-column flex-md-row mb-md-2 mb-lg-0">
+          <div class="p-mr-2">
+            <p-dropdown
+              [filter]="true"
+              placeholder="Chọn loại thời gian"
+              [options]="LoaiThoiGian"
+              styleClass="p-inputtext-sm"
+              [(ngModel)]="filter.LoaiThoiGian"
+              (onChange)="getDataBaoCao(filter)"
+            ></p-dropdown>
+          </div>
+        </div>
+
         <div class="p-mr-2">
           <p-calendar
             dateFormat="dd/mm/yy"

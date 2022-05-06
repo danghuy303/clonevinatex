@@ -15,6 +15,8 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
   @Input('listTaiSan') listTaiSan: any = [];
 
   labelThang = [];
+  selectedItems = [];
+  copyItemsBaoDuong = [];
 
   constructor(
     public _modal: NgbModal,
@@ -47,15 +49,21 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
       backdrop: 'static',
     })
     modalRef.componentInstance.taiSan = taisan;
-    modalRef.componentInstance.listItemDaChon =  baoduong.listChiTiet ?  baoduong.listChiTiet.map(ele => ele?.IddmLoaiBaoDuong) : [];
-    modalRef.result.then((res: any) => {
-      // baoduong.listLoaiBaoDuong = res;
-      baoduong.listChiTiet = res;
-     
-    })
+    // modalRef.componentInstance.listItemDaChon =  baoduong.listChiTiet ?  baoduong.listChiTiet.map(ele => ele?.IddmLoaiBaoDuong) : [];
+    modalRef.componentInstance.listItemDaChon = this.selectedItems;
+    modalRef.componentInstance.copyItemsBaoDuong = this.copyItemsBaoDuong;
+    modalRef.result
+      .then((res: any) => {
+        baoduong.listChiTiet = res;
+        taisan.listBaoDuong.forEach(ele => {
+          ele?.listChiTiet.forEach(obj => {
+            this.copyItemsBaoDuong = obj;
+            this.selectedItems.push(obj.IddmLoaiBaoDuong)
+          })
+        })
+      })
       .catch(error => {
       })
       .finally()
   }
-
 }

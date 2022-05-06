@@ -65,10 +65,29 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    // this.GetListNhaCungUng();
+    this.ListNhaCungUng();
     this.KiemTraButtonModal();
     this.getList();
+  }
 
+ ListNhaCungUng() {
+    this.item.listTaiSan.forEach(ele => {
+      this._serviceTaiSan.ThoiHanCungCap().GetListNhaCungUng(ele.IdTaiSan).subscribe((res: any) => {
+        ele.listNhaCungUngDoiChieu = res.Data.map(nhaCungUng => {
+          return {
+            Id: nhaCungUng.Id,
+            DonGia: nhaCungUng.listItem[0]?.DonGia,
+            ThongTinNCC: nhaCungUng.listItem[0].ThongTinNCC
+          }
+        });
+        ele.listDeChon = res.Data.map(nhaCungUng => {
+          return {
+            value: nhaCungUng.Id,
+            label: nhaCungUng.listItem[0].ThongTinNCC
+          }
+        });
+      })
+    })
   }
 
   ChonNhaCungUng(e) {
@@ -109,7 +128,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
     });
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
     modalRef.componentInstance.opt = this.opt;
-    modalRef.componentInstance.Lay_Chon = this.item; 
+    modalRef.componentInstance.Lay_Chon = this.item;
     modalRef.componentInstance.item = {};
     modalRef.result.then((res: any) => {
       this.item.listTaiSan = res.map(ele => {
@@ -149,6 +168,7 @@ export class ThoihancungcapvattumodalComponent implements OnInit {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       } else {
         this.item = res.Data;
+        this.ListNhaCungUng();
         this.toastr.success(res.Message);
         this.KiemTraButtonModal();
         // this.activeModal.close();
