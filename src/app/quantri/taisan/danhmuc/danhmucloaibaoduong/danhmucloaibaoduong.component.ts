@@ -118,7 +118,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     });
     modalRef.componentInstance.opt = 'edit';
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật loại bão dưỡng';
+    modalRef.componentInstance.title = 'Cập nhật loại bảo dưỡng';
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then(res => {
       this.GetList()

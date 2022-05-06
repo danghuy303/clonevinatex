@@ -106,13 +106,13 @@
             <ng-template pTemplate="body" let-item let-i="rowIndex">
                 <tr>
                     <td class="text-center"> {{ i + 1 }}</td>
-                    <td  style="text-align: left;">
+                    <td  >
                         {{item.MaTaiSan}}
                     </td>
-                    <td  style="text-align: left;">
+                    <td  >
                         {{item.TenTaiSan}}
                     </td>
-                    <td  style="text-align: left;">
+                    <td  >
                         <p-dropdown [filter]="true" [options]="listNhaCungCap" placeholder=""
                         styleClass="p-inputtext-sm" [showClear]="true" [(ngModel)]="item.IddmNhaCungUng">
                     </p-dropdown>

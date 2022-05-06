@@ -39,7 +39,7 @@
     </p-tabPanel>
 </p-tabView>
 <div class="p-mt-3">
-    <p-table [value]="items"  styleClass="p-datatable-sm p-datatable-striped">
+    <p-table [value]="items"  styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
@@ -75,16 +75,16 @@
                     {{item.SoQuyTrinh}}
                 </td>
                 <td class="text-center"> {{item.Created|date:"dd/MM/yyyy"}}</td>
-                <td class="text-center">
+                <td >
                     {{item.TenBoPhanSuDung}}
                 </td>
-                <td class="text-center">
+                <td >
                     {{item.TenDmLoaiSuCo}}
                 </td>
-                <td class="text-center">
+                <td >
                     {{item.TenDoUuTien}}
                 </td>
-                <td class="text-center">
+                <td >
                     {{item.NoiDung}}
                 </td>
                 <td class="text-center">

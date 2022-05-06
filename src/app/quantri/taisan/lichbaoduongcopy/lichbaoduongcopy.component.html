@@ -102,10 +102,10 @@
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
       <tr>
-        <td class="text-center">
+        <td >
           {{item.TendmLoaiBaoDuong}}
         </td>
-        <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian" [style.backgroundColor]="newItem.Mau">
+        <td  *ngFor="let newItem of item.listItemTheoThoiGian" [style.backgroundColor]="newItem.Mau">
           {{newItem.isChon?'X':''}}
         </td>
       </tr>
@@ -126,7 +126,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
       <tr>
-        <td class="text-center">
+        <td >
           {{item.TendmLoaiBaoDuong}}
         </td>
         <td class="text-center" *ngFor="let newItem of item.listItemTheoThoiGian" [style.backgroundColor]="newItem.Mau">

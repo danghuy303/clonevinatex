@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <p-table [value]="item.listTaiSan " styleClass="p-datatable-sm wrap-text p-datatable-striped">
+            <p-table [value]="item.listTaiSan " styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
                         <col style="width:100px">
@@ -139,7 +139,7 @@
                             <a href="javascript:void(0)">Chọn</a>
                         </td> -->
 
-                        <td class="text-center"> {{item.TenTaiSan}}</td>
+                        <td > {{item.TenTaiSan}}</td>
                         <td class="text-center" *ngFor="let baoduong of item.listBaoDuong" (click)="Chon(baoduong,item)">
                            <p *ngFor="let chitiet of baoduong.listChiTiet">{{chitiet?.TendmLoaiBaoDuong}}</p>
                             <a href="javascript:void(0)">Chọn</a>

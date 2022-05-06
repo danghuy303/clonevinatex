@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <p-table [value]="items" styleClass="p-treetable p-treetable-caption">
+    <p-table [value]="items" styleClass="p-treetable p-datatable-striped p-datatable-gridlines">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width:50px" class="text-center">
@@ -41,13 +41,13 @@
                     <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary" (onChange)="checked()">
                     </p-checkbox>
                 </td>
-                <td class="text-center" style="width: 150px;">
+                <td  style="width: 150px;">
                     {{item.Ma}}
                 </td>
-                <td class="text-center">{{item.Ten}}</td>
-                <td class="text-center"> {{item.NguyenGia | number:'0.0-0'}}</td>
-                <td class="text-center"> {{item.GiaTriConLai | number:'0.0-0'}}</td>
-                <td class="text-center">{{item.GhiChu}}</td>
+                <td >{{item.Ten}}</td>
+                <td class="text-right"> {{item.NguyenGia | number:'0.0-0'}}</td>
+                <td class="text-right"> {{item.GiaTriConLai | number:'0.0-0'}}</td>
+                <td >{{item.GhiChu}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">

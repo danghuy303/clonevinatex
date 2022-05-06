@@ -122,13 +122,17 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ValidateData() {
-    if (!validVariable(this.item?.TaiSan?.Ten) || !validVariable(this.item?.TaiSan?.SoNamKhauHao)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
+    if (!validVariable(this.item?.TaiSan?.Ten)) {
+      this.toastr.error("Yêu cầu nhập tên");
+      return false;
+    }
+    if (!validVariable(this.item?.TaiSan?.SoNamKhauHao)) {
+      this.toastr.error("Yêu cầu nhập số năm khấu hao");
       return false;
     }
     if (this.item?.TaiSan?.IdBoPhanSuDung !== null) {
       if (!validVariable(this.item?.TaiSan?.ThoiGianDuaVaoSuDung)) {
-        this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
+        this.toastr.error("Yêu cầu nhập thời gian đưa vào sử dụng");
         return false;
       }
     }

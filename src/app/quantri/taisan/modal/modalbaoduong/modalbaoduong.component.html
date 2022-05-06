@@ -37,12 +37,6 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
-            <div class="p-col-12 p-lg-10 p-p-0">
-                <input locale="en-EN" [(ngModel)]="item.NoiDung" pInputText />
-            </div>
-        </div>
-        <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Thời gian và số người thực hiện theo NCC:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input locale="en-EN" [(ngModel)]="item.ThoiGianVaSoNguoiTheoNCC" pInputText />
@@ -52,6 +46,12 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Thời gian và số người thực hiện theo thực tế:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <input locale="en-EN" [(ngModel)]="item.ThoiGianVaSoNguoiThucTe" pInputText />
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
+            <div class="p-col-12 p-lg-10 p-p-0">
+                <textarea pInputTextarea [(ngModel)]="item.NoiDung"></textarea>
             </div>
         </div>
         <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
@@ -113,7 +113,7 @@
             <div class="p-col-12 p-lg-8 p-p-0 d-flex flex-column flex-xl-row">
                 <!-- <input locale="en-EN" [(ngModel)]="item.DoUuTien" pInputText /> -->
                 <p-dropdown [filter]="true" [options]="listMucDoUuTien" placeholder="Chọn mức độ ưu tiên"
-                [(ngModel)]="item.DoUuTien" styleClass="p-inputtext-sm">
+                [(ngModel)]="item.IddmMucDoUuTien" styleClass="p-inputtext-sm">
             </p-dropdown>
             </div>
         </div>
