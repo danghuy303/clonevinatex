@@ -15,14 +15,14 @@ import { mapArrayForDropDown } from "src/app/services/globalfunction";
 export class NgansachdukienvathucteComponent implements OnInit {
   filter = {
     IdBoPhanSuDung: "",
-    LoaiThoiGian: "",
+    LoaiThoiGian: 0,
     TuNgay: new Date(),
     DenNgay: new Date()
   };
 
   PhanXuong: any;
 
-  LoaiThoiGian = [{ label: "Ngày", value: "0" }, { label: "Tháng", value: "2" }, { label: "Năm", value: "3" }]
+  LoaiThoiGian = [{ label: "Ngày", value: 0 }, { label: "Tuần", value: 1 }, { label: "Tháng", value: 2 }, { label: "Năm", value: 3 }]
 
   data: any;
 
