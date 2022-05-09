@@ -89,8 +89,8 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
       modalRef.componentInstance.Lay_Chon = this.item;
       modalRef.componentInstance.item = this.item;
       modalRef.result.then((res: any) => {
-        this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
-        
+        // this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
+        this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IddmLoaiBaoDuong');
       })
         .catch((er) => {
         });

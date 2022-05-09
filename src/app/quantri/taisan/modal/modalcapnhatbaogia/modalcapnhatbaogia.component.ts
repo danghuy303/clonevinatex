@@ -1,15 +1,13 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FileItem, FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown, validVariable, DateToUnix, DateToDatePicker, UnixToDate, deepCopy } from 'src/app/services/globalfunction';
-import { API } from 'src/app/services/host';
-import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+import { mapArrayForDropDown, validVariable, DateToUnix, UnixToDate } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { ModalchontaisanComponent } from '../modalchontaisan/modalchontaisan.component';
 
@@ -34,12 +32,9 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   constructor(
     public _modal: NgbModal,
     public activeModal: NgbActiveModal,
-    private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService,
     private _servicesSanXuat: SanXuatService,
     private _serviceTaiSan: TaisanService,
-    private _serviceDanhMucTaiSan: DanhmuctaisanService,
-    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -113,7 +108,6 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       expanded: true
     }
   }
-
 
   Validate() {
     if (!validVariable(this.item.NgayBanGiao) || !validVariable(this.item.IdBoPhanSuDung)) {
@@ -239,11 +233,21 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.result
       .then((res: any) => {
+        
         this.listTaiSan_copy = this.MergeArr(res, this.listTaiSan_copy);
-        this.listTaiSan_copy = this.listTaiSan_copy.map((ele, index) => {
-          return this.GetStt(ele, index);
-        })
-        this.CheckParent(this.listTaiSan_copy);
+        this.listTaiSan_copy = [...this.listTaiSan_copy];
+        // this.listTaiSan_copy = this.listTaiSan_copy.map((ele, index) => {
+        //   return this.GetStt(ele, index);
+        // })
+        // this.CheckParent(this.listTaiSan_copy);
+        this.listTaiSan_copy.forEach((ele, index) => {
+          ele.data.isCha = true;
+          ele.data.STT = index + 1;
+          ele.children?.forEach((child, index) => {
+            child.data.STT = `${ele.data.STT}.${index+1}`
+          })
+        })  
+        console.log("this.listTaiSan_copy", this.listTaiSan_copy);
       })
       .catch((er) => {
       });
@@ -273,18 +277,18 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     return existingArr;
   }
 
-  GetStt(ele, index, indexCha?) {
-    return {
-      data: {
-        ...ele.data,
-        STT: indexCha ? `${indexCha}.${index + 1}` : index + 1,
-      },
-      children: ele.children.map((eleCon, indexCon) => {
-        return this.GetStt(eleCon, indexCon, index + 1)
-      }),
-      expanded: true
-    }
-  }
+  // GetStt(ele, index, indexCha?) {
+  //   return {
+  //     data: {
+  //       ...ele.data,
+  //       STT: indexCha ? `${indexCha}.${index + 1}` : index + 1,
+  //     },
+  //     children: ele.children.map((eleCon, indexCon) => {
+  //       return this.GetStt(eleCon, indexCon, index + 1)
+  //     }),
+  //     expanded: true
+  //   }
+  // }
 
   XoaTaiSan(item) {
     let modalref = this._modal.open(ModalthongbaoComponent);
@@ -320,7 +324,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   }
 
   CheckParent(list) {
-    list?.forEach(ele => {
+    list.forEach(ele => {
       ele.data.isCha = true;
     })
   }
