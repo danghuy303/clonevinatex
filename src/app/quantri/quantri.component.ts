@@ -298,7 +298,7 @@ export class QuantriComponent implements OnInit {
         label: "Quản trị tài sản",
         routerLink: "/quantri/quantritaisan",
         icon: "fas fa-circle",
-        visible: !this.checkmenu("P_QUANTRISANXUAT"),
+        visible: this.showTaiSanModule,
         items: [
           {
             label: "Số giờ dừng máy",
