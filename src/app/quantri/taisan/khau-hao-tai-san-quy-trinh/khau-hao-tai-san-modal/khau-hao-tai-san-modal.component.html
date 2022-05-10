@@ -129,14 +129,17 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th class="text-center">STT</th>
-                    <th class="text-center">Mã</th>
-                    <th class="text-center">Tên</th>
-                    <th class="text-center">Giá trị còn lại trước khấu hao</th>
-                    <th class="text-center">Giá trị còn lại theo hệ thống</th>
-                    <th class="text-center">Giá trị còn lại thực tế</th>
-                    <th class="text-center">Ghi chú</th>
-                    <th *ngIf="tabTrangThai===0"></th>
+                    <th class="text-center" rowspan="2">STT</th>
+                    <th class="text-center" rowspan="2">Mã</th>
+                    <th class="text-center" rowspan="2">Tên</th>
+                    <th class="text-center" rowspan="2">Giá trị còn lại trước khấu hao</th>
+                    <th class="text-center" colspan="2">Giá trị còn lại sau khấu hao</th>
+                    <th class="text-center" rowspan="2">Ghi chú</th>
+                    <th *ngIf="tabTrangThai===0" rowspan="2"></th>
+                </tr>
+                <tr>
+                    <th class="text-center">Theo hệ thống</th>
+                    <th class="text-center">Thực tế</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item>
@@ -154,7 +157,7 @@
                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" [disabled]="true" [(ngModel)]="item.GiaTriConLaiTheoHeThong">
                         </p-inputNumber>
                     </td>
-                    <td>
+                    <td [style.backgroundColor]="item.GiaTriConLai>item.GiaTriTruocKhauHao?'red':null">
                         <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.GiaTriConLai">
                         </p-inputNumber>
                     </td>

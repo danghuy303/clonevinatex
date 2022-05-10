@@ -14,7 +14,7 @@ import { mapArrayForDropDown } from "src/app/services/globalfunction";
 export class SogiodungmayComponent implements OnInit {
 
   filter = {
-    IdCongDoan: "",
+    MaCongDoan: "",
     IdBoPhanSuDung: "",
     TuNgay: new Date(),
     DenNgay: new Date()

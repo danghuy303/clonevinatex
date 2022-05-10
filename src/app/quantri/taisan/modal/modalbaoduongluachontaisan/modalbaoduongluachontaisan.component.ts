@@ -51,12 +51,14 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
       isCanDuTru: false, isGiaTriCao: false, IdDuAn: 0,
     };
     this._serviceTaiSan.QuyTrinhBaoDuong().GetListTaiSanBaoDuong(data).subscribe((res: any) => {
+      console.log("res", res);
+      
       this.paging.TotalCount = res.Data.TotalCount;
       this.items = [];
       res.Data.forEach(obj => {
         obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
         let data: any = { "data": obj, "children": [] };
-        obj.listTaiSan.forEach(con => {
+        obj.listTaiSan?.forEach(con => {
           let datacon: any = { "data": con, "children": [] };
           con.checked = this.listItemDaChon.includes(con.IdTaiSan);
           data.children.push(datacon);
