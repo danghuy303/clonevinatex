@@ -45,11 +45,19 @@ export class ModalthanhlytaisanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.item.listTaiSan.forEach(ele => {
+      ele.isCha = !!!ele.IdRoot;
+    })
+    // console.log("item.listTaiSan", this.item.listTaiSan);
     if (this.item.NgayThanhLyUnix !== 0) {
       this.item.NgayThanhLy = UnixToDate(this.item.NgayThanhLyUnix);
     }
     if (this.type === 'themmoi') {
       this.GetNextSoQuyTrinh();
+    }
+    if (this.opt === 'edit') {
+      console.log("");
+      
     }
     this.KiemTraButtonModal();
     this.GetListdmPhanXuong();
