@@ -13,6 +13,8 @@ import { DenghisulyluachonthemvattuComponent } from '../../modal/denghisulyluach
 export class DenghixulysucovattuComponent implements OnInit, OnChanges {
   @Input('item') items: any = [];
   @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
+  TongGiaTriToanBang: any = 0;
+
   constructor(
     public _modal: NgbModal,
     public activeModal: NgbActiveModal,
@@ -44,7 +46,7 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
   }
 
   TinhTong() {
-
+    this.TongGiaTriToanBang = 0;
     this.items.forEach(ele => {
       if (validVariable(ele.listVatTu)) {
         ele.listVatTu?.forEach(vattu => {
@@ -54,6 +56,7 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
           return sum + obj.ThanhTien;
         }, 0)
       }
+      this.TongGiaTriToanBang += (ele.TongThanhTien || 0);
     })
   }
 

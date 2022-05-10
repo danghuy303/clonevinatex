@@ -135,7 +135,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
-      // this.item.listTaiSan = res;
+      this.item.listTaiSan = res;
 
       // let listTaiSan = [];
       // res.forEach(element => {
@@ -152,7 +152,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
       //   }
       // });
       // this.item.listTaiSan = listTaiSan;
-      this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
+      // this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
     })
       .catch((er) => {
       });

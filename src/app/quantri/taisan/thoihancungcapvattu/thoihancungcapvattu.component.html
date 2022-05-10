@@ -1,5 +1,5 @@
 <h4 class="title" style="color:#1f2779">
-    Thời hạn cung cấp vật tư
+    Kế hoạch mua vật tư
 </h4>
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
@@ -47,6 +47,7 @@
                 <col>
                 <col>
                 <col>
+                <col>
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
@@ -55,6 +56,7 @@
                 <th class="text-center">STT</th>
                 <th class="text-center">Số quy trình</th>
                 <th class="text-center">Ngày</th>
+                <th class="text-center">Tổng tiền</th>
                 <th class="text-center">Nội dung</th>
                 <th class="text-center">Thao tác</th>
             </tr>
@@ -68,6 +70,7 @@
                     {{item.SoQuyTrinh}}
                 </td>
                 <td class="text-center">{{item.Ngay|date:'dd/MM/yyyy'}}</td>
+                <td style="text-align: left;"></td>
                 <td style="text-align: left;">{{item.NoiDung}}</td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"

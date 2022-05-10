@@ -25,7 +25,7 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
   trangThai: any = 1;
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
   eAction = "LAPKEHOACHLICHXICHNAM";
-  listPhanXuong:any=[];
+  listPhanXuong: any = [];
   listNam: any = [];
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
@@ -45,7 +45,7 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
           .Get(res.id)
           .subscribe((res: any) => {
             this.update(res);
-            
+
           });
       }
     });
@@ -53,13 +53,13 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
   }
-
+  
   resetFilter() {
     this.Keyword = '';
     this.filter = {};
     this.GetList(true);
   }
-  
+
   GetList(reset?) {
     if (reset) {
       this.paging.CurrentPage = 1;
@@ -67,16 +67,17 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
     }
     let data = {
       PageSize: 20,
+      Ngay: DateToUnix(new Date(this.filter.Ngay, 1, 1, 1,)),
       CurrentPage: this.paging.CurrentPage,
-      Keyword: this.Keyword,
+      Keyword: this.filter.Keyword,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       TabTrangThai: this.trangThai,
-      Loai:0,
-     IdBoPhanSuDung:this.filter.IdBoPhanSuDung,
+      Loai: 0,
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
     };
     this._serviceTaiSan.LichXich().GetList(data).subscribe((res: any) => {
-      this.items = res.Data.Items;  
+      this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
@@ -95,14 +96,14 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
     let modalRef = this._modal.open(LapkehoachlichxichnamComponent, {
       backdrop: 'static',
       size: 'fullscreen-100',
-      keyboard:false
+      keyboard: false
     });
     modalRef.componentInstance.opt = 'add';
     modalRef.componentInstance.type = 'themmoi';
     modalRef.componentInstance.title = '';
     modalRef.componentInstance.item = {
-      Id: '',IdTrangThai: '', TenTrangThai: "",SoQuyTrinh:'',
-      isKetThuc: false,listTaiSan:[],LoaiKeHoach:"", IdDuAn:0, listChiPhi: [], listVatTu: [], 
+      Id: '', IdTrangThai: '', TenTrangThai: "", SoQuyTrinh: '',
+      isKetThuc: false, listTaiSan: [], LoaiKeHoach: "", IdDuAn: 0, listChiPhi: [], listVatTu: [],
     };
     modalRef.result.then(res => {
 

@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
@@ -135,6 +135,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
           // IdTaiSan: obj.data.IdTaiSan,
           IdBoPhanSuDung:this.item.IdBoPhanSuDung,
           IddmLoaiTaiSan:this.item.IddmLoaiTaiSan ,
+          Ngay:DateToUnix(new Date(this.item.Nam, 1,1)),
         };
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
@@ -145,6 +146,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
               // IdTaiSan: objchildren.data.IdTaiSan,
               IdBoPhanSuDung:this.item.IdBoPhanSuDung,
               IddmLoaiTaiSan:this.item.IddmLoaiTaiSan ,
+              Ngay:DateToUnix(new Date(this.item.Nam, 1,1)),
             }
 
           }

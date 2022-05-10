@@ -65,37 +65,34 @@
             <div class="p-col-12 p-lg-10 p-p-0 d-flex flex-column flex-xl-row">
                 <div class="p-col-12 p-lg-12 p-p-0 d-flex flex-column flex-xl-row">
                     <div class="p-col-12 p-lg-2 p-p-0">
-                        <div class="field-radiobutton">
+                        <div class="field-radiobutton check-pt" >
                             <p-radioButton value="Ngày" inputId="Ngay" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
                             <label for="Ngay">Ngày</label>
                         </div>
                     </div>
                     
                     <div class="p-col-12 p-lg-2 p-p-0">
-                        <div class="field-radiobutton">
+                        <div class="field-radiobutton check-pt">
                             <p-radioButton value="Tuần" inputId="tuan" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
                             <label>Tuần</label>
                         </div>
                     </div>
                     <div class="p-col-12 p-lg-2 p-p-0">
-                        <div class="field-radiobutton">
+                        <div class="field-radiobutton check-pt">
                             <p-radioButton value="Tháng" inputId="thang" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
                             <label>Tháng</label>
                         </div>
                     </div>
                     <div class="p-col-12 p-lg-2 p-p-0">
-                        <div class="field-radiobutton">
+                        <div class="field-radiobutton check-pt">
                             <p-radioButton value="Năm" inputId="nam" [(ngModel)]="item.MaLoaiThoiGian" ></p-radioButton>
                             <label>Năm</label>
                         </div>
                     </div>
                     <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-xl-row">
-                        <!-- <div class="p-col-12 p-lg-10 p-p-0"> -->
                             <p-inputNumber [minFractionDigits]="0" locale="en-EN"  [(ngModel)]="item.ThoiGianBaoDuong">
                             </p-inputNumber> 
                             <p class="tan">({{item.MaLoaiThoiGian}})</p>
-                        <!-- <div class="p-col-12 p-lg-2 p-p-0 tan"> ({{item.MaLoaiThoiGian}})</div> -->
-
                     </div>
                 </div>
             </div>
@@ -128,5 +125,5 @@
     <div class="modal-footer p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
         <button pButton pRipple label="Đóng"  class="p-button-sm p-mr-2"
             (click)="activeModal.dismiss()"></button>
-        <button pButton pRipple label="Chấp nhận" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"></button>
+        <button pButton pRipple label="Chấp nhận" [style.visibility]="bool?'visible':'hidden'" icon="pi pi-save" class="p-button-sm p-mr-2" (click)="GhiLai()"></button>
     </div>

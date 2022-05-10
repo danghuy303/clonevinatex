@@ -13,6 +13,7 @@ export class ModalbaoduongComponent implements OnInit {
   public item: any = {};
   public title: any = '';
   public type = '';
+  bool: boolean=true;
   Keyword: any = '';
   paging: any = { page: 1, totalPages: 1, totalCount: 1 };
   listTaiSan: any = [];

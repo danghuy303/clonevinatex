@@ -1,13 +1,11 @@
-<div class="p-d-flex p-flex-row p-jc-between p-ai-center">
-    <div class="modal-bt p-mb-4 ">
-
-    </div>
-    <div class="modal-bt p-mb-4 ">
-        <!-- <span><b>Tổng tiền: </b></span>
-        <span><b>{{tongThanhTien | number: '0.0'}}</b></span> -->
+<div class="p-d-flex p-flex-row p-jc-end p-grid flex-d">
+    <div class="modal-bt p-mb-4 p-col-12 p-lg-2  p-p-3 d-flex flex-column flex-lg-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto"> </label>
+        <div class="p-col-12 p-lg-8 p-p-0">
+            Tổng giá trị: {{TongGiaTriToanBang | number:'0.0-0'}}
+        </div>
     </div>
 </div>
-
 <p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
     <ng-template pTemplate="colgroup">
         <colgroup>
@@ -38,12 +36,12 @@
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
         <tr>
-            <td>{{i+1}}</td>
+            <td class=" text-center">{{i+1}}</td>
             <td>{{item.MaTaiSan}}</td>
             <td>{{item.TenTaiSan}}</td>
             <td class=" text-right"></td>
             <td class=" text-right"></td>
-            <td class=" text-right">{{item.TongThanhTien}}</td>
+            <td class=" text-right">{{item.TongThanhTien | number:'0.0-0'}}</td>
             <td class=""></td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
@@ -56,11 +54,11 @@
             <td></td>
             <td style="padding-left: 50px;">{{vattu.TenVatTu}}</td>
             <td class=" text-right" >
-                <p-inputNumber [(ngModel)]="vattu.SoLuong" (onBlur)="TinhTong()"></p-inputNumber>
+                <p-inputNumber [minFractionDigits]="0.0" [(ngModel)]="vattu.SoLuong" (onBlur)="TinhTong()"></p-inputNumber>
             </td>
-            <td class=" text-right">{{vattu.GiaTri}}</td>
-            <td class=" text-right">{{vattu.ThanhTien}}</td>
-            <td class=" text-left"></td>
+            <td class=" text-right">{{vattu.GiaTri | number:'0.0-0'}}</td>
+            <td class=" text-right">{{vattu.ThanhTien | number:'0.0-0'}}</td>
+            <td class=" text-left"><input type="text" class="p-inputtext-sm" [(ngModel)]="vattu.GhiChu" pInputText /> </td>
             <td></td>
         </tr>
        </ng-container>

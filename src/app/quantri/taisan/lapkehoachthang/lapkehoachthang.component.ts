@@ -29,6 +29,9 @@ export class LapkehoachthangComponent implements OnInit {
   listPhanXuong = [];
   listLoaiTaiSan = [];
   TaiSanItem: any = [];
+  TuThang:any = '';
+  DenThang:any = '';
+
 
   constructor(
     private _modal: NgbModal,
@@ -79,6 +82,7 @@ export class LapkehoachthangComponent implements OnInit {
       backdrop: "static",
     });
     modalRef.componentInstance.item = this.item;
+    modalRef.componentInstance.filter =this.item.ThoiGian ?{DenThang: this.DenThang,TuThang: this.TuThang}: {} ;
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : [];
     modalRef.result.then((res: any) => {
       // this.item.listTaiSan = deepCopy(merge(res, this.item.listTaiSan, 'IdTaiSan'));
@@ -181,6 +185,11 @@ export class LapkehoachthangComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
-
+  chonThang(time) {
+    let date = new Date(this.item.ThoiGian);
+    this.TuThang = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.DenThang = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  }
+  
 }
 

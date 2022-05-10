@@ -11,13 +11,13 @@
         <div class="p-mr-2">
             <div class="p-field-checkbox">
                 <p-checkbox [binary]="true"  value="" (onChange)="Loaddata(true)" [(ngModel)]="filter.isGiaTriCao" ></p-checkbox>
-                <label for="">Giá trị cao</label>
+                <label class="label-check" for="">Giá trị cao</label>
             </div>
         </div>
         <div class="p-mr-2">
             <div class="p-field-checkbox">
                 <p-checkbox [binary]="true"  value="" (onChange)="Loaddata(true)" [(ngModel)]="filter.isCanDuTru" ></p-checkbox>
-                <label for="">Cần dự trữ</label>
+                <label class="label-check" for="">Cần dự trữ</label>
             </div>
         </div>
         <div class="p-mr-2">
@@ -28,7 +28,7 @@
             <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản " [(ngModel)]="filter.IddmLoaiTaiSan"
                 styleClass="p-inputtext-sm" (onChange)="Loaddata(true)" [showClear]="true"></p-dropdown>
         </div>
-        <div class="p-mr-2">
+        <!-- <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="Loaddata(true)">
             </p-calendar>
@@ -37,7 +37,7 @@
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="Loaddata(true)">
             </p-calendar>
-        </div>
+        </div> -->
         <div class="p-inputgroup" style="width: 200px;">
             <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText (keyup.enter)="Loaddata(true)"
                 [(ngModel)]="filter.Keyword" />
