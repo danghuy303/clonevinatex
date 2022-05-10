@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { PintableDirective } from 'voi-lib';
@@ -25,13 +25,17 @@ export class LichxichthangComponent implements OnInit {
   listLoaiTaiSan: any = [];
   listPhanXuong: any = [];
   labelThang: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
-    '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30','31'];
+    '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
   constructor(public _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
     private _servicesSanXuat: SanXuatService,
     private _danhMucTaiSan: DanhmuctaisanService,) { }
 
   ngOnInit(): void {
+    this.GetList();
+    let getFullYear = new Date().getFullYear();
+    let getMonth = new Date().getMonth() + 1;
+    this.filter.Ngay = `${getMonth}/${getFullYear}`;
     let data = {
       Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
       IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
@@ -44,12 +48,16 @@ export class LichxichthangComponent implements OnInit {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    this.GetList();
+    
   }
-  GetList() {
+  resetFilter() {
+    this.filter = {};
+    this.GetList(true);
+  }
+  GetList(reset?) {
     let data = {
-      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
-      IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
+      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan, IdUser: '', Ngay: DateToUnix(this.filter.Ngay), LoaiKeHoach: '',
       IdDuAn: 0,
     };
     this._serviceTaiSan.ListLichXichThang().GetList(data).subscribe((res: any) => {

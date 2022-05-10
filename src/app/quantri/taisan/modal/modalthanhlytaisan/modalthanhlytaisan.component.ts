@@ -45,11 +45,19 @@ export class ModalthanhlytaisanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.item.listTaiSan.forEach(ele => {
+      ele.isCha = !!!ele.IdRoot;
+    })
+    // console.log("item.listTaiSan", this.item.listTaiSan);
     if (this.item.NgayThanhLyUnix !== 0) {
       this.item.NgayThanhLy = UnixToDate(this.item.NgayThanhLyUnix);
     }
     if (this.type === 'themmoi') {
       this.GetNextSoQuyTrinh();
+    }
+    if (this.opt === 'edit') {
+      console.log("");
+      
     }
     this.KiemTraButtonModal();
     this.GetListdmPhanXuong();
@@ -135,7 +143,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.item = this.item;
     modalRef.result.then((res: any) => {
-      // this.item.listTaiSan = res;
+      this.item.listTaiSan = res;
 
       // let listTaiSan = [];
       // res.forEach(element => {
@@ -152,7 +160,7 @@ export class ModalthanhlytaisanComponent implements OnInit {
       //   }
       // });
       // this.item.listTaiSan = listTaiSan;
-      this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
+      // this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
     })
       .catch((er) => {
       });

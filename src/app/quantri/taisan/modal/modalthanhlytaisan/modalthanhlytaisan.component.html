@@ -112,8 +112,6 @@
                 </td>
                 <td>
                     {{item.TenTaiSan}}
-                    <!-- <p-dropdown [disabled]="!item.edit" [filter]="true" [options]="listdsTaiSan" placeholder="Chọn "
-                            styleClass="p-inputtext-sm" [(ngModel)]="item.IdTaiSan"></p-dropdown> -->
                 </td>
                 <td>
                     <p-inputNumber  [disabled]="!item.isCha"  placeholder="Số lượng" [(ngModel)]="item.SoLuong" (onBlur)="Tong()"></p-inputNumber>
@@ -122,7 +120,7 @@
                     {{item.GiaTriConLai |  number:'0.0'}}
                 </td>
                 <td style="text-align: right;">
-                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.GiaTriThanhLy" (onBlur)="Tong()">
+                    <p-inputNumber [disabled]="!item.isCha" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.GiaTriThanhLy" (onBlur)="Tong()">
                     </p-inputNumber>
                 </td>
                 <td class="text-center">
@@ -137,8 +135,3 @@
         </ng-template>
     </p-table>
 </div>
-<!-- <div class="modal-footer">
-    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
-    <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
-        (click)="activeModal.dismiss()"></button>
-</div> -->

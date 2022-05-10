@@ -1,6 +1,7 @@
 <h4 class="title" style="color:#1f2779">
     Quy trình lập kế hoạch năm
 </h4>
+
 <div class="p-d-flex p-flex-column p-flex-sm-row p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
         <button pButton label="Thêm mới" pRipple icon="pi pi-plus" class="p-button-sm p-mr-2" (click)="add()"></button>
@@ -13,7 +14,7 @@
             </p-dropdown>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" (onChange)="GetList(true)" styleClass="p-inputtext-sm">
+            <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" [(ngModel)]="filter.Ngay" (onChange)="GetList(true)" styleClass="p-inputtext-sm">
             </p-dropdown>
         </div>
         <div class="p-mr-2">
@@ -79,7 +80,7 @@
                     {{item.SoQuyTrinh}}
                 </td>
                 <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.ThoiGian|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.ThoiGian|date:'MM/yyyy'}}</td>
                 <td  style="text-align: left;">{{item.TenBoPhanSuDung}}</td>
                 <td  style="text-align: left;">{{item.NoiDung}}</td>
                 <td class="text-center">{{item.TenTrangThai}}</td>

@@ -51,14 +51,18 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
       isCanDuTru: false, isGiaTriCao: false, IdDuAn: 0,
     };
     this._serviceTaiSan.QuyTrinhBaoDuong().GetListTaiSanBaoDuong(data).subscribe((res: any) => {
+      console.log("res", res);
+      
       this.paging.TotalCount = res.Data.TotalCount;
       this.items = [];
       res.Data.forEach(obj => {
-        obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
+        // obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
+        obj.checked = this.listItemDaChon.includes(obj.IdTaiSan_BaoDuong);
         let data: any = { "data": obj, "children": [] };
-        obj.listTaiSan.forEach(con => {
+        obj.listTaiSan?.forEach(con => {
           let datacon: any = { "data": con, "children": [] };
-          con.checked = this.listItemDaChon.includes(con.IdTaiSan);
+          // con.checked = this.listItemDaChon.includes(con.IdTaiSan);
+          con.checked = this.listItemDaChon.includes(con.IdTaiSan_BaoDuong);
           data.children.push(datacon);
         });
         this.items.push(data);
@@ -126,7 +130,8 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
           // MaTaiSan: obj.data.MadmLoaiBaoDuong,
           TenLoaidmBaoDuong: obj.data.TendmLoaiBaoDuong,
           ThoiGianKeHoach: obj.data.ThoiGianKeHoach,
-          IdLapKeHoachLichXich: obj.data.IdLapKeHoachLichXich
+          IdLapKeHoachLichXich: obj.data.IdLapKeHoachLichXich,
+          IdTaiSan_BaoDuong: obj.data.IdTaiSan_BaoDuong
         });
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
@@ -143,7 +148,8 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
               // MaTaiSan: objchildren.data.MadmLoaiBaoDuong,
               TenLoaidmBaoDuong: objchildren.data.TendmLoaiBaoDuong,
               ThoiGianKeHoach: objchildren.data.ThoiGianKeHoach,
-              IdLapKeHoachLichXich: obj.data.IdLapKeHoachLichXich
+              IdLapKeHoachLichXich: obj.data.IdLapKeHoachLichXich,
+              IdTaiSan_BaoDuong: obj.data.IdTaiSan_BaoDuong
             });
           }
         });
@@ -161,7 +167,8 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
     let data = this.FilterTree().map(ele => {
       return {
         IdTaiSan: ele.IdTaiSan,
-        IdLapKeHoachLichXich: ele.IdLapKeHoachLichXich
+        IdLapKeHoachLichXich: ele.IdLapKeHoachLichXich,
+        IddmLoaiBaoDuong: ele.IddmLoaiBaoDuong
       }
     })
     this._serviceTaiSan.GetOptions().GetListVatTuForBaoDuong(data).subscribe((res:any) => {
