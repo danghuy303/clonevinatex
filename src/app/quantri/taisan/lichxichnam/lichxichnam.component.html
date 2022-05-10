@@ -40,7 +40,7 @@
 </div>
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <div></div>
-    <div class="p-mr-2"> <p>Tổng số:{{items.TongSoTaiSan}} thiết bị</p></div>
+    <div class="p-mr-2"><strong>Tổng số: <span style="color: red;">{{items.TongSoTaiSan}}</span> thiết bị</strong></div>
 </div>
 
 <p-table [value]="items.listBaoDuong" *ngIf="item.isChon ===0" styleClass="p-datatable-sm wrap-text p-datatable-striped">

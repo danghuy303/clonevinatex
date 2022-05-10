@@ -98,6 +98,8 @@ import { LoaiBongPheDanhMucComponent } from "./danhmuc/danhmucsanxuat/loai-bong-
 import { TyLeTieuChuanBongPheComponent } from "./danhmuc/danhmucsanxuat/ty-le-tieu-chuan-bong-phe/ty-le-tieu-chuan-bong-phe.component";
 import { SogiodungmayComponent } from "./sogiodungmay/sogiodungmay.component";
 import { BaocaotonghoptaisanComponent } from "./baocaotonghoptaisan/baocaotonghoptaisan.component";
+import { DmsucomayComponent } from "./danhmuc/dmsucomay/dmsucomay.component";
+import { ThongkethoigiandungmayComponent } from "./quanlykhosanxuat/thongke/thongkethoigiandungmay/thongkethoigiandungmay.component";
 
 const routes: Routes = [
   {
@@ -197,8 +199,13 @@ const routes: Routes = [
         path: "theodoithongkebaocaosanxuat/thongkedien/:id",
         component: DmthongkedienComponent,
       },
+      {
+        path: "theodoithongkebaocaosanxuat/thongkethoigiandungmay",
+        component: ThongkethoigiandungmayComponent,
+      },
       { path: "danhmucsanxuat/dmdactinhbong", component: DactinhbongComponent },
       { path: "danhmucsanxuat/dmbanchepham", component: BanchephamComponent },
+      { path: "danhmucsanxuat/dmsucomay", component: DmsucomayComponent },
       { path: "danhmucsanxuat/dmkhunggio", component: DmkhunggioComponent },
       { path: "danhmucsanxuat/loaidien", component: DmloaidienComponent },
 

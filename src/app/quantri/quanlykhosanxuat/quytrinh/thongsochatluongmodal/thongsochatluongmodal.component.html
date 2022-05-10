@@ -77,6 +77,14 @@
                 <input type="text" class="p-inputtext-sm" [ngModel]="listItem.length" disabled="true" pInputText />
             </div>
         </div>
+        <div class="p-col-12  p-p-3 d-flex flex-column flex-lg-row">
+            <div class="p-col-12 p-lg-12 p-p-0 d-flex flex-column flex-lg-row">
+                <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nhận xét:</label>
+                <div class="p-col-12 p-lg-10 p-p-0">
+                    <textarea pInputTextarea [(ngModel)]="item.NhanXet"></textarea>
+                </div>
+            </div>
+        </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="d-flex flex-row p-jc-between p-mb-4">
                 <div>
