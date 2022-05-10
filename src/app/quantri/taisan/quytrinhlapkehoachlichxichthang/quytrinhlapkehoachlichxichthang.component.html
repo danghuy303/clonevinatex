@@ -59,7 +59,7 @@
                 <th class="text-center">STT</th>
                 <th class="text-center">Số quy trình</th>
                 <th class="text-center">Ngày</th>
-                <th class="text-center">Năm</th>
+                <th class="text-center">Tháng/Năm</th>
                 <th class="text-center">Bộ phận sử dụng</th>
                 <th class="text-center">Nội dung</th>
                 <th class="text-center">Trạng thái</th>
@@ -75,7 +75,7 @@
                     {{item.SoQuyTrinh}}
                 </td>
                 <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td>
-                <td class="text-center">{{item.ThoiGian|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.ThoiGian|date:'MM/yyyy'}}</td>
                 <td style="text-align: left;">{{item.TenBoPhanSuDung}}</td>
                 <td  style="text-align: left;">{{item.NoiDung}}</td>
                 <td  style="text-align: left;">{{item.TenTrangThai}}</td>

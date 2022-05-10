@@ -108,6 +108,16 @@ export class LapkehoachlichxichnamComponent implements OnInit {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       } else {
         this.item = res.Data;
+        res.Data.listTaiSan.forEach(ele => {
+          ele.listChiPhi.forEach(obj => {
+            obj.TongTien = obj.ChiTietChiPhi.reduce((total, sum) => {
+              return total + sum.SoTien;
+            }, 0)
+          })
+          ele.TongTienChiPhi = ele.listChiPhi.reduce((total, number) => {
+            return total + number.TongTien;
+          }, 0)
+        })
         this.item.Nam = UnixToDate(this.item.ThoiGianUnix).getFullYear();
         this.toastr.success(res.Message);
         this.KiemTraButtonModal();

@@ -30,7 +30,6 @@
         </div>
     </div>
     <div class="p-grid">
-
         <div class="p-col-12 p-lg-8  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-3 p-p-0 my-auto">Nội dung:</label>
             <div class="p-col-12 p-xl-9 p-p-0">
@@ -54,7 +53,7 @@
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Chọn tháng, năm:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-calendar dateFormat="mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
+                <p-calendar dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon" (onSelect)="chonThang(item.ThoiGian)"
                     placeholder="Chọn tháng, năm" [(ngModel)]="item.ThoiGian">
                 </p-calendar>
             </div>

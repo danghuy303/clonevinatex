@@ -1,12 +1,12 @@
-<!-- <div class="p-d-flex p-flex-row p-jc-end p-grid flex-d">
+<div class="p-d-flex p-flex-row p-jc-end p-grid flex-d">
     <div class="modal-bt p-mb-4 p-col-12 p-lg-2  p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto"> </label>
         <div class="p-col-12 p-lg-8 p-p-0">
-            Tổng số:thiết bị
+            Tổng giá trị: {{TongGiaTriToanBang | number:'0.0-0'}}
         </div>
     </div>
-</div> -->
-<p-table [value]="item" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
+</div>
+<p-table [value]="listTaiSan" styleClass="p-datatable-sm wrap-text p-datatable-striped p-datatable-gridlines">
     <ng-template pTemplate="colgroup">
         <colgroup>
             <col style="width:100px">
@@ -58,7 +58,7 @@
                 <!-- <button pButton icon="pi pi-plus" pRipple type="button" label="Thêm" styleClass="p-button-sm" class="p-button-raised p-button-text p-mt-2" (click)="ChiTietThongTin(chiPhi)"></button> -->
                 <a href="javascript:void(0)" (click)="ChiTietThongTin(chiPhi)">Chọn</a>
             </td>
-            <td></td>
+            <td class="text-right">{{ item.TongTienChiPhi | number:'0.0-0'}}</td>
         </tr>
     </ng-template>
 </p-table>

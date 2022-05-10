@@ -11,7 +11,8 @@ import { ChiphilichxichnamchonthemComponent } from '../chiphilichxichnamchonthem
 })
 export class ChiphilichxichnamComponent implements OnInit {
 
-  @Input('item') item: any = {};
+  @Input('listTaiSan') listTaiSan: any = {};
+  TongGiaTriToanBang:any = 0;
 
   constructor(
 
@@ -23,19 +24,19 @@ export class ChiphilichxichnamComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.sum(this.listTaiSan);
   }
 
   ChiTietThongTin(item) {
-
     let modalRef = this._modal.open(ChiphilichxichnamchonthemComponent, {
       backdrop: "static",
     });
     modalRef.componentInstance.title = "Chi phí lịch xích năm";
-    modalRef.componentInstance.layIdTaiSan = this.item[0]?.IdTaiSan;
+    modalRef.componentInstance.layIdTaiSan = this.listTaiSan[0]?.IdTaiSan;
     // // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then((res: any) => {
       item.ChiTietChiPhi.push(res);
-
+      this.sum(this.listTaiSan);
     })
       .catch((er) => {
 
@@ -43,24 +44,35 @@ export class ChiphilichxichnamComponent implements OnInit {
   }
 
   editChiTietChiPhi(item) {
-
     let modalRef = this._modal.open(ChiphilichxichnamchonthemComponent, {
       backdrop: "static",
     });
     modalRef.componentInstance.title = "Chi phí lịch xích năm";
     modalRef.componentInstance.item = item;
-    // // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result.then((res: any) => {
-      item.ChiTietChiPhi.push(res);
+      item =res;
+      this.sum(this.listTaiSan);
     })
-      .catch((er) => {
-
-      });
+      .catch((er) => {});
   }
 
   Delete(array, index) {
     array.splice(index, 1);
+  }
 
+  sum(item) {
+    this.TongGiaTriToanBang = 0;
+    item.forEach(ele => {
+      ele.listChiPhi.forEach(obj => {
+        obj.TongTien = obj.ChiTietChiPhi.reduce((total, sum) => {
+          return total + sum.SoTien;
+        }, 0)
+      })
+      ele.TongTienChiPhi = ele.listChiPhi.reduce((total, number) => {
+        return total + number.TongTien;
+      }, 0);
+      this.TongGiaTriToanBang += (ele.TongTienChiPhi || 0);
+    })
   }
 
 }

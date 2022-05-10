@@ -28,6 +28,7 @@ export class ChonComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.checkExist();
     this.GetList();
   }
 
@@ -36,13 +37,15 @@ export class ChonComponent implements OnInit {
       this.items = res.Data;
       this.items.forEach(ele => {
         ele.checked = this.ItemDaChon === ele.Id;
+        if (this.ItemDaChon) {
+          ele.disabled = this.ItemDaChon === ele.Id?false:true;
+        }
       })
     })
   }
 
-  // checked() {
-  //   this.timCheck();
-  // }
+  checkExist() {
+  }
 
   checked(e) {
     this.items.forEach(ele => {

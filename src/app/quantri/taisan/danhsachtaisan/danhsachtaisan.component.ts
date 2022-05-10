@@ -71,6 +71,8 @@ export class DanhsachtaisanComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       Loai: 0,
       IdBoPhanSuDung:this.filter.IdBoPhanSuDung,
+      isDenHan: this.loaiTab === 1 ,
+      isQuaHan: this.loaiTab === 2 ,
     };
     this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
       this.paging.CurrentPage = res.Data.Page;

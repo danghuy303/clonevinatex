@@ -15,11 +15,11 @@
         <div class="p-d-flex p-flex-row">
             <div class="p-mr-2">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
-                    placeholder="Từ ngày" (onSelect)="GetList()">
+                    placeholder="Từ ngày" (onSelect)="GetList()" [(ngModel)]="filter.TuNgay">
                 </p-calendar>
             </div>
             <div class="p-mr-2">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon" [(ngModel)]="filter.DenNgay"
                     placeholder="Đến ngày" (onSelect)="GetList()">
                 </p-calendar>
             </div>

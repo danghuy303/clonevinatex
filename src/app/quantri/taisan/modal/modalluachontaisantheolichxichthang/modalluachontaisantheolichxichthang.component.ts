@@ -24,6 +24,8 @@ export class ModalluachontaisantheolichxichthangComponent implements OnInit {
   filter: any = {};
   listLoaiTaiSan: any = [];
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
+  TuThang: any = '';
+  DenThang: any = '';
 
   constructor(
     public _modal: NgbModal,
@@ -34,7 +36,11 @@ export class ModalluachontaisantheolichxichthangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.GetList();
+    console.log(this.filter);
+    if(this.filter.DenThang && this.filter.TuThang) {
+        this.GetList();
+    }
+    // this.GetList();
   }
 
   GetList() {
@@ -45,6 +51,10 @@ export class ModalluachontaisantheolichxichthangComponent implements OnInit {
       IdBoPhanSuDung: this.item.IdBoPhanSuDung,
       IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
       Ngay: DateToUnix(this.item.ThoiGian),
+      // TuThang:DateToUnix(this.TuThang),
+      // DenThang:DateToUnix(this.DenThang),  
+      TuThang: DateToUnix(this.filter.TuThang),
+      DenThang: DateToUnix(this.filter.DenThang),
     }
     this._serviceTaiSan.LichXich().GetListTaiSanTheoThang(data).subscribe((res: any) => {
       this.items = res.Data;

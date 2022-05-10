@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
@@ -34,11 +34,9 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.GetList();
+    // this.GetList();
   }
   resetFilter() {
-    console.log(this.listItemDaChon);
-    
     this.filter = {};
     this.GetList();
   }
@@ -46,10 +44,12 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
     let data = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      KeyWord: this.filter.KeyWord,
+      Keyword: this.filter.Keyword,
       IddmLoaiTaiSan: "",
       Nam: this.filter.Nam,
       Thang: this.filter.Thang,
+      TuNgay:DateToUnix(this.filter.TuNgay),
+      DenNgay:DateToUnix(this.filter.DenNgay),
       QuaHan: true,
     };
     this._serviceTaiSan.ThoiHanCungCap().LuaChon(data).subscribe((res: any) => {
@@ -87,7 +87,7 @@ export class ThoihancungcapmodalluachonComponent implements OnInit {
         data.push({
           IdTaiSan: obj.Id,
           TenTaiSan: obj.Ten,
-          IdNhaCungUng: obj.IddmNhaCungUng,
+          // IdNhaCungUng: obj.IddmNhaCungUng,
           MaTaisan: obj.Ma,
           // TenLoaidmBaoDuong: obj.data.TendmLoaiBaoDuong,
         });

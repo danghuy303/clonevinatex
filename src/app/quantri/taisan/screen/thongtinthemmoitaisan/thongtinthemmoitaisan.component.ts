@@ -51,6 +51,7 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
   LayMa(e) {
     if (!validVariable(e.value)) {
       this.item.Ma = '';
+      this.item.TendmTaiSan  = '';
       return
     }
     this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
