@@ -84,13 +84,15 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
         size: "xl",
         backdrop: "static",
       });
-      modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
+      modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan_BaoDuong) : []
+      // modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : []
       modalRef.componentInstance.opt = this.opt;
       modalRef.componentInstance.Lay_Chon = this.item;
       modalRef.componentInstance.item = this.item;
       modalRef.result.then((res: any) => {
         // this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
-        this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IddmLoaiBaoDuong');
+        // this.item.listTaiSan = merge(res, this.item.listTaiSan, 'Id');
+        this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan_BaoDuong').filter(ele => !ele.isXoa);
       })
         .catch((er) => {
         });

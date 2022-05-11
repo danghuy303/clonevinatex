@@ -2485,4 +2485,41 @@ export class SanXuatService {
             }
         }
     }
+    DanhMucSuCoMay(){
+        let url = API.SCMDanhMuc;
+        return {
+            Get: (Id) => {
+                return this.http.get(url + `GetdmSuCoMay?Id=${Id}`, httpOptions)
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListdmSuCoMay', data, httpOptions)
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetdmSuCoMay', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeletedmSuCoMay', data, httpOptions);
+            }
+        }
+    }
+    ThongKeThoiGianDungMay(){
+        let url = API.SCM+'ThoiGianDungMayVaTocDo/';
+        return {
+            Get: (data) => {
+                return this.http.post(url + `GetQuyTrinhThoiGianDungMayVaTocDo`,data, httpOptions)
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListQuyTrinhThoiGianDungMayVaTocDo', data, httpOptions)
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetQuyTrinhThoiGianDungMayVaTocDo', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.get(url + `DeleteQuyTrinhThoiGianDungMayVaTocDo?Id=${data.Id}`, httpOptions);
+            },
+            GetThongKe:(data)=>{
+                return this.http.post(`${url}GetThongKeThoiGianDungMayVaTocDo`,data,httpOptions)
+            }
+        }
+    }
 }

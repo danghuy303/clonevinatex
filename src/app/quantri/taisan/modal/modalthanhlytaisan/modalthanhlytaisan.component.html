@@ -120,7 +120,7 @@
                     {{item.GiaTriConLai |  number:'0.0'}}
                 </td>
                 <td style="text-align: right;">
-                    <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.GiaTriThanhLy" (onBlur)="Tong()">
+                    <p-inputNumber [disabled]="!item.isCha" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.GiaTriThanhLy" (onBlur)="Tong()">
                     </p-inputNumber>
                 </td>
                 <td class="text-center">

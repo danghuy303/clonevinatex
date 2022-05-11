@@ -1,0 +1,12 @@
+.w-tc-50{
+    min-width: 50px;
+    max-width: 50px;
+}
+.w-tc-150{
+    min-width: 150px;
+    max-width: 150px;
+}
+.w-tc-100{
+    min-width: 100px;
+    max-width: 100px;
+}

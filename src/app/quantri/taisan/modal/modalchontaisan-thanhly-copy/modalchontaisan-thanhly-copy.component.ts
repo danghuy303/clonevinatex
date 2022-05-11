@@ -52,12 +52,16 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
       this.items = res.Data.map(ele => {
         return {
           data: {
-            ...ele
+            ...ele,
           },
           children: []
         }
       });
       this.items = this.TreeItems(this.items)
+      this.items.forEach(ele => {
+        ele.data.isCha = true
+      })
+      
       this.listTaiSanDaChon = this.TimCheck(this.items)
       this.listItemDaChon.forEach(ele => {
         this.listTaiSanDaChon.forEach(obj => {
@@ -97,7 +101,7 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
         GiaTriConLai: ele.data.GiaTriConLai,
         TenTaiSan: ele.data.Ten,
         IdTaiSan: ele.data.Id,
-        isCha: true,
+        isCha: ele.data.isCha?ele.data.isCha:false,
       }
     })
     return data;
@@ -222,6 +226,7 @@ export class ModalchontaisanThanhlyCopyComponent implements OnInit {
   
 
   GhiLai() {
+    // console.log("this.FilterTree()", this.FilterTree());
     this.activeModal.close(this.FilterTree());
   }
 
