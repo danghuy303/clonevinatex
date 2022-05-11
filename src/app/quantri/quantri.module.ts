@@ -269,6 +269,9 @@ import { ModalbaoduongComponent } from './taisan/modal/modalbaoduong/modalbaoduo
 import { ModalthongtinchitiettaisanComponent } from './taisan/modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
 import { Hungyenpx1Component } from './quanlykhosanxuat/phuongan/layoutmodals/hungyenpx1/hungyenpx1.component';
 import { Cnnamdinhpx1Component } from './quanlykhosanxuat/phuongan/layoutmodals/cnnamdinhpx1/cnnamdinhpx1.component';
+import { DmsucomayComponent } from './danhmuc/dmsucomay/dmsucomay.component';
+import { ModaldmsucomayComponent } from './danhmuc/modal/modaldmsucomay/modaldmsucomay.component';
+import { ThongkethoigiandungmayComponent } from './quanlykhosanxuat/thongke/thongkethoigiandungmay/thongkethoigiandungmay.component';
 
 
 @NgModule({
@@ -490,6 +493,9 @@ import { Cnnamdinhpx1Component } from './quanlykhosanxuat/phuongan/layoutmodals/
     ModalbaoduongComponent,
     Hungyenpx1Component,
     Cnnamdinhpx1Component,
+    DmsucomayComponent,
+    ModaldmsucomayComponent,
+    ThongkethoigiandungmayComponent,
   ],
   imports: [
     HttpClientModule,
@@ -647,7 +653,7 @@ import { Cnnamdinhpx1Component } from './quanlykhosanxuat/phuongan/layoutmodals/
     Phuhung1Component,
     Phuhung2Component,
     LoaiBongPheDmModalComponent,
-
+    ModaldmsucomayComponent
   
   ],
   providers: [

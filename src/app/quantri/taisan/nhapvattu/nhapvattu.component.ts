@@ -147,8 +147,9 @@ export class NhapvattuComponent implements OnInit {
         if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
+          let Ngay =  UnixToDate( res.Data.NgayUnix);
+          this.item.Ngay = Ngay;
           this.item = res.Data;
-          this.item.Ngay = UnixToDate( this.item.NgayUnix);
           this.ListNhaCungUng();
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();

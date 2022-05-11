@@ -170,6 +170,8 @@ import { ModalluachonbaoduonglichxichtheothangComponent } from './modal/modallua
 import { VattulichxichthangComponent } from './screenLichXich/vattulichxichthang/vattulichxichthang.component';
 import { ChiphilichxichthangComponent } from './screenLichXich/chiphilichxichthang/chiphilichxichthang.component';
 import { TaisanlichxichthangComponent } from './screenLichXich/taisanlichxichthang/taisanlichxichthang.component';
+import { CapnhatthuvienComponent } from './capnhatthuvien/capnhatthuvien.component';
+import { CapnhatthuvientaisanchitietComponent } from './capnhatthuvientaisanchitiet/capnhatthuvientaisanchitiet.component';
 
 
 @NgModule({
@@ -295,6 +297,8 @@ import { TaisanlichxichthangComponent } from './screenLichXich/taisanlichxichtha
     VattulichxichthangComponent,
     ChiphilichxichthangComponent,
     TaisanlichxichthangComponent,
+    CapnhatthuvienComponent,
+    CapnhatthuvientaisanchitietComponent,
 
   ],
   imports: [
@@ -391,6 +395,7 @@ import { TaisanlichxichthangComponent } from './screenLichXich/taisanlichxichtha
     XulysucoluachontaisanComponent,
     DenghisulyluachonthemvattuComponent,
     ModalluachontaisantheolichxichthangComponent,
+    CapnhatthuvientaisanchitietComponent,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]

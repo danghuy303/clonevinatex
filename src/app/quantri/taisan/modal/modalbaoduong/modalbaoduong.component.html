@@ -66,33 +66,33 @@
                 <div class="p-col-12 p-lg-12 p-p-0 d-flex flex-column flex-xl-row">
                     <div class="p-col-12 p-lg-2 p-p-0">
                         <div class="field-radiobutton check-pt" >
-                            <p-radioButton value="Ngày" inputId="Ngay" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
+                            <p-radioButton value="Ngay" inputId="ngay" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
                             <label for="Ngay">Ngày</label>
                         </div>
                     </div>
                     
                     <div class="p-col-12 p-lg-2 p-p-0">
                         <div class="field-radiobutton check-pt">
-                            <p-radioButton value="Tuần" inputId="tuan" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
+                            <p-radioButton value="Tuan" inputId="tuan" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
                             <label>Tuần</label>
                         </div>
                     </div>
                     <div class="p-col-12 p-lg-2 p-p-0">
                         <div class="field-radiobutton check-pt">
-                            <p-radioButton value="Tháng" inputId="thang" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
+                            <p-radioButton value="Thang" inputId="thang" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
                             <label>Tháng</label>
                         </div>
                     </div>
                     <div class="p-col-12 p-lg-2 p-p-0">
                         <div class="field-radiobutton check-pt">
-                            <p-radioButton value="Năm" inputId="nam" [(ngModel)]="item.MaLoaiThoiGian" ></p-radioButton>
+                            <p-radioButton value="Nam" inputId="nam" [(ngModel)]="item.MaLoaiThoiGian" ></p-radioButton>
                             <label>Năm</label>
                         </div>
                     </div>
                     <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-xl-row">
                             <p-inputNumber [minFractionDigits]="0" locale="en-EN"  [(ngModel)]="item.ThoiGianBaoDuong">
                             </p-inputNumber> 
-                            <p class="tan">({{item.MaLoaiThoiGian}})</p>
+                            <p class="tan">({{Time[item.MaLoaiThoiGian]}})</p>
                     </div>
                 </div>
             </div>

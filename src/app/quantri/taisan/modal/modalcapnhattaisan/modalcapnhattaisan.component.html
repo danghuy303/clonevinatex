@@ -16,8 +16,8 @@
     </button>
 </div>
 <div class="modal-body">
-    <div class="p-d-flex p-flex-row p-jc-between">
-        <div class="modal-bt p-mb-4 ">
+    <div class="p-d-flex p-flex-row p-jc-between" style="position: relative;">
+        <div class="modal-bt p-mb-2  p-col-8">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm" (click)="activeModal.dismiss('close')"></button>
             <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="GhiLai()" *ngIf="checkbutton.Ghi"></button>
             <button pButton pRipple type="button" label="Xóa" class="p-mr-2 p-button-sm" *ngIf="checkbutton.Xoa" (click)="XoaQuyTrinh()"></button>
@@ -27,7 +27,7 @@
             <button pButton pRipple type="button" label="Lưu vào thư viện" class="p-mr-2 p-button-sm" (click)="AddThuVien()"></button>
             <!-- <button pButton pRipple type="button" label="Kết xuất" *ngIf="canExport" (click)="exportExcel()" class="p-mr-2 p-button-sm"></button> -->
         </div>
-        <div class="modal-bt p-mb-4 text-center maQr"  [style.visibility]="item.TaiSan.Ma?'visible':'hidden'">
+        <div class="modal-bt text-center p-col-4 maQR"  [style.visibility]="item.TaiSan.Ma?'visible':'hidden'">
             <qrcode [qrdata]="item.TaiSan.Ma"  [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
         </div>
     </div>
@@ -43,8 +43,6 @@
                     <ng-template pTemplate="content">
                         <div class="p-d-flex p-flex-row p-jc-between">
                             <div class="modal-bt p-mb-4 ">
-                                <!-- <button pButton pRipple type="button" label="Thêm mới tài sản" class="p-mr-2 p-button-sm"
-                                    (click)="ThemMoiTaiSanCon()"></button> -->
                             </div>
                         </div>
                         <p-table [value]="item.TaiSan.listTaiSan|isXoa"

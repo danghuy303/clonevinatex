@@ -1,0 +1,46 @@
+<div class="p-mb-3 p-mt-3">
+    <h4 style="color:#1f2779">Thống kê thời gian dừng máy</h4>
+</div>
+<div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+    <div class="p-d-flex p-flex-row">
+        <button pButton pRipple label="Lưu lại" icon="pi pi-plus" class="p-button-sm p-mr-2"
+            (click)="setPhieuThongKeThoiGianDungMay()"></button>
+    </div>
+    <div class="d-flex flex-column flex-lg-row">
+        <!-- <div class="p-mr-2">
+            <p-dropdown [options]="listLoaiPhuongAn" placeholder="Chọn phương án" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.LoaiPhuongAn" optionLabel="name" [showClear]="true"></p-dropdown>
+        </div> -->
+        <div class="p-mr-2">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                [(ngModel)]="filter.NgayChon" inputId="icon" placeholder="Ngày" (onSelect)="GetList()">
+            </p-calendar>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
+                [(ngModel)]="filter.IddmPhanXuong" styleClass="p-inputtext-sm" (onChange)="GetList()" [showClear]="true"
+                [filter]="true"></p-dropdown>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="p-col-12 p-p-0 pintable-container" style="height: 90vh; background-color: #fff;" voiPintable
+        [pinnedCols]="2">
+        <table style="table-layout: fixed;">
+            <thead>
+                <tr>
+                    <th class="w-tc-50" >STT</th>
+                    <th class="w-tc-150" >Máy</th>
+                    <th *ngFor="let suco of item.lstdmSuCoMay" class="w-tc-100">{{suco.Ten}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let may of item.lstMay">
+                    <td class="w-tc-50 bg-white" >STT</td>
+                    <td class="w-tc-150 bg-white" >Máy</td>
+                    <td class="w-tc-100" *ngFor="let suco of item.lstdmSuCoMay">{{suco.Ten}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

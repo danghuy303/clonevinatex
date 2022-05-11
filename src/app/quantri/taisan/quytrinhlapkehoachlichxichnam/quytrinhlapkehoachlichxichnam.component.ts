@@ -35,9 +35,11 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
     private activatedRoute: ActivatedRoute, private router: Router,
   ) { }
   ngOnInit(): void {
+    this.GetList();
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
+    this.filter.Ngay = new Date().getFullYear();
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         this._serviceTaiSan
@@ -49,13 +51,13 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
           });
       }
     });
-    this.GetList();
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
   }
   
   resetFilter() {
     this.Keyword = '';
+
     this.filter = {};
     this.GetList(true);
   }
@@ -67,11 +69,11 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
     }
     let data = {
       PageSize: 20,
-      Ngay: DateToUnix(new Date(this.filter.Ngay, 1, 1, 1,)),
+      Ngay: this.filter.Ngay?DateToUnix(new Date(this.filter.Ngay, 1, 1, 1,)):0,
       CurrentPage: this.paging.CurrentPage,
       Keyword: this.filter.Keyword,
-      TuNgay: DateToUnix(this.filter.TuNgay),
-      DenNgay: DateToUnix(this.filter.DenNgay),
+      TuThang: DateToUnix(this.filter.TuNgay),
+      DenThang: DateToUnix(this.filter.DenNgay),
       TabTrangThai: this.trangThai,
       Loai: 0,
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,

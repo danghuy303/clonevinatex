@@ -71,6 +71,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
       this.TaiSanItem = res.Data;
 
       this.listdmLoaiBaoDuong = this.TaiSanItem.listdmLoaiBaoDuong;
+      this.listdmLoaiBaoDuong.sort(this.compare);
       this.items = [];
       let items = [];
       items = this.TaiSanItem.listTaiSan;
@@ -97,6 +98,16 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
       this.checkedAll = this.items.every(obj => obj.data.checked);
     });
   }
+  compare(a, b) {
+    if ( a.MadmLoaiBaoDuong < b.MadmLoaiBaoDuong ){
+      return -1;
+    }
+    if ( a.MadmLoaiBaoDuong > b.MadmLoaiBaoDuong ){
+      return 1;
+    }
+    return 0;
+  }
+
   TimCheck(eleCha) {
     eleCha.children.forEach(eleCon => {
       eleCon.data.checked = eleCha.data.checked
