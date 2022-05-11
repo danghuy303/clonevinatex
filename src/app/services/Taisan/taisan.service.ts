@@ -520,6 +520,26 @@ export class TaisanService {
     }
   }
 
+  ThuVienTaiSan() {
+    let url = API.TaiSan;
+    return {
+      GetList: (data) => {
+        data.IdDuAn = this.store.getCurrent();
+        return this.http.post(`${url}QuanLyTaiSan/GetListThuVienTaiSan`, data, httpOptions);
+      },
+      Get: (Id) => {
+        return this.http.get(`${url}QuanLyTaiSan/GetThuVienTaiSanById?Id=${Id}`, httpOptions);
+      },
+      Set: (data) => {
+        return this.http.post(`${url}QuanLyTaiSan/UpdateThuVienTaiSan`, data, httpOptions);
+      },
+      Delete: (Id) => {
+        return this.http.get(`${url}QuanLyTaiSan/DeleteThuVienTaiSanById?Id=${Id}`, httpOptions);
+      },
+    }
+  }
+
+
   ListDanhSachBienDong() {
     let url = API.TaiSan;
     return {

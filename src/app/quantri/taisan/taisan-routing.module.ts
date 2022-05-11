@@ -42,6 +42,7 @@ import { DieuChuyenTaiSanComponent } from './dieu-chuyen-tai-san/dieu-chuyen-tai
 
 import { ThoihancungcapvattuComponent } from './thoihancungcapvattu/thoihancungcapvattu.component';
 import { LichSuSuDungComponent } from './lich-su-su-dung/lich-su-su-dung.component';
+import { CapnhatthuvienComponent } from './capnhatthuvien/capnhatthuvien.component';
 
 const routes: Routes = [
   {path:'',component:TaisanComponent},
@@ -64,12 +65,10 @@ const routes: Routes = [
   {path:'danhmuc/loaisuco',component:LoaisucoComponent},
   {path:'danhmuc/nhacungcap',component:DanhmucnhacungcapComponent},
   {path:'sucosuachua2',component:Sucosuachua2Component},
-
   {path:'danhmuc/mucdouutien',component:DanhmucmucdouutienComponent},
   {path:'quytrinhnhapvattu/:id',component:QuytrinhnhapvattuComponent},
   {path:'danhsachvattu',component:DanhsachvattuComponent},
   {path:'quytrinhdenghithayvattu/:id',component:QuytrinhdenghithayvattuComponent},
-
   {path:'quytrinhlapkehoachnam/:id',component:QuytrinhlapkehoachlichxichnamComponent},
   {path:'lapkehoachlichxichnam',component:LapkehoachlichxichnamComponent},
   {path:'quytrinhlapkehoachthang/:id',component:QuytrinhlapkehoachlichxichthangComponent},
@@ -86,7 +85,7 @@ const routes: Routes = [
   {path:'dieuchuyentaisan/:id',component:DieuChuyenTaiSanComponent},
   {path:'thoihancungcapvattu/:id',component:ThoihancungcapvattuComponent},
   {path:'lichsusudungtaisan/:id', component:LichSuSuDungComponent},
-
+  {path:'capnhatthuvien', component:CapnhatthuvienComponent},
 ];
 
 @NgModule({

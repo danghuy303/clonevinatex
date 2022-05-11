@@ -18,6 +18,12 @@ export class ModalbaoduongComponent implements OnInit {
   paging: any = { page: 1, totalPages: 1, totalCount: 1 };
   listTaiSan: any = [];
   listMucDoUuTien: any = [];
+  Time = {
+    Ngay: 'Ngày',
+    Tuan: 'Tuần',
+    Thang: 'Tháng',
+    Nam: 'Năm',
+  };
 
   constructor(public activeModal: NgbActiveModal, private _danhMucTaiSan: DanhmuctaisanService, public toastr: ToastrService) { this.item.isHoatDong = true }
 

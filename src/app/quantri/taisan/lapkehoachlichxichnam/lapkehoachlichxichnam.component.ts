@@ -103,6 +103,10 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   }
 
   GhiLai() {
+    if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
+      return
+    }
     this._serviceTaiSan.LichXich().Set(this.setData()).subscribe((res: any) => {
       if (res.StatusCode !== 200 || !res.StatusCode) {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -172,6 +176,10 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       .catch((er) => console.log(er));
   }
   ThemMoiDanhSachTaiSan() {
+ if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
+      return
+    }
     let modalRef = this._modal.open(ModalluachontaisantheolichxichComponent, {
       size: "fullscreen",
       backdrop: "static",
@@ -229,5 +237,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     this.trangThai = e.index;
   }
   
+
 
 }

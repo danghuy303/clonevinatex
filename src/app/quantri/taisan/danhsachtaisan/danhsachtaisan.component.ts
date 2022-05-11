@@ -65,14 +65,14 @@ export class DanhsachtaisanComponent implements OnInit {
       tabTrangThai: this.loaiTab,
       IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
       Keyword: this.filter.Keyword,
-      isGiaTriCao:this.filter.isGiaTriCao,
-      isCanDuTru:this.filter.isCanDuTru,
+      isGiaTriCao: this.filter.isGiaTriCao,
+      isCanDuTru: this.filter.isCanDuTru,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
       Loai: 0,
-      IdBoPhanSuDung:this.filter.IdBoPhanSuDung,
-      isDenHan: this.loaiTab === 1 ,
-      isQuaHan: this.loaiTab === 2 ,
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+      isDenHan: this.loaiTab === 1,
+      isQuaHan: this.loaiTab === 2,
     };
     this._serviceTaiSan.ListDanhSachTaiSan().GetList(data).subscribe((res: any) => {
       this.paging.CurrentPage = res.Data.Page;
