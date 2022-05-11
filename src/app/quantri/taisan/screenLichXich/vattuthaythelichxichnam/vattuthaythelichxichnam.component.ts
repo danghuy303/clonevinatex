@@ -12,17 +12,28 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
   lableThang: any = [];
   ThanhTien: any = 0;
   TongGiaTriToanBang: any = 0;
+  vatTu: any = [];
 
   constructor() { }
 
   ngOnChanges(): void {
     this.SumAll();
+    this.ThoiGianVatTu();
   }
 
 
   ngOnInit(): void {
   }
 
+  ThoiGianVatTu() {
+    this.items.forEach(ele => {
+      ele.listVatTu.forEach(obj => {
+        this.vatTu = obj.listThoiGian;
+      })
+    })
+    console.log(this.vatTu);
+    
+  }
 
   tongTien(item) {
     this.TongGiaTriToanBang = 0;
@@ -49,7 +60,7 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
     this.TongGiaTriToanBang = 0;
     this.items.forEach(item => {
       item.TongGiaTri = 0;
-    item.TongThanhTien = new Array(12).fill(0);
+      item.TongThanhTien = new Array(12).fill(0);
       for (let i = 0; i <= 11; i++) {
         item.listVatTu.forEach(vattu => {
           item.TongThanhTien[i] += ((vattu.listThoiGian[i].DonGia || 0) * (vattu.listThoiGian[i].SoLuong || 0));

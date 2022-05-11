@@ -24,8 +24,6 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.copyItemsBaoDuong);
-    
     this.loadData();
   }
 
@@ -33,14 +31,12 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
     let data = {
       IdTaiSan: this.taiSan.IdTaiSan,
       IddmLoaiTaiSan: this.taiSan.IddmLoaiTaiSan,
-      ThoiGian: DateToUnix(this.taiSan.ThoiGian),
+      Ngay: DateToUnix(this.taiSan.ThoiGian),
       IdBoPhanSuDung: this.taiSan.IdBoPhanSuDung,
     }
     this._serviceTaiSan.LichXich().GetListTaiSanTheoThang(data).subscribe((res: any) => {
       this.listBaoDuong = res.Data[0]?.listLoaiBaoDuong;
-      
       this.listBaoDuong.push(this.copyItemsBaoDuong)
-      console.log('log list bao duong', this.listBaoDuong);
       this.listBaoDuong.forEach(obj => {
         obj.checked = this.listItemDaChon.includes(obj.IddmLoaiBaoDuong);
       })
