@@ -7,6 +7,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from '../../modal/uploadmodal/uploadmodal.component';
 import { ModalthemmoiluachontaisanComponent } from '../modal/modalthemmoiluachontaisan/modalthemmoiluachontaisan.component';
 
@@ -171,6 +172,24 @@ export class CapnhatthuvientaisanchitietComponent implements OnInit {
       })
       .catch((er) => {
       });
+  }
+  XoaThuVien() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa thư viện này chứ?";
+    modalRef.result
+      .then((res) => {
+        this._serviceTaiSan.ThuVienTaiSan().Delete(this.item.Id).subscribe((res: any) => {
+          if (res.StatusCode === 200) {
+            this.activeModal.close();
+            this.toastr.success(res.Message);
+          } else {
+            this.toastr.error(res.message);
+          }
+        })
+      })
+      .catch((er) => console.log(er));
   }
 
   delete(index) {

@@ -176,7 +176,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       .catch((er) => console.log(er));
   }
   ThemMoiDanhSachTaiSan() {
- if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
+    if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
       return
     }
@@ -192,6 +192,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.item.listTaiSan = res;
       this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
       this.item.listTaiSan.forEach(ele => {
+        ele.ThoiGian = new Date(ele.thoiGianDuaVaoSuDung).getMonth()+1;
         if (!validVariable(ele.listBaoDuong)) {
           ele.listBaoDuong = []
           for (let i = 1; i <= 12; i++) {
@@ -220,9 +221,9 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     });
 
     modalRef.componentInstance.Nam = this.item.ThoiGian;
-    modalRef.componentInstance.IdTaiSan =  taisan.IdTaiSan;
-     modalRef.componentInstance.listItemDaChon = baoduong.listChiTiet ? baoduong.listChiTiet.map(ele => ele?.IddmLoaiBaoDuong) : [];
-    modalRef.componentInstance.IdBoPhanSuDung = this.item.IdBoPhanSuDung ;
+    modalRef.componentInstance.IdTaiSan = taisan.IdTaiSan;
+    modalRef.componentInstance.listItemDaChon = baoduong.listChiTiet ? baoduong.listChiTiet.map(ele => ele?.IddmLoaiBaoDuong) : [];
+    modalRef.componentInstance.IdBoPhanSuDung = this.item.IdBoPhanSuDung;
     modalRef.result.then((res: any) => {
       baoduong.listChiTiet = res;
 
@@ -230,13 +231,15 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       .catch((er) => {
       });
   }
-  ChonLoaiTaiSan(i) {
-    let item = this.item.listTaiSan.splice(i, 1)[0];
+  ChonLoaiTaiSan() {
+    this.item.listTaiSan.splice(0, this.item.listTaiSan.length);
   }
   changeTab(e) {
     this.trangThai = e.index;
   }
-  
 
+  clear() {
+    this.item.listTaiSan.splice(0, this.item.listTaiSan.length);
+  }
 
 }

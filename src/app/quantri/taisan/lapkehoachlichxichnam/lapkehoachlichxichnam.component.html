@@ -48,14 +48,14 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại tài sản: <span class="required">(*)</span></label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [showClear]="true"
-                    (onChange)="ChonLoaiTaiSan(item)" [(ngModel)]="item.IddmLoaiTaiSan" placeholder="Chọn loại tài sản"
+                    (onChange)="ChonLoaiTaiSan()" [(ngModel)]="item.IddmLoaiTaiSan" placeholder="Chọn loại tài sản"
                     [showClear]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Chọn năm: <span class="required">(*)</span></label>
             <div class="p-col-12 p-lg-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="item.Nam" placeholder="Chọn năm" (onChange)="chonNam(item)"
+                <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="item.Nam" placeholder="Chọn năm" (onChange)="clear()"
                     styleClass="p-inputtext-sm"></p-dropdown>
                 <!-- <p-calendar dateFormat="yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
                     [yearRange]="yearRange" [showIcon]="true" inputId="icon" placeholder="yyyy"
@@ -139,18 +139,22 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-item let-i="rowIndex">
                     <tr>
-                        <!-- <td class="text-center"> {{item.TenTaiSan}}</td>
+                        <!-- <td> {{item.MaTaiSan}} - {{item.TenTaiSan}}</td>
                         <td class="text-center" *ngFor="let baoduong of item.listBaoDuong"
                             (click)="Chon(baoduong,item)">
-                            <p *ngFor="let bd of baoduong.listChiTiet">{{bd.TendmLoaiBaoDuong}}</p>
+                            <p *ngFor="let chitiet of baoduong.listChiTiet">{{chitiet?.TendmLoaiBaoDuong}}</p>
                             <a href="javascript:void(0)">Chọn</a>
                         </td> -->
 
                         <td> {{item.MaTaiSan}} - {{item.TenTaiSan}}</td>
                         <td class="text-center" *ngFor="let baoduong of item.listBaoDuong"
                             (click)="Chon(baoduong,item)">
-                            <p *ngFor="let chitiet of baoduong.listChiTiet">{{chitiet?.TendmLoaiBaoDuong}}</p>
-                            <a href="javascript:void(0)">Chọn</a>
+
+                            <div  [style.display]="baoduong.ThoiGian < item.ThoiGian?'none':'block' ">
+                                <p *ngFor="let chitiet of baoduong.listChiTiet">{{chitiet?.TendmLoaiBaoDuong}}</p>
+                                <a href="javascript:void(0)">Chọn</a>
+                            </div>  
+
                         </td>
                     </tr>
                 </ng-template>

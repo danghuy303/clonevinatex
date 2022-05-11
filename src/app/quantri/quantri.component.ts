@@ -956,7 +956,7 @@ export class QuantriComponent implements OnInit {
               items: [
                 {
                   label: "Tổng hợp tài sản",
-                  routerLink: "/quantri/quantritaisan/baocaotonghoptaisan",
+                  routerLink: "/quantri/quantrisanxuat/baocaotonghoptaisan",
                   separator: !this.showTaiSanModule,
                   command: () => {
                     this.close();
@@ -998,7 +998,7 @@ export class QuantriComponent implements OnInit {
                 },
               },
               {
-                label: "Cập nhật tài sản",
+                label: "Cập nhật thư viện",
                 routerLink: "/quantri/taisan/capnhatthuvien",
                 command: () => {
                   this.close();

@@ -926,5 +926,16 @@ export class TaisanService {
       }
     };
   }
+  BaoCaoTaiSan() {
+    let url = API.TaiSan;
+    return {
+      GetListChiPhiVatTu: (data) => {
+        return this.http.post(`${url}BaoCao/GetListChiPhiVatTu`, data, httpOptions);
+      },
+      GetListChiPhiPhatSinh: (data) => {
+        return this.http.post(`${url}BaoCao/GetListChiPhiPhatSinh`, data, httpOptions);
+      },
+    }
+  }
 
 }
