@@ -15,12 +15,12 @@
         <div class="p-d-flex p-flex-row">
             <div class="p-mr-2">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
-                    placeholder="Từ ngày" (onSelect)="GetList()">
+                    placeholder="Từ ngày" (onSelect)="GetList()" [(ngModel)]="filter.TuNgay">
                 </p-calendar>
             </div>
             <div class="p-mr-2">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon"
-                    placeholder="Đến ngày" (onSelect)="GetList()">
+                    placeholder="Đến ngày" (onSelect)="GetList()" [(ngModel)]="filter.DenNgay">
                 </p-calendar>
             </div>
             <div class="p-mr-2 p-inputgroup">
@@ -41,6 +41,7 @@
                 <th class="text-center" style="width: 150px;">Mã</th>
                 <th class="text-center">Tên</th>
                 <th class="text-center">Loại bảo dưỡng</th>
+                <th class="text-center">Thời gian kế hoạch</th>
                 <th class="text-center">Ghi chú</th>
             </tr>
         </ng-template>
@@ -53,15 +54,16 @@
                 <td style="width: 150px;">
                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler> {{rowData.MadmLoaiBaoDuong}}
                 </td>
-                <td class="text-center">{{rowData.TenTaiSan}}</td>
-                <td class="text-center"> {{rowData.TendmLoaiBaoDuong}}</td>
-                <td class="text-center">{{rowData.GhiChu}}</td>
+                <td>{{rowData.TenTaiSan}}</td>
+                <td> {{rowData.TendmLoaiBaoDuong}}</td>
+                <td class="text-center"> {{rowData.ThoiGianKeHoach | date: 'dd/MM/yyyy'}}</td>
+                <td>{{rowData.GhiChu}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
                 Tổng số bản ghi {{paging.TotalCount}}.
-                <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="20"
+                <p-paginator #paginator [totalRecords]="paging.TotalCount" [rows]="10"
                     (onPageChange)="changePage($event)">
                 </p-paginator>
             </div>
