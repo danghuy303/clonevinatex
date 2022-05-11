@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
@@ -33,27 +33,30 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.GetList();
+    this.resetFilter();
   }
 
   resetFilter() {
     this.filter = {};
-    this.GetList();
+    this.GetList(true);
   }
 
-  GetList() {
+  GetList(reset?) {
+    if (reset) {
+      this.paging.CurrentPage = 0;
+    }
     let data = {
       Keyword: this.filter.Keyword,
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      TuNgay: 0, DenNgay: 0,
+      TuNgay: DateToUnix(this.filter.TuNgay), 
+      DenNgay: DateToUnix(this.filter.DenNgay),
       TabTrangThai: 0, IddmLoaiTaiSan: this.item.IdDmLoaiTaiSan, IdBoPhanSuDung: this.item.IdBoPhanSuDung,
       isCanDuTru: false, isGiaTriCao: false, IdDuAn: 0,
     };
     this._serviceTaiSan.QuyTrinhBaoDuong().GetListTaiSanBaoDuong(data).subscribe((res: any) => {
-      console.log("res", res);
+      // console.log("res", res);
       
-      this.paging.TotalCount = res.Data.TotalCount;
       this.items = [];
       res.Data.forEach(obj => {
         // obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
@@ -67,6 +70,10 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
         });
         this.items.push(data);
       });
+      this.paging.TotalCount = this.items.length;
+      console.log("this.items", this.items);
+      
+      this.items = this.SplitPages(this.items)
       this.checkedAll = res.Data.every(ele => ele.checked);
     });
   }
@@ -159,22 +166,28 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
   }
 
   GhiLai() {
-    // this._serviceTaiSan.QuyTrinhBaoDuong().GetListVatTuByIdTaiSanForXuLySuCo(this.FilterTree()).subscribe((res: any) => { 
-    //   console.log(res);
-      
-    //   this.activeModal.close(res.Data);
-    // });
     let data = this.FilterTree().map(ele => {
-      return {
+      return { 
         IdTaiSan: ele.IdTaiSan,
         IdLapKeHoachLichXich: ele.IdLapKeHoachLichXich,
         IddmLoaiBaoDuong: ele.IddmLoaiBaoDuong
       }
     })
     this._serviceTaiSan.GetOptions().GetListVatTuForBaoDuong(data).subscribe((res:any) => {
-      
       this.activeModal.close(res.Data);
     })
+  }
+
+  SplitPages(arr) {
+    const ROWS_PER_PAGES = 10;
+    let first = this.paging.CurrentPage*ROWS_PER_PAGES;
+    let last = first + ROWS_PER_PAGES;
+    return arr.slice(first, last);
+  }
+
+  changePage(event) {
+    this.paging.CurrentPage = event.page;
+    this.GetList(false)
   }
 
 }
