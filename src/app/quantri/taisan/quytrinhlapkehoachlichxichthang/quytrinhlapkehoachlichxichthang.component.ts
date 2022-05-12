@@ -72,6 +72,7 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       TabTrangThai: this.trangThai,
       Loai:0,
+      IdBoPhanSuDung:this.filter.IdBoPhanSuDung
     };
     this._serviceTaiSan.LichXichThang().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;  

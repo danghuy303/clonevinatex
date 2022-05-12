@@ -10,7 +10,7 @@
     </div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="bộ phận sử dụng" styleClass="p-inputtext-sm">
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="bộ phận sử dụng"  [(ngModel)]="filter.IdBoPhanSuDung" (onChange)="GetList(true)" styleClass="p-inputtext-sm">
             </p-dropdown>
         </div>
         <div class="p-mr-2">
@@ -35,9 +35,11 @@
 </div>
 
 <p-tabView (onChange)="changeTab($event)" styleClass="no-content">
-    <p-tabPanel header="Chưa xử lý" [disabled]="!checkQuyen.ChuaXuLy">
+    <p-tabPanel header="Chưa xử lý" >
     </p-tabPanel>
-    <p-tabPanel header="Đã xử lý" [disabled]="!checkQuyen.DaXyLy">
+    <p-tabPanel header="Đã xử lý" >
+    </p-tabPanel>
+    <p-tabPanel header="Tổng hợp" >
     </p-tabPanel>
 </p-tabView>
 <div class="p-mt-3">

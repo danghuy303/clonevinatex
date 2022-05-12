@@ -1,25 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FileItem, FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
-import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
-import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { mapArrayForDropDown, validVariable, DateToUnix, DateToDatePicker, UnixToDate, deepCopy } from 'src/app/services/globalfunction';
-import { API } from 'src/app/services/host';
+import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
-import { LuachontaisannhaptaisanComponent } from '../luachontaisannhaptaisan/luachontaisannhaptaisan.component';
-import { ModalcapnhattaisanconComponent } from '../modalcapnhattaisancon/modalcapnhattaisancon.component';
-import { ModalthemmoiluachontaisanComponent } from '../modalthemmoiluachontaisan/modalthemmoiluachontaisan.component';
+import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
+import { UploadmodalComponent } from '../../modal/uploadmodal/uploadmodal.component';
+import { ModalthemmoiluachontaisanComponent } from '../modal/modalthemmoiluachontaisan/modalthemmoiluachontaisan.component';
 
 @Component({
-  selector: 'app-modalcapnhattaisan',
-  templateUrl: './modalcapnhattaisan.component.html',
-  styleUrls: ['./modalcapnhattaisan.component.css']
+  selector: 'app-capnhatthuvientaisanchitiet',
+  templateUrl: './capnhatthuvientaisanchitiet.component.html',
+  styleUrls: ['./capnhatthuvientaisanchitiet.component.css']
 })
-export class ModalcapnhattaisanComponent implements OnInit {
+export class CapnhatthuvientaisanchitietComponent implements OnInit {
 
   item: any = {};
   opt: any = "";
@@ -29,7 +26,6 @@ export class ModalcapnhattaisanComponent implements OnInit {
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   itemDonVi: any = {};
   uploader: FileUploader;
-  // newTableItem: any = {};
   listDonVi: any = [];
   listLoaiTaiSan: any = [];
   listTinhTrangTaiSan: any = [];
@@ -55,27 +51,11 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    if (this.item.TaiSan.NgayNhapUnix !== 0 || this.item.TaiSan.NgayNhapUnix === 0) {
-      this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
-    }
-    this.KiemTraButtonModal();
-    if (this.opt === 'add') {
-      this.GetNextSoQuyTrinh();
-    }
-    else {
-      this.GetIem();
+    if (this.item.NgayNhapUnix !== 0 || this.item.NgayNhapUnix === 0) {
+      this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
     }
     this.GetListdmPhanXuong();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', };
-
-    // this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
-    //   console.log(res.Data);
-    //   this.listLoaiTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
-    //   console.log(this.listLoaiTaiSan)
-    // })
-
-
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
 
@@ -91,20 +71,8 @@ export class ModalcapnhattaisanComponent implements OnInit {
     })
   }
 
-  KiemTraButtonModal() {
-    this._servicesSanXuat.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
-      this.checkbutton = res;
-    });
-  }
-
-  GetNextSoQuyTrinh() {
-    this._serviceTaiSan.NhapTaiSan().GetNextSoQuyTrinh().subscribe((res: any) => {
-      this.item.SoQuyTrinh = res.Data;
-    })
-  }
-
   GetIem() {
-    this._serviceTaiSan.NhapTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
+    this._serviceTaiSan.ThuVienTaiSan().Get(this.item.Id || "").subscribe((res: any) => {
       this.item = res.Data;
       this.item.TaiSan.ThoiGianDuaVaoSuDung = UnixToDate(this.item.TaiSan.ThoiGianDuaVaoSuDungUnix);
       this.item.TaiSan.NgayNhap = UnixToDate(this.item.TaiSan.NgayNhapUnix);
@@ -122,90 +90,42 @@ export class ModalcapnhattaisanComponent implements OnInit {
   }
 
   ValidateData() {
-    if (!validVariable(this.item?.TaiSan?.Ten)) {
+    if (!validVariable(this.item?.Ten)) {
       this.toastr.error("Yêu cầu nhập tên");
       return false;
     }
-    if (!validVariable(this.item?.TaiSan?.SoNamKhauHao)) {
+    if (!validVariable(this.item?.SoNamKhauHao)) {
       this.toastr.error("Yêu cầu nhập số năm khấu hao");
       return false;
     }
-    if (!validVariable(this.item?.TaiSan?.DonViNangSuat)) {
-      this.toastr.error("Yêu cầu nhập đơn vị");
-      return false;
-    }
     if (this.item?.TaiSan?.IdBoPhanSuDung !== null) {
-      if (!validVariable(this.item?.TaiSan?.ThoiGianDuaVaoSuDung)) {
+      if (!validVariable(this.item?.ThoiGianDuaVaoSuDung)) {
         this.toastr.error("Yêu cầu nhập thời gian đưa vào sử dụng");
         return false;
       }
     }
-
     return true;
   }
 
-
   setData() {
-    this.item.TaiSan.NgayNhapUnix = DateToUnix(this.item.TaiSan.NgayNhap);
-    this.item.TaiSan.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.TaiSan.ThoiGianDuaVaoSuDung);
+    this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
+    this.item.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.ThoiGianDuaVaoSuDung);
     return this.item;
   }
   GhiLai() {
     if (this.ValidateData()) {
-      this._serviceTaiSan.NhapTaiSan().Set(this.setData()).subscribe((res: any) => {
+      this._serviceTaiSan.ThuVienTaiSan().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode === 200) {
           this.toastr.success(res.Message);
           this.item = res.Data;
           // this.activeModal.close();
-          this.KiemTraButtonModal();
         } else {
           this.toastr.error(res.Message);
         }
       })
     }
   }
-
-
-  ChuyenDuyet() {
-    this._serviceTaiSan.NhapTaiSan().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res.StatusCode !== 200) {
-        this.toastr.error(res.Message);
-      } else {
-        this.toastr.success(res.Message);
-        this.activeModal.close();
-      }
-    })
-  }
-  KhongDuyet() {
-    this._serviceTaiSan.NhapTaiSan().KhongDuyet(this.item).subscribe((res: any) => {
-      if (res.StatusCode !== 200) {
-        this.toastr.error(res.Message);
-      } else {
-        this.toastr.success(res.Message);
-        this.activeModal.close();
-      }
-    })
-  }
-
-  XoaQuyTrinh() {
-    let modalRef = this._modal.open(ModalthongbaoComponent, {
-      backdrop: "static",
-    });
-    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?";
-    modalRef.result
-      .then((res) => {
-        this._serviceTaiSan.NhapTaiSan().Delete(this.item.Id).subscribe((res: any) => {
-          if (res.StatusCode === 200) {
-            this.activeModal.close();
-            this.toastr.success(res.Message);
-          } else {
-            this.toastr.error(res.message);
-          }
-        })
-      })
-      .catch((er) => console.log(er));
-  }
-
+  
   ThemMoiTaiSanCon() {
     let modalRef = this._modal.open(ModalthemmoiluachontaisanComponent, {
       size: "fullscreen-100",
@@ -242,10 +162,7 @@ export class ModalcapnhattaisanComponent implements OnInit {
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "edit";
-    // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.item = item_copy;
-    // modalRef.componentInstance.listTaiSan = this.item.TaiSan.listTaiSan;
-    // console.log(this.item.TaiSan.listTaiSan)
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
     modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
@@ -255,6 +172,24 @@ export class ModalcapnhattaisanComponent implements OnInit {
       })
       .catch((er) => {
       });
+  }
+  XoaThuVien() {
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa thư viện này chứ?";
+    modalRef.result
+      .then((res) => {
+        this._serviceTaiSan.ThuVienTaiSan().Delete(this.item.Id).subscribe((res: any) => {
+          if (res.StatusCode === 200) {
+            this.activeModal.close();
+            this.toastr.success(res.Message);
+          } else {
+            this.toastr.error(res.message);
+          }
+        })
+      })
+      .catch((er) => console.log(er));
   }
 
   delete(index) {
@@ -288,31 +223,6 @@ export class ModalcapnhattaisanComponent implements OnInit {
     }, (reason) => {
 
     });
-  }
-
-  AddThuVien() {
-    this._serviceTaiSan.NhapTaiSan().AddThuVien(this.item).subscribe((res: any) => {
-      if (res.StatusCode === 200) {
-        // this.activeModal.close();
-        this.toastr.success(res.Message);
-      } else {
-        this.toastr.error(res.message);
-      }
-    })
-  }
-
-  ChonThuVien() {
-    let modalRef = this._modal.open(LuachontaisannhaptaisanComponent, {
-      size: "lg",
-      backdrop: "static",
-    });
-    modalRef.componentInstance.item = this.item;
-    modalRef.result
-      .then((res: any) => {
-        this.item.TaiSan = res;
-      })
-      .catch((er) => {
-      });
   }
 
 }

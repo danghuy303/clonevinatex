@@ -36,7 +36,6 @@ export class ModalluachontaisantheolichxichthangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.filter);
     if(this.filter.DenThang && this.filter.TuThang) {
         this.GetList();
     }

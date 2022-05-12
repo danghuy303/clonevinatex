@@ -9,12 +9,13 @@
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listPhanXuong" (onChange)="GetList(true)"
-                placeholder="bộ phận sử dụng" [(ngModel)]="filter.IdBoPhanSuDung" [showClear]="true"
+                placeholder="Bộ phận sử dụng" [(ngModel)]="filter.IdBoPhanSuDung" [showClear]="true"
                 styleClass="p-inputtext-sm">
             </p-dropdown>
         </div>
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" [(ngModel)]="filter.Ngay" (onChange)="GetList(true)" styleClass="p-inputtext-sm">
+            <p-dropdown [filter]="true" [options]="listNam" placeholder="Chọn năm" [(ngModel)]="filter.Ngay"
+                (onChange)="GetList(true)" styleClass="p-inputtext-sm">
             </p-dropdown>
         </div>
         <div class="p-mr-2">
@@ -23,8 +24,9 @@
             </p-calendar>
         </div>
         <div class="p-mr-2">
-            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetList(true)">
+            <p-calendar [(ngModel)]="filter.DenNgay" dateFormat="dd/mm/yy" placeholder="Đến ngày"
+                inputStyleClass="p-inputtext-sm" [minDate]="filter.TuNgay" [readonlyInput]="true"
+                inputId="min-max" [showIcon]="true" (onSelect)="GetList(true)">
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width: 200px;">
@@ -81,8 +83,8 @@
                 </td>
                 <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td>
                 <td class="text-center">{{item.ThoiGian|date:'MM/yyyy'}}</td>
-                <td  style="text-align: left;">{{item.TenBoPhanSuDung}}</td>
-                <td  style="text-align: left;">{{item.NoiDung}}</td>
+                <td style="text-align: left;">{{item.TenBoPhanSuDung}}</td>
+                <td style="text-align: left;">{{item.NoiDung}}</td>
                 <td class="text-center">{{item.TenTrangThai}}</td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"

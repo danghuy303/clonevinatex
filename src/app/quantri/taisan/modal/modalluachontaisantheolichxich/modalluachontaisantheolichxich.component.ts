@@ -36,8 +36,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.listItemDaChon);
-    
     let data = {
       Keyword: this.filter.Keyword,
       CurrentPage: 0,
@@ -71,6 +69,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
       this.TaiSanItem = res.Data;
 
       this.listdmLoaiBaoDuong = this.TaiSanItem.listdmLoaiBaoDuong;
+      this.listdmLoaiBaoDuong.sort(this.compare);
       this.items = [];
       let items = [];
       items = this.TaiSanItem.listTaiSan;
@@ -97,6 +96,16 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
       this.checkedAll = this.items.every(obj => obj.data.checked);
     });
   }
+  compare(a, b) {
+    if ( a.MadmLoaiBaoDuong < b.MadmLoaiBaoDuong ){
+      return -1;
+    }
+    if ( a.MadmLoaiBaoDuong > b.MadmLoaiBaoDuong ){
+      return 1;
+    }
+    return 0;
+  }
+
   TimCheck(eleCha) {
     eleCha.children.forEach(eleCon => {
       eleCon.data.checked = eleCha.data.checked
@@ -136,6 +145,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
           IdBoPhanSuDung:this.item.IdBoPhanSuDung,
           IddmLoaiTaiSan:this.item.IddmLoaiTaiSan ,
           Ngay:DateToUnix(new Date(this.item.Nam, 1,1)),
+          IdQuyTrinh: this.item.Id,
         };
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
@@ -147,6 +157,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
               IdBoPhanSuDung:this.item.IdBoPhanSuDung,
               IddmLoaiTaiSan:this.item.IddmLoaiTaiSan ,
               Ngay:DateToUnix(new Date(this.item.Nam, 1,1)),
+              IdQuyTrinh: this.item.Id,
             }
 
           }
