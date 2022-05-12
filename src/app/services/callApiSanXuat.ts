@@ -8,7 +8,7 @@ import { AuthenticationService } from './auth.service';
     providedIn: 'root'
 })
 export class SanXuatService {
-    constructor(private http: HttpClient, private store: StoreService,private auth:AuthenticationService) {
+    constructor(private http: HttpClient, private store: StoreService, private auth: AuthenticationService) {
 
     }
     //Cấp bông
@@ -277,25 +277,25 @@ export class SanXuatService {
                 data.IdDuAn = this.store.getCurrent()
                 return this.http.post(`${url}GetBieuDo_TyLeThongKeSanLuong`, data, httpOptions)
             },
-            GetBieuDoDuongKiemTraChatLuongBanChePham: (Nam, IddmPhanXuong, IddmChiTieu, IddmItem, LoaiThoiGian,CongDoan) => {
+            GetBieuDoDuongKiemTraChatLuongBanChePham: (Nam, IddmPhanXuong, IddmChiTieu, IddmItem, LoaiThoiGian, CongDoan) => {
                 return this.http.get(url2 + `GetBieuDoDuongKiemTraChatLuongBanChePham?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu}&IddmItem=${IddmItem}&LoaiThoiGian=${LoaiThoiGian}&MaCongDoan=${CongDoan}`, httpOptions);
             },
-            GetBaoCaoQuyTrinhKiemTraChatLuongBanChePham: (Nam, IddmPhanXuong, IddmChiTieu, KeyWord,CongDoan) => {
+            GetBaoCaoQuyTrinhKiemTraChatLuongBanChePham: (Nam, IddmPhanXuong, IddmChiTieu, KeyWord, CongDoan) => {
                 return this.http.get(url2 + `GetBaoCaoQuyTrinhKiemTraChatLuongBanChePham?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu || '2a3dbea0-6c3f-4e10-9774-6201027f4bd0'}&KeyWord=${KeyWord}&MaCongDoan=${CongDoan}`, httpOptions);
             },
         }
     }
     //#endregion
 
-    BaoCaoTongHop(){
+    BaoCaoTongHop() {
         return {
-            GetBaoCao_BongChaiTongHop:(data)=>{
+            GetBaoCao_BongChaiTongHop: (data) => {
                 data.IdDuAn = this.store.getCurrent()
-                return this.http.post(`${API.SCMBaoCao}GetBaoCao_BongChaiTongHop`,data,httpOptions);
+                return this.http.post(`${API.SCMBaoCao}GetBaoCao_BongChaiTongHop`, data, httpOptions);
             },
-            GetBaoCao_GhepThoTongHop:(data)=>{
+            GetBaoCao_GhepThoTongHop: (data) => {
                 data.IdDuAn = this.store.getCurrent()
-                return this.http.post(`${API.SCMBaoCao}GetBaoCao_GhepThoTongHop`,data,httpOptions);
+                return this.http.post(`${API.SCMBaoCao}GetBaoCao_GhepThoTongHop`, data, httpOptions);
             }
         }
     }
@@ -1847,7 +1847,7 @@ export class SanXuatService {
             }
         }
     }
-    CanhBaoNhapLieuCongDoan(){
+    CanhBaoNhapLieuCongDoan() {
         let url = API.auth + 'Notification/'
         return {
             GetListNotification: () => {
@@ -2485,10 +2485,10 @@ export class SanXuatService {
             },
         }
     }
-    TyLeTieuChuanBongPhe(){
+    TyLeTieuChuanBongPhe() {
         let url = API.SCMDanhMuc;
         return {
-            Get: (Nam,Thang) => {
+            Get: (Nam, Thang) => {
                 return this.http.get(url + `GetDanhSachTieuChuanBongPheHangThang?Nam=${Nam}&Thang=${Thang}`, httpOptions)
             },
             Set: (data) => {
@@ -2496,7 +2496,7 @@ export class SanXuatService {
             }
         }
     }
-    DanhMucSuCoMay(){
+    DanhMucSuCoMay() {
         let url = API.SCMDanhMuc;
         return {
             Get: (Id) => {
@@ -2513,11 +2513,11 @@ export class SanXuatService {
             }
         }
     }
-    ThongKeThoiGianDungMay(){
-        let url = API.SCM+'ThoiGianDungMayVaTocDo/';
+    ThongKeThoiGianDungMay() {
+        let url = API.SCM + 'ThoiGianDungMayVaTocDo/';
         return {
             Get: (data) => {
-                return this.http.post(url + `GetQuyTrinhThoiGianDungMayVaTocDo`,data, httpOptions)
+                return this.http.post(url + `GetQuyTrinhThoiGianDungMayVaTocDo`, data, httpOptions)
             },
             GetList: (data) => {
                 return this.http.post(url + 'GetListQuyTrinhThoiGianDungMayVaTocDo', data, httpOptions)
@@ -2528,9 +2528,137 @@ export class SanXuatService {
             Delete: (data) => {
                 return this.http.get(url + `DeleteQuyTrinhThoiGianDungMayVaTocDo?Id=${data.Id}`, httpOptions);
             },
-            GetThongKe:(data)=>{
-                return this.http.post(`${url}GetThongKeThoiGianDungMayVaTocDo`,data,httpOptions)
+            GetThongKe: (data) => {
+                return this.http.post(`${url}GetThongKeThoiGianDungMayVaTocDo`, data, httpOptions)
             }
         }
     }
+
+    DanhMucLoiCat() {
+        let url = API.SCMKiemTraChatLuong;
+        return {
+            GetList: (data) => {
+                return this.http.post(url + 'GetDanhSachChiTieuChatLuongLoiCat', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetItemChiTieuChatLuongLoiCat?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetItemChiTieuChatLuongLoiCat', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteChiTieuChatLuongLoiCat', data, httpOptions);
+            }
+        }
+    }
+
+    DinhMucChiTieuLoiCat() {
+        let url = API.SCMKiemTraChatLuong;
+        return {
+            Get: (data) => {
+                return this.http.post(url + `GetDanhSachChiTieuChatLuongLoiCatTheoSanPham`, data, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetDanhSachChiTieuChatLuongLoiCatTheoSanPham', data, httpOptions);
+            },
+        }
+    }
+
+    QuyTrinhLoiCat() {
+        let url = API.SCMKiemTraChatLuong;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhKiemTraChatLuongLoiCat', httpOptions);
+            },
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetListQuyTrinhKiemTraChatLuongLoiCat', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetQuyTrinhKiemTraChatLuongLoiCat?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetQuyTrinhKiemTraChatLuongLoiCat', data, httpOptions);
+            },
+            Delete: (Id) => {
+                return this.http.get(url + 'DeleteQuyTrinhKiemTraChatLuongLoiCat?Id=' + Id, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'ChuyenTiepQuyTrinhKiemTraChatLuongLoiCat', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetQuyTrinhKiemTraChatLuongLoiCat', data, httpOptions)
+            },
+            GetListMatHang:(data)=>{
+                    let a = API.SCMQuanLyKho + 'GetlistdmMatHangKiemTraChatLuongLoiCat';
+                    return this.http.post(a, data, httpOptions);
+            }
+        }
+    }
+    
+    DanhMucClassimat() {
+        let url = API.SCMKiemTraChatLuong;
+        return {
+            GetList: (data) => {
+                return this.http.post(url + 'GetDanhSachChiTieuChatLuongClasimat', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetItemChiTieuChatLuongClasimat?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetItemChiTieuChatLuongClasimat', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.post(url + 'DeleteChiTieuChatLuongClasimat', data, httpOptions);
+            }
+        }
+    }
+
+    DinhMucChiTieuClassimat() {
+        let url = API.SCMKiemTraChatLuong;
+        return {
+            Get: (data) => {
+                return this.http.post(url + `GetDanhSachChiTieuChatLuongClasimatTheoSanPham`, data, httpOptions);
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetDanhSachChiTieuChatLuongClasimatTheoSanPham', data, httpOptions);
+            },
+        }
+    }
+    QuyTrinhClassimat() {
+        let url = API.SCMKiemTraChatLuong;
+        return {
+            GetNextSo: () => {
+                return this.http.get(url + 'GetNextSoQuyTrinhKiemTraChatLuongClasimat', httpOptions);
+            },
+            GetList: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'GetListQuyTrinhKiemTraChatLuongClasimat', data, httpOptions);
+            },
+            Get: (Id) => {
+                return this.http.get(url + `GetQuyTrinhKiemTraChatLuongClasimat?Id=${Id}`, httpOptions);
+            },
+            Set: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'SetQuyTrinhKiemTraChatLuongClasimat', data, httpOptions);
+            },
+            Delete: (Id) => {
+                return this.http.get(url + 'DeleteQuyTrinhKiemTraChatLuongClasimat?Id=' + Id, httpOptions);
+            },
+            ChuyenTiep: (data) => {
+                data.IdDuAn = this.store.getCurrent();
+                return this.http.post(url + 'ChuyenTiepQuyTrinhKiemTraChatLuongClasimat', data, httpOptions)
+            },
+            KhongDuyet: (data) => {
+                return this.http.post(url + 'KhongDuyetQuyTrinhKiemTraChatLuongClasimat', data, httpOptions)
+            },
+            GetListMatHang:(data)=>{
+                    let a = API.SCMQuanLyKho + 'GetlistdmMatHangKiemTraChatLuongClasimat';
+                    return this.http.post(a, data, httpOptions);
+            }
+        }
+    }
+
 }
