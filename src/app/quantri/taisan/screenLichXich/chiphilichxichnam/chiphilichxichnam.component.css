@@ -1,0 +1,14 @@
+.tc-w-300{
+    min-width: 300px !important; 
+    max-width: 300px !important;
+}
+.tc-w-250{
+    min-width: 300px !important; 
+    max-width: 300px !important;
+}
+
+.t-head-custom {
+    border: .5px solid #828282;
+    background-color: #979797;
+    color: #fff;
+}

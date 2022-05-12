@@ -1,0 +1,9 @@
+.tc-w-300{
+    min-width: 300px !important; 
+    max-width: 300px !important;
+}
+
+.tc-w-100{
+    min-width: 100px !important; 
+    max-width: 100px !important;
+}

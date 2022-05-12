@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+import { PintableDirective } from 'voi-lib';
 import { ChiphilichxichnamchonthemComponent } from '../chiphilichxichnamchonthem/chiphilichxichnamchonthem.component';
 
 @Component({
@@ -12,7 +13,9 @@ import { ChiphilichxichnamchonthemComponent } from '../chiphilichxichnamchonthem
 export class ChiphilichxichnamComponent implements OnInit {
 
   @Input('listTaiSan') listTaiSan: any = {};
+  @ViewChild(PintableDirective) voiPintable: PintableDirective;
   TongGiaTriToanBang:any = 0;
+  labelThang = [];
 
   constructor(
 
@@ -24,7 +27,14 @@ export class ChiphilichxichnamComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    for (let i = 1; i <= 12; i++) {
+      this.labelThang.push(`Tháng ${i}`);
+    }
     this.sum(this.listTaiSan);
+  }
+
+  ngAfterViewInit(): void {
+    this.voiPintable.active();
   }
 
   ChiTietThongTin(item) {
