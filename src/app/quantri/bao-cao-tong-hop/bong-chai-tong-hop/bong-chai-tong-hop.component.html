@@ -34,7 +34,7 @@
   </div>
 
   <div>
-    <p-table [value]="items" [columns]="cols" styleClass="p-datatable-sm p-datatable-gridlines">
+    <!-- <p-table [value]="items" [columns]="cols" styleClass="p-datatable-sm p-datatable-gridlines">
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
           <col *ngFor="let col of columns" [style.width]="col.width">
@@ -55,7 +55,28 @@
           </td>
         </tr>
       </ng-template>
-    </p-table>
+    </p-table> -->
+
+    <div class="p-col-12 p-p-0 pintable-container" style="height: calc(100vh - 191px) !important; background-color: #fff;" voiPintable
+        [pinnedCols]="1">
+        <table>
+            <thead>
+                <tr>
+                  <th *ngFor="let col of cols"  class="w-tc-150">
+                    {{col}}
+                  </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of items;let i = index">
+                  <td class="w-tc-150" *ngFor="let giatri of item.listGiaTriCot" [ngClass]="[giatri.LoaiGiaTri==='DOUBLE'?'text-right':'text-center bg-white']">
+                    <span *ngIf="giatri.LoaiGiaTri==='STRING'">{{giatri.GiaTri_String}}</span>
+                    <span *ngIf="giatri.LoaiGiaTri==='DOUBLE'">{{giatri.GiaTri_Double|number:'0.0-3'}}</span>
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
   </div>
 
 </div>

@@ -1,0 +1,70 @@
+<div class="p-mb-3 p-mt-0">
+    <h4 style="color:#1f2779">Báo cáo thống kê thời gian dừng máy và tốc độ</h4>
+</div>
+<div class="p-d-flex p-ai-center p-jc-between p-mb-3">
+    <div class="p-d-flex p-flex-row">
+        <!-- <button pButton pRipple label="Lưu lại" icon="pi pi-plus" class="p-button-sm p-mr-2"
+            (click)="setPhieuThongKeThoiGianDungMay()"></button> -->
+    </div>
+    <div class="d-flex flex-column flex-lg-row">
+        <!-- <div class="p-mr-2">
+            <p-dropdown [options]="listLoaiPhuongAn" placeholder="Chọn phương án" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.LoaiPhuongAn" optionLabel="name" [showClear]="true"></p-dropdown>
+        </div> -->
+        <div class="p-mr-2">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                [(ngModel)]="filter.TuNgayChon" inputId="icon" placeholder="Từ ngày" (onSelect)="getBaoCao()">
+            </p-calendar>
+        </div>
+        <div class="p-mr-2">
+            <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                [(ngModel)]="filter.DenNgayChon" inputId="icon" placeholder="Đến ngày" (onSelect)="getBaoCao()">
+            </p-calendar>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
+                [(ngModel)]="filter.IddmPhanXuong" styleClass="p-inputtext-sm" (onChange)="getBaoCao()" [showClear]="true"
+                [filter]="true"></p-dropdown>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="p-col-12 p-p-0 pintable-container" style="height: calc(100vh - 191px) !important; background-color: #fff;" voiPintable
+        [pinnedCols]="2">
+        <table style="table-layout: fixed;">
+            <thead>
+                <tr>
+                    <th class="w-tc-50" >STT</th>
+                    <th class="w-tc-250" >Máy</th>
+                    <th *ngFor="let suco of item.lstdmSuCoMay" class="w-tc-100">{{suco.Ten}}</th>
+                    <th class="w-tc-150">Tổng thời gian dừng</th>
+                    <th class="w-tc-150">Tốc độ max</th>
+                    <th class="w-tc-150">Tốc độ trung bình</th>
+                    <th class="w-tc-150">Chênh lệch</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let may of item.lstMay;let i = index">
+                    <td class="w-tc-50 bg-white text-center" >{{i+1}}</td>
+                    <td class="w-tc-250 bg-white" >{{may.TendmMay}}</td>
+                    <td class="text-right w-tc-100" *ngFor="let suco of may.lstSuCoDungMay">
+                        {{suco.ThoiGianDungMay|number:'0.1-1'}}
+                    </td>
+                    <td class="text-right w-tc-150">
+                        {{may.TongThoiGianDungMay|number:'0.1-1'}}
+                    </td>
+                    <td class="text-right w-tc-150">
+                        
+                        {{may.TocDoMax|number:'0.0-0'}}
+                    </td>
+                    <td class="text-right w-tc-150">
+                        {{may.TocDoTrungBinh|number:'0.0-0'}}
+                    </td>
+                    <td class="text-right w-tc-150">
+                        {{may.TocDoMax-may.TocDoTrungBinh|number:'0.0-0'}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

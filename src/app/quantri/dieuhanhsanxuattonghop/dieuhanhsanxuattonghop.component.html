@@ -213,10 +213,9 @@
                     </p-dropdown>
                 </div>
             </div>
-            <p-chart type="line" [data]=dataSet1 [options]="option1"></p-chart>
+            <p-chart type="line" [data]="dataSet1" [options]="option1"></p-chart>
         </div>
     </div>
-
 </div>
 <p-dialog [header]="labelSanLuongOng" [(visible)]="showSanLuong" [modal]="true" [style]="{width: '95vw'}"
     [baseZIndex]="10000" [draggable]="false" [resizable]="false">
@@ -453,16 +452,21 @@
             </div>
             <button pButton pRipple label="Tìm kiếm" icon="pi pi-search" class="p-button-sm p-mr-5"
                 (click)="getBieuDoDien()"></button>
-            <div class="p-mr-5" style="display:flex; align-items: center;">
-                <strong>Lợi nhuận điện GY:</strong> &nbsp; {{ThongTinLuyKeDien.TongTienDienGY|number:'0.0'}} Đồng
-            </div>
-            <div class="p-mr-5" style="display:flex; align-items: center;">
-                <strong>Lũy kế lợi nhuận điện GY:</strong> &nbsp;
-                {{ThongTinLuyKeDien.TongTienDienGY_LuyKe|number:'0.0'}} Đồng
-            </div>
-            <div style="display:flex; align-items: center;">
-                <strong>Lũy kế điện GY:</strong> &nbsp; {{ThongTinLuyKeDien.TongSoDienGY_LuyKe|number:'0.0'}} Kwh
-            </div>
+        </div>
+    </div>
+    <div class="p-d-flex p-flex-row p-pb-3 p-px-3 text-center p-jc-between">
+        <div class="p-mr-5" style="display:flex; align-items: center;">
+            <strong>Lợi nhuận điện GY:</strong> &nbsp; {{ThongTinLuyKeDien.TongTienDienGY|number:'0.0'}} Đồng
+        </div>
+        <div class="p-mr-5" style="display:flex; align-items: center;">
+            <strong>Lũy kế lợi nhuận điện GY:</strong> &nbsp;
+            {{ThongTinLuyKeDien.TongTienDienGY_LuyKe|number:'0.0'}} Đồng
+        </div>
+        <div style="display:flex; align-items: center;">
+            <strong>Lũy kế điện GY:</strong> &nbsp; {{ThongTinLuyKeDien.TongSoDienGY_LuyKe|number:'0.0'}} Kwh
+        </div>
+        <div style="display:flex; align-items: center;">
+            <strong>Tiêu hao điện bình quân (tháng):</strong> &nbsp; {{ThongTinLuyKeDien.TongSoDien_QuyNE|number:'0.0'}} Kwh
         </div>
     </div>
     <div class="responsiveChart">

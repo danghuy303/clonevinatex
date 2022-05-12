@@ -5,6 +5,7 @@ import { BongChaiTongHopComponent } from './bong-chai-tong-hop/bong-chai-tong-ho
 import { GhepThoTongHopComponent } from './ghep-tho-tong-hop/ghep-tho-tong-hop.component';
 import { OngTongHopComponent } from './ong-tong-hop/ong-tong-hop.component';
 import { SoiConTongHopComponent } from './soi-con-tong-hop/soi-con-tong-hop.component';
+import { ThongKeThoiGianDungMayComponent } from './thong-ke-thoi-gian-dung-may/thong-ke-thoi-gian-dung-may.component';
 
 const routes: Routes = [
   { path: '', component: BaoCaoTongHopComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'ghepthotonghop', component: GhepThoTongHopComponent },
   { path: 'soicontonghop', component: SoiConTongHopComponent },
   { path: 'ongtonghop', component: OngTongHopComponent },
+  { path: 'thoigiandungmay', component: ThongKeThoiGianDungMayComponent },
 ]
 
 @NgModule({

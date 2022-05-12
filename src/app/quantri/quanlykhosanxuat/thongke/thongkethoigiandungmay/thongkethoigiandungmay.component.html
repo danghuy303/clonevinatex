@@ -13,12 +13,12 @@
         </div> -->
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.NgayChon" inputId="icon" placeholder="Ngày" (onSelect)="GetList()">
+                [(ngModel)]="filter.NgayChon" inputId="icon" placeholder="Ngày" (onSelect)="getPhieuThongKeThoiGianDungMay()">
             </p-calendar>
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
-                [(ngModel)]="filter.IddmPhanXuong" styleClass="p-inputtext-sm" (onChange)="GetList()" [showClear]="true"
+                [(ngModel)]="filter.IddmPhanXuong" styleClass="p-inputtext-sm" (onChange)="getPhieuThongKeThoiGianDungMay()" [showClear]="true"
                 [filter]="true"></p-dropdown>
         </div>
     </div>
@@ -30,15 +30,43 @@
             <thead>
                 <tr>
                     <th class="w-tc-50" >STT</th>
-                    <th class="w-tc-150" >Máy</th>
+                    <th class="w-tc-250" >Máy</th>
                     <th *ngFor="let suco of item.lstdmSuCoMay" class="w-tc-100">{{suco.Ten}}</th>
+                    <th class="w-tc-150">Tổng thời gian dừng</th>
+                    <th class="w-tc-150">Tốc độ max</th>
+                    <th class="w-tc-150">Tốc độ trung bình</th>
+                    <th class="w-tc-150">Chênh lệch</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let may of item.lstMay">
-                    <td class="w-tc-50 bg-white" >STT</td>
-                    <td class="w-tc-150 bg-white" >Máy</td>
-                    <td class="w-tc-100" *ngFor="let suco of item.lstdmSuCoMay">{{suco.Ten}}</td>
+                <tr *ngFor="let may of item.lstMay;let i = index">
+                    <td class="w-tc-50 bg-white text-center" >{{i+1}}</td>
+                    <td class="w-tc-250 bg-white" >{{may.TendmMay}}</td>
+                    <td class="w-tc-100" *ngFor="let suco of may.lstSuCoDungMay">
+                        <p-inputNumber [minFractionDigits]="1" [maxFractionDigits]="1"styleClass="p-inputtext-sm"
+                            [(ngModel)]="suco.ThoiGianDungMay" (onBlur)="TinhTong(may)" >
+                        </p-inputNumber>
+                    </td>
+                    <td class="w-tc-150">
+                        <p-inputNumber [minFractionDigits]="1" [maxFractionDigits]="1" disabled="true" styleClass="p-inputtext-sm"
+                            [ngModel]="may.TongThoiGianDungMay" >
+                        </p-inputNumber>
+                    </td>
+                    <td class="w-tc-150">
+                        <p-inputNumber [minFractionDigits]="0" [maxFractionDigits]="0"styleClass="p-inputtext-sm"
+                            [(ngModel)]="may.TocDoMax" >
+                        </p-inputNumber>
+                    </td>
+                    <td class="w-tc-150">
+                        <p-inputNumber [minFractionDigits]="0" [maxFractionDigits]="0"styleClass="p-inputtext-sm"
+                            [(ngModel)]="may.TocDoTrungBinh" >
+                        </p-inputNumber>
+                    </td>
+                    <td class="w-tc-150">
+                        <p-inputNumber [minFractionDigits]="0" [maxFractionDigits]="0"styleClass="p-inputtext-sm"
+                            [ngModel]="may.TocDoMax-may.TocDoTrungBinh" disabled="true" >
+                        </p-inputNumber>
+                    </td>
                 </tr>
             </tbody>
         </table>

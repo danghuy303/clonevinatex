@@ -272,6 +272,9 @@ import { Cnnamdinhpx1Component } from './quanlykhosanxuat/phuongan/layoutmodals/
 import { DmsucomayComponent } from './danhmuc/dmsucomay/dmsucomay.component';
 import { ModaldmsucomayComponent } from './danhmuc/modal/modaldmsucomay/modaldmsucomay.component';
 import { ThongkethoigiandungmayComponent } from './quanlykhosanxuat/thongke/thongkethoigiandungmay/thongkethoigiandungmay.component';
+import { DashboardbanchephamComponent } from './dashboardbanchepham/dashboardbanchepham.component';
+import { DmchitieuloicatComponent } from './danhmuc/dmchitieuloicat/dmchitieuloicat.component';
+import { DmchitieuclasimatComponent } from './danhmuc/dmchitieuclasimat/dmchitieuclasimat.component';
 
 
 @NgModule({
@@ -496,6 +499,9 @@ import { ThongkethoigiandungmayComponent } from './quanlykhosanxuat/thongke/thon
     DmsucomayComponent,
     ModaldmsucomayComponent,
     ThongkethoigiandungmayComponent,
+    DashboardbanchephamComponent,
+    DmchitieuloicatComponent,
+    DmchitieuclasimatComponent,
   ],
   imports: [
     HttpClientModule,

@@ -18,6 +18,9 @@ export class TonkhobongxoComponent extends StoreBase implements OnInit,OnDestroy
   filter:any={};
   listdmKho:any=[];
   trangThai:any=1;
+  daiMic:any=[];
+  showModalDaiMic:boolean = false;
+  headerDaiMic:string;
   paging: any = { CurrentPage: 1, TotalPage: 1, TotalItem: 100 };
   cols: any = [
     {
@@ -143,5 +146,13 @@ export class TonkhobongxoComponent extends StoreBase implements OnInit,OnDestroy
   }
   ngOnDestroy(){
     super.ngOnDestroy();
+  }
+  showDaiMic(item){
+    this.headerDaiMic = 'Lô bông '+ item.Ten
+    this._service.GetLuuKhoTheKhoBongXo_DaiMic({IdLoBong:item.IdLoBong,IddmKho:this.filter.IddmKho}).subscribe(res=>{
+      console.log(res);
+      this.daiMic = res;
+      this.showModalDaiMic = true;
+    })
   }
 }

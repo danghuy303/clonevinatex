@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreBase } from 'src/app/services/storebase.class';
+import { PintableDirective } from 'voi-lib';
 import { BongChai } from '../data-model';
 import { DropDownData } from '../data-model';
 
@@ -13,7 +14,7 @@ import { DropDownData } from '../data-model';
   styleUrls: ['./bong-chai-tong-hop.component.css']
 })
 export class BongChaiTongHopComponent extends StoreBase implements OnInit,OnDestroy {
-
+  @ViewChild(PintableDirective) voiPintable: PintableDirective;
   cols: any[];
   items: BongChai[];
   sum: any = {};
@@ -71,6 +72,7 @@ export class BongChaiTongHopComponent extends StoreBase implements OnInit,OnDest
           this.Tong[index]+= ele.GiaTri_Double||0;
         })
       })
+      this.voiPintable.active()
     })
   }
   GetCurrentTime() {

@@ -9,8 +9,8 @@
         <div></div>
         <div class="d-flex flex-column flex-lg-row">
             <div class="p-mr-2">
-                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho"
-                    styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmKho" (onChange)="GetListQuyTrinh(true)">
+                <p-dropdown [filter]="true" [options]="listdmKho" placeholder="Chọn kho" styleClass="p-inputtext-sm"
+                    [(ngModel)]="filter.IddmKho" (onChange)="GetListQuyTrinh(true)">
                 </p-dropdown>
             </div>
             <div class="p-inputgroup" style="width:200px">
@@ -39,7 +39,8 @@
         </div>
     </div> -->
     <div class="p-col-12">
-        <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines" [scrollable]="true">
+        <p-table [value]="items" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
+            [scrollable]="true">
             <ng-template pTemplate="colgroup">
                 <colgroup>
                     <col style="width:50px">
@@ -75,7 +76,12 @@
                         {{item.Ten}}
                     </td>
                     <td class="text-right">
-                        {{item.SoLuong|number:'0.0'}}
+                        <a href="javascript:void(0)" (click)="showDaiMic(item)" *ngIf="filter.Loai===2">
+                            {{item.SoLuong|number:'0.0-0'}}
+                        </a>
+                        <ng-container *ngIf="filter.Loai!==2">
+                            {{item.SoLuong|number:'0.0-0'}}
+                        </ng-container>
                     </td>
                     <td class="text-right">
                         {{item.TrongLuong|number:'0.2-2'}}
@@ -100,3 +106,31 @@
         </p-table>
     </div>
 </div>
+
+<p-dialog [header]="headerDaiMic" [(visible)]="showModalDaiMic" [modal]="true" [style]="{width: '300px', height:'auto'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <div class="p-d-flex p-flex-row p-jc-end">
+        <p-table [value]="daiMic" styleClass="p-datatable-sm p-datatable-gridlines wrap-text minimize-font">
+            <ng-template pTemplate="header">
+                <tr class="normal">
+                    <th style="width: 50px">STT</th>
+                    <th>Dải Mic</th>
+                    <th>Số lượng</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-daimic let-i="rowIndex">
+                <tr>
+                    <td class="text-center">
+                        {{i+1}}
+                    </td>
+                    <td class="text-center">
+                        {{daimic.Ten}}
+                    </td>
+                    <td class="text-right">
+                        {{daimic.TongSoKien |number:'0.0-0'}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-dialog>
