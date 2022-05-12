@@ -10,19 +10,11 @@
             <ng-container *ngFor="let item of listTaiSan, let i=index">
                 <tr>
                     <td class="tc-w-200 p-py-3" style="background-color: white;z-index: 999;">{{item.TenTaiSan}}</td>
-                    <!-- <td *ngFor="let bd of item.listBaoDuong" class="text-center tc-w-100" >
-                        <div *ngFor="let loaiBd of bd.listLoaiBaoDuong">
-                            {{loaiBd.TendmLoaiBaoDuong}}
-                        </div>
-                        <button pButton icon="pi pi-plus" pRipple type="button" label="Thêm" styleClass="p-button-sm" class="p-button-raised p-button-text p-mt-2" (click)="getBaoDuong(item,bd)"></button>
-                    </td> -->
                     <td *ngFor="let bd of item.listBaoDuong" class="text-center tc-w-100 p-p-2">
                         <div *ngFor="let loaiBd of bd.listChiTiet">
                             {{loaiBd.TendmLoaiBaoDuong}}
                         </div>
-                        <!-- <button pButton icon="pi pi-plus" pRipple type="button" label="Chọn" styleClass="p-button-sm"
-                            class="p-button-raised p-button-text p-mt-2" (click)="getBaoDuong(item,bd)"></button> -->
-                            <a href="javascript:void(0)" (click)="getBaoDuong(item,bd)">Chọn</a>
+                        <a href="javascript:void(0)" (click)="getBaoDuong(item,bd)">Chọn</a>
                     </td>
                 </tr>
             </ng-container>

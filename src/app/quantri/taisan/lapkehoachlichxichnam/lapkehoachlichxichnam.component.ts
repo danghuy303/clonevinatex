@@ -71,15 +71,12 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     }
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
+      this.item.Nam = new Date().getFullYear();
     }
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
-
-    this.item.Nam = new Date().getFullYear();
-
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
-
     Promise.all([ls1]).then((values: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
     });
@@ -112,7 +109,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
       } else {
         this.item = res.Data;
-        res.Data.listTaiSan.forEach(ele => {
+        this.item.listTaiSan.forEach(ele => {
           ele.listChiPhi.forEach(obj => {
             obj.TongTien = obj.ChiTietChiPhi.reduce((total, sum) => {
               return total + sum.SoTien;
@@ -192,22 +189,23 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.item.listTaiSan = res;
       this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
       this.item.listTaiSan.forEach(ele => {
-        ele.ThoiGian = new Date(ele.thoiGianDuaVaoSuDung).getMonth()+1;
-        if (!validVariable(ele.listBaoDuong)) {
-          ele.listBaoDuong = []
-          for (let i = 1; i <= 12; i++) {
-            ele.listBaoDuong.push(
-              {
-                ThoiGian: i,
-                listChiTiet: [],
-              }
-            )
-          }
-        }
-        // chi phi
-        ele.listChiPhi.forEach(obj => {
-          obj.ChiTietChiPhi = []
-        })
+        ele.ThoiGian = new Date(ele.thoiGianDuaVaoSuDung).getMonth() + 1;
+        ele.Nam = new Date(ele.thoiGianDuaVaoSuDung).getFullYear();
+        // if (!validVariable(ele.listBaoDuong)) {
+        //   ele.listBaoDuong = []
+        //   for (let i = 1; i <= 12; i++) {
+        //     ele.listBaoDuong.push(
+        //       {
+        //         ThoiGian: i,
+        //         listChiTiet: [],
+        //       }
+        //     )
+        //   }
+        // }
+        // // chi phi
+        // ele.listChiPhi.forEach(obj => {
+        //   obj.ChiTietChiPhi = []
+        // })
       })
     })
       .catch((er) => {
@@ -238,8 +236,27 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     this.trangThai = e.index;
   }
 
-  clear() {
+  clear() { 
     this.item.listTaiSan.splice(0, this.item.listTaiSan.length);
   }
 
+  ChangeYear() {
+    let data: any = {};
+    let arr = [];
+   
+    data = {
+      ListIdTaiSan: this.item.listTaiSan.map(ele => ele.IdTaiSan),
+      IdBoPhanSuDung: this.item.IdBoPhanSuDung,
+      IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
+      Ngay: DateToUnix(new Date(this.item.Nam, 1, 1)),
+      IdQuyTrinh: this.item.Id,
+    };
+    this._serviceTaiSan.LichXich().GetListVatTuByIdTaiSanForLapKeHoachLichXichNam(data).subscribe((res: any) => { 
+     this.item.listTaiSan = res.Data.listTaiSan;
+     this.item.listTaiSan.forEach(ele => {
+      ele.ThoiGian = new Date(ele.thoiGianDuaVaoSuDung).getMonth() + 1;
+      ele.Nam = new Date(ele.thoiGianDuaVaoSuDung).getFullYear();
+    })
+    });
+  }
 }
