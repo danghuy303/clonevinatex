@@ -100,6 +100,7 @@ import { SogiodungmayComponent } from "./sogiodungmay/sogiodungmay.component";
 import { BaocaotonghoptaisanComponent } from "./baocaotonghoptaisan/baocaotonghoptaisan.component";
 import { DmsucomayComponent } from "./danhmuc/dmsucomay/dmsucomay.component";
 import { ThongkethoigiandungmayComponent } from "./quanlykhosanxuat/thongke/thongkethoigiandungmay/thongkethoigiandungmay.component";
+import { DashboardbanchephamComponent } from "./dashboardbanchepham/dashboardbanchepham.component";
 
 const routes: Routes = [
   {
@@ -132,6 +133,11 @@ const routes: Routes = [
       {
         path: "quantrisanxuat/tiendien",
         component: BaocaothongketiendienComponent,
+      },
+
+      {
+        path: "quantrisanxuat/dashboardbanchepham",
+        component: DashboardbanchephamComponent,
       },
 
       { path: "quantritaisan/sogiodungmay", component: SogiodungmayComponent },

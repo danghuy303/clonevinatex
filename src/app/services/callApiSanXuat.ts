@@ -277,6 +277,12 @@ export class SanXuatService {
                 data.IdDuAn = this.store.getCurrent()
                 return this.http.post(`${url}GetBieuDo_TyLeThongKeSanLuong`, data, httpOptions)
             },
+            GetBieuDoDuongKiemTraChatLuongBanChePham: (Nam, IddmPhanXuong, IddmChiTieu, IddmItem, LoaiThoiGian,CongDoan) => {
+                return this.http.get(url2 + `GetBieuDoDuongKiemTraChatLuongBanChePham?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu}&IddmItem=${IddmItem}&LoaiThoiGian=${LoaiThoiGian}&MaCongDoan=${CongDoan}`, httpOptions);
+            },
+            GetBaoCaoQuyTrinhKiemTraChatLuongBanChePham: (Nam, IddmPhanXuong, IddmChiTieu, KeyWord,CongDoan) => {
+                return this.http.get(url2 + `GetBaoCaoQuyTrinhKiemTraChatLuongBanChePham?Nam=${Nam}&IddmPhanXuong=${IddmPhanXuong}&IddmChiTieu=${IddmChiTieu || '2a3dbea0-6c3f-4e10-9774-6201027f4bd0'}&KeyWord=${KeyWord}&MaCongDoan=${CongDoan}`, httpOptions);
+            },
         }
     }
     //#endregion
@@ -2154,6 +2160,11 @@ export class SanXuatService {
     GetLuuKhoTheKhoBongXo(data) {
         // data.IdDuAn =this.store.getCurrent();
         let url = API.SCMQuanLyKho + 'GetLuuKhoTheKhoBongXo';
+        return this.http.post(url, data, httpOptions);
+    }
+    GetLuuKhoTheKhoBongXo_DaiMic(data) {
+        // data.IdDuAn =this.store.getCurrent();
+        let url = API.SCMQuanLyKho + 'GetLuuKhoTheKhoBongXo_DaiMic';
         return this.http.post(url, data, httpOptions);
     }
     GetLuuKhoBongPhe(IddmKho, IddmViTri, CurrentPage, sFilter) {

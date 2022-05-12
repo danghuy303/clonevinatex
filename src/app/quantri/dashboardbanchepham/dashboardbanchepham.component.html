@@ -1,0 +1,99 @@
+<div class="p-d-flex">
+    <div class="p-d-flex flex-column flex-lg-row p-pl-3" style="width: 100%;">
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
+                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanXuong" (onChange)="filterdata()"></p-dropdown>
+        </div>
+        <div>
+            <p-dropdown [options]="Nams" styleClass="p-inputtext-sm" [(ngModel)]="filter.nNam"
+                (onChange)="filterdata()"></p-dropdown>
+        </div>
+    </div>
+</div>
+
+<div class="p-grid" style="align-self: stretch;">
+    <div class="p-col-12 p-p-3">
+        <div class="chart text-left">
+            <div class="d-flex flex-column flex-lgs-row p-jc-between">
+                <div class="p-d-flex p-flex-row">
+                    <h5>Danh sách bán chế phẩm</h5>
+                    <!-- <div style="display:table;height:100%;margin-left: 15px;">
+                        <a style="display: table-cell; vertical-align: middle;" href="javascript:void(0)"
+                            (click)="xemTruySuatNguonGoc()">Truy xuất nguồn gốc</a>
+                    </div> -->
+                </div>
+                <div class="p-d-flex p-flex-row">
+                    <div class="p-mr-2">
+                        <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.CongDoan"
+                            (onChange)="getTieuChiChatLuongBanChePham()">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-mr-2">
+                        <p-dropdown [filter]="true" [options]="listTieuChi" placeholder="Chọn tiêu chí"
+                            styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmChiTieu"
+                            (onChange)="GetBaoCaoQuyTrinhKiemTraChatLuong()">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-inputgroup" style="width:150px">
+                        <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
+                            (keyup.enter)="GetBieuDoDuongKiemTraChatLuong()" [(ngModel)]="filter.KeyWord" />
+                        <button type="button" pButton pRipple icon="pi pi-refresh"
+                            class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
+                    </div>
+                    <div style="display:table;height:100%">
+                        <p-button #menuToggle styleClass="p-button-sm" icon="fas fa-file-excel"
+                            (click)="xuatBaoCaoBanChePham()"></p-button>
+                    </div>
+                </div>
+            </div>
+            <div #bangScroll style="height: calc((100vh - 192.5px) / 2 - 40px);">
+                <p-table [value]="listMatHang|filter:filter.KeyWord"
+                    styleClass="p-datatable-sm p-datatable-gridlines wrap-text minimize-font" [scrollable]="true"
+                    scrollHeight="flex">
+                    <ng-template pTemplate="header">
+                        <tr class="normal">
+                            <th style="width: 35px !important;">BC</th>
+                            <th style="width: 35px !important;">NG</th>
+                            <th style="width: 200px !important;">Mặt hàng</th>
+                            <th *ngFor="let header of headerChatLuongSanPham" style="width: 80px !important;">
+                                {{header.label}}
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item let-i="rowIndex">
+                        <tr>
+                            <td class="text-center" style="width: 35px !important;">
+                                <p-checkbox [ngModel]="item.xuatChecked" (onChange)="checkXuatMatHang($event,item,i)"
+                                    binary="true" inputId="binary"></p-checkbox>
+                            </td>
+                            <td class="text-center" style="width: 35px !important;">
+                                <p-checkbox [ngModel]="item.checked" (onChange)="checkMatHang($event,item,i)"
+                                    binary="true" inputId="binary"></p-checkbox>
+                            </td>
+                            <td style="width: 200px !important;">{{item.TenItem}}</td>
+                            <td *ngFor="let body of headerChatLuongSanPham" style="width: 80px !important;">
+                                {{item[body.prop]|number:'0.0-2'}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-12 p-p-3">
+        <div class="chart text-left">
+            <div style="display: flex; flex-direction: row;">
+                <div style="display: table;margin-right:10px;">
+                    <h5 style="margin: 0px; display: table-cell;vertical-align: middle">Chất lượng bán chế phẩm</h5>
+                </div>
+                <div style="display: inline;">
+                    <p-dropdown [filter]="false" [options]="listLoaiThoiGian" styleClass="p-inputtext-sm"
+                        [(ngModel)]="filter.LoaiThoiGian" (onChange)="GetBieuDoDuongKiemTraChatLuong_js()">
+                    </p-dropdown>
+                </div>
+            </div>
+            <p-chart type="line" [data]="dataBanChePham" [options]="option1"></p-chart>
+        </div>
+    </div>
+</div>

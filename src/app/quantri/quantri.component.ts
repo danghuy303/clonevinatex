@@ -281,6 +281,15 @@ export class QuantriComponent implements OnInit {
               this.close();
             },
           },
+          {
+            label: "Thống kê bán chế phẩm",
+            routerLink: "/quantri/quantrisanxuat/dashboardbanchepham",
+            separator: this.checkmenu("DASHBOARD_TONGHOP"),
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
         ],
       },
 
