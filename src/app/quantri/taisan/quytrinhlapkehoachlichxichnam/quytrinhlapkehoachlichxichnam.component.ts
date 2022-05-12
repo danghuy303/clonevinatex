@@ -27,6 +27,7 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
   eAction = "LAPKEHOACHLICHXICHNAM";
   listPhanXuong: any = [];
   listNam: any = [];
+  minDate: Date;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
@@ -54,22 +55,17 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
     this.KiemTraTabTrangThai();
     this.GetListdmPhanXuong();
   }
-  
-  resetFilter() {
-    this.Keyword = '';
 
+  resetFilter() {
     this.filter = {};
     this.GetList(true);
   }
 
   GetList(reset?) {
-    if (reset) {
-      this.paging.CurrentPage = 1;
-      this.paginator.changePage(0);
-    }
+
     let data = {
       PageSize: 20,
-      Ngay: this.filter.Ngay?DateToUnix(new Date(this.filter.Ngay, 1, 1, 1,)):0,
+      Ngay: this.filter.Ngay ? DateToUnix(new Date(this.filter.Ngay, 1, 1, 1,)) : 0,
       CurrentPage: this.paging.CurrentPage,
       Keyword: this.filter.Keyword,
       TuThang: DateToUnix(this.filter.TuNgay),
