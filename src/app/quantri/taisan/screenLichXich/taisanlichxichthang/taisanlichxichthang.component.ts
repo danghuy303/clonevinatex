@@ -13,6 +13,7 @@ import { ModalluachonbaoduonglichxichtheothangComponent } from '../../modal/moda
 export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   @Input('listTaiSan') listTaiSan: any = [];
+  @Input('soNgay') soNgay: any = 0;
 
   labelThang = [];
   selectedItems = [];
@@ -26,21 +27,17 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-
+    this.labelThang = [];
+    for (let i = 1; i <= this.soNgay; i++) {
+      this.labelThang.push(i);
+    }
   }
   ngAfterViewInit(): void {
     this.voiPintable.active();
   }
 
   ngOnInit(): void {
-    this.loadData();
-  }
 
-
-  loadData() {
-    for (let i = 1; i <= 31; i++) {
-      this.labelThang.push(i);
-    }
   }
 
   getBaoDuong(taisan, baoduong) {

@@ -56,10 +56,6 @@
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listNam" [(ngModel)]="item.Nam" placeholder="Chọn năm"
                     (onChange)="ChangeYear()" styleClass="p-inputtext-sm"></p-dropdown>
-                <!-- <p-calendar dateFormat="yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
-                    [yearRange]="yearRange" [showIcon]="true" inputId="icon" placeholder="yyyy"
-                    [(ngModel)]="item.ThoiGian">
-                </p-calendar> -->
             </div>
         </div>
         <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
@@ -80,7 +76,8 @@
         <p-tabPanel>
             <ng-template pTemplate="header">
                 <div style="line-height: 1 !important;">
-                    Danh sách tài sản (<span class="required" style="font-size: 14px !important;">*</span>)
+                    <!-- Danh sách tài sản (<span class="required" style="font-size: 14px !important;">*</span>) -->
+                    Danh sách tài sản 
                 </div>
             </ng-template>
             <div class="p-d-flex p-flex-row p-jc-between p-ai-center p-grid">

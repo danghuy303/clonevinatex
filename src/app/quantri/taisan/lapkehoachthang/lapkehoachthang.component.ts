@@ -29,8 +29,9 @@ export class LapkehoachthangComponent implements OnInit {
   listPhanXuong = [];
   listLoaiTaiSan = [];
   TaiSanItem: any = [];
-  TuThang:any = '';
-  DenThang:any = '';
+  TuThang: any = '';
+  DenThang: any = '';
+  d:number;
 
 
   constructor(
@@ -44,15 +45,19 @@ export class LapkehoachthangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+   
     if (this.item.ThoiGianUnix !== 0) {
       this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
     }
+    this.KiemTraButtonModal();
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
+
+      // let getFullYear = new Date().getFullYear();
+      // let getMonth = new Date().getMonth() + 1;
+      // this.item.ThoiGian = `${getMonth}/${getFullYear}`;
     }
-    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
-      this.listNam.push({ value: i, label: i });
-    }
+   
 
     let data = {
       Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
@@ -68,6 +73,7 @@ export class LapkehoachthangComponent implements OnInit {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
+    this.chonThang(this.item.ThoiGian);
   }
 
   GetNextSoQuyTrinh() {
@@ -82,7 +88,7 @@ export class LapkehoachthangComponent implements OnInit {
       backdrop: "static",
     });
     modalRef.componentInstance.item = this.item;
-    modalRef.componentInstance.filter =this.item.ThoiGian ?{DenThang: this.DenThang,TuThang: this.TuThang}: {} ;
+    modalRef.componentInstance.filter = this.item.ThoiGian ? { DenThang: this.DenThang, TuThang: this.TuThang } : {};
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : [];
     modalRef.result.then((res: any) => {
       // this.item.listTaiSan = deepCopy(merge(res, this.item.listTaiSan, 'IdTaiSan'));
@@ -124,22 +130,37 @@ export class LapkehoachthangComponent implements OnInit {
   }
 
   setData() {
-    this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian);
+    this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian)+172800;
     return this.item;
   }
+
+  ValidateData() {
+    if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.ThoiGian)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
+      return false;
+    }
+    if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
+      this.toastr.error("Yêu cầu nhập thêm tài sản!");
+      return false;
+    }
+    return true;
+  }
+
   GhiLai() {
-    this._serviceTaiSan.LichXichThang().Set(this.setData()).subscribe((res: any) => {
-      if (res.StatusCode !== 200 || !res.StatusCode) {
+    if (this.ValidateData()) {
+      this._serviceTaiSan.LichXichThang().Set(this.setData()).subscribe((res: any) => {
+        if (res.StatusCode !== 200 || !res.StatusCode) {
+          this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+        } else {
+          this.item = res.Data;
+          this.toastr.success(res.Message);
+          this.KiemTraButtonModal();
+          // this.activeModal.close();
+        }
+      }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-      } else {
-        this.item = res.Data;
-        this.toastr.success(res.Message);
-        this.KiemTraButtonModal();
-        // this.activeModal.close();
-      }
-    }, (er) => {
-      this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-    })
+      })
+    }
   }
 
   KiemTraButtonModal() {
@@ -187,9 +208,11 @@ export class LapkehoachthangComponent implements OnInit {
   }
   chonThang(time) {
     let date = new Date(this.item.ThoiGian);
+    let month = time.getMonth() +1;
+    let year = time.getFullYear();
     this.TuThang = new Date(date.getFullYear(), date.getMonth(), 1);
     this.DenThang = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.d = new Date(year,month,0).getDate();
   }
-  
 }
 

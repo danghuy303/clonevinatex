@@ -42,11 +42,16 @@ export class ModalluachontaisantheolichxichthangComponent implements OnInit {
     // this.GetList();
   }
 
-  GetList() {
+  resetFilter() {
+    this.filter = {};
+    this.GetList(true);
+  }
+
+  GetList(reset?) {
     let data = {
       CurrentPage: 1,
       PageSize: 25,
-      Keyword: '',
+      Keyword: this.filter.Keyword,
       IdBoPhanSuDung: this.item.IdBoPhanSuDung,
       IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
       Ngay: DateToUnix(this.item.ThoiGian),

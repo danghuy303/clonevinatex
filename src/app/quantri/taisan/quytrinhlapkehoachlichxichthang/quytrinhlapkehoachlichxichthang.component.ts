@@ -27,6 +27,7 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
   eAction = "LAPKEHOACHLICHXICHNAM";
   listPhanXuong:any=[];
   listNam: any = [];
+  minDate: Date;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
