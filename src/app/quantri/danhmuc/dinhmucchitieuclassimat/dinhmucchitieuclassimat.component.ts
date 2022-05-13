@@ -1,18 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { mapArrayForDropDown } from 'src/app/services/globalfunction';
-import { DinhmuctieuchichatluongsoimodalComponent } from '../dinhmuctieuchichatluongsoimodal/dinhmuctieuchichatluongsoimodal.component';
-import { ImportdanhmucmodelComponent } from '../modals/importdanhmucmodel/importdanhmucmodel.component';
+import { ModaldinhmucchitieuclassimatComponent } from '../danhmucsanxuat/modaldinhmucchitieuclassimat/modaldinhmucchitieuclassimat.component';
 
 @Component({
-  selector: 'app-dinhmuctieuchichatluongsoi',
-  templateUrl: './dinhmuctieuchichatluongsoi.component.html',
-  styleUrls: ['./dinhmuctieuchichatluongsoi.component.css']
+  selector: 'app-dinhmucchitieuclassimat',
+  templateUrl: './dinhmucchitieuclassimat.component.html',
+  styleUrls: ['./dinhmucchitieuclassimat.component.css']
 })
-export class DinhmuctieuchichatluongsoiComponent implements OnInit {
+export class DinhmucchitieuclassimatComponent implements OnInit {
   @ViewChild('paginator') paginator: any;
   items: any = [
   ];
@@ -75,8 +72,8 @@ export class DinhmuctieuchichatluongsoiComponent implements OnInit {
   }
 
   edit(item) {
-    this._services.dmDinhMucTieuChiChatLuongSoi().Get({ idSanPham: item.Id }).subscribe((res: any) => {
-      let modalRef = this._modal.open(DinhmuctieuchichatluongsoimodalComponent, {
+    this._services.DinhMucChiTieuClassimat().Get({ idSanPham: item.Id }).subscribe((res: any) => {
+      let modalRef = this._modal.open(ModaldinhmucchitieuclassimatComponent, {
         backdrop: 'static',
         size:'lg'
       });
@@ -94,23 +91,22 @@ export class DinhmuctieuchichatluongsoiComponent implements OnInit {
     this.GetListdm();
   }
 
-  importExcel() {
-    let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
-      backdrop: 'static',
-    })
-    // modalRef.componentInstance.importFunc = 'dinhmuctieuchichatluongsoi';
-    modalRef.componentInstance.Name = 'dinhmuctieuchichatluongsoi';    
-    modalRef.result.then(res => {
-      this.GetListdm();
-      this._toastr.success(res.mess);
-    })
-      .catch(er => console.log(er))
-  }
-  exportExcel() {
-    let data:any;
-    this._services.ExportDanhSachChiTieuChatLuongTheoSanPham({id:"àhsdkhfklsdjfhsdkjfh"}).subscribe((res: any) => {
-      this._services.download(res.TenFile);
-    })
-  }
-
+  // importExcel() {
+  //   let modalRef = this._modal.open(ImportdanhmucmodelComponent, {
+  //     backdrop: 'static',
+  //   })
+  //   // modalRef.componentInstance.importFunc = 'dinhmuctieuchichatluongsoi';
+  //   modalRef.componentInstance.Name = 'dinhmuctieuchichatluongsoi';    
+  //   modalRef.result.then(res => {
+  //     this.GetListdm();
+  //     this._toastr.success(res.mess);
+  //   })
+  //     .catch(er => console.log(er))
+  // }
+  // exportExcel() {
+  //   let data:any;
+  //   this._services.ExportDanhSachChiTieuChatLuongTheoSanPham({id:"àhsdkhfklsdjfhsdkjfh"}).subscribe((res: any) => {
+  //     this._services.download(res.TenFile);
+  //   })
+  // }
 }

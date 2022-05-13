@@ -101,6 +101,12 @@ import { BaocaotonghoptaisanComponent } from "./baocaotonghoptaisan/baocaotongho
 import { DmsucomayComponent } from "./danhmuc/dmsucomay/dmsucomay.component";
 import { ThongkethoigiandungmayComponent } from "./quanlykhosanxuat/thongke/thongkethoigiandungmay/thongkethoigiandungmay.component";
 import { DashboardbanchephamComponent } from "./dashboardbanchepham/dashboardbanchepham.component";
+import { DmchitieuloicatComponent } from "./danhmuc/dmchitieuloicat/dmchitieuloicat.component";
+import { DmchitieuclasimatComponent } from "./danhmuc/dmchitieuclasimat/dmchitieuclasimat.component";
+import { DinhmucchitieuloicatComponent } from "./danhmuc/dinhmucchitieuloicat/dinhmucchitieuloicat.component";
+import { DinhmucchitieuclassimatComponent } from "./danhmuc/dinhmucchitieuclassimat/dinhmucchitieuclassimat.component";
+import { ThongkechitieuloicatComponent } from "./quanlykhosanxuat/thongke/thongkechitieuloicat/thongkechitieuloicat.component";
+import { ThongkechitieuclassimatComponent } from "./quanlykhosanxuat/thongke/thongkechitieuclassimat/thongkechitieuclassimat.component";
 
 const routes: Routes = [
   {
@@ -209,9 +215,21 @@ const routes: Routes = [
         path: "theodoithongkebaocaosanxuat/thongkethoigiandungmay",
         component: ThongkethoigiandungmayComponent,
       },
+      {
+        path: "theodoithongkebaocaosanxuat/thongkechitieuloicat/:id",
+        component: ThongkechitieuloicatComponent,
+      },
+      {
+        path: "theodoithongkebaocaosanxuat/thongkechitieuclassimat/:id",
+        component: ThongkechitieuclassimatComponent,
+      },
       { path: "danhmucsanxuat/dmdactinhbong", component: DactinhbongComponent },
       { path: "danhmucsanxuat/dmbanchepham", component: BanchephamComponent },
       { path: "danhmucsanxuat/dmsucomay", component: DmsucomayComponent },
+      { path: "danhmucsanxuat/dmchitieuloicat", component: DmchitieuloicatComponent },
+      { path: "danhmucsanxuat/dmchitieuclassimat", component: DmchitieuclasimatComponent },
+      { path: "danhmucsanxuat/dinhmucchitieuloicat", component: DinhmucchitieuloicatComponent },
+      { path: "danhmucsanxuat/dinhmucchitieuclassimat", component: DinhmucchitieuclassimatComponent },
       { path: "danhmucsanxuat/dmkhunggio", component: DmkhunggioComponent },
       { path: "danhmucsanxuat/loaidien", component: DmloaidienComponent },
 

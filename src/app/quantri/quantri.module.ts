@@ -275,6 +275,18 @@ import { ThongkethoigiandungmayComponent } from './quanlykhosanxuat/thongke/thon
 import { DashboardbanchephamComponent } from './dashboardbanchepham/dashboardbanchepham.component';
 import { DmchitieuloicatComponent } from './danhmuc/dmchitieuloicat/dmchitieuloicat.component';
 import { DmchitieuclasimatComponent } from './danhmuc/dmchitieuclasimat/dmchitieuclasimat.component';
+import { ModaldmloicatComponent } from './danhmuc/modal/modaldmloicat/modaldmloicat.component';
+import { ModaldmclassimatComponent } from './danhmuc/modal/modaldmclassimat/modaldmclassimat.component';
+import { DinhmucchitieuloicatComponent } from './danhmuc/dinhmucchitieuloicat/dinhmucchitieuloicat.component';
+import { DinhmucchitieuclassimatComponent } from './danhmuc/dinhmucchitieuclassimat/dinhmucchitieuclassimat.component';
+import { ModaldinhmucclassimatComponent } from './danhmuc/modal/modaldinhmucclassimat/modaldinhmucclassimat.component';
+import { ModaldinhmucloicatComponent } from './danhmuc/modal/modaldinhmucloicat/modaldinhmucloicat.component';
+import { ModaldinhmucchitieuloicatComponent } from './danhmuc/danhmucsanxuat/modaldinhmucchitieuloicat/modaldinhmucchitieuloicat.component';
+import { ModaldinhmucchitieuclassimatComponent } from './danhmuc/danhmucsanxuat/modaldinhmucchitieuclassimat/modaldinhmucchitieuclassimat.component';
+import { ThongkechitieuloicatComponent } from './quanlykhosanxuat/thongke/thongkechitieuloicat/thongkechitieuloicat.component';
+import { ThongkechitieuclassimatComponent } from './quanlykhosanxuat/thongke/thongkechitieuclassimat/thongkechitieuclassimat.component';
+import { ModalthongkechitieuclassimatComponent } from './quanlykhosanxuat/thongke/modalthongkechitieuclassimat/modalthongkechitieuclassimat.component';
+import { ModalthongkechitieuloicatComponent } from './quanlykhosanxuat/thongke/modalthongkechitieuloicat/modalthongkechitieuloicat.component';
 
 
 @NgModule({
@@ -502,6 +514,18 @@ import { DmchitieuclasimatComponent } from './danhmuc/dmchitieuclasimat/dmchitie
     DashboardbanchephamComponent,
     DmchitieuloicatComponent,
     DmchitieuclasimatComponent,
+    ModaldmloicatComponent,
+    ModaldmclassimatComponent,
+    DinhmucchitieuloicatComponent,
+    DinhmucchitieuclassimatComponent,
+    ModaldinhmucclassimatComponent,
+    ModaldinhmucloicatComponent,
+    ModaldinhmucchitieuloicatComponent,
+    ModaldinhmucchitieuclassimatComponent,
+    ThongkechitieuloicatComponent,
+    ThongkechitieuclassimatComponent,
+    ModalthongkechitieuclassimatComponent,
+    ModalthongkechitieuloicatComponent,
   ],
   imports: [
     HttpClientModule,
