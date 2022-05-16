@@ -1,3 +1,4 @@
+import { NAMED_ENTITIES } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -23,11 +24,23 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   items: any = [];
   itemMay: any = [];
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
+  pagingChiPhi: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   filter: any = {};
   listLoaiTaiSan: any = [];
   listPhanXuong: any = [];
   lang: any = vn;
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
+  listThoiGian: any = [
+    {
+      value: 'NAM', label: 'Năm'
+    },
+    {
+      value: "THANG", label: 'Tháng'
+    },
+  ];
+  listVatTu: any = [];
+  listChiPhiKhac: any = [];
+
   constructor(
     public _modal: NgbModal,
     private _serviceTaiSan: TaisanService,
@@ -36,13 +49,14 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
-      this.listNam.push({ value: i, label: i });
-    }
-    this.filter.Ngay = new Date().getFullYear();
+    this.filter.isChon = 'theoBaoDuong'
+    this.loadData();
+    let getFullYear = new Date().getFullYear();
+    let getMonth = new Date().getMonth() + 1;
+    this.filter.Ngay = `${getMonth}/${getFullYear}`;
     let data = {
       Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
-      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan, IdUser: '', Ngay: 0, LoaiKeHoach: '',
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan, IdUser: '', Ngay: 0,
       IdDuAn: 0,
     };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
@@ -51,9 +65,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-    this.filter.isChon = 'theoBaoDuong'
-    this.loadData();
-    this.GetListChiPhiVatTu();
+
   }
   resetFilter() {
     this.filter = {};
@@ -62,18 +74,31 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   loadData() {
     let data = {
       Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
-      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan, IdUser: '',Ngay: DateToUnix(new Date(this.filter.Ngay, 1, 1, 1,)),LoaiKeHoach: '',
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan, IdUser: '', Ngay: DateToUnix(this.filter.Ngay), LoaiKeHoach: this.filter.LoaiKeHoach,
       IdDuAn: 0,
     };
+    this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiPhatSinh(data).subscribe((res: any) => {
+      this.pagingChiPhi.TotalCount = res.Data.pagination.TotalCount;
+      this.listChiPhiKhac = res.Data.pagination.Items;
+    })
     if (this.filter.isChon === 'theoBaoDuong') {
       this._serviceTaiSan.ListLichXichNam().GetListBaoDuong(data).subscribe((res: any) => {
-          this.items = res.Data;
-        })
+        this.items = res.Data;
+      })
     } else {
       this._serviceTaiSan.ListLichXichNam().GetListMay(data).subscribe((res: any) => {
-            this.itemMay = res.Data;
-          })
+        this.itemMay = res.Data;
+      })
     }
+    this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiVatTu(data).subscribe((res: any) => {
+      this.paging.TotalCount = res.Data.pagination.TotalCount;
+      this.listVatTu = res.Data.pagination.Items;
+      this.listVatTu.forEach(ele => {
+        ele.ThanhTien = this.listVatTu.reduce((total, sum) => {
+          return sum.SoLuong * sum.DonGia
+        }, 0);
+      })
+    })
   }
   ChiTietThongTin(item) {
     let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
@@ -108,15 +133,13 @@ export class BaocaotonghoptaisanComponent implements OnInit {
         });
     })
   }
-  // danh sach vat tu
-  GetListChiPhiVatTu() {
-    let data = {
-      Ngay: DateToUnix(new Date(this.filter.Ngay, 1, 1, 1,)),
-      IdBoPhanSuDung:this.filter.IdBoPhanSuDung,
-      IddmLoaiTaiSan:this.filter.IddmLoaiTaiSan,
-    }
-    this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiVatTu(data).subscribe((res: any) => {
-   
-    })
+
+  changePage(event) {
+    this.paging.CurrentPage = event.page + 1;
+    this.loadData()
+  }
+  changePageChiPhi(event) {
+    this.pagingChiPhi.CurrentPage = event.page + 1;
+    this.loadData()
   }
 }

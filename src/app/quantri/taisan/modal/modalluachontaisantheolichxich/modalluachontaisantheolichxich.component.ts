@@ -36,8 +36,6 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.listItemDaChon);
-    
     let data = {
       Keyword: this.filter.Keyword,
       CurrentPage: 0,
@@ -147,6 +145,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
           IdBoPhanSuDung:this.item.IdBoPhanSuDung,
           IddmLoaiTaiSan:this.item.IddmLoaiTaiSan ,
           Ngay:DateToUnix(new Date(this.item.Nam, 1,1)),
+          IdQuyTrinh: this.item.Id,
         };
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
@@ -158,6 +157,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
               IdBoPhanSuDung:this.item.IdBoPhanSuDung,
               IddmLoaiTaiSan:this.item.IddmLoaiTaiSan ,
               Ngay:DateToUnix(new Date(this.item.Nam, 1,1)),
+              IdQuyTrinh: this.item.Id,
             }
 
           }

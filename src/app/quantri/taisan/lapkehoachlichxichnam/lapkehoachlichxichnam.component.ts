@@ -71,15 +71,12 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     }
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
+      this.item.Nam = new Date().getFullYear();
     }
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
-
-    this.item.Nam = new Date().getFullYear();
-
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
-
     Promise.all([ls1]).then((values: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
     });
@@ -102,34 +99,48 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     return this.item;
   }
 
-  GhiLai() {
+  ValidateData() {
     if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
-      return
+      return false;
     }
-    this._serviceTaiSan.LichXich().Set(this.setData()).subscribe((res: any) => {
-      if (res.StatusCode !== 200 || !res.StatusCode) {
-        this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-      } else {
-        this.item = res.Data;
-        res.Data.listTaiSan.forEach(ele => {
-          ele.listChiPhi.forEach(obj => {
-            obj.TongTien = obj.ChiTietChiPhi.reduce((total, sum) => {
-              return total + sum.SoTien;
+    if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
+      this.toastr.error("Yêu cầu nhập thêm tài sản!");
+      return false;
+    }
+    return true;
+  }
+
+  GhiLai() {
+    // if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
+    //   this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
+    //   return
+    // }
+    if (this.ValidateData()) {
+      this._serviceTaiSan.LichXich().Set(this.setData()).subscribe((res: any) => {
+        if (res.StatusCode !== 200 || !res.StatusCode) {
+          this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+        } else {
+          this.item = res.Data;
+          this.item.listTaiSan.forEach(ele => {
+            ele.listChiPhi.forEach(obj => {
+              obj.TongTien = obj.ChiTietChiPhi.reduce((total, sum) => {
+                return total + sum.SoTien;
+              }, 0)
+            })
+            ele.TongTienChiPhi = ele.listChiPhi.reduce((total, number) => {
+              return total + number.TongTien;
             }, 0)
           })
-          ele.TongTienChiPhi = ele.listChiPhi.reduce((total, number) => {
-            return total + number.TongTien;
-          }, 0)
-        })
-        this.item.Nam = UnixToDate(this.item.ThoiGianUnix).getFullYear();
-        this.toastr.success(res.Message);
-        this.KiemTraButtonModal();
-        // this.activeModal.close();
-      }
-    }, (er) => {
-      this.toastr.error("Có lỗi trong quá trình xử lý!!!");
-    })
+          this.item.Nam = UnixToDate(this.item.ThoiGianUnix).getFullYear();
+          this.toastr.success(res.Message);
+          this.KiemTraButtonModal();
+          // this.activeModal.close();
+        }
+      }, (er) => {
+        this.toastr.error("Có lỗi trong quá trình xử lý!!!");
+      })
+    }
   }
 
   KiemTraButtonModal() {
@@ -192,22 +203,23 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.item.listTaiSan = res;
       this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
       this.item.listTaiSan.forEach(ele => {
-        ele.ThoiGian = new Date(ele.thoiGianDuaVaoSuDung).getMonth()+1;
-        if (!validVariable(ele.listBaoDuong)) {
-          ele.listBaoDuong = []
-          for (let i = 1; i <= 12; i++) {
-            ele.listBaoDuong.push(
-              {
-                ThoiGian: i,
-                listChiTiet: [],
-              }
-            )
-          }
-        }
-        // chi phi
-        ele.listChiPhi.forEach(obj => {
-          obj.ChiTietChiPhi = []
-        })
+        ele.ThoiGian = new Date(ele.thoiGianDuaVaoSuDung).getMonth() + 1;
+        ele.Nam = new Date(ele.thoiGianDuaVaoSuDung).getFullYear();
+        // if (!validVariable(ele.listBaoDuong)) {
+        //   ele.listBaoDuong = []
+        //   for (let i = 1; i <= 12; i++) {
+        //     ele.listBaoDuong.push(
+        //       {
+        //         ThoiGian: i,
+        //         listChiTiet: [],
+        //       }
+        //     )
+        //   }
+        // }
+        // // chi phi
+        // ele.listChiPhi.forEach(obj => {
+        //   obj.ChiTietChiPhi = []
+        // })
       })
     })
       .catch((er) => {
@@ -242,4 +254,23 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     this.item.listTaiSan.splice(0, this.item.listTaiSan.length);
   }
 
+  ChangeYear() {
+    let data: any = {};
+    let arr = [];
+
+    data = {
+      ListIdTaiSan: this.item.listTaiSan.map(ele => ele.IdTaiSan),
+      IdBoPhanSuDung: this.item.IdBoPhanSuDung,
+      IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
+      Ngay: DateToUnix(new Date(this.item.Nam, 1, 1)),
+      IdQuyTrinh: this.item.Id,
+    };
+    this._serviceTaiSan.LichXich().GetListVatTuByIdTaiSanForLapKeHoachLichXichNam(data).subscribe((res: any) => {
+      this.item.listTaiSan = res.Data.listTaiSan;
+      this.item.listTaiSan.forEach(ele => {
+        ele.ThoiGian = new Date(ele.thoiGianDuaVaoSuDung).getMonth() + 1;
+        ele.Nam = new Date(ele.thoiGianDuaVaoSuDung).getFullYear();
+      })
+    });
+  }
 }

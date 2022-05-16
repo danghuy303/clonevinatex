@@ -27,6 +27,7 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
   eAction = "LAPKEHOACHLICHXICHNAM";
   listPhanXuong:any=[];
   listNam: any = [];
+  minDate: Date;
 
   constructor(private _modal: NgbModal, private _serviceTaiSan: TaisanService,
     private _toastr: ToastrService,
@@ -72,6 +73,7 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
       DenNgay: DateToUnix(this.filter.DenNgay),
       TabTrangThai: this.trangThai,
       Loai:0,
+      IdBoPhanSuDung:this.filter.IdBoPhanSuDung
     };
     this._serviceTaiSan.LichXichThang().GetList(data).subscribe((res: any) => {
       this.items = res.Data.Items;  

@@ -281,6 +281,15 @@ export class QuantriComponent implements OnInit {
               this.close();
             },
           },
+          {
+            label: "Thống kê bán chế phẩm",
+            routerLink: "/quantri/quantrisanxuat/dashboardbanchepham",
+            separator: this.checkmenu("DASHBOARD_TONGHOP"),
+            icon: "fas fa-circle",
+            command: () => {
+              this.close();
+            },
+          },
         ],
       },
 
@@ -488,6 +497,18 @@ export class QuantriComponent implements OnInit {
           {
             label: "Thống kê thời gian dừng máy",
             routerLink: "/quantri/theodoithongkebaocaosanxuat/thongkethoigiandungmay",
+            // separator: this.checkmenu("THONGKETHOIGIANDUNGMAY"),
+            command: () => this.close(),
+          },
+          {
+            label: "Thống kê chỉ tiêu lỗi cắt",
+            routerLink: "/quantri/theodoithongkebaocaosanxuat/thongkechitieuloicat/0",
+            // separator: this.checkmenu("THONGKETHOIGIANDUNGMAY"),
+            command: () => this.close(),
+          },
+          {
+            label: "Thống kê chỉ tiêu classimat",
+            routerLink: "/quantri/theodoithongkebaocaosanxuat/thongkechitieuclassimat/0",
             // separator: this.checkmenu("THONGKETHOIGIANDUNGMAY"),
             command: () => this.close(),
           },
@@ -1717,6 +1738,27 @@ export class QuantriComponent implements OnInit {
             routerLink: "/quantri/phanquyensanxuat/dmchisotrienkhai",
             command: () => this.close(),
           },
+          {
+            label: "Chỉ tiêu lỗi cắt",
+            routerLink: "/quantri/danhmucsanxuat/dmchitieuloicat",
+            command: () => this.close(),
+          },
+          {
+            label: "Định mức chỉ tiêu lỗi cắt",
+            routerLink: "/quantri/danhmucsanxuat/dinhmucchitieuloicat",
+            command: () => this.close(),
+          },
+          {
+            label: "Chỉ tiêu classimat",
+            routerLink: "/quantri/danhmucsanxuat/dmchitieuclassimat",
+            command: () => this.close(),
+          },
+          {
+            label: "Định mức chỉ tiêu classimat",
+            routerLink: "/quantri/danhmucsanxuat/dinhmucchitieuclassimat",
+            command: () => this.close(),
+          },
+
         ],
       },
       {

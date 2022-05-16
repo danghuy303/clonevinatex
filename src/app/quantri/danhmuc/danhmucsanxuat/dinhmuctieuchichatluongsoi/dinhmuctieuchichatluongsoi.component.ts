@@ -13,7 +13,6 @@ import { ImportdanhmucmodelComponent } from '../modals/importdanhmucmodel/import
   styleUrls: ['./dinhmuctieuchichatluongsoi.component.css']
 })
 export class DinhmuctieuchichatluongsoiComponent implements OnInit {
-
   @ViewChild('paginator') paginator: any;
   items: any = [
   ];

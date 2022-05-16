@@ -363,7 +363,9 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         (this.filter.IddmCaSanXuatThucTe !== '')&&{ Ten: 'Sản lượng quy Ne 30 theo ca:', GiaTri: res.SanLuongQuyNe30_TheoKip },
         { Ten: 'Lũy kế quy Ne 30(kg):', GiaTri: res.LuyKeQuyNe30 },
         { Ten: 'Tỷ lệ sợi cắt (%):', GiaTri: res.TyLeSoiCat },
-        { Ten: 'Tỷ lệ sợi con / Ống:', GiaTri: res.TyLeSoiCon },
+        { Ten: 'Tỷ lệ sợi Con / Ống:', GiaTri: res.TyLeSoiCon },
+        { Ten: 'Tỷ lệ chênh lệch Con - Ống:', GiaTri: res.TyLeChenhLechConOng },
+        
         // { Ten: 'Tỷ lệ bông rơi chải thô F1:', GiaTri: res.TyleBongRoiChaiTho },
         // { Ten: 'Tỷ lệ bông rơi chải kỹ F3:', GiaTri: res.TyleBongRoiChaiKy },
         // { Ten: 'Tỷ lệ bông mùn (Bụi tinh):', GiaTri: res.TyleBongMun },

@@ -130,7 +130,11 @@ export class ModalcapnhattaisanComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập số năm khấu hao");
       return false;
     }
-    if (this.item?.TaiSan?.IdBoPhanSuDung !== null) {
+    if (!validVariable(this.item?.TaiSan?.DonViNangSuat)) {
+      this.toastr.error("Yêu cầu nhập đơn vị");
+      return false;
+    }
+    if (this.item?.TaiSan?.IdBoPhanSuDung != null) {
       if (!validVariable(this.item?.TaiSan?.ThoiGianDuaVaoSuDung)) {
         this.toastr.error("Yêu cầu nhập thời gian đưa vào sử dụng");
         return false;
