@@ -31,7 +31,7 @@ export class LapkehoachthangComponent implements OnInit {
   TaiSanItem: any = [];
   TuThang: any = '';
   DenThang: any = '';
-  d:number;
+  d:any = 0;
 
 
   constructor(

@@ -26,6 +26,7 @@ export class ModalluachontaisantheolichxichthangComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   TuThang: any = '';
   DenThang: any = '';
+  minDate: Date;
 
   constructor(
     public _modal: NgbModal,

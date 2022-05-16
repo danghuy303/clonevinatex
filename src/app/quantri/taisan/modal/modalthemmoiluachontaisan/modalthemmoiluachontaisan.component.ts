@@ -97,7 +97,10 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   // }
 
   GhiLai() {
-  
+   if (!validVariable(this.item.DonViNangSuat)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
+      return
+    }
       this.item.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.ThoiGianDuaVaoSuDung);
       this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
       this.listTaiSan.push(this.item);

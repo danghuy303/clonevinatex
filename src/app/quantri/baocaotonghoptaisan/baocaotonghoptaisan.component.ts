@@ -1,5 +1,5 @@
 import { NAMED_ENTITIES } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -8,6 +8,7 @@ import { vn } from 'src/app/services/const';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
+import { PintableDirective } from 'voi-lib';
 import { ModalbaoduongComponent } from '../taisan/modal/modalbaoduong/modalbaoduong.component';
 import { ModalthongtinchitiettaisanComponent } from '../taisan/modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
 
@@ -17,6 +18,8 @@ import { ModalthongtinchitiettaisanComponent } from '../taisan/modal/modalthongt
   styleUrls: ['./baocaotonghoptaisan.component.css']
 })
 export class BaocaotonghoptaisanComponent implements OnInit {
+
+  @ViewChild(PintableDirective) voiPintable: PintableDirective;
 
   listNam: any = [];
   bool: boolean = true;
@@ -40,6 +43,9 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   ];
   listVatTu: any = [];
   listChiPhiKhac: any = [];
+  labelThang: any = [];
+  thangDaChon: any = 0;
+  itemsLichXichThang: any = [];
 
   constructor(
     public _modal: NgbModal,
@@ -49,14 +55,18 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.filter.LoaiKeHoach = this.listThoiGian[0].value;
+    this.filter.Ngay = new Date();
     this.filter.isChon = 'theoBaoDuong'
-    this.loadData();
-    let getFullYear = new Date().getFullYear();
-    let getMonth = new Date().getMonth() + 1;
-    this.filter.Ngay = `${getMonth}/${getFullYear}`;
     let data = {
-      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
-      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan, IdUser: '', Ngay: 0,
+      Keyword: "",
+      CurrentPage: 0,
+      PageSize: 20,
+      MaCongDoan: '',
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
+      IdUser: '',
+      Ngay: 0,
       IdDuAn: 0,
     };
     this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
@@ -65,22 +75,35 @@ export class BaocaotonghoptaisanComponent implements OnInit {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
-
-  }
-  resetFilter() {
-    this.filter = {};
     this.loadData();
   }
+
+  ngAfterViewInit(): void {
+    this.voiPintable.active();
+  }
+
   loadData() {
+    // goi thang nao hien so ngay trong thang
+    let month = this.filter.Ngay.getMonth() + 1;
+    let year = this.filter.Ngay.getFullYear();
+    this.thangDaChon = new Date(year, month, 0).getDate();
+    this.labelThang = [];
+    for (let i = 1; i <= this.thangDaChon; i++) {
+      this.labelThang.push(i);
+    }
     let data = {
-      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
-      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan, IdUser: '', Ngay: DateToUnix(this.filter.Ngay), LoaiKeHoach: this.filter.LoaiKeHoach,
+      Keyword: "",
+      CurrentPage: 0,
+      PageSize: 20,
+      MaCongDoan: '',
+      IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
+      IdUser: '',
+      Ngay: DateToUnix(this.filter.Ngay),
+      LoaiKeHoach: this.filter.LoaiKeHoach,
       IdDuAn: 0,
     };
-    this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiPhatSinh(data).subscribe((res: any) => {
-      this.pagingChiPhi.TotalCount = res.Data.pagination.TotalCount;
-      this.listChiPhiKhac = res.Data.pagination.Items;
-    })
+
     if (this.filter.isChon === 'theoBaoDuong') {
       this._serviceTaiSan.ListLichXichNam().GetListBaoDuong(data).subscribe((res: any) => {
         this.items = res.Data;
@@ -90,6 +113,19 @@ export class BaocaotonghoptaisanComponent implements OnInit {
         this.itemMay = res.Data;
       })
     }
+    this.GetListLichXichThang(data);
+    this.GetListChiPhiVatTu(data);
+    this.GetListChiPhiPhatSinh(data);
+  }
+
+  GetListChiPhiPhatSinh(data) {
+    this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiPhatSinh(data).subscribe((res: any) => {
+      this.pagingChiPhi.TotalCount = res.Data.pagination.TotalCount;
+      this.listChiPhiKhac = res.Data.pagination.Items;
+    })
+  }
+
+  GetListChiPhiVatTu(data) {
     this._serviceTaiSan.BaoCaoTaiSan().GetListChiPhiVatTu(data).subscribe((res: any) => {
       this.paging.TotalCount = res.Data.pagination.TotalCount;
       this.listVatTu = res.Data.pagination.Items;
@@ -100,6 +136,13 @@ export class BaocaotonghoptaisanComponent implements OnInit {
       })
     })
   }
+
+  GetListLichXichThang(data) {
+    this._serviceTaiSan.ListLichXichThang().GetList(data).subscribe((res: any) => {
+      this.itemsLichXichThang = res.Data;
+    })
+  }
+
   ChiTietThongTin(item) {
     let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
       size: "fullscreen",
@@ -115,6 +158,7 @@ export class BaocaotonghoptaisanComponent implements OnInit {
 
       });
   }
+
   ChiTietBaoDuong(item) {
     this._serviceTaiSan.ListLichXichNam().Get(item.IddmLoaiBaoDuong).subscribe((res1: any) => {
       let modalRef = this._modal.open(ModalbaoduongComponent, {
@@ -141,5 +185,37 @@ export class BaocaotonghoptaisanComponent implements OnInit {
   changePageChiPhi(event) {
     this.pagingChiPhi.CurrentPage = event.page + 1;
     this.loadData()
+  }
+
+  ChiTietThongTinLichXIchThang(item) {
+    let modalRef = this._modal.open(ModalthongtinchitiettaisanComponent, {
+      size: "fullscreen",
+      backdrop: "static",
+    });
+    modalRef.componentInstance.opt = "edit";
+    modalRef.componentInstance.item = item.IdTaiSan;
+    modalRef.result
+      .then((res: any) => {
+
+      })
+      .catch((er) => {
+
+      });
+  }
+  ChiTietBaoDuongLichXIchThang(item) {
+    this._serviceTaiSan.ListLichXichNam().Get(item.IddmLoaiBaoDuong).subscribe((res1: any) => {
+      let modalRef = this._modal.open(ModalbaoduongComponent, {
+        size: "fullscreen",
+        backdrop: "static",
+      });
+      modalRef.componentInstance.opt = "edit";
+      modalRef.componentInstance.item = JSON.parse(JSON.stringify(res1.Data));
+      modalRef.result
+        .then((res: any) => {
+
+        })
+        .catch((er) => {
+        });
+    })
   }
 }
