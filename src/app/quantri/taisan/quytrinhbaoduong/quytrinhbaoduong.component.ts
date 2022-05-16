@@ -72,7 +72,7 @@ export class QuytrinhbaoduongComponent implements OnInit {
       IdBoPhanSuDung: this.filter.IdBoPhanSuDung,
       TabTrangThai:this.trangThai,
       TuNgay: DateToUnix(this.filter.TuNgay),
-      DenNgay: DateToUnix(this.filter.TuNgay),
+      DenNgay: DateToUnix(this.filter.DenNgay),
       IdUser: "",
       Loai: 0
     };
