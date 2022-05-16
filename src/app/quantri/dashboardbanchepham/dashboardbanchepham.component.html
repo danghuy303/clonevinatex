@@ -2,11 +2,15 @@
     <div class="p-d-flex flex-column flex-lg-row p-pl-3" style="width: 100%;">
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
-                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanXuong" (onChange)="filterdata()"></p-dropdown>
+                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmPhanXuong" (onChange)="getTieuChiChatLuongBanChePham()"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listThang" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.nThang" (onChange)="getTieuChiChatLuongBanChePham()"></p-dropdown>
         </div>
         <div>
             <p-dropdown [options]="Nams" styleClass="p-inputtext-sm" [(ngModel)]="filter.nNam"
-                (onChange)="filterdata()"></p-dropdown>
+                (onChange)="getTieuChiChatLuongBanChePham()"></p-dropdown>
         </div>
     </div>
 </div>
@@ -37,7 +41,7 @@
                     </div>
                     <div class="p-inputgroup" style="width:150px">
                         <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" pInputText
-                            (keyup.enter)="GetBieuDoDuongKiemTraChatLuong()" [(ngModel)]="filter.KeyWord" />
+                            (keyup.enter)="GetBaoCaoQuyTrinhKiemTraChatLuong()" [(ngModel)]="filter.KeyWord" />
                         <button type="button" pButton pRipple icon="pi pi-refresh"
                             class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
                     </div>

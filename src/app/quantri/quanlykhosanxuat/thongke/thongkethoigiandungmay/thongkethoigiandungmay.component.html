@@ -40,8 +40,8 @@
             </thead>
             <tbody>
                 <tr *ngFor="let may of item.lstMay;let i = index">
-                    <td class="w-tc-50 bg-white text-center" >{{i+1}}</td>
-                    <td class="w-tc-250 bg-white" >{{may.TendmMay}}</td>
+                    <td class="w-tc-50 bg-white text-center z-100">{{i+1}}</td>
+                    <td class="w-tc-250 bg-white z-100" >{{may.TendmMay}}</td>
                     <td class="w-tc-100" *ngFor="let suco of may.lstSuCoDungMay">
                         <p-inputNumber [minFractionDigits]="1" [maxFractionDigits]="1"styleClass="p-inputtext-sm"
                             [(ngModel)]="suco.ThoiGianDungMay" (onBlur)="TinhTong(may)" >

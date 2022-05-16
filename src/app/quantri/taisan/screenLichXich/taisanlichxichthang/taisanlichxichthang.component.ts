@@ -14,7 +14,7 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   @Input('listTaiSan') listTaiSan: any = [];
   @Input('soNgay') soNgay: any = 0;
-
+  @Input('ThoiGianDaChon') thoiGianDaChon:any;
   labelThang = [];
   selectedItems = [];
   copyItemsBaoDuong = [];
@@ -46,6 +46,7 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
       backdrop: 'static',
     })
     modalRef.componentInstance.taiSan = taisan;
+    modalRef.componentInstance.thoiGianDaChon = this.thoiGianDaChon;
     // modalRef.componentInstance.listItemDaChon =  baoduong.listChiTiet ?  baoduong.listChiTiet.map(ele => ele?.IddmLoaiBaoDuong) : [];
     modalRef.componentInstance.listItemDaChon = this.selectedItems;
     modalRef.componentInstance.copyItemsBaoDuong = this.copyItemsBaoDuong;

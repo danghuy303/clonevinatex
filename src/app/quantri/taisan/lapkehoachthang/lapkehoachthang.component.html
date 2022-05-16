@@ -84,13 +84,11 @@
                         </div>
                     </div>
                 </div>
-                <app-taisanlichxichthang [listTaiSan]="item.listTaiSan" [soNgay]="d"></app-taisanlichxichthang>
+                <app-taisanlichxichthang [listTaiSan]="item.listTaiSan" [soNgay]="ngayCuoiCungCuaThangDaChon" [ThoiGianDaChon]="item.ThoiGian"></app-taisanlichxichthang>
             </ng-template>
         </p-tabPanel>
 
-     <!--
-         
-        <p-tabPanel header="Vật tư thay thế">
+     <!-- <p-tabPanel header="Vật tư thay thế">
             <ng-template pTemplate="content">
                 <app-vattulichxichthang [listTaiSan]="item.listTaiSan"></app-vattulichxichthang>
             </ng-template>

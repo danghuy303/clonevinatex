@@ -15,7 +15,10 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
   checkedAll: boolean = false;
   listItemDaChon: any = [];
   copyItemsBaoDuong:any = [];
+  thoiGianDaChon:any;
+  filter:any={
 
+  }
   constructor(
     public _modal: NgbModal,
     public activeModal: NgbActiveModal,
@@ -25,13 +28,17 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+    console.log(this.taiSan)
+    console.log(this.thoiGianDaChon)
   }
 
   loadData() {
     let data = {
       IdTaiSan: this.taiSan.IdTaiSan,
       IddmLoaiTaiSan: this.taiSan.IddmLoaiTaiSan,
-      Ngay: DateToUnix(this.taiSan.ThoiGian),
+      // TuNgay:,
+      // DenNgay:,
+      Ngay: DateToUnix(this.thoiGianDaChon),
       IdBoPhanSuDung: this.taiSan.IdBoPhanSuDung,
     }
     this._serviceTaiSan.LichXich().GetListTaiSanTheoThang(data).subscribe((res: any) => {

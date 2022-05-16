@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
@@ -11,8 +11,8 @@ import { PintableDirective } from 'voi-lib';
   templateUrl: './thongkethoigiandungmay.component.html',
   styleUrls: ['./thongkethoigiandungmay.component.css']
 })
-export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit,AfterViewInit {
-  @ViewChild(PintableDirective) voiPintable: PintableDirective;
+export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit, AfterViewInit {
+  @ViewChild(PintableDirective) voiPintable: PintableDirective | any;
   filter: any = {};
   listPhanXuong: any = [];
   item: any = {};
@@ -25,7 +25,7 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
     this.getListPhanXuong();
   }
   ngAfterViewInit(): void {
-      this.voiPintable.active()
+    this.voiPintable.active()
   }
   getListPhanXuong() {
     this._services.GetListdmPhanXuongOpt().subscribe((res: any[]) => {
@@ -38,6 +38,10 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
     this.filter.Ngay = DateToUnix(this.filter.NgayChon);
     this._services.ThongKeThoiGianDungMay().Get(this.filter).subscribe(res => {
       this.item = res;
+      setTimeout(() => {
+        document.querySelector('div.pintable-container tbody').scrollTo(0,0)
+        this.voiPintable.active();
+      }, 1000)
     })
   }
   setPhieuThongKeThoiGianDungMay() {
@@ -46,7 +50,7 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
       this.getPhieuThongKeThoiGianDungMay();
     })
   }
-  TinhTong(item){
-    item.TongThoiGianDungMay = item.lstSuCoDungMay.reduce((total,ele)=>total+=(ele.ThoiGianDungMay || 0),0)
+  TinhTong(item) {
+    item.TongThoiGianDungMay = item.lstSuCoDungMay.reduce((total, ele) => total += (ele.ThoiGianDungMay || 0), 0)
   }
 }

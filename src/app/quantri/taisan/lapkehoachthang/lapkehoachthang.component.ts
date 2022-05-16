@@ -31,7 +31,7 @@ export class LapkehoachthangComponent implements OnInit {
   TaiSanItem: any = [];
   TuThang: any = '';
   DenThang: any = '';
-  d:number;
+  ngayCuoiCungCuaThangDaChon:number;
 
 
   constructor(
@@ -45,9 +45,10 @@ export class LapkehoachthangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-   
+
     if (this.item.ThoiGianUnix !== 0) {
       this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
+      console.log('',this.item.ThoiGian)
     }
     this.KiemTraButtonModal();
     if (this.opt === 'add') {
@@ -64,15 +65,13 @@ export class LapkehoachthangComponent implements OnInit {
       IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
       IdDuAn: 0,
     };
+    
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
-
-    Promise.all([ls1]).then((values: any) => {
+    let ls2 = this._servicesSanXuat.GetOptions().GetListdmPhanXuong().toPromise();
+    Promise.all([ls1,ls2]).then((values: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data, "Ten", "Id");
+      this.listPhanXuong = mapArrayForDropDown(values[1], "Ten", "Id");
     });
-
-    this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
-    })
     this.chonThang(this.item.ThoiGian);
   }
 
@@ -114,20 +113,20 @@ export class LapkehoachthangComponent implements OnInit {
       });
   }
 
-  Chon(item, itemLoaiBaoDuongDeChon) {
-    let modalRef = this._modal.open(ModalluachonloaibaoduongComponent, {
-      backdrop: 'static',
-      size: 'fullscreen-100',
-      keyboard: false
-    });
-    modalRef.componentInstance.Lay_Chon = itemLoaiBaoDuongDeChon;
-    modalRef.componentInstance.listItemDaChon = item.listChiTiet ? item.listChiTiet.map(ele => ele.IddmLoaiBaoDuong) : []
-    modalRef.result.then((res: any) => {
-      item.listChiTiet = res;
-    })
-      .catch((er) => {
-      });
-  }
+  // Chon(item, itemLoaiBaoDuongDeChon) {
+  //   let modalRef = this._modal.open(ModalluachonloaibaoduongComponent, {
+  //     backdrop: 'static',
+  //     size: 'fullscreen-100',
+  //     keyboard: false
+  //   });
+  //   modalRef.componentInstance.Lay_Chon = itemLoaiBaoDuongDeChon;
+  //   modalRef.componentInstance.listItemDaChon = item.listChiTiet ? item.listChiTiet.map(ele => ele.IddmLoaiBaoDuong) : []
+  //   modalRef.result.then((res: any) => {
+  //     item.listChiTiet = res;
+  //   })
+  //     .catch((er) => {
+  //     });
+  // }
 
   setData() {
     this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian)+172800;
@@ -212,7 +211,7 @@ export class LapkehoachthangComponent implements OnInit {
     let year = time.getFullYear();
     this.TuThang = new Date(date.getFullYear(), date.getMonth(), 1);
     this.DenThang = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    this.d = new Date(year,month,0).getDate();
+    this.ngayCuoiCungCuaThangDaChon = new Date(year,month,0).getDate();
   }
 }
 
