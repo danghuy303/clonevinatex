@@ -19,9 +19,7 @@
                 </p-calendar>
             </div>
             <div class="p-mr-2">
-                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon" [(ngModel)]="filter.DenThang"
-                    placeholder="Đến ngày" (onSelect)="GetList()">
-                </p-calendar>
+                <p-calendar [(ngModel)]="filter.DenThang" [minDate]="filter.TuThang" [readonlyInput]="true" inputId="min-max"></p-calendar>
             </div>
             <div class="p-mr-2 p-inputgroup" style="width:200px">
                 <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText

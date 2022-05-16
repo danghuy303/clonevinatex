@@ -116,6 +116,15 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     if (!validVariable(this.item.NgayBaoDuong)) {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
       return false;
+    } else if (!validVariable(this.item.IdBoPhanSuDung)) {
+      this.toastr.error("Yêu cầu nhập bộ phận sử dụng!");
+      return false;
+    } else if (!validVariable(this.item.IdDmLoaiTaiSan)) {
+      this.toastr.error("Yêu cầu nhập loại tài sản!");
+      return false;
+    } else if (!validVariable(this.item.listTaiSan)) {
+      this.toastr.error("Yêu cầu thêm tài sản!");
+      return false;
     }
     return true;
   }
@@ -194,13 +203,4 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
     // this.loaiTab = e.index;
     // this.Loaddata(true);
   }
-
-  // delete(index) {
-  //   let item = this.item.listTaiSan.splice(index, 1)[0];
-  //   if (item.Id === '' || item.Id === null || item.Id === undefined) {
-  //   } else {
-  //     item.isXoa = true;
-  //     this.item.listTaiSan.push(JSON.parse(JSON.stringify(item)));
-  //   }
-  // }
 }

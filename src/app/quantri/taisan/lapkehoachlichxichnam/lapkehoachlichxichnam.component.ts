@@ -203,7 +203,9 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.item.listTaiSan = res;
       this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
       this.item.listTaiSan.forEach(ele => {
-        ele.ThoiGian = new Date(ele.thoiGianDuaVaoSuDung).getMonth() + 1;
+        let thangDuaVaoSuDung = new Date(ele.thoiGianDuaVaoSuDung).getMonth() + 1;
+        let thangHienTai = new Date().getMonth() + 2; 
+        ele.ThoiGian = thangDuaVaoSuDung < thangHienTai?thangHienTai : thangDuaVaoSuDung;
         ele.Nam = new Date(ele.thoiGianDuaVaoSuDung).getFullYear();
         // if (!validVariable(ele.listBaoDuong)) {
         //   ele.listBaoDuong = []
@@ -257,7 +259,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   ChangeYear() {
     let data: any = {};
     let arr = [];
-
     data = {
       ListIdTaiSan: this.item.listTaiSan.map(ele => ele.IdTaiSan),
       IdBoPhanSuDung: this.item.IdBoPhanSuDung,
@@ -268,7 +269,11 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     this._serviceTaiSan.LichXich().GetListVatTuByIdTaiSanForLapKeHoachLichXichNam(data).subscribe((res: any) => {
       this.item.listTaiSan = res.Data.listTaiSan;
       this.item.listTaiSan.forEach(ele => {
-        ele.ThoiGian = new Date(ele.thoiGianDuaVaoSuDung).getMonth() + 1;
+        // ele.ThoiGian = new Date(ele.thoiGianDuaVaoSuDung).getMonth() + 1;
+        // ele.Nam = new Date(ele.thoiGianDuaVaoSuDung).getFullYear();
+        let thangDuaVaoSuDung = new Date(ele.thoiGianDuaVaoSuDung).getMonth() + 1;
+        let thangHienTai = new Date().getMonth() + 2; 
+        ele.ThoiGian = thangDuaVaoSuDung < thangHienTai?thangHienTai : thangDuaVaoSuDung;
         ele.Nam = new Date(ele.thoiGianDuaVaoSuDung).getFullYear();
       })
     });
