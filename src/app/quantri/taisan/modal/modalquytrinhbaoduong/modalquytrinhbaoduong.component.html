@@ -31,21 +31,21 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Bộ phận sử dụng: </label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Bộ phận sử dụng<span class="required">(*)</span></label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" [(ngModel)]="item.IdBoPhanSuDung"
                     placeholder="Chọn bộ phận"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại tài sản: </label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại tài sản<span class="required">(*)</span></label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [(ngModel)]="item.IdDmLoaiTaiSan"
-                    placeholder="Chọn tài sản"></p-dropdown>
+                    placeholder="Chọn loại tài sản"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto"> Ngày: <span class="text-danger">(*)</span></label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto"> Ngày bảo dưỡng<span class="text-danger">(*)</span></label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" [locale]="lang" [monthNavigator]="true" [yearNavigator]="true"
                     [yearRange]="" [showIcon]="true" inputId="icon" placeholder="dd/mm/yyyy"
