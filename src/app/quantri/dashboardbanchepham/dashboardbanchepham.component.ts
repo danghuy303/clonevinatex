@@ -194,6 +194,11 @@ export class DashboardbanchephamComponent extends StoreBase implements OnInit {
     }
   }
   resetFilter(){
+    this.filter = {
+      LoaiThoiGian:0
+    };
+    this.listMatHang = [];
+    this.dataBanChePham = {};
     this.ngOnInit();
   }
 }

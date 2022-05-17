@@ -32,7 +32,7 @@ export class GhepThoTongHopComponent extends StoreBase implements OnInit {
   ngOnInit(): void {
     let date = new Date();
     this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
-    this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() , date.getDate());
     this.GetCurrentTime();
     this.GetTimeForDropDown();
     this._services.GetOptions().GetPhanXuong().subscribe((res: any) => {

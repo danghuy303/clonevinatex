@@ -13,8 +13,9 @@ import { PintableDirective } from 'voi-lib';
 })
 export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit, AfterViewInit {
   @ViewChild(PintableDirective) voiPintable: PintableDirective | any;
-  filter: any = {};
+  filter: any = {CongDoan:null};
   listPhanXuong: any = [];
+  listCongDoan: any = [];
   item: any = {};
   constructor(public store: StoreService, public _services: SanXuatService, public toastr: ToastrService) {
     super(store)
@@ -23,6 +24,10 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
   ngOnInit(): void {
     this.filter.NgayChon = new Date();
     this.getListPhanXuong();
+    this._services.GetListCongDoan().subscribe((res:any[])=>{
+      console.log('listCongDoan',res);
+      this.listCongDoan = mapArrayForDropDown(res,'Ten','Ma');
+    })
   }
   ngAfterViewInit(): void {
     this.voiPintable.active()
@@ -34,6 +39,7 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
       this.getPhieuThongKeThoiGianDungMay()
     })
   }
+  
   getPhieuThongKeThoiGianDungMay() {
     this.filter.Ngay = DateToUnix(this.filter.NgayChon);
     this._services.ThongKeThoiGianDungMay().Get(this.filter).subscribe(res => {
@@ -46,7 +52,7 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
   }
   setPhieuThongKeThoiGianDungMay() {
     this._services.ThongKeThoiGianDungMay().Set(this.item).subscribe(res => {
-      console.log(res)
+      console.log(res);
       this.getPhieuThongKeThoiGianDungMay();
     })
   }

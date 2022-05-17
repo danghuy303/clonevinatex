@@ -134,7 +134,7 @@ export class QuantriComponent implements OnInit {
       .Notifications()
       .GetNotiCounAndNew()
       .subscribe((res: any) => {
-        this.newNoti = res.Count;
+        // this.newNoti = res.Count;
         res.ListNew.forEach((noti) => {
           this._toastr.info(noti.NoiDung, noti.TieuDe);
         });
@@ -145,6 +145,7 @@ export class QuantriComponent implements OnInit {
       .Notifications()
       .GetListNotification()
       .subscribe((res: any) => {
+        this.newNoti = res.Count;
         this.listNotis = res.ListItem;
       });
   }
@@ -161,6 +162,7 @@ export class QuantriComponent implements OnInit {
       .CanhBaoNhapLieuCongDoan()
       .GetListNotification()
       .subscribe((res: any) => {
+        this.newCanhBao = res.Count;
         this.listCanhBao = res.ListItem;
       });
   }
@@ -497,19 +499,19 @@ export class QuantriComponent implements OnInit {
           {
             label: "Thống kê thời gian dừng máy",
             routerLink: "/quantri/theodoithongkebaocaosanxuat/thongkethoigiandungmay",
-            // separator: this.checkmenu("THONGKETHOIGIANDUNGMAY"),
+            separator: this.checkmenu("THONGKETHOIGIANDUNGMAY"),
             command: () => this.close(),
           },
           {
             label: "Thống kê chỉ tiêu lỗi cắt",
             routerLink: "/quantri/theodoithongkebaocaosanxuat/thongkechitieuloicat/0",
-            // separator: this.checkmenu("THONGKETHOIGIANDUNGMAY"),
+            separator: this.checkmenu("KIEMTRACHATLUONGLOICAT"),
             command: () => this.close(),
           },
           {
             label: "Thống kê chỉ tiêu classimat",
             routerLink: "/quantri/theodoithongkebaocaosanxuat/thongkechitieuclassimat/0",
-            // separator: this.checkmenu("THONGKETHOIGIANDUNGMAY"),
+            separator: this.checkmenu("KIEMTRACHATLUONGCLASIMAT"),
             command: () => this.close(),
           },
         ],
@@ -1782,18 +1784,22 @@ export class QuantriComponent implements OnInit {
   }
 
   checkmenu(maaction) {
-    if (this.dataphanquyen == null) {
-      return true;
-    } else if (this.dataphanquyen[maaction] == undefined) {
-      return true;
-    } else if (this.dataphanquyen[maaction].length == 0) {
-      return true;
-    } else {
-      for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
-        if (this.dataphanquyen[maaction][i].MaRight === "XEM") {
-          if (this.dataphanquyen[maaction][i].GioiHan > 0) {
-            return false;
-          } else return true;
+    if(window.location.origin.includes("4200")){
+      return false
+    }else{
+      if (this.dataphanquyen == null) {
+        return true;
+      } else if (this.dataphanquyen[maaction] == undefined) {
+        return true;
+      } else if (this.dataphanquyen[maaction].length == 0) {
+        return true;
+      } else {
+        for (var i = 0; i < this.dataphanquyen[maaction].length; i++) {
+          if (this.dataphanquyen[maaction][i].MaRight === "XEM") {
+            if (this.dataphanquyen[maaction][i].GioiHan > 0) {
+              return false;
+            } else return true;
+          }
         }
       }
     }
