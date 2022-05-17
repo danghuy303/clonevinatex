@@ -35,7 +35,7 @@ export class BongChaiTongHopComponent extends StoreBase implements OnInit,OnDest
 
     let date = new Date();
     this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
-    this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.filter._denNgay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     this.GetBaoCao();
     this.GetCurrentTime();
     this.GetTimeForDropDown();

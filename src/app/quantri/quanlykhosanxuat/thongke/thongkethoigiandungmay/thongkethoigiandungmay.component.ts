@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
@@ -11,10 +11,11 @@ import { PintableDirective } from 'voi-lib';
   templateUrl: './thongkethoigiandungmay.component.html',
   styleUrls: ['./thongkethoigiandungmay.component.css']
 })
-export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit,AfterViewInit {
-  @ViewChild(PintableDirective) voiPintable: PintableDirective;
-  filter: any = {};
+export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit, AfterViewInit {
+  @ViewChild(PintableDirective) voiPintable: PintableDirective | any;
+  filter: any = {CongDoan:null};
   listPhanXuong: any = [];
+  listCongDoan: any = [];
   item: any = {};
   constructor(public store: StoreService, public _services: SanXuatService, public toastr: ToastrService) {
     super(store)
@@ -23,9 +24,13 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
   ngOnInit(): void {
     this.filter.NgayChon = new Date();
     this.getListPhanXuong();
+    this._services.GetListCongDoan().subscribe((res:any[])=>{
+      console.log('listCongDoan',res);
+      this.listCongDoan = mapArrayForDropDown(res,'Ten','Ma');
+    })
   }
   ngAfterViewInit(): void {
-      this.voiPintable.active()
+    this.voiPintable.active()
   }
   getListPhanXuong() {
     this._services.GetListdmPhanXuongOpt().subscribe((res: any[]) => {
@@ -34,19 +39,24 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
       this.getPhieuThongKeThoiGianDungMay()
     })
   }
+  
   getPhieuThongKeThoiGianDungMay() {
     this.filter.Ngay = DateToUnix(this.filter.NgayChon);
     this._services.ThongKeThoiGianDungMay().Get(this.filter).subscribe(res => {
       this.item = res;
+      setTimeout(() => {
+        document.querySelector('div.pintable-container tbody').scrollTo(0,0)
+        this.voiPintable.active();
+      }, 1000)
     })
   }
   setPhieuThongKeThoiGianDungMay() {
     this._services.ThongKeThoiGianDungMay().Set(this.item).subscribe(res => {
-      console.log(res)
+      console.log(res);
       this.getPhieuThongKeThoiGianDungMay();
     })
   }
-  TinhTong(item){
-    item.TongThoiGianDungMay = item.lstSuCoDungMay.reduce((total,ele)=>total+=(ele.ThoiGianDungMay || 0),0)
+  TinhTong(item) {
+    item.TongThoiGianDungMay = item.lstSuCoDungMay.reduce((total, ele) => total += (ele.ThoiGianDungMay || 0), 0)
   }
 }

@@ -72,6 +72,7 @@ export class DashboardbanchephamComponent extends StoreBase implements OnInit {
       })
     }
     this.filter.nNam = (new Date()).getFullYear();
+    this.filter.nThang = (new Date().getMonth()+1);
     this.getAllOptions();
   }
   getAllOptions() {
@@ -191,5 +192,13 @@ export class DashboardbanchephamComponent extends StoreBase implements OnInit {
     } else {
       item.xuatChecked = true;
     }
+  }
+  resetFilter(){
+    this.filter = {
+      LoaiThoiGian:0
+    };
+    this.listMatHang = [];
+    this.dataBanChePham = {};
+    this.ngOnInit();
   }
 }
