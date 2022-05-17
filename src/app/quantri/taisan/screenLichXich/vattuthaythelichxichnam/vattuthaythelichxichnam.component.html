@@ -6,99 +6,33 @@
         </div>
     </div>
 </div>
-
-<!-- <div style="overflow-x:auto;">
-    <table class="table table-bordered">
-        <thead>
-            <tr style="background-color: #828282;color:white ">
-                <th class="text-center">Tài sản/vật tư</th>
-                <th></th>
-                <th class="text-center">Tháng 1</th>
-                <th class="text-center">Tháng 2</th>
-                <th class="text-center">Tháng 3</th>
-                <th class="text-center">Tháng 4</th>
-                <th class="text-center">Tháng 5</th>
-                <th class="text-center">Tháng 6</th>
-                <th class="text-center">Tháng 7</th>
-                <th class="text-center">Tháng 8</th>
-                <th class="text-center">Tháng 9</th>
-                <th class="text-center">Tháng 10</th>
-                <th class="text-center">Tháng 11</th>
-                <th class="text-center">Tháng 12</th>
-                <th class="text-center">Tổng tiền (VNĐ)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let item of items; let i = index">
-                <tr>
-                    <td  style="font-weight: bold; "> {{item.TenTaiSan}} </td>
-                    <td></td>
-                    <td class="text-right" *ngFor=" let thanhtien of item.TongThanhTien; let i=index" > 
-                        <div [ngStyle]="{'display': ((i+1) < item.ThoiGian ?'none':'block')}">
-                            {{thanhtien | number:'0.0-0'}}
-                        </div>
-                    </td>
-                    <td  >
-                        {{ item.TongGiaTri | number:'0.0-0'}}
-                    </td>
-                </tr>
-                <tr *ngFor="let vattu of item.listVatTu">
-                    <td > {{vattu.TenTenSan}}</td>
-                    <td>
-                        <div style="padding: 6.125px 0px;">
-                            <span>SL:</span>
-                        </div>
-                        <div style="padding: 6.125px 0px;">
-                            <span>ĐG:</span>
-                        </div>
-                    </td>
-                    <td *ngFor="let ThoiGiann of vattu.listThoiGian" > 
-                        <div class="d-flex" style="align-items: center;" > 
-                            <p-inputNumber inputId="locale-indian" mode="decimal" locale="en-IN" styleClass="p-inputtext-sm"
-                                [(ngModel)]="ThoiGiann.SoLuong" (onBlur)="tongTien(item)" [disabled]="ThoiGiann.ThoiGian<item.ThoiGian">
-                            </p-inputNumber>
-                        </div>
-                        <div class="d-flex" style="align-items: center;">
-                            
-                            <p-inputNumber inputId="locale-indian" mode="decimal" locale="en-IN" styleClass="p-inputtext-sm" (onBlur)="tongTien(item)" [disabled]="ThoiGiann.ThoiGian<item.ThoiGian"
-                                [(ngModel)]="ThoiGiann.DonGia">
-                            </p-inputNumber>
-                        </div>
-                    </td>
-                    <td> {{ vattu.ThanhTien12Thang | number:'0.0-0'}}</td>
-                </tr>
-            </ng-container>
-        </tbody>
-    </table>
-  </div> -->
-
-  <div class="p-col-12 p-p-0 pintable-container" style="height: 45vh;" voiPintable [pinnedCols]="1">
+  <div class="p-col-12 p-p-0 pintable-container" style="height: 45vh;" voiPintable [pinnedCols]="2">
     <table>
         <thead>
             <tr>
                 <th class="tc-w-300 text-center" style="z-index: 999;">Tài sản/vật tư</th>
-                <th class="tc-w-100 text-center"></th>
+                <th class="tc-w-100 text-center"style="z-index: 999;"></th>
                 <th *ngFor="let label of labelThang" class="tc-w-300"> {{label}}</th>
                 <th class="tc-w-300 text-center">Tổng tiền (VNĐ)</th>
             </tr>
         </thead>
         <tbody>
-            <ng-container *ngFor="let item of items; let i = index">
+            <ng-container *ngFor="let item of listTaiSan; let i = index">
                 <tr> 
-                    <td class="tc-w-300" style="font-weight: bold; background-color: white;z-index: 999; "> {{item.TenTaiSan}} </td>
-                    <td class="tc-w-100"></td>
-                    <td class="text-right tc-w-300" *ngFor=" let thanhtien of item.TongThanhTien; let i=index"  style="font-weight: bold;" > 
-                        <div [ngStyle]="{'display': ((i+1) < item.ThoiGian ?'none':'block')}">
+                    <td class="tc-w-300 p-2" style="font-weight: bold; background-color: white;z-index: 999; "> {{item.TenTaiSan}} </td>
+                    <td class="tc-w-100 p-2" style="font-weight: bold; background-color: white;z-index: 999; "></td>
+                    <td class="text-right tc-w-300 p-2" *ngFor=" let thanhtien of item.TongThanhTien; let i=index"  style="font-weight: bold;" > 
+                        <div>
                             {{thanhtien | number:'0.0-0'}}
                         </div>
                     </td>
-                    <td  class="tc-w-300 text-right">
+                    <td  class="tc-w-300 text-right p-2">
                         {{ item.TongGiaTri | number:'0.0-0'}}
                     </td>
                 </tr>
                 <tr *ngFor="let vattu of item.listVatTu">
-                    <td class="tc-w-300"  style="background-color: white;z-index: 999; "> {{vattu.TenTenSan}} ({{vattu.DonVi}})</td>
-                    <td class="tc-w-100">
+                    <td class="tc-w-300 p-2"  style="background-color: white;z-index: 999; "> {{vattu.TenTenSan}} ({{vattu.DonVi}})</td>
+                    <td class="tc-w-100 p-2" style="font-weight: bold; background-color: white;z-index: 999; ">
                         <div style="padding: 6.125px 0px;">
                             <span>Số lượng:</span>
                         </div>
@@ -106,14 +40,14 @@
                             <span>Đơn giá:</span>
                         </div>
                     </td>
-                    <td *ngFor="let ThoiGianVatTu of vattu.listThoiGian" class="tc-w-300 text-right"> 
-                        <div class=" tc-w-300" style="align-items: center;"> 
-                            <p-inputNumber inputId="locale-indian" mode="decimal" locale="en-IN" styleClass="p-inputtext-sm"
-                                [(ngModel)]="ThoiGianVatTu.SoLuong" (onBlur)="tongTien(item)" [disabled]="ThoiGianVatTu.ThoiGian<item.ThoiGian">
+                    <td *ngFor="let ThoiGianVatTu of vattu.listThoiGian" class="tc-w-300 text-right "> 
+                        <div class=" tc-w-270 p-2" style="align-items: center; margin-left: 30px;"> 
+                            <p-inputNumber inputId="locale-us" mode="decimal"  locale="en-US" styleClass="p-inputtext-sm"
+                                [(ngModel)]="ThoiGianVatTu.SoLuong" (onBlur)="tongTien(item)" [disabled]="!ThoiGianVatTu.canInput">
                             </p-inputNumber>
                         </div>
-                        <div class="tc-w-300" style="align-items: center;">
-                            <p-inputNumber inputId="locale-indian" mode="decimal" locale="en-IN" styleClass="p-inputtext-sm" (onBlur)="tongTien(item)" [disabled]="ThoiGianVatTu.ThoiGian<item.ThoiGian"
+                        <div class="tc-w-270 p-2" style="align-items: center;  margin-left: 30px;">
+                            <p-inputNumber inputId="locale-us" mode="decimal" locale="en-US" styleClass="p-inputtext-sm" (onBlur)="tongTien(item)" [disabled]="!ThoiGianVatTu.canInput"
                                 [(ngModel)]="ThoiGianVatTu.DonGia">
                             </p-inputNumber>
                         </div>

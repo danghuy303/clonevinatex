@@ -9,7 +9,7 @@ import { PintableDirective } from 'voi-lib';
 })
 export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
 
-  @Input('item') items: any = {};
+  @Input('listTaiSan') listTaiSan: any = {};
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
 
   lableThang: any = [];
@@ -21,8 +21,9 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnChanges(): void {
+    console.log(this.listTaiSan);
+    
     this.SumAll();
-    this.ThoiGianVatTu();
     for (let i = 1; i <= 12; i++) {
       this.labelThang.push(`Tháng ${i}`);
     }
@@ -35,14 +36,6 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
 
   ngAfterViewInit(): void {
     this.voiPintable.active();
-  }
-
-  ThoiGianVatTu() {
-    this.items.forEach(ele => {
-      ele.listVatTu.forEach(obj => {
-        this.vatTu = obj.listThoiGian;
-      })
-    })
   }
 
   tongTien(item) {
@@ -61,14 +54,14 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
     item.TongThanhTien.forEach(Tong => {
       item.TongGiaTri += Tong;
     });
-    this.items.forEach(ele => {
+    this.listTaiSan.forEach(ele => {
       this.TongGiaTriToanBang += (ele.TongGiaTri || 0);
     })
   }
 
   SumAll() {
     this.TongGiaTriToanBang = 0;
-    this.items.forEach(item => {
+    this.listTaiSan.forEach(item => {
       item.TongGiaTri = 0;
       item.TongThanhTien = new Array(12).fill(0);
       for (let i = 0; i <= 11; i++) {

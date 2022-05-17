@@ -69,7 +69,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
       this.TaiSanItem = res.Data;
 
       this.listdmLoaiBaoDuong = this.TaiSanItem.listdmLoaiBaoDuong;
-      this.listdmLoaiBaoDuong.sort(this.compare);
+      // this.listdmLoaiBaoDuong.sort(this.compare);
       this.items = [];
       let items = [];
       items = this.TaiSanItem.listTaiSan;
