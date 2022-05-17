@@ -14,9 +14,10 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
   listBaoDuong: any = [];
   checkedAll: boolean = false;
   listItemDaChon: any = [];
-  copyItemsBaoDuong:any = [];
-  thoiGianDaChon:any;
-  filter:any={
+  listItemsTrongBd: any = [];
+  copyItemsBaoDuong: any = [];
+  thoiGianDaChon: any;
+  filter: any = {
 
   }
   constructor(
@@ -28,29 +29,37 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
-    console.log(this.taiSan)
-    console.log(this.thoiGianDaChon)
   }
 
   loadData() {
     let data = {
       IdTaiSan: this.taiSan.IdTaiSan,
-      IddmLoaiTaiSan: this.taiSan.IddmLoaiTaiSan,
-      // TuNgay:,
-      // DenNgay:,
       Ngay: DateToUnix(this.thoiGianDaChon),
-      IdBoPhanSuDung: this.taiSan.IdBoPhanSuDung,
     }
     this._serviceTaiSan.LichXich().GetListTaiSanTheoThang(data).subscribe((res: any) => {
+      // debugger;
       this.listBaoDuong = res.Data[0]?.listLoaiBaoDuong;
-      this.listBaoDuong.push(this.copyItemsBaoDuong)
       this.listBaoDuong.forEach(obj => {
-        obj.checked = this.listItemDaChon.includes(obj.IddmLoaiBaoDuong);
+        // obj.checked = this.listItemDaChon.includes(obj.IddmLoaiBaoDuong);
+        obj.checked = this.listItemDaChon.includes(obj.Id);
       })
-      this.timXoa();
       this.checked();
+      this.checkExistedItems();
     })
     this.checkedAll = this.listBaoDuong.every(obj => obj.checked);
+  }
+
+  checkExistedItems() {
+    console.log("listItemDaChon", this.listItemDaChon);
+    console.log("listItemsTrongBd", this.listItemsTrongBd);
+    console.log("listBaoDuong", this.listBaoDuong);
+    this.listItemDaChon.forEach(ele => {
+      if (!this.listItemsTrongBd.includes(ele)) {
+        // let index = this.listBaoDuong.findIndex(obj => obj.IddmLoaiBaoDuong === ele);
+        let index = this.listBaoDuong.findIndex(obj => obj.Id === ele);
+        this.listBaoDuong.splice(index, 1);
+      }
+    })
   }
 
   checkAll(e) {
@@ -61,13 +70,6 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
 
   checked() {
     this.checkedAll = this.listBaoDuong.every(ele => ele.checked)
-  }
-
-  timXoa() {
-    this.listItemDaChon.forEach(ele => {
-     let index = this.listBaoDuong.findIndex(obj => obj.IddmLoaiBaoDuong == ele)
-     this.listBaoDuong.splice(index,1)
-    })
   }
 
   Accept() {

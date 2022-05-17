@@ -31,6 +31,7 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
     for (let i = 1; i <= this.soNgay; i++) {
       this.labelThang.push(i);
     }
+    
   }
   ngAfterViewInit(): void {
     this.voiPintable.active();
@@ -41,24 +42,37 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
   }
 
   getBaoDuong(taisan, baoduong) {
+    // console.log("baoduong", baoduong);
+    console.log("taisan",taisan);
+    
+    taisan.listbdDaChon = [];
+    taisan.listBaoDuong.forEach(obj => {
+      if (obj.listChiTiet?.length) {
+        obj.listChiTiet.forEach(ele => {
+          // taisan.listbdDaChon.push(ele.IddmLoaiBaoDuong);
+          taisan.listbdDaChon.push(ele.Id);
+        })
+      }
+    })
+    // console.log("taisan.listbdDaChon", taisan.listbdDaChon);
     let modalRef = this._modal.open(ModalluachonbaoduonglichxichtheothangComponent, {
       size: 'lg',
       backdrop: 'static',
     })
     modalRef.componentInstance.taiSan = taisan;
     modalRef.componentInstance.thoiGianDaChon = this.thoiGianDaChon;
-    // modalRef.componentInstance.listItemDaChon =  baoduong.listChiTiet ?  baoduong.listChiTiet.map(ele => ele?.IddmLoaiBaoDuong) : [];
-    modalRef.componentInstance.listItemDaChon = this.selectedItems;
-    modalRef.componentInstance.copyItemsBaoDuong = this.copyItemsBaoDuong;
+    modalRef.componentInstance.listItemDaChon = taisan.listbdDaChon || [];
+    // modalRef.componentInstance.listItemsTrongBd = baoduong.listChiTiet ?  baoduong.listChiTiet.map(ele => ele?.IddmLoaiBaoDuong) : [];
+    modalRef.componentInstance.listItemsTrongBd = baoduong.listChiTiet ?  baoduong.listChiTiet.map(ele => ele?.Id) : [];
     modalRef.result
       .then((res: any) => {
         baoduong.listChiTiet = res;
-        taisan.listBaoDuong.forEach(ele => {
-          ele?.listChiTiet.forEach(obj => {
-            this.copyItemsBaoDuong = obj;
-            this.selectedItems.push(obj.IddmLoaiBaoDuong)
-          })
-        })
+        // taisan.listBaoDuong.forEach(ele => {
+        //   ele?.listChiTiet.forEach(obj => {
+        //     // this.selectedItems.push(obj.IddmLoaiBaoDuong)
+        //     this.selectedItems.push(obj.Id)
+        //   })
+        // })
       })
       .catch(error => {
       })

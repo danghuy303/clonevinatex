@@ -40,7 +40,6 @@ export class ModalluachontaisantheolichxichthangComponent implements OnInit {
     if(this.filter.DenThang && this.filter.TuThang) {
         this.GetList();
     }
-    // this.GetList();
   }
 
   resetFilter() {
@@ -60,6 +59,7 @@ export class ModalluachontaisantheolichxichthangComponent implements OnInit {
       // DenThang:DateToUnix(this.DenThang),  
       TuThang: DateToUnix(this.filter.TuThang),
       DenThang: DateToUnix(this.filter.DenThang),
+      IdQuyTrinh: this.item.Id || '',
     }
     this._serviceTaiSan.LichXich().GetListTaiSanTheoThang(data).subscribe((res: any) => {
       this.items = res.Data;

@@ -35,6 +35,7 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
     private store: StoreService,
     private activatedRoute: ActivatedRoute, private router: Router,
   ) { }
+
   ngOnInit(): void {
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
@@ -80,17 +81,20 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
       this.paging.TotalCount = res.Data.TotalCount;
     })
   }
+
   GetListdmPhanXuong() {
     this._services.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
       this.GetList();
     })
   }
+  
   changeParam(id) {
     this.router.navigate([`quantri/taisan/quytrinhlapkehoachthang/${id}`], {
       replaceUrl: true,
     });
   }
+
   add() {
     let modalRef = this._modal.open(LapkehoachthangComponent, {
       backdrop: 'static',
@@ -112,6 +116,7 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
         this.changeParam(0);
       })
   }
+  
   update(item) {
     let modalRef = this._modal.open(LapkehoachthangComponent, {
       size: "fullscreen-100",

@@ -113,10 +113,11 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   }
 
   ValidateData() {
-    if (!validVariable(this.item.NgayBaoDuong)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
-      return false;
-    } else if (!validVariable(this.item.IdBoPhanSuDung)) {
+    // if (!validVariable(this.item.NgayBaoDuong)) {
+    //   this.toastr.error("Yêu cầu nhập đầy đủ ngày!");
+    //   return false;
+    // } else 
+    if (!validVariable(this.item.IdBoPhanSuDung)) {
       this.toastr.error("Yêu cầu nhập bộ phận sử dụng!");
       return false;
     } else if (!validVariable(this.item.IdDmLoaiTaiSan)) {
