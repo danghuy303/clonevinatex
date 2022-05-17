@@ -31,7 +31,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   TaiSanItem: any = [];
   count: number;
   trangThai: any = 0;
-
+  currentYear: any = 0;
 
   constructor(
     private _modal: NgbModal,
@@ -44,6 +44,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.currentYear = new Date().getFullYear();
     let data = {
       Keyword: "", CurrentPage: 0, PageSize: 20,
       // MaCongDoan: '',
@@ -73,6 +74,9 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.GetNextSoQuyTrinh();
       this.item.Nam = new Date().getFullYear();
     }
+    else {
+      this.GetQuyTrinhById(this.item.Id);
+    }
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
@@ -84,6 +88,29 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
     })
     this.KiemTraButtonModal();
+  }
+
+  GetQuyTrinhById(id) {
+    this._serviceTaiSan
+      .LichXich()
+      .Get(id)
+      .subscribe((res: any) => {
+        this.item = res.Data;
+        this.item.listTaiSan.forEach(ele => {
+          ele.listChiPhi.forEach(obj => {
+            obj.TongTien = obj.ChiTietChiPhi.reduce((total, sum) => {
+              return total + sum.SoTien;
+            }, 0)
+          })
+          ele.TongTienChiPhi = ele.listChiPhi.reduce((total, number) => {
+            return total + number.TongTien;
+          }, 0)
+        })
+        this.item.Nam = UnixToDate(this.item.ThoiGianUnix).getFullYear();
+        this.toastr.success(res.Message);
+        this.KiemTraButtonModal();
+        this.checkDisableSelectMonth();
+      });
   }
 
   GetNextSoQuyTrinh() {
@@ -122,20 +149,8 @@ export class LapkehoachlichxichnamComponent implements OnInit {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
           this.item = res.Data;
-          this.item.listTaiSan.forEach(ele => {
-            ele.listChiPhi.forEach(obj => {
-              obj.TongTien = obj.ChiTietChiPhi.reduce((total, sum) => {
-                return total + sum.SoTien;
-              }, 0)
-            })
-            ele.TongTienChiPhi = ele.listChiPhi.reduce((total, number) => {
-              return total + number.TongTien;
-            }, 0)
-          })
-          this.item.Nam = UnixToDate(this.item.ThoiGianUnix).getFullYear();
-          this.toastr.success(res.Message);
-          this.KiemTraButtonModal();
-          // this.activeModal.close();
+          this.GetQuyTrinhById(this.item.Id);
+
         }
       }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -187,6 +202,8 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       .catch((er) => console.log(er));
   }
   ThemMoiDanhSachTaiSan() {
+
+
     if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
       return
@@ -202,27 +219,9 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     modalRef.result.then((res: any) => {
       this.item.listTaiSan = res;
       this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
-      this.item.listTaiSan.forEach(ele => {
-        let thangDuaVaoSuDung = new Date(ele.thoiGianDuaVaoSuDung).getMonth() + 1;
-        let thangHienTai = new Date().getMonth() + 2; 
-        ele.ThoiGian = thangDuaVaoSuDung < thangHienTai?thangHienTai : thangDuaVaoSuDung;
-        ele.Nam = new Date(ele.thoiGianDuaVaoSuDung).getFullYear();
-        // if (!validVariable(ele.listBaoDuong)) {
-        //   ele.listBaoDuong = []
-        //   for (let i = 1; i <= 12; i++) {
-        //     ele.listBaoDuong.push(
-        //       {
-        //         ThoiGian: i,
-        //         listChiTiet: [],
-        //       }
-        //     )
-        //   }
-        // }
-        // // chi phi
-        // ele.listChiPhi.forEach(obj => {
-        //   obj.ChiTietChiPhi = []
-        // })
-      })
+      this.checkDisableSelectMonth();
+
+      console.log(this.item.listTaiSan)
     })
       .catch((er) => {
       });
@@ -268,14 +267,51 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     };
     this._serviceTaiSan.LichXich().GetListVatTuByIdTaiSanForLapKeHoachLichXichNam(data).subscribe((res: any) => {
       this.item.listTaiSan = res.Data.listTaiSan;
-      this.item.listTaiSan.forEach(ele => {
-        // ele.ThoiGian = new Date(ele.thoiGianDuaVaoSuDung).getMonth() + 1;
-        // ele.Nam = new Date(ele.thoiGianDuaVaoSuDung).getFullYear();
-        let thangDuaVaoSuDung = new Date(ele.thoiGianDuaVaoSuDung).getMonth() + 1;
-        let thangHienTai = new Date().getMonth() + 2; 
-        ele.ThoiGian = thangDuaVaoSuDung < thangHienTai?thangHienTai : thangDuaVaoSuDung;
-        ele.Nam = new Date(ele.thoiGianDuaVaoSuDung).getFullYear();
-      })
+      this.checkDisableSelectMonth();
     });
   }
+
+  checkDisableSelectMonth() {
+    this.item.listTaiSan.forEach(taisan => {
+      let thangDuaVaoSuDung = new Date(taisan.thoiGianDuaVaoSuDung).getMonth() + 1;
+      let thangHienTai = new Date().getMonth() + 2;
+      taisan.ThoiGian = thangDuaVaoSuDung < thangHienTai ? thangHienTai : thangDuaVaoSuDung;
+      taisan.Nam = new Date(taisan.thoiGianDuaVaoSuDung).getFullYear();
+      taisan.listBaoDuong.forEach(baoduong => {
+          baoduong.canInput = this.comparison(taisan.Nam,taisan.ThoiGian,baoduong.ThoiGian)
+      });
+      // 
+      taisan.listVatTu.forEach(vattu => {
+        vattu.listThoiGian.forEach(thoiGianVatTu => {
+          thoiGianVatTu.canInput = this.comparison(taisan.Nam,taisan.ThoiGian,thoiGianVatTu.ThoiGian)
+        })
+      })
+      // chi phi
+      taisan.listChiPhi.forEach(chiphi => {
+        chiphi.canInput = this.comparison(taisan.Nam,taisan.ThoiGian,chiphi.ThoiGian)
+    });
+    })
+  }
+
+  comparison(year, time,repairTime) {
+    //year năm đưa vào sử dụng
+    //time = tháng to nhất so sánh giữa tháng đưa vào sử dụng và tháng hiện tại;
+    //repairTime = tháng của bảo dưỡng
+    if (this.item.Nam < year ) {
+      return false;
+    }
+    else if (this.item.Nam === year) {
+      if(repairTime<time){
+        return false
+      }else{
+        return true
+      }
+    }
+    else if(this.item.Nam > year){
+      return true
+    }
+    //false  = khoong duoc nhap
+    //true  = duoc nhap
+  }
+
 }

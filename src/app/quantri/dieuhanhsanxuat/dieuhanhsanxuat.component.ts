@@ -384,7 +384,7 @@ export class DieuhanhsanxuatComponent implements OnInit, OnDestroy {
         this.listXuatNhap = res;
         this.showXuatNhap = true;
         this.selectedXuatNhap = {
-          Ten: `${this.mapXuatNhap[opt]} - ${item.TendmLoaiBong} - ${item.TenLoBong}`,
+          Ten: `${this.mapXuatNhap[opt]} - ${item.TendmLoaiBong} ${(item.TenLoBong?(' - '+item.TenLoBong):'')}`,
           opt: opt,
           field: `SoPhieu${opt}`,
           TenOpt: this.mapXuatNhap[opt],

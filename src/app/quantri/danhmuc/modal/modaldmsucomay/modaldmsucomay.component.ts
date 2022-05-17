@@ -21,7 +21,7 @@ export class ModaldmsucomayComponent implements OnInit {
   }
   accept() {
     this.khongclicknhieu = !this.khongclicknhieu;
-    if (validVariable(this.item.Ma) && validVariable(this.item.Ten)) {
+    if (validVariable(this.item.Ma) && validVariable(this.item.Ten)&& validVariable(this.item.STT)) {
       this.sanXuatService.DanhMucSuCoMay().Set(this.item).subscribe((res: any) => {
         if (res) {
           this.resAction(res)

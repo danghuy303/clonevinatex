@@ -151,29 +151,29 @@
                                 <td class="width-220 bg-white">{{item.TendmItem!==null?item.MadmItem:item.MadmLoaiBong}}
                                 </td>
                                 <td class="width-180 bg-white">{{item.TenLoHang}}</td>
-                                <td class="text-right width-180">{{item.DauSoQuaSoi|number:'0.0-0' }}</td>
-                                <td class="text-right width-180">{{item.DauSoKien|number:'0.0-0' }}</td>
-                                <td class="text-right width-180">{{item.DauSoCan > 0 ? item.DauSoCan : 0|number:'0.2-2' }}</td>
-                                <td class="text-right width-180">{{item.NhapSoQuaSoi|number:'0.0-0' }}</td>
-                                <td class="text-right width-180">{{item.NhapSoKien|number:'0.0-0' }}</td>
+                                <td class="text-right width-180">{{item.DauSoQuaSoi | number:'0.0-0' }}</td>
+                                <td class="text-right width-180">{{item.DauSoKien | number:'0.0-0' }}</td>
+                                <td class="text-right width-180">{{(item.DauSoCan > 0 ? item.DauSoCan : 0) | number:'0.2-2' }}</td>
+                                <td class="text-right width-180">{{item.NhapSoQuaSoi | number:'0.0-0' }}</td>
+                                <td class="text-right width-180">{{item.NhapSoKien | number:'0.0-0' }}</td>
                                 <td class="text-right width-180">
                                     <a href="javascript:void(0)" *ngIf="item.TendmItem!==null"
-                                        (click)="callDataXuatNhap('Nhap', item)"> {{item.NhapSoCan > 0 ? item.NhapSoCan : 0|number:'0.2-2' }}</a>
-                                    <ng-container *ngIf="item.TendmItem===null">{{item.NhapSoCan > 0 ? item.NhapSoCan : 0|number:'0.2-2' }}
+                                        (click)="callDataXuatNhap('Nhap', item)"> {{(item.NhapSoCan > 0 ? item.NhapSoCan : 0) | number:'0.2-2' }}</a>
+                                    <ng-container *ngIf="item.TendmItem===null">{{(item.NhapSoCan > 0 ? item.NhapSoCan : 0) | number:'0.2-2' }}
                                     </ng-container>
                                 </td>
                                 <td class="text-right width-180">{{item.XuatSoQuaSoi|number:'0.0-0' }}</td>
                                 <td class="text-right width-180">{{item.XuatSoKien|number:'0.0-0' }}</td>
                                 <td class="text-right width-180">
                                     <a href="javascript:void(0)" *ngIf="item.TendmItem!==null"
-                                        (click)="callDataXuatNhap('Xuat', item)">{{item.XuatSoCan > 0 ? item.XuatSoCan : 0|number:'0.2-2' }}</a>
-                                    <ng-container *ngIf="item.TendmItem===null">{{item.XuatSoCan > 0 ? item.XuatSoCan : 0|number:'0.2-2' }}
+                                        (click)="callDataXuatNhap('Xuat', item)">{{(item.XuatSoCan > 0 ? item.XuatSoCan : 0) | number:'0.2-2' }}</a>
+                                    <ng-container *ngIf="item.TendmItem===null">{{(item.XuatSoCan > 0 ? item.XuatSoCan : 0) | number:'0.2-2' }}
                                     </ng-container>
                                 </td>
-                                <td class="text-right width-180">{{item.CuoiSoQuaSoi|number:'0.0-0' }}</td>
-                                <td class="text-right width-180">{{item.CuoiSoKien|number:'0.0-0' }}</td>
+                                <td class="text-right width-180">{{item.CuoiSoQuaSoi | number:'0.0-0' }}</td>
+                                <td class="text-right width-180">{{item.CuoiSoKien | number:'0.0-0' }}</td>
                                 <td class="text-right width-180">
-                                    {{item.CuoiSoCan > 0 ? item.CuoiSoCan : 0|number:'0.2-2' }}
+                                    {{(item.CuoiSoCan > 0 ? item.CuoiSoCan : 0) | number:'0.2-2' }}
                                 </td>
                             </tr>
                         </ng-container>

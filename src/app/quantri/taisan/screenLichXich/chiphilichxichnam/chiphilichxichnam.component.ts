@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
@@ -10,9 +10,10 @@ import { ChiphilichxichnamchonthemComponent } from '../chiphilichxichnamchonthem
   templateUrl: './chiphilichxichnam.component.html',
   styleUrls: ['./chiphilichxichnam.component.css']
 })
-export class ChiphilichxichnamComponent implements OnInit {
+export class ChiphilichxichnamComponent implements OnInit, OnChanges {
 
   @Input('listTaiSan') listTaiSan: any = {};
+  @Input('chonNam') chonNam: any = '';
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   TongGiaTriToanBang:any = 0;
   labelThang = [];
@@ -25,12 +26,15 @@ export class ChiphilichxichnamComponent implements OnInit {
     private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService,
   ) { }
-
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     for (let i = 1; i <= 12; i++) {
       this.labelThang.push(`Tháng ${i}`);
     }
     this.sum(this.listTaiSan);
+  }
+
+  ngOnInit(): void {
+    
   }
 
   ngAfterViewInit(): void {

@@ -2,7 +2,8 @@
     <div class="modal-bt p-mb-4 p-col-12 p-lg-2  p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto"> </label>
         <div class="p-col-12 p-lg-8 p-p-0">
-             <strong  style="color: #007bff;">Tổng giá trị: <span style="color: red;"> {{TongGiaTriToanBang | number:'0.0-0'}} </span>   (VNĐ)</strong>
+            <strong style="color: #007bff;">Tổng giá trị: <span style="color: red;"> {{TongGiaTriToanBang |
+                    number:'0.0-0'}} </span> (VNĐ)</strong>
         </div>
     </div>
 </div>
@@ -28,26 +29,31 @@
                                 <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger" (click)="Delete(chiPhi.ChiTietChiPhi,i)"></button>
                             </div> -->
                         <!--  -->
-
-                        <div class="p-grid" style="border: .5px solid #ccc;">
-                            <div class="p-col-4 t-head-custom">Tên chi phí</div>
-                            <div class="p-col-4 t-head-custom">Số tiền</div>
-                            <div class="p-col-4 t-head-custom">Thao tác</div>
-                            <ng-container *ngIf="chiPhi.ChiTietChiPhi.length" >
-                                <div class="p-grid" style="width:100%;" *ngFor="let item of chiPhi.ChiTietChiPhi; let i = index">
-                                    <div class="p-col-4" style="border: .5px solid #ccc; word-wrap: break-word" >{{item.TenChiPhi}}</div>
-                                    <div class="p-col-4" style="border: .5px solid #ccc; word-wrap: break-word">{{item.SoTien  | number:'0.0-0'}}</div>
-                                    <div class="p-col-4 p-d-flex" style="border: .5px solid #ccc; ">
-                                        <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger" (click)="Delete(chiPhi.ChiTietChiPhi,i)"></button>
-                                        <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-primary" (click)="editChiTietChiPhi(item)"></button>
+                        <div  [style.display]="chiPhi.canInput?'block':'none' ">
+                            <div class="p-grid" style="border: .5px solid #ccc;">
+                                <div class="p-col-4 t-head-custom">Tên chi phí</div>
+                                <div class="p-col-4 t-head-custom">Số tiền</div>
+                                <div class="p-col-4 t-head-custom">Thao tác</div>
+                                <ng-container *ngIf="chiPhi.ChiTietChiPhi.length">
+                                    <div class="p-grid" style="width:100%;"
+                                        *ngFor="let item of chiPhi.ChiTietChiPhi; let i = index">
+                                        <div class="p-col-4" style="border: .5px solid #ccc; word-wrap: break-word">
+                                            {{item.TenChiPhi}}</div>
+                                        <div class="p-col-4" style="border: .5px solid #ccc; word-wrap: break-word">
+                                            {{item.SoTien | number:'0.0-0'}} </div>
+                                        <div class="p-col-4 p-d-flex" style="border: .5px solid #ccc; ">
+                                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                                class="p-button-rounded p-button-text p-button-danger"
+                                                (click)="Delete(chiPhi.ChiTietChiPhi,i)"></button>
+                                            <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                class="p-button-rounded p-button-text p-button-primary"
+                                                (click)="editChiTietChiPhi(item)"></button>
+                                        </div>
                                     </div>
-                                </div>
-                            </ng-container>
+                                </ng-container>
+                            </div>
+                            <a href="javascript:void(0)" (click)="ChiTietThongTin(chiPhi)">Chọn</a>
                         </div>
-
-
-                        <!--  -->
-                        <a href="javascript:void(0)" (click)="ChiTietThongTin(chiPhi)">Chọn</a>
                     </td>
                     <td class="text-right tc-w-250 p-p-2">{{ item.TongTienChiPhi | number:'0.0-0'}}</td>
                 </tr>

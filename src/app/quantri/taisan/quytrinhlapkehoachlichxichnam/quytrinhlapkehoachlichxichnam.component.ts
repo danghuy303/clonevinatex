@@ -43,13 +43,13 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
     this.filter.Ngay = new Date().getFullYear();
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
-        this._serviceTaiSan
-          .LichXich()
-          .Get(res.id)
-          .subscribe((res: any) => {
-            this.update(res);
+        // this._serviceTaiSan
+        //   .LichXich()
+        //   .Get(res.id)
+        //   .subscribe((res: any) => {
+            this.update({Id:res.id});
 
-          });
+          // });
       }
     });
     this.KiemTraTabTrangThai();
@@ -112,7 +112,7 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
       })
   }
   update(item) {
-    item.Data.Nam = UnixToDate(item.Data.ThoiGianUnix).getFullYear(); // hiện thị năm
+    //  // hiện thị năm
     let modalRef = this._modal.open(LapkehoachlichxichnamComponent, {
       size: "fullscreen-100",
       backdrop: "static",
@@ -121,7 +121,7 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
     modalRef.componentInstance.title = 'Cập nhật ';
-    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
+    modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result
       .then(data => {
 
@@ -129,7 +129,6 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
       .catch(er => {
       })
       .finally(() => {
-
         this.GetList();
         this.changeParam(0);
       });

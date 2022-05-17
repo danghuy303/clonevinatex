@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 
 @Component({
@@ -32,7 +33,10 @@ export class ChiphilichxichnamchonthemComponent implements OnInit {
     //   this.listLichBaoDuong = [];
     // }
     // this.listLichBaoDuong.push(this.item);
-  
+    if (!validVariable(this.item.SoTien)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
+      return
+    }
     let data = {
       SoTien: this.item.SoTien,
       TenChiPhi:this.item.TenChiPhi,
