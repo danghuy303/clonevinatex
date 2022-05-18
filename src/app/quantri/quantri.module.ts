@@ -287,6 +287,7 @@ import { ThongkechitieuloicatComponent } from './quanlykhosanxuat/thongke/thongk
 import { ThongkechitieuclassimatComponent } from './quanlykhosanxuat/thongke/thongkechitieuclassimat/thongkechitieuclassimat.component';
 import { ModalthongkechitieuclassimatComponent } from './quanlykhosanxuat/thongke/modalthongkechitieuclassimat/modalthongkechitieuclassimat.component';
 import { ModalthongkechitieuloicatComponent } from './quanlykhosanxuat/thongke/modalthongkechitieuloicat/modalthongkechitieuloicat.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 @NgModule({
@@ -567,6 +568,7 @@ import { ModalthongkechitieuloicatComponent } from './quanlykhosanxuat/thongke/m
     ProgressBarModule,
     NgbProgressbarModule,
     ColorPickerModule,
+    QRCodeModule,
     NgxMaskModule.forRoot(),
   ],
   entryComponents: [

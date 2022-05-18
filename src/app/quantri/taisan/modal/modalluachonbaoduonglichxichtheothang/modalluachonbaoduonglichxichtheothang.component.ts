@@ -50,9 +50,9 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
   }
 
   checkExistedItems() {
-    console.log("listItemDaChon", this.listItemDaChon);
-    console.log("listItemsTrongBd", this.listItemsTrongBd);
-    console.log("listBaoDuong", this.listBaoDuong);
+    // console.log("listItemDaChon", this.listItemDaChon);
+    // console.log("listItemsTrongBd", this.listItemsTrongBd);
+    // console.log("listBaoDuong", this.listBaoDuong);
     this.listItemDaChon.forEach(ele => {
       if (!this.listItemsTrongBd.includes(ele)) {
         // let index = this.listBaoDuong.findIndex(obj => obj.IddmLoaiBaoDuong === ele);
