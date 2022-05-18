@@ -32,7 +32,7 @@ export class LapkehoachthangComponent implements OnInit {
   TuThang: any = '';
   DenThang: any = '';
   ngayCuoiCungCuaThangDaChon:number;
-
+  vi: any;
 
   constructor(
     private _modal: NgbModal,
@@ -45,27 +45,28 @@ export class LapkehoachthangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.vi = {
+      monthNamesShort: ["01","02","03","04","05","06","07","08","09","10","11","12",]
+    }
     if (this.item.ThoiGianUnix !== 0) {
       this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
-      console.log('',this.item.ThoiGian)
     }
     this.KiemTraButtonModal();
     if (this.opt === 'add') {
       this.GetNextSoQuyTrinh();
-
-      // let getFullYear = new Date().getFullYear();
-      // let getMonth = new Date().getMonth() + 1;
-      // this.item.ThoiGian = `${getMonth}/${getFullYear}`;
     }
-   
-
     let data = {
-      Keyword: "", CurrentPage: 0, PageSize: 20, MaCongDoan: '', IdBoPhanSuDung: '',
-      IddmLoaiTaiSan: '', IdUser: '', Ngay: 0, LoaiKeHoach: '',
+      Keyword: "", 
+      CurrentPage: 0, 
+      PageSize: 20, 
+      MaCongDoan: '', 
+      IdBoPhanSuDung: '',
+      IddmLoaiTaiSan: '', 
+      IdUser: '', 
+      Ngay: 0, 
+      LoaiKeHoach: '',
       IdDuAn: 0,
     };
-    
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._servicesSanXuat.GetOptions().GetListdmPhanXuong().toPromise();
     Promise.all([ls1,ls2]).then((values: any) => {
@@ -73,6 +74,7 @@ export class LapkehoachthangComponent implements OnInit {
       this.listPhanXuong = mapArrayForDropDown(values[1], "Ten", "Id");
     });
     this.chonThang(this.item.ThoiGian);
+    // console.log("this.item", this.item);
   }
 
   GetNextSoQuyTrinh() {
@@ -90,7 +92,6 @@ export class LapkehoachthangComponent implements OnInit {
     modalRef.componentInstance.filter = this.item.ThoiGian ? { DenThang: this.DenThang, TuThang: this.TuThang } : {};
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : [];
     modalRef.result.then((res: any) => {
-      // this.item.listTaiSan = deepCopy(merge(res, this.item.listTaiSan, 'IdTaiSan'));
       this.item.listTaiSan = deepCopy(res);
       this.item.listTaiSan.forEach(ele => {
         ele.IdBoPhanSuDung = this.item.IdBoPhanSuDung;
@@ -112,21 +113,6 @@ export class LapkehoachthangComponent implements OnInit {
       .catch((er) => {
       });
   }
-
-  // Chon(item, itemLoaiBaoDuongDeChon) {
-  //   let modalRef = this._modal.open(ModalluachonloaibaoduongComponent, {
-  //     backdrop: 'static',
-  //     size: 'fullscreen-100',
-  //     keyboard: false
-  //   });
-  //   modalRef.componentInstance.Lay_Chon = itemLoaiBaoDuongDeChon;
-  //   modalRef.componentInstance.listItemDaChon = item.listChiTiet ? item.listChiTiet.map(ele => ele.IddmLoaiBaoDuong) : []
-  //   modalRef.result.then((res: any) => {
-  //     item.listChiTiet = res;
-  //   })
-  //     .catch((er) => {
-  //     });
-  // }
 
   setData() {
     this.item.ThoiGianUnix = DateToUnix(this.item.ThoiGian)+172800;
@@ -154,7 +140,6 @@ export class LapkehoachthangComponent implements OnInit {
           this.item = res.Data;
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();
-          // this.activeModal.close();
         }
       }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -167,6 +152,7 @@ export class LapkehoachthangComponent implements OnInit {
       this.checkbutton = res;
     });
   }
+
   ChapNhan() {
     this._serviceTaiSan.LichXichThang().ChuyenTiep(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
@@ -177,6 +163,7 @@ export class LapkehoachthangComponent implements OnInit {
       }
     })
   }
+
   KhongDuyet() {
     this._serviceTaiSan.LichXichThang().KhongDuyet(this.item).subscribe((res: any) => {
       if (res.StatusCode !== 200) {
@@ -187,6 +174,7 @@ export class LapkehoachthangComponent implements OnInit {
       }
     })
   }
+
   XoaQuyTrinh() {
     let modalRef = this._modal.open(ModalthongbaoComponent, {
       backdrop: "static",
@@ -205,6 +193,7 @@ export class LapkehoachthangComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
+
   chonThang(time) {
     let date = new Date(this.item.ThoiGian);
     let month = time.getMonth() +1;

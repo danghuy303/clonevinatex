@@ -16,7 +16,7 @@
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetList(true)">
+                [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetList(true)" >
             </p-calendar>
         </div>
         <div class="p-mr-2">
@@ -77,7 +77,7 @@
                 <td class="text-center">
                     {{item.SoQuyTrinh}}
                 </td>
-                <td class="text-center">{{item.NgayBaoDuong|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{item.Created|date:'dd/MM/yyyy'}}</td>
                 <td style="text-align: left;">{{item.TenBoPhanSuDung}}</td>
                 <td style="text-align: left;">{{item.TenDmLoaiTaiSan}}</td>
                 <td style="text-align: left;">{{item.NoiDung}}</td>
