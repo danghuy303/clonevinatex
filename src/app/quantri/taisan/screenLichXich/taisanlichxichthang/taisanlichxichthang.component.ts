@@ -43,14 +43,14 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
 
   getBaoDuong(taisan, baoduong) {
     // console.log("baoduong", baoduong);
-    console.log("taisan",taisan);
-    
+    // console.log("taisan",taisan);
     taisan.listbdDaChon = [];
     taisan.listBaoDuong.forEach(obj => {
       if (obj.listChiTiet?.length) {
         obj.listChiTiet.forEach(ele => {
           // taisan.listbdDaChon.push(ele.IddmLoaiBaoDuong);
-          taisan.listbdDaChon.push(ele.Id);
+          // taisan.listbdDaChon.push(ele.Id);
+          taisan.listbdDaChon.push(ele.IdTaiSan_BaoDuong);
         })
       }
     })
@@ -63,7 +63,8 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
     modalRef.componentInstance.thoiGianDaChon = this.thoiGianDaChon;
     modalRef.componentInstance.listItemDaChon = taisan.listbdDaChon || [];
     // modalRef.componentInstance.listItemsTrongBd = baoduong.listChiTiet ?  baoduong.listChiTiet.map(ele => ele?.IddmLoaiBaoDuong) : [];
-    modalRef.componentInstance.listItemsTrongBd = baoduong.listChiTiet ?  baoduong.listChiTiet.map(ele => ele?.Id) : [];
+    // modalRef.componentInstance.listItemsTrongBd = baoduong.listChiTiet ?  baoduong.listChiTiet.map(ele => ele?.Id) : [];
+    modalRef.componentInstance.listItemsTrongBd = baoduong.listChiTiet ?  baoduong.listChiTiet.map(ele => ele?.IdTaiSan_BaoDuong) : [];
     modalRef.result
       .then((res: any) => {
         baoduong.listChiTiet = res;
