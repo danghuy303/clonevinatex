@@ -18,8 +18,8 @@
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="activeModal.dismiss('close')"></button>
         </div>
-        <div class="modal-bt p-mb-4 text-center" style="position: absolute; right: 0;transform: translate(-180%,20%);">
-            <qrcode [qrdata]="item.Ma" [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
+        <div class="modal-bt text-center p-col-4 maQR"  [style.visibility]="item.Ma?'visible':'hidden'">
+            <qrcode [qrdata]="item.Ma"  [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
         </div>
     </div>
 

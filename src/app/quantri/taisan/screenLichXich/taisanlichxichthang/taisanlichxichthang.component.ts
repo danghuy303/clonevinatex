@@ -44,6 +44,7 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
   getBaoDuong(taisan, baoduong) {
     // console.log("baoduong", baoduong);
     // console.log("taisan",taisan);
+    
     taisan.listbdDaChon = [];
     taisan.listBaoDuong.forEach(obj => {
       if (obj.listChiTiet?.length) {
