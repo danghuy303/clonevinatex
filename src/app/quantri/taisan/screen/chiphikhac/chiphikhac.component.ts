@@ -13,12 +13,22 @@ export class ChiphikhacComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("this.items", this.items);
-    
+    // console.log("this.items", this.items);
+    this.CountTheoKeHoach();
+    this.Count();
   }
 
   ngOnInit(): void {
-    this.Count();
+    // this.CountTheoKeHoach();
+    // this.Count();
+  }
+
+  CountTheoKeHoach() {
+    this.items.forEach(ele => {
+      ele.GiatriKeHoach = ele.listChiPhiKhac.reduce((sum, obj) => {
+        return sum + obj.GiatriKeHoach;
+      },0)
+    })
   }
   
   Count() {

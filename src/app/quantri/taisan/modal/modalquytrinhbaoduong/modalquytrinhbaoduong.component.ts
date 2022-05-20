@@ -21,7 +21,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
   opt: any = "";
   listNam: any = [];
   item: any = {};
-  lang: any = vn;
+  // lang: any = 'vn';
   yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   checkbutton: any = { Ghi: true, Xoa: true, KhongDuyet: true, ChuyenTiep: true };
   listPhanXuong = [];
