@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BaoCaoTongHopClassimatComponent } from './bao-cao-tong-hop-classimat/bao-cao-tong-hop-classimat.component';
+import { BaoCaoTongHopLoiCatComponent } from './bao-cao-tong-hop-loi-cat/bao-cao-tong-hop-loi-cat.component';
 import { BaoCaoTongHopComponent } from './bao-cao-tong-hop.component';
 import { BongChaiTongHopComponent } from './bong-chai-tong-hop/bong-chai-tong-hop.component';
 import { GhepThoTongHopComponent } from './ghep-tho-tong-hop/ghep-tho-tong-hop.component';
@@ -14,6 +16,8 @@ const routes: Routes = [
   { path: 'soicontonghop', component: SoiConTongHopComponent },
   { path: 'ongtonghop', component: OngTongHopComponent },
   { path: 'thoigiandungmay', component: ThongKeThoiGianDungMayComponent },
+  { path: 'loicat', component: BaoCaoTongHopLoiCatComponent },
+  { path: 'classimat', component: BaoCaoTongHopClassimatComponent },
 ]
 
 @NgModule({

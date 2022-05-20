@@ -14,11 +14,13 @@ import { SoiConTongHopComponent } from './soi-con-tong-hop/soi-con-tong-hop.comp
 import { OngTongHopComponent } from './ong-tong-hop/ong-tong-hop.component';
 import { ThongKeThoiGianDungMayComponent } from './thong-ke-thoi-gian-dung-may/thong-ke-thoi-gian-dung-may.component';
 import { VoiLibModule } from 'voi-lib';
+import { BaoCaoTongHopLoiCatComponent } from './bao-cao-tong-hop-loi-cat/bao-cao-tong-hop-loi-cat.component';
+import { BaoCaoTongHopClassimatComponent } from './bao-cao-tong-hop-classimat/bao-cao-tong-hop-classimat.component';
 
 @NgModule({
   declarations: [
     BaoCaoTongHopComponent, 
-    BongChaiTongHopComponent, GhepThoTongHopComponent, SoiConTongHopComponent, OngTongHopComponent, ThongKeThoiGianDungMayComponent,
+    BongChaiTongHopComponent, GhepThoTongHopComponent, SoiConTongHopComponent, OngTongHopComponent, ThongKeThoiGianDungMayComponent, BaoCaoTongHopLoiCatComponent, BaoCaoTongHopClassimatComponent,
     // SumByKeyPipe
   ],
   imports: [
