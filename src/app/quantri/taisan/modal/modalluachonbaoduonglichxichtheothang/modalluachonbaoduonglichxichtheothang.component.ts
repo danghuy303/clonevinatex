@@ -41,7 +41,8 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
       this.listBaoDuong = res.Data[0]?.listLoaiBaoDuong;
       this.listBaoDuong.forEach(obj => {
         // obj.checked = this.listItemDaChon.includes(obj.IddmLoaiBaoDuong);
-        obj.checked = this.listItemDaChon.includes(obj.Id);
+        // obj.checked = this.listItemDaChon.includes(obj.Id);
+        obj.checked = this.listItemDaChon.includes(obj.IdTaiSan_BaoDuong);
       })
       this.checked();
       this.checkExistedItems();
@@ -56,7 +57,8 @@ export class ModalluachonbaoduonglichxichtheothangComponent implements OnInit {
     this.listItemDaChon.forEach(ele => {
       if (!this.listItemsTrongBd.includes(ele)) {
         // let index = this.listBaoDuong.findIndex(obj => obj.IddmLoaiBaoDuong === ele);
-        let index = this.listBaoDuong.findIndex(obj => obj.Id === ele);
+        // let index = this.listBaoDuong.findIndex(obj => obj.Id === ele);
+        let index = this.listBaoDuong.findIndex(obj => obj.IdTaiSan_BaoDuong === ele);
         this.listBaoDuong.splice(index, 1);
       }
     })

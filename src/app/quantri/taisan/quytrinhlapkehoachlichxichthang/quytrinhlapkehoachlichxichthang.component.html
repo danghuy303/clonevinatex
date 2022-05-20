@@ -16,12 +16,12 @@
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.TuNgay" inputId="icon" placeholder="Từ ngày" (onSelect)="GetList(true)">
+                [(ngModel)]="filter.TuThang " inputId="icon" placeholder="Từ ngày" (onSelect)="GetList(true)">
             </p-calendar>
         </div>
         <div class="p-mr-2">
-            <p-calendar [(ngModel)]="filter.DenNgay" dateFormat="dd/mm/yy" placeholder="Đến ngày"
-                inputStyleClass="p-inputtext-sm" [minDate]="filter.TuNgay" inputId="min-max" [showIcon]="true"
+            <p-calendar [(ngModel)]="filter.DenThang " dateFormat="dd/mm/yy" placeholder="Đến ngày"
+                inputStyleClass="p-inputtext-sm" [minDate]="filter.TuThang" inputId="min-max" [showIcon]="true"
                 (onSelect)="GetList(true)">
             </p-calendar>
         </div>

@@ -24,6 +24,8 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
   Keyword: any = '';
   filter: any = {};
   minDate:any = '';
+  listCheckedItems: any = [];
+  ROWS_PER_PAGES = 10;
 
   constructor(
     public _modal: NgbModal,
@@ -57,7 +59,6 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
     };
     this._serviceTaiSan.QuyTrinhBaoDuong().GetListTaiSanBaoDuong(data).subscribe((res: any) => {
       // console.log("res", res);
-      
       this.items = [];
       res.Data.forEach(obj => {
         // obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
@@ -72,9 +73,9 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
         this.items.push(data);
       });
       this.paging.TotalCount = this.items.length;
-      console.log("this.items", this.items);
-      
-      this.items = this.SplitPages(this.items)
+      // console.log("this.items", this.items);
+      // this.item = res;
+      // this.items = this.SplitPages(this.items)
       this.checkedAll = res.Data.every(ele => ele.checked);
     });
   }
@@ -122,7 +123,7 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
     }
   }
 
-  checked() {
+  checked(status, id) {
     this.checkedAll = this.TimCheck();
   }
 
@@ -169,9 +170,10 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
   GhiLai() {
     let data = this.FilterTree().map(ele => {
       return { 
-        IdTaiSan: ele.IdTaiSan,
-        IdLapKeHoachLichXich: ele.IdLapKeHoachLichXich,
-        IddmLoaiBaoDuong: ele.IddmLoaiBaoDuong
+        // IdTaiSan: ele.IdTaiSan,
+        // IdLapKeHoachLichXich: ele.IdLapKeHoachLichXich,
+        // IddmLoaiBaoDuong: ele.IddmLoaiBaoDuong
+        IdTaiSan_BaoDuong: ele.IdTaiSan_BaoDuong
       }
     })
     this._serviceTaiSan.GetOptions().GetListVatTuForBaoDuong(data).subscribe((res:any) => {
@@ -180,9 +182,8 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
   }
 
   SplitPages(arr) {
-    const ROWS_PER_PAGES = 10;
-    let first = this.paging.CurrentPage*ROWS_PER_PAGES;
-    let last = first + ROWS_PER_PAGES;
+    let first = this.paging.CurrentPage * this.ROWS_PER_PAGES;
+    let last = first + this.ROWS_PER_PAGES;
     return arr.slice(first, last);
   }
 

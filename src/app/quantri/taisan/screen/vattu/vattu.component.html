@@ -4,7 +4,8 @@
     </div>
     <div class="modal-bt p-mb-4 ">
         <span><b>Tổng tiền: </b></span>
-        <span><b>{{tongThanhTien | number: '0.0'}}</b></span>
+        <span style="color:red"><b>{{tongThanhTien | number: '0.0'}} </b></span>
+        <span><b>(VNĐ)</b></span>
     </div>
 </div>
 
@@ -58,7 +59,7 @@
             <td>
             </td>
             <td class="text-right">
-                {{item.ThanhTien}}
+                {{item.ThanhTien | number: '0.0'}}
                 <!-- <p-inputNumber inputId="integeronly" [disabled]="true" [(ngModel)]="item.ThanhTien"
                     placeholder="Thành tiền">
                 </p-inputNumber> -->
@@ -78,21 +79,21 @@
                 <td class="text-right">{{vattu.DonGiaTheoKeHoach | number: '0.0'}}</td>
                 <td class="text-right">{{vattu.ThanhTienTheoKeHoach | number: '0.0'}}</td>
                 <td>
-                    <p-inputNumber inputId="integeronly" [(ngModel)]="vattu.SoLuong" placeholder="Số lượng"
+                    <p-inputNumber inputId="integeronly" locale="en-US" [(ngModel)]="vattu.SoLuong" placeholder="Số lượng"
                         (onBlur)="Count()"></p-inputNumber>
                 </td>
                 <td>
-                    <p-inputNumber inputId="integeronly" [(ngModel)]="vattu.DonGia" placeholder="Đơn giá"
+                    <p-inputNumber inputId="integeronly" locale="en-US" [(ngModel)]="vattu.DonGia" placeholder="Đơn giá"
                         (onBlur)="Count()">
                     </p-inputNumber>
                 </td>
                 <td>
-                    <p-inputNumber inputId="integeronly" [disabled]="true" [(ngModel)]="vattu.ThanhTien"
+                    <p-inputNumber inputId="integeronly" locale="en-US" [disabled]="true" [(ngModel)]="vattu.ThanhTien"
                         placeholder="Thành tiền">
                     </p-inputNumber>
                 </td>
                 <td>
-                    <input type="text" pInputText placeholder="Ghi chú" />
+                    <input type="text" pInputText placeholder="Ghi chú" [(ngModel)]="vattu.GhiChu" [ngbTooltip]="vattu.GhiChu"/>
                 </td>
             </tr>
         </ng-container>
