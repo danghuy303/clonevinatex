@@ -26,6 +26,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
   listLoaiTaiSan: any = [];
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   TaiSanItem: any = [];
+  checkBtnChonTaiSan: boolean;
 
   constructor(
     public _modal: NgbModal,

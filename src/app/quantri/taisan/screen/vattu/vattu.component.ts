@@ -15,12 +15,20 @@ export class VattuComponent implements OnInit, OnChanges {
   constructor(private _services: SanXuatService) { }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.CountTheoKeHoach();
     this.Count();
   }
 
   ngOnInit(): void {
   
+  }
 
+  CountTheoKeHoach() {
+    this.items.forEach(ele => {
+      ele.ThanhTienTheoKeHoach = ele.listVatTu.reduce((total, ele) => {
+        return total + ele.ThanhTienTheoKeHoach
+      }, 0)
+    })
   }
 
   Count() {

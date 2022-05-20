@@ -32,6 +32,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
   count: number;
   trangThai: any = 0;
   currentYear: any = 0;
+  checkBtnChonTaiSan: boolean;
 
   constructor(
     private _modal: NgbModal,
@@ -107,7 +108,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
           }, 0)
         })
         this.item.Nam = UnixToDate(this.item.ThoiGianUnix).getFullYear();
-        this.toastr.success(res.Message);
+        // this.toastr.success(res.Message);
         this.KiemTraButtonModal();
         this.checkDisableSelectMonth();
       });
@@ -160,6 +161,8 @@ export class LapkehoachlichxichnamComponent implements OnInit {
 
   KiemTraButtonModal() {
     this._servicesSanXuat.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
+      console.log(res);
+      this.checkBtnChonTaiSan = res.Ghi;
       this.checkbutton = res;
     });
   }
@@ -202,8 +205,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       .catch((er) => console.log(er));
   }
   ThemMoiDanhSachTaiSan() {
-
-
     if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
       return
@@ -216,12 +217,10 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.Lay_Chon = this.item;
     modalRef.componentInstance.item = this.item;
+    modalRef.componentInstance.checkBtnChonTaiSan = this.checkBtnChonTaiSan;
     modalRef.result.then((res: any) => {
-      this.item.listTaiSan = res;
       this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
       this.checkDisableSelectMonth();
-
-      console.log(this.item.listTaiSan)
     })
       .catch((er) => {
       });
@@ -237,6 +236,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     modalRef.componentInstance.IdTaiSan = taisan.IdTaiSan;
     modalRef.componentInstance.listItemDaChon = baoduong.listChiTiet ? baoduong.listChiTiet.map(ele => ele?.IddmLoaiBaoDuong) : [];
     modalRef.componentInstance.IdBoPhanSuDung = this.item.IdBoPhanSuDung;
+    modalRef.componentInstance.checkBtnChonTaiSan = this.checkBtnChonTaiSan;
     modalRef.result.then((res: any) => {
       baoduong.listChiTiet = res;
 
@@ -260,8 +260,8 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     let arr = [];
     data = {
       ListIdTaiSan: this.item.listTaiSan.map(ele => ele.IdTaiSan),
-      IdBoPhanSuDung: this.item.IdBoPhanSuDung,
-      IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
+      // IdBoPhanSuDung: this.item.IdBoPhanSuDung,
+      // IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
       Ngay: DateToUnix(new Date(this.item.Nam, 1, 1)),
       IdQuyTrinh: this.item.Id,
     };

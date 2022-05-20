@@ -21,12 +21,12 @@
             </div>
         </div>
         <div class="p-inputgroup p-inputgroup-sm" style="width:200px">
-            <input type="text" placeholder="Tìm kiếm" [(ngModel)]="Keyword" (keyup.enter)="GetList(true)"
+            <input type="text" placeholder="Tìm kiếm" [(ngModel)]="filter.Keyword" (keyup.enter)="GetList(true)"
                 class="p-inputtext-sm" pInputText />
-            <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-text"
-                (click)="resetFilter()" pTooltip="Làm mới" showDelay="1000" tooltipPosition="bottom"></button>
             <button type="button" pButton pRipple icon="pi pi-search" class="p-button-secondary p-button-text"
                 (click)="GetList(true)" pTooltip="Tìm kiếm" showDelay="1000" tooltipPosition="bottom"></button>
+                <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-text"
+                (click)="resetFilter()" pTooltip="Làm mới" showDelay="1000" tooltipPosition="bottom"></button>
         </div>
     </div>
 </div>

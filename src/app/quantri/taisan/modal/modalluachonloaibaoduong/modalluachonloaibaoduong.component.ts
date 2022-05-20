@@ -25,6 +25,7 @@ export class ModalluachonloaibaoduongComponent implements OnInit {
   IdBoPhanSuDung: any = '';
   IdTaiSan:any = '';
   Nam: any = "";
+  checkBtnChonTaiSan: boolean;
 
   constructor(
     public _modal: NgbModal,

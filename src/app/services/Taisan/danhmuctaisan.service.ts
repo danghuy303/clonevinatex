@@ -89,6 +89,12 @@ export class DanhmuctaisanService {
   DanhMucLoaiTaiSan() {
     let url = API.TaiSan
     return {
+      // GetList: (data) => {
+      //   return this.http.post(`${url}DanhMuc/GetListdmLoaiTaiSan`, data, httpOptions)
+      // },
+      GetListdmLoaiTaiSanForDanhMuc: (data) => {
+        return this.http.post(`${url}DanhMuc/GetListdmLoaiTaiSanForDanhMuc`, data, httpOptions)
+      },
       GetList: (data) => {
         return this.http.post(`${url}DanhMuc/GetListdmLoaiTaiSan`, data, httpOptions)
       },

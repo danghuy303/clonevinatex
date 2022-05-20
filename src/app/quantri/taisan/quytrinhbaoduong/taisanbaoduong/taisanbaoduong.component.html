@@ -1,6 +1,6 @@
 
 <!-- table -->
-<p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
+<p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm" >
     <ng-template pTemplate="colgroup">
         <colgroup>
             <col style="width: 50px;">
@@ -56,8 +56,11 @@
             <td class="text-center">
                 <p-checkbox [(ngModel)]="item.isDaBaoDuong" [binary]="true"></p-checkbox>
             </td>
-            <td class="text-center">
-                <input type="text" [(ngModel)]="item.GhiChu" pInputText />
+            <td class="text-center" >
+                <!-- <input pTooltip="Enter your username" type="text" [(ngModel)]="item.GhiChu" pInputText /> -->
+                <div class="tooltip1"><input  type="text" [(ngModel)]="item.GhiChu" pInputText />
+                    <span class="tooltiptext">{{item.GhiChu}}</span>
+                  </div>
             </td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-trash"

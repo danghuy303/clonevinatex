@@ -30,38 +30,43 @@
         </div>
     </div>
     <div class="p-grid">
-      
-        <div class="p-col-12 p-lg-8  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Nội dung:</label>
-            <div class="p-col-12 p-xl-9 p-p-0">
+        <div class="p-col-12 p-lg-6  p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Nội dung:</label>
+            <div class="p-col-12 p-xl-10 p-p-0">
                 <input locale="en-EN" pInputText [(ngModel)]="item.NoiDung" />
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng: <span class="required">(*)</span></label>
-            <div class="p-col-12 p-xl-8 p-p-0">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Bộ phận sử dụng: <span class="required">(*)</span></label>
+            <div class="p-col-12 p-xl-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn bộ phận"
                     [(ngModel)]="item.IdBoPhanSuDung"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-8 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-3 p-p-0 my-auto">Loại tài Sản: <span class="required">(*)</span></label>
-            <div class="p-col-12 p-xl-9 p-p-0">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Loại tài Sản: <span class="required">(*)</span></label>
+            <div class="p-col-12 p-xl-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [(ngModel)]="item.IddmLoaiTaiSan"
                     placeholder="Chọn loại tài sản"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Chọn tháng, năm: <span class="required">(*)</span></label>
-            <div class="p-col-12 p-xl-8 p-p-0">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Chọn tháng, năm: <span class="required">(*)</span></label>
+            <div class="p-col-12 p-xl-10 p-p-0">
                 <p-calendar dateFormat="mm/yy" view="month" inputStyleClass="p-inputtext-sm" [showIcon]="true" inputId="icon" (onSelect)="chonThang(item.ThoiGian)" placeholder="Chọn tháng, năm" [locale]="vi" [(ngModel)]="item.ThoiGian">
                 </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-2 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-xl-10 p-p-0">
                 <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-xl-row p-ai-center">
+            <label class="p-col-12 p-xl-2 p-p-0 my-auto">Thay thế:</label>
+            <div class="p-col-12 p-xl-10 p-p-0">
+                <p-checkbox [(ngModel)]="item.isThayThe" [binary]="true"></p-checkbox>
             </div>
         </div>
     </div>
@@ -87,6 +92,7 @@
                     [listTaiSan]="item.listTaiSan" 
                     [soNgay]="ngayCuoiCungCuaThangDaChon" 
                     [ThoiGianDaChon]="item.ThoiGian"
+                    [checkBtnChonTaiSan]="checkBtnChonTaiSan"
                 ></app-taisanlichxichthang>
             </ng-template>
         </p-tabPanel>

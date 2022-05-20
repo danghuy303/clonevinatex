@@ -70,8 +70,8 @@ export class QuytrinhlapkehoachlichxichthangComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       Keyword: this.Keyword,
-      TuNgay: DateToUnix(this.filter.TuNgay),
-      DenNgay: DateToUnix(this.filter.DenNgay),
+      TuThang  : DateToUnix(this.filter.TuThang),
+      DenThang : DateToUnix(this.filter.DenThang),
       TabTrangThai: this.trangThai,
       Loai:0,
       IdBoPhanSuDung:this.filter.IdBoPhanSuDung

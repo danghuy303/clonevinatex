@@ -56,7 +56,7 @@ export class ModalloaitaisanComponent implements OnInit {
           this.toastr.success(res.Message);
           this.activeModal.close();
         } 
-        this.activeModal.close();
+        // this.activeModal.close();
       })
     }
   }

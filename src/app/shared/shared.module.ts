@@ -41,7 +41,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     TableModule,
     ScrollPanelModule,
     FormsModule,
-    InputTextareaModule
+    InputTextareaModule,
   ],
   exports:[
     isXoaPipe,
