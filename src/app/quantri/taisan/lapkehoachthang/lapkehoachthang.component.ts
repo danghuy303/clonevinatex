@@ -31,8 +31,10 @@ export class LapkehoachthangComponent implements OnInit {
   TaiSanItem: any = [];
   TuThang: any = '';
   DenThang: any = '';
+  getMonth: any = '';
   ngayCuoiCungCuaThangDaChon:number;
   vi: any;
+  checkBtnChonTaiSan: boolean;
 
   constructor(
     private _modal: NgbModal,
@@ -89,8 +91,9 @@ export class LapkehoachthangComponent implements OnInit {
       backdrop: "static",
     });
     modalRef.componentInstance.item = this.item;
-    modalRef.componentInstance.filter = this.item.ThoiGian ? { DenThang: this.DenThang, TuThang: this.TuThang } : {};
+    modalRef.componentInstance.filter = this.item.ThoiGian ? { DenThang: this.DenThang, TuThang: this.TuThang, getMonth: this.getMonth } : {};
     modalRef.componentInstance.listItemDaChon = this.item.listTaiSan ? this.item.listTaiSan.map(ele => ele.IdTaiSan) : [];
+    modalRef.componentInstance.checkBtnChonTaiSan = this.checkBtnChonTaiSan;
     modalRef.result.then((res: any) => {
       this.item.listTaiSan = deepCopy(res);
       this.item.listTaiSan.forEach(ele => {
@@ -149,6 +152,7 @@ export class LapkehoachthangComponent implements OnInit {
 
   KiemTraButtonModal() {
     this._servicesSanXuat.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
+      this.checkBtnChonTaiSan = res.Ghi;
       this.checkbutton = res;
     });
   }
@@ -200,6 +204,7 @@ export class LapkehoachthangComponent implements OnInit {
     let year = time.getFullYear();
     this.TuThang = new Date(date.getFullYear(), date.getMonth(), 1);
     this.DenThang = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.getMonth = new Date(date.getFullYear(), date.getMonth() + 1);
     this.ngayCuoiCungCuaThangDaChon = new Date(year,month,0).getDate();
   }
 }

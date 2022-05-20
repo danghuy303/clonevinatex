@@ -40,7 +40,7 @@ export class QuytrinhlapkehoachlichxichnamComponent implements OnInit {
     for (let i = new Date().getFullYear(); i <= (new Date().getFullYear() + 20); i++) {
       this.listNam.push({ value: i, label: i });
     }
-    this.filter.Ngay = new Date().getFullYear();
+    // this.filter.Ngay = new Date().getFullYear();
     this.activatedRoute.params.subscribe((res: any) => {
       if (res.id !== "0") {
         // this._serviceTaiSan

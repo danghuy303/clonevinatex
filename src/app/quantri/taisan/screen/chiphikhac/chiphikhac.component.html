@@ -45,7 +45,7 @@
                     (onBlur)="Count()"></p-inputNumber> -->
             </td>
             <td>
-                <input type="text" pInputText placeholder="Ghi chú" [(ngModel)]="item.GhiChu" />
+                <!-- <input type="text" pInputText placeholder="Ghi chú" [(ngModel)]="item.GhiChu" /> -->
             </td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text" (click)="AddChiPhi(item)"></button>
@@ -64,7 +64,10 @@
                         (onBlur)="Count()"></p-inputNumber>
                 </td>
                 <td>
-                    <input type="text" pInputText placeholder="Ghi chú" [(ngModel)]="chiphi.GhiChu" />
+                    <!-- <input type="text" pInputText placeholder="Ghi chú" [(ngModel)]="chiphi.GhiChu" /> -->
+                    <div class="tooltip1"><input  type="text" [(ngModel)]="chiphi.GhiChu" pInputText />
+                        <span class="tooltiptext">{{chiphi.GhiChu}}</span>
+                      </div>
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="DeleteChiPhi(item, a)"></button>

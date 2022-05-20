@@ -27,6 +27,8 @@ export class ModalluachontaisantheolichxichthangComponent implements OnInit {
   TuThang: any = '';
   DenThang: any = '';
   minDate: Date;
+  maxDate: Date;
+  checkBtnChonTaiSan: boolean;
 
   constructor(
     public _modal: NgbModal,
@@ -37,8 +39,8 @@ export class ModalluachontaisantheolichxichthangComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(this.filter.DenThang && this.filter.TuThang) {
-        this.GetList();
+    if (this.filter.DenThang && this.filter.TuThang) {
+      this.GetList();
     }
   }
 

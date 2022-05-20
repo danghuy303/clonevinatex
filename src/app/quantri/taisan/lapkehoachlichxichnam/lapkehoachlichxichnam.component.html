@@ -41,7 +41,7 @@
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Bộ phận sử dụng: <span class="required">(*)</span></label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listPhanXuong" [showClear]="true"
-                    [(ngModel)]="item.IdBoPhanSuDung" placeholder="Chọn bộ phận"></p-dropdown>
+                    [(ngModel)]="item.IdBoPhanSuDung" (onChange)="ChonLoaiTaiSan()" placeholder="Chọn bộ phận"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-7  p-p-3 d-flex flex-column flex-lg-row">
@@ -62,6 +62,12 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.GhiChu"></textarea>
+            </div>
+        </div>
+        <div class="p-col-12 p-lg-4 d-flex flex-column flex-xl-row">
+            <div class="p-field-checkbox p-col-12 p-p-0 my-auto">
+                <p-checkbox [(ngModel)]="item.isThayThe" binary="true" inputId="binary"></p-checkbox>
+                <label for="binary">Thay thế </label>
             </div>
         </div>
     </div>
@@ -112,7 +118,7 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th class="text-center">Mã,tên tài sản</th>
+                        <th class="text-center">Mã - Tên tài sản</th>
                         <th class="text-center">Tháng 1</th>
                         <th class="text-center">Tháng 2</th>
                         <th class="text-center">Tháng 3</th>
@@ -138,13 +144,11 @@
                         </td> -->
 
                         <td> {{taisan.MaTaiSan}} - {{taisan.TenTaiSan}}</td>
-                        <td class="text-center" *ngFor="let baoduong of taisan.listBaoDuong"
-                            (click)="Chon(baoduong,taisan)">
-                            <div [style.display]="baoduong.canInput?'block':'none' ">
+                        <td class="text-center" *ngFor="let baoduong of taisan.listBaoDuong" >
+                            <div  *ngIf="baoduong.canInput">
                                 <p *ngFor="let chitiet of baoduong.listChiTiet">{{chitiet?.TendmLoaiBaoDuong}}</p>
-                                <a href="javascript:void(0)">Chọn</a>
+                                <a href="javascript:void(0)" (click)="Chon(baoduong,taisan)">Chọn</a>
                             </div>
-
                         </td>
                     </tr>
                 </ng-template>

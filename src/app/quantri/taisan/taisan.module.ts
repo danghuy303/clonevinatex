@@ -395,8 +395,7 @@ import { CapnhatthuvientaisanchitietComponent } from './capnhatthuvientaisanchit
     XulysucoluachontaisanComponent,
     DenghisulyluachonthemvattuComponent,
     ModalluachontaisantheolichxichthangComponent,
-    CapnhatthuvientaisanchitietComponent,
-
+    CapnhatthuvientaisanchitietComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

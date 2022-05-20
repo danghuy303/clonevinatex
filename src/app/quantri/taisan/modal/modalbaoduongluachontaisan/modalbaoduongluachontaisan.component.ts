@@ -23,6 +23,7 @@ export class ModalbaoduongluachontaisanComponent implements OnInit {
   listdmLoaiBaoDuong: any = [];
   Keyword: any = '';
   filter: any = {};
+  minDate:any = '';
 
   constructor(
     public _modal: NgbModal,

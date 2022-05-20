@@ -62,7 +62,7 @@ export class DanhmucloaitaisanComponent implements OnInit {
     })
   }
   resetFilter() {
-    this.Keyword = '';
+    this.filter = {};
     this.GetList(true);
   }
   GetList(reset?) {
@@ -73,11 +73,11 @@ export class DanhmucloaitaisanComponent implements OnInit {
     let data = {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      Keyword: this.Keyword,
+      Keyword: this.filter.Keyword,
       MaCongDoan: this.filter.MaCongDoan ? this.filter.MaCongDoan : '',
 
     };
-    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
+    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetListdmLoaiTaiSanForDanhMuc(data).subscribe((res: any) => {
       this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
       this.paging.TotalPages = res.Data.TotalPages;

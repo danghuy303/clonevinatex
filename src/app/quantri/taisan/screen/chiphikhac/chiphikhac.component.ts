@@ -12,9 +12,7 @@ export class ChiphikhacComponent implements OnInit, OnChanges {
 
   constructor() { }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log("this.items", this.items);
-    
+  ngOnChanges(changes: SimpleChanges) {  
   }
 
   ngOnInit(): void {
