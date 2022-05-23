@@ -41,12 +41,12 @@
             <td>{{item.TenTaiSan}}</td>
             <td class="text-right">{{item.GiatriKeHoach | number: '0.0'}}</td>
             <td class="text-right">
-                {{item.GiaTri}}
+                {{item.GiaTri | number: '0.0-0'}}
                 <!-- <p-inputNumber inputId="integeronly" [(ngModel)]="item.GiaTri" placeholder="Giá trị thực tế"
                     (onBlur)="Count()"></p-inputNumber> -->
             </td>
             <td>
-                <!-- <input type="text" pInputText placeholder="Ghi chú" [(ngModel)]="item.GhiChu" /> -->
+                <!-- <input type="text" pInputText placeholder="Ghi chú" [(ngModel)]="item.GhiChu" [ngbTooltip]="item.GhiChu"/> -->
             </td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text" (click)="AddChiPhi(item)"></button>
@@ -59,16 +59,13 @@
                 <td class="p-pl-5">
                     <input type="text" pInputText placeholder="Tên chi phí" [(ngModel)]="chiphi.TenChiPhi" />
                 </td>
-                <td class="text-right">{{chiphi.GiatriKeHoach | number: '0.0'}}</td>
+                <td class="text-right">{{chiphi.GiatriKeHoach | number: '0.0-0'}}</td>
                 <td>
-                    <p-inputNumber inputId="integeronly" [(ngModel)]="chiphi.GiaTri" placeholder="Giá trị thực tế"
+                    <p-inputNumber inputId="integeronly" locale="en-US" [(ngModel)]="chiphi.GiaTri" placeholder="Giá trị thực tế"
                         (onBlur)="Count()"></p-inputNumber>
                 </td>
                 <td>
-                    <!-- <input type="text" pInputText placeholder="Ghi chú" [(ngModel)]="chiphi.GhiChu" /> -->
-                    <div class="tooltip1"><input  type="text" [(ngModel)]="chiphi.GhiChu" pInputText />
-                        <span class="tooltiptext">{{chiphi.GhiChu}}</span>
-                      </div>
+                    <input type="text" pInputText placeholder="Ghi chú" [(ngModel)]="chiphi.GhiChu" [ngbTooltip]="chiphi.GhiChu"/>
                 </td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="DeleteChiPhi(item, a)"></button>

@@ -104,7 +104,7 @@ export class DmchitieuloicatComponent implements OnInit {
     });
     modalRef.componentInstance.message='Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
     modalRef.result.then(res=>{
-      this._services.DanhMucClassimat().Delete(item).subscribe((res: any) => {
+      this._services.DanhMucLoiCat().Delete(item).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this._toastr.success(res.message);

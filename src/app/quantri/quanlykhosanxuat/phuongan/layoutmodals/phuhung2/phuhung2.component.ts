@@ -126,7 +126,7 @@ GetBanBongConLai(event) {
         this.canCopy = false;
       }
     } else {
-      this._toastr.error(`Tải thành công bàn bông không thành công! Vui lòng thử lại bàn khác!`)
+      this._toastr.error(`Tải bàn bông không thành công! Vui lòng thử lại bàn khác!`)
       this.canCopy = false;
     }
   })

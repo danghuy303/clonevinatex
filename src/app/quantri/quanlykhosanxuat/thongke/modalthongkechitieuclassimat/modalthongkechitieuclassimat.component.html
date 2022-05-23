@@ -48,7 +48,7 @@
                     styleClass="p-inputtext-sm" [(ngModel)]="item.IddmPhanXuong"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+        <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Từ ngày<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [locale]="lang"
@@ -65,7 +65,7 @@
                     [(ngModel)]="item.DenNgay" inputId="icon" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
-        </div>
+        </div> -->
         <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
             <label class="p-col-12 p-lg-4 p-p-0 my-auto">Ngày kiểm tra<span class="text-danger">*</span>:</label>
             <div class="p-col-12 p-lg-8 p-p-0">
@@ -81,6 +81,12 @@
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
             </div>
         </div>
+        <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
+            <label class="p-col-12 p-lg-1 p-p-0 my-auto">Nội dung:</label>
+            <div class="p-col-12 p-lg-11 p-pt-0 p-pr-0 p-pb-0 p-pl-5">
+                <textarea pInputTextarea [(ngModel)]="item.NoiDung"></textarea>
+            </div>
+        </div>
         <div class="p-col-12 p-p-0 d-flex flex-column">
             <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
                 <div>
@@ -88,56 +94,62 @@
                         (click)="GetMatHangTheoKho()"></button>
                 </div>
             </div>
-            <p-table [value]="item.lstDanhMuc|isXoa" styleClass="p-datatable-sm wrap-text p-datatable-gridlines"
-                selectionMode="single" [scrollable]="true" scrollHeight="53vh" [lazy]="true">
+            <p-table [value]="item.lstSanPham" styleClass="p-datatable-sm wrap-text p-datatable-gridlines"
+                [scrollable]="true" scrollHeight="53vh" [lazy]="true">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
-                        <col style="width:200px">
-                        <ng-container *ngFor="let ban of item.lstSanPham">
-                            <col style="width: 100px;">
-                            <col style="width: 100px;">
+                        <col style="width:50px">
+                        <col style="width:150px">
+                        <col style="width:250px !important">
+                        <ng-container *ngFor="let ban of item.lstDanhMuc">
+                            <col style="width: 100px !important;">
                         </ng-container>
                     </colgroup>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th class="align-content-center first-col sticky-col" rowspan="2">Chỉ tiêu</th>
-                        <th *ngFor="let ban of item.lstSanPham" colspan="2">
+                        <th class="text-center" colspan="2">STT</th>
+                        <th class="align-content-center first-col sticky-col">Loại sợi</th>
+                        <th *ngFor="let ban of item.lstDanhMuc">
                             {{ban.Ten}}
+                            <ng-container *ngIf="ban.isTong"><br>(Tổng)</ng-container>
                         </th>
                     </tr>
-                    <tr>
-                        <ng-container *ngFor="let ban of item.lstSanPham">
-                            <th>Tiêu chuẩn</th>
-                            <th>Thực tế</th>
-                        </ng-container>
-                    </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-itemindex let-i="rowIndex">
-                    <tr>
-                        <td class="align-content-center first-col sticky-col"
-                            [ngStyle]="{'background-color': itemindex.isLoaiChiTieuUsterstatic?'antiquewhite':'white'}">
-                            {{itemindex.Ten}}</td>
-                        <ng-container *ngFor="let itemsanpham of itemindex.lstChatLuongSanPham,let iC = index">
-                            <td class="text-right">{{itemindex.Ma!=='DAT'?(itemsanpham.ChiTieuLyThuyet===0?'':itemsanpham.ChiTieuLyThuyet):''}}</td>
-                            <td class="text-center"
-                                [ngStyle]="{'background-color': itemindex.Ma==='DAT'?'':(itemsanpham.ChiTieuThucTe>itemsanpham.ChiTieuLyThuyet?'#ef8888':'#99c199')}">
-                                <input *ngIf="itemindex.Ma==='DAT'" type="checkbox" [(ngModel)]="itemsanpham.isDat" />
-                                <input *ngIf="itemindex.Ma!=='DAT'" class="text-right dat09focus" style="width: 100%; text-align: right; border: transparent; color:#495057"
-                                    type="text" [tabindex]="itemsanpham.tabIndex" [ngModel]="itemsanpham.ChiTieuThucTe|number:'0.0-3'"  [mask]="MO.mask" [allowNegativeNumbers]="true"
-                                    (keydown)="move($event,itemsanpham.tabIndex)" (ngModelChange)="rebind($event,itemsanpham,iC,itemindex.Ma)"
-                                    [thousandSeparator]="MO.thousand" [ngModelOptions]="{standalone: true}" [disabled]="itemindex.Ma==='IPI'">
-                                <!-- <div lang="vi-VN">
-                                    <input style="width: 100%; text-align: right; border: transparent; color:#495057" step="0.01" lang="vi"
-                                        class="dat09focus" type="number">
-                                </div> -->
-                                <!-- <p-inputNumber *ngIf="itemindex.Ma!=='DAT'" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="3" locale="en-EN"
-                                    [(ngModel)]="itemsanpham.ChiTieuThucTe">
-                                </p-inputNumber> -->
+                <ng-template pTemplate="body" let-loaisoi let-i="rowIndex">
+                    <ng-container>
+                        <tr>
+                            <td rowspan="4" class="text-center">{{i+1}}</td>
+                            <td>SL Lỗi Chỉ Tiêu</td>
+                            <td rowspan="4">{{loaisoi.TenMatHang}}</td>
+                            <td class="text-right" *ngFor="let lythuyet of loaisoi.lstChatLuongSanPham">
+                                {{lythuyet.ChiTieuLyThuyet | number:'0.1-1'}}
                             </td>
-                        </ng-container>
-                    </tr>
-
+                        </tr>
+                        <tr>
+                            <td>Hôm Trước</td>
+                            <td class="text-right" *ngFor="let homtruoc of loaisoi.lstChatLuongSanPham">
+                                {{homtruoc.ChiTieuThucTe_HomTruoc | number:'0.1-1'}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Hôm Nay</td>
+                            <td *ngFor="let homnay of loaisoi.lstChatLuongSanPham">
+                                <!-- {{homnay.ChiTieuThucTe| number:'0.1-1'}} -->
+                                <p-inputNumber mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1"
+                                    locale="en-EN" [(ngModel)]="homnay.ChiTieuThucTe" (onBlur)="tinhTong(loaisoi.lstChatLuongSanPham,homnay.NhomChiTieu)" [disabled]="homnay.isTong"></p-inputNumber>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>So Sánh</td>
+                            <ng-container *ngFor="let sosanh of loaisoi.lstChatLuongSanPham">
+                                <td class="text-center" [ngStyle]="{'background-color': sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet?'#a7d1a7':'#f59999'}">
+                                    <span *ngIf="sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet">Đạt</span>
+                                    <span *ngIf="sosanh.ChiTieuThucTe>sosanh.ChiTieuLyThuyet">K.Đạt</span>
+                                </td>
+                            </ng-container>
+                        </tr>
+                    </ng-container>
                 </ng-template>
             </p-table>
         </div>

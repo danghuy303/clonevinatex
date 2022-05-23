@@ -35,6 +35,8 @@ import { CommonModule } from "@angular/common";
 // import { LoaderService } from './services/loader.service';
 // import { LoaderInterceptor } from './services/loader.interceptor';
 import { DecimalPipe } from "@angular/common";
+import { LoaderInterceptor } from "./services/loader.interceptor";
+import { LoaderService } from "./services/loader.service";
 
 // import { LoaderComponent } from './loader/loader.component';
 
@@ -79,8 +81,8 @@ import { DecimalPipe } from "@angular/common";
   ],
   providers: [
     DecimalPipe,
-    // LoaderService,
-    // { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

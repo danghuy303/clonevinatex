@@ -2591,13 +2591,16 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetQuyTrinhKiemTraChatLuongLoiCat', data, httpOptions)
             },
-            GetListMatHang:(data)=>{
-                    let a = API.SCMQuanLyKho + 'GetlistdmMatHangKiemTraChatLuongLoiCat';
-                    return this.http.post(a, data, httpOptions);
+            GetListMatHang: (data) => {
+                let a = API.SCMQuanLyKho + 'GetlistdmMatHangKiemTraChatLuongLoiCat';
+                return this.http.post(a, data, httpOptions);
+            }, 
+            GetThongKe: (data) => {
+                return this.http.post(`${url}GetBaoCaoThongKeKiemTraChatLuongLoiCat`, data, httpOptions);
             }
         }
     }
-    
+
     DanhMucClassimat() {
         let url = API.SCMKiemTraChatLuong;
         return {
@@ -2654,10 +2657,33 @@ export class SanXuatService {
             KhongDuyet: (data) => {
                 return this.http.post(url + 'KhongDuyetQuyTrinhKiemTraChatLuongClasimat', data, httpOptions)
             },
-            GetListMatHang:(data)=>{
-                    let a = API.SCMQuanLyKho + 'GetlistdmMatHangKiemTraChatLuongClasimat';
-                    return this.http.post(a, data, httpOptions);
+            GetListMatHang: (data) => {
+                let a = API.SCMQuanLyKho + 'GetlistdmMatHangKiemTraChatLuongClasimat';
+                return this.http.post(a, data, httpOptions);
+            },
+            GetThongKe: (data) => {
+                return this.http.post(`${url}GetBaoCaoThongKeKiemTraChatLuongClasimat`, data, httpOptions);
             }
+        }
+    }
+    BaoCaoCa() {
+        let url = API.SCM + 'BaoCaoCa/';
+        return {
+            Get: (data) => {
+                return this.http.post(url + `GetQuyTrinhBaoCaoCa`, data, httpOptions)
+            },
+            GetList: (data) => {
+                return this.http.post(url + 'GetListQuyTrinhBaoCaoCa', data, httpOptions)
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetQuyTrinhBaoCaoCa', data, httpOptions);
+            },
+            Delete: (data) => {
+                return this.http.get(url + `DeleteQuyTrinhBaoCaoCa?Id=${data.Id}`, httpOptions);
+            },
+            // GetThongKe: (data) => {
+            //     return this.http.post(`${url}GetThongKeThoiGianDungMayVaTocDo`, data, httpOptions)
+            // }
         }
     }
 
