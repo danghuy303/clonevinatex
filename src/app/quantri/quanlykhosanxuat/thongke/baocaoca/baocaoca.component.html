@@ -4,7 +4,7 @@
 <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
     <div class="p-d-flex p-flex-row">
         <button pButton pRipple label="Lưu lại" icon="pi pi-plus" class="p-button-sm p-mr-2"
-            (click)="setPhieuThongKeThoiGianDungMay()"></button>
+            (click)="setBaoCaoCa()"></button>
     </div>
     <div class="d-flex flex-column flex-lg-row">
         <div class="p-mr-2">
@@ -32,42 +32,27 @@
     <p-tabView>
         <p-tabPanel header="Công đoạn bông chải">
             <ng-template pTemplate="content">
-                <div class="p-grid">
-                    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-                        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lao động:</label>
-                        <div class="p-col-12 p-lg-8 p-p-0">
-                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoLaoDong" pInputText />
-                        </div>
-                    </div>
-                    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
-                        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổ trưởng:</label>
-                        <div class="p-col-12 p-lg-8 p-p-0">
-                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ToTruong" pInputText />
-                        </div>
-                    </div>
-                    <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
-                        <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tình hình hoạt động trong ca:</label>
-                        <div class="p-col-12 p-lg-10 p-p-0">
-                            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
-                        </div>
-                    </div>
-                </div>
+                <app-bongchai-baocaoca [data]="item.itemCongDoan_BongChai"></app-bongchai-baocaoca>
             </ng-template>
         </p-tabPanel>
         <p-tabPanel header="Công đoạn ghép thô">
             <ng-template pTemplate="content">
+                <app-gheptho-baocaoca [data]="item.itemCongDoan_GhepTho"></app-gheptho-baocaoca>
             </ng-template>
         </p-tabPanel>
         <p-tabPanel header="Công đoạn máy ống">
             <ng-template pTemplate="content">
+                <app-mayong-baocaoca [data]="item.itemCongDoan_Ong"></app-mayong-baocaoca>
             </ng-template>
         </p-tabPanel>
         <p-tabPanel header="Công đoạn sợi con">
             <ng-template pTemplate="content">
+                <app-soicon-baocaoca [data]="item.itemCongDoan_Con"></app-soicon-baocaoca>
             </ng-template>
         </p-tabPanel>
         <p-tabPanel header="Thay thô">
             <ng-template pTemplate="content">
+                <app-thaytho-baocaoca [data]="item.itemCongDoan_ThayTho"></app-thaytho-baocaoca>
             </ng-template>
         </p-tabPanel>
     </p-tabView>

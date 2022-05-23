@@ -50,13 +50,17 @@ export class BaocaocaComponent extends StoreBase implements OnInit {
     this.filter.Ngay = DateToUnix(this.filter.NgayChon);
     this._services.BaoCaoCa().Get(this.filter).subscribe(res => {
       console.log(res)
-      // this.item = res;
+      this.item = res;
     })
   }
   setBaoCaoCa() {
-    this._services.BaoCaoCa().Set(this.item).subscribe(res => {
-      console.log(res);
-      this.getBaoCaoCa();
+    this._services.BaoCaoCa().Set(this.item).subscribe((res:any) => {
+      if(res.State ===1){
+        this.toastr.success(res.message)
+        this.getBaoCaoCa();
+      }else{
+        this.toastr.error(res.message);
+      }
     })
   }
 }
