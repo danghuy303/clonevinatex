@@ -29,7 +29,8 @@
                                 <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger" (click)="Delete(chiPhi.ChiTietChiPhi,i)"></button>
                             </div> -->
                         <!--  -->
-                        <div  [style.display]="chiPhi.canInput?'block':'none' ">
+                        <!-- <div  [style.display]="chiPhi.canInput?'block':'none' "> -->
+                            <div *ngIf="chiPhi.IsHienThi">
                             <div class="p-grid" style="border: .5px solid #ccc;">
                                 <div class="p-col-4 t-head-custom">Tên chi phí</div>
                                 <div class="p-col-4 t-head-custom">Số tiền</div>
