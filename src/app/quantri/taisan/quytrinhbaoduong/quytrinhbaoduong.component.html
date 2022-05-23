@@ -21,7 +21,7 @@
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetList(true)">
+                [(ngModel)]="filter.DenNgay" [minDate]="filter.TuNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="GetList(true)">
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width: 200px;">

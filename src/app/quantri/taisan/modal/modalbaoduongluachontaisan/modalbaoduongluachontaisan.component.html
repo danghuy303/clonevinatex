@@ -26,6 +26,8 @@
             <div class="p-mr-2 p-inputgroup">
                 <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
                     (keyup.enter)="GetList()" />
+                <button type="button" pButton pRipple icon="pi pi-search"
+                    class="p-button-secondary p-button-sm p-button-text" (click)="GetList()"></button>
                 <button type="button" pButton pRipple icon="pi pi-refresh"
                     class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
             </div>
@@ -48,7 +50,8 @@
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr>
                 <td class="text-center">
-                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="checked(rowData.checked,rowData.IdTaiSan_BaoDuong)">
+                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary"
+                        (onChange)="checked(rowData.checked,rowData.IdTaiSan_BaoDuong)">
                     </p-checkbox>
                 </td>
                 <td style="width: 150px;">
@@ -70,8 +73,8 @@
         </ng-template> -->
         <ng-template pTemplate="paginatorleft">
             <span><b>
-                Tổng số bản ghi {{paging.TotalCount}}.
-            </b></span>
+                    Tổng số bản ghi {{paging.TotalCount}}.
+                </b></span>
             <!-- <button type="button" pButton icon="pi-cloud-upload"></button> -->
         </ng-template>
     </p-treeTable>

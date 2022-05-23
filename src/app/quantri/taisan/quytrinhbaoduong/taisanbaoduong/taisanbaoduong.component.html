@@ -57,7 +57,7 @@
                 <p-checkbox [(ngModel)]="item.isDaBaoDuong" [binary]="true"></p-checkbox>
             </td>
             <td class="text-center">
-                <input type="text" [(ngModel)]="item.GhiChu" pInputText />
+                <input type="text" [(ngModel)]="item.GhiChu" pInputText [ngbTooltip]="item.GhiChu"/>
             </td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-trash"
