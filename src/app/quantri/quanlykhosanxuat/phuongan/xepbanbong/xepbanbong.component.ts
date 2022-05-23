@@ -67,6 +67,10 @@ export class XepbanbongComponent extends StoreBase implements OnInit,OnDestroy {
       '1cf3f340_0f55_4f34_938p_e329318e25et': Cnnamdinhpx1Component,
       '1cf3f340_0f55_4f34_938p_e629318e25et': Cnnamdinhpx1Component
     },
+    '86': {
+      '1cf3f340_0f55_4f34_938p_e329318e25et': Cnnamdinhpx1Component,
+      '1cf3f340_0f55_4f34_938p_e629318e25et': Cnnamdinhpx1Component
+    },
   }
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   listdmPhanXuong: any = [];

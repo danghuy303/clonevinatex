@@ -1563,7 +1563,7 @@ export class QuantriComponent implements OnInit {
         label: "Báo cáo tổng hợp",
         icon: "fas fa-circle",
         routerLink: "/quantri/baocaotonghop",
-        visible: this.showHopDongModule,
+        // visible: this.showHopDongModule,
         items: [
           {
             label: "Báo cáo bông chải tổng hợp",

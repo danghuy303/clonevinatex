@@ -290,6 +290,11 @@ import { ModalthongkechitieuloicatComponent } from './quanlykhosanxuat/thongke/m
 import { QRCodeModule } from 'angularx-qrcode';
 import { BaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/baocaoca.component';
 import { BaocaocaModalComponent } from './quanlykhosanxuat/thongke/baocaoca-modal/baocaoca-modal.component';
+import { BongchaiBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/bongchai-baocaoca/bongchai-baocaoca.component';
+import { GhepthoBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/gheptho-baocaoca/gheptho-baocaoca.component';
+import { MayongBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/mayong-baocaoca/mayong-baocaoca.component';
+import { SoiconBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/soicon-baocaoca/soicon-baocaoca.component';
+import { ThaythoBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/thaytho-baocaoca/thaytho-baocaoca.component';
 
 
 @NgModule({
@@ -531,6 +536,11 @@ import { BaocaocaModalComponent } from './quanlykhosanxuat/thongke/baocaoca-moda
     ModalthongkechitieuloicatComponent,
     BaocaocaComponent,
     BaocaocaModalComponent,
+    BongchaiBaocaocaComponent,
+    GhepthoBaocaocaComponent,
+    MayongBaocaocaComponent,
+    SoiconBaocaocaComponent,
+    ThaythoBaocaocaComponent,
   ],
   imports: [
     HttpClientModule,
