@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 
@@ -14,7 +17,11 @@ export class NhancongComponent implements OnInit {
   newitem: any = {};
   listTenNhanVien: any = [];
 
-  constructor(private _services: SanXuatService,) { }
+  constructor(
+    private _services: SanXuatService,
+    public modal: NgbModal,
+    public toastr: ToastrService,
+  ) { }
 
   ngOnInit(): void {
     this._services.GetListUser().subscribe((res: any) => {
@@ -36,7 +43,16 @@ export class NhancongComponent implements OnInit {
     //   item.isXoa = true;
     //   this.items.push(JSON.parse(JSON.stringify(item)));
     // }
-    this.items.splice(index, 1)
+    let modalRef = this.modal.open(ModalthongbaoComponent,{
+      size: "md",
+      backdrop: "static",
+    })
+    modalRef.componentInstance.message = 'Bạn có chắc muốn xóa dữ liệu vừa chọn?';
+    modalRef.result
+      .then((res) => {
+        this.items.splice(index, 1)
+      })
+      .catch((er) => console.log(er));
   }
   
 }

@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { PintableDirective } from 'voi-lib';
 import { ChiphilichxichnamchonthemComponent } from '../chiphilichxichnamchonthem/chiphilichxichnamchonthem.component';
@@ -70,7 +71,16 @@ export class ChiphilichxichnamComponent implements OnInit, OnChanges {
   }
 
   Delete(array, index) {
-    array.splice(index, 1);
+    // array.splice(index, 1);
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: "static",
+    });
+    modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa ?";
+    modalRef.result.then((res) => {
+      array.splice(index, 1);
+      this.toastr.success("Xoá thành công");
+    })
+    .catch((er) => console.log(er));
   }
 
   sum(item) {

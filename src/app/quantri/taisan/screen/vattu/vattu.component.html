@@ -37,11 +37,11 @@
         </tr>
         <tr>
             <th>Số lượng</th>
-            <th>Đơn giá</th>
-            <th>Thành tiền</th>
+            <th>Đơn giá (VNĐ)</th>
+            <th>Thành tiền (VNĐ)</th>
             <th>Số lượng</th>
-            <th>Đơn giá</th>
-            <th>Thành tiền</th>
+            <th>Đơn giá (VNĐ)</th>
+            <th>Thành tiền (VNĐ)</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
@@ -50,7 +50,7 @@
                 {{i + 1}}
             </td>
             <td>{{item.MaTaiSan}}</td>
-            <td>{{item.TenTaiSan}}</td>
+            <td>{{item.TenTaiSan}} ({{item.DonViNangSuat}})</td>
             <td class="text-right">{{item.SoLuongTheoKeHoach | number: '0.0'}}</td>
             <td class="text-right">{{item.DonGiaTheoKeHoach | number: '0.0'}}</td>
             <td class="text-right">{{item.ThanhTienTheoKeHoach | number: '0.0'}}</td>
@@ -65,7 +65,7 @@
                 </p-inputNumber> -->
             </td>
             <td>
-                <input type="text" pInputText placeholder="Ghi chú" />
+                <!-- <input type="text" pInputText placeholder="Ghi chú" [ngbTooltip]="vattu.GhiChu"/> -->
             </td>
         </tr>
         <ng-container *ngFor="let vattu of item.listVatTu; let a = index">
@@ -74,7 +74,7 @@
                     {{i + 1 + '.' + (a+1)}}
                 </td>
                 <td class="p-pl-5">{{vattu.MaTaiSan}}</td>
-                <td>{{vattu.TenTaiSan}}</td>
+                <td>{{vattu.TenTaiSan}} ({{vattu.DonViNangSuat}})</td>
                 <td class="text-right">{{vattu.SoLuongTheoKeHoach | number: '0.0'}}</td>
                 <td class="text-right">{{vattu.DonGiaTheoKeHoach | number: '0.0'}}</td>
                 <td class="text-right">{{vattu.ThanhTienTheoKeHoach | number: '0.0'}}</td>
