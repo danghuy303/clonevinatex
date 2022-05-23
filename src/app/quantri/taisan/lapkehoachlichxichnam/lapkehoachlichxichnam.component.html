@@ -145,9 +145,9 @@
 
                         <td> {{taisan.MaTaiSan}} - {{taisan.TenTaiSan}}</td>
                         <td class="text-center" *ngFor="let baoduong of taisan.listBaoDuong" >
-                            <div  *ngIf="baoduong.canInput">
+                            <div >
                                 <p *ngFor="let chitiet of baoduong.listChiTiet">{{chitiet?.TendmLoaiBaoDuong}}</p>
-                                <a href="javascript:void(0)" (click)="Chon(baoduong,taisan)">Chọn</a>
+                                <a  *ngIf="baoduong.canInput" href="javascript:void(0)" (click)="Chon(baoduong,taisan)">Chọn</a>
                             </div>
                         </td>
                     </tr>

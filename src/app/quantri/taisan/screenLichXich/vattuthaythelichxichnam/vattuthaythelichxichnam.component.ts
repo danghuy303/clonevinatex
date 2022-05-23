@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { validVariable } from 'src/app/services/globalfunction';
+import { deepCopy, validVariable } from 'src/app/services/globalfunction';
 import { PintableDirective } from 'voi-lib';
 
 @Component({
@@ -16,7 +16,7 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
   ThanhTien: any = 0;
   TongGiaTriToanBang: any = 0;
   vatTu: any = [];
-  
+
 
   constructor() { }
 
@@ -37,11 +37,16 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
     this.voiPintable.active();
   }
 
+  changeValue(event) {
+    if (event.target.value.trim() == '') {
+      event.target.value = 0;
+    }
+  }
+
   tongTien(item) {
     this.TongGiaTriToanBang = 0;
     item.TongGiaTri = 0;
     item.TongThanhTien = new Array(12).fill(0);
-
     for (let i = 0; i <= 11; i++) {
       item.listVatTu.forEach(vattu => {
         item.TongThanhTien[i] += ((vattu.listThoiGian[i].DonGia || 0) * (vattu.listThoiGian[i].SoLuong || 0));
@@ -56,6 +61,18 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
     this.listTaiSan.forEach(ele => {
       this.TongGiaTriToanBang += (ele.TongGiaTri || 0);
     })
+    item.listVatTu.forEach(vattu => {
+      vattu.listThoiGian.forEach(obj => {
+        if (obj.SoLuong == null ) {
+          obj.SoLuong = 0;
+        }
+        if(obj.DonGia == null) {
+          obj.DonGia = 0;
+        }
+      })
+      vattu.listThoiGian = deepCopy(vattu.listThoiGian)
+    })
+    // item.listVatTu = deepCopy(item.listVatTu);
   }
 
   SumAll() {

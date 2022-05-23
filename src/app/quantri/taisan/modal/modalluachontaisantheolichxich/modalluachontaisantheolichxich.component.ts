@@ -58,8 +58,8 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
       MaCongDoan: '',
-      IdBoPhanSuDung:this.item.IdBoPhanSuDung,
-      IddmLoaiTaiSan:this.item.IddmLoaiTaiSan ,
+      IdBoPhanSuDung: this.item.IdBoPhanSuDung,
+      IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
       IdUser: '',
       Ngay: 0,
       LoaiKeHoach: '',
@@ -76,7 +76,7 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
       items = this.TaiSanItem.listTaiSan;
 
       items.forEach(obj => {
-        
+
         obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
 
         let obj_copy: any = {};
@@ -98,10 +98,10 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     });
   }
   compare(a, b) {
-    if ( a.MadmLoaiBaoDuong < b.MadmLoaiBaoDuong ){
+    if (a.MadmLoaiBaoDuong < b.MadmLoaiBaoDuong) {
       return -1;
     }
-    if ( a.MadmLoaiBaoDuong > b.MadmLoaiBaoDuong ){
+    if (a.MadmLoaiBaoDuong > b.MadmLoaiBaoDuong) {
       return 1;
     }
     return 0;
@@ -139,25 +139,26 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
     this.items.forEach(obj => {
       if (obj.data.checked) {
         arr.push(obj.data.IdTaiSan);
-        
+
         data = {
           ListIdTaiSan: arr,
           // IdTaiSan: obj.data.IdTaiSan,
-          IdBoPhanSuDung:this.item.IdBoPhanSuDung,
-          IddmLoaiTaiSan:this.item.IddmLoaiTaiSan ,
-          Ngay:DateToUnix(new Date(this.item.Nam, 1,1)),
+          IdBoPhanSuDung: this.item.IdBoPhanSuDung,
+          IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
+          Ngay: DateToUnix(new Date(this.item.Nam, 1, 1)),
           IdQuyTrinh: this.item.Id,
         };
       }
       if (validVariable(obj.children) && obj.children.length > 0) {
         obj.children.forEach(objchildren => {
           if (objchildren.data.checked) {
+            arr.push(objchildren.data.IdTaiSan);
             data = {
-              ListIdTaiSan:[objchildren.data.IdTaiSan],
+              ListIdTaiSan: arr,
               // IdTaiSan: objchildren.data.IdTaiSan,
-              IdBoPhanSuDung:this.item.IdBoPhanSuDung,
-              IddmLoaiTaiSan:this.item.IddmLoaiTaiSan ,
-              Ngay:DateToUnix(new Date(this.item.Nam, 1,1)),
+              IdBoPhanSuDung: this.item.IdBoPhanSuDung,
+              IddmLoaiTaiSan: this.item.IddmLoaiTaiSan,
+              Ngay: DateToUnix(new Date(this.item.Nam, 1, 1)),
               IdQuyTrinh: this.item.Id,
             }
 
@@ -166,9 +167,10 @@ export class ModalluachontaisantheolichxichComponent implements OnInit {
       }
     });
     return data;
+   
   }
   GhiLai() {
-    this._serviceTaiSan.LichXich().GetListVatTuByIdTaiSanForLapKeHoachLichXichNam(this.FilterTree()).subscribe((res: any) => { 
+    this._serviceTaiSan.LichXich().GetListVatTuByIdTaiSanForLapKeHoachLichXichNam(this.FilterTree()).subscribe((res: any) => {
       this.activeModal.close(res.Data.listTaiSan);
     });
   }

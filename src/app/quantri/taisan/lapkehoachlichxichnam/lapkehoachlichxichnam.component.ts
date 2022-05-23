@@ -218,8 +218,12 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     modalRef.componentInstance.Lay_Chon = this.item;
     modalRef.componentInstance.item = this.item;
     modalRef.componentInstance.checkBtnChonTaiSan = this.checkBtnChonTaiSan;
+    modalRef.componentInstance.checkedAll = false;
     modalRef.result.then((res: any) => {
-      this.item.listTaiSan = merge(res, this.item.listTaiSan, 'IdTaiSan');
+      console.log(res);
+
+      // this.item.listTaiSan = res;
+      this.item.listTaiSan = merge(res || [], this.item.listTaiSan, 'IdTaiSan').filter(ele => !ele.isXoa);
       this.checkDisableSelectMonth();
     })
       .catch((er) => {
@@ -273,41 +277,53 @@ export class LapkehoachlichxichnamComponent implements OnInit {
 
   checkDisableSelectMonth() {
     this.item.listTaiSan.forEach(taisan => {
-      let thangDuaVaoSuDung = new Date(taisan.thoiGianDuaVaoSuDung).getMonth() + 1;
-      let thangHienTai = new Date().getMonth() + 2;
-      taisan.ThoiGian = thangDuaVaoSuDung < thangHienTai ? thangHienTai : thangDuaVaoSuDung;
-      taisan.Nam = new Date(taisan.thoiGianDuaVaoSuDung).getFullYear();
+      // let thangDuaVaoSuDung = new Date(taisan.thoiGianDuaVaoSuDung).getMonth() + 1;
+      // let thangHienTai = new Date().getMonth() + 2;
+      // taisan.ThoiGian = thangDuaVaoSuDung < thangHienTai ? thangHienTai : thangDuaVaoSuDung;
+      // taisan.Nam = new Date(taisan.thoiGianDuaVaoSuDung).getFullYear();
+
+      // let thangDuaVaoSuDung = new Date(taisan.thoiGianDuaVaoSuDung).getMonth() + 1;
+      // let thangHienTai = new Date().getMonth() + 2;
+      if (new Date() > new Date(taisan.thoiGianDuaVaoSuDung)) {
+        taisan.ThoiGian = new Date().getMonth() + 2;
+        taisan.Nam = new Date().getFullYear();
+      }
+      else {
+        taisan.ThoiGian =  new Date(taisan.thoiGianDuaVaoSuDung).getMonth() + 1;
+        taisan.Nam =new Date(taisan.thoiGianDuaVaoSuDung).getFullYear();
+      }
+      // taisan.ThoiGian = thangDuaVaoSuDung < thangHienTai ? thangHienTai : thangDuaVaoSuDung;
+      // taisan.Nam = new Date(taisan.thoiGianDuaVaoSuDung).getFullYear();
       taisan.listBaoDuong.forEach(baoduong => {
-          baoduong.canInput = this.comparison(taisan.Nam,taisan.ThoiGian,baoduong.ThoiGian)
+        baoduong.canInput = this.comparison(taisan.Nam, taisan.ThoiGian, baoduong.ThoiGian)
       });
-      // 
       taisan.listVatTu.forEach(vattu => {
         vattu.listThoiGian.forEach(thoiGianVatTu => {
-          thoiGianVatTu.canInput = this.comparison(taisan.Nam,taisan.ThoiGian,thoiGianVatTu.ThoiGian)
+          thoiGianVatTu.canInput = this.comparison(taisan.Nam, taisan.ThoiGian, thoiGianVatTu.ThoiGian)
         })
       })
       // chi phi
       taisan.listChiPhi.forEach(chiphi => {
-        chiphi.canInput = this.comparison(taisan.Nam,taisan.ThoiGian,chiphi.ThoiGian)
-    });
+        chiphi.canInput = this.comparison(taisan.Nam, taisan.ThoiGian, chiphi.ThoiGian)
+      });
     })
   }
 
-  comparison(year, time,repairTime) {
+  comparison(year, time, repairTime) {
     //year năm đưa vào sử dụng
     //time = tháng to nhất so sánh giữa tháng đưa vào sử dụng và tháng hiện tại;
     //repairTime = tháng của bảo dưỡng
-    if (this.item.Nam < year ) {
+    if (this.item.Nam < year) {
       return false;
     }
     else if (this.item.Nam === year) {
-      if(repairTime<time){
-        return false
-      }else{
-        return true
+      if (repairTime < time) {
+        return false;
+      } else {
+        return true;
       }
     }
-    else if(this.item.Nam > year){
+    else if (this.item.Nam > year) {
       return true
     }
     //false  = khoong duoc nhap
