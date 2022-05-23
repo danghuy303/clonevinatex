@@ -20,8 +20,8 @@ export class ChatluongsoimathangmodalComponent implements OnInit {
     field: 'Ten',
     width: 'unset'
   },
-];
-  loai='';
+  ];
+  loai = '';
   checkedAll: boolean = false;
   paging: any = {};
   item: any = {};
@@ -31,22 +31,34 @@ export class ChatluongsoimathangmodalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if(this.loai === 'loicat' || this.loai === 'classimat'){
+      this.cols = [{
+        header: 'Tên lô hàng',
+        field: 'TenLoHang',
+        width: 'unset'
+      },
+      {
+        header: 'Tên mặt hàng',
+        field: 'TenMatHang',
+        width: 'unset'
+      },
+      ]
+    }
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.listMatHang.length;
-    if(this.listItem != undefined && this.listItem!= null)
-    {
-      for(let i = 0; i < this.listItem.length; i++){
+    if (this.listItem != undefined && this.listItem != null) {
+      for (let i = 0; i < this.listItem.length; i++) {
         console.log(this.listItem[i])
         let itemFind = this.listMatHang.find(
           ele => (ele.IddmItem === this.listItem[i].IddmItem && ele.IdLoHang === this.listItem[i].IdLoHang)
         );
-        if(validVariable(itemFind)){
+        if (validVariable(itemFind)) {
           itemFind.checked = true;
         }
       }
     }
-    this.item.listItem = this.listMatHang.slice(0,15);
+    this.item.listItem = this.listMatHang.slice(0, 15);
     this.item.listItem_copy = this.listMatHang;
   }
   accept() {
@@ -55,12 +67,14 @@ export class ChatluongsoimathangmodalComponent implements OnInit {
     });
     console.log(itemFind);
     this.activeModal.close(
-      { data: itemFind.map(ele=>{
-        return {
-          ...ele,
-          Ten:`${ele.TenLoHang} - ${ele.Ten}`
-        }
-      }) }
+      {
+        data: itemFind.map(ele => {
+          return {
+            ...ele,
+            Ten: `${ele.TenLoHang} - ${ele.Ten}`
+          }
+        })
+      }
     );
   }
   checkAll(e) {
@@ -78,10 +92,10 @@ export class ChatluongsoimathangmodalComponent implements OnInit {
     console.log(event)
     this.paging.CurrentPage = event.page + 1;
     var start = 15 * (event.page);
-    var end =  start + 15;
-    if((start + 15) > this.paging.TotalItem)
-      end= this.paging.TotalItem;
-    this.item.listItem = this.item.listItem_copy.slice(start,end);
+    var end = start + 15;
+    if ((start + 15) > this.paging.TotalItem)
+      end = this.paging.TotalItem;
+    this.item.listItem = this.item.listItem_copy.slice(start, end);
   }
   // timKiemMatHang() {
   //   var listItem : any = [];
@@ -104,7 +118,7 @@ export class ChatluongsoimathangmodalComponent implements OnInit {
     if (this.KeyWord != undefined && this.KeyWord != null && this.KeyWord != "") {
       this.item.listItem_copy = this.listMatHang;
       let filter: any = this.item.listItem_copy.filter(
-        ele=>ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase())
+        ele => ele.Ten.toLowerCase().includes(this.KeyWord.toLowerCase())
         // obj => {
         // if(obj.Ten === "CD 23"){
         //   debugger
@@ -113,7 +127,7 @@ export class ChatluongsoimathangmodalComponent implements OnInit {
         // let Ten = obj.Ten.toLowerCase();
         // let indexOf = Ten.includes(this.KeyWord.toLowerCase());
         // return indexOf != false
-      // }
+        // }
       );
       console.log(filter)
       this.item.listItem = filter;
@@ -126,7 +140,7 @@ export class ChatluongsoimathangmodalComponent implements OnInit {
     this.paging.CurrentPage = 1;
     this.paging.TotalPage = 5;
     this.paging.TotalItem = this.item.listItem.length;
-    this.item.listItem = this.item.listItem.slice(0,15);
+    this.item.listItem = this.item.listItem.slice(0, 15);
   }
   resetFilter() {
     this.KeyWord = '';

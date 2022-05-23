@@ -123,7 +123,7 @@
                     <tbody>
                         <tr *ngFor="let lobong of item.listLoBong;let i = index"
                             [ngStyle]="{'background-color': lobong.Mau}">
-                            <td (click)="xepLoBong(lobong,i)">{{lobong.TenLoBong}}</td>
+                            <td (click)="xepLoBong(lobong,i,$event)">{{lobong.TenLoBong}}</td>
                             <td class="text-right">{{lobong.SoLuong}}</td>
                             <td class="text-right">{{lobong.DaXep}}</td>
                             <!-- <td class="text-right">{{lobong.ConLai}}</td> -->
@@ -158,6 +158,12 @@
                 </p>
                 <label class="no-print">Người lập biểu:</label>
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NguoiLapBieu" pInputText />
+                <div class="print text-center">
+                    <label class="print">Nguời lập biểu</label>
+                    <p class="print pt-sign">
+                        {{item.NguoiLapBieu}}
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -170,7 +176,8 @@
                                 (contextmenu)="returnSlot($event,slot)"
                                 [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?(banBong[slot]._focus?'#009dff':'#8cd3ff'):(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
                                 {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
-
+                                <br *ngIf="banBong[slot].IdLoBongXepChong"/>
+                                <span *ngIf="banBong[slot].IdLoBongXepChong">{{banBong[slot].labelLoBongXepChong}}</span>
                             </td>
                         </tr>
                     </tbody>
@@ -184,6 +191,8 @@
                                 (contextmenu)="returnSlot($event,slot)"
                                 [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?(banBong[slot]._focus?'#009dff':'#8cd3ff'):(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
                                 {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
+                                <br *ngIf="banBong[slot].IdLoBongXepChong"/>
+                                <span *ngIf="banBong[slot].IdLoBongXepChong">{{banBong[slot].labelLoBongXepChong}}</span>
                             </td>
                         </tr>
 
@@ -202,7 +211,8 @@
                             <td (click)="slotFocus(slot)" (contextmenu)="returnSlot($event,slot)"
                                 [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?(banBong[slot]._focus?'#009dff':'#8cd3ff'):(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
                                 {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
-                                <br>
+                                <br *ngIf="banBong[slot].IdLoBongXepChong"/>
+                                <span *ngIf="banBong[slot].IdLoBongXepChong">{{banBong[slot].labelLoBongXepChong}}</span>
                                 <br>
                                 <br>
                                 <!-- <br> -->
@@ -219,6 +229,8 @@
                                 (contextmenu)="returnSlot($event,slot)"
                                 [ngStyle]="{'background-color': banBong[slot]._ngoaiQuan ?(banBong[slot]._focus?'#009dff':'#8cd3ff'):(banBong[slot]._focus?'#ccc':banBong[slot].Mau)}">
                                 {{banBong[slot].STT}} {{banBong[slot].labelLoBong}}
+                                <br *ngIf="banBong[slot].IdLoBongXepChong"/>
+                                <span *ngIf="banBong[slot].IdLoBongXepChong">{{banBong[slot].labelLoBongXepChong}}</span>
                             </td>
                         </tr>
                     </tbody>
@@ -235,12 +247,12 @@
                 </p>
             </div> -->
     </div>
-    <div class="print text-center" style="float: right;">
+    <!-- <div class="print text-center" style="float: right;">
         <label class="print">Nguời lập biểu</label>
         <p class="print pt-sign">
             {{item.NguoiLapBieu}}
         </p>
-    </div>
+    </div> -->
 </div>
 <div class="modal-footer">
 </div>

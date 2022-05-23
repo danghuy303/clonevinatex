@@ -288,6 +288,8 @@ import { ThongkechitieuclassimatComponent } from './quanlykhosanxuat/thongke/tho
 import { ModalthongkechitieuclassimatComponent } from './quanlykhosanxuat/thongke/modalthongkechitieuclassimat/modalthongkechitieuclassimat.component';
 import { ModalthongkechitieuloicatComponent } from './quanlykhosanxuat/thongke/modalthongkechitieuloicat/modalthongkechitieuloicat.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { BaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/baocaoca.component';
+import { BaocaocaModalComponent } from './quanlykhosanxuat/thongke/baocaoca-modal/baocaoca-modal.component';
 
 
 @NgModule({
@@ -527,6 +529,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     ThongkechitieuclassimatComponent,
     ModalthongkechitieuclassimatComponent,
     ModalthongkechitieuloicatComponent,
+    BaocaocaComponent,
+    BaocaocaModalComponent,
   ],
   imports: [
     HttpClientModule,

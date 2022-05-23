@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { forkJoin } from 'rxjs';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
@@ -17,13 +18,15 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
   listPhanXuong: any = [];
   listCongDoan: any = [];
   item: any = {};
+  listCaSanXuat: any[];
+  listCaSanXuatThucTe: any[];
   constructor(public store: StoreService, public _services: SanXuatService, public toastr: ToastrService) {
     super(store)
   }
 
   ngOnInit(): void {
     this.filter.NgayChon = new Date();
-    this.getListPhanXuong();
+    this.getAllOpt();
     this._services.GetListCongDoan().subscribe((res:any[])=>{
       console.log('listCongDoan',res);
       this.listCongDoan = mapArrayForDropDown(res,'Ten','Ma');
@@ -32,12 +35,23 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
   ngAfterViewInit(): void {
     this.voiPintable.active()
   }
-  getListPhanXuong() {
-    this._services.GetListdmPhanXuongOpt().subscribe((res: any[]) => {
-      this.listPhanXuong = mapArrayForDropDown(res, "Ten", "Id");
+  getAllOpt() {
+    forkJoin([this._services.GetListdmPhanXuongOpt(),this._services.GetListOptdmCaSanXuat(),this._services.GetListOptdmCaSanXuatThucTe()])
+    .subscribe((res: any[]) => {
+      console.log(res);
+      this.listPhanXuong = mapArrayForDropDown(res[0], "Ten", "Id");
+      this.listCaSanXuat = mapArrayForDropDown(res[1],"Ten","Id");
+      this.listCaSanXuatThucTe = mapArrayForDropDown(res[2],"Ten","Id");
       this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+      this.filter.IddmCaSanXuat = this.listCaSanXuat[0].value;
+      this.filter.IddmCaSanXuatThucTe = this.listCaSanXuatThucTe[0].value;
       this.getPhieuThongKeThoiGianDungMay()
     })
+    // this._services.GetListdmPhanXuongOpt().subscribe((res: any[]) => {
+    //   this.listPhanXuong = mapArrayForDropDown(res, "Ten", "Id");
+    //   this.filter.IddmPhanXuong = this.listPhanXuong[0].value;
+    //   this.getPhieuThongKeThoiGianDungMay()
+    // })
   }
   
   getPhieuThongKeThoiGianDungMay() {
@@ -51,6 +65,8 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
     })
   }
   setPhieuThongKeThoiGianDungMay() {
+    this.item.IddmCaSanXuat = this.filter.IddmCaSanXuat;
+    this.item.IddmCaSanXuatThucTe = this.filter.IddmCaSanXuatThucTe;
     this._services.ThongKeThoiGianDungMay().Set(this.item).subscribe(res => {
       console.log(res);
       this.getPhieuThongKeThoiGianDungMay();

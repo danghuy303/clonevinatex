@@ -514,6 +514,12 @@ export class QuantriComponent implements OnInit {
             separator: this.checkmenu("KIEMTRACHATLUONGCLASIMAT"),
             command: () => this.close(),
           },
+          {
+            label: "Báo cáo ca",
+            routerLink: "/quantri/theodoithongkebaocaosanxuat/baocaoca/0",
+            separator: this.checkmenu("BAOCAOCA"),
+            command: () => this.close(),
+          },
         ],
       },
       {
@@ -1582,6 +1588,16 @@ export class QuantriComponent implements OnInit {
           {
             label: "Báo cáo thời gian dừng máy",
             routerLink: "/quantri/baocaotonghop/thoigiandungmay",
+            command: () => this.close(),
+          },
+          {
+            label: "Báo cáo tổng hợp lỗi cắt",
+            routerLink: "/quantri/baocaotonghop/loicat",
+            command: () => this.close(),
+          },
+          {
+            label: "Báo cáo tổng hợp classimat",
+            routerLink: "/quantri/baocaotonghop/classimat",
             command: () => this.close(),
           },
         ],

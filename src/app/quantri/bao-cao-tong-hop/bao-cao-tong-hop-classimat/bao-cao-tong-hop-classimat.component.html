@@ -1,0 +1,55 @@
+<div class="p-mb-3 p-mt-0">
+    <h4 style="color:#1f2779">Báo cáo tổng hợp classimat</h4>
+</div>
+ <div class="p-d-flex p-ai-center p-jc-end p-mb-3">
+    <div class="p-d-flex p-flex-row">
+    </div>
+    <div class="d-flex flex-column flex-lg-row p-mr-2">
+        <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+            [(ngModel)]="filter.NgayChon" inputId="icon" placeholder="Đến ngày" (onSelect)="getBaoCao()">
+        </p-calendar>
+    </div>
+    <div class="p-mr-2">
+        <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
+            [(ngModel)]="filter.IddmPhanXuong" styleClass="p-inputtext-sm" (onChange)="getBaoCao()" [showClear]="false"
+            [filter]="true"></p-dropdown>
+    </div>
+</div>
+<div>
+    <p-table [value]="item.lstSanPham" styleClass="p-datatable-sm wrap-text p-datatable-gridlines" [scrollable]="true"
+        scrollHeight="60vh" [lazy]="true">
+        <ng-template pTemplate="colgroup">
+            <colgroup>
+                <col style="width:50px">
+                <col style="width:250px !important">
+                <ng-container *ngFor="let ban of item.lstDanhMuc">
+                    <col style="width: 100px !important;">
+                </ng-container>
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center">STT</th>
+                <th class="align-content-center first-col sticky-col">Loại sợi</th>
+                <th *ngFor="let ban of item.lstDanhMuc">
+                    {{ban.Ten}}
+                    <ng-container *ngIf="ban.isTong"><br>(Tổng)</ng-container>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-loaisoi let-i="rowIndex">
+                <tr>
+                    <td class="text-center">{{i+1}}</td>
+                    <td>{{loaisoi.TenMatHang}}</td>
+                    <td class="text-center" *ngFor="let chitieu of loaisoi.lstChatLuongSanPham">
+                        <ng-container *ngIf="chitieu.chiSoChenhLech!==0">
+                            <span [ngStyle]="{'color': chitieu.color}">
+                            {{chitieu.label}}&nbsp;{{chitieu.chiSoChenhLech}}&nbsp;lỗi
+                        </span>
+                        </ng-container>
+                        
+                    </td>
+                </tr>
+        </ng-template>
+    </p-table>
+</div> 

@@ -3187,6 +3187,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   padding: 0.5rem 0.75rem;
   box-shadow: none;
   border-radius: 4px;
+  z-index: 9999;
 }
 .p-tooltip.p-tooltip-right .p-tooltip-arrow {
   border-right-color: #212529;

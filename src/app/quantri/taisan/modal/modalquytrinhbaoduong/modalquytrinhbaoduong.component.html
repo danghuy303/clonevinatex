@@ -41,7 +41,7 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại tài sản<span class="required">(*)</span></label>
             <div class="p-col-12 p-lg-10 p-p-0" >
                 <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [(ngModel)]="item.IdDmLoaiTaiSan"
-                    placeholder="Chọn loại tài sản"></p-dropdown>
+                    placeholder="Chọn loại tài sản" ></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-lg-row">
@@ -55,18 +55,19 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NoiDung" pInputText />
             </div>
         </div>
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-lg-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Nội dung:</label>
+            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
-                <textarea pInputTextarea [(ngModel)]="item.NoiDung"></textarea>
+                <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
             </div>
         </div>
     </div>
+    
     <p-panel header="Chi tiết tài sản" [toggleable]="true">
         <ng-template pTemplate="content">
             <p-tabView (onChange)="changeTab($event)">
@@ -77,7 +78,7 @@
                         <div class="p-d-flex p-flex-row p-jc-between">
                             <div class="modal-bt p-mb-4 ">
                                 <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm"
-                                    (click)="ThemMoiDanhSachTaiSan()"></button>
+                                    (click)="ThemMoiDanhSachTaiSan()" pTooltip="Làm mới" showDelay="1000" tooltipPosition="bottom" ></button>
                             </div>
                         </div>
                         <app-taisanbaoduong [items]="item.listTaiSan"></app-taisanbaoduong>

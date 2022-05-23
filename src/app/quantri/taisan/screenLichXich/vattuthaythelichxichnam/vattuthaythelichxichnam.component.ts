@@ -12,18 +12,17 @@ export class VattuthaythelichxichnamComponent implements OnInit, OnChanges {
   @Input('listTaiSan') listTaiSan: any = {};
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
 
-  lableThang: any = [];
+  labelThang: any = [];
   ThanhTien: any = 0;
   TongGiaTriToanBang: any = 0;
   vatTu: any = [];
-  labelThang = [];
+  
 
   constructor() { }
 
   ngOnChanges(): void {
-    console.log(this.listTaiSan);
-    
     this.SumAll();
+    this.labelThang = [];
     for (let i = 1; i <= 12; i++) {
       this.labelThang.push(`Tháng ${i}`);
     }

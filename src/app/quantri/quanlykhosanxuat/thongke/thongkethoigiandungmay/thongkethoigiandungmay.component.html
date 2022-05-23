@@ -12,6 +12,14 @@
                 [(ngModel)]="filter.MaCongDoan" [showClear]="true"></p-dropdown>
         </div>
         <div class="p-mr-2">
+            <p-dropdown [options]="listCaSanXuat" placeholder="Ca sản xuất" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.IddmCaSanXuat" [showClear]="false" (onChange)="getPhieuThongKeThoiGianDungMay()"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
+            <p-dropdown [options]="listCaSanXuatThucTe" placeholder="Chọn ca sản xuất thực tế" styleClass="p-inputtext-sm"
+                [(ngModel)]="filter.IddmCaSanXuatThucTe" [showClear]="false" (onChange)="getPhieuThongKeThoiGianDungMay()"></p-dropdown>
+        </div>
+        <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.NgayChon" inputId="icon" placeholder="Ngày" (onSelect)="getPhieuThongKeThoiGianDungMay()">
             </p-calendar>
@@ -39,10 +47,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let may of item.lstMay;let i = index">
+                <tr *ngFor="let may of item.lstMay | filterByKey : 'MaCongDoan' : filter.MaCongDoan ;let i = index">
                     <td class="w-tc-50 bg-white text-center z-100">{{i+1}}</td>
                     <td class="w-tc-250 bg-white z-100" >{{may.TendmMay}}</td>
-                    <td class="w-tc-100" *ngFor="let suco of may.lstSuCoDungMay | filterByKey:'MaCongDoan':filter.MaCongDoan">
+                    <td class="w-tc-100" *ngFor="let suco of may.lstSuCoDungMay">
                         <p-inputNumber [minFractionDigits]="1" [maxFractionDigits]="1"styleClass="p-inputtext-sm"
                             [(ngModel)]="suco.ThoiGianDungMay" (onBlur)="TinhTong(may)" >
                         </p-inputNumber>

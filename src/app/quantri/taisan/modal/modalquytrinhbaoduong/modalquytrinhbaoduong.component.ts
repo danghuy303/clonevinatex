@@ -101,7 +101,7 @@ export class ModalquytrinhbaoduongComponent implements OnInit {
 
   setData() {
     this.item.NgayBaoDuongUnix = DateToUnix(this.item.NgayBaoDuong);
-    this.item.listTaiSan = this.item.listTaiSan.map(ele => {
+    this.item.listTaiSan = this.item.listTaiSan.map(ele => { 
       return {
         ...ele,
         Id: ele.Id || "",

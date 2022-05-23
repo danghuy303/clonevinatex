@@ -12,7 +12,7 @@ import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 })
 export class NhancongComponent implements OnInit {
 
-  @Input() items: any;
+  @Input('items') items: any;
   // @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
   newitem: any = {};
   listTenNhanVien: any = [];
@@ -34,8 +34,6 @@ export class NhancongComponent implements OnInit {
       this.items = [];
     this.items.push(this.newitem);
     this.newitem = {}
-    console.log("this.items", this.items);
-    
   }
 
   delete(index) {

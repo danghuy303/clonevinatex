@@ -280,6 +280,7 @@ p-table.blv th {
     }
     .print.pt-sign {
         padding-top: 100px;
+        text-align: center;
     }
     body * {
         visibility: hidden;
@@ -290,6 +291,7 @@ p-table.blv th {
     .modal-content, .modal-content * {
         visibility: visible;
         font-size: 16px !important;
+        
     }
     /* .modal-content table,table *{
         word-wrap: break-word;

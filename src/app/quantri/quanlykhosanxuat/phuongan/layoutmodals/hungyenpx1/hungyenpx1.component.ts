@@ -75,7 +75,6 @@ export class Hungyenpx1Component implements OnInit {
     }
     this.KiemTraButtonModal();
     this.renderBanDau();
-
   }
   // veLayout() {
   //   this.resetAllPicked();
@@ -119,10 +118,10 @@ export class Hungyenpx1Component implements OnInit {
     this.block3 = [];
     this.block4 = [];
     console.log(this.item.ViTriNgoaiQuan)
-    if(validVariable(this.item.ViTriNgoaiQuan)){
+    if (validVariable(this.item.ViTriNgoaiQuan)) {
       this.ngoaiQuan = this.item.ViTriNgoaiQuan.split(',').map(ele => parseInt(ele));
     }
-    else{
+    else {
       this.ngoaiQuan = [];
     }
     console.log(this.ngoaiQuan)
@@ -130,7 +129,7 @@ export class Hungyenpx1Component implements OnInit {
       return total + ele.SoLuong
     }, 0)
     // for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
-    for (let i = 1; i <= 59; i++) {
+    for (let i = 1; i <= 60; i++) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -143,13 +142,13 @@ export class Hungyenpx1Component implements OnInit {
       if (i <= 3) {
         this.block1.push(`${i}`)
       }
-      if (3 < i && i <= 18) {
+      if (3 < i && i <= 19) {
         this.block2.push(`${i}`)
       }
-      if (18 < i && i <= (59 - 3)) {
+      if (19 < i && i <= (60 - 3)) {
         this.block3.push(`${i}`)
       }
-      if ((59 - 3) < i && i <= 59) {
+      if ((60 - 3) < i && i <= 60) {
         this.block4.push(`${i}`)
       }
     };
@@ -180,28 +179,84 @@ export class Hungyenpx1Component implements OnInit {
     this.focusedSlot = parseInt(slot);
   }
   returnSlot(event: MouseEvent, item) {
-    if (validVariable(this.banBong[item].IdLoBong)) {
-      let _returnSlot = this.item.listLoBong.find(ele => ele.Id === this.banBong[item].IdLoBong);
-      if (validVariable(_returnSlot)) {
-        _returnSlot.DaXep--;
-        this.banBong[item].IdLoBong = null;
-        this.banBong[item].labelLoBong = this.banBong[item]._ngoaiQuan ? 'Ngoại quan bông' : null;
-        this.banBong[item].Mau = 'white';
+    if (event?.altKey) {
+      if (validVariable(this.banBong[item].IdLoBongXepChong)) {
+        let _returnSlot = this.item.listLoBong.find(ele => ele.Id === this.banBong[item].IdLoBongXepChong);
+        if (validVariable(_returnSlot)) {
+          _returnSlot.DaXep--;
+          this.banBong[item].IdLoBongXepChong = undefined;
+          this.banBong[item].labelLoBongXepChong = undefined;
+        }
+      }
+    } else {
+      if (validVariable(this.banBong[item].IdLoBong)) {
+        let _returnSlot = this.item.listLoBong.find(ele => ele.Id === this.banBong[item].IdLoBong);
+        if (validVariable(_returnSlot)) {
+          _returnSlot.DaXep--;
+          this.banBong[item].IdLoBong = null;
+          this.banBong[item].labelLoBong = this.banBong[item]._ngoaiQuan ? 'Ngoại quan bông' : null;
+          this.banBong[item].Mau = 'white';
+        }
       }
     }
+
     event.preventDefault();
   }
-  xepLoBong(lobong, i) {
-    if (validVariable(this.focusedSlot)) {
-      if (validVariable(this.item.listLoBong[i].DaXep)) {
-        if (this.item.listLoBong[i].DaXep < this.item.listLoBong[i].SoLuong) {
+  xepLoBong(lobong, i, event?: MouseEvent) {
+    if (event?.altKey) {
+      console.log(lobong, i, this.focusedSlot);
+      if (validVariable(this.focusedSlot)) {
+        if (validVariable(this.item.listLoBong[i].DaXep)) {
+          if (this.item.listLoBong[i].DaXep < this.item.listLoBong[i].SoLuong) {
+            if (validVariable(this.banBong[this.focusedSlot].IdLoBongXepChong)) {
+              let _returnSlot = this.item.listLoBong.find(ele => ele.Id === this.banBong[this.focusedSlot].IdLoBongXepChong);
+              if (validVariable(_returnSlot)) {
+                _returnSlot.DaXep--;
+              }
+            }
+            this.item.listLoBong[i].DaXep++
+            this.banBong[`${this.focusedSlot}`].labelLoBongXepChong = lobong.TenLoBong;
+            this.banBong[`${this.focusedSlot}`].IdLoBongXepChong = lobong.Id;
+            this.clearFocus()
+            this.getNextFocus()
+          }
+        } else {
+          if (validVariable(this.banBong[this.focusedSlot].IdLoBongXepChong)) {
+            let _returnSlot = this.item.listLoBong.find(ele => ele.Id === this.banBong[this.focusedSlot].IdLoBongXepChong);
+            if (validVariable(_returnSlot)) {
+              _returnSlot.DaXep--;
+            }
+          }
+          this.item.listLoBong[i].DaXep = 1;
+          this.banBong[`${this.focusedSlot}`].labelLoBongXepChong = lobong.TenLoBong;
+          this.banBong[`${this.focusedSlot}`].IdLoBongXepChong = lobong.Id;
+        }
+      }
+    } else {
+      if (validVariable(this.focusedSlot)) {
+        if (validVariable(this.item.listLoBong[i].DaXep)) {
+          if (this.item.listLoBong[i].DaXep < this.item.listLoBong[i].SoLuong) {
+            if (validVariable(this.banBong[this.focusedSlot].IdLoBong)) {
+              let _returnSlot = this.item.listLoBong.find(ele => ele.Id === this.banBong[this.focusedSlot].IdLoBong);
+              if (validVariable(_returnSlot)) {
+                _returnSlot.DaXep--;
+              }
+            }
+            this.item.listLoBong[i].DaXep++
+            this.banBong[`${this.focusedSlot}`].labelLoBong = lobong.TenLoBong;
+            this.banBong[`${this.focusedSlot}`].Mau = lobong.Mau;
+            this.banBong[`${this.focusedSlot}`].IdLoBong = lobong.Id;
+            this.clearFocus()
+            this.getNextFocus()
+          }
+        } else {
           if (validVariable(this.banBong[this.focusedSlot].IdLoBong)) {
             let _returnSlot = this.item.listLoBong.find(ele => ele.Id === this.banBong[this.focusedSlot].IdLoBong);
             if (validVariable(_returnSlot)) {
               _returnSlot.DaXep--;
             }
           }
-          this.item.listLoBong[i].DaXep++
+          this.item.listLoBong[i].DaXep = 1;
           this.banBong[`${this.focusedSlot}`].labelLoBong = lobong.TenLoBong;
           this.banBong[`${this.focusedSlot}`].Mau = lobong.Mau;
           this.banBong[`${this.focusedSlot}`].IdLoBong = lobong.Id;
@@ -209,21 +264,8 @@ export class Hungyenpx1Component implements OnInit {
           this.getNextFocus()
         }
       } else {
-        if (validVariable(this.banBong[this.focusedSlot].IdLoBong)) {
-          let _returnSlot = this.item.listLoBong.find(ele => ele.Id === this.banBong[this.focusedSlot].IdLoBong);
-          if (validVariable(_returnSlot)) {
-            _returnSlot.DaXep--;
-          }
-        }
-        this.item.listLoBong[i].DaXep = 1;
-        this.banBong[`${this.focusedSlot}`].labelLoBong = lobong.TenLoBong;
-        this.banBong[`${this.focusedSlot}`].Mau = lobong.Mau;
-        this.banBong[`${this.focusedSlot}`].IdLoBong = lobong.Id;
-        this.clearFocus()
         this.getNextFocus()
       }
-    } else {
-      this.getNextFocus()
     }
   }
   clearFocus() {
@@ -232,7 +274,7 @@ export class Hungyenpx1Component implements OnInit {
     }
   }
   getNextFocus() {
-    if ((this.focusedSlot + 1) <= (59)) {
+    if ((this.focusedSlot + 1) <= (60)) {
       this.focusedSlot++
       this.banBong[this.focusedSlot]._focus = true;
     } else {
@@ -271,7 +313,7 @@ export class Hungyenpx1Component implements OnInit {
   //   console.log(listItem);
   // }
   SetData() {
-    this.item.listItem = []
+    this.item.listItem = [];
     console.log(this.banBong)
     for (let soban in this.banBong) {
       let item = {
@@ -305,7 +347,7 @@ export class Hungyenpx1Component implements OnInit {
       return total + ele.SoLuong
     }, 0)
     // for (let i = 1; i <= (this.length + this.item.SoViTriNgoaiQuan); i++) {
-    for (let i = 1; i <= 59; i++) {
+    for (let i = 1; i <= 60; i++) {
       let isNgoaiQuan = this.ngoaiQuan.findIndex(ele => ele === i) > -1;
       this.banBong[`${i}`] = {
         _focus: false,
@@ -318,30 +360,33 @@ export class Hungyenpx1Component implements OnInit {
       if (i <= 3) {
         this.block1.push(`${i}`)
       }
-      if (3 < i && i <= 18) {
+      if (3 < i && i <= 19) {
         this.block2.push(`${i}`)
       }
-      if (18 < i && i <= (59 - 3)) {
+      if (19 < i && i <= (60 - 3)) {
         this.block3.push(`${i}`)
       }
-      if ((59 - 3) < i && i <= 59) {
+      if ((60 - 3) < i && i <= 60) {
         this.block4.push(`${i}`)
       }
     };
     if (validVariable(this.item.Id)) {
-      for (let i = 1; i <= (59); i++) {
-        let data = this.item.listItem.find(ele => ele.ThuTu === i);
+      for (let i = 1; i <= (60); i++) {
+        let data = this.item.listItem.filter(ele => ele.ThuTu === i);
         this.banBong[`${i}`] = {
           _focus: false,
-          _ngoaiQuan: data?.isNgoaiQuan,
-          labelLoBong: data?.TenLoBong,
+          _ngoaiQuan: data?.[0]?.isNgoaiQuan,
+          labelLoBong: data?.[0]?.TenLoBong,
           STT: `${i}. `,
-          IdLoBong: data?.IdLoBong,
-          Mau: data?.Mau
+          IdLoBong: data?.[0]?.IdLoBong,
+          Mau: data?.[0]?.Mau,
+          IdLoBongXepChong: data?.[1]?.IdLoBong,
+          labelLoBongXepChong: data?.[1]?.TenLoBong
         }
       }
+      console.log(this.banBong)
       this.item.listLoBong.forEach(lobong => {
-        lobong.DaXep = this.item.listItem.filter(banbong => banbong.IdLoBong === lobong.IdLoBong && banbong.TenLoBong !== "Ngoại quan bông")?.length || 0;
+        lobong.DaXep = this.item.listItem.filter(banbong => (banbong.IdLoBong === lobong.IdLoBong || banbong.IdLoBongXepChong === lobong.IdLoBong) && banbong.TenLoBong !== "Ngoại quan bông")?.length || 0;
       });
       this._services.XepBanBong().GetListForCopyXepBanBong({ IdPhuongAnXepBanBong: this.item.Id }).subscribe((res: any) => {
         this.listBanBong = mapArrayForDropDown(res.map(ele => {
@@ -366,7 +411,7 @@ export class Hungyenpx1Component implements OnInit {
           this.canCopy = false;
         }
       } else {
-        this._toastr.error(`Tải thành công bàn bông không thành công! Vui lòng thử lại bàn khác!`)
+        this._toastr.error(`Tải bàn bông không thành công! Vui lòng thử lại bàn khác!`)
         this.canCopy = false;
       }
     })
@@ -385,15 +430,17 @@ export class Hungyenpx1Component implements OnInit {
 
   pasteBanBong() {
     console.log(this.BanBongForCopy.listItem);
-    for (let i = 1; i <= (59); i++) {
-      let data = this.BanBongForCopy.listItem.find(ele => ele.ThuTu === i);
+    for (let i = 1; i <= (60); i++) {
+      let data = this.BanBongForCopy.listItem.filter(ele => ele.ThuTu === i);
       this.banBongCopy[`${i}`] = {
         _focus: false,
-        _ngoaiQuan: data?.isNgoaiQuan,
-        labelLoBong: data?.TenLoBong,
+        _ngoaiQuan: data?.[0]?.isNgoaiQuan,
+        labelLoBong: data?.[0]?.TenLoBong,
         STT: `${i}. `,
-        IdLoBong: data?.IdLoBong,
-        Mau: data?.Mau
+        IdLoBong: data?.[0]?.IdLoBong,
+        Mau: data?.[0]?.Mau,
+        IdLoBongXepChong: data?.[1]?.IdLoBong,
+        labelLoBongXepChong: data?.[1]?.TenLoBong
       }
       if (!validVariable(data.IdLoBong)) {
         if (data?.isNgoaiQuan) {

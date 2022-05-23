@@ -13,6 +13,7 @@ import { ModalluachonbaoduonglichxichtheothangComponent } from '../../modal/moda
 export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   @Input('listTaiSan') listTaiSan: any = [];
+  @Input('checkBtnChonTaiSan') checkBtnChonTaiSan: boolean;
   @Input('soNgay') soNgay: any = 0;
   @Input('ThoiGianDaChon') thoiGianDaChon:any;
   labelThang = [];
@@ -64,6 +65,8 @@ export class TaisanlichxichthangComponent implements OnInit, OnChanges, AfterVie
     modalRef.componentInstance.thoiGianDaChon = this.thoiGianDaChon;
     modalRef.componentInstance.listItemDaChon = taisan.listbdDaChon || [];
     // modalRef.componentInstance.listItemsTrongBd = baoduong.listChiTiet ?  baoduong.listChiTiet.map(ele => ele?.IddmLoaiBaoDuong) : [];
+    // modalRef.componentInstance.listItemsTrongBd = baoduong.listChiTiet ?  baoduong.listChiTiet.map(ele => ele?.Id) : [];
+    modalRef.componentInstance.checkBtnChonTaiSan = this.checkBtnChonTaiSan;
     // modalRef.componentInstance.listItemsTrongBd = baoduong.listChiTiet ?  baoduong.listChiTiet.map(ele => ele?.Id) : [];
     modalRef.componentInstance.listItemsTrongBd = baoduong.listChiTiet ?  baoduong.listChiTiet.map(ele => ele?.IdTaiSan_BaoDuong) : [];
     modalRef.result

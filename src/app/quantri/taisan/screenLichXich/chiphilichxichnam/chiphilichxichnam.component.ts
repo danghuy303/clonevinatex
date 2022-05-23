@@ -15,18 +15,17 @@ export class ChiphilichxichnamComponent implements OnInit, OnChanges {
   @Input('listTaiSan') listTaiSan: any = {};
   @Input('chonNam') chonNam: any = '';
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
-  TongGiaTriToanBang:any = 0;
+  TongGiaTriToanBang: any = 0;
   labelThang = [];
 
   constructor(
-
-
     public activeModal: NgbActiveModal,
     public _modal: NgbModal,
     private _danhMucTaiSan: DanhmuctaisanService,
     public toastr: ToastrService,
   ) { }
   ngOnChanges(changes: SimpleChanges): void {
+    this.labelThang = [];
     for (let i = 1; i <= 12; i++) {
       this.labelThang.push(`Tháng ${i}`);
     }
@@ -34,7 +33,7 @@ export class ChiphilichxichnamComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    
+
   }
 
   ngAfterViewInit(): void {
@@ -64,10 +63,10 @@ export class ChiphilichxichnamComponent implements OnInit, OnChanges {
     modalRef.componentInstance.title = "Chi phí lịch xích năm";
     modalRef.componentInstance.item = item;
     modalRef.result.then((res: any) => {
-      item =res;
+      item = res;
       this.sum(this.listTaiSan);
     })
-      .catch((er) => {});
+      .catch((er) => { });
   }
 
   Delete(array, index) {
