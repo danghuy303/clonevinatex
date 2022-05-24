@@ -296,7 +296,15 @@ export class SanXuatService {
             GetBaoCao_GhepThoTongHop: (data) => {
                 data.IdDuAn = this.store.getCurrent()
                 return this.http.post(`${API.SCMBaoCao}GetBaoCao_GhepThoTongHop`, data, httpOptions);
-            }
+            },
+            GetBaoCao_SoiConTongHop: (data) => {
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${API.SCMBaoCao}GetBaoCao_SoiConTongHop`, data, httpOptions);
+            },
+            GetBaoCao_OngTongHop: (data) => {
+                data.IdDuAn = this.store.getCurrent()
+                return this.http.post(`${API.SCMBaoCao}GetBaoCao_OngTongHop`, data, httpOptions);
+            },
         }
     }
 

@@ -97,6 +97,7 @@ export class ModalthongkechitieuloicatComponent implements OnInit {
           if (res.State === 1) {
             this.toastr.success(res.message)
             this.opt = 'edit';
+            res.objectReturn.NgayKiemTra = UnixToDate(res.objectReturn.NgayKiemTraUnix);
             this.item = res.objectReturn;
             this.KiemTraButtonModal();
           } else {
