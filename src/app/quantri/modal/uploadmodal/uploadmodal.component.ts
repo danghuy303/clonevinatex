@@ -10,16 +10,17 @@ import { API } from 'src/app/services/host';
 })
 export class UploadmodalComponent implements OnInit {
   uploader: FileUploader;
-  type:string;
-  single:boolean;
+  type: string;
+  single: boolean;
   public newfileinfo: any = [];
+  onlyExcel: boolean;
 
   constructor(
     private activeModal: NgbActiveModal
   ) { }
 
   ngOnInit() {
-    let option:FileUploaderOptions = {
+    let option: FileUploaderOptions = {
       // http://serverduan:2626/SmartEOSAPI/FileUploader/Post
       // ${this.DsdanhmucService.upload}HRMAPI/UploadFile/Post
       url: `${API.uploadURL}`,
@@ -27,26 +28,30 @@ export class UploadmodalComponent implements OnInit {
       headers: [{ name: 'Accept', value: 'application/json' }],
       autoUpload: false,
     }
-    if(this.type==='image'){
-      option.allowedFileType=['image']
+    if (this.type === 'image') {
+      option.allowedFileType = ['image']
+    }
+    if (this.type === 'excel') {
+      option.allowedFileType = ['xls']
     }
     this.uploader = new FileUploader(option);
-    
+
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = true;
-    };     
+    };
     this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
     this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
     this.uploader.onCompleteItem = (item, response, status, headers) => this.onCompleteItem(item, response, status, headers);
   }
- 
+
   onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
 
   }
 
   onCompleteItem = (item: any, response: any, status: any, headers: any) => {
     let res = JSON.parse(response);
-    this.newfileinfo.push(res[0]);    
+    // this.newfileinfo.push(res[0]);
+    this.newfileinfo.push(res[0].Name);
   };
 
   onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {

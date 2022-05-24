@@ -86,14 +86,13 @@
                     Danh sách tài sản 
                 </div>
             </ng-template>
-            <div class="p-d-flex p-flex-row p-jc-between p-ai-center p-grid">
-                <div class="modal-bt p-mb-4  p-p-3 d-flex flex-column flex-lg-row ">
+            <div class="d-flex justify-content-between p-mb-3">
+                <div class="">
                     <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm "
                         (click)="ThemMoiDanhSachTaiSan()"></button>
                 </div>
                 <div class="p-p-0">
-                    <!-- Tổng số: {{item.listTaiSan?.length}}thiết bị -->
-                    <strong>Tổng số: <span style="color: red;">{{item.listTaiSan?.length}}</span> thiết bị</strong>
+                    <strong style="color: #007bff;">Tổng số: <span style="color: red;">{{item.listTaiSan?.length}}</span> thiết bị</strong>
                 </div>
             </div>
             <p-table [value]="item.listTaiSan "

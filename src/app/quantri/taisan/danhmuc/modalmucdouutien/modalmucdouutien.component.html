@@ -41,8 +41,9 @@
             <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row ">
                 <label class="p-col-12 p-lg-2 p-p-0 my-auto">Thứ tự </label>
                 <div class="p-col-12 p-lg-10 p-p-0">
-                    <p-inputNumber [minFractionDigits]="0" [(ngModel)]="item.ThuTu">
+                    <p-inputNumber [minFractionDigits]="0" [min]="0" [maxFractionDigits]="0" [(ngModel)]="item.ThuTu" > 
                     </p-inputNumber>
+                    <!-- <input min='0' type="number" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"> -->
                 </div>
             </div>
             <div class="p-col-12 p-lg-12   d-flex flex-column flex-xl-row">
