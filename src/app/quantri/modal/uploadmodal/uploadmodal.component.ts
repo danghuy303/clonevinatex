@@ -50,8 +50,8 @@ export class UploadmodalComponent implements OnInit {
 
   onCompleteItem = (item: any, response: any, status: any, headers: any) => {
     let res = JSON.parse(response);
-    // this.newfileinfo.push(res[0]);
-    this.newfileinfo.push(res[0].Name);
+    this.newfileinfo.push(res[0]);
+    // this.newfileinfo.push(res[0].Name);
   };
 
   onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {

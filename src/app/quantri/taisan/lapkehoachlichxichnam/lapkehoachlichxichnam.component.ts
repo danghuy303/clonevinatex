@@ -150,8 +150,8 @@ export class LapkehoachlichxichnamComponent implements OnInit {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
           this.item = res.Data;
+          this.toastr.success(res.Message);
           this.GetQuyTrinhById(this.item.Id);
-
         }
       }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
