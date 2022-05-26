@@ -1,10 +1,5 @@
-<div class="p-d-flex p-flex-row p-jc-end p-grid flex-d">
-    <div class="modal-bt p-mb-4 p-col-12 p-lg-2  p-p-3 d-flex flex-column flex-lg-row">
-        <label class="p-col-12 p-lg-4 p-p-0 my-auto"> </label>
-        <div class="p-col-12 p-lg-8 p-p-0">
-            <strong>Tổng giá trị: <span style="color: red;">{{TongGiaTriToanBang | number:'0.0-0'}} (VNĐ)</span></strong>
-        </div>
-    </div>
+<div class="d-flex justify-content-end p-mb-3">
+    <strong style="color: #007bff;">Tổng giá trị: <span style="color: red;">{{TongGiaTriToanBang | number:'0.0-0'}} (VNĐ)</span></strong>
 </div>
   <div class="p-col-12 p-p-0 pintable-container" style="height: 45vh;" voiPintable [pinnedCols]="2">
     <table>
@@ -41,13 +36,13 @@
                         </div>
                     </td>
                     <td *ngFor="let ThoiGianVatTu of vattu.listThoiGian" class="tc-w-300 text-right "> 
-                        <div class=" tc-w-270 p-2" style="align-items: center; margin-left: 30px;"> 
+                        <div class=" tc-w-270 p-2" style="align-items: center;"> 
                             <p-inputNumber inputId="locale-us" mode="decimal"  locale="en-US" styleClass="p-inputtext-sm" 
-                                [(ngModel)]="ThoiGianVatTu.SoLuong" (onBlur)="tongTien(item)" [disabled]="!ThoiGianVatTu.canInput">
+                                [(ngModel)]="ThoiGianVatTu.SoLuong" (onBlur)="tongTien(item)" [disabled]="!ThoiGianVatTu.IsHienThi">
                             </p-inputNumber>
                         </div>
-                        <div class="tc-w-270 p-2" style="align-items: center;  margin-left: 30px;">
-                            <p-inputNumber inputId="locale-us" mode="decimal" locale="en-US" styleClass="p-inputtext-sm" (onBlur)="tongTien(item)" [disabled]="!ThoiGianVatTu.canInput"
+                        <div class="tc-w-270 p-2" style="align-items: center; ">
+                            <p-inputNumber inputId="locale-us" mode="decimal" locale="en-US" styleClass="p-inputtext-sm" (onBlur)="tongTien(item)" [disabled]="!ThoiGianVatTu.IsHienThi"
                                 [(ngModel)]="ThoiGianVatTu.DonGia">
                             </p-inputNumber>
                         </div>

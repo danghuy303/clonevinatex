@@ -30,6 +30,10 @@ export class ModalmucdouutienComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập đầy đủ tên!");
       return false;
     }
+    if (!validVariable(this.item.ThuTu)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ thứ tự!");
+      return false;
+    }
     return true;
   }
 
@@ -42,8 +46,9 @@ export class ModalmucdouutienComponent implements OnInit {
           this.toastr.success(res.Message);
           this.activeModal.close();
         } 
-        this.activeModal.close();
+        // this.activeModal.close();
       })
     }
   }
+
 }

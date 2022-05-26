@@ -110,7 +110,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
         this.item.Nam = UnixToDate(this.item.ThoiGianUnix).getFullYear();
         // this.toastr.success(res.Message);
         this.KiemTraButtonModal();
-        this.checkDisableSelectMonth();
+        // this.checkDisableSelectMonth();
       });
   }
 
@@ -150,8 +150,8 @@ export class LapkehoachlichxichnamComponent implements OnInit {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
           this.item = res.Data;
+          this.toastr.success(res.Message);
           this.GetQuyTrinhById(this.item.Id);
-
         }
       }, (er) => {
         this.toastr.error("Có lỗi trong quá trình xử lý!!!");
@@ -161,7 +161,6 @@ export class LapkehoachlichxichnamComponent implements OnInit {
 
   KiemTraButtonModal() {
     this._servicesSanXuat.KiemTraButton(this.item.Id || "", this.item.IdTrangThai || "").subscribe((res: any) => {
-      console.log(res);
       this.checkBtnChonTaiSan = res.Ghi;
       this.checkbutton = res;
     });
@@ -220,11 +219,9 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     modalRef.componentInstance.checkBtnChonTaiSan = this.checkBtnChonTaiSan;
     modalRef.componentInstance.checkedAll = false;
     modalRef.result.then((res: any) => {
-      console.log(res);
-
       // this.item.listTaiSan = res;
       this.item.listTaiSan = merge(res || [], this.item.listTaiSan, 'IdTaiSan').filter(ele => !ele.isXoa);
-      this.checkDisableSelectMonth();
+      // this.checkDisableSelectMonth();
     })
       .catch((er) => {
       });
@@ -271,7 +268,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     };
     this._serviceTaiSan.LichXich().GetListVatTuByIdTaiSanForLapKeHoachLichXichNam(data).subscribe((res: any) => {
       this.item.listTaiSan = res.Data.listTaiSan;
-      this.checkDisableSelectMonth();
+      // this.checkDisableSelectMonth();
     });
   }
 

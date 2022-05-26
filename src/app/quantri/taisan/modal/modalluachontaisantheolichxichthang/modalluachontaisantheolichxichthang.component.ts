@@ -84,7 +84,12 @@ export class ModalluachontaisantheolichxichthangComponent implements OnInit {
   }
 
   GhiLai() {
-    let data = this.items.filter(ele => ele.checked)
+    let data = this.items.filter(ele => ele.checked);
+    data.forEach(ele => {
+      ele.listBaoDuong.forEach(obj => {
+        obj.listChiTiet = [];
+      })
+    })
     this.activeModal.close(data);
   }
 

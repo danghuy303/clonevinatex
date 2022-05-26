@@ -122,25 +122,46 @@ export class LapkehoachthangComponent implements OnInit {
     return this.item;
   }
 
-  ValidateData() {
-    if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.ThoiGian)) {
-      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
-      return false;
+  ValidateData(isChuyenDuyet) {
+    if (isChuyenDuyet) {
+      if (!this.checkLoaiBaoDuong()) {
+        this.toastr.error("Yêu cầu chọn loại bảo dưỡng cho tài sản!");
+        return false;
+      }
     }
-    if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
+    if (!validVariable(this.item.ThoiGian)) {
+      this.toastr.error("Yêu cầu chọn tháng, năm!");
+      return false;
+    } else if (!validVariable(this.item.IddmLoaiTaiSan)) {
+      this.toastr.error("Yêu cầu nhập loại tài sản!");
+      return false;
+    } else if (!validVariable(this.item.IdBoPhanSuDung)) {
+      this.toastr.error("Yêu cầu nhập bộ phận sử dụng!");
+      return false;
+    } else if (!validVariable(this.item.listTaiSan) || this.item.listTaiSan.length === 0) {
       this.toastr.error("Yêu cầu nhập thêm tài sản!");
       return false;
     }
     return true;
   }
 
+  checkLoaiBaoDuong() {
+    let loaiBaoDuongisNull;
+    this.item.listTaiSan.forEach(taisan => {
+      taisan.hasNullListBaoDuong = taisan.listBaoDuong.every(baoduong => baoduong.listChiTiet.length === 0);
+    })
+    loaiBaoDuongisNull = this.item.listTaiSan.some(taisan => taisan.hasNullListBaoDuong)
+    return !loaiBaoDuongisNull;
+  }
+
   GhiLai() {
-    if (this.ValidateData()) {
+    if (this.ValidateData(false)) {
       this._serviceTaiSan.LichXichThang().Set(this.setData()).subscribe((res: any) => {
         if (res.StatusCode !== 200 || !res.StatusCode) {
           this.toastr.error("Có lỗi trong quá trình xử lý!!!");
         } else {
           this.item = res.Data;
+          this.item.ThoiGian = UnixToDate(this.item.ThoiGianUnix);
           this.toastr.success(res.Message);
           this.KiemTraButtonModal();
         }
@@ -158,14 +179,16 @@ export class LapkehoachthangComponent implements OnInit {
   }
 
   ChapNhan() {
-    this._serviceTaiSan.LichXichThang().ChuyenTiep(this.item).subscribe((res: any) => {
-      if (res.StatusCode !== 200) {
-        this.toastr.error(res.Message);
-      } else {
-        this.toastr.success(res.Message);
-        this.activeModal.close();
-      }
-    })
+    if (this.ValidateData(true)) {
+      this._serviceTaiSan.LichXichThang().ChuyenTiep(this.item).subscribe((res: any) => {
+        if (res.StatusCode !== 200) {
+          this.toastr.error(res.Message);
+        } else {
+          this.toastr.success(res.Message);
+          this.activeModal.close();
+        }
+      })
+    }
   }
 
   KhongDuyet() {
