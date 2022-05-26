@@ -38,5 +38,6 @@ export const mapQuyTrinhRoute = {
         KIEMKEKHOBONGPHE:'/quantri/quanlykhosanxuat/khobongphe/kiemkekhobongphe/',
         KIEMKEKHOXO:'/quantri/quanlykhosanxuat/khoxo/kiemkekhoxo/',
 
+        GIAOKEHOACHSANXUATDIEUCHINH:'/quantri/kehoachsanxuat/giaokehoachsanxuat/'
 
 }

@@ -18,6 +18,7 @@ import { LohangComponent } from '../../lohang/lohang.component';
 export class ThongkesanluongcamodalComponent implements OnInit {
   @ViewChild(PintableDirective) voiPintable: PintableDirective;
   @ViewChildren('inputNumber') inputNumbers: any;
+  @ViewChildren('inputKhoiLuong') inputKhoiLuongs: any;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -709,5 +710,18 @@ export class ThongkesanluongcamodalComponent implements OnInit {
         item.isM = false;
       });
     }
+  }
+  nextFocus(index){
+    console.log(index);
+    console.log(this.inputKhoiLuongs.toArray().map(ele=>ele.el.nativeElement))
+    index = parseInt(index);
+    let length = this.inputKhoiLuongs.toArray().length;
+    let currentEle = this.inputKhoiLuongs.toArray().find(ele=>ele.el.nativeElement["data-index"] === (index));
+    currentEle.el.nativeElement.children[0].children[0].blur()
+    setTimeout(()=>{
+      let nextEle = this.inputKhoiLuongs.toArray().find(ele=>ele.el.nativeElement["data-index"] === (index+1<length?index+1:0));
+      nextEle.el.nativeElement.children[0].children[0].focus();
+    },400)
+    // console.log(foundEle);
   }
 }
