@@ -145,7 +145,9 @@ export class DanhmucmucdouutienComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         this.fileUpload = res;
-        this._danhMucTaiSan.DanhMucMucDoUuTien().Importdm(this.fileUpload[0]).subscribe(()=>{
+        console.log(this.fileUpload);
+        
+        this._danhMucTaiSan.DanhMucMucDoUuTien().Importdm(this.fileUpload[0].Name).subscribe(()=>{
           this.resetFilter();
         })
       })
@@ -161,9 +163,10 @@ export class DanhmucmucdouutienComponent implements OnInit {
      
     };
     this._danhMucTaiSan.DanhMucMucDoUuTien().Exportdm(data).subscribe((res: any) => {
-      this._danhMucTaiSan.DanhMucMucDoUuTien().download(res.TenFile);
+      this._danhMucTaiSan.DanhMucMucDoUuTien().download(res.Data);
     })
   }
+  
   changePage(event){
     this.paging.CurrentPage = event.page+1;
     this.GetList()

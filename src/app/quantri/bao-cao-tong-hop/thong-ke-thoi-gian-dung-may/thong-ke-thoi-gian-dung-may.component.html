@@ -26,6 +26,11 @@
                 [(ngModel)]="filter.IddmPhanXuong" styleClass="p-inputtext-sm" (onChange)="getBaoCao()" [showClear]="true"
                 [filter]="true"></p-dropdown>
         </div>
+        <div class="p-mr-2">
+            <p-dropdown [filter]="true" [options]="listCongDoan" placeholder="Chọn công đoạn"
+                [(ngModel)]="filter.MaCongDoan" styleClass="p-inputtext-sm" (onChange)="getBaoCao()" [showClear]="true"
+                [filter]="true"></p-dropdown>
+        </div>
     </div>
 </div>
 <div>

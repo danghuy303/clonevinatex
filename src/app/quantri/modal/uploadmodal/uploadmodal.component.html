@@ -9,7 +9,8 @@
       <div class="col-12">
         Chọn file
         <input type="file" ng2FileSelect [uploader]="uploader" multiple *ngIf="!single"/>
-        <input type="file" ng2FileSelect [uploader]="uploader" *ngIf="single"/>
+        <!-- <input type="file" ng2FileSelect [uploader]="uploader" *ngIf="single"/> -->
+        <input type="file" ng2FileSelect [uploader]="uploader" *ngIf="single" [accept]="onlyExcel?'.xlsx':''"/>
       </div>
     </div>
   
