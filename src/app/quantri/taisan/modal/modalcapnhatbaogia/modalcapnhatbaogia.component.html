@@ -32,16 +32,16 @@
         <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-3 p-p-0 my-auto">Bộ phận sử dụng<span class="required">(*)</span></label>
             <div class="p-col-12 p-lg-9 p-p-0">
-                <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Bộ phận sử dụng"
+                <p-dropdown [filter]="true" [options]="listdmPhanXuong" placeholder="Bộ phận sử dụng" [showClear]="true"
                 styleClass="p-inputtext-sm" [(ngModel)]="item.IdBoPhanSuDung"></p-dropdown>
             </div>
         </div>
-        <div class="p-col-12 p-lg-6   d-flex flex-column flex-xl-row">
+        <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-3 p-p-0 my-auto">Ngày bàn giao<span class="required">(*)</span></label>
             <div class="p-col-12 p-lg-9 p-p-0">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [monthNavigator]="true"
-                    [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" [(ngModel)]="item.NgayBanGiao"
-                    inputId="icon" placeholder="dd/mm/yyyy">
+                    [locale]="lang" [yearNavigator]="true" [yearRange]="yearRange" [showIcon]="true" inputId="icon"
+                    [(ngModel)]="item.NgayBanGiao" placeholder="dd/mm/yyyy">
                 </p-calendar>
             </div>
         </div>
@@ -96,16 +96,18 @@
                     </td>
                     <td>{{rowData.TenTaiSan}}</td>
                     <td>
-                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="rowData.SoLuong" [disabled]="!rowData.isCha" placeholder="Số lượng">
+                        <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="rowData.SoLuong" [disabled]="!rowData.isCha" placeholder="">
                         </p-inputNumber>
                     </td>
                     <td>
                         <input type="text" class="p-inputtext-sm" [(ngModel)]="rowData.GhiChu" pInputText *ngIf="rowData.isCha" placeholder="Ghi chú"/>
                     </td>
-                    <td class="text-center" *ngIf="rowData.isCha">
-                        <button pButton pRipple type="button" icon="pi pi-trash"
-                            class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
-                            (click)="XoaTaiSan(rowData)"></button>
+                    <td class="text-center" >
+                        <div *ngIf="rowData.isCha">
+                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
+                                (click)="XoaTaiSan(rowData)"></button>
+                        </div>
                     </td>
                 </tr>
             </ng-template>

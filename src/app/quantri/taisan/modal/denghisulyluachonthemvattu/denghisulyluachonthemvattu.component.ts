@@ -32,8 +32,6 @@ export class DenghisulyluachonthemvattuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.listItemDaChon);
-
     this.GetList();
   }
 
@@ -48,7 +46,7 @@ export class DenghisulyluachonthemvattuComponent implements OnInit {
       res.Data.forEach(ele => {
         this.items = ele.listVatTu;
         this.items.forEach(obj => {
-          obj.checked = this.listItemDaChon.includes(obj.IdTaiSan);
+          obj.checked = this.listItemDaChon.includes(obj.IdVatTuCanThayThe);
         })
       })
       this.checkedAll = this.items.every(obj => obj.checked);
@@ -79,11 +77,12 @@ export class DenghisulyluachonthemvattuComponent implements OnInit {
         data.push({
           Id: '',
           IdTaiSan: obj.IdTaiSan,
-          TenVatTu: obj.TenTaiSan,
+          TenVatTu: `${obj.TenTaiSan} (${obj.DonVi})`,
           GiaTri: obj.GiaTri,
           SoLuong: obj.SoLuong,
           GhiChu: obj.GhiChu,
           IdVatTuCanThayThe: obj.IdVatTuCanThayThe,
+          MaVatTu: obj.Ma,
         })
       }
     });

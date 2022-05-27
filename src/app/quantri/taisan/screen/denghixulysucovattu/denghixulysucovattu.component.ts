@@ -35,7 +35,7 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
     });
     modalRef.componentInstance.opt = "edit";
     // modalRef.componentInstance.layIdTaiSan = this.items.map(ele => ele.IdTaiSan);
-    modalRef.componentInstance.listItemDaChon =  item.listVatTu ?  item.listVatTu.map(ele => ele.IdTaiSan) : []
+    modalRef.componentInstance.listItemDaChon =  item.listVatTu ?  item.listVatTu.map(ele => ele.IdVatTuCanThayThe) : []
     modalRef.componentInstance.layIdTaiSan = item.IdTaiSan;
     modalRef.result
       .then((res: any) => {
@@ -58,6 +58,10 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
       }
       this.TongGiaTriToanBang += (ele.TongThanhTien || 0);
     })
+  }
+
+  delete(index) {
+    this.items.splice(index, 1)
   }
 
 }

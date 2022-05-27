@@ -112,7 +112,7 @@ export class DenghixulisucoComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.type = 'capnhat';
-    modalRef.componentInstance.title = 'Cập nhật nghị xử lý sự cố';
+    modalRef.componentInstance.title = 'Đề nghị xử lý sự cố';
     modalRef.componentInstance.listPhanXuong = this.listPhanXuong;
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result

@@ -25,6 +25,7 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   uploader: FileUploader;
   tabTrangThai: number = 0;
   listdmPhanXuong: any = [];
+  yearRange: string = `${((new Date()).getFullYear() - 60)}:${((new Date()).getFullYear() + 60)}`;
   listDonVi: any = [];
   NameFile: string = "";
   listTaiSan_copy: TreeNode[] = [];
@@ -41,14 +42,14 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     this.KiemTraButtonModal();
     this.getListdmPhanXuong();
     if (this.opt === 'add') {
-      this.title = "Thêm mới";
+      this.title = "Bàn giao tài sản";
       this.GetNextSoQuyTrinh();
     }
     else {
       if (validVariable(this.item.Id)) {
         this.GetQuyTrinh(this.item.Id);
       }
-      this.title = "Cập nhật";
+      this.title = "Bàn giao tài sản";
       this.listTaiSan_copy = this.item.listTaiSan?.map((ele, index) => {
         return this.mapDataModelToView(ele, index);
       });
@@ -112,6 +113,10 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   Validate() {
     if (!validVariable(this.item.NgayBanGiao) || !validVariable(this.item.IdBoPhanSuDung)) {
       this.toastr.error("Yêu cầu nhập đầy đủ ngày");
+      return false;
+    }
+    if (!validVariable(this.listTaiSan_copy) || this.listTaiSan_copy.length === 0) {
+      this.toastr.error("Yêu cầu nhập tài sản");
       return false;
     }
     return true;

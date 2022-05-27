@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { TreeNode } from 'primeng/api';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { validVariable } from 'src/app/services/globalfunction';
+import { mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
@@ -15,15 +15,16 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 export class XulysucoluachontaisanComponent implements OnInit {
 
   opt: any = "";
-  paging: any = {};
   items: TreeNode[];
   item: any = {};
   listItemDaChon: any = [];
   Lay_Chon: any = [];
   checkedAll: boolean = false;
   listdmLoaiBaoDuong: any = [];
+  paging: any = { CurrentPage: 0, TotalPages: 1, TotalCount: 1 };
   Keyword: any = '';
   filter: any = {};
+  listLoaiTaiSan = [];
 
   constructor(
     public _modal: NgbModal,
@@ -35,6 +36,7 @@ export class XulysucoluachontaisanComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetList();
+    this.GetListdmLoaiTaiSan();
   }
 
   resetFilter() {
@@ -42,14 +44,24 @@ export class XulysucoluachontaisanComponent implements OnInit {
     this.GetList();
   }
 
+  GetListdmLoaiTaiSan() {
+    let data = {
+      Keyword: "", CurrentPage: 0, PageSize: 20,
+    };
+    this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).subscribe((res: any) => {
+      this.listLoaiTaiSan = mapArrayForDropDown(res.Data, 'Ten', 'Id');
+    })
+  }
+
   GetList() {
     let data = {
       Keyword: this.filter.Keyword,
       PageSize: 20,
       CurrentPage: this.paging.CurrentPage,
-      TuNgay: 0, DenNgay: 0,
-      TabTrangThai: 0, IddmLoaiTaiSan: this.item.IdDmLoaiTaiSan, IdBoPhanSuDung: this.item.IdBoPhanSuDung,
-      isCanDuTru: false, isGiaTriCao: false, IdDuAn: 0,
+      IddmLoaiTaiSan: this.filter.IddmLoaiTaiSan,
+      IdBoPhanSuDung: this.item.IdBoPhanSuDung,
+      // isCanDuTru: false, isGiaTriCao: false, IdDuAn: 0,
+      // TuNgay: 0, DenNgay: 0,
     };
     this._serviceTaiSan.QuyTrinhXuLySuCo().GetListTaiSanQuyTrinhXulySuCo(data).subscribe((res: any) => {
       this.paging.TotalCount = res.TotalCount;
@@ -141,7 +153,7 @@ export class XulysucoluachontaisanComponent implements OnInit {
   }
 
   GhiLai() {
-      this.activeModal.close(this.FilterTree());
+    this.activeModal.close(this.FilterTree());
   }
 
 }
