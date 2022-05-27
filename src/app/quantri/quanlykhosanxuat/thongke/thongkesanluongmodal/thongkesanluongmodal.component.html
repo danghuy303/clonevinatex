@@ -351,14 +351,14 @@
             <div class="p-col-12 p-p-0 d-flex flex-column p-jc-end">
                 <ng-container *ngFor="let CongDoan of item.listTyLeBongPhe|filterByKey:'MaCongDoan':(item.CongDoan?item.CongDoan:'xyz')">
                     <div class="p-col-12 p-p-0 d-flex flex-row p-jc-end"
-                        *ngFor="let bongphe of CongDoan.listKhoiLuongBongPhe">
+                        *ngFor="let bongphe of CongDoan.listKhoiLuongBongPhe;let i = index">
                         <div class="p-grid" style="width:100%">
                             <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
                                 <label class="p-col-12 p-lg-4 p-p-0 my-auto">Khối lượng
                                     {{bongphe.TenLoaiBongPhe}}</label>
                                 <div class="p-col-12 p-lg-7 p-p-0">
-                                    <p-inputNumber [minFractionDigits]="3" locale="en-EN"
-                                        [(ngModel)]="bongphe.KhoiLuong" (onBlur)="Typing($event)">
+                                    <p-inputNumber #inputKhoiLuong [minFractionDigits]="3" locale="en-EN"
+                                        [(ngModel)]="bongphe.KhoiLuong" (keyup.enter)="nextFocus(i)" (onBlur)="Typing($event)">
                                     </p-inputNumber>
                                 </div>
                                 <div class="p-col-12 p-lg-1 p-p-0">

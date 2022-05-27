@@ -114,6 +114,8 @@ export class QuantriComponent implements OnInit {
     // }
     // this.newNoti = this.listNotis.filter(ele => ele.isRead !== true).length;
     let routerURL = this.mapQuyTrinhRoute[item.LoaiThongBao];
+    // console.log('item:::',item)
+    // console.log('routerURL:::',routerURL)
     if (routerURL) {
       // this._router.navigate([`${routerURL}0`]);
       // setTimeout(()=>{
@@ -354,14 +356,14 @@ export class QuantriComponent implements OnInit {
           //     }
           // },
           {
-            label: "Kế hoạch nhập bông",
+            label: "Kế hoạch nhập bông/xơ",
             routerLink:
               "/quantri/quanlykhosanxuat/khobong/kehoachnhapnguyenlieu/0",
             separator: this.checkmenu("KEHOACHNHAPNGUYENLIEU"),
             command: () => this.close(),
           },
           {
-            label: "Kế hoạch nhập bông invoice",
+            label: "Kế hoạch nhập bông/xơ invoice",
             routerLink:
               "/quantri/quanlykhosanxuat/khobong/kehoachnhapnguyenlieuinvoice/0",
             separator: this.checkmenu("KEHOACHNHAPNGUYENLIEUINVOICE"),

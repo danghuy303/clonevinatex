@@ -323,7 +323,7 @@
                                         {{CongDoan.listKhoiLuongBongPhe[indexLoai].TenLoaiBongPhe}}
                                     </td> -->
                                     <td class="text-right p-d-flex p-flex-row">
-                                        <p-inputNumber [minFractionDigits]="3" locale="en-EN"
+                                        <p-inputNumber [minFractionDigits]="3" locale="en-EN" #inputKhoiLuong [data-index]="i*row.listKhoiLuongBongPhe.length+indexLoai" (keyup.enter)="nextFocus(i*row.listKhoiLuongBongPhe.length+indexLoai)"
                                             [(ngModel)]="CongDoan.listKhoiLuongBongPhe[indexLoai].KhoiLuong" (onBlur)="TinhTongKhoiLuongBong(i)">
                                         </p-inputNumber>
                                         <button pButton pRipple icon="pi pi-ellipsis-v"

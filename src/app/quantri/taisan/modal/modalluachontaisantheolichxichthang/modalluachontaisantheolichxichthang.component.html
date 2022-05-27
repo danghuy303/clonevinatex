@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    <p-table [value]="items" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+    <p-table [value]="items" [paginator]="true" [rows]="10" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
         <ng-template pTemplate="header">
             <tr>
                     <th style="width:50px" class="text-center">
@@ -51,6 +51,9 @@
                 <td>{{item.MaTaiSan}}</td>
                 <td>{{item.TenTaiSan}}</td>
             </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+            <b>Tổng số bản ghi {{items.length}}</b>
         </ng-template>
     </p-table>
     
