@@ -172,6 +172,7 @@ import { ChiphilichxichthangComponent } from './screenLichXich/chiphilichxichtha
 import { TaisanlichxichthangComponent } from './screenLichXich/taisanlichxichthang/taisanlichxichthang.component';
 import { CapnhatthuvienComponent } from './capnhatthuvien/capnhatthuvien.component';
 import { CapnhatthuvientaisanchitietComponent } from './capnhatthuvientaisanchitiet/capnhatthuvientaisanchitiet.component';
+import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal/them-moi-vat-tu-modal.component';
 
 
 @NgModule({
@@ -299,6 +300,7 @@ import { CapnhatthuvientaisanchitietComponent } from './capnhatthuvientaisanchit
     TaisanlichxichthangComponent,
     CapnhatthuvienComponent,
     CapnhatthuvientaisanchitietComponent,
+    ThemMoiVatTuModalComponent,
 
   ],
   imports: [

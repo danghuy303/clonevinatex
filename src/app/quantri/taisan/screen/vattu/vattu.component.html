@@ -22,6 +22,7 @@
             <col>
             <col>
             <col>
+            <col style="width: 100px;">
         </colgroup>
     </ng-template>
     <ng-template pTemplate="header">
@@ -34,6 +35,7 @@
             <th class="text-center" colspan="3">Kế hoạch</th>
             <th class="text-center" colspan="3">Thực tế</th>
             <th class="text-center" rowspan="2">Ghi chú</th>
+            <th class="text-center" rowspan="2">Thao tác</th>
         </tr>
         <tr>
             <th>Số lượng</th>
@@ -67,6 +69,9 @@
             <td>
                 <!-- <input type="text" pInputText placeholder="Ghi chú" [ngbTooltip]="vattu.GhiChu"/> -->
             </td>
+            <td class="text-center">
+                <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text" (click)="addVatTu(item)"></button>
+            </td>
         </tr>
         <ng-container *ngFor="let vattu of item.listVatTu; let a = index">
             <tr>
@@ -79,11 +84,11 @@
                 <td class="text-right">{{vattu.DonGiaTheoKeHoach | number: '0.0'}}</td>
                 <td class="text-right">{{vattu.ThanhTienTheoKeHoach | number: '0.0'}}</td>
                 <td>
-                    <p-inputNumber inputId="integeronly" locale="en-US" [(ngModel)]="vattu.SoLuong" placeholder="Số lượng"
+                    <p-inputNumber inputId="integeronly" min="0" locale="en-US" [(ngModel)]="vattu.SoLuong" placeholder="Số lượng"
                         (onBlur)="Count()"></p-inputNumber>
                 </td>
                 <td>
-                    <p-inputNumber inputId="integeronly" locale="en-US" [(ngModel)]="vattu.DonGia" placeholder="Đơn giá"
+                    <p-inputNumber inputId="integeronly" min="0" locale="en-US" [(ngModel)]="vattu.DonGia" placeholder="Đơn giá"
                         (onBlur)="Count()">
                     </p-inputNumber>
                 </td>
@@ -94,6 +99,9 @@
                 </td>
                 <td>
                     <input type="text" pInputText placeholder="Ghi chú" [(ngModel)]="vattu.GhiChu" [ngbTooltip]="vattu.GhiChu"/>
+                </td>
+                <td class="text-center">
+                    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="delete(a,item)"></button>
                 </td>
             </tr>
         </ng-container>

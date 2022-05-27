@@ -202,6 +202,9 @@ export class TaisanService {
       GetListVatTuByIdTaiSanForXuLySuCo: (data) => {
         return this.http.post(`${url}BaoDuongTaiSan/GetListVatTuByIdTaiSanForXuLySuCo`, data, httpOptions);
       },
+      GetListVatTuByIdTaiSan: (Id) => {
+        return this.http.get(`${url}BaoDuongTaiSan/GetListVatTuByIdTaiSan?IdTaiSan=${Id}`, httpOptions)
+      } 
     };
   }
 

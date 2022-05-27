@@ -14,6 +14,10 @@
         </div>
         <div class="p-d-flex p-flex-row">
             <div class="p-mr-2">
+                <p-dropdown [filter]="true" [options]="listLoaiTaiSan" [showClear]="true" (onChange)="GetList()"
+                [(ngModel)]="filter.IddmLoaiTaiSan" placeholder="Chọn loại tài sản" [showClear]="true"></p-dropdown>
+            </div>
+            <!-- <div class="p-mr-2">
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                     inputId="icon" placeholder="Từ ngày" (onSelect)="GetList()">
                 </p-calendar>
@@ -22,9 +26,11 @@
                 <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                    inputId="icon" placeholder="Đến ngày" (onSelect)="GetList()">
                 </p-calendar>
-            </div>
-            <div class="p-mr-2 p-inputgroup">
+            </div> -->
+            <div class="p-mr-2 p-inputgroup ">
                 <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)] ="filter.Keyword" pInputText (keyup.enter)="GetList()" />
+                <button type="button" pButton pRipple icon="pi pi-search"
+                class="p-button-secondary p-button-sm p-button-text" (click)="GetList(true)"></button>
                 <button type="button" pButton pRipple icon="pi pi-refresh" class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
             </div>
         </div>
@@ -38,8 +44,9 @@
                 </th>
                 <th class="text-center" style="width: 150px;">Mã</th>
                 <th class="text-center">Tên</th>
-                <th class="text-center">Loại bảo dưỡng</th>
-                <th class="text-center">Ghi chú</th>
+                <!-- <th class="text-center">Loại bảo dưỡng</th>
+                <th class="text-center">Ghi chú</th> -->
+                <th>Loại tài sản</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
@@ -52,8 +59,9 @@
                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler> {{rowData.Ma}} 
                 </td>
                 <td class="text-center">{{rowData.Ten}}</td>
-                <td class="text-center"> {{rowData.TendmLoaiBaoDuong}}</td>
-                <td class="text-center">{{rowData.GhiChu}}</td>
+                <!-- <td class="text-center"> {{rowData.TendmLoaiBaoDuong}}</td>
+                <td class="text-center">{{rowData.GhiChu}}</td> -->
+                <td>{{rowData.TendmLoaiTaiSan}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">

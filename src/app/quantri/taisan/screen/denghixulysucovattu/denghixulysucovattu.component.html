@@ -1,10 +1,6 @@
-<div class="p-d-flex p-flex-row p-jc-end p-grid flex-d">
-    <div class="modal-bt p-mb-4 p-col-12 p-lg-2  p-p-3 d-flex flex-column flex-lg-row">
-        <label class="p-col-12 p-lg-4 p-p-0 my-auto"> </label>
-        <div class="p-col-12 p-lg-8 p-p-0">
-            Tổng giá trị: {{TongGiaTriToanBang | number:'0.0-0'}}
-        </div>
-    </div>
+
+<div class="d-flex justify-content-end p-mb-3">
+    <strong style="color: #007bff;">Tổng giá trị: <span style="color: red;">{{TongGiaTriToanBang | number:'0.0-0'}} (VNĐ)</span></strong>
 </div>
 <p-table [value]="items" styleClass="p-datatable-customers p-datatable-gridlines p-datatable-sm">
     <ng-template pTemplate="colgroup">
@@ -26,9 +22,9 @@
             </th>
             <th class="text-center ">Mã</th>
             <th class="text-center">Tên</th>
-            <th class="text-center">Số lượng</th>
-            <th class="text-center ">Đơn giá</th>
-            <th class="text-center ">Thành tiền</th>
+            <th class="text-center">Số lượng </th>
+            <th class="text-center ">Đơn giá </th>
+            <th class="text-center ">Thành tiền (VNĐ)</th>
             <th class="text-center ">Ghi chú</th>
             <th class="text-center">Thao tác</th>
         </tr>
@@ -48,20 +44,36 @@
                     (click)="LuaChonVatTu(item)"></button>
             </td>
         </tr>
-       <ng-container *ngFor="let vattu of item.listVatTu">
-        <tr >
-            <td></td>
-            <td></td>
-            <td style="padding-left: 50px;">{{vattu.TenVatTu}}</td>
-            <td class=" text-right" >
-                <p-inputNumber [minFractionDigits]="0.0" [(ngModel)]="vattu.SoLuong" (onBlur)="TinhTong()"></p-inputNumber>
-            </td>
-            <td class=" text-right">{{vattu.GiaTri | number:'0.0-0'}}</td>
-            <td class=" text-right">{{vattu.ThanhTien | number:'0.0-0'}}</td>
-            <td class=" text-left"><input type="text" class="p-inputtext-sm" [(ngModel)]="vattu.GhiChu" pInputText /> </td>
-            <td></td>
-        </tr>
-       </ng-container>
-       
+        <ng-container *ngFor="let vattu of item.listVatTu; let a = index">
+            <tr>
+                <td class="text-center">
+                    {{i + 1 + '.' + (a+1)}}
+                </td>
+                <td style="padding-left: 50px;"> {{vattu.MaVatTu}}</td>
+                <td style="padding-left: 50px;">{{vattu.TenVatTu}}</td>
+                <td class=" text-right">
+                    <!-- <p-inputNumber [minFractionDigits]="0.0" [(ngModel)]="vattu.SoLuong" (onBlur)="TinhTong()">
+                    </p-inputNumber> -->
+                    <!-- <input min='0' mode="decimal" type="number" class="p-inputtext-sm" [(ngModel)]="item.ThuTu"
+                        onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                        pInputText> -->
+                    <p-inputNumber min='0' [(ngModel)]="vattu.SoLuong" (onBlur)="TinhTong()" mode="decimal" locale="en-US"></p-inputNumber>
+                </td>
+                <td class=" text-right">
+                    <p-inputNumber inputId="locale-us" mode="decimal" min='0' locale="en-US" styleClass="p-inputtext-sm"
+                        [(ngModel)]="vattu.GiaTri">
+                    </p-inputNumber>
+                </td>
+                <td class=" text-right">{{vattu.ThanhTien | number:'0.0-0'}}</td>
+                <td class=" text-left"><input type="text" class="p-inputtext-sm" [(ngModel)]="vattu.GhiChu"
+                        [ngbTooltip]="vattu.GhiChu" pInputText /> </td>
+                <td class="text-center">
+                    <button pButton pRipple icon="pi pi-trash"
+                        class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2" (click)="delete(i)"
+                        pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
+                </td>
+            </tr>
+        </ng-container>
+
     </ng-template>
 </p-table>

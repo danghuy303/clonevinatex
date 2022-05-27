@@ -142,11 +142,12 @@ export class DanhmucmucdouutienComponent implements OnInit {
       size: 'md',
       backdrop: 'static',
     })
+    modalRef.componentInstance.type = "excel";
+    modalRef.componentInstance.single = true;
+    modalRef.componentInstance.onlyExcel = true;
     modalRef.result
       .then((res: any) => {
         this.fileUpload = res;
-        console.log(this.fileUpload);
-        
         this._danhMucTaiSan.DanhMucMucDoUuTien().Importdm(this.fileUpload[0].Name).subscribe(()=>{
           this.resetFilter();
         })

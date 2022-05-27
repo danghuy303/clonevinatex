@@ -61,7 +61,7 @@
                 </td>
                 <td class="text-right">{{chiphi.GiatriKeHoach | number: '0.0-0'}}</td>
                 <td>
-                    <p-inputNumber inputId="integeronly" locale="en-US" [(ngModel)]="chiphi.GiaTri" placeholder="Giá trị thực tế"
+                    <p-inputNumber inputId="integeronly" min="0" locale="en-US" [(ngModel)]="chiphi.GiaTri" placeholder="Giá trị thực tế"
                         (onBlur)="Count()"></p-inputNumber>
                 </td>
                 <td>

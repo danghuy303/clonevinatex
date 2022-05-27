@@ -139,10 +139,13 @@ export class LoaisucoComponent implements OnInit {
       size: 'md',
       backdrop: 'static',
     })
+    modalRef.componentInstance.type = "excel";
+    modalRef.componentInstance.single = true;
+    modalRef.componentInstance.onlyExcel = true;
     modalRef.result
       .then((res: any) => {
         this.fileUpload = res;
-        this._danhMucTaiSan.DanhMucLoaiSuCo().Importdm(this.fileUpload[0]).subscribe(()=>{
+        this._danhMucTaiSan.DanhMucLoaiSuCo().Importdm(this.fileUpload[0].Name).subscribe(()=>{
           this.resetFilter();
         })
       })
