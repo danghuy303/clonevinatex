@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreBase } from 'src/app/services/storebase.class';
 import { ModalthongkechitieuclassimatComponent } from '../modalthongkechitieuclassimat/modalthongkechitieuclassimat.component';
@@ -36,6 +36,7 @@ export class ThongkechitieuclassimatComponent extends StoreBase implements OnIni
       width: 'unset'
     }
   ];
+  listPhanXuong:any=[];
   isCheckModal: any = false;
   eAction = 'KIEMTRACHATLUONGCLASIMAT'
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
@@ -47,6 +48,9 @@ export class ThongkechitieuclassimatComponent extends StoreBase implements OnIni
       if (res.id !== '0') {
         this.update(res.id);
       }
+    })
+    this._service.GetListdmPhanXuongOpt().subscribe((res:any)=>{
+      this.listPhanXuong = mapArrayForDropDown(res, "Ten", "Id");
     })
   }
   changeParam(id) {
@@ -111,6 +115,7 @@ export class ThongkechitieuclassimatComponent extends StoreBase implements OnIni
       sFilter: this.filter.KeyWord,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
+      IddmPhanXuong:this.filter.IddmPhanXuong,
       Ma: "",
       Ten: "",
     }

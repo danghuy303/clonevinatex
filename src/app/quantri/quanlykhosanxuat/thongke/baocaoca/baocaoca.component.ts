@@ -19,7 +19,13 @@ export class BaocaocaComponent extends StoreBase implements OnInit {
   listPhanXuong: any = [];
   listCaSanXuat:any=[];
   listCaSanXuatThucTe:any=[];
-  item: any = {};
+  item: any = {
+    itemCongDoan_BongChai:{},
+    itemCongDoan_GhepTho:{},
+    itemCongDoan_Ong:{},
+    itemCongDoan_Con:{},
+    itemCongDoan_ThayTho:{},
+  };
   constructor(public store: StoreService, public _services: SanXuatService, public toastr: ToastrService) {
     super(store)
   }
@@ -44,12 +50,10 @@ export class BaocaocaComponent extends StoreBase implements OnInit {
     })
     
   }
-  
-  
+
   getBaoCaoCa() {
     this.filter.Ngay = DateToUnix(this.filter.NgayChon);
     this._services.BaoCaoCa().Get(this.filter).subscribe(res => {
-      console.log(res)
       this.item = res;
     })
   }

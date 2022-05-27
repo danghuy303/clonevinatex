@@ -108,6 +108,7 @@ import { DinhmucchitieuclassimatComponent } from "./danhmuc/dinhmucchitieuclassi
 import { ThongkechitieuloicatComponent } from "./quanlykhosanxuat/thongke/thongkechitieuloicat/thongkechitieuloicat.component";
 import { ThongkechitieuclassimatComponent } from "./quanlykhosanxuat/thongke/thongkechitieuclassimat/thongkechitieuclassimat.component";
 import { BaocaocaComponent } from "./quanlykhosanxuat/thongke/baocaoca/baocaoca.component";
+import { TyLeTieuChuanBongHoiComponent } from "./danhmuc/danhmucsanxuat/ty-le-tieu-chuan-bong-hoi/ty-le-tieu-chuan-bong-hoi.component";
 
 const routes: Routes = [
   {
@@ -207,6 +208,10 @@ const routes: Routes = [
       {
         path: "danhmucsanxuat/tyletieuchuanbongphe",
         component: TyLeTieuChuanBongPheComponent,
+      },
+      {
+        path: "danhmucsanxuat/tyletieuchuanbonghoi",
+        component: TyLeTieuChuanBongHoiComponent,
       },
       {
         path: "theodoithongkebaocaosanxuat/thongkedien/:id",

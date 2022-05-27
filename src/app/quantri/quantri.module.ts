@@ -295,6 +295,7 @@ import { GhepthoBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/gh
 import { MayongBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/mayong-baocaoca/mayong-baocaoca.component';
 import { SoiconBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/soicon-baocaoca/soicon-baocaoca.component';
 import { ThaythoBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/thaytho-baocaoca/thaytho-baocaoca.component';
+import { TyLeTieuChuanBongHoiComponent } from './danhmuc/danhmucsanxuat/ty-le-tieu-chuan-bong-hoi/ty-le-tieu-chuan-bong-hoi.component';
 
 
 @NgModule({
@@ -541,6 +542,7 @@ import { ThaythoBaocaocaComponent } from './quanlykhosanxuat/thongke/baocaoca/th
     MayongBaocaocaComponent,
     SoiconBaocaocaComponent,
     ThaythoBaocaocaComponent,
+    TyLeTieuChuanBongHoiComponent,
   ],
   imports: [
     HttpClientModule,

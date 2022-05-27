@@ -354,12 +354,12 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
         { Ten: 'Điện AC | khí nén', TieuHao: "KwH", DonVi: 'KW', ManHinh: `${this._formatN(res.DienAC_KW)} | ${this._formatN(res.DienKhiNen_KW)}` },
         { Ten: 'Tổng điện', TieuHao: "KwH", DonVi: 'KW', ManHinh: this._formatN(res.TongDien_KW), button: 'xuatexceltongdien', button2: 'bieudotongdien' },
         { Ten: 'Tỷ lệ điện AC | Khí nén (3)/(4)', TieuHao: '%', DonVi: '%', ManHinh: `${this._formatN(res.DienAC_PhanTram)} | ${this._formatN(res.DienKhiNen_PhanTram)}` },
-        { Ten: 'Tiêu hao BQ | BQ theo ca', TieuHao: 'KwH', DonVi: 'KwH/kg', ManHinh: `${this._formatN(res.TieuHaoDienBinhQuan)} | ${this._formatN(res.TieuHaoDienBinhQuan_TrenCa)}` },
+        { Ten: 'Tiêu hao BQ', TieuHao: 'KwH', DonVi: 'KwH/kg', ManHinh: `${this._formatN(res.TieuHaoDienBinhQuan)}` },
       ]
       this.thongKes1 = [
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },
         { Ten: 'Sản lượng quy Ne 30(kg):', GiaTri: res.SanLuongQuyNe30 },
-        { Ten: 'Sản lượng quy Ne 30/ca:', GiaTri: res.SanLuongQuyNe30_TrenCa },
+        { Ten: 'Sản lượng quy Ne 30/ca:', GiaTri: res.SanLuongQuyNe30_TrenCa,isRed:(res.SanLuongQuyNe30_TrenCa < res.SanLuongQuyNe30_TrenCa_TieuChuan) },
         (this.filter.IddmCaSanXuatThucTe !== '')&&{ Ten: 'Sản lượng quy Ne 30 theo ca:', GiaTri: res.SanLuongQuyNe30_TheoKip },
         { Ten: 'Lũy kế quy Ne 30(kg):', GiaTri: res.LuyKeQuyNe30 },
         { Ten: 'Tỷ lệ sợi cắt (%):', GiaTri: res.TyLeSoiCat },

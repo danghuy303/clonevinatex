@@ -14,7 +14,7 @@
     <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tình hình hoạt động trong ca:</label>
         <div class="p-col-12 p-lg-10 p-p-0">
-            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TinhHinhHoatDongTrongCa" pInputText />
         </div>
     </div>
     <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row"
@@ -27,6 +27,12 @@
                 [maxFractionDigits]="2" locale="en-EN" [(ngModel)]="product.TinhHinhHoatDong_Double"></p-inputNumber>
         </div>
     </div>
+    <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
+        <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
+        <div class="p-col-12 p-lg-10 p-p-0">
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+        </div>
+    </div>
 </div>
 <hr>
 <div class="p-grid">
@@ -34,7 +40,7 @@
         <p-table [value]="item.lstMatHangBongPhe">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Mặt hàng</th>
+                    <!-- <th>Mặt hàng</th> -->
                     <th>Loại phế</th>
                     <th>Công đoạn</th>
                     <th>Khối lượng</th>
@@ -43,7 +49,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-product>
                 <tr>
-                    <td>{{product.TendmMatHang}}</td>
+                    <!-- <td>{{product.TendmMatHang}}</td> -->
                     <td>{{product.TendmLoaiBongPhe}}</td>
                     <td>{{product.TendmCongDoan}}</td>
                     <td>

@@ -18,6 +18,7 @@ export class DmkhunggiomodalComponent implements OnInit {
   listmaybienap: any = [];
   khongclicknhieu: any = false;
   listLoaiKhungGio: any = [];
+  listCaLamViec: any = [];
   listKhungGioRef: any = [];
   nhomKhungGioSelected: any = [];
 
@@ -27,6 +28,10 @@ export class DmkhunggiomodalComponent implements OnInit {
     let data: any = {};
     this.sanXuatService.ThongKeDien().GetDanhSachLoaiKhungGio(data).subscribe((res: any) => {
       this.listLoaiKhungGio =  mapArrayForDropDown(res,'Ten', 'Id');
+    })
+    this.sanXuatService.GetListOptdmCaSanXuat().subscribe((res: any) => {
+      console.log(res);
+      this.listCaLamViec =  mapArrayForDropDown(res,'Ten', 'Id');
     })
   }
 

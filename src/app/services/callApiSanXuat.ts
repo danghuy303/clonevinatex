@@ -2504,6 +2504,17 @@ export class SanXuatService {
             }
         }
     }
+    TyLeTieuChuanBongHoi() {
+        let url = API.SCMDanhMuc;
+        return {
+            Get: (Nam, Thang) => {
+                return this.http.get(url + `GetDanhSachTieuChuanBongHoiHangThang?Nam=${Nam}&Thang=${Thang}`, httpOptions)
+            },
+            Set: (data) => {
+                return this.http.post(url + 'SetDanhSachTieuChuanBongHoiHangThang', data, httpOptions);
+            }
+        }
+    }
     DanhMucSuCoMay() {
         let url = API.SCMDanhMuc;
         return {
