@@ -57,6 +57,7 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
   getPhieuThongKeThoiGianDungMay() {
     this.filter.Ngay = DateToUnix(this.filter.NgayChon);
     this._services.ThongKeThoiGianDungMay().Get(this.filter).subscribe(res => {
+      // res.lstMay = res.lstMay.filter(ele=>ele.)
       this.item = res;
       setTimeout(() => {
         document.querySelector('div.pintable-container tbody').scrollTo(0,0)
@@ -68,7 +69,7 @@ export class ThongkethoigiandungmayComponent extends StoreBase implements OnInit
     this.item.IddmCaSanXuat = this.filter.IddmCaSanXuat;
     this.item.IddmCaSanXuatThucTe = this.filter.IddmCaSanXuatThucTe;
     this._services.ThongKeThoiGianDungMay().Set(this.item).subscribe(res => {
-      console.log(res);
+      console.log(res)
       this.getPhieuThongKeThoiGianDungMay();
     })
   }

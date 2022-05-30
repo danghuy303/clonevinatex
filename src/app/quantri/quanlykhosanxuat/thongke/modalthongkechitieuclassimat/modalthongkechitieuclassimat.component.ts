@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -6,6 +6,7 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { maskOption, vn } from 'src/app/services/const';
 import { UnixToDate, DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { PintableDirective } from 'voi-lib';
 import { ChatluongsoimathangmodalComponent } from '../../quytrinh/chatluongsoimathangmodal/chatluongsoimathangmodal.component';
 
 @Component({
@@ -14,6 +15,7 @@ import { ChatluongsoimathangmodalComponent } from '../../quytrinh/chatluongsoima
   styleUrls: ['./modalthongkechitieuclassimat.component.css']
 })
 export class ModalthongkechitieuclassimatComponent implements OnInit {
+  @ViewChild('voiPintable') voiPintable: PintableDirective;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -51,6 +53,9 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
       this.item.NgayKiemTra = UnixToDate(this.item.NgayKiemTraUnix);
     }
     this.getListdmPhanXuong();
+  }
+  ngAfterViewInit(): void {
+    this.voiPintable.active();
   }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
@@ -96,6 +101,7 @@ export class ModalthongkechitieuclassimatComponent implements OnInit {
             res.objectReturn.NgayKiemTra = UnixToDate(res.objectReturn.NgayKiemTraUnix);
             this.item = res.objectReturn;
             this.KiemTraButtonModal();
+            this.voiPintable.active();
           } else {
             this.toastr.error(res.message);
           }

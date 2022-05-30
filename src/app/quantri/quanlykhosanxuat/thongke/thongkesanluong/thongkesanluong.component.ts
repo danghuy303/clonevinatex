@@ -115,6 +115,7 @@ export class ThongkesanluongComponent extends StoreBase implements OnInit,OnDest
   }
   update(Id){
     this._service.ThongKeSanLuong().Get(Id).subscribe((res1: any) => {
+      
     let modalRef = this._modal.open(ThongkesanluongmodalComponent, {
       size: 'fullscreen',
       backdrop: 'static'

@@ -30,7 +30,7 @@ export class SoiConTongHopComponent extends StoreBase implements OnInit {
 
   ngOnInit(): void {
     let date = new Date();
-    this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), 1);
+    this.filter._tuNgay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     this.filter._denNgay = new Date(date.getFullYear(), date.getMonth() , date.getDate());
     this.GetCurrentTime();
     this.GetTimeForDropDown();

@@ -14,13 +14,12 @@
         inputId="icon" placeholder="Từ ngày" (onSelect)="GetBaoCao()">
       </p-calendar>
     </div>
-    <div class="p-mr-2">
+    <!-- <div class="p-mr-2">
       <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true" [(ngModel)]="filter._denNgay"
         inputId="icon" placeholder="Đến ngày" (onSelect)="GetBaoCao()">
       </p-calendar>
-    </div>
+    </div> -->
   </div>
-
   <div>
     <p-table [value]="items" [columns]="cols" styleClass="p-datatable-sm p-datatable-gridlines">
       <ng-template pTemplate="colgroup" let-columns>
@@ -37,13 +36,14 @@
       </ng-template>
       <ng-template pTemplate="body" let-item let-columns="columns">
         <tr>
-          <td *ngFor="let giatri of item.listGiaTriCot" [ngClass]="{'text-right': giatri.LoaiGiaTri==='DOUBLE'}">
+          <td *ngFor="let giatri of item.listGiaTriCot;let i =index"
+            [ngClass]="[(giatri.LoaiGiaTri==='DOUBLE'||giatri.LoaiGiaTri==='INT')?'text-right bg-white':(i===0 ? ' text-left bg-white ' : 'text-center bg-white' )]">
             <span *ngIf="giatri.LoaiGiaTri==='STRING'">{{giatri.GiaTri_String}}</span>
             <span *ngIf="giatri.LoaiGiaTri==='DOUBLE'">{{giatri.GiaTri_Double|number:'0.0-3'}}</span>
+            <span *ngIf="giatri.LoaiGiaTri==='INT'">{{giatri.GiaTri_Int|number:'0.0-0'}}</span>
           </td>
         </tr>
       </ng-template>
     </p-table>
   </div>
-
 </div>

@@ -1,0 +1,52 @@
+<div class="p-mb-3 p-mt-3">
+    <h4 style="color:#1f2779">Tỷ lệ tiêu chuẩn bông hồi</h4>
+  </div>
+<div class="p-d-flex">
+    <div class="p-d-flex flex-column flex-lg-row p-pl-3" style="width: 100%;">
+        <div>
+            <p-dropdown [options]="listThang" styleClass="p-inputtext-sm" [(ngModel)]="Thang"
+                (onChange)="GetTyLeTieuChuan()"></p-dropdown>
+        </div>
+        <div>
+            <p-dropdown [options]="listNam" styleClass="p-inputtext-sm" [(ngModel)]="Nam"
+                (onChange)="GetTyLeTieuChuan()"></p-dropdown>
+        </div>
+        <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm " (click)="GhiLai()"></button>
+    </div>
+</div>
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-table [value]="items.listLoaiBongHoi" styleClass="p-datatable-sm p-datatable-gridlines wrap-text minimize-font">
+            <ng-template pTemplate="colgroup">
+
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 50px;" rowspan="2">STT</th>
+                    <th rowspan="2">Bông hồi</th>
+                    <!-- <th rowspan="2">Công đoạn</th> -->
+                    <th [attr.colspan]="listPhanXuong.length">Tiêu chuẩn</th>
+                </tr>
+                <tr>
+                    <th *ngFor="let px of listPhanXuong">{{px}}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="rowIndex">
+                <ng-container>
+                    <tr>
+                        <td class="text-center">{{i+1}}</td>
+                        <td>{{item.TenLoaiBongHoi}}
+                        </td>
+                        <!-- <td class="text-right">
+                        </td> -->
+                        <td class="text-right" *ngFor="let px of listPhanXuong;let indexPX = index">
+                            <p-inputNumber [minFractionDigits]="3" locale="en-EN"
+                                [(ngModel)]="item.listTieuChuan[indexPX].DinhMucTieuChuan">
+                            </p-inputNumber>
+                        </td>
+                    </tr>
+                </ng-container>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

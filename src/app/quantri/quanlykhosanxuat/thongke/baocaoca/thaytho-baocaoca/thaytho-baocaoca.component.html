@@ -1,11 +1,11 @@
 <div class="p-grid">
-    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+    <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Lao động:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.SoLaoDong" pInputText />
         </div>
     </div>
-    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-lg-row">
+    <div class="p-col-12 p-lg-6 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổ trưởng:</label>
         <div class="p-col-12 p-lg-8 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.ToTruong" pInputText />
@@ -14,7 +14,7 @@
     <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
         <label class="p-col-12 p-lg-2 p-p-0 my-auto">Tình hình hoạt động trong ca:</label>
         <div class="p-col-12 p-lg-10 p-p-0">
-            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.TinhHinhHoatDongTrongCa" pInputText />
         </div>
     </div>
     <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row"
@@ -25,6 +25,12 @@
                 [(ngModel)]="tinhhinh.TinhHinhHoatDong_String" pInputText />
             <p-inputNumber *ngIf="tinhhinh.LoaiDuLieu === 'double'" mode="decimal" [minFractionDigits]="2"
                 [maxFractionDigits]="2" locale="en-EN" [(ngModel)]="tinhhinh.TinhHinhHoatDong_Double"></p-inputNumber>
+        </div>
+    </div>
+    <div class="p-col-12 p-lg-12 p-p-3 d-flex flex-column flex-lg-row">
+        <label class="p-col-12 p-lg-2 p-p-0 my-auto">Ghi chú:</label>
+        <div class="p-col-12 p-lg-10 p-p-0">
+            <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
         </div>
     </div>
 </div>
