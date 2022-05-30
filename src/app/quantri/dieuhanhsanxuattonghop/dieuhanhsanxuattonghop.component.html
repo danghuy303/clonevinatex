@@ -105,10 +105,12 @@
                 <div class="p-col-12 p-xl-4 p-lg-4 p-p-3 text-center">
                     <div style="display: flex;flex-direction: column;flex:1;overflow: hidden;">
                         <ng-container *ngFor="let thongke of thongKes1">
-                            <div class="d-flex flex-row p-jc-between p-pt-2" *ngIf="thongke">
-                                <div>{{thongke.Ten}}</div>
-                                <div>{{thongke.GiaTri|number:'0.3-3'}}</div>
-                            </div>
+                            <ng-container *ngIf="thongke">
+                                <div class="d-flex flex-row p-jc-between p-pt-2" [ngClass]="{'canhbao': thongke.isRed}">
+                                    <div>{{thongke.Ten}}</div>
+                                    <div>{{thongke.GiaTri|number:'0.3-3'}}</div>
+                                </div>
+                            </ng-container>
                         </ng-container>
                     </div>
                     <p-button styleClass="p-button-sm ml-1" (click)="bieuDoTyLeThongKeSanLuong()">Tỷ lệ tiêu hao
@@ -466,7 +468,8 @@
             <strong>Lũy kế điện GY:</strong> &nbsp; {{ThongTinLuyKeDien.TongSoDienGY_LuyKe|number:'0.0'}} Kwh
         </div>
         <div style="display:flex; align-items: center;">
-            <strong>Tiêu hao điện bình quân (tháng):</strong> &nbsp; {{ThongTinLuyKeDien.TongSoDien_QuyNE|number:'0.0'}} Kwh
+            <strong>Tiêu hao điện bình quân (tháng):</strong> &nbsp; {{ThongTinLuyKeDien.TongSoDien_QuyNE|number:'0.0'}}
+            Kwh
         </div>
     </div>
     <div class="responsiveChart">
@@ -490,7 +493,8 @@
                     <tr>
                         <td>{{thongke.Ten}}
                         </td>
-                        <td class="text-right" [ngStyle]="{'color': thongke.GiaTriTyLe>thongke.TieuChuanTyLe?'red':'black'}">
+                        <td class="text-right"
+                            [ngStyle]="{'color': thongke.GiaTriTyLe>thongke.TieuChuanTyLe?'red':'black'}">
                             {{thongke.GiaTriTyLe |number:'0.3-3'}}
                             <!-- <div *ngIf="thongke.TieuHao!='KwH'&&thongke.TieuHao!='%'; else elseTieuHao">
                             {{thongke.TieuHao|number:'0.0-3'}}

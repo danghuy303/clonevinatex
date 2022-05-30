@@ -27,8 +27,6 @@ export class DenghixulysuconhancongComponent implements OnInit {
       this.items = [];
     this.items.push(this.newitem);
     this.newitem = {}
-    console.log("this.items", this.items);
-    
   }
 
   delete(index) {

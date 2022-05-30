@@ -40,23 +40,23 @@
                 <th class="text-center">Tên</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body"  let-item let-i="rowIndex">
+        <ng-template pTemplate="body" let-item let-i="rowIndex">
             <tr>
                 <td class="text-center">
                     <p-checkbox [(ngModel)]="item.checked" binary="true" inputId="binary" (onChange)="checked()">
                     </p-checkbox>
                 </td>
-                <td style="width: 150px;">
+                <td  class="text-center" style="width: 150px;">
                     {{item.Ma}}
                 </td>
-                <td>  {{item.TenTaiSan}}</td>
+                <td  class="text-center"> {{item.TenTaiSan}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between">
+            <!-- <div class="p-d-flex p-ai-center p-jc-between">
                 Tổng số bản ghi {{paging.TotalCount}}.<p-paginator #paginator [totalRecords]="paging.TotalCount"
                     [rows]="20" (onPageChange)="changePage($event)"></p-paginator>
-            </div>
+            </div> -->
         </ng-template>
     </p-table>
 </div>

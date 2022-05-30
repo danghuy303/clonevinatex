@@ -91,9 +91,9 @@ export class SanluongComponent implements OnInit, OnDestroy {
     tooltips: {
       callbacks: {
         label: function (tooltipItem, data) {
-          console.log(tooltipItem, data);
+          // console.log(tooltipItem, data);
           if (tooltipItem.datasetIndex === 1) {
-            return `${formatNumber(tooltipItem.yLabel, 'en-EN')} kg - ${formatNumber(Math.ceil(tooltipItem.yLabel / data.datasets[0].data[tooltipItem.index] * 10000) / 100, 'en-EN')}%`
+            return `${formatNumber(tooltipItem.yLabel, 'en-EN')} kg - ${formatNumber(Math.ceil(tooltipItem.yLabel / data.datasets[0].data[tooltipItem.index] * 10000) / 100, 'en-EN')}% - Max: ${data.datasets[1].TocDoMax[tooltipItem.index]} - TB: ${data.datasets[1].TocDoTrungBinh[tooltipItem.index]}`
           } else {
             return `${formatNumber(tooltipItem.yLabel, 'en-EN')} kg`
           }
@@ -229,6 +229,8 @@ export class SanluongComponent implements OnInit, OnDestroy {
               label: 'Sản lượng thực tế',
               backgroundColor: '#3c5cbb',
               data: res.map(ele => Math.round(ele.ThucTe)),
+              TocDoMax:res.map(ele => Math.round(ele.TocDoMax)),
+              TocDoTrungBinh:res.map(ele => Math.round(ele.TocDoTrungBinh)),
               borderColor: 'white',
             },
           ]

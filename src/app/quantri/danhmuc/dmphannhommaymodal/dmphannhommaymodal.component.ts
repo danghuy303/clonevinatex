@@ -167,7 +167,7 @@ export class DmphannhommaymodalComponent implements OnInit {
   }
 
   resetFilter() {
-
+    this.filter.KeyWord = null;
   }
 
   DanhSachHang() {
@@ -283,7 +283,7 @@ export class DmphannhommaymodalComponent implements OnInit {
 
   tinhNangSuatLyThuyet() {
     if (this.item.lstdmItem.length > 0) {
-      if (this.item.CongDoan == "BONGCHAI" || this.item.CongDoan == "CHAITHO" || this.item.CongDoan == "XOCHAI" || this.item.CongDoan == "CUONCUI" || this.item.CongDoan == "DAYBONG" || this.item.CongDoan == "DAYPE" || this.item.CongDoan == "CHAICOTTON" || this.item.CongDoan == "CHAIPE") {
+      if (this.item.CongDoan == "BONGCHAI" || this.item.CongDoan == "CHAITHO" || this.item.CongDoan == "XOCHAI" || this.item.CongDoan == "CUONCUI" || this.item.CongDoan == "DAYBONG" || this.item.CongDoan == "DAYPE" || this.item.CongDoan == "CHAICOTTON" || this.item.CongDoan == "CHAIPE" || this.item.CongDoan == "CHAIPC") {
         this.item.lstdmItem.forEach(obj => {
           if ((validVariable(obj.TocDo)) && (validVariable(obj.Nm))) {
             obj.NangSuat = obj.TocDo * (this.item.TocDoQuay || 0) / obj.Nm / 1000 * (this.item.HeSo || 0);
@@ -337,7 +337,7 @@ export class DmphannhommaymodalComponent implements OnInit {
 
   item_tinhNangSuatLyThuyet() {
     if (this.newTableItem.Id != undefined) {
-      if (this.item.CongDoan == "BONGCHAI" || this.item.CongDoan == "CHAITHO" || this.item.CongDoan == "XOCHAI" || this.item.CongDoan == "CUONCUI" || this.item.CongDoan == "DAYBONG" || this.item.CongDoan == "DAYPE" || this.item.CongDoan == "CHAICOTTON" || this.item.CongDoan == "CHAIPE") {
+      if (this.item.CongDoan == "BONGCHAI" || this.item.CongDoan == "CHAITHO" || this.item.CongDoan == "XOCHAI" || this.item.CongDoan == "CUONCUI" || this.item.CongDoan == "DAYBONG" || this.item.CongDoan == "DAYPE" || this.item.CongDoan == "CHAICOTTON" || this.item.CongDoan == "CHAIPE" || this.item.CongDoan == "CHAIPC") {
         if ((validVariable(this.newTableItem.TocDo)) && (validVariable(this.newTableItem.Nm))) {
           this.newTableItem.NangSuat = this.newTableItem.TocDo * (this.item.TocDoQuay || 0) / this.newTableItem.Nm / 1000 * (this.item.HeSo || 0);
           this.newTableItem.DinhMucNangSuat = (this.newTableItem.NangSuat * this.newTableItem.HieuSuat || 0) / 100;

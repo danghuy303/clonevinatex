@@ -138,6 +138,12 @@ export class ThongkesanluongcaComponent implements OnInit {
   }
   update(Id){
     this._service.ThongKeSanLuongNhieuCa().Get(Id).subscribe((res1: any) => {
+      res1.listThongKeSanLuong.forEach(thongke => {
+        thongke.listItem.forEach(may => {
+          may.IddmCaSanXuat = thongke.IddmCaSanXuat
+        });
+      });
+      console.log(res1);
     let modalRef = this._modal.open(ThongkesanluongcamodalComponent, {
       size: 'fullscreen-100',
       backdrop: 'static'

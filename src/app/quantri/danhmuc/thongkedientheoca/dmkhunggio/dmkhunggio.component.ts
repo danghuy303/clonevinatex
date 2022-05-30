@@ -65,7 +65,7 @@ export class DmkhunggioComponent implements OnInit {
       backdrop: 'static'
     });
     modalRef.componentInstance.opt = 'add';
-    modalRef.componentInstance.title = 'Thêm mới danh mục nhóm công tơ';
+    modalRef.componentInstance.title = 'Thêm mới danh mục khung giờ';
     modalRef.result.then(res => {
       this._toastr.success(res);
       this.GetList()

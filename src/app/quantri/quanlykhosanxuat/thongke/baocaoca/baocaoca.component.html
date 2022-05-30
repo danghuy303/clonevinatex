@@ -9,22 +9,22 @@
     <div class="d-flex flex-column flex-lg-row">
         <div class="p-mr-2">
             <p-dropdown [options]="listCaSanXuat" placeholder="Ca sản xuất" styleClass="p-inputtext-sm"
-                [(ngModel)]="filter.IddmCaSanXuat" [showClear]="false"></p-dropdown>
+                [(ngModel)]="filter.IddmCaSanXuat" [showClear]="false" (onChange)="getBaoCaoCa()"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-dropdown [options]="listCaSanXuatThucTe" placeholder="Chọn ca sản xuất thực tế"
-                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmCaSanXuatThucTe" [showClear]="false"></p-dropdown>
+                styleClass="p-inputtext-sm" [(ngModel)]="filter.IddmCaSanXuatThucTe" [showClear]="false" (onChange)="getBaoCaoCa()"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
                 [(ngModel)]="filter.NgayChon" inputId="icon" placeholder="Ngày"
-                (onSelect)="getPhieuThongKeThoiGianDungMay()">
+                (onSelect)="getBaoCaoCa()">
             </p-calendar>
         </div>
         <div class="p-mr-2">
             <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
                 [(ngModel)]="filter.IddmPhanXuong" styleClass="p-inputtext-sm"
-                (onChange)="getPhieuThongKeThoiGianDungMay()" [showClear]="false" [filter]="true"></p-dropdown>
+                (onChange)="getBaoCaoCa()" [showClear]="false" [filter]="true"></p-dropdown>
         </div>
     </div>
 </div>

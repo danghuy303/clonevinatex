@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
@@ -6,6 +6,7 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { maskOption, vn } from 'src/app/services/const';
 import { UnixToDate, DateToUnix, mapArrayForDropDown, validVariable } from 'src/app/services/globalfunction';
+import { PintableDirective } from 'voi-lib';
 import { ChatluongsoimathangmodalComponent } from '../../quytrinh/chatluongsoimathangmodal/chatluongsoimathangmodal.component';
 
 @Component({
@@ -13,7 +14,8 @@ import { ChatluongsoimathangmodalComponent } from '../../quytrinh/chatluongsoima
   templateUrl: './modalthongkechitieuloicat.component.html',
   styleUrls: ['./modalthongkechitieuloicat.component.css']
 })
-export class ModalthongkechitieuloicatComponent implements OnInit {
+export class ModalthongkechitieuloicatComponent implements OnInit,AfterViewInit {
+  @ViewChild('voiPintable') voiPintable:PintableDirective;
   opt: any = ''
   item: any = {};
   checkbutton: any = {
@@ -39,12 +41,12 @@ export class ModalthongkechitieuloicatComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userInfo = this._auth.currentUserValue;
     if (this.opt !== 'edit') {
       this.GetNextSoQuyTrinh();
       this.getDanhSachChiTieuChatLuong();
     }
     else{
-    this.userInfo = this._auth.currentUserValue;
     this.KiemTraButtonModal();
     }
     if (this.item.NgayKiemTraUnix !== null && this.item.NgayKiemTraUnix !== undefined) {
@@ -52,11 +54,15 @@ export class ModalthongkechitieuloicatComponent implements OnInit {
     }
     this.getListdmPhanXuong();
   }
+  ngAfterViewInit(): void {
+      this.voiPintable.active();
+  }
   KiemTraButtonModal() {
     this.services.KiemTraButton(this.item.Id || '', this.item.IdTrangThai || '').subscribe(res => {
       this.checkbutton = res;
-      if(this.item.CreatedBy == this.userInfo.Id)
+      if(this.item.CreatedBy == this.userInfo.Id){
         this.checkbutton.Ghi = true;
+      }
     })
   }
 
@@ -100,6 +106,7 @@ export class ModalthongkechitieuloicatComponent implements OnInit {
             res.objectReturn.NgayKiemTra = UnixToDate(res.objectReturn.NgayKiemTraUnix);
             this.item = res.objectReturn;
             this.KiemTraButtonModal();
+            this.voiPintable.active();
           } else {
             this.toastr.error(res.message);
           }

@@ -76,7 +76,66 @@
                         (click)="GetMatHangTheoKho()"></button>
                 </div>
             </div>
-            <p-table [value]="item.lstSanPham" styleClass="p-datatable-sm wrap-text p-datatable-gridlines"
+            <div class="p-col-12 p-p-0 pintable-container"
+                style="height: calc(80vh - 191px) !important; background-color: #fff;" voiPintable [pinnedCols]="3">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="display: none;"></th>
+                            <th class="text-center tc-w-200" colspan="2">STT</th>
+                            <th class="text-center tc-w-250">Loại sợi</th>
+                            <th *ngFor="let ban of item.lstDanhMuc" class="tc-w-150">
+                                {{ban.Ten}}
+                                <ng-container *ngIf="ban.isTong"><br>(Tổng)</ng-container>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let loaisoi of item.lstSanPham;let i = index">
+                            <tr>
+                                <td rowspan="4" class="text-center tc-w-50 bg-white">{{i+1}}</td>
+                                <td class="tc-w-150 bg-white">SL Lỗi Chỉ Tiêu</td>
+                                <td rowspan="4" class="tc-w-250 bg-white">{{loaisoi.TenMatHang}}</td>
+                                <td class="text-right tc-w-150" *ngFor="let lythuyet of loaisoi.lstChatLuongSanPham">
+                                    {{lythuyet.ChiTieuLyThuyet | number:'0.2-2'}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="display: none;"></td>
+                                <td style="display: none;"></td>
+                                <td class="bg-white">Hôm Trước</td>
+                                <td class="text-right" *ngFor="let homtruoc of loaisoi.lstChatLuongSanPham">
+                                    {{homtruoc.ChiTieuThucTe_HomTruoc | number:'0.2-2'}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="display: none;"></td>
+                                <td style="display: none;"></td>
+                                <td class="bg-white">Hôm Nay</td>
+                                <td *ngFor="let homnay of loaisoi.lstChatLuongSanPham">
+                                    <p-inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2"
+                                        locale="en-EN" [(ngModel)]="homnay.ChiTieuThucTe"
+                                        (onBlur)="tinhTong(loaisoi.lstChatLuongSanPham,homnay.NhomChiTieu)"
+                                        [disabled]="homnay.isTong"></p-inputNumber>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="display: none;"></td>
+                                <td style="display: none;"></td>
+                                <td class="bg-white">So Sánh</td>
+                                <ng-container *ngFor="let sosanh of loaisoi.lstChatLuongSanPham">
+                                    <td class="text-center"
+                                        [ngStyle]="{'background-color': sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet?'#a7d1a7':'#f59999'}">
+                                        <span *ngIf="sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet">Đạt</span>
+                                        <span *ngIf="sosanh.ChiTieuThucTe>sosanh.ChiTieuLyThuyet">K.Đạt</span>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+            <!-- <p-table [value]="item.lstSanPham" styleClass="p-datatable-sm wrap-text p-datatable-gridlines"
                 [scrollable]="true" scrollHeight="53vh" [lazy]="true">
                 <ng-template pTemplate="colgroup">
                     <colgroup>
@@ -105,20 +164,19 @@
                             <td>SL Lỗi Chỉ Tiêu</td>
                             <td rowspan="4">{{loaisoi.TenMatHang}}</td>
                             <td class="text-right" *ngFor="let lythuyet of loaisoi.lstChatLuongSanPham">
-                                {{lythuyet.ChiTieuLyThuyet | number:'0.1-1'}}
+                                {{lythuyet.ChiTieuLyThuyet | number:'0.2-2'}}
                             </td>
                         </tr>
                         <tr>
                             <td>Hôm Trước</td>
                             <td class="text-right" *ngFor="let homtruoc of loaisoi.lstChatLuongSanPham">
-                                {{homtruoc.ChiTieuThucTe_HomTruoc | number:'0.1-1'}}
+                                {{homtruoc.ChiTieuThucTe_HomTruoc | number:'0.2-2'}}
                             </td>
                         </tr>
                         <tr>
                             <td>Hôm Nay</td>
                             <td *ngFor="let homnay of loaisoi.lstChatLuongSanPham">
-                                <!-- {{homnay.ChiTieuThucTe| number:'0.1-1'}} -->
-                                <p-inputNumber mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1"
+                                <p-inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2"
                                     locale="en-EN" [(ngModel)]="homnay.ChiTieuThucTe" (onBlur)="tinhTong(loaisoi.lstChatLuongSanPham,homnay.NhomChiTieu)" [disabled]="homnay.isTong"></p-inputNumber>
                             </td>
                         </tr>
@@ -134,7 +192,7 @@
                     </ng-container>
 
                 </ng-template>
-            </p-table>
+            </p-table> -->
         </div>
     </div>
 </div>

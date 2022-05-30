@@ -10,7 +10,7 @@
         Chọn file
         <input type="file" ng2FileSelect [uploader]="uploader" multiple *ngIf="!single"/>
         <!-- <input type="file" ng2FileSelect [uploader]="uploader" *ngIf="single"/> -->
-        <input type="file" ng2FileSelect [uploader]="uploader" *ngIf="single" [accept]="onlyExcel?'.xlsx':''"/>
+        <input [disabled]="uploader?.queue?.length >= 1" type="file" ng2FileSelect [uploader]="uploader" *ngIf="single" [accept]="onlyExcel?'.xlsx':''"/>
       </div>
     </div>
   

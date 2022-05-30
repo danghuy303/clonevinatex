@@ -203,6 +203,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
+  
   ThemMoiDanhSachTaiSan() {
     if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");

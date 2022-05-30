@@ -36,6 +36,7 @@ export class BaoCaoTongHopLoiCatComponent extends StoreBase implements OnInit {
     this._services.QuyTrinhLoiCat().GetThongKe(this.filter).subscribe((res: any) => {
       if (res.State === 0) {
         this.toastr.error(res.message);
+        this.item = {};
       } else {
         res.lstSanPham.forEach(loaisoi => {
           loaisoi.lstChatLuongSanPham.forEach(chitieu=>{

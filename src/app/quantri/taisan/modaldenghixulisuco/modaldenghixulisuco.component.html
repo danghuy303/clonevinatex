@@ -43,15 +43,15 @@
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại sự cố  <span class="required">(*)</span> :</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listLoaiSuCo" placeholder="loại sự cố "
+                <p-dropdown [filter]="true" [options]="listLoaiSuCo" placeholder="Loại sự cố "
                     styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="item.IdDmLoaiSuCo">
                 </p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-3 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Độ ưu tiên  <span class="required">(*)</span> : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mức độ ưu tiên  <span class="required">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-dropdown [filter]="true" [options]="listDoUuTien" placeholder="độ ưu tiên"
+                <p-dropdown [filter]="true" [options]="listDoUuTien" placeholder="Mức độ ưu tiên"
                     styleClass="p-inputtext-sm" [showClear]="true" [filter]="true" [(ngModel)]="item.IdDoUuTien">
                 </p-dropdown>
             </div>
@@ -65,19 +65,19 @@
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Đánh giá tình trạng:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.DanhGiaTinhTrang" pInputText />
+                <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.DanhGiaTinhTrang"></textarea>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nguyên nhân:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.NguyenNhan" pInputText />
+                <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.NguyenNhan"></textarea>
             </div>
         </div>
         <div class="p-col-12 p-lg-6 p-mb-3 p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Phương án xử lý:</label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.PhuongAnXuLy" pInputText />
+                <textarea pInputTextarea class="p-inputtext-sm" [(ngModel)]="item.PhuongAnXuLy"></textarea>
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
         <p-tabPanel header="Danh sách tài sản">
             <ng-template pTemplate="content">
                 <div class="p-d-flex p-flex-row p-jc-between">
-                    <div class="modal-bt p-mb-4 ">
+                    <div class="modal-bt p-mb-2 ">
                         <button pButton pRipple type="button" label="Thêm tài sản" class="p-mr-2 p-button-sm"
                             (click)=" ThemMoiDanhSachTaiSan()"></button>
                     </div>
@@ -128,7 +128,7 @@
                             <td class="text-center">
                                 {{i + 1}}
                             </td>
-                            <td>{{item.MaTaiSan}}</td>
+                            <td>{{item.Ma}}</td>
                             <td>{{item.TenTaiSan}}</td>
                             <td class="text-center">
                                 <p-calendar [showTime]="true" dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
@@ -137,14 +137,14 @@
                             </td>
                             <td class="text-center">
                                 <p-calendar [showTime]="true" dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm"
-                                    [(ngModel)]="item.DenGio" [showIcon]="true" inputId="icon" placeholder="Đến">
+                                    [(ngModel)]="item.DenGio" [minDate]="item.TuGio" [showIcon]="true" inputId="icon" placeholder="Đến">
                                 </p-calendar>
                             </td>
                             <td class="text-center">
                                 <p-checkbox [(ngModel)]="item.isDaBaoDuong" [binary]="true"></p-checkbox>
                             </td>
                             <td>
-                                <input type="text" [(ngModel)]="item.GhiChu" pInputText />
+                                <input type="text" [(ngModel)]="item.GhiChu" [ngbTooltip]="item.GhiChu" pInputText />
                             </td>
                             <td class="text-center">
                                 <button pButton pRipple type="button" icon="pi pi-trash"

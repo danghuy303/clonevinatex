@@ -5,44 +5,57 @@
     </button>
 </div>
 <div class="modal-body">
-    <!-- <div class="p-d-flex p-flex-row p-jc-between">
-        <div class="modal-bt p-mb-4 ">
-            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
+    <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
+        <div>
+            <!-- <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="activeModal.dismiss('close')"></button>
-            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm "
-                (click)="GhiLai()"></button>
+            <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm " [style.display]="checkBtnChonTaiSan?'inline-flex' : 'none'"
+                (click)="GhiLai()"></button> -->
         </div>
-    </div>     -->
-    <p-treeTable [value]="items" styleClass="p-treetable p-treetable-caption" selectionMode="multiple" [(selection)]="selectedNodes">
+        <div class="p-d-flex p-flex-row">
+            <div class="p-mr-2 p-inputgroup">
+                <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
+                    (keyup.enter)="Loaddata()" />
+                    <button type="button" pButton pRipple icon="pi pi-search"
+                class="p-button-secondary p-button-sm p-button-text" (click)="Loaddata(true)"></button>
+                <button type="button" pButton pRipple icon="pi pi-refresh"
+                    class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
+            </div>
+        </div>
+    </div>
+    <p-treeTable [value]="items" [paginator]="true" [rows]="10" styleClass="p-treetable p-treetable-caption"
+        selectionMode="multiple" [(selection)]="selectedNodes">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
-                <col> 
                 <col>
                 <col>
-                <col>                
+                <col>
+                <!-- <col> -->
             </colgroup>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th class="text-center">
-                    <p-checkbox [(ngModel)]="checkedAll" binary="false" inputId="binaryall" (onChange)="CheckAll($event)"></p-checkbox> 
+                    <p-checkbox [(ngModel)]="checkedAll" binary="false" inputId="binaryall"
+                        (onChange)="CheckAll($event)"></p-checkbox>
                     <!-- <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>  -->
-                </th>               
+                </th>
                 <th class="text-center">Mã</th>
                 <th class="text-center">Tên</th>
                 <th class="text-center">Nguyên giá</th>
                 <th class="text-center">Giá còn lại</th>
-                <th class="text-center">Ghi chú</th>
+                <!-- <th class="text-center">Ghi chú</th> -->
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr>
                 <td class="text-center">
-                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="Checked()" *ngIf="!rowData.IdCha">
+                    <p-checkbox [(ngModel)]="rowData.checked" binary="true" inputId="binary" (onChange)="Checked()"
+                        *ngIf="!rowData.IdCha">
                     </p-checkbox>
                     <!-- <p-treeTableCheckbox *ngIf="!rowData.IdTaiSan" [value]="rowNode"></p-treeTableCheckbox> -->
-                </td>               
+                </td>
                 <td class="text-center">
                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                     {{rowData.Ma}}
@@ -54,10 +67,14 @@
                 <td class="text-right">
                     {{rowData.GiaTriConLai|number:'0.0'}}
                 </td>
-                <td>
-                    <input type="text" pInputText [(ngModel)]="rowData.GhiChu"> 
-                </td>
+                <!-- <td>
+                    <input type="text" pInputText [(ngModel)]="rowData.GhiChu">
+                </td> -->
             </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+            Tổng số bản ghi {{items?.length}}.
+
         </ng-template>
     </p-treeTable>
 
@@ -65,10 +82,9 @@
         <div class="modal-bt p-mb-4 p-d-flex p-jc-between" style="width: 100%">
             <button pButton pRipple type="button" label="Đóng" class="p-mr-2 p-button-outlined"
                 (click)="activeModal.dismiss('close')"></button>
-            <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button"
-                (click)="GhiLai()"></button>
+            <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button" (click)="GhiLai()"></button>
         </div>
-    </div>  
+    </div>
 </div>
 <!-- <div class="modal-footer">
     <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>

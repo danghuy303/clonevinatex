@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
-import { DateToUnix } from 'src/app/services/globalfunction';
+import { DateToUnix, mapArrayForDropDown } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreBase } from 'src/app/services/storebase.class';
 import { ModalthongkechitieuloicatComponent } from '../modalthongkechitieuloicat/modalthongkechitieuloicat.component';
@@ -37,7 +37,8 @@ export class ThongkechitieuloicatComponent extends StoreBase implements OnInit {
     }
   ];
   isCheckModal: any = false;
-  eAction = 'KIEMTRACHATLUONGLOICAT'
+  eAction = 'KIEMTRACHATLUONGLOICAT';
+  listPhanXuong:any=[];
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true, ThemMoi: true };
   constructor(public _modal: NgbModal, public store: StoreService, public _toastr: ToastrService, private _service: SanXuatService, private activatedRoute: ActivatedRoute, private router: Router) { super(store) }
 
@@ -47,6 +48,9 @@ export class ThongkechitieuloicatComponent extends StoreBase implements OnInit {
       if (res.id !== '0') {
         this.update(res.id);
       }
+    })
+    this._service.GetListdmPhanXuongOpt().subscribe((res:any)=>{
+      this.listPhanXuong = mapArrayForDropDown(res, "Ten", "Id");
     })
   }
   changeParam(id) {
@@ -111,6 +115,7 @@ export class ThongkechitieuloicatComponent extends StoreBase implements OnInit {
       sFilter: this.filter.KeyWord,
       TuNgay: DateToUnix(this.filter.TuNgay),
       DenNgay: DateToUnix(this.filter.DenNgay),
+      IddmPhanXuong:this.filter.IddmPhanXuong,
       Ma: "",
       Ten: "",
     }

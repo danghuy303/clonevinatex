@@ -7,7 +7,7 @@
     <div></div>
     <div class="p-d-flex p-flex-row">
         <div class="p-mr-2">
-            <p-dropdown [filter]="true" [options]="listdmPhanXuong" [(ngModel)]="filter.idBoPhan" (onChange)="Loaddata(true)" placeholder="bộ phận sử dụng" styleClass="p-inputtext-sm"></p-dropdown>
+            <p-dropdown [filter]="true" [options]="listdmPhanXuong" [showClear]="true" [(ngModel)]="filter.idBoPhan" (onChange)="Loaddata(true)" placeholder="Bộ phận sử dụng" styleClass="p-inputtext-sm"></p-dropdown>
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
@@ -16,7 +16,7 @@
         </div>
         <div class="p-mr-2">
             <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
-                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" (onSelect)="Loaddata(true)">
+                [(ngModel)]="filter.DenNgay" inputId="icon" placeholder="Đến ngày" [minDate]="filter.TuNgay" (onSelect)="Loaddata(true)">
             </p-calendar>
         </div>
         <div class="p-inputgroup" style="width: 200px;">
