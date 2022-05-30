@@ -54,7 +54,7 @@
         <div class="p-col-12 p-lg-6   d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-3 p-p-0 my-auto">Ghi chú</label>
             <div class="p-col-12 p-lg-9 p-p-0">
-                <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
+                <textarea pInputTextarea [(ngModel)]="item.GhiChu"></textarea>
             </div>
         </div>
     </div>
@@ -100,7 +100,7 @@
                         </p-inputNumber>
                     </td>
                     <td>
-                        <input type="text" class="p-inputtext-sm" [(ngModel)]="rowData.GhiChu" pInputText *ngIf="rowData.isCha" placeholder="Ghi chú"/>
+                        <input type="text" class="p-inputtext-sm" [(ngModel)]="rowData.GhiChu" pInputText [ngbTooltip]="rowData.GhiChu" *ngIf="rowData.isCha" placeholder="Ghi chú"/>
                     </td>
                     <td class="text-center" >
                         <div *ngIf="rowData.isCha">

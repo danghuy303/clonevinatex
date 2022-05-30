@@ -203,6 +203,7 @@ export class LapkehoachlichxichnamComponent implements OnInit {
       })
       .catch((er) => console.log(er));
   }
+  
   ThemMoiDanhSachTaiSan() {
     if (!validVariable(this.item.IddmLoaiTaiSan) || !validVariable(this.item.IdBoPhanSuDung) || !validVariable(this.item.Nam)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
@@ -219,8 +220,12 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     modalRef.componentInstance.checkBtnChonTaiSan = this.checkBtnChonTaiSan;
     modalRef.componentInstance.checkedAll = false;
     modalRef.result.then((res: any) => {
-      // this.item.listTaiSan = res;
-      this.item.listTaiSan = merge(res || [], this.item.listTaiSan, 'IdTaiSan').filter(ele => !ele.isXoa);
+      this.item.listTaiSan = merge(res || [], this.item.listTaiSan, 'IdTaiSan').filter(ele => !ele.isXoa)
+      console.log("huy", {
+        listTaiSan: this.item.listTaiSan,
+        res: res,
+      });
+      
       // this.checkDisableSelectMonth();
     })
       .catch((er) => {

@@ -17,7 +17,7 @@ import { TaisanService } from 'src/app/services/Taisan/taisan.service';
   templateUrl: './modalchontaisan.component.html',
   styleUrls: ['./modalchontaisan.component.css']
 })
-export class  ModalchontaisanComponent implements OnInit {
+export class ModalchontaisanComponent implements OnInit {
 
   opt: any = "";
   paging: any = {};
@@ -25,6 +25,7 @@ export class  ModalchontaisanComponent implements OnInit {
   item: any = {};
   checkedAll: boolean = false;
   listIdDaChon: string[];
+  filter: any = {};
   selectedNodes: TreeNode[] = [];
 
   constructor(
@@ -41,11 +42,16 @@ export class  ModalchontaisanComponent implements OnInit {
     this.Loaddata();
   }
 
+  resetFilter() {
+    this.filter = {};
+    this.Loaddata();
+  }
+
   Loaddata() {
     this._serviceTaiSan
       .GetTaiSanTheoLoai()
-      .GetListTaiSanChuaBanGiao(0, 0, "", "", "")
-      .subscribe((res:any) => {
+      .GetListTaiSanChuaBanGiao(0, 0, this.filter.Keyword, "", "")
+      .subscribe((res: any) => {
         this.items = res.Data.map(ele => {
           return {
             data: {
@@ -55,6 +61,7 @@ export class  ModalchontaisanComponent implements OnInit {
               Id: "",
               TenTaiSan: ele.Ten,
               MaTaiSan: ele.Ma,
+              Soluong: ele.Soluong,
             },
             children: [],
             expanded: true,
@@ -91,7 +98,7 @@ export class  ModalchontaisanComponent implements OnInit {
 
   GhiLai() {
     let selectedItems = this.items.filter(ele => ele.data.checked);
-    
+
     // selectedItems  =  selectedItems.map()
     this.activeModal.close(selectedItems)
   }
