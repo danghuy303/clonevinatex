@@ -35,13 +35,14 @@ export class UploadmodalComponent implements OnInit {
       option.allowedFileType = ['xls']
     }
     this.uploader = new FileUploader(option);
-
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = true;
     };
     this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
     this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
     this.uploader.onCompleteItem = (item, response, status, headers) => this.onCompleteItem(item, response, status, headers);
+    this.uploader.onAfterAddingFile = (item:any)=>{
+    }
   }
 
   onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
