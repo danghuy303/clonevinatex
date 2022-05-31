@@ -220,17 +220,40 @@ export class LapkehoachlichxichnamComponent implements OnInit {
     modalRef.componentInstance.checkBtnChonTaiSan = this.checkBtnChonTaiSan;
     modalRef.componentInstance.checkedAll = false;
     modalRef.result.then((res: any) => {
-      this.item.listTaiSan = merge(res || [], this.item.listTaiSan, 'IdTaiSan').filter(ele => !ele.isXoa)
-      console.log("huy", {
-        listTaiSan: this.item.listTaiSan,
-        res: res,
-      });
-      
-      // this.checkDisableSelectMonth();
+      this.item.listTaiSan = this.merge(res || [], this.item.listTaiSan, 'IdTaiSan').filter(ele => !ele.isXoa);
     })
       .catch((er) => {
       });
   }
+
+  merge(newArr: Array<any>, existingArr: Array<any>, diffProp: string): Array<any> {
+    let removeIndex = [];
+    newArr.forEach((newEle) => {
+      let index = existingArr.findIndex(
+        (oldEle) => newEle[diffProp] === oldEle[diffProp]
+      );
+      if (index === -1) {
+        existingArr.push(newEle);
+      }
+    });
+    existingArr.forEach((oldEle, index) => {
+      let indexCheck = newArr.findIndex(
+        (newEle) => newEle[diffProp] === oldEle[diffProp]
+      );
+      if (indexCheck === -1) {
+        removeIndex.push(index);
+      }
+    });
+    for (var i = removeIndex.length - 1; i >= 0; i--) {
+      if (!validVariable(existingArr[i].Id)) {
+        existingArr.splice(removeIndex[i], 1);
+      } else {
+        existingArr[i].isXoa = true;
+      }
+    }
+    return existingArr;
+  }
+
   Chon(baoduong, taisan) {
     let modalRef = this._modal.open(ModalluachonloaibaoduongComponent, {
       backdrop: 'static',
@@ -291,8 +314,8 @@ export class LapkehoachlichxichnamComponent implements OnInit {
         taisan.Nam = new Date().getFullYear();
       }
       else {
-        taisan.ThoiGian =  new Date(taisan.thoiGianDuaVaoSuDung).getMonth() + 1;
-        taisan.Nam =new Date(taisan.thoiGianDuaVaoSuDung).getFullYear();
+        taisan.ThoiGian = new Date(taisan.thoiGianDuaVaoSuDung).getMonth() + 1;
+        taisan.Nam = new Date(taisan.thoiGianDuaVaoSuDung).getFullYear();
       }
       // taisan.ThoiGian = thangDuaVaoSuDung < thangHienTai ? thangHienTai : thangDuaVaoSuDung;
       // taisan.Nam = new Date(taisan.thoiGianDuaVaoSuDung).getFullYear();
