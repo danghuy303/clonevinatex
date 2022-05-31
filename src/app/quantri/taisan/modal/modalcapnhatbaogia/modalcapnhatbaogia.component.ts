@@ -178,8 +178,6 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
   }
 
   ChuyenDuyet() {
-    console.log("item chuyen duyet",this.Setdata());
-    
     if (this.Validate()) {
       this._serviceTaiSan.BanGiaoTaiSan().ChuyenTiep(this.Setdata()).subscribe((res: any) => {
         if (res.StatusCode !== 200) {
@@ -238,7 +236,6 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
     modalRef.componentInstance.item = {};
     modalRef.result
       .then((res: any) => {
-        
         this.listTaiSan_copy = this.MergeArr(res, this.listTaiSan_copy);
         this.listTaiSan_copy = [...this.listTaiSan_copy];
         // this.listTaiSan_copy = this.listTaiSan_copy.map((ele, index) => {
@@ -252,7 +249,6 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
             child.data.STT = `${ele.data.STT}.${index+1}`
           })
         })  
-        console.log("this.listTaiSan_copy", this.listTaiSan_copy);
       })
       .catch((er) => {
       });
@@ -303,6 +299,9 @@ export class ModalcapnhatbaogiaComponent implements OnInit {
       this.listTaiSan_copy = [...this.listTaiSan_copy];
       this.listTaiSan_copy.forEach((ele, index) => {
         ele.data.STT = index + 1;
+        ele.children?.forEach((child, index) => {
+          child.data.STT = `${ele.data.STT}.${index+1}`
+        })
       })
     })
   }

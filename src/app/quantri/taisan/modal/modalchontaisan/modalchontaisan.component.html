@@ -5,14 +5,24 @@
     </button>
 </div>
 <div class="modal-body">
-    <!-- <div class="p-d-flex p-flex-row p-jc-between">
-        <div class="modal-bt p-mb-4 ">
-            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
+    <div class="p-d-flex p-flex-row p-jc-between p-mb-3">
+        <div>
+            <!-- <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
                 (click)="activeModal.dismiss('close')"></button>
-            <button pButton pRipple type="button" label="Ghi lại" class="p-mr-2 p-button-sm "
-                (click)="GhiLai()"></button>
+            <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm " [style.display]="checkBtnChonTaiSan?'inline-flex' : 'none'"
+                (click)="GhiLai()"></button> -->
         </div>
-    </div>     -->
+        <div class="p-d-flex p-flex-row">
+            <div class="p-mr-2 p-inputgroup">
+                <input type="text" placeholder="Tìm kiếm" class="p-inputtext-sm" [(ngModel)]="filter.Keyword" pInputText
+                    (keyup.enter)="Loaddata()" />
+                    <button type="button" pButton pRipple icon="pi pi-search"
+                class="p-button-secondary p-button-sm p-button-text" (click)="Loaddata(true)"></button>
+                <button type="button" pButton pRipple icon="pi pi-refresh"
+                    class="p-button-secondary p-button-sm p-button-text" (click)="resetFilter()"></button>
+            </div>
+        </div>
+    </div>
     <p-treeTable [value]="items" [paginator]="true" [rows]="10" styleClass="p-treetable p-treetable-caption"
         selectionMode="multiple" [(selection)]="selectedNodes">
         <ng-template pTemplate="colgroup">

@@ -229,6 +229,7 @@ export class LapkehoachthangComponent implements OnInit {
     this.DenThang = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     this.getMonth = new Date(date.getFullYear(), date.getMonth() + 1);
     this.ngayCuoiCungCuaThangDaChon = new Date(year,month,0).getDate();
+    this.item.listTaiSan = []
   }
 }
 
