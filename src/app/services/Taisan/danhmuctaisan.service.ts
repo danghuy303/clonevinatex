@@ -60,6 +60,9 @@ export class DanhmuctaisanService {
       GetList: (data) => {
         return this.http.post(`${url}DanhMuc/GetListdmLoaiBaoDuong`, data, httpOptions)
       },
+      GetListdmLoaiBaoDuongForDanhMuc: (data) => {
+        return this.http.post(`${url}DanhMuc/GetListdmLoaiBaoDuongForDanhMuc`, data, httpOptions)
+      },
       Set: (data) => {
         return this.http.post(`${url}DanhMuc/SetdmLoaiBaoDuong`, data, httpOptions)
       },
@@ -127,6 +130,9 @@ export class DanhmuctaisanService {
       GetList: (data) => {
         return this.http.post(`${url}DanhMuc/GetListdmLoaiSuCo`, data, httpOptions)
       },
+      GetListdmLoaiSuCoForDanhMuc: (data) => {
+        return this.http.post(`${url}DanhMuc/GetListdmLoaiSuCoForDanhMuc`, data, httpOptions)
+      },
       Set: (data) => {
         return this.http.post(`${url}DanhMuc/SetdmLoaiSuCo`, data, httpOptions)
       },
@@ -153,6 +159,9 @@ export class DanhmuctaisanService {
     return {
       GetList: (data) => {
         return this.http.post(`${url}DanhMuc/GetListdmMucDoUuTien`, data, httpOptions)
+      },
+      GetListdmMucDoUuTienForDanhMuc: (data) => {
+        return this.http.post(`${url}DanhMuc/GetListdmMucDoUuTienForDanhMuc`, data, httpOptions)
       },
       Set: (data) => {
         return this.http.post(`${url}DanhMuc/SetdmMucDoUuTien`, data, httpOptions)

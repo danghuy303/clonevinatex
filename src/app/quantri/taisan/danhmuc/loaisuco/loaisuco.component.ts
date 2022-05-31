@@ -66,7 +66,7 @@ export class LoaisucoComponent implements OnInit {
       Ma:"", 
       Ten:""    
     };
-    this._danhMucTaiSan.DanhMucLoaiSuCo().GetList(data).subscribe((res:any)=>{
+    this._danhMucTaiSan.DanhMucLoaiSuCo().GetListdmLoaiSuCoForDanhMuc(data).subscribe((res:any)=>{
       this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
