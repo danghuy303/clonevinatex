@@ -90,7 +90,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
       Ma: "",
       Ten: ""
     };
-    this._danhMucTaiSan.DanhMucLoaiBaoDuong().GetList(data).subscribe((res: any) => {
+    this._danhMucTaiSan.DanhMucLoaiBaoDuong().GetListdmLoaiBaoDuongForDanhMuc(data).subscribe((res: any) => {
       this.items = res.Data.Items;
       // this.items.forEach(obj => {
       //   obj.TenLoaiTaiSan = this.listTaiSan.find(ele => ele.value == obj.IddmLoaiTaiSan).label;

@@ -69,7 +69,7 @@ export class DanhmucmucdouutienComponent implements OnInit {
       Ma:"", 
       Ten:""   
     };
-    this._danhMucTaiSan.DanhMucMucDoUuTien().GetList(data).subscribe((res:any)=>{
+    this._danhMucTaiSan.DanhMucMucDoUuTien().GetListdmMucDoUuTienForDanhMuc(data).subscribe((res:any)=>{
       this.items = res.Data.Items;
       this.paging.TotalCount = res.Data.TotalCount;
     })
