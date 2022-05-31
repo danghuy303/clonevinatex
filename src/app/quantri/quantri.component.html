@@ -106,7 +106,7 @@
             <p-dropdown [filter]="true" [options]="listNhaMay" placeholder="Chọn nhà máy" styleClass="p-inputtext-sm"
                 [(ngModel)]="IdNhaMay" (onChange)="setGlobalNhaMay($event)"></p-dropdown>
         </div>
-        <p-splitButton [label]="userInfo.UserName" [model]="userBtn" styleClass="p-button-text ml-3"></p-splitButton>
+        <p-splitButton [label]="userInfo.UserName | uppercaseFirstletter:'first'" [model]="userBtn" styleClass="p-button-text ml-3"></p-splitButton>
     </div>
 </div>
 <p-sidebar [(visible)]="display" [showCloseIcon]="false" [blockScroll]="true">

@@ -4,6 +4,7 @@ import { isXoaPipe } from './../services/isXoaPipe';
 import { VNDPipe } from './../services/vnd.pipe';
 import { FilterPipe } from './../services/filter.pipe';
 import { FilterByKeyPipe } from './../services/filterbykey.pipe';
+import { UppercaseFirstletterPipe } from './../services/uppercase-firstletter.pipe';
 import { SumByKeyPipe } from './../services/sum.pipe';
 import { SortByKeyPipe } from './../services/sortPipe.pipe';
 import { CongDoanPipe } from './../services/congdoan.pipe';
@@ -30,6 +31,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     SumByKeyPipe,
     CongDoanPipe,
     SortByKeyPipe,
+    UppercaseFirstletterPipe,
     BanGiaoTaiSanQuyTrinhComponent,
     TaiLieuDanhSachComponent,
     TraoDoiComponent,
@@ -53,6 +55,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     SumByKeyPipe,
     CongDoanPipe,
     SortByKeyPipe,
+    UppercaseFirstletterPipe,
     BanGiaoTaiSanQuyTrinhComponent,
     TaiLieuDanhSachComponent,
     TraoDoiComponent,

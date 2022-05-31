@@ -16,6 +16,7 @@ import { ThongKeThoiGianDungMayComponent } from './thong-ke-thoi-gian-dung-may/t
 import { VoiLibModule } from 'voi-lib';
 import { BaoCaoTongHopLoiCatComponent } from './bao-cao-tong-hop-loi-cat/bao-cao-tong-hop-loi-cat.component';
 import { BaoCaoTongHopClassimatComponent } from './bao-cao-tong-hop-classimat/bao-cao-tong-hop-classimat.component';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { BaoCaoTongHopClassimatComponent } from './bao-cao-tong-hop-classimat/ba
     TableModule,
     SharedModule,
     PaginatorModule,
-    VoiLibModule
+    VoiLibModule,
+    InputTextModule
   ],
   exports: [
     BaoCaoTongHopComponent,

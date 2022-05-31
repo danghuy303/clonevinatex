@@ -87,8 +87,12 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
   initSpeedOption() {
     this.item.listDaBoTri.filter(may => may.isDieuChinh !== true).forEach(may => {
       if (validVariable(may.IdCanDoiChuyen_CanBoTri)) {
+        console.log(may.listDinhMucMay)
+        may.listDinhMucMay.forEach(tocdo => {
+          tocdo.hienThi = `${tocdo.TocDo} - ${tocdo.Ne}`;
+        });
         let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === may.IdCanDoiChuyen_CanBoTri)?.[0]?.[this.optionMatHang];
-        may.listTocDo = mapArrayForDropDown(may.listDinhMucMay.filter(dinhmuc => dinhmuc[this.optionMatHang] === IddmItem), 'TocDo', 'Id');
+        may.listTocDo = mapArrayForDropDown(may.listDinhMucMay.filter(dinhmuc => dinhmuc[this.optionMatHang] === IddmItem), 'hienThi', 'Id');
         // may.SanLuongCa = may.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === may.listTocDo?.[0]?.value)?.[0]?.DinhMucNangSuat || 0;
         may.SanLuongCa = may.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === may.IdPhanNhomMay_Item)?.[0]?.DinhMucNangSuat || 0;//060122 huong
         if (!validVariable(may.IdPhanNhomMay_Item)) {
@@ -125,7 +129,10 @@ export class BotrimayChungComponent extends BaseModalNavigation implements OnIni
     if (event.value) {
       item.Ten = this.listHangHoa.find(mathang => mathang.value === event.value)?.label;
       let IddmItem = this.item.listCanBoTri.filter(mathang => mathang.Id === item.IdCanDoiChuyen_CanBoTri)?.[0][this.optionMatHang];
-      item.listTocDo = mapArrayForDropDown(item.listDinhMucMay.filter(dinhmuc => dinhmuc[this.optionMatHang] === IddmItem), 'TocDo', 'Id');
+      item.listDinhMucMay.forEach(tocdo => {
+        tocdo.hienThi = `${tocdo.TocDo} - ${tocdo.Ne}`;
+      });
+      item.listTocDo = mapArrayForDropDown(item.listDinhMucMay.filter(dinhmuc => dinhmuc[this.optionMatHang] === IddmItem), 'hienThi', 'Id');
       item.IdPhanNhomMay_Item = item.listTocDo?.[0]?.value || null;
       item.SanLuongCa = item.listDinhMucMay.filter(dinhmuc => dinhmuc.Id === item.listTocDo?.[0]?.value)?.[0]?.DinhMucNangSuat || 0;
       if (!validVariable(item.SoCocDen)) {
