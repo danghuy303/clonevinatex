@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ImportdanhmucmodelComponent } from 'src/app/quantri/danhmuc/danhmucsanxuat/modals/importdanhmucmodel/importdanhmucmodel.component';
 import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
+import { handleHTTPResponse } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { ModalloaisucoComponent } from '../../modal/modalloaisuco/modalloaisuco.component';
 @Component({
@@ -145,9 +146,16 @@ export class LoaisucoComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         this.fileUpload = res;
-        this._danhMucTaiSan.DanhMucLoaiSuCo().Importdm(this.fileUpload[0].Name).subscribe(()=>{
-          this.resetFilter();
+        this._danhMucTaiSan.DanhMucLoaiSuCo().Importdm(this.fileUpload[0].Name).subscribe((res)=>{
+          // if (res.StatusCode === 200) {
+          //   this._toastr.success(res.Message);
+          //   this.resetFilter();
+          // } else {
+          //   this._toastr.error(res.Message);
+          // }
+          handleHTTPResponse(res, this._toastr, ()=>{this.resetFilter()} )
         })
+        
       })
       .catch(er => {})
       .finally(()=> {
@@ -169,5 +177,5 @@ export class LoaisucoComponent implements OnInit {
     this.GetList()
   }
   
-
+  
 }

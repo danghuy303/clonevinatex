@@ -5,7 +5,7 @@ import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/moda
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { vn } from 'src/app/services/const';
-import { DateToUnix, deepCopy, mapArrayForDropDown, UnixToDate, validVariable } from 'src/app/services/globalfunction';
+import { DateToUnix, deepCopy, mapArrayForDropDown, merge, UnixToDate, validVariable } from 'src/app/services/globalfunction';
 import { StoreService } from 'src/app/services/store.service';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
@@ -141,24 +141,23 @@ export class ModaldenghixulisucoComponent implements OnInit {
     modalRef.componentInstance.opt = this.opt;
     modalRef.componentInstance.Lay_Chon = this.item.IddmPhanXuong;
     modalRef.componentInstance.item = {};
+    modalRef.componentInstance.item.IdBoPhanSuDung = this.item.IdBoPhanSuDung || '';
     modalRef.result.then((res: any) => {
-      // this.item.listTaiSan = res;
-
-      let listKetQua = [];
-      this.item.listTaiSan.forEach(Tai_San => {
-        let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-        if (bien !== undefined) {
-          listKetQua.push(Tai_San);
-        }
-      });
-      res.forEach(Tai_San => {
-        let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
-        if (bien === undefined) {
-          listKetQua.push(Tai_San);
-        }
-      });
-
-      this.item.listTaiSan = listKetQua;
+      // let listKetQua = [];
+      // this.item.listTaiSan.forEach(Tai_San => {
+      //   let bien = res.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+      //   if (bien !== undefined) {
+      //     listKetQua.push(Tai_San);
+      //   }
+      // });
+      // res.forEach(Tai_San => {
+      //   let bien = this.item.listTaiSan.find(ele => ele.IdTaiSan === Tai_San.IdTaiSan);
+      //   if (bien === undefined) {
+      //     listKetQua.push(Tai_San);
+      //   }
+      // });
+      // this.item.listTaiSan = listKetQua;
+      this.item.listTaiSan = merge(res, this.item.listTaiSan , "IdTaiSan").filter(ele => !ele.isXoa);
     })
       .catch((er) => {
       });

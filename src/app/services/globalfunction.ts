@@ -135,9 +135,9 @@ export function validVariable(value: any) {
         return false;
     }
 }
-export function 
+export function
 
-DateToUnix(date: any): any {
+    DateToUnix(date: any): any {
     if (date == null) {
         return 0
     } else {
@@ -211,5 +211,15 @@ export function dinhDangSo(number: any): any {
         return 0;
     } else {
         return number;
+    }
+}
+
+export function handleHTTPResponse(res, toast, onOK?, onFail?) {
+    if (res.StatusCode === 200) {
+        toast.success(res.Message);
+        onOK && onOK();
+    } else {
+        toast.error(res.Message);
+        onFail && onFail();
     }
 }

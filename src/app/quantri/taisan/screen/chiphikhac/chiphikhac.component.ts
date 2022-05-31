@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 
 @Component({
   selector: 'app-chiphikhac',
@@ -10,7 +12,9 @@ export class ChiphikhacComponent implements OnInit, OnChanges {
   @Input() items: any = [];
   tongChiPhi: number = 0;
 
-  constructor() { }
+  constructor(
+    private modal: NgbModal,
+  ) { }
 
   ngOnChanges(changes: SimpleChanges) {
     // console.log("this.items", this.items);
@@ -34,7 +38,7 @@ export class ChiphikhacComponent implements OnInit, OnChanges {
   Count() {
     this.items.forEach(ele => {
       ele.GiaTri = ele.listChiPhiKhac.reduce((sum, obj) => {
-        return sum + obj.GiaTri;
+        return sum + Number(obj.GiaTri);
       },0)
     })
     this.tongChiPhi = this.items.reduce((sum, ele) => {
@@ -56,8 +60,16 @@ export class ChiphikhacComponent implements OnInit, OnChanges {
   }
 
   DeleteChiPhi(item, index) {
-    item.listChiPhiKhac.splice(index, 1);
-    this.Count();
+    let modalRef = this.modal.open(ModalthongbaoComponent, {
+      size: 'md',
+      backdrop: 'static',
+    })
+    modalRef.componentInstance.message = 'Bạn chắc chắn muốn xóa chi phí đã chọn?';
+    modalRef.result
+      .then((res: any) => {
+        item.listChiPhiKhac.splice(index, 1);
+        this.Count();
+      })
   }
 }
 
