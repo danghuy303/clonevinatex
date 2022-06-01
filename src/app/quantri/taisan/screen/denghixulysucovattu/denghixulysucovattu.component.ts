@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { validVariable } from 'src/app/services/globalfunction';
+import { merge, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { DenghisulyluachonthemvattuComponent } from '../../modal/denghisulyluachonthemvattu/denghisulyluachonthemvattu.component';
 
@@ -23,7 +23,7 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges(): void {
-    this.TinhTong();
+    this.sumAll();
   }
 
   ngOnInit(): void {
@@ -39,29 +39,34 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
     modalRef.componentInstance.layIdTaiSan = item.IdTaiSan;
     modalRef.result
       .then((res: any) => {
-        item.listVatTu = res;
+        console.log("res", res);
+        item.listVatTu = merge(res, item.listVatTu || [], 'IdVatTuCanThayThe');
+        this.sumItem(item);
       })
       .catch((er) => {
       });
   }
 
-  TinhTong() {
+  sumItem(item) {
+    item.listVatTu.forEach(vattu => {
+      vattu.ThanhTien = ((vattu.GiaTri || 0) * (vattu.SoLuong || 0)) || 0;
+    })
+    item.TongThanhTien = item.listVatTu.reduce((sum, obj) => {
+      return sum + obj.ThanhTien;
+    }, 0)
+    this.sumAll();
+  }
+
+  sumAll () {
     this.TongGiaTriToanBang = 0;
     this.items.forEach(ele => {
-      if (validVariable(ele.listVatTu)) {
-        ele.listVatTu?.forEach(vattu => {
-          vattu.ThanhTien = ((vattu.GiaTri || 0) * (vattu.SoLuong || 0)) || 0;
-        })
-        ele.TongThanhTien = ele.listVatTu.reduce((sum, obj) => {
-          return sum + obj.ThanhTien;
-        }, 0)
-      }
       this.TongGiaTriToanBang += (ele.TongThanhTien || 0);
     })
   }
 
-  delete(index) {
-    this.items.splice(index, 1)
+  delete(index, item) {
+    item.listVatTu.splice(index, 1);
+    this.sumItem(item)
   }
 
 }

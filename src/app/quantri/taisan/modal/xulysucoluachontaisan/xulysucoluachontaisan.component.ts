@@ -122,7 +122,7 @@ export class XulysucoluachontaisanComponent implements OnInit {
         data.push({
           IdTaiSan: obj.data.Id,
           TenTaiSan: obj.data.Ten,
-          MaTaiSan: obj.data.Ma,
+          Ma: obj.data.Ma,
           IddmLoaiBaoDuong: obj.data.IddmLoaiBaoDuong,
           TenLoaidmBaoDuong: obj.data.TendmLoaiBaoDuong,
           ThoiGianKeHoach: obj.data.ThoiGianKeHoach,
@@ -139,7 +139,7 @@ export class XulysucoluachontaisanComponent implements OnInit {
               IdTaiSan: objchildren.data.Id,
               IddmLoaiBaoDuong: objchildren.data.IddmLoaiBaoDuong,
               TenTaiSan: objchildren.data.Ten,
-              MaTaiSan: objchildren.data.Ma,
+              Ma: objchildren.data.Ma,
               // MaTaiSan: objchildren.data.MadmLoaiBaoDuong,
               TenLoaidmBaoDuong: objchildren.data.TendmLoaiBaoDuong,
               ThoiGianKeHoach: objchildren.data.ThoiGianKeHoach,

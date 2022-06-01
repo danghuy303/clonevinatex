@@ -58,11 +58,9 @@ export class DenghisulyluachonthemvattuComponent implements OnInit {
   }
 
   checkAll(e) {
-    if (e.checked) {
-      this.items.forEach(ele => {
-        ele.checked = e.checked
-      })
-    }
+    this.items.forEach(ele => {
+      ele.checked = e.checked
+    })
   }
 
   checked() {

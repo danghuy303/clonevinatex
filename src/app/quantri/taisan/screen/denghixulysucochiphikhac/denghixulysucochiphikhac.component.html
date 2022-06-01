@@ -28,10 +28,11 @@
     <ng-template pTemplate="body" let-item let-i="rowIndex">
         <tr>
             <td class=" text-center">{{i+1}}</td>
-            <td>{{item.MaTaiSan}}</td>
+            <!-- <td>{{item.MaTaiSan}}</td> -->
+            <td>{{item.Ma}}</td>
             <td>{{item.TenTaiSan}}</td>
             <td class=" text-right">{{item.ThanhTien | number:"0.0-0" }}</td>
-            <td>{{item.GhiChu}}</td>
+            <td></td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-sm "
                     (click)="add2(item)"></button>

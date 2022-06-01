@@ -148,8 +148,13 @@ export class DanhmucmucdouutienComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         this.fileUpload = res;
-        this._danhMucTaiSan.DanhMucMucDoUuTien().Importdm(this.fileUpload[0].Name).subscribe(()=>{
-          this.resetFilter();
+        this._danhMucTaiSan.DanhMucMucDoUuTien().Importdm(this.fileUpload[0].Name).subscribe((res: any) => {
+          if (res.StatusCode === 200) {
+            this._toastr.success('Upload file excel thành công');
+            this.resetFilter();
+          } else {
+            this._toastr.error(res.Message);
+          }
         })
       })
       .catch(er => {})

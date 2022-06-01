@@ -103,16 +103,16 @@
                             <tr>
                                 <td style="display: none;"></td>
                                 <td style="display: none;"></td>
-                                <td class="bg-white">Hôm Trước</td>
-                                <td class="text-right" *ngFor="let homtruoc of loaisoi.lstChatLuongSanPham">
+                                <td class="tc-w-150 bg-white">Hôm Trước</td>
+                                <td class="text-right tc-w-150" *ngFor="let homtruoc of loaisoi.lstChatLuongSanPham">
                                     {{homtruoc.ChiTieuThucTe_HomTruoc | number:'0.2-2'}}
                                 </td>
                             </tr>
                             <tr>
                                 <td style="display: none;"></td>
                                 <td style="display: none;"></td>
-                                <td class="bg-white">Hôm Nay</td>
-                                <td *ngFor="let homnay of loaisoi.lstChatLuongSanPham">
+                                <td class="tc-w-150 bg-white">Hôm Nay</td>
+                                <td *ngFor="let homnay of loaisoi.lstChatLuongSanPham" class="text-right tc-w-150">
                                     <p-inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2"
                                         locale="en-EN" [(ngModel)]="homnay.ChiTieuThucTe"
                                         (onBlur)="tinhTong(loaisoi.lstChatLuongSanPham,homnay.NhomChiTieu)"
@@ -122,8 +122,8 @@
                             <tr>
                                 <td style="display: none;"></td>
                                 <td style="display: none;"></td>
-                                <td class="bg-white">So Sánh</td>
-                                <ng-container *ngFor="let sosanh of loaisoi.lstChatLuongSanPham">
+                                <td class="tc-w-150 bg-white">So Sánh</td>
+                                <ng-container *ngFor="let sosanh of loaisoi.lstChatLuongSanPham" class="text-right tc-w-150">
                                     <td class="text-center"
                                         [ngStyle]="{'background-color': sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet?'#a7d1a7':'#f59999'}">
                                         <span *ngIf="sosanh.ChiTieuThucTe<=sosanh.ChiTieuLyThuyet">Đạt</span>

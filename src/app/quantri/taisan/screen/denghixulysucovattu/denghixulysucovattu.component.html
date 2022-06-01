@@ -23,7 +23,7 @@
             <th class="text-center ">Mã</th>
             <th class="text-center">Tên</th>
             <th class="text-center">Số lượng </th>
-            <th class="text-center ">Đơn giá </th>
+            <th class="text-center ">Đơn giá (VNĐ)</th>
             <th class="text-center ">Thành tiền (VNĐ)</th>
             <th class="text-center ">Ghi chú</th>
             <th class="text-center">Thao tác</th>
@@ -57,10 +57,10 @@
                     <!-- <input min='0' mode="decimal" type="number" class="p-inputtext-sm" [(ngModel)]="item.ThuTu"
                         onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
                         pInputText> -->
-                    <p-inputNumber min='0' [(ngModel)]="vattu.SoLuong" (onBlur)="TinhTong()" mode="decimal" locale="en-US"></p-inputNumber>
+                    <p-inputNumber min='0' [(ngModel)]="vattu.SoLuong" (onBlur)="sumItem(item)" mode="decimal" locale="en-US"></p-inputNumber>
                 </td>
                 <td class=" text-right">
-                    <p-inputNumber inputId="locale-us" mode="decimal" min='0' locale="en-US" styleClass="p-inputtext-sm"
+                    <p-inputNumber inputId="locale-us" mode="decimal" (onBlur)="sumItem(item)" min='0' locale="en-US" styleClass="p-inputtext-sm"
                         [(ngModel)]="vattu.GiaTri">
                     </p-inputNumber>
                 </td>
@@ -69,7 +69,7 @@
                         [ngbTooltip]="vattu.GhiChu" pInputText /> </td>
                 <td class="text-center">
                     <button pButton pRipple icon="pi pi-trash"
-                        class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2" (click)="delete(i)"
+                        class="p-button-sm p-button-rounded p-button-secondary p-button-text p-mr-2" (click)="delete(a, item)"
                         pTooltip="Xóa" showDelay="1000" tooltipPosition="bottom"></button>
                 </td>
             </tr>
