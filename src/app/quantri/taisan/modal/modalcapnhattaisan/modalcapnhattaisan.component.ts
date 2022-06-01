@@ -211,7 +211,6 @@ export class ModalcapnhattaisanComponent implements OnInit {
       size: "fullscreen-100",
       backdrop: "static",
     });
-    modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.item = {
       Id: "",
       isXoa: false,
@@ -223,35 +222,31 @@ export class ModalcapnhattaisanComponent implements OnInit {
       listThongSoKyThuat: [],
       listThongSoAnToan: [],
     };
-    modalRef.componentInstance.listTaiSan = this.item.TaiSan.listTaiSan;
+    // modalRef.componentInstance.listTaiSan = this.item.TaiSan.listTaiSan;
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
     modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
     modalRef.result
       .then((res: any) => {
-        this.item.TaiSan.listTaiSan = res
+        this.item.TaiSan.listTaiSan.push(res);
       })
       .catch((er) => {
       });
   }
 
-  CapNhatTaiSanCon(item) {
+  CapNhatTaiSanCon(index,item) {
     let item_copy = {...item};
     let modalRef = this._modal.open(ModalthemmoiluachontaisanComponent, {
       size: "fullscreen-100",
       backdrop: "static",
     });
-    modalRef.componentInstance.opt = "edit";
-    // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.componentInstance.item = item_copy;
-    // modalRef.componentInstance.listTaiSan = this.item.TaiSan.listTaiSan;
-    // console.log(this.item.TaiSan.listTaiSan)
     modalRef.componentInstance.listLoaiTaiSan = this.listLoaiTaiSan;
     modalRef.componentInstance.listTinhTrangTaiSan = this.listTinhTrangTaiSan;
     modalRef.componentInstance.listCungSanXuat = this.listCungSanXuat;
     modalRef.result
       .then((res: any) => {
-        this.item.TaiSan.listTaiSan = res;
+        this.item.TaiSan.listTaiSan[index] = res;
       })
       .catch((er) => {
       });
