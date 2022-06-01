@@ -92,6 +92,7 @@ export class ModalnhapvattuluachontaisanComponent implements OnInit, AfterViewIn
           Ton: obj.TonKho,
           TuoiTho: obj.TuoiTho,
           NuocSanXuat: obj.NuocSanXuat,
+          IddmTaiSan: obj.IddmTaiSan,
         });
       }
     });

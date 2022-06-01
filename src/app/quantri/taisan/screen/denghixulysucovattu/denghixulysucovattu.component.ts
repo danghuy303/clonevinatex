@@ -39,7 +39,8 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
     modalRef.componentInstance.layIdTaiSan = item.IdTaiSan;
     modalRef.result
       .then((res: any) => {
-        item.listVatTu = merge(res, item.listVatTu, 'IdVatTuCanThayThe');
+        console.log("res", res);
+        item.listVatTu = merge(res, item.listVatTu || [], 'IdVatTuCanThayThe');
         this.sumItem(item);
       })
       .catch((er) => {

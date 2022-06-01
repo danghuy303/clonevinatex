@@ -90,12 +90,12 @@
         [disabled]="!uploader.getNotUploadedItems().length">
         <span class="glyphicon glyphicon-upload"></span> Tải lên tất cả
       </button>
-      <button type="button" class="btn btn-warning btn-sm m-1" (click)="uploader.cancelAll()"
+      <!-- <button type="button" class="btn btn-warning btn-sm m-1" (click)="uploader.cancelAll()"
         [disabled]="!uploader.isUploading">
         <span class="glyphicon glyphicon-ban-circle"></span> Bỏ qua tất cả
-      </button>
+      </button> -->
       <button type="button" class="btn btn-danger btn-sm m-1" (click)="uploader.clearQueue()"
-        [disabled]="!uploader.queue.length">
+        [disabled]="!uploader.queue.length" *ngIf="!single">
         <span class="glyphicon glyphicon-trash"></span> Xóa tất cả
       </button>
     </div>
