@@ -100,6 +100,23 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       this.item.SoQuyTrinh = res.SoQuyTrinh;
     })
   }
+
+  SetData() {
+    let filterItem = [];
+    let data = this.item;
+    if (this.item.CongDoan === "ONG") {
+      data.listThongKeSanLuong.forEach(ele => {
+        ele.listItem = ele.listItem.filter(obj => obj.CongDoan !== "ONG");
+        this.thongKeFull.forEach(thongke => {
+          if (ele.IddmCaSanXuat === thongke.IddmCaSanXuat) {
+            ele.listItem = [...ele.listItem, ...thongke.listItem]
+          }
+        })
+      })
+    }
+    return data;
+  }
+
   GhiLai() {
     let isCheck: any = false;
     this.item.listThongKeSanLuong.forEach(element => {
@@ -110,7 +127,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       this.toastr.error("Bạn chưa chọn ca sản xuất thực tế!!");
     }
     else {
-      this.services.ThongKeSanLuongNhieuCa().Set(this.item).subscribe((res: any) => {
+      this.services.ThongKeSanLuongNhieuCa().Set(this.SetData()).subscribe((res: any) => {
         if (res) {
           if (res.State === 1) {
             this.toastr.success(res.message)
@@ -133,14 +150,14 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     modalRef.componentInstance.message = "Bạn có chắc chắn muốn xóa quy trình này chứ?"
     modalRef.result.then(res => {
       this.services.ThongKeSanLuongNhieuCa().Delete(this.item).subscribe((res: any) => {
-        console.log(res);
+        //console.log(res);
         if (res?.State === 1) {
           this.activeModal.close();
         } else {
           this.toastr.error(res.message);
         }
       })
-    }).catch(er => console.log(er))
+    }).catch(er => er)
   }
   getListCongDoan() {
     this.services.GetlistCongDoanBoDayBongDayPE().subscribe((res: any) => {
@@ -154,43 +171,43 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     })
   }
   getListCaSanXuat() {
-    console.log('this.item.listThongKeSanLuong',this.item.listThongKeSanLuong)
+    //console.log('this.item.listThongKeSanLuong',this.item.listThongKeSanLuong)
 
     this.services.GetListOptdmCaSanXuat().subscribe((res: any) => {
       this.listCaSanXuat = res;
       this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe().subscribe((listTyLeBongPhe: any) => {
         this.KhoiLuongCa = res.map((_, index) => 0)
-      if (this.item.listThongKeSanLuong == undefined || this.item.listThongKeSanLuong == null) {
-        this.item.listThongKeSanLuong = [];
-        this.listCaSanXuat.forEach(element => {
-          let itemFind = {
-            IddmCaSanXuat: element.Id,
-            listItem: [],
-            isTruVaoSanLuong: false,
-            STT: element.STT,
-            listTyLeBongPhe:listTyLeBongPhe
-          }
-          this.item.listThongKeSanLuong.push(itemFind)
-        });
-        console.log('this.item.listThongKeSanLuong',this.item.listThongKeSanLuong)
-      }
-      if (this.opt === 'edit') {
-        this.getItemTheoCongDoan();
-      }
-      else {
-        this.listCaSanXuat.forEach(element => {
-          if (this.item.CongDoan === "ONG")
-            element.SoCot = 3;
-          else if (this.item.CongDoan === "CON")
-            element.SoCot = 3;
-          else if (this.item.CongDoan === "THO")
-            element.SoCot = 3;
-          else
-            element.SoCot = 2;
-        });
-      }
+        if (this.item.listThongKeSanLuong == undefined || this.item.listThongKeSanLuong == null) {
+          this.item.listThongKeSanLuong = [];
+          this.listCaSanXuat.forEach(element => {
+            let itemFind = {
+              IddmCaSanXuat: element.Id,
+              listItem: [],
+              isTruVaoSanLuong: false,
+              STT: element.STT,
+              listTyLeBongPhe: listTyLeBongPhe
+            }
+            this.item.listThongKeSanLuong.push(itemFind)
+          });
+          //console.log('this.item.listThongKeSanLuong',this.item.listThongKeSanLuong)
+        }
+        if (this.opt === 'edit') {
+          this.getItemTheoCongDoan();
+        }
+        else {
+          this.listCaSanXuat.forEach(element => {
+            if (this.item.CongDoan === "ONG")
+              element.SoCot = 3;
+            else if (this.item.CongDoan === "CON")
+              element.SoCot = 3;
+            else if (this.item.CongDoan === "THO")
+              element.SoCot = 3;
+            else
+              element.SoCot = 2;
+          });
+        }
       })
-      
+
     })
   }
   GetPhanXuongTheoUser() {
@@ -221,7 +238,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       }
 
       this.services.ThongKeSanLuong().GetMatHangTheoNgay(this.item.IddmPhanXuong, this.item.NgayUnix).subscribe((res: any) => {
-        console.log('res',res)
+        //console.log('res',res)
         res.forEach(element => {
           element.Id = null;
         });
@@ -230,9 +247,10 @@ export class ThongkesanluongcamodalComponent implements OnInit {
           if (this.item.listThongKeSanLuong === undefined || this.item.listThongKeSanLuong === null) {
             let itemFind = {
               IddmCaSanXuat: element.Id,
-              listItem: res_new.map(ele=>{
-                return {...ele,
-                  IddmCaSanXuat:element.Id
+              listItem: res_new.map(ele => {
+                return {
+                  ...ele,
+                  IddmCaSanXuat: element.Id
                 }
               }),
               STT: element.STT
@@ -245,9 +263,10 @@ export class ThongkesanluongcamodalComponent implements OnInit {
             if (itemFind === undefined || itemFind === null) {
               itemFind = {
                 IddmCaSanXuat: element.Id,
-                listItem: res_new.map(ele=>{
-                  return {...ele,
-                    IddmCaSanXuat:element.Id
+                listItem: res_new.map(ele => {
+                  return {
+                    ...ele,
+                    IddmCaSanXuat: element.Id
                   }
                 }),
                 STT: element.STT
@@ -257,16 +276,18 @@ export class ThongkesanluongcamodalComponent implements OnInit {
             else {
 
               if (itemFind.listItem !== undefined && itemFind.listItem !== null) {
-                itemFind.listItem = itemFind.listItem.concat(res_new.map(ele=>{
-                  return {...ele,
-                    IddmCaSanXuat:element.Id
+                itemFind.listItem = itemFind.listItem.concat(res_new.map(ele => {
+                  return {
+                    ...ele,
+                    IddmCaSanXuat: element.Id
                   }
-                }),);
+                }));
               }
               else
-                itemFind.listItem = res_new.map(ele=>{
-                  return {...ele,
-                    IddmCaSanXuat:element.Id
+                itemFind.listItem = res_new.map(ele => {
+                  return {
+                    ...ele,
+                    IddmCaSanXuat: element.Id
                   }
                 });
             }
@@ -376,22 +397,33 @@ export class ThongkesanluongcamodalComponent implements OnInit {
   getItemTheoCongDoan() {
     if (this.item.CongDoan !== undefined && this.item.listThongKeSanLuong !== undefined && this.item.listThongKeSanLuong !== null) {
       this.thongKeFull = [];
-      this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe().subscribe((res: any) => {
+      this.services.ThongKeSanLuong().GetTyLeThongKeSanLuongBongPhe(this.item.Id).subscribe((res: any) => {
         // this.item.SoQuyTrinh = res.SoQuyTrinh;
         this.item.listTyLeBongPhe = res;
       })
       let listItemCheck: any = [];
-      if (this.item.CongDoan === "ONG"){
+      if (this.item.CongDoan === "ONG") {
         listItemCheck = this.item.listThongKeSanLuong[0].listItem.filter(ele => ele.CongDoan === this.item.CongDoan);
-        console.log('listItemCheck',listItemCheck);
+        //console.log('listItemCheck',listItemCheck);
       }
-      console.log('this.item.listThongKeSanLuong',this.item.listThongKeSanLuong);
+      //console.log('this.item.listThongKeSanLuong',this.item.listThongKeSanLuong);
       this.item.listThongKeSanLuong.forEach(element => {
         if (this.item.CongDoan !== "ONG") {
           let thongKe = { listItem: element.listItem.filter(ele => ele.CongDoan === this.item.CongDoan), IddmCaSanXuat: element.IddmCaSanXuat }
           this.thongKeFull.push(thongKe);
         }
         else {
+
+          element.listItem.forEach(ele => {
+            if (ele.CongDoan === 'ONG') {
+              ele.IddmCaSanXuat = element.IddmCaSanXuat;
+            }
+          })
+          // console.log("huy",{
+          //   element: element,
+          //   thisItem: this.item.CongDoan,
+          // });
+
           let listItem = element.listItem.filter(ele => ele.CongDoan === this.item.CongDoan && ele.IddmCaSanXuat === element.IddmCaSanXuat);
           if (listItem[0]?.Id === undefined) {
             let listItem_new = [];
@@ -402,7 +434,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
                 listItem_new.push(eleCheck);
               }
               else {
-                let itemAdd = deepCopy(listItemCheck.find(x => x.IddmItem === eleCheck.IddmItem && x.IddmLoaiSoi === eleCheck.IddmLoaiSoi));
+                let itemAdd = listItemCheck.find(x => x.IddmItem === eleCheck.IddmItem && x.IddmLoaiSoi === eleCheck.IddmLoaiSoi);
                 itemAdd.isCheckdmCaSanXuat = false;
                 listItem_new.push(itemAdd);
               }
@@ -411,14 +443,16 @@ export class ThongkesanluongcamodalComponent implements OnInit {
             this.thongKeFull.push(thongKe);
           }
           else {
-            let thongKe = { listItem: listItem.map(ele=>{
-              return {...ele,isCheckdmCaSanXuat:true}
-            }), IddmCaSanXuat: element.IddmCaSanXuat }
+            let thongKe = {
+              listItem: listItem.map(ele => {
+                return { ...ele, isCheckdmCaSanXuat: true }
+              }), IddmCaSanXuat: element.IddmCaSanXuat
+            }
             this.thongKeFull.push(thongKe);
           }
         }
       })
-      console.log('this.thongKeFull',this.thongKeFull);
+      //console.log('this.thongKeFull',this.thongKeFull);
     }
     let i = 0;
     this.listCaSanXuat.forEach(element => {
@@ -600,7 +634,7 @@ export class ThongkesanluongcamodalComponent implements OnInit {
   }
   enterCon(i, index?) {
     debugger
-    console.log(this.inputNumbers.toArray())
+    //console.log(this.inputNumbers.toArray())
 
     if (this.item.CongDoan === 'CON') {
       let nextFocus = this.inputNumbers.toArray().find(ele => ele.tabindex === i + 15);
@@ -624,25 +658,25 @@ export class ThongkesanluongcamodalComponent implements OnInit {
     }
   }
   TinhTongKhoiLuongBong(index) {
-    console.log(index);
-    console.log(this.KhoiLuongCa)
+    //console.log(index);
+    //console.log(this.KhoiLuongCa)
     let TongKhoiLuong = 0;
-    if (this.thongKeFull[index] !== undefined && this.thongKeFull[index].listItem !== undefined){
+    if (this.thongKeFull[index] !== undefined && this.thongKeFull[index].listItem !== undefined) {
       TongKhoiLuong = this.thongKeFull[index].listItem.reduce((Total, ele) => Total + (ele.KhoiLuong || 0), 0);
     }
     this.KhoiLuongCa[index] = TongKhoiLuong
-    console.log(TongKhoiLuong)
+    //console.log(TongKhoiLuong)
 
-    let TongBongPhe = this.item.listThongKeSanLuong[index].listTyLeBongPhe?.find(ele=>ele.MaCongDoan === this.item.CongDoan)?.listKhoiLuongBongPhe.reduce((a,b)=>a+(b.KhoiLuong||0),0);
-    // console.log(TongBongPhe);
-    // console.log(TongKhoiLuong);
-    if(this.item.listThongKeSanLuong[index].isTruVaoSanLuong){
+    let TongBongPhe = this.item.listThongKeSanLuong[index].listTyLeBongPhe?.find(ele => ele.MaCongDoan === this.item.CongDoan)?.listKhoiLuongBongPhe.reduce((a, b) => a + (b.KhoiLuong || 0), 0);
+    // //console.log(TongBongPhe);
+    // //console.log(TongKhoiLuong);
+    if (this.item.listThongKeSanLuong[index].isTruVaoSanLuong) {
       this.KhoiLuongCa[index] = TongKhoiLuong - TongBongPhe;
-    }else{
+    } else {
       this.KhoiLuongCa[index] = TongKhoiLuong;
     }
-    // console.log(this.TongKhoiLuong);
-    let found = this.item.listThongKeSanLuong[index].listTyLeBongPhe?.find(ele=>ele.MaCongDoan===this.item.CongDoan);
+    // //console.log(this.TongKhoiLuong);
+    let found = this.item.listThongKeSanLuong[index].listTyLeBongPhe?.find(ele => ele.MaCongDoan === this.item.CongDoan);
     found.TongKhoiLuongCongDoan = this.KhoiLuongCa[index];
     found.isTruVaoSanLuong = this.item.listThongKeSanLuong[index].isTruVaoSanLuong;
     this.services.ThongKeSanLuong().TinhTyLeThongKeSanLuongBongPhe(this.item.listThongKeSanLuong[index].listTyLeBongPhe).subscribe((res: any) => {
@@ -711,17 +745,17 @@ export class ThongkesanluongcamodalComponent implements OnInit {
       });
     }
   }
-  nextFocus(index){
-    console.log(index);
-    console.log(this.inputKhoiLuongs.toArray().map(ele=>ele.el.nativeElement))
+  nextFocus(index) {
+    //console.log(index);
+    //console.log(this.inputKhoiLuongs.toArray().map(ele=>ele.el.nativeElement))
     index = parseInt(index);
     let length = this.inputKhoiLuongs.toArray().length;
-    let currentEle = this.inputKhoiLuongs.toArray().find(ele=>ele.el.nativeElement["data-index"] === (index));
+    let currentEle = this.inputKhoiLuongs.toArray().find(ele => ele.el.nativeElement["data-index"] === (index));
     currentEle.el.nativeElement.children[0].children[0].blur()
-    setTimeout(()=>{
-      let nextEle = this.inputKhoiLuongs.toArray().find(ele=>ele.el.nativeElement["data-index"] === (index+1<length?index+1:0));
+    setTimeout(() => {
+      let nextEle = this.inputKhoiLuongs.toArray().find(ele => ele.el.nativeElement["data-index"] === (index + 1 < length ? index + 1 : 0));
       nextEle.el.nativeElement.children[0].children[0].focus();
-    },400)
-    // console.log(foundEle);
+    }, 400)
+    // //console.log(foundEle);
   }
 }
