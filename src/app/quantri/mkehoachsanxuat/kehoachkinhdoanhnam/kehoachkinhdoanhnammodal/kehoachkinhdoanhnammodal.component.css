@@ -1,0 +1,30 @@
+.tc-w-151 {
+  min-width: 151px !important;
+  max-width: 151px !important;
+  padding: 8px 0;
+}
+.tc-w-200 {
+  min-width: 200px !important;
+  max-width: 200px !important;
+  padding: 8px 0;
+}
+.tc-w-121 {
+  min-width: 121px !important;
+  max-width: 121px !important;
+  padding: 8px 0;
+}
+
+.tc-w-100 {
+  min-width: 100px !important;
+  max-width: 100px !important;
+  padding: 8px 0;
+}
+
+.tc-w-140 {
+  min-width: 140px !important;
+  max-width: 140px !important;
+  padding: 8px 0;
+}
+.VuotQuaNangLuc {
+  background-color: red !important;
+}

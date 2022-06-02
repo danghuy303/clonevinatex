@@ -1,0 +1,79 @@
+<div class="modal-header">
+  <h5 class="modal-title">Chi tiết tháng</h5>
+</div>
+<div class="modal-body">
+  <div class="p-d-flex p-flex-row p-jc-between">
+    <div class="modal-bt p-mb-3">
+      <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
+        (click)="activeModal.dismiss()"></button>
+      <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm "></button>
+    </div>
+  </div>
+  <p-panel header="Thông tin chung">
+    <div class="p-grid p-mb-2">
+      <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng số ca:</label>
+        <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+          <input type="text" class="p-inputtext-sm" [(ngModel)]="itemThang.TongSoCa" placeholder="Nhập nội dung"
+            pInputText />
+        </div>
+      </div>
+      <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số máy con:</label>
+        <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+          <p-inputNumber [(ngModel)]="itemThang.SoMayCon" locale="en-US"></p-inputNumber>
+        </div>
+      </div>
+      <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Số ngày làm việc:</label>
+        <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+          <p-inputNumber [(ngModel)]="itemThang.SoNgayLamViec" locale="en-US"></p-inputNumber>
+        </div>
+      </div>
+      <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Sản lượng một ca:</label>
+        <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+          <p-inputNumber [(ngModel)]="itemThang.SanLuongMotCa" locale="en-US"></p-inputNumber>
+        </div>
+      </div>
+      <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Hiệu suất:</label>
+        <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+          <p-inputNumber [(ngModel)]="itemThang.HieuSuat" locale="en-US"></p-inputNumber>
+        </div>
+      </div>
+      <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Sản lượng quy đổi:</label>
+        <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+          <p-inputNumber [(ngModel)]="itemThang.SanLuongQuyDoi" locale="en-US">
+          </p-inputNumber>
+        </div>
+      </div>
+      <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Tổng sản lượng trong tháng:</label>
+        <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+          <p-inputNumber [(ngModel)]="itemThang.TongSanLuong" locale="en-US">
+          </p-inputNumber>
+        </div>
+      </div>
+    </div>
+  </p-panel>
+  <p-panel header="Vận chuyển">
+    <div class="p-grid">
+      <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Loại Container:</label>
+        <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+          <p-dropdown [filter]="true" [options]="listContainer" placeholder="Chọn loại Container" [showClear]="true"
+            styleClass="p-inputtext-sm"></p-dropdown>
+        </div>
+      </div>
+      <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Phương thức vận chuyển:</label>
+        <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+          <p-dropdown [filter]="true" [options]="listPhuongThucVanChuyen" placeholder="Chọn loại phương thức vận chuyển" [showClear]="true"
+            styleClass="p-inputtext-sm"></p-dropdown>
+        </div>
+      </div>
+    </div>
+  </p-panel>
+</div>
