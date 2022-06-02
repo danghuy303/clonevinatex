@@ -114,7 +114,7 @@
               </td>
               <td class="tc-w-200 p-px-2">{{sanpham.NhaMay}}</td>
               <td class="tc-w-121 p-px-2 text-center">
-                <button pButton pRipple type="button" [label]="sanpham.HopDong" class="p-button-text" (click)="SeeHopDongDetail()"></button>
+                <button pButton pRipple type="button" *ngIf="sanpham.HopDong" [label]="sanpham.HopDong" class="p-button-text" (click)="SeeHopDongDetail()"></button>
               </td>
               <td class="tc-w-200 p-px-2 text-right">
                 <p-inputNumber [(ngModel)]="sanpham.TongSanLuong" locale="en-US" suffix=" tấn"></p-inputNumber>

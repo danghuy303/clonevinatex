@@ -7,6 +7,7 @@ import { DanhMucHopDongService } from 'src/app/services/Hopdong/danhmuchopdong.s
 import { StoreService } from 'src/app/services/store.service';
 import { PintableDirective } from 'voi-lib';
 import { ChitietthangComponent } from '../chitietthang/chitietthang.component';
+import { DanhmucmathangComponent } from '../danhmucmathang/danhmucmathang.component';
 import { HopdongsanphammodalComponent } from '../hopdongsanphammodal/hopdongsanphammodal.component';
 
 @Component({
@@ -72,26 +73,18 @@ export class KehoachkinhdoanhnammodalComponent implements OnInit {
   }
 
   AddSanPham() {
-    let data = {
-      TenSanPham: "Sản phẩm",
-      NhaMay: "Nhà máy 1",
-      HopDong: "Hợp đồng 1",
-      TongSanLuong: 0,
-      Thang1: 0,
-      Thang2: 0,
-      Thang3: 0,
-      Thang4: 0,
-      Thang5: 0,
-      Thang6: 0,
-      Thang7: 0,
-      Thang8: 0,
-      Thang9: 0,
-      Thang10: 0,
-      Thang11: 0,
-      Thang12: 0,
-      NgoaiLe: true,
-    };
-    this.kehoach.ListSanPham.push(data);
+    let modalRef = this._modal.open(DanhmucmathangComponent, {
+      size: 'fullscreen',
+      backdrop: 'static',
+    });
+    modalRef.result
+    .then((res: any) => {
+
+    })
+    .catch((error: any) => {
+
+    })
+    .finally(() => {})
   }
 
   SeeHopDongDetail() {

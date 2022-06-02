@@ -3,14 +3,13 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-chitietthang',
-  templateUrl: './chitietthang.component.html',
-  styleUrls: ['./chitietthang.component.css']
+  selector: 'app-danhmucmathang',
+  templateUrl: './danhmucmathang.component.html',
+  styleUrls: ['./danhmucmathang.component.css']
 })
-export class ChitietthangComponent implements OnInit {
+export class DanhmucmathangComponent implements OnInit {
 
-  itemThang: any = {};
-  listCachThuc: Array<any> = [{ value: 'noiDia', label: 'Nội địa' }, { value: 'xuatKhau', label: 'Xuất khẩu' }];
+  listMatHang: any = [];
 
   constructor(
     public activeModal: NgbActiveModal,

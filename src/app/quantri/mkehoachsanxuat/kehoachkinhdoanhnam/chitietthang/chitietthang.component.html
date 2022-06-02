@@ -74,6 +74,19 @@
             styleClass="p-inputtext-sm"></p-dropdown>
         </div>
       </div>
+      <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Cách thức:</label>
+        <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+          <p-dropdown [filter]="true" [options]="listCachThuc" placeholder="Chọn loại phương thức vận chuyển" [showClear]="true"
+            styleClass="p-inputtext-sm"></p-dropdown>
+        </div>
+      </div>
+      <div class="p-col-12 p-lg-6 d-flex flex-column flex-xl-row">
+        <label class="p-col-12 p-lg-4 p-p-0 my-auto">Sử dụng cho tất cả các tháng:</label>
+        <div class="p-col-12 p-lg-8 p-p-0 my-auto">
+          <p-checkbox></p-checkbox>
+        </div>
+      </div>
     </div>
   </p-panel>
 </div>
