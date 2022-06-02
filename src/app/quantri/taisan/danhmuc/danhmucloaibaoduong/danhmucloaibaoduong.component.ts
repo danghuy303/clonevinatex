@@ -51,7 +51,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
       align: 'center'
     },
     {
-      header: 'Lịch bảo dưỡng',
+      header: 'Lịch bảo dưỡng/Năng suất',
       field: 'ThoiGianNangSuat',
       width: '150px',
       align: 'center'

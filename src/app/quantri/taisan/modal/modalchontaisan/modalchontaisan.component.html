@@ -11,11 +11,15 @@
                 (click)="activeModal.dismiss('close')"></button>
             <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm " [style.display]="checkBtnChonTaiSan?'inline-flex' : 'none'"
                 (click)="GhiLai()"></button> -->
+            <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
+                (click)="activeModal.dismiss('close')"></button>
+            <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button-sm" (click)="GhiLai()"></button>
         </div>
         <div class="p-d-flex p-flex-row">
             <div class="p-mr-2 p-inputgroup">
                 <input type="text" placeholder="Tìm kiếm theo mã và tên tài sản" class="p-inputtext-sm"
-                    [(ngModel)]="filter.Keyword" pInputText (keyup.enter)="Loaddata()" ngbTooltip="Tìm kiếm theo mã và tên tài sản"/>
+                    [(ngModel)]="filter.Keyword" pInputText (keyup.enter)="Loaddata()"
+                    ngbTooltip="Tìm kiếm theo mã và tên tài sản" />
                 <button type="button" pButton pRipple icon="pi pi-search"
                     class="p-button-secondary p-button-sm p-button-text" (click)="Loaddata(true)"></button>
                 <button type="button" pButton pRipple icon="pi pi-refresh"
@@ -78,13 +82,13 @@
         </ng-template>
     </p-treeTable>
 
-    <div class="p-d-flex p-flex-row p-jc-between p-mt-3">
+    <!-- <div class="p-d-flex p-flex-row p-jc-between p-mt-3">
         <div class="modal-bt p-mb-4 p-d-flex p-jc-between" style="width: 100%">
             <button pButton pRipple type="button" label="Đóng" class="p-mr-2 p-button-outlined"
                 (click)="activeModal.dismiss('close')"></button>
             <button pButton pRipple type="button" label="Chấp nhận" class="p-mr-2 p-button" (click)="GhiLai()"></button>
         </div>
-    </div>
+    </div> -->
 </div>
 <!-- <div class="modal-footer">
     <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>

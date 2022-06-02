@@ -475,6 +475,11 @@ const routes: Routes = [
             (m) => m.BaoCaoTongHopModule
           ),
       },
+      {
+        path: "mkehoachsanxuat",
+        loadChildren: () =>
+          import("./mkehoachsanxuat/mkehoachsanxuat.module").then((m) => m.MkehoachsanxuatModule),
+      },
 
       {
         path: "quanlykhosanxuatbongkhac/khovattuphu/nhapkho/:id",

@@ -32,7 +32,7 @@
             <label class="p-col-12 p-lg-2 p-p-0 my-auto">Loại tài sản <span class="text-danger">(*)</span>:</label>
             <div class="p-col-12 p-lg-10 p-p-0">
                 <p-dropdown [filter]="true" [options]="listTaiSan" placeholder="Chọn loại tài sản"
-                    [(ngModel)]="item.IddmLoaiTaiSan" styleClass="p-inputtext-sm">
+                    [(ngModel)]="item.IddmLoaiTaiSan" styleClass="p-inputtext-sm" showClear="true">
                 </p-dropdown>
             </div>
         </div>

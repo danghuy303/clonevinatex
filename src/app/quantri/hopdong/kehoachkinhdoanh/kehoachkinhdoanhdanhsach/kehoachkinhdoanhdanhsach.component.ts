@@ -33,7 +33,6 @@ export class KehoachkinhdoanhdanhsachComponent implements OnInit {
   checkQuyen: any = { ChuaXuLy: true, DaXyLy: true };
   eAction = "PHUONGANPHABONG";
 
-
   constructor(private _modal: NgbModal, private _danhMucHopDong: DanhMucHopDongService,
     private _toastr: ToastrService,
     private _services: SanXuatService,

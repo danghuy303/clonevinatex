@@ -1560,6 +1560,19 @@ export class QuantriComponent implements OnInit {
           },
         ],
       },
+      {
+        label: "Menu kế hoạch sản xuất",
+        icon: "fas fa-circle",
+        routerLink: "/quantri/mkehoachsanxuat",
+        visible: this.showHopDongModule,
+        items: [
+          {
+            label: "Kế hoạch kinh doanh năm",
+            routerLink: "/quantri/mkehoachsanxuat/danhmuc/kehoachkinhdoanhnam/0",
+            command: () => this.close(),
+          },
+        ]
+      },
 
       {
         label: "Báo cáo tổng hợp",

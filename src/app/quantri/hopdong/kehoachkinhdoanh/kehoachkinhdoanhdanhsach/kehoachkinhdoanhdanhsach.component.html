@@ -48,6 +48,7 @@
                 <col>
                 <col>
                 <col>
+                <col>
                 <col style="width: 100px;">
             </colgroup>
         </ng-template>
@@ -56,12 +57,13 @@
                 <th class="text-center">STT</th>
                 <th class="text-center">Số phiếu</th>
                 <th class="text-center">Tên kế hoạch</th>
-                <th class="text-center"> Năm</th>
-                <th class="text-center">Ngày lập</th>
                 <th class="text-center">Người lập</th>
-                <th class="text-center"> Nội dung</th>
-                <th class="text-center">Ghi chú</th>
+                <th class="text-center">Doanh thu</th>
+                <th class="text-center">Chi phí</th>
+                <th class="text-center">Lợi nhuận</th>
+                <th class="text-center">Năm</th>
                 <th class="text-center">Trạng thái</th>
+                <th class="text-center">Ghi chú</th>
                 <th class="text-center"></th>
             </tr>
         </ng-template>
@@ -73,19 +75,24 @@
                 <td class="text-center">
                     {{item.SoQuyTrinh}}
                 </td>
-                <td class="text-center">{{item.TenKeHoach}}</td>
-                <td class="text-center">{{item.Nam}}</td>
-                <td class="text-center">
-                    {{item.NgayLap|date:'dd/MM/yyyy'}}
-                </td>
-                <td class="text-center">
+                <td>{{item.TenKeHoach}}</td>
+                <td>
                     {{userInfo.TenNhanVien}}
                 </td>
-                <td class="text-center">{{item.NoiDung}} </td>
-                <td class="text-center"> {{item.GhiChu}}</td>
+                <td class="text-right">
+                    {{userInfo.DoanhThu | number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{userInfo.ChiPhi | number:'0.0'}}
+                </td>
+                <td class="text-right">
+                    {{userInfo.LoiNhuan | number:'0.0'}}
+                </td>
+                <td class="text-center">{{item.Nam}}</td>
                 <td class="text-center">
                     {{item.TenTrangThai}}
                 </td>
+                <td> {{item.GhiChu}}</td>
                 <td class="text-center">
                     <button pButton pRipple type="button" icon="pi pi-pencil"
                         class="p-button-text p-button-sm p-button-secondary p-mr-2" (click)="changeParam(item.Id)"></button>

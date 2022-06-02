@@ -79,7 +79,6 @@ export class ModalbaoduongComponent implements OnInit {
           this.item = res;
           this.activeModal.close();
         }
-        // this.activeModal.close();
       })
     }
   }
