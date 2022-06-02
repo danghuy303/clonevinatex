@@ -61,36 +61,36 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-12  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-2 p-p-0 my-auto">Lịch bảo dưỡng:</label>
-            <div class="p-col-12 p-lg-10 p-p-0 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-3 p-p-0 my-auto">Lịch bảo dưỡng  <span class="text-danger">(*)</span> :</label>
+            <div class="p-col-12 p-lg-9 p-p-0 d-flex flex-column flex-xl-row">
                 <div class="p-col-12 p-lg-12 p-p-0 d-flex flex-column flex-xl-row">
                     <div class="p-col-12 p-lg-2 p-p-0">
                         <div class="field-radiobutton check-pt" >
-                            <p-radioButton value="Ngay" inputId="ngay" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
+                            <p-radioButton value="NGAY" inputId="ngay" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
                             <label for="Ngay">Ngày</label>
                         </div>
                     </div>
                     
                     <div class="p-col-12 p-lg-2 p-p-0">
                         <div class="field-radiobutton check-pt">
-                            <p-radioButton value="Tuan" inputId="tuan" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
+                            <p-radioButton value="TUAN" inputId="tuan" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
                             <label>Tuần</label>
                         </div>
                     </div>
                     <div class="p-col-12 p-lg-2 p-p-0">
                         <div class="field-radiobutton check-pt">
-                            <p-radioButton value="Thang" inputId="thang" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
+                            <p-radioButton value="THANG" inputId="thang" [(ngModel)]="item.MaLoaiThoiGian"></p-radioButton>
                             <label>Tháng</label>
                         </div>
                     </div>
                     <div class="p-col-12 p-lg-2 p-p-0">
                         <div class="field-radiobutton check-pt">
-                            <p-radioButton value="Nam" inputId="nam" [(ngModel)]="item.MaLoaiThoiGian" ></p-radioButton>
+                            <p-radioButton value="NAM" inputId="nam" [(ngModel)]="item.MaLoaiThoiGian" ></p-radioButton>
                             <label>Năm</label>
                         </div>
                     </div>
                     <div class="p-col-12 p-lg-4 p-p-0 d-flex flex-column flex-xl-row">
-                            <p-inputNumber [minFractionDigits]="0" locale="en-EN"  [(ngModel)]="item.ThoiGianBaoDuong">
+                            <p-inputNumber [minFractionDigits]="0" min="0" locale="en-EN"  [(ngModel)]="item.ThoiGianBaoDuong">
                             </p-inputNumber> 
                             <p class="tan">({{Time[item.MaLoaiThoiGian]}})</p>
                     </div>
@@ -100,14 +100,14 @@
         <div class="p-col-12 p-lg-5  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-lg-5 p-p-0 my-auto">Năng suất:</label>
             <div class="p-col-12 p-lg-7 p-p-0 d-flex flex-column flex-xl-row">
-                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.NangSuat">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" min="0" [(ngModel)]="item.NangSuat">
                 </p-inputNumber>
                 <p class="tan">(tấn)</p>    
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-lg-4 p-p-0 my-auto">Độ ưu tiên:</label>
-            <div class="p-col-12 p-lg-8 p-p-0 d-flex flex-column flex-xl-row">
+            <label class="p-col-12 p-lg-5 p-p-0 my-auto">Độ ưu tiên <span class="text-danger">(*)</span> :</label>
+            <div class="p-col-12 p-lg-7 p-p-0 d-flex flex-column flex-xl-row">
                 <!-- <input locale="en-EN" [(ngModel)]="item.DoUuTien" pInputText /> -->
                 <p-dropdown [filter]="true" [options]="listMucDoUuTien" placeholder="Chọn mức độ ưu tiên"
                 [(ngModel)]="item.IddmMucDoUuTien" styleClass="p-inputtext-sm">

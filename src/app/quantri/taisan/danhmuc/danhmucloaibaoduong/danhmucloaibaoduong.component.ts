@@ -167,11 +167,20 @@ export class DanhmucloaibaoduongComponent implements OnInit {
       size: 'md',
       backdrop: 'static',
     })
+    modalRef.componentInstance.type = "excel";
+    modalRef.componentInstance.single = true;
+    modalRef.componentInstance.onlyExcel = true;
     modalRef.result
       .then((res: any) => {
         this.fileUpload = res;
-        this._danhMucTaiSan.DanhMucLoaiBaoDuong().Importdm(this.fileUpload[0]).subscribe(()=>{
-          this.resetFilter();
+        this._danhMucTaiSan.DanhMucLoaiBaoDuong().Importdm(this.fileUpload[0].Name).subscribe(()=>{
+          if (res.StatusCode === 200) {
+            this._toastr.success(res.Message);
+            this.resetFilter();
+          } else {
+            this._toastr.error(res.Message);
+          }
+          // this.resetFilter();
         })
       })
       .catch(er => {})
@@ -186,7 +195,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
      
     };
     this._danhMucTaiSan.DanhMucLoaiBaoDuong().Exportdm(data).subscribe((res: any) => {
-      this._danhMucTaiSan.DanhMucLoaiBaoDuong().download(res.TenFile);
+      this._danhMucTaiSan.DanhMucLoaiBaoDuong().download(res.Data);
     })
   }
   changePage(event) {

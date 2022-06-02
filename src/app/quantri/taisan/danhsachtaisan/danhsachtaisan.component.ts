@@ -45,7 +45,15 @@ export class DanhsachtaisanComponent implements OnInit {
       this.listLoaiTaiSan = mapArrayForDropDown(res.Data.Items, "Ten", "Id");
     })
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      let nhaMay = [
+        {
+          Id: 'Chưa có bộ phận sử dụng',
+          Ten: 'Chưa có bộ phận sử dụng'
+        }
+      ]
+      let luaChonNhaMay = [...res, ...nhaMay]
+      // this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listPhanXuong = mapArrayForDropDown(luaChonNhaMay, 'Ten', 'Id');
     })
     this.Loaddata();
   }
@@ -110,7 +118,7 @@ export class DanhsachtaisanComponent implements OnInit {
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.item = item.Id;
+    modalRef.componentInstance.getId = item.Id;
     modalRef.result
       .then((res: any) => {
         this.Loaddata();

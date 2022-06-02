@@ -173,6 +173,7 @@ import { TaisanlichxichthangComponent } from './screenLichXich/taisanlichxichtha
 import { CapnhatthuvienComponent } from './capnhatthuvien/capnhatthuvien.component';
 import { CapnhatthuvientaisanchitietComponent } from './capnhatthuvientaisanchitiet/capnhatthuvientaisanchitiet.component';
 import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal/them-moi-vat-tu-modal.component';
+import { DanhsachtaisanthongsokythuatComponent } from './screen/danhsachtaisanthongsokythuat/danhsachtaisanthongsokythuat.component';
 
 
 @NgModule({
@@ -301,6 +302,7 @@ import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal
     CapnhatthuvienComponent,
     CapnhatthuvientaisanchitietComponent,
     ThemMoiVatTuModalComponent,
+    DanhsachtaisanthongsokythuatComponent,
 
   ],
   imports: [
@@ -399,6 +401,7 @@ import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal
     ModalluachontaisantheolichxichthangComponent,
     CapnhatthuvientaisanchitietComponent
   ],
+  
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class TaisanModule { }

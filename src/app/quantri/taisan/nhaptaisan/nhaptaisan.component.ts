@@ -64,7 +64,15 @@ export class NhaptaisanComponent implements OnInit {
   }
   GetListdmPhanXuong() {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
-      this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      let nhaMay = [
+        {
+          Id: 'Chưa có bộ phận sử dụng',
+          Ten: 'Chưa có bộ phận sử dụng'
+        }
+      ]
+      let luaChonNhaMay = [...res, ...nhaMay]
+      // this.listPhanXuong = mapArrayForDropDown(res, 'Ten', 'Id');
+      this.listPhanXuong = mapArrayForDropDown(luaChonNhaMay, 'Ten', 'Id');
     })
   }
   changeTab(e) {
