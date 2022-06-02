@@ -42,15 +42,16 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     public toastr: ToastrService,
     private _servicesSanXuat: SanXuatService,
     private _serviceTaiSan: TaisanService,
-  ) {}
+  ) { }
 
   ngOnInit() {
+    console.log(this.item);
     this.GetListdmPhanXuong();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
     let ls2 = this._danhMucTaiSan.DanhMucNhaCungCap().GetList(data).toPromise();
 
-    Promise.all([ls1,ls2]).then((values: any) => {
+    Promise.all([ls1, ls2]).then((values: any) => {
       this.listLoaiTaiSan = mapArrayForDropDown(values[0].Data.Items, "Ten", "Id");
       this.listCungSanXuat = mapArrayForDropDown(values[1].Data.Items, "Ten", "Id");
     });
@@ -59,8 +60,8 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     this.item.GiaTriConLai = item.NguyenGia;
   }
   isCanDuTru() {
-    this.item.isCanDuTru=true;
-    this.item.isCanDuTru=false;
+    this.item.isCanDuTru = true;
+    this.item.isCanDuTru = false;
   }
   GetListdmPhanXuong() {
     this._servicesSanXuat.GetOptions().GetListdmPhanXuong().subscribe((res: any) => {
@@ -82,29 +83,15 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
       }
     })
   }
-  
-  // Validate() {
-  //   if (!validVariable(this.item.TaiSan.Ma) ||
-  //     !validVariable(this.item.TaiSan.Ten) ||
-  //     !validVariable(this.item.TaiSan.NgayNhap) ||
-  //     !validVariable(this.item.TaiSan.SoSeri) ||
-  //     !validVariable(this.item.TaiSan.IddmLoaiTaiSan) ||      
-  //     !validVariable(this.item.TaiSan.IddmTinhTrang)) {
-  //     this.toastr.error("Yêu cầu nhập đầy đủ trường bắt buộc");
-  //     return false;
-  //   }
-  //   return true;
-  // }
 
   GhiLai() {
-   if (!validVariable(this.item.DonViNangSuat)) {
+    if (!validVariable(this.item.DonViNangSuat)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
       return
     }
-      this.item.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.ThoiGianDuaVaoSuDung);
+    this.item.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.ThoiGianDuaVaoSuDung);
       this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
-      this.listTaiSan.push(this.item);
-      this.activeModal.close(this.listTaiSan);
+      this.activeModal.close(this.item);
   }
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
@@ -117,7 +104,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
         obj.FileNameGUI = obj.Name;
         obj.FileName = obj.NameLocal;
         obj.Link = obj.Url;
-        this.NameFile += `${obj.FileName}` + '; '; 
+        this.NameFile += `${obj.FileName}` + '; ';
       });
     }, (reason) => {
 
