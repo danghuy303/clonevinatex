@@ -265,8 +265,8 @@ import { TyLeTieuChuanBongPheComponent } from './danhmuc/danhmucsanxuat/ty-le-ti
 import { SogiodungmayComponent } from './sogiodungmay/sogiodungmay.component';
 import { NgansachdukienvathucteComponent } from './ngansachdukienvathucte/ngansachdukienvathucte.component';
 import { BaocaotonghoptaisanComponent } from './baocaotonghoptaisan/baocaotonghoptaisan.component';
-import { ModalbaoduongComponent } from './taisan/modal/modalbaoduong/modalbaoduong.component';
-import { ModalthongtinchitiettaisanComponent } from './taisan/modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
+// import { ModalbaoduongComponent } from './taisan/modal/modalbaoduong/modalbaoduong.component';
+// import { ModalthongtinchitiettaisanComponent } from './taisan/modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
 import { Hungyenpx1Component } from './quanlykhosanxuat/phuongan/layoutmodals/hungyenpx1/hungyenpx1.component';
 import { Cnnamdinhpx1Component } from './quanlykhosanxuat/phuongan/layoutmodals/cnnamdinhpx1/cnnamdinhpx1.component';
 import { DmsucomayComponent } from './danhmuc/dmsucomay/dmsucomay.component';
@@ -513,8 +513,8 @@ import { TyLeTieuChuanBongHoiComponent } from './danhmuc/danhmucsanxuat/ty-le-ti
     SogiodungmayComponent,
     NgansachdukienvathucteComponent,
     BaocaotonghoptaisanComponent,
-    ModalthongtinchitiettaisanComponent,
-    ModalbaoduongComponent,
+    // ModalthongtinchitiettaisanComponent,
+    // ModalbaoduongComponent,
     Hungyenpx1Component,
     Cnnamdinhpx1Component,
     DmsucomayComponent,
@@ -701,7 +701,8 @@ import { TyLeTieuChuanBongHoiComponent } from './danhmuc/danhmucsanxuat/ty-le-ti
     Phuhung1Component,
     Phuhung2Component,
     LoaiBongPheDmModalComponent,
-    ModaldmsucomayComponent
+    ModaldmsucomayComponent,
+    // ModalthongtinchitiettaisanComponent,
   
   ],
   providers: [

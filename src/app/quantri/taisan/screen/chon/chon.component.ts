@@ -18,6 +18,7 @@ export class ChonComponent implements OnInit {
   paging: any = { CurrentPage: 1, TotalPages: 1, TotalCount: 1 };
   ItemDaChon: any = '';
   checkedAll: boolean;
+  filter: any = {};
 
   constructor(
     public _modal: NgbModal,
@@ -31,14 +32,24 @@ export class ChonComponent implements OnInit {
     this.checkExist();
     this.GetList();
   }
+  resetFilter() {
+    this.filter = {};
+    this.GetList();
+  }
 
   GetList() {
-    this._serviceTaiSan.NhapTaiSan().GetListNhomTaiSan(this.item.IddmLoaiTaiSan).subscribe((res: any) => {
+    let data = {
+      Keyword: this.filter.Keyword,
+      CurrentPage: 0,
+      PageSize: 20,
+      IddmLoaiTaiSan: this.item.IddmLoaiTaiSan
+    }
+    this._serviceTaiSan.NhapTaiSan().GetListNhomTaiSan(data).subscribe((res: any) => {
       this.items = res.Data;
       this.items.forEach(ele => {
         ele.checked = this.ItemDaChon === ele.Id;
         if (this.ItemDaChon) {
-          ele.disabled = this.ItemDaChon === ele.Id?false:true;
+          ele.disabled = this.ItemDaChon === ele.Id ? false : true;
         }
       })
     })
@@ -82,5 +93,10 @@ export class ChonComponent implements OnInit {
 
   GhiLai() {
     this.activeModal.close(this.FilterTree());
+  }
+
+  changePage(event) {
+    this.paging.CurrentPage = event.page + 1;
+    this.GetList()
   }
 }

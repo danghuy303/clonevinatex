@@ -48,12 +48,8 @@ export class LichbaoduongcopyComponent implements OnInit {
     this._serviceTaiSan.ChiTietTaiSanLichBaoDuong().Get(this.item.Id).subscribe((res: any) => {
       //  this.listThoiGianNangSuat = res?.Data[0]?.listThoiGianNangSuat;
       //   this.itemLichBaoDuong= res?.Data;
-    
       this.listdmLoaiBaoDuong = res?.Data.lstLoaiBaoDuong;
       this.itemLichBaoDuong = res?.Data.lstChondmBaoDuong;
-      console.log('loggg', this.itemLichBaoDuong);
-      
-
       // this.itemLichBaoDuong = datafake.Data.map(ele => {
       //   return {
       //     ...ele,

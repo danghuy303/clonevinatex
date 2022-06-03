@@ -90,7 +90,7 @@ import { TaomoilichbaoduongComponent } from './screen/taomoilichbaoduong/taomoil
 import { AntoanComponent } from './screen/antoan/antoan.component';
 import { ThongsokythuatComponent } from './screen/thongsokythuat/thongsokythuat.component';
 
-import { LichbaoduongcopyComponent } from './lichbaoduongcopy/lichbaoduongcopy.component';
+// import { LichbaoduongcopyComponent } from './lichbaoduongcopy/lichbaoduongcopy.component';
 import { TaomoilichbaoduongcopyComponent } from './taomoilichbaoduongcopy/taomoilichbaoduongcopy.component';
 import { ModalcapnhatbaoduongcopyyComponent } from './modalcapnhatbaoduongcopyy/modalcapnhatbaoduongcopyy.component';
 
@@ -191,7 +191,7 @@ import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal
     ModalcapnhattaisanComponent,
     NhaptaisanComponent,
     // ModalthongtinchitiettaisanComponent,
-    BiendongComponent,
+    // BiendongComponent,
     LichbaoduongComponent,
     SucosuachuaComponent,
     ThongtinchungComponent,
@@ -219,9 +219,9 @@ import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal
     ModalchontaisanThanhlyCopyComponent,
     Sucosuachua2Component,
     TaomoilichbaoduongComponent,
-    AntoanComponent,
-    ThongsokythuatComponent,
-    LichbaoduongcopyComponent,
+    // AntoanComponent,
+    // ThongsokythuatComponent,
+    // LichbaoduongcopyComponent,
     TaomoilichbaoduongcopyComponent,
     ModalcapnhatbaoduongcopyyComponent,
     VattudutruComponent,
@@ -301,7 +301,6 @@ import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal
     CapnhatthuvienComponent,
     CapnhatthuvientaisanchitietComponent,
     ThemMoiVatTuModalComponent,
-
   ],
   imports: [
     CommonModule,
@@ -355,12 +354,13 @@ import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal
     // { provide: LOCALE_ID, useValue: 'vi-VN' },
   ],
 
-  entryComponents: [ModalbaoduongComponent,
+  entryComponents: [
+    // ModalbaoduongComponent,
     ModaldonvinangsuatComponent,
     ModaldonvitinhComponent,
     ModalloaitaisanComponent,
     ModalcapnhattaisanComponent,    
-    ModalthongtinchitiettaisanComponent,
+    // ModalthongtinchitiettaisanComponent,
     ModalcapnhatbaoduongComponent,
     ModalcapnhatsuachuabaoduongComponent,
     ModalhangsanxuatComponent,
@@ -399,6 +399,7 @@ import { ThemMoiVatTuModalComponent } from './screen/vattu/them-moi-vat-tu-modal
     ModalluachontaisantheolichxichthangComponent,
     CapnhatthuvientaisanchitietComponent
   ],
+  
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class TaisanModule { }

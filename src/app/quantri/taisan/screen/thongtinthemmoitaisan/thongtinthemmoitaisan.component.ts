@@ -49,6 +49,8 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
   }
 
   LayMa(e) {
+    this.item.TendmTaiSan  = '';
+    this.item.IddmTaiSan = '';
     if (!validVariable(e.value)) {
       this.item.Ma = '';
       this.item.TendmTaiSan  = '';

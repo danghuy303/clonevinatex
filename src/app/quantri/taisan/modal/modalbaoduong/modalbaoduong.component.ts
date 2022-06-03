@@ -19,10 +19,10 @@ export class ModalbaoduongComponent implements OnInit {
   listTaiSan: any = [];
   listMucDoUuTien: any = [];
   Time = {
-    Ngay: 'Ngày',
-    Tuan: 'Tuần',
-    Thang: 'Tháng',
-    Nam: 'Năm',
+    NGAY: 'Ngày',
+    TUAN: 'Tuần',
+    THANG: 'Tháng',
+    NAM: 'Năm',
   };
 
   constructor(public activeModal: NgbActiveModal, private _danhMucTaiSan: DanhmuctaisanService, public toastr: ToastrService) { this.item.isHoatDong = true }
@@ -62,6 +62,10 @@ export class ModalbaoduongComponent implements OnInit {
       this.toastr.error("Yêu cầu nhập đầy đủ loại tài sản !");
       return false;
     }
+    if (!validVariable(this.item.ThoiGianBaoDuong || this.item.IddmMucDoUuTien)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc !");
+      return false;
+    }
     return true;
   }
 
@@ -72,6 +76,7 @@ export class ModalbaoduongComponent implements OnInit {
           this.toastr.error(res.Message);
         } else {
           this.toastr.success(res.Message);
+          this.item = res;
           this.activeModal.close();
         }
       })
