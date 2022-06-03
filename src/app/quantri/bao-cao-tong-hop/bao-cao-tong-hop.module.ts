@@ -17,6 +17,7 @@ import { VoiLibModule } from 'voi-lib';
 import { BaoCaoTongHopLoiCatComponent } from './bao-cao-tong-hop-loi-cat/bao-cao-tong-hop-loi-cat.component';
 import { BaoCaoTongHopClassimatComponent } from './bao-cao-tong-hop-classimat/bao-cao-tong-hop-classimat.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { InputTextModule } from 'primeng/inputtext';
     SharedModule,
     PaginatorModule,
     VoiLibModule,
-    InputTextModule
+    InputTextModule,
+    ChartModule
   ],
   exports: [
     BaoCaoTongHopComponent,

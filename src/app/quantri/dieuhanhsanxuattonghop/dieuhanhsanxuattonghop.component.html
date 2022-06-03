@@ -108,7 +108,7 @@
                             <ng-container *ngIf="thongke">
                                 <div class="d-flex flex-row p-jc-between p-pt-2" [ngClass]="{'canhbao': thongke.isRed}">
                                     <div>{{thongke.Ten}}</div>
-                                    <div>{{thongke.GiaTri|number:'0.3-3'}}</div>
+                                    <div>{{thongke.GiaTri|number:'0.3-3'}} <span *ngIf="thongke.DinhMuc!==undefined">/ {{thongke.DinhMuc|number:'0.3-3'}}</span></div>
                                 </div>
                             </ng-container>
                         </ng-container>

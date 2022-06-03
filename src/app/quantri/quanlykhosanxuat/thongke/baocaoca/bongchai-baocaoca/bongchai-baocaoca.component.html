@@ -36,13 +36,15 @@
 </div>
 <hr>
 <div class="p-grid">
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-10">
         <p-table [value]="item.lstMatHangBongPhe">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Loại phế</th>
                     <th>Công đoạn</th>
+                    <th>Lũy kế trước</th>
                     <th>Khối lượng</th>
+                    <th>Lũy kế sau</th>
                     <th>Định mức</th>
                 </tr>
             </ng-template>
@@ -50,10 +52,12 @@
                 <tr>
                     <td>{{product.TendmLoaiBongPhe}}</td>
                     <td>{{product.TendmCongDoan}}</td>
+                    <td class="text-right">{{product.KhoiLuongLuyKeThang|number:'0.2-2'}}</td>
                     <td>
                         <p-inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" locale="en-EN"
                             [(ngModel)]="product.KhoiLuong"></p-inputNumber>
                     </td>
+                    <td class="text-right">{{((product.KhoiLuongLuyKeThang||0)+(product.KhoiLuong||0))|number:'0.2-2'}}</td>
                     <td class="text-right">{{product.DinhMuc|number:'0.2-2'}}</td>
                 </tr>
             </ng-template>
