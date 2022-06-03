@@ -127,7 +127,7 @@
                 placeholder="Chọn bộ phận" [showClear]="true"></p-dropdown>
         </div>
     </div>
-    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+    <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tài liệu đính kèm : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <div class="p-inputgroup">
@@ -151,6 +151,7 @@
             </p-inputNumber>
         </div>
     </div>
+    </div> -->
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tên viết tắt : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
@@ -162,5 +163,22 @@
         <div class="p-col-12 p-xl-8 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
         </div>
+    </div>
+    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto d-flex p-ai-center">
+            <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
+            <label class="p-mb-0">Giá trị cao</label>
+        </div>
+        <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto d-flex p-ai-center">
+            <p-checkbox (onClick)="isCanDuTru()" binary="true" [(ngModel)]="item.isCanDuTru"></p-checkbox>
+            <label class="p-mb-0">Cần dự trữ</label>
+        </div>
+        <div *ngIf="item.isCanDuTru" class="p-col-12 p-xl-4 p-p-0 my-auto">
+            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu">
+            </p-inputNumber>
+        </div>
+    </div>
+    <div class="p-mb-4">
+        <app-tai-lieu-danh-sach [item]="item"></app-tai-lieu-danh-sach>
     </div>
 </div>

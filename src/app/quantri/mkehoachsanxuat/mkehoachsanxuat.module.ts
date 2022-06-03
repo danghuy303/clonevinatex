@@ -18,6 +18,9 @@ import { HopdongsanphammodalComponent } from './kehoachkinhdoanhnam/hopdongsanph
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChitietthangComponent } from './kehoachkinhdoanhnam/chitietthang/chitietthang.component';
 import { DanhmucmathangComponent } from './kehoachkinhdoanhnam/danhmucmathang/danhmucmathang.component';
+import { KehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/kehoachkinhdoanhthang.component';
+import { ChitietkehoachthangmodalComponent } from './kehoachkinhdoanhthang/chitietkehoachthangmodal/chitietkehoachthangmodal.component';
+import { BaocaokehoachkinhdoanhComponent } from './baocaokehoachkinhdoanh/baocaokehoachkinhdoanh.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { DanhmucmathangComponent } from './kehoachkinhdoanhnam/danhmucmathang/da
     KehoachkinhdoanhnammodalComponent,
     HopdongsanphammodalComponent,
     ChitietthangComponent,
-    DanhmucmathangComponent
+    DanhmucmathangComponent,
+    KehoachkinhdoanhthangComponent,
+    ChitietkehoachthangmodalComponent,
+    BaocaokehoachkinhdoanhComponent
   ],
   imports: [
     CommonModule,
