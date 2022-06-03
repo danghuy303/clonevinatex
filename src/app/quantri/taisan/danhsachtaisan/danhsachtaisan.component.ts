@@ -8,8 +8,9 @@ import { DateToUnix, formatdate, mapArrayForDropDown, } from "src/app/services/g
 import { TaisanService } from "src/app/services/Taisan/taisan.service";
 import { DanhmuctaisanService } from "src/app/services/Taisan/danhmuctaisan.service";
 import { TreeNode } from 'primeng/api';
-import { ModalthongtinchitiettaisanComponent } from "../modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component";
+// import { ModalthongtinchitiettaisanComponent } from "../modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component";
 import { DanhMucHopDongService } from "src/app/services/Hopdong/danhmuchopdong.service";
+import { ModalthongtinchitiettaisanComponent } from "../modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component";
 // import { ModalcapnhattaisanComponent } from "../modal/modalcapnhattaisan/modalcapnhattaisan.component";
 
 @Component({

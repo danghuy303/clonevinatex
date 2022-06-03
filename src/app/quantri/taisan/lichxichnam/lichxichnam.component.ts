@@ -81,7 +81,7 @@ export class LichxichnamComponent implements OnInit {
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.item = item.IdTaiSan;
+    modalRef.componentInstance.getId = item.IdTaiSan;
     // modalRef.componentInstance.item = JSON.parse(JSON.stringify(item));
     modalRef.result
       .then((res: any) => {
