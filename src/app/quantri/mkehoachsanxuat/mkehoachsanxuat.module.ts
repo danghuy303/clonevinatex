@@ -20,6 +20,7 @@ import { ChitietthangComponent } from './kehoachkinhdoanhnam/chitietthang/chitie
 import { DanhmucmathangComponent } from './kehoachkinhdoanhnam/danhmucmathang/danhmucmathang.component';
 import { KehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/kehoachkinhdoanhthang.component';
 import { ChitietkehoachthangmodalComponent } from './kehoachkinhdoanhthang/chitietkehoachthangmodal/chitietkehoachthangmodal.component';
+import { BaocaokehoachkinhdoanhComponent } from './baocaokehoachkinhdoanh/baocaokehoachkinhdoanh.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ChitietkehoachthangmodalComponent } from './kehoachkinhdoanhthang/chiti
     ChitietthangComponent,
     DanhmucmathangComponent,
     KehoachkinhdoanhthangComponent,
-    ChitietkehoachthangmodalComponent
+    ChitietkehoachthangmodalComponent,
+    BaocaokehoachkinhdoanhComponent
   ],
   imports: [
     CommonModule,
