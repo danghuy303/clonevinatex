@@ -23,7 +23,8 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
   qrcode: any = {
     size: 250
   };
-
+  eTable: string = "QLTS_TaiSan_QuyTrinhNhap";
+  IdTable: string = '';
 
   @Input('item') item: any = {};
   @Input('TaiSanChaCon') TaiSanChaCon: string = "";
@@ -40,15 +41,19 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    console.log("this.item", this.item);
+    
     if (this.opt === 'edit') {
       this.item.listFileDinhKem?.forEach(obj => {
         this.NameFile += `${obj.FileName}, `;
       });
+      this.IdTable = this.item.IdTaiSan;
     }
   }
 
   LayMa(e) {
+    this.item.TendmTaiSan  = '';
+    this.item.IddmTaiSan = '';
     if (!validVariable(e.value)) {
       this.item.Ma = '';
       this.item.TendmTaiSan  = '';
@@ -72,27 +77,27 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
     this.item.isCanDuTru = true;
     this.item.isCanDuTru = false;
   }
-  taiLenFileDinhKem() {
-    const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.multiple = true;
-    modalRef.componentInstance.type = '';
-    modalRef.result.then((data) => {
-      // this.item.listFileDinhKem = data;
-      // this.item.listFileDinhKem.forEach(obj => {
-      //   this.NameFile += `${obj.NameLocal}, `;
-      // });
-      this.item.listFileDinhKem = data;
-      this.item.listFileDinhKem.forEach(obj => {
-        obj.Id = '';
-        obj.FileNameGUI = obj.Name;
-        obj.FileName = obj.NameLocal;
-        obj.Link = obj.Url;
-        this.NameFile += `${obj.FileName}` + '; '; /// gắn tên vào NameFile 
-      });
-    }, (reason) => {
+  // taiLenFileDinhKem() {
+  //   const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });
+  //   modalRef.componentInstance.multiple = true;
+  //   modalRef.componentInstance.type = '';
+  //   modalRef.result.then((data) => {
+  //     // this.item.listFileDinhKem = data;
+  //     // this.item.listFileDinhKem.forEach(obj => {
+  //     //   this.NameFile += `${obj.NameLocal}, `;
+  //     // });
+  //     this.item.listFileDinhKem = data;
+  //     this.item.listFileDinhKem.forEach(obj => {
+  //       obj.Id = '';
+  //       obj.FileNameGUI = obj.Name;
+  //       obj.FileName = obj.NameLocal;
+  //       obj.Link = obj.Url;
+  //       this.NameFile += `${obj.FileName}` + '; '; /// gắn tên vào NameFile 
+  //     });
+  //   }, (reason) => {
 
-    });
-  }
+  //   });
+  // }
 
   ChangeData() {
     this.itemChange.emit(this.item);

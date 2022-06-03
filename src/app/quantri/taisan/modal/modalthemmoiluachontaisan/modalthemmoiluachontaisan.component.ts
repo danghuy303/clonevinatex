@@ -45,7 +45,6 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.item);
     this.GetListdmPhanXuong();
     let data = { Keyword: "", CurrentPage: 0, PageSize: 20 };
     let ls1 = this._danhMucTaiSan.DanhMucLoaiTaiSan().GetList(data).toPromise();
@@ -69,9 +68,11 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
     })
   }
   LayMa(e) {
+    this.item.TendmTaiSan = '';
+    this.item.IddmTaiSan = '';
     if (!validVariable(e.value)) {
       this.item.Ma = '';
-      return
+      this.item.TendmTaiSan = '';
     }
     this._serviceTaiSan.NhapTaiSan().GetNextMaTaiSan(e.value).subscribe((res: any) => {
       if (res.StatusCode === 500) {
@@ -85,13 +86,13 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   }
 
   GhiLai() {
-    if (!validVariable(this.item.DonViNangSuat)) {
+    if (!validVariable(this.item.DonViNangSuat || this.item.IddmLoaiTaiSan)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
       return
     }
     this.item.ThoiGianDuaVaoSuDungUnix = DateToUnix(this.item.ThoiGianDuaVaoSuDung);
-      this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
-      this.activeModal.close(this.item);
+    this.item.NgayNhapUnix = DateToUnix(this.item.NgayNhap);
+    this.activeModal.close(this.item);
   }
   taiLenFileDinhKem() {
     const modalRef = this._modal.open(UploadmodalComponent, { size: 'lg', backdrop: 'static' });

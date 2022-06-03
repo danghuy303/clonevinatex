@@ -41,8 +41,9 @@ export class TaisanService {
       GetListTaiSan: (data) => {
         return this.http.post(`${url}BaoDuongTaiSan/GetListTaiSanForLapKeHoachLichXich`, data, httpOptions);
       },
-      GetListNhomTaiSan: (Id) => {
-        return this.http.get(`${url}QuanLyTaiSan/GetListDanhMucTaiSanByIddmLoaiTaiSan?IddmLoaiTaiSan=${Id}`, httpOptions);
+      GetListNhomTaiSan: (data) => {
+        // return this.http.get(`${url}QuanLyTaiSan/GetListDanhMucTaiSanByIddmLoaiTaiSan?IddmLoaiTaiSan=${Id}`, httpOptions);
+        return this.http.post(`${url}QuanLyTaiSan/GetListDanhMucTaiSanByIddmLoaiTaiSan`,data, httpOptions);
       },
       GetNextMaTaiSan: (Id) => {
         return this.http.get(`${url}QuanLyTaiSan/GetNextMaTaiSanByIddmLoaiTaiSan?IddmLoaiTaiSan=${Id}`, httpOptions);

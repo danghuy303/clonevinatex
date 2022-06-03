@@ -25,7 +25,6 @@
             <button pButton pRipple type="button" label="Chuyển duyệt" class="p-mr-2 p-button-sm" (click)="ChuyenDuyet()" *ngIf="checkbutton.ChuyenTiep"></button>
             <button pButton pRipple type="button" label="Chọn từ thư viện" class="p-mr-2 p-button-sm" (click)="ChonThuVien()"></button>
             <button pButton pRipple type="button" label="Lưu vào thư viện" class="p-mr-2 p-button-sm" (click)="AddThuVien()"></button>
-            <!-- <button pButton pRipple type="button" label="Kết xuất" *ngIf="canExport" (click)="exportExcel()" class="p-mr-2 p-button-sm"></button> -->
         </div>
         <div class="modal-bt text-center p-col-4 maQR"  [style.visibility]="item.TaiSan.Ma?'visible':'hidden'">
             <qrcode [qrdata]="item.TaiSan.Ma"  [width]="100" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
@@ -34,7 +33,6 @@
     <!-- phần cha -->
     <app-thongtinthemmoitaisan [(item)]="item.TaiSan" [listLoaiTaiSan]="listLoaiTaiSan" [listCungSanXuat]="listCungSanXuat" [listPhanXuong]="listPhanXuong" [opt]="opt" [TaiSanChaCon]="'cha'">
     </app-thongtinthemmoitaisan>
- 
     <!-- phần con -->
     <p-panel header="Chi tiết tài sản" [toggleable]="true">
         <ng-template pTemplate="content">
@@ -82,9 +80,6 @@
                                         <button pButton pRipple type="button" icon="pi pi-pencil"
                                             class="p-button-text p-button-sm p-button-secondary p-mr-2"
                                             pTooltip="Chỉnh sửa" (click)="CapNhatTaiSanCon(i,item)"></button>
-                                        <!-- <button pButton pRipple type="button" icon="pi pi-align-justify"
-                                            class="p-button-text p-button-sm p-button-secondary p-mr-2"
-                                            pTooltip="Tạo lịch bảo dưỡng" (click)="TaoLichBaoDuong(item)"></button> -->
                                         <button pButton pRipple type="button" icon="pi pi-trash"
                                             class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Xóa"
                                             (click)=" delete(i)"></button>
@@ -96,8 +91,6 @@
                 </p-tabPanel>
                 <p-tabPanel header="Lịch bảo dưỡng">
                     <ng-template pTemplate="content">
-                        <!-- <app-taomoilichbaoduongcopy *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan.listLichBaoDuong"></app-taomoilichbaoduongcopy>
-                        <app-taomoilichbaoduongcopy *ngIf="item.TaiSan === undefined" [item]="item.listLichBaoDuong"></app-taomoilichbaoduongcopy> -->
                         <app-taomoilichbaoduongcopy *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan"></app-taomoilichbaoduongcopy>
                         <app-taomoilichbaoduongcopy *ngIf="item.TaiSan === undefined" [item]="item"></app-taomoilichbaoduongcopy>
                     </ng-template>
@@ -119,9 +112,3 @@
     </p-panel>
 
 </div>
-
-<!-- <div class="modal-footer">
-    <button pButton pRipple label="Chấp nhận" class="p-button-sm p-mr-2" (click)="accept()"></button>
-    <button pButton pRipple label="Thoát" class="p-button-sm p-button-outlined p-button-secondary p-mr-2"
-        (click)="activeModal.dismiss()"></button>
-</div> -->

@@ -11,7 +11,7 @@ import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.serv
 })
 export class ThongsokythuatComponent implements OnInit, OnChanges {
 
-  @Input('item') item: any;
+  @Input('listThongSoKyThuat') listThongSoKyThuat: any;
   // @Output('listThongSoKyThuat') itemChange: EventEmitter<any> = new EventEmitter<any>();
   newitem: any = {};
 
@@ -23,30 +23,24 @@ export class ThongsokythuatComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(123);
-    
-    console.log("this.item", this.item);
   }
 
   ngOnInit(): void {
-    console.log(123);
-
-    // console.log(this.listThongSoKyThuat);
-    
+  
   }
   addThongSo() {
-    // if (this.listThongSoKyThuat === undefined || this.listThongSoKyThuat === null)
-    //   this.listThongSoKyThuat = [];
-    // this.listThongSoKyThuat.push(this.newitem);
-    // this.newitem = {}
+    if (this.listThongSoKyThuat === undefined || this.listThongSoKyThuat === null)
+      this.listThongSoKyThuat = [];
+    this.listThongSoKyThuat.push(this.newitem);
+    this.newitem = {}
   }
   delete(index) {
-    // let listThongSoKyThuat = this.listThongSoKyThuat.splice(index, 1)[0];
-    // if (listThongSoKyThuat.Id === '' || listThongSoKyThuat.Id === null || listThongSoKyThuat.Id === undefined) {
-    // } else {
-    //   listThongSoKyThuat.isXoa = true;
-    //   this.listThongSoKyThuat.push(JSON.parse(JSON.stringify(listThongSoKyThuat)));
-    // }
+    let listThongSoKyThuat = this.listThongSoKyThuat.splice(index, 1)[0];
+    if (listThongSoKyThuat.Id === '' || listThongSoKyThuat.Id === null || listThongSoKyThuat.Id === undefined) {
+    } else {
+      listThongSoKyThuat.isXoa = true;
+      this.listThongSoKyThuat.push(JSON.parse(JSON.stringify(listThongSoKyThuat)));
+    }
   }
 
 }

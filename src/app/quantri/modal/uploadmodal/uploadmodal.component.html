@@ -9,14 +9,14 @@
     <div class="col-12">
       <!-- <input type="file" ng2FileSelect [uploader]="uploader" multiple *ngIf="!single" /> -->
       <div class="custom-file" *ngIf="!single">
-        <input type="file" class="custom-file-input" ng2FileSelect [uploader]="uploader" [disabled]="uploader?.queue?.length >= 1" [accept]="onlyExcel?'.xlsx':''">
+        <input type="file" class="custom-file-input" ng2FileSelect [uploader]="uploader"  [accept]="onlyExcel?'.xlsx':''" multiple >
         <label class="custom-file-label" for="customFile">Choose file</label>
       </div>
       <!-- <input type="file" ng2FileSelect [uploader]="uploader" *ngIf="single"/> -->
       <!-- <input [disabled]="uploader?.queue?.length >= 1" type="file" ng2FileSelect [uploader]="uploader" *ngIf="single"
         [accept]="onlyExcel?'.xlsx':''" /> -->
       <div class="custom-file"  *ngIf="single">
-        <input type="file" class="custom-file-input" ng2FileSelect [uploader]="uploader" [accept]="onlyExcel?'.xlsx':''">
+        <input type="file" class="custom-file-input" ng2FileSelect [uploader]="uploader" [disabled]="uploader?.queue?.length >= 1" [accept]="onlyExcel?'.xlsx':''">
         <label class="custom-file-label" for="customFile">Choose file</label>
       </div>
     </div>

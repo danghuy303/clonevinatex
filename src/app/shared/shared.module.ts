@@ -19,6 +19,25 @@ import {TableModule} from 'primeng/table';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import { FormsModule } from '@angular/forms';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import { ModalthongtinchitiettaisanComponent } from '../quantri/taisan/modal/modalthongtinchitiettaisan/modalthongtinchitiettaisan.component';
+import { TabViewModule } from 'primeng/tabview';
+import { PanelModule } from 'primeng/panel';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { CheckboxModule } from 'primeng/checkbox';
+import { CalendarModule } from 'primeng/calendar';
+import { ButtonModule } from 'primeng/button';
+import { InputMaskModule } from 'primeng/inputmask';
+import { PasswordModule } from 'primeng/password';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { QRCodeModule } from 'angularx-qrcode';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { ThongsokythuatComponent } from '../quantri/taisan/screen/thongsokythuat/thongsokythuat.component';
+import { AntoanComponent } from '../quantri/taisan/screen/antoan/antoan.component';
+import { LichbaoduongcopyComponent } from '../quantri/taisan/lichbaoduongcopy/lichbaoduongcopy.component';
+import { BiendongComponent } from '../quantri/taisan/biendong/biendong.component';
+import { ModalbaoduongComponent } from '../quantri/taisan/modal/modalbaoduong/modalbaoduong.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +54,13 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     BanGiaoTaiSanQuyTrinhComponent,
     TaiLieuDanhSachComponent,
     TraoDoiComponent,
+    ModalthongtinchitiettaisanComponent,
+    ModalbaoduongComponent,
+    ThongsokythuatComponent,
+    AntoanComponent,
+    LichbaoduongcopyComponent,
+    BiendongComponent,
+
   ],
   imports: [
     AccordionModule,
@@ -44,6 +70,21 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     ScrollPanelModule,
     FormsModule,
     InputTextareaModule,
+
+    TabViewModule,
+    PanelModule,
+    CheckboxModule,
+    RadioButtonModule,
+    InputMaskModule,
+    PasswordModule,
+    InputSwitchModule,
+    ButtonModule,
+    CalendarModule,
+    QRCodeModule,
+    InputNumberModule,
+    DropdownModule,
+    InputTextModule,
+
   ],
   exports:[
     isXoaPipe,
@@ -59,6 +100,10 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     BanGiaoTaiSanQuyTrinhComponent,
     TaiLieuDanhSachComponent,
     TraoDoiComponent,
+    ModalthongtinchitiettaisanComponent,
+    ModalbaoduongComponent,
+    ThongsokythuatComponent,
+    AntoanComponent,
   ]
 })
 export class SharedModule { }

@@ -16,13 +16,13 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản <span class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiTaiSan" (onChange)="LayMa($event)" placeholder="Chọn loại tài sản" [(ngModel)]="item.IddmLoaiTaiSan" [showClear]="true"></p-dropdown>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mã tài sản : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mã tài sản <span class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
             </div>
@@ -52,7 +52,7 @@
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số lượng : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
+                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [min]="0" [(ngModel)]="item.SoLuong">
                 </p-inputNumber>
             </div>
         </div>
@@ -77,7 +77,7 @@
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tuổi thọ (tháng) : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
-                <p-inputNumber [minFractionDigits]="1" locale="en-EN" [(ngModel)]="item.TuoiTho"> </p-inputNumber>
+                <p-inputNumber [minFractionDigits]="1" locale="en-EN" [min]="0" [(ngModel)]="item.TuoiTho"> </p-inputNumber>
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -116,7 +116,7 @@
             </p-calendar>
             </div>
         </div>
-        <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
+        <!-- <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số năm khấu hao : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoNamKhauHao" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1"> </p-inputNumber>
@@ -133,7 +133,7 @@
             <div class="p-col-12 p-xl-8 p-p-0">
                  <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.GiaTriConLai"> </p-inputNumber>
             </div>
-        </div>
+        </div> -->
         <!-- <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
             <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
@@ -160,7 +160,7 @@
                 <label >Cần dự trữ</label>
             </div>
             <div *ngIf="item.isCanDuTru" class="p-col-12 p-xl-4 p-p-0 my-auto">
-                <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu">
+                <p-inputNumber [min]="0" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu">
                 </p-inputNumber>
             </div>
         </div>
@@ -172,7 +172,7 @@
         </div>
     </div>
     
-    <p-panel header="Chi tiết tài sản" [toggleable]="true">
+    <p-panel header="Chi tiết vật tư" [toggleable]="true">
         <ng-template pTemplate="content">
             <p-tabView (onChange)="changeTab($event)">
                 <p-tabPanel header="Lịch bảo dưỡng">

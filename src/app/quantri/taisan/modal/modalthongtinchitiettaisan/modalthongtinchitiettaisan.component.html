@@ -1,18 +1,8 @@
 <div class="modal-header">
     <h5 class="modal-title">
         Thông tin chi tiết</h5>
-    <!-- <button *ngIf="false" type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-    </button> -->
-    <!-- <span class="p-button-sm p-button-sm p-button-text close" aria-hidden="true"
-    (click)="activeModal.dismiss('Cross click')">×</span> -->
 </div>
 <div class="modal-body">
-    <!-- <div class="p-d-flex p-ai-center p-jc-between p-mb-3">
-        <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
-            (click)="activeModal.dismiss('close')"></button>
-        <div></div>
-    </div> -->
     <div class="p-d-flex p-flex-row p-jc-between">
         <div class="modal-bt p-mb-4 ">
             <button pButton pRipple type="button" label="Quay lại" class="p-mr-2 p-button-sm"
@@ -237,19 +227,14 @@
                         </p-table>
                     </ng-template>
                 </p-tabPanel>
-                <p-tabPanel header="Thông số kỹ thuật">
-                    <ng-template pTemplate="content">
-                       <app-danhsachtaisanthongsokythuat></app-danhsachtaisanthongsokythuat>
-                    </ng-template>
-                </p-tabPanel>
-                <!-- <p-tabPanel header="Lịch bảo dưỡng">
+                <p-tabPanel header="Lịch bảo dưỡng">
                 <ng-template pTemplate="content">
                     <app-lichbaoduongcopy [item]="item"></app-lichbaoduongcopy>
                 </ng-template>
             </p-tabPanel>
             <p-tabPanel header="Thông số kỹ thuật">
                 <ng-template pTemplate="content">
-                    <app-thongsokythuat [item]="item.listThongSoKyThuat"></app-thongsokythuat>
+                    <app-thongsokythuat [listThongSoKyThuat]="item.listThongSoKyThuat"></app-thongsokythuat>
                 </ng-template>
             </p-tabPanel>
             <p-tabPanel header="Thông số an toàn">
@@ -257,16 +242,16 @@
                     <app-antoan [item]="item.listThongSoAnToan"></app-antoan>
                 </ng-template>
             </p-tabPanel>
-            <p-tabPanel header="Thông tin khấu hao">
+            <!-- <p-tabPanel header="Thông tin khấu hao">
                 <ng-template pTemplate="content">
                     <app-thongtinkhauhao [item]="item.listThongTinKhauHao"></app-thongtinkhauhao>
                 </ng-template>
-            </p-tabPanel>
+            </p-tabPanel> -->
             <p-tabPanel header="Biến động">
                 <ng-template pTemplate="content">
                     <app-biendong [item]="item"></app-biendong>
                 </ng-template>
-            </p-tabPanel> -->
+            </p-tabPanel>
             </p-tabView>
         </ng-template>
     </p-panel>

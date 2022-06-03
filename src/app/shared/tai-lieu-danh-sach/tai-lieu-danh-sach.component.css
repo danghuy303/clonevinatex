@@ -10,7 +10,7 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 20px;
+    padding: 1rem;
 }
 .self-upload,
 .pc-upload {
@@ -22,7 +22,7 @@ header {
 }
 
 .pc-upload {
-    border-right: 1px solid rgb(39, 114, 255);
+    /* border-right: 1px solid rgb(39, 114, 255); */
 }
 
 .self-upload:hover,

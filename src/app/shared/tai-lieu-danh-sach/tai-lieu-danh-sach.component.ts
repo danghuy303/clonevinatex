@@ -1,13 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-
-interface ListTaiLieu {
-    id: number,
-    ten: string,
-    loai: string,
-    tacgia: string,
-    ngaytao: number,
-    ghichu: string,
-}
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
+import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
 @Component({
   selector: 'app-tai-lieu-danh-sach',
@@ -16,66 +11,44 @@ interface ListTaiLieu {
 })
 export class TaiLieuDanhSachComponent implements OnInit {
 
-  // table header
-  cols = [
-    'Tên tài liệu',
-    'Loại tài liệu',
-    'Người tạo',
-    'Ngày tạo',
-    'Ghi chú',
-  ]
+  @Input() item: any;
+  listTaiLieu: any = [];
 
-  // list tai lieu
-  listTaiLieu: ListTaiLieu[] = [
-    
-  ]
-
-  constructor() {
-    this.listTaiLieu = [
-      {
-        id: 1,
-        ten: 'Tài liệu bàn giao tài sản 1',
-        loai: 'Bản cứng',
-        tacgia: 'Nguyễn Văn A',
-        ngaytao: 1646646257000,
-        ghichu: 'Không có ghi chú'
-      },
-      {
-        id: 2,
-        ten: 'Tài liệu bàn giao tài sản 2',
-        loai: 'Bản cứng',
-        tacgia: 'Nguyễn Văn A',
-        ngaytao: 200000000,
-        ghichu: 'Không có ghi chú'
-      },
-      {
-        id: 3,
-        ten: 'Tài liệu bàn giao tài sản 3',
-        loai: 'Bản cứng',
-        tacgia: 'Nguyễn Văn A',
-        ngaytao: 200000000,
-        ghichu: 'Không có ghi chú'
-      }
-    ]
+  constructor(
+    private _modal: NgbModal,
+    public toastr: ToastrService,
+    private _serviceTaiSan: TaisanService,
+  ) {
   }
 
   ngOnInit(): void {
+    console.log("this.listFileDinhKem", this.item);
   }
 
-  deleteTaiLieu(ten: string) {
-    const index = this.listTaiLieu.findIndex(tl => tl.ten === ten)
-    this.listTaiLieu.splice(index, 1);
-    if(this.listTaiLieu.length === 0) {
-      this.listTaiLieu= [
-        {
-          id: 0,
-          ten: '',
-          loai: '',
-          tacgia: '',
-          ngaytao: NaN,
-          ghichu: ''
-        },
-      ]
-    }
+  taiLenFileDinhKem() {
+    const modalRef = this._modal.open(UploadmodalComponent, { 
+      size: 'lg', 
+      backdrop: 'static' 
+    });
+    modalRef.componentInstance.multiple = true;
+    modalRef.componentInstance.type = '';
+    modalRef.result
+      .then((data) => {
+        this.item.listFileDinhKem.push(...data.map(obj => {
+          return {
+            Id: "",
+            FileNameGUI: obj.Name,
+            FileName: obj.NameLocal,
+            Link: obj.Url
+          }
+        }));
+        console.log("this.listFileDinhKem", this.item.listFileDinhKem);
+      }, (reason) => {
+
+      });
+  }
+
+  deleteTaiLieu(index) {
+    this.item.listFileDinhKem.splice(index, 1)
   }
 }

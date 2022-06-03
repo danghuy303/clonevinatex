@@ -69,7 +69,6 @@ export class ModalthongtinchitiettaisanComponent implements OnInit {
   GetById() {
     this._serviceTaiSan.ListDanhSachTaiSan().Get(this.getId).subscribe((res: any) => {
       this.item = res.Data;
-      console.log( this.item.listThongSoKyThuat);
       this.item.NgayNhap = UnixToDate(this.item.NgayNhapUnix);
       this.item.ThoiGianDuaVaoSuDung = UnixToDate(this.item.ThoiGianDuaVaoSuDungUnix);
     })

@@ -1,13 +1,13 @@
 <div class="p-grid">
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản : </label>
+        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại tài sản <span class="text-danger">(*)</span> : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <p-dropdown [filter]="true" [options]="listLoaiTaiSan" placeholder="Chọn loại tài sản"
                 [(ngModel)]="item.IddmLoaiTaiSan" (onChange)="LayMa($event)" [showClear]="true"></p-dropdown>
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mã tài sản : </label>
+        <label class="p-col-12 p-xl-4 p-p-0 my-auto">Mã tài sản <span class="text-danger">(*)</span> : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.Ma" pInputText />
         </div>
@@ -34,7 +34,7 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số lượng : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
+            <p-inputNumber [min]="0" [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoLuong">
             </p-inputNumber>
         </div>
     </div>
@@ -59,7 +59,7 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tuổi thọ (tháng) : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <p-inputNumber [minFractionDigits]="1" locale="en-EN" [(ngModel)]="item.TuoiTho"> </p-inputNumber>
+            <p-inputNumber [min]="0" [minFractionDigits]="1" locale="en-EN" [(ngModel)]="item.TuoiTho"> </p-inputNumber>
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
@@ -102,21 +102,23 @@
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số năm khấu hao <span class="text-danger">(*)</span> : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
-            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoNamKhauHao" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1"> </p-inputNumber>
+            <p-inputNumber [minFractionDigits]="0" [min]="0" locale="en-EN" [(ngModel)]="item.SoNamKhauHao" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1"> </p-inputNumber>
         </div>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Nguyên giá: </label>
-        <div class="p-col-12 p-xl-8 p-p-0">
-            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.NguyenGia" (onBlur)="edit(item)">
-            </p-inputNumber>
+        <div class="p-col-12 p-xl-7 p-p-0">
+            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [min]="0" [(ngModel)]="item.NguyenGia" (onBlur)="edit(item)">
+            </p-inputNumber> 
         </div>
+        <span class="p-col-12 p-xl-1 p-p-0 p-m-2"> (VNĐ) </span>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Giá trị còn lại : </label>
-        <div class="p-col-12 p-xl-8 p-p-0">
-            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.GiaTriConLai"> </p-inputNumber>
+        <div class="p-col-12 p-xl-7 p-p-0">
+            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [min]="0" [(ngModel)]="item.GiaTriConLai"> </p-inputNumber>
         </div>
+        <span class="p-col-12 p-xl-1 p-p-0 p-m-2"> (VNĐ) </span>
     </div>
     <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Bộ phận sử dụng : </label>
@@ -125,7 +127,7 @@
                 placeholder="Chọn bộ phận" [showClear]="true"></p-dropdown>
         </div>
     </div>
-    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+    <!-- <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tài liệu đính kèm : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
             <div class="p-inputgroup">
@@ -145,10 +147,11 @@
             <label>Cần dự trữ</label>
         </div>
         <div *ngIf="item.isCanDuTru" class="p-col-12 p-xl-4 p-p-0 my-auto">
-            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu">
+            <p-inputNumber [minFractionDigits]="0" [min]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu">
             </p-inputNumber>
         </div>
     </div>
+    </div> -->
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tên viết tắt : </label>
         <div class="p-col-12 p-xl-8 p-p-0">
@@ -160,5 +163,22 @@
         <div class="p-col-12 p-xl-8 p-p-0">
             <input type="text" class="p-inputtext-sm" [(ngModel)]="item.GhiChu" pInputText />
         </div>
+    </div>
+    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto d-flex p-ai-center">
+            <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
+            <label class="p-mb-0">Giá trị cao</label>
+        </div>
+        <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto d-flex p-ai-center">
+            <p-checkbox (onClick)="isCanDuTru()" binary="true" [(ngModel)]="item.isCanDuTru"></p-checkbox>
+            <label class="p-mb-0">Cần dự trữ</label>
+        </div>
+        <div *ngIf="item.isCanDuTru" class="p-col-12 p-xl-4 p-p-0 my-auto">
+            <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu">
+            </p-inputNumber>
+        </div>
+    </div>
+    <div class="p-mb-4">
+        <app-tai-lieu-danh-sach [item]="item"></app-tai-lieu-danh-sach>
     </div>
 </div>
