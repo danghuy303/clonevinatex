@@ -141,7 +141,7 @@
                                 </p-calendar>
                             </td>
                             <td class="text-center">
-                                <p-checkbox [(ngModel)]="item.isDaBaoDuong" [binary]="true"></p-checkbox>
+                                <p-checkbox [(ngModel)]="item.IsXuLy" [binary]="true"></p-checkbox>
                             </td>
                             <td>
                                 <input type="text" [(ngModel)]="item.GhiChu" [ngbTooltip]="item.GhiChu" pInputText />
@@ -157,7 +157,7 @@
             </ng-template>
         </p-tabPanel>
         <p-tabPanel header="Nhân công">
-            <app-denghixulysuconhancong [item]="item.listNhanCong"></app-denghixulysuconhancong>
+            <app-denghixulysuconhancong [listNhanCong]="item.listNhanCong"></app-denghixulysuconhancong>
         </p-tabPanel>
         <p-tabPanel header="Vật tư">
             <ng-template pTemplate="content">

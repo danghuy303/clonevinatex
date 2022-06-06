@@ -92,6 +92,7 @@ export class DanhsachtaisanComponent implements OnInit {
       this.items = [];
       items = res.Data.Items;
       items.forEach(obj => {
+        obj.isCha = true;
         let obj_copy: any = {};
         if (obj?.listTaiSan) {
           obj_copy.children = [];
@@ -102,6 +103,7 @@ export class DanhsachtaisanComponent implements OnInit {
         }
         obj_copy.data = obj;
         this.items.push({ data: obj_copy.data, children: obj_copy.children });
+        
       });
     })
   }

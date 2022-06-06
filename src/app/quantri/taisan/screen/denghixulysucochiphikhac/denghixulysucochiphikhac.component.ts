@@ -18,7 +18,7 @@ export class DenghixulysucochiphikhacComponent implements OnInit, OnChanges {
   TongChiPhi: any = 0;
 
   constructor(
-    private _modal: NgbModal
+    public _modal: NgbModal,
   ) { }
 
   ngOnChanges(): void {

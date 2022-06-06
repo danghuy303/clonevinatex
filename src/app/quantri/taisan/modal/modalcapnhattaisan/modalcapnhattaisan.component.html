@@ -97,8 +97,8 @@
                 </p-tabPanel>
                 <p-tabPanel header="Thông số kỹ thuật">
                     <ng-template pTemplate="content">
-                        <app-thongsokythuat *ngIf="item.TaiSan !== undefined" [item]="item.TaiSan.listThongSoKyThuat" ></app-thongsokythuat>
-                        <app-thongsokythuat *ngIf="item.TaiSan === undefined" [item]="item.listThongSoKyThuat" ></app-thongsokythuat>
+                        <app-thongsokythuat *ngIf="item.TaiSan !== undefined" [listThongSoKyThuat]="item.TaiSan.listThongSoKyThuat" ></app-thongsokythuat>
+                        <app-thongsokythuat *ngIf="item.TaiSan === undefined" [listThongSoKyThuat]="item.listThongSoKyThuat" ></app-thongsokythuat>
                     </ng-template>
                 </p-tabPanel>
                 <p-tabPanel header="Thông số an toàn">

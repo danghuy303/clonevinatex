@@ -38,8 +38,6 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
       modalRef.componentInstance.LayId = this.item;
     modalRef.result
       .then((res: any) => {
-        console.log(res);
-        
         this.item.listLichBaoDuong = res
       })
       .catch((er) => {

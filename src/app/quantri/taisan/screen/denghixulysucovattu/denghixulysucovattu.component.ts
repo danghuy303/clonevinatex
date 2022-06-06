@@ -24,6 +24,7 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges(): void {
+    this.sumItem(this.items)
     this.sumAll();
   }
 
@@ -40,7 +41,6 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
     modalRef.componentInstance.layIdTaiSan = item.IdTaiSan;
     modalRef.result
       .then((res: any) => {
-        console.log("res", res);
         item.listVatTu = merge(res, item.listVatTu || [], 'IdVatTuCanThayThe');
         this.sumItem(item);
       })
