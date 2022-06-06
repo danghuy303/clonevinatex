@@ -21,6 +21,7 @@ import { DanhmucmathangComponent } from './kehoachkinhdoanhnam/danhmucmathang/da
 import { KehoachkinhdoanhthangComponent } from './kehoachkinhdoanhthang/kehoachkinhdoanhthang.component';
 import { ChitietkehoachthangmodalComponent } from './kehoachkinhdoanhthang/chitietkehoachthangmodal/chitietkehoachthangmodal.component';
 import { BaocaokehoachkinhdoanhComponent } from './baocaokehoachkinhdoanh/baocaokehoachkinhdoanh.component';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { BaocaokehoachkinhdoanhComponent } from './baocaokehoachkinhdoanh/baocao
     VoiLibModule,
     InputNumberModule,
     CheckboxModule,
+    ChartModule
   ],
   exports: [
     KehoachkinhdoanhnamComponent
