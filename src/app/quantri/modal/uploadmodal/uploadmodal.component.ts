@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FileUploader, FileItem, ParsedResponseHeaders, FileUploaderOptions } from 'ng2-file-upload';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { API } from 'src/app/services/host';
@@ -9,6 +9,7 @@ import { API } from 'src/app/services/host';
   styleUrls: ['./uploadmodal.component.css']
 })
 export class UploadmodalComponent implements OnInit {
+  @ViewChild('uploadInput') uploadInput:any;
   uploader: FileUploader;
   type: string;
   single: boolean;
@@ -42,7 +43,9 @@ export class UploadmodalComponent implements OnInit {
     this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
     this.uploader.onCompleteItem = (item, response, status, headers) => this.onCompleteItem(item, response, status, headers);
     this.uploader.onAfterAddingFile = (item:any)=>{
+      // console.log(item);
     }
+    
   }
 
   onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
@@ -68,9 +71,8 @@ export class UploadmodalComponent implements OnInit {
     this.activeModal.dismiss();
   }
 
-  removeItem(index) {
-    this.uploader.queue.splice(index, 1)
-    // console.log("queue", this.uploader);
+  remove(item) {
+    item.remove();
+    this.uploadInput.nativeElement.value = "";
   }
-
 }

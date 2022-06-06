@@ -16,7 +16,7 @@
       <!-- <input [disabled]="uploader?.queue?.length >= 1" type="file" ng2FileSelect [uploader]="uploader" *ngIf="single"
         [accept]="onlyExcel?'.xlsx':''" /> -->
       <div class="custom-file"  *ngIf="single">
-        <input type="file" class="custom-file-input" ng2FileSelect [uploader]="uploader" [disabled]="uploader?.queue?.length >= 1" [accept]="onlyExcel?'.xlsx':''">
+        <input type="file" class="custom-file-input" ng2FileSelect [uploader]="uploader" [disabled]="uploader?.queue?.length >= 1" [accept]="onlyExcel?'.xlsx':''" #uploadInput>
         <label class="custom-file-label" for="customFile">Choose file</label>
       </div>
     </div>
@@ -72,7 +72,7 @@
             <!-- <button type="button" class="btn btn-danger btn-sm" (click)="item.remove()">
               <i class="pi pi-trash"></i>
             </button> -->
-            <button type="button" class="btn btn-danger btn-sm" (click)="removeItem(i)">
+            <button type="button" class="btn btn-danger btn-sm" (click)="remove(item)">
               <i class="pi pi-trash"></i>
             </button>
           </td>
