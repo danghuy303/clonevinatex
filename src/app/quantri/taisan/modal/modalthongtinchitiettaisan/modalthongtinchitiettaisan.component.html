@@ -115,7 +115,7 @@
             </div>
         </div>
         <div class="p-col-12 p-lg-4  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số năm khấu hao <span class="text-danger">(*)</span> : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Số năm khấu hao <span *ngIf="item?.IdBoPhanSuDung != null" class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-inputNumber [minFractionDigits]="0" locale="en-EN" [(ngModel)]="item.SoNamKhauHao">
                 </p-inputNumber>
@@ -242,11 +242,11 @@
                     <app-antoan [item]="item.listThongSoAnToan"></app-antoan>
                 </ng-template>
             </p-tabPanel>
-            <!-- <p-tabPanel header="Thông tin khấu hao">
+            <p-tabPanel header="Thông tin khấu hao">
                 <ng-template pTemplate="content">
                     <app-thongtinkhauhao [item]="item.listThongTinKhauHao"></app-thongtinkhauhao>
                 </ng-template>
-            </p-tabPanel> -->
+            </p-tabPanel>
             <p-tabPanel header="Biến động">
                 <ng-template pTemplate="content">
                     <app-biendong [item]="item"></app-biendong>

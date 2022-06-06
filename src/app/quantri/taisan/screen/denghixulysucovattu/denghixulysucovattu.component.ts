@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { merge, validVariable } from 'src/app/services/globalfunction';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 import { DenghisulyluachonthemvattuComponent } from '../../modal/denghisulyluachonthemvattu/denghisulyluachonthemvattu.component';
@@ -39,7 +40,6 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
     modalRef.componentInstance.layIdTaiSan = item.IdTaiSan;
     modalRef.result
       .then((res: any) => {
-        console.log("res", res);
         item.listVatTu = merge(res, item.listVatTu || [], 'IdVatTuCanThayThe');
         this.sumItem(item);
       })
@@ -65,8 +65,14 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
   }
 
   delete(index, item) {
-    item.listVatTu.splice(index, 1);
-    this.sumItem(item)
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
+      item.listVatTu.splice(index, 1);
+      this.sumItem(item)
+    }).catch(er => console.log(er))
   }
 
 }

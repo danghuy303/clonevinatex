@@ -40,7 +40,7 @@ export class ChonComponent implements OnInit {
   GetList() {
     let data = {
       Keyword: this.filter.Keyword,
-      CurrentPage: 0,
+      CurrentPage: this.paging.CurrentPage,
       PageSize: 20,
       IddmLoaiTaiSan: this.item.IddmLoaiTaiSan
     }

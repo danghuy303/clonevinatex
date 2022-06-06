@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { SanXuatService } from 'src/app/services/callApiSanXuat';
 import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 
@@ -9,12 +11,14 @@ import { mapArrayForDropDown } from 'src/app/services/globalfunction';
 })
 export class DenghixulysuconhancongComponent implements OnInit {
 
-  @Input() items: any;
+  @Input() listNhanCong: any;
   // @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
   newitem: any = {};
   listTenNhanVien: any = [];
 
-  constructor(private _services: SanXuatService,) { }
+  constructor(
+    private _services: SanXuatService,
+    public _modal: NgbModal,) { }
 
   ngOnInit(): void {
     this._services.GetListUser().subscribe((res: any) => {
@@ -23,20 +27,21 @@ export class DenghixulysuconhancongComponent implements OnInit {
   }
 
   addNhanCong() {
-    if (this.items == undefined || this.items == null)
-      this.items = [];
-    this.items.push(this.newitem);
+    if (this.listNhanCong == undefined || this.listNhanCong == null)
+      this.listNhanCong = [];
+    this.listNhanCong.push(this.newitem);
     this.newitem = {}
   }
 
   delete(index) {
-    // let item = this.items.splice(index, 1)[0];
-    // if (item.Id === '' || item.Id === null || item.Id === undefined) {
-    // } else {
-    //   item.isXoa = true;
-    //   this.items.push(JSON.parse(JSON.stringify(item)));
-    // }
-    this.items.splice(index, 1)
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
+      this.listNhanCong.splice(index, 1)
+    }).catch(er => console.log(er))
+
   }
-  
+
 }
