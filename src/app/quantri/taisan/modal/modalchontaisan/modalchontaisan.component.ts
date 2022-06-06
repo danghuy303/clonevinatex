@@ -98,7 +98,7 @@ export class ModalchontaisanComponent implements OnInit {
 
   GhiLai() {
     let selectedItems = this.items.filter(ele => ele.data.checked);
-
+    // console.log("selectedItems", selectedItems);
     // selectedItems  =  selectedItems.map()
     this.activeModal.close(selectedItems)
   }

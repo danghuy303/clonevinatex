@@ -25,10 +25,11 @@ export class BaocaokehoachkinhdoanhComponent implements OnInit {
   listCongDoan: any = [];
   listPhanXuong: any = [];
   currentDateString: string = '';
+  monthlyConfig_sanluongtheomay: any = {};
 
   constructor(
-    private _services: SanXuatService, 
-    private _toastr: ToastrService, 
+    private _services: SanXuatService,
+    private _toastr: ToastrService,
     private store: StoreService
   ) { }
 
@@ -47,7 +48,34 @@ export class BaocaokehoachkinhdoanhComponent implements OnInit {
       this.filter.CongDoan = this.CongDoan;
     }
     this.GetBieuDo('ONG');
-    this.getAllOptions()
+    this.getAllOptions();
+    this.monthlyConfig_sanluongtheomay = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+        {
+          label: 'Sản lượng kế hoạch',
+          data: [65, 59, 80, 81, 56, 55, 40],
+          backgroundColor: '#264691',
+        },
+        {
+          label: 'Sản lượng thực tế',
+          data: [28, 48, 40, 19, 86, 27, 90],
+          backgroundColor: '#688fe8',
+        },
+        {
+          type: 'line',
+          label: 'Lũy kế theo kế hoạch',
+          data: [65, 59, 80, 81, 56, 55, 40],
+          borderColor: '#d1842c',
+        },
+        {
+          type: 'line',
+          label: 'Lũy kế theo thực tế',          
+          data: [28, 48, 40, 19, 86, 27, 90],
+          borderColor: '#7cd64b',
+        },
+      ]
+    }
   }
 
   GetMatHang(reset?: any) {
@@ -70,6 +98,8 @@ export class BaocaokehoachkinhdoanhComponent implements OnInit {
       })
     }
   }
+
+  ExportExcel() { }
 
   getAllOptions() {
     let data = {

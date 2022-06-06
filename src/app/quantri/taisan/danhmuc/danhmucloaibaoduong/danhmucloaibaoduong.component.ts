@@ -173,7 +173,7 @@ export class DanhmucloaibaoduongComponent implements OnInit {
     modalRef.result
       .then((res: any) => {
         this.fileUpload = res;
-        this._danhMucTaiSan.DanhMucLoaiBaoDuong().Importdm(this.fileUpload[0].Name).subscribe(()=>{
+        this._danhMucTaiSan.DanhMucLoaiBaoDuong().Importdm(this.fileUpload[0].Name).subscribe((res: any)=>{
           if (res.StatusCode === 200) {
             this._toastr.success(res.Message);
             this.resetFilter();

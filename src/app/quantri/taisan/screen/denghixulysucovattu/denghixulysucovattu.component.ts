@@ -65,14 +65,16 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
   }
 
   delete(index, item) {
-    let modalRef = this._modal.open(ModalthongbaoComponent, {
+    let modalRef = this._modal.open(ModalthongbaoComponent, { 
+      size: 'md', 
       backdrop: 'static'
-    });
-    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
-    modalRef.result.then(res => {
-      item.listVatTu.splice(index, 1);
-      this.sumItem(item)
-    }).catch(er => console.log(er))
+    })
+    modalRef.componentInstance.message = 'Bạn chắc chắn muốn xóa vật tư này?';
+    modalRef.result
+      .then(() => {
+        item.listVatTu.splice(index, 1);
+        this.sumItem(item)
+      })
   }
 
 }

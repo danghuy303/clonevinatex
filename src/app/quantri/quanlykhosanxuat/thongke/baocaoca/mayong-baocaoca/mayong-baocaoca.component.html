@@ -36,27 +36,35 @@
 </div>
 <hr>
 <div class="p-grid">
-    <div class="col-12 col-md-10">
+    <div class="col-12">
         <p-table [value]="item.lstMatHangBongPhe">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Loại phế</th>
-                    <th>Khối lượng có lõi (kg)</th>
-                    <th>Khối lượng tách lõi (kg)</th>
+                    <th>LK có lõi trước</th>
+                    <th>KL có lõi (kg)</th>
+                    <th>LK có lõi sau</th>
+                    <th>LK tách lõi trước</th>
+                    <th>KL tách lõi (kg)</th>
+                    <th>LK tách lõi sau</th>
                     <th>Định mức</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-product>
                 <tr>
                     <td>{{product.TendmLoaiBongPhe}}</td>
+                    <td class="text-right">{{product.KhoiLuongCoLoiLuyKeThang|number:'0.2-2'}}</td>
                     <td>
                         <p-inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" locale="en-EN"
                             [(ngModel)]="product.KhoiLuongCoLoi"></p-inputNumber>
                     </td>
+                    <td class="text-right">{{((product.KhoiLuongCoLoiLuyKeThang||0)+(product.KhoiLuongCoLoi||0))|number:'0.2-2'}}</td>
+                    <td class="text-right">{{product.KhoiLuongTachLoiLuyKeThang|number:'0.2-2'}}</td>
                     <td>
                         <p-inputNumber mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" locale="en-EN"
                             [(ngModel)]="product.KhoiLuongTachLoi"></p-inputNumber>
                     </td>
+                    <td class="text-right">{{((product.KhoiLuongTachLoiLuyKeThang||0)+(product.KhoiLuongTachLoi||0))|number:'0.2-2'}}</td>
                     <td class="text-right">{{product.DinhMuc|number:'0.2-2'}}</td>
                 </tr>
             </ng-template>

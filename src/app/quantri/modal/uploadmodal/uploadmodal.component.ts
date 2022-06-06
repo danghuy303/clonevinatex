@@ -67,4 +67,10 @@ export class UploadmodalComponent implements OnInit {
   Ondismiss() {
     this.activeModal.dismiss();
   }
+
+  removeItem(index) {
+    this.uploader.queue.splice(index, 1)
+    // console.log("queue", this.uploader);
+  }
+
 }

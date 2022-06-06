@@ -2616,6 +2616,9 @@ export class SanXuatService {
             }, 
             GetThongKe: (data) => {
                 return this.http.post(`${url}GetBaoCaoThongKeKiemTraChatLuongLoiCat`, data, httpOptions);
+            },
+            GetBieuDoDuongKiemTraChatLuongLoiCat:(data)=>{
+                return this.http.get(`${url}GetBieuDoDuongKiemTraChatLuongLoiCat?NgayDauKyUnix=${data.NgayDauKyUnix}&NgayCuoiKyUnix=${data.NgayCuoiKyUnix}&IddmPhanXuong=${data.IddmPhanXuong}&IddmChiTieu=${data.IddmChiTieu}&IddmItem=${data.IddmItem}`,httpOptions)
             }
         }
     }
@@ -2682,6 +2685,9 @@ export class SanXuatService {
             },
             GetThongKe: (data) => {
                 return this.http.post(`${url}GetBaoCaoThongKeKiemTraChatLuongClasimat`, data, httpOptions);
+            },
+            GetBieuDoDuongKiemTraChatLuongClasimat:(data)=>{
+                return this.http.get(`${url}GetBieuDoDuongKiemTraChatLuongClasimat?NgayDauKyUnix=${data.NgayDauKyUnix}&NgayCuoiKyUnix=${data.NgayCuoiKyUnix}&IddmPhanXuong=${data.IddmPhanXuong}&IddmChiTieu=${data.IddmChiTieu}&IddmItem=${data.IddmItem}`,httpOptions)
             }
         }
     }
