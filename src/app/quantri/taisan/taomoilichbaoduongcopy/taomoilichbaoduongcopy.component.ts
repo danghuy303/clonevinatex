@@ -14,7 +14,7 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
 
   @Input('item') item: any = {};
   @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
-
+  listIdDaChon: any = [];
 
   constructor(public _modal: NgbModal,
     public activeModal: NgbActiveModal,
@@ -25,33 +25,40 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
   ngOnInit(): void {
   }
   addBaoDuong() {
+    this.listIdDaChon = this.item.listLichBaoDuong.map(ele => {
+      return ele.IddmLoaiBaoDuong
+    }, [])
     let modalRef = this._modal.open(ModalcapnhatbaoduongcopyyComponent, {
       size: 'lg',
       backdrop: 'static'
     })
     modalRef.componentInstance.opt = "add";
     modalRef.componentInstance.title = "Thêm mới lịch bảo dưỡng";
-    // modalRef.componentInstance.item = { Id: "",
-    // IdTaiSan: "",};
-    // modalRef.componentInstance.item = this.item.listLichBaoDuong;
     modalRef.componentInstance.listLichBaoDuong = this.item.listLichBaoDuong || [];
-      modalRef.componentInstance.LayId = this.item;
+    modalRef.componentInstance.LayId = this.item;
+    modalRef.componentInstance.existedItems = this.listIdDaChon|| [];
     modalRef.result
       .then((res: any) => {
-        this.item.listLichBaoDuong = res
+        console.log(res);
+        
+        this.item.listLichBaoDuong.push(res);
       })
       .catch((er) => {
 
       });
   }
   CapNhat(item) {
+    this.listIdDaChon = this.item.listLichBaoDuong.map(ele => {
+      return ele.IddmLoaiBaoDuong
+    }, [])
     let modalRef = this._modal.open(ModalcapnhatbaoduongcopyyComponent, {
-      size: "fullscreen-100",
+      size: "lg",
       backdrop: "static",
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.title = "Cập nhật lịch bảo dưỡng";
     modalRef.componentInstance.item = item;
+    modalRef.componentInstance.existedItems = this.listIdDaChon|| [];
     modalRef.result
       .then((res: any) => {
 
