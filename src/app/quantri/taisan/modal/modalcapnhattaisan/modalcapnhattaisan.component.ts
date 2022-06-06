@@ -304,7 +304,13 @@ export class ModalcapnhattaisanComponent implements OnInit {
     modalRef.componentInstance.item = this.item;
     modalRef.result
       .then((res: any) => {
-        this.item.TaiSan = res;
+        
+        this.item.TaiSan = {
+          ...res,
+          Id: ''
+        };
+        console.log("this.item.TaiSan", this.item.TaiSan);
+        
       })
       .catch((er) => {
       });

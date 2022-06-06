@@ -1,6 +1,9 @@
 import { number } from '@amcharts/amcharts4/core';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { validVariable } from 'src/app/services/globalfunction';
+import { handleHTTPResponse } from 'src/app/services/globalfunction';
 
 @Component({
   selector: 'app-denghixulysucochiphikhac',
@@ -12,9 +15,11 @@ export class DenghixulysucochiphikhacComponent implements OnInit, OnChanges {
   @Input('item') items: any = {};
   @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
   newitem: any = {};
-  TongChiPhi:any = 0; 
+  TongChiPhi: any = 0;
 
-  constructor() { }
+  constructor(
+    private _modal: NgbModal
+  ) { }
 
   ngOnChanges(): void {
     this.TinhTong();
@@ -29,9 +34,18 @@ export class DenghixulysucochiphikhacComponent implements OnInit, OnChanges {
     item.listChiPhiKhac.push({});
 
   }
-  delete(item,index) {
-     item.listChiPhiKhac.splice(index, 1);
-   this.TinhTong();
+  delete(item, index) {
+    // console.log({ item: item, index: index });
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      size: 'md',
+      backdrop: 'static',
+    })
+    modalRef.componentInstance.message = 'Bạn chắc chắn muốn xóa chi phí này?'
+    modalRef.result
+      .then(() => {
+        item.listChiPhiKhac.splice(index, 1);
+        this.TinhTong();
+      })
   }
 
   TinhTong() {

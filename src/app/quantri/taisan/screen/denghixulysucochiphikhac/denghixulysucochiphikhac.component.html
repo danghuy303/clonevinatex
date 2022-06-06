@@ -38,7 +38,7 @@
                     (click)="add2(item)"></button>
             </td>
         </tr>
-        <ng-container *ngFor="let chiphi of item.listChiPhiKhac">
+        <ng-container *ngFor="let chiphi of item.listChiPhiKhac; let i = index">
             <tr>
                 <td></td>
                 <td></td>
@@ -51,7 +51,7 @@
                 </td>
                 <td class=" text-left"><input type="text" class="p-inputtext-sm" [(ngModel)]="chiphi.GhiChu" [ngbTooltip]="chiphi.GhiChu" pInputText /></td>
                 <td class="text-center"> <button pButton pRipple type="button" icon="pi pi-trash"
-                        class="p-button-text p-button-sm p-button-secondary" (click)="delete(item,index)" pTooltip="Xóa"
+                        class="p-button-text p-button-sm p-button-secondary" (click)="delete(item,i)" pTooltip="Xóa"
                         showDelay="1000" tooltipPosition="bottom"></button></td>
             </tr>
         </ng-container>
