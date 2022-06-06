@@ -41,8 +41,6 @@ export class ThongtinthemmoitaisanComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("this.item", this.item);
-    
     if (this.opt === 'edit') {
       this.item.listFileDinhKem?.forEach(obj => {
         this.NameFile += `${obj.FileName}, `;

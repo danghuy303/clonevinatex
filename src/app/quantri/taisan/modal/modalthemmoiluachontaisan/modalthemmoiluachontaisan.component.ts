@@ -86,7 +86,7 @@ export class ModalthemmoiluachontaisanComponent implements OnInit {
   }
 
   GhiLai() {
-    if (!validVariable(this.item.DonViNangSuat || this.item.IddmLoaiTaiSan)) {
+    if (!validVariable(this.item.DonViNangSuat || this.item.IddmLoaiTaiSan || this.item.Ten)) {
       this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
       return
     }

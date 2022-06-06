@@ -24,6 +24,7 @@ export class DenghixulysucovattuComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges(): void {
+    this.sumItem(this.items)
     this.sumAll();
   }
 

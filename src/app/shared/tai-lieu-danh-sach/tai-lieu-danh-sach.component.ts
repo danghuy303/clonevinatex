@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ModalthongbaoComponent } from 'src/app/quantri/modal/modalthongbao/modalthongbao.component';
 import { UploadmodalComponent } from 'src/app/quantri/modal/uploadmodal/uploadmodal.component';
 import { TaisanService } from 'src/app/services/Taisan/taisan.service';
 
@@ -22,7 +23,7 @@ export class TaiLieuDanhSachComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("this.listFileDinhKem", this.item);
+   
   }
 
   taiLenFileDinhKem() {
@@ -42,13 +43,18 @@ export class TaiLieuDanhSachComponent implements OnInit {
             Link: obj.Url
           }
         }));
-        console.log("this.listFileDinhKem", this.item.listFileDinhKem);
       }, (reason) => {
 
       });
   }
 
   deleteTaiLieu(index) {
-    this.item.listFileDinhKem.splice(index, 1)
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
+      this.item.listFileDinhKem.splice(index, 1)
+    }).catch(er => console.log(er))
   }
 }
