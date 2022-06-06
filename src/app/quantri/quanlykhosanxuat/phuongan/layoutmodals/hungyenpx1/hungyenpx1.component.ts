@@ -320,9 +320,19 @@ export class Hungyenpx1Component implements OnInit {
         TenLoBong: this.banBong[soban].labelLoBong,
         Id: this.banBong[soban].IdLoBong,
         ThuTu: soban,
-        isNgoaiQuan: this.banBong[soban]._ngoaiQuan
+        isNgoaiQuan: this.banBong[soban]._ngoaiQuan,
+        isXepChong: false
       }
       this.item.listItem.push(item)
+      if (validVariable(this.banBong[soban].IdLoBongXepChong)) {
+        this.item.listItem.push({
+          TenLoBong: this.banBong[soban].labelLoBongXepChong,
+          Id: this.banBong[soban].IdLoBongXepChong,
+          ThuTu: soban,
+          isNgoaiQuan: false,
+          isXepChong: true
+        })
+      }
     }
     this.item.TongDaXep = 0;
     this.item.TongSoKien = 0;
@@ -333,6 +343,7 @@ export class Hungyenpx1Component implements OnInit {
     return this.item
   }
   GhiLai() {
+    console.log(this.SetData().listItem)
     this._services.XepBanBong().Set(this.SetData()).subscribe((res: any) => {
       if (res?.State === 1) {
         this._toastr.success(res.message)
@@ -372,7 +383,7 @@ export class Hungyenpx1Component implements OnInit {
     };
     if (validVariable(this.item.Id)) {
       for (let i = 1; i <= (60); i++) {
-        let data = this.item.listItem.filter(ele => ele.ThuTu === i);
+        let data = this.item.listItem.filter(ele => ele.ThuTu === i).sort((a,b)=>a.isXepChong-b.isXepChong);
         this.banBong[`${i}`] = {
           _focus: false,
           _ngoaiQuan: data?.[0]?.isNgoaiQuan,

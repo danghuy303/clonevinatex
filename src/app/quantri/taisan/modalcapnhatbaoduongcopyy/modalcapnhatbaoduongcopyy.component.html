@@ -17,7 +17,7 @@
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-lg-6  p-p-3 d-flex flex-column flex-xl-row">
-            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại bảo dưỡng : </label>
+            <label class="p-col-12 p-xl-4 p-p-0 my-auto">Loại bảo dưỡng <span class="text-danger">(*)</span> : </label>
             <div class="p-col-12 p-xl-8 p-p-0">
                 <p-dropdown [filter]="true" [options]="listLoaiBaoDuong" placeholder="Chọn loại bảo dưỡng" [(ngModel)]="item.IddmLoaiBaoDuong" (onChange)="chonLoaiBaoDuong($event)" [showClear]="true"></p-dropdown>
             </div>

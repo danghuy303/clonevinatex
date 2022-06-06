@@ -358,8 +358,8 @@ export class DieuhanhsanxuattonghopComponent implements OnInit, AfterViewInit, O
       ]
       this.thongKes1 = [
         { Ten: 'Ne BQ:', GiaTri: res.NeBQ },
-        { Ten: 'Sản lượng quy Ne 30(kg):', GiaTri: res.SanLuongQuyNe30 },
-        { Ten: 'Sản lượng quy Ne 30/ca:', GiaTri: res.SanLuongQuyNe30_TrenCa,isRed:(res.SanLuongQuyNe30_TrenCa < res.SanLuongQuyNe30_TrenCa_TieuChuan) },
+        { Ten: 'SL quy Ne 30(kg):', GiaTri: res.SanLuongQuyNe30 },
+        { Ten: 'SL quy Ne 30/ca:', GiaTri: res.SanLuongQuyNe30_TrenCa,DinhMuc:res.SanLuongQuyNe30_TrenCa_TieuChuan,isRed:(res.SanLuongQuyNe30_TrenCa < res.SanLuongQuyNe30_TrenCa_TieuChuan) },
         (this.filter.IddmCaSanXuatThucTe !== '')&&{ Ten: 'Sản lượng quy Ne 30 theo ca:', GiaTri: res.SanLuongQuyNe30_TheoKip },
         { Ten: 'Lũy kế quy Ne 30(kg):', GiaTri: res.LuyKeQuyNe30 },
         { Ten: 'Tỷ lệ sợi cắt (%):', GiaTri: res.TyLeSoiCat },

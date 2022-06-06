@@ -136,6 +136,21 @@
                     class="p-button-sm p-button-text p-button-secondary" (click)="taiLenFileDinhKem()" ></button>
             </div>
         </div>
+    </div>
+    <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
+        <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
+            <p-checkbox binary="true" [(ngModel)]="item.isGiaTriCao"></p-checkbox>
+            <label>Giá trị cao</label>
+        </div>
+        <div class="p-field-checkbox p-col-12 p-xl-4 p-p-0 my-auto">
+            <p-checkbox (onClick)="isCanDuTru()" binary="true" [(ngModel)]="item.isCanDuTru"></p-checkbox>
+            <label>Cần dự trữ</label>
+        </div>
+        <div *ngIf="item.isCanDuTru" class="p-col-12 p-xl-4 p-p-0 my-auto">
+            <p-inputNumber [minFractionDigits]="0" [min]="0" locale="en-EN" [(ngModel)]="item.DuTruToiThieu">
+            </p-inputNumber>
+        </div>
+    </div>
     </div> -->
     <div class="p-col-12 p-lg-4 p-p-3 d-flex flex-column flex-xl-row">
         <label class="p-col-12 p-xl-4 p-p-0 my-auto">Tên viết tắt : </label>

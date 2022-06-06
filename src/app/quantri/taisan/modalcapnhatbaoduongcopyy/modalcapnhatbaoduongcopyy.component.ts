@@ -45,6 +45,10 @@ export class
 
   }
   GhiLai() {
+    if (!validVariable(this.item.IddmLoaiBaoDuong)) {
+      this.toastr.error("Yêu cầu nhập đầy đủ các trường bắt buộc!");
+      return
+    }
     if (validVariable(this.item.IddmLoaiBaoDuong))
       this.item.TendmLoaiBaoDuong = this.listLoaiBaoDuong.find(obj => obj.value == this.item.IddmLoaiBaoDuong).label;
     if (this.listLichBaoDuong === undefined) {

@@ -102,7 +102,8 @@ import { ModalbaoduongComponent } from '../quantri/taisan/modal/modalbaoduong/mo
     TraoDoiComponent,
     ModalthongtinchitiettaisanComponent,
     ModalbaoduongComponent,
-   
+    ThongsokythuatComponent,
+    AntoanComponent,
   ]
 })
 export class SharedModule { }

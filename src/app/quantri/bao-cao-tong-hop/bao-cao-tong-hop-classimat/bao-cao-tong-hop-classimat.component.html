@@ -1,7 +1,7 @@
 <div class="p-mb-3 p-mt-0">
     <h4 style="color:#1f2779">Báo cáo tổng hợp classimat</h4>
 </div>
- <div class="p-d-flex p-ai-center p-jc-end p-mb-3">
+<div class="p-d-flex p-ai-center p-jc-end p-mb-3">
     <div class="p-d-flex p-flex-row">
     </div>
     <div class="d-flex flex-column flex-lg-row p-mr-2">
@@ -14,13 +14,14 @@
     </div>
     <div class="p-mr-2">
         <p-dropdown [filter]="true" [options]="listPhanXuong" placeholder="Chọn phân xưởng"
-            [(ngModel)]="filter.IddmPhanXuong" styleClass="p-inputtext-sm" (onChange)="getBaoCao()" [showClear]="false"
+            [(ngModel)]="filter.IddmPhanXuong" styleClass="p-inputtext-sm" (onChange)="getAll()" [showClear]="false"
             [filter]="true"></p-dropdown>
     </div>
 </div>
-<div>
-    <p-table [value]="item.lstSanPham | filterByKey: 'TenMatHang':filter.keyWord"  styleClass="p-datatable-sm wrap-text p-datatable-gridlines" [scrollable]="true"
-        scrollHeight="60vh" [lazy]="true">
+<div style="height: calc( (100vh - 201px )/2); background-color: white;">
+    <p-table [value]="item.lstSanPham | filterByKey: 'TenMatHang':filter.keyWord"
+        styleClass="p-datatable-sm wrap-text p-datatable-gridlines" [scrollable]="true"
+        scrollHeight="calc((100vh - 321px) / 2)" [lazy]="true">
         <ng-template pTemplate="colgroup">
             <colgroup>
                 <col style="width:50px">
@@ -41,18 +42,48 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-loaisoi let-i="rowIndex">
-                <tr>
-                    <td class="text-center">{{i+1}}</td>
-                    <td>{{loaisoi.TenMatHang}}</td>
-                    <td class="text-center" *ngFor="let chitieu of loaisoi.lstChatLuongSanPham">
-                        <ng-container *ngIf="chitieu.chiSoChenhLech!==0">
-                            <span [ngStyle]="{'color': chitieu.color}">
+            <tr>
+                <td class="text-center">{{i+1}}</td>
+                <td>{{loaisoi.TenMatHang}}</td>
+                <td class="text-center" *ngFor="let chitieu of loaisoi.lstChatLuongSanPham">
+                    <ng-container *ngIf="chitieu.chiSoChenhLech!==0">
+                        <span [ngStyle]="{'color': chitieu.color}">
                             {{chitieu.label}}&nbsp;{{chitieu.chiSoChenhLech}}&nbsp;lỗi
                         </span>
-                        </ng-container>
-                        
-                    </td>
-                </tr>
+                    </ng-container>
+
+                </td>
+            </tr>
         </ng-template>
     </p-table>
-</div> 
+</div>
+<div style="height: calc( (100vh - 201px )/2); background-color: white;margin-top: 15px;">
+    <div class="p-d-flex p-ai-center p-jc-between p-mb-3 p-2">
+        <div>
+            <h5>Biểu đồ chỉ tiêu classimat</h5>
+        </div>
+        <div class="p-d-flex p-ai-center p-jc-end">
+            <div class="d-flex flex-column flex-lg-row p-mr-2">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    [(ngModel)]="filterBieuDo.NgayDauKy" inputId="icon" placeholder="Đến ngày" (onSelect)="getBieuDo()">
+                </p-calendar>
+            </div>
+            <div class="d-flex flex-column flex-lg-row p-mr-2">
+                <p-calendar dateFormat="dd/mm/yy" inputStyleClass="p-inputtext-sm" [showIcon]="true"
+                    [(ngModel)]="filterBieuDo.NgayCuoiKy" inputId="icon" placeholder="Đến ngày" (onSelect)="getBieuDo()">
+                </p-calendar>
+            </div>
+            <div class="p-mr-2">
+                <p-dropdown [filter]="true" [options]="listMatHang" placeholder="Chọn mặt hàng"
+                    [(ngModel)]="filterBieuDo.IddmItem" styleClass="p-inputtext-sm" (onChange)="getBieuDo()" [showClear]="false"
+                    [filter]="true"></p-dropdown>
+            </div>
+            <div class="p-mr-2">
+                <p-dropdown [filter]="true" [options]="listChiTieu" placeholder="Chọn chỉ tiêu"
+                    [(ngModel)]="filterBieuDo.IddmChiTieu" styleClass="p-inputtext-sm" (onChange)="getBieuDo()" [showClear]="false"
+                    [filter]="true"></p-dropdown>
+            </div>
+        </div>
+    </div>
+    <p-chart type="line" [data]="dataBieuDo" [options]="optionLineChart"></p-chart>
+</div>
