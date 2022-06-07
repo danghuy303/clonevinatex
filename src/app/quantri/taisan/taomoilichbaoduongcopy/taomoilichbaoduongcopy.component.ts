@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { validVariable } from 'src/app/services/globalfunction';
 import { DanhmuctaisanService } from 'src/app/services/Taisan/danhmuctaisan.service';
+import { ModalthongbaoComponent } from '../../modal/modalthongbao/modalthongbao.component';
 import { ModalcapnhatbaoduongcopyyComponent } from '../modalcapnhatbaoduongcopyy/modalcapnhatbaoduongcopyy.component';
 
 @Component({
@@ -39,15 +40,14 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
     modalRef.componentInstance.existedItems = this.listIdDaChon|| [];
     modalRef.result
       .then((res: any) => {
-        console.log(res);
-        
         this.item.listLichBaoDuong.push(res);
       })
       .catch((er) => {
 
       });
   }
-  CapNhat(item) {
+  CapNhat(index, item) {
+    let item_copy = { ...item };
     this.listIdDaChon = this.item.listLichBaoDuong.map(ele => {
       return ele.IddmLoaiBaoDuong
     }, [])
@@ -57,11 +57,11 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
     });
     modalRef.componentInstance.opt = "edit";
     modalRef.componentInstance.title = "Cập nhật lịch bảo dưỡng";
-    modalRef.componentInstance.item = item;
+    modalRef.componentInstance.item = item_copy;
     modalRef.componentInstance.existedItems = this.listIdDaChon|| [];
     modalRef.result
       .then((res: any) => {
-
+        this.item.listLichBaoDuong[index] = res;
       })
       .catch((er) => {
 
@@ -76,12 +76,13 @@ export class TaomoilichbaoduongcopyComponent implements OnInit {
   //   }
   // }
   delete(index) {
-    let item = this.item.listLichBaoDuong.splice(index, 1)[0];
-    // if (item.listLichBaoDuong.Id === '' || item.listLichBaoDuong.Id === null || item.listLichBaoDuong.Id === undefined) {
-    // } else {
-    //   item.isXoa = true;
-    //   this.item.push(JSON.parse(JSON.stringify(item)));
-    // }
+    let modalRef = this._modal.open(ModalthongbaoComponent, {
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa dữ liệu vừa chọn?';
+    modalRef.result.then(res => {
+      this.item.listLichBaoDuong.splice(index, 1);
+    }).catch(er => console.log(er))
   }
 
 }

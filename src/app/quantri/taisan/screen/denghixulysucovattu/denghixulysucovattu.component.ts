@@ -13,7 +13,7 @@ import { DenghisulyluachonthemvattuComponent } from '../../modal/denghisulyluach
 })
 export class DenghixulysucovattuComponent implements OnInit, OnChanges {
   @Input('item') items: any = [];
-  @Output('item') itemChange: EventEmitter<any> = new EventEmitter<any>();
+
   TongGiaTriToanBang: any = 0;
 
   constructor(

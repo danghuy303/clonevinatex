@@ -167,7 +167,7 @@ export class NhaptaisanComponent implements OnInit {
       keyboard: false,
     });
     modalRef.componentInstance.opt = "edit";
-    modalRef.componentInstance.title = "Cập nhập tài sản";
+    modalRef.componentInstance.title = "Cập nhật tài sản";
     modalRef.componentInstance.item = JSON.parse(JSON.stringify(item.Data));
     modalRef.result.then(res => {
 

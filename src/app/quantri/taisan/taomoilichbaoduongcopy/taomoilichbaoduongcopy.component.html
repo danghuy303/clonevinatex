@@ -30,12 +30,11 @@
             <td >{{item.TendmLoaiBaoDuong}}</td>
             <td >{{item.ThoiGianBaoDuong}} {{item.MaLoaiThoiGian}} </td>
             <td >{{item.ThoiGianNangSuat}}</td>
-            <!-- <td class="text-center">{{item.NguyenGia|number:'0.0'}}</td> -->
             <td >{{item.GhiChu}}</td>
             <td class="text-center">
                 <button pButton pRipple type="button" icon="pi pi-pencil"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Chỉnh sửa"
-                    (click)="CapNhat(item)"></button>
+                    (click)="CapNhat(i,item)"></button>
                 <!-- <button pButton pRipple type="button" icon="pi pi-align-justify"
                     class="p-button-text p-button-sm p-button-secondary p-mr-2" pTooltip="Tạo lịch bảo dưỡng"
                     (click)="TaoLichBaoDuong(item)"></button> -->
